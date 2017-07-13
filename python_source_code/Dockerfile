@@ -15,5 +15,12 @@ RUN apk add --no-cache python3 && \
 # Update pip3 to prevent library installation issues.
 RUN pip3 install --upgrade pip
 
-# TODO : the line below
-CMD ["ls"]
+# Install the Python3 librares needed.
+#RUN pip3 install -r /quasar_source/docker_related/requirements.txt
+
+COPY . /quasar_source/python_source_code
+
+# Make sure script files are runnable.
+RUN chmod +x /quasar_source/python_source_code/docker_related/run_all_unit_tests.sh
+
+CMD ["/quasar_source/python_source_code/docker_related/run_all_unit_tests.sh"]
