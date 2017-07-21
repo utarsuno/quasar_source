@@ -10,7 +10,8 @@ import os
 from pathlib import Path
 # Used for advanced IDE typing.
 from typing import List
-
+# Used for recursively traversing directories.
+import glob
 
 '''      ___          ___         ___            __  ___    __        __
 	|  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
@@ -65,3 +66,12 @@ def is_directory(path: str) -> bool:
 		return os.path.isdir(path)
 	return False
 
+
+def get_all_file_names_inside_directory(path: str) -> List[str]:
+	"""Returns a list of file names found inside the provided directory."""
+	file_paths = []
+	for full_path in glob.glob(path + '/**', recursive=True):
+		# Ignore directories, only look at files.
+		if not is_directory(full_path):
+			file_paths.append(full_path)
+	return file_paths
