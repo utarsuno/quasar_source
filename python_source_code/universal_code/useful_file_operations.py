@@ -20,7 +20,7 @@ import glob
 
 
 def _is_valid_path_parameter(path):
-	if path is not None and type(path) is str:
+	if path is not None and type(path) is str and path != '':
 		return True
 	return False
 
@@ -69,9 +69,11 @@ def is_directory(path: str) -> bool:
 
 def get_all_file_names_inside_directory(path: str) -> List[str]:
 	"""Returns a list of file names found inside the provided directory."""
-	file_paths = []
-	for full_path in glob.glob(path + '/**', recursive=True):
-		# Ignore directories, only look at files.
-		if not is_directory(full_path):
-			file_paths.append(full_path)
-	return file_paths
+	if _is_valid_path_parameter(path):
+		file_paths = []
+		for full_path in glob.glob(path + '/**', recursive=True):
+			# Ignore directories, only look at files.
+			if not is_directory(full_path):
+				file_paths.append(full_path)
+		return file_paths
+	return []

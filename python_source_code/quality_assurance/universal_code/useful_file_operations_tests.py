@@ -84,6 +84,8 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
     # From universal_code.useful_file_operations.py, testing 'get_all_file_names_inside_directory'.
     def test_get_all_file_names_inside_directory(self):
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(p._path_testing_content), p.ALL_FILE_PATHS)
+        self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory('')                     , [])
+        self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(None)                   , [])
 
 if __name__ == '__main__':
     unittest.main()
