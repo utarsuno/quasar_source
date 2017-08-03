@@ -12,6 +12,9 @@ from pathlib import Path
 from typing import List
 # Used for recursively traversing directories.
 import glob
+# "This module makes available standard errno system symbols. The value of each symbol is the corresponding integer value. The names and descriptions are borrowed from linux/include/errno.h, which should be pretty all-inclusive."
+# List of error definitions : https://docs.python.org/3.1/library/errno.html
+import errno
 
 '''      ___          ___         ___            __  ___    __        __
 	|  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
@@ -27,6 +30,11 @@ def _is_valid_path_parameter(path):
 '''        __   __             ___     ___            __  ___    __        __
 	 |\/| /  \ |  \ |  | |    |__     |__  |  | |\ | /  `  |  | /  \ |\ | /__`
 	 |  | \__/ |__/ \__/ |___ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/
+'''
+
+'''  __   ___ ___  __     ___       ___
+	|__) |__   |  |__) | |__  \  / |__
+	|  \ |___  |  |  \ | |___  \/  |___
 '''
 
 
@@ -67,13 +75,58 @@ def is_directory(path: str) -> bool:
 	return False
 
 
-def get_all_file_names_inside_directory(path: str) -> List[str]:
-	"""Returns a list of file names found inside the provided directory."""
+def get_all_file_paths_inside_directory(path: str) -> List[str]:
+	"""Returns a list of all file paths found inside the provided directory."""
 	if _is_valid_path_parameter(path):
 		file_paths = []
 		for full_path in glob.glob(path + '/**', recursive=True):
-			# Ignore directories, only look at files.
 			if not is_directory(full_path):
 				file_paths.append(full_path)
 		return file_paths
 	return []
+
+
+def get_all_file_names_inside_directory(path: str) -> List[str]:
+	"""Returns a list of all file names found inside the provided directory."""
+	if _is_valid_path_parameter(path):
+		file_names = []
+		for full_path in glob.glob(path + '/**', recursive=True):
+			if not is_directory(full_path):
+				file_names.append(get_file_basename(full_path))
+		return file_names
+	return []
+
+
+'''  __   __   ___      ___    __
+	/  ` |__) |__   /\   |  | /  \ |\ |
+	\__, |  \ |___ /~~\  |  | \__/ | \|
+'''
+
+
+# Temporary on hold.
+'''
+# TODO : Create unit tests (but deleting unit tests will be required as well).
+def create_file_if_it_does_not_exist(path: str, list_of_text) -> bool:
+	"""Creates the file with the provided path and list of strings that makeup the file. Returns a boolean indicating if successful.
+	:param path         : The full path of the file.
+	:param list_of_text : A list of lines to compose the file of OR a string to be decomposed into a list of strings split by the '\n' character."""
+	if not _is_valid_path_parameter(path):
+		return False
+
+	# TODO : Add error checking to make sure that list_of_text is either string or a list of strings. But the debugging module needs to be completed first.
+	# if
+
+	# Thanks to stackoverflow post : https://stackoverflow.com/questions/10978869/safely-create-a-file-if-and-only-if-it-does-not-exist-with-python
+	flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
+	try:
+		file_handler = os.open(path, flags)
+	except OSError as e:
+		if e.errno == errno.EEXIST: # Failed as the file already exists.
+			pass
+		else: # Something unexpected went wrong so re-raise the exception.
+			raise
+	else: # No exception, so the file must have been created successfully.
+		with os.fdopen(file_handler, 'w') as file_object:
+			# Using 'os.fdopen' converts the handle to an object that acts like a regular Python file object, and the 'with' context manager means the file will be automatically closed when we're done with it.
+			for line in list_of_text:
+'''

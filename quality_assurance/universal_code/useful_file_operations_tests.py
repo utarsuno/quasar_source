@@ -4,9 +4,9 @@
 
 # Test the following module.
 import unittest
-# Used to get relevant paths.
-from python_source_code.quality_assurance import run_all_unit_tests as p
+
 from python_source_code.universal_code import useful_file_operations as ufo
+from quality_assurance import run_all_unit_tests as p
 
 
 class UsefulFileOperationsTestSuite(unittest.TestCase):
@@ -22,17 +22,22 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
 
     # From universal_code.useful_file_operations.py, testing 'get_file_basename'.
     def test_get_file_basename(self):
-        self.assertEqual(ufo.get_file_basename('a/b/c/')              , 'c')
-        self.assertEqual(ufo.get_file_basename('a/b/c')               , 'c')
-        self.assertEqual(ufo.get_file_basename('\\a\\b\\c')           , 'c')
-        self.assertEqual(ufo.get_file_basename('\\a\\b\\c\\')         , 'c')
-        self.assertEqual(ufo.get_file_basename('a\\b\\c')             , 'c')
-        self.assertEqual(ufo.get_file_basename('a/b/../../a/b/c/')    , 'c')
-        self.assertEqual(ufo.get_file_basename('a/b/../../a/b/c')     , 'c')
-        self.assertEqual(ufo.get_file_basename('C:\\')                , 'C:')
-        self.assertEqual(ufo.get_file_basename('alone')               , 'alone')
-        self.assertEqual(ufo.get_file_basename('/a/space in filename'), 'space in filename')
-        self.assertEqual(ufo.get_file_basename('C:\\multi\nline')     , 'multi\nline')
+        self.assertEqual(ufo.get_file_basename('a/b/c/')                         , 'c')
+        self.assertEqual(ufo.get_file_basename('a/b/c')                          , 'c')
+        self.assertEqual(ufo.get_file_basename('\\a\\b\\c')                      , 'c')
+        self.assertEqual(ufo.get_file_basename('\\a\\b\\c\\')                    , 'c')
+        self.assertEqual(ufo.get_file_basename('a\\b\\c')                        , 'c')
+        self.assertEqual(ufo.get_file_basename('a/b/../../a/b/c/')               , 'c')
+        self.assertEqual(ufo.get_file_basename('a/b/../../a/b/c')                , 'c')
+        self.assertEqual(ufo.get_file_basename('C:\\')                           , 'C:')
+        self.assertEqual(ufo.get_file_basename('alone')                          , 'alone')
+        self.assertEqual(ufo.get_file_basename('/a/space in filename')           , 'space in filename')
+        self.assertEqual(ufo.get_file_basename('C:\\multi\nline')                , 'multi\nline')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_EMPTY)                , 'file_empty.txt')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_EXTENSION_JUST_PERIOD), 'file_extension_just_period.')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_MULTIPLE_EXTENSIONS)  , 'file_multiple_extensions.png.txt.zip.apples')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_NO_EXTENSION)         , 'file_no_extension')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_NON_EMPTY)            , 'file_non_empty.txt')
 
     # From universal_code.useful_file_operations.py, testing 'is_file'.
     def test_is_file(self):
@@ -81,9 +86,15 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_EXTENSION_JUST_PERIOD), [])
         self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_NON_EMPTY)            , ['.txt'])
 
+    # From universal_code.useful_file_operations.py, testing 'get_all_file_paths_inside_directory'.
+    def test_get_all_file_paths_inside_directory(self):
+        self.assertListsHaveSameElements(ufo.get_all_file_paths_inside_directory(p._path_testing_content), p.ALL_FILE_PATHS)
+        self.assertListsHaveSameElements(ufo.get_all_file_paths_inside_directory('')                     , [])
+        self.assertListsHaveSameElements(ufo.get_all_file_paths_inside_directory(None)                   , [])
+
     # From universal_code.useful_file_operations.py, testing 'get_all_file_names_inside_directory'.
     def test_get_all_file_names_inside_directory(self):
-        self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(p._path_testing_content), p.ALL_FILE_PATHS)
+        self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(p._path_testing_content), p.ALL_FILE_NAMES)
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory('')                     , [])
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(None)                   , [])
 
