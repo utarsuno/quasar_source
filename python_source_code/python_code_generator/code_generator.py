@@ -4,7 +4,7 @@
 
 
 class CodeGenerator(object):
-	"""Generates complete *.py files from *.script and *.library files."""
+	"""Generates single *.py files from the following file types {*.script, *.library, *.project}."""
 
 	def __init__(self, script_or_library_file, output_destination):
 		self.input_file  = script_or_library_file
