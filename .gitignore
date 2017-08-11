@@ -161,3 +161,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+
+# My custom git ignores here.
+all_scripts/build_three_js/three.js
+configuration_files/

@@ -5,7 +5,7 @@
 # Test the following module.
 import unittest
 
-from python_source_code.universal_code import useful_file_operations as ufo
+from quasar_source_code.universal_code import useful_file_operations as ufo
 from quality_assurance import run_all_unit_tests as p
 
 

@@ -3,7 +3,7 @@
 """This module, entity_file.py, defines the common attributes of *.script, *.library, and *.project files."""
 
 # Contains useful debugging functionality.
-from python_source_code.universal_code import debugging as dbg
+from quasar_source_code.universal_code import debugging as dbg
 
 
 class EntityFile(object):
