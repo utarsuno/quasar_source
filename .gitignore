@@ -165,3 +165,4 @@ fabric.properties
 # My custom git ignores here.
 all_scripts/build_three_js/three.js
 configuration_files/
+third_party_libraries/

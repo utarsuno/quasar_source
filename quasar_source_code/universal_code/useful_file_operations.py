@@ -12,6 +12,8 @@ from pathlib import Path
 from typing import List
 # Used for recursively traversing directories.
 import glob
+# Needed for getting *.ini file parameters.
+from configparser import ConfigParser
 # "This module makes available standard errno system symbols. The value of each symbol is the corresponding integer value. The names and descriptions are borrowed from linux/include/errno.h, which should be pretty all-inclusive."
 # List of error definitions : https://docs.python.org/3.1/library/errno.html
 import errno
@@ -36,6 +38,22 @@ def _is_valid_path_parameter(path):
 	|__) |__   |  |__) | |__  \  / |__
 	|  \ |___  |  |  \ | |___  \/  |___
 '''
+
+
+def get_ini_section_dictionary(path: str, section_name: str) -> dict:
+	"""Reads in the database.ini information needed.
+	:param section_name : The name of the section to get key-value pairs for."""
+	# Source code inspired from : http://www.postgresqltutorial.com/postgresql-python/connect/
+	parser     = ConfigParser()
+	parameters = {}
+	parser.read(path)
+	if parser.has_section(path):
+		params = parser.items(path)
+		for param in params:
+			parameters[param[0]] = param[1]
+	else:
+		raise Exception('Section {0} not found in the {1} file'.format(section_name, path))
+	return parameters
 
 
 def get_file_basename(path: str) -> str:

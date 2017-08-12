@@ -98,5 +98,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory('')                     , [])
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(None)                   , [])
 
+    # TODO : ini test file
+
 if __name__ == '__main__':
     unittest.main()
