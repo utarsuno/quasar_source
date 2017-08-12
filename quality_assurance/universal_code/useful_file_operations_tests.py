@@ -38,6 +38,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.get_file_basename(p.PATH_FILE_MULTIPLE_EXTENSIONS)  , 'file_multiple_extensions.png.txt.zip.apples')
         self.assertEqual(ufo.get_file_basename(p.PATH_FILE_NO_EXTENSION)         , 'file_no_extension')
         self.assertEqual(ufo.get_file_basename(p.PATH_FILE_NON_EMPTY)            , 'file_non_empty.txt')
+        self.assertEqual(ufo.get_file_basename(p.PATH_FILE_DICTIONARY_INI)       , 'dictionaries.ini')
 
     # From universal_code.useful_file_operations.py, testing 'is_file'.
     def test_is_file(self):
@@ -46,6 +47,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.is_file(p.PATH_FILE_MULTIPLE_EXTENSIONS)   , True)
         self.assertEqual(ufo.is_file(p.PATH_FILE_NO_EXTENSION)          , True)
         self.assertEqual(ufo.is_file(p.PATH_FILE_EXTENSION_JUST_PERIOD) , True)
+        self.assertEqual(ufo.is_file(p.PATH_FILE_DICTIONARY_INI)        , True)
         self.assertEqual(ufo.is_file(p.PATH_FILE_NON_EXISTENT)          , False)
         self.assertEqual(ufo.is_file(5)                                 , False)
         self.assertEqual(ufo.is_file(None)                              , False)
@@ -69,6 +71,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.is_directory(p.PATH_FILE_MULTIPLE_EXTENSIONS)   , False)
         self.assertEqual(ufo.is_directory(p.PATH_FILE_NON_EXISTENT)          , False)
         self.assertEqual(ufo.is_directory(p.PATH_FILE_EXTENSION_JUST_PERIOD) , False)
+        self.assertEqual(ufo.is_directory(p.PATH_FILE_DICTIONARY_INI)        , False)
 
     # From universal_code.useful_file_operations.py, testing 'get_file_last_extension'.
     def test_get_file_last_extension(self):
@@ -77,6 +80,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.get_file_last_extension(p.PATH_FILE_NO_EXTENSION)         , '')
         self.assertEqual(ufo.get_file_last_extension(p.PATH_FILE_EXTENSION_JUST_PERIOD), '')
         self.assertEqual(ufo.get_file_last_extension(p.PATH_FILE_NON_EMPTY)            , '.txt')
+        self.assertEqual(ufo.get_file_last_extension(p.PATH_FILE_DICTIONARY_INI)       , '.ini')
 
     # From universal_code.useful_file_operations.py, testing 'get_file_extensions'.
     def test_get_file_extensions(self):
@@ -85,6 +89,7 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_NO_EXTENSION)         , [])
         self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_EXTENSION_JUST_PERIOD), [])
         self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_NON_EMPTY)            , ['.txt'])
+        self.assertEqual(ufo.get_file_extensions(p.PATH_FILE_DICTIONARY_INI)       , ['.ini'])
 
     # From universal_code.useful_file_operations.py, testing 'get_all_file_paths_inside_directory'.
     def test_get_all_file_paths_inside_directory(self):
@@ -98,7 +103,22 @@ class UsefulFileOperationsTestSuite(unittest.TestCase):
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory('')                     , [])
         self.assertListsHaveSameElements(ufo.get_all_file_names_inside_directory(None)                   , [])
 
-    # TODO : ini test file
+    # From universal_code.useful_file_operations.py, testing 'get_ini_section_dictionary'.
+    def test_get_ini_section_dictionary(self):
+        database_section_example = {'host_key'     : 'host_value',
+                                    'database_key' : 'database_value',
+                                    'user_key'     : 'user_value',
+                                    'password_key' : 'password_value'}
+        account_section_example  = {'username_key' : 'username_value',
+                                    'password_key' : 'password_value'}
+        self.assertEqual(database_section_example, ufo.get_ini_section_dictionary(path=p.PATH_FILE_DICTIONARY_INI, section_name='database_section_example'))
+        self.assertEqual(account_section_example , ufo.get_ini_section_dictionary(path=p.PATH_FILE_DICTIONARY_INI, section_name='account_section_example'))
+        try:
+            ufo.get_ini_section_dictionary(path=p.PATH_FILE_DICTIONARY_INI, section_name='fake_section')
+        except Exception:
+            pass
+        else:
+            self.fail('Exception not thrown!')
 
 if __name__ == '__main__':
     unittest.main()

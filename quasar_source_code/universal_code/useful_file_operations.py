@@ -42,13 +42,14 @@ def _is_valid_path_parameter(path):
 
 def get_ini_section_dictionary(path: str, section_name: str) -> dict:
 	"""Reads in the database.ini information needed.
+	:param path         : The path to the .ini file.
 	:param section_name : The name of the section to get key-value pairs for."""
 	# Source code inspired from : http://www.postgresqltutorial.com/postgresql-python/connect/
 	parser     = ConfigParser()
 	parameters = {}
 	parser.read(path)
-	if parser.has_section(path):
-		params = parser.items(path)
+	if parser.has_section(section_name):
+		params = parser.items(section_name)
 		for param in params:
 			parameters[param[0]] = param[1]
 	else:

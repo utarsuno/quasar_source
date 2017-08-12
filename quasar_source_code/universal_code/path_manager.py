@@ -9,6 +9,7 @@ _current_path = os.path.dirname(os.path.realpath(__file__))
 _project_base_path = _current_path.replace('quasar_source_code/universal_code', '')
 
 
-def get_database_ini() -> str:
+def get_config_ini() -> str:
 	"""Temporary utility function."""
-	return _project_base_path + 'configuration_files/database.ini'
+	return _project_base_path + 'configuration_files/config.ini'
+

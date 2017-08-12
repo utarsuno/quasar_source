@@ -15,7 +15,7 @@ class PostgreSQLAPI(object):
 
 	def __init__(self):
 		# First get the connection information.
-		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_database_ini(), section_name='postgresql')
+		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name= 'postgresql')
 		# Now try to connect to the database.
 		self._connection          = self._connect_to_database()
 		self._cursor              = self._connection.cursor()
