@@ -14,21 +14,28 @@ class PostgreSQLAPI(object):
 	"""Acts as an API to the PostgreSQL database hosted on RDS."""
 
 	def __init__(self):
-		# First get the connection information.
 		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name= 'postgresql')
-		# Now try to connect to the database.
-		self._connection          = self._connect_to_database()
-		self._cursor              = self._connection.cursor()
+		self._connection          = None
+		self._cursor              = None
 
-	def _execute_query(self, query: str, save: bool=False):
+	def connect(self) -> None:
+		"""Connects to the RDS instance."""
+		# TODO : Add error handeling. (Example : no internet connection avaiable)
+		self._connection = psycopg2.connect(**self._database_parameters)
+		self._cursor     = self._connection.cursor()
+
+	def execute_
+
+	def _execute_query(self, query: str, save: bool=False) -> None:
 		"""Executes the query provided."""
 		self._cursor.execute(query)
 		if save:
 			self._connection.commit()
 
-	def _connect_to_database(self):
-		self._connection = psycopg2.connect(**self._database_parameters)
-		return self._connection
+	# Functions to run manually.
+	def _create_table_monitor(self):
+		"""Creates the table that tracks all other tables."""
+		self._execute_query('CREATE TABLE all_tables (table_name varchar(30), last_updated date);')
 
 api = PostgreSQLAPI()
-
+#api._create_table_monitor()
