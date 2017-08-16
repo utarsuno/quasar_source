@@ -54,12 +54,13 @@ class DatabaseTable(object):
 		self._table_name   = table_name
 		self._database_api = database_api
 		self._fields       = []
+		self._exists       = None
 
 	def add_table_field(self, table_field: TableField):
 		"""Adds a table field definition to this database table."""
 		self._fields.append(table_field)
 
-	def create_if_does_not_exist(self):
+	def create_if_does_not_exist(self) -> None:
 		"""Creates this table if it does not exist."""
 		if not self.exists:
 			query = 'CREATE TABLE ' + self._table_name + '('
@@ -68,11 +69,19 @@ class DatabaseTable(object):
 					query += f.field_name + ' ' + f.field_type + ', '
 				else:
 					query += f.field_name + ' ' + f.field_type + ');'
-					print(query)
 					self._database_api.execute_query(query, True)
+					self._exists = True
+
+	def delete_if_exists(self) -> None:
+		"""Delete this table if it exists."""
+		if self.exists:
+			self._database_api.execute_query('DROP TABLE ' + self._table_name + ';', True)
+			self._exists = False
 
 	@property
 	def exists(self) -> bool:
 		"""Returns a boolean indicating if this table exists."""
-		result = self._database_api.execute_custom_query_one_result("SELECT 1 FROM pg_catalog.pg_class WHERE relkind = 'r' AND relname = '" + self._table_name + "' AND pg_catalog.pg_table_is_visible(oid) LIMIT 1")
-		return not (result is None)
+		if self._exists is None:
+			result = self._database_api.execute_custom_query_one_result("SELECT 1 FROM pg_catalog.pg_class WHERE relkind = 'r' AND relname = '" + self._table_name + "' AND pg_catalog.pg_table_is_visible(oid) LIMIT 1")
+			self._exists = not (result is None)
+		return self._exists

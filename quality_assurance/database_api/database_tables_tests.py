@@ -1,0 +1,54 @@
+# coding=utf-8
+
+"""This module, useful_file_operations_tests.py, contains the unit tests for the 'useful_file_operations.py' module."""
+
+# Needed for running unit tests.
+import unittest
+# Modules needed for testing.
+from quasar_source_code.database_api import database_tables as db_tables
+from quasar_source_code.database_api import postgresql_api as db_api
+
+
+class DatabaseTablesTestSuite(unittest.TestCase):
+
+	def setUp(self):
+		"""This runs before all unit tests."""
+		# To fix the error message 'Diff is 1154 characters long. Set self.maxDiff to None to see it.
+		self.maxDiff = None
+		self.assertEqual.__self__.maxDiff = None
+
+		# Create the database api + connection to work with.
+		self.api = db_api.PostgreSQLAPI()
+		self.api.connect()
+
+		self.test_table = db_tables.DatabaseTable('test_table', self.api)
+		self.test_table.add_table_field(db_tables.TableFieldString('string_field', 30))
+
+	def tearDown(self):
+		"""This runs after all the unit tests."""
+		self.api.terminate()
+
+	''' Tests for :
+	     __       ___       __        __   ___    ___       __        ___     __             __   __
+		|  \  /\   |   /\  |__)  /\  /__` |__      |   /\  |__) |    |__     /  ` |     /\  /__` /__`
+		|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___     |  /~~\ |__) |___ |___    \__, |___ /~~\ .__/ .__/
+	'''
+
+	def test_create_and_delete(self):
+		# First make sure this table doesn't already exist.
+		self.assertEqual(self.test_table.exists                                       , False)
+		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), False)
+
+		# Now create it and test if it's marked as created.
+		self.test_table.create_if_does_not_exist()
+		self.assertEqual(self.test_table.exists                                       , True)
+		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), True)
+
+		# Make sure to delete this table now.
+		self.test_table.delete_if_exists()
+		self.assertEqual(self.test_table.exists                                       , False)
+		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), False)
+
+
+if __name__ == '__main__':
+	unittest.main()

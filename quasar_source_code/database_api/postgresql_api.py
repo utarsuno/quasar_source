@@ -65,6 +65,7 @@ class PostgreSQLAPI(object):
 			table_names.append(r[0])
 		return table_names
 
+	# TODO : Delete this since there is now a Table abstraction.
 	# Functions to run manually.
 	def _create_table_monitor(self):
 		"""Creates the table that tracks all other tables."""
@@ -74,34 +75,4 @@ class PostgreSQLAPI(object):
 		"""Closes the database connection."""
 		self._cursor.close()
 		self._connection.close()
-
-
-api = PostgreSQLAPI()
-api.connect()
-api.get_all_table_names()
-
-
-test_table = db_t.DatabaseTable('test_table', api)
-test_table.add_table_field(db_t.TableFieldString('hallo', 30))
-print(test_table.exists)
-test_table.create_if_does_not_exist()
-
-
-test_table2 = db_t.DatabaseTable('test_table_2', api)
-test_table2.add_table_field(db_t.TableFieldString('hallo', 30))
-print(test_table2.exists)
-
-print(api.get_all_table_names())
-
-api.terminate()
-
-#api._create_table_monitor()
-
-
-
-# [(False,)]
-
-# (False,)
-
-# [(False,)]
 
