@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#source /Users/utarsuno/git_repos/urbtek/urbtek/all_scripts/universal_scripts/universal_functions.sh
-
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/../universal_scripts/universal_functions.sh"
 
@@ -12,7 +10,7 @@ print_dashed_line_with_text "push_local_code.sh start"
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
 
-# TODO : Add safety check to terminate if this script is being ran as sudo
+terminate_if_script_is_being_ran_as_root
 terminate_if_system_is_ubuntu
 
 # Exactly one argument was not passed.
@@ -40,10 +38,6 @@ else
 
     # TODO : The following comment.
     # Make the following bash_scripts runnable.
-    sudo chmod +x push_local_code.sh;
-    sudo chmod +x run_generation_compiler.sh;
-    sudo chmod +x ./qa/close_locust_after_x_seconds.sh;
-    sudo chmod +x ./qa/run_locust.sh;
 
 fi
 

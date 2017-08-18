@@ -52,7 +52,7 @@ function print_green_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_green_text' requires a parameter."
     fi
-    echo -e "${FG_GREEN}${FS_REG}${1}${RESET_ALL}"
+    echo "${FG_GREEN}${FS_REG}${1}${RESET_ALL}"
 }
 
 function print_dotted_line {
@@ -64,14 +64,14 @@ function print_red_dotted_line {
 }
 
 function print_dash_line {
-    echo -e "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}"
+    echo "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}"
 }
 
 function print_script_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_script_text' requires a parameter."
     fi
-    echo -e "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
+    echo "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
 }
 
 function terminate_script {
@@ -81,7 +81,7 @@ function terminate_script {
         print_red_dotted_line
     else
         echo -e "${FG_RED}${FS_UL}${1}${RESET_ALL}"
-        echo ""
+        echo -e ""
         echo -e "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
         print_red_dotted_line
     fi
@@ -122,6 +122,15 @@ function print_line_in_between_dashed_lines {
     print_dash_line
 }
 
+#  __        ___  ___ ___         __        ___  __        __
+# /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    .
+# .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    .
+
+function terminate_if_script_is_being_ran_as_root {
+    if [[ $EUID -eq 0 ]]; then
+        terminate_script "This script should not be ran as sudo!"
+    fi
+}
 function terminate_if_script_does_not_have_root_privileges {
     if [ `id -u` != 0 ] ; then
         terminate_script "This script requires root privileges to run."
@@ -140,17 +149,3 @@ function terminate_if_system_is_not_ubuntu {
     fi
 }
 
-function terminate_if_system_has_no_internet_connection {
-    declare -i internet_is_up=0
-    if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
-        internet_is_up=1
-    fi
-    if [ ${internet_is_up} -eq 0 ]; then
-        terminate_script "The script requires internet connection to run."
-    fi
-}
-
-# TODO: Make a list of universal_functions to handle signal processing!
-
-# TODO: Make a list of universal_functions to handle lockfiles!
-# learn from this: http://stackoverflow.com/questions/185451/quick-and-dirty-way-to-ensure-only-one-instance-of-a-shell-script-is-running-at
