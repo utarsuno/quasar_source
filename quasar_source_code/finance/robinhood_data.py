@@ -11,15 +11,14 @@ from quasar_source_code.universal_code import path_manager as pm
 # Used for IDE typing.
 from typing import List
 
-import datetime as dt
 from dateutil import parser
 
 # Raw data key names.
-SIDE   = 'side'
-SYMBOL = 'symbol'
-SHARES = 'shares'
-PRICE  = 'price'
-DATE   = 'date'
+SIDE    = 'side'
+SYMBOL  = 'symbol'
+SHARES  = 'shares'
+PRICE   = 'price'
+DATE    = 'date'
 
 
 class Trade(object):
@@ -27,12 +26,24 @@ class Trade(object):
 
 	def __init__(self, raw_data: dict):
 		self.side   = raw_data[SIDE]
+		if self.side == 'buy':
+			self.side = 'TRUE'
+		else:
+			self.side = 'FALSE'
 		self.symbol = raw_data[SYMBOL]
 		self.shares = int(float(raw_data[SHARES]))
 		self.price  = raw_data[PRICE]
-		self.date   = parser.parse(raw_data[DATE])
+		self.date   = parser.parse(raw_data[DATE]).date()
+
+	def get_dictionary(self):
+		"""Returns this trade as a dictionary."""
+		return {'ticker': self.symbol, 'buy_or_sell': self.side, 'price': self.price, 'quantity': self.shares, 'transaction_date': self.date}
 
 	def __str__(self):
+		if self.side == 'TRUE':
+			return self.symbol + ' - ' + 'buy' + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
+		else:
+			return self.symbol + ' - ' + 'sell' + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
 		return self.symbol + ' - ' + self.side + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
 
 

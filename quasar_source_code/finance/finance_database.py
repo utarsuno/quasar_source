@@ -6,6 +6,7 @@ from quasar_source_code.database_api.postgresql_api import PostgreSQLAPI
 from quasar_source_code.database_api import database_tables as db_tables
 from quasar_source_code.finance import robinhood_data as rh
 
+import datetime
 
 class FinanceDatabase(object):
 	"""Finance database API."""
@@ -23,25 +24,35 @@ class FinanceDatabase(object):
 		self.finance_table.add_table_field(db_tables.TableFieldInteger('quantity', maximum_value=30000))
 		self.finance_table.add_table_field(db_tables.TableFieldDate('transaction_date'))
 
-		self.cache_needs_to_be_updated = None
+		self.last_updated = None
+
+	def _initial_data_fill(self):
+		"""This method is called when the table is empty and needs to be filled in with Trades."""
+		print('Populating the finance table with trades!')
+		rs     = rh.RobinhoodScraper()
+		trades = rs.get_trades()
+		rows   = [trade.get_dictionary() for trade in trades]
+		self.finance_table.insert_rows(rows)
+		# Make sure to update the Master Table's update field.
+		self.master_table.set_single_value('last_updated', datetime.date.today(), 'table_name', self.finance_table.table_name)
 
 	def health_checks(self):
 		"""Runs any needed database health checks."""
 		self.finance_table.create_if_does_not_exist()
 
-		# Check if the finance table exists in the master table.
+		# Ensure that this table exists in the Master Table.
 		if not self.master_table.has_value('table_name', self.finance_table.table_name):
 			self.master_table.insert_row({'table_name': self.finance_table.table_name, 'last_updated': 'NULL'})
-			self.cache_needs_to_be_updated = True
 
-		if self.cache_needs_to_be_updated is None:
-			last_updated = self.master_table.get_single_value('last_updated', 'table_name', self.finance_table.table_name)
-			if last_updated is None:
-				self.cache_needs_to_be_updated = True
-			# TODO : If the date is today then needs to be cached is false. Otherwise it's true.
+		# Check what the last updated value is.
+		self.last_updated = self.master_table.get_single_value('last_updated', 'table_name', self.finance_table.table_name)
+		if self.last_updated is None:
+			self._initial_data_fill()
+		else:
+			print('Last updated is : ' + str(self.last_updated))
 
-		if self.cache_needs_to_be_updated:
-			rs = rh.RobinhoodScraper()
-			trades = rs.get_trades()
-			for trade in trades:
-				print(trade)
+			if self.last_updated < datetime.datetime.now().date():
+				print('Update cache!')
+			else:
+				print('Cache up to date!')
+

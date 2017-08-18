@@ -12,6 +12,7 @@ This is an abstraction to the database. Efficiency will intentionally be lost
 in order to make development easier.
 '''
 
+import datetime
 from typing import List
 
 ''' ___       __        ___     ___    ___       __   __
@@ -91,6 +92,19 @@ class DatabaseTable(object):
 		if not self.exists:
 			raise Exception(self.table_name + ' does not exist in the database!')
 
+	def _validify_value(self, value) -> str:
+		"""Returns the value in valid format for SQL statements."""
+		# TODO :
+		#if type(value) == datetime.datetime:
+		if type(value) == datetime.date:
+			return '\'' + value.strftime('%Y-%m-%d') + '\''
+		if type(value) == str:
+			if value == 'NULL' or value == 'now()' or value == 'TRUE' or value == 'FALSE' or value == 'today':
+				return value
+			else:
+				return '\'' + value + '\''
+		return str(value)
+
 	def insert_row(self, headers_and_values) -> None:
 		"""Inserts the provided row into the table."""
 		query = 'INSERT INTO ' + self.table_name + ' ('
@@ -100,33 +114,41 @@ class DatabaseTable(object):
 		for h in self._fields:
 			for key in headers_and_values:
 				if h.field_name == key:
-					if type(headers_and_values[key]) == str and headers_and_values[key] != 'NULL':
-						query += '\'' + headers_and_values[key] + '\', '
-					else:
-						query += headers_and_values[key] + ', '
+					query += self._validify_value(headers_and_values[key]) + ', '
 		query = query[:-2] + ')'
+		self._database_api.execute_query(query, save=True)
+
+	def insert_rows(self, list_of_dictionaries: List[dict]) -> None:
+		"""Inserts the provided rows into the table."""
+		query = 'INSERT INTO ' + self.table_name + ' ('
+		for h in self._fields:
+			query += h.field_name + ', '
+		query = query[:-2] + ') VALUES '
+		for dictionary in list_of_dictionaries:
+			query += '('
+			for h in self._fields:
+				for key in dictionary:
+					if h.field_name == key:
+						query += self._validify_value(dictionary[key]) + ', '
+			query = query[:-2] + '), '
+		query = query[:-2]
 		self._database_api.execute_query(query, save=True)
 
 	def delete_row_with_value(self, header: str, value) -> None:
 		"""Deletes a row with the provided header-value match."""
-		if type(value) == str:
-			self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = \'' + value + '\'', save = True)
-		else:
-			self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + value, save = True)
+		self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value), save=True)
+
+	def set_single_value(self, header_to_set: str, value_to_set, match_header: str, match_value):
+		"""Sets a single values if a match was found."""
+		self._database_api.execute_query('UPDATE ' + self.table_name + ' SET ' + header_to_set + ' = ' + self._validify_value(value_to_set) + ' WHERE ' + match_header + ' = ' + self._validify_value(match_value), save=True)
 
 	def get_single_value(self, header_to_get: str, match_header: str, match_value):
 		"""Returns a single value if a match was found."""
-		if type(match_value) == str:
-			return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = \'' + match_value + '\'')[0]
-		else:
-			return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = ' + match_value)[0]
+		return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = ' + self._validify_value(match_value))[0]
 
 	def has_value(self, header: str, value) -> bool:
 		"""Returns a boolean indicating if this table has the header-value pair provided."""
-		if type(value) == str:
-			return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = \'' + value + '\' LIMIT 1)')
-		else:
-			return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = ' + value + ' LIMIT 1)')
+		return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value) + ' LIMIT 1)')
 
 	def get_header_names(self) -> List[str]:
 		"""Returns the header names of this table."""

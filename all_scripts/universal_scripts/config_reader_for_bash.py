@@ -18,4 +18,4 @@ if __name__ == '__main__':
 	config.read(args.inifile)
 	print(config.get(args.section, args.itemname))
 
-# Example usage : value=$(config_reader_for_bash.py config.ini section_name value_name)
+# Example usage : value=$(python3 config_reader_for_bash.py config.ini section_name value_name)
