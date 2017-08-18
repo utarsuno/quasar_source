@@ -12,6 +12,7 @@ This is an abstraction to the database. Efficiency will intentionally be lost
 in order to make development easier.
 '''
 
+from typing import List
 
 ''' ___       __        ___     ___    ___       __   __
 	 |   /\  |__) |    |__     |__  | |__  |    |  \ /__`    .
@@ -55,6 +56,22 @@ class DatabaseTable(object):
 		self._database_api = database_api
 		self._fields       = []
 		self._exists       = None
+
+	def get_headers(self) -> List[str]:
+		"""Returns the headers of this table."""
+		headers = []
+		for f in self._fields:
+			headers.append(f.field_name)
+		return headers
+
+	def get_rows(self) -> List[str]:
+		"""Returns the rows of this table."""
+		rows = self._database_api.execute_query_and_get_all_results('SELECT * FROM ' + self._table_name)
+		return []
+
+	def get_all_data(self) -> List[List[str]]:
+		"""Returns the headers and rows of this table."""
+		return self.get_headers() + self.get_rows()
 
 	def add_table_field(self, table_field: TableField):
 		"""Adds a table field definition to this database table."""

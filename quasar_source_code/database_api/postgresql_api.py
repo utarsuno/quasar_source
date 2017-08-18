@@ -27,6 +27,10 @@ class PostgreSQLAPI(object):
 		self._master_table.add_table_field(db_t.TableFieldString('table_name', 30))
 		self._master_table.add_table_field(db_t.TableFieldDate('last_updated'))
 
+	def get_master_table(self) -> db_t.DatabaseTable:
+		"""Returns the master table object that's used for caching mechanisms."""
+		return self._master_table
+
 	def connect(self) -> None:
 		"""Connects to the RDS instance."""
 		#try:
@@ -49,6 +53,13 @@ class PostgreSQLAPI(object):
 		if save:
 			self._connection.commit()
 		return self._cursor.fetchone()
+
+	def execute_query_and_get_all_results(self, query: str, save: bool=False):
+		"""Executes the query provided and returns all results."""
+		self._cursor.execute(query)
+		if save:
+			self._connection.commit()
+		return self._cursor.fetchall()
 
 	def execute_query(self, query: str, save: bool=False) -> None:
 		"""Executes the query provided."""

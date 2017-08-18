@@ -56,11 +56,11 @@ function print_green_text {
 }
 
 function print_dotted_line {
-    echo -e "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    echo "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
 }
 
 function print_red_dotted_line {
-    echo -e "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    echo "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
 }
 
 function print_dash_line {
@@ -77,12 +77,12 @@ function print_script_text {
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
-        echo -e "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
+        echo "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
         print_red_dotted_line
     else
-        echo -e "${FG_RED}${FS_UL}${1}${RESET_ALL}"
-        echo -e ""
-        echo -e "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
+        echo "${FG_RED}${FS_UL}${1}${RESET_ALL}"
+        echo ""
+        echo "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
         print_red_dotted_line
     fi
     exit

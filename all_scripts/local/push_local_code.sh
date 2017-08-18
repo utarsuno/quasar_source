@@ -1,6 +1,14 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+# Scripts to make sure are executable.
+path_to_push_local_code="$DIR/../local/push_local_code.sh"
+path_to_run_all_unit_tests="$DIR/../local/run_all_unit_tests.sh"
+path_to_ssh_to_quasar="$DIR/../local/ssh_to_quasar.sh"
+path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
+path_to_universal_functions="$DIR/../server/universal_functions.sh"
+
 source "$DIR/../universal_scripts/universal_functions.sh"
 
 # Helps see exactly where the script's output starts.
@@ -36,9 +44,12 @@ else
     git push --force;
     print_dotted_line
 
-    # TODO : The following comment.
-    # Make the following bash_scripts runnable.
-
+    # Make sure the following bash scripts are runnable.
+    chmod +x ${path_to_push_local_code}
+    chmod +x ${path_to_run_all_unit_tests}
+    chmod +x ${path_to_ssh_to_quasar}
+    chmod +x ${path_to_setup_ubuntu}
+    chmod +x ${path_to_universal_functions}
 fi
 
 # Helps to see exactly where the script's output ends.

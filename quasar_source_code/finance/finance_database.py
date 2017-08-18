@@ -15,7 +15,6 @@ class FinanceDatabase(object):
 
 		self.finance_table = db_tables.DatabaseTable('finance_table', self.database_api)
 
-
 	def health_checks(self):
 		"""Runs any needed database health checks."""
 
