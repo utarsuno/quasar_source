@@ -37,17 +37,17 @@ class DatabaseTablesTestSuite(unittest.TestCase):
 	def test_create_and_delete(self):
 		# First make sure this table doesn't already exist.
 		self.assertEqual(self.test_table.exists                                       , False)
-		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), False)
+		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), False)
 
 		# Now create it and test if it's marked as created.
 		self.test_table.create_if_does_not_exist()
 		self.assertEqual(self.test_table.exists                                       , True)
-		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), True)
+		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), True)
 
 		# Make sure to delete this table now.
 		self.test_table.delete_if_exists()
 		self.assertEqual(self.test_table.exists                                       , False)
-		self.assertEqual(self.test_table._table_name in self.api.get_all_table_names(), False)
+		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), False)
 
 
 if __name__ == '__main__':

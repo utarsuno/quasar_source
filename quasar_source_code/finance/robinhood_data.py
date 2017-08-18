@@ -93,8 +93,3 @@ class RobinhoodScraper(object):
 			orders.extend(past_orders['results'])
 		return orders
 
-
-rs = RobinhoodScraper()
-trades = rs.get_trades()
-for trade in trades:
-	print(trade)

@@ -17,7 +17,8 @@ from quasar_source_code.database_api import database_tables as db_t
 class PostgreSQLAPI(object):
 	"""Acts as an API to the PostgreSQL database hosted on RDS."""
 
-	def __init__(self):
+	def __init__(self, debug: bool=False):
+		self.debug                = debug
 		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='postgresql')
 		self._connection          = None
 		self._cursor              = None
@@ -44,7 +45,7 @@ class PostgreSQLAPI(object):
 		self._cursor.execute(query)
 		if save:
 			self._connection.commit()
-		result = self._cursor.fetchone()[0][0]
+		result = self._cursor.fetchone()[0]
 		return result
 
 	def execute_custom_query_one_result(self, query: str, save: bool=False):

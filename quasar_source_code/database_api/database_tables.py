@@ -23,22 +23,51 @@ from typing import List
 class TableField(object):
 	"""Represents a field to a database table."""
 
-	def __init__(self, field_name, field_type):
+	def __init__(self, field_name: str, field_type: str):
 		self.field_name = field_name
 		self.field_type = field_type
+
+
+class TableFieldBoolean(TableField):
+	"""Represents a boolean field for a database table."""
+
+	def __init__(self, field_name: str):
+		super().__init__(field_name, 'bool')
+
+
+class TableFieldInteger(TableField):
+	"""Represents an integer field for a database table."""
+
+	def __init__(self, field_name: int, maximum_value: int):
+		if maximum_value < 32767 + 1:
+			super().__init__(field_name, 'smallint')
+		elif maximum_value < 2147483647 + 1:
+			super().__init__(field_name, 'integer')
+		else:
+			super().__init__(field_name, 'bigint')
+
+
+class TableFieldDouble(TableField):
+	"""Represents a decimal field for a database table."""
+
+	def __init__(self, field_name):
+		super().__init__(field_name, 'double precision')
 
 
 class TableFieldString(TableField):
 	"""Represents a string field for a database table."""
 
-	def __init__(self, field_name, maximum_length):
-		super().__init__(field_name, 'varchar(' + str(maximum_length) + ')')
+	def __init__(self, field_name: str, maximum_length: int, fixed_length: bool=False):
+		if fixed_length:
+			super().__init__(field_name, 'char(' + str(maximum_length) + ')')
+		else:
+			super().__init__(field_name, 'varchar(' + str(maximum_length) + ')')
 
 
 class TableFieldDate(TableField):
 	"""Represents a date field for a database table."""
 
-	def __init__(self, field_name):
+	def __init__(self, field_name: str):
 		super().__init__(field_name, 'date')
 
 
@@ -51,27 +80,76 @@ class TableFieldDate(TableField):
 class DatabaseTable(object):
 	"""Represents a table in a PostgreSQL database."""
 
-	def __init__(self, table_name, database_api):
-		self._table_name   = table_name
+	def __init__(self, table_name: str, database_api):
+		self.table_name   = table_name
 		self._database_api = database_api
 		self._fields       = []
 		self._exists       = None
 
-	def get_headers(self) -> List[str]:
-		"""Returns the headers of this table."""
+	def _raise_exception_if_table_does_not_exist(self):
+		"""Utility variable to provide sanity checks to table functions."""
+		if not self.exists:
+			raise Exception(self.table_name + ' does not exist in the database!')
+
+	def insert_row(self, headers_and_values) -> None:
+		"""Inserts the provided row into the table."""
+		query = 'INSERT INTO ' + self.table_name + ' ('
+		for h in self._fields:
+			query += h.field_name + ', '
+		query = query[:-2] + ') VALUES ('
+		for h in self._fields:
+			for key in headers_and_values:
+				if h.field_name == key:
+					if type(headers_and_values[key]) == str and headers_and_values[key] != 'NULL':
+						query += '\'' + headers_and_values[key] + '\', '
+					else:
+						query += headers_and_values[key] + ', '
+		query = query[:-2] + ')'
+		self._database_api.execute_query(query, save=True)
+
+	def delete_row_with_value(self, header: str, value) -> None:
+		"""Deletes a row with the provided header-value match."""
+		if type(value) == str:
+			self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = \'' + value + '\'', save = True)
+		else:
+			self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + value, save = True)
+
+	def get_single_value(self, header_to_get: str, match_header: str, match_value):
+		"""Returns a single value if a match was found."""
+		if type(match_value) == str:
+			return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = \'' + match_value + '\'')[0]
+		else:
+			return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = ' + match_value)[0]
+
+	def has_value(self, header: str, value) -> bool:
+		"""Returns a boolean indicating if this table has the header-value pair provided."""
+		if type(value) == str:
+			return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = \'' + value + '\' LIMIT 1)')
+		else:
+			return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = ' + value + ' LIMIT 1)')
+
+	def get_header_names(self) -> List[str]:
+		"""Returns the header names of this table."""
 		headers = []
 		for f in self._fields:
 			headers.append(f.field_name)
 		return headers
 
-	def get_rows(self) -> List[str]:
+	def get_row_values(self) -> List[str]:
 		"""Returns the rows of this table."""
-		rows = self._database_api.execute_query_and_get_all_results('SELECT * FROM ' + self._table_name)
-		return []
+		self._raise_exception_if_table_does_not_exist()
+		rows = self._database_api.execute_query_and_get_all_results('SELECT * FROM ' + self.table_name)
+		row_values = []
+		for r in rows:
+			row_values.append(list(r))
+		return row_values
 
-	def get_all_data(self) -> List[List[str]]:
-		"""Returns the headers and rows of this table."""
-		return self.get_headers() + self.get_rows()
+	def print_all_data(self) -> None:
+		"""Utility function to print all the data."""
+		print(self.get_header_names())
+		rows = self.get_row_values()
+		for r in rows:
+			print(r)
 
 	def add_table_field(self, table_field: TableField):
 		"""Adds a table field definition to this database table."""
@@ -80,7 +158,7 @@ class DatabaseTable(object):
 	def create_if_does_not_exist(self) -> None:
 		"""Creates this table if it does not exist."""
 		if not self.exists:
-			query = 'CREATE TABLE ' + self._table_name + '('
+			query = 'CREATE TABLE ' + self.table_name + '('
 			for i, f in enumerate(self._fields):
 				if i != len(self._fields) - 1:
 					query += f.field_name + ' ' + f.field_type + ', '
@@ -92,13 +170,13 @@ class DatabaseTable(object):
 	def delete_if_exists(self) -> None:
 		"""Delete this table if it exists."""
 		if self.exists:
-			self._database_api.execute_query('DROP TABLE ' + self._table_name + ';', True)
+			self._database_api.execute_query('DROP TABLE ' + self.table_name + ';', True)
 			self._exists = False
 
 	@property
 	def exists(self) -> bool:
 		"""Returns a boolean indicating if this table exists."""
 		if self._exists is None:
-			result = self._database_api.execute_custom_query_one_result("SELECT 1 FROM pg_catalog.pg_class WHERE relkind = 'r' AND relname = '" + self._table_name + "' AND pg_catalog.pg_table_is_visible(oid) LIMIT 1")
+			result = self._database_api.execute_custom_query_one_result("SELECT 1 FROM pg_catalog.pg_class WHERE relkind = 'r' AND relname = '" + self.table_name + "' AND pg_catalog.pg_table_is_visible(oid) LIMIT 1")
 			self._exists = not (result is None)
 		return self._exists

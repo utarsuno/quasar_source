@@ -1,11 +1,9 @@
 
 
 
-from quasar_source_code.database_api import postgresql_api as db_api
+from quasar_source_code.finance import finance_database as fdb
 
-api = db_api.PostgreSQLAPI()
-api.connect()
 
-table = api.get_master_table()
+db = fdb.FinanceDatabase()
 
-print(table.get_rows())
+db.health_checks()

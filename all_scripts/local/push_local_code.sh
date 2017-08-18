@@ -7,7 +7,7 @@ path_to_push_local_code="$DIR/../local/push_local_code.sh"
 path_to_run_all_unit_tests="$DIR/../local/run_all_unit_tests.sh"
 path_to_ssh_to_quasar="$DIR/../local/ssh_to_quasar.sh"
 path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
-path_to_universal_functions="$DIR/../server/universal_functions.sh"
+path_to_universal_functions="$DIR/../universal_scripts/universal_functions.sh"
 
 source "$DIR/../universal_scripts/universal_functions.sh"
 
