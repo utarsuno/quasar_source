@@ -2,23 +2,15 @@
 
 
 from quasar_source_code.finance import finance_database as fdb
-
-
+from quasar_source_code.universal_code import time_abstraction as time
+from quasar_source_code.finance.finance_classes import TradePortfolio
 import datetime
 
 db = fdb.FinanceDatabase()
-
-#db.master_table.set_single_value('last_updated', datetime.date.today(), 'table_name', db.finance_table.table_name)
-
-db.master_table.print_all_data()
-print()
-#db.finance_table.print_all_data()
-
-
 db.health_checks()
 
+finance = TradePortfolio()
 
-#db.master_table.print_all_data()
-#print()
-#db.finance_table.print_all_data()
+rows = db.finance_table.get_row_values()
+finance.set_trades_from_database_rows(rows)
 

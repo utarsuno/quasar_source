@@ -10,7 +10,10 @@ from quasar_source_code.universal_code import useful_file_operations as ufo
 from quasar_source_code.universal_code import path_manager as pm
 # Used for IDE typing.
 from typing import List
-
+# Finance classes.
+from quasar_source_code.finance.finance_classes import TradePortfolio
+from quasar_source_code.finance.finance_classes import Trade
+# Used to get Datetime objects from strings.
 from dateutil import parser
 
 # Raw data key names.
@@ -20,7 +23,7 @@ SHARES  = 'shares'
 PRICE   = 'price'
 DATE    = 'date'
 
-
+'''
 class Trade(object):
 	"""Represents a single stock transaction."""
 
@@ -34,17 +37,9 @@ class Trade(object):
 		self.shares = int(float(raw_data[SHARES]))
 		self.price  = raw_data[PRICE]
 		self.date   = parser.parse(raw_data[DATE]).date()
+		self.id     = None
 
-	def get_dictionary(self):
-		"""Returns this trade as a dictionary."""
-		return {'ticker': self.symbol, 'buy_or_sell': self.side, 'price': self.price, 'quantity': self.shares, 'transaction_date': self.date}
-
-	def __str__(self):
-		if self.side == 'TRUE':
-			return self.symbol + ' - ' + 'buy' + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
-		else:
-			return self.symbol + ' - ' + 'sell' + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
-		return self.symbol + ' - ' + self.side + ' - ' + str(self.shares) + ' - ' + str(self.price) + ' - ' + str(self.date)
+'''
 
 
 class RobinhoodScraper(object):
@@ -53,7 +48,15 @@ class RobinhoodScraper(object):
 	def __init__(self):
 		self.db = {}
 
-	def get_trades(self) -> List[Trade]:
+	def get_trade_portfolio(self) -> TradePortfolio:
+		"""Gets a base TradePortfolio object."""
+		trade_portfolio = TradePortfolio()
+		trades = self._get_trades()
+		for t in trades:
+			trade_portfolio.add_trade(t)
+		return trade_portfolio
+
+	def _get_trades(self) -> List[Trade]:
 		"""Gets Trade objects to work with."""
 		robinhood_scraper = Robinhood()
 		account = ufo.get_ini_section_dictionary(path = pm.get_config_ini(), section_name = 'robinhood')
@@ -63,8 +66,8 @@ class RobinhoodScraper(object):
 		t = []
 		for o in orders:
 			if o['state'] == 'filled':
-				t.append(Trade(o))
-		return t
+				t.append(Trade(side=(o[SIDE] == 'buy'), symbol=o[SYMBOL], quantity=o[SHARES], price=o[PRICE], date=o[DATE], transaction_id=None))
+		return reversed(t)
 
 	# Code below based from : https://github.com/Jamonek/Robinhood
 

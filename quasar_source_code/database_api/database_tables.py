@@ -24,35 +24,44 @@ from typing import List
 class TableField(object):
 	"""Represents a field to a database table."""
 
-	def __init__(self, field_name: str, field_type: str):
+	def __init__(self, field_name: str, field_type: str, skipped: bool):
 		self.field_name = field_name
 		self.field_type = field_type
+		self.skipped    = skipped
 
 
 class TableFieldBoolean(TableField):
 	"""Represents a boolean field for a database table."""
 
 	def __init__(self, field_name: str):
-		super().__init__(field_name, 'bool')
+		super().__init__(field_name, 'bool', skipped=False)
 
 
 class TableFieldInteger(TableField):
 	"""Represents an integer field for a database table."""
 
-	def __init__(self, field_name: int, maximum_value: int):
-		if maximum_value < 32767 + 1:
-			super().__init__(field_name, 'smallint')
-		elif maximum_value < 2147483647 + 1:
-			super().__init__(field_name, 'integer')
+	def __init__(self, field_name: int, maximum_value: int, auto_increment: bool):
+		if auto_increment:
+			if maximum_value < 32767 + 1:
+				super().__init__(field_name, 'smallserial', skipped=True)
+			elif maximum_value < 2147483647 + 1:
+				super().__init__(field_name, 'serial', skipped=True)
+			else:
+				super().__init__(field_name, 'bigserial', skipped=True)
 		else:
-			super().__init__(field_name, 'bigint')
+			if maximum_value < 32767 + 1:
+				super().__init__(field_name, 'smallint', skipped=False)
+			elif maximum_value < 2147483647 + 1:
+				super().__init__(field_name, 'integer', skipped=False)
+			else:
+				super().__init__(field_name, 'bigint', skipped=False)
 
 
 class TableFieldDouble(TableField):
 	"""Represents a decimal field for a database table."""
 
 	def __init__(self, field_name):
-		super().__init__(field_name, 'double precision')
+		super().__init__(field_name, 'double precision', skipped=False)
 
 
 class TableFieldString(TableField):
@@ -60,16 +69,16 @@ class TableFieldString(TableField):
 
 	def __init__(self, field_name: str, maximum_length: int, fixed_length: bool=False):
 		if fixed_length:
-			super().__init__(field_name, 'char(' + str(maximum_length) + ')')
+			super().__init__(field_name, 'char(' + str(maximum_length) + ')', skipped=False)
 		else:
-			super().__init__(field_name, 'varchar(' + str(maximum_length) + ')')
+			super().__init__(field_name, 'varchar(' + str(maximum_length) + ')', skipped=False)
 
 
 class TableFieldDate(TableField):
 	"""Represents a date field for a database table."""
 
 	def __init__(self, field_name: str):
-		super().__init__(field_name, 'date')
+		super().__init__(field_name, 'date', skipped=False)
 
 
 ''' ___       __        ___
@@ -105,31 +114,39 @@ class DatabaseTable(object):
 				return '\'' + value + '\''
 		return str(value)
 
+	#####################################################
+
+	def _get_column_names_for_sql(self):
+		"""Utility function to get a table's columns when inserting."""
+		column_names = ''
+		for h in self._fields:
+			if not h.skipped:
+				column_names += h.field_name + ', '
+		return column_names[:-2]
+
+	#####################################################
+
 	def insert_row(self, headers_and_values) -> None:
 		"""Inserts the provided row into the table."""
-		query = 'INSERT INTO ' + self.table_name + ' ('
+		query = 'INSERT INTO ' + self.table_name + ' (' + self._get_column_names_for_sql() + ') VALUES ('
 		for h in self._fields:
-			query += h.field_name + ', '
-		query = query[:-2] + ') VALUES ('
-		for h in self._fields:
-			for key in headers_and_values:
-				if h.field_name == key:
-					query += self._validify_value(headers_and_values[key]) + ', '
+			if not h.skipped:
+				for key in headers_and_values:
+					if h.field_name == key:
+						query += self._validify_value(headers_and_values[key]) + ', '
 		query = query[:-2] + ')'
 		self._database_api.execute_query(query, save=True)
 
 	def insert_rows(self, list_of_dictionaries: List[dict]) -> None:
 		"""Inserts the provided rows into the table."""
-		query = 'INSERT INTO ' + self.table_name + ' ('
-		for h in self._fields:
-			query += h.field_name + ', '
-		query = query[:-2] + ') VALUES '
+		query = 'INSERT INTO ' + self.table_name + ' (' + self._get_column_names_for_sql() + ') VALUES '
 		for dictionary in list_of_dictionaries:
 			query += '('
 			for h in self._fields:
-				for key in dictionary:
-					if h.field_name == key:
-						query += self._validify_value(dictionary[key]) + ', '
+				if not h.skipped:
+					for key in dictionary:
+						if h.field_name == key:
+							query += self._validify_value(dictionary[key]) + ', '
 			query = query[:-2] + '), '
 		query = query[:-2]
 		self._database_api.execute_query(query, save=True)
@@ -141,6 +158,10 @@ class DatabaseTable(object):
 	def set_single_value(self, header_to_set: str, value_to_set, match_header: str, match_value):
 		"""Sets a single values if a match was found."""
 		self._database_api.execute_query('UPDATE ' + self.table_name + ' SET ' + header_to_set + ' = ' + self._validify_value(value_to_set) + ' WHERE ' + match_header + ' = ' + self._validify_value(match_value), save=True)
+
+	def get_row_with_max_value(self, match_header: str):
+		"""Returns the row with the largest value of the provided header."""
+		return self._database_api.execute_custom_query_one_result('SELECT * FROM ' + self.table_name + ' ORDER BY ' + self.table_name + '.' + match_header + ' DESC LIMIT 1')
 
 	def get_single_value(self, header_to_get: str, match_header: str, match_value):
 		"""Returns a single value if a match was found."""

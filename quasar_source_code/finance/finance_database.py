@@ -5,8 +5,8 @@
 from quasar_source_code.database_api.postgresql_api import PostgreSQLAPI
 from quasar_source_code.database_api import database_tables as db_tables
 from quasar_source_code.finance import robinhood_data as rh
+from quasar_source_code.universal_code import time_abstraction as time
 
-import datetime
 
 class FinanceDatabase(object):
 	"""Finance database API."""
@@ -21,23 +21,36 @@ class FinanceDatabase(object):
 		self.finance_table.add_table_field(db_tables.TableFieldString('ticker', maximum_length=5))
 		self.finance_table.add_table_field(db_tables.TableFieldBoolean('buy_or_sell'))
 		self.finance_table.add_table_field(db_tables.TableFieldDouble('price'))
-		self.finance_table.add_table_field(db_tables.TableFieldInteger('quantity', maximum_value=30000))
+		self.finance_table.add_table_field(db_tables.TableFieldInteger('quantity', maximum_value=30000, auto_increment=False))
 		self.finance_table.add_table_field(db_tables.TableFieldDate('transaction_date'))
+		self.finance_table.add_table_field(db_tables.TableFieldInteger('transaction_id', maximum_value=30000, auto_increment=False))
 
 		self.last_updated = None
+		self.trade_portfolio = None
+
+	def _set_trade_portfolio(self):
+		"""Grabs the initial data needed for the trade portfolio."""
+		if self.trade_portfolio is None:
+			print('Scraping Robinhood!')
+			rs     = rh.RobinhoodScraper()
+			self.trade_portfolio = rs.get_trade_portfolio()
 
 	def _initial_data_fill(self):
 		"""This method is called when the table is empty and needs to be filled in with Trades."""
 		print('Populating the finance table with trades!')
-		rs     = rh.RobinhoodScraper()
-		trades = rs.get_trades()
+		self._set_trade_portfolio()
+		trades = self.trade_portfolio.get_trades()
 		rows   = [trade.get_dictionary() for trade in trades]
 		self.finance_table.insert_rows(rows)
 		# Make sure to update the Master Table's update field.
-		self.master_table.set_single_value('last_updated', datetime.date.today(), 'table_name', self.finance_table.table_name)
+		self.master_table.set_single_value('last_updated', time.get_today(), 'table_name', self.finance_table.table_name)
 
 	def health_checks(self):
 		"""Runs any needed database health checks."""
+		if not self.finance_table.exists:
+			# If the finance table doesn't exist then make sure there is no entry in the Master Table as well.
+			self.master_table.delete_row_with_value('table_name', self.finance_table.table_name)
+
 		self.finance_table.create_if_does_not_exist()
 
 		# Ensure that this table exists in the Master Table.
@@ -49,10 +62,25 @@ class FinanceDatabase(object):
 		if self.last_updated is None:
 			self._initial_data_fill()
 		else:
-			print('Last updated is : ' + str(self.last_updated))
-
-			if self.last_updated < datetime.datetime.now().date():
+			if self.last_updated < time.get_today():
 				print('Update cache!')
+				self._set_trade_portfolio()
+
+				last_row = self.finance_table.get_row_with_max_value('transaction_id')
+				# If there are no records at all then fill the data from scratch.
+				if last_row is None:
+					self._initial_data_fill()
+					return
+
+				last_id = last_row[5]
+				rows_to_add = []
+				trades = self.trade_portfolio.get_trades()
+				for trade in trades:
+					if trade.id > last_id:
+						rows_to_add.append(trade.get_dictionary())
+
+				self.finance_table.insert_rows(rows_to_add)
+
 			else:
 				print('Cache up to date!')
 
