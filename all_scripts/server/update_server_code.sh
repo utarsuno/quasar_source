@@ -4,7 +4,6 @@ cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
 source universal_functions.sh;
 pwd
 exit
-exit
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
