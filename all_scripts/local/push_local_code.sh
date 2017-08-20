@@ -3,6 +3,13 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/../universal_scripts/universal_functions.sh"
 
+# Variables needed for updating the Quasar server.
+CONFIG_PATH="$DIR/../../configuration_files/config.ini"
+CONFIG_READER="$DIR/../universal_scripts/config_reader_for_bash.py"
+
+pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws pem_path)
+ec2_url=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws ec2_url)
+
 # Scripts to make sure are executable.
 path_to_build_three_js="$DIR/../build_three_js/build_three_js.sh"
 path_to_push_local_code="$DIR/../local/push_local_code.sh"
@@ -56,6 +63,10 @@ else
     chmod +x ${path_to_ssh_to_peon}
     chmod +x ${path_to_setup_ubuntu}
     chmod +x ${path_to_universal_functions}
+
+
+    ssh -i ${pem_path} -t ubuntu@${ec2_url} "sh /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh"
+
 fi
 
 # Helps to see exactly where the script's output ends.

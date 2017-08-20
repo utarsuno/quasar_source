@@ -28,34 +28,10 @@ if [[ "${reslog}" != "" ]] ; then
     git fetch --all;
 
     # This resets to dev.
-    git reset --hard origin/dev;
+    git reset --hard origin/master;
 
     # Grab the latest code.
     git pull;
-
-    # Make the following bash_scripts runnable.
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/update_server_code.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/django/clear_django_database.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/django/restart_django.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/django/run_django.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/django/terminate_django.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/qa/close_locust_after_x_seconds.sh;
-    sudo chmod +x /home/dev_usr/urbtek/all_scripts/server_system/qa/run_locust.sh;
-
-    # Remove parts of the code base that a server system shouldn't use.
-    sudo rm -rf /home/dev_usr/urbtek/all_scripts/local_system;
-    sudo rm -rf /home/dev_usr/compression_algorithm;
-    sudo rm -rf /home/dev_usr/project_euler_problems;
-
-    # The P E O N and N E X U S should not have each others stuff (so they can't accidentally run it).
-    if [ "$HOSTNAME" = "nexus-quality-assurance-helper" ]; then
-        sudo rm -rf /home/dev_usr/urbtek/nexus_django;
-    elif [ "$HOSTNAME" = "nexus-quality-assurance" ]; then
-        sudo rm -rf /home/dev_usr/urbtek/peon;
-    else
-        print_script_text "W H A T M A C H I N E I S T H I S ?"
-    fi
-
 else
     # We do not have to update the code.
     print_script_text "The code base is already up to date so a pull will not be performed."
