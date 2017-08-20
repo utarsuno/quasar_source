@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "${BASH_SOURCE[0]}"
+echo "hello_world"
 exit
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
