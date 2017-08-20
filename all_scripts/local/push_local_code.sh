@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+source "$DIR/../universal_scripts/universal_functions.sh"
 
 # Scripts to make sure are executable.
 path_to_build_three_js="$DIR/../build_three_js/build_three_js.sh"
@@ -12,7 +13,6 @@ path_to_ssh_to_peon="$DIR/../local/ssh_to_peon.sh"
 path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
 path_to_universal_functions="$DIR/../universal_scripts/universal_functions.sh"
 
-source "$DIR/../universal_scripts/universal_functions.sh"
 
 # Helps see exactly where the script's output starts.
 print_dashed_line_with_text "push_local_code.sh start"

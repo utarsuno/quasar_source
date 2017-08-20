@@ -2,10 +2,10 @@
 
 ---
 
-#### documentation
+### documentation
 Just useful notes and guides to be referenced later.
 
-#### quasar_source_code
+### quasar_source_code
 | Directory | Description |
 | --- | --- |
 | database_api | Abstract API to working with databases. |
@@ -15,7 +15,10 @@ Just useful notes and guides to be referenced later.
 | universal_code | Modules to be used by all other Python modules. |
 | web_files | All web server files including HTML, JS, and CSS. |
 
-#### quality_assurance
+### quasar_site
+Django code for QuasarSource.com.
+
+### quality_assurance
 A duplicate directory strcuture of *qyasar_source_code* except is soley unit tests of each program file.
 
 ### all_scripts
