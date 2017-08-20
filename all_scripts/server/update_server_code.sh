@@ -1,8 +1,10 @@
 #!/bin/bash
 
-PARENT_DIRECTORY=$(dirname $(dirname "$0"))
-source "$PARENT_DIRECTORY/universal_scripts/universal_functions.sh"
-
+cd ../;
+cd universal_scripts;
+pwd;
+source universal_functions.sh;
+exit
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
