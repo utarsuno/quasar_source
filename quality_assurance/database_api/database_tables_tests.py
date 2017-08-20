@@ -23,9 +23,13 @@ class DatabaseTablesTestSuite(unittest.TestCase):
 
 		self.test_table = db_tables.DatabaseTable('test_table', self.api)
 		self.test_table.add_table_field(db_tables.TableFieldString('string_field', 30))
+		self.test_table.add_table_field(db_tables.TableFieldInteger('int_field', 5, auto_increment=False))
+		self.test_table.create_if_does_not_exist()
 
 	def tearDown(self):
 		"""This runs after all the unit tests."""
+		self.test_table.delete_if_exists()
+
 		self.api.terminate()
 
 	''' Tests for :
@@ -35,20 +39,32 @@ class DatabaseTablesTestSuite(unittest.TestCase):
 	'''
 
 	def test_create_and_delete(self):
+		self.temp_test_table = db_tables.DatabaseTable('temp_test_table', self.api)
+		self.temp_test_table.add_table_field(db_tables.TableFieldString('string_field', 30))
+
 		# First make sure this table doesn't already exist.
-		self.assertEqual(self.test_table.exists                                       , False)
-		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), False)
+		self.assertEqual(self.temp_test_table.exists                                      , False)
+		self.assertEqual(self.temp_test_table.table_name in self.api.get_all_table_names(), False)
 
 		# Now create it and test if it's marked as created.
-		self.test_table.create_if_does_not_exist()
-		self.assertEqual(self.test_table.exists                                       , True)
-		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), True)
+		self.temp_test_table.create_if_does_not_exist()
+		self.assertEqual(self.temp_test_table.exists                                      , True)
+		self.assertEqual(self.temp_test_table.table_name in self.api.get_all_table_names(), True)
 
 		# Make sure to delete this table now.
-		self.test_table.delete_if_exists()
-		self.assertEqual(self.test_table.exists                                       , False)
-		self.assertEqual(self.test_table.table_name in self.api.get_all_table_names(), False)
+		self.temp_test_table.delete_if_exists()
+		self.assertEqual(self.temp_test_table.exists                                      , False)
+		self.assertEqual(self.temp_test_table.table_name in self.api.get_all_table_names(), False)
 
+	def test_insert_and_delete_row(self):
+		# First make sure the table is empty.
+		self.assertEqual(len(self.test_table.get_row_values()), 0)
+
+		self.test_table.insert_row({'string_field': 'hi', 'int_field': 5})
+		self.assertEqual(self.test_table.get_single_value('int_field', 'string_field', 'hi'), 5)
+
+		self.test_table.delete_row_with_value('string_field', 'hi')
+		self.assertEqual(len(self.test_table.get_row_values()), 0)
 
 if __name__ == '__main__':
 	unittest.main()

@@ -37,8 +37,12 @@ class TradePortfolio(object):
 	.__/  |  \__/ \__, |  \ .__/    .
 '''
 
-class Stock(object):
-	"""Represents"""
+
+class StockShares(object):
+	"""Represents a stock type and any contained shares."""
+
+	def __init__(self, symbol: str):
+		self.symbol = symbol
 
 ''' ___  __        __   ___  __
 	 |  |__)  /\  |  \ |__  /__`    .

@@ -149,6 +149,12 @@ class DatabaseTable(object):
 							query += self._validify_value(dictionary[key]) + ', '
 			query = query[:-2] + '), '
 		query = query[:-2]
+		print(query)
+		print(len(self._fields))
+		print(len(list_of_dictionaries))
+		for l in list_of_dictionaries:
+			print(l)
+		exit()
 		self._database_api.execute_query(query, save=True)
 
 	def delete_row_with_value(self, header: str, value) -> None:

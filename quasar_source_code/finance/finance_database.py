@@ -28,6 +28,10 @@ class FinanceDatabase(object):
 		self.last_updated = None
 		self.trade_portfolio = None
 
+	def _mark_as_updated_in_master_table(self):
+		"""Sets last updated in the master table to today's date."""
+		self.master_table.set_single_value('last_updated', time.get_today(), 'table_name', self.finance_table.table_name)
+
 	def _set_trade_portfolio(self):
 		"""Grabs the initial data needed for the trade portfolio."""
 		if self.trade_portfolio is None:
@@ -42,8 +46,7 @@ class FinanceDatabase(object):
 		trades = self.trade_portfolio.get_trades()
 		rows   = [trade.get_dictionary() for trade in trades]
 		self.finance_table.insert_rows(rows)
-		# Make sure to update the Master Table's update field.
-		self.master_table.set_single_value('last_updated', time.get_today(), 'table_name', self.finance_table.table_name)
+		self._mark_as_updated_in_master_table()
 
 	def health_checks(self):
 		"""Runs any needed database health checks."""
@@ -63,7 +66,7 @@ class FinanceDatabase(object):
 			self._initial_data_fill()
 		else:
 			if self.last_updated < time.get_today():
-				print('Update cache!')
+				print('Updating trade cache since last updated was ' + str(self.last_updated) + ' and it\'s ' + str(time.get_today()))
 				self._set_trade_portfolio()
 
 				last_row = self.finance_table.get_row_with_max_value('transaction_id')
@@ -75,12 +78,19 @@ class FinanceDatabase(object):
 				last_id = last_row[5]
 				rows_to_add = []
 				trades = self.trade_portfolio.get_trades()
-				for trade in trades:
-					if trade.id > last_id:
-						rows_to_add.append(trade.get_dictionary())
 
-				self.finance_table.insert_rows(rows_to_add)
+				if last_id > len(trades):
+					for trade in trades:
+						if trade.id > last_id:
+							rows_to_add.append(trade.get_dictionary())
+					self.finance_table.insert_rows(rows_to_add)
 
+				self._mark_as_updated_in_master_table()
 			else:
-				print('Cache up to date!')
+				print('Cache up to date! Populating Trade Portfolio.')
+
+				# TODO : Grab the data from the database here.
+
+
+				print(str(self.trade_portfolio))
 

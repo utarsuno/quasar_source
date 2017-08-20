@@ -9,8 +9,9 @@ import datetime
 db = fdb.FinanceDatabase()
 db.health_checks()
 
-finance = TradePortfolio()
+#finance = TradePortfolio()
 
-rows = db.finance_table.get_row_values()
-finance.set_trades_from_database_rows(rows)
+#rows = db.finance_table.get_row_values()
+#finance.set_trades_from_database_rows(rows)
+
 

@@ -3,9 +3,12 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Scripts to make sure are executable.
+path_to_build_three_js="$DIR/../build_three_js/build_three_js.sh"
 path_to_push_local_code="$DIR/../local/push_local_code.sh"
 path_to_run_all_unit_tests="$DIR/../local/run_all_unit_tests.sh"
 path_to_ssh_to_quasar="$DIR/../local/ssh_to_quasar.sh"
+path_to_ssh_to_nexus="$DIR/../local/ssh_to_nexus.sh"
+path_to_ssh_to_peon="$DIR/../local/ssh_to_peon.sh"
 path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
 path_to_universal_functions="$DIR/../universal_scripts/universal_functions.sh"
 
@@ -45,9 +48,12 @@ else
     print_dotted_line
 
     # Make sure the following bash scripts are runnable.
+    chmod +x ${path_to_build_three_js}
     chmod +x ${path_to_push_local_code}
     chmod +x ${path_to_run_all_unit_tests}
     chmod +x ${path_to_ssh_to_quasar}
+    chmod +x ${path_to_ssh_to_nexus}
+    chmod +x ${path_to_ssh_to_peon}
     chmod +x ${path_to_setup_ubuntu}
     chmod +x ${path_to_universal_functions}
 fi

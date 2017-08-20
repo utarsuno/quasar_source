@@ -23,25 +23,6 @@ SHARES  = 'shares'
 PRICE   = 'price'
 DATE    = 'date'
 
-'''
-class Trade(object):
-	"""Represents a single stock transaction."""
-
-	def __init__(self, raw_data: dict):
-		self.side   = raw_data[SIDE]
-		if self.side == 'buy':
-			self.side = 'TRUE'
-		else:
-			self.side = 'FALSE'
-		self.symbol = raw_data[SYMBOL]
-		self.shares = int(float(raw_data[SHARES]))
-		self.price  = raw_data[PRICE]
-		self.date   = parser.parse(raw_data[DATE]).date()
-		self.id     = None
-
-'''
-
-
 class RobinhoodScraper(object):
 	"""Fetches all trade information utilizing 3rd party Robinhood code."""
 
@@ -59,8 +40,8 @@ class RobinhoodScraper(object):
 	def _get_trades(self) -> List[Trade]:
 		"""Gets Trade objects to work with."""
 		robinhood_scraper = Robinhood()
-		account = ufo.get_ini_section_dictionary(path = pm.get_config_ini(), section_name = 'robinhood')
-		robinhood_scraper.login(username = account['username'], password = account['password'])
+		account = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='robinhood')
+		robinhood_scraper.login(username=account['username'], password=account['password'])
 		past_orders = self._get_all_history_orders(robinhood_scraper)
 		orders = [self._order_item_info(order, robinhood_scraper) for order in past_orders]
 		t = []
