@@ -2,6 +2,7 @@
 
 echo $(dirname $(dirname "$0"))
 exit
+exit
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/../universal_scripts/universal_functions.sh"
