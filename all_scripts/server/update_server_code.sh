@@ -38,4 +38,4 @@ else
 fi
 
 # Helps to see exactly where the script's output ends.
-print_dashed_line_with_text "update_server_code.sh end"
+print_dashed_line_with_text "update_server_code.sh end for ${HOST_NAME}"
