@@ -64,8 +64,9 @@ else
     chmod +x ${path_to_setup_ubuntu}
     chmod +x ${path_to_universal_functions}
 
-
-    #ssh -i ${pem_path} -t ${ec2_url} "sh /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh"
+    ssh -i ${pem_path} ${ec2_url} << HERE
+    sh /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+HERE
 
 fi
 

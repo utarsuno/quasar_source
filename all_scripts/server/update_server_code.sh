@@ -23,7 +23,7 @@ print_script_text 'just_wanted_to_run_a_test'
 
 
 git fetch origin;
-reslog=$(git log HEAD..origin/dev --oneline)
+reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
     print_script_text "Updating the code base."
 
