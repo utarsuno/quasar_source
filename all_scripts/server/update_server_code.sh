@@ -14,11 +14,7 @@ terminate_if_system_is_not_ubuntu
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
 # Go to the projects base directory.
-cd ../../;
-pwd;
-print_script_text 'just_wanted_to_run_a_test'
-
-exit
+cd /home/git_repos/quasar_source;
 
 git fetch origin;
 reslog=$(git log HEAD..origin/master --oneline)
