@@ -17,7 +17,7 @@ terminate_if_system_is_not_ubuntu
 cd ../../;
 pwd;
 print_script_text 'just_wanted_to_run_a_test'
-
+exit
 
 git fetch origin;
 reslog=$(git log HEAD..origin/master --oneline)
