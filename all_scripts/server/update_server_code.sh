@@ -1,11 +1,7 @@
 #!/bin/bash
 
-echo $(dirname $(dirname "$0"))
-exit
-exit
-
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-source "$DIR/../universal_scripts/universal_functions.sh"
+PARENT_DIRECTORY=$(dirname $(dirname "$0"))
+source "$PARENT_DIRECTORY/universal_scripts/universal_functions.sh"
 
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
@@ -18,7 +14,7 @@ terminate_if_system_is_not_ubuntu
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
 # Go to the projects base directory.
-cd "$DIR/../../";
+cd ../../;
 pwd;
 print_script_text 'just_wanted_to_run_a_test'
 
