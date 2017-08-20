@@ -12,7 +12,7 @@ sudo apt-get update;
 #sudo apt-get -y dist-upgrade;
 
 # Same as above but can also remove installed packages if needed for install during a package conflict.
-sudo apt-get full-upgrade
+sudo apt-get -y full-upgrade;
 
 #------------------------------------------------------------------------
 
@@ -23,4 +23,9 @@ sudo apt-get install build-essential libssl-dev libffi-dev python3-dev;
 #------------------------------------------------------------------------
 
 # Install SSH.
-sudo apt-get install openssh-server
+sudo apt-get install openssh-server;
+
+#------------------------------------------------------------------------
+
+# Install git.
+sudo apt-get install git;

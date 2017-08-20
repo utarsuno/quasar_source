@@ -11,7 +11,7 @@ from quasar_source_code.universal_code import path_manager as pm
 # Used for IDE typing.
 from typing import List
 # Finance classes.
-from quasar_source_code.finance.finance_classes import TradePortfolio
+from quasar_source_code.finance.finance_classes import FinancePortfolio
 from quasar_source_code.finance.finance_classes import Trade
 # Used to get Datetime objects from strings.
 from dateutil import parser
@@ -23,15 +23,16 @@ SHARES  = 'shares'
 PRICE   = 'price'
 DATE    = 'date'
 
+
 class RobinhoodScraper(object):
 	"""Fetches all trade information utilizing 3rd party Robinhood code."""
 
 	def __init__(self):
 		self.db = {}
 
-	def get_trade_portfolio(self) -> TradePortfolio:
-		"""Gets a base TradePortfolio object."""
-		trade_portfolio = TradePortfolio()
+	def get_trade_portfolio(self) -> FinancePortfolio:
+		"""Gets a base FinancePortfolio object."""
+		trade_portfolio = FinancePortfolio()
 		trades = self._get_trades()
 		for t in trades:
 			trade_portfolio.add_trade(t)

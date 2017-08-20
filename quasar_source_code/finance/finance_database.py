@@ -6,6 +6,7 @@ from quasar_source_code.database_api.postgresql_api import PostgreSQLAPI
 from quasar_source_code.database_api import database_tables as db_tables
 from quasar_source_code.finance import robinhood_data as rh
 from quasar_source_code.universal_code import time_abstraction as time
+from quasar_source_code.finance import finance_classes as fc
 
 
 class FinanceDatabase(object):
@@ -48,7 +49,7 @@ class FinanceDatabase(object):
 		self.finance_table.insert_rows(rows)
 		self._mark_as_updated_in_master_table()
 
-	def health_checks(self):
+	def run_health_checks_and_grab_trade_data(self):
 		"""Runs any needed database health checks."""
 		if not self.finance_table.exists:
 			# If the finance table doesn't exist then make sure there is no entry in the Master Table as well.
@@ -88,9 +89,6 @@ class FinanceDatabase(object):
 				self._mark_as_updated_in_master_table()
 			else:
 				print('Cache up to date! Populating Trade Portfolio.')
-
-				# TODO : Grab the data from the database here.
-
-
-				print(str(self.trade_portfolio))
+				self.trade_portfolio = fc.FinancePortfolio()
+				self.trade_portfolio.set_trades_from_database_rows(self.finance_table.get_row_values())
 
