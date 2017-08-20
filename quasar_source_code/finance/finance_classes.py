@@ -48,12 +48,99 @@ class Trade(object):
 '''
 
 
+class Share(object):
+	"""Represent a single stock share owned."""
+
+	def __init__(self, price: float, date_bought: datetime.date, fifo_value: int):
+		self.price       = price
+		self.date_bought = date_bought
+		self.fifo_value  = fifo_value
+
+	def __repr__(self):
+		return 'Share(price=' + str(self.price) + ', date_bought=' + str(self.date_bought) + ', fifo_value=' + str(self.fifo_value) + ')'
+
+
 class StockShares(object):
 	"""Represents a stock type and any contained shares."""
 
 	def __init__(self, symbol: str):
-		self.symbol = symbol
+		self.symbol                    = symbol
+		self.shares                    = []
+		self.net_gained                = 0
+		# Variables for properties.
+		self._all_cash_invested_ever   = 0
+		self._all_cash_returned_ever   = 0
+		self._all_cash_from_sales_ever = 0
+		# Internal usage. Robinhood sells stocks in a FIFO approach.
+		self._current_fifo_value       = 0
 
+	# TODO : Make a method that gets current cash value for date X.
+
+	# TODO : Make a method, number_of_shares_owned_at_date_X
+
+	@property
+	def average_cost(self) -> float:
+		"""Returns the current average cost of all held shares."""
+		average_cost = 0.0
+		for s in self.shares:
+			average_cost += s.price
+		return average_cost / len(self.shares)
+
+	@property
+	def number_of_currently_owned_shares(self) -> int:
+		"""Returns the number of currently owned shares."""
+		return len(self.shares)
+
+	@property
+	def current_cash_value(self) -> float:
+		"""Returns the current cash value of these shares."""
+		# TODO : This needs to grab the latest stock price!!!!!!!!!!!!!!!!!!
+		return -1
+
+	@property
+	def current_cash_invested(self) -> float:
+		"""The current value of all the owned shares."""
+		value = 0
+		for s in self.shares:
+			value += s.price
+		return value
+
+	@property
+	def all_cash_invested_ever(self) -> float:
+		"""Returns all the cash ever invested into this stock."""
+		return self._all_cash_invested_ever
+
+	@property
+	def all_cash_returned_ever(self) -> float:
+		"""Returns all the cash returned ever from this stock."""
+		# TODO : THIS REQUIRES FANCIER LOGIC WITH HISTORICAL DATA AND DIVIDENDS!!!
+		return -1
+
+	@property
+	def all_cash_from_sales_ever(self) -> float:
+		"""Returns all the cash returned ever from this stock from just share sells."""
+		return self._all_cash_from_sales_ever
+
+	def add_shares(self, quantity: int, price: float, date: datetime.date):
+		"""Adds a share to be tracked by this StockShares object."""
+		for i in range(quantity):
+			self._all_cash_invested_ever += price
+			self.shares.append(Share(price, date, self._current_fifo_value))
+			self._current_fifo_value += 1
+
+	def remove_shares(self, quantity: int, price: float):
+		"""Removes N shares from the oldest bought shares."""
+		# First sort the shares in place based off the fifo value.
+		self.shares.sort(key=lambda x: x.fifo_value, reverse=False)
+
+		shares_removed = 0
+		while shares_removed < quantity:
+			share = self.shares.pop(0)
+			self._all_cash_from_sales_ever += price
+			shares_removed += 1
+
+	def __str__(self):
+		return self.symbol + '\tcurrently own ' + str(self.number_of_currently_owned_shares) + ' shares worth a total of : ' + '\twith an average share price of : ' + str(self.average_cost)
 
 '''  __   __   __  ___  ___  __          __
 	|__) /  \ |__)  |  |__  /  \ |    | /  \    .
@@ -67,7 +154,16 @@ class FinancePortfolio(object):
 	def __init__(self):
 		self._current_trade_index = 1
 		self.trades               = []
-		self.stock_shares         = {}
+		self.stock_shares         = []
+
+	def _get_stock_shares_object(self, symbol) -> StockShares:
+		"""Returns the StockShares object for that stock symbol."""
+		return_object = next((x for x in self.stock_shares if x.symbol == symbol), None)
+		if return_object is None:
+			stock_shares_object = StockShares(symbol)
+			self.stock_shares.append(stock_shares_object)
+			return stock_shares_object
+		return return_object
 
 	'''  __       ___          __   ___ ___       __
 		|  \  /\   |   /\     /__` |__   |  |  | |__)    .
@@ -79,7 +175,16 @@ class FinancePortfolio(object):
 		self.trades.sort(key=lambda x: x.id, reverse=False)
 
 		for t in self.trades:
-			print(t)
+			stock_shares = self._get_stock_shares_object(t.symbol)
+
+			if t.side == Side.BUY:
+				stock_shares.add_shares(t.quantity, t.price, t.date)
+			else:
+				stock_shares.remove_shares(t.quantity, t.price)
+
+		for ss in self.stock_shares:
+			if ss.number_of_currently_owned_shares > 0:
+				print(ss)
 
 	'''  __       ___       __        __   ___     __       ___          __   ___ ___       __
 		|  \  /\   |   /\  |__)  /\  /__` |__     |  \  /\   |   /\     /__` |__   |  |  | |__)    .

@@ -1,0 +1,6 @@
+# From https://support.robinhood.com/hc/en-us/articles/208650426-Trading-on-Robinhood
+Cost Basis
+
+Your average cost basis for a stock can be viewed on the stock screen below the chart. The average cost basis is calculated from only buy orders and does not change to reflect sells.
+
+Robinhood uses the “First In, First Out” method. This means that your longest-held shares are recorded as being sold first when you sell a stock you own. The shares themselves are not specifically tracked, but the cost associated with those shares is expensed first.

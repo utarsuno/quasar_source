@@ -19,6 +19,7 @@ class FinanceDatabase(object):
 		self.master_table = self.database_api.get_master_table()
 
 		self.finance_table = db_tables.DatabaseTable('finance_table', self.database_api)
+		# TODO : ADD A USER FIELD AND ALL THE REQUIRED LOGIC FOR THAT !!!!!!!!!!!!!!!!!!!!!!!!!!
 		self.finance_table.add_table_field(db_tables.TableFieldString('ticker', maximum_length=5))
 		self.finance_table.add_table_field(db_tables.TableFieldBoolean('buy_or_sell'))
 		self.finance_table.add_table_field(db_tables.TableFieldDouble('price'))
