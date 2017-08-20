@@ -3,6 +3,9 @@
 cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
 source universal_functions.sh;
 
+# Helps see exactly where the script's output starts.
+print_dashed_line_with_text "update_server_code.sh start"
+
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
