@@ -1,9 +1,8 @@
 #!/bin/bash
 
-cd ../;
-cd universal_scripts;
-pwd;
+cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
 source universal_functions.sh;
+pwd
 exit
 exit
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
