@@ -19,15 +19,12 @@ terminate_if_system_is_not_ubuntu
 # Go to the projects base directory.
 cd /home/git_repos/quasar_source;
 
-git fetch origin;
+git fetch --all;
 reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
     print_script_text "Updating the code base."
 
-    # This first gets all the changes.
-    git fetch --all;
-
-    # This resets to dev.
+    # This resets to master.
     git reset --hard origin/master;
 
     # Grab the latest code.
