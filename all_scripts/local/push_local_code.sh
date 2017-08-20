@@ -65,7 +65,7 @@ else
     chmod +x ${path_to_universal_functions}
 
     ssh -i ${pem_path} ${ec2_url} << HERE
-    sh /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
 fi
