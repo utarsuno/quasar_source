@@ -10,6 +10,16 @@ CONFIG_READER="$DIR/../universal_scripts/config_reader_for_bash.py"
 pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws pem_path)
 ec2_url=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws ec2_url)
 
+peon_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} peon ip)
+peon_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} peon port)
+peon_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} peon pem_path)
+peon_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} peon user)
+
+nexus_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus ip)
+nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
+nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
+nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
+
 # Scripts to make sure are executable.
 path_to_build_three_js="$DIR/../build_three_js/build_three_js.sh"
 path_to_push_local_code="$DIR/../local/push_local_code.sh"
@@ -65,6 +75,14 @@ else
     chmod +x ${path_to_universal_functions}
 
     ssh -i ${pem_path} ${ec2_url} << HERE
+    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+HERE
+
+    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} << HERE
+    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+HERE
+
+    ssh -i ${peon_pem_path} "${peon_user}@${peon_ip}" -p ${peon_port} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
