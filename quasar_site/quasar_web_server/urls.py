@@ -6,5 +6,5 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	url(r'hello_world', views.TEMPLATE_HELLO_WORLD, name='hello_world'),
+	url(r'^$', views.TEMPLATE_HELLO_WORLD, name='hello_world')
 ]
