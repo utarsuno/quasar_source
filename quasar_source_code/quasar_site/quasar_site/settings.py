@@ -55,7 +55,7 @@ ROOT_URLCONF = 'quasar_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/git_repos/quasar_source/quasar_site/'],
+        'DIRS': ['/home/git_repos/quasar_source/quasar_source_code/quasar_site/'],
         'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
@@ -119,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 #STATIC_ROOT = '/home/git_repos/quasar_source/quasar_site/static'
-STATIC_URL = '/home/git_repos/quasar_source/quasar_site/static/'
+STATIC_URL = '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/'
 STATICFILES_DIRS = (
-    '/home/git_repos/quasar_source/quasar_site/static/'
+    '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/'
 )
