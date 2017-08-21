@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from quasar_site import qwsv
+from quasar_site.quasar_web_server import views as v
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello_world/$', qwsv.GET_hello_world)
+    url(r'^hello_world/$', v.GET_hello_world)
 ]
