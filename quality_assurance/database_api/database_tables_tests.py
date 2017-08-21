@@ -66,5 +66,11 @@ class DatabaseTablesTestSuite(unittest.TestCase):
 		self.test_table.delete_row_with_value('string_field', 'hi')
 		self.assertEqual(len(self.test_table.get_row_values()), 0)
 
+	def test_table_headers(self):
+		self.assertEqual('string_field' in self.test_table.get_header_names(), True)
+		self.assertEqual('int_field' in self.test_table.get_header_names()   , True)
+
+	# TODO : Test each database table type possible and that it has the correct database variable type.
+
 if __name__ == '__main__':
 	unittest.main()

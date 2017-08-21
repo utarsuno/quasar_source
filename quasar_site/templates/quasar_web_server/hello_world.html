@@ -1,0 +1,16 @@
+{% extends 'templates/quasar_web_server/base_templates/base.html' %}
+{% block title %} Quasar Source {% endblock %}
+
+{% load staticfiles %}
+{% block additional_css_to_load %}
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block body %}
+<body>
+    {% load staticfiles %}
+    {% block additional_js_to_load %}{% endblock %}
+    <script src="{% static 'js/third_part/three.min.js' %}"></script>
+</body>
+{% endblock %}
