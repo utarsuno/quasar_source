@@ -21,7 +21,9 @@ import sys
 if '/home/git_repos/quasar_source' not in sys.path:
     sys.path.append('/home/git_repos/quasar_source')
 
+from quasar_site.quasar_web_server import views as v
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello_world/$', include('quasar_web_server.urls'))
+    url(r'^hello_world/$', v.GET_hello_world)
 ]
