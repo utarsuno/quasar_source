@@ -14,8 +14,8 @@ from typing import List
 
 class Side(Enum):
 	"""The possible sides of a trade transaction."""
-	BUY  = 'BUY'
-	SELL = 'SELL'
+	BUY  = 'TRUE'
+	SELL = 'FALSE'
 
 
 class Trade(object):
@@ -27,20 +27,20 @@ class Trade(object):
 		else:
 			self.side = Side.SELL
 		self.symbol   = symbol
-		self.quantity = quantity
-		self.price    = price
+		self.quantity = int(float(quantity))
+		self.price    = float(price)
 		self.date     = date
-		self.id       = transaction_id
+		self.id       = int(transaction_id)
 
 	def get_dictionary(self):
 		"""Returns this trade as a dictionary."""
 		return {'ticker': self.symbol, 'side': self.side.value, 'price': self.price, 'quantity': self.quantity, 'transaction_date': self.date, 'transaction_id': self.id}
 
 	def __repr__(self):
-		return 'Trade(symbol=' + self.symbol + ',side=' + self.side.value + ',price=' + self.price + ',quantity=' + self.quantity + 'transaction_id=' + self.id + ')'
+		return 'Trade(symbol=' + self.symbol + ',side=Side.' + self.side.key + ',price=' + self.price + ',quantity=' + self.quantity + 'transaction_id=' + self.id + ')'
 
 	def __str__(self):
-		return self.symbol + '\t' + self.side.value + '\t' + str(self.quantity) + '\t' + '$' + str(self.price) + '\t' + str(self.date) + '\t' + str(self.id)
+		return self.symbol + '\t' + str(self.side.key) + '\t' + str(self.quantity) + '\t' + '$' + str(self.price) + '\t' + str(self.date) + '\t' + str(self.id)
 
 '''  __  ___  __   __        __
 	/__`  |  /  \ /  ` |__/ /__`    .
@@ -181,10 +181,6 @@ class FinancePortfolio(object):
 				stock_shares.add_shares(t.quantity, t.price, t.date)
 			else:
 				stock_shares.remove_shares(t.quantity, t.price)
-
-		for ss in self.stock_shares:
-			if ss.number_of_currently_owned_shares > 0:
-				print(ss)
 
 	'''  __       ___       __        __   ___     __       ___          __   ___ ___       __
 		|  \  /\   |   /\  |__)  /\  /__` |__     |  \  /\   |   /\     /__` |__   |  |  | |__)    .

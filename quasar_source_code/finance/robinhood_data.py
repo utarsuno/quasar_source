@@ -48,7 +48,7 @@ class RobinhoodScraper(object):
 		t = []
 		for o in orders:
 			if o['state'] == 'filled':
-				t.append(Trade(side=(o[SIDE] == 'buy'), symbol=o[SYMBOL], quantity=o[SHARES], price=o[PRICE], date=o[DATE], transaction_id=None))
+				t.append(Trade(side=(o[SIDE] == 'buy'), symbol=o[SYMBOL], quantity=o[SHARES], price=o[PRICE], date=o[DATE], transaction_id=-1))
 		return reversed(t)
 
 	# Code below based from : https://github.com/Jamonek/Robinhood
