@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .. import quasar_web_server
-
+# TODO : Temporary solution, make a permanent one eventually.
+import sys
+if '/home/git_repos/quasar_source' not in sys.path:
+    sys.path.append('/home/git_repos/quasar_source')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
