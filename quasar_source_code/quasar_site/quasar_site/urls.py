@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-#from quasar_source_code.quasar_site.quasar_web_server import views as v
+# Locally this will appear as an error but it works on the Server builds.
 from quasar_web_server import views as v
 
 urlpatterns = [

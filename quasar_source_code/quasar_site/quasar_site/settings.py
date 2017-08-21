@@ -121,5 +121,5 @@ USE_TZ = True
 #STATIC_ROOT = '/home/git_repos/quasar_source/quasar_site/static'
 STATIC_URL = '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/'
 STATICFILES_DIRS = (
-    '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/'
+    '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/',
 )
