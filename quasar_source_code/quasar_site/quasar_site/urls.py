@@ -17,7 +17,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from quasar_source_code.quasar_site.quasar_web_server import views as v
+#from quasar_source_code.quasar_site.quasar_web_server import views as v
+from quasar_web_server import views as v
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
