@@ -10,7 +10,8 @@
 {% block body %}
 <body>
     {% load staticfiles %}
-    {% block additional_js_to_load %}{% endblock %}
+    {% block additional_js_to_load %}
     <script src="{% static 'js/third_part/three.min.js' %}"></script>
+    {% endblock %}
 </body>
 {% endblock %}
