@@ -13,13 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib import admin
-
-# TODO : Temporary solution, make a permanent one eventually.
-import sys
-if '/home/git_repos/quasar_source' not in sys.path:
-    sys.path.append('/home/git_repos/quasar_source')
 
 from quasar_site.quasar_web_server import views as v
 
