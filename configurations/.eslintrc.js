@@ -1,16 +1,20 @@
 module.exports = {
     "env": {
         "browser": true,
+        "commonjs": true,
         "es6": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "sourceType": "module"
     },
     "rules": {
         "indent": [
             "error",
-            "tab"
+            4
         ],
         "linebreak-style": [
             "error",
@@ -24,5 +28,10 @@ module.exports = {
             "error",
             "never"
         ]
+    },
+    "global": {
+        "THREE": false,
+        "Stats": false,
+        "StatsAPI": true
     }
 };

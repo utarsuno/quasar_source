@@ -1,17 +1,9 @@
 'use strict'
 
-/* global THREE, Stats */
-
 var scene = new THREE.Scene()
 
-// Trying to add stats.
-var stats = new Stats()
-var stats_2 = new Stats()
-var stats_3 = new Stats()
-stats.showPanel(0)
-stats_2.showPanel(1)
-stats_3.showPanel(2)
-
+var stats_api = new StatsAPI()
+stats_api.initialize()
 
 // Variables for documentation purposes. This design will probably eventually change.
 var field_of_view = 90
@@ -28,9 +20,7 @@ var renderer = new THREE.WebGLRenderer()
 renderer.setSize(window_width, window_height)
 
 document.body.appendChild(renderer.domElement)
-document.body.appendChild(stats.dom)
-document.body.appendChild(stats_2.dom)
-document.body.appendChild(stats_3.dom)
+stats_api.add_to_document(document)
 
 var geometry = new THREE.BoxGeometry( 1, 1, 1 )
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
@@ -48,14 +38,14 @@ camera.position.z = 10
 var animate = function () {
 	requestAnimationFrame(animate)
 
-	stats.begin()
+	stats_api.pre_render()
 
 	cube.rotation.x += 0.1
 	cube.rotation.y += 0.1
 
 	renderer.render(scene, camera)
 
-	stats.end()
+	stats_api.post_render()
 }
 
 animate()
