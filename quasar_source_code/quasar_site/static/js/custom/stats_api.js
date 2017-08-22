@@ -21,10 +21,18 @@ StatsAPI.prototype = {
         this.stats_ms_render_time.showPanel(1)
         this.stats_mb_allocated.showPanel(2)
 
-        // Add the CSS IDs for positioning.
-        this.stats_fps.domElement.id            = 'stats_fps'
-        this.stats_ms_render_time.domElement.id = 'stats_ms_render_time'
-        this.stats_mb_allocated.domElement.id   = 'stats_mb_allocated'
+        // Set the styling.
+        this.stats_fps.domElement.style.position = 'absolute'
+        this.stats_fps.domElement.style.left     = '0px'
+        this.stats_fps.domElement.style.top      = '0px'
+
+        this.stats_ms_render_time.domElement.style.position = 'absolute'
+        this.stats_ms_render_time.domElement.style.left     = '80px'
+        this.stats_ms_render_time.domElement.style.top      = '0px'
+
+        this.stats_mb_allocated.domElement.style.position = 'absolute'
+        this.stats_mb_allocated.domElement.style.left     = '160px'
+        this.stats_mb_allocated.domElement.style.top      = '0px'
     },
 	add_to_document: function(document) {
         console.log(this.stats_fps)
