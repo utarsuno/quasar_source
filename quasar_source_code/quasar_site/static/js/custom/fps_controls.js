@@ -32,10 +32,12 @@ FPSControls.prototype = {
     },
 
     enable: function () {
+        console.log('Controls enable called!')
         this.enabled = true
     },
 
     disable: function () {
+        console.log('Controls disable called!')
         this.enabled = false
     },
 
