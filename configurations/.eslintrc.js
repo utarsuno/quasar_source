@@ -32,6 +32,7 @@ module.exports = {
     "globals": {
         "THREE": false,
         "Stats": false,
-        "StatsAPI": true
+        "StatsAPI": true,
+        "PointerLockAPI": true
     }
 };

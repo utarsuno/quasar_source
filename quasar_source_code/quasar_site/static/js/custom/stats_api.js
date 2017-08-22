@@ -32,12 +32,12 @@ StatsAPI.prototype = {
         this.stats_mb_allocated.domElement.style.left     = '160px'
         this.stats_mb_allocated.domElement.style.top      = '0px'
     },
-	add_to_document: function(document) {
+    add_to_document: function(document) {
         document.body.appendChild(this.stats_fps.domElement)
         document.body.appendChild(this.stats_ms_render_time.domElement)
         document.body.appendChild(this.stats_mb_allocated.domElement)
-	},
-	pre_render: function() {
+    },
+    pre_render: function() {
         this.stats_fps.begin()
         this.stats_ms_render_time.begin()
         this.stats_mb_allocated.begin()

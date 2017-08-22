@@ -1,8 +1,10 @@
 'use strict'
 
-var scene = new THREE.Scene()
-
+// Custom objects.
 var stats_api = new StatsAPI()
+var pointer_lock_api = new PointerLockAPI()
+
+var scene = new THREE.Scene()
 
 // Variables for documentation purposes. This design will probably eventually change.
 var field_of_view = 90
