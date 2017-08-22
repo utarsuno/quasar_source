@@ -51,7 +51,7 @@ PointerLockAPI.prototype = {
         console.log('Pointer lock error!')
     },
     request_pointer_lock: function() {
-        this._request_pointer_lock_function()
+        PointerLockAPI.prototype._request_pointer_lock_function()
     },
     mouse_click: function() {
         PointerLockAPI.prototype.request_pointer_lock()
