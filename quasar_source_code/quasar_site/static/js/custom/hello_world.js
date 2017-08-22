@@ -69,7 +69,14 @@ var animate = function () {
     cube.rotation.x += 0.1
     cube.rotation.y += 0.1
 
-    controls.update(Date.now() - time)
+
+
+
+    //controls.update(Date.now() - time)
+
+
+
+
 
     renderer.render(scene, camera)
 
