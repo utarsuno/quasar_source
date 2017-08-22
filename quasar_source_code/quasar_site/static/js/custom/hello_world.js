@@ -6,7 +6,11 @@ var scene = new THREE.Scene()
 
 // Trying to add stats.
 var stats = new Stats()
+var stats_2 = new Stats()
+var stats_3 = new Stats()
 stats.showPanel(0)
+stats_2.showPanel(1)
+stats_3.showPanel(2)
 
 
 // Variables for documentation purposes. This design will probably eventually change.
@@ -25,6 +29,8 @@ renderer.setSize(window_width, window_height)
 
 document.body.appendChild(renderer.domElement)
 document.body.appendChild(stats.dom)
+document.body.appendChild(stats_2.dom)
+document.body.appendChild(stats_3.dom)
 
 var geometry = new THREE.BoxGeometry( 1, 1, 1 )
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
