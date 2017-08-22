@@ -1,8 +1,9 @@
 'use strict'
 
-// Custom objects.
+// TODO : Refactor c:
+
+// Custom object.
 var stats_api = new StatsAPI()
-var pointer_lock_api = new PointerLockAPI()
 
 var scene = new THREE.Scene()
 
@@ -21,6 +22,9 @@ var renderer = new THREE.WebGLRenderer()
 var time = Date.now()
 var controls = new THREE.PointerLockControls(camera)
 scene.add(controls.getObject())
+
+// Custom object.
+var pointer_lock_api = new PointerLockAPI(controls)
 
 renderer.setSize(window_width, window_height)
 

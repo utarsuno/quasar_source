@@ -2,8 +2,8 @@
 
 // https://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
-function PointerLockAPI() {
-    this.initialize()
+function PointerLockAPI(controls) {
+    this.initialize(controls)
     PointerLockAPI.prototype.self = this
 }
 
@@ -11,7 +11,9 @@ PointerLockAPI.prototype = {
     has_pointer_lock: null,
     element: null,
     currently_locked: null,
-    initialize: function () {
+    controls: null,
+    initialize: function (controls) {
+        this.controls = controls
         this.element = document.body
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document
         if (this.has_pointer_lock === true) {
@@ -34,17 +36,19 @@ PointerLockAPI.prototype = {
     pointer_lock_change: function () {
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
             this.currently_locked = true
-            console.log('Pointer just locked!')
+            this.controls.enabled = true
         } else {
             this.currently_locked = false
-            console.log('Pointer just unlocked!')
+            this.controls.enabled = false
         }
     },
     pointer_lock_error: function() {
         console.log('Pointer lock error!')
     },
     mouse_click: function() {
-        this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
-        this.element.requestPointerLock()
+        if (this.currently_locked === false) {
+            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
+            this.element.requestPointerLock()
+        }
     }
 }
