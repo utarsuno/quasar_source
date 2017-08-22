@@ -1,35 +1,21 @@
 'use strict'
 
-// TODO : Refactor c:
-
-// Custom object.
+var renderer  = new RendererAPI()
+if (renderer.is_webgl_enabled() === false) {
+    console.log('WebGL is not enabled!')
+    throw new Error('WebGL is not enabled!')
+}
 var stats_api = new StatsAPI()
-
 var scene = new THREE.Scene()
-
-// Variables for documentation purposes. This design will probably eventually change.
-var field_of_view = 90
-var window_width  = window.innerWidth
-var window_height = window.innerHeight
-var aspect_ratio  = window_width / window_height
-var near_clipping = 0.1
-var far_clipping  = 1000
-
-var camera   = new THREE.PerspectiveCamera(field_of_view, aspect_ratio, near_clipping, far_clipping)
-
-var renderer = new THREE.WebGLRenderer()
-
-var time = Date.now()
-var controls = new THREE.PointerLockControls(camera)
-scene.add(controls.getObject())
+var camera   = new THREE.PerspectiveCamera(renderer.field_of_view, renderer.aspect_ratio, renderer.near_clipping, renderer.far_clipping)
+renderer.set_camera(camera)
+//var time = Date.now()
+var fps_controls = new FPSControls(camera)
+scene.add(fps_controls.getObject())
 
 // Custom object.
-var pointer_lock_api = new PointerLockAPI(controls)
+var pointer_lock_api = new PointerLockAPI(fps_controls)
 
-renderer.setSize(window_width, window_height)
-
-document.body.appendChild(renderer.domElement)
-stats_api.add_to_document(document)
 
 var geometry = new THREE.BoxGeometry( 1, 1, 1 )
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
@@ -53,17 +39,6 @@ var light2 = new THREE.DirectionalLight( 0xffffff, 0.75 )
 light2.position.set(-1, - 0.5, -1)
 scene.add(light2)
 
-// Handle window re-sizing.
-var onWindowResize = function() {
-    window_width  = window.innerWidth
-    window_height = window.innerHeight
-    aspect_ratio  = window_width / window_height
-    camera.aspect = aspect_ratio
-    camera.updateProjectionMatrix()
-    renderer.setSize(window_width, window_height)
-}
-window.addEventListener('resize', onWindowResize, false)
-
 
 var animate = function () {
     requestAnimationFrame(animate)
@@ -73,19 +48,13 @@ var animate = function () {
     cube.rotation.x += 0.1
     cube.rotation.y += 0.1
 
-
-
-
     //controls.update(Date.now() - time)
-
-
-
-
 
     renderer.render(scene, camera)
 
-    time = Date.now()
+    //time = Date.now()
     stats_api.post_render()
 }
 
 animate()
+

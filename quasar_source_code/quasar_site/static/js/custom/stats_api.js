@@ -1,14 +1,15 @@
 'use strict'
 
 function StatsAPI() {
-    this.initialize()
+    this.__init__()
 }
 
 StatsAPI.prototype = {
     stats_fps: null,
     stats_ms_render_time: null,
     stats_mb_allocated: null,
-    initialize: function() {
+
+    __init__: function() {
         // Create the 3rd party library objects.
         this.stats_fps            = new Stats()
         this.stats_ms_render_time = new Stats()
@@ -31,17 +32,22 @@ StatsAPI.prototype = {
         this.stats_mb_allocated.domElement.style.position = 'absolute'
         this.stats_mb_allocated.domElement.style.left     = '160px'
         this.stats_mb_allocated.domElement.style.top      = '0px'
+
+        this.add_to_document()
     },
-    add_to_document: function(document) {
+
+    add_to_document: function() {
         document.body.appendChild(this.stats_fps.domElement)
         document.body.appendChild(this.stats_ms_render_time.domElement)
         document.body.appendChild(this.stats_mb_allocated.domElement)
     },
+
     pre_render: function() {
         this.stats_fps.begin()
         this.stats_ms_render_time.begin()
         this.stats_mb_allocated.begin()
     },
+
     post_render: function() {
         this.stats_fps.end()
         this.stats_ms_render_time.end()

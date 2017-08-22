@@ -33,7 +33,10 @@ module.exports = {
         "THREE": false,
         "Stats": false,
         "THREE.PointerLockControls": false,
+        "Detector": false,
         "StatsAPI": true,
-        "PointerLockAPI": true
+        "PointerLockAPI": true,
+        "RendererAPI": true,
+        "FPSControls": true
     }
 };

@@ -15,12 +15,10 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-from django.contrib import admin
 
 # Locally this will appear as an error but it works on the Server builds.
 from quasar_web_server import views as v
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^hello_world/$', v.GET_hello_world)
+    url(r'', v.GET_hello_world)
 ]
