@@ -13,7 +13,7 @@ PointerLockAPI.prototype = {
     element: null,
     currently_locked: null,
     initialize: function () {
-        this.self = this
+        //this.self = this
         this.element = document.body
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document
         if (this.has_pointer_lock === true) {
@@ -31,7 +31,7 @@ PointerLockAPI.prototype = {
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error, false)
 
             // Hook for mouse click.
-            document.addEventListener('click', this.mouse_click, false)
+            document.addEventListener('click', this.mouse_click(this), false)
 
         } else {
             console.log('Pointer lock is not supported!')
@@ -53,7 +53,7 @@ PointerLockAPI.prototype = {
     request_pointer_lock: function() {
         this._request_pointer_lock_function()
     },
-    mouse_click: function() {
+    mouse_click: function(self) {
         self.request_pointer_lock()
     }
 }
