@@ -29,7 +29,7 @@ module.exports = {
             "never"
         ]
     },
-    "global": {
+    "globals": {
         "THREE": false,
         "Stats": false,
         "StatsAPI": true
