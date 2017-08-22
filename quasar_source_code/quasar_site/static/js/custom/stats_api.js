@@ -1,8 +1,13 @@
 'use strict'
 
-function StatsAPI() {}
+function StatsAPI() {
+    this.initialize()
+}
 
 StatsAPI.prototype = {
+    stats_fps: null,
+    stats_ms_render_time: null,
+    stats_mb_allocated: null,
     initialize: function() {
         // Create the 3rd party library objects.
         this.stats_fps            = new Stats()

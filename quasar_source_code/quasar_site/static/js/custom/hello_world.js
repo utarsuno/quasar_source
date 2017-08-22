@@ -3,7 +3,6 @@
 var scene = new THREE.Scene()
 
 var stats_api = new StatsAPI()
-stats_api.initialize()
 
 // Variables for documentation purposes. This design will probably eventually change.
 var field_of_view = 90
