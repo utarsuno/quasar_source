@@ -42,6 +42,7 @@ FPSControls.prototype = {
     },
 
     physics: function(delta) {
+        console.log(delta)
         this.velocity.x -= this.velocity.x * 10.0 * delta
         this.velocity.y -= this.velocity.y * 10.0 * delta
         this.yaw.translateX(this.velocity.x * delta)
