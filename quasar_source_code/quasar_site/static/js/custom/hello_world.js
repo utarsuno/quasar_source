@@ -18,8 +18,8 @@ var camera   = new THREE.PerspectiveCamera(field_of_view, aspect_ratio, near_cli
 
 var renderer = new THREE.WebGLRenderer()
 
-
-var controls = new PointerLockControls(camera)
+var time = Date.now()
+var controls = new THREE.PointerLockControls(camera)
 scene.add(controls.getObject())
 
 renderer.setSize(window_width, window_height)
@@ -69,8 +69,11 @@ var animate = function () {
     cube.rotation.x += 0.1
     cube.rotation.y += 0.1
 
+    controls.update(Date.now() - time)
+
     renderer.render(scene, camera)
 
+    time = Date.now()
     stats_api.post_render()
 }
 
