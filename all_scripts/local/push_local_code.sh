@@ -78,13 +78,13 @@ else
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
-    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} << HERE
-    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
-HERE
+#    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} << HERE
+#    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+#HERE
 
-    ssh -i ${peon_pem_path} "${peon_user}@${peon_ip}" -p ${peon_port} << HERE
-    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
-HERE
+#    ssh -i ${peon_pem_path} "${peon_user}@${peon_ip}" -p ${peon_port} << HERE
+#    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+#HERE
 
 fi
 
