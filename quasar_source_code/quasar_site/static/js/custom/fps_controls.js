@@ -36,7 +36,7 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        document.addEventListener('onMouseMove', this.on_mouse_move.bind(this), false)
+        document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
     },
@@ -114,7 +114,7 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
-        if (this.enabled === true) {
+        if (this.enabled) {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
