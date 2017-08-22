@@ -49,7 +49,7 @@ PointerLockAPI.prototype = {
     },
     mouse_click: function() {
         var element = document.body
-        var _request_pointer_lock_function = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock
-        _request_pointer_lock_function()
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock
+        element.requestPointerLock()
     }
 }
