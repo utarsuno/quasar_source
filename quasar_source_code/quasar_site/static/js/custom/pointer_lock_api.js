@@ -53,6 +53,6 @@ PointerLockAPI.prototype = {
         this._request_pointer_lock_function()
     },
     mouse_click: function() {
-        this.request_pointer_lock()
+        this.request_pointer_lock().bind(this)
     }
 }
