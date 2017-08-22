@@ -5,11 +5,19 @@ function FPSControls(camera) {
 }
 
 FPSControls.prototype = {
-    camera  : null,
-    pitch   : null,
-    yaw     : null,
-    half_pie: null,
-    enabled : null,
+    camera       : null,
+    pitch        : null,
+    yaw          : null,
+    half_pie     : null,
+    enabled      : null,
+
+    // Movement.
+    forward      : null,
+    backward     : null,
+    left         : null,
+    right        : null,
+    velocity     : null,
+    acceleration : null,
 
     __init__: function (camera) {
         this.half_pie = Math.PI / 2
@@ -26,31 +34,46 @@ FPSControls.prototype = {
 
         this.enabled = false
 
+        this.velocity = new THREE.Vector3()
+
         document.addEventListener('onMouseMove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
     },
 
-    enable: function () {
-        console.log('Controls enable called!')
+    physics: function(delta) {
+        this.velocity.x -= this.velocity.x * 10.0 * delta
+        this.velocity.y -= this.velocity.y * 10.0 * delta
+        this.yaw.translateX(this.velocity.x * delta)
+        this.yaw.translateY(this.velocity.y * delta)
+        this.yaw.translateZ(this.velocity.z * delta)
+    },
+
+    enable: function() {
         this.enabled = true
     },
 
-    disable: function () {
-        console.log('Controls disable called!')
+    disable: function() {
         this.enabled = false
     },
 
     on_key_down: function(event) {
-        console.log(event.keyCode)
         switch(event.keyCode) {
         case 38: // up
         case 87: // w
-            console.log('UP DOWN')
+            this.forward = true
             break
         case 37: // left
         case 65: // a
-            console.log('LEFT DOWN')
+            this.left = true
+            break
+        case 40: // down
+        case 83: // s
+            this.down = true
+            break
+        case 39: // right
+        case 68: // d
+            this.right = true
             break
         }
     },
@@ -59,11 +82,19 @@ FPSControls.prototype = {
         switch(event.keyCode) {
         case 38: // up
         case 87: // w
-            console.log('UP UP')
+            this.forward = false
             break
         case 37: // left
         case 65: // a
-            console.log('LEFT UP')
+            this.left = false
+            break
+        case 40: // down
+        case 83: // s
+            this.down = false
+            break
+        case 39: // right
+        case 68: // d
+            this.right = false
             break
         }
     },

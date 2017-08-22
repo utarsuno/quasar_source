@@ -9,13 +9,11 @@ var stats_api = new StatsAPI()
 var scene = new THREE.Scene()
 var camera   = new THREE.PerspectiveCamera(renderer.field_of_view, renderer.aspect_ratio, renderer.near_clipping, renderer.far_clipping)
 renderer.set_camera(camera)
-//var time = Date.now()
 var fps_controls = new FPSControls(camera)
 scene.add(fps_controls.get_object())
 
 // Custom object.
 var pointer_lock_api = new PointerLockAPI(fps_controls)
-
 
 var geometry = new THREE.BoxGeometry( 1, 1, 1 )
 var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
@@ -39,6 +37,7 @@ var light2 = new THREE.DirectionalLight( 0xffffff, 0.75 )
 light2.position.set(-1, - 0.5, -1)
 scene.add(light2)
 
+var previous_time = performance.now()
 
 var animate = function () {
     requestAnimationFrame(animate)
@@ -48,12 +47,16 @@ var animate = function () {
     cube.rotation.x += 0.1
     cube.rotation.y += 0.1
 
-    //controls.update(Date.now() - time)
+    var time = performance.now()
+    var delta = (time - previous_time) / 1000
+
+    fps_controls.physics(delta)
 
     renderer.render(scene, camera)
 
-    //time = Date.now()
     stats_api.post_render()
+
+    previous_time = time
 }
 
 animate()
