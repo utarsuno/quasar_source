@@ -28,9 +28,9 @@ StatsAPI.prototype = {
     },
 	add_to_document: function(document) {
         console.log(this.stats_fps)
-        document.body.appendChild(this.stats_fps)
-        document.body.appendChild(this.stats_ms_render_time)
-        document.body.appendChild(this.stats_mb_allocated)
+        document.body.appendChild(this.stats_fps.domElement)
+        document.body.appendChild(this.stats_ms_render_time.domElement)
+        document.body.appendChild(this.stats_mb_allocated.domElement)
 	},
 	pre_render: function() {
         this.stats_fps.begin()
