@@ -17,13 +17,13 @@ PointerLockAPI.prototype = {
         if (this.has_pointer_lock === true) {
             console.log('Pointer lock is supported!')
             // Hook pointer lock state change events.
-            document.addEventListener('pointerlockchange', this.pointer_lock_change, false)
-            document.addEventListener('mozpointerlockchange', this.pointer_lock_change, false)
-            document.addEventListener('webkitpointerlockchange', this.pointer_lock_change, false)
+            document.addEventListener('pointerlockchange', this.pointer_lock_change.bind(this), false)
+            document.addEventListener('mozpointerlockchange', this.pointer_lock_change.bind(this), false)
+            document.addEventListener('webkitpointerlockchange', this.pointer_lock_change.bind(this), false)
             // Hook pointer lock error events.
-            document.addEventListener('pointerlockerror', this.pointer_lock_error, false)
-            document.addEventListener('mozpointerlockerror', this.pointer_lock_error, false)
-            document.addEventListener('webkitpointerlockerror', this.pointer_lock_error, false)
+            document.addEventListener('pointerlockerror', this.pointer_lock_error.bind(this), false)
+            document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false)
+            document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false)
 
             // Hook for mouse click.
             document.addEventListener('click', this.mouse_click.bind(this), false)
@@ -33,7 +33,6 @@ PointerLockAPI.prototype = {
     },
     pointer_lock_change: function () {
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
-            // Pointer was just locked.
             this.currently_locked = true
             console.log('Pointer just locked!')
         } else {
