@@ -18,6 +18,7 @@ class FinanceDatabase(object):
 
 		self.master_table = self.database_api.get_master_table()
 
+		# Table for user trade history.
 		self.finance_table = db_tables.DatabaseTable('finance_table', self.database_api)
 		# TODO : ADD A USER FIELD AND ALL THE REQUIRED LOGIC FOR THAT !!!!!!!!!!!!!!!!!!!!!!!!!!
 		self.finance_table.add_table_field(db_tables.TableFieldString('ticker', maximum_length=5))
@@ -27,7 +28,11 @@ class FinanceDatabase(object):
 		self.finance_table.add_table_field(db_tables.TableFieldDate('transaction_date'))
 		self.finance_table.add_table_field(db_tables.TableFieldInteger('transaction_id', maximum_value=30000, auto_increment=False))
 
-		self.last_updated = None
+		# Table for stock historical prices.
+
+		# Table for
+
+		self.last_updated    = None
 		self.trade_portfolio = None
 
 	def _mark_as_updated_in_master_table(self):

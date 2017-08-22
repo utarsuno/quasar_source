@@ -74,15 +74,15 @@ else
     chmod +x ${path_to_setup_ubuntu}
     chmod +x ${path_to_universal_functions}
 
-    ssh -i ${pem_path} ${ec2_url} -q << HERE
+    ssh -i ${pem_path} ${ec2_url} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
-    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} -q << HERE
+    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
-    ssh -i ${peon_pem_path} "${peon_user}@${peon_ip}" -p ${peon_port} -q << HERE
+    ssh -i ${peon_pem_path} "${peon_user}@${peon_ip}" -p ${peon_port} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
