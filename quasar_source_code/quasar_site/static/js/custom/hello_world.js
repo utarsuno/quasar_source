@@ -18,6 +18,10 @@ var camera   = new THREE.PerspectiveCamera(field_of_view, aspect_ratio, near_cli
 
 var renderer = new THREE.WebGLRenderer()
 
+
+var controls = new PointerLockControls(camera)
+scene.add(controls.getObject())
+
 renderer.setSize(window_width, window_height)
 
 document.body.appendChild(renderer.domElement)
@@ -31,7 +35,7 @@ scene.add(cube)
 // Going to try to create a plane here.
 var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
 plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
-var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
+var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff, wireframe: true})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 

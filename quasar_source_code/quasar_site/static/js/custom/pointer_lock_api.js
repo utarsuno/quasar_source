@@ -1,5 +1,7 @@
 'use strict'
 
+// https://www.html5rocks.com/en/tutorials/pointerlock/intro/
+
 function PointerLockAPI() {
     this.initialize()
 }
