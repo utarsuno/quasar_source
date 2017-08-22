@@ -42,7 +42,8 @@ FPSControls.prototype = {
     },
 
     on_key_down: function(event) {
-        switch ( event.keyCode ) {
+        console.log(event.keyCode)
+        switch(event.keyCode) {
         case 38: // up
         case 87: // w
             console.log('UP DOWN')
@@ -55,7 +56,7 @@ FPSControls.prototype = {
     },
 
     on_key_up: function(event) {
-        switch ( event.keyCode ) {
+        switch(event.keyCode) {
         case 38: // up
         case 87: // w
             console.log('UP UP')
