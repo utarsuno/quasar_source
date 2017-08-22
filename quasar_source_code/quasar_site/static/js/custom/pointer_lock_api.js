@@ -52,7 +52,8 @@ PointerLockAPI.prototype = {
     },
     mouse_click: function() {
         //this.request_pointer_lock()
-        this._request_pointer_lock_function = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
+        var element = document.body
+        this._request_pointer_lock_function = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock
         this._request_pointer_lock_function()
     }
 }
