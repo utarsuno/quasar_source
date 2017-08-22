@@ -9,8 +9,6 @@ StatsAPI.prototype = {
     stats_ms_render_time: null,
     stats_mb_allocated: null,
     initialize: function() {
-        console.log('Constructor called!')
-
         // Create the 3rd party library objects.
         this.stats_fps            = new Stats()
         this.stats_ms_render_time = new Stats()
@@ -35,7 +33,6 @@ StatsAPI.prototype = {
         this.stats_mb_allocated.domElement.style.top      = '0px'
     },
 	add_to_document: function(document) {
-        console.log(this.stats_fps)
         document.body.appendChild(this.stats_fps.domElement)
         document.body.appendChild(this.stats_ms_render_time.domElement)
         document.body.appendChild(this.stats_mb_allocated.domElement)

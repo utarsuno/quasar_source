@@ -27,12 +27,24 @@ var cube 	 = new THREE.Mesh(geometry, material)
 scene.add(cube)
 
 // Going to try to create a plane here.
-var plane_geometry = new THREE.PlaneGeometry(300, 300)
+var plane_geometry = new THREE.PlaneGeometry(300, 300, 20, 20)
 var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 
 camera.position.z = 10
+
+// Handle window re-sizing.
+var onWindowResize = function() {
+	window_width  = window.innerWidth
+	window_height = window.innerHeight
+	aspect_ratio  = window_width / window_height
+	camera.aspect = aspect_ratio
+	camera.updateProjectionMatrix()
+	renderer.setSize(window_width, window_height)
+}
+window.addEventListener('resize', onWindowResize, false)
+
 
 var animate = function () {
 	requestAnimationFrame(animate)
