@@ -7,11 +7,13 @@ function PointerLockAPI() {
 }
 
 PointerLockAPI.prototype = {
+    self: null,
     has_pointer_lock: null,
     _request_pointer_lock_function: null,
     element: null,
     currently_locked: null,
     initialize: function () {
+        this.self = this
         this.element = document.body
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document
         if (this.has_pointer_lock === true) {
@@ -52,6 +54,6 @@ PointerLockAPI.prototype = {
         this._request_pointer_lock_function()
     },
     mouse_click: function() {
-        this.request_pointer_lock()
+        self.request_pointer_lock()
     }
 }
