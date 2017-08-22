@@ -25,6 +25,8 @@ var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
 var cube 	 = new THREE.Mesh( geometry, material )
 scene.add(cube)
 
+console.log('JS update test.')
+
 // Going to try to create a plane here.
 var plane_geometry = new THREE.PlaneGeometry(300, 300)
 var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
