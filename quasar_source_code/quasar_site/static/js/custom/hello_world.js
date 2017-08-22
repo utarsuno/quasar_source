@@ -11,7 +11,7 @@ var camera   = new THREE.PerspectiveCamera(renderer.field_of_view, renderer.aspe
 renderer.set_camera(camera)
 //var time = Date.now()
 var fps_controls = new FPSControls(camera)
-scene.add(fps_controls.getObject())
+scene.add(fps_controls.get_object())
 
 // Custom object.
 var pointer_lock_api = new PointerLockAPI(fps_controls)
