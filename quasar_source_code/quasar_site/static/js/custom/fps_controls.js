@@ -27,8 +27,8 @@ FPSControls.prototype = {
         this.enabled = false
 
         document.addEventListener('onMouseMove', this.on_mouse_move.bind(this), false)
-        document.addEventListener('onkeydown', this.on_key_down.bind(this), false)
-        document.addEventListener('onkeyup', this.on_key_up.bind(this), false)
+        document.addEventListener('keydown', this.on_key_down.bind(this), false)
+        document.addEventListener('keyup', this.on_key_up.bind(this), false)
     },
 
     enable: function () {
