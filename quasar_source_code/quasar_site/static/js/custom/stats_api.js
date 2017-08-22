@@ -27,6 +27,7 @@ StatsAPI.prototype = {
         this.stats_mb_allocated.domElement.id   = 'stats_mb_allocated'
     },
 	add_to_document: function(document) {
+        console.log(this.stats_fps)
         document.body.appendChild(this.stats_fps)
         document.body.appendChild(this.stats_ms_render_time)
         document.body.appendChild(this.stats_mb_allocated)
