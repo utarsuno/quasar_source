@@ -54,5 +54,6 @@ PointerLockAPI.prototype = {
     },
     mouse_click: function() {
         self.request_pointer_lock()
+        
     }
 }
