@@ -37,9 +37,11 @@ PointerLockAPI.prototype = {
     pointer_lock_change: function () {
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
             this.currently_locked = true
+            console.log('Pointer lock enabled!')
             this.controls.enable()
         } else {
             this.currently_locked = false
+            console.log('Pointer lock disabled!')
             this.controls.disable()
         }
     },

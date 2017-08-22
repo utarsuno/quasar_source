@@ -66,7 +66,7 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
-        if (this.enabled) {
+        if (this.enabled === true) {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
