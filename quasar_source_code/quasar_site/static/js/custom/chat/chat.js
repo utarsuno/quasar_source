@@ -7,7 +7,7 @@ $( document ).ready(function() {
     $(document).keypress(function (e) {
         if (e.which == 13) {
 
-            var text = textbox.val()
+            var text = textbox.text()
             textbox.val('')
 
             $.ajax({
