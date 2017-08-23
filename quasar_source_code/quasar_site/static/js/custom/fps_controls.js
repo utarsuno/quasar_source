@@ -12,8 +12,8 @@ FPSControls.prototype = {
     enabled      : null,
 
     // Movement.
-    forward      : null,
-    backward     : null,
+    up           : null,
+    down         : null,
     left         : null,
     right        : null,
     velocity     : null,
@@ -43,10 +43,10 @@ FPSControls.prototype = {
 
     physics: function(delta) {
         if (this.enabled) {
-            if (this.forward) {
+            if (this.up) {
                 this.velocity.z -= 400.0 * delta
             }
-            if (this.backward) {
+            if (this.down) {
                 this.velocity.z += 400.0 * delta
             }
             if (this.left) {
@@ -75,7 +75,7 @@ FPSControls.prototype = {
         switch(event.keyCode) {
         case 38: // up
         case 87: // w
-            this.forward = true
+            this.up = true
             break
         case 37: // left
         case 65: // a
@@ -96,7 +96,7 @@ FPSControls.prototype = {
         switch(event.keyCode) {
         case 38: // up
         case 87: // w
-            this.forward = false
+            this.up = false
             break
         case 37: // left
         case 65: // a
