@@ -7,14 +7,19 @@ $( document ).ready(function() {
     $(document).keypress(function (e) {
         if (e.which == 13) {
 
-            var text = textbox.text()
+            var text = textbox.val()
+
+            if (text.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'message',
+                    data: {message: text}
+                })
+            }
+
             textbox.val('')
 
-            $.ajax({
-                type: 'POST',
-                url: 'message',
-                data: {message: text}
-            })
+            e.stopPropagation()
         }
     })
 
