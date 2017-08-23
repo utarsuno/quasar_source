@@ -21,6 +21,6 @@ from quasar_web_server import views as v
 
 urlpatterns = [
     url(r'^$', v.GET_hello_world),
-    url(r'message', v.message_POST),
-    url(r'get_all_messages', v.get_all_messages)
+    url(r'^message$', v.message_POST),
+    url(r'^get_all_messages$', v.get_all_messages)
 ]

@@ -26,7 +26,7 @@ $( document ).ready(function() {
 
     window.setInterval(function(){
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: 'get_all_messages',
             success: function(data) {
                 console.log('Data is ' + data)
