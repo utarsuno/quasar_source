@@ -53,9 +53,8 @@ def message_POST(request):
 @csrf_exempt
 def get_all_messages(request):
 	messages = Message.objects.all()
-	return_messages = sorted(messages, key=lambda x: x.id, reverse=False)
 	m = {}
-	for rm in return_messages:
+	for rm in messages:
 		m[rm.ip] = rm.message
 	return JsonResponse(m)
 
