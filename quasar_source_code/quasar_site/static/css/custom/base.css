@@ -21,6 +21,14 @@ canvas {
     background-color: transparent;
 }
 
+li {
+    background-color: transparent;
+}
+
+ul {
+    background-color: transparent;
+}
+
 #chat_input {
     position: absolute;
     left: 0px;

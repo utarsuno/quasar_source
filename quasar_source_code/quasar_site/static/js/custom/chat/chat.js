@@ -27,12 +27,23 @@ $( document ).ready(function() {
 
             console.log(data)
 
+            var number_of_messages = data.data.length
+            var number_to_ignore = 0
+            if (number_of_messages > 30) {
+                number_to_ignore = number_of_messages - 30
+            }
+
             // Set up a new list
             var $list = $('<ul></ul>')
 
             // Loop through the list array, adding an <li> for each list item
+            var i = 0
             $.each(data.data, function(index, element) {
-                $list.append('<li>' + element + '</li>')
+                if (i < number_to_ignore) {
+                    i += 1
+                } else {
+                    $list.append('<li>' + element + '</li>')
+                }
             })
 
             // Replace the old element with the new list
