@@ -34,7 +34,7 @@ $( document ).ready(function() {
             }
 
             // Set up a new list
-            var $list = $('<ul></ul>')
+            var $list = $('<ul id="basic_chat"></ul>')
 
             // Loop through the list array, adding an <li> for each list item
             var i = 0
