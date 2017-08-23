@@ -42,12 +42,13 @@ def message_POST(request):
 	:param request: Contains information regarding the request sent in.
 	:return: The HttpResponse. Just a server_reply_response_string.
 	"""
-	print(request.POST['message'])
+	print(request.POST.get('message'))
 	received_message = request.POST['message']
 	print('Got the message : ' + str(received_message))
 	received_ip    = get_client_ip(request)
 	message        = Message(message=received_message, ip=received_ip)
 	message.save()
+	return HttpResponse('Success!')
 
 
 @csrf_exempt
