@@ -7,12 +7,6 @@
 {% endblock %}
 
 {% block body %}
-<div id="transparent">
-    <ul id="basic_chat"></ul>
-</div>
-<div>
-    <textarea id='chat_input' type="text" title="chat_input_title"></textarea>
-</div>
 {% endblock %}
 
 {% load staticfiles %}
@@ -25,12 +19,5 @@
 <script src="{% static 'js/custom/pointer_lock_api.js' %}"></script>
 <script src="{% static 'js/custom/stats_api.js' %}"></script>
 <script src="{% static 'js/custom/hello_world.js' %}"></script>
-
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-
-<script src="{% static 'js/custom/chat/chat.js' %}"></script>
 {% endblock %}
 

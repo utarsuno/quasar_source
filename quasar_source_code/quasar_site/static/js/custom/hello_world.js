@@ -12,7 +12,6 @@ renderer.set_camera(camera)
 var fps_controls = new FPSControls(camera)
 scene.add(fps_controls.get_object())
 
-// Custom object.
 var pointer_lock_api = new PointerLockAPI(fps_controls)
 
 var geometry = new THREE.BoxGeometry( 5, 5, 5 )
