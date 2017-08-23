@@ -29,7 +29,7 @@ $( document ).ready(function() {
             type: 'GET',
             url: 'get_all_messages',
             success: function(data) {
-                console.log('Data is ' + data)
+                console.log(data)
             }
         })
     }, 5000)
