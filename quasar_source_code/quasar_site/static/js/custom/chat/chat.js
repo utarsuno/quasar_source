@@ -13,7 +13,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: 'message',
-                data: text
+                data: {message: text}
             })
         }
     })
