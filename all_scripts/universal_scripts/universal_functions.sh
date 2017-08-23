@@ -129,12 +129,12 @@ function print_line_in_between_dashed_lines {
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    .
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    .
 
-function terminate_if_script_is_being_ran_as_root {
+function terminate_if_sudo {
     if [[ $EUID -eq 0 ]]; then
         terminate_script "This script should not be ran as sudo!"
     fi
 }
-function terminate_if_script_does_not_have_root_privileges {
+function terminate_if_not_sudo {
     if [ `id -u` != 0 ] ; then
         terminate_script "This script requires root privileges to run."
     fi

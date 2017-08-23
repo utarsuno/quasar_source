@@ -38,7 +38,7 @@ print_dashed_line_with_text "push_local_code.sh start"
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
 
-terminate_if_script_is_being_ran_as_root
+terminate_if_sudo
 terminate_if_system_is_ubuntu
 
 # Exactly one argument was not passed.
