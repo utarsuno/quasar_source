@@ -17,8 +17,10 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
-sudo nohup python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site/manage.py runserver 0:80 > /dev/null 2>&1&
-disown
+manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site/manage.py
+
+sudo nohup python3 ${manage_path} livereload > /dev/null 2>&1&
+sudo nohup python3 ${manage_path} runserver 0:80 > /dev/null 2>&1&
 
 # Helps to see exactly where the script's output ends.
 print_dashed_line_with_text "end_django end for ${HOST_NAME}"

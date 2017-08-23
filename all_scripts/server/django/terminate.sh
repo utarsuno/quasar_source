@@ -17,6 +17,7 @@ terminate_if_system_is_not_ubuntu
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
 pkill -f "runserver"
+pkill -f "livereload"
 
 # Helps to see exactly where the script's output ends.
 print_dashed_line_with_text "end_django end for ${HOST_NAME}"

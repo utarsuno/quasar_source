@@ -1,15 +1,16 @@
 # Allows for files to be re-loaded/sent to browsers when they change.
-pip install django-livesync
-^ changes required :
+pip install django-livereload-server
+^ Needed for the above :
 '''
 INSTALLED_APPS = (
-    '...',
-    'livesync',
-    'django.contrib.staticfiles',
-    '...',
+    ...
+    'livereload',
+    'django.contrib.staticfiles'
+    ...
 )
 
-MIDDLEWARE_CLASSES = (
-    'livesync.core.middleware.DjangoLiveSyncMiddleware',
-)
+MIDDLEWARE = [
+    ...
+    'livereload.middleware.LiveReloadScript',
+]
 '''
