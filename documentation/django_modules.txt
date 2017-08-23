@@ -1,0 +1,15 @@
+# Allows for files to be re-loaded/sent to browsers when they change.
+pip install django-livesync
+^ changes required :
+'''
+INSTALLED_APPS = (
+    '...',
+    'livesync',
+    'django.contrib.staticfiles',
+    '...',
+)
+
+MIDDLEWARE_CLASSES = (
+    'livesync.core.middleware.DjangoLiveSyncMiddleware',
+)
+'''
