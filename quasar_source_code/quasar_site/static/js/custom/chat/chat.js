@@ -32,9 +32,9 @@ $( document ).ready(function() {
             var $list = $('<ul></ul>')
 
             // Loop through the list array, adding an <li> for each list item
-            chat_history.each(function(item){
+            for (var d in data['data']) {
                 $list.append('<li>' + item + '</li>')
-            })
+            }
 
             // Replace the old element with the new list
             var $original = $('#basic_chat')
