@@ -57,5 +57,5 @@ def get_all_messages(request):
 	m = []
 	for rm in messages:
 		m.append(str(rm.ip) + ' - {' + str(rm.message) + '}')
-	return JsonResponse({'data': m})
+	return JsonResponse({m})
 

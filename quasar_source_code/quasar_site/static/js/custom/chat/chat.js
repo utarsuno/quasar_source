@@ -25,14 +25,14 @@ $( document ).ready(function() {
     window.setInterval(function(){
         $.get( 'get_all_messages', function(data) {
 
-            var obj = jQuery.parseJSON(data)
+            console.log(data)
 
             // Set up a new list
             var $list = $('<ul></ul>')
 
             // Loop through the list array, adding an <li> for each list item
-            for (var d in obj['data']) {
-                $list.append('<li>' + d + '</li>')
+            for (var i = 0; i < data.length; i++) {
+                $list.append('<li>' + data[i] + '</li>')
             }
 
             // Replace the old element with the new list
