@@ -16,4 +16,3 @@ class Message(models.Model):
 class Message(models.Model):
 	ip = models.TextField()
 	message = models.TextField()
-	index = models.AutoField()
