@@ -33,7 +33,7 @@ $( document ).ready(function() {
 
             // Loop through the list array, adding an <li> for each list item
             for (var d in data['data']) {
-                $list.append('<li>' + item + '</li>')
+                $list.append('<li>' + d + '</li>')
             }
 
             // Replace the old element with the new list
