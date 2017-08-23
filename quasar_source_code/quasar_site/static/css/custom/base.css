@@ -8,6 +8,13 @@ canvas {
     z-index: 1;
 }
 
+#basic_chat {
+    position: absolute;
+    z-index: 20;
+    top: 80px;
+    left: 0px;
+}
+
 #chat_input {
     position: absolute;
     left: 0px;

@@ -23,14 +23,22 @@ $( document ).ready(function() {
         }
     })
 
-
     window.setInterval(function(){
-        $.ajax({
-            type: 'GET',
-            url: 'get_all_messages',
-            success: function(data) {
-                console.log(data)
-            }
+        $.get( 'get_all_messages', function(data) {
+            chat_history = data['data']
+
+
+            // Set up a new list
+            var $list = $('<ul></ul>')
+
+            // Loop through the list array, adding an <li> for each list item
+            chat_history.each(function(item){
+                $list.append('<li>' + item + '</li>')
+            })
+
+            // Replace the old element with the new list
+            var $original = $('#basic_chat')
+            $original.replaceWith( $list )
         })
     }, 5000)
 
