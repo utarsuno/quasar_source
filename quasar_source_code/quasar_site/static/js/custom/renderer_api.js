@@ -28,7 +28,8 @@ RendererAPI.prototype = {
             this.get_window_properties()
             this.near_clipping = 0.1
             this.far_clipping  = 1000
-            this.renderer      = new THREE.WebGLRenderer()
+            this.renderer      = new THREE.WebGLRenderer({antialias: true})
+            this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
             document.body.appendChild(this.renderer.domElement)
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
