@@ -13,7 +13,8 @@ canvas {
     z-index: 20;
     top: 80px;
     left: 0px;
-    color: white
+    color: white;
+    background-color: transparent;
 }
 
 #chat_input {

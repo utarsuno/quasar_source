@@ -2,7 +2,6 @@ $( document ).ready(function() {
 
     var textbox = $('#chat_input')
 
-    var chat_history = []
 
     $(document).keypress(function (e) {
         if (e.which == 13) {
@@ -25,14 +24,14 @@ $( document ).ready(function() {
 
     window.setInterval(function(){
         $.get( 'get_all_messages', function(data) {
-            chat_history = data['data']
 
+            var obj = jQuery.parseJSON(data)
 
             // Set up a new list
             var $list = $('<ul></ul>')
 
             // Loop through the list array, adding an <li> for each list item
-            for (var d in data['data']) {
+            for (var d in obj['data']) {
                 $list.append('<li>' + d + '</li>')
             }
 
