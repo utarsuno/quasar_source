@@ -19,6 +19,39 @@ _TEMPLATES_BASE      = 'templates/quasar_web_server/'
 TEMPLATE_HELLO_WORLD = _TEMPLATES_BASE + 'hello_world.html'
 
 
+from .models import Message
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def GET_hello_world(request):
 	"""Temporary main page."""
 	return render(request, TEMPLATE_HELLO_WORLD)
+
+
+@csrf_exempt
+def message_POST(request):
+	"""This handles the POST request to send a recovery email.
+	:param request: Contains information regarding the request sent in.
+	:return: The HttpResponse. Just a server_reply_response_string.
+	"""
+	received_message = request.POST['message']
+	print('Got the message : ' + str(received_message))
+	received_ip    = get_client_ip(request)
+	message        = Message(message=received_message, ip=received_ip)
+	message.save()
+
+
+@csrf_exempt
+def get_all_messages(request):
+	messages = Message.objects.all()
+	return_messages = sorted(messages, key=lambda x: x.index, reverse=False)
+	return JsonResponse({'messages': return_messages})
+

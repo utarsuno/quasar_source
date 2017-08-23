@@ -11,3 +11,9 @@ class Message(models.Model):
     message   = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, db_index=True)
 '''
+
+
+class Message(models.Model):
+	ip = models.TextField()
+	message = models.TextField()
+	index = models.AutoField()
