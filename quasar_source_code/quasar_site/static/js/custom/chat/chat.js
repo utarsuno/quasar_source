@@ -31,9 +31,9 @@ $( document ).ready(function() {
             var $list = $('<ul></ul>')
 
             // Loop through the list array, adding an <li> for each list item
-            for (var i = 0; i < data.length; i++) {
-                $list.append('<li>' + data[i] + '</li>')
-            }
+            $.each(data.data, function(index, element) {
+                $list.append('<li>' + element + '</li>')
+            })
 
             // Replace the old element with the new list
             var $original = $('#basic_chat')
