@@ -30,4 +30,9 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 		result = subprocess.run(bash_command, stdout=subprocess.PIPE, shell=shell)
 	return result.stdout.decode('utf-8')
 
-print(run_bash_command_and_get_output(['top', '-c', '-n1']))
+print(run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']))
+
+output = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
+
+for o in output:
+	print(o)
