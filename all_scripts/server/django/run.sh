@@ -17,6 +17,8 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
+
+
 manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site/manage.py
 
 sudo nohup python3 ${manage_path} runserver 0:80 > /dev/null 2>&1&
