@@ -15,16 +15,17 @@ scene.add(fps_controls.get_object())
 // Custom object.
 var pointer_lock_api = new PointerLockAPI(fps_controls)
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 )
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+var geometry = new THREE.BoxGeometry( 5, 5, 5 )
+//var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } )
 var cube 	 = new THREE.Mesh(geometry, material)
 scene.add(cube)
 
 // Going to try to create a plane here.
 var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
 plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
-var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
-// var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff, wireframe: true})
+//var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
+var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff, wireframe: true})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 
