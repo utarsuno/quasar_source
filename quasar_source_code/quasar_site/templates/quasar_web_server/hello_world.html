@@ -7,30 +7,27 @@
 {% endblock %}
 
 {% block body %}
-<body>
+<div>
+    <textarea id='chat_input' type="text" title="chat_input_title"></textarea>
+</div>
+{% endblock %}
 
-    <div>
-        <textarea id='chat_input' type="text" title="chat_input_title"></textarea>
-    </div>
+{% load staticfiles %}
+{% block additional_js_to_load %}
+<script src="{% static 'js/third_party/three.min.js' %}"></script>
+<script src="{% static 'js/third_party/stats.min.js' %}"></script>
+<script src="{% static 'js/third_party/Detector.js' %}"></script>
+<script src="{% static 'js/custom/renderer_api.js' %}"></script>
+<script src="{% static 'js/custom/fps_controls.js' %}"></script>
+<script src="{% static 'js/custom/pointer_lock_api.js' %}"></script>
+<script src="{% static 'js/custom/stats_api.js' %}"></script>
+<script src="{% static 'js/custom/hello_world.js' %}"></script>
 
-    {% load staticfiles %}
-    {% block additional_js_to_load %}
-    <script src="{% static 'js/third_party/three.min.js' %}"></script>
-    <script src="{% static 'js/third_party/stats.min.js' %}"></script>
-    <script src="{% static 'js/third_party/Detector.js' %}"></script>
-    <script src="{% static 'js/custom/renderer_api.js' %}"></script>
-    <script src="{% static 'js/custom/fps_controls.js' %}"></script>
-    <script src="{% static 'js/custom/pointer_lock_api.js' %}"></script>
-    <script src="{% static 'js/custom/stats_api.js' %}"></script>
-    <script src="{% static 'js/custom/hello_world.js' %}"></script>
-
-
-    <script
+<script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 
-    <script src="{% static 'js/custom/chat/chat.js' %}"></script>
-    {% endblock %}
-</body>
+<script src="{% static 'js/custom/chat/chat.js' %}"></script>
 {% endblock %}
+
