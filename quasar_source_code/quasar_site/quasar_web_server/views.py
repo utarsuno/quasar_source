@@ -54,8 +54,8 @@ def message_POST(request):
 @csrf_exempt
 def get_all_messages(request):
 	messages = Message.objects.all()
-	m = {}
+	m = []
 	for rm in messages:
-		m[rm.ip] = rm.message
-	return JsonResponse(m)
+		m.append(str(rm.ip) + ' - {' + str(rm.message) + '}')
+	return JsonResponse({'data': m})
 

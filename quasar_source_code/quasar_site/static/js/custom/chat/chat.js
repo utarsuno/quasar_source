@@ -30,10 +30,6 @@ $( document ).ready(function() {
             url: 'get_all_messages',
             success: function(data) {
                 console.log('Data is ' + data)
-                for (var d in data) {
-                    console.log(d)
-                    chat_history.push(d)
-                }
             }
         })
     }, 5000)
