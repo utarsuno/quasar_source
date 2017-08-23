@@ -24,7 +24,7 @@ RendererAPI.prototype = {
             this.warning_message = Detector.getWebGLErrorMessage()
         } else {
             // Since WebGL is enabled we can proceed.
-            this.field_of_view = 90
+            this.field_of_view = 70
             this.get_window_properties()
             this.near_clipping = 0.1
             this.far_clipping  = 1000
