@@ -17,7 +17,7 @@ ShaderAPI.prototype = {
 
         this.copy_pass = new THREE.ShaderPass(THREE.CopyShader)
 
-        this.glitch_pass = THREE.GlitchPass()
+        this.glitch_pass = new THREE.GlitchPass(0)
 
         this.composer.addPass(this.render_pass)
         this.composer.addPass(this.copy_pass)
