@@ -39,6 +39,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	command_text = args.command_text
+	print('The command text is : ' + command_text)
 
 	output = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
 
