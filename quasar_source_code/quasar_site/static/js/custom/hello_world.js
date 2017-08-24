@@ -45,8 +45,8 @@ scene.add(light2)
 var data_display = new DataDisplay(fps_controls)
 
 
-var light3 = new THREE.PointLight( 0xff0000, 1, 100 )
-light3.position.set( 5, 5, 5 )
+var light3 = new THREE.PointLight(0xff0000, 1, 100)
+light3.position.set( 5, 15, 5 )
 scene.add(light3)
 
 

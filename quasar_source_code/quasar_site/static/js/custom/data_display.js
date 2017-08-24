@@ -20,8 +20,8 @@ DataDisplay.prototype = {
     },
 
     update: function() {
-        this.x_coordinate.textContent = this.fps_controls.get_position().x
-        this.y_coordinate.textContent = this.fps_controls.get_position().y
-        this.z_coordinate.textContent = this.fps_controls.get_position().z
+        this.x_coordinate.textContent = 'x : ' + Number(this.fps_controls.get_position().x).toFixed(4)
+        this.y_coordinate.textContent = 'y : ' + Number(this.fps_controls.get_position().y).toFixed(4)
+        this.z_coordinate.textContent = 'z : ' + Number(this.fps_controls.get_position().z).toFixed(4)
     }
 }
