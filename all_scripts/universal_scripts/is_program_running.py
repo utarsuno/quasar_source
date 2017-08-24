@@ -46,6 +46,7 @@ if __name__ == '__main__':
 	found = False
 	for o in output:
 		if command_text in o:
+			print(o)
 			print('true')
 			exit()
 	print('false')
