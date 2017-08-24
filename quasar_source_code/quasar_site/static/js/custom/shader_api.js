@@ -16,13 +16,14 @@ ShaderAPI.prototype = {
         this.render_pass = new THREE.RenderPass(scene, camera)
 
         this.copy_pass = new THREE.ShaderPass(THREE.CopyShader)
-        this.copy_pass.renderToScreen = true
 
         this.glitch_pass = THREE.GlitchPass()
 
         this.composer.addPass(this.render_pass)
         this.composer.addPass(this.copy_pass)
         this.composer.addPass(this.glitch_pass)
+
+        this.glitch_pass.renderToScreen = true
 
         //this.render_pass.renderToScreen = true
     },
