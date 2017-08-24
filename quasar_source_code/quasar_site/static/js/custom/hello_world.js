@@ -31,12 +31,21 @@ scene.add(plane_mesh)
 camera.position.z = 10
 
 // Add lights.
+/*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
 light.position.set(1, 1, 1 )
 scene.add(light)
+
+
 var light2 = new THREE.DirectionalLight( 0xffffff, 0.75 )
 light2.position.set(-1, - 0.5, -1)
 scene.add(light2)
+*/
+
+
+var light3 = new THREE.PointLight( 0xff0000, 1, 100 )
+light3.position.set( 5, 5, 5 )
+scene.add(light3)
 
 
 //var shader_api = new ShaderAPI(renderer_api, scene, camera)
