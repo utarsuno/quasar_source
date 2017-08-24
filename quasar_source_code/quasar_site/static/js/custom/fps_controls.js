@@ -73,6 +73,10 @@ FPSControls.prototype = {
         return this.yaw.position
     },
 
+    get_velocity: function() {
+        return this.velocity
+    },
+
     enable: function() {
         this.enabled = true
     },
