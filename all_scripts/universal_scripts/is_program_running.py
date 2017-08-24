@@ -1,9 +1,11 @@
 # coding=utf-8
 
-"""This module, is_django_already_running.py, does exactly as the name implies."""
+"""This module, is_program_running.py, checks if a program is running by command name match."""
 
 # Needed for running subprocesses.
 import subprocess
+
+import argparse
 
 
 def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
@@ -30,9 +32,21 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 		result = subprocess.run(bash_command, stdout=subprocess.PIPE, shell=shell)
 	return result.stdout.decode('utf-8')
 
-print(run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']))
 
-output = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('command_text')
+	args = parser.parse_args()
 
-for o in output:
-	print(o)
+	command_text = args.command_text
+
+	output = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
+
+	found = False
+	for o in output:
+		if command_text in o:
+			print('true')
+			exit()
+	print('false')
+
+# Example usage : value=$(python3 is_program_running.py 'runserver')

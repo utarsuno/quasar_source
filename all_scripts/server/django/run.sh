@@ -17,7 +17,13 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
+# Example usage : value=$(python3 is_program_running.py 'runserver')
+path_to_script=/home/git_repos/quasar_source/all_scripts/universal_scripts/is_program_running.py
+is_django_running=$(python3 ${path_to_script} 'runserver')
 
+echo 'Got the output : '
+echo ${is_django_running}
+exit
 
 manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site/manage.py
 
