@@ -45,10 +45,11 @@ if __name__ == '__main__':
 
 	found = False
 	for o in output:
-		if command_text in o:
-			print(o)
-			print('true')
-			exit()
+		if 'is_program_running.py' not in o:
+			if command_text in o:
+				print(o)
+				print('true')
+				exit()
 	print('false')
 
 # Example usage : value=$(python3 is_program_running.py 'runserver')
