@@ -1,7 +1,7 @@
 'use strict'
 
 function ShaderAPI(renderer_api, scene, camera) {
-    this.__init__()
+    this.__init__(renderer_api, scene, camera)
 }
 
 ShaderAPI.prototype = {
@@ -10,7 +10,7 @@ ShaderAPI.prototype = {
 
     __init__: function(renderer_api, scene, camera) {
         // COMPOSER
-        this.composer = new THREE.EffectComposer(renderer_api.get_renderer())
+        this.composer = new THREE.EffectComposer(renderer_api.renderer)
 
         // PASSES
         this.render_pass = new THREE.RenderPass(scene, camera)
