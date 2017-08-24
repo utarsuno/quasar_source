@@ -21,6 +21,12 @@ terminate_if_system_is_not_ubuntu
 path_to_script=/home/git_repos/quasar_source/all_scripts/universal_scripts/is_program_running.py
 is_django_running=$(python3 ${path_to_script} 'runserver')
 
+if [ "${is_django_running}" == "true" ]; then
+  echo 'Django is running!'
+else
+  echo 'Django is not running!'
+fi
+
 echo 'Got the output : '
 echo ${is_django_running}
 exit
