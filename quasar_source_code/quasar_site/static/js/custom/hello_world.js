@@ -14,7 +14,7 @@ scene.add(fps_controls.get_object())
 
 var pointer_lock_api = new PointerLockAPI(fps_controls)
 
-var geometry = new THREE.BoxGeometry( 5, 5, 5 )
+var geometry = new THREE.BoxGeometry( 5,10, 5 )
 //var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
 var cube 	 = new THREE.Mesh(geometry, material)
@@ -34,7 +34,7 @@ camera.position.z = 10
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
 light.position.set(1, 1, 1 )
-scene.add(light)
+scene.add(light)s
 
 
 var light2 = new THREE.DirectionalLight( 0xffffff, 0.75 )
@@ -45,8 +45,8 @@ scene.add(light2)
 var data_display = new DataDisplay(fps_controls)
 
 
-var light3 = new THREE.PointLight(0xff0000, 1, 100)
-light3.position.set( 5, 15, 5 )
+var light3 = new THREE.PointLight(0xccffcc, 1, 1000)
+light3.position.set(5, 15, 5)
 scene.add(light3)
 
 
@@ -63,8 +63,8 @@ var animate = function () {
 
     stats_api.pre_render()
 
-    cube.rotation.x += 0.1
-    cube.rotation.y += 0.1
+    cube.rotation.x += 0.01
+    cube.rotation.y += 0.01
 
     var time = performance.now()
     var delta = (time - previous_time) / 1000
