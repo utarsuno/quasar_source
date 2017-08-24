@@ -14,7 +14,7 @@ scene.add(fps_controls.get_object())
 
 var pointer_lock_api = new PointerLockAPI(fps_controls)
 
-var geometry = new THREE.BoxGeometry( 5,10, 5 )
+var geometry = new THREE.BoxGeometry(5,5, 5)
 //var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
 var cube 	 = new THREE.Mesh(geometry, material)
