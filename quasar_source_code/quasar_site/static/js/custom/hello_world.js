@@ -1,14 +1,14 @@
 'use strict'
 
-var renderer  = new RendererAPI()
+var renderer_api  = new RendererAPI()
 if (renderer.is_webgl_enabled() === false) {
     console.log('WebGL is not enabled!')
     throw new Error('WebGL is not enabled!')
 }
 var stats_api = new StatsAPI()
 var scene = new THREE.Scene()
-var camera   = new THREE.PerspectiveCamera(renderer.field_of_view, renderer.aspect_ratio, renderer.near_clipping, renderer.far_clipping)
-renderer.set_camera(camera)
+var camera   = new THREE.PerspectiveCamera(renderer_api.field_of_view, renderer_api.aspect_ratio, renderer_api.near_clipping, renderer_api.far_clipping)
+renderer_api.set_camera(camera)
 var fps_controls = new FPSControls(camera)
 scene.add(fps_controls.get_object())
 
@@ -38,9 +38,16 @@ var light2 = new THREE.DirectionalLight( 0xffffff, 0.75 )
 light2.position.set(-1, - 0.5, -1)
 scene.add(light2)
 
+
+var shader_api = new ShaderAPI(renderer_api, scene, camera)
+
+
 var previous_time = performance.now()
 
 var animate = function () {
+
+    shader_api.render()
+
     requestAnimationFrame(animate)
 
     stats_api.pre_render()
@@ -52,8 +59,7 @@ var animate = function () {
     var delta = (time - previous_time) / 1000
 
     fps_controls.physics(delta)
-
-    renderer.render(scene, camera)
+    //renderer.render(scene, camera)
 
     stats_api.post_render()
 

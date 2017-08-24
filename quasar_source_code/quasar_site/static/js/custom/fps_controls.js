@@ -29,7 +29,7 @@ FPSControls.prototype = {
         this.pitch.add(camera)
 
         this.yaw = new THREE.Object3D()
-        this.yaw.position.y = 5
+        this.yaw.position.y = 10
         this.yaw.add(this.pitch)
 
         this.enabled = false
@@ -132,8 +132,8 @@ FPSControls.prototype = {
     get_direction: function() {
         var direction = new THREE.Vector3(0, 0, -1)
         var rotation  = new THREE.Euler(0, 0, 0, 'YXZ')
-        return function( v ) {
-            rotation.set( this.pitch.rotation.x, this.yaw.rotation.y, 0 )
+        return function(v) {
+            rotation.set(this.pitch.rotation.x, this.yaw.rotation.y, 0)
             v.copy(direction).applyEuler(rotation)
             return v
         }
