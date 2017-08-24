@@ -10,7 +10,7 @@ ShaderAPI.prototype = {
 
     __init__: function(renderer_api, scene, camera) {
         // COMPOSER
-        this.composer = new THREE.EffectComposer(renderer_api.renderer)
+        this.composer = new THREE.EffectComposer(renderer_api.get_renderer())
 
         // PASSES
         this.render_pass = new THREE.RenderPass(scene, camera)

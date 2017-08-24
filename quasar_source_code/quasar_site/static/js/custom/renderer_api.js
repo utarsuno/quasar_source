@@ -36,6 +36,10 @@ RendererAPI.prototype = {
         }
     },
 
+    get_renderer: function() {
+        return this.renderer
+    },
+
     render: function(scene, camera) {
         this.renderer.render(scene, camera)
     },
