@@ -15,6 +15,35 @@ class Vector(object):
 			self.elements.append(value)
 		self.dimensions = len(args)
 
+	def unit_vector_to(self, other):
+		"""Returns a unit vector pointing from this point to the point provided."""
+		distance = self.distance(other)
+		elements = []
+		for i, e in enumerate(self.elements):
+			elements.append((other.elements[i] - e) / distance)
+		return Vector(elements)
+
+	def distance(self, other):
+		"""Returns the distance from this vector to the provided vector."""
+		self.ensure_dimensionality(other)
+		local_sum = 0
+		for i, e in enumerate(self.elements):
+			local_sum += (other.elements[i] - e) ** 2
+		return math.sqrt(local_sum)
+
+	def slope(self, other):
+		"""Returns the slope between two 2D points."""
+		if self.dimensions != 2 or other.dimensions != 2:
+			raise RuntimeError('Slope must be calculated from 2 dimensional vectors.')
+		return (other.elements[1] - self.elements[1]) / (other.elements[0] - self.elements[0])
+
+	# TODO : expand this later to do more than just scalar multiplication
+	def __mul__(self, other):
+		elements = []
+		for e in self.elements:
+			elements.append(e * other)
+		return Vector(elements)
+
 	# ------------------------------------------------------------------------
 	def __abs__(self):
 		sums = 0
@@ -37,3 +66,9 @@ class Vector(object):
 			elements += str(e) + ', '
 		elements = elements[:-2]
 		return 'Vector(' + elements + ')'
+
+	# ------------------------------------------------------------------------
+	def ensure_dimensionality(self, other):
+		"""Raises an exception if this vector and the provided vector do not have the same number of dimensions."""
+		if self.dimensions != other.dimensions:
+			raise RuntimeError('Both vectors must have the same number of dimensions!')
