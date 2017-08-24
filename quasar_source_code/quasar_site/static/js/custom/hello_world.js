@@ -1,7 +1,7 @@
 'use strict'
 
 var renderer_api  = new RendererAPI()
-if (renderer.is_webgl_enabled() === false) {
+if (renderer_api.is_webgl_enabled() === false) {
     console.log('WebGL is not enabled!')
     throw new Error('WebGL is not enabled!')
 }
