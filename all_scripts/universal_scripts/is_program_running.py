@@ -34,16 +34,11 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
+	parser       = argparse.ArgumentParser()
 	parser.add_argument('command_text')
-	args = parser.parse_args()
-
+	args         = parser.parse_args()
 	command_text = args.command_text
-	print('The command text is : ' + command_text)
-
-	output = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
-
-	found = False
+	output       = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
 	for o in output:
 		if 'is_program_running.py' not in o:
 			if command_text in o:
