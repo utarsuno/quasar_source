@@ -69,6 +69,10 @@ FPSControls.prototype = {
         }
     },
 
+    get_position: function() {
+        return this.yaw.position
+    },
+
     enable: function() {
         this.enabled = true
     },

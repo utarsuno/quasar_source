@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block body %}
+<div id="data_display">
+    <p id="x_coordinate"></p><br>
+    <p id="y_coordinate"></p><br>
+    <p id="z_coordinate"></p><br>
+</div>
 {% endblock %}
 
 {% load staticfiles %}
@@ -27,6 +32,7 @@
 <script src="{% static 'js/custom/fps_controls.js' %}"></script>
 <script src="{% static 'js/custom/pointer_lock_api.js' %}"></script>
 <script src="{% static 'js/custom/stats_api.js' %}"></script>
+<script src="{% static 'js/custom/data_display.js' %}"></script>
 <script src="{% static 'js/custom/hello_world.js' %}"></script>
 {% endblock %}
 

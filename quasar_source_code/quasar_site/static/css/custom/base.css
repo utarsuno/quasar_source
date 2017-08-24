@@ -8,3 +8,12 @@ canvas {
     height: 100%;
     z-index: 1;
 }
+
+#data_display {
+    background-color: transparent;
+    color: #aae698;
+    position: absolute;
+    top: 55px;
+    left: 0px;
+    z-index: 10;
+}
