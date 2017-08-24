@@ -42,7 +42,6 @@ if __name__ == '__main__':
 	for o in output:
 		if 'is_program_running.py' not in o:
 			if command_text in o:
-				print(o)
 				print('true')
 				exit()
 	print('false')
