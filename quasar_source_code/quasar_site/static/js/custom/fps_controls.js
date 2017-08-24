@@ -19,8 +19,14 @@ FPSControls.prototype = {
     velocity     : null,
     acceleration : null,
 
+    // Camera view.
+    max_upward_view: null,
+    max_downward_view: null,
+
     __init__: function (camera) {
+        // Constants.
         this.half_pie = Math.PI / 2
+        this.max_view_angle = this.half_pie * 0.9
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
@@ -118,10 +124,10 @@ FPSControls.prototype = {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
-            this.yaw.rotation.y -= movement_x * 0.002
+            this.yaw.rotation.y   -= movement_x * 0.002
             this.pitch.rotation.x -= movement_y * 0.002
 
-            this.pitch.rotation.x = Math.max( - this.half_pie, Math.min( this.half_pie, this.pitch.rotation.x))
+            this.pitch.rotation.x = Math.max( - this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
         }
     },
 
