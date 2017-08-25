@@ -33,11 +33,35 @@ camera.position.z = 10
 // Line test.
 var line_material = new THREE.LineBasicMaterial({color: LIGHT_GREEN, opacity: 1, linewidth: 5})
 var line_geometry = new THREE.Geometry()
-geometry.vertices.push(new THREE.Vector3(-10, 0, 0))
+geometry.vertices.push(new THREE.Vector3(-100, 0, 0))
 geometry.vertices.push(new THREE.Vector3(0, 100, 0))
+geometry.vertices.push(new THREE.Vector3(0, 0, 0))
+geometry.vertices.push(new THREE.Vector3(50, 50, 50))
 var line = new THREE.Line(line_geometry, line_material)
 
 scene.add(line)
+
+//
+
+var geometry3 = new THREE.Geometry(),
+    points = hilbert3D( new THREE.Vector3( 0,0,0 ), 200.0, 2, 0, 1, 2, 3, 4, 5, 6, 7 ),
+    colors3 = []
+for ( i = 0; i < points.length; i ++ ) {
+    geometry3.vertices.push( points[ i ] )
+    colors3[ i ] = new THREE.Color( 0xffffff )
+    colors3[ i ].setHSL( i / points.length, 1.0, 0.5 )
+}
+geometry3.colors = colors3
+// lines
+material = new THREE.LineBasicMaterial( { color: 0xffffff, opacity: 1, linewidth: 3, vertexColors: THREE.VertexColors } )
+var line, p, scale = 0.3, d = 225
+line = new THREE.Line(geometry3, material )
+line.scale.x = line.scale.y = line.scale.z =  scale*1.5
+line.position.x = 0
+line.position.y = 0
+line.position.z = 0
+scene.add( line )
+//
 
 // Add lights.
 var ambiColor = '#cbe7ff'
