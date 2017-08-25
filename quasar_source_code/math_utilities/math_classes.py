@@ -11,8 +11,12 @@ class Vector(object):
 
 	def __init__(self, *args):
 		self.elements = []
-		for value in args:
-			self.elements.append(value)
+		if (type(args) == list or type(args) == tuple) and len(args) == 1:
+			for value in args[0]:
+				self.elements.append(value)
+		else:
+			for value in args:
+				self.elements.append(value)
 		self.dimensions = len(args)
 
 	def unit_vector_to(self, other):

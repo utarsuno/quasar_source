@@ -19,7 +19,7 @@ class PostgreSQLAPI(object):
 
 	def __init__(self, debug: bool=False):
 		self.debug                = debug
-		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='postgresql')
+		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='postgresql_nexus')
 		self._connection          = None
 		self._cursor              = None
 
@@ -77,14 +77,13 @@ class PostgreSQLAPI(object):
 			table_names.append(r[0])
 		return table_names
 
-	# TODO : Delete this since there is now a Table abstraction.
-	# Functions to run manually.
-	def _create_table_monitor(self):
-		"""Creates the table that tracks all other tables."""
-		self.execute_query('CREATE TABLE all_tables (table_name varchar(30), last_updated date);', True)
-
 	def terminate(self):
 		"""Closes the database connection."""
 		self._cursor.close()
 		self._connection.close()
 
+	# Functions to run manually.
+	def create_database(self, database_name):
+		"""Creates a database with the provided name."""
+		self._connection.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
+		self.execute_query('CREATE DATABASE ' + database_name + ';', save=True)

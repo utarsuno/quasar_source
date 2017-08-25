@@ -30,6 +30,16 @@ scene.add(plane_mesh)
 
 camera.position.z = 10
 
+// Line test.
+var line_material = new THREE.MeshLambertMaterial({color: 0x0000ff, linewidth: 2})
+var line_geometry = new THREE.Geometry()
+geometry.vertices.push(new THREE.Vector3(-10, 0, 0))
+geometry.vertices.push(new THREE.Vector3(0, 10, 0))
+geometry.vertices.push(new THREE.Vector3(10, 0, 0))
+var line = new THREE.Line(line_geometry, line_material)
+
+scene.add(line)
+
 // Add lights.
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
