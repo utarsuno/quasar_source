@@ -38,6 +38,7 @@ module.exports = {
         "RendererAPI": true,
         "FPSControls": true,
         "ShaderAPI": true,
-        "DataDisplay": true
+        "DataDisplay": true,
+        "CUSTOM_COLORS": true
     }
 };
