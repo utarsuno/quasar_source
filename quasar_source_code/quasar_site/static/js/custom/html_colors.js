@@ -1,8 +1,4 @@
 'use strict'
 
-CUSTOM_COLORS = function() {}
-
-CUSTOM_COLORS.prototype = {
-    WHITE: 0xffffff,
-    LIGHT_GREEN: 0xccffcc
-}
+const WHITE = 0xffffff
+const LIGHT_GREEN = 0xccffcc
