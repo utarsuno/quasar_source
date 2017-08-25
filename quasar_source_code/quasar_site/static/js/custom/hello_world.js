@@ -31,7 +31,7 @@ scene.add(plane_mesh)
 camera.position.z = 10
 
 // Line test.
-var line_material = new THREE.LineBasicMaterial({color: LIGHT_GREEN, opacity: 1, linewidth: 5})
+var line_material = new THREE.LineBasicMaterial({color: LIGHT_GREEN, opacity: 1, linewidth: 50})
 var line_geometry = new THREE.Geometry()
 line_geometry.vertices.push(new THREE.Vector3(-100, 0, 0))
 line_geometry.vertices.push(new THREE.Vector3(0, 100, 0))
