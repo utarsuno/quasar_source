@@ -24,12 +24,13 @@ scene.add(cube)
 var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
 plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
 //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
-var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
+var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 
 camera.position.z = 10
 
+/*
 // Line test.
 var line_material = new THREE.LineBasicMaterial({color: LIGHT_GREEN, opacity: 1, linewidth: 50})
 var line_geometry = new THREE.Geometry()
@@ -39,6 +40,7 @@ line_geometry.vertices.push(new THREE.Vector3(0, 0, 0))
 line_geometry.vertices.push(new THREE.Vector3(50, 50, 50))
 var line = new THREE.Line(line_geometry, line_material)
 scene.add(line)
+*/
 
 // Add lights.
 var ambiColor = '#cbe7ff'

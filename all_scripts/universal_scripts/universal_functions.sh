@@ -3,9 +3,9 @@
 # Utility variables.
 HOST_NAME=$(hostname)
 
-
-
 # TODO : Refactor this file, it's been a long time since it's been updated!!!
+
+# TODO : Switch echo's to printfs
 
 ## Colours and font styles
 ## Syntax: echo -e "${FOREGROUND_COLOUR}${BACKGROUND_COLOUR}${STYLE}Hello world!${RESET_ALL}"
