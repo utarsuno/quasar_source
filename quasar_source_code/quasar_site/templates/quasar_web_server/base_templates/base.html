@@ -6,6 +6,8 @@
     <title>{% block title %}{% endblock %}</title>
     {% load staticfiles %}
     {% block additional_css_to_load %}{% endblock %}
+
+    {% block additional_head_statements %}{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
