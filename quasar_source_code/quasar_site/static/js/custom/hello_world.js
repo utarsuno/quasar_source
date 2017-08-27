@@ -97,7 +97,7 @@ element.className = 'three-div'
 var p_width = 100
 var p_height = 100
 var p_position = new THREE.Vector3(20, 30, 30)
-var p_rotation = new THREE.Vector3(0, 0, 0)
+var p_rotation = new THREE.Vector3(0, Math.PI / 2, 0)
 var test_plane = create_plane(p_width, p_height, p_position, p_rotation)
 scene.add(test_plane)
 var test_css_plane = create_css_page(p_width, p_height, p_position, p_rotation)
