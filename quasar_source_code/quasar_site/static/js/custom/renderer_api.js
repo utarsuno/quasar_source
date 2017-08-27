@@ -84,10 +84,15 @@ CSSRendererAPI.prototype = {
     __init__: function() {
         this.renderer = new THREE.CSS3DRenderer()
         this.renderer.setSize(window.innerWidth, window.innerHeight)
-        this.renderer.setPixelRatio(window.devicePixelRatio)
         this.renderer.domElement.style.position = 'absolute'
         this.renderer.domElement.style.top = 0
 
         //document.body.appendChild(this.renderer.domElement)
+
+        window.addEventListener('resize', this.on_window_resize.bind(this), false)
+    },
+
+    on_window_resize: function() {
+        this.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 }

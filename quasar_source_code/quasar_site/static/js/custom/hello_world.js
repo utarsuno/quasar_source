@@ -81,7 +81,7 @@ document.body.appendChild(css_renderer_api.renderer.domElement)
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-camera.position.z = 10
+//camera.position.z = 10
 
 /*
 // Line test.
