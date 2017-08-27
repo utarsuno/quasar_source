@@ -46,8 +46,6 @@ cssRenderer.setSize(window.innerWidth, window.innerHeight)
 cssRenderer.domElement.style.position = 'absolute'
 cssRenderer.domElement.style.top = 0
 
-document.body.appendChild(cssRenderer.domElement)
-cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
 
 var cssScene = new THREE.Scene()
 
@@ -69,8 +67,14 @@ css_object.rotation.y = log_mesh.rotation.y
 css_object.rotation.z = log_mesh.rotation.z
 
 
+light = new THREE.HemisphereLight(0xffbf67, 0x15c6ff)
+scene.add(light)
+
 //scene.add(css_object)
 cssScene.add(css_object)
+
+document.body.appendChild(cssRenderer.domElement)
+cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
