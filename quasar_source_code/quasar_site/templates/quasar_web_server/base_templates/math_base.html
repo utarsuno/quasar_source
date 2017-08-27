@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    {% block additional_css_to_load %}{% endblock %}
+
+    <!-- Pretty math printing. -->
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'js/third_party/MathJax/MathJax.js?config=Tex-MML-AM_HTMLorMML-full' %}"></script>
+
+    {% block additional_head_statements %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% load staticfiles %}
+{% block additional_js_to_load %}{% endblock %}
+</body>
+</html>
+

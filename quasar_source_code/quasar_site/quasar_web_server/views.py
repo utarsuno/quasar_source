@@ -15,8 +15,9 @@ from django.http import JsonResponse
 
 
 # Define all the pages.
-_TEMPLATES_BASE      = 'templates/quasar_web_server/'
-TEMPLATE_HELLO_WORLD = _TEMPLATES_BASE + 'hello_world.html'
+_TEMPLATES_BASE       = 'templates/quasar_web_server/'
+TEMPLATE_HELLO_WORLD  = _TEMPLATES_BASE + 'hello_world.html'
+TEMPLATE_LOG_FORMULAS = _TEMPLATES_BASE + 'log_formulas.html'
 
 
 def get_client_ip(request):
@@ -31,3 +32,8 @@ def get_client_ip(request):
 def GET_hello_world(request):
 	"""Temporary main page."""
 	return render(request, TEMPLATE_HELLO_WORLD)
+
+
+def GET_log_formulas(request):
+	"""Returns the HTML page for log formulas."""
+	return render(request, TEMPLATE_LOG_FORMULAS)

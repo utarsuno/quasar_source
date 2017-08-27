@@ -1,0 +1,26 @@
+{% extends 'templates/quasar_web_server/base_templates/base.html' %}
+{% block title %} Quasar Source {% endblock %}
+
+{% load staticfiles %}
+{% block additional_css_to_load %}
+<link rel="stylesheet" href="{% static 'css/custom/base.css' %}">
+{% endblock %}
+
+{% block additional_head_statements %}{% endblock %}
+{% block body %}
+<div>
+    <p>Product Rule : `log_bMN = log_bM + log_bN`</p><br>
+    <p>``</p><br>
+    <p>``</p><br>
+    <p>``</p><br>
+</div>
+<!--
+<div id = "math_formulas">
+    <p>`x = (-b +- sqrt(b^2-4ac))/(2a)`</p>
+</div>
+-->
+{% endblock %}
+
+{% load staticfiles %}
+{% block additional_js_to_load %}{% endblock %}
+
