@@ -125,7 +125,7 @@ css_object.rotation.z = log_mesh.rotation.z
 //scene.add(light4)
 
 //scene.add(css_object)
-cssScene.add(css_object)
+//cssScene.add(css_object)
 
 // @@@@
 css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
