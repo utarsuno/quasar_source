@@ -1,5 +1,43 @@
 'use strict'
 
+
+var create_plane = function(width, height, position, rotation) {
+    var material = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        opacity: 0.0,
+        side: THREE.DoubleSide
+    })
+    var geometry = new THREE.PlaneGeometry(w, h)
+    var mesh = new THREE.Mesh(geometry, material)
+    mesh.position.x = position.x
+    mesh.position.y = position.y
+    mesh.position.z = position.z
+    mesh.rotation.x = rotation.x
+    mesh.rotation.y = rotation.y
+    mesh.rotation.z = rotation.z
+    return mesh
+}
+
+
+var create_css_page = function(width, height, position, rotation) {
+    // Create the CSS object.
+    var html = '<div style="width:' + width + 'px; height:' + height + 'px;"><p>hello world</p></div>'
+    var div = document.createElement('div')
+    div.innerHTML = html
+    var css_object = new THREE.CSS3DObject(div)
+    css_object.position.x = position.x
+    css_object.position.y = position.y
+    css_object.position.z = position.z
+    css_object.rotation.x = rotation.x
+    css_object.rotation.y = rotation.y
+    css_object.rotation.z = rotation.z
+
+    return css_object
+}
+
+
+
+
 var renderer_api  = new RendererAPI()
 if (renderer_api.is_webgl_enabled() === false) {
     console.log('WebGL is not enabled!')
@@ -29,7 +67,7 @@ var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 
 
-
+/*
 var log_geometry = new THREE.PlaneGeometry(50, 50, 100, 100)
 //log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
 var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
@@ -39,7 +77,7 @@ var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true
 //log_material.blending  = THREE.NoBlending
 var log_mesh = new THREE.Mesh(log_geometry, log_material)
 scene.add(log_mesh)
-
+*/
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -58,9 +96,20 @@ var element = document.createElement('div')
 element.innerHTML = 'Plain text inside a div.'
 element.className = 'three-div'
 
+
+// Create a test plane.
+var p_width = 200
+var p_height = 200
+var p_position = THREE.Vector3(20, 30, 30)
+var p_rotation = THREE.Vector3(0, 0, 0)
+var test_plane = create_plane(p_width, p_height, p_position, p_rotation)
+scene.add(test_plane)
+var test_css_plane = create_css_page(p_width, p_height, p_position, p_rotation)
+cssScene.add(test_css_plane)
+
+/*
 //var css_object = new THREE.CSS3DObject(math_formulas)
 var css_object = new THREE.CSS3DObject(element)
-
 
 css_object.position.x = log_mesh.position.x
 css_object.position.y = log_mesh.position.y
@@ -69,6 +118,7 @@ css_object.position.z = log_mesh.position.z
 css_object.rotation.x = log_mesh.rotation.x
 css_object.rotation.y = log_mesh.rotation.y
 css_object.rotation.z = log_mesh.rotation.z
+*/
 
 
 //var light4 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff, .3)
