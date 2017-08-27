@@ -33,8 +33,8 @@ RendererAPI.prototype = {
             this.renderer.setSize(this.window_width, this.window_height)
 
             this.renderer.domElement.style.position = 'absolute'
-            this.renderer.domElement.style.zIndex = 5
-            //this.renderer.domElement.style.top = 0
+            this.renderer.domElement.style.zIndex = 0
+            this.renderer.domElement.style.top = 0
 
             //document.body.appendChild(this.renderer.domElement)
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
@@ -83,7 +83,7 @@ CSSRendererAPI.prototype = {
         this.renderer = new THREE.CSS3DRenderer()
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.domElement.style.position = 'absolute'
-        this.renderer.domElement.style.zIndex = 0
+        //this.renderer.domElement.style.zIndex = 0
         this.renderer.domElement.style.top = 0
     }
 }
