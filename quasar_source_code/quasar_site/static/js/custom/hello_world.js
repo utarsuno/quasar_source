@@ -21,7 +21,7 @@ var create_plane = function(width, height, position, rotation) {
 
 var create_css_page = function(width, height, position, rotation) {
     // Create the CSS object.
-    var html = '<div style="width:' + width + 'px; height:' + height + 'px;"><p>hello world</p></div>'
+    var html = '<div style="width:' + width + 'px; height:' + height + 'px;"><p>hello world</p><br><p>`x=y^2`</p></div>'
     var div = document.createElement('div')
     div.innerHTML = html
     var css_object = new THREE.CSS3DObject(div)
