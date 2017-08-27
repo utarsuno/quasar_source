@@ -67,8 +67,8 @@ css_object.rotation.y = log_mesh.rotation.y
 css_object.rotation.z = log_mesh.rotation.z
 
 
-light = new THREE.HemisphereLight(0xffbf67, 0x15c6ff)
-scene.add(light)
+var light3 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff)
+scene.add(light3)
 
 //scene.add(css_object)
 cssScene.add(css_object)
