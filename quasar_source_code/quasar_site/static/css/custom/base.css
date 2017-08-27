@@ -28,10 +28,10 @@ canvas {
 
 #math_formulas {
     /*background: rgba(255, 255, 255, 0.5);*/
-    background: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.5);
     /*visibility: hidden;*/
     z-index: -1;
-    font-size: 10em;
+    font-size: 3em;
     padding: 2em;
 }
 
