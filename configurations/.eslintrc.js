@@ -36,6 +36,7 @@ module.exports = {
         "StatsAPI": true,
         "PointerLockAPI": true,
         "RendererAPI": true,
+        "CSSRendererAPI": true,
         "FPSControls": true,
         "ShaderAPI": true,
         "DataDisplay": true,

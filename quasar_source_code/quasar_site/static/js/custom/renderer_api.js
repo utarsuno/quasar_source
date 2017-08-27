@@ -36,7 +36,7 @@ RendererAPI.prototype = {
             this.renderer.domElement.style.zIndex = 5
             //this.renderer.domElement.style.top = 0
 
-            document.body.appendChild(this.renderer.domElement)
+            //document.body.appendChild(this.renderer.domElement)
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
         }
     },
@@ -68,5 +68,22 @@ RendererAPI.prototype = {
 
     get_warning_message: function () {
         return this.warning_message
+    }
+}
+
+function CSSRendererAPI() {
+    this.__init__()
+}
+
+CSSRendererAPI.prototype = {
+
+    renderer: null,
+
+    __init__: function() {
+        this.renderer = new THREE.CSS3DRenderer()
+        this.renderer.setSize(window.innerWidth, window.innerHeight)
+        this.renderer.domElement.style.position = 'absolute'
+        this.renderer.domElement.style.zIndex = 0
+        this.renderer.domElement.style.top = 0
     }
 }

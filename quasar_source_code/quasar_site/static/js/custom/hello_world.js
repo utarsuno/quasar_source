@@ -41,10 +41,8 @@ var log_mesh = new THREE.Mesh(log_geometry, log_material)
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-var cssRenderer = new THREE.CSS3DRenderer()
-cssRenderer.setSize(window.innerWidth, window.innerHeight)
-cssRenderer.domElement.style.position = 'absolute'
-cssRenderer.domElement.style.top = 0
+var css_renderer_api = new CSSRendererAPI()
+
 
 
 var cssScene = new THREE.Scene()
@@ -67,14 +65,14 @@ css_object.rotation.y = log_mesh.rotation.y
 css_object.rotation.z = log_mesh.rotation.z
 
 
-var light3 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff)
-scene.add(light3)
+var light4 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff, .3)
+scene.add(light4)
 
 //scene.add(css_object)
 cssScene.add(css_object)
 
-document.body.appendChild(cssRenderer.domElement)
-cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
+document.body.appendChild(css_renderer_api.renderer.domElement)
+css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -137,8 +135,8 @@ var animate = function () {
     fps_controls.physics(delta)
     data_display.update()
 
-    cssRenderer.render(cssScene, camera)
     renderer_api.render(scene, camera)
+    css_renderer_api.renderer.render(cssScene, camera)
 
     stats_api.post_render()
 
