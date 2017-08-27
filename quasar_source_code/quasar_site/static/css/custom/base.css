@@ -27,7 +27,8 @@ canvas {
 }
 
 #math_formulas {
-    visibility: hidden;
+    /*visibility: hidden;*/
+    z-index: -1;
 }
 
 .three-div{
