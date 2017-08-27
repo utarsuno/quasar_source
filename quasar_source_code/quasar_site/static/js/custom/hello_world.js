@@ -17,9 +17,9 @@ var create_plane = function(width, height, position, rotation) {
     return mesh
 }
 
-var create_css_page = function(width, height, position, rotation) {
+var create_css_page = function(width, height, position, rotation, text) {
     // Create the CSS object.
-    var html = '<div id="math_formulas" style="width:' + width + 'px; height:' + height + 'px;"><p>`b^x=c^(xlog_cb)`</p></div>'
+    var html = '<div id="math_formulas" style="width:' + width + 'px; height:' + height + 'px;"><p>' + text + '</p></div>'
     var div = document.createElement('div')
     div.innerHTML = html
     var css_object = new THREE.CSS3DObject(div)
@@ -100,8 +100,18 @@ var p_position = new THREE.Vector3(20, 30, -30)
 var p_rotation = new THREE.Vector3(0, 0, 0)
 var test_plane = create_plane(p_width, p_height, p_position, p_rotation)
 scene.add(test_plane)
-var test_css_plane = create_css_page(p_width, p_height, p_position, p_rotation)
+var test_css_plane = create_css_page(p_width, p_height, p_position, p_rotation, '`b^x=c^(xlog_cb)`')
 cssScene.add(test_css_plane)
+
+// Second test plane.
+var p_width2 = 200
+var p_height2 = 200
+var p_position2 = new THREE.Vector3(20, 30, -60)
+var p_rotation2 = new THREE.Vector3(0, 0, 0)
+var test_plane2 = create_plane(p_width2, p_height2, p_position2, p_rotation2)
+scene.add(test_plane2)
+var test_css_plane2 = create_css_page(p_width2, p_height2, p_position2, p_rotation2, '`lob_bx=(lob_cx)/(log_cb)`')
+cssScene.add(test_css_plane2)
 
 /*
 //var css_object = new THREE.CSS3DObject(math_formulas)
