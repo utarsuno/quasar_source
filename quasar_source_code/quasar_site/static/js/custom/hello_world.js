@@ -30,7 +30,7 @@ scene.add(plane_mesh)
 
 
 
-var log_geometry = new THREE.PlaneGeometry(100, 100, 100, 100)
+var log_geometry = new THREE.PlaneGeometry(50, 50, 100, 100)
 log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
 
 var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
@@ -54,10 +54,10 @@ var element = document.createElement('div')
 element.innerHTML = 'Plain text inside a div.'
 element.className = 'three-div'
 
-//var css_object = new THREE.CSS3DObject(math_formulas)
-var css_object = new THREE.CSS3DObject(element)
+var css_object = new THREE.CSS3DObject(math_formulas)
+//var css_object = new THREE.CSS3DObject(element)
 css_object.position.x = log_mesh.position.x
-css_object.position.y = log_mesh.position.y
+css_object.position.y = log_mesh.position.y + 10
 css_object.position.z = log_mesh.position.z
 
 css_object.rotation.x = log_mesh.rotation.x
