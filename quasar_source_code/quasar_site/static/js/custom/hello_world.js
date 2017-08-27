@@ -92,7 +92,7 @@ scene.add(line)
 
 // Add lights.
 var ambiColor = '#cbe7ff'
-var ambientLight = new THREE.AmbientLight(ambiColor, .2)
+var ambientLight = new THREE.AmbientLight(ambiColor, .4)
 scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
