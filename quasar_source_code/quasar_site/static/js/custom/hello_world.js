@@ -31,7 +31,7 @@ scene.add(plane_mesh)
 
 
 var log_geometry = new THREE.PlaneGeometry(50, 50, 100, 100)
-log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
+//log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
 var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
 //var log_material = new THREE.MeshBasicMaterial()
 //log_material.color.set('black')
@@ -62,13 +62,13 @@ element.className = 'three-div'
 var css_object = new THREE.CSS3DObject(element)
 
 
-css_object.position.x = log_geometry.position.x
-css_object.position.y = log_geometry.position.y
-css_object.position.z = log_geometry.position.z
+css_object.position.x = log_mesh.position.x
+css_object.position.y = log_mesh.position.y
+css_object.position.z = log_mesh.position.z
 
-css_object.rotation.x = log_geometry.rotation.x
-css_object.rotation.y = log_geometry.rotation.y
-css_object.rotation.z = log_geometry.rotation.z
+css_object.rotation.x = log_mesh.rotation.x
+css_object.rotation.y = log_mesh.rotation.y
+css_object.rotation.z = log_mesh.rotation.z
 
 
 //var light4 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff, .3)
