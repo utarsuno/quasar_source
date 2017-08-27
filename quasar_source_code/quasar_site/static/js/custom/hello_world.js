@@ -139,7 +139,8 @@ var animate = function () {
     data_display.update()
 
     //css_renderer_api.renderer.render(cssScene, camera)
-    renderer_api.render(scene, camera)
+    //renderer_api.render(scene, camera)
+    renderer_api.renderer.render(scene, camera)
     css_renderer_api.renderer.render(cssScene, camera)
 
     stats_api.post_render()
