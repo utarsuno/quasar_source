@@ -34,7 +34,7 @@ RendererAPI.prototype = {
 
             this.renderer.domElement.style.position = 'absolute'
             this.renderer.domElement.style.zIndex = 5
-            this.renderer.domElement.style.top = 0
+            //this.renderer.domElement.style.top = 0
 
             //document.body.appendChild(this.renderer.domElement)
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
