@@ -71,8 +71,8 @@ scene.add(light4)
 //scene.add(css_object)
 cssScene.add(css_object)
 
-document.body.appendChild(css_renderer_api.renderer.domElement)
-css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
+//document.body.appendChild(css_renderer_api.renderer.domElement)
+//css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

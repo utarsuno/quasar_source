@@ -32,11 +32,12 @@ RendererAPI.prototype = {
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
 
-            this.renderer.domElement.style.position = 'absolute'
-            this.renderer.domElement.style.zIndex = 1
-            this.renderer.domElement.style.top = 0
+            //this.renderer.domElement.style.position = 'absolute'
+            //this.renderer.domElement.style.zIndex = 1
+            //this.renderer.domElement.style.top = 0
 
-            //document.body.appendChild(this.renderer.domElement)
+            document.body.appendChild(this.renderer.domElement)
+
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
         }
     },
@@ -85,5 +86,7 @@ CSSRendererAPI.prototype = {
         this.renderer.domElement.style.position = 'absolute'
         //this.renderer.domElement.style.zIndex = 0
         this.renderer.domElement.style.top = 0
+
+        document.body.appendChild(this.renderer.domElement)
     }
 }
