@@ -47,7 +47,7 @@ cssRenderer.domElement.style.position = 'absolute'
 cssRenderer.domElement.style.top = 0
 
 document.body.appendChild(cssRenderer.domElement)
-//cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
+cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
 var cssScene = new THREE.Scene()
 
 
