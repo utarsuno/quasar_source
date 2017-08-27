@@ -34,7 +34,7 @@ RendererAPI.prototype = {
             this.renderer.setClearColor(0xECF8FF)
 
             this.renderer.domElement.style.position = 'absolute'
-            this.renderer.domElement.style.zIndex = 1
+            this.renderer.domElement.style.zIndex = -5
             this.renderer.domElement.style.top = 0
 
             //document.body.appendChild(this.renderer.domElement)
