@@ -37,6 +37,21 @@ var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true
 var log_mesh = new THREE.Mesh(log_geometry, log_material)
 scene.add(log_mesh)
 
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+var cssRenderer = new THREE.CSS3DRenderer();
+cssRenderer.setSize(window.innerWidth, window.innerHeight)
+cssRenderer.domElement.style.position = 'absolute'
+renderer_api.renderer.domElement.style.zIndex = 0
+cssRenderer.domElement.style.top = 0
+
+document.body.appendChild(cssRenderer.domElement)
+cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
+var cssScene = new THREE.Scene()
+
+
 var math_formulas = document.getElementById('math_formulas')
 var css_object = new THREE.CSS3DObject(math_formulas)
 css_object.position.x = log_mesh.position.x
@@ -46,7 +61,12 @@ css_object.position.z = log_mesh.position.z
 css_object.rotation.x = log_mesh.rotation.x
 css_object.rotation.y = log_mesh.rotation.y
 css_object.rotation.z = log_mesh.rotation.z
-scene.add(css_object)
+
+
+//scene.add(css_object)
+cssScene.add(css_object)
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 camera.position.z = 10
 
@@ -108,6 +128,7 @@ var animate = function () {
     data_display.update()
 
     renderer_api.render(scene, camera)
+    cssRenderer.render(cssScene, camera)
 
     stats_api.post_render()
 

@@ -31,7 +31,12 @@ RendererAPI.prototype = {
             this.renderer      = new THREE.WebGLRenderer({antialias: true})
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
-            document.body.appendChild(this.renderer.domElement)
+
+            this.renderer.domElement.style.position = 'absolute'
+            this.renderer.domElement.style.zIndex = 1
+            this.renderer.domElement.style.top = 0
+
+            //document.body.appendChild(this.renderer.domElement)
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
         }
     },
