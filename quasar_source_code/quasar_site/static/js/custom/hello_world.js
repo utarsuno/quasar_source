@@ -30,12 +30,18 @@ scene.add(plane_mesh)
 
 
 
-var log_geometry = new THREE.PlaneGeometry(200, 200, 100, 100)
+var log_geometry = new THREE.PlaneGeometry(100, 100, 100, 100)
 log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
+
 var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
 var log_mesh = new THREE.Mesh(log_geometry, log_material)
 scene.add(log_mesh)
 
+var math_formulas = document.getElementById('math_formulas')
+var css_object = new THREE.CSS3DObject(math_formulas)
+css_object.position = log_mesh.position
+css_object.rotation = log_mesh.rotation
+scene.add(css_object)
 
 camera.position.z = 10
 
