@@ -48,11 +48,18 @@ cssRenderer.domElement.style.top = 0
 
 document.body.appendChild(cssRenderer.domElement)
 cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
+
 var cssScene = new THREE.Scene()
 
 
 var math_formulas = document.getElementById('math_formulas')
-var css_object = new THREE.CSS3DObject(math_formulas)
+
+var element = document.createElement('div')
+element.innerHTML = 'Plain text inside a div.'
+element.className = 'three-div'
+
+//var css_object = new THREE.CSS3DObject(math_formulas)
+var css_object = new THREE.CSS3DObject(element)
 css_object.position.x = log_mesh.position.x
 css_object.position.y = log_mesh.position.y
 css_object.position.z = log_mesh.position.z
