@@ -84,7 +84,6 @@ CSSRendererAPI.prototype = {
         this.renderer = new THREE.CSS3DRenderer()
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.domElement.style.position = 'absolute'
-        this.renderer.domElement.style.zIndex = 0
         this.renderer.domElement.style.top = 0
 
         //document.body.appendChild(this.renderer.domElement)

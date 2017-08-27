@@ -55,8 +55,8 @@ var element = document.createElement('div')
 element.innerHTML = 'Plain text inside a div.'
 element.className = 'three-div'
 
-var css_object = new THREE.CSS3DObject(math_formulas)
-//var css_object = new THREE.CSS3DObject(element)
+//var css_object = new THREE.CSS3DObject(math_formulas)
+var css_object = new THREE.CSS3DObject(element)
 css_object.position.x = log_mesh.position.x
 css_object.position.y = log_mesh.position.y + 10
 css_object.position.z = log_mesh.position.z
