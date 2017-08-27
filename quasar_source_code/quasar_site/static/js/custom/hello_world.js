@@ -41,6 +41,7 @@ var log_mesh = new THREE.Mesh(log_geometry, log_material)
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
+
 var css_renderer_api = new CSSRendererAPI()
 
 
@@ -71,8 +72,11 @@ scene.add(light4)
 //scene.add(css_object)
 cssScene.add(css_object)
 
-//document.body.appendChild(css_renderer_api.renderer.domElement)
-//css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
+// @@@@
+renderer_api.renderer.style.zIndex = 0
+document.body.appendChild(css_renderer_api.renderer.domElement)
+css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
+// @@@@
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
