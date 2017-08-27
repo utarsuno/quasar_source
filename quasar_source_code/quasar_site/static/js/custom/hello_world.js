@@ -179,21 +179,6 @@ var previous_time = performance.now()
 var iii = 0
 
 var animate = function () {
-
-
-    if (iii === 1000) {
-        iii = 0
-        console.log(css_object.position.x + '\t' + log_mesh.position.x)
-        console.log(css_object.position.y + '\t' + log_mesh.position.y)
-        console.log(css_object.position.z + '\t' + log_mesh.position.z)
-
-        console.log(css_object.rotation.x + '\t' + log_mesh.rotation.x)
-        console.log(css_object.rotation.y + '\t' + log_mesh.rotation.y)
-        console.log(css_object.rotation.z + '\t' + log_mesh.rotation.z)
-    } else {
-        iii += 1
-    }
-
     //shader_api.render()
 
     requestAnimationFrame(animate)
