@@ -21,4 +21,5 @@ from quasar_web_server import views as v
 
 urlpatterns = [
     url(r'^$', v.GET_hello_world),
+    url(r'quick_test', v.GET_hello_world),
 ]
