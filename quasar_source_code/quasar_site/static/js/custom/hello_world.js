@@ -19,7 +19,7 @@ var create_plane = function(width, height, position, rotation) {
 
 var create_css_page = function(width, height, position, rotation) {
     // Create the CSS object.
-    var html = '<div id="math_formulas" style="width:' + width + 'px; height:' + height + 'px;"><p>`b^x=c^(log_cb)`</p></div>'
+    var html = '<div id="math_formulas" style="width:' + width + 'px; height:' + height + 'px;"><p>`b^x=c^(xlog_cb)`</p></div>'
     var div = document.createElement('div')
     div.innerHTML = html
     var css_object = new THREE.CSS3DObject(div)
