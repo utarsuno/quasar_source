@@ -73,7 +73,7 @@ scene.add(light4)
 cssScene.add(css_object)
 
 // @@@@
-renderer_api.renderer.style.zIndex = 0
+renderer_api.renderer.domElement.style.zIndex = 0
 document.body.appendChild(css_renderer_api.renderer.domElement)
 css_renderer_api.renderer.domElement.appendChild(renderer_api.renderer.domElement)
 // @@@@
