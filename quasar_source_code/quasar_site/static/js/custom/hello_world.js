@@ -139,9 +139,9 @@ var animate = function () {
     fps_controls.physics(delta)
     data_display.update()
 
-    css_renderer_api.renderer.render(cssScene, camera)
-    renderer_api.render(scene, camera)
     //css_renderer_api.renderer.render(cssScene, camera)
+    renderer_api.render(scene, camera)
+    css_renderer_api.renderer.render(cssScene, camera)
 
     stats_api.post_render()
 
