@@ -39,8 +39,13 @@ scene.add(log_mesh)
 
 var math_formulas = document.getElementById('math_formulas')
 var css_object = new THREE.CSS3DObject(math_formulas)
-css_object.position = log_mesh.position
-css_object.rotation = log_mesh.rotation
+css_object.position.x = log_mesh.position.x
+css_object.position.y = log_mesh.position.y
+css_object.position.z = log_mesh.position.z
+
+css_object.rotation.x = log_mesh.rotation.x
+css_object.rotation.y = log_mesh.rotation.y
+css_object.rotation.z = log_mesh.rotation.z
 scene.add(css_object)
 
 camera.position.z = 10
