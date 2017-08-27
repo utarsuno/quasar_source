@@ -32,10 +32,12 @@ scene.add(plane_mesh)
 
 var log_geometry = new THREE.PlaneGeometry(50, 50, 100, 100)
 log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
-
-var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
+var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: false})
+log_material.color.set('black')
+log_material.opacity   = 0;
+log_material.blending  = THREE.NoBlending;
 var log_mesh = new THREE.Mesh(log_geometry, log_material)
-//scene.add(log_mesh)
+scene.add(log_mesh)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
