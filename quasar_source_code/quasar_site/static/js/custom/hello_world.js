@@ -1,6 +1,5 @@
 'use strict'
 
-
 var create_plane = function(width, height, position, rotation) {
     var material = new THREE.MeshBasicMaterial({
         color: 0x000000,
@@ -18,10 +17,9 @@ var create_plane = function(width, height, position, rotation) {
     return mesh
 }
 
-
 var create_css_page = function(width, height, position, rotation) {
     // Create the CSS object.
-    var html = '<div style="width:' + width + 'px; height:' + height + 'px;"><p>hello world</p><br><p>`x=y^2`</p></div>'
+    var html = '<div id="math_formulas" style="width:' + width + 'px; height:' + height + 'px;"><p>`b^x=c^(log_cb)`</p></div>'
     var div = document.createElement('div')
     div.innerHTML = html
     var css_object = new THREE.CSS3DObject(div)
@@ -34,8 +32,6 @@ var create_css_page = function(width, height, position, rotation) {
 
     return css_object
 }
-
-
 
 
 var renderer_api  = new RendererAPI()
@@ -98,8 +94,8 @@ element.className = 'three-div'
 
 
 // Create a test plane.
-var p_width = 200
-var p_height = 200
+var p_width = 100
+var p_height = 100
 var p_position = new THREE.Vector3(20, 30, 30)
 var p_rotation = new THREE.Vector3(0, 0, 0)
 var test_plane = create_plane(p_width, p_height, p_position, p_rotation)
