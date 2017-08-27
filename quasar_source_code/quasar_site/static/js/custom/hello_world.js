@@ -110,7 +110,7 @@ var p_position2 = new THREE.Vector3(20, 30, -60)
 var p_rotation2 = new THREE.Vector3(0, 0, 0)
 var test_plane2 = create_plane(p_width2, p_height2, p_position2, p_rotation2)
 scene.add(test_plane2)
-var test_css_plane2 = create_css_page(p_width2, p_height2, p_position2, p_rotation2, '`lob_bx=(lob_cx)/(log_cb)`')
+var test_css_plane2 = create_css_page(p_width2, p_height2, p_position2, p_rotation2, '`log_bx=(log_cx)/(log_cb)`')
 cssScene.add(test_css_plane2)
 
 /*
