@@ -28,6 +28,15 @@ var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 
+
+
+var log_geometry = new THREE.PlaneGeometry(200, 200, 100, 100)
+log_plane.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
+var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true}})
+var log_mesh = new THREE.Mesh(log_geometry, log_material)
+scene.add(log_mesh)
+
+
 camera.position.z = 10
 
 /*
