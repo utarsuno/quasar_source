@@ -31,7 +31,7 @@ RendererAPI.prototype = {
             this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha:true})
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
-            this.renderer.setClearColor(0xECF8FF)
+            this.renderer.setClearColor(0x000000, 0)
 
             this.renderer.domElement.style.position = 'absolute'
             this.renderer.domElement.style.zIndex = -5
