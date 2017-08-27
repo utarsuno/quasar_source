@@ -35,20 +35,19 @@ log_geometry.applyMatrix(new THREE.Matrix4().makeRotationY(- Math.PI / 2))
 
 var log_material = new THREE.MeshBasicMaterial({color: 0xccffcc, wireframe: true})
 var log_mesh = new THREE.Mesh(log_geometry, log_material)
-scene.add(log_mesh)
+//scene.add(log_mesh)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-var cssRenderer = new THREE.CSS3DRenderer();
+var cssRenderer = new THREE.CSS3DRenderer()
 cssRenderer.setSize(window.innerWidth, window.innerHeight)
 cssRenderer.domElement.style.position = 'absolute'
-renderer_api.renderer.domElement.style.zIndex = 0
 cssRenderer.domElement.style.top = 0
 
 document.body.appendChild(cssRenderer.domElement)
-cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
+//cssRenderer.domElement.appendChild(renderer_api.renderer.domElement)
 var cssScene = new THREE.Scene()
 
 
@@ -127,8 +126,8 @@ var animate = function () {
     fps_controls.physics(delta)
     data_display.update()
 
-    renderer_api.render(scene, camera)
     cssRenderer.render(cssScene, camera)
+    renderer_api.render(scene, camera)
 
     stats_api.post_render()
 
