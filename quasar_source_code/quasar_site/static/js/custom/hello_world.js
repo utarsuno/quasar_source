@@ -7,7 +7,7 @@ var create_plane = function(width, height, position, rotation) {
         opacity: 0.0,
         side: THREE.DoubleSide
     })
-    var geometry = new THREE.PlaneGeometry(w, h)
+    var geometry = new THREE.PlaneGeometry(width, height)
     var mesh = new THREE.Mesh(geometry, material)
     mesh.position.x = position.x
     mesh.position.y = position.y
