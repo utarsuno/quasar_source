@@ -62,13 +62,13 @@ element.className = 'three-div'
 var css_object = new THREE.CSS3DObject(element)
 
 
-css_object.position.x = log_mesh.position.x
-css_object.position.y = log_mesh.position.y
-css_object.position.z = log_mesh.position.z
+css_object.position.x = log_geometry.position.x
+css_object.position.y = log_geometry.position.y
+css_object.position.z = log_geometry.position.z
 
-css_object.rotation.x = log_mesh.rotation.x
-css_object.rotation.y = log_mesh.rotation.y
-css_object.rotation.z = log_mesh.rotation.z
+css_object.rotation.x = log_geometry.rotation.x
+css_object.rotation.y = log_geometry.rotation.y
+css_object.rotation.z = log_geometry.rotation.z
 
 
 //var light4 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff, .3)
