@@ -5,6 +5,16 @@
 from datetime import datetime, timedelta
 
 
+def get_specific_day(year, month, day) -> datetime.date:
+	"""Returns a Date object of the provided values."""
+	return datetime(year=year, month=month, day=day).date()
+
+
+def get_now() -> datetime:
+	"""Gets the current datetime object representing right now."""
+	return datetime.now()
+
+
 def get_today() -> datetime.date:
 	"""Gets a Date object representing today."""
 	return datetime.today().date()
