@@ -46,6 +46,19 @@ class Entity(object):
 		self._information[key] = value
 
 
+class EntityTask(object):
+	"""Represents a task to be completed for an entity."""
+
+	def __init__(self):
+		self._current_iteration = -1
+		self._needed_iterations = 0
+
+	@property
+	def completed(self) -> bool:
+		"""Returns a boolean indicating if this task has been completed or not."""
+		return self._current_iteration >= self._needed_iterations
+
+
 class EntityManager(object):
 	"""Defines management operations for Entities."""
 
@@ -64,6 +77,10 @@ class EntityManager(object):
 		"""Temporary debugging function."""
 
 		for entity in self._entities:
-			print(entity.name)
-			if entity._time_blocks is None:
-				print('None!!!')
+
+			entity_sub_set = [entity]
+			# Get all child entities of this entity as well.
+			for e in entity._entities:
+				entity_sub_set.append(e)
+
+			#
