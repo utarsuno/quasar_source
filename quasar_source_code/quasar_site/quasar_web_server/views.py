@@ -19,6 +19,7 @@ _TEMPLATES_BASE       = 'templates/quasar_web_server/'
 TEMPLATE_HELLO_WORLD  = _TEMPLATES_BASE + 'hello_world.html'
 TEMPLATE_LOG_FORMULAS = _TEMPLATES_BASE + 'log_formulas.html'
 TEMPLATE_QUICK_INFO   = _TEMPLATES_BASE + 'quick_info.html'
+TEMPLATE_DIFF_EQ      = _TEMPLATES_BASE + 'differential_equations.html'
 
 
 def get_client_ip(request):
@@ -43,3 +44,8 @@ def GET_log_formulas(request):
 def GET_quick_info(request):
 	"""Returns a temporary page."""
 	return render(request, TEMPLATE_QUICK_INFO)
+
+
+def GET_diff_eq(request):
+	"""Returns notes for diff eq."""
+	return render(request, TEMPLATE_DIFF_EQ)

@@ -22,5 +22,6 @@ from quasar_web_server import views as v
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
     url(r'quick_info', v.GET_quick_info),
+    url(r'diff_eq', v.GET_diff_eq),
     url(r'', v.GET_hello_world),
 ]
