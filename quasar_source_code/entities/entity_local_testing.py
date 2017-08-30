@@ -30,10 +30,11 @@ math_220.add_entities([math_220_lecture, math_220_ta_session])
 
 time_blocks_220_lecture    = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
 time_blocks_220_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_220_lecture.add_time_blocks([et.TimeBlock(et.Day.MONDAY, 11, 00, et.Day.MONDAY, 11, 50),
-                                         et.TimeBlock(et.Day.WEDNESDAY, 11, 00, et.Day.WEDNESDAY, 11, 50),
-                                         et.TimeBlock(et.Day.FRIDAY, 11, 00, et.Day.FRIDAY, 11, 50)])
-time_blocks_220_ta_session.add_time_blocks(et.TimeBlock(et.Day.TUESDAY, 11, 00, et.Day.TUESDAY, 11, 50))
+time_blocks_220_lecture.add_time_blocks([et.TimeBlock(ta.Day.MONDAY, 11, 00, ta.Day.MONDAY, 11, 50),
+                                         et.TimeBlock(ta.Day.WEDNESDAY, 11, 00, ta.Day.WEDNESDAY, 11, 50),
+                                         et.TimeBlock(ta.Day.FRIDAY, 11, 00, ta.Day.FRIDAY, 11, 50)])
+time_blocks_220_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 11, 00, ta.Day.TUESDAY, 11, 50))
+
 math_220_lecture.add_time_blocks(time_blocks_220_lecture)
 math_220_ta_session.add_time_blocks(time_blocks_220_ta_session)
 
@@ -48,9 +49,9 @@ math_310.add_information('Professor\s Website', 'http://homepages.math.uic.edu/~
 math_310.add_information('Course Website', 'https://www.math.uic.edu/math310')
 
 time_blocks_310 = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_310.add_time_blocks([et.TimeBlock(et.Day.MONDAY, 14, 50, et.Day.MONDAY, 14, 50),
-                                 et.TimeBlock(et.Day.WEDNESDAY, 14, 50, et.Day.WEDNESDAY, 14, 50),
-                                 et.TimeBlock(et.Day.FRIDAY, 14, 50, et.Day.FRIDAY, 14, 50)])
+time_blocks_310.add_time_blocks([et.TimeBlock(ta.Day.MONDAY, 14, 00, ta.Day.MONDAY, 14, 50),
+                                 et.TimeBlock(ta.Day.WEDNESDAY, 14, 00, ta.Day.WEDNESDAY, 14, 50),
+                                 et.TimeBlock(ta.Day.FRIDAY, 14, 00, ta.Day.FRIDAY, 14, 50)])
 math_310.add_time_blocks(time_blocks_310)
 '''  __   __         __       ___  ___  __      __       __  ___  ___        __
 	/  ` /  \  |\/| |__) |  |  |  |__  |__)    /__` \ / /__`  |  |__   |\/| /__`
@@ -71,12 +72,12 @@ cs_361_ta_session.add_information('TA\'s name', 'TBD')
 cs_361.add_entities([cs_361_lecture, cs_361_ta_session])
 
 time_blocks_361_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_lecture.add_time_blocks([et.TimeBlock(et.Day.TUESDAY, 14, 00, et.Day.TUESDAY, 15, 15),
-                                 et.TimeBlock(et.Day.THURSDAY, 14, 00, et.Day.THURSDAY, 15, 15)])
+time_blocks_361_lecture.add_time_blocks([et.TimeBlock(ta.Day.TUESDAY, 14, 00, ta.Day.TUESDAY, 15, 15),
+                                 et.TimeBlock(ta.Day.THURSDAY, 14, 00, ta.Day.THURSDAY, 15, 15)])
 cs_361_lecture.add_time_blocks(time_blocks_361_lecture)
 
 time_blocks_361_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_ta_session.add_time_blocks(et.TimeBlock(et.Day.TUESDAY, 16, 00, et.Day.TUESDAY, 16, 50))
+time_blocks_361_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 16, 00, ta.Day.TUESDAY, 16, 50))
 cs_361_ta_session.add_time_blocks(time_blocks_361_ta_session)
 '''  __   __         __       ___  ___  __      __   __        __          __   __
 	/  ` /  \  |\/| |__) |  |  |  |__  |__)    / _` |__)  /\  |__) |__| | /  ` /__`
@@ -95,8 +96,8 @@ cs_425_ta_session.add_information('Location', 'TBD')
 cs_425.add_entities([cs_425_lecture, cs_425_ta_session])
 
 time_blocks_425_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_425_lecture.add_time_blocks([et.TimeBlock(et.Day.TUESDAY, 12, 30, et.Day.TUESDAY, 13, 45),
-                                         et.TimeBlock(et.Day.THURSDAY, 12, 30, et.Day.THURSDAY, 13, 45)])
+time_blocks_425_lecture.add_time_blocks([et.TimeBlock(ta.Day.TUESDAY, 12, 30, ta.Day.TUESDAY, 13, 45),
+                                         et.TimeBlock(ta.Day.THURSDAY, 12, 30, ta.Day.THURSDAY, 13, 45)])
 
 '''  ___      ___   ___                              __   ___  __
     |__  |\ |  |  |  |  \ /     |\/|  /\  |\ |  /\  / _` |__  |__)
@@ -105,4 +106,4 @@ time_blocks_425_lecture.add_time_blocks([et.TimeBlock(et.Day.TUESDAY, 12, 30, et
 entity_manager = e.EntityManager()
 entity_manager.add_entities([math_220, math_310, cs_361, cs_425])
 
-entity_manager.print_todays_relevant_information()
+#entity_manager.print_todays_relevant_information()

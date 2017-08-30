@@ -7,13 +7,11 @@
 {% block additional_head_statements %}{% endblock %}
 {% block body %}
 <div>
-    <p>11am - SH 215</p><br>
-    <p>12:30 - TBH 180G</p><br>
-    <p>2:00pm - LCD4</p><br>
-    <p>4:00pm - SES 205B</p><br>
-    <p>Get keys at 6:30 today!!!</p><br>
-    <p>Put clicker in backpack</p><br>
-    <p>Connect to bert.uic system</p><br>
+    <p>Put clicker in backpack!!</p><br>
+    <p>Try to Connect to bert.uic system!!!!!!</p><br>
+    {% for tb in time_blocks %}
+        <p>{{ tb }}</p><br>
+    {% endfor %}
 </div>
 <!--
 <div id = "math_formulas">
