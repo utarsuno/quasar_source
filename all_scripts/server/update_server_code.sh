@@ -27,8 +27,8 @@ if [[ "${reslog}" != "" ]] ; then
     # This resets to master.
     git reset --hard origin/master;
 
-    # Grab the latest code.
-    git pull;
+    # Remove files that are not tracked.
+    git clean -f;
 else
     # We do not have to update the code.
     print_script_text "The code base is already up to date so a pull will not be performed."
