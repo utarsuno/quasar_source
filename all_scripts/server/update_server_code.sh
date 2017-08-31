@@ -27,8 +27,8 @@ if [[ "${reslog}" != "" ]] ; then
     # This resets to master.
     git reset --hard origin/master;
 
-    # Remove files that are not tracked.
-    git clean -f;
+    # Remove files that are not tracked. The -d flag is needed for removing directories as well.
+    git clean -fd;
 else
     # We do not have to update the code.
     print_script_text "The code base is already up to date so a pull will not be performed."
