@@ -16,12 +16,15 @@ Including another URLconf
 
 from django.conf.urls import url
 
-# Locally this will appear as an error but it works on the Server builds.
-from quasar_web_server import views as v
+#from quasar_web_server import views as v
+from quasar_source_code.quasar_site_django.quasar_web_server import views as v
 
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
     url(r'quick_info', v.GET_quick_info),
-    url(r'diff_eq', v.GET_diff_eq),
+    url(r'math220', v.GET_math_220),
+    url(r'math310', v.GET_math_310),
+    url(r'cs361', v.GET_cs_361),
+    url(r'cs425', v.GET_cs_425),
     url(r'', v.GET_hello_world),
 ]
