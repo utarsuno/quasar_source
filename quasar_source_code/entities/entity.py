@@ -71,10 +71,29 @@ class Entity(object):
 class EntityTask(object):
 	"""Represents a task to be completed for an entity."""
 
-	def __init__(self):
+	def __init__(self, name, parent_task=None):
+		self._name              = name
 		self._current_iteration = -1
 		self._needed_iterations = 0
 		self._due_date          = None
+		self._description       = None
+
+		self._sub_tasks         = []
+		self._parent_task       = parent_task
+
+	def iterate(self):
+		"""Completes an iteration for this task."""
+		self._current_iteration += 1
+
+	@property
+	def description(self):
+		"""Returns the description of this entity task."""
+		return self._description
+
+	@description.setter
+	def description(self, val):
+		"""Sets the description of this task."""
+		self._description = val
 
 	@property
 	def due_date(self) -> datetime:

@@ -14,7 +14,9 @@ import requests
 from django.http import JsonResponse
 
 
-from quasar_source_code.entities import entity_local_testing
+#from quasar_source_code.entities import entity_local_testing
+# Ignore the IDE error message.
+from entities import entity_local_testing
 
 
 # Define all the pages.

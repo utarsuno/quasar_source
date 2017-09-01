@@ -20,23 +20,34 @@ math_220.add_information('Professor', 'Gerard Awanou')
 math_220.add_information('Professor\'s Website', 'http://homepages.math.uic.edu/~awanou/Math220/')
 math_220.add_information('Course Website', 'https://www.math.uic.edu/coursepages/math220/index_html')
 
+# Lectures.
 math_220_lecture = e.Entity('Lecture')
 math_220_lecture.add_information('Location', 'SES 130')
-
-math_220_ta_session = e.Entity('TA Session')
-math_220_ta_session.add_information('Location', 'Stevenson Hall 215')
-math_220_ta_session.add_information('TA\'s name', 'Kevin Vissuet')
-math_220.add_entities([math_220_lecture, math_220_ta_session])
-
 time_blocks_220_lecture    = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_220_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
 time_blocks_220_lecture.add_time_blocks([et.TimeBlock(ta.Day.MONDAY, 11, 00, ta.Day.MONDAY, 11, 50),
                                          et.TimeBlock(ta.Day.WEDNESDAY, 11, 00, ta.Day.WEDNESDAY, 11, 50),
                                          et.TimeBlock(ta.Day.FRIDAY, 11, 00, ta.Day.FRIDAY, 11, 50)])
-time_blocks_220_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 11, 00, ta.Day.TUESDAY, 11, 50))
-
 math_220_lecture.add_time_blocks(time_blocks_220_lecture)
+
+# TA session.
+math_220_ta_session = e.Entity('TA Session')
+math_220_ta_session.add_information('Location', 'Stevenson Hall 215')
+math_220_ta_session.add_information('TA\'s name', 'Kevin Vissuet')
+time_blocks_220_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
+time_blocks_220_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 11, 00, ta.Day.TUESDAY, 11, 50))
 math_220_ta_session.add_time_blocks(time_blocks_220_ta_session)
+
+# Homeworks.
+math_220_homework = e.Entity('Homeworks')
+first_homework = e.EntityTask('First homework due second week wednesday', math_220_homework)
+first_homework.due_date = ta.get_specific_day(2017, 'Sep', 6)
+first_homework.description = '[1.1] - {1-10, 15}, [1.2] - {1,3,5,9,11,20}, [1.3] - {1,5,7}, [1.4] - {1, 7, 9*, 11*}'
+second_homework = e.EntityTask('Second Homework due third week wednesday', math_220_homework)
+second_homework.due_date = ta.get_specific_day(2017, 'Sep', 13)
+second_homework.description = '[2.1, 2.2] - {}'
+
+# Now add the entities to Math220.
+math_220.add_entities([math_220_lecture, math_220_ta_session, math_220_homework])
 
 '''              ___       __                __   ___  __   __
 	|    | |\ | |__   /\  |__)     /\  |    / _` |__  |__) |__)  /\
