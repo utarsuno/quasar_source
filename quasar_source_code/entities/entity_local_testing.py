@@ -42,7 +42,10 @@ math_220_ta_session.add_time_blocks(time_blocks_220_ta_session)
 # Exams
 math_220_exams = e.Entity('Exams')
 math_220_exams_tb = et.TimeBlocks(None, None)
-math_220_exams_tb.add_time_blocks(et.TimeBlock(ta.get_specific_day()))
+
+
+
+math_220_exams_tb.add_time_blocks(et.TimeBlock(ta.get_specific_day(ta.Day.THURSDAY, )))
 
 # Homeworks.
 math_220_homework = e.Entity('Homeworks')

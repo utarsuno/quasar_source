@@ -16,7 +16,7 @@ from django.http import JsonResponse
 
 #from quasar_source_code.entities import entity_local_testing
 # Ignore the IDE error message.
-from entities import entity_local_testing
+#from entities import entity_local_testing
 
 
 # Define all the pages.
@@ -48,13 +48,14 @@ def GET_log_formulas(request):
 	"""Returns the HTML page for log formulas."""
 	return render(request, TEMPLATE_LOG_FORMULAS)
 
-
+'''
 def GET_quick_info(request):
 	"""Returns a temporary page."""
 
 	entity_manager = entity_local_testing.entity_manager
 
 	return render(request, TEMPLATE_QUICK_INFO, {'time_blocks': entity_manager.print_todays_relevant_information()})
+'''
 
 
 def GET_math_220(request):
