@@ -120,7 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 #STATIC_ROOT = '/home/git_repos/quasar_source/quasar_site/static'
-STATIC_URL = '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/'
+STATIC_URL = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/'
 STATICFILES_DIRS = (
-    '/home/git_repos/quasar_source/quasar_source_code/quasar_site/static/',
+    '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/',
 )
