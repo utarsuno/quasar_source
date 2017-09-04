@@ -8,6 +8,8 @@ from quasar_source_code.universal_code import time_abstraction as ta
 from typing import List
 
 
+
+
 class TimeBlock(object):
 	"""Represents a block of time with a state and end time."""
 
