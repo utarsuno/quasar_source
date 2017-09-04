@@ -23,7 +23,7 @@ is_django_running=$(python3 ${path_to_script} 'runserver')
 if [ "${is_django_running}" == "true" ]; then
   echo 'Django is already running!'
 else
-  manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site/manage.py
+  manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py
   sudo nohup python3 ${manage_path} runserver 0:80 > /dev/null 2>&1&
 fi
 

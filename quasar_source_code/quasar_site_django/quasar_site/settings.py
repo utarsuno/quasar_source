@@ -56,7 +56,7 @@ ROOT_URLCONF = 'quasar_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/git_repos/quasar_source/quasar_source_code/quasar_site/'],
+        'DIRS': ['/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/'],
         'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
