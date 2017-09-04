@@ -26,7 +26,7 @@ from quasar_web_server import views as v
 
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
-    url(r'quick_info', v.GET_quick_info),
+    #url(r'quick_info', v.GET_quick_info),
     url(r'math220', v.GET_math_220),
     url(r'math310', v.GET_math_310),
     url(r'cs361', v.GET_cs_361),
