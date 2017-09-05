@@ -6,7 +6,22 @@ from datetime import datetime, timedelta
 from enum import Enum
 from typing import List
 from quasar_source_code.universal_code import debugging as dbg
-''' __             __   __   ___  __
+
+
+def zero_front_padding(n):
+	if len(str(n)) == 1:
+		return '0' + str(n)
+	else:
+		return str(n)
+
+
+def zero_back_padding(n):
+	if len(str(n)) == 1:
+		return str(n) + '0'
+	else:
+		return str(n)
+
+'''  __             __   __   ___  __
 	/  ` |     /\  /__` /__` |__  /__`
 	\__, |___ /~~\ .__/ .__/ |___ .__/
 '''
@@ -21,6 +36,14 @@ class Day(Enum):
 	FRIDAY    = 4
 	SATURDAY  = 5
 	SUNDAY    = 6
+
+	def get_n_days_offset(self, n):
+		"""Gets the day n days before this day."""
+		day = self.value + n
+		return Day(day % 7)
+
+	def __int__(self):
+		return self.value
 
 
 class Month(Enum):
@@ -48,6 +71,7 @@ class Month(Enum):
 		"""Returns the number of days in this month."""
 		return self.value[1]
 
+
 class GenericDayTime(object):
 	"""Representation of possible dates without being attached to specific values."""
 
@@ -56,37 +80,66 @@ class GenericDayTime(object):
 		self._hour   = int(hour)
 		self._minute = int(minute)
 
-		# The final time of this generic day time is the 3 time fields added with the minute offset.
-		# Any movement pass 24 hours in either direction allows for time roll-overs where the final output is a specific time + number of days offset.
-		self._minute_offset = None
+		self._duration_offset = Duration()
 
 	def __add__(self, other):
-		# Assumes type other is a Duration object.
-		self.minute_total = self._minute + other.minutes
-		self.hour_total   = self._hour + other.hours
-		self.day_total    = self._day + other.days
-		if self.minute_total >= 60:
+		if type(other) == GenericDayTime:
+			self._duration_offset += other.duration_offset
+		elif type(other) == Duration:
+			self._duration_offset += other
 
+		# Assumes type other is a Duration object.
+		minute_total = self._minute + other.minutes
+		hour_total   = self._hour + other.hours
+		day_total    = self._day + other.days
+		if minute_total >= 60:
+			hour_total += minute_total // 60
+			minute_total %= 60
+		if hour_total >= 24:
+			day_total += hour_total // 24
+			hour_total %= 24
+		self._minute = minute_total
+		self._hour   = hour_total
+		self._day    = day_total
+
+	def get_day_name(self):
+		"""Gets the name of this day."""
+		d = Day((self._day + self._duration_offset.days) % 7)
+		return d.name
+
+	def get_time_str_without_day(self) -> str:
+		"""Returns this generic day time as string without the day1 field attached."""
+		return zero_front_padding(self.hour) + ':' + zero_back_padding(self.minute)
+
+	def get_time_str_with_day(self) -> str:
+		"""Returns this generic day time as string."""
+		return Day(self._day).name + '[' + self.get_time_str_without_day() + ']'
+
+	@property
+	def duration_offset(self):
+		"""Returns the duration offset of this GenericDayTime object."""
+		return self._duration_offset
 
 	@property
 	def day(self) -> int:
 		"""Returns the integer representation of this generic day time's day."""
-		return self._day
+		return self._day + self._duration_offset.days
 
 	@property
 	def hour(self) -> int:
 		"""Returns the integer representation of this generic day time's hour."""
-		return self._hour
+		return self._hour + self._duration_offset.hours
 
 	@property
 	def minute(self) -> int:
 		"""Returns the integer representation of this generic day time's minute."""
-		return self._minute
+		return self._minute + self._duration_offset.minutes
+
 
 class Duration(object):
 	"""Represents an X duration of time in Y units."""
 
-	def __init__(self, minutes, hours, days):
+	def __init__(self, minutes=0, hours=0, days=0):
 		self._minutes = minutes
 		self._hours   = hours
 		self._days    = days
@@ -106,6 +159,11 @@ class Duration(object):
 		"""Returns the integer representation of this duration's number of minutes."""
 		return self._minutes
 
+	def __add__(self, other):
+		self._minutes += other.minutes
+		self._hours   += other.hours
+		self._days    += other.days
+
 
 class DateRange(object):
 	"""Represents a range of dates between two dates."""
@@ -113,122 +171,44 @@ class DateRange(object):
 	def __init__(self, generic_day_time_start, generic_day_time_end_or_duration):
 		self._generic_day_time_start = generic_day_time_start
 		if type(generic_day_time_end_or_duration) == Duration:
-			self._duration             = generic_day_time_end_or_duration
-			self._generic_day_time_end = None
+			self._generic_day_time_end = self._generic_day_time_start + generic_day_time_end_or_duration
 		elif type(generic_day_time_end_or_duration) == GenericDayTime:
 			self._generic_day_time_end = generic_day_time_end_or_duration
-			self._duration             = None
 		else:
 			dbg.raise_type_exception('DateRange', 'GenericDateTime or Duration object', generic_day_time_end_or_duration)
-
-	def _zero_front_padding(self, n):
-		if len(str(n)) == 1:
-			return '0' + str(n)
-		else:
-			return str(n)
-
-	def _zero_back_padding(self, n):
-		if len(str(n)) == 1:
-			return str(n) + '0'
-		else:
-			return str(n)
 
 	@property
 	def start_time(self) -> str:
 		"""Returns a string representation of the start time."""
-		return self._zero_front_padding(self._generic_day_time_start.hour) + ':' + self._zero_back_padding(self._generic_day_time_start.minute)
+		return self._generic_day_time_start.get_time_str_without_day()
 
 	@property
 	def end_time(self) -> str:
 		"""Returns a string representation of the end time."""
-		if self._duration is None:
-			self._zero_front_padding(self._generic_day_time_end.hour) + ':' + self._zero_back_padding(self._generic_day_time_end.minute)
-		else:
-
-
-class TimeBlock(object):
-	"""Represents a block of time with a state and end time."""
-
-	def __init__(self, start_generic_date: DateRange, end_generic_date_or_duration):
-		self._start_generic_date = start_generic_date
-		if self._end
-		self._end_generic_date   = end_generic_date
-
-	def __init__(self, x):
-		self._start_day    =
-		self._end_day      = end_day
-		self._end_hour     = end_hour
-		self._end_minute   = end_minute
-
-		self.parent_entity = None
-
-	@property
-	def end_time(self) -> str:
-		"""Returns the end time as a human readable string."""
-		return self._zero_front_padding(self._end_hour) + ':' + self._zero_back_padding(self._end_minute)
-
-	def __str__(self):
-		if self._start_day == self._end_day:
-			return self._start_day.name + '[' + self.start_time + ' - ' + self.end_time + '] for super entity : ' + self.parent_entity.name
-		else:
-			return self._start_day.name + '[' + self.start_time + '] to ' + self._end_day.name + '[' + self.end_time + '] for super entity : ' + self.parent_entity.name
+		return self._generic_day_time_end.get_time_str_without_day()
 
 	def is_relevant_for_today(self) -> bool:
 		"""Returns a boolean indicating if today's date falls within this time blocks range."""
-		start_day = self._start_day.value
-		end_day   = self._end_day.value
+		start_day = self._generic_day_time_start.day
+		end_day   = self._generic_day_time_start.day
 		if start_day < end_day:
-			if start_day <= ta.get_current_day_of_the_week_number() <= end_day:
+			if start_day <= get_current_day_of_the_week_number() <= end_day:
 				return True
 		elif end_day < start_day:
-			if end_day <= ta.get_current_day_of_the_week_number() <= start_day:
+			if end_day <= get_current_day_of_the_week_number() <= start_day:
 				return True
 		else:
-			if start_day == end_day == ta.get_current_day_of_the_week_number():
+			if start_day == end_day == get_current_day_of_the_week_number():
 				return True
 		return False
 
-	def is_relevant_for_now(self) -> bool:
-		"""Returns a boolean indicating if the current time falls within this time blocks range."""
-		y = 2
-		# TODO :
+	def __str__(self):
+		# TODO : Code for day offsets.
+		if self._generic_day_time_start.day == self._generic_day_time_end.day:
+			return Day(self._generic_day_time_start.day).name + '[' + self._generic_day_time_start.get_time_str_without_day() + ' - ' + self._generic_day_time_end.get_time_str_without_day() + ']'
+		else:
+			return self._generic_day_time_start.get_time_str_with_day() + ' -- ' + self._generic_day_time_end.get_time_str_with_day()
 
-	# TODO : is relevant for datetime object
-
-	def set_start(self, day: ta.Day, hour: int, minute: int):
-		"""Sets all the start attributes for this TimeBlock."""
-		self._start_day    = day
-		self._start_hour   = hour
-		self._start_minute = minute
-
-	def set_end(self, day: ta.Day, hour: int, minute: int):
-		"""Sets all the end attributes for this TimeBlock."""
-		self._end_day    = day
-		self._end_hour   = hour
-		self._end_minute = minute
-
-	def set_start_day(self, day: ta.Day):
-		"""Sets the start day for this time block."""
-		self._start_day = day
-
-	def set_end_day(self, day: ta.Day):
-		"""Sets the end day for this time block."""
-		self._end_day = day
-
-	def set_start_time(self, start_time: str):
-		"""Sets the start time for this block of time."""
-		self._start_hour   = int(start_time.split(':')[0])
-		self._start_minute = int(start_time.split(':')[1])
-
-	def set_end_time(self, end_time: str):
-		"""Sets the end time for this block of time."""
-		self._end_hour   = int(end_time.split(':')[0])
-		self._end_minute = int(end_time.split(':')[1])
-
-'''
-class DateRange(object)
-
-'''
 '''  ___            __  ___    __        __
 	|__  |  | |\ | /  `  |  | /  \ |\ | /__`
 	|    \__/ | \| \__,  |  | \__/ | \| .__/
@@ -270,7 +250,7 @@ def get_day(var) -> Day:
 def get_month(var) -> Month:
 	"""Gets the month from the variable provided. The variable can be an integer or string, if not intelligent match is found an exception is thrown."""
 	# Not very elegant but good enough for now.
-	if type(Month):
+	if type(var) == Month:
 		return var
 	elif type(var) == int:
 		if 1 <= var <= 12:
@@ -299,6 +279,8 @@ def get_month(var) -> Month:
 			return Month.SEPTEMBER
 		elif l == 'o' or l == 'oc' or l == 'oct' or l == 'octo' or l == 'octob' or l == 'octob' or l == 'octobe' or l == 'october':
 			return Month.OCTOBER
+		elif l == 'n' or l == 'no' or l == 'nov' or l == 'nove' or l == 'novem' or l == 'novemb' or l == 'novembe' or l == 'november':
+			return Month.NOVEMBER
 		elif l == 'd' or l == 'de' or l == 'dec' or l == 'dece' or l == 'decem' or l == 'decemb' or l == 'decembe' or l == 'december':
 			return Month.DECEMBER
 		else:
@@ -314,7 +296,10 @@ def get_current_day_of_the_week_number() -> int:
 
 def get_specific_day(year, month, day) -> datetime.date:
 	"""Returns a Date object of the provided values."""
-	return datetime(year=year, month=get_month(month), day=day).date()
+	if type(month) == int:
+		return datetime(year=year, month=month, day=day).date()
+	else:
+		return datetime(year=year, month=get_month(month).number, day=day).date()
 
 
 def get_now() -> datetime:

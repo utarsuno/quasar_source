@@ -88,14 +88,14 @@ class EntityManager(AbstractEntity):
 		"""Adds an entity to be managed."""
 		if type(e) == list or type(e) == tuple:
 			for _e in e:
-				self._entities.append(_e)
+				self.entities.append(_e)
 		else:
-			self._entities.append(e)
+			self.entities.append(e)
 
 	def print_todays_relevant_information(self):
 		"""Temporary debugging function."""
 
-		for entity in self._entities:
+		for entity in self.entities:
 
 			entity_sub_set = [entity]
 			# Get all child entities of this entity as well.
@@ -109,7 +109,8 @@ class EntityManager(AbstractEntity):
 			for e in entity_sub_set:
 				today_time_blocks_to_add = e.get_all_relevant_time_blocks()
 				for ttbta in today_time_blocks_to_add:
-					today_time_blocks.append(ttbta)
+					today_time_blocks.append([e, ttbta])
 
 			for tb in today_time_blocks:
-				print(tb)
+				print(str(tb[1]) + '\t' + str(tb[0]))
+

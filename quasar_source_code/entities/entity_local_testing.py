@@ -26,9 +26,9 @@ math_220.add_information('Course Website', 'https://www.math.uic.edu/coursepages
 math_220_lecture = e.Entity('Lecture')
 math_220_lecture.add_information('Location', 'SES 130')
 time_blocks_220_lecture    = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_220_lecture.add_time_blocks([et.TimeBlock(ta.Day.MONDAY, 11, 00, ta.Day.MONDAY, 11, 50),
-                                         et.TimeBlock(ta.Day.WEDNESDAY, 11, 00, ta.Day.WEDNESDAY, 11, 50),
-                                         et.TimeBlock(ta.Day.FRIDAY, 11, 00, ta.Day.FRIDAY, 11, 50)])
+time_blocks_220_lecture.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.MONDAY, 11, 00), ta.GenericDayTime(ta.Day.MONDAY, 11, 50)),
+                                         ta.DateRange(ta.GenericDayTime(ta.Day.WEDNESDAY, 11, 00), ta.GenericDayTime(ta.Day.WEDNESDAY, 11, 50)),
+                                         ta.DateRange(ta.GenericDayTime(ta.Day.FRIDAY, 11, 00), ta.GenericDayTime(ta.Day.FRIDAY, 11, 50))])
 math_220_lecture.add_time_blocks(time_blocks_220_lecture)
 
 # TA session.
@@ -36,7 +36,7 @@ math_220_ta_session = e.Entity('TA Session')
 math_220_ta_session.add_information('Location', 'Stevenson Hall 215')
 math_220_ta_session.add_information('TA\'s name', 'Kevin Vissuet')
 time_blocks_220_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_220_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 11, 00, ta.Day.TUESDAY, 11, 50))
+time_blocks_220_ta_session.add_time_blocks(ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 11, 00), ta.GenericDayTime(ta.Day.TUESDAY, 11, 50)))
 math_220_ta_session.add_time_blocks(time_blocks_220_ta_session)
 
 # Exams
@@ -45,7 +45,7 @@ math_220_exams_tb = et.TimeBlocks(None, None)
 
 
 
-math_220_exams_tb.add_time_blocks(et.TimeBlock(ta.get_specific_day(ta.Day.THURSDAY, )))
+#math_220_exams_tb.add_time_blocks(et.TimeBlock(ta.get_specific_day(ta.Day.THURSDAY, )))
 
 # Homeworks.
 math_220_homework = e.Entity('Homeworks')
@@ -120,9 +120,9 @@ math_310.add_information('Professor\s Website', 'http://homepages.math.uic.edu/~
 math_310.add_information('Course Website', 'https://www.math.uic.edu/math310')
 
 time_blocks_310 = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_310.add_time_blocks([et.TimeBlock(ta.Day.MONDAY, 14, 00, ta.Day.MONDAY, 14, 50),
-                                 et.TimeBlock(ta.Day.WEDNESDAY, 14, 00, ta.Day.WEDNESDAY, 14, 50),
-                                 et.TimeBlock(ta.Day.FRIDAY, 14, 00, ta.Day.FRIDAY, 14, 50)])
+time_blocks_310.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.MONDAY, 14, 00), ta.GenericDayTime(ta.Day.MONDAY, 14, 50)),
+                                 ta.DateRange(ta.GenericDayTime(ta.Day.WEDNESDAY, 14, 00), ta.GenericDayTime(ta.Day.WEDNESDAY, 14, 50)),
+                                 ta.DateRange(ta.GenericDayTime(ta.Day.FRIDAY, 14, 00), ta.GenericDayTime(ta.Day.FRIDAY, 14, 50))])
 math_310.add_time_blocks(time_blocks_310)
 '''  __   __         __       ___  ___  __      __       __  ___  ___        __
 	/  ` /  \  |\/| |__) |  |  |  |__  |__)    /__` \ / /__`  |  |__   |\/| /__`
@@ -143,12 +143,12 @@ cs_361_ta_session.add_information('TA\'s name', 'TBD')
 cs_361.add_entities([cs_361_lecture, cs_361_ta_session])
 
 time_blocks_361_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_lecture.add_time_blocks([et.TimeBlock(ta.Day.TUESDAY, 14, 00, ta.Day.TUESDAY, 15, 15),
-                                 et.TimeBlock(ta.Day.THURSDAY, 14, 00, ta.Day.THURSDAY, 15, 15)])
+time_blocks_361_lecture.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 14, 00), ta.GenericDayTime(ta.Day.TUESDAY, 15, 15)),
+                                 ta.DateRange(ta.GenericDayTime(ta.Day.THURSDAY, 14, 00), ta.GenericDayTime(ta.Day.THURSDAY, 15, 15))])
 cs_361_lecture.add_time_blocks(time_blocks_361_lecture)
 
 time_blocks_361_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_ta_session.add_time_blocks(et.TimeBlock(ta.Day.TUESDAY, 16, 00, ta.Day.TUESDAY, 16, 50))
+time_blocks_361_ta_session.add_time_blocks(ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 16, 00), ta.GenericDayTime(ta.Day.TUESDAY, 16, 50)))
 cs_361_ta_session.add_time_blocks(time_blocks_361_ta_session)
 '''  __   __         __       ___  ___  __      __   __        __          __   __
 	/  ` /  \  |\/| |__) |  |  |  |__  |__)    / _` |__)  /\  |__) |__| | /  ` /__`
@@ -167,8 +167,8 @@ cs_425_ta_session.add_information('Location', 'TBD')
 cs_425.add_entities([cs_425_lecture, cs_425_ta_session])
 
 time_blocks_425_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_425_lecture.add_time_blocks([et.TimeBlock(ta.Day.TUESDAY, 12, 30, ta.Day.TUESDAY, 13, 45),
-                                         et.TimeBlock(ta.Day.THURSDAY, 12, 30, ta.Day.THURSDAY, 13, 45)])
+time_blocks_425_lecture.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 12, 30), ta.GenericDayTime(ta.Day.TUESDAY, 13, 45)),
+                                         ta.DateRange(ta.GenericDayTime(ta.Day.THURSDAY, 12, 30), ta.GenericDayTime(ta.Day.THURSDAY, 13, 45))])
 
 '''  ___      ___   ___                              __   ___  __
     |__  |\ |  |  |  |  \ /     |\/|  /\  |\ |  /\  / _` |__  |__)
@@ -177,4 +177,4 @@ time_blocks_425_lecture.add_time_blocks([et.TimeBlock(ta.Day.TUESDAY, 12, 30, ta
 entity_manager = e.EntityManager()
 entity_manager.add_entities([math_220, math_310, cs_361, cs_425])
 
-#entity_manager.print_todays_relevant_information()
+entity_manager.print_todays_relevant_information()
