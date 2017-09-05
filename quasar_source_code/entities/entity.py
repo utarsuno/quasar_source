@@ -107,9 +107,13 @@ class EntityManager(AbstractEntity):
 
 			# Now go through all entities associated for this entity.
 			for e in entity_sub_set:
+				# Get all time blocks associated with this entity.
 				today_time_blocks_to_add = e.get_all_relevant_time_blocks()
 				for ttbta in today_time_blocks_to_add:
 					today_time_blocks.append([e, ttbta])
+
+				# Get all tasks associated with this entity.
+
 
 			for tb in today_time_blocks:
 				print(str(tb[1]) + '\t' + str(tb[0]))

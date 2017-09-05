@@ -21,6 +21,10 @@ class EntityTask(e.AbstractEntity):
 		self._sub_tasks         = []
 		self._parent_task       = parent_task
 
+	def is_relevant_for_today(self):
+		"""Returns a boolean indicating if this task falls within today."""
+
+
 	def iterate(self):
 		"""Completes an iteration for this task."""
 		self._current_iteration += 1

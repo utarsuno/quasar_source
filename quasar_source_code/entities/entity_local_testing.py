@@ -107,7 +107,7 @@ homework220_14.due_date = ta.get_specific_day(2017, 'Dec', 6)
 homework220_14.description = '[10.3, 10.4] - {10.3: 13, 15, 10.4: 1, 2, 3, 4, 5, 6}, [10.4] - {8, 10, 11, 14, 15}, [10.5] - {2, 6, 9, 10, 14}, [10.6] - {1, 3, 7, 8}'
 
 # Now add the entities to Math220.
-math_220.add_entities([math_220_lecture, math_220_ta_session, math_220_homework])
+math_220.add_entities([math_220_lecture, math_220_ta_session, math_220_homework, math_220_exams])
 
 '''              ___       __                __   ___  __   __
 	|    | |\ | |__   /\  |__)     /\  |    / _` |__  |__) |__)  /\
