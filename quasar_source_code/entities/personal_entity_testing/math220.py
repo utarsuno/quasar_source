@@ -1,22 +1,15 @@
 # coding=utf-8
 
-"""This module, entity_local_testing.py, is used for local testing of Entities."""
+"""This module, math220.py, holds entity information for my Math220 course."""
 
 from quasar_source_code.entities import entity as e
-from quasar_source_code.entities import entity_properties as ep
 from quasar_source_code.entities.entity_task import EntityTask
-from quasar_source_code.entities import entity_time as et
-from datetime import datetime
 from quasar_source_code.universal_code import time_abstraction as ta
 
 # Universal information.
 first_day_of_courses = ta.get_specific_day(year=2017, month=8, day=28)
 last_day_of_courses  = ta.get_specific_day(year=2017, month=8, day=8)
 
-'''  __     ___  ___  ___  __   ___      ___                 ___  __            ___    __        __
-	|  \ | |__  |__  |__  |__) |__  |\ |  |  |  /\  |       |__  /  \ |  |  /\   |  | /  \ |\ | /__`
-	|__/ | |    |    |___ |  \ |___ | \|  |  | /~~\ |___    |___ \__X \__/ /~~\  |  | \__/ | \| .__/
-'''
 math_220 = e.Entity('Math 220')
 math_220.add_information('Professor', 'Gerard Awanou')
 math_220.add_information('Professor\'s Website', 'http://homepages.math.uic.edu/~awanou/Math220/')
@@ -42,10 +35,6 @@ math_220_ta_session.add_time_blocks(time_blocks_220_ta_session)
 # Exams
 math_220_exams = e.Entity('Exams')
 math_220_exams_tb = et.TimeBlocks(None, None)
-
-
-
-#math_220_exams_tb.add_time_blocks(et.TimeBlock(ta.get_specific_day(ta.Day.THURSDAY, )))
 
 # Homeworks.
 math_220_homework = e.Entity('Homeworks')
@@ -108,73 +97,3 @@ homework220_14.description = '[10.3, 10.4] - {10.3: 13, 15, 10.4: 1, 2, 3, 4, 5,
 
 # Now add the entities to Math220.
 math_220.add_entities([math_220_lecture, math_220_ta_session, math_220_homework, math_220_exams])
-
-'''              ___       __                __   ___  __   __
-	|    | |\ | |__   /\  |__)     /\  |    / _` |__  |__) |__)  /\
-	|___ | | \| |___ /~~\ |  \    /~~\ |___ \__> |___ |__) |  \ /~~\
-'''
-math_310 = e.Entity('Math 310')
-math_310.add_information('Location', 'SES 230')
-math_310.add_information('Professor', 'Julius Ross')
-math_310.add_information('Professor\s Website', 'http://homepages.math.uic.edu/~julius/')
-math_310.add_information('Course Website', 'https://www.math.uic.edu/math310')
-
-time_blocks_310 = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_310.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.MONDAY, 14, 00), ta.Duration(minutes=50)),
-                                 ta.DateRange(ta.GenericDayTime(ta.Day.WEDNESDAY, 14, 00), ta.Duration(minutes=50)),
-                                 ta.DateRange(ta.GenericDayTime(ta.Day.FRIDAY, 14, 00), ta.Duration(minutes=50))])
-math_310.add_time_blocks(time_blocks_310)
-'''  __   __         __       ___  ___  __      __       __  ___  ___        __
-	/  ` /  \  |\/| |__) |  |  |  |__  |__)    /__` \ / /__`  |  |__   |\/| /__`
-	\__, \__/  |  | |    \__/  |  |___ |  \    .__/  |  .__/  |  |___  |  | .__/
-'''
-cs_361 = e.Entity('CS 361')
-cs_361.add_information('Professor', 'John T. Bell')
-cs_361.add_information('Professor\'s Website', 'https://www.cs.uic.edu/~i361/')
-cs_361.add_information('Piazza Link', 'https://piazza.com/class/iyq9ste59eyp7')
-
-cs_361_lecture = e.Entity('Lecture')
-cs_361_lecture.add_information('Location', 'LCD4')
-
-cs_361_ta_session = e.Entity('TA Session')
-cs_361_ta_session.add_information('Location', 'SES 205B')
-cs_361_ta_session.add_information('TA\'s name', 'TBD')
-
-cs_361.add_entities([cs_361_lecture, cs_361_ta_session])
-
-time_blocks_361_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_lecture.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 14, 00), ta.Duration(minutes=75)),
-                                 ta.DateRange(ta.GenericDayTime(ta.Day.THURSDAY, 14, 00), ta.Duration(minutes=75))])
-cs_361_lecture.add_time_blocks(time_blocks_361_lecture)
-
-time_blocks_361_ta_session = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_361_ta_session.add_time_blocks(ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 16, 00), ta.Duration(minutes=50)))
-cs_361_ta_session.add_time_blocks(time_blocks_361_ta_session)
-'''  __   __         __       ___  ___  __      __   __        __          __   __
-	/  ` /  \  |\/| |__) |  |  |  |__  |__)    / _` |__)  /\  |__) |__| | /  ` /__`
-	\__, \__/  |  | |    \__/  |  |___ |  \    \__> |  \ /~~\ |    |  | | \__, .__/
-'''
-cs_425 = e.Entity('CS 425')
-
-cs_425_lecture = e.Entity('Lecture')
-cs_425_lecture.add_information('Professor', 'Robert V. Kenyon')
-cs_425_lecture.add_information('Location', 'TBH 180G')
-
-cs_425_ta_session = e.Entity('TA Session')
-cs_425_ta_session.add_information('TA\'s name', 'TBD')
-cs_425_ta_session.add_information('Location', 'TBD')
-
-cs_425.add_entities([cs_425_lecture, cs_425_ta_session])
-
-time_blocks_425_lecture = et.TimeBlocks(first_day_of_courses, last_day_of_courses)
-time_blocks_425_lecture.add_time_blocks([ta.DateRange(ta.GenericDayTime(ta.Day.TUESDAY, 12, 30), ta.Duration(minutes=75)),
-                                         ta.DateRange(ta.GenericDayTime(ta.Day.THURSDAY, 12, 30), ta.Duration(minutes=75))])
-
-'''  ___      ___   ___                              __   ___  __
-    |__  |\ |  |  |  |  \ /     |\/|  /\  |\ |  /\  / _` |__  |__)
-    |___ | \|  |  |  |   |      |  | /~~\ | \| /~~\ \__> |___ |  \
-'''
-entity_manager = e.EntityManager()
-entity_manager.add_entities([math_220, math_310, cs_361, cs_425])
-
-entity_manager.print_todays_relevant_information()

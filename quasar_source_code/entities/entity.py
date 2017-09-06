@@ -13,7 +13,7 @@ class AbstractEntity(object):
 	"""Contains data that all entity objects must have."""
 
 	def __init__(self):
-		self._global_id = None
+		self._global_id         = None
 		self._entity_properties = None
 
 
@@ -74,6 +74,8 @@ class Entity(AbstractEntity):
 		self._information[key] = value
 
 	def __str__(self):
+		if self._parent_entity is not None:
+			return 'Entity : ' + self.name + ', child of : ' + self._parent_entity.name
 		return 'Entity : ' + self.name
 
 
@@ -92,6 +94,8 @@ class EntityManager(AbstractEntity):
 		else:
 			self.entities.append(e)
 
+	# TODO : Get all tasks for day X.
+
 	def print_todays_relevant_information(self):
 		"""Temporary debugging function."""
 
@@ -104,6 +108,9 @@ class EntityManager(AbstractEntity):
 
 			# Get time blocks relevant for today.
 			today_time_blocks = []
+			past_tasks        = []
+			today_tasks       = []
+			future_tasks      = []
 
 			# Now go through all entities associated for this entity.
 			for e in entity_sub_set:

@@ -49,6 +49,14 @@ class TimeBlocks(object):
 				tb.parent_entity = self.parent_entity
 				self._time_blocks.append(tb)
 
+	def get_all_relevant_time_blocks_for_date(self, date) -> List:
+		"""Returns a list of time blocks relevant to date passed in."""
+		relevant_time_blocks = []
+		for tb in self._time_blocks:
+			if tb.is_relevant_for_date(date):
+				relevant_time_blocks.append(tb)
+		return relevant_time_blocks
+
 	def get_all_relevant_time_blocks_for_today(self) -> List:
 		"""Returns a list of time blocks relevant for today"""
 		relevant_time_blocks = []

@@ -5,6 +5,7 @@
 from datetime import datetime
 from typing import List
 from quasar_source_code.entities import entity as e
+from quasar_source_code.universal_code import time_abstraction as ta
 
 
 class EntityTask(e.AbstractEntity):
@@ -21,9 +22,12 @@ class EntityTask(e.AbstractEntity):
 		self._sub_tasks         = []
 		self._parent_task       = parent_task
 
-	def is_relevant_for_today(self):
-		"""Returns a boolean indicating if this task falls within today."""
-
+	def get_task_and_sub_tasks(self):
+		"""Returns a list of this task plus all sub tasks attached to it."""
+		all_tasks = [self]
+		for t in self._sub_tasks:
+			all_tasks.append(t)
+		return all_tasks
 
 	def iterate(self):
 		"""Completes an iteration for this task."""
