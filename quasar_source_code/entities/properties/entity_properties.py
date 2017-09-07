@@ -5,6 +5,8 @@
 from quasar_source_code.entities import entity as e
 from quasar_source_code.universal_code import debugging as dbg
 
+# TODO : Redo this file
+
 
 class EntityProperty(object):
 	"""Represents an entity property."""

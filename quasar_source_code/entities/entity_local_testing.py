@@ -4,7 +4,7 @@
 
 from quasar_source_code.entities import entity as e
 from quasar_source_code.entities import entity_time as et
-from quasar_source_code.entities.entity_task import EntityTask
+from quasar_source_code.entities.properties.entity_task import EntityTask
 from quasar_source_code.universal_code import time_abstraction as ta
 
 # Universal information.

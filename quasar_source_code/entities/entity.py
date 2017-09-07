@@ -14,43 +14,21 @@ class AbstractEntity(object):
 
 	def __init__(self):
 		self._global_id         = None
-		self._entity_properties = None
+		# TODO : owner_id
 
-class Entity(AbstractEntity):
-	"""Abstract representation to Entities."""
+		# Each entity can have a list of properties.
+		self._properties        = []
 
-	# NOTE : Going through refactorings.
+	def add_property(self, entity_property) -> None:
+		"""Adds an entity property to this entity."""
+		self._properties.append(entity_property)
 
-	def __init__(self, entity_name):
-		super().__init__()
-		self.name          = entity_name
-		self._information  = {}
-		self._entities     = []
-		self._parent_entity = None
-
-		self._properties = []
-
-	def get_all_information_relevant_for_date(self, date):
-		"""Gathers relevant information for the date provided."""
-		sub_set = self.get_entity_with_children()
-		info = []
-		for e in sub_set:
-			entity_time_sub_set = e.get_all_property_objects_of_type('entity_time')
-
-			#print('Printing time sub set for entity : ' + str(e))
-			for t in entity_time_sub_set:
-				data = t.get_all_relevant_events_for_date(date)
-				if len(data) > 0:
-					info.append(data)
-
-			# Check if the current entity is a task.
-			print(type(e))
-			print(e.name)
-#			print(isinstance(self, ))
-			#if str(type(e)) == "<class 'quasar_source_code.entities.entity.Entity'>":
-				#for t in e
-
-		return info
+	def has_property(self, property_name) -> bool:
+		"""Returns true if the property specified is found."""
+		for prop in self._properties:
+			if prop.name == property_name:
+				return True
+		return False
 
 	def get_all_property_objects_of_type(self, property_name) -> List:
 		"""Returns a list of property objects of the specified property name. Empty list is returned if none were found."""
@@ -67,33 +45,63 @@ class Entity(AbstractEntity):
 				info.append(str(p))
 		return info
 
+
+class Entity(AbstractEntity):
+	"""Abstract representation to Entities."""
+
+	# NOTE : Going through refactorings.
+
+	def __init__(self, entity_name):
+		super().__init__()
+		self.name          = entity_name
+		self._information  = {}
+		self._entities     = []
+		self._parent_entity = None
+
+	def get_all_information_relevant_for_date(self, date):
+		"""Gathers relevant information for the date provided."""
+		sub_set = self.get_entity_with_children()
+		info = []
+		for e in sub_set:
+			entity_time_sub_set = e.get_all_property_objects_of_type('entity_time')
+
+			#print('Printing time sub set for entity : ' + str(e))
+			for t in entity_time_sub_set:
+				data = t.get_all_relevant_events_for_date(date)
+				if len(data) > 0:
+					info.append(data)
+
+			# Check if the current entity is a task.
+			#print(type(e))
+			#print(e.__class__.__name__)
+			#print(e.name)
+#			print(isinstance(self, ))
+			#if str(type(e)) == "<class 'quasar_source_code.entities.entity.Entity'>":
+				#for t in e
+
+		return info
+
 	def get_entity_with_children(self) -> List:
 		"""Returns a list of entities which are this entity and all its children."""
-		sub_set = [self]
-		for e in self._entities:
-			sub_set.append(e)
-			# TODO : Make this dynamically/recursively go N levels deep not just hard coded 2 or 3 layers.
-			for ee in e.entities:
-				sub_set.append(ee)
-				for eee in ee.entities:
-					sub_set.append(eee)
-		return sub_set
+		if len(self._entities) == 0:
+			return [self]
+		else:
+			sub_set = [self]
+			print('Going through{' + str(self) + '}')
+			for e in self._entities:
+				#sub_set.append(e)
+				if hasattr(e, '_entities'):
+					print('sub entity is{' + str(e) + '}. It has {' + str(len(e._entities)) + '}')
+					print(len(sub_set))
+					sub_set += e.get_entity_with_children()
+					print(len(sub_set))
+			print()
+			return sub_set
 
 	@property
 	def entities(self) -> List:
-		"""Returns a list of all entities in this entitiy."""
+		"""Returns a list of all entities in this entity."""
 		return self._entities
-
-	def add_property(self, entity_property) -> None:
-		"""Adds an entity property to this entity."""
-		self._properties.append(entity_property)
-
-	def has_property(self, property_name) -> bool:
-		"""Returns true if the property specified is found."""
-		for prop in self._properties:
-			if prop.name == property_name:
-				return True
-		return False
 
 	def has_property_deep_search(self, property_name) -> bool:
 		"""Returns true if this entity has the specified property or if any of it's child entities do."""
@@ -114,13 +122,13 @@ class Entity(AbstractEntity):
 
 	def add_entities(self, e):
 		"""Adds n entities."""
-		if type(e) == Entity:
-			self._entities.append(e)
-			e._parent_entity = self
-		else:
+		if type(e) == list or type(e) == tuple:
 			for _e in e:
 				self._entities.append(_e)
 				_e._parent_entity = self
+		else:
+			self._entities.append(e)
+			self._parent_entity = self
 
 	def add_information(self, key, value):
 		"""Adds key-pair information to keep track of."""

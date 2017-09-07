@@ -2,48 +2,48 @@
 
 """This module, math220.py, holds entity information for my Math220 course."""
 
-from quasar_source_code.entities import entity as e
-from quasar_source_code.entities.entity_task import EntityTask
-from quasar_source_code.universal_code import time_abstraction as ta
+from quasar_source_code.entities.base_entity import Entity
 from quasar_source_code.entities.properties import entity_time_properties as etp
+from quasar_source_code.entities.properties.entity_task import EntityTask
+from quasar_source_code.universal_code import time_abstraction as ta
 
 # Universal information.
 first_day_of_courses = ta.get_specific_day(year=2017, month=8, day=28)
 last_day_of_courses  = ta.get_specific_day(year=2017, month=12, day=8)
 school_year_range    = ta.TimeRange(first_day_of_courses, last_day_of_courses)
 
-# Parent entitiy.
-math220 = e.Entity('Math 220')
+# Parent entity.
+math220 = Entity('Math 220')
 math220.add_information('Professor', 'Gerard Awanou')
 math220.add_information('Professor\'s Website', 'http://homepages.math.uic.edu/~awanou/Math220/')
 math220.add_information('Course Website', 'https://www.math.uic.edu/coursepages/math220/index_html')
 
 # Lectures.
-math220_lecture = e.Entity('Lecture')
+math220_lecture = Entity('Lecture')
 math220_lecture.add_information('Location', 'SES 130')
-math220_lecture_times = etp.EntityTime(math220_lecture)
+math220_lecture_times = etp.EntityTime(parent_entity=math220_lecture, entity_name='Lecture Schedule')
 math220_lecture_times.set_event_range(school_year_range, 'first semester')
 math220_lecture_times.add_event_to_event_range(ta.TimeRange(ta.Weekday(ta.Day.MONDAY, 11, 00), ta.Duration(minutes=50)), 'Monday lecture')
 math220_lecture_times.add_event_to_event_range(ta.TimeRange(ta.Weekday(ta.Day.WEDNESDAY, 11, 00), ta.Duration(minutes=50)), 'Wednesday lecture')
 math220_lecture_times.add_event_to_event_range(ta.TimeRange(ta.Weekday(ta.Day.FRIDAY, 11, 00), ta.Duration(minutes=50)), 'Friday lecture')
 
 # TA session.
-math220_ta_session = e.Entity('TA Session')
+math220_ta_session = Entity('TA Session')
 math220_ta_session.add_information('Location', 'Stevenson Hall 215')
 math220_ta_session.add_information('TA\'s name', 'Kevin Vissuet')
-math220_ta_session_times = etp.EntityTime(math220_ta_session)
+math220_ta_session_times = etp.EntityTime(parent_entity=math220_ta_session, entity_name='TA Session Schedule')
 math220_ta_session_times.set_event_range(school_year_range, 'first semester')
 math220_ta_session_times.add_event_to_event_range(ta.TimeRange(ta.Weekday(ta.Day.TUESDAY, 11, 00), ta.Duration(minutes=50)), 'TA Session')
 
 # Exams
-math220_exams = e.Entity('Exams')
-math220_exams_times = etp.EntityTime(math220_exams)
+math220_exams = Entity('Exams')
+math220_exams_times = etp.EntityTime(parent_entity=math220_exams, entity_name='Exam Times')
 math220_exams_times.add_one_time_event(ta.TimeRange(ta.get_specific_daytime(year=2017, month=ta.Month.OCTOBER, day=6, hour=11, minute=00), ta.Duration(minutes=50)), 'First Exam')
 math220_exams_times.add_one_time_event(ta.TimeRange(ta.get_specific_daytime(year=2017, month=ta.Month.NOVEMBER, day=10, hour=11, minute=00), ta.Duration(minutes=50)), 'Second Exam')
 math220_exams_times.add_one_time_event(ta.TimeRange(ta.get_specific_daytime(year=2017, month=ta.Month.DECEMBER, day=12, hour=18, minute=00), ta.Duration(minutes=50)), 'Final Exam')
 
 # Homeworks.
-math220_homeworks = e.Entity('Homeworks')
+math220_homeworks = Entity('Homeworks')
 
 homework220_1 = EntityTask('First homework due second week wednesday', math220_homeworks)
 homework220_1.set_due_date_and_description(ta.get_specific_day(2017, 'Sep', 6), '[1.1] - {1-10, 15}, [1.2] - {1,3,5,9,11,20}, [1.3] - {1,5,7}')
@@ -88,4 +88,4 @@ homework220_14 = EntityTask('Fifteenth homework due sixteenth week wednesday', m
 homework220_14.set_due_date_and_description(ta.get_specific_day(2017, 'Dec', 6), '[10.3, 10.4] - {10.3: 13, 15, 10.4: 1, 2, 3, 4, 5, 6}, [10.4] - {8, 10, 11, 14, 15}, [10.5] - {2, 6, 9, 10, 14}, [10.6] - {1, 3, 7, 8}')
 
 # Now add the entities to Math220.
-math220.add_entities([math220_lecture, math220_ta_session, math220_homeworks, math220_exams])
+math220.add_children([math220_lecture, math220_ta_session, math220_homeworks, math220_exams])
