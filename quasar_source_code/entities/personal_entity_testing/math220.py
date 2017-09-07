@@ -9,7 +9,7 @@ from quasar_source_code.entities.properties import entity_time_properties as etp
 
 # Universal information.
 first_day_of_courses = ta.get_specific_day(year=2017, month=8, day=28)
-last_day_of_courses  = ta.get_specific_day(year=2017, month=8, day=8)
+last_day_of_courses  = ta.get_specific_day(year=2017, month=12, day=8)
 school_year_range    = ta.TimeRange(first_day_of_courses, last_day_of_courses)
 
 # Parent entitiy.

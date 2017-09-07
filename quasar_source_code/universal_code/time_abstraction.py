@@ -363,6 +363,9 @@ class Weekday(object):
 		day_of_week = Day(self._day_of_the_week + tv.days).value
 		return Weekday(day_of_the_week=day_of_week, hour=tv.hour, minute=tv.minute)
 
+	def __repr__(self):
+		return 'Weekday(day_of_the_week=' + str(self._day_of_the_week) + ', hour=' + str(self._hour) + ', minute=' + str(self._minute) + ', all_day_event=' + str(self._all_day_event) + ')'
+
 
 class TimeRange(object):
 	"""Represents a start and stop time range."""
@@ -386,14 +389,18 @@ class TimeRange(object):
 
 	def is_date_within_range(self, date) -> bool:
 		"""Returns a boolean indicating if the date passed is within the date range."""
-		#print('End Date : ' + str(type(self._end_date)) + '\t' + str(self._end_date))
-		#print('Start Date : ' + str(type(self._start_date)) + '\t' + str(self._start_date))
-		#print('Date : ' + str(type(date)) + '\t' + str(date))
-		#print(str(type(date)) == "<class 'datetime.date'>")
-		if str(type(date)) == "<class 'datetime.date'>":
-			if self._end_date.date() >= date >= self._start_date.date():
-				return True
+		if hasattr(self, '_start_date'):
+			if type(self._start_date) == datetime:
+				return self._end_date.date() >= date >= self._start_date.date()
+			else:
+				return self._end_date >= date >= self._start_date
 		else:
-			if self._end_date >= date >= self._start_date:
-				return True
+			return self._weekday_end.day_of_the_week >= get_day_of_the_week_number_from_datetime(date) >= self._weekday_start.day_of_the_week
+
 		return False
+
+	def __str__(self):
+		if not hasattr(self, '_end_date'):
+			return str(self._weekday_start) + '--' + str(self._weekday_end)
+		else:
+			return str(self._start_date) + '--' + str(self._end_date)

@@ -17,6 +17,7 @@ class EntityTime(ep.EntityProperty):
 		self._event_range_events = []
 		if parent_entity is not None:
 			parent_entity.add_property(self)
+		self._parent_entity = parent_entity
 
 	def add_one_time_event(self, time_range_or_single_day, event):
 		"""Adds a time event that only occurs once."""
@@ -32,10 +33,16 @@ class EntityTime(ep.EntityProperty):
 
 	def get_all_relevant_events_for_date(self, date):
 		"""Returns a list of all relevant events for the date passed in."""
-		print('I got this date : ' + str(date))
+
+		#print('Checking : ' + str(date))
+
+
 		events = []
 		# First check for any one time events that fall into this date.
 		for ote in self._one_time_events:
+
+			#print('Checking event : ' + str(ote))
+
 			if type(ote[0]) == ta.Weekday:
 				if date.weekday() == ote[0].day_of_the_week:
 					events.append(ote[1])
@@ -43,3 +50,22 @@ class EntityTime(ep.EntityProperty):
 				# We are working with a time range.
 				if ote[0].is_date_within_range(date):
 					events.append(ote[1])
+
+		# Now check for any events that fall within the event range if the date provided falls within the event range.
+		if self._event_range is not None:
+
+			#print('Does {' + str(self._event_range[0]) + '} contain{' + str(date) + '}? ' + str(self._event_range[0].is_date_within_range(date)))
+
+			if self._event_range[0].is_date_within_range(date):
+				# Now check each sub time-ranges.
+				for event in self._event_range_events:
+
+					#print('Checking event : ' + str(event))
+
+					if event[0].is_date_within_range(date):
+						events.append(event[1])
+
+		return events
+
+	def __str__(self):
+		return 'EntityTime instance, child of ' + str(self._parent_entity)

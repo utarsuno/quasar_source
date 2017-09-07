@@ -37,11 +37,12 @@ class Entity(AbstractEntity):
 		for e in sub_set:
 			entity_time_sub_set = e.get_all_property_objects_of_type('entity_time')
 
-			print('Printing time sub set for entity : ' + str(e))
+			#print('Printing time sub set for entity : ' + str(e))
 			for t in entity_time_sub_set:
-
-				print(t.get_all_relevant_events_for_date(date))
-				print(t)
+				data = t.get_all_relevant_events_for_date(date)
+				if len(data) > 0:
+					info.append(data)
+		return info
 
 	def get_all_property_objects_of_type(self, property_name) -> List:
 		"""Returns a list of property objects of the specified property name. Empty list is returned if none were found."""
@@ -140,14 +141,12 @@ class EntityManager(AbstractEntity):
 
 		# Go through all entities.
 		for parent_entity in self.entities:
-			entity_list = parent_entity.get_entity_with_children()
+			# Print all relevant time information.
+			if parent_entity.has_property_deep_search('entity_time'):
 
-			# Go through that entities list of entities and itself :
-			for e in entity_list:
-
-				# Print all relevant time information.
-				if e.has_property_deep_search('entity_time'):
-					print(e.get_all_information_relevant_for_date(day_obj))
+				data = parent_entity.get_all_information_relevant_for_date(day_obj)
+				for d in data:
+					print(d)
 
 	def print_information_for_this_week(self):
 		"""Prints all information relevant to this week."""
