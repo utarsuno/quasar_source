@@ -62,3 +62,6 @@ class EntityTask(e.AbstractEntity):
 					all_sub_tasks_complete = False
 					break
 			return all_sub_tasks_complete
+
+	def __str__(self):
+		return 'ETask{' + self._name + '}'

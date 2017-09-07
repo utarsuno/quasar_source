@@ -41,7 +41,7 @@ class EntityTime(ep.EntityProperty):
 		# First check for any one time events that fall into this date.
 		for ote in self._one_time_events:
 
-			#print('Checking event : ' + str(ote))
+			print('Checking event : ' + str(ote))
 
 			if type(ote[0]) == ta.Weekday:
 				if date.weekday() == ote[0].day_of_the_week:
@@ -54,7 +54,7 @@ class EntityTime(ep.EntityProperty):
 		# Now check for any events that fall within the event range if the date provided falls within the event range.
 		if self._event_range is not None:
 
-			#print('Does {' + str(self._event_range[0]) + '} contain{' + str(date) + '}? ' + str(self._event_range[0].is_date_within_range(date)))
+			print('Does {' + str(self._event_range[0]) + '} contain{' + str(date) + '}? ' + str(self._event_range[0].is_date_within_range(date)))
 
 			if self._event_range[0].is_date_within_range(date):
 				# Now check each sub time-ranges.

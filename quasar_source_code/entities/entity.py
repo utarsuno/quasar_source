@@ -16,7 +16,6 @@ class AbstractEntity(object):
 		self._global_id         = None
 		self._entity_properties = None
 
-
 class Entity(AbstractEntity):
 	"""Abstract representation to Entities."""
 
@@ -32,6 +31,7 @@ class Entity(AbstractEntity):
 		self._properties = []
 
 	def get_all_information_relevant_for_date(self, date):
+		"""Gathers relevant information for the date provided."""
 		sub_set = self.get_entity_with_children()
 		info = []
 		for e in sub_set:
@@ -42,6 +42,14 @@ class Entity(AbstractEntity):
 				data = t.get_all_relevant_events_for_date(date)
 				if len(data) > 0:
 					info.append(data)
+
+			# Check if the current entity is a task.
+			print(type(e))
+			print(e.name)
+#			print(isinstance(self, ))
+			#if str(type(e)) == "<class 'quasar_source_code.entities.entity.Entity'>":
+				#for t in e
+
 		return info
 
 	def get_all_property_objects_of_type(self, property_name) -> List:
@@ -64,6 +72,11 @@ class Entity(AbstractEntity):
 		sub_set = [self]
 		for e in self._entities:
 			sub_set.append(e)
+			# TODO : Make this dynamically/recursively go N levels deep not just hard coded 2 or 3 layers.
+			for ee in e.entities:
+				sub_set.append(ee)
+				for eee in ee.entities:
+					sub_set.append(eee)
 		return sub_set
 
 	@property
@@ -117,6 +130,9 @@ class Entity(AbstractEntity):
 		if self._parent_entity is not None:
 			return 'Entity : ' + self.name + ', child of : ' + self._parent_entity.name
 		return 'Entity : ' + self.name
+
+	def __str__(self):
+		return 'E{' + self.name + '}'
 
 
 # TODO : The manager should be able to print between either days of the week or by entities.

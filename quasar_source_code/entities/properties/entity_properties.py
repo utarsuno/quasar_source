@@ -6,7 +6,7 @@ from quasar_source_code.entities import entity as e
 from quasar_source_code.universal_code import debugging as dbg
 
 
-class EntityProperty(e.EntityManager):
+class EntityProperty(object):
 	"""Represents an entity property."""
 
 	def __init__(self, property_name):
