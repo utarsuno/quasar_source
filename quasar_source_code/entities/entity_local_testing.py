@@ -3,10 +3,8 @@
 """This module, entity_local_testing.py, is used for local testing of Entities."""
 
 from quasar_source_code.entities import entity as e
-from quasar_source_code.entities import entity_properties as ep
-from quasar_source_code.entities.entity_task import EntityTask
 from quasar_source_code.entities import entity_time as et
-from datetime import datetime
+from quasar_source_code.entities.entity_task import EntityTask
 from quasar_source_code.universal_code import time_abstraction as ta
 
 # Universal information.

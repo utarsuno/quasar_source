@@ -6,6 +6,7 @@ from datetime import datetime
 from typing import List
 from quasar_source_code.entities import entity as e
 from quasar_source_code.universal_code import time_abstraction as ta
+from quasar_source_code.entities.properties import entity_time_properties as etp
 
 
 class EntityTask(e.AbstractEntity):
@@ -16,8 +17,9 @@ class EntityTask(e.AbstractEntity):
 		self._name              = name
 		self._current_iteration = 1 # Default number of iterations is 1.
 		self._needed_iterations = 0
-		self._due_date          = None
 		self._description       = None
+
+		self._due_date_property = etp.EntityTime()
 
 		self._sub_tasks         = []
 		self._parent_task       = parent_task
@@ -43,15 +45,10 @@ class EntityTask(e.AbstractEntity):
 		"""Sets the description of this task."""
 		self._description = val
 
-	@property
-	def due_date(self) -> datetime:
-		"""Returns the datetime that this task is due on."""
-		return self._due_date
-
-	@due_date.setter
-	def due_date(self, val: datetime):
+	def set_due_date_and_description(self, val: datetime.date, description):
 		"""Sets the due date for this Entity task."""
-		self._due_date = val
+		self._description = description
+		self._due_date_property.add_one_time_event(time_range_or_single_day=val, event=self._description)
 
 	@property
 	def completed(self) -> bool:

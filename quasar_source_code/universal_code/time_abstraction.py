@@ -44,7 +44,7 @@ class Month(Enum):
 	DECEMBER  = (12, 31)
 
 	@property
-	def number(self):
+	def number(self) -> int:
 		"""Returns the numerical representation of this month."""
 		return self.value[0]
 
@@ -156,6 +156,36 @@ def get_specific_day(year, month, day) -> datetime.date:
 		return datetime(year=year, month=get_month(month).number, day=day).date()
 
 
+def get_day_object_from_current_weeks_day(day: Day):
+	"""Returns a Date object that's the date of the day of this week that the Day is."""
+	today = get_today()
+	offset = get_current_day_of_the_week_number()
+	if offset == int(day):
+		return today
+	elif offset > int(day):
+		return today - timedelta(days=offset - int(day))
+	else:
+		return today + timedelta(days=int(day) - offset)
+
+
+def get_specific_daytime(year, month, day, hour, minute) -> datetime:
+	"""Returns a Datetime object of the provided values."""
+	if type(month) == Month:
+		m = month.number
+	else:
+		m = month
+	if type(day) == Day:
+		d = day.number
+	else:
+		d = day
+	return datetime(year=year, month=m, day=d, hour=hour, minute=minute)
+
+
+def get_datetime_with_duration_offset(datetime_obj, duration_obj) -> datetime:
+	"""Returns a datetime object that has the duration object offset applied to it."""
+	return datetime_obj + timedelta(hours=duration_obj.time_values.hours, minutes=duration_obj.time_values.minutes, days=duration_obj.time_values.days)
+
+
 def get_now() -> datetime:
 	"""Gets the current datetime object representing right now."""
 	return datetime.now()
@@ -221,14 +251,44 @@ class TimeValues(object):
 		self._years   = years
 		self._check_numbers()
 
+	@property
+	def minute(self) -> int:
+		"""Returns the minute value. Sames as 'minutes' but both versions are there to help with code flow."""
+		return self._minutes
+
+	@property
+	def minutes(self) -> int:
+		"""Returns the minutes value. Same as 'minute' but both versions are there to help with code flow."""
+		return self._minutes
+
+	@property
+	def hour(self) -> int:
+		"""Returns the hour value. Same as 'hours' but both versions are there to help with code flow."""
+		return self._hours
+
+	@property
+	def hours(self) -> int:
+		"""Returns the hours value. Same as 'hour' but both versions are there to help with code flow."""
+		return self._hours
+
+	@property
+	def day(self) -> int:
+		"""Returns the day value. Same as 'days' but both versions are there to help with code flow."""
+		return self._days
+
+	@property
+	def days(self) -> int:
+		"""Returns the days value. Same as 'day' but both versions are there to help with code flow."""
+		return self._days
+
 	def _check_numbers(self):
 		"""Ensures the values are properly set."""
-		if type(self._minutes) != str:
-			dbg.raise_type_exception(method_name='check_numbers', expected_type=str, val=self._minutes)
-		if type(self._hours) != str:
-			dbg.raise_type_exception(method_name='check_numbers', expected_type=str, val=self._hours)
-		if type(self._days) != str:
-			dbg.raise_type_exception(method_name='check_numbers', expected_type=str, val=self._days)
+		if type(self._minutes) != int:
+			dbg.raise_type_exception(method_name='check_numbers', expected_type=int, val=self._minutes)
+		if type(self._hours) != int:
+			dbg.raise_type_exception(method_name='check_numbers', expected_type=int, val=self._hours)
+		if type(self._days) != int:
+			dbg.raise_type_exception(method_name='check_numbers', expected_type=int, val=self._days)
 		# Positive minute.
 		if self._minutes >= 60:
 			self._hours += self._minutes // 60
@@ -250,171 +310,90 @@ class TimeValues(object):
 			self._years += self._days // 365
 			self._years %= 365
 		# Negative days.
-		
+		if self._days <= -354:
+			self._years += (abs(self._days) // 365) * -1
+			self._days = (abs(self._days) % 365) * -1
 
 	def __add__(self, other):
-		return TimeValues()
+		return TimeValues(minutes=self._minutes + other.minutes, hours=self._hours + other.hours, days=self._days + other.days)
+
+	def __repr__(self):
+		return 'TimeValues(minutes=' + str(self._minutes) + ', hours=' + str(self._hours) + ', days=' + str(self._days) + ')'
 
 
 class Duration(object):
 	"""Represents an X duration of time in Y units."""
 
 	def __init__(self, minutes=0, hours=0, days=0):
-		self._minutes = minutes
-		self._hours   = hours
-		self._days    = days
-
-	@property
-	def days(self) -> int:
-		"""Returns the integer representation of this duration's number of days."""
-		return self._days
-
-	@property
-	def hours(self) -> int:
-		"""Returns the integer representation of this duration's number of hours."""
-		return self._hours
-
-	@property
-	def minutes(self) -> int:
-		"""Returns the integer representation of this duration's number of minutes."""
-		return self._minutes
+		self.time_values = TimeValues(minutes=minutes, hours=hours, days=days)
 
 	def __add__(self, other):
-		self._minutes += other.minutes
-		self._hours   += other.hours
-		self._days    += other.days
-		return Duration(self._minutes + other.minutes)
+		tv = TimeValues(minutes=self.time_values.minutes + other.time_values.minutes,
+		                hours=self.time_values.hours + other.time_values.hours,
+		                days=self.time_values.days + other.time_values.days)
+		return Duration(minutes=tv.minutes, hours=tv.hours, days=tv.days)
 
 	def __repr__(self):
-		return 'Duration(minutes=' + str(self.minutes) + ', hours=' + str(self.hours) + ', days=' + str(self.days) + ')'
+		return 'Duration(minutes=' + str(self.time_values.minutes) + ', hours=' + str(self.time_values.hours) + ', days=' + str(self.time_values.days) + ')'
 
 
-class TimeInstance(object):
-	"""Represents a particular singular instance of time."""
+class Weekday(object):
+	"""Represents a specific time for a day in the week."""
 
-
-
-
-# OLDER BELOW
-# OLDER BELOW
-# OLDER BELOW
-
-class GenericDayTime(object):
-	"""Representation of possible dates without being attached to specific values."""
-
-	def __init__(self, day, hour, minute, duration_offset=None):
-		self._day    = int(day)
-		self._hour   = int(hour)
-		self._minute = int(minute)
-		if duration_offset is None:
-			self._duration_offset = Duration()
+	def __init__(self, day_of_the_week, hour, minute, all_day_event=False):
+		if type(day_of_the_week) == Day:
+			self._day_of_the_week = int(day_of_the_week)
 		else:
-			self._duration_offset = duration_offset
-
-	def __add__(self, other):
-		if type(other) == GenericDayTime:
-			return GenericDayTime(self._day, self._hour, self._minute, self._duration_offset + other.duration_offset)
-		elif type(other) == Duration:
-			return GenericDayTime(self._day, self._hour, self._minute, self._duration_offset + other)
-
-		# Assumes type other is a Duration object.
-		'''
-		minute_total = self._minute + other.minutes
-		hour_total   = self._hour + other.hours
-		day_total    = self._day + other.days
-		if minute_total >= 60:
-			hour_total += minute_total // 60
-			minute_total %= 60
-		if hour_total >= 24:
-			day_total += hour_total // 24
-			hour_total %= 24
-		self._minute = minute_total
-		self._hour   = hour_total
-		self._day    = day_total
-		'''
-
-	def get_day_name(self):
-		"""Gets the name of this day."""
-		d = Day((self._day + self._duration_offset.days) % 7)
-		return d.name
-
-	def get_time_str_without_day(self) -> str:
-		"""Returns this generic day time as string without the day1 field attached."""
-		return zero_front_padding(self.hour) + ':' + zero_back_padding(self.minute)
-
-	def get_time_str_with_day(self) -> str:
-		"""Returns this generic day time as string."""
-		return Day(self._day).name + '[' + self.get_time_str_without_day() + ']'
+			self._day_of_the_week = day_of_the_week
+		self._hour            = hour
+		self._minute          = minute
+		self._number_of_days_offset = 0
+		self._all_day_event   = all_day_event
 
 	@property
-	def duration_offset(self):
-		"""Returns the duration offset of this GenericDayTime object."""
-		return self._duration_offset
+	def day_of_the_week(self) -> int:
+		"""Returns the day of the week that is Weekday is representing."""
+		return self._day_of_the_week
 
-	@property
-	def day(self) -> int:
-		"""Returns the integer representation of this generic day time's day."""
-		return self._day + self._duration_offset.days
-
-	@property
-	def hour(self) -> int:
-		"""Returns the integer representation of this generic day time's hour."""
-		return self._hour + self._duration_offset.hours
-
-	@property
-	def minute(self) -> int:
-		"""Returns the integer representation of this generic day time's minute."""
-		return self._minute + self._duration_offset.minutes
-
-	def __str__(self):
-		return 'GenericDayTime(day=' + str(self.day) + ', hour=' + str(self.hour) + ', minute=' + str(self.minute) + ')'
+	def __add__(self, other: Duration):
+		tv = TimeValues(minutes=self._minute + other.time_values.minute, hours=self._hour + other.time_values.hours, days=other.time_values.days)
+		if abs(tv.days) >= 7:
+			# TODO : Eventually add this functionality in through the use of the '_number_of_days_offset' variable.
+			raise RuntimeError('A weekday object can\'t be more than 6 days ahead or behind in days.')
+		day_of_week = Day(self._day_of_the_week + tv.days).value
+		return Weekday(day_of_the_week=day_of_week, hour=tv.hour, minute=tv.minute)
 
 
-class DateRange(object):
-	"""Represents a range of dates between two dates."""
+class TimeRange(object):
+	"""Represents a start and stop time range."""
 
-	def __init__(self, generic_day_time_start, generic_day_time_end_or_duration):
-		self._generic_day_time_start = generic_day_time_start
-		print('Generic Day Time Start : ' + str(self._generic_day_time_start))
-
-		if type(generic_day_time_end_or_duration) == Duration:
-			self._generic_day_time_end = self._generic_day_time_start + generic_day_time_end_or_duration
-		elif type(generic_day_time_end_or_duration) == GenericDayTime:
-			self._generic_day_time_end = generic_day_time_end_or_duration
+	def __init__(self, object_one, object_two):
+		datetime_string = "<class 'datetime.date'>"
+		if str(type(object_one)) == datetime_string and str(type(object_two)) == datetime_string:
+			self._start_date = object_one
+			self._end_date   = object_two
+		elif type(object_one) == Weekday and type(object_two) == Weekday:
+			self._weekday_start = object_one
+			self._weekday_end   = object_two
+		elif type(object_one) == Weekday and type(object_two) == Duration:
+			self._weekday_start = object_one
+			self._weekday_end   = object_one + object_two
+		elif type(object_one) == datetime and type(object_two) == Duration:
+			self._start_date = object_one
+			self._end_date = get_datetime_with_duration_offset(datetime_obj=object_one, duration_obj=object_two)
 		else:
-			dbg.raise_type_exception('DateRange', 'GenericDateTime or Duration object', generic_day_time_end_or_duration)
-		print('Generic Day Time Start : ' + str(self._generic_day_time_start))
-		print('Generic Day Time End : ' + str(self._generic_day_time_end))
-		print()
+			raise RuntimeError('TimeRange only accepts one of the following {2 datetime objs, 2 weekday objs, weekday start obj + duration obj}. You passed in the following types : {' + str(type(object_one)) + ', ' + str(type(object_two)) + '}.')
 
-	@property
-	def start_time(self) -> str:
-		"""Returns a string representation of the start time."""
-		return self._generic_day_time_start.get_time_str_without_day()
-
-	@property
-	def end_time(self) -> str:
-		"""Returns a string representation of the end time."""
-		return self._generic_day_time_end.get_time_str_without_day()
-
-	def is_relevant_for_today(self) -> bool:
-		"""Returns a boolean indicating if today's date falls within this time blocks range."""
-		start_day = self._generic_day_time_start.day
-		end_day   = self._generic_day_time_start.day
-		if start_day < end_day:
-			if start_day <= get_current_day_of_the_week_number() <= end_day:
-				return True
-		elif end_day < start_day:
-			if end_day <= get_current_day_of_the_week_number() <= start_day:
+	def is_date_within_range(self, date) -> bool:
+		"""Returns a boolean indicating if the date passed is within the date range."""
+		#print('End Date : ' + str(type(self._end_date)) + '\t' + str(self._end_date))
+		#print('Start Date : ' + str(type(self._start_date)) + '\t' + str(self._start_date))
+		#print('Date : ' + str(type(date)) + '\t' + str(date))
+		#print(str(type(date)) == "<class 'datetime.date'>")
+		if str(type(date)) == "<class 'datetime.date'>":
+			if self._end_date.date() >= date >= self._start_date.date():
 				return True
 		else:
-			if start_day == end_day == get_current_day_of_the_week_number():
+			if self._end_date >= date >= self._start_date:
 				return True
 		return False
-
-	def __str__(self):
-		# TODO : Code for day offsets.
-		if self._generic_day_time_start.day == self._generic_day_time_end.day:
-			return Day(self._generic_day_time_start.day).name + '[' + self._generic_day_time_start.get_time_str_without_day() + ' - ' + self._generic_day_time_end.get_time_str_without_day() + ']'
-		else:
-			return self._generic_day_time_start.get_time_str_with_day() + ' -- ' + self._generic_day_time_end.get_time_str_with_day()
