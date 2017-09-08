@@ -183,8 +183,8 @@ scene.add(light3)
 
 //
 
-
-var client = new Client()
+var world  = new World(scene)
+var client = new Client(world)
 
 
 setInterval(function() {

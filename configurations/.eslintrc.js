@@ -41,6 +41,7 @@ module.exports = {
         "ShaderAPI": true,
         "DataDisplay": true,
         "CUSTOM_COLORS": true,
-        "Client": true
+        "Client": true,
+        "World": true
     }
 };

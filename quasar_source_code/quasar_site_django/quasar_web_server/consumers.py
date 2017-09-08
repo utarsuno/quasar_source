@@ -25,10 +25,11 @@ class QuasarServer(object):
 	def run_server(self):
 		# Message positions of all players to all players.
 		if self._number_of_connected_users > 0:
-			print('Pinging players!')
-			Group('users').send({
-				"text": 'Pinging the players!',
-			})
+			y = 2
+			#print('Pinging players!')
+			#Group('users').send({
+			#	"text": 'Pinging the players!',
+			#})
 		threading.Timer(5, self.run_server).start()
 
 
@@ -52,7 +53,7 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-	print('JUST GOT THE MESSAGE : ' + str(message))
+	#print('JUST GOT THE MESSAGE : ' + str(message))
 	Group('users').send({
 		"text": "[user] %s" % message.content['text'],
 	})
