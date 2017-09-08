@@ -196,9 +196,19 @@ setInterval(function() {
 
 
 var loader = new THREE.FontLoader()
-loader.load('../../font/Consolas_Regular.json')
-
-
+loader.load('../../font/Consolas_Regular.json', function(tex){
+    var  textGeo = new THREE.TextGeometry('Test', {
+        size: 100,
+        height: 5,
+        curveSegments: 6,
+        font: tex
+    })
+    var  color = new THREE.Color()
+    color.setRGB(220, 250, 250)
+    var  textMaterial = new THREE.MeshLambertMaterial({ color: color })
+    var  text = new THREE.Mesh(textGeo, textMaterial)
+    scene.add(text)
+})
 //
 
 
