@@ -8,7 +8,7 @@ from channels.sessions import channel_session
 
 import threading
 
-
+'''
 class QuasarServer(object):
 	"""Temporary test server code."""
 
@@ -33,7 +33,7 @@ class QuasarServer(object):
 
 server = QuasarServer()
 server.run_server()
-
+'''
 
 @channel_session
 def ws_connect(message):
@@ -41,7 +41,7 @@ def ws_connect(message):
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
 
-	server.user_joined()
+	#server.user_joined()
 
 	print(message.reply_channel)
 	print(message)
@@ -60,7 +60,7 @@ def ws_message(message):
 @channel_session
 def ws_disconnect(message):
 
-	server.user_left()
+	#server.user_left()
 
 	Group('users').discard(message.reply_channel)
 
