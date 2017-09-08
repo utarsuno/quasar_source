@@ -52,7 +52,8 @@ var geometry = new THREE.BoxGeometry(5,5, 5)
 //var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
 var cube 	 = new THREE.Mesh(geometry, material)
-scene.add(cube)
+//scene.add(cube)
+
 
 // Going to try to create a plane here.
 var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
