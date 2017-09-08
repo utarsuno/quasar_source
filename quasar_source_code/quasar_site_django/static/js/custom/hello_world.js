@@ -195,8 +195,8 @@ setInterval(function() {
 
 
 
-//var loader = new THREE.FontLoader()
-//loader.load('/static/font/Consolas_Regular.json')
+var loader = new THREE.FontLoader()
+loader.load('../../font/Consolas_Regular.json')
 
 
 //
