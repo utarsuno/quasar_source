@@ -45,6 +45,8 @@ Player.prototype = {
         this.x_position = x_position
         this.z_position = z_position
 
+        console.log('Running an update on position!')
+
         this.cube_model.model.position.x = x_position
         this.cube_model.model.position.z = z_position
 
