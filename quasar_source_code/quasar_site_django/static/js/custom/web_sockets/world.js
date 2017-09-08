@@ -66,7 +66,9 @@ World.prototype = {
     },
 
     update_player: function(player_id, x_position, z_position) {
+        console.log('Looking for the ID : ' + player_id)
         for (var i = 0; i < this.players.length; i++) {
+            console.log('Current ID : ' + this.players[i].unique_id)
             if (this.players[i].unique_id === player_id) {
                 this.players[i].update(x_position, z_position)
                 return
