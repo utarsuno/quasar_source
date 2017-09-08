@@ -6,11 +6,22 @@ from channels import Group
 from channels.sessions import channel_session
 
 
+
+class QuasarServer(object):
+	"""Temporary test server code."""
+
+	def __init__(self):
+		self._users = []
+
+
+
 @channel_session
 def ws_connect(message):
 
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
+
+	print(message.reply_channel)
 
 	Group('users').add(message.reply_channel)
 
@@ -28,6 +39,9 @@ def ws_disconnect(message):
 	Group('users').discard(message.reply_channel)
 
 
+
+
+import time
 
 
 
