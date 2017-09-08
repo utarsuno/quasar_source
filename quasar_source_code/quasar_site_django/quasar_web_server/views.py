@@ -28,6 +28,7 @@ TEMPLATE_MATH_220       = _TEMPLATES_BASE + 'math220.html'
 TEMPLATE_MATH_310       = _TEMPLATES_BASE + 'math310.html'
 TEMPLATE_CS_361         = _TEMPLATES_BASE + 'cs361.html'
 TEMPLATE_CS_425         = _TEMPLATES_BASE + 'cs425.html'
+TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_testing/web_sockets.html'
 
 
 def get_client_ip(request):
@@ -77,3 +78,7 @@ def GET_cs_425(request):
 	"""Returns notes for cs 425."""
 	return render(request, TEMPLATE_CS_425)
 
+
+def GET_web_sockets(request):
+	"""TEMP test page."""
+	return render(request, TEMPLATE_WEB_SOCKET)
