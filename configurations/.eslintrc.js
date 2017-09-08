@@ -40,6 +40,7 @@ module.exports = {
         "FPSControls": true,
         "ShaderAPI": true,
         "DataDisplay": true,
-        "CUSTOM_COLORS": true
+        "CUSTOM_COLORS": true,
+        "Client": true
     }
 };

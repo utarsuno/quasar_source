@@ -180,9 +180,28 @@ scene.add(light3)
 //var shader_api = new ShaderAPI(renderer_api, scene, camera)
 
 
-var previous_time = performance.now()
 
-var iii = 0
+//
+
+
+var client = new Client()
+
+
+setInterval(function() {
+    var data = fps_controls.get_position().x + '|' + fps_controls.get_position().z
+    client.send_data(data)
+}, 5000)
+
+
+
+
+
+//
+
+
+
+
+var previous_time = performance.now()
 
 var animate = function () {
     //shader_api.render()
