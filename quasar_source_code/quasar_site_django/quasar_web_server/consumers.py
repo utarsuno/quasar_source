@@ -6,6 +6,8 @@ from channels import Group
 from channels.sessions import channel_session
 
 
+import threading
+
 
 class QuasarServer(object):
 	"""Temporary test server code."""
@@ -13,6 +15,17 @@ class QuasarServer(object):
 	def __init__(self):
 		self._users = []
 
+	def run_server(self):
+		# Message positions of all players to all players.
+		print('Pinging players!')
+		Group('users').send({
+			"text": 'Pinging the players!',
+		})
+		threading.Timer(5, self.run_server).start()
+
+
+server = QuasarServer()
+server.run_server()
 
 
 @channel_session
@@ -41,8 +54,6 @@ def ws_disconnect(message):
 
 
 
-
-import time
 
 
 
