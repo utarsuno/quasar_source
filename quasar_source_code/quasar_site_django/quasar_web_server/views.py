@@ -79,6 +79,6 @@ def GET_cs_425(request):
 	return render(request, TEMPLATE_CS_425)
 
 
-def GET_web_sockets(request):
+def GET_web_socket(request):
 	"""TEMP test page."""
 	return render(request, TEMPLATE_WEB_SOCKET)
