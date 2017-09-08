@@ -15,23 +15,7 @@
 {% load staticfiles %}
 {% block additional_js_to_load %}
 
-
-<script>
-    var socket = new WebSocket('ws://' + window.location.host + '/users/');
-
-    socket.onmessage = function(e) {
-        console.log('Just got the message : ' + e)
-    }
-
-    socket.onopen = function open() {
-      console.log('WebSockets connection created.');
-      socket.send('Hello World!')
-    };
-
-    if (socket.readyState == WebSocket.OPEN) {
-      socket.onopen();
-    }
-</script>
+<script src="{% static 'js/custom/web_sockets/websocket_testing.js' %}"></script>
 
 {% endblock %}
 
