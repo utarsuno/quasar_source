@@ -8,6 +8,7 @@ api = db_api.PostgreSQLAPI()
 api.connect()
 
 
+#print(api.get_all_table_names())
 
 
 api.terminate()
