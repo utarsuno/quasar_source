@@ -197,7 +197,7 @@ setInterval(function() {
 
 var loader = new THREE.FontLoader()
 console.log('About to load!')
-loader.load('../../font/Consolas_Regular.typeface.json', function(tex){
+loader.load('../../font/helvetiker_regular.typeface.json', function(tex){
     var  textGeo = new THREE.TextGeometry('Test', {
         size: 100,
         height: 5,
