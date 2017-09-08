@@ -14,6 +14,13 @@ class QuasarServer(object):
 
 	def __init__(self):
 		self._users = []
+		self._number_of_connected_users = 0
+
+	def user_joined(self):
+		self._number_of_connected_users += 1
+
+	def user_left(self):
+		self._number_of_connected_users -= 1
 
 	def run_server(self):
 		# Message positions of all players to all players.
@@ -34,6 +41,8 @@ def ws_connect(message):
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
 
+	server.user_joined()
+
 	print(message.reply_channel)
 	print(message)
 
@@ -50,6 +59,9 @@ def ws_message(message):
 
 @channel_session
 def ws_disconnect(message):
+
+	server.user_left()
+
 	Group('users').discard(message.reply_channel)
 
 
