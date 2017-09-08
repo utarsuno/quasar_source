@@ -198,7 +198,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
     var  textGeo = new THREE.TextGeometry('Test', {
         size: 100,
         height: 5,
-        curveSegments: 6,
+        curveSegments: 1,
         font: tex
     })
     var  color = new THREE.Color()
