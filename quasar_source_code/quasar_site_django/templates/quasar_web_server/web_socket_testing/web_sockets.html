@@ -24,6 +24,8 @@
       console.log('WebSockets connection created.');
     };
 
+    socket.send('Hello World!')
+
     if (socket.readyState == WebSocket.OPEN) {
       socket.onopen();
     }
