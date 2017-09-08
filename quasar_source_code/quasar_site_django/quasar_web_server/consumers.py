@@ -11,7 +11,7 @@ def ws_connect(message):
 
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
-	
+
 	Group('users').add(message.reply_channel)
 
 

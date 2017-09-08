@@ -20,6 +20,10 @@
 <script>
     var socket = new WebSocket('ws://' + window.location.host + '/users/');
 
+    socket.onmessage = function(e) {
+        console.log('Just got the message : ' + e)
+    }
+
     socket.onopen = function open() {
       console.log('WebSockets connection created.');
       socket.send('Hello World!')
