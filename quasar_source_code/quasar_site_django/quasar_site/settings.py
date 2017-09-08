@@ -47,7 +47,7 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             'hosts': [('localhost', 6379)],
         },
-        'ROUTING': 'quasar_web_server.routing.channel_routing',
+        'ROUTING': 'quasar_site_django.quasar_web_server.routing.channel_routing',
     }
 }
 
