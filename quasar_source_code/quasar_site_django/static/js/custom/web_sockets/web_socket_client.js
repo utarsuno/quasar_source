@@ -40,8 +40,8 @@ Client.prototype = {
 
         this.socket.onopen = function open() {
             console.log('WebSockets connection created.')
-            self._world.add_player(this._full_id)
-            console.log('Adding player{' + this._full_id + '} to the world!')
+            self._world.add_player(self._full_id)
+            console.log('Adding player{' + self._full_id + '} to the world!')
             self.connected = true
         }
 
