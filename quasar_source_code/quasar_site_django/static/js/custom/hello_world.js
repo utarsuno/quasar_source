@@ -180,7 +180,7 @@ scene.add(light3)
 
 //var shader_api = new ShaderAPI(renderer_api, scene, camera)
 
-
+//http://quasarsource.com/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/
 
 //
 
@@ -197,7 +197,7 @@ setInterval(function() {
 
 var loader = new THREE.FontLoader()
 console.log('About to load!')
-loader.load('../../font/helvetiker_regular.typeface.json', function(tex){
+loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/font/helvetiker_regular.typeface.json', function(tex){
     var  textGeo = new THREE.TextGeometry('Test', {
         size: 100,
         height: 5,
