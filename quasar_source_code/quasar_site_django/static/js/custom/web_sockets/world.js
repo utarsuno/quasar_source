@@ -44,7 +44,7 @@ Player.prototype = {
     update: function(x_position, z_position) {
         this.x_position = x_position
         this.z_position = z_position
-        this.cube_model.model.position(this.x_position, 10, this.z_position)
+        this.cube_model.model.position.set(this.x_position, 10, this.z_position)
     }
 
 }
