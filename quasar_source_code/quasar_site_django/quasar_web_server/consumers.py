@@ -11,6 +11,9 @@ def ws_connect(message):
 
 def ws_message(message):
 	print('JUST GOT THE MESSAGE : ' + str(message))
+	Group('users').send({
+		"text": "[user] %s" % message.content['text'],
+	})
 
 
 def ws_disconnect(message):
