@@ -63,3 +63,5 @@ class EntityManager(object):
 		"""Prints information sorted by entities."""
 		y = 2 # TODO : This function
 
+	def save_entity_information(self):
+		"""Saves the current entity information."""

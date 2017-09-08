@@ -53,6 +53,7 @@ class EntityTask(Entity):
 	def completed(self) -> bool:
 		"""Returns a boolean indicating if this task has been completed or not."""
 		# TODO : Fix the method
+
 		if len(self._sub_tasks) == 0:
 			return self._current_iteration >= self._needed_iterations
 		else:
