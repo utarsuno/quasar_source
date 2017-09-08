@@ -8,9 +8,9 @@ function PointerLockAPI(controls) {
 
 PointerLockAPI.prototype = {
     has_pointer_lock: null,
-    element: null,
+    element         : null,
     currently_locked: false,
-    controls: null,
+    controls        : null,
 
     __init__: function (controls) {
         this.controls = controls

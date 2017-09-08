@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     {% load staticfiles %}
     {% block additional_css_to_load %}{% endblock %}
 
@@ -11,7 +12,10 @@
 </head>
 <body>
 {% block body %}{% endblock %}
-<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 {% load staticfiles %}
 {% block additional_js_to_load %}{% endblock %}
 </body>
