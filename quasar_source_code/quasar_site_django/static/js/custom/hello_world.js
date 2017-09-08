@@ -205,7 +205,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
         font: tex
     })
     var  color = new THREE.Color()
-    color.setRGB(220, 250, 250)
+    color.setRGB(50, 50, 50)
     var  textMaterial = new THREE.MeshLambertMaterial({ color: color })
     var  text = new THREE.Mesh(textGeo, textMaterial)
     scene.add(text)
