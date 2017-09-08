@@ -196,7 +196,8 @@ setInterval(function() {
 
 
 var loader = new THREE.FontLoader()
-loader.load('../../font/Consolas_Regular.js', function(tex){
+console.log('About to load!')
+loader.load('../../font/Consolas_Regular.typeface.json', function(tex){
     var  textGeo = new THREE.TextGeometry('Test', {
         size: 100,
         height: 5,
