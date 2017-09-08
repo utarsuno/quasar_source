@@ -7,7 +7,7 @@ var connection_made = false
 socket.onmessage = function(e) {
     console.log('Just got the message : ')
     console.log(e)
-
+    console.log(e.data)
 }
 
 socket.onopen = function open() {
