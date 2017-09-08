@@ -15,6 +15,19 @@
 {% load staticfiles %}
 {% block additional_js_to_load %}
 <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+<script>
+    var socket = new WebSocket('ws://' + window.location.host + '/users/');
+
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+</script>
+
 {% endblock %}
-{% block script %}{% endblock script %}
 
