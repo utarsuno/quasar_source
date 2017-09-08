@@ -22,7 +22,7 @@ is_django_running=$(python3 ${path_to_script} 'runserver')
 
 manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py
 export PYTHONPATH=/home/git_repos/quasar_source/
-sudo python3 ${manage_path} runserver 0:80
+sudo python3 ${manage_path} migrate
 
 
 # Helps to see exactly where the script's output ends.
