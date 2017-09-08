@@ -30,18 +30,6 @@ class EntityManager(object):
 			for d in data:
 				print(d)
 
-
-		# OLD CODE
-		'''
-		# Go through all entities.
-		for parent_entity in self.entities:
-			# Print all relevant time information.
-			if parent_entity.has_property_deep_search('entity_time'):
-				data = parent_entity.get_all_information_relevant_for_date(day_obj)
-				for d in data:
-					print(d)
-		'''
-
 	def print_information_for_this_week(self):
 		"""Prints all information relevant to this week."""
 		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.MONDAY))

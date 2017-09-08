@@ -2,7 +2,6 @@
 
 """This module, entity_importance.py, is used for adding the 'importance' attribute to an entity."""
 
-from quasar_source_code.entities import entity as e
 from quasar_source_code.universal_code import debugging as dbg
 
 # TODO : Redo this file
