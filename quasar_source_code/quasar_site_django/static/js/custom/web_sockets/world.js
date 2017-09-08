@@ -60,7 +60,7 @@ World.prototype = {
     },
 
     update_player: function(player_id, x_position, z_position) {
-        for (var i = 0; i < this.players.length(); i++) {
+        for (var i = 0; i < this.players.length; i++) {
             if (this.players[i].unique_id === player_id) {
                 this.players[i].update(x_position, z_position)
                 return
@@ -69,7 +69,7 @@ World.prototype = {
     },
 
     add_player: function(unique_id) {
-        for (var i = 0; i < this.players.length(); i++) {
+        for (var i = 0; i < this.players.length; i++) {
             if (this.players[i].unique_id === unique_id) {
                 return
             }
