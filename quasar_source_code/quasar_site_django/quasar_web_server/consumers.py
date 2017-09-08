@@ -30,7 +30,7 @@ class QuasarServer(object):
 			#Group('users').send({
 			#	"text": 'Pinging the players!',
 			#})
-		threading.Timer(5, self.run_server).start()
+		threading.Timer(.5, self.run_server).start()
 
 
 server = QuasarServer()
