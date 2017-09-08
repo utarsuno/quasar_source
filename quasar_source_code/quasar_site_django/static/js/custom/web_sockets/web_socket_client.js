@@ -33,7 +33,7 @@ Client.prototype = {
         this.connected = true
 
         this.socket.onmessage = function(e) {
-            console.log('Just got the message : ' + e.data)
+            //console.log('Just got the message : ' + e.data)
             var data = e.data.split('|')
             self._world.update_player(data[0], data[1], data[2])
         }

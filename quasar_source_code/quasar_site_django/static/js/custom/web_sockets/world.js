@@ -45,8 +45,6 @@ Player.prototype = {
         this.x_position = x_position
         this.z_position = z_position
 
-        console.log('Running an update on position!')
-
         this.cube_model.model.position.x = x_position
         this.cube_model.model.position.z = z_position
 
@@ -66,14 +64,15 @@ World.prototype = {
     },
 
     update_player: function(player_id, x_position, z_position) {
-        console.log('Looking for the ID : ' + player_id)
         for (var i = 0; i < this.players.length; i++) {
-            console.log('Current ID : ' + this.players[i].unique_id)
             if (this.players[i].unique_id === player_id) {
                 this.players[i].update(x_position, z_position)
                 return
             }
         }
+        // If the code reached this point that means the character was not found. So create it!
+        this.add_player(player_id)
+        this.update_player(player_id, x_position, z_position)
     },
 
     add_player: function(unique_id) {
