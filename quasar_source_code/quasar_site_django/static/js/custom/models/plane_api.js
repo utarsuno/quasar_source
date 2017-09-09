@@ -51,7 +51,7 @@ PlaneAPI.prototype = {
         //dynamic_texture.texture.anisotropy = this.renderer.getMaxAnisotropy()
         this.update_text(initial_text)
         this.material = new THREE.MeshBasicMaterial({
-            map	: this.dynamicTexture.texture
+            map	: this.dynamic_texture.texture
         })
         this.create_mesh()
     },
