@@ -17,6 +17,8 @@ PlaneAPI.prototype = {
     material : null,
 
     is_dynamic_text: null,
+
+    current_text: null,
     
     __init__: function(w, h, p, r) {
         this.width    = w
@@ -37,7 +39,11 @@ PlaneAPI.prototype = {
     },
 
     update_text: function(text) {
-        this.dynamic_texture.clear('cyan').drawText(text, undefined, 256, 'red')
+        if (this.current_text !== text) {
+            this.dynamic_texture.clear('cyan').drawText(text, undefined, 256, 'red')
+            this.current_text = text
+            this.dynamic_texture.needsUpdate = true
+        }
     },
 
     create_dynamic_text: function(initial_text, scene) {
