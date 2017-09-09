@@ -27,20 +27,20 @@ PlaneAPI.prototype = {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height, 10, 10)
     },
 
-    create_standard: function() {
+    create_standard: function(scene) {
         this.material = new THREE.MeshBasicMaterial({
             color: 0x000000,
             opacity: 0.5,
             side: THREE.DoubleSide
         })
-        this.create_mesh()
+        this.create_mesh(scene)
     },
 
     update_text: function(text) {
         this.dynamic_texture.clear().drawText(text, undefined, 256, 'red')
     },
 
-    create_dynamic_text: function(initial_text) {
+    create_dynamic_text: function(initial_text, scene) {
         this.is_dynamic_text = true
         if (this.dynamic_texture === null) {
             this.dynamic_texture = new THREEx.DynamicTexture(this.width / 2, this.height / 2)
@@ -51,11 +51,18 @@ PlaneAPI.prototype = {
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
-        this.create_mesh()
+        this.create_mesh(scene)
     },
 
-    create_mesh: function() {
+    create_mesh: function(scene) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh.position.x = this.position.x
+        this.mesh.position.y = this.position.y
+        this.mesh.position.z = this.position.z
+        this.mesh.rotation.x = this.rotation.x
+        this.mesh.rotation.y = this.rotation.y
+        this.mesh.rotation.z = this.rotation.z
+        scene.add(this.mesh)
     }
 
 }
