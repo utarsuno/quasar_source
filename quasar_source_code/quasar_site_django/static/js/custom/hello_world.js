@@ -152,7 +152,7 @@ var client = new Client(world)
 setInterval(function() {
     var data = fps_controls.get_position().x + '|' + fps_controls.get_position().z
     client.send_data(data)
-}, 500)
+}, 100)
 
 
 

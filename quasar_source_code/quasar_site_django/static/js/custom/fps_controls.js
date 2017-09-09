@@ -52,30 +52,36 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
-            console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
-            console.log(' ')
+            //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
+            //console.log(' ')
 
             // Walking mode.
             if (this.flying_on === false) {
 
-                var direction_vector = new THREE.Vector3()
+                var direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
 
             } else {
                 // Flying mode.
 
             }
 
+
+
             if (this.up) {
-                this.velocity.z -= 400.0 * delta
+                this.velocity.z -= Math.abs(direction_vector.z) * 400.0 * delta
+                //this.velocity.z -= 400.0 * delta
             }
             if (this.down) {
-                this.velocity.z += 400.0 * delta
+                this.velocity.z += Math.abs(direction_vector.z) * 400.0 * delta
+                //this.velocity.z += 400.0 * delta
             }
             if (this.left) {
-                this.velocity.x -= 400.0 * delta
+                this.velocity.x -= Math.abs(direction_vector.x) * 400.0 * delta
+                //this.velocity.x -= 400.0 * delta
             }
             if (this.right) {
-                this.velocity.x += 400.0 * delta
+                this.velocity.x += Math.abs(direction_vector.x) * 400.0 * delta
+                //this.velocity.x += 400.0 * delta
             }
             this.velocity.x -= this.velocity.x * 10.0 * delta
             this.velocity.z -= this.velocity.z * 10.0 * delta
