@@ -80,7 +80,7 @@ var cube 	 = new THREE.Mesh(geometry, material)
 
 
 
-var cssScene = new THREE.Scene()
+//var cssScene = new THREE.Scene()
 
 
 var math_formulas = document.getElementById('math_formulas')
