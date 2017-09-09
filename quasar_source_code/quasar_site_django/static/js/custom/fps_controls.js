@@ -141,11 +141,13 @@ FPSControls.prototype = {
     },
 
     get_yaw: function() {
-        return this.yaw.rotation.y
+        //return this.yaw.rotation.y
+        return this.camera.rotation.z
     },
 
     get_pitch: function() {
-        return this.pitch.rotation.x
+        //return this.pitch.rotation.x
+        return this.camera.rotation.x
     },
 
     on_mouse_move: function(event) {
