@@ -30,6 +30,7 @@ module.exports = {
         ]
     },
     "globals": {
+        "THREEx": false,
         "THREE": false,
         "Stats": false,
         "Detector": true,
@@ -42,6 +43,7 @@ module.exports = {
         "DataDisplay": true,
         "CUSTOM_COLORS": true,
         "Client": true,
-        "World": true
+        "World": true,
+        "PlaneAPI": true
     }
 };

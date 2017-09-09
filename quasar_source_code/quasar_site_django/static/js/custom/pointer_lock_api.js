@@ -12,6 +12,8 @@ PointerLockAPI.prototype = {
     currently_locked: false,
     controls        : null,
 
+    l_key_currently_down: false,
+
     __init__: function (controls) {
         this.controls = controls
         this.element = document.body
@@ -26,9 +28,12 @@ PointerLockAPI.prototype = {
             document.addEventListener('pointerlockerror', this.pointer_lock_error.bind(this), false)
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false)
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false)
-
             // Hook for mouse click.
             document.addEventListener('click', this.mouse_click.bind(this), false)
+            // Hook for key down presses.
+            document.addEventListener('keydown', this.key_down.bind(this), false)
+            // Hook for key up presses.
+            document.addEventListener('keyup', this.key_up.bind(this), false)
         } else {
             console.log('Pointer lock is not supported!')
         }
@@ -52,8 +57,24 @@ PointerLockAPI.prototype = {
 
     mouse_click: function() {
         if (this.currently_locked === false) {
-            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
-            this.element.requestPointerLock()
+            if (this.l_key_currently_down === true) {
+                this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
+                this.element.requestPointerLock()
+            }
+        }
+    },
+
+    key_down: function(event) {
+        // l key.
+        if (event.which == 76) {
+            this.l_key_currently_down = true
+        }
+    },
+
+    key_up: function(event) {
+        // l key.
+        if (event.which == 76) {
+            this.l_key_currently_down = false
         }
     }
 }

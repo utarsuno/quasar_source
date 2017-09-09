@@ -36,3 +36,10 @@ sudo apt-get install git;
 sudo apt-get install postgresql postgresql-contrib
 
 ##
+
+
+
+
+##
+sudo apt install npm
+sudo npm install -g bower

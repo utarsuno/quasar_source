@@ -28,7 +28,7 @@ RendererAPI.prototype = {
             this.get_window_properties()
             this.near_clipping = 0.1
             this.far_clipping  = 1000
-            this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha:true})
+            this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true})
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
             this.renderer.setClearColor(0x000000, 0)
