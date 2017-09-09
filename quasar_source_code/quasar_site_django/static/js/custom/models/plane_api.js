@@ -77,7 +77,7 @@ PlaneAPI.prototype = {
         var wireframe = new THREE.LineSegments( geo, mat )
         this.mesh.add( wireframe )
 
-        
+
         scene.add(this.mesh)
     }
 
