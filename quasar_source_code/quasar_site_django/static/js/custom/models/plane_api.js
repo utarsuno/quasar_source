@@ -1,6 +1,6 @@
 'use strict'
 
-function PlaneAPI(w, h, p, r, renderer, scene) {
+function PlaneAPI(w, h, p, r) {
     this.__init__(w, h, p, r)
 }
 
@@ -18,13 +18,11 @@ PlaneAPI.prototype = {
 
     is_dynamic_text: null,
     
-    __init__: function(w, h, p, r, renderer, scene) {
+    __init__: function(w, h, p, r) {
         this.width    = w
         this.height   = h
         this.position = p
         this.rotation = r
-
-        this.scene = scene
 
         this.geometry = new THREE.PlaneGeometry(this.width, this.height, 10, 10)
     },
@@ -58,7 +56,6 @@ PlaneAPI.prototype = {
 
     create_mesh: function() {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.scene.add(this.mesh)
     }
 
 }
