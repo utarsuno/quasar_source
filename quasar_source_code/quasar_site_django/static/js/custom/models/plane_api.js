@@ -40,8 +40,7 @@ PlaneAPI.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            console.log('Setting the text to : ' + text)
-            this.dynamic_texture.clear('cyan').drawText(text, 5, 5, 'red')
+            this.dynamic_texture.clear().drawText(text, 5, 5, 'black')
             this.dynamic_texture.drawText(text)
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
@@ -52,7 +51,7 @@ PlaneAPI.prototype = {
         this.is_dynamic_text = true
         if (this.dynamic_texture === null) {
             this.dynamic_texture = new THREEx.DynamicTexture(this.width / 2, this.height / 2)
-            this.dynamic_texture.context.font = 'bolder 90px Verdana'
+            this.dynamic_texture.context.font = 'bolder 10px Verdana'
         }
         //dynamic_texture.texture.anisotropy = this.renderer.getMaxAnisotropy()
         this.update_text(initial_text)
