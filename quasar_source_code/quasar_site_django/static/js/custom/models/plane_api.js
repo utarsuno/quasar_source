@@ -58,14 +58,6 @@ PlaneAPI.prototype = {
             map	: this.dynamic_texture.texture
         })
         this.material.transparent = true
-
-
-        var geo = new THREE.EdgesGeometry( this.geometry ) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2 } )
-        var wireframe = new THREE.LineSegments( geo, mat )
-        this.mesh.add( wireframe )
-
-
         this.create_mesh(scene)
     },
 
@@ -77,6 +69,15 @@ PlaneAPI.prototype = {
         this.mesh.rotation.x = this.rotation.x
         this.mesh.rotation.y = this.rotation.y
         this.mesh.rotation.z = this.rotation.z
+
+
+
+        var geo = new THREE.EdgesGeometry( this.mesh.geometry ) // or WireframeGeometry
+        var mat = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2 } )
+        var wireframe = new THREE.LineSegments( geo, mat )
+        this.mesh.add( wireframe )
+
+        
         scene.add(this.mesh)
     }
 
