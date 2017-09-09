@@ -27,10 +27,14 @@ FPSControls.prototype = {
 
     direction_vector: null,
 
-    __init__: function (camera) {
+
+    ground_normal: null,
+
+    __init__: function (camera, ground_normal) {
         // Constants.
         this.half_pie = Math.PI / 2
         this.max_view_angle = this.half_pie * 0.9
+        this.ground_normal = ground_normal
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
@@ -55,18 +59,21 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
-            console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
-            console.log(' ')
+            //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
+            //console.log(' ')
+
+
 
             // Walking mode.
             if (this.flying_on === false) {
-
                 this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
 
+                var ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
+                console.log(ground_vector.x + '\t' + ground_vector.y + '\t' + ground_vector.z)
+                
             } else {
                 // Flying mode.
                 this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
-
 
             }
 
@@ -90,6 +97,8 @@ FPSControls.prototype = {
             }
             this.velocity.x -= this.velocity.x * 10.0 * delta
             this.velocity.z -= this.velocity.z * 10.0 * delta
+
+
             this.yaw.translateX(this.velocity.x * delta)
             this.yaw.translateY(this.velocity.y * delta)
             this.yaw.translateZ(this.velocity.z * delta)

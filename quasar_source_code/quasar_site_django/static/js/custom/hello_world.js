@@ -43,16 +43,7 @@ var stats_api = new StatsAPI()
 var scene = new THREE.Scene()
 var camera   = new THREE.PerspectiveCamera(renderer_api.field_of_view, renderer_api.aspect_ratio, renderer_api.near_clipping, renderer_api.far_clipping)
 renderer_api.set_camera(camera)
-var fps_controls = new FPSControls(camera)
-scene.add(fps_controls.get_object())
 
-var pointer_lock_api = new PointerLockAPI(fps_controls)
-
-var geometry = new THREE.BoxGeometry(5,5, 5)
-//var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
-var cube 	 = new THREE.Mesh(geometry, material)
-//scene.add(cube)
 
 
 // Going to try to create a plane here.
@@ -62,6 +53,23 @@ plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
 var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
+var ground_normal = plane_mesh.normal
+
+
+var fps_controls = new FPSControls(camera, ground_normal)
+
+
+
+
+scene.add(fps_controls.get_object())
+
+var pointer_lock_api = new PointerLockAPI(fps_controls)
+
+var geometry = new THREE.BoxGeometry(5,5, 5)
+//var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
+var cube 	 = new THREE.Mesh(geometry, material)
+//scene.add(cube)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
