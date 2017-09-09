@@ -35,6 +35,7 @@ FPSControls.prototype = {
         this.half_pie = Math.PI / 2
         this.max_view_angle = this.half_pie * 0.9
         this.ground_normal = ground_normal
+        console.log('GROUND NORMAL IS NOW SET TO : ' + this.ground_normal)
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
