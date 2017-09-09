@@ -52,6 +52,9 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
+            console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
+            console.log(' ')
+
             // Walking mode.
             if (this.flying_on === false) {
 
@@ -141,13 +144,11 @@ FPSControls.prototype = {
     },
 
     get_yaw: function() {
-        //return this.yaw.rotation.y
-        return this.camera.rotation.z
+        return this.yaw.rotation.y
     },
 
     get_pitch: function() {
-        //return this.pitch.rotation.x
-        return this.camera.rotation.x
+        return this.pitch.rotation.x
     },
 
     on_mouse_move: function(event) {
