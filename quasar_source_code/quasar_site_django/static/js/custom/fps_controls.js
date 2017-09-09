@@ -71,6 +71,7 @@ FPSControls.prototype = {
 
                 console.log('The ground normal is : ' + this.ground_normal)
                 var ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
+                ground_vector.normalize()
                 //var ground_vector =
                 console.log(ground_vector.x + '\t' + ground_vector.y + '\t' + ground_vector.z)
 
