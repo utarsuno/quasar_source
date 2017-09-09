@@ -37,7 +37,7 @@ PlaneAPI.prototype = {
     },
 
     update_text: function(text) {
-        this.dynamic_texture.clear().drawText(text, undefined, 256, 'red')
+        this.dynamic_texture.clear('cyan').drawText(text, undefined, 256, 'red')
     },
 
     create_dynamic_text: function(initial_text, scene) {
