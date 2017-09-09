@@ -55,8 +55,8 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
-            //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
-            //console.log(' ')
+            console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
+            console.log(' ')
 
             // Walking mode.
             if (this.flying_on === false) {
@@ -65,6 +65,8 @@ FPSControls.prototype = {
 
             } else {
                 // Flying mode.
+                this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
+
 
             }
 
