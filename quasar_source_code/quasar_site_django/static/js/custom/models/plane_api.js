@@ -41,7 +41,8 @@ PlaneAPI.prototype = {
     update_text: function(text) {
         if (this.current_text !== text) {
             console.log('Setting the text to : ' + text)
-            this.dynamic_texture.clear('cyan').drawText(text, undefined, 256, 'red')
+            this.dynamic_texture.clear('cyan').drawText(text, 5, 5, 'red')
+            this.dynamic_texture.drawText(text)
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
