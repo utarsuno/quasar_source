@@ -85,7 +85,7 @@ FPSControls.prototype = {
             // Oh just realized the vector direction system needed..., going to use old one in mean time
 
             if (this.up) {
-                this.velocity.z += this.ground_vector.y * 400.0 * delta
+                this.velocity.z += this.ground_vector.z * 400.0 * delta
                 this.velocity.x += this.ground_vector.x * 400.0 * delta
                 //this.velocity.z -= 400.0 * delta
             }
