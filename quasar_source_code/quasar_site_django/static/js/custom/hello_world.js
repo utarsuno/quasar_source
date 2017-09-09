@@ -53,7 +53,8 @@ plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
 var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
-var ground_normal = plane_mesh.normal
+//var ground_normal = plane_mesh.normal
+var ground_normal = Vector3(0, 1, 0)
 console.log('GROUND NORMAL IS : ' + ground_normal)
 
 var fps_controls = new FPSControls(camera, ground_normal)
