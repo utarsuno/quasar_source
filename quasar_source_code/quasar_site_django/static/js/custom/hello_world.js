@@ -212,10 +212,10 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-var text_position = new THREE.Vector3(40, 20, 30)
+var text_position = new THREE.Vector3(40, 40, 100)
 var text_rotation = new THREE.Vector3(0, 0, 0)
-var text_plane = new PlaneAPI(400, 400, text_position, text_rotation)
-text_plane.create_dynamic_text('Hello World!?!')
+var text_plane = new PlaneAPI(200, 200, text_position, text_rotation)
+text_plane.create_dynamic_text('Hello Worlddddddddddd')
 scene.add(text_plane.mesh)
 
 
