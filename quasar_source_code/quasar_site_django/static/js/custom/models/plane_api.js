@@ -46,13 +46,13 @@ PlaneAPI.prototype = {
         }
     },
 
-    create_dynamic_text: function(initial_text, scene) {
+    create_dynamic_text: function(initial_text, scene, renderer) {
         this.is_dynamic_text = true
         if (this.dynamic_texture === null) {
             this.dynamic_texture = new THREEx.DynamicTexture(this.width, this.height)
             this.dynamic_texture.context.font = 'bolder 10px Verdana'
         }
-        //dynamic_texture.texture.anisotropy = this.renderer.getMaxAnisotropy()
+        this.dynamic_texture.texture.anisotropy = renderer.getMaxAnisotropy()
         this.update_text(initial_text)
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
@@ -74,7 +74,7 @@ PlaneAPI.prototype = {
 
 
         var geo = new THREE.EdgesGeometry( this.mesh.geometry ) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2 } )
+        var mat = new THREE.LineBasicMaterial( { color: 0xFFC0CB, linewidth: 2 } )
         var wireframe = new THREE.LineSegments( geo, mat )
         this.mesh.add( wireframe )
 
