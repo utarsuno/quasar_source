@@ -58,6 +58,7 @@ PlaneAPI.prototype = {
             map	: this.dynamic_texture.texture
         })
         this.material.transparent = true
+        this.material.side = THREE.DoubleSide
         this.create_mesh(scene)
     },
 

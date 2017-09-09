@@ -118,20 +118,6 @@ document.body.appendChild(renderer_api.renderer.domElement)
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//camera.position.z = 10
-
-/*
-// Line test.
-var line_material = new THREE.LineBasicMaterial({color: LIGHT_GREEN, opacity: 1, linewidth: 50})
-var line_geometry = new THREE.Geometry()
-line_geometry.vertices.push(new THREE.Vector3(-100, 0, 0))
-line_geometry.vertices.push(new THREE.Vector3(0, 100, 0))
-line_geometry.vertices.push(new THREE.Vector3(0, 0, 0))
-line_geometry.vertices.push(new THREE.Vector3(50, 50, 50))
-var line = new THREE.Line(line_geometry, line_material)
-scene.add(line)
-*/
-
 // Add lights.
 //var ambiColor = '#cbe7ff'
 //var ambientLight = new THREE.AmbientLight(ambiColor, .2)
@@ -191,7 +177,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
 
 var text_position = new THREE.Vector3(40, 40, 100)
 var text_rotation = new THREE.Vector3(0, 0, 0)
-var text_plane = new PlaneAPI(200, 200, text_position, text_rotation)
+var text_plane = new PlaneAPI(200, 100, text_position, text_rotation)
 text_plane.create_dynamic_text('Hello Worlddddddddddd', scene)
 
 
