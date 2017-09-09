@@ -40,7 +40,7 @@ PlaneAPI.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear('transparent').drawText(text, 5, 5, 'black')
+            this.dynamic_texture.clear().drawText(text, 10, 10, 'black')
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
@@ -57,6 +57,7 @@ PlaneAPI.prototype = {
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
+        this.material.transparent = true
         this.create_mesh(scene)
     },
 
