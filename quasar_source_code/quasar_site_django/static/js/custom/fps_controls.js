@@ -70,7 +70,8 @@ FPSControls.prototype = {
             if (this.flying_on === false) {
                 this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
 
-                console.log('The ground normal is : ' + this.ground_normal)
+                console.log('The ground normal is : ')
+                console.log(this.ground_normal)
                 this.ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
                 this.ground_vector.normalize()
                 //var ground_vector =
