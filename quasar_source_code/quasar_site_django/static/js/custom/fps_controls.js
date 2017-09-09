@@ -1,7 +1,7 @@
 'use strict'
 
-function FPSControls(camera) {
-    this.__init__(camera)
+function FPSControls(camera, ground_normal) {
+    this.__init__(camera, ground_normal)
 }
 
 FPSControls.prototype = {
