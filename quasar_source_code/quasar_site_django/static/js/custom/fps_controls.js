@@ -19,6 +19,8 @@ FPSControls.prototype = {
     velocity     : null,
     acceleration : null,
 
+    flying_on    : null,
+
     // Camera view.
     max_upward_view: null,
     max_downward_view: null,
@@ -49,6 +51,17 @@ FPSControls.prototype = {
 
     physics: function(delta) {
         if (this.enabled) {
+
+            // Walking mode.
+            if (this.flying_on === false) {
+
+                var direction_vector = new THREE.Vector3()
+
+            } else {
+                // Flying mode.
+
+            }
+
             if (this.up) {
                 this.velocity.z -= 400.0 * delta
             }
@@ -125,6 +138,14 @@ FPSControls.prototype = {
             this.right = false
             break
         }
+    },
+
+    get_yaw: function() {
+        return this.yaw.rotation.y
+    },
+
+    get_pitch: function() {
+        return this.pitch.rotation.x
     },
 
     on_mouse_move: function(event) {

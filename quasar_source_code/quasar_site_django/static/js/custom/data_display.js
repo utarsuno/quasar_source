@@ -17,6 +17,9 @@ DataDisplay.prototype = {
         this.x_coordinate = document.getElementById('x_coordinate')
         this.y_coordinate = document.getElementById('y_coordinate')
         this.z_coordinate = document.getElementById('z_coordinate')
+
+        this.pitch        = document.getElementById('pitch')
+        this.yaw          = document.getElementById('yaw')
     },
 
     rounded: function(n) {
@@ -27,5 +30,7 @@ DataDisplay.prototype = {
         this.x_coordinate.textContent = 'x : ' + this.rounded(this.fps_controls.get_position().x) + ' - ' + this.rounded(this.fps_controls.get_velocity().x)
         this.y_coordinate.textContent = 'y : ' + this.rounded(this.fps_controls.get_position().y) + ' - ' + this.rounded(this.fps_controls.get_velocity().y)
         this.z_coordinate.textContent = 'z : ' + this.rounded(this.fps_controls.get_position().z) + ' - ' + this.rounded(this.fps_controls.get_velocity().z)
+        this.pitch.textContent = 'pitch : ' + this.rounded(this.fps_controls.get_pitch())
+        this.yaw.textContent = 'yaw : ' + this.rounded(this.fps_controls.get_yaw())
     }
 }
