@@ -74,7 +74,7 @@ FPSControls.prototype = {
                 this.ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
                 this.ground_vector.normalize()
                 //var ground_vector =
-                console.log(this.ground_vector.x + '\t' + this.ground_vector.y)
+                console.log('x: ' + this.ground_vector.x + ', y: ' + this.ground_vector.y + ', z: ' + this.ground_vector.z)
 
             } else {
                 // Flying mode.
