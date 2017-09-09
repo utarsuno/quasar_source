@@ -29,6 +29,7 @@ FPSControls.prototype = {
 
 
     ground_normal: null,
+    ground_vector: null,
 
     __init__: function (camera, ground_normal) {
         // Constants.
@@ -70,10 +71,10 @@ FPSControls.prototype = {
                 this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
 
                 console.log('The ground normal is : ' + this.ground_normal)
-                var ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
-                ground_vector.normalize()
+                this.ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
+                this.ground_vector.normalize()
                 //var ground_vector =
-                console.log(ground_vector.x + '\t' + ground_vector.y + '\t' + ground_vector.z)
+                console.log(this.ground_vector.x + '\t' + this.ground_vector.y)
 
             } else {
                 // Flying mode.
@@ -81,22 +82,23 @@ FPSControls.prototype = {
 
             }
 
-
+            // Oh just realized the vector direction system needed..., going to use old one in mean time
 
             if (this.up) {
-                this.velocity.z -= this.direction_vector.z * 400.0 * delta
+                this.velocity.z += this.ground_vector.y * 400.0 * delta
+                this.velocity.x += this.ground_vector.x * 400.0 * delta
                 //this.velocity.z -= 400.0 * delta
             }
             if (this.down) {
-                this.velocity.z += this.direction_vector.z * 400.0 * delta
+                //this.velocity.z += this.direction_vector.z * 400.0 * delta
                 //this.velocity.z += 400.0 * delta
             }
             if (this.left) {
-                this.velocity.x -= this.direction_vector.x * 400.0 * delta
+                //this.velocity.x -= this.direction_vector.x * 400.0 * delta
                 //this.velocity.x -= 400.0 * delta
             }
             if (this.right) {
-                this.velocity.x += this.direction_vector.x * 400.0 * delta
+                //this.velocity.x += this.direction_vector.x * 400.0 * delta
                 //this.velocity.x += 400.0 * delta
             }
             this.velocity.x -= this.velocity.x * 10.0 * delta
