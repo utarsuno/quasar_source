@@ -25,6 +25,8 @@ FPSControls.prototype = {
     max_upward_view: null,
     max_downward_view: null,
 
+    direction_vector: null,
+
     __init__: function (camera) {
         // Constants.
         this.half_pie = Math.PI / 2
@@ -41,6 +43,7 @@ FPSControls.prototype = {
         this.yaw.add(this.pitch)
 
         this.enabled = false
+        this.flying_on = false
 
         this.velocity = new THREE.Vector3()
 
@@ -58,7 +61,7 @@ FPSControls.prototype = {
             // Walking mode.
             if (this.flying_on === false) {
 
-                var direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
+                this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
 
             } else {
                 // Flying mode.
@@ -68,19 +71,19 @@ FPSControls.prototype = {
 
 
             if (this.up) {
-                this.velocity.z -= Math.abs(direction_vector.z) * 400.0 * delta
+                this.velocity.z -= Math.abs(this.direction_vector.z) * 400.0 * delta
                 //this.velocity.z -= 400.0 * delta
             }
             if (this.down) {
-                this.velocity.z += Math.abs(direction_vector.z) * 400.0 * delta
+                this.velocity.z += Math.abs(this.direction_vector.z) * 400.0 * delta
                 //this.velocity.z += 400.0 * delta
             }
             if (this.left) {
-                this.velocity.x -= Math.abs(direction_vector.x) * 400.0 * delta
+                this.velocity.x -= Math.abs(this.direction_vector.x) * 400.0 * delta
                 //this.velocity.x -= 400.0 * delta
             }
             if (this.right) {
-                this.velocity.x += Math.abs(direction_vector.x) * 400.0 * delta
+                this.velocity.x += Math.abs(this.direction_vector.x) * 400.0 * delta
                 //this.velocity.x += 400.0 * delta
             }
             this.velocity.x -= this.velocity.x * 10.0 * delta
