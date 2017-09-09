@@ -40,8 +40,7 @@ PlaneAPI.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear().drawText(text, 5, 5, 'black')
-            this.dynamic_texture.drawText(text)
+            this.dynamic_texture.clear('transparent').drawText(text, 5, 5, 'black')
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
@@ -50,7 +49,7 @@ PlaneAPI.prototype = {
     create_dynamic_text: function(initial_text, scene) {
         this.is_dynamic_text = true
         if (this.dynamic_texture === null) {
-            this.dynamic_texture = new THREEx.DynamicTexture(this.width / 2, this.height / 2)
+            this.dynamic_texture = new THREEx.DynamicTexture(this.width, this.height)
             this.dynamic_texture.context.font = 'bolder 10px Verdana'
         }
         //dynamic_texture.texture.anisotropy = this.renderer.getMaxAnisotropy()
