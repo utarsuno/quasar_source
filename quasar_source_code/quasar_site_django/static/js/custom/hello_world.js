@@ -159,16 +159,25 @@ var world  = new World(scene)
 var client = new Client(world)
 
 
+// Information that gets sent to the server.
+// TODO : Only send information if position updates have been made.
 setInterval(function() {
     var data = fps_controls.get_position().x + '|' + fps_controls.get_position().z
     client.send_data(data)
 }, 100)
 
 
+setInterval(function() {
+    console.log('@@@@')
+    console.log(fps_controls.get_direction)
+    console.log(camera.getWorldDirection())
+    console.log('@--@')
+}, 4000)
+
 
 var loader = new THREE.FontLoader()
 loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/font/helvetiker_regular.typeface.json', function(tex){
-    var  textGeo = new THREE.TextGeometry('Test', {
+    var  textGeo = new THREE.TextGeometry('Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday', {
         size: 100,
         height: 5,
         curveSegments: 2,
