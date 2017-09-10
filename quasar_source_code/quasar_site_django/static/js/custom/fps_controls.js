@@ -144,6 +144,8 @@ FPSControls.prototype = {
     },
 
     on_key_press: function(event) {
+        console.log('Key pressed')
+        console.log(event)
         switch(event.which) {
         case 70: // f
             this.flying_on = !this.flying_on
