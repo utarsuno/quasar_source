@@ -147,6 +147,7 @@ FPSControls.prototype = {
         switch(event.keyCode) {
         case 70: // f
             this.flying_on = !this.flying_on
+            console.log('Flying toggled to : ' + this.flying_on)
             break
         }
     },
