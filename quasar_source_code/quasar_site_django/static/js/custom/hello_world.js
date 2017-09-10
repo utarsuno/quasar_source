@@ -169,7 +169,7 @@ setInterval(function() {
 
 setInterval(function() {
     console.log('@@@@')
-    console.log(fps_controls.get_direction)
+    console.log(fps_controls.get_direction())
     console.log(camera.getWorldDirection())
     console.log('@--@')
 }, 4000)
