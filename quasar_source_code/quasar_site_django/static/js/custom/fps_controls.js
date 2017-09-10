@@ -129,13 +129,23 @@ FPSControls.prototype = {
                 }
                 this.velocity.x -= this.velocity.x * 5.0 * delta
                 this.velocity.z -= this.velocity.z * 5.0 * delta
-                this.velocity.y = 0
+
+                if (this.velocity.y != 0) {
+                    this.velocity.y -= 9.8 * delta
+                }
+
                 //this.velocity.x -= this.velocity.x * 10.0 * delta
                 //this.velocity.z -= this.velocity.z * 10.0 * delta
 
                 this.yaw.translateX(this.velocity.x * delta)
-                //this.yaw.translateY(this.velocity.y * delta)
+                this.yaw.translateY(this.velocity.y * delta)
                 this.yaw.translateZ(this.velocity.z * delta)
+
+                if (this.yaw.y <= 10) {
+                    this.yaw.y = 10
+                    this.velocity.y = 0
+                }
+
             }
         }
     },
