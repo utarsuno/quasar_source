@@ -29,14 +29,10 @@ class EntityTask(Entity):
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
-
-		#print(self._one_time_events)
-		#print(self._event_range)
-		#print(self._event_range_events)
 		return {'current_iterations': self._current_iteration,
 		        'needed_iterations': self._needed_iterations,
 		        'description': self._description,
-		        }
+		        'due_date': self._due_date.global_id}
 
 	def iterate(self):
 		"""Completes an iteration for this task."""
@@ -63,19 +59,7 @@ class EntityTask(Entity):
 	@property
 	def completed(self) -> bool:
 		"""Returns a boolean indicating if this task has been completed or not."""
-		# TODO : Fix the method
-
-		'''
-		if len(self._sub_tasks) == 0:
-			return self._current_iteration >= self._needed_iterations
-		else:
-			all_sub_tasks_complete = True
-			for st in self._sub_tasks:
-				if not st.completed:
-					all_sub_tasks_complete = False
-					break
-			return all_sub_tasks_complete
-		'''
+		return self._current_iteration >= self._needed_iterations
 
 	def __str__(self):
 		return 'ETask{' + self._name + '}'

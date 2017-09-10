@@ -38,6 +38,13 @@ FPSControls.prototype = {
         this.ground_normal = ground_normal
         console.log('GROUND NORMAL IS NOW SET TO : ' + this.ground_normal)
 
+
+        var exampleA = new THREE.Vector3(1, 2, 3)
+        var exampleN = new THREE.Vector3(4, 5, 6)
+        exampleN.normalize()
+        console.log(exampleN)
+        console.log(exampleA.projectOnPlane(exampleN))
+
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
 
