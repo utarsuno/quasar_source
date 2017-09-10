@@ -69,6 +69,9 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
+            this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
+            this.direction_vector.normalize()
+
             //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
             //console.log(' ')
 
@@ -101,7 +104,12 @@ FPSControls.prototype = {
                     this.velocity.y -= 400.0 * delta
                 }
 
-                // this.velocity.y -= this.velocity.y * 10.0 * delta
+                if (this.up) {
+                    this.velocity.x += 400.0 * delta * this.direction_vector.x
+                    this.velocity.y += 400.0 * delta * this.direction_vector.y
+                    this.velocity.z += 400.0 * delta * this.direction_vector.z
+                }
+
                 this.velocity.y -= this.velocity.y * 4.0 * delta
                 this.velocity.x -= this.velocity.x * 4.0 * delta
                 this.velocity.z -= this.velocity.z * 4.0 * delta
