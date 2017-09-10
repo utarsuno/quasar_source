@@ -72,9 +72,6 @@ FPSControls.prototype = {
             //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
             //console.log(' ')
 
-            console.log('Delta value is : ')
-            console.log(delta)
-
             /*
             // Walking mode.
             if (this.flying_on === false) {
@@ -100,11 +97,14 @@ FPSControls.prototype = {
                 if (this.space) {
                     this.velocity.y += 400.0 * delta
                 }
+                if (this.shift) {
+                    this.velocity -= 400.0 * delta
+                }
 
                 // this.velocity.y -= this.velocity.y * 10.0 * delta
-                this.velocity.y -= this.velocity.y * 5.0 * delta
-                this.velocity.x -= this.velocity.x * 5.0 * delta
-                this.velocity.z -= this.velocity.z * 5.0 * delta
+                this.velocity.y -= this.velocity.y * 4.0 * delta
+                this.velocity.x -= this.velocity.x * 4.0 * delta
+                this.velocity.z -= this.velocity.z * 4.0 * delta
 
                 this.yaw.translateX(this.velocity.x * delta)
                 this.yaw.translateY(this.velocity.y * delta)
@@ -127,8 +127,8 @@ FPSControls.prototype = {
                     //this.velocity.x += this.direction_vector.x * 400.0 * delta
                     this.velocity.x += 400.0 * delta
                 }
-                this.velocity.x -= this.velocity.x * 5.0 * delta
-                this.velocity.z -= this.velocity.z * 5.0 * delta
+                this.velocity.x -= this.velocity.x * 4.0 * delta
+                this.velocity.z -= this.velocity.z * 4.0 * delta
 
                 if (this.velocity.y != 0) {
                     this.velocity.y -= 9.8 * delta
@@ -141,8 +141,8 @@ FPSControls.prototype = {
                 this.yaw.translateY(this.velocity.y * delta)
                 this.yaw.translateZ(this.velocity.z * delta)
 
-                if (this.yaw.y <= 10) {
-                    this.yaw.y = 10
+                if (this.yaw.position.y <= 10) {
+                    this.yaw.position.y = 10
                     this.velocity.y = 0
                 }
 
@@ -198,6 +198,9 @@ FPSControls.prototype = {
         case 32: // space
             this.space = true
             break
+        case 16: // shift
+            this.shift = true
+            break
         }
     },
 
@@ -221,6 +224,9 @@ FPSControls.prototype = {
             break
         case 32: // space
             this.space = false
+            break
+        case 16: // shift
+            this.shift = false
             break
         }
     },
