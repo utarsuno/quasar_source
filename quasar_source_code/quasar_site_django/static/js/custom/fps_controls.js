@@ -98,7 +98,7 @@ FPSControls.prototype = {
                     this.velocity.y += 400.0 * delta
                 }
                 if (this.shift) {
-                    this.velocity -= 400.0 * delta
+                    this.velocity.y -= 400.0 * delta
                 }
 
                 // this.velocity.y -= this.velocity.y * 10.0 * delta
