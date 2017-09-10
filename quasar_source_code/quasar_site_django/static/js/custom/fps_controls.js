@@ -60,6 +60,7 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
+        document.addEventListener('onkeypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
@@ -135,6 +136,14 @@ FPSControls.prototype = {
         this.enabled = false
     },
 
+    on_key_press: function(event) {
+        switch(event.keyCode) {
+        case 70: // f
+            this.flying_on = !this.flying_on
+            break
+        }
+    },
+
     on_key_down: function(event) {
         switch(event.keyCode) {
         case 38: // up
@@ -152,6 +161,9 @@ FPSControls.prototype = {
         case 39: // right
         case 68: // d
             this.right = true
+            break
+        case 32: // space
+            this.space = true
             break
         }
     },
@@ -173,6 +185,9 @@ FPSControls.prototype = {
         case 39: // right
         case 68: // d
             this.right = false
+            break
+        case 32: // space
+            this.space = false
             break
         }
     },

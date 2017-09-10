@@ -55,7 +55,8 @@ var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
 //var ground_normal = plane_mesh.normal
 var ground_normal = new THREE.Vector3(0, 1, 0)
-console.log('GROUND NORMAL IS : ' + ground_normal)
+console.log('GROUND NORMAL IS : ')
+console.log(ground_normal)
 
 var fps_controls = new FPSControls(camera, ground_normal)
 
