@@ -19,6 +19,8 @@ class Entity(object):
 		self._global_id       = global_id
 		global_id += 1
 
+		self._owner_id        = 0 # TODO : Have this get set!
+
 		self._name            = entity_name
 		self._parent_entities = []
 		self._child_entities  = []
@@ -82,6 +84,11 @@ class Entity(object):
 					obj.add_children(self)
 
 	@property
+	def global_id(self) -> int:
+		"""Returns the global ID of this Entity."""
+		return self._global_id
+
+	@property
 	def is_child(self) -> bool:
 		"""Returns a boolean indicating if this entity has parent entities and no child entities."""
 		return len(self._child_entities) == 0 and len(self._parent_entities) > 0
@@ -115,8 +122,8 @@ class Entity(object):
 	def all_children(self) -> list:
 		"""Returns a list of ALL child entities relative to this entity."""
 		if len(self._child_entities) == 0:
-			return [self]
-		child_entities = []
+			return []
+		child_entities = [] + self._child_entities
 		for ce in self._child_entities:
 			child_entities += ce.all_children
 		return child_entities
@@ -125,4 +132,28 @@ class Entity(object):
 	def name(self) -> str:
 		"""Returns the name of this entity."""
 		return self._name
+
+	def get_additional_needed_save_info(self) -> dict:
+		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
+		return {}
+
+	def get_save_info(self) -> dict:
+		"""Returns a dictionary containing all the data needed to save this Entity."""
+		parent_ids = []
+		for p in self._parent_entities:
+			parent_ids.append(p.global_id)
+		child_ids = []
+		for c in self._child_entities:
+			child_ids.append(c.global_id)
+			# Returns the generated dictionary merged with the additional needed save info dictionary.
+		return dict({'global_id': self._global_id,
+		        'owner_id': self._owner_id,
+		        'class_name': self._class_name,
+		        'name'     : self._name,
+		        'parent_entities': parent_ids,
+		        'child_entities': child_ids,
+		        'information': self._information}, **self.get_additional_needed_save_info())
+
+	def __str__(self):
+		return 'E{' + self._name + '}'
 

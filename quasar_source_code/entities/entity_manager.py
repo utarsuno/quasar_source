@@ -51,5 +51,14 @@ class EntityManager(object):
 		"""Prints information sorted by entities."""
 		y = 2 # TODO : This function
 
-	def save_entity_information(self):
-		"""Saves the current entity information."""
+	# Methods in development
+	def save_entities(self):
+		"""Save the entities and their information to the database."""
+		print('Printing the entities to save :')
+		for e in self.entities:
+			print(e.get_save_info())
+			children = e.all_children
+			for c in children:
+				print('\t' + str(c.get_save_info()))
+
+

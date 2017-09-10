@@ -18,3 +18,4 @@ manager = EntityManager()
 manager.add_entities(m.math220)
 
 manager.print_information_for_this_week()
+manager.save_entities()

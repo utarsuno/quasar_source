@@ -3,7 +3,13 @@
 ---
 
 ### documentation
-Just useful notes and guides to be referenced later.
+Just useful notes and guides to be referenced later. Documentation is under heavy edits.
+
+## Entities
+Notes to be sorted :
+Each object that extends 'Entity' must include the 'get_additional_needed_save_info' in order to be saved into the database.
+
+## Needs to be updated (text below) :
 
 ### quasar_source_code
 | Directory | Description |

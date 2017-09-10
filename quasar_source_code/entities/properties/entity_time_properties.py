@@ -22,6 +22,13 @@ class EntityTime(be.Entity):
 		self.add_parents(parent_entity)
 		self._class_name = EntityTime.CLASS_NAME
 
+	def get_additional_needed_save_info(self) -> dict:
+		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
+		print(self._one_time_events)
+		print(self._event_range)
+		print(self._event_range_events)
+		return {}
+
 	def add_one_time_event(self, time_range_or_single_day, event):
 		"""Adds a time event that only occurs once."""
 		self._one_time_events.append([time_range_or_single_day, event])
@@ -73,4 +80,4 @@ class EntityTime(be.Entity):
 		return events
 
 	def __str__(self):
-		return 'EntityTime instance, child of ' + str(self.parents)
+		return 'EntityTime instance{' + self.name + '}, child of ' + str(self.parents[0])
