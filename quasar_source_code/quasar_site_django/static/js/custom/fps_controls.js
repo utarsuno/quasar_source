@@ -255,13 +255,18 @@ FPSControls.prototype = {
         return this.yaw
     },
 
+    get_camera_direction: function() {
+        return this.yaw.rotation
+    }
+
+    /*
     get_direction: function() {
         var direction = new THREE.Vector3(0, 0, -1)
         var rotation  = new THREE.Euler(0, 0, 0, 'YXZ')
         rotation.set(this.pitch.rotation.x, this.yaw.rotation.y, 0)
         v.copy(direction).applyEuler(rotation)
         return v
-    }
+    }*/
 
     // Used to be :
     /*
