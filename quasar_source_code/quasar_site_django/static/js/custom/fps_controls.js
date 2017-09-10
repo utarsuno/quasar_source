@@ -60,7 +60,7 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        document.addEventListener('onkeypress', this.on_key_press.bind(this), false)
+        document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
