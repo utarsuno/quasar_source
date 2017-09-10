@@ -144,7 +144,7 @@ FPSControls.prototype = {
     },
 
     on_key_press: function(event) {
-        switch(event.keyCode) {
+        switch(event.which) {
         case 70: // f
             this.flying_on = !this.flying_on
             console.log('Flying toggled to : ' + this.flying_on)
