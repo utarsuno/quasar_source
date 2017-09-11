@@ -204,6 +204,11 @@ text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.rend
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
+var axis_helper = new THREE.AxisHelper(5)
+scene.add(axis_helper)
+
+
+
 var previous_time = performance.now()
 
 var animate = function () {
