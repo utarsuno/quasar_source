@@ -207,7 +207,13 @@ text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.rend
 var axis_helper = new THREE.AxisHelper(5)
 scene.add(axis_helper)
 
+var helper = new THREE.CameraHelper(camera)
+scene.add(helper)
 
+var sphere = new THREE.SphereGeometry();
+var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( 0xff0000 ) )
+var box = new THREE.BoxHelper( object, 0xffff00 )
+scene.add( box )
 
 var previous_time = performance.now()
 
