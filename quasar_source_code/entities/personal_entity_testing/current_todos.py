@@ -19,3 +19,6 @@
 # Future goal : add client/server interpolation of player movements.
 
 
+
+
+# Need to do lots of linear algebra studying before doing the above.

@@ -6,7 +6,7 @@ from datetime import datetime
 from typing import List
 from quasar_source_code.entities.base_entity import Entity
 from quasar_source_code.universal_code import time_abstraction as ta
-from quasar_source_code.entities.properties import entity_time_properties as etp
+from quasar_source_code.entities.properties import entity_time as etp
 
 
 class EntityTask(Entity):

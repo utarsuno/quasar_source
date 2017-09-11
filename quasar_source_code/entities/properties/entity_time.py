@@ -1,6 +1,6 @@
 # coding=utf-8
 
-"""This module, entity_time_properties.py, defines time properties for Entities."""
+"""This module, entity_time.py, defines time properties for Entities."""
 
 from quasar_source_code.entities.properties import entity_properties as ep
 from quasar_source_code.entities import base_entity as be
@@ -24,10 +24,24 @@ class EntityTime(be.Entity):
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
-		print(self._one_time_events)
-		print(self._event_range)
-		print(self._event_range_events)
-		return {}
+		one_time_events_string = '[]'
+		event_range_string = 'None'
+		event_range_events_string = '[]'
+		if len(self._one_time_events) > 0:
+			one_time_events_string = ''
+			for ote in self._one_time_events:
+				one_time_events_string += '[' + str(ote[0]) + ',' + str(ote[1]) + '],'
+			one_time_events_string = '[' + one_time_events_string[0:-1] + ']'
+		if self._event_range is not None:
+			event_range_string = '[' + str(self._event_range[0]) + ',' + str(self._event_range[1]) + ']'
+		if len(self._event_range_events) > 0:
+			event_range_events_string = ''
+			for ere in self._event_range_events:
+				event_range_events_string += '[' + str(ere[0]) + ',' + str(ere[1]) + ']'
+			event_range_events_string = '[' + event_range_events_string[:-1] + ']'
+		return {'one_time_events': one_time_events_string,
+		        'event_range': event_range_string,
+		        'event_range_events': event_range_events_string}
 
 	def add_one_time_event(self, time_range_or_single_day, event):
 		"""Adds a time event that only occurs once."""

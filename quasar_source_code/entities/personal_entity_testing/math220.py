@@ -3,7 +3,7 @@
 """This module, math220.py, holds entity information for my Math220 course."""
 
 from quasar_source_code.entities.base_entity import Entity
-from quasar_source_code.entities.properties import entity_time_properties as etp
+from quasar_source_code.entities.properties import entity_time as etp
 from quasar_source_code.entities.properties.entity_task import EntityTask
 from quasar_source_code.universal_code import time_abstraction as ta
 
