@@ -162,7 +162,7 @@ var client = new Client(world)
 // Information that gets sent to the server.
 // TODO : Only send information if position updates have been made.
 setInterval(function() {
-    var data = fps_controls.get_position().x + '|' + fps_controls.get_position().y + '|' + fps_controls.get_position().z + '|' + fps_controls.get_pitch() + '|' + fps_controls.get_yaw()
+    var data = fps_controls.get_position().x + '|' + fps_controls.get_position().y + '|' + fps_controls.get_position().z + '|' + fps_controls.get_object().rotation.x + '|' + fps_controls.get_object().rotation.y + '|' + fps_controls.get_object().rotation.z
     client.send_data(data)
 }, 100)
 
@@ -207,8 +207,8 @@ text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.rend
 var axis_helper = new THREE.AxisHelper(5)
 scene.add(axis_helper)
 
-var helper = new THREE.CameraHelper(camera)
-scene.add(helper)
+//var helper = new THREE.CameraHelper(camera)
+//scene.add(helper)
 
 var sphere = new THREE.SphereGeometry();
 var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( 0xff0000 ) )

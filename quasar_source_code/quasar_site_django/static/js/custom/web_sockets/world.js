@@ -42,13 +42,10 @@ Player.prototype = {
         scene.add(this.cube_model.model)
     },
 
-    update: function(x_position, y_position, z_position, pitch, yaw) {
+    update: function(x_position, y_position, z_position, rx, ry, rz) {
         this.x_position = x_position
         this.y_position = y_position
         this.z_position = z_position
-
-        this.pitch = pitch
-        this.yaw = yaw
 
         this.cube_model.model.position.x = x_position
         this.cube_model.model.position.y = y_position
@@ -57,9 +54,9 @@ Player.prototype = {
         this.half_pie = Math.PI / 2
         this.max_view_angle = this.half_pie * 0.9
 
-        this.cube_model.model.rotation.x = Math.cos(yaw) * Math.cos(pitch)
-        this.cube_model.model.rotation.y = Math.sin(yaw) * Math.cos(pitch)
-        this.cube_model.model.rotation.z = Math.sin(pitch)
+        this.cube_model.model.rotation.x = rx
+        this.cube_model.model.rotation.y = ry
+        this.cube_model.model.rotation.z = rz
 
         //this.cube_model.model.position.set(this.x_position, 10, this.z_position)
     }
@@ -76,16 +73,16 @@ World.prototype = {
         this.scene = scene
     },
 
-    update_player: function(player_id, x_position, y_position, z_position, pitch, yaw) {
+    update_player: function(player_id, x_position, y_position, z_position, rx, ry, rz) {
         for (var i = 0; i < this.players.length; i++) {
             if (this.players[i].unique_id === player_id) {
-                this.players[i].update(x_position, y_position, z_position, pitch, yaw)
+                this.players[i].update(x_position, y_position, z_position, rx, ry, rz)
                 return
             }
         }
         // If the code reached this point that means the character was not found. So create it!
         this.add_player(player_id)
-        this.update_player(player_id, x_position, y_position, z_position, pitch, yaw)
+        this.update_player(player_id, x_position, y_position, z_position, rx, ry, rz)
     },
 
     add_player: function(unique_id) {
