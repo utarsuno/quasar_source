@@ -269,6 +269,10 @@ FPSControls.prototype = {
         }
     },
 
+    get_x_rotation: function() {
+        return this.pitch.rotation.x
+    },
+
     get_object: function() {
         return this.yaw
     },

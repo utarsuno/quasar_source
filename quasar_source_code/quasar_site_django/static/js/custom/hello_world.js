@@ -162,7 +162,7 @@ var client = new Client(world)
 // Information that gets sent to the server.
 // TODO : Only send information if position updates have been made.
 setInterval(function() {
-    var data = fps_controls.get_position().x + '|' + fps_controls.get_position().y + '|' + fps_controls.get_position().z + '|' + fps_controls.get_object().rotation.x + '|' + fps_controls.get_object().rotation.y + '|' + fps_controls.get_object().rotation.z
+    var data = fps_controls.get_position().x + '|' + fps_controls.get_position().y + '|' + fps_controls.get_position().z + '|' + fps_controls.get_x_rotation() + '|' + fps_controls.get_object().rotation.y + '|' + fps_controls.get_object().rotation.z
     client.send_data(data)
 }, 100)
 
