@@ -118,7 +118,7 @@ FPSControls.prototype = {
 
                 this.yaw.translateX(400.0 * delta * this.direction_vector.x)
                 this.yaw.translateY(400.0 * delta * this.direction_vector.y)
-                this.yaw.translateZ(400.0 * delta * this.direction_vector.z * -1)
+                this.yaw.translateZ(400.0 * delta * this.direction_vector.z)
 
                 //this.yaw.translateX(this.velocity.x * delta)
                 //this.yaw.translateY(this.velocity.y * delta)
@@ -270,7 +270,7 @@ FPSControls.prototype = {
     },
 
     get_camera_direction: function() {
-        return this.yaw.rotation
+        return this.yaw
     }
 
     /*
