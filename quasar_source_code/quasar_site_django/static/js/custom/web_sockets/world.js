@@ -32,6 +32,7 @@ Player.prototype = {
 
     unique_id: null,
     x_position: null,
+    y_position: null,
     z_position: null,
     cube_model: null,
 
@@ -41,12 +42,23 @@ Player.prototype = {
         scene.add(this.cube_model.model)
     },
 
-    update: function(x_position, z_position) {
+    update: function(x_position, y_position, z_position, pitch, yaw) {
         this.x_position = x_position
+        this.y_position = y_position
         this.z_position = z_position
 
+        this.pitch = pitch
+        this.yaw = yaw
+
         this.cube_model.model.position.x = x_position
+        this.cube_model.model.position.y = y_position
         this.cube_model.model.position.z = z_position
+
+        this.half_pie = Math.PI / 2
+        this.max_view_angle = this.half_pie * 0.9
+
+        this.cube_model.model.rotation.x = pitch
+        this.cube_model.model.rotation.y = yaw
 
         //this.cube_model.model.position.set(this.x_position, 10, this.z_position)
     }
@@ -63,16 +75,16 @@ World.prototype = {
         this.scene = scene
     },
 
-    update_player: function(player_id, x_position, z_position) {
+    update_player: function(player_id, x_position, y_position, z_position, pitch, yaw) {
         for (var i = 0; i < this.players.length; i++) {
             if (this.players[i].unique_id === player_id) {
-                this.players[i].update(x_position, z_position)
+                this.players[i].update(x_position, y_position, z_position, pitch, yaw)
                 return
             }
         }
         // If the code reached this point that means the character was not found. So create it!
         this.add_player(player_id)
-        this.update_player(player_id, x_position, z_position)
+        this.update_player(player_id, x_position, y_position, z_position, pitch, yaw)
     },
 
     add_player: function(unique_id) {

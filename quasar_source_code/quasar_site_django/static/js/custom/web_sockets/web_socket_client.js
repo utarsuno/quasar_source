@@ -35,7 +35,7 @@ Client.prototype = {
         this.socket.onmessage = function(e) {
             //console.log('Just got the message : ' + e.data)
             var data = e.data.split('|')
-            self._world.update_player(data[0], data[1], data[2])
+            self._world.update_player(data[0], data[1], data[2], data[3], data[4], data[5])
         }
 
         this.socket.onopen = function open() {
