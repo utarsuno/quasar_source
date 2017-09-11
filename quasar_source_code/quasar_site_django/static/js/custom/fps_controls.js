@@ -114,9 +114,11 @@ FPSControls.prototype = {
                 this.velocity.x -= this.velocity.x * 4.0 * delta
                 this.velocity.z -= this.velocity.z * 4.0 * delta
 
-                this.yaw.translateX(this.velocity.x * delta)
-                this.yaw.translateY(this.velocity.y * delta)
-                this.yaw.translateZ(this.velocity.z * delta)
+                this.yaw.addScaledVector(this.direction_vector, 400 * delta)
+
+                //this.yaw.translateX(this.velocity.x * delta)
+                //this.yaw.translateY(this.velocity.y * delta)
+                //this.yaw.translateZ(this.velocity.z * delta)
             } else {
                 if (this.up) {
                     //this.velocity.z -= this.ground_vector.x * 400.0 * delta
