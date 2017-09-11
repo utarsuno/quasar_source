@@ -57,8 +57,9 @@ Player.prototype = {
         this.half_pie = Math.PI / 2
         this.max_view_angle = this.half_pie * 0.9
 
-        this.cube_model.model.rotation.x = pitch
-        this.cube_model.model.rotation.y = yaw
+        this.cube_model.model.rotation.x = Math.cos(yaw) * Math.cos(pitch)
+        this.cube_model.model.rotation.y = Math.sin(yaw) * Math.cos(pitch)
+        this.cube_model.model.rotation.z = Math.sin(pitch)
 
         //this.cube_model.model.position.set(this.x_position, 10, this.z_position)
     }
