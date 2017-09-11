@@ -27,9 +27,9 @@ DataDisplay.prototype = {
     },
 
     update: function() {
-        this.x_coordinate.textContent = 'x : ' + this.rounded(this.fps_controls.get_position().x) + ' - ' + this.rounded(this.fps_controls.get_velocity().x)
-        this.y_coordinate.textContent = 'y : ' + this.rounded(this.fps_controls.get_position().y) + ' - ' + this.rounded(this.fps_controls.get_velocity().y)
-        this.z_coordinate.textContent = 'z : ' + this.rounded(this.fps_controls.get_position().z) + ' - ' + this.rounded(this.fps_controls.get_velocity().z)
+        this.x_coordinate.textContent = 'x : ' + this.rounded(this.fps_controls.get_position().x) + ' | ' + this.rounded(this.fps_controls.get_velocity().x)
+        this.y_coordinate.textContent = 'y : ' + this.rounded(this.fps_controls.get_position().y) + ' | ' + this.rounded(this.fps_controls.get_velocity().y)
+        this.z_coordinate.textContent = 'z : ' + this.rounded(this.fps_controls.get_position().z) + ' | ' + this.rounded(this.fps_controls.get_velocity().z)
         this.pitch.textContent = 'pitch : ' + this.rounded(this.fps_controls.get_pitch())
         this.yaw.textContent = 'yaw : ' + this.rounded(this.fps_controls.get_yaw())
     }
