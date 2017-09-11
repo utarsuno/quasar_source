@@ -118,7 +118,7 @@ FPSControls.prototype = {
 
                 this.yaw.translateX(400.0 * delta * this.direction_vector.x)
                 this.yaw.translateY(400.0 * delta * this.direction_vector.y)
-                this.yaw.translateZ(400.0 * delta * this.direction_vector.z)
+                this.yaw.translateZ(400.0 * delta * this.direction_vector.z * -1)
 
                 //this.yaw.translateX(this.velocity.x * delta)
                 //this.yaw.translateY(this.velocity.y * delta)
