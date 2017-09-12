@@ -11,8 +11,6 @@ from quasar_source_code.universal_code import time_abstraction as ta
 class EntityTime(be.Entity):
 	"""Represents all forms of time logic for entities."""
 
-	CLASS_NAME = 'EntityTime'
-
 	def __init__(self, entity_name, parent_entity):
 		super().__init__(entity_name)
 		self._one_time_events    = []
@@ -20,7 +18,7 @@ class EntityTime(be.Entity):
 		self._event_range_events = []
 
 		self.add_parents(parent_entity)
-		self._class_name = EntityTime.CLASS_NAME
+		self._class_name = be.ENTITY_TIME
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""

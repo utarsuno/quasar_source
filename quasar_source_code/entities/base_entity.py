@@ -8,10 +8,24 @@ from enum import Enum
 global_id = 0
 
 
+# All the current possible Entity classes.
+ENTITY      = 'Entity'
+ENTITY_TASK = 'EntityTask'
+ENTITY_TIME = 'EntityTime'
+
+
 class Entity(object):
 	"""Defines properties of all entities."""
 
-	CLASS_NAME = 'Entity'
+	CLASS_NAME = ENTITY
+
+	# Database column names.
+	DB_GLOBAL_ID       = 'global_id'
+	DB_CLASS_NAME      = 'class_name'
+	DB_ENTITY_NAME     = 'entity_name'
+	DB_PARENT_ENTITIES = 'parent_entities'
+	DB_CHILD_ENTITIES  = 'child_entities'
+	DB_INFORMATION     = 'information'
 
 	def __init__(self, entity_name):
 		global global_id
@@ -36,7 +50,7 @@ class Entity(object):
 		info = []
 		for e in sub_set:
 			# TODO : If it doesn't work first check this spot by printing out e
-			if e.class_name == 'EntityTime':
+			if e.class_name == ENTITY_TIME:
 				data = e.get_all_relevant_events_for_date(date)
 				if len(data) > 0:
 					info.append(data)
@@ -146,13 +160,12 @@ class Entity(object):
 		for c in self._child_entities:
 			child_ids.append(c.global_id)
 			# Returns the generated dictionary merged with the additional needed save info dictionary.
-		return dict({'global_id': self._global_id,
-		        'owner_id': self._owner_id,
-		        'class_name': self._class_name,
-		        'name'     : self._name,
-		        'parent_entities': parent_ids,
-		        'child_entities': child_ids,
-		        'information': self._information}, **self.get_additional_needed_save_info())
+		return dict({Entity.DB_GLOBAL_ID: self._global_id,
+		        Entity.DB_CLASS_NAME: self._class_name,
+		        Entity.DB_ENTITY_NAME: self._name,
+		        Entity.DB_PARENT_ENTITIES: parent_ids,
+		        Entity.DB_CHILD_ENTITIES: child_ids,
+		        Entity.DB_INFORMATION: self._information}, **self.get_additional_needed_save_info())
 
 	def __str__(self):
 		return 'E{' + self._name + '}'

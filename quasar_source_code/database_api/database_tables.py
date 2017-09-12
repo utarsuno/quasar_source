@@ -24,17 +24,18 @@ from typing import List
 class TableField(object):
 	"""Represents a field to a database table."""
 
-	def __init__(self, field_name: str, field_type: str, skipped: bool):
-		self.field_name = field_name
-		self.field_type = field_type
-		self.skipped    = skipped
+	def __init__(self, field_name: str, python_data_type, field_type: str, skipped: bool):
+		self.field_name       = field_name
+		self.python_data_type = python_data_type
+		self.field_type       = field_type
+		self.skipped          = skipped
 
 
 class TableFieldBoolean(TableField):
 	"""Represents a boolean field for a database table."""
 
 	def __init__(self, field_name: str):
-		super().__init__(field_name, 'bool', skipped=False)
+		super().__init__(field_name, bool, 'bool', skipped=False)
 
 
 class TableFieldInteger(TableField):
@@ -43,18 +44,18 @@ class TableFieldInteger(TableField):
 	def __init__(self, field_name: int, maximum_value: int, auto_increment: bool):
 		if auto_increment:
 			if maximum_value < 32767 + 1:
-				super().__init__(field_name, 'smallserial', skipped=True)
+				super().__init__(field_name, int, 'smallserial', skipped=True)
 			elif maximum_value < 2147483647 + 1:
-				super().__init__(field_name, 'serial', skipped=True)
+				super().__init__(field_name, int, 'serial', skipped=True)
 			else:
-				super().__init__(field_name, 'bigserial', skipped=True)
+				super().__init__(field_name, int, 'bigserial', skipped=True)
 		else:
 			if maximum_value < 32767 + 1:
-				super().__init__(field_name, 'smallint', skipped=False)
+				super().__init__(field_name, int, 'smallint', skipped=False)
 			elif maximum_value < 2147483647 + 1:
-				super().__init__(field_name, 'integer', skipped=False)
+				super().__init__(field_name, int, 'integer', skipped=False)
 			else:
-				super().__init__(field_name, 'bigint', skipped=False)
+				super().__init__(field_name, int, 'bigint', skipped=False)
 
 
 class TableFieldDouble(TableField):
@@ -69,16 +70,16 @@ class TableFieldString(TableField):
 
 	def __init__(self, field_name: str, maximum_length: int, fixed_length: bool=False):
 		if fixed_length:
-			super().__init__(field_name, 'char(' + str(maximum_length) + ')', skipped=False)
+			super().__init__(field_name, str, 'char(' + str(maximum_length) + ')', skipped=False)
 		else:
-			super().__init__(field_name, 'varchar(' + str(maximum_length) + ')', skipped=False)
+			super().__init__(field_name, str, 'varchar(' + str(maximum_length) + ')', skipped=False)
 
 
 class TableFieldDate(TableField):
 	"""Represents a date field for a database table."""
 
 	def __init__(self, field_name: str):
-		super().__init__(field_name, 'date', skipped=False)
+		super().__init__(field_name, datetime.date, 'date', skipped=False)
 
 
 ''' ___       __        ___
@@ -95,6 +96,20 @@ class DatabaseTable(object):
 		self._database_api = database_api
 		self._fields       = []
 		self._exists       = None
+
+	def get_python_data_type_of_column(self, column_name):
+		"""Returns the python data type of the column found from the column name provided."""
+		for f in self._fields:
+			if f.field_name == column_name:
+				return f.python_data_type
+		raise RuntimeError('Non-valid column name provided! You provided{' + str(column_name) + '}')
+
+	def get_data_type_of_column(self, column_name):
+		"""Returns the data type of the column found from the column name provided."""
+		for f in self._fields:
+			if f.field_name == column_name:
+				return f.field_type
+		raise RuntimeError('Non-valid column name provided! You provided{' + str(column_name) + '}')
 
 	def _raise_exception_if_table_does_not_exist(self):
 		"""Utility variable to provide sanity checks to table functions."""

@@ -22,3 +22,17 @@
 
 
 # Need to do lots of linear algebra studying before doing the above.
+
+x = 1.0
+y = -1.0
+while x < 2.2:
+
+	dy_dx = 0.1 * (1/(x * x) - y/x - (y * y))
+	y += dy_dx
+
+	print(str(y) + '\t' + str(dy_dx))
+
+	x += 0.1
+
+
+print()

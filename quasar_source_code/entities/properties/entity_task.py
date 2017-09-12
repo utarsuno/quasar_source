@@ -4,15 +4,13 @@
 
 from datetime import datetime
 from typing import List
-from quasar_source_code.entities.base_entity import Entity
+from quasar_source_code.entities import base_entity as be
 from quasar_source_code.universal_code import time_abstraction as ta
 from quasar_source_code.entities.properties import entity_time as etp
 
 
-class EntityTask(Entity):
+class EntityTask(be.Entity):
 	"""Represents a task to be completed for an entity."""
-
-	CLASS_NAME = 'EntityTask'
 
 	def __init__(self, name, parent_task=None):
 		super().__init__(name)
@@ -25,7 +23,7 @@ class EntityTask(Entity):
 			if self not in parent_task.children:
 				self.add_parents(parent_task)
 
-		self._class_name = EntityTask.CLASS_NAME
+		self._class_name = be.ENTITY_TASK
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""

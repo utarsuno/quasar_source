@@ -3,6 +3,7 @@
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
 from quasar_source_code.universal_code import time_abstraction as ta
+from quasar_source_code.entities import entity_database as ed
 
 
 class EntityManager(object):
@@ -12,6 +13,19 @@ class EntityManager(object):
 		super().__init__()
 		self.entities  = []
 		self._owner_id = None
+		self._database_api = ed.EntityDatabase()
+
+	def load_entities_from_database(self):
+		"""Loads the entities from the database into this entity manager."""
+		print('PERFORM LOAD!')
+		self._database_api.get_all_entity_data()
+
+	def print_entities(self):
+		"""Prints the information of all the entities."""
+		print('Printing information on all the entities!')
+		for e in self.entities:
+			print(str(e))
+		print('------------------------------------------')
 
 	def add_entities(self, e):
 		"""Adds an entity to be managed."""
@@ -54,11 +68,21 @@ class EntityManager(object):
 	# Methods in development
 	def save_entities(self):
 		"""Save the entities and their information to the database."""
+		print('SAVE ENTITIES FUNCTION CALL')
+
+		for e in self.entities:
+			self._database_api.create_entity(e.get_save_info())
+			children = e.all_children
+			for c in children:
+				self._database_api.create_entity(c.get_save_info())
+
+		'''
 		print('Printing the entities to save :')
 		for e in self.entities:
 			print(e.get_save_info())
 			children = e.all_children
 			for c in children:
 				print('\t' + str(c.get_save_info()))
+		'''
 
 

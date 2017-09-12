@@ -4,6 +4,7 @@
 
 from quasar_source_code.database_api import postgresql_api as db_api
 from quasar_source_code.database_api import database_tables as db_t
+from quasar_source_code.entities import base_entity as be
 
 '''  __       ___       __        __   ___          __
 	|  \  /\   |   /\  |__)  /\  /__` |__      /\  |__) |    .
@@ -26,12 +27,12 @@ class EntityDatabase(object):
 		# Entity table.
 		self._entity_table = db_t.DatabaseTable('entities', self._api)
 		# Placeholder value limits.
-		base_entity_table_fields = [db_t.TableFieldInteger('global_id', maximum_value=10000, auto_increment=False),
-		                            db_t.TableFieldString('class_name', 30),
-		                            db_t.TableFieldString('parent_ids', 1000),
-		                            db_t.TableFieldString('child_ids', 1000),
-		                            db_t.TableFieldString('entity_name', 100),
-		                            db_t.TableFieldString('information', 10000)]
+		base_entity_table_fields = [db_t.TableFieldInteger(be.Entity.DB_GLOBAL_ID, maximum_value=10000, auto_increment=False),
+		                            db_t.TableFieldString(be.Entity.DB_CLASS_NAME, 30),
+		                            db_t.TableFieldString(be.Entity.DB_PARENT_ENTITIES, 1000),
+		                            db_t.TableFieldString(be.Entity.DB_CHILD_ENTITIES, 1000),
+		                            db_t.TableFieldString(be.Entity.DB_ENTITY_NAME, 100),
+		                            db_t.TableFieldString(be.Entity.DB_INFORMATION, 10000)]
 		for betf in base_entity_table_fields:
 			self._entity_table.add_table_field(betf)
 
@@ -46,6 +47,48 @@ class EntityDatabase(object):
 		entity_time_table_fields = []
 		for betf in base_entity_table_fields:
 			self._entity_time_table.add_table_field(betf)
+
+		# TODO : Eventually move the location of the health checks call.
+		self.health_checks()
+
+	def health_checks(self):
+		"""Runs database health checks and applies automatic fixes."""
+		# Connects to database if not yet connected.
+		self._check_if_connected()
+
+		# Check that all our needed tables exist.
+		self._owners.create_if_does_not_exist()
+		self._entity_table.create_if_does_not_exist()
+		#self._entity_task_table.create_if_does_not_exist()
+		#self._entity_time_table.create_if_does_not_exist()
+
+	def get_all_entity_data(self):
+		"""Returns all the data for all the entities in the database."""
+		data = []
+		for r in self._entity_table.get_row_values():
+			print(r)
+		return data
+
+	def create_entity(self, entity_data):
+		"""Creates an Entity into the database from the entity dictionary data provided."""
+		print('CREATING : ')
+		class_name = entity_data['class_name']
+		if class_name == be.ENTITY:
+			print('Saving an entity')
+			print(entity_data)
+			for key in entity_data:
+				if self._entity_table.get_python_data_type_of_column(key) == str:
+					entity_data[key] = '"' + str(entity_data[key]).replace("'", "''") + '"'
+			self._entity_table.insert_row(entity_data)
+		elif class_name == be.ENTITY_TASK:
+			print('Entity Task saving not yet supported')
+		elif class_name == be.ENTITY_TIME:
+			print('Entity Time saving not yet supported')
+
+
+		#print(entity_data)
+		#self._entity_table.insert_row()
+
 
 	def _check_if_connected(self):
 		"""Connects if the database is not connected."""
