@@ -58,6 +58,14 @@ class Vector(object):
 		return Vector(elements)
 
 	# ------------------------------------------------------------------------
+	def dot(self, other):
+		"""Returns a Vector representing the dot product between this vector and the vector provided."""
+		elements = []
+		for i, e in enumerate(self.elements):
+			elements.append(e * other.elements[i])
+		return Vector(elements)
+
+	# ------------------------------------------------------------------------
 	def __abs__(self):
 		sums = 0
 		for e in self.elements:

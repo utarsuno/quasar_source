@@ -4,3 +4,18 @@ diffuse  - flat matt finish
 specular - shiny finish
 
 surface color = emissive + ambient + (for each light: diffuse(light) + specular(light, view))
+
+
+"Given 2 normalized vectors, the cosine of the angle between them is the dot product"
+
+
+
+// Hue - Saturation - Lightness
+/*
+var color = new Color()
+color.setHSL(.117, .937, .557)
+*/
+
+
+// Blinn-Phong Reflection Model
+// specular = Max(N dot H,
