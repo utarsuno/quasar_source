@@ -147,8 +147,34 @@ class Entity(object):
 		"""Returns the name of this entity."""
 		return self._name
 
+	def __str__(self):
+		return 'E{' + self._name + '}'
+
+	'''  __       ___       __        __   ___     __   __   ___  __       ___    __        __
+		|  \  /\   |   /\  |__)  /\  /__` |__     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
+		|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .
+    '''
+
+	# TODO : Do not save fields that contain no/null/default data
+
+	# Creating the Entity instance from database saved data.
+
+	def load_entity(self, entity_data):
+		"""Returns an Entity with information + Entity type set from the entity data."""
+		# First load in the Entity information as all Entity objects will contain this data.
+		entity_class = entity_data[Entity.DB_CLASS_NAME]
+
+
+		# TODO : Finish this method
+
+		# TODO : load the remiaining class fields
+
+	# Getting save information.
+
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
+		if self._class_name != ENTITY:
+			raise RuntimeError('The function \'get_additional_needed_save_info\' must be implemented by child classes.')
 		return {}
 
 	def get_save_info(self) -> dict:
@@ -166,7 +192,4 @@ class Entity(object):
 		        Entity.DB_PARENT_ENTITIES: parent_ids,
 		        Entity.DB_CHILD_ENTITIES: child_ids,
 		        Entity.DB_INFORMATION: self._information}, **self.get_additional_needed_save_info())
-
-	def __str__(self):
-		return 'E{' + self._name + '}'
 

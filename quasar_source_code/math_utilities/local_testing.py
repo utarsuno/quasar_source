@@ -18,6 +18,19 @@ a_to_b_distance    = a.distance(b)
 
 c = mc.Vector(-7, 6)
 d = mc.Vector(8, -5)
-print(str(c.normalized))
-print(c + d)
-print(d + c)
+#print(str(c.normalized))
+#print(c + d)
+#print(d + c)
+
+# --------------------
+
+x = 0.0
+y = 1.0
+h = 0.1
+while x <= 1.1:
+	dy_dx = h * (1.0 + (x * x))
+	#dy_dx = h * ((1 / (x * x)) - y / x - (y * y))
+	y += dy_dx
+	x += h
+	print(str(round(x, 3)) + ' | dy/dx:' + str(round(dy_dx, 4)) + '\ty:' + str(round(y, 4)))
+	print()

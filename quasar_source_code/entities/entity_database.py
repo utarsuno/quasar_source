@@ -12,7 +12,7 @@ from quasar_source_code.entities import base_entity as be
 '''
 
 
-class EntityDatabase(object):
+class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 
 	def __init__(self):

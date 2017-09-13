@@ -13,7 +13,7 @@ class EntityManager(object):
 		super().__init__()
 		self.entities  = []
 		self._owner_id = None
-		self._database_api = ed.EntityDatabase()
+		self._database_api = ed.EntityDatabaseAPI()
 
 	def load_entities_from_database(self):
 		"""Loads the entities from the database into this entity manager."""
