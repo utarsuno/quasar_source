@@ -131,7 +131,11 @@ document.body.appendChild(renderer_api.renderer.domElement)
 
 // Add lights.
 var ambiColor = '#cbe7ff'
-var ambientLight = new THREE.AmbientLight(ambiColor, .2)
+var color1 = '#ffffbb'
+var color2 = '#090920'
+//var ambientLight = new THREE.AmbientLight(ambiColor, .2)
+var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+//scene.add( light );
 scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
