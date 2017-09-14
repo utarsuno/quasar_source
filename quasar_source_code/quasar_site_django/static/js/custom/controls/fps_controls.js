@@ -20,6 +20,7 @@ FPSControls.prototype = {
     velocity     : null,
     acceleration : null,
 
+    // Flying movement.
     flying_on    : null,
 
     // Camera view.
@@ -90,9 +91,15 @@ FPSControls.prototype = {
                     this.velocity.z += 400 * delta * this.direction_vector.z
                 }
 
-                this.velocity.x *= (1 - delta * 20)
-                this.velocity.y *= (1 - delta * 20)
-                this.velocity.z *= (1 - delta * 20)
+                if (this.down) {
+                    this.velocity.x -= 400 * delta * this.direction_vector.x
+                    this.velocity.y -= 400 * delta * this.direction_vector.y
+                    this.velocity.z -= 400 * delta * this.direction_vector.z
+                }
+
+                this.velocity.x *= (1 - delta * 30)
+                this.velocity.y *= (1 - delta * 30)
+                this.velocity.z *= (1 - delta * 30)
 
                 this.yaw.position.x += this.velocity.x
                 this.yaw.position.y += this.velocity.y
