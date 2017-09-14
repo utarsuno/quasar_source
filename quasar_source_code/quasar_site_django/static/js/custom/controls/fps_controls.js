@@ -58,7 +58,7 @@ FPSControls.prototype = {
         this.yaw.add(this.pitch)
 
         this.enabled = false
-        this.flying_on = false
+        this.flying_on = true
 
         this.velocity = new THREE.Vector3()
 
@@ -101,9 +101,15 @@ FPSControls.prototype = {
                 }
 
                 if (this.left) {
-                    this.velocity.x -= 400 * delta * left_right.x
-                    this.velocity.y -= 400 * delta * left_right.y
-                    this.velocity.z -= 400 * delta * left_right.z
+                    this.velocity.x += 400 * delta * left_right.x
+                    this.velocity.y += 400 * delta * left_right.y
+                    this.velocity.z += 400 * delta * left_right.z
+                }
+
+                if (this.right) {
+                    this.velocity.x += 400 * delta * left_right.x
+                    this.velocity.y += 400 * delta * left_right.y
+                    this.velocity.z += 400 * delta * left_right.z
                 }
 
                 this.velocity.x *= (1 - delta * 30)
