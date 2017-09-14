@@ -74,6 +74,9 @@ FPSControls.prototype = {
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
 
+            var left_right = new THREE.Vector3(0, 1, 0)
+            left_right.cross(this.direction_vector)
+
             // Oh just realized the vector direction system needed..., going to use old one in mean time
 
             if (this.flying_on) {
@@ -95,6 +98,12 @@ FPSControls.prototype = {
                     this.velocity.x -= 400 * delta * this.direction_vector.x
                     this.velocity.y -= 400 * delta * this.direction_vector.y
                     this.velocity.z -= 400 * delta * this.direction_vector.z
+                }
+
+                if (this.left) {
+                    this.velocity.x -= 400 * delta * left_right.x
+                    this.velocity.y -= 400 * delta * left_right.y
+                    this.velocity.z -= 400 * delta * left_right.z
                 }
 
                 this.velocity.x *= (1 - delta * 30)
