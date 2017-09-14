@@ -72,27 +72,6 @@ FPSControls.prototype = {
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
 
-            //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
-            //console.log(' ')
-
-            /*
-            // Walking mode.
-            if (this.flying_on === false) {
-                this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
-
-                console.log('The ground normal is : ')
-                console.log(this.ground_normal)
-                this.ground_vector = this.direction_vector.projectOnPlane(this.ground_normal)
-                this.ground_vector.normalize()
-                //var ground_vector =
-                console.log('x: ' + this.ground_vector.x + ', y: ' + this.ground_vector.y + ', z: ' + this.ground_vector.z)
-
-            } else {
-                // Flying mode.
-                this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
-
-            }*/
-
             // Oh just realized the vector direction system needed..., going to use old one in mean time
 
             if (this.flying_on) {
@@ -105,7 +84,7 @@ FPSControls.prototype = {
                 }
 
                 if (this.up) {
-                    this.velocity.x += 400.0 * delta * this.direction_vector.x
+                    this.velocity.x -= 400.0 * delta * this.direction_vector.x
                     this.velocity.y += 400.0 * delta * this.direction_vector.y
                     this.velocity.z += 400.0 * delta * this.direction_vector.z
                 }
