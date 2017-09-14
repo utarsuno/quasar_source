@@ -134,8 +134,8 @@ var ambiColor = '#cbe7ff'
 var color1 = '#ffffbb'
 var color2 = '#090920'
 //var ambientLight = new THREE.AmbientLight(ambiColor, .2)
-var lightt = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 )
-scene.add( lightt );
+var lightt = new THREE.HemisphereLight( 0xffffbb, 0x080820, .1 )
+scene.add( lightt )
 //scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
