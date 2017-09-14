@@ -16,6 +16,7 @@ FPSControls.prototype = {
     down         : null,
     left         : null,
     right        : null,
+
     velocity     : null,
     acceleration : null,
 
@@ -83,44 +84,12 @@ FPSControls.prototype = {
                     this.velocity.y -= 400.0 * delta
                 }
 
-                //if (this.up) {
-                //    this.velocity.x += 400.0 * delta * this.direction_vector.x
-                //    this.velocity.y += 400.0 * delta * this.direction_vector.y
-                //    this.velocity.z += 400.0 * delta * this.direction_vector.z
-                //}
-
                 if (this.up) {
-                    this.velocity.z -= 400.0 * delta
-                    this.velocity.y += 400.0 * delta * this.direction_vector.y
-                }
-                if (this.down) {
-                    this.velocity.z += 400.0 * delta
-                    this.velocity.y -= 400.0 * delta * this.direction_vector.y
-                }
-                if (this.left) {
-                    this.velocity.x -= 400.0 * delta
-                }
-                if (this.right) {
-                    this.velocity.x += 400.0 * delta
+                    this.yaw.position.x += 400 * delta * this.direction_vector.x
+                    this.yaw.position.y += 400 * delta * this.direction_vector.y
+                    this.yaw.position.z += 400 * delta * this.direction_vector.z
                 }
 
-                this.velocity.x -= this.velocity.x * 4.0 * delta
-                this.velocity.y -= this.velocity.y * 4.0 * delta
-                this.velocity.z -= this.velocity.z * 4.0 * delta
-
-                //this.velocity.y -= this.velocity.y * 4.0 * delta
-                //this.velocity.x -= this.velocity.x * 4.0 * delta
-                //this.velocity.z -= this.velocity.z * 4.0 * delta
-
-                //this.yaw.addScaledVector(this.direction_vector, 400 * delta)
-
-                this.yaw.translateX(this.velocity.x * delta)
-                this.yaw.translateY(this.velocity.y * delta)
-                this.yaw.translateZ(this.velocity.z * delta)
-
-                //this.yaw.translateX(this.velocity.x * delta)
-                //this.yaw.translateY(this.velocity.y * delta)
-                //this.yaw.translateZ(this.velocity.z * delta)
             } else {
                 if (this.up) {
                     this.velocity.z -= 400.0 * delta
