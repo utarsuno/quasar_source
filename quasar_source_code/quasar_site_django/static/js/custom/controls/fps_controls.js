@@ -105,9 +105,9 @@ FPSControls.prototype = {
                 }
 
                 if (this.up) {
-                    this.velocity.x -= 400.0 * delta * this.direction_vector.x
-                    this.velocity.y -= 400.0 * delta * this.direction_vector.y
-                    this.velocity.z -= 400.0 * delta * this.direction_vector.z
+                    this.velocity.x += 400.0 * delta * this.direction_vector.x
+                    this.velocity.y += 400.0 * delta * this.direction_vector.y
+                    this.velocity.z += 400.0 * delta * this.direction_vector.z
                 }
 
                 this.velocity.x -= this.velocity.x * 4.0 * delta
