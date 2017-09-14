@@ -130,9 +130,9 @@ document.body.appendChild(renderer_api.renderer.domElement)
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // Add lights.
-//var ambiColor = '#cbe7ff'
-//var ambientLight = new THREE.AmbientLight(ambiColor, .2)
-//scene.add(ambientLight)
+var ambiColor = '#cbe7ff'
+var ambientLight = new THREE.AmbientLight(ambiColor, .2)
+scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
 light.position.set(1, 1, 1 )
@@ -189,7 +189,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-var text_position = new THREE.Vector3(40, 40, 100)
+var text_position = new THREE.Vector3(40, 40, 40)
 var text_rotation = new THREE.Vector3(0, 0, 0)
 var text_plane = new PlaneAPI(200, 50, text_position, text_rotation)
 text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.renderer)
@@ -201,14 +201,6 @@ text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.rend
 
 var axis_helper = new THREE.AxisHelper(5)
 scene.add(axis_helper)
-
-//var helper = new THREE.CameraHelper(camera)
-//scene.add(helper)
-
-var sphere = new THREE.SphereGeometry();
-var object = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( 0xff0000 ) )
-var box = new THREE.BoxHelper( object, 0xffff00 )
-scene.add( box )
 
 var previous_time = performance.now()
 
