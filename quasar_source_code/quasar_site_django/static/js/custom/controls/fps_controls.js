@@ -82,45 +82,48 @@ FPSControls.prototype = {
             if (this.flying_on) {
 
                 if (this.space) {
-                    this.velocity.y += 400.0 * delta
+                    this.velocity.y += 300.0 * delta
                 }
                 if (this.shift) {
-                    this.velocity.y -= 400.0 * delta
+                    this.velocity.y -= 300.0 * delta
                 }
 
                 if (this.up) {
-                    this.velocity.x += 400 * delta * this.direction_vector.x
-                    this.velocity.y += 400 * delta * this.direction_vector.y
-                    this.velocity.z += 400 * delta * this.direction_vector.z
+                    this.velocity.x += 300 * delta * this.direction_vector.x
+                    this.velocity.y += 300 * delta * this.direction_vector.y
+                    this.velocity.z += 300 * delta * this.direction_vector.z
                 }
 
                 if (this.down) {
-                    this.velocity.x -= 400 * delta * this.direction_vector.x
-                    this.velocity.y -= 400 * delta * this.direction_vector.y
-                    this.velocity.z -= 400 * delta * this.direction_vector.z
+                    this.velocity.x -= 300 * delta * this.direction_vector.x
+                    this.velocity.y -= 300 * delta * this.direction_vector.y
+                    this.velocity.z -= 300 * delta * this.direction_vector.z
                 }
 
                 if (this.left) {
-                    this.velocity.x += 400 * delta * left_right.x
-                    this.velocity.y += 400 * delta * left_right.y
-                    this.velocity.z += 400 * delta * left_right.z
+                    this.velocity.x += 300 * delta * left_right.x
+                    this.velocity.y += 300 * delta * left_right.y
+                    this.velocity.z += 300 * delta * left_right.z
                 }
 
                 if (this.right) {
-                    this.velocity.x -= 400 * delta * left_right.x
-                    this.velocity.y -= 400 * delta * left_right.y
-                    this.velocity.z -= 400 * delta * left_right.z
+                    this.velocity.x -= 300 * delta * left_right.x
+                    this.velocity.y -= 300 * delta * left_right.y
+                    this.velocity.z -= 300 * delta * left_right.z
                 }
 
-                this.velocity.x *= (1 - delta * 30)
-                this.velocity.y *= (1 - delta * 30)
-                this.velocity.z *= (1 - delta * 30)
+                this.velocity.x *= (1 - delta * 20)
+                this.velocity.y *= (1 - delta * 20)
+                this.velocity.z *= (1 - delta * 20)
 
                 this.yaw.position.x += this.velocity.x
                 this.yaw.position.y += this.velocity.y
                 this.yaw.position.z += this.velocity.z
 
             } else {
+
+                // TODO : Now fix the 2D movement system.
+
                 if (this.up) {
                     this.velocity.z -= 400.0 * delta
                 }
