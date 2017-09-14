@@ -1,7 +1,7 @@
 'use strict'
 
-function FPSControls(camera, ground_normal) {
-    this.__init__(camera, ground_normal)
+function FPSControls(camera) {
+    this.__init__(camera)
 }
 
 FPSControls.prototype = {
@@ -29,16 +29,12 @@ FPSControls.prototype = {
 
     direction_vector: null,
 
-
-    ground_normal: null,
     ground_vector: null,
 
-    __init__: function (camera, ground_normal) {
+    __init__: function (camera) {
         // Constants.
         this.half_pie = Math.PI / 2
         this.max_view_angle = this.half_pie * 0.9
-        this.ground_normal = ground_normal
-        console.log('GROUND NORMAL IS NOW SET TO : ' + this.ground_normal)
 
 
         var exampleA = new THREE.Vector3(1, 2, 3)

@@ -53,16 +53,8 @@ plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
 var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
 scene.add(plane_mesh)
-//var ground_normal = plane_mesh.normal
-var ground_normal = new THREE.Vector3(0, 1, 0)
-console.log('GROUND NORMAL IS : ')
-console.log(ground_normal)
 
-var fps_controls = new FPSControls(camera, ground_normal)
-
-
-
-
+var fps_controls = new FPSControls(camera)
 scene.add(fps_controls.get_object())
 
 var pointer_lock_api = new PointerLockAPI(fps_controls)
@@ -134,7 +126,7 @@ var ambiColor = '#cbe7ff'
 var color1 = '#ffffbb'
 var color2 = '#090920'
 //var ambientLight = new THREE.AmbientLight(ambiColor, .2)
-var lightt = new THREE.HemisphereLight( 0xffffbb, 0x080820, .1 )
+var lightt = new THREE.HemisphereLight( color1, color2, .1 )
 scene.add( lightt )
 //scene.add(ambientLight)
 /*
@@ -177,8 +169,8 @@ setInterval(function() {
 var loader = new THREE.FontLoader()
 loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/font/helvetiker_regular.typeface.json', function(tex){
     var  textGeo = new THREE.TextGeometry('Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday', {
-        size: 100,
-        height: 5,
+        size: 80,
+        height: 4,
         curveSegments: 2,
         font: tex
     })
@@ -202,9 +194,6 @@ text_plane.create_dynamic_text('Hello Worlddddddddddd', scene, renderer_api.rend
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
-var axis_helper = new THREE.AxisHelper(5)
-scene.add(axis_helper)
 
 var previous_time = performance.now()
 
