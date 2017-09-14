@@ -19,6 +19,12 @@ class EntityTask(be.Entity):
 		self._description       = None
 		self._due_date          = None
 
+		# These values are not being worked with yet.
+		self._importance        = None
+		self._time_needed       = None
+		self._difficulty        = None
+
+
 		if parent_task is not None:
 			if self not in parent_task.children:
 				self.add_parents(parent_task)

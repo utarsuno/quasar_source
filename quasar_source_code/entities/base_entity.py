@@ -33,8 +33,6 @@ class Entity(object):
 		self._global_id       = global_id
 		global_id += 1
 
-		self._owner_id        = 0 # TODO : Have this get set!
-
 		self._name            = entity_name
 		self._parent_entities = []
 		self._child_entities  = []
@@ -156,20 +154,6 @@ class Entity(object):
     '''
 
 	# TODO : Do not save fields that contain no/null/default data
-
-	# Creating the Entity instance from database saved data.
-
-	def load_entity(self, entity_data):
-		"""Returns an Entity with information + Entity type set from the entity data."""
-		# First load in the Entity information as all Entity objects will contain this data.
-		entity_class = entity_data[Entity.DB_CLASS_NAME]
-
-
-		# TODO : Finish this method
-
-		# TODO : load the remiaining class fields
-
-	# Getting save information.
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""

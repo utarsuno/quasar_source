@@ -51,6 +51,33 @@ class EntityDatabaseAPI(object):
 		# TODO : Eventually move the location of the health checks call.
 		self.health_checks()
 
+	# Creating the Entity instance from database saved data.
+
+	def load_entity(self, entity_data):
+		"""Returns an Entity with information + Entity type set from the entity data."""
+		# First load in the Entity information as all Entity objects will contain this data.
+		entity_class = entity_data[be.Entity.DB_CLASS_NAME]
+		global_id    = entity_data[be.Entity.DB_GLOBAL_ID]
+		entity_name  = entity_data[be.Entity.DB_ENTITY_NAME]
+		parent_ids   = None
+		if be.Entity.DB_PARENT_ENTITIES in entity_data:
+			parent_ids = entity_data[be.Entity.DB_PARENT_ENTITIES]
+		child_ids    = None
+		if be.Entity.DB_CHILD_ENTITIES in entity_data:
+			child_ids = entity_class[be.Entity.DB_CHILD_ENTITIES]
+
+		# TODO :
+		if entity_class == be.ENTITY:
+			y = 2
+		elif entity_class == be.ENTITY_TASK:
+			y = 2
+		elif entity_class == be.ENTITY_TIME:
+			y = 2
+
+		# TODO : Finish this method
+
+		# TODO : load the remiaining class fields
+
 	def health_checks(self):
 		"""Runs database health checks and applies automatic fixes."""
 		# Connects to database if not yet connected.
