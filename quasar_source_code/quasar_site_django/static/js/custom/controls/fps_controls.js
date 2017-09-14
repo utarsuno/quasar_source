@@ -69,7 +69,7 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
-            this.direction_vector = new THREE.Vector3(this.camera.getWorldDirection().x, this.camera.getWorldDirection().y, this.camera.getWorldDirection().z)
+            this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
 
             //console.log(this.camera.getWorldDirection().x + ', ' + this.camera.getWorldDirection().y + ', ' + this.camera.getWorldDirection().z)
@@ -277,33 +277,10 @@ FPSControls.prototype = {
         return this.yaw
     },
 
-    get_camera_direction: function() {
-        return this.yaw
-    },
-
     get_direction: function() {
         var direction = new THREE.Vector3(0, 0, -1)
         var rotation  = new THREE.Euler(this.pitch.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
         return direction.applyEuler(rotation)
     }
 
-    /*
-    get_direction: function() {
-        var direction = new THREE.Vector3(0, 0, -1)
-        var rotation  = new THREE.Euler(0, 0, 0, 'YXZ')
-        rotation.set(this.pitch.rotation.x, this.yaw.rotation.y, 0)
-        v.copy(direction).applyEuler(rotation)
-        return v
-    }*/
-
-    // Used to be :
-    /*
-            var direction = new THREE.Vector3(0, 0, -1)
-        var rotation  = new THREE.Euler(0, 0, 0, 'YXZ')
-        return function(v) {
-            rotation.set(this.pitch.rotation.x, this.yaw.rotation.y, 0)
-            v.copy(direction).applyEuler(rotation)
-            return v
-        }
-     */
 }
