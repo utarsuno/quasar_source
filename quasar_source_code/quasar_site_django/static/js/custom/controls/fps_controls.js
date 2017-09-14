@@ -39,13 +39,6 @@ FPSControls.prototype = {
         this.max_view_angle   = this.half_pie * 0.9
         this.diagonal_penalty = Math.sqrt(.5)
 
-
-        var exampleA = new THREE.Vector3(1, 2, 3)
-        var exampleN = new THREE.Vector3(4, 5, 6)
-        exampleN.normalize()
-        console.log(exampleN)
-        console.log(exampleA.projectOnPlane(exampleN))
-
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
 
@@ -86,9 +79,9 @@ FPSControls.prototype = {
     },
 
     fly_backward: function(delta) {
-        this.velocity.x -= 200 * delta * this.left_right.x
-        this.velocity.y -= 200 * delta * this.left_right.y
-        this.velocity.z -= 200 * delta * this.left_right.z
+        this.velocity.x -= 200 * delta * this.direction_vector.x
+        this.velocity.y -= 200 * delta * this.direction_vector.y
+        this.velocity.z -= 200 * delta * this.direction_vector.z
     },
 
     physics: function(delta) {
@@ -135,7 +128,7 @@ FPSControls.prototype = {
                         this.fly_right(delta)
                     }
                 }
-                
+
                 this.velocity.x *= (1 - delta * 15)
                 this.velocity.y *= (1 - delta * 15)
                 this.velocity.z *= (1 - delta * 15)
