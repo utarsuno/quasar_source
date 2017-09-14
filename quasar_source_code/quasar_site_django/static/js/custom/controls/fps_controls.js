@@ -94,9 +94,9 @@ FPSControls.prototype = {
                 this.velocity.y *= (1 - delta * 3)
                 this.velocity.z *= (1 - delta * 3)
 
-                this.yaw.position.x += 400 * delta * this.velocity.x
-                this.yaw.position.y += 400 * delta * this.velocity.y
-                this.yaw.position.z += 400 * delta * this.velocity.z
+                this.yaw.position.x += this.velocity.x
+                this.yaw.position.y += this.velocity.y
+                this.yaw.position.z += this.velocity.z
 
             } else {
                 if (this.up) {
