@@ -67,11 +67,12 @@ scene.add(fps_controls.get_object())
 
 var pointer_lock_api = new PointerLockAPI(fps_controls)
 
-var geometry = new THREE.BoxGeometry(5,5, 5)
+var geometry = new THREE.BoxGeometry(20, 20, 20)
 //var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
 var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
 var cube 	 = new THREE.Mesh(geometry, material)
-//scene.add(cube)
+cube.position.y = 30
+scene.add(cube)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -218,8 +219,10 @@ var animate = function () {
 
     stats_api.pre_render()
 
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
+    var cube_rotation = fps_controls.get_direction()
+    cube.rotation.x = cube_rotation.x
+    cube.rotation.y = cube_rotation.y
+    cube.rotation.z = cube_rotation.z
 
     var time = performance.now()
     var delta = (time - previous_time) / 1000
