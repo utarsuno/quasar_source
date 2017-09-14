@@ -83,10 +83,23 @@ FPSControls.prototype = {
                     this.velocity.y -= 400.0 * delta
                 }
 
+                //if (this.up) {
+                //    this.velocity.x += 400.0 * delta * this.direction_vector.x
+                //    this.velocity.y += 400.0 * delta * this.direction_vector.y
+                //    this.velocity.z += 400.0 * delta * this.direction_vector.z
+                //}
+
                 if (this.up) {
-                    this.velocity.x -= 400.0 * delta * this.direction_vector.x
-                    this.velocity.y += 400.0 * delta * this.direction_vector.y
-                    this.velocity.z += 400.0 * delta * this.direction_vector.z
+                    this.velocity.z -= 400.0 * delta
+                }
+                if (this.down) {
+                    this.velocity.z += 400.0 * delta
+                }
+                if (this.left) {
+                    this.velocity.x -= 400.0 * delta
+                }
+                if (this.right) {
+                    this.velocity.x += 400.0 * delta
                 }
 
                 this.velocity.x -= this.velocity.x * 4.0 * delta
@@ -108,20 +121,15 @@ FPSControls.prototype = {
                 //this.yaw.translateZ(this.velocity.z * delta)
             } else {
                 if (this.up) {
-                    //this.velocity.z -= this.ground_vector.x * 400.0 * delta
-                    //this.velocity.x -= this.ground_vector.z * 400.0 * delta
                     this.velocity.z -= 400.0 * delta
                 }
                 if (this.down) {
-                    //this.velocity.z += this.direction_vector.z * 400.0 * delta
                     this.velocity.z += 400.0 * delta
                 }
                 if (this.left) {
-                    //this.velocity.x -= this.direction_vector.x * 400.0 * delta
                     this.velocity.x -= 400.0 * delta
                 }
                 if (this.right) {
-                    //this.velocity.x += this.direction_vector.x * 400.0 * delta
                     this.velocity.x += 400.0 * delta
                 }
                 this.velocity.x -= this.velocity.x * 4.0 * delta
