@@ -22,6 +22,8 @@ FPSControls.prototype = {
 
     // Flying movement.
     flying_on    : null,
+    left_right   : null,
+    diagonal_penalty: null,
 
     // Camera view.
     max_upward_view: null,
@@ -33,8 +35,9 @@ FPSControls.prototype = {
 
     __init__: function (camera) {
         // Constants.
-        this.half_pie = Math.PI / 2
-        this.max_view_angle = this.half_pie * 0.9
+        this.half_pie         = Math.PI / 2
+        this.max_view_angle   = this.half_pie * 0.9
+        this.diagonal_penalty = Math.sqrt(.5)
 
 
         var exampleA = new THREE.Vector3(1, 2, 3)
@@ -64,14 +67,38 @@ FPSControls.prototype = {
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
     },
 
+    fly_left: function(delta) {
+        this.velocity.x += 200 * delta * this.left_right.x
+        this.velocity.y += 200 * delta * this.left_right.y
+        this.velocity.z += 200 * delta * this.left_right.z
+    },
+
+    fly_right: function(delta) {
+        this.velocity.x -= 200 * delta * this.left_right.x
+        this.velocity.y -= 200 * delta * this.left_right.y
+        this.velocity.z -= 200 * delta * this.left_right.z
+    },
+
+    fly_forward: function(delta) {
+        this.velocity.x += 200 * delta * this.direction_vector.x
+        this.velocity.y += 200 * delta * this.direction_vector.y
+        this.velocity.z += 200 * delta * this.direction_vector.z
+    },
+
+    fly_backward: function(delta) {
+        this.velocity.x -= 200 * delta * this.left_right.x
+        this.velocity.y -= 200 * delta * this.left_right.y
+        this.velocity.z -= 200 * delta * this.left_right.z
+    },
+
     physics: function(delta) {
         if (this.enabled) {
 
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
 
-            var left_right = new THREE.Vector3(0, 1, 0)
-            left_right.cross(this.direction_vector)
+            this.left_right = new THREE.Vector3(0, 1, 0)
+            this.left_right.cross(this.direction_vector)
 
             // Oh just realized the vector direction system needed..., going to use old one in mean time
 
@@ -84,30 +111,31 @@ FPSControls.prototype = {
                     this.velocity.y -= 200.0 * delta
                 }
 
-                if (this.up) {
-                    this.velocity.x += 200 * delta * this.direction_vector.x
-                    this.velocity.y += 200 * delta * this.direction_vector.y
-                    this.velocity.z += 200 * delta * this.direction_vector.z
+                if ((this.up ^ this.down) & (this.left ^ this.right)) {
+                    if (this.up) {
+                        this.fly_forward(delta * this.diagonal_penalty)
+                    } else {
+                        this.fly_backward(delta * this.diagonal_penalty)
+                    }
+                    if (this.left) {
+                        this.fly_left(delta * this.diagonal_penalty)
+                    } else {
+                        this.fly_right(delta * this.diagonal_penalty)
+                    }
+                } else if (this.up ^ this.down) {
+                    if (this.up) {
+                        this.fly_forward(delta)
+                    } else {
+                        this.fly_backward(delta)
+                    }
+                } else if (this.left ^ this.right) {
+                    if (this.left) {
+                        this.fly_left(delta)
+                    } else {
+                        this.fly_right(delta)
+                    }
                 }
-
-                if (this.down) {
-                    this.velocity.x -= 200 * delta * this.direction_vector.x
-                    this.velocity.y -= 200 * delta * this.direction_vector.y
-                    this.velocity.z -= 200 * delta * this.direction_vector.z
-                }
-
-                if (this.left) {
-                    this.velocity.x += 200 * delta * left_right.x
-                    this.velocity.y += 200 * delta * left_right.y
-                    this.velocity.z += 200 * delta * left_right.z
-                }
-
-                if (this.right) {
-                    this.velocity.x -= 200 * delta * left_right.x
-                    this.velocity.y -= 200 * delta * left_right.y
-                    this.velocity.z -= 200 * delta * left_right.z
-                }
-
+                
                 this.velocity.x *= (1 - delta * 15)
                 this.velocity.y *= (1 - delta * 15)
                 this.velocity.z *= (1 - delta * 15)
