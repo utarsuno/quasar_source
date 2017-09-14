@@ -90,9 +90,9 @@ FPSControls.prototype = {
                     this.velocity.z += 400 * delta * this.direction_vector.z
                 }
 
-                this.velocity.x *= (1 - delta * 3)
-                this.velocity.y *= (1 - delta * 3)
-                this.velocity.z *= (1 - delta * 3)
+                this.velocity.x *= (1 - delta * 20)
+                this.velocity.y *= (1 - delta * 20)
+                this.velocity.z *= (1 - delta * 20)
 
                 this.yaw.position.x += this.velocity.x
                 this.yaw.position.y += this.velocity.y
