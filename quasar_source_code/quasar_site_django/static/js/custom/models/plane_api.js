@@ -46,20 +46,20 @@ PlaneAPI.prototype = {
         }
     },
 
-    create_dynamic_text: function(initial_text, scene, renderer) {
+    create_dynamic_text: function(initial_text, renderer_api) {
         this.is_dynamic_text = true
         if (this.dynamic_texture === null) {
             this.dynamic_texture = new THREEx.DynamicTexture(this.width, this.height)
             this.dynamic_texture.context.font = 'bolder 10px Verdana'
         }
-        this.dynamic_texture.texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
+        this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(initial_text)
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
         this.material.transparent = true
         this.material.side = THREE.DoubleSide
-        this.create_mesh(scene)
+        this.create_mesh(renderer_api.scene)
     },
 
     create_mesh: function(scene) {
