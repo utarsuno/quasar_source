@@ -1,7 +1,7 @@
 'use strict'
 
 function LoginPanel() {
-
+    this.__init__()
 }
 
 LoginPanel.prototype = {
