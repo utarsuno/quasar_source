@@ -27,7 +27,7 @@ CubeModel.prototype = {
 
 }
 
-
+/*
 Player.prototype = {
 
     unique_id: null,
@@ -62,6 +62,7 @@ Player.prototype = {
     }
 
 }
+*/
 
 World.prototype = {
 
