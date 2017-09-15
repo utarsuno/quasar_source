@@ -34,7 +34,7 @@ Player.prototype = {
         // Set player state.
         this.logged_in = false
         this.login_panel = new LoginPanel()
-        this.login_panel.add_objects_to_scene()
+        this.login_panel.add_objects_to_scene(renderer_api.scene)
     },
 
     update: function(delta) {
