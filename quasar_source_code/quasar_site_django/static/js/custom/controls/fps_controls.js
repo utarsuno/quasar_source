@@ -139,7 +139,8 @@ FPSControls.prototype = {
             } else {
 
                 this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
-                this.walking_direction = this.walking_direction.project(new THREE.Vector3(0, 1, 0))
+                var ground_normal = new THREE.Vector3(0, 1, 0)
+                this.walking_direction = this.walking_direction.projectOnPlane(ground_normal)
                 console.log(this.walking_direction)
 
                 // TODO : Now fix the 2D movement system.
