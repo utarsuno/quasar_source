@@ -64,6 +64,13 @@ FPSControls.prototype = {
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
     },
 
+    toggle_flying: function() {
+        this.flying_on = !this.flying_on
+        if (this.flying_on) {
+            this.velocity.y = 0
+        }
+    },
+
     fly_left: function(delta) {
         this.velocity.x += 200 * delta * this.left_right.x
         this.velocity.y += 200 * delta * this.left_right.y
@@ -213,11 +220,9 @@ FPSControls.prototype = {
     },
 
     on_key_press: function(event) {
-        //console.log('Key pressed')
-        //console.log(event)
         switch(event.which) {
         case 102: // f
-            this.flying_on = !this.flying_on
+            this.toggle_flying()
             break
         }
     },
