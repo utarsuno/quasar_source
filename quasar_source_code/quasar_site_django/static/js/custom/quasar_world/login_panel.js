@@ -25,9 +25,9 @@ LoginPanel.prototype = {
     },
 
     set_rotation: function(x, y, z) {
-        this.rotation.x = x
-        this.rotation.y = y
-        this.rotation.z = z
+        this.background_plane.rotation.x = x
+        this.background_plane.rotation.y = y
+        this.background_plane.rotation.z = z
     },
 
     add_objects_to_scene: function(scene) {

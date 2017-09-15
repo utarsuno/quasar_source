@@ -44,7 +44,7 @@ Player.prototype = {
         // Temp code.
         var d = this.fps_controls.get_direction()
         var p = this.fps_controls.get_position()
-        this.login_panel.set_position(p.x + 10 * d.x, p.y + 10 * d.y, p.z + 10 * d.z)
+        this.login_panel.set_position(p.x + 50 * d.x, p.y + 50 * d.y, p.z + 50 * d.z)
         var r = this.login_panel.rotation
         r.x += .01
         r.y += .01
