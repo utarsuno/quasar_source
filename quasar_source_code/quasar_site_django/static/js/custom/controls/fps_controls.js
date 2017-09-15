@@ -5,37 +5,43 @@ function FPSControls(camera) {
 }
 
 FPSControls.prototype = {
-    camera       : null,
-    pitch        : null,
-    yaw          : null,
-    half_pie     : null,
-    enabled      : null,
+    camera            : null,
+    pitch             : null,
+    yaw               : null,
+    enabled           : null,
 
     // Movement.
-    up           : null,
-    down         : null,
-    left         : null,
-    right        : null,
+    up                : null,
+    down              : null,
+    left              : null,
+    right             : null,
 
-    velocity     : null,
-    acceleration : null,
+    velocity          : null,
+    acceleration      : null,
 
-    flying_on    : null,
-    left_right   : null,
-    diagonal_penalty: null,
+    flying_on         : null,
+    left_right        : null,
+
+    walking_direction : null,
 
     // Camera view.
-    max_upward_view: null,
-    max_downward_view: null,
-    direction_vector: null,
+    max_upward_view   : null,
+    max_downward_view : null,
+    direction_vector  : null,
 
-    walking_direction: null,
+    // Constants.
+    half_pie          : null,
+    max_view_angle    : null,
+    diagonal_penalty  : null,
+    ground_normal     : null,
 
-    __init__: function (camera) {
+
+    __init__: function(camera) {
         // Constants.
         this.half_pie         = Math.PI / 2
         this.max_view_angle   = this.half_pie * 0.9
         this.diagonal_penalty = Math.sqrt(.5)
+        this.ground_normal    = new THREE.Vector3(0, 1, 0)
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
@@ -82,20 +88,30 @@ FPSControls.prototype = {
         this.velocity.z -= 200 * delta * this.direction_vector.z
     },
 
+    move_forward: function(delta) {
+        this.velocity.x += 200 * delta * this.direction_vector.x
+        this.velocity.z += 200 * delta * this.direction_vector.z
+    },
+
+    move_backward: function(delta) {
+        this.velocity.x -= 200 * delta * this.direction_vector.x
+        this.velocity.z -= 200 * delta * this.direction_vector.z
+    },
+
+    move_left: function(delta) {
+        this.velocity.x += 200 * delta * this.left_right.x
+        this.velocity.z += 200 * delta * this.left_right.z
+    },
+
+    move_right: function(delta) {
+        this.velocity.x -= 200 * delta * this.left_right.x
+        this.velocity.z -= 200 * delta * this.left_right.z
+    },
+
     physics: function(delta) {
         if (this.enabled) {
-
-            // TODO : Only calculate the direction vector and the left_right vector on every mouse input, not every physics cycle.
-            this.direction_vector = this.get_direction()
-            this.direction_vector.normalize()
-
-            this.left_right = new THREE.Vector3(0, 1, 0)
-            this.left_right.cross(this.direction_vector)
-
-            // Oh just realized the vector direction system needed..., going to use old one in mean time
-
             if (this.flying_on) {
-
+                // Flying code.
                 if (this.space) {
                     this.velocity.y += 200.0 * delta
                 }
@@ -127,7 +143,6 @@ FPSControls.prototype = {
                         this.fly_right(delta)
                     }
                 }
-
                 this.velocity.x *= (1 - delta * 15)
                 this.velocity.y *= (1 - delta * 15)
                 this.velocity.z *= (1 - delta * 15)
@@ -137,45 +152,47 @@ FPSControls.prototype = {
                 this.yaw.position.z += this.velocity.z
 
             } else {
-
-                this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
-                var ground_normal = new THREE.Vector3(0, 1, 0)
-                this.walking_direction = this.walking_direction.projectOnPlane(ground_normal)
-                console.log(this.walking_direction)
-
-                // TODO : Now fix the 2D movement system.
-
-                if (this.up) {
-                    this.velocity.z -= 400.0 * delta
+                // Walking code.
+                if ((this.up ^ this.down) & (this.left ^ this.right)) {
+                    if (this.up) {
+                        this.move_forward(delta * this.diagonal_penalty)
+                    } else {
+                        this.move_backward(delta * this.diagonal_penalty)
+                    }
+                    if (this.left) {
+                        this.move_left(delta * this.diagonal_penalty)
+                    } else {
+                        this.move_right(delta * this.diagonal_penalty)
+                    }
+                } else if (this.up ^ this.down) {
+                    if (this.up) {
+                        this.fly_forward(delta)
+                    } else {
+                        this.fly_backward(delta)
+                    }
+                } else if (this.left ^ this.right) {
+                    if (this.left) {
+                        this.move_left(delta)
+                    } else {
+                        this.move_right(delta)
+                    }
                 }
-                if (this.down) {
-                    this.velocity.z += 400.0 * delta
-                }
-                if (this.left) {
-                    this.velocity.x -= 400.0 * delta
-                }
-                if (this.right) {
-                    this.velocity.x += 400.0 * delta
-                }
-                this.velocity.x -= this.velocity.x * 4.0 * delta
-                this.velocity.z -= this.velocity.z * 4.0 * delta
+                this.velocity.x *= (1 - delta * 15)
+                this.velocity.z *= (1 - delta * 15)
 
                 if (this.velocity.y != 0) {
                     this.velocity.y -= 9.8 * delta * 10
+                    this.velocity.y *= (1 - delta * 15)
+                    this.yaw.position.y += this.velocity.y
+                } else {
+                    if (this.yaw.position.y <= 10) {
+                        this.yaw.position.y = 10
+                        this.velocity.y = 0
+                    }
                 }
 
-                //this.velocity.x -= this.velocity.x * 10.0 * delta
-                //this.velocity.z -= this.velocity.z * 10.0 * delta
-
-                this.yaw.translateX(this.velocity.x * delta)
-                this.yaw.translateY(this.velocity.y * delta)
-                this.yaw.translateZ(this.velocity.z * delta)
-
-                if (this.yaw.position.y <= 10) {
-                    this.yaw.position.y = 10
-                    this.velocity.y = 0
-                }
-
+                this.yaw.position.x += this.velocity.x
+                this.yaw.position.z += this.velocity.z
             }
         }
     },
@@ -277,6 +294,19 @@ FPSControls.prototype = {
             this.pitch.rotation.x -= movement_y * 0.002
 
             this.pitch.rotation.x = Math.max( - this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+
+            // TODO : Only calculate the direction vector and the left_right vector on every mouse input, not every physics cycle.
+            this.direction_vector = this.get_direction()
+            this.direction_vector.normalize()
+
+            if (this.flying_on) {
+                this.left_right = new THREE.Vector3(0, 1, 0)
+                this.left_right.cross(this.direction_vector)
+            } else {
+                this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
+                this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
+                this.walking_direction.normalize()
+            }
         }
     },
 
