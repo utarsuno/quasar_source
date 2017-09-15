@@ -184,7 +184,6 @@ FPSControls.prototype = {
                     this.velocity.y -= 9.8 * delta * 10
                     this.velocity.y *= (1 - delta * 15)
                     this.yaw.position.y += this.velocity.y
-                } else {
                     if (this.yaw.position.y <= 10) {
                         this.yaw.position.y = 10
                         this.velocity.y = 0
