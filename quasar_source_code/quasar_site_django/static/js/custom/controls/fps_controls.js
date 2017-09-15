@@ -20,7 +20,6 @@ FPSControls.prototype = {
     velocity     : null,
     acceleration : null,
 
-    // Flying movement.
     flying_on    : null,
     left_right   : null,
     diagonal_penalty: null,
@@ -28,10 +27,9 @@ FPSControls.prototype = {
     // Camera view.
     max_upward_view: null,
     max_downward_view: null,
-
     direction_vector: null,
 
-    ground_vector: null,
+    walking_direction: null,
 
     __init__: function (camera) {
         // Constants.
@@ -87,6 +85,7 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
+            // TODO : Only calculate the direction vector and the left_right vector on every mouse input, not every physics cycle.
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
 
@@ -139,6 +138,10 @@ FPSControls.prototype = {
 
             } else {
 
+                this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
+                this.walking_direction = this.walking_direction.project(new THREE.Vector3(0, 1, 0))
+                console.log(this.walking_direction)
+
                 // TODO : Now fix the 2D movement system.
 
                 if (this.up) {
@@ -157,7 +160,7 @@ FPSControls.prototype = {
                 this.velocity.z -= this.velocity.z * 4.0 * delta
 
                 if (this.velocity.y != 0) {
-                    this.velocity.y -= 9.8 * delta
+                    this.velocity.y -= 9.8 * delta * 10
                 }
 
                 //this.velocity.x -= this.velocity.x * 10.0 * delta
@@ -198,7 +201,6 @@ FPSControls.prototype = {
         switch(event.which) {
         case 102: // f
             this.flying_on = !this.flying_on
-            console.log('Flying toggled to : ' + this.flying_on)
             break
         }
     },
