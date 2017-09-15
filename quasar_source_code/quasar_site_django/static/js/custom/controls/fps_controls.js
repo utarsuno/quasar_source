@@ -276,14 +276,6 @@ FPSControls.prototype = {
         }
     },
 
-    get_yaw: function() {
-        return this.yaw.rotation.y
-    },
-
-    get_pitch: function() {
-        return this.pitch.rotation.x
-    },
-
     on_mouse_move: function(event) {
         if (this.enabled) {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
@@ -294,7 +286,6 @@ FPSControls.prototype = {
 
             this.pitch.rotation.x = Math.max( - this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
 
-            // TODO : Only calculate the direction vector and the left_right vector on every mouse input, not every physics cycle.
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
             this.left_right = new THREE.Vector3(0, 1, 0)
@@ -306,10 +297,6 @@ FPSControls.prototype = {
                 this.walking_direction.normalize()
             }
         }
-    },
-
-    get_x_rotation: function() {
-        return this.pitch.rotation.x
     },
 
     get_object: function() {
