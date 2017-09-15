@@ -4,9 +4,11 @@ function World(scene) {
     this.__init__(scene)
 }
 
+/*
 function Player(unique_id, scene) {
     this.__init__(unique_id, scene)
 }
+*/
 
 function CubeModel() {
     this.__init__()
