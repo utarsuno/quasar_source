@@ -23,7 +23,7 @@ Player.prototype = {
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
-        this.renderer_api.set_camera(this.camera)
+        this.renderer_api.camera = this.camera
 
         this.fps_controls = new FPSControls(this.camera)
         this.renderer_api.add_to_scene(this.fps_controls.get_object())
