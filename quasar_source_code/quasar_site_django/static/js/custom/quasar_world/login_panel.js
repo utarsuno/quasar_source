@@ -18,16 +18,16 @@ LoginPanel.prototype = {
         this.background_plane = new PlaneAPI(10, 10, this.position, this.rotation)
     },
 
-    set_position: function(vector) {
-        this.position.x = vector.x
-        this.position.y = vector.y
-        this.position.z = vector.z
+    set_position: function(x, y, z) {
+        this.position.x = x
+        this.position.y = y
+        this.position.z = z
     },
 
-    set_rotation: function(vector) {
-        this.rotation.x = vector.x
-        this.rotation.y = vector.y
-        this.rotation.z = vector.z
+    set_rotation: function(x, y, z) {
+        this.rotation.x = x
+        this.rotation.y = y
+        this.rotation.z = z
     },
 
     add_objects_to_scene: function(scene) {

@@ -31,7 +31,7 @@ PlaneAPI.prototype = {
 
     create_standard: function(scene) {
         this.material = new THREE.MeshBasicMaterial({
-            color: 0xffffff,
+            color: 0x000000,
             opacity: 0.5,
             side: THREE.DoubleSide
         })
