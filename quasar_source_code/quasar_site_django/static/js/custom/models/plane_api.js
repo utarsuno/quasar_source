@@ -31,7 +31,7 @@ PlaneAPI.prototype = {
 
     create_standard: function(scene) {
         this.material = new THREE.MeshBasicMaterial({
-            color: 0x000000,
+            color: 0xffffff,
             opacity: 0.5,
             side: THREE.DoubleSide
         })
@@ -71,13 +71,10 @@ PlaneAPI.prototype = {
         this.mesh.rotation.y = this.rotation.y
         this.mesh.rotation.z = this.rotation.z
 
-
-
         var geo = new THREE.EdgesGeometry( this.mesh.geometry ) // or WireframeGeometry
         var mat = new THREE.LineBasicMaterial( { color: 0xFFC0CB, linewidth: 2 } )
         var wireframe = new THREE.LineSegments( geo, mat )
         this.mesh.add( wireframe )
-
 
         scene.add(this.mesh)
     }

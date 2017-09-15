@@ -39,6 +39,12 @@ if (renderer_api.is_webgl_enabled() === false) {
     console.log('WebGL is not enabled!')
     throw new Error('WebGL is not enabled!')
 }
+var stats_api = new StatsAPI()
+var scene = new THREE.Scene()
+var camera   = new THREE.PerspectiveCamera(renderer_api.field_of_view, renderer_api.aspect_ratio, renderer_api.near_clipping, renderer_api.far_clipping)
+renderer_api.set_camera(camera)
+
+
 
 // Going to try to create a plane here.
 var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
@@ -46,16 +52,29 @@ plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
 //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
 var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
 var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
-renderer_api.add_to_scene(plane_mesh)
+scene.add(plane_mesh)
 
+var fps_controls = new FPSControls(camera)
+scene.add(fps_controls.get_object())
 
-var player = new Player(renderer_api)
+var pointer_lock_api = new PointerLockAPI(fps_controls)
 
+var geometry = new THREE.BoxGeometry(20, 20, 20)
+//var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+var material = new THREE.MeshLambertMaterial({ color: 0x00ff00 })
+var cube 	 = new THREE.Mesh(geometry, material)
+cube.position.y = 30
+scene.add(cube)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
+
 //var css_renderer_api = new CSSRendererAPI()
+
+
+
 //var cssScene = new THREE.Scene()
 
 
@@ -64,6 +83,7 @@ var math_formulas = document.getElementById('math_formulas')
 var element = document.createElement('div')
 element.innerHTML = 'Plain text inside a div.'
 element.className = 'three-div'
+
 
 // Create a test plane.
 var p_width = 100
@@ -84,6 +104,11 @@ var test_plane2 = create_plane(p_width2, p_height2, p_position2, p_rotation2)
 //scene.add(test_plane2)
 //var test_css_plane2 = create_css_page(p_width2, p_height2, p_position2, p_rotation2, '`log_bx=(log_cx)/(log_cb)`')
 //cssScene.add(test_css_plane2)
+
+
+
+//var light4 = new THREE.HemisphereLight(0xffbf67, 0x15c6ff, .3)
+//scene.add(light4)
 
 //scene.add(css_object)
 //cssScene.add(css_object)
@@ -116,7 +141,7 @@ light2.position.set(-1, - 0.5, -1)
 scene.add(light2)
 */
 
-
+var data_display = new DataDisplay(fps_controls)
 
 
 var light3 = new THREE.PointLight(0xccffcc, .8, 0)
@@ -178,17 +203,23 @@ var animate = function () {
 
     requestAnimationFrame(animate)
 
-    renderer_api.pre_render()
+    stats_api.pre_render()
+
+    var cube_rotation = fps_controls.get_direction()
+    cube.rotation.x = cube_rotation.x
+    cube.rotation.y = cube_rotation.y
+    cube.rotation.z = cube_rotation.z
 
     var time = performance.now()
     var delta = (time - previous_time) / 1000
 
-    player.update(delta)
+    fps_controls.physics(delta)
+    data_display.update()
 
-    renderer_api.render()
+    renderer_api.renderer.render(scene, camera)
     //css_renderer_api.renderer.render(cssScene, camera)
 
-    renderer_api.post_render()
+    stats_api.post_render()
 
     previous_time = time
 }

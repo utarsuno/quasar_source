@@ -44,6 +44,8 @@ module.exports = {
         "CUSTOM_COLORS": true,
         "Client": true,
         "World": true,
-        "PlaneAPI": true
+        "PlaneAPI": true,
+        "LoginPanel": true,
+        "Player": true
     }
 };

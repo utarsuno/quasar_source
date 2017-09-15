@@ -15,6 +15,12 @@ RendererAPI.prototype = {
     webgl_enabled   : null,
     warning_message : null,
 
+    // Custom objects.
+    stats_api       : null,
+
+    // Three js object.
+    scene           : null,
+
     // These variables get added later on.
     camera          : null,
 
@@ -23,6 +29,8 @@ RendererAPI.prototype = {
         if (this.webgl_enabled === false) {
             this.warning_message = Detector.getWebGLErrorMessage()
         } else {
+            this.stats_api = new StatsAPI()
+
             // Since WebGL is enabled we can proceed.
             this.field_of_view = 70
             this.get_window_properties()
@@ -41,11 +49,26 @@ RendererAPI.prototype = {
             //document.body.appendChild(this.renderer.domElement)
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
+
+            // Create the scene.
+            this.scene = new THREE.Scene()
         }
     },
 
-    render: function(scene, camera) {
-        this.renderer.render(scene, camera)
+    add_to_scene: function(object) {
+        this.scene.add(object)
+    },
+
+    pre_render: function() {
+        this.stats_api.pre_render()
+    },
+
+    render: function() {
+        this.renderer.render(this.scene, this.camera)
+    },
+
+    post_render: function() {
+        this.stats_api.post_render()
     },
 
     get_window_properties: function() {
