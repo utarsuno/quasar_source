@@ -123,11 +123,12 @@ document.body.appendChild(renderer_api.renderer.domElement)
 
 // Add lights.
 var ambiColor = '#cbe7ff'
-var color1 = '#ffffbb'
+var color1 = '#b9ffd2'
 var color2 = '#090920'
 //var ambientLight = new THREE.AmbientLight(ambiColor, .2)
-var lightt = new THREE.HemisphereLight( color1, color2, .1 )
-scene.add( lightt )
+var lightt = new THREE.HemisphereLight( color1, color2, .6 )
+var helper = new THREE.HemisphereLightHelper( lightt, 2000 )
+scene.add( helper )
 //scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
@@ -143,8 +144,8 @@ scene.add(light2)
 var data_display = new DataDisplay(fps_controls)
 
 
-var light3 = new THREE.PointLight(0xccffcc, 1, 10)
-light3.position.set(5, 15, 5)
+var light3 = new THREE.PointLight(0xccffcc, .8, 0)
+light3.position.set(5, 50, 5)
 scene.add(light3)
 
 
