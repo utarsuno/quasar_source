@@ -15,7 +15,7 @@ LoginPanel.prototype = {
         this.position = new THREE.Vector3(50, 50, 50)
         this.rotation = new THREE.Vector3(0, Math.PI / 2.0, 0)
 
-        this.background_plane = new PlaneAPI(10, 10)
+        this.background_plane = new PlaneAPI(10, 10, this.position, this.rotation)
     },
 
     set_position: function(vector) {
