@@ -141,20 +141,6 @@ setInterval(function() {
 }, 100)
 */
 
-var loader = new THREE.FontLoader()
-loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/font/helvetiker_regular.typeface.json', function(tex){
-    var  textGeo = new THREE.TextGeometry('Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday', {
-        size: 80,
-        height: 4,
-        curveSegments: 2,
-        font: tex
-    })
-    var  color = new THREE.Color()
-    color.setRGB(100, 100, 100)
-    var  textMaterial = new THREE.MeshLambertMaterial({ color: color })
-    var  text = new THREE.Mesh(textGeo, textMaterial)
-    renderer_api.add_to_scene(text)
-})
 
 //
 
