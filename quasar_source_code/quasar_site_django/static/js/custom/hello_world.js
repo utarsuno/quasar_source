@@ -156,6 +156,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
     var  text = new THREE.Mesh(textGeo, textMaterial)
     scene.add(text)
 })
+
 //
 
 
