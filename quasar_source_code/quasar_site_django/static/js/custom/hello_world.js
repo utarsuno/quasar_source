@@ -143,7 +143,7 @@ scene.add(light2)
 var data_display = new DataDisplay(fps_controls)
 
 
-var light3 = new THREE.PointLight(0xccffcc, 1, 1000)
+var light3 = new THREE.PointLight(0xccffcc, 1, 10)
 light3.position.set(5, 15, 5)
 scene.add(light3)
 
@@ -175,7 +175,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
         font: tex
     })
     var  color = new THREE.Color()
-    color.setRGB(50, 50, 50)
+    color.setRGB(100, 100, 100)
     var  textMaterial = new THREE.MeshLambertMaterial({ color: color })
     var  text = new THREE.Mesh(textGeo, textMaterial)
     scene.add(text)
