@@ -45,7 +45,7 @@ Player.prototype = {
         var d = this.fps_controls.get_direction()
         var p = this.fps_controls.get_position()
         this.login_panel.set_position(p.x + 50 * d.x, p.y + 50 * d.y, p.z + 50 * d.z)
-        this.login_panel.background_plane.mesh.lookAt(d)
+        this.login_panel.background_plane.mesh.lookAt(p)
         //this.login_panel.set_rotation(d.x, d.y, d.z)
     }
 
