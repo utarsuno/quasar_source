@@ -103,7 +103,7 @@ var color2 = '#090920'
 //var ambientLight = new THREE.AmbientLight(ambiColor, .2)
 var lightt = new THREE.HemisphereLight( color1, color2, .6 )
 var helper = new THREE.HemisphereLightHelper( lightt, 2000 )
-scene.add( helper )
+renderer_api.add_to_scene(helper)
 //scene.add(ambientLight)
 /*
 var light = new THREE.DirectionalLight( 0xffffff, 1.5 )
@@ -121,8 +121,7 @@ scene.add(light2)
 
 var light3 = new THREE.PointLight(0xccffcc, .8, 0)
 light3.position.set(5, 50, 5)
-scene.add(light3)
-
+renderer_api.add_to_scene(light3)
 
 //var shader_api = new ShaderAPI(renderer_api, scene, camera)
 
@@ -154,7 +153,7 @@ loader.load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django
     color.setRGB(100, 100, 100)
     var  textMaterial = new THREE.MeshLambertMaterial({ color: color })
     var  text = new THREE.Mesh(textGeo, textMaterial)
-    scene.add(text)
+    renderer_api.add_to_scene(text)
 })
 
 //
