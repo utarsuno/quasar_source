@@ -297,11 +297,10 @@ FPSControls.prototype = {
             // TODO : Only calculate the direction vector and the left_right vector on every mouse input, not every physics cycle.
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
+            this.left_right = new THREE.Vector3(0, 1, 0)
+            this.left_right.cross(this.direction_vector)
 
-            if (this.flying_on) {
-                this.left_right = new THREE.Vector3(0, 1, 0)
-                this.left_right.cross(this.direction_vector)
-            } else {
+            if (!this.flying_on) {
                 this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
                 this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
                 this.walking_direction.normalize()
