@@ -70,6 +70,8 @@ PlaneAPI.prototype = {
         this.mesh.rotation.x = this.rotation.x
         this.mesh.rotation.y = this.rotation.y
         this.mesh.rotation.z = this.rotation.z
+        this.position = this.mesh.position
+        this.rotation = this.mesh.rotation
 
         var geo = new THREE.EdgesGeometry( this.mesh.geometry ) // or WireframeGeometry
         var mat = new THREE.LineBasicMaterial( { color: 0xFFC0CB, linewidth: 2 } )
