@@ -95,7 +95,7 @@ LoginPanel.prototype = {
             player_position_vector.z + text_multiplier * player_direction_vector.z)
 
         this.set_position(player_position_vector.x + 50 * player_direction_vector.x, player_position_vector.y + 50 * player_direction_vector.y, player_position_vector.z + 50 * player_direction_vector.z)
-        this.login_panel.background_plane.mesh.lookAt(player_position_vector)
+        this.background_plane.mesh.lookAt(player_position_vector)
 
         this.username_label.set_position(text_position.x, text_position.y, text_position.z)
         this.password_label.set_position(text_position.x, text_position.y, text_position.z)
