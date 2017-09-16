@@ -4,15 +4,15 @@ function LoginPanel(renderer_api) {
     this.__init__(renderer_api)
 }
 
-function FloatingText(text) {
-    this.__init__(text)
+function FloatingText(text, renderer_api) {
+    this.__init__(text, renderer_api)
 }
 
 FloatingText.prototype = {
     text: null,
     _text_plane: null,
 
-    __init__: function(text) {
+    __init__: function(text, renderer_api) {
         this.text = text
 
         var text_position = new THREE.Vector3(40, 40, 40)
@@ -47,8 +47,8 @@ LoginPanel.prototype = {
 
         this.background_plane = new PlaneAPI(30, 30, this.position, this.rotation)
 
-        this.username_label = new FloatingText('Username :')
-        this.password_label = new FloatingText('Password :')
+        this.username_label = new FloatingText('Username :', renderer_api)
+        this.password_label = new FloatingText('Password :', renderer_api)
 
         this.background_plane.create_standard(renderer_api.scene)
 
@@ -80,6 +80,6 @@ LoginPanel.prototype = {
         this.background_plane.rotation.x = x
         this.background_plane.rotation.y = y
         this.background_plane.rotation.z = z
-    },
+    }
 
 }
