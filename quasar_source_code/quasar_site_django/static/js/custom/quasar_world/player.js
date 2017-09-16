@@ -41,7 +41,7 @@ Player.prototype = {
         this.data_display.update()
 
         // Temp code.
-        if (this.fps_controls.enabled()) {
+        if (this.fps_controls.enabled) {
             var d = this.fps_controls.get_direction()
             var p = this.fps_controls.get_position()
             this.login_panel.update(p, d)
