@@ -32,7 +32,8 @@ PlaneAPI.prototype = {
     create_standard: function(scene) {
         this.material = new THREE.MeshBasicMaterial({
             color: 0x000000,
-            opacity: 0.5,
+            opacity: 0.75,
+            // TODO : make this one sided.
             side: THREE.DoubleSide
         })
         this.create_mesh(scene)
@@ -40,7 +41,7 @@ PlaneAPI.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear().drawText(text, 10, 10, 'black')
+            this.dynamic_texture.clear().drawText(text, 0, 0, 'black')
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
