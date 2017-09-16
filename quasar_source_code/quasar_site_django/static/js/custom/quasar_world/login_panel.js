@@ -17,7 +17,7 @@ FloatingText.prototype = {
 
         var text_position = new THREE.Vector3(40, 40, 40)
         var text_rotation = new THREE.Vector3(0, 0, 0)
-        this._text_plane = new PlaneAPI(200, 50, text_position, text_rotation)
+        this._text_plane = new PlaneAPI(20, 10, text_position, text_rotation)
         this._text_plane.create_dynamic_text(this.text, renderer_api)
     },
 
@@ -89,7 +89,7 @@ LoginPanel.prototype = {
 
     update: function(player_position_vector, player_direction_vector) {
 
-        var text_multiplier = 45.0
+        var text_multiplier = 47.0
         var text_position = new THREE.Vector3(player_position_vector.x + text_multiplier * player_direction_vector.x,
             player_position_vector.y + text_multiplier * player_direction_vector.y,
             player_position_vector.z + text_multiplier * player_direction_vector.z)
