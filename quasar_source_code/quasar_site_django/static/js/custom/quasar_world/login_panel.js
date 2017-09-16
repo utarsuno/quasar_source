@@ -23,6 +23,18 @@ FloatingText.prototype = {
 
     get_mesh: function() {
         return this._text_plane.mesh
+    },
+
+    set_position: function(x, y, z) {
+        this._text_plane.position.x = x
+        this._text_plane.position.y = y
+        this._text_plane.position.z = z
+    },
+
+    set_rotation: function(x, y, z) {
+        this._text_plane.rotation.x = x
+        this._text_plane.rotation.y = y
+        this._text_plane.rotation.z = z
     }
 }
 
@@ -68,6 +80,22 @@ LoginPanel.prototype = {
             renderer_api.add_to_scene(text)
         })
         */
+    },
+
+    update: function(player_position_vector, player_direction_vector) {
+
+        var text_multiplier = 45.0
+        var text_position = new THREE.Vector3(player_position_vector.x + text_multiplier * player_direction_vector.x,
+            player_position_vector.y + text_multiplier * player_direction_vector.y,
+            player_position_vector.z + text_multiplier * player_direction_vector.z)
+
+        this.set_position(player_position_vector.x + 50 * player_direction_vector.x, player_position_vector.y + 50 * player_direction_vector.y, player_position_vector.z + 50 * player_direction_vector.z)
+        this.login_panel.background_plane.mesh.lookAt(player_position_vector)
+
+        this.username_label.set_position(text_position.x, text_position.y, text_position.z)
+        this.password_label.set_position(text_position.x, text_position.y, text_position.z)
+        this.username_label.get_mesh().lookAt(player_position_vector)
+        this.password_label.get_mesh().lookAt(player_position_vector)
     },
 
     set_position: function(x, y, z) {

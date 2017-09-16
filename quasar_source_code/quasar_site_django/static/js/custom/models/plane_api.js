@@ -58,6 +58,7 @@ PlaneAPI.prototype = {
             map	: this.dynamic_texture.texture
         })
         this.material.transparent = true
+        // TODO : Make this only 1 sided
         this.material.side = THREE.DoubleSide
         this.create_mesh(renderer_api.scene)
     },
