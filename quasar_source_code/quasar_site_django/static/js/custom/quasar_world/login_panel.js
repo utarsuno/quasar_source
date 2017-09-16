@@ -40,6 +40,11 @@ FloatingText.prototype = {
 
 LoginPanel.prototype = {
 
+    // State variables.
+    active          : null,
+
+    //
+
     renderer_api    : null,
 
     background_plane: null,
@@ -51,7 +56,7 @@ LoginPanel.prototype = {
     password_label  : null,
 
     __init__: function(renderer_api) {
-
+        this.active = false
         this.renderer_api = renderer_api
 
         this.position = new THREE.Vector3(50, 50, 50)

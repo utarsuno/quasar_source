@@ -211,6 +211,10 @@ FPSControls.prototype = {
         return this.velocity
     },
 
+    enabled: function() {
+        return this.enabled
+    },
+
     enable: function() {
         this.enabled = true
     },
