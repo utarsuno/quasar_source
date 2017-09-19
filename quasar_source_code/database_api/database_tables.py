@@ -62,7 +62,7 @@ class TableFieldDouble(TableField):
 	"""Represents a decimal field for a database table."""
 
 	def __init__(self, field_name):
-		super().__init__(field_name, 'double precision', skipped=False)
+		super().__init__(field_name, float, 'double precision', skipped=False)
 
 
 class TableFieldString(TableField):
@@ -73,6 +73,13 @@ class TableFieldString(TableField):
 			super().__init__(field_name, str, 'char(' + str(maximum_length) + ')', skipped=False)
 		else:
 			super().__init__(field_name, str, 'varchar(' + str(maximum_length) + ')', skipped=False)
+
+
+class TableFieldBinary(TableField):
+	"""Represents a binary field for a database table."""
+
+	def __init__(self, field_name: str):
+		super().__init__(field_name, bytes, 'bytea', skipped=False)
 
 
 class TableFieldDate(TableField):

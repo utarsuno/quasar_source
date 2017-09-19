@@ -8,12 +8,15 @@ from quasar_source_code.entities.entity_manager import EntityManager
 
 # New
 manager = EntityManager()
-#manager.add_entities(m.math220)
+manager.add_entities(m.math220)
 
-manager.load_entities_from_database()
+#manager.load_entities_from_database()
 
 #manager.print_information_for_this_week()
-#manager.save_entities()
 
 
-manager.print_entities()
+manager.save_state_to_database()
+manager.load_from_database()
+
+
+#manager.print_entities()

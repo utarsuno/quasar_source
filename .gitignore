@@ -166,3 +166,6 @@ fabric.properties
 all_scripts/build_three_js/three.js
 configuration_files/
 third_party_libraries/
+
+# Ignoring custom database files.
+.db

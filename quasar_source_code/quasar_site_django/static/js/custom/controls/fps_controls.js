@@ -150,14 +150,8 @@ FPSControls.prototype = {
                         this.fly_right(delta)
                     }
                 }
-                this.velocity.x *= (1 - delta * 15)
                 this.velocity.y *= (1 - delta * 15)
-                this.velocity.z *= (1 - delta * 15)
-
-                this.yaw.position.x += this.velocity.x
                 this.yaw.position.y += this.velocity.y
-                this.yaw.position.z += this.velocity.z
-
             } else {
                 // Walking code.
                 if ((this.up ^ this.down) & (this.left ^ this.right)) {
@@ -184,9 +178,6 @@ FPSControls.prototype = {
                         this.move_right(delta)
                     }
                 }
-                this.velocity.x *= (1 - delta * 15)
-                this.velocity.z *= (1 - delta * 15)
-
                 if (this.velocity.y != 0) {
                     this.velocity.y -= 9.8 * delta * 10
                     this.velocity.y *= (1 - delta * 15)
@@ -196,10 +187,12 @@ FPSControls.prototype = {
                         this.velocity.y = 0
                     }
                 }
-
-                this.yaw.position.x += this.velocity.x
-                this.yaw.position.z += this.velocity.z
             }
+            // Both flying and walking treat the following lines the same.
+            this.velocity.x *= (1 - delta * 15)
+            this.velocity.z *= (1 - delta * 15)
+            this.yaw.position.x += this.velocity.x
+            this.yaw.position.z += this.velocity.z
         }
     },
 
@@ -209,10 +202,6 @@ FPSControls.prototype = {
 
     get_velocity: function() {
         return this.velocity
-    },
-
-    enabled: function() {
-        return this.enabled
     },
 
     enable: function() {

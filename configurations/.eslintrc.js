@@ -46,6 +46,7 @@ module.exports = {
         "World": true,
         "PlaneAPI": true,
         "LoginPanel": true,
-        "Player": true
+        "Player": true,
+        "Floating2DText": true
     }
 };

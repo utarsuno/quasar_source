@@ -10,6 +10,9 @@ import datetime
 api = db_api.PostgreSQLAPI()
 api.connect()
 #api.create_database('nexus_db')
+
+print(api.get_all_table_names())
+
 api.terminate()
 
 #db = fdb.FinanceDatabase()

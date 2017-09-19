@@ -2,8 +2,11 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
+from quasar_source_code.entities.database import entity_database as ed
 from quasar_source_code.universal_code import time_abstraction as ta
-from quasar_source_code.entities import entity_database as ed
+
+# Used for saving Python objects as binary data.
+import dill
 
 
 class EntityManager(object):
@@ -11,9 +14,17 @@ class EntityManager(object):
 
 	def __init__(self):
 		super().__init__()
-		self.entities  = []
-		self._owner_id = None
-		self._database_api = ed.EntityDatabaseAPI()
+		self.entities             = []
+		self._owner_id            = None
+		self._manager_id          = None
+		self._entity_database_api = ed.EntityDatabaseAPI()
+
+	@property
+	def manager_id(self) -> int:
+		"""Returns the manager_id of this manager, -1 if error."""
+		if self._manager_id is None:
+			return -1
+		return self._manager_id
 
 	def load_entities_from_database(self):
 		"""Loads the entities from the database into this entity manager."""
@@ -22,9 +33,17 @@ class EntityManager(object):
 
 	def print_entities(self):
 		"""Prints the information of all the entities."""
-		print('Printing information on all the entities!')
+		print('Printing information on the entities!')
 		for e in self.entities:
 			print(str(e))
+		print('------------------------------------------')
+
+	def print_all_entities(self):
+		"""Prints information for all entities and any linked entities."""
+		print('Printing information on the entities and all linked entities!')
+		for e in self.entities:
+			print(str(e))
+			print(e.all_children)
 		print('------------------------------------------')
 
 	def add_entities(self, e):
@@ -66,23 +85,15 @@ class EntityManager(object):
 		y = 2 # TODO : This function
 
 	# Methods in development
-	def save_entities(self):
-		"""Save the entities and their information to the database."""
-		print('SAVE ENTITIES FUNCTION CALL')
 
-		for e in self.entities:
-			self._database_api.create_entity(e.get_save_info())
-			children = e.all_children
-			for c in children:
-				self._database_api.create_entity(c.get_save_info())
+	def load_from_database(self):
+		"""Loads an Entity manager's data/state from a binary file."""
+		with open('entity_database.db', 'rb') as f:
+			manager = dill.load(f)
 
-		'''
-		print('Printing the entities to save :')
-		for e in self.entities:
-			print(e.get_save_info())
-			children = e.all_children
-			for c in children:
-				print('\t' + str(c.get_save_info()))
-		'''
+	def save_state_to_database(self):
+		"""Saves the currently held entity information into the database."""
+		self._entity_database_api.save_entity_manager(self)
+
 
 

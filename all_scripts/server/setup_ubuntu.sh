@@ -37,6 +37,7 @@ sudo apt-get install postgresql postgresql-contrib
 
 ##
 
+# sudo pip install dill
 
 
 

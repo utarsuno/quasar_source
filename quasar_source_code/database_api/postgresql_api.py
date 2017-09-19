@@ -62,8 +62,17 @@ class PostgreSQLAPI(object):
 			self._connection.commit()
 		return self._cursor.fetchall()
 
-	def execute_query(self, query: str, save: bool=False) -> None:
+# TEMP
+	def get_cursor(self):
+		return self._cursor
+
+# TEMP
+	def commit(self):
+		self._connection.commit
+
+	def execute_query(self, query, save: bool=False) -> None:
 		"""Executes the query provided."""
+		# Query can be type of string and tuple.
 		self._cursor.execute(query)
 		if save:
 			self._connection.commit()
