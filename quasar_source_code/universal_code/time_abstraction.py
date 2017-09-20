@@ -22,6 +22,7 @@ class Day(Enum):
 	FRIDAY    = 4
 	SATURDAY  = 5
 	SUNDAY    = 6
+	EVERYDAY  = -2
 
 	def __int__(self):
 		"""int(day_obj) will return the day of week number (relative to a generic week)."""

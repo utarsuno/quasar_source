@@ -42,13 +42,13 @@ class EntityTask(be.Entity):
 		"""Sets the description of this task."""
 		self._description = val
 
-	def set_due_date_and_description(self, val: datetime.date, description):
+	def set_due_date_and_description(self, val, description):
 		"""Sets the due date for this Entity task."""
 		if self._due_date is None:
 			self._due_date = etp.EntityTime('due_date for : {' + description + '}', self)
 			self.add_children(self._due_date)
 		self._description = description
-		self._due_date.add_one_time_event(time_range_or_single_day = val, event=self._description)
+		self._due_date.add_one_time_event(time_range_or_single_day=val, event=self._description)
 
 	@property
 	def completed(self) -> bool:

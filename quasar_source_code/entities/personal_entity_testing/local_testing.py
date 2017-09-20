@@ -5,25 +5,48 @@
 from quasar_source_code.entities.personal_entity_testing import math220 as m
 from quasar_source_code.entities.entity_manager import EntityManager
 from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
+from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities.properties import entity_task as etask
+from quasar_source_code.entities.properties import entity_time as etime
+from quasar_source_code.universal_code import time_abstraction as ta
 
+#
 
-# New
 manager = EntityManager()
-
 entity_db = EntityDatabaseAPI()
-manager.add_entities(m.math220)
 
-print(manager)
-
-#manager.load_entities_from_database()
-
-#manager.print_information_for_this_week()
-
-
-entity_db.save_entity_manager(manager)
+# Load the manager.
 
 manager = entity_db.get_entity_manager(manager.manager_id)
 
+print('Printing Manager info :')
 print(manager)
+manager.print_all_entities()
+#manager.print_information_for_this_week()
 
-#manager.print_entities()
+# INFORMATION TO GET SAVED.
+
+# Info set 0.
+'''
+manager.add_entities(m.math220)
+'''
+
+# Info set 1.
+'''
+daily_todos = be.Entity('Daily todos :')
+daily_meditation = etask.EntityTask('Daily 10 minute meditation', daily_todos)
+daily_meditation.description = 'Meditate for 10 minutes.'
+daily_meditation.set_due_date_and_description(ta.Day.EVERYDAY, description='Meditate for 10 minutes.')
+manager.add_entities(daily_todos)
+'''
+
+# ---------------------------------------------------------------
+
+#print('Printing Manager info :')
+#print(manager)
+#manager.print_all_entities()
+
+
+# Now save any changes if we want to.
+
+#entity_db.save_entity_manager(manager)

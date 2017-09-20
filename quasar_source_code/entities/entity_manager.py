@@ -23,11 +23,6 @@ class EntityManager(object):
 			return -1
 		return self._manager_id
 
-	def load_entities_from_database(self):
-		"""Loads the entities from the database into this entity manager."""
-		print('PERFORM LOAD!')
-		self._database_api.get_all_entity_data()
-
 	def print_entities(self):
 		"""Prints the information of all the entities."""
 		print('Printing information on the entities!')
@@ -40,7 +35,8 @@ class EntityManager(object):
 		print('Printing information on the entities and all linked entities!')
 		for e in self.entities:
 			print(str(e))
-			print(e.all_children)
+			for e_child in e.all_children:
+				print(str(e_child))
 		print('------------------------------------------')
 
 	def add_entities(self, e):

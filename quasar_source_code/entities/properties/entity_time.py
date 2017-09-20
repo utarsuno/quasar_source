@@ -19,27 +19,6 @@ class EntityTime(be.Entity):
 
 		self.add_parents(parent_entity)
 
-	def get_additional_needed_save_info(self) -> dict:
-		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
-		one_time_events_string = '[]'
-		event_range_string = 'None'
-		event_range_events_string = '[]'
-		if len(self._one_time_events) > 0:
-			one_time_events_string = ''
-			for ote in self._one_time_events:
-				one_time_events_string += '[' + str(ote[0]) + ',' + str(ote[1]) + '],'
-			one_time_events_string = '[' + one_time_events_string[0:-1] + ']'
-		if self._event_range is not None:
-			event_range_string = '[' + str(self._event_range[0]) + ',' + str(self._event_range[1]) + ']'
-		if len(self._event_range_events) > 0:
-			event_range_events_string = ''
-			for ere in self._event_range_events:
-				event_range_events_string += '[' + str(ere[0]) + ',' + str(ere[1]) + ']'
-			event_range_events_string = '[' + event_range_events_string[:-1] + ']'
-		return {'one_time_events': one_time_events_string,
-		        'event_range': event_range_string,
-		        'event_range_events': event_range_events_string}
-
 	def add_one_time_event(self, time_range_or_single_day, event):
 		"""Adds a time event that only occurs once."""
 		self._one_time_events.append([time_range_or_single_day, event])
@@ -62,7 +41,11 @@ class EntityTime(be.Entity):
 
 			#print('Checking event : ' + str(ote))
 
-			if type(ote[0]) == ta.Weekday:
+			if type(ote[0]) == ta.Day:
+				if date.weekday() == int(ote[0]):
+					events.append(ote[1])
+
+			elif type(ote[0]) == ta.Weekday:
 				if date.weekday() == ote[0].day_of_the_week:
 					events.append(ote[1])
 			else:
@@ -92,3 +75,27 @@ class EntityTime(be.Entity):
 
 	def __str__(self):
 		return 'EntityTime instance{' + self.name + '}, child of ' + str(self.parents[0])
+
+
+'''
+	def get_additional_needed_save_info(self) -> dict:
+		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
+		one_time_events_string = '[]'
+		event_range_string = 'None'
+		event_range_events_string = '[]'
+		if len(self._one_time_events) > 0:
+			one_time_events_string = ''
+			for ote in self._one_time_events:
+				one_time_events_string += '[' + str(ote[0]) + ',' + str(ote[1]) + '],'
+			one_time_events_string = '[' + one_time_events_string[0:-1] + ']'
+		if self._event_range is not None:
+			event_range_string = '[' + str(self._event_range[0]) + ',' + str(self._event_range[1]) + ']'
+		if len(self._event_range_events) > 0:
+			event_range_events_string = ''
+			for ere in self._event_range_events:
+				event_range_events_string += '[' + str(ere[0]) + ',' + str(ere[1]) + ']'
+			event_range_events_string = '[' + event_range_events_string[:-1] + ']'
+		return {'one_time_events': one_time_events_string,
+		        'event_range': event_range_string,
+		        'event_range_events': event_range_events_string}
+'''

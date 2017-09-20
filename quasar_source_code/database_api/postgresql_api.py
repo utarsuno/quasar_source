@@ -62,13 +62,13 @@ class PostgreSQLAPI(object):
 			self._connection.commit()
 		return self._cursor.fetchall()
 
-# TEMP
 	def get_cursor(self):
+		"""Returns the database cursor that this api is utilizing."""
 		return self._cursor
 
-# TEMP
 	def commit(self):
-		self._connection.commit
+		"""Saves changes to the database."""
+		self._connection.commit()
 
 	def execute_query(self, query, save: bool=False) -> None:
 		"""Executes the query provided."""
