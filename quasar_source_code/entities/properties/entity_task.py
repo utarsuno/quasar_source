@@ -24,19 +24,9 @@ class EntityTask(be.Entity):
 		self._time_needed       = None
 		self._difficulty        = None
 
-
 		if parent_task is not None:
 			if self not in parent_task.children:
 				self.add_parents(parent_task)
-
-		self._class_name = be.ENTITY_TASK
-
-	def get_additional_needed_save_info(self) -> dict:
-		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
-		return {'current_iterations': self._current_iteration,
-		        'needed_iterations': self._needed_iterations,
-		        'description': self._description,
-		        'due_date': self._due_date.global_id}
 
 	def iterate(self):
 		"""Completes an iteration for this task."""

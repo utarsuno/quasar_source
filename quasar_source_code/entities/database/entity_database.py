@@ -52,27 +52,30 @@ class EntityDatabaseAPI(object):
 
 	def save_entity_manager(self, entity_manager):
 		"""Saves an entity manager object into the database."""
+		# TODO : Make this method more elegant.
 		file_name = 'entity_manager_' + str(entity_manager.manager_id) + '.db'
 		with open(file_name, 'wb') as f:
-			dill.dump(self, f)
+			dill.dump(entity_manager, f)
 		file = open(file_name, 'rb')
 		cursor = self._api.get_cursor()
-		print(psycopg2.Binary(file.read()))
-		cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%d,%s);', (entity_manager.manager_id, psycopg2.Binary(file.read())))
-		self._api.commit()
+		file_data = file.read()
 		file.close()
-		#self._api.execute_query(('INSERT INTO entity_managers(manager_id, manager) VALUES (%d,%s);', (entity_manager.manager_id, psycopg2.Binary(f))), save=True)
+		self._entity_managers_table.delete_row_with_value('manager_id', entity_manager.manager_id)
+		cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
+		self._api.commit()
 
 	def get_all_owners(self):
 		"""Returns a list of all the owners."""
 		y = 2
 		# TODO : !!!
 
-	def get_all_entity_managers(self):
-		"""Returns a list of all entity managers."""
+	def get_entity_manager(self, manager_id):
+		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		results = self._entity_managers_table.get_row_values()
-		print('Results are: ')
-		print(results)
+		for r in results:
+			if r[0] == manager_id:
+				return dill.loads(r[1].tobytes())
+		return None
 
 	def _check_if_connected(self):
 		"""Connects if the database is not connected."""

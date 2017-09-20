@@ -18,7 +18,6 @@ class EntityTime(be.Entity):
 		self._event_range_events = []
 
 		self.add_parents(parent_entity)
-		self._class_name = be.ENTITY_TIME
 
 	def get_additional_needed_save_info(self) -> dict:
 		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""

@@ -5,9 +5,6 @@
 from quasar_source_code.entities.database import entity_database as ed
 from quasar_source_code.universal_code import time_abstraction as ta
 
-# Used for saving Python objects as binary data.
-import dill
-
 
 class EntityManager(object):
 	"""Defines management operations for Entities."""
@@ -84,16 +81,5 @@ class EntityManager(object):
 		"""Prints information sorted by entities."""
 		y = 2 # TODO : This function
 
-	# Methods in development
-
-	def load_from_database(self):
-		"""Loads an Entity manager's data/state from a binary file."""
-		with open('entity_database.db', 'rb') as f:
-			manager = dill.load(f)
-
-	def save_state_to_database(self):
-		"""Saves the currently held entity information into the database."""
-		self._entity_database_api.save_entity_manager(self)
-
-
-
+	def __str__(self):
+		return 'EntityManager - owner_id{' + str(self._owner_id) + '}, manager_id{' + str(self.manager_id) + '}, entities{' + str(self.entities) + '}'

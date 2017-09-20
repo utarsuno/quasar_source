@@ -17,16 +17,6 @@ ENTITY_TIME = 'EntityTime'
 class Entity(object):
 	"""Defines properties of all entities."""
 
-	CLASS_NAME = ENTITY
-
-	# Database column names.
-	DB_GLOBAL_ID       = 'global_id'
-	DB_CLASS_NAME      = 'class_name'
-	DB_ENTITY_NAME     = 'entity_name'
-	DB_PARENT_ENTITIES = 'parent_entities'
-	DB_CHILD_ENTITIES  = 'child_entities'
-	DB_INFORMATION     = 'information'
-
 	def __init__(self, entity_name):
 		global global_id
 		# TODO : Global id should be generated through a different method.
@@ -36,8 +26,6 @@ class Entity(object):
 		self._name            = entity_name
 		self._parent_entities = []
 		self._child_entities  = []
-
-		self._class_name      = Entity.CLASS_NAME
 
 		self._information     = {}
 
@@ -57,11 +45,6 @@ class Entity(object):
 	def add_information(self, key, value):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
 		self._information[key] = value
-
-	@property
-	def class_name(self) -> str:
-		"""Returns the name of this class' entity Class."""
-		return self._class_name
 
 	def add_children(self, obj) -> None:
 		"""Adds n child entities to this entity."""
@@ -147,33 +130,3 @@ class Entity(object):
 
 	def __str__(self):
 		return 'E{' + self._name + '}'
-
-	'''  __       ___       __        __   ___     __   __   ___  __       ___    __        __
-		|  \  /\   |   /\  |__)  /\  /__` |__     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
-		|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .
-    '''
-
-	# TODO : Do not save fields that contain no/null/default data
-
-	def get_additional_needed_save_info(self) -> dict:
-		"""Returns a dictionary containing class instance information that a regular base Entity does not contain."""
-		if self._class_name != ENTITY:
-			raise RuntimeError('The function \'get_additional_needed_save_info\' must be implemented by child classes.')
-		return {}
-
-	def get_save_info(self) -> dict:
-		"""Returns a dictionary containing all the data needed to save this Entity."""
-		parent_ids = []
-		for p in self._parent_entities:
-			parent_ids.append(p.global_id)
-		child_ids = []
-		for c in self._child_entities:
-			child_ids.append(c.global_id)
-			# Returns the generated dictionary merged with the additional needed save info dictionary.
-		return dict({Entity.DB_GLOBAL_ID: self._global_id,
-		        Entity.DB_CLASS_NAME: self._class_name,
-		        Entity.DB_ENTITY_NAME: self._name,
-		        Entity.DB_PARENT_ENTITIES: parent_ids,
-		        Entity.DB_CHILD_ENTITIES: child_ids,
-		        Entity.DB_INFORMATION: self._information}, **self.get_additional_needed_save_info())
-
