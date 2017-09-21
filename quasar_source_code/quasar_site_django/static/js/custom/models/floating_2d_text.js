@@ -50,7 +50,7 @@ Floating2DText.prototype = {
 
         this.object3d.add(this.mesh)
 
-        scene.add(this.mesh)
+        scene.add(this.object3d)
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
