@@ -36,7 +36,7 @@ LoginWorld.prototype = {
         var text_plane = new Floating2DText(200, 50, 'Hello Worlddddddddddd')
         text_plane.create(this.scene)
         var position_vector = new THREE.Vector3(50, 50, 50)
-        var look_at_vector = new THREE.Vector3(0, 0, 0)
+        var look_at_vector = new THREE.Vector3(0, 50, 0)
         text_plane.update_position_and_look_at(position_vector, look_at_vector)
     },
 
