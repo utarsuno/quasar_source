@@ -289,12 +289,9 @@ FPSControls.prototype = {
 
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
-            //this.left_right = new THREE.Vector3(0, 1, 0)
-            if (this.direction_vector.y >= 0) {
-                this.left_right = new THREE.Vector3(0, 1 - this.direction_vector.y, 0)
-            } else {
-                this.left_right = new THREE.Vector3(0, 1 + this.direction_vector.y, 0)
-            }
+
+            // TODO : This needs to be fixed.
+            this.left_right = new THREE.Vector3(0, 1, 0)
 
             this.left_right.cross(this.direction_vector)
 

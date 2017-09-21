@@ -33,10 +33,12 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // Add the text.
+        var look_at_vector = new THREE.Vector3(0, 50, 0)
+        var look_at_vector2 = new THREE.Vector3(0, 20, 0)
+
         var text_plane = new Floating2DText(200, 50, 'Hello Worlddddddddddd')
         text_plane.create(this.scene)
         var position_vector = new THREE.Vector3(50, 50, 50)
-        var look_at_vector = new THREE.Vector3(0, 50, 0)
         text_plane.update_position_and_look_at(position_vector, look_at_vector)
 
         var username_label = new Floating2DText(50, 20, 'Username :')
@@ -44,11 +46,22 @@ LoginWorld.prototype = {
         var username_field = new Floating2DText(100, 20, '')
         username_field.create(this.scene)
 
+        var password_label = new Floating2DText(50, 20, 'Password :')
+        password_label.create(this.scene)
+        var password_field = new Floating2DText(100, 20, '')
+        password_field.create(this.scene)
+
         var username_position0 = new THREE.Vector3(45, 50, 0)
-        var username_position1 = new THREE.Vector3(55, 50, 0)
+        var username_position1 = new THREE.Vector3(155, 50, 0)
+
+        var password_position0 = new THREE.Vector3(45, 20, 0)
+        var password_position1 = new THREE.Vector3(155, 20, 0)
 
         username_label.update_position_and_look_at(username_position0, look_at_vector)
         username_field.update_position_and_look_at(username_position1, look_at_vector)
+
+        password_label.update_position_and_look_at(username_position0, look_at_vector2)
+        password_field.update_position_and_look_at(username_position1, look_at_vector2)
     },
 
     add_to_scene: function(object) {
