@@ -40,27 +40,13 @@ Player.prototype = {
 
         // Set player state.
         this.logged_in = false
-        //this.login_panel = new LoginPanel(renderer_api)
     },
 
     update: function(delta) {
         this.fps_controls.physics(delta)
         this.data_display.update()
 
-        /*
-        // Temp code.
-        if (this.fps_controls.enabled) {
-            var d = this.fps_controls.get_direction()
-            var p = this.fps_controls.get_position()
-            this.login_panel.update(p, d)
-        }
-        //this.login_panel.set_rotation(d.x, d.y, d.z)
-        */
-    },
-
-    toggle_debugging: function() {
-        this.data_display.toggle()
-        this.renderer_api.stats_api.toggle()
+        this.renderer_api.update_current_scene()
     },
 
     on_key_down: function(event) {
@@ -71,7 +57,9 @@ Player.prototype = {
         case 68: // d
             this.key_down_d = true
             if (this.key_down_ctrl) {
-
+                // Toggle debugging.
+                this.data_display.toggle()
+                this.renderer_api.stats_api.toggle()
             }
             break
         }

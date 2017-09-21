@@ -8,6 +8,8 @@ LoginWorld.prototype = {
 
     scene: null,
 
+    player: null,
+
     __init__: function() {
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -47,19 +49,32 @@ LoginWorld.prototype = {
         password_field.create(this.scene)
 
         var username_position0 = new THREE.Vector3(0, 50, 45)
-        var username_position1 = new THREE.Vector3(0, 50, 155)
+        var username_position1 = new THREE.Vector3(60, 50, 45)
 
         var password_position0 = new THREE.Vector3(0, 20, 45)
-        var password_position1 = new THREE.Vector3(100, 20, 45)
+        var password_position1 = new THREE.Vector3(60, 20, 45)
 
-        username_label.update_position_and_look_at(username_position0, look_at_vector)
-        username_field.update_position_and_look_at(username_position1, look_at_vector)
+        username_label.update_position_and_look_at(username_position0, new THREE.Vector3(0, 70, 55))
+        username_field.update_position_and_look_at(username_position1, new THREE.Vector3(60, 70, 55))
 
-        password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 20, 55))
-        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(100, 20, 165))
+        password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
+        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 165))
     },
 
     add_to_scene: function(object) {
         this.scene.add(object)
+    },
+
+    update: function() {
+        var position = this.player.fps_controls.get_position()
+        var direction = this.player.fps_controls.get_direction()
+
+        var raycaster = new THREE.Raycaster(position, direction)
+
+        var intersects = raycaster.intersectObjects(this.scene.children)
+        
+        for (var i = 0; i < intersects.length; i++) {
+            console.log(intersects[i])
+        }
     }
 }

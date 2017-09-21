@@ -19,6 +19,7 @@ RendererAPI.prototype = {
     stats_api       : null,
 
     // Three js object.
+    world           : null,
     scene           : null,
     current_scene   : null,
 
@@ -56,8 +57,13 @@ RendererAPI.prototype = {
         }
     },
 
-    set_current_scene: function(object) {
-        this.scene = object
+    update_current_scene: function() {
+        this.world.update()
+    },
+
+    set_current_world: function(world) {
+        this.world = world
+        this.scene = this.world.scene
     },
 
     add_to_scene: function(object) {

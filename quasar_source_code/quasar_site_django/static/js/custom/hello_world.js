@@ -5,16 +5,15 @@ var renderer_api = new RendererAPI()
 
 // LoginWorld.
 var login_world = new LoginWorld()
-renderer_api.set_current_scene(login_world.scene)
+renderer_api.set_current_world(login_world)
 
 // Model of the user. Must be created AFTER the scene gets set.
 var player = new Player(renderer_api)
+login_world.player = player
 
 var previous_time = performance.now()
 
 var animate = function () {
-    //shader_api.render()
-
     requestAnimationFrame(animate)
 
     renderer_api.pre_render()
@@ -25,7 +24,6 @@ var animate = function () {
     player.update(delta)
 
     renderer_api.render()
-    //css_renderer_api.renderer.render(cssScene, camera)
 
     renderer_api.post_render()
 
