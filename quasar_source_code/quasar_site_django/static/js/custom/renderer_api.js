@@ -44,7 +44,7 @@ RendererAPI.prototype = {
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
             //this.renderer.setClearColor(0x000000, 0)
-            this.renderer.setClearColorHex(0xffffff, 1)
+            this.renderer.setClearColor(0xffffff, 1)
 
             this.renderer.domElement.style.position = 'absolute'
             this.renderer.domElement.style.zIndex = 1
