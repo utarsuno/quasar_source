@@ -15,8 +15,12 @@ DataDisplay.prototype = {
 
     fps_controls: null,
 
+    enabled: null,
+
     __init__: function(fps_controls) {
         this.fps_controls = fps_controls
+
+        this.enabled = false
 
         // DOM elements.
         this.x_coordinate = document.getElementById('x_coordinate')
@@ -33,14 +37,20 @@ DataDisplay.prototype = {
     },
 
     update: function() {
-        var position = this.fps_controls.get_position()
-        var direction = this.fps_controls.get_direction()
-        this.x_coordinate.textContent = 'x : ' + this.rounded(position.x) + ' | ' + this.rounded(this.fps_controls.get_velocity().x)
-        this.y_coordinate.textContent = 'y : ' + this.rounded(position.y) + ' | ' + this.rounded(this.fps_controls.get_velocity().y)
-        this.z_coordinate.textContent = 'z : ' + this.rounded(position.z) + ' | ' + this.rounded(this.fps_controls.get_velocity().z)
+        if (this.enabled) {
+            var position = this.fps_controls.get_position()
+            var direction = this.fps_controls.get_direction()
+            this.x_coordinate.textContent = 'x : ' + this.rounded(position.x) + ' | ' + this.rounded(this.fps_controls.get_velocity().x)
+            this.y_coordinate.textContent = 'y : ' + this.rounded(position.y) + ' | ' + this.rounded(this.fps_controls.get_velocity().y)
+            this.z_coordinate.textContent = 'z : ' + this.rounded(position.z) + ' | ' + this.rounded(this.fps_controls.get_velocity().z)
 
-        this.x_direction.textContent = 'xd : ' + this.rounded(direction.x)
-        this.y_direction.textContent = 'yd : ' + this.rounded(direction.y)
-        this.z_direction.textContent = 'zd : ' + this.rounded(direction.z)
+            this.x_direction.textContent = 'xd : ' + this.rounded(direction.x)
+            this.y_direction.textContent = 'yd : ' + this.rounded(direction.y)
+            this.z_direction.textContent = 'zd : ' + this.rounded(direction.z)
+        }
+    },
+
+    toggle: function() {
+        this.enabled = !this.enabled
     }
 }

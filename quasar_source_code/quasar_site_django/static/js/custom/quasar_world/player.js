@@ -18,6 +18,10 @@ Player.prototype = {
     fps_controls    : null,
     data_display    : null,
 
+    // Tracking keyboard keys.
+    key_down_ctrl: null,
+    key_down_d   : null,
+
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
@@ -28,6 +32,11 @@ Player.prototype = {
         this.pointer_lock_api = new PointerLockAPI(this.fps_controls)
 
         this.data_display = new DataDisplay(this.fps_controls)
+
+        this.key_down_ctrl = false
+        this.key_down_d    = false
+        document.addEventListener('keydown', this.on_key_down.bind(this), false)
+        document.addEventListener('keyup', this.on_key_up.bind(this), false)
 
         // Set player state.
         this.logged_in = false
@@ -47,6 +56,38 @@ Player.prototype = {
         }
         //this.login_panel.set_rotation(d.x, d.y, d.z)
         */
-    }
+    },
 
+    toggle_debugging: function() {
+        this.data_display.toggle()
+        this.renderer_api.stats_api.toggle()
+    },
+
+    on_key_down: function(event) {
+        switch(event.keyCode) {
+        case 17: // ctrl
+            this.key_down_ctrl = true
+            break
+        case 68: // d
+            this.key_down_d = true
+            if (this.key_down_ctrl) {
+
+            }
+            break
+        }
+    },
+
+    on_key_up: function(event) {
+        switch(event.keyCode) {
+        case 17: // ctrl
+            this.key_down_ctrl = false
+            break
+        case 68: // d
+            this.key_down_d = false
+            break
+        }
+    }
 }
+
+
+

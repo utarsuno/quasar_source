@@ -8,7 +8,6 @@ StatsAPI.prototype = {
     stats_fps: null,
     stats_mb_allocated: null,
 
-    // TODO : Make use of this state variable.
     enabled: null,
 
     __init__: function() {
@@ -51,5 +50,9 @@ StatsAPI.prototype = {
             this.stats_fps.end()
             this.stats_mb_allocated.end()
         }
+    },
+
+    toggle: function() {
+        this.enabled = !this.enabled
     }
 }
