@@ -3,12 +3,12 @@
 // Renders all the worlds.
 var renderer_api = new RendererAPI()
 
-// Model of the user.
-var player = new Player(renderer_api)
-
 // LoginWorld.
 var login_world = new LoginWorld()
 renderer_api.set_current_scene(login_world.scene)
+
+// Model of the user. Must be created AFTER the scene gets set.
+var player = new Player(renderer_api)
 
 var previous_time = performance.now()
 
