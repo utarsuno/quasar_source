@@ -58,7 +58,7 @@ LoginWorld.prototype = {
         username_field.update_position_and_look_at(username_position1, new THREE.Vector3(60, 70, 55))
 
         password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
-        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 165))
+        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 55))
     },
 
     add_to_scene: function(object) {
@@ -72,9 +72,13 @@ LoginWorld.prototype = {
         var raycaster = new THREE.Raycaster(position, direction)
 
         var intersects = raycaster.intersectObjects(this.scene.children)
-        
-        for (var i = 0; i < intersects.length; i++) {
-            console.log(intersects[i])
+
+        if (intersects.length > 0) {
+            console.log('There are ' + intersects.length + ' intersections!')
         }
+
+        //for (var i = 0; i < intersects.length; i++) {
+        //    console.log(intersects[i])
+        //}
     }
 }
