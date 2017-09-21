@@ -10,6 +10,11 @@ LoginWorld.prototype = {
 
     player: null,
 
+    username_label: null,
+    username_field: null,
+    password_label: null,
+    password_field: null,
+
     __init__: function() {
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -38,27 +43,27 @@ LoginWorld.prototype = {
         var look_at_vector = new THREE.Vector3(0, 50, 0)
         var look_at_vector2 = new THREE.Vector3(0, 20, 0)
 
-        var username_label = new Floating2DText(50, 20, 'Username :')
-        username_label.create(this.scene)
-        var username_field = new Floating2DText(100, 20, '')
-        username_field.create(this.scene)
+        this.username_label = new Floating2DText(50, 20, 'Username :')
+        this.username_label.create(this.scene)
+        this.username_field = new Floating2DText(100, 20, '')
+        this.username_field.create(this.scene)
 
-        var password_label = new Floating2DText(50, 20, 'Password :')
-        password_label.create(this.scene)
-        var password_field = new Floating2DText(100, 20, '')
-        password_field.create(this.scene)
+        this.password_label = new Floating2DText(50, 20, 'Password :')
+        this.password_label.create(this.scene)
+        this.password_field = new Floating2DText(100, 20, '')
+        this.password_field.create(this.scene)
 
-        var username_position0 = new THREE.Vector3(0, 50, 45)
-        var username_position1 = new THREE.Vector3(60, 50, 45)
+        var username_position0 = new THREE.Vector3(0, 70, 45)
+        var username_position1 = new THREE.Vector3(60, 70, 45)
 
-        var password_position0 = new THREE.Vector3(0, 20, 45)
-        var password_position1 = new THREE.Vector3(60, 20, 45)
+        var password_position0 = new THREE.Vector3(0, 40, 45)
+        var password_position1 = new THREE.Vector3(60, 40, 45)
 
-        username_label.update_position_and_look_at(username_position0, new THREE.Vector3(0, 70, 55))
-        username_field.update_position_and_look_at(username_position1, new THREE.Vector3(60, 70, 55))
+        this.username_label.update_position_and_look_at(username_position0, new THREE.Vector3(0, 70, 55))
+        this.username_field.update_position_and_look_at(username_position1, new THREE.Vector3(60, 70, 55))
 
-        password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
-        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 55))
+        this.password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
+        this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 55))
     },
 
     add_to_scene: function(object) {
@@ -73,10 +78,15 @@ LoginWorld.prototype = {
 
         var intersects = raycaster.intersectObjects(this.scene.children)
 
-        if (intersects.length > 0) {
+        if (intersects.length > 1) {
             console.log('There are ' + intersects.length + ' intersections!')
         }
 
+        console.log(raycaster.intersectObject(this.username_label.object3d))
+        console.log(raycaster.intersectObject(this.username_field.object3d))
+        console.log(raycaster.intersectObject(this.password_label.object3d))
+        console.log(raycaster.intersectObject(this.password_field.object3d))
+        console.log('@@@@@@@@@@@@@@@@@@@@@@')
         //for (var i = 0; i < intersects.length; i++) {
         //    console.log(intersects[i])
         //}
