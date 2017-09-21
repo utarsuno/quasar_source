@@ -20,7 +20,7 @@ Floating2DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear().drawText(text, 50, 30, 'black')
+            this.dynamic_texture.clear().drawText(text, 0, 20, 'black')
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
