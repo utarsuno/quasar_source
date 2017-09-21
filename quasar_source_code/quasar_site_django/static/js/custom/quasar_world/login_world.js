@@ -87,7 +87,7 @@ LoginWorld.prototype = {
             console.log(aa)
         }
 
-        var bbb = raycaster.intersectObject(this.username_field.object3d, true)
+        var bb = raycaster.intersectObject(this.username_field.object3d, true)
         if (bb.length > 0) {
             console.log(bb)
         }
