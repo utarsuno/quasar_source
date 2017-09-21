@@ -296,7 +296,6 @@ FPSControls.prototype = {
                 this.left_right = new THREE.Vector3(0, 1 + this.direction_vector.y, 0)
             }
 
-            this.left_right = new THREE.Vector3(0, this.direction_vector.y, 0)
             this.left_right.cross(this.direction_vector)
 
             if (!this.flying_on) {
