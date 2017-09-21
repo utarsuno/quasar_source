@@ -8,6 +8,7 @@ var player = new Player(renderer_api)
 
 // LoginWorld.
 var login_world = new LoginWorld()
+renderer_api.set_current_scene(login_world.scene)
 
 var previous_time = performance.now()
 
