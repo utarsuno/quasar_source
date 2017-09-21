@@ -55,8 +55,8 @@ LoginWorld.prototype = {
         username_label.update_position_and_look_at(username_position0, look_at_vector)
         username_field.update_position_and_look_at(username_position1, look_at_vector)
 
-        password_label.update_position_and_look_at(password_position0, THREE.Vector3(0, 20, 55))
-        password_field.update_position_and_look_at(password_position1, THREE.Vector3(0, 20, 165))
+        password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 20, 55))
+        password_field.update_position_and_look_at(password_position1, new THREE.Vector3(0, 20, 165))
     },
 
     add_to_scene: function(object) {
