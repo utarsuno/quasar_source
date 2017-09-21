@@ -20,7 +20,7 @@ Floating2DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear().drawText(text, 5, 5, 'black')
+            this.dynamic_texture.clear().drawText(text, 5, 10, 'black')
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
@@ -30,8 +30,8 @@ Floating2DText.prototype = {
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
-        this.dynamic_texture = new THREEx.DynamicTexture(this.width, this.height)
-        this.dynamic_texture.context.font = 'boldest 8px Verdana'
+        this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2)
+        this.dynamic_texture.context.font = 'Bold 8px Arial'
         this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({
