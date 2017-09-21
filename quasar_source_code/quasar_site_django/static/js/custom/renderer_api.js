@@ -20,6 +20,7 @@ RendererAPI.prototype = {
 
     // Three js object.
     scene           : null,
+    current_scene   : null,
 
     // These variables get added later on.
     camera          : null,
@@ -28,6 +29,9 @@ RendererAPI.prototype = {
         this.webgl_enabled = !!Detector.webgl
         if (this.webgl_enabled === false) {
             this.warning_message = Detector.getWebGLErrorMessage()
+            console.log('WebGL is not enabled!')
+            console.log(this.get_warning_message())
+            throw new Error('WebGL is not enabled!')
         } else {
             this.stats_api = new StatsAPI()
 
@@ -46,13 +50,14 @@ RendererAPI.prototype = {
             this.renderer.domElement.style.zIndex = 1
             this.renderer.domElement.style.top = 0
 
-            //document.body.appendChild(this.renderer.domElement)
+            document.body.appendChild(this.renderer.domElement)
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
-
-            // Create the scene.
-            this.scene = new THREE.Scene()
         }
+    },
+
+    set_current_scene: function(object) {
+        this.scene = object
     },
 
     add_to_scene: function(object) {
@@ -97,6 +102,7 @@ RendererAPI.prototype = {
     }
 }
 
+// NOT BEING USED FOR THE TIME BEING, POTENTIALLY FOREVER c:
 function CSSRendererAPI() {
     this.__init__()
 }

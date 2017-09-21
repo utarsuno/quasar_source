@@ -17,9 +17,6 @@ import dill
 '''
 
 
-# TODO : DO MAJOR REFACTORS, GOING TO USE DILL MODULE
-
-
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 

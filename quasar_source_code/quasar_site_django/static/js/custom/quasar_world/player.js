@@ -9,8 +9,6 @@ Player.prototype = {
     // Custom variables.
     logged_in       : null,
 
-    login_panel     : null,
-
     // Three JS objects.
     camera          : null,
 
@@ -33,13 +31,14 @@ Player.prototype = {
 
         // Set player state.
         this.logged_in = false
-        this.login_panel = new LoginPanel(renderer_api)
+        //this.login_panel = new LoginPanel(renderer_api)
     },
 
     update: function(delta) {
         this.fps_controls.physics(delta)
         this.data_display.update()
 
+        /*
         // Temp code.
         if (this.fps_controls.enabled) {
             var d = this.fps_controls.get_direction()
@@ -47,6 +46,7 @@ Player.prototype = {
             this.login_panel.update(p, d)
         }
         //this.login_panel.set_rotation(d.x, d.y, d.z)
+        */
     }
 
 }

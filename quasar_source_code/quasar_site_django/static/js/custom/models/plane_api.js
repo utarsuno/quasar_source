@@ -24,7 +24,7 @@ PlaneAPI.prototype = {
         this.object3d.add(this.geometry.mesh)
     },
 
-    create: function(renderer_api) {
+    create: function(scene) {
         this.material = new THREE.MeshBasicMaterial({
             color: 0x000000,
             opacity: 0.5,
@@ -38,7 +38,7 @@ PlaneAPI.prototype = {
         var wireframe = new THREE.LineSegments( geo, mat )
         this.mesh.add(wireframe)
 
-        renderer_api.add_to_scene(this.mesh)
+        scene.add(this.mesh)
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
