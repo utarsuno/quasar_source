@@ -82,11 +82,25 @@ LoginWorld.prototype = {
             console.log('There are ' + intersects.length + ' intersections!')
         }
 
-        console.log(raycaster.intersectObject(this.username_label.object3d))
-        console.log(raycaster.intersectObject(this.username_field.object3d))
-        console.log(raycaster.intersectObject(this.password_label.object3d))
-        console.log(raycaster.intersectObject(this.password_field.object3d))
-        console.log('@@@@@@@@@@@@@@@@@@@@@@')
+        var aa = raycaster.intersectObject(this.username_label.object3d, true)
+        if (aa.length > 0) {
+            console.log(aa)
+        }
+
+        var bbb = raycaster.intersectObject(this.username_field.object3d, true)
+        if (bb.length > 0) {
+            console.log(bb)
+        }
+
+        var cc = raycaster.intersectObject(this.password_label.object3d, true)
+        if (cc.length > 0) {
+            console.log(cc)
+        }
+
+        var dd = raycaster.intersectObject(this.password_field.object3d, true)
+        if (dd.length > 0) {
+            console.log(dd)
+        }
         //for (var i = 0; i < intersects.length; i++) {
         //    console.log(intersects[i])
         //}
