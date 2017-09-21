@@ -38,6 +38,17 @@ LoginWorld.prototype = {
         var position_vector = new THREE.Vector3(50, 50, 50)
         var look_at_vector = new THREE.Vector3(0, 50, 0)
         text_plane.update_position_and_look_at(position_vector, look_at_vector)
+
+        var username_label = new Floating2DText(50, 20, 'Username :')
+        username_label.create(this.scene)
+        var username_field = new Floating2DText(100, 20, '')
+        username_field.create(this.scene)
+
+        var username_position0 = new THREE.Vector3(45, 50, 0)
+        var username_position1 = new THREE.Vector3(55, 50, 0)
+
+        username_label.update_position_and_look_at(username_position0, look_at_vector)
+        username_field.update_position_and_look_at(username_position1, look_at_vector)
     },
 
     add_to_scene: function(object) {
