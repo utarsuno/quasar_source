@@ -46,11 +46,11 @@ LoginWorld.prototype = {
         var password_field = new Floating2DText(100, 20, '')
         password_field.create(this.scene)
 
-        var username_position0 = new THREE.Vector3(45, 50, 0)
-        var username_position1 = new THREE.Vector3(155, 50, 0)
+        var username_position0 = new THREE.Vector3(45, 50, 45)
+        var username_position1 = new THREE.Vector3(45, 50, 155)
 
-        var password_position0 = new THREE.Vector3(45, 20, 0)
-        var password_position1 = new THREE.Vector3(155, 20, 0)
+        var password_position0 = new THREE.Vector3(45, 20, 45)
+        var password_position1 = new THREE.Vector3(45, 20, 155)
 
         username_label.update_position_and_look_at(username_position0, look_at_vector)
         username_field.update_position_and_look_at(username_position1, look_at_vector)
