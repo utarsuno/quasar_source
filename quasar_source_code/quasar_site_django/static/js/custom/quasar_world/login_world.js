@@ -16,7 +16,7 @@ LoginWorld.prototype = {
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
         plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
         //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
-        var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
+        var plane_material = new THREE.MeshBasicMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
         var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
         this.add_to_scene(plane_mesh)
 
@@ -33,6 +33,7 @@ LoginWorld.prototype = {
         // Add the text.
         var text_plane = new Floating2DText(200, 50, 'Hello Worlddddddddddd')
         text_plane.create(this.scene)
+
     },
 
     add_to_scene: function(object) {
