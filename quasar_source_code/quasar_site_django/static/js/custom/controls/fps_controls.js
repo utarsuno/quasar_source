@@ -29,6 +29,9 @@ FPSControls.prototype = {
     max_downward_view : null,
     direction_vector  : null,
 
+    // Mouse movement variables.
+
+
     // Constants.
     half_pie          : null,
     max_view_angle    : null,
@@ -286,7 +289,8 @@ FPSControls.prototype = {
 
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()
-            this.left_right = new THREE.Vector3(0, 1, 0)
+            //this.left_right = new THREE.Vector3(0, 1, 0)
+            this.left_right = new THREE.Vector3(0, this.direction_vector.y, 0)
             this.left_right.cross(this.direction_vector)
 
             if (!this.flying_on) {

@@ -15,3 +15,5 @@ print('Ground normal : ' + str(ground_normal))
 
 print(camera_direction.project_onto_plane(ground_normal))
 
+
+

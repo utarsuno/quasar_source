@@ -8,6 +8,11 @@ DataDisplay.prototype = {
     x_coordinate: null,
     y_coordinate: null,
     z_coordinate: null,
+
+    x_direction: null,
+    y_direction: null,
+    z_direction: null,
+
     fps_controls: null,
 
     __init__: function(fps_controls) {
@@ -28,12 +33,14 @@ DataDisplay.prototype = {
     },
 
     update: function() {
-        this.x_coordinate.textContent = 'x : ' + this.rounded(this.fps_controls.get_position().x) + ' | ' + this.rounded(this.fps_controls.get_velocity().x)
-        this.y_coordinate.textContent = 'y : ' + this.rounded(this.fps_controls.get_position().y) + ' | ' + this.rounded(this.fps_controls.get_velocity().y)
-        this.z_coordinate.textContent = 'z : ' + this.rounded(this.fps_controls.get_position().z) + ' | ' + this.rounded(this.fps_controls.get_velocity().z)
+        var position = this.fps_controls.get_position()
+        var direction = this.fps_controls.get_direction()
+        this.x_coordinate.textContent = 'x : ' + this.rounded(position.x) + ' | ' + this.rounded(this.fps_controls.get_velocity().x)
+        this.y_coordinate.textContent = 'y : ' + this.rounded(position.y) + ' | ' + this.rounded(this.fps_controls.get_velocity().y)
+        this.z_coordinate.textContent = 'z : ' + this.rounded(position.z) + ' | ' + this.rounded(this.fps_controls.get_velocity().z)
 
-        this.x_direction.textContent = 'xd : ' + this.rounded(this.fps_controls.get_direction().x)
-        this.y_direction.textContent = 'yd : ' + this.rounded(this.fps_controls.get_direction().y)
-        this.z_direction.textContent = 'zd : ' + this.rounded(this.fps_controls.get_direction().z)
+        this.x_direction.textContent = 'xd : ' + this.rounded(direction.x)
+        this.y_direction.textContent = 'yd : ' + this.rounded(direction.y)
+        this.z_direction.textContent = 'zd : ' + this.rounded(direction.z)
     }
 }
