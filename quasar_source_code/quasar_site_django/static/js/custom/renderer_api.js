@@ -19,6 +19,8 @@ RendererAPI.prototype = {
     stats_api       : null,
 
     // Three js object.
+    previous_world  : null,
+    previous_scene  : null,
     world           : null,
     scene           : null,
     current_scene   : null,
@@ -62,8 +64,16 @@ RendererAPI.prototype = {
     },
 
     set_current_world: function(world) {
+        if (this.world !== null) {
+            this.previous_world = this.world
+            this.previous_scene = this.scene
+        } else {
+            this.world.exit_world()
+        }
         this.world = world
         this.scene = this.world.scene
+
+        this.world.enter_world()
     },
 
     add_to_scene: function(object) {

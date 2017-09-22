@@ -77,6 +77,10 @@ Player.prototype = {
             this.key_down_d = false
             break
         }
+    },
+
+    look_at: function(vector) {
+        this.fps_controls.yaw.lookAt(vector)
     }
 
 }

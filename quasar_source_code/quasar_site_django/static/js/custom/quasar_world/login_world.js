@@ -23,7 +23,7 @@ LoginWorld.prototype = {
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
         plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
         //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
-        var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: false})
+        var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
         var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
         this.add_to_scene(plane_mesh)
 
@@ -40,8 +40,6 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // Add the text.
-        var look_at_vector = new THREE.Vector3(0, 50, 0)
-        var look_at_vector2 = new THREE.Vector3(0, 20, 0)
 
         this.username_label = new Floating2DText(50, 20, 'Username :')
         this.username_label.create(this.scene)
@@ -136,5 +134,13 @@ LoginWorld.prototype = {
                 this.password_field.add_character(chr)
             }
         }
+    },
+
+    enter_world: function() {
+        this.player.look_at(new THREE.Vector3(0, 70, 45))
+    },
+
+    exit_world: function() {
+
     }
 }
