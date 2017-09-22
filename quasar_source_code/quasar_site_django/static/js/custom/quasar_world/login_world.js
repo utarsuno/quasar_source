@@ -64,6 +64,10 @@ LoginWorld.prototype = {
 
         this.password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
         this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(75, 40, 55))
+
+
+        // Handle key press events.
+        document.addEventListener('keypress', this.on_key_press.bind(this), false)
     },
 
     add_to_scene: function(object) {
@@ -76,33 +80,61 @@ LoginWorld.prototype = {
 
         var raycaster = new THREE.Raycaster(position, direction)
 
+        /*
         var intersects = raycaster.intersectObjects(this.scene.children)
-
         if (intersects.length > 1) {
             console.log('There are ' + intersects.length + ' intersections!')
-        }
+        }*/
+
+        this.username_field.active = false
+        this.password_field.active = false
 
         var aa = raycaster.intersectObject(this.username_label.object3d, true)
         if (aa.length > 0) {
-            console.log(aa)
+            //console.log(aa)
         }
 
         var bb = raycaster.intersectObject(this.username_field.object3d, true)
         if (bb.length > 0) {
-            console.log(bb)
+            //console.log(bb)
+            this.username_field.active = true
         }
 
         var cc = raycaster.intersectObject(this.password_label.object3d, true)
         if (cc.length > 0) {
-            console.log(cc)
+            //console.log(cc)
         }
 
         var dd = raycaster.intersectObject(this.password_field.object3d, true)
         if (dd.length > 0) {
-            console.log(dd)
+            //console.log(dd)
+            this.password_field.active = true
         }
         //for (var i = 0; i < intersects.length; i++) {
         //    console.log(intersects[i])
         //}
+    },
+
+    on_key_press: function(event) {
+        var keycode = event.keyCode
+
+        var valid = (keycode > 47 && keycode < 58) || // number keys
+        keycode == 32                    || // spacebar
+        (keycode > 64 && keycode < 91)   || // letter keys
+        (keycode > 95 && keycode < 112)  || // numpad keys
+        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        (keycode > 218 && keycode < 223)   // [\]' (in order)
+
+        if (valid) {
+
+            var chrCode = keycode - 48 * Math.floor(keycode / 48)
+            var chr = String.fromCharCode((96 <= keycode) ? chrCode: keycode)
+
+            if (this.username_field.active) {
+                this.username_field.add_character(chr)
+            } else if (this.password_field.active) {
+                this.password_field.add_character(chr)
+            }
+        }
     }
 }

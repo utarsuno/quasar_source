@@ -11,11 +11,19 @@ Floating2DText.prototype = {
 
     object3d: null,
 
+    active: null,
+
     __init__: function(w, h, text) {
         this.width    = w
         this.height   = h
 
         this.text     = text
+
+        this.active   = false
+    },
+
+    add_character: function(character) {
+        this.update_text(this.text + character)
     },
 
     update_text: function(text) {
