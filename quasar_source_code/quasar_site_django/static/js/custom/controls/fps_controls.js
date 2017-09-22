@@ -294,7 +294,7 @@ FPSControls.prototype = {
 
             var temp = new THREE.Vector3(this.direction_vector.x, 0, this.direction_vector.z)
             temp.normalize()
-            var axis = new THREE.Vector3(0, 1, 0)
+            var axis = new THREE.Vector3(0, 0, 1)
             var angle = -Math.PI / 2
 
             temp.applyAxisAngle(axis, angle)
