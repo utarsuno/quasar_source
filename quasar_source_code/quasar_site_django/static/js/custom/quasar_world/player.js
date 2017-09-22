@@ -6,6 +6,10 @@ function Player(renderer_api) {
 
 Player.prototype = {
 
+    // Current state.
+    mouse_locked    : null,
+    engaged         : null,
+
     // Custom variables.
     logged_in       : null,
 

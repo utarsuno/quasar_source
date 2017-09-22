@@ -15,8 +15,13 @@ Crosshair.prototype = {
         this.context = this.canvas.getContext('2d')
 
         // center
-        var x = this.canvas.width
-        var y = this.canvas.height
+        var x = this.canvas.width / 2
+        var y = this.canvas.height / 2
+
+        console.log('Canvas width is :')
+        console.log(this.canvas.width)
+        console.log('Canvas height is :')
+        console.log(this.canvas.height)
 
         // remove aliasing
         x = Math.floor(x) + 0.5

@@ -22,11 +22,6 @@ Floating2DText.prototype = {
         this.active   = false
     },
 
-    add_character: function(character) {
-        this.text = this.text + character
-        this.update_text(this.text)
-    },
-
     update_text: function(text) {
         if (this.current_text !== text) {
             this.dynamic_texture.clear().drawText(text, 0, 20, 'black')
@@ -68,5 +63,14 @@ Floating2DText.prototype = {
         this.object3d.position.y = position_vector.y
         this.object3d.position.z = position_vector.z
         this.object3d.lookAt(look_at_position)
+    },
+
+    add_character: function(character) {
+        this.text = this.text + character
+        this.update_text(this.text)
+    },
+
+    add_keycode: function(keycode) {
+        this.add_character(String.fromCharCode((96 <= key && key <= 105) ? key-48 : key))
     }
 }
