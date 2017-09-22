@@ -65,10 +65,9 @@ RendererAPI.prototype = {
 
     set_current_world: function(world) {
         if (this.world !== null) {
+            this.world.exit_world()
             this.previous_world = this.world
             this.previous_scene = this.scene
-        } else {
-            this.world.exit_world()
         }
         this.world = world
         this.scene = this.world.scene
