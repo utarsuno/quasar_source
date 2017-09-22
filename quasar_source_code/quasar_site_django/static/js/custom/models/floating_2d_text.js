@@ -68,9 +68,6 @@ Floating2DText.prototype = {
     add_character: function(character) {
         this.text = this.text + character
         this.update_text(this.text)
-    },
-
-    add_keycode: function(keycode) {
-        this.add_character(String.fromCharCode((96 <= key && key <= 105) ? key-48 : key))
     }
+
 }
