@@ -17,6 +17,7 @@ Player.prototype = {
     pointer_lock_api: null,
     fps_controls    : null,
     data_display    : null,
+    cross_hair      : null,
 
     // Tracking keyboard keys.
     key_down_ctrl: null,
@@ -32,6 +33,8 @@ Player.prototype = {
         this.pointer_lock_api = new PointerLockAPI(this.fps_controls)
 
         this.data_display = new DataDisplay(this.fps_controls)
+
+        this.cross_hair = new Crosshair()
 
         this.key_down_ctrl = false
         this.key_down_d    = false

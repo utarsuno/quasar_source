@@ -40,7 +40,8 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2)
-        this.dynamic_texture.context.font = 'Bold 20px Arial'
+        //this.dynamic_texture.context.font = 'Bold 20px Arial'
+        this.dynamic_texture.context.font = '16px Arial'
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({

@@ -1,0 +1,36 @@
+'use strict'
+
+function Crosshair() {
+    this.__init__()
+}
+
+Crosshair.prototype = {
+
+    canvas: null,
+
+    __init__: function() {
+        this.canvas = document.getElementsByTagName('CANVAS')[0]
+        this.context = this.canvas.getContext('2d')
+
+        // center
+        var x = this.canvas.width / 2
+        var y = this.canvas.height / 2
+
+        // remove aliasing
+        x = Math.floor(x) + 0.5
+        y = Math.floor(y) + 0.5
+        this.context.strokeWidth = 1
+
+        this.context.moveTo(x, y - 10)
+        this.context.lineTo(x, y + 10)
+
+        this.context.moveTo(x - 10,  y)
+        this.context.lineTo(x + 10,  y)
+
+        // Line color
+        this.context.strokeStyle = 'green'
+
+        this.context.stroke()
+    }
+
+}
