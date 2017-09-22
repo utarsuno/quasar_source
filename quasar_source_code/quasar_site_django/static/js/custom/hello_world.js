@@ -22,7 +22,7 @@ var animate = function () {
     var delta = (time - previous_time) / 1000
 
     player.update(delta)
-    this.renderer_api.update_current_scene()
+    renderer_api.update_current_scene()
 
     renderer_api.render()
 
