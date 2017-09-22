@@ -23,7 +23,8 @@ Floating2DText.prototype = {
     },
 
     add_character: function(character) {
-        this.update_text(this.text + character)
+        this.text = this.text + character
+        this.update_text(this.text)
     },
 
     update_text: function(text) {
