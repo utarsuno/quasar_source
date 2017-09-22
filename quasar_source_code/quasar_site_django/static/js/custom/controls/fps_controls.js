@@ -305,6 +305,8 @@ FPSControls.prototype = {
 
             this.left_right.cross(this.direction_vector)
 
+            this.left_right.normalize()
+
             if (!this.flying_on) {
                 this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
                 this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
