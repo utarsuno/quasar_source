@@ -48,8 +48,6 @@ Player.prototype = {
     update: function(delta) {
         this.fps_controls.physics(delta)
         this.data_display.update()
-
-        this.renderer_api.update_current_scene()
     },
 
     on_key_down: function(event) {
