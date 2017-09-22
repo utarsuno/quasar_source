@@ -77,7 +77,7 @@ Player.prototype = {
             this.key_down_d = false
             break
         }
-    },
+    }
 
 }
 
