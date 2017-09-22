@@ -15,6 +15,8 @@ LoginWorld.prototype = {
     password_label: null,
     password_field: null,
 
+    set_player_look_at: null,
+
     __init__: function() {
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -66,6 +68,8 @@ LoginWorld.prototype = {
 
         // Handle key press events.
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
+
+        this.set_player_look_at = false
     },
 
     add_to_scene: function(object) {
@@ -73,6 +77,13 @@ LoginWorld.prototype = {
     },
 
     update: function() {
+
+        if (this.set_player_look_at) {
+            this.player.look_at(new THREE.Vector3(0, 70, 45))
+            this.set_player_look_at = false
+        }
+
+
         var position = this.player.fps_controls.get_position()
         var direction = this.player.fps_controls.get_direction()
 
@@ -137,7 +148,11 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-        this.player.look_at(new THREE.Vector3(0, 70, 45))
+        if (this.player == null) {
+            this.set_player_look_at = true
+        } else {
+            this.player.look_at(new THREE.Vector3(0, 70, 45))
+        }
     },
 
     exit_world: function() {
