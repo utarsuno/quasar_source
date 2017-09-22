@@ -136,7 +136,7 @@ LoginWorld.prototype = {
 
         if (valid) {
 
-            var chr = String.fromCharCode((96 <= key && key <= 105) ? key-48 : key)
+            var chr = String.fromCharCode((96 <= keycode && keycode <= 105) ? keycode-48 : keycode)
 
             if (this.username_field.active) {
                 this.username_field.add_character(chr)

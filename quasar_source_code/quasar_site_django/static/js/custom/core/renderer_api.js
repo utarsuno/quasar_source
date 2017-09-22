@@ -28,6 +28,9 @@ RendererAPI.prototype = {
     // These variables get added later on.
     camera          : null,
 
+    // Player controlled object.
+    crosshair       : null,
+
     __init__: function() {
         this.webgl_enabled = !!Detector.webgl
         if (this.webgl_enabled === false) {
@@ -102,6 +105,7 @@ RendererAPI.prototype = {
         this.camera.aspect = this.aspect_ratio
         this.camera.updateProjectionMatrix()
         this.renderer.setSize(this.window_width, this.window_height)
+        this.crosshair.set_center_x_center_y(this.window_width / 2, this.window_height / 2)
     },
 
     set_camera: function(camera) {
