@@ -54,16 +54,16 @@ LoginWorld.prototype = {
         this.password_field.create(this.scene)
 
         var username_position0 = new THREE.Vector3(0, 70, 45)
-        var username_position1 = new THREE.Vector3(60, 70, 45)
+        var username_position1 = new THREE.Vector3(75, 70, 45)
 
         var password_position0 = new THREE.Vector3(0, 40, 45)
-        var password_position1 = new THREE.Vector3(60, 40, 45)
+        var password_position1 = new THREE.Vector3(75, 40, 45)
 
         this.username_label.update_position_and_look_at(username_position0, new THREE.Vector3(0, 70, 55))
-        this.username_field.update_position_and_look_at(username_position1, new THREE.Vector3(60, 70, 55))
+        this.username_field.update_position_and_look_at(username_position1, new THREE.Vector3(75, 70, 55))
 
         this.password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
-        this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(60, 40, 55))
+        this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(75, 40, 55))
     },
 
     add_to_scene: function(object) {

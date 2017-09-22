@@ -291,16 +291,17 @@ FPSControls.prototype = {
             this.direction_vector.normalize()
 
             // TODO : This needs to be fixed.
-
+            /*
             var temp = new THREE.Vector3(this.direction_vector.x, 0, this.direction_vector.z)
             temp.normalize()
             var axis = new THREE.Vector3(0, 0, 1)
-            var angle = -Math.PI / 2
+            var angle = Math.PI / 2
 
             temp.applyAxisAngle(axis, angle)
 
-            this.left_right = temp
-            //this.left_right = new THREE.Vector3(0, 1, 0)
+            this.left_right = temp*/
+
+            this.left_right = new THREE.Vector3(0, 1, 0)
 
             this.left_right.cross(this.direction_vector)
 
