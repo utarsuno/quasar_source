@@ -105,13 +105,18 @@ LoginWorld.prototype = {
         this.username_field.being_looked_at = false
         this.password_field.being_looked_at = false
 
-        if ((raycaster.intersectObject(this.username_label.object3d, true)).length > 0) {
+        var aa = raycaster.intersectObject(this.username_label.object3d, true)
+        var bb = raycaster.intersectObject(this.username_field.object3d, true)
+        var cc = raycaster.intersectObject(this.password_label.object3d, true)
+        var dd = raycaster.intersectObject(this.password_field.object3d, true)
+
+        if (aa.length > 0) {
             this.username_label.being_looked_at = true
-        } else if ((raycaster.intersectObject(this.username_field.object3d, true)).length > 0) {
+        } else if (bb.length > 0) {
             this.username_field.being_looked_at = true
-        } else if ((raycaster.intersectObject(this.password_label.object3d, true)).length > 0) {
+        } else if (cc.length > 0) {
             this.password_label.being_looked_at = true
-        } else if ((raycaster.intersectObject(this.password_field.object3d, true)).length > 0) {
+        } else if (dd.length > 0) {
             this.password_field.being_looked_at = true
         }
     },
@@ -140,9 +145,9 @@ LoginWorld.prototype = {
             break
         }
 
-        if (this.username_field.active) {
+        if (this.username_field.is_engaged()) {
             this.username_field.parse_keycode(event)
-        } else if (this.password_field.active) {
+        } else if (this.password_field.is_engaged()) {
             this.password_field.parse_keycode(event)
         }
     },

@@ -29,6 +29,10 @@ Floating2DText.prototype = {
         this.being_engaged_with = false
     },
 
+    is_engaged: function() {
+        return this.being_engaged_with
+    },
+
     engage: function() {
         this.being_engaged_with = true
     },
