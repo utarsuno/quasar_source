@@ -15,6 +15,9 @@ Floating2DText.prototype = {
     being_looked_at: null,
     being_engaged_with: null,
 
+    // Properties.
+    password_type: null,
+
     __init__: function(w, h, text) {
         this.width              = w
         this.height             = h
@@ -23,6 +26,12 @@ Floating2DText.prototype = {
 
         this.being_looked_at    = false
         this.being_engaged_with = false
+
+        this.password_type      = false
+    },
+
+    set_to_password_type: function() {
+        this.password_type = true
     },
 
     disengage: function() {
@@ -98,20 +107,12 @@ Floating2DText.prototype = {
                 this.pop_character()
             }
         } else if (event.key.length == 1) {
-            this.add_character(event.key)
+            if (this.password_type) {
+                this.add_character('*')
+            } else {
+                this.add_character(event.key)
+            }
         }
-
-        var valid = (keycode > 47 && keycode < 58) || // number keys
-        keycode == 32                    || // spacebar
-        (keycode > 64 && keycode < 91)   || // letter keys
-        (keycode > 95 && keycode < 112)  || // numpad keys
-        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        (keycode > 218 && keycode < 223)   // [\]' (in order)
-
-        console.log('The keycode entered is :')
-        console.log(keycode)
-        console.log(event)
-        console.log('    ')
     }
 
 }

@@ -51,6 +51,7 @@ LoginWorld.prototype = {
         this.password_label = new Floating2DText(50, 20, 'Password :')
         this.password_label.create(this.scene)
         this.password_field = new Floating2DText(100, 20, '')
+        this.password_field.set_to_password_type()
         this.password_field.create(this.scene)
 
         this.login_button = new Floating2DText(50, 20, 'Login')
