@@ -72,7 +72,7 @@ LoginWorld.prototype = {
 
 
         // Handle key press events.
-        document.addEventListener('keypress', this.on_key_press.bind(this), false)
+        document.addEventListener('keydown', this.on_key_press.bind(this), false)
 
         this.set_player_look_at = false
     },
