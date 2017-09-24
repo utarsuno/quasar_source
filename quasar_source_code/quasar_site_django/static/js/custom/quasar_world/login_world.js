@@ -123,10 +123,10 @@ LoginWorld.prototype = {
 
     on_key_press: function(event) {
 
-        console.log(event)
+        //console.log(event)
 
         switch(event.keyCode) {
-        case 101: // e
+        case 69: // e
             if (this.username_field.being_looked_at) {
                 this.username_field.engage()
                 this.player.engage()
@@ -135,7 +135,7 @@ LoginWorld.prototype = {
                 this.player.engage()
             }
             break
-        case 92: // backslash
+        case 220: // backslash
             if (this.player.is_engaged()) {
                 this.player.disengage()
                 if (this.username_field.being_looked_at) {
