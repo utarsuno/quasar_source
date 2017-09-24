@@ -132,7 +132,7 @@ LoginWorld.prototype = {
         console.log(event)
 
         switch(event.keyCode) {
-        case 69: // e
+        case 101: // e
             if (this.username_field.being_looked_at) {
                 console.log('ENGAGE USERNAME FIELD')
                 this.username_field.engage()
@@ -143,7 +143,7 @@ LoginWorld.prototype = {
                 this.player.engage()
             }
             break
-        case 220: // backslash
+        case 92: // backslash
             if (this.player.is_engaged()) {
                 this.player.disengage()
                 if (this.username_field.being_looked_at) {
