@@ -122,6 +122,9 @@ LoginWorld.prototype = {
     },
 
     on_key_press: function(event) {
+
+        console.log(event)
+
         switch(event.keyCode) {
         case 101: // e
             if (this.username_field.being_looked_at) {
