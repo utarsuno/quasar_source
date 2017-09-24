@@ -68,6 +68,26 @@ Floating2DText.prototype = {
     add_character: function(character) {
         this.text = this.text + character
         this.update_text(this.text)
+    },
+
+    pop_character: function(character) {
+        this.text = this.text.slice(0, -1)
+    },
+
+    parse_keycode: function(event) {
+        var keycode = event.keyCode
+
+        var valid = (keycode > 47 && keycode < 58) || // number keys
+        keycode == 32                    || // spacebar
+        (keycode > 64 && keycode < 91)   || // letter keys
+        (keycode > 95 && keycode < 112)  || // numpad keys
+        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+        (keycode > 218 && keycode < 223)   // [\]' (in order)
+
+        console.log('The keycode entered is :')
+        console.log(keycode)
+        console.log(event)
+        console.log('    ')
     }
 
 }

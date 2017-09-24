@@ -125,24 +125,10 @@ LoginWorld.prototype = {
     },
 
     on_key_press: function(event) {
-        var keycode = event.keyCode
-
-        var valid = (keycode > 47 && keycode < 58) || // number keys
-        keycode == 32                    || // spacebar
-        (keycode > 64 && keycode < 91)   || // letter keys
-        (keycode > 95 && keycode < 112)  || // numpad keys
-        (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-        (keycode > 218 && keycode < 223)   // [\]' (in order)
-
-        if (valid) {
-
-            var chr = String.fromCharCode((96 <= keycode && keycode <= 105) ? keycode-48 : keycode)
-
-            if (this.username_field.active) {
-                this.username_field.add_character(chr)
-            } else if (this.password_field.active) {
-                this.password_field.add_character(chr)
-            }
+        if (this.username_field.active) {
+            this.username_field.parse_keycode(event)
+        } else if (this.password_field.active) {
+            this.password_field.parse_keycode(event)
         }
     },
 
