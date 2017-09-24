@@ -111,12 +111,16 @@ LoginWorld.prototype = {
         var dd = raycaster.intersectObject(this.password_field.object3d, true)
 
         if (aa.length > 0) {
+            console.log('AA')
             this.username_label.being_looked_at = true
         } else if (bb.length > 0) {
+            console.log('BB')
             this.username_field.being_looked_at = true
         } else if (cc.length > 0) {
+            console.log('CC')
             this.password_label.being_looked_at = true
         } else if (dd.length > 0) {
+            console.log('DD')
             this.password_field.being_looked_at = true
         }
     },
