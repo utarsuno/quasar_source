@@ -97,9 +97,8 @@ Floating2DText.prototype = {
             if (this.text.length > 0) {
                 this.pop_character()
             }
-        } else if (keycode > 47 && keycode < 58) {
-            // numbers
-            this.add_character('#')
+        } else if (event.key.length == 1) {
+            this.add_character(event.key)
         }
 
         var valid = (keycode > 47 && keycode < 58) || // number keys
