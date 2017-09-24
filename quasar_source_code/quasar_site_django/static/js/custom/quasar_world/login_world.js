@@ -126,19 +126,12 @@ LoginWorld.prototype = {
     },
 
     on_key_press: function(event) {
-
-        console.log('Key pressed:')
-        console.log(event.keyCode)
-        console.log(event)
-
         switch(event.keyCode) {
         case 101: // e
             if (this.username_field.being_looked_at) {
-                console.log('ENGAGE USERNAME FIELD')
                 this.username_field.engage()
                 this.player.engage()
             } else if (this.password_field.being_looked_at) {
-                console.log('ENGAGE PASSWORD FIELD')
                 this.password_field.engage()
                 this.player.engage()
             }
