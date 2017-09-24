@@ -93,6 +93,15 @@ Floating2DText.prototype = {
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
+        if (keycode == 8) {
+            if (this.text.length > 0) {
+                this.pop_character()
+            }
+        } else if (keycode > 47 && keycode < 58) {
+            // numbers
+            this.add_character('#')
+        }
+
         var valid = (keycode > 47 && keycode < 58) || // number keys
         keycode == 32                    || // spacebar
         (keycode > 64 && keycode < 91)   || // letter keys
