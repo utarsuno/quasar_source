@@ -103,11 +103,11 @@ LoginWorld.prototype = {
 
         if (raycaster.intersectObject(this.username_label.object3d, true).length > 0) {
             this.username_label.being_looked_at = true
-        } else if (raycaster.intersectObject(this.username_field.object3d, true) > 0) {
+        } else if (raycaster.intersectObject(this.username_field.object3d, true).length > 0) {
             this.username_field.being_looked_at = true
-        } else if (raycaster.intersectObject(this.password_label.object3d, true) > 0) {
+        } else if (raycaster.intersectObject(this.password_label.object3d, true).length > 0) {
             this.password_label.being_looked_at = true
-        } else if (raycaster.intersectObject(this.password_field.object3d, true) > 0) {
+        } else if (raycaster.intersectObject(this.password_field.object3d, true).length > 0) {
             this.password_field.being_looked_at = true
         }
     },
