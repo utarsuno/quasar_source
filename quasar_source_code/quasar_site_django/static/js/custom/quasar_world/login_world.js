@@ -68,6 +68,8 @@ LoginWorld.prototype = {
         this.password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
         this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(75, 40, 55))
 
+        this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
+
 
         // Handle key press events.
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
@@ -98,16 +100,18 @@ LoginWorld.prototype = {
             console.log('There are ' + intersects.length + ' intersections!')
         }*/
 
+        this.username_label.being_looked_at = false
+        this.password_label.being_looked_at = false
         this.username_field.being_looked_at = false
         this.password_field.being_looked_at = false
 
-        if (raycaster.intersectObject(this.username_label.object3d, true).length > 0) {
+        if ((raycaster.intersectObject(this.username_label.object3d, true)).length > 0) {
             this.username_label.being_looked_at = true
-        } else if (raycaster.intersectObject(this.username_field.object3d, true).length > 0) {
+        } else if ((raycaster.intersectObject(this.username_field.object3d, true)).length > 0) {
             this.username_field.being_looked_at = true
-        } else if (raycaster.intersectObject(this.password_label.object3d, true).length > 0) {
+        } else if ((raycaster.intersectObject(this.password_label.object3d, true)).length > 0) {
             this.password_label.being_looked_at = true
-        } else if (raycaster.intersectObject(this.password_field.object3d, true).length > 0) {
+        } else if ((raycaster.intersectObject(this.password_field.object3d, true)).length > 0) {
             this.password_field.being_looked_at = true
         }
     },
