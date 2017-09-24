@@ -10,8 +10,9 @@ Player.prototype = {
     mouse_locked    : null,
     engaged         : null,
 
-    // Custom variables.
+    // Custom state variables.
     logged_in       : null,
+    engaged         : null, 
 
     // Three JS objects.
     camera          : null,
@@ -21,12 +22,12 @@ Player.prototype = {
     pointer_lock_api: null,
     fps_controls    : null,
     data_display    : null,
-    crosshair      : null,
+    crosshair       : null,
 
     // Tracking keyboard keys.
     key_down_ctrl: null,
     key_down_d   : null,
-
+    
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
@@ -48,6 +49,21 @@ Player.prototype = {
 
         // Set player state.
         this.logged_in = false
+        this.engaged   = false
+    },
+
+    disengage: function() {
+        this.engaged = false
+        this.fps_controls.enable()
+    },
+
+    is_engaged: function() {
+        return this.engaged
+    },
+
+    engage: function() {
+        this.engaged = true
+        this.fps_controls.disable()
     },
 
     update: function(delta) {

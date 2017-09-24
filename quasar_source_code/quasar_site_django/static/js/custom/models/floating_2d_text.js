@@ -11,15 +11,26 @@ Floating2DText.prototype = {
 
     object3d: null,
 
-    active: null,
+    // States.
+    being_looked_at: null,
+    being_engaged_with: null,
 
     __init__: function(w, h, text) {
-        this.width    = w
-        this.height   = h
+        this.width              = w
+        this.height             = h
 
-        this.text     = text
+        this.text               = text
 
-        this.active   = false
+        this.being_looked_at    = false
+        this.being_engaged_with = false
+    },
+
+    disengage: function() {
+        this.being_engaged_with = false
+    },
+
+    engage: function() {
+        this.being_engaged_with = true
     },
 
     update_text: function(text) {
@@ -70,8 +81,9 @@ Floating2DText.prototype = {
         this.update_text(this.text)
     },
 
-    pop_character: function(character) {
+    pop_character: function() {
         this.text = this.text.slice(0, -1)
+        this.update_text(this.text)
     },
 
     parse_keycode: function(event) {

@@ -53,6 +53,9 @@ LoginWorld.prototype = {
         this.password_field = new Floating2DText(100, 20, '')
         this.password_field.create(this.scene)
 
+        this.login_button = new Floating2DText(50, 20, 'Login')
+        this.login_button.create(this.scene)
+
         var username_position0 = new THREE.Vector3(0, 70, 45)
         var username_position1 = new THREE.Vector3(75, 70, 45)
 
@@ -95,36 +98,44 @@ LoginWorld.prototype = {
             console.log('There are ' + intersects.length + ' intersections!')
         }*/
 
-        this.username_field.active = false
-        this.password_field.active = false
+        this.username_field.being_looked_at = false
+        this.password_field.being_looked_at = false
 
-        var aa = raycaster.intersectObject(this.username_label.object3d, true)
-        if (aa.length > 0) {
-            //console.log(aa)
+        if (raycaster.intersectObject(this.username_label.object3d, true).length > 0) {
+            this.username_label.being_looked_at = true
+        } else if (raycaster.intersectObject(this.username_field.object3d, true) > 0) {
+            this.username_field.being_looked_at = true
+        } else if (raycaster.intersectObject(this.password_label.object3d, true) > 0) {
+            this.password_label.being_looked_at = true
+        } else if (raycaster.intersectObject(this.password_field.object3d, true) > 0) {
+            this.password_field.being_looked_at = true
         }
-
-        var bb = raycaster.intersectObject(this.username_field.object3d, true)
-        if (bb.length > 0) {
-            //console.log(bb)
-            this.username_field.active = true
-        }
-
-        var cc = raycaster.intersectObject(this.password_label.object3d, true)
-        if (cc.length > 0) {
-            //console.log(cc)
-        }
-
-        var dd = raycaster.intersectObject(this.password_field.object3d, true)
-        if (dd.length > 0) {
-            //console.log(dd)
-            this.password_field.active = true
-        }
-        //for (var i = 0; i < intersects.length; i++) {
-        //    console.log(intersects[i])
-        //}
     },
 
     on_key_press: function(event) {
+
+        switch(event.keyCode) {
+        case 69: // e
+            if (this.username_field.being_looked_at) {
+                this.username_field.engage()
+                this.player.engage()
+            } else if (this.password_field.being_looked_at) {
+                this.password_field.engage()
+                this.player.engage()
+            }
+            break
+        case 220: // backslash
+            if (this.player.is_engaged()) {
+                this.player.disengage()
+                if (this.username_field.being_looked_at) {
+                    this.username_field.disengage()
+                } else if (this.password_field.being_looked_at) {
+                    this.password_field.disengage()
+                }
+            }
+            break
+        }
+
         if (this.username_field.active) {
             this.username_field.parse_keycode(event)
         } else if (this.password_field.active) {
