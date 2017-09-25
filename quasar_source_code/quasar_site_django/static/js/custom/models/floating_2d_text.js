@@ -54,15 +54,14 @@ Floating2DText.prototype = {
 
     look_at: function() {
         if (this.being_looked_at === false) {
-            this.wireframe.material.color.setHex(this.original_border_color)
+            this.wireframe.material.color.setHex(HIGHLIGHT_COLOR)
         }
         this.being_looked_at = true
     },
 
     look_away: function() {
         if (this.being_looked_at) {
-            console.log('SETTING TO HIGHLIGHT COLOR!!')
-            this.wireframe.material.color.setHex(HIGHLIGHT_COLOR)
+            this.wireframe.material.color.setHex(this.original_border_color)
         }
         this.being_looked_at = false
     },
