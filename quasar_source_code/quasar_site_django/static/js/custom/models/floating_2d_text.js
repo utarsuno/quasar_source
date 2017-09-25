@@ -22,6 +22,13 @@ Floating2DText.prototype = {
     type_title   : null,
 
     __init__: function(w, h, text, type, scene) {
+
+        console.log(w)
+        console.log(h)
+        console.log(text)
+        console.log(type)
+        console.log(scene)
+
         this.scene = scene
 
         this.width              = w
