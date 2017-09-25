@@ -97,6 +97,9 @@ Floating2DText.prototype = {
 
         this.object3d.add(this.mesh)
 
+        console.log('THIS SCENE: ')
+        console.log(this.scene)
+
         this.scene.add(this.object3d)
     },
 
