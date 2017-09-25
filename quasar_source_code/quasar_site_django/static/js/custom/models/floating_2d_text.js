@@ -13,6 +13,8 @@ Floating2DText.prototype = {
 
     scene: null,
 
+    wireframe: null,
+
     // States.
     being_looked_at: null,
     being_engaged_with: null,
@@ -112,8 +114,8 @@ Floating2DText.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         var geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
         var mat = new THREE.LineBasicMaterial( {color: this.original_border_color, linewidth: 3})
-        var wireframe = new THREE.LineSegments(geo, mat)
-        this.mesh.add(wireframe)
+        this.wireframe = new THREE.LineSegments(geo, mat)
+        this.mesh.add(this.wireframe)
 
         this.object3d.add(this.mesh)
 
