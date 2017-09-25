@@ -83,7 +83,7 @@ Floating2DText.prototype = {
             if (this.type_title) {
                 this.dynamic_texture.clear().drawText(text, 16, 80, TEXT_COLOR)
             } else {
-                this.dynamic_texture.clear().drawText(text, 8, 40, 'black')
+                this.dynamic_texture.clear().drawText(text, 8, 40, TEXT_COLOR)
             }
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
@@ -112,7 +112,7 @@ Floating2DText.prototype = {
         // Adds the edge colorings.
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         var geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial( {color: this.original_border_color, linewidth: 3})
+        var mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
         this.wireframe = new THREE.LineSegments(geo, mat)
         this.mesh.add(this.wireframe)
 
