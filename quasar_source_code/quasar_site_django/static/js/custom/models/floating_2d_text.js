@@ -21,6 +21,9 @@ Floating2DText.prototype = {
     type_password: null,
     type_title   : null,
 
+    //
+    original_border_color: null,
+
     __init__: function(w, h, text, type, scene) {
         this.scene = scene
 
@@ -31,6 +34,8 @@ Floating2DText.prototype = {
 
         this.being_looked_at    = false
         this.being_engaged_with = false
+
+        this.original_border_color = '0xFFC0CB'
 
         if (type === TYPE_PASSWORD) {
             this.type_password = true
@@ -43,6 +48,20 @@ Floating2DText.prototype = {
             this.type_title    = false
         }
         this.create()
+    },
+
+    look_at: function() {
+        if (this.being_looked_at === false) {
+            this.mesh.material.color.setHex(this.original_border_color)
+        }
+        this.being_looked_at = true
+    },
+
+    look_away: function() {
+        if (this.being_looked_at) {
+            this.mesh.material.color.setHex(HIGHLIGHT_COLOR)
+        }
+        this.being_looked_at = false
     },
 
     disengage: function() {
@@ -91,14 +110,11 @@ Floating2DText.prototype = {
         // Adds the edge colorings.
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         var geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial( {color: 0xFFC0CB, linewidth: 3})
+        var mat = new THREE.LineBasicMaterial( {color: this.original_border_color, linewidth: 3})
         var wireframe = new THREE.LineSegments(geo, mat)
         this.mesh.add(wireframe)
 
         this.object3d.add(this.mesh)
-
-        console.log('THIS SCENE: ')
-        console.log(this.scene)
 
         this.scene.add(this.object3d)
     },

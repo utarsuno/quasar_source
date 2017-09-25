@@ -98,10 +98,10 @@ LoginWorld.prototype = {
             console.log('There are ' + intersects.length + ' intersections!')
         }*/
 
-        this.username_label.being_looked_at = false
-        this.password_label.being_looked_at = false
-        this.username_field.being_looked_at = false
-        this.password_field.being_looked_at = false
+        this.username_label.look_away()
+        this.password_label.look_away()
+        this.username_field.look_away()
+        this.password_field.look_away()
 
         var aa = raycaster.intersectObject(this.username_label.object3d, true)
         var bb = raycaster.intersectObject(this.username_field.object3d, true)
@@ -109,13 +109,13 @@ LoginWorld.prototype = {
         var dd = raycaster.intersectObject(this.password_field.object3d, true)
 
         if (aa.length > 0) {
-            this.username_label.being_looked_at = true
+            this.username_label.look_at()
         } else if (bb.length > 0) {
-            this.username_field.being_looked_at = true
+            this.username_field.look_at()
         } else if (cc.length > 0) {
-            this.password_label.being_looked_at = true
+            this.password_label.look_at()
         } else if (dd.length > 0) {
-            this.password_field.being_looked_at = true
+            this.password_field.look_at()
         }
     },
 
