@@ -7,4 +7,4 @@ const TYPE_DEFAULT  = 3
 
 // Highlight color.
 const HIGHLIGHT_COLOR = 0xD4FF93
-const TEXT_COLOR      = 0x97ffba
+const TEXT_COLOR      = '#97ffba'
