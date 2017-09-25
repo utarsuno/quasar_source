@@ -41,9 +41,6 @@ LoginWorld.prototype = {
         light3.position.set(5, 100, 5)
         this.add_to_scene(light3)
 
-        console.log('THE CURRENT SCENE IS :')
-        console.log(this.scene)
-
         // Login fields.
         this.login_label = new Floating2DText(100, 50, 'Login :', TYPE_TITLE, this.scene)
         this.login_label.update_position_and_look_at(new THREE.Vector3(0, 120, 45), new THREE.Vector3(0, 120, 55))
