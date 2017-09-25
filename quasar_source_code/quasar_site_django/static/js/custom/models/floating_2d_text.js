@@ -42,6 +42,8 @@ Floating2DText.prototype = {
             this.type_password = false
             this.type_title    = false
         }
+        console.log('THE SCENE IS : ')
+        console.log(scene)
         this.create()
     },
 
