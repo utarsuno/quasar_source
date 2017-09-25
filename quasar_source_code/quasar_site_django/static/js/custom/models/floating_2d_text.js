@@ -22,14 +22,6 @@ Floating2DText.prototype = {
     type_title   : null,
 
     __init__: function(w, h, text, type, scene) {
-
-        console.log(w)
-        console.log(h)
-        console.log(text)
-        console.log(type)
-        console.log(scene)
-        console.log('@@@@')
-
         this.scene = scene
 
         this.width              = w
@@ -50,8 +42,6 @@ Floating2DText.prototype = {
             this.type_password = false
             this.type_title    = false
         }
-        console.log('THE SCENE IS : ')
-        console.log(scene)
         this.create()
     },
 

@@ -46,7 +46,7 @@ LoginWorld.prototype = {
 
         // Login fields.
         this.login_label = new Floating2DText(100, 50, 'Login :', TYPE_TITLE, this.scene)
-        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 120, 45))
+        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 120, 45), new THREE.Vector3(0, 120, 55))
 
         this.username_label = new Floating2DText(50, 20, 'Username :', TYPE_DEFAULT, this.scene)
         this.username_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
