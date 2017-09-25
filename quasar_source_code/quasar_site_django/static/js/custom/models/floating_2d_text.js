@@ -1,5 +1,5 @@
-function Floating2DText(w, h, text) {
-    this.__init__(w, h, text)
+function Floating2DText(w, h, text, type, scene) {
+    this.__init__(w, h, text, type, scene)
 }
 
 Floating2DText.prototype = {
