@@ -28,6 +28,7 @@ Floating2DText.prototype = {
         console.log(text)
         console.log(type)
         console.log(scene)
+        console.log('@@@@')
 
         this.scene = scene
 
@@ -39,13 +40,13 @@ Floating2DText.prototype = {
         this.being_looked_at    = false
         this.being_engaged_with = false
 
-        if (type === GG.TYPE_PASSWORD) {
+        if (type === TYPE_PASSWORD) {
             this.type_password = true
             this.type_title    = false
-        } else if (type === GG.TYPE_TITLE) {
+        } else if (type === TYPE_TITLE) {
             this.type_password = false
             this.type_title    = true
-        } else if (type === GG.TYPE_DEFAULT) {
+        } else if (type === TYPE_DEFAULT) {
             this.type_password = false
             this.type_title    = false
         }

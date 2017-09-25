@@ -1,10 +1,6 @@
 'use strict'
 
-function GG() {}
-
-GG.prototype = {
-    TYPE_PASSWORD: 1,
-    TYPE_TITLE   : 2,
-    TYPE_DEFAULT : 3
-}
+const TYPE_PASSWORD = 1
+const TYPE_TITLE    = 2
+const TYPE_DEFAULT  = 3
 

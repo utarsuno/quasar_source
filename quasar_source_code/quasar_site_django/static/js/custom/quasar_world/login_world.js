@@ -45,16 +45,16 @@ LoginWorld.prototype = {
         console.log(this.scene)
 
         // Login fields.
-        this.login_label = new Floating2DText(100, 50, 'Login :', GG.TYPE_TITLE, this.scene)
+        this.login_label = new Floating2DText(100, 50, 'Login :', TYPE_TITLE, this.scene)
         this.login_label.update_position_and_look_at(new THREE.Vector3(0, 120, 45))
 
-        this.username_label = new Floating2DText(50, 20, 'Username :', GG.TYPE_DEFAULT, this.scene)
-        this.username_field = new Floating2DText(100, 20, '', GG.TYPE_DEFAULT, this.scene)
+        this.username_label = new Floating2DText(50, 20, 'Username :', TYPE_DEFAULT, this.scene)
+        this.username_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
 
-        this.password_label = new Floating2DText(50, 20, 'Password :', GG.TYPE_PASSWORD, this.scene)
+        this.password_label = new Floating2DText(50, 20, 'Password :', TYPE_PASSWORD, this.scene)
         this.password_field = new Floating2DText(100, 20, '', this.scene)
 
-        this.login_button = new Floating2DText(50, 20, 'Login', GG.TYPE_DEFAULT, this.scene)
+        this.login_button = new Floating2DText(50, 20, 'Login', TYPE_DEFAULT, this.scene)
 
         // Create account fields.
 

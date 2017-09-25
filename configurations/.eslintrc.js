@@ -50,6 +50,9 @@ module.exports = {
         "Floating2DText": true,
         "LoginWorld": true,
         "Crosshair": true,
-        "GG": true
+        "GG": true,
+        "TYPE_PASSWORD": false,
+        "TYPE_TITLE": false,
+        "TYPE_DEFAULT": false
     }
 };
