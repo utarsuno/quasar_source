@@ -81,7 +81,7 @@ Floating2DText.prototype = {
     update_text: function(text) {
         if (this.current_text !== text) {
             if (this.type_title) {
-                this.dynamic_texture.clear().drawText(text, 16, 80, 'black')
+                this.dynamic_texture.clear().drawText(text, 16, 80, TEXT_COLOR)
             } else {
                 this.dynamic_texture.clear().drawText(text, 8, 40, 'black')
             }

@@ -54,6 +54,7 @@ module.exports = {
         "TYPE_PASSWORD": false,
         "TYPE_TITLE": false,
         "TYPE_DEFAULT": false,
-        "HIGHLIGHT_COLOR": false
+        "HIGHLIGHT_COLOR": false,
+        "TEXT_COLOR": false
     }
 };
