@@ -59,6 +59,7 @@ Floating2DText.prototype = {
 
     look_away: function() {
         if (this.being_looked_at) {
+            console.log('SETTING TO HIGHLIGHT COLOR!!')
             this.mesh.material.color.setHex(HIGHLIGHT_COLOR)
         }
         this.being_looked_at = false
