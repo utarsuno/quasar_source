@@ -49,7 +49,7 @@ LoginWorld.prototype = {
         this.username_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
 
         this.password_label = new Floating2DText(50, 20, 'Password :', TYPE_PASSWORD, this.scene)
-        this.password_field = new Floating2DText(100, 20, '', this.scene)
+        this.password_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
 
         this.login_button = new Floating2DText(50, 20, 'Login', TYPE_DEFAULT, this.scene)
 
