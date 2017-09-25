@@ -6,5 +6,5 @@ const TYPE_TITLE    = 2
 const TYPE_DEFAULT  = 3
 
 // Highlight color.
-const HIGHLIGHT_COLOR = '#d4ff93'
+const HIGHLIGHT_COLOR = 0xD4FF93
 

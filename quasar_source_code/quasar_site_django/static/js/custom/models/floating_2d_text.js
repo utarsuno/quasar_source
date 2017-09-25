@@ -35,7 +35,7 @@ Floating2DText.prototype = {
         this.being_looked_at    = false
         this.being_engaged_with = false
 
-        this.original_border_color = '0xFFC0CB'
+        this.original_border_color = 0xFFC0CB
 
         if (type === TYPE_PASSWORD) {
             this.type_password = true
