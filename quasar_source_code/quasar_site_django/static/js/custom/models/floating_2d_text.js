@@ -11,14 +11,19 @@ Floating2DText.prototype = {
 
     object3d: null,
 
+    scene: null,
+
     // States.
     being_looked_at: null,
     being_engaged_with: null,
 
     // Properties.
-    password_type: null,
+    type_password: null,
+    type_title   : null,
 
-    __init__: function(w, h, text) {
+    __init__: function(w, h, text, type, scene) {
+        this.scene = scene
+
         this.width              = w
         this.height             = h
 
@@ -27,11 +32,17 @@ Floating2DText.prototype = {
         this.being_looked_at    = false
         this.being_engaged_with = false
 
-        this.password_type      = false
-    },
-
-    set_to_password_type: function() {
-        this.password_type = true
+        if (type === GG.TYPE_PASSWORD) {
+            this.type_password = true
+            this.type_title    = false
+        } else if (type === GG.TYPE_TITLE) {
+            this.type_password = false
+            this.type_title    = true
+        } else if (type === GG.TYPE_DEFAULT) {
+            this.type_password = false
+            this.type_title    = false
+        }
+        this.create()
     },
 
     disengage: function() {
@@ -48,19 +59,26 @@ Floating2DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.dynamic_texture.clear().drawText(text, 0, 20, 'black')
+            if (this.type_title) {
+                this.dynamic_texture.clear().drawText(text, 16, 80, 'black')
+            } else {
+                this.dynamic_texture.clear().drawText(text, 8, 40, 'black')
+            }
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
         }
     },
 
-    create: function(scene) {
+    create: function() {
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 4, this.height * 4)
         //this.dynamic_texture.context.font = 'Bold 20px Arial'
         this.dynamic_texture.context.font = '32px Arial'
+        if (this.type_title) {
+            this.dynamic_texture.context.font = 'Bold 64px Arial'
+        }
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({
@@ -72,14 +90,14 @@ Floating2DText.prototype = {
 
         // Adds the edge colorings.
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        var geo = new THREE.EdgesGeometry( this.mesh.geometry ) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial( { color: 0xFFC0CB, linewidth: 3 } )
-        var wireframe = new THREE.LineSegments( geo, mat )
+        var geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
+        var mat = new THREE.LineBasicMaterial( {color: 0xFFC0CB, linewidth: 3})
+        var wireframe = new THREE.LineSegments(geo, mat)
         this.mesh.add(wireframe)
 
         this.object3d.add(this.mesh)
 
-        scene.add(this.object3d)
+        this.scene.add(this.object3d)
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
@@ -107,7 +125,7 @@ Floating2DText.prototype = {
                 this.pop_character()
             }
         } else if (event.key.length == 1) {
-            if (this.password_type) {
+            if (this.type_password) {
                 this.add_character('*')
             } else {
                 this.add_character(event.key)

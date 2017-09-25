@@ -41,21 +41,20 @@ LoginWorld.prototype = {
         light3.position.set(5, 100, 5)
         this.add_to_scene(light3)
 
-        // Add the text.
+        // Login fields.
+        this.login_label = new Floating2DText(100, 50, 'Login :', GG.TYPE_TITLE, this.scene)
+        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 120, 45))
 
-        this.username_label = new Floating2DText(50, 20, 'Username :')
-        this.username_label.create(this.scene)
-        this.username_field = new Floating2DText(100, 20, '')
-        this.username_field.create(this.scene)
+        this.username_label = new Floating2DText(50, 20, 'Username :', GG.TYPE_DEFAULT, this.scene)
+        this.username_field = new Floating2DText(100, 20, '', GG.TYPE_DEFAULT, this.scene)
 
-        this.password_label = new Floating2DText(50, 20, 'Password :')
-        this.password_label.create(this.scene)
-        this.password_field = new Floating2DText(100, 20, '')
-        this.password_field.set_to_password_type()
-        this.password_field.create(this.scene)
+        this.password_label = new Floating2DText(50, 20, 'Password :', GG.TYPE_PASSWORD, this.scene)
+        this.password_field = new Floating2DText(100, 20, '', this.scene)
 
-        this.login_button = new Floating2DText(50, 20, 'Login')
-        this.login_button.create(this.scene)
+        this.login_button = new Floating2DText(50, 20, 'Login', GG.TYPE_DEFAULT, this.scene)
+
+        // Create account fields.
+
 
         var username_position0 = new THREE.Vector3(0, 70, 45)
         var username_position1 = new THREE.Vector3(75, 70, 45)
@@ -83,12 +82,10 @@ LoginWorld.prototype = {
     },
 
     update: function() {
-
         if (this.set_player_look_at) {
             this.player.look_at(new THREE.Vector3(0, 70, 45))
             this.set_player_look_at = false
         }
-
 
         var position = this.player.fps_controls.get_position()
         var direction = this.player.fps_controls.get_direction()
@@ -126,6 +123,12 @@ LoginWorld.prototype = {
 
         //console.log(event)
 
+        if (this.username_field.is_engaged()) {
+            this.username_field.parse_keycode(event)
+        } else if (this.password_field.is_engaged()) {
+            this.password_field.parse_keycode(event)
+        }
+
         switch(event.keyCode) {
         case 69: // e
             if (this.username_field.being_looked_at) {
@@ -146,12 +149,6 @@ LoginWorld.prototype = {
                 }
             }
             break
-        }
-
-        if (this.username_field.is_engaged()) {
-            this.username_field.parse_keycode(event)
-        } else if (this.password_field.is_engaged()) {
-            this.password_field.parse_keycode(event)
         }
     },
 

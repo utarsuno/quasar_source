@@ -8,7 +8,6 @@ Player.prototype = {
 
     // Current state.
     mouse_locked    : null,
-    engaged         : null,
 
     // Custom state variables.
     logged_in       : null,

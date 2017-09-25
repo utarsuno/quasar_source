@@ -49,6 +49,7 @@ module.exports = {
         "Player": true,
         "Floating2DText": true,
         "LoginWorld": true,
-        "Crosshair": true
+        "Crosshair": true,
+        "GG": true
     }
 };
