@@ -67,7 +67,7 @@ LoginWorld.prototype = {
         this.create_repeat_password = new FloatingLabelInput(150, 20, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_repeat_password.update_position(200, 25, 45)
 
-        this.create_account_button = new Floating2DText(200, 20, 'Create Account', TYPE_BUTTON, this.scene)
+        this.create_account_button = new Floating2DText(150, 20, 'Create Account', TYPE_BUTTON, this.scene)
         this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
 
         // Create a list of the interactive floating texts.
@@ -77,7 +77,9 @@ LoginWorld.prototype = {
             this.login_username.floating_input,
             this.login_password.floating_input,
             this.create_username.floating_input,
-            this.create_email.floating_input]
+            this.create_email.floating_input,
+            this.create_password.floating_input,
+            this.create_repeat_password.floating_input]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
