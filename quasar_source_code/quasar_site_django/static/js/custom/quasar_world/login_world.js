@@ -68,11 +68,15 @@ LoginWorld.prototype = {
 
         // Create account fields.
         this.create_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
-        this.create_username.update_position(200, 100, 45)
+        this.create_username.update_position(250, 100, 45)
+
+        this.create_email = new FloatingLabelInput(150, 20, 'Email :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_email.update_position(250, 75, 45)
 
         // Create a list of the interactive floating texts.
         this.interactive_objects = [this.password_field, this.username_field, this.login_button,
-            this.create_username.floating_input]
+            this.create_username.floating_input,
+            this.create_email.floating_input]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
