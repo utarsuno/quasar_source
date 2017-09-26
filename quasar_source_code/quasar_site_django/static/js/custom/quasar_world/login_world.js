@@ -47,22 +47,16 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // Login fields.
+        this.login_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.login_username.update_position(0, 100, 45)
+
+        this.login_password = new FloatingLabelInput(150, 20, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.login_password.update_position(0, 75, 45)
+
         this.login_label = new Floating2DText(100, 40, 'Login :', TYPE_TITLE, this.scene)
         this.login_label.update_position_and_look_at(new THREE.Vector3(0, 110, 45), new THREE.Vector3(0, 110, 55))
-
-        this.username_label = new Floating2DText(50, 20, 'Username :', TYPE_LABEL, this.scene)
-        this.username_field = new Floating2DText(100, 20, '', TYPE_INPUT_REGULAR, this.scene)
-
-        this.password_label = new Floating2DText(50, 20, 'Password :', TYPE_LABEL, this.scene)
-        this.password_field = new Floating2DText(100, 20, '', TYPE_INPUT_PASSWORD, this.scene)
-
+        
         this.login_button = new Floating2DText(50, 20, 'Login', TYPE_BUTTON, this.scene)
-
-        this.username_label.update_position_and_look_at(new THREE.Vector3(0, 70, 45), new THREE.Vector3(0, 70, 55))
-        this.username_field.update_position_and_look_at(new THREE.Vector3(75, 70, 45), new THREE.Vector3(75, 70, 55))
-
-        this.password_label.update_position_and_look_at(new THREE.Vector3(0, 40, 45), new THREE.Vector3(0, 40, 55))
-        this.password_field.update_position_and_look_at(new THREE.Vector3(75, 40, 45), new THREE.Vector3(75, 40, 55))
 
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
@@ -80,7 +74,9 @@ LoginWorld.prototype = {
         this.create_repeat_password.update_position(200, 25, 45)
 
         // Create a list of the interactive floating texts.
-        this.interactive_objects = [this.password_field, this.username_field, this.login_button,
+        this.interactive_objects = [
+            this.login_username.floating_input,
+            this.login_password.floating_input,
             this.create_username.floating_input,
             this.create_email.floating_input]
 

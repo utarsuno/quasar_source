@@ -13,9 +13,12 @@ FloatingLabelInput.prototype = {
     one_third_width: null,
     two_third_width: null,
 
+    x_separation : null,
+
     __init__: function(w, h, label_text, input_type, scene) {
         this.one_third_width = w / 3.0
         this.two_third_width = this.one_third_width * 2.0
+        this.x_separation    = w / 2.0
 
         this.floating_label = new Floating2DText(this.one_third_width, h, label_text, TYPE_LABEL, scene)
         this.floating_input = new Floating2DText(this.two_third_width, h, '', input_type, scene)
@@ -23,7 +26,7 @@ FloatingLabelInput.prototype = {
 
     update_position: function(px, py, pz) {
         this.floating_label.update_position_and_look_at(new THREE.Vector3(px, py, pz), new THREE.Vector3(px, py, pz + 1))
-        this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.one_third_width, py, pz), new THREE.Vector3(px + this.one_third_width, py, pz + 1))
+        this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.x_separation, py, pz), new THREE.Vector3(px + this.x_separation, py, pz + 1))
     }
 }
 
