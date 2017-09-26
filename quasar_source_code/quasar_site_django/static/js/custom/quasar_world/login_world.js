@@ -92,7 +92,7 @@ LoginWorld.prototype = {
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
             this.interactive_objects[i].look_away()
-            var intersections = raycaster.intersectObject(this.interactive_objects[i].object_3d, true)
+            var intersections = raycaster.intersectObject(this.interactive_objects[i].object3d, true)
             if (intersections.length > 0) {
                 this.interactive_objects[i].look_at()
             }
