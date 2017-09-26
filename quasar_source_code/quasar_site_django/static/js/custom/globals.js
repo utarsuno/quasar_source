@@ -12,4 +12,4 @@ const TYPE_TITLE          = 6 // Static title text.
 const COLOR_HIGHLIGHT = 0xD4FF93
 const COLOR_TEXT      = '#97ffba'
 const COLOR_WHITE     = '#ffffff'
-const COLOR_WHITE     = '#000000'
+const COLOR_BLACK     = '#000000'
