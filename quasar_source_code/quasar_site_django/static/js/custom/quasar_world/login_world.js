@@ -10,6 +10,8 @@ LoginWorld.prototype = {
 
     player: null,
 
+    previously_looked_at: null,
+
     // Create account fields.
     create_username: null,
 
@@ -121,10 +123,13 @@ LoginWorld.prototype = {
         var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
-            this.interactive_objects[i].look_away()
+            if (this.interactive_objects[i] !== this.previously_looked_at) {
+                this.interactive_objects[i].look_away()
+            }
             var intersections = raycaster.intersectObject(this.interactive_objects[i].object3d, true)
             if (intersections.length > 0) {
                 this.interactive_objects[i].look_at()
+                this.previously_looked_at = this.interactive_objects[i]
             }
         }
     },
