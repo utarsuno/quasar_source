@@ -15,14 +15,6 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-
-#from quasar_web_server import views as v
-#from quasar_source_code.quasar_site_django.quasar_web_server import views as v
-
-# Ignore the IDE error marking.
-#from quasar_site_django.quasar_web_server import views as v
-#from quasar_web_server import views as v
-
 from quasar_source_code.quasar_site_django.quasar_web_server import views as v
 
 

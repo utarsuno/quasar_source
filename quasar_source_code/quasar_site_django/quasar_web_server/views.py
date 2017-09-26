@@ -35,6 +35,9 @@ TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html
 from quasar_source_code.entities.database import entity_database
 
 
+db_api = entity_database.EntityDatabaseAPI()
+
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:

@@ -78,6 +78,7 @@ class EntityDatabaseAPI(object):
 		"""Connects if the database is not connected."""
 		if not self._connected:
 			self._api.connect()
+			self._connected = True
 
 	def terminate(self):
 		"""Terminates the database connection if there is one."""
