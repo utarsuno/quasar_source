@@ -105,9 +105,9 @@ Floating2DText.prototype = {
     update_text: function(text) {
         if (this.current_text !== text) {
             if (this.type == TYPE_TITLE) {
-                this.dynamic_texture.clear().drawText(text, 16, 80, TEXT_COLOR)
+                this.dynamic_texture.clear().drawText(text, 0, 40, TEXT_COLOR)
             } else {
-                this.dynamic_texture.clear().drawText(text, 8, 40, TEXT_COLOR)
+                this.dynamic_texture.clear().drawText(text, 0, 20, TEXT_COLOR)
             }
             this.current_text = text
             this.dynamic_texture.needsUpdate = true
@@ -120,9 +120,9 @@ Floating2DText.prototype = {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2)
         if (this.type == TYPE_TITLE) {
-            this.dynamic_texture.context.font = 'Bold 64px Arial'
+            this.dynamic_texture.context.font = 'Bold 40px Arial'
         } else {
-            this.dynamic_texture.context.font = '32px Arial'
+            this.dynamic_texture.context.font = '20px Arial'
         }
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
