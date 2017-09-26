@@ -103,7 +103,9 @@ Player.prototype = {
     },
 
     set_position: function(vector) {
-        this.fps_controls.yaw.position = vector
+        this.fps_controls.yaw.position.x = vector.x
+        this.fps_controls.yaw.position.y = vector.y
+        this.fps_controls.yaw.position.z = vector.z
     }
 
 }
