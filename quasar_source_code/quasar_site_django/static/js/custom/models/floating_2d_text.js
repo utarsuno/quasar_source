@@ -20,8 +20,7 @@ Floating2DText.prototype = {
     being_engaged_with: null,
 
     // Properties.
-    type_password: null,
-    type_title   : null,
+    type: null,
 
     //
     original_border_color: null,
@@ -39,16 +38,7 @@ Floating2DText.prototype = {
 
         this.original_border_color = 0xFFC0CB
 
-        if (type === TYPE_PASSWORD) {
-            this.type_password = true
-            this.type_title    = false
-        } else if (type === TYPE_TITLE) {
-            this.type_password = false
-            this.type_title    = true
-        } else if (type === TYPE_DEFAULT) {
-            this.type_password = false
-            this.type_title    = false
-        }
+        this.type = type
         this.create()
     },
 
@@ -80,7 +70,7 @@ Floating2DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            if (this.type_title) {
+            if (this.type == TYPE_TITLE) {
                 this.dynamic_texture.clear().drawText(text, 16, 80, TEXT_COLOR)
             } else {
                 this.dynamic_texture.clear().drawText(text, 8, 40, TEXT_COLOR)
@@ -97,7 +87,7 @@ Floating2DText.prototype = {
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 4, this.height * 4)
         //this.dynamic_texture.context.font = 'Bold 20px Arial'
         this.dynamic_texture.context.font = '32px Arial'
-        if (this.type_title) {
+        if (this.type == TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold 64px Arial'
         }
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
@@ -146,9 +136,9 @@ Floating2DText.prototype = {
                 this.pop_character()
             }
         } else if (event.key.length == 1) {
-            if (this.type_password) {
+            if (this.type == TYPE_INPUT_PASSWORD) {
                 this.add_character('*')
-            } else {
+            } else if (this.type == TYPE_INPUT_REGULAR) {
                 this.add_character(event.key)
             }
         }

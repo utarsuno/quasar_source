@@ -51,9 +51,13 @@ module.exports = {
         "LoginWorld": true,
         "Crosshair": true,
 
-        "TYPE_PASSWORD": false,
+        "TYPE_INPUT_PASSWORD": false,
+        "TYPE_INPUT_REGULAR": false,
+        "TYPE_LABEL": false,
+        "TYPE_BUTTON": false,
+        "TYPE_STATUS": false,
         "TYPE_TITLE": false,
-        "TYPE_DEFAULT": false,
+
         "HIGHLIGHT_COLOR": false,
         "TEXT_COLOR": false
     }

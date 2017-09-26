@@ -17,6 +17,8 @@ LoginWorld.prototype = {
 
     set_player_look_at: null,
 
+    interactive_objects : null,
+
     __init__: function() {
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -43,33 +45,28 @@ LoginWorld.prototype = {
 
         // Login fields.
         this.login_label = new Floating2DText(100, 40, 'Login :', TYPE_TITLE, this.scene)
-        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 110, 45), new THREE.Vector3(0, 100, 55))
+        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 110, 45), new THREE.Vector3(0, 110, 55))
 
-        this.username_label = new Floating2DText(50, 20, 'Username :', TYPE_DEFAULT, this.scene)
-        this.username_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
+        this.username_label = new Floating2DText(50, 20, 'Username :', TYPE_LABEL, this.scene)
+        this.username_field = new Floating2DText(100, 20, '', TYPE_INPUT_REGULAR, this.scene)
 
-        this.password_label = new Floating2DText(50, 20, 'Password :', TYPE_PASSWORD, this.scene)
-        this.password_field = new Floating2DText(100, 20, '', TYPE_DEFAULT, this.scene)
+        this.password_label = new Floating2DText(50, 20, 'Password :', TYPE_LABEL, this.scene)
+        this.password_field = new Floating2DText(100, 20, '', TYPE_INPUT_PASSWORD, this.scene)
 
-        this.login_button = new Floating2DText(50, 20, 'Login', TYPE_DEFAULT, this.scene)
+        this.login_button = new Floating2DText(50, 20, 'Login', TYPE_BUTTON, this.scene)
 
-        // Create account fields.
+        this.username_label.update_position_and_look_at(new THREE.Vector3(0, 70, 45), new THREE.Vector3(0, 70, 55))
+        this.username_field.update_position_and_look_at(new THREE.Vector3(75, 70, 45), new THREE.Vector3(75, 70, 55))
 
-
-        var username_position0 = new THREE.Vector3(0, 70, 45)
-        var username_position1 = new THREE.Vector3(75, 70, 45)
-
-        var password_position0 = new THREE.Vector3(0, 40, 45)
-        var password_position1 = new THREE.Vector3(75, 40, 45)
-
-        this.username_label.update_position_and_look_at(username_position0, new THREE.Vector3(0, 70, 55))
-        this.username_field.update_position_and_look_at(username_position1, new THREE.Vector3(75, 70, 55))
-
-        this.password_label.update_position_and_look_at(password_position0, new THREE.Vector3(0, 40, 55))
-        this.password_field.update_position_and_look_at(password_position1, new THREE.Vector3(75, 40, 55))
+        this.password_label.update_position_and_look_at(THREE.Vector3(0, 40, 45), new THREE.Vector3(0, 40, 55))
+        this.password_field.update_position_and_look_at(new THREE.Vector3(75, 40, 45), new THREE.Vector3(75, 40, 55))
 
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
+        // Create account fields.
+
+        // Create a list of the interactive floating texts.
+        this.interactive_objects = [this.password_field, this.username_field, this.login_button]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
@@ -87,41 +84,35 @@ LoginWorld.prototype = {
             this.set_player_look_at = false
         }
 
-        var position = this.player.fps_controls.get_position()
-        var direction = this.player.fps_controls.get_direction()
+        //var position = this.player.fps_controls.get_position()
+        //var direction = this.player.fps_controls.get_direction()
 
-        var raycaster = new THREE.Raycaster(position, direction)
+        var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
-        /*
-        var intersects = raycaster.intersectObjects(this.scene.children)
-        if (intersects.length > 1) {
-            console.log('There are ' + intersects.length + ' intersections!')
-        }*/
-
-        this.username_label.look_away()
-        this.password_label.look_away()
-        this.username_field.look_away()
-        this.password_field.look_away()
-
-        var aa = raycaster.intersectObject(this.username_label.object3d, true)
-        var bb = raycaster.intersectObject(this.username_field.object3d, true)
-        var cc = raycaster.intersectObject(this.password_label.object3d, true)
-        var dd = raycaster.intersectObject(this.password_field.object3d, true)
-
-        if (aa.length > 0) {
-            this.username_label.look_at()
-        } else if (bb.length > 0) {
-            this.username_field.look_at()
-        } else if (cc.length > 0) {
-            this.password_label.look_at()
-        } else if (dd.length > 0) {
-            this.password_field.look_at()
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            this.interactive_objects[i].look_away()
+            var intersections = raycaster.intersectObject(this.interactive_objects[i], true)
+            if (intersections.length > 0) {
+                this.interactive_objects[i].look_at()
+            }
         }
     },
 
     on_key_press: function(event) {
 
         //console.log(event)
+        var i;
+
+        if (event.keyCode == 220) { // backslash
+            if (this.player.is_engaged()) {
+                this.player.disengage()
+                for (i = 0; i < this.interactive_objects.length; i++) {
+                    if (this.interactive_objects[i].being_looked_at) {
+                        this.interactive_objects[i].disengage()
+                    }
+                }
+            }
+        }
 
         if (this.username_field.is_engaged()) {
             this.username_field.parse_keycode(event)
@@ -129,27 +120,15 @@ LoginWorld.prototype = {
             this.password_field.parse_keycode(event)
         }
 
-        switch(event.keyCode) {
-        case 69: // e
-            if (this.username_field.being_looked_at) {
-                this.username_field.engage()
+        if (event.keyCode == 69) { // e
+            for (i = 0; i < this.interactive_objects.length; i++) {
                 this.player.engage()
-            } else if (this.password_field.being_looked_at) {
-                this.password_field.engage()
-                this.player.engage()
-            }
-            break
-        case 220: // backslash
-            if (this.player.is_engaged()) {
-                this.player.disengage()
-                if (this.username_field.being_looked_at) {
-                    this.username_field.disengage()
-                } else if (this.password_field.being_looked_at) {
-                    this.password_field.disengage()
+                if (this.interactive_objects[i].being_looked_at) {
+                    this.interactive_objects[i].engage()
                 }
             }
-            break
         }
+
     },
 
     enter_world: function() {
