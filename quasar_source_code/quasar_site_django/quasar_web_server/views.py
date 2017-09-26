@@ -148,11 +148,11 @@ def POST_create_owner(request):
 
 	received_owner_name = request.POST[OWNER_NAME]
 	received_owner_email = request.POST[OWNER_EMAIL]
-	received_owner_manager_id = request.POST[OWNER_MANAGER_ID]
+	received_owner_password = request.POST[OWNER_PASSWORD]
 
 	print('OWNER NAME : ' + str(received_owner_name))
 	print('OWNER EMAIL : ' + str(received_owner_email))
-	print('OWNER MANAGER ID : ' + str(received_owner_manager_id))
+	print('OWNER OWNER_PASSWORD : ' + str(received_owner_password))
 
 	# TODO : Actually save the owner.
 
