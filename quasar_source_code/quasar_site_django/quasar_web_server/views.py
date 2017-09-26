@@ -31,6 +31,7 @@ TEMPLATE_CS_425         = _TEMPLATES_BASE + 'cs425.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html'
 
 
+
 from quasar_source_code.entities.database import entity_database
 
 
