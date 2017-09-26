@@ -67,7 +67,8 @@ class EntityDatabaseAPI(object):
 
 	def create_owner(self, name: str, password: str, email: str):
 		"""Places an owner into the owners table."""
-		self._owners.insert_row({'name': name, 'password': password, 'email': email})
+		# TODO: Remove the place holder values for manager_id
+		self._owners.insert_row({'name': name, 'password': password, 'email': email, 'manager_id': -5})
 
 	def get_all_owners(self):
 		"""Returns a list of all the owners."""
