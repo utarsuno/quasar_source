@@ -156,7 +156,7 @@ LoginWorld.prototype = {
                     this.interactive_objects[i].engage(this.player)
 
                     if (this.interactive_objects[i] === this.create_account_button) {
-                        this.post_helper.perform_post({'owner': 'test', 'password': 'test', 'email': 'test', 'owner_id': -2, 'manager_id': -2}, this.create_account)
+                        this.post_helper.perform_post({'owner': 'test', 'password': 'test', 'email': 'test'}, this.create_account)
                     }
                 }
             }
