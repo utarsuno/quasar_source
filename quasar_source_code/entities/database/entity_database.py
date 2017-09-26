@@ -20,7 +20,8 @@ import dill
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 
-	def __init__(self):
+	def __init__(self, debug=False):
+		self._debug = debug
 		self._api = db_api.PostgreSQLAPI()
 		self._connected = False
 
@@ -77,8 +78,12 @@ class EntityDatabaseAPI(object):
 	def _check_if_connected(self):
 		"""Connects if the database is not connected."""
 		if not self._connected:
+			if self._debug:
+				print('Connecting to the database...', end='')
 			self._api.connect()
 			self._connected = True
+			if self._debug:
+				print('connected!')
 
 	def terminate(self):
 		"""Terminates the database connection if there is one."""
