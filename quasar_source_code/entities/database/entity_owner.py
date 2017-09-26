@@ -10,3 +10,6 @@ class EntityOwner(object):
 		self._name       = None
 		self._owner_id   = None
 		self._manager_id = None
+		# Not yet implemented.
+		self._email      = None
+		self._password   = None

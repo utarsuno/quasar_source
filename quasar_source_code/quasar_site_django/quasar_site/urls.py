@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'cs361', v.GET_cs_361),
     url(r'cs425', v.GET_cs_425),
     url(r'web_socket', v.GET_web_socket),
+    url(r'create_account', v.POST_create_owner),
     url(r'', v.GET_hello_world),
 ]

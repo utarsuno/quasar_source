@@ -28,7 +28,9 @@ class EntityDatabaseAPI(object):
 		# Owners table.
 		self._owners       = db_t.DatabaseTable('owners', self._api)
 		self._owners.add_table_field(db_t.TableFieldString('name', 100))
-		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=False))
+		self._owners.add_table_field(db_t.TableFieldString('password', 100))
+		self._owners.add_table_field(db_t.TableFieldString('email', 100))
+		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=True))
 		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=False))
 
 		# Table containing entity_managers which contain entities.
@@ -62,8 +64,15 @@ class EntityDatabaseAPI(object):
 		cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
 		self._api.commit()
 
+	def create_owner(self, name: str, password: str, email: str):
+		"""Places an owner into the owners table."""
+		self._owners.insert_row({'name': name, 'password': password, 'email'})
+
 	def get_all_owners(self):
 		"""Returns a list of all the owners."""
+		owners = self._owners.get_row_values()
+		for o in owners:
+			print(o)
 		y = 2
 		# TODO : !!!
 
@@ -89,3 +98,7 @@ class EntityDatabaseAPI(object):
 		"""Terminates the database connection if there is one."""
 		if self._connected:
 			self._api.terminate()
+
+
+#e = EntityDatabaseAPI()
+#print(e.get_all_owners())

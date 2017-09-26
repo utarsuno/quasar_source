@@ -15,12 +15,12 @@ PostHelper.prototype = {
         this.url = url
     },
 
-    perform_post: function(post_data) {
+    perform_post: function(post_data, callback) {
         $.post(this.url, post_data, function(data, status) {
             if (status === 'success') {
-
+                callback(post_data)
             } else {
-
+                callback(status)
             }
         })
     }

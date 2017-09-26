@@ -17,7 +17,28 @@ LoginWorld.prototype = {
 
     interactive_objects : null,
 
+    // perform_post
+
+    post_helper: null,
+
+    create_account: function(data) {
+
+        console.log('THE CALLBACK GOT THIS DATA')
+        console.log(data)
+
+        /*
+        OWNER_NAME       = 'owner'
+        OWNER_PASSWORD   = 'password'
+        OWNER_EMAIL      = 'email'
+        OWNER_ID         = 'owner_id'
+        OWNER_MANAGER_ID = 'manager_id'
+         */
+    },
+
     __init__: function() {
+
+        this.post_helper = new PostHelper('/create_account')
+
         // Create the scene.
         this.scene = new THREE.Scene()
 
@@ -133,6 +154,10 @@ LoginWorld.prototype = {
             for (i = 0; i < this.interactive_objects.length; i++) {
                 if (this.interactive_objects[i].being_looked_at) {
                     this.interactive_objects[i].engage(this.player)
+
+                    if (this.interactive_objects[i] === this.create_account_button) {
+                        this.post_helper.perform_post({'owner': 'test', 'password': 'test', 'email': 'test', 'owner_id': -2, 'manager_id': -2}, this.create_account)
+                    }
                 }
             }
         }

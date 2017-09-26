@@ -13,7 +13,6 @@ import requests
 # Needed for making JsonResponses.
 from django.http import JsonResponse
 
-
 #from quasar_source_code.entities import entity_local_testing
 # Ignore the IDE error message.
 #from entities import entity_local_testing
@@ -43,10 +42,7 @@ class DatabaseThread(object):
 
 
 db_api = entity_database.EntityDatabaseAPI(debug=True)
-manager = db_api.get_entity_manager()
-print('Printing Manager info :')
-print(manager)
-manager.print_all_entities()
+owners = db_api.get_all_owners()
 
 
 def get_client_ip(request):
@@ -100,3 +96,63 @@ def GET_cs_425(request):
 def GET_web_socket(request):
 	"""TEMP test page."""
 	return render(request, TEMPLATE_WEB_SOCKET)
+
+
+# everything above is being organized.
+
+'''  __        __           ___       __
+	|__)  /\  /  ` |__/    |__  |\ | |  \
+	|__) /~~\ \__, |  \    |___ | \| |__/
+'''
+
+# Server response messages.
+SERVER_REPLY_INVALID_POST_DATA_ERROR                = HttpResponse('Invalid POST data!')
+SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = HttpResponse('Invalid number of POST arguments!')
+SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
+SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
+SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
+
+
+def check_POST_arguments(arguments, request):
+	"""Just a utility function to raise an exception if there is an in-correct match on POST arguments.
+	:param arguments: The arguments to check for.
+	:param request: Contains information regarding the request sent in.
+	:return: Boolean indicating if this threw an exception or not.
+	"""
+	if len(request.POST) != len(arguments):
+		print('Got ' + str(len(request.POST)) + ' number of arguments instead of ' + str(len(arguments)))
+		return HttpResponse(SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR)
+	for arg in arguments:
+		if arg not in request.POST:
+			print('Argument not passed in : ' + str(arg) + '.')
+			return HttpResponse(SERVER_REPLY_INVALID_POST_DATA_ERROR)
+	return None
+
+
+# Create owner fields.
+OWNER_NAME       = 'owner'
+OWNER_PASSWORD   = 'password'
+OWNER_EMAIL      = 'email'
+OWNER_ID         = 'owner_id'
+OWNER_MANAGER_ID = 'manager_id'
+
+
+@csrf_exempt
+def POST_create_owner(request):
+	"""Handles the POST request for creating a owner."""
+	if check_POST_arguments([OWNER_NAME, OWNER_PASSWORD, OWNER_EMAIL], request) is not None:
+		return check_POST_arguments([OWNER_NAME, OWNER_ID, OWNER_MANAGER_ID], request)
+
+	received_owner_name = request.POST[OWNER_NAME]
+	received_owner_email = request.POST[OWNER_EMAIL]
+	received_owner_manager_id = request.POST[OWNER_MANAGER_ID]
+
+	print('OWNER NAME : ' + str(received_owner_name))
+	print('OWNER EMAIL : ' + str(received_owner_email))
+	print('OWNER MANAGER ID : ' + str(received_owner_manager_id))
+
+	# TODO : Actually save the owner.
+
+
+	# Temporary reply.
+	return SERVER_REPLY_GENERIC_YES
