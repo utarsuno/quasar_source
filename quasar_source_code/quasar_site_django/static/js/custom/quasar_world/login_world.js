@@ -19,24 +19,17 @@ LoginWorld.prototype = {
 
     interactive_objects : null,
 
-    // perform_post
-
-    post_helper: null,
-
-    ajax_status: null,
+    // Post calls.
+    post_create_account: null,
+    post_login         : null,
+    ajax_status        : null,
 
     create_account: function(data) {
-
-        console.log('THE CALLBACK GOT THIS DATA')
-        console.log(data)
-
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Account created!')
         } else {
             this.ajax_status.update_text('Error with creating account!')
         }
-
-
         /*
         OWNER_NAME       = 'owner'
         OWNER_PASSWORD   = 'password'
@@ -48,7 +41,9 @@ LoginWorld.prototype = {
 
     __init__: function() {
 
-        this.post_helper = new PostHelper('/create_account')
+        this.post_create_account = new PostHelper('/create_account')
+        this.post_login = new PostHelper('/login')
+        
 
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -204,20 +199,37 @@ LoginWorld.prototype = {
                         }
 
                         if (!error) {
-                            this.ajax_status.update_text('Success! Performing request.')
-                            this.post_helper.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account.bind(this))
+                            this.ajax_status.update_text('Sending request to server.')
+                            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account.bind(this))
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
                     } else if (this.interactive_objects[i] === this.login_button) {
 
+                        var login_username_text = this.login_username.get_input_text()
+                        var login_password_text = this.login_password.get_input_text()
 
+                        // TODO : Create a class to handle this kind of logic.
+                        var error = false
+                        var error_message = ''
 
+                        if (login_username_text.length < 4) {
+                            error = true
+                            error_message = 'Usernames are at least 4 characters!'
+                        }
+                        if (!error) {
+                            if (login_password_text.length < 4) {
+                                error = true
+                                error_message = 'Passwords are at least 4 characters!'
+                            }
+                        }
 
-
-
-
-                        var y = 2// TODO !!!
+                        if (!error) {
+                            this.ajax_status.update_text('TODO : Login functionality!')
+                            //this.
+                        } else {
+                            this.ajax_status.update_text('Error : ' + error_message)
+                        }
 
                     }
 
