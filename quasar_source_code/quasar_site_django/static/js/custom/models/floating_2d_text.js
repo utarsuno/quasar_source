@@ -32,7 +32,7 @@ FloatingLabelInput.prototype = {
     },
 
     get_input_text: function() {
-        return this.floating_input.text
+        return this.floating_input.text.trim()
     }
 }
 

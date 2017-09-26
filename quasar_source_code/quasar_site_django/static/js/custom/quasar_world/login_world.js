@@ -65,7 +65,8 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // AJAX status.
-
+        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
+        this.ajax_status.update_position_and_look_at(new THREE.Vector3(100, 150, 45), new THREE.Vector3(100, 150, 55))
 
         // Login fields.
         this.login_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -162,18 +163,44 @@ LoginWorld.prototype = {
 
                     if (this.interactive_objects[i] === this.create_account_button) {
 
-                        // TODO : Check the inputs
+                        // TODO : Eventually make input parsing live for the user.
                         var email_text = this.create_email.get_input_text()
-                        console.log('Email text is:')
-                        console.log(email_text)
-                        if (is_email_valid(email_text)) {
-                            console.log(email_text)
-                            console.log('Is valid!!!')
+                        var username_text = this.create_username.get_input_text()
+                        var password_text = this.create_password.get_input_text()
+                        var password_repeat_text = this.create_repeat_password.get_input_text()
+
+                        var error = false
+                        var error_message = ''
+
+                        if (!is_email_valid(email_text)) {
+                            error = true
+                            error_message = 'invalid email format'
+                        }
+                        if (!error) {
+                            if (username_text.length < 4) {
+                                error = true
+                                error_message = 'username text length < 4'
+                            }
+                        }
+                        if (!error) {
+                            if (password_text.length < 4 || password_text !== password_repeat_text) {
+                                error = true
+                                if (password_text.length < 4) {
+                                    error_message = 'password length < 4'
+                                } else {
+                                    error_message = 'passwords do not match'
+                                }
+                            }
                         }
 
-                        this.post_helper.perform_post({'owner': 'test', 'password': 'test', 'email': 'test'}, this.create_account)
-                    } else if (this.interactive_objects[i] == this.login_button) {
-
+                        if (!error) {
+                            this.ajax_status.update_text('Success! Performing request.')
+                            this.post_helper.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account)
+                        } else {
+                            this.ajax_status.update_text('Error : ' + error_message)
+                        }
+                    } else if (this.interactive_objects[i] === this.login_button) {
+                        var y = 2// TODO !!!
                     }
                 }
             }
