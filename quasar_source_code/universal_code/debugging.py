@@ -21,3 +21,7 @@ def raise_abstract_method_call_exception(method_name):
 	"""Utility function for raising an abstract method call exception."""
 	raise NotImplementedError('Method \'' + method_name + '\' must be implemented by a child class to be ran!')
 
+
+def print_dashed_line():
+	"""Prints a dashed line to see output easier."""
+	print('------------------------------------------------------------------------')

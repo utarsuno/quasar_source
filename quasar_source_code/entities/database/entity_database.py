@@ -5,6 +5,7 @@
 from quasar_source_code.database_api import postgresql_api as db_api
 from quasar_source_code.database_api import database_tables as db_t
 from quasar_source_code.entities import base_entity as be
+from quasar_source_code.universal_code import debugging as dbg
 
 # Python PostgreSQL database library.
 import psycopg2
@@ -88,11 +89,13 @@ class EntityDatabaseAPI(object):
 		"""Connects if the database is not connected."""
 		if not self._connected:
 			if self._debug:
+				dbg.print_dashed_line()
 				print('Connecting to the database...', end='')
 			self._api.connect()
 			self._connected = True
 			if self._debug:
 				print('connected!')
+				dbg.print_dashed_line()
 
 	def terminate(self):
 		"""Terminates the database connection if there is one."""

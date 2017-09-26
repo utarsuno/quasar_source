@@ -53,6 +53,7 @@ module.exports = {
         "Crosshair": true,
         "PostHelper": true,
 
+        // From globals.js
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
         "TYPE_LABEL": false,
@@ -63,6 +64,8 @@ module.exports = {
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,
         "COLOR_TEXT_DEFAULT": false,
+
+        "is_email_valid": false,
 
         "$": false
     }

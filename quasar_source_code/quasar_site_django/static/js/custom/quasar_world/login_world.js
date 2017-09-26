@@ -156,7 +156,17 @@ LoginWorld.prototype = {
                     this.interactive_objects[i].engage(this.player)
 
                     if (this.interactive_objects[i] === this.create_account_button) {
+
+                        // TODO : Regax checks!
+                        var email_text = this.create_email.get_input_text()
+                        if (is_email_valid(email_text)) {
+                            console.log(email_text)
+                            console.log('Is valid!!!')
+                        }
+
                         this.post_helper.perform_post({'owner': 'test', 'password': 'test', 'email': 'test'}, this.create_account)
+                    } else if (this.interactive_objects[i] == this.login_button) {
+
                     }
                 }
             }
