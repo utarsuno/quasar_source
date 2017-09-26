@@ -8,6 +8,13 @@ const TYPE_BUTTON         = 4 // Static text that can be clicked.
 const TYPE_STATUS         = 5 // Dynamic non-interactive text.
 const TYPE_TITLE          = 6 // Static title text.
 
+// Server response messages.
+const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!'
+const SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = 'Invalid number of POST arguments!'
+const SERVER_REPLY_GENERIC_NO                             = 'n'
+const SERVER_REPLY_GENERIC_YES                            = 'y'
+const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!'
+
 // Highlight color.
 const COLOR_HIGHLIGHT      = 0xD4FF93
 const COLOR_TEXT_HIGHLIGHT = '#D4FF93'

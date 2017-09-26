@@ -53,6 +53,8 @@ module.exports = {
         "Crosshair": true,
         "PostHelper": true,
 
+        "$": false,
+
         // From globals.js
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
@@ -67,6 +69,11 @@ module.exports = {
 
         "is_email_valid": false,
 
-        "$": false
+        "SERVER_REPLY_INVALID_POST_DATA_ERROR": false,
+        "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,
+        "SERVER_REPLY_GENERIC_NO": false,
+        "SERVER_REPLY_GENERIC_YES": false,
+        "SERVER_REPLY_GENERIC_SERVER_ERROR": false
+
     }
 };

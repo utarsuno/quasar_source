@@ -37,6 +37,10 @@ FloatingLabelInput.prototype = {
 }
 
 Floating2DText.prototype = {
+
+    // Only used for Password type texts.
+    _hidden_text: null,
+
     text: null,
     width: null,
     height: null,
@@ -69,6 +73,7 @@ Floating2DText.prototype = {
         this.height             = h
 
         this.text               = text
+        this._hidden_text       = ''
 
         this.being_looked_at    = false
         this.being_engaged_with = false
@@ -201,6 +206,7 @@ Floating2DText.prototype = {
             }
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
+                this._hidden_text += event.key
                 this.add_character('*')
             } else if (this.type == TYPE_INPUT_REGULAR) {
                 this.add_character(event.key)

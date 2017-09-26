@@ -150,12 +150,12 @@ def POST_create_owner(request):
 	received_owner_email = request.POST[OWNER_EMAIL]
 	received_owner_password = request.POST[OWNER_PASSWORD]
 
+	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
 	print('OWNER NAME : ' + str(received_owner_name))
 	print('OWNER EMAIL : ' + str(received_owner_email))
 	print('OWNER OWNER_PASSWORD : ' + str(received_owner_password))
 
 	# TODO : Actually save the owner.
+	db_api.create_owner(name=received_owner_name, email=received_owner_email, password=received_owner_password)
 
-
-	# Temporary reply.
 	return SERVER_REPLY_GENERIC_YES
