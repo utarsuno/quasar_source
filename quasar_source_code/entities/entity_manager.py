@@ -9,18 +9,16 @@ from quasar_source_code.universal_code import time_abstraction as ta
 class EntityManager(object):
 	"""Defines management operations for Entities."""
 
-	def __init__(self):
+	def __init__(self, manager_id=-1):
 		super().__init__()
 		self.entities             = []
 		self._owner_id            = None
-		self._manager_id          = None
+		self._manager_id          = manager_id
 		self._entity_database_api = ed.EntityDatabaseAPI()
 
 	@property
 	def manager_id(self) -> int:
 		"""Returns the manager_id of this manager, -1 if error."""
-		if self._manager_id is None:
-			return -1
 		return self._manager_id
 
 	def print_entities(self):

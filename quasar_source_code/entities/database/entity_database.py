@@ -67,7 +67,7 @@ class EntityDatabaseAPI(object):
 		y = 2
 		# TODO : !!!
 
-	def get_entity_manager(self, manager_id):
+	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		results = self._entity_managers_table.get_row_values()
 		for r in results:
