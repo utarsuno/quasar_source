@@ -48,6 +48,7 @@ module.exports = {
         "LoginPanel": true,
         "Player": true,
         "Floating2DText": true,
+        "FloatingLabelInput": true,
         "LoginWorld": true,
         "Crosshair": true,
 

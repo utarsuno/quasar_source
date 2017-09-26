@@ -15,6 +15,9 @@ LoginWorld.prototype = {
     password_label: null,
     password_field: null,
 
+    // Create account fields.
+    create_username: null,
+
     set_player_look_at: null,
 
     interactive_objects : null,
@@ -64,10 +67,12 @@ LoginWorld.prototype = {
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
         // Create account fields.
-
+        this.create_username = new FloatingLabelInput(150, 30, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_username.update_position(200, 100, 45)
 
         // Create a list of the interactive floating texts.
-        this.interactive_objects = [this.password_field, this.username_field, this.login_button]
+        this.interactive_objects = [this.password_field, this.username_field, this.login_button,
+                                    this.create_username.floating_input]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
@@ -106,10 +111,9 @@ LoginWorld.prototype = {
 
         if (event.keyCode == 220) { // backslash
             if (this.player.is_engaged()) {
-                this.player.disengage()
                 for (i = 0; i < this.interactive_objects.length; i++) {
                     if (this.interactive_objects[i].being_looked_at) {
-                        this.interactive_objects[i].disengage()
+                        this.interactive_objects[i].disengage(this.player)
                     }
                 }
             }
@@ -123,9 +127,8 @@ LoginWorld.prototype = {
 
         if (event.keyCode == 69) { // e
             for (i = 0; i < this.interactive_objects.length; i++) {
-                this.player.engage()
                 if (this.interactive_objects[i].being_looked_at) {
-                    this.interactive_objects[i].engage()
+                    this.interactive_objects[i].engage(this.player)
                 }
             }
         }
