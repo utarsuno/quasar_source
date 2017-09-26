@@ -141,6 +141,24 @@ OWNER_MANAGER_ID = 'manager_id'
 
 
 @csrf_exempt
+def POST_login(request):
+	"""Handles the POST request for logging in."""
+	if check_POST_arguments(['username', OWNER_PASSWORD], request) is not None:
+		return check_POST_arguments(['username', OWNER_PASSWORD], request)
+
+	received_username = request.POST['username']
+	received_password = request.POST[OWNER_PASSWORD]
+
+	# TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
+
+	print('USERNAME LOGIN : ' + received_username)
+
+	# TODO : On top of basic rules checks, make sure the user isn't already logged in.
+
+	return SERVER_REPLY_GENERIC_NO
+
+
+@csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
 	if check_POST_arguments([OWNER_NAME, OWNER_PASSWORD, OWNER_EMAIL], request) is not None:
@@ -151,11 +169,10 @@ def POST_create_owner(request):
 	received_owner_password = request.POST[OWNER_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
-	print('OWNER NAME : ' + str(received_owner_name))
-	print('OWNER EMAIL : ' + str(received_owner_email))
-	print('OWNER OWNER_PASSWORD : ' + str(received_owner_password))
+	print('Creating account : ' + received_owner_name)
 
-	# TODO : Actually save the owner.
+	# TODO : On top of basic rules checks, make sure the username isn't already taken.
+
 	db_api.create_owner(name=received_owner_name, email=received_owner_email, password=received_owner_password)
 
 	return SERVER_REPLY_GENERIC_YES
