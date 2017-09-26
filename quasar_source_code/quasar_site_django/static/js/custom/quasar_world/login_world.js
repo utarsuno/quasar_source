@@ -23,6 +23,8 @@ LoginWorld.prototype = {
 
     post_helper: null,
 
+    ajax_status: null,
+
     create_account: function(data) {
 
         console.log('THE CALLBACK GOT THIS DATA')
@@ -124,7 +126,8 @@ LoginWorld.prototype = {
 
     update: function() {
         if (this.set_player_look_at) {
-            this.player.look_at(new THREE.Vector3(0, 70, 45))
+            //this.player.look_at(new THREE.Vector3(0, 70, 45))
+            this.player.set_position(new THREE.Vector3(130, 90, 300))
             this.set_player_look_at = false
         }
 
@@ -202,7 +205,7 @@ LoginWorld.prototype = {
 
                         if (!error) {
                             this.ajax_status.update_text('Success! Performing request.')
-                            this.post_helper.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account)
+                            this.post_helper.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account.bind(this))
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
@@ -228,7 +231,8 @@ LoginWorld.prototype = {
         if (this.player == null) {
             this.set_player_look_at = true
         } else {
-            this.player.look_at(new THREE.Vector3(0, 70, 45))
+            //this.player.look_at(new THREE.Vector3(0, 70, 45))
+            this.player.set_position(new THREE.Vector3(130, 90, 300))
         }
     },
 

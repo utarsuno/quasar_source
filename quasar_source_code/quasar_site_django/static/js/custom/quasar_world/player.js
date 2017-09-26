@@ -100,6 +100,10 @@ Player.prototype = {
     look_at: function(vector) {
         // TODO : Fix this so that it works.
         //this.fps_controls.yaw.lookAt(vector)
+    },
+
+    set_position: function(vector) {
+        this.fps_controls.yaw.position = vector
     }
 
 }
