@@ -85,14 +85,14 @@ LoginWorld.prototype = {
             this.set_player_look_at = false
         }
 
-        var position = this.player.fps_controls.get_position()
-        var direction = this.player.fps_controls.get_direction()
+        //var position = this.player.fps_controls.get_position()
+        //var direction = this.player.fps_controls.get_direction()
 
-        var raycaster = new THREE.Raycaster(position, direction)
+        var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
             this.interactive_objects[i].look_away()
-            var intersections = raycaster.intersectObject(this.interactive_objects[i], true)
+            var intersections = raycaster.intersectObject(this.interactive_objects[i].object_3d, true)
             if (intersections.length > 0) {
                 this.interactive_objects[i].look_at()
             }
