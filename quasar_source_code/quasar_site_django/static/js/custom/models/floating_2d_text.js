@@ -22,6 +22,8 @@ FloatingLabelInput.prototype = {
 
         this.floating_label = new Floating2DText(this.one_third_width, h, label_text, TYPE_LABEL, scene)
         this.floating_input = new Floating2DText(this.two_third_width, h, '', input_type, scene)
+
+        this.floating_input.also_color_this_floating_text = this.floating_label
     },
 
     update_position: function(px, py, pz) {
@@ -53,6 +55,9 @@ Floating2DText.prototype = {
     //
     original_border_color: null,
 
+    //
+    also_color_this_floating_text: null,
+
     __init__: function(w, h, text, type, scene) {
         this.scene = scene
 
@@ -74,6 +79,9 @@ Floating2DText.prototype = {
         if (this.being_looked_at === false) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
             this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
+            }
         }
         this.being_looked_at = true
     },
@@ -82,6 +90,9 @@ Floating2DText.prototype = {
         if (this.being_looked_at) {
             this.wireframe.material.color.setHex(this.original_border_color)
             this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
+            }
         }
         this.being_looked_at = false
     },
@@ -102,6 +113,15 @@ Floating2DText.prototype = {
         if (this.type != TYPE_BUTTON) {
             player.engage()
         }
+    },
+
+    update_just_color: function(color) {
+        if (this.type == TYPE_TITLE) {
+            this.dynamic_texture.clear().drawText(this.text, 0, 40, color)
+        } else {
+            this.dynamic_texture.clear().drawText(this.text, 0, 20, color)
+        }
+        this.dynamic_texture.needsUpdate = true
     },
 
     update_text_color: function(text, color) {
