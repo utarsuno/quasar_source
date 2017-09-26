@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# TODO : Eventually find a more elegant solution.
 import sys
 my_libraries_path = '/home/git_repos/quasar_source'
 if my_libraries_path not in sys.path:
