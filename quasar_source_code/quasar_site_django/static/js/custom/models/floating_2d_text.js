@@ -15,7 +15,7 @@ FloatingLabelInput.prototype = {
 
     __init__: function(w, h, label_text, input_type, scene) {
         this.one_third_width = w / 3.0
-        this.one_third_width = this.one_third_width * 2.0
+        this.two_third_width = this.one_third_width * 2.0
 
         //this.floating_label = new Floating2DText(this.one_third_width, h, label_text, TYPE_LABEL, scene)
         console.log(this.two_third_width)
@@ -119,10 +119,10 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 4, this.height * 4)
-        //this.dynamic_texture.context.font = 'Bold 20px Arial'
-        this.dynamic_texture.context.font = '32px Arial'
         if (this.type == TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold 64px Arial'
+        } else {
+            this.dynamic_texture.context.font = '32px Arial'
         }
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
