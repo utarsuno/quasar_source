@@ -118,7 +118,7 @@ Floating2DText.prototype = {
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
-        this.dynamic_texture = new THREEx.DynamicTexture(this.width * 4, this.height * 4)
+        this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2)
         if (this.type == TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold 64px Arial'
         } else {

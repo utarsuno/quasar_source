@@ -55,7 +55,7 @@ LoginWorld.prototype = {
 
         this.login_label = new Floating2DText(100, 40, 'Login :', TYPE_TITLE, this.scene)
         this.login_label.update_position_and_look_at(new THREE.Vector3(0, 110, 45), new THREE.Vector3(0, 110, 55))
-        
+
         this.login_button = new Floating2DText(50, 20, 'Login', TYPE_BUTTON, this.scene)
 
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
