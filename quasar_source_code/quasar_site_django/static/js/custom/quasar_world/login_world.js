@@ -73,6 +73,12 @@ LoginWorld.prototype = {
         this.create_email = new FloatingLabelInput(150, 20, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
 
+        this.create_password = new FloatingLabelInput(150, 20, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_password.update_position(200, 50, 45)
+
+        this.create_repeat_password = new FloatingLabelInput(150, 20, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_repeat_password.update_position(200, 25, 45)
+
         // Create a list of the interactive floating texts.
         this.interactive_objects = [this.password_field, this.username_field, this.login_button,
             this.create_username.floating_input,
