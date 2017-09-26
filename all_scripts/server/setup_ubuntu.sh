@@ -43,6 +43,9 @@ sudo apt-get install postgresql postgresql-contrib
 # Needed for Django websockets
 sudo pip3 install -U 'Twisted[tls,http2]'
 
+# other django needs
+sudo pip3 install lazyme
+
 #---
 
 
