@@ -67,12 +67,12 @@ LoginWorld.prototype = {
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
         // Create account fields.
-        this.create_username = new FloatingLabelInput(150, 30, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100, 45)
 
         // Create a list of the interactive floating texts.
         this.interactive_objects = [this.password_field, this.username_field, this.login_button,
-                                    this.create_username.floating_input]
+            this.create_username.floating_input]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
@@ -107,7 +107,7 @@ LoginWorld.prototype = {
     on_key_press: function(event) {
 
         //console.log(event)
-        var i;
+        var i
 
         if (event.keyCode == 220) { // backslash
             if (this.player.is_engaged()) {
@@ -119,10 +119,10 @@ LoginWorld.prototype = {
             }
         }
 
-        if (this.username_field.is_engaged()) {
-            this.username_field.parse_keycode(event)
-        } else if (this.password_field.is_engaged()) {
-            this.password_field.parse_keycode(event)
+        for (i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i].is_engaged()) {
+                this.interactive_objects[i].parse_keycode(event);
+            }
         }
 
         if (event.keyCode == 69) { // e
