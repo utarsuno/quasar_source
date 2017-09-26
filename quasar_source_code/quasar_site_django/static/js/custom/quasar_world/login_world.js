@@ -68,7 +68,7 @@ LoginWorld.prototype = {
         this.create_repeat_password.update_position(200, 25, 45)
 
         this.create_account_button = new Floating2DText(150, 20, 'Create Account', TYPE_BUTTON, this.scene)
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45))
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
 
         // Create a list of the interactive floating texts.
         this.interactive_objects = [
