@@ -157,7 +157,7 @@ LoginWorld.prototype = {
 
                     if (this.interactive_objects[i] === this.create_account_button) {
 
-                        // TODO : Regax checks!
+                        // TODO : Check the inputs
                         var email_text = this.create_email.get_input_text()
                         console.log('Email text is:')
                         console.log(email_text)
