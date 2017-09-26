@@ -52,7 +52,7 @@ LoginWorld.prototype = {
         this.login_password.update_position(0, 75, 45)
 
         this.login_button = new Floating2DText(150, 20, 'Login', TYPE_BUTTON, this.scene)
-        this.login_button.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 55))
+        this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 2, 50, 45), new THREE.Vector3(150 / 2, 50, 55))
 
         // Create account fields.
         this.create_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -68,7 +68,7 @@ LoginWorld.prototype = {
         this.create_repeat_password.update_position(200, 25, 45)
 
         this.create_account_button = new Floating2DText(150, 20, 'Create Account', TYPE_BUTTON, this.scene)
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + 150 / 2, 0, 45), new THREE.Vector3(200 + 150 / 2, 0, 46))
 
         // Create a list of the interactive floating texts.
         this.interactive_objects = [
