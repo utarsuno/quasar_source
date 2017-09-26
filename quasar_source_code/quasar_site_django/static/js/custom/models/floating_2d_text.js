@@ -73,7 +73,7 @@ Floating2DText.prototype = {
     look_at: function() {
         if (this.being_looked_at === false) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
-            this.update_text_color(this.text, COLOR_HIGHLIGHT)
+            this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
         }
         this.being_looked_at = true
     },
@@ -81,7 +81,7 @@ Floating2DText.prototype = {
     look_away: function() {
         if (this.being_looked_at) {
             this.wireframe.material.color.setHex(this.original_border_color)
-            this.update_text_color(this.text, COLOR_TEXT)
+            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
         }
         this.being_looked_at = false
     },
@@ -116,7 +116,7 @@ Floating2DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.update_text_color(text, COLOR_TEXT)
+            this.update_text_color(text, COLOR_TEXT_DEFAULT)
         }
     },
 

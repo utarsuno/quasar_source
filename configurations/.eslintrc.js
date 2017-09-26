@@ -61,7 +61,8 @@ module.exports = {
         "TYPE_TITLE": false,
 
         "COLOR_HIGHLIGHT": false,
-        "COLOR_TEXT": false,
+        "COLOR_TEXT_HIGHLIGHT": false,
+        "COLOR_TEXT_DEFAULT": false,
 
         "$": false
     }
