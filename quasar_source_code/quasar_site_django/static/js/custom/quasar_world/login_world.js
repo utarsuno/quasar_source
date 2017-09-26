@@ -10,11 +10,6 @@ LoginWorld.prototype = {
 
     player: null,
 
-    username_label: null,
-    username_field: null,
-    password_label: null,
-    password_field: null,
-
     // Create account fields.
     create_username: null,
 
@@ -46,6 +41,9 @@ LoginWorld.prototype = {
         light3.position.set(5, 100, 5)
         this.add_to_scene(light3)
 
+        // AJAX status.
+
+
         // Login fields.
         this.login_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.login_username.update_position(0, 100, 45)
@@ -53,11 +51,7 @@ LoginWorld.prototype = {
         this.login_password = new FloatingLabelInput(150, 20, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.login_label = new Floating2DText(100, 40, 'Login :', TYPE_TITLE, this.scene)
-        this.login_label.update_position_and_look_at(new THREE.Vector3(0, 110, 45), new THREE.Vector3(0, 110, 55))
-
-        this.login_button = new Floating2DText(50, 20, 'Login', TYPE_BUTTON, this.scene)
-
+        this.login_button = new Floating2DText(150, 20, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
         // Create account fields.
@@ -73,8 +67,13 @@ LoginWorld.prototype = {
         this.create_repeat_password = new FloatingLabelInput(150, 20, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_repeat_password.update_position(200, 25, 45)
 
+        this.create_account_button = new Floating2DText(150, 20, 'Create Account', TYPE_BUTTON, this.scene)
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45))
+
         // Create a list of the interactive floating texts.
         this.interactive_objects = [
+            this.login_button,
+            this.create_account_button,
             this.login_username.floating_input,
             this.login_password.floating_input,
             this.create_username.floating_input,
@@ -127,7 +126,7 @@ LoginWorld.prototype = {
 
         for (i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i].is_engaged()) {
-                this.interactive_objects[i].parse_keycode(event);
+                this.interactive_objects[i].parse_keycode(event)
             }
         }
 

@@ -52,5 +52,20 @@ DataDisplay.prototype = {
 
     toggle: function() {
         this.enabled = !this.enabled
+        if (!this.enabled) {
+            this.x_coordinate.style.visibility = 'hidden'
+            this.y_coordinate.style.visibility = 'hidden'
+            this.z_coordinate.style.visibility = 'hidden'
+            this.x_direction.style.visibility = 'hidden'
+            this.y_direction.style.visibility = 'hidden'
+            this.z_direction.style.visibility = 'hidden'
+        } else {
+            this.x_coordinate.style.visibility = 'visible'
+            this.y_coordinate.style.visibility = 'visible'
+            this.z_coordinate.style.visibility = 'visible'
+            this.x_direction.style.visibility = 'visible'
+            this.y_direction.style.visibility = 'visible'
+            this.z_direction.style.visibility = 'visible'
+        }
     }
 }
