@@ -65,7 +65,7 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // AJAX status.
-        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
+        this.ajax_status = new Floating2DText(450, 30, '', TYPE_TITLE, this.scene)
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(100, 150, 45), new THREE.Vector3(100, 150, 55))
 
         // Login fields.
@@ -201,7 +201,10 @@ LoginWorld.prototype = {
                         }
                     } else if (this.interactive_objects[i] === this.login_button) {
                         var y = 2// TODO !!!
+
                     }
+
+
                 }
             }
         }

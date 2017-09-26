@@ -102,8 +102,8 @@ Floating2DText.prototype = {
     },
 
     disengage: function(player) {
-        this.being_engaged_with = false
         if (this.type != TYPE_BUTTON) {
+            this.being_engaged_with = false
             player.disengage()
         }
     },
@@ -113,8 +113,8 @@ Floating2DText.prototype = {
     },
 
     engage: function(player) {
-        this.being_engaged_with = true
         if (this.type != TYPE_BUTTON) {
+            this.being_engaged_with = true
             player.engage()
         }
     },
