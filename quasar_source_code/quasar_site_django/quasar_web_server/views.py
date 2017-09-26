@@ -121,6 +121,9 @@ def check_POST_arguments(arguments, request):
 	"""
 	if len(request.POST) != len(arguments):
 		print('Got ' + str(len(request.POST)) + ' number of arguments instead of ' + str(len(arguments)))
+		print('They were :')
+		for arg in request.POST:
+			print(arg)
 		return HttpResponse(SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR)
 	for arg in arguments:
 		if arg not in request.POST:
