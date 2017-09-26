@@ -159,6 +159,8 @@ LoginWorld.prototype = {
 
                         // TODO : Regax checks!
                         var email_text = this.create_email.get_input_text()
+                        console.log('Email text is:')
+                        console.log(email_text)
                         if (is_email_valid(email_text)) {
                             console.log(email_text)
                             console.log('Is valid!!!')
