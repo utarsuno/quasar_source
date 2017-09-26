@@ -73,6 +73,7 @@ Floating2DText.prototype = {
     look_at: function() {
         if (this.being_looked_at === false) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
+            this.update_text_color(this.text, COLOR_HIGHLIGHT)
         }
         this.being_looked_at = true
     },
@@ -80,6 +81,7 @@ Floating2DText.prototype = {
     look_away: function() {
         if (this.being_looked_at) {
             this.wireframe.material.color.setHex(this.original_border_color)
+            this.update_text_color(this.text, COLOR_TEXT)
         }
         this.being_looked_at = false
     },
@@ -102,15 +104,19 @@ Floating2DText.prototype = {
         }
     },
 
+    update_text_color: function(text, color) {
+        if (this.type == TYPE_TITLE) {
+            this.dynamic_texture.clear().drawText(text, 0, 40, color)
+        } else {
+            this.dynamic_texture.clear().drawText(text, 0, 20, color)
+        }
+        this.current_text = text
+        this.dynamic_texture.needsUpdate = true
+    },
+
     update_text: function(text) {
         if (this.current_text !== text) {
-            if (this.type == TYPE_TITLE) {
-                this.dynamic_texture.clear().drawText(text, 0, 40, COLOR_TEXT)
-            } else {
-                this.dynamic_texture.clear().drawText(text, 0, 20, COLOR_TEXT)
-            }
-            this.current_text = text
-            this.dynamic_texture.needsUpdate = true
+            this.update_text_color(text, COLOR_TEXT)
         }
     },
 
