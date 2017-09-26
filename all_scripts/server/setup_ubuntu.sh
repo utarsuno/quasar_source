@@ -39,6 +39,11 @@ sudo apt-get install postgresql postgresql-contrib
 
 # sudo pip install dill
 
+#----
+# Needed for Django websockets
+sudo pip3 install -U 'Twisted[tls,http2]'
+
+#---
 
 
 ##

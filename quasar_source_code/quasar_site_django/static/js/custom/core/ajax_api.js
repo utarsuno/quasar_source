@@ -1,9 +1,27 @@
 'use strict'
 
-function AJAXHelper() {
-
+function PostHelper(url) {
+    this.__init__(url)
 }
 
-AJAXHelper.prototype = {
+PostHelper.prototype = {
+    // States.
+    message_being_sent: null,
+    waiting_on_reply:   null,
 
+    url: null,
+
+    __init__: function(url) {
+        this.url = url
+    },
+
+    perform_post: function(post_data) {
+        $.post(this.url, post_data, function(data, status) {
+            if (status === 'success') {
+
+            } else {
+
+            }
+        })
+    }
 }

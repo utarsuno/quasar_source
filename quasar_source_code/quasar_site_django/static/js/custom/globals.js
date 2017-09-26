@@ -9,5 +9,7 @@ const TYPE_STATUS         = 5 // Dynamic non-interactive text.
 const TYPE_TITLE          = 6 // Static title text.
 
 // Highlight color.
-const HIGHLIGHT_COLOR = 0xD4FF93
-const TEXT_COLOR      = '#97ffba'
+const COLOR_HIGHLIGHT = 0xD4FF93
+const COLOR_TEXT      = '#97ffba'
+const COLOR_WHITE     = '#ffffff'
+const COLOR_WHITE     = '#000000'

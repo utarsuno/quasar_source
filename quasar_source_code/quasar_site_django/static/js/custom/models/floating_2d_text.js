@@ -72,7 +72,7 @@ Floating2DText.prototype = {
 
     look_at: function() {
         if (this.being_looked_at === false) {
-            this.wireframe.material.color.setHex(HIGHLIGHT_COLOR)
+            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
         }
         this.being_looked_at = true
     },
@@ -105,9 +105,9 @@ Floating2DText.prototype = {
     update_text: function(text) {
         if (this.current_text !== text) {
             if (this.type == TYPE_TITLE) {
-                this.dynamic_texture.clear().drawText(text, 0, 40, TEXT_COLOR)
+                this.dynamic_texture.clear().drawText(text, 0, 40, COLOR_TEXT)
             } else {
-                this.dynamic_texture.clear().drawText(text, 0, 20, TEXT_COLOR)
+                this.dynamic_texture.clear().drawText(text, 0, 20, COLOR_TEXT)
             }
             this.current_text = text
             this.dynamic_texture.needsUpdate = true

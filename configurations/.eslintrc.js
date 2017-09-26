@@ -51,6 +51,7 @@ module.exports = {
         "FloatingLabelInput": true,
         "LoginWorld": true,
         "Crosshair": true,
+        "PostHelper": true,
 
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
@@ -59,7 +60,9 @@ module.exports = {
         "TYPE_STATUS": false,
         "TYPE_TITLE": false,
 
-        "HIGHLIGHT_COLOR": false,
-        "TEXT_COLOR": false
+        "COLOR_HIGHLIGHT": false,
+        "COLOR_TEXT": false,
+
+        "$": false
     }
 };
