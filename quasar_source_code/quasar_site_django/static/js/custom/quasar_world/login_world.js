@@ -58,12 +58,13 @@ LoginWorld.prototype = {
         this.username_label.update_position_and_look_at(new THREE.Vector3(0, 70, 45), new THREE.Vector3(0, 70, 55))
         this.username_field.update_position_and_look_at(new THREE.Vector3(75, 70, 45), new THREE.Vector3(75, 70, 55))
 
-        this.password_label.update_position_and_look_at(THREE.Vector3(0, 40, 45), new THREE.Vector3(0, 40, 55))
+        this.password_label.update_position_and_look_at(new THREE.Vector3(0, 40, 45), new THREE.Vector3(0, 40, 55))
         this.password_field.update_position_and_look_at(new THREE.Vector3(75, 40, 45), new THREE.Vector3(75, 40, 55))
 
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 10, 45), new THREE.Vector3(0, 10, 55))
 
         // Create account fields.
+
 
         // Create a list of the interactive floating texts.
         this.interactive_objects = [this.password_field, this.username_field, this.login_button]
