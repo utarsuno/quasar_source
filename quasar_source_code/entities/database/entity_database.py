@@ -73,10 +73,7 @@ class EntityDatabaseAPI(object):
 	def get_all_owners(self):
 		"""Returns a list of all the owners."""
 		owners = self._owners.get_row_values()
-		for o in owners:
-			print(o)
-		y = 2
-		# TODO : !!!
+		return owners
 
 	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
@@ -104,5 +101,5 @@ class EntityDatabaseAPI(object):
 			self._api.terminate()
 
 
-e = EntityDatabaseAPI()
-print(e.get_all_owners())
+#e = EntityDatabaseAPI()
+#print(e.get_all_owners())
