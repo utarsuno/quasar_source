@@ -38,7 +38,7 @@ LoginWorld.prototype = {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Account created!')
         } else {
-            this.ajax_status.update_text('Error with creating account!')
+            this.ajax_status.update_text('Error: ' + data)
         }
         /*
         OWNER_NAME       = 'owner'

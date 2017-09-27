@@ -184,6 +184,14 @@ def POST_create_owner(request):
 
 	# TODO : On top of basic rules checks, make sure the username isn't already taken.
 
+	# Make sure the owner doesn't already exist.
+	global owners
+	owners = db_api.get_all_owners()
+	for o in owners:
+		if o[0] == received_owner_name:
+			print('username already taken')
+			return HttpResponse('username already taken.')
+
 	db_api.create_owner(name=received_owner_name, email=received_owner_email, password=received_owner_password)
 
 	return SERVER_REPLY_GENERIC_YES
