@@ -64,7 +64,7 @@ RendererAPI.prototype = {
     },
 
     update_current_scene: function() {
-        hello_message
+        this.world.update()
     },
 
     switch_to_home_world: function() {
