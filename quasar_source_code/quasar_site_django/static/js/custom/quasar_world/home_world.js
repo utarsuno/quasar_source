@@ -10,7 +10,12 @@ HomeWorld.prototype = {
 
     hello_message: null,
 
+    got_camera: null,
+
     __init__: function() {
+
+        this.got_camera = false
+
         this.scene = new THREE.Scene()
 
         // Going to try to create a plane here.
@@ -39,6 +44,9 @@ HomeWorld.prototype = {
     },
 
     enter_world: function() {
+        if (this.got_camera === false) {
+            this.add_to_scene(this.player.fps_controls.get_object())
+        }
         if (this.hello_message === null) {
             this.ajax_status.update_text('Welcome back ' + this.player.username)
         }
