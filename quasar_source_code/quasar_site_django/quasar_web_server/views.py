@@ -157,7 +157,7 @@ def POST_login(request):
 	global owners
 	owners = db_api.get_all_owners()
 	for o in owners:
-		if o[0] == received_username and [1] == received_password:
+		if o[0] == received_username and o[1] == received_password:
 
 			# Log the player in.
 			# TODO : this design will probably change once channels are more developed.
