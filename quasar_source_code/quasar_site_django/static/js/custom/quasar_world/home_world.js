@@ -30,6 +30,10 @@ HomeWorld.prototype = {
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 100, 45), new THREE.Vector3(150, 100, 55))
     },
 
+    update: function() {
+
+    },
+
     add_to_scene: function(object) {
         this.scene.add(object)
     },
