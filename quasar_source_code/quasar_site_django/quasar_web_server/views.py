@@ -42,7 +42,7 @@ class DatabaseThread(object):
 
 
 db_api = entity_database.EntityDatabaseAPI(debug=True)
-owners = db_api.get_all_owners()
+owners = []
 
 
 def get_client_ip(request):
@@ -153,7 +153,18 @@ def POST_login(request):
 
 	print('USERNAME LOGIN : ' + received_username)
 
-	# TODO : On top of basic rules checks, make sure the user isn't already logged in.
+	# TODO : On top of basic rules checks, make sure the username and password match.
+	global owners
+	owners = db_api.get_all_owners()
+	for o in owners:
+		if o[0] == received_username and [1] == received_password:
+
+			# Log the player in.
+			# TODO : this design will probably change once channels are more developed.
+
+			request.session['username'] = received_username
+
+			return SERVER_REPLY_GENERIC_YES
 
 	return SERVER_REPLY_GENERIC_NO
 

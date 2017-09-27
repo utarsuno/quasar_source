@@ -18,6 +18,9 @@ RendererAPI.prototype = {
     // Custom objects.
     stats_api       : null,
 
+    //
+    home_world      : null,
+
     // Three js object.
     previous_world  : null,
     previous_scene  : null,
@@ -27,9 +30,6 @@ RendererAPI.prototype = {
 
     // These variables get added later on.
     camera          : null,
-
-    // Player controlled object.
-    crosshair       : null,
 
     __init__: function() {
         this.webgl_enabled = !!Detector.webgl
@@ -58,11 +58,17 @@ RendererAPI.prototype = {
             document.body.appendChild(this.renderer.domElement)
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
+
+            this.home_world = new HomeWorld()
         }
     },
 
     update_current_scene: function() {
         this.world.update()
+    },
+
+    switch_to_home_world: function() {
+        this.set_current_world(this.home_world)
     },
 
     set_current_world: function(world) {
@@ -104,7 +110,6 @@ RendererAPI.prototype = {
         this.camera.aspect = this.aspect_ratio
         this.camera.updateProjectionMatrix()
         this.renderer.setSize(this.window_width, this.window_height)
-        this.crosshair.set_center_x_center_y(this.window_width / 2, this.window_height / 2)
     },
 
     set_camera: function(camera) {

@@ -32,7 +32,7 @@ FloatingLabelInput.prototype = {
     },
 
     get_input_text: function() {
-        return this.floating_input.text.trim()
+        return this.floating_input.get_text().trim()
     }
 }
 
@@ -82,6 +82,13 @@ Floating2DText.prototype = {
 
         this.type = type
         this.create()
+    },
+
+    get_text: function() {
+        if (this.type === TYPE_INPUT_PASSWORD) {
+            return this._hidden_text
+        }
+        return this.text
     },
 
     look_at: function() {

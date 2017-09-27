@@ -21,11 +21,13 @@ Player.prototype = {
     pointer_lock_api: null,
     fps_controls    : null,
     data_display    : null,
-    crosshair       : null,
 
     // Tracking keyboard keys.
     key_down_ctrl: null,
     key_down_d   : null,
+
+    // Owner information.
+    username: null,
     
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
@@ -38,9 +40,6 @@ Player.prototype = {
 
         this.data_display = new DataDisplay(this.fps_controls)
 
-        this.crosshair = new Crosshair(this.renderer_api.window_width / 2, this.renderer_api.window_height / 2)
-        this.renderer_api.crosshair = this.crosshair
-
         this.key_down_ctrl = false
         this.key_down_d    = false
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
@@ -49,6 +48,10 @@ Player.prototype = {
         // Set player state.
         this.logged_in = false
         this.engaged   = false
+    },
+
+    perform_login: function() {
+        this.renderer_api.switch_to_home_world()
     },
 
     disengage: function() {

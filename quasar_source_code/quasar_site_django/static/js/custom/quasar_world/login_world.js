@@ -24,7 +24,17 @@ LoginWorld.prototype = {
     post_login         : null,
     ajax_status        : null,
 
-    create_account: function(data) {
+    login_button_event: function(data) {
+        if (data === SERVER_REPLY_GENERIC_YES) {
+            this.ajax_status.update_text('Logged in!')
+            this.player.username = this.login_username.get_input_text()
+            this.player.perform_login()
+        } else {
+            this.ajax_status.update_text('Username or password is not valid!')
+        }
+    },
+
+    create_account_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Account created!')
         } else {
@@ -49,7 +59,7 @@ LoginWorld.prototype = {
         this.scene = new THREE.Scene()
 
         // Going to try to create a plane here.
-        var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 100, 100)
+        var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 50, 50)
         plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
         //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
         var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
@@ -166,6 +176,9 @@ LoginWorld.prototype = {
                 if (this.interactive_objects[i].being_looked_at) {
                     this.interactive_objects[i].engage(this.player)
 
+                    var error = false
+                    var error_message = ''
+
                     if (this.interactive_objects[i] === this.create_account_button) {
 
                         // TODO : Eventually make input parsing live for the user.
@@ -173,9 +186,6 @@ LoginWorld.prototype = {
                         var username_text = this.create_username.get_input_text()
                         var password_text = this.create_password.get_input_text()
                         var password_repeat_text = this.create_repeat_password.get_input_text()
-
-                        var error = false
-                        var error_message = ''
 
                         if (!is_email_valid(email_text)) {
                             error = true
@@ -200,7 +210,7 @@ LoginWorld.prototype = {
 
                         if (!error) {
                             this.ajax_status.update_text('Sending request to server.')
-                            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account.bind(this))
+                            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
@@ -210,8 +220,6 @@ LoginWorld.prototype = {
                         var login_password_text = this.login_password.get_input_text()
 
                         // TODO : Create a class to handle this kind of logic.
-                        var error = false
-                        var error_message = ''
 
                         if (login_username_text.length < 4) {
                             error = true
@@ -225,7 +233,8 @@ LoginWorld.prototype = {
                         }
 
                         if (!error) {
-                            this.ajax_status.update_text('TODO : Login functionality!')
+                            this.ajax_status.update_text('sending login request to server')
+                            this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
                             //this.
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)

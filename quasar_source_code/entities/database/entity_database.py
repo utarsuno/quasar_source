@@ -104,5 +104,5 @@ class EntityDatabaseAPI(object):
 			self._api.terminate()
 
 
-#e = EntityDatabaseAPI()
-#print(e.get_all_owners())
+e = EntityDatabaseAPI()
+print(e.get_all_owners())

@@ -49,7 +49,10 @@ module.exports = {
         "Player": true,
         "Floating2DText": true,
         "FloatingLabelInput": true,
+
         "LoginWorld": true,
+        "HomeWorld": true,
+
         "Crosshair": true,
         "PostHelper": true,
 

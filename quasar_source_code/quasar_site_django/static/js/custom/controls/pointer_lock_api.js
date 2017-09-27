@@ -19,7 +19,8 @@ PointerLockAPI.prototype = {
         this.element = document.body
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document
         if (this.has_pointer_lock === true) {
-            console.log('Pointer lock is supported!')
+            //console.log('Pointer lock is supported!')
+
             // Hook pointer lock state change events.
             document.addEventListener('pointerlockchange', this.pointer_lock_change.bind(this), false)
             document.addEventListener('mozpointerlockchange', this.pointer_lock_change.bind(this), false)
@@ -46,6 +47,8 @@ PointerLockAPI.prototype = {
         } else {
             this.currently_locked = false
             this.controls.disable()
+            // TODO: disable other engaged states and whatnot.
+            // TODO: add a player pointer?
         }
     },
 

@@ -9,7 +9,10 @@ renderer_api.set_current_world(login_world)
 
 // Model of the user. Must be created AFTER the scene gets set.
 var player = new Player(renderer_api)
+
+// Give the worlds a reference to the player. This should change in design later on.
 login_world.player = player
+renderer_api.home_world.player = player
 
 var previous_time = performance.now()
 
@@ -32,4 +35,3 @@ var animate = function () {
 }
 
 animate()
-
