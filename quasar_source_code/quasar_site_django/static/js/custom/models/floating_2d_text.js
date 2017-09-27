@@ -210,6 +210,9 @@ Floating2DText.prototype = {
         if (keycode == 8) {
             if (this.text.length > 0) {
                 this.pop_character()
+                if (this.type == TYPE_INPUT_PASSWORD) {
+                    this._hidden_text = this._hidden_text.slice(0, -1)
+                }
             }
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
