@@ -24,6 +24,9 @@ LoginWorld.prototype = {
     post_login         : null,
     ajax_status        : null,
 
+    //
+    current_world: null,
+
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
@@ -53,7 +56,8 @@ LoginWorld.prototype = {
 
         this.post_create_account = new PostHelper('/create_account')
         this.post_login = new PostHelper('/login')
-        
+
+        this.current_world = false
 
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -152,6 +156,10 @@ LoginWorld.prototype = {
 
     on_key_press: function(event) {
 
+        if (this.current_world === false) {
+            return
+        }
+
         //console.log(event)
         var i
 
@@ -249,6 +257,7 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
+        this.current_world = true
         if (this.player == null) {
             this.set_player_look_at = true
         } else {
@@ -258,6 +267,6 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
-
+        this.current_world = false
     }
 }

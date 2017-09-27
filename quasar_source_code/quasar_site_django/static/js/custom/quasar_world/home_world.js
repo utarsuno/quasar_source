@@ -12,7 +12,11 @@ HomeWorld.prototype = {
 
     got_camera: null,
 
+    current_world: null,
+
     __init__: function() {
+
+        this.current_world = false
 
         this.got_camera = false
 
@@ -44,6 +48,7 @@ HomeWorld.prototype = {
     },
 
     enter_world: function() {
+        this.current_world = true
         if (this.got_camera === false) {
             this.add_to_scene(this.player.fps_controls.get_object())
         }
@@ -54,5 +59,6 @@ HomeWorld.prototype = {
     },
 
     exit_world: function() {
+        this.current_world = false
     }
 }
