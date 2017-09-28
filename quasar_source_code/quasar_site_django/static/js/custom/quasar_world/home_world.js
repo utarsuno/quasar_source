@@ -58,9 +58,6 @@ HomeWorld.prototype = {
 
         this.day_titles = []
 
-        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
-        this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 150, 45), new THREE.Vector3(150, 150, 55))
-
         var origin = new THREE.Vector3(0, 0, 0)
 
         for (var i = 0; i < number_of_segments; i++) {
@@ -88,12 +85,12 @@ HomeWorld.prototype = {
                 day_string = 'Sunday'
                 break
             }
-            var day_floating_text = new Floating2DText(100, 25, day_string, TYPE_TITLE,this.scene)
+            var day_floating_text = new Floating2DText(100, 25, day_string, TYPE_TITLE, this.scene)
 
             var x_position = Math.cos(angle_delta * i) * radius
             var z_position = Math.sin(angle_delta * i) * radius
 
-            console.log(x + '\t' + y)
+            console.log( x_position + '\t' + z_position)
 
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 0, z_position), new THREE.Vector3(origin))
             this.day_titles.push(day_floating_text)
