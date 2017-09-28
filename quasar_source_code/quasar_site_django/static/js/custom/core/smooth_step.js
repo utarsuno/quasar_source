@@ -1,5 +1,8 @@
 'use strict'
 
+// TODO : not priority for now
+
+/*
 function clamp(x, lowerlimit, upperlimit) {
     if (x < lowerlimit) {
         x = lowerlimit
@@ -45,6 +48,16 @@ SmoothStep.prototype = {
     }
 
 }
+*/
+
+
+
+
+
+
+
+
+
 
 /*
 genType t; // Or genDType t;
