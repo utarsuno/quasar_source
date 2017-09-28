@@ -32,7 +32,7 @@ class EntityDatabaseAPI(object):
 		self._owners.add_table_field(db_t.TableFieldString('password', 100))
 		self._owners.add_table_field(db_t.TableFieldString('email', 100))
 		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=True))
-		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=False))
+		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=True))
 
 		# Table containing entity_managers which contain entities.
 		self._entity_managers_table = db_t.DatabaseTable('entity_managers', self._api)
@@ -101,5 +101,5 @@ class EntityDatabaseAPI(object):
 			self._api.terminate()
 
 
-#e = EntityDatabaseAPI()
+e = EntityDatabaseAPI()
 #print(e.get_all_owners())
