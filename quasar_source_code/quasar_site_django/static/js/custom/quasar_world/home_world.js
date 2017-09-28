@@ -37,7 +37,12 @@ HomeWorld.prototype = {
         light3.position.set(5, 100, 5)
         this.add_to_scene(light3)
 
-        var light = new THREE.AmbientLight(0x404040, .4) // soft white light
+        var color1 = '#b9ffd2'
+        var color2 = '#090920'
+        var light2 = new THREE.HemisphereLight(color1, color2, .5)
+        this.add_to_scene(light2)
+
+        var light = new THREE.AmbientLight(0x404040, .2) // soft white light
         this.add_to_scene(light)
 
         this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
