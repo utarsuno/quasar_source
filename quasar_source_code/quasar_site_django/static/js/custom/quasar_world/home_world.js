@@ -83,7 +83,7 @@ HomeWorld.prototype = {
                 day_string = 'Sunday'
                 break
             }
-            var day_floating_text = new Floating2DText(100, 25, day_string, this.scene)
+            var day_floating_text = new Floating2DText(100, 25, day_string, TYPE_TITLE,this.scene)
 
             var x_position = Math.cos(angle_delta * i) * radius
             var z_position = Math.sin(angle_delta * i) * radius
