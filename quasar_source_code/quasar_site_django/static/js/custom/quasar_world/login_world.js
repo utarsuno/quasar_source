@@ -156,6 +156,7 @@ LoginWorld.prototype = {
 
     on_key_press: function(event) {
 
+        // TODO : Optimize this later. Maybe put all key events into a single key event handler class?
         if (this.current_world === false) {
             return
         }

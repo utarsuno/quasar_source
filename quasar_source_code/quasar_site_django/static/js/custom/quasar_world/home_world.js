@@ -14,6 +14,9 @@ HomeWorld.prototype = {
 
     current_world: null,
 
+    //
+
+
     __init__: function() {
 
         this.current_world = false
@@ -34,9 +37,60 @@ HomeWorld.prototype = {
         light3.position.set(5, 100, 5)
         this.add_to_scene(light3)
 
+        var light = new THREE.AmbientLight(0x404040, .4) // soft white light
+        this.add_to_scene(light)
 
         this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 100, 45), new THREE.Vector3(150, 100, 55))
+
+
+        // Create the 2 week views here.
+        // Temporary design testing.
+
+        var number_of_segments = 14
+        var angle_delta = Math.PI / number_of_segments
+        var radius = 300
+
+        this.day_titles = []
+
+        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
+        this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 150, 45), new THREE.Vector3(150, 150, 55))
+
+        var origin = new THREE.Vector3(0, 0, 0)
+
+        for (var i = 0; i < number_of_segments; i++) {
+            var day_string = ''
+            switch(i % 7) {
+            case 0:
+                day_string = 'Monday'
+                break
+            case 1:
+                day_string = 'Tuesday'
+                break
+            case 2:
+                day_string = 'Wednesday'
+                break
+            case 3:
+                day_string = 'Thursday'
+                break
+            case 4:
+                day_string = 'Friday'
+                break
+            case 5:
+                day_string = 'Saturday'
+                break
+            case 6:
+                day_string = 'Sunday'
+                break
+            }
+            var day_floating_text = new Floating2DText(100, 25, day_string, this.scene)
+
+            var x_position = Math.cos(angle_delta * i) * radius
+            var z_position = Math.sin(angle_delta * i) * radius
+
+            day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 0, z_position), new THREE.Vector3(origin))
+            this.day_titles.push(day_floating_text)
+        }
     },
 
     update: function() {
@@ -62,3 +116,4 @@ HomeWorld.prototype = {
         this.current_world = false
     }
 }
+
