@@ -54,15 +54,25 @@ HomeWorld.prototype = {
 
         var number_of_segments = 14
         var angle_delta = (Math.PI * 2.0) / number_of_segments
-        var radius = 300
+        var radius = 400
 
         this.day_titles = []
 
+        var week = 0
+
         for (var i = 0; i < number_of_segments; i++) {
             var day_string = ''
+            var x_position = Math.cos(angle_delta * i) * radius
+            var z_position = Math.sin(angle_delta * i) * radius
             switch(i % 7) {
             case 0:
                 day_string = 'Monday'
+                if (week == 0) {
+                    var week_title = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
+                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
+                } else if (week == 1) {
+
+                }
                 break
             case 1:
                 day_string = 'Tuesday'
@@ -83,12 +93,8 @@ HomeWorld.prototype = {
                 day_string = 'Sunday'
                 break
             }
-            console.log('Day string : ' + day_string)
-            var day_floating_text = new Floating2DText(100, 25, day_string, TYPE_TITLE, this.scene)
 
-            var x_position = Math.cos(angle_delta * i) * radius
-            var z_position = Math.sin(angle_delta * i) * radius
-
+            var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
             console.log( x_position + '\t' + z_position)
 
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
