@@ -64,8 +64,8 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        this.mouse_movement_x_buffer = new SmoothStep()
-        this.mouse_movement_y_buffer = new SmoothStep()
+        //this.mouse_movement_x_buffer = new SmoothStep()
+        //this.mouse_movement_y_buffer = new SmoothStep()
 
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
