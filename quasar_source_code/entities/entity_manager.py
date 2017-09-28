@@ -2,19 +2,17 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
-from quasar_source_code.entities.database import entity_database as ed
 from quasar_source_code.universal_code import time_abstraction as ta
 
 
 class EntityManager(object):
 	"""Defines management operations for Entities."""
 
-	def __init__(self, manager_id=-1):
+	def __init__(self, manager_id=-1, owner_id=-1):
 		super().__init__()
 		self.entities             = []
-		self._owner_id            = None
+		self._owner_id            = owner_id
 		self._manager_id          = manager_id
-		self._entity_database_api = ed.EntityDatabaseAPI()
 
 	@property
 	def manager_id(self) -> int:

@@ -161,8 +161,8 @@ LoginWorld.prototype = {
             return
         }
 
-        console.log('KEYCODE IS : ')
-        console.log(event)
+        //console.log('KEYCODE IS : ')
+        //console.log(event)
         var i
 
         if (event.keyCode == 220) { // backslash
@@ -173,6 +173,9 @@ LoginWorld.prototype = {
                     }
                 }
             }
+        } else if (event.keyCode == 9) { // tab
+
+            // Prevent default and prevent
         }
 
         for (i = 0; i < this.interactive_objects.length; i++) {

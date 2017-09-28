@@ -12,16 +12,16 @@ from quasar_source_code.universal_code import time_abstraction as ta
 
 #
 
-manager = EntityManager()
+manager = EntityManager(manager_id=2)
 entity_db = EntityDatabaseAPI()
 
 # Load the manager.
 
-manager = entity_db.get_entity_manager(manager.manager_id)
+#manager = entity_db.get_entity_manager(manager.manager_id)
 
 print('Printing Manager info :')
 print(manager)
-manager.print_all_entities()
+#manager.print_all_entities()
 #manager.print_information_for_this_week()
 
 # INFORMATION TO GET SAVED.

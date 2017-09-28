@@ -31,6 +31,9 @@ FPSControls.prototype = {
 
     // Mouse movement variables.
 
+    // Used to make mouse movement feel smoother.
+    mouse_movement_x_buffer: null,
+    mouse_movement_y_buffer: null,
 
     // Constants.
     half_pie          : null,
@@ -60,6 +63,9 @@ FPSControls.prototype = {
         this.flying_on = true
 
         this.velocity = new THREE.Vector3()
+
+        this.mouse_movement_x_buffer = new SmoothStep()
+        this.mouse_movement_y_buffer = new SmoothStep()
 
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
@@ -282,10 +288,14 @@ FPSControls.prototype = {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
+            // TODO : Smooth step this portion out.
             this.yaw.rotation.y   -= movement_x * 0.002
             this.pitch.rotation.x -= movement_y * 0.002
 
-            this.pitch.rotation.x = Math.max( - this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+            //this.mouse_movement_x_buffer.
+
+
+            this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
 
             this.direction_vector = this.get_direction()
             this.direction_vector.normalize()

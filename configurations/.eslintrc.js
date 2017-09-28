@@ -50,6 +50,8 @@ module.exports = {
         "Floating2DText": true,
         "FloatingLabelInput": true,
 
+        "SmoothStep": false,
+
         "LoginWorld": true,
         "HomeWorld": true,
 

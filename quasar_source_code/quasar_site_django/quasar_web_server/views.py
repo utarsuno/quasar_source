@@ -34,6 +34,9 @@ import threading
 from quasar_source_code.entities.database import entity_database
 
 
+# Temporary variable.
+current_user = ''
+
 class DatabaseThread(object):
 	"""A background thread to handle database interactions."""
 
@@ -163,6 +166,8 @@ def POST_login(request):
 			# TODO : this design will probably change once channels are more developed.
 
 			request.session['username'] = received_username
+			global current_user
+			current_user = received_username
 
 			return SERVER_REPLY_GENERIC_YES
 
@@ -190,8 +195,13 @@ def POST_create_owner(request):
 	for o in owners:
 		if o[0] == received_owner_name:
 			print('username already taken')
-			return HttpResponse('username already taken.')
+			return HttpResponse('username is already taken')
 
+	# TODO : Eventually put this in a background thread or some separate process.
+	# Create the account here.
 	db_api.create_owner(name=received_owner_name, email=received_owner_email, password=received_owner_password)
+
+	# Create a manager and save it to the owner.
+
 
 	return SERVER_REPLY_GENERIC_YES
