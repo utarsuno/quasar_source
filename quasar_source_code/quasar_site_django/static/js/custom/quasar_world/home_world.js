@@ -93,6 +93,8 @@ HomeWorld.prototype = {
             var x_position = Math.cos(angle_delta * i) * radius
             var z_position = Math.sin(angle_delta * i) * radius
 
+            console.log(x + '\t' + y)
+
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 0, z_position), new THREE.Vector3(origin))
             this.day_titles.push(day_floating_text)
         }
