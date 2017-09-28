@@ -53,7 +53,7 @@ HomeWorld.prototype = {
         // Temporary design testing.
 
         var number_of_segments = 14
-        var angle_delta = Math.PI / number_of_segments
+        var angle_delta = (Math.PI * 2.0) / number_of_segments
         var radius = 300
 
         this.day_titles = []
