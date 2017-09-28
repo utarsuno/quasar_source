@@ -161,7 +161,8 @@ LoginWorld.prototype = {
             return
         }
 
-        //console.log(event)
+        console.log('KEYCODE IS : ')
+        console.log(event)
         var i
 
         if (event.keyCode == 220) { // backslash
