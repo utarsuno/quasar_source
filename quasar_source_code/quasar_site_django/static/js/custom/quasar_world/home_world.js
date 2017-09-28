@@ -54,7 +54,7 @@ HomeWorld.prototype = {
 
         var number_of_segments = 14
         var angle_delta = (Math.PI * 2.0) / number_of_segments
-        var radius = 400
+        var radius = 500
 
         this.day_titles = []
 
@@ -68,10 +68,14 @@ HomeWorld.prototype = {
             case 0:
                 day_string = 'Monday'
                 if (week == 0) {
-                    var week_title = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
-                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
+                    var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
+                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90, z_position), new THREE.Vector3(0, 90, 0))
+                    week += 1
+                    this.day_titles.push(week_title)
                 } else if (week == 1) {
-
+                    var week_title = new Floating2DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
+                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90, z_position), new THREE.Vector3(0, 90, 0))
+                    this.day_titles.push(week_title)
                 }
                 break
             case 1:
