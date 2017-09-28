@@ -58,8 +58,6 @@ HomeWorld.prototype = {
 
         this.day_titles = []
 
-        var origin = new THREE.Vector3(0, 0, 0)
-
         for (var i = 0; i < number_of_segments; i++) {
             var day_string = ''
             switch(i % 7) {
@@ -93,7 +91,7 @@ HomeWorld.prototype = {
 
             console.log( x_position + '\t' + z_position)
 
-            day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 0, z_position), new THREE.Vector3(origin))
+            day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
             this.day_titles.push(day_floating_text)
         }
     },
