@@ -99,7 +99,6 @@ HomeWorld.prototype = {
             }
 
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
-            console.log(x_position + '\t' + z_position)
 
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
             this.day_titles.push(day_floating_text)
