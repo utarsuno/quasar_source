@@ -103,6 +103,9 @@ class EntityDatabaseAPI(object):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		# TODO : Make this a single query...
 		results = self._entity_managers.get_row_values()
+		result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
+		print('RESULT IS : ')
+		print(result)
 		for r in results:
 			if r[0] == manager_id:
 				return dill.loads(r[1].tobytes())

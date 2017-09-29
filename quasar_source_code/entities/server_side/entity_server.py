@@ -76,6 +76,8 @@ class EntityServer(object):
 		# TODO : Look into this for a cleaner solution.
 		day = day.replace('117', '2017')
 
+		print('Get entities for day got the following day{' + str(day) + '}')
+
 		parts = day.split('/')
 		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
