@@ -141,6 +141,9 @@ HomeWorld.prototype = {
     },
 
     add_entity: function(entity_string, day_index) {
+        if (entity_string.length == 0) {
+            return
+        }
 
         console.log('Entity string is : ' + entity_string)
 
