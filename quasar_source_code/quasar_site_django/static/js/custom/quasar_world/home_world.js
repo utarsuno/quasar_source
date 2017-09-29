@@ -137,7 +137,6 @@ HomeWorld.prototype = {
         var day_match = -1;
         for (var i = 0; i < 14; i++) {
             var day_string = get_today_with_n_days_offset(i)
-            console.log(day_string + '\t' + day_index + '\t' + (day_string === day_index))
             if (day_string === day_index) {
                 day_match = i
                 break
@@ -153,8 +152,8 @@ HomeWorld.prototype = {
         var x_position = Math.cos(this.angle_delta * day_match) * this.radius
         var z_position = Math.sin(this.angle_delta * day_match) * this.radius
 
-        var floating_entity = new Floating2DText(512, 32, entity_string, TYPE_STATUS, this.scene)
-        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 100 - y_offset, z_position), new THREE.Vector3(x_position, 100 - y_offset, z_position))
+        var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
+        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 100 - y_offset, z_position), new THREE.Vector3(0, 100 - y_offset, 0))
 
         this.day_entities[day_match].push(floating_entity)
     },
