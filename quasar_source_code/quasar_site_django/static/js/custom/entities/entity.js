@@ -66,11 +66,11 @@ Owner.prototype = {
             if (data.hasOwnProperty(key)) {
                 //console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
 
-                var text = data[key]
-                if (text.length > 0) {
-                    var entity_array = text.split(',')
-                    for (var i = 0; i < entity_array.length; i++) {
-                        this.home_world.add_entity(entity_array[i], key)
+                var d = data[key]
+                if (d.length > 0) {
+                    //var entity_array = text.split(',')
+                    for (var i = 0; i < d.length; i++) {
+                        this.home_world.add_entity(d[i], key)
                     }
                 }
 
