@@ -50,7 +50,7 @@ Owner.prototype = {
         var day_offset = date.getDay()
 
         for (var i = 0; i < this.days_to_load; i++) {
-            console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - day_offset + 1))
+            //console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - day_offset + 1))
             this.get_entities_for_day.perform_post({'username': this.username, 'day': get_today_with_n_days_offset(i - day_offset + 1)}, this.entities_loaded_for_day.bind(this))
         }
     },
@@ -59,17 +59,25 @@ Owner.prototype = {
         this.days_loaded++
         data = JSON.parse(data)
 
-        console.log('Got the following data back:')
-        console.log(data)
+        //console.log('Got the following data back:')
+        //console.log(data)
 
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
-                console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
-                this.home_world.add_entity(data[key], key)
+                //console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
+
+                var text = data[key]
+                if (text.length > 0) {
+                    var entity_array = text.split(',')
+                    for (var i = 0; i < entity_array.length; i++) {
+                        this.home_world.add_entity(entity_array[i], key)
+                    }
+                }
+
             }
         }
 
-        console.log(' ')
+        //console.log(' ')
     }
 
 }
