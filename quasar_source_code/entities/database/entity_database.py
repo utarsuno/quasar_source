@@ -103,7 +103,7 @@ class EntityDatabaseAPI(object):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		# TODO : Make this a single query...
 		#results = self._entity_managers.get_row_values()
-		self._api.execute_query('SET CLIENT_ENCODING TO LATIN1', save=True)
+		#self._api.execute_query('SET CLIENT_ENCODING TO LATIN1', save=True)
 		result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
 		if result is not None:
 			return dill.loads(result.tobytes())
@@ -136,11 +136,11 @@ class EntityDatabaseAPI(object):
 		self._entity_managers.create_if_does_not_exist()
 
 
-e = EntityDatabaseAPI(debug=True)
-print(e._api.get_all_table_names())
-print(e.get_all_owners())
+#e = EntityDatabaseAPI(debug=True)
+#print(e._api.get_all_table_names())
+#print(e.get_all_owners())
 #e._full_reset()
 
 
 #print(e._owners.get_row_values())
-print(e._entity_managers.get_row_values())
+#print(e._entity_managers.get_row_values())
