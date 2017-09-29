@@ -50,7 +50,7 @@ Owner.prototype = {
         var day_offset = date.getDay()
 
         for (var i = 0; i < this.days_to_load; i++) {
-            console.log('Loading for : ' + this.get_entities_for_today_offset_n_days(i - day_offset + 1))
+            console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - offset + 1))
             this.get_entities_for_today_offset_n_days(i - day_offset + 1)
         }
     },
