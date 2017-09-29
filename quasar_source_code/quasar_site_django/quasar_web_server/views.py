@@ -144,10 +144,10 @@ def POST_login(request):
 
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
-	if result == 'y':
+	if result == SERVER_REPLY_GENERIC_YES:
 		request.session[USERNAME] = received_username
 		return SERVER_REPLY_GENERIC_YES
-	return HttpResponse(result)
+	return result
 
 
 @csrf_exempt
@@ -164,11 +164,7 @@ def POST_create_owner(request):
 
 	print('Creating account : ' + received_owner_name)
 	global entity_server
-	result = entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
-	if result == 'y':
-		return SERVER_REPLY_GENERIC_YES
-	else:
-		return HttpResponse(result)
+	return entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
 
 
 @csrf_exempt
@@ -177,5 +173,6 @@ def POST_load_entity_manager(request):
 	if check_POST_arguments([USERNAME], request) is not None:
 		return check_POST_arguments([USERNAME], request)
 	global entity_server
-	entity_server.load_entity_manager(request.POST[USERNAME])
+	return entity_server.load_entity_manager(request.POST[USERNAME])
+
 

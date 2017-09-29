@@ -4,12 +4,22 @@
 
 from quasar_source_code.entities.database import entity_database
 
+# Needed for sending a simple HttpResponse such as a string response.
+from django.http import HttpResponse
+
 # Utility indexes.
 INDEX_OWNER_NAME       = 0
 INDEX_OWNER_PASSWORD   = 1
 INDEX_OWNER_EMAIL      = 2
 INDEX_OWNER_ID         = 3
 INDEX_OWNER_MANAGER_ID = 4
+
+# Server response messages.
+SERVER_REPLY_INVALID_POST_DATA_ERROR                = HttpResponse('Invalid POST data!')
+SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = HttpResponse('Invalid number of POST arguments!')
+SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
+SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
+SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
 
 
 class EntityServer(object):
@@ -25,7 +35,7 @@ class EntityServer(object):
 		"""Updates the owners list."""
 		self._owners = self._db_api.get_all_owners()
 
-	def is_username_taken(self, username) -> bool:
+	def _is_username_taken(self, username) -> bool:
 		"""Returns a boolean indicating if a username is taken."""
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username:
@@ -36,18 +46,18 @@ class EntityServer(object):
 		"""Returns a boolean indicating if a username and password combination is valid."""
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username and o[INDEX_OWNER_PASSWORD] == password:
-				return 'y'
-		return 'Username or password is not valid!'
+				return SERVER_REPLY_GENERIC_YES
+		return HttpResponse('Username or password is not valid!')
 
 	def create_owner(self, owner_name, owner_email, owner_password):
 		"""Creates an owner."""
 		self._update_owners()
-		if self.is_username_taken(owner_name):
-			return 'Username is taken!'
+		if self._is_username_taken(owner_name):
+			return HttpResponse('Username is taken!')
 		else:
 			# TODO : other checks here too.
 			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_email)
-			return 'y'
+			return SERVER_REPLY_GENERIC_YES
 
 	def load_entity_manager(self, owner_name):
 		"""Loads an entity_manager through the reference of an owner name."""
@@ -55,3 +65,5 @@ class EntityServer(object):
 			if o[INDEX_OWNER_NAME] == owner_name:
 				manager = self._db_api.get_entity_manager(manager_id=o[INDEX_OWNER_MANAGER_ID])
 				self._managers[owner_name] = manager
+				return SERVER_REPLY_GENERIC_YES
+		return HttpResponse('Internal server error 555')
