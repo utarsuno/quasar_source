@@ -63,24 +63,23 @@ class EntityServer(object):
 			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_password)
 			return SERVER_REPLY_GENERIC_YES
 
-	def load_entity_manager(self, owner_name):
+	def ensure_manager_is_loaded_for_owner(self, owner_name):
 		"""Loads an entity_manager through the reference of an owner name."""
-		for o in self._owners:
-			if o[INDEX_OWNER_NAME] == owner_name:
-				manager = self._db_api.get_entity_manager(manager_id=o[INDEX_OWNER_MANAGER_ID])
-				self._managers[owner_name] = manager
-				return SERVER_REPLY_GENERIC_YES
-		return HttpResponse('Internal server error 555')
+		if owner_name not in self._managers:
+			for o in self._owners:
+				if o[INDEX_OWNER_NAME] == owner_name:
+					manager = self._db_api.get_entity_manager(manager_id=o[INDEX_OWNER_MANAGER_ID])
+					self._managers[owner_name] = manager
 
 	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""
+		# TODO : Look into this for a cleaner solution.
 		day = day.replace('117', '2017')
-		print('NEED TO GET ENTITIES FOR THIS DAY : for usr{' + str(username) + '}')
-		print(day)
 
 		parts = day.split('/')
 		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
+		self.ensure_manager_is_loaded_for_owner(username)
 		data = self._managers[username].get_information_for_specific_day(specific_day)
 		json_data = {day : []}
 		for d in data:

@@ -32,7 +32,6 @@ Owner.prototype = {
     days: null,
 
     // POST calls.
-    load_entity_manager: null,
     get_entities_for_day: null,
 
     __init__: function(username, password, home_world) {
@@ -42,15 +41,9 @@ Owner.prototype = {
 
         this.loading_data = true
 
-        // Have the server load in the owner's entity manager.
-        this.load_entity_manager = new PostHelper('/load_entity_manager')
         this.get_entities_for_day = new PostHelper('/get_entities_for_day')
         this.days = []
         this.days_to_load = 14
-
-        console.log('Performing post with : ' + this.username)
-
-        this.load_entity_manager.perform_post({'username': this.username}, this.entity_manager_load_result.bind(this))
 
         for (var i = 0; i < this.days_to_load; i++) {
             this.get_entities_for_today_offset_n_days(i)
@@ -71,14 +64,5 @@ Owner.prototype = {
             }
         }
     },
-
-    entity_manager_load_result: function(data) {
-        if (data === SERVER_REPLY_GENERIC_YES) {
-            console.log('Loaded entity manager data!')
-        } else {
-            console.log('Failed to load entity manager data!')
-            console.log(data)
-        }
-    }
 
 }

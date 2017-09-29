@@ -78,9 +78,7 @@ HomeWorld.prototype = {
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 500
-
-        this.day_titles = []
-
+        
         var week = 0
 
         for (var i = 0; i < this.number_of_segments; i++) {
@@ -95,11 +93,9 @@ HomeWorld.prototype = {
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
                     this.day_entities[i % 7].push(week_title)
-                    this.day_titles.push(week_title)
                 } else if (week == 1) {
                     var week_title = new Floating2DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
-                    this.day_titles.push(week_title)
                 }
                 break
             case 1:
@@ -125,7 +121,6 @@ HomeWorld.prototype = {
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
 
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
-            this.day_titles.push(day_floating_text)
         }
     },
 
