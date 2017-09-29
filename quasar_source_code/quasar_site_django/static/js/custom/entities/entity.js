@@ -65,6 +65,9 @@ Owner.prototype = {
         this.days_loaded++
         console.log('Got the data')
         console.log(data)
+        console.log('Data is now')
+        data = JSON.parse(data)
+        console.log(data)
 
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
