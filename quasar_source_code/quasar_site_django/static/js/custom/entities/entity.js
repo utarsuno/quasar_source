@@ -51,12 +51,8 @@ Owner.prototype = {
 
         for (var i = 0; i < this.days_to_load; i++) {
             console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - day_offset + 1))
-            this.get_entities_for_today_offset_n_days(i - day_offset + 1)
+            this.get_entities_for_day.perform_post({'username': this.username, 'day': get_today_with_n_days_offset(i - day_offset + 1)}, this.entities_loaded_for_day.bind(this))
         }
-    },
-
-    get_entities_for_today_offset_n_days: function(n) {
-        this.get_entities_for_day.perform_post({'username': this.username, 'day': get_today_with_n_days_offset(n)}, this.entities_loaded_for_day.bind(this))
     },
 
     entities_loaded_for_day: function(data) {
