@@ -216,8 +216,6 @@ LoginWorld.prototype = {
 
                         var password_repeat_text = this.create_repeat_password.get_input_text()
 
-                        //
-
                         if (!is_email_valid(email_text)) {
                             error = true
                             error_message = 'invalid email format'
