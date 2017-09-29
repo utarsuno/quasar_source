@@ -86,4 +86,6 @@ class EntityServer(object):
 		for d in data:
 			json_data[day].append(d)
 
+		print('returning : ' + str(json_data))
+
 		return HttpResponse(json.dumps(json_data))

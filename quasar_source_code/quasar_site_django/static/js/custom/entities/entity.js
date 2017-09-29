@@ -64,14 +64,13 @@ Owner.prototype = {
     entities_loaded_for_day: function(data) {
         this.days_loaded++
         console.log('Got the data')
+        console.log(data)
 
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 this.home_world.add_entity(data[key], key)
             }
         }
-
-        console.log(data)
     },
 
     entity_manager_load_result: function(data) {
