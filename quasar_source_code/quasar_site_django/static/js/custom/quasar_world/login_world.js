@@ -34,6 +34,11 @@ LoginWorld.prototype = {
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
+
+            console.log('Performing login with the following variables :')
+            console.log(this.attempted_username)
+            console.log(this.attempted_password)
+
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
             this.ajax_status.update_text('Error: ' + data)
