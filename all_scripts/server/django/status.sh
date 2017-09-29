@@ -21,6 +21,8 @@ is_django_running=$(python3 ${path_to_script} 'runserver')
 
 if [ "${is_django_running}" == "true" ]; then
   echo 'Django is running!'
+else
+  echo 'Django is not currently running!'
 fi
 
 # Helps to see exactly where the script's output ends.
