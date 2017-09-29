@@ -56,16 +56,13 @@ class EntityServer(object):
 			return HttpResponse('Username is taken!')
 		else:
 			# TODO : other checks here too.
-			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_email)
+			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_password)
 			return SERVER_REPLY_GENERIC_YES
 
 	def load_entity_manager(self, owner_name):
 		"""Loads an entity_manager through the reference of an owner name."""
-		print('Trying to load owner_name : ' + str(owner_name))
 		for o in self._owners:
-			print('Is there a match on : ' + o[INDEX_OWNER_NAME])
 			if o[INDEX_OWNER_NAME] == owner_name:
-				print('Yes')
 				manager = self._db_api.get_entity_manager(manager_id=o[INDEX_OWNER_MANAGER_ID])
 				self._managers[owner_name] = manager
 				return SERVER_REPLY_GENERIC_YES
