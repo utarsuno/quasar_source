@@ -50,6 +50,11 @@ Owner.prototype = {
         var day_offset = date.getDay()
 
         for (var i = 0; i < this.days_to_load; i++) {
+
+            setTimeout(function (){
+                // 2 second delay between the post calls
+            }, 2000)
+
             this.get_entities_for_today_offset_n_days(i - day_offset + 1)
         }
     },
