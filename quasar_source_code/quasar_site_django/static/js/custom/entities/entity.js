@@ -30,6 +30,8 @@ Owner.prototype = {
         this.load_entity_manager = new PostHelper('/load_entity_manager')
         this.get_entities_for_day = new PostHelper('/get_entities_for_day')
 
+        console.log('Performing post with : ' + this.username)
+
         this.load_entity_manager.perform_post({'username': this.username}, this.entity_manager_load_result.bind(this))
     },
 
