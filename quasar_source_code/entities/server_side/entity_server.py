@@ -83,14 +83,14 @@ class EntityServer(object):
 		parts = day.split('/')
 		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
-		'''
+
 		try:
 			self.ensure_manager_is_loaded_for_owner(username)
 		except Exception as e:
 			print('ERROR GETTING ENTITIES FOR DAY{' + str(day) + '} for {' + str(username) + '}')
 			print(str(e))
 			print('@@@@@@@@@@@@@@@@')
-		'''
+
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
 		json_data = {day : []}
