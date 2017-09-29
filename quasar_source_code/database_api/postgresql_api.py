@@ -57,7 +57,7 @@ class PostgreSQLAPI(object):
 
 	def execute_query_and_get_all_results(self, query: str, save: bool=False):
 		"""Executes the query provided and returns all results."""
-		self._cursor.execute(query)
+		self.execute_query(query)
 		if save:
 			self._connection.commit()
 		return self._cursor.fetchall()
