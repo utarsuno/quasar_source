@@ -102,11 +102,14 @@ class EntityDatabaseAPI(object):
 	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		# TODO : Make this a single query...
-		#results = self._entity_managers.get_row_values()
+		results = self._entity_managers.get_row_values()
+		for em in results:
+			if em[0] == manager_id:
+				return dill.loads(em[1].tobytes())
 		#self._api.execute_query('SET CLIENT_ENCODING TO LATIN1', save=True)
-		result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
-		if result is not None:
-			return dill.loads(result.tobytes())
+		#result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
+		#if result is not None:
+		#	return dill.loads(result.tobytes())
 		return None
 
 	def _check_if_connected(self):
