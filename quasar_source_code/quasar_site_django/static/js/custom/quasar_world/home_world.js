@@ -137,7 +137,7 @@ HomeWorld.prototype = {
         var day_match = -1;
         for (var i = 0; i < 14; i++) {
             var day_string = get_today_with_n_days_offset(i)
-            console.log(day_string + '\t' + day_index)
+            console.log(day_string + '\t' + day_index + '\t' + (day_string === day_index))
             if (day_string === day_index) {
                 day_match = i
                 break
