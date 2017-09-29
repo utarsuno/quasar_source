@@ -172,6 +172,7 @@ def POST_load_entity_manager(request):
 	"""Handles the POST request to server memory load an entity manager."""
 	if check_POST_arguments([USERNAME], request) is not None:
 		return check_POST_arguments([USERNAME], request)
+	print('Trying to load entity manager for : ' + request.POST[USERNAME])
 	global entity_server
 	return entity_server.load_entity_manager(request.POST[USERNAME])
 
