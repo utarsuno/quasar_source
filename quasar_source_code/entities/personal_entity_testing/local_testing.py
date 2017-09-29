@@ -16,18 +16,18 @@ manager = EntityManager(manager_id=1)
 entity_db = EntityDatabaseAPI()
 # Load the manager.
 
-#manager = entity_db.get_entity_manager(manager.manager_id)
+manager = entity_db.get_entity_manager(manager.manager_id)
 
 print('Printing Manager info :')
-print(manager)
-manager.print_all_entities()
+#print(manager)
+#manager.print_all_entities()
 #manager.print_information_for_this_week()
 
 # INFORMATION TO GET SAVED.
 
 # Info set 0.
 #'''
-manager.add_entities(m.math220)
+#manager.add_entities(m.math220)
 #'''
 
 # Info set 1.
@@ -53,11 +53,13 @@ tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='oct', d
 manager.add_entities(some_todos)
 '''
 
+#'''
 global_todos = be.Entity('Global todos')
 global_tasks = etask.EntityTask('global task 1', global_todos)
-global_tasks.description = 'global task 1'
-manager.add_entities(global_todos)
+global_tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='sep', day=29), description='Say hello hello')
 
+#manager.add_entities(global_todos)
+#'''
 
 print('Printing Manager info :')
 #print(manager)
