@@ -6,10 +6,14 @@ function Owner(username, password) {
 
 // Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
 function get_today_with_n_days_offset(n) {
-    var date = new Date(this.valueOf() + n * 24 * 60 * 60 * 1000)
-    var day   = today.getDate()
-    var month = today.getMonth()
-    var year  = today.getYear()
+    var date = new Date().now()
+
+    var result = new Date(date)
+    result.setDate(result.getDate() + n)
+
+    var day   = result.getDate()
+    var month = result.getMonth()
+    var year  = result.getYear()
     return month + '/' + day + '/' + year
 }
 
