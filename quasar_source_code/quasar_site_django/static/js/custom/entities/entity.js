@@ -45,12 +45,13 @@ Owner.prototype = {
         this.days = []
         this.days_to_load = 14
 
+        // Get the offset so that we start on monday.
         var date = new Date()
         var day_offset = date.getDay()
 
         for (var i = 0; i < this.days_to_load; i++) {
-            this.get_entities_for_today_offset_n_days(i - day_offset)
-            console.log(get_today_with_n_days_offset(i - day_offset))
+            this.get_entities_for_today_offset_n_days(i - day_offset + 1)
+            console.log(get_today_with_n_days_offset(i - day_offset + 1))
         }
     },
 
