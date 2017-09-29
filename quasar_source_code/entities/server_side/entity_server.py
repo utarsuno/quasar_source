@@ -77,7 +77,7 @@ class EntityServer(object):
 		print(day)
 
 		parts = day.split('/')
-		specific_day = ta.get_specific_day(year=parts[2], month=parts[0], day=parts[1])
+		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
 
