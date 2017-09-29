@@ -210,13 +210,10 @@ LoginWorld.prototype = {
                         // TODO : Eventually make input parsing live for the user.
                         var email_text = this.create_email.get_input_text()
                         var username_text = this.create_username.get_input_text()
-
-                        this.attempted_username = this.create_username.get_input_text()
-
                         var password_text = this.create_password.get_input_text()
 
                         this.attempted_password = this.create_password.get_input_text()
-                        
+
                         var password_repeat_text = this.create_repeat_password.get_input_text()
 
                         if (!is_email_valid(email_text)) {
@@ -242,10 +239,6 @@ LoginWorld.prototype = {
 
                         if (!error) {
                             this.ajax_status.update_text('Sending request to server.')
-                            //this.attempted_username = username_text
-                            //this.attempted_password = password_text
-                            console.log('Attempted username : ' + this.attempted_username)
-                            console.log('Attempted password : ' + this.attempted_password)
                             this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
@@ -270,8 +263,11 @@ LoginWorld.prototype = {
 
                         if (!error) {
                             this.ajax_status.update_text('sending login request to server')
+                            this.attempted_username = login_username_text
+                            this.attempted_password = login_password_text
+                            console.log('Attempted username : ' + this.attempted_username)
+                            console.log('Attempted password : ' + this.attempted_password)
                             this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
-                            //this.
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
