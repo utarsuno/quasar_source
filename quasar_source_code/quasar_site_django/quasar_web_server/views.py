@@ -177,3 +177,10 @@ def POST_load_entity_manager(request):
 	return entity_server.load_entity_manager(request.POST[USERNAME])
 
 
+@csrf_exempt
+def POST_get_entities_for_day(request):
+	"""Handles the POST request to get entities for a given day of a given owner."""
+	if check_POST_arguments(['day', USERNAME], request) is not None:
+		return check_POST_arguments(['day', USERNAME], request)
+	global entity_server
+	return entity_server.get_entities_for_day(request.POST['day'], request.POST[USERNAME])
