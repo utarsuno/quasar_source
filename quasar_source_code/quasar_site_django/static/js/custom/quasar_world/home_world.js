@@ -169,7 +169,7 @@ HomeWorld.prototype = {
         }
         console.log('Entity string is : ' + entity_string + '\tDay index : ' + day_index)
 
-        /*
+
         var date = new Date()
         var day_offset = date.getDay()
 
@@ -183,15 +183,15 @@ HomeWorld.prototype = {
             }
         }
 
-        var x_position = Math.cos(this.angle_delta * (day_match + day_offset)) * this.radius
-        var z_position = Math.sin(this.angle_delta * (day_match + day_offset)) * this.radius
+        var x_position = Math.cos(this.angle_delta * (day_match)) * this.radius
+        var z_position = Math.sin(this.angle_delta * (day_match)) * this.radius
 
         var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
         floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[day_match], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[day_match], 0))
 
         this.day_entities[day_match].push(floating_entity)
         this.y_offsets[day_match] += 40
-        */
+
     },
 
     update: function() {
