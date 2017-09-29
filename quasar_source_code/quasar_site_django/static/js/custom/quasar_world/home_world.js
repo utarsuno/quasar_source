@@ -85,8 +85,8 @@ HomeWorld.prototype = {
 
         for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = ''
-            var x_position = Math.cos(angle_delta * i) * this.radius
-            var z_position = Math.sin(angle_delta * i) * this.radius
+            var x_position = Math.cos(this.angle_delta * i) * this.radius
+            var z_position = Math.sin(this.angle_delta * i) * this.radius
             switch(i % 7) {
             case 0:
                 day_string = 'Monday'
