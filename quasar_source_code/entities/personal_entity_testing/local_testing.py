@@ -41,15 +41,22 @@ manager.add_entities(daily_todos)
 
 # ---------------------------------------------------------------
 
+'''
 some_todos = be.Entity('Daily todos :')
 tasks = etask.EntityTask('361 hw', some_todos)
-tasks.description = 'Start 361 homework!'
-tasks.set_due_date_and_description(ta.Day.SATURDAY, description='Start 361 homework!')
+tasks.description = 'Actual: Start 361 homework!'
+tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='sep', day=30), description='Start 361 homework!')
 
 tasks = etask.EntityTask('361 hw', some_todos)
-tasks.description = 'Finish 361 homework!'
-tasks.set_due_date_and_description(ta.Day.SUNDAY, description='Finish 361 homework!')
+tasks.description = 'Actual: Finish 361 homework!'
+tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='oct', day=1), description='Finish 361 homework!')
 manager.add_entities(some_todos)
+'''
+
+global_todos = be.Entity('Global todos')
+global_tasks = etask.EntityTask('global task 1', global_todos)
+global_tasks.description = 'global task 1'
+manager.add_entities(global_todos)
 
 
 print('Printing Manager info :')
