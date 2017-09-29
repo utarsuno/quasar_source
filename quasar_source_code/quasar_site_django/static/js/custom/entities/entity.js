@@ -6,7 +6,7 @@ function Owner(username, password) {
 
 // Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
 function get_today_with_n_days_offset(n) {
-    var date = new Date().now()
+    var date = new Date()
 
     var result = new Date(date)
     result.setDate(result.getDate() + n)
