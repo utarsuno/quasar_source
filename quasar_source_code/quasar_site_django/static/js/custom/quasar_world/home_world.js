@@ -141,6 +141,7 @@ HomeWorld.prototype = {
             }
         }
 
+        console.log('day match is : ' + day_match)
         console.log('Entity string : ' + entity_string + ' : day index : ' + day_index)
 
         // Check the number of elements in that day to get the y offset.
