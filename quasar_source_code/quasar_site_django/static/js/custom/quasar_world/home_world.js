@@ -163,8 +163,8 @@ HomeWorld.prototype = {
         console.log('day match is : ' + day_match)
         console.log('Entity string : ' + entity_string + ' : day index : ' + day_index)
 
-        var x_position = Math.cos(this.angle_delta * day_match) * this.radius
-        var z_position = Math.sin(this.angle_delta * day_match) * this.radius
+        var x_position = Math.cos(this.angle_delta * (day_match - day_offset + 1) * this.radius)
+        var z_position = Math.sin(this.angle_delta * (day_match - day_offset + 1) * this.radius)
 
         var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
         floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[day_match], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[day_match], 0))
