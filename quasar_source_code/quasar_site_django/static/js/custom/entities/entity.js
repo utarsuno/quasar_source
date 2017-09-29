@@ -59,12 +59,17 @@ Owner.prototype = {
         this.days_loaded++
         data = JSON.parse(data)
 
+        console.log('Got the following data back:')
+        console.log(data)
+
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
                 this.home_world.add_entity(data[key], key)
             }
         }
+
+        console.log(' ')
     }
 
 }

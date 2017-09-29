@@ -91,8 +91,8 @@ class EntityServer(object):
 			print(str(e))
 			print('@@@@@@@@@@@@@@@@')
 
-
 		data = self._managers[username].get_information_for_specific_day(specific_day)
+
 		json_data = {day : []}
 		for d in data:
 			json_data[day].append(d)

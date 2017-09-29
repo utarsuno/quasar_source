@@ -37,6 +37,8 @@ class EntityTime(be.Entity):
 		"""Returns a list of all relevant events for the date passed in."""
 		#print('Checking : ' + str(date))
 
+		print('Getting relevent events for date : ' + str(date))
+
 		events = []
 		# First check for any one time events that fall into this date.
 		for ote in self._one_time_events:
