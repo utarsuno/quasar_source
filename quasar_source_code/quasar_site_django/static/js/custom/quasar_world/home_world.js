@@ -152,7 +152,7 @@ HomeWorld.prototype = {
         for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = get_today_with_n_days_offset(i - day_offset + 1)
             if (day_string === day_index) {
-                day_match = i - day_offset + 1
+                day_match = i
                 break
             }
         }
@@ -160,16 +160,14 @@ HomeWorld.prototype = {
         console.log('day match is : ' + day_match)
         console.log('Entity string : ' + entity_string + ' : day index : ' + day_index)
 
-        // Check the number of elements in that day to get the y offset.
-        var y_offset = (this.day_entities[day_match].length + 1) * 40
-
         var x_position = Math.cos(this.angle_delta * day_match) * this.radius
         var z_position = Math.sin(this.angle_delta * day_match) * this.radius
 
         var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
-        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - y_offset, z_position), new THREE.Vector3(0, 50 + 300 - y_offset, 0))
+        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[day_match], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[day_match], 0))
 
         this.day_entities[day_match].push(floating_entity)
+        this.y_offsets[day_match] -= 40
     },
 
     update: function() {
