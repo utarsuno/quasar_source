@@ -9,6 +9,8 @@ from django.http import HttpResponse
 
 from quasar_source_code.universal_code import time_abstraction as ta
 
+import json
+
 # Utility indexes.
 INDEX_OWNER_NAME       = 0
 INDEX_OWNER_PASSWORD   = 1
@@ -80,8 +82,8 @@ class EntityServer(object):
 		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
-		new_data = []
+		json_data = {day : []}
 		for d in data:
-			new_data.append(str(day) + '|' + str(d))
+			json_data[day].append(d)
 
-		return HttpResponse(new_data)
+		return HttpResponse(json.dumps(json_data))
