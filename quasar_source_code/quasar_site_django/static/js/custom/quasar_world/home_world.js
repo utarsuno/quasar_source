@@ -111,7 +111,7 @@ HomeWorld.prototype = {
             this.y_offsets.push(40)
             this.day_entities.push([])
 
-            this.day_indexes.push(get_just_date_of_date_of_n_days_offset() - day_offset + 1)
+            this.day_indexes.push(get_just_date_of_date_of_n_days_offset(x - - day_offset + 1))
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 600
