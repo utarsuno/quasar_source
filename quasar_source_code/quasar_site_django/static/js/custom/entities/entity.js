@@ -46,6 +46,7 @@ Owner.prototype = {
             console.log('Loaded entity manager data!')
         } else {
             console.log('Failed to load entity manager data!')
+            console.log(data)
         }
     }
 
