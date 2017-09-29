@@ -145,6 +145,7 @@ def get_current_day_of_the_week_number() -> int:
 
 
 def get_day_of_the_week_number_from_datetime(datetime_obj) -> int:
+	print(datetime_obj)
 	print('GET DAY OF THE WEEK NUMBER : ' + str(datetime_obj) + '\t' + str(datetime_obj.weekday()))
 	"""Does what the function title states."""
 	return datetime_obj.weekday()
@@ -156,7 +157,6 @@ def get_specific_day(year, month, day) -> datetime.date:
 		return datetime(year=year, month=month, day=day).date()
 	else:
 		return datetime(year=year, month=get_month(month).number, day=day).date()
-
 
 def get_day_object_from_current_weeks_day(day: Day):
 	"""Returns a Date object that's the date of the day of this week that the Day is."""
