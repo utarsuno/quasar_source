@@ -140,6 +140,7 @@ class EntityDatabaseAPI(object):
 
 
 #e = EntityDatabaseAPI(debug=True)
+#print(e._api.execute_query_and_get_all_results('SELECT * FROM entity_managers'))
 #print(e._api.get_all_table_names())
 #print(e.get_all_owners())
 #e._full_reset()

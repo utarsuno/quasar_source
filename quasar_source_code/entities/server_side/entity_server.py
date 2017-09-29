@@ -68,7 +68,7 @@ class EntityServer(object):
 		if owner_name not in self._managers:
 			for o in self._owners:
 				if o[INDEX_OWNER_NAME] == owner_name:
-					manager = self._db_api.get_entity_manager(manager_id=o[INDEX_OWNER_MANAGER_ID])
+					manager = self._db_api.get_entity_manager(manager_id=int(o[INDEX_OWNER_MANAGER_ID]))
 					self._managers[owner_name] = manager
 
 	def get_entities_for_day(self, day, username):

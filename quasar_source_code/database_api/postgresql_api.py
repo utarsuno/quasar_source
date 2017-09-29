@@ -42,7 +42,7 @@ class PostgreSQLAPI(object):
 
 	def execute_boolean_query(self, query: str, save: bool=False) -> bool:
 		"""Executes a query that returns a boolean result."""
-		self._cursor.execute(query)
+		self.execute_query(query)
 		if save:
 			self._connection.commit()
 		result = self._cursor.fetchone()[0]
@@ -72,7 +72,9 @@ class PostgreSQLAPI(object):
 
 	def execute_query(self, query, save: bool=False) -> None:
 		"""Executes the query provided."""
-		# Query can be type of string and tuple.
+		# TODO : Query can be type of string and tuple.
+		if query[-1] != ';':
+			query += ';'
 		try:
 			self._cursor.execute(query)
 			if save:
