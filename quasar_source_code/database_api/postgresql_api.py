@@ -50,7 +50,7 @@ class PostgreSQLAPI(object):
 
 	def execute_custom_query_one_result(self, query: str, save: bool=False):
 		"""Execute a custom query that only returns a single result."""
-		self._cursor.execute(query)
+		self.execute_query(query)
 		if save:
 			self._connection.commit()
 		return self._cursor.fetchone()
