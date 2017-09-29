@@ -84,7 +84,7 @@ HomeWorld.prototype = {
             this.day_entities.push([])
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
-        this.radius = 500
+        this.radius = 600
 
         var week = 0
 
@@ -97,7 +97,7 @@ HomeWorld.prototype = {
             var z_position = Math.sin(this.angle_delta * i) * this.radius
             switch(i % 7) {
             case 0:
-                day_string = 'Monday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Monday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 if (week == 0) {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
@@ -109,22 +109,22 @@ HomeWorld.prototype = {
                 }
                 break
             case 1:
-                day_string = 'Tuesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Tuesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             case 2:
-                day_string = 'Wednesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Wednesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             case 3:
-                day_string = 'Thursday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Thursday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             case 4:
-                day_string = 'Friday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Friday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             case 5:
-                day_string = 'Saturday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Saturday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             case 6:
-                day_string = 'Sunday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
+                day_string = 'Sunday ' + get_just_date_of_date_of_n_days_offset(i - day_offset + 1)
                 break
             }
 
@@ -158,7 +158,7 @@ HomeWorld.prototype = {
         var z_position = Math.sin(this.angle_delta * day_match) * this.radius
 
         var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
-        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 100 - y_offset, z_position), new THREE.Vector3(0, 100 - y_offset, 0))
+        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - y_offset, z_position), new THREE.Vector3(0, 50 + 300 - y_offset, 0))
 
         this.day_entities[day_match].push(floating_entity)
     },

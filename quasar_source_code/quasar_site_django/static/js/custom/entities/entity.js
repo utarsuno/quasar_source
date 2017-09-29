@@ -51,7 +51,6 @@ Owner.prototype = {
 
         for (var i = 0; i < this.days_to_load; i++) {
             this.get_entities_for_today_offset_n_days(i - day_offset + 1)
-            console.log(get_today_with_n_days_offset(i - day_offset + 1))
         }
     },
 
