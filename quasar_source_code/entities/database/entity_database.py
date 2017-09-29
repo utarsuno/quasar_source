@@ -102,7 +102,7 @@ class EntityDatabaseAPI(object):
 	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		# TODO : Make this a single query...
-		results = self._entity_managers.get_row_values()
+		#results = self._entity_managers.get_row_values()
 		result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
 		if result is not None:
 			return dill.loads(result.tobytes())
