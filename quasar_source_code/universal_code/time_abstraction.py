@@ -145,6 +145,7 @@ def get_current_day_of_the_week_number() -> int:
 
 
 def get_day_of_the_week_number_from_datetime(datetime_obj) -> int:
+	print('GET DAY OF THE WEEK NUMBER : ' + str(datetime_obj) + '\t' + str(datetime_obj.weekday()))
 	"""Does what the function title states."""
 	return datetime_obj.weekday()
 
