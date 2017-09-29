@@ -82,7 +82,7 @@ HomeWorld.prototype = {
         this.number_of_segments = 14
         this.day_entities = []
         for (var x = 0; x < this.number_of_segments; x++) {
-            this.y_offsets.push(-40)
+            this.y_offsets[x].push(-40)
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 600
