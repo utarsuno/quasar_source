@@ -390,6 +390,7 @@ class TimeRange(object):
 
 	def is_date_within_range(self, date) -> bool:
 		"""Returns a boolean indicating if the date passed is within the date range."""
+		print('Checking if ' + str(date) + ' is within : ' + str(self))
 		if hasattr(self, '_start_date'):
 			if type(self._start_date) == datetime:
 				return self._end_date.date() >= date >= self._start_date.date()
