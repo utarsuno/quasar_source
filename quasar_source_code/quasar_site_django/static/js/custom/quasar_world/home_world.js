@@ -18,6 +18,13 @@ function get_today_with_n_days_offset(n) {
     return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }
 
+function get_just_date_of_date_of_n_days_offset(n) {
+    var date = new Date()
+    var result = new Date(date)
+    result.setDate(result.getDate() + n)
+    return result.getDate()
+}
+
 HomeWorld.prototype = {
     scene: null,
     player: null,
@@ -78,7 +85,7 @@ HomeWorld.prototype = {
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 500
-        
+
         var week = 0
 
         for (var i = 0; i < this.number_of_segments; i++) {
@@ -87,7 +94,7 @@ HomeWorld.prototype = {
             var z_position = Math.sin(this.angle_delta * i) * this.radius
             switch(i % 7) {
             case 0:
-                day_string = 'Monday'
+                day_string = 'Monday ' + get_just_date_of_date_of_n_days_offset(i)
                 if (week == 0) {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
@@ -99,22 +106,22 @@ HomeWorld.prototype = {
                 }
                 break
             case 1:
-                day_string = 'Tuesday'
+                day_string = 'Tuesday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             case 2:
-                day_string = 'Wednesday'
+                day_string = 'Wednesday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             case 3:
-                day_string = 'Thursday'
+                day_string = 'Thursday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             case 4:
-                day_string = 'Friday'
+                day_string = 'Friday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             case 5:
-                day_string = 'Saturday'
+                day_string = 'Saturday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             case 6:
-                day_string = 'Sunday'
+                day_string = 'Sunday ' + get_just_date_of_date_of_n_days_offset(i)
                 break
             }
 
