@@ -15,7 +15,7 @@ function get_today_with_n_days_offset(n) {
     var day   = result.getDate()
     var month = result.getMonth()
     var year  = result.getYear()
-    return month + '/' + day + '/' + year
+    return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }
 
 HomeWorld.prototype = {
