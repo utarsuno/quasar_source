@@ -152,7 +152,7 @@ HomeWorld.prototype = {
         for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = get_today_with_n_days_offset(i - day_offset + 1)
             if (day_string === day_index) {
-                day_match = i
+                day_match = i - day_offset + 1
                 break
             }
         }
