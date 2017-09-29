@@ -55,7 +55,7 @@ Player.prototype = {
     },
 
     perform_login: function(username, password) {
-        this.entity_owner = new Owner(username, password)
+        this.entity_owner = new Owner(username, password, this.renderer_api.home_world)
         this.renderer_api.switch_to_home_world()
     },
 

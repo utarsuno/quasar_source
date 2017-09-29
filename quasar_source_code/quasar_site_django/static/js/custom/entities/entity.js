@@ -1,7 +1,7 @@
 'use strict'
 
-function Owner(username, password) {
-    this.__init__(username, password)
+function Owner(username, password, home_world) {
+    this.__init__(username, password, home_world)
 }
 
 // Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
@@ -19,6 +19,8 @@ function get_today_with_n_days_offset(n) {
 
 Owner.prototype = {
 
+    home_world: null,
+
     username: null,
     password: null,
 
@@ -33,9 +35,10 @@ Owner.prototype = {
     load_entity_manager: null,
     get_entities_for_day: null,
 
-    __init__: function(username, password) {
+    __init__: function(username, password, home_world) {
         this.username = username
         this.password = password
+        this.home_world = home_world
 
         this.loading_data = true
 
@@ -61,6 +64,11 @@ Owner.prototype = {
     entities_loaded_for_day: function(data) {
         this.days_loaded++
         console.log('Got the data')
+
+        for (var i = 0; i < data.length; i++) {
+            this.home_world.add_entity(data[i])
+        }
+
         console.log(data)
     },
 

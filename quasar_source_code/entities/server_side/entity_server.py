@@ -80,5 +80,8 @@ class EntityServer(object):
 		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
+		new_data = []
+		for d in data:
+			new_data.append(str(day) + '|' + str(d))
 
-		return HttpResponse(data)
+		return HttpResponse(new_data)

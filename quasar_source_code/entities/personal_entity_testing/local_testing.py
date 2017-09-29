@@ -12,9 +12,8 @@ from quasar_source_code.universal_code import time_abstraction as ta
 
 #
 
-manager = EntityManager(manager_id=2)
+manager = EntityManager(manager_id=1)
 entity_db = EntityDatabaseAPI()
-
 # Load the manager.
 
 #manager = entity_db.get_entity_manager(manager.manager_id)

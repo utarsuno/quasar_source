@@ -15,7 +15,10 @@ HomeWorld.prototype = {
     current_world: null,
 
     //
+    day_entities: null,
 
+    //
+    radius: null,
 
     __init__: function() {
 
@@ -53,8 +56,12 @@ HomeWorld.prototype = {
         // Temporary design testing.
 
         var number_of_segments = 14
+        this.day_entities = []
+        for (var x = 0; x < number_of_segments; x++) {
+            this.day_entities.push([])
+        }
         var angle_delta = (Math.PI * 2.0) / number_of_segments
-        var radius = 500
+        this.radius = 500
 
         this.day_titles = []
 
@@ -62,19 +69,20 @@ HomeWorld.prototype = {
 
         for (var i = 0; i < number_of_segments; i++) {
             var day_string = ''
-            var x_position = Math.cos(angle_delta * i) * radius
-            var z_position = Math.sin(angle_delta * i) * radius
+            var x_position = Math.cos(angle_delta * i) * this.radius
+            var z_position = Math.sin(angle_delta * i) * this.radius
             switch(i % 7) {
             case 0:
                 day_string = 'Monday'
                 if (week == 0) {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
-                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90, z_position), new THREE.Vector3(0, 90, 0))
+                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
+                    this.day_entities[i % 7].push(week_title)
                     this.day_titles.push(week_title)
                 } else if (week == 1) {
                     var week_title = new Floating2DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
-                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90, z_position), new THREE.Vector3(0, 90, 0))
+                    week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     this.day_titles.push(week_title)
                 }
                 break
@@ -100,9 +108,14 @@ HomeWorld.prototype = {
 
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
 
-            day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50, z_position), new THREE.Vector3(0, 50, 0))
+            day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
             this.day_titles.push(day_floating_text)
         }
+    },
+
+    add_entity: function(entity_string, day_index) {
+        var floating_entity = new Floating2DText(600, 30, entity_string, TYPE_STATUS, this.scene)
+        floating_entity.update_position_and_look_at(new THREE.Vector3(150, 100, 45), new THREE.Vector3(150, 100, 55))
     },
 
     update: function() {
