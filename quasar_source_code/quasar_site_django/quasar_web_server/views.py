@@ -145,6 +145,7 @@ def POST_login(request):
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result == SERVER_REPLY_GENERIC_YES:
+		entity_server.ensure_manager_is_loaded_for_owner(received_username)
 		request.session[USERNAME] = received_username
 		return SERVER_REPLY_GENERIC_YES
 	return result
