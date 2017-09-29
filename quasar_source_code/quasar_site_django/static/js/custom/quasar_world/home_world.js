@@ -84,7 +84,7 @@ HomeWorld.prototype = {
         this.number_of_segments = 14
         this.day_entities = []
         for (var x = 0; x < this.number_of_segments; x++) {
-            this.y_offsets.push(-40)
+            this.y_offsets.push(40)
             this.day_entities.push([])
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
@@ -136,7 +136,7 @@ HomeWorld.prototype = {
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
             this.day_entities[i].push(day_floating_text)
-            this.y_offsets[i] -= 40
+            this.y_offsets[i] += 40
         }
     },
 
@@ -167,7 +167,7 @@ HomeWorld.prototype = {
         floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[day_match], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[day_match], 0))
 
         this.day_entities[day_match].push(floating_entity)
-        this.y_offsets[day_match] -= 40
+        this.y_offsets[day_match] += 40
     },
 
     update: function() {
