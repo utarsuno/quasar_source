@@ -151,7 +151,7 @@ HomeWorld.prototype = {
         var day_offset = date.getDay()
 
         // TODO : Optimize this function lol...
-        var day_match = -1;
+        var day_match = -1
         for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = get_today_with_n_days_offset(i - day_offset + 1)
             if (day_string === day_index) {

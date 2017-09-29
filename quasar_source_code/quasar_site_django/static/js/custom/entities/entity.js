@@ -14,7 +14,7 @@ function get_today_with_n_days_offset(n) {
     var day   = result.getDate()
     var month = result.getMonth()
     var year  = result.getYear()
-    return month + '/' + day + '/' + year
+    return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }
 
 Owner.prototype = {
@@ -65,6 +65,7 @@ Owner.prototype = {
 
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
+                console.log('Adding entity {' + data[key] + '} - [' + key + ']')
                 this.home_world.add_entity(data[key], key)
             }
         }
