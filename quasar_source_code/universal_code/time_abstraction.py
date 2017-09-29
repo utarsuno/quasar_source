@@ -397,6 +397,12 @@ class TimeRange(object):
 			else:
 				return self._end_date >= date >= self._start_date
 		else:
+			print()
+			print('AAAA')
+			print(self._weekday_end.day_of_the_week)
+			print(get_day_of_the_week_number_from_datetime(date))
+			print(self._weekday_start.day_of_the_week)
+			print()
 			return self._weekday_end.day_of_the_week >= get_day_of_the_week_number_from_datetime(date) >= self._weekday_start.day_of_the_week
 
 		return False
