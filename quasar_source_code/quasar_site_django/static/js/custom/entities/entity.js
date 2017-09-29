@@ -12,7 +12,7 @@ function get_today_with_n_days_offset(n) {
     result.setDate(result.getDate() + n)
 
     var day   = result.getDate()
-    var month = result.getMonth()
+    var month = result.getMonth() + 1
     var year  = result.getYear()
     return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }

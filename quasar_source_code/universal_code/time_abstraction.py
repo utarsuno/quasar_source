@@ -159,6 +159,10 @@ def get_specific_day(year, month, day) -> datetime.date:
 	else:
 		return datetime(year=year, month=get_month(month).number, day=day).date()
 
+
+aa = get_specific_day(year=2017, month=8, day=28)
+print(get_day_of_the_week_number_from_datetime(aa))
+
 def get_day_object_from_current_weeks_day(day: Day):
 	"""Returns a Date object that's the date of the day of this week that the Day is."""
 	today = get_today()
