@@ -73,9 +73,13 @@ class PostgreSQLAPI(object):
 	def execute_query(self, query, save: bool=False) -> None:
 		"""Executes the query provided."""
 		# Query can be type of string and tuple.
-		self._cursor.execute(query)
-		if save:
-			self._connection.commit()
+		try:
+			self._cursor.execute(query)
+			if save:
+				self._connection.commit()
+		except Exception as e:
+			print('Exception occurred, query was {' + str(query) + '}')
+			print('Exception occurred! It was {' + str(e) + '}')
 
 	def get_all_table_names(self) -> List[str]:
 		"""Gets the names of all tables in this database."""
