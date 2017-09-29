@@ -99,7 +99,7 @@ HomeWorld.prototype = {
 
         this.y_offsets = []
 
-        this.day_indexes = {}
+        this.day_indexes = []
 
         this.number_of_segments = 14
         this.day_entities = []
