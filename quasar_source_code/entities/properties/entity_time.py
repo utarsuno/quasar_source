@@ -19,6 +19,8 @@ class EntityTime(be.Entity):
 
 		self.add_parents(parent_entity)
 
+		self._class_name = be.ENTITY_TIME
+
 	def add_one_time_event(self, time_range_or_single_day, event):
 		"""Adds a time event that only occurs once."""
 		self._one_time_events.append([time_range_or_single_day, event])

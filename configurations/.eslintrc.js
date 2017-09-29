@@ -51,6 +51,7 @@ module.exports = {
         "FloatingLabelInput": true,
 
         "SmoothStep": false,
+        "Owner": true,
 
         "LoginWorld": true,
         "HomeWorld": true,

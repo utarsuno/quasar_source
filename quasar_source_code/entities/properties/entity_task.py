@@ -28,6 +28,8 @@ class EntityTask(be.Entity):
 			if self not in parent_task.children:
 				self.add_parents(parent_task)
 
+		self._class_name = be.ENTITY_TASK
+
 	def iterate(self):
 		"""Completes an iteration for this task."""
 		self._current_iteration += 1

@@ -120,7 +120,7 @@ HomeWorld.prototype = {
             this.add_to_scene(this.player.fps_controls.get_object())
         }
         if (this.hello_message === null) {
-            this.ajax_status.update_text('Welcome back ' + this.player.username)
+            this.ajax_status.update_text('Welcome back ' + this.player.get_username())
         }
         this.player.set_position(new THREE.Vector3(130, 90, 300))
     },

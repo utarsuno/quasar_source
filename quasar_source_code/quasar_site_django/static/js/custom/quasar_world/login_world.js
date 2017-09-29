@@ -27,13 +27,16 @@ LoginWorld.prototype = {
     //
     current_world: null,
 
+    //
+    attempted_username: null,
+    attempted_password: null,
+
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
-            this.player.username = this.login_username.get_input_text()
-            this.player.perform_login()
+            this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
-            this.ajax_status.update_text('Username or password is not valid!')
+            this.ajax_status.update_text('Error: ' + data)
         }
     },
 
@@ -174,7 +177,12 @@ LoginWorld.prototype = {
                 }
             }
         } else if (event.keyCode == 9) { // tab
+            // Oh, player.look_at() needs to be working first.
+            //if (this.player.is_engaged()) {
+            //}
 
+            event.preventDefault()
+            event.stopPropagation()
             // Prevent default and prevent
         }
 
@@ -223,6 +231,8 @@ LoginWorld.prototype = {
 
                         if (!error) {
                             this.ajax_status.update_text('Sending request to server.')
+                            this.attempted_username = username_text
+                            this.attempted_password = password_text
                             this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)

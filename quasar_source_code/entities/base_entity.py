@@ -29,6 +29,13 @@ class Entity(object):
 
 		self._information     = {}
 
+		self._class_name      = ENTITY
+
+	@property
+	def class_name(self) -> str:
+		"""Returns the class name of this Entity."""
+		return self._class_name
+
 	def get_all_information_relevant_for_date(self, date):
 		"""Gathers relevant information for the date provided."""
 		#sub_set = self.all_children + [self]

@@ -21,15 +21,15 @@ entity_db = EntityDatabaseAPI()
 
 print('Printing Manager info :')
 print(manager)
-#manager.print_all_entities()
+manager.print_all_entities()
 #manager.print_information_for_this_week()
 
 # INFORMATION TO GET SAVED.
 
 # Info set 0.
-'''
+#'''
 manager.add_entities(m.math220)
-'''
+#'''
 
 # Info set 1.
 '''
@@ -42,10 +42,11 @@ manager.add_entities(daily_todos)
 
 # ---------------------------------------------------------------
 
-#print('Printing Manager info :')
+print('Printing Manager info :')
 #print(manager)
 #manager.print_all_entities()
-
+print()
+manager.print_information_for_this_week()
 
 # Now save any changes if we want to.
 

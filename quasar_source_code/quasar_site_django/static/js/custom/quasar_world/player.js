@@ -6,6 +6,9 @@ function Player(renderer_api) {
 
 Player.prototype = {
 
+    // Entity owner.
+    entity_owner: null,
+
     // Current state.
     mouse_locked    : null,
 
@@ -26,9 +29,6 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
-    // Owner information.
-    username: null,
-    
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
@@ -50,8 +50,13 @@ Player.prototype = {
         this.engaged   = false
     },
 
-    perform_login: function() {
+    get_username: function() {
+        return this.entity_owner.username
+    },
+
+    perform_login: function(username, password) {
         this.renderer_api.switch_to_home_world()
+        this.entity_owner = new Owner(username, password)
     },
 
     disengage: function() {

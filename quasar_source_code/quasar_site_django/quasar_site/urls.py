@@ -27,8 +27,9 @@ urlpatterns = [
     url(r'cs425', v.GET_cs_425),
     url(r'web_socket', v.GET_web_socket),
 
-    url(r'create_account', v.POST_create_owner),
-    url(r'login'         , v.POST_login),
+    url(r'create_account'     , v.POST_create_owner),
+    url(r'login'              , v.POST_login),
+    url(r'load_entity_manager', v.POST_load_entity_manager),
 
     url(r'', v.GET_hello_world),
 ]

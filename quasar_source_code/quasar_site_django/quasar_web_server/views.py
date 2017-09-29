@@ -12,10 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 # Needed for making JsonResponses.
 from django.http import JsonResponse
-
-#from quasar_source_code.entities import entity_local_testing
-# Ignore the IDE error message.
-#from entities import entity_local_testing
+from quasar_source_code.entities.server_side import entity_server as es
 
 
 # Define all the pages.
@@ -30,22 +27,8 @@ TEMPLATE_CS_425         = _TEMPLATES_BASE + 'cs425.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html'
 
 
-import threading
-from quasar_source_code.entities.database import entity_database
-
-
-# Temporary variable.
-current_user = ''
-
-class DatabaseThread(object):
-	"""A background thread to handle database interactions."""
-
-	def __init__(self):
-		y = 2
-
-
-db_api = entity_database.EntityDatabaseAPI(debug=True)
-owners = []
+# Global server.
+entity_server = es.EntityServer()
 
 
 def get_client_ip(request):
@@ -58,8 +41,8 @@ def get_client_ip(request):
 
 
 def GET_hello_world(request):
-	"""Temporary main page."""
-	return render(request, TEMPLATE_HELLO_WORLD)
+    """Temporary main page."""
+    return render(request, TEMPLATE_HELLO_WORLD)
 
 
 def GET_log_formulas(request):
@@ -115,6 +98,9 @@ SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
 SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
 SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
 
+# Server utility variables.
+USERNAME = 'username'
+
 
 def check_POST_arguments(arguments, request):
 	"""Just a utility function to raise an exception if there is an in-correct match on POST arguments.
@@ -146,32 +132,22 @@ OWNER_MANAGER_ID = 'manager_id'
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	if check_POST_arguments(['username', OWNER_PASSWORD], request) is not None:
-		return check_POST_arguments(['username', OWNER_PASSWORD], request)
+	if check_POST_arguments([USERNAME, OWNER_PASSWORD], request) is not None:
+		return check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
 
-	received_username = request.POST['username']
+	received_username = request.POST[USERNAME]
 	received_password = request.POST[OWNER_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
 
 	print('USERNAME LOGIN : ' + received_username)
 
-	# TODO : On top of basic rules checks, make sure the username and password match.
-	global owners
-	owners = db_api.get_all_owners()
-	for o in owners:
-		if o[0] == received_username and o[1] == received_password:
-
-			# Log the player in.
-			# TODO : this design will probably change once channels are more developed.
-
-			request.session['username'] = received_username
-			global current_user
-			current_user = received_username
-
-			return SERVER_REPLY_GENERIC_YES
-
-	return SERVER_REPLY_GENERIC_NO
+	global entity_server
+	result = entity_server.is_valid_login_info(received_username, received_password)
+	if result == 'y':
+		request.session[USERNAME] = received_username
+		return SERVER_REPLY_GENERIC_YES
+	return HttpResponse(result)
 
 
 @csrf_exempt
@@ -185,23 +161,21 @@ def POST_create_owner(request):
 	received_owner_password = request.POST[OWNER_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
+
 	print('Creating account : ' + received_owner_name)
-
-	# TODO : On top of basic rules checks, make sure the username isn't already taken.
-
-	# Make sure the owner doesn't already exist.
-	global owners
-	owners = db_api.get_all_owners()
-	for o in owners:
-		if o[0] == received_owner_name:
-			print('username already taken')
-			return HttpResponse('username is already taken')
-
-	# TODO : Eventually put this in a background thread or some separate process.
-	# Create the account here.
-	db_api.create_owner(name=received_owner_name, email=received_owner_email, password=received_owner_password)
-
-	# Create a manager and save it to the owner.
+	global entity_server
+	result = entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
+	if result == 'y':
+		return SERVER_REPLY_GENERIC_YES
+	else:
+		return HttpResponse(result)
 
 
-	return SERVER_REPLY_GENERIC_YES
+@csrf_exempt
+def POST_load_entity_manager(request):
+	"""Handles the POST request to server memory load an entity manager."""
+	if check_POST_arguments([USERNAME], request) is not None:
+		return check_POST_arguments([USERNAME], request)
+	global entity_server
+	entity_server.load_entity_manager(request.POST[USERNAME])
+

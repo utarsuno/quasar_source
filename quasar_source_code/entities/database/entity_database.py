@@ -50,10 +50,6 @@ class EntityDatabaseAPI(object):
 		# TODO : Eventually move the location of the health checks call.
 		self.health_checks()
 
-		# TODO : Eventually create a cache layer here.
-		# For example an owners cache would load the owners table data and then reference that instead of the server
-		# needing to call get_owners() each time it wants to use/reference the owners data.
-
 	def health_checks(self):
 		"""Runs database health checks and applies automatic fixes."""
 		# Connects to database if not yet connected.
@@ -105,6 +101,7 @@ class EntityDatabaseAPI(object):
 
 	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
+		# TODO : Make this a single query...
 		results = self._entity_managers.get_row_values()
 		for r in results:
 			if r[0] == manager_id:
@@ -142,3 +139,7 @@ class EntityDatabaseAPI(object):
 #print(e._api.get_all_table_names())
 #print(e.get_all_owners())
 #e._full_reset()
+
+
+#print(e._owners.get_row_values())
+#print(e._entity_managers.get_row_values())
