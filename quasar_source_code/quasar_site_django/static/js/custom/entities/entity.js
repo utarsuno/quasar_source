@@ -65,8 +65,10 @@ Owner.prototype = {
         this.days_loaded++
         console.log('Got the data')
 
-        for (var i = 0; i < data.length; i++) {
-            this.home_world.add_entity(data[i])
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                this.home_world.add_entity(data[key], key)
+            }
         }
 
         console.log(data)

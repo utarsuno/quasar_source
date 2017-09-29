@@ -4,6 +4,20 @@ function HomeWorld() {
     this.__init__()
 }
 
+
+// Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
+function get_today_with_n_days_offset(n) {
+    var date = new Date()
+
+    var result = new Date(date)
+    result.setDate(result.getDate() + n)
+
+    var day   = result.getDate()
+    var month = result.getMonth()
+    var year  = result.getYear()
+    return month + '/' + day + '/' + year
+}
+
 HomeWorld.prototype = {
     scene: null,
     player: null,
@@ -19,6 +33,8 @@ HomeWorld.prototype = {
 
     //
     radius: null,
+    number_of_segments: null,
+    angle_delta: null,
 
     __init__: function() {
 
@@ -55,19 +71,19 @@ HomeWorld.prototype = {
         // Create the 2 week views here.
         // Temporary design testing.
 
-        var number_of_segments = 14
+        this.number_of_segments = 14
         this.day_entities = []
-        for (var x = 0; x < number_of_segments; x++) {
+        for (var x = 0; x < this.number_of_segments; x++) {
             this.day_entities.push([])
         }
-        var angle_delta = (Math.PI * 2.0) / number_of_segments
+        this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 500
 
         this.day_titles = []
 
         var week = 0
 
-        for (var i = 0; i < number_of_segments; i++) {
+        for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = ''
             var x_position = Math.cos(angle_delta * i) * this.radius
             var z_position = Math.sin(angle_delta * i) * this.radius
@@ -114,8 +130,29 @@ HomeWorld.prototype = {
     },
 
     add_entity: function(entity_string, day_index) {
-        var floating_entity = new Floating2DText(600, 30, entity_string, TYPE_STATUS, this.scene)
-        floating_entity.update_position_and_look_at(new THREE.Vector3(150, 100, 45), new THREE.Vector3(150, 100, 55))
+
+        // TODO : Optimize this function lol...
+        var day_match = -1;
+        for (var i = 0; i < 14; i++) {
+            var day_string = get_today_with_n_days_offset(i)
+            if (day_string === day_index) {
+                day_match = i
+                break
+            }
+        }
+
+        console.log('Entity string : ' + entity_string + ' : day index : ' + day_index)
+
+        // Check the number of elements in that day to get the y offset.
+        var y_offset = this.day_entities[day_match].length * 40
+
+        var x_position = Math.cos(this.angle_delta * day_match) * this.radius
+        var z_position = Math.sin(this.angle_delta * day_match) * this.radius
+
+        var floating_entity = new Floating2DText(512, 32, entity_string, TYPE_STATUS, this.scene)
+        floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 100 - y_offset, z_position), new THREE.Vector3(x_position, 100 - y_offset, z_position))
+
+        this.day_entities[day_match].push(floating_entity)
     },
 
     update: function() {
