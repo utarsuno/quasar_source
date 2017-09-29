@@ -73,6 +73,8 @@ class EntityServer(object):
 		print('NEED TO GET ENTITIES FOR THIS DAY : ')
 		print(day)
 
+		
+
 		#self._managers
 
 		return SERVER_REPLY_GENERIC_YES
