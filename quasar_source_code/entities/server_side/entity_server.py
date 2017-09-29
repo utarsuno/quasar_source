@@ -68,12 +68,11 @@ class EntityServer(object):
 				return SERVER_REPLY_GENERIC_YES
 		return HttpResponse('Internal server error 555')
 
-	def get_entities_for_day(self, day):
+	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""
-		print('NEED TO GET ENTITIES FOR THIS DAY : ')
+		print('NEED TO GET ENTITIES FOR THIS DAY : for usr{' + str(username) + '}')
 		print(day)
 
-		
 
 		#self._managers
 
