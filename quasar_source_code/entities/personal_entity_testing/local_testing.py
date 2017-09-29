@@ -65,7 +65,13 @@ print('Printing Manager info :')
 #print(manager)
 #manager.print_all_entities()
 print()
-manager.print_information_for_this_week()
+#manager.print_information_for_this_week()
+
+
+
+print(manager.get_information_for_specific_day(ta.get_specific_day(year=2017, month='sep', day=29)))
+#print(manager.get_information_for_specific_day(ta.get_specific_day(year=2017, month='sep', day=28)))
+
 
 # Now save any changes if we want to.
 

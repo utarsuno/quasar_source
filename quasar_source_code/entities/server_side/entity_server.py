@@ -92,6 +92,8 @@ class EntityServer(object):
 			print('@@@@@@@@@@@@@@@@')
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
+		print(data)
+		print(specific_day)
 
 		json_data = {day : []}
 		for d in data:
