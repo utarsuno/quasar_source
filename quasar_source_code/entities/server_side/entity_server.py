@@ -7,6 +7,8 @@ from quasar_source_code.entities.database import entity_database
 # Needed for sending a simple HttpResponse such as a string response.
 from django.http import HttpResponse
 
+from quasar_source_code.universal_code import time_abstraction as ta
+
 # Utility indexes.
 INDEX_OWNER_NAME       = 0
 INDEX_OWNER_PASSWORD   = 1
@@ -70,10 +72,13 @@ class EntityServer(object):
 
 	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""
+		day = day.replace('117', '2017')
 		print('NEED TO GET ENTITIES FOR THIS DAY : for usr{' + str(username) + '}')
 		print(day)
 
+		parts = day.split('/')
+		specific_day = ta.get_specific_day(year=parts[2], month=parts[0], day=parts[1])
 
-		#self._managers
+		data = self._managers[username].get_information_for_specific_day(specific_day)
 
-		return SERVER_REPLY_GENERIC_YES
+		return data

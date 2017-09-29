@@ -52,6 +52,17 @@ class EntityManager(object):
 			for d in data:
 				print(d)
 
+	def get_information_for_specific_day(self, date_object):
+		"""Testing this function out"""
+		print('Getting information for this date: ' + str(date_object))
+
+		all_data = []
+		for e in self.entities:
+			data = e.get_all_information_relevant_for_date(date_object)
+			for d in data:
+				all_data.append(d)
+		return all_data
+
 	def print_information_for_this_week(self):
 		"""Prints all information relevant to this week."""
 		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.MONDAY))

@@ -60,13 +60,8 @@ Owner.prototype = {
 
     entities_loaded_for_day: function(data) {
         this.days_loaded++
-        if (data == SERVER_REPLY_GENERIC_YES) {
-            console.log('Day data loaded!')
-            console.log(data)
-        } else {
-            console.log('Failed to load day data')
-            console.log(data)
-        }
+        console.log('Got the data')
+        console.log(data)
     },
 
     entity_manager_load_result: function(data) {
