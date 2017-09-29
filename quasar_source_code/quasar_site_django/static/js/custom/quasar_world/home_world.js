@@ -88,13 +88,16 @@ HomeWorld.prototype = {
 
         var week = 0
 
+        var date = new Date()
+        var day_offset = date.getDay()
+
         for (var i = 0; i < this.number_of_segments; i++) {
             var day_string = ''
             var x_position = Math.cos(this.angle_delta * i) * this.radius
             var z_position = Math.sin(this.angle_delta * i) * this.radius
             switch(i % 7) {
             case 0:
-                day_string = 'Monday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Monday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 if (week == 0) {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
@@ -106,22 +109,22 @@ HomeWorld.prototype = {
                 }
                 break
             case 1:
-                day_string = 'Tuesday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Tuesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             case 2:
-                day_string = 'Wednesday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Wednesday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             case 3:
-                day_string = 'Thursday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Thursday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             case 4:
-                day_string = 'Friday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Friday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             case 5:
-                day_string = 'Saturday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Saturday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             case 6:
-                day_string = 'Sunday ' + get_just_date_of_date_of_n_days_offset(i)
+                day_string = 'Sunday ' + get_just_date_of_date_of_n_days_offset(i - day_offset)
                 break
             }
 
