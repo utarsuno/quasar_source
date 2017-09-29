@@ -81,4 +81,4 @@ class EntityServer(object):
 
 		data = self._managers[username].get_information_for_specific_day(specific_day)
 
-		return data
+		return HttpResponse(data)
