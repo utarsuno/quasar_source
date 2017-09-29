@@ -102,10 +102,11 @@ HomeWorld.prototype = {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
-                    this.day_entities[i % 7].push(week_title)
+                    this.day_entities[i].push(week_title)
                 } else if (week == 1) {
                     var week_title = new Floating2DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
+                    this.day_entities[i].push(week_title)
                 }
                 break
             case 1:
@@ -129,8 +130,8 @@ HomeWorld.prototype = {
             }
 
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
-
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
+            this.day_entities[i].push(day_floating_text)
         }
     },
 
@@ -140,7 +141,7 @@ HomeWorld.prototype = {
 
         // TODO : Optimize this function lol...
         var day_match = -1;
-        for (var i = 0; i < 14; i++) {
+        for (var i = -5; i < 20; i++) {
             var day_string = get_today_with_n_days_offset(i)
             if (day_string === day_index) {
                 day_match = i
@@ -152,7 +153,7 @@ HomeWorld.prototype = {
         console.log('Entity string : ' + entity_string + ' : day index : ' + day_index)
 
         // Check the number of elements in that day to get the y offset.
-        var y_offset = this.day_entities[day_match].length * 40
+        var y_offset = (this.day_entities[day_match].length + 1) * 40
 
         var x_position = Math.cos(this.angle_delta * day_match) * this.radius
         var z_position = Math.sin(this.angle_delta * day_match) * this.radius
