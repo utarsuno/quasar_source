@@ -131,6 +131,8 @@ HomeWorld.prototype = {
 
     add_entity: function(entity_string, day_index) {
 
+        console.log('Entity string is : ' + entity_string)
+
         // TODO : Optimize this function lol...
         var day_match = -1;
         for (var i = 0; i < 14; i++) {
