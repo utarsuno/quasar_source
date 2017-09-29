@@ -37,6 +37,7 @@ HomeWorld.prototype = {
 
     //
     day_entities: null,
+    y_offsets: null,
 
     //
     radius: null,
@@ -81,7 +82,7 @@ HomeWorld.prototype = {
         this.number_of_segments = 14
         this.day_entities = []
         for (var x = 0; x < this.number_of_segments; x++) {
-            this.day_entities.push([])
+            this.y_offsets.push(-40)
         }
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 600
@@ -132,6 +133,7 @@ HomeWorld.prototype = {
             var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
             this.day_entities[i].push(day_floating_text)
+            this.y_offsets[i] -= 40
         }
     },
 
@@ -139,10 +141,13 @@ HomeWorld.prototype = {
 
         console.log('Entity string is : ' + entity_string)
 
+        var date = new Date()
+        var day_offset = date.getDay()
+
         // TODO : Optimize this function lol...
         var day_match = -1;
-        for (var i = -5; i < 20; i++) {
-            var day_string = get_today_with_n_days_offset(i)
+        for (var i = 0; i < this.number_of_segments; i++) {
+            var day_string = get_today_with_n_days_offset(i - day_offset + 1)
             if (day_string === day_index) {
                 day_match = i
                 break
