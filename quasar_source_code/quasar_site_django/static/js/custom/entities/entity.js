@@ -4,20 +4,9 @@ function Owner(username, password, home_world) {
     this.__init__(username, password, home_world)
 }
 
-/*
-// Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
-function get_today_with_n_days_offset(n) {
-    var date = new Date()
+function Entity() {
 
-    var result = new Date(date)
-    result.setDate(result.getDate() + n)
-
-    var day   = result.getDate()
-    var month = result.getMonth() + 1
-    var year  = result.getYear()
-    return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }
-*/
 
 Owner.prototype = {
 
@@ -47,40 +36,19 @@ Owner.prototype = {
 
         this.days = get_list_of_dates_consisting_of_this_and_next_week()
         for (var i = 0; i < this.days.length; i++) {
-            console.log('Got the date : ' + this.days[i])
             this.get_entities_for_day.perform_post({'username': this.username, 'day': this.days[i]}, this.entities_loaded_for_day.bind(this))
         }
-
-        // Delete once above loop has been found to be working.
-        /*
-        this.days = []
-        this.days_to_load = 14
-
-        // Get the offset so that we start on monday.
-        var date = new Date()
-        var day_offset = date.getDay()
-
-        for (var i = 0; i < this.days_to_load; i++) {
-            //console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - day_offset + 1))
-            this.get_entities_for_day.perform_post({'username': this.username, 'day': get_today_with_n_days_offset(i - day_offset + 1)}, this.entities_loaded_for_day.bind(this))
-        }
-        */
     },
 
     entities_loaded_for_day: function(data) {
         this.days_loaded++
         data = JSON.parse(data)
 
-        //console.log('Got the following data back:')
-        //console.log(data)
-
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
                 //console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
-
                 var d = data[key]
                 if (d.length > 0) {
-                    //var entity_array = text.split(',')
                     for (var i = 0; i < d.length; i++) {
                         this.home_world.add_entity(d[i], key)
                     }
@@ -88,8 +56,13 @@ Owner.prototype = {
 
             }
         }
-
-        //console.log(' ')
+        if (this.days_loaded == this.days.length) {
+            this.loading_data = false
+        }
     }
+
+}
+
+Entity.prototype = {
 
 }

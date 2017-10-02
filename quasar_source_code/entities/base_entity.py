@@ -42,7 +42,9 @@ class Entity(object):
 		sub_set = self.all_children
 		info = []
 		for e in sub_set:
-			# TODO : If it doesn't work first check this spot by printing out e
+
+			# TODO : CHECK FOR tasks as they contain coloring information!
+
 			if e.class_name == ENTITY_TIME:
 				data = e.get_all_relevant_events_for_date(date)
 				if len(data) > 0:

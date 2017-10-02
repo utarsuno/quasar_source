@@ -14,8 +14,8 @@ class EntityTask(be.Entity):
 
 	def __init__(self, name, parent_task=None):
 		super().__init__(name)
-		self._current_iteration = 1 # Default number of iterations is 1.
-		self._needed_iterations = 0
+		self._current_iteration = 0
+		self._needed_iterations = 1 # Default number of iterations is 1.
 		self._description       = None
 		self._due_date          = None
 
@@ -43,6 +43,16 @@ class EntityTask(be.Entity):
 	def description(self, val):
 		"""Sets the description of this task."""
 		self._description = val
+
+	@property
+	def needed_iterations(self) -> int:
+		"""Returns the number of iterations needed for completion. Default value is 1."""
+		return self._needed_iterations
+
+	@needed_iterations.setter
+	def needed_iterations(self, val):
+		"""Sets the number of needed iterations."""
+		self._needed_iterations = val
 
 	def set_due_date_and_description(self, val, description):
 		"""Sets the due date for this Entity task."""

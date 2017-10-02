@@ -59,6 +59,8 @@ module.exports = {
         "Crosshair": true,
         "PostHelper": true,
 
+        "Button3D": true,
+
         "$": false,
 
         // From constants.js
