@@ -25,6 +25,8 @@ function get_list_of_dates_consisting_of_this_and_next_week() {
     var date       = new Date() // Right now instance.
     var day_offset = date.getDay()
 
+    console.log('Day offset is : ' + day_offset)
+
     for (var i = 0; i < 14; i++) {
         dates.push(get_today_with_n_days_offset(i - day_offset))
     }
