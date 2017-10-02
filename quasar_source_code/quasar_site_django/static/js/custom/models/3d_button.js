@@ -28,9 +28,9 @@ Button3D.prototype = {
         var geometry = new THREE.BoxGeometry(this.height * 2.5, this.width, 3)
         var material = new THREE.MeshBasicMaterial({color: 0xA8BED7})
         var button = new THREE.Mesh(geometry, material)
-        scene.add(button)
-
+        
         this.object_3D.add(button)
+        this.scene.add(this.object_3D)
 
         this.floating_text = new Floating2DText(this.width, this.height, this.text, TYPE_TITLE, this.scene)
     },
