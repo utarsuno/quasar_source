@@ -61,7 +61,7 @@ module.exports = {
 
         "$": false,
 
-        // From globals.js
+        // From constants.js
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
         "TYPE_LABEL": false,
@@ -79,7 +79,9 @@ module.exports = {
         "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,
         "SERVER_REPLY_GENERIC_NO": false,
         "SERVER_REPLY_GENERIC_YES": false,
-        "SERVER_REPLY_GENERIC_SERVER_ERROR": false
+        "SERVER_REPLY_GENERIC_SERVER_ERROR": false,
 
+        // From time_abstractions.js
+        "get_list_of_dates_consisting_of_this_and_next_week": false
     }
 };

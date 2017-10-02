@@ -37,7 +37,7 @@ class EntityTime(be.Entity):
 		"""Returns a list of all relevant events for the date passed in."""
 		#print('Checking : ' + str(date))
 
-		print('Getting relevent events for date : ' + str(date))
+		#print('Getting relevent events for date : ' + str(date))
 
 		events = []
 		# First check for any one time events that fall into this date.
@@ -47,22 +47,22 @@ class EntityTime(be.Entity):
 
 			if type(ote[0]) == ta.Day:
 				if date.weekday() == int(ote[0]):
-					print('case A')
+					#print('case A')
 					events.append(ote[1])
 
 			elif type(ote[0]) == ta.Weekday:
 				if date.weekday() == ote[0].day_of_the_week:
-					print('case B')
+					#print('case B')
 					events.append(ote[1])
 			else:
 				if str(type(ote[0])) == "<class 'datetime.date'>":
 					if ote[0].day == date.day and ote[0].month == date.month:
-						print('case C')
+						#print('case C')
 						events.append(ote[1])
 				else:
 					# We are working with a time range.
 					if ote[0].is_date_within_range(date):
-						print('case D')
+						#print('case D')
 						events.append(ote[1])
 
 		# Now check for any events that fall within the event range if the date provided falls within the event range.
@@ -77,7 +77,7 @@ class EntityTime(be.Entity):
 					#print('Checking event : ' + str(event))
 
 					if event[0].is_date_within_range(date):
-						print('case E')
+						#print('case E')
 						events.append(event[1])
 
 		return events

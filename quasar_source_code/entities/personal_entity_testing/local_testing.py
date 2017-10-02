@@ -56,9 +56,9 @@ manager.add_entities(some_todos)
 #'''
 global_todos = be.Entity('Global todos')
 global_tasks = etask.EntityTask('global task 1', global_todos)
-global_tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='sep', day=29), description='Say hello hello')
-
+global_tasks.set_due_date_and_description(ta.get_specific_day(year=2017, month='sep', day=25), description='Testing live adds')
 #manager.add_entities(global_todos)
+
 #'''
 
 print('Printing Manager info :')
@@ -69,7 +69,7 @@ print()
 
 
 
-print(manager.get_information_for_specific_day(ta.get_specific_day(year=2017, month='sep', day=29)))
+print(manager.get_information_for_specific_day(ta.get_specific_day(year=2017, month='sep', day=25)))
 #print(manager.get_information_for_specific_day(ta.get_specific_day(year=2017, month='sep', day=28)))
 
 

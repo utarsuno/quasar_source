@@ -4,6 +4,7 @@ function Owner(username, password, home_world) {
     this.__init__(username, password, home_world)
 }
 
+/*
 // Solution from https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
 function get_today_with_n_days_offset(n) {
     var date = new Date()
@@ -16,6 +17,7 @@ function get_today_with_n_days_offset(n) {
     var year  = result.getYear()
     return month + '/' + day + '/' + year.toString().replace('117', '2017')
 }
+*/
 
 Owner.prototype = {
 
@@ -42,6 +44,14 @@ Owner.prototype = {
         this.loading_data = true
 
         this.get_entities_for_day = new PostHelper('/get_entities_for_day')
+
+        this.days = get_list_of_dates_consisting_of_this_and_next_week()
+        for (var i = 0; i < this.days.length; i++) {
+            this.get_entities_for_day.perform_post({'username': this.username, 'day': this.days[i]}, this.entities_loaded_for_day.bind(this))
+        }
+
+        // Delete once above loop has been found to be working.
+        /*
         this.days = []
         this.days_to_load = 14
 
@@ -53,6 +63,7 @@ Owner.prototype = {
             //console.log('Loading starting from monday of this week : ' + get_today_with_n_days_offset(i - day_offset + 1))
             this.get_entities_for_day.perform_post({'username': this.username, 'day': get_today_with_n_days_offset(i - day_offset + 1)}, this.entities_loaded_for_day.bind(this))
         }
+        */
     },
 
     entities_loaded_for_day: function(data) {
