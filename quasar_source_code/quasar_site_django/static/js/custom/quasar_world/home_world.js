@@ -115,9 +115,10 @@ HomeWorld.prototype = {
             var day_string = ''
             var x_position = Math.cos(this.angle_delta * i) * this.radius
             var z_position = Math.sin(this.angle_delta * i) * this.radius
+            var day_value = this.day_indexes[i].split('/')[1]
             switch(i % 7) {
             case 0:
-                day_string = 'Monday ' + this.day_indexes[i]
+                day_string = 'Monday ' + day_value
                 if (week == 0) {
                     var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
@@ -130,22 +131,22 @@ HomeWorld.prototype = {
                 }
                 break
             case 1:
-                day_string = 'Tuesday ' + this.day_indexes[i]
+                day_string = 'Tuesday ' + day_value
                 break
             case 2:
-                day_string = 'Wednesday ' + this.day_indexes[i]
+                day_string = 'Wednesday ' + day_value
                 break
             case 3:
-                day_string = 'Thursday ' + this.day_indexes[i]
+                day_string = 'Thursday ' + day_value
                 break
             case 4:
-                day_string = 'Friday ' + this.day_indexes[i]
+                day_string = 'Friday ' + day_value
                 break
             case 5:
-                day_string = 'Saturday ' + this.day_indexes[i]
+                day_string = 'Saturday ' + day_value
                 break
             case 6:
-                day_string = 'Sunday ' + this.day_indexes[i]
+                day_string = 'Sunday ' + day_value
                 break
             }
 
@@ -159,6 +160,26 @@ HomeWorld.prototype = {
     add_entity: function(entity_string, day_index) {
         //console.log('Entity string is : ' + entity_string + '\tDay index : ' + day_index)
 
+        var days = get_list_of_dates_consisting_of_this_and_next_week()
+
+        for (var t = 0; t < days.length; t++) {
+
+            console.log('Testing ' + day_index + '\t' + days[t])
+            if (day_index === days[t]) {
+                console.log('Match on ' + day_index + '\t' + days[t])
+
+                var x_position = Math.cos(this.angle_delta * t) * this.radius
+                var z_position = Math.sin(this.angle_delta * t) * this.radius
+
+                var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
+                floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[t], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[t], 0))
+
+                this.day_entities[t].push(floating_entity)
+                this.y_offsets[t] += 40
+            }
+        }
+
+        /*
         var date = new Date()
         var day_offset = date.getDay()
 
@@ -180,6 +201,7 @@ HomeWorld.prototype = {
 
         this.day_entities[day_match].push(floating_entity)
         this.y_offsets[day_match] += 40
+        */
 
     },
 
