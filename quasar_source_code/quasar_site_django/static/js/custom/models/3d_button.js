@@ -39,7 +39,7 @@ Button3D.prototype = {
         this.object_3D.position.x = position.x
         this.object_3D.position.y = position.y
         this.object_3D.position.z = position.z
-        this.object_3D.look_at(look_at)
+        this.object_3D.lookAt(look_at)
         this.floating_text.update_position_and_look_at(position, look_at)
     }
 
