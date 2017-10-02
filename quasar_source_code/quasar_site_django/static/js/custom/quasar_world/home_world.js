@@ -78,10 +78,22 @@ HomeWorld.prototype = {
         // Create the 2 week views here.
         // Temporary design testing.
 
-        this.y_offsets = []
-
         this.day_indexes = []
 
+        this.days = get_list_of_dates_consisting_of_this_and_next_week()
+        this.number_of_segments = this.days.length
+        for (var d = 0; d < this.days.length; d++) {
+            this.y_offsets.push(40)
+            this.day_entities.push([])
+            this.day_indexes.push(this.days[d])
+        }
+
+        this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
+        this.radius = 600
+        this.y_offsets = []
+
+        /*
+        this.day_indexes = []
         this.number_of_segments = 14
         this.day_entities = []
 
@@ -94,8 +106,7 @@ HomeWorld.prototype = {
 
             this.day_indexes.push(get_just_date_of_date_of_n_days_offset(x - day_offset + 1))
         }
-        this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
-        this.radius = 600
+        */
 
         var week = 0
 
