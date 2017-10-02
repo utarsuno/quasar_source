@@ -79,6 +79,7 @@ HomeWorld.prototype = {
         // Temporary design testing.
 
         this.day_indexes = []
+        this.y_offsets = []
 
         this.days = get_list_of_dates_consisting_of_this_and_next_week()
         this.number_of_segments = this.days.length
@@ -90,7 +91,6 @@ HomeWorld.prototype = {
 
         this.angle_delta = (Math.PI * 2.0) / this.number_of_segments
         this.radius = 600
-        this.y_offsets = []
 
         /*
         this.day_indexes = []
