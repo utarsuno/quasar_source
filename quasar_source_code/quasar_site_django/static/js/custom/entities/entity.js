@@ -47,6 +47,7 @@ Owner.prototype = {
 
         this.days = get_list_of_dates_consisting_of_this_and_next_week()
         for (var i = 0; i < this.days.length; i++) {
+            console.log('Got the date : ' + this.days[i])
             this.get_entities_for_day.perform_post({'username': this.username, 'day': this.days[i]}, this.entities_loaded_for_day.bind(this))
         }
 

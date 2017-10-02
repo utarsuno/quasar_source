@@ -145,9 +145,6 @@ def get_current_day_of_the_week_number() -> int:
 
 
 def get_day_of_the_week_number_from_datetime(datetime_obj) -> int:
-	print(datetime_obj)
-	print(type(datetime_obj))
-	print('GET DAY OF THE WEEK NUMBER : ' + str(datetime_obj) + '\t' + str(datetime_obj.weekday()))
 	"""Does what the function title states."""
 	return datetime_obj.weekday()
 
@@ -159,9 +156,6 @@ def get_specific_day(year, month, day) -> datetime.date:
 	else:
 		return datetime(year=year, month=get_month(month).number, day=day).date()
 
-
-aa = get_specific_day(year=2017, month=8, day=28)
-print(get_day_of_the_week_number_from_datetime(aa))
 
 def get_day_object_from_current_weeks_day(day: Day):
 	"""Returns a Date object that's the date of the day of this week that the Day is."""
@@ -396,19 +390,12 @@ class TimeRange(object):
 
 	def is_date_within_range(self, date) -> bool:
 		"""Returns a boolean indicating if the date passed is within the date range."""
-		print('Checking if ' + str(date) + ' is within : ' + str(self))
 		if hasattr(self, '_start_date'):
 			if type(self._start_date) == datetime:
 				return self._end_date.date() >= date >= self._start_date.date()
 			else:
 				return self._end_date >= date >= self._start_date
 		else:
-			print()
-			print('AAAA')
-			print(self._weekday_end.day_of_the_week)
-			print(get_day_of_the_week_number_from_datetime(date))
-			print(self._weekday_start.day_of_the_week)
-			print()
 			return self._weekday_end.day_of_the_week >= get_day_of_the_week_number_from_datetime(date) >= self._weekday_start.day_of_the_week
 
 		return False

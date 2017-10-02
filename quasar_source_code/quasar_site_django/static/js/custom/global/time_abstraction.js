@@ -31,3 +31,27 @@ function get_list_of_dates_consisting_of_this_and_next_week() {
 
     return dates
 }
+
+
+
+
+/*
+def get_current_day_of_the_week_number() -> int:
+	"""Returns today's day as an integer."""
+	return datetime.now().weekday()
+
+
+
+def get_day_object_from_current_weeks_day(day: Day):
+	"""Returns a Date object that's the date of the day of this week that the Day is."""
+	today = get_today()
+	offset = get_current_day_of_the_week_number()
+	if offset == int(day):
+		return today
+	elif offset > int(day):
+		return today - timedelta(days=offset - int(day))
+	else:
+		return today + timedelta(days=int(day) - offset)
+*/
+
+
