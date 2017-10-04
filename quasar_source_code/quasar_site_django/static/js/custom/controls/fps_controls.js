@@ -64,8 +64,8 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        this.mouse_movement_x_buffer = new SmoothStep(this.yaw.rotation.y, 0.15)
-        this.mouse_movement_y_buffer = new SmoothStep(this.pitch.rotation.x, 0.15)
+        this.mouse_movement_x_buffer = new SmoothStep(this.yaw.rotation.y, 0.13)
+        this.mouse_movement_y_buffer = new SmoothStep(this.pitch.rotation.x, 0.13)
 
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
@@ -227,6 +227,7 @@ FPSControls.prototype = {
     },
 
     on_key_press: function(event) {
+        console.log(event)
         switch(event.which) {
         case 102: // f
             this.toggle_flying()
@@ -256,7 +257,7 @@ FPSControls.prototype = {
             this.space = true
             break
         case 16: // shift
-            this.shift = true
+            this.shift = true 
             break
         }
     },

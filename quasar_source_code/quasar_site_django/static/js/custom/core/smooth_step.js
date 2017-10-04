@@ -23,6 +23,8 @@ function SmoothStep(current_value, time_needed_for_each_force) {
     this.__init__(current_value, time_needed_for_each_force)
 }
 
+// TODO : Eventually make SmoothStep implement a large initially sized array instead of constantly needing to create new memory.
+
 SmoothStep.prototype = {
 
     buffer: null,
@@ -41,9 +43,7 @@ SmoothStep.prototype = {
     },
 
     update: function(delta) {
-
-        console.log('The buffer has the length : ' + this.buffer.length)
-
+        // console.log('The buffer has the length : ' + this.buffer.length)
         for (var i = 0; i < this.buffer.length; i++) {
             this.buffer[i][1] += delta
             if (this.buffer[i][1] >= this.time_needed_for_each_force) {
@@ -63,30 +63,3 @@ SmoothStep.prototype = {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-genType t; // Or genDType t;
-    t = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0);
-    return t * t * (3.0 - 2.0 * t);
-*/
-
-/*
-float smoothstep(float edge0, float edge1, float x)
-{
-    // Scale, bias and saturate x to 0..1 range
-    x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
-    // Evaluate polynomial
-    return x*x*(3 - 2*x);
-}
-
- */
