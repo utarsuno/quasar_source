@@ -64,8 +64,8 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        //this.mouse_movement_x_buffer = new SmoothStep()
-        //this.mouse_movement_y_buffer = new SmoothStep()
+        this.mouse_movement_x_buffer = new SmoothStep()
+        this.mouse_movement_y_buffer = new SmoothStep()
 
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
@@ -126,6 +126,10 @@ FPSControls.prototype = {
 
     physics: function(delta) {
         if (this.enabled) {
+
+            this.mouse_movement_x_buffer.update(delta)
+            this.mouse_movement_y_buffer.update(delta)
+
             if (this.flying_on) {
                 // Flying code.
                 if (this.space) {
@@ -291,6 +295,9 @@ FPSControls.prototype = {
             // TODO : Smooth step this portion out.
             this.yaw.rotation.y   -= movement_x * 0.002
             this.pitch.rotation.x -= movement_y * 0.002
+
+            this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
+            this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
 
             //this.mouse_movement_x_buffer.
 

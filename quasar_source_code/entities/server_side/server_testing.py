@@ -1,3 +1,19 @@
+def clamp(x, lower_limit, upper_limit):
+    if x < lower_limit:
+        return lower_limit
+    elif x > upper_limit:
+        return upper_limit
+    return x
+
+
+def smoothstep(edge0, edge1, x):
+    x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0)
+    print('clamp is : ' + str(x))
+    return x * x * (3 - 2 * x)
+
+print(smoothstep(0.0, 5.0, 1.5))
+
+'''
 'use strict'
 
 
@@ -35,24 +51,15 @@ SmoothStep.prototype = {
     },
 
     add_force: function(magnitude, time_needed) {
+        // TODO : Add a value to the buffer here, the value should contain the amount + time added at
         this.buffer.push([magnitude, 0.0, time_needed])
     },
 
     update: function(delta) {
-        console.log('Delta is : ' + delta)
-        for (var i = 0; i < this.buffer.length; i++) {
-            this.buffer[i][1] += delta
-        }
+
     }
 
 }
-
-
-
-
-
-
-
 
 
 
@@ -73,3 +80,4 @@ float smoothstep(float edge0, float edge1, float x)
 }
 
  */
+'''
