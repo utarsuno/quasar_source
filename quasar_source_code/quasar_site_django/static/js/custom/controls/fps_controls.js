@@ -134,8 +134,10 @@ FPSControls.prototype = {
     physics: function(delta) {
         if (this.enabled) {
 
-            this.mouse_movement_x_buffer.update(delta)
-            this.mouse_movement_y_buffer.update(delta)
+            if (this.buffer_mouse_movement) {
+                this.mouse_movement_x_buffer.update(delta)
+                this.mouse_movement_y_buffer.update(delta)
+            }
             this.update_mouse_view_position()
 
             if (this.flying_on) {
