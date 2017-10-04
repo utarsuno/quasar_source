@@ -64,8 +64,8 @@ FPSControls.prototype = {
 
         this.velocity = new THREE.Vector3()
 
-        this.mouse_movement_x_buffer = new SmoothStep(this.yaw.rotation.y, 0.25)
-        this.mouse_movement_y_buffer = new SmoothStep(this.pitch.rotation.x, 0.25)
+        this.mouse_movement_x_buffer = new SmoothStep(this.yaw.rotation.y, 0.20)
+        this.mouse_movement_y_buffer = new SmoothStep(this.pitch.rotation.x, 0.20)
 
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
@@ -317,8 +317,8 @@ FPSControls.prototype = {
             //this.yaw.rotation.y   -= movement_x * 0.002
             //this.pitch.rotation.x -= movement_y * 0.002
 
-            this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .2)
-            this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .2)
+            this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .8)
+            this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .8)
         }
     },
 
