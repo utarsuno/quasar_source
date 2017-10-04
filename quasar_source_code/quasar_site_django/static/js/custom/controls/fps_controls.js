@@ -129,6 +129,7 @@ FPSControls.prototype = {
 
             this.mouse_movement_x_buffer.update(delta)
             this.mouse_movement_y_buffer.update(delta)
+            this.update_mouse_view_position()
 
             if (this.flying_on) {
                 // Flying code.
@@ -287,6 +288,23 @@ FPSControls.prototype = {
         }
     },
 
+    update_mouse_view_position: function() {
+        this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+
+        this.direction_vector = this.get_direction()
+        this.direction_vector.normalize()
+
+        this.left_right = new THREE.Vector3(0, 1, 0)
+        this.left_right.cross(this.direction_vector)
+        this.left_right.normalize()
+
+        if (!this.flying_on) {
+            this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
+            this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
+            this.walking_direction.normalize()
+        }
+    },
+
     on_mouse_move: function(event) {
         if (this.enabled) {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
@@ -295,29 +313,12 @@ FPSControls.prototype = {
             // TODO : Smooth step this portion out.
             //this.yaw.rotation.y   -= movement_x * 0.002
             //this.pitch.rotation.x -= movement_y * 0.002
-            this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
-            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
 
             this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .2 * .2 * .5)
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .2 * .2 * .5)
 
-            //this.mouse_movement_x_buffer.
-
-
-            this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
-
-            this.direction_vector = this.get_direction()
-            this.direction_vector.normalize()
-
-            this.left_right = new THREE.Vector3(0, 1, 0)
-            this.left_right.cross(this.direction_vector)
-            this.left_right.normalize()
-
-            if (!this.flying_on) {
-                this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z)
-                this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
-                this.walking_direction.normalize()
-            }
+            this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
+            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
         }
     },
 
