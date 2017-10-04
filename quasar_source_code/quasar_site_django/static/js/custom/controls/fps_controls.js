@@ -298,8 +298,8 @@ FPSControls.prototype = {
             this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
             this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
 
-            this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
-            this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
+            this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .2)
+            this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .2)
 
             //this.mouse_movement_x_buffer.
 
