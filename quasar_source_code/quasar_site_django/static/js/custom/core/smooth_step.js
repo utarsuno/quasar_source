@@ -19,8 +19,8 @@ function smoothstep(edge0, edge1, x) {
     return x * x * (3 - 2 * x)
 }
 
-function SmoothStep() {
-
+function SmoothStep(current_value) {
+    this.__init__(current_value)
 }
 
 SmoothStep.prototype = {
