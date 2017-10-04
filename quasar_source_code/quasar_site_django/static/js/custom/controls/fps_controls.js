@@ -30,6 +30,7 @@ FPSControls.prototype = {
     direction_vector  : null,
 
     // Mouse movement variables.
+    buffer_mouse_movement: null,
 
     // Used to make mouse movement feel smoother.
     mouse_movement_x_buffer: null,
@@ -48,6 +49,8 @@ FPSControls.prototype = {
         this.max_view_angle   = this.half_pie * 0.9
         this.diagonal_penalty = Math.sqrt(.5)
         this.ground_normal    = new THREE.Vector3(0, 1, 0)
+
+        this.buffer_mouse_movement = true
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
@@ -78,6 +81,10 @@ FPSControls.prototype = {
         if (this.flying_on) {
             this.velocity.y = 0
         }
+    },
+
+    toggle_mouse_movement_system: function() {
+        this.buffer_mouse_movement = !this.buffer_mouse_movement
     },
 
     fly_left: function(delta) {
@@ -227,10 +234,12 @@ FPSControls.prototype = {
     },
 
     on_key_press: function(event) {
-        console.log(event)
         switch(event.which) {
         case 102: // f
             this.toggle_flying()
+            break
+        case 109: // m
+            this.toggle_mouse_movement_system()
             break
         }
     },
@@ -257,7 +266,7 @@ FPSControls.prototype = {
             this.space = true
             break
         case 16: // shift
-            this.shift = true 
+            this.shift = true
             break
         }
     },
@@ -314,12 +323,13 @@ FPSControls.prototype = {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
-            // TODO : Smooth step this portion out.
-            //this.yaw.rotation.y   -= movement_x * 0.002
-            //this.pitch.rotation.x -= movement_y * 0.002
-
-            this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .9)
-            this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .9)
+            if (this.buffer_mouse_movement) {
+                this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .9)
+                this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .9)
+            } else {
+                this.yaw.rotation.y   -= movement_x * 0.002
+                this.pitch.rotation.x -= movement_y * 0.002
+            }
         }
     },
 
