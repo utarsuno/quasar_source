@@ -301,8 +301,10 @@ FPSControls.prototype = {
     },
 
     update_mouse_view_position: function() {
-        this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
-        this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
+        if (this.buffer_mouse_movement) {
+            this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
+            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
+        }
 
         this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
 
