@@ -70,6 +70,8 @@ FPSControls.prototype = {
         this.mouse_movement_x_buffer = new SmoothStep(this.yaw.rotation.y, 0.13)
         this.mouse_movement_y_buffer = new SmoothStep(this.pitch.rotation.x, 0.13)
 
+        // TODO : Add smooth step to the movement buffers!!!
+
         document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
@@ -328,8 +330,8 @@ FPSControls.prototype = {
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
             if (this.buffer_mouse_movement) {
-                this.mouse_movement_x_buffer.add_force(movement_x * -0.002 * .9)
-                this.mouse_movement_y_buffer.add_force(movement_y * -0.002 * .9)
+                this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
+                this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
             } else {
                 this.yaw.rotation.y   -= movement_x * 0.002
                 this.pitch.rotation.x -= movement_y * 0.002
