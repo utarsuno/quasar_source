@@ -57,7 +57,7 @@ SmoothStep.prototype = {
     get_current_value: function() {
         var value_instance = this.current_value
         for (var x = 0; x < this.buffer.length; x++) {
-            value_instance += smoothstep(0.0, this.time_needed_for_each_force, this.buffer[x][1])
+            value_instance += smoothstep(0.0, this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0]
         }
         return value_instance
     }
