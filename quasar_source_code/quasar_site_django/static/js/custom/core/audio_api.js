@@ -46,7 +46,7 @@ GlobalAudio.prototype = {
                 console.log( 'An error happened' )
             }
 
-        ).bind(this)
+        )
     },
 
     get_typing_sound: function() {
