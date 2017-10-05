@@ -166,6 +166,11 @@ Floating2DText.prototype = {
         } else {
             this.dynamic_texture.context.font = '20px Arial'
         }
+
+        // Remove anti-alias from the text.
+        this.dynamic_texture.texture.magFilter = THREE.NearestFilter
+        this.dynamic_texture.texture.minFilter = THREE.LinearMipMapLinearFilter
+
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
         this.update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({
