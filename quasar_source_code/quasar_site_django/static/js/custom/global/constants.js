@@ -1,5 +1,11 @@
 'use strict'
 
+
+// Player object sets the global audio.
+var global_audio = null
+
+
+
 // Floating2DText types.
 const TYPE_INPUT_PASSWORD = 1 // Input password field.
 const TYPE_INPUT_REGULAR  = 2 // Regular input field.

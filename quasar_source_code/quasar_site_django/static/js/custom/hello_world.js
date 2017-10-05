@@ -3,9 +3,6 @@
 // Renders all the worlds.
 var renderer_api = new RendererAPI()
 
-// Player object sets the global audio.
-var global_audio = null
-
 // LoginWorld.
 var login_world = new LoginWorld()
 renderer_api.set_current_world(login_world)
