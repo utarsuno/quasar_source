@@ -95,29 +95,29 @@ LoginWorld.prototype = {
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 150, 45), new THREE.Vector3(150, 150, 55))
 
         // Login fields.
-        this.login_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.login_username = new FloatingLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.login_username.update_position(0, 100, 45)
 
-        this.login_password = new FloatingLabelInput(150, 20, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.login_password = new FloatingLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.login_button = new Floating2DText(150, 20, 'Login', TYPE_BUTTON, this.scene)
+        this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 50, 45), new THREE.Vector3(150 / 3, 50, 55))
 
         // Create account fields.
-        this.create_username = new FloatingLabelInput(150, 20, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_username = new FloatingLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100, 45)
 
-        this.create_email = new FloatingLabelInput(150, 20, 'Email :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_email = new FloatingLabelInput(150, 16, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
 
-        this.create_password = new FloatingLabelInput(150, 20, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_password = new FloatingLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_password.update_position(200, 50, 45)
 
-        this.create_repeat_password = new FloatingLabelInput(150, 20, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_repeat_password = new FloatingLabelInput(150, 16, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_repeat_password.update_position(200, 25, 45)
 
-        this.create_account_button = new Floating2DText(150, 20, 'Create Account', TYPE_BUTTON, this.scene)
+        this.create_account_button = new Floating2DText(150, 16, 'Create Account', TYPE_BUTTON, this.scene)
         this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + 150 / 3, 0, 45), new THREE.Vector3(200 + 150 / 3, 0, 46))
 
         // Create a list of the interactive floating texts.

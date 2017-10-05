@@ -1,7 +1,7 @@
 'use strict'
 
-function Player(renderer_api) {
-    this.__init__(renderer_api)
+function Player(renderer_api, global_audio) {
+    this.__init__(renderer_api, global_audio)
 }
 
 Player.prototype = {
@@ -21,6 +21,7 @@ Player.prototype = {
 
     // Custom objects.
     renderer_api    : null,
+    global_audio    : null,
     pointer_lock_api: null,
     fps_controls    : null,
     data_display    : null,
@@ -29,10 +30,14 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
-    __init__: function(renderer_api) {
+    __init__: function(renderer_api, global_audio) {
         this.renderer_api = renderer_api
+
         this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
         this.renderer_api.camera = this.camera
+
+        this.global_audio = global_audio
+        this.global_audio = new GlobalAudio(this)
 
         this.fps_controls = new FPSControls(this.camera)
         this.renderer_api.add_to_scene(this.fps_controls.get_object())
@@ -48,6 +53,11 @@ Player.prototype = {
         // Set player state.
         this.logged_in = false
         this.engaged   = false
+    },
+
+    sounds_loaded: function() {
+        this.renderer_api.add_to_scene(this.global_audio.get_typing_sound())
+        this.renderer_api.home_world.add_to_scene(this.global_audio.get_typing_sound())
     },
 
     get_username: function() {

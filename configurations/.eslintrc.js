@@ -60,6 +60,8 @@ module.exports = {
         "PostHelper": true,
 
         "Button3D": true,
+        "GlobalAudio": false,
+        "global_audio": false,
 
         "$": false,
 

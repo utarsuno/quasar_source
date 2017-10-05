@@ -208,7 +208,7 @@ Floating2DText.prototype = {
         this.text = this.text.slice(0, -1)
         this.update_text(this.text)
     },
-
+    
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
@@ -219,6 +219,9 @@ Floating2DText.prototype = {
                     this._hidden_text = this._hidden_text.slice(0, -1)
                 }
             }
+
+            global_audio.play_typing_sound()
+
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
                 this._hidden_text += event.key
@@ -226,6 +229,8 @@ Floating2DText.prototype = {
             } else if (this.type == TYPE_INPUT_REGULAR) {
                 this.add_character(event.key)
             }
+
+            global_audio.play_typing_sound()
         }
     }
 
