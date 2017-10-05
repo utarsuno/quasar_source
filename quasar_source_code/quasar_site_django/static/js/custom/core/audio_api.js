@@ -33,16 +33,17 @@ GlobalAudio.prototype = {
             // Function when resource is loaded
             function (audio_buffer) {
                 this.typing_sound.setBuffer(audio_buffer)
+                this.typing_sound.setVolume(0.5)
                 this.typing_sound_loaded = true
                 this.notify_player()
             }.bind(this),
 
             // Function called when download progresses
-            function ( xhr ) {
+            function (xhr) {
                 console.log( (xhr.loaded / xhr.total * 100) + '% loaded' )
             },
             // Function called when download errors
-            function ( xhr ) {
+            function (xhr) {
                 console.log( 'An error happened' )
             }
 
@@ -54,7 +55,12 @@ GlobalAudio.prototype = {
     },
 
     play_typing_sound: function() {
-        this.typing_sound.play()
+        if (this.typing_sound_loaded) {
+            if (this.typing_sound.isPlaying()) {
+                this.typing_sound.stop()
+            }
+            this.typing_sound.play()
+        }
     },
 
     notify_player: function() {
