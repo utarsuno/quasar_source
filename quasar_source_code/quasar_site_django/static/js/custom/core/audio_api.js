@@ -17,9 +17,10 @@ GlobalAudio.prototype = {
     typing_sound: null,
     typing_sound_loaded: null,
 
-    __init__: function(camera) {
+    __init__: function(player) {
+        this.player = player
         this.audio_listener = new THREE.AudioListener()
-        camera.add(this.audio_listener)
+        this.player.camera.add(this.audio_listener)
         this.typing_sound = new THREE.Audio(this.audio_listener)
 
         this.typing_sound_loaded = false
