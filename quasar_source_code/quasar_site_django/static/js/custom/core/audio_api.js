@@ -56,7 +56,7 @@ GlobalAudio.prototype = {
 
     play_typing_sound: function() {
         if (this.typing_sound_loaded) {
-            if (this.typing_sound.isPlaying()) {
+            if (this.typing_sound.isPlaying) {
                 this.typing_sound.stop()
             }
             this.typing_sound.play()
