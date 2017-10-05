@@ -208,7 +208,7 @@ Floating2DText.prototype = {
         this.text = this.text.slice(0, -1)
         this.update_text(this.text)
     },
-    
+
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
