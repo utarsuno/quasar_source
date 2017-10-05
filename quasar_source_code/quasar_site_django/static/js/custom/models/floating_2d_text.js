@@ -220,7 +220,7 @@ Floating2DText.prototype = {
                 }
             }
 
-            global_audio.play_typing_sound()
+            GLOBAL_AUDIO.play_typing_sound()
 
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
@@ -230,7 +230,7 @@ Floating2DText.prototype = {
                 this.add_character(event.key)
             }
 
-            global_audio.play_typing_sound()
+            GLOBAL_AUDIO.play_typing_sound()
         }
     }
 

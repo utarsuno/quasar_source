@@ -2,7 +2,7 @@
 
 
 // Player object sets the global audio.
-var global_audio = null
+var GLOBAL_AUDIO = null
 
 
 

@@ -8,11 +8,14 @@ var login_world = new LoginWorld()
 renderer_api.set_current_world(login_world)
 
 // Model of the user. Must be created AFTER the scene gets set.
-var player = new Player(renderer_api, global_audio)
+var player = new Player(renderer_api)
 
 // Give the worlds a reference to the player. This should change in design later on.
 login_world.player = player
 renderer_api.home_world.player = player
+
+// Now create the global audio.
+GLOBAL_AUDIO = new GlobalAudio(player)
 
 var previous_time = performance.now()
 

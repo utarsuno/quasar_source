@@ -61,7 +61,7 @@ module.exports = {
 
         "Button3D": true,
         "GlobalAudio": false,
-        "global_audio": false,
+        "GLOBAL_AUDIO": true,
 
         "$": false,
 
