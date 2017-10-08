@@ -87,6 +87,7 @@ Floating3DText.prototype = {
         this.original_border_color = 0xFFC0CB
 
         this.type = type
+        this.create_outline()
         if (global_font === null) {
             add_3d_text(this)
         } else {
@@ -172,22 +173,10 @@ Floating3DText.prototype = {
         }
     },
 
-    create: function() {
+    create_outline: function() {
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
-
-        if (this.type == TYPE_TITLE) {
-            this.size = 160
-            this.height = 8
-        } else {
-            this.size = 80
-            this.height = 4
-        }
-        this.update_text(this.text)
-
-        // TODO : Make this only 1 sided
-        this.material.side = THREE.DoubleSide
 
         // Adds the edge colorings.
         this.mesh = new THREE.Mesh(this.geometry, this.material)
@@ -199,6 +188,20 @@ Floating3DText.prototype = {
         this.object3d.add(this.mesh)
 
         this.scene.add(this.object3d)
+    },
+
+    create: function() {
+        if (this.type == TYPE_TITLE) {
+            this.size = 160
+            this.height = 8
+        } else {
+            this.size = 80
+            this.height = 4
+        }
+        this.update_text(this.text)
+
+        // TODO : Make this only 1 sided
+        this.material.side = THREE.DoubleSide
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
