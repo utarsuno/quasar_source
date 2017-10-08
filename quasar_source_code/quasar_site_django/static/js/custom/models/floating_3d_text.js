@@ -149,16 +149,16 @@ Floating3DText.prototype = {
     create_outline: function() {
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height)
+        this.border_geometry = new THREE.PlaneGeometry(this.width, this.height)
 
         // Adds the edge colorings.
-        this.mesh = new THREE.Mesh(this.geometry, this.material)
-        var geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
-        this.wireframe = new THREE.LineSegments(geo, mat)
-        this.mesh.add(this.wireframe)
+        this.border_mesh = new THREE.Mesh(this.geometry, this.material)
+        var border_geo = new THREE.EdgesGeometry(this.mesh.geometry) // or WireframeGeometry
+        var border_mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
+        this.border_wireframe = new THREE.LineSegments(border_geo, border_mat)
+        this.border_mesh.add(this.border_wireframe)
 
-        this.object3d.add(this.mesh)
+        this.object3d.add(this.border_mesh)
 
         this.scene.add(this.object3d)
     },
