@@ -4,6 +4,8 @@ function Floating3DText(w, h, text, type, scene) {
     this.__init__(w, h, text, type, scene)
 }
 
+const GLOBAL_FONT = new THREE.Font(document.getElementById('font_3d').textContent)
+
 // TODO : Abstract away the logic from the rendering in different classes.
 Floating3DText.prototype = {
 
@@ -119,7 +121,7 @@ Floating3DText.prototype = {
             size: this.size,
             height: this.height,
             curveSegments: 2,
-            font: 'helvetiker'
+            font: GLOBAL_FONT
         }).bind(this)
 
         this.current_text = text
