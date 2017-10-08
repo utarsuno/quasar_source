@@ -50,7 +50,6 @@ Floating3DText.prototype = {
     size: null,
     height: null,
     material: null,
-    dynamic_texture: null,
 
     object3d: null,
     current_text_object: null,

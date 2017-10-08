@@ -93,12 +93,12 @@ HomeWorld.prototype = {
             case 0:
                 day_string = 'Monday ' + day_value
                 if (week == 0) {
-                    var week_title = new Floating2DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
                     this.day_entities[i].push(week_title)
                 } else if (week == 1) {
-                    var week_title = new Floating2DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     this.day_entities[i].push(week_title)
                 }
