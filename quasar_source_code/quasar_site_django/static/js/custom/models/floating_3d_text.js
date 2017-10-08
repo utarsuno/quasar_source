@@ -116,7 +116,9 @@ Floating3DText.prototype = {
             this.current_color = color
             this.material.needsUpdate = true
         }
-        this.scene.remove(this.current_text_object)
+        if (this.current_text_object !== null) {
+            this.scene.remove(this.current_text_object)
+        }
 
         console.log(this.size)
         console.log(this.height)
