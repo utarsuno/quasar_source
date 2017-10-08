@@ -26,6 +26,15 @@ CheckBox.prototype = {
 
     update_position_and_look_at: function(position, look_at) {
         this.floating_text.update_position_and_look_at(position, look_at)
-    }
+    },
 
+    toggle: function() {
+        this.checked = !this.checked
+        if (this.checked) {
+            this.text = 'X'
+        } else {
+            this.text = ''
+        }
+        this.floating_2d_text.update_text(this.text)
+    }
 }

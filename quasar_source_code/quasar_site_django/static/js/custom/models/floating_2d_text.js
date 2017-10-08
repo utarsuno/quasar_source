@@ -134,6 +134,8 @@ Floating2DText.prototype = {
         if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
             this.being_engaged_with = true
             player.engage()
+        } else {
+            player.disengage()
         }
     },
 

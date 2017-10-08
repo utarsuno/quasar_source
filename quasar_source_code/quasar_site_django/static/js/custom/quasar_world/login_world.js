@@ -97,10 +97,10 @@ LoginWorld.prototype = {
         this.login_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.remember_username_text = new Floating2DText(200, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
-        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
+        this.remember_username_text = new Floating2DText(80, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(50, 50, 45), new THREE.Vector3(50, 50, 45))
         this.remember_username_checkbox = new CheckBox(20, true, this.scene)
-        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(200, 50, 45), new THREE.Vector3(200, 50, 45))
+        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150, 50, 45), new THREE.Vector3(150, 50, 45))
 
         this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 25, 45), new THREE.Vector3(150 / 3, 25, 55))
@@ -110,7 +110,7 @@ LoginWorld.prototype = {
         this.create_username.update_position(200, 100, 45)
 
         // TODO : REMOVE THIS, THIS IS FOR TEMPORARY TESTING.
-        set_cookie('should_remember_username', true)
+        //set_cookie('should_remember_username', true)
 
         console.log('The cookie is: ')
         console.log(document.cookie)
@@ -118,7 +118,7 @@ LoginWorld.prototype = {
         console.log(get_cookie('should_remember_username'))
 
         // If the remember_username field is marked and we have a value then set the username default value.
-        if (get_cookie('should_remember_username') === true) {
+        if (get_cookie('should_remember_username') === 'true') {
             var cookie = get_cookie('remember_username')
             if (cookie !== null) {
                 this.create_username.set_input_value(cookie)
