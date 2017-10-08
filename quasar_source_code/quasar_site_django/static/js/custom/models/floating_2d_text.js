@@ -120,7 +120,7 @@ Floating2DText.prototype = {
     },
 
     disengage: function(player) {
-        if (this.type != TYPE_BUTTON) {
+        if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
             this.being_engaged_with = false
             player.disengage()
         }
@@ -131,7 +131,7 @@ Floating2DText.prototype = {
     },
 
     engage: function(player) {
-        if (this.type != TYPE_BUTTON) {
+        if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
             this.being_engaged_with = true
             player.engage()
         }

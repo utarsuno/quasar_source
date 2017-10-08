@@ -51,6 +51,7 @@ module.exports = {
         "Floating2DLabelInput": true,
         "Floating3DText": true,
         "Floating3DLabelInput": true,
+        "CheckBox": true,
 
         "SmoothStep": false,
         "Owner": true,
@@ -76,6 +77,7 @@ module.exports = {
         "TYPE_BUTTON": false,
         "TYPE_STATUS": false,
         "TYPE_TITLE": false,
+        "TYPE_CHECK_BOX": false,
 
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,

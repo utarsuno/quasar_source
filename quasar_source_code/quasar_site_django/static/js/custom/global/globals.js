@@ -13,6 +13,7 @@ const TYPE_LABEL          = 3 // Static text.
 const TYPE_BUTTON         = 4 // Static text that can be clicked.
 const TYPE_STATUS         = 5 // Dynamic non-interactive text.
 const TYPE_TITLE          = 6 // Static title text.
+const TYPE_CHECK_BOX      = 7 // Just the X character when checked.
 
 // Server response messages.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!'

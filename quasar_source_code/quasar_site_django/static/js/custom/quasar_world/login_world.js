@@ -97,8 +97,13 @@ LoginWorld.prototype = {
         this.login_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
+        this.remember_username_text = new Floating2DText(200, 16, this.scene)
+        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
+        this.remember_username_checkbox = new CheckBox(20, true, this.scene)
+        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(200, 50, 45), new THREE.Vector3(200, 50, 45))
+
         this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
-        this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 50, 45), new THREE.Vector3(150 / 3, 50, 55))
+        this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 25, 45), new THREE.Vector3(150 / 3, 25, 55))
 
         // Create account fields.
         this.create_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -255,6 +260,7 @@ LoginWorld.prototype = {
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
+
                     } else if (this.interactive_objects[i] === this.login_button) {
 
                         var login_username_text = this.login_username.get_input_text()
@@ -281,6 +287,12 @@ LoginWorld.prototype = {
                         } else {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
+
+                    } else if (this.interactive_objects[i] === this.remember_username_checkbox) {
+
+
+                        console.log('CHECKBOX TOGGLE!!!!')
+
 
                     }
 
