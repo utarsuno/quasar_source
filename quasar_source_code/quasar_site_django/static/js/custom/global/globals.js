@@ -50,6 +50,6 @@ function get_cookie(name) {
 function set_cookie(name, value) {
     var date = new Date()
     date.setTime(date.getTime() + (14*24*60*60*1000))
-    var expires= '' + date.toUTCString()
+    var expires = '; expires=' + date.toUTCString()
     document.cookie = name + '=' + value + expires + '; path=/'
 }
