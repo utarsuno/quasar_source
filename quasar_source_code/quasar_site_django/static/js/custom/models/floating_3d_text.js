@@ -164,7 +164,7 @@ Floating3DText.prototype = {
             height: this.height,
             curveSegments: 2,
             font: global_font
-        })
+        }).bind(this)
 
         this.current_text = text
 
