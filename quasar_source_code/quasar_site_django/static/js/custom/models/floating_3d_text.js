@@ -5,6 +5,7 @@ function Floating3DText(w, h, text, type, scene) {
 }
 
 console.log("The JSON data is :")
+console.log(document.getElementById('font_3d'))
 console.log(document.getElementById('font_3d').innerHTML)
 console.log(JSON.parse(document.getElementById('font_3d').innerHTML))
 const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').innerHTML))
