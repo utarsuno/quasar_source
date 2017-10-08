@@ -135,8 +135,8 @@ Floating3DText.prototype = {
         this.current_text = text
 
         this.current_text_object = new THREE.Mesh(text_geometry, this.material)
-        //this.object3d.add(this.current_text_object)
-        this.scene.add(this.current_text_object)
+        this.object3d.add(this.current_text_object)
+        //this.scene.add(this.current_text_object)
     },
 
     update_text: function(text) {

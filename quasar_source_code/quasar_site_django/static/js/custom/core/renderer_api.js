@@ -92,6 +92,12 @@ RendererAPI.prototype = {
     },
 
     render: function() {
+        if (this.scene === null) {
+            console.log('SCENE IS NULL?')
+        }
+        if (this.camera === null) {
+            console.log('CAMERA IS NULL?')
+        }
         this.renderer.render(this.scene, this.camera)
     },
 
