@@ -141,3 +141,6 @@ STATIC_URL = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_djang
 STATICFILES_DIRS = (
     '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/',
 )
+
+
+SESSION_COOKIE_HTTPONLY = False

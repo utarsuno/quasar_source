@@ -69,7 +69,7 @@ module.exports = {
 
         "$": false,
 
-        // From constants.js
+        // From globals.js
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
         "TYPE_LABEL": false,
@@ -82,6 +82,8 @@ module.exports = {
         "COLOR_TEXT_DEFAULT": false,
 
         "is_email_valid": false,
+        "get_cookie"    : false,
+        "set_cookie"    : false,
 
         "SERVER_REPLY_INVALID_POST_DATA_ERROR": false,
         "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,

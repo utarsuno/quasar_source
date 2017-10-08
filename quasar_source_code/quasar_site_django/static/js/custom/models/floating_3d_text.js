@@ -107,19 +107,19 @@ Floating3DText.prototype = {
     },
 
     update_just_color: function(color_arg) {
-        this.material = new THREE.MeshLambertMaterial({ color: color_arg })
+        this.material.color.setHex(color_arg)
         this.material.needsUpdate = true
     },
 
     update_text_color: function(text, color_arg) {
-        if (this.current_color !== color_arg || this.current_text_object === null) {
-            this.material = new THREE.MeshLambertMaterial({color: color_arg})
-            this.current_color = color_arg
+        if (this.current_color !== color_arg) {
+            this.material.color.setHex(color_arg)
             this.material.needsUpdate = true
         }
         if (this.current_text_object !== null) {
-            //this.scene.remove(this.current_text_object)
-            //this.object3d.remove(this.current_text_object)
+            this.object3d.remove(this.current_text_object)
+            this.current_text_object.geometry.dispose()
+            this.current_text_object.material.dispose()
         }
 
         console.log(this.size)
@@ -137,7 +137,6 @@ Floating3DText.prototype = {
 
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material)
         this.object3d.add(this.current_text_object)
-        //this.scene.add(this.current_text_object)
     },
 
     update_text: function(text) {
@@ -147,12 +146,17 @@ Floating3DText.prototype = {
     },
 
     create_outline: function() {
+        this.material = new THREE.MeshLambertMaterial({color: color_arg})
+        this.current_color = color_arg
+        this.material.needsUpdate = true
+
+
         this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.border_geometry = new THREE.PlaneGeometry(this.width, this.height)
 
         // Adds the edge colorings.
-        this.border_mesh = new THREE.Mesh(this.border_geometry, this.border_material)
+        this.border_mesh = new THREE.Mesh(this.border_geometry, this.material)
         var border_geo = new THREE.EdgesGeometry(this.border_mesh.geometry) // or WireframeGeometry
         var border_mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
         this.border_wireframe = new THREE.LineSegments(border_geo, border_mat)
@@ -165,11 +169,11 @@ Floating3DText.prototype = {
 
     create: function() {
         if (this.type == TYPE_TITLE) {
-            this.size = 80
-            this.height = 4
-        } else {
             this.size = 40
             this.height = 2
+        } else {
+            this.size = 20
+            this.height = 1
         }
         this.update_text(this.text)
 

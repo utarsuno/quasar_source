@@ -33,6 +33,10 @@ Floating2DLabelInput.prototype = {
         this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.x_separation, py, pz), new THREE.Vector3(px + this.x_separation, py, pz + 1))
     },
 
+    set_input_value: function(input_value) {
+        this.floating_input.update_text(input_value)
+    }
+
     get_input_text: function() {
         return this.floating_input.get_text().trim()
     }

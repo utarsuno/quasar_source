@@ -33,3 +33,17 @@ function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
 }
+
+function get_cookie(field_name) {
+    var re = new RegExp(name + '=([^;]+)')
+    var value = re.exec(document.cookie)
+    return (value != null) ? unescape(value[1]) : null
+}
+
+// Base code from : https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
+function set_cookie(name, value) {
+    var date = new Date()
+    date.setTime(date.getTime() + (14*24*60*60*1000))
+    var expires= '' + date.toUTCString()
+    document.cookie = name + '=' + value + expires + '; path=/'
+}

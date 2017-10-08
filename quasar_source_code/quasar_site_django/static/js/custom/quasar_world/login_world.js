@@ -20,8 +20,9 @@ LoginWorld.prototype = {
     interactive_objects : null,
 
     // Post calls.
-    post_create_account: null,
-    post_login         : null,
+    post_create_account   : null,
+    post_login            : null,
+
     ajax_status        : null,
 
     //
@@ -34,11 +35,6 @@ LoginWorld.prototype = {
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
-
-            console.log('Performing login with the following variables :')
-            console.log(this.attempted_username)
-            console.log(this.attempted_password)
-
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
             this.ajax_status.update_text('Error: ' + data)
@@ -107,6 +103,17 @@ LoginWorld.prototype = {
         // Create account fields.
         this.create_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100, 45)
+
+        // TODO : REMOVE THIS, THIS IS FOR TEMPORARY TESTING.
+        set_cookie
+
+        // If the remember_username field is marked and we have a value then set the username default value.
+        if (get_cookie('should_remember_username') === true) {
+            var cookie = get_cookie('remember_username')
+            if (cookie !== null) {
+                this.create_username.set_input_value(cookie)
+            }
+        }
 
         this.create_email = new Floating2DLabelInput(150, 16, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)

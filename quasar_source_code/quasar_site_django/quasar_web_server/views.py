@@ -136,6 +136,7 @@ def POST_login(request):
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result == SERVER_REPLY_GENERIC_YES:
 		request.session[USERNAME] = received_username
+		request.COOKIES['remember_username'] = received_username
 		return SERVER_REPLY_GENERIC_YES
 	return result
 
