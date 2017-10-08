@@ -17,6 +17,7 @@ Floating3DText.prototype = {
     size: null,
     height: null,
     material: null,
+    text_geometry: null,
 
     object3d: null,
     current_text_object: null,
@@ -125,7 +126,7 @@ Floating3DText.prototype = {
         console.log(this.height)
         console.log(GLOBAL_FONT)
 
-        var text_geometry = new THREE.TextGeometry(this.text, {
+        this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.height,
             curveSegments: 2,
@@ -134,7 +135,7 @@ Floating3DText.prototype = {
 
         this.current_text = text
 
-        this.current_text_object = new THREE.Mesh(text_geometry, this.material)
+        this.current_text_object = new THREE.Mesh(this.text_geometry, this.material)
         this.object3d.add(this.current_text_object)
         //this.scene.add(this.current_text_object)
     },
