@@ -117,7 +117,8 @@ Floating3DText.prototype = {
             this.material.needsUpdate = true
         }
         if (this.current_text_object !== null) {
-            this.scene.remove(this.current_text_object)
+            //this.scene.remove(this.current_text_object)
+            this.object3d.remove(this.current_text_object)
         }
 
         console.log(this.size)
@@ -134,7 +135,8 @@ Floating3DText.prototype = {
         this.current_text = text
 
         this.current_text_object = new THREE.Mesh(text_geometry, this.material)
-        this.scene.add(this.current_text_object)
+        this.object3d.add(this.current_text_object)
+        //this.scene.add(this.current_text_object)
     },
 
     update_text: function(text) {
