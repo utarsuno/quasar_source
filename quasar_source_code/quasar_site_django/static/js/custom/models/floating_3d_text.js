@@ -117,12 +117,17 @@ Floating3DText.prototype = {
             this.material.needsUpdate = true
         }
         this.scene.remove(this.current_text_object)
+
+        console.log(this.size)
+        console.log(this.height)
+        console.log(GLOBAL_FONT)
+
         var text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.height,
             curveSegments: 2,
             font: GLOBAL_FONT
-        }).bind(this)
+        })
 
         this.current_text = text
 
