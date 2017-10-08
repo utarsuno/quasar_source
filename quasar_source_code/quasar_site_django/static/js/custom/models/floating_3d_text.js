@@ -164,11 +164,11 @@ Floating3DText.prototype = {
 
     create: function() {
         if (this.type == TYPE_TITLE) {
-            this.size = 160
-            this.height = 8
-        } else {
             this.size = 80
             this.height = 4
+        } else {
+            this.size = 40
+            this.height = 2
         }
         this.update_text(this.text)
 
