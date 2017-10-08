@@ -28,6 +28,8 @@ font_loader.load(
     // Function when resource is loaded
     function (font) {
         global_font = font
+        console.log('Set global font to : ')
+        console.log(font)
     },
     // Function called when download progresses
     function (xhr) {
