@@ -105,7 +105,10 @@ LoginWorld.prototype = {
         this.create_username.update_position(200, 100, 45)
 
         // TODO : REMOVE THIS, THIS IS FOR TEMPORARY TESTING.
-        set_cookie
+        set_cookie('should_remember_username', true)
+
+        console.log('The cookie is: ')
+        console.log(document.cookie)
 
         // If the remember_username field is marked and we have a value then set the username default value.
         if (get_cookie('should_remember_username') === true) {
