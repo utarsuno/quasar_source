@@ -111,7 +111,7 @@ Floating3DText.prototype = {
     },
 
     update_text_color: function(text, color) {
-        if (this.current_color !== color) {
+        if (this.current_color !== color || this.current_text_object === null) {
             this.material = new THREE.MeshLambertMaterial({color: color})
             this.current_color = color
             this.material.needsUpdate = true
