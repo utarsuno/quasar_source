@@ -16,6 +16,7 @@ function add_3d_text(floating_3d_text_object) {
 }
 
 function create_qued_3d_text_objects() {
+    console.log('Creating qued 3d text objects!')
     for (var x = 0; x < floating_3d_text_objects_to_make.length; x++) {
         floating_3d_text_objects_to_make[x].create()
     }
@@ -31,7 +32,9 @@ font_loader.load(
     // Function called when download progresses
     function (xhr) {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded for font file.')
-        create_qued_3d_text_objects()
+        if (xhr.loaded === xhr.total) {
+            create_qued_3d_text_objects()
+        }
     },
     // Function called when download errors
     function (xhr) {
