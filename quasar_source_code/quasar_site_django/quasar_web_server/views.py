@@ -42,7 +42,7 @@ def get_client_ip(request):
 
 def GET_quasar_dev(request):
     """Temporary main page."""
-    return render(request, TEMPLATE_HELLO_WORLD)
+    return render(request, TEMPLATE_QUASAR_DEV)
 
 
 def GET_log_formulas(request):
