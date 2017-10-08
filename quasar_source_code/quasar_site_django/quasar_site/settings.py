@@ -59,6 +59,8 @@ CHANNEL_LAYERS = {
 }
 
 MIDDLEWARE = [
+    'django_cookies.CookiePreHandlerMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_cookies.CookiePostHandlerMiddleware',
 ]
 
 ROOT_URLCONF = 'quasar_site.urls'

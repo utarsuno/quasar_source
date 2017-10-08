@@ -137,9 +137,12 @@ def POST_login(request):
 	if result == SERVER_REPLY_GENERIC_YES:
 		request.session[USERNAME] = received_username
 		#request.COOKIES['remember_username'] = received_username
-		response = HttpResponse('y')
-		response.set_cookie('remember_username', received_username)
-		return response
+		#response = HttpResponse('y')
+		#response.set_cookie('remember_username', received_username)
+
+		request.COOKIES.set('remember_username', received_username)
+
+		return SERVER_REPLY_GENERIC_YES
 	return result
 
 
