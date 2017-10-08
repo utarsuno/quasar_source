@@ -4,46 +4,6 @@ function Floating3DText(w, h, text, type, scene) {
     this.__init__(w, h, text, type, scene)
 }
 
-// Globally load the font files needed on startup.
-var font_loader = new THREE.FontLoader()
-var global_font = null
-
-// If Floating3DText objects are created while the font is null they will be put into a que instead.
-var floating_3d_text_objects_to_make = []
-
-function add_3d_text(floating_3d_text_object) {
-    floating_3d_text_objects_to_make.push(floating_3d_text_object)
-}
-
-function create_qued_3d_text_objects() {
-    console.log('Creating qued 3d text objects!')
-    for (var x = 0; x < floating_3d_text_objects_to_make.length; x++) {
-        floating_3d_text_objects_to_make[x].create()
-    }
-}
-
-font_loader.load(
-    // resource URL
-    '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/font/helvetiker_regular.typeface.json',
-    // Function when resource is loaded
-    function (font) {
-        global_font = font
-        console.log('Set global font to : ')
-        console.log(font)
-    },
-    // Function called when download progresses
-    function (xhr) {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded for font file.')
-        if (xhr.loaded === xhr.total) {
-            create_qued_3d_text_objects()
-        }
-    },
-    // Function called when download errors
-    function (xhr) {
-        console.log('An error occurred trying to load the font file! Error was : {' + xhr + '}')
-    }
-)
-
 // TODO : Abstract away the logic from the rendering in different classes.
 Floating3DText.prototype = {
 
@@ -93,11 +53,7 @@ Floating3DText.prototype = {
 
         this.type = type
         this.create_outline()
-        if (global_font === null) {
-            add_3d_text(this)
-        } else {
-            this.create()
-        }
+        this.create()
     },
 
     get_text: function() {
@@ -163,7 +119,7 @@ Floating3DText.prototype = {
             size: this.size,
             height: this.height,
             curveSegments: 2,
-            font: global_font
+            font: 'helvetiker'
         }).bind(this)
 
         this.current_text = text
