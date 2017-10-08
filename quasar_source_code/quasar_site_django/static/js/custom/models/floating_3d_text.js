@@ -5,9 +5,9 @@ function Floating3DText(w, h, text, type, scene) {
 }
 
 console.log("The JSON data is :")
-console.log(document.getElementById('font_3d').textContent)
-console.log(JSON.parse(document.getElementById('font_3d').textContent))
-const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').textContent))
+console.log(document.getElementById('font_3d').html())
+console.log(JSON.parse(document.getElementById('font_3d').html()))
+const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').html()))
 
 // TODO : Abstract away the logic from the rendering in different classes.
 Floating3DText.prototype = {
