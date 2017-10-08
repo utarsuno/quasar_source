@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'load_entity_manager' , v.POST_load_entity_manager),
     url(r'get_entities_for_day', v.POST_get_entities_for_day),
 
-    url(r'', v.GET_hello_world),
+    url(r'', v.GET_quasar_dev),
 ]
