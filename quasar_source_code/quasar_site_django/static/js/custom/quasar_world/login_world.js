@@ -109,6 +109,8 @@ LoginWorld.prototype = {
 
         console.log('The cookie is: ')
         console.log(document.cookie)
+        console.log('get cookie value is :')
+        console.log(get_cookie('should_remember_username'))
 
         // If the remember_username field is marked and we have a value then set the username default value.
         if (get_cookie('should_remember_username') === true) {
