@@ -65,6 +65,8 @@ module.exports = {
         "GlobalAudio": false,
         "GLOBAL_AUDIO": true,
 
+        "GLOBAL_FONT": false,
+
         "$": false,
 
         // From constants.js
