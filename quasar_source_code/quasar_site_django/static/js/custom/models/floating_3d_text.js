@@ -146,8 +146,8 @@ Floating3DText.prototype = {
     },
 
     create_outline: function() {
-        this.material = new THREE.MeshLambertMaterial({color: color_arg})
-        this.current_color = color_arg
+        this.material = new THREE.MeshLambertMaterial({color: COLOR_TEXT_DEFAULT})
+        this.current_color = COLOR_TEXT_DEFAULT
         this.material.needsUpdate = true
 
 
