@@ -19,7 +19,6 @@ from quasar_source_code.entities.server_side import entity_server as es
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
 TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_LOG_FORMULAS   = _TEMPLATES_BASE + 'log_formulas.html'
-TEMPLATE_QUICK_INFO     = _TEMPLATES_BASE + 'quick_info.html'
 TEMPLATE_MATH_220       = _TEMPLATES_BASE + 'math220.html'
 TEMPLATE_MATH_310       = _TEMPLATES_BASE + 'math310.html'
 TEMPLATE_CS_361         = _TEMPLATES_BASE + 'cs361.html'
@@ -48,15 +47,6 @@ def GET_quasar_dev(request):
 def GET_log_formulas(request):
 	"""Returns the HTML page for log formulas."""
 	return render(request, TEMPLATE_LOG_FORMULAS)
-
-'''
-def GET_quick_info(request):
-	"""Returns a temporary page."""
-
-	entity_manager = entity_local_testing.entity_manager
-
-	return render(request, TEMPLATE_QUICK_INFO, {'time_blocks': entity_manager.print_todays_relevant_information()})
-'''
 
 
 def GET_math_220(request):
