@@ -35,7 +35,7 @@ Floating2DLabelInput.prototype = {
 
     set_input_value: function(input_value) {
         this.floating_input.update_text(input_value)
-    }
+    },
 
     get_input_text: function() {
         return this.floating_input.get_text().trim()
