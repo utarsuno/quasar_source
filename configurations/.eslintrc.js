@@ -48,7 +48,9 @@ module.exports = {
         "LoginPanel": true,
         "Player": true,
         "Floating2DText": true,
-        "FloatingLabelInput": true,
+        "Floating2DLabelInput": true,
+        "Floating3DText": true,
+        "Floating3DLabelInput": true,
 
         "SmoothStep": false,
         "Owner": true,

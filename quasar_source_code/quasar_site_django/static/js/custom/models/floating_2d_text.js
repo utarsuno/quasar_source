@@ -1,12 +1,14 @@
+'use strict'
+
 function Floating2DText(w, h, text, type, scene) {
     this.__init__(w, h, text, type, scene)
 }
 
-function FloatingLabelInput(w, h, label_text, input_type, scene) {
+function Floating2DLabelInput(w, h, label_text, input_type, scene) {
     this.__init__(w, h, label_text, input_type, scene)
 }
 
-FloatingLabelInput.prototype = {
+Floating2DLabelInput.prototype = {
     floating_label: null,
     floating_input: null,
 

@@ -29,6 +29,10 @@ HomeWorld.prototype = {
     //
     button_3d: null,
 
+    // TODO : Add a daily todos section.
+    // TODO : Add a global todos section.
+
+
     __init__: function() {
 
         this.current_world = false

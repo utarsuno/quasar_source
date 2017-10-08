@@ -1,7 +1,5 @@
 'use strict'
 
-// /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/css/custom/base.css
-
 function GlobalAudio(player) {
     this.__init__(player)
 }
@@ -16,6 +14,10 @@ GlobalAudio.prototype = {
 
     typing_sound: null,
     typing_sound_loaded: null,
+
+    // SOUNDS TODO!!!
+    hover_over_sound: null,
+    hover_over_sound_loaded: null,
 
     __init__: function(player) {
         this.player = player
@@ -40,11 +42,11 @@ GlobalAudio.prototype = {
 
             // Function called when download progresses
             function (xhr) {
-                console.log( (xhr.loaded / xhr.total * 100) + '% loaded' )
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded')
             },
             // Function called when download errors
             function (xhr) {
-                console.log( 'An error happened' )
+                console.log('An error happened')
             }
 
         )
@@ -62,6 +64,8 @@ GlobalAudio.prototype = {
             this.typing_sound.play()
         }
     },
+
+    // TODO : FUNCTIONS - get_hover_over_sound and play_hover_over_sound
 
     notify_player: function() {
         this.player.sounds_loaded()
