@@ -36,6 +36,7 @@ CheckBox.prototype = {
     },
 
     toggle: function() {
+        l('TOGGLING THE CHECKBOX!!!')
         this.checked = !this.checked
         if (this.checked) {
             this.text = 'X'
