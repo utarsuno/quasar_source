@@ -36,14 +36,12 @@ CheckBox.prototype = {
     },
 
     toggle: function() {
-        l('TOGGLING THE CHECKBOX!!!')
         this.checked = !this.checked
         if (this.checked) {
-            this.text = 'X'
+            this.floating_2d_text.update_text('X')
         } else {
-            this.text = '_'
+            this.floating_2d_text.update_text(' ')
         }
-        this.floating_2d_text.update_text(this.text)
         if (this.checked) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, true)
         } else {
