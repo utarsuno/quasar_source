@@ -237,6 +237,7 @@ HomeWorld.prototype = {
     enter_world: function() {
         if (this.got_camera === false) {
             this.add_to_scene(this.player.fps_controls.get_object())
+            this.got_camera = true
         }
         if (this.hello_message === null) {
             this.ajax_status.update_text('Welcome back ' + this.player.get_username())

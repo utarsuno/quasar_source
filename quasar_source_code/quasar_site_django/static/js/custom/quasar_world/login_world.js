@@ -34,6 +34,9 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
+    //
+    got_camera: null,
+
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
@@ -67,6 +70,8 @@ LoginWorld.prototype = {
         this.post_login = new PostHelper('/login')
 
         this.current_world = false
+
+        this.got_camera = false
 
         // Create the scene.
         this.scene = new THREE.Scene()
@@ -151,8 +156,6 @@ LoginWorld.prototype = {
             this.create_repeat_password.floating_input,
             this.remember_username_checkbox.floating_2d_text
         ]
-
-        this.set_player_look_at = false
     },
 
     add_to_scene: function(object) {
@@ -160,12 +163,6 @@ LoginWorld.prototype = {
     },
 
     update: function() {
-        if (this.set_player_look_at) {
-            //this.player.look_at(new THREE.Vector3(0, 70, 45))
-            this.player.set_position(new THREE.Vector3(130, 90, 300))
-            this.set_player_look_at = false
-        }
-
         var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
@@ -299,11 +296,11 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-        if (this.player == null) {
-            this.set_player_look_at = true
-        } else {
-            //this.player.look_at(new THREE.Vector3(0, 70, 45))
-            this.player.set_position(new THREE.Vector3(130, 90, 300))
+        this.player.set_position(new THREE.Vector3(130, 90, 300))
+
+        if (this.got_camera === false) {
+            this.renderer_api.add_to_scene(this.fps_controls.get_object())
+            this.got_camera = true
         }
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {

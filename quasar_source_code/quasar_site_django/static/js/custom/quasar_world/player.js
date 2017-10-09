@@ -34,7 +34,6 @@ Player.prototype = {
         this.camera = this.renderer_api.camera
 
         this.fps_controls = new FPSControls(this.camera)
-        this.renderer_api.add_to_scene(this.fps_controls.get_object())
         this.pointer_lock_api = new PointerLockAPI(this.fps_controls)
 
         this.data_display = new DataDisplay(this.fps_controls)
