@@ -40,7 +40,7 @@ WorldManager.prototype = {
         }
         this.current_world = world
         this.current_world.current_world = true
-        this.current_scene = this.world.scene
+        this.current_scene = this.current_world.scene
 
         this.current_world.enter_world()
     },
