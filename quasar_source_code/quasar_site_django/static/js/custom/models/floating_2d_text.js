@@ -166,12 +166,12 @@ Floating2DText.prototype = {
         default:
             this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)
         }
-        this.current_text = text
+        this.text = text
         this.dynamic_texture.needsUpdate = true
     },
 
     update_text: function(text) {
-        if (this.current_text !== text) {
+        if (this.text !== text) {
             this.update_text_color(text, COLOR_TEXT_DEFAULT)
         }
     },
