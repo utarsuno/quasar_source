@@ -318,12 +318,12 @@ LoginWorld.prototype = {
         } else {
             //this.player.look_at(new THREE.Vector3(0, 70, 45))
             this.player.set_position(new THREE.Vector3(130, 90, 300))
+        }
 
-            l('SHOULD REMMBER USERNAME VALUE : ' + GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) + '\t' + GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true')
-            if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
-                l('SHOULD REMEMBER USERNAME IS TRUE, Setting input value to : ' + GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
-                this.login_username.set_input_value(GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
-            }
+        l('SHOULD REMMBER USERNAME VALUE : ' + GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) + '\t' + GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true')
+        if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
+            l('SHOULD REMEMBER USERNAME IS TRUE, Setting input value to : ' + GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
+            this.login_username.set_input_value(GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
         }
     },
 
