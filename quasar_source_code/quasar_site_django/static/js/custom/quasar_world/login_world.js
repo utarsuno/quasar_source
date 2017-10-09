@@ -320,6 +320,7 @@ LoginWorld.prototype = {
             this.player.set_position(new THREE.Vector3(130, 90, 300))
 
             if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME)) {
+                l('SHOULD REMEMBER USERNAME IS TRUE, Setting input value to : ' + GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
                 this.login_username.set_input_value(GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
             }
         }
