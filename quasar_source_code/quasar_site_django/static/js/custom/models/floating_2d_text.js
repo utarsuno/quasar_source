@@ -170,6 +170,10 @@ Floating2DText.prototype = {
         this.dynamic_texture.needsUpdate = true
     },
 
+    force_update_text: function(text) {
+        this.update_text_color(text, COLOR_TEXT_DEFAULT)
+    },
+
     update_text: function(text) {
         if (this.text !== text) {
             this.update_text_color(text, COLOR_TEXT_DEFAULT)
@@ -192,7 +196,7 @@ Floating2DText.prototype = {
         this.dynamic_texture.texture.minFilter = THREE.LinearMipMapLinearFilter
 
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
-        this.update_text(this.text)
+        this.force_update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
