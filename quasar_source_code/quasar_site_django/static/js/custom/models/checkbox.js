@@ -41,7 +41,7 @@ CheckBox.prototype = {
         if (this.checked) {
             this.text = 'X'
         } else {
-            this.text = ' '
+            this.text = '_'
         }
         this.floating_2d_text.update_text(this.text)
         if (this.checked) {
