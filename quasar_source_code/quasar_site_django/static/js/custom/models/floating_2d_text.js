@@ -144,7 +144,7 @@ Floating2DText.prototype = {
     },
 
     get_text_height: function() {
-        return this.dynamic_texture.getTextHeight(this.text)
+        return this.height * 2
     },
 
     update_text_color: function(text, color) {

@@ -109,7 +109,7 @@ LoginWorld.prototype = {
 
         this.remember_username_text = new Floating2DText(76, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
         this.remember_username_text.update_position_and_look_at(new THREE.Vector3(20, 50, 45), new THREE.Vector3(20, 50, 45))
-        this.remember_username_checkbox = new CheckBox(20, true, this.scene)
+        this.remember_username_checkbox = new CheckBox(16, true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(100, 50, 45), new THREE.Vector3(100, 50, 45))
 
         this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
