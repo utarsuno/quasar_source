@@ -73,7 +73,7 @@ HomeWorld.prototype = {
         this.global_todos_title = new Floating3DText(200, 32, 'Global Todos', TYPE_TITLE, this.scene)
         this.global_todos_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 0, 0))
 
-        
+
         ////
 
         this.button_3d = new Button3D(50, 'Hello Button', this.scene)

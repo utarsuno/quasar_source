@@ -156,7 +156,7 @@ Floating2DText.prototype = {
         this.text = text
         switch (this.type) {
         case TYPE_TITLE:
-            this.dynamic_texture.clear().drawText(this.text, 0, 40 + 4, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height * 3, color)
             break
         case TYPE_CHECK_BOX:
             this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color)
@@ -217,7 +217,7 @@ Floating2DText.prototype = {
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
-        this.object3d.position.x = position_vector.x
+        this.object3d.position.x = position_vector.x - this.width / 2
         this.object3d.position.y = position_vector.y
         this.object3d.position.z = position_vector.z
         this.object3d.lookAt(look_at_position)

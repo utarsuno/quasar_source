@@ -185,7 +185,7 @@ Floating3DText.prototype = {
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
-        this.object3d.position.x = position_vector.x
+        this.object3d.position.x = position_vector.x - this.width / 2
         this.object3d.position.y = position_vector.y
         this.object3d.position.z = position_vector.z
         this.object3d.lookAt(look_at_position)
