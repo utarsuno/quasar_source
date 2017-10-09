@@ -1,10 +1,16 @@
 'use strict'
 
+/* __        __   __  ___  __       ___  __
+  /__` |__| /  \ |__)  |  /  ` |  |  |  /__`
+  .__/ |  | \__/ |  \  |  \__, \__/  |  .__/ */
+const l = console.log
+
+/* __        __   __                          __          __        ___  __
+  / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
+  \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
 // Player object sets the global audio.
 var GLOBAL_AUDIO = null
-
-
 
 // Floating2DText types.
 const TYPE_INPUT_PASSWORD = 1 // Input password field.
@@ -22,7 +28,7 @@ const SERVER_REPLY_GENERIC_NO                             = 'n'
 const SERVER_REPLY_GENERIC_YES                            = 'y'
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!'
 
-// Highlight color.
+// Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93
 const COLOR_TEXT_HIGHLIGHT = '#D4FF93'
 const COLOR_TEXT_DEFAULT   = '#67ffbf'
@@ -35,22 +41,6 @@ function is_email_valid(email) {
     return re.test(email)
 }
 
-// Base code from : https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
-function get_cookie(name) {
-    var nameEQ = name + '='
-    var ca = document.cookie.split(';')
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length)
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length)
-    }
-    return null
-}
-
-// Base code from : https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript
-function set_cookie(name, value) {
-    var date = new Date()
-    date.setTime(date.getTime() + (14*24*60*60*1000))
-    var expires = '; expires=' + date.toUTCString()
-    document.cookie = name + '=' + value + expires + '; path=/'
-}
+var global_cookies = Cookies.noConflict()
+l('Printing the cookies :')
+l(global_cookies.get())

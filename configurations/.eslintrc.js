@@ -30,6 +30,10 @@ module.exports = {
         ]
     },
     "globals": {
+
+        "console": false,
+        "Cookies": false,
+
         "THREEx": false,
         "THREE": false,
         "Stats": false,
@@ -82,6 +86,9 @@ module.exports = {
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,
         "COLOR_TEXT_DEFAULT": false,
+
+        // Shortcuts.
+        "l": false,
 
         "is_email_valid": false,
         "get_cookie"    : false,

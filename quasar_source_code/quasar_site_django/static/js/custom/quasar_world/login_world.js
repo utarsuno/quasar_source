@@ -121,16 +121,16 @@ LoginWorld.prototype = {
 
         console.log('The cookie is: ')
         console.log(document.cookie)
-        console.log('get cookie value is :')
-        console.log(get_cookie('should_remember_username'))
+        //console.log('get cookie value is :')
+        //console.log(get_cookie('should_remember_username'))
 
         // If the remember_username field is marked and we have a value then set the username default value.
-        if (get_cookie('should_remember_username') === 'true') {
-            var cookie = get_cookie('remember_username')
-            if (cookie !== null) {
-                this.create_username.set_input_value(cookie)
-            }
-        }
+        //if (get_cookie('should_remember_username') === 'true') {
+        //    var cookie = get_cookie('remember_username')
+        //    if (cookie !== null) {
+        //        this.create_username.set_input_value(cookie)
+        //    }
+        //}
 
         this.create_email = new Floating2DLabelInput(150, 16, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
