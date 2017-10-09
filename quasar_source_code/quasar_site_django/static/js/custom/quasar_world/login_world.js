@@ -130,14 +130,6 @@ LoginWorld.prototype = {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 
-        // If the remember_username field is marked and we have a value then set the username default value.
-        //if (get_cookie('should_remember_username') === 'true') {
-        //    var cookie = get_cookie('remember_username')
-        //    if (cookie !== null) {
-        //        this.create_username.set_input_value(cookie)
-        //    }
-        //}
-
         this.create_email = new Floating2DLabelInput(150, 16, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
 
