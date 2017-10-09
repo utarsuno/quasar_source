@@ -223,7 +223,7 @@ Floating2DText.prototype = {
 
         var look_at = new THREE.Vector3(look_at_position.x - this.width / 2, look_at_position.y, look_at_position.z)
 
-        this.object3d.lookAt(look_at_position)
+        this.object3d.lookAt(look_at)
     },
 
     add_character: function(character) {
