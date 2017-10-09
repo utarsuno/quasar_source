@@ -19,7 +19,7 @@ CheckBox.prototype = {
 
     __init__: function(side_length, initial_state, scene) {
         this.scene   = scene
-        this.checked = scene
+        this.checked = initial_state
         if (this.checked) {
             this.text = 'X'
         } else {
@@ -43,7 +43,7 @@ CheckBox.prototype = {
             this.text = ''
         }
         this.floating_2d_text.update_text(this.text)
-        if (this.remember_username_checkbox.checked) {
+        if (this.checked) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, true)
         } else {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, false)

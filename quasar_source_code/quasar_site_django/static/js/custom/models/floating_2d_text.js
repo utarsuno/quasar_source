@@ -139,14 +139,24 @@ Floating2DText.prototype = {
         }
     },
 
+    get_text_length: function() {
+        return this.dynamic_texture.getTextLength(this.text)
+    },
+
+    get_text_height: function() {
+        return this.dynamic_texture.getTextHeight(this.text)
+    },
+
     update_text_color: function(text, color) {
         switch (this.type) {
         case TYPE_TITLE:
             this.dynamic_texture.clear().drawText(this.text, 0, 40 + 4, color)
             break
+        case TYPE_CHECK_BOX:
+            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.get_text_height() / 2, color)
+            break
         case TYPE_BUTTON:
-            console.log('Text length of ' + this.text + ' is : ' + this.dynamic_texture.getTextLength(this.text))
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.dynamic_texture.getTextLength(this.text) / 2, 20 + 4, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, 20 + 4, color)
             break
         default:
             this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)

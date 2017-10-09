@@ -104,8 +104,8 @@ LoginWorld.prototype = {
         this.login_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.remember_username_text = new Floating2DText(78, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
-        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
+        this.remember_username_text = new Floating2DText(76, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(20, 50, 45), new THREE.Vector3(20, 50, 45))
         this.remember_username_checkbox = new CheckBox(20, true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(100, 50, 45), new THREE.Vector3(100, 50, 45))
 
@@ -125,8 +125,6 @@ LoginWorld.prototype = {
         console.log('The cookie is: ')
         console.log(document.cookie)
         console.log(GLOBAL_COOKIES.get())
-        //console.log('get cookie value is :')
-        //console.log(get_cookie('should_remember_username'))
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
