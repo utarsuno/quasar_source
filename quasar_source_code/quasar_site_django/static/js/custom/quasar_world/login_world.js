@@ -159,7 +159,7 @@ LoginWorld.prototype = {
             this.create_email.floating_input,
             this.create_password.floating_input,
             this.create_repeat_password.floating_input,
-            this.remember_username_checkbox
+            this.remember_username_checkbox.floating_2d_text
         ]
 
         // Handle key press events.
