@@ -153,10 +153,10 @@ Floating2DText.prototype = {
             this.dynamic_texture.clear().drawText(this.text, 0, 40 + 4, color)
             break
         case TYPE_CHECK_BOX:
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, 20 + 4, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.get_text_height(), color)
             break
         case TYPE_BUTTON:
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, 20 + 4, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.get_text_height(), color)
             break
         default:
             this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)
