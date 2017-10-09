@@ -277,7 +277,7 @@ LoginWorld.prototype = {
 
                         if (login_username_text.length < 4) {
                             error = true
-                            error_message = 'Usernames are at least 4 characters!'
+                            error_message = 'Username must be at least 4 characters.'
                         }
                         if (!error) {
                             if (login_password_text.length < 4) {
@@ -297,7 +297,7 @@ LoginWorld.prototype = {
 
                     } else if (this.interactive_objects[i] === this.remember_username_checkbox.floating_2d_text) {
                         this.remember_username_checkbox.toggle()
-                        
+
                         if (this.remember_username_checkbox.checked) {
                             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, true)
                         } else {

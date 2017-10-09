@@ -52,11 +52,6 @@ THREEx.DynamicTexture.prototype.getTextLength = function(text) {
 	return this.context.measureText(text).width
 }
 
-// Custom addition to this library.
-THREEx.DynamicTexture.prototype.getTextHeight = function(text) {
-	return this.context.measureText(text).height
-}
-
 /**
  * draw text
  *
