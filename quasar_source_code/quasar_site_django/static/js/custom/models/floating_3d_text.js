@@ -122,9 +122,12 @@ Floating3DText.prototype = {
             this.current_text_object.material.dispose()
         }
 
-        console.log(this.size)
-        console.log(this.height)
-        console.log(GLOBAL_FONT)
+        console.log('CREATED 3D TEXT')
+
+        // Make sure to remove the previous geometry!
+        if (this.text_geometry !== null) {
+            this.text_geometry.dispose()
+        }
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,

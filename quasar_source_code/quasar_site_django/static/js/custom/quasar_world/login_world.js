@@ -88,10 +88,10 @@ LoginWorld.prototype = {
 
         // 3D titles.
         this.login_title = new Floating3DText(150, 30, 'Login', TYPE_TITLE, this.scene)
-        this.login_title.update_position_and_look_at(new THREE.Vector3(50, 200, 45), new THREE.Vector3(50, 200, 55))
+        this.login_title.update_position_and_look_at(new THREE.Vector3(0, 200, 40), new THREE.Vector3(0, 200, 55))
 
-        this.create_account_title = new Floating3DText(150, 30, 'Create Account', TYPE_TITLE, this.scene)
-        this.create_account_title.update_position_and_look_at(new THREE.Vector3(150, 200, 45), new THREE.Vector3(150, 200, 55))
+        this.create_account_title = new Floating3DText(150, 30, 'Create\nAccount', TYPE_TITLE, this.scene)
+        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 200, 40), new THREE.Vector3(200, 200, 55))
 
         // AJAX status.
         this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
@@ -302,7 +302,7 @@ LoginWorld.prototype = {
                             this.ajax_status.update_text('Error : ' + error_message)
                         }
 
-                    } else if (this.interactive_objects[i] === this.remember_username_checkbox) {
+                    } else if (this.interactive_objects[i] === this.remember_username_checkbox.floating_2d_text) {
 
 
                         console.log('CHECKBOX TOGGLE!!!!')

@@ -102,7 +102,7 @@ Floating2DText.prototype = {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
             this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
+                this.also_color_this_floating_text.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
             }
         }
         this.being_looked_at = true
@@ -113,7 +113,7 @@ Floating2DText.prototype = {
             this.wireframe.material.color.setHex(this.original_border_color)
             this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
+                this.also_color_this_floating_text.update_text_color(this.text, COLOR_TEXT_DEFAULT)
             }
         }
         this.being_looked_at = false
@@ -139,20 +139,16 @@ Floating2DText.prototype = {
         }
     },
 
-    update_just_color: function(color) {
-        if (this.type == TYPE_TITLE) {
-            this.dynamic_texture.clear().drawText(this.text, 0, 40, color)
-        } else {
-            this.dynamic_texture.clear().drawText(this.text, 0, 20, color)
-        }
-        this.dynamic_texture.needsUpdate = true
-    },
-
     update_text_color: function(text, color) {
-        if (this.type == TYPE_TITLE) {
-            this.dynamic_texture.clear().drawText(text, 0, 40, color)
-        } else {
-            this.dynamic_texture.clear().drawText(text, 0, 20, color)
+        switch (this.type) {
+        case TYPE_TITLE:
+            this.dynamic_texture.clear().drawText(this.text, 0, 40, color)
+            break
+        case TYPE_BUTTON:
+            this.dynamic_texture.clear().drawText(this.text, this.width, 20, color)
+            break
+        default:
+            this.dynamic_texture.clear().drawText(this.text, 0, 20, color)
         }
         this.current_text = text
         this.dynamic_texture.needsUpdate = true
