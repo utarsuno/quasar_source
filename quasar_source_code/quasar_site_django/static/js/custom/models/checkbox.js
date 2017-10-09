@@ -13,6 +13,10 @@ CheckBox.prototype = {
     checked         : null,
     text            : null,
 
+    // States.
+    being_looked_at: null,
+    being_engaged_with: null,
+
     __init__: function(side_length, initial_state, scene) {
         this.scene   = scene
         this.checked = scene
@@ -40,5 +44,28 @@ CheckBox.prototype = {
 
     status: function() {
         return !!this.checked
+    },
+
+    look_away: function() {
+        if (this.being_looked_at) {
+            this.wireframe.material.color.setHex(this.original_border_color)
+            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
+            }
+        }
+        this.being_looked_at = false
+    },
+
+    disengage: function(player) {
+    },
+
+    is_engaged: function() {
+        return this.being_engaged_with
+    },
+
+    engage: function(player) {
+        player.disengage()
+        this.toggle()
     }
 }
