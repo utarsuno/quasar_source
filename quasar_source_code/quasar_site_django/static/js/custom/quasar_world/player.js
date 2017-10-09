@@ -65,8 +65,8 @@ Player.prototype = {
     },
 
     perform_login: function(username, password) {
-        this.entity_owner = new Owner(username, password, this.renderer_api.home_world)
-        this.renderer_api.switch_to_home_world()
+        this.entity_owner = new Owner(username, password, WORLD_MANAGER.world_home)
+        WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)
     },
 
     disengage: function() {

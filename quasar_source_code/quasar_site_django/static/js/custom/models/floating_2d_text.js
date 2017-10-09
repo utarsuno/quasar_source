@@ -1,11 +1,11 @@
 'use strict'
 
 function Floating2DText(w, text, type, scene) {
-    this.__init__(w, h, text, type, scene)
+    this.__init__(w, text, type, scene)
 }
 
 function Floating2DLabelInput(w, label_text, input_type, scene) {
-    this.__init__(w, h, label_text, input_type, scene)
+    this.__init__(w, label_text, input_type, scene)
 }
 
 Floating2DLabelInput.prototype = {
@@ -75,7 +75,6 @@ Floating2DText.prototype = {
         this.scene = scene
 
         this.width              = w
-        this.height             = h
 
         this.text               = text
         this._hidden_text       = ''
@@ -86,6 +85,13 @@ Floating2DText.prototype = {
         this.original_border_color = 0xFFC0CB
 
         this.type = type
+
+        if (this.type === TYPE_TITLE) {
+            this.height = 32
+        } else {
+            this.height = 16
+        }
+
         this.create()
     },
 
