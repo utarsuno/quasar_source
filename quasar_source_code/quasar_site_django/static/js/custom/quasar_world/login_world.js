@@ -4,6 +4,8 @@ function LoginWorld() {
     this.__init__()
 }
 
+const LOGIN_X = 0
+
 LoginWorld.prototype = {
 
     scene: null,
@@ -90,15 +92,15 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // 3D titles.
-        this.login_title = new Floating3DText(150, 30, 'Login', TYPE_TITLE, this.scene)
-        this.login_title.update_position_and_look_at(new THREE.Vector3(0, 200, 40), new THREE.Vector3(0, 200, 55))
+        this.login_title = new Floating3DText(150, 32, 'Login', TYPE_TITLE, this.scene)
+        this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
-        this.create_account_title = new Floating3DText(150, 30, 'Create\nAccount', TYPE_TITLE, this.scene)
+        this.create_account_title = new Floating3DText(150, 32, 'Create\nAccount', TYPE_TITLE, this.scene)
         this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 200, 40), new THREE.Vector3(200, 200, 55))
 
         // AJAX status.
-        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
-        this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 150, 45), new THREE.Vector3(150, 150, 55))
+        this.ajax_status = new Floating2DText(450, 32, '', TYPE_TITLE, this.scene)
+        this.ajax_status.update_position_and_look_at(new THREE.Vector3(-50, 150, 45), new THREE.Vector3(-50, 150, 55))
 
         // Login fields.
         this.login_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
