@@ -57,13 +57,7 @@ RendererAPI.prototype = {
     },
 
     render: function() {
-        if (this.scene === null) {
-            console.log('SCENE IS NULL?')
-        }
-        if (this.camera === null) {
-            console.log('CAMERA IS NULL?')
-        }
-        this.renderer.render(this.scene, this.camera)
+        this.renderer.render(WORLD_MANAGER.current_world.scene, this.camera)
     },
 
     post_render: function() {
