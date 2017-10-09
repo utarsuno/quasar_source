@@ -153,10 +153,11 @@ Floating2DText.prototype = {
             this.dynamic_texture.clear().drawText(this.text, 0, 40 + 4, color)
             break
         case TYPE_CHECK_BOX:
+            console.log('Text height is : ' + this.get_text_height())
             this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.get_text_height(), color)
             break
         case TYPE_BUTTON:
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.get_text_height(), color)
+            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, 20 + 4, color)
             break
         default:
             this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)
