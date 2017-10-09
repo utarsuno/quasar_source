@@ -42,11 +42,6 @@ CheckBox.prototype = {
         } else {
             this.floating_2d_text.update_text(' ')
         }
-        if (this.checked) {
-            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, true)
-        } else {
-            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, false)
-        }
     },
 
     status: function() {
