@@ -35,6 +35,9 @@ LoginWorld.prototype = {
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
+            if (this.remember_username_checkbox.checked) {
+                GLOBAL_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username)
+            }
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
             this.ajax_status.update_text('Error: ' + data)
@@ -111,9 +114,6 @@ LoginWorld.prototype = {
 
         this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 25, 45), new THREE.Vector3(150 / 3, 25, 55))
-
-        this.login_button2 = new Floating2DText(25, 16, 'Login', TYPE_BUTTON, this.scene)
-        this.login_button2.update_position_and_look_at(new THREE.Vector3(150 / 3, 0, 45), new THREE.Vector3(150 / 3, 0, 55))
 
         // Create account fields.
         this.create_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -320,6 +320,10 @@ LoginWorld.prototype = {
         } else {
             //this.player.look_at(new THREE.Vector3(0, 70, 45))
             this.player.set_position(new THREE.Vector3(130, 90, 300))
+
+            if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME)) {
+                this.login_username.set_input_value(GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
+            }
         }
     },
 

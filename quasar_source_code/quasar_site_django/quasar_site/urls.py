@@ -23,7 +23,6 @@ urlpatterns = [
     #url(r'quick_info', v.GET_quick_info),
     url(r'math220', v.GET_math_220),
     url(r'math310', v.GET_math_310),
-    url(r'cs361', v.GET_cs_361),
     url(r'cs425', v.GET_cs_425),
     url(r'web_socket', v.GET_web_socket),
 

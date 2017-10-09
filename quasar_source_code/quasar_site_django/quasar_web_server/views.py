@@ -21,7 +21,6 @@ TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_LOG_FORMULAS   = _TEMPLATES_BASE + 'log_formulas.html'
 TEMPLATE_MATH_220       = _TEMPLATES_BASE + 'math220.html'
 TEMPLATE_MATH_310       = _TEMPLATES_BASE + 'math310.html'
-TEMPLATE_CS_361         = _TEMPLATES_BASE + 'cs361.html'
 TEMPLATE_CS_425         = _TEMPLATES_BASE + 'cs425.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html'
 
@@ -57,11 +56,6 @@ def GET_math_220(request):
 def GET_math_310(request):
 	"""Returns notes for math 310."""
 	return render(request, TEMPLATE_MATH_310)
-
-
-def GET_cs_361(request):
-	"""Returns notes for cs 361."""
-	return render(request, TEMPLATE_CS_361)
 
 
 def GET_cs_425(request):
@@ -136,10 +130,7 @@ def POST_login(request):
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result == SERVER_REPLY_GENERIC_YES:
 		request.session[USERNAME] = received_username
-		#request.COOKIES['remember_username'] = received_username
-		response = HttpResponse('y')
-		response.set_cookie('remember_username', received_username)
-		return response
+		return SERVER_REPLY_GENERIC_YES
 	return HttpResponse(result)
 
 
