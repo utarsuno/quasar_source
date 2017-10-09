@@ -126,7 +126,7 @@ LoginWorld.prototype = {
         //console.log(get_cookie('should_remember_username'))
 
         if (GLOBAL_COOKIES.get('should_remember_username') === undefined) {
-            Cookies.set('should_remember_username', this.remember_username_checkbox.status())
+            GLOBAL_COOKIES.set('should_remember_username', this.remember_username_checkbox.status())
         }
 
         // If the remember_username field is marked and we have a value then set the username default value.
