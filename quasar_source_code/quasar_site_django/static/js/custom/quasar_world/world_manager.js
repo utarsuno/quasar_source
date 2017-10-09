@@ -29,14 +29,14 @@ WorldManager.prototype = {
     },
 
     update_current_scene: function() {
-        this.world.update()
+        this.current_world.update()
     },
 
     set_current_world: function(world) {
         if (this.current_world !== null) {
             this.current_world.exit_world()
             this.current_world.current_world = false
-            this.previous_world = this.world
+            this.previous_world = this.current_world
         }
         this.current_world = world
         this.current_world.current_world = true
