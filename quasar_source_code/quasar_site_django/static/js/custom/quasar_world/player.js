@@ -55,8 +55,7 @@ Player.prototype = {
     },
 
     sounds_loaded: function() {
-        this.renderer_api.add_to_scene(AUDIO_MANAGER.get_typing_sound())
-        this.renderer_api.home_world.add_to_scene(AUDIO_MANAGER.get_typing_sound())
+        WORLD_MANAGER.add_to_all_scenes(AUDIO_MANAGER.get_typing_sound())
     },
 
     get_username: function() {

@@ -76,7 +76,7 @@ HomeWorld.prototype = {
           / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
           \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */
 
-        this.global_tasks_title = new Floating3DText(200, 'Global Tasks', TYPE_TITLE, this.scene)
+        this.global_tasks_title = new Floating3DText(256, 'Global Tasks', TYPE_TITLE, this.scene)
         this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
 
         this.create_global_task_button = new Floating2DText(64, 'Create Entity', TYPE_BUTTON, this.scene)
@@ -120,12 +120,12 @@ HomeWorld.prototype = {
             case 0:
                 day_string = 'Monday ' + day_value
                 if (week == 0) {
-                    var week_title = new Floating3DText(200, 'Current Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(256, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
                     this.day_entities[i].push(week_title)
                 } else if (week == 1) {
-                    var week_title = new Floating3DText(200, 'Next Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(256, 'Next Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     this.day_entities[i].push(week_title)
                 }
