@@ -11,7 +11,6 @@ CheckBox.prototype = {
     floating_2d_text: null,
 
     checked         : null,
-    text            : null,
 
     // States.
     being_looked_at: null,
@@ -42,6 +41,7 @@ CheckBox.prototype = {
         } else {
             this.floating_2d_text.clear_text()
         }
+        console.log('Checkbox is currently : ' + this.floating_2d_text.get_text())
     },
 
     status: function() {
