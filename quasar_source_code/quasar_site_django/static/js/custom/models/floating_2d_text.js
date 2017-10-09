@@ -34,7 +34,7 @@ Floating2DLabelInput.prototype = {
     },
 
     set_input_value: function(input_value) {
-        this.floating_input.update_text(input_value)
+        this.floating_input.force_update_text(input_value)
     },
 
     get_input_text: function() {
@@ -225,12 +225,12 @@ Floating2DText.prototype = {
 
     add_character: function(character) {
         this.text = this.text + character
-        this.update_text(this.text)
+        this.force_update_text(this.text)
     },
 
     pop_character: function() {
         this.text = this.text.slice(0, -1)
-        this.update_text(this.text)
+        this.force_update_text(this.text)
     },
 
     parse_keycode: function(event) {
