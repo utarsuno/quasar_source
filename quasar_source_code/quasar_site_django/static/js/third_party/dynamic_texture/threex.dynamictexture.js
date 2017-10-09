@@ -49,7 +49,7 @@ THREEx.DynamicTexture.prototype.clear = function(fillStyle){
 
 // Custom addition to this library.
 THREEx.DynamicTexture.prototype.getTextLength = function(text) {
-	return this.context.measureText(text)
+	return this.context.measureText(text).width
 }
 
 /**
