@@ -32,7 +32,7 @@ Button3D.prototype = {
         this.object_3D.add(button)
         this.scene.add(this.object_3D)
 
-        this.floating_text = new Floating2DText(this.width, this.height, this.text, TYPE_TITLE, this.scene)
+        this.floating_text = new Floating2DText(this.width, this.text, TYPE_TITLE, this.scene)
     },
 
     update_position_and_look_at: function(position, look_at) {

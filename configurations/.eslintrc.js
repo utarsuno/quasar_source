@@ -57,9 +57,13 @@ module.exports = {
         "Floating3DLabelInput": true,
         "CheckBox": true,
 
+        "EntityEditor": false,
+
         "SmoothStep": false,
+        "SmoothStepLowerLimitZero": false,
         "Owner": true,
 
+        "WorldManager": true,
         "LoginWorld": true,
         "HomeWorld": true,
 
@@ -67,8 +71,9 @@ module.exports = {
         "PostHelper": true,
 
         "Button3D": true,
-        "GlobalAudio": false,
-        "GLOBAL_AUDIO": true,
+        "AudioManager": false,
+        "AUDIO_MANAGER": true,
+        "WORLD_MANAGER": true,
         "GLOBAL_COOKIES": false,
 
         "GLOBAL_FONT": false,

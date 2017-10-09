@@ -31,9 +31,7 @@ Player.prototype = {
 
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
-
-        this.camera       = new THREE.PerspectiveCamera(this.renderer_api.field_of_view, this.renderer_api.aspect_ratio, this.renderer_api.near_clipping, this.renderer_api.far_clipping)
-        this.renderer_api.camera = this.camera
+        this.camera = this.renderer_api.camera
 
         this.fps_controls = new FPSControls(this.camera)
         this.renderer_api.add_to_scene(this.fps_controls.get_object())
@@ -43,17 +41,23 @@ Player.prototype = {
 
         this.key_down_ctrl = false
         this.key_down_d    = false
+
+        // Handle key down events.
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
+        // Handle key up events.
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
 
         // Set player state.
         this.logged_in = false
         this.engaged   = false
+
+        // Give reference of self to the World Manager.
+        WORLD_MANAGER.set_player(this)
     },
 
     sounds_loaded: function() {
-        this.renderer_api.add_to_scene(GLOBAL_AUDIO.get_typing_sound())
-        this.renderer_api.home_world.add_to_scene(GLOBAL_AUDIO.get_typing_sound())
+        this.renderer_api.add_to_scene(AUDIO_MANAGER.get_typing_sound())
+        this.renderer_api.home_world.add_to_scene(AUDIO_MANAGER.get_typing_sound())
     },
 
     get_username: function() {
@@ -98,6 +102,8 @@ Player.prototype = {
             }
             break
         }
+
+        WORLD_MANAGER.key_down_event(event)
     },
 
     on_key_up: function(event) {

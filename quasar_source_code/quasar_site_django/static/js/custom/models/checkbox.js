@@ -1,7 +1,7 @@
 'use strict'
 
-function CheckBox(side_length, initial_state, scene) {
-    this.__init__(side_length, initial_state, scene)
+function CheckBox(initial_state, scene) {
+    this.__init__(initial_state, scene)
 }
 
 CheckBox.prototype = {
@@ -16,7 +16,7 @@ CheckBox.prototype = {
     being_looked_at: null,
     being_engaged_with: null,
 
-    __init__: function(side_length, initial_state, scene) {
+    __init__: function(initial_state, scene) {
         this.scene   = scene
         this.checked = initial_state
         if (this.checked) {
@@ -24,7 +24,7 @@ CheckBox.prototype = {
         } else {
             this.text = ''
         }
-        this.floating_2d_text = new Floating2DText(side_length, side_length, this.text, TYPE_CHECK_BOX, this.scene)
+        this.floating_2d_text = new Floating2DText(16, 16, this.text, TYPE_CHECK_BOX, this.scene)
 
         this.being_looked_at = false
         this.being_engaged_with = false
@@ -41,7 +41,6 @@ CheckBox.prototype = {
         } else {
             this.floating_2d_text.update_text(' ')
         }
-        console.log('Checkbox is currently : ' + this.floating_2d_text.get_text())
     },
 
     status: function() {

@@ -10,8 +10,9 @@ const l = console.log
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
 // Player object sets the global audio.
-var GLOBAL_AUDIO = null
+var AUDIO_MANAGER  = null
 var GLOBAL_COOKIES = Cookies.noConflict()
+var WORLD_MANAGER  = null
 
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'

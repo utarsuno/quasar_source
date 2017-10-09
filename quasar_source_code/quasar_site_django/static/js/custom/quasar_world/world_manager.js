@@ -1,0 +1,56 @@
+'use strict'
+
+function WorldManager() {
+    this.__init__()
+}
+
+WorldManager.prototype = {
+
+    player         : null,
+
+    previous_world : null,
+    current_world  : null,
+    current_scene  : null,
+
+    // Pre-defined worlds.
+    world_login    : null,
+    world_home     : null,
+    world_settings : null,
+
+    __init__: function() {
+        this.world_login = new LoginWorld()
+        this.world_home = new HomeWorld()
+    },
+
+    set_player: function(player) {
+        this.player = player
+        this.world_login.player = player
+        this.world_home.player = player
+    },
+
+    update_current_scene: function() {
+        this.world.update()
+    },
+
+    set_current_world: function(world) {
+        if (this.world !== null) {
+            this.world.exit_world()
+            this.world.current_world = false
+            this.previous_world = this.world
+        }
+        this.current_world = world
+        this.current_world.current_world = true
+        this.current_scene = this.world.scene
+
+        this.world.enter_world()
+    },
+
+    key_down_event: function(event) {
+        this.current_world.key_down_event(event)
+    },
+
+    add_to_current_scene: function(object) {
+        this.current_world.add(object)
+    }
+
+}

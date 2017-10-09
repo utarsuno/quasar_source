@@ -18,17 +18,6 @@ RendererAPI.prototype = {
     // Custom objects.
     stats_api       : null,
 
-    //
-    home_world      : null,
-
-    // Three js object.
-    previous_world  : null,
-    previous_scene  : null,
-    world           : null,
-    scene           : null,
-    current_scene   : null,
-
-    // These variables get added later on.
     camera          : null,
 
     __init__: function() {
@@ -44,12 +33,14 @@ RendererAPI.prototype = {
             // Since WebGL is enabled we can proceed.
             this.field_of_view = 70
             this.get_window_properties()
-            this.near_clipping = 0.1
-            this.far_clipping  = 10000
+            this.near_clipping = 1.0
+            this.far_clipping  = 5000.0
             this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true})
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
             this.renderer.setClearColor(0x000000, 1)
+
+            this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping)
 
             this.renderer.domElement.style.position = 'absolute'
             this.renderer.domElement.style.zIndex = 1
@@ -58,33 +49,7 @@ RendererAPI.prototype = {
             document.body.appendChild(this.renderer.domElement)
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false)
-
-            this.home_world = new HomeWorld()
         }
-    },
-
-    update_current_scene: function() {
-        this.world.update()
-    },
-
-    switch_to_home_world: function() {
-        this.set_current_world(this.home_world)
-    },
-
-    set_current_world: function(world) {
-        if (this.world !== null) {
-            this.world.exit_world()
-            this.previous_world = this.world
-            this.previous_scene = this.scene
-        }
-        this.world = world
-        this.scene = this.world.scene
-
-        this.world.enter_world()
-    },
-
-    add_to_scene: function(object) {
-        this.scene.add(object)
     },
 
     pre_render: function() {
@@ -128,30 +93,5 @@ RendererAPI.prototype = {
 
     get_warning_message: function () {
         return this.warning_message
-    }
-}
-
-// NOT BEING USED FOR THE TIME BEING, POTENTIALLY FOREVER c:
-function CSSRendererAPI() {
-    this.__init__()
-}
-
-CSSRendererAPI.prototype = {
-
-    renderer: null,
-
-    __init__: function() {
-        this.renderer = new THREE.CSS3DRenderer()
-        this.renderer.setSize(window.innerWidth, window.innerHeight)
-        this.renderer.domElement.style.position = 'absolute'
-        this.renderer.domElement.style.top = 0
-
-        //document.body.appendChild(this.renderer.domElement)
-
-        window.addEventListener('resize', this.on_window_resize.bind(this), false)
-    },
-
-    on_window_resize: function() {
-        this.renderer.setSize(window.innerWidth, window.innerHeight)
     }
 }

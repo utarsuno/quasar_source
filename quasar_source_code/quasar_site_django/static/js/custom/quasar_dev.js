@@ -3,19 +3,17 @@
 // Renders all the worlds.
 var renderer_api = new RendererAPI()
 
-// LoginWorld.
-var login_world = new LoginWorld()
-renderer_api.set_current_world(login_world)
+// WorldManager.
+WORLD_MANAGER = new WorldManager()
 
 // Model of the user. Must be created AFTER the scene gets set.
 var player = new Player(renderer_api)
 
-// Give the worlds a reference to the player. This should change in design later on.
-login_world.player = player
-renderer_api.home_world.player = player
+WORLD_MANAGER.set_player(player)
+WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
 
 // Now create the global audio.
-GLOBAL_AUDIO = new GlobalAudio(player)
+AUDIO_MANAGER = new AudioManager(player)
 
 var previous_time = performance.now()
 
@@ -28,7 +26,7 @@ var animate = function () {
     var delta = (time - previous_time) / 1000
 
     player.update(delta)
-    renderer_api.update_current_scene()
+    WORLD_MANAGER.update_current_scene()
 
     renderer_api.render()
 

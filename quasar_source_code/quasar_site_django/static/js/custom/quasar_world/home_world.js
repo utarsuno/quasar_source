@@ -9,6 +9,8 @@ const GLOBAL_TODOS_POSITION_Z = 750
 const GLOBAL_TODOS_POSITION_Y_TOP = 800
 
 HomeWorld.prototype = {
+    // World variables.
+    interactive_objects: null,
     scene: null,
     player: null,
 
@@ -29,6 +31,7 @@ HomeWorld.prototype = {
 
     //
     days: null,
+
 
     //
     button_3d: null,
@@ -73,11 +76,13 @@ HomeWorld.prototype = {
           / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
           \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */
 
-        this.global_tasks_title = new Floating3DText(200, 32, 'Global Tasks', TYPE_TITLE, this.scene)
+        this.global_tasks_title = new Floating3DText(200, 'Global Tasks', TYPE_TITLE, this.scene)
         this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
 
-        this.create_global_task_button = new Floating2DText(64, 16, 'Create Entity', TYPE_BUTTON, this.scene)
+        this.create_global_task_button = new Floating2DText(64, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_global_task_button.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0))
+
+
 
         /* __             ___       __        __           __   ___
           /  `  /\  |    |__  |\ | |  \  /\  |__)     /\  |__) |__   /\
@@ -86,7 +91,7 @@ HomeWorld.prototype = {
         this.button_3d = new Button3D(50, 'Hello Button', this.scene)
         this.button_3d.update_position_and_look_at(new THREE.Vector3(50, 50, 50), new THREE.Vector3(50, 150, 50))
 
-        this.ajax_status = new Floating2DText(400, 30, '', TYPE_TITLE, this.scene)
+        this.ajax_status = new Floating2DText(400, '', TYPE_TITLE, this.scene)
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(150, 100, 45), new THREE.Vector3(150, 100, 55))
 
         this.day_indexes = []
@@ -115,12 +120,12 @@ HomeWorld.prototype = {
             case 0:
                 day_string = 'Monday ' + day_value
                 if (week == 0) {
-                    var week_title = new Floating3DText(200, 25, 'Current Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(200, 'Current Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     week += 1
                     this.day_entities[i].push(week_title)
                 } else if (week == 1) {
-                    var week_title = new Floating3DText(200, 25, 'Next Week', TYPE_TITLE, this.scene)
+                    var week_title = new Floating3DText(200, 'Next Week', TYPE_TITLE, this.scene)
                     week_title.update_position_and_look_at(new THREE.Vector3(x_position, 90 + 300, z_position), new THREE.Vector3(0, 90 + 300, 0))
                     this.day_entities[i].push(week_title)
                 }
@@ -145,10 +150,53 @@ HomeWorld.prototype = {
                 break
             }
 
-            var day_floating_text = new Floating2DText(150, 25, day_string, TYPE_TITLE, this.scene)
+            var day_floating_text = new Floating2DText(150, day_string, TYPE_TITLE, this.scene)
             day_floating_text.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300, z_position), new THREE.Vector3(0, 50 + 300, 0))
             this.day_entities[i].push(day_floating_text)
             this.y_offsets[i] += 40
+        }
+
+        this.interactive_objects = [
+            this.create_global_task_button
+        ]
+    },
+
+    key_down_event: function(event) {
+        var i
+        if (event.keyCode == 220) { // backslash
+            if (this.player.is_engaged()) {
+                for (i = 0; i < this.interactive_objects.length; i++) {
+                    if (this.interactive_objects[i].being_looked_at) {
+                        this.interactive_objects[i].disengage(this.player)
+                    }
+                }
+            }
+        } else if (event.keyCode == 9) { // tab
+            // Oh, player.look_at() needs to be working first.
+            //if (this.player.is_engaged()) {
+            //}
+
+            event.preventDefault()
+            event.stopPropagation()
+            // Prevent default and prevent
+        }
+
+        for (i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i].is_engaged()) {
+                this.interactive_objects[i].parse_keycode(event)
+            }
+        }
+
+        if (event.keyCode == 69) { // e
+            for (i = 0; i < this.interactive_objects.length; i++) {
+                if (this.interactive_objects[i].being_looked_at) {
+                    this.interactive_objects[i].engage(this.player)
+
+                    if (this.interactive_objects[i] === this.create_global_task_button) {
+                        console.log('Display the entities!')
+                    }
+                }
+            }
         }
     },
 
@@ -158,7 +206,7 @@ HomeWorld.prototype = {
                 var x_position = Math.cos(this.angle_delta * t) * this.radius
                 var z_position = Math.sin(this.angle_delta * t) * this.radius
 
-                var floating_entity = new Floating2DText(256, 32, entity_string, TYPE_STATUS, this.scene)
+                var floating_entity = new Floating2DText(256, entity_string, TYPE_STATUS, this.scene)
                 floating_entity.update_position_and_look_at(new THREE.Vector3(x_position, 50 + 300 - this.y_offsets[t], z_position), new THREE.Vector3(0, 50 + 300 - this.y_offsets[t], 0))
 
                 this.day_entities[t].push(floating_entity)
@@ -168,7 +216,18 @@ HomeWorld.prototype = {
     },
 
     update: function() {
+        var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i] !== this.previously_looked_at) {
+                this.interactive_objects[i].look_away()
+            }
+            var intersections = raycaster.intersectObject(this.interactive_objects[i].object3d, true)
+            if (intersections.length > 0) {
+                this.interactive_objects[i].look_at()
+                this.previously_looked_at = this.interactive_objects[i]
+            }
+        }
     },
 
     add_to_scene: function(object) {
@@ -176,7 +235,6 @@ HomeWorld.prototype = {
     },
 
     enter_world: function() {
-        this.current_world = true
         if (this.got_camera === false) {
             this.add_to_scene(this.player.fps_controls.get_object())
         }
@@ -187,7 +245,6 @@ HomeWorld.prototype = {
     },
 
     exit_world: function() {
-        this.current_world = false
     }
 }
 

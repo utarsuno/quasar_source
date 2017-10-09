@@ -1,7 +1,7 @@
 'use strict'
 
-function Floating3DText(w, h, text, type, scene) {
-    this.__init__(w, h, text, type, scene)
+function Floating3DText(w, text, type, scene) {
+    this.__init__(w, text, type, scene)
 }
 
 //const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').innerHTML))
@@ -16,6 +16,7 @@ Floating3DText.prototype = {
     width: null,
     size: null,
     height: null,
+    text_height: null,
     material: null,
     text_geometry: null,
 
@@ -40,11 +41,10 @@ Floating3DText.prototype = {
     //
     also_color_this_floating_text: null,
 
-    __init__: function(w, h, text, type, scene) {
+    __init__: function(w, text, type, scene) {
         this.scene = scene
 
         this.width              = w
-        this.height             = h
 
         this.text               = text
         this._hidden_text       = ''
@@ -131,7 +131,7 @@ Floating3DText.prototype = {
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
-            height: this.height,
+            height: this.text_height,
             curveSegments: 2,
             font: GLOBAL_FONT
         })
@@ -155,6 +155,13 @@ Floating3DText.prototype = {
 
 
         this.object3d = new THREE.Object3D()
+
+        if (this.type === TYPE_TITLE) {
+            this.height = 32
+        } else {
+            this.height = 16
+        }
+
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.border_geometry = new THREE.PlaneGeometry(this.width, this.height)
 
@@ -173,10 +180,10 @@ Floating3DText.prototype = {
     create: function() {
         if (this.type == TYPE_TITLE) {
             this.size = 40
-            this.height = 2
+            this.text_height = 2
         } else {
             this.size = 20
-            this.height = 1
+            this.text_height = 1
         }
         this.update_text(this.text)
 
@@ -214,7 +221,7 @@ Floating3DText.prototype = {
                 }
             }
 
-            GLOBAL_AUDIO.play_typing_sound()
+            AUDIO_MANAGER.play_typing_sound()
 
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
@@ -224,7 +231,7 @@ Floating3DText.prototype = {
                 this.add_character(event.key)
             }
 
-            GLOBAL_AUDIO.play_typing_sound()
+            AUDIO_MANAGER.play_typing_sound()
         }
     }
 }

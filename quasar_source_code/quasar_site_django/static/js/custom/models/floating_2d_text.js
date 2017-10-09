@@ -1,10 +1,10 @@
 'use strict'
 
-function Floating2DText(w, h, text, type, scene) {
+function Floating2DText(w, text, type, scene) {
     this.__init__(w, h, text, type, scene)
 }
 
-function Floating2DLabelInput(w, h, label_text, input_type, scene) {
+function Floating2DLabelInput(w, label_text, input_type, scene) {
     this.__init__(w, h, label_text, input_type, scene)
 }
 
@@ -17,13 +17,13 @@ Floating2DLabelInput.prototype = {
 
     x_separation : null,
 
-    __init__: function(w, h, label_text, input_type, scene) {
+    __init__: function(w, label_text, input_type, scene) {
         this.one_third_width = w / 3.0
         this.two_third_width = this.one_third_width * 2.0
         this.x_separation    = w / 2.0
 
-        this.floating_label = new Floating2DText(this.one_third_width, h, label_text, TYPE_LABEL, scene)
-        this.floating_input = new Floating2DText(this.two_third_width, h, '', input_type, scene)
+        this.floating_label = new Floating2DText(this.one_third_width, label_text, TYPE_LABEL, scene)
+        this.floating_input = new Floating2DText(this.two_third_width, '', input_type, scene)
 
         this.floating_input.also_color_this_floating_text = this.floating_label
     },
@@ -49,7 +49,6 @@ Floating2DText.prototype = {
 
     text: null,
     width: null,
-    height: null,
     material: null,
     dynamic_texture: null,
 
@@ -72,7 +71,7 @@ Floating2DText.prototype = {
     //
     also_color_this_floating_text: null,
 
-    __init__: function(w, h, text, type, scene) {
+    __init__: function(w, text, type, scene) {
         this.scene = scene
 
         this.width              = w
@@ -156,16 +155,13 @@ Floating2DText.prototype = {
         this.text = text
         switch (this.type) {
         case TYPE_TITLE:
-            this.dynamic_texture.clear().drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height + this.height / 2, color)
-            break
         case TYPE_CHECK_BOX:
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color)
-            break
         case TYPE_BUTTON:
+            // Render the text in the center.
             this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color)
             break
         default:
-            this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)
+            this.dynamic_texture.clear().drawText(this.text, 0, this.height, color)
         }
         this.dynamic_texture.needsUpdate = true
     },
@@ -182,6 +178,11 @@ Floating2DText.prototype = {
 
     create: function() {
         this.object3d = new THREE.Object3D()
+        if (this.type == TYPE_TITLE) {
+            this.height = 32
+        } else {
+            this.height = 16
+        }
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
         this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2)
@@ -247,7 +248,7 @@ Floating2DText.prototype = {
                 }
             }
 
-            GLOBAL_AUDIO.play_typing_sound()
+            AUDIO_MANAGER.play_typing_sound()
 
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
@@ -257,7 +258,7 @@ Floating2DText.prototype = {
                 this.add_character(event.key)
             }
 
-            GLOBAL_AUDIO.play_typing_sound()
+            AUDIO_MANAGER.play_typing_sound()
         }
     }
 

@@ -92,51 +92,51 @@ LoginWorld.prototype = {
         this.add_to_scene(light3)
 
         // AJAX status.
-        this.ajax_status = new Floating2DText(450, 32, '', TYPE_TITLE, this.scene)
+        this.ajax_status = new Floating2DText(450, '', TYPE_TITLE, this.scene)
         this.ajax_status.update_position_and_look_at(new THREE.Vector3(-50, 150, 45), new THREE.Vector3(-50, 150, 55))
 
         /*      __   __
           |    /  \ / _` | |\ |
           |___ \__/ \__> | | \| */
-        this.login_title = new Floating3DText(150, 32, 'Login', TYPE_TITLE, this.scene)
+        this.login_title = new Floating3DText(150, 'Login', TYPE_TITLE, this.scene)
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
-        this.login_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.login_username = new Floating2DLabelInput(150, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.login_username.update_position(0, 100, 45)
 
-        this.login_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.login_password = new Floating2DLabelInput(150, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.remember_username_text = new Floating2DText(76, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text = new Floating2DText(76, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
         this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
-        this.remember_username_checkbox = new CheckBox(16, true, this.scene)
+        this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
-        this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
+        this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
         /* __   __   ___      ___  ___          __   __   __            ___
           /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
           \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
-        this.create_account_title = new Floating3DText(150, 32, 'Create\nAccount', TYPE_TITLE, this.scene)
+        this.create_account_title = new Floating3DText(150, 'Create\nAccount', TYPE_TITLE, this.scene)
         this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 225, 40), new THREE.Vector3(200, 225, 55))
 
-        this.create_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_username = new Floating2DLabelInput(150, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100, 45)
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 
-        this.create_email = new Floating2DLabelInput(150, 16, 'Email :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_email = new Floating2DLabelInput(150, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
 
-        this.create_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_password = new Floating2DLabelInput(150, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_password.update_position(200, 50, 45)
 
-        this.create_repeat_password = new Floating2DLabelInput(150, 16, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_repeat_password = new Floating2DLabelInput(150, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_repeat_password.update_position(200, 25, 45)
 
-        this.create_account_button = new Floating2DText(150, 16, 'Create Account', TYPE_BUTTON, this.scene)
+        this.create_account_button = new Floating2DText(150, 'Create Account', TYPE_BUTTON, this.scene)
         this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
 
         // Create a list of the interactive floating texts.
@@ -151,9 +151,6 @@ LoginWorld.prototype = {
             this.create_repeat_password.floating_input,
             this.remember_username_checkbox.floating_2d_text
         ]
-
-        // Handle key press events.
-        document.addEventListener('keydown', this.on_key_press.bind(this), false)
 
         this.set_player_look_at = false
     },
@@ -183,15 +180,8 @@ LoginWorld.prototype = {
         }
     },
 
-    on_key_press: function(event) {
+    key_down_event: function(event) {
 
-        // TODO : Optimize this later. Maybe put all key events into a single key event handler class?
-        if (this.current_world === false) {
-            return
-        }
-
-        //console.log('KEYCODE IS : ')
-        //console.log(event)
         var i
 
         if (event.keyCode == 220) { // backslash
@@ -309,7 +299,6 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-        this.current_world = true
         if (this.player == null) {
             this.set_player_look_at = true
         } else {
@@ -327,6 +316,5 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
-        this.current_world = false
     }
 }

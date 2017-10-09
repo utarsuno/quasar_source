@@ -1,10 +1,10 @@
 'use strict'
 
-function GlobalAudio(player) {
+function AudioManager(player) {
     this.__init__(player)
 }
 
-GlobalAudio.prototype = {
+AudioManager.prototype = {
 
     player        : null,
 
