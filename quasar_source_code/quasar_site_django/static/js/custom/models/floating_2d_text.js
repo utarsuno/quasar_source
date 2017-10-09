@@ -156,7 +156,7 @@ Floating2DText.prototype = {
         this.text = text
         switch (this.type) {
         case TYPE_TITLE:
-            this.dynamic_texture.clear().drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height * 3, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height + this.height / 2, color)
             break
         case TYPE_CHECK_BOX:
             this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color)

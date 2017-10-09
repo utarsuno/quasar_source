@@ -5,8 +5,8 @@ function HomeWorld() {
 }
 
 const GLOBAL_TODOS_POSITION_X = 0
-const GLOBAL_TODOS_POSITION_Z = 500
-const GLOBAL_TODOS_POSITION_Y_TOP = 500
+const GLOBAL_TODOS_POSITION_Z = 750
+const GLOBAL_TODOS_POSITION_Y_TOP = 800
 
 HomeWorld.prototype = {
     scene: null,
@@ -37,7 +37,8 @@ HomeWorld.prototype = {
     // TODO : Add a global todos section.
 
     // Global todos.
-    global_todos_title: null,
+    global_tasks_title: null,
+    create_global_task_button: null,
 
 
     __init__: function() {
@@ -68,13 +69,19 @@ HomeWorld.prototype = {
         var light = new THREE.AmbientLight(0x404040, .2) // soft white light
         this.add_to_scene(light)
 
-        ////
+        /* __        __   __               ___  __   __   __   __
+          / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
+          \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */
 
-        this.global_todos_title = new Floating3DText(200, 32, 'Global Todos', TYPE_TITLE, this.scene)
-        this.global_todos_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 0, 0))
+        this.global_tasks_title = new Floating3DText(200, 32, 'Global Tasks', TYPE_TITLE, this.scene)
+        this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
 
+        this.create_global_task_button = new Floating2DText(64, 16, 'Create Entity', TYPE_BUTTON, this.scene)
+        this.create_global_task_button.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0))
 
-        ////
+        /* __             ___       __        __           __   ___
+          /  `  /\  |    |__  |\ | |  \  /\  |__)     /\  |__) |__   /\
+          \__, /~~\ |___ |___ | \| |__/ /~~\ |  \    /~~\ |  \ |___ /~~\ */
 
         this.button_3d = new Button3D(50, 'Hello Button', this.scene)
         this.button_3d.update_position_and_look_at(new THREE.Vector3(50, 50, 50), new THREE.Vector3(50, 150, 50))
