@@ -88,6 +88,9 @@ module.exports = {
         "COLOR_TEXT_HIGHLIGHT": false,
         "COLOR_TEXT_DEFAULT": false,
 
+        "COOKIE_SHOULD_REMEMBER_USERNAME": false,
+        "COOKIE_REMEMBERED_USERNAME": false,
+
         // Shortcuts.
         "l": false,
 

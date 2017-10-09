@@ -104,13 +104,16 @@ LoginWorld.prototype = {
         this.login_password = new Floating2DLabelInput(150, 16, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.remember_username_text = new Floating2DText(80, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
-        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(50, 50, 45), new THREE.Vector3(50, 50, 45))
+        this.remember_username_text = new Floating2DText(78, 16, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
         this.remember_username_checkbox = new CheckBox(20, true, this.scene)
-        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150, 50, 45), new THREE.Vector3(150, 50, 45))
+        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(100, 50, 45), new THREE.Vector3(100, 50, 45))
 
         this.login_button = new Floating2DText(150, 16, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(150 / 3, 25, 45), new THREE.Vector3(150 / 3, 25, 55))
+
+        this.login_button2 = new Floating2DText(25, 16, 'Login', TYPE_BUTTON, this.scene)
+        this.login_button2.update_position_and_look_at(new THREE.Vector3(150 / 3, 0, 45), new THREE.Vector3(150 / 3, 0, 55))
 
         // Create account fields.
         this.create_username = new Floating2DLabelInput(150, 16, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -125,8 +128,8 @@ LoginWorld.prototype = {
         //console.log('get cookie value is :')
         //console.log(get_cookie('should_remember_username'))
 
-        if (GLOBAL_COOKIES.get('should_remember_username') === undefined) {
-            GLOBAL_COOKIES.set('should_remember_username', this.remember_username_checkbox.status())
+        if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
+            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 
         // If the remember_username field is marked and we have a value then set the username default value.
@@ -303,11 +306,7 @@ LoginWorld.prototype = {
                         }
 
                     } else if (this.interactive_objects[i] === this.remember_username_checkbox.floating_2d_text) {
-
-
-                        console.log('CHECKBOX TOGGLE!!!!')
-
-
+                        this.remember_username_checkbox.toggle()
                     }
 
                 }

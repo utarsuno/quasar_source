@@ -43,6 +43,11 @@ CheckBox.prototype = {
             this.text = ''
         }
         this.floating_2d_text.update_text(this.text)
+        if (this.remember_username_checkbox.checked) {
+            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, true)
+        } else {
+            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, false)
+        }
     },
 
     status: function() {

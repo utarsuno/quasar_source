@@ -142,13 +142,13 @@ Floating2DText.prototype = {
     update_text_color: function(text, color) {
         switch (this.type) {
         case TYPE_TITLE:
-            this.dynamic_texture.clear().drawText(this.text, 0, 40, color)
+            this.dynamic_texture.clear().drawText(this.text, 0, 40 + 4, color)
             break
         case TYPE_BUTTON:
-            this.dynamic_texture.clear().drawText(this.text, this.width, 20, color)
+            this.dynamic_texture.clear().drawText(this.text, this.width, 20 + 4, color)
             break
         default:
-            this.dynamic_texture.clear().drawText(this.text, 0, 20, color)
+            this.dynamic_texture.clear().drawText(this.text, 0, 20 + 4, color)
         }
         this.current_text = text
         this.dynamic_texture.needsUpdate = true

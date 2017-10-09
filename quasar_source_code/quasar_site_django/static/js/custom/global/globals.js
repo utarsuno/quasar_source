@@ -13,6 +13,10 @@ const l = console.log
 var GLOBAL_AUDIO = null
 var GLOBAL_COOKIES = Cookies.noConflict()
 
+// Cookie keys.
+const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'
+const COOKIE_REMEMBERED_USERNAME      = 'remembered_username'
+
 // Floating2DText types.
 const TYPE_INPUT_PASSWORD = 1 // Input password field.
 const TYPE_INPUT_REGULAR  = 2 // Regular input field.
