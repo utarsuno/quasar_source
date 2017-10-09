@@ -299,7 +299,7 @@ LoginWorld.prototype = {
         this.player.set_position(new THREE.Vector3(130, 90, 300))
 
         if (this.got_camera === false) {
-            this.renderer_api.add_to_scene(this.fps_controls.get_object())
+            this.add_to_scene(this.player.fps_controls.get_object())
             this.got_camera = true
         }
 
