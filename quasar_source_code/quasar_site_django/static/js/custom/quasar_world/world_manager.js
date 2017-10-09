@@ -33,16 +33,16 @@ WorldManager.prototype = {
     },
 
     set_current_world: function(world) {
-        if (this.world !== null) {
-            this.world.exit_world()
-            this.world.current_world = false
+        if (this.current_world !== null) {
+            this.current_world.exit_world()
+            this.current_world.current_world = false
             this.previous_world = this.world
         }
         this.current_world = world
         this.current_world.current_world = true
         this.current_scene = this.world.scene
 
-        this.world.enter_world()
+        this.current_world.enter_world()
     },
 
     key_down_event: function(event) {
