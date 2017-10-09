@@ -39,7 +39,7 @@ CheckBox.prototype = {
         if (this.checked) {
             this.floating_2d_text.update_text('X')
         } else {
-            this.floating_2d_text.clear_text()
+            this.floating_2d_text.update_text('_')
         }
         console.log('Checkbox is currently : ' + this.floating_2d_text.get_text())
     },
