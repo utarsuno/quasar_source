@@ -25,7 +25,7 @@ CheckBox.prototype = {
         } else {
             this.text = ''
         }
-        this.floating_text = new Floating2DText(side_length, side_length, this.text, TYPE_CHECK_BOX, this.scene)
+        this.floating_2d_text = new Floating2DText(side_length, side_length, this.text, TYPE_CHECK_BOX, this.scene)
 
         this.being_looked_at = false
         this.being_engaged_with = false
