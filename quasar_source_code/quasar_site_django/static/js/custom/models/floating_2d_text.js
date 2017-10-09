@@ -147,6 +147,11 @@ Floating2DText.prototype = {
         return this.height * 2
     },
 
+    clear_text: function() {
+        this.dynamic_texture.clear()
+        this.dynamic_texture.needsUpdate = true
+    },
+
     update_text_color: function(text, color) {
         switch (this.type) {
         case TYPE_TITLE:
