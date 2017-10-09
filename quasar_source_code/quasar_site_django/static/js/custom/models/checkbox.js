@@ -36,5 +36,9 @@ CheckBox.prototype = {
             this.text = ''
         }
         this.floating_2d_text.update_text(this.text)
+    },
+
+    status: function() {
+        return !!this.checked
     }
 }

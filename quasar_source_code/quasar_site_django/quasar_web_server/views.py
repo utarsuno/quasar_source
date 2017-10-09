@@ -140,7 +140,7 @@ def POST_login(request):
 		response = HttpResponse('y')
 		response.set_cookie('remember_username', received_username)
 		return response
-	return result
+	return HttpResponse(result)
 
 
 @csrf_exempt

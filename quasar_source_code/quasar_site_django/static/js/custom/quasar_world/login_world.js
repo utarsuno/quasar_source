@@ -124,6 +124,10 @@ LoginWorld.prototype = {
         //console.log('get cookie value is :')
         //console.log(get_cookie('should_remember_username'))
 
+        if (Cookies.get('should_remember_username') === undefined) {
+            Cookies.set('should_remember_username', this.remember_username_checkbox.status())
+        }
+
         // If the remember_username field is marked and we have a value then set the username default value.
         //if (get_cookie('should_remember_username') === 'true') {
         //    var cookie = get_cookie('remember_username')
@@ -153,7 +157,9 @@ LoginWorld.prototype = {
             this.create_username.floating_input,
             this.create_email.floating_input,
             this.create_password.floating_input,
-            this.create_repeat_password.floating_input]
+            this.create_repeat_password.floating_input,
+            this.remember_username_checkbox
+        ]
 
         // Handle key press events.
         document.addEventListener('keydown', this.on_key_press.bind(this), false)
