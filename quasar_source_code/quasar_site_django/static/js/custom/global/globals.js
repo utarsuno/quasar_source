@@ -11,6 +11,7 @@ const l = console.log
 
 // Player object sets the global audio.
 var GLOBAL_AUDIO = null
+var GLOBAL_COOKIES = Cookies.noConflict()
 
 // Floating2DText types.
 const TYPE_INPUT_PASSWORD = 1 // Input password field.
@@ -40,7 +41,3 @@ function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
 }
-
-var global_cookies = Cookies.noConflict()
-l('Printing the cookies :')
-l(global_cookies.get())

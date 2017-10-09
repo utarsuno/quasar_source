@@ -121,10 +121,11 @@ LoginWorld.prototype = {
 
         console.log('The cookie is: ')
         console.log(document.cookie)
+        console.log(GLOBAL_COOKIES.get())
         //console.log('get cookie value is :')
         //console.log(get_cookie('should_remember_username'))
 
-        if (Cookies.get('should_remember_username') === undefined) {
+        if (GLOBAL_COOKIES.get('should_remember_username') === undefined) {
             Cookies.set('should_remember_username', this.remember_username_checkbox.status())
         }
 
