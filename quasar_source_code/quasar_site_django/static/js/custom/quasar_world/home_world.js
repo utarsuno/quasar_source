@@ -77,13 +77,13 @@ HomeWorld.prototype = {
           \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */
 
         this.global_tasks_title = new Floating3DText(256, 'Global Tasks', TYPE_TITLE, this.scene)
-        this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
+        this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z - 5), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
 
         this.create_global_task_button = new Floating2DText(64, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_global_task_button.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0))
 
 
-        this.entity_editor = new EntityEditor(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 2), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
+        this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 2), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         //this.entity_editor.set_to_invisible()
 
         /*

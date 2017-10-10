@@ -1,18 +1,22 @@
 'use strict'
 
-function EntityEditor(position, look_at, scene) {
-    this.__init__(position, look_at, scene)
+function EntityEditor(name, position, look_at, scene) {
+    this.__init__(name, position, look_at, scene)
 }
 
 EntityEditor.prototype = {
+
+    name: null,
 
     close_button: null,
     entity      : null,
 
     interactive_wall: null,
 
-    __init__: function(position, look_at, scene) {
+    __init__: function(name, position, look_at, scene) {
+        this.name = name
         this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
+        this.interactive_wall.add_title(this.name)
     },
 
     toggle_visibility: function() {

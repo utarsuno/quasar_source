@@ -20,6 +20,8 @@ InteractiveWall.prototype = {
 
     close_button: null,
 
+    title: null,
+
     __init__: function(w, h, position, look_at, scene) {
         this.is_visible = true
 
@@ -28,6 +30,8 @@ InteractiveWall.prototype = {
         this.height = h
         this.object3D = new THREE.Object3D()
 
+        this.look_at = look_at
+
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
         this.object3D.add(this.wall.mesh)
@@ -35,7 +39,7 @@ InteractiveWall.prototype = {
         // Close button.
         this.close_button = new CheckBox(true, this.scene)
         var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height / 2, position.z + 1)
-        var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z)
+        var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z + 2)
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
         //this.close_button.floating_2d_text.object3D.remove(this.close_button.floating_2d_text.mesh)
@@ -82,5 +86,12 @@ InteractiveWall.prototype = {
         var list_of_interactive_objects = []
         list_of_interactive_objects.push(this.close_button.floating_2d_text)
         return list_of_interactive_objects
+    },
+
+    add_title: function(title) {
+        this.title = new Floating3DText(this.width / 2, title, TYPE_TITLE, this.scene)
+        var title_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
+        var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z + 2)
+        this.title.update_position_and_look_at(title_position, title_look_at)
     }
 }
