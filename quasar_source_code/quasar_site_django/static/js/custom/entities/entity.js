@@ -43,6 +43,7 @@ Owner.prototype = {
 
 
         // TODO : load all entities here
+
     },
 
     entities_loaded_for_day: function(data) {

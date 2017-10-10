@@ -50,12 +50,23 @@ InteractiveWall.prototype = {
 
     set_to_invisible: function() {
         this.is_visible = false
+        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
         this.object3D.visible = false
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = false
+            }
+        })
     },
 
     toggle_visibility: function() {
         this.is_visible = !this.is_visible
         this.object3D.visible = this.is_visible
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = this.is_visible
+            }
+        })
     },
 
     get_all_interactive_objects: function() {
