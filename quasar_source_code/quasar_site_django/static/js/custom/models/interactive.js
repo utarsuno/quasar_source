@@ -1,58 +1,50 @@
 'use strict'
 
-Interactive.prototype = {
+function Interactive() {
 
-    engage_function    : null,
-    disengage_function : null,
+    // Function events.
+    this.engage_function    = false
+    this.disengage_function = false
 
     // States.
-    being_looked_at    : null,
-    being_engaged_with : null,
+    this.being_looked_at    = false
+    this.being_engaged_with = false
 
-    __constructor__: function() {
-        this.being_looked_at    = false
-        this.being_engaged_with = false
-    },
-
-    look_away: function() {
+    this.look_away = function() {
         this.being_looked_at = false
         this.state_change_look_at(false)
-    },
+    }
 
-    look_at: function() {
+    this.look_at = function() {
         this.being_looked_at = true
         this.state_change_look_at(true)
-    },
+    }
 
-    disengage: function(player) {
+    this.disengage = function(player) {
         this.being_engaged_with = false
         this.state_change_engage(false, player)
         if (this.disengage_function !== null) {
             this.disengage_function()
         }
-    },
+    }
 
-    is_engaged: function() {
+    this.is_engaged = function() {
         return this.being_engaged_with
-    },
+    }
 
-    engage: function(player) {
+    this.engage = function(player) {
         this.being_engaged_with = true
         this.state_change_engage(true, player)
         if (this.engage_function !== null) {
             this.engage_function()
         }
-    },
+    }
 
-    set_engage_function: function(engage_function) {
+    this.set_engage_function = function(engage_function) {
         this.engage_function = engage_function
-    },
+    }
 
-    set_disengage_function: function(disengage_function) {
+    this.set_disengage_function = function(disengage_function) {
         this.disengage_function = disengage_function
     }
-}
-
-function Interactive() {
-    this.__constructor__()
 }
