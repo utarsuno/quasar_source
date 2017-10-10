@@ -48,21 +48,6 @@ def GET_log_formulas(request):
 	return render(request, TEMPLATE_LOG_FORMULAS)
 
 
-def GET_math_220(request):
-	"""Returns notes for diff eq."""
-	return render(request, TEMPLATE_MATH_220)
-
-
-def GET_math_310(request):
-	"""Returns notes for math 310."""
-	return render(request, TEMPLATE_MATH_310)
-
-
-def GET_cs_425(request):
-	"""Returns notes for cs 425."""
-	return render(request, TEMPLATE_CS_425)
-
-
 def GET_web_socket(request):
 	"""TEMP test page."""
 	return render(request, TEMPLATE_WEB_SOCKET)

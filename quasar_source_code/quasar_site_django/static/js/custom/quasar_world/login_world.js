@@ -24,9 +24,6 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
-    //
-    got_camera: null,
-
     login_button_clicked: function() {
         var error = false
         var error_message = ''
@@ -117,13 +114,6 @@ LoginWorld.prototype = {
         } else {
             this.ajax_status.update_text('Error: ' + data)
         }
-        /*
-        OWNER_NAME       = 'owner'
-        OWNER_PASSWORD   = 'password'
-        OWNER_EMAIL      = 'email'
-        OWNER_ID         = 'owner_id'
-        OWNER_MANAGER_ID = 'manager_id'
-         */
     },
 
     remember_username_clicked: function() {
@@ -142,9 +132,6 @@ LoginWorld.prototype = {
 
         // Inherit from World.
         World.call(this)
-
-        this.got_camera = false
-
 
         // Going to try to create a plane here.
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 50, 50)
@@ -247,11 +234,6 @@ LoginWorld.prototype = {
         this.current_world = true
 
         this.player.set_position(new THREE.Vector3(130, 90, 300))
-
-        if (this.got_camera === false) {
-            this.add_to_scene(this.player.fps_controls.get_object())
-            this.got_camera = true
-        }
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {

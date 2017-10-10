@@ -9,16 +9,7 @@ const GLOBAL_TODOS_POSITION_Z = -1000
 const GLOBAL_TODOS_POSITION_Y_TOP = 800
 
 HomeWorld.prototype = {
-    // World variables.
-    interactive_objects: null,
-    scene: null,
-    player: null,
-
     hello_message: null,
-
-    // State variables.
-    got_camera: null,
-    current_world: null,
 
     //
     day_entities: null,
@@ -32,7 +23,6 @@ HomeWorld.prototype = {
     //
     days: null,
 
-
     //
     button_3d: null,
 
@@ -43,14 +33,13 @@ HomeWorld.prototype = {
     global_tasks_title: null,
     create_global_task_button: null,
 
+    create_global_task_button_clicked: function() {
+        this.entity_editor.set_to_visible()
+    },
 
     __init__: function() {
 
-        this.current_world = false
-
-        this.got_camera = false
-
-        this.scene = new THREE.Scene()
+        World.call(this)
 
         // Going to try to create a plane here.
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
@@ -82,6 +71,7 @@ HomeWorld.prototype = {
         this.create_global_task_button = new Floating2DText(64, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_global_task_button.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0))
 
+        this.create_global_task_button.set_engage_function(this.create_global_task_button_clicked.bind(this))
 
         this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 2), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
@@ -179,53 +169,8 @@ HomeWorld.prototype = {
         }
     },
 
-    set_player: function(player) {
-        this.player = player
-    },
-
     key_down_event: function(event) {
-        var i
-        if (event.keyCode == 220) { // backslash
-            if (this.player.is_engaged()) {
-                for (i = 0; i < this.interactive_objects.length; i++) {
-                    if (this.interactive_objects[i].being_looked_at) {
-                        this.interactive_objects[i].disengage(this.player)
-                    }
-                }
-            }
-        } else if (event.keyCode == 9) { // tab
-            // Oh, player.look_at() needs to be working first.
-            //if (this.player.is_engaged()) {
-            //}
-
-            event.preventDefault()
-            event.stopPropagation()
-            // Prevent default and prevent
-        }
-
-        for (i = 0; i < this.interactive_objects.length; i++) {
-            if (this.interactive_objects[i].is_engaged()) {
-                this.interactive_objects[i].parse_keycode(event)
-            }
-        }
-
-        if (event.keyCode == 69) { // e
-            for (i = 0; i < this.interactive_objects.length; i++) {
-                if (this.interactive_objects[i].being_looked_at) {
-                    this.interactive_objects[i].engage(this.player)
-
-                    // Create global task button.
-                    if (this.interactive_objects[i] === this.create_global_task_button) {
-                        this.entity_editor.set_to_visible()
-
-                        // Close entity editor button.
-                        // TODO : THIS is not currently working
-                    } else if (this.interactive_objects[i] === this.entity_editor.interactive_wall.close_button) {
-                        this.entity_editor.set_to_invisible()
-                    }
-                }
-            }
-        }
+        this.key_down_event_for_interactive_objects(event)
     },
 
     add_entity: function(entity_string, day_index) {
@@ -244,31 +189,11 @@ HomeWorld.prototype = {
     },
 
     update: function() {
-        var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
-
-        for (var i = 0; i < this.interactive_objects.length; i++) {
-            if (this.interactive_objects[i] !== this.previously_looked_at) {
-                this.interactive_objects[i].look_away()
-            }
-            if (this.interactive_objects[i].is_visible) {
-                var intersections = raycaster.intersectObject(this.interactive_objects[i].object3D, true)
-                if (intersections.length > 0) {
-                    this.interactive_objects[i].look_at()
-                    this.previously_looked_at = this.interactive_objects[i]
-                }
-            }
-        }
-    },
-
-    add_to_scene: function(object) {
-        this.scene.add(object)
+        this.update_interactive_objects()
     },
 
     enter_world: function() {
-        if (this.got_camera === false) {
-            this.add_to_scene(this.player.fps_controls.get_object())
-            this.got_camera = true
-        }
+        this.current_world = true
         if (this.hello_message === null) {
             this.ajax_status.update_text('Welcome back ' + this.player.get_username())
         }
@@ -276,6 +201,7 @@ HomeWorld.prototype = {
     },
 
     exit_world: function() {
+        this.current_world = false
     }
 }
 

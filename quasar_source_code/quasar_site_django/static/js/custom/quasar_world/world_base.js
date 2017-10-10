@@ -17,6 +17,7 @@ function World() {
         this.player = player
         this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
         this.currently_looked_at_object = null
+        this.add_to_scene(this.player.fps_controls.get_object())
     }
 
     this.add_interactive_object = function(interactive_object) {
@@ -65,7 +66,9 @@ function World() {
             event.stopPropagation()
         }
         if (this.currently_looked_at_object !== null) {
-            this.currently_looked_at_object.parse_keycode(event)
+            if (this.currently_looked_at_object.is_engaged()) {
+                this.currently_looked_at_object.parse_keycode(event)
+            }
         }
         if (event.keyCode == KEY_CODE_E) {
             if (this.currently_looked_at_object !== null) {

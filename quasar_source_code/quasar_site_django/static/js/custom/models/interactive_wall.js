@@ -22,6 +22,10 @@ InteractiveWall.prototype = {
 
     title: null,
 
+    close_button_clicked: function() {
+        this.set_to_invisible()
+    },
+
     __init__: function(w, h, position, look_at, scene) {
         this.is_visible = true
 
@@ -41,6 +45,8 @@ InteractiveWall.prototype = {
         var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height / 2, position.z + 1)
         var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z + 2)
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
+
+        this.close_button.floating_2d_text.set_engage_function(this.close_button_clicked.bind(this))
 
         //this.close_button.floating_2d_text.object3D.remove(this.close_button.floating_2d_text.mesh)
         //this.close_button.remove_floating_2d_texts_object3D()
