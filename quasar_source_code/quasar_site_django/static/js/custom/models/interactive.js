@@ -1,7 +1,7 @@
 'use strict'
 
 function Interactive() {
-    this.__init__()
+    this.__constructor__()
 }
 
 Interactive.prototype = {
@@ -13,7 +13,7 @@ Interactive.prototype = {
     being_looked_at    : null,
     being_engaged_with : null,
 
-    __init__: function() {
+    __constructor__: function() {
         this.being_looked_at    = false
         this.being_engaged_with = false
     },
