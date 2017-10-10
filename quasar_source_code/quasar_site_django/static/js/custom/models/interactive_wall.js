@@ -4,6 +4,7 @@ function InteractiveWall(w, h, position, look_at, scene) {
     this.__init__(w, h, position, look_at, scene)
 }
 
+// TODO : NOTE : Only works in a single orientation. At some point this class will go through heavy refactoring.
 InteractiveWall.prototype = {
 
     width : null,
@@ -33,7 +34,9 @@ InteractiveWall.prototype = {
 
         // Close button.
         this.close_button = new CheckBox(true, this.scene)
-        this.close_button.update_position_and_look_at(position, look_at)
+        var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height, position.z + 1)
+        var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height, look_at.z)
+        this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
 
         this.object_3d.position.x = position.x + this.width / 2
