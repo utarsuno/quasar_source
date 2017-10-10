@@ -84,7 +84,7 @@ HomeWorld.prototype = {
 
 
         this.entity_editor = new EntityEditor(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
-
+        this.entity_editor.set_to_invisible()
 
         /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)
@@ -206,7 +206,9 @@ HomeWorld.prototype = {
                     this.interactive_objects[i].engage(this.player)
 
                     if (this.interactive_objects[i] === this.create_global_task_button) {
-                        console.log('Display the entities!')
+
+                        this.entity_editor.toggle_visibility()
+                        //console.log('Display the entities!')
                     }
                 }
             }

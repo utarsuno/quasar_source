@@ -34,8 +34,8 @@ InteractiveWall.prototype = {
 
         // Close button.
         this.close_button = new CheckBox(true, this.scene)
-        var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height, position.z + 1)
-        var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height, look_at.z)
+        var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height / 2, position.z + 1)
+        var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z)
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
 
@@ -45,6 +45,11 @@ InteractiveWall.prototype = {
         this.object_3d.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
 
         this.scene.add(this.object_3d)
+    },
+
+    set_to_invisible: function() {
+        this.is_visible = false
+        this.object_3d.visible = false
     },
 
     toggle_visibility: function() {
