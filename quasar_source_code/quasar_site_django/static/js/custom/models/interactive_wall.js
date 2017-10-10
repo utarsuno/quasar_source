@@ -84,7 +84,9 @@ InteractiveWall.prototype = {
         }
         for (var i = 0; i < this.rows.length; i++) {
             this.rows[i][0].set_to_invisible()
-            this.rows[i][1].set_to_invisible()
+            if (this.rows[i][1] !== null) {
+                this.rows[i][1].set_to_invisible()
+            }
         }
     },
 
@@ -103,7 +105,9 @@ InteractiveWall.prototype = {
         }
         for (var i = 0; i < this.rows.length; i++) {
             this.rows[i][0].set_to_visible()
-            this.rows[i][1].set_to_visible()
+            if (this.rows[i][1] !== null) {
+                this.rows[i][1].set_to_visible()
+            }
         }
     },
 
@@ -123,7 +127,9 @@ InteractiveWall.prototype = {
             }
             for (var i = 0; i < this.rows.length; i++) {
                 this.rows[i][0].set_to_visible()
-                this.rows[i][1].set_to_visible()
+                if (this.rows[i][1] !== null) {
+                    this.rows[i][1].set_to_visible()
+                }
             }
         } else {
             this.close_button.set_to_invisible()
@@ -132,7 +138,9 @@ InteractiveWall.prototype = {
             }
             for (var i = 0; i < this.rows.length; i++) {
                 this.rows[i][0].set_to_invisible()
-                this.rows[i][1].set_to_invisible()
+                if (this.rows[i][1] !== null) {
+                    this.rows[i][1].set_to_invisible()
+                }
             }
         }
     },
@@ -149,20 +157,37 @@ InteractiveWall.prototype = {
     },
 
     add_input_row: function(input_name) {
-        var row_length = this.rows.length + 1
+        var row_length = this.rows.length + 3
         var row_title = new Floating2DText(this.width / 3, input_name, TYPE_INPUT_REGULAR, this.scene)
         var y_offset = row_length * row_title.height + (2 * row_length)
         var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_title.update_position_and_look_at(row_position, row_look_at)
 
-        var row_input = new Floating2DText((this.width / 3) * 2, input_name, TYPE_INPUT_REGULAR, this.scene)
+        var row_input = new Floating2DText((this.width / 3) * 2, '', TYPE_INPUT_REGULAR, this.scene)
         var row_input_position = new THREE.Vector3(this.object3D.position.x - this.width / 2 + this.width / 3, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
-        var row_input_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
+        var row_input_look_at = new THREE.Vector3(this.look_at.x + this.width / 3, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)
+
+        row_input.also_color_this_floating_text(row_title)
 
         this.rows.push([row_title, row_input])
 
         this.list_of_interactive_objects.push(row_input)
+    },
+
+    add_input_button: function(button_name) {
+        var row_length = this.rows.length + 3
+        var row_button = new Floating2DText(this.width / 3, button_name, TYPE_BUTTON, this.scene)
+        var y_offset = row_length * row_button.height + (2 * row_length)
+
+        var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
+        var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
+
+        row_button.update_position_and_look_at(row_position, row_look_at)
+
+        this.rows.push([row_button, null])
+
+        this.list_of_interactive_objects.push(row_button)
     }
 }

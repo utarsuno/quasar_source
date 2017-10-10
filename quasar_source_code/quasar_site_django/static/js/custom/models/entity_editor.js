@@ -23,7 +23,10 @@ EntityEditor.prototype = {
         this.interactive_wall.add_input_row('name')
         this.interactive_wall.add_input_row('importance')
         this.interactive_wall.add_input_row('difficulty')
-        this.interactive_wall.add_input_row('time-needed')
+        this.interactive_wall.add_input_row('time needed')
+        this.interactive_wall.add_input_row('due date')
+
+        this.interactive_wall.add_input_button('create')
     },
 
     toggle_visibility: function() {
