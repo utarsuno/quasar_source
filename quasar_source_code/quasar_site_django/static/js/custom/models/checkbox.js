@@ -73,4 +73,5 @@ CheckBox.prototype = {
     engage: function(player) {
         player.disengage()
     }
+
 }
