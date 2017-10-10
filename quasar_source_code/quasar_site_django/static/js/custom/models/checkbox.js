@@ -72,6 +72,18 @@ CheckBox.prototype = {
 
     engage: function(player) {
         player.disengage()
+    },
+
+    set_to_invisible: function() {
+        this.floating_2d_text.set_to_invisible()
+    },
+
+    set_to_visible: function() {
+        this.floating_2d_text.set_to_visible()
+    },
+
+    toggle_visibility: function() {
+        this.floating_2d_text.toggle_visibility()
     }
 
 }
