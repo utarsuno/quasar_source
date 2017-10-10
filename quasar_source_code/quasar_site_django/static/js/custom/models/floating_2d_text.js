@@ -59,8 +59,6 @@ Floating2DText.prototype = {
     wireframe: null,
 
     // States.
-    being_looked_at: null,
-    being_engaged_with: null,
     is_visible: null,
 
     // Properties.
@@ -80,9 +78,6 @@ Floating2DText.prototype = {
         this.text               = text
         this._hidden_text       = ''
 
-        this.being_looked_at    = false
-        this.being_engaged_with = false
-
         this.original_border_color = 0xFFC0CB
 
         this.type = type
@@ -95,6 +90,9 @@ Floating2DText.prototype = {
 
         this.is_visible = true
 
+        // Call parent constructor of Interactive.
+        Interactive.call(this, this)
+
         this.create()
     },
 
@@ -105,45 +103,36 @@ Floating2DText.prototype = {
         return this.text
     },
 
-    look_at: function() {
-        if (this.being_looked_at === false) {
+    /* __  ___      ___  ___     __                  __   ___  __
+      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    state_change_look_at: function(being_looked_at) {
+        if (being_looked_at) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
             this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_HIGHLIGHT)
             }
-        }
-        this.being_looked_at = true
-    },
-
-    look_away: function() {
-        if (this.being_looked_at) {
+        } else {
             this.wireframe.material.color.setHex(this.original_border_color)
             this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_DEFAULT)
             }
         }
-        this.being_looked_at = false
     },
 
-    disengage: function(player) {
-        if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-            this.being_engaged_with = false
-            player.disengage()
-        }
-    },
-
-    is_engaged: function() {
-        return this.being_engaged_with
-    },
-
-    engage: function(player) {
-        if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-            this.being_engaged_with = true
-            player.engage()
+    state_change_engage: function(being_engaged_with, player) {
+        if (being_engaged_with) {
+            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+                player.engage()
+            } else {
+                this.being_engaged_with = false
+            }
         } else {
-            player.disengage()
+            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+                player.disengage()
+            }
         }
     },
 

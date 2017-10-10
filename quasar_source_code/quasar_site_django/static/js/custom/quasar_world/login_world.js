@@ -12,7 +12,8 @@ LoginWorld.prototype = {
 
     player: null,
 
-    previously_looked_at: null,
+    raycaster                 : null,
+    currently_looked_at_object: null,
 
     // Create account fields.
     create_username: null,
@@ -37,6 +38,36 @@ LoginWorld.prototype = {
     //
     got_camera: null,
 
+    login_button_clicked: function() {
+        var error = false
+        var error_message = ''
+
+        var login_username_text = this.login_username.get_input_text()
+        var login_password_text = this.login_password.get_input_text()
+
+        // TODO : Create a class to handle this kind of logic.
+
+        if (login_username_text.length < 4) {
+            error = true
+            error_message = 'Username must be at least 4 characters.'
+        }
+        if (!error) {
+            if (login_password_text.length < 4) {
+                error = true
+                error_message = 'Passwords are at least 4 characters!'
+            }
+        }
+
+        if (!error) {
+            this.ajax_status.update_text('sending login request to server')
+            this.attempted_username = login_username_text
+            this.attempted_password = login_password_text
+            this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
+        } else {
+            this.ajax_status.update_text('Error : ' + error_message)
+        }
+    },
+
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
@@ -46,6 +77,48 @@ LoginWorld.prototype = {
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
             this.ajax_status.update_text('Error: ' + data)
+        }
+    },
+
+    create_account_button_clicked: function() {
+        var error = false
+        var error_message = ''
+
+        // TODO : Eventually make input parsing live for the user.
+        var email_text = this.create_email.get_input_text()
+        var username_text = this.create_username.get_input_text()
+        var password_text = this.create_password.get_input_text()
+
+        this.attempted_password = this.create_password.get_input_text()
+
+        var password_repeat_text = this.create_repeat_password.get_input_text()
+
+        if (!is_email_valid(email_text)) {
+            error = true
+            error_message = 'invalid email format'
+        }
+        if (!error) {
+            if (username_text.length < 4) {
+                error = true
+                error_message = 'username text length < 4'
+            }
+        }
+        if (!error) {
+            if (password_text.length < 4 || password_text !== password_repeat_text) {
+                error = true
+                if (password_text.length < 4) {
+                    error_message = 'password length < 4'
+                } else {
+                    error_message = 'passwords do not match'
+                }
+            }
+        }
+
+        if (!error) {
+            this.ajax_status.update_text('Sending request to server.')
+            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
+        } else {
+            this.ajax_status.update_text('Error : ' + error_message)
         }
     },
 
@@ -62,6 +135,15 @@ LoginWorld.prototype = {
         OWNER_ID         = 'owner_id'
         OWNER_MANAGER_ID = 'manager_id'
          */
+    },
+
+    remember_username_clicked: function() {
+        this.remember_username_checkbox.toggle()
+        if (this.remember_username_checkbox.checked) {
+            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
+        } else {
+            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'false')
+        }
     },
 
     __init__: function() {
@@ -117,8 +199,13 @@ LoginWorld.prototype = {
         this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
+        this.remember_username_checkbox.set_engage_function(this.remember_username_clicked.bind(this))
+
         this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
+
+        this.login_button.set_engage_function(this.login_button_clicked.bind(this))
+
         /* __   __   ___      ___  ___          __   __   __            ___
           /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
           \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
@@ -144,6 +231,8 @@ LoginWorld.prototype = {
         this.create_account_button = new Floating2DText(150, 'Create Account', TYPE_BUTTON, this.scene)
         this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
 
+        this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
+
         // Create a list of the interactive floating texts.
         this.interactive_objects = [
             this.login_button,
@@ -161,144 +250,66 @@ LoginWorld.prototype = {
     set_player: function(player) {
         this.player = player
         this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+        this.currently_looked_at_object = null
     },
 
     add_to_scene: function(object) {
         this.scene.add(object)
     },
 
+    // TODO : move part of the logic to a World class.
     update: function() {
-        //var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
         this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
+        var match_was_found = false
+
+        // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
-            if (this.interactive_objects[i] !== this.previously_looked_at) {
-                this.interactive_objects[i].look_away()
+            // The true parameter indicates recursive search.
+            if (this.raycaster.intersectObject(this.interactive_objects[i].object3D, true).length > 0) {
+                // A new object is being looked at, so look away from the old one and look at new one.
+                if (this.currently_looked_at_object !== this.interactive_objects[i]) {
+                    if (this.currently_looked_at_object !== null) {
+                        this.currently_looked_at_object.look_away()
+                    }
+                    this.currently_looked_at_object = this.interactive_objects[i]
+                    this.currently_looked_at_object.look_at()
+                }
+                // Regardless a match was found and only one intersection can occur so break.
+                match_was_found = true
+                break
             }
-            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
-            if (intersections.length > 0) {
-                this.interactive_objects[i].look_at()
-                this.previously_looked_at = this.interactive_objects[i]
-            }
+        }
+        // If no match was found but 'currently_looked_at_object' is not null then set it to null.
+        if (!match_was_found && this.currently_looked_at_object !== null) {
+            this.currently_looked_at_object.look_away()
+            this.currently_looked_at_object = null
         }
     },
 
+    // TODO : move part of the logic to a World class.
     key_down_event: function(event) {
-
-        var i
-
-        if (event.keyCode == 220) { // backslash
-            if (this.player.is_engaged()) {
-                for (i = 0; i < this.interactive_objects.length; i++) {
-                    if (this.interactive_objects[i].being_looked_at) {
-                        this.interactive_objects[i].disengage(this.player)
-                    }
+        if (event.keyCode == KEY_CODE_BACK_SLASH) {
+            if (this.currently_looked_at_object !== null) {
+                if (this.currently_looked_at_object.is_engaged()) {
+                    this.currently_looked_at_object.disengage(this.player)
                 }
             }
-        } else if (event.keyCode == 9) { // tab
-            // Oh, player.look_at() needs to be working first.
-            //if (this.player.is_engaged()) {
-            //}
-
+        } else if (event.keyCode == KEY_CODE_TAB) {
+            // TODO : Tab will cycle through interactive objects shifting the players view to look at each one.
             event.preventDefault()
             event.stopPropagation()
-            // Prevent default and prevent
         }
-
-        for (i = 0; i < this.interactive_objects.length; i++) {
-            if (this.interactive_objects[i].is_engaged()) {
-                this.interactive_objects[i].parse_keycode(event)
-            }
+        if (this.currently_looked_at_object !== null) {
+            this.currently_looked_at_object.parse_keycode(event)
         }
-
-        if (event.keyCode == 69) { // e
-            for (i = 0; i < this.interactive_objects.length; i++) {
-                if (this.interactive_objects[i].being_looked_at) {
-                    this.interactive_objects[i].engage(this.player)
-
-                    var error = false
-                    var error_message = ''
-
-                    if (this.interactive_objects[i] === this.create_account_button) {
-
-                        // TODO : Eventually make input parsing live for the user.
-                        var email_text = this.create_email.get_input_text()
-                        var username_text = this.create_username.get_input_text()
-                        var password_text = this.create_password.get_input_text()
-
-                        this.attempted_password = this.create_password.get_input_text()
-
-                        var password_repeat_text = this.create_repeat_password.get_input_text()
-
-                        if (!is_email_valid(email_text)) {
-                            error = true
-                            error_message = 'invalid email format'
-                        }
-                        if (!error) {
-                            if (username_text.length < 4) {
-                                error = true
-                                error_message = 'username text length < 4'
-                            }
-                        }
-                        if (!error) {
-                            if (password_text.length < 4 || password_text !== password_repeat_text) {
-                                error = true
-                                if (password_text.length < 4) {
-                                    error_message = 'password length < 4'
-                                } else {
-                                    error_message = 'passwords do not match'
-                                }
-                            }
-                        }
-
-                        if (!error) {
-                            this.ajax_status.update_text('Sending request to server.')
-                            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
-                        } else {
-                            this.ajax_status.update_text('Error : ' + error_message)
-                        }
-
-                    } else if (this.interactive_objects[i] === this.login_button) {
-
-                        var login_username_text = this.login_username.get_input_text()
-                        var login_password_text = this.login_password.get_input_text()
-
-                        // TODO : Create a class to handle this kind of logic.
-
-                        if (login_username_text.length < 4) {
-                            error = true
-                            error_message = 'Username must be at least 4 characters.'
-                        }
-                        if (!error) {
-                            if (login_password_text.length < 4) {
-                                error = true
-                                error_message = 'Passwords are at least 4 characters!'
-                            }
-                        }
-
-                        if (!error) {
-                            this.ajax_status.update_text('sending login request to server')
-                            this.attempted_username = login_username_text
-                            this.attempted_password = login_password_text
-                            this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
-                        } else {
-                            this.ajax_status.update_text('Error : ' + error_message)
-                        }
-
-                    } else if (this.interactive_objects[i] === this.remember_username_checkbox.floating_2d_text) {
-                        this.remember_username_checkbox.toggle()
-
-                        if (this.remember_username_checkbox.checked) {
-                            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
-                        } else {
-                            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'false')
-                        }
-                    }
-
+        if (event.keyCode == KEY_CODE_E) {
+            if (this.currently_looked_at_object !== null) {
+                if (!this.currently_looked_at_object.is_engaged()) {
+                    this.currently_looked_at_object.engage(this.player)
                 }
             }
         }
-
     },
 
     enter_world: function() {

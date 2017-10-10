@@ -69,6 +69,28 @@ Floating3DText.prototype = {
         return this.text
     },
 
+    /* __  ___      ___  ___     __                  __   ___  __
+      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    state_change_look_at: function(being_looked_at) {
+        if (being_looked_at) {
+            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
+            this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
+            }
+        } else {
+            this.wireframe.material.color.setHex(this.original_border_color)
+            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
+            }
+        }
+    },
+
+    state_change_engage: function(being_engaged_with) {
+    },
+
     look_at: function() {
         if (this.being_looked_at === false) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
@@ -89,24 +111,6 @@ Floating3DText.prototype = {
             }
         }
         this.being_looked_at = false
-    },
-
-    disengage: function(player) {
-        if (this.type != TYPE_BUTTON) {
-            this.being_engaged_with = false
-            player.disengage()
-        }
-    },
-
-    is_engaged: function() {
-        return this.being_engaged_with
-    },
-
-    engage: function(player) {
-        if (this.type != TYPE_BUTTON) {
-            this.being_engaged_with = true
-            player.engage()
-        }
     },
 
     update_just_color: function(color_arg) {

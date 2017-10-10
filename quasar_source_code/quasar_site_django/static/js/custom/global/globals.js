@@ -41,6 +41,40 @@ const COLOR_TEXT_DEFAULT   = '#67ffbf'
 const COLOR_WHITE          = '#ffffff'
 const COLOR_BLACK          = '#000000'
 
+// Key-down key-codes.
+const KEY_CODE_A          = 65
+const KEY_CODE_B          = 66
+const KEY_CODE_C          = 67
+const KEY_CODE_D          = 68
+const KEY_CODE_E          = 69
+const KEY_CODE_F          = 70
+const KEY_CODE_G          = 71
+const KEY_CODE_H          = 72
+const KEY_CODE_I          = 73
+const KEY_CODE_J          = 74
+const KEY_CODE_K          = 75
+const KEY_CODE_L          = 76
+const KEY_CODE_M          = 77
+const KEY_CODE_N          = 78
+const KEY_CODE_O          = 79
+const KEY_CODE_P          = 80
+const KEY_CODE_Q          = 81
+const KEY_CODE_R          = 82
+const KEY_CODE_S          = 83
+const KEY_CODE_T          = 84
+const KEY_CODE_U          = 85
+const KEY_CODE_V          = 86
+const KEY_CODE_W          = 87
+const KEY_CODE_X          = 88
+const KEY_CODE_Y          = 89
+const KEY_CODE_Z          = 90
+const KEY_CODE_TAB        = 9
+const KEY_CODE_BACK_SLASH = 220
+
+/* __        __   __                ___            __  ___    __        __
+  / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
+  \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+
 // Base code from : https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript
 function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
