@@ -24,12 +24,16 @@ InteractiveWall.prototype = {
 
     rows: null,
 
+    list_of_interactive_objects: null,
+
     close_button_clicked: function() {
         this.set_to_invisible()
     },
 
     __init__: function(w, h, position, look_at, scene) {
         this.is_visible = true
+
+        this.list_of_interactive_objects = []
 
         this.scene = scene
         this.width = w
@@ -49,6 +53,7 @@ InteractiveWall.prototype = {
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
         this.close_button.floating_2d_text.set_engage_function(this.close_button_clicked.bind(this))
+        this.list_of_interactive_objects.push(this.close_button.floating_2d_text)
 
         //this.close_button.floating_2d_text.object3D.remove(this.close_button.floating_2d_text.mesh)
         //this.close_button.remove_floating_2d_texts_object3D()
@@ -140,7 +145,7 @@ InteractiveWall.prototype = {
         var row_input_position = new THREE.Vector3(this.object3D.position.x - this.width / 2 + this.width / 3, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
         var row_input_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)
-
-        // TODO : interactive objects need to be updated.
+        
+        this.list_of_interactive_objects.push(row_input)
     }
 }
