@@ -179,6 +179,10 @@ HomeWorld.prototype = {
         }
     },
 
+    set_player: function(player) {
+        this.player = player
+    },
+
     key_down_event: function(event) {
         var i
         if (event.keyCode == 220) { // backslash
@@ -215,6 +219,7 @@ HomeWorld.prototype = {
                         this.entity_editor.set_to_visible()
 
                         // Close entity editor button.
+                        // TODO : THIS is not currently working
                     } else if (this.interactive_objects[i] === this.entity_editor.interactive_wall.close_button) {
                         this.entity_editor.set_to_invisible()
                     }

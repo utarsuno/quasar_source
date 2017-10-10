@@ -158,12 +158,17 @@ LoginWorld.prototype = {
         ]
     },
 
+    set_player: function(player) {
+        this.player = player
+        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+    },
+
     add_to_scene: function(object) {
         this.scene.add(object)
     },
 
     update: function() {
-        var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+        //var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i] !== this.previously_looked_at) {

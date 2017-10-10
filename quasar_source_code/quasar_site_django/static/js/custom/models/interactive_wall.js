@@ -115,5 +115,9 @@ InteractiveWall.prototype = {
         var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
         var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z + 2)
         this.title.update_position_and_look_at(title_position, title_look_at)
+    },
+
+    add_input_row: function(input_name) {
+
     }
 }

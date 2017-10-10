@@ -19,7 +19,8 @@ EntityEditor.prototype = {
         this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
         this.interactive_wall.add_title(this.name)
 
-        
+        this.interactive_wall.add_input_row('name')
+
     },
 
     toggle_visibility: function() {

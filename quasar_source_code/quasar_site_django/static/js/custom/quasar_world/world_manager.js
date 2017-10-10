@@ -24,8 +24,8 @@ WorldManager.prototype = {
 
     set_player: function(player) {
         this.player = player
-        this.world_login.player = player
-        this.world_home.player = player
+        this.world_login.set_player(player)
+        this.world_home.set_player(player)
     },
 
     update_current_scene: function() {
