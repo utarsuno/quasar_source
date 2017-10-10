@@ -34,6 +34,10 @@ WorldManager.prototype = {
 
     set_current_world: function(world) {
         if (this.current_world !== null) {
+
+            // Before exiting the world make sure to remove the camera reference.
+            this.current_world.remove_from_scene(this.player.fps_controls.get_object())
+
             this.current_world.exit_world()
             this.current_world.current_world = false
             this.previous_world = this.current_world
@@ -42,6 +46,8 @@ WorldManager.prototype = {
         this.current_world.current_world = true
         this.current_scene = this.current_world.scene
 
+        // Before adding the world make sure to add the camera reference.
+        this.current_world.add_to_scene(this.player.fps_controls.get_object())
         this.current_world.enter_world()
     },
 

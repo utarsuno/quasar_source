@@ -13,11 +13,14 @@ function World() {
         this.scene.add(object)
     }
 
+    this.remove_from_scene = function(object) {
+        this.scene.remove(object)
+    }
+
     this.set_player =  function(player) {
         this.player = player
         this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
         this.currently_looked_at_object = null
-        this.add_to_scene(this.player.fps_controls.get_object())
     }
 
     this.add_interactive_object = function(interactive_object) {
