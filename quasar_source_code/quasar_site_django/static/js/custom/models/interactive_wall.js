@@ -138,9 +138,7 @@ InteractiveWall.prototype = {
     },
 
     get_all_interactive_objects: function() {
-        var list_of_interactive_objects = []
-        list_of_interactive_objects.push(this.close_button.floating_2d_text)
-        return list_of_interactive_objects
+        return this.list_of_interactive_objects
     },
 
     add_title: function(title) {
@@ -163,7 +161,7 @@ InteractiveWall.prototype = {
         var row_input_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)
 
-        this.rows.push(row_title, row_input)
+        this.rows.push([row_title, row_input])
 
         this.list_of_interactive_objects.push(row_input)
     }
