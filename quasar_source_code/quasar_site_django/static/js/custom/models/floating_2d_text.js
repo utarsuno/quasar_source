@@ -219,7 +219,6 @@ Floating2DText.prototype = {
         this.mesh.add(this.wireframe)
 
         this.object3D.add(this.mesh)
-
         this.scene.add(this.object3D)
     },
 

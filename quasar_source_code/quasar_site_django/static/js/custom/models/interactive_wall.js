@@ -65,7 +65,7 @@ InteractiveWall.prototype = {
         this.object3D.visible = this.is_visible
         this.object3D.traverse ( function (child) {
             if (child instanceof THREE.Mesh) {
-                console.log('Setting child to : ' + local_is_visible)
+                //console.log('Setting child to : ' + local_is_visible)
                 child.visible = local_is_visible
             }
         })
