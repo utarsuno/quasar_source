@@ -7,7 +7,6 @@ function Interactive(source_object) {
 Interactive.prototype = {
 
     source_object      : null,
-    object3D           : null,
 
     engage_function    : null,
     disengage_function : null,
@@ -18,7 +17,6 @@ Interactive.prototype = {
 
     __init__: function(source_object) {
         this.source_object      = source_object
-        this.object3D           = this.source_object.object3D
 
         this.being_looked_at    = false
         this.being_engaged_with = false

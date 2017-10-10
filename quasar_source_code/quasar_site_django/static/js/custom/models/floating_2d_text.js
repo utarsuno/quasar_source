@@ -91,7 +91,7 @@ Floating2DText.prototype = {
         this.is_visible = true
 
         // Call parent constructor of Interactive.
-        Interactive.call(this, this)
+        Interactive.call(this)
 
         this.create()
     },
