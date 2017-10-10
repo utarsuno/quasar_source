@@ -237,7 +237,7 @@ HomeWorld.prototype = {
             if (this.interactive_objects[i] !== this.previously_looked_at) {
                 this.interactive_objects[i].look_away()
             }
-            var intersections = raycaster.intersectObject(this.interactive_objects[i].object3d, true)
+            var intersections = raycaster.intersectObject(this.interactive_objects[i].object3D, true)
             if (intersections.length > 0) {
                 this.interactive_objects[i].look_at()
                 this.previously_looked_at = this.interactive_objects[i]

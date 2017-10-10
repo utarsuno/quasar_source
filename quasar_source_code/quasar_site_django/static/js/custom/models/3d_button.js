@@ -8,7 +8,7 @@ function Button3D(height, text, scene) {
 
 Button3D.prototype = {
 
-    object_3D: null,
+    object3D : null,
     height   : null,
     width    : null,
 
@@ -22,24 +22,24 @@ Button3D.prototype = {
         this.height = height
         this.width  = height * 3
         this.text   = text
-        this.object_3D = new THREE.Object3D()
+        this.object3D = new THREE.Object3D()
 
 
         var geometry = new THREE.BoxGeometry(this.height * 2.5, this.width, 3)
         var material = new THREE.MeshBasicMaterial({color: 0xA8BED7})
         var button = new THREE.Mesh(geometry, material)
 
-        this.object_3D.add(button)
-        this.scene.add(this.object_3D)
+        this.object3D.add(button)
+        this.scene.add(this.object3D)
 
         this.floating_text = new Floating2DText(this.width, this.text, TYPE_TITLE, this.scene)
     },
 
     update_position_and_look_at: function(position, look_at) {
-        this.object_3D.position.x = position.x
-        this.object_3D.position.y = position.y
-        this.object_3D.position.z = position.z
-        this.object_3D.lookAt(look_at)
+        this.object3D.position.x = position.x
+        this.object3D.position.y = position.y
+        this.object3D.position.z = position.z
+        this.object3D.lookAt(look_at)
         this.floating_text.update_position_and_look_at(position, look_at)
     }
 

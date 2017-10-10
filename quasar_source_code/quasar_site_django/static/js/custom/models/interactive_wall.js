@@ -11,7 +11,7 @@ InteractiveWall.prototype = {
     height: null,
     position: null,
     look_at : null,
-    object_3d: null,
+    object3D: null,
     scene    : null,
 
     wall: null,
@@ -26,11 +26,11 @@ InteractiveWall.prototype = {
         this.scene = scene
         this.width = w
         this.height = h
-        this.object_3d = new THREE.Object3D()
+        this.object3D = new THREE.Object3D()
 
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
-        this.object_3d.add(this.wall.mesh)
+        this.object3D.add(this.wall.mesh)
 
         // Close button.
         this.close_button = new CheckBox(true, this.scene)
@@ -38,23 +38,24 @@ InteractiveWall.prototype = {
         var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z)
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
+        this.object3D.add(this.close_button.floating_2d_text.object3D)
 
-        this.object_3d.position.x = position.x + this.width / 2
-        this.object_3d.position.y = position.y
-        this.object_3d.position.z = position.z
-        this.object_3d.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
+        this.object3D.position.x = position.x + this.width / 2
+        this.object3D.position.y = position.y
+        this.object3D.position.z = position.z
+        this.object3D.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
 
-        this.scene.add(this.object_3d)
+        this.scene.add(this.object3D)
     },
 
     set_to_invisible: function() {
         this.is_visible = false
-        this.object_3d.visible = false
+        this.object3D.visible = false
     },
 
     toggle_visibility: function() {
         this.is_visible = !this.is_visible
-        this.object_3d.visible = this.is_visible
+        this.object3D.visible = this.is_visible
     },
 
     get_all_interactive_objects: function() {

@@ -20,7 +20,7 @@ Floating3DText.prototype = {
     material: null,
     text_geometry: null,
 
-    object3d: null,
+    object3D: null,
     current_text_object: null,
 
     scene: null,
@@ -117,7 +117,7 @@ Floating3DText.prototype = {
             this.material.needsUpdate = true
         }
         if (this.current_text_object !== null) {
-            this.object3d.remove(this.current_text_object)
+            this.object3D.remove(this.current_text_object)
             this.current_text_object.geometry.dispose()
             this.current_text_object.material.dispose()
         }
@@ -139,7 +139,7 @@ Floating3DText.prototype = {
         this.current_text = text
 
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material)
-        this.object3d.add(this.current_text_object)
+        this.object3D.add(this.current_text_object)
     },
 
     update_text: function(text) {
@@ -154,7 +154,7 @@ Floating3DText.prototype = {
         this.material.needsUpdate = true
 
 
-        this.object3d = new THREE.Object3D()
+        this.object3D = new THREE.Object3D()
 
         if (this.type === TYPE_TITLE) {
             this.height = 32
@@ -172,9 +172,9 @@ Floating3DText.prototype = {
         this.border_wireframe = new THREE.LineSegments(border_geo, border_mat)
         this.border_mesh.add(this.border_wireframe)
 
-        this.object3d.add(this.border_mesh)
+        this.object3D.add(this.border_mesh)
 
-        this.scene.add(this.object3d)
+        this.scene.add(this.object3D)
     },
 
     create: function() {
@@ -192,12 +192,12 @@ Floating3DText.prototype = {
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
-        this.object3d.position.x = position_vector.x + this.width / 2
-        this.object3d.position.y = position_vector.y
-        this.object3d.position.z = position_vector.z
+        this.object3D.position.x = position_vector.x + this.width / 2
+        this.object3D.position.y = position_vector.y
+        this.object3D.position.z = position_vector.z
         this.current_text_object.position.x -= this.width / 2
         var look_at = new THREE.Vector3(look_at_position.x + this.width / 2, look_at_position.y, look_at_position.z)
-        this.object3d.lookAt(look_at)
+        this.object3D.lookAt(look_at)
     },
 
     add_character: function(character) {

@@ -24,6 +24,7 @@ Owner.prototype = {
 
     // POST calls.
     get_entities_for_day: null,
+    load_all_entities   : null,
 
     __init__: function(username, password, home_world) {
         this.username = username
@@ -32,12 +33,16 @@ Owner.prototype = {
 
         this.loading_data = true
 
+        // TODO : Eventually remove this as all entities will already end up being loaded.
         this.get_entities_for_day = new PostHelper('/get_entities_for_day')
-
         this.days = get_list_of_dates_consisting_of_this_and_next_week()
         for (var i = 0; i < this.days.length; i++) {
             this.get_entities_for_day.perform_post({'username': this.username, 'day': this.days[i]}, this.entities_loaded_for_day.bind(this))
         }
+
+
+
+        // TODO : load all entities here
     },
 
     entities_loaded_for_day: function(data) {
