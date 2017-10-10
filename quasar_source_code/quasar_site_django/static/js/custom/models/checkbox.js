@@ -6,7 +6,7 @@ function CheckBox(initial_state, scene) {
 
 CheckBox.prototype = {
 
-    width: mull,
+    width: null,
     height: null,
 
     scene           : null,
