@@ -12,8 +12,6 @@ PlaneAPI.prototype = {
     geometry : null,
     material : null,
 
-    object3d: null,
-
     scene: null,
     
     __init__: function(w, h) {
@@ -21,12 +19,14 @@ PlaneAPI.prototype = {
         this.height   = h
         //this.scene    = scene
 
-        this.object3d = new THREE.Object3D()
+        //this.object3d = new THREE.Object3D()
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height)
-        this.object3d.add(this.geometry.mesh)
+
+        //this.object3d.add(this.geometry.mesh)
 
         //this.create(this.scene)
+        this.create()
     },
 
     create: function() {
