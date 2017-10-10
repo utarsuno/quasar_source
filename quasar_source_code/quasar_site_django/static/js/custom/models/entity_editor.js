@@ -1,18 +1,18 @@
 'use strict'
 
-function EntityEditor() {
-    this.__init__()
+function EntityEditor(position, look_at, scene) {
+    this.__init__(position, look_at, scene)
 }
 
 EntityEditor.prototype = {
 
-    object_3d: null,
-
     close_button: null,
     entity      : null,
 
-    __init__: function() {
-        this.object_3d = new THREE.Object3D()
+    interactive_wall: null,
+
+    __init__: function(position, look_at, scene) {
+        this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
 
 
     }

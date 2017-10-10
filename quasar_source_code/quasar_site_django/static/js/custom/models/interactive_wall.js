@@ -20,13 +20,14 @@ InteractiveWall.prototype = {
         this.width = w
         this.height = h
         this.object_3d = new THREE.Object3D()
+
+        this.wall = new PlaneAPI(this.width, this.height)
+        this.object_3d.add(this.wall.mesh)
+
         this.object_3d.position.x = position.x + this.width / 2
         this.object_3d.position.y = position.y
         this.object_3d.position.z = position.z
         this.object_3d.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
-
-        this.wall = new PlaneAPI(this.width, this.height)
-        this.object_3d.add(this.wall.mesh)
 
         this.scene.add(this.object_3d)
     }
