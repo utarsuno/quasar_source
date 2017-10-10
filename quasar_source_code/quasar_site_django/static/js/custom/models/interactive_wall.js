@@ -50,5 +50,11 @@ InteractiveWall.prototype = {
     toggle_visibility: function() {
         this.is_visible = !this.is_visible
         this.object_3d.visible = this.is_visible
+    },
+
+    get_all_interactive_objects: function() {
+        var list_of_interactive_objects = []
+        list_of_interactive_objects.push(this.close_button.floating_2d_text)
+        return list_of_interactive_objects
     }
 }
