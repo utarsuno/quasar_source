@@ -64,6 +64,7 @@ InteractiveWall.prototype = {
             }
         })
         this.close_button.set_to_invisible()
+        this.title.set_to_invisible()
     },
 
     toggle_visibility: function() {

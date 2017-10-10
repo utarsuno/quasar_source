@@ -210,10 +210,13 @@ HomeWorld.prototype = {
                 if (this.interactive_objects[i].being_looked_at) {
                     this.interactive_objects[i].engage(this.player)
 
+                    // Create global task button.
                     if (this.interactive_objects[i] === this.create_global_task_button) {
+                        this.entity_editor.set_to_visible()
 
-                        this.entity_editor.toggle_visibility()
-                        //console.log('Display the entities!')
+                        // Close entity editor button.
+                    } else if (this.interactive_objects[i] === this.entity_editor.interactive_wall.title) {
+                        this.entity_editor.set_to_invisible()
                     }
                 }
             }

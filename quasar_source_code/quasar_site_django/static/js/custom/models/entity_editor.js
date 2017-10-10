@@ -27,6 +27,10 @@ EntityEditor.prototype = {
         this.interactive_wall.set_to_invisible()
     },
 
+    set_to_visible: function() {
+        this.interactive_wall.set_to_visible()
+    },
+
     is_visible: function() {
         return this.interactive_wall.is_visible
     }
