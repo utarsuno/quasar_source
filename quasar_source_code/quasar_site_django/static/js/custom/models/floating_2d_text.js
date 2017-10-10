@@ -52,7 +52,7 @@ Floating2DText.prototype = {
     material: null,
     dynamic_texture: null,
 
-    object3d: null,
+    object3D: null,
 
     scene: null,
 
@@ -183,7 +183,7 @@ Floating2DText.prototype = {
     },
 
     create: function() {
-        this.object3d = new THREE.Object3D()
+        this.object3D = new THREE.Object3D()
         if (this.type == TYPE_TITLE) {
             this.height = 32
         } else {
@@ -218,19 +218,19 @@ Floating2DText.prototype = {
         this.wireframe = new THREE.LineSegments(geo, mat)
         this.mesh.add(this.wireframe)
 
-        this.object3d.add(this.mesh)
+        this.object3D.add(this.mesh)
 
-        this.scene.add(this.object3d)
+        this.scene.add(this.object3D)
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
-        this.object3d.position.x = position_vector.x + this.width / 2
-        this.object3d.position.y = position_vector.y
-        this.object3d.position.z = position_vector.z
+        this.object3D.position.x = position_vector.x + this.width / 2
+        this.object3D.position.y = position_vector.y
+        this.object3D.position.z = position_vector.z
 
         var look_at = new THREE.Vector3(look_at_position.x + this.width / 2, look_at_position.y, look_at_position.z)
 
-        this.object3d.lookAt(look_at)
+        this.object3D.lookAt(look_at)
     },
 
     add_character: function(character) {
