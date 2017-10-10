@@ -1,7 +1,7 @@
 'use strict'
 
 function LoginWorld() {
-    this.__init____()
+    this.__init__()
 }
 
 const LOGIN_X = 0
@@ -135,7 +135,7 @@ LoginWorld.prototype = {
         }
     },
 
-    __init____: function() {
+    __init__: function() {
 
         this.post_create_account = new PostHelper('/create_account')
         this.post_login = new PostHelper('/login')

@@ -1,14 +1,16 @@
 'use strict'
 
+/*
+
+
 function World(scene) {
     this.__init__(scene)
 }
 
-/*
+
 function Player(unique_id, scene) {
     this.__init__(unique_id, scene)
 }
-*/
 
 function CubeModel() {
     this.__init__()
@@ -29,7 +31,7 @@ CubeModel.prototype = {
 
 }
 
-/*
+
 Player.prototype = {
 
     unique_id: null,
@@ -64,7 +66,7 @@ Player.prototype = {
     }
 
 }
-*/
+
 
 World.prototype = {
 
@@ -101,3 +103,9 @@ World.prototype = {
     // TODO : Remove player
 
 }
+
+
+
+
+
+*/
