@@ -215,7 +215,7 @@ HomeWorld.prototype = {
                         this.entity_editor.set_to_visible()
 
                         // Close entity editor button.
-                    } else if (this.interactive_objects[i] === this.entity_editor.interactive_wall.title) {
+                    } else if (this.interactive_objects[i] === this.entity_editor.interactive_wall.close_button) {
                         this.entity_editor.set_to_invisible()
                     }
                 }

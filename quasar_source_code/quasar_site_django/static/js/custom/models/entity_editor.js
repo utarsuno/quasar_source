@@ -4,6 +4,7 @@ function EntityEditor(name, position, look_at, scene) {
     this.__init__(name, position, look_at, scene)
 }
 
+// TODO : For now this will just be the task editor, abstract it later.
 EntityEditor.prototype = {
 
     name: null,
@@ -17,6 +18,8 @@ EntityEditor.prototype = {
         this.name = name
         this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
         this.interactive_wall.add_title(this.name)
+
+        
     },
 
     toggle_visibility: function() {
