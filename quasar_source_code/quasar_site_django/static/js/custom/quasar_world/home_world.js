@@ -84,6 +84,12 @@ HomeWorld.prototype = {
 
 
 
+        var wall_position = new THREE.Vector3(1000, 0, 1000)
+        var wall_look_at  = new THREE.Vector3(0, 800, 0)
+        this.daily_tasks_wall = new InteractiveWall(400, 800, wall_position, wall_look_at, this.scene)
+
+        
+
         /* __             ___       __        __           __   ___
           /  `  /\  |    |__  |\ | |  \  /\  |__)     /\  |__) |__   /\
           \__, /~~\ |___ |___ | \| |__/ /~~\ |  \    /~~\ |  \ |___ /~~\ */

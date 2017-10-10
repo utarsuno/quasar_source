@@ -5,7 +5,7 @@ function Owner(username, password, home_world) {
 }
 
 function Entity() {
-
+    this.__init__()
 }
 
 Owner.prototype = {
@@ -64,5 +64,11 @@ Owner.prototype = {
 }
 
 Entity.prototype = {
+
+    properties: null,
+
+    __init__: function() {
+
+    }
 
 }

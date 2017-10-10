@@ -51,6 +51,8 @@ module.exports = {
         "PlaneAPI": true,
         "LoginPanel": true,
         "Player": true,
+
+        "InteractiveWall": true,
         "Floating2DText": true,
         "Floating2DLabelInput": true,
         "Floating3DText": true,
