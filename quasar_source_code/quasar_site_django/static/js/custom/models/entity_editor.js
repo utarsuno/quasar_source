@@ -13,7 +13,5 @@ EntityEditor.prototype = {
 
     __init__: function(position, look_at, scene) {
         this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
-
-
     }
 }
