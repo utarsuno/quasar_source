@@ -5,7 +5,7 @@ function HomeWorld() {
 }
 
 const GLOBAL_TODOS_POSITION_X = 0
-const GLOBAL_TODOS_POSITION_Z = 750
+const GLOBAL_TODOS_POSITION_Z = -1000
 const GLOBAL_TODOS_POSITION_Y_TOP = 800
 
 HomeWorld.prototype = {
@@ -84,8 +84,9 @@ HomeWorld.prototype = {
 
 
         this.entity_editor = new EntityEditor(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
+        
 
-
+        /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)
         var wall_look_at  = new THREE.Vector3(0, 400, 0)
         this.daily_tasks_wall = new InteractiveWall(400, 800, wall_position, wall_look_at, this.scene)
@@ -93,6 +94,7 @@ HomeWorld.prototype = {
         var wall_position2 = new THREE.Vector3(-1000, 400, -1000)
         var wall_look_at2  = new THREE.Vector3(0, 400, 0)
         this.daily_tasks_wall2 = new InteractiveWall(400, 800, wall_position2, wall_look_at2, this.scene)
+        */
 
 
         /* __             ___       __        __           __   ___
