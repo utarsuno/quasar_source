@@ -61,10 +61,11 @@ InteractiveWall.prototype = {
 
     toggle_visibility: function() {
         this.is_visible = !this.is_visible
+        var local_is_visible = this.is_visible
         this.object3D.visible = this.is_visible
         this.object3D.traverse ( function (child) {
             if (child instanceof THREE.Mesh) {
-                child.visible = this.is_visible
+                child.visible = local_is_visible
             }
         })
     },
