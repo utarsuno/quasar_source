@@ -1,9 +1,5 @@
 'use strict'
 
-function Interactive() {
-    this.__constructor__()
-}
-
 Interactive.prototype = {
 
     engage_function    : null,
@@ -55,4 +51,8 @@ Interactive.prototype = {
     set_disengage_function: function(disengage_function) {
         this.disengage_function = disengage_function
     }
+}
+
+function Interactive() {
+    this.__constructor__()
 }
