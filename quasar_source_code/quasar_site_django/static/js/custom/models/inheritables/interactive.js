@@ -3,8 +3,8 @@
 function Interactive() {
 
     // Function events.
-    this.engage_function    = false
-    this.disengage_function = false
+    this.engage_function    = null
+    this.disengage_function = null
 
     // States.
     this.being_looked_at    = false
