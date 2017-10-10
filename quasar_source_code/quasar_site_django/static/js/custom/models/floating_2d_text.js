@@ -61,6 +61,7 @@ Floating2DText.prototype = {
     // States.
     being_looked_at: null,
     being_engaged_with: null,
+    is_visible: null,
 
     // Properties.
     type: null,
@@ -91,6 +92,8 @@ Floating2DText.prototype = {
         } else {
             this.height = 16
         }
+
+        this.is_visible = true
 
         this.create()
     },
@@ -265,6 +268,38 @@ Floating2DText.prototype = {
 
             AUDIO_MANAGER.play_typing_sound()
         }
+    },
+
+    set_to_invisible: function() {
+        this.is_visible = false
+        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
+        this.object3D.visible = false
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = false
+            }
+        })
+    },
+
+    set_to_visible: function() {
+        this.is_visible = true
+        this.object3D.visible = true
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = true
+            }
+        })
+    },
+
+    toggle_visibility: function() {
+        this.is_visible = !this.is_visible
+        var local_is_visible = this.is_visible
+        this.object3D.visible = this.is_visible
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = local_is_visible
+            }
+        })
     }
 
 }

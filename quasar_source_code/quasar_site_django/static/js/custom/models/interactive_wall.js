@@ -59,6 +59,7 @@ InteractiveWall.prototype = {
                 child.visible = false
             }
         })
+        this.close_button.set_to_invisible()
     },
 
     toggle_visibility: function() {
@@ -67,10 +68,14 @@ InteractiveWall.prototype = {
         this.object3D.visible = this.is_visible
         this.object3D.traverse ( function (child) {
             if (child instanceof THREE.Mesh) {
-                //console.log('Setting child to : ' + local_is_visible)
                 child.visible = local_is_visible
             }
         })
+        if (this.is_visible) {
+            this.close_button.set_to_visible()
+        } else {
+            this.close_button.set_to_invisible()
+        }
     },
 
     get_all_interactive_objects: function() {
