@@ -1,26 +1,15 @@
 'use strict'
 
 function LoginWorld() {
-    this.__init__()
+    this.__init____()
 }
 
 const LOGIN_X = 0
 
 LoginWorld.prototype = {
 
-    scene: null,
-
-    player: null,
-
-    raycaster                 : null,
-    currently_looked_at_object: null,
-
     // Create account fields.
     create_username: null,
-
-    set_player_look_at: null,
-
-    interactive_objects : null,
 
     // Post calls.
     post_create_account   : null,
@@ -146,11 +135,12 @@ LoginWorld.prototype = {
         }
     },
 
-    __init__: function() {
+    __init____: function() {
 
         this.post_create_account = new PostHelper('/create_account')
         this.post_login = new PostHelper('/login')
 
+        // Inherit from World.
         World.call(this)
 
         this.got_camera = false
@@ -245,16 +235,6 @@ LoginWorld.prototype = {
         ]
     },
 
-    set_player: function(player) {
-        this.player = player
-        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
-        this.currently_looked_at_object = null
-    },
-
-    add_to_scene: function(object) {
-        this.scene.add(object)
-    },
-
     update: function() {
         this.update_interactive_objects()
     },
@@ -264,6 +244,8 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
+        this.current_world = true
+
         this.player.set_position(new THREE.Vector3(130, 90, 300))
 
         if (this.got_camera === false) {
@@ -281,5 +263,6 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
+        this.current_world = false
     }
 }

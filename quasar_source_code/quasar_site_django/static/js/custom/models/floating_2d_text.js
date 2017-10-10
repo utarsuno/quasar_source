@@ -90,7 +90,7 @@ Floating2DText.prototype = {
 
         this.is_visible = true
 
-        // Call parent constructor of Interactive.
+        // Inherit from Interactive.
         Interactive.call(this)
 
         this.create()

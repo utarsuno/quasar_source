@@ -2,10 +2,22 @@
 
 function World() {
 
-    this.current_world       = false
-    this.scene               = new THREE.Scene()
-    this.interactive_objects = []
+    this.player                     = null
+    this.currently_looked_at_object = null
+    this.raycaster                  = null
+    this.current_world              = false
+    this.scene                      = new THREE.Scene()
+    this.interactive_objects        = []
 
+    this.add_to_scene = function(object) {
+        this.scene.add(object)
+    }
+
+    this.set_player =  function(player) {
+        this.player = player
+        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+        this.currently_looked_at_object = null
+    }
 
     this.add_interactive_object = function(interactive_object) {
         this.interactive_objects.push(interactive_object)
