@@ -172,6 +172,11 @@ HomeWorld.prototype = {
         this.interactive_objects = [
             this.create_global_task_button
         ]
+        var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
+        var wall_objects_length = wall_objects.length
+        for (var x = 0; x < wall_objects_length; x++) {
+            this.interactive_objects.push(wall_objects[x])
+        }
     },
 
     key_down_event: function(event) {
@@ -237,10 +242,12 @@ HomeWorld.prototype = {
             if (this.interactive_objects[i] !== this.previously_looked_at) {
                 this.interactive_objects[i].look_away()
             }
-            var intersections = raycaster.intersectObject(this.interactive_objects[i].object3D, true)
-            if (intersections.length > 0) {
-                this.interactive_objects[i].look_at()
-                this.previously_looked_at = this.interactive_objects[i]
+            if (this.interactive_objects[i].is_visible) {
+                var intersections = raycaster.intersectObject(this.interactive_objects[i].object3D, true)
+                if (intersections.length > 0) {
+                    this.interactive_objects[i].look_at()
+                    this.previously_looked_at = this.interactive_objects[i]
+                }
             }
         }
     },
