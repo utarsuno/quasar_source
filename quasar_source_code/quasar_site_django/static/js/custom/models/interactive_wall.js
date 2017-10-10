@@ -79,7 +79,13 @@ InteractiveWall.prototype = {
             }
         })
         this.close_button.set_to_invisible()
-        this.title.set_to_invisible()
+        if (this.title !== null) {
+            this.title.set_to_invisible()
+        }
+        for (var i = 0; i < this.rows.length; i++) {
+            this.rows[i][0].set_to_invisible()
+            this.rows[i][1].set_to_invisible()
+        }
     },
 
     set_to_visible: function() {
@@ -94,6 +100,10 @@ InteractiveWall.prototype = {
         this.close_button.set_to_visible()
         if (this.title !== null) {
             this.title.set_to_visible()
+        }
+        for (var i = 0; i < this.rows.length; i++) {
+            this.rows[i][0].set_to_visible()
+            this.rows[i][1].set_to_visible()
         }
     },
 
@@ -111,10 +121,18 @@ InteractiveWall.prototype = {
             if (this.title !== null) {
                 this.title.set_to_visible()
             }
+            for (var i = 0; i < this.rows.length; i++) {
+                this.rows[i][0].set_to_visible()
+                this.rows[i][1].set_to_visible()
+            }
         } else {
             this.close_button.set_to_invisible()
             if (this.title !== null) {
                 this.title.set_to_invisible()
+            }
+            for (var i = 0; i < this.rows.length; i++) {
+                this.rows[i][0].set_to_invisible()
+                this.rows[i][1].set_to_invisible()
             }
         }
     },
@@ -133,8 +151,7 @@ InteractiveWall.prototype = {
     },
 
     add_input_row: function(input_name) {
-        this.rows.push(input_name)
-        var row_length = this.rows.length
+        var row_length = this.rows.length + 1
         var row_title = new Floating2DText(this.width / 3, input_name, TYPE_INPUT_REGULAR, this.scene)
         var y_offset = row_length * row_title.height + (2 * row_length)
         var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
@@ -145,7 +162,9 @@ InteractiveWall.prototype = {
         var row_input_position = new THREE.Vector3(this.object3D.position.x - this.width / 2 + this.width / 3, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
         var row_input_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)
-        
+
+        this.rows.push(row_title, row_input)
+
         this.list_of_interactive_objects.push(row_input)
     }
 }
