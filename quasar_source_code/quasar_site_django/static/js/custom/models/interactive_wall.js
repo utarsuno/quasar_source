@@ -67,6 +67,21 @@ InteractiveWall.prototype = {
         this.title.set_to_invisible()
     },
 
+    set_to_visible: function() {
+        this.is_visible = true
+        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
+        this.object3D.visible = true
+        this.object3D.traverse ( function (child) {
+            if (child instanceof THREE.Mesh) {
+                child.visible = true
+            }
+        })
+        this.close_button.set_to_visible()
+        if (this.title !== null) {
+            this.title.set_to_visible()
+        }
+    },
+
     toggle_visibility: function() {
         this.is_visible = !this.is_visible
         var local_is_visible = this.is_visible
@@ -78,10 +93,14 @@ InteractiveWall.prototype = {
         })
         if (this.is_visible) {
             this.close_button.set_to_visible()
-            this.title.set_to_visible()
+            if (this.title !== null) {
+                this.title.set_to_visible()
+            }
         } else {
             this.close_button.set_to_invisible()
-            this.title.set_to_invisible()
+            if (this.title !== null) {
+                this.title.set_to_invisible()
+            }
         }
     },
 
