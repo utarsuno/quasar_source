@@ -6,6 +6,9 @@ function CheckBox(initial_state, scene) {
 
 CheckBox.prototype = {
 
+    width: mull,
+    height: null,
+
     scene           : null,
 
     floating_2d_text: null,
@@ -24,6 +27,8 @@ CheckBox.prototype = {
         } else {
             this.text = ''
         }
+        this.width = 16
+        this.height = 16
         this.floating_2d_text = new Floating2DText(16, this.text, TYPE_CHECK_BOX, this.scene)
 
         this.being_looked_at = false
