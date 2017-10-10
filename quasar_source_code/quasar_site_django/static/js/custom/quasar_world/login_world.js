@@ -169,6 +169,7 @@ LoginWorld.prototype = {
 
     update: function() {
         //var raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+        this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i] !== this.previously_looked_at) {
