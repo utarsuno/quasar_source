@@ -169,7 +169,7 @@ InteractiveWall.prototype = {
         var row_input_look_at = new THREE.Vector3(this.look_at.x + this.width / 3, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)
 
-        row_input.also_color_this_floating_text(row_title)
+        row_input.also_color_this_floating_text = row_title
 
         this.rows.push([row_title, row_input])
 
