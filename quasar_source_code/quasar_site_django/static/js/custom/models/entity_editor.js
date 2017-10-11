@@ -19,6 +19,7 @@ EntityEditor.prototype = {
 
     create_entity: function(data) {
         // Override me c:
+        console.log('Hello world?')
     },
 
     __init__: function(name, position, look_at, scene) {
