@@ -3,7 +3,7 @@
 function Interactive() {
 
     // Settings.
-    this.needs_engage_for_parsing_input = false
+    this.needs_engage_for_parsing_input = true
 
     // Function events.
     this.engage_function    = null

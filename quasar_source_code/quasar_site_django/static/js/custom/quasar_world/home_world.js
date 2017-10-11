@@ -84,7 +84,7 @@ HomeWorld.prototype = {
         this.global_todos_wall.add_title('Global Tasks')
         this.global_todos_wall.add_input_button('Create Task', this.create_global_task_button_clicked.bind(this))
 
-        this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 2), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
+        this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
         this.entity_editor.create_task_clicked = this.create_task_clicked.bind(this)
 
