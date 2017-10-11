@@ -156,6 +156,14 @@ InteractiveWall.prototype = {
         this.title.update_position_and_look_at(title_position, title_look_at)
     },
 
+    get_input_row_text: function(input_row_name) {
+        for (var i = 0; i < this.list_of_interactive_objects.length; i++) {
+            if (this.list_of_interactive_objects[i][2] === input_row_name) {
+                return this.list_of_interactive_objects[i][1].get_text()
+            }
+        }
+    },
+
     add_input_row: function(input_name) {
         var row_length = this.rows.length + 3
         var row_title = new Floating2DText(this.width / 3, input_name, TYPE_INPUT_REGULAR, this.scene)
@@ -171,7 +179,7 @@ InteractiveWall.prototype = {
 
         row_input.also_color_this_floating_text = row_title
 
-        this.rows.push([row_title, row_input])
+        this.rows.push([row_title, row_input, input_name])
 
         this.list_of_interactive_objects.push(row_input)
     },
@@ -190,7 +198,7 @@ InteractiveWall.prototype = {
             row_button.set_engage_function(engage_function)
         }
 
-        this.rows.push([row_button, null])
+        this.rows.push([row_button, null, button_name])
 
         this.list_of_interactive_objects.push(row_button)
     }

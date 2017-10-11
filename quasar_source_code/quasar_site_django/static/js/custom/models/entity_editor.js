@@ -17,9 +17,15 @@ EntityEditor.prototype = {
     // TODO : Temp.
     all_entities: null,
 
-    create_entity: function(data) {
+    create_entity: function() {
         if (this.button_click !== null) {
-            this.button_click(data)
+            this.button_click({
+                'name': this.interactive_wall.get_input_row_text('name'),
+                'importance': this.interactive_wall.get_input_row_text('importance'),
+                'difficulty': this.interactive_wall.get_input_row_text('difficulty'),
+                'time needed': this.interactive_wall.get_input_row_text('time needed'),
+                'due date': this.interactive_wall.get_input_row_text('due date')
+            })
         }
     },
 
