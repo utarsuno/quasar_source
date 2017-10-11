@@ -77,6 +77,8 @@ module.exports = {
         "AudioManager": false,
         "AUDIO_MANAGER": true,
         "WORLD_MANAGER": true,
+        "ENTITY_MANAGER": false,
+        "EntityManager": true,
         "GLOBAL_COOKIES": false,
 
         "GLOBAL_FONT": false,

@@ -14,6 +14,8 @@ var AUDIO_MANAGER  = null
 var GLOBAL_COOKIES = Cookies.noConflict()
 var WORLD_MANAGER  = null
 
+var ENTITY_MANAGER = null
+
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username'

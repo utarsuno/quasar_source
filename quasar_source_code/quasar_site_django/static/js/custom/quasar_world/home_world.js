@@ -36,24 +36,11 @@ HomeWorld.prototype = {
     global_tasks_title: null,
     create_global_task_button: null,
 
+    //
+    loaded_entities: null,
+
     create_global_task_button_clicked: function() {
         this.entity_editor.set_to_visible()
-    },
-
-    all_entities_loaded: function(data) {
-        console.log('Entities loaded!!')
-        console.log(data)
-        // Entities.
-        var e = get_key_value_list_from_json_dictionary(data)
-        for (var i = 0; i < e.length; i++) {
-            this.global_todos_wall.add_single_text_row(e[i][0], e[i][1])
-
-            console.log(e[i][0])
-            console.log(e[i][1])
-            console.log(' ')
-
-            //this.global_todos_wall.add_entity(e[0], e[1])
-        }
     },
 
     create_task_clicked: function(data) {
@@ -73,7 +60,7 @@ HomeWorld.prototype = {
 
         World.call(this)
 
-        this.post_get_all_entities = new PostHelper('/get_all_entities')
+        this.loaded_entities = false
 
         // Going to try to create a plane here.
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
@@ -109,14 +96,15 @@ HomeWorld.prototype = {
 
         //this.create_global_task_button.set_engage_function(this.create_global_task_button_clicked.bind(this))
 
-        this.global_todos_wall = new InteractiveWall(256 * 2, 800, new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP / 2, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 400, 0), this.scene)
+        this.global_todos_wall = new InteractiveWall(256 * 4, 800, new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP / 2, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 400, 0), this.scene)
         this.global_todos_wall.add_title('Global Tasks')
-        this.global_todos_wall.add_input_button('Create Task', this.create_global_task_button_clicked.bind(this))
+        this.global_todos_wall.add_input_button('CREATE TASK', this.create_global_task_button_clicked.bind(this))
 
-        this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
+        this.entity_editor = new EntityEditor('CREATE TASK', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
         this.entity_editor.set_create_entity_button_click(this.create_task_clicked.bind(this))
-        //this.entity_editor.create_entity = this.create_task_clicked.bind(this)
+
+
         /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)
         var wall_look_at  = new THREE.Vector3(0, 400, 0)
@@ -234,6 +222,16 @@ HomeWorld.prototype = {
     },
 
     update: function() {
+        if (!this.loaded_entities) {
+            if (ENTITY_MANAGER.loaded()) {
+
+                // TODO : Load up the global tasks here.
+                
+
+                this.this.loaded_entities = false
+            }
+        }
+
         this.update_interactive_objects()
     },
 
@@ -243,9 +241,6 @@ HomeWorld.prototype = {
             this.ajax_status.update_text('Welcome back ' + this.player.get_username())
         }
         this.player.set_position(new THREE.Vector3(130, 90, 300))
-
-
-        this.post_get_all_entities.perform_post({'username': this.player.get_username(), 'password': this.player.get_password()}, this.all_entities_loaded.bind(this))
     },
 
     exit_world: function() {

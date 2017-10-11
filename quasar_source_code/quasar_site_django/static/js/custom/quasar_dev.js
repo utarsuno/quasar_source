@@ -5,6 +5,7 @@ var renderer_api = new RendererAPI()
 
 // WorldManager.
 WORLD_MANAGER = new WorldManager()
+ENTITY_MANAGER = new EntityManager()
 
 // Model of the user. Must be created AFTER the scene gets set.
 var player = new Player(renderer_api)

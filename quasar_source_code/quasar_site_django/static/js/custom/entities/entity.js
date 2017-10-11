@@ -4,7 +4,11 @@ function Owner(username, password, home_world) {
     this.__init__(username, password, home_world)
 }
 
-function Entity() {
+function Entity(name, keys_and_values) {
+    this.__init__(name, keys_and_values)
+}
+
+function EntityManager() {
     this.__init__()
 }
 
@@ -23,57 +27,61 @@ Owner.prototype = {
     days: null,
 
     // POST calls.
-    get_entities_for_day: null,
-    load_all_entities   : null,
+    post_load_all_entities : null,
+
+    all_entities_loaded: function(data) {
+        console.log('Entities loaded!!')
+        console.log(data)
+        var e = get_key_value_list_from_json_dictionary(data)
+        for (var i = 0; i < e.length; i++) {
+            ENTITY_MANAGER.add_entity(e[i])
+        }
+        ENTITY_MANAGER.entities_loaded = true
+        this.loading_data = false
+    },
 
     __init__: function(username, password, home_world) {
-        this.username = username
-        this.password = password
+        this.username   = username
+        this.password   = password
         this.home_world = home_world
 
         this.loading_data = true
-
-        // TODO : Eventually remove this as all entities will already end up being loaded.
-        this.get_entities_for_day = new PostHelper('/get_entities_for_day')
-        this.days = get_list_of_dates_consisting_of_this_and_next_week()
-        for (var i = 0; i < this.days.length; i++) {
-            this.get_entities_for_day.perform_post({'username': this.username, 'day': this.days[i]}, this.entities_loaded_for_day.bind(this))
-        }
-
-
-        // TODO : load all entities here
-
-    },
-
-    entities_loaded_for_day: function(data) {
-        this.days_loaded++
-        data = JSON.parse(data)
-
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                //console.log('Adding entity [' + key + ']' + '{' + data[key] + '}')
-                var d = data[key]
-                if (d.length > 0) {
-                    for (var i = 0; i < d.length; i++) {
-                        this.home_world.add_entity(d[i], key)
-                    }
-                }
-
-            }
-        }
-        if (this.days_loaded == this.days.length) {
-            this.loading_data = false
-        }
+        this.post_load_all_entities = new PostHelper('/get_all_entities')
+        this.post_load_all_entities.perform_post({'username': this.player.get_username(), 'password': this.player.get_password()}, this.all_entities_loaded.bind(this))
     }
-
 }
 
 Entity.prototype = {
 
-    properties: null,
+    name            : null,
+    keys_and_values : null,
 
-    __init__: function() {
-
+    __init__: function(name, keys_and_values) {
+        this.name            = name
+        this.keys_and_values = keys_and_values
     }
 
+}
+
+EntityManager.prototype = {
+
+    entities        : null,
+    entities_loaded : null,
+
+    __init__: function() {
+        this.entities = []
+        this.entities_loaded = false
+    },
+
+    loaded: function() {
+        return this.entities_loaded
+    },
+
+    add_entity: function(entity) {
+        this.entities.push(entity)
+    },
+
+    get_all_task_entities: function() {
+        // TODO :
+    }
 }
