@@ -172,11 +172,15 @@ HomeWorld.prototype = {
         }
 
         this.interactive_objects = [
-            this.create_global_task_button
         ]
         var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
         var wall_objects_length = wall_objects.length
         for (var x = 0; x < wall_objects_length; x++) {
+            this.interactive_objects.push(wall_objects[x])
+        }
+        wall_objects = this.global_todos_wall.get_all_interactive_objects()
+        wall_objects_length = wall_objects.length
+        for (x = 0; x < wall_objects_length; x++) {
             this.interactive_objects.push(wall_objects[x])
         }
     },
