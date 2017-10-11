@@ -31,6 +31,19 @@ class Entity(object):
 
 		self._class_name      = ENTITY
 
+	def get_additional_json_data(self) -> dict:
+		"""To be implemented by child classes."""
+		return {}
+
+	def get_json_data(self) -> dict:
+		"""Returns a dictionary of all the data contained in this Entity."""
+		json_data = {'NAME'      : self._name,
+					 'CLASS_NAME': self._class_name,
+		             'PARENT_ENTITIES': str(self._parent_entities),
+		             'CHILD_ENTITIES': str(self._child_entities),
+		             'INFORMATION': str(self._information)}
+		return {**json_data, **self.get_additional_json_data()}
+
 	@property
 	def class_name(self) -> str:
 		"""Returns the class name of this Entity."""

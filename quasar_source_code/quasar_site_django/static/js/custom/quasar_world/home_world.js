@@ -37,6 +37,11 @@ HomeWorld.prototype = {
         this.entity_editor.set_to_visible()
     },
 
+    create_task_clicked: function() {
+        console.log('SAVE THE ENTITY DATA!!!')
+        this.entity_editor.set_to_invisible()
+    },
+
     __init__: function() {
 
         World.call(this)
@@ -65,16 +70,23 @@ HomeWorld.prototype = {
           / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
           \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */
 
+        /*
         this.global_tasks_title = new Floating3DText(256, 'Global Tasks', TYPE_TITLE, this.scene)
         this.global_tasks_title.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP, GLOBAL_TODOS_POSITION_Z - 5), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP, 0))
 
         this.create_global_task_button = new Floating2DText(64, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_global_task_button.update_position_and_look_at(new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0))
+        */
 
-        this.create_global_task_button.set_engage_function(this.create_global_task_button_clicked.bind(this))
+        //this.create_global_task_button.set_engage_function(this.create_global_task_button_clicked.bind(this))
+
+        this.global_todos_wall = new InteractiveWall(256, 800, new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP / 2, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 400, 0), this.scene)
+        this.global_todos_wall.add_title('Global Tasks')
+        this.global_todos_wall.add_input_button('Create Task', this.create_global_task_button_clicked.bind(this))
 
         this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 2), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
+        this.entity_editor.create_task_clicked = this.create_task_clicked.bind(this)
 
         /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)

@@ -69,3 +69,14 @@ class EntityTask(be.Entity):
 
 	def __str__(self):
 		return 'ETask{' + self._name + '}'
+
+	def get_additional_json_data(self) -> dict:
+		"""To be implemented by child classes."""
+		return {'CURRENT_ITERATION': self._current_iteration,
+		        'NEEDED_ITERATIONS': self._needed_iterations,
+		        'DESCRIPTION'      : str(self._description),
+		        'DUE_DATE_ENTITY'  : str(self._due_date),
+		        'IMPORTANCE'       : str(self._importance),
+		        'TIME_NEEDED'      : str(self._time_needed),
+		        'DIFFICULTY'       : str(self._difficulty)}
+

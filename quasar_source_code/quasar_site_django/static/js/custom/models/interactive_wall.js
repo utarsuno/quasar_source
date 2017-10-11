@@ -176,7 +176,7 @@ InteractiveWall.prototype = {
         this.list_of_interactive_objects.push(row_input)
     },
 
-    add_input_button: function(button_name) {
+    add_input_button: function(button_name, engage_function) {
         var row_length = this.rows.length + 3
         var row_button = new Floating2DText(this.width / 3, button_name, TYPE_BUTTON, this.scene)
         var y_offset = row_length * row_button.height + (2 * row_length)
@@ -185,6 +185,10 @@ InteractiveWall.prototype = {
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
 
         row_button.update_position_and_look_at(row_position, row_look_at)
+
+        if (engage_function !== null && engage_function !== undefined) {
+            row_button.set_engage_function(engage_function)
+        }
 
         this.rows.push([row_button, null])
 

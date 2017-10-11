@@ -18,7 +18,11 @@ entity_db = EntityDatabaseAPI()
 
 manager = entity_db.get_entity_manager(manager.manager_id)
 
-print('Printing Manager info :')
+#print('Printing Manager info :')
+#e = manager.get_all_entities()
+#for a in e:
+#	print(a)
+
 #print(manager)
 #manager.print_all_entities()
 #manager.print_information_for_this_week()

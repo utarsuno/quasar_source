@@ -2,9 +2,14 @@
 
 function Interactive() {
 
+    // Settings.
+    this.needs_engage_for_parsing_input = false
+
     // Function events.
     this.engage_function    = null
     this.disengage_function = null
+
+    // TODO : Function events for look at states.
 
     // States.
     this.being_looked_at    = false

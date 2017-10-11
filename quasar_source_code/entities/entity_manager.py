@@ -26,6 +26,15 @@ class EntityManager(object):
 			print(str(e))
 		print('------------------------------------------')
 
+	def get_all_entities(self):
+		"""Returns all the entities of this manager."""
+		all_entities = []
+		for e in self.entities:
+			all_entities.append(e)
+			for e_child in e.all_children:
+				all_entities.append(e_child)
+		return all_entities
+
 	def print_all_entities(self):
 		"""Prints information for all entities and any linked entities."""
 		print('Printing information on the entities and all linked entities!')

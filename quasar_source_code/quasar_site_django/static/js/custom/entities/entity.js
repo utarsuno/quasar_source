@@ -41,7 +41,6 @@ Owner.prototype = {
         }
 
 
-
         // TODO : load all entities here
 
     },

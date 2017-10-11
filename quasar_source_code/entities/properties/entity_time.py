@@ -85,6 +85,13 @@ class EntityTime(be.Entity):
 	def __str__(self):
 		return 'EntityTime instance{' + self.name + '}, child of ' + str(self.parents[0])
 
+	def get_additional_json_data(self) -> dict:
+		"""To be implemented by child classes."""
+		return {'ONE_TIME_EVENTS': str(self._one_time_events),
+		        'EVENT_RANGE': str(self._event_range),
+		        'EVENT_RANGE_EVENTS': str(self._event_range_events)
+		        }
+
 
 '''
 	def get_additional_needed_save_info(self) -> dict:

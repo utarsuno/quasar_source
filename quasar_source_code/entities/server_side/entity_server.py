@@ -11,6 +11,8 @@ from quasar_source_code.universal_code import time_abstraction as ta
 
 import json
 
+from django.http import JsonResponse
+
 # Utility indexes.
 INDEX_OWNER_NAME       = 0
 INDEX_OWNER_PASSWORD   = 1
@@ -72,6 +74,32 @@ class EntityServer(object):
 					print('Owner is : ' + str(owner_name))
 					print('Manager is : ' + str(manager))
 					self._managers[owner_name] = manager
+
+	def load_all_entities(self, username, password):
+		"""Gets all entities for the username provided."""
+		if self.is_valid_login_info(username, password):
+			error_happened = False
+
+			try:
+				self.ensure_manager_is_loaded_for_owner(username)
+			except Exception as e:
+				print('ERROR GETTING ENTITIES FOR ' + str(username) + '}')
+				print(str(e))
+				print('@@@@@@@@@@@@@@@@')
+				error_happened = True
+
+			entities = self._managers[username].get_all_entities()
+
+			json_data = {}
+
+			for e in entities:
+				json_data[e.name] = e.get_json_data()
+
+			return JsonResponse(json_data)
+
+		return SERVER_REPLY_GENERIC_NO
+
+	#(request.POST[USERNAME])
 
 	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""

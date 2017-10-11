@@ -69,7 +69,7 @@ function World() {
             event.stopPropagation()
         }
         if (this.currently_looked_at_object !== null) {
-            if (this.currently_looked_at_object.is_engaged()) {
+            if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
                 this.currently_looked_at_object.parse_keycode(event)
             }
         }
