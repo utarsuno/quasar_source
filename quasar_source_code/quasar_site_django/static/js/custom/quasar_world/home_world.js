@@ -40,6 +40,9 @@ HomeWorld.prototype = {
     create_task_clicked: function(data) {
         console.log('SAVE THE ENTITY DATA!!!')
         console.log(data)
+
+        this.global_todos_wall.add_input_row('Entity_Name!!')
+
         this.entity_editor.set_to_invisible()
     },
 

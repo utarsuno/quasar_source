@@ -157,9 +157,9 @@ InteractiveWall.prototype = {
     },
 
     get_input_row_text: function(input_row_name) {
-        for (var i = 0; i < this.list_of_interactive_objects.length; i++) {
-            if (this.list_of_interactive_objects[i][2] === input_row_name) {
-                return this.list_of_interactive_objects[i][1].get_text()
+        for (var i = 0; i < this.rows.length; i++) {
+            if (this.rows[i][2] === input_row_name) {
+                return this.rows[i][1].get_text()
             }
         }
     },
