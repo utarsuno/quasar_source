@@ -41,7 +41,7 @@ HomeWorld.prototype = {
         console.log('SAVE THE ENTITY DATA!!!')
         console.log(data)
 
-        this.global_todos_wall.add_input_row('Entity_Name!!')
+        this.global_todos_wall.add_single_text_row(JSON.stringify(data))
 
         this.entity_editor.set_to_invisible()
     },

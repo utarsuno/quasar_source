@@ -164,6 +164,16 @@ InteractiveWall.prototype = {
         }
     },
 
+    add_single_text_row: function(row_text) {
+        var row_length = this.rows.length + 3
+        var row_title = new Floating2DText(this.width, row_text, TYPE_INPUT_REGULAR, this.scene)
+        var y_offset = row_length * row_title.height + (2 * row_length)
+        var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
+        var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
+        row_title.update_position_and_look_at(row_position, row_look_at)
+        this.rows.push([row_title, null, row_text])
+    },
+
     add_input_row: function(input_name) {
         var row_length = this.rows.length + 3
         var row_title = new Floating2DText(this.width / 3, input_name, TYPE_INPUT_REGULAR, this.scene)
