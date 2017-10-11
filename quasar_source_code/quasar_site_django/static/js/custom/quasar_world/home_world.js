@@ -43,6 +43,12 @@ HomeWorld.prototype = {
     all_entities_loaded: function(data) {
         console.log('Entities loaded!!')
         console.log(data)
+        for (var key in data) {
+            // check if the property/key is defined in the object itself, not in parent
+            if (data.hasOwnProperty(key)) {
+                this.global_todos_wall.add_single_text_row(key + JSON.stringify(data[key]))
+            }
+        }
     },
 
     create_task_clicked: function(data) {
