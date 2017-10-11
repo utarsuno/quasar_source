@@ -46,10 +46,10 @@ HomeWorld.prototype = {
         // Entities.
         var e = get_key_value_list_from_json_dictionary(data)
         for (var i = 0; i < e.length; i++) {
-            this.global_todos_wall.add_single_text_row(e[0], e[1])
+            this.global_todos_wall.add_single_text_row(e[i][0], e[i][1])
 
-            console.log(e[0])
-            console.log(e[1])
+            console.log(e[i][0])
+            console.log(e[i][1])
             console.log(' ')
 
             //this.global_todos_wall.add_entity(e[0], e[1])
