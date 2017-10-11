@@ -231,7 +231,7 @@ HomeWorld.prototype = {
                     console.log('Adding the following row')
                     console.log(task_entities[i])
                     console.log('-----')
-                    this.global_todos_wall.add_entity_row(task_entities[i].get_name(), task_entities[i][1].get_properties())
+                    this.global_todos_wall.add_entity_row(task_entities[i].get_name(), task_entities[i].get_properties())
                 }
 
                 this.loaded_entities = true
