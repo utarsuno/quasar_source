@@ -47,7 +47,7 @@ Owner.prototype = {
 
         this.loading_data = true
         this.post_load_all_entities = new PostHelper('/get_all_entities')
-        this.post_load_all_entities.perform_post({'username': this.player.get_username(), 'password': this.player.get_password()}, this.all_entities_loaded.bind(this))
+        this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this))
     }
 }
 

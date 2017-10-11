@@ -226,7 +226,7 @@ HomeWorld.prototype = {
             if (ENTITY_MANAGER.loaded()) {
 
                 // TODO : Load up the global tasks here.
-                
+
 
                 this.this.loaded_entities = false
             }
