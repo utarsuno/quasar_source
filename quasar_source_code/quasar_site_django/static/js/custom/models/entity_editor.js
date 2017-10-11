@@ -18,8 +18,15 @@ EntityEditor.prototype = {
     all_entities: null,
 
     create_entity: function(data) {
-        // Override me c:
-        console.log('Hello world?')
+        if (this.button_click !== null) {
+            this.button_click(data)
+        }
+    },
+
+    button_click: null,
+
+    set_create_entity_buttion_click: function(f) {
+        this.button_click = f
     },
 
     __init__: function(name, position, look_at, scene) {
