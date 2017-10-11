@@ -9,6 +9,9 @@ const GLOBAL_TODOS_POSITION_Z = -1000
 const GLOBAL_TODOS_POSITION_Y_TOP = 800
 
 HomeWorld.prototype = {
+    // POST calls.
+    post_get_all_entities: null,
+
     hello_message: null,
 
     //
@@ -37,6 +40,11 @@ HomeWorld.prototype = {
         this.entity_editor.set_to_visible()
     },
 
+    all_entities_loaded: function(data) {
+        console.log('Entities loaded!!')
+        console.log(data)
+    },
+
     create_task_clicked: function(data) {
         console.log('SAVE THE ENTITY DATA!!!')
         console.log(data)
@@ -44,11 +52,17 @@ HomeWorld.prototype = {
         this.global_todos_wall.add_single_text_row(JSON.stringify(data))
 
         this.entity_editor.set_to_invisible()
+
+        // TODO : later put in a physical save button to avoid consuming server resources.
+
+        // TODO : AJAX save entities
     },
 
     __init__: function() {
 
         World.call(this)
+
+        this.post_get_all_entities = new PostHelper('/login')
 
         // Going to try to create a plane here.
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
@@ -218,6 +232,9 @@ HomeWorld.prototype = {
             this.ajax_status.update_text('Welcome back ' + this.player.get_username())
         }
         this.player.set_position(new THREE.Vector3(130, 90, 300))
+
+
+        this.post_get_all_entities.perform_post({'username': this.player.get_username(), 'password': this.player.get_password()}, this.all_entities_loaded.bind(this))
     },
 
     exit_world: function() {
