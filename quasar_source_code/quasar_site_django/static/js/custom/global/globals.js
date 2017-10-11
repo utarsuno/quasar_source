@@ -80,3 +80,14 @@ function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
 }
+
+function get_key_value_list_from_json_dictionary(json_data) {
+    var return_list = []
+    for (var key in json_data) {
+        // check if the property/key is defined in the object itself, not in parent
+        if (json_data.hasOwnProperty(key)) {
+            return_list.push([key, json_data[key]])
+        }
+    }
+    return return_list
+}

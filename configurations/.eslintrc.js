@@ -133,6 +133,8 @@ module.exports = {
         "l": false,
 
         "is_email_valid": false,
+        "get_key_value_list_from_json_dictionary": false,
+
         "get_cookie"    : false,
         "set_cookie"    : false,
 

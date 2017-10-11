@@ -31,7 +31,7 @@ EntityEditor.prototype = {
 
     button_click: null,
 
-    set_create_entity_buttion_click: function(f) {
+    set_create_entity_button_click: function(f) {
         this.button_click = f
     },
 

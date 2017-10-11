@@ -43,11 +43,16 @@ HomeWorld.prototype = {
     all_entities_loaded: function(data) {
         console.log('Entities loaded!!')
         console.log(data)
-        for (var key in data) {
-            // check if the property/key is defined in the object itself, not in parent
-            if (data.hasOwnProperty(key)) {
-                this.global_todos_wall.add_single_text_row(key + JSON.stringify(data[key]))
-            }
+        // Entities.
+        var e = get_key_value_list_from_json_dictionary(data)
+        for (var i = 0; i < e.length; i++) {
+            this.global_todos_wall.add_single_text_row(e[0], e[1])
+
+            console.log(e[0])
+            console.log(e[1])
+            console.log(' ')
+
+            //this.global_todos_wall.add_entity(e[0], e[1])
         }
     },
 
@@ -110,7 +115,7 @@ HomeWorld.prototype = {
 
         this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
-        this.entity_editor.set_create_entity_buttion_click(this.create_task_clicked.bind(this))
+        this.entity_editor.set_create_entity_button_click(this.create_task_clicked.bind(this))
         //this.entity_editor.create_entity = this.create_task_clicked.bind(this)
         /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)

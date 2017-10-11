@@ -1,0 +1,29 @@
+Static linkers such as the Unix ld program take as input a collection of relocatabler object files and command-line arguments and gerneate as output a fully linked executable object file that can be loaded and run
+
+To build the executable, the linker must perform two main tasks:
+- Symbol resolution : Object files define and refernce symbols. The purpose of symbol resolution is to associate each symbol reference with exactly one symbol definition
+- Relocation : Compiles and assemblers generate code and data sections that start at address 0. The linker relocates these sections by associating a memory location with each symbol definition, and then modifiying akll of the refences to those symbols so that they point ot this memory lcoation
+
+
+Objhect files come in three forms :
+- Relocatable object file : Contains binary code and data in a form that can be combined with other relocatable object files at compile time to create an executable object file
+- Executable object file : Contains binary code and data in a form that can be copied directly into memory and executed
+- Shared object file : A spectial type of relocatable object file that can be loaded into memory and linked dynamically, at either load time or run time
+
+Compilera and assemblers generate relocatable object files (including shared object files)
+Linkers generate executable object files
+
+ELF - reloctable object file
+- ELF header begins with a 16-byte sequence that describes the word size and byte ordering of the system that generated the file
+- The locations aand sizes of the various sections are described by the section header table, which contains a fixed sized entry for each section in the object file.
+- Sandwiched between the ELF header and the section header tyable are the sections themselves.
+
+.text : machine code of the compiled program
+.rodata: read0only data such as format strings in printf statements and jump tables for switch statements
+.data : initialized global c variables
+.bss : uninitialized global c variables, this section occupies no actual space in the object file; it is merely a place holder
+.symtab: a symbol table with information about functions and global variables that are defined and referenced in the program
+.rel.text: a list of locations in the .text section that will need to be modified when the linker combines this object file with others
+.rel.data: relocation information for any global variables that are referenced or defined by the module
+.debug: a debugging symbol table with entries for local variables and typedefs defined in the program
+.line: a mapping between line numbersa in the original C source program and machjine code instructions in the .text section
