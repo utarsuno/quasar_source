@@ -59,9 +59,20 @@ Entity.prototype = {
     __init__: function(name, keys_and_values) {
         this.name            = name
         this.keys_and_values = keys_and_values
+    },
+
+    has_property: function(property_name) {
+
+    },
+
+    get_value: function(property_name) {
+        return this.keys_and_values[property_name]
     }
 
 }
+
+// Entity properties.
+const EP_CLASS_NAME = 'CLASS_NAME'
 
 EntityManager.prototype = {
 
@@ -77,11 +88,17 @@ EntityManager.prototype = {
         return this.entities_loaded
     },
 
-    add_entity: function(entity) {
-        this.entities.push(entity)
+    add_entity: function(entity_data) {
+        this.entities.push(new Entity(entity_data[0], entity_data[1]))
     },
 
     get_all_task_entities: function() {
-        // TODO :
+        var task_entities = []
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].get_value(EP_CLASS_NAME) === ENTITY_TYPE_TASK) {
+                task_entities.push(this.entities[i])
+            }
+        }
+        return task_entities
     }
 }

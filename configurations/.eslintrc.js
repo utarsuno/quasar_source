@@ -94,6 +94,10 @@ module.exports = {
         "TYPE_TITLE": false,
         "TYPE_CHECK_BOX": false,
 
+        "ENTITY_TYPE_TASK": false,
+        "ENTITY_TYPE_TIME": false,
+        "ENTITY_TYPE_BASE": false,
+
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,
         "COLOR_TEXT_DEFAULT": false,

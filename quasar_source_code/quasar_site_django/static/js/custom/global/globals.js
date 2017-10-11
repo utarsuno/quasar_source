@@ -14,7 +14,12 @@ var AUDIO_MANAGER  = null
 var GLOBAL_COOKIES = Cookies.noConflict()
 var WORLD_MANAGER  = null
 
+// Entity.
 var ENTITY_MANAGER = null
+// Entity types.
+const ENTITY_TYPE_TASK = 'EntityTask'
+const ENTITY_TYPE_TIME = 'EntityTime'
+const ENTITY_TYPE_BASE = 'Entity'
 
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'

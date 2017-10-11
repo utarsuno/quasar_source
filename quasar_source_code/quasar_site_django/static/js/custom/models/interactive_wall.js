@@ -32,6 +32,10 @@ InteractiveWall.prototype = {
         this.set_to_invisible()
     },
 
+    entity_row_clicked: function() {
+        console.log('Entity row clicked!')
+    },
+
     __init__: function(w, h, position, look_at, scene) {
         this.is_visible = true
 
@@ -177,7 +181,16 @@ InteractiveWall.prototype = {
     },
 
     add_entity_row: function(entity_name, entity_object) {
+        var row_length = this.rows.length + 3
+        var row_title = new Floating2DText(this.width, entity_name, TYPE_BUTTON, this.scene)
+        var y_offset = row_length * row_title.height + (ROW_GAP * row_length)
+        var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
+        var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
+        row_title.update_position_and_look_at(row_position, row_look_at)
 
+        row_title.set_engage_function(this.entity_row_clicked.bind(this))
+
+        this.rows.push([row_title, null, entity_name, entity_object])
     },
 
     add_input_row: function(input_name) {

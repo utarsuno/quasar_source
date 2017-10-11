@@ -226,7 +226,10 @@ HomeWorld.prototype = {
             if (ENTITY_MANAGER.loaded()) {
 
                 // TODO : Load up the global tasks here.
-                
+                var task_entities = ENTITY_MANAGER.get_all_task_entities()
+                for (var i = 0; i < task_entities.length; i++) {
+                    this.global_todos_wall.add_entity_row(task_entities[i][0], task_entities[i][1])
+                }
 
                 this.loaded_entities = false
             }
