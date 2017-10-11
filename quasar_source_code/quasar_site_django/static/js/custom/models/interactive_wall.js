@@ -191,6 +191,8 @@ InteractiveWall.prototype = {
         row_title.set_engage_function(this.entity_row_clicked.bind(this))
 
         this.rows.push([row_title, null, entity_name, entity_object])
+
+        this.list_of_interactive_objects.push(row_title)
     },
 
     add_input_row: function(input_name) {
