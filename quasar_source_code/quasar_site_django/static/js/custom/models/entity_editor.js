@@ -14,7 +14,17 @@ EntityEditor.prototype = {
 
     interactive_wall: null,
 
+    // TODO : Temp.
+    all_entities: null,
+
+    create_entity: function(data) {
+        // Override me c:
+    },
+
     __init__: function(name, position, look_at, scene) {
+
+        this.all_entities = []
+
         this.name = name
         this.interactive_wall = new InteractiveWall(400, 300, position, look_at, scene)
 
@@ -26,7 +36,7 @@ EntityEditor.prototype = {
         this.interactive_wall.add_input_row('time needed')
         this.interactive_wall.add_input_row('due date')
 
-        this.interactive_wall.add_input_button('create')
+        this.interactive_wall.add_input_button('create', this.create_entity.bind(this))
     },
 
     toggle_visibility: function() {

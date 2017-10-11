@@ -37,8 +37,9 @@ HomeWorld.prototype = {
         this.entity_editor.set_to_visible()
     },
 
-    create_task_clicked: function() {
+    create_task_clicked: function(data) {
         console.log('SAVE THE ENTITY DATA!!!')
+        console.log(data)
         this.entity_editor.set_to_invisible()
     },
 
@@ -86,8 +87,7 @@ HomeWorld.prototype = {
 
         this.entity_editor = new EntityEditor('Create Task', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_editor.set_to_invisible()
-        this.entity_editor.create_task_clicked = this.create_task_clicked.bind(this)
-
+        this.entity_editor.create_entity = this.create_task_clicked.bind(this)
         /*
         var wall_position = new THREE.Vector3(1000, 400, 1000)
         var wall_look_at  = new THREE.Vector3(0, 400, 0)
