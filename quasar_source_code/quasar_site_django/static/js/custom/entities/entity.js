@@ -60,13 +60,21 @@ Entity.prototype = {
         this.name            = name
         this.keys_and_values = keys_and_values
     },
-
+    
     has_property: function(property_name) {
 
     },
 
     get_value: function(property_name) {
         return this.keys_and_values[property_name]
+    },
+
+    get_name: function() {
+        return this.name
+    },
+
+    get_properties: function() {
+        return this.keys_and_values
     }
 
 }
