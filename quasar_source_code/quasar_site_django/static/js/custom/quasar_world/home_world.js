@@ -84,7 +84,7 @@ HomeWorld.prototype = {
 
         //this.create_global_task_button.set_engage_function(this.create_global_task_button_clicked.bind(this))
 
-        this.global_todos_wall = new InteractiveWall(256, 800, new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP / 2, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 400, 0), this.scene)
+        this.global_todos_wall = new InteractiveWall(256 * 2, 800, new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP / 2, GLOBAL_TODOS_POSITION_Z), new THREE.Vector3(0, 400, 0), this.scene)
         this.global_todos_wall.add_title('Global Tasks')
         this.global_todos_wall.add_input_button('Create Task', this.create_global_task_button_clicked.bind(this))
 
