@@ -62,7 +62,7 @@ HomeWorld.prototype = {
 
         World.call(this)
 
-        this.post_get_all_entities = new PostHelper('/login')
+        this.post_get_all_entities = new PostHelper('/get_all_entities')
 
         // Going to try to create a plane here.
         var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
