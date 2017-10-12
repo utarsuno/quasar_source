@@ -43,15 +43,15 @@ InteractiveWall.prototype = {
                 for (var j = 0; j < this.rows.length; j++) {
                     if (this.rows[j][0] === this.list_of_interactive_objects[i]) {
 
-                        var editor_p = new THREE.Vector3()
-                        var editor_la = new THREE.Vector3(this.look_at.x + this.width / 2 - 300, this.look_at.y + this.height / 2 - 400)
+                        var editor_p = new THREE.Vector3(this.object3D.position.x - 300, this.object3D.position.y - this.y_offsets[j] + this.height / 2, this.object3D.position.z + 20)
+                        var editor_la = new THREE.Vector3(this.look_at.x + this.width / 2 - 300, this.look_at.y + this.height / 2 - this.y_offsets[j], this.look_at.z + 22)
 
                         this.entity_editor = new EntityEditor(this.rows[j][3], editor_p, editor_la, this.scene)
 
                         var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
                         var wall_objects_length = wall_objects.length
                         for (var x = 0; x < wall_objects_length; x++) {
-                            this.interactive_objects.push(wall_objects[x])
+                            this.list_of_interactive_objects.push(wall_objects[x])
                             this.world.interactive_objects.push(wall_objects[x])
                         }
 
@@ -111,6 +111,7 @@ InteractiveWall.prototype = {
         this.scene.add(this.object3D)
 
         this.rows = []
+        this.y_offsets = []
     },
 
     set_to_invisible: function() {
@@ -216,6 +217,7 @@ InteractiveWall.prototype = {
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_title.update_position_and_look_at(row_position, row_look_at)
         this.rows.push([row_title, null, row_text])
+        this.y_offsets.push(y_offset)
     },
 
     add_entity_row: function(entity) {
@@ -231,6 +233,7 @@ InteractiveWall.prototype = {
         this.rows.push([row_title, null, entity.get_name(), entity])
 
         this.list_of_interactive_objects.push(row_title)
+        this.y_offsets.push(y_offset)
 
         // If needed, return the interactive object.
         return row_title
@@ -258,6 +261,7 @@ InteractiveWall.prototype = {
         this.rows.push([row_title, row_input, input_name])
 
         this.list_of_interactive_objects.push(row_input)
+        this.y_offsets.push(y_offset)
     },
 
     add_input_button: function(button_name, engage_function) {
@@ -277,5 +281,6 @@ InteractiveWall.prototype = {
         this.rows.push([row_button, null, button_name])
 
         this.list_of_interactive_objects.push(row_button)
+        this.y_offsets.push(y_offset)
     }
 }
