@@ -84,6 +84,9 @@ module.exports = {
 
         "GLOBAL_FONT": false,
 
+        "PIE": false,
+        "TWO_PIE": false,
+
         "$": false,
 
         // From globals.js

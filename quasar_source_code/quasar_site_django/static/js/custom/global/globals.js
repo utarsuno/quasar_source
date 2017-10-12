@@ -9,6 +9,11 @@ const l = console.log
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
+// Math constants.
+const PIE = Math.PI
+const TWO_PIE = Math.PI * 2
+
+
 // Player object sets the global audio.
 var AUDIO_MANAGER  = null
 var GLOBAL_COOKIES = Cookies.noConflict()
