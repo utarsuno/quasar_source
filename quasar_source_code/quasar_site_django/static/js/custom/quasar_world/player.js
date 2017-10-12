@@ -115,6 +115,10 @@ Player.prototype = {
         }
     },
 
+    get_position: function() {
+        return this.fps_controls.get_position()
+    },
+
     look_at: function(vector) {
         this.fps_controls.look_at(vector)
         // TODO : Fix this so that it works.
