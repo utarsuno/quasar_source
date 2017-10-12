@@ -34,6 +34,8 @@ InteractiveWall.prototype = {
 
     entity_row_clicked: function() {
         console.log('Entity row clicked!')
+
+        //EntityEditor
     },
 
     __init__: function(w, h, position, look_at, scene) {
@@ -180,7 +182,7 @@ InteractiveWall.prototype = {
         this.rows.push([row_title, null, row_text])
     },
 
-    add_entity_row: function(entity_name, entity_object, engage_function) {
+    add_entity_row: function(entity_name, entity_object) {
         var row_length = this.rows.length + 3
         var row_title = new Floating2DText(this.width, entity_name, TYPE_BUTTON, this.scene)
         var y_offset = row_length * row_title.height + (ROW_GAP * row_length)
@@ -188,11 +190,7 @@ InteractiveWall.prototype = {
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_title.update_position_and_look_at(row_position, row_look_at)
 
-
-
-        if (engage_function !== null && engage_function !== undefined) {
-            row_title.set_engage_function(engage_function)
-        }
+        row_title.set_engage_function(this.entity_row_clicked.bind(this))
 
         this.rows.push([row_title, null, entity_name, entity_object])
 
@@ -202,7 +200,7 @@ InteractiveWall.prototype = {
         return row_title
     },
 
-    add_input_row: function(input_name) {
+    add_input_row: function(input_name, default_text) {
         var row_length = this.rows.length + 3
         var row_title = new Floating2DText(this.width / 3, input_name, TYPE_INPUT_REGULAR, this.scene)
         var y_offset = row_length * row_title.height + (ROW_GAP * row_length)
@@ -210,7 +208,11 @@ InteractiveWall.prototype = {
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_title.update_position_and_look_at(row_position, row_look_at)
 
-        var row_input = new Floating2DText((this.width / 3) * 2, '', TYPE_INPUT_REGULAR, this.scene)
+        if (default_text === null || default_text === undefined) {
+            default_text = ''
+        }
+
+        var row_input = new Floating2DText((this.width / 3) * 2, default_text, TYPE_INPUT_REGULAR, this.scene)
         var row_input_position = new THREE.Vector3(this.object3D.position.x - this.width / 2 + this.width / 3, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z + 1)
         var row_input_look_at = new THREE.Vector3(this.look_at.x + this.width / 3, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z + 2)
         row_input.update_position_and_look_at(row_input_position, row_input_look_at)

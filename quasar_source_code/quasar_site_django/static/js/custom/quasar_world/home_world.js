@@ -40,7 +40,7 @@ HomeWorld.prototype = {
     loaded_entities: null,
 
     create_global_task_button_clicked: function() {
-        this.entity_editor.set_to_visible()
+        this.entity_task_editor.set_to_visible()
     },
 
     create_task_clicked: function(data) {
@@ -49,10 +49,10 @@ HomeWorld.prototype = {
 
         this.global_todos_wall.add_single_text_row(JSON.stringify(data))
 
-        this.entity_editor.set_to_invisible()
+        this.entity_task_editor.set_to_invisible()
 
         // TODO : clear the fields
-        // this.entity_editor.clear_fields()
+        // this.entity_task_editor.clear_fields()
 
         // TODO : later put in a physical save button to avoid consuming server resources.
 
@@ -103,9 +103,9 @@ HomeWorld.prototype = {
         this.global_todos_wall.add_title('Global Tasks')
         this.global_todos_wall.add_input_button('CREATE TASK', this.create_global_task_button_clicked.bind(this))
 
-        this.entity_editor = new EntityEditor('CREATE TASK', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
-        this.entity_editor.set_to_invisible()
-        this.entity_editor.set_create_entity_button_click(this.create_task_clicked.bind(this))
+        this.entity_task_editor = new EntityTaskCreator('CREATE TASK', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
+        this.entity_task_editor.set_to_invisible()
+        this.entity_task_editor.set_create_entity_button_click(this.create_task_clicked.bind(this))
 
 
         /*
@@ -191,7 +191,7 @@ HomeWorld.prototype = {
             this.y_offsets[i] += 40
         }
 
-        var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
+        var wall_objects = this.entity_task_editor.interactive_wall.get_all_interactive_objects()
         var wall_objects_length = wall_objects.length
         for (var x = 0; x < wall_objects_length; x++) {
             this.interactive_objects.push(wall_objects[x])
