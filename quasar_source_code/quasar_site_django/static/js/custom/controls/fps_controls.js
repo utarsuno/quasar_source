@@ -58,6 +58,8 @@ FPSControls.prototype = {
         this.pitch = new THREE.Object3D()
         this.pitch.add(camera)
 
+
+
         this.yaw = new THREE.Object3D()
         this.yaw.position.y = 10
         this.yaw.add(this.pitch)
@@ -300,6 +302,18 @@ FPSControls.prototype = {
             this.shift = false
             break
         }
+    },
+
+    look_at: function(position_vector_to_look_at) {
+        var look_at = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
+        look_at.sub(this.yaw.position)
+        look_at.normalize()
+
+        // TODO : clear current mouse movement buffers
+
+
+        this.yaw.rotation.y   = look_at.y
+        this.pitch.rotation.x = look_at.x
     },
 
     update_mouse_view_position: function() {

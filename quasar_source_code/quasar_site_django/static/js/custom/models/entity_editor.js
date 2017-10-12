@@ -97,8 +97,6 @@ EntityEditor.prototype = {
         this.entity = entity
         this.interactive_wall = new InteractiveWall(600, 800, position, look_at, scene)
 
-        console.log('Got the following entity')
-        console.log(this.entity)
         this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
 
         var key_values = get_key_value_list_from_json_dictionary(this.entity.get_properties())

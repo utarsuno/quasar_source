@@ -7,7 +7,10 @@ function World() {
     this.raycaster                  = null
     this.current_world              = false
     this.scene                      = new THREE.Scene()
+
     this.interactive_objects        = []
+
+
 
     this.add_to_scene = function(object) {
         this.scene.add(object)
@@ -56,6 +59,10 @@ function World() {
         }
     }
 
+    this.tab_to_next_interactive_object = function() {
+
+    }
+
     this.key_down_event_for_interactive_objects = function() {
         if (event.keyCode == KEY_CODE_BACK_SLASH) {
             if (this.currently_looked_at_object !== null) {
@@ -65,6 +72,9 @@ function World() {
             }
         } else if (event.keyCode == KEY_CODE_TAB) {
             // TODO : Tab will cycle through interactive objects shifting the players view to look at each one.
+
+            this.tab_to_next_interactive_object()
+
             event.preventDefault()
             event.stopPropagation()
         }

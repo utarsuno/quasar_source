@@ -237,6 +237,12 @@ HomeWorld.prototype = {
             }
         }
 
+
+        if (this.player.get_position().x > 700) {
+            this.player.look_at(new THREE.Vector3(0, 0, 0))
+        }
+
+
         this.update_interactive_objects()
     },
 

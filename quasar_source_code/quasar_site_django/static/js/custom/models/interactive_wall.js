@@ -55,6 +55,8 @@ InteractiveWall.prototype = {
                             this.world.interactive_objects.push(wall_objects[x])
                         }
 
+                        // TODO : Make sure the entity editor made is deleted on close OR re-use the same object.
+
                         break
                     }
                 }

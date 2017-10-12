@@ -30,8 +30,6 @@ Owner.prototype = {
     post_load_all_entities : null,
 
     all_entities_loaded: function(data) {
-        console.log('Entities loaded!!')
-        console.log(data)
         var e = get_key_value_list_from_json_dictionary(data)
         for (var i = 0; i < e.length; i++) {
             ENTITY_MANAGER.add_entity(e[i])
