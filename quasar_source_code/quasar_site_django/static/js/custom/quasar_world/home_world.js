@@ -231,7 +231,7 @@ HomeWorld.prototype = {
                 var task_entities = ENTITY_MANAGER.get_all_task_entities()
                 for (var i = 0; i < task_entities.length; i++) {
                     // Creating an entity row returns the interactive object.
-                    this.interactive_objects.push(this.global_todos_wall.add_entity_row(task_entities[i].get_name(), task_entities[i].get_properties()))
+                    this.interactive_objects.push(this.global_todos_wall.add_entity_row(task_entities[i]))
                 }
                 this.loaded_entities = true
             }
