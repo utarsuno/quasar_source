@@ -63,9 +63,8 @@ InteractiveWall.prototype = {
             }
         }
 
-        this.rows.push([row_title, null, entity_name, entity_object])
-
-        this.list_of_interactive_objects.push(row_title)
+        //this.rows.push([row_title, null, entity_name, entity_object])
+        //this.list_of_interactive_objects.push(row_title)
 
         //EntityEditor
     },
