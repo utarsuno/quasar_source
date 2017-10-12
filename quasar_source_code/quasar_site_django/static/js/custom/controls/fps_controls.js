@@ -339,6 +339,10 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
+        console.log('Rotation Y : ' + this.yaw.rotation.y)
+        console.log('Rotation X : ' + this.pitch.rotation.x)
+        console.log('---')
+
         if (this.enabled) {
             var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
