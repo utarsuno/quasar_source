@@ -55,14 +55,18 @@ FPSControls.prototype = {
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
 
-        this.pitch = new THREE.Object3D()
-        this.pitch.add(camera)
+        //this.pitch = new THREE.Object3D()
+        //this.pitch.add(camera)
 
 
 
         this.yaw = new THREE.Object3D()
         this.yaw.position.y = 10
-        this.yaw.add(this.pitch)
+        //
+        this.yaw.add(this.camera)
+        //
+        //this.yaw.add(this.pitch)
+        //
 
         this.enabled = false
         this.flying_on = true
@@ -70,7 +74,8 @@ FPSControls.prototype = {
         this.velocity = new THREE.Vector3()
 
         this.mouse_movement_x_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.y, 0.025)
-        this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
+        this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.x, 0.025)
+        //this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
 
         // TODO : Add smooth step to the movement buffers!!!
 
@@ -312,8 +317,8 @@ FPSControls.prototype = {
         // TODO : clear current mouse movement buffers
 
 
-        this.yaw.lookAt(position_vector_to_look_at)
-        this.pitch.lookAt(position_vector_to_look_at)
+        //this.yaw.lookAt(position_vector_to_look_at)
+        //this.pitch.lookAt(position_vector_to_look_at)
 
         //this.yaw.rotation.y   = look_at.y * TWO_PIE
         //this.pitch.rotation.x = look_at.x * TWO_PIE
@@ -322,10 +327,12 @@ FPSControls.prototype = {
     update_mouse_view_position: function() {
         if (this.buffer_mouse_movement) {
             this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
-            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
+            this.yaw.rotation.x = this.mouse_movement_y_buffer.get_current_value()
+            //this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
         }
 
-        this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+        this.yaw.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.yaw.rotation.x))
+        //this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
 
         this.direction_vector = this.get_direction()
         this.direction_vector.normalize()
@@ -343,7 +350,8 @@ FPSControls.prototype = {
 
     on_mouse_move: function(event) {
         console.log('Rotation Y : ' + this.yaw.rotation.y)
-        console.log('Rotation X : ' + this.pitch.rotation.x)
+        console.log('Rotation X : ' + this.yaw.rotation.x)
+        //console.log('Rotation X : ' + this.pitch.rotation.x)
         console.log('---')
 
         if (this.enabled) {
@@ -355,7 +363,8 @@ FPSControls.prototype = {
                 this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
             } else {
                 this.yaw.rotation.y   -= movement_x * 0.002
-                this.pitch.rotation.x -= movement_y * 0.002
+                this.yaw.rotation.x   -= movement_y * 0.002
+                //this.pitch.rotation.x -= movement_y * 0.002
             }
         }
     },
@@ -366,7 +375,8 @@ FPSControls.prototype = {
 
     get_direction: function() {
         var direction = new THREE.Vector3(0, 0, -1)
-        var rotation  = new THREE.Euler(this.pitch.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
+        var rotation  = new THREE.Euler(this.yaw.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
+        //var rotation  = new THREE.Euler(this.pitch.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
         return direction.applyEuler(rotation)
     }
 
