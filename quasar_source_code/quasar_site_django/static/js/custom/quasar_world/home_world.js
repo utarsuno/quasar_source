@@ -103,6 +103,8 @@ HomeWorld.prototype = {
         this.global_todos_wall.add_title('Global Tasks')
         this.global_todos_wall.add_input_button('CREATE TASK', this.create_global_task_button_clicked.bind(this))
 
+        this.global_todos_wall.get_reference_of_world(this)
+
         this.entity_task_editor = new EntityTaskCreator('CREATE TASK', new THREE.Vector3(GLOBAL_TODOS_POSITION_X, GLOBAL_TODOS_POSITION_Y_TOP - 32, GLOBAL_TODOS_POSITION_Z + 26), new THREE.Vector3(0, GLOBAL_TODOS_POSITION_Y_TOP - 32, 0), this.scene)
         this.entity_task_editor.set_to_invisible()
         this.entity_task_editor.set_create_entity_button_click(this.create_task_clicked.bind(this))

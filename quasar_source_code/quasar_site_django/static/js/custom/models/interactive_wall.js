@@ -35,7 +35,44 @@ InteractiveWall.prototype = {
     entity_row_clicked: function() {
         console.log('Entity row clicked!')
 
+        // TODO : Better design of this at some point.
+        for (var i = 0; i < this.list_of_interactive_objects.length; i++) {
+            if (this.list_of_interactive_objects[i].being_looked_at) {
+                // Found the current entity being looked at.
+
+                for (var j = 0; j < this.rows.length; j++) {
+                    if (this.rows[j][0] === this.list_of_interactive_objects[i]) {
+
+                        var editor_p = new THREE.Vector3()
+                        var editor_la = new THREE.Vector3(this.look_at.x + this.width / 2 - 300, this.look_at.y + this.height / 2 - 400)
+
+                        this.entity_editor = new EntityEditor(this.rows[j][3], editor_p, editor_la, this.scene)
+
+                        var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
+                        var wall_objects_length = wall_objects.length
+                        for (var x = 0; x < wall_objects_length; x++) {
+                            this.interactive_objects.push(wall_objects[x])
+                            this.world.interactive_objects.push(wall_objects[x])
+                        }
+
+                        break
+                    }
+                }
+
+                break
+            }
+        }
+
+        this.rows.push([row_title, null, entity_name, entity_object])
+
+        this.list_of_interactive_objects.push(row_title)
+
         //EntityEditor
+    },
+
+    world: null,
+    get_reference_of_world: function(world) {
+        this.world = world
     },
 
     __init__: function(w, h, position, look_at, scene) {
