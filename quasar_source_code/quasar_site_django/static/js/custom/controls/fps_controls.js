@@ -312,8 +312,11 @@ FPSControls.prototype = {
         // TODO : clear current mouse movement buffers
 
 
-        this.yaw.rotation.y   = look_at.y * TWO_PIE
-        this.pitch.rotation.x = look_at.x * TWO_PIE
+        this.yaw.lookAt(position_vector_to_look_at)
+        this.pitch.lookAt(position_vector_to_look_at)
+
+        //this.yaw.rotation.y   = look_at.y * TWO_PIE
+        //this.pitch.rotation.x = look_at.x * TWO_PIE
     },
 
     update_mouse_view_position: function() {
