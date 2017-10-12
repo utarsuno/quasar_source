@@ -51,6 +51,9 @@ HomeWorld.prototype = {
 
         this.entity_editor.set_to_invisible()
 
+        // TODO : clear the fields
+        // this.entity_editor.clear_fields()
+
         // TODO : later put in a physical save button to avoid consuming server resources.
 
         // TODO : AJAX save entities
@@ -188,8 +191,6 @@ HomeWorld.prototype = {
             this.y_offsets[i] += 40
         }
 
-        this.interactive_objects = [
-        ]
         var wall_objects = this.entity_editor.interactive_wall.get_all_interactive_objects()
         var wall_objects_length = wall_objects.length
         for (var x = 0; x < wall_objects_length; x++) {
@@ -222,18 +223,14 @@ HomeWorld.prototype = {
     },
 
     update: function() {
+        // Get the task entities once all entities have been loaded.
         if (!this.loaded_entities) {
             if (ENTITY_MANAGER.loaded()) {
-
-                // TODO : Load up the global tasks here.
                 var task_entities = ENTITY_MANAGER.get_all_task_entities()
                 for (var i = 0; i < task_entities.length; i++) {
-                    console.log('Adding the following row')
-                    console.log(task_entities[i])
-                    console.log('-----')
-                    this.global_todos_wall.add_entity_row(task_entities[i].get_name(), task_entities[i].get_properties())
+                    // Creating an entity row returns the interactive object.
+                    this.interactive_objects.push(this.global_todos_wall.add_entity_row(task_entities[i].get_name(), task_entities[i].get_properties()))
                 }
-
                 this.loaded_entities = true
             }
         }
