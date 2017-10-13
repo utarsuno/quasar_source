@@ -63,7 +63,7 @@ FPSControls.prototype = {
         this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
-        this.direction_object3D.add(this.camera)
+        //this.direction_object3D.add(this.camera)
 
         this.yaw = new THREE.Object3D()
         this.yaw.add(this.pitch)
@@ -182,8 +182,8 @@ FPSControls.prototype = {
                     }
                 }
                 this.velocity.y *= (1 - delta * 15)
-                //this.yaw.position.y += this.velocity.y
-                this.direction_object3D.position.y += this.velocity.y
+                this.yaw.position.y += this.velocity.y
+                //this.direction_object3D.position.y += this.velocity.y
             } else {
                 // Walking code.
                 if ((this.up ^ this.down) & (this.left ^ this.right)) {
@@ -210,7 +210,7 @@ FPSControls.prototype = {
                         this.move_right(delta)
                     }
                 }
-                /*
+
                 if (this.velocity.y != 0) {
                     this.velocity.y -= 9.8 * delta * 10
                     this.velocity.y *= (1 - delta * 15)
@@ -220,21 +220,21 @@ FPSControls.prototype = {
                         this.velocity.y = 0
                     }
                 }
-                */
+
             }
             // Both flying and walking treat the following lines the same.
             this.velocity.x *= (1 - delta * 15)
             this.velocity.z *= (1 - delta * 15)
-            this.direction_object3D.position.x += this.velocity.x
-            this.direction_object3D.position.z += this.velocity.z
-            //this.yaw.position.x += this.velocity.x
-            //this.yaw.position.z += this.velocity.z
+            //this.direction_object3D.position.x += this.velocity.x
+            //this.direction_object3D.position.z += this.velocity.z
+            this.yaw.position.x += this.velocity.x
+            this.yaw.position.z += this.velocity.z
         }
     },
 
     get_position: function() {
-        return this.direction_object3D.position
-        //return this.yaw.position
+        //return this.direction_object3D.position
+        return this.yaw.position
     },
 
     get_velocity: function() {
