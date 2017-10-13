@@ -375,7 +375,8 @@ FPSControls.prototype = {
     },
 
     get_object: function() {
-        return this.yaw
+        return this.direction_object3D
+        //return this.yaw
     },
 
     get_direction: function() {
