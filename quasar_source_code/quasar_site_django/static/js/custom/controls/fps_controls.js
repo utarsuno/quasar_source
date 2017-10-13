@@ -56,6 +56,7 @@ FPSControls.prototype = {
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
+        this.camera.eulerOrder = 'YXZ'
 
         this.pitch = new THREE.Object3D()
         //this.pitch.add(camera)
