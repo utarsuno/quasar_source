@@ -352,7 +352,8 @@ FPSControls.prototype = {
         }
 
         // Now actually update the camera.
-        this.direction_object3D.lookAt(new THREE.Vector3(50, 50, 50))
+        var look_at = new THREE.Vector3(this.this.direction_vector.x * 2000, this.this.direction_vector.y * 2000, this.this.direction_vector.z * 2000)
+        this.direction_object3D.lookAt(look_at)
     },
 
     on_mouse_move: function(event) {
