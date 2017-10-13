@@ -24,6 +24,8 @@ FPSControls.prototype = {
 
     walking_direction : null,
 
+    direction_object3D : null,
+
     // Camera view.
     max_upward_view   : null,
     max_downward_view : null,
@@ -58,12 +60,13 @@ FPSControls.prototype = {
         //this.pitch = new THREE.Object3D()
         //this.pitch.add(camera)
 
-
+        this.direction_object3D = new THREE.Object3D()
+        this.direction_object3D.add(this.camera)
 
         this.yaw = new THREE.Object3D()
-        this.yaw.position.y = 10
+        //this.yaw.position.y = 10
         //
-        this.yaw.add(this.camera)
+        //this.yaw.add(this.camera)
         //
         //this.yaw.add(this.pitch)
         //
@@ -314,6 +317,9 @@ FPSControls.prototype = {
         look_at.sub(this.yaw.position)
         look_at.normalize()
 
+
+        this.direction_object3D.lookAt(position_vector_to_look_at)
+
         // TODO : clear current mouse movement buffers
 
 
@@ -327,12 +333,10 @@ FPSControls.prototype = {
     update_mouse_view_position: function() {
         if (this.buffer_mouse_movement) {
             this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value()
-            this.yaw.rotation.x = this.mouse_movement_y_buffer.get_current_value()
-            //this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
+            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
         }
 
-        this.yaw.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.yaw.rotation.x))
-        //this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+        this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
 
         this.direction_vector = this.get_direction()
         this.direction_vector.normalize()
@@ -346,12 +350,14 @@ FPSControls.prototype = {
             this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
             this.walking_direction.normalize()
         }
+
+        // Now actually update the camera.
+        this.direction_object3D.rotation.set(this.direction_vector)
     },
 
     on_mouse_move: function(event) {
         console.log('Rotation Y : ' + this.yaw.rotation.y)
-        console.log('Rotation X : ' + this.yaw.rotation.x)
-        //console.log('Rotation X : ' + this.pitch.rotation.x)
+        console.log('Rotation X : ' + this.pitch.rotation.x)
         console.log('---')
 
         if (this.enabled) {
@@ -363,8 +369,7 @@ FPSControls.prototype = {
                 this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
             } else {
                 this.yaw.rotation.y   -= movement_x * 0.002
-                this.yaw.rotation.x   -= movement_y * 0.002
-                //this.pitch.rotation.x -= movement_y * 0.002
+                this.pitch.rotation.x -= movement_y * 0.002
             }
         }
     },
@@ -375,8 +380,7 @@ FPSControls.prototype = {
 
     get_direction: function() {
         var direction = new THREE.Vector3(0, 0, -1)
-        var rotation  = new THREE.Euler(this.yaw.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
-        //var rotation  = new THREE.Euler(this.pitch.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
+        var rotation  = new THREE.Euler(this.pitch.rotation.x, this.yaw.rotation.y, 0, 'YXZ')
         return direction.applyEuler(rotation)
     }
 
