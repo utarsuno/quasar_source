@@ -352,7 +352,7 @@ FPSControls.prototype = {
         }
 
         // Now actually update the camera.
-        var look_at = new THREE.Vector3(this.this.direction_vector.x * 2000, this.this.direction_vector.y * 2000, this.this.direction_vector.z * 2000)
+        var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
         this.direction_object3D.lookAt(look_at)
     },
 
