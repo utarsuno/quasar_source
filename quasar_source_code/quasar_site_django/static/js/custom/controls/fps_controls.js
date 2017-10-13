@@ -56,7 +56,7 @@ FPSControls.prototype = {
 
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
-        this.camera.eulerOrder = 'YXZ'
+        this.camera.eulerOrder = 'ZYX'
         this.camera.up = new THREE.Vector3(0, 1, 0)
 
         this.pitch = new THREE.Object3D()
@@ -80,7 +80,6 @@ FPSControls.prototype = {
 
         this.mouse_movement_x_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.y, 0.025)
         this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
-        //this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
 
         // TODO : Add smooth step to the movement buffers!!!
 
