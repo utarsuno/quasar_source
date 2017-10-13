@@ -77,7 +77,7 @@ FPSControls.prototype = {
         this.velocity = new THREE.Vector3()
 
         this.mouse_movement_x_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.y, 0.025)
-        this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.x, 0.025)
+        this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
         //this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025)
 
         // TODO : Add smooth step to the movement buffers!!!
