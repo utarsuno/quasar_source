@@ -315,21 +315,14 @@ FPSControls.prototype = {
     },
 
     look_at: function(position_vector_to_look_at) {
-        //var look_at = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
-        //look_at.sub(this.yaw.position)
-        //look_at.normalize()
+        console.log('Current direction : ')
+        console.log(this.get_direction())
 
-
-        //this.direction_object3D.lookAt(position_vector_to_look_at)
-
-        // TODO : clear current mouse movement buffers
-
-
-        //this.yaw.lookAt(position_vector_to_look_at)
-        //this.pitch.lookAt(position_vector_to_look_at)
-
-        //this.yaw.rotation.y   = look_at.y * TWO_PIE
-        //this.pitch.rotation.x = look_at.x * TWO_PIE
+        console.log('Look at direction : ')
+        var look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
+        look_at_normal.sub(this.yaw.position)
+        look_at_normal.normalize()
+        console.log(look_at_normal)
     },
 
     update_mouse_view_position: function() {

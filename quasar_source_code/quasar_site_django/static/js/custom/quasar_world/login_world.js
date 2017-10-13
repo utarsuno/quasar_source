@@ -228,6 +228,10 @@ LoginWorld.prototype = {
 
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
+
+        if (event.keyCode == KEY_CODE_TAB) {
+            this.player.look_at(this.login_button.object3D.position)
+        }
     },
 
     enter_world: function() {
