@@ -63,7 +63,7 @@ FPSControls.prototype = {
         this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
-        //this.direction_object3D.add(this.camera)
+        this.direction_object3D.add(this.camera)
 
         this.yaw = new THREE.Object3D()
         this.yaw.add(this.pitch)
