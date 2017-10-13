@@ -57,7 +57,7 @@ FPSControls.prototype = {
         this.camera = camera
         this.camera.rotation.set(0, 0, 0)
 
-        //this.pitch = new THREE.Object3D()
+        this.pitch = new THREE.Object3D()
         //this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
@@ -68,7 +68,7 @@ FPSControls.prototype = {
         //
         //this.yaw.add(this.camera)
         //
-        //this.yaw.add(this.pitch)
+        this.yaw.add(this.pitch)
         //
 
         this.enabled = false
