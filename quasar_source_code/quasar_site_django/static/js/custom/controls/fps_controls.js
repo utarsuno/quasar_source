@@ -352,7 +352,7 @@ FPSControls.prototype = {
         }
 
         // Now actually update the camera.
-        this.direction_object3D.lookAt(this.direction_vector.add(this.yaw.position))
+        this.direction_object3D.lookAt(new THREE.Vector3(50, 50, 50))
     },
 
     on_mouse_move: function(event) {
