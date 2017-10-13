@@ -60,18 +60,13 @@ FPSControls.prototype = {
         this.camera.up = new THREE.Vector3(0, 1, 0)
 
         this.pitch = new THREE.Object3D()
-        //this.pitch.add(camera)
+        this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
-        this.direction_object3D.add(this.camera)
+        //this.direction_object3D.add(this.camera)
 
         this.yaw = new THREE.Object3D()
-        //this.yaw.position.y = 10
-        //
-        //this.yaw.add(this.camera)
-        //
         this.yaw.add(this.pitch)
-        //
 
         this.enabled = false
         this.flying_on = true
@@ -325,7 +320,7 @@ FPSControls.prototype = {
         //look_at.normalize()
 
 
-        this.direction_object3D.lookAt(position_vector_to_look_at)
+        //this.direction_object3D.lookAt(position_vector_to_look_at)
 
         // TODO : clear current mouse movement buffers
 
@@ -359,8 +354,8 @@ FPSControls.prototype = {
         }
 
         // Now actually update the camera.
-        var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
-        this.direction_object3D.lookAt(look_at)
+        //var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
+        //this.direction_object3D.lookAt(look_at)
     },
 
     on_mouse_move: function(event) {
