@@ -338,7 +338,7 @@ FPSControls.prototype = {
         console.log('Y difference 3 : ' + y_angle)
 
 
-        this.mouse_movement_y_buffer.add_force(-1.0 * ((d.y - look_at_normal.y) * (1.0 + Math.PI / 180.0)))
+        this.mouse_movement_y_buffer.add_force(-1.0 * ((d.y - look_at_normal.y) * (1.0 + (TWO_PI / 180.0))))
         //this.mouse_movement_y_buffer.add_force(y_angle * (Math.PI / 180.0))
 
         this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
