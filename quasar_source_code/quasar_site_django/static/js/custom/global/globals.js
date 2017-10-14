@@ -10,8 +10,9 @@ const l = console.log
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
 // Math constants.
+const HALF_PIE = Math.PI / 2.0
 const PIE = Math.PI
-const TWO_PIE = Math.PI * 2
+const TWO_PIE = Math.PI * 2.0
 
 
 // Player object sets the global audio.

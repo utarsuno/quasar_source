@@ -344,7 +344,10 @@ FPSControls.prototype = {
         //console.log(look_at_normal)
         //console.log(x_rotation)
         //console.log(d.y)
-        console.log(Math.atan(x_rotation.y / x_rotation.x))
+        console.log(Math.atan2(x_rotation.y, x_rotation.x))
+
+
+
 
         //console.log('look at : ' + position_vector_to_look_at)
         //this.camera_object3D.lookAt(position_vector_to_look_at)
