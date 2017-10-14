@@ -373,7 +373,9 @@ FPSControls.prototype = {
         this.camera_object3D.position.x = this.yaw.position.x
         this.camera_object3D.position.y = this.yaw.position.y
         this.camera_object3D.position.z = this.yaw.position.z
-        this.camera_object3D.lookAt(this.get_direction())
+
+        this.camera.lookAt(this.get_direction())
+        //this.camera_object3D.lookAt(this.get_direction())
     },
 
     on_mouse_move: function(event) {
