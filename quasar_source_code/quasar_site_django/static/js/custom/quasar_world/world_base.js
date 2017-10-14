@@ -72,10 +72,10 @@ function World() {
                 this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
                 this.currently_looked_at_object.look_at()
             }
-            this.player.look_at(this.currently_looked_at_object.next_tab_target.object3D.position)
+            this.player.look_at(this.currently_looked_at_object.object3D.position)
         } else if (this.default_tab_target !== null) {
             this.currently_looked_at_object = this.default_tab_target
-            this.player.look_at(this.currently_looked_at_object.next_tab_target.object3D.position)
+            this.player.look_at(this.currently_looked_at_object.object3D.position)
         }
     }
 
