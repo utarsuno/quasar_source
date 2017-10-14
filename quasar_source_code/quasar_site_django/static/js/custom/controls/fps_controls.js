@@ -26,6 +26,8 @@ FPSControls.prototype = {
 
     direction_object3D : null,
 
+    camera_object3D    : null,
+
     // Camera view.
     max_upward_view   : null,
     max_downward_view : null,
@@ -59,8 +61,10 @@ FPSControls.prototype = {
         this.camera.eulerOrder = 'ZYX'
         this.camera.up = new THREE.Vector3(0, 1, 0)
 
+        this.camera_object3D = new THREE.Object3D()
         this.pitch = new THREE.Object3D()
-        this.pitch.add(camera)
+
+        //this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
         //this.direction_object3D.add(this.camera)
@@ -315,6 +319,8 @@ FPSControls.prototype = {
     },
 
     look_at: function(position_vector_to_look_at) {
+
+        /*
         console.log('Current direction : ')
         console.log(this.get_direction())
 
@@ -323,6 +329,16 @@ FPSControls.prototype = {
         look_at_normal.sub(this.yaw.position)
         look_at_normal.normalize()
         console.log(look_at_normal)
+
+        var current = this.get_direction()
+
+        var delta_x = position_vector_to_look_at.x - current.x
+        var delta_y = position_vector_to_look_at.y - current.y
+        var delta_z = position_vector_to_look_at.z - current.z
+        */
+
+        this.camera_object3D.lookAt(position_vector_to_look_at)
+        
     },
 
     update_mouse_view_position: function() {
@@ -349,6 +365,11 @@ FPSControls.prototype = {
         // Now actually update the camera.
         //var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
         //this.direction_object3D.lookAt(look_at)
+
+        this.camera_object3D.position.x = this.yaw.position.x
+        this.camera_object3D.position.y = this.yaw.position.y
+        this.camera_object3D.position.z = this.yaw.position.z
+        this.camera_object3D.lookAt(this.get_direction())
     },
 
     on_mouse_move: function(event) {
