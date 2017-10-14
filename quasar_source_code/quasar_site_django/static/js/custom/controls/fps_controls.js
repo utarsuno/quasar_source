@@ -341,11 +341,10 @@ FPSControls.prototype = {
         var x_rotation = new THREE.Vector2(d.x, d.z)
         x_rotation.normalize()
 
-        console.log(this.mouse_movement_x_buffer.get_current_value())
-        console.log(this.mouse_movement_y_buffer.get_current_value())
         //console.log(look_at_normal)
         //console.log(x_rotation)
-        console.log(d.y)
+        //console.log(d.y)
+        console.log(Math.atan(x_rotation.z / x_rotation.x))
 
         //console.log('look at : ' + position_vector_to_look_at)
         //this.camera_object3D.lookAt(position_vector_to_look_at)
