@@ -344,9 +344,14 @@ FPSControls.prototype = {
         //console.log(look_at_normal)
         //console.log(x_rotation)
         //console.log(d.y)
-        console.log(Math.atan2(x_rotation.y, x_rotation.x))
+
+        var angle = Math.atan2(x_rotation.y, x_rotation.x) + HALF_PIE
+
+        console.log(angle)
 
 
+        var y_shift = this.mouse_movement_y_buffer.get_current_value() - d.y
+        this.mouse_movement_y_buffer.add_force(-1.0 * y_shift)
 
 
         //console.log('look at : ' + position_vector_to_look_at)

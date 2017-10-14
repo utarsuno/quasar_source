@@ -84,6 +84,7 @@ module.exports = {
 
         "GLOBAL_FONT": false,
 
+        "HALF_PIE": false,
         "PIE": false,
         "TWO_PIE": false,
 
