@@ -350,7 +350,7 @@ FPSControls.prototype = {
         console.log(angle)
 
 
-        var y_shift = this.mouse_movement_y_buffer.get_current_value() - d.y
+        var y_shift = d.y - look_at_normal.y
         this.mouse_movement_y_buffer.add_force(-1.0 * y_shift)
 
 
