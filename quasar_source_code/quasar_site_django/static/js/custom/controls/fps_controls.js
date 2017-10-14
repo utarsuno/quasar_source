@@ -315,65 +315,25 @@ FPSControls.prototype = {
     },
 
     look_at: function(position_vector_to_look_at) {
-
-        /*
-        console.log('Current direction : ')
-        console.log(this.get_direction())
-
-        console.log('Look at direction : ')
         var look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
         look_at_normal.sub(this.yaw.position)
         look_at_normal.normalize()
-        console.log(look_at_normal)
-
-        var current = this.get_direction()
-
-        var delta_x = position_vector_to_look_at.x - current.x
-        var delta_y = position_vector_to_look_at.y - current.y
-        var delta_z = position_vector_to_look_at.z - current.z
-        */
-
-        var look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
-        look_at_normal.sub(this.yaw.position)
-        look_at_normal.normalize()
-
 
         var look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x)
-
-
 
         var d = this.get_direction()
         var x_rotation = new THREE.Vector2(d.x, d.z)
         x_rotation.normalize()
 
-        //console.log(look_at_normal)
-        //console.log(x_rotation)
-        //console.log(d.y)
-
-
-
-
-
-
         var angle = Math.atan2(x_rotation.y, x_rotation.x)
 
 
-        var angle_difference = look_at_angle - angle
+        console.log('Look at normal : ' + look_at_normal.y)
+        console.log('Current        : ' + d.y)
 
 
-        //console.log(angle)
-
-
-        var y_shift = d.y - look_at_normal.y
-        this.mouse_movement_y_buffer.add_force(-1.0 * y_shift)
-
-        this.mouse_movement_x_buffer.add_force(-1.0 * angle_difference)
-
-
-        //console.log('look at : ' + position_vector_to_look_at)
-        //this.camera_object3D.lookAt(position_vector_to_look_at)
-
-        //this.camera.lookAt(position_vector_to_look_at)
+        this.mouse_movement_y_buffer.add_force(-1.0 * (d.y - look_at_normal.y))
+        this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
 
     update_mouse_view_position: function() {
@@ -396,17 +356,6 @@ FPSControls.prototype = {
             this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal)
             this.walking_direction.normalize()
         }
-
-        // Now actually update the camera.
-        //var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
-        //this.direction_object3D.lookAt(look_at)
-
-        //this.camera_object3D.position.x = this.yaw.position.x
-        //this.camera_object3D.position.y = this.yaw.position.y
-        //this.camera_object3D.position.z = this.yaw.position.z
-
-        //this.camera.lookAt(this.get_direction())
-        //this.camera_object3D.lookAt(this.get_direction())
     },
 
     on_mouse_move: function(event) {
