@@ -238,40 +238,30 @@ Floating2DText.prototype = {
         this.force_update_text(this.text)
     },
 
-    set_double_engage_function: function(f) {
-        this.double_engage_function = f
-    },
-
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
-        if (this.type === TYPE_CHECK_BOX || this.type === TYPE_BUTTON) {
-            if (keycode === KEY_CODE_ENTER || keycode === KEY_CODE_E) {
-                this.double_engage_function()
-            }
-        } else {
-
-            if (keycode == KEY_CODE_DELETE) {
-                if (this.text.length > 0) {
-                    this.pop_character()
-                    if (this.type == TYPE_INPUT_PASSWORD) {
-                        this._hidden_text = this._hidden_text.slice(0, -1)
-                    }
-                }
-
-                AUDIO_MANAGER.play_typing_sound()
-
-            } else if (event.key.length == 1) {
+        if (keycode == KEY_CODE_DELETE) {
+            if (this.text.length > 0) {
+                this.pop_character()
                 if (this.type == TYPE_INPUT_PASSWORD) {
-                    this._hidden_text += event.key
-                    this.add_character('*')
-                } else if (this.type == TYPE_INPUT_REGULAR) {
-                    this.add_character(event.key)
+                    this._hidden_text = this._hidden_text.slice(0, -1)
                 }
-
-                AUDIO_MANAGER.play_typing_sound()
             }
+
+            AUDIO_MANAGER.play_typing_sound()
+
+        } else if (event.key.length == 1) {
+            if (this.type == TYPE_INPUT_PASSWORD) {
+                this._hidden_text += event.key
+                this.add_character('*')
+            } else if (this.type == TYPE_INPUT_REGULAR) {
+                this.add_character(event.key)
+            }
+
+            AUDIO_MANAGER.play_typing_sound()
         }
+
     },
 
     set_to_invisible: function() {

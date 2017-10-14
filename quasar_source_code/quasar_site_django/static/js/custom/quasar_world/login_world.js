@@ -24,7 +24,7 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
-    login_button_double_engage: function() {
+    login_button_clicked: function() {
         var error = false
         var error_message = ''
 
@@ -66,7 +66,7 @@ LoginWorld.prototype = {
         }
     },
 
-    create_account_button_double_engaged: function() {
+    create_account_button_clicked: function() {
         var error = false
         var error_message = ''
 
@@ -116,7 +116,7 @@ LoginWorld.prototype = {
         }
     },
 
-    remember_username_double_engaged: function() {
+    remember_username_clicked: function() {
         this.remember_username_checkbox.toggle()
         if (this.remember_username_checkbox.status()) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
@@ -174,11 +174,11 @@ LoginWorld.prototype = {
         this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
-        this.remember_username_checkbox.floating_2d_text.set_double_engage_function(this.remember_username_double_engaged.bind(this))
+        this.remember_username_checkbox.floating_2d_text.set_engage_function(this.remember_username_clicked.bind(this))
 
         this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
-        this.login_button.set_double_engage_function(this.login_button_double_engage.bind(this))
+        this.login_button.set_engage_function(this.login_button_clicked.bind(this))
 
         /* __   __   ___      ___  ___          __   __   __            ___
           /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
@@ -205,7 +205,7 @@ LoginWorld.prototype = {
         this.create_account_button = new Floating2DText(150, 'Create Account', TYPE_BUTTON, this.scene)
         this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
 
-        this.create_account_button.set_double_engage_function(this.create_account_button_double_engaged.bind(this))
+        this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
 
         this.interactive_objects = [
             this.login_button,
