@@ -234,14 +234,16 @@ Floating2DText.prototype = {
         this.force_update_text(this.text)
     },
 
+    set_double_engage_function: function(f) {
+        this.double_engage_function = f
+    },
+
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
-        if (this.type === TYPE_CHECK_BOX) {
-            if (this.text === 'X') {
-                this.update_text(' ')
-            } else {
-                this.update_text('X')
+        if (this.type === TYPE_CHECK_BOX || this.type === TYPE_BUTTON) {
+            if (keycode === KEY_CODE_ENTER || keycode === KEY_CODE_E) {
+                this.double_engage_function()
             }
         } else {
 
