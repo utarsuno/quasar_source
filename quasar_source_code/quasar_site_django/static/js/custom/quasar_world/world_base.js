@@ -8,9 +8,8 @@ function World() {
     this.current_world              = false
     this.scene                      = new THREE.Scene()
 
+    this.default_tab_target         = null
     this.interactive_objects        = []
-
-
 
     this.add_to_scene = function(object) {
         this.scene.add(object)
@@ -60,7 +59,21 @@ function World() {
     }
 
     this.tab_to_next_interactive_object = function() {
-
+        if (this.currently_looked_at_object !== null) {
+            if (this.currently_looked_at_object.is_engaged()) {
+                this.currently_looked_at_object.disengage(this.player)
+                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
+                this.currently_looked_at_object.engage(this.player)
+            } else {
+                this.currently_looked_at_object.look_away()
+                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
+                this.currently_looked_at_object.look_at()
+            }
+            this.player.look_at(this.currently_looked_at_object.next_tab_target.object3D.position)
+        } else if (this.default_tab_target !== null) {
+            this.currently_looked_at_object = this.default_tab_target
+            this.player.look_at(this.currently_looked_at_object.next_tab_target.object3D.position)
+        }
     }
 
     this.key_down_event_for_interactive_objects = function() {
@@ -71,10 +84,7 @@ function World() {
                 }
             }
         } else if (event.keyCode == KEY_CODE_TAB) {
-            // TODO : Tab will cycle through interactive objects shifting the players view to look at each one.
-
             this.tab_to_next_interactive_object()
-
             event.preventDefault()
             event.stopPropagation()
         }
@@ -90,5 +100,9 @@ function World() {
                 }
             }
         }
+    }
+
+    this.set_default_tab_target = function(default_tab_target) {
+        this.default_tab_target = default_tab_target
     }
 }

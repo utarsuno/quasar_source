@@ -8,21 +8,30 @@ function Interactive() {
     // Function events.
     this.engage_function    = null
     this.disengage_function = null
-
-    // TODO : Function events for look at states.
+    this.look_at_function   = null
+    this.look_away_function = null
 
     // States.
     this.being_looked_at    = false
     this.being_engaged_with = false
 
+    // Next table target pointer.
+    this.next_tab_target    = null
+
     this.look_away = function() {
         this.being_looked_at = false
         this.state_change_look_at(false)
+        if (this.look_away_function !== null) {
+            this.look_away_function()
+        }
     }
 
     this.look_at = function() {
         this.being_looked_at = true
         this.state_change_look_at(true)
+        if (this.look_at_function !== null) {
+            this.look_at_function()
+        }
     }
 
     this.disengage = function(player) {
@@ -51,5 +60,17 @@ function Interactive() {
 
     this.set_disengage_function = function(disengage_function) {
         this.disengage_function = disengage_function
+    }
+
+    this.set_look_at_function = function(look_at_function) {
+        this.look_at_function = look_at_function
+    }
+
+    this.set_look_away_function = function(look_away_function) {
+        this.look_away_function = look_away_function
+    }
+
+    this.set_next_tab_target = function(tab_target) {
+        this.next_tab_target = tab_target
     }
 }

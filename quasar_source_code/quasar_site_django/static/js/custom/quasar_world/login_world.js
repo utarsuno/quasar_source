@@ -178,7 +178,6 @@ LoginWorld.prototype = {
 
         this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
-
         this.login_button.set_engage_function(this.login_button_clicked.bind(this))
 
         /* __   __   ___      ___  ___          __   __   __            ___
@@ -208,7 +207,6 @@ LoginWorld.prototype = {
 
         this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
 
-        // Create a list of the interactive floating texts.
         this.interactive_objects = [
             this.login_button,
             this.create_account_button,
@@ -220,6 +218,19 @@ LoginWorld.prototype = {
             this.create_repeat_password.floating_input,
             this.remember_username_checkbox.floating_2d_text
         ]
+
+        // Set the tab targets.
+        this.login_username.floating_input.set_next_tab_target(this.login_password.floating_input)
+        this.login_password.floating_input.set_next_tab_target(this.remember_username_checkbox.floating_2d_text)
+        this.remember_username_checkbox.floating_2d_text.set_next_tab_target(this.login_button)
+        this.login_button.set_next_tab_target(this.create_username.floating_input)
+        this.create_username.floating_input.set_next_tab_target(this.create_email.floating_input)
+        this.create_email.floating_input.set_next_tab_target(this.create_password.floating_input)
+        this.create_password.floating_input.set_next_tab_target(this.create_repeat_password.floating_input)
+        this.create_repeat_password.floating_input.set_next_tab_target(this.create_account_button)
+        this.create_account_button.set_next_tab_target(this.login_username.floating_input)
+        
+        this.set_default_tab_target(this.login_username.floating_input)
     },
 
     update: function() {

@@ -325,23 +325,8 @@ FPSControls.prototype = {
 
         var angle = Math.atan2(x_rotation.y, x_rotation.x)
 
-
-        console.log('Look at normal : ' + look_at_normal.y)
-        console.log('Current        : ' + d.y)
-
-        var y_angle = Math.atan2(d.y, look_at_normal.y)
-
-        console.log('Y difference : ' + (d.y - look_at_normal.y))
-        console.log('Y difference 2 : ' + y_angle * (Math.PI / 180.0))
-        console.log('Y difference 3 : ' + y_angle)
-
-
-        //this.mouse_movement_y_buffer.add_force(-1.0 * ((d.y - look_at_normal.y) * HALF_PIE))
-
         this.mouse_movement_y_buffer.clear_buffer()
         this.mouse_movement_y_buffer.set_value(look_at_normal.y)
-
-        //this.mouse_movement_y_buffer.add_force(y_angle * (Math.PI / 180.0))
 
         this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
