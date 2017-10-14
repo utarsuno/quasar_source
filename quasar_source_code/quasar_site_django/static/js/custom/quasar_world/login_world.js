@@ -24,7 +24,7 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
-    login_button_clicked: function() {
+    login_button_double_engage: function() {
         var error = false
         var error_message = ''
 
@@ -178,7 +178,7 @@ LoginWorld.prototype = {
 
         this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
-        this.login_button.set_engage_function(this.login_button_clicked.bind(this))
+        this.login_button.set_double_engage_function(this.login_button_double_engage.bind(this))
 
         /* __   __   ___      ___  ___          __   __   __            ___
           /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
