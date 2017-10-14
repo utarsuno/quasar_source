@@ -57,16 +57,16 @@ FPSControls.prototype = {
         this.buffer_mouse_movement = true
 
         this.camera = camera
-        this.camera.rotation.set(0, 0, 0)
-        this.camera.eulerOrder = 'ZYX'
-        this.camera.up = new THREE.Vector3(0, 1, 0)
+        //this.camera.rotation.set(0, 0, 0)
+        //this.camera.eulerOrder = 'ZYX'
+        //this.camera.up = new THREE.Vector3(0, 1, 0)
 
         this.camera_object3D = new THREE.Object3D()
-        this.camera_object3D.add(camera)
+        //this.camera_object3D.add(camera)
 
         this.pitch = new THREE.Object3D()
 
-        //this.pitch.add(camera)
+        this.pitch.add(camera)
 
         this.direction_object3D = new THREE.Object3D()
         //this.direction_object3D.add(this.camera)
@@ -370,11 +370,11 @@ FPSControls.prototype = {
         //var look_at = new THREE.Vector3(this.direction_vector.x * 2000, this.direction_vector.y * 2000, this.direction_vector.z * 2000)
         //this.direction_object3D.lookAt(look_at)
 
-        this.camera_object3D.position.x = this.yaw.position.x
-        this.camera_object3D.position.y = this.yaw.position.y
-        this.camera_object3D.position.z = this.yaw.position.z
+        //this.camera_object3D.position.x = this.yaw.position.x
+        //this.camera_object3D.position.y = this.yaw.position.y
+        //this.camera_object3D.position.z = this.yaw.position.z
 
-        this.camera.lookAt(this.get_direction())
+        //this.camera.lookAt(this.get_direction())
         //this.camera_object3D.lookAt(this.get_direction())
     },
 
