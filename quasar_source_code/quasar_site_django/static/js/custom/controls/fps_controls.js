@@ -367,7 +367,7 @@ FPSControls.prototype = {
         var y_shift = d.y - look_at_normal.y
         this.mouse_movement_y_buffer.add_force(-1.0 * y_shift)
 
-        this.mouse_movement_x_buffer.add_force(-1.0 * angle_difference)
+        this.mouse_movement_x_buffer.add_force(1.0 * angle_difference)
 
 
         //console.log('look at : ' + position_vector_to_look_at)
