@@ -124,15 +124,15 @@ Floating2DText.prototype = {
 
     state_change_engage: function(being_engaged_with, player) {
         if (being_engaged_with) {
-            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-                player.engage()
-            } else {
-                this.being_engaged_with = false
-            }
+            //if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+            player.engage()
+            //} else {
+            //    this.being_engaged_with = false
+            //}
         } else {
-            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-                player.disengage()
-            }
+            //if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+            player.disengage()
+            //}
         }
     },
 
@@ -237,25 +237,34 @@ Floating2DText.prototype = {
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
-        if (keycode == 8) {
-            if (this.text.length > 0) {
-                this.pop_character()
-                if (this.type == TYPE_INPUT_PASSWORD) {
-                    this._hidden_text = this._hidden_text.slice(0, -1)
+        if (this.type === TYPE_CHECK_BOX) {
+            if (this.text === 'X') {
+                this.update_text(' ')
+            } else {
+                this.update_text('X')
+            }
+        } else {
+
+            if (keycode == KEY_CODE_DELETE) {
+                if (this.text.length > 0) {
+                    this.pop_character()
+                    if (this.type == TYPE_INPUT_PASSWORD) {
+                        this._hidden_text = this._hidden_text.slice(0, -1)
+                    }
                 }
+
+                AUDIO_MANAGER.play_typing_sound()
+
+            } else if (event.key.length == 1) {
+                if (this.type == TYPE_INPUT_PASSWORD) {
+                    this._hidden_text += event.key
+                    this.add_character('*')
+                } else if (this.type == TYPE_INPUT_REGULAR) {
+                    this.add_character(event.key)
+                }
+
+                AUDIO_MANAGER.play_typing_sound()
             }
-
-            AUDIO_MANAGER.play_typing_sound()
-
-        } else if (event.key.length == 1) {
-            if (this.type == TYPE_INPUT_PASSWORD) {
-                this._hidden_text += event.key
-                this.add_character('*')
-            } else if (this.type == TYPE_INPUT_REGULAR) {
-                this.add_character(event.key)
-            }
-
-            AUDIO_MANAGER.play_typing_sound()
         }
     },
 

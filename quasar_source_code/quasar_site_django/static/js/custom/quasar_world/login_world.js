@@ -116,9 +116,8 @@ LoginWorld.prototype = {
         }
     },
 
-    remember_username_clicked: function() {
-        this.remember_username_checkbox.toggle()
-        if (this.remember_username_checkbox.checked) {
+    remember_username_disengaged: function() {
+        if (this.remember_username_checkbox.status()) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
         } else {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'false')
@@ -174,7 +173,7 @@ LoginWorld.prototype = {
         this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
-        this.remember_username_checkbox.floating_2d_text.set_engage_function(this.remember_username_clicked.bind(this))
+        this.remember_username_checkbox.floating_2d_text.set_disengage_function(this.remember_username_disengaged.bind(this))
 
         this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
         this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))

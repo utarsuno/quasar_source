@@ -42,7 +42,8 @@ CheckBox.prototype = {
     },
 
     status: function() {
-        return !!this.checked
+        this.checked = this.floating_2d_text.get_text() === 'X'
+        return this.checked
     },
 
     set_to_invisible: function() {

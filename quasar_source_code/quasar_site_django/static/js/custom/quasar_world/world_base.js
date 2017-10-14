@@ -59,13 +59,12 @@ function World() {
     }
 
     this.tab_to_next_interactive_object = function() {
-
-        console.log('TAB FUNCTION CALLED!!')
-
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage(this.player)
+                this.currently_looked_at_object.look_away()
                 this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
+                this.currently_looked_at_object.look_at()
                 this.currently_looked_at_object.engage(this.player)
             } else {
                 this.currently_looked_at_object.look_away()
@@ -80,7 +79,7 @@ function World() {
     }
 
     this.key_down_event_for_interactive_objects = function() {
-        if (event.keyCode === KEY_CODE_BACK_SLASH) {
+        if (event.keyCode === KEY_CODE_BACK_SLASH || event.keyCode === KEY_CODE_ENTER) {
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.disengage(this.player)

@@ -81,7 +81,9 @@ const KEY_CODE_W          = 87
 const KEY_CODE_X          = 88
 const KEY_CODE_Y          = 89
 const KEY_CODE_Z          = 90
+const KEY_CODE_DELETE     = 8
 const KEY_CODE_TAB        = 9
+const KEY_CODE_ENTER      = 13
 const KEY_CODE_BACK_SLASH = 220
 
 /* __        __   __                ___            __  ___    __        __

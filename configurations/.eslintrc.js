@@ -137,7 +137,9 @@ module.exports = {
         "KEY_CODE_X": false,
         "KEY_CODE_Y": false,
         "KEY_CODE_Z": false,
+        "KEY_CODE_DELETE": false,
         "KEY_CODE_TAB": false,
+        "KEY_CODE_ENTER": false,
         "KEY_CODE_BACK_SLASH": false,
 
         // Shortcuts.
