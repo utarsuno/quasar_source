@@ -61,15 +61,9 @@ FPSControls.prototype = {
         //this.camera.eulerOrder = 'ZYX'
         //this.camera.up = new THREE.Vector3(0, 1, 0)
 
-        this.camera_object3D = new THREE.Object3D()
-        //this.camera_object3D.add(camera)
-
         this.pitch = new THREE.Object3D()
 
         this.pitch.add(camera)
-
-        this.direction_object3D = new THREE.Object3D()
-        //this.direction_object3D.add(this.camera)
 
         this.yaw = new THREE.Object3D()
         this.yaw.add(this.pitch)
@@ -339,10 +333,22 @@ FPSControls.prototype = {
         var delta_z = position_vector_to_look_at.z - current.z
         */
 
+        var look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z)
+        look_at_normal.sub(this.yaw.position)
+        look_at_normal.normalize()
+
+        var d = this.get_direction()
+        var x_rotation = new THREE.Vector2(d.x, d.z)
+        x_rotation.normalize()
+
+        console.log(look_at_normal)
+        console.log(x_rotation)
+        console.log(d.y)
+
         //console.log('look at : ' + position_vector_to_look_at)
         //this.camera_object3D.lookAt(position_vector_to_look_at)
 
-        this.camera.lookAt(position_vector_to_look_at)
+        //this.camera.lookAt(position_vector_to_look_at)
     },
 
     update_mouse_view_position: function() {
