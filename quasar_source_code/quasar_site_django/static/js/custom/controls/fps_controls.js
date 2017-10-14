@@ -49,8 +49,6 @@ FPSControls.prototype = {
 
     __init__: function(camera) {
         // Constants.
-        this.half_pie         = Math.PI / 2
-        this.max_view_angle   = this.half_pie * 0.9
         this.diagonal_penalty = Math.sqrt(.5)
         this.ground_normal    = new THREE.Vector3(0, 1, 0)
 
@@ -350,7 +348,7 @@ FPSControls.prototype = {
             this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value()
         }
 
-        this.pitch.rotation.x = Math.max(-this.max_view_angle, Math.min(this.max_view_angle, this.pitch.rotation.x))
+        this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
 
         this.direction_vector = this.get_direction()
         this.direction_vector.normalize()
@@ -367,8 +365,8 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
-        console.log('Rotation Y : ' + this.yaw.rotation.y)
-        //console.log('Rotation X : ' + this.pitch.rotation.x)
+        //console.log('Rotation X : ' + this.yaw.rotation.y)
+        console.log('Rotation Y : ' + this.pitch.rotation.x)
         //console.log('---')
 
         if (this.enabled) {
