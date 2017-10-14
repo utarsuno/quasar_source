@@ -4,6 +4,7 @@ function Interactive() {
 
     // Settings.
     this.needs_engage_for_parsing_input = true
+    this.maintain_engage_when_tabbed_to = true
 
     // Function events.
     this.engage_function    = null

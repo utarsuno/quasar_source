@@ -93,6 +93,10 @@ Floating2DText.prototype = {
         // Inherit from Interactive.
         Interactive.call(this)
 
+        if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX) {
+            this.maintain_engage_when_tabbed_to = false
+        }
+
         this.create()
     },
 
@@ -124,15 +128,15 @@ Floating2DText.prototype = {
 
     state_change_engage: function(being_engaged_with, player) {
         if (being_engaged_with) {
-            //if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-            player.engage()
-            //} else {
-            //    this.being_engaged_with = false
-            //}
+            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+                player.engage()
+            } else {
+                this.being_engaged_with = false
+            }
         } else {
-            //if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-            player.disengage()
-            //}
+            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
+                player.disengage()
+            }
         }
     },
 

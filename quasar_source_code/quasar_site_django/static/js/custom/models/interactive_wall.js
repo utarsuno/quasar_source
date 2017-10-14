@@ -98,7 +98,8 @@ InteractiveWall.prototype = {
         var close_button_look_at = new THREE.Vector3(look_at.x + this.width - this.close_button.width, look_at.y + this.height / 2 - this.close_button.height / 2, look_at.z + 2)
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
-        this.close_button.floating_2d_text.set_engage_function(this.close_button_clicked.bind(this))
+        this.close_button.floating_2d_text.set_double_engage_function(this.close_button_clicked.bind(this))
+
         this.list_of_interactive_objects.push(this.close_button.floating_2d_text)
 
         //this.close_button.floating_2d_text.object3D.remove(this.close_button.floating_2d_text.mesh)
