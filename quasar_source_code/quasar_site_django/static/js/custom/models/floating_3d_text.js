@@ -28,8 +28,6 @@ Floating3DText.prototype = {
     wireframe: null,
 
     // States.
-    being_looked_at: null,
-    being_engaged_with: null,
     current_color: null,
     is_visible: null,
 
@@ -57,6 +55,9 @@ Floating3DText.prototype = {
 
         this.is_visible = true
 
+        // Inherit from Interactive.
+        Interactive.call(this)
+
         this.type = type
         this.create_outline()
         this.create()
@@ -74,13 +75,15 @@ Floating3DText.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
-            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
+            this.material.color.setHex(COLOR_HIGHLIGHT)
+            this.material.needsUpdate = true
             this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
             }
         } else {
-            this.wireframe.material.color.setHex(this.original_border_color)
+            this.material.color.setHex(this.original_border_color)
+            this.material.needsUpdate = true
             this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
@@ -91,27 +94,6 @@ Floating3DText.prototype = {
     state_change_engage: function(being_engaged_with) {
     },
 
-    look_at: function() {
-        if (this.being_looked_at === false) {
-            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
-            this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
-            if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
-            }
-        }
-        this.being_looked_at = true
-    },
-
-    look_away: function() {
-        if (this.being_looked_at) {
-            this.wireframe.material.color.setHex(this.original_border_color)
-            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
-            if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
-            }
-        }
-        this.being_looked_at = false
-    },
 
     update_just_color: function(color_arg) {
         this.material.color.setHex(color_arg)
