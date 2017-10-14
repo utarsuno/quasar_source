@@ -229,7 +229,7 @@ LoginWorld.prototype = {
         this.create_password.floating_input.set_next_tab_target(this.create_repeat_password.floating_input)
         this.create_repeat_password.floating_input.set_next_tab_target(this.create_account_button)
         this.create_account_button.set_next_tab_target(this.login_username.floating_input)
-        
+
         this.set_default_tab_target(this.login_username.floating_input)
     },
 
@@ -239,10 +239,6 @@ LoginWorld.prototype = {
 
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
-
-        if (event.keyCode == KEY_CODE_TAB) {
-            this.player.look_at(this.login_button.object3D.position)
-        }
     },
 
     enter_world: function() {
