@@ -81,7 +81,7 @@ function World() {
     }
 
     this.key_down_event_for_interactive_objects = function() {
-        if (event.keyCode === KEY_CODE_BACK_SLASH || event.keyCode === KEY_CODE_ENTER) {
+        if (event.keyCode === KEY_CODE_BACK_SLASH) {
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.disengage(this.player)
@@ -97,7 +97,7 @@ function World() {
                 this.currently_looked_at_object.parse_keycode(event)
             }
         }
-        if (event.keyCode == KEY_CODE_E) {
+        if (event.keyCode == KEY_CODE_E || event.keyCode === KEY_CODE_ENTER) {
             if (this.currently_looked_at_object !== null) {
                 if (!this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.engage(this.player)

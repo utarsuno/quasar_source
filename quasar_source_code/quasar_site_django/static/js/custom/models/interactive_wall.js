@@ -198,10 +198,12 @@ InteractiveWall.prototype = {
     },
 
     add_title: function(title) {
-        this.title = new Floating3DText(this.width / 2, title, TYPE_TITLE, this.scene)
+        this.title = new Floating3DText(this.width / 2, title, TYPE_INPUT_REGULAR, this.scene)
         var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
         var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z + 2)
         this.title.update_position_and_look_at(title_position, title_look_at)
+
+        this.list_of_interactive_objects.push(this.title)
     },
 
     get_input_row_text: function(input_row_name) {
