@@ -339,6 +339,7 @@ FPSControls.prototype = {
         var delta_z = position_vector_to_look_at.z - current.z
         */
 
+        console.log('look at : ' + position_vector_to_look_at)
         this.camera_object3D.lookAt(position_vector_to_look_at)
         
     },
