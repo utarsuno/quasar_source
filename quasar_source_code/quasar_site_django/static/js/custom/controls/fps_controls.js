@@ -337,6 +337,11 @@ FPSControls.prototype = {
         look_at_normal.sub(this.yaw.position)
         look_at_normal.normalize()
 
+
+        var look_at_angle = Math.atan2(look_at_normal.x, look_at_normal.z)
+
+
+
         var d = this.get_direction()
         var x_rotation = new THREE.Vector2(d.x, d.z)
         x_rotation.normalize()
@@ -345,13 +350,24 @@ FPSControls.prototype = {
         //console.log(x_rotation)
         //console.log(d.y)
 
-        var angle = Math.atan2(x_rotation.y, x_rotation.x) + HALF_PIE
 
-        console.log(angle)
+
+
+
+
+        var angle = Math.atan2(x_rotation.y, x_rotation.x)
+
+
+        var angle_difference = look_at_angle - angle
+
+
+        //console.log(angle)
 
 
         var y_shift = d.y - look_at_normal.y
         this.mouse_movement_y_buffer.add_force(-1.0 * y_shift)
+
+        this.mouse_movement_x_buffer.add_force(-1.0 * angle_difference)
 
 
         //console.log('look at : ' + position_vector_to_look_at)
