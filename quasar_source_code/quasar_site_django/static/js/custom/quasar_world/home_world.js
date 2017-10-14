@@ -241,6 +241,7 @@ HomeWorld.prototype = {
     },
 
     enter_world: function() {
+        this.player.disengage()
         this.current_world = true
         if (this.hello_message === null) {
             this.ajax_status.update_text('Welcome back ' + this.player.get_username())

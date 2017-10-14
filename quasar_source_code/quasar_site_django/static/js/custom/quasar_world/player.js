@@ -67,6 +67,8 @@ Player.prototype = {
         WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)
     },
 
+    // TODO : consider holding the currently engaged object so that the player can send a disengage/engage message to it.
+
     disengage: function() {
         this.engaged = false
         this.fps_controls.enable()
