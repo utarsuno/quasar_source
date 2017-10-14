@@ -338,7 +338,7 @@ FPSControls.prototype = {
         look_at_normal.normalize()
 
 
-        var look_at_angle = Math.atan2(look_at_normal.x, look_at_normal.z)
+        var look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x)
 
 
 
