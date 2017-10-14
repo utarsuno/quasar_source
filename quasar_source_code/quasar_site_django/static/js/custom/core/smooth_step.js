@@ -97,6 +97,14 @@ SmoothStepLowerLimitZero.prototype = {
         this.time_needed_for_each_force = time_needed_for_each_force
     },
 
+    clear_buffer: function() {
+        this.buffer.length = 0
+    },
+
+    set_value: function(value) {
+        this.current_value = value
+    },
+
     add_force: function(magnitude) {
         this.buffer.push([magnitude, 0.0])
     },
