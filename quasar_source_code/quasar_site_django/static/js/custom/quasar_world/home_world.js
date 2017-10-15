@@ -55,7 +55,7 @@ HomeWorld.prototype = {
 
             //var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
 
-            var position = wall_entities[w]['ENTITY_PROPERTY_POSITION']
+            var position = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_POSITION'])
             var title = wall_entities[w]['ENTITY_PROPERTY_NAME']
 
             console.log('POSITION IS : ' + position)
