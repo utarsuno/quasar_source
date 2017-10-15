@@ -55,6 +55,12 @@ const COLOR_WHITE          = '#ffffff'
 const COLOR_BLACK          = '#000000'
 
 // Key-down key-codes.
+const KEY_CODE_SHIFT      = 16
+const KEY_CODE_SPACE      = 32
+const KEY_CODE_UP         = 38
+const KEY_CODE_LEFT       = 37
+const KEY_CODE_RIGHT      = 39
+const KEY_CODE_DOWN       = 40
 const KEY_CODE_A          = 65
 const KEY_CODE_B          = 66
 const KEY_CODE_C          = 67
@@ -84,6 +90,7 @@ const KEY_CODE_Z          = 90
 const KEY_CODE_DELETE     = 8
 const KEY_CODE_TAB        = 9
 const KEY_CODE_ENTER      = 13
+const KEY_CODE_CONTROL    = 17
 const KEY_CODE_BACK_SLASH = 220
 
 /* __        __   __                ___            __  ___    __        __

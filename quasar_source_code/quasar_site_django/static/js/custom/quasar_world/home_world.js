@@ -85,6 +85,14 @@ HomeWorld.prototype = {
         var light = new THREE.AmbientLight(0x404040, .2) // soft white light
         this.add_to_scene(light)
 
+        ////////
+
+        var ew_p = new THREE.Vector3(-1000, 500, -1000)
+        var ew_la = new THREE.Vector3(0, 500, 0)
+        this.entity_wall = new EntityWall(ew_p, ew_la, this.scene)
+
+        ///////
+
         /* __        __   __               ___  __   __   __   __
           / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
           \__> |___ \__/ |__) /~~\ |___     |  \__/ |__/ \__/ .__/    |/\| /~~\ |___ |___ */

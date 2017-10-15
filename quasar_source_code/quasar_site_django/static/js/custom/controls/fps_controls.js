@@ -71,7 +71,6 @@ FPSControls.prototype = {
 
         // TODO : Add smooth step to the movement buffers!!!
 
-        document.addEventListener('keypress', this.on_key_press.bind(this), false)
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false)
         document.addEventListener('keydown', this.on_key_down.bind(this), false)
         document.addEventListener('keyup', this.on_key_up.bind(this), false)
@@ -215,7 +214,6 @@ FPSControls.prototype = {
     },
 
     get_position: function() {
-        //return this.direction_object3D.position
         return this.yaw.position
     },
 
@@ -231,36 +229,28 @@ FPSControls.prototype = {
         this.enabled = false
     },
 
-    on_key_press: function(event) {
-        switch(event.which) {
-        case 102: // f
-            this.toggle_flying()
-            break
-        }
-    },
-
     on_key_down: function(event) {
         switch(event.keyCode) {
-        case 38: // up
-        case 87: // w
+        case KEY_CODE_UP:
+        case KEY_CODE_W:
             this.up = true
             break
-        case 37: // left
-        case 65: // a
+        case KEY_CODE_LEFT:
+        case KEY_CODE_A:
             this.left = true
             break
-        case 40: // down
-        case 83: // s
+        case KEY_CODE_DOWN:
+        case KEY_CODE_S:
             this.down = true
             break
-        case 39: // right
-        case 68: // d
+        case KEY_CODE_RIGHT:
+        case KEY_CODE_D:
             this.right = true
             break
-        case 32: // space
+        case KEY_CODE_SPACE:
             this.space = true
             break
-        case 16: // shift
+        case KEY_CODE_SHIFT:
             this.shift = true
             break
         }
@@ -268,26 +258,26 @@ FPSControls.prototype = {
 
     on_key_up: function(event) {
         switch(event.keyCode) {
-        case 38: // up
-        case 87: // w
+        case KEY_CODE_UP:
+        case KEY_CODE_W:
             this.up = false
             break
-        case 37: // left
-        case 65: // a
+        case KEY_CODE_LEFT:
+        case KEY_CODE_A:
             this.left = false
             break
-        case 40: // down
-        case 83: // s
+        case KEY_CODE_DOWN:
+        case KEY_CODE_S:
             this.down = false
             break
-        case 39: // right
-        case 68: // d
+        case KEY_CODE_RIGHT:
+        case KEY_CODE_D:
             this.right = false
             break
-        case 32: // space
+        case KEY_CODE_SPACE:
             this.space = false
             break
-        case 16: // shift
+        case KEY_CODE_SHIFT:
             this.shift = false
             break
         }
@@ -340,11 +330,6 @@ FPSControls.prototype = {
             this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
         }
-    },
-
-    get_object: function() {
-        //return this.direction_object3D
-        return this.yaw
     },
 
     get_direction: function() {

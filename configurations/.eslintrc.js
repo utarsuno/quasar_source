@@ -90,6 +90,8 @@ module.exports = {
 
         "$": false,
 
+        "EntityWall": false,
+
         // From globals.js
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
@@ -111,6 +113,12 @@ module.exports = {
         "COOKIE_REMEMBERED_USERNAME": false,
 
         // Keycodes.
+        "KEY_CODE_SHIFT": false,
+        "KEY_CODE_UP": false,
+        "KEY_CODE_DOWN": false,
+        "KEY_CODE_LEFT": false,
+        "KEY_CODE_RIGHT": false,
+        "KEY_CODE_SPACE": false,
         "KEY_CODE_A": false,
         "KEY_CODE_B": false,
         "KEY_CODE_C": false,
@@ -140,6 +148,7 @@ module.exports = {
         "KEY_CODE_DELETE": false,
         "KEY_CODE_TAB": false,
         "KEY_CODE_ENTER": false,
+        "KEY_CODE_CONTROL": false,
         "KEY_CODE_BACK_SLASH": false,
 
         // Shortcuts.

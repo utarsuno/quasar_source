@@ -29,6 +29,9 @@ PointerLockAPI.prototype = {
             document.addEventListener('pointerlockerror', this.pointer_lock_error.bind(this), false)
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false)
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false)
+
+            // TODO : Move the 3 listeners below into the Player class
+
             // Hook for mouse click.
             document.addEventListener('click', this.mouse_click.bind(this), false)
             // Hook for key down presses.
@@ -66,15 +69,13 @@ PointerLockAPI.prototype = {
     },
 
     key_down: function(event) {
-        // l key.
-        if (event.which == 76) {
+        if (event.which == KEY_CODE_L) {
             this.l_key_currently_down = true
         }
     },
 
     key_up: function(event) {
-        // l key.
-        if (event.which == 76) {
+        if (event.which == KEY_CODE_L) {
             this.l_key_currently_down = false
         }
     }

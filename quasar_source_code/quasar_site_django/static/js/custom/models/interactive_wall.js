@@ -117,6 +117,10 @@ InteractiveWall.prototype = {
         this.y_offsets = []
     },
 
+    update_position_and_look_at: function(position_vector, look_at_vector) {
+
+    },
+
     set_to_invisible: function() {
         this.is_visible = false
         // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js

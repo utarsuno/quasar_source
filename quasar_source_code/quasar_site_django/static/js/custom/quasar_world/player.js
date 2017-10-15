@@ -90,16 +90,19 @@ Player.prototype = {
 
     on_key_down: function(event) {
         switch(event.keyCode) {
-        case 17: // ctrl
+        case KEY_CODE_CONTROL:
             this.key_down_ctrl = true
             break
-        case 68: // d
+        case KEY_CODE_D:
             this.key_down_d = true
             if (this.key_down_ctrl) {
                 // Toggle debugging.
                 this.data_display.toggle()
                 this.renderer_api.stats_api.toggle()
             }
+            break
+        case KEY_CODE_F:
+            //this.fps_controls.toggle_flying()
             break
         }
 
@@ -108,10 +111,10 @@ Player.prototype = {
 
     on_key_up: function(event) {
         switch(event.keyCode) {
-        case 17: // ctrl
+        case KEY_CODE_CONTROL:
             this.key_down_ctrl = false
             break
-        case 68: // d
+        case KEY_CODE_D:
             this.key_down_d = false
             break
         }
