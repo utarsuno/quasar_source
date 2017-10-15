@@ -91,12 +91,10 @@ HomeWorld.prototype = {
         ////////
 
         var ew_p = new THREE.Vector3(-1000, 500, -1000)
-        var ew_la = new THREE.Vector3(0, 500, 0)
-        this.entity_wall = new EntityWall(ew_p, ew_la, this.scene)
+        this.entity_wall = new EntityWall(ew_p, this.scene)
 
         var ew_p2 = new THREE.Vector3(1000, 500, 1000)
-        var ew_la2 = new THREE.Vector3(0, 500, 0)
-        this.entity_wall2 = new EntityWall(ew_p2, ew_la2, this.scene)
+        this.entity_wall2 = new EntityWall(ew_p2, this.scene)
 
         ///////
 
@@ -232,7 +230,7 @@ HomeWorld.prototype = {
     },
 
     create_entity_wall: function() {
-        var entity_wall = new EntityWall(this.player.get_position(), new THREE.Vector3(0, 500 + this.player.get_position().y, 0), this.scene)
+        var entity_wall = new EntityWall(this.player.get_position(), this.scene)
         this.entity_walls.push(entity_wall)
         var interactives = entity_wall.get_all_interactive_objects()
         var number_of_interactives = interactives.length

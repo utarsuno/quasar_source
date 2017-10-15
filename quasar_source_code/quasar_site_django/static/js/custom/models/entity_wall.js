@@ -22,9 +22,9 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
-    __init__: function(position, look_at, scene) {
+    __init__: function(position, scene) {
         this.position = position
-        this.look_at  = look_at
+        this.look_at  = new THREE.Vector3(0, this.position.y, 0)
 
         this.normal = new THREE.Vector3(this.look_at.x - this.position.x, this.look_at.y - this.position.y, this.look_at.z - this.position.z)
         this.normal.normalize()
