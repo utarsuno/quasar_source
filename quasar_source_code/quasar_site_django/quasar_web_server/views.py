@@ -139,6 +139,13 @@ def POST_create_owner(request):
 	return entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
 
 
+# Entity fields.
+ENTITY_PROPERTY_POSITION = 'ENTITY_PROPERTY_POSITION'
+ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
+ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
+ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+
+
 @csrf_exempt
 def POST_save_entities(request):
 	"""Handles the POST request to save changed entities."""

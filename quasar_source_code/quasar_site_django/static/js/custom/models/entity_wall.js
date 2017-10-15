@@ -37,8 +37,6 @@ EntityWall.prototype = {
     },
 
     send_changes_to_server: function() {
-        console.log('SAVE CHANGES!!!')
-
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_password()
 
@@ -46,6 +44,8 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
         save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
+        save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
+        save_data.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
 
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(save_data)}, this.save_changes_result.bind(this))
     },

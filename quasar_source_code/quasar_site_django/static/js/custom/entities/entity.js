@@ -95,6 +95,17 @@ EntityManager.prototype = {
         this.entities.push(new Entity(entity_data[0], entity_data[1]))
     },
 
+    get_new_entity_id: function() {
+        var max_id = -1
+        for (var i = 0; i < this.entities.length; i++) {
+            var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID))
+            if (entity_id > max_id) {
+                max_id = entity_id
+            }
+        }
+        return max_id + 1
+    },
+
     get_all_entities: function() {
         return this.entities
     },
@@ -103,7 +114,7 @@ EntityManager.prototype = {
         var type_entities = []
         var number_of_entities = this.entities.length
         for (var i = 0; i < number_of_entities; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_ENTITY_TYPE) === entity_type) {
+            if (this.entities[i].get_value(ENTITY_PROPERTY_TYPE) === entity_type) {
                 type_entities.push(this.entities[i])
             }
         }
