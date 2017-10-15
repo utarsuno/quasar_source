@@ -22,7 +22,7 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
-    save_changes: function() {
+    send_changes_to_server: function() {
         console.log('SAVE CHANGES!!!')
     },
 
@@ -65,7 +65,7 @@ EntityWall.prototype = {
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(2, 0)))
-        this.save_changes.set_engage_function(this.save_changes.bind(this))
+        this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
