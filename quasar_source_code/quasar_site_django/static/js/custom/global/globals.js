@@ -26,6 +26,7 @@ var ENTITY_MANAGER = null
 const ENTITY_TYPE_TASK = 'EntityTask'
 const ENTITY_TYPE_TIME = 'EntityTime'
 const ENTITY_TYPE_BASE = 'Entity'
+const ENTITY_TYPE_WALL = 'EntityWall'
 
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'
@@ -61,6 +62,16 @@ const KEY_CODE_UP         = 38
 const KEY_CODE_LEFT       = 37
 const KEY_CODE_RIGHT      = 39
 const KEY_CODE_DOWN       = 40
+const KEY_CODE_0          = 48
+const KEY_CODE_1          = 49
+const KEY_CODE_2          = 50
+const KEY_CODE_3          = 51
+const KEY_CODE_4          = 52
+const KEY_CODE_5          = 53
+const KEY_CODE_6          = 54
+const KEY_CODE_7          = 55
+const KEY_CODE_8          = 56
+const KEY_CODE_9          = 57
 const KEY_CODE_A          = 65
 const KEY_CODE_B          = 66
 const KEY_CODE_C          = 67

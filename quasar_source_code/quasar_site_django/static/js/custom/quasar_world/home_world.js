@@ -138,6 +138,7 @@ HomeWorld.prototype = {
           /  `  /\  |    |__  |\ | |  \  /\  |__)     /\  |__) |__   /\
           \__, /~~\ |___ |___ | \| |__/ /~~\ |  \    /~~\ |  \ |___ /~~\ */
 
+        /*
         this.button_3d = new Button3D(50, 'Hello Button', this.scene)
         this.button_3d.update_position_and_look_at(new THREE.Vector3(50, 50, 50), new THREE.Vector3(50, 150, 50))
 
@@ -216,10 +217,20 @@ HomeWorld.prototype = {
         for (x = 0; x < wall_objects_length; x++) {
             this.interactive_objects.push(wall_objects[x])
         }
+        */
     },
+
+    control_key_down: null,
 
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
+        if (event.keyCode === KEY_CODE_9) {
+            this.create_entity_wall()
+        }
+    },
+
+    create_entity_wall: function() {
+        console.log('Create entity wall!!')
     },
 
     add_entity: function(entity_string, day_index) {
@@ -237,15 +248,25 @@ HomeWorld.prototype = {
         }
     },
 
+    load_entity_walls: function() {
+        var wall_entities = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_WALL)
+
+
+    },
+
     update: function() {
         // Get the task entities once all entities have been loaded.
         if (!this.loaded_entities) {
             if (ENTITY_MANAGER.loaded()) {
-                var task_entities = ENTITY_MANAGER.get_all_task_entities()
+                var task_entities = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_TASK)
                 for (var i = 0; i < task_entities.length; i++) {
                     // Creating an entity row returns the interactive object.
                     this.interactive_objects.push(this.global_todos_wall.add_entity_row(task_entities[i]))
                 }
+
+                // Now create the entity walls from the entities.
+                this.create_entity_walls()
+
                 this.loaded_entities = true
             }
         }

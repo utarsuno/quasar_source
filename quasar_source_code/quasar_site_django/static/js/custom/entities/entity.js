@@ -98,13 +98,18 @@ EntityManager.prototype = {
         this.entities.push(new Entity(entity_data[0], entity_data[1]))
     },
 
-    get_all_task_entities: function() {
-        var task_entities = []
-        for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_value(EP_CLASS_NAME) === ENTITY_TYPE_TASK) {
-                task_entities.push(this.entities[i])
+    get_all_entities: function() {
+        return this.entities
+    },
+
+    get_all_entities_of_type: function(entity_type) {
+        var type_entities = []
+        var number_of_entities = this.entities.length
+        for (var i = 0; i < number_of_entities; i++) {
+            if (this.entities[i].get_value(EP_CLASS_NAME) === entity_type) {
+                type_entities.push(this.entities[i])
             }
         }
-        return task_entities
-    }
+        return type_entities
+    },
 }

@@ -20,6 +20,8 @@ EntityWall.prototype = {
     title_text  : null,
     title       : null,
 
+    interactive_objects: null,
+
     __init__: function(position, look_at, scene) {
         this.position = position
         this.look_at  = look_at
@@ -52,10 +54,12 @@ EntityWall.prototype = {
         title_position.add(this.depth_start)
         var title_look_at = new THREE.Vector3(this.look_at.x - this.width / 2, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z)
         this.title.update_position_and_look_at(title_position, title_look_at)
+        this.interactive_objects.push(this.title)
 
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
+
 
     }
 }
