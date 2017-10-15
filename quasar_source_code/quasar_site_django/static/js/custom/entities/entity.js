@@ -132,7 +132,7 @@ EntityManager.prototype = {
         if (index_to_delete > -1) {
             this.entities.splice(index_to_delete, 1)
         }
-        this.post_delete_entity.perform_post({'username': this.player.get_username(), 'password': this.player.get_password(), 'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)}, this.entity_deleted_response.bind(this))
+        this.post_delete_entity.perform_post({'username': WORLD_MANAGER.player.get_username(), 'password': WORLD_MANAGER.player.get_password(), 'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)}, this.entity_deleted_response.bind(this))
     },
 
     add_entity: function(entity) {
