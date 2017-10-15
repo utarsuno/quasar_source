@@ -87,11 +87,11 @@ Floating3DText.prototype = {
         }
     },
 
-    state_change_engage: function(being_engaged_with) {
+    state_change_engage: function(being_engaged_with, player) {
         if (being_engaged_with) {
-            this.player.engage()
+            player.engage()
         } else {
-            this.player.disengage()
+            player.disengage()
         }
     },
 
