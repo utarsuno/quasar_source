@@ -37,11 +37,11 @@ class Entity(object):
 
 	def get_json_data(self) -> dict:
 		"""Returns a dictionary of all the data contained in this Entity."""
-		json_data = {'NAME'      : self._name,
-					 'CLASS_NAME': self._class_name,
-		             'PARENT_ENTITIES': str(self._parent_entities),
-		             'CHILD_ENTITIES': str(self._child_entities),
-		             'INFORMATION': str(self._information)}
+		json_data = {'ENTITY_PROPERTY_NAME'      : self._name,
+					 'ENTITY_PROPERTY_TYPE': self._class_name,
+		             'ENTITY_PROPERTY_PARENTS': str(self._parent_entities),
+		             'ENTITY_PROPERTY_CHILDREN': str(self._child_entities),
+		             'ENTITY_PROPERTY_INFORMATION': str(self._information)}
 		return {**json_data, **self.get_additional_json_data()}
 
 	@property
