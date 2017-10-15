@@ -123,6 +123,10 @@ EntityWall.prototype = {
         this.post_call_save_changes = new PostHelper('/save_entities')
     },
 
+    update_title: function(title) {
+        this.title.update_text(title)
+    },
+
     save: function() {
         this.send_changes_to_server().bind(this)
     },

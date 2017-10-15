@@ -27,13 +27,16 @@ HomeWorld.prototype = {
 
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
-        if (event.keyCode === KEY_CODE_9) {
-            this.create_entity_wall()
+        if (!this.player.engaged()) {
+            if (event.keyCode === KEY_CODE_9) {
+                this.create_entity_wall(this.player.get_position(), 'Default')
+            }
         }
     },
 
-    create_entity_wall: function() {
-        var entity_wall = new EntityWall(this.player.get_position(), this)
+    create_entity_wall: function(position, wall_text) {
+        var entity_wall = new EntityWall(position, this)
+        entity_wall.update_title(wall_text)
         this.entity_walls.push(entity_wall)
         var interactives = entity_wall.get_all_interactive_objects()
         var number_of_interactives = interactives.length
@@ -46,8 +49,19 @@ HomeWorld.prototype = {
         var wall_entities = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_WALL)
         var number_of_wall_entities = wall_entities.length
         for (var w = 0; w < number_of_wall_entities; w++) {
+
+            var information = JSON.parse(wall_entities[w]['INFORMATION'])
+            var position = information['ENTITY_PROPERTY_POSITION']
+            var title = wall_entities[w]['NAME']
+
+            console.log('POSITION IS : ' + position)
+            console.log('TITLE IS : ' + position)
+
+            //this.create_entity_wall()
+
             console.log('LOADED THE WALL ENTITY : ')
             console.log(wall_entities[w])
+
         }
     },
 
