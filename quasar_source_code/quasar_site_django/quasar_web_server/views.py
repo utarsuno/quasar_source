@@ -142,8 +142,6 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_save_entities(request):
 	"""Handles the POST request to save changed entities."""
-	print('GOT THE DATA ' + str(request.POST))
-
 	if check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request) is not None:
 		return check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request)
 
@@ -151,7 +149,10 @@ def POST_save_entities(request):
 	received_password = request.POST[OWNER_PASSWORD]
 	received_data     = request.POST[SAVE_DATA]
 
-	print('GOT THE DATA ' + str(request.POST))
+	print('Got the username : ' + received_username)
+	print('Got the password : ' + received_password)
+	print('Got the data     : ' + received_data)
+	print(type(received_data))
 
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
@@ -161,8 +162,9 @@ def POST_save_entities(request):
 		print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
 
 
-
 		return SERVER_REPLY_GENERIC_YES
+	
+
 	return HttpResponse(result)
 
 
