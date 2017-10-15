@@ -63,7 +63,7 @@ HomeWorld.prototype = {
             position = position.replace('[', '').replace(']', '')
             position = position.split(',')
 
-            //var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
+            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
             //var wall_look_at = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
 
             var title = wall_entities[w].get_value('ENTITY_PROPERTY_NAME')
