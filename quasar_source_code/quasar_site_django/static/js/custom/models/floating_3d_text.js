@@ -152,7 +152,7 @@ Floating3DText.prototype = {
             this.height = 16
         }
 
-
+        /*
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.border_geometry = new THREE.PlaneGeometry(this.width, this.height * 2)
 
@@ -164,7 +164,7 @@ Floating3DText.prototype = {
         this.border_mesh.add(this.border_wireframe)
         //this.border_mesh.visible = false
         this.object3D.add(this.border_mesh)
-
+        */
 
         this.scene.add(this.object3D)
     },
