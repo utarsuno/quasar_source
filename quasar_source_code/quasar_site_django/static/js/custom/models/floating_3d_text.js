@@ -154,7 +154,7 @@ Floating3DText.prototype = {
 
 
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
-        this.border_geometry = new THREE.PlaneGeometry(this.width, this.height)
+        this.border_geometry = new THREE.PlaneGeometry(this.width, this.height * 2)
 
         // Adds the edge colorings.
         this.border_mesh = new THREE.Mesh(this.border_geometry, this.material)
@@ -162,8 +162,9 @@ Floating3DText.prototype = {
         var border_mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
         this.border_wireframe = new THREE.LineSegments(border_geo, border_mat)
         this.border_mesh.add(this.border_wireframe)
+        this.border_mesh.visible = false
         this.object3D.add(this.border_mesh)
-        
+
 
         this.scene.add(this.object3D)
     },
