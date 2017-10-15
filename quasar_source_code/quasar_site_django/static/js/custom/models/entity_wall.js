@@ -47,7 +47,7 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
 
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': save_data}, this.save_changes_result.bind(this))
+        this.post_call_save_changes.perform_post(JSON.stringify({'username': username, 'password': password, 'save_data': save_data}), this.save_changes_result.bind(this))
     },
 
     delete_entity_wall_pressed: function() {
