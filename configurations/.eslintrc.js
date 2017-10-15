@@ -105,6 +105,10 @@ module.exports = {
         "ENTITY_TYPE_TIME": false,
         "ENTITY_TYPE_BASE": false,
         "ENTITY_TYPE_WALL": false,
+        "ENTITY_PROPERTY_ENTITY_TYPE": false,
+        "ENTITY_PROPERTY_POSITION": false,
+        "ENTITY_PROPERTY_LOOK_AT": false,
+        "ENTITY_PROPERTY_NAME": false,
 
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,

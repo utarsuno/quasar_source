@@ -8,6 +8,7 @@ EntityWall.prototype = {
 
     position    : null,
     look_at     : null,
+    world       : null,
     scene       : null,
 
     normal      : null,
@@ -41,10 +42,22 @@ EntityWall.prototype = {
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_username()
 
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': 'todo'}, this.save_changes_result.bind(this))
+        var save_data = []
+        save_data[ENTITY_PROPERTY_NAME] = this.title.get_text()
+        save_data[ENTITY_PROPERTY_POSITION] = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
+        save_data[ENTITY_PROPERTY_LOOK_AT] = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
+
+        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': save_data}, this.save_changes_result.bind(this))
     },
 
-    __init__: function(position, scene) {
+    delete_entity_wall_pressed: function() {
+        // TODO : delete the wall. Make sure to remove it from the current world c:
+
+
+        // TODO : send delete status to server.
+    },
+
+    __init__: function(position, world) {
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
 
@@ -54,7 +67,8 @@ EntityWall.prototype = {
         this.depth = new THREE.Vector3(this.normal.x * 20, this.normal.y * 20, this.normal.z * 20)
         this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2)
 
-        this.scene    = scene
+        this.world = world
+        this.scene = this.world.scene
 
         this.object3D = new THREE.Object3D()
 
@@ -69,10 +83,8 @@ EntityWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(500, 1000)
 
-        // Base title.
-        this.title_text = 'Default Group Name'
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
-        this.title = new Floating2DText(this.width, this.title_text, TYPE_INPUT_REGULAR, this.scene)
+        this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
 
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0))
 
@@ -88,6 +100,7 @@ EntityWall.prototype = {
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0), this.get_look_at_for_row(0, this.title.height - this.height, 0))
+        this.delete_entity_wall.set_engage_function(this.delete_entity_wall.bind(this))
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
@@ -101,6 +114,10 @@ EntityWall.prototype = {
 
         this.entities = []
         this.post_call_save_changes = new PostHelper('/save_entities')
+    },
+
+    save: function() {
+        this.send_changes_to_server().bind(this)
     },
 
     add_entity: function(entity) {

@@ -60,7 +60,7 @@ Entity.prototype = {
     },
     
     has_property: function(property_name) {
-
+        return property_name in this.keys_and_values
     },
 
     get_value: function(property_name) {
@@ -76,9 +76,6 @@ Entity.prototype = {
     }
 
 }
-
-// Entity properties.
-const EP_CLASS_NAME = 'CLASS_NAME'
 
 EntityManager.prototype = {
 
@@ -106,10 +103,10 @@ EntityManager.prototype = {
         var type_entities = []
         var number_of_entities = this.entities.length
         for (var i = 0; i < number_of_entities; i++) {
-            if (this.entities[i].get_value(EP_CLASS_NAME) === entity_type) {
+            if (this.entities[i].get_value(ENTITY_PROPERTY_ENTITY_TYPE) === entity_type) {
                 type_entities.push(this.entities[i])
             }
         }
         return type_entities
-    },
+    }
 }

@@ -27,6 +27,11 @@ const ENTITY_TYPE_TASK = 'EntityTask'
 const ENTITY_TYPE_TIME = 'EntityTime'
 const ENTITY_TYPE_BASE = 'Entity'
 const ENTITY_TYPE_WALL = 'EntityWall'
+// Entity properties.
+const ENTITY_PROPERTY_ENTITY_TYPE = 'CLASS_NAME'
+const ENTITY_PROPERTY_NAME        = 'ENTITY_NAME'
+const ENTITY_PROPERTY_POSITION    = 'POSITION'
+const ENTITY_PROPERTY_LOOK_AT     = 'LOOK_AT'
 
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'

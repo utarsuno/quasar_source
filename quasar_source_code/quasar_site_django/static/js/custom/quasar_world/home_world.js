@@ -88,15 +88,6 @@ HomeWorld.prototype = {
         ////////
         this.entity_walls = []
 
-        ////////
-
-        var ew_p = new THREE.Vector3(-1000, 500, -1000)
-        this.entity_wall = new EntityWall(ew_p, this.scene)
-
-        var ew_p2 = new THREE.Vector3(1000, 500, 1000)
-        this.entity_wall2 = new EntityWall(ew_p2, this.scene)
-
-        ///////
 
         /* __        __   __               ___  __   __   __   __
           / _` |    /  \ |__)  /\  |        |  /  \ |  \ /  \ /__`    |  |  /\  |    |
@@ -237,6 +228,8 @@ HomeWorld.prototype = {
         for (var i = 0; i < number_of_interactives; i++) {
             this.interactive_objects.push(interactives[i])
         }
+
+        entity_wall.save()
     },
 
     add_entity: function(entity_string, day_index) {
@@ -256,8 +249,11 @@ HomeWorld.prototype = {
 
     load_entity_walls: function() {
         var wall_entities = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_WALL)
-
-
+        var number_of_wall_entities = wall_entities.length
+        for (var w = 0; w < number_of_wall_entities; w++) {
+            console.log('LOADED THE WALL ENTITY : ')
+            console.log(wall_entities[w])
+        }
     },
 
     update: function() {
@@ -283,10 +279,7 @@ HomeWorld.prototype = {
     enter_world: function() {
         this.player.disengage()
         this.current_world = true
-        //if (this.hello_message === null) {
-        //    this.ajax_status.update_text('Welcome back ' + this.player.get_username())
-        //}
-        this.player.set_position(new THREE.Vector3(130, 90, 300))
+        this.player.set_position(new THREE.Vector3(0, 100, 0))
     },
 
     exit_world: function() {
