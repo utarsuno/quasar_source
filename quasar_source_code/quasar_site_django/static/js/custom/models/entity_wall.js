@@ -50,11 +50,14 @@ EntityWall.prototype = {
         // Base title.
         this.title_text = 'Default Group Name'
         this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
-        this.title.update_position_and_look_at(this.get_position_for_row(0, -this.title.height / 2, 0, this.get_look_at_for_row(0, -this.title.height / 2, 0))
+        this.title.update_position_and_look_at(this.get_position_for_row(0, -this.title.height / 2, 0), this.get_look_at_for_row(0, -this.title.height / 2, 0))
 
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_entity.update_position_and_look_at(this.get_position_for_row(0, (-this.title.height / 2) * 3, 0), this.get_look_at_for_row(0, (-this.title.height / 2) * 3, 0))
+
+        // Save changes button.
+        //this.save_changes
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
