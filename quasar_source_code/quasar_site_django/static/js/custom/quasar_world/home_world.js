@@ -27,7 +27,7 @@ HomeWorld.prototype = {
 
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
-        if (!this.player.engaged()) {
+        if (!this.player.is_engaged()) {
             if (event.keyCode === KEY_CODE_9) {
                 this.create_entity_wall(this.player.get_position(), 'Default')
             }
