@@ -74,6 +74,7 @@ EntityWall.prototype = {
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
         this.interactive_objects.push(this.create_entity)
+        this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
 
         this.object3D.add(this.wall.mesh)
