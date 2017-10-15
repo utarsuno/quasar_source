@@ -27,7 +27,7 @@ HomeWorld.prototype = {
     days: null,
 
     //
-    button_3d: null,
+    entity_walls: null,
 
     // TODO : Add a daily todos section.
     // TODO : Add a global todos section.
@@ -86,6 +86,9 @@ HomeWorld.prototype = {
         this.add_to_scene(light)
 
         ////////
+        this.entity_walls = []
+
+        ////////
 
         var ew_p = new THREE.Vector3(-1000, 500, -1000)
         var ew_la = new THREE.Vector3(0, 500, 0)
@@ -94,7 +97,6 @@ HomeWorld.prototype = {
         var ew_p2 = new THREE.Vector3(1000, 500, 1000)
         var ew_la2 = new THREE.Vector3(0, 500, 0)
         this.entity_wall2 = new EntityWall(ew_p2, ew_la2, this.scene)
-
 
         ///////
 
@@ -230,7 +232,8 @@ HomeWorld.prototype = {
     },
 
     create_entity_wall: function() {
-        console.log('Create entity wall!!')
+        var entity_wall = new EntityWall(this.player.get_position(), new THREE.Vector3(0, 500, 0), this.scene)
+        this.entity_walls.push(entity_wall)
     },
 
     add_entity: function(entity_string, day_index) {
@@ -277,9 +280,9 @@ HomeWorld.prototype = {
     enter_world: function() {
         this.player.disengage()
         this.current_world = true
-        if (this.hello_message === null) {
-            this.ajax_status.update_text('Welcome back ' + this.player.get_username())
-        }
+        //if (this.hello_message === null) {
+        //    this.ajax_status.update_text('Welcome back ' + this.player.get_username())
+        //}
         this.player.set_position(new THREE.Vector3(130, 90, 300))
     },
 
