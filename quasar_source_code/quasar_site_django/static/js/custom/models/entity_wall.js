@@ -67,6 +67,7 @@ EntityWall.prototype = {
 
         // this.self_entity.delete_self()
         ENTITY_MANAGER.delete_entity(this.self_entity)
+        this.self_entity = null
 
         // TODO : send delete status to server.
     },

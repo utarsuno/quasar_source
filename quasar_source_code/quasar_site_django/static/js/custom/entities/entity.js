@@ -127,12 +127,28 @@ EntityManager.prototype = {
     },
 
     delete_entity: function(entity) {
-        var index_to_delete = this.entities.indexOf(entity)
-        var entity_to_delete = this.entities[index_to_delete]
-        if (index_to_delete > -1) {
-            this.entities.splice(index_to_delete, 1)
+
+        var entity_to_delete = null
+        var index_to_splice = null
+
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities.get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
+                entity_to_delete = this.entities[i]
+                index_to_splice = i
+            }
         }
-        this.post_delete_entity.perform_post({'username': WORLD_MANAGER.player.get_username(), 'password': WORLD_MANAGER.player.get_password(), 'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)}, this.entity_deleted_response.bind(this))
+
+        if (entity_to_delete !== null) {
+            this.post_delete_entity.perform_post({
+                'username': WORLD_MANAGER.player.get_username(),
+                'password': WORLD_MANAGER.player.get_password(),
+                'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
+            }, this.entity_deleted_response.bind(this))
+        }
+
+        if (index_to_splice !== null) {
+            this.entities.splice(index_to_splice, 1)
+        }
     },
 
     add_entity: function(entity) {
