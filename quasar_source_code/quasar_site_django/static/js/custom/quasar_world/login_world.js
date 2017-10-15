@@ -48,7 +48,7 @@ LoginWorld.prototype = {
             this.ajax_status.update_text('sending login request to server')
             this.attempted_username = login_username_text
             this.attempted_password = login_password_text
-            this.post_login.perform_post({POST_USERNAME: login_username_text, POST_PASSWORD: login_password_text}, this.login_button_event.bind(this))
+            this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
         } else {
             this.ajax_status.update_text('Error : ' + error_message)
         }
