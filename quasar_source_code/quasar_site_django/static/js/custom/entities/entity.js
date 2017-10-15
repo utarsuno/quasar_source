@@ -98,6 +98,9 @@ EntityManager.prototype = {
     get_new_entity_id: function() {
         var max_id = -1
         for (var i = 0; i < this.entities.length; i++) {
+
+            console.log(this.entities[i].get_properties())
+
             var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID))
             if (entity_id > max_id) {
                 max_id = entity_id
