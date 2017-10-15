@@ -22,6 +22,10 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
+    save_changes: function() {
+        console.log('SAVE CHANGES!!!')
+    },
+
     __init__: function(position, scene) {
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
@@ -75,10 +79,6 @@ EntityWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
-    },
-
-    save_changes: function() {
-        console.log('SAVE CHANGES!!!')
     },
 
     get_y_position_for_row: function(y_index) {
