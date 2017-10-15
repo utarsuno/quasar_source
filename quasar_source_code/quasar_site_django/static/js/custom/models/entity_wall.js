@@ -41,7 +41,7 @@ EntityWall.prototype = {
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_username()
 
-        this.post_call_save_changes.perform_post({POST_USERNAME: username, POST_PASSWORD: password, POST_SAVE_DATA: 'todo'}, this.save_changes_result.bind(this))
+        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': 'todo'}, this.save_changes_result.bind(this))
     },
 
     __init__: function(position, scene) {
