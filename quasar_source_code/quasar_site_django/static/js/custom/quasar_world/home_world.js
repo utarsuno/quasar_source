@@ -50,12 +50,12 @@ HomeWorld.prototype = {
         var number_of_wall_entities = wall_entities.length
         for (var w = 0; w < number_of_wall_entities; w++) {
 
-            var information = JSON.parse(wall_entities[w]['INFORMATION'])
+            var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
             var position = information['ENTITY_PROPERTY_POSITION']
-            var title = wall_entities[w]['NAME']
+            var title = wall_entities[w]['ENTITY_PROPERTY_NAME']
 
             console.log('POSITION IS : ' + position)
-            console.log('TITLE IS : ' + position)
+            console.log('TITLE IS : ' + title)
 
             //this.create_entity_wall()
 
