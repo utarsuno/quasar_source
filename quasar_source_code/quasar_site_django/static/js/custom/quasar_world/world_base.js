@@ -11,26 +11,6 @@ function World() {
     this.default_tab_target         = null
     this.interactive_objects        = []
 
-    // Create the lighting and default ground.
-    var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
-    plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
-    //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
-    var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
-    var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
-    this.add_to_scene(plane_mesh)
-
-    var light3 = new THREE.PointLight(0xccffcc, .8, 0)
-    light3.position.set(5, 100, 5)
-    this.add_to_scene(light3)
-
-    var color1 = '#b9ffd2'
-    var color2 = '#090920'
-    var light2 = new THREE.HemisphereLight(color1, color2, .5)
-    this.add_to_scene(light2)
-
-    var light = new THREE.AmbientLight(0x404040, .2) // soft white light
-    this.add_to_scene(light)
-
     this.add_to_scene = function(object) {
         this.scene.add(object)
     }
@@ -129,4 +109,27 @@ function World() {
     this.set_default_tab_target = function(default_tab_target) {
         this.default_tab_target = default_tab_target
     }
+
+    // World defaults.
+
+    // Create the lighting and default ground.
+    var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
+    plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
+    //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
+    var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
+    var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
+    this.add_to_scene(plane_mesh)
+
+    var light3 = new THREE.PointLight(0xccffcc, .8, 0)
+    light3.position.set(5, 100, 5)
+    this.add_to_scene(light3)
+
+    var color1 = '#b9ffd2'
+    var color2 = '#090920'
+    var light2 = new THREE.HemisphereLight(color1, color2, .5)
+    this.add_to_scene(light2)
+
+    var light = new THREE.AmbientLight(0x404040, .2) // soft white light
+    this.add_to_scene(light)
+
 }
