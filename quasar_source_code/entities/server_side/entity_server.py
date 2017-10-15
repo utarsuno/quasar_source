@@ -37,6 +37,14 @@ class EntityServer(object):
 		# Managers are loaded as needed.
 		self._managers = {}
 
+	def save_or_update_entity(self, data_dictionary):
+		"""Creates a new entity or updates an existing entity."""
+		print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
+
+		for key in data_dictionary:
+			print(str(key) + '\t' + str(data_dictionary[key]) + '\t' + str(type(data_dictionary[key])))
+		print('------------')
+
 	def _update_owners(self):
 		"""Updates the owners list."""
 		self._owners = self._db_api.get_all_owners()
@@ -52,9 +60,11 @@ class EntityServer(object):
 		"""Returns a boolean indicating if a username and password combination is valid."""
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username and o[INDEX_OWNER_PASSWORD] == password:
-				return SERVER_REPLY_GENERIC_YES
-		print(str(username) + '-' + str(password) + ' | is not a valid login combo!')
-		return HttpResponse('Username or password is not valid!')
+				#return SERVER_REPLY_GENERIC_YES
+				return True
+		return False
+		#print(str(username) + '-' + str(password) + ' | is not a valid login combo!')
+		#return HttpResponse('Username or password is not valid!')
 
 	def create_owner(self, owner_name, owner_email, owner_password):
 		"""Creates an owner."""
@@ -97,6 +107,8 @@ class EntityServer(object):
 				json_data[e.name] = e.get_json_data()
 
 			return JsonResponse(json_data)
+		else:
+			return HttpResponse('Username or password is not correct.')
 
 		return SERVER_REPLY_GENERIC_NO
 

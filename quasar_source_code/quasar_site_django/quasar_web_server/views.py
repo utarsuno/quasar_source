@@ -116,10 +116,10 @@ def POST_login(request):
 
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
-	if result == SERVER_REPLY_GENERIC_YES:
+	if result:
 		request.session[USERNAME] = received_username
 		return SERVER_REPLY_GENERIC_YES
-	return HttpResponse(result)
+	return HttpResponse('Username or password is not correct!')
 
 
 @csrf_exempt
@@ -156,27 +156,19 @@ def POST_save_entities(request):
 	received_password = request.POST[OWNER_PASSWORD]
 	received_data     = request.POST[SAVE_DATA]
 
-	print('Got the username : ' + received_username)
-	print('Got the password : ' + received_password)
-	print('Got the data     : ' + received_data)
-	print(type(received_data))
-
 	data_dictionary = eval(received_data)
-	print(data_dictionary)
-	print(type(data_dictionary))
 
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
-	if result == SERVER_REPLY_GENERIC_YES:
+	if result:
 		# Now save the entities since the username and password is verified.
-		y = 2
-		print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
 
+		print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
+		entity_server.save_or_update_entity(data_dictionary)
 
 		return SERVER_REPLY_GENERIC_YES
 
-
-	return HttpResponse(result)
+	return HttpResponse('Username or password is not correct!')
 
 
 @csrf_exempt
