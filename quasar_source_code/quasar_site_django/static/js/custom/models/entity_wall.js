@@ -65,5 +65,5 @@ EntityWall.prototype = {
 
     get_all_interactive_objects: function() {
         return this.interactive_objects
-    },
+    }
 }

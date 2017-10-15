@@ -186,7 +186,7 @@ Floating3DText.prototype = {
         this.object3D.position.x = position_vector.x + this.width / 2
         this.object3D.position.y = position_vector.y - this.height
         this.object3D.position.z = position_vector.z
-        this.current_text_object.position.x -= this.width / 2
+        //this.current_text_object.position.x -= this.width / 2
         var look_at = new THREE.Vector3(look_at_position.x + this.width / 2, look_at_position.y - this.height, look_at_position.z)
         this.object3D.lookAt(look_at)
     },
