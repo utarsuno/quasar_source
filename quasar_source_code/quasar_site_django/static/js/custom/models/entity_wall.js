@@ -52,14 +52,16 @@ EntityWall.prototype = {
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width, this.title_text, TYPE_INPUT_REGULAR, this.scene)
 
-        this.title.update_position_and_look_at(this.get_position_for_row(0, -this.title.height / 2, 0), this.get_look_at_for_row(0, -this.title.height / 2, 0))
+        this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0))
 
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, (-this.title.height / 2) * 3, 0), this.get_look_at_for_row(0, (-this.title.height / 2) * 3, 0))
+        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(1), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0))
 
         // Save changes button.
-        //this.save_changes
+        this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
+        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(2, 0)))
+        this.save_changes.set_engage_function(this.save_changes.bind(this))
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
@@ -73,6 +75,14 @@ EntityWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
+    },
+
+    save_changes: function() {
+        console.log('SAVE CHANGES!!!')
+    },
+
+    get_y_position_for_row: function(y_index) {
+        return (-16.0 / 2.0) * (1 + (2 * y_index))
     },
 
     get_position_for_row: function(x_offset, y_offset, z_offset) {
