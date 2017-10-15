@@ -100,7 +100,7 @@ EntityWall.prototype = {
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0), this.get_look_at_for_row(0, this.title.height - this.height, 0))
-        this.delete_entity_wall.set_engage_function(this.delete_entity_wall.bind(this))
+        this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
