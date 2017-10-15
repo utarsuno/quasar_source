@@ -49,7 +49,7 @@ EntityWall.prototype = {
 
         // Base title.
         this.title_text = 'Default Group Name'
-        this.title = new Floating3DText(this.width, this.title_text, TYPE_INPUT_REGULAR, this.scene)
+        this.title = new Floating2DText(this.width, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z)
         title_position.add(this.depth_start)
         var title_look_at = new THREE.Vector3(this.look_at.x - this.width / 2, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z)

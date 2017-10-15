@@ -162,7 +162,7 @@ Floating3DText.prototype = {
         var border_mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3})
         this.border_wireframe = new THREE.LineSegments(border_geo, border_mat)
         this.border_mesh.add(this.border_wireframe)
-        this.border_mesh.visible = false
+        //this.border_mesh.visible = false
         this.object3D.add(this.border_mesh)
 
 
