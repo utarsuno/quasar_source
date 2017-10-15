@@ -41,7 +41,12 @@ class Entity(object):
 					 'ENTITY_PROPERTY_TYPE': self._class_name,
 		             'ENTITY_PROPERTY_PARENTS': str(self._parent_entities),
 		             'ENTITY_PROPERTY_CHILDREN': str(self._child_entities),
-		             'ENTITY_PROPERTY_INFORMATION': str(self._information)}
+		             }
+		#'ENTITY_PROPERTY_INFORMATION': str(self._information)
+
+		for key in self._information:
+			json_data[key] = self._information[key]
+
 		return {**json_data, **self.get_additional_json_data()}
 
 	@property

@@ -50,8 +50,12 @@ HomeWorld.prototype = {
         var number_of_wall_entities = wall_entities.length
         for (var w = 0; w < number_of_wall_entities; w++) {
 
-            var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
-            var position = information['ENTITY_PROPERTY_POSITION']
+            console.log('LOADED THE WALL ENTITY : ')
+            console.log(wall_entities[w])
+
+            //var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
+
+            var position = wall_entities[w]['ENTITY_PROPERTY_POSITION']
             var title = wall_entities[w]['ENTITY_PROPERTY_NAME']
 
             console.log('POSITION IS : ' + position)
