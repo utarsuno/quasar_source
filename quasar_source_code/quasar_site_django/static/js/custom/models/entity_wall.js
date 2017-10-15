@@ -61,7 +61,9 @@ EntityWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
+    },
 
-
-    }
+    get_all_interactive_objects: function() {
+        return this.interactive_objects
+    },
 }
