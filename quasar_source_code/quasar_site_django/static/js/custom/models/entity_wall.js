@@ -40,7 +40,7 @@ EntityWall.prototype = {
         console.log('SAVE CHANGES!!!')
 
         var username = WORLD_MANAGER.world_home.player.get_username()
-        var password = WORLD_MANAGER.world_home.player.get_username()
+        var password = WORLD_MANAGER.world_home.player.get_password()
 
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
