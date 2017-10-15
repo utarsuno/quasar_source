@@ -34,6 +34,11 @@ EntityWall.prototype = {
 
         this.object3D = new THREE.Object3D()
 
+        this.object3D.position.x = position.x + this.width / 2
+        this.object3D.position.y = position.y
+        this.object3D.position.z = position.z
+        this.object3D.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
+
         // Base wall.
         this.wall = new PlaneAPI(500, 1000)
 
@@ -49,10 +54,5 @@ EntityWall.prototype = {
 
         this.scene.add(this.object3D)
 
-
-        this.object3D.position.x = position.x + this.width / 2
-        this.object3D.position.y = position.y
-        this.object3D.position.z = position.z
-        this.object3D.lookAt(new THREE.Vector3(look_at.x + this.width / 2, look_at.y, look_at.z))
     }
 }
