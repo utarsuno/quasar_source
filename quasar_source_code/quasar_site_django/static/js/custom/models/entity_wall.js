@@ -50,15 +50,15 @@ EntityWall.prototype = {
         // Base title.
         this.title_text = 'Default Group Name'
         this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
-        this.title.update_position_and_look_at(this.get_position_for_row(0, -this.title.height / 2, (this.width / 4.0) * 3.0), this.get_look_at_for_row(0, -this.title.height / 2, 0))
+        this.title.update_position_and_look_at(this.get_position_for_row(0, -this.title.height / 2, 0, this.get_look_at_for_row(0, -this.title.height / 2, 0))
 
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, (-this.title.height / 2) * 3, this.width), this.get_look_at_for_row(0, (-this.title.height / 2) * 3, 0))
+        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, (-this.title.height / 2) * 3, 0), this.get_look_at_for_row(0, (-this.title.height / 2) * 3, 0))
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
-        this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, this.width), this.get_look_at_for_row(0, this.title.height - this.height, 0))
+        this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0), this.get_look_at_for_row(0, this.title.height - this.height, 0))
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
@@ -70,14 +70,14 @@ EntityWall.prototype = {
         this.scene.add(this.object3D)
     },
 
-    get_position_for_row: function(x_offset, y_offset, width) {
-        var p = new THREE.Vector3(this.object3D.position.x - width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
+    get_position_for_row: function(x_offset, y_offset, z_offset) {
+        var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
         p.add(this.depth_start)
         return p
     },
 
-    get_look_at_for_row: function(x_offset, y_offset, width) {
-        var la = new THREE.Vector3(this.look_at.x - width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
+    get_look_at_for_row: function(x_offset, y_offset, z_offset) {
+        var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
         la.add(this.depth_start)
         return la
     },
