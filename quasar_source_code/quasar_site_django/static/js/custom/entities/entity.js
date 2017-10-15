@@ -132,7 +132,7 @@ EntityManager.prototype = {
         var index_to_splice = null
 
         for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities.get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
+            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
                 entity_to_delete = this.entities[i]
                 index_to_splice = i
             }
