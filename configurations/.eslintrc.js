@@ -113,6 +113,13 @@ module.exports = {
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME": false,
 
+        "POST_USERNAME": false,
+        "POST_PASSWORD": false,
+        "POST_SAVE_DATA": false,
+        "POST_EMAIL": false,
+        "POST_MANAGER_ID": false,
+        "POST_OWNER_ID": false,
+
         // Keycodes.
         "KEY_CODE_SHIFT": false,
         "KEY_CODE_UP": false,

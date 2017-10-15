@@ -22,8 +22,26 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
+    entities: null,
+
+    // POST calls.
+    post_call_save_changes: null,
+
+    save_changes_result: function(result) {
+        if (result === SERVER_REPLY_GENERIC_YES) {
+            console.log('Saved the data!')
+        } else {
+            console.log('ERROR SAVING : ' + result)
+        }
+    },
+
     send_changes_to_server: function() {
         console.log('SAVE CHANGES!!!')
+
+        var username = WORLD_MANAGER.home_world.player.get_username()
+        var password = WORLD_MANAGER.home_world.player.get_username()
+
+        this.post_call_save_changes.perform_post({POST_USERNAME: username, POST_PASSWORD: password, POST_SAVE_DATA: 'todo'}, this.save_changes_result.bind(this))
     },
 
     __init__: function(position, scene) {
@@ -80,6 +98,13 @@ EntityWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
+
+        this.entities = []
+        this.post_call_save_changes = new PostHelper('/save_entities')
+    },
+
+    add_entity: function(entity) {
+
     },
 
     get_y_position_for_row: function(y_index) {

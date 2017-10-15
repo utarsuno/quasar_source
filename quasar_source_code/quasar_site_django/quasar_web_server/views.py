@@ -69,7 +69,7 @@ SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error
 
 # Server utility variables.
 USERNAME = 'username'
-
+SAVE_DATA = 'save_data'
 
 def check_POST_arguments(arguments, request):
 	"""Just a utility function to raise an exception if there is an in-correct match on POST arguments.
@@ -134,6 +134,29 @@ def POST_create_owner(request):
 	print('Creating account : ' + received_owner_name)
 	global entity_server
 	return entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
+
+
+@csrf_exempt
+def POST_save_entities(request):
+	"""Handles the POST request to save changed entities."""
+	if check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request) is not None:
+		return check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request)
+
+	received_username = request.POST[USERNAME]
+	received_password = request.POST[OWNER_PASSWORD]
+	received_data     = request.POST[SAVE_DATA]
+
+	global entity_server
+	result = entity_server.is_valid_login_info(received_username, received_password)
+	if result == SERVER_REPLY_GENERIC_YES:
+		# Now save the entities since the username and password is verified.
+		y = 2
+		print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
+
+
+
+		return SERVER_REPLY_GENERIC_YES
+	return HttpResponse(result)
 
 
 @csrf_exempt

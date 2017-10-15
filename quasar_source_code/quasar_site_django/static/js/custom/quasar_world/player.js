@@ -62,6 +62,10 @@ Player.prototype = {
         return this.entity_owner.username
     },
 
+    get_password: function() {
+        return this.entity_owner.password
+    },
+
     perform_login: function(username, password) {
         this.entity_owner = new Owner(username, password, WORLD_MANAGER.world_home)
         WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)

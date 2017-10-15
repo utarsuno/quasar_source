@@ -48,6 +48,14 @@ const SERVER_REPLY_GENERIC_NO                             = 'n'
 const SERVER_REPLY_GENERIC_YES                            = 'y'
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!'
 
+// Server post data keys.
+const POST_USERNAME   = 'username'
+const POST_PASSWORD   = 'password'
+const POST_SAVE_DATA  = 'save_data'
+const POST_EMAIL      = 'email'
+const POST_MANAGER_ID = 'manager_id'
+const POST_OWNER_ID   = 'owner_id'
+
 // Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93
 const COLOR_TEXT_HIGHLIGHT = '#D4FF93'
