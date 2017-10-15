@@ -101,6 +101,8 @@ OWNER_MANAGER_ID = 'manager_id'
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
+	print('GOT THE DATA ' + str(request))
+
 	if check_POST_arguments([USERNAME, OWNER_PASSWORD], request) is not None:
 		return check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
 
