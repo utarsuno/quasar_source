@@ -265,7 +265,7 @@ HomeWorld.prototype = {
                 }
 
                 // Now create the entity walls from the entities.
-                this.create_entity_walls()
+                this.load_entity_walls()
 
                 this.loaded_entities = true
             }
