@@ -53,6 +53,7 @@ class EntityServer(object):
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username and o[INDEX_OWNER_PASSWORD] == password:
 				return SERVER_REPLY_GENERIC_YES
+		print(str(username) + '-' + str(password) + ' | is not a valid login combo!')
 		return HttpResponse('Username or password is not valid!')
 
 	def create_owner(self, owner_name, owner_email, owner_password):
