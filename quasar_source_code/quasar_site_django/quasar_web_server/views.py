@@ -71,6 +71,7 @@ SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error
 USERNAME = 'username'
 SAVE_DATA = 'save_data'
 
+
 def check_POST_arguments(arguments, request):
 	"""Just a utility function to raise an exception if there is an in-correct match on POST arguments.
 	:param arguments: The arguments to check for.

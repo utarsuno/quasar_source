@@ -42,10 +42,10 @@ EntityWall.prototype = {
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_username()
 
-        var save_data = []
-        save_data[ENTITY_PROPERTY_NAME] = this.title.get_text()
-        save_data[ENTITY_PROPERTY_POSITION] = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
-        save_data[ENTITY_PROPERTY_LOOK_AT] = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
+        var save_data = {}
+        save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
+        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
+        save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
 
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': save_data}, this.save_changes_result.bind(this))
     },
