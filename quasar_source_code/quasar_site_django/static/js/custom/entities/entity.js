@@ -32,7 +32,7 @@ Owner.prototype = {
     all_entities_loaded: function(data) {
         var e = get_key_value_list_from_json_dictionary(data)
         for (var i = 0; i < e.length; i++) {
-            ENTITY_MANAGER.add_entity(e[i])
+            ENTITY_MANAGER.add_entity(e[i][0], e[i][1])
         }
         ENTITY_MANAGER.entities_loaded = true
         this.loading_data = false
@@ -91,8 +91,8 @@ EntityManager.prototype = {
         return this.entities_loaded
     },
 
-    add_entity: function(entity_data) {
-        this.entities.push(new Entity(entity_data[0], entity_data[1]))
+    add_entity: function(entity_name, entity_data) {
+        this.entities.push(new Entity(entity_name, entity_data))
     },
 
     get_new_entity_id: function() {
