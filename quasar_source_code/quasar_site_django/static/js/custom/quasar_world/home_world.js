@@ -91,7 +91,7 @@ HomeWorld.prototype = {
         var ew_la = new THREE.Vector3(0, 500, 0)
         this.entity_wall = new EntityWall(ew_p, ew_la, this.scene)
 
-        var ew_p2 = new THREE.Vector3(-1000, 500, -1000)
+        var ew_p2 = new THREE.Vector3(1000, 500, 1000)
         var ew_la2 = new THREE.Vector3(0, 500, 0)
         this.entity_wall2 = new EntityWall(ew_p2, ew_la2, this.scene)
 
