@@ -75,16 +75,12 @@ Floating3DText.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
-            this.material.color.setHex(COLOR_HIGHLIGHT)
-            this.material.needsUpdate = true
-            this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
+            this.update_just_color(COLOR_HIGHLIGHT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
             }
         } else {
-            this.material.color.setHex(this.original_border_color)
-            this.material.needsUpdate = true
-            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
+            this.update_just_color(COLOR_TEXT_DEFAULT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
             }
@@ -92,6 +88,11 @@ Floating3DText.prototype = {
     },
 
     state_change_engage: function(being_engaged_with) {
+        if (being_engaged_with) {
+            this.player.engage()
+        } else {
+            this.player.disengage()
+        }
     },
 
 
