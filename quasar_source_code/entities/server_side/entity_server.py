@@ -3,6 +3,7 @@
 """This module, entity_server.py, is used to manager a server's memory + cache of entity managers and owners."""
 
 from quasar_source_code.entities.database import entity_database
+from quasar_source_code.entities import base_entity as be
 
 # Needed for sending a simple HttpResponse such as a string response.
 from django.http import HttpResponse
@@ -27,6 +28,13 @@ SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
 SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
 SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
 
+# Entity properties.
+ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
+ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+ENTITY_PROPERTY_POSITION = 'ENTITY_PROPERTY_POSITION'
+ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
+ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
+
 
 class EntityServer(object):
 	"""Memory layer for entity managers and owners."""
@@ -45,17 +53,41 @@ class EntityServer(object):
 			print(str(key) + '\t' + str(data_dictionary[key]) + '\t' + str(type(data_dictionary[key])))
 		print('------------')
 
+		match_found = False
+
 		# Check if the owner already has an Entity with the provided entity ID.
 		owner_entities = self._managers[owner_username].get_all_entities()
-		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + ' entities.')
+		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
 
 			print(e)
 
-			if e.global_id == data_dictionary['ENTITY_PROPERTY_ID']:
+			if e.global_id == data_dictionary[ENTITY_PROPERTY_ID]:
 				print('Found an Entity match!')
+				match_found = True
 
+		if not match_found:
+			print('Adding in a new entity!!!')
 
+			entity_name = data_dictionary[ENTITY_PROPERTY_NAME]
+			entity_id   = data_dictionary[ENTITY_PROPERTY_ID]
+			entity_type = data_dictionary[ENTITY_PROPERTY_TYPE]
+
+			new_entity = be.Entity(entity_name)
+			new_entity.set_global_id(entity_id)
+			new_entity.set_entity_type(entity_type)
+
+			# Now set all other properties into the information field.
+			for key in data_dictionary:
+				if key != ENTITY_PROPERTY_NAME and key != ENTITY_PROPERTY_ID and key != ENTITY_PROPERTY_TYPE:
+					new_entity.add_information(key, data_dictionary[key])
+
+			# Give the entity to the manager.
+			self._managers[owner_username].add_entities(new_entity)
+
+			# Now save the entity manager.
+			# TODO : Make a more efficient save method. Only save the entity change, not the entire manager again.
+			self._db_api.save_entity_manager(self._managers[owner_username])
 
 	def _update_owners(self):
 		"""Updates the owners list."""

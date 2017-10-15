@@ -49,6 +49,10 @@ class Entity(object):
 		"""Returns the class name of this Entity."""
 		return self._class_name
 
+	def set_entity_type(self, val):
+		"""TODO:"""
+		self._class_name = val
+
 	def get_all_information_relevant_for_date(self, date):
 		"""Gathers relevant information for the date provided."""
 		#sub_set = self.all_children + [self]
@@ -104,6 +108,10 @@ class Entity(object):
 	def global_id(self) -> int:
 		"""Returns the global ID of this Entity."""
 		return self._global_id
+
+	def set_global_id(self, val):
+		###TODO:"""
+		self._global_id = val
 
 	@property
 	def is_child(self) -> bool:
