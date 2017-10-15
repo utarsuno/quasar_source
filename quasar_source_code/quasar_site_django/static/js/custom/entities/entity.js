@@ -146,6 +146,7 @@ EntityManager.prototype = {
         console.log('Getting all entities of type : ' + entity_type + ' there are ' + number_of_entities + ' entities.')
         for (var i = 0; i < number_of_entities; i++) {
 
+            console.log(this.entities[i])
             console.log('looking at an entity that has type : ' + this.entities[i].get_value(ENTITY_PROPERTY_TYPE))
 
             if (this.entities[i].get_value(ENTITY_PROPERTY_TYPE) === entity_type) {
