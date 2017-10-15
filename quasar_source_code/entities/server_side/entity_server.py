@@ -45,6 +45,30 @@ class EntityServer(object):
 		# Managers are loaded as needed.
 		self._managers = {}
 
+	def delete_entity(self, owner_username, entity_id_to_delete):
+		"""Deletes an entity."""
+		print('Remove the entity{' + str(entity_id_to_delete) + '} for user {' + str(owner_username) + '}')
+
+		match_found = False
+		entity_to_remove = None
+
+		# Check if the owner already has an Entity with the provided entity ID.
+		owner_entities = self._managers[owner_username].get_all_entities()
+		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
+		for e in owner_entities:
+			#print(e)
+			if e.global_id == entity_id_to_delete:
+				print('Found an Entity match to delete!')
+				entity_to_remove = e
+				match_found = True
+
+		if match_found:
+			self._managers[owner_username].pop(entity_to_remove, None)
+			self._db_api.save_entity_manager(self._managers[owner_username])
+			return SERVER_REPLY_GENERIC_YES
+		else:
+			return SERVER_REPLY_GENERIC_NO
+
 	def save_or_update_entity(self, owner_username, data_dictionary):
 		"""Creates a new entity or updates an existing entity."""
 		print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
@@ -59,9 +83,7 @@ class EntityServer(object):
 		owner_entities = self._managers[owner_username].get_all_entities()
 		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
-
-			print(e)
-
+			#print(e)
 			if e.global_id == data_dictionary[ENTITY_PROPERTY_ID]:
 				print('Found an Entity match!')
 				match_found = True

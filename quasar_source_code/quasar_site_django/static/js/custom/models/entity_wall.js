@@ -42,7 +42,8 @@ EntityWall.prototype = {
 
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
-        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
+        // TODO : figure out this y positioning thing.
+        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + (this.position.y - this.height / 2) + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
 
@@ -59,7 +60,13 @@ EntityWall.prototype = {
 
     delete_entity_wall_pressed: function() {
         // TODO : delete the wall. Make sure to remove it from the current world c:
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            this.interactive_objects.remove_from_scene(this.interactive_objects[i].object3D)
+        }
+        this.world.remove_from_scene(this.object3D)
 
+        // this.self_entity.delete_self()
+        ENTITY_MANAGER.delete_entity(this.self_entity)
 
         // TODO : send delete status to server.
     },
@@ -106,6 +113,7 @@ EntityWall.prototype = {
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
+        this.delete_entity_wall.set_default_color(COLOR_TEXT_RED)
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0), this.get_look_at_for_row(0, this.title.height - this.height, 0))
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
 

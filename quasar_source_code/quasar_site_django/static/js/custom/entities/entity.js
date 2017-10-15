@@ -104,13 +104,35 @@ EntityManager.prototype = {
     entities        : null,
     entities_loaded : null,
 
+    // POST calls.
+    post_delete_entity: null,
+
     __init__: function() {
         this.entities = []
         this.entities_loaded = false
+
+        this.post_delete_entity = new PostHelper('/delete_entity')
     },
 
     loaded: function() {
         return this.entities_loaded
+    },
+
+    entity_deleted_response: function(data) {
+        if (data === SERVER_REPLY_GENERIC_YES) {
+            console.log('Entity deleted!')
+        } else {
+            console.log('Entity did not get deleted : ' + data)
+        }
+    },
+
+    delete_entity: function(entity) {
+        var index_to_delete = this.entities.indexOf(entity)
+        var entity_to_delete = this.entities[index_to_delete]
+        if (index_to_delete > -1) {
+            this.entities.splice(index_to_delete, 1)
+        }
+        this.post_delete_entity.perform_post({'username': this.player.get_username(), 'password': this.player.get_password(), 'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)}, this.entity_deleted_response.bind(this))
     },
 
     add_entity: function(entity) {

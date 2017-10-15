@@ -144,6 +144,25 @@ ENTITY_PROPERTY_POSITION = 'ENTITY_PROPERTY_POSITION'
 ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
 ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
 ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
+
+
+@csrf_exempt
+def POST_delete_entity(request):
+	"""Handles the POST request to delete an entity."""
+	if check_POST_arguments([USERNAME, OWNER_PASSWORD, ENTITY_PROPERTY_ID], request) is not None:
+		return check_POST_arguments([USERNAME, OWNER_PASSWORD, ENTITY_PROPERTY_ID], request)
+
+	received_username  = request.POST[USERNAME]
+	received_password  = request.POST[OWNER_PASSWORD]
+	received_entity_id = request.POST[ENTITY_PROPERTY_ID]
+
+	global entity_server
+	result = entity_server.is_valid_login_info(received_username, received_password)
+	if result:
+		entity_server.delete_entity(received_username, received_entity_id)
+		return SERVER_REPLY_GENERIC_YES
+	return HttpResponse('Username or password is not correct!')
 
 
 @csrf_exempt

@@ -5,8 +5,6 @@ function HomeWorld() {
 }
 
 HomeWorld.prototype = {
-    // POST calls.
-    post_get_all_entities: null,
 
     //
     entity_walls: null,
@@ -75,7 +73,6 @@ HomeWorld.prototype = {
 
             console.log('LOADED THE WALL ENTITY : ')
             console.log(wall_entities[w])
-
         }
     },
 

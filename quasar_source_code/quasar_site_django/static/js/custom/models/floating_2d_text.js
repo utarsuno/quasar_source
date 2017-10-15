@@ -70,6 +70,9 @@ Floating2DText.prototype = {
     //
     also_color_this_floating_text: null,
 
+    //
+    default_color: null,
+
     __init__: function(w, text, type, scene) {
         this.scene = scene
 
@@ -97,7 +100,12 @@ Floating2DText.prototype = {
             this.maintain_engage_when_tabbed_to = false
         }
 
+        this.default_color = COLOR_TEXT_DEFAULT
         this.create()
+    },
+
+    set_default_color: function(default_color) {
+        this.default_color = default_color
     },
 
     get_text: function() {
@@ -119,9 +127,9 @@ Floating2DText.prototype = {
             }
         } else {
             this.wireframe.material.color.setHex(this.original_border_color)
-            this.update_text_color(this.text, COLOR_TEXT_DEFAULT)
+            this.update_text_color(this.text, this.default_color)
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_DEFAULT)
+                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, this.default_color)
             }
         }
     },
@@ -169,12 +177,12 @@ Floating2DText.prototype = {
     },
 
     force_update_text: function(text) {
-        this.update_text_color(text, COLOR_TEXT_DEFAULT)
+        this.update_text_color(text, this.default_color)
     },
 
     update_text: function(text) {
         if (this.text !== text) {
-            this.update_text_color(text, COLOR_TEXT_DEFAULT)
+            this.update_text_color(text, this.default_color)
         }
     },
 
@@ -294,6 +302,10 @@ Floating2DText.prototype = {
                 child.visible = local_is_visible
             }
         })
+    },
+
+    delete_self: function() {
+        // TODO : Implement this function!!!
     }
 
 }
