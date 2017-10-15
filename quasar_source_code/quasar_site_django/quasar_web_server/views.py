@@ -154,6 +154,10 @@ def POST_save_entities(request):
 	print('Got the data     : ' + received_data)
 	print(type(received_data))
 
+	data_dictionary = eval(received_data)
+	print(data_dictionary)
+	print(type(data_dictionary))
+
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result == SERVER_REPLY_GENERIC_YES:
@@ -163,7 +167,7 @@ def POST_save_entities(request):
 
 
 		return SERVER_REPLY_GENERIC_YES
-	
+
 
 	return HttpResponse(result)
 
