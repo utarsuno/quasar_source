@@ -47,6 +47,8 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
         save_data.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
 
+        ENTITY_MANAGER.add_entity(this.title.get_text(), save_data)
+
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(save_data)}, this.save_changes_result.bind(this))
     },
 
