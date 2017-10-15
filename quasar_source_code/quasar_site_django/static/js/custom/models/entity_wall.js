@@ -54,7 +54,7 @@ EntityWall.prototype = {
             this.self_entity.update_values(save_data)
         }
 
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(save_data)}, this.save_changes_result.bind(this))
+        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
     },
 
     delete_entity_wall_pressed: function() {
