@@ -90,6 +90,7 @@ module.exports = {
 
         "$": false,
 
+        "Entity": false,
         "EntityWall": false,
 
         // From globals.js

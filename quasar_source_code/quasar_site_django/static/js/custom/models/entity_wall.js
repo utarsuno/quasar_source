@@ -23,10 +23,10 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
-    entities: null,
-
     // POST calls.
     post_call_save_changes: null,
+
+    self_entity: null,
 
     save_changes_result: function(result) {
         if (result === SERVER_REPLY_GENERIC_YES) {
@@ -45,9 +45,14 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
-        save_data.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
 
-        ENTITY_MANAGER.add_entity(this.title.get_text(), save_data)
+        // The wall entity has not been created yet so create it.
+        if (this.self_entity === null) {
+            this.self_entity = new Entity(this.title.get_text(), save_data)
+        } else {
+            // The wall entity already exists so simply update the values and then send the new values to the server.
+            this.self_entity.update_values(save_data)
+        }
 
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(save_data)}, this.save_changes_result.bind(this))
     },

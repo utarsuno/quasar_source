@@ -51,16 +51,38 @@ Owner.prototype = {
 
 Entity.prototype = {
 
-    name            : null,
-    keys_and_values : null,
+    name             : null,
+    keys_and_values  : null,
+
+    needs_to_be_saved : null,
 
     __init__: function(name, keys_and_values) {
         this.name            = name
         this.keys_and_values = keys_and_values
+        if (this.has_property(ENTITY_PROPERTY_ID)) {
+            this.needs_to_be_saved = false
+        } else {
+            this.keys_and_values.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
+            this.needs_to_be_saved = true
+        }
+        ENTITY_MANAGER.add_entity(this.name, this.keys_and_values)
+    },
+
+    update_values: function(new_keys_and_values) {
+        for (var key in new_keys_and_values) {
+            if (new_keys_and_values.hasOwnProperty(key)) {
+                this.keys_and_values[key] = new_keys_and_values[key]
+            }
+        }
+        this.needs_to_be_saved = true
     },
     
     has_property: function(property_name) {
         return property_name in this.keys_and_values
+    },
+
+    get_id: function() {
+        return this.keys_and_values[ENTITY_PROPERTY_ID]
     },
 
     get_value: function(property_name) {
