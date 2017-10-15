@@ -164,7 +164,7 @@ def POST_save_entities(request):
 		# Now save the entities since the username and password is verified.
 
 		print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
-		entity_server.save_or_update_entity(data_dictionary)
+		entity_server.save_or_update_entity(received_username, data_dictionary)
 
 		return SERVER_REPLY_GENERIC_YES
 

@@ -37,13 +37,25 @@ class EntityServer(object):
 		# Managers are loaded as needed.
 		self._managers = {}
 
-	def save_or_update_entity(self, data_dictionary):
+	def save_or_update_entity(self, owner_username, data_dictionary):
 		"""Creates a new entity or updates an existing entity."""
 		print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
 
 		for key in data_dictionary:
 			print(str(key) + '\t' + str(data_dictionary[key]) + '\t' + str(type(data_dictionary[key])))
 		print('------------')
+
+		# Check if the owner already has an Entity with the provided entity ID.
+		owner_entities = self._managers[owner_username].get_all_entities()
+		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + ' entities.')
+		for e in owner_entities:
+
+			print(e)
+
+			if e.global_id == data_dictionary['ENTITY_PROPERTY_ID']:
+				print('Found an Entity match!')
+
+
 
 	def _update_owners(self):
 		"""Updates the owners list."""
@@ -75,6 +87,12 @@ class EntityServer(object):
 			# TODO : other checks here too.
 			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_password)
 			return SERVER_REPLY_GENERIC_YES
+
+	def get_owner(self, owner_name):
+		"""Gets the owner object, searched by owner name."""
+		for o in self._owners:
+			if o[INDEX_OWNER_NAME] == owner_name:
+				return o
 
 	def ensure_manager_is_loaded_for_owner(self, owner_name):
 		"""Loads an entity_manager through the reference of an owner name."""
