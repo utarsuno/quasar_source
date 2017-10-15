@@ -221,15 +221,13 @@ HomeWorld.prototype = {
     },
 
     create_entity_wall: function() {
-        var entity_wall = new EntityWall(this.player.get_position(), this.scene)
+        var entity_wall = new EntityWall(this.player.get_position(), this)
         this.entity_walls.push(entity_wall)
         var interactives = entity_wall.get_all_interactive_objects()
         var number_of_interactives = interactives.length
         for (var i = 0; i < number_of_interactives; i++) {
             this.interactive_objects.push(interactives[i])
         }
-
-        entity_wall.save()
     },
 
     add_entity: function(entity_string, day_index) {
