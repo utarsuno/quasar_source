@@ -38,8 +38,8 @@ EntityWall.prototype = {
     send_changes_to_server: function() {
         console.log('SAVE CHANGES!!!')
 
-        var username = WORLD_MANAGER.home_world.player.get_username()
-        var password = WORLD_MANAGER.home_world.player.get_username()
+        var username = WORLD_MANAGER.world_home.player.get_username()
+        var password = WORLD_MANAGER.world_home.player.get_username()
 
         this.post_call_save_changes.perform_post({POST_USERNAME: username, POST_PASSWORD: password, POST_SAVE_DATA: 'todo'}, this.save_changes_result.bind(this))
     },
