@@ -106,6 +106,7 @@ Floating2DText.prototype = {
 
     set_default_color: function(default_color) {
         this.default_color = default_color
+        this.update_text_color(this.text, this.default_color)
     },
 
     get_text: function() {
