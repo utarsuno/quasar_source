@@ -64,6 +64,8 @@ Entity.prototype = {
         console.log(ENTITY_PROPERTY_ID in keys_and_values)
         console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
 
+        console.log(keys_and_values[ENTITY_PROPERTY_ID])
+
         for (var i = 0; i < keys_and_values.length; i++) {
 
             console.log('CHECKING \t' + keys_and_values[i])
