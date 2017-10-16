@@ -48,7 +48,7 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
 
         // The wall entity has not been created yet so create it.
-        if (this.self_entity === null) {
+        if (this.self_entity === null || this.self_entity === undefined) {
             this.self_entity = new Entity(this.title.get_text(), save_data)
         } else {
             // The wall entity already exists so simply update the values and then send the new values to the server.
