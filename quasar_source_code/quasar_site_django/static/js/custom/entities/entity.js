@@ -142,10 +142,10 @@ EntityManager.prototype = {
             this.post_delete_entity.perform_post({
                 'username': WORLD_MANAGER.player.get_username(),
                 'password': WORLD_MANAGER.player.get_password(),
-                'entity_id': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
+                'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
             }, this.entity_deleted_response.bind(this))
         }
-
+        
         if (index_to_splice !== null) {
             this.entities.splice(index_to_splice, 1)
         }
