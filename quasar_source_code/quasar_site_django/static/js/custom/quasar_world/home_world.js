@@ -32,9 +32,10 @@ HomeWorld.prototype = {
         }
     },
 
-    create_entity_wall: function(position, wall_text) {
+    create_entity_wall: function(position, wall_text, entity) {
         var entity_wall = new EntityWall(position, this)
         entity_wall.update_title(wall_text)
+        entity_wall.set_entity(entity)
         this.entity_walls.push(entity_wall)
         var interactives = entity_wall.get_all_interactive_objects()
         var number_of_interactives = interactives.length
@@ -69,7 +70,7 @@ HomeWorld.prototype = {
             console.log('POSITION IS : ' + position)
             console.log('TITLE IS : ' + title)
 
-            this.create_entity_wall(wall_position, title)
+            this.create_entity_wall(wall_position, title, wall_entities[w])
 
             console.log('LOADED THE WALL ENTITY : ')
             console.log(wall_entities[w])
