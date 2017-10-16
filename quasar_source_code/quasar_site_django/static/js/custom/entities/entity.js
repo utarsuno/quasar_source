@@ -65,6 +65,8 @@ Entity.prototype = {
             console.log('Assigning a new entity property to the following entity')
             console.log(name)
             console.log(keys_and_values)
+            console.log(this)
+            console.log(this.has_property(ENTITY_PROPERTY_ID))
             this.keys_and_values.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
             this.needs_to_be_saved = true
         }
