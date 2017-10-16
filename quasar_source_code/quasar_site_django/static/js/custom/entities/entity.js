@@ -60,6 +60,11 @@ Entity.prototype = {
         this.name            = name
         this.keys_and_values = keys_and_values
 
+        console.log(this.keys_and_values.hasOwnProperty('ENTITY_PROPERTY_CHILDREN'))
+        console.log(this.keys_and_values.hasOwnProperty(ENTITY_PROPERTY_TYPE))
+
+        console.log(this.keys_and_values.hasOwnProperty('ENTITY_PROPERTY_ID'))
+
         console.log(this.keys_and_values)
 
         console.log(ENTITY_PROPERTY_ID)
