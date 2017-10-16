@@ -59,10 +59,16 @@ Entity.prototype = {
     __init__: function(name, keys_and_values) {
         this.name            = name
         this.keys_and_values = keys_and_values
-        
+
         console.log(ENTITY_PROPERTY_ID)
         console.log(ENTITY_PROPERTY_ID in keys_and_values)
         console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
+
+        for (var i = 0; i < keys_and_values.length; i++) {
+            if (keys_and_values[i] === ENTITY_PROPERTY_ID) {
+                console.log('FOUND ENTITY_PROPERTY_ID' + '\t' + keys_and_values[i])
+            }
+        }
 
         console.log(ENTITY_PROPERTY_ID in this.keys_and_values)
         console.log(this.keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
