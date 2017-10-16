@@ -59,12 +59,7 @@ Entity.prototype = {
     __init__: function(name, keys_and_values) {
         this.name            = name
         this.keys_and_values = keys_and_values
-
-        console.log('ENTITY_PROPERTY_ID' in keys_and_values)
-
-        console.log(keys_and_values.constructor.name)
-        console.log(keys_and_values.has(ENTITY_PROPERTY_ID))
-
+        
         console.log(ENTITY_PROPERTY_ID)
         console.log(ENTITY_PROPERTY_ID in keys_and_values)
         console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
