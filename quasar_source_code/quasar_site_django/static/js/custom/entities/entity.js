@@ -59,6 +59,13 @@ Entity.prototype = {
     __init__: function(name, keys_and_values) {
         this.name            = name
         this.keys_and_values = keys_and_values
+
+        console.log(ENTITY_PROPERTY_ID in keys_and_values)
+        console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
+
+        console.log(ENTITY_PROPERTY_ID in this.keys_and_values)
+        console.log(this.keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
+
         if (this.has_property(ENTITY_PROPERTY_ID)) {
             this.needs_to_be_saved = false
         } else {
