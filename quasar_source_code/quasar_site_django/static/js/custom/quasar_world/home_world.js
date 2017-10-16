@@ -23,6 +23,8 @@ HomeWorld.prototype = {
 
     control_key_down: null,
 
+    //remove_entity: function()
+
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event)
         if (!this.player.is_engaged()) {
