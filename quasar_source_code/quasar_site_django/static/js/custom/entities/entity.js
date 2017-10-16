@@ -145,7 +145,7 @@ EntityManager.prototype = {
                 'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
             }, this.entity_deleted_response.bind(this))
         }
-        
+
         if (index_to_splice !== null) {
             this.entities.splice(index_to_splice, 1)
         }
