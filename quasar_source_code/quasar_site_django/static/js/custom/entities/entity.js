@@ -83,6 +83,8 @@ Entity.prototype = {
     },
     
     has_property: function(property_name) {
+        console.log('Property name : ' + property_name)
+        console.log(this.keys_and_values)
         return property_name in this.keys_and_values
     },
 
