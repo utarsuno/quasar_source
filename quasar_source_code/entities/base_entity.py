@@ -164,4 +164,4 @@ class Entity(object):
 		return self._name
 
 	def __str__(self):
-		return 'E{' + self._name + '}'
+		return '[' + str(self._global_id) + '] - E{' + self._name + '}'

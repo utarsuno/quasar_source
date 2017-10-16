@@ -157,6 +157,8 @@ def POST_delete_entity(request):
 	received_password  = request.POST[OWNER_PASSWORD]
 	received_entity_id = request.POST[ENTITY_PROPERTY_ID]
 
+	print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
+
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result:

@@ -174,6 +174,10 @@ class EntityServer(object):
 
 			entities = self._managers[username].get_all_entities()
 
+			print('Returning the following entities : ')
+			for e in entities:
+				print(str(e))
+
 			json_data = {}
 
 			for e in entities:
