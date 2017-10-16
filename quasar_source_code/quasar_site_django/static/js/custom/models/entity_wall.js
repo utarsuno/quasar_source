@@ -68,15 +68,7 @@ EntityWall.prototype = {
 
         // TODO : delete the wall. Make sure to remove it from the current world c:
         for (var i = 0; i < this.interactive_objects.length; i++) {
-            while (this.interactive_objects[i].object3D.children.length) {
-                this.interactive_objects[i].object3D.children.remove(this.interactive_objects[i].object3D.children[0])
-            }
             this.world.remove_from_scene(this.interactive_objects[i].object3D)
-        }
-        this.world.remove_from_scene(this.object3D)
-
-        while (this.object3D.children.length) {
-            this.object3D.children.remove(this.object3D.children[0])
         }
         this.world.remove_from_scene(this.object3D)
 
