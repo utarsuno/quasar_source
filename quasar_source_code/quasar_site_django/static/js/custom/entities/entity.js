@@ -65,6 +65,9 @@ Entity.prototype = {
         console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
 
         for (var i = 0; i < keys_and_values.length; i++) {
+
+            console.log('CHECKING \t' + keys_and_values[i])
+
             if (keys_and_values[i] === ENTITY_PROPERTY_ID) {
                 console.log('FOUND ENTITY_PROPERTY_ID' + '\t' + keys_and_values[i])
             }
