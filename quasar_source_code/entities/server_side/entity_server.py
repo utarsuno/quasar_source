@@ -63,7 +63,8 @@ class EntityServer(object):
 				match_found = True
 
 		if match_found:
-			self._managers[owner_username].pop(entity_to_remove, None)
+			self._managers[owner_username].remove_entity(entity_to_remove)
+
 			self._db_api.save_entity_manager(self._managers[owner_username])
 			return SERVER_REPLY_GENERIC_YES
 		else:

@@ -14,6 +14,10 @@ class EntityManager(object):
 		self._owner_id            = owner_id
 		self._manager_id          = manager_id
 
+	def remove_entity(self, entity):
+		"""Removes the entity provided."""
+		self.entities.remove(entity)
+
 	@property
 	def manager_id(self) -> int:
 		"""Returns the manager_id of this manager, -1 if error."""
