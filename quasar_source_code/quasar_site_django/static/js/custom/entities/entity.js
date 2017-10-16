@@ -62,6 +62,9 @@ Entity.prototype = {
         if (this.has_property(ENTITY_PROPERTY_ID)) {
             this.needs_to_be_saved = false
         } else {
+            console.log('Assigning a new entity property to the following entity')
+            console.log(name)
+            console.log(keys_and_values)
             this.keys_and_values.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
             this.needs_to_be_saved = true
         }
