@@ -57,7 +57,7 @@ class EntityServer(object):
 		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
 			print(str(e) + '\t' + str(e.global_id))
-			if e.global_id == entity_id_to_delete:
+			if e.global_id == int(entity_id_to_delete):
 				print('Found an Entity match to delete!')
 				entity_to_remove = e
 				match_found = True
