@@ -53,6 +53,7 @@ module.exports = {
         "Player": true,
 
         "InteractiveWall": true,
+        "FloatingWall": true,
         "Floating2DText": true,
         "Floating2DLabelInput": true,
         "Floating3DText": true,

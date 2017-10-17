@@ -107,8 +107,12 @@ InteractiveWall.prototype = {
 
         // Close button.
         this.close_button = new CheckBox(true, this.scene)
-        var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height / 2, position.z + 1)
-        var close_button_look_at = new THREE.Vector3(this.look_at.x + this.width - this.close_button.width, this.look_at.y + this.height / 2 - this.close_button.height / 2, this.look_at.z + 2)
+        var close_button_position = new THREE.Vector3(position.x + this.width - this.close_button.width, position.y + this.height / 2 - this.close_button.height / 2, position.z)
+        var close_button_look_at = new THREE.Vector3(this.look_at.x + this.width - this.close_button.width, this.look_at.y + this.height / 2 - this.close_button.height / 2, this.look_at.z)
+        //var close_button_look_at = new THREE.Vector3(close_button_position.x, close_button_position.y, close_button_position.z)
+        //close_button_look_at.add(this.)
+
+
         this.close_button.update_position_and_look_at(close_button_position, close_button_look_at)
 
         this.close_button.floating_2d_text.set_engage_function(this.close_button_clicked.bind(this))
