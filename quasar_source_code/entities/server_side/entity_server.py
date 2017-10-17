@@ -97,7 +97,7 @@ class EntityServer(object):
 			entity_type = data_dictionary[ENTITY_PROPERTY_TYPE]
 
 			new_entity = be.Entity(entity_name)
-			new_entity.set_global_id(entity_id)
+			new_entity.set_relative_id(entity_id)
 			new_entity.set_entity_type(entity_type)
 
 			# Now set all other properties into the information field.
@@ -127,11 +127,8 @@ class EntityServer(object):
 		"""Returns a boolean indicating if a username and password combination is valid."""
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username and o[INDEX_OWNER_PASSWORD] == password:
-				#return SERVER_REPLY_GENERIC_YES
 				return True
 		return False
-		#print(str(username) + '-' + str(password) + ' | is not a valid login combo!')
-		#return HttpResponse('Username or password is not valid!')
 
 	def create_owner(self, owner_name, owner_email, owner_password):
 		"""Creates an owner."""

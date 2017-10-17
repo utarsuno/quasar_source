@@ -5,8 +5,6 @@
 from typing import List
 from enum import Enum
 
-global_id = 0
-
 
 # All the current possible Entity classes.
 ENTITY      = 'Entity'
@@ -18,10 +16,7 @@ class Entity(object):
 	"""Defines properties of all entities."""
 
 	def __init__(self, entity_name):
-		global global_id
-		# TODO : Global id should be generated through a different method.
-		self._global_id       = global_id
-		global_id += 1
+		self._relative_id     = 0
 
 		self._name            = entity_name
 		self._parent_entities = []
@@ -41,6 +36,7 @@ class Entity(object):
 					 'ENTITY_PROPERTY_TYPE': self._class_name,
 		             'ENTITY_PROPERTY_PARENTS': str(self._parent_entities),
 		             'ENTITY_PROPERTY_CHILDREN': str(self._child_entities),
+		             'ENTITY_PROPERTY_ID': self._relative_id
 		             }
 		#'ENTITY_PROPERTY_INFORMATION': str(self._information)
 
@@ -110,13 +106,13 @@ class Entity(object):
 					obj.add_children(self)
 
 	@property
-	def global_id(self) -> int:
+	def relative_id(self) -> int:
 		"""Returns the global ID of this Entity."""
-		return self._global_id
+		return self._relative_id
 
-	def set_global_id(self, val):
+	def set_relative_id(self, val):
 		###TODO:"""
-		self._global_id = val
+		self._relative_id = val
 
 	@property
 	def is_child(self) -> bool:
@@ -164,4 +160,4 @@ class Entity(object):
 		return self._name
 
 	def __str__(self):
-		return '[' + str(self._global_id) + '] - E{' + self._name + '}'
+		return '[' + str(self._relative_id) + '] - E{' + self._name + '}'
