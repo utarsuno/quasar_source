@@ -76,7 +76,7 @@ InteractiveWall.prototype = {
         this.world = world
     },
 
-    __init__: function(w, h, position, look_at, scene) {
+    __init__: function(w, h, position, look_at_normal, scene) {
         this.is_visible = true
 
         this.list_of_interactive_objects = []
@@ -86,7 +86,8 @@ InteractiveWall.prototype = {
         this.height = h
         this.object3D = new THREE.Object3D()
 
-        this.look_at = look_at
+        //this.look_at = look_at
+        this.look_at = new THREE.Vector3(position.x + look_at_normal.x, position.y + look_at_normal.y, position.z + look_at_normal.z)
 
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)

@@ -96,9 +96,7 @@ EntityEditor.prototype = {
 
         this.entity = entity
 
-        var look_at = new THREE.Vector3(position.x + look_at_normal.x, position.y + look_at_normal.y, position.z + look_at_normal.z)
-
-        this.interactive_wall = new InteractiveWall(600, 800, position, look_at, scene)
+        this.interactive_wall = new InteractiveWall(600, 800, position, look_at_normal, scene)
 
         if (this.entity !== null) {
             this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
