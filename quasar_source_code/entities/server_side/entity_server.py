@@ -118,6 +118,7 @@ class EntityServer(object):
 
 	def _is_username_taken(self, username) -> bool:
 		"""Returns a boolean indicating if a username is taken."""
+		self._owners = self._db_api.get_all_owners()
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username:
 				return True
@@ -125,6 +126,7 @@ class EntityServer(object):
 
 	def is_valid_login_info(self, username, password) -> bool:
 		"""Returns a boolean indicating if a username and password combination is valid."""
+		self._owners = self._db_api.get_all_owners()
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == username and o[INDEX_OWNER_PASSWORD] == password:
 				return True
@@ -144,12 +146,14 @@ class EntityServer(object):
 
 	def get_owner(self, owner_name):
 		"""Gets the owner object, searched by owner name."""
+		self._owners = self._db_api.get_all_owners()
 		for o in self._owners:
 			if o[INDEX_OWNER_NAME] == owner_name:
 				return o
 
 	def ensure_manager_is_loaded_for_owner(self, owner_name):
 		"""Loads an entity_manager through the reference of an owner name."""
+		self._owners = self._db_api.get_all_owners()
 		if owner_name not in self._managers:
 			for o in self._owners:
 				if o[INDEX_OWNER_NAME] == owner_name:
@@ -188,8 +192,8 @@ class EntityServer(object):
 
 		return SERVER_REPLY_GENERIC_NO
 
-	#(request.POST[USERNAME])
 
+	# TODO : Delete this method.
 	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""
 		print('Get entities for day got the following day{' + str(day) + '}')
