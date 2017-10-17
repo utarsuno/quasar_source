@@ -97,13 +97,14 @@ EntityEditor.prototype = {
         this.entity = entity
         this.interactive_wall = new InteractiveWall(600, 800, position, look_at, scene)
 
-        this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
-
-        var key_values = get_key_value_list_from_json_dictionary(this.entity.get_properties())
-
-        for (var i = 0; i < key_values.length; i++) {
-            this.interactive_wall.add_input_row(key_values[i][0], key_values[i][1])
+        if (this.entity !== null) {
+            this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
+            var key_values = get_key_value_list_from_json_dictionary(this.entity.get_properties())
+            for (var i = 0; i < key_values.length; i++) {
+                this.interactive_wall.add_input_row(key_values[i][0], key_values[i][1])
+            }
         }
+        this.interactive_wall.add_title('Create New Entity')
 
         // TODO : Have this button be 'disabled' greyed-out until any saveable changes are made.
         this.interactive_wall.add_input_button('save modifications', this.edit_entity.bind(this))
