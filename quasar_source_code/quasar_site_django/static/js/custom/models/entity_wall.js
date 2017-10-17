@@ -116,7 +116,7 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Create entity wall.
-        this.create_entity_wall = new EntityEditor(null, this.create_entity.object3D.position, this.create_entity.object3D.direction, this.scene)
+        this.create_entity_wall = new EntityEditor(null, this.create_entity.object3D.position, this.look_at, this.scene)
         this.create_entity_wall.set_to_invisible()
 
 
