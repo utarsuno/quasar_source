@@ -86,7 +86,18 @@ InteractiveWall.prototype = {
         this.height = h
         this.object3D = new THREE.Object3D()
 
+
+        this.position = position
+        //this.look_at  = new THREE.Vector3(0, this.position.y, 0)
         this.look_at = look_at_normal
+
+        this.normal = new THREE.Vector3(this.look_at.x - this.position.x, this.look_at.y - this.position.y, this.look_at.z - this.position.z)
+        this.normal.normalize()
+
+        this.depth = new THREE.Vector3(this.normal.x * 20, this.normal.y * 20, this.normal.z * 20)
+        this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2)
+
+
         //this.look_at = new THREE.Vector3(position.x + look_at_normal.x, position.y + look_at_normal.y, position.z + look_at_normal.z)
 
 
@@ -203,10 +214,34 @@ InteractiveWall.prototype = {
         return this.list_of_interactive_objects
     },
 
+    ///////////
+    get_y_position_for_row: function(y_index) {
+        return (-16.0 / 2.0) * (1 + (2 * y_index))
+    },
+
+    get_position_for_row: function(x_offset, y_offset, z_offset, depth) {
+        var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
+        p.addScaledVector(this.depth_start, depth)
+        return p
+    },
+
+    get_look_at_for_row: function(x_offset, y_offset, z_offset, depth) {
+        var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
+        la.addScaledVector(this.depth_start, depth)
+        return la
+    },
+    ///////////
+
     add_title: function(title) {
         this.title = new Floating2DText(this.width / 2, title, TYPE_INPUT_REGULAR, this.scene)
-        var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
-        var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z + 2)
+
+        var title_position = this.get_position_for_row(0, -this.title.height / 2, 0, 1)
+        var title_look_at = this.get_look_at_for_row(0, -this.title.height / 2, 0, 1)
+
+        //var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
+        //var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z + 2)
+
+
         this.title.update_position_and_look_at(title_position, title_look_at)
 
         this.list_of_interactive_objects.push(this.title)
