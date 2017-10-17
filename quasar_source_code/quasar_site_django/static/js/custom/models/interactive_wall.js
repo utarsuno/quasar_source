@@ -86,8 +86,9 @@ InteractiveWall.prototype = {
         this.height = h
         this.object3D = new THREE.Object3D()
 
-        //this.look_at = look_at
-        this.look_at = new THREE.Vector3(position.x + look_at_normal.x, position.y + look_at_normal.y, position.z + look_at_normal.z)
+        this.look_at = look_at_normal
+        //this.look_at = new THREE.Vector3(position.x + look_at_normal.x, position.y + look_at_normal.y, position.z + look_at_normal.z)
+
 
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)

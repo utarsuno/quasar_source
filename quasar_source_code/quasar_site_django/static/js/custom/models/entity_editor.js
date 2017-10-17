@@ -92,11 +92,11 @@ EntityEditor.prototype = {
         this.button_click = f
     },
 
-    __init__: function(entity, position, look_at_normal, scene) {
+    __init__: function(entity, position, look_at, scene) {
 
         this.entity = entity
 
-        this.interactive_wall = new InteractiveWall(600, 800, position, look_at_normal, scene)
+        this.interactive_wall = new InteractiveWall(600, 800, position, look_at, scene)
 
         if (this.entity !== null) {
             this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
