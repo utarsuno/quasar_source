@@ -316,10 +316,10 @@ InteractiveWall.prototype = {
         var y_offset = row_length * row_button.height + (2 * row_length)
 
         var row_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2 - y_offset, this.object3D.position.z)
-        row_position.addScaledVector(this.depth_start, 1)
+        row_position.addScaledVector(this.depth_start, 5)
 
         var row_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2 - y_offset, this.look_at.z)
-        row_look_at.addScaledVector(this.depth_start, 1)
+        row_look_at.addScaledVector(this.depth_start, 5)
 
         row_button.update_position_and_look_at(row_position, row_look_at)
 
