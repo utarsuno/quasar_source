@@ -235,8 +235,8 @@ InteractiveWall.prototype = {
     add_title: function(title) {
         this.title = new Floating2DText(this.width / 2, title, TYPE_INPUT_REGULAR, this.scene)
 
-        var title_position = this.get_position_for_row(0, -this.title.height / 2, 0, 1)
-        var title_look_at = this.get_look_at_for_row(-this.width / 4, -this.title.height / 2, 0, 1)
+        var title_position = this.get_position_for_row(0, -this.title.height / 2, this.get_y_position_for_row(0), 1)
+        var title_look_at = this.get_look_at_for_row(0, -this.title.height / 2, this.get_y_position_for_row(0), 1)
 
         //var title_position = new THREE.Vector3(this.object3D.position.x - this.width / 2, this.object3D.position.y + this.height / 2 - this.title.height / 2, this.object3D.position.z + 1)
         //var title_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + this.height / 2 - this.title.height / 2, this.look_at.z + 2)
