@@ -56,8 +56,8 @@ class EntityServer(object):
 		owner_entities = self._managers[owner_username].get_all_entities()
 		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
-			print(str(e) + '\t' + str(e.global_id))
-			if e.global_id == int(entity_id_to_delete):
+			print(str(e) + '\t' + str(e.relative_id))
+			if e.relative_id == int(entity_id_to_delete):
 				print('Found an Entity match to delete!')
 				entity_to_remove = e
 				match_found = True
@@ -85,7 +85,7 @@ class EntityServer(object):
 		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
 			#print(e)
-			if e.global_id == data_dictionary[ENTITY_PROPERTY_ID]:
+			if e.relative_id == data_dictionary[ENTITY_PROPERTY_ID]:
 				print('Found an Entity match!')
 				match_found = True
 
