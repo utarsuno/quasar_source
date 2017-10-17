@@ -74,6 +74,7 @@ module.exports = {
         "PostHelper": true,
 
         "Interactive": true,
+        "Visibility": true,
         "Button3D": true,
         "AudioManager": false,
         "AUDIO_MANAGER": true,

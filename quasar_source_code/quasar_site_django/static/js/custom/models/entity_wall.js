@@ -47,8 +47,6 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
 
-
-
         // The wall entity has not been created yet so create it.
         if (this.self_entity === null || this.self_entity === undefined) {
             this.self_entity = new Entity(this.title.get_text(), save_data)
@@ -67,8 +65,6 @@ EntityWall.prototype = {
     delete_entity_wall_pressed: function() {
         ENTITY_MANAGER.delete_entity(this.self_entity)
 
-
-        // TODO : delete the wall. Make sure to remove it from the current world c:
         for (var i = 0; i < this.interactive_objects.length; i++) {
             this.world.remove_from_scene(this.interactive_objects[i].object3D)
         }
@@ -77,8 +73,10 @@ EntityWall.prototype = {
         // this.self_entity.delete_self()
         //ENTITY_MANAGER.delete_entity(this.self_entity)
         //this.self_entity = null
+    },
 
-        // TODO : send delete status to server.
+    create_entity_button_pressed: function() {
+        this.create_entity_wall.set_to_visible()
     },
 
     __init__: function(position, world) {
@@ -115,6 +113,12 @@ EntityWall.prototype = {
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_entity.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(1), 0), this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0))
+        this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
+
+        // Create entity wall.
+        this.create_entity_wall = new EntityEditor(null, this.create_entity.object3D.position, this.create_entity.object3D.direction, this.scene)
+        this.create_entity_wall.set_to_invisible()
+
 
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
@@ -132,6 +136,12 @@ EntityWall.prototype = {
         this.interactive_objects.push(this.create_entity)
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
+
+        // Set the tab targets.
+        this.title.set_next_tab_target(this.create_entity)
+        this.create_entity.set_next_tab_target(this.save_changes)
+        this.save_changes.set_next_tab_target(this.delete_entity_wall)
+        this.delete_entity_wall.set_next_tab_target(this.title)
 
         this.object3D.add(this.wall.mesh)
 
