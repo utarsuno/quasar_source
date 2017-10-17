@@ -6,6 +6,9 @@ from quasar_source_code.entities.database import entity_database as e_db
 db = e_db.EntityDatabaseAPI(debug=True)
 
 print('Printing data :\n')
+
+#db._owners.delete_row_with_value('name', 'test')
+
 owners = db.get_all_owners()
 for e in owners:
 	print(e)

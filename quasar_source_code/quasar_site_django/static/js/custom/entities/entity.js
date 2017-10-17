@@ -20,9 +20,6 @@ Owner.prototype = {
     password: null,
 
     loading_data: null,
-    days_to_load: null,
-    days_loaded: null,
-    day_entities: null,
 
     days: null,
 

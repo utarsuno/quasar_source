@@ -141,6 +141,8 @@ class EntityServer(object):
 		else:
 			# TODO : other checks here too.
 			self._db_api.create_owner(name=owner_name, email=owner_email, password=owner_password)
+			# Now that the user is created make sure to update owners again.
+			self._update_owners()
 			return SERVER_REPLY_GENERIC_YES
 
 	def get_owner(self, owner_name):

@@ -47,6 +47,8 @@ EntityWall.prototype = {
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
 
+
+
         // The wall entity has not been created yet so create it.
         if (this.self_entity === null || this.self_entity === undefined) {
             this.self_entity = new Entity(this.title.get_text(), save_data)
