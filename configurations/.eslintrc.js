@@ -70,6 +70,7 @@ module.exports = {
         "WorldManager": true,
         "LoginWorld": true,
         "HomeWorld": true,
+        "SettingsWorld": true,
 
         "Crosshair": true,
         "PostHelper": true,

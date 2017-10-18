@@ -1,7 +1,5 @@
 'use strict'
 
-'use strict'
-
 function FloatingWall(width, height, position, look_at, world) {
     this.__init__(width, height, position, look_at, world)
 }
