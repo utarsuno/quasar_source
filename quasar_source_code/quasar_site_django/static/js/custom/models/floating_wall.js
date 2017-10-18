@@ -2,8 +2,8 @@
 
 'use strict'
 
-function FloatingWall(width, height, position, look_at, scene) {
-    this.__init__(width, height, position, look_at, scene)
+function FloatingWall(width, height, position, look_at, world) {
+    this.__init__(width, height, position, look_at, world)
 }
 
 FloatingWall.prototype = {
@@ -27,7 +27,7 @@ FloatingWall.prototype = {
 
     // POST calls.
 
-    __init__: function (width, height, position, world) {
+    __init__: function (width, height, position, look_at, world) {
         this.position = position
         this.look_at = new THREE.Vector3(0, this.position.y, 0)
 
