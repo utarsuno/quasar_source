@@ -27,15 +27,14 @@ FloatingWall.prototype = {
 
     // POST calls.
 
-    __init__: function (width, height, position, look_at, world) {
+    __init__: function (width, height, position, normal, world) {
         this.position = position
         this.look_at = new THREE.Vector3(0, this.position.y, 0)
 
-        this.normal = new THREE.Vector3(this.look_at.x - this.position.x, this.look_at.y - this.position.y, this.look_at.z - this.position.z)
-        this.normal.normalize()
-
-        this.depth = new THREE.Vector3(this.normal.x * 20, this.normal.y * 20, this.normal.z * 20)
+        this.normal = normal
         this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2)
+
+        this.look_at = new THREE.Vector3(this.position.x + this.depth_start.x, this.position.y + this.depth_start.y, this.position.z + this.depth_start.z)
 
         this.world = world
         this.scene = this.world.scene
