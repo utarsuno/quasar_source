@@ -41,10 +41,10 @@ FloatingWall.prototype = {
 
         this.object3D = new THREE.Object3D()
 
-        this.object3D.position.x = position.x + this.width / 2
+        this.object3D.position.x = position.x
         this.object3D.position.y = position.y
         this.object3D.position.z = position.z
-        this.object3D.lookAt(new THREE.Vector3(this.look_at.x + this.width / 2, this.look_at.y, this.look_at.z))
+        this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z))
 
         this.width = width
         this.height = height
