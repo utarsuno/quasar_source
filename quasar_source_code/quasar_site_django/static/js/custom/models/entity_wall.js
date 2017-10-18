@@ -115,7 +115,7 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Create entity wall.
-        var entity_wall_position = this.get_position_for_row(0, 0, 0, 1)
+        var entity_wall_position = this.get_position_for_row(0, 0, 0, 20)
         //var entity_wall_look_at = this.get_look_at_for_row(0, 0, 0, 1)
         this.floating_wall = new FloatingWall(1000, 400, entity_wall_position, this.normal, this.world)
         //this.create_entity_wall = new EntityEditor(null, entity_wall_position, entity_wall_look_at, this.scene)
