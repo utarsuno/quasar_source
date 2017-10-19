@@ -29,7 +29,7 @@ Floating2DLabelInput.prototype = {
     },
 
     update_position: function(px, py, pz) {
-        this.floating_label.update_position_and_look_at(new THREE.Vector3(px, py, pz), new THREE.Vector3(px, py, pz + 1))
+        this.floating_label.update_position_and_look_at(new THREE.Vector3(px + this.one_third_width / 2, py, pz), new THREE.Vector3(px + this.one_third_width / 2, py, pz + 1))
         this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.two_third_width / 2, py, pz), new THREE.Vector3(px + this.two_third_width / 2, py, pz + 1))
     },
 
@@ -230,16 +230,6 @@ Floating2DText.prototype = {
         this.object3D.position.z = position_vector.z
 
         var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y, look_at_position.z)
-
-        this.object3D.lookAt(look_at)
-    },
-
-    update_position_and_look_at_old: function(position_vector, look_at_position) {
-        this.object3D.position.x = position_vector.x + this.width / 2
-        this.object3D.position.y = position_vector.y
-        this.object3D.position.z = position_vector.z
-
-        var look_at = new THREE.Vector3(look_at_position.x + this.width / 2, look_at_position.y, look_at_position.z)
 
         this.object3D.lookAt(look_at)
     },

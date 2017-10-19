@@ -141,26 +141,27 @@ LoginWorld.prototype = {
           |    /  \ / _` | |\ |
           |___ \__/ \__> | | \| */
 
+        var login_width = 150
 
         this.login_title = new Floating3DText(150, 'Login', TYPE_TITLE, this.scene)
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
-        this.login_username = new Floating2DLabelInput(150, 'Username :', TYPE_INPUT_REGULAR, this.scene)
-        this.login_username.update_position(0, 100, 45)
+        this.login_username = new Floating2DLabelInput(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.login_username.update_position(login_width / 2, 100, 45)
 
-        this.login_password = new Floating2DLabelInput(150, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
-        this.login_password.update_position(0, 75, 45)
+        this.login_password = new Floating2DLabelInput(login_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.login_password.update_position(login_width / 2, 75, 45)
 
-        this.remember_username_text = new Floating2DText(75, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
-        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
+        var remember_me_width = 75
+        this.remember_username_text = new Floating2DText(remember_me_width, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(remember_me_width / 2, 50, 45), new THREE.Vector3(remember_me_width / 2, 50, 45))
         this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
         this.remember_username_checkbox.floating_2d_text.set_engage_function(this.remember_username_clicked.bind(this))
 
-        var login_button_width = 150
-        this.login_button = new Floating2DText(login_button_width, 'Login', TYPE_BUTTON, this.scene)
-        this.login_button.update_position_and_look_at(new THREE.Vector3(login_button_width / 2, 25, 45), new THREE.Vector3(login_button_width / 2, 25, 55))
+        this.login_button = new Floating2DText(login_width, 'Login', TYPE_BUTTON, this.scene)
+        this.login_button.update_position_and_look_at(new THREE.Vector3(login_width / 2, 25, 45), new THREE.Vector3(login_width / 2, 25, 55))
         this.login_button.set_engage_function(this.login_button_clicked.bind(this))
 
         /* __   __   ___      ___  ___          __   __   __            ___
