@@ -32,6 +32,10 @@ FloatingWall.prototype = {
 
         this.look_at = new THREE.Vector3(this.position.x + this.depth_start.x, this.position.y + this.depth_start.y, this.position.z + this.depth_start.z)
 
+        this.left_right = new THREE.Vector3(0, 1, 0)
+        this.left_right.cross(this.normal)
+        this.left_right.normalize()
+
         this.world = world
         this.scene = this.world.scene
 
