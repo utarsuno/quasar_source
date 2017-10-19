@@ -73,6 +73,9 @@ EntityWall.prototype = {
             this.world.remove_from_scene(this.interactive_objects[i].object3D)
         }
         this.world.remove_from_scene(this.object3D)
+
+        this.are_you_sure.remove_from_scene()
+        this.create_entity_wall.remove_from_scene()
         // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())
     },
 
@@ -132,10 +135,11 @@ EntityWall.prototype = {
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
         this.create_entity_wall = new FloatingWall(entity_wall_width, 500, entity_wall_position, this.normal, this.world)
 
-        this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
+        var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
+        this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 4, 0)
-        var entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 4, 0)
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
+        var entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, 0, 1, 4, 0)
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
@@ -161,6 +165,7 @@ EntityWall.prototype = {
         this.are_you_sure = new FloatingWall(are_you_sure_width, 200, are_you_sure_position, this.normal, this.world)
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
+        this.are_you_sure.add_object_to_remove_later(prompt)
         var are_you_sure_close_button = this.are_you_sure.add_close_button()
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 

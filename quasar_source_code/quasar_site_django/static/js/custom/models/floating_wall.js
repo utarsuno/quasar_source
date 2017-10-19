@@ -101,8 +101,16 @@ FloatingWall.prototype = {
         this.scene.add(this.object3D)
 
 
-
+        this.objects_to_remove_later = []
         //this.add_additional_visibility_object(this.title)
+    },
+
+    add_object_to_remove_later: function(object_to_remove) {
+        this.objects_to_remove_later.push(object_to_remove)
+    },
+
+    remove_from_scene: function() {
+        this.scene.remove(this.wall)
     },
 
     add_close_button: function() {
