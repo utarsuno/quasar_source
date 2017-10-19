@@ -119,9 +119,10 @@ FloatingWall.prototype = {
         this.add_additional_visibility_object(this.title)
         this.add_additional_visibility_object(this.close_button)
 
-        this.add_additional_visibility_object(this.create_entity)
+        //this.add_additional_visibility_object(this.create_entity)
         this.add_additional_visibility_object(this.save_changes)
         this.add_additional_visibility_object(this.delete_entity_wall)
+
     },
 
     add_floating_2d_text: function(width, text, type, x_offset, z_offset, row) {
