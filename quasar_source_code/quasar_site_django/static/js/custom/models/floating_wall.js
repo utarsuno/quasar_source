@@ -89,6 +89,10 @@ FloatingWall.prototype = {
 
         // Inherit from Visibility.
         Visibility.call(this)
+        this.add_additional_visibility_object(this.title)
+        this.add_additional_visibility_object(this.create_entity)
+        this.add_additional_visibility_object(this.save_changes)
+        this.add_additional_visibility_object(this.delete_entity_wall)
     },
 
     update_title: function (title) {
