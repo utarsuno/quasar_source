@@ -5,6 +5,12 @@ function Visibility() {
     // States.
     this.currently_visible = true
 
+    this.additional_visibility_objects = []
+
+    this.add_additional_visibility_object = function(child_object) {
+        this.additional_visibility_objects.push(child_object)
+    }
+
     this.is_visible = function() {
         return this.currently_visible
     }
@@ -18,6 +24,9 @@ function Visibility() {
                 child.visible = true
             }
         })
+        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
+            this.additional_visibility_objects.set_to_visible()
+        }
     }
 
     this.set_to_invisible = function() {
@@ -29,6 +38,9 @@ function Visibility() {
                 child.visible = false
             }
         })
+        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
+            this.additional_visibility_objects.set_to_invisible()
+        }
     }
 
     this.toggle_visiblity = function() {
@@ -40,5 +52,12 @@ function Visibility() {
                 child.visible = local_is_visible
             }
         })
+        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
+            if (local_is_visible) {
+                this.additional_visibility_objects.set_to_visible()
+            } else {
+                this.additional_visibility_objects.set_to_invisible()
+            }
+        }
     }
 }

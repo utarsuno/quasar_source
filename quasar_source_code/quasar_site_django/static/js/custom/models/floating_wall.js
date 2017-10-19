@@ -86,6 +86,9 @@ FloatingWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
+
+        // Inherit from Visibility.
+        Visibility.call(this)
     },
 
     update_title: function (title) {
