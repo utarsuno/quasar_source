@@ -126,8 +126,14 @@ EntityWall.prototype = {
         //////
 
         // Create entity wall.
+        var entity_wall_width = 400
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
-        this.create_entity_wall = new FloatingWall(400, 500, entity_wall_position, this.normal, this.world)
+        this.create_entity_wall = new FloatingWall(entity_wall_width, 500, entity_wall_position, this.normal, this.world)
+
+        this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
+
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 4, 0)
+        var entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 4, 0)
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
@@ -149,7 +155,7 @@ EntityWall.prototype = {
 
         // Are you sure prompt.
         var are_you_sure_width = 300
-        var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 1)
+        var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3)
         this.are_you_sure = new FloatingWall(are_you_sure_width, 200, are_you_sure_position, this.normal, this.world)
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
@@ -157,8 +163,12 @@ EntityWall.prototype = {
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
         var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 2, 0)
+        this.interactive_objects.push(yes_button)
+        yes_button.set_engage_function(this.perform_delete_entity.bind(this))
 
         var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 2, 0)
+        this.interactive_objects.push(no_button)
+        no_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
         this.are_you_sure.set_to_invisible()
         //////
