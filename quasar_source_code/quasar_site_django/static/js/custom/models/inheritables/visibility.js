@@ -25,7 +25,7 @@ function Visibility() {
             }
         })
         for (var i = 0; i < this.additional_visibility_objects.length; i++) {
-            this.additional_visibility_objects.set_to_visible()
+            this.additional_visibility_objects[i].set_to_visible()
         }
     }
 
@@ -39,7 +39,7 @@ function Visibility() {
             }
         })
         for (var i = 0; i < this.additional_visibility_objects.length; i++) {
-            this.additional_visibility_objects.set_to_invisible()
+            this.additional_visibility_objects[i].set_to_invisible()
         }
     }
 
@@ -54,9 +54,9 @@ function Visibility() {
         })
         for (var i = 0; i < this.additional_visibility_objects.length; i++) {
             if (local_is_visible) {
-                this.additional_visibility_objects.set_to_visible()
+                this.additional_visibility_objects[i].set_to_visible()
             } else {
-                this.additional_visibility_objects.set_to_invisible()
+                this.additional_visibility_objects[i].set_to_invisible()
             }
         }
     }
