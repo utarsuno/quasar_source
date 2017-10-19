@@ -51,6 +51,8 @@ FloatingWall.prototype = {
         // Inherit from Visibility.
         Visibility.call(this)
 
+        this.interactive_objects = []
+
         this.width = width
         this.height = height
 
@@ -97,7 +99,6 @@ FloatingWall.prototype = {
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1))
         //this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
 
-        this.interactive_objects = []
         this.interactive_objects.push(this.title)
 
         this.interactive_objects.push(this.create_entity)
