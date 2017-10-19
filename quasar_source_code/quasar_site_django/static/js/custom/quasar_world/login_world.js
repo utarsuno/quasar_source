@@ -135,7 +135,7 @@ LoginWorld.prototype = {
 
         // AJAX status.
         this.ajax_status = new Floating2DText(450, '', TYPE_TITLE, this.scene)
-        this.ajax_status.update_position_and_look_at(new THREE.Vector3(-50, 150, 45), new THREE.Vector3(-50, 150, 55))
+        this.ajax_status.update_position_and_look_at(new THREE.Vector3(450 / 2 - 50, 150, 45), new THREE.Vector3(450 / 2 - 50, 150, 55))
 
         /*      __   __
           |    /  \ / _` | |\ |
