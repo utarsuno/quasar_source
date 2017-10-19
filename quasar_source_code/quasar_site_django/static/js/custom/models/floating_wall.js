@@ -105,6 +105,10 @@ FloatingWall.prototype = {
         //this.add_additional_visibility_object(this.title)
     },
 
+    update_position: function(position_vector) {
+        this.object3D.position.set(position_vector)
+    },
+
     add_object_to_remove_later: function(object_to_remove) {
         this.objects_to_remove_later.push(object_to_remove)
     },

@@ -91,6 +91,11 @@ EntityWall.prototype = {
         this.are_you_sure.set_to_invisible()
     },
 
+    add_attribute_button_pressed: function() {
+        this.add_attribute_prompt.update_position(this.entity_wall_add_attribute.get_position())
+        this.add_attribute_prompt.set_to_visible()
+    },
+
     __init__: function(position, world) {
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
@@ -139,9 +144,11 @@ EntityWall.prototype = {
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3, 1, 2, 0)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
 
-        var entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, 0, 1, 4, 0)
+        this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, 0, 1, 4, 0)
+        this.interactive_objects.push(this.entity_wall_add_attribute)
+        this.entity_wall_add_attribute.set_engage_function(this.add_attribute_button_pressed.bind(this))
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
@@ -159,6 +166,14 @@ EntityWall.prototype = {
         this.delete_entity_wall.set_default_color(COLOR_TEXT_RED)
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1))
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
+        /////
+
+        // Add attribute prompt.
+        var add_attribute_prompt_width = 400
+        var temp_position = new THREE.Vector3(0, 0, 0)
+        this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world)
+
+        this.add_attribute_prompt.set_to_invisible()
         /////
 
         // Are you sure prompt.

@@ -113,6 +113,10 @@ Floating2DText.prototype = {
         return this.text
     },
 
+    get_position: function() {
+        return this.object3D.position
+    },
+
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
