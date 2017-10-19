@@ -139,6 +139,8 @@ EntityWall.prototype = {
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / -6, 1, 2, 0)
+
         var entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, 0, 1, 4, 0)
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
@@ -162,7 +164,7 @@ EntityWall.prototype = {
         // Are you sure prompt.
         var are_you_sure_width = 300
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3)
-        this.are_you_sure = new FloatingWall(are_you_sure_width, 200, are_you_sure_position, this.normal, this.world)
+        this.are_you_sure = new FloatingWall(are_you_sure_width, 100, are_you_sure_position, this.normal, this.world)
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
         this.are_you_sure.add_object_to_remove_later(prompt)
