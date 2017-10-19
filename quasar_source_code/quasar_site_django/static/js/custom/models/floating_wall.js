@@ -72,7 +72,7 @@ FloatingWall.prototype = {
 
         // Add new attribute button.
 
-        
+
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
@@ -101,12 +101,14 @@ FloatingWall.prototype = {
         this.interactive_objects.push(this.delete_entity_wall)
 
         // Set the tab targets.
+        /*
         this.title.set_next_tab_target(this.close_button)
         this.close_button.set_next_tab_target(this.create_entity)
 
         this.create_entity.set_next_tab_target(this.save_changes)
         this.save_changes.set_next_tab_target(this.delete_entity_wall)
         this.delete_entity_wall.set_next_tab_target(this.title)
+        */
 
         this.object3D.add(this.wall.mesh)
 
