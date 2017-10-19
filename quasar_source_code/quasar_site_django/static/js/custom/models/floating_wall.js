@@ -27,7 +27,7 @@ FloatingWall.prototype = {
 
     __init__: function (width, height, position, normal, world) {
         this.position = position
-        this.look_at = new THREE.Vector3(0, this.position.y, 0)
+        //this.look_at = new THREE.Vector3(0, this.position.y, 0)
 
         this.normal = normal
         this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2)
@@ -39,9 +39,10 @@ FloatingWall.prototype = {
 
         this.object3D = new THREE.Object3D()
 
-        this.object3D.position.x = position.x
-        this.object3D.position.y = position.y
-        this.object3D.position.z = position.z
+        //this.object3D.position.x = position.x
+        //this.object3D.position.y = position.y
+        //this.object3D.position.z = position.z
+        this.object3D.position.set(position.x, position.y, position.z)
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z))
 
         this.width = width
