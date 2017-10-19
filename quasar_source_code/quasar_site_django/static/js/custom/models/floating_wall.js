@@ -67,17 +67,12 @@ FloatingWall.prototype = {
             this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2))
 
         // Entity name.
-        this.entity_name_label = new Floating2DText(this.width / 3, 'Entity Name :', TYPE_INPUT_REGULAR, this.scene)
+        this.entity_name_label = this.add_floating_2d_text(this.width / 3, 'Entity Name', TYPE_INPUT_REGULAR, -1.0 * (this.width / 6.0), 1, 1)
 
 
         // Add new attribute button.
 
-
-        // Create entity button.
-        this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
-        //this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
-
+        
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
@@ -132,7 +127,7 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_y_position_for_row(row)
 
-        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y, relative_x_shift.z, z_offset))
+        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset))
 
         this.add_additional_visibility_object(floating_2D_text)
 
