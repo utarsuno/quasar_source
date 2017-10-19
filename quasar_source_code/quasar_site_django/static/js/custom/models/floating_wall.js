@@ -53,7 +53,8 @@ FloatingWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
 
-        var title_offset = new THREE.Vector3(this.left_right.x * 10, this.left_right.y * 10, this.left_right.z * 10)
+        console.log(this.left_right)
+        var title_offset = new THREE.Vector3(this.left_right.x * 50, this.left_right.y * 50, this.left_right.z * 50)
 
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width / 2, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
