@@ -115,12 +115,11 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Create entity wall.
-        var entity_wall_position = this.get_position_for_row(0, 0, 0, 20)
-        //var entity_wall_look_at = this.get_look_at_for_row(0, 0, 0, 1)
+        var entity_wall_position = this.get_position_for_external(0, 0, 0, 5)
+        var entity_wall_look_at = this.get_position_for_external(0, 0, 0, 10)
         this.floating_wall = new FloatingWall(1000, 400, entity_wall_position, this.normal, this.world)
         //this.create_entity_wall = new EntityEditor(null, entity_wall_position, entity_wall_look_at, this.scene)
         //this.create_entity_wall.set_to_invisible()
-
 
 
         // Save changes button.
@@ -170,22 +169,22 @@ EntityWall.prototype = {
         return (-16.0 / 2.0) * (1 + (2 * y_index))
     },
 
-    get_position_for_row: function(x_offset, y_offset, z_offset, depth) {
+    get_position_for_external: function(x_offset, y_offset, z_offset, depth) {
         var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + y_offset, this.object3D.position.z + z_offset)
         p.addScaledVector(this.normal, depth)
         return p
-        //var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
-        //p.addScaledVector(this.depth_start, depth)
-        //return p
+    },
+
+    get_position_for_row: function(x_offset, y_offset, z_offset, depth) {
+        var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
+        p.addScaledVector(this.depth_start, depth)
+        return p
     },
 
     get_look_at_for_row: function(x_offset, y_offset, z_offset, depth) {
-        var la = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + y_offset, this.object3D.position.z + z_offset)
-        la.addScaledVector(this.normal, depth * 2)
+        var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
+        la.addScaledVector(this.depth_start, depth)
         return la
-        //var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
-        //la.addScaledVector(this.depth_start, depth)
-        //return la
     },
 
     get_all_interactive_objects: function() {
