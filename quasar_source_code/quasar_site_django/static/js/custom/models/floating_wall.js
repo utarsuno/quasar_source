@@ -53,9 +53,13 @@ FloatingWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
 
+        var title_offset = new THREE.Vector3(this.left_right.x * 10, this.left_right.y * 10, this.left_right.z * 10)
+
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width / 2, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
-        this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1))
+        this.title.update_position_and_look_at(this.get_position_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 1),
+            this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 1))
+
 
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
