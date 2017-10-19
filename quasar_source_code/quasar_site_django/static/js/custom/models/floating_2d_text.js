@@ -30,7 +30,7 @@ Floating2DLabelInput.prototype = {
 
     update_position: function(px, py, pz) {
         this.floating_label.update_position_and_look_at(new THREE.Vector3(px + this.one_third_width / 2, py, pz), new THREE.Vector3(px + this.one_third_width / 2, py, pz + 1))
-        this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.two_third_width / 2, py, pz), new THREE.Vector3(px + this.two_third_width / 2, py, pz + 1))
+        this.floating_input.update_position_and_look_at(new THREE.Vector3(px + this.two_third_width / 2 + this.one_third_width, py, pz), new THREE.Vector3(px + this.two_third_width / 2 + this.one_third_width, py, pz + 1))
     },
 
     set_input_value: function(input_value) {

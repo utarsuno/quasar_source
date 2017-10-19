@@ -143,7 +143,7 @@ LoginWorld.prototype = {
 
         var login_width = 150
 
-        this.login_title = new Floating3DText(150, 'Login', TYPE_TITLE, this.scene)
+        this.login_title = new Floating3DText(login_width, 'Login', TYPE_TITLE, this.scene)
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
         this.login_username = new Floating2DLabelInput(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
@@ -171,10 +171,10 @@ LoginWorld.prototype = {
         var create_width = 150
 
         this.create_account_title = new Floating3DText(create_width, 'Create\nAccount', TYPE_TITLE, this.scene)
-        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, 225, 40), new THREE.Vector3(200 + create_width / 2, 225, 55))
+        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 225, 40), new THREE.Vector3(200, 225, 55))
 
         this.create_username = new Floating2DLabelInput(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
-        this.create_username.update_position(200 + create_width / 2, 100, 45)
+        this.create_username.update_position(200, 100, 45)
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
