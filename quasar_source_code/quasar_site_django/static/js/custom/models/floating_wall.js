@@ -54,7 +54,7 @@ FloatingWall.prototype = {
         this.wall = new PlaneAPI(this.width, this.height)
 
         console.log(this.left_right)
-        var title_offset = this.get_relative_x_shift(-1.0 * (this.width / 2.0))
+        var title_offset = this.get_relative_x_shift(-1.0 * (this.width / 4.0))
 
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width / 2, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
@@ -112,8 +112,7 @@ FloatingWall.prototype = {
 
     // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
     get_relative_x_shift: function(distance) {
-        var relative_shift = new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance)
-        return relative_shift
+        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance)
     },
 
     get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
