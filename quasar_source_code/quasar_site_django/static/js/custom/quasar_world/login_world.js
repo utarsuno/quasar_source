@@ -151,15 +151,16 @@ LoginWorld.prototype = {
         this.login_password = new Floating2DLabelInput(150, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.login_password.update_position(0, 75, 45)
 
-        this.remember_username_text = new Floating2DText(76, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
+        this.remember_username_text = new Floating2DText(75, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
         this.remember_username_text.update_position_and_look_at(new THREE.Vector3(0, 50, 45), new THREE.Vector3(0, 50, 45))
         this.remember_username_checkbox = new CheckBox(true, this.scene)
         this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16, 50, 45), new THREE.Vector3(150 - 16, 50, 45))
 
         this.remember_username_checkbox.floating_2d_text.set_engage_function(this.remember_username_clicked.bind(this))
 
-        this.login_button = new Floating2DText(150, 'Login', TYPE_BUTTON, this.scene)
-        this.login_button.update_position_and_look_at(new THREE.Vector3(0, 25, 45), new THREE.Vector3(0, 25, 55))
+        var login_button_width = 150
+        this.login_button = new Floating2DText(login_button_width, 'Login', TYPE_BUTTON, this.scene)
+        this.login_button.update_position_and_look_at(new THREE.Vector3(login_button_width / 2, 25, 45), new THREE.Vector3(login_button_width / 2, 25, 55))
         this.login_button.set_engage_function(this.login_button_clicked.bind(this))
 
         /* __   __   ___      ___  ___          __   __   __            ___
