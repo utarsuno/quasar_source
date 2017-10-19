@@ -132,7 +132,7 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_y_position_for_row(row)
 
-        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y, relative_x_shift.z))
+        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y, relative_x_shift.z, z_offset))
 
         this.add_additional_visibility_object(floating_2D_text)
 
