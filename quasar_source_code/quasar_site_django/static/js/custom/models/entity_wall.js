@@ -63,6 +63,10 @@ EntityWall.prototype = {
     },
 
     delete_entity_wall_pressed: function() {
+        this.are_you_sure.set_to_visible()
+    },
+
+    perform_delete_entity: function() {
         ENTITY_MANAGER.delete_entity(this.self_entity)
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
@@ -72,16 +76,16 @@ EntityWall.prototype = {
         // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())
     },
 
-    perform_delete_entity: function() {
-
-    },
-
     create_entity_button_pressed: function() {
         this.create_entity_wall.set_to_visible()
     },
 
     create_entity_wall_close_button_pressed: function() {
         this.create_entity_wall.set_to_invisible()
+    },
+
+    are_you_sure_close_button_pressed: function() {
+        this.are_you_sure.set_to_invisible()
     },
 
     __init__: function(position, world) {
@@ -146,9 +150,16 @@ EntityWall.prototype = {
         // Are you sure prompt.
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 1)
         this.are_you_sure = new FloatingWall(300, 200, are_you_sure_position, this.normal, this.world)
-        this.are_you_sure.set_to_invisible()
 
-        //var prompt = this.are_you_sure.add_floating_2d_text()
+        var prompt = this.are_you_sure.add_floating_2d_text(this.width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (this.width / 4.0), 2, 0, 0)
+        var are_you_sure_close_button = this.are_you_sure.add_close_button()
+        are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
+
+        var yes_button = this.are_you_sure.add_floating_2d_text(this.width / 4, 'Yes', TYPE_BUTTON, -1.0 * (this.width / 4.0), 1, 1, 0)
+
+        var no_button = this.are_you_sure.add_floating_2d_text(this.width / 4, 'Yes', TYPE_BUTTON, (this.width / 4.0), 1, 1, 0)
+
+        this.are_you_sure.set_to_invisible()
         //////
 
         this.interactive_objects = []
