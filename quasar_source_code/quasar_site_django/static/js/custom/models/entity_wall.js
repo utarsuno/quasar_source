@@ -124,10 +124,11 @@ EntityWall.prototype = {
         // Create entity wall.
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
         this.create_entity_wall = new FloatingWall(400, 500, entity_wall_position, this.normal, this.world)
-        this.create_entity_wall.set_to_invisible()
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
+
+        this.create_entity_wall.set_to_invisible()
         //////
 
         // Save changes button.
@@ -155,6 +156,15 @@ EntityWall.prototype = {
         this.interactive_objects.push(this.create_entity)
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
+
+        var extra_interactives = this.create_entity_wall.get_all_interactive_objects()
+        for (var c = 0; c < extra_interactives.length; c++) {
+            this.interactive_objects.push(extra_interactives[c])
+        }
+        extra_interactives = this.are_you_sure.get_all_interactive_objects()
+        for (var d = 0; d < extra_interactives.length; d++) {
+            this.interactive_objects.push(extra_interactives[d])
+        }
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity)
