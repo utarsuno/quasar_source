@@ -111,6 +111,8 @@ EntityWall.prototype = {
         this.width = 500
         this.height = 1000
 
+        this.interactive_objects = []
+
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
 
@@ -173,7 +175,6 @@ EntityWall.prototype = {
         this.are_you_sure.set_to_invisible()
         //////
 
-        this.interactive_objects = []
         this.interactive_objects.push(this.title)
         this.interactive_objects.push(this.create_entity)
         this.interactive_objects.push(this.save_changes)
