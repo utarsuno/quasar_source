@@ -115,7 +115,7 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Create entity wall.
-        var entity_wall_position = this.get_position_for_external(0, 0, 0, 5)
+        var entity_wall_position = this.get_position_for_external(0, 0, 0, 10)
         this.create_entity_wall = new FloatingWall(400, 750, entity_wall_position, this.normal, this.world)
         this.create_entity_wall.set_to_invisible()
 
