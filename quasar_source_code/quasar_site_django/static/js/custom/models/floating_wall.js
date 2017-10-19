@@ -67,7 +67,7 @@ FloatingWall.prototype = {
             this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2))
 
         // Entity name.
-        this.entity_name_label = this.add_floating_2d_text(this.width / 3, 'Entity Name', TYPE_INPUT_REGULAR, -1.0 * (this.width / 6.0), 1, 1)
+        this.entity_name_label = this.add_floating_2d_text(this.width / 3, 'Entity Name :', TYPE_INPUT_REGULAR, -1.0 * (this.width / 3.0), 1, 1)
 
 
         // Add new attribute button.
