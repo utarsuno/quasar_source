@@ -146,7 +146,7 @@ EntityWall.prototype = {
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
 
-        this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_INPUT_REGULAR, 0, 1, 4, 0)
+        this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
         this.interactive_objects.push(this.entity_wall_add_attribute)
         this.entity_wall_add_attribute.set_engage_function(this.add_attribute_button_pressed.bind(this))
 
