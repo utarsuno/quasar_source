@@ -92,6 +92,7 @@ EntityWall.prototype = {
     },
 
     add_attribute_button_pressed: function() {
+        console.log("The add attribute button was pressed!")
         this.add_attribute_prompt.update_position(this.entity_wall_add_attribute.get_position())
         this.add_attribute_prompt.set_to_visible()
     },
