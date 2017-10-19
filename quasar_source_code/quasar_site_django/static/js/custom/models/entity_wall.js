@@ -148,16 +148,17 @@ EntityWall.prototype = {
         /////
 
         // Are you sure prompt.
+        var are_you_sure_width = 300
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 1)
-        this.are_you_sure = new FloatingWall(300, 200, are_you_sure_position, this.normal, this.world)
+        this.are_you_sure = new FloatingWall(are_you_sure_width, 200, are_you_sure_position, this.normal, this.world)
 
-        var prompt = this.are_you_sure.add_floating_2d_text(this.width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (this.width / 4.0), 2, 0, 0)
+        var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
         var are_you_sure_close_button = this.are_you_sure.add_close_button()
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
-        var yes_button = this.are_you_sure.add_floating_2d_text(this.width / 4, 'Yes', TYPE_BUTTON, -1.0 * (this.width / 4.0), 1, 1, 0)
+        var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 2, 0)
 
-        var no_button = this.are_you_sure.add_floating_2d_text(this.width / 4, 'Yes', TYPE_BUTTON, (this.width / 4.0), 1, 1, 0)
+        var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 2, 0)
 
         this.are_you_sure.set_to_invisible()
         //////
