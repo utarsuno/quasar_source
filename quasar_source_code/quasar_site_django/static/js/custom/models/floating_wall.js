@@ -24,6 +24,7 @@ FloatingWall.prototype = {
     interactive_objects: null,
 
     __init__: function (width, height, position, normal, world) {
+
         this.position = position
         //this.look_at = new THREE.Vector3(0, this.position.y, 0)
 
@@ -46,6 +47,9 @@ FloatingWall.prototype = {
         //this.object3D.position.z = position.z
         this.object3D.position.set(position.x, position.y, position.z)
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z))
+
+        // Inherit from Visibility.
+        Visibility.call(this)
 
         this.width = width
         this.height = height
@@ -112,8 +116,8 @@ FloatingWall.prototype = {
 
         this.scene.add(this.object3D)
 
-        // Inherit from Visibility.
-        Visibility.call(this)
+
+
         this.add_additional_visibility_object(this.title)
         this.add_additional_visibility_object(this.close_button)
 
