@@ -103,7 +103,7 @@ EntityWall.prototype = {
         this.height = 1000
 
         // Base wall.
-        this.wall = new PlaneAPI(500, 1000)
+        this.wall = new PlaneAPI(500, 600)
 
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)

@@ -56,10 +56,15 @@ FloatingWall.prototype = {
         console.log(this.left_right)
         var title_offset = this.get_relative_x_shift(-1.0 * (this.width / 4.0))
 
-        //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
-        this.title = new Floating2DText(this.width / 2, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
+        this.title = new Floating2DText(this.width / 2, 'Create New Entity', TYPE_INPUT_REGULAR, this.scene)
         this.title.update_position_and_look_at(this.get_position_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2),
             this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2))
+
+        // Entity name.
+        this.entity_name_label = new Floating2DText(this.width / 3, 'Entity Name :', TYPE_INPUT_REGULAR, this.scene)
+
+
+        // Add new attribute button.
 
 
         // Create entity button.
@@ -73,10 +78,13 @@ FloatingWall.prototype = {
         //this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
 
         // Close button.
-        var close_button_offset = this.get_relative_x_shift((this.width / 4.0) - 16 / 2)
-        this.close_button = new Floating2DText(16, 'X', TYPE_BUTTON, this.scene)
-        this.close_button.update_position_and_look_at(this.get_position_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2),
-            this.get_look_at_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2))
+        this.close_button = this.add_floating_2d_text(16, 'X', TYPE_BUTTON, (this.width / 2.0) - 16 / 2, 2, 0)
+        this.interactive_objects.push(this.close_button)
+
+        //var close_button_offset = this.get_relative_x_shift((this.width / 2.0) - 16 / 2)
+        //this.close_button = new Floating2DText(16, 'X', TYPE_BUTTON, this.scene)
+        //this.close_button.update_position_and_look_at(this.get_position_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2),
+        //    this.get_look_at_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2))
 
 
         // Delete entity wall button.
@@ -87,13 +95,15 @@ FloatingWall.prototype = {
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
-        this.interactive_objects.push(this.close_button)
+
         this.interactive_objects.push(this.create_entity)
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
 
         // Set the tab targets.
-        this.title.set_next_tab_target(this.create_entity)
+        this.title.set_next_tab_target(this.close_button)
+        this.close_button.set_next_tab_target(this.create_entity)
+
         this.create_entity.set_next_tab_target(this.save_changes)
         this.save_changes.set_next_tab_target(this.delete_entity_wall)
         this.delete_entity_wall.set_next_tab_target(this.title)
@@ -105,9 +115,23 @@ FloatingWall.prototype = {
         // Inherit from Visibility.
         Visibility.call(this)
         this.add_additional_visibility_object(this.title)
+        this.add_additional_visibility_object(this.close_button)
+
         this.add_additional_visibility_object(this.create_entity)
         this.add_additional_visibility_object(this.save_changes)
         this.add_additional_visibility_object(this.delete_entity_wall)
+    },
+
+    add_floating_2d_text: function(width, text, type, x_offset, z_offset, row) {
+        var floating_2D_text = new Floating2DText(width, text, type, this.scene)
+        var relative_x_shift = this.get_relative_x_shift(x_offset)
+        var y_position = this.get_y_position_for_row(row)
+
+        floating_2D_text.update_position_and_look_at(this.get_position_for_row())
+
+        this.add_additional_visibility_object(floating_2D_text)
+
+        return floating_2D_text
     },
 
     update_title: function (title) {
