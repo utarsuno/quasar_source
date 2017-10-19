@@ -147,10 +147,10 @@ LoginWorld.prototype = {
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
         this.login_username = new Floating2DLabelInput(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
-        this.login_username.update_position(login_width / 2, 100, 45)
+        this.login_username.update_position(0, 100, 45)
 
         this.login_password = new Floating2DLabelInput(login_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
-        this.login_password.update_position(login_width / 2, 75, 45)
+        this.login_password.update_position(0, 75, 45)
 
         var remember_me_width = 75
         this.remember_username_text = new Floating2DText(remember_me_width, 'remember me c:', TYPE_INPUT_REGULAR, this.scene)
@@ -167,27 +167,30 @@ LoginWorld.prototype = {
         /* __   __   ___      ___  ___          __   __   __            ___
           /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
           \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
-        this.create_account_title = new Floating3DText(150, 'Create\nAccount', TYPE_TITLE, this.scene)
-        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 225, 40), new THREE.Vector3(200, 225, 55))
 
-        this.create_username = new Floating2DLabelInput(150, 'Username :', TYPE_INPUT_REGULAR, this.scene)
-        this.create_username.update_position(200, 100, 45)
+        var create_width = 150
+
+        this.create_account_title = new Floating3DText(create_width, 'Create\nAccount', TYPE_TITLE, this.scene)
+        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, 225, 40), new THREE.Vector3(200 + create_width / 2, 225, 55))
+
+        this.create_username = new Floating2DLabelInput(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_username.update_position(200 + create_width / 2, 100, 45)
 
         if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 
-        this.create_email = new Floating2DLabelInput(150, 'Email :', TYPE_INPUT_REGULAR, this.scene)
+        this.create_email = new Floating2DLabelInput(create_width, 'Email :', TYPE_INPUT_REGULAR, this.scene)
         this.create_email.update_position(200, 75, 45)
 
-        this.create_password = new Floating2DLabelInput(150, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_password = new Floating2DLabelInput(create_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_password.update_position(200, 50, 45)
 
-        this.create_repeat_password = new Floating2DLabelInput(150, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
+        this.create_repeat_password = new Floating2DLabelInput(create_width, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene)
         this.create_repeat_password.update_position(200, 25, 45)
 
-        this.create_account_button = new Floating2DText(150, 'Create Account', TYPE_BUTTON, this.scene)
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200, 0, 45), new THREE.Vector3(200, 0, 46))
+        this.create_account_button = new Floating2DText(create_width, 'Create Account', TYPE_BUTTON, this.scene)
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, 0, 45), new THREE.Vector3(200 + create_width / 2, 0, 46))
 
         this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
 
