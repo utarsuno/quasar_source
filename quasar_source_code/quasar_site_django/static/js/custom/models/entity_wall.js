@@ -103,7 +103,7 @@ EntityWall.prototype = {
         this.height = 1000
 
         // Base wall.
-        this.wall = new PlaneAPI(500, 600)
+        this.wall = new PlaneAPI(this.width, this.height)
 
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
@@ -117,7 +117,7 @@ EntityWall.prototype = {
 
         // Create entity wall.
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
-        this.create_entity_wall = new FloatingWall(400, 750, entity_wall_position, this.normal, this.world)
+        this.create_entity_wall = new FloatingWall(400, 500, entity_wall_position, this.normal, this.world)
         this.create_entity_wall.set_to_invisible()
 
         // Save changes button.
