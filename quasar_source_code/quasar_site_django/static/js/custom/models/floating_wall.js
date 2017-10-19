@@ -59,12 +59,12 @@ FloatingWall.prototype = {
 
         // Create entity button.
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
+        this.create_entity.update_position_and_look_at(this.get_position_for_row(this.width, this.get_y_position_for_row(1), 0, 1), this.get_look_at_for_row(this.width, this.get_y_position_for_row(1), 0, 1))
         //this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
-        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
+        this.save_changes.update_position_and_look_at(this.get_position_for_row(this.width / 2, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(this.width / 2, this.get_y_position_for_row(2), 0, 1))
         //this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
 
         // Delete entity wall button.
@@ -106,13 +106,13 @@ FloatingWall.prototype = {
     },
 
     get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
-        var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
+        var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
         p.addScaledVector(this.depth_start, depth)
         return p
     },
 
     get_look_at_for_row: function (x_offset, y_offset, z_offset, depth) {
-        var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
+        var la = new THREE.Vector3(this.look_at.x + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
         la.addScaledVector(this.depth_start, depth)
         return la
     },

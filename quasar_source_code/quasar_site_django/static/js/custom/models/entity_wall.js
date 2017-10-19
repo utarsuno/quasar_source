@@ -184,18 +184,6 @@ EntityWall.prototype = {
         return la
     },
 
-    get_position_for_row_old: function(x_offset, y_offset, z_offset, depth) {
-        var p = new THREE.Vector3(this.object3D.position.x - this.width / 2 + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z)
-        p.addScaledVector(this.depth_start, depth)
-        return p
-    },
-
-    get_look_at_for_row_old: function(x_offset, y_offset, z_offset, depth) {
-        var la = new THREE.Vector3(this.look_at.x - this.width / 2 + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
-        la.addScaledVector(this.depth_start, depth)
-        return la
-    },
-
     get_all_interactive_objects: function() {
         return this.interactive_objects
     }

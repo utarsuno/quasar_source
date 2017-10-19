@@ -140,6 +140,8 @@ LoginWorld.prototype = {
         /*      __   __
           |    /  \ / _` | |\ |
           |___ \__/ \__> | | \| */
+
+
         this.login_title = new Floating3DText(150, 'Login', TYPE_TITLE, this.scene)
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200, 40), new THREE.Vector3(LOGIN_X, 200, 55))
 
