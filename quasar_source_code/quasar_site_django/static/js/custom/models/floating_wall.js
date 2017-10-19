@@ -58,8 +58,8 @@ FloatingWall.prototype = {
 
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width / 2, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
-        this.title.update_position_and_look_at(this.get_position_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 5),
-            this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 5))
+        this.title.update_position_and_look_at(this.get_position_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2),
+            this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2))
 
 
         // Create entity button.
@@ -72,6 +72,13 @@ FloatingWall.prototype = {
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
         //this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
 
+        // Close button.
+        var close_button_offset = this.get_relative_x_shift((this.width / 4.0) - 16 / 2)
+        this.close_button = new Floating2DText(16, 'X', TYPE_BUTTON, this.scene)
+        this.close_button.update_position_and_look_at(this.get_position_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2),
+            this.get_look_at_for_row(close_button_offset.x, this.get_y_position_for_row(0) + close_button_offset.y, close_button_offset.z, 2))
+
+
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
         this.delete_entity_wall.set_default_color(COLOR_TEXT_RED)
@@ -80,6 +87,7 @@ FloatingWall.prototype = {
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)
+        this.interactive_objects.push(this.close_button)
         this.interactive_objects.push(this.create_entity)
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)

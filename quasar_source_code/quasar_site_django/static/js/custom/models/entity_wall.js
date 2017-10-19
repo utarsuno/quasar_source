@@ -110,12 +110,13 @@ EntityWall.prototype = {
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1))
 
         // Create entity button.
+        var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1)
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
+        this.create_entity.update_position_and_look_at(create_entity_position, this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
 
         // Create entity wall.
-        var entity_wall_position = this.get_position_for_external(0, 0, 0, 10)
+        var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
         this.create_entity_wall = new FloatingWall(400, 750, entity_wall_position, this.normal, this.world)
         this.create_entity_wall.set_to_invisible()
 
