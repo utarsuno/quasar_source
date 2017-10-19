@@ -69,14 +69,19 @@ EntityWall.prototype = {
             this.world.remove_from_scene(this.interactive_objects[i].object3D)
         }
         this.world.remove_from_scene(this.object3D)
+        // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())
+    },
 
-        // this.self_entity.delete_self()
-        //ENTITY_MANAGER.delete_entity(this.self_entity)
-        //this.self_entity = null
+    perform_delete_entity: function() {
+
     },
 
     create_entity_button_pressed: function() {
         this.create_entity_wall.set_to_visible()
+    },
+
+    create_entity_wall_close_button_pressed: function() {
+        this.create_entity_wall.set_to_invisible()
     },
 
     __init__: function(position, world) {
@@ -114,11 +119,16 @@ EntityWall.prototype = {
         this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
         this.create_entity.update_position_and_look_at(create_entity_position, this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
+        //////
 
         // Create entity wall.
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
         this.create_entity_wall = new FloatingWall(400, 500, entity_wall_position, this.normal, this.world)
         this.create_entity_wall.set_to_invisible()
+
+        var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
+        create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
+        //////
 
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
@@ -130,6 +140,15 @@ EntityWall.prototype = {
         this.delete_entity_wall.set_default_color(COLOR_TEXT_RED)
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1))
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
+        /////
+
+        // Are you sure prompt.
+        var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 1)
+        this.are_you_sure = new FloatingWall(300, 200, are_you_sure_position, this.normal, this.world)
+        this.are_you_sure.set_to_invisible()
+
+        //var prompt = this.are_you_sure.add_floating_2d_text()
+        //////
 
         this.interactive_objects = []
         this.interactive_objects.push(this.title)

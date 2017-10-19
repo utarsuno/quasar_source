@@ -119,6 +119,7 @@ module.exports = {
         "COLOR_TEXT_HIGHLIGHT": false,
         "COLOR_TEXT_DEFAULT": false,
         "COLOR_TEXT_RED": false,
+        "COLOR_TEXT_GREEN": false,
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME": false,
