@@ -76,7 +76,7 @@ EntityWall.prototype = {
     },
 
     create_entity_button_pressed: function() {
-        //this.create_entity_wall.set_to_visible()
+        this.create_entity_wall.set_to_visible()
     },
 
     __init__: function(position, world) {
@@ -116,15 +116,12 @@ EntityWall.prototype = {
 
         // Create entity wall.
         var entity_wall_position = this.get_position_for_external(0, 0, 0, 5)
-        var entity_wall_look_at = this.get_position_for_external(0, 0, 0, 10)
         this.floating_wall = new FloatingWall(1000, 400, entity_wall_position, this.normal, this.world)
-        //this.create_entity_wall = new EntityEditor(null, entity_wall_position, entity_wall_look_at, this.scene)
-        //this.create_entity_wall.set_to_invisible()
-
+        this.create_entity_wall.set_to_invisible()
 
         // Save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
-        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 4), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 4))
+        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
         this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
 
         // Delete entity wall button.
