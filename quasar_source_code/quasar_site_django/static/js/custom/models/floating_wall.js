@@ -129,6 +129,7 @@ FloatingWall.prototype = {
 
         var new_look_at = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z)
         new_look_at.addScaledVector(this.depth_start, z_offset)
+        new_look_at.addScaledVector(this.normal, 10)
 
         console.log('Position is now : ')
         console.log(new_position)
