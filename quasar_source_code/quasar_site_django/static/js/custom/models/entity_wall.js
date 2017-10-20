@@ -92,10 +92,14 @@ EntityWall.prototype = {
     },
 
     add_attribute_button_pressed: function() {
-        var position_update = this.entity_wall_add_attribute.get_position()
+        var position_update = new THREE.Vector3(this.entity_wall_add_attribute.get_position().x, this.entity_wall_add_attribute.get_position().y, this.entity_wall_add_attribute.get_position().z)
         position_update.addScaledVector(this.normal, 5)
         this.add_attribute_prompt.update_position(this.entity_wall_add_attribute.get_position())
         this.add_attribute_prompt.set_to_visible()
+    },
+
+    add_attribute_prompt_close_button_pressed: function() {
+        this.add_attribute_prompt.set_to_invisible()
     },
 
     __init__: function(position, world) {
@@ -174,6 +178,9 @@ EntityWall.prototype = {
         var add_attribute_prompt_width = 400
         var temp_position = new THREE.Vector3(0, 0, 0)
         this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world)
+
+        this.add_attribute_prompt_close_button = this.add_attribute_prompt.add_close_button()
+        this.add_attribute_prompt_close_button.set_engage_function(this.add_attribute_prompt_close_button_pressed.bind(this))
 
         this.add_attribute_prompt.set_to_invisible()
         /////
