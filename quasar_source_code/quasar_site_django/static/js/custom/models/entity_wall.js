@@ -107,7 +107,8 @@ EntityWall.prototype = {
         console.log('Save the entity!!!!')
         for (var i = 0; i < this.create_entity_fields.length; i++) {
             console.log(this.create_entity_fields[i])
-            console.log(this.create_entity_fields[i].get_text())
+            console.log(this.create_entity_fields[i][0].get_text())
+            console.log(this.create_entity_fields[i][1].get_text())
         }
     },
 
