@@ -142,10 +142,13 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
         //////
 
-        // Create entity wall.
+        /* __   __   ___      ___  ___     ___      ___   ___
+          /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    .
+          \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     . */
         var entity_wall_width = 400
+        var entity_wall_height = 500
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
-        this.create_entity_wall = new FloatingWall(entity_wall_width, 500, entity_wall_position, this.normal, this.world)
+        this.create_entity_wall = new FloatingWall(entity_wall_width, entity_wall_height, entity_wall_position, this.normal, this.world)
 
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
@@ -153,9 +156,14 @@ EntityWall.prototype = {
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
 
+        // TODO : Eventually create a list to hold all the created entities properties and values
+
+        // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
         this.interactive_objects.push(this.entity_wall_add_attribute)
         this.entity_wall_add_attribute.set_engage_function(this.add_attribute_button_pressed.bind(this))
+
+        this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, entity_wall_height)
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
@@ -175,10 +183,14 @@ EntityWall.prototype = {
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
         /////
 
-        // Add attribute prompt.
+        /*      __   __          ___ ___  __     __       ___  ___
+           /\  |  \ |  \     /\   |   |  |__) | |__) |  |  |  |__     .
+          /~~\ |__/ |__/    /~~\  |   |  |  \ | |__) \__/  |  |___    .*/
         var add_attribute_prompt_width = 400
         var temp_position = new THREE.Vector3(0, 0, 0)
         this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world)
+
+        //var add_attribute_title = this.add_attribute_prompt.add_floating_2d_text(add_attribute_prompt_width / 2, 'Add Attribute')
 
         this.add_attribute_prompt_close_button = this.add_attribute_prompt.add_close_button()
         this.add_attribute_prompt_close_button.set_engage_function(this.add_attribute_prompt_close_button_pressed.bind(this))
