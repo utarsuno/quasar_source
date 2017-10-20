@@ -117,24 +117,12 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_y_position_for_row(row) + additional_y_offset
 
-        console.log('additional_y_offset')
-        console.log(additional_y_offset)
-        console.log('y_position :' )
-        console.log(y_position)
-        console.log('height / 2:')
-        console.log(this.height / 2)
-
         var new_position = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z)
         new_position.addScaledVector(this.depth_start, z_offset)
 
         var new_look_at = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z)
         new_look_at.addScaledVector(this.depth_start, z_offset)
         new_look_at.addScaledVector(this.normal, 10)
-
-        console.log('Position is now : ')
-        console.log(new_position)
-        console.log('Look at is now : ')
-        console.log(new_look_at)
 
         floating_2d_text.update_position_and_look_at(new_position, new_look_at)
     },
