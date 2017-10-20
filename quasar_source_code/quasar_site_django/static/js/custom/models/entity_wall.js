@@ -103,6 +103,10 @@ EntityWall.prototype = {
         this.add_attribute_prompt.set_to_invisible()
     },
 
+    entity_wall_save_entity_button_pressed: function() {
+        console.log('Save the entity!!!!')
+    },
+
     __init__: function(position, world) {
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
@@ -163,7 +167,9 @@ EntityWall.prototype = {
         this.interactive_objects.push(this.entity_wall_add_attribute)
         this.entity_wall_add_attribute.set_engage_function(this.add_attribute_button_pressed.bind(this))
 
-        this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, entity_wall_height)
+        this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, -entity_wall_height)
+        this.interactive_objects.push(this.entity_wall_save_entity)
+        this.entity_wall_save_entity.set_engage_function(this.entity_wall_save_entity_button_pressed.bind(this))
 
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
