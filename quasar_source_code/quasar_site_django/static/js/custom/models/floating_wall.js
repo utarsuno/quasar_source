@@ -124,10 +124,10 @@ FloatingWall.prototype = {
         console.log('height / 2:')
         console.log(this.height / 2)
 
-        var new_position = new THREE.Vector3(position_vector.x + x_offset + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + z_offset + relative_x_shift.z)
+        var new_position = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z)
         new_position.addScaledVector(this.depth_start, z_offset)
 
-        var new_look_at = new THREE.Vector3(position_vector.x + x_offset + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + z_offset + relative_x_shift.z)
+        var new_look_at = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z)
         new_look_at.addScaledVector(this.depth_start, z_offset)
 
         console.log('Position is now : ')
