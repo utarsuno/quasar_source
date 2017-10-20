@@ -117,7 +117,13 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_position_for_row(row) + additional_y_offset
 
-        floating_2d_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset))
+        var new_position = new THREE.Vector3(position_vector.x + x_offset, position_vector.y + this.height / 2 + y_position, position_vector.z + z_offset)
+        new_position.addScaledVector(this.depth_start, z_offset)
+
+        var new_look_at = new THREE.Vector3(position_vector.x + x_offset, position_vector.y + this.height / 2 + y_position, position_vector.z + z_offset)
+        new_look_at.addScaledVector(this.depth_start, z_offset)
+
+        floating_2d_text.update_position_and_look_at(new_position, new_look_at)
     },
 
     add_object_to_remove_later: function(object_to_remove) {
