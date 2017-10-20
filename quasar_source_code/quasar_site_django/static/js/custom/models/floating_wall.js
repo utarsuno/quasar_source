@@ -115,7 +115,7 @@ FloatingWall.prototype = {
 
     update_floating_2d_text_position: function(position_vector, floating_2d_text, x_offset, z_offset, row, additional_y_offset) {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
-        var y_position = this.get_position_for_row(row) + additional_y_offset
+        var y_position = this.get_y_position_for_row(row) + additional_y_offset
 
         console.log('additional_y_offset')
         console.log(additional_y_offset)
