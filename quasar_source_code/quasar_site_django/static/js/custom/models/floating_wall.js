@@ -106,7 +106,8 @@ FloatingWall.prototype = {
     },
 
     update_position: function(position_vector) {
-        this.object3D.position.set(position_vector)
+        this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z)
+        
     },
 
     add_object_to_remove_later: function(object_to_remove) {
