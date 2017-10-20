@@ -117,6 +117,13 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_position_for_row(row) + additional_y_offset
 
+        console.log('additional_y_offset')
+        console.log(additional_y_offset)
+        console.log('y_position :' )
+        console.log(y_position)
+        console.log('height / 2:')
+        console.log(this.height / 2)
+
         var new_position = new THREE.Vector3(position_vector.x + x_offset, position_vector.y + this.height / 2 + y_position, position_vector.z + z_offset)
         new_position.addScaledVector(this.depth_start, z_offset)
 
