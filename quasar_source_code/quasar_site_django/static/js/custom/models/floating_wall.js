@@ -123,6 +123,11 @@ FloatingWall.prototype = {
         var new_look_at = new THREE.Vector3(position_vector.x + x_offset, position_vector.y + this.height / 2 + y_position, position_vector.z + z_offset)
         new_look_at.addScaledVector(this.depth_start, z_offset)
 
+        console.log('Position is now : ')
+        console.log(new_position)
+        console.log('Look at is now : ')
+        console.log(new_look_at)
+
         floating_2d_text.update_position_and_look_at(new_position, new_look_at)
     },
 
