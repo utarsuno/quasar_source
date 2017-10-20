@@ -107,7 +107,17 @@ FloatingWall.prototype = {
 
     update_position: function(position_vector) {
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z)
+        if (this.close_button !== null && this.close_button !== undefined) {
+            this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0)
+        }
+        // TODO : update the remaining positions as well.
+    },
 
+    update_floating_2d_text_position: function(position_vector, floating_2d_text, x_offset, z_offset, row, additional_y_offset) {
+        var relative_x_shift = this.get_relative_x_shift(x_offset)
+        var y_position = this.get_position_for_row(row) + additional_y_offset
+
+        floating_2d_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset))
     },
 
     add_object_to_remove_later: function(object_to_remove) {
