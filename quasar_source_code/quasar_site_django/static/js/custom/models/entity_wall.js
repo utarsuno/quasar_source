@@ -105,6 +105,10 @@ EntityWall.prototype = {
 
     entity_wall_save_entity_button_pressed: function() {
         console.log('Save the entity!!!!')
+        for (var i = 0; i < this.create_entity_fields.length; i++) {
+            console.log(this.create_entity_fields[i])
+            console.log(this.create_entity_fields[i].get_text())
+        }
     },
 
     __init__: function(position, world) {
@@ -149,6 +153,8 @@ EntityWall.prototype = {
         /* __   __   ___      ___  ___     ___      ___   ___
           /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    .
           \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     . */
+        this.create_entity_fields = []
+
         var entity_wall_width = 400
         var entity_wall_height = 500
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
@@ -157,8 +163,7 @@ EntityWall.prototype = {
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, 'Entity Name', TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
+        this.add_create_entity_field('Entity Name :', entity_wall_width)
 
         // TODO : Eventually create a list to hold all the created entities properties and values
 
@@ -255,6 +260,17 @@ EntityWall.prototype = {
 
         this.entities = []
         this.post_call_save_changes = new PostHelper('/save_entities')
+    },
+
+    // For create entity only.
+    add_create_entity_field: function(attribute_name, entity_wall_width) {
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
+
+        this.interactive_objects.push(entity_wall_entity_name)
+        this.interactive_objects.push(entity_wall_entity_name_input)
+
+        this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
     },
 
     update_title: function(title) {
