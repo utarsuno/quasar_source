@@ -93,8 +93,8 @@ EntityWall.prototype = {
 
     add_attribute_button_pressed: function() {
         var position_update = new THREE.Vector3(this.entity_wall_add_attribute.get_position().x, this.entity_wall_add_attribute.get_position().y, this.entity_wall_add_attribute.get_position().z)
-        position_update.addScaledVector(this.normal, 5)
-        this.add_attribute_prompt.update_position(this.entity_wall_add_attribute.get_position())
+        position_update.addScaledVector(this.normal, 10)
+        this.add_attribute_prompt.update_position(position_update)
         this.add_attribute_prompt.set_to_visible()
     },
 
