@@ -92,10 +92,9 @@ EntityWall.prototype = {
     },
 
     add_attribute_button_pressed: function() {
-        console.log("The add attribute button was pressed!")
+        var position_update = this.entity_wall_add_attribute.get_position()
+        position_update.addScaledVector(this.normal, 5)
         this.add_attribute_prompt.update_position(this.entity_wall_add_attribute.get_position())
-        console.log("Printing the position!")
-        console.log(this.entity_wall_add_attribute.get_position())
         this.add_attribute_prompt.set_to_visible()
     },
 
