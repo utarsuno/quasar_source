@@ -158,7 +158,7 @@ EntityWall.prototype = {
                 console.log(this.floating_row_to_entity_list[i][1])
 
                 //var y_offset = -(i) * (16 + 2)
-                var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position.y, this.world.currently_looked_at_object.get_position.z)
+                var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z)
 
                 //var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
 
@@ -167,6 +167,10 @@ EntityWall.prototype = {
 
                 this.current_entity_editor = new FloatingWall(500, 500, position, this.normal, this.world)
                 var entity_editor_close_button = this.current_entity_editor.add_close_button()
+
+                this.world.interactive_objects.push(entity_editor_close_button)
+                
+
                 entity_editor_close_button.set_engage_function(this.entity_editor_close_button_pressed.bind(this))
             }
         }
