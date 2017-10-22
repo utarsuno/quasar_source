@@ -30,6 +30,13 @@ class EntityManager(object):
 			print(str(e))
 		print('------------------------------------------')
 
+	def get_entity_by_id(self, entity_id):
+		"""Returns an entity."""
+		for e in self.entities:
+			if e.relative_id == entity_id:
+				return e
+		return None
+
 	def get_all_entities(self):
 		"""Returns all the entities of this manager."""
 		all_entities = []

@@ -72,6 +72,8 @@ class EntityServer(object):
 
 	def save_or_update_entity(self, owner_username, data_dictionary):
 		"""Creates a new entity or updates an existing entity."""
+		entity_manager = self._managers[owner_username]
+
 		print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
 
 		for key in data_dictionary:
@@ -79,14 +81,16 @@ class EntityServer(object):
 		print('------------')
 
 		match_found = False
+		id_match    = None
 
 		# Check if the owner already has an Entity with the provided entity ID.
-		owner_entities = self._managers[owner_username].get_all_entities()
+		owner_entities = entity_manager.get_all_entities()
 		print('The owner{' + str(owner_username) + '} currently has {' + str(len(owner_entities)) + '} entities.')
 		for e in owner_entities:
 			#print(e)
 			if e.relative_id == data_dictionary[ENTITY_PROPERTY_ID]:
 				print('Found an Entity match!')
+				id_match = e.relative_id
 				match_found = True
 
 		if not match_found:
@@ -106,11 +110,23 @@ class EntityServer(object):
 					new_entity.add_information(key, data_dictionary[key])
 
 			# Give the entity to the manager.
-			self._managers[owner_username].add_entities(new_entity)
+			entity_manager.add_entities(new_entity)
 
 			# Now save the entity manager.
 			# TODO : Make a more efficient save method. Only save the entity change, not the entire manager again.
-			self._db_api.save_entity_manager(self._managers[owner_username])
+			self._db_api.save_entity_manager(entity_manager)
+
+		else:
+			print('Updating the entity{' + str(id_match) + '}')
+
+			# If an entity match was found then the entity's values need to be saved over.
+			current_entity = entity_manager.get_entity_by_id(id_match)
+
+			for key in data_dictionary:
+				# TODO : re-look at this design later on. (Note add_information will over-ride currently existing values)
+				current_entity.add_information(key, data_dictionary[key])
+
+			self._db_api.save_entity_manager(entity_manager)
 
 	def _update_owners(self):
 		"""Updates the owners list."""
