@@ -76,6 +76,8 @@ EntityWall.prototype = {
 
     set_entity: function(entity) {
         this.self_entity = entity
+        console.log('The entity wall {' + this.title.get_text() + '} has the following self entity :')
+        console.log(this.self_entity)
     },
 
     delete_entity_wall_pressed: function() {
@@ -204,7 +206,6 @@ EntityWall.prototype = {
         this.entities_display_wall_height = this.height * 0.75
         var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2)
         this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world)
-        this.display_rows = []
 
         // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
