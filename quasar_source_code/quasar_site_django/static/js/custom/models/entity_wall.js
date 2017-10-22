@@ -112,7 +112,7 @@ EntityWall.prototype = {
         for (var i = 0; i < this.create_entity_fields.length; i++) {
             console.log(this.create_entity_fields[i])
             if (this.create_entity_fields[i][0].get_text() === ENTITY_PROPERTY_NAME) {
-                entity_name = this.create_entity[i][1].get_text()
+                entity_name = this.create_entity_fields[i][1].get_text()
             }
             properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
             console.log(this.create_entity_fields[i][0].get_text())
