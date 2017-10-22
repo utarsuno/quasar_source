@@ -95,6 +95,11 @@ EntityManager.prototype = {
             var children_list = this.entities[e].get_value[ENTITY_PROPERTY_CHILDREN]
             var parent_list   = this.entities[e].get_value[ENTITY_PROPERTY_PARENTS]
 
+            console.log('Children list is :')
+            console.log(children_list)
+            console.log('Parent list is :')
+            console.log(parent_list)
+
             for (var c = 0; c < children_list.length; c++) {
                 this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
             }
