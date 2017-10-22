@@ -38,6 +38,11 @@ function World() {
         for (var i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
             if (this.raycaster.intersectObject(this.interactive_objects[i].object3D, true).length > 0) {
+
+
+                console.log(this.raycaster.intersectObject(this.interactive_objects[i].object3D, true))
+
+
                 // A new object is being looked at, so look away from the old one and look at new one.
                 if (this.currently_looked_at_object !== this.interactive_objects[i]) {
                     if (this.currently_looked_at_object !== null) {

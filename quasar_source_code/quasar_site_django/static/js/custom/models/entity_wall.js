@@ -186,7 +186,7 @@ EntityWall.prototype = {
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2)
                 this.current_entity_editor = new FloatingWall(500, current_entity_editor_height, position, this.normal, this.world)
 
-                var entity_editor_close_button = this.current_entity_editor.add_close_button()
+                var entity_editor_close_button = this.current_entity_editor.add_close_button(2)
                 this.world.interactive_objects.push(entity_editor_close_button)
 
 
