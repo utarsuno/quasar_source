@@ -97,6 +97,8 @@ module.exports = {
         "EntityWall": false,
 
         // From globals.js
+        "NOT_FOUND": false,
+
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
         "TYPE_LABEL": false,

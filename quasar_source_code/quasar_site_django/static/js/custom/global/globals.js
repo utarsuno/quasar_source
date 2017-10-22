@@ -9,11 +9,13 @@ const l = console.log
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
+// Logical constants.
+const NOT_FOUND = -1
+
 // Math constants.
 const HALF_PIE = Math.PI / 2.0
 const PIE = Math.PI
 const TWO_PIE = Math.PI * 2.0
-
 
 // Player object sets the global audio.
 var AUDIO_MANAGER  = null
