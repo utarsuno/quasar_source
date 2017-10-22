@@ -67,6 +67,13 @@ Entity.prototype = {
         }
         //ENTITY_MANAGER.add_entity(this)
 
+        // Ensure the entity property name exists as well.
+        if (!this.has_property(ENTITY_PROPERTY_NAME)) {
+            this.set_property(ENTITY_PROPERTY_NAME, this.name)
+        } else if (this.get_value(ENTITY_PROPERTY_NAME) === null || this.get_value(ENTITY_PROPERTY_NAME) === undefined) {
+            this.set_property(ENTITY_PROPERTY_NAME, this.name)
+        }
+
         // Ensure children property exists with at least an empty list.
         if (!this.has_property(ENTITY_PROPERTY_CHILDREN)) {
             this.set_property(ENTITY_PROPERTY_CHILDREN, [])
