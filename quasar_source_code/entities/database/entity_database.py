@@ -69,16 +69,21 @@ class EntityDatabaseAPI(object):
 		with open(file_name, 'wb') as f:
 			dill.dump(entity_manager, f)
 		file = open(file_name, 'rb')
-		cursor = self._api.get_cursor()
 		file_data = file.read()
 		file.close()
 
+		print('DOES THE DATABASE HAVE THE CURRENT MANAGER ID: ' + str(entity_manager.manager_id))
+		manager_exists = self._entity_managers.has_value('manager_id', entity_manager.manager_id)
 
-		#self._entity_managers.delete_row_with_value('manager_id', entity_manager.manager_id)
-		self._entity_managers.update_row_with_value('manager_id', entity_manager.manager_id, 'manager', (entity_manager.manager_id, str(psycopg2.Binary(file_data))))
+		if not manager_exists:
+			cursor = self._api.get_cursor()
+			cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
+		else:
+			self._entity_managers.update_row_with_value('manager_id', entity_manager.manager_id, 'manager', (entity_manager.manager_id, str(psycopg2.Binary(file_data))))
 
 
-		#cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
+		# Old code to delete later
+		# #self._entity_managers.delete_row_with_value('manager_id', entity_manager.manager_id)
 		self._api.commit()
 
 	# TODO : create delete_owner
