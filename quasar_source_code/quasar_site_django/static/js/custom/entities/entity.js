@@ -111,11 +111,6 @@ Entity.prototype = {
     },
 
     get_value: function(property_name) {
-
-        console.log('Trying to get the value of the property :' + property_name)
-        console.log(this.keys_and_values)
-        console.log(this.keys_and_values[property_name])
-
         return this.keys_and_values[property_name]
     },
 

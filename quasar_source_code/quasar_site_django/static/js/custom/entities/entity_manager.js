@@ -92,8 +92,8 @@ EntityManager.prototype = {
             console.log('Currently looking at entity :')
             console.log(this.entities[e])
 
-            var children_list = this.entities[e].get_value[ENTITY_PROPERTY_CHILDREN]
-            var parent_list   = this.entities[e].get_value[ENTITY_PROPERTY_PARENTS]
+            var children_list = this.entities[e].get_value(ENTITY_PROPERTY_CHILDREN)
+            var parent_list   = this.entities[e].get_value(ENTITY_PROPERTY_PARENTS)
 
             console.log('Children list is :')
             console.log(children_list)
