@@ -75,11 +75,9 @@ class PostgreSQLAPI(object):
 		# TODO : Query can be type of string and tuple.
 		if query[-1] != ';':
 			query += ';'
-		try:
-			query.decode('utf-8')
-			print("string is UTF-8, length %d bytes" % len(query))
-		except UnicodeError:
-			print("query is not UTF-8")
+
+		query = query.encode('utf-8')
+
 		try:
 			self._cursor.execute(query)
 			if save:
