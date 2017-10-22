@@ -328,7 +328,7 @@ EntityWall.prototype = {
     },
 
     save: function() {
-        this.send_changes_to_server().bind(this)
+        this.send_changes_to_server.bind(this)
     },
 
     add_entity: function(entity) {
