@@ -123,6 +123,7 @@ class EntityDatabaseAPI(object):
 		# TODO : Make this a single query...
 		results = self._entity_managers.get_row_values()
 		for em in results:
+			#print(str(em) + '\t\t' + str(manager_id))
 			if em[0] == manager_id:
 				return dill.loads(em[1].tobytes())
 		#self._api.execute_query('SET CLIENT_ENCODING TO LATIN1', save=True)

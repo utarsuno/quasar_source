@@ -13,9 +13,12 @@ owners = db.get_all_owners()
 for e in owners:
 	print(e)
 	manager = db.get_entity_manager(e[4])
-	entities = manager.get_all_entities()
-	for ee in entities:
-		print(ee)
+	if manager is None:
+		print('No manager found!')
+	else:
+		entities = manager.get_all_entities()
+		for ee in entities:
+			print(ee)
 	print('-----------------------------------')
 
 db.terminate()
