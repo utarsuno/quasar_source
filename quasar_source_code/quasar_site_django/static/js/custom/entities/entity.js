@@ -75,7 +75,7 @@ Entity.prototype = {
         }
 
         // Ensure parent property.
-        if (this.has_property(ENTITY_PROPERTY_PARENTS)) {
+        if (!this.has_property(ENTITY_PROPERTY_PARENTS)) {
             this.set_property(ENTITY_PROPERTY_PARENTS, [])
         } else if (this.get_value(ENTITY_PROPERTY_PARENTS) === '[]' || this.get_value(ENTITY_PROPERTY_CHILDREN) === null || this.get_value(ENTITY_PROPERTY_CHILDREN) === undefined) {
             this.set_property(ENTITY_PROPERTY_PARENTS, [])
