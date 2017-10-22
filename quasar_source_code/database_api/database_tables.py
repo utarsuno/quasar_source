@@ -189,6 +189,10 @@ class DatabaseTable(object):
 		"""Returns the row with the largest value of the provided header."""
 		return self._database_api.execute_custom_query_one_result('SELECT * FROM ' + self.table_name + ' ORDER BY ' + self.table_name + '.' + match_header + ' DESC LIMIT 1')
 
+	def update_row_with_value(self, header_to_match, header_value, column_to_update, column_value):
+		"""Updates a row's value given a match was found."""
+		self._database_api.execute_query('UPDATE ' + self.table_name + ' SET ' + column_to_update + ' = ' + column_value + ' WHERE ' + header_to_match + ' = ' + self._validify_value(header_value) + ';', save=True)
+
 	def get_single_value(self, header_to_get: str, match_header: str, match_value):
 		"""Returns a single value if a match was found."""
 		return self._database_api.execute_custom_query_one_result('SELECT ' + header_to_get + ' FROM ' + self.table_name + ' WHERE ' + match_header + ' = ' + self._validify_value(match_value))[0]
