@@ -116,6 +116,31 @@ Entity.prototype = {
         return this.name
     },
 
+    // Returns the properties of this Entity in a format that the server/database want.
+    get_save_properties_as_string: function() {
+        var parents_list = this.get_value(ENTITY_PROPERTY_PARENTS)
+        var children_list = this.get_value(ENTITY_PROPERTY_CHILDREN)
+
+        var parent_ids = []
+        var child_ids  = []
+        var i
+        for (i = 0; i < parents_list.length; i++) {
+            parent_ids.push(parents_list[i].get_value(ENTITY_PROPERTY_ID))
+        }
+        for (i = 0; i < children_list.length; i++) {
+            child_ids.push(children_list[i].get_value(ENTITY_PROPERTY_ID))
+        }
+
+        console.log(this.keys_and_values)
+        console.log(JSON.stringify(this.keys_and_values))
+
+        console.log(parent_ids)
+        console.log(child_ids)
+
+        // TODO : send with ids!!!
+        return JSON.stringify(this.keys_and_values)
+    },
+
     get_properties: function() {
         return this.keys_and_values
     },
