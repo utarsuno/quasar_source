@@ -306,6 +306,10 @@ EntityWall.prototype = {
         this.scene.add(this.object3D)
 
         this.post_call_save_changes = new PostHelper('/save_entities')
+
+
+        // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
+        this.save()
     },
 
     // For create entity only.
