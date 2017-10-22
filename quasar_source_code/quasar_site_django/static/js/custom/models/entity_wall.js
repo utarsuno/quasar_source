@@ -144,6 +144,10 @@ EntityWall.prototype = {
         // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
+    edit_entity_pressed: function() {
+        console.log('EDIT THE PRESSED FLOATING ENTITY!!!!')
+    },
+
     __init__: function(position, world) {
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
@@ -338,7 +342,9 @@ EntityWall.prototype = {
         var y_offset = -(this.entities.length) * (16 + 2)
 
         var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, y_offset)
-
+        floating_row.needs_engage_for_parsing_input = false
+        this.interactive_objects.push(floating_row)
+        floating_row.set_engage_function(this.edit_entity_pressed.bind(this))
 
         this.entities.push(entity)
     },
