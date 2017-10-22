@@ -96,10 +96,10 @@ EntityManager.prototype = {
             var parent_list   = this.entities[e].get_value[ENTITY_PROPERTY_PARENTS]
 
             for (var c = 0; c < children_list.length; c++) {
-                this.entities[e].add_child(this.get_entity_with_id(children_list[c]))
+                this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
             }
             for (var p = 0; p < parent_list.length; p++) {
-                this.entities[e].add_parent(this.get_entity_with_id(parent_list[p]))
+                this.entities[e].add_parent(this.get_entity_by_id(parent_list[p]))
             }
         }
         this.entities_loaded = true
