@@ -147,6 +147,14 @@ EntityWall.prototype = {
     entity_editor_close_button_pressed: function() {
         //this.current_entity_editor
         console.log('CLOSE THE ENTITY EDITOR!')
+
+        // TODO : Eventually remove all aspects of the entity editor!!!
+        // Super lazy solution for now is to make it invisible.
+        this.current_entity_editor.set_to_invisible()
+
+        //var index_of_editor = this.world.interactive_objects.indexOf(this.current_entity_editor)
+        //this.world.interactive_objects.slice(index_of_editor, 1)
+        //this.current_entity_editor.remove_from_scene()
     },
 
     edit_entity_pressed: function() {
@@ -155,21 +163,39 @@ EntityWall.prototype = {
         for (var i = 0; i < this.floating_row_to_entity_list.length; i++) {
             if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
                 console.log('EDIT THE FOLLOWING ENTITIY:')
-                console.log(this.floating_row_to_entity_list[i][1])
+                var current_entity = this.floating_row_to_entity_list[i][1]
+                console.log(current_entity)
 
                 //var y_offset = -(i) * (16 + 2)
                 var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z)
-
+                position.addScaledVector(this.normal, 10)
                 //var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
 
                 console.log('Position to create the entity editor at :')
                 console.log(position)
 
                 this.current_entity_editor = new FloatingWall(500, 500, position, this.normal, this.world)
-                var entity_editor_close_button = this.current_entity_editor.add_close_button()
 
+                var entity_editor_close_button = this.current_entity_editor.add_close_button()
                 this.world.interactive_objects.push(entity_editor_close_button)
-                
+
+                var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
+                for (var p = 0; p < key_values.length; p++) {
+                    this.current_entity_editor.add_input_row(key_values[i][0], key_values[i][1])
+                }
+
+                /*
+                this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
+                var key_values = get_key_value_list_from_json_dictionary(this.entity.get_properties())
+                for (var i = 0; i < key_values.length; i++) {
+                    this.interactive_wall.add_input_row(key_values[i][0], key_values[i][1])
+                }
+                 */
+
+
+                // this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, -entity_wall_height)
+
+
 
                 entity_editor_close_button.set_engage_function(this.entity_editor_close_button_pressed.bind(this))
             }
