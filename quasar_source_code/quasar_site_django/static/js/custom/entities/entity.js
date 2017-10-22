@@ -31,7 +31,7 @@ Owner.prototype = {
         for (var i = 0; i < e.length; i++) {
             ENTITY_MANAGER.add_new_entity(e[i][0], e[i][1])
         }
-        ENTITY_MANAGER.entities_loaded = true
+        ENTITY_MANAGER.link_entities()
         this.loading_data = false
     },
 

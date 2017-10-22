@@ -86,8 +86,31 @@ EntityManager.prototype = {
         return max_id + 1
     },
 
+    link_entities: function() {
+        for (var e = 0; e < this.entities.length; e++) {
+            var children_list = this.entities[e].get_value[ENTITY_PROPERTY_CHILDREN]
+            var parent_list   = this.entities[e].get_value[ENTITY_PROPERTY_PARENTS]
+
+            for (var c = 0; c < children_list.length; c++) {
+                this.entities[e].add_child(this.get_entity_with_id(children_list[c]))
+            }
+            for (var p = 0; p < parent_list.length; p++) {
+                this.entities[e].add_parent(this.get_entity_with_id(parent_list[p]))
+            }
+        }
+        this.entities_loaded = true
+    },
+
     get_all_entities: function() {
         return this.entities
+    },
+
+    get_entity_with_id: function(entity_id) {
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].get_value[ENTITY_PROPERTY_ID] === entity_id) {
+                return this.entities[i]
+            }
+        }
     },
 
     get_all_entities_of_type: function(entity_type) {

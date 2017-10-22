@@ -38,6 +38,14 @@ HomeWorld.prototype = {
         var entity_wall = new EntityWall(position, this)
         entity_wall.update_title(wall_text)
         entity_wall.set_entity(entity)
+
+
+        // TODO : Add the child entities.
+        for (var ce = 0; ce < entity.children.length; ce++) {
+            entity_wall.add_entity(entity.children[ce])
+        }
+        
+
         this.entity_walls.push(entity_wall)
         var interactives = entity_wall.get_all_interactive_objects()
         var number_of_interactives = interactives.length
