@@ -67,25 +67,31 @@ Entity.prototype = {
         }
         //ENTITY_MANAGER.add_entity(this)
 
-        // Ensure the entity property name exists as well.
-        if (!this.has_property(ENTITY_PROPERTY_NAME)) {
-            this.set_property(ENTITY_PROPERTY_NAME, this.name)
-        } else if (this.get_value(ENTITY_PROPERTY_NAME) === null || this.get_value(ENTITY_PROPERTY_NAME) === undefined) {
-            this.set_property(ENTITY_PROPERTY_NAME, this.name)
-        }
+        // Ensure that various entity properties exist with default values.
+        this._ensure_property_exists(ENTITY_PROPERTY_NAME, this.name)
 
-        // Ensure children property exists with at least an empty list.
-        if (!this.has_property(ENTITY_PROPERTY_CHILDREN)) {
-            this.set_property(ENTITY_PROPERTY_CHILDREN, [])
-        } else if (this.get_value(ENTITY_PROPERTY_CHILDREN) === '[]' || this.get_value(ENTITY_PROPERTY_CHILDREN) === null || this.get_value(ENTITY_PROPERTY_CHILDREN) === undefined) {
-            this.set_property(ENTITY_PROPERTY_CHILDREN, [])
-        }
+        this._ensure_property_exists(ENTITY_PROPERTY_CHILDREN, [])
+        this._ensure_property_value_is_not(ENTITY_PROPERTY_CHILDREN, '[]', [])
 
-        // Ensure parent property exists with at least an empty list.
-        if (!this.has_property(ENTITY_PROPERTY_PARENTS)) {
-            this.set_property(ENTITY_PROPERTY_PARENTS, [])
-        } else if (this.get_value(ENTITY_PROPERTY_PARENTS) === '[]' || this.get_value(ENTITY_PROPERTY_CHILDREN) === null || this.get_value(ENTITY_PROPERTY_CHILDREN) === undefined) {
-            this.set_property(ENTITY_PROPERTY_PARENTS, [])
+        this._ensure_property_exists(ENTITY_PROPERTY_PARENTS, [])
+        this._ensure_property_value_is_not(ENTITY_PROPERTY_PARENTS, '[]', [])
+
+        this._ensure_property_exists(ENTITY_PROPERTY_TYPE, ENTITY_TYPE_BASE)
+    },
+
+    _ensure_property_exists: function(property_name, default_value) {
+        if (!this.has_property(property_name)) {
+            this.set_property(property_name, default_value)
+        } else if (this.get_value(property_name) === null || this.get_value(property_name) === undefined) {
+            this.set_property(property_name, default_value)
+        }
+    },
+
+    _ensure_property_value_is_not: function(property_name, bad_value, default_value) {
+        if (this.has_property(property_name)) {
+            if (this.get_value(property_name) === bad_value) {
+                this.set_property(property_name, default_value)
+            }
         }
     },
 
