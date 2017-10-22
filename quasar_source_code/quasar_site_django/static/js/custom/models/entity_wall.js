@@ -31,6 +31,8 @@ EntityWall.prototype = {
     save_changes_result: function(result) {
         if (result === SERVER_REPLY_GENERIC_YES) {
             console.log('Saved the data!')
+
+            this.self_entity.needs_to_be_saved = false
         } else {
             console.log('ERROR SAVING : ' + result)
         }

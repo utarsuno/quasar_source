@@ -57,46 +57,42 @@ Entity.prototype = {
         this.name            = name
         this.keys_and_values = keys_and_values
 
-        /*
-        console.log(this.keys_and_values.hasOwnProperty('ENTITY_PROPERTY_CHILDREN'))
-        console.log(this.keys_and_values.hasOwnProperty(ENTITY_PROPERTY_TYPE))
-        console.log(this.keys_and_values.hasOwnProperty('ENTITY_PROPERTY_ID'))
-        console.log(this.keys_and_values)
-        console.log(ENTITY_PROPERTY_ID)
-        console.log(ENTITY_PROPERTY_ID in keys_and_values)
-        console.log(keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
-        console.log(keys_and_values[ENTITY_PROPERTY_ID])
-        */
-
-        /*
-        for (var i = 0; i < keys_and_values.length; i++) {
-            console.log('CHECKING \t' + keys_and_values[i])
-            if (keys_and_values[i] === ENTITY_PROPERTY_ID) {
-                console.log('FOUND ENTITY_PROPERTY_ID' + '\t' + keys_and_values[i])
-            }
-        }
-        console.log(ENTITY_PROPERTY_ID in this.keys_and_values)
-        console.log(this.keys_and_values.hasOwnProperty(ENTITY_PROPERTY_ID))
-        */
-
         if (this.has_property(ENTITY_PROPERTY_ID)) {
             this.needs_to_be_saved = false
         } else {
-            /*
-            console.log('Assigning a new entity property to the following entity')
-            console.log(name)
-            console.log(keys_and_values)
-            console.log(this)
-            console.log(this.has_property(ENTITY_PROPERTY_ID))
-            */
             this.keys_and_values.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
             this.needs_to_be_saved = true
         }
         //ENTITY_MANAGER.add_entity(this)
+
+        // Ensure children property.
+        if (!this.has_property(ENTITY_PROPERTY_CHILDREN)) {
+            this.set_property(ENTITY_PROPERTY_CHILDREN, [])
+        } else if (this.get_value(ENTITY_PROPERTY_CHILDREN) === '[]') {
+            this.set_property(ENTITY_PROPERTY_CHILDREN, [])
+        } else {
+            // TODO : Check if IDs need to be converted into Entity object references.
+        }
+
+        // Ensure parent property.
+        if (this.has_property(ENTITY_PROPERTY_PARENTS)) {
+            this.set_property(ENTITY_PROPERTY_PARENTS, [])
+        } else if (this.get_value(ENTITY_PROPERTY_PARENTS) === '[]') {
+            this.set_property(ENTITY_PROPERTY_PARENTS, [])
+        } else {
+            // TODO : Check if IDs need to be converted into Entity object references.
+        }
+    },
+
+    set_property: function(property_name, property_value) {
+        this.keys_and_values[property_name] = property_value
     },
 
     set_parent: function(parent_entity) {
-
+        var parent_list = this.get_value(ENTITY_PROPERTY_PARENTS)
+        console.log('The current parent list is : ')
+        console.log(parent_list)
+        
     },
 
     update_values: function(new_keys_and_values) {
