@@ -179,9 +179,11 @@ EntityWall.prototype = {
                 var entity_editor_close_button = this.current_entity_editor.add_close_button()
                 this.world.interactive_objects.push(entity_editor_close_button)
 
+
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
                 for (var p = 0; p < key_values.length; p++) {
-                    this.current_entity_editor.add_input_row(key_values[i][0], key_values[i][1])
+                    this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text(500 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -500 / 3, 2, p, 0))
+                    this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text((500 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 500 / 3 - (500 / 6), 2, p, 0))
                 }
 
                 /*
