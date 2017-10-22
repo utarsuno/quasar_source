@@ -16,7 +16,18 @@ class EntityManager(object):
 
 	def remove_entity(self, entity):
 		"""Removes the entity provided."""
+		# Make sure to remove parent/child references as needed.
+		# TODO :
+
 		self.entities.remove(entity)
+
+
+	def remove_entity_by_id(self, entity):
+		"""Removes the entity provided."""
+		# Make sure to remove parent.child references as needed.
+		# TODO :
+
+		y = 2
 
 	@property
 	def manager_id(self) -> int:

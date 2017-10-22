@@ -73,6 +73,11 @@ class Entity(object):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
 		self._information[key] = value
 
+	def remove_children(self, obj) -> None:
+		"""Removes n child entities from this entity."""
+		# TODO : ...
+		y = 2
+
 	def add_children(self, obj) -> None:
 		"""Adds n child entities to this entity."""
 		if type(obj) == list or type(obj) == tuple:

@@ -31,3 +31,6 @@ db.terminate()
 
 #print(e._owners.get_row_values())
 #print(e._entity_managers.get_row_values())
+
+
+

@@ -60,7 +60,6 @@ module.exports = {
         "Floating3DLabelInput": true,
         "CheckBox": true,
 
-        "EntityTaskCreator": false,
         "EntityEditor": false,
 
         "SmoothStep": false,

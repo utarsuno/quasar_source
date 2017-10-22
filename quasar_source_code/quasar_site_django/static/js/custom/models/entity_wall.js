@@ -146,6 +146,14 @@ EntityWall.prototype = {
 
     edit_entity_pressed: function() {
         console.log('EDIT THE PRESSED FLOATING ENTITY!!!!')
+
+        for (var i = 0; i < this.floating_row_to_entity_list.length; i++) {
+            if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
+                console.log('EDIT THE FOLLOWING ENTITIY:')
+                console.log(this.floating_row_to_entity_list[i][1])
+            }
+        }
+
     },
 
     __init__: function(position, world) {
@@ -311,6 +319,7 @@ EntityWall.prototype = {
 
         this.post_call_save_changes = new PostHelper('/save_entities')
 
+        this.floating_row_to_entity_list = []
 
         // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
         this.save()
@@ -341,14 +350,14 @@ EntityWall.prototype = {
 
         var y_offset = -(this.entities.length) * (16 + 2)
 
-        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, y_offset)
-        floating_row.needs_engage_for_parsing_input = false
+        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
 
         this.world.interactive_objects.push(floating_row)
 
         floating_row.set_engage_function(this.edit_entity_pressed.bind(this))
 
         this.entities.push(entity)
+        this.floating_row_to_entity_list.push([floating_row, entity])
     },
 
     get_y_position_for_row: function(y_index) {
