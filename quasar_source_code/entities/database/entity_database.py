@@ -79,7 +79,7 @@ class EntityDatabaseAPI(object):
 			cursor = self._api.get_cursor()
 			cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
 		else:
-			self._entity_managers.update_row_with_value('manager_id', entity_manager.manager_id, 'manager', (entity_manager.manager_id, str(psycopg2.Binary(file_data))))
+			self._entity_managers.update_row_with_value('manager_id', entity_manager.manager_id, 'manager', str(psycopg2.Binary(file_data)))
 
 
 		# Old code to delete later
