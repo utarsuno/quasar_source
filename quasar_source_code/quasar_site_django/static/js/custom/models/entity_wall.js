@@ -129,7 +129,9 @@ EntityWall.prototype = {
             if (this.create_entity_fields[i][0].get_text() === ENTITY_PROPERTY_NAME) {
                 entity_name = this.create_entity_fields[i][1].get_text()
             }
-            properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
+            if (ENTITY_PROPERTY_ALL.indexOf(properties[this.create_entity_fields[i][0]]) !== NOT_FOUND) {
+                properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
+            }
         }
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
