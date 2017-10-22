@@ -56,6 +56,12 @@ function World() {
                     }
                 }
 
+                console.log('-----')
+                console.log(interactive_object_match)
+                console.log(this.interactive_objects[i])
+                console.log(closest_object)
+                console.log('-----')
+
                 if (interactive_object_match !== null) {
                     // A new object is being looked at, so look away from the old one and look at new one.
                     if (this.currently_looked_at_object !== this.interactive_objects[i]) {
