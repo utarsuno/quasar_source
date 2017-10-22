@@ -74,6 +74,10 @@ class EntityDatabaseAPI(object):
 
 		print('DOES THE DATABASE HAVE THE CURRENT MANAGER ID: ' + str(entity_manager.manager_id))
 		manager_exists = self._entity_managers.has_value('manager_id', entity_manager.manager_id)
+		if manager_exists:
+			print('IT DOES')
+		else:
+			print('IT DOES NOT!')
 
 		if not manager_exists:
 			cursor = self._api.get_cursor()
