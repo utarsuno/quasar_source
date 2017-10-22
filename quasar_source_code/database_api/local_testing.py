@@ -13,6 +13,12 @@ api.connect()
 
 print(api.get_all_table_names())
 
+query = '''SELECT *
+FROM information_schema.character_sets
+;'''
+
+print(api.execute_query_and_get_all_results(query))
+
 api.terminate()
 
 #db = fdb.FinanceDatabase()
