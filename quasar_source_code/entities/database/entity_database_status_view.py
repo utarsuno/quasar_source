@@ -7,7 +7,7 @@ db = e_db.EntityDatabaseAPI(debug=True)
 
 print('Printing data :\n')
 
-#db._owners.delete_row_with_value('name', 'test')
+#db._owners.delete_row_with_value('name', 'cccc')
 
 owners = db.get_all_owners()
 for e in owners:
