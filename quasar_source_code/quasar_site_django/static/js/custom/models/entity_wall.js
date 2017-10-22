@@ -31,8 +31,6 @@ EntityWall.prototype = {
     save_changes_result: function(result) {
         if (result === SERVER_REPLY_GENERIC_YES) {
             console.log('Saved the data!')
-
-            this.self_entity.needs_to_be_saved = false
         } else {
             console.log('ERROR SAVING : ' + result)
         }
@@ -64,11 +62,15 @@ EntityWall.prototype = {
         console.log(this.self_entity)
 
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
-
-        // TODO : traverse through the entity list here and save any entities that need to be saved.
+        // TODO : don't assume successful save
+        this.self_entity.needs_to_be_saved = false
 
         for (var e = 0; e < this.entities.length; e++) {
-            console.log(this.entities[e])
+            if (this.entities[e].needs_to_be_saved) {
+                this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this))
+                // TODO : don't assume successful save
+                this.entities[e].needs_to_be_saved = false
+            }
         }
     },
 
