@@ -203,7 +203,7 @@ class DatabaseTable(object):
 
 	def has_value(self, header: str, value) -> bool:
 		"""Returns a boolean indicating if this table has the header-value pair provided."""
-		return self._database_api.execute_boolean_query('SELECT EXISTS (SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value) + ' LIMIT 1)')
+		return self._database_api.execute_boolean_query('SELECT EXISTS(SELECT 1 FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value) + ' LIMIT 1)')
 
 	def get_header_names(self) -> List[str]:
 		"""Returns the header names of this table."""
