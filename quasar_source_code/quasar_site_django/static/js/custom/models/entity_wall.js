@@ -191,9 +191,9 @@ EntityWall.prototype = {
         this.entities = []
         var entities_display_wall_width = this.width * 0.9
         var entities_display_wall_height = this.height * 0.75
-        var entities_display_wall_position = this.get_position_for_row(0, 0, 0, -this.height / 2)
+        var entities_display_wall_position = this.get_position_for_row(0, 0, 0, -this.height / 2, 2)
         this.entities_display_wall = new FloatingWall(entities_display_wall_width, entities_display_wall_height, entities_display_wall_position, this.normal, this.world)
-        
+
 
         // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
