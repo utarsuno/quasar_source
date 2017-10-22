@@ -50,6 +50,9 @@ class EntityDatabaseAPI(object):
 		# TODO : Eventually move the location of the health checks call.
 		self.health_checks()
 
+		# Owner cache.
+		self.cache_owners = self._owners.get_row_values()
+
 	def health_checks(self):
 		"""Runs database health checks and applies automatic fixes."""
 		# Connects to database if not yet connected.
@@ -73,9 +76,10 @@ class EntityDatabaseAPI(object):
 		cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
 		self._api.commit()
 
+	# TODO : create delete_owner
+
 	def create_owner(self, name: str, password: str, email: str):
 		"""Places an owner into the owners table."""
-		# TODO: Remove the place holder values for manager_id
 		self._owners.insert_row({'name': name, 'password': password, 'email': email})
 
 		# Get the owners info.
@@ -85,10 +89,15 @@ class EntityDatabaseAPI(object):
 		manager = EntityManager(manager_id=owner[INDEX_OWNER_MANAGER_ID], owner_id=owner[INDEX_OWNER_ID])
 		self.save_entity_manager(manager)
 
+		self._update_owner_cache()
+
+	def _update_owner_cache(self):
+		"""Updates the internal list of owners."""
+		self.cache_owners = self._owners.get_row_values()
+
 	def get_all_owners(self):
 		"""Returns a list of all the owners."""
-		owners = self._owners.get_row_values()
-		return owners
+		return self.cache_owners
 
 	def get_owner(self, owner_name):
 		"""Returns the data for an owner, found by owner name."""
