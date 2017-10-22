@@ -59,15 +59,9 @@ Entity.prototype = {
         this.children        = []
         this.keys_and_values = keys_and_values
 
-        if (this.has_property(ENTITY_PROPERTY_ID)) {
-            this.needs_to_be_saved = false
-        } else {
-            this.keys_and_values.ENTITY_PROPERTY_ID = ENTITY_MANAGER.get_new_entity_id()
-            this.needs_to_be_saved = true
-        }
-        //ENTITY_MANAGER.add_entity(this)
-
         // Ensure that various entity properties exist with default values.
+        this._ensure_property_exists(ENTITY_PROPERTY_ID, ENTITY_MANAGER.get_new_entity_id())
+
         this._ensure_property_exists(ENTITY_PROPERTY_NAME, this.name)
 
         this._ensure_property_exists(ENTITY_PROPERTY_CHILDREN, [])
@@ -77,6 +71,9 @@ Entity.prototype = {
         this._ensure_property_value_is_not(ENTITY_PROPERTY_PARENTS, '[]', [])
 
         this._ensure_property_exists(ENTITY_PROPERTY_TYPE, ENTITY_TYPE_BASE)
+
+        // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
+        ENTITY_MANAGER.add_entity_if_not_already_added(this)
     },
 
     _ensure_property_exists: function(property_name, default_value) {
@@ -97,6 +94,7 @@ Entity.prototype = {
 
     set_property: function(property_name, property_value) {
         this.keys_and_values[property_name] = property_value
+        this.needs_to_be_saved = true
     },
 
     update_values: function(new_keys_and_values) {

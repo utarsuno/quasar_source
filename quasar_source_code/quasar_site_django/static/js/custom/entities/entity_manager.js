@@ -16,6 +16,12 @@ EntityManager.prototype = {
         this.post_delete_entity = new PostHelper('/delete_entity')
     },
 
+    add_entity_if_not_already_added: function(entity) {
+        if (this.entities.indexOf(entity) === NOT_FOUND) {
+            this.entities.push(entity)
+        }
+    },
+
     loaded: function() {
         return this.entities_loaded
     },
