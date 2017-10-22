@@ -66,7 +66,7 @@ EntityManager.prototype = {
 
     add_new_entity: function(entity_name, entity_data) {
         var new_entity = new Entity(entity_name, entity_data)
-        this.add_entity_if_not_already_added(entity)
+        this.add_entity_if_not_already_added(new_entity)
         //this.entities.push(new_entity)
         return new_entity
     },
