@@ -320,7 +320,7 @@ EntityWall.prototype = {
         console.log(entity)
 
         var row = this.entities.length
-        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_TITLE, 0, 4, 0, 0)
+        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, 0)
     },
 
     get_y_position_for_row: function(y_index) {
