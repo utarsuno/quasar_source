@@ -109,7 +109,7 @@ EntityManager.prototype = {
         return this.entities
     },
 
-    get_entity_with_id: function(entity_id) {
+    get_entity_by_id: function(entity_id) {
         for (var i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_value[ENTITY_PROPERTY_ID] === entity_id) {
                 return this.entities[i]
