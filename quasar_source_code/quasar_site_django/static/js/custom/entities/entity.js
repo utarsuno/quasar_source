@@ -68,7 +68,7 @@ Entity.prototype = {
         // Ensure children property.
         if (!this.has_property(ENTITY_PROPERTY_CHILDREN)) {
             this.set_property(ENTITY_PROPERTY_CHILDREN, [])
-        } else if (this.get_value(ENTITY_PROPERTY_CHILDREN) === '[]') {
+        } else if (this.get_value(ENTITY_PROPERTY_CHILDREN) === '[]' || this.get_value(ENTITY_PROPERTY_CHILDREN) === null || this.get_value(ENTITY_PROPERTY_CHILDREN) === undefined) {
             this.set_property(ENTITY_PROPERTY_CHILDREN, [])
         } else {
             // TODO : Check if IDs need to be converted into Entity object references.
@@ -77,7 +77,7 @@ Entity.prototype = {
         // Ensure parent property.
         if (this.has_property(ENTITY_PROPERTY_PARENTS)) {
             this.set_property(ENTITY_PROPERTY_PARENTS, [])
-        } else if (this.get_value(ENTITY_PROPERTY_PARENTS) === '[]') {
+        } else if (this.get_value(ENTITY_PROPERTY_PARENTS) === '[]' || this.get_value(ENTITY_PROPERTY_CHILDREN) === null || this.get_value(ENTITY_PROPERTY_CHILDREN) === undefined) {
             this.set_property(ENTITY_PROPERTY_PARENTS, [])
         } else {
             // TODO : Check if IDs need to be converted into Entity object references.
@@ -92,7 +92,7 @@ Entity.prototype = {
         var parent_list = this.get_value(ENTITY_PROPERTY_PARENTS)
         console.log('The current parent list is : ')
         console.log(parent_list)
-        
+
     },
 
     update_values: function(new_keys_and_values) {
