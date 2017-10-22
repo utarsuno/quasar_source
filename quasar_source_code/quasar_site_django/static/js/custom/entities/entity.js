@@ -95,6 +95,10 @@ Entity.prototype = {
         //ENTITY_MANAGER.add_entity(this)
     },
 
+    set_parent: function(parent_entity) {
+
+    },
+
     update_values: function(new_keys_and_values) {
         for (var key in new_keys_and_values) {
             if (new_keys_and_values.hasOwnProperty(key)) {

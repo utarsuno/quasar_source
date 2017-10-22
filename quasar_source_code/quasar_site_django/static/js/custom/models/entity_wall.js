@@ -40,6 +40,7 @@ EntityWall.prototype = {
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_password()
 
+        // This save data is for the Wall entity.
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
         // TODO : figure out this y positioning thing.
@@ -55,7 +56,11 @@ EntityWall.prototype = {
             this.self_entity.update_values(save_data)
         }
 
+        // TODO : Eventually refactor to a more efficient design. 1 POST per entity is just for quick n dirty setup.
+
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
+
+        // TODO : traverse through the entity list here and save any entities that need to be saved.
     },
 
     set_entity: function(entity) {
@@ -123,7 +128,12 @@ EntityWall.prototype = {
 
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
+        new_entity.set_parent(this.self_entity)
         this.add_entity(new_entity)
+
+
+        this.create_entity_wall.set_to_invisible()
+        // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
     __init__: function(position, world) {

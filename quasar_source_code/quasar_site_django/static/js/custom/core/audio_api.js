@@ -35,18 +35,18 @@ AudioManager.prototype = {
             // Function when resource is loaded
             function (audio_buffer) {
                 this.typing_sound.setBuffer(audio_buffer)
-                this.typing_sound.setVolume(0.5)
+                this.typing_sound.setVolume(0.33)
                 this.typing_sound_loaded = true
                 this.notify_player()
             }.bind(this),
 
             // Function called when download progresses
             function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded')
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded for audio file.')
             },
             // Function called when download errors
             function (xhr) {
-                console.log('An error happened')
+                console.log('An error happened trying to load the audio file.')
             }
 
         )
