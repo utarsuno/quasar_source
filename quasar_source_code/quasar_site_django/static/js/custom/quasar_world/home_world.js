@@ -41,8 +41,10 @@ HomeWorld.prototype = {
 
 
         // TODO : Add the child entities.
-        for (var ce = 0; ce < entity.children.length; ce++) {
-            entity_wall.add_entity(entity.children[ce])
+        if (entity !== null && entity !== undefined) {
+            for (var ce = 0; ce < entity.children.length; ce++) {
+                entity_wall.add_entity(entity.children[ce])
+            }
         }
 
 
