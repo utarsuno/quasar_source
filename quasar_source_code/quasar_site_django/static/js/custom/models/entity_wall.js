@@ -60,6 +60,9 @@ EntityWall.prototype = {
 
         // TODO : Eventually refactor to a more efficient design. 1 POST per entity is just for quick n dirty setup.
 
+        console.log('Trying to save the following self entity :')
+        console.log(this.self_entity)
+
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
 
         // TODO : traverse through the entity list here and save any entities that need to be saved.
@@ -319,8 +322,9 @@ EntityWall.prototype = {
         console.log('ADD THE FOLLOWING ENTITY !!!!')
         console.log(entity)
 
-        var row = this.entities.length
-        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, 0)
+        var y_offset = (this.entities.length) * (16 + 2)
+
+        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, y_offset)
     },
 
     get_y_position_for_row: function(y_index) {
