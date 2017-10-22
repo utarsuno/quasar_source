@@ -126,19 +126,9 @@ EntityWall.prototype = {
             console.log(this.create_entity_fields[i][1].get_text())
         }
 
-        // TODO : Set entity parent attribute as well.
-
-
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.self_entity)
-
-        console.log('Just added a parent to self entity, printing out instance of self_entity')
-        console.log(this.self_entity)
-        console.log('Printing the child.')
-        console.log(new_entity)
-
         this.add_entity(new_entity)
-
 
         this.create_entity_wall.set_to_invisible()
         // TODO : ALSO CLEAR THE FIELDS!!!
@@ -321,7 +311,8 @@ EntityWall.prototype = {
     },
 
     add_entity: function(entity) {
-
+        console.log('ADD THE FOLLOWING ENTITY !!!!')
+        console.log(entity)
     },
 
     get_y_position_for_row: function(y_index) {

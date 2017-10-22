@@ -128,6 +128,7 @@ Entity.prototype = {
         // First make sure this entity hasn't already been marked the provided entity as a child.
         if (this.get_value(ENTITY_PROPERTY_CHILDREN).indexOf(child_entity) === -1) {
             this.keys_and_values[ENTITY_PROPERTY_CHILDREN].push(child_entity)
+            this.needs_to_be_saved = true
             // Since the child reference was added also do a redundant check to make sure that the child has this entity marked as a parent entity.
             child_entity.add_parent(this)
         }
@@ -138,6 +139,7 @@ Entity.prototype = {
         // Check if this entity actually contains the child entity.
         if (index_of_child !== -1) {
             this.keys_and_values[ENTITY_PROPERTY_CHILDREN].splice(index_of_child, 1)
+            this.needs_to_be_saved = true
             // Since the child reference was removed also do a redundant check to make sure that the child has the parent reference to this entity, removed.
             child_entity.remove_parent(this)
         }
@@ -147,6 +149,7 @@ Entity.prototype = {
         // First make sure this entity hasn't already marked the provided entity as a parent.
         if (this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity) === -1) {
             this.keys_and_values[ENTITY_PROPERTY_PARENTS].push(parent_entity)
+            this.needs_to_be_saved = true
             // Since the parent reference was added also do a redundant check to make sure that the parent has this entity marked as a child entity.
             parent_entity.add_child(this)
         }
@@ -157,6 +160,7 @@ Entity.prototype = {
         // Check if this entity actually contains the parent entity.
         if (index_of_parent !== -1) {
             this.keys_and_values[ENTITY_PROPERTY_PARENTS].splice(index_of_parent, 1)
+            this.needs_to_be_saved = true
             // Since the parent reference was removed also do a redundant check to make sure that the parent has the child reference to this entity, removed.
             parent_entity.remove_child(this)
         }
