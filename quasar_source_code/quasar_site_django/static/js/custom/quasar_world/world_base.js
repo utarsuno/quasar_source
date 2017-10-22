@@ -37,18 +37,25 @@ function World() {
         // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
-            if (this.raycaster.intersectObject(this.interactive_objects[i].object3D, true).length > 0) {
-
-
-                console.log(this.raycaster.intersectObject(this.interactive_objects[i].object3D, true))
-
+            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
+            if (intersections.length > 0) {
+                var smallest_index    = -1
+                var closest_object    = null
+                var smallest_distance = 99999
+                for (var d = 0; d < intersections.length; d++) {
+                    if (intersections[d].distance < smallest_distance) {
+                        smallest_distance = intersections[d].distance
+                        smallest_index = d
+                        closest_object = intersections[d].object
+                    }
+                }
 
                 // A new object is being looked at, so look away from the old one and look at new one.
-                if (this.currently_looked_at_object !== this.interactive_objects[i]) {
+                if (this.currently_looked_at_object !== closest_object) {
                     if (this.currently_looked_at_object !== null) {
                         this.currently_looked_at_object.look_away()
                     }
-                    this.currently_looked_at_object = this.interactive_objects[i]
+                    this.currently_looked_at_object = closest_object
                     this.currently_looked_at_object.look_at()
                 }
                 // Regardless a match was found and only one intersection can occur so break.
