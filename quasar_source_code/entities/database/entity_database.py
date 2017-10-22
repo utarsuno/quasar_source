@@ -72,7 +72,11 @@ class EntityDatabaseAPI(object):
 		cursor = self._api.get_cursor()
 		file_data = file.read()
 		file.close()
+
+
 		self._entity_managers.delete_row_with_value('manager_id', entity_manager.manager_id)
+
+
 		cursor.execute('INSERT INTO entity_managers(manager_id, manager) VALUES (%s, %s);', (entity_manager.manager_id, psycopg2.Binary(file_data)))
 		self._api.commit()
 

@@ -79,4 +79,4 @@ print()
 
 # Now save any changes if we want to.
 
-entity_db.save_entity_manager(manager)
+#entity_db.save_entity_manager(manager)

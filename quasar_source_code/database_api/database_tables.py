@@ -175,7 +175,11 @@ class DatabaseTable(object):
 
 	def delete_row_with_value(self, header: str, value) -> None:
 		"""Deletes a row with the provided header-value match."""
-		self._database_api.execute_query('DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value), save=True)
+		query = 'DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value)
+		print('Printing the query as bytes {' + str(query) + '}')
+		s = query
+		print(":".join("{:02x}".format(ord(c)) for c in s))
+		self._database_api.execute_query(query, save=True)
 
 	def set_single_value(self, header_to_set: str, value_to_set, match_header: str, match_value):
 		"""Sets a single values if a match was found."""
