@@ -88,15 +88,6 @@ Entity.prototype = {
         this.keys_and_values[property_name] = property_value
     },
 
-    add_parent: function(parent_entity) {
-        var parent_list = this.get_value(ENTITY_PROPERTY_PARENTS)
-        if (this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity) === -1) {
-            console.log('NO MWATCH!')
-        }
-        console.log('The current parent list is : ')
-        console.log(parent_list)
-    },
-
     update_values: function(new_keys_and_values) {
         for (var key in new_keys_and_values) {
             if (new_keys_and_values.hasOwnProperty(key)) {
@@ -127,104 +118,48 @@ Entity.prototype = {
 
     get_properties: function() {
         return this.keys_and_values
+    },
+
+    /* __               __       /     __        __   ___      ___           ___      ___   ___    ___  __
+      /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
+      \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */
+
+    add_child: function(child_entity) {
+        // First make sure this entity hasn't already been marked the provided entity as a child.
+        if (this.get_value(ENTITY_PROPERTY_CHILDREN).indexOf(child_entity) === -1) {
+            this.keys_and_values[ENTITY_PROPERTY_CHILDREN].push(child_entity)
+            // Since the child reference was added also do a redundant check to make sure that the child has this entity marked as a parent entity.
+            child_entity.add_parent(this)
+        }
+    },
+
+    remove_child: function(child_entity) {
+        var index_of_child = this.get_value(ENTITY_PROPERTY_CHILDREN).indexOf(child_entity)
+        // Check if this entity actually contains the child entity.
+        if (index_of_child !== -1) {
+            this.keys_and_values[ENTITY_PROPERTY_CHILDREN].splice(index_of_child, 1)
+            // Since the child reference was removed also do a redundant check to make sure that the child has the parent reference to this entity, removed.
+            child_entity.remove_parent(this)
+        }
+    },
+
+    add_parent: function(parent_entity) {
+        // First make sure this entity hasn't already marked the provided entity as a parent.
+        if (this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity) === -1) {
+            this.keys_and_values[ENTITY_PROPERTY_PARENTS].push(parent_entity)
+            // Since the parent reference was added also do a redundant check to make sure that the parent has this entity marked as a child entity.
+            parent_entity.add_child(this)
+        }
+    },
+
+    remove_parent: function(parent_entity) {
+        var index_of_parent = this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity)
+        // Check if this entity actually contains the parent entity.
+        if (index_of_parent !== -1) {
+            this.keys_and_values[ENTITY_PROPERTY_PARENTS].splice(index_of_parent, 1)
+            // Since the parent reference was removed also do a redundant check to make sure that the parent has the child reference to this entity, removed.
+            parent_entity.remove_child(this)
+        }
     }
 
-}
-
-EntityManager.prototype = {
-
-    entities        : null,
-    entities_loaded : null,
-
-    // POST calls.
-    post_delete_entity: null,
-
-    __init__: function() {
-        this.entities = []
-        this.entities_loaded = false
-
-        this.post_delete_entity = new PostHelper('/delete_entity')
-    },
-
-    loaded: function() {
-        return this.entities_loaded
-    },
-
-    entity_deleted_response: function(data) {
-        if (data === SERVER_REPLY_GENERIC_YES) {
-            console.log('Entity deleted!')
-        } else {
-            console.log('Entity did not get deleted : ' + data)
-        }
-    },
-
-    delete_entity: function(entity) {
-
-        var entity_to_delete = null
-        var index_to_splice = null
-
-        for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
-                entity_to_delete = this.entities[i]
-                index_to_splice = i
-            }
-        }
-
-        if (entity_to_delete !== null) {
-            this.post_delete_entity.perform_post({
-                'username': WORLD_MANAGER.player.get_username(),
-                'password': WORLD_MANAGER.player.get_password(),
-                'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
-            }, this.entity_deleted_response.bind(this))
-        }
-
-        if (index_to_splice !== null) {
-            this.entities.splice(index_to_splice, 1)
-        }
-    },
-
-    add_entity: function(entity) {
-        this.entities.push(entity)
-    },
-
-    add_new_entity: function(entity_name, entity_data) {
-        var new_entity = new Entity(entity_name, entity_data)
-        this.entities.push(new_entity)
-        return new_entity
-    },
-
-    load_entity_from_data: function(entity_data) {
-
-    },
-
-    get_new_entity_id: function() {
-        var max_id = -1
-        for (var i = 0; i < this.entities.length; i++) {
-            var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID))
-            if (entity_id > max_id) {
-                max_id = entity_id
-            }
-        }
-        return max_id + 1
-    },
-
-    get_all_entities: function() {
-        return this.entities
-    },
-
-    get_all_entities_of_type: function(entity_type) {
-        var type_entities = []
-        var number_of_entities = this.entities.length
-        console.log('Getting all entities of type : ' + entity_type + ' there are ' + number_of_entities + ' entities.')
-        for (var i = 0; i < number_of_entities; i++) {
-
-            console.log(this.entities[i])
-            console.log('looking at an entity that has type : ' + this.entities[i].get_value(ENTITY_PROPERTY_TYPE))
-
-            if (this.entities[i].get_value(ENTITY_PROPERTY_TYPE) === entity_type) {
-                type_entities.push(this.entities[i])
-            }
-        }
-        return type_entities
-    }
 }

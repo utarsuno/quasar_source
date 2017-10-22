@@ -131,6 +131,12 @@ EntityWall.prototype = {
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.self_entity)
+
+        console.log('Just added a parent to self entity, printing out instance of self_entity')
+        console.log(this.self_entity)
+        console.log('Printing the child.')
+        console.log(new_entity)
+
         this.add_entity(new_entity)
 
 
