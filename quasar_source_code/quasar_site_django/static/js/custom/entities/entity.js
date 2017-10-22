@@ -186,7 +186,9 @@ EntityManager.prototype = {
     },
 
     add_new_entity: function(entity_name, entity_data) {
-        this.entities.push(new Entity(entity_name, entity_data))
+        var new_entity = new Entity(entity_name, entity_data)
+        this.entities.push(new_entity)
+        return new_entity
     },
 
     load_entity_from_data: function(entity_data) {

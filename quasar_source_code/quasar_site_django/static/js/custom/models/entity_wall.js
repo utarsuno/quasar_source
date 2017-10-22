@@ -105,11 +105,25 @@ EntityWall.prototype = {
 
     entity_wall_save_entity_button_pressed: function() {
         console.log('Save the entity!!!!')
+
+        var entity_name
+        var properties = {}
+
         for (var i = 0; i < this.create_entity_fields.length; i++) {
             console.log(this.create_entity_fields[i])
+            if (this.create_entity_fields[i][0].get_text() === ENTITY_PROPERTY_NAME) {
+                entity_name = this.create_entity[i][1].get_text()
+            }
+            properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
             console.log(this.create_entity_fields[i][0].get_text())
             console.log(this.create_entity_fields[i][1].get_text())
         }
+
+        // TODO : Set entity parent attribute as well.
+
+
+        var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
+        this.add_entity(new_entity)
     },
 
     __init__: function(position, world) {
@@ -164,9 +178,9 @@ EntityWall.prototype = {
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
-        this.add_create_entity_field('Entity Name :', entity_wall_width)
+        this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
 
-        // TODO : Eventually create a list to hold all the created entities properties and values
+        this.entities = []
 
         // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
@@ -195,6 +209,11 @@ EntityWall.prototype = {
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
         /////
 
+        /* __   ___ ___     ___      ___   ___        ___      __   ___
+          /__` |__   |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     .
+          .__/ |___  |     |___ | \|  |  |  |   |      |   |  |    |___    .*/
+
+
         /*      __   __          ___ ___  __     __       ___  ___
            /\  |  \ |  \     /\   |   |  |__) | |__) |  |  |  |__     .
           /~~\ |__/ |__/    /~~\  |   |  |  \ | |__) \__/  |  |___    .*/
@@ -210,7 +229,9 @@ EntityWall.prototype = {
         this.add_attribute_prompt.set_to_invisible()
         /////
 
-        // Are you sure prompt.
+        /*      __   ___         __           __        __   ___     __   __   __         __  ___
+           /\  |__) |__     \ / /  \ |  |    /__` |  | |__) |__     |__) |__) /  \  |\/| |__)  |     .
+          /~~\ |  \ |___     |  \__/ \__/    .__/ \__/ |  \ |___    |    |  \ \__/  |  | |     |     .*/
         var are_you_sure_width = 300
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3)
         this.are_you_sure = new FloatingWall(are_you_sure_width, 100, are_you_sure_position, this.normal, this.world)
@@ -259,7 +280,6 @@ EntityWall.prototype = {
 
         this.scene.add(this.object3D)
 
-        this.entities = []
         this.post_call_save_changes = new PostHelper('/save_entities')
     },
 
@@ -288,12 +308,6 @@ EntityWall.prototype = {
 
     get_y_position_for_row: function(y_index) {
         return (-16.0 / 2.0) * (1 + (2 * y_index))
-    },
-
-    get_position_for_external: function(x_offset, y_offset, z_offset, depth) {
-        var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + y_offset, this.object3D.position.z + z_offset)
-        p.addScaledVector(this.normal, depth)
-        return p
     },
 
     get_position_for_row: function(x_offset, y_offset, z_offset, depth) {
