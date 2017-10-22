@@ -81,7 +81,9 @@ class PostgreSQLAPI(object):
 				self._connection.commit()
 		except Exception as e:
 			print('Exception occurred, query was {' + str(query) + '}')
+			print('--------------------------------------------------------')
 			print('Exception occurred! It was {' + str(e) + '}')
+			print('--------------------------------------------------------')
 
 	def get_all_table_names(self) -> List[str]:
 		"""Gets the names of all tables in this database."""

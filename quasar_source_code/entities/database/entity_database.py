@@ -85,7 +85,6 @@ class EntityDatabaseAPI(object):
 		else:
 			self._entity_managers.update_row_with_value('manager_id', entity_manager.manager_id, 'manager', str(psycopg2.Binary(file_data)))
 
-
 		# Old code to delete later
 		# #self._entity_managers.delete_row_with_value('manager_id', entity_manager.manager_id)
 		self._api.commit()
