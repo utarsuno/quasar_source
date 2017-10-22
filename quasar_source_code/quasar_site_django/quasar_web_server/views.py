@@ -102,10 +102,11 @@ OWNER_MANAGER_ID = 'manager_id'
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	print('GOT THE DATA ' + str(request))
+	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
+	if post_errors is not None:
+		return post_errors
 
-	if check_POST_arguments([USERNAME, OWNER_PASSWORD], request) is not None:
-		return check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
+	print('GOT THE DATA ' + str(request))
 
 	received_username = request.POST[USERNAME]
 	received_password = request.POST[OWNER_PASSWORD]
@@ -125,8 +126,9 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
-	if check_POST_arguments([OWNER_NAME, OWNER_PASSWORD, OWNER_EMAIL], request) is not None:
-		return check_POST_arguments([OWNER_NAME, OWNER_ID, OWNER_MANAGER_ID], request)
+	post_errors = check_POST_arguments([OWNER_NAME, OWNER_PASSWORD, OWNER_EMAIL], request)
+	if post_errors is not None:
+		return post_errors
 
 	received_owner_name = request.POST[OWNER_NAME]
 	received_owner_email = request.POST[OWNER_EMAIL]
@@ -150,8 +152,9 @@ ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
-	if check_POST_arguments([USERNAME, OWNER_PASSWORD, ENTITY_PROPERTY_ID], request) is not None:
-		return check_POST_arguments([USERNAME, OWNER_PASSWORD, ENTITY_PROPERTY_ID], request)
+	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD, ENTITY_PROPERTY_ID], request)
+	if post_errors is not None:
+		return post_errors
 
 	received_username  = request.POST[USERNAME]
 	received_password  = request.POST[OWNER_PASSWORD]
@@ -170,8 +173,9 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entities(request):
 	"""Handles the POST request to save changed entities."""
-	if check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request) is not None:
-		return check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request)
+	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request)
+	if post_errors is not None:
+		return post_errors
 
 	received_username = request.POST[USERNAME]
 	received_password = request.POST[OWNER_PASSWORD]
@@ -195,8 +199,10 @@ def POST_save_entities(request):
 @csrf_exempt
 def POST_load_entity_manager(request):
 	"""Handles the POST request to server memory load an entity manager."""
-	if check_POST_arguments([USERNAME], request) is not None:
-		return check_POST_arguments([USERNAME], request)
+	post_errors = check_POST_arguments([USERNAME], request)
+	if post_errors is not None:
+		return post_errors
+
 	print('Trying to load entity manager for : ' + request.POST[USERNAME])
 	global entity_server
 	return entity_server.load_entity_manager(request.POST[USERNAME])
@@ -205,8 +211,10 @@ def POST_load_entity_manager(request):
 @csrf_exempt
 def POST_load_all_entities(request):
 	"""Handles the POST request to load all entities."""
-	if check_POST_arguments([USERNAME, OWNER_PASSWORD], request) is not None:
-		return check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
+	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
+	if post_errors is not None:
+		return post_errors
+
 	print('Loading all entities for : ' + request.POST[USERNAME])
 	global entity_server
 	return entity_server.load_all_entities(request.POST[USERNAME], request.POST[OWNER_PASSWORD])
@@ -215,7 +223,9 @@ def POST_load_all_entities(request):
 @csrf_exempt
 def POST_get_entities_for_day(request):
 	"""Handles the POST request to get entities for a given day of a given owner."""
-	if check_POST_arguments(['day', USERNAME], request) is not None:
-		return check_POST_arguments(['day', USERNAME], request)
+	post_errors = check_POST_arguments(['day', USERNAME], request)
+	if post_errors is not None:
+		return post_errors
+
 	global entity_server
 	return entity_server.get_entities_for_day(request.POST['day'], request.POST[USERNAME])

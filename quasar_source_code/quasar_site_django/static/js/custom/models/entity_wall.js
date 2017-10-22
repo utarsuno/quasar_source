@@ -63,9 +63,13 @@ EntityWall.prototype = {
         console.log('Trying to save the following self entity :')
         console.log(this.self_entity)
 
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': this.self_entity.get_properties()}, this.save_changes_result.bind(this))
+        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
 
         // TODO : traverse through the entity list here and save any entities that need to be saved.
+
+        for (var e = 0; e < this.entities.length; e++) {
+            console.log(this.entities[e])
+        }
     },
 
     set_entity: function(entity) {
