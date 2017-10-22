@@ -111,19 +111,16 @@ EntityWall.prototype = {
     },
 
     entity_wall_save_entity_button_pressed: function() {
-        console.log('Save the entity!!!!')
+        //console.log('Save the entity!!!!')
 
         var entity_name
         var properties = {}
 
         for (var i = 0; i < this.create_entity_fields.length; i++) {
-            console.log(this.create_entity_fields[i])
             if (this.create_entity_fields[i][0].get_text() === ENTITY_PROPERTY_NAME) {
                 entity_name = this.create_entity_fields[i][1].get_text()
             }
             properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
-            console.log(this.create_entity_fields[i][0].get_text())
-            console.log(this.create_entity_fields[i][1].get_text())
         }
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
@@ -188,7 +185,15 @@ EntityWall.prototype = {
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
 
+        /* ___      ___   ___    ___  __             __  ___     __     __   __
+          |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
+          |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
         this.entities = []
+        var entities_display_wall_width = this.width * 0.9
+        var entities_display_wall_height = this.height * 0.75
+        var entities_display_wall_position = this.get_position_for_row(0, 0, 0, -this.height / 2)
+        this.entities_display_wall = new FloatingWall(entities_display_wall_width, entities_display_wall_height, entities_display_wall_position, this.normal, this.world)
+        
 
         // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
@@ -313,6 +318,8 @@ EntityWall.prototype = {
     add_entity: function(entity) {
         console.log('ADD THE FOLLOWING ENTITY !!!!')
         console.log(entity)
+
+
     },
 
     get_y_position_for_row: function(y_index) {
