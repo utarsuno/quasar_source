@@ -50,12 +50,18 @@ function World() {
                     }
                 }
 
+                // Now get the interactive_object match of the found intersections object.
+                console.log('----')
+                console.log(this.interactive_objects[i])
+                console.log(closest_object)
+                console.log('----')
+
                 // A new object is being looked at, so look away from the old one and look at new one.
-                if (this.currently_looked_at_object !== closest_object) {
+                if (this.currently_looked_at_object !== this.interactive_objects[i]) {
                     if (this.currently_looked_at_object !== null) {
                         this.currently_looked_at_object.look_away()
                     }
-                    this.currently_looked_at_object = closest_object
+                    this.currently_looked_at_object = this.interactive_objects[i]
                     this.currently_looked_at_object.look_at()
                 }
                 // Regardless a match was found and only one intersection can occur so break.
