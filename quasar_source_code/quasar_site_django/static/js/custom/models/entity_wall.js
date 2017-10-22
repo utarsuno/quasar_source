@@ -322,10 +322,10 @@ EntityWall.prototype = {
         console.log('ADD THE FOLLOWING ENTITY !!!!')
         console.log(entity)
 
-        var y_offset = (this.entities.length) * (16 + 2)
+        var y_offset = -(this.entities.length) * (16 + 2)
 
         var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_INPUT_REGULAR, 0, 4, 0, y_offset)
-        
+
 
         this.entities.push(entity)
     },
