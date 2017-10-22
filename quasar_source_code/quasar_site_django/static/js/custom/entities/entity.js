@@ -88,11 +88,13 @@ Entity.prototype = {
         this.keys_and_values[property_name] = property_value
     },
 
-    set_parent: function(parent_entity) {
+    add_parent: function(parent_entity) {
         var parent_list = this.get_value(ENTITY_PROPERTY_PARENTS)
+        if (this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity) === -1) {
+            console.log('NO MWATCH!')
+        }
         console.log('The current parent list is : ')
         console.log(parent_list)
-
     },
 
     update_values: function(new_keys_and_values) {

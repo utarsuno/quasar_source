@@ -130,7 +130,7 @@ EntityWall.prototype = {
 
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
-        new_entity.set_parent(this.self_entity)
+        new_entity.add_parent(this.self_entity)
         this.add_entity(new_entity)
 
 
