@@ -144,6 +144,11 @@ EntityWall.prototype = {
         // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
+    entity_editor_close_button_pressed: function() {
+        //this.current_entity_editor
+        console.log('CLOSE THE ENTITY EDITOR!')
+    },
+
     edit_entity_pressed: function() {
         console.log('EDIT THE PRESSED FLOATING ENTITY!!!!')
 
@@ -151,12 +156,27 @@ EntityWall.prototype = {
             if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
                 console.log('EDIT THE FOLLOWING ENTITIY:')
                 console.log(this.floating_row_to_entity_list[i][1])
+
+                //var y_offset = -(i) * (16 + 2)
+                var position = new THREE.Vector3(this.world.currently_looked_at_object.position.x, this.world.currently_looked_at_object.position.y, this.world.currently_looked_at_object.position.z)
+
+                //var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
+
+                console.log('Position to create the entity editor at :')
+                console.log(position)
+
+                this.current_entity_editor = new FloatingWall(500, 500, position, this.normal, this.world)
+                var entity_editor_close_button = this.current_entity_editor.add_close_button()
+                entity_editor_close_button.set_engage_function(this.entity_editor_close_button_pressed.bind(this))
             }
         }
 
     },
 
     __init__: function(position, world) {
+        this.current_entity_editor = null
+
+
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
 
