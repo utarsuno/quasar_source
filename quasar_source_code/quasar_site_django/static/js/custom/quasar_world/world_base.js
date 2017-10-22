@@ -56,6 +56,8 @@ function World() {
                     }
                 }
 
+                console.log('Intersections were :')
+                console.log(intersections)
                 console.log('-----')
                 console.log(interactive_object_match)
                 console.log(this.interactive_objects[i])
