@@ -103,6 +103,9 @@ FloatingWall.prototype = {
 
         this.objects_to_remove_later = []
         //this.add_additional_visibility_object(this.title)
+
+
+        this.all_floating_2d_texts = []
     },
 
     update_position: function(position_vector) {
@@ -144,7 +147,12 @@ FloatingWall.prototype = {
         return this.close_button
     },
 
+    get_all_floating_2d_texts: function() {
+        return this.all_floating_2d_texts
+    },
+
     add_floating_2d_text: function(width, text, type, x_offset, z_offset, row, additional_y_offset) {
+
         var floating_2D_text = new Floating2DText(width, text, type, this.scene)
         var relative_x_shift = this.get_relative_x_shift(x_offset)
         var y_position = this.get_y_position_for_row(row) + additional_y_offset
@@ -152,6 +160,8 @@ FloatingWall.prototype = {
         floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset))
 
         this.add_additional_visibility_object(floating_2D_text)
+
+        this.all_floating_2d_texts.push(floating_2D_text)
 
         return floating_2D_text
     },

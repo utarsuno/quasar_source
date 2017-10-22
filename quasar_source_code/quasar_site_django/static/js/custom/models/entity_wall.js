@@ -157,6 +157,13 @@ EntityWall.prototype = {
         //this.current_entity_editor.remove_from_scene()
     },
 
+    entity_editor_save_changes_button_pressed: function() {
+        var floating_texts = this.current_entity_editor.get_all_floating_2d_texts()
+        for (var i = 0; i < floating_texts.length; i++) {
+            console.log('Need to save : ' + floating_texts[i])
+        }
+    },
+
     edit_entity_pressed: function() {
         console.log('EDIT THE PRESSED FLOATING ENTITY!!!!')
 
@@ -174,17 +181,26 @@ EntityWall.prototype = {
                 console.log('Position to create the entity editor at :')
                 console.log(position)
 
-                this.current_entity_editor = new FloatingWall(500, 500, position, this.normal, this.world)
+                var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
+
+                var current_entity_editor_height = (key_values.length + 2) * (16 + 2)
+                this.current_entity_editor = new FloatingWall(500, current_entity_editor_height, position, this.normal, this.world)
 
                 var entity_editor_close_button = this.current_entity_editor.add_close_button()
                 this.world.interactive_objects.push(entity_editor_close_button)
 
 
-                var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
+
                 for (var p = 0; p < key_values.length; p++) {
                     this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text(500 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -500 / 3, 2, p, 0))
                     this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text((500 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 500 / 3 - (500 / 6), 2, p, 0))
                 }
+
+                var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(500, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0)
+                this.world.interactive_objects.push(edit_entity_save_changes_button)
+                edit_entity_save_changes_button.set_engage_function(this.entity_editor_save_changes_button_pressed.bind(this))
+
+
 
                 /*
                 this.interactive_wall.add_title('Modify : ' + this.entity.get_name())
