@@ -36,6 +36,7 @@ function World() {
 
         var closest_object    = null
         var closest_data_thing = null
+var final_point = null
 
         var smallest_distance = 99999
 
@@ -47,7 +48,6 @@ function World() {
             // The true parameter indicates recursive search.
             var current_smallest_distance = 9999
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
-            var final_point = null
 
             if (intersections.length > 0) {
 
