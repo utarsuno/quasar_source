@@ -136,7 +136,9 @@ SmoothStepLowerLimitZero.prototype = {
         for (var x = 0; x < this.buffer.length; x++) {
             value_instance += smooth_step_lower_limit_default_zero(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0]
         }
+        console.log(value_instance)
         return Math.max(this.minimum_value, Math.min(this.maximum_value, value_instance))
+
         //return value_instance
     }
 
