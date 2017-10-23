@@ -137,5 +137,16 @@ EntityManager.prototype = {
             }
         }
         return type_entities
+    },
+
+    is_property_user_modifiable: function(property) {
+        switch(property) {
+        case ENTITY_PROPERTY_ID:
+        case ENTITY_PROPERTY_PARENTS:
+        case ENTITY_PROPERTY_CHILDREN:
+            return false
+        default:
+            return true
+        }
     }
 }

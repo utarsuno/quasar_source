@@ -176,9 +176,9 @@ class DatabaseTable(object):
 	def delete_row_with_value(self, header: str, value) -> None:
 		"""Deletes a row with the provided header-value match."""
 		query = 'DELETE FROM ' + self.table_name + ' WHERE ' + header + ' = ' + self._validify_value(value)
-		print('Printing the query as bytes {' + str(query) + '}')
-		s = query
-		print(":".join("{:02x}".format(ord(c)) for c in s))
+		#print('Printing the query as bytes {' + str(query) + '}')
+		#s = query
+		#print(":".join("{:02x}".format(ord(c)) for c in s))
 		self._database_api.execute_query(query, save=True)
 
 	def set_single_value(self, header_to_set: str, value_to_set, match_header: str, match_value):
@@ -191,10 +191,10 @@ class DatabaseTable(object):
 
 	def update_row_with_value(self, header_to_match, header_value, column_to_update, column_value):
 		"""Updates a row's value given a match was found."""
-		print('header_to_match: type[' + str(type(header_to_match)) + '] - value {' + str(header_to_match) + '}')
-		print('header_value: type[' + str(type(header_value)) + '] - value {' + str(header_value) + '}')
-		print('column_to_update: type[' + str(type(column_to_update)) + '] - value {' + str(column_to_update) + '}')
-		print('column_value: type[' + str(type(column_value)) + '] - value {' + str(column_value) + '}')
+		#print('header_to_match: type[' + str(type(header_to_match)) + '] - value {' + str(header_to_match) + '}')
+		#print('header_value: type[' + str(type(header_value)) + '] - value {' + str(header_value) + '}')
+		#print('column_to_update: type[' + str(type(column_to_update)) + '] - value {' + str(column_to_update) + '}')
+		#print('column_value: type[' + str(type(column_value)) + '] - value {' + str(column_value) + '}')
 		self._database_api.execute_query('UPDATE ' + self.table_name + ' SET ' + column_to_update + ' = ' + column_value + ' WHERE ' + header_to_match + ' = ' + self._validify_value(header_value) + ';', save=True)
 
 	def get_single_value(self, header_to_get: str, match_header: str, match_value):

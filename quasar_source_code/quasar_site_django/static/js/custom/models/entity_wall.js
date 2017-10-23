@@ -259,6 +259,13 @@ EntityWall.prototype = {
                     var property_value = this.current_entity_editor.add_floating_2d_text((512 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 512 / 3 - (512 / 6), 2, p, 0)
                     property_value.set_label('v')
                     property_value.set_label_position(p)
+
+                    if (ENTITY_MANAGER.is_property_user_modifiable(property_name)) {
+                        this.world.interactive_objects.push(property_name)
+                    } else {
+                        property_name.set_default_color(COLOR_TEXT_CONSTANT)
+                    }
+
                     this.world.interactive_objects.push(property_name)
                     this.world.interactive_objects.push(property_value)
                 }
@@ -503,7 +510,7 @@ EntityWall.prototype = {
 
                 // TODO : Add a button.
                 //floating_row.
-                var floating_row_button = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width / 4, 'mark as completed', TYPE_BUTTON, this.entities_display_wall_width  * .875, 5, 0, y_offset)
+                var floating_row_button = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width / 4, 'mark as completed', TYPE_BUTTON, this.entities_display_wall_width  * .375, 5, 0, y_offset)
 
             } else {
                 floating_row.set_default_color(COLOR_TEXT_GREEN)
