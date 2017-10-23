@@ -47,8 +47,7 @@ function World() {
             // The true parameter indicates recursive search.
             var current_smallest_distance = 9999
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
-
-            var xy_point = null
+            var final_point = null
 
             if (intersections.length > 0) {
 
@@ -68,10 +67,7 @@ function World() {
                         if (current_smallest_distance < smallest_distance) {
                             smallest_distance = current_smallest_distance
                             interactive_index = m
-
-                            console.log(closest_data_thing)
-
-                            xy_point = closest_data_thing.point
+                            final_point = closest_data_thing
                         }
                     }
                 }
@@ -116,7 +112,8 @@ function World() {
             }
 
             console.log('PLACE THE CURSOR AT : ')
-            console.log(xy_point)
+            console.log(final_point)
+            console.log(final_point.point)
 
             // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true
