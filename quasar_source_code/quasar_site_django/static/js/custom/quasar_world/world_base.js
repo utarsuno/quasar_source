@@ -68,6 +68,9 @@ function World() {
                         if (current_smallest_distance < smallest_distance) {
                             smallest_distance = current_smallest_distance
                             interactive_index = m
+
+                            console.log(closest_data_thing)
+
                             xy_point = closest_data_thing.point
                         }
                     }
