@@ -480,6 +480,14 @@ EntityWall.prototype = {
 
         var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
 
+        if (entity.get_value(ENTITY_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
+            if (entity.get_value(ENTITY_PROPERTY_COMPLETED)) {
+                floating_row.set_default_color(COLOR_TEXT_RED)
+            } else {
+                floating_row.set_default_color(COLOR_TEXT_GREEN)
+            }
+        }
+
         this.world.interactive_objects.push(floating_row)
 
         floating_row.set_engage_function(this.edit_entity_pressed.bind(this))

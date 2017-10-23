@@ -117,6 +117,7 @@ module.exports = {
         "ENTITY_PROPERTY_NAME": false,
         "ENTITY_PROPERTY_PARENTS": false,
         "ENTITY_PROPERTY_CHILDREN": false,
+        "ENTITY_PROPERTY_COMPLETED": false,
         "ENTITY_PROPERTY_ALL": false,
 
         "COLOR_HIGHLIGHT": false,
