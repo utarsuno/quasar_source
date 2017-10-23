@@ -80,7 +80,7 @@ Entity.prototype = {
         // TODO : This should be more automated going forward.
         // If the entity is an EntityTask then ensure it has the ENTITY_PROPERTY_COMPLETED.
         if (this.get_value(ENTITY_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
-            this._ensure_property_exists(ENTITY_PROPERTY_COMPLETED, false)
+            this._ensure_property_exists(ENTITY_PROPERTY_COMPLETED, 'False')
         }
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
