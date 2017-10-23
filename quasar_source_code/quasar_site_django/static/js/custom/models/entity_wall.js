@@ -138,12 +138,14 @@ EntityWall.prototype = {
             if (entity_field_label === ENTITY_PROPERTY_NAME) {
                 entity_name = entity_field_value
             }
-            if (ENTITY_PROPERTY_ALL.indexOf(properties[entity_field_label]) !== NOT_FOUND) {
+            // Used to be : if (ENTITY_PROPERTY_ALL.indexOf(properties[entity_field_label]) !== NOT_FOUND) {
+            if (ENTITY_PROPERTY_ALL.indexOf(entity_field_label) !== NOT_FOUND) {
                 properties[entity_field_label] = entity_field_value
             }
         }
 
         console.log('Printing the properties')
+        console.log(properties)
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.self_entity)
