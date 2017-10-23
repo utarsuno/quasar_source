@@ -50,8 +50,7 @@ PointerLockAPI.prototype = {
         } else {
             this.currently_locked = false
             this.controls.disable()
-            // TODO: disable other engaged states and whatnot.
-            // TODO: add a player pointer?
+            WORLD_MANAGER.player.disengage()
         }
     },
 

@@ -490,6 +490,12 @@ EntityWall.prototype = {
         if (entity.get_value(ENTITY_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
             if (entity.get_value(ENTITY_PROPERTY_COMPLETED) === 'False') {
                 floating_row.set_default_color(COLOR_TEXT_RED)
+
+                // Since this is a task and it has a not-completed status then add a 'complete' button.
+
+                // TODO : Add a button.
+                //floating_row.
+
             } else {
                 floating_row.set_default_color(COLOR_TEXT_GREEN)
             }

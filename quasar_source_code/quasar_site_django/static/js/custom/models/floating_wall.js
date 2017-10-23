@@ -136,8 +136,8 @@ FloatingWall.prototype = {
 
     remove_from_scene: function() {
         this.scene.remove(this.wall)
-        for (var i = 0; i < this.objects_to_remove_later.lenth; i++) {
-            this.scene.remove(this.objects_to_remove_later[i]);
+        for (var i = 0; i < this.objects_to_remove_later.length; i++) {
+            this.scene.remove(this.objects_to_remove_later[i])
         }
     },
 
