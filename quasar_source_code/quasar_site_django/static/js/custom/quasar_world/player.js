@@ -29,6 +29,9 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
+    // Current status message.
+    // TODO : Create a status message that will float in front of the player.
+
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera = this.renderer_api.camera
