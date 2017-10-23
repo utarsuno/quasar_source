@@ -72,6 +72,7 @@ Floating2DText.prototype = {
 
     //
     label: null,
+    label_position: null,
 
     __init__: function(w, text, type, scene) {
         this.scene = scene
