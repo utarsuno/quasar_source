@@ -106,9 +106,6 @@ Floating2DText.prototype = {
     },
 
     set_label_position: function(label_position) {
-        if (this.label_position === null || this.label_position === undefined) {
-            return -1
-        }
         this.label_position = label_position
     },
 
