@@ -206,6 +206,13 @@ EntityWall.prototype = {
         var password = WORLD_MANAGER.world_home.player.get_password()
 
         this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME])
+        if (save_data[ENTITY_PROPERTY_TYPE] === ENTITY_TYPE_TASK) {
+            if (save_data[ENTITY_PROPERTY_COMPLETED] === 'True') {
+                this.current_floating_entity_row.set_default_color(COLOR_TEXT_GREEN)
+            } else {
+                this.current_floating_entity_row.set_default_color(COLOR_TEXT_RED)
+            }
+        }
 
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(entity.get_properties())}, this.save_changes_result.bind(this))
 
