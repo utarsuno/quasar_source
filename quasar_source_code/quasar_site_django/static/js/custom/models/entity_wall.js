@@ -128,11 +128,14 @@ EntityWall.prototype = {
         var properties = {}
 
         for (var i = 0; i < this.create_entity_fields.length; i++) {
-            if (this.create_entity_fields[i][0].get_text() === ENTITY_PROPERTY_NAME) {
-                entity_name = this.create_entity_fields[i][1].get_text()
+            var entity_field_label = this.create_entity_fields[i][0].get_text()
+            var entity_field_value = this.create_entity_fields[i][1].get_text()
+
+            if (entity_field_label === ENTITY_PROPERTY_NAME) {
+                entity_name = entity_field_value
             }
-            if (ENTITY_PROPERTY_ALL.indexOf(properties[this.create_entity_fields[i][0]]) !== NOT_FOUND) {
-                properties[this.create_entity_fields[i][0]] = this.create_entity_fields[i][1]
+            if (ENTITY_PROPERTY_ALL.indexOf(properties[entity_field_label]) !== NOT_FOUND) {
+                properties[entity_field_label] = entity_field_value
             }
         }
 
