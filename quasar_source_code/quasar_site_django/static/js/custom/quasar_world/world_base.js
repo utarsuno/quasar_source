@@ -35,26 +35,35 @@ function World() {
         var match_was_found = false
 
         var closest_object    = null
+
         var smallest_distance = 99999
+
+        var interactive_index = -1
+
 
         // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
+            var current_smallest_distance = 9999
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
             if (intersections.length > 0) {
 
                 for (var d = 0; d < intersections.length; d++) {
-                    if (intersections[d].distance < smallest_distance) {
-                        smallest_distance = intersections[d].distance
+                    if (intersections[d].distance < current_smallest_distance) {
+                        current_smallest_distance = intersections[d].distance
                         closest_object = intersections[d].object
                     }
                 }
 
                 // Now get the interactive_object match of the found intersections object.
-                var interactive_object_match = null
+                //var interactive_object_match = null
                 for (var m = 0; m < this.interactive_objects.length; m++) {
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid || this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
-                        interactive_object_match = this.interactive_objects[m]
+                        //interactive_object_match = this.interactive_objects[m]
+                        if (current_smallest_distance < smallest_distance) {
+                            smallest_distance = current_smallest_distance
+                            interactive_index = m
+                        }
                     }
                 }
 
@@ -68,6 +77,7 @@ function World() {
                 console.log('-----')
                 */
 
+                /*
                 if (interactive_object_match !== null) {
                     // A new object is being looked at, so look away from the old one and look at new one.
                     if (this.currently_looked_at_object !== this.interactive_objects[i]) {
@@ -81,6 +91,21 @@ function World() {
                     match_was_found = true
                     //break
                 }
+                */
+            }
+
+            if (interactive_index !== -1) {
+                // A new object is being looked at, so look away from the old one and look at new one.
+                if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
+                    if (this.currently_looked_at_object !== null) {
+                        this.currently_looked_at_object.look_away()
+                    }
+                    this.currently_looked_at_object = this.interactive_objects[interactive_index]
+                    this.currently_looked_at_object.look_at()
+                }
+                // Regardless a match was found and only one intersection can occur so break.
+                match_was_found = true
+                //break
             }
         }
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
