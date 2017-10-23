@@ -214,7 +214,7 @@ function World() {
 
     // cursor
     var sphereGeom =  new THREE.SphereGeometry(4, 4, 4)
-    var blueMaterial = new THREE.MeshBasicMaterial({color: 0x0000ff, transparent: true, opacity: 0.5})
+    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5})
     this.cursor = new THREE.Mesh(sphereGeom, blueMaterial)
 
     this.add_to_scene(this.cursor)
