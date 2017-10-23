@@ -441,8 +441,11 @@ EntityWall.prototype = {
 
     // For create entity only.
     add_create_entity_field: function(attribute_name, entity_wall_width) {
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, 0)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, 0)
+
+        var y_offset = this.create_entity_fields.length * (16 + 2)
+
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, -y_offset)
 
         this.interactive_objects.push(entity_wall_entity_name)
         this.interactive_objects.push(entity_wall_entity_name_input)

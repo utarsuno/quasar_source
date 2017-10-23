@@ -54,6 +54,7 @@ Entity.prototype = {
     needs_to_be_saved : null,
 
     __init__: function(name, keys_and_values) {
+        // TODO : Remove the entity name field.
         this.name            = name
         this.parents         = []
         this.children        = []
@@ -62,7 +63,11 @@ Entity.prototype = {
         // Ensure that various entity properties exist with default values.
         this._ensure_property_exists(ENTITY_PROPERTY_ID, ENTITY_MANAGER.get_new_entity_id())
 
-        this._ensure_property_exists(ENTITY_PROPERTY_NAME, this.name)
+        if (this.has_property(ENTITY_PROPERTY_NAME)) {
+            this.name = this.get_value(ENTITY_PROPERTY_NAME)
+        } else {
+            this._ensure_property_exists(ENTITY_PROPERTY_NAME, this.name)
+        }
 
         this._ensure_property_exists(ENTITY_PROPERTY_CHILDREN, [])
         this._ensure_property_value_is_not(ENTITY_PROPERTY_CHILDREN, '[]', [])
