@@ -61,28 +61,26 @@ function World() {
                 console.log('Intersections were :')
                 console.log(intersections)
                 console.log('-----')
-            }
-        }
+                console.log(interactive_object_match)
+                console.log(this.interactive_objects[i])
+                console.log(closest_object)
+                console.log('-----')
 
-        console.log(interactive_object_match)
-        console.log(this.interactive_objects[i])
-        console.log(closest_object)
-        console.log('-----')
-
-        if (interactive_object_match !== null) {
-            // A new object is being looked at, so look away from the old one and look at new one.
-            if (this.currently_looked_at_object !== this.interactive_objects[i]) {
-                if (this.currently_looked_at_object !== null) {
-                    this.currently_looked_at_object.look_away()
+                if (interactive_object_match !== null) {
+                    // A new object is being looked at, so look away from the old one and look at new one.
+                    if (this.currently_looked_at_object !== this.interactive_objects[i]) {
+                        if (this.currently_looked_at_object !== null) {
+                            this.currently_looked_at_object.look_away()
+                        }
+                        this.currently_looked_at_object = this.interactive_objects[i]
+                        this.currently_looked_at_object.look_at()
+                    }
+                    // Regardless a match was found and only one intersection can occur so break.
+                    match_was_found = true
+                    //break
                 }
-                this.currently_looked_at_object = this.interactive_objects[i]
-                this.currently_looked_at_object.look_at()
             }
-            // Regardless a match was found and only one intersection can occur so break.
-            match_was_found = true
-            //break
         }
-
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
         if (!match_was_found && this.currently_looked_at_object !== null) {
             this.currently_looked_at_object.look_away()
