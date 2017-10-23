@@ -168,7 +168,8 @@ EntityWall.prototype = {
         for (i = 0; i < floating_texts.length; i++) {
             var current_label_position = floating_texts[i].get_label_position()
             var current_label          = floating_texts[i].get_label()
-            if (current_label > -1) {
+            
+            if (current_label_position > -1) {
 
                 console.log('Need to save : ')
                 console.log(floating_texts[i])
