@@ -44,7 +44,7 @@ EntityWall.prototype = {
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
         // TODO : figure out this y positioning thing.
-        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + (this.position.y - this.height / 2) + ',' + this.position.z + ']'
+        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
 

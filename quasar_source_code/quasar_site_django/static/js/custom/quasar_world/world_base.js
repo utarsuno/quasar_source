@@ -35,6 +35,7 @@ function World() {
         var match_was_found = false
 
         var closest_object    = null
+        var closest_data_thing = null
 
         var smallest_distance = 99999
 
@@ -46,12 +47,16 @@ function World() {
             // The true parameter indicates recursive search.
             var current_smallest_distance = 9999
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
+
+            var xy_point = null
+
             if (intersections.length > 0) {
 
                 for (var d = 0; d < intersections.length; d++) {
                     if (intersections[d].distance < current_smallest_distance) {
                         current_smallest_distance = intersections[d].distance
                         closest_object = intersections[d].object
+                        closest_data_thing = intersections[d]
                     }
                 }
 
@@ -63,6 +68,7 @@ function World() {
                         if (current_smallest_distance < smallest_distance) {
                             smallest_distance = current_smallest_distance
                             interactive_index = m
+                            xy_point = closest_data_thing.point
                         }
                     }
                 }
@@ -105,6 +111,10 @@ function World() {
                 this.currently_looked_at_object = this.interactive_objects[interactive_index]
                 this.currently_looked_at_object.look_at()
             }
+
+            console.log('PLACE THE CURSOR AT : ')
+            console.log(xy_point)
+
             // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true
             //break
