@@ -260,7 +260,7 @@ EntityWall.prototype = {
                     property_value.set_label('v')
                     property_value.set_label_position(p)
 
-                    if (ENTITY_MANAGER.is_property_user_modifiable(property_name)) {
+                    if (ENTITY_MANAGER.is_property_user_modifiable(property_name.get_text())) {
                         this.world.interactive_objects.push(property_name)
                         this.world.interactive_objects.push(property_value)
                     } else {
