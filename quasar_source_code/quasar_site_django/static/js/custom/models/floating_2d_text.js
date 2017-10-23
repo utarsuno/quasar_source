@@ -70,6 +70,9 @@ Floating2DText.prototype = {
     //
     default_color: null,
 
+    //
+    label: null,
+
     __init__: function(w, text, type, scene) {
         this.scene = scene
 
@@ -99,6 +102,28 @@ Floating2DText.prototype = {
 
         this.default_color = COLOR_TEXT_DEFAULT
         this.create()
+    },
+
+    set_label_position: function(label_position) {
+        if (this.label_position === null || this.label_position === undefined) {
+            return -1
+        }
+        this.label_position = label_position
+    },
+
+    get_label_position: function() {
+        return this.label_position
+    },
+
+    set_label: function(label_value) {
+        this.label = label_value
+    },
+
+    get_label: function() {
+        if (this.label === null || this.label === undefined) {
+            return ''
+        }
+        return this.label
     },
 
     set_default_color: function(default_color) {

@@ -158,11 +158,41 @@ EntityWall.prototype = {
     },
 
     entity_editor_save_changes_button_pressed: function() {
+        var save_data = {}
+        var labels = []
+        var values = []
+
         var floating_texts = this.current_entity_editor.get_all_floating_2d_texts()
-        for (var i = 0; i < floating_texts.length; i++) {
-            console.log('Need to save : ')
-            console.log(floating_texts[i])
+
+        var i
+        for (i = 0; i < floating_texts.length; i++) {
+            var current_label_position = floating_texts[i].get_label_position()
+            var current_label          = floating_texts[i].get_label()
+            if (current_label > -1) {
+
+                console.log('Need to save : ')
+                console.log(floating_texts[i])
+
+                if (current_label === 'l') {
+                    labels.push([current_label_position, current_label])
+                } else {
+                    values.push([current_label_position, current_label])
+                }
+            }
         }
+
+        for (i = 0; i < labels.length; i++) {
+            for (var j = 0; j < values.length; j++) {
+                if (labels[i][0] === values[j][0]) {
+                    save_data[labels[i][1]] = values[j][1]
+                }
+            }
+        }
+
+        console.log('Need to save the following data :')
+        console.log(save_data)
+
+        // this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this))
     },
 
     edit_entity_pressed: function() {
@@ -190,11 +220,15 @@ EntityWall.prototype = {
                 var entity_editor_close_button = this.current_entity_editor.add_close_button(2)
                 this.world.interactive_objects.push(entity_editor_close_button)
 
-
-
                 for (var p = 0; p < key_values.length; p++) {
-                    this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text(500 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -500 / 3, 2, p, 0))
-                    this.world.interactive_objects.push(this.current_entity_editor.add_floating_2d_text((500 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 500 / 3 - (500 / 6), 2, p, 0))
+                    var property_name = this.current_entity_editor.add_floating_2d_text(500 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -500 / 3, 2, p, 0)
+                    property_name.set_label('l')
+                    property_name.set_label_position(p)
+                    var property_value = this.current_entity_editor.add_floating_2d_text((500 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 500 / 3 - (500 / 6), 2, p, 0)
+                    property_value.set_label('v')
+                    property_value.set_label_position(p)
+                    this.world.interactive_objects.push(property_name)
+                    this.world.interactive_objects.push(property_value)
                 }
 
                 var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(500, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0)
