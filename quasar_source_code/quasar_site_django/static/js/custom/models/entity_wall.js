@@ -163,19 +163,14 @@ EntityWall.prototype = {
         var values = []
 
         var floating_texts = this.current_entity_editor.get_all_floating_2d_texts()
+        var entity_id
 
         var i
         for (i = 0; i < floating_texts.length; i++) {
             var current_label_position = floating_texts[i].get_label_position()
             var current_label          = floating_texts[i].get_label()
 
-            console.log(floating_texts[i])
-            console.log(current_label_position)
-
             if (current_label_position > -1) {
-
-                console.log('Need to save : ')
-                console.log(floating_texts[i])
 
                 if (current_label === 'l') {
                     labels.push([current_label_position, floating_texts[i].get_text()])
@@ -185,12 +180,14 @@ EntityWall.prototype = {
             }
         }
 
-        console.log(labels)
-        console.log(values)
-
         for (i = 0; i < labels.length; i++) {
             for (var j = 0; j < values.length; j++) {
                 if (labels[i][0] === values[j][0]) {
+
+                    if (labels[i][1] === ENTITY_PROPERTY_ID) {
+                        entity_id = values[j][i]
+                    }
+
                     save_data[labels[i][1]] = values[j][1]
                 }
             }
@@ -199,7 +196,13 @@ EntityWall.prototype = {
         console.log('Need to save the following data :')
         console.log(save_data)
 
-        // this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this))
+        var entity = ENTITY_MANAGER.get_entity_by_id(entity_id)
+        entity.update_values(save_data)
+
+        var username = WORLD_MANAGER.world_home.player.get_username()
+        var password = WORLD_MANAGER.world_home.player.get_password()
+
+        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(entity.get_properties())}, this.save_changes_result.bind(this))
     },
 
     edit_entity_pressed: function() {
