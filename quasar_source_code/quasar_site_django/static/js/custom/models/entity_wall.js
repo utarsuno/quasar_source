@@ -185,6 +185,9 @@ EntityWall.prototype = {
             }
         }
 
+        console.log(labels)
+        console.log(values)
+
         for (i = 0; i < labels.length; i++) {
             for (var j = 0; j < values.length; j++) {
                 if (labels[i][0] === values[j][0]) {
