@@ -94,20 +94,22 @@ function World() {
                 */
             }
 
-            if (interactive_index !== -1) {
-                // A new object is being looked at, so look away from the old one and look at new one.
-                if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
-                    if (this.currently_looked_at_object !== null) {
-                        this.currently_looked_at_object.look_away()
-                    }
-                    this.currently_looked_at_object = this.interactive_objects[interactive_index]
-                    this.currently_looked_at_object.look_at()
-                }
-                // Regardless a match was found and only one intersection can occur so break.
-                match_was_found = true
-                //break
-            }
         }
+
+        if (interactive_index !== -1) {
+            // A new object is being looked at, so look away from the old one and look at new one.
+            if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
+                if (this.currently_looked_at_object !== null) {
+                    this.currently_looked_at_object.look_away()
+                }
+                this.currently_looked_at_object = this.interactive_objects[interactive_index]
+                this.currently_looked_at_object.look_at()
+            }
+            // Regardless a match was found and only one intersection can occur so break.
+            match_was_found = true
+            //break
+        }
+
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
         if (!match_was_found && this.currently_looked_at_object !== null) {
             this.currently_looked_at_object.look_away()
