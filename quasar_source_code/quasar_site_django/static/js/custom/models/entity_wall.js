@@ -163,7 +163,6 @@ EntityWall.prototype = {
         var values = []
 
         var floating_texts = this.current_entity_editor.get_all_floating_2d_texts()
-        var entity_id
 
         var i
         for (i = 0; i < floating_texts.length; i++) {
@@ -183,15 +182,12 @@ EntityWall.prototype = {
         for (i = 0; i < labels.length; i++) {
             for (var j = 0; j < values.length; j++) {
                 if (labels[i][0] === values[j][0]) {
-
-                    if (labels[i][1] === ENTITY_PROPERTY_ID) {
-                        entity_id = values[j][i]
-                    }
-
                     save_data[labels[i][1]] = values[j][1]
                 }
             }
         }
+
+        var entity_id = save_data[ENTITY_PROPERTY_ID]
 
         console.log('Need to save the following data :')
         console.log(save_data)
