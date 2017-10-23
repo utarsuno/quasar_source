@@ -56,7 +56,6 @@ function World() {
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
 
             if (intersections.length > 0) {
-
                 for (var d = 0; d < intersections.length; d++) {
                     if (intersections[d].distance < current_smallest_distance) {
                         current_smallest_distance = intersections[d].distance
@@ -64,7 +63,6 @@ function World() {
                         closest_data_thing = intersections[d]
                     }
                 }
-
                 // Now get the interactive_object match of the found intersections object.
                 //var interactive_object_match = null
                 for (var m = 0; m < this.interactive_objects.length; m++) {
@@ -77,32 +75,6 @@ function World() {
                         }
                     }
                 }
-
-                /*
-                console.log('Intersections were :')
-                console.log(intersections)
-                console.log('-----')
-                console.log(interactive_object_match)
-                console.log(this.interactive_objects[i])
-                console.log(closest_object)
-                console.log('-----')
-                */
-
-                /*
-                if (interactive_object_match !== null) {
-                    // A new object is being looked at, so look away from the old one and look at new one.
-                    if (this.currently_looked_at_object !== this.interactive_objects[i]) {
-                        if (this.currently_looked_at_object !== null) {
-                            this.currently_looked_at_object.look_away()
-                        }
-                        this.currently_looked_at_object = this.interactive_objects[i]
-                        this.currently_looked_at_object.look_at()
-                    }
-                    // Regardless a match was found and only one intersection can occur so break.
-                    match_was_found = true
-                    //break
-                }
-                */
             }
 
         }
@@ -116,18 +88,14 @@ function World() {
                 this.currently_looked_at_object = this.interactive_objects[interactive_index]
                 this.currently_looked_at_object.look_at()
             }
-
-            /*
-            console.log('PLACE THE CURSOR AT : ')
-            console.log(final_point)
-            console.log(final_point.point)
-            */
-
             this.player.set_cursor_position(final_point.point)
-
+            this.set_cursor_position(final_point.point)
             // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true
             //break
+        } else {
+            // TODO : Eventually just make the cursor not visible.
+            this.set_cursor_position(-5000, -5000, -5000)
         }
 
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
@@ -213,7 +181,7 @@ function World() {
     this.add_to_scene(light)
 
     // cursor
-    var sphereGeom =  new THREE.SphereGeometry(4, 25, 25)
+    var sphereGeom = new THREE.SphereGeometry(4, 25, 25)
     var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5})
     this.cursor = new THREE.Mesh(sphereGeom, blueMaterial)
 

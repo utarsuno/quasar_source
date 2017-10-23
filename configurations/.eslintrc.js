@@ -52,15 +52,12 @@ module.exports = {
         "LoginPanel": true,
         "Player": true,
 
-        "InteractiveWall": true,
         "FloatingWall": true,
         "Floating2DText": true,
         "Floating2DLabelInput": true,
         "Floating3DText": true,
         "Floating3DLabelInput": true,
         "CheckBox": true,
-
-        "EntityEditor": false,
 
         "SmoothStep": false,
         "SmoothStepLowerLimitZero": false,
