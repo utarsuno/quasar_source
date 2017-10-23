@@ -181,6 +181,8 @@ def POST_save_entities(request):
 	received_password = request.POST[OWNER_PASSWORD]
 	received_data     = request.POST[SAVE_DATA]
 
+	print('The received data (before becoming a dictionary is :')
+	print(received_data)
 	data_dictionary = eval(received_data)
 
 	global entity_server
