@@ -29,6 +29,9 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
+    //
+    cursor_position: null,
+
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api
         this.camera = this.renderer_api.camera
@@ -52,6 +55,14 @@ Player.prototype = {
 
         // Give reference of self to the World Manager.
         WORLD_MANAGER.set_player(this)
+
+        //
+        this.cursor_position = new THREE.Vector3(0, 0, 0)
+
+    },
+
+    set_cursor_position: function(position) {
+        WORLD_MANAGER.current_world.set_cursor_position(position)
     },
 
     sounds_loaded: function() {

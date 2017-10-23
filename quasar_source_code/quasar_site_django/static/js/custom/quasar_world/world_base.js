@@ -29,6 +29,12 @@ function World() {
         this.interactive_objects.push(interactive_object)
     }
 
+    this.set_cursor_position = function(position) {
+        this.cursor.position.x = position.x
+        this.cursor.position.y = position.y
+        this.cursor.position.z = position.z
+    }
+
     this.update_interactive_objects = function() {
         this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
 
@@ -36,7 +42,7 @@ function World() {
 
         var closest_object    = null
         var closest_data_thing = null
-var final_point = null
+        var final_point = null
 
         var smallest_distance = 99999
 
@@ -111,9 +117,13 @@ var final_point = null
                 this.currently_looked_at_object.look_at()
             }
 
+            /*
             console.log('PLACE THE CURSOR AT : ')
             console.log(final_point)
             console.log(final_point.point)
+            */
+
+            this.player.set_cursor_position(final_point.point)
 
             // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true
@@ -202,4 +212,10 @@ var final_point = null
     var light = new THREE.AmbientLight(0x404040, .2) // soft white light
     this.add_to_scene(light)
 
+    // cursor
+    var sphereGeom =  new THREE.SphereGeometry(16, 16, 16)
+    var blueMaterial = new THREE.MeshBasicMaterial({color: 0x0000ff, transparent: true, opacity: 0.5})
+    this.cursor = new THREE.Mesh(sphereGeom, blueMaterial)
+
+    this.add_to_scene(this.cursor)
 }
