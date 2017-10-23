@@ -86,11 +86,11 @@ Floating3DText.prototype = {
         }
     },
 
-    state_change_engage: function(being_engaged_with, player) {
+    state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            player.engage()
+            WORLD_MANAGER.player.engage()
         } else {
-            player.disengage()
+            WORLD_MANAGER.player.disengage()
         }
     },
 

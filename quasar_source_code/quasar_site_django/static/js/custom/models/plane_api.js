@@ -34,7 +34,6 @@ PlaneAPI.prototype = {
             color: 0x000000,
             transparent: true,
             opacity: 0.85,
-            // TODO : make this one sided.
             side: THREE.FrontSide
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
