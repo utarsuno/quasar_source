@@ -34,13 +34,15 @@ function World() {
 
         var match_was_found = false
 
+        var closest_object    = null
+        var smallest_distance = 99999
+
         // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
             var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
             if (intersections.length > 0) {
-                var closest_object    = null
-                var smallest_distance = 99999
+
                 for (var d = 0; d < intersections.length; d++) {
                     if (intersections[d].distance < smallest_distance) {
                         smallest_distance = intersections[d].distance
@@ -75,7 +77,7 @@ function World() {
                     }
                     // Regardless a match was found and only one intersection can occur so break.
                     match_was_found = true
-                    break
+                    //break
                 }
             }
         }
