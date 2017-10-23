@@ -113,6 +113,16 @@ SmoothStepLowerLimitZero.prototype = {
 
     set_value: function(value) {
         this.current_value = value
+        if (this.minimum_value !== null) {
+            if (this.current_value < this.minimum_value) {
+                return this.minimum_value
+            }
+        }
+        if (this.maximum_value !== null) {
+            if (this.current_value > this.maximum_value) {
+                return this.maximum_value
+            }
+        }
     },
 
     add_force: function(magnitude) {
