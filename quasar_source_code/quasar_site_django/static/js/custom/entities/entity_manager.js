@@ -140,6 +140,8 @@ EntityManager.prototype = {
     },
 
     is_property_user_modifiable: function(property) {
+        console.log('is_property_user_modifiable ')
+        console.log(property)
         switch(property) {
         case ENTITY_PROPERTY_ID:
         case ENTITY_PROPERTY_PARENTS:
