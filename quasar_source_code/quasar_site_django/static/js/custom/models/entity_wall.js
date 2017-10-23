@@ -188,20 +188,20 @@ EntityWall.prototype = {
         }
 
         var entity_id = save_data[ENTITY_PROPERTY_ID]
-
-        console.log('Need to save the following data :')
-        console.log(save_data)
-
-        console.log('The entity id is :')
-        console.log(entity_id)
-
         var entity = ENTITY_MANAGER.get_entity_by_id(entity_id)
         entity.update_values(save_data)
 
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_password()
 
+        this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME])
+
         this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(entity.get_properties())}, this.save_changes_result.bind(this))
+
+        // TODO : only close if the POST call finished successfully
+
+        // TODO : IMPORTANT! DELETE IT instead of making it invisible.
+        this.current_entity_editor.set_to_invisible()
     },
 
     edit_entity_pressed: function() {
@@ -225,6 +225,7 @@ EntityWall.prototype = {
 
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2)
                 this.current_entity_editor = new FloatingWall(500, current_entity_editor_height, position, this.normal, this.world)
+                this.current_floating_entity_row = this.floating_row_to_entity_list[i][0]
 
                 var entity_editor_close_button = this.current_entity_editor.add_close_button(2)
                 this.world.interactive_objects.push(entity_editor_close_button)

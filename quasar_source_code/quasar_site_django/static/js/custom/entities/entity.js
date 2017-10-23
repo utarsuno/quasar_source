@@ -94,6 +94,12 @@ Entity.prototype = {
 
     set_property: function(property_name, property_value) {
         this.keys_and_values[property_name] = property_value
+
+        // If the key was the name property then also update the name for the entity object.
+        if (property_name === ENTITY_PROPERTY_NAME) {
+            this.name = property_value
+        }
+
         this.needs_to_be_saved = true
     },
 
@@ -101,6 +107,11 @@ Entity.prototype = {
         for (var key in new_keys_and_values) {
             if (new_keys_and_values.hasOwnProperty(key)) {
                 this.keys_and_values[key] = new_keys_and_values[key]
+
+                // If the key was the name property then also update the name value for the entity object.
+                if (key === ENTITY_PROPERTY_NAME) {
+                    this.name = new_keys_and_values[key]
+                }
             }
         }
         this.needs_to_be_saved = true
