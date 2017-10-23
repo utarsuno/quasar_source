@@ -242,24 +242,24 @@ EntityWall.prototype = {
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
 
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2)
-                this.current_entity_editor = new FloatingWall(500, current_entity_editor_height, position, this.normal, this.world)
+                this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world)
                 this.current_floating_entity_row = this.floating_row_to_entity_list[i][0]
 
                 var entity_editor_close_button = this.current_entity_editor.add_close_button(2)
                 this.world.interactive_objects.push(entity_editor_close_button)
 
                 for (var p = 0; p < key_values.length; p++) {
-                    var property_name = this.current_entity_editor.add_floating_2d_text(500 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -500 / 3, 2, p, 0)
+                    var property_name = this.current_entity_editor.add_floating_2d_text(512 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -512 / 3, 2, p, 0)
                     property_name.set_label('l')
                     property_name.set_label_position(p)
-                    var property_value = this.current_entity_editor.add_floating_2d_text((500 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 500 / 3 - (500 / 6), 2, p, 0)
+                    var property_value = this.current_entity_editor.add_floating_2d_text((512 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 512 / 3 - (512 / 6), 2, p, 0)
                     property_value.set_label('v')
                     property_value.set_label_position(p)
                     this.world.interactive_objects.push(property_name)
                     this.world.interactive_objects.push(property_value)
                 }
 
-                var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(500, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0)
+                var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0)
                 this.world.interactive_objects.push(edit_entity_save_changes_button)
                 edit_entity_save_changes_button.set_engage_function(this.entity_editor_save_changes_button_pressed.bind(this))
 
@@ -307,8 +307,8 @@ EntityWall.prototype = {
         this.object3D.position.z = position.z
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z))
 
-        this.width = 500
-        this.height = 1000
+        this.width = 512
+        this.height = 1024
 
         this.interactive_objects = []
 
@@ -332,7 +332,7 @@ EntityWall.prototype = {
         this.create_entity_fields = []
 
         var entity_wall_width = 400
-        var entity_wall_height = 500
+        var entity_wall_height = 512
         var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
         this.create_entity_wall = new FloatingWall(entity_wall_width, entity_wall_height, entity_wall_position, this.normal, this.world)
 

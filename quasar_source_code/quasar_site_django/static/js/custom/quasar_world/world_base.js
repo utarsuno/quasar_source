@@ -88,7 +88,6 @@ function World() {
                 this.currently_looked_at_object = this.interactive_objects[interactive_index]
                 this.currently_looked_at_object.look_at()
             }
-            this.player.set_cursor_position(final_point.point)
             this.set_cursor_position(final_point.point)
             // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true

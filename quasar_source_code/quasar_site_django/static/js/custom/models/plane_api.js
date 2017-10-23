@@ -32,7 +32,8 @@ PlaneAPI.prototype = {
     create: function() {
         this.material = new THREE.MeshBasicMaterial({
             color: 0x000000,
-            opacity: 0.5,
+            transparent: true,
+            opacity: 0.85,
             // TODO : make this one sided.
             side: THREE.DoubleSide
         })

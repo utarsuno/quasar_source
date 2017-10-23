@@ -24,6 +24,13 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
+    /*             ___     __           ___
+      |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
+      |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
+    login_username_character_change: function() {
+
+    },
+
     login_button_clicked: function() {
         var error = false
         var error_message = ''
