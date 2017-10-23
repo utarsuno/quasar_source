@@ -85,7 +85,7 @@ Player.prototype = {
     // TODO : consider holding the currently engaged object so that the player can send a disengage/engage message to it.
 
     disengage: function() {
-        this.fps_controls.enable()
+        //this.fps_controls.enable()
         if (this.engaged) {
             this.engaged = false
             if (WORLD_MANAGER.current_world.currently_looked_at_object !== null) {
