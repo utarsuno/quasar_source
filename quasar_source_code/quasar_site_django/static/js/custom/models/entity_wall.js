@@ -160,7 +160,8 @@ EntityWall.prototype = {
     entity_editor_save_changes_button_pressed: function() {
         var floating_texts = this.current_entity_editor.get_all_floating_2d_texts()
         for (var i = 0; i < floating_texts.length; i++) {
-            console.log('Need to save : ' + floating_texts[i])
+            console.log('Need to save : ')
+            console.log(floating_texts[i])
         }
     },
 
