@@ -160,16 +160,19 @@ Floating2DText.prototype = {
         }
     },
 
+    // TODO : determine if the player parameter is needed.
     state_change_engage: function(being_engaged_with, player) {
         if (being_engaged_with) {
             if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-                player.engage()
+                WORLD_MANAGER.player.engage()
+                //player.engage()
             } else {
                 this.being_engaged_with = false
             }
         } else {
             if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-                player.disengage()
+                WORLD_MANAGER.player.disengage()
+                //player.disengage()
             }
         }
     },

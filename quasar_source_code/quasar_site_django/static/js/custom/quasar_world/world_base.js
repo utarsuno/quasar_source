@@ -133,6 +133,7 @@ function World() {
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.disengage(this.player)
+                    this.player.enable_controls()
                 }
             }
         } else if (event.keyCode === KEY_CODE_TAB) {

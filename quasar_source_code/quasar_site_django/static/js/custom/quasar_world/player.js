@@ -84,6 +84,10 @@ Player.prototype = {
 
     // TODO : consider holding the currently engaged object so that the player can send a disengage/engage message to it.
 
+    enable_controls: function() {
+        this.fps_controls.enable()
+    },
+
     disengage: function() {
         //this.fps_controls.enable()
         if (this.engaged) {
