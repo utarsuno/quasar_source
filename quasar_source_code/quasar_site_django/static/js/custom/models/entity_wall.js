@@ -155,6 +155,10 @@ EntityWall.prototype = {
         // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
+    create_entity_close_button_pressed: function() {
+        this.create_entity_wall.set_to_invisible()
+    },
+
     entity_editor_close_button_pressed: function() {
         //this.current_entity_editor
         console.log('CLOSE THE ENTITY EDITOR!')
@@ -338,6 +342,8 @@ EntityWall.prototype = {
 
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
+
+        this.create_entity_wall.add_close_button()
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
         this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)

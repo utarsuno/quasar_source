@@ -91,10 +91,20 @@ SmoothStepLowerLimitZero.prototype = {
     current_value: null,
     time_needed_for_each_force: null,
 
-    __init__: function(current_value, time_needed_for_each_force) {
+    minimum_value: null,
+    maximum_value: null,
+
+    __init__: function(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
         this.buffer = []
         this.current_value = current_value
         this.time_needed_for_each_force = time_needed_for_each_force
+
+        if (minimum_value !== null && minimum_value !== undefined) {
+            this.minimum_value = minimum_value
+        }
+        if (maximum_value !== null && maximum_value !== undefined) {
+            this.maximum_value = maximum_value
+        }
     },
 
     clear_buffer: function() {
@@ -126,7 +136,8 @@ SmoothStepLowerLimitZero.prototype = {
         for (var x = 0; x < this.buffer.length; x++) {
             value_instance += smooth_step_lower_limit_default_zero(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0]
         }
-        return value_instance
+        return Math.max(this.minimum_value, Math.min(this.maximum_value, value_instance))
+        //return value_instance
     }
 
 }
