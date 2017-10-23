@@ -131,6 +131,10 @@ EntityWall.prototype = {
             var entity_field_label = this.create_entity_fields[i][0].get_text()
             var entity_field_value = this.create_entity_fields[i][1].get_text()
 
+            console.log('Printing the label and then value :')
+            console.log(entity_field_label)
+            console.log(entity_field_value)
+
             if (entity_field_label === ENTITY_PROPERTY_NAME) {
                 entity_name = entity_field_value
             }
@@ -138,6 +142,8 @@ EntityWall.prototype = {
                 properties[entity_field_label] = entity_field_value
             }
         }
+
+        console.log('Printing the properties')
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.self_entity)
