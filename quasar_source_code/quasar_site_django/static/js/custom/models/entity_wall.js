@@ -262,10 +262,11 @@ EntityWall.prototype = {
 
                     if (ENTITY_MANAGER.is_property_user_modifiable(property_name)) {
                         this.world.interactive_objects.push(property_name)
+                        this.world.interactive_objects.push(property_value)
                     } else {
                         property_name.set_default_color(COLOR_TEXT_CONSTANT)
+                        property_value.set_default_color(COLOR_TEXT_CONSTANT)
                     }
-                    this.world.interactive_objects.push(property_value)
                 }
 
                 var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0)
