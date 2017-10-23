@@ -265,8 +265,6 @@ EntityWall.prototype = {
                     } else {
                         property_name.set_default_color(COLOR_TEXT_CONSTANT)
                     }
-
-                    this.world.interactive_objects.push(property_name)
                     this.world.interactive_objects.push(property_value)
                 }
 
