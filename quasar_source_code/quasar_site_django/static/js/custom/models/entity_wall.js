@@ -196,6 +196,9 @@ EntityWall.prototype = {
         console.log('Need to save the following data :')
         console.log(save_data)
 
+        console.log('The entity id is :')
+        console.log(entity_id)
+
         var entity = ENTITY_MANAGER.get_entity_by_id(entity_id)
         entity.update_values(save_data)
 
