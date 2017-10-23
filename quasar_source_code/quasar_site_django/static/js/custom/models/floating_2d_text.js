@@ -123,7 +123,8 @@ Floating2DText.prototype = {
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
             this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
-            this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
+            this.update_color(COLOR_TEXT_HIGHLIGHT)
+            //this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_HIGHLIGHT)
             }
@@ -161,6 +162,10 @@ Floating2DText.prototype = {
     clear_text: function() {
         this.dynamic_texture.clear()
         this.dynamic_texture.needsUpdate = true
+    },
+
+    update_color: function(color) {
+        this.update_text_color(this.text, color)
     },
 
     update_text_color: function(text, color) {

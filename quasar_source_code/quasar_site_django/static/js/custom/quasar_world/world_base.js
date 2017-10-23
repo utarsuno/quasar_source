@@ -58,6 +58,7 @@ function World() {
                     }
                 }
 
+                /*
                 console.log('Intersections were :')
                 console.log(intersections)
                 console.log('-----')
@@ -65,6 +66,7 @@ function World() {
                 console.log(this.interactive_objects[i])
                 console.log(closest_object)
                 console.log('-----')
+                */
 
                 if (interactive_object_match !== null) {
                     // A new object is being looked at, so look away from the old one and look at new one.
