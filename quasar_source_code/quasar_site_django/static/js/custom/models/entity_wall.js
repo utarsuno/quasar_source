@@ -488,8 +488,8 @@ EntityWall.prototype = {
     },
 
     add_entity: function(entity) {
-        console.log('ADD THE FOLLOWING ENTITY !!!!')
-        console.log(entity)
+        //console.log('ADD THE FOLLOWING ENTITY !!!!')
+        //console.log(entity)
 
         var y_offset = -(this.entities.length) * (16 + 2)
 
@@ -503,6 +503,7 @@ EntityWall.prototype = {
 
                 // TODO : Add a button.
                 //floating_row.
+                var floating_row_button = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width / 4, 'mark as completed', TYPE_BUTTON, this.entities_display_wall_width  * .875, 5, 0, y_offset)
 
             } else {
                 floating_row.set_default_color(COLOR_TEXT_GREEN)

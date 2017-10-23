@@ -175,7 +175,7 @@ class EntityServer(object):
 				if o[INDEX_OWNER_NAME] == owner_name:
 					manager = self._db_api.get_entity_manager(manager_id=int(o[INDEX_OWNER_MANAGER_ID]))
 					print('Owner is : ' + str(owner_name))
-					print('Manager is : ' + str(manager))
+					#print('Manager is : ' + str(manager))
 					self._managers[owner_name] = manager
 
 	def load_all_entities(self, username, password):
