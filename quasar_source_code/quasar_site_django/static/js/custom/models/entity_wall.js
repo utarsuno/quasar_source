@@ -322,6 +322,7 @@ EntityWall.prototype = {
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
+        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
           |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
