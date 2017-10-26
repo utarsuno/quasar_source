@@ -63,6 +63,12 @@ PointerLockAPI.prototype = {
             this.currently_locked = false
             this.controls.disable()
             WORLD_MANAGER.player.disengage()
+
+            var currently_looked_at_object = WORLD_MANAGER.current_world.currently_looked_at_object
+            if (currently_looked_at_object !== null) {
+                currently_looked_at_object.is_engaged()
+                currently_looked_at_object.disengage()
+            }
         }
     },
 

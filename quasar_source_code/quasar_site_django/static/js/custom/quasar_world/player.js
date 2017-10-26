@@ -84,11 +84,6 @@ Player.prototype = {
         //this.fps_controls.enable()
         if (this.engaged) {
             this.engaged = false
-            if (WORLD_MANAGER.current_world.currently_looked_at_object !== null) {
-                if (WORLD_MANAGER.current_world.currently_looked_at_object.is_engaged()) {
-                    WORLD_MANAGER.current_world.currently_looked_at_object.disengage()
-                }
-            }
         }
     },
 
