@@ -47,6 +47,7 @@ class PostgreSQLAPI(object):
 			self._connection.commit()
 
 		print('PRINTING THE CURSOR DESCRIPTION!!!!!!!! : ' + str(self._cursor.description))
+		print('PRINTING THE ROW COUNT!!!!!! : ' + str(self._cursor.rowcount))
 
 		result = self._cursor.fetchone()
 
