@@ -34,19 +34,45 @@ EntityManager.prototype = {
         }
     },
 
+    delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
+        for (var c = parent_entity.children.length; c--;) {
+
+            var child_entity = parent_entity.children[c]
+
+            // No matter what the parent reference is getting removed for all children entity.
+            child_entity.remove_parent(parent_entity)
+
+            // If the child entity had no other parents then remove it as well.
+            // TODO : Eventually also check for any outside references. Perhaps don't enable delete if there are external references.
+            if (child_entity.number_of_parents() === 0) {
+                this.delete_entity(child_entity)
+            }
+        }
+    },
+
+    _get_index_of_entity: function(entity) {
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
+                return i
+            }
+        }
+        return -1
+    },
+
     delete_entity: function(entity) {
 
         var entity_to_delete = null
-        var index_to_splice = null
-
-        for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
-                entity_to_delete = this.entities[i]
-                index_to_splice = i
-            }
+        var index_to_splice = this._get_index_of_entity(entity)
+        if (index_to_splice !== -1) {
+            entity_to_delete = this.entities[index_to_splice]
         }
 
         if (entity_to_delete !== null) {
+
+            // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
+            this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete)
+
+            // TODO : Make sure the server does the same deletion steps that the client does.
             this.post_delete_entity.perform_post({
                 'username': WORLD_MANAGER.player.get_username(),
                 'password': WORLD_MANAGER.player.get_password(),
@@ -54,8 +80,9 @@ EntityManager.prototype = {
             }, this.entity_deleted_response.bind(this))
         }
 
-        if (index_to_splice !== null) {
-            this.entities.splice(index_to_splice, 1)
+        if (index_to_splice !== -1) {
+            // Re-calculate the index to splice off as child entities may have been removed thus changing the list order/indexes.
+            this.entities.splice(this._get_index_of_entity(entity), 1)
         }
     },
 
@@ -158,8 +185,6 @@ EntityManager.prototype = {
     },
 
     is_property_user_modifiable: function(property) {
-        console.log('is_property_user_modifiable ')
-        console.log(property)
         switch(property) {
         case ENTITY_PROPERTY_ID:
         case ENTITY_PROPERTY_PARENTS:

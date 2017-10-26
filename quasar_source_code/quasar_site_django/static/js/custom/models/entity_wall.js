@@ -84,7 +84,8 @@ EntityWall.prototype = {
         this.are_you_sure.set_to_visible()
     },
 
-    perform_delete_entity: function() {
+    perform_delete_entity_wall: function() {
+        // All child entities will be automatically deleted (if they don't have any other parent entity objects).
         ENTITY_MANAGER.delete_entity(this.self_entity)
 
         for (var i = 0; i < this.interactive_objects.length; i++) {
@@ -426,7 +427,7 @@ EntityWall.prototype = {
 
         var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 2, 0)
         this.interactive_objects.push(yes_button)
-        yes_button.set_engage_function(this.perform_delete_entity.bind(this))
+        yes_button.set_engage_function(this.perform_delete_entity_wall.bind(this))
 
         var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 2, 0)
         this.interactive_objects.push(no_button)

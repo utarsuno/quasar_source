@@ -33,25 +33,12 @@ PointerLockAPI.prototype = {
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false)
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false)
 
-            // TODO : Move the 3 listeners below into the Player class
-
-            // Hook for mouse click.
-            //document.addEventListener('click', this.mouse_click.bind(this), false)
-
             this.key_down_buffer = []
-
+            // Hook for mouse click.
             document.addEventListener('click', this.click_handler.bind(this))
-
-            // Hook for key down presses.
-            document.addEventListener('keydown', this.key_down.bind(this), false)
-            // Hook for key up presses.
-            document.addEventListener('keyup', this.key_up.bind(this), false)
-
-
-
-
         } else {
             console.log('Pointer lock is not supported!')
+            // TODO : Throw an exception here / display error status to user.
         }
     },
 
@@ -74,9 +61,8 @@ PointerLockAPI.prototype = {
 
     pointer_lock_error: function() {
         console.log('Pointer lock error!')
+        // TODO : Throw an exception here / display error status to user.
     },
-
-    // mouse_click_single: function() {}, // No functionality yet so not included.
 
     click_handler: function(e) {
         // TODO : Optimize this later
@@ -91,9 +77,9 @@ PointerLockAPI.prototype = {
 
         this.key_down_buffer.push(current_milliseconds)
 
+        // Single click event.
         if (this.key_down_buffer.length == 1) {
             if (this.currently_locked !== false) {
-
                 switch(e.button) {
                 case MOUSE_LEFT_CLICK:
                     WORLD_MANAGER.current_world.single_left_click()
@@ -106,23 +92,13 @@ PointerLockAPI.prototype = {
                     break
                 }
             }
+            // Double click event.
         } else if (this.key_down_buffer.length == 2) {
             if (this.currently_locked === false) {
                 this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
                 this.element.requestPointerLock()
             }
         }
-    },
-
-    key_down: function(event) {
-        if (event.which == KEY_CODE_L) {
-            this.l_key_currently_down = true
-        }
-    },
-
-    key_up: function(event) {
-        if (event.which == KEY_CODE_L) {
-            this.l_key_currently_down = false
-        }
     }
+
 }

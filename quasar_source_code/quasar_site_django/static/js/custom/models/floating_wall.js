@@ -135,10 +135,11 @@ FloatingWall.prototype = {
     },
 
     remove_from_scene: function() {
-        this.scene.remove(this.wall)
+        //this.scene.remove(this.wall)
         for (var i = 0; i < this.objects_to_remove_later.length; i++) {
-            this.scene.remove(this.objects_to_remove_later[i])
+            this.scene.remove(this.objects_to_remove_later[i].object3D)
         }
+        this.scene.remove(this.object3D)
     },
 
     add_close_button: function(additional_depth) {

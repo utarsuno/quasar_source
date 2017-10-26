@@ -148,6 +148,14 @@ Entity.prototype = {
       /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
       \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */
 
+    number_of_parents: function() {
+        return this.parents.length
+    },
+
+    number_of_children: function() {
+        return this.children.length
+    },
+
     // TODO : To be even more safe eventually add error reporting for when any logic errors occur (since they shouldn't c:).
 
     add_child: function(child_entity) {
