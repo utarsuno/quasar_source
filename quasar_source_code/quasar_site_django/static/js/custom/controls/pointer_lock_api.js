@@ -92,7 +92,9 @@ PointerLockAPI.prototype = {
         this.key_down_buffer.push(current_milliseconds)
 
         if (this.key_down_buffer.length == 1) {
-            WORLD_MANAGER.current_world.single_click()
+            if (this.currently_locked !== false) {
+                WORLD_MANAGER.current_world.single_click()
+            }
         } else if (this.key_down_buffer.length == 2) {
             if (this.currently_locked === false) {
                 this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
