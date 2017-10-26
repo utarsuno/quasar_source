@@ -46,6 +46,11 @@ class FinanceDatabase(object):
 			rs     = rh.RobinhoodScraper()
 			self.trade_portfolio = rs.get_trade_portfolio()
 
+	def get_dividends(self):
+		print('Scraping Robinhood!')
+		rs     = rh.RobinhoodScraper()
+		return rs.get_dividends()
+
 	def _initial_data_fill(self):
 		"""This method is called when the table is empty and needs to be filled in with Trades."""
 		print('Populating the finance table with trades!')

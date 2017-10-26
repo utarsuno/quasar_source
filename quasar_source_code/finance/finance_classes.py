@@ -135,7 +135,10 @@ class StockShares(object):
 
 		shares_removed = 0
 		while shares_removed < quantity:
-			share = self.shares.pop(0)
+			if len(self.shares) > 0:
+				share = self.shares.pop(0)
+			else:
+				print('ERROR?')
 			self._all_cash_from_sales_ever += price
 			shares_removed += 1
 

@@ -128,17 +128,22 @@ EntityManager.prototype = {
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
 
-        console.log('@@@@@@')
+        var match_found_ONLY_FOR_DEBUGGING = false
         for (var i = 0; i < this.entities.length; i++) {
-            console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID))
-            console.log(entity_id)
-            console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id)
+            //console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID))
+            //console.log(entity_id)
 
             if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id) {
+                console.log('MATCH FOUND FOR :')
+                console.log(entity_id)
+                match_found_ONLY_FOR_DEBUGGING = true
                 return this.entities[i]
             }
         }
-        console.log('------')
+        if (!match_found_ONLY_FOR_DEBUGGING) {
+            console.log('MATCH NOT FOUND FOR :')
+            console.log(entity_id)
+        }
     },
 
     get_all_entities_of_type: function(entity_type) {

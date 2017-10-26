@@ -38,6 +38,13 @@ class RobinhoodScraper(object):
 			trade_portfolio.add_trade(t)
 		return trade_portfolio
 
+	def get_dividends(self):
+		robinhood_scraper = Robinhood()
+		account = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='robinhood')
+		robinhood_scraper.login(username=account['username'], password=account['password'])
+		past_orders = self._get_all_dividends(robinhood_scraper)
+		return past_orders
+
 	def _get_trades(self) -> List[Trade]:
 		"""Gets Trade objects to work with."""
 		robinhood_scraper = Robinhood()
@@ -82,6 +89,17 @@ class RobinhoodScraper(object):
 		"""3rd party function."""
 		orders = []
 		past_orders = rb_client.order_history()
+		orders.extend(past_orders['results'])
+		while past_orders['next']:
+			next_url = past_orders['next']
+			past_orders = self._fetch_json_by_url(rb_client, next_url)
+			orders.extend(past_orders['results'])
+		return orders
+
+	def _get_all_dividends(self, rb_client):
+		"""3rd party function."""
+		orders = []
+		past_orders = rb_client.dividends()
 		orders.extend(past_orders['results'])
 		while past_orders['next']:
 			next_url = past_orders['next']
