@@ -14,6 +14,9 @@ PointerLockAPI.prototype = {
 
     l_key_currently_down: false,
 
+    // Needed for detecting double clicks.
+    key_down_buffer: null,
+
     __init__: function (controls) {
         this.controls = controls
         this.element = document.body
@@ -33,11 +36,20 @@ PointerLockAPI.prototype = {
             // TODO : Move the 3 listeners below into the Player class
 
             // Hook for mouse click.
-            document.addEventListener('click', this.mouse_click.bind(this), false)
+            //document.addEventListener('click', this.mouse_click.bind(this), false)
+
+            this.key_down_buffer = []
+
+            document.addEventListener('click', this.click_handler.bind(this))
+
             // Hook for key down presses.
             document.addEventListener('keydown', this.key_down.bind(this), false)
             // Hook for key up presses.
             document.addEventListener('keyup', this.key_up.bind(this), false)
+
+
+
+
         } else {
             console.log('Pointer lock is not supported!')
         }
@@ -56,6 +68,37 @@ PointerLockAPI.prototype = {
 
     pointer_lock_error: function() {
         console.log('Pointer lock error!')
+    },
+
+    // mouse_click_single: function() {}, // No functionality yet so not included.
+
+    click_handler: function() {
+        // TODO : Optimize this later
+
+        var current_milliseconds = new Date().getTime()
+
+        var indexs_to_remove = []
+
+        for (var i = this.key_down_buffer.length; i--;) {
+            if (current_milliseconds - this.key_down_buffer[i] >= 300) {
+                this.key_down_buffer.splice(i, 1)
+            }
+        }
+
+        this.key_down_buffer.push(current_milliseconds)
+
+        if (this.key_down_buffer.length == 1) {
+            console.log('Single click!')
+        } else {
+            console.log('Double click!')
+        }
+    },
+
+    mouse_click_double: function(e) {
+        if (this.currently_locked === false) {
+            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
+            this.element.requestPointerLock()
+        }
     },
 
     mouse_click: function() {
