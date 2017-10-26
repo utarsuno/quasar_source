@@ -78,7 +78,11 @@ PointerLockAPI.prototype = {
 
     // mouse_click_single: function() {}, // No functionality yet so not included.
 
-    click_handler: function() {
+    click_handler: function(e) {
+
+
+        console.log(e)
+
         // TODO : Optimize this later
 
         var current_milliseconds = new Date().getTime()
