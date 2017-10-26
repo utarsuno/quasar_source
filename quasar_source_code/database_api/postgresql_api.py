@@ -40,6 +40,14 @@ class PostgreSQLAPI(object):
 		#except psycopg2.OperationalError:
 		#	print('Database connection could not be made!')
 
+	def get_cursor_row_count(self):
+		"""Returns the cursor's current row count."""
+		return self._cursor.rowcount
+
+	def get_cursor_description(self):
+		"""Returns the cursor's current description."""
+		return self._cursor.description
+
 	def print_cursor_debugging_information(self):
 		"""Prints current information that the cursor holds."""
 		print('Cursor information :')
@@ -63,6 +71,10 @@ class PostgreSQLAPI(object):
 
 		#result = self._cursor.fetchone()[0]
 		return result[0]
+
+	def get_single_result(self):
+		"""Used for breaking up a query and result fetching into 2 steps in case steps need to occur between them."""
+		return self._cursor.fetchone()
 
 	def execute_custom_query_one_result(self, query: str, save: bool=False):
 		"""Execute a custom query that only returns a single result."""
