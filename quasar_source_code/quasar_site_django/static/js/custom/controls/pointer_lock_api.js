@@ -77,8 +77,6 @@ PointerLockAPI.prototype = {
 
         var current_milliseconds = new Date().getTime()
 
-        var indexs_to_remove = []
-
         for (var i = this.key_down_buffer.length; i--;) {
             if (current_milliseconds - this.key_down_buffer[i] >= 300) {
                 this.key_down_buffer.splice(i, 1)
@@ -88,22 +86,9 @@ PointerLockAPI.prototype = {
         this.key_down_buffer.push(current_milliseconds)
 
         if (this.key_down_buffer.length == 1) {
-            console.log('Single click!')
-        } else {
-            console.log('Double click!')
-        }
-    },
-
-    mouse_click_double: function(e) {
-        if (this.currently_locked === false) {
-            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
-            this.element.requestPointerLock()
-        }
-    },
-
-    mouse_click: function() {
-        if (this.currently_locked === false) {
-            if (this.l_key_currently_down === true) {
+            WORLD_MANAGER.current_world.single_click()
+        } else if (this.key_down_buffer.length == 2) {
+            if (this.currently_locked === false) {
                 this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
                 this.element.requestPointerLock()
             }

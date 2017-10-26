@@ -127,6 +127,14 @@ function World() {
         }
     }
 
+    this.single_click = function() {
+        if (this.currently_looked_at_object !== null) {
+            if (!this.currently_looked_at_object.is_engaged()) {
+                this.currently_looked_at_object.engage()
+            }
+        }
+    }
+
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE_BACK_SLASH) {
             if (this.currently_looked_at_object !== null) {
