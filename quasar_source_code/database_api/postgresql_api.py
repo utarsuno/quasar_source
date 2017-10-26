@@ -46,6 +46,8 @@ class PostgreSQLAPI(object):
 		if save:
 			self._connection.commit()
 
+		print('PRINTING THE CURSOR DESCRIPTION!!!!!!!! : ' + str(self._cursor.description))
+
 		result = self._cursor.fetchone()
 
 		print('DEBUGGING!!!')
