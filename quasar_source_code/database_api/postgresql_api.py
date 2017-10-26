@@ -40,6 +40,12 @@ class PostgreSQLAPI(object):
 		#except psycopg2.OperationalError:
 		#	print('Database connection could not be made!')
 
+	def print_cursor_debugging_information(self):
+		"""Prints current information that the cursor holds."""
+		print('Cursor information :')
+		print('Description : ' + str(self._cursor.description))
+		print('Row count : ' + str(self._cursor.rowcount))
+
 	def execute_boolean_query(self, query: str, save: bool=False) -> bool:
 		"""Executes a query that returns a boolean result."""
 		self.execute_query(query)
