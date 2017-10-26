@@ -116,18 +116,18 @@ EntityManager.prototype = {
 
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
-        for (var i = 0; i < this.entities.length; i++) {
 
-            console.log('@@@@@@')
+        console.log('@@@@@@')
+        for (var i = 0; i < this.entities.length; i++) {
             console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID))
             console.log(entity_id)
             console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id)
-            console.log('------')
 
             if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id) {
                 return this.entities[i]
             }
         }
+        console.log('------')
     },
 
     get_all_entities_of_type: function(entity_type) {
