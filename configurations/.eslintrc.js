@@ -134,6 +134,11 @@ module.exports = {
         "POST_MANAGER_ID": false,
         "POST_OWNER_ID": false,
 
+        // Mouse click events.
+        "MOUSE_LEFT_CLICK": false,
+        "MOUSE_MIDDLE_CLICK": false,
+        "MOUSE_RIGHT_CLICK": false,
+
         // Keycodes.
         "KEY_CODE_SHIFT": false,
         "KEY_CODE_UP": false,

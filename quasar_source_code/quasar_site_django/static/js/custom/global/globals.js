@@ -78,6 +78,11 @@ const COLOR_TEXT_CONSTANT  = '#7e58b0'
 const COLOR_WHITE          = '#ffffff'
 const COLOR_BLACK          = '#000000'
 
+// Mouse-click events.
+const MOUSE_LEFT_CLICK   = 0
+const MOUSE_MIDDLE_CLICK = 1
+const MOUSE_RIGHT_CLICK  = 2
+
 // Key-down key-codes.
 const KEY_CODE_SHIFT      = 16
 const KEY_CODE_SPACE      = 32

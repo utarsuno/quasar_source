@@ -79,10 +79,6 @@ PointerLockAPI.prototype = {
     // mouse_click_single: function() {}, // No functionality yet so not included.
 
     click_handler: function(e) {
-
-
-        console.log(e)
-
         // TODO : Optimize this later
 
         var current_milliseconds = new Date().getTime()
@@ -97,7 +93,18 @@ PointerLockAPI.prototype = {
 
         if (this.key_down_buffer.length == 1) {
             if (this.currently_locked !== false) {
-                WORLD_MANAGER.current_world.single_click()
+
+                switch(e.button) {
+                case MOUSE_LEFT_CLICK:
+                    WORLD_MANAGER.current_world.single_left_click()
+                    break
+                case MOUSE_MIDDLE_CLICK:
+                    WORLD_MANAGER.current_world.single_middle_click()
+                    break
+                case MOUSE_RIGHT_CLICK:
+                    WORLD_MANAGER.current_world.single_right_click()
+                    break
+                }
             }
         } else if (this.key_down_buffer.length == 2) {
             if (this.currently_locked === false) {
