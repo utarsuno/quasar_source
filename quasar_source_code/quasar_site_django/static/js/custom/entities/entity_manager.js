@@ -97,10 +97,21 @@ EntityManager.prototype = {
 
             console.log('Children list is :')
             console.log(children_list)
+
             console.log('Parent list is :')
             console.log(parent_list)
 
             for (var c = 0; c < children_list.length; c++) {
+
+                var entity_to_add = this.get_entity_by_id(children_list[c])
+
+                if (entity_to_add !== null || entity_to_add !== undefined) {
+                    this.entities[e].add_child(entity_to_add)
+                } else {
+                    console.log('THERE WAS AN ERROR YOU NEED TO FIX.')
+                    //this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
+                }
+
                 this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
             }
             for (var p = 0; p < parent_list.length; p++) {
