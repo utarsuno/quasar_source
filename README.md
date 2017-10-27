@@ -1,6 +1,8 @@
 # Quasar Source
 
 ### Development Screenshots:
+As of October 27th
+![alt_text](https://i.imgur.com/xKp1n9a.png)
 As of October 22th
 ![alt text](https://i.imgur.com/aShuQKw.png)
 As of October 10th
