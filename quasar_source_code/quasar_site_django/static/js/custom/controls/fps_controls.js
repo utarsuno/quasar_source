@@ -228,6 +228,14 @@ FPSControls.prototype = {
 
     disable: function() {
         this.enabled = false
+        // In case pause was pressed as a movement key was held down.
+        // Reset movement variables so resuming back in doesn't leave one down until re-clicked.
+        this.up    = false
+        this.down  = false
+        this.left  = false
+        this.right = false
+        this.space = false
+        this.shift = false
     },
 
     on_key_down: function(event) {

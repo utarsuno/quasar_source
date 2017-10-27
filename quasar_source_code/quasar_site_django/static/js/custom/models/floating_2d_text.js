@@ -99,6 +99,7 @@ Floating2DText.prototype = {
 
         if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX) {
             this.maintain_engage_when_tabbed_to = false
+            this.default_color = COLOR_TEXT_BUTTON
         }
 
         this.default_color = COLOR_TEXT_DEFAULT

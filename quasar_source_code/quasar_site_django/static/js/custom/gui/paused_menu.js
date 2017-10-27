@@ -44,6 +44,12 @@ PausedMenu.prototype = {
         this.button_log_out.onclick = function() {
             this.player.log_out()
         }.bind(this)
+
+        // Make all the buttons invisible initially.
+        this.button_resume.style.visibility = NOT_VISIBLE
+        this.button_help_controls.style.visibility = NOT_VISIBLE
+        this.button_settings.style.visibility = NOT_VISIBLE
+        this.button_log_out.style.visibility = NOT_VISIBLE
     },
 
     provide_player_object: function(player_object) {
@@ -66,7 +72,6 @@ PausedMenu.prototype = {
 
     make_invisible: function() {
         if (this.currently_displayed) {
-            this.pause_menu.style.visibility = NOT_VISIBLE
             this.pause_menu.style.visibility = NOT_VISIBLE
             this.button_resume.style.visibility = NOT_VISIBLE
             this.button_help_controls.style.visibility = NOT_VISIBLE
