@@ -73,3 +73,8 @@ canvas {
     overflow: hidden;
     outline: none;
 }
+
+.see_through_button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
