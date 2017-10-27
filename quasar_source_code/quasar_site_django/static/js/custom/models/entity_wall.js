@@ -94,6 +94,7 @@ EntityWall.prototype = {
         this.world.remove_from_scene(this.object3D)
 
         this.are_you_sure.remove_from_scene()
+        this.entities_display_wall.remove_from_scene()
         this.create_entity_wall.remove_from_scene()
         this.add_attribute_prompt.remove_from_scene()
         // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())

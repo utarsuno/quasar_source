@@ -127,17 +127,6 @@ function World() {
         }
     }
 
-    /*
-                    case MOUSE_LEFT_CLICK:
-                    WORLD_MANAGER.current_world.single_left_click()
-                    break
-                case MOUSE_MIDDLE_CLICK:
-                    WORLD_MANAGER.current_world.single_middle_click()
-                    break
-                case MOUSE_RIGHT_CLICK:
-                    WORLD_MANAGER.current_world.single_right_click()
-     */
-
     this.single_left_click = function() {
         if (this.currently_looked_at_object !== null) {
             if (!this.currently_looked_at_object.is_engaged()) {
