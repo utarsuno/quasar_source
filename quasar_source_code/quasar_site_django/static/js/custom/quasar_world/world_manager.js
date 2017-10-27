@@ -80,6 +80,8 @@ WorldManager.prototype = {
     create_sky_boxes: function() {
         var skybox_materials = [this.SKY_BOX_TEXTURE_FRONT, this.SKY_BOX_TEXTURE_BACK, this.SKY_BOX_TEXTURE_TOP, this.SKY_BOX_TEXTURE_BOTTOM, this.SKY_BOX_TEXTURE_RIGHT, this.SKY_BOX_TEXTURE_LEFT]
         this.world_login.add_sky_box(skybox_materials)
+        this.world_home.add_sky_box(skybox_materials)
+        this.world_settings.add_sky_box(skybox_materials)
     },
 
     load_sky_box: function() {
