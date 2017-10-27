@@ -51,6 +51,7 @@ canvas {
 
 #center_position {
     font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
 
     position: absolute;
     width: 20vw;
