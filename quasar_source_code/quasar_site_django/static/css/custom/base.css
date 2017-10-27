@@ -52,11 +52,11 @@ canvas {
 #center_position {
   position: absolute;
   width: 20vw;
-  height: 30vw;
+  height: 30vh;
   z-index: 15;
   top: 50%;
   left: 50%;
-  margin: -100px 0 0 -150px;
+  margin: -10vw 0 0 -15vh;
   background: rgba(1, 1, 1, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.9);
   color: rgba(255, 255, 255, 0.9);
@@ -64,6 +64,7 @@ canvas {
 
 /* Buttons with transparent backgrounds. */
 .see_through_button {
+    color: rgba(255, 255, 255, 0.9);
     width: 80%;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
