@@ -25,19 +25,19 @@ PausedMenu.prototype = {
         this.button_resume.onclick = function() {
             this.make_invisible()
             this.player.pointer_lock_api.try_to_enable()
-        }
+        }.bind(this)
 
         this.button_settings.onclick = function() {
 
-        }
+        }.bind(this)
 
         this.button_help_controls.onclick = function() {
 
-        }
+        }.bind(this)
 
         this.button_log_out.onclick = function() {
             this.player.log_out()
-        }
+        }.bind(this)
     },
 
     provide_player_object: function(player_object) {
