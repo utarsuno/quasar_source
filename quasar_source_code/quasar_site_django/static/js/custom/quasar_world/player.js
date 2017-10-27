@@ -56,7 +56,6 @@ Player.prototype = {
         // Give reference of self to the World Manager.
         WORLD_MANAGER.set_player(this)
     },
-
     log_out: function() {
         console.log('LOG THE PLAYER OUT!')
     },
@@ -76,6 +75,7 @@ Player.prototype = {
     perform_login: function(username, password) {
         this.entity_owner = new Owner(username, password, WORLD_MANAGER.world_home)
         WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)
+        this.logged_in = true
     },
 
     // TODO : consider holding the currently engaged object so that the player can send a disengage/engage message to it.
