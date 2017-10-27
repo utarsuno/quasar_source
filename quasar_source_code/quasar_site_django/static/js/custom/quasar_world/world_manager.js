@@ -126,7 +126,7 @@ WorldManager.prototype = {
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide}), position])
+                this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.75}), position])
                 console.log('loaded texture!')
                 //console.log(variable_to_map_to)
                 this.texture_was_loaded()
