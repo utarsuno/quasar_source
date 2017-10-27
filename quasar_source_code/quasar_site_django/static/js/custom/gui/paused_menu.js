@@ -3,9 +3,6 @@
 // TODO : All the 2d gui work should be abstracted
 // TODO : research the efficiency of updating html text elements
 
-
-var PAUSED_MENU = new PausedMenu()
-
 function PausedMenu() {
     this.__init__()
 }
@@ -46,3 +43,5 @@ PausedMenu.prototype = {
         this.button_log_out.style.visibility = 'hidden'
     }
 }
+
+var PAUSED_MENU = new PausedMenu()
