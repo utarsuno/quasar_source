@@ -8,7 +8,7 @@ var GLOBAL_SKY_BOX_TEXTURE_DOWN  = null
 var GLOBAL_SKY_BOX_TEXTURE_UP    = null
 
 // TODO : Add error checking.
-var SKY_BOX_MATERIALS = {}
+var SKY_BOX_MATERIALS = []
 
 function load_sky_box() {
     var a = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jp2'), side: THREE.DoubleSide})
@@ -259,7 +259,8 @@ function World() {
 
     // Add the skybox here as well.
     //
-    var skybox_geometry = new THREE.CubeGeometry(20, 10000, 10000)
+    //var skybox_geometry = new THREE.CubeGeometry(20, 10000, 10000)
+    var skybox_geometry = new THREE.BoxGeometry(30, 10000, 10000)
     var skybox_cube_material = new THREE.MeshFaceMaterial(SKY_BOX_MATERIALS)
     var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_cube_material)
     this.add_to_scene(skybox_cube)
