@@ -18,6 +18,9 @@ PausedMenu.prototype = {
     button_log_out: null,
 
     __init__: function() {
+
+        this.currently_displayed = false
+
         this.background_coloring  = document.getElementById('background_coloring')
         this.pause_menu           = document.getElementById('pause_menu')
         this.button_resume        = document.getElementById('button_resume')
@@ -48,21 +51,29 @@ PausedMenu.prototype = {
     },
 
     make_visible: function() {
-        this.pause_menu.style.visibility = 'visible'
-        this.button_resume.style.visibility = 'visible'
-        this.button_help_controls.style.visibility = 'visible'
+        this.currently_displayed = true
+
+        this.pause_menu.style.visibility = VISIBLE
+        this.button_resume.style.visibility = VISIBLE
+        this.button_help_controls.style.visibility = VISIBLE
         if (this.player.logged_in) {
-            this.button_settings.style.visibility = 'visible'
-            this.button_log_out.style.visibility = 'visible'
+            this.button_settings.style.visibility = VISIBLE
+            this.button_log_out.style.visibility = VISIBLE
         }
 
         this.background_coloring.id = 'background_coloring'
     },
 
     make_invisible: function() {
-        this.pause_menu.style.visibility = 'hidden'
-
-        this.background_coloring.id = 'no_background_coloring'
+        if (this.currently_displayed) {
+            this.pause_menu.style.visibility = NOT_VISIBLE
+            this.pause_menu.style.visibility = NOT_VISIBLE
+            this.button_resume.style.visibility = NOT_VISIBLE
+            this.button_help_controls.style.visibility = NOT_VISIBLE
+            this.button_settings.style.visibility = NOT_VISIBLE
+            this.button_log_out.style.visibility = NOT_VISIBLE
+            this.background_coloring.id = 'no_background_coloring'
+        }
     }
 }
 

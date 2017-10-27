@@ -104,6 +104,7 @@ PointerLockAPI.prototype = {
         if (this.currently_locked === false) {
             this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
             this.element.requestPointerLock()
+            PAUSED_MENU.make_invisible()
         }
     }
 

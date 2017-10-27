@@ -136,8 +136,8 @@ module.exports = {
         "POST_OWNER_ID": false,
 
         // Javascript constants.
-        "const VISIBLE": false,
-        "const NOT_VISIBLE": false,
+        "VISIBLE": false,
+        "NOT_VISIBLE": false,
 
         // Mouse click events.
         "MOUSE_LEFT_CLICK": false,
