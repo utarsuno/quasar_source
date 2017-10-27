@@ -83,12 +83,12 @@ WorldManager.prototype = {
     },
 
     load_sky_box: function() {
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jp2', this.SKY_BOX_TEXTURE_FRONT)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jpg', this.SKY_BOX_TEXTURE_FRONT)
         this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jpg', this.SKY_BOX_TEXTURE_BACK)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jp2', this.SKY_BOX_TEXTURE_TOP)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jp2', this.SKY_BOX_TEXTURE_BOTTOM)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jp2', this.SKY_BOX_TEXTURE_RIGHT)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jp2', this.SKY_BOX_TEXTURE_LEFT)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jpg', this.SKY_BOX_TEXTURE_TOP)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jpg', this.SKY_BOX_TEXTURE_BOTTOM)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jpg', this.SKY_BOX_TEXTURE_RIGHT)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jpg', this.SKY_BOX_TEXTURE_LEFT)
     },
 
     // TODO : Add error checking.
@@ -109,7 +109,7 @@ WorldManager.prototype = {
             function(xhr) {
                 console.log(xhr)
             }
-        )
+        ).bind(this)
     }
 
 }
