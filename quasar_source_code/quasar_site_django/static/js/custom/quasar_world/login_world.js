@@ -201,6 +201,10 @@ LoginWorld.prototype = {
 
         this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
 
+        // Quasar Source title
+        // TODO :
+        //this.quasar_source_title = new Floating3DText()
+
         this.interactive_objects = [
             this.login_button,
             this.create_account_button,
