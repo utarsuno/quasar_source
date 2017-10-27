@@ -57,6 +57,10 @@ Player.prototype = {
         WORLD_MANAGER.set_player(this)
     },
 
+    log_out: function() {
+        console.log('LOG THE PLAYER OUT!')
+    },
+
     sounds_loaded: function() {
         WORLD_MANAGER.add_to_all_scenes(AUDIO_MANAGER.get_typing_sound())
     },

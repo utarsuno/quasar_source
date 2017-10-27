@@ -94,10 +94,14 @@ PointerLockAPI.prototype = {
             }
             // Double click event.
         } else if (this.key_down_buffer.length == 2) {
-            if (this.currently_locked === false) {
-                this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
-                this.element.requestPointerLock()
-            }
+            this.try_to_enable()
+        }
+    },
+
+    try_to_enable: function() {
+        if (this.currently_locked === false) {
+            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
+            this.element.requestPointerLock()
         }
     }
 

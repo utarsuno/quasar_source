@@ -21,6 +21,23 @@ PausedMenu.prototype = {
         this.button_settings = document.getElementById('button_settings')
         this.button_help_controls = document.getElementById('button_help_controls')
         this.button_log_out = document.getElementById('button_log_out')
+
+        this.button_resume.onclick = function() {
+            this.make_invisible()
+            this.player.pointer_lock_api.try_to_enable()
+        }
+
+        this.button_settings.onclick = function() {
+
+        }
+
+        this.button_help_controls.onclick = function() {
+
+        }
+
+        this.button_log_out.onclick = function() {
+            this.player.log_out()
+        }
     },
 
     provide_player_object: function(player_object) {
@@ -29,10 +46,10 @@ PausedMenu.prototype = {
 
     make_visible: function() {
         this.button_resume.style.visibility = 'visible'
-        this.button_help_controls.style.visibility = 'hidden'
+        this.button_help_controls.style.visibility = 'visible'
         if (this.player.logged_in) {
-            this.button_settings.style.visibility = 'hidden'
-            this.button_log_out.style.visibility = 'hidden'
+            this.button_settings.style.visibility = 'visible'
+            this.button_log_out.style.visibility = 'visible'
         }
     },
 
