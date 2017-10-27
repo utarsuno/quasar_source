@@ -58,11 +58,13 @@ canvas {
   left: 50%;
   margin: -100px 0 0 -150px;
   background: rgba(1, 1, 1, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Buttons with transparent backgrounds. */
-#see_through_button {
-    color: white;
+.see_through_button {
+    width: 80%;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
