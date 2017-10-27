@@ -215,9 +215,16 @@ function World() {
         var skybox_geometry = new THREE.BoxGeometry(60, 60, 60)
         //var skybox_cube_material = new THREE.MeshFaceMaterial(skybox_material)
         var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_material)
-
         skybox_cube.position.set(0, 0, 0)
 
+
+        var skybox_geometry2 = new THREE.BoxGeometry(60, 60, 60)
+        //var skybox_cube_material = new THREE.MeshFaceMaterial(skybox_material)
+        var skybox_cube2 = new THREE.Mesh(skybox_geometry, new THREE.MeshBasicMaterial({color: COLOR_HIGHLIGHT}))
+
+        skybox_cube.position.set(50, 50, 50)
+
         this.add_to_scene(skybox_cube)
+        this.add_to_scene(skybox_cube2)
     }
 }
