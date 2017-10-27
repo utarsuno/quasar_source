@@ -212,7 +212,7 @@ function World() {
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {
         console.log('Adding a skybox!')
-        var skybox_geometry = new THREE.BoxGeometry(10000, 10000, 10000)
+        var skybox_geometry = new THREE.BoxGeometry(12000, 12000, 12000)
         //var skybox_cube_material = new THREE.MeshFaceMaterial(skybox_material)
         console.log('Materials are :')
         console.log(skybox_material)
