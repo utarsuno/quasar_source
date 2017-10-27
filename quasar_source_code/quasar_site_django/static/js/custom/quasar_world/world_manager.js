@@ -25,11 +25,13 @@ WorldManager.prototype = {
     SKY_BOX_TEXTURE_BOTTOM : null,
     SKY_BOX_TEXTURE_TOP    : null,
     number_of_sky_box_textures_loaded: null,
+    sky_box_textures: null,
 
     __init__: function() {
         this.world_login = new LoginWorld()
         this.world_home = new HomeWorld()
 
+        this.sky_box_textures = []
         this.number_of_sky_box_textures_loaded = 0
         this.load_sky_box()
     },
@@ -78,9 +80,9 @@ WorldManager.prototype = {
 
     // Skybox
     create_sky_boxes: function() {
-        var skybox_materials = [this.SKY_BOX_TEXTURE_FRONT, this.SKY_BOX_TEXTURE_BACK, this.SKY_BOX_TEXTURE_TOP, this.SKY_BOX_TEXTURE_BOTTOM, this.SKY_BOX_TEXTURE_RIGHT, this.SKY_BOX_TEXTURE_LEFT]
-        this.world_login.add_sky_box(skybox_materials)
-        this.world_home.add_sky_box(skybox_materials)
+        //var skybox_materials = [this.SKY_BOX_TEXTURE_FRONT, this.SKY_BOX_TEXTURE_BACK, this.SKY_BOX_TEXTURE_TOP, this.SKY_BOX_TEXTURE_BOTTOM, this.SKY_BOX_TEXTURE_RIGHT, this.SKY_BOX_TEXTURE_LEFT]
+        this.world_login.add_sky_box(this.sky_box_textures)
+        this.world_home.add_sky_box(this.sky_box_textures)
         //this.world_settings.add_sky_box(skybox_materials)
     },
 
@@ -103,13 +105,13 @@ WorldManager.prototype = {
 
     // TODO : Add error checking.
     load_specific_texture: function(texture_url, variable_to_map_to) {
-        var t = this.texture_was_loaded
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                variable_to_map_to = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide})
+                //variable_to_map_to = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide})
+                this.sky_box_textures.push(new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide}))
                 console.log('loaded texture!')
-                console.log(variable_to_map_to)
+                //console.log(variable_to_map_to)
                 this.texture_was_loaded()
             }.bind(this),
             function(xhr) {
