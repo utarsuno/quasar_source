@@ -66,6 +66,7 @@ canvas {
 .see_through_button {
     color: rgba(255, 255, 255, 0.9);
     width: 80%;
+    margin: 10% 0 0 10%;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
