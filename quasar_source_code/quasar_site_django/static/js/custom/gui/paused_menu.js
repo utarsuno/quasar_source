@@ -10,6 +10,7 @@ function PausedMenu() {
 PausedMenu.prototype = {
 
     pause_menu: null,
+    background_coloring: null,
 
     button_resume: null,
     button_settings: null,
@@ -17,6 +18,7 @@ PausedMenu.prototype = {
     button_log_out: null,
 
     __init__: function() {
+        this.background_coloring  = document.getElementById('background_coloring')
         this.pause_menu           = document.getElementById('pause_menu')
         this.button_resume        = document.getElementById('button_resume')
         this.button_settings      = document.getElementById('button_settings')
@@ -52,10 +54,14 @@ PausedMenu.prototype = {
             this.button_settings.style.visibility = 'visible'
             this.button_log_out.style.visibility = 'visible'
         }
+
+        this.background_coloring.id = 'background_coloring'
     },
 
     make_invisible: function() {
         this.pause_menu.style.visibility = 'hidden'
+
+        this.background_coloring.id = 'no_background_coloring'
     }
 }
 

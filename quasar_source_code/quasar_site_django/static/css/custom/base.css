@@ -70,6 +70,15 @@ canvas {
     width: 100vw;
     height: 100vh;
     z-index: 14;
+    position: absolute;
+}
+
+#no_background_coloring {
+    background: rgba(1, 1, 1, 0.0);
+    width: 100vw;
+    height: 100vh;
+    z-index: 14;
+    position: absolute;
 }
 
 .center_align {
