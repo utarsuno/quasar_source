@@ -34,7 +34,7 @@ RendererAPI.prototype = {
             this.field_of_view = 70
             this.get_window_properties()
             this.near_clipping = 1.0
-            this.far_clipping  = 5000.0
+            this.far_clipping  = 10000.0
             this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true})
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
