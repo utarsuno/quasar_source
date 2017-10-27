@@ -18,12 +18,6 @@ WorldManager.prototype = {
     world_settings : null,
 
     // Skybox
-    SKY_BOX_TEXTURE_FRONT  : null,
-    SKY_BOX_TEXTURE_BACK   : null,
-    SKY_BOX_TEXTURE_LEFT   : null,
-    SKY_BOX_TEXTURE_RIGHT  : null,
-    SKY_BOX_TEXTURE_BOTTOM : null,
-    SKY_BOX_TEXTURE_TOP    : null,
     number_of_sky_box_textures_loaded: null,
     sky_box_textures: null,
 
@@ -32,6 +26,7 @@ WorldManager.prototype = {
         this.world_home = new HomeWorld()
 
         this.sky_box_textures = []
+        this.final_textures = []
         this.number_of_sky_box_textures_loaded = 0
         this.load_sky_box()
     },
@@ -80,19 +75,27 @@ WorldManager.prototype = {
 
     // Skybox
     create_sky_boxes: function() {
-        //var skybox_materials = [this.SKY_BOX_TEXTURE_FRONT, this.SKY_BOX_TEXTURE_BACK, this.SKY_BOX_TEXTURE_TOP, this.SKY_BOX_TEXTURE_BOTTOM, this.SKY_BOX_TEXTURE_RIGHT, this.SKY_BOX_TEXTURE_LEFT]
-        this.world_login.add_sky_box(this.sky_box_textures)
-        this.world_home.add_sky_box(this.sky_box_textures)
+        for (var i = 0; i < 6; i++) {
+            this.final_textures.push(null)
+            for (var j = 0; j < 6; j++) {
+                if (this.sky_box_textures[j][1] === i) {
+                    this.final_textures[i] = this.sky_box_textures[j][0]
+                }
+            }
+        }
+
+        this.world_login.add_sky_box(this.final_textures)
+        this.world_home.add_sky_box(this.final_textures)
         //this.world_settings.add_sky_box(skybox_materials)
     },
 
     load_sky_box: function() {
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jpg', this.SKY_BOX_TEXTURE_FRONT)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jpg', this.SKY_BOX_TEXTURE_BACK)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jpg', this.SKY_BOX_TEXTURE_TOP)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jpg', this.SKY_BOX_TEXTURE_BOTTOM)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jpg', this.SKY_BOX_TEXTURE_RIGHT)
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jpg', this.SKY_BOX_TEXTURE_LEFT)
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jpg')
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jpg')
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jpg')
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jpg')
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jpg')
+        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jpg')
     },
 
     texture_was_loaded: function() {
@@ -104,12 +107,26 @@ WorldManager.prototype = {
     },
 
     // TODO : Add error checking.
-    load_specific_texture: function(texture_url, variable_to_map_to) {
+    load_specific_texture: function(texture_url) {
+        var position = -1
+        if (texture_url.includes('front')) {
+            position = 0
+        } else if (texture_url.includes('back')) {
+            position = 1
+        } else if (texture_url.includes('top')) {
+            position = 2
+        } else if (texture_url.includes('bottom')) {
+            position = 3
+        } else if (texture_url.includes('right')) {
+            position = 4
+        } else if (texture_url.includes('left')) {
+            position = 5
+        }
+
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                //variable_to_map_to = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide})
-                this.sky_box_textures.push(new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide}))
+                this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide}), position])
                 console.log('loaded texture!')
                 //console.log(variable_to_map_to)
                 this.texture_was_loaded()
