@@ -100,6 +100,7 @@ WorldManager.prototype = {
             function(texture) {
                 v = new THREE.MeshBasicMaterial({map: texture})
                 n += 1
+                console.log('loaded texture!')
                 if (n == 6) {
                     this.create_sky_boxes()
                 }
