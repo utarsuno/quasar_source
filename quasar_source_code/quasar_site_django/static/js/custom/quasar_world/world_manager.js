@@ -103,14 +103,13 @@ WorldManager.prototype = {
 
     // TODO : Add error checking.
     load_specific_texture: function(texture_url, variable_to_map_to) {
-        var v = variable_to_map_to
         var t = this.texture_was_loaded
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                v = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide})
+                variable_to_map_to = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide})
                 console.log('loaded texture!')
-                console.log(v)
+                console.log(variable_to_map_to)
                 this.texture_was_loaded()
             }.bind(this),
             function(xhr) {
