@@ -20,7 +20,7 @@ DataDisplay.prototype = {
     __init__: function(fps_controls) {
         this.fps_controls = fps_controls
 
-        this.enabled = false
+        this.enabled = true
 
         // DOM elements.
         this.x_coordinate = document.getElementById('x_coordinate')

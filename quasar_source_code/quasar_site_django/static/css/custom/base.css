@@ -66,11 +66,17 @@ canvas {
 }
 
 .center_align {
+    font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
+
     text-align: center;
 }
 
 /* Buttons with transparent backgrounds. */
 .see_through_button {
+    font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
+
 
     text-align: center;
 

@@ -14,6 +14,10 @@ var player = new Player(renderer_api)
 WORLD_MANAGER.set_player(player)
 WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
 
+PAUSED_MENU.provide_player_object(player)
+// On start up we will display the paused menu.
+PAUSED_MENU.make_visible()
+
 // Now create the global audio.
 AUDIO_MANAGER = new AudioManager(player)
 
