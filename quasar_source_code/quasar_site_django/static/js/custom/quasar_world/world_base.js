@@ -8,19 +8,18 @@ var GLOBAL_SKY_BOX_TEXTURE_DOWN  = null
 var GLOBAL_SKY_BOX_TEXTURE_UP    = null
 
 // TODO : Add error checking.
-var SKY_BOX_MATERIALS = {
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.png'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.png'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_up.png'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_down.png'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.png'), side: THREE.DoubleSide}),
-    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.png'), side: THREE.DoubleSide})
-}
+var SKY_BOX_MATERIALS = {}
 
 function load_sky_box() {
-
+    var a = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jp2'), side: THREE.DoubleSide})
+    var b = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jp2'), side: THREE.DoubleSide})
+    var c = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_up.jp2'), side: THREE.DoubleSide})
+    var d = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_down.jp2'), side: THREE.DoubleSide})
+    var e = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jp2'), side: THREE.DoubleSide})
+    var f = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jp2'), side: THREE.DoubleSide})
+    return [a, b, c, d, e, f]
 }
-load_sky_box()
+SKY_BOX_MATERIALS = load_sky_box()
 
 /*
         this.loader = new THREE.AudioLoader()
