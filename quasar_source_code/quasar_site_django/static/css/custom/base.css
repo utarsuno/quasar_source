@@ -50,13 +50,19 @@ canvas {
 }
 
 #center_position {
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-    position: static;
+  position: absolute;
+  width: 20vw;
+  height: 30vw;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+  background: rgba(1, 1, 1, 0.5);
 }
 
 /* Buttons with transparent backgrounds. */
 #see_through_button {
+    color: white;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
