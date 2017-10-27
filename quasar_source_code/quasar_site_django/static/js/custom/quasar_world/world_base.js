@@ -1,53 +1,5 @@
 'use strict'
 
-var GLOBAL_SKY_BOX_TEXTURE_FRONT = null
-var GLOBAL_SKY_BOX_TEXTURE_BACK  = null
-var GLOBAL_SKY_BOX_TEXTURE_LEFT  = null
-var GLOBAL_SKY_BOX_TEXTURE_RIGHT = null
-var GLOBAL_SKY_BOX_TEXTURE_DOWN  = null
-var GLOBAL_SKY_BOX_TEXTURE_UP    = null
-
-// TODO : Add error checking.
-var SKY_BOX_MATERIALS = []
-
-function load_sky_box() {
-    var a = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jp2'), side: THREE.DoubleSide})
-    var b = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jp2'), side: THREE.DoubleSide})
-    var c = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jp2'), side: THREE.DoubleSide})
-    var d = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jp2'), side: THREE.DoubleSide})
-    var e = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jp2'), side: THREE.DoubleSide})
-    var f = new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jp2'), side: THREE.DoubleSide})
-    return [a, b, c, d, e, f]
-}
-SKY_BOX_MATERIALS = load_sky_box()
-
-/*
-        this.loader = new THREE.AudioLoader()
-        this.loader.load(
-
-            // resource URL
-            '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/audio/typing_sound.wav',
-            // Function when resource is loaded
-            function (audio_buffer) {
-                this.typing_sound.setBuffer(audio_buffer)
-                this.typing_sound.setVolume(0.33)
-                this.typing_sound_loaded = true
-                this.notify_player()
-            }.bind(this),
-
-            // Function called when download progresses
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded for audio file.')
-            },
-            // Function called when download errors
-            function (xhr) {
-                console.log('An error happened trying to load the audio file.')
-            }
-
-        )
-
- */
-
 function World() {
 
     this.player                     = null
@@ -258,10 +210,10 @@ function World() {
 
 
     // Add the skybox here as well.
-    //
-    //var skybox_geometry = new THREE.CubeGeometry(20, 10000, 10000)
-    var skybox_geometry = new THREE.BoxGeometry(30, 30, 30)
-    var skybox_cube_material = new THREE.MeshFaceMaterial(SKY_BOX_MATERIALS)
-    var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_cube_material)
-    this.add_to_scene(skybox_cube)
+    this.add_sky_box = function(skybox_material) {
+        var skybox_geometry = new THREE.BoxGeometry(60, 60, 60)
+        var skybox_cube_material = new THREE.MeshFaceMaterial(skybox_material)
+        var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_cube_material)
+        this.add_to_scene(skybox_cube)
+    }
 }
