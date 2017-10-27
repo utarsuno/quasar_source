@@ -109,7 +109,7 @@ WorldManager.prototype = {
             function(xhr) {
                 console.log(xhr)
             }
-        ).bind(this)
-    }
+        )
+    }.bind(this)
 
 }
