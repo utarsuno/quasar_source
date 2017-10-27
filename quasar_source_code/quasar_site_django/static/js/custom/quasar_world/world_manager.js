@@ -108,8 +108,9 @@ WorldManager.prototype = {
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                v = new THREE.MeshBasicMaterial({map: texture, wireframe: true})
-                console.log('loaded texture!')
+                v = new THREE.MeshBasicMaterial({map: texture})
+                console.log('loaded texture!'
+                console.log(v)
                 this.texture_was_loaded()
             }.bind(this),
             function(xhr) {
