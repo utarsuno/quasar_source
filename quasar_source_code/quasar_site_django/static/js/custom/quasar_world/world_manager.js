@@ -114,9 +114,9 @@ WorldManager.prototype = {
         } else if (texture_url.includes('back')) {
             position = 1
         } else if (texture_url.includes('top')) {
-            position = 3
-        } else if (texture_url.includes('bottom')) {
             position = 2
+        } else if (texture_url.includes('bottom')) {
+            position = 3
         } else if (texture_url.includes('right')) {
             position = 4
         } else if (texture_url.includes('left')) {
