@@ -93,6 +93,7 @@ WorldManager.prototype = {
 
     texture_was_loaded: function() {
         this.number_of_sky_box_textures_loaded += 1
+        console.log(this.number_of_sky_box_textures_loaded)
         if (this.number_of_sky_box_textures_loaded == 6) {
             this.create_sky_boxes()
         }
