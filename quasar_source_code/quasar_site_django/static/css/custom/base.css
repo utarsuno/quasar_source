@@ -49,7 +49,7 @@ canvas {
     height: 50px;
 }
 
-#center_position {
+.center_position {
     font-smooth: always;
     -webkit-font-smoothing: subpixel-antialiased;
 
