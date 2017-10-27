@@ -260,7 +260,7 @@ function World() {
     // Add the skybox here as well.
     //
     //var skybox_geometry = new THREE.CubeGeometry(20, 10000, 10000)
-    var skybox_geometry = new THREE.BoxGeometry(30, 10000, 10000)
+    var skybox_geometry = new THREE.BoxGeometry(30, 30, 30)
     var skybox_cube_material = new THREE.MeshFaceMaterial(SKY_BOX_MATERIALS)
     var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_cube_material)
     this.add_to_scene(skybox_cube)
