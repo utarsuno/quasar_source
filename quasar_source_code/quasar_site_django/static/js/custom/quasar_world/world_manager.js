@@ -93,16 +93,23 @@ WorldManager.prototype = {
 
     // TODO : Add error checking.
     load_specific_texture: function(texture_url, variable_to_map_to) {
+        var v = variable_to_map_to
         var ta = new THREE.TextureLoader().load(texture_url,
         //function when resource is loaded
             function(texture) {
-                variable_to_map_to = new THREE.MeshBasicMaterial({map: texture})
+                v = new THREE.MeshBasicMaterial({map: texture})
                 this.number_of_sky_box_textures_loaded += 1
                 if (this.number_of_sky_box_textures_loaded == 6) {
                     this.create_sky_boxes()
                 }
+            },
+            function(xhr) {
+                console.log(xhr)
+            },
+            function(xhr) {
+                console.log(xhr)
             }
         )
-    },
+    }
 
 }
