@@ -56,6 +56,8 @@ PointerLockAPI.prototype = {
                 currently_looked_at_object.is_engaged()
                 currently_looked_at_object.disengage()
             }
+
+            PAUSED_MENU.make_visible()
         }
     },
 
