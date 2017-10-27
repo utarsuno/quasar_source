@@ -48,6 +48,7 @@ PausedMenu.prototype = {
     },
 
     make_visible: function() {
+        this.pause_menu.style.visibility = 'visible'
         this.button_resume.style.visibility = 'visible'
         this.button_help_controls.style.visibility = 'visible'
         if (this.player.logged_in) {

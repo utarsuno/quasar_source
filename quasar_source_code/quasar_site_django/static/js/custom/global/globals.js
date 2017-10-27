@@ -132,6 +132,10 @@ const KEY_CODE_ENTER      = 13
 const KEY_CODE_CONTROL    = 17
 const KEY_CODE_BACK_SLASH = 220
 
+// Javascript constants.
+const VISIBLE = 'visible'
+const NOT_VISIBLE = 'hidden'
+
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
