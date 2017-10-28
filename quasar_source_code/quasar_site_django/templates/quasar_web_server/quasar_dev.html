@@ -12,7 +12,6 @@
 {% endblock %}
 
 {% block body %}
-<h1>Page is Loading...</h1>
 <div id="data_display">
     <p id="x_coordinate"></p>
     <p id="y_coordinate"></p>
@@ -28,8 +27,8 @@
 
 <div id="pause_menu" class="center_position">
     <br>
-    <h1 class="center_align">Paused!</h1>
-    <h5 class="center_align">double click anywhere to resume</h5>
+    <h1 class="center_align" id="menu_title">Paused!</h1>
+    <h5 class="center_align" id="menu_header">double click anywhere to resume</h5>
     <button class="see_through_button" id="button_resume">Resume</button>
     <button class="see_through_button" id="button_settings">Settings</button>
     <button class="see_through_button" id="button_help_controls">Help / Controls</button>

@@ -136,6 +136,9 @@ module.exports = {
         "POST_MANAGER_ID": false,
         "POST_OWNER_ID": false,
 
+        // 3rd party hix grid reference.
+        "vg": false,
+
         // Javascript constants.
         "VISIBLE": false,
         "NOT_VISIBLE": false,

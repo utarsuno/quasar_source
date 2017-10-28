@@ -180,14 +180,19 @@ function World() {
     }
 
     // World defaults.
+    var grid = new vg.HexGrid()
+    grid.generate({size: 4})
+    var board = new vg.Board(grid)
+    board.generateTilemap()
+    this.add_to_scene(board.group)
+
 
     // Create the lighting and default ground.
     var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
     plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
-    //var plane_material = new THREE.MeshBasicMaterial({color: 0x0000ff})
     var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
     var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
-    this.add_to_scene(plane_mesh)
+    //this.add_to_scene(plane_mesh)
 
     var light3 = new THREE.PointLight(0xccffcc, .8, 0)
     light3.position.set(5, 100, 5)
