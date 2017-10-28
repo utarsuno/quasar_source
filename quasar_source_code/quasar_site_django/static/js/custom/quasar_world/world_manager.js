@@ -9,8 +9,12 @@ function Planet(planet_position) {
 }
 
 Planet.prototype = {
+    geometry: null,
+    material: null,
+    mesh    : null,
+
     __init__: function(planet_position) {
-        this.geometry = new THREE.DodecahedronGeometry(20, 2)
+        this.geometry = new THREE.DodecahedronGeometry(200, 2)
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
             side: THREE.DoubleSide
@@ -51,6 +55,10 @@ WorldManager.prototype = {
         this.planet_settings = new Planet(new THREE.Vector3(50, 50, 50))
         this.planet_home = new Planet(new THREE.Vector3(80, 80, 80))
         this.planet_login = new Planet(new THREE.Vector3(20, 20, 20))
+
+        this.world_settings.add_to_scene(this.planet_settings.mesh)
+        this.planet_login.add_to_scene(this.planet_login.mesh)
+        this.planet_login.add_to_scene(this.planet_home.mesh)
 
         this.world_home.add_to_scene(this.planet_settings.mesh)
         this.world_home.add_to_scene(this.planet_login.mesh)
