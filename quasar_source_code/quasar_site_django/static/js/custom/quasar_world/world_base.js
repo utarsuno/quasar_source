@@ -180,7 +180,7 @@ function World() {
     }
 
     // World defaults.
-    var grid = new vg.HexGrid()
+    var grid = new vg.HexGrid({cellSize: 100})
     grid.generate({size: 4})
     var board = new vg.Board(grid)
     board.generateTilemap({cellSize: 100})
