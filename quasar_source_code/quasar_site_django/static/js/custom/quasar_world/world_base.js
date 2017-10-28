@@ -181,9 +181,9 @@ function World() {
 
     // World defaults.
     var grid = new vg.HexGrid({cellSize: 100})
-    grid.generate({size: 4})
+    grid.generate({size: 40})
     var board = new vg.Board(grid)
-    board.generateTilemap({cellSize: 100})
+    board.generateTilemap({cellSize: 100, tileScale: 0.99})
     this.add_to_scene(board.group)
 
 
