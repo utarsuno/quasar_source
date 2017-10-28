@@ -10,10 +10,10 @@ StatsAPI.prototype = {
     enabled: null,
 
     __init__: function() {
-        this.enabled = false
+        this.enabled = true
 
         // Create the 3rd party library objects.
-        this.stats_fps            = new Stats()
+        this.stats_fps = new Stats()
 
         // Set the display mode.
         this.stats_fps.showPanel(0)

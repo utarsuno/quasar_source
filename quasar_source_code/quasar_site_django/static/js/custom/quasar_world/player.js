@@ -56,12 +56,12 @@ Player.prototype = {
         // Give reference of self to the World Manager.
         WORLD_MANAGER.set_player(this)
     },
-    log_out: function() {
-        console.log('LOG THE PLAYER OUT!')
-    },
 
-    sounds_loaded: function() {
-        WORLD_MANAGER.add_to_all_scenes(AUDIO_MANAGER.get_typing_sound())
+    log_out: function() {
+        this.entity_owner = null
+        WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
+        this.logged_in = false
+        // TODO : Notify the server that the player has logged out?
     },
 
     get_username: function() {

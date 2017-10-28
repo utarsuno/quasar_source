@@ -1,6 +1,9 @@
 'use strict'
 
-function World() {
+function World(planet_name) {
+
+    this.planet_position            = null
+    this.planet_name                = planet_name
 
     this.player                     = null
     this.currently_looked_at_object = null
@@ -181,7 +184,7 @@ function World() {
 
     // World defaults.
     var grid = new vg.HexGrid({cellSize: 100})
-    grid.generate({size: 40})
+    grid.generate({size: 10})
     var board = new vg.Board(grid)
     board.generateTilemap({cellSize: 100, tileScale: 0.99})
     this.add_to_scene(board.group)
@@ -198,12 +201,12 @@ function World() {
     light3.position.set(5, 100, 5)
     this.add_to_scene(light3)
 
-    var color1 = '#b9ffd2'
-    var color2 = '#090920'
-    var light2 = new THREE.HemisphereLight(color1, color2, .5)
-    this.add_to_scene(light2)
+    //var color1 = '#b9ffd2'
+    //var color2 = '#090920'
+    //var light2 = new THREE.HemisphereLight(color1, color2, .5)
+    //this.add_to_scene(light2)
 
-    var light = new THREE.AmbientLight(0x404040, .2) // soft white light
+    var light = new THREE.AmbientLight(0xffffff, .2) // soft white light
     this.add_to_scene(light)
 
     // cursor
@@ -216,14 +219,9 @@ function World() {
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {
-        console.log('Adding a skybox!')
         var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000)
-        //var skybox_cube_material = new THREE.MeshFaceMaterial(skybox_material)
-        console.log('Materials are :')
-        console.log(skybox_material)
         var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_material)
         skybox_cube.position.set(0, 0, 0)
-
         this.add_to_scene(skybox_cube)
     }
 }

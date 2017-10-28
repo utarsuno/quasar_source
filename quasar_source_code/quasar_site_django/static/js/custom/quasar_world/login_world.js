@@ -138,7 +138,7 @@ LoginWorld.prototype = {
         this.post_login = new PostHelper('/login')
 
         // Inherit from World.
-        World.call(this)
+        World.call(this, 'LoginWorld')
 
         // AJAX status.
         this.ajax_status = new Floating2DText(450, '', TYPE_TITLE, this.scene)

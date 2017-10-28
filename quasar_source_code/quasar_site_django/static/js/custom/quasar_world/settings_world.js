@@ -8,27 +8,10 @@ SettingsWorld.prototype = {
 
     __init__: function() {
 
-        /*
-        var entity_wall = new EntityWall(position, this)
-        entity_wall.update_title(wall_text)
-        entity_wall.set_entity(entity)
-
-        if (entity !== null && entity !== undefined) {
-            for (var ce = 0; ce < entity.children.length; ce++) {
-                entity_wall.add_entity(entity.children[ce])
-            }
-        }
-
-        this.entity_walls.push(entity_wall)
-        var interactives = entity_wall.get_all_interactive_objects()
-        var number_of_interactives = interactives.length
-        for (var i = 0; i < number_of_interactives; i++) {
-            this.interactive_objects.push(interactives[i])
-        }
-        */
+        //this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world)
 
         // Inherit world properties.
-        World.call(this)
+        World.call(this, 'SettingsWorld')
     },
 
     update: function() {

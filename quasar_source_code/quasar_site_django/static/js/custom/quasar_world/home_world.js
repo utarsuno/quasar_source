@@ -14,7 +14,7 @@ HomeWorld.prototype = {
 
     __init__: function() {
 
-        World.call(this)
+        World.call(this, 'HomeWorld')
 
         this.loaded_entities = false
 

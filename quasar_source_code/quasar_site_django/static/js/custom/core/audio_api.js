@@ -37,7 +37,10 @@ AudioManager.prototype = {
                 this.typing_sound.setBuffer(audio_buffer)
                 this.typing_sound.setVolume(0.33)
                 this.typing_sound_loaded = true
-                this.notify_player()
+
+
+                WORLD_MANAGER.add_to_all_scenes(AUDIO_MANAGER.get_typing_sound())
+
             }.bind(this),
 
             // Function called when download progresses
@@ -63,12 +66,6 @@ AudioManager.prototype = {
             }
             this.typing_sound.play()
         }
-    },
-
-    // TODO : FUNCTIONS - get_hover_over_sound and play_hover_over_sound
-
-    notify_player: function() {
-        this.player.sounds_loaded()
     }
 
 }

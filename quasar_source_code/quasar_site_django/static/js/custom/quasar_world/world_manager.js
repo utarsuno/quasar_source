@@ -4,6 +4,22 @@ function WorldManager() {
     this.__init__()
 }
 
+function Planet(planet_position) {
+    this.__init__(planet_position)
+}
+
+Planet.prototype = {
+    __init__: function(planet_position) {
+        this.geometry = new THREE.DodecahedronGeometry(20, 2)
+        this.material = new THREE.MeshBasicMaterial({
+            color: '#8effcb', // '0x8effcb'
+            side: THREE.FrontSide
+        })
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh.position.set(planet_position)
+    }
+}
+
 WorldManager.prototype = {
 
     player         : null,
@@ -24,11 +40,21 @@ WorldManager.prototype = {
     __init__: function() {
         this.world_login = new LoginWorld()
         this.world_home = new HomeWorld()
+        this.world_settings = new SettingsWorld()
 
         this.sky_box_textures = []
         this.final_textures = []
         this.number_of_sky_box_textures_loaded = 0
         this.load_sky_box()
+
+
+        this.planet_settings = new Planet(new THREE.Vector3(1000, 1000, 1000))
+        this.planet_home = new Planet(new THREE.Vector3(-1000, 1000, -1000))
+        this.planet_login = new Planet(new THREE.Vector3(1000, 1000, -1000))
+
+        this.world_home.add_to_scene(this.planet_settings.mesh)
+
+        this.world_settings.add_to_scene(this.planet_home.mesh)
     },
 
     set_player: function(player) {
@@ -100,7 +126,6 @@ WorldManager.prototype = {
 
     texture_was_loaded: function() {
         this.number_of_sky_box_textures_loaded += 1
-        console.log(this.number_of_sky_box_textures_loaded)
         if (this.number_of_sky_box_textures_loaded == 6) {
             this.create_sky_boxes()
         }
@@ -123,19 +148,19 @@ WorldManager.prototype = {
             position = 5
         }
 
-        var ta = new THREE.TextureLoader().load(texture_url,
-        //function when resource is loaded
+        new THREE.TextureLoader().load(texture_url,
+            //function when resource is loaded
             function(texture) {
                 this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45}), position])
-                console.log('loaded texture!')
+                l('loaded texture!')
                 //console.log(variable_to_map_to)
                 this.texture_was_loaded()
             }.bind(this),
             function(xhr) {
-                console.log(xhr)
+                l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.')
             },
             function(xhr) {
-                console.log(xhr)
+                l(xhr)
             }
         )
     }
