@@ -208,7 +208,6 @@ class EntityServer(object):
 
 		return SERVER_REPLY_GENERIC_NO
 
-
 	# TODO : Delete this method.
 	def get_entities_for_day(self, day, username):
 		"""Gets the entities for the day provided."""

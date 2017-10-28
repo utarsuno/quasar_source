@@ -73,9 +73,24 @@ class Entity(object):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
 		self._information[key] = value
 
+	def remove_parent(self, parent_entity):
+		"""Removes the provided parent entity from this entity."""
+		if self in parent_entity.children:
+			parent_entity.remove_child(self)
+		if parent_entity in self.parents:
+			self._parent_entities.remove(parent_entity)
+
+	def remove_child(self, child_entity):
+		"""Removes the provided child entity from this entity."""
+		if self in child_entity.parents:
+			child_entity.remove_parent(self)
+		if child_entity in self.children:
+			self._child_entities.remove(child_entity)
+
 	def remove_children(self, obj) -> None:
 		"""Removes n child entities from this entity."""
 		# TODO : ...
+		print('WHY IS THIS FUNCTION BEING CALLED?')
 		y = 2
 
 	def add_children(self, obj) -> None:

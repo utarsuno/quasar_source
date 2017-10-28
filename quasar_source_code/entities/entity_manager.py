@@ -14,19 +14,28 @@ class EntityManager(object):
 		self._owner_id            = owner_id
 		self._manager_id          = manager_id
 
+	def delete_all_children_of_entity_that_do_not_have_other_parents(self, entity):
+		"""Does what the function name states c:."""
+		for c in entity.children:
+			# Remove this child's reference of this entity as a parent. This will automatically remove the entity provided child links as well.
+			c.remove_parent(self)
+
+			# TODO : Eventually check for external references as well.
+			# If the child entity has no more parents then remove it.
+			if len(c.parents) == 0:
+				self.remove_entity(c)
+
 	def remove_entity(self, entity):
 		"""Removes the entity provided."""
-		# Make sure to remove parent/child references as needed.
-		# TODO :
+		if entity in self.entities:
+			self.delete_all_children_of_entity_that_do_not_have_other_parents(entity)
+			self.entities.remove(entity)
 
-		self.entities.remove(entity)
-
-
-	def remove_entity_by_id(self, entity):
+	def remove_entity_by_id(self, entity_id):
 		"""Removes the entity provided."""
 		# Make sure to remove parent.child references as needed.
 		# TODO :
-
+		print('IS THIS BEING CALLED FROM SOMEWHERE?')
 		y = 2
 
 	@property
