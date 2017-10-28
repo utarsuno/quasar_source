@@ -13,7 +13,7 @@ Planet.prototype = {
         this.geometry = new THREE.DodecahedronGeometry(20, 2)
         this.material = new THREE.MeshBasicMaterial({
             color: '#8effcb', // '0x8effcb'
-            side: THREE.FrontSide
+            side: THREE.BackSide
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(planet_position)
