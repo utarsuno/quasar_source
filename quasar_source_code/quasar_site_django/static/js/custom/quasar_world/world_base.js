@@ -183,7 +183,7 @@ function World() {
     var grid = new vg.HexGrid()
     grid.generate({size: 4})
     var board = new vg.Board(grid)
-    board.generateTilemap()
+    board.generateTilemap({tileScale: 5})
     this.add_to_scene(board.group)
 
 
