@@ -34,7 +34,7 @@ PausedMenu.prototype = {
         }.bind(this)
 
         this.button_settings.onclick = function() {
-
+            WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_settings)
         }.bind(this)
 
         this.button_help_controls.onclick = function() {

@@ -16,10 +16,16 @@ Planet.prototype = {
     __init__: function(world, x, y, z) {
         this.world = world
 
+        // Inherit from interactive.
+        Interactive.call()
+
         this.planet_title = new Floating3DText(400, world.planet_name, TYPE_TITLE)
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2)
+
+        this.planet_color = 0x8effcb
+
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
             // TODO : Figure out if I should use front side or back side.
@@ -27,12 +33,36 @@ Planet.prototype = {
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
+
         this.world.add_to_scene(this.mesh)
+        this.world.add_interactive_object(this.mesh)
     },
 
     add_this_planet_to_world: function(world) {
         world.add_to_scene(this.mesh)
         world.add_to_scene(this.planet_title.object3D)
+    },
+
+    /* __  ___      ___  ___     __                  __   ___  __
+      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    state_change_look_at: function(being_looked_at) {
+        if (being_looked_at) {
+            this.mesh.color.setHex(COLOR_HIGHLIGHT)
+            this.planet_title.update_just_color(COLOR_HIGHLIGHT)
+        } else {
+            this.mesh.color.setHex(COLOR_TEXT_BUTTON)
+            this.planet_title.update_just_color(COLOR_TEXT_BUTTON)
+        }
+    },
+
+    state_change_engage: function(being_engaged_with) {
+        if (being_engaged_with) {
+            l('TODO : Enter the needed world here.')
+            this.being_engaged_with = false
+        } else {
+            WORLD_MANAGER.player.disengage()
+        }
     }
 }
 
