@@ -120,6 +120,7 @@ SettingsWorld.prototype = {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
                 var current_cell_phone_carrier = this.phone_carrier_list.add_floating_2d_text(512 / 2, CELL_PHONE_CARRIERS_AS_LIST[current_row_index - 4], TYPE_BUTTON, 0, 4, current_row_index, 0)
                 current_row_index += 1
+                this.interactive_objects.push(current_cell_phone_carrier)
             }
         }
 
@@ -142,8 +143,8 @@ SettingsWorld.prototype = {
         this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
 
 
-        this.interactive_objects.push(pc0)
-        this.interactive_objects.push(pc1)
+        //this.interactive_objects.push(pc0)
+        //this.interactive_objects.push(pc1)
 
 
         this.interactive_objects.push(this.profile_name_label)
