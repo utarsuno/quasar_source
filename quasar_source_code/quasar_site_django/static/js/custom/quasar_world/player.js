@@ -59,7 +59,12 @@ Player.prototype = {
 
     log_out: function() {
         l('LOG OUT HERE!!!!')
+
         ENTITY_MANAGER.clear_all()
+
+        // TODO : Create generic functionality for worlds to handle when a player has logged out.
+        WORLD_MANAGER.world_home.loaded_entities = false
+
         this.owner = null
         WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
         this.logged_in = false

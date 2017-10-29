@@ -46,7 +46,7 @@ SettingsWorld.prototype = {
         this.profile_phone_number_label.set_default_color(COLOR_TEXT_CONSTANT)
         this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
 
-        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_INPUT_REGULAR, label_offset, 2, 6, 0)
+        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_INPUT_REGULAR, label_offset, 2, 6, 0)
         this.profile_phone_carrier_label.engable = false
         this.profile_phone_carrier_label.set_default_color(COLOR_TEXT_CONSTANT)
         this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
@@ -91,7 +91,8 @@ SettingsWorld.prototype = {
             this.player.enable_controls()
         }
 
-        this.player.set_position(new THREE.Vector3(0, 10, 0))
+        this.player.set_position(new THREE.Vector3(-1000, 350, 350))
+        this.player.look_at(new THREE.Vector3(0.992, 0.044, -0.122))
 
         this.previous_world = WORLD_MANAGER.previous_world
 
@@ -103,7 +104,7 @@ SettingsWorld.prototype = {
             this.owner_entity = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
         }
 
-        this.profile_name_input.update_text(this.player.owner.name)
+        this.profile_name_input.update_text(this.player.owner.username)
         this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'))
         this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'))
         this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'))
