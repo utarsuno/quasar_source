@@ -16,11 +16,6 @@ Planet.prototype = {
     __init__: function(world, x, y, z) {
         this.world = world
 
-        // Inherit from visibility.
-        Visibility.call(this)
-        // Inherit from interactive.
-        Interactive.call(this)
-
         this.planet_title = new Floating3DText(400, world.planet_name, TYPE_TITLE)
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
 
@@ -36,8 +31,16 @@ Planet.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
 
-        this.world.add_to_scene(this.mesh)
-        this.world.add_interactive_object(this.mesh)
+        this.object3D = new THREE.Object3D()
+        this.object3D.add(this.mesh)
+
+        // Inherit from Interactive.
+        Interactive.call(this)
+        // Inherit from Visibility.
+        Visibility.call(this)
+
+        this.world.add_to_scene(this.object3D)
+        this.world.add_interactive_object(this.object3D)
     },
 
     add_this_planet_to_world: function(world) {
