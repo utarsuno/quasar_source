@@ -52,10 +52,10 @@ Planet.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
-            this.mesh.material.setHex(COLOR_HIGHLIGHT)
+            this.mesh.material.color.setHex(COLOR_HIGHLIGHT)
             this.planet_title.update_just_color(COLOR_HIGHLIGHT)
         } else {
-            this.mesh.material.setHex(COLOR_TEXT_BUTTON)
+            this.mesh.material.color.setHex(COLOR_TEXT_BUTTON)
             this.planet_title.update_just_color(COLOR_TEXT_BUTTON)
         }
     },
