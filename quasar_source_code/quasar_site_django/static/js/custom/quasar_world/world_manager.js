@@ -14,6 +14,7 @@ Planet.prototype = {
     mesh    : null,
 
     __init__: function(world, x, y, z) {
+        this.world = world
 
         this.planet_title = new Floating3DText(400, world.planet_name, TYPE_TITLE)
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
