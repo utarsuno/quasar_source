@@ -215,7 +215,7 @@ LoginWorld.prototype = {
 
 
         var sphereGeom = new THREE.SphereGeometry(200, 25, 25)
-        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2})
+        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.75})
         this.cursor2 = new THREE.Mesh(sphereGeom, blueMaterial)
         this.cursor2.position.set(new THREE.Vector3(500, 500, 500))
         this.add_to_scene(this.cursor2)
