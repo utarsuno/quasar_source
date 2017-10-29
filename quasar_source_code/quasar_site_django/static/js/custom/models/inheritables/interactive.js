@@ -5,6 +5,7 @@ function Interactive() {
     // Settings.
     this.needs_engage_for_parsing_input = true
     this.maintain_engage_when_tabbed_to = true
+    this.engable                        = true
 
     // Function events.
     this.engage_function    = null
@@ -36,10 +37,12 @@ function Interactive() {
     }
 
     this.disengage = function() {
-        this.being_engaged_with = false
-        this.state_change_engage(false)
-        if (this.disengage_function !== null) {
-            this.disengage_function()
+        if (this.engable) {
+            this.being_engaged_with = false
+            this.state_change_engage(false)
+            if (this.disengage_function !== null) {
+                this.disengage_function()
+            }
         }
     }
 
@@ -48,10 +51,12 @@ function Interactive() {
     }
 
     this.engage = function() {
-        this.being_engaged_with = true
-        this.state_change_engage(true)
-        if (this.engage_function !== null) {
-            this.engage_function()
+        if (this.engable) {
+            this.being_engaged_with = true
+            this.state_change_engage(true)
+            if (this.engage_function !== null) {
+                this.engage_function()
+            }
         }
     }
 

@@ -41,6 +41,7 @@ class EntityDatabaseAPI(object):
 		self._owners.add_table_field(db_t.TableFieldString('email', 100))
 		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=True))
 		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=True))
+		#self._owners.add_table_field(db_t.TableFieldString('phone_number', maximum_length=15, default=None))
 
 		# Table containing entity_managers which contain entities.
 		self._entity_managers = db_t.DatabaseTable('entity_managers', self._api)
@@ -100,6 +101,16 @@ class EntityDatabaseAPI(object):
 
 		# Create the manager here.
 		manager = EntityManager(manager_id=owner[INDEX_OWNER_MANAGER_ID], owner_id=owner[INDEX_OWNER_ID])
+
+		# Create the owner entity here!
+		owner_entity = be.Entity('OwnerEntity')
+		owner_entity._class_name = 'EntityOwner'
+		owner_entity.add_information('owner_username', name)
+		owner_entity.add_information('owner_email', email)
+		owner_entity.add_information('owner_phone_number', '')
+		owner_entity.add_information('owner_phone_carrier', '')
+		manager.add_entities(owner_entity)
+
 		self.save_entity_manager(manager)
 
 		self._update_owner_cache()

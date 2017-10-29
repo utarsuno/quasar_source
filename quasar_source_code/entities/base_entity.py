@@ -38,7 +38,6 @@ class Entity(object):
 		             'ENTITY_PROPERTY_CHILDREN': str(self._child_entities),
 		             'ENTITY_PROPERTY_ID': self._relative_id
 		             }
-		#'ENTITY_PROPERTY_INFORMATION': str(self._information)
 
 		for key in self._information:
 			json_data[key] = self._information[key]

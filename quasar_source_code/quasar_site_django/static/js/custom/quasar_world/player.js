@@ -7,7 +7,7 @@ function Player(renderer_api) {
 Player.prototype = {
 
     // Entity owner.
-    entity_owner: null,
+    owner: null,
 
     // Current state.
     mouse_locked    : null,
@@ -66,15 +66,15 @@ Player.prototype = {
     },
 
     get_username: function() {
-        return this.entity_owner.username
+        return this.owner.username
     },
 
     get_password: function() {
-        return this.entity_owner.password
+        return this.owner.password
     },
 
     perform_login: function(username, password) {
-        this.entity_owner = new Owner(username, password, WORLD_MANAGER.world_home)
+        this.owner = new Owner(username, password, WORLD_MANAGER.world_home)
         WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)
         this.logged_in = true
     },

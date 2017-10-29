@@ -33,6 +33,9 @@ SettingsWorld.prototype = {
         var profile_phone_number_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Phone Number', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 5, 0)
         var profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
 
+        this.interactive_objects.push(profile_name_input)
+        this.interactive_objects.push(profile_email_input)
+        this.interactive_objects.push(profile_phone_number_input)
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
@@ -64,6 +67,11 @@ SettingsWorld.prototype = {
         this.player.set_position(new THREE.Vector3(0, 10, 0))
 
         this.previous_world = WORLD_MANAGER.previous_world
+
+
+        // Set the profile information values.
+
+        // TODO : Grab the values from the owner entity!
     },
 
     exit_world: function() {
