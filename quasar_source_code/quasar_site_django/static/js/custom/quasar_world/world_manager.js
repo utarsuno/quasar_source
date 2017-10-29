@@ -56,6 +56,7 @@ Planet.prototype = {
             this.mesh.material.color.setHex(COLOR_HIGHLIGHT)
             this.planet_title.update_just_color(COLOR_HIGHLIGHT)
         } else {
+            l('LOOK AWAY!')
             this.mesh.material.color.setHex(COLOR_TEXT_BUTTON)
             this.planet_title.update_just_color(COLOR_TEXT_BUTTON)
         }
@@ -165,7 +166,7 @@ WorldManager.prototype = {
 
         this.world_login.add_sky_box(this.final_textures)
         this.world_home.add_sky_box(this.final_textures)
-        //this.world_settings.add_sky_box(skybox_materials)
+        this.world_settings.add_sky_box(this.final_textures)
     },
 
     load_sky_box: function() {
