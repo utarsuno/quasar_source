@@ -18,8 +18,11 @@ SettingsWorld.prototype = {
         this.normal.normalize()
         this.profile_editor = new FloatingWall(1024, 512, position, this.normal, this)
 
-        var create_entity_wall_title = this.profile_editor.add_floating_2d_text(512 / 2, 'Edit ur profile kidddooo', TYPE_TITLE, 512 / -4, 2, 0, 0)
+        var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Edit ur profile kidddooo', TYPE_TITLE, 1024 / -4, 2, 0, 0)
         this.profile_editor.add_object_to_remove_later(create_entity_wall_title)
+
+        var profile_name = this.profile_editor.add_floating_2d_text(1024 / 4, 'Profile Name', TYPE_INPUT_REGULAR, 1024 / -2, 2, 2, 0)
+        this.profile_editor.add_object_to_remove_later(profile_name)
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
@@ -51,7 +54,6 @@ SettingsWorld.prototype = {
         this.player.set_position(new THREE.Vector3(0, 10, 0))
 
         this.previous_world = WORLD_MANAGER.previous_world
-
     },
 
     exit_world: function() {

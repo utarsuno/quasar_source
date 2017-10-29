@@ -19,7 +19,8 @@ PausedMenu.prototype = {
 
     __init__: function() {
 
-        this.currently_displayed = false
+        // The paused menu starts off displayed.
+        this.currently_displayed = true
 
         this.background_coloring  = document.getElementById('background_coloring')
         this.pause_menu           = document.getElementById('pause_menu')
