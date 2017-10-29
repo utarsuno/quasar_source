@@ -16,6 +16,8 @@ Planet.prototype = {
     __init__: function(world, x, y, z) {
         this.world = world
 
+        // Inherit from visibility.
+        Visibility.call(this)
         // Inherit from interactive.
         Interactive.call(this)
 
