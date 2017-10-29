@@ -240,7 +240,10 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-        this.current_world = true
+        this.player.disengage()
+        if (!PAUSED_MENU.currently_displayed) {
+            this.player.enable_controls()
+        }
 
         this.player.set_position(new THREE.Vector3(130, 90, 300))
 
@@ -254,6 +257,5 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
-        this.current_world = false
     }
 }

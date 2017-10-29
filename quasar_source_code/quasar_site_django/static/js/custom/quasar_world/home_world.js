@@ -96,13 +96,14 @@ HomeWorld.prototype = {
 
     enter_world: function() {
         this.player.disengage()
-        this.player.enable_controls()
-        this.current_world = true
+        if (!PAUSED_MENU.currently_displayed) {
+            this.player.enable_controls()
+        }
+
         this.player.set_position(new THREE.Vector3(0, 100, 0))
     },
 
     exit_world: function() {
-        this.current_world = false
     }
 }
 

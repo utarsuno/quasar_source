@@ -115,18 +115,8 @@ EntityManager.prototype = {
 
     link_entities: function() {
         for (var e = 0; e < this.entities.length; e++) {
-
-            console.log('Currently looking at entity :')
-            console.log(this.entities[e])
-
             var children_list = this.entities[e].get_value(ENTITY_PROPERTY_CHILDREN)
             var parent_list   = this.entities[e].get_value(ENTITY_PROPERTY_PARENTS)
-
-            console.log('Children list is :')
-            console.log(children_list)
-
-            console.log('Parent list is :')
-            console.log(parent_list)
 
             for (var c = 0; c < children_list.length; c++) {
 

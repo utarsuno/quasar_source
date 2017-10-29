@@ -137,6 +137,8 @@ const KEY_CODE_BACK_SLASH = 220
 // Javascript constants.
 const VISIBLE = 'visible'
 const NOT_VISIBLE = 'hidden'
+const DISPLAY_NONE = 'none'
+const DISPLAY_SHOW = 'block'
 
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`

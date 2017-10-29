@@ -143,6 +143,8 @@ module.exports = {
         // Javascript constants.
         "VISIBLE": false,
         "NOT_VISIBLE": false,
+        "DISPLAY_SHOW": false,
+        "DISPLAY_NONE": false,
 
         // Mouse click events.
         "MOUSE_LEFT_CLICK": false,
