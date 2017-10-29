@@ -82,7 +82,7 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
         //////
-        this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position(), this.normal, this)
+        this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position().addScaledVector(this.normal, 2), this.normal, this)
         var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0)
         this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_TITLE, 0, 4, 1, 0)
         this.phone_carrier_list.set_to_invisible()
