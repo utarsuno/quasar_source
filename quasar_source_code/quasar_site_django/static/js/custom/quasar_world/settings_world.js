@@ -8,14 +8,13 @@ SettingsWorld.prototype = {
 
     __init__: function() {
 
+        // Inherit world properties.
+        World.call(this, 'SettingsWorld')
+        
         var position = new THREE.Vector3(900, 500, 1500)
         this.normal = new THREE.Vector3(-.5, 0, -.85)
         this.normal.normalize()
         this.current_entity_editor = new FloatingWall(512, 1024, position, this.normal, this)
-
-
-        // Inherit world properties.
-        World.call(this, 'SettingsWorld')
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
