@@ -213,6 +213,13 @@ LoginWorld.prototype = {
         this.mesh.position.set(new THREE.Vector3(50, 50, 50))
         this.add_to_scene(this.mesh)
 
+
+        var sphereGeom = new THREE.SphereGeometry(200, 25, 25)
+        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2})
+        this.cursor2 = new THREE.Mesh(sphereGeom, blueMaterial)
+        this.cursor2.position.set(new THREE.Vector3(500, 500, 500))
+        this.add_to_scene(this.cursor2)
+
         //this.quasar_source_title = new Floating3DText()
 
         this.interactive_objects = [
