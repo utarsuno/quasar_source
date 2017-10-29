@@ -235,17 +235,22 @@ Floating2DText.prototype = {
         }
 
         // Remove anti-alias from the text.
+        // TODO : Try rendering without these enabled.
         this.dynamic_texture.texture.magFilter = THREE.NearestFilter
         this.dynamic_texture.texture.minFilter = THREE.LinearMipMapLinearFilter
 
+        // TODO : Investigate this
         //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
+
         this.force_update_text(this.text)
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
-        this.material.transparent = true
+        //this.material.transparent = true
         // TODO : Make this only 1 sided
-        this.material.side = THREE.DoubleSide
+        //this.material.side = THREE.DoubleSide
+
+        this.material.side = THREE.FrontSide
 
         // Adds the edge colorings.
         this.mesh = new THREE.Mesh(this.geometry, this.material)

@@ -16,6 +16,12 @@ EntityManager.prototype = {
         this.post_delete_entity = new PostHelper('/delete_entity')
     },
 
+    clear_all: function() {
+        this.entities_loaded = false
+        // TODO : Double check that this will clear the list.
+        this.entities.length = 0
+    },
+
     add_entity_if_not_already_added: function(entity) {
         if (this.entities.indexOf(entity) === NOT_FOUND) {
             this.entities.push(entity)
