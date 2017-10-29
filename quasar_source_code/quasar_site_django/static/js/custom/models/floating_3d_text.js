@@ -56,7 +56,7 @@ Floating3DText.prototype = {
         Interactive.call(this)
         // Inherit from Visibility.
         Visibility.call(this)
-
+        
         this.type = type
         this.create_outline()
         this.create()
