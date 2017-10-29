@@ -10,7 +10,7 @@ SettingsWorld.prototype = {
 
         var position = new THREE.Vector3(900, 500, 1500)
         this.normal = new THREE.Vector3(-.5, 0, -.85)
-        normal.normalize()
+        this.normal.normalize()
         this.current_entity_editor = new FloatingWall(512, 1024, position, this.normal, this)
 
 
