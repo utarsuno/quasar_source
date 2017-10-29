@@ -27,6 +27,28 @@ const CELL_PHONE_CARRIERS = {
     'Page Plus'        : 'number@vtext.com'
 }
 
+const CELL_PHONE_CARRIERS_AS_LIST = [
+    'None',
+    'AT&T',
+    'T-Mobile',
+    'Verizon',
+    'Sprint',
+    'Virgin Mobile',
+    'Tracfone',
+    'Metro PCS',
+    'Boost Mobile',
+    'Cricket',
+    'Ptel',
+    'Republic Wireless',
+    'Google Fi',
+    'Suncom',
+    'Ting',
+    'U.S. Cellular',
+    'Consumer Cellular',
+    'C-Spire',
+    'Page Plus'
+]
+
 SettingsWorld.prototype = {
 
     previous_world: null,
@@ -90,14 +112,29 @@ SettingsWorld.prototype = {
         //////
         this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position().addScaledVector(this.normal, 8), this.normal, this)
         var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0)
-        var pc0 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_BUTTON, 0, 4, 4, 0)
 
-        //pc0.set_engage_function(this.selected_phone_carrier('AT&T').bind(this))
+        var current_row_index = 4
+
+        // Add all the possible cell phone carriers.
+        for (var property in CELL_PHONE_CARRIERS) {
+            if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
+                var current_cell_phone_carrier = this.phone_carrier_list.add_floating_2d_text(512 / 2, CELL_PHONE_CARRIERS_AS_LIST[current_row_index - 4], TYPE_BUTTON, 0, 4, current_row_index, 0)
+                current_row_index += 1
+            }
+        }
+
+        /*
+        var pc0 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_BUTTON, 0, 4, 4, 0)
         pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T')}.bind(this))
 
         var pc1 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'T-Mobile', TYPE_BUTTON, 0, 4, 5, 0)
-        //pc1.set_engage_function(this.selected_phone_carrier('T-Mobile').bind(this))
         pc1.set_engage_function(function(){return this.selected_phone_carrier('T-Mobile')}.bind(this))
+
+        var pc2 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Verizon', TYPE_BUTTON, 0, 4, 6, 0)
+        pc2.set_engage_function(function(){return this.selected_phone_carrier('Verizon')}.bind(this))
+        */
+
+
         this.phone_carrier_list.set_to_invisible()
         //////
 
