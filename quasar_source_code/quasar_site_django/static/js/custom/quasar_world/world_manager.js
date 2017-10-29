@@ -31,6 +31,7 @@ Planet.prototype = {
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
+        this.mesh.material.color.setHex(COLOR_TEXT_BUTTON)
 
         this.object3D = new THREE.Object3D()
         this.object3D.add(this.mesh)
