@@ -246,7 +246,7 @@ Floating2DText.prototype = {
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
-        //this.material.transparent = true
+        this.material.transparent = true
         // TODO : Make this only 1 sided
         //this.material.side = THREE.DoubleSide
 
