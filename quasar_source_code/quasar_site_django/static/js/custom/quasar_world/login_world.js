@@ -267,6 +267,5 @@ LoginWorld.prototype = {
         this.create_email.floating_input.update_text('')
         this.create_password.floating_input.update_text('')
         this.create_repeat_password.floating_input.update_text('')
-        this.create_account_button.floating_input.update_text('')
     }
 }
