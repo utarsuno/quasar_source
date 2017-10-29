@@ -105,6 +105,9 @@ SettingsWorld.prototype = {
         this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
 
 
+        this.interactive_objects.push(pc0)
+
+
         this.interactive_objects.push(this.profile_name_label)
         this.interactive_objects.push(this.profile_name_input)
         this.interactive_objects.push(this.profile_email_label)
