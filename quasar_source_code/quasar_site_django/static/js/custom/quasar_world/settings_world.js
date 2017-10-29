@@ -110,7 +110,8 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
         //////
-        this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position().addScaledVector(this.normal, 8), this.normal, this)
+        var phone_carrier_list_position = new THREE.Vector3(this.profile_phone_carrier_input.get_position().x + this.normal.x * 8, this.profile_phone_carrier_input.get_position().y + this.normal.y * 8, this.profile_phone_carrier_input.get_position().z + this.normal.z * 8)
+        this.phone_carrier_list = new FloatingWall(512 / 2, 512, phone_carrier_list_position, this.normal, this)
         var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0)
 
         var current_row_index = 4
