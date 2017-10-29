@@ -94,9 +94,10 @@ SettingsWorld.prototype = {
 
         //pc0.set_engage_function(this.selected_phone_carrier('AT&T').bind(this))
         pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T').bind(this)}.bind(this))
-        
+
         var pc1 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'T-Mobile', TYPE_BUTTON, 0, 4, 5, 0)
-        pc1.set_engage_function(this.selected_phone_carrier('T-Mobile').bind(this))
+        //pc1.set_engage_function(this.selected_phone_carrier('T-Mobile').bind(this))
+        pc0.set_engage_function(function(){return this.selected_phone_carrier('T-Mobile').bind(this)}.bind(this))
         this.phone_carrier_list.set_to_invisible()
         //////
 
