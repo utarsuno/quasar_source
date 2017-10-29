@@ -9,10 +9,10 @@ SettingsWorld.prototype = {
     __init__: function() {
 
         var position = new THREE.Vector3(900, 500, 1500)
-        var normal = new THREE.Vector3(-.5, 0, -.85)
+        this.normal = new THREE.Vector3(-.5, 0, -.85)
         normal.normalize()
         this.current_entity_editor = new FloatingWall(512, 1024, position, this.normal, this)
-        
+
 
         // Inherit world properties.
         World.call(this, 'SettingsWorld')
