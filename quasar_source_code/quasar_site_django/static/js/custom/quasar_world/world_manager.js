@@ -41,8 +41,10 @@ Planet.prototype = {
     },
 
     add_this_planet_to_world: function(world) {
-        world.add_to_scene(this.object3D)
-        world.add_interactive_object(this.object3D)
+        //world.add_to_scene(this.object3D)
+        //world.add_interactive_object(this.object3D)
+
+
         world.add_to_scene(this.planet_title.object3D)
     },
 
