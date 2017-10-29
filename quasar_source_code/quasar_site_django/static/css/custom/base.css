@@ -59,7 +59,7 @@ canvas {
     z-index: 15;
     top: 50%; /* USED TO BE 50% */
     left: 50%; /* USED TO BE 50% */
-    margin: -25vw 0 0 -12.5vh; /* USED TO BE -12.5vw 0 0 -25vh */
+    margin: -25vh 0 0 -12.5vw; /* USED TO BE -12.5vw 0 0 -25vh */
     background: rgba(1, 1, 1, 0.75);
     border: 2px solid rgba(255, 255, 255, 0.9);
     color: rgba(255, 255, 255, 0.9);
