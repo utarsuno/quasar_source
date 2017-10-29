@@ -65,7 +65,7 @@ PausedMenu.prototype = {
         this.button_help_controls.style.display = DISPLAY_SHOW
         if (this.player.logged_in) {
             this.button_settings.style.display = DISPLAY_SHOW
-            this.button_log_out.styledisplay = DISPLAY_SHOW
+            this.button_log_out.style.display = DISPLAY_SHOW
         }
 
         this.background_coloring.id = 'background_coloring'
