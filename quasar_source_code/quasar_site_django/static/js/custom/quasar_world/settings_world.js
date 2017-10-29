@@ -91,7 +91,10 @@ SettingsWorld.prototype = {
         this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position().addScaledVector(this.normal, 8), this.normal, this)
         var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0)
         var pc0 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_BUTTON, 0, 4, 4, 0)
-        pc0.set_engage_function(this.selected_phone_carrier('AT&T').bind(this))
+
+        //pc0.set_engage_function(this.selected_phone_carrier('AT&T').bind(this))
+        pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T').bind(this)}.bind(this))
+        
         var pc1 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'T-Mobile', TYPE_BUTTON, 0, 4, 5, 0)
         pc1.set_engage_function(this.selected_phone_carrier('T-Mobile').bind(this))
         this.phone_carrier_list.set_to_invisible()
