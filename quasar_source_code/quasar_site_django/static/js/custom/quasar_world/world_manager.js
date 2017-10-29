@@ -52,13 +52,9 @@ WorldManager.prototype = {
         this.load_sky_box()
 
 
-        this.planet_settings = new Planet(new THREE.Vector3(50, 50, 50))
-        this.planet_home = new Planet(new THREE.Vector3(80, 80, 80))
-        this.planet_login = new Planet(new THREE.Vector3(20, 20, 20))
-
-        this.world_login.add_to_scene(this.planet_settings.mesh)
-        this.world_login.add_to_scene(this.planet_login.mesh)
-        this.world_login.add_to_scene(this.planet_home.mesh)
+        this.planet_settings = new Planet(new THREE.Vector3(1000, 1000, 1000))
+        this.planet_home = new Planet(new THREE.Vector3(1000, 1000, -1000))
+        this.planet_login = new Planet(new THREE.Vector3(-1000, 1000, 1000))
 
         this.world_home.add_to_scene(this.planet_settings.mesh)
         this.world_home.add_to_scene(this.planet_login.mesh)
