@@ -4,8 +4,8 @@ function WorldManager() {
     this.__init__()
 }
 
-function Planet(planet_position) {
-    this.__init__(planet_position)
+function Planet(x, y, z) {
+    this.__init__(x, y, z)
 }
 
 Planet.prototype = {
@@ -20,7 +20,7 @@ Planet.prototype = {
             side: THREE.DoubleSide
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh.position.set(planet_position)
+        this.mesh.position.set(x, y, z)
     }
 }
 
