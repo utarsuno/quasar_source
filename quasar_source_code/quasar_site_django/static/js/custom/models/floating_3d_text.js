@@ -47,16 +47,13 @@ Floating3DText.prototype = {
         this.text               = text
         this._hidden_text       = ''
 
-        this.being_looked_at    = false
-        this.being_engaged_with = false
-
         this.original_border_color = 0xFFC0CB
 
         // Inherit from Interactive.
         Interactive.call(this)
         // Inherit from Visibility.
         Visibility.call(this)
-        
+
         this.type = type
         this.create_outline()
         this.create()

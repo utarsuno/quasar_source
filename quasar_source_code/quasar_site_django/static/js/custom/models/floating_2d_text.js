@@ -155,7 +155,7 @@ Floating2DText.prototype = {
             }
         } else {
             this.wireframe.material.color.setHex(this.original_border_color)
-            this.update_text_color(this.text, this.default_color)
+            this.update_color(this.default_color)
             if (this.also_color_this_floating_text !== null) {
                 this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, this.default_color)
             }

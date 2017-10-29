@@ -24,11 +24,15 @@ SettingsWorld.prototype = {
         var profile_name = this.profile_editor.add_floating_2d_text(1024 / 4, 'Username', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 3, 0)
         //this.profile_editor.add_object_to_remove_later(profile_name)
 
-        var profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 100, 2, 3, 0)
+        var profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
         //this.profile_editor.add_object_to_remove_later(profile_name_input)
 
-        var profile_email_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Username', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 4, 0)
-        var profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 100, 2, 4, 0)
+        var profile_email_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Email', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 4, 0)
+        var profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
+
+        var profile_phone_number_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Phone Number', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 5, 0)
+        var profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
+
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
