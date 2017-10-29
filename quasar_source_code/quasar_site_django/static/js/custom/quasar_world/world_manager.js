@@ -31,7 +31,9 @@ Planet.prototype = {
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
-        this.mesh.material.color.setHex(COLOR_TEXT_BUTTON)
+
+        this.mesh.material.color.setHex(COLOR_TEXT_HIGHLIGHT2)
+        this.planet_title.update_just_color(COLOR_TEXT_HIGHLIGHT2)
 
         this.object3D = new THREE.Object3D()
         this.object3D.add(this.mesh)
@@ -57,8 +59,8 @@ Planet.prototype = {
             this.planet_title.update_just_color(COLOR_HIGHLIGHT)
         } else {
             l('LOOK AWAY!')
-            this.mesh.material.color.setHex(COLOR_TEXT_BUTTON)
-            this.planet_title.update_just_color(COLOR_TEXT_BUTTON)
+            this.mesh.material.color.setHex(COLOR_TEXT_HIGHLIGHT2)
+            this.planet_title.update_just_color(COLOR_TEXT_HIGHLIGHT2)
         }
     },
 

@@ -120,6 +120,7 @@ module.exports = {
 
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,
+        "COLOR_TEXT_HIGHLIGHT2": false,
         "COLOR_TEXT_CONSTANT": false,
         "COLOR_TEXT_DEFAULT": false,
         "COLOR_TEXT_RED": false,
