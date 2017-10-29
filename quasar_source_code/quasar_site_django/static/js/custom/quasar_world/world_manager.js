@@ -60,7 +60,7 @@ Planet.prototype = {
             this.planet_title.update_just_color(COLOR_HIGHLIGHT)
         } else {
             l('LOOK AWAY!')
-            this.mesh.material.color.setHex(COLOR_HIGHLIGHT)
+            this.mesh.material.color.setHex(COLOR_TEXT_HIGHLIGHT2)
             this.mesh.material.needsUpdate = true
             this.planet_title.update_just_color(COLOR_TEXT_HIGHLIGHT2)
         }

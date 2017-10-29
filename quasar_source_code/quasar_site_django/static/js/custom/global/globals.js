@@ -71,7 +71,7 @@ const POST_OWNER_ID   = 'owner_id'
 // Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93
 const COLOR_TEXT_HIGHLIGHT = '#D4FF93'
-const COLOR_TEXT_HIGHLIGHT2 = '#afe0ff'
+const COLOR_TEXT_HIGHLIGHT2 = '#AFE0FF'
 const COLOR_TEXT_DEFAULT   = '#67ffbf'
 const COLOR_TEXT_BUTTON    = '#60d6ff'
 const COLOR_TEXT_RED       = '#ff5e33'
