@@ -21,8 +21,11 @@ SettingsWorld.prototype = {
         var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Edit ur profile kidddooo', TYPE_TITLE, 1024 / -4, 2, 0, 0)
         this.profile_editor.add_object_to_remove_later(create_entity_wall_title)
 
-        var profile_name = this.profile_editor.add_floating_2d_text(1024 / 4, 'Profile Name', TYPE_INPUT_REGULAR, 1024 / -2, 2, 2, 0)
+        var profile_name = this.profile_editor.add_floating_2d_text(1024 / 4, 'Profile Name', TYPE_INPUT_REGULAR, 1024 / -4, 2, 3, 0)
         this.profile_editor.add_object_to_remove_later(profile_name)
+
+        var profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+        this.profile_editor.add_object_to_remove_later(profile_name_input)
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
