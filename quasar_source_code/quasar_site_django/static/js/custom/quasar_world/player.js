@@ -58,9 +58,10 @@ Player.prototype = {
     },
 
     log_out: function() {
-        this.entity_owner = null
-        WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
-        this.logged_in = false
+        l('LOG OUT HERE!!!!')
+        //this.entity_owner = null
+        //WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
+        //this.logged_in = false
         // TODO : Notify the server that the player has logged out?
     },
 

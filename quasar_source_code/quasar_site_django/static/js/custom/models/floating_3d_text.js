@@ -170,7 +170,10 @@ Floating3DText.prototype = {
     },
 
     create: function() {
-        if (this.type == TYPE_TITLE) {
+        if (this.type === TYPE_SUPER_TITLE) {
+            this.size = 40 * 4
+            this.text_height = 2 * 4
+        } else if (this.type === TYPE_TITLE) {
             this.size = 40
             this.text_height = 2
         } else {
