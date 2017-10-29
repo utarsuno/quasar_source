@@ -40,9 +40,9 @@ function Interactive() {
         if (this.engable) {
             this.being_engaged_with = false
             this.state_change_engage(false)
-            if (this.disengage_function !== null) {
-                this.disengage_function()
-            }
+        }
+        if (this.disengage_function !== null) {
+            this.disengage_function()
         }
     }
 
@@ -54,9 +54,9 @@ function Interactive() {
         if (this.engable) {
             this.being_engaged_with = true
             this.state_change_engage(true)
-            if (this.engage_function !== null) {
-                this.engage_function()
-            }
+        }
+        if (this.engage_function !== null) {
+            this.engage_function()
         }
     }
 

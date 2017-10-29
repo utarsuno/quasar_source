@@ -4,11 +4,38 @@ function SettingsWorld() {
     this.__init__()
 }
 
+// Cell phone carriers.
+const CELL_PHONE_CARRIERS = {
+    'None'             : '',
+    'AT&T'             : 'number@txt.att.net',
+    'T-Mobile'         : 'number@tmomail.net',
+    'Verizon'          : 'number@vtext.com',
+    'Sprint'           : 'number@pm.sprint.com',
+    'Virgin Mobile'    : 'number@vmobl.com',
+    'Tracfone'         : 'number@mmst5.tracfone.com',
+    'Metro PCS'        : 'number@mymetropcs.com',
+    'Boost Mobile'     : 'number@myboostmobile.com',
+    'Cricket'          : 'number@mms.cricketwireless.net',
+    'Ptel'             : 'number@ptel.com',
+    'Republic Wireless': 'number@text.republicwireless.com',
+    'Google Fi'        : 'number@msg.fi.google.com',
+    'Suncom'           : 'number@tms.suncom.com',
+    'Ting'             : 'number@message.ting.com',
+    'U.S. Cellular'    : 'number@email.uscc.net',
+    'Consumer Cellular': 'number@cingularme.com',
+    'C-Spire'          : 'number@cspire1.com',
+    'Page Plus'        : 'number@vtext.com'
+}
+
 SettingsWorld.prototype = {
 
     previous_world: null,
 
     owner_entity: null,
+
+    select_phone_carrier: function() {
+        this.phone_carrier_list.set_to_visible()
+    },
 
     __init__: function() {
         this.owner_entity = null
@@ -50,6 +77,17 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_label.engable = false
         this.profile_phone_carrier_label.set_default_color(COLOR_TEXT_CONSTANT)
         this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
+        this.profile_phone_carrier_input.engable = false
+        // TODO :
+        this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
+
+        //////
+        this.phone_carrier_list = new FloatingWall(512 / 2, 512, this.profile_phone_carrier_input.get_position(), this.normal, this)
+        var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0)
+        this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_TITLE, 0, 4, 1, 0)
+        this.phone_carrier_list.set_to_invisible()
+        //////
+
 
         this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
 
@@ -80,7 +118,7 @@ SettingsWorld.prototype = {
         }
 
         this.player.set_position(new THREE.Vector3(-1000, 350, 350))
-        this.player.look_at(new THREE.Vector3(0.992, 0.044, -0.122))
+        this.player.look_at(new THREE.Vector3(0.992, 0.124, -0.122))
 
         this.previous_world = WORLD_MANAGER.previous_world
 
