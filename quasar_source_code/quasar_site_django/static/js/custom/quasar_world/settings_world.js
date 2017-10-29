@@ -106,6 +106,7 @@ SettingsWorld.prototype = {
 
 
         this.interactive_objects.push(pc0)
+        this.interactive_objects.push(pc1)
 
 
         this.interactive_objects.push(this.profile_name_label)
