@@ -10,11 +10,15 @@ SettingsWorld.prototype = {
 
         // Inherit world properties.
         World.call(this, 'SettingsWorld')
-        
-        var position = new THREE.Vector3(900, 500, 1500)
+
+        var position = new THREE.Vector3(500, 500, 700)
         this.normal = new THREE.Vector3(-.5, 0, -.85)
         this.normal.normalize()
-        this.current_entity_editor = new FloatingWall(512, 1024, position, this.normal, this)
+        this.profile_editor = new FloatingWall(512, 1024, position, this.normal, this)
+
+        var create_entity_wall_title = this.profile_editor.add_floating_2d_text(512 / 2, 'Edit ur profile kidddooo', TYPE_TITLE, 512 / -4, 2, 0, 0)
+        this.profile_editor.add_object_to_remove_later(create_entity_wall_title)
+        
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
