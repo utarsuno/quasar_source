@@ -97,7 +97,7 @@ SettingsWorld.prototype = {
 
         // TODO : Grab the values from the owner entity!
         if (this.owner_entity === null) {
-            this.owner_entity = ENTITY_MANAGER.get_all_entities_of_type()[0]
+            this.owner_entity = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
         }
 
         this.profile_name_input.update_text(this.player.owner.name)
