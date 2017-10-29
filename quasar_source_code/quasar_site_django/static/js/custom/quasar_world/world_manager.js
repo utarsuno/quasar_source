@@ -38,13 +38,11 @@ Planet.prototype = {
         Interactive.call(this)
         // Inherit from Visibility.
         Visibility.call(this)
-
-        this.world.add_to_scene(this.object3D)
-        this.world.add_interactive_object(this.object3D)
     },
 
     add_this_planet_to_world: function(world) {
-        world.add_to_scene(this.mesh)
+        world.add_to_scene(this.object3D)
+        world.add_interactive_object(this.object3D)
         world.add_to_scene(this.planet_title.object3D)
     },
 

@@ -226,6 +226,6 @@ Floating3DText.prototype = {
 
             AUDIO_MANAGER.play_typing_sound()
         }
-    },
+    }
 
 }
