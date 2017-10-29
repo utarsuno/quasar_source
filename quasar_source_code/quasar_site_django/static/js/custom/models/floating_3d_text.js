@@ -165,7 +165,9 @@ Floating3DText.prototype = {
         this.object3D.add(this.border_mesh)
         */
 
-        this.scene.add(this.object3D)
+        if (this.scene !== null && this.scene !== undefined) {
+            this.scene.add(this.object3D)
+        }
     },
 
     create: function() {

@@ -4,8 +4,8 @@ function WorldManager() {
     this.__init__()
 }
 
-function Planet(planet_name, scene, x, y, z) {
-    this.__init__(planet_name, scene, x, y, z)
+function Planet(world, x, y, z) {
+    this.__init__(world, x, y, z)
 }
 
 Planet.prototype = {
@@ -13,9 +13,9 @@ Planet.prototype = {
     material: null,
     mesh    : null,
 
-    __init__: function(planet_name, scene, x, y, z) {
+    __init__: function(world, x, y, z) {
 
-        this.planet_title = new Floating3DText(400, planet_name, TYPE_TITLE, scene)
+        this.planet_title = new Floating3DText(400, world.planet_name, TYPE_TITLE)
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2)
@@ -26,6 +26,12 @@ Planet.prototype = {
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
+        this.world.add_to_scene(this.mesh)
+    },
+
+    add_this_planet_to_world: function(world) {
+        world.add_to_scene(this.mesh)
+        world.add_to_scene(this.planet_title.object3D)
     }
 }
 
@@ -57,15 +63,14 @@ WorldManager.prototype = {
         this.load_sky_box()
 
 
-        this.planet_settings = new Planet('Settings', this.world_settings.scene, 4000, 4000, 4000)
-        this.planet_home = new Planet('Home', this.world_home.scene, 4000, 4000, -4000)
-        this.planet_login = new Planet('Login', this.world_login.scene, -4000, 4000, 4000)
+        this.planet_settings = new Planet(this.world_settings, 4000, 4000, 4000)
+        this.planet_home = new Planet(this.world_home, 4000, 4000, -4000)
+        this.planet_login = new Planet(this.world_login, -4000, 4000, 4000)
 
-        this.world_home.add_to_scene(this.planet_settings.mesh)
-        this.world_home.add_to_scene(this.planet_login.mesh)
-        this.world_home.add_to_scene(this.planet_home.mesh)
+        this.planet_settings.add_this_planet_to_world(this.world_home)
 
-        this.world_settings.add_to_scene(this.planet_home.mesh)
+        this.planet_home.add_this_planet_to_world(this.world_settings)
+
     },
 
     set_player: function(player) {
