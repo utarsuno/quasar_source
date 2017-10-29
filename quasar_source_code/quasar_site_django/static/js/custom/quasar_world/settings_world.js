@@ -8,7 +8,10 @@ SettingsWorld.prototype = {
 
     previous_world: null,
 
+    owner_entity: null,
+
     __init__: function() {
+        this.owner_entity = null
 
         // Inherit world properties.
         World.call(this, 'SettingsWorld')
@@ -16,26 +19,47 @@ SettingsWorld.prototype = {
         var position = new THREE.Vector3(500, 500, 700)
         this.normal = new THREE.Vector3(-.5, 0, -.85)
         this.normal.normalize()
-        this.profile_editor = new FloatingWall(1024, 512, position, this.normal, this)
+        this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this)
 
         var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Profile Information', TYPE_TITLE, 1024 / -4, 2, 0, 0)
+        create_entity_wall_title.set_default_color(COLOR_TEXT_CONSTANT)
         this.profile_editor.add_object_to_remove_later(create_entity_wall_title)
 
-        var profile_name = this.profile_editor.add_floating_2d_text(1024 / 4, 'Username', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 3, 0)
+        this.profile_name_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Username', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 3, 0)
+        this.profile_name_label.engable = false
+        this.profile_name_label.set_default_color(COLOR_TEXT_CONSTANT)
         //this.profile_editor.add_object_to_remove_later(profile_name)
 
-        var profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
         //this.profile_editor.add_object_to_remove_later(profile_name_input)
 
-        var profile_email_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Email', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 4, 0)
-        var profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
+        this.profile_email_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Email', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 4, 0)
+        this.profile_email_label.engable = false
+        this.profile_email_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
 
-        var profile_phone_number_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Phone Number', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 5, 0)
-        var profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
+        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Phone Number', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 5, 0)
+        this.profile_phone_number_label.engable = false
+        this.profile_phone_number_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
 
-        this.interactive_objects.push(profile_name_input)
-        this.interactive_objects.push(profile_email_input)
-        this.interactive_objects.push(profile_phone_number_input)
+        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(1024 / 4, 'Phone Number', TYPE_INPUT_REGULAR, (1024 / -4) - 1024 / 8, 2, 6, 0)
+        this.profile_phone_carrier_label.engable = false
+        this.profile_phone_carrier_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
+
+        this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 8, 0)
+
+
+        this.interactive_objects.push(this.profile_name_label)
+        this.interactive_objects.push(this.profile_name_input)
+        this.interactive_objects.push(this.profile_email_label)
+        this.interactive_objects.push(this.profile_email_input)
+        this.interactive_objects.push(this.profile_phone_number_label)
+        this.interactive_objects.push(this.profile_phone_number_input)
+        this.interactive_objects.push(this.profile_phone_carrier_label)
+        this.interactive_objects.push(this.profile_phone_carrier_input)
+        this.interactive_objects.push(this.save_changes)
 
         var lightr = new THREE.PointLight(0xff8579, .8, 0)
         lightr.position.set(1000, 100, 0)
@@ -72,6 +96,14 @@ SettingsWorld.prototype = {
         // Set the profile information values.
 
         // TODO : Grab the values from the owner entity!
+        if (this.owner_entity === null) {
+            this.owner_entity = ENTITY_MANAGER.get_all_entities_of_type()[0]
+        }
+
+        this.profile_name_input.update_text(this.player.owner.name)
+        this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'))
+        this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'))
+        this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'))
     },
 
     exit_world: function() {

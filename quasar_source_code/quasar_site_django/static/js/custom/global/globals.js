@@ -25,10 +25,11 @@ var WORLD_MANAGER  = null
 // Entity.
 var ENTITY_MANAGER = null
 // Entity types.
-const ENTITY_TYPE_TASK = 'EntityTask'
-const ENTITY_TYPE_TIME = 'EntityTime'
-const ENTITY_TYPE_BASE = 'Entity'
-const ENTITY_TYPE_WALL = 'EntityWall'
+const ENTITY_TYPE_TASK  = 'EntityTask'
+const ENTITY_TYPE_TIME  = 'EntityTime'
+const ENTITY_TYPE_BASE  = 'Entity'
+const ENTITY_TYPE_WALL  = 'EntityWall'
+const ENTITY_TYPE_OWNER = 'EntityOwner'
 // Entity properties.
 const ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
 const ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
