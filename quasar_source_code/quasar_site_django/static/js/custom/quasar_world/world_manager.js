@@ -12,6 +12,7 @@ Planet.prototype = {
     geometry: null,
     material: null,
     mesh    : null,
+    object3D: null,
 
     __init__: function(world, x, y, z) {
         this.world = world
@@ -41,11 +42,14 @@ Planet.prototype = {
     },
 
     add_this_planet_to_world: function(world) {
-        //world.add_to_scene(this.object3D)
+
+        console.log(this.object3D)
+
+        world.add_to_scene(this.object3D)
         //world.add_interactive_object(this.object3D)
 
 
-        world.add_to_scene(this.planet_title.object3D)
+        //world.add_to_scene(this.planet_title.object3D)
     },
 
     /* __  ___      ___  ___     __                  __   ___  __
