@@ -67,10 +67,8 @@ function World(planet_name) {
                     }
                 }
                 // Now get the interactive_object match of the found intersections object.
-                //var interactive_object_match = null
                 for (var m = 0; m < this.interactive_objects.length; m++) {
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid || this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
-                        //interactive_object_match = this.interactive_objects[m]
                         if (current_smallest_distance < smallest_distance) {
                             smallest_distance = current_smallest_distance
                             interactive_index = m
@@ -79,7 +77,6 @@ function World(planet_name) {
                     }
                 }
             }
-
         }
 
         if (interactive_index !== -1) {

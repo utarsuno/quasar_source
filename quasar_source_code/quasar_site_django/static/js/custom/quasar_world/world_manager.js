@@ -4,8 +4,8 @@ function WorldManager() {
     this.__init__()
 }
 
-function Planet(x, y, z) {
-    this.__init__(x, y, z)
+function Planet(planet_name, scene, x, y, z) {
+    this.__init__(planet_name, scene, x, y, z)
 }
 
 Planet.prototype = {
@@ -13,10 +13,15 @@ Planet.prototype = {
     material: null,
     mesh    : null,
 
-    __init__: function(x, y, z) {
+    __init__: function(planet_name, scene, x, y, z) {
+
+        this.planet_title = new Floating3DText(400, planet_name, TYPE_TITLE, scene)
+        this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
+
         this.geometry = new THREE.DodecahedronGeometry(200, 2)
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
+            // TODO : Figure out if I should use front side or back side.
             side: THREE.DoubleSide
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
@@ -52,9 +57,9 @@ WorldManager.prototype = {
         this.load_sky_box()
 
 
-        this.planet_settings = new Planet(1000, 1000, 1000)
-        this.planet_home = new Planet(1000, 1000, -1000)
-        this.planet_login = new Planet(-1000, 1000, 1000)
+        this.planet_settings = new Planet('Settings', this.world_settings.scene, 4000, 4000, 4000)
+        this.planet_home = new Planet('Home', this.world_home.scene, 4000, 4000, -4000)
+        this.planet_login = new Planet('Login', this.world_login.scene, -4000, 4000, 4000)
 
         this.world_home.add_to_scene(this.planet_settings.mesh)
         this.world_home.add_to_scene(this.planet_login.mesh)
