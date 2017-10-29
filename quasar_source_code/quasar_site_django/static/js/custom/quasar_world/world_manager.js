@@ -13,7 +13,7 @@ Planet.prototype = {
     material: null,
     mesh    : null,
 
-    __init__: function(planet_position) {
+    __init__: function(x, y, z) {
         this.geometry = new THREE.DodecahedronGeometry(200, 2)
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
