@@ -98,6 +98,7 @@ module.exports = {
 
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR": false,
+        "TYPE_SUPER_TITLE": false,
         "TYPE_LABEL": false,
         "TYPE_BUTTON": false,
         "TYPE_STATUS": false,
@@ -120,7 +121,7 @@ module.exports = {
 
         "COLOR_HIGHLIGHT": false,
         "COLOR_TEXT_HIGHLIGHT": false,
-        "COLOR_TEXT_HIGHLIGHT2": false,
+        "COLOR_TEXT_PLANET": false,
         "COLOR_TEXT_CONSTANT": false,
         "COLOR_TEXT_DEFAULT": false,
         "COLOR_TEXT_RED": false,

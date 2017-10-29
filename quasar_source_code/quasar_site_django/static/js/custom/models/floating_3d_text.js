@@ -142,7 +142,9 @@ Floating3DText.prototype = {
 
         this.object3D = new THREE.Object3D()
 
-        if (this.type === TYPE_TITLE) {
+        if (this.type === TYPE_SUPER_TITLE) {
+            this.height = 32 * 4
+        } else if (this.type === TYPE_TITLE) {
             this.height = 32
         } else {
             this.height = 16

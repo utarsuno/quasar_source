@@ -52,6 +52,7 @@ const TYPE_BUTTON         = 4 // Static text that can be clicked.
 const TYPE_STATUS         = 5 // Dynamic non-interactive text.
 const TYPE_TITLE          = 6 // Static title text.
 const TYPE_CHECK_BOX      = 7 // Just the X character when checked.
+const TYPE_SUPER_TITLE    = 8 // Super large text.
 
 // Server response messages.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!'
@@ -71,7 +72,7 @@ const POST_OWNER_ID   = 'owner_id'
 // Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93
 const COLOR_TEXT_HIGHLIGHT = '#D4FF93'
-const COLOR_TEXT_HIGHLIGHT2 = 0xAFE0FF
+const COLOR_TEXT_PLANET    = 0xAFE0FF
 const COLOR_TEXT_DEFAULT   = '#67ffbf'
 const COLOR_TEXT_BUTTON    = '#60d6ff'
 const COLOR_TEXT_RED       = '#ff5e33'

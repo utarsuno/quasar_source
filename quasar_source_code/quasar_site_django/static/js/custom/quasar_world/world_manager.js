@@ -17,7 +17,7 @@ Planet.prototype = {
     __init__: function(world, x, y, z) {
         this.world = world
 
-        this.planet_title = new Floating3DText(400, world.planet_name, TYPE_TITLE)
+        this.planet_title = new Floating3DText(400, world.planet_name, TYPE_SUPER_TITLE)
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2)
@@ -32,8 +32,8 @@ Planet.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.position.set(x, y, z)
 
-        this.mesh.material.color.setHex(COLOR_TEXT_HIGHLIGHT2)
-        this.planet_title.update_just_color(COLOR_TEXT_HIGHLIGHT2)
+        this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
+        this.planet_title.update_just_color(COLOR_TEXT_PLANET)
 
         this.object3D = new THREE.Object3D()
         this.object3D.add(this.mesh)
@@ -60,15 +60,15 @@ Planet.prototype = {
             this.planet_title.update_just_color(COLOR_HIGHLIGHT)
         } else {
             l('LOOK AWAY!')
-            this.mesh.material.color.setHex(COLOR_TEXT_HIGHLIGHT2)
+            this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
             this.mesh.material.needsUpdate = true
-            this.planet_title.update_just_color(COLOR_TEXT_HIGHLIGHT2)
+            this.planet_title.update_just_color(COLOR_TEXT_PLANET)
         }
     },
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            l('TODO : Enter the needed world here.')
+            WORLD_MANAGER.set_current_world(this.world)
             this.being_engaged_with = false
         } else {
             WORLD_MANAGER.player.disengage()
