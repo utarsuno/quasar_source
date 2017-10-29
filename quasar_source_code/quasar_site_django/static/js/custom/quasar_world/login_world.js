@@ -203,6 +203,16 @@ LoginWorld.prototype = {
 
         // Quasar Source title
         // TODO :
+
+        this.geometry = new THREE.DodecahedronGeometry(200, 2)
+        this.material = new THREE.MeshBasicMaterial({
+            color: 0x8effcb, // '0x8effcb'
+            side: THREE.DoubleSide
+        })
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh.position.set(new THREE.Vector3(50, 50, 50))
+        this.add_to_scene(this.mesh)
+
         //this.quasar_source_title = new Floating3DText()
 
         this.interactive_objects = [
