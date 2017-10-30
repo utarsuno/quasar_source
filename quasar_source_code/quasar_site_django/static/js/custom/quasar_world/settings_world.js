@@ -28,7 +28,7 @@ const CELL_PHONE_CARRIERS = {
 }
 
 const CELL_PHONE_CARRIERS_AS_LIST = [
-    'None',
+    'No Value',
     'AT&T',
     'T-Mobile',
     'Verizon',
@@ -116,7 +116,7 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0)
         this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
         this.profile_phone_carrier_input.engable = false
-        // TODO :
+
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
         //////

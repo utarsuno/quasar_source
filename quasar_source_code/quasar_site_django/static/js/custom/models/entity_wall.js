@@ -25,14 +25,6 @@ EntityWall.prototype = {
 
     self_entity: null,
 
-    save_changes_result: function(result) {
-        if (result === SERVER_REPLY_GENERIC_YES) {
-            console.log('Saved the data!')
-        } else {
-            console.log('ERROR SAVING : ' + result)
-        }
-    },
-
     send_changes_to_server: function() {
         // This save data is for the Wall entity.
         var save_data = {}
@@ -64,6 +56,8 @@ EntityWall.prototype = {
     },
 
     perform_delete_entity_wall: function() {
+        // TODO : Fix this function, make sure everything gets removed cleanly.
+
         // All child entities will be automatically deleted (if they don't have any other parent entity objects).
         ENTITY_MANAGER.delete_entity(this.self_entity)
 
@@ -166,7 +160,6 @@ EntityWall.prototype = {
             var current_label          = floating_texts[i].get_label()
 
             if (current_label_position > -1) {
-
                 if (current_label === 'l') {
                     labels.push([current_label_position, floating_texts[i].get_text()])
                 } else {
@@ -187,9 +180,6 @@ EntityWall.prototype = {
         var entity = ENTITY_MANAGER.get_entity_by_id(entity_id)
         entity.update_values(save_data)
 
-        var username = WORLD_MANAGER.world_home.player.get_username()
-        var password = WORLD_MANAGER.world_home.player.get_password()
-
         this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME])
         if (save_data[ENTITY_PROPERTY_TYPE] === ENTITY_TYPE_TASK) {
             if (save_data[ENTITY_PROPERTY_COMPLETED] === 'True') {
@@ -199,8 +189,7 @@ EntityWall.prototype = {
             }
         }
 
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(entity.get_properties())}, this.save_changes_result.bind(this))
-
+        ENTITY_MANAGER.update_server_and_database()
         // TODO : only close if the POST call finished successfully
 
         // TODO : IMPORTANT! DELETE IT instead of making it invisible.
@@ -451,7 +440,7 @@ EntityWall.prototype = {
         this.floating_row_to_entity_list = []
 
         // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
-        this.save()
+        this.send_changes_to_server()
     },
 
     // For create entity only.
@@ -470,10 +459,6 @@ EntityWall.prototype = {
 
     update_title: function(title) {
         this.title.update_text(title)
-    },
-
-    save: function() {
-        this.send_changes_to_server.bind(this)
     },
 
     add_entity: function(entity) {

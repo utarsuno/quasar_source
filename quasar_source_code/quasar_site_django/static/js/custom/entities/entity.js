@@ -45,15 +45,6 @@ Owner.prototype = {
         this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this))
     }
 
-    /*
-                this.owner_entity.update_value_without_server_update(this.profile_phone_carrier_input.get_text())
-            changes_occured = true
-        }
-
-        if (changes_occured) {
-            this.owner_entity.update_owner_in_database()
-        }
-     */
 }
 
 Entity.prototype = {

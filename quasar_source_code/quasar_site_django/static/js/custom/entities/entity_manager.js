@@ -152,15 +152,9 @@ EntityManager.prototype = {
 
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
-
         var match_found_ONLY_FOR_DEBUGGING = false
         for (var i = 0; i < this.entities.length; i++) {
-            //console.log(this.entities[i].get_value(ENTITY_PROPERTY_ID))
-            //console.log(entity_id)
-
             if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id) {
-                console.log('MATCH FOUND FOR :')
-                console.log(entity_id)
                 match_found_ONLY_FOR_DEBUGGING = true
                 return this.entities[i]
             }
@@ -196,8 +190,12 @@ EntityManager.prototype = {
     ////
 
     save_changes_result: function() {
-        for (var i = 0; i < arguments.length; i++) {
-            l(arguments[i])
+        // .bind prepends arguments so the first argument is the entity being saved and the second argument is the save result.
+        if (arguments[1] === SERVER_REPLY_GENERIC_YES) {
+            arguments[0].needs_to_be_saved = false
+        } else {
+            l('Error saving entity : ')
+            l(arguments[0])
         }
     },
 
@@ -205,14 +203,9 @@ EntityManager.prototype = {
         var username = WORLD_MANAGER.world_home.player.get_username()
         var password = WORLD_MANAGER.world_home.player.get_password()
 
-        console.log('Trying to save the following self entity :')
-        console.log(this.self_entity)
-
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {
                 this.post_save_entity.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this, this.entities[e]))
-                // TODO : don't assume successful save
-                this.entities[e].needs_to_be_saved = false
             }
         }
     }
