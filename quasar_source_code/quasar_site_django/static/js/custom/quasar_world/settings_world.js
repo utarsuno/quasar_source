@@ -122,18 +122,19 @@ SettingsWorld.prototype = {
                 var current_cell_phone_carrier = this.phone_carrier_list.add_floating_2d_text(512 / 2, CELL_PHONE_CARRIERS_AS_LIST[current_row_index - 4], TYPE_BUTTON, 0, 4, current_row_index, 0)
                 current_row_index += 1
                 this.interactive_objects.push(current_cell_phone_carrier)
+                current_cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property))
             }
         }
 
         /*
         var pc0 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_BUTTON, 0, 4, 4, 0)
-        pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T')}.bind(this))
+        pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T')}.bind(this, 'arg1'))
 
         var pc1 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'T-Mobile', TYPE_BUTTON, 0, 4, 5, 0)
-        pc1.set_engage_function(function(){return this.selected_phone_carrier('T-Mobile')}.bind(this))
+        pc1.set_engage_function(function(){return this.selected_phone_carrier('T-Mobile')}.bind(this, 'arg2'))
 
         var pc2 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Verizon', TYPE_BUTTON, 0, 4, 6, 0)
-        pc2.set_engage_function(function(){return this.selected_phone_carrier('Verizon')}.bind(this))
+        pc2.set_engage_function(function(){return this.selected_phone_carrier('Verizon')}.bind(this, 'arg3'))
         */
 
 
