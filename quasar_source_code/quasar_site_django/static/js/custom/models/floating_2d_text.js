@@ -253,10 +253,8 @@ Floating2DText.prototype = {
         this.material = new THREE.MeshBasicMaterial({
             map	: this.dynamic_texture.texture
         })
+        // TODO : try to make it a semi-transprent background instead (might help fix the visual bugs regarding seeing through walls)
         this.material.transparent = true
-        // TODO : Make this only 1 sided
-        //this.material.side = THREE.DoubleSide
-
         this.material.side = THREE.FrontSide
 
         // Adds the edge colorings.
@@ -290,6 +288,7 @@ Floating2DText.prototype = {
         this.force_update_text(this.text)
     },
 
+    // TODO : Parse this logic out for the Floating2DText and Floating3DText classes!!!!
     parse_keycode: function(event) {
         var keycode = event.keyCode
 
@@ -300,8 +299,6 @@ Floating2DText.prototype = {
                     this._hidden_text = this._hidden_text.slice(0, -1)
                 }
             }
-
-            event.
 
             AUDIO_MANAGER.play_typing_sound()
 
