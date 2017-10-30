@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'load_entity_manager' , v.POST_load_entity_manager),
     url(r'get_entities_for_day', v.POST_get_entities_for_day),
     url(r'get_all_entities'    , v.POST_load_all_entities),
-    url(r'save_entities'       , v.POST_save_entities),
+    url(r'save_entity'         , v.POST_save_entity),
     url(r'delete_entity'       , v.POST_delete_entity),
 
     url(r'', v.GET_quasar_dev),

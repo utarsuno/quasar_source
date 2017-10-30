@@ -97,10 +97,17 @@ Floating2DText.prototype = {
         // Inherit from Visibility.
         Visibility.call(this)
 
-        if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX) {
+        switch (this.type) {
+        case TYPE_BUTTON:
+        case TYPE_CHECK_BOX:
             this.maintain_engage_when_tabbed_to = false
             this.default_color = COLOR_TEXT_BUTTON
-        } else {
+            break
+        case TYPE_CONSTANT_TEXT:
+            this.default_color = COLOR_TEXT_CONSTANT
+            this.engable = false
+            break
+        default:
             this.default_color = COLOR_TEXT_DEFAULT
         }
 

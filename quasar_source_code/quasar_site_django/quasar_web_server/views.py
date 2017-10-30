@@ -171,7 +171,7 @@ def POST_delete_entity(request):
 
 
 @csrf_exempt
-def POST_save_entities(request):
+def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
 	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD, SAVE_DATA], request)
 	if post_errors is not None:

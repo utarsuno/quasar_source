@@ -23,9 +23,6 @@ EntityWall.prototype = {
 
     interactive_objects: null,
 
-    // POST calls.
-    post_call_save_changes: null,
-
     self_entity: null,
 
     save_changes_result: function(result) {
@@ -37,9 +34,6 @@ EntityWall.prototype = {
     },
 
     send_changes_to_server: function() {
-        var username = WORLD_MANAGER.world_home.player.get_username()
-        var password = WORLD_MANAGER.world_home.player.get_password()
-
         // This save data is for the Wall entity.
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
@@ -56,22 +50,7 @@ EntityWall.prototype = {
             this.self_entity.update_values(save_data)
         }
 
-        // TODO : Eventually refactor to a more efficient design. 1 POST per entity is just for quick n dirty setup.
-
-        console.log('Trying to save the following self entity :')
-        console.log(this.self_entity)
-
-        this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.self_entity.get_properties())}, this.save_changes_result.bind(this))
-        // TODO : don't assume successful save
-        this.self_entity.needs_to_be_saved = false
-
-        for (var e = 0; e < this.entities.length; e++) {
-            if (this.entities[e].needs_to_be_saved) {
-                this.post_call_save_changes.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this))
-                // TODO : don't assume successful save
-                this.entities[e].needs_to_be_saved = false
-            }
-        }
+        ENTITY_MANAGER.update_server_and_database()
     },
 
     set_entity: function(entity) {
@@ -468,8 +447,6 @@ EntityWall.prototype = {
         this.object3D.add(this.wall.mesh)
 
         this.scene.add(this.object3D)
-
-        this.post_call_save_changes = new PostHelper('/save_entities')
 
         this.floating_row_to_entity_list = []
 

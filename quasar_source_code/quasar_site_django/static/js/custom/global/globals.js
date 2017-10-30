@@ -55,6 +55,7 @@ const TYPE_STATUS         = 5 // Dynamic non-interactive text.
 const TYPE_TITLE          = 6 // Static title text.
 const TYPE_CHECK_BOX      = 7 // Just the X character when checked.
 const TYPE_SUPER_TITLE    = 8 // Super large text.
+const TYPE_CONSTANT_TEXT  = 9 // Purple lookable but not engable or editable text.
 
 // Server response messages.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!'

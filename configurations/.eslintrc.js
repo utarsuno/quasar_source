@@ -104,6 +104,7 @@ module.exports = {
         "TYPE_STATUS": false,
         "TYPE_TITLE": false,
         "TYPE_CHECK_BOX": false,
+        "TYPE_CONSTANT_TEXT": false,
 
         "ENTITY_TYPE_TASK" : false,
         "ENTITY_TYPE_TIME" : false,

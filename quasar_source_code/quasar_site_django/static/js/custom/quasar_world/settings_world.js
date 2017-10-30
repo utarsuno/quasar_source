@@ -6,7 +6,7 @@ function SettingsWorld() {
 
 // Cell phone carriers.
 const CELL_PHONE_CARRIERS = {
-    'None'             : '',
+    'No Value'         : '',
     'AT&T'             : 'number@txt.att.net',
     'T-Mobile'         : 'number@tmomail.net',
     'Verizon'          : 'number@vtext.com',
@@ -60,9 +60,29 @@ SettingsWorld.prototype = {
     },
 
     selected_phone_carrier: function(selected_phone_carrier) {
+        this.profile_phone_carrier_input.update_text(selected_phone_carrier)
         this.phone_carrier_list.set_to_invisible()
-        l('The selected phone carrier is: ')
-        l(selected_phone_carrier)
+    },
+
+    save_changes_button_pressed: function() {
+        var changes_occured = false
+
+        if (this.profile_email_input.get_text() !== this.owner_entity.get_value('owner_email')) {
+            this.owner_entity.set_property('owner_email', this.profile_email_input.get_text())
+            changes_occured = true
+        }
+        if (this.profile_phone_number_input.get_text() !== this.owner_entity.get_value('owner_phone_number')) {
+            this.owner_entity.set_property('owner_phone_number', this.profile_phone_number_input.get_text())
+            changes_occured = true
+        }
+        if (this.profile_phone_carrier_input.get_text() !== this.owner_entity.get_value('owner_phone_carrier')) {
+            this.owner_entity.set_property('owner_phone_carrier', this.profile_phone_carrier_input.get_text())
+            changes_occured = true
+        }
+
+        if (changes_occured) {
+            ENTITY_MANAGER.update_server_and_database()
+        }
     },
 
     __init__: function() {
@@ -83,27 +103,17 @@ SettingsWorld.prototype = {
         var label_width = 1024 / 8
         var label_offset = (1024 / -4) - label_width / 2
 
-        this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_INPUT_REGULAR, label_offset, 2, 3, 0)
-        this.profile_name_label.engable = false
-        this.profile_name_label.set_default_color(COLOR_TEXT_CONSTANT)
-        //this.profile_editor.add_object_to_remove_later(profile_name)
+        this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0)
 
-        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
-        //this.profile_editor.add_object_to_remove_later(profile_name_input)
+        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
 
-        this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_INPUT_REGULAR, label_offset, 2, 4, 0)
-        this.profile_email_label.engable = false
-        this.profile_email_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0)
         this.profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
 
-        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_INPUT_REGULAR, label_offset, 2, 5, 0)
-        this.profile_phone_number_label.engable = false
-        this.profile_phone_number_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_CONSTANT_TEXT, label_offset, 2, 5, 0)
         this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
 
-        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_INPUT_REGULAR, label_offset, 2, 6, 0)
-        this.profile_phone_carrier_label.engable = false
-        this.profile_phone_carrier_label.set_default_color(COLOR_TEXT_CONSTANT)
+        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0)
         this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
         this.profile_phone_carrier_input.engable = false
         // TODO :
@@ -126,28 +136,11 @@ SettingsWorld.prototype = {
             }
         }
 
-        /*
-        var pc0 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'AT&T', TYPE_BUTTON, 0, 4, 4, 0)
-        pc0.set_engage_function(function(){return this.selected_phone_carrier('AT&T')}.bind(this, 'arg1'))
-
-        var pc1 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'T-Mobile', TYPE_BUTTON, 0, 4, 5, 0)
-        pc1.set_engage_function(function(){return this.selected_phone_carrier('T-Mobile')}.bind(this, 'arg2'))
-
-        var pc2 = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Verizon', TYPE_BUTTON, 0, 4, 6, 0)
-        pc2.set_engage_function(function(){return this.selected_phone_carrier('Verizon')}.bind(this, 'arg3'))
-        */
-
-
         this.phone_carrier_list.set_to_invisible()
         //////
 
-
         this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
-
-
-        //this.interactive_objects.push(pc0)
-        //this.interactive_objects.push(pc1)
-
+        this.save_changes.set_engage_function(this.save_changes_button_pressed.bind(this))
 
         this.interactive_objects.push(this.profile_name_label)
         this.interactive_objects.push(this.profile_name_input)

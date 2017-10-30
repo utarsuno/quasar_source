@@ -8,12 +8,14 @@ EntityManager.prototype = {
 
     // POST calls.
     post_delete_entity: null,
+    post_save_entity: null,
 
     __init__: function() {
         this.entities = []
         this.entities_loaded = false
 
         this.post_delete_entity = new PostHelper('/delete_entity')
+        this.post_save_entity = new PostHelper('/save_entity')
     },
 
     clear_all: function() {
@@ -188,6 +190,30 @@ EntityManager.prototype = {
             return false
         default:
             return true
+        }
+    },
+
+    ////
+
+    save_changes_result: function() {
+        for (var i = 0; i < arguments.length; i++) {
+            l(arguments[i])
+        }
+    },
+
+    update_server_and_database: function() {
+        var username = WORLD_MANAGER.world_home.player.get_username()
+        var password = WORLD_MANAGER.world_home.player.get_password()
+
+        console.log('Trying to save the following self entity :')
+        console.log(this.self_entity)
+
+        for (var e = 0; e < this.entities.length; e++) {
+            if (this.entities[e].needs_to_be_saved) {
+                this.post_save_entity.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this, this.entities[e]))
+                // TODO : don't assume successful save
+                this.entities[e].needs_to_be_saved = false
+            }
         }
     }
 }
