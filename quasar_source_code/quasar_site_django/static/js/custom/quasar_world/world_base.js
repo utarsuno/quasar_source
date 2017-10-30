@@ -171,7 +171,7 @@ function World(planet_name) {
             }
         } else if (event.keyCode === KEY_CODE_TAB) {
             this.tab_to_next_interactive_object()
-            event.preventDefault()
+            //event.preventDefault()
             event.stopPropagation()
         }
         if (this.currently_looked_at_object !== null) {
@@ -186,6 +186,9 @@ function World(planet_name) {
                 }
             }
         }
+
+        // No defaults will be useful (for now).
+        event.preventDefault()
     }
 
     this.set_default_tab_target = function(default_tab_target) {

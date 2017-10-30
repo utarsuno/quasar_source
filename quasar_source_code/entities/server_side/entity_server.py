@@ -74,11 +74,10 @@ class EntityServer(object):
 		"""Creates a new entity or updates an existing entity."""
 		entity_manager = self._managers[owner_username]
 
-		print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
-
-		for key in data_dictionary:
-			print(str(key) + '\t' + str(data_dictionary[key]) + '\t' + str(type(data_dictionary[key])))
-		print('------------')
+		#print('NEED TO SAVE THE ENTITY : ' + str(data_dictionary))
+		#for key in data_dictionary:
+		#	print(str(key) + '\t' + str(data_dictionary[key]) + '\t' + str(type(data_dictionary[key])))
+		#print('------------')
 
 		match_found = False
 		id_match    = None

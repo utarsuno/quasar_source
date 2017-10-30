@@ -301,6 +301,8 @@ Floating2DText.prototype = {
                 }
             }
 
+            event.
+
             AUDIO_MANAGER.play_typing_sound()
 
         } else if (event.key.length == 1) {
