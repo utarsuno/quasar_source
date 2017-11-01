@@ -106,11 +106,13 @@ module.exports = {
         "TYPE_CHECK_BOX": false,
         "TYPE_CONSTANT_TEXT": false,
 
-        "ENTITY_TYPE_TASK" : false,
-        "ENTITY_TYPE_TIME" : false,
-        "ENTITY_TYPE_BASE" : false,
-        "ENTITY_TYPE_WALL" : false,
-        "ENTITY_TYPE_OWNER": false,
+        "ENTITY_TYPE_TASK"         : false,
+        "ENTITY_TYPE_TIME"         : false,
+        "ENTITY_TYPE_BASE"         : false,
+        "ENTITY_TYPE_WALL"         : false,
+        "ENTITY_TYPE_OWNER"        : false,
+        "ENTITY_TYPE_TEXT_REMINDER": false,
+        "ENTITY_TYPE_ALL"          : false,
 
         "ENTITY_PROPERTY_ID"       : false,
         "ENTITY_PROPERTY_TYPE"     : false,

@@ -74,11 +74,12 @@ EntityWall.prototype = {
     },
 
     create_entity_button_pressed: function() {
+
         this.create_entity_wall.set_to_visible()
     },
 
     create_entity_wall_close_button_pressed: function() {
-        this.create_entity_wall.set_to_invisible()
+        his.create_entity_wall.set_to_invisible()
     },
 
     are_you_sure_close_button_pressed: function() {
@@ -312,6 +313,11 @@ EntityWall.prototype = {
         this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
         //////
 
+        /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
+          |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
+          |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
+        //this.entity_type_selector = new FloatingWall()
+
         /* __   __   ___      ___  ___     ___      ___   ___
           /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    .
           \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     .*/
@@ -325,10 +331,13 @@ EntityWall.prototype = {
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
-        this.create_entity_wall.add_close_button()
+        var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
+        create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
         this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)
+
+        this.create_entity_wall.set_to_invisible()
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
           |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
@@ -347,11 +356,6 @@ EntityWall.prototype = {
         this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, -entity_wall_height)
         this.interactive_objects.push(this.entity_wall_save_entity)
         this.entity_wall_save_entity.set_engage_function(this.entity_wall_save_entity_button_pressed.bind(this))
-
-        var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
-        create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
-
-        this.create_entity_wall.set_to_invisible()
         //////
 
         // Save changes button.
