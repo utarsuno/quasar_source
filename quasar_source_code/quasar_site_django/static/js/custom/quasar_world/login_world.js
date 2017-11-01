@@ -199,7 +199,7 @@ LoginWorld.prototype = {
         this.create_repeat_password.update_position(200, 25 + global_y_offset, 45)
 
         this.create_account_button = new Floating2DText(create_width, 'Create Account', TYPE_BUTTON, this.scene)
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, 0 + global_y_offset, 45), new THREE.Vector3(200 + create_width / 2, 0 + global_y_offset, 46))
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, global_y_offset, 45), new THREE.Vector3(200 + create_width / 2, 0 + global_y_offset, 46))
 
         this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this))
 
