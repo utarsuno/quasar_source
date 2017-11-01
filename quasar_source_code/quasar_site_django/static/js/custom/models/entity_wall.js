@@ -439,7 +439,7 @@ EntityWall.prototype = {
         this.floating_row_to_entity_list = []
 
         // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
-        this.send_changes_to_server()
+        //this.send_changes_to_server()
     },
 
     // For create entity only.
