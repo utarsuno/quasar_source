@@ -165,7 +165,7 @@ FloatingWall.prototype = {
         floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset))
 
         this.add_additional_visibility_object(floating_2D_text)
-        this.objects_to_remove_later(floating_2D_text)
+        this.add_object_to_remove_later(floating_2D_text)
 
 
         this.all_floating_2d_texts.push(floating_2D_text)
