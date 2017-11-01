@@ -64,19 +64,26 @@ EntityManager.prototype = {
                 return i
             }
         }
-        return -1
+        return NOT_FOUND
+    },
+
+    delete_entity_by_id: function(entity_id) {
+        var entity = this.get_entity_by_id(entity_id)
+        if (entity !== null) {
+            this.delete_entity(entity)
+        } else {
+            l('No Entity found for the ID{' + entity_id + '}')
+        }
     },
 
     delete_entity: function(entity) {
-
         var entity_to_delete = null
         var index_to_splice = this._get_index_of_entity(entity)
-        if (index_to_splice !== -1) {
+        if (index_to_splice !== NOT_FOUND) {
             entity_to_delete = this.entities[index_to_splice]
         }
 
         if (entity_to_delete !== null) {
-
             // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
             this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete)
 
@@ -163,6 +170,7 @@ EntityManager.prototype = {
             console.log('MATCH NOT FOUND FOR :')
             console.log(entity_id)
         }
+        return null
     },
 
     get_all_entities_of_type: function(entity_type) {

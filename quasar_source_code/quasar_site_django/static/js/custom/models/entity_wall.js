@@ -74,12 +74,12 @@ EntityWall.prototype = {
     },
 
     create_entity_button_pressed: function() {
-
-        this.create_entity_wall.set_to_visible()
+        this.entity_type_selector.set_to_visible()
+        //this.create_entity_wall.set_to_visible()
     },
 
     create_entity_wall_close_button_pressed: function() {
-        this.create_entity_wall.set_to_invisible()
+        //this.create_entity_wall.set_to_invisible()
     },
 
     are_you_sure_close_button_pressed: function() {
@@ -253,7 +253,6 @@ EntityWall.prototype = {
     __init__: function(position, world) {
         this.current_entity_editor = null
 
-
         this.position = position
         this.look_at  = new THREE.Vector3(0, this.position.y, 0)
 
@@ -295,8 +294,22 @@ EntityWall.prototype = {
         /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
           |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
-        //this.entity_type_selector = new FloatingWall()
-        //this.entity_type_selector.set_to_invisible()
+
+        var entity_type_selector_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 8, this.create_entity_button.get_position().y + this.normal.y * 8, this.create_entity_button.get_position().z + this.normal.z * 8)
+        var entity_type_width = 512 / 2
+        this.entity_type_selector = new FloatingWall(entity_type_width, 512, entity_type_selector_position, this.normal, this)
+
+        var entity_type_selector_title = this.entity_type_selector.add_floating_2d_text(entity_type_width, 'Select Entity Type', TYPE_TITLE, 0, 4, 0, 0)
+        var entity_type_row_index = 4
+        for (var f = 0; f < ENTITY_TYPE_ALL.length; f++) {
+            var entity_type_row = this.entity_type_selector.add_floating_2d_text(entity_type_width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0)
+            entity_type_row_index += 1
+            this.interactive_objects.push(entity_type_row)
+            // TODO :
+            //entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f])
+        }
+
+        this.entity_type_selector.set_to_invisible()
 
         /* __   __   ___      ___  ___     ___      ___   ___
           /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    .
