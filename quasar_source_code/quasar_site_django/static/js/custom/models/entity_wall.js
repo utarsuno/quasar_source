@@ -131,10 +131,6 @@ EntityWall.prototype = {
         // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
-    create_entity_close_button_pressed: function() {
-        this.create_entity_wall.set_to_invisible()
-    },
-
     entity_editor_close_button_pressed: function() {
         //this.current_entity_editor
         console.log('CLOSE THE ENTITY EDITOR!')
@@ -220,7 +216,7 @@ EntityWall.prototype = {
                 this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world)
                 this.current_floating_entity_row = this.floating_row_to_entity_list[i][0]
 
-                var entity_editor_close_button = this.current_entity_editor.add_close_button(2)
+                var entity_editor_close_button = this.current_entity_editor.add_close_button(1)
                 this.world.interactive_objects.push(entity_editor_close_button)
 
                 for (var p = 0; p < key_values.length; p++) {
@@ -300,17 +296,15 @@ EntityWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
 
-
-
         //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1))
 
         // Create entity button.
         var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1)
-        this.create_entity = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
-        this.create_entity.update_position_and_look_at(create_entity_position, this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
-        this.create_entity.set_engage_function(this.create_entity_button_pressed.bind(this))
+        this.create_entity_button = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene)
+        this.create_entity_button.update_position_and_look_at(create_entity_position, this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1))
+        this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this))
         //////
 
         /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
@@ -334,20 +328,6 @@ EntityWall.prototype = {
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button(1)
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
 
-        this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
-        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)
-
-        this.create_entity_wall.set_to_invisible()
-
-        /* ___      ___   ___    ___  __             __  ___     __     __   __
-          |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
-          |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
-        this.entities = []
-        this.entities_display_wall_width = this.width * 0.9
-        this.entities_display_wall_height = this.height * 0.75
-        var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2)
-        this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world)
-
         // Add attribute button.
         this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
         this.interactive_objects.push(this.entity_wall_add_attribute)
@@ -362,6 +342,21 @@ EntityWall.prototype = {
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
         this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
+
+        // TODO : This needs to be determined from the Entity Type.
+        this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
+        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)
+
+        this.create_entity_wall.set_to_invisible()
+
+        /* ___      ___   ___    ___  __             __  ___     __     __   __
+          |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
+          |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
+        this.entities = []
+        this.entities_display_wall_width = this.width * 0.9
+        this.entities_display_wall_height = this.height * 0.75
+        var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2)
+        this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world)
 
         // Delete entity wall button.
         this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene)
@@ -414,7 +409,7 @@ EntityWall.prototype = {
         //////
 
         this.interactive_objects.push(this.title)
-        this.interactive_objects.push(this.create_entity)
+        this.interactive_objects.push(this.create_entity_button)
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
 
@@ -432,8 +427,8 @@ EntityWall.prototype = {
         }
 
         // Set the tab targets.
-        this.title.set_next_tab_target(this.create_entity)
-        this.create_entity.set_next_tab_target(this.save_changes)
+        this.title.set_next_tab_target(this.create_entity_button)
+        this.create_entity_button.set_next_tab_target(this.save_changes)
         this.save_changes.set_next_tab_target(this.delete_entity_wall)
         this.delete_entity_wall.set_next_tab_target(this.title)
 
