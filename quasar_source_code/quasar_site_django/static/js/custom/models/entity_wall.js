@@ -79,7 +79,7 @@ EntityWall.prototype = {
     },
 
     create_entity_wall_close_button_pressed: function() {
-        his.create_entity_wall.set_to_invisible()
+        this.create_entity_wall.set_to_invisible()
     },
 
     are_you_sure_close_button_pressed: function() {
@@ -331,7 +331,7 @@ EntityWall.prototype = {
         var create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
         this.create_entity_wall.add_object_to_remove_later(create_entity_wall_title)
 
-        var create_entity_wall_close_button = this.create_entity_wall.add_close_button()
+        var create_entity_wall_close_button = this.create_entity_wall.add_close_button(1)
         create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
@@ -384,7 +384,7 @@ EntityWall.prototype = {
 
         //var add_attribute_title = this.add_attribute_prompt.add_floating_2d_text(add_attribute_prompt_width / 2, 'Add Attribute')
 
-        this.add_attribute_prompt_close_button = this.add_attribute_prompt.add_close_button()
+        this.add_attribute_prompt_close_button = this.add_attribute_prompt.add_close_button(1)
         this.add_attribute_prompt_close_button.set_engage_function(this.add_attribute_prompt_close_button_pressed.bind(this))
 
         this.add_attribute_prompt.set_to_invisible()
@@ -399,7 +399,7 @@ EntityWall.prototype = {
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
         this.are_you_sure.add_object_to_remove_later(prompt)
-        var are_you_sure_close_button = this.are_you_sure.add_close_button()
+        var are_you_sure_close_button = this.are_you_sure.add_close_button(1)
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
         var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 2, 0)
