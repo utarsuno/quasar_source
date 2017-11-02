@@ -78,6 +78,10 @@ EntityWall.prototype = {
         //this.create_entity_wall.set_to_visible()
     },
 
+    entity_row_type_selected: function(selected_type) {
+        l('The selected type is : ' + selected_type)
+    },
+
     create_entity_wall_close_button_pressed: function() {
         //this.create_entity_wall.set_to_invisible()
     },
@@ -280,7 +284,6 @@ EntityWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
 
-        //this.title = new Floating2DText((this.width / 4.0) * 3.0, this.title_text, TYPE_INPUT_REGULAR, this.scene)
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene)
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1))
 
@@ -306,7 +309,7 @@ EntityWall.prototype = {
             entity_type_row_index += 1
             this.interactive_objects.push(entity_type_row)
             // TODO :
-            //entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f])
+            entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f])
         }
 
         this.entity_type_selector.set_to_invisible()
