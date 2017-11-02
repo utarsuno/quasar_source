@@ -309,7 +309,7 @@ EntityWall.prototype = {
             entity_type_row_index += 1
             this.interactive_objects.push(entity_type_row)
             // TODO :
-            entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f])
+            entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]))
         }
 
         this.entity_type_selector.set_to_invisible()
