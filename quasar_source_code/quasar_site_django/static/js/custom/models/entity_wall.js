@@ -298,11 +298,13 @@ EntityWall.prototype = {
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
           |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
 
-        var entity_type_selector_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 8, this.create_entity_button.get_position().y + this.normal.y * 8, this.create_entity_button.get_position().z + this.normal.z * 8)
+        var entity_type_selector_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 14, this.create_entity_button.get_position().y + this.normal.y * 14, this.create_entity_button.get_position().z + this.normal.z * 14)
         var entity_type_width = 512 / 2
-        this.entity_type_selector = new FloatingWall(entity_type_width, 512, entity_type_selector_position, this.normal, this)
+        var entity_type_height = (ENTITY_TYPE_ALL.length + 4) * 16
+        this.entity_type_selector = new FloatingWall(entity_type_width, entity_type_height, entity_type_selector_position, this.normal, this)
 
-        var entity_type_selector_title = this.entity_type_selector.add_floating_2d_text(entity_type_width, 'Select Entity Type', TYPE_TITLE, 0, 4, 0, 0)
+        // Entity type selector - title.
+        this.entity_type_selector.add_floating_2d_text(entity_type_width, 'Select Entity Type', TYPE_TITLE, 0, 4, 1, 0)
         var entity_type_row_index = 4
         for (var f = 0; f < ENTITY_TYPE_ALL.length; f++) {
             var entity_type_row = this.entity_type_selector.add_floating_2d_text(entity_type_width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0)
