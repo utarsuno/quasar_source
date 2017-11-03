@@ -125,11 +125,9 @@ class EntityServer(object):
 			# Give the entity to the manager.
 			entity_manager.add_entities(new_entity)
 
-
 			# TODO : add logic for when a text reminder gets created
-			if (entity_type == ENTITY_TYPE_TEXT_REMINDER):
+			if entity_type == ENTITY_TYPE_TEXT_REMINDER:
 				self._text_reminders_manager.add_new_text_reminder(new_entity)
-
 
 			# Now save the entity manager.
 			# TODO : Make a more efficient save method. Only save the entity change, not the entire manager again.
@@ -138,9 +136,7 @@ class EntityServer(object):
 		else:
 			print('Updating the entity{' + str(id_match) + '}')
 
-
 			# TODO : add logic for when a text_reminder gets updated
-
 
 			# If an entity match was found then the entity's values need to be saved over.
 			current_entity = entity_manager.get_entity_by_id(id_match)

@@ -130,7 +130,7 @@ class Entity(object):
 		return self._relative_id
 
 	def set_relative_id(self, val):
-		###TODO:"""
+		"""Set the relative ID of this entity."""
 		self._relative_id = val
 
 	@property

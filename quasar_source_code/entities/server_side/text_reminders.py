@@ -16,6 +16,9 @@ class TextReminderManager(object):
 		print('NEED TO SCHEDULE A TEXT REMINDER FOR THE FOLLOWING ENTITY')
 		entity_text_reminder.print_info()
 
+		#subprocess.Popen(['sudo', 'nohup', 'bash', send_text_message_script_path, number_of_seconds, full_send_address, message_to_send, str(self.unique_id), '&'])
+
+
 
 class TextReminder(object):
 	"""Represents a single scheduled text reminder."""

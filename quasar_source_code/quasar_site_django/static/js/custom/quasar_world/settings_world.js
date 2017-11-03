@@ -117,6 +117,10 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
         this.profile_phone_carrier_input.engable = false
 
+        // Created at date.
+        this.profile_created_at_date_label = this.profile_editor.add_floating_2d_text(label_width, 'Created at Date', TYPE_CONSTANT_TEXT, label_offset, 2, 7, 0)
+        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 7, 0)
+
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
         //////
@@ -150,6 +154,8 @@ SettingsWorld.prototype = {
         this.interactive_objects.push(this.profile_phone_number_input)
         this.interactive_objects.push(this.profile_phone_carrier_label)
         this.interactive_objects.push(this.profile_phone_carrier_input)
+        this.interactive_objects.push(this.profile_created_at_date_label)
+        this.interactive_objects.push(this.profile_created_at_date_input)
         this.interactive_objects.push(this.save_changes)
     },
 
@@ -184,6 +190,7 @@ SettingsWorld.prototype = {
         this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'))
         this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'))
         this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'))
+        this.profile_created_at_date_input.update_text(this.owner_entity.get_value('profile_email_input'))
     },
 
     exit_world: function() {

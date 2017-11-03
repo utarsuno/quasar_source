@@ -16,4 +16,3 @@ def get_config_ini() -> str:
 	if is_linux():
 		return '/home/config.ini'
 	return _project_base_path + 'configuration_files/config.ini'
-

@@ -8,6 +8,8 @@ from quasar_source_code.entities import base_entity as be
 from quasar_source_code.universal_code import debugging as dbg
 from quasar_source_code.entities.entity_manager import EntityManager
 
+from quasar_source_code.universal_code import time_abstraction as ta
+
 # Python PostgreSQL database library.
 import psycopg2
 # Python objects to binary data.
@@ -109,6 +111,8 @@ class EntityDatabaseAPI(object):
 		owner_entity.add_information('owner_email', email)
 		owner_entity.add_information('owner_phone_number', '')
 		owner_entity.add_information('owner_phone_carrier', '')
+		owner_entity.add_information('owner_created_at_date', str(ta.get_now()))
+
 		manager.add_entities(owner_entity)
 
 		self.save_entity_manager(manager)
