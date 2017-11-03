@@ -79,6 +79,7 @@ EntityWall.prototype = {
 
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
+        this.entity_type_selector.set_to_invisible()
         this.create_entity_wall.set_to_visible()
     },
 
