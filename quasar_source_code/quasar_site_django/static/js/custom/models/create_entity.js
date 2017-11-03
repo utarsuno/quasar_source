@@ -124,7 +124,7 @@ CreateEntity.prototype = {
             var entity_type_row = this.entity_type_selector.add_floating_2d_text(this.width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0)
             entity_type_row_index += 1
 
-            this.entity_wall.interactive_objects.push(entity_type_row)
+            this.entity_wall.world.interactive_objects.push(entity_type_row)
 
             entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]))
         }
@@ -175,9 +175,9 @@ CreateEntity.prototype = {
 
 
         // Make sure to add interactive objects back to the wall.
-        this.entity_wall.interactive_objects.push(this.add_attribute_button)
-        this.entity_wall.interactive_objects.push(this.save_entity_button)
-        this.entity_wall.interactive_objects.push(create_entity_wall_close_button)
+        this.entity_wall.world.interactive_objects.push(this.add_attribute_button)
+        this.entity_wall.world.interactive_objects.push(this.save_entity_button)
+        this.entity_wall.world.interactive_objects.push(create_entity_wall_close_button)
     },
 
     set_to_visible: function() {
@@ -220,8 +220,8 @@ CreateEntity.prototype = {
             entity_wall_entity_name_input.update_text(default_input)
         }
 
-        this.entity_wall.interactive_objects.push(entity_wall_entity_name)
-        this.entity_wall.interactive_objects.push(entity_wall_entity_name_input)
+        this.entity_wall.world.interactive_objects.push(entity_wall_entity_name)
+        this.entity_wall.world.interactive_objects.push(entity_wall_entity_name_input)
 
         this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
     },
@@ -233,17 +233,17 @@ CreateEntity.prototype = {
             var field_input = this.create_entity_fields[i][1]
 
             // Remove from interactive objects.
-            var index_of_field_label = this.entity_wall.interactive_objects.indexOf(field_label)
+            var index_of_field_label = this.entity_wall.world.interactive_objects.indexOf(field_label)
             if (index_of_field_label > -1) {
-                this.entity_wall.interactive_objects.splice(index_of_field_label, 1)
+                this.entity_wall.world.interactive_objects.splice(index_of_field_label, 1)
             } else {
                 l('Warning : did not find the field label to remove.')
                 l(field_label)
             }
 
-            var index_of_field_input = this.entity_wall.interactive_objects.indexOf(field_input)
+            var index_of_field_input = this.entity_wall.world.interactive_objects.indexOf(field_input)
             if (index_of_field_input > -1) {
-                this.entity_wall.interactive_objects.splice(index_of_field_input, 1)
+                this.entity_wall.world.interactive_objects.splice(index_of_field_input, 1)
             } else {
                 l('WARNING : did not find the field input to remove.')
                 l(field_input)
