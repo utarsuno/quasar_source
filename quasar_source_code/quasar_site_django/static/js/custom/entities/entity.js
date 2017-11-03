@@ -61,6 +61,11 @@ Entity.prototype = {
         this.children        = []
         this.keys_and_values = keys_and_values
 
+        if (this.keys_and_values === null || this.keys_and_values === undefined) {
+            // TODO : Send error messages to the display screen as well.
+            throw 'Entity properties passed in must not be null!'
+        }
+
         // Ensure that various entity properties exist with default values.
         this._ensure_property_exists(ENTITY_PROPERTY_ID, ENTITY_MANAGER.get_new_entity_id())
 

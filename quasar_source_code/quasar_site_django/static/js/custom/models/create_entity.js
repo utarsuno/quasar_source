@@ -6,6 +6,15 @@ function CreateEntity(entity_wall, entity_created_bind_function, position, norma
 
 // Random global TODO : eventually set a standard for the z-depth difference between layers on FloatingWalls.
 
+/*
+ENTITY_TYPE_NO_SPECIAL_TYPE
+ENTITY_TYPE_TEXT_REMINDER
+ENTITY_TYPE_TASK
+ENTITY_TYPE_TIME
+ENTITY_TYPE_BASE
+ */
+
+
 CreateEntity.prototype = {
 
     // TODO : Deal with all 'set_engage_function' functions.
@@ -18,9 +27,23 @@ CreateEntity.prototype = {
 
         this.clear_create_entity_fields()
 
-        // TODO : This needs to be determined from the Entity Type.
-        //this.add_create_entity_field(ENTITY_PROPERTY_NAME, this.entity_wall_width)
-        //this.add_create_entity_field(ENTITY_PROPERTY_TYPE, this.entity_wall_width)
+        this.add_create_entity_field(ENTITY_PROPERTY_NAME, '', false, true)
+        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, selected_type, false, false)
+
+        switch (selected_type) {
+        case ENTITY_TYPE_NO_SPECIAL_TYPE:
+            break
+        case ENTITY_TYPE_TEXT_REMINDER:
+            this.add_create_entity_field('Text Contents :', 'place the message to send here', false, true)
+            this.add_create_entity_field('PID :', 'to be filled out by the server', false, false)
+            break
+        case ENTITY_TYPE_TASK:
+            break
+        case ENTITY_TYPE_TIME:
+            break
+        case ENTITY_TYPE_BASE:
+            break
+        }
 
         this.create_entity_wall.set_to_visible()
     },
@@ -114,17 +137,17 @@ CreateEntity.prototype = {
         this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, entity_type_selector_position, this.normal, this.world)
 
         // Wall title.
-        this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, 'Create Entity', TYPE_TITLE, this.entity_wall_width / -4, 2, 0, 0)
+        this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, 'Create Entity', TYPE_TITLE, this.entity_wall_width / -4, 2, 1, 0)
 
         // Close button.
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button(1)
         create_entity_wall_close_button.set_engage_function(this.close_button_pressed.bind(this))
 
         // Attribute button.
-        this.add_attribute_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 2, 0)
+        this.add_attribute_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 3, 0)
         this.add_attribute_button.set_engage_function(this.add_attribute_button_pressed.bind(this))
 
-        // Entity button.
+        // Save Entity button.
         this.save_entity_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, (-entity_wall_height + 16))
         this.save_entity_button.set_engage_function(this.save_entity_button_pressed.bind(this))
         //////
@@ -169,20 +192,61 @@ CreateEntity.prototype = {
       /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    |  |  /\  |    |       |  |  |  | |    |  |  | |__  /__`    .
       \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___    \__/  |  | |___ |  |  | |___ .__/    .*/
 
-    add_create_entity_field: function(attribute_name) {
+    add_create_entity_field: function(attribute_name, default_input, label_modifiable, input_modifiable) {
         var y_offset = this.create_entity_fields.length * (16 + 2)
+        var input_type_label = TYPE_INPUT_REGULAR
+        var input_type_input = TYPE_INPUT_REGULAR
+        if (label_modifiable !== null && label_modifiable !== undefined) {
+            if (!label_modifiable) {
+                input_type_label = TYPE_CONSTANT_TEXT
+            }
+        }
+        if (input_modifiable !== null && input_modifiable !== undefined) {
+            if (!input_modifiable) {
+                input_type_input = TYPE_CONSTANT_TEXT
+            }
+        }
 
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, TYPE_INPUT_REGULAR, this.width / -3, 1, 2, -y_offset)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', TYPE_INPUT_REGULAR, this.width / 3 - (this.width / 6), 1, 2, -y_offset)
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 2, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 2, -y_offset)
 
-        this.interactive_objects.push(entity_wall_entity_name)
-        this.interactive_objects.push(entity_wall_entity_name_input)
+        if (default_input !== null && default_input !== undefined) {
+            default_input.update_text(default_input)
+        }
+
+        this.entity_wall.interactive_objects.push(entity_wall_entity_name)
+        this.entity_wall.interactive_objects.push(entity_wall_entity_name_input)
 
         this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
     },
 
     clear_create_entity_fields: function() {
+        for (var i = 0; i < this.create_entity_fields.length; i++) {
 
+            var field_label = this.create_entity_fields[i][0]
+            var field_input = this.create_entity_fields[i][1]
+
+            // Remove from interactive objects.
+            var index_of_field_label = this.entity_wall.interactive_objects.indexOf(field_label)
+            if (index_of_field_label > -1) {
+                this.entity_wall.interactive_objects.splice(index_of_field_label, 1)
+            } else {
+                l('Warning : did not find the field label to remove.')
+                l(field_label)
+            }
+
+            var index_of_field_input = this.entity_wall.interactive_objects.indexOf(field_input)
+            if (index_of_field_input > -1) {
+                this.entity_wall.interactive_objects.splice(index_of_field_input, 1)
+            } else {
+                l('WARNING : did not find the field input to remove.')
+                l(field_input)
+            }
+
+            // Remove from the scene/world.
+            this.world.remove_from_scene(field_label)
+            this.world.remove_from_scene(field_input)
+        }
     }
 
 }
