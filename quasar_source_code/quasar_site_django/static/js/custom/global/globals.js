@@ -31,7 +31,9 @@ const ENTITY_TYPE_BASE          = 'Entity'
 const ENTITY_TYPE_WALL          = 'EntityWall'
 const ENTITY_TYPE_OWNER         = 'EntityOwner'
 const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder'
-const ENTITY_TYPE_ALL           = [ENTITY_TYPE_TEXT_REMINDER, ENTITY_TYPE_OWNER, ENTITY_TYPE_WALL, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_BASE]
+const ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
+// This list will only contain the user creatable Entity Types.
+const ENTITY_TYPE_ALL           = [ENTITY_TYPE_NO_SPECIAL_TYPE, ENTITY_TYPE_TEXT_REMINDER, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_BASE]
 
 // Entity properties.
 // TODO : Only list the default properties here

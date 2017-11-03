@@ -75,15 +75,15 @@ EntityWall.prototype = {
 
     create_entity_button_pressed: function() {
         this.entity_type_selector.set_to_visible()
-        //this.create_entity_wall.set_to_visible()
     },
 
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
+        this.create_entity_wall.set_to_visible()
     },
 
     create_entity_wall_close_button_pressed: function() {
-        //this.create_entity_wall.set_to_invisible()
+        this.create_entity_wall.set_to_invisible()
     },
 
     are_you_sure_close_button_pressed: function() {
@@ -375,11 +375,6 @@ EntityWall.prototype = {
         this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1))
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
         /////
-
-        /* __   ___ ___     ___      ___   ___        ___      __   ___
-          /__` |__   |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     .
-          .__/ |___  |     |___ | \|  |  |  |   |      |   |  |    |___    .*/
-
 
         /*      __   __          ___ ___  __     __       ___  ___
            /\  |  \ |  \     /\   |   |  |__) | |__) |  |  |  |__     .
