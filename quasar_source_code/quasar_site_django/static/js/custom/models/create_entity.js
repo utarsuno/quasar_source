@@ -211,7 +211,7 @@ CreateEntity.prototype = {
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 2, -y_offset)
 
         if (default_input !== null && default_input !== undefined) {
-            default_input.update_text(default_input)
+            entity_wall_entity_name_input.update_text(default_input)
         }
 
         this.entity_wall.interactive_objects.push(entity_wall_entity_name)
