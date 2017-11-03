@@ -4,6 +4,7 @@
 
 from quasar_source_code.entities.database import entity_database
 from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities.server_side import text_reminders as tr
 
 # Needed for sending a simple HttpResponse such as a string response.
 from django.http import HttpResponse
@@ -35,6 +36,15 @@ ENTITY_PROPERTY_POSITION = 'ENTITY_PROPERTY_POSITION'
 ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
 ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
 
+# Entity types.
+ENTITY_TYPE_TASK            = 'EntityTask'
+ENTITY_TYPE_TIME            = 'EntityTime'
+ENTITY_TYPE_BASE            = 'Entity'
+ENTITY_TYPE_WALL            = 'EntityWall'
+ENTITY_TYPE_OWNER           = 'EntityOwner'
+ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder'
+ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
+
 
 class EntityServer(object):
 	"""Memory layer for entity managers and owners."""
@@ -44,6 +54,10 @@ class EntityServer(object):
 		self._owners   = self._db_api.get_all_owners()
 		# Managers are loaded as needed.
 		self._managers = {}
+
+		# TextReminders manager.
+		# TODO : Eventually pass in all the current text reminders in order to do a health check.
+		self._text_reminders_manager = tr.TextReminderManager()
 
 	def delete_entity(self, owner_username, entity_id_to_delete):
 		"""Deletes an entity."""
@@ -111,12 +125,22 @@ class EntityServer(object):
 			# Give the entity to the manager.
 			entity_manager.add_entities(new_entity)
 
+
+			# TODO : add logic for when a text reminder gets created
+			if (entity_type == ENTITY_TYPE_TEXT_REMINDER):
+				self._text_reminders_manager.add_new_text_reminder(new_entity)
+
+
 			# Now save the entity manager.
 			# TODO : Make a more efficient save method. Only save the entity change, not the entire manager again.
 			self._db_api.save_entity_manager(entity_manager)
 
 		else:
 			print('Updating the entity{' + str(id_match) + '}')
+
+
+			# TODO : add logic for when a text_reminder gets updated
+
 
 			# If an entity match was found then the entity's values need to be saved over.
 			current_entity = entity_manager.get_entity_by_id(id_match)

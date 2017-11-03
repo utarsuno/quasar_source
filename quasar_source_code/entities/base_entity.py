@@ -178,5 +178,12 @@ class Entity(object):
 		"""Returns the name of this entity."""
 		return self._name
 
+	def print_info(self):
+		"""Used only for debugging."""
+		print(self)
+		json_data = self.get_json_data()
+		for key in json_data:
+			print(str(key) + ' - ' + str(json_data[key]))
+
 	def __str__(self):
 		return '[' + str(self._relative_id) + '] - E{' + self._name + '}'

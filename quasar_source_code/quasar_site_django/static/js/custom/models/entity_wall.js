@@ -376,6 +376,6 @@ EntityWall.prototype = {
         var la = new THREE.Vector3(this.look_at.x + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z)
         la.addScaledVector(this.depth_start, depth)
         return la
-    },
+    }
 
 }

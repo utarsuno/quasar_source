@@ -97,21 +97,20 @@ CreateEntity.prototype = {
             var entity_field_label = this.create_entity_fields[i][0].get_text()
             var entity_field_value = this.create_entity_fields[i][1].get_text()
 
-            l('Printing the label and then value :')
-            l(entity_field_label)
-            l(entity_field_value)
+            //l('Printing the label and then value :')
+            //l(entity_field_label)
+            //l(entity_field_value)
 
             if (entity_field_label === ENTITY_PROPERTY_NAME) {
                 entity_name = entity_field_value
             }
-            // Used to be : if (ENTITY_PROPERTY_ALL.indexOf(properties[entity_field_label]) !== NOT_FOUND) {
             if (ENTITY_PROPERTY_ALL.indexOf(entity_field_label) !== NOT_FOUND) {
                 properties[entity_field_label] = entity_field_value
             }
         }
 
-        l('Printing the properties')
-        l(properties)
+        //l('Printing the properties')
+        //l(properties)
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.entity_wall.get_wall_entity())
