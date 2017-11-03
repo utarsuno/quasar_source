@@ -52,7 +52,7 @@ CreateEntity.prototype = {
     },
 
     close_button_pressed: function() {
-        //this.create_entity_wall.set_to_invisible()
+        this.create_entity_wall.set_to_invisible()
         this.clear_create_entity_fields()
     },
 
