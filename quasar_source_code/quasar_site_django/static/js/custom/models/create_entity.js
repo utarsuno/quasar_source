@@ -45,6 +45,7 @@ CreateEntity.prototype = {
             break
         }
 
+        this.entity_type_selector.set_to_invisible()
         this.create_entity_wall.set_to_visible()
     },
 
