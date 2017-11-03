@@ -26,10 +26,12 @@ EntityWall.prototype = {
     self_entity: null,
 
     send_changes_to_server: function() {
+        // TODO : Give player ability to move the wall.
+
         // This save data is for the Wall entity.
         var save_data = {}
         save_data.ENTITY_PROPERTY_NAME = this.title.get_text()
-        // TODO : figure out this y positioning thing.
+        // TODO : figure out this y positioning issue.
         save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']'
         save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']'
         save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL
@@ -77,63 +79,8 @@ EntityWall.prototype = {
         this.entity_type_selector.set_to_visible()
     },
 
-    entity_row_type_selected: function(selected_type) {
-        l('The selected type is : ' + selected_type)
-        this.entity_type_selector.set_to_invisible()
-        this.create_entity_wall.set_to_visible()
-    },
-
-    create_entity_wall_close_button_pressed: function() {
-        this.create_entity_wall.set_to_invisible()
-    },
-
     are_you_sure_close_button_pressed: function() {
         this.are_you_sure.set_to_invisible()
-    },
-
-    add_attribute_button_pressed: function() {
-        var position_update = new THREE.Vector3(this.entity_wall_add_attribute.get_position().x, this.entity_wall_add_attribute.get_position().y, this.entity_wall_add_attribute.get_position().z)
-        position_update.addScaledVector(this.normal, 10)
-        this.add_attribute_prompt.update_position(position_update)
-        this.add_attribute_prompt.set_to_visible()
-    },
-
-    add_attribute_prompt_close_button_pressed: function() {
-        this.add_attribute_prompt.set_to_invisible()
-    },
-
-    entity_wall_save_entity_button_pressed: function() {
-        //console.log('Save the entity!!!!')
-
-        var entity_name
-        var properties = {}
-
-        for (var i = 0; i < this.create_entity_fields.length; i++) {
-            var entity_field_label = this.create_entity_fields[i][0].get_text()
-            var entity_field_value = this.create_entity_fields[i][1].get_text()
-
-            console.log('Printing the label and then value :')
-            console.log(entity_field_label)
-            console.log(entity_field_value)
-
-            if (entity_field_label === ENTITY_PROPERTY_NAME) {
-                entity_name = entity_field_value
-            }
-            // Used to be : if (ENTITY_PROPERTY_ALL.indexOf(properties[entity_field_label]) !== NOT_FOUND) {
-            if (ENTITY_PROPERTY_ALL.indexOf(entity_field_label) !== NOT_FOUND) {
-                properties[entity_field_label] = entity_field_value
-            }
-        }
-
-        console.log('Printing the properties')
-        console.log(properties)
-
-        var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
-        new_entity.add_parent(this.self_entity)
-        this.add_entity(new_entity)
-
-        this.create_entity_wall.set_to_invisible()
-        // TODO : ALSO CLEAR THE FIELDS!!!
     },
 
     entity_editor_close_button_pressed: function() {
@@ -255,6 +202,11 @@ EntityWall.prototype = {
 
     },
 
+    entity_was_created: function(entity) {
+        l('The following entity was just created!')
+        l(entity)
+    },
+
     __init__: function(position, world) {
         this.current_entity_editor = null
 
@@ -295,72 +247,6 @@ EntityWall.prototype = {
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this))
         //////
 
-        /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
-          |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
-          |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
-
-        var entity_type_selector_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 14, this.create_entity_button.get_position().y + this.normal.y * 14, this.create_entity_button.get_position().z + this.normal.z * 14)
-        var entity_type_width = 512 / 2
-        var entity_type_height = (ENTITY_TYPE_ALL.length + 4) * 16
-        this.entity_type_selector = new FloatingWall(entity_type_width, entity_type_height, entity_type_selector_position, this.normal, this)
-
-        // Entity type selector - title.
-        this.entity_type_selector.add_floating_2d_text(entity_type_width, 'Select Entity Type', TYPE_TITLE, 0, 4, 1, 0)
-        var entity_type_row_index = 4
-        for (var f = 0; f < ENTITY_TYPE_ALL.length; f++) {
-            var entity_type_row = this.entity_type_selector.add_floating_2d_text(entity_type_width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0)
-            entity_type_row_index += 1
-            this.interactive_objects.push(entity_type_row)
-            // TODO :
-            entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]))
-        }
-
-        this.entity_type_selector.set_to_invisible()
-
-        /* __   __   ___      ___  ___     ___      ___   ___
-          /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    .
-          \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     .*/
-        this.create_entity_fields = []
-
-        var entity_wall_width = 400
-        // TODO : Height needs to be dynamically determined from the number of rows needed.
-        var entity_wall_height = 512 / 2
-        var entity_wall_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 20)
-        this.create_entity_wall = new FloatingWall(entity_wall_width, entity_wall_height, entity_wall_position, this.normal, this.world)
-
-        // Create entity wall title.
-        this.create_entity_wall.add_floating_2d_text(entity_wall_width / 2, 'Create Entity', TYPE_TITLE, entity_wall_width / -4, 2, 0, 0)
-
-        // Create entity wall close button.
-        var create_entity_wall_close_button = this.create_entity_wall.add_close_button(1)
-        create_entity_wall_close_button.set_engage_function(this.create_entity_wall_close_button_pressed.bind(this))
-
-        // Create entity wall add attribute button.
-        this.entity_wall_add_attribute = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Add Attribute', TYPE_BUTTON, 0, 1, 4, 0)
-        this.interactive_objects.push(this.entity_wall_add_attribute)
-        this.entity_wall_add_attribute.set_engage_function(this.add_attribute_button_pressed.bind(this))
-
-        // Create entity wall save entity button.
-        this.entity_wall_save_entity = this.create_entity_wall.add_floating_2d_text(entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, -entity_wall_height)
-        this.interactive_objects.push(this.entity_wall_save_entity)
-        this.entity_wall_save_entity.set_engage_function(this.entity_wall_save_entity_button_pressed.bind(this))
-        //////
-
-        // TODO : This needs to be determined from the Entity Type.
-        this.add_create_entity_field(ENTITY_PROPERTY_NAME, entity_wall_width)
-        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, entity_wall_width)
-
-        this.create_entity_wall.set_to_invisible()
-
-
-
-
-        // Entity wall save changes button.
-        this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.scene)
-        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
-        this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
-
-
         /* ___      ___   ___    ___  __             __  ___     __     __   __
           |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
           |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
@@ -377,20 +263,9 @@ EntityWall.prototype = {
         this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
         /////
 
-        /*      __   __          ___ ___  __     __       ___  ___
-           /\  |  \ |  \     /\   |   |  |__) | |__) |  |  |  |__     .
-          /~~\ |__/ |__/    /~~\  |   |  |  \ | |__) \__/  |  |___    .*/
-        var add_attribute_prompt_width = 400
-        var temp_position = new THREE.Vector3(0, 0, 0)
-        this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world)
-
-        //var add_attribute_title = this.add_attribute_prompt.add_floating_2d_text(add_attribute_prompt_width / 2, 'Add Attribute')
-
-        this.add_attribute_prompt_close_button = this.add_attribute_prompt.add_close_button(1)
-        this.add_attribute_prompt_close_button.set_engage_function(this.add_attribute_prompt_close_button_pressed.bind(this))
-
-        this.add_attribute_prompt.set_to_invisible()
-        /////
+        // TODO : Place in the Create Entity here.
+        this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), this.create_entity_button.get_position(), this.normal, 512 / 2, (ENTITY_TYPE_ALL.length + 4) * 16)
+        //this.create_entity_wall.set_to_invisible()
 
         /*      __   ___         __           __        __   ___     __   __   __         __  ___
            /\  |__) |__     \ / /  \ |  |    /__` |  | |__) |__     |__) |__) /  \  |\/| |__)  |     .
@@ -399,16 +274,16 @@ EntityWall.prototype = {
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3)
         this.are_you_sure = new FloatingWall(are_you_sure_width, 100, are_you_sure_position, this.normal, this.world)
 
-        var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 0, 0)
+        var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 1, 0)
         this.are_you_sure.add_object_to_remove_later(prompt)
         var are_you_sure_close_button = this.are_you_sure.add_close_button(1)
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
-        var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 2, 0)
+        var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 3, 0)
         this.interactive_objects.push(yes_button)
         yes_button.set_engage_function(this.perform_delete_entity_wall.bind(this))
 
-        var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 2, 0)
+        var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 3, 0)
         this.interactive_objects.push(no_button)
         no_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
@@ -447,19 +322,6 @@ EntityWall.prototype = {
 
         // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
         //this.send_changes_to_server()
-    },
-
-    // For create entity only.
-    add_create_entity_field: function(attribute_name, entity_wall_width) {
-        var y_offset = this.create_entity_fields.length * (16 + 2)
-
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, -y_offset)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, -y_offset)
-
-        this.interactive_objects.push(entity_wall_entity_name)
-        this.interactive_objects.push(entity_wall_entity_name_input)
-
-        this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
     },
 
     update_title: function(title) {
@@ -515,5 +377,25 @@ EntityWall.prototype = {
 
     get_all_interactive_objects: function() {
         return this.interactive_objects
+    },
+
+    /* __   __   ___      ___  ___     ___      ___   ___                                    ___          ___    ___  __
+      /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    |  |  /\  |    |       |  |  |  | |    |  |  | |__  /__`    .
+      \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___    \__/  |  | |___ |  |  | |___ .__/    .*/
+
+    add_create_entity_field: function(attribute_name, entity_wall_width) {
+        var y_offset = this.create_entity_fields.length * (16 + 2)
+
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, -y_offset)
+
+        this.interactive_objects.push(entity_wall_entity_name)
+        this.interactive_objects.push(entity_wall_entity_name_input)
+
+        this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
+    },
+
+    clear_create_entity_fields: function() {
+
     }
 }

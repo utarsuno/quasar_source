@@ -92,6 +92,7 @@ module.exports = {
 
         "Entity": false,
         "EntityWall": false,
+        "CreateEntity": false,
 
         // From globals.js
         "NOT_FOUND": false,
