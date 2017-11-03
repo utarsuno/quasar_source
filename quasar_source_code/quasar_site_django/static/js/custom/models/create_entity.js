@@ -21,6 +21,20 @@ CreateEntity.prototype = {
 
     entity_created_bind_function: null,
 
+    /*
+    select_date: function(floating_2d_text) {
+        l('Set the date!')
+
+        var add_attribute_prompt_width = 400
+        var temp_position = new THREE.Vector3(0, 0, 0)
+        this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world)
+
+        if (this.date_time_selector === null) {
+            this.date_time_selector = new FloatingWall()
+        }
+    },
+    */
+
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
 
@@ -38,6 +52,12 @@ CreateEntity.prototype = {
         case ENTITY_TYPE_TEXT_REMINDER:
             this.add_create_entity_field('Text Contents :', 'place the message to send here', false, true)
             this.add_create_entity_field('PID :', 'to be filled out by the server', false, false)
+
+            this.add_create_entity_field('Send N minutes from now :', '5', false, true)
+
+            // TODO : Date time selector
+            //var fields = this.add_create_entity_field('Date and Time', 'click me to set!', false, false)
+            //fields[1].set_engage_function(this.select_date.bind(this, fields[1]))
             break
         case ENTITY_TYPE_TASK:
             break
@@ -94,7 +114,7 @@ CreateEntity.prototype = {
         l(properties)
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
-        new_entity.add_parent(this.self_entity)
+        new_entity.add_parent(this.entity_wall.get_wall_entity())
         this.add_entity(new_entity)
 
         this.create_entity_wall.set_to_invisible()
@@ -110,6 +130,8 @@ CreateEntity.prototype = {
         this.height = height
 
         this.entity_created_bind_function = entity_created_bind_function
+
+        this.date_time_selector = null
 
         /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
@@ -212,6 +234,7 @@ CreateEntity.prototype = {
 
 
         // WAS  :  var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 4, -y_offset)
+        // TODO : Change these variables names
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, attribute_name, input_type_label, this.entity_wall_width / -4, 1, 4, -y_offset)
 
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, '', input_type_input, this.entity_wall_width / 4, 1, 4, -y_offset)
@@ -224,6 +247,8 @@ CreateEntity.prototype = {
         this.entity_wall.world.interactive_objects.push(entity_wall_entity_name_input)
 
         this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
+
+        return [entity_wall_entity_name, entity_wall_entity_name_input]
     },
 
     clear_create_entity_fields: function() {

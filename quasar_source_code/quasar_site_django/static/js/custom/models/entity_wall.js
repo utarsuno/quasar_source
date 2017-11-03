@@ -45,6 +45,13 @@ EntityWall.prototype = {
         ENTITY_MANAGER.update_server_and_database()
     },
 
+    get_wall_entity: function() {
+        if (this.self_entity === null || this.self_entity == undefined) {
+            l('WARNING : self entity is null')
+        }
+        return this.self_entity
+    },
+
     set_entity: function(entity) {
         this.self_entity = entity
         console.log('The entity wall {' + this.title.get_text() + '} has the following self entity :')
