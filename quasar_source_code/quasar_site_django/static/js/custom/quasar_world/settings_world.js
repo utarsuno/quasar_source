@@ -190,7 +190,7 @@ SettingsWorld.prototype = {
         this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'))
         this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'))
         this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'))
-        this.profile_created_at_date_input.update_text(this.owner_entity.get_value('profile_email_input'))
+        this.profile_created_at_date_input.update_text(this.owner_entity.get_value('owner_created_at_date'))
     },
 
     exit_world: function() {
