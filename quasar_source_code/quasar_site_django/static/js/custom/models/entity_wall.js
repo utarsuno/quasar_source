@@ -301,11 +301,7 @@ EntityWall.prototype = {
         this.interactive_objects.push(this.save_changes)
         this.interactive_objects.push(this.delete_entity_wall)
 
-        var extra_interactives = this.create_entity_wall.get_all_interactive_objects()
-        for (var c = 0; c < extra_interactives.length; c++) {
-            this.interactive_objects.push(extra_interactives[c])
-        }
-        extra_interactives = this.are_you_sure.get_all_interactive_objects()
+        var extra_interactives = this.are_you_sure.get_all_interactive_objects()
         for (var d = 0; d < extra_interactives.length; d++) {
             this.interactive_objects.push(extra_interactives[d])
         }
@@ -384,24 +380,4 @@ EntityWall.prototype = {
     get_all_interactive_objects: function() {
         return this.interactive_objects
     },
-
-    /* __   __   ___      ___  ___     ___      ___   ___                                    ___          ___    ___  __
-      /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    |  |  /\  |    |       |  |  |  | |    |  |  | |__  /__`    .
-      \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___    \__/  |  | |___ |  |  | |___ .__/    .*/
-
-    add_create_entity_field: function(attribute_name, entity_wall_width) {
-        var y_offset = this.create_entity_fields.length * (16 + 2)
-
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(entity_wall_width / 3, attribute_name, TYPE_INPUT_REGULAR, entity_wall_width / -3, 1, 2, -y_offset)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((entity_wall_width / 3) * 2, '', TYPE_INPUT_REGULAR, entity_wall_width / 3 - (entity_wall_width / 6), 1, 2, -y_offset)
-
-        this.interactive_objects.push(entity_wall_entity_name)
-        this.interactive_objects.push(entity_wall_entity_name_input)
-
-        this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
-    },
-
-    clear_create_entity_fields: function() {
-
-    }
 }

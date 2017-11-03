@@ -152,6 +152,26 @@ CreateEntity.prototype = {
         // Make sure to add interactive objects back to the wall.
         this.entity_wall.interactive_objects.push(this.add_attribute_button)
         this.entity_wall.interactive_objects.push(this.save_entity_button)
+    },
+
+    /* __   __   ___      ___  ___     ___      ___   ___                                    ___          ___    ___  __
+      /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    |  |  /\  |    |       |  |  |  | |    |  |  | |__  /__`    .
+      \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___    \__/  |  | |___ |  |  | |___ .__/    .*/
+
+    add_create_entity_field: function(attribute_name) {
+        var y_offset = this.create_entity_fields.length * (16 + 2)
+
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, TYPE_INPUT_REGULAR, this.width / -3, 1, 2, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', TYPE_INPUT_REGULAR, this.width / 3 - (this.width / 6), 1, 2, -y_offset)
+
+        this.interactive_objects.push(entity_wall_entity_name)
+        this.interactive_objects.push(entity_wall_entity_name_input)
+
+        this.create_entity_fields.push([entity_wall_entity_name, entity_wall_entity_name_input])
+    },
+
+    clear_create_entity_fields: function() {
+
     }
 
 }
