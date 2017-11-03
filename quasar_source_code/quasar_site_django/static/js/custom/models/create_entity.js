@@ -179,6 +179,7 @@ CreateEntity.prototype = {
         // Make sure to add interactive objects back to the wall.
         this.entity_wall.interactive_objects.push(this.add_attribute_button)
         this.entity_wall.interactive_objects.push(this.save_entity_button)
+        this.entity_wall.interactive_objects.push(create_entity_wall_close_button)
     },
 
     set_to_visible: function() {
@@ -214,7 +215,6 @@ CreateEntity.prototype = {
 
         // WAS  :  var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 4, -y_offset)
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, attribute_name, input_type_label, this.entity_wall_width / -4, 1, 4, -y_offset)
-
 
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, '', input_type_input, this.entity_wall_width / 4, 1, 4, -y_offset)
 
