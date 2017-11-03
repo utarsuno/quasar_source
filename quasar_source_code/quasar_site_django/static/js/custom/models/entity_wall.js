@@ -21,8 +21,6 @@ EntityWall.prototype = {
     title_text  : null,
     title       : null,
 
-    interactive_objects: null,
-
     self_entity: null,
 
     send_changes_to_server: function() {
@@ -63,8 +61,9 @@ EntityWall.prototype = {
         // All child entities will be automatically deleted (if they don't have any other parent entity objects).
         ENTITY_MANAGER.delete_entity(this.self_entity)
 
+        // TODO : OOOPS! This method is now broken. Make sure to fix it!
         for (var i = 0; i < this.interactive_objects.length; i++) {
-            this.world.remove_from_scene(this.interactive_objects[i].object3D)
+            //this.world.remove_from_scene(this.interactive_objects[i].object3D)
         }
         this.world.remove_from_scene(this.object3D)
 
@@ -185,6 +184,7 @@ EntityWall.prototype = {
                         this.world.interactive_objects.push(property_name)
                         property_name.engable = false
                         this.world.interactive_objects.push(property_value)
+                        // TODO : Is the line below supposed to be property_value.engable = false ?
                         property_name.engable = false
                         property_name.set_default_color(COLOR_TEXT_CONSTANT)
                         property_value.set_default_color(COLOR_TEXT_CONSTANT)
@@ -230,8 +230,6 @@ EntityWall.prototype = {
 
         this.width = 512
         this.height = 1024
-
-        this.interactive_objects = []
 
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height)
@@ -285,24 +283,25 @@ EntityWall.prototype = {
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
         var yes_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'Yes', TYPE_BUTTON, -1.0 * (are_you_sure_width / 4.0), 1, 3, 0)
-        this.interactive_objects.push(yes_button)
+        this.world.interactive_objects.push(yes_button)
         yes_button.set_engage_function(this.perform_delete_entity_wall.bind(this))
 
         var no_button = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 4, 'No', TYPE_BUTTON, (are_you_sure_width / 4.0), 1, 3, 0)
-        this.interactive_objects.push(no_button)
+        this.world.interactive_objects.push(no_button)
         no_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this))
 
         this.are_you_sure.set_to_invisible()
         //////
 
-        this.interactive_objects.push(this.title)
-        this.interactive_objects.push(this.create_entity_button)
-        this.interactive_objects.push(this.save_changes)
-        this.interactive_objects.push(this.delete_entity_wall)
+        this.world.interactive_objects.push(this.title)
+        this.world.interactive_objects.push(this.create_entity_button)
+        this.world.interactive_objects.push(this.save_changes)
+        this.world.interactive_objects.push(this.delete_entity_wall)
 
+        // TODO : Change the design so this for loop isn't needed.
         var extra_interactives = this.are_you_sure.get_all_interactive_objects()
         for (var d = 0; d < extra_interactives.length; d++) {
-            this.interactive_objects.push(extra_interactives[d])
+            this.world.interactive_objects.push(extra_interactives[d])
         }
 
         // Set the tab targets.
@@ -372,7 +371,4 @@ EntityWall.prototype = {
         return la
     },
 
-    get_all_interactive_objects: function() {
-        return this.interactive_objects
-    }
 }

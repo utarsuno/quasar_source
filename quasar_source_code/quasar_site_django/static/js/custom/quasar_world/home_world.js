@@ -46,11 +46,6 @@ HomeWorld.prototype = {
         }
 
         this.entity_walls.push(entity_wall)
-        var interactives = entity_wall.get_all_interactive_objects()
-        var number_of_interactives = interactives.length
-        for (var i = 0; i < number_of_interactives; i++) {
-            this.interactive_objects.push(interactives[i])
-        }
     },
 
     load_entity_walls: function() {
