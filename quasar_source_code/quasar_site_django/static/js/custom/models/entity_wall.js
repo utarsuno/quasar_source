@@ -254,7 +254,7 @@ EntityWall.prototype = {
         // Entity wall save changes button.
         this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.world.scene)
         this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1))
-        this.save_changes.set_engage_function(this.send_changes_to_server)
+        this.save_changes.set_engage_function(this.send_changes_to_server.bind(this))
         //
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
