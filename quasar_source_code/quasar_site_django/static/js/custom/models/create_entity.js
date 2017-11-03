@@ -216,7 +216,7 @@ CreateEntity.prototype = {
         var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, attribute_name, input_type_label, this.entity_wall_width / -4, 1, 4, -y_offset)
 
 
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, '', input_type_input, this.this.entity_wall_width / 4, 1, 4, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, '', input_type_input, this.entity_wall_width / 4, 1, 4, -y_offset)
 
         if (default_input !== null && default_input !== undefined) {
             entity_wall_entity_name_input.update_text(default_input)
