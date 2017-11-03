@@ -258,6 +258,9 @@ CreateEntity.prototype = {
 
         // Also remove the title
         this.world.remove_from_scene(this.create_entity_wall_title)
+
+        // Finally, empty out the create_entity_fields list.
+        this.create_entity_fields.length = 0
     }
 
 }
