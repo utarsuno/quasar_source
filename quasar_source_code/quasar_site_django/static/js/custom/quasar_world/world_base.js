@@ -20,6 +20,10 @@ function World(planet_name) {
 
     this.remove_from_scene = function(object) {
         this.scene.remove(object)
+
+        if (object.hasOwnProperty('object3D')) {
+            this.scene.remove(object.object3D)
+        }
     }
 
     this.set_player =  function(player) {
