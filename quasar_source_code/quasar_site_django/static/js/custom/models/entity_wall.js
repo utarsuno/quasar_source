@@ -75,7 +75,7 @@ EntityWall.prototype = {
     },
 
     create_entity_button_pressed: function() {
-        this.entity_type_selector.set_to_visible()
+        this.create_entity_wall.set_to_visible()
     },
 
     are_you_sure_close_button_pressed: function() {
