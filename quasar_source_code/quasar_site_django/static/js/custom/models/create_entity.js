@@ -23,6 +23,12 @@ CreateEntity.prototype = {
 
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
+
+
+        // Wall title.
+        this.create_entity_wall_title =  this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, 'Create a New ' + selected_type, TYPE_TITLE, this.entity_wall_width / -4, 2, 1, 0)
+
+
         this.entity_type_selector.set_to_invisible()
 
         this.clear_create_entity_fields()
@@ -137,9 +143,6 @@ CreateEntity.prototype = {
         var entity_wall_height = 512 / 2
         this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, entity_type_selector_position, this.normal, this.world)
 
-        // Wall title.
-        this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, 'Create Entity', TYPE_TITLE, this.entity_wall_width / -4, 2, 1, 0)
-
         // Close button.
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button(1)
         create_entity_wall_close_button.set_engage_function(this.close_button_pressed.bind(this))
@@ -210,10 +213,10 @@ CreateEntity.prototype = {
 
 
         // WAS  :  var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 4, -y_offset)
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, -1.0 * (this.width / 2 + this.width / 6), 1, 4, -y_offset)
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 2, attribute_name, input_type_label, this.width / -4, 1, 4, -y_offset)
 
 
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 4, -y_offset)
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.width / 2, '', input_type_input, this.width / 4, 1, 4, -y_offset)
 
         if (default_input !== null && default_input !== undefined) {
             entity_wall_entity_name_input.update_text(default_input)
