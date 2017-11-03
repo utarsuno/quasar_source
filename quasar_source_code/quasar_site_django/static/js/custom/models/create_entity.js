@@ -115,7 +115,7 @@ CreateEntity.prototype = {
 
         var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.entity_wall.get_wall_entity())
-        this.add_entity(new_entity)
+        this.entity_wall.add_entity(new_entity)
 
         this.create_entity_wall.set_to_invisible()
         this.clear_create_entity_fields()
