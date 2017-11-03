@@ -27,11 +27,7 @@ CreateEntity.prototype = {
 
         // Wall title.
         this.create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Create a New ' + selected_type, TYPE_TITLE, 0, 2, 1, 0)
-
-
         this.entity_type_selector.set_to_invisible()
-
-        this.clear_create_entity_fields()
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, 'entity default name', false, true)
         this.add_create_entity_field(ENTITY_PROPERTY_TYPE, selected_type, false, false)
@@ -57,6 +53,7 @@ CreateEntity.prototype = {
 
     close_button_pressed: function() {
         this.create_entity_wall.set_to_invisible()
+        this.clear_create_entity_fields()
     },
 
     add_attribute_prompt_close_button_pressed: function() {
@@ -101,6 +98,7 @@ CreateEntity.prototype = {
         this.add_entity(new_entity)
 
         this.create_entity_wall.set_to_invisible()
+        this.clear_create_entity_fields()
     },
 
     __init__: function(entity_wall, entity_created_bind_function, position, normal, width, height) {
