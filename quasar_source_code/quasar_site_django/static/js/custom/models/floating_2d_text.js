@@ -253,7 +253,11 @@ Floating2DText.prototype = {
             map	: this.dynamic_texture.texture
         })
         // TODO : try to make it a semi-transprent background instead (might help fix the visual bugs regarding seeing through walls)
-        this.material.transparent = true
+
+        //this.material.transparent = true
+        this.material.transparent = false
+        this.material.color.setHex(COLOR_HEX_BLACK)
+
         this.material.side = THREE.FrontSide
 
         // Adds the edge colorings.

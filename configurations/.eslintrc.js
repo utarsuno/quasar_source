@@ -134,6 +134,8 @@ module.exports = {
         "COLOR_TEXT_RED"      : false,
         "COLOR_TEXT_GREEN"    : false,
         "COLOR_TEXT_BUTTON"   : false,
+        "COLOR_HEX_BLACK"     : false,
+        "COLOR_BLACK"         : false,
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME": false,

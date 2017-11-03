@@ -88,6 +88,7 @@ const COLOR_TEXT_GREEN     = '#6cff61'
 const COLOR_TEXT_CONSTANT  = '#7e58b0'
 const COLOR_WHITE          = '#ffffff'
 const COLOR_BLACK          = '#000000'
+const COLOR_HEX_BLACK      = 0x000000
 
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0
