@@ -95,8 +95,9 @@ CreateEntity.prototype = {
         for (var f = 0; f < ENTITY_TYPE_ALL.length; f++) {
             var entity_type_row = this.entity_type_selector.add_floating_2d_text(this.width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0)
             entity_type_row_index += 1
-            this.interactive_objects.push(entity_type_row)
-            // TODO :
+
+            this.entity_wall.interactive_objects.push(entity_type_row)
+
             entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]))
         }
 
