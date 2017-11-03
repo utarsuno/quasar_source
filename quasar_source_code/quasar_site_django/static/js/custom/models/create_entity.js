@@ -210,7 +210,7 @@ CreateEntity.prototype = {
 
 
         // WAS  :  var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 4, -y_offset)
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / 2, 1, 4, -y_offset)
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, -1.0 * (this.width / 2 + this.width / 6), 1, 4, -y_offset)
 
 
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 4, -y_offset)
