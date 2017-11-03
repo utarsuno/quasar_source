@@ -27,7 +27,7 @@ CreateEntity.prototype = {
 
         this.clear_create_entity_fields()
 
-        this.add_create_entity_field(ENTITY_PROPERTY_NAME, '', false, true)
+        this.add_create_entity_field(ENTITY_PROPERTY_NAME, 'entity default name', false, true)
         this.add_create_entity_field(ENTITY_PROPERTY_TYPE, selected_type, false, false)
 
         switch (selected_type) {
@@ -208,8 +208,12 @@ CreateEntity.prototype = {
             }
         }
 
-        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 2, -y_offset)
-        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 2, -y_offset)
+
+        // WAS  :  var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / -3, 1, 4, -y_offset)
+        var entity_wall_entity_name = this.create_entity_wall.add_floating_2d_text(this.width / 3, attribute_name, input_type_label, this.width / 2, 1, 4, -y_offset)
+
+
+        var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text((this.width / 3) * 2, '', input_type_input, this.width / 3 - (this.width / 6), 1, 4, -y_offset)
 
         if (default_input !== null && default_input !== undefined) {
             entity_wall_entity_name_input.update_text(default_input)
