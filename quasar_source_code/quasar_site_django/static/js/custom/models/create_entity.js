@@ -154,6 +154,12 @@ CreateEntity.prototype = {
         this.entity_wall.interactive_objects.push(this.save_entity_button)
     },
 
+    remove_from_scene: function() {
+        this.entity_type_selector.remove_from_scene()
+        this.create_entity_wall.remove_from_scene()
+        this.add_attribute_prompt.remove_from_scene()
+    },
+
     /* __   __   ___      ___  ___     ___      ___   ___                                    ___          ___    ___  __
       /  ` |__) |__   /\   |  |__     |__  |\ |  |  |  |  \ /    |  |  /\  |    |       |  |  |  | |    |  |  | |__  /__`    .
       \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___    \__/  |  | |___ |  |  | |___ .__/    .*/

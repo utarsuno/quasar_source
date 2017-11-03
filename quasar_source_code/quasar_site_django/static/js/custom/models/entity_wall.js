@@ -71,7 +71,6 @@ EntityWall.prototype = {
         this.are_you_sure.remove_from_scene()
         this.entities_display_wall.remove_from_scene()
         this.create_entity_wall.remove_from_scene()
-        this.add_attribute_prompt.remove_from_scene()
         // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())
     },
 
@@ -305,10 +304,6 @@ EntityWall.prototype = {
         for (var d = 0; d < extra_interactives.length; d++) {
             this.interactive_objects.push(extra_interactives[d])
         }
-        extra_interactives = this.add_attribute_prompt.get_all_interactive_objects()
-        for (var e = 0; e < extra_interactives.length; e++) {
-            this.interactive_objects.push(extra_interactives[e])
-        }
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button)
@@ -379,5 +374,5 @@ EntityWall.prototype = {
 
     get_all_interactive_objects: function() {
         return this.interactive_objects
-    },
+    }
 }
