@@ -68,7 +68,7 @@ FloatingSlider.prototype = {
         // Create the actual slider object.
         var current_percentage = (this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value)
         this.current_value_text = new Floating2DText(100, current_percentage.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
-        this.slider_object = new Floating2DText(6, '|', COLOR_TEXT_CONSTANT, this.world.scene)
+        this.slider_object = new Floating2DText(12, '|||||||||', COLOR_TEXT_CONSTANT, this.world.scene)
 
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
