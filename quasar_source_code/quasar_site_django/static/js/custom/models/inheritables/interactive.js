@@ -82,8 +82,25 @@ function Interactive() {
         this.next_tab_target = tab_target
     }
 
-    this.provide_mouse_x_movement = function(movement_x) {
-        l('MOUSE X MOVE :')
-        l(movement_x)
+    // Slider related logic below.
+    // TODO : move this out later on
+
+    this.bind_increase_and_decrease_functions = function(increase_function, decrease_function) {
+        this.slider_increase_function = increase_function
+        this.slider_decrease_function = decrease_function
     }
+
+    this.provide_mouse_x_movement = function(movement_x) {
+        if (movement_x > 0) {
+            if (is_defined(this.slider_increase_function)) {
+                this.slider_increase_function()
+            }
+        } else if (movement_x < 0) {
+            if (is_defined(this.slider_decrease_function)) {
+                this.slider_decrease_function()
+            }
+        }
+    }
+
+
 }
