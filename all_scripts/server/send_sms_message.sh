@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
-source universal_functions.sh;
+#cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
+#source universal_functions.sh;
 
 # Helps see exactly where the script's output starts.
 print_dashed_line_with_text "send_sms_message start for : ${HOST_NAME}"
@@ -10,7 +10,7 @@ print_dashed_line_with_text "send_sms_message start for : ${HOST_NAME}"
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
 
-terminate_if_script_does_not_have_root_privileges
+#terminate_if_script_does_not_have_root_privileges
 
 # Parameters that need to be passed in :
 # first_parameter - number of seconds to sleep for
@@ -31,6 +31,11 @@ terminate_if_script_does_not_have_root_privileges
 
 #path_to_script=/home/git_repos/quasar_source/all_scripts/universal_scripts/is_program_running.py
 path_to_sms_sender=/home/git_repos/quasar_source/quasar_source_code/universal_code/sms_sender.py
+
+echo $0;
+echo $1;
+echo $2;
+echo $3;
 
 # Sleep for N number of seconds.
 sleep $1;
