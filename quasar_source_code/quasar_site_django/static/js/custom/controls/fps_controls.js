@@ -342,7 +342,7 @@ FPSControls.prototype = {
         }
 
         if (WORLD_MANAGER.player.currently_sliding) {
-            WORLD_MANAGER.add_slide(movement_x)
+            WORLD_MANAGER.player.add_slide(movement_x)
         }
     },
 

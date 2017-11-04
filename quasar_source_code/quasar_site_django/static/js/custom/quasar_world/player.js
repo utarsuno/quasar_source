@@ -98,6 +98,7 @@ Player.prototype = {
         if (this.engaged) {
             this.engaged = false
         }
+        this.currently_sliding = false
     },
 
     is_engaged: function() {
