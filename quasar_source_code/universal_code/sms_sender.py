@@ -51,6 +51,9 @@ class GMailAccount(object):
         self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='sms_sender')
         self.email = self._database_parameters['username']
         self.password = self._database_parameters['password']
+
+        print('LOGGING IN WITH THE EMAIL : ' + str(self.email))
+
         self.server = 'smtp.gmail.com'
         self.port = 587
         self.session = smtplib.SMTP(self.server, self.port)
