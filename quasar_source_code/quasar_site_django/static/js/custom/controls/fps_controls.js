@@ -333,8 +333,9 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
+        var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
+
         if (this.enabled) {
-            var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0
 
             this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
