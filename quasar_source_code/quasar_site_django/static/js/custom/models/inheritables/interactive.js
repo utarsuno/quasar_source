@@ -7,6 +7,8 @@ function Interactive() {
     this.maintain_engage_when_tabbed_to = true
     this.engable                        = true
 
+    this.requires_mouse_x_movement      = false
+
     // Function events.
     this.engage_function    = null
     this.disengage_function = null
@@ -78,5 +80,10 @@ function Interactive() {
 
     this.set_next_tab_target = function(tab_target) {
         this.next_tab_target = tab_target
+    }
+
+    this.provide_mouse_x_movement = function(movement_x) {
+        l('MOUSE X MOVE :')
+        l(movement_x)
     }
 }

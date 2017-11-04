@@ -341,9 +341,13 @@ FPSControls.prototype = {
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
         }
 
-        l(WORLD_MANAGER.player.currently_sliding)
-        if (WORLD_MANAGER.player.currently_sliding) {
-            WORLD_MANAGER.player.add_slide(movement_x)
+        if (WORLD_MANAGER.player.is_engaged()) {
+            var c = WORLD_MANAGER.current_world.currently_looked_at_object
+            if (is_defined(c)) {
+                if (c.requires_mouse_x_movement) {
+                    c.provide_mouse_x_movement(movement_x)
+                }
+            }
         }
     },
 
