@@ -4,7 +4,7 @@
 #source universal_functions.sh;
 
 # Helps see exactly where the script's output starts.
-print_dashed_line_with_text "send_sms_message start for : ${HOST_NAME}"
+#print_dashed_line_with_text "send_sms_message start for : ${HOST_NAME}"
 
 #  __        ___  ___ ___         __        ___  __        __      ___    __   __  ___
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
@@ -38,9 +38,9 @@ echo $2;
 echo $3;
 
 # Sleep for N number of seconds.
-sleep $1;
+sleep $3;
 
-python3 ${path_to_sms_sender} "$2" "$3" &
+python3 ${path_to_sms_sender} "$2" "$1" &
 
 # Helps to see exactly where the script's output ends.
-print_dashed_line_with_text "send_sms_message end for : ${HOST_NAME}"
+#print_dashed_line_with_text "send_sms_message end for : ${HOST_NAME}"
