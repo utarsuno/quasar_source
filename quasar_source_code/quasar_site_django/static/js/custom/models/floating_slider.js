@@ -27,8 +27,6 @@ FloatingSlider.prototype = {
         this.world         = world
 
         this.left_right = new THREE.Vector3(0, 1, 0)
-        l(this.left_right)
-        l(this.normal)
         this.left_right.cross(this.normal)
         this.left_right.normalize()
 
@@ -38,16 +36,18 @@ FloatingSlider.prototype = {
 
         // Create the actual slider object.
         this.current_value_text = new Floating2DText(100, 'CURRENT PERCENTAGE %', COLOR_TEXT_CONSTANT, this.world.scene)
+        this.slider_object = new Floating2DText(6, '|', COLOR_TEXT_CONSTANT, this.world.scene)
 
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
         this.object3D.position.z = position.z
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z))
 
-        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this.normal)
+        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this._get_current_look_at_on_slider(0, 50, 0))
+        this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2))
 
         this.world.scene.add(this.object3D)
-        //this.world.interactive_objects.push()
+        this.world.interactive_objects.push(this.slider_object)
     },
 
     get_current_value: function() {
@@ -72,6 +72,11 @@ FloatingSlider.prototype = {
             position.z += z_offset
         }
         return position
+    },
+
+    _get_current_look_at_on_slider: function(x_offset, y_offset, z_offset) {
+        var position = this._get_current_position_on_slider(x_offset, y_offset, z_offset)
+        return new THREE.Vector3(position.x + this.normal.x, position.y + this.normal.y, position.z + this.normal.z)
     },
 
     /* __  ___      ___  ___     __                  __   ___  __
