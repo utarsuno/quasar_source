@@ -71,8 +71,8 @@ FloatingSlider.prototype = {
         this.slider_object = new Floating2DText(12, '|||||||||', COLOR_TEXT_CONSTANT, this.world.scene)
 
         // Minimum Value Label
-        this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
-        this.minimum_value_label.update_position_and_look_at()
+        //this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
+        //this.minimum_value_label.update_position_and_look_at()
 
         // Maximum Value Label
 
