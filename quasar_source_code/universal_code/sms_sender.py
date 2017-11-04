@@ -7,7 +7,8 @@ import sys
 #import requests
 
 import os
-
+if '/home/git_repos/quasar_source/' not in sys.path:
+    sys.path.append('/home/git_repos/quasar_source/')
 
 
 # Useful file + directory operations.
