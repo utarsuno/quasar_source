@@ -1,7 +1,7 @@
 'use strict'
 
-function FloatingSlider(position, normal, world) {
-    this.__init__(position, normal, world)
+function FloatingSlider(current_value, minimum_value, maximum_value, width, position, normal, world) {
+    this.__init__(current_value, minimum_value, maximum_value, width, position, normal, world)
 }
 
 FloatingSlider.prototype = {
