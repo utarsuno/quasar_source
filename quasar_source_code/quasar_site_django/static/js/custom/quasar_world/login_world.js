@@ -117,10 +117,15 @@ LoginWorld.prototype = {
 
     create_account_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
-            this.ajax_status.update_text('Account created!')
+            // Auto-login for successful account creations.
+            this.ajax_status.update_text('Account created! Now sending login request to server!')
+            this.attempted_username = this.create_username.get_input_text()
+            this.attempted_password = this.create_password.get_input_text()
+            this.post_login.perform_post({'username': this.attempted_username, 'password': this.attempted_password}, this.login_button_event.bind(this))
         } else {
             this.ajax_status.update_text('Error: ' + data)
         }
+        this.player.disengage()
     },
 
     remember_username_clicked: function() {

@@ -87,4 +87,5 @@ if len(arguments) == 2:
     print('Sending the text message of {' + str(arguments[0]) + '} to ' + str(arguments[1]))
     email_sender.send_message('can_you_see_this_subject', arguments[0], arguments[1])
 else:
-    print('Invalid arguments!!!')
+    print('Invalid arguments! They were : {' + str(arguments) + '}')
+
