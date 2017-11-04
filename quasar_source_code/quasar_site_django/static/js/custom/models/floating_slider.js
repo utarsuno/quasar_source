@@ -11,7 +11,7 @@ FloatingSlider.prototype = {
     current_value: null,
 
     __init__: function(current_value, minimum_value, maximum_value, width, position, normal, world) {
-        this.object3D =- new THREE.Object3D()
+        this.object3D = new THREE.Object3D()
 
         // Visibility must be inherited after interactive.
         Interactive.call(this)
