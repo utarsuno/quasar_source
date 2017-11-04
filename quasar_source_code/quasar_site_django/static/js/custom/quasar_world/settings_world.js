@@ -150,6 +150,15 @@ SettingsWorld.prototype = {
         this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
         this.save_changes.set_engage_function(this.save_changes_button_pressed.bind(this))
 
+        /////
+        // Define the first camera FOV slider here.
+        var slider_fov_position = new THREE.Vector3(1200, 500, -350)
+        var slider_fov_normal       = new THREE.Vector3(-0.969, -0.115, -0.221)
+        var slider_fov_width        = 500
+        this.slider_fov = new FloatingSlider(90, 60, 120, slider_fov_width, slider_fov_position, slider_fov_normal, this)
+        /////
+
+
         this.interactive_objects.push(this.profile_name_label)
         this.interactive_objects.push(this.profile_name_input)
         this.interactive_objects.push(this.profile_email_label)
