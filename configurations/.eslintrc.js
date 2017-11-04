@@ -107,6 +107,7 @@ module.exports = {
         "TYPE_TITLE": false,
         "TYPE_CHECK_BOX": false,
         "TYPE_CONSTANT_TEXT": false,
+        "TYPE_SLIDER": false,
 
         "ENTITY_TYPE_TASK"           : false,
         "ENTITY_TYPE_TIME"           : false,

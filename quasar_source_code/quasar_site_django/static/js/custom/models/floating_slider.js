@@ -77,41 +77,6 @@ FloatingSlider.prototype = {
     _get_current_look_at_on_slider: function(x_offset, y_offset, z_offset) {
         var position = this._get_current_position_on_slider(x_offset, y_offset, z_offset)
         return new THREE.Vector3(position.x + this.normal.x, position.y + this.normal.y, position.z + this.normal.z)
-    },
+    }
 
-    /* __  ___      ___  ___     __                  __   ___  __
-      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
-      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
-    state_change_look_at: function(being_looked_at) {
-        /*
-        if (being_looked_at) {
-            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT)
-            this.update_color(COLOR_TEXT_HIGHLIGHT)
-            //this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
-            if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_HIGHLIGHT)
-            }
-        } else {
-            this.wireframe.material.color.setHex(this.original_border_color)
-            this.update_color(this.default_color)
-            if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, this.default_color)
-            }
-        }
-        */
-    },
-
-    state_change_engage: function(being_engaged_with) {
-        /*
-        if (being_engaged_with) {
-            if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
-                WORLD_MANAGER.player.engage()
-            } else {
-                this.being_engaged_with = false
-            }
-        } else {
-            WORLD_MANAGER.player.disengage()
-        }
-        */
-    },
 }

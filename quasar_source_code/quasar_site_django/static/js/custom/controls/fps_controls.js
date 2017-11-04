@@ -340,6 +340,10 @@ FPSControls.prototype = {
             this.mouse_movement_x_buffer.add_force(movement_x * -0.002)
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
         }
+
+        if (this.player.currently_sliding) {
+            this.player.add_slide(movement_x)
+        }
     },
 
     get_direction: function() {

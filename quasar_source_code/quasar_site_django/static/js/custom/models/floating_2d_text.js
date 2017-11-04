@@ -174,11 +174,19 @@ Floating2DText.prototype = {
         if (being_engaged_with) {
             if (this.type != TYPE_BUTTON && this.type != TYPE_CHECK_BOX) {
                 WORLD_MANAGER.player.engage()
+
+                if (this.type === TYPE_SLIDER) {
+                    this.player.currently_sliding = true
+                }
             } else {
                 this.being_engaged_with = false
             }
         } else {
             WORLD_MANAGER.player.disengage()
+
+            if (this.type === TYPE_SLIDER) {
+                this.player.currently_sliding = false
+            }
         }
     },
 

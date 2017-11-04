@@ -55,6 +55,8 @@ Player.prototype = {
 
         // Give reference of self to the World Manager.
         WORLD_MANAGER.set_player(this)
+
+        this.currently_sliding = false
     },
 
     log_out: function() {
@@ -156,6 +158,14 @@ Player.prototype = {
         this.fps_controls.yaw.position.x = vector.x
         this.fps_controls.yaw.position.y = vector.y
         this.fps_controls.yaw.position.z = vector.z
+    },
+
+
+    // For sliding IO (TODO : potentially move this / abstract it differently)
+
+    add_slide: function(slide_amount) {
+        l('SLIDE FOR :')
+        l(slide_amount)
     }
 
 }
