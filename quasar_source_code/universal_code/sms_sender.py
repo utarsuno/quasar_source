@@ -4,7 +4,7 @@
 
 import smtplib
 import sys
-import requests
+#import requests
 
 # Useful file + directory operations.
 from quasar_source_code.universal_code import useful_file_operations as ufo
