@@ -14,9 +14,9 @@ ENTITY_TYPE_TIME
 ENTITY_TYPE_BASE
  */
 
-const TEMP_PROPERTY_A = 'Text Contents :'
-const TEMP_PROPERTY_B = 'Seconds from now :'
-const TEMP_PROPERTY_C = 'Send to :'
+//const TEMP_PROPERTY_A = 'Text Contents :'
+//const TEMP_PROPERTY_B = 'Seconds from now :'
+//const TEMP_PROPERTY_C = 'Send to :'
 
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',
