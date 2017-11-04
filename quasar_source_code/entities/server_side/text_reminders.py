@@ -39,8 +39,8 @@ class TextReminderManager(object):
 
 			print(str(key) + ' - ' + str(json_data[key]))
 
-		subprocess.Popen(['sudo', 'nohup', 'bash', '/home/git_repos/quasar_source/all_scripts/server/send_sms_message.sh', str(number_of_seconds_to_wait), str(message), str(send_to), '&'])
-
+		#subprocess.Popen(['sudo', 'nohup', 'bash', '/home/git_repos/quasar_source/all_scripts/server/send_sms_message.sh', str(number_of_seconds_to_wait), str(message), str(send_to), '&'])
+		subprocess.Popen(['sudo', 'bash', '/home/git_repos/quasar_source/all_scripts/server/send_sms_message.sh', str(number_of_seconds_to_wait), str(message), str(send_to)])
 
 class TextReminder(object):
 	"""Represents a single scheduled text reminder."""
