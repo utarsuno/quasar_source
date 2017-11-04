@@ -105,9 +105,9 @@ FloatingSlider.prototype = {
 
 
         if (percentage < 0.5) {
-            position.addScaledVector(this.left_right, -percentage * this.width)
+            position.addScaledVector(this.left_right, (0.5 - percentage) * this.width)
         } else {
-            position.addScaledVector(this.left_right, (0.5 - (percentage - 0.5)) * this.width)
+            position.addScaledVector(this.left_right, (percentage - 0.5) * this.width)
         }
 
 
