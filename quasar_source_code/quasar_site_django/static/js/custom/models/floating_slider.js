@@ -27,6 +27,8 @@ FloatingSlider.prototype = {
         this.world         = world
 
         this.left_right = new THREE.Vector3(0, 1, 0)
+        l(this.left_right)
+        l(this.normal)
         this.left_right.cross(this.normal)
         this.left_right.normalize()
 
