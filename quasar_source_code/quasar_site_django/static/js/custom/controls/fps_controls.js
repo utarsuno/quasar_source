@@ -341,6 +341,7 @@ FPSControls.prototype = {
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
         }
 
+        l(WORLD_MANAGER.player.currently_sliding)
         if (WORLD_MANAGER.player.currently_sliding) {
             WORLD_MANAGER.player.add_slide(movement_x)
         }
