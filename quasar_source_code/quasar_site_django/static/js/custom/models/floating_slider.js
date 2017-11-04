@@ -38,12 +38,13 @@ FloatingSlider.prototype = {
 
         // Create the actual slider object.
         this.current_value_text = new Floating2DText(100, 'CURRENT PERCENTAGE %', COLOR_TEXT_CONSTANT, this.world.scene)
-        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this.normal)
 
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
         this.object3D.position.z = position.z
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z))
+
+        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this.normal)
 
         this.world.scene.add(this.object3D)
         //this.world.interactive_objects.push()
