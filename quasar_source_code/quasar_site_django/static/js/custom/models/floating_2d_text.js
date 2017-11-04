@@ -176,7 +176,7 @@ Floating2DText.prototype = {
                 WORLD_MANAGER.player.engage()
 
                 if (this.type === TYPE_SLIDER) {
-                    this.player.currently_sliding = true
+                    WORLD_MANAGER.player.currently_sliding = true
                 }
             } else {
                 this.being_engaged_with = false
@@ -185,7 +185,7 @@ Floating2DText.prototype = {
             WORLD_MANAGER.player.disengage()
 
             if (this.type === TYPE_SLIDER) {
-                this.player.currently_sliding = false
+                WORLD_MANAGER.player.currently_sliding = false
             }
         }
     },
