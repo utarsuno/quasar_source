@@ -54,7 +54,7 @@ FloatingSlider.prototype = {
     },
 
     _get_current_position_on_slider: function(x_offset, y_offset, z_offset) {
-        var position = new THREE.Vector3()
+        var position = new THREE.Vector3(this.position.x, this.position.y, this.position.z)
         var current_percentage = (this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value)
         if (this.current_value < this.maximum_value / 2.0) {
             position.addScaledVector(this.left_right, -current_percentage * this.half_width)
