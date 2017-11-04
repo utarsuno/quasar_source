@@ -178,7 +178,6 @@ SettingsWorld.prototype = {
 
         this.previous_world = WORLD_MANAGER.previous_world
 
-
         // Set the profile information values.
 
         // TODO : Grab the values from the owner entity!

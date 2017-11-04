@@ -14,6 +14,32 @@ ENTITY_TYPE_TIME
 ENTITY_TYPE_BASE
  */
 
+const TEMP_PROPERTY_A = 'Text Contents :'
+const TEMP_PROPERTY_B = 'Seconds from now :'
+const TEMP_PROPERTY_C = 'Send to :'
+
+const CELL_PHONE_CARRIERS = {
+    'No Value'         : '',
+    'AT&T'             : 'number@txt.att.net',
+    'T-Mobile'         : 'number@tmomail.net',
+    'Verizon'          : 'number@vtext.com',
+    'Sprint'           : 'number@pm.sprint.com',
+    'Virgin Mobile'    : 'number@vmobl.com',
+    'Tracfone'         : 'number@mmst5.tracfone.com',
+    'Metro PCS'        : 'number@mymetropcs.com',
+    'Boost Mobile'     : 'number@myboostmobile.com',
+    'Cricket'          : 'number@mms.cricketwireless.net',
+    'Ptel'             : 'number@ptel.com',
+    'Republic Wireless': 'number@text.republicwireless.com',
+    'Google Fi'        : 'number@msg.fi.google.com',
+    'Suncom'           : 'number@tms.suncom.com',
+    'Ting'             : 'number@message.ting.com',
+    'U.S. Cellular'    : 'number@email.uscc.net',
+    'Consumer Cellular': 'number@cingularme.com',
+    'C-Spire'          : 'number@cspire1.com',
+    'Page Plus'        : 'number@vtext.com'
+}
+
 
 CreateEntity.prototype = {
 
@@ -35,6 +61,25 @@ CreateEntity.prototype = {
     },
     */
 
+    get_owner_sms_email: function() {
+        var owner_entity = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
+
+        var owner_provider = owner_entity.get_value('owner_phone_carrier')
+        var owner_phone_number = owner_entity.get_value('owner_phone_number')
+        var owner_sms_address
+
+        for (var key in CELL_PHONE_CARRIERS) {
+            if (CELL_PHONE_CARRIERS.hasOwnProperty(key)) {
+
+                if (key === owner_provider) {
+                    owner_sms_address = CELL_PHONE_CARRIERS[key].replace('number', owner_phone_number)
+                }
+            }
+        }
+
+        return owner_sms_address
+    },
+
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
 
@@ -50,10 +95,11 @@ CreateEntity.prototype = {
         case ENTITY_TYPE_NO_SPECIAL_TYPE:
             break
         case ENTITY_TYPE_TEXT_REMINDER:
-            this.add_create_entity_field('Text Contents :', 'place the message to send here', false, true)
+            this.add_create_entity_field(TEMP_PROPERTY_A, 'message here', false, true)
             this.add_create_entity_field('PID :', 'to be filled out by the server', false, false)
 
-            this.add_create_entity_field('Send N minutes from now :', '5', false, true)
+            this.add_create_entity_field(TEMP_PROPERTY_B, '5', false, true)
+            this.add_create_entity_field(TEMP_PROPERTY_C, this.get_owner_sms_email(), false, false)
 
             // TODO : Date time selector
             //var fields = this.add_create_entity_field('Date and Time', 'click me to set!', false, false)
@@ -97,9 +143,9 @@ CreateEntity.prototype = {
             var entity_field_label = this.create_entity_fields[i][0].get_text()
             var entity_field_value = this.create_entity_fields[i][1].get_text()
 
-            //l('Printing the label and then value :')
-            //l(entity_field_label)
-            //l(entity_field_value)
+            l('Printing the label and then value :')
+            l(entity_field_label)
+            l(entity_field_value)
 
             if (entity_field_label === ENTITY_PROPERTY_NAME) {
                 entity_name = entity_field_value

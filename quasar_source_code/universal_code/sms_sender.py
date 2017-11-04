@@ -72,16 +72,12 @@ class GMailAccount(object):
             print(e)
 
 email_sender = GMailAccount()
-email_sender.send_message('hello_world_subject', 'my_content', '7086739124@tmomail.net')
 
-
-'''
 arguments = sys.argv[1:]
 
-if len(arguments) == 3:
-    #print('Sending the text message of {' + str(arguments[1]) + '} to ' + str(arguments[0]))
-    send_sms_message('Message from Nexus Server', arguments[1], arguments[0], arguments[2])
+if len(arguments) == 2:
+    print('Sending the text message of {' + str(arguments[0]) + '} to ' + str(arguments[1]))
+    email_sender.send_message('can_you_see_this_subject', arguments[0], arguments[1])
 else:
-    y = 2
-    #print('Invalid arguments!!!')
-'''
+    print('Invalid arguments!!!')
+
