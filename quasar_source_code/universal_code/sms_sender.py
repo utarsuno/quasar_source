@@ -6,6 +6,10 @@ import smtplib
 import sys
 #import requests
 
+import os
+
+
+
 # Useful file + directory operations.
 from quasar_source_code.universal_code import useful_file_operations as ufo
 # Contains useful paths needed.
