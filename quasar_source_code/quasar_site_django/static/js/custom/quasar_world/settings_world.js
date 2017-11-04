@@ -4,6 +4,8 @@ function SettingsWorld() {
     this.__init__()
 }
 
+/*
+
 // Cell phone carriers.
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',
@@ -26,6 +28,8 @@ const CELL_PHONE_CARRIERS = {
     'C-Spire'          : 'number@cspire1.com',
     'Page Plus'        : 'number@vtext.com'
 }
+
+*/
 
 const CELL_PHONE_CARRIERS_AS_LIST = [
     'No Value',
