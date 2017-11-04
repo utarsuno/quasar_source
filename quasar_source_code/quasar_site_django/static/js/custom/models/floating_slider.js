@@ -70,12 +70,19 @@ FloatingSlider.prototype = {
         this.current_value_text = new Floating2DText(100, current_percentage.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
         this.slider_object = new Floating2DText(12, '|||||||||', COLOR_TEXT_CONSTANT, this.world.scene)
 
+        // Minimum Value Label
+        this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
+        this.minimum_value_label.update_position_and_look_at()
+
+        // Maximum Value Label
+
+
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
         this.object3D.position.z = position.z
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z))
 
-        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this._get_current_look_at_on_slider(0, 50, 0))
+        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(50), this._get_current_look_at_on_slider(50))
         this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2))
         this.slider_object.requires_mouse_x_movement = true
 
@@ -89,28 +96,34 @@ FloatingSlider.prototype = {
         return this.current_value
     },
 
-    _get_current_position_on_slider: function(x_offset, y_offset, z_offset) {
+    get_position_on_slider_based_off_percentage: function(percentage, y_offset) {
         var position = new THREE.Vector3(this.position.x, this.position.y, this.position.z)
-        var current_percentage = (this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value)
-        if (this.current_value < this.maximum_value / 2.0) {
-            position.addScaledVector(this.left_right, -current_percentage * this.half_width)
+        //var current_percentage = (this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value)
+
+
+
+
+
+        if (percentage < 0.5) {
+            position.addScaledVector(this.left_right, -percentage * this.width)
         } else {
-            position.addScaledVector(this.left_right, current_percentage * this.half_width)
+            position.addScaledVector(this.left_right, (percentage - 0.5) * this.width)
         }
-        if (is_defined(x_offset)) {
-            position.x += x_offset
-        }
+
+
+
         if (is_defined(y_offset)) {
             position.y += y_offset
-        }
-        if (is_defined(z_offset)) {
-            position.z += z_offset
         }
         return position
     },
 
-    _get_current_look_at_on_slider: function(x_offset, y_offset, z_offset) {
-        var position = this._get_current_position_on_slider(x_offset, y_offset, z_offset)
+    _get_current_position_on_slider: function(y_offset) {
+        return this.get_position_on_slider_based_off_percentage((this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value), y_offset)
+    },
+
+    _get_current_look_at_on_slider: function(y_offset) {
+        var position = this._get_current_position_on_slider(y_offset)
         return new THREE.Vector3(position.x + this.normal.x, position.y + this.normal.y, position.z + this.normal.z)
     }
 
