@@ -61,7 +61,7 @@ Entity.prototype = {
         this.children        = []
         this.keys_and_values = keys_and_values
 
-        if (this.keys_and_values === null || this.keys_and_values === undefined) {
+        if (!is_defined(this.keys_and_values)) {
             // TODO : Send error messages to the display screen as well.
             throw 'Entity properties passed in must not be null!'
         }
@@ -96,7 +96,7 @@ Entity.prototype = {
     _ensure_property_exists: function(property_name, default_value) {
         if (!this.has_property(property_name)) {
             this.set_property(property_name, default_value)
-        } else if (this.get_value(property_name) === null || this.get_value(property_name) === undefined) {
+        } else if (!is_defined(this.get_value(property_name))) {
             this.set_property(property_name, default_value)
         }
     },

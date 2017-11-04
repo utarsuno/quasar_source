@@ -159,6 +159,10 @@ const DISPLAY_SHOW = 'block'
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
+function is_defined(object) {
+    return object !== null && object !== undefined
+}
+
 // Base code from : https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript
 function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

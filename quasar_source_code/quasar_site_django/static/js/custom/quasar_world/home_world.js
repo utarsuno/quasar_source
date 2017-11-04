@@ -39,7 +39,7 @@ HomeWorld.prototype = {
         entity_wall.update_title(wall_text)
         entity_wall.set_entity(entity)
 
-        if (entity !== null && entity !== undefined) {
+        if (is_defined(entity)) {
             for (var ce = 0; ce < entity.children.length; ce++) {
                 entity_wall.add_entity(entity.children[ce])
             }

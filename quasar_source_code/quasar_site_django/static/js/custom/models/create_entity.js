@@ -83,7 +83,6 @@ CreateEntity.prototype = {
     entity_row_type_selected: function(selected_type) {
         l('The selected type is : ' + selected_type)
 
-
         // Wall title.
         this.create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Create a New ' + selected_type, TYPE_TITLE, 0, 2, 1, 0)
         this.entity_type_selector.set_to_invisible()
@@ -266,12 +265,12 @@ CreateEntity.prototype = {
         var y_offset = this.create_entity_fields.length * (16 + 2)
         var input_type_label = TYPE_INPUT_REGULAR
         var input_type_input = TYPE_INPUT_REGULAR
-        if (label_modifiable !== null && label_modifiable !== undefined) {
+        if (is_defined(label_modifiable)) {
             if (!label_modifiable) {
                 input_type_label = TYPE_CONSTANT_TEXT
             }
         }
-        if (input_modifiable !== null && input_modifiable !== undefined) {
+        if (is_defined(input_modifiable)) {
             if (!input_modifiable) {
                 input_type_input = TYPE_CONSTANT_TEXT
             }
@@ -284,7 +283,7 @@ CreateEntity.prototype = {
 
         var entity_wall_entity_name_input = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width / 2, '', input_type_input, this.entity_wall_width / 4, 1, 4, -y_offset)
 
-        if (default_input !== null && default_input !== undefined) {
+        if (is_defined(default_input)) {
             entity_wall_entity_name_input.update_text(default_input)
         }
 

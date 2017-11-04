@@ -57,6 +57,7 @@ module.exports = {
         "Floating2DLabelInput": true,
         "Floating3DText": true,
         "Floating3DLabelInput": true,
+        "FloatingSlider": true,
         "CheckBox": true,
 
         "SmoothStep": false,
@@ -212,6 +213,7 @@ module.exports = {
 
         // Shortcuts.
         "l": false,
+        "is_defined": false,
 
         "is_email_valid": false,
         "get_key_value_list_from_json_dictionary": false,

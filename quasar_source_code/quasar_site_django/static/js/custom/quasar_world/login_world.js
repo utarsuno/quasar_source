@@ -190,7 +190,7 @@ LoginWorld.prototype = {
         this.create_username = new Floating2DLabelInput(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100 + global_y_offset, 45)
 
-        if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === undefined) {
+        if (!is_defined(GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME))) {
             GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 

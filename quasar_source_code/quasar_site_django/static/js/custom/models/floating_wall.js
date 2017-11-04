@@ -110,7 +110,7 @@ FloatingWall.prototype = {
 
     update_position: function(position_vector) {
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z)
-        if (this.close_button !== null && this.close_button !== undefined) {
+        if (is_defined(this.close_button)) {
             this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0)
         }
         // TODO : update the remaining positions as well.

@@ -98,11 +98,10 @@ SmoothStepLowerLimitZero.prototype = {
         this.buffer = []
         this.current_value = current_value
         this.time_needed_for_each_force = time_needed_for_each_force
-
-        if (minimum_value !== null && minimum_value !== undefined) {
+        if (is_defined(this.minimum_value)) {
             this.minimum_value = minimum_value
         }
-        if (maximum_value !== null && maximum_value !== undefined) {
+        if (is_defined(this.maximum_value)) {
             this.maximum_value = maximum_value
         }
     },

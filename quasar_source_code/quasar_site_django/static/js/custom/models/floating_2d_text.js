@@ -128,7 +128,7 @@ Floating2DText.prototype = {
     },
 
     get_label: function() {
-        if (this.label === null || this.label === undefined) {
+        if (!is_defined(this.label)) {
             return ''
         }
         return this.label

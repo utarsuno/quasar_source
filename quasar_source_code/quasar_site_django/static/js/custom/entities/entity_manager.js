@@ -137,7 +137,7 @@ EntityManager.prototype = {
 
                 var entity_to_add = this.get_entity_by_id(children_list[c])
 
-                if (entity_to_add !== null || entity_to_add !== undefined) {
+                if (is_defined(entity_to_add)) {
                     this.entities[e].add_child(entity_to_add)
                 } else {
                     console.log('THERE WAS AN ERROR YOU NEED TO FIX.')
