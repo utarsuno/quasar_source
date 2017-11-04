@@ -19,9 +19,11 @@ terminate_if_script_does_not_have_root_privileges
 # pass in the & symbol (TODO : double check if that is needed)
 
 # Exactly four arguments were not passed.
-if [ "$#" -ne 4 ]; then
-    terminate_script "Exactly five arguments should be passed in, the number of seconds to sleep for, the message to send, the sms_address to send to, and '&'."
-fi
+#if [ "$#" -ne 4 ]; then
+#    terminate_script "Exactly five arguments should be passed in, the number of seconds to sleep for, the message to send, the sms_address to send to, and '&'."
+#fi
+
+
 
 #  __   __   __     __  ___          __   __     __      __   ___       __
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
