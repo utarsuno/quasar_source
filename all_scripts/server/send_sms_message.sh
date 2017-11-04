@@ -35,7 +35,7 @@ path_to_sms_sender=/home/git_repos/quasar_source/quasar_source_code/universal_co
 # Sleep for N number of seconds.
 sleep $1;
 
-sudo python ${path_to_sms_sender} "$2" "$3" &
+python3 ${path_to_sms_sender} "$2" "$3" &
 
 # Helps to see exactly where the script's output ends.
 print_dashed_line_with_text "send_sms_message end for : ${HOST_NAME}"
