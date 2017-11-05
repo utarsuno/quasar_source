@@ -111,32 +111,34 @@ SettingsWorld.prototype = {
 
         var label_width = 1024 / 8
         var label_offset = (1024 / -4) - label_width / 2
+        var input_width = 1024 / 2
+        var input_offset = 1024 / -4 + (1024 / 4) + 50
 
         // Owner ID
         this.profile_owner_id_label = this.profile_editor.add_floating_2d_text(label_width, 'Owner ID', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0)
-        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 3, 0)
 
 
         // Username
         this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0)
-        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
+        this.profile_name_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 4, 0)
 
         // Email
         this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_CONSTANT_TEXT, label_offset, 2, 5, 0)
-        this.profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
+        this.profile_email_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 5, 0)
 
         // Phone number
         this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0)
-        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
+        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 6, 0)
 
         // Phone carrier
         this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 7, 0)
-        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 7, 0)
+        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 7, 0)
         this.profile_phone_carrier_input.engable = false
 
         // Created at date.
         this.profile_created_at_date_label = this.profile_editor.add_floating_2d_text(label_width, 'Created at Date', TYPE_CONSTANT_TEXT, label_offset, 2, 8, 0)
-        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 8, 0)
+        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 8, 0)
 
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
@@ -160,7 +162,7 @@ SettingsWorld.prototype = {
         this.phone_carrier_list.set_to_invisible()
         //////
 
-        this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 8, 0)
+        this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 9, 0)
         this.save_changes.set_engage_function(this.save_changes_button_pressed.bind(this))
 
         /////

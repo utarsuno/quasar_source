@@ -39,7 +39,6 @@ WebSocketClient.prototype = {
 
         this.player_id = player_id
 
-
         this.socket    = new WebSocket('ws://' + window.location.host + '/users/')
         this.connected = true
 

@@ -160,6 +160,10 @@ const DISPLAY_SHOW = 'block'
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
+function round_to_n_decimal_places(text, n) {
+    return Number(text).toFixed(n)
+}
+
 function is_defined(object) {
     return object !== null && object !== undefined
 }

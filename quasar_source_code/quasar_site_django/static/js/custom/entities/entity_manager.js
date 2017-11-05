@@ -171,8 +171,8 @@ EntityManager.prototype = {
             }
         }
         if (!match_found_ONLY_FOR_DEBUGGING) {
-            console.log('MATCH NOT FOUND FOR :')
-            console.log(entity_id)
+            l('MATCH NOT FOUND FOR :')
+            l(entity_id)
         }
         return null
     },

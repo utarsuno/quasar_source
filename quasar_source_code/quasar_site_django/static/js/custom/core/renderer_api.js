@@ -24,8 +24,8 @@ RendererAPI.prototype = {
         this.webgl_enabled = !!Detector.webgl
         if (this.webgl_enabled === false) {
             this.warning_message = Detector.getWebGLErrorMessage()
-            console.log('WebGL is not enabled!')
-            console.log(this.get_warning_message())
+            l('WebGL is not enabled!')
+            l(this.get_warning_message())
             throw new Error('WebGL is not enabled!')
         } else {
             this.stats_api = new StatsAPI()
