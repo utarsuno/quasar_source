@@ -160,7 +160,7 @@ SettingsWorld.prototype = {
         var slider_fov_position     = new THREE.Vector3(1200, 500, -350)
         var slider_fov_normal       = new THREE.Vector3(-0.969, -0.115, -0.221)
         var slider_fov_width        = 500
-        this.slider_fov = new FloatingSlider(90, 60, 120, slider_fov_width, slider_fov_position, slider_fov_normal, this)
+        this.slider_fov = new FloatingSlider(90, 20, 160, slider_fov_width, slider_fov_position, slider_fov_normal, this)
         this.slider_fov.value_changed_function = this.slider_fov_value_changed.bind(this)
 
         /////
