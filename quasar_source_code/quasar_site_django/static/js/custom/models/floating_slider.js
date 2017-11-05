@@ -1,7 +1,7 @@
 'use strict'
 
-function FloatingSlider(current_value, minimum_value, maximum_value, width, position, normal, world) {
-    this.__init__(current_value, minimum_value, maximum_value, width, position, normal, world)
+function FloatingSlider(slider_title, current_value, minimum_value, maximum_value, width, position, normal, world) {
+    this.__init__(slider_title, current_value, minimum_value, maximum_value, width, position, normal, world)
 }
 
 FloatingSlider.prototype = {
@@ -43,24 +43,22 @@ FloatingSlider.prototype = {
         }
     },
 
-    __init__: function(current_value, minimum_value, maximum_value, width, position, normal, world) {
+    __init__: function(slider_title, current_value, minimum_value, maximum_value, width, position, normal, world) {
         this.object3D = new THREE.Object3D()
 
         // Visibility must be inherited after interactive.
         Interactive.call(this)
         Visibility.call(this)
 
-        this.current_value = current_value
-        this.minimum_value = minimum_value
-        this.maximum_value = maximum_value
+        this.current_value     = current_value
+        this.minimum_value     = minimum_value
+        this.maximum_value     = maximum_value
         this.one_percent_value = (this.maximum_value - this.minimum_value) * 0.01
-        this.width         = width
-        this.half_width    = this.width / 2.0
-        this.position      = position
-        this.normal        = normal
-        this.world         = world
-
-        this.slider_offset = 0
+        this.width             = width
+        this.position          = position
+        this.normal            = normal
+        this.world             = world
+        this.slider_title      = slider_title
 
         this.left_right = new THREE.Vector3(0, 1, 0)
         this.left_right.cross(this.normal)
@@ -76,12 +74,16 @@ FloatingSlider.prototype = {
         this.slider_object = new Floating2DText(12, '|||||||||', COLOR_TEXT_CONSTANT, this.world.scene)
 
         // Minimum Value Label
-        this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
+        this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene)
         this.minimum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(0, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(0, 0, -40, 0))
 
         // Maximum Value Label
-        this.maximum_value_label = new Floating2DText(25, this.maximum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
+        this.maximum_value_label = new Floating2DText(25, this.maximum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene)
         this.maximum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(1, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(1, 0, -40, 0))
+
+        // Slider Title.
+        this.slider_floating_title = new Floating2DText(this.width / 2.0, this.slider_title, TYPE_TITLE, this.world.scene)
+        this.slider_floating_title.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(.5, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(.5, 0, -40, 0))
 
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
@@ -96,7 +98,6 @@ FloatingSlider.prototype = {
 
         this.world.scene.add(this.object3D)
         this.world.interactive_objects.push(this.slider_object)
-
 
         this.value_changed_function = null
     },
