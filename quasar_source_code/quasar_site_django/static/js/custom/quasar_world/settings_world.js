@@ -114,7 +114,8 @@ SettingsWorld.prototype = {
 
         // Owner ID
         this.profile_owner_id_label = this.profile_editor.add_floating_2d_text(label_width, 'Owner ID', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0)
-        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(1024 / 2, ENTITY_MANAGER.get_owner_entity().get_value('owner_id'), TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+
 
         // Username
         this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0)
@@ -197,6 +198,11 @@ SettingsWorld.prototype = {
     },
 
     enter_world: function() {
+
+        // Make sure the owner ID is set.
+        this.profile_owner_id_input.update_text(ENTITY_MANAGER.get_owner_entity().get_value('owner_id'))
+
+
         this.player.disengage()
         if (!PAUSED_MENU.currently_displayed) {
             this.player.enable_controls()
