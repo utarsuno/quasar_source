@@ -35,7 +35,7 @@ class QuasarWorldServer(object):
 
 	def run_server(self):
 		"""Runs the server."""
-		if self._running == False:
+		if not self._running:
 			self._running = True
 
 		else:

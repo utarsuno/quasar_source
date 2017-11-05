@@ -54,7 +54,6 @@ Client.prototype = {
 }
 
 var client_test = new Client()
-client_test.connect()
 
 /*
 

@@ -45,6 +45,7 @@ def ws_connect(message):
 
 	server.user_joined()
 
+	print('USER JOINED!')
 	print(message.reply_channel)
 	print(message)
 
@@ -53,7 +54,7 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-	#print('JUST GOT THE MESSAGE : ' + str(message))
+	print('JUST GOT THE MESSAGE : ' + str(message))
 	Group('users').send({
 		"text": "[user] %s" % message.content['text'],
 	})
@@ -62,6 +63,8 @@ def ws_message(message):
 @channel_session
 def ws_disconnect(message):
 
+
+	print('User just left!' + str(message))
 	server.user_left()
 
 	Group('users').discard(message.reply_channel)
