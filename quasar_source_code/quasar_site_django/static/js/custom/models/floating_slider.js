@@ -76,7 +76,7 @@ FloatingSlider.prototype = {
 
         // Maximum Value Label
         this.maximum_value_label = new Floating2DText(25, this.maximum_value.toString(), COLOR_TEXT_CONSTANT, this.world.scene)
-        this.maximum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(100, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(100, 0, -40, 0))
+        this.maximum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(1, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(1, 0, -40, 0))
 
         this.object3D.position.x = position.x
         this.object3D.position.y = position.y
