@@ -36,6 +36,11 @@ FloatingSlider.prototype = {
         this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this._get_current_look_at_on_slider(0, 50, 0))
         this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2))
         WORLD_MANAGER.player.look_at(this.slider_object.get_position())
+
+
+        if (is_defined(this.value_changed_function)) {
+            this.value_changed_function(((current_percentage * (this.maximum_value - this.minimum_value) + this.minimum_value)))
+        }
     },
 
     __init__: function(current_value, minimum_value, maximum_value, width, position, normal, world) {
@@ -91,6 +96,9 @@ FloatingSlider.prototype = {
 
         this.world.scene.add(this.object3D)
         this.world.interactive_objects.push(this.slider_object)
+
+
+        this.value_changed_function = null
     },
 
     get_current_value: function() {
