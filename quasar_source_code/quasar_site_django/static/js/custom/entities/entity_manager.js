@@ -157,6 +157,10 @@ EntityManager.prototype = {
         return this.entities
     },
 
+    get_owner_entity: function() {
+        return this.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
+    },
+
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
         var match_found_ONLY_FOR_DEBUGGING = false

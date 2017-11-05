@@ -112,23 +112,30 @@ SettingsWorld.prototype = {
         var label_width = 1024 / 8
         var label_offset = (1024 / -4) - label_width / 2
 
-        this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0)
+        // Owner ID
+        this.profile_owner_id_label = this.profile_editor.add_floating_2d_text(label_width, 'Owner ID', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0)
+        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(1024 / 2, ENTITY_MANAGER.get_owner_entity().get_value('owner_id'), TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
 
-        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 3, 0)
+        // Username
+        this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0)
+        this.profile_name_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
 
-        this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0)
-        this.profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 4, 0)
+        // Email
+        this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_CONSTANT_TEXT, label_offset, 2, 5, 0)
+        this.profile_email_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
 
-        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_CONSTANT_TEXT, label_offset, 2, 5, 0)
-        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 5, 0)
+        // Phone number
+        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0)
+        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
 
-        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0)
-        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 6, 0)
+        // Phone carrier
+        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 7, 0)
+        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_INPUT_REGULAR, 1024 / -4 + (1024 / 4) + 50, 2, 7, 0)
         this.profile_phone_carrier_input.engable = false
 
         // Created at date.
-        this.profile_created_at_date_label = this.profile_editor.add_floating_2d_text(label_width, 'Created at Date', TYPE_CONSTANT_TEXT, label_offset, 2, 7, 0)
-        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 7, 0)
+        this.profile_created_at_date_label = this.profile_editor.add_floating_2d_text(label_width, 'Created at Date', TYPE_CONSTANT_TEXT, label_offset, 2, 8, 0)
+        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(1024 / 2, '', TYPE_CONSTANT_TEXT, 1024 / -4 + (1024 / 4) + 50, 2, 8, 0)
 
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this))
 
@@ -166,6 +173,8 @@ SettingsWorld.prototype = {
         /////
 
 
+        this.interactive_objects.push(this.profile_owner_id_label)
+        this.interactive_objects.push(this.profile_owner_id_input)
         this.interactive_objects.push(this.profile_name_label)
         this.interactive_objects.push(this.profile_name_input)
         this.interactive_objects.push(this.profile_email_label)
@@ -202,7 +211,7 @@ SettingsWorld.prototype = {
 
         // TODO : Grab the values from the owner entity!
         if (this.owner_entity === null) {
-            this.owner_entity = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
+            this.owner_entity = ENTITY_MANAGER.get_owner_entity()
         }
 
         this.profile_name_input.update_text(this.player.owner.username)

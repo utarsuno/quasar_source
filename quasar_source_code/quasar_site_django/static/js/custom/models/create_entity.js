@@ -62,7 +62,7 @@ CreateEntity.prototype = {
     */
 
     get_owner_sms_email: function() {
-        var owner_entity = ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0]
+        var owner_entity = ENTITY_MANAGER.get_owner_entity()
 
         var owner_provider = owner_entity.get_value('owner_phone_carrier')
         var owner_phone_number = owner_entity.get_value('owner_phone_number')

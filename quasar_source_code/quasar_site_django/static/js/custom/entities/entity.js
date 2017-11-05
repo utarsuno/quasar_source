@@ -34,7 +34,7 @@ Owner.prototype = {
         ENTITY_MANAGER.link_entities()
 
         // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        WORLD_MANAGER.player.set_player_id(ENTITY_MANAGER.get_all_entities_of_type(ENTITY_TYPE_OWNER).get_value('owner_id'))
+        WORLD_MANAGER.player.set_player_id(ENTITY_MANAGER.get_owner_entity().get_value('owner_id'))
 
         this.loading_data = false
     },
