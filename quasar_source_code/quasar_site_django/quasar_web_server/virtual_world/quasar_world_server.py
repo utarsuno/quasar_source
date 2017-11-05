@@ -17,10 +17,16 @@ class QuasarWorldServer(object):
 	def add_connection(self, message):
 		"""This method is called when a client establishes a new connection. This might just be a disconnected player re-joining so a new object may not be needed to be created."""
 		y = 2
+		print('Connection just occurred!')
+		print(message)
+		print('----@@@-----')
 		# TODO :
 
 	def disconnect_message(self, message):
 		"""Mark a client as disconnected."""
+		print('Disconnect just occurred!')
+		print(message)
+		print('----@@@-----')
 
 	#def
 
