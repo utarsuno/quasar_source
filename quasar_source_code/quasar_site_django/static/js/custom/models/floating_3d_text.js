@@ -183,7 +183,8 @@ Floating3DText.prototype = {
         this.update_text(this.text)
 
         // TODO : Make this only 1 sided
-        this.material.side = THREE.DoubleSide
+        //this.material.side = THREE.DoubleSide
+        this.material.side = THREE.FrontSide
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
