@@ -51,6 +51,7 @@ module.exports = {
         "PlaneAPI": true,
         "LoginPanel": true,
         "Player": true,
+        "WebSocketClient": false,
 
         "FloatingWall": true,
         "Floating2DText": true,

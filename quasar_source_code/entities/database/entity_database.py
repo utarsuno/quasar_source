@@ -112,6 +112,7 @@ class EntityDatabaseAPI(object):
 		owner_entity.add_information('owner_phone_number', '')
 		owner_entity.add_information('owner_phone_carrier', '')
 		owner_entity.add_information('owner_created_at_date', str(ta.get_now()))
+		owner_entity.add_information('owner_id', str(owner[INDEX_OWNER_ID]))
 
 		manager.add_entities(owner_entity)
 

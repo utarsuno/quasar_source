@@ -1,59 +1,66 @@
 'use strict'
 
 
-function Client() {
+function WebSocketClient() {
     this.__init__()
 }
 
-Client.prototype = {
+WebSocketClient.prototype = {
 
     _id       : null,
     connected : null,
     socket    : null,
     _world    : null,
 
+    player_id : null,
+
     __init__: function() {
         //this._world    = world_object
 
         // TODO : REMOVE THIS, now just the player name can be used
         // From https://gist.github.com/gordonbrander/2230317
-        this._id       = '_' + Math.random().toString(36).substr(2, 9)
-        this._full_id  = '[user] ' + this._id
+        //this._id       = '_' + Math.random().toString(36).substr(2, 9)
+        //this._full_id  = '[user] ' + this._id
+
+
+
         this.connected = false
-        this.connect()
+
+        //this.connect()
     },
 
     send_data: function(data) {
         if (this.connected === true) {
-            this.socket.send(this._id + '|' + data)
+            this.socket.send(this.player_id + '|' + data)
         }
     },
 
-    connect: function () {
-        var self       = this
+    connect: function (player_id) {
+
+        this.player_id = player_id
+
+
         this.socket    = new WebSocket('ws://' + window.location.host + '/users/')
         this.connected = true
 
         this.socket.onmessage = function(e) {
-            console.log('Just got the message : ' + e.data)
+            l('Just got the message : ' + e.data)
             //var data = e.data.split('|')
             //self._world.update_player(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
         }
 
         this.socket.onopen = function open() {
-            console.log('WebSockets connection created.')
+            l('WebSockets connection created.')
             //self._world.add_player(self._full_id)
-            console.log('Adding player{' + self._full_id + '} to the world!')
-            self.connected = true
-        }
+            l('Adding player{' + this.player_id + '} to the world!')
+            this.connected = true
+        }.bind(this)
 
         if (this.socket.readyState == WebSocket.OPEN) {
             this.socket.onopen()
         }
     }
 }
-
-var client_test = new Client()
 
 /*
 
