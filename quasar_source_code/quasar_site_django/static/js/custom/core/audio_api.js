@@ -19,6 +19,8 @@ AudioManager.prototype = {
     hover_over_sound: null,
     hover_over_sound_loaded: null,
 
+    // TODO : Add global audio controls
+
     __init__: function(player) {
         this.player = player
         this.audio_listener = new THREE.AudioListener()

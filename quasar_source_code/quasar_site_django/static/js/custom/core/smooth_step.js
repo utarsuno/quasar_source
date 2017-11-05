@@ -125,7 +125,21 @@ SmoothStepLowerLimitZero.prototype = {
     },
 
     add_force: function(magnitude) {
-        this.buffer.push([magnitude, 0.0])
+        var current_value = this.get_current_value()
+        var add_value = true
+        if (is_defined(this.minimum_value)) {
+            if (current_value + magnitude < this.minimum_value) {
+                add_value = false
+            }
+        }
+        if (is_defined(this.maximum_value)) {
+            if (current_value + magnitude > this.maximum_value) {
+                add_value = false
+            }
+        }
+        if (add_value) {
+            this.buffer.push([magnitude, 0.0])
+        }
     },
 
     update: function(delta) {
