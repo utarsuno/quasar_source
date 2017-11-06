@@ -143,8 +143,15 @@ Player.prototype = {
             }
             break
         case KEY_CODE_ENTER:
+            if (GUI_TYPING_INTERFACE.is_visible()) {
+                GUI_TYPING_INTERFACE.hide()
+                this.disengage()
+            }
             if (!this.is_engaged()) {
-                GUI_TYPING_INTERFACE.toggle_visibility()
+                if (!GUI_TYPING_INTERFACE.is_visible()) {
+                    GUI_TYPING_INTERFACE.show()
+                    this.engage()
+                }
             }
             break
         }

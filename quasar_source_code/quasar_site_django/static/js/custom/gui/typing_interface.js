@@ -32,9 +32,6 @@ TypingInterface.prototype = {
     show: function() {
         this.gui_typing.show()
         this.gui_logs.show()
-
-        // TODO : engage the player
-        //this.player.engage()
     },
 
     hide: function() {
