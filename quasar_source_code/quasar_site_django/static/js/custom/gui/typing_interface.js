@@ -84,6 +84,7 @@ TypingInterface.prototype = {
         while (i > -1) {
             if (this.messages[m].length > 0) {
                 this.all_rows[i].set_text(this.messages[m])
+                m += 1
             }
             i -= 1
         }
