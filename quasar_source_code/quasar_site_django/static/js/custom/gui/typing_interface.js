@@ -15,7 +15,9 @@ TypingInterface.prototype = {
 
         this.visible = false
 
-        // Calculate the intitial sizing.
+        this.current_rows = []
+
+        // Calculate the initial sizing.
         this.window_was_resized()
     },
 
@@ -58,6 +60,9 @@ TypingInterface.prototype = {
 
         var number_of_rows_that_fit = this.current_height / row_size
         l('The number of rows that fit : ' + number_of_rows_that_fit)
+        l('Rounding it to : ' + Math.floor(number_of_rows_that_fit))
+
+        
 
 
         l(this.gui_logs.element.clientHeight)
