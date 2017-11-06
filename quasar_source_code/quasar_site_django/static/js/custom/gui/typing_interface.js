@@ -73,7 +73,7 @@ TypingInterface.prototype = {
     window_was_resized: function() {
         this.current_height = this.gui_logs.element.clientHeight
 
-        var row_size = 12
+        var row_size = 12 + 3 // There is a margin of 3 and pixel size of 12.
         var number_of_rows_that_fit = this.current_height / row_size
         this.last_row = Math.floor(number_of_rows_that_fit)
     },
@@ -82,7 +82,7 @@ TypingInterface.prototype = {
         var i = this.last_row
         var m = 0
         while (i > -1) {
-            if (this.messages.length > m) {
+            if (this.messages[m].length > 0) {
                 this.all_rows[i].set_text(this.messages[m])
             }
             i -= 1
@@ -90,6 +90,7 @@ TypingInterface.prototype = {
     },
 
     add_message: function(message_text) {
+        l('Adding this message : ' + message_text)
         this.messages.push(message_text)
     },
 
