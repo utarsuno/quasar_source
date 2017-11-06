@@ -97,10 +97,10 @@ TypingInterface.prototype = {
                 if (this.messages[m].length > 0) {
                     this.all_rows[i].set_text(this.messages[m])
                 } else {
-                    this.all_rows[i].set_text('EMPTY')
+                    this.all_rows[i].set_text('')
                 }
             } else {
-                this.all_rows[i].set_text('EMPTY')
+                this.all_rows[i].set_text('')
             }
             i -= 1
             m += 1
@@ -109,7 +109,8 @@ TypingInterface.prototype = {
 
     add_message: function(message_text) {
         l('Adding this message : ' + message_text)
-        this.messages.push(message_text)
+        this.messages.unshift(message_text)
+        //this.messages.push(message_text)
         this.update()
     },
 
