@@ -108,9 +108,6 @@ Player.prototype = {
     },
 
     is_engaged: function() {
-        if (GUI_TYPING_INTERFACE.is_visible()) {
-            return true
-        }
         return this.engaged
     },
 
