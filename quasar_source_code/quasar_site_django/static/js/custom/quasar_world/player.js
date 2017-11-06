@@ -141,7 +141,7 @@ Player.prototype = {
             break
         case KEY_CODE_ENTER:
             if (!this.is_engaged()) {
-                // TODO: TYPING GUI STUFF!!!
+                GUI_TYPING_INTERFACE.toggle_visibility()
             }
             break
         }
