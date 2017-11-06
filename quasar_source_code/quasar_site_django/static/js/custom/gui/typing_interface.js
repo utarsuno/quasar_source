@@ -77,7 +77,7 @@ TypingInterface.prototype = {
 
         this.current_height = window_height * 0.8
 
-        var row_size = 12 + 3 // There is a margin of 3 and pixel size of 12.
+        var row_size = 12 + 2 // There is a margin of 3 and pixel size of 12.
         var number_of_rows_that_fit = this.current_height / row_size
         this.last_row = Math.floor(number_of_rows_that_fit)
 
