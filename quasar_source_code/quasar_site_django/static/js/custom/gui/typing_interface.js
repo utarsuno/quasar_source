@@ -45,5 +45,10 @@ TypingInterface.prototype = {
     key_down_event: function(event) {
         this.input_text.parse_key_event(event)
         this.gui_typing_input.set_text(this.input_text.get_text())
+    },
+
+    window_was_resized: function() {
+        l('THE HEIGHT OF THE CONSOLE LOGS IS : ')
+        l(this.gui_logs.element.height())
     }
 }

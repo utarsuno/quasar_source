@@ -75,6 +75,9 @@ RendererAPI.prototype = {
         this.camera.aspect = this.aspect_ratio
         this.camera.updateProjectionMatrix()
         this.renderer.setSize(this.window_width, this.window_height)
+
+        // Also inform the Typing Interface GUI of size changes!
+        GUI_TYPING_INTERFACE.window_was_resized()
     },
 
     set_camera: function(camera) {
