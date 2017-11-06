@@ -146,7 +146,13 @@ Player.prototype = {
             break
         }
 
-        MANAGER_WORLD.key_down_event(event)
+        // Check who should currently process events.
+
+        if (GUI_TYPING_INTERFACE.is_visible()) {
+            GUI_TYPING_INTERFACE.key_down_event(event)
+        } else {
+            MANAGER_WORLD.key_down_event(event)
+        }
     },
 
     on_key_up: function(event) {

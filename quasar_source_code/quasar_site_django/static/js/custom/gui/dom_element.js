@@ -29,5 +29,9 @@ DomElement.prototype = {
 
     get_text: function() {
         return this.element.innerHTML
+    },
+
+    parse_key_event: function(event) {
+        this.element.dispatchEvent(event)
     }
 }
