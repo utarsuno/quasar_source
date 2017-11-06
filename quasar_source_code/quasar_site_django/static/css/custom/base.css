@@ -129,6 +129,7 @@ canvas {
     top: 94%;
     left: 2%;
     background: rgba(131, 207, 255, 0.25);
+    z-index: 12;
 }
 
 #gui_console_logs {
@@ -138,6 +139,7 @@ canvas {
     width: 30vw;
     height: 80vh;
     background: rgba(131, 207, 255, 0.25);
+    z-index: 12;
 }
 
 .gui_typing_offset {
