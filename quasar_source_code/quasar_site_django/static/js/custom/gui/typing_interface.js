@@ -93,10 +93,10 @@ TypingInterface.prototype = {
                 if (this.messages[m].length > 0) {
                     this.all_rows[i].set_text(this.messages[m])
                 } else {
-                    this.all_rows[i].set_text('')
+                    this.all_rows[i].set_text('EMPTY')
                 }
             } else {
-                this.all_rows[i].set_text('')
+                this.all_rows[i].set_text('EMPTY')
             }
             i -= 1
             m += 1
