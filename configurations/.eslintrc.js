@@ -61,11 +61,13 @@ module.exports = {
         "FloatingSlider": true,
         "CheckBox": true,
 
+        // Core
+        "InputTextProcessor": false,
         "SmoothStep": false,
         "SmoothStepLowerLimitZero": false,
+
         "Owner": true,
 
-        "WorldManager": true,
         "LoginWorld": true,
         "HomeWorld": true,
         "SettingsWorld": true,
@@ -76,8 +78,6 @@ module.exports = {
         "Interactive": true,
         "Visibility": true,
         "Button3D": true,
-        "AudioManager": false,
-        "EntityManager": true,
         "DomElement": false,
 
         // Global Managers.
@@ -85,6 +85,10 @@ module.exports = {
         "MANAGER_AUDIO"  : true,
         "MANAGER_WORLD"  : true,
         "MANAGER_ENTITY" : true,
+        // and their class names.
+        "WorldManager": true,
+        "AudioManager": false,
+        "EntityManager": true,
 
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,

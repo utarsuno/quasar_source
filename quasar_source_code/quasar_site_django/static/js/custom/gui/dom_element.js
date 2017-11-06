@@ -31,7 +31,4 @@ DomElement.prototype = {
         return this.element.innerHTML
     },
 
-    parse_key_event: function(event) {
-        this.element.fireEvent(event)
-    }
 }
