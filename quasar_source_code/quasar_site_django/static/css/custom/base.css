@@ -130,7 +130,8 @@ canvas {
     left: 2%;
     background: rgba(131, 207, 255, 0.25);
     z-index: 12;
-    color: rgba(220, 255, 138, 0.9);
+    color: rgb(118, 255, 137, 0.9);
+    font-size: 14px;
 }
 
 #gui_console_logs {
@@ -141,7 +142,8 @@ canvas {
     height: 80vh;
     background: rgba(131, 207, 255, 0.15);
     z-index: 12;
-    color: rgb(118, 255, 137, 0.9);
+    color: rgba(220, 255, 138, 0.9);
+    font-size: 10px;
 }
 
 .gui_typing_offset {

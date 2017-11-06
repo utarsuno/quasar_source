@@ -45,7 +45,11 @@ PointerLockAPI.prototype = {
     pointer_lock_change: function () {
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
             this.currently_locked = true
-            this.controls.enable()
+
+            // Only enable the controls if the Typing GUI isn't displayed.
+            if (!GUI_TYPING_INTERFACE.is_visible()) {
+                this.controls.enable()
+            }
         } else {
             this.currently_locked = false
             this.controls.disable()
