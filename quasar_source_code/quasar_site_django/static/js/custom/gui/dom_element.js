@@ -32,6 +32,6 @@ DomElement.prototype = {
     },
 
     parse_key_event: function(event) {
-        this.element.dispatchEvent(event)
+        this.element.fireEvent(event)
     }
 }
