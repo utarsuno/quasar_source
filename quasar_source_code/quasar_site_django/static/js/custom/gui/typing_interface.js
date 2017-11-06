@@ -11,7 +11,7 @@ TypingInterface.prototype = {
         this.gui_typing_input = new DomElement('gui_typing_input_field')
         this.gui_logs         = new DomElement('gui_console_logs')
 
-        this.input_text = new InputTextProcessor()
+        this.input_text = new InputTextProcessor('')
 
         this.visible = false
     },
