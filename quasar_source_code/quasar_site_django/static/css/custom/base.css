@@ -148,4 +148,5 @@ canvas {
 
 .gui_typing_offset {
   margin: 3px 0 0 5px;
+  position: absolute;
 }
