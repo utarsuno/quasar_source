@@ -143,6 +143,7 @@ Player.prototype = {
             if (GUI_TYPING_INTERFACE.is_visible()) {
                 GUI_TYPING_INTERFACE.hide()
                 this.disengage()
+                this.fps_controls.enable()
             } else if (!this.is_engaged()) {
                 if (!GUI_TYPING_INTERFACE.is_visible()) {
                     GUI_TYPING_INTERFACE.show()
