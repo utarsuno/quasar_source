@@ -77,6 +77,8 @@ TypingInterface.prototype = {
         var number_of_rows_that_fit = this.current_height / row_size
         this.last_row = Math.floor(number_of_rows_that_fit)
 
+        l('The last row is : ' + this.last_row)
+
         this.update()
     },
 
