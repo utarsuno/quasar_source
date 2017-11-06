@@ -88,7 +88,6 @@ TypingInterface.prototype = {
             this.all_rows[c].clear()
         }
 
-
         var i = this.last_row
         var m = 0
         while (i > -1) {
