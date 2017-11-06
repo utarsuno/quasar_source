@@ -141,6 +141,7 @@ Player.prototype = {
             break
         case KEY_CODE_ENTER:
             if (GUI_TYPING_INTERFACE.is_visible()) {
+                GUI_TYPING_INTERFACE.add_user_text()
                 GUI_TYPING_INTERFACE.hide()
                 this.disengage()
                 this.fps_controls.enable()

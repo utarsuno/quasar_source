@@ -4,6 +4,17 @@ function TypingInterface() {
     this.__init__()
 }
 
+function Message(text, created_time) {
+    this.__init__(text, created_time)
+}
+
+Message.prototype = {
+    __init__: function(text, created_time) {
+        this.text = text
+        this.created_time = created_time
+    }
+}
+
 TypingInterface.prototype = {
 
     __init__: function() {
@@ -15,7 +26,14 @@ TypingInterface.prototype = {
 
         this.visible = false
 
-        this.current_rows = []
+        this.all_rows = []
+        var i = 0
+        while (i < 70) {
+            this.all_rows.push(new DomElement('row_' + i.toString()))
+            i += 1
+        }
+
+        this.messages = []
 
         // Calculate the initial sizing.
         this.window_was_resized()
@@ -54,17 +72,28 @@ TypingInterface.prototype = {
 
     window_was_resized: function() {
         this.current_height = this.gui_logs.element.clientHeight
-        l('The current height is : ' + this.current_height)
 
         var row_size = 12
-
         var number_of_rows_that_fit = this.current_height / row_size
-        l('The number of rows that fit : ' + number_of_rows_that_fit)
-        l('Rounding it to : ' + Math.floor(number_of_rows_that_fit))
+        this.last_row = Math.floor(number_of_rows_that_fit)
+    },
 
-        
+    update: function() {
+        var i = this.last_row
+        var m = 0
+        while (i > -1) {
+            if (this.messages.length > m) {
+                this.all_rows[i].set_text(this.messages[m])
+            }
+            i -= 1
+        }
+    },
 
+    add_message: function(message_text) {
+        this.messages.push(message_text)
+    },
 
-        l(this.gui_logs.element.clientHeight)
+    add_user_text: function() {
+        this.add_message(this.input_text.get_text())
     }
 }
