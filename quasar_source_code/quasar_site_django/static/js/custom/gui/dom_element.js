@@ -31,4 +31,7 @@ DomElement.prototype = {
         return this.element.innerHTML
     },
 
+    clear_text: function() {
+        this.element.innerHTML = ''
+    }
 }

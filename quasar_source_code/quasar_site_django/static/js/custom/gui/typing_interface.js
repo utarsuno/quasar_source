@@ -81,6 +81,14 @@ TypingInterface.prototype = {
     },
 
     update: function() {
+        // TODO : This might be kinda slow..lol...
+
+        // Clear all the text first.
+        for (var c = 0; c < this.all_rows; c++) {
+            this.all_rows[c].clear()
+        }
+
+
         var i = this.last_row
         var m = 0
         while (i > -1) {
