@@ -85,9 +85,9 @@ Floating3DText.prototype = {
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            WORLD_MANAGER.player.engage()
+            MANAGER_WORLD.player.engage()
         } else {
-            WORLD_MANAGER.player.disengage()
+            MANAGER_WORLD.player.disengage()
         }
     },
 
@@ -182,8 +182,6 @@ Floating3DText.prototype = {
         }
         this.update_text(this.text)
 
-        // TODO : Make this only 1 sided
-        //this.material.side = THREE.DoubleSide
         this.material.side = THREE.FrontSide
     },
 
@@ -217,7 +215,7 @@ Floating3DText.prototype = {
                 }
             }
 
-            AUDIO_MANAGER.play_typing_sound()
+            MANAGER_AUDIO.play_typing_sound()
 
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
@@ -227,7 +225,7 @@ Floating3DText.prototype = {
                 this.add_character(event.key)
             }
 
-            AUDIO_MANAGER.play_typing_sound()
+            MANAGER_AUDIO.play_typing_sound()
         }
     }
 

@@ -4,9 +4,8 @@
 
 import smtplib
 import sys
-#import requests
 
-import os
+# TODO : Eventually find an alternative solution to this
 if '/home/git_repos/quasar_source/' not in sys.path:
     sys.path.append('/home/git_repos/quasar_source/')
 
@@ -54,13 +53,16 @@ class GMailAccount(object):
 
         print('LOGGING IN WITH THE EMAIL : ' + str(self.email))
 
-        self.server = 'smtp.gmail.com'
-        self.port = 587
-        self.session = smtplib.SMTP(self.server, self.port)
-        self.session.ehlo()
-        self.session.starttls()
-        self.session.ehlo()
-        self.session.login(self.email, self.password)
+        try:
+            self.server = 'smtp.gmail.com'
+            self.port = 587
+            self.session = smtplib.SMTP(self.server, self.port)
+            self.session.ehlo()
+            self.session.starttls()
+            self.session.ehlo()
+            self.session.login(self.email, self.password)
+        except Exception as e:
+            print('Error trying to login to the Nexus email! Error was : {' + str(e) + '}')
 
     def send_message(self, subject, body, email_to_send_to):
         """Sends an SMS message. This could be an email or even a text message."""

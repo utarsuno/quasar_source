@@ -49,20 +49,20 @@ PointerLockAPI.prototype = {
         } else {
             this.currently_locked = false
             this.controls.disable()
-            WORLD_MANAGER.player.disengage()
+            MANAGER_WORLD.player.disengage()
 
-            var currently_looked_at_object = WORLD_MANAGER.current_world.currently_looked_at_object
+            var currently_looked_at_object = MANAGER_WORLD.current_world.currently_looked_at_object
             if (currently_looked_at_object !== null) {
                 currently_looked_at_object.is_engaged()
                 currently_looked_at_object.disengage()
             }
 
-            PAUSED_MENU.make_visible()
+            GUI_PAUSED_MENU.make_visible()
         }
     },
 
     pointer_lock_error: function() {
-        console.log('Pointer lock error!')
+        l('Pointer lock error!')
         // TODO : Throw an exception here / display error status to user.
     },
 
@@ -84,13 +84,13 @@ PointerLockAPI.prototype = {
             if (this.currently_locked !== false) {
                 switch(e.button) {
                 case MOUSE_LEFT_CLICK:
-                    WORLD_MANAGER.current_world.single_left_click()
+                    MANAGER_WORLD.current_world.single_left_click()
                     break
                 case MOUSE_MIDDLE_CLICK:
-                    WORLD_MANAGER.current_world.single_middle_click()
+                    MANAGER_WORLD.current_world.single_middle_click()
                     break
                 case MOUSE_RIGHT_CLICK:
-                    WORLD_MANAGER.current_world.single_right_click()
+                    MANAGER_WORLD.current_world.single_right_click()
                     break
                 }
             }
@@ -104,7 +104,7 @@ PointerLockAPI.prototype = {
         if (this.currently_locked === false) {
             this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock
             this.element.requestPointerLock()
-            PAUSED_MENU.make_invisible()
+            GUI_PAUSED_MENU.make_invisible()
         }
     }
 

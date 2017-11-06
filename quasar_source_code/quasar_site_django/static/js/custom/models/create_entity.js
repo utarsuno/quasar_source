@@ -62,7 +62,7 @@ CreateEntity.prototype = {
     */
 
     get_owner_sms_email: function() {
-        var owner_entity = ENTITY_MANAGER.get_owner_entity()
+        var owner_entity = MANAGER_ENTITY.get_owner_entity()
 
         var owner_provider = owner_entity.get_value('owner_phone_carrier')
         var owner_phone_number = owner_entity.get_value('owner_phone_number')
@@ -157,7 +157,7 @@ CreateEntity.prototype = {
         //l('Printing the properties')
         //l(properties)
 
-        var new_entity = ENTITY_MANAGER.add_new_entity(entity_name, properties)
+        var new_entity = MANAGER_ENTITY.add_new_entity(entity_name, properties)
         new_entity.add_parent(this.entity_wall.get_wall_entity())
         this.entity_wall.add_entity(new_entity)
 

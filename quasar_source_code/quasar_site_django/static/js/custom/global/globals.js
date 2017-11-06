@@ -5,6 +5,19 @@
   .__/ |  | \__/ |  \  |  \__, \__/  |  .__/ */
 const l = console.log
 
+/* __        __   __                __   __        ___  __  ___  __
+  / _` |    /  \ |__)  /\  |       /  \ |__)    | |__  /  `  |  /__`    .
+  \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
+
+// Global managers.
+var MANAGER_AUDIO   = null
+var MANAGER_COOKIES = null
+var MANAGER_WORLD   = null
+var MANAGER_ENTITY  = null
+
+// Global gui objects.
+var GUI_PAUSED_MENU      = null
+var GUI_TYPING_INTERFACE = null
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
@@ -17,13 +30,6 @@ const HALF_PIE = Math.PI / 2.0
 const PIE = Math.PI
 const TWO_PIE = Math.PI * 2.0
 
-// Player object sets the global audio.
-var AUDIO_MANAGER  = null
-var GLOBAL_COOKIES = Cookies.noConflict()
-var WORLD_MANAGER  = null
-
-// Entity.
-var ENTITY_MANAGER = null
 // Entity types.
 const ENTITY_TYPE_TASK          = 'EntityTask'
 const ENTITY_TYPE_TIME          = 'EntityTime'

@@ -57,7 +57,7 @@ RendererAPI.prototype = {
     },
 
     render: function() {
-        this.renderer.render(WORLD_MANAGER.current_world.scene, this.camera)
+        this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera)
     },
 
     post_render: function() {

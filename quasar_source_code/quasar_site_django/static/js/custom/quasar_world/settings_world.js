@@ -85,13 +85,13 @@ SettingsWorld.prototype = {
         }
 
         if (changes_occured) {
-            ENTITY_MANAGER.update_server_and_database()
+            MANAGER_ENTITY.update_server_and_database()
         }
     },
 
     slider_fov_value_changed: function(fov_value) {
-        WORLD_MANAGER.player.renderer_api.camera.fov = fov_value
-        WORLD_MANAGER.player.renderer_api.camera.updateProjectionMatrix()
+        MANAGER_WORLD.player.renderer_api.camera.fov = fov_value
+        MANAGER_WORLD.player.renderer_api.camera.updateProjectionMatrix()
     },
 
     __init__: function() {
@@ -202,24 +202,24 @@ SettingsWorld.prototype = {
     enter_world: function() {
 
         // Make sure the owner ID is set.
-        this.profile_owner_id_input.update_text(ENTITY_MANAGER.get_owner_entity().get_value('owner_id'))
+        this.profile_owner_id_input.update_text(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'))
 
 
         this.player.disengage()
-        if (!PAUSED_MENU.currently_displayed) {
+        if (!GUI_PAUSED_MENU.currently_displayed) {
             this.player.enable_controls()
         }
 
         this.player.set_position(new THREE.Vector3(-1000, 350, 350))
         this.player.look_at(new THREE.Vector3(0.992, 0.124, -0.122))
 
-        this.previous_world = WORLD_MANAGER.previous_world
+        this.previous_world = MANAGER_WORLD.previous_world
 
         // Set the profile information values.
 
         // TODO : Grab the values from the owner entity!
         if (this.owner_entity === null) {
-            this.owner_entity = ENTITY_MANAGER.get_owner_entity()
+            this.owner_entity = MANAGER_ENTITY.get_owner_entity()
         }
 
         this.profile_name_input.update_text(this.player.owner.username)

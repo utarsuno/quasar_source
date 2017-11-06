@@ -42,8 +42,8 @@ FloatingSlider.prototype = {
 
         // World manager won't be defined on the first call to update.
         // TODO : Eventually change the design then
-        if (is_defined(WORLD_MANAGER)) {
-            WORLD_MANAGER.player.look_at(this.slider_object.get_position())
+        if (is_defined(MANAGER_WORLD)) {
+            MANAGER_WORLD.player.look_at(this.slider_object.get_position())
         }
 
         if (is_defined(this.value_changed_function)) {

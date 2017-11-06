@@ -29,12 +29,12 @@ Owner.prototype = {
     all_entities_loaded: function(data) {
         var e = get_key_value_list_from_json_dictionary(data)
         for (var i = 0; i < e.length; i++) {
-            ENTITY_MANAGER.add_new_entity(e[i][0], e[i][1])
+            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1])
         }
-        ENTITY_MANAGER.link_entities()
+        MANAGER_ENTITY.link_entities()
 
         // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        WORLD_MANAGER.player.set_player_id(ENTITY_MANAGER.get_owner_entity().get_value('owner_id'))
+        MANAGER_WORLD.player.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'))
 
         this.loading_data = false
     },
@@ -71,7 +71,7 @@ Entity.prototype = {
         }
 
         // Ensure that various entity properties exist with default values.
-        this._ensure_property_exists(ENTITY_PROPERTY_ID, ENTITY_MANAGER.get_new_entity_id())
+        this._ensure_property_exists(ENTITY_PROPERTY_ID, MANAGER_ENTITY.get_new_entity_id())
 
         if (this.has_property(ENTITY_PROPERTY_NAME)) {
             this.name = this.get_value(ENTITY_PROPERTY_NAME)
@@ -94,7 +94,7 @@ Entity.prototype = {
         }
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
-        ENTITY_MANAGER.add_entity_if_not_already_added(this)
+        MANAGER_ENTITY.add_entity_if_not_already_added(this)
     },
 
     _ensure_property_exists: function(property_name, default_value) {

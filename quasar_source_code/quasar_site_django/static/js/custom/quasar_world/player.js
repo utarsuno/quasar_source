@@ -54,7 +54,7 @@ Player.prototype = {
         this.engaged   = false
 
         // Give reference of self to the World Manager.
-        WORLD_MANAGER.set_player(this)
+        MANAGER_WORLD.set_player(this)
 
         // Create the instance of WebSocketClient. This won't connect until the player logs in.
         this.web_socket_client = new WebSocketClient()
@@ -63,13 +63,13 @@ Player.prototype = {
     log_out: function() {
         l('LOG OUT HERE!!!!')
 
-        ENTITY_MANAGER.clear_all()
+        MANAGER_ENTITY.clear_all()
 
         // TODO : Create generic functionality for worlds to handle when a player has logged out.
-        WORLD_MANAGER.world_home.loaded_entities = false
+        MANAGER_WORLD.world_home.loaded_entities = false
 
         this.owner = null
-        WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_login)
+        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login)
         this.logged_in = false
         // TODO : Notify the server that the player has logged out?
     },
@@ -89,8 +89,8 @@ Player.prototype = {
     },
 
     perform_login: function(username, password) {
-        this.owner = new Owner(username, password, WORLD_MANAGER.world_home)
-        WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_home)
+        this.owner = new Owner(username, password, MANAGER_WORLD.world_home)
+        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home)
         this.logged_in = true
     },
 
@@ -135,11 +135,18 @@ Player.prototype = {
             }
             break
         case KEY_CODE_F:
-            //this.fps_controls.toggle_flying()
+            if (!this.is_engaged()) {
+                //this.fps_controls.toggle_flying()
+            }
+            break
+        case KEY_CODE_ENTER:
+            if (!this.is_engaged()) {
+                // TODO: TYPING GUI STUFF!!!
+            }
             break
         }
 
-        WORLD_MANAGER.key_down_event(event)
+        MANAGER_WORLD.key_down_event(event)
     },
 
     on_key_up: function(event) {

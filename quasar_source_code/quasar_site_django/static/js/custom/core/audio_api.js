@@ -20,6 +20,7 @@ AudioManager.prototype = {
     hover_over_sound_loaded: null,
 
     // TODO : Add global audio controls
+    current_audio_level: null,
 
     __init__: function(player) {
         this.player = player
@@ -41,17 +42,17 @@ AudioManager.prototype = {
                 this.typing_sound_loaded = true
 
 
-                WORLD_MANAGER.add_to_all_scenes(AUDIO_MANAGER.get_typing_sound())
+                MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound())
 
             }.bind(this),
 
             // Function called when download progresses
             function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded for audio file.')
+                l((xhr.loaded / xhr.total * 100) + '% loaded for audio file.')
             },
             // Function called when download errors
             function (xhr) {
-                console.log('An error happened trying to load the audio file.')
+                l('An error happened trying to load the audio file.')
             }
 
         )

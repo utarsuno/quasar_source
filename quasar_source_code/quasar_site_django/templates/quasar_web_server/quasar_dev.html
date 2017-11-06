@@ -20,6 +20,15 @@
 <div id="background_coloring">
 </div>
 
+<!-- Typing Interface -->
+<div id="gui_typing">
+    <p class="gui_typing_offset" id="gui_typing_input_field" style="display: none"></p>
+</div>
+
+<div id="gui_console_logs" style="display: none">
+</div>
+
+<!-- Pause Menu -->
 <div id="pause_menu" class="center_position">
     <br>
     <h1 class="center_align" id="menu_title">Loading Quasar...</h1>
@@ -80,11 +89,16 @@
 <script src="{% static 'js/custom/entities/entity.js' %}"></script>
 <script src="{% static 'js/custom/entities/entity_manager.js' %}"></script>
 
+<!-- Controls. -->
 <script src="{% static 'js/custom/controls/fps_controls.js' %}"></script>
 <script src="{% static 'js/custom/controls/pointer_lock_api.js' %}"></script>
+
+<!-- 2D GUI Overlay -->
 <script src="{% static 'js/custom/gui/stats_api.js' %}"></script>
 <script src="{% static 'js/custom/gui/data_display.js' %}"></script>
 <script src="{% static 'js/custom/gui/paused_menu.js' %}"></script>
+
+<!-- Player defined ahead of time. -->
 <script src="{% static 'js/custom/quasar_world/player.js' %}"></script>
 
 <!-- Models. -->
@@ -106,6 +120,7 @@
 <script src="{% static 'js/custom/quasar_world/home_world.js' %}"></script>
 <script src="{% static 'js/custom/quasar_world/settings_world.js' %}"></script>
 
+<!-- TODO : DEV - QA - PROD -->
 <script src="{% static 'js/custom/quasar_dev.js' %}"></script>
 
 {% endblock %}

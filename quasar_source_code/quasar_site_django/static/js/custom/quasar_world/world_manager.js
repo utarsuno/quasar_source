@@ -67,10 +67,10 @@ Planet.prototype = {
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            WORLD_MANAGER.set_current_world(this.world)
+            MANAGER_WORLD.set_current_world(this.world)
             this.being_engaged_with = false
         } else {
-            WORLD_MANAGER.player.disengage()
+            MANAGER_WORLD.player.disengage()
         }
     }
 }

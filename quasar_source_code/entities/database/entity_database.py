@@ -43,6 +43,8 @@ class EntityDatabaseAPI(object):
 		self._owners.add_table_field(db_t.TableFieldString('email', 100))
 		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=True))
 		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=True))
+
+		# TODO : decide if the additional fields should stay in the Owner Entity or if should be placed into the Owner database table.
 		#self._owners.add_table_field(db_t.TableFieldString('phone_number', maximum_length=15, default=None))
 
 		# Table containing entity_managers which contain entities.
@@ -75,12 +77,14 @@ class EntityDatabaseAPI(object):
 		file_data = file.read()
 		file.close()
 
-		print('DOES THE DATABASE HAVE THE CURRENT MANAGER ID: ' + str(entity_manager.manager_id))
+		#print('DOES THE DATABASE HAVE THE CURRENT MANAGER ID: ' + str(entity_manager.manager_id))
 		manager_exists = self._entity_managers.has_value('manager_id', entity_manager.manager_id)
 		if manager_exists:
-			print('IT DOES')
+			#print('IT DOES')
+			y = 2
 		else:
-			print('IT DOES NOT!')
+			print('ERROR?!?! Manager does not exist?')
+			#print('IT DOES NOT!')
 
 		if not manager_exists:
 			cursor = self._api.get_cursor()

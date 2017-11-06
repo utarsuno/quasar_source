@@ -36,9 +36,9 @@ EntityManager.prototype = {
 
     entity_deleted_response: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
-            console.log('Entity deleted!')
+            l('Entity deleted!')
         } else {
-            console.log('Entity did not get deleted : ' + data)
+            l('Entity did not get deleted : ' + data)
         }
     },
 
@@ -89,8 +89,8 @@ EntityManager.prototype = {
 
             // TODO : Make sure the server does the same deletion steps that the client does.
             this.post_delete_entity.perform_post({
-                'username': WORLD_MANAGER.player.get_username(),
-                'password': WORLD_MANAGER.player.get_password(),
+                'username': MANAGER_WORLD.player.get_username(),
+                'password': MANAGER_WORLD.player.get_password(),
                 'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
             }, this.entity_deleted_response.bind(this))
         }
@@ -140,7 +140,7 @@ EntityManager.prototype = {
                 if (is_defined(entity_to_add)) {
                     this.entities[e].add_child(entity_to_add)
                 } else {
-                    console.log('THERE WAS AN ERROR YOU NEED TO FIX.')
+                    l('THERE WAS AN ERROR YOU NEED TO FIX.')
                     //this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
                 }
 
@@ -212,8 +212,8 @@ EntityManager.prototype = {
     },
 
     update_server_and_database: function() {
-        var username = WORLD_MANAGER.world_home.player.get_username()
-        var password = WORLD_MANAGER.world_home.player.get_password()
+        var username = MANAGER_WORLD.world_home.player.get_username()
+        var password = MANAGER_WORLD.world_home.player.get_password()
 
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {

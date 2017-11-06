@@ -346,8 +346,8 @@ FPSControls.prototype = {
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002)
         }
 
-        if (WORLD_MANAGER.player.is_engaged()) {
-            var c = WORLD_MANAGER.current_world.currently_looked_at_object
+        if (MANAGER_WORLD.player.is_engaged()) {
+            var c = MANAGER_WORLD.current_world.currently_looked_at_object
             if (is_defined(c)) {
                 if (c.requires_mouse_x_movement) {
                     c.provide_mouse_x_movement(movement_x)

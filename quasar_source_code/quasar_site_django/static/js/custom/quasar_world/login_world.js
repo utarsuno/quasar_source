@@ -65,7 +65,7 @@ LoginWorld.prototype = {
         if (data === SERVER_REPLY_GENERIC_YES) {
             this.ajax_status.update_text('Logged in!')
             if (this.remember_username_checkbox.checked) {
-                GLOBAL_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username)
+                MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username)
             }
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
@@ -131,9 +131,9 @@ LoginWorld.prototype = {
     remember_username_clicked: function() {
         this.remember_username_checkbox.toggle()
         if (this.remember_username_checkbox.status()) {
-            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
+            MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true')
         } else {
-            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'false')
+            MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'false')
         }
     },
 
@@ -190,8 +190,8 @@ LoginWorld.prototype = {
         this.create_username = new Floating2DLabelInput(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene)
         this.create_username.update_position(200, 100 + global_y_offset, 45)
 
-        if (!is_defined(GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME))) {
-            GLOBAL_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
+        if (!is_defined(MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME))) {
+            MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status())
         }
 
         this.create_email = new Floating2DLabelInput(create_width, 'Email :', TYPE_INPUT_REGULAR, this.scene)
@@ -248,17 +248,17 @@ LoginWorld.prototype = {
 
     enter_world: function() {
         this.player.disengage()
-        if (!PAUSED_MENU.currently_displayed) {
+        if (!GUI_PAUSED_MENU.currently_displayed) {
             this.player.enable_controls()
         }
 
         this.player.set_position(new THREE.Vector3(180, 180, 390))
         this.player.look_at(new THREE.Vector3(-0.011, -0.066, -0.998))
 
-        if (GLOBAL_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
-            if (GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
-                if (GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
-                    this.login_username.set_input_value(GLOBAL_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
+        if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
+            if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
+                if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
+                    this.login_username.set_input_value(MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME))
                 }
             }
         }

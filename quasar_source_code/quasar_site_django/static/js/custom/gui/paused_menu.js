@@ -37,7 +37,7 @@ PausedMenu.prototype = {
         }.bind(this)
 
         this.button_settings.onclick = function() {
-            WORLD_MANAGER.set_current_world(WORLD_MANAGER.world_settings)
+            MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings)
         }.bind(this)
 
         this.button_help_controls.onclick = function() {
@@ -74,14 +74,14 @@ PausedMenu.prototype = {
     make_invisible: function() {
         if (this.currently_displayed) {
             this.pause_menu.style.display = DISPLAY_NONE
-            this.button_resume.style.display = DISPLAY_NONE
-            this.button_help_controls.display = DISPLAY_NONE
-            this.button_settings.display = DISPLAY_NONE
-            this.button_log_out.display = DISPLAY_NONE
+            // TODO : Testing this out.
+            //this.button_resume.style.display = DISPLAY_NONE
+            //this.button_help_controls.display = DISPLAY_NONE
+            //this.button_settings.display = DISPLAY_NONE
+            //this.button_log_out.display = DISPLAY_NONE
             this.background_coloring.id = 'no_background_coloring'
         }
         this.currently_displayed = false
     }
 }
 
-var PAUSED_MENU = new PausedMenu()

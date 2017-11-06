@@ -42,7 +42,7 @@ EntityWall.prototype = {
             this.self_entity.update_values(save_data)
         }
 
-        ENTITY_MANAGER.update_server_and_database()
+        MANAGER_ENTITY.update_server_and_database()
     },
 
     get_wall_entity: function() {
@@ -54,8 +54,8 @@ EntityWall.prototype = {
 
     set_entity: function(entity) {
         this.self_entity = entity
-        console.log('The entity wall {' + this.title.get_text() + '} has the following self entity :')
-        console.log(this.self_entity)
+        l('The entity wall {' + this.title.get_text() + '} has the following self entity :')
+        l(this.self_entity)
     },
 
     delete_entity_wall_pressed: function() {
@@ -66,7 +66,7 @@ EntityWall.prototype = {
         // TODO : Fix this function, make sure everything gets removed cleanly.
 
         // All child entities will be automatically deleted (if they don't have any other parent entity objects).
-        ENTITY_MANAGER.delete_entity(this.self_entity)
+        MANAGER_ENTITY.delete_entity(this.self_entity)
 
         // TODO : OOOPS! This method is now broken. Make sure to fix it!
         for (var i = 0; i < this.interactive_objects.length; i++) {
@@ -90,7 +90,7 @@ EntityWall.prototype = {
 
     entity_editor_close_button_pressed: function() {
         //this.current_entity_editor
-        console.log('CLOSE THE ENTITY EDITOR!')
+        l('CLOSE THE ENTITY EDITOR!')
 
         // TODO : Eventually remove all aspects of the entity editor!!!
         // Super lazy solution for now is to make it invisible.
@@ -131,7 +131,7 @@ EntityWall.prototype = {
         }
 
         var entity_id = save_data[ENTITY_PROPERTY_ID]
-        var entity = ENTITY_MANAGER.get_entity_by_id(entity_id)
+        var entity = MANAGER_ENTITY.get_entity_by_id(entity_id)
         entity.update_values(save_data)
 
         this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME])
@@ -143,7 +143,7 @@ EntityWall.prototype = {
             }
         }
 
-        ENTITY_MANAGER.update_server_and_database()
+        MANAGER_ENTITY.update_server_and_database()
         // TODO : only close if the POST call finished successfully
 
         // TODO : IMPORTANT! DELETE IT instead of making it invisible.
@@ -151,21 +151,21 @@ EntityWall.prototype = {
     },
 
     edit_entity_pressed: function() {
-        console.log('EDIT THE PRESSED FLOATING ENTITY!!!!')
+        l('EDIT THE PRESSED FLOATING ENTITY!!!!')
 
         for (var i = 0; i < this.floating_row_to_entity_list.length; i++) {
             if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
-                console.log('EDIT THE FOLLOWING ENTITIY:')
+                l('EDIT THE FOLLOWING ENTITIY:')
                 var current_entity = this.floating_row_to_entity_list[i][1]
-                console.log(current_entity)
+                l(current_entity)
 
                 //var y_offset = -(i) * (16 + 2)
                 var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z)
                 position.addScaledVector(this.normal, 10)
                 //var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
 
-                console.log('Position to create the entity editor at :')
-                console.log(position)
+                l('Position to create the entity editor at :')
+                l(position)
 
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties())
 
@@ -184,7 +184,7 @@ EntityWall.prototype = {
                     property_value.set_label('v')
                     property_value.set_label_position(p)
 
-                    if (ENTITY_MANAGER.is_property_user_modifiable(property_name.get_text())) {
+                    if (MANAGER_ENTITY.is_property_user_modifiable(property_name.get_text())) {
                         this.world.interactive_objects.push(property_name)
                         this.world.interactive_objects.push(property_value)
                     } else {

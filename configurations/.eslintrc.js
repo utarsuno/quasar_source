@@ -77,12 +77,21 @@ module.exports = {
         "Visibility": true,
         "Button3D": true,
         "AudioManager": false,
-        "AUDIO_MANAGER": true,
-        "WORLD_MANAGER": true,
-        "ENTITY_MANAGER": true,
         "EntityManager": true,
-        "GLOBAL_COOKIES": false,
-        "PAUSED_MENU": false,
+        "DomElement": false,
+
+        // Global Managers.
+        "MANAGER_COOKIES": true,
+        "MANAGER_AUDIO"  : true,
+        "MANAGER_WORLD"  : true,
+        "MANAGER_ENTITY" : true,
+
+        // Global GUI objects.
+        "GUI_PAUSED_MENU": true,
+        "GUI_TYPING_INTERFACE": true,
+        // and their class names.
+        "PausedMenu": false,
+        "TypingInterface": false,
 
         "GLOBAL_FONT": false,
 
