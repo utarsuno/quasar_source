@@ -30,11 +30,13 @@ TypingInterface.prototype = {
     },
 
     show: function() {
+        l('Showing the typing GUI')
         this.gui_typing.show()
         this.gui_logs.show()
     },
 
     hide: function() {
+        l('Hiding the typing GUI')
         this.gui_typing.hide()
         this.gui_logs.hide()
     },
