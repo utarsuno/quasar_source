@@ -14,6 +14,9 @@ TypingInterface.prototype = {
         this.input_text = new InputTextProcessor('')
 
         this.visible = false
+
+        // Calculate the intitial sizing.
+        this.window_was_resized()
     },
 
     is_visible: function() {
@@ -48,7 +51,15 @@ TypingInterface.prototype = {
     },
 
     window_was_resized: function() {
-        l('THE HEIGHT OF THE CONSOLE LOGS IS : ')
+        this.current_height = this.gui_logs.element.clientHeight
+        l('The current height is : ' + this.current_height)
+
+        var row_size = 12
+
+        var number_of_rows_that_fit = this.current_height / row_size
+        l('The number of rows that fit : ' + number_of_rows_that_fit)
+
+
         l(this.gui_logs.element.clientHeight)
     }
 }
