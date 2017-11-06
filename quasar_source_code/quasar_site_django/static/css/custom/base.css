@@ -125,21 +125,23 @@ canvas {
     margin: 0;
     position: absolute;
     width: 96vw;
-    height: 2vw;
-    top: 94%;
+    height: 2vh;
+    top: 96%;
     left: 2%;
     background: rgba(131, 207, 255, 0.25);
     z-index: 12;
+    color: rgba(220, 255, 138, 0.9);
 }
 
 #gui_console_logs {
     border: 2px solid rgba(0, 0, 0, 0.9);
     position: absolute;
     top: 10%;
-    width: 30vw;
+    width: 35vw;
     height: 80vh;
-    background: rgba(131, 207, 255, 0.25);
+    background: rgba(131, 207, 255, 0.15);
     z-index: 12;
+    color: rgb(118, 255, 137, 0.9);
 }
 
 .gui_typing_offset {

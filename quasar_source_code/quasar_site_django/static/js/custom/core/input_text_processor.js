@@ -15,7 +15,7 @@ InputTextProcessor.prototype = {
 
     __init__: function(current_text) {
         this.current_text = current_text
-        this.cursor_position = this.current_text.length + 1
+        //this.cursor_position = this.current_text.length + 1
     },
 
     parse_key_event: function(event) {
@@ -23,7 +23,7 @@ InputTextProcessor.prototype = {
 
         if (key_code === KEY_CODE_DELETE) {
             if (this.current_text.length > 0) {
-                this.current_text.slice(0, -1)
+                this.current_text = this.current_text.slice(0, -1)
             }
         } else if (event.key.length === 1) {
             this.current_text += event.key
@@ -32,11 +32,13 @@ InputTextProcessor.prototype = {
         // TODO : play the typing sound? (MANAGER_AUDIO.play_typing_sound()
     },
 
+    clear_text: function() {
+        this.current_text = ''
+    },
+
     get_text: function() {
         //var strings_and_their_colors = []
         return this.current_text
     }
 }
 
-
-//'#ff0000'

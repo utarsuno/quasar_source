@@ -41,6 +41,7 @@ TypingInterface.prototype = {
         this.gui_typing.hide()
         this.gui_logs.hide()
         this.visible = false
+        this.input_text.clear_text()
     },
 
     key_down_event: function(event) {
