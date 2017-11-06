@@ -115,6 +115,9 @@ TypingInterface.prototype = {
     },
 
     add_user_text: function() {
-        this.add_message(this.input_text.get_text())
+        var current_input = this.input_text.get_text()
+        if (current_input.length > 0) {
+            this.add_message(this.input_text.get_text())
+        }
     }
 }
