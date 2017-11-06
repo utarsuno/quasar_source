@@ -83,24 +83,21 @@ TypingInterface.prototype = {
     update: function() {
         // TODO : This might be kinda slow..lol...
 
-        // Clear all the text first.
-        for (var c = 0; c < this.all_rows; c++) {
-            this.all_rows[c].clear()
-        }
-
         var i = this.last_row
         var m = 0
         while (i > -1) {
             if (this.messages.length > m) {
-
                 //l('Currently looking at the message {' + this.message[m] + '}')
-
                 if (this.messages[m].length > 0) {
                     this.all_rows[i].set_text(this.messages[m])
-                    m += 1
+                } else {
+                    this.all_rows[i].set_text('')
                 }
+            } else {
+                this.all_rows[i].set_text('')
             }
             i -= 1
+            m += 1
         }
     },
 
