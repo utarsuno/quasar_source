@@ -49,6 +49,6 @@ TypingInterface.prototype = {
 
     window_was_resized: function() {
         l('THE HEIGHT OF THE CONSOLE LOGS IS : ')
-        l(this.gui_logs.element.height())
+        l(this.gui_logs.element.clientHeight)
     }
 }
