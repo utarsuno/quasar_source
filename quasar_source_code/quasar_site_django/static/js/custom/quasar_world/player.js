@@ -143,8 +143,7 @@ Player.prototype = {
             if (GUI_TYPING_INTERFACE.is_visible()) {
                 GUI_TYPING_INTERFACE.hide()
                 this.disengage()
-            }
-            if (!this.is_engaged()) {
+            } else if (!this.is_engaged()) {
                 if (!GUI_TYPING_INTERFACE.is_visible()) {
                     GUI_TYPING_INTERFACE.show()
                     this.engage()
