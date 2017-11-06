@@ -86,7 +86,7 @@ TypingInterface.prototype = {
         while (i > -1) {
             if (this.messages.length > m) {
 
-                l('Currently looking at the message {' + this.message[m] + '}')
+                //l('Currently looking at the message {' + this.message[m] + '}')
 
                 if (this.messages[m].length > 0) {
                     this.all_rows[i].set_text(this.messages[m])
@@ -100,6 +100,7 @@ TypingInterface.prototype = {
     add_message: function(message_text) {
         l('Adding this message : ' + message_text)
         this.messages.push(message_text)
+        this.update()
     },
 
     add_user_text: function() {
