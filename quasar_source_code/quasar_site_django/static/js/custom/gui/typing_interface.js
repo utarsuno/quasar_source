@@ -5,10 +5,11 @@ function TypingInterface() {
 }
 
 TypingInterface.prototype = {
-    
+
     __init__: function() {
-        this.gui_typing = new DomElement('gui_typing_input_field')
-        this.gui_logs   = new DomElement('gui_console_logs')
+        this.gui_typing       = new DomElement('gui_typing')
+        this.gui_typing_input = new DomElement('gui_typing_input_field')
+        this.gui_logs         = new DomElement('gui_console_logs')
 
         this.visible = false
     },
