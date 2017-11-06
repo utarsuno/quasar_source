@@ -18,6 +18,7 @@ var MANAGER_ENTITY  = null
 // Global gui objects.
 var GUI_PAUSED_MENU      = null
 var GUI_TYPING_INTERFACE = null
+
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
