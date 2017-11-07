@@ -166,14 +166,24 @@ SettingsWorld.prototype = {
         this.save_changes.set_engage_function(this.save_changes_button_pressed.bind(this))
 
         /////
-        // Define the first camera FOV slider here.
+        // Camera FOV Slider.
         var slider_fov_position     = new THREE.Vector3(1200, 500, -350)
         var slider_fov_normal       = new THREE.Vector3(-0.969, -0.115, -0.221)
         var slider_fov_width        = 500
         this.slider_fov = new FloatingSlider('Camera FOV', 90, 20, 160, slider_fov_width, slider_fov_position, slider_fov_normal, this)
         this.slider_fov.value_changed_function = this.slider_fov_value_changed.bind(this)
+        // TODO : Actually save the settings and dynamically load them!!!
+        /////
 
         /////
+        // Global Audio Level Slider.
+        var slider_global_audio_level_position = new THREE.Vector3(1200, 750, -350)
+        var slider_global_audio_level_normal   = new THREE.Vector3(-0.969, -0.115, -0.221)
+        var slider_global_audio_level_width    = 500
+        this.slider_global_audio_level = new FloatingSlider('Master Volume', slider_global_audio_level_width, slider_global_audio_level_normal, slider_global_audio_level_position, this)
+        /////
+
+
 
 
         this.interactive_objects.push(this.profile_owner_id_label)
