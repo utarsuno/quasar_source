@@ -89,6 +89,10 @@ SettingsWorld.prototype = {
         }
     },
 
+    slider_master_volume_value_changed: function(master_volume_value) {
+        l('Master volume value is now : ' + master_volume_value)
+    },
+
     slider_fov_value_changed: function(fov_value) {
         MANAGER_WORLD.player.renderer_api.camera.fov = fov_value
         MANAGER_WORLD.player.renderer_api.camera.updateProjectionMatrix()
@@ -181,6 +185,7 @@ SettingsWorld.prototype = {
         var slider_global_audio_level_normal   = new THREE.Vector3(-0.969, -0.115, -0.221)
         var slider_global_audio_level_width    = 500
         this.slider_global_audio_level = new FloatingSlider('Master Volume', 100, 0, 100, slider_global_audio_level_width, slider_global_audio_level_normal, slider_global_audio_level_position, this)
+        this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this)
         /////
 
 
