@@ -36,6 +36,9 @@ MANAGER_AUDIO = new AudioManager(player)
 
 
 
+GUI_TYPING_INTERFACE.add_server_message('Welcome!')
+
+
 var previous_time = performance.now()
 
 var animate = function () {

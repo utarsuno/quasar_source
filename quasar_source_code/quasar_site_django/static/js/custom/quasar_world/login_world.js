@@ -58,6 +58,7 @@ LoginWorld.prototype = {
             this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
         } else {
             this.ajax_status.update_text('Error : ' + error_message)
+            GUI_TYPING_INTERFACE.add_message('Error : ' + error_message, COLOR_TEXT_RED)
         }
     },
 
