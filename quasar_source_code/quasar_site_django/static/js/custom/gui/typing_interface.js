@@ -42,7 +42,6 @@ TypingInterface.prototype = {
         this.window_was_resized()
 
         this.needs_another_update = false
-        this.gui_logs.make_invisible()
     },
 
     is_visible: function() {
