@@ -14,9 +14,7 @@ LoginWorld.prototype = {
     // Post calls.
     post_create_account   : null,
     post_login            : null,
-
-    ajax_status        : null,
-
+    
     //
     current_world: null,
 
@@ -52,25 +50,25 @@ LoginWorld.prototype = {
         }
 
         if (!error) {
-            this.ajax_status.update_text('sending login request to server')
+            GUI_TYPING_INTERFACE.add_server_message('sending login request to server')
             this.attempted_username = login_username_text
             this.attempted_password = login_password_text
             this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
         } else {
-            this.ajax_status.update_text('Error : ' + error_message)
+            GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message)
             GUI_TYPING_INTERFACE.add_message('Error : ' + error_message, COLOR_TEXT_RED)
         }
     },
 
     login_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
-            this.ajax_status.update_text('Logged in!')
+            GUI_TYPING_INTERFACE.add_server_message('Logged in!')
             if (this.remember_username_checkbox.checked) {
                 MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username)
             }
             this.player.perform_login(this.attempted_username, this.attempted_password)
         } else {
-            this.ajax_status.update_text('Error: ' + data)
+            GUI_TYPING_INTERFACE.add_server_message('Error : ' + data)
         }
     },
 
@@ -109,22 +107,22 @@ LoginWorld.prototype = {
         }
 
         if (!error) {
-            this.ajax_status.update_text('Sending request to server.')
+            GUI_TYPING_INTERFACE.add_server_message('Sending request to server...')
             this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
         } else {
-            this.ajax_status.update_text('Error : ' + error_message)
+            GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message)
         }
     },
 
     create_account_button_event: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             // Auto-login for successful account creations.
-            this.ajax_status.update_text('Account created! Now sending login request to server!')
+            GUI_TYPING_INTERFACE.add_server_message('Account created! Now sending login request to server!')
             this.attempted_username = this.create_username.get_input_text()
             this.attempted_password = this.create_password.get_input_text()
             this.post_login.perform_post({'username': this.attempted_username, 'password': this.attempted_password}, this.login_button_event.bind(this))
         } else {
-            this.ajax_status.update_text('Error: ' + data)
+            GUI_TYPING_INTERFACE.add_server_message('Error : ' + data)
         }
         this.player.disengage()
     },
@@ -147,10 +145,6 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld')
 
         var global_y_offset = 50
-
-        // AJAX status.
-        this.ajax_status = new Floating2DText(450, '', TYPE_TITLE, this.scene)
-        this.ajax_status.update_position_and_look_at(new THREE.Vector3(450 / 2 - 50, 150 + global_y_offset, 45), new THREE.Vector3(450 / 2 - 50, 150 + global_y_offset, 55))
 
         /*      __   __
           |    /  \ / _` | |\ |
@@ -266,7 +260,6 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
-        this.ajax_status.update_text('')
         this.login_username.floating_input.update_text('')
         this.login_password.floating_input.update_text('')
         this.create_username.floating_input.update_text('')

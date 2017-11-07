@@ -34,12 +34,7 @@ GUI_PAUSED_MENU.make_visible()
 MANAGER_AUDIO = new AudioManager(player)
 
 
-
-
 GUI_TYPING_INTERFACE.add_server_message('Welcome!')
-window.setInterval(function(){
-    GUI_TYPING_INTERFACE.add_server_message('1 Second has passed!')
-}, 1000)
 
 
 var previous_time = performance.now()
