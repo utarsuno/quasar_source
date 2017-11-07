@@ -117,6 +117,9 @@ TypingInterface.prototype = {
 
                 // Messages will fade out over a 5 second period. Unless the console logs are currently displayed.
                 if (this.gui_logs.is_visible()) {
+
+                    l('Gui Logs is visible')
+
                     if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
                         this.all_rows[i].set_color(this.get_server_text_color(1.0))
                     } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
@@ -124,16 +127,16 @@ TypingInterface.prototype = {
                     }
                 } else {
                     var millisecond_difference = current_milliseconds - this.messages[m][2]
-                    if (millisecond_difference >= 5000) {
+                    if (millisecond_difference >= 10000.0) {
                         this.all_rows[i].set_color(this.get_normal_text_color(0.0))
                     } else {
 
                         needs_one_more_update = true
 
                         if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
-                            this.all_rows[i].set_color(this.get_normal_text_color(millisecond_difference / 5000.0))
+                            this.all_rows[i].set_color(this.get_normal_text_color(1.0 - (millisecond_difference / 10000.0)))
                         } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
-                            this.all_rows[i].set_color(this.get_normal_text_color(millisecond_difference / 5000.0))
+                            this.all_rows[i].set_color(this.get_normal_text_color(1.0 - (millisecond_difference / 10000.0)))
                         }
                     }
                 }
