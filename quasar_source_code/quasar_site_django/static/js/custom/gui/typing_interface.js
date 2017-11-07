@@ -136,7 +136,7 @@ TypingInterface.prototype = {
         // Make sure to clear out all the other ones.
         var j = this.last_row + 1
         while (j < 70) {
-            this.all_rows[i].set_text('')
+            this.all_rows[j].set_text('')
             j += 1
         }
     },
