@@ -53,8 +53,8 @@ HomeWorld.prototype = {
         var number_of_wall_entities = wall_entities.length
         for (var w = 0; w < number_of_wall_entities; w++) {
 
-            console.log('LOADED THE WALL ENTITY : ')
-            console.log(wall_entities[w])
+            l('LOADED THE WALL ENTITY : ')
+            l(wall_entities[w])
 
             //var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
 

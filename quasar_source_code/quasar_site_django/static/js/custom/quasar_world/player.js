@@ -146,9 +146,11 @@ Player.prototype = {
                 this.disengage()
                 this.fps_controls.enable()
             } else if (!this.is_engaged()) {
-                if (!GUI_TYPING_INTERFACE.is_visible()) {
-                    GUI_TYPING_INTERFACE.show()
-                    this.engage()
+                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+                    if (!GUI_TYPING_INTERFACE.is_visible()) {
+                        GUI_TYPING_INTERFACE.show()
+                        this.engage()
+                    }
                 }
             }
             break

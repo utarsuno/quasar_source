@@ -14,7 +14,7 @@ LoginWorld.prototype = {
     // Post calls.
     post_create_account   : null,
     post_login            : null,
-    
+
     //
     current_world: null,
 
