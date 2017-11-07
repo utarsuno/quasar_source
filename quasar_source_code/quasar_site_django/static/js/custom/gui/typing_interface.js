@@ -42,6 +42,7 @@ TypingInterface.prototype = {
         this.window_was_resized()
 
         this.needs_another_update = false
+        this.gui_logs.make_invisible()
     },
 
     is_visible: function() {
@@ -83,7 +84,8 @@ TypingInterface.prototype = {
 
         var row_size = 12 + 2 // There is a margin of 3 and pixel size of 12.
         var number_of_rows_that_fit = this.current_height / row_size
-        this.last_row = Math.floor(number_of_rows_that_fit)
+        // - 1 is temporary
+        this.last_row = Math.floor(number_of_rows_that_fit) - 1
 
         l('The last row is : ' + this.last_row)
 
@@ -112,34 +114,14 @@ TypingInterface.prototype = {
         var m = 0
         while (i > -1) {
             if (this.messages.length > m) {
-                //l('Currently looking at the message {' + this.message[m] + '}')
                 this.all_rows[i].set_text(this.messages[m][0])
 
-                // Messages will fade out over a 5 second period. Unless the console logs are currently displayed.
-                if (this.gui_logs.is_visible()) {
-
-                    l('Gui Logs is visible')
-
-                    if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
-                        this.all_rows[i].set_color(this.get_server_text_color(1.0))
-                    } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
-                        this.all_rows[i].set_color(this.get_normal_text_color(1.0))
-                    }
-                } else {
-                    var millisecond_difference = current_milliseconds - this.messages[m][2]
-                    if (millisecond_difference >= 10000.0) {
-                        this.all_rows[i].set_color(this.get_normal_text_color(0.0))
-                    } else {
-
-                        needs_one_more_update = true
-
-                        if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
-                            this.all_rows[i].set_color(this.get_normal_text_color(1.0 - (millisecond_difference / 10000.0)))
-                        } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
-                            this.all_rows[i].set_color(this.get_normal_text_color(1.0 - (millisecond_difference / 10000.0)))
-                        }
-                    }
+                if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
+                    this.all_rows[i].set_color(this.get_server_text_color(0.85))
+                } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
+                    this.all_rows[i].set_color(this.get_normal_text_color(0.85))
                 }
+
             } else {
                 this.all_rows[i].set_text('')
             }
@@ -158,7 +140,6 @@ TypingInterface.prototype = {
     },
 
     add_message: function(text_message, text_color, text_added_at_time) {
-        l('Adding this message : ' + text_message)
         this.messages.unshift([text_message, text_color, text_added_at_time])
         this.update()
     },
