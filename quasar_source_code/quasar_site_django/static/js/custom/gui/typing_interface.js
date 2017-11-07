@@ -61,14 +61,14 @@ TypingInterface.prototype = {
     show: function() {
         this.gui_typing.show()
         //this.gui_logs.show()
-        this.gui_logs.make_visible()
+        //this.gui_logs.make_visible()
         this.visible = true
     },
 
     hide: function() {
         this.gui_typing.hide()
         //this.gui_logs.hide()
-        this.gui_logs.make_invisible()
+        //this.gui_logs.make_invisible()
         this.visible = false
         this.input_text.clear_text()
     },
@@ -139,20 +139,20 @@ TypingInterface.prototype = {
         this.needs_another_update = needs_one_more_update
     },
 
-    add_message: function(text_message, text_color, text_added_at_time) {
-        this.messages.unshift([text_message, text_color, text_added_at_time])
+    add_message: function(text_message, text_color) {
+        this.messages.unshift([text_message, text_color])
         this.update()
     },
 
     add_user_text: function() {
         var current_input = this.input_text.get_text()
         if (current_input.length > 0) {
-            this.add_message(this.input_text.get_text(), MESSAGE_TYPE_USER, new Date().getTime())
+            this.add_message(this.input_text.get_text(), MESSAGE_TYPE_USER)
         }
     },
 
     add_server_message: function(server_message) {
-        this.add_message(server_message, MESSAGE_TYPE_SERVER, new Date().getTime())
+        this.add_message(server_message, MESSAGE_TYPE_SERVER)
     }
 }
 
