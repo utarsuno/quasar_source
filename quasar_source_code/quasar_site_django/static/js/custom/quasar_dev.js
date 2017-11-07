@@ -52,7 +52,9 @@ var animate = function () {
     MANAGER_WORLD.update_current_scene()
 
     ////
-    GUI_TYPING_INTERFACE.update()
+    if (GUI_TYPING_INTERFACE.needs_an_update()) {
+        GUI_TYPING_INTERFACE.update()
+    }
     ////
 
     renderer_api.render()
