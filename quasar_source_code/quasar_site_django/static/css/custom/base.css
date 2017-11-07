@@ -135,12 +135,12 @@ canvas {
 }
 
 #gui_console_logs {
-    border: 2px solid rgba(0, 0, 0, 0.9);
+    /*border: 2px solid rgba(0, 0, 0, 0.9);*/
     position: absolute;
     top: 10%;
     width: 35vw;
-    height: 80vh;
-    background: rgba(131, 207, 255, 0.15);
+    height: 70vh;
+    background: rgba(131, 207, 255, 0.0);
     z-index: 12;
     color: rgba(220, 255, 138, 0.9);
     font-size: 12px;

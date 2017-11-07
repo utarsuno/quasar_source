@@ -80,7 +80,7 @@ TypingInterface.prototype = {
 
     window_was_resized: function() {
         var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-        this.current_height = window_height * 0.8
+        this.current_height = window_height * 0.7
 
         var row_size = 12 + 2 // There is a margin of 3 and pixel size of 12.
         var number_of_rows_that_fit = this.current_height / row_size
@@ -140,6 +140,7 @@ TypingInterface.prototype = {
     },
 
     add_message: function(text_message, text_color) {
+        l('Adding the message : {' + text_message + '}')
         this.messages.unshift([text_message, text_color])
         this.update()
     },
