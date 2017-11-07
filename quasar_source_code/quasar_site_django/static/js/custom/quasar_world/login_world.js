@@ -50,13 +50,13 @@ LoginWorld.prototype = {
         }
 
         if (!error) {
-            GUI_TYPING_INTERFACE.add_server_message('sending login request to server')
+            GUI_TYPING_INTERFACE.add_server_message('Sending login request to server...')
             this.attempted_username = login_username_text
             this.attempted_password = login_password_text
             this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this))
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message)
-            GUI_TYPING_INTERFACE.add_message('Error : ' + error_message, COLOR_TEXT_RED)
+            this.player.disengage()
         }
     },
 
@@ -107,7 +107,7 @@ LoginWorld.prototype = {
         }
 
         if (!error) {
-            GUI_TYPING_INTERFACE.add_server_message('Sending request to server...')
+            GUI_TYPING_INTERFACE.add_server_message('Sending create account request to server...')
             this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this))
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message)
@@ -123,8 +123,8 @@ LoginWorld.prototype = {
             this.post_login.perform_post({'username': this.attempted_username, 'password': this.attempted_password}, this.login_button_event.bind(this))
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data)
+            this.player.disengage()
         }
-        this.player.disengage()
     },
 
     remember_username_clicked: function() {

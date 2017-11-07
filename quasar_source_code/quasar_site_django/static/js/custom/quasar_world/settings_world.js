@@ -188,9 +188,6 @@ SettingsWorld.prototype = {
         this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this)
         /////
 
-
-
-
         this.interactive_objects.push(this.profile_owner_id_label)
         this.interactive_objects.push(this.profile_owner_id_input)
         this.interactive_objects.push(this.profile_name_label)

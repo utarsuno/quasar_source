@@ -86,7 +86,7 @@ TypingInterface.prototype = {
         // - 1 is temporary
         this.last_row = Math.floor(number_of_rows_that_fit) - 1
 
-        l('The last row is : ' + this.last_row)
+        //l('The last row is : ' + this.last_row)
 
         this.update()
     },
@@ -105,7 +105,7 @@ TypingInterface.prototype = {
 
     update: function() {
         // TODO : This might be kinda slow..lol...
-        var current_milliseconds = new Date().getTime()
+        //var current_milliseconds = new Date().getTime()
 
         var needs_one_more_update = false
 
@@ -139,7 +139,7 @@ TypingInterface.prototype = {
     },
 
     add_message: function(text_message, text_color) {
-        l('Adding the message : {' + text_message + '}')
+        //l('Adding the message : {' + text_message + '}')
         this.messages.unshift([text_message, text_color])
         this.update()
     },
@@ -148,6 +148,10 @@ TypingInterface.prototype = {
         var current_input = this.input_text.get_text()
         if (current_input.length > 0) {
             this.add_message(this.input_text.get_text(), MESSAGE_TYPE_USER)
+
+            // TODO : Add basic commands like save
+            // This will be the response for unknown commands.
+            this.add_server_message('¯\\_(ツ)_/¯')
         }
     },
 
