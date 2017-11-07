@@ -51,6 +51,10 @@ var animate = function () {
     player.update(delta)
     MANAGER_WORLD.update_current_scene()
 
+    ////
+    GUI_TYPING_INTERFACE.update()
+    ////
+
     renderer_api.render()
     renderer_api.post_render()
 

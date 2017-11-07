@@ -40,6 +40,8 @@ TypingInterface.prototype = {
 
         // Calculate the initial sizing.
         this.window_was_resized()
+
+        this.needs_another_update = false
     },
 
     is_visible: function() {
@@ -96,9 +98,15 @@ TypingInterface.prototype = {
         return 'rgba(255, 53, 36,' + alpha.toString() + ')'
     },
 
+    needs_an_update: function() {
+        return this.needs_another_update
+    },
+
     update: function() {
         // TODO : This might be kinda slow..lol...
         var current_milliseconds = new Date().getTime()
+
+        var needs_one_more_update = false
 
         var i = this.last_row
         var m = 0
@@ -119,6 +127,9 @@ TypingInterface.prototype = {
                     if (millisecond_difference >= 5000) {
                         this.all_rows[i].set_color(this.get_normal_text_color(0.0))
                     } else {
+
+                        needs_one_more_update = true
+
                         if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
                             this.all_rows[i].set_color(this.get_normal_text_color(millisecond_difference / 5000.0))
                         } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
@@ -139,6 +150,8 @@ TypingInterface.prototype = {
             this.all_rows[j].set_text('')
             j += 1
         }
+
+        this.needs_another_update = needs_one_more_update
     },
 
     add_message: function(text_message, text_color, text_added_at_time) {
