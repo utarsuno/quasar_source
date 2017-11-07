@@ -37,8 +37,6 @@ TypingInterface.prototype = {
         }
 
         this.messages = []
-        this.colors   = []
-        this.created_at_times = []
 
         // Calculate the initial sizing.
         this.window_was_resized()
@@ -127,8 +125,6 @@ TypingInterface.prototype = {
                             this.all_rows[i].set_color(this.get_normal_text_color(millisecond_difference / 5000.0))
                         }
                     }
-
-                    this.all_rows[i].set_color(this.messages[m][1])
                 }
             } else {
                 this.all_rows[i].set_text('')
@@ -136,12 +132,18 @@ TypingInterface.prototype = {
             i -= 1
             m += 1
         }
+
+        // Make sure to clear out all the other ones.
+        var j = this.last_row + 1
+        while (j < 70) {
+            this.all_rows[i].set_text('')
+            j += 1
+        }
     },
 
     add_message: function(text_message, text_color, text_added_at_time) {
         l('Adding this message : ' + text_message)
         this.messages.unshift([text_message, text_color, text_added_at_time])
-        //this.messages.push(message_text)
         this.update()
     },
 
