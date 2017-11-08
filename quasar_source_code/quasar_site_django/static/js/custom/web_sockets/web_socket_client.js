@@ -31,7 +31,7 @@ WebSocketClient.prototype = {
 
     send_chat_message: function(chat_message) {
         if (this.connected) {
-            this.socket.send(this.player_id + '|' + chat_message)
+            this.socket.send(this.player_id + '|M|' + chat_message)
         }
     },
 

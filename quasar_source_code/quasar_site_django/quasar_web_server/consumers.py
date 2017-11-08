@@ -56,9 +56,15 @@ def ws_connect(message):
 def ws_message(message):
 	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
+	message = (message.content['text']).split('|')
+	user = message[0]
+	command = message[1]
+	data = message[2]
+
+	# message.content['text']
 
 	Group('users').send({
-		"text": "[user] %s" % message.content['text'],
+		"text": str(user) + '|' + str(command) + '|' + str(data),
 	})
 
 
