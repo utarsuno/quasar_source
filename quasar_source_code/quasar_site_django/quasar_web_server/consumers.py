@@ -54,7 +54,7 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
 	message = (message.content['text']).split('|')
 	# TODO : Get the username here!!!!
