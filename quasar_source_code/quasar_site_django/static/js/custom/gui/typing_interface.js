@@ -147,11 +147,13 @@ TypingInterface.prototype = {
     add_user_text: function() {
         var current_input = this.input_text.get_text()
         if (current_input.length > 0) {
-            this.add_message(this.input_text.get_text(), MESSAGE_TYPE_USER)
+            this.add_message(current_input, MESSAGE_TYPE_USER)
+            
+            MANAGER_WORLD.player.send_chat_message(current_input)
 
             // TODO : Add basic commands like save
             // This will be the response for unknown commands.
-            this.add_server_message('¯\\_(ツ)_/¯')
+            //this.add_server_message('¯\\_(ツ)_/¯')
         }
     },
 

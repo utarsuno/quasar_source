@@ -58,6 +58,15 @@ Player.prototype = {
 
         // Create the instance of WebSocketClient. This won't connect until the player logs in.
         this.web_socket_client = new WebSocketClient()
+
+        this.owner_name = null
+    },
+
+    send_chat_message: function(chat_message) {
+        if (!is_defined(this.owner_name)) {
+            this.owner_name = MANAGER_ENTITY.get_owner_entity().get_value('owner_username')
+        }
+        this.web_socket_client.send_chat_message(chat_message)
     },
 
     log_out: function() {
