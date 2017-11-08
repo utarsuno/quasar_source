@@ -50,6 +50,16 @@ WebSocketClient.prototype = {
 
         this.socket.onmessage = function(e) {
             l('Just got the message : ' + e.data)
+
+            var split = (e.data).split('|')
+            var user = split[0]
+            var command = split[1]
+            var data = split[2]
+
+            if (command === 'M') {
+                MANAGER_WORLD.player.send_chat_message(user + ' : ' + data)
+            }
+
             //var data = e.data.split('|')
             //self._world.update_player(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
         }

@@ -57,6 +57,7 @@ def ws_message(message):
 	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
 	message = (message.content['text']).split('|')
+	# TODO : Get the username here!!!!
 	user = message[0]
 	command = message[1]
 	data = message[2]
