@@ -15,8 +15,9 @@ Message.prototype = {
     }
 }
 
-const MESSAGE_TYPE_SERVER = 2
-const MESSAGE_TYPE_USER   = 1
+const MESSAGE_TYPE_PLAYER_CHAT = 3
+const MESSAGE_TYPE_SERVER      = 2
+const MESSAGE_TYPE_USER        = 1
 
 TypingInterface.prototype = {
 
@@ -99,6 +100,10 @@ TypingInterface.prototype = {
         return 'rgba(255, 53, 36,' + alpha.toString() + ')'
     },
 
+    get_player_message_text_color: function(alpha) {
+        return 'rgba(113, 236, 255, ' + alpha.toString() + ');'
+    },
+
     needs_an_update: function() {
         return this.needs_another_update
     },
@@ -113,14 +118,20 @@ TypingInterface.prototype = {
         var m = 0
         while (i > -1) {
             if (this.messages.length > m) {
+                // Set text.
                 this.all_rows[i].set_text(this.messages[m][0])
-
-                if (this.messages[m][1] === MESSAGE_TYPE_SERVER) {
+                // Set text color.
+                switch(this.messages[m][1]) {
+                case MESSAGE_TYPE_SERVER:
                     this.all_rows[i].set_color(this.get_server_text_color(0.85))
-                } else if (this.messages[m][1] === MESSAGE_TYPE_USER) {
+                    break
+                case MESSAGE_TYPE_USER:
                     this.all_rows[i].set_color(this.get_normal_text_color(0.85))
+                    break
+                case MESSAGE_TYPE_PLAYER_CHAT:
+                    this.all_rows[i].set_color(this.get_player_message_text_color(0.85))
+                    break
                 }
-
             } else {
                 this.all_rows[i].set_text('')
             }
@@ -136,6 +147,10 @@ TypingInterface.prototype = {
         }
 
         this.needs_another_update = needs_one_more_update
+    },
+
+    add_chat_message: function(message) {
+        this.add_message(message, MESSAGE_TYPE_PLAYER_CHAT)
     },
 
     add_message: function(text_message, text_color) {

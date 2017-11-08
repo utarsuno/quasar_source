@@ -57,7 +57,8 @@ WebSocketClient.prototype = {
             var data = split[2]
 
             if (command === 'M') {
-                MANAGER_WORLD.player.send_chat_message(user + ' : ' + data)
+                //MANAGER_WORLD.player.send_chat_message(user + ' : ' + data)
+                GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
             }
 
             //var data = e.data.split('|')
