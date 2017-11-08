@@ -90,12 +90,21 @@ WebSocketClient.prototype = {
                 look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
 
 
+                var user_found = false
+
                 for (var i = 0; i < this.users.length; i++) {
                     if (this.users[i][0] === user) {
                         this.users[i][1] = position
                         this.users[i][2] = look_at
                         MANAGER_WORLD.world_home.update_player_from_server(this.users[i])
+                        user_found = true
                     }
+                }
+
+                if (!user_found) {
+                    var u = [user, position, look_at]
+                    this.users.push(u)
+                    MANAGER_WORLD.world_home.update_player_from_server(u)
                 }
 
 
