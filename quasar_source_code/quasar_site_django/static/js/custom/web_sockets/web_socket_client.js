@@ -115,7 +115,7 @@ WebSocketClient.prototype = {
 
             //var data = e.data.split('|')
             //self._world.update_player(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
-        }
+        }.bind(this)
 
         this.socket.onopen = function open() {
             l('WebSockets connection created.')
