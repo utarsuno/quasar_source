@@ -39,6 +39,8 @@ GUI_TYPING_INTERFACE.add_server_message('Welcome!')
 
 var previous_time = performance.now()
 
+var total_delta = 0
+
 var animate = function () {
     requestAnimationFrame(animate)
     renderer_api.pre_render()
@@ -46,7 +48,9 @@ var animate = function () {
     var time = performance.now()
     var delta = (time - previous_time) / 1000.0
 
-    l(delta)
+    //l(delta)
+    total_delta += delta
+    l(total_delta)
 
     player.update(delta)
     MANAGER_WORLD.update_current_scene()
