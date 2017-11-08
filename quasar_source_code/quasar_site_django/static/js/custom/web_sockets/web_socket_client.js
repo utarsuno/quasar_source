@@ -48,6 +48,8 @@ WebSocketClient.prototype = {
 
         this.connected = false
 
+        this.users = []
+
         //this.connect()
     },
 
