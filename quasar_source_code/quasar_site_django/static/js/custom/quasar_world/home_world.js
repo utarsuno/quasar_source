@@ -115,16 +115,16 @@ HomeWorld.prototype = {
         for (var i = 0; i < this.players.length; i++) {
             if (this.players[i][0] === user) {
                 player_found = true
-                this.players[i][1].position.x = position.x
-                this.players[i][1].position.y = position.y
-                this.players[i][1].position.z = position.z
+                this.players[i][1].x = position.x
+                this.players[i][1].y = position.y
+                this.players[i][1].z = position.z
                 this.players[i][1].lookAt(look_at)
 
                 var p_position = new THREE.Vector3(position.x, position.y + 10, position.z)
                 var p_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
-                this.players[i][2].position.x = p_position.x
-                this.players[i][2].position.y = p_position.y
-                this.players[i][2].position.z = p_position.z
+                this.players[i][2].x = p_position.x
+                this.players[i][2].y = p_position.y
+                this.players[i][2].z = p_position.z
                 this.players[i][2].lookAt(p_look_at)
             }
         }
