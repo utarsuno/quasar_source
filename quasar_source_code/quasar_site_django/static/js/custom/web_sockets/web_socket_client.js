@@ -81,7 +81,6 @@ WebSocketClient.prototype = {
             if (command === 'M') {
                 GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
             } else if (command === 'P') {
-
                 var position = data.split('!')[0]
                 var look_at = data.split('!')[1]
 
@@ -90,7 +89,17 @@ WebSocketClient.prototype = {
                 var la = look_at.split(',')
                 look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
 
-                this.client_manager.update_position(user, position, look_at)
+
+                for (var i = 0; i < this.users.length; i++) {
+                    if (this.users[i][0] === user) {
+                        this.users[i][1] = position
+                        this.users[i][2] = look_at
+                        MANAGER_WORLD.world_home.update_player_from_server(this.users[i])
+                    }
+                }
+
+
+                //this.client_manager.update_position(user, position, look_at)
             }
 
             //var data = e.data.split('|')
