@@ -111,59 +111,58 @@ HomeWorld.prototype = {
         var position = user_data[1]
         var look_at = user_data[2]
 
-        var player_found = false
-        for (var i = 0; i < this.players.length; i++) {
-            if (this.players[i][0] === user) {
-                player_found = true
-                this.players[i][1].x = position.x
-                this.players[i][1].y = position.y
-                this.players[i][1].z = position.z
-                this.players[i][1].lookAt(look_at)
+        if (user !== MANAGER_WORLD.player.player_id) {
 
-                var p_position = new THREE.Vector3(position.x, position.y + 10, position.z)
-                var p_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
-                this.players[i][2].x = p_position.x
-                this.players[i][2].y = p_position.y
-                this.players[i][2].z = p_position.z
-                this.players[i][2].lookAt(p_look_at)
+            var player_found = false
+            for (var i = 0; i < this.players.length; i++) {
+                if (this.players[i][0] === user) {
+                    player_found = true
+                    this.players[i][1].position.x = position.x
+                    this.players[i][1].position.y = position.y
+                    this.players[i][1].position.z = position.z
+                    this.players[i][1].lookAt(look_at)
+
+                    var p_position = new THREE.Vector3(position.x, position.y + 10, position.z)
+                    var p_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
+                    this.players[i][2].update_position_and_look_at(p_position, p_look_at)
+                }
             }
+
+            if (!player_found) {
+
+                var player_title = new Floating3DText(100, 'PLAYER NAME', TYPE_TITLE)
+                //this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
+
+                var player_position = new THREE.Vector3(position.x, position.y + 10, position.z)
+                var player_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
+
+                player_title.update_position_and_look_at(player_position, player_look_at)
+
+                this.geometry = new THREE.DodecahedronGeometry(10, 1)
+
+                this.planet_color = 0x8effcb
+
+                this.material = new THREE.MeshBasicMaterial({
+                    color: 0x8effcb, // '0x8effcb'
+                    // TODO : Figure out if I should use front side or back side.
+                    side: THREE.DoubleSide
+                })
+                this.mesh = new THREE.Mesh(this.geometry, this.material)
+                this.mesh.position.set(position.x, position.y, position.z)
+
+                this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
+                player_title.update_just_color(COLOR_TEXT_PLANET)
+
+                var object3D = new THREE.Object3D()
+                object3D.add(this.mesh)
+
+                this.add_to_scene(object3D)
+                this.add_to_scene(player_title)
+
+                this.players.push([user, object3D, player_title])
+            }
+
         }
-
-        if (!player_found) {
-
-            var player_title = new Floating3DText(100, 'PLAYER NAME', TYPE_TITLE)
-            //this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0))
-
-            var player_position = new THREE.Vector3(position.x, position.y + 10, position.z)
-            var player_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
-
-            player_title.update_position_and_look_at(player_position, player_look_at)
-
-            this.geometry = new THREE.DodecahedronGeometry(10, 1)
-
-            this.planet_color = 0x8effcb
-
-            this.material = new THREE.MeshBasicMaterial({
-                color: 0x8effcb, // '0x8effcb'
-                // TODO : Figure out if I should use front side or back side.
-                side: THREE.DoubleSide
-            })
-            this.mesh = new THREE.Mesh(this.geometry, this.material)
-            this.mesh.position.set(position.x, position.y, position.z)
-
-            this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
-            player_title.update_just_color(COLOR_TEXT_PLANET)
-
-            var object3D = new THREE.Object3D()
-            object3D.add(this.mesh)
-
-            this.add_to_scene(object3D)
-            this.add_to_scene(player_title)
-
-            this.players.push([user, object3D, player_title])
-        }
-
-
 
     }
 }

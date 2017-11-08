@@ -86,16 +86,16 @@ WebSocketClient.prototype = {
                 var position = data.split('!')[0]
                 var look_at = data.split('!')[1]
 
-                l(position)
-                l(look_at)
+                //l(position)
+                //l(look_at)
 
                 var p = position.split(',')
                 position = new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]))
                 var la = look_at.split(',')
                 look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
 
-                l(position)
-                l(look_at)
+                //l(position)
+                //l(look_at)
 
                 var user_found = false
 
