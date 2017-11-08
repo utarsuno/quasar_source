@@ -157,6 +157,9 @@ HomeWorld.prototype = {
             var object3D = new THREE.Object3D()
             object3D.add(this.mesh)
 
+            this.add_to_scene(object3D)
+            this.add_to_scene(player_title)
+
             this.players.push([user, object3D, player_title])
         }
 
