@@ -91,6 +91,14 @@ Player.prototype = {
         return this.owner.password
     },
 
+    send_position_update_to_server: function() {
+        var position = this.get_position()
+        var text = '' + position.x.toString() + ',' + position.y.toString() + ',' + position.z.toString()
+        var look_at = this.fps_controls.get_direction()
+        text = text + '!' + look_at.x.toString() + ',' + look_at.y.toString() + ',' + look_at.z.toString()
+        this.web_socket_client.send_position_update(text)
+    },
+
     set_player_id: function(player_id) {
         l('Setting the player id to : ' + player_id)
         this.player_id = player_id

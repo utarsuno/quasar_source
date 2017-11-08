@@ -5,6 +5,26 @@ function WebSocketClient() {
     this.__init__()
 }
 
+function ClientManager() {
+    this.__init__()
+}
+
+ClientManager.prototype = {
+    __init__: function() {
+        this.users = []
+    },
+
+    update_position: function(player, position, look_at) {
+        for (var i = 0; i < this.users.length; i++) {
+            if (this.users[i][0] === player) {
+                this.users[i][1] = position
+                this.users[i][2] = look_at
+                MANAGER_WORLD.world_home.update_player_from_server(this.users[i])
+            }
+        }
+    }
+}
+
 WebSocketClient.prototype = {
 
     _id       : null,
@@ -22,6 +42,8 @@ WebSocketClient.prototype = {
         //this._id       = '_' + Math.random().toString(36).substr(2, 9)
         //this._full_id  = '[user] ' + this._id
 
+
+        this.client_manager = new ClientManager()
 
 
         this.connected = false
@@ -57,8 +79,18 @@ WebSocketClient.prototype = {
             var data = split[2]
 
             if (command === 'M') {
-                //MANAGER_WORLD.player.send_chat_message(user + ' : ' + data)
                 GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
+            } else if (command === 'P') {
+
+                var position = data.split('!')[0]
+                var look_at = data.split('!')[1]
+
+                var p = position.split(',')
+                position = new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]))
+                var la = look_at.split(',')
+                look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
+
+                this.client_manager.update_position(user, position, look_at)
             }
 
             //var data = e.data.split('|')

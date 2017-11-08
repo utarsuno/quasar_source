@@ -39,7 +39,9 @@ GUI_TYPING_INTERFACE.add_server_message('Welcome!')
 
 var previous_time = performance.now()
 
+
 var total_delta = 0
+var position_update_interval = 1 / 20
 
 var animate = function () {
     requestAnimationFrame(animate)
@@ -48,12 +50,14 @@ var animate = function () {
     var time = performance.now()
     var delta = (time - previous_time) / 1000.0
 
-    //l(delta)
-    total_delta += delta
-    l(total_delta)
-
     player.update(delta)
     MANAGER_WORLD.update_current_scene()
+
+    total_delta += delta
+    if (total_delta >= position_update_interval) {
+        player.send_position_update_to_server()
+        total_delta -= position_update_interval
+    }
 
     ////
     if (GUI_TYPING_INTERFACE.needs_an_update()) {
