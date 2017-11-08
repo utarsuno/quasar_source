@@ -54,7 +54,9 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-	print('JUST GOT THE MESSAGE : ' + str(message))
+	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+
+
 	Group('users').send({
 		"text": "[user] %s" % message.content['text'],
 	})
