@@ -35,9 +35,9 @@ WebSocketClient.prototype = {
         }
     },
 
-    send_data: function(data) {
+    send_position_update: function(data) {
         if (this.connected === true) {
-            this.socket.send(this.player_id + '|' + data)
+            this.socket.send(this.player_id + '|P|' + data)
         }
     },
 
