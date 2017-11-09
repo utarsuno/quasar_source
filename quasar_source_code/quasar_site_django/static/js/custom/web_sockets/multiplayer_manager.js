@@ -4,11 +4,11 @@ function MultiPlayerManager() {
     this.__init__()
 }
 
-function Player() {
+function ServerPlayer() {
     this.__init__()
 }
 
-Player.prototype = {
+ServerPlayer.prototype = {
     __init__: function(player_id, initial_position, initial_look_at) {
         this.player_id = player_id
 
