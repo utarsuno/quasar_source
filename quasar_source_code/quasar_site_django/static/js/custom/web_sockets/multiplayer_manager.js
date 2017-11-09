@@ -121,9 +121,9 @@ MultiPlayerManager.prototype = {
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED')
                 }
 
+                l('Creating new server player with ID{' + player + '}')
                 var new_server_player = new ServerPlayer(player, position_update, look_at_update)
-                l('Created new server player with ID{' + player + '}')
-                
+
                 this.players.push(new_server_player)
             } else {
                 if (is_defined(position_update)) {
