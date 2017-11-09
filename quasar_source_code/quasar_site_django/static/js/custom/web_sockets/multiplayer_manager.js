@@ -117,7 +117,7 @@ MultiPlayerManager.prototype = {
                     look_at_update = new THREE.Vector3(0, 0, 0)
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED')
                 }
-                this.players.push(new Player(player, position_update, look_at_update))
+                this.players.push(new ServerPlayer(player, position_update, look_at_update))
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)
