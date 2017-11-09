@@ -11,6 +11,11 @@ function Player() {
 Player.prototype = {
     __init__: function(player_id, initial_position, initial_look_at) {
         this.player_id = player_id
+
+        if (!is_defined(this.player_id)) {
+            l'WERID ERROR?!?!?!')
+        }
+
         this.position = initial_position
         this.look_at = initial_look_at
 
