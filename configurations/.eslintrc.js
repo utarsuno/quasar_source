@@ -82,13 +82,15 @@ module.exports = {
 
         // Global Managers.
         "MANAGER_COOKIES": true,
-        "MANAGER_AUDIO"  : true,
-        "MANAGER_WORLD"  : true,
-        "MANAGER_ENTITY" : true,
+        "MANAGER_AUDIO"      : true,
+        "MANAGER_WORLD"      : true,
+        "MANAGER_ENTITY"     : true,
+        "MANAGER_MULTIPLAYER": true,
         // and their class names.
-        "WorldManager": true,
-        "AudioManager": false,
-        "EntityManager": true,
+        "WorldManager"      : true,
+        "AudioManager"      : false,
+        "EntityManager"     : true,
+        "MultiPlayerManager": false,
 
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,

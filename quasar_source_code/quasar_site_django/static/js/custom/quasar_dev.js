@@ -4,9 +4,10 @@
  / _` |    /  \ |__)  /\  |    /__`
  \__> |___ \__/ |__) /~~\ |___ .__/ */
 // Global Managers.
-MANAGER_COOKIES = Cookies.noConflict()
-MANAGER_WORLD   = new WorldManager()
-MANAGER_ENTITY  = new EntityManager()
+MANAGER_COOKIES     = Cookies.noConflict()
+MANAGER_WORLD       = new WorldManager()
+MANAGER_ENTITY      = new EntityManager()
+MANAGER_MULTIPLAYER = new MultiPlayerManager()
 
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu()
