@@ -112,23 +112,15 @@ WebSocketClient.prototype = {
                 GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
                 break
             case WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE:
-                var look_at_data = data.split(',')
-                look_at = new THREE.Vector3(parseFloat(look_at_data[0]), parseFloat(look_at_data[1]), parseFloat(look_at_data[2]))
-                this.client_manager.update_player(user, null, look_at)
+                this.client_manager.update_player(user, null, this.get_rounded_vector_from_float_data(data))
                 break
             case WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
-                var position_data = data.split(',')
-                position = new THREE.Vector3(parseFloat(position_data[0]), parseFloat(position_data[1]), parseFloat(position_data[2]))
-                this.client_manager.update_player(user, position, null)
+                this.client_manager.update_player(user, this.get_rounded_vector_from_float_data(data), null)
                 break
             case WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
                 var position = data.split('!')[0]
                 var look_at = data.split('!')[1]
-                var p = position.split(',')
-                position = new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]))
-                var la = look_at.split(',')
-                look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
-                this.client_manager.update_player(user, position, look_at)
+                this.client_manager.update_player(user, this.get_rounded_vector_from_float_data(position), this.get_rounded_vector_from_float_data(look_at))
                 break
             }
         }.bind(this)
@@ -143,6 +135,15 @@ WebSocketClient.prototype = {
         if (this.socket.readyState == WebSocket.OPEN) {
             this.socket.onopen()
         }
+    },
+
+    /*       ___  ___  __                          __   ___     ___            __  ___    __        __
+      | |\ |  |  |__  |__) |\ |  /\  |       |  | /__` |__     |__  |  | |\ | /  `  |  | /  \ |\ | /__`
+      | | \|  |  |___ |  \ | \| /~~\ |___    \__/ .__/ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+
+    get_rounded_vector_from_float_data: function(string_of_floats) {
+        var data_split = string_of_floats.split(',')
+        return new THREE.Vector3(Math.round(parseFloat(data_split[0])), Math.round(parseFloat(data_split[1])), Math.round(parseFloat(data_split[2])))
     }
 }
 

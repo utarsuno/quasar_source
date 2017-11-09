@@ -187,6 +187,7 @@ Player.prototype = {
             } else {
                 THREEx.FullScreen.cancel()
             }
+            this.currently_fullscreen = !this.currently_fullscreen
 
             //if (!this.is_engaged()) {
             //this.fps_controls.toggle_flying()
