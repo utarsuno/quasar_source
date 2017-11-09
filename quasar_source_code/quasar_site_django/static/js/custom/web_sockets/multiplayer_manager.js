@@ -90,7 +90,7 @@ MultiPlayerManager.prototype = {
         if (player !== MANAGER_WORLD.player.player_id) {
             var user_index = -1
             for (var i = 0; i < this.players.length; i++) {
-                if (this.players[i][0] === player) {
+                if (this.players[i].player_id === player) {
                     user_index = i
                 }
             }
