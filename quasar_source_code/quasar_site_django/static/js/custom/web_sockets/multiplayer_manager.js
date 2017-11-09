@@ -16,7 +16,7 @@ ServerPlayer.prototype = {
         this.look_at = initial_look_at
 
 
-        this.player_title = new Floating2DText(100, 'PLAYER NAME', TYPE_TITLE, MANAGER_WORLD.world_home.scene)
+        this.player_title = new Floating2DText(100, player_id, TYPE_TITLE, MANAGER_WORLD.world_home.scene)
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z)
         var player_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + 10, this.look_at.z)
         this.player_title.update_position_and_look_at(player_position, player_look_at)
@@ -32,7 +32,7 @@ ServerPlayer.prototype = {
         this.mesh.position.set(this.position.x, this.position.y, this.position.z)
 
         this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
-        this.player_title.update_just_color(COLOR_TEXT_PLANET)
+        this.player_title.update_color(COLOR_TEXT_PLANET)
 
         this.object3D = new THREE.Object3D()
         this.object3D.add(this.mesh)
@@ -122,6 +122,7 @@ MultiPlayerManager.prototype = {
                 }
 
                 this.players.push(new ServerPlayer(server_player, position_update, look_at_update))
+                l('There are now {' + this.players.length + '} players!')
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)
