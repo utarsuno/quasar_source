@@ -25,6 +25,11 @@ ClientManager.prototype = {
     }
 }
 
+const WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|'
+const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|'
+const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|'
+const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|'
+
 WebSocketClient.prototype = {
 
     _id       : null,
@@ -55,13 +60,47 @@ WebSocketClient.prototype = {
 
     send_chat_message: function(chat_message) {
         if (this.connected) {
-            this.socket.send(this.player_id + '|M|' + chat_message)
+            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE + chat_message)
+        }
+    },
+
+    send_position_and_look_at_update: function(position_string, look_at_string) {
+        if (this.connected) {
+            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE + position_string + '!' + look_at_string)
+        }
+    },
+
+    send_look_at_update: function(data) {
+        if (this.connected) {
+            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE + data)
         }
     },
 
     send_position_update: function(data) {
-        if (this.connected === true) {
-            this.socket.send(this.player_id + '|P|' + data)
+        if (this.connected) {
+            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE + data)
+        }
+    },
+
+    update_player_position_and_or_look_at: function(user, position_update, look_at_update) {
+        var user_index = -1
+        for (var i = 0; i < this.users.length; i++) {
+            if (this.users[i][0] === user) {
+                user_index = i
+            }
+        }
+        if (user_index === -1) {
+            var u = [user, position_update, look_at_update]
+            this.users.push(u)
+            MANAGER_WORLD.world_home.update_player_from_server(u)
+        } else {
+            if (is_defined(position_update)) {
+                this.users[user_index][1] = position_update
+            }
+            if (is_defined(look_at_update)) {
+                this.users[user_index][2] = look_at_update
+            }
+            MANAGER_WORLD.world_home.update_player_from_server(this.users[user_index])
         }
     },
 
@@ -77,12 +116,24 @@ WebSocketClient.prototype = {
 
             var split = (e.data).split('|')
             var user = split[0]
-            var command = split[1]
+            var command = '|' + split[1] + '|'
             var data = split[2]
 
-            if (command === 'M') {
+            switch(command) {
+            case WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE:
                 GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
-            } else if (command === 'P') {
+                break
+            case WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE:
+                var look_at_data = data.split(',')
+                look_at = new THREE.Vector3(parseFloat(look_at_data[0]), parseFloat(look_at_data[1]), parseFloat(look_at_data[2]))
+                this.update_player_position_and_or_look_at(user, null, look_at)
+                break
+            case WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
+                var position_data = data.split(',')
+                position = new THREE.Vector3(parseFloat(position_data[0]), parseFloat(position_data[1]), parseFloat(position_data[2]))
+                this.update_player_position_and_or_look_at(user, position, null)
+                break
+            case WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
                 var position = data.split('!')[0]
                 var look_at = data.split('!')[1]
 
@@ -113,13 +164,9 @@ WebSocketClient.prototype = {
                     this.users.push(u)
                     MANAGER_WORLD.world_home.update_player_from_server(u)
                 }
-
-
-                //this.client_manager.update_position(user, position, look_at)
+                break
             }
 
-            //var data = e.data.split('|')
-            //self._world.update_player(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
         }.bind(this)
 
         this.socket.onopen = function open() {

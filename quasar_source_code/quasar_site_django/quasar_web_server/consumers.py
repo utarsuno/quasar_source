@@ -36,6 +36,11 @@ class QuasarServer(object):
 server = QuasarServer()
 server.run_server()
 
+WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|'
+WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|'
+WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|'
+WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|'
+
 
 @channel_session
 def ws_connect(message):
@@ -56,6 +61,9 @@ def ws_connect(message):
 def ws_message(message):
 	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
+	global server
+
+
 	message = (message.content['text']).split('|')
 	# TODO : Get the username here!!!!
 	user = message[0]
@@ -63,6 +71,10 @@ def ws_message(message):
 	data = message[2]
 
 	# message.content['text']
+
+
+
+
 
 	Group('users').send({
 		"text": str(user) + '|' + str(command) + '|' + str(data),
@@ -77,10 +89,6 @@ def ws_disconnect(message):
 	server.user_left()
 
 	Group('users').discard(message.reply_channel)
-
-
-
-
 
 
 

@@ -91,12 +91,37 @@ Player.prototype = {
         return this.owner.password
     },
 
-    send_position_update_to_server: function() {
+    try_to_send_position_update_to_server: function() {
         var position = this.get_position()
-        var text = '' + position.x.toString() + ',' + position.y.toString() + ',' + position.z.toString()
+        var position_string = '' + position.x.toString() + ',' + position.y.toString() + ',' + position.z.toString()
+
+        var position_was_different = false
+        var look_at_was_different = false
+
+        if (is_defined(this.previous_position_string)) {
+            if (position_string !== this.previous_position_string) {
+                position_was_different = true
+            }
+        }
+        this.previous_position_string = position_string
+
         var look_at = this.fps_controls.get_direction()
-        text = text + '!' + look_at.x.toString() + ',' + look_at.y.toString() + ',' + look_at.z.toString()
-        this.web_socket_client.send_position_update(text)
+        var look_at_string = look_at.x.toString() + ',' + look_at.y.toString() + ',' + look_at.z.toString()
+
+        if (is_defined(this.previous_look_at_string)) {
+            if (look_at_string !== this.previous_look_at_string) {
+                look_at_was_different = true
+            }
+        }
+        this.previous_look_at_string = look_at_string
+
+        if (position_was_different && look_at_was_different) {
+            this.web_socket_client.send_position_and_look_at_update(position_string, look_at_string)
+        } else if (position_was_different) {
+            this.web_socket_client.send_position_update(position_string)
+        } else if (look_at_was_different) {
+            this.web_socket_client.send_look_at_update(look_at_string)
+        }
     },
 
     set_player_id: function(player_id) {
