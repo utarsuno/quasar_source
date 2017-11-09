@@ -74,6 +74,8 @@ var movieScreen = new THREE.Mesh( movieGeometry, movieMaterial )
 movieScreen.position.set(400, 50, 0)
 movieScreen.lookAt(0, 50, 0)
 
+video.play()
+
 MANAGER_WORLD.world_home.add_to_scene(movieScreen)
 
 ///////
