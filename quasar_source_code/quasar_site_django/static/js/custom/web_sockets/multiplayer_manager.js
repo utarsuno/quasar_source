@@ -96,8 +96,6 @@ MultiPlayerManager.prototype = {
                 }
             }
             if (user_index === -1) {
-                var u = [player, position_update, look_at_update]
-                this.players.push(u)
                 if (!is_defined(position_update)) {
                     position_update = new THREE.Vector3(0, 0, 0)
                     l('LOOK INTO WHY POSITION IS NOT DEFINED')
