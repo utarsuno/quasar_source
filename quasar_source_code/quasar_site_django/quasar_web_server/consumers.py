@@ -51,8 +51,9 @@ def ws_connect(message):
 	server.user_joined()
 
 	print('USER JOINED!')
-	print(message.reply_channel)
-	print(message)
+	print(str(message.content['text']))
+	#print(message.reply_channel)
+	#print(message)
 
 	Group('users').add(message.reply_channel)
 
