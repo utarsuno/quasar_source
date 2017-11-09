@@ -99,6 +99,9 @@ MultiPlayerManager.prototype = {
     },
 
     update_player: function(player, position_update, look_at_update) {
+
+        l('UPDATE THE PLAYER {' + player + '}')
+
         if (player !== MANAGER_WORLD.player.player_id) {
             var user_index = -1
             for (var i = 0; i < this.players.length; i++) {
