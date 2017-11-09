@@ -120,7 +120,11 @@ MultiPlayerManager.prototype = {
                     look_at_update = new THREE.Vector3(0, 0, 0)
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED')
                 }
-                this.players.push(new ServerPlayer(player, position_update, look_at_update))
+
+                var new_server_player = new ServerPlayer(player, position_update, look_at_update)
+                l('Created new server player with ID{' + player + '}')
+                
+                this.players.push(new_server_player)
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)
