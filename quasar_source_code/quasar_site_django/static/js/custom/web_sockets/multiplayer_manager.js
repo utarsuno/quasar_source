@@ -81,7 +81,7 @@ MultiPlayerManager.prototype = {
             GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
             break
         case WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE:
-            this.update_player(user, null, this.get_rounded_vector_from_float_data(data))
+            this.update_player(user, null, this.get_vector_from_float_data(data))
             break
         case WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
             this.update_player(user, this.get_rounded_vector_from_float_data(data), null)
@@ -89,7 +89,7 @@ MultiPlayerManager.prototype = {
         case WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
             var position = data.split('!')[0]
             var look_at = data.split('!')[1]
-            this.update_player(user, this.get_rounded_vector_from_float_data(position), this.get_rounded_vector_from_float_data(look_at))
+            this.update_player(user, this.get_rounded_vector_from_float_data(position), this.get_vector_from_float_data(look_at))
             break
         }
     },
@@ -141,6 +141,11 @@ MultiPlayerManager.prototype = {
     get_rounded_vector_from_float_data: function(string_of_floats) {
         var data_split = string_of_floats.split(',')
         return new THREE.Vector3(Math.round(parseFloat(data_split[0])), Math.round(parseFloat(data_split[1])), Math.round(parseFloat(data_split[2])))
+    },
+
+    get_vector_from_float_data: function(string_of_floats) {
+        var data_split = string_of_floats.split(',')
+        return new THREE.Vector3(parseFloat(data_split[0]), parseFloat(data_split[1]), parseFloat(data_split[2]))
     }
 }
 
