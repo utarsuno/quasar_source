@@ -179,7 +179,7 @@ Player.prototype = {
                 this.renderer_api.stats_api.toggle()
             }
             break
-            case KEY_CODE_F:
+        case KEY_CODE_F:
             // Toggle fullscreen actually.
             if (!this.currently_fullscreen) {
                 THREEx.FullScreen.request()
@@ -188,7 +188,7 @@ Player.prototype = {
             }
 
             //if (!this.is_engaged()) {
-                //this.fps_controls.toggle_flying()
+            //this.fps_controls.toggle_flying()
             //}
             break
         case KEY_CODE_ENTER:
