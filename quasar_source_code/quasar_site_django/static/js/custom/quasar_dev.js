@@ -111,6 +111,7 @@ var animate = function () {
 
     //// Web cam testing.
     if (video.readyState === video.HAVE_ENOUGH_DATA ) {
+        l('Updating video?')
         videoImageContext.drawImage(video, 0, 0, videoImage.width, videoImage.height)
         if (videoTexture) {
             videoTexture.needsUpdate = true
