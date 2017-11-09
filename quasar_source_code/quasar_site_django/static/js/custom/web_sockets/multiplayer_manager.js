@@ -57,6 +57,10 @@ Player.prototype = {
         this.object3D.lookAt(look_at)
         var p_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z)
         this.player_title.update_look_at(p_look_at)
+    },
+
+    get_id: function() {
+        return this.player_id
     }
 }
 
@@ -99,6 +103,7 @@ MultiPlayerManager.prototype = {
             var user_index = -1
             for (var i = 0; i < this.players.length; i++) {
                 l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === player))
+                l(this.players[i].get_id())
                 if (this.players[i].player_id === player) {
                     user_index = i
                 }
