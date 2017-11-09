@@ -94,19 +94,23 @@ MultiPlayerManager.prototype = {
         }
     },
 
-    update_player: function(player, position_update, look_at_update) {
+    update_player: function(server_player, position_update, look_at_update) {
 
         //l('UPDATE THE PLAYER {' + player + '}')
 
-        if (player !== MANAGER_WORLD.player.player_id) {
+        if (server_player !== MANAGER_WORLD.player.player_id) {
+
+
+
             var user_index = -1
+
             for (var i = 0; i < this.players.length; i++) {
-                l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === player))
-                //l(this.players[i].get_id())
-                if (this.players[i].player_id === player) {
+                l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === server_player))
+                if (this.players[i].player_id === server_player) {
                     user_index = i
                 }
             }
+
             if (user_index === -1) {
                 if (!is_defined(position_update)) {
                     position_update = new THREE.Vector3(0, 0, 0)
@@ -117,7 +121,7 @@ MultiPlayerManager.prototype = {
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED')
                 }
 
-                this.players.push(new ServerPlayer(player, position_update, look_at_update))
+                this.players.push(new ServerPlayer(server_player, position_update, look_at_update))
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)
