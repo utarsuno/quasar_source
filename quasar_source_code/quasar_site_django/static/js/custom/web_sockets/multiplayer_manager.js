@@ -15,7 +15,7 @@ Player.prototype = {
         this.look_at = initial_look_at
 
 
-        this.player_title = new Floating2DText(100, 'PLAYER NAME', TYPE_TITLE)
+        this.player_title = new Floating2DText(100, 'PLAYER NAME', TYPE_TITLE, MANAGER_WORLD.world_home.scene)
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z)
         var player_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + 10, this.look_at.z)
         this.player_title.update_position_and_look_at(player_position, player_look_at)
@@ -37,7 +37,6 @@ Player.prototype = {
         this.object3D.add(this.mesh)
 
         MANAGER_WORLD.world_home.add_to_scene(this.object3D)
-        MANAGER_WORLD.world_home.add_to_scene(this.player_title.object3D)
     },
 
     update_position: function(position) {
