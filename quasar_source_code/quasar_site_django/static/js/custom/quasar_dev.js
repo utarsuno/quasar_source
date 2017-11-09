@@ -50,7 +50,36 @@ var position_update_interval = 1 / 20
 /////// Web cam testing
 
 
-// Base code thanks to https://stemkoski.github.io/Three.js/Webcam-Texture.html
+// Base provided from : https://stemkoski.github.io/Three.js/Webcam-Texture.html
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+window.URL = window.URL || window.webkitURL;
+
+var camvideo = document.getElementById('monitor');
+	if (!navigator.getUserMedia) {
+		l('Sorry. <code>navigator.getUserMedia()</code> is not available.')
+	} else {
+		navigator.getUserMedia({video: true}, gotStream, noStream)
+	}
+
+function gotStream(stream) {
+	if (window.URL) {
+		camvideo.src = window.URL.createObjectURL(stream)
+	} else {
+		camvideo.src = stream // Opera
+	}
+	camvideo.onerror = function(e) {
+		stream.stop()
+	}
+	stream.onended = noStream
+}
+
+function noStream(e) {
+	if (e.code == 1) {
+		l('User denied access to use camera.')
+	}
+	l('No camera available.')
+}
+
 ///////////
 // VIDEO //
 ///////////
@@ -59,14 +88,14 @@ var video = document.getElementById('monitor')
 var videoImage = document.getElementById('videoImage')
 var videoImageContext = videoImage.getContext('2d')
 // background color if no video present
-videoImageContext.fillStyle = '#000000'
-videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height )
+videoImageContext.fillStyle = '#6000ff'
+videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height)
 
 var videoTexture = new THREE.Texture( videoImage )
 videoTexture.minFilter = THREE.LinearFilter
 videoTexture.magFilter = THREE.LinearFilter
 
-var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } )
+var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side: THREE.DoubleSide } )
 // the geometry on which the movie will be displayed;
 // 		movie image will be scaled to fit these dimensions.
 var movieGeometry = new THREE.PlaneGeometry( 100, 100, 1, 1 )
