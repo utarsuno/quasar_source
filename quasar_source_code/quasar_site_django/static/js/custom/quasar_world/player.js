@@ -60,6 +60,9 @@ Player.prototype = {
         this.web_socket_client = new WebSocketClient()
 
         this.owner_name = null
+
+        // TODO : move this state somewhere else
+        this.currently_fullscreen = false
     },
 
     send_chat_message: function(chat_message) {
@@ -176,10 +179,17 @@ Player.prototype = {
                 this.renderer_api.stats_api.toggle()
             }
             break
-        case KEY_CODE_F:
-            if (!this.is_engaged()) {
-                //this.fps_controls.toggle_flying()
+            case KEY_CODE_F:
+            // Toggle fullscreen actually.
+            if (!this.currently_fullscreen) {
+                THREEx.FullScreen.request()
+            } else {
+                THREEx.FullScreen.cancel()
             }
+
+            //if (!this.is_engaged()) {
+                //this.fps_controls.toggle_flying()
+            //}
             break
         case KEY_CODE_ENTER:
             if (GUI_TYPING_INTERFACE.is_visible()) {

@@ -14,13 +14,25 @@ ClientManager.prototype = {
         this.users = []
     },
 
-    update_position: function(player, position, look_at) {
+    update_player: function(user, position_update, look_at_update) {
+        var user_index = -1
         for (var i = 0; i < this.users.length; i++) {
-            if (this.users[i][0] === player) {
-                this.users[i][1] = position
-                this.users[i][2] = look_at
-                MANAGER_WORLD.world_home.update_player_from_server(this.users[i])
+            if (this.users[i][0] === user) {
+                user_index = i
             }
+        }
+        if (user_index === -1) {
+            var u = [user, position_update, look_at_update]
+            this.users.push(u)
+            MANAGER_WORLD.world_home.update_player_from_server(u)
+        } else {
+            if (is_defined(position_update)) {
+                this.users[user_index][1] = position_update
+            }
+            if (is_defined(look_at_update)) {
+                this.users[user_index][2] = look_at_update
+            }
+            MANAGER_WORLD.world_home.update_player_from_server(this.users[user_index])
         }
     }
 }
@@ -53,8 +65,6 @@ WebSocketClient.prototype = {
 
         this.connected = false
 
-        this.users = []
-
         //this.connect()
     },
 
@@ -82,28 +92,6 @@ WebSocketClient.prototype = {
         }
     },
 
-    update_player_position_and_or_look_at: function(user, position_update, look_at_update) {
-        var user_index = -1
-        for (var i = 0; i < this.users.length; i++) {
-            if (this.users[i][0] === user) {
-                user_index = i
-            }
-        }
-        if (user_index === -1) {
-            var u = [user, position_update, look_at_update]
-            this.users.push(u)
-            MANAGER_WORLD.world_home.update_player_from_server(u)
-        } else {
-            if (is_defined(position_update)) {
-                this.users[user_index][1] = position_update
-            }
-            if (is_defined(look_at_update)) {
-                this.users[user_index][2] = look_at_update
-            }
-            MANAGER_WORLD.world_home.update_player_from_server(this.users[user_index])
-        }
-    },
-
     connect: function (player_id) {
 
         this.player_id = player_id
@@ -112,7 +100,7 @@ WebSocketClient.prototype = {
         this.connected = true
 
         this.socket.onmessage = function(e) {
-            l('Just got the message : ' + e.data)
+            //l('Just got the message : ' + e.data)
 
             var split = (e.data).split('|')
             var user = split[0]
@@ -126,47 +114,23 @@ WebSocketClient.prototype = {
             case WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE:
                 var look_at_data = data.split(',')
                 look_at = new THREE.Vector3(parseFloat(look_at_data[0]), parseFloat(look_at_data[1]), parseFloat(look_at_data[2]))
-                this.update_player_position_and_or_look_at(user, null, look_at)
+                this.client_manager.update_player(user, null, look_at)
                 break
             case WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
                 var position_data = data.split(',')
                 position = new THREE.Vector3(parseFloat(position_data[0]), parseFloat(position_data[1]), parseFloat(position_data[2]))
-                this.update_player_position_and_or_look_at(user, position, null)
+                this.client_manager.update_player(user, position, null)
                 break
             case WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
                 var position = data.split('!')[0]
                 var look_at = data.split('!')[1]
-
-                //l(position)
-                //l(look_at)
-
                 var p = position.split(',')
                 position = new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]))
                 var la = look_at.split(',')
                 look_at = new THREE.Vector3(parseFloat(la[0]), parseFloat(la[1]), parseFloat(la[2]))
-
-                //l(position)
-                //l(look_at)
-
-                var user_found = false
-
-                for (var i = 0; i < this.users.length; i++) {
-                    if (this.users[i][0] === user) {
-                        this.users[i][1] = position
-                        this.users[i][2] = look_at
-                        MANAGER_WORLD.world_home.update_player_from_server(this.users[i])
-                        user_found = true
-                    }
-                }
-
-                if (!user_found) {
-                    var u = [user, position, look_at]
-                    this.users.push(u)
-                    MANAGER_WORLD.world_home.update_player_from_server(u)
-                }
+                this.client_manager.update_player(user, position, look_at)
                 break
             }
-
         }.bind(this)
 
         this.socket.onopen = function open() {
