@@ -68,6 +68,9 @@ MultiPlayerManager.prototype = {
     },
 
     perform_command: function(user, command, data) {
+
+        l('THE COMMAND IS FROM USER {' + user + '}')
+
         switch(command) {
         case WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE:
             GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data)
