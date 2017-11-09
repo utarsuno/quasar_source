@@ -43,6 +43,48 @@ var previous_time = performance.now()
 var total_delta = 0
 var position_update_interval = 1 / 20
 
+
+
+
+
+/////// Web cam testing
+
+
+// Base code thanks to https://stemkoski.github.io/Three.js/Webcam-Texture.html
+///////////
+// VIDEO //
+///////////
+var video = document.getElementById('monitor')
+
+var videoImage = document.getElementById('videoImage')
+var videoImageContext = videoImage.getContext('2d')
+// background color if no video present
+videoImageContext.fillStyle = '#000000'
+videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height )
+
+var videoTexture = new THREE.Texture( videoImage )
+videoTexture.minFilter = THREE.LinearFilter
+videoTexture.magFilter = THREE.LinearFilter
+
+var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } )
+// the geometry on which the movie will be displayed;
+// 		movie image will be scaled to fit these dimensions.
+var movieGeometry = new THREE.PlaneGeometry( 100, 100, 1, 1 )
+var movieScreen = new THREE.Mesh( movieGeometry, movieMaterial )
+movieScreen.position.set(400, 50, 0)
+movieScreen.lookAt(0, 50, 0)
+
+MANAGER_WORLD.world_home.add_to_scene(movieScreen)
+
+///////
+
+
+
+
+
+
+
+
 var animate = function () {
     requestAnimationFrame(animate)
     renderer_api.pre_render()
@@ -64,6 +106,17 @@ var animate = function () {
     if (GUI_TYPING_INTERFACE.needs_an_update()) {
         GUI_TYPING_INTERFACE.update()
     }
+    ////
+
+
+    //// Web cam testing.
+    if (video.readyState === video.HAVE_ENOUGH_DATA ) {
+        videoImageContext.drawImage(video, 0, 0, videoImage.width, videoImage.height)
+        if (videoTexture) {
+            videoTexture.needsUpdate = true
+        }
+    }
+
     ////
 
     renderer_api.render()
