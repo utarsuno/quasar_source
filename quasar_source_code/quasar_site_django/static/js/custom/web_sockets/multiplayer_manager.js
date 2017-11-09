@@ -13,7 +13,7 @@ Player.prototype = {
         this.player_id = player_id
 
         if (!is_defined(this.player_id)) {
-            l'WERID ERROR?!?!?!')
+            l('WERID ERROR?!?!?!')
         }
 
         this.position = initial_position
