@@ -183,6 +183,7 @@ Player.prototype = {
             // Toggle fullscreen actually.
             if (!this.currently_fullscreen) {
                 THREEx.FullScreen.request()
+                this.renderer_api.on_window_resize()
             } else {
                 THREEx.FullScreen.cancel()
             }
