@@ -4,17 +4,13 @@ function MultiPlayerManager() {
     this.__init__()
 }
 
-function ServerPlayer() {
-    this.__init__()
+function ServerPlayer(player_id, initial_position, initial_look_at) {
+    this.__init__(player_id, initial_position, initial_look_at)
 }
 
 ServerPlayer.prototype = {
     __init__: function(player_id, initial_position, initial_look_at) {
         this.player_id = player_id
-
-        if (!is_defined(this.player_id)) {
-            l('WERID ERROR?!?!?!')
-        }
 
         this.position = initial_position
         this.look_at = initial_look_at
@@ -100,13 +96,13 @@ MultiPlayerManager.prototype = {
 
     update_player: function(player, position_update, look_at_update) {
 
-        l('UPDATE THE PLAYER {' + player + '}')
+        //l('UPDATE THE PLAYER {' + player + '}')
 
         if (player !== MANAGER_WORLD.player.player_id) {
             var user_index = -1
             for (var i = 0; i < this.players.length; i++) {
-                l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === player))
-                l(this.players[i].get_id())
+                //l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === player))
+                //l(this.players[i].get_id())
                 if (this.players[i].player_id === player) {
                     user_index = i
                 }
@@ -121,10 +117,7 @@ MultiPlayerManager.prototype = {
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED')
                 }
 
-                l('Creating new server player with ID{' + player + '}')
-                var new_server_player = new ServerPlayer(player, position_update, look_at_update)
-
-                this.players.push(new_server_player)
+                this.players.push(new ServerPlayer(player, position_update, look_at_update))
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)
