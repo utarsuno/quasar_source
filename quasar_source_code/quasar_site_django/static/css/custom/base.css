@@ -72,6 +72,8 @@ canvas {
     height: 100vh;
     z-index: 14;
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #no_background_coloring {
@@ -138,6 +140,7 @@ canvas {
     /*border: 2px solid rgba(0, 0, 0, 0.9);*/
     position: absolute;
     top: 10%;
+    left: 0;
     width: 35vw;
     height: 70vh;
     background: rgba(131, 207, 255, 0.0);
@@ -148,4 +151,8 @@ canvas {
 
 .gui_typing_offset {
   position: absolute;
+}
+
+#canvas_id {
+    left: 0;
 }

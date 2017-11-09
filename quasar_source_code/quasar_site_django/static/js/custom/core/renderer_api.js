@@ -36,6 +36,10 @@ RendererAPI.prototype = {
             this.near_clipping = 1.0
             this.far_clipping  = 20000.0
             this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true})
+
+            // Give the canvas an ID.
+            this.renderer.domElement.id = 'canvas_id'
+
             this.renderer.setPixelRatio(window.devicePixelRatio)
             this.renderer.setSize(this.window_width, this.window_height)
             this.renderer.setClearColor(0x000000, 1)
