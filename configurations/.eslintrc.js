@@ -125,6 +125,12 @@ module.exports = {
         "TYPE_CONSTANT_TEXT": false,
         "TYPE_SLIDER": false,
 
+        // Web socket message types.
+        "WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE"               : false,
+        "WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE"             : false,
+        "WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE"            : false,
+        "WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE": false,
+
         "ENTITY_TYPE_TASK"           : false,
         "ENTITY_TYPE_TIME"           : false,
         "ENTITY_TYPE_BASE"           : false,

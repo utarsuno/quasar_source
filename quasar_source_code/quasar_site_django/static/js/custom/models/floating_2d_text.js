@@ -272,14 +272,21 @@ Floating2DText.prototype = {
         this.scene.add(this.object3D)
     },
 
+    update_position: function(position_vector) {
+        this.object3D.position.x = position_vector.x
+        this.object3D.position.y = position_vector.y
+        this.object3D.position.z = position_vector.z
+    },
+
+    update_look_at: function(look_at_position_vector) {
+        this.object3D.lookAt(look_at_position_vector)
+    },
+
     update_position_and_look_at: function(position_vector, look_at_position) {
         this.object3D.position.x = position_vector.x
         this.object3D.position.y = position_vector.y
         this.object3D.position.z = position_vector.z
-
-        var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y, look_at_position.z)
-
-        this.object3D.lookAt(look_at)
+        this.object3D.lookAt(look_at_position)
     },
 
     add_character: function(character) {

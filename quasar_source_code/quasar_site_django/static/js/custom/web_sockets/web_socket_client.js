@@ -63,8 +63,6 @@ WebSocketClient.prototype = {
             //self._world.add_player(self._full_id)
             l('Adding player{' + this.player_id + '} to the world!')
 
-
-
             this.connected = true
         }.bind(this)
 
