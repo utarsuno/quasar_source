@@ -15,6 +15,8 @@ ServerPlayer.prototype = {
         this.position = initial_position
         this.look_at = initial_look_at
 
+        // TODO : title look at is definitly not working
+
 
         this.player_title = new Floating2DText(100, player_id, TYPE_TITLE, MANAGER_WORLD.world_home.scene)
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z)
@@ -29,7 +31,7 @@ ServerPlayer.prototype = {
             side: THREE.DoubleSide
         })
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh.position.set(this.position.x, this.position.y, this.position.z)
+        //this.mesh.position.set(this.position.x, this.position.y, this.position.z)
 
         this.mesh.material.color.setHex(COLOR_TEXT_PLANET)
         this.player_title.update_color(COLOR_TEXT_PLANET)
@@ -105,7 +107,7 @@ MultiPlayerManager.prototype = {
             var user_index = -1
 
             for (var i = 0; i < this.players.length; i++) {
-                l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === server_player))
+                //l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === server_player))
                 if (this.players[i].player_id === server_player) {
                     user_index = i
                 }
@@ -122,7 +124,7 @@ MultiPlayerManager.prototype = {
                 }
 
                 this.players.push(new ServerPlayer(server_player, position_update, look_at_update))
-                l('There are now {' + this.players.length + '} players!')
+                //l('There are now {' + this.players.length + '} players!')
             } else {
                 if (is_defined(position_update)) {
                     this.players[user_index].update_position(position_update)

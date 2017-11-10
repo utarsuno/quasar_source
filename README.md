@@ -1,6 +1,11 @@
 # Quasar Source
 
 ### Development Screenshots:
+
+As of November 9th
+- Fullscreen mode added
+- Further work on networking/multiplayer
+
 As of November 4th
 ![alt_text](https://i.imgur.com/CFmXgTf.png)
 Change Log :
