@@ -43,11 +43,8 @@ WebSocketClient.prototype = {
     },
 
     connect: function (player_id) {
-
         this.player_id = player_id
-
         this.socket    = new WebSocket('ws://' + window.location.host + '/users/')
-        this.connected = true
 
         this.socket.onmessage = function(e) {
             //l('Just got the message : ' + e.data)
@@ -66,8 +63,20 @@ WebSocketClient.prototype = {
             this.connected = true
         }.bind(this)
 
+        this.socket.onerror = function(error) {
+            l('Web socket connection failed, here is the error')
+            l(error)
+        }
+
         if (this.socket.readyState == WebSocket.OPEN) {
             this.socket.onopen()
         }
     }
 }
+
+// From mozilla web API
+// "These constants are used by the readyState attribute to describe the state of the WebSocket connection.
+// CONNECTING - 0 - The connection is not yet open.
+// OPEN       - 1 - The connection is open and ready to communicate.
+// CLOSING    - 2 - The connection is in the process of closing.
+// CLOSED     - 3 - The connection is closed or couldn't be opened.

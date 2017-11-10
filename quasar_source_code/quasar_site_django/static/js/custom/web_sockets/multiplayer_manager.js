@@ -17,9 +17,17 @@ ServerPlayer.prototype = {
 
         // TODO : title look at is definitly not working
 
+        // TODO : server player objects need to contain a position smooth step buffer
 
         this.player_title = new Floating2DText(100, player_id, TYPE_TITLE, MANAGER_WORLD.world_home.scene)
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z)
+
+
+        this.position_x_buffer = new SmoothStep(this.position.x, .1)
+        this.position_y_buffer = new SmoothStep(this.position.y, .1)
+        this.position_z_buffer = new SmoothStep(this.position.z, .1)
+
+
         var player_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + 10, this.look_at.z)
         this.player_title.update_position_and_look_at(player_position, player_look_at)
 
@@ -47,7 +55,9 @@ ServerPlayer.prototype = {
         this.object3D.position.y = position.y
         this.object3D.position.z = position.z
 
-        var p_position = new THREE.Vector3(position.x, position.y + 10, position.z)
+        this.position_x_buffer.add_force(this.position_x_buffer)
+
+        var p_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y + 10, this.object3D.position.z)
         this.player_title.update_position(p_position)
     },
 
@@ -59,6 +69,20 @@ ServerPlayer.prototype = {
 
     get_id: function() {
         return this.player_id
+    },
+
+    update: function(delta) {
+        this.position_x_buffer.update(delta)
+        this.position_y_buffer.update(delta)
+        this.position_z_buffer.update(delta)
+
+        this.object3D.position.x = this.position_x_buffer.get_current_value()
+        this.object3D.position.y = this.position_y_buffer.get_current_value()
+        this.object3D.position.z = this.position_z_buffer.get_current_value()
+
+        this.player_title.object3D.position.x = this.object3D.position.x
+        this.player_title.object3D.position.y = this.object3D.position.y + 8
+        this.player_title.object3D.position.z = this.object3D.position.z
     }
 }
 
@@ -70,8 +94,10 @@ MultiPlayerManager.prototype = {
         this.players = []
     },
 
-    update: function() {
-
+    update: function(delta) {
+        for (var i = 0; i < this.players.length; i++) {
+            this.players[i].update(delta)
+        }
     },
 
     perform_command: function(user, command, data) {
@@ -101,8 +127,6 @@ MultiPlayerManager.prototype = {
         //l('UPDATE THE PLAYER {' + player + '}')
 
         if (server_player !== MANAGER_WORLD.player.player_id) {
-
-
 
             var user_index = -1
 

@@ -35,12 +35,12 @@ function smooth_step_lower_limit_default_zero(edge, x) {
     return x * x * (3 - 2 * x)
 }
 
-function SmoothStep(current_value, time_needed_for_each_force) {
-    this.__init__(current_value, time_needed_for_each_force)
+function SmoothStep(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
+    this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value)
 }
 
-function SmoothStepLowerLimitZero(current_value, time_needed_for_each_force) {
-    this.__init__(current_value, time_needed_for_each_force)
+function SmoothStepLowerLimitZero(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
+    this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value)
 }
 
 // TODO : Eventually make SmoothStep implement a large initially sized array instead of constantly needing to create new memory.
@@ -52,14 +52,33 @@ SmoothStep.prototype = {
     current_value: null,
     time_needed_for_each_force: null,
 
-    __init__: function(current_value, time_needed_for_each_force) {
+    minimum_value: null,
+    maximum_value: null,
+
+    __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
         this.buffer = []
         this.current_value = current_value
-        this.time_needed_for_each_force = time_needed_for_each_force
+        this.time_needed_for_each_force = percentage_of_second_for_each_force
+        this.minimum_value = minimum_value
+        this.maximum_value = maximum_value
     },
 
     add_force: function(magnitude) {
-        this.buffer.push([magnitude, 0.0])
+        var current_value = this.get_current_value()
+        var add_value = true
+        if (is_defined(this.minimum_value)) {
+            if (current_value + magnitude < this.minimum_value) {
+                add_value = false
+            }
+        }
+        if (is_defined(this.maximum_value)) {
+            if (current_value + magnitude > this.maximum_value) {
+                add_value = false
+            }
+        }
+        if (add_value) {
+            this.buffer.push([magnitude, 0.0])
+        }
     },
 
     update: function(delta) {
@@ -94,16 +113,12 @@ SmoothStepLowerLimitZero.prototype = {
     minimum_value: null,
     maximum_value: null,
 
-    __init__: function(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
+    __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
         this.buffer = []
         this.current_value = current_value
-        this.time_needed_for_each_force = time_needed_for_each_force
-        if (is_defined(this.minimum_value)) {
-            this.minimum_value = minimum_value
-        }
-        if (is_defined(this.maximum_value)) {
-            this.maximum_value = maximum_value
-        }
+        this.time_needed_for_each_force = percentage_of_second_for_each_force
+        this.minimum_value = minimum_value
+        this.maximum_value = maximum_value
     },
 
     clear_buffer: function() {

@@ -5,9 +5,11 @@
 import threading
 
 
+# TODO : Check if this class is used
 class QuasarWorldServer(object):
 	"""Handles the server and game logic for the Quasar World environment that users interact in."""
 
+	# TODO : The initial tick rate probably doesn't need to be so high
 	TICK_RATE = 20 # Server sends clients updates 20 times a second.
 
 	def __init__(self):

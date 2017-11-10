@@ -51,6 +51,7 @@ var animate = function () {
     var time = performance.now()
     var delta = (time - previous_time) / 1000.0
 
+    MANAGER_MULTIPLAYER.update(delta)
     player.update(delta)
     MANAGER_WORLD.update_current_scene()
 
