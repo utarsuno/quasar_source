@@ -72,7 +72,7 @@ def ws_message(message):
 	data = message[2]
 
 	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
-		server.player_logged_in(message.reply_channel, data)
+		server.player_logged_in(message.content['reply_channel'], data)
 	else:
 		Group('users').send({
 			'text': str(user) + str(command) + str(data),
