@@ -96,7 +96,7 @@ Player.prototype = {
 
     try_to_send_position_update_to_server: function() {
         var position = this.get_position();
-        var position_string = '' + position.x.toString() + ',' + position.y.toString() + ',' + position.z.toString();
+        var position_string = '' + Math.round(position.x).toString() + ',' + Math.round(position.y).toString() + ',' + Math.round(position.z).toString();
 
         var position_was_different = false;
         var look_at_was_different = false;

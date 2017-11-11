@@ -37,7 +37,7 @@ ServerPlayer.prototype = {
             color: 0x8effcb, // '0x8effcb'
             // TODO : Figure out if I should use front side or back side.
             side: THREE.DoubleSide
-        })
+        });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         //this.mesh.position.set(this.position.x, this.position.y, this.position.z)
 
@@ -112,12 +112,12 @@ MultiPlayerManager.prototype = {
             this.update_player(user, null, this.get_vector_from_float_data(data));
             break;
         case WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
-            this.update_player(user, this.get_rounded_vector_from_float_data(data), null);
+            this.update_player(user, this.get_vector_from_float_data(data), null);
             break;
         case WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
             var position = data.split('!')[0];
             var look_at = data.split('!')[1];
-            this.update_player(user, this.get_rounded_vector_from_float_data(position), this.get_vector_from_float_data(look_at));
+            this.update_player(user, this.get_vector_from_float_data(position), this.get_vector_from_float_data(look_at));
             break;
         }
     },
@@ -163,12 +163,6 @@ MultiPlayerManager.prototype = {
     /*       ___  ___  __                          __   ___     ___            __  ___    __        __
       | |\ |  |  |__  |__) |\ |  /\  |       |  | /__` |__     |__  |  | |\ | /  `  |  | /  \ |\ | /__`
       | | \|  |  |___ |  \ | \| /~~\ |___    \__/ .__/ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-
-    get_rounded_vector_from_float_data: function(string_of_floats) {
-        var data_split = string_of_floats.split(',');
-        return new THREE.Vector3(Math.round(parseFloat(data_split[0])), Math.round(parseFloat(data_split[1])), Math.round(parseFloat(data_split[2])));
-    },
-
     get_vector_from_float_data: function(string_of_floats) {
         var data_split = string_of_floats.split(',');
         return new THREE.Vector3(parseFloat(data_split[0]), parseFloat(data_split[1]), parseFloat(data_split[2]));

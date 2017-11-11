@@ -80,7 +80,7 @@ def ws_message(message):
 
 
 	user = message[0]
-	command = message[1]
+	command = '|' + message[1] + '|'
 	data = message[2]
 
 	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
@@ -93,11 +93,8 @@ def ws_message(message):
 	# message.content['text']
 
 
-
-
-
 	Group('users').send({
-		"text": str(user) + '|' + str(command) + '|' + str(data),
+		"text": str(user) + str(command) + str(data),
 	})
 
 
