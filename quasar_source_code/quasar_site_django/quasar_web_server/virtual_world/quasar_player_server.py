@@ -46,10 +46,21 @@ class QuasarPlayerServer(object):
 
 	def player_logged_in(self, reply_channel_key, player_name):
 		"""This message gets sent after the web socket connection."""
+		player_match_found = False
+
 		for c in self._clients:
 			if c.web_socket_key == reply_channel_key:
+				print(player_name + ' is now logged in!')
 				c.player_name = player_name
 				send_message_to_all_user_in_group(player_name + ' has logged in!', 'users')
+				player_match_found = True
+
+		if not player_match_found:
+			print('Did not find a player match for : ' + player_name + ' - ' + str(reply_channel_key))
+
+			for c in self._clients:
+				print(c.web_socket_key)
+
 
 	def remove_web_socket_connection(self, reply_channel_key):
 		"""Removes a web socket connection."""
