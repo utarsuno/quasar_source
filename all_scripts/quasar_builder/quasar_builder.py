@@ -12,6 +12,8 @@ import re
 import os
 # UFO imports.
 import glob
+# Pretty printing!
+from lazyme.string import color_print
 
 
 # Useful File Operation functions copy-pasted here.
@@ -76,8 +78,6 @@ def produce_quasar_minified_javascript_files():
     all_javascript_files = get_all_file_paths_inside_directory(all_javascript_files_path)
     files_to_ignore = ['helvetiker_regular.typeface.json.js']
 
-    print('Creating the minified Javascript files!\n')
-
     total_original_size = 0
     total_reduced_size  = 0
 
@@ -109,8 +109,12 @@ def produce_quasar_minified_javascript_files():
 
 # Check if this file is being ran as a script.
 if __name__ == '__main__':
-    print('BUILD QUASAR PRODUCTION!!!!')
+    color_print('Building Quasar Production', color='red', bold=True)
 
-    arguments = sys.argv[1:]
-    print('The arguments are : ' + str(arguments))
+    #arguments = sys.argv[1:]
+    #print('The arguments are : ' + str(arguments))
+
+    produce_quasar_minified_javascript_files()
+
+
 
