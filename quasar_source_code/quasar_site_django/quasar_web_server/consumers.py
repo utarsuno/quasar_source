@@ -58,6 +58,11 @@ def ws_connect(message):
 def ws_message(message):
 	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
+
+	print(message)
+	print(dict(message))
+	print(message.content['text'])
+
 	global server
 
 	message = (message.content['text']).split('|')
