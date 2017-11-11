@@ -50,7 +50,7 @@ def is_directory(path: str) -> bool:
 	return False
 
 
-def get_all_file_paths_inside_directory(path: str) -> List[str]:
+def get_all_file_paths_inside_directory(path: str):
 	"""Returns a list of all file paths found inside the provided directory."""
 	if _is_valid_path_parameter(path):
 		file_paths = []
