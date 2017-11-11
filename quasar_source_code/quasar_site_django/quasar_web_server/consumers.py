@@ -83,6 +83,13 @@ def ws_message(message):
 	command = message[1]
 	data = message[2]
 
+	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
+		print('Just got the following connection message')
+		print(user)
+		print(command)
+		print(data)
+		print()
+
 	# message.content['text']
 
 
