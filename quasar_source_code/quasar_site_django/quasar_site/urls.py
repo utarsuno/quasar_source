@@ -30,5 +30,7 @@ urlpatterns = [
     url(r'save_entity'         , v.POST_save_entity),
     url(r'delete_entity'       , v.POST_delete_entity),
 
-    url(r'', v.GET_quasar_dev),
+    url(r'dev', v.GET_quasar_dev),
+    url(r'qa', v.GET_quasar_qa),
+    url(r'', v.GET_quasar_prod),
 ]

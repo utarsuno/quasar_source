@@ -18,6 +18,8 @@ from quasar_source_code.entities.server_side import entity_server as es
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
 TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
+TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
+TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
 TEMPLATE_LOG_FORMULAS   = _TEMPLATES_BASE + 'log_formulas.html'
 TEMPLATE_MATH_220       = _TEMPLATES_BASE + 'math220.html'
 TEMPLATE_MATH_310       = _TEMPLATES_BASE + 'math310.html'
@@ -41,6 +43,14 @@ def get_client_ip(request):
 def GET_quasar_dev(request):
     """Temporary main page."""
     return render(request, TEMPLATE_QUASAR_DEV)
+
+
+def GET_quasar_qa(request):
+    return render(request, TEMPLATE_QUASAR_QA)
+
+
+def GET_quasar_prod(request):
+    return render(request, TEMPLATE_QUASAR_PROD)
 
 
 def GET_log_formulas(request):

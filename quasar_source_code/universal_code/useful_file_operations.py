@@ -40,6 +40,14 @@ def _is_valid_path_parameter(path):
 '''
 
 
+# TODO : create unit tests for this function!
+def get_file_size_in_bytes(file_path) -> str:
+	"""Return the size of the file.
+	:param file_path : The full path to the file.
+	:return: The size of the file as a string."""
+	return int(int(os.stat(file_path).st_size))
+
+
 def get_ini_section_dictionary(path: str, section_name: str) -> dict:
 	"""Reads in the database.ini information needed.
 	:param path         : The path to the .ini file.
@@ -120,6 +128,11 @@ def get_all_file_names_inside_directory(path: str) -> List[str]:
 	/  ` |__) |__   /\   |  | /  \ |\ |
 	\__, |  \ |___ /~~\  |  | \__/ | \|
 '''
+def create_file_or_override(file_text, file_path):
+	file = open(file_path, 'w')
+	file.write(file_text)
+	file.close()
+
 
 
 # Temporary on hold.
