@@ -63,16 +63,36 @@ SmoothStep.prototype = {
         this.maximum_value = maximum_value;
     },
 
+    clear_buffer: function() {
+        this.buffer.length = 0;
+    },
+
+    set_value: function(value) {
+        this.current_value = value;
+        if (this.minimum_value !== null) {
+            if (this.current_value < this.minimum_value) {
+                return this.minimum_value;
+            }
+        }
+        if (this.maximum_value !== null) {
+            if (this.current_value > this.maximum_value) {
+                return this.maximum_value;
+            }
+        }
+    },
+
     add_force: function(magnitude) {
         var current_value = this.get_current_value();
         var add_value = true;
         if (is_defined(this.minimum_value)) {
             if (current_value + magnitude < this.minimum_value) {
+                // TODO : set it to the minimum value?
                 add_value = false;
             }
         }
         if (is_defined(this.maximum_value)) {
             if (current_value + magnitude > this.maximum_value) {
+                // TODO : set it to the maximum value
                 add_value = false;
             }
         }
@@ -96,7 +116,17 @@ SmoothStep.prototype = {
     get_current_value: function() {
         var value_instance = this.current_value;
         for (var x = 0; x < this.buffer.length; x++) {
-            value_instance += smoothstep(0.0, this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+            value_instance += smooth_step_lower_limit_default_zero(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+        }
+        if (this.minimum_value !== null) {
+            if (value_instance < this.minimum_value) {
+                return this.minimum_value;
+            }
+        }
+        if (this.maximum_value !== null) {
+            if (value_instance > this.maximum_value) {
+                return this.maximum_value;
+            }
         }
         return value_instance;
     }
