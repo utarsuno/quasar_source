@@ -58,21 +58,20 @@ def ws_connect(message):
 def ws_message(message):
 	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
-
-	print(message)
-	print(dict(message))
-	print(message.content['text'])
+	#print(message)
+	#print(dict(message))
+	#print(message.content['text'])
 
 	global server
 
-	message = (message.content['text']).split('|')
+	message_text = (message.content['text']).split('|')
 
-	user = message[0]
-	command = '|' + message[1] + '|'
-	data = message[2]
+	user = message_text[0]
+	command = '|' + message_text[1] + '|'
+	data = message_text[2]
 
 	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
-		server.player_logged_in(message.content['reply_channel'], data)
+		server.player_logged_in(message.reply_channel, data)
 	else:
 		Group('users').send({
 			'text': str(user) + str(command) + str(data),
