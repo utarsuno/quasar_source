@@ -7,10 +7,4 @@ CONFIG_READER="$DIR/../universal_scripts/config_reader_for_bash.py"
 pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws pem_path)
 ec2_url=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws ec2_url)
 
-#ssh -i ${pem_path} ${ec2_url}
-
-
-
-ssh -i ${pem_path} ${ec2_url} << HERE
-cd /home/git_repos/quasar_source/all_scripts/server/django/;
-HERE
+ssh -t -i ${pem_path} ${ec2_url} "cd /home/git_repos/quasar_source/all_scripts/server/django/ ; bash"
