@@ -4,9 +4,8 @@
 
 from channels import Group
 from channels.sessions import channel_session
-
-
 import threading
+from quasar_source_code.quasar_site_django.quasar_web_server.virtual_world.quasar_player_server import QuasarPlayerServer
 
 
 class QuasarServer(object):
@@ -33,8 +32,7 @@ class QuasarServer(object):
 		threading.Timer(.5, self.run_server).start()
 
 
-server = QuasarServer()
-server.run_server()
+server = QuasarPlayerServer()
 
 WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|'
 WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|'
@@ -45,67 +43,45 @@ WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|'
 
 @channel_session
 def ws_connect(message):
+	print('Web socket connection!')
 
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
 
-	server.user_joined()
-
-	print('USER JOINED!')
-	print('----')
-	print(str(message))
-	print('----')
-	print(str(dict(message)))
-	print('----')
-	#print(str(message.content['text']))
-	#print(message.reply_channel)
-	#print(message)
+	global server
+	server.add_web_socket_connection(message.reply_channel)
 
 	Group('users').add(message.reply_channel)
 
 
 @channel_session
 def ws_message(message):
-	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
 	global server
 
-
 	message = (message.content['text']).split('|')
-
-
-
-	# TODO : Get the username here!!!!
-
-
 
 	user = message[0]
 	command = '|' + message[1] + '|'
 	data = message[2]
 
 	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
-		print('Just got the following connection message')
-		print(user)
-		print(command)
-		print(data)
-		print()
-
-	# message.content['text']
-
-
-	Group('users').send({
-		"text": str(user) + str(command) + str(data),
-	})
+		server.player_logged_in(message.reply_channel, data)
+	else:
+		Group('users').send({
+			'text': str(user) + str(command) + str(data),
+		})
 
 
 @channel_session
 def ws_disconnect(message):
-
-
-	print('User just left!' + str(message))
-	server.user_left()
-
+	print('Web socket disconnected')
+	global server
+	server.remove_web_socket_connection(message.reply_channel)
 	Group('users').discard(message.reply_channel)
 
 
-
+def send_message_to_all_user_in_group(message, group_name):
+	"""Sends a message to all users in the specified group."""
+	Group(group_name).send({'text': message})
