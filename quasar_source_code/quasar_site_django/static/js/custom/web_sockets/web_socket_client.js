@@ -62,6 +62,7 @@ WebSocketClient.prototype = {
             // TODO : once the player connects send a connected message.
             this.connected = true;
 
+            l('Sending connected message')
             this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + MANAGER_WORLD.player.get_username());
 
         }.bind(this);
