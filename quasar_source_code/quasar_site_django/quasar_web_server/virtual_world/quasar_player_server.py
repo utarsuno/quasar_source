@@ -49,7 +49,7 @@ class QuasarPlayerServer(object):
 		player_match_found = False
 
 		for c in self._clients:
-			if c.web_socket_key == reply_channel_key:
+			if str(c.web_socket_key) == str(reply_channel_key):
 				print(player_name + ' is now logged in!')
 				c.player_name = player_name
 				send_message_to_all_user_in_group(player_name + ' has logged in!', 'users')
