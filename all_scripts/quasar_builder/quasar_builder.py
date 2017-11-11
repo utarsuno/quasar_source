@@ -6,7 +6,8 @@
 from jsmin import jsmin
 # Useful file + directory operations.
 from quasar_source_code.universal_code import useful_file_operations as ufo
-
+# Needed to get program arguments passed in.
+import sys
 
 def get_minifed_javascript_text(javascript_file_path):
     """Gets the minified version of the Javascript file provided."""
@@ -53,4 +54,9 @@ def produce_quasar_minified_javascript_files():
     print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
 
 
-produce_quasar_minified_javascript_files()
+# Check if this file is being ran as a script.
+if __name__ == '__main__':
+    print('BUILD QUASAR PRODUCTION!!!!')
+
+    arguments = sys.argv[1:]
+    print('The arguments are : ' + str(arguments))
