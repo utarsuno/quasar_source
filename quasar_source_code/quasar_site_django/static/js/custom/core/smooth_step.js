@@ -144,11 +144,13 @@ SmoothStepLowerLimitZero.prototype = {
         var add_value = true
         if (is_defined(this.minimum_value)) {
             if (current_value + magnitude < this.minimum_value) {
+                // TODO : set it to the minimum value?
                 add_value = false
             }
         }
         if (is_defined(this.maximum_value)) {
             if (current_value + magnitude > this.maximum_value) {
+                // TODO : set it to the maximum value
                 add_value = false
             }
         }
