@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 function AudioManager(player) {
-    this.__init__(player)
+    this.__init__(player);
 }
 
 AudioManager.prototype = {
@@ -23,53 +23,52 @@ AudioManager.prototype = {
     current_audio_level: null,
 
     __init__: function(player) {
-        this.player = player
-        this.audio_listener = new THREE.AudioListener()
-        this.player.camera.add(this.audio_listener)
-        this.typing_sound = new THREE.Audio(this.audio_listener)
+        this.player = player;
+        this.audio_listener = new THREE.AudioListener();
+        this.player.camera.add(this.audio_listener);
+        this.typing_sound = new THREE.Audio(this.audio_listener);
 
-        this.typing_sound_loaded = false
+        this.typing_sound_loaded = false;
 
-        this.loader = new THREE.AudioLoader()
+        this.loader = new THREE.AudioLoader();
         this.loader.load(
 
             // resource URL
             '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/audio/typing_sound.wav',
             // Function when resource is loaded
             function (audio_buffer) {
-                this.typing_sound.setBuffer(audio_buffer)
-                this.typing_sound.setVolume(0.33)
-                this.typing_sound_loaded = true
+                this.typing_sound.setBuffer(audio_buffer);
+                this.typing_sound.setVolume(0.33);
+                this.typing_sound_loaded = true;
 
 
-                MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound())
+                MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound());
 
             }.bind(this),
 
             // Function called when download progresses
             function (xhr) {
-                l((xhr.loaded / xhr.total * 100) + '% loaded for audio file.')
+                l((xhr.loaded / xhr.total * 100) + '% loaded for audio file.');
             },
             // Function called when download errors
             function (xhr) {
-                l('An error happened trying to load the audio file.')
+                l('An error happened trying to load the audio file.');
             }
 
-        )
+        );
     },
 
     get_typing_sound: function() {
-        return this.typing_sound
+        return this.typing_sound;
     },
 
     play_typing_sound: function() {
         if (this.typing_sound_loaded) {
             if (this.typing_sound.isPlaying) {
-                this.typing_sound.stop()
+                this.typing_sound.stop();
             }
-            this.typing_sound.play()
+            this.typing_sound.play();
         }
     }
-
-}
+};
 

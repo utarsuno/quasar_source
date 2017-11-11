@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 function Floating3DText(w, text, type, scene) {
-    this.__init__(w, text, type, scene)
+    this.__init__(w, text, type, scene);
 }
 
 //const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').innerHTML))
@@ -40,30 +40,30 @@ Floating3DText.prototype = {
     also_color_this_floating_text: null,
 
     __init__: function(w, text, type, scene) {
-        this.scene = scene
+        this.scene = scene;
 
-        this.width              = w
+        this.width              = w;
 
-        this.text               = text
-        this._hidden_text       = ''
+        this.text               = text;
+        this._hidden_text       = '';
 
-        this.original_border_color = 0xFFC0CB
+        this.original_border_color = 0xFFC0CB;
 
         // Inherit from Interactive.
-        Interactive.call(this)
+        Interactive.call(this);
         // Inherit from Visibility.
-        Visibility.call(this)
+        Visibility.call(this);
 
-        this.type = type
-        this.create_outline()
-        this.create()
+        this.type = type;
+        this.create_outline();
+        this.create();
     },
 
     get_text: function() {
         if (this.type === TYPE_INPUT_PASSWORD) {
-            return this._hidden_text
+            return this._hidden_text;
         }
-        return this.text
+        return this.text;
     },
 
     /* __  ___      ___  ___     __                  __   ___  __
@@ -71,48 +71,46 @@ Floating3DText.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
-            this.update_just_color(COLOR_HIGHLIGHT)
+            this.update_just_color(COLOR_HIGHLIGHT);
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT)
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_HIGHLIGHT);
             }
         } else {
-            this.update_just_color(COLOR_TEXT_DEFAULT)
+            this.update_just_color(COLOR_TEXT_DEFAULT);
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT)
+                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT);
             }
         }
     },
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            MANAGER_WORLD.player.engage()
+            MANAGER_WORLD.player.engage();
         } else {
-            MANAGER_WORLD.player.disengage()
+            MANAGER_WORLD.player.disengage();
         }
     },
 
 
     update_just_color: function(color_arg) {
-        this.material.color.setHex(color_arg)
-        this.material.needsUpdate = true
+        this.material.color.setHex(color_arg);
+        this.material.needsUpdate = true;
     },
 
     update_text_color: function(text, color_arg) {
         if (this.current_color !== color_arg) {
-            this.material.color.setHex(color_arg)
-            this.material.needsUpdate = true
+            this.material.color.setHex(color_arg);
+            this.material.needsUpdate = true;
         }
         if (this.current_text_object !== null) {
-            this.object3D.remove(this.current_text_object)
-            this.current_text_object.geometry.dispose()
-            this.current_text_object.material.dispose()
+            this.object3D.remove(this.current_text_object);
+            this.current_text_object.geometry.dispose();
+            this.current_text_object.material.dispose();
         }
-
-        console.log('CREATED 3D TEXT')
 
         // Make sure to remove the previous geometry!
         if (this.text_geometry !== null) {
-            this.text_geometry.dispose()
+            this.text_geometry.dispose();
         }
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
@@ -120,34 +118,34 @@ Floating3DText.prototype = {
             height: this.text_height,
             curveSegments: 2,
             font: GLOBAL_FONT
-        })
+        });
 
-        this.current_text = text
+        this.current_text = text;
 
-        this.current_text_object = new THREE.Mesh(this.text_geometry, this.material)
-        this.object3D.add(this.current_text_object)
+        this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
+        this.object3D.add(this.current_text_object);
     },
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.update_text_color(text, COLOR_TEXT_DEFAULT)
+            this.update_text_color(text, COLOR_TEXT_DEFAULT);
         }
     },
 
     create_outline: function() {
-        this.material = new THREE.MeshLambertMaterial({color: COLOR_TEXT_DEFAULT})
-        this.current_color = COLOR_TEXT_DEFAULT
-        this.material.needsUpdate = true
+        this.material = new THREE.MeshLambertMaterial({color: COLOR_TEXT_DEFAULT});
+        this.current_color = COLOR_TEXT_DEFAULT;
+        this.material.needsUpdate = true;
 
 
-        this.object3D = new THREE.Object3D()
+        this.object3D = new THREE.Object3D();
 
         if (this.type === TYPE_SUPER_TITLE) {
-            this.height = 32 * 4
+            this.height = 32 * 4;
         } else if (this.type === TYPE_TITLE) {
-            this.height = 32
+            this.height = 32;
         } else {
-            this.height = 16
+            this.height = 16;
         }
 
         /*
@@ -165,67 +163,67 @@ Floating3DText.prototype = {
         */
 
         if (is_defined(this.scene)) {
-            this.scene.add(this.object3D)
+            this.scene.add(this.object3D);
         }
     },
 
     create: function() {
         if (this.type === TYPE_SUPER_TITLE) {
-            this.size = 40 * 4
-            this.text_height = 2 * 4
+            this.size = 40 * 4;
+            this.text_height = 2 * 4;
         } else if (this.type === TYPE_TITLE) {
-            this.size = 40
-            this.text_height = 2
+            this.size = 40;
+            this.text_height = 2;
         } else {
-            this.size = 20
-            this.text_height = 1
+            this.size = 20;
+            this.text_height = 1;
         }
-        this.update_text(this.text)
+        this.update_text(this.text);
 
-        this.material.side = THREE.FrontSide
+        this.material.side = THREE.FrontSide;
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
-        this.object3D.position.x = position_vector.x
-        this.object3D.position.y = position_vector.y - this.height
-        this.object3D.position.z = position_vector.z
+        this.object3D.position.x = position_vector.x;
+        this.object3D.position.y = position_vector.y - this.height;
+        this.object3D.position.z = position_vector.z;
         //this.current_text_object.position.x -= this.width / 2
-        var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y - this.height, look_at_position.z)
-        this.object3D.lookAt(look_at)
+        var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y - this.height, look_at_position.z);
+        this.object3D.lookAt(look_at);
     },
 
     add_character: function(character) {
-        this.text = this.text + character
-        this.update_text(this.text)
+        this.text = this.text + character;
+        this.update_text(this.text);
     },
 
     pop_character: function() {
-        this.text = this.text.slice(0, -1)
-        this.update_text(this.text)
+        this.text = this.text.slice(0, -1);
+        this.update_text(this.text);
     },
 
     parse_keycode: function(event) {
-        var keycode = event.keyCode
+        var keycode = event.keyCode;
 
         if (keycode == 8) {
             if (this.text.length > 0) {
-                this.pop_character()
+                this.pop_character();
                 if (this.type == TYPE_INPUT_PASSWORD) {
-                    this._hidden_text = this._hidden_text.slice(0, -1)
+                    this._hidden_text = this._hidden_text.slice(0, -1);
                 }
             }
 
-            MANAGER_AUDIO.play_typing_sound()
+            MANAGER_AUDIO.play_typing_sound();
 
         } else if (event.key.length == 1) {
             if (this.type == TYPE_INPUT_PASSWORD) {
-                this._hidden_text += event.key
-                this.add_character('*')
+                this._hidden_text += event.key;
+                this.add_character('*');
             } else if (this.type == TYPE_INPUT_REGULAR) {
-                this.add_character(event.key)
+                this.add_character(event.key);
             }
 
-            MANAGER_AUDIO.play_typing_sound()
+            MANAGER_AUDIO.play_typing_sound();
         }
     }
 

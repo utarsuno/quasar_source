@@ -1,170 +1,170 @@
-'use strict'
+'use strict';
 
 function TypingInterface() {
-    this.__init__()
+    this.__init__();
 }
 
 function Message(text, created_time) {
-    this.__init__(text, created_time)
+    this.__init__(text, created_time);
 }
 
 Message.prototype = {
     __init__: function(text, created_time) {
-        this.text = text
-        this.created_time = created_time
+        this.text = text;
+        this.created_time = created_time;
     }
 }
 
-const MESSAGE_TYPE_PLAYER_CHAT = 3
-const MESSAGE_TYPE_SERVER      = 2
-const MESSAGE_TYPE_USER        = 1
+const MESSAGE_TYPE_PLAYER_CHAT = 3;
+const MESSAGE_TYPE_SERVER      = 2;
+const MESSAGE_TYPE_USER        = 1;
 
 TypingInterface.prototype = {
 
     __init__: function() {
-        this.gui_typing       = new DomElement('gui_typing')
-        this.gui_typing_input = new DomElement('gui_typing_input_field')
-        this.gui_logs         = new DomElement('gui_console_logs')
+        this.gui_typing       = new DomElement('gui_typing');
+        this.gui_typing_input = new DomElement('gui_typing_input_field');
+        this.gui_logs         = new DomElement('gui_console_logs');
 
-        this.input_text = new InputTextProcessor('')
+        this.input_text = new InputTextProcessor('');
 
-        this.visible = false
+        this.visible = false;
 
-        this.all_rows = []
-        var i = 0
+        this.all_rows = [];
+        var i = 0;
         while (i < 70) {
-            this.all_rows.push(new DomElement('row_' + i.toString()))
-            i += 1
+            this.all_rows.push(new DomElement('row_' + i.toString()));
+            i += 1;
         }
 
-        this.messages = []
+        this.messages = [];
 
         // Calculate the initial sizing.
-        this.window_was_resized()
+        this.window_was_resized();
 
-        this.needs_another_update = false
+        this.needs_another_update = false;
     },
 
     is_visible: function() {
-        return this.visible
+        return this.visible;
     },
 
     toggle_visibility: function() {
-        this.visible = !this.visible
+        this.visible = !this.visible;
         if (this.visible) {
-            this.show()
+            this.show();
         } else {
-            this.hide()
+            this.hide();
         }
     },
 
     show: function() {
-        this.gui_typing.show()
+        this.gui_typing.show();
         //this.gui_logs.show()
         //this.gui_logs.make_visible()
-        this.visible = true
+        this.visible = true;
     },
 
     hide: function() {
-        this.gui_typing.hide()
+        this.gui_typing.hide();
         //this.gui_logs.hide()
         //this.gui_logs.make_invisible()
-        this.visible = false
-        this.input_text.clear_text()
+        this.visible = false;
+        this.input_text.clear_text();
     },
 
     key_down_event: function(event) {
-        this.input_text.parse_key_event(event)
-        this.gui_typing_input.set_text(this.input_text.get_text())
+        this.input_text.parse_key_event(event);
+        this.gui_typing_input.set_text(this.input_text.get_text());
     },
 
     window_was_resized: function() {
-        var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-        this.current_height = window_height * 0.7
+        var window_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        this.current_height = window_height * 0.7;
 
-        var row_size = 12 + 2 // There is a margin of 3 and pixel size of 12.
-        var number_of_rows_that_fit = this.current_height / row_size
+        var row_size = 12 + 2; // There is a margin of 3 and pixel size of 12.
+        var number_of_rows_that_fit = this.current_height / row_size;
         // - 1 is temporary
-        this.last_row = Math.floor(number_of_rows_that_fit) - 1
+        this.last_row = Math.floor(number_of_rows_that_fit) - 1;
 
         //l('The last row is : ' + this.last_row)
 
-        this.update()
+        this.update();
     },
 
     get_normal_text_color: function(alpha) {
-        return 'rgba(118, 255, 137, ' + alpha.toString() + ')'
+        return 'rgba(118, 255, 137, ' + alpha.toString() + ')';
     },
 
     get_server_text_color: function(alpha) {
-        return 'rgba(255, 53, 36,' + alpha.toString() + ')'
+        return 'rgba(255, 53, 36,' + alpha.toString() + ')';
     },
 
     get_player_message_text_color: function(alpha) {
-        return 'rgba(113, 236, 255, ' + alpha.toString() + ');'
+        return 'rgba(113, 236, 255, ' + alpha.toString() + ');';
     },
 
     needs_an_update: function() {
-        return this.needs_another_update
+        return this.needs_another_update;
     },
 
     update: function() {
         // TODO : This might be kinda slow..lol...
         //var current_milliseconds = new Date().getTime()
 
-        var needs_one_more_update = false
+        var needs_one_more_update = false;
 
-        var i = this.last_row
-        var m = 0
+        var i = this.last_row;
+        var m = 0;
         while (i > -1) {
             if (this.messages.length > m) {
                 // Set text.
-                this.all_rows[i].set_text(this.messages[m][0])
+                this.all_rows[i].set_text(this.messages[m][0]);
                 // Set text color.
                 switch(this.messages[m][1]) {
                 case MESSAGE_TYPE_SERVER:
-                    this.all_rows[i].set_color(this.get_server_text_color(0.85))
-                    break
+                    this.all_rows[i].set_color(this.get_server_text_color(0.85));
+                    break;
                 case MESSAGE_TYPE_USER:
-                    this.all_rows[i].set_color(this.get_normal_text_color(0.85))
-                    break
+                    this.all_rows[i].set_color(this.get_normal_text_color(0.85));
+                    break;
                 case MESSAGE_TYPE_PLAYER_CHAT:
-                    this.all_rows[i].set_color(this.get_player_message_text_color(0.85))
-                    break
+                    this.all_rows[i].set_color(this.get_player_message_text_color(0.85));
+                    break;
                 }
             } else {
-                this.all_rows[i].set_text('')
+                this.all_rows[i].set_text('');
             }
-            i -= 1
-            m += 1
+            i -= 1;
+            m += 1;
         }
 
         // Make sure to clear out all the other ones.
-        var j = this.last_row + 1
+        var j = this.last_row + 1;
         while (j < 70) {
-            this.all_rows[j].set_text('')
-            j += 1
+            this.all_rows[j].set_text('');
+            j += 1;
         }
 
-        this.needs_another_update = needs_one_more_update
+        this.needs_another_update = needs_one_more_update;
     },
 
     add_chat_message: function(message) {
-        this.add_message(message, MESSAGE_TYPE_PLAYER_CHAT)
+        this.add_message(message, MESSAGE_TYPE_PLAYER_CHAT);
     },
 
     add_message: function(text_message, text_color) {
         //l('Adding the message : {' + text_message + '}')
-        this.messages.unshift([text_message, text_color])
-        this.update()
+        this.messages.unshift([text_message, text_color]);
+        this.update();
     },
 
     add_user_text: function() {
-        var current_input = this.input_text.get_text()
+        var current_input = this.input_text.get_text();
         if (current_input.length > 0) {
-            this.add_message(current_input, MESSAGE_TYPE_USER)
+            this.add_message(current_input, MESSAGE_TYPE_USER);
 
-            MANAGER_WORLD.player.send_chat_message(current_input)
+            MANAGER_WORLD.player.send_chat_message(current_input);
 
             // TODO : Add basic commands like save
             // This will be the response for unknown commands.
@@ -173,9 +173,9 @@ TypingInterface.prototype = {
     },
 
     add_server_message: function(server_message) {
-        this.add_message(server_message, MESSAGE_TYPE_SERVER)
+        this.add_message(server_message, MESSAGE_TYPE_SERVER);
     }
-}
+};
 
 /*
         var current_milliseconds = new Date().getTime()

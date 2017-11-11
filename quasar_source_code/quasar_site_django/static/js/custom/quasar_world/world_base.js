@@ -1,95 +1,94 @@
-'use strict'
+'use strict';
 
 function World(planet_name) {
 
-    this.planet_position            = null
-    this.planet_name                = planet_name
+    this.planet_position            = null;
+    this.planet_name                = planet_name;
 
-    this.player                     = null
-    this.currently_looked_at_object = null
-    this.raycaster                  = null
-    this.current_world              = false
-    this.scene                      = new THREE.Scene()
+    this.player                     = null;
+    this.currently_looked_at_object = null;
+    this.raycaster                  = null;
+    this.current_world              = false;
+    this.scene                      = new THREE.Scene();
 
-    this.default_tab_target         = null
-    this.interactive_objects        = []
+    this.default_tab_target         = null;
+    this.interactive_objects        = [];
 
     this.add_to_scene = function(object) {
-        this.scene.add(object)
-    }
+        this.scene.add(object);
+    };
 
     this.remove_from_scene = function(object) {
-        this.scene.remove(object)
+        this.scene.remove(object);
 
         if (object.hasOwnProperty('object3D')) {
-            this.scene.remove(object.object3D)
+            this.scene.remove(object.object3D);
         }
-    }
+    };
 
     this.set_player =  function(player) {
-        this.player = player
-        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
-        this.currently_looked_at_object = null
-    }
+        this.player = player;
+        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction());
+        this.currently_looked_at_object = null;
+    };
 
     this.add_interactive_object = function(interactive_object) {
-        this.interactive_objects.push(interactive_object)
-    }
+        this.interactive_objects.push(interactive_object);
+    };
 
     this.set_cursor_position = function(position) {
-        this.cursor.position.x = position.x
-        this.cursor.position.y = position.y
-        this.cursor.position.z = position.z
-    }
+        this.cursor.position.x = position.x;
+        this.cursor.position.y = position.y;
+        this.cursor.position.z = position.z;
+    };
 
     this.update_interactive_objects = function() {
-        this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction())
+        this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction());
 
-        var match_was_found = false
+        var match_was_found = false;
 
-        var closest_object    = null
-        var closest_data_thing = null
-        var final_point = null
+        var closest_object    = null;
+        var closest_data_thing = null;
+        var final_point = null;
 
-        var smallest_distance = 99999
+        var smallest_distance = 99999;
 
-        var interactive_index = -1
-
+        var interactive_index = -1;
 
         // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
-            var current_smallest_distance = 9999
-            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true)
+            var current_smallest_distance = 9999;
+            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
 
             if (intersections.length > 0) {
                 for (var d = 0; d < intersections.length; d++) {
                     if (intersections[d].distance < current_smallest_distance) {
-                        current_smallest_distance = intersections[d].distance
-                        closest_object = intersections[d].object
-                        closest_data_thing = intersections[d]
+                        current_smallest_distance = intersections[d].distance;
+                        closest_object = intersections[d].object;
+                        closest_data_thing = intersections[d];
                     }
                 }
                 // Now get the interactive_object match of the found intersections object.
                 for (var m = 0; m < this.interactive_objects.length; m++) {
 
-                    var has_match = false
+                    var has_match = false;
 
                     if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
                         if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
-                            has_match = true
+                            has_match = true;
                         }
                     }
 
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid) {
-                        has_match = true
+                        has_match = true;
                     }
 
                     if (has_match) {
                         if (current_smallest_distance < smallest_distance) {
-                            smallest_distance = current_smallest_distance
-                            interactive_index = m
-                            final_point = closest_data_thing
+                            smallest_distance = current_smallest_distance;
+                            interactive_index = m;
+                            final_point = closest_data_thing;
                         }
                     }
                 }
@@ -100,123 +99,123 @@ function World(planet_name) {
             // A new object is being looked at, so look away from the old one and look at new one.
             if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
                 if (this.currently_looked_at_object !== null) {
-                    this.currently_looked_at_object.look_away()
+                    this.currently_looked_at_object.look_away();
                 }
-                this.currently_looked_at_object = this.interactive_objects[interactive_index]
-                this.currently_looked_at_object.look_at()
+                this.currently_looked_at_object = this.interactive_objects[interactive_index];
+                this.currently_looked_at_object.look_at();
             }
-            this.set_cursor_position(final_point.point)
+            this.set_cursor_position(final_point.point);
             // Regardless a match was found and only one intersection can occur so break.
-            match_was_found = true
+            match_was_found = true;
             //break
         } else {
             // TODO : Eventually just make the cursor not visible.
-            this.set_cursor_position(-5000, -5000, -5000)
+            this.set_cursor_position(-5000, -5000, -5000);
         }
 
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
         if (!match_was_found && this.currently_looked_at_object !== null) {
-            this.currently_looked_at_object.look_away()
-            this.currently_looked_at_object = null
+            this.currently_looked_at_object.look_away();
+            this.currently_looked_at_object = null;
         }
-    }
+    };
 
     this.tab_to_next_interactive_object = function() {
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage()
-                this.currently_looked_at_object.look_away()
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
-                this.currently_looked_at_object.look_at()
+                this.currently_looked_at_object.disengage();
+                this.currently_looked_at_object.look_away();
+                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
+                this.currently_looked_at_object.look_at();
                 if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
-                    this.currently_looked_at_object.engage()
+                    this.currently_looked_at_object.engage();
                 }
             } else {
-                this.currently_looked_at_object.look_away()
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target
-                this.currently_looked_at_object.look_at()
+                this.currently_looked_at_object.look_away();
+                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
+                this.currently_looked_at_object.look_at();
             }
-            this.player.look_at(this.currently_looked_at_object.object3D.position)
+            this.player.look_at(this.currently_looked_at_object.object3D.position);
         } else if (is_defined(this.default_tab_target)) {
-            this.currently_looked_at_object = this.default_tab_target
-            this.player.look_at(this.currently_looked_at_object.object3D.position)
-            this.currently_looked_at_object.look_at()
+            this.currently_looked_at_object = this.default_tab_target;
+            this.player.look_at(this.currently_looked_at_object.object3D.position);
+            this.currently_looked_at_object.look_at();
         }
-    }
+    };
 
     this.single_left_click = function() {
         if (this.currently_looked_at_object !== null) {
             if (!this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.engage()
+                this.currently_looked_at_object.engage();
             }
         }
-    }
+    };
 
     this.single_middle_click = function() {
 
-    }
+    };
 
     this.single_right_click = function() {
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage()
-                this.player.enable_controls()
+                this.currently_looked_at_object.disengage();
+                this.player.enable_controls();
             }
         }
-    }
+    };
 
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE_BACK_SLASH) {
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object.is_engaged()) {
-                    this.currently_looked_at_object.disengage()
-                    this.player.enable_controls()
+                    this.currently_looked_at_object.disengage();
+                    this.player.enable_controls();
                 }
             }
         } else if (event.keyCode === KEY_CODE_TAB) {
-            this.tab_to_next_interactive_object()
+            this.tab_to_next_interactive_object();
             //event.preventDefault()
-            event.stopPropagation()
+            event.stopPropagation();
         }
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
-                this.currently_looked_at_object.parse_keycode(event)
+                this.currently_looked_at_object.parse_keycode(event);
             }
         }
         if (event.keyCode == KEY_CODE_E || event.keyCode === KEY_CODE_ENTER) {
             if (this.currently_looked_at_object !== null) {
                 if (!this.currently_looked_at_object.is_engaged()) {
-                    this.currently_looked_at_object.engage()
+                    this.currently_looked_at_object.engage();
                 }
             }
         }
 
         // No defaults will be useful (for now).
-        event.preventDefault()
-    }
+        event.preventDefault();
+    };
 
     this.set_default_tab_target = function(default_tab_target) {
-        this.default_tab_target = default_tab_target
-    }
+        this.default_tab_target = default_tab_target;
+    };
 
     // World defaults.
-    var grid = new vg.HexGrid({cellSize: 100})
-    grid.generate({size: 10})
-    var board = new vg.Board(grid)
-    board.generateTilemap({cellSize: 100, tileScale: 0.99})
-    this.add_to_scene(board.group)
+    var grid = new vg.HexGrid({cellSize: 100});
+    grid.generate({size: 10});
+    var board = new vg.Board(grid);
+    board.generateTilemap({cellSize: 100, tileScale: 0.99});
+    this.add_to_scene(board.group);
 
 
     // Create the lighting and default ground.
-    var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10)
-    plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2))
-    var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true})
-    var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material)
+    var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10);
+    plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
+    var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true});
+    var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
     //this.add_to_scene(plane_mesh)
 
-    var light3 = new THREE.PointLight(0xccffcc, .8, 0)
-    light3.position.set(5, 100, 5)
-    this.add_to_scene(light3)
+    var light3 = new THREE.PointLight(0xccffcc, .8, 0);
+    light3.position.set(5, 100, 5);
+    this.add_to_scene(light3);
 
     //var color1 = '#b9ffd2'
     //var color2 = '#090920'
@@ -224,34 +223,34 @@ function World(planet_name) {
     //this.add_to_scene(light2)
 
     /////////////////
-    var lightr = new THREE.PointLight(0xff8579, .8, 0)
-    lightr.position.set(1000, 100, 0)
-    this.add_to_scene(lightr)
+    var lightr = new THREE.PointLight(0xff8579, .8, 0);
+    lightr.position.set(1000, 100, 0);
+    this.add_to_scene(lightr);
 
-    var lightg = new THREE.PointLight(0xb1ff90, .8, 0)
-    lightg.position.set(0, 100, 1000)
-    this.add_to_scene(lightg)
+    var lightg = new THREE.PointLight(0xb1ff90, .8, 0);
+    lightg.position.set(0, 100, 1000);
+    this.add_to_scene(lightg);
 
-    var lightb = new THREE.PointLight(0x84b5ff, .8, 0)
-    lightb.position.set(500, 100, 500)
-    this.add_to_scene(lightb)
+    var lightb = new THREE.PointLight(0x84b5ff, .8, 0);
+    lightb.position.set(500, 100, 500);
+    this.add_to_scene(lightb);
     /////////////////
 
-    var light = new THREE.AmbientLight(0xffffff, .2) // soft white light
-    this.add_to_scene(light)
+    var light = new THREE.AmbientLight(0xffffff, .2); // soft white light
+    this.add_to_scene(light);
 
     // cursor
-    var sphereGeom = new THREE.SphereGeometry(4, 25, 25)
-    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5})
-    this.cursor = new THREE.Mesh(sphereGeom, blueMaterial)
-    this.add_to_scene(this.cursor)
+    var sphereGeom = new THREE.SphereGeometry(4, 25, 25);
+    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5});
+    this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
+    this.add_to_scene(this.cursor);
 
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {
-        var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000)
-        var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_material)
-        skybox_cube.position.set(0, 0, 0)
-        this.add_to_scene(skybox_cube)
-    }
+        var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000);
+        var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_material);
+        skybox_cube.position.set(0, 0, 0);
+        this.add_to_scene(skybox_cube);
+    };
 }
