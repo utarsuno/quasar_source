@@ -59,7 +59,11 @@ WebSocketClient.prototype = {
             //self._world.add_player(self._full_id)
             l('Adding player{' + this.player_id + '} to the world!');
 
+            // TODO : once the player connects send a connected message.
             this.connected = true;
+
+            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + MANAGER_WORLD.player.get_username());
+
         }.bind(this);
 
         this.socket.onerror = function(error) {

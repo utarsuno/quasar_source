@@ -36,7 +36,7 @@ class QuasarServer(object):
 server = QuasarServer()
 server.run_server()
 
-
+WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|'
 WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|'
 WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|'
 WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|'
