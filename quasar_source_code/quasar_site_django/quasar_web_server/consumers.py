@@ -66,7 +66,7 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
 
 	global server
 
