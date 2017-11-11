@@ -7,7 +7,7 @@ from channels.sessions import channel_session
 import threading
 from quasar_source_code.quasar_site_django.quasar_web_server.virtual_world.quasar_player_server import QuasarPlayerServer
 
-
+'''
 class QuasarServer(object):
 	"""Temporary test server code."""
 
@@ -30,7 +30,7 @@ class QuasarServer(object):
 			#	"text": 'Pinging the players!',
 			#})
 		threading.Timer(.5, self.run_server).start()
-
+'''
 
 server = QuasarPlayerServer()
 
