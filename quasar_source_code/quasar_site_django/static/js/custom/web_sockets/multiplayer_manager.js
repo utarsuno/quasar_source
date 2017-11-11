@@ -23,9 +23,9 @@ ServerPlayer.prototype = {
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z);
 
 
-        this.position_x_buffer = new SmoothStep(this.position.x, .1);
-        this.position_y_buffer = new SmoothStep(this.position.y, .1);
-        this.position_z_buffer = new SmoothStep(this.position.z, .1);
+        this.position_x_buffer = new CustomSmoothStep(this.position.x, .1);
+        this.position_y_buffer = new CustomSmoothStep(this.position.y, .1);
+        this.position_z_buffer = new CustomSmoothStep(this.position.z, .1);
 
 
         var player_look_at = new THREE.Vector3(this.look_at.x, this.look_at.y + 10, this.look_at.z);

@@ -63,8 +63,7 @@ module.exports = {
 
         // Core
         "InputTextProcessor": false,
-        "SmoothStep": false,
-        "SmoothStepLowerLimitZero": false,
+        "CustomSmoothStep": false,
 
         "Owner": true,
 

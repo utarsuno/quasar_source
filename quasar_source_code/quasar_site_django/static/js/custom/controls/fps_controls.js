@@ -67,8 +67,8 @@ FPSControls.prototype = {
         this.velocity = new THREE.Vector3();
 
         //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
-        this.mouse_movement_x_buffer = new SmoothStepLowerLimitZero(this.yaw.rotation.y, 0.025, null, null);
-        this.mouse_movement_y_buffer = new SmoothStepLowerLimitZero(this.pitch.rotation.x, 0.025, -1.0 * HALF_PIE, HALF_PIE);
+        this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
+        this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, -1.0 * HALF_PIE, HALF_PIE);
 
         // TODO : Add smooth step to the movement buffers!!!
 
