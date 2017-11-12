@@ -316,6 +316,10 @@ FPSControls.prototype = {
     },
 
     update_mouse_view_position: function() {
+
+        l('Current x value : ' + this.mouse_movement_x_buffer.get_current_value());
+        l('Current y value : ' + this.mouse_movement_y_buffer.get_current_value());
+
         this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value();
         this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
 
