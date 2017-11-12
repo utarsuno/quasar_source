@@ -71,7 +71,7 @@ def ws_message(message):
 	command = '|' + message_text[1] + '|'
 	data = message_text[2]
 
-	server.parse_message(user, command, data, message.reply_channel)
+	server.parse_message(user, command, data, message)
 
 
 @channel_session
@@ -82,6 +82,3 @@ def ws_disconnect(message):
 	Group('users').discard(message.reply_channel)
 
 
-def send_message_to_all_user_in_group(message, group_name):
-	"""Sends a message to all users in the specified group."""
-	Group(group_name).send({'text': message})

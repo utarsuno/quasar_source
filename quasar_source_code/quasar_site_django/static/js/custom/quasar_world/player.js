@@ -130,7 +130,7 @@ Player.prototype = {
     set_player_id: function(player_id) {
         l('Setting the player id to : ' + player_id);
         this.player_id = player_id;
-        this.web_socket_client.connect(this.player_id);
+        this.web_socket_client.connect(this.get_username());
     },
 
     perform_login: function(username, password) {

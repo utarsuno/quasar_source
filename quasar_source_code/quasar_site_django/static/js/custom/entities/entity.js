@@ -49,7 +49,7 @@ Owner.prototype = {
         this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this));
     }
 
-}
+};
 
 Entity.prototype = {
 

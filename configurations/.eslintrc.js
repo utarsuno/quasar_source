@@ -125,6 +125,7 @@ module.exports = {
         "TYPE_SLIDER": false,
 
         // Web socket message types.
+        "WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS"                : false,
         "WEB_SOCKET_MESSAGE_TYPE_CONNECTION"                 : false,
         "WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED"               : false,
         "WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE"               : false,

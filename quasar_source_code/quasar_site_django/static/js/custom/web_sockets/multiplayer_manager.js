@@ -4,13 +4,13 @@ function MultiPlayerManager() {
     this.__init__();
 }
 
-function ServerPlayer(player_id, initial_position, initial_look_at) {
-    this.__init__(player_id, initial_position, initial_look_at);
+function ServerPlayer(player_name, initial_position, initial_look_at) {
+    this.__init__(player_name, initial_position, initial_look_at);
 }
 
 ServerPlayer.prototype = {
-    __init__: function(player_id, initial_position, initial_look_at) {
-        this.player_id = player_id;
+    __init__: function(player_name, initial_position, initial_look_at) {
+        this.player_name = player_name;
 
         this.position = initial_position;
         this.look_at = initial_look_at;
@@ -19,7 +19,7 @@ ServerPlayer.prototype = {
 
         // TODO : server player objects need to contain a position smooth step buffer
 
-        this.player_title = new Floating2DText(100, player_id, TYPE_TITLE, MANAGER_WORLD.world_home.scene);
+        this.player_title = new Floating2DText(100, player_name, TYPE_TITLE, MANAGER_WORLD.world_home.scene);
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z);
 
 
@@ -78,10 +78,6 @@ ServerPlayer.prototype = {
         this.player_title.update_look_at(new_look_at);
     },
 
-    get_id: function() {
-        return this.player_id;
-    },
-
     update: function(delta) {
         this.position_x_buffer.update(delta);
         this.position_y_buffer.update(delta);
@@ -121,7 +117,7 @@ MultiPlayerManager.prototype = {
     remove_player: function(player) {
         var index_to_remove = -1;
         for (var i = 0; i < this.players.length; i++) {
-            if (player === this.players[i].player_id) {
+            if (player === this.players[i].player_name) {
                 index_to_remove = i;
                 break;
             }
@@ -136,8 +132,14 @@ MultiPlayerManager.prototype = {
         l('THE COMMAND IS FROM USER {' + user + '}');
 
         switch(command) {
+        case WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS:
+            // TODO :!
+            l('NEED TO PARSE : ');
+            l(command);
+            l(data);
+            break;
         case WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED:
-            GUI_TYPING_INTERFACE.add_server_message(data + ' has logged out!');
+            GUI_TYPING_INTERFACE.add_server_message(user + ' has logged out!');
             this.remove_player(user);
             break;
         case WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE:
@@ -161,13 +163,13 @@ MultiPlayerManager.prototype = {
 
         //l('UPDATE THE PLAYER {' + player + '}')
 
-        if (server_player !== MANAGER_WORLD.player.player_id) {
+        if (server_player !== MANAGER_WORLD.player.player_name) {
 
             var user_index = -1;
 
             for (var i = 0; i < this.players.length; i++) {
                 //l('does {' + this.players[i].player_id + '} match {' + player + '} ' + (this.players[i].player_id === server_player))
-                if (this.players[i].player_id === server_player) {
+                if (this.players[i].player_name === server_player) {
                     user_index = i;
                 }
             }

@@ -6,12 +6,12 @@ function WebSocketClient() {
 
 WebSocketClient.prototype = {
 
-    _id       : null,
-    connected : null,
-    socket    : null,
-    _world    : null,
+    _id         : null,
+    connected   : null,
+    socket      : null,
+    _world      : null,
 
-    player_id : null,
+    player_name : null,
 
     __init__: function() {
         this.connected = false;
@@ -19,31 +19,31 @@ WebSocketClient.prototype = {
 
     send_chat_message: function(chat_message) {
         if (this.connected) {
-            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE + chat_message);
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE + chat_message);
         }
     },
 
     send_position_and_look_at_update: function(position_string, look_at_string) {
         if (this.connected) {
-            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE + position_string + '!' + look_at_string);
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE + position_string + '!' + look_at_string);
         }
     },
 
     send_look_at_update: function(data) {
         if (this.connected) {
-            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE + data);
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE + data);
         }
     },
 
     send_position_update: function(data) {
         if (this.connected) {
-            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE + data);
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE + data);
         }
     },
 
-    connect: function (player_id) {
-        this.player_id = player_id;
-        this.socket    = new WebSocket('ws://' + window.location.host + '/users/');
+    connect: function (player_name) {
+        this.player_name = player_name;
+        this.socket = new WebSocket('ws://' + window.location.host + '/users/');
 
         this.socket.onmessage = function(e) {
             //l('Just got the message : ' + e.data)
@@ -57,14 +57,14 @@ WebSocketClient.prototype = {
         this.socket.onopen = function open() {
             l('WebSockets connection created.');
             //self._world.add_player(self._full_id)
-            l('Adding player{' + this.player_id + '} to the world!');
+            l('Adding player{' + this.player_name + '} to the world!');
 
             // TODO : once the player connects send a connected message.
             this.connected = true;
 
             l('Sending connected message');
             // TODO : this needs to be re-sent until there is a response.
-            this.socket.send(this.player_id + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + MANAGER_WORLD.player.get_username());
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + MANAGER_WORLD.player.get_username());
 
         }.bind(this);
 
