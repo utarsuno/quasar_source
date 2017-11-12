@@ -133,10 +133,16 @@ MultiPlayerManager.prototype = {
 
         switch(command) {
         case WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS:
-            // TODO :!
-            l('NEED TO PARSE : ');
-            l(command);
-            l(data);
+            var players_data = data.split('@');
+            for (var p = 0; p < players_data.length; p++) {
+                var p_data = players_data[p].split(',');
+                var p_name = p_data[0];
+                var p_position = p_data[1];
+                var p_look_at = p_data[2];
+                
+                this.update_player(p_name, p_position, p_look_at);
+            }
+
             break;
         case WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED:
             GUI_TYPING_INTERFACE.add_server_message(user + ' has logged out!');

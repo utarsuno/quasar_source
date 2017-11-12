@@ -83,7 +83,7 @@ class QuasarPlayerServer(object):
         all_data = ''
         for p in self._clients:
             all_data += p.get_name_and_last_position() + '@'
-        return all_data
+        return all_data[:-1]
 
     def get_specific_player(self, player_name):
         """Gets the specific player object."""
@@ -95,8 +95,6 @@ class QuasarPlayerServer(object):
 
     def parse_message(self, user, command, data, reply_channel_key):
         """Parses the message passed in and performs the needed operations."""
-        for p in self._clients:
-            print(str(p.player_name) + '\t' + str(user) + '\t' + str(p.player_name == user))
 
         if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
             self.player_logged_in(reply_channel_key, data)

@@ -180,15 +180,16 @@ Player.prototype = {
             }
             break;
         case KEY_CODE_F:
-            // Toggle fullscreen actually.
-            if (!this.currently_fullscreen) {
-                THREEx.FullScreen.request();
-                this.renderer_api.on_window_resize();
-            } else {
-                THREEx.FullScreen.cancel();
+            // Toggle fullscreen.
+            if (this.key_down_ctrl) {
+                if (!this.currently_fullscreen) {
+                    THREEx.FullScreen.request();
+                    this.renderer_api.on_window_resize();
+                } else {
+                    THREEx.FullScreen.cancel();
+                }
+                this.currently_fullscreen = !this.currently_fullscreen;
             }
-            this.currently_fullscreen = !this.currently_fullscreen;
-
             //if (!this.is_engaged()) {
             //this.fps_controls.toggle_flying()
             //}
