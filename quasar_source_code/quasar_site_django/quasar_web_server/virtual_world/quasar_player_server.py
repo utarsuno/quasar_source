@@ -94,6 +94,12 @@ class QuasarPlayerServer(object):
 
     def parse_message(self, user, command, data, reply_channel_key):
         """Parses the message passed in and performs the needed operations."""
+
+        print('Parsing the following :')
+        print(user)
+        print(command)
+        print(data)
+
         if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
             self.player_logged_in(reply_channel_key, data)
             reply_channel_key.send({'text': SERVER_USER_ID + WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS + self.get_all_players_data()})
