@@ -92,22 +92,26 @@ CustomSmoothStep.prototype = {
         }
     },
 
+    _get_capped_value: function(value) {
+        if (is_defined(this.minimum_value)) {
+            if (value < this.minimum_value) {
+                return this.minimum_value;
+            }
+        }
+        if (is_defined(this.maximum_value)) {
+            if (value > this.maximum_value) {
+                return this.maximum_value;
+            }
+        }
+        return value;
+    },
+
     get_current_value: function() {
         var value_instance = this.current_value;
         for (var x = 0; x < this.buffer.length; x++) {
             value_instance += smoothstep(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
         }
-        if (this.minimum_value !== null) {
-            if (value_instance < this.minimum_value) {
-                return this.minimum_value;
-            }
-        }
-        if (this.maximum_value !== null) {
-            if (value_instance > this.maximum_value) {
-                return this.maximum_value;
-            }
-        }
-        return value_instance;
+        return this._get_capped_value(value_instance);
     },
 
     get_full_value: function() {
@@ -115,16 +119,6 @@ CustomSmoothStep.prototype = {
         for (var x = 0; x < this.buffer.length; x++) {
             value_instance += smoothstep(this.time_needed_for_each_force, this.time_needed_for_each_force) * this.buffer[x][0];
         }
-        if (this.minimum_value !== null) {
-            if (value_instance < this.minimum_value) {
-                return this.minimum_value;
-            }
-        }
-        if (this.maximum_value !== null) {
-            if (value_instance > this.maximum_value) {
-                return this.maximum_value;
-            }
-        }
-        return value_instance;
+        return this._get_capped_value(value_instance);
     }
 };
