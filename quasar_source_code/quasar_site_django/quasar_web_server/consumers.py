@@ -35,6 +35,7 @@ class QuasarServer(object):
 server = QuasarPlayerServer()
 
 WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|'
+WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|'
 WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|'
 WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|'
 WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|'
@@ -70,12 +71,7 @@ def ws_message(message):
 	command = '|' + message_text[1] + '|'
 	data = message_text[2]
 
-	if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
-		server.player_logged_in(message.reply_channel, data)
-	else:
-		Group('users').send({
-			'text': str(user) + str(command) + str(data),
-		})
+	server.parse_message(user, command, data, message.reply_channel)
 
 
 @channel_session
