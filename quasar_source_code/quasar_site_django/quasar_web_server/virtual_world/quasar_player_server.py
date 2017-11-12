@@ -90,16 +90,11 @@ class QuasarPlayerServer(object):
         for p in self._clients:
             if p.player_name == player_name:
                 return p
+        print('ERROR, specific player not found!!!!')
         return None
 
     def parse_message(self, user, command, data, reply_channel_key):
         """Parses the message passed in and performs the needed operations."""
-
-        print('Parsing the following :')
-        print(user)
-        print(command)
-        print(data)
-
         for p in self._clients:
             print(str(p.player_name) + '\t' + str(user) + '\t' + str(p.player_name == user))
 
@@ -108,23 +103,17 @@ class QuasarPlayerServer(object):
             reply_channel_key.send({'text': SERVER_USER_ID + WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS + self.get_all_players_data()})
         elif command == WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE:
             player = self.get_specific_player(user)
-            if player is None:
-                print('Look into this!!')
-            else:
+            if player is not None:
                 player.set_last_position(data)
             send_message_to_all_users_in_group(user + command + data, 'users')
         elif command == WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE:
             player = self.get_specific_player(user)
-            if player is None:
-                print('Look into this!!')
-            else:
+            if player is not None:
                 player.set_last_look_at(data)
             send_message_to_all_users_in_group(user + command + data, 'users')
         elif command == WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE:
             player = self.get_specific_player(user)
-            if player is None:
-                print('Look into this!!')
-            else:
+            if player is not None:
                 split_data = data.split('!')
                 position = split_data[0]
                 look_at  = split_data[1]
@@ -144,12 +133,7 @@ class QuasarPlayerServer(object):
         """This message gets sent after the web socket connection."""
         player_match_found = False
 
-        print('TRYING TO LOGIN ' + str(player_name) + ' OF CHANNEL KEY ' + str(reply_channel_key))
-
         for c in self._clients:
-
-            print('Currently looking at : ' + str(c.player_name) + '----' + str(c.web_socket_key))
-
             if str(c.web_socket_key) == str(reply_channel_key):
                 print(player_name + ' is now logged in!')
                 c.player_name = player_name
