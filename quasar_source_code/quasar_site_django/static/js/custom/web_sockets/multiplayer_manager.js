@@ -76,7 +76,6 @@ ServerPlayer.prototype = {
 
     update_look_at: function(look_at) {
         this.object3D.lookAt(look_at);
-        var p_look_at = new THREE.Vector3(look_at.x, look_at.y + 10, look_at.z);
         this.player_title.update_look_at(p_look_at);
     },
 
@@ -94,7 +93,7 @@ ServerPlayer.prototype = {
         this.object3D.position.z = this.position_z_buffer.get_current_value();
 
         this.player_title.object3D.position.x = this.object3D.position.x;
-        this.player_title.object3D.position.y = this.object3D.position.y + 8;
+        this.player_title.object3D.position.y = this.object3D.position.y + 20;
         this.player_title.object3D.position.z = this.object3D.position.z;
     }
 };
@@ -108,6 +107,7 @@ MultiPlayerManager.prototype = {
     },
 
     update: function(delta) {
+        l('Updating with delta{' + delta + '}')
         for (var i = 0; i < this.players.length; i++) {
             this.players[i].update(delta);
         }
