@@ -100,6 +100,9 @@ class QuasarPlayerServer(object):
         print(command)
         print(data)
 
+        for p in self._clients:
+            print(str(p.player_name) + '\t' + str(user) + '\t' + str(p.player_name == user))
+
         if command == WEB_SOCKET_MESSAGE_TYPE_CONNECTION:
             self.player_logged_in(reply_channel_key, data)
             reply_channel_key.send({'text': SERVER_USER_ID + WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS + self.get_all_players_data()})
