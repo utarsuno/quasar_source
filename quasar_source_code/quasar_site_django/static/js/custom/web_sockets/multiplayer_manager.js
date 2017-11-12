@@ -107,7 +107,6 @@ MultiPlayerManager.prototype = {
     },
 
     update: function(delta) {
-        l('Updating with delta{' + delta + '}');
         for (var i = 0; i < this.players.length; i++) {
             this.players[i].update(delta);
         }
