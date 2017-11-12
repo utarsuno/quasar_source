@@ -55,25 +55,9 @@ ServerPlayer.prototype = {
         var current_y_position = this.position_y_buffer.get_full_value();
         var current_z_position = this.position_z_buffer.get_full_value();
 
-        var delta_x = 0;
-        var delta_y = 0;
-        var delta_z = 0;
-
-        if (current_x_position > position.x) {
-            delta_x = current_x_position - position.x;
-        } else if (current_x_position < position.x) {
-            delta_x = position.x - current_x_position;
-        }
-        if (current_y_position > position.y) {
-            delta_y = current_y_position - position.y;
-        } else if (current_y_position < position.y) {
-            delta_y = position.y - current_y_position;
-        }
-        if (current_z_position > position.z) {
-            delta_z = current_z_position - position.z;
-        } else if (current_z_position < position.z) {
-            delta_z = position.z - current_z_position;
-        }
+        var delta_x = position.x - current_x_position;
+        var delta_y = position.y - current_y_position;
+        var delta_z = position.z - current_z_position;
 
         l('X force : ' + delta_x);
         l('Y force : ' + delta_y);
