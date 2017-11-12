@@ -71,6 +71,8 @@ ServerPlayer.prototype = {
     },
 
     update_look_at: function(look_at) {
+        l('Updating the look at to :')
+        l(look_at)
         this.object3D.lookAt(look_at);
         this.player_title.update_look_at(look_at);
     },
