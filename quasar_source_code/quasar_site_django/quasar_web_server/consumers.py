@@ -71,7 +71,7 @@ def ws_message(message):
 	command = '|' + message_text[1] + '|'
 	data = message_text[2]
 
-	server.parse_message(user, command, data, message)
+	server.parse_message(user, command, data, message.reply_channel)
 
 
 @channel_session
