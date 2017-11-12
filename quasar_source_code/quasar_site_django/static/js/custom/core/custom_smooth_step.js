@@ -48,12 +48,12 @@ CustomSmoothStep.prototype = {
 
     set_value: function(value) {
         this.current_value = value;
-        if (this.minimum_value !== null) {
+        if (is_defined(this.minimum_value)) {
             if (this.current_value < this.minimum_value) {
                 return this.minimum_value;
             }
         }
-        if (this.maximum_value !== null) {
+        if (is_defined(this.maximum_value)) {
             if (this.current_value > this.maximum_value) {
                 return this.maximum_value;
             }
@@ -117,7 +117,7 @@ CustomSmoothStep.prototype = {
     get_full_value: function() {
         var value_instance = this.current_value;
         for (var x = 0; x < this.buffer.length; x++) {
-            value_instance += smoothstep(this.time_needed_for_each_force, this.time_needed_for_each_force) * this.buffer[x][0];
+            value_instance += 1.0 * this.buffer[x][0];
         }
         return this._get_capped_value(value_instance);
     }
