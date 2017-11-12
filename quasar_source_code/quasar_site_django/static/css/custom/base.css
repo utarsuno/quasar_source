@@ -96,7 +96,6 @@ canvas {
     font-smooth: always;
     -webkit-font-smoothing: subpixel-antialiased;
 
-
     text-align: center;
 
     color: rgba(255, 255, 255, 0.9);
@@ -141,7 +140,7 @@ canvas {
     position: absolute;
     top: 10%;
     left: 0;
-    width: 35vw;
+    width: 100vw;
     height: 70vh;
     background: rgba(131, 207, 255, 0.0);
     z-index: 12;

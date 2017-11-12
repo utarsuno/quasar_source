@@ -69,9 +69,9 @@ EntityWall.prototype = {
         MANAGER_ENTITY.delete_entity(this.self_entity);
 
         // TODO : OOOPS! This method is now broken. Make sure to fix it!
-        for (var i = 0; i < this.interactive_objects.length; i++) {
+        //for (var i = 0; i < this.interactive_objects.length; i++) {
             //this.world.remove_from_scene(this.interactive_objects[i].object3D)
-        }
+        //}
         this.world.remove_from_scene(this.object3D);
 
         this.are_you_sure.remove_from_scene();
