@@ -87,11 +87,6 @@ HomeWorld.prototype = {
 
         // World function.
         this.update_interactive_objects();
-
-        // Update all the multi-player players.
-        MANAGER_MULTIPLAYER.update();
-
-        //
     },
 
     enter_world: function() {
