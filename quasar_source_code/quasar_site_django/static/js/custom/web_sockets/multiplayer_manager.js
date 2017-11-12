@@ -59,10 +59,6 @@ ServerPlayer.prototype = {
         var delta_y = position.y - current_y_position;
         var delta_z = position.z - current_z_position;
 
-        l('X force : ' + delta_x);
-        l('Y force : ' + delta_y);
-        l('Z force : ' + delta_z);
-
         if (delta_x !== 0) {
             this.position_x_buffer.add_force(delta_x);
         }
@@ -76,7 +72,7 @@ ServerPlayer.prototype = {
 
     update_look_at: function(look_at) {
         this.object3D.lookAt(look_at);
-        this.player_title.update_look_at(p_look_at);
+        this.player_title.update_look_at(look_at);
     },
 
     get_id: function() {
