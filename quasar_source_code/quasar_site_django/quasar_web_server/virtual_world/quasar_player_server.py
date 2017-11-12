@@ -144,7 +144,12 @@ class QuasarPlayerServer(object):
         """This message gets sent after the web socket connection."""
         player_match_found = False
 
+        print('TRYING TO LOGIN ' + str(player_name) + ' OF CHANNEL KEY ' + str(reply_channel_key))
+
         for c in self._clients:
+
+            print('Currently looking at : ' + str(c.player_name) + '----' + str(c.web_socket_key))
+
             if str(c.web_socket_key) == str(reply_channel_key):
                 print(player_name + ' is now logged in!')
                 c.player_name = player_name
