@@ -109,7 +109,7 @@ CustomSmoothStep.prototype = {
     get_current_value: function() {
         var value_instance = this.current_value;
         for (var x = 0; x < this.buffer.length; x++) {
-            value_instance += smoothstep(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+            value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
         }
         return this._get_capped_value(value_instance);
     },

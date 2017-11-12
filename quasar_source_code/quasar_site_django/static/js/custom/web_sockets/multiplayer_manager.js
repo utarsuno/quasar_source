@@ -75,13 +75,19 @@ ServerPlayer.prototype = {
             delta_z = position.z - current_z_position;
         }
 
-        l('X force : ' + delta_x)
-        l('Y force : ' + delta_y)
-        l('Z force : ' + delta_z)
+        l('X force : ' + delta_x);
+        l('Y force : ' + delta_y);
+        l('Z force : ' + delta_z);
 
-        this.position_x_buffer.add_force(delta_x);
-        this.position_y_buffer.add_force(delta_y);
-        this.position_z_buffer.add_force(delta_z);
+        if (delta_x !== 0) {
+            this.position_x_buffer.add_force(delta_x);
+        }
+        if (delta_y !== 0) {
+            this.position_y_buffer.add_force(delta_y);
+        }
+        if (delta_z !== 0) {
+            this.position_z_buffer.add_force(delta_z);
+        }
     },
 
     update_look_at: function(look_at) {
