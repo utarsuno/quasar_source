@@ -94,6 +94,13 @@ ServerPlayer.prototype = {
         this.player_title.object3D.position.x = this.object3D.position.x;
         this.player_title.object3D.position.y = this.object3D.position.y + 20;
         this.player_title.object3D.position.z = this.object3D.position.z;
+    },
+
+    remove: function() {
+        MANAGER_WORLD.world_home.remove_from_scene(this.object3D);
+        MANAGER_WORLD.world_home.remove_from_scene(this.player_title.object3D);
+
+        // TODO : prevent memory-leaks!
     }
 };
 
@@ -111,10 +118,28 @@ MultiPlayerManager.prototype = {
         }
     },
 
+    remove_player: function(player) {
+        var index_to_remove = -1;
+        for (var i = 0; i < this.players.length; i++) {
+            if (player === this.players[i].player_id) {
+                index_to_remove = i;
+                break;
+            }
+        }
+        if (index_to_remove !== -1) {
+            this.players[index_to_remove].remove();
+            this.players.splice(index_to_remove, 1);
+        }
+    },
+
     perform_command: function(user, command, data) {
         l('THE COMMAND IS FROM USER {' + user + '}');
 
         switch(command) {
+        case WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED:
+            GUI_TYPING_INTERFACE.add_server_message(data + ' has logged out!');
+            this.remove_player(user);
+            break;
         case WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE:
             GUI_TYPING_INTERFACE.add_chat_message(user + ' : ' + data);
             break;

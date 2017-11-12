@@ -166,14 +166,14 @@ TypingInterface.prototype = {
 
             MANAGER_WORLD.player.send_chat_message(current_input);
 
-            // TODO : Add basic commands like save
+            // TODO : Add basic commands like save and help
             // This will be the response for unknown commands.
             //this.add_server_message('¯\\_(ツ)_/¯')
         }
     },
 
     add_server_message: function(server_message) {
-        this.add_message(server_message, MESSAGE_TYPE_SERVER);
+        this.add_message('server : ' + server_message, MESSAGE_TYPE_SERVER);
     }
 };
 

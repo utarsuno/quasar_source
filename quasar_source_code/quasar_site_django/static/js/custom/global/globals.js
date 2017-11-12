@@ -34,6 +34,7 @@ const TWO_PIE = Math.PI * 2.0;
 
 // Websocket message types.
 const WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|';
+const WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|';
 const WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|';
 const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
