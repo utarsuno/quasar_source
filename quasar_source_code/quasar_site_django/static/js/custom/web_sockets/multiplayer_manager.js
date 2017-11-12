@@ -74,8 +74,8 @@ ServerPlayer.prototype = {
         //l('Updating the look at to :')
         //l(look_at)
         var new_look_at = new THREE.Vector3(look_at.x * 2 + this.object3D.position.x, look_at.y * 2 + this.object3D.position.y, look_at.z * 2 + this.object3D.position.z);
-        this.object3D.lookAt(look_at);
-        this.player_title.update_look_at(look_at);
+        this.object3D.lookAt(new_look_at);
+        this.player_title.update_look_at(new_look_at);
     },
 
     get_id: function() {
