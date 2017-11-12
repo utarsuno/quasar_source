@@ -163,7 +163,7 @@ MultiPlayerManager.prototype = {
 
         //l('UPDATE THE PLAYER {' + player + '}')
 
-        if (server_player !== MANAGER_WORLD.player.player_name) {
+        if (server_player !== MANAGER_WORLD.player.get_username()) {
 
             var user_index = -1;
 
