@@ -135,12 +135,12 @@ MultiPlayerManager.prototype = {
         case WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS:
             var players_data = data.split('@');
             for (var p = 0; p < players_data.length; p++) {
-                var p_data = players_data[p].split(',');
+                var p_data = players_data[p].split('!');
                 var p_name = p_data[0];
                 var p_position = p_data[1];
                 var p_look_at = p_data[2];
-                
-                this.update_player(p_name, p_position, p_look_at);
+
+                this.update_player(p_name, this.get_vector_from_float_data(p_position), this.get_vector_from_float_data(p_look_at));
             }
 
             break;
