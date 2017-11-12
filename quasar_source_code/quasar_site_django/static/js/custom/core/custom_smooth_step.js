@@ -12,26 +12,11 @@ function clamp(x, lowerlimit, upperlimit) {
     return x;
 }
 
-function clamp_lower_limit_default_zero(x, upper_limit) {
-    if (x < 0) {
-        x = 0;
-    }
-    if (x > upper_limit) {
-        x = upper_limit;
-    }
-    return x;
-}
-
 // min, max, t
 function smoothstep(edge0, edge1, x) {
     // Scale, bias, and saturate x to 0....1 range
     x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
     // Evaluate the polynomial.
-    return x * x * (3 - 2 * x);
-}
-
-function smooth_step_lower_limit_default_zero(edge, x) {
-    x = clamp_lower_limit_default_zero(x / edge, 0.0, 1.0);
     return x * x * (3 - 2 * x);
 }
 
@@ -110,7 +95,25 @@ CustomSmoothStep.prototype = {
     get_current_value: function() {
         var value_instance = this.current_value;
         for (var x = 0; x < this.buffer.length; x++) {
-            value_instance += smooth_step_lower_limit_default_zero(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+            value_instance += smoothstep(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+        }
+        if (this.minimum_value !== null) {
+            if (value_instance < this.minimum_value) {
+                return this.minimum_value;
+            }
+        }
+        if (this.maximum_value !== null) {
+            if (value_instance > this.maximum_value) {
+                return this.maximum_value;
+            }
+        }
+        return value_instance;
+    },
+
+    get_full_value: function() {
+        var value_instance = this.current_value;
+        for (var x = 0; x < this.buffer.length; x++) {
+            value_instance += smoothstep(this.time_needed_for_each_force, this.time_needed_for_each_force) * this.buffer[x][0];
         }
         if (this.minimum_value !== null) {
             if (value_instance < this.minimum_value) {
@@ -124,5 +127,4 @@ CustomSmoothStep.prototype = {
         }
         return value_instance;
     }
-
 };

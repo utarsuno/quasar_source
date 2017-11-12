@@ -51,14 +51,33 @@ ServerPlayer.prototype = {
     },
 
     update_position: function(position) {
-        this.object3D.position.x = position.x;
-        this.object3D.position.y = position.y;
-        this.object3D.position.z = position.z;
+        var current_x_position = this.position_x_buffer.get_full_value();
+        var current_y_position = this.position_y_buffer.get_full_value();
+        var current_z_position = this.position_z_buffer.get_full_value();
 
-        this.position_x_buffer.add_force(this.position_x_buffer);
+        var delta_x = 0;
+        var delta_y = 0;
+        var delta_z = 0;
 
-        var p_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y + 10, this.object3D.position.z);
-        this.player_title.update_position(p_position);
+        if (current_x_position > position.x) {
+            delta_x = current_x_position - position.x;
+        } else if (current_x_position < position.x) {
+            delta_x = position.x - current_x_position;
+        }
+        if (current_y_position > position.y) {
+            delta_y = current_y_position - position.y;
+        } else if (current_y_position < position.y) {
+            delta_y = position.y - current_y_position;
+        }
+        if (current_z_position > position.z) {
+            delta_z = current_z_position - position.z;
+        } else if (current_z_position < position.z) {
+            delta_z = position.z - current_z_position;
+        }
+
+        this.position_x_buffer.add_force(delta_x);
+        this.position_y_buffer.add_force(delta_y);
+        this.position_z_buffer.add_force(delta_z);
     },
 
     update_look_at: function(look_at) {
@@ -101,7 +120,6 @@ MultiPlayerManager.prototype = {
     },
 
     perform_command: function(user, command, data) {
-
         l('THE COMMAND IS FROM USER {' + user + '}');
 
         switch(command) {
