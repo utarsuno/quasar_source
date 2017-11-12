@@ -129,7 +129,7 @@ MultiPlayerManager.prototype = {
     },
 
     perform_command: function(user, command, data) {
-        l('THE COMMAND IS FROM USER {' + user + '}');
+        //l('THE COMMAND IS FROM USER {' + user + '}');
 
         switch(command) {
         case WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS:
