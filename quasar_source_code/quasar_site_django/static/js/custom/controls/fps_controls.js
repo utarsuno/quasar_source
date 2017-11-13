@@ -312,7 +312,8 @@ FPSControls.prototype = {
         this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
 
         this.mouse_movement_y_buffer.clear_buffer();
-        this.mouse_movement_y_buffer.set_value(look_at_normal.y);
+        var y_angle = Math.atan2(look_at_normal.y, d.y);
+        this.mouse_movement_y_buffer.set_value(y_angle);
 
         l(look_at_normal.y);
 
