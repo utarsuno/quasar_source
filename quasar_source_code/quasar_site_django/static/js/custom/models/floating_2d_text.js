@@ -171,6 +171,11 @@ Floating2DText.prototype = {
     },
 
     state_change_engage: function(being_engaged_with) {
+
+        l(being_engaged_with);
+        l(MANAGER_WORLD.player.is_engaged());
+        l('@@@');
+
         if (being_engaged_with) {
             if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
                 MANAGER_WORLD.player.engage();
@@ -182,6 +187,9 @@ Floating2DText.prototype = {
         } else {
             MANAGER_WORLD.player.disengage();
         }
+
+        l(MANAGER_WORLD.player.is_engaged());
+        l('@@@');
     },
 
     get_text_length: function() {
