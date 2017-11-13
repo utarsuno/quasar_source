@@ -176,13 +176,16 @@ function World(planet_name) {
             this.tab_to_next_interactive_object();
             //event.preventDefault()
             event.stopPropagation();
+        } else if (this.currently_looked_at_object !== null) {
+            //this.currently_looked_at_object.parse_keycode(event);
         }
+
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
                 this.currently_looked_at_object.parse_keycode(event);
             }
         }
-        if (event.keyCode == KEY_CODE_E || event.keyCode === KEY_CODE_ENTER) {
+        if (event.keyCode === KEY_CODE_E || event.keyCode === KEY_CODE_ENTER) {
             if (this.currently_looked_at_object !== null) {
                 if (!this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.engage();
