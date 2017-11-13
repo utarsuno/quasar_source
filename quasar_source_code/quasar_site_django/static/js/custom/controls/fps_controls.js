@@ -312,7 +312,7 @@ FPSControls.prototype = {
         this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
 
         this.mouse_movement_y_buffer.clear_buffer();
-        this.mouse_movement_y_buffer.set_value(look_at_normal.y * HALF_PIE);
+        this.mouse_movement_y_buffer.set_value(look_at_normal.y);
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
@@ -325,7 +325,7 @@ FPSControls.prototype = {
         this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
 
         //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
-        this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.mouse_movement_y_buffer.get_current_value()));
+        this.pitch.rotation.x = Math.max(-0.999 * HALF_PIE, Math.min(HALF_PIE - 0.001, this.mouse_movement_y_buffer.get_current_value()));
 
         this.direction_vector = this.get_direction();
         this.direction_vector.normalize();
