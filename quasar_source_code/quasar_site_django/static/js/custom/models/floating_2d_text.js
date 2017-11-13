@@ -174,6 +174,8 @@ Floating2DText.prototype = {
         if (being_engaged_with) {
             if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
                 MANAGER_WORLD.player.engage();
+            } else {
+                MANAGER_WORLD.player.disengage();
             }
             //    this.being_engaged_with = false;
             //}
