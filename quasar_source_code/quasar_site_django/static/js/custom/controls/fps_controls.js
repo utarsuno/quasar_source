@@ -305,14 +305,14 @@ FPSControls.prototype = {
 
         var angle = Math.atan2(x_rotation.y, x_rotation.x);
 
-
-        this.mouse_movement_y_buffer.clear_buffer();
-        this.mouse_movement_y_buffer.set_value(look_at_normal.y);
-
+        // TODO : Fix this method!!
 
         var current_x_value = this.mouse_movement_x_buffer.get_current_value();
         this.mouse_movement_x_buffer.clear_buffer();
         this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
+
+        this.mouse_movement_y_buffer.clear_buffer();
+        this.mouse_movement_y_buffer.set_value(look_at_normal.y * HALF_PIE);
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
