@@ -127,9 +127,10 @@ function World(planet_name) {
                 this.currently_looked_at_object.look_away();
                 this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
                 this.currently_looked_at_object.look_at();
-                if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
-                    this.currently_looked_at_object.engage();
-                }
+
+                //if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
+                //    this.currently_looked_at_object.engage();
+                //}
             } else {
                 this.currently_looked_at_object.look_away();
                 this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
