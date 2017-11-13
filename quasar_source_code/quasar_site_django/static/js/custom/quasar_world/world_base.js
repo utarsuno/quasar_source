@@ -129,6 +129,8 @@ function World(planet_name) {
                 this.currently_looked_at_object.look_at();
                 if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
                     this.currently_looked_at_object.engage();
+                } else {
+                    MANAGER_WORLD.player.enable_controls();
                 }
             } else {
                 this.currently_looked_at_object.look_away();
