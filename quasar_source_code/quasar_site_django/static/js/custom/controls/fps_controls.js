@@ -315,6 +315,8 @@ FPSControls.prototype = {
         this.mouse_movement_y_buffer.set_value(look_at_normal.y);
 
         l(look_at_normal.y);
+        l(this.mouse_movement_y_buffer.get_current_value());
+        l(this.get_direction().y);
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
@@ -327,6 +329,7 @@ FPSControls.prototype = {
         this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
 
         //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
+        // TODO : Remove/change this line, the buffer will handle the min and max values
         this.pitch.rotation.x = Math.max(-0.999 * HALF_PIE, Math.min(HALF_PIE - 0.001, this.mouse_movement_y_buffer.get_current_value()));
 
         this.direction_vector = this.get_direction();
