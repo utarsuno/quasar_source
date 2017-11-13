@@ -107,6 +107,15 @@ def produce_quasar_minified_javascript_files():
     print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
 
 
+def produce_combined_javascript_production_file():
+	"""Produces a single Javascript file for production."""
+	all_javascript_files_path = '/Users/utarsuno/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/js/custom'
+	all_javascript_files = get_all_file_paths_inside_directory(all_javascript_files_path)
+	files_to_ignore = ['helvetiker_regular.typeface.json.js']
+
+	# TODO : This function at a later time.
+
+
 # Check if this file is being ran as a script.
 if __name__ == '__main__':
     color_print('Building Quasar Production', color='red', bold=True)
@@ -115,6 +124,4 @@ if __name__ == '__main__':
     #print('The arguments are : ' + str(arguments))
 
     produce_quasar_minified_javascript_files()
-
-
 

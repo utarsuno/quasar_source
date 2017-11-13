@@ -56,7 +56,6 @@ LoginWorld.prototype = {
             this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
-            this.player.disengage();
         }
     },
 
@@ -123,7 +122,6 @@ LoginWorld.prototype = {
             this.post_login.perform_post({'username': this.attempted_username, 'password': this.attempted_password}, this.login_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
-            this.player.disengage();
         }
     },
 
