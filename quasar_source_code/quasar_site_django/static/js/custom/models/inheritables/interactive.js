@@ -53,8 +53,8 @@ function Interactive() {
     };
 
     this.engage = function() {
-        this.being_engaged_with = true;
         if (this.engable) {
+            this.being_engaged_with = true;
             this.state_change_engage(true);
         }
         if (this.engage_function !== null) {
