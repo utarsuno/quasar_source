@@ -233,12 +233,6 @@ LoginWorld.prototype = {
 
     update: function() {
         this.update_interactive_objects();
-
-        this.apple += 1;
-        if (this.apple >= 100) {
-            l(this.login_button);
-            this.apple -= 100;
-        }
     },
 
     key_down_event: function(event) {
@@ -246,9 +240,6 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-
-        this.apple = 0;
-
         this.player.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
             this.player.enable_controls();
