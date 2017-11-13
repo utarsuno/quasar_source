@@ -172,9 +172,9 @@ Floating2DText.prototype = {
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            //if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
-            MANAGER_WORLD.player.engage();
-            //} else {
+            if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
+                MANAGER_WORLD.player.engage();
+            }
             //    this.being_engaged_with = false;
             //}
         } else {
