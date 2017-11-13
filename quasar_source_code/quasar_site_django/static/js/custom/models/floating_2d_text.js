@@ -100,7 +100,6 @@ Floating2DText.prototype = {
         switch (this.type) {
         case TYPE_BUTTON:
         case TYPE_CHECK_BOX:
-            this.needs_engage_for_parsing_input = false;
             this.maintain_engage_when_tabbed_to = false;
             this.default_color = COLOR_TEXT_BUTTON;
             break;
