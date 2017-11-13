@@ -235,9 +235,9 @@ LoginWorld.prototype = {
         this.update_interactive_objects();
 
         this.apple += 1;
-        if (this.apple >= 1000) {
+        if (this.apple >= 100) {
             l(this.login_button);
-            this.apple -= 1000;
+            this.apple -= 100;
         }
     },
 
