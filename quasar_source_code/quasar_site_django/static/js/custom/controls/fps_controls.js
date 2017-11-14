@@ -311,14 +311,10 @@ FPSControls.prototype = {
         //this.mouse_movement_x_buffer.clear_buffer();
         //this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
 
-        this.mouse_movement_x_buffer.add_force((-1.0 * (look_at_angle - angle)))
+        this.mouse_movement_x_buffer.add_force((-1.0 * (look_at_angle - angle)));
 
         this.mouse_movement_y_buffer.clear_buffer();
         this.mouse_movement_y_buffer.set_value(Math.asin(look_at_normal.y));
-
-        l(look_at_normal.y);
-        l(this.mouse_movement_y_buffer.get_current_value());
-        l(this.get_direction().y);
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
     },
