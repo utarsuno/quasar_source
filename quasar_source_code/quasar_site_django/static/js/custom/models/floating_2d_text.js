@@ -211,10 +211,10 @@ Floating2DText.prototype = {
         case TYPE_CHECK_BOX:
         case TYPE_BUTTON:
             // Render the text in the center.
-            this.dynamic_texture.clear().drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color);
+            this.dynamic_texture.clear('black').drawText(this.text, this.width - this.get_text_length() / 2, this.height + this.height / 2, color, 'black');
             break;
         default:
-            this.dynamic_texture.clear().drawText(this.text, 0, this.height, color);
+            this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, color);
         }
         this.dynamic_texture.needsUpdate = true;
     },
@@ -260,7 +260,7 @@ Floating2DText.prototype = {
         // TODO : try to make it a semi-transprent background instead (might help fix the visual bugs regarding seeing through walls)
 
         this.material.transparent = false;
-        this.material.color.setHex(COLOR_HEX_BLACK);
+        //this.material.color.setHex(COLOR_HEX_BLACK);
 
         //this.material.transparent = false
         //this.material.color.setHex(COLOR_HEX_BLACK)
