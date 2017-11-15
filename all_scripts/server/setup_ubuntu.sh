@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# NOTE : This file isn't actually meant to be run (yet), it's currently just a form of documentation.
+
 #------------------------------------------------------------------------
 
 # Downloads indexes of latest available packages specified in /etc/apt/sources.list
@@ -19,6 +21,21 @@ sudo apt-get -y full-upgrade;
 # Install Python3
 sudo apt-get install -y python3-pip;
 sudo apt-get install build-essential libssl-dev libffi-dev python3-dev;
+
+# Install Django
+sudo pip3 install django;
+
+# Needed for Django : install Channels.
+sudo pip3 install channels;
+
+# Needed to access the PostgreSQL database with Python.
+sudo -H pip3 install psyopg2;
+
+# Install Dill, used for Python object serialization.
+sudo -H pip3 install dill;
+
+# TODO : document, install asgi_redis.
+sudo -H pip3 install asgi_redis;
 
 #------------------------------------------------------------------------
 
@@ -52,3 +69,10 @@ sudo pip3 install lazyme
 ##
 sudo apt install npm
 sudo npm install -g bower
+
+
+
+
+# Redis server?
+# sudo apt-get install redis-server
+# sudo service redis-server

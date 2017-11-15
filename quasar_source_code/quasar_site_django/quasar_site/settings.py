@@ -32,7 +32,8 @@ SECRET_KEY = 'a7d%!f!40de-(=)kq!s_gl6qj0f$yjei%=$e503403_mv9k__d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quasarsource.com']
+# TODO : Remove http://67.163.24.150/ eventually (fix Route 53)
+ALLOWED_HOSTS = ['quasarsource.com', '67.163.24.150']
 
 
 # Application definition

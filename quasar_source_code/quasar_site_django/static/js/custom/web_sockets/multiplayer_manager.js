@@ -130,7 +130,6 @@ MultiPlayerManager.prototype = {
 
     perform_command: function(user, command, data) {
         //l('THE COMMAND IS FROM USER {' + user + '}');
-
         switch(command) {
         case WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS:
             var players_data = data.split('@');
@@ -166,9 +165,6 @@ MultiPlayerManager.prototype = {
     },
 
     update_player: function(server_player, position_update, look_at_update) {
-
-        //l('UPDATE THE PLAYER {' + player + '}')
-
         if (server_player !== MANAGER_WORLD.player.get_username()) {
 
             var user_index = -1;

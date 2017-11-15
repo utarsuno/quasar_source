@@ -9,4 +9,5 @@ nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
 nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
 nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
 
-ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port}
+ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/django/ ; bash"
+

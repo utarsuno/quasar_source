@@ -91,7 +91,6 @@ Floating3DText.prototype = {
         }
     },
 
-
     update_just_color: function(color_arg) {
         this.material.color.setHex(color_arg);
         this.material.needsUpdate = true;
