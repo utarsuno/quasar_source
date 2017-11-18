@@ -5,10 +5,15 @@ from quasar_source_code.entities.database import entity_database as e_db
 
 db = e_db.EntityDatabaseAPI(debug=True)
 
-print('Printing data :\n')
 
 #db._owners.delete_row_with_value('name', 'cccc')
 
+print('Printing managers :\n')
+managers = db.get_all_managers()
+for m in managers:
+	print(m)
+
+print('\nPrinting owners :\n')
 owners = db.get_all_owners()
 for e in owners:
 	print(e)
