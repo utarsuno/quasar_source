@@ -148,10 +148,9 @@ class EntityDatabaseAPI(object):
 	def get_entity_manager(self, manager_id=-1):
 		"""Returns the Entity Manager from the database by id, returns None if not found."""
 		# TODO : Make this a single query...
-
-		print('Trying to get entity manager with the following ID{' + str(manager_id) + '}')
-
 		results = self._entity_managers.get_row_values()
+		print('Trying to get entity manager with the following ID{' + str(manager_id) + '} out of [' + str(len(results)) + '] ids.')
+
 		for em in results:
 			#print(str(em) + '\t\t' + str(manager_id))
 
