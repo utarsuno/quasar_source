@@ -66,6 +66,7 @@ EntityWall.prototype = {
 
         this.world.remove_from_interactive_then_scene(this.title);
         this.world.remove_from_interactive_then_scene(this.create_entity_button);
+        this.world.remove_from_interactive_then_scene(this.make_entity_wall_public_button);
         this.world.remove_from_interactive_then_scene(this.delete_entity_wall_button);
         
         this.are_you_sure.remove_from_scene();
@@ -291,6 +292,7 @@ EntityWall.prototype = {
 
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
+        this.world.interactive_objects.push(this.make_entity_wall_public_button);
         this.world.interactive_objects.push(this.delete_entity_wall_button);
 
         // TODO : Change the design so this for loop isn't needed.
@@ -301,7 +303,8 @@ EntityWall.prototype = {
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button);
-        this.create_entity_button.set_next_tab_target(this.delete_entity_wall_button);
+        this.create_entity_button.set_next_tab_target(this.make_entity_wall_public_button);
+        this.make_entity_wall_public_button.set_next_tab_target(this.delete_entity_wall_button);
         this.delete_entity_wall_button.set_next_tab_target(this.title);
 
         this.object3D.add(this.wall.mesh);
