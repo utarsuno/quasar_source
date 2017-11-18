@@ -17,8 +17,11 @@ for e in owners:
 		print('No manager found!')
 	else:
 		entities = manager.get_all_entities()
+		print('---')
 		for ee in entities:
-			print(ee)
+			#print(ee)
+			ee.print_info()
+			print('---')
 	print('-----------------------------------')
 
 #db._full_reset()

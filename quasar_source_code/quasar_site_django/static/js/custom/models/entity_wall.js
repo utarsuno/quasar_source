@@ -23,7 +23,7 @@ EntityWall.prototype = {
 
     self_entity: null,
 
-    send_changes_to_server: function() {
+    create_self_wall_entity: function() {
         // TODO : Give player ability to move the wall.
 
         // This save data is for the Wall entity.
@@ -41,8 +41,6 @@ EntityWall.prototype = {
             // The wall entity already exists so simply update the values and then send the new values to the server.
             this.self_entity.update_values(save_data);
         }
-
-        MANAGER_ENTITY.update_server_and_database();
     },
 
     get_wall_entity: function() {
@@ -70,7 +68,6 @@ EntityWall.prototype = {
 
         this.world.remove_from_interactive_then_scene(this.title);
         this.world.remove_from_interactive_then_scene(this.create_entity_button);
-        this.world.remove_from_interactive_then_scene(this.save_changes_button);
         this.world.remove_from_interactive_then_scene(this.delete_entity_wall_button);
         
         this.are_you_sure.remove_from_scene();
@@ -252,12 +249,6 @@ EntityWall.prototype = {
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
         //
 
-        // Entity wall save changes button.
-        this.save_changes_button = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.world.scene);
-        this.save_changes_button.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1));
-        this.save_changes_button.set_engage_function(this.send_changes_to_server.bind(this));
-        //
-
         /* ___      ___   ___    ___  __             __  ___     __     __   __
           |__  |\ |  |  |  |  | |__  /__`    |    | /__`  |     |  \ | /__` |__) |     /\  \ /    .
           |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
@@ -303,7 +294,6 @@ EntityWall.prototype = {
 
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
-        this.world.interactive_objects.push(this.save_changes_button);
         this.world.interactive_objects.push(this.delete_entity_wall_button);
 
         // TODO : Change the design so this for loop isn't needed.
@@ -314,8 +304,7 @@ EntityWall.prototype = {
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button);
-        this.create_entity_button.set_next_tab_target(this.save_changes_button);
-        this.save_changes_button.set_next_tab_target(this.delete_entity_wall_button);
+        this.create_entity_button.set_next_tab_target(this.delete_entity_wall_button);
         this.delete_entity_wall_button.set_next_tab_target(this.title);
 
         this.object3D.add(this.wall.mesh);
@@ -324,12 +313,14 @@ EntityWall.prototype = {
 
         this.floating_row_to_entity_list = [];
 
-        // TODO : Eventually move the location of this call. The save is done so entities can be created right away with a valid this.self_entity object to work with.
-        //this.send_changes_to_server()
+        this.create_self_wall_entity();
     },
 
     update_title: function(title) {
         this.title.update_text(title);
+        var save_data = {};
+        save_data.ENTITY_PROPERTY_NAME = this.title.get_text();
+        this.self_entity.update_values(save_data);
     },
 
     add_entity: function(entity) {

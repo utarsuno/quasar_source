@@ -13,7 +13,7 @@ Message.prototype = {
         this.text = text;
         this.created_time = created_time;
     }
-}
+};
 
 const MESSAGE_TYPE_PLAYER_CHAT = 3;
 const MESSAGE_TYPE_SERVER      = 2;
@@ -163,6 +163,15 @@ TypingInterface.prototype = {
         var current_input = this.input_text.get_text();
         if (current_input.length > 0) {
             //this.add_message(current_input, MESSAGE_TYPE_USER);
+
+            if (current_input[0] === '.') {
+                switch(current_input) {
+                case '.save':
+                    this.add_server_message('Saving changes to the server!');
+                    MANAGER_ENTITY.update_server_and_database();
+                    break;
+                }
+            }
 
             MANAGER_WORLD.player.send_chat_message(current_input);
 
