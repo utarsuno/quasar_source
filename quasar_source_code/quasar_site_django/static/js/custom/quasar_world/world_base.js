@@ -26,20 +26,20 @@ function World(planet_name) {
         }
     };
 
-    this.remove_from_interactive_then_scene = function(world_object, object_to_remove) {
+    this.remove_from_interactive_then_scene = function(object_to_remove) {
         // First remove the interactive.
         var index_to_remove = -1;
-        for (var i = 0; i < world_object.interactive_objects.length; i++) {
-            if (world_object.interactive_objects[i] === object_to_remove) {
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i] === object_to_remove) {
                 index_to_remove = i;
                 break;
             }
         }
         if (index_to_remove !== -1) {
-            world_object.interactive_objects.splice(index_to_remove, 1);
+            this.interactive_objects.splice(index_to_remove, 1);
         }
         // Next remove the object from the scene.
-        world_object.remove_from_scene(object_to_remove.object3D);
+        this.remove_from_scene(object_to_remove.object3D);
     };
 
     this.set_player =  function(player) {

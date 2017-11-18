@@ -73,10 +73,10 @@ EntityWall.prototype = {
         //this.world.remove_from_scene(this.interactive_objects[i].object3D)
         //}
 
-        this.world.remove_from_interactive_then_scene(this.world, this.title);
-        this.world.remove_from_interactive_then_scene(this.world, this.create_entity_button);
-        this.world.remove_from_interactive_then_scene(this.world, this.save_changes_button);
-        this.world.remove_from_interactive_then_scene(this.world, this.delete_entity_wall_button);
+        this.world.remove_from_interactive_then_scene(this.title);
+        this.world.remove_from_interactive_then_scene(this.create_entity_button);
+        this.world.remove_from_interactive_then_scene(this.save_changes_button);
+        this.world.remove_from_interactive_then_scene(this.delete_entity_wall_button);
         
         this.are_you_sure.remove_from_scene();
         this.entities_display_wall.remove_from_scene();
