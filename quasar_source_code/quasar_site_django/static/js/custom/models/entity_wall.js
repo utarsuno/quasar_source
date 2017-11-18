@@ -1,7 +1,7 @@
 'use strict';
 
-function EntityWall(position, look_at, world) {
-    this.__init__(position, look_at, world);
+function EntityWall(position, world, entity) {
+    this.__init__(position, world, entity);
 }
 
 EntityWall.prototype = {
@@ -211,7 +211,7 @@ EntityWall.prototype = {
         l(entity);
     },
 
-    __init__: function(position, world) {
+    __init__: function(position, world, entity) {
         this.current_entity_editor = null;
 
         this.position = position;
@@ -313,7 +313,11 @@ EntityWall.prototype = {
 
         this.floating_row_to_entity_list = [];
 
-        this.create_self_wall_entity();
+        if (is_defined(entity)) {
+            this.self_entity = entity;
+        } else {
+            this.create_self_wall_entity();
+        }
     },
 
     update_title: function(title) {

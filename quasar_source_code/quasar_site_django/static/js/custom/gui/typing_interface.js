@@ -171,9 +171,9 @@ TypingInterface.prototype = {
                     MANAGER_ENTITY.update_server_and_database();
                     break;
                 }
+            } else {
+                MANAGER_WORLD.player.send_chat_message(current_input);
             }
-
-            MANAGER_WORLD.player.send_chat_message(current_input);
 
             // TODO : Add basic commands like save and help
             // This will be the response for unknown commands.

@@ -37,7 +37,7 @@ HomeWorld.prototype = {
     },
 
     create_entity_wall: function(position, wall_text, entity) {
-        var entity_wall = new EntityWall(position, this);
+        var entity_wall = new EntityWall(position, this, entity);
         entity_wall.update_title(wall_text);
         if (is_defined(entity)) {
             entity_wall.set_entity(entity);
