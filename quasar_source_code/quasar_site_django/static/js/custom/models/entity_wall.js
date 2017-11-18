@@ -70,10 +70,15 @@ EntityWall.prototype = {
 
         // TODO : OOOPS! This method is now broken. Make sure to fix it!
         //for (var i = 0; i < this.interactive_objects.length; i++) {
-            //this.world.remove_from_scene(this.interactive_objects[i].object3D)
+        //this.world.remove_from_scene(this.interactive_objects[i].object3D)
         //}
+        
         this.world.remove_from_scene(this.object3D);
 
+        this.world.remove_from_scene(this.title.object3D);
+        this.world.remove_from_scene(this.create_entity_button.object3D);
+        this.world.remove_from_scene(this.save_changes_button.object3D);
+        
         this.are_you_sure.remove_from_scene();
         this.entities_display_wall.remove_from_scene();
         this.create_entity_wall.remove_from_scene();
@@ -252,9 +257,9 @@ EntityWall.prototype = {
         //
 
         // Entity wall save changes button.
-        this.save_changes = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.world.scene);
-        this.save_changes.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1));
-        this.save_changes.set_engage_function(this.send_changes_to_server.bind(this));
+        this.save_changes_button = new Floating2DText(this.width, 'Save Changes', TYPE_BUTTON, this.world.scene);
+        this.save_changes_button.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(2), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(2), 0, 1));
+        this.save_changes_button.set_engage_function(this.send_changes_to_server.bind(this));
         //
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
@@ -302,7 +307,7 @@ EntityWall.prototype = {
 
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
-        this.world.interactive_objects.push(this.save_changes);
+        this.world.interactive_objects.push(this.save_changes_button);
         this.world.interactive_objects.push(this.delete_entity_wall);
 
         // TODO : Change the design so this for loop isn't needed.
@@ -313,8 +318,8 @@ EntityWall.prototype = {
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button);
-        this.create_entity_button.set_next_tab_target(this.save_changes);
-        this.save_changes.set_next_tab_target(this.delete_entity_wall);
+        this.create_entity_button.set_next_tab_target(this.save_changes_button);
+        this.save_changes_button.set_next_tab_target(this.delete_entity_wall);
         this.delete_entity_wall.set_next_tab_target(this.title);
 
         this.object3D.add(this.wall.mesh);

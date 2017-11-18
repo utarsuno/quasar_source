@@ -32,6 +32,7 @@ class QuasarServer(object):
 		threading.Timer(.5, self.run_server).start()
 '''
 
+# TODO : Move this
 server = QuasarPlayerServer()
 
 WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|'
