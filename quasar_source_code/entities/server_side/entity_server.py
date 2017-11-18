@@ -202,6 +202,9 @@ class EntityServer(object):
 
 			print('Looking at owner{' + str(owner_name) + '}')
 
+			print('Owners are : ')
+			print(self._owners)
+
 			for o in self._owners:
 				if o[INDEX_OWNER_NAME] == owner_name:
 					manager = self._db_api.get_entity_manager(manager_id=int(o[INDEX_OWNER_MANAGER_ID]))
