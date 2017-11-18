@@ -68,11 +68,6 @@ EntityWall.prototype = {
         // All child entities will be automatically deleted (if they don't have any other parent entity objects).
         MANAGER_ENTITY.delete_entity(this.self_entity);
 
-        // TODO : OOOPS! This method is now broken. Make sure to fix it!
-        //for (var i = 0; i < this.interactive_objects.length; i++) {
-        //this.world.remove_from_scene(this.interactive_objects[i].object3D)
-        //}
-
         this.world.remove_from_interactive_then_scene(this.title);
         this.world.remove_from_interactive_then_scene(this.create_entity_button);
         this.world.remove_from_interactive_then_scene(this.save_changes_button);
@@ -81,6 +76,8 @@ EntityWall.prototype = {
         this.are_you_sure.remove_from_scene();
         this.entities_display_wall.remove_from_scene();
         this.create_entity_wall.remove_from_scene();
+
+        this.world.remove_from_scene(this.object3D);
         // TODO : make sure all resources are freed up (ex. THREE js calls to .dispose())
     },
 
