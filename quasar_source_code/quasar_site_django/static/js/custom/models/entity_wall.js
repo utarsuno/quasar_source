@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 function EntityWall(position, look_at, world) {
-    this.__init__(position, look_at, world)
+    this.__init__(position, look_at, world);
 }
 
 EntityWall.prototype = {
@@ -72,12 +72,11 @@ EntityWall.prototype = {
         //for (var i = 0; i < this.interactive_objects.length; i++) {
         //this.world.remove_from_scene(this.interactive_objects[i].object3D)
         //}
-        
-        this.world.remove_from_scene(this.object3D);
 
-        this.world.remove_from_scene(this.title.object3D);
-        this.world.remove_from_scene(this.create_entity_button.object3D);
-        this.world.remove_from_scene(this.save_changes_button.object3D);
+        this.world.remove_from_interactive_then_scene(this.world, this.title);
+        this.world.remove_from_interactive_then_scene(this.world, this.create_entity_button);
+        this.world.remove_from_interactive_then_scene(this.world, this.save_changes_button);
+        this.world.remove_from_interactive_then_scene(this.world, this.delete_entity_wall_button);
         
         this.are_you_sure.remove_from_scene();
         this.entities_display_wall.remove_from_scene();
@@ -272,14 +271,13 @@ EntityWall.prototype = {
         this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
 
         // Delete entity wall button.
-        this.delete_entity_wall = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene);
-        this.delete_entity_wall.set_default_color(COLOR_TEXT_RED);
-        this.delete_entity_wall.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
-        this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this));
+        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene);
+        this.delete_entity_wall_button.set_default_color(COLOR_TEXT_RED);
+        this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
+        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
         /////
 
-        // TODO : Place in the Create Entity here.
-        this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), this.create_entity_button.get_position(), this.normal, 512 / 2, (ENTITY_TYPE_ALL.length + 4) * 16);
+        this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), this.create_entity_button.get_position().addScaledVector(this.normal, 3), this.normal, 512 / 2, (ENTITY_TYPE_ALL.length + 4) * 16);
         //this.create_entity_wall.set_to_invisible()
 
         /*      __   ___         __           __        __   ___     __   __   __         __  ___
@@ -308,7 +306,7 @@ EntityWall.prototype = {
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
         this.world.interactive_objects.push(this.save_changes_button);
-        this.world.interactive_objects.push(this.delete_entity_wall);
+        this.world.interactive_objects.push(this.delete_entity_wall_button);
 
         // TODO : Change the design so this for loop isn't needed.
         var extra_interactives = this.are_you_sure.get_all_interactive_objects();
@@ -319,8 +317,8 @@ EntityWall.prototype = {
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button);
         this.create_entity_button.set_next_tab_target(this.save_changes_button);
-        this.save_changes_button.set_next_tab_target(this.delete_entity_wall);
-        this.delete_entity_wall.set_next_tab_target(this.title);
+        this.save_changes_button.set_next_tab_target(this.delete_entity_wall_button);
+        this.delete_entity_wall_button.set_next_tab_target(this.title);
 
         this.object3D.add(this.wall.mesh);
 
@@ -383,4 +381,4 @@ EntityWall.prototype = {
         return la;
     }
 
-}
+};
