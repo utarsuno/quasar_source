@@ -145,7 +145,8 @@ EntityWall.prototype = {
         // TODO : only close if the POST call finished successfully
 
         // TODO : IMPORTANT! DELETE IT instead of making it invisible.
-        this.current_entity_editor.set_to_invisible();
+        //this.current_entity_editor.set_to_invisible();
+        this.current_entity_editor.remove_from_scene();
     },
 
     edit_entity_pressed: function() {
