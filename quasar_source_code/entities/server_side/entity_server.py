@@ -199,6 +199,9 @@ class EntityServer(object):
 		"""Loads an entity_manager through the reference of an owner name."""
 		self._owners = self._db_api.get_all_owners()
 		if owner_name not in self._managers:
+
+			print('Looking at owner{' + str(owner_name) + '}')
+
 			for o in self._owners:
 				if o[INDEX_OWNER_NAME] == owner_name:
 					manager = self._db_api.get_entity_manager(manager_id=int(o[INDEX_OWNER_MANAGER_ID]))
