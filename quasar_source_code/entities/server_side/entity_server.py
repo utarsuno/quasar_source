@@ -206,6 +206,24 @@ class EntityServer(object):
 					#print('Manager is : ' + str(manager))
 					self._managers[owner_name] = manager
 
+	def get_all_public_entities(self):
+		"""Gets all public entities."""
+		# TODO : Make this way more efficient in the future!!!
+		self._owners = self._db_api.get_all_owners()
+
+		public_entities = {}
+
+		for o in self._owners:
+			manager = self._db_api.get_entity_manager(manager_id=int(o[INDEX_OWNER_MANAGER_ID]))
+			entities = manager.get_all_entities()
+			for e in entities:
+				if e.is_public_entity():
+					public_entities[int(e.relative_id) + 1000] = e.get_json_data()
+
+		if len(public_entities) > 0:
+			return JsonResponse(public_entities)
+		return SERVER_REPLY_GENERIC_NO
+
 	def load_all_entities(self, username, password):
 		"""Gets all entities for the username provided."""
 		if self.is_valid_login_info(username, password):

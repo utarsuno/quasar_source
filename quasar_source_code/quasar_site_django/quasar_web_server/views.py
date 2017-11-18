@@ -231,6 +231,13 @@ def POST_load_all_entities(request):
 
 
 @csrf_exempt
+def POST_load_all_public_entities(request):
+	"""Handles the POST request to load all entities."""
+	global entity_server
+	return entity_server.get_all_public_entities()
+
+
+@csrf_exempt
 def POST_get_entities_for_day(request):
 	"""Handles the POST request to get entities for a given day of a given owner."""
 	post_errors = check_POST_arguments(['day', USERNAME], request)

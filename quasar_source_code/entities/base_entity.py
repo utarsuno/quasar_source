@@ -26,6 +26,14 @@ class Entity(object):
 
 		self._class_name      = ENTITY
 
+	def is_public_entity(self) -> bool:
+		"""Returns a boolean indicating if this entity is a public entity or not."""
+		for key in self._information:
+			if key == 'public':
+				if self._information[key] == 'true':
+					return True
+		return False
+
 	def get_additional_json_data(self) -> dict:
 		"""To be implemented by child classes."""
 		return {}
