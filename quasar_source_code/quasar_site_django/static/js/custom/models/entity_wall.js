@@ -52,8 +52,6 @@ EntityWall.prototype = {
 
     set_entity: function(entity) {
         this.self_entity = entity;
-        l('The entity wall {' + this.title.get_text() + '} has the following self entity :');
-        l(this.self_entity);
     },
 
     delete_entity_wall_pressed: function() {
@@ -87,16 +85,7 @@ EntityWall.prototype = {
     },
 
     entity_editor_close_button_pressed: function() {
-        //this.current_entity_editor
-        l('CLOSE THE ENTITY EDITOR!');
-
-        // TODO : Eventually remove all aspects of the entity editor!!!
-        // Super lazy solution for now is to make it invisible.
-        this.current_entity_editor.set_to_invisible();
-
-        //var index_of_editor = this.world.interactive_objects.indexOf(this.current_entity_editor)
-        //this.world.interactive_objects.slice(index_of_editor, 1)
-        //this.current_entity_editor.remove_from_scene()
+        this.current_entity_editor.remove_from_scene();
     },
 
     entity_editor_save_changes_button_pressed: function() {
@@ -144,8 +133,6 @@ EntityWall.prototype = {
         MANAGER_ENTITY.update_server_and_database();
         // TODO : only close if the POST call finished successfully
 
-        // TODO : IMPORTANT! DELETE IT instead of making it invisible.
-        //this.current_entity_editor.set_to_invisible();
         this.current_entity_editor.remove_from_scene();
     },
 
@@ -158,13 +145,8 @@ EntityWall.prototype = {
                 var current_entity = this.floating_row_to_entity_list[i][1];
                 l(current_entity);
 
-                //var y_offset = -(i) * (16 + 2)
                 var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z);
                 position.addScaledVector(this.normal, 10);
-                //var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset)
-
-                l('Position to create the entity editor at :');
-                l(position);
 
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties());
 
@@ -210,6 +192,13 @@ EntityWall.prototype = {
     entity_was_created: function(entity) {
         l('The following entity was just created!');
         l(entity);
+    },
+
+    make_entity_wall_public_button_pressed: function() {
+        var save_data = {};
+        save_data.public = 'true';
+        save_data.owner = MANAGER_WORLD.player.get_username();
+        this.self_entity.update_values(save_data);
     },
 
     __init__: function(position, world, entity) {
@@ -264,6 +253,13 @@ EntityWall.prototype = {
         this.delete_entity_wall_button.set_default_color(COLOR_TEXT_RED);
         this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
+        /////
+
+        // Make entity wall public button.
+        this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
+        this.make_entity_wall_public_button.set_default_color(COLOR_TEXT_BUTTON);
+        this.make_entity_wall_public_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height * 2 - this.height, 0, 1));
+        this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
         /////
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);

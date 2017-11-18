@@ -108,7 +108,7 @@ SettingsWorld.prototype = {
 
         var position = new THREE.Vector3(500, 500, 700);
         this.normal = new THREE.Vector3(-.5, 0, -.85);
-        this.normal.normalize()
+        this.normal.normalize();
         this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this);
 
         var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Profile Information', TYPE_TITLE, 1024 / -4, 2, 0, 0);

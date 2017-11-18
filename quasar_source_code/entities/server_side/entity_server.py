@@ -147,6 +147,15 @@ class EntityServer(object):
 
 			self._db_api.save_entity_manager(entity_manager)
 
+		#   save_data.public = 'true';
+        #   save_data.owner = MANAGER_WORLD.player.get_username();
+
+		# TODO : Finish making this, this will enable public walls to appear instantly the second they are created. As opposed to only next login.
+		# Check if a public entity wall was just saved.
+		#for key in data_dictionary:
+		#	if key == ENTITY_PROPERTY_TYPE:
+		#		if data_dictionary[key] == 'EntityWall':
+
 	def _update_owners(self):
 		"""Updates the owners list."""
 		self._owners = self._db_api.get_all_owners()

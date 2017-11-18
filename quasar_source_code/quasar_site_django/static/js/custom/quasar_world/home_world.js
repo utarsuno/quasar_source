@@ -27,13 +27,12 @@ HomeWorld.prototype = {
 
     //remove_entity: function()
 
+    create_entity_wall_command_entered: function() {
+        this.create_entity_wall(this.player.get_position(), 'Default');
+    },
+
     key_down_event: function(event) {
         this.key_down_event_for_interactive_objects(event);
-        if (!this.player.is_engaged()) {
-            if (event.keyCode === KEY_CODE_9) {
-                this.create_entity_wall(this.player.get_position(), 'Default');
-            }
-        }
     },
 
     create_entity_wall: function(position, wall_text, entity) {
