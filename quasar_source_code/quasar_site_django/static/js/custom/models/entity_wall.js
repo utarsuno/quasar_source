@@ -199,6 +199,9 @@ EntityWall.prototype = {
         var save_data = {};
         save_data.public = 'true';
         save_data.owner = MANAGER_WORLD.player.get_username();
+
+        // TODO : Make all the individual entities get the same attributes as well.
+
         this.self_entity.update_values(save_data);
     },
 
