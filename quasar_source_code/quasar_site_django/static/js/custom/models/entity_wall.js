@@ -23,7 +23,7 @@ EntityWall.prototype = {
 
     self_entity: null,
 
-    create_self_wall_entity: function() {
+    create_or_update_self_wall_entity: function() {
         // TODO : Give player ability to move the wall.
 
         // This save data is for the Wall entity.
@@ -316,7 +316,7 @@ EntityWall.prototype = {
         if (is_defined(entity)) {
             this.self_entity = entity;
         } else {
-            this.create_self_wall_entity();
+            this.create_or_update_self_wall_entity();
         }
     },
 

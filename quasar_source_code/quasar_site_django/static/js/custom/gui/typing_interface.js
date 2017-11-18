@@ -168,6 +168,11 @@ TypingInterface.prototype = {
                 switch(current_input) {
                 case '.save':
                     this.add_server_message('Saving changes to the server!');
+
+                    // If the player is in the home world then update all the EntityWalls first.
+                    // TODO : do a check! Since the player might be saving settings changes.
+                    this.update_all_home_world_entity_walls();
+
                     MANAGER_ENTITY.update_server_and_database();
                     break;
                 }
@@ -183,17 +188,12 @@ TypingInterface.prototype = {
 
     add_server_message: function(server_message) {
         this.add_message('server : ' + server_message, MESSAGE_TYPE_SERVER);
+    },
+
+    update_all_home_world_entity_walls: function() {
+        var entity_walls = MANAGER_WORLD.world_home.entity_walls;
+        for (var i = 0; i < entity_walls.length; i++) {
+            entity_walls[i].create_or_update_self_wall_entity();
+        }
     }
 };
-
-/*
-        var current_milliseconds = new Date().getTime()
-
-        for (var i = this.key_down_buffer.length; i--;) {
-            if (current_milliseconds - this.key_down_buffer[i] >= 300) {
-                this.key_down_buffer.splice(i, 1)
-            }
-        }
-
-        this.key_down_buffer.push(current_milliseconds)
- */
