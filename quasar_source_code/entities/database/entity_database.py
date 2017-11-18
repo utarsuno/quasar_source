@@ -156,9 +156,17 @@ class EntityDatabaseAPI(object):
 			#print(str(em) + '\t\t' + str(manager_id))
 
 			print(str(em[0]) + '\t' + str(manager_id) + '\t' + str(em[0] == manager_id))
-			
+
 			if em[0] == manager_id:
-				return dill.loads(em[1].tobytes())
+				d = None
+				try:
+					d = dill.loads(em[1].tobytes())
+				except Exception as e:
+					print('ERROR READING DILL DATA!!!')
+					print(e)
+					print()
+				return d
+
 		#self._api.execute_query('SET CLIENT_ENCODING TO LATIN1', save=True)
 		#result = self._entity_managers.get_single_value('manager', 'manager_id', manager_id)
 		#if result is not None:

@@ -29,6 +29,9 @@ for e in owners:
 			print('---')
 	print('-----------------------------------')
 
+a = db.get_entity_manager(2)
+print(a)
+
 db.terminate()
 
 #print(e._api.execute_query_and_get_all_results('SELECT * FROM entity_managers'))
