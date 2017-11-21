@@ -4,9 +4,9 @@
 
 # Needed for running unit tests.
 import unittest
-# Modules needed for testing.
-from quasar_source_code.database_api import database_tables as db_tables
+
 from quasar_source_code.database_api import postgresql_api as db_api
+from quasar_source_code.database_api.sql_databases import database_tables as db_tables
 
 
 class DatabaseTablesTestSuite(unittest.TestCase):

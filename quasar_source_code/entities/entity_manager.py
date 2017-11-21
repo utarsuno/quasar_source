@@ -18,7 +18,7 @@ class EntityManager(object):
 		"""Does what the function name states c:."""
 		for c in entity.children:
 			# Remove this child's reference of this entity as a parent. This will automatically remove the entity provided child links as well.
-			c.remove_parent(self)
+			c.remove_parents(self)
 
 			# TODO : Eventually check for external references as well.
 			# If the child entity has no more parents then remove it.
@@ -30,13 +30,6 @@ class EntityManager(object):
 		if entity in self.entities:
 			self.delete_all_children_of_entity_that_do_not_have_other_parents(entity)
 			self.entities.remove(entity)
-
-	def remove_entity_by_id(self, entity_id):
-		"""Removes the entity provided."""
-		# Make sure to remove parent.child references as needed.
-		# TODO :
-		print('IS THIS BEING CALLED FROM SOMEWHERE?')
-		y = 2
 
 	@property
 	def manager_id(self) -> int:
@@ -82,47 +75,6 @@ class EntityManager(object):
 				self.entities.append(_e)
 		else:
 			self.entities.append(e)
-
-	def print_information_for_specific_day(self, day_obj):
-		"""Prints information relevant to the specific day passed in."""
-		print('Printing information for ' + ta.Day(ta.get_day_of_the_week_number_from_datetime(day_obj)).name + ' : ' + str(day_obj))
-
-		for e in self.entities:
-			data = e.get_all_information_relevant_for_date(day_obj)
-			for d in data:
-				print(d)
-
-	def get_information_for_specific_day(self, date_object):
-		"""Testing this function out"""
-		print('Getting information for this date: ' + str(date_object))
-
-		all_data = []
-		for e in self.entities:
-			data = e.get_all_information_relevant_for_date(date_object)
-			for d in data:
-				all_data.append(d)
-		return all_data
-
-	def print_information_for_this_week(self):
-		"""Prints all information relevant to this week."""
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.MONDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.TUESDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.WEDNESDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.THURSDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.FRIDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.SATURDAY))
-		print()
-		self.print_information_for_specific_day(ta.get_day_object_from_current_weeks_day(ta.Day.SUNDAY))
-		print()
-
-	def print_information_by_entities(self):
-		"""Prints information sorted by entities."""
-		y = 2 # TODO : This function
 
 	def __str__(self):
 		return 'EntityManager - owner_id{' + str(self._owner_id) + '}, manager_id{' + str(self.manager_id) + '}, entities{' + str(self.entities) + '}'

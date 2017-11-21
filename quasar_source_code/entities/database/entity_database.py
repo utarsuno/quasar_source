@@ -2,18 +2,15 @@
 
 """This module, entity_database.py, contains a database api layer for entity objects."""
 
-from quasar_source_code.database_api import postgresql_api as db_api
-from quasar_source_code.database_api import database_tables as db_t
-from quasar_source_code.entities import base_entity as be
-from quasar_source_code.universal_code import debugging as dbg
-from quasar_source_code.entities.entity_manager import EntityManager
-
-from quasar_source_code.universal_code import time_abstraction as ta
-
-# Python PostgreSQL database library.
-import psycopg2
-# Python objects to binary data.
 import dill
+import psycopg2
+
+from quasar_source_code.database_api import postgresql_api as db_api
+from quasar_source_code.database_api.sql_databases import database_tables as db_t
+from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities.entity_manager import EntityManager
+from quasar_source_code.universal_code import debugging as dbg
+from quasar_source_code.universal_code import time_abstraction as ta
 
 '''  __       ___       __        __   ___          __
 	|  \  /\   |   /\  |__)  /\  /__` |__      /\  |__) |    .
@@ -44,13 +41,11 @@ class EntityDatabaseAPI(object):
 		self._owners.add_table_field(db_t.TableFieldInteger('owner_id', maximum_value=1000000, auto_increment=True))
 		self._owners.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=True))
 
-		# TODO : decide if the additional fields should stay in the Owner Entity or if should be placed into the Owner database table.
-		#self._owners.add_table_field(db_t.TableFieldString('phone_number', maximum_length=15, default=None))
-
 		# Table containing entity_managers which contain entities.
 		self._entity_managers = db_t.DatabaseTable('entity_managers', self._api)
 		self._entity_managers.add_table_field(db_t.TableFieldInteger('manager_id', maximum_value=1000000, auto_increment=False))
-		self._entity_managers.add_table_field(db_t.TableFieldBinary('manager'))
+		#self._entity_managers.add_table_field(db_t.TableFieldBinary('manager'))
+		self._entity_managers.add_table_field(db_t.TableFieldJSON('manager_data'))
 
 		# TODO : Eventually move the location of the health checks call.
 		self.health_checks()

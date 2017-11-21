@@ -113,7 +113,8 @@ class EntityServer(object):
 			entity_id   = data_dictionary[ENTITY_PROPERTY_ID]
 			entity_type = data_dictionary[ENTITY_PROPERTY_TYPE]
 
-			new_entity = be.Entity(entity_name)
+			new_entity = be.Entity()
+			new_entity.add_information('name', entity_name)
 			new_entity.set_relative_id(entity_id)
 			new_entity.set_entity_type(entity_type)
 

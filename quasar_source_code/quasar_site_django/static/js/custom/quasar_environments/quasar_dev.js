@@ -55,10 +55,11 @@ var animate = function () {
     player.update(delta);
     MANAGER_WORLD.update_current_scene();
 
-    // TODO !!!! : Updates should only be sent if the player position and/or look_at has changed.
     total_delta += delta;
     if (total_delta >= position_update_interval) {
-        player.try_to_send_position_update_to_server();
+        if (MANAGER_MULTIPLAYER.players.length > 1) {
+            player.try_to_send_position_update_to_server();
+        }
         total_delta -= position_update_interval;
     }
 

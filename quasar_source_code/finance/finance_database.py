@@ -3,10 +3,11 @@
 """This module, finance_database.py, acts as an API to finance data."""
 
 from quasar_source_code.database_api.postgresql_api import PostgreSQLAPI
-from quasar_source_code.database_api import database_tables as db_tables
+
+from quasar_source_code.database_api.sql_databases import database_tables as db_tables
+from quasar_source_code.finance import finance_classes as fc
 from quasar_source_code.finance import robinhood_data as rh
 from quasar_source_code.universal_code import time_abstraction as time
-from quasar_source_code.finance import finance_classes as fc
 
 
 class FinanceDatabase(object):

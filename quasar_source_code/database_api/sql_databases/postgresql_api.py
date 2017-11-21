@@ -3,15 +3,15 @@
 """This module, postgresql_api.py, is a simple interface to an AWS hosted PostgreSQL database."""
 
 # Needed for working with PostgreSQL.
-import psycopg2
-# Useful file + directory operations.
-from quasar_source_code.universal_code import useful_file_operations as ufo
-# Contains useful paths needed.
-from quasar_source_code.universal_code import path_manager as pm
-# Used for IDE typing.
 from typing import List
+
+import psycopg2
+
+from quasar_source_code.universal_code import path_manager as pm
+from quasar_source_code.universal_code import useful_file_operations as ufo
+
+
 # Represents database tables.
-from quasar_source_code.database_api import database_tables as db_t
 
 
 class PostgreSQLAPI(object):
@@ -22,15 +22,6 @@ class PostgreSQLAPI(object):
 		self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='postgresql_nexus')
 		self._connection          = None
 		self._cursor              = None
-
-		# Pre-defined tables.
-		self._master_table        = db_t.DatabaseTable('master_table', self)
-		self._master_table.add_table_field(db_t.TableFieldString('table_name', 30))
-		self._master_table.add_table_field(db_t.TableFieldDate('last_updated'))
-
-	def get_master_table(self) -> db_t.DatabaseTable:
-		"""Returns the master table object that's used for caching mechanisms."""
-		return self._master_table
 
 	def connect(self) -> None:
 		"""Connects to the RDS instance."""

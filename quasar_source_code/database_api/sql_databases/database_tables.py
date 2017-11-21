@@ -89,6 +89,13 @@ class TableFieldDate(TableField):
 		super().__init__(field_name, datetime.date, 'date', skipped=False)
 
 
+class TableFieldJSON(TableField):
+	"""Represents a JSON field for a database table."""
+
+	def __init__(self, field_name: str):
+		super().__init__(field_name, dict, 'json', skipped=False)
+
+
 ''' ___       __        ___
 	 |   /\  |__) |    |__     .
 	 |  /~~\ |__) |___ |___    .

@@ -11,19 +11,21 @@ ENTITY      = 'Entity'
 ENTITY_TASK = 'EntityTask'
 ENTITY_TIME = 'EntityTime'
 
+ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
+ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
+ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
+ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
+
 
 class Entity(object):
 	"""Defines properties of all entities."""
 
-	def __init__(self, entity_name):
-		self._relative_id     = 0
-
-		self._name            = entity_name
+	def __init__(self):
+		self._relative_id     = -1
 		self._parent_entities = []
 		self._child_entities  = []
-
 		self._information     = {}
-
 		self._class_name      = ENTITY
 
 	def is_public_entity(self) -> bool:
@@ -40,12 +42,10 @@ class Entity(object):
 
 	def get_json_data(self) -> dict:
 		"""Returns a dictionary of all the data contained in this Entity."""
-		json_data = {'ENTITY_PROPERTY_NAME'      : self._name,
-					 'ENTITY_PROPERTY_TYPE': self._class_name,
-		             'ENTITY_PROPERTY_PARENTS': str(self._parent_entities),
-		             'ENTITY_PROPERTY_CHILDREN': str(self._child_entities),
-		             'ENTITY_PROPERTY_ID': self._relative_id
-		             }
+		json_data = {ENTITY_PROPERTY_TYPE: self._class_name,
+		             ENTITY_PROPERTY_PARENTS: str(self._parent_entities),
+		             ENTITY_PROPERTY_CHILDREN: str(self._child_entities),
+		             ENTITY_PROPERTY_ID: self._relative_id}
 
 		for key in self._information:
 			json_data[key] = self._information[key]
@@ -61,76 +61,12 @@ class Entity(object):
 		"""TODO:"""
 		self._class_name = val
 
-	def get_all_information_relevant_for_date(self, date):
-		"""Gathers relevant information for the date provided."""
-		#sub_set = self.all_children + [self]
-		sub_set = self.all_children
-		info = []
-		for e in sub_set:
-
-			# TODO : CHECK FOR tasks as they contain coloring information!
-
-			if e.class_name == ENTITY_TIME:
-				data = e.get_all_relevant_events_for_date(date)
-				if len(data) > 0:
-					info.append(data)
-		return info
-
 	def add_information(self, key, value):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
-		self._information[key] = value
-
-	def remove_parent(self, parent_entity):
-		"""Removes the provided parent entity from this entity."""
-		if self in parent_entity.children:
-			parent_entity.remove_child(self)
-		if parent_entity in self.parents:
-			self._parent_entities.remove(parent_entity)
-
-	def remove_child(self, child_entity):
-		"""Removes the provided child entity from this entity."""
-		if self in child_entity.parents:
-			child_entity.remove_parent(self)
-		if child_entity in self.children:
-			self._child_entities.remove(child_entity)
-
-	def remove_children(self, obj) -> None:
-		"""Removes n child entities from this entity."""
-		# TODO : ...
-		print('WHY IS THIS FUNCTION BEING CALLED?')
-		y = 2
-
-	def add_children(self, obj) -> None:
-		"""Adds n child entities to this entity."""
-		if type(obj) == list or type(obj) == tuple:
-			for e in obj:
-				if e not in self._child_entities:
-					self._child_entities.append(e)
-					# Make sure those child entities have a parent pointer to self.
-					if self not in e.parents:
-						e.add_parents(self)
+		if key not in ENTITY_PROPERTY_ALL:
+			self._information[key] = value
 		else:
-			if obj not in self._child_entities:
-				self._child_entities.append(obj)
-				# Make sure the child entity has a parent pointer to self.
-				if self not in obj.parents:
-					obj.add_parents(self)
-
-	def add_parents(self, obj) -> None:
-		"""Adds n parent entities to this entity."""
-		if type(obj) == list or type(obj) == tuple:
-			for e in obj:
-				if e not in self._parent_entities:
-					self._parent_entities.append(e)
-					# Make sure this parent has this entity as a child.
-					if self not in e.children:
-						e.add_children(self)
-		else:
-			if obj not in self._parent_entities:
-				self._parent_entities.append(obj)
-				# Make sure this parent has this entity as a child.
-				if self not in obj.children:
-					obj.add_children(self)
+			raise Exception('Can\'t use the default key{' + str(key) + '}!')
 
 	@property
 	def relative_id(self) -> int:
@@ -181,11 +117,6 @@ class Entity(object):
 			child_entities += ce.all_children
 		return child_entities
 
-	@property
-	def name(self) -> str:
-		"""Returns the name of this entity."""
-		return self._name
-
 	def print_info(self):
 		"""Used only for debugging."""
 		print(self)
@@ -194,4 +125,74 @@ class Entity(object):
 			print(str(key) + ' - ' + str(json_data[key]))
 
 	def __str__(self):
-		return '[' + str(self._relative_id) + '] - E{' + self._name + '}'
+		# TODO : Update this.
+		return '[' + str(self._relative_id) + '] - E{}'
+
+	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
+		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
+		\__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .'''
+
+	# Private utility functions.
+	def _add_child(self, entity):
+		"""Adds a single child entity to this entity."""
+		if entity not in self._child_entities:
+			self._child_entities.append(entity)
+			# Make sure the child entity has a parent pointer to self.
+			if self not in entity.parents:
+				entity.add_parents(self)
+
+	def _add_parent(self, entity):
+		"""Adds a single parent entity to this entity."""
+		if entity not in self._parent_entities:
+			self._parent_entities.append(entity)
+			# Make sure this parent has this entity as a child.
+			if self not in entity.children:
+				entity.add_children(self)
+
+	def _remove_child(self, entity):
+		"""Removes a single child entity from this entity."""
+		if self in entity.parents:
+			entity.remove_parent(self)
+		if entity in self.children:
+			self._child_entities.remove(entity)
+
+	def _remove_parent(self, entity):
+		"""Removes a single parent entity from this entity."""
+		if self in entity.children:
+			entity.remove_child(self)
+		if entity in self.parents:
+			self._parent_entities.remove(entity)
+
+	# Public functions.
+
+	def remove_parent(self, obj):
+		"""Removes the provided parent entity from this entity."""
+		if type(obj) == list or type(obj) == tuple:
+			for e in obj:
+				self._remove_parent(e)
+		else:
+			self._remove_parent(obj)
+
+	def remove_children(self, obj) -> None:
+		"""Removes n child entities from this entity."""
+		if type(obj) == list or type(obj) == tuple:
+			for e in obj:
+				self._remove_child(e)
+		else:
+			self._remove_child(obj)
+
+	def add_children(self, obj) -> None:
+		"""Adds n child entities to this entity."""
+		if type(obj) == list or type(obj) == tuple:
+			for e in obj:
+				self._add_child(e)
+		else:
+			self._add_child(obj)
+
+	def add_parents(self, obj) -> None:
+		"""Adds n parent entities to this entity."""
+		if type(obj) == list or type(obj) == tuple:
+			for e in obj:
+				self._add_parent(e)
+		else:
+			self._add_parent(obj)

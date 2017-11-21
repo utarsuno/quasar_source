@@ -76,3 +76,9 @@ sudo npm install -g bower
 # Redis server?
 # sudo apt-get install redis-server
 # sudo service redis-server
+
+
+
+# MongoDB
+# https://www.howtoforge.com/tutorial/install-mongodb-on-ubuntu-16.04/
+# sudo pip3 install pymongo

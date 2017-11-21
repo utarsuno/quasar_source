@@ -11,8 +11,8 @@ from quasar_source_code.universal_code import time_abstraction as ta
 class EntityTime(be.Entity):
 	"""Represents all forms of time logic for entities."""
 
-	def __init__(self, entity_name, parent_entity):
-		super().__init__(entity_name)
+	def __init__(self, parent_entity):
+		super().__init__()
 		self._one_time_events    = []
 		self._event_range        = None
 		self._event_range_events = []
@@ -83,7 +83,7 @@ class EntityTime(be.Entity):
 		return events
 
 	def __str__(self):
-		return 'EntityTime instance{' + self.name + '}, child of ' + str(self.parents[0])
+		return 'EntityTime instance{}, child of ' + str(self.parents[0])
 
 	def get_additional_json_data(self) -> dict:
 		"""To be implemented by child classes."""
