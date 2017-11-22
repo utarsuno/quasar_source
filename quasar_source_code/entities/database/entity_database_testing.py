@@ -37,7 +37,7 @@ db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1'
 owners = db.get_all_owners()
 for o in owners:
 	print('OWNER : {' + str(o) + '}')
-	o.get_entity_manager.print_all_entities()
+	o.get_entity_manager().print_all_entities()
 
 print(db.is_valid_owner('test', 'test'))
 print(db.is_valid_owner('test', 'test2'))
