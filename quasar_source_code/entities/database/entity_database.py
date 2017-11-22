@@ -126,7 +126,7 @@ class EntityDatabaseAPI(object):
 
 	def _update_owners_cache(self):
 		"""Reloads the owners."""
-		owners = self.get_all_owners()
+		owners = self._owners_collection.get_all()
 		for o in owners:
 			self._owners_cache.append(EntityOwner(o))
 
