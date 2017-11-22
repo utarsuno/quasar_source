@@ -58,6 +58,10 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	def get_entity_manager(self):
+		"""Returns the EntityManager object holding this EntityOwner's entities."""
+		return self._entity_manager
+
 	def get_owner_name(self) -> str:
 		"""Returns the name of this EntityOwner."""
 		return self._data[OWNER_KEY_NAME]
@@ -108,7 +112,7 @@ class EntityOwner(object):
 		return False
 
 	def __str__(self):
-		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities()) + '}'
+		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities()) + ' entities)'
 
 
 class EntityDatabaseAPI(object):
