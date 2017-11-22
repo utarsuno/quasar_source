@@ -5,7 +5,7 @@
 # Python library for accessing MongoDB.
 import pymongo
 # Needed for creating HTTP urls with special characters included.
-import urllib.parse as url
+#import urllib.parse as url
 # Needed for getting authentication information.
 from quasar_source_code.universal_code import path_manager as pm
 from quasar_source_code.universal_code import useful_file_operations as ufo
@@ -35,9 +35,7 @@ data_types_and_ids = {'Double'                  : 1,
 # 27018 - Default port when running with --shardsvr value for the clusterRole setting in a configuration file.
 # 27019 - The default port when running --configsvr tunetime operation of the configscr value for the clusterRole setting in a configuration file.
 # 28017 - The default port for the web status page. The web status page is always accessible at a port number that is 1000 greater than the port determined by port.
-
-# MongoDB comes with a built-in HTTP interface that provides you with information about the MongoDB server. (That's the 28017 port).
-
+#         MongoDB comes with a built-in HTTP interface that provides you with information about the MongoDB server. (That's the 28017 port).
 
 
 class MongoDBAPI(object):
@@ -77,11 +75,10 @@ class MongoDBAPI(object):
         # Connecting locally.
         self._database_connection = pymongo.MongoClient()
 
-        print(self._database_connection.admin)
-        print(self._database_connection.admin.command('ismaster'))
+        print(self._database_connection.database_names())
 
-        #client.admin.command('ismaster')
-        self._connected = True
+        # Connection only gets made after a server action.
+        #self._connected = True
 
     def terminate(self) -> None:
         """Terminates the connection to the database."""
