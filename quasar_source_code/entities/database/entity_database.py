@@ -113,7 +113,7 @@ class EntityDatabaseAPI(object):
 		self._debug             = debug
 		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
-		self._owners_cache      = None
+		self._owners_cache      = []
 		self._update_owners_cache()
 
 	def save_or_update_entity(self, owner_name, data_dictionary):
