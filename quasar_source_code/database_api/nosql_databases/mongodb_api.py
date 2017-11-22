@@ -38,6 +38,15 @@ data_types_and_ids = {'Double'                  : 1,
 #         MongoDB comes with a built-in HTTP interface that provides you with information about the MongoDB server. (That's the 28017 port).
 
 
+# Owner dictionary key mappings.
+OWNER_KEY_NAME      = 'name'
+OWNER_KEY_PASSWORD  = 'password'
+OWNER_KEY_EMAIL     = 'email'
+OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
+OWNER_KEY_ID        = '_id'
+
+
+
 class MongoCollection(object):
     """API for using MongoDB Collections."""
 
@@ -54,6 +63,14 @@ class MongoCollection(object):
     def insert(self, data):
         """Inserts the data into the collection."""
         self._collection.insert(data)
+
+    def update(self, data):
+        """Updates an entry in the collection."""
+        data_to_set = {}
+        for key in data:
+            if key != OWNER_KEY_ID:
+                data_to_set[key] = data[key]
+        self._collection.update_one({OWNER_KEY_ID: data[OWNER_KEY_ID]}, {'$set': data_to_set})
 
 
 class MongoDBAPI(object):

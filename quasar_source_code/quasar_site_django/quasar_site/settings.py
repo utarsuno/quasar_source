@@ -15,14 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# TODO : Eventually find a more elegant solution.
-import sys
-my_libraries_path = '/home/git_repos/quasar_source'
-if my_libraries_path not in sys.path:
-    sys.path.insert(0, my_libraries_path)
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 

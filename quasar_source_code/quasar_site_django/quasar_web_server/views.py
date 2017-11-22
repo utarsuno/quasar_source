@@ -145,10 +145,14 @@ def POST_create_owner(request):
 	received_owner_password = request.POST[OWNER_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
+	#print('Creating account : ' + received_owner_name)
 
-	print('Creating account : ' + received_owner_name)
 	global entity_server
-	return entity_server.create_owner(received_owner_name, received_owner_email, received_owner_password)
+	owner_data = {}
+	owner_data[OWNER_NAME] = received_owner_name
+	owner_data[OWNER_EMAIL] = received_owner_email
+	owner_data[OWNER_PASSWORD] = received_owner_password
+	return entity_server.create_owner(owner_data)
 
 
 # Entity fields.
@@ -236,13 +240,3 @@ def POST_load_all_public_entities(request):
 	global entity_server
 	return entity_server.get_all_public_entities()
 
-
-@csrf_exempt
-def POST_get_entities_for_day(request):
-	"""Handles the POST request to get entities for a given day of a given owner."""
-	post_errors = check_POST_arguments(['day', USERNAME], request)
-	if post_errors is not None:
-		return post_errors
-
-	global entity_server
-	return entity_server.get_entities_for_day(request.POST['day'], request.POST[USERNAME])

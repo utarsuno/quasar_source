@@ -48,6 +48,13 @@ ENTITY_TYPE_OWNER           = 'EntityOwner'
 ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder'
 ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
 
+# Owner dictionary key mappings.
+OWNER_KEY_NAME      = 'name'
+OWNER_KEY_PASSWORD  = 'password'
+OWNER_KEY_EMAIL     = 'email'
+OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
+OWNER_KEY_ID        = '_id'
+
 
 class EntityServer(object):
 	"""Memory layer for entity managers and owners."""
@@ -61,4 +68,27 @@ class EntityServer(object):
 
 	def create_owner(self, owner_data):
 		"""Creates an owner."""
+		# Required keys passed in check.
+		for required_key in OWNER_KEYS_REQUIRED:
+			if required_key not in owner_data:
+				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
+
+		# Username not already taken check.
+		if self._db_api.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
+			return HttpResponse('The username{' + owner_data[OWNER_KEY_NAME] + '} is already taken!')
+
+		# Checks passed, create the owner.
 		self._db_api.create_owner(owner_data)
+		return SERVER_REPLY_GENERIC_YES
+
+	def update_owner(self, owner_data):
+		# Required keys passed in check.
+		if OWNER_KEY_ID not in owner_data:
+			return HttpResponse('Required key data not provided for updating an owner! Missing at the _id key from ' + str(owner_data) + '}')
+
+		# Owner ID exists check.
+		if not self._db_api.is_owner_id_valid(owner_data[OWNER_KEY_ID]):
+			return HttpResponse('The owner ID{' + str(owner_data[OWNER_KEY_ID]) + '} is not valid!')
+
+		self._db_api.update_owner(owner_data)
+		return SERVER_REPLY_GENERIC_YES
