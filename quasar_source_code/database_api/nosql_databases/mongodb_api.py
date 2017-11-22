@@ -94,6 +94,10 @@ class MongoDBAPI(object):
         #                                                authMechanism='SCRAM-SHA-1')
 
         self._database_connection = pymongo.MongoClient(connection_uri) # connect=False
+        db = self._database_connection.cool_db
+        print(db.cool_collection.count())
+
+
         #print(self._database_connection)
 
         #print(self._database_connection.admin.command('ismaster'))
