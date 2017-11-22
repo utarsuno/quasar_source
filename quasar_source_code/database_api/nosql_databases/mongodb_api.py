@@ -77,7 +77,7 @@ class MongoDBAPI(object):
         # Connecting locally.
         self._database_connection = pymongo.MongoClient()
 
-        #print(self._database_connection.admin)
+        print(self._database_connection.admin)
         print(self._database_connection.admin.command('ismaster'))
 
         #client.admin.command('ismaster')
