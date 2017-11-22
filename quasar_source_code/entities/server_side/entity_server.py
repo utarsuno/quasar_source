@@ -66,8 +66,12 @@ class EntityServer(object):
 		"""Returns a boolean indicating if a username and password combination is valid."""
 		return self._db_api.is_valid_owner(username, password)
 
+	def is_username_taken(self, username) -> bool:
+		"""Returns a boolean indicating if the username is taken."""
+		return self._db_api.is_owner_name_taken(username)
+
 	def create_owner(self, owner_data):
-		"""Creates an owner."""
+		"""Creates an owner. Throws an exception if the required owner keys are not provided."""
 		# Required keys passed in check.
 		for required_key in OWNER_KEYS_REQUIRED:
 			if required_key not in owner_data:
@@ -82,6 +86,7 @@ class EntityServer(object):
 		return SERVER_REPLY_GENERIC_YES
 
 	def update_owner(self, owner_data):
+		"""Updates an owner. Throws an exception if the _id key is not provided."""
 		# Required keys passed in check.
 		if OWNER_KEY_ID not in owner_data:
 			return HttpResponse('Required key data not provided for updating an owner! Missing at the _id key from ' + str(owner_data) + '}')

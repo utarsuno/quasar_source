@@ -89,7 +89,7 @@ class MongoDBAPI(object):
         self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='mongodb_nexus')
         self._database_connection = pymongo.MongoClient()
         self._quasar_database     = self._database_connection['quasar']
-        self._connected = False
+        self._connected           = False
 
     def get_collection(self, collection_name) -> MongoCollection:
         """Returns a MongoCollection object for the given collection name."""
@@ -112,8 +112,13 @@ class MongoDBAPI(object):
         self._quasar_database = self._database_connection['quasar']
 
         # Connection only gets made after a server action.
+        # TODO : perform the isadmin command
         #self._connected = True
 
     def terminate(self) -> None:
         """Terminates the connection to the database."""
         self._database_connection.close()
+
+    def clear_database(self, database_name):
+        """Completly clears the database."""
+        self._database_connection.drop_database(database_name)

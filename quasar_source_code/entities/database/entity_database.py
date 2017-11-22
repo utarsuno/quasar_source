@@ -98,3 +98,9 @@ class EntityDatabaseAPI(object):
 		self._api.terminate()
 
 	# TODO : save_entity_manager(self, entity_manager):
+
+
+	# This function is to be manually ran only.
+	def _full_reset(self):
+		"""Fully deletes all the data in the quasar database."""
+		self._api.clear_database('quasar')

@@ -82,3 +82,4 @@ sudo npm install -g bower
 # MongoDB
 # https://www.howtoforge.com/tutorial/install-mongodb-on-ubuntu-16.04/
 # sudo pip3 install pymongo
+# sudo pip3 install -U pymongo
