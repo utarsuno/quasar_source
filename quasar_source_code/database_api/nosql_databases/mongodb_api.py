@@ -38,35 +38,37 @@ data_types_and_ids = {'Double'                  : 1,
 #         MongoDB comes with a built-in HTTP interface that provides you with information about the MongoDB server. (That's the 28017 port).
 
 
+class MongoCollection(object):
+    """API for using MongoDB Collections."""
+
+    def __init__(self, collection_object):
+        self._collection = collection_object
+
+    def get_all(self):
+        """Returns all the entities(items) in this collection."""
+        entities = []
+        for e in self._collection.find():
+            entities.append(e)
+        return entities
+
+
 class MongoDBAPI(object):
     """API for using MongoDB."""
 
     def __init__(self):
         self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='mongodb_nexus')
-        self._database_connection = None
-        self._quasar_database     = None
-        self._owners_collection   = None
+        self._database_connection = pymongo.MongoClient()
+        self._quasar_database     = self._database_connection['quasar']
         self._connected = False
+
+    def get_collection(self, collection_name) -> MongoCollection:
+        """Returns a MongoCollection object for the given collection name."""
+        return self._quasar_database[collection_name]
 
     def print_database_names(self) -> None:
         """Utility function to print the names of the databases."""
         n = self._database_connection.database_names()
         print(n)
-
-    def test(self) -> None:
-        """Temp"""
-        #post = {"author": "Mike"}
-        book = {}
-        book['title'] = 'any_book'
-        book['author'] = 'any_author'
-        #self._database_connection['owners'].insert_one(post)
-        print(self._database_connection['admin'])
-        collection = self._database_connection['owners']
-        #print(collection.collection_names())
-        owners = collection['owners']
-        print(owners)
-        owners.insert(book)
-        #self._database_connection['quasar_database'].create_collection('owners')
 
     def connect(self) -> None:
         """Connects to the database."""
@@ -76,22 +78,8 @@ class MongoDBAPI(object):
 
         # Connecting locally.
         self._database_connection = pymongo.MongoClient()
-
+        # Database object for the 'quasar' database.
         self._quasar_database = self._database_connection['quasar']
-        self._owners_collection = self._quasar_database['owners']
-
-        print(self._database_connection.database_names())
-        print(self._quasar_database)
-        print(self._owners_collection)
-
-        test_owner = {'name': 'test2', 'password': 'test2'}
-        result = self._owners_collection.insert(test_owner)
-        print(result)
-
-        print(self._owners_collection.find())
-        for o in self._owners_collection.find():
-            print(o)
-
 
         # Connection only gets made after a server action.
         #self._connected = True
@@ -99,11 +87,3 @@ class MongoDBAPI(object):
     def terminate(self) -> None:
         """Terminates the connection to the database."""
         self._database_connection.close()
-        #self.server.stop()
-
-test = MongoDBAPI()
-test.connect()
-#test.print_database_names()
-#test.test()
-test.terminate()
-
