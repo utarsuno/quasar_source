@@ -2,9 +2,15 @@
 
 ### Development Screenshots:
 
+As of November 22th
+- Networking work cleaned up
+- Switched from PostgreSQL to MongoDB
+- Minor entity design cleanup
+- Various bug fixes (such as player.look_at and interactive buttons)
+
 As of November 9th
 - Fullscreen mode added
-- Further work on networking/multiplayer
+- Further work on networking/multi-player
 
 As of November 4th
 ![alt_text](https://i.imgur.com/CFmXgTf.png)

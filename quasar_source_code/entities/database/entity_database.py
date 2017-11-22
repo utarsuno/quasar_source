@@ -216,6 +216,7 @@ class EntityDatabaseAPI(object):
 			raise Exception('Owner name ' + owner_data[OWNER_KEY_NAME] + ' is already taken!')
 		# Create the owner.
 		self._owners_collection.insert(owner_data)
+		# TODO : UPDATE THE CACHE!!!! Or possibly have a flag determining if an update is needed
 		# Update the owner cache.
 		#self._update_owners_cache()
 
@@ -226,6 +227,7 @@ class EntityDatabaseAPI(object):
 			raise Exception('Owner key _id not provided in {' + str(owner_data) + '}')
 		# Update the owner.
 		self._owners_collection.update(owner_data)
+		# TODO ; UPDATE THE CAHCE!!!! Or possibly have a flag determining if an update is needed
 		# Update the owner cache.
 		#self._update_owners_cache()
 

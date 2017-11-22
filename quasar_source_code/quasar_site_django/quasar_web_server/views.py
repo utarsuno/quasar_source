@@ -116,8 +116,6 @@ def POST_login(request):
 	if post_errors is not None:
 		return post_errors
 
-	print('GOT THE DATA ' + str(request))
-
 	received_username = request.POST[USERNAME]
 	received_password = request.POST[OWNER_PASSWORD]
 
