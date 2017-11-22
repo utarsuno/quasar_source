@@ -37,11 +37,18 @@ class EntityOwner(object):
 	"""Represents an Entity owner in the database."""
 
 	def __init__(self, owner_data):
-		print('Owner data is : ' + str(owner_data))
+		self._data = owner_data
 
-	def get_largest_entity_id(self):
-		"""Returns the largest entity ID."""
-		y = 2
+	def get_largest_integer_key(self) -> int:
+		"""Returns the largest integer key found or -1 if none found."""
+		largest_key = -1
+		for e in self._data:
+			for key in e:
+				if str(key).isdigit():
+					key_value = int(str(key))
+					if key_value > largest_key:
+						largest_key = key_value
+		return largest_key
 
 
 class EntityDatabaseAPI(object):

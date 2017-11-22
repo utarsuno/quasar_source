@@ -81,18 +81,6 @@ class MongoCollection(object):
                     return e[OWNER_KEY_ID]
         return None
 
-    def get_largest_integer_key(self) -> int:
-        """Returns the largest integer key found or -1 if none found."""
-        c = self._collection.find()
-        largest_key = -1
-        for e in c:
-            for key in e:
-                if str(key).isdigit():
-                    key_value = int(str(key))
-                    if key_value > largest_key:
-                        largest_key = key_value
-        return largest_key
-
 
 class MongoDBAPI(object):
     """API for using MongoDB."""
