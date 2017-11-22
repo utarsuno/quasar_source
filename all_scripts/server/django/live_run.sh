@@ -10,7 +10,7 @@ print_dashed_line_with_text "run django script start for : ${HOST_NAME}"
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
 
-terminate_if_not_sudo
+#terminate_if_not_sudo
 terminate_if_system_is_not_ubuntu
 
 #  __   __   __     __  ___          __   __     __      __   ___       __
@@ -25,8 +25,8 @@ if [ "${is_django_running}" == "true" ]; then
 else
   manage_path=/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py
   export PYTHONPATH=/home/git_repos/quasar_source/
-  sudo python3 ${manage_path} migrate
-  sudo python3 ${manage_path} runserver 0:80
+  python3 ${manage_path} migrate
+  python3 ${manage_path} runserver 0:80
 fi
 
 # Helps to see exactly where the script's output ends.
