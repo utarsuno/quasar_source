@@ -65,8 +65,8 @@ class Entity(object):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
 		if key not in ENTITY_PROPERTY_ALL:
 			self._information[key] = value
-		else:
-			raise Exception('Can\'t use the default key{' + str(key) + '}!')
+		#else:
+		#	raise Exception('Can\'t use the default key{' + str(key) + '}!')
 
 	@property
 	def relative_id(self) -> int:
