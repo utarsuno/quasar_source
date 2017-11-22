@@ -84,6 +84,10 @@ class MongoDBAPI(object):
         print(self._quasar_database)
         print(self._owners_collection)
 
+        test_owner = {'name': 'test', 'password': 'test'}
+        result = self._owners_collection.insert(test_owner)
+        print(result)
+
         # Connection only gets made after a server action.
         #self._connected = True
 
