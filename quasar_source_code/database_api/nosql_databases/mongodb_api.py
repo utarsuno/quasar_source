@@ -45,14 +45,6 @@ class MongoDBAPI(object):
 
     def __init__(self):
         self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='mongodb_nexus')
-
-        self.server = SSHTunnelForwarder(
-            self._database_parameters['host'],
-            ssh_username = self._database_parameters['user'],
-            ssh_password = self._database_parameters['password'],
-            remote_bind_address = ('127.0.0.1', 27017)
-        )
-
         self._database_connection = None
         self._connected = False
 
