@@ -14,7 +14,9 @@ from quasar_source_code.entities.database.entity_database import EntityDatabaseA
 db = EntityDatabaseAPI()
 db.connect()
 
-db.create_owner({OWNER_KEY_NAME: 'test4', OWNER_KEY_EMAIL: 'test3@test3.com', OWNER_KEY_PASSWORD: 'test3'})
+#db.create_owner({OWNER_KEY_NAME: 'test4', OWNER_KEY_EMAIL: 'test3@test3.com', OWNER_KEY_PASSWORD: 'test3'})
+owner_id = db.get_owner_id_by_name('test4')
+print(owner_id)
 
 owners = db.get_all_owners()
 for o in owners:

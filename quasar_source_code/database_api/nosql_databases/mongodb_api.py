@@ -46,7 +46,6 @@ OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
 OWNER_KEY_ID        = '_id'
 
 
-
 class MongoCollection(object):
     """API for using MongoDB Collections."""
 
@@ -56,7 +55,8 @@ class MongoCollection(object):
     def get_all(self):
         """Returns all the entities(items) in this collection."""
         entities = []
-        for e in self._collection.find():
+        c = self._collection.find()
+        for e in c:
             entities.append(e)
         return entities
 
@@ -71,6 +71,15 @@ class MongoCollection(object):
             if key != OWNER_KEY_ID:
                 data_to_set[key] = data[key]
         self._collection.update_one({OWNER_KEY_ID: data[OWNER_KEY_ID]}, {'$set': data_to_set})
+
+    def get_id_by_key_value_match(self, key, value):
+        """Gets the _id of an element by finding a key value match."""
+        c = self._collection.find()
+        for e in c:
+            if key in e:
+                if e[key] == value:
+                    return e[OWNER_KEY_ID]
+        return None
 
 
 class MongoDBAPI(object):

@@ -44,6 +44,10 @@ class EntityDatabaseAPI(object):
 		# TODO : Implement owners cache.
 		#self.owners_cache       = []
 
+	def get_owner_id_by_name(self, owner_name):
+		"""Returns the _id of the owner."""
+		return self._owners_collection.get_id_by_key_value_match(OWNER_KEY_NAME, owner_name)
+
 	def get_all_owners(self):
 		"""Gets all the owners from the database."""
 		return self._owners_collection.get_all()
