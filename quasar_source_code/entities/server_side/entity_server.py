@@ -62,6 +62,10 @@ class EntityServer(object):
 	def __init__(self):
 		self._db_api = EntityDatabaseAPI()
 
+		# TODO : Add the text reminder object here.
+		# TODO : Eventually pass in all the current text reminders in order to do a health check.
+		# self._text_reminders_manager = tr.TextReminderManager()
+
 	def is_valid_login_info(self, username, password) -> bool:
 		"""Returns a boolean indicating if a username and password combination is valid."""
 		return self._db_api.is_valid_owner(username, password)
@@ -69,6 +73,14 @@ class EntityServer(object):
 	def is_username_taken(self, username) -> bool:
 		"""Returns a boolean indicating if the username is taken."""
 		return self._db_api.is_owner_name_taken(username)
+
+	# TODO : delete owner function
+
+	def delete_entity(self, owner_name, entity_id_to_delete):
+		"""Deletes an entity."""
+		if not self._db_api.is_owner_id_valid(owner_name):
+			return HttpResponse('Invalid owner name provided!')
+		self._db_api.delete_entity(owner_name, entity_id_to_delete)
 
 	def create_owner(self, owner_data):
 		"""Creates an owner. Throws an exception if the required owner keys are not provided."""
@@ -102,3 +114,15 @@ class EntityServer(object):
 		"""Creates a new entity or modifies an existing with with the new data."""
 		# Update the entity for the owner.
 		self._db_api.save_or_update_entity(owner_name, entity_data)
+
+		# TODO : Add text reminder checking logic here
+
+	def get_all_users_entities(self, owner_name, owner_password):
+		"""Returns a JSON response containing all the user's entities."""
+		# Check for valid username and password.
+		if not self._db_api.is_valid_owner(owner_name, owner_password):
+			return HttpResponse('Invalid username and password!')
+
+		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json())
+
+	# TODO : Method to get all public entities.

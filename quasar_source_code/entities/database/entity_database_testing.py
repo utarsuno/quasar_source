@@ -40,6 +40,7 @@ db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1'
 
 
 db.save_or_update_entity('test1', {'ENTITY_PROPERTY_NAME': 'anotha_entity'})
+db.delete_entity('test1', '2')
 
 owners = db.get_all_owners()
 for o in owners:

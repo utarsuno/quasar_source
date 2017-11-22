@@ -2,16 +2,9 @@
 
 """This module, entity_database.py, contains a database api layer for entity objects."""
 
-import dill
-import psycopg2
-
 from quasar_source_code.database_api.nosql_databases import mongodb_api as db_api
-
-from quasar_source_code.database_api.sql_databases import database_tables as db_t
 from quasar_source_code.entities import base_entity as be
 from quasar_source_code.entities.entity_manager import EntityManager
-from quasar_source_code.universal_code import debugging as dbg
-from quasar_source_code.universal_code import time_abstraction as ta
 
 '''  __       ___       __        __   ___          __
 	|  \  /\   |   /\  |__)  /\  /__` |__      /\  |__) |    .
@@ -60,18 +53,8 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
-	def save_or_update_entity(self, entity_data):
-		"""Updates the entity."""
-		#print('\n')
-		#print(self._entity_manager.get_all_entities_as_dictionary())
-		#print('\n')
-		self._entity_manager.save_or_update_entity(entity_data)
-		# TODO : Send the update to the database!!!!
-
-		#print('Need to save the following to the database!')
-		#print(self._data)
-		#print(self._entity_manager.get_all_entities_as_dictionary())
-
+	def _save_to_database(self):
+		"""Utility function to send changes to the database."""
 		save_data = {}
 		for key in self._data:
 			save_data[key] = self._data[key]
@@ -80,6 +63,16 @@ class EntityOwner(object):
 			save_data[key] = entities_as_a_dictionary[key]
 
 		self._entity_database_api.update_owner_for_database(save_data)
+
+	def delete_entity_with_id(self, entity_id):
+		"""Deletes the specified entity."""
+		self._entity_manager.delete_entity(entity_id)
+		self._save_to_database()
+
+	def save_or_update_entity(self, entity_data):
+		"""Updates the entity."""
+		self._entity_manager.save_or_update_entity(entity_data)
+		self._save_to_database()
 
 	def get_entity_manager(self):
 		"""Returns the EntityManager object holding this EntityOwner's entities."""
@@ -99,8 +92,6 @@ class EntityOwner(object):
 
 	def _populate_entities(self):
 		"""Gives the entity data to the EntityManager."""
-		#print('Populating entities from')
-		#print(self._entities)
 		for e in self._entities:
 			base_entity = be.Entity()
 			base_entity.set_relative_id(int(e))
@@ -130,6 +121,10 @@ class EntityOwner(object):
 				return True
 		return False
 
+	def get_all_entities_as_dictionary(self):
+		"""Returns a dictionary of all the entities."""
+		return self._entity_manager.get_all_entities_as_dictionary()
+
 	def __str__(self):
 		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities()) + ' entities)'
 
@@ -143,6 +138,18 @@ class EntityDatabaseAPI(object):
 		self._owners_collection = self._api.get_collection('owners')
 		self._owners_cache      = []
 		self._update_owners_cache()
+
+	def delete_entity(self, owner_name, entity_id_to_delete):
+		"""Deletes the entity with an ID match for the given owner."""
+		for o in self._owners_cache:
+			if o.get_owner_name() == owner_name:
+				o.delete_entity_with_id(entity_id_to_delete)
+
+	def get_all_entities_from_owner_as_json(self, owner_name):
+		"""Returns all the owner's entities as json."""
+		for o in self._owners_cache:
+			if o.get_owner_name() == owner_name:
+				return o.get_all_entities_as_dictionary()
 
 	def update_owner_for_database(self, save_data):
 		"""Performs a database update for the owner."""
