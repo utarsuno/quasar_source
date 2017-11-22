@@ -123,7 +123,7 @@ class EntityManager(object):
 		"""Deletes the entity with an ID match."""
 		entity_to_remove = None
 		for e in self.entities:
-			if int(e[ENTITY_PROPERTY_ID]) == int(entity_id):
+			if int(e.relative_id) == int(entity_id):
 				entity_to_remove = e
 		if entity_to_remove is not None:
 			self.entities.remove(entity_to_remove)
