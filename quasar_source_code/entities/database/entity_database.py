@@ -32,23 +32,78 @@ OWNER_KEY_EMAIL     = 'email'
 OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
 OWNER_KEY_ID        = '_id'
 
+ENTITY      = 'Entity'
+ENTITY_TASK = 'EntityTask'
+ENTITY_TIME = 'EntityTime'
+
+ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
+ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
+ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
+ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
+
 
 class EntityOwner(object):
 	"""Represents an Entity owner in the database."""
 
 	def __init__(self, owner_data):
-		self._data = owner_data
-
-	def get_largest_integer_key(self) -> int:
-		"""Returns the largest integer key found or -1 if none found."""
-		largest_key = -1
-		for e in self._data:
+		self._data    = {}
+		self._entities = {}
+		for e in owner_data:
+			entity_id = -1
 			for key in e:
 				if str(key).isdigit():
-					key_value = int(str(key))
-					if key_value > largest_key:
-						largest_key = key_value
+					entity_id = int(key)
+				else:
+					self._data[key] = owner_data[key]
+			if entity_id == -1:
+				self._entities[entity_id] = owner_data[str(entity_id)]
+		self._data = owner_data
+		self._entity_manager = EntityManager()
+		self._populate_entities()
+
+	def get_owner_name(self) -> str:
+		"""Returns the name of this EntityOwner."""
+		return self._data[OWNER_KEY_NAME]
+
+	def get_owner_password(self) -> str:
+		"""Returns the password of this EntityOwner."""
+		return self._data[OWNER_KEY_PASSWORD]
+
+	def get_owner_id(self):
+		"""Returns the _id of this EntityOwner."""
+		return self._data[OWNER_KEY_ID]
+
+	def _populate_entities(self):
+		"""Gives the entity data to the EntityManager."""
+		for e in self._entities:
+			base_entity = be.Entity()
+			base_entity.set_relative_id(int(e))
+			for key in self._entities[e]:
+				value = self._entities[e][key]
+				if key == ENTITY_PROPERTY_TYPE:
+					base_entity.set_entity_type(value)
+				else:
+					base_entity.add_information(str(key), str(value))
+				#if key == ENTITY_PROPERTY_CHILDREN:
+				# TODO : check for and set the child and parent values.
+
+			self._entity_manager.add_entities(base_entity)
+
+	def get_largest_entity_key(self) -> int:
+		"""Returns the largest integer key found or -1 if none found."""
+		largest_key = -1
+		for e in self._entities:
+			if int(e) > largest_key:
+				largest_key = int(e)
 		return largest_key
+
+	def does_entity_id_exist(self, entity_id) -> bool:
+		"""Returns a boolean indicating if the entity ID exists for this owner."""
+		for e in self._entities:
+			if int(e) == entity_id:
+				return True
+		return False
 
 
 class EntityDatabaseAPI(object):
@@ -58,29 +113,8 @@ class EntityDatabaseAPI(object):
 		self._debug             = debug
 		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
-
-		# TODO : Implement owners cache.
-		#self.owners_cache       = []
-
-	#def get_element_by_
-
-	'''
-	def get_largest_integer_key_row(self) -> int:
-		"""Returns the largest integer key found in the collection or -1 if none found."""
-		#c = self._collection.find()
-		owners = self._owners_collection.get_all()
-		largest_key = -1
-		for e in owners:
-			for key in e:
-				if type(key) == int:
-					if key > largest_key:
-						largest_key = key
-		if largest_key != -1:
-			for e in owners:
-				if largest_key in e:
-					return e
-		return None
-	'''
+		self._owners_cache      = None
+		self._update_owners_cache()
 
 	def save_or_update_entity(self, owner_name, data_dictionary):
 		"""Saves or updates an entity."""
@@ -90,40 +124,41 @@ class EntityDatabaseAPI(object):
 		"""Returns the _id of the owner."""
 		return self._owners_collection.get_id_by_key_value_match(OWNER_KEY_NAME, owner_name)
 
+	def _update_owners_cache(self):
+		"""Reloads the owners."""
+		owners = self.get_all_owners()
+		for o in owners:
+			self._owners_cache.append(EntityOwner(o))
+
 	def get_all_owners(self):
 		"""Gets all the owners from the database."""
-		return self._owners_collection.get_all()
+		return self._owners_cache
 
 	def get_specific_owner_by_name(self, owner_name):
 		"""Returns an EntityOwner of that owner."""
-		# TODO : refactor this with cache!!!
-		owners = self.get_all_owners()
-		for o in owners:
-			if o[OWNER_KEY_NAME] == owner_name:
-				return EntityOwner(o)
+		for o in self._owners_cache:
+			if o.get_owner_name() == owner_name:
+				return o
+		return None
 
 	def is_valid_owner(self, owner_name, owner_password) -> bool:
 		"""Returns a boolean indicating if the owner name and password combination maps to a valid owner."""
-		owners = self.get_all_owners()
-		for o in owners:
-			if o[OWNER_KEY_NAME] == owner_name and o[OWNER_KEY_PASSWORD] == owner_password:
+		for o in self._owners_cache:
+			if o.get_owner_name() == owner_name and o.get_owner_password() == owner_password:
 				return True
 		return False
 
 	def is_owner_id_valid(self, owner_id) -> bool:
 		"""Returns a boolean indicating if the owner id maps to a valid owner."""
-
-		owners = self.get_all_owners()
-		for o in owners:
-			if o[OWNER_KEY_ID] == owner_id:
+		for o in self._owners_cache:
+			if o.get_owner_id() == owner_id:
 				return True
 		return False
 
 	def is_owner_name_taken(self, owner_name):
 		"""Returns a boolean indicating if the owner name has already been taken."""
-		owners = self.get_all_owners()
-		for o in owners:
-			if o[OWNER_KEY_NAME] == owner_name:
+		for o in self._owners_cache:
+			if o.get_owner_name() == owner_name:
 				return True
 		return False
 
@@ -136,13 +171,20 @@ class EntityDatabaseAPI(object):
 		# Make sure that the owner name isn't already taken.
 		if self.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
 			raise Exception('Owner name ' + owner_data[OWNER_KEY_NAME] + ' is already taken!')
+		# Create the owner.
 		self._owners_collection.insert(owner_data)
+		# Update the owner cache.
+		self._update_owners_cache()
 
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""
+		# Make sure the the _id key is provided.
 		if OWNER_KEY_ID not in owner_data:
 			raise Exception('Owner key _id not provided in {' + str(owner_data) + '}')
+		# Update the owner.
 		self._owners_collection.update(owner_data)
+		# Update the owner cache.
+		self._update_owners_cache()
 
 	def connect(self):
 		"""Connect to the database."""
@@ -158,3 +200,4 @@ class EntityDatabaseAPI(object):
 	def _full_reset(self):
 		"""Fully deletes all the data in the quasar database."""
 		self._api.clear_database('quasar')
+		self._owners_cache = None

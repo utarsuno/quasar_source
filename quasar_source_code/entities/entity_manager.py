@@ -8,11 +8,9 @@ from quasar_source_code.universal_code import time_abstraction as ta
 class EntityManager(object):
 	"""Defines management operations for Entities."""
 
-	def __init__(self, manager_id=-1, owner_id=-1):
+	def __init__(self):
 		super().__init__()
 		self.entities             = []
-		self._owner_id            = owner_id
-		self._manager_id          = manager_id
 
 	def delete_all_children_of_entity_that_do_not_have_other_parents(self, entity):
 		"""Does what the function name states c:."""
@@ -31,17 +29,20 @@ class EntityManager(object):
 			self.delete_all_children_of_entity_that_do_not_have_other_parents(entity)
 			self.entities.remove(entity)
 
-	@property
-	def manager_id(self) -> int:
-		"""Returns the manager_id of this manager, -1 if error."""
-		return self._manager_id
-
 	def print_entities(self):
 		"""Prints the information of all the entities."""
 		print('Printing information on the entities!')
 		for e in self.entities:
 			print(str(e))
 		print('------------------------------------------')
+
+	def get_largest_entity_id(self) -> int:
+		"""Returns the largest entity ID found, -1 if there are no entities."""
+		largest_id = -1
+		for e in self.entities:
+			if int(e.relative_id) > largest_id:
+				largest_id = int(e.relative_id)
+		return largest_id
 
 	def get_entity_by_id(self, entity_id):
 		"""Returns an entity."""
@@ -76,5 +77,3 @@ class EntityManager(object):
 		else:
 			self.entities.append(e)
 
-	def __str__(self):
-		return 'EntityManager - owner_id{' + str(self._owner_id) + '}, manager_id{' + str(self.manager_id) + '}, entities{' + str(self.entities) + '}'
