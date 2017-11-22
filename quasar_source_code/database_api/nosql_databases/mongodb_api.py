@@ -89,6 +89,9 @@ class MongoDBAPI(object):
         print(result)
 
         print(self._owners_collection.find())
+        for o in self._owners_collection.find():
+            print(o)
+
 
         # Connection only gets made after a server action.
         #self._connected = True
