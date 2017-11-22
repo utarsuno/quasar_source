@@ -211,18 +211,6 @@ def POST_save_entity(request):
 
 
 @csrf_exempt
-def POST_load_entity_manager(request):
-	"""Handles the POST request to server memory load an entity manager."""
-	post_errors = check_POST_arguments([USERNAME], request)
-	if post_errors is not None:
-		return post_errors
-
-	print('Trying to load entity manager for : ' + request.POST[USERNAME])
-	global entity_server
-	return entity_server.load_entity_manager(request.POST[USERNAME])
-
-
-@csrf_exempt
 def POST_load_all_entities(request):
 	"""Handles the POST request to load all entities."""
 	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
@@ -231,7 +219,7 @@ def POST_load_all_entities(request):
 
 	print('Loading all entities for : ' + request.POST[USERNAME])
 	global entity_server
-	return entity_server.load_all_entities(request.POST[USERNAME], request.POST[OWNER_PASSWORD])
+	return entity_server.get_all_public_entities(request.POST[USERNAME], request.POST[OWNER_PASSWORD])
 
 
 @csrf_exempt

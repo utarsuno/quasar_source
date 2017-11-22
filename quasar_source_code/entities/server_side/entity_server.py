@@ -123,6 +123,9 @@ class EntityServer(object):
 		if not self._db_api.is_valid_owner(owner_name, owner_password):
 			return HttpResponse('Invalid username and password!')
 
-		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json())
+		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(owner_name))
 
-	# TODO : Method to get all public entities.
+	def get_all_public_entities(self):
+		"""Returns all the public entities."""
+		y = 2
+		# TODO : Method to get all public entities.

@@ -24,7 +24,6 @@ urlpatterns = [
 
     url(r'create_account'         , v.POST_create_owner),
     url(r'login'                  , v.POST_login),
-    url(r'load_entity_manager'    , v.POST_load_entity_manager),
     url(r'get_all_public_entities', v.POST_load_all_public_entities),
     url(r'get_all_entities'       , v.POST_load_all_entities),
     url(r'save_entity'            , v.POST_save_entity),
