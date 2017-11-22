@@ -144,9 +144,9 @@ class EntityDatabaseAPI(object):
 		self._owners_cache      = []
 		self._update_owners_cache()
 
-	def update_owner_for_database(self, owner_id, save_data):
+	def update_owner_for_database(self, save_data):
 		"""Performs a database update for the owner."""
-		self._owners_collection.up
+		self._owners_collection.update(save_data)
 
 	def save_or_update_entity(self, owner_name, data_dictionary):
 		"""Saves or updates an entity."""
