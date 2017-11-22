@@ -62,6 +62,9 @@ class EntityOwner(object):
 
 	def save_or_update_entity(self, entity_data):
 		"""Updates the entity."""
+		print('\n')
+		print(self._entity_manager.get_all_entities_as_dictionary())
+		print('\n')
 		self._entity_manager.save_or_update_entity(entity_data)
 		# TODO : Send the update to the database!!!!
 
