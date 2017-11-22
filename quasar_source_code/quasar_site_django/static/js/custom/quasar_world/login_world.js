@@ -135,7 +135,6 @@ LoginWorld.prototype = {
     },
 
     __init__: function() {
-
         this.post_create_account = new PostHelper('/create_account');
         this.post_login = new PostHelper('/login');
 
