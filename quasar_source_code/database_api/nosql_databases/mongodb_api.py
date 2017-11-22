@@ -44,6 +44,8 @@ class MongoDBAPI(object):
     def __init__(self):
         self._database_parameters = ufo.get_ini_section_dictionary(path=pm.get_config_ini(), section_name='mongodb_nexus')
         self._database_connection = None
+        self._quasar_database     = None
+        self._owners_collection   = None
         self._connected = False
 
     def print_database_names(self) -> None:
@@ -74,6 +76,9 @@ class MongoDBAPI(object):
 
         # Connecting locally.
         self._database_connection = pymongo.MongoClient()
+
+        self._quasar_database = self._database_connection['quasar']
+        self._owners_collection = self._quasar_database['owners']
 
         print(self._database_connection.database_names())
 
