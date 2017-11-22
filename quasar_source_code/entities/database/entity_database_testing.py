@@ -43,7 +43,7 @@ db.save_or_update_entity('test1', {'ENTITY_PROPERTY_ID': 50, 'ENTITY_PROPERTY_NA
 owners = db.get_all_owners()
 for o in owners:
 	print('OWNER : {' + str(o) + '}')
-	o.get_entity_manager().print_all_entities()
+	#o.get_entity_manager().print_all_entities()
 
 print(db.is_valid_owner('test', 'test'))
 print(db.is_valid_owner('test', 'test2'))
