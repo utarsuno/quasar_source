@@ -26,8 +26,11 @@ INDEX_OWNER_ID         = 3
 INDEX_OWNER_MANAGER_ID = 4
 
 # Owner dictionary key mappings.
-OWNER_KEY_NAME     = 'name'
-OWNER_KEY_PASSWORD = 'password'
+OWNER_KEY_NAME      = 'name'
+OWNER_KEY_PASSWORD  = 'password'
+OWNER_KEY_EMAIL     = 'email'
+OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
+
 
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
@@ -51,6 +54,13 @@ class EntityDatabaseAPI(object):
 			if o[OWNER_KEY_NAME] == owner_name and o[OWNER_KEY_PASSWORD] == owner_password:
 				return True
 		return False
+
+	def create_owner(self, owner_data) -> None:
+		"""Creates an owner. Throws an exception if the required attributes are not provided."""
+		for required_key in OWNER_KEYS_REQUIRED:
+			if required_key not in owner_data:
+				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
+		self._owners_collection.insert(owner_data)
 
 	def connect(self):
 		"""Connect to the database."""

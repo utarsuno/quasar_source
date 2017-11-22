@@ -51,6 +51,10 @@ class MongoCollection(object):
             entities.append(e)
         return entities
 
+    def insert(self, data):
+        """Inserts the data into the collection."""
+        self._collection.insert(data)
+
 
 class MongoDBAPI(object):
     """API for using MongoDB."""

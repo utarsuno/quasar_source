@@ -8,6 +8,8 @@ from quasar_source_code.entities.database.entity_database import EntityDatabaseA
 db = EntityDatabaseAPI()
 db.connect()
 
+db.create_owner({'apple'})
+
 owners = db.get_all_owners()
 for o in owners:
 	print('OWNER : {' + str(o) + '}')
