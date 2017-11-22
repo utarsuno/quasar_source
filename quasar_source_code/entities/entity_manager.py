@@ -2,7 +2,11 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
-from quasar_source_code.universal_code import time_abstraction as ta
+ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
+ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
+ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
+ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
+ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
 
 
 class EntityManager(object):
@@ -81,3 +85,19 @@ class EntityManager(object):
 		else:
 			self.entities.append(e)
 
+	def update_entity(self, entity_data):
+		"""Updates an entity with the data provided."""
+		for e in self.entities:
+			if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
+				for key in entity_data:
+					value = entity_data[key]
+					if key == ENTITY_PROPERTY_TYPE:
+						e.set_entity_type(value)
+					else:
+						e.add_information(str(key), str(value))
+
+	def get_all_entities_as_dictionary(self) -> dict:
+		"""Returns all the entities represented in a single dictionary."""
+		all_entities = {}
+		for e in self.entities:
+			all_entities[str(e.relative_id)] = e.get_json_data()

@@ -34,6 +34,12 @@ db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1'
 #specific_owner = db.get_specific_owner_by_name('test2')
 #print('LARGEST KEY!!!! " {' + str(specific_owner.get_largest_integer_key()) + '}')
 
+#owner_id = db.get_owner_id_by_name('test4')
+#db.update_owner({OWNER_KEY_ID: owner_id, '0': {'entity_name': 'hello'}, '1': {'entity_name': 'hello'}, 'no': 'yes'})
+
+
+db.save_or_update_entity('test1', {'ENTITY_PROPERTY_ID': 50, 'ENTITY_PROPERTY_NAME': 'insert_entity_test'})
+
 owners = db.get_all_owners()
 for o in owners:
 	print('OWNER : {' + str(o) + '}')

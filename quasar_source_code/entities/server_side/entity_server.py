@@ -97,3 +97,8 @@ class EntityServer(object):
 
 		self._db_api.update_owner(owner_data)
 		return SERVER_REPLY_GENERIC_YES
+
+	def save_or_update_entity(self, owner_name, entity_data):
+		"""Creates a new entity or modifies an existing with with the new data."""
+		# Update the entity for the owner.
+		self._db_api.save_or_update_entity(owner_name, entity_data)

@@ -125,7 +125,6 @@ class Entity(object):
 			print(str(key) + ' - ' + str(json_data[key]))
 
 	def __str__(self):
-		# TODO : Update this.
 		return '[' + str(self._relative_id) + '] - E{' + str(self.get_json_data()) + '}'
 
 	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
