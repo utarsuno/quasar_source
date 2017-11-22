@@ -60,9 +60,9 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
-	def update_entity(self, entity_data):
+	def save_or_update_entity(self, entity_data):
 		"""Updates the entity."""
-		self._entity_manager.update_entity(entity_data)
+		self._entity_manager.save_or_update_entity(entity_data)
 		# TODO : Send the update to the database!!!!
 
 		print('Need to save the following to the database!')
@@ -140,7 +140,7 @@ class EntityDatabaseAPI(object):
 		if not self.is_owner_name_taken(owner_name):
 			raise Exception('Can\'t update or save an entity for an owner that does not exist! {' + str(owner_name) + '}')
 		owner = self.get_specific_owner_by_name(owner_name)
-		owner.update_entity(data_dictionary)
+		owner.save_or_update_entity(data_dictionary)
 
 	def get_owner_id_by_name(self, owner_name):
 		"""Returns the _id of the owner."""

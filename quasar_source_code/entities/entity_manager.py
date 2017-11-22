@@ -2,6 +2,8 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
+from quasar_source_code.entities.base_entity import Entity
+
 ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
 ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
 ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
@@ -85,16 +87,28 @@ class EntityManager(object):
 		else:
 			self.entities.append(e)
 
-	def update_entity(self, entity_data):
-		"""Updates an entity with the data provided."""
+	def _update_entity(self, entity, entity_data):
+		"""Utility function to update an entity."""
+		for key in entity_data:
+			value = entity_data[key]
+			if key == ENTITY_PROPERTY_TYPE:
+				entity.set_entity_type(value)
+			else:
+				entity.add_information(str(key), str(value))
+
+	def save_or_update_entity(self, entity_data):
+		"""Creates a new entity or updates with the data provided."""
+		match_found = False
 		for e in self.entities:
 			if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
-				for key in entity_data:
-					value = entity_data[key]
-					if key == ENTITY_PROPERTY_TYPE:
-						e.set_entity_type(value)
-					else:
-						e.add_information(str(key), str(value))
+				self._update_entity(e, entity_data)
+				match_found = True
+		if not match_found:
+			new_entity = Entity()
+			new_entity_relative_id = self.get_largest_entity_id() + 1
+			new_entity.set_relative_id(new_entity_relative_id)
+			self._update_entity(new_entity, entity_data)
+			self.add_entities(new_entity)
 
 	def get_all_entities_as_dictionary(self) -> dict:
 		"""Returns all the entities represented in a single dictionary."""
