@@ -63,7 +63,7 @@ class MongoDBAPI(object):
 
     def get_collection(self, collection_name) -> MongoCollection:
         """Returns a MongoCollection object for the given collection name."""
-        return self._quasar_database[collection_name]
+        return MongoCollection(self._quasar_database[collection_name])
 
     def print_database_names(self) -> None:
         """Utility function to print the names of the databases."""
