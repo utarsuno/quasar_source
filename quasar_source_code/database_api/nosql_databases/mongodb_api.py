@@ -71,39 +71,14 @@ class MongoDBAPI(object):
     def connect(self) -> None:
         """Connects to the database."""
 
-        #self.server.start()
+        # TODO : Delete, once external connection is confirmed as no longer needed.
+        #connection_uri = url.quote('mongodb://' + self._database_parameters['user'] + ':' + self._database_parameters['password'] + '@' + self._database_parameters['host'] + ':' + self._database_parameters['port'] + '/' + self._database_parameters['database'])
 
-        connection_uri = url.quote('mongodb://' + self._database_parameters['user'] + ':' + self._database_parameters['password'] + '@' + self._database_parameters['host'] + ':' + self._database_parameters['port'] + '/' + self._database_parameters['database'])
-        #connection_uri = url.quote('mongodb://' + self._database_parameters['user'] + ':' + self._database_parameters['password'] + '@' + self._database_parameters['host'] + ':' + self._database_parameters['port'])
-
-        #self._database_connection = pymongo.MongoClient(self._database_parameters['host'],
-        #                                                user=self._database_parameters['user'],
-        #                                                password=self._database_parameters['password'],
-        #                                                authSource='admin',
-        #                                                authMechanism='SCRAM-SHA-1')
-
-        #self._database_connection = pymongo.MongoClient(connection_uri) # connect=False
+        # Connecting locally.
         self._database_connection = pymongo.MongoClient()
-        db = self._database_connection.cool_db
-        print(db.cool_collection.count())
-
-
-        #print(self._database_connection)
-
-        #print(self._database_connection.admin.command('ismaster'))
-
-        #self._database_connection = pymongo.MongoClient('127.0.0.1', self.server.local_bind_port)
-
-        #print(self._database_connection.read_preference)
-        #print(self._database_connection.write_concern)
-
 
         #print(self._database_connection.admin)
-        #print(self._database_connection.admin.command('ismaster'))
-
-
-        db = self._database_connection['test']
-        print(db)
+        print(self._database_connection.admin.command('ismaster'))
 
         #client.admin.command('ismaster')
         self._connected = True
