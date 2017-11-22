@@ -49,18 +49,11 @@ class EntityOwner(object):
 	def __init__(self, owner_data):
 		self._data    = {}
 		self._entities = {}
-		for e in owner_data:
-			entity_id = -1
-			for key in e:
-
-				print('Looking at key{' + str(key) + '} inside of [' + str(e) + ']')
-
-				if str(key).isdigit():
-					entity_id = int(key)
-				else:
-					self._data[key] = owner_data[key]
-			if entity_id == -1:
-				self._entities[entity_id] = owner_data[str(entity_id)]
+		for key in owner_data:
+			if str(key).isdigit():
+				self._entities[int(key)] = owner_data[key]
+			else:
+				self._data[key] = owner_data[key]
 		self._data = owner_data
 		self._entity_manager = EntityManager()
 		self._populate_entities()
@@ -79,6 +72,8 @@ class EntityOwner(object):
 
 	def _populate_entities(self):
 		"""Gives the entity data to the EntityManager."""
+		print('Populating entities from')
+		print(self._entities)
 		for e in self._entities:
 			base_entity = be.Entity()
 			base_entity.set_relative_id(int(e))
