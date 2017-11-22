@@ -10,6 +10,7 @@ OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
 OWNER_KEY_ID        = '_id'
 
 from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
+from lazyme.string import color_print
 
 db = EntityDatabaseAPI()
 db.connect()
@@ -43,7 +44,8 @@ db.save_or_update_entity('test1', {'ENTITY_PROPERTY_ID': 50, 'ENTITY_PROPERTY_NA
 owners = db.get_all_owners()
 for o in owners:
 	print('OWNER : {' + str(o) + '}')
-	#o.get_entity_manager().print_all_entities()
+	color_print('OWNER : {' + str(o) + '}', color='yellow')
+	o.get_entity_manager().print_all_entities()
 
 print(db.is_valid_owner('test', 'test'))
 print(db.is_valid_owner('test', 'test2'))

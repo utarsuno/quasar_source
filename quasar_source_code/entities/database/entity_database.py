@@ -89,8 +89,8 @@ class EntityOwner(object):
 
 	def _populate_entities(self):
 		"""Gives the entity data to the EntityManager."""
-		print('Populating entities from')
-		print(self._entities)
+		#print('Populating entities from')
+		#print(self._entities)
 		for e in self._entities:
 			base_entity = be.Entity()
 			base_entity.set_relative_id(int(e))
