@@ -102,7 +102,7 @@ def check_POST_arguments(arguments, request):
 
 
 # Create owner fields.
-OWNER_NAME       = 'owner'
+OWNER_NAME       = 'name'
 OWNER_PASSWORD   = 'password'
 OWNER_EMAIL      = 'email'
 OWNER_ID         = 'owner_id'
