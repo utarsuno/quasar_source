@@ -104,8 +104,6 @@ class MongoDBAPI(object):
 
         db = self._database_connection['test']
         print(db)
-        serverStatusResult = db.command("serverStatus")
-        print(serverStatusResult)
 
         #client.admin.command('ismaster')
         self._connected = True
