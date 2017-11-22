@@ -100,10 +100,11 @@ class EntityManager(object):
 	def save_or_update_entity(self, entity_data):
 		"""Creates a new entity or updates with the data provided."""
 		match_found = False
-		for e in self.entities:
-			if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
-				self._update_entity(e, entity_data)
-				match_found = True
+		if ENTITY_PROPERTY_ID in entity_data:
+			for e in self.entities:
+				if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
+					self._update_entity(e, entity_data)
+					match_found = True
 		if not match_found:
 			new_entity = Entity()
 			new_entity_relative_id = self.get_largest_entity_id() + 1
