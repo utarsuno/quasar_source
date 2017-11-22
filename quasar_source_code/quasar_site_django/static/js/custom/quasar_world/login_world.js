@@ -107,7 +107,7 @@ LoginWorld.prototype = {
 
         if (!error) {
             GUI_TYPING_INTERFACE.add_server_message('Sending create account request to server...');
-            this.post_create_account.perform_post({'owner': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this));
+            this.post_create_account.perform_post({'name': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
         }
@@ -265,4 +265,4 @@ LoginWorld.prototype = {
         this.create_password.floating_input.update_text('');
         this.create_repeat_password.floating_input.update_text('');
     }
-}
+};
