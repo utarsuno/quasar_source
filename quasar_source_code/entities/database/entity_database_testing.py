@@ -26,8 +26,8 @@ db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1'
 '''
 owner_id = db.get_owner_id_by_name('test4')
 owner_id2 = db.get_owner_id_by_name('test2')
-db.update_owner({OWNER_KEY_ID: owner_id, 0: {'entity_name': 'hello'}, 1: {'entity_name': 'hello'}, 'no': 'yes'})
-db.update_owner({OWNER_KEY_ID: owner_id2, 0: {'entity_name': 'hell3333o'}, 1: {'entity_name': 'hello22'}, 'no': 'ye222s'})
+db.update_owner({OWNER_KEY_ID: owner_id, '0': {'entity_name': 'hello'}, '1': {'entity_name': 'hello'}, 'no': 'yes'})
+db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1': {'entity_name': 'hello22'}, 'no': 'ye222s'})
 
 owners = db.get_all_owners()
 for o in owners:
