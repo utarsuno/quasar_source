@@ -36,12 +36,12 @@ OWNER_KEY_ID        = '_id'
 class EntityOwner(object):
 	"""Represents an Entity owner in the database."""
 
-	def __init__(self):
-		y = 2
+	def __init__(self, owner_data):
+		print('Owner data is : ' + str(owner_data))
 
 	def get_largest_entity_id(self):
 		"""Returns the largest entity ID."""
-
+		y = 2
 
 
 class EntityDatabaseAPI(object):
@@ -87,6 +87,14 @@ class EntityDatabaseAPI(object):
 		"""Gets all the owners from the database."""
 		return self._owners_collection.get_all()
 
+	def get_specific_owner_by_name(self, owner_name):
+		"""Returns an EntityOwner of that owner."""
+		# TODO : refactor this with cache!!!
+		owners = self.get_all_owners()
+		for o in owners:
+			if o[OWNER_KEY_NAME] == owner_name:
+				return EntityOwner(o)
+
 	def is_valid_owner(self, owner_name, owner_password) -> bool:
 		"""Returns a boolean indicating if the owner name and password combination maps to a valid owner."""
 		owners = self.get_all_owners()
@@ -97,6 +105,7 @@ class EntityDatabaseAPI(object):
 
 	def is_owner_id_valid(self, owner_id) -> bool:
 		"""Returns a boolean indicating if the owner id maps to a valid owner."""
+
 		owners = self.get_all_owners()
 		for o in owners:
 			if o[OWNER_KEY_ID] == owner_id:

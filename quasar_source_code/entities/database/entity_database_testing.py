@@ -24,10 +24,14 @@ print(owner_id)
 db.update_owner({OWNER_KEY_ID: owner_id, '0': {'entity_name': 'hello'}, '1': {'entity_name': 'hello'}, 'no': 'yes'})
 db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1': {'entity_name': 'hello22'}, 'no': 'ye222s'})
 '''
+'''
 owner_id = db.get_owner_id_by_name('test4')
 owner_id2 = db.get_owner_id_by_name('test2')
 db.update_owner({OWNER_KEY_ID: owner_id, '0': {'entity_name': 'hello'}, '1': {'entity_name': 'hello'}, 'no': 'yes'})
 db.update_owner({OWNER_KEY_ID: owner_id2, '0': {'entity_name': 'hell3333o'}, '1': {'entity_name': 'hello22'}, 'no': 'ye222s'})
+'''
+
+specific_owner = db.get_specific_owner_by_name('test2')
 
 owners = db.get_all_owners()
 for o in owners:
