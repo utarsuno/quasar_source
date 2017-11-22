@@ -10,7 +10,11 @@ class EntityManager(object):
 
 	def __init__(self):
 		super().__init__()
-		self.entities             = []
+		self.entities = []
+
+	def get_number_of_entities(self) -> int:
+		"""Returns the number of entities that this EntityManager has."""
+		return len(self.entities)
 
 	def delete_all_children_of_entity_that_do_not_have_other_parents(self, entity):
 		"""Does what the function name states c:."""

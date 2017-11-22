@@ -88,6 +88,10 @@ class EntityOwner(object):
 
 			self._entity_manager.add_entities(base_entity)
 
+	def get_number_of_entities(self) -> int:
+		"""Returns the number of entities that this EntityOwner has."""
+		return self._entity_manager.get_number_of_entities()
+
 	def get_largest_entity_key(self) -> int:
 		"""Returns the largest integer key found or -1 if none found."""
 		largest_key = -1
@@ -102,6 +106,9 @@ class EntityOwner(object):
 			if int(e) == entity_id:
 				return True
 		return False
+
+	def __str__(self):
+		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities() + '}')
 
 
 class EntityDatabaseAPI(object):
