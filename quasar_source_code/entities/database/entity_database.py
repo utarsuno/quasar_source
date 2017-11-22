@@ -52,6 +52,9 @@ class EntityOwner(object):
 		for e in owner_data:
 			entity_id = -1
 			for key in e:
+
+				print('Looking at key{' + str(key) + '} inside of [' + str(e) + ']')
+
 				if str(key).isdigit():
 					entity_id = int(key)
 				else:
