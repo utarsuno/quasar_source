@@ -81,6 +81,8 @@ class MongoDBAPI(object):
         self._owners_collection = self._quasar_database['owners']
 
         print(self._database_connection.database_names())
+        print(self._quasar_database)
+        print(self._owners_collection)
 
         # Connection only gets made after a server action.
         #self._connected = True
