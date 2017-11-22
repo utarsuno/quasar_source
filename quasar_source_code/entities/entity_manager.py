@@ -101,3 +101,4 @@ class EntityManager(object):
 		all_entities = {}
 		for e in self.entities:
 			all_entities[str(e.relative_id)] = e.get_json_data()
+		return all_entities

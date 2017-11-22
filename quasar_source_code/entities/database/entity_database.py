@@ -69,7 +69,6 @@ class EntityOwner(object):
 		print(self._data)
 		print(self._entity_manager.get_all_entities_as_dictionary())
 
-
 		#self._entity_database_api.update_owner_for_database(self._data, self._entity_manager.get_all_entities_as_dictionary())
 
 	def get_entity_manager(self):
