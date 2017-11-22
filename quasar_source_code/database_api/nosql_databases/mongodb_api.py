@@ -82,7 +82,8 @@ class MongoDBAPI(object):
         #                                                authSource='admin',
         #                                                authMechanism='SCRAM-SHA-1')
 
-        self._database_connection = pymongo.MongoClient(connection_uri) # connect=False
+        #self._database_connection = pymongo.MongoClient(connection_uri) # connect=False
+        self._database_connection = pymongo.MongoClient()
         db = self._database_connection.cool_db
         print(db.cool_collection.count())
 
