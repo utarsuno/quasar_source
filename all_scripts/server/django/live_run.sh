@@ -10,7 +10,7 @@ print_dashed_line_with_text "run django script start for : ${HOST_NAME}"
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__`    |__  | |__) /__`  |
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/    |    | |  \ .__/  |
 
-terminate_if_not_sudo
+#terminate_if_not_sudo
 terminate_if_system_is_not_ubuntu
 
 #  __   __   __     __  ___          __   __     __      __   ___       __
