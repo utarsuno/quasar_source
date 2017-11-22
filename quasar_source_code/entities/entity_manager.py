@@ -94,6 +94,7 @@ class EntityManager(object):
 			if key == ENTITY_PROPERTY_TYPE:
 				entity.set_entity_type(value)
 			else:
+				print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
 				entity.add_information(str(key), str(value))
 
 	def save_or_update_entity(self, entity_data):
