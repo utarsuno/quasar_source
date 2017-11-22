@@ -108,7 +108,7 @@ class EntityOwner(object):
 		return False
 
 	def __str__(self):
-		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities() + '}')
+		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities()) + '}'
 
 
 class EntityDatabaseAPI(object):
