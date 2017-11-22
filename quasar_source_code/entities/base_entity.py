@@ -126,7 +126,7 @@ class Entity(object):
 
 	def __str__(self):
 		# TODO : Update this.
-		return '[' + str(self._relative_id) + '] - E{}'
+		return '[' + str(self._relative_id) + '] - E{' + str(self.get_json_data()) + '}'
 
 	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
 		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
