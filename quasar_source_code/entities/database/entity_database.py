@@ -62,17 +62,24 @@ class EntityOwner(object):
 
 	def save_or_update_entity(self, entity_data):
 		"""Updates the entity."""
-		print('\n')
-		print(self._entity_manager.get_all_entities_as_dictionary())
-		print('\n')
+		#print('\n')
+		#print(self._entity_manager.get_all_entities_as_dictionary())
+		#print('\n')
 		self._entity_manager.save_or_update_entity(entity_data)
 		# TODO : Send the update to the database!!!!
 
-		print('Need to save the following to the database!')
-		print(self._data)
-		print(self._entity_manager.get_all_entities_as_dictionary())
+		#print('Need to save the following to the database!')
+		#print(self._data)
+		#print(self._entity_manager.get_all_entities_as_dictionary())
 
-		#self._entity_database_api.update_owner_for_database(self._data, self._entity_manager.get_all_entities_as_dictionary())
+		save_data = {}
+		for key in self._data:
+			save_data[key] = self._data[key]
+		entities_as_a_dictionary = self._entity_manager.get_all_entities_as_dictionary()
+		for key in entities_as_a_dictionary:
+			save_data[key] = entities_as_a_dictionary[key]
+
+		self._entity_database_api.update_owner_for_database(save_data)
 
 	def get_entity_manager(self):
 		"""Returns the EntityManager object holding this EntityOwner's entities."""
@@ -137,6 +144,10 @@ class EntityDatabaseAPI(object):
 		self._owners_cache      = []
 		self._update_owners_cache()
 
+	def update_owner_for_database(self, owner_id, save_data):
+		"""Performs a database update for the owner."""
+		self._owners_collection.up
+
 	def save_or_update_entity(self, owner_name, data_dictionary):
 		"""Saves or updates an entity."""
 		# Owner name does not exist check.
@@ -152,8 +163,6 @@ class EntityDatabaseAPI(object):
 	def _update_owners_cache(self):
 		"""Reloads the owners."""
 		owners = self._owners_collection.get_all()
-		print('OWNERS ARE')
-		print(owners)
 		for o in owners:
 			self._owners_cache.append(EntityOwner(o, self))
 
