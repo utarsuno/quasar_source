@@ -33,6 +33,17 @@ OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
 OWNER_KEY_ID        = '_id'
 
 
+class EntityOwner(object):
+	"""Represents an Entity owner in the database."""
+
+	def __init__(self):
+		y = 2
+
+	def get_largest_entity_id(self):
+		"""Returns the largest entity ID."""
+
+
+
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 
@@ -43,6 +54,30 @@ class EntityDatabaseAPI(object):
 
 		# TODO : Implement owners cache.
 		#self.owners_cache       = []
+
+	#def get_element_by_
+
+	'''
+	def get_largest_integer_key_row(self) -> int:
+		"""Returns the largest integer key found in the collection or -1 if none found."""
+		#c = self._collection.find()
+		owners = self._owners_collection.get_all()
+		largest_key = -1
+		for e in owners:
+			for key in e:
+				if type(key) == int:
+					if key > largest_key:
+						largest_key = key
+		if largest_key != -1:
+			for e in owners:
+				if largest_key in e:
+					return e
+		return None
+	'''
+
+	def save_or_update_entity(self, owner_name, data_dictionary):
+		"""Saves or updates an entity."""
+		# TODO :
 
 	def get_owner_id_by_name(self, owner_name):
 		"""Returns the _id of the owner."""
@@ -78,9 +113,13 @@ class EntityDatabaseAPI(object):
 
 	def create_owner(self, owner_data) -> None:
 		"""Creates an owner. Throws an exception if the required attributes are not provided."""
+		# Make sure that all the required keys are provided.
 		for required_key in OWNER_KEYS_REQUIRED:
 			if required_key not in owner_data:
 				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
+		# Make sure that the owner name isn't already taken.
+		if self.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
+			raise Exception('Owner name ' + owner_data[OWNER_KEY_NAME] + ' is already taken!')
 		self._owners_collection.insert(owner_data)
 
 	def update_owner(self, owner_data) -> None:
@@ -98,7 +137,6 @@ class EntityDatabaseAPI(object):
 		self._api.terminate()
 
 	# TODO : save_entity_manager(self, entity_manager):
-
 
 	# This function is to be manually ran only.
 	def _full_reset(self):
