@@ -25,18 +25,32 @@ INDEX_OWNER_EMAIL      = 2
 INDEX_OWNER_ID         = 3
 INDEX_OWNER_MANAGER_ID = 4
 
+# Owner dictionary key mappings.
+OWNER_KEY_NAME     = 'name'
+OWNER_KEY_PASSWORD = 'password'
 
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 
 	def __init__(self, debug=False):
-		self._debug     = debug
-		self._api       = db_api.MongoDBAPI()
+		self._debug             = debug
+		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
+
+		# TODO : Implement owners cache.
+		#self.owners_cache       = []
 
 	def get_all_owners(self):
 		"""Gets all the owners from the database."""
 		return self._owners_collection.get_all()
+
+	def is_valid_owner(self, owner_name, owner_password) -> bool:
+		"""Returns a boolean indicating if the owner name and password combination maps to a valid owner."""
+		owners = self.get_all_owners()
+		for o in owners:
+			if o[OWNER_KEY_NAME] == owner_name and o[OWNER_KEY_PASSWORD] == owner_password:
+				return True
+		return False
 
 	def connect(self):
 		"""Connect to the database."""

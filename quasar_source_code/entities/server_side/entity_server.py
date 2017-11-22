@@ -267,33 +267,3 @@ class EntityServer(object):
 
 		return SERVER_REPLY_GENERIC_NO
 
-	# TODO : Delete this method.
-	def get_entities_for_day(self, day, username):
-		"""Gets the entities for the day provided."""
-		print('Get entities for day got the following day{' + str(day) + '}')
-		parts = day.split('/')
-		specific_day = ta.get_specific_day(year=int(parts[2]), month=int(parts[0]), day=int(parts[1]))
-
-		error_happened = False
-
-		try:
-			self.ensure_manager_is_loaded_for_owner(username)
-		except Exception as e:
-			print('ERROR GETTING ENTITIES FOR DAY{' + str(day) + '} for {' + str(username) + '}')
-			print(str(e))
-			print('@@@@@@@@@@@@@@@@')
-			error_happened = True
-
-		data = self._managers[username].get_information_for_specific_day(specific_day)
-		print(data)
-		print(specific_day)
-		if error_happened:
-			print('oh and an error happened!\n')
-
-		json_data = {day : []}
-		for d in data:
-			json_data[day].append(d)
-
-		print('returning : ' + str(json_data))
-
-		return HttpResponse(json.dumps(json_data))
