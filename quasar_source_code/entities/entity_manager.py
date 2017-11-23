@@ -107,6 +107,10 @@ class EntityManager(object):
 			value = entity_data[key]
 			if key == ENTITY_PROPERTY_TYPE:
 				entity.set_entity_type(value)
+			elif key == ENTITY_PROPERTY_CHILDREN:
+				entity._child_entities = value
+			elif key == ENTITY_PROPERTY_PARENTS:
+				entity._parent_entities = value
 			else:
 				print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
 				entity.add_information(str(key), str(value))
