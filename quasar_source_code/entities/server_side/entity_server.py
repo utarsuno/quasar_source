@@ -127,5 +127,8 @@ class EntityServer(object):
 
 	def get_all_public_entities(self):
 		"""Returns all the public entities."""
+
+
+
 		y = 2
 		# TODO : Method to get all public entities.

@@ -167,11 +167,25 @@ class EntityDatabaseAPI(object):
 		"""Returns the _id of the owner."""
 		return self._owners_collection.get_id_by_key_value_match(OWNER_KEY_NAME, owner_name)
 
+	def _add_public_entity_owner(self):
+		"""Adds the public entity owner."""
+		o = {OWNER_KEY_PASSWORD: 'public_entities', OWNER_KEY_NAME: 'public_entities', OWNER_KEY_EMAIL: 'public_entities'}
+		self._owners_cache.append(EntityOwner(o, self))
+
 	def _update_owners_cache(self):
 		"""Reloads the owners."""
 		owners = self._owners_collection.get_all()
 		for o in owners:
 			self._owners_cache.append(EntityOwner(o, self))
+
+		# Ensure that there is an owner for all the public entities.
+		public_entity_owner_found = False
+		for o in self._owners_cache:
+			if o.is_public_entity_owner():
+				public_entity_owner_found = True
+				break
+		if not public_entity_owner_found:
+			self._add_public_entity_owner()
 
 	def get_all_owners(self):
 		"""Gets all the owners from the database."""
