@@ -104,6 +104,12 @@ class EntityManager(object):
 	def _update_entity(self, entity, entity_data):
 		"""Utility function to update an entity."""
 
+		print('\n\n')
+		print('Performing update entity inside of an entity manager.')
+		for e in self.entities:
+			print(str(e))
+		print('\n\n')
+
 		print('Updating entity{' + str(entity) + '}')
 		print('with the following data : ')
 		print(entity_data)
