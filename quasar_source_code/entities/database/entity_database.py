@@ -111,6 +111,10 @@ class EntityOwner(object):
 				value = self._entities[e][key]
 				if key == ENTITY_PROPERTY_TYPE:
 					base_entity.set_entity_type(value)
+				elif key == ENTITY_PROPERTY_CHILDREN:
+					base_entity._children_entities = value
+				elif key == ENTITY_PROPERTY_PARENTS:
+					base_entity._parent_entities = value
 				else:
 					base_entity.add_information(str(key), str(value))
 				#if key == ENTITY_PROPERTY_CHILDREN:
