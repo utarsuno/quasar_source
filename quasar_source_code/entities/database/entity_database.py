@@ -65,7 +65,7 @@ class EntityOwner(object):
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
 		return self._data[OWNER_KEY_NAME] == 'public_entities'
 
-	def _save_to_database(self):
+	def save_to_database(self):
 		"""Utility function to send changes to the database."""
 		save_data = {}
 		for key in self._data:
@@ -79,12 +79,12 @@ class EntityOwner(object):
 	def delete_entity_with_id(self, entity_id):
 		"""Deletes the specified entity."""
 		self._entity_manager.delete_entity(entity_id)
-		self._save_to_database()
+		self.save_to_database()
 
 	def save_or_update_entity(self, entity_data):
 		"""Updates the entity."""
 		self._entity_manager.save_or_update_entity(entity_data)
-		self._save_to_database()
+		self.save_to_database()
 
 	def get_entity_manager(self):
 		"""Returns the EntityManager object holding this EntityOwner's entities."""
@@ -112,11 +112,11 @@ class EntityOwner(object):
 				if key == ENTITY_PROPERTY_TYPE:
 					base_entity.set_entity_type(value)
 				elif key == ENTITY_PROPERTY_CHILDREN:
-					base_entity._children_entities = value
+					base_entity._children_entities = list(value)
 				elif key == ENTITY_PROPERTY_PARENTS:
-					base_entity._parent_entities = value
+					base_entity._parent_entities = list(value)
 				elif key == ENTITY_PROPERTY_ID:
-					base_entity.set_relative_id(value)
+					base_entity.set_relative_id(int(value))
 				else:
 					base_entity.add_information(str(key), str(value))
 				#if key == ENTITY_PROPERTY_CHILDREN:
@@ -125,7 +125,7 @@ class EntityOwner(object):
 			self._entity_manager.add_entities(base_entity)
 
 		# In case owner entity was made, but eventually make this operation faster.
-		self._save_to_database()
+		#self._save_to_database()
 
 	def get_number_of_entities(self) -> int:
 		"""Returns the number of entities that this EntityOwner has."""
@@ -175,8 +175,8 @@ class EntityDatabaseAPI(object):
 	def update_owner_for_database(self, save_data):
 		"""Performs a database update for the owner."""
 
-		print('update_owner_for_database\n')
-		print(save_data)
+		#print('\nupdate_owner_for_database\n')
+		#print(save_data)
 
 		self._owners_collection.update(save_data)
 
@@ -262,9 +262,9 @@ class EntityDatabaseAPI(object):
 
 		# Update the owner cache.
 		new_entity_owner = self._add_owner_to_cache(owner_data)
-		new_entity_owner.ensure_owner_entity_exists()
 
 		# When creating the owner object we also need to create the owner entity.
+		new_entity_owner.ensure_owner_entity_exists()
 
 		# Create the owner.
 		self._owners_collection.insert(owner_data)
@@ -279,7 +279,6 @@ class EntityDatabaseAPI(object):
 		# TODO ; UPDATE THE CACHE!!!! Or possibly have a flag determining if an update is needed
 		print('NEED TO UPDATE OWNER')
 		print('UPDATE DATA IS : ' + str(owner_data))
-
 
 
 		# Update the owner cache.
