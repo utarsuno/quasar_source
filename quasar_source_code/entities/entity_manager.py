@@ -106,6 +106,7 @@ class EntityManager(object):
 
 		print('\n\n')
 		print('Performing update entity inside of an entity manager.')
+		print('There are ' + str(len(self.entities)) + ' entities currently.')
 		for e in self.entities:
 			print(str(e))
 		print('\n\n')
@@ -131,7 +132,8 @@ class EntityManager(object):
 	def save_or_update_entity(self, entity_data):
 		"""Creates a new entity or updates with the data provided."""
 		match_found = False
-		if ENTITY_PROPERTY_ID in entity_data:
+		# ENTITY_PROPERTY_ID in entity_data and 
+		if '_id' in entity_data:
 			for e in self.entities:
 				if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
 					self._update_entity(e, entity_data)
