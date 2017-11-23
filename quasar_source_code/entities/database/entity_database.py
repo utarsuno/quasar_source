@@ -247,12 +247,9 @@ class EntityDatabaseAPI(object):
 		if self.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
 			raise Exception('Owner name ' + owner_data[OWNER_KEY_NAME] + ' is already taken!')
 
-		# Ensure the correct type is set.
-		owner_data[ENTITY_PROPERTY_TYPE] = ENTITY_OWNER
-
 		# Update the owner cache.
 		new_entity_owner = self._add_owner_to_cache(owner_data)
-		#new_entity_owner.ensure_owner_entity_exists()
+		new_entity_owner.ensure_owner_entity_exists()
 
 		# When creating the owner object we also need to create the owner entity.
 
