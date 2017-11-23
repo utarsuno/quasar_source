@@ -124,6 +124,9 @@ class EntityOwner(object):
 
 			self._entity_manager.add_entities(base_entity)
 
+		# In case owner entity was made, but eventually make this operation faster.
+		self._save_to_database()
+
 	def get_number_of_entities(self) -> int:
 		"""Returns the number of entities that this EntityOwner has."""
 		return self._entity_manager.get_number_of_entities()
@@ -272,6 +275,8 @@ class EntityDatabaseAPI(object):
 		# TODO ; UPDATE THE CACHE!!!! Or possibly have a flag determining if an update is needed
 		print('NEED TO UPDATE OWNER')
 		print('UPDATE DATA IS : ' + str(owner_data))
+
+
 
 		# Update the owner cache.
 		#self._update_owners_cache()
