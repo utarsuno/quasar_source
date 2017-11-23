@@ -204,6 +204,13 @@ LoginWorld.prototype = {
         // TODO :
         //this.quasar_source_title = new Floating3DText()
 
+        // Temp lol...
+        this.snap = new Floating3DText(600, 'Snap-streak Day 2?!', TYPE_TITLE, this.scene);
+        var snap_position = new THREE.Vector3(104, 355, 859);
+        var snap_look_at  = new THREE.Vector3(.155, -.428, -.89);
+        this.snap.update_position_and_look_at(snap_position, snap_look_at);
+        //
+
         this.interactive_objects = [
             this.login_button,
             this.create_account_button,

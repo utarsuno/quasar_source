@@ -15,7 +15,6 @@ class EntityManager(object):
 	"""Defines management operations for Entities."""
 
 	def __init__(self):
-		super().__init__()
 		self.entities = []
 
 	def get_number_of_entities(self) -> int:
