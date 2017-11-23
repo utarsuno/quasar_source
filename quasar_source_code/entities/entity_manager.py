@@ -111,6 +111,8 @@ class EntityManager(object):
 				entity._child_entities = value
 			elif key == ENTITY_PROPERTY_PARENTS:
 				entity._parent_entities = value
+			elif key == ENTITY_PROPERTY_ID:
+				entity.set_relative_id(value)
 			else:
 				print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
 				entity.add_information(str(key), str(value))
