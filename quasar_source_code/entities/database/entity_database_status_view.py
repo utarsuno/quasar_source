@@ -15,6 +15,9 @@ from lazyme.string import color_print
 
 db = EntityDatabaseAPI()
 db.connect()
+
+db._full_reset()
+
 owners = db.get_all_owners()
 print('Printing all owners and their data.')
 for o in owners:
