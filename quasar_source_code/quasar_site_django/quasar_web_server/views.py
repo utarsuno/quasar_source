@@ -217,7 +217,7 @@ def POST_load_all_entities(request):
 
 	print('Loading all entities for : ' + request.POST[USERNAME])
 	global entity_server
-	return entity_server.get_all_public_entities(request.POST[USERNAME], request.POST[OWNER_PASSWORD])
+	return entity_server.get_all_users_entities(request.POST[USERNAME], request.POST[OWNER_PASSWORD])
 
 
 @csrf_exempt
