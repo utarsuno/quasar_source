@@ -125,7 +125,15 @@ class Entity(object):
 			print(str(key) + ' - ' + str(json_data[key]))
 
 	def __str__(self):
-		return '[' + str(self._relative_id) + '] - E{' + str(self.get_json_data()) + '}'
+
+		raw_data = self.get_json_data()
+		slim_data = {}
+		for key in raw_data:
+			value = raw_data[key]
+			if str(value) != '[]':
+				slim_data[key] = value
+
+		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
 
 	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
 		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
