@@ -103,6 +103,11 @@ class EntityManager(object):
 
 	def _update_entity(self, entity, entity_data):
 		"""Utility function to update an entity."""
+
+		print('Updating entity{' + str(entity) + '}')
+		print('with the following data : ')
+		print(entity_data)
+
 		for key in entity_data:
 			value = entity_data[key]
 			if key == ENTITY_PROPERTY_TYPE:
@@ -114,7 +119,7 @@ class EntityManager(object):
 			elif key == ENTITY_PROPERTY_ID:
 				entity.set_relative_id(value)
 			else:
-				print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
+				#print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
 				entity.add_information(str(key), str(value))
 
 	def save_or_update_entity(self, entity_data):
