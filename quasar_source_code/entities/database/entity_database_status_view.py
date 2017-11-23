@@ -1,47 +1,23 @@
 # coding=utf-8
 
 """This module, entity_database_status_view.py, is used to see a summary of the current state of the database."""
-from quasar_source_code.entities.database import entity_database as e_db
-
-db = e_db.EntityDatabaseAPI(debug=True)
 
 
-#db._owners.delete_row_with_value('name', 'cccc')
+# Owner dictionary key mappings.
+OWNER_KEY_NAME      = 'name'
+OWNER_KEY_PASSWORD  = 'password'
+OWNER_KEY_EMAIL     = 'email'
+OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
+OWNER_KEY_ID        = '_id'
 
-print('Printing managers :\n')
-managers = db.get_all_managers()
-for m in managers:
-	print(m)
+from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
+from lazyme.string import color_print
 
-print('\nPrinting owners :\n')
+db = EntityDatabaseAPI()
+db.connect()
 owners = db.get_all_owners()
-for e in owners:
-	print(e)
-	manager = db.get_entity_manager(e[4])
-	if manager is None:
-		print('No manager found!')
-	else:
-		entities = manager.get_all_entities()
-		print('---')
-		for ee in entities:
-			#print(ee)
-			ee.print_info()
-			print('---')
-	print('-----------------------------------')
-
-a = db.get_entity_manager(2)
-print(a)
-
-db.terminate()
-
-#print(e._api.execute_query_and_get_all_results('SELECT * FROM entity_managers'))
-#print(e._api.get_all_table_names())
-#print(e.get_all_owners())
-#e._full_reset()
-
-
-#print(e._owners.get_row_values())
-#print(e._entity_managers.get_row_values())
-
-
-
+print('Printing all owners and their data.')
+for o in owners:
+	print('OWNER : {' + str(o) + '}')
+	color_print('OWNER : {' + str(o) + '}', color='yellow')
+	o.get_entity_manager().print_all_entities()
