@@ -132,8 +132,9 @@ class EntityManager(object):
 	def save_or_update_entity(self, entity_data):
 		"""Creates a new entity or updates with the data provided."""
 		match_found = False
-		# ENTITY_PROPERTY_ID in entity_data and 
-		if '_id' in entity_data:
+		# ENTITY_PROPERTY_ID in entity_data and
+		#if '_id' in entity_data:
+		if ENTITY_PROPERTY_ID in entity_data:
 			for e in self.entities:
 				if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
 					self._update_entity(e, entity_data)

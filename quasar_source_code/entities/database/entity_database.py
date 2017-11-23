@@ -267,11 +267,11 @@ class EntityDatabaseAPI(object):
 		# Update the owner cache.
 		new_entity_owner = self._add_owner_to_cache(owner_data)
 
-		# When creating the owner object we also need to create the owner entity.
-		new_entity_owner.ensure_owner_entity_exists()
-
 		# Create the owner.
 		self._owners_collection.insert(owner_data)
+
+		# When creating the owner object we also need to create the owner entity.
+		new_entity_owner.ensure_owner_entity_exists()
 
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""
