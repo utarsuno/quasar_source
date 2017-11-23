@@ -18,6 +18,5 @@ db.connect()
 owners = db.get_all_owners()
 print('Printing all owners and their data.')
 for o in owners:
-	print('OWNER : {' + str(o) + '}')
 	color_print('OWNER : {' + str(o) + '}', color='yellow')
 	o.get_entity_manager().print_all_entities()
