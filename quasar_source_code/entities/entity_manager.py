@@ -144,6 +144,9 @@ class EntityManager(object):
 	def ensure_owner_entity_exists(self, owner_data):
 		"""Creates the owner entity if it does not yet exist."""
 		# owner_username
+		print('This is the owner data')
+		print(str(owner_data))
+
 		data = {}
 		data[ENTITY_PROPERTY_TYPE] = ENTITY_TYPE_OWNER
 		data['owner_id'] = str(owner_data[OWNER_KEY_ID])
