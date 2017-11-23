@@ -174,6 +174,10 @@ class EntityDatabaseAPI(object):
 
 	def update_owner_for_database(self, save_data):
 		"""Performs a database update for the owner."""
+
+		print('update_owner_for_database\n')
+		print(save_data)
+
 		self._owners_collection.update(save_data)
 
 	def save_or_update_entity(self, owner_name, data_dictionary):
