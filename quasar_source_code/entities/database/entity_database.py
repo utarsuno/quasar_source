@@ -6,6 +6,8 @@ from quasar_source_code.database_api.nosql_databases import mongodb_api as db_ap
 from quasar_source_code.entities import base_entity as be
 from quasar_source_code.entities.entity_manager import EntityManager
 
+import ast
+
 '''  __       ___       __        __   ___          __
 	|  \  /\   |   /\  |__)  /\  /__` |__      /\  |__) |    .
 	|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    /~~\ |    |    .
@@ -112,9 +114,9 @@ class EntityOwner(object):
 				if key == ENTITY_PROPERTY_TYPE:
 					base_entity.set_entity_type(value)
 				elif key == ENTITY_PROPERTY_CHILDREN:
-					base_entity._children_entities = list(value)
+					base_entity._children_entities = ast.literal_eval(value)
 				elif key == ENTITY_PROPERTY_PARENTS:
-					base_entity._parent_entities = list(value)
+					base_entity._parent_entities = ast.literal_eval(value)
 				elif key == ENTITY_PROPERTY_ID:
 					base_entity.set_relative_id(int(value))
 				else:
