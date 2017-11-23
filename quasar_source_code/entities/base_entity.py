@@ -125,7 +125,6 @@ class Entity(object):
 			print(str(key) + ' - ' + str(json_data[key]))
 
 	def __str__(self):
-
 		raw_data = self.get_json_data()
 		slim_data = {}
 		for key in raw_data:
