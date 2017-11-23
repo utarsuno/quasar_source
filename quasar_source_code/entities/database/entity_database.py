@@ -61,7 +61,10 @@ class EntityOwner(object):
 
 	def ensure_owner_entity_exists(self):
 		"""Creates the owner entity if it does not yet exist."""
-		self._entity_manager.ensure_owner_entity_exists(self._data)
+		if self._entity_manager.ensure_owner_entity_exists(self._data):
+			# An owner was created so save this EntityOwner.
+			self.save_to_database()
+
 
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""

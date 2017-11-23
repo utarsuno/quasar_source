@@ -153,11 +153,15 @@ class EntityManager(object):
 		if entity_to_remove is not None:
 			self.entities.remove(entity_to_remove)
 
-	def ensure_owner_entity_exists(self, owner_data):
-		"""Creates the owner entity if it does not yet exist."""
+	def ensure_owner_entity_exists(self, owner_data) -> bool:
+		"""Creates the owner entity if it does not yet exist. Returns a boolean, True indicates an owner was created."""
 		# owner_username
 		#print('This is the owner data')
 		#print(str(owner_data))
+
+		for e in self.entities:
+			if e.get_value(ENTITY_PROPERTY_TYPE) == ENTITY_TYPE_OWNER:
+				return False
 
 		data = {}
 		data['owner_created_at_date'] = str(ta.get_now())
@@ -166,3 +170,5 @@ class EntityManager(object):
 		data[OWNER_KEY_PASSWORD] = owner_data[OWNER_KEY_PASSWORD]
 		data[OWNER_KEY_EMAIL] = owner_data[OWNER_KEY_EMAIL]
 		self.save_or_update_entity(data)
+
+		return True
