@@ -130,7 +130,8 @@ class Entity(object):
 		for key in raw_data:
 			value = raw_data[key]
 			if str(value) != '[]':
-				slim_data[key] = value
+				if key != ENTITY_PROPERTY_ID:
+					slim_data[key] = value
 
 		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
 
