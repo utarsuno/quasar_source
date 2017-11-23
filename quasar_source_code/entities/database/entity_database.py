@@ -56,6 +56,10 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	def ensure_owner_entity_exists(self):
+		"""Creates the owner entity if it does not yet exist."""
+		self._entity_manager.ensure_owner_entity_exists(self._data)
+
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
 		return self._data[OWNER_KEY_NAME] == 'public_entities'
@@ -227,8 +231,10 @@ class EntityDatabaseAPI(object):
 		return False
 
 	def _add_owner_to_cache(self, owner_data):
-		"""Adds the owner to the owner cache."""
-		self._owners_cache.append(EntityOwner(owner_data, self))
+		"""Adds the owner to the owner cache and returns the EntityOwner created."""
+		new_entity_owner = EntityOwner(owner_data, self)
+		self._owners_cache.append(new_entity_owner)
+		return new_entity_owner
 
 	def create_owner(self, owner_data) -> None:
 		"""Creates an owner. Throws an exception if the required attributes are not provided."""
@@ -239,10 +245,15 @@ class EntityDatabaseAPI(object):
 		# Make sure that the owner name isn't already taken.
 		if self.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
 			raise Exception('Owner name ' + owner_data[OWNER_KEY_NAME] + ' is already taken!')
+
+		# Update the owner cache.
+		new_entity_owner = self._add_owner_to_cache(owner_data)
+		new_entity_owner.ensure_owner_entity_exists()
+
+		# When creating the owner object we also need to create the owner entity.
+
 		# Create the owner.
 		self._owners_collection.insert(owner_data)
-		# Update the owner cache.
-		self._add_owner_to_cache(owner_data)
 
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""

@@ -10,6 +10,20 @@ ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
 ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
 ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
 
+ENTITY_TYPE_TASK            = 'EntityTask'
+ENTITY_TYPE_TIME            = 'EntityTime'
+ENTITY_TYPE_BASE            = 'Entity'
+ENTITY_TYPE_WALL            = 'EntityWall'
+ENTITY_TYPE_OWNER           = 'EntityOwner'
+ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder'
+ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
+
+OWNER_KEY_NAME      = 'name'
+OWNER_KEY_PASSWORD  = 'password'
+OWNER_KEY_EMAIL     = 'email'
+OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
+OWNER_KEY_ID        = '_id'
+
 
 class EntityManager(object):
 	"""Defines management operations for Entities."""
@@ -126,3 +140,10 @@ class EntityManager(object):
 				entity_to_remove = e
 		if entity_to_remove is not None:
 			self.entities.remove(entity_to_remove)
+
+	def ensure_owner_entity_exists(self, owner_data):
+		"""Creates the owner entity if it does not yet exist."""
+		# owner_username
+		data = {ENTITY_PROPERTY_TYPE: ENTITY_TYPE_OWNER, 'owner_id': OWNER_KEY_ID, OWNER_KEY_NAME: owner_data[OWNER_KEY_NAME,
+		OWNER_KEY_PASSWORD: owner_data[OWNER_KEY_PASSWORD], OWNER_KEY_EMAIL: owner_data[OWNER_KEY_EMAIL]]}
+		self.save_or_update_entity(data)
