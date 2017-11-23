@@ -3,6 +3,7 @@
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
 from quasar_source_code.entities.base_entity import Entity
+from quasar_source_code.universal_code import time_abstraction as ta
 
 ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
 ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
@@ -148,6 +149,7 @@ class EntityManager(object):
 		#print(str(owner_data))
 
 		data = {}
+		data['owner_created_at_date'] = str(ta.get_now())
 		data[ENTITY_PROPERTY_TYPE] = ENTITY_TYPE_OWNER
 		data[OWNER_KEY_NAME] = owner_data[OWNER_KEY_NAME]
 		data[OWNER_KEY_PASSWORD] = owner_data[OWNER_KEY_PASSWORD]
