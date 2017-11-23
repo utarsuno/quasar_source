@@ -55,6 +55,9 @@ OWNER_KEY_EMAIL     = 'email'
 OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
 OWNER_KEY_ID        = '_id'
 
+# Public entities owner name
+PUBLIC_ENTITIES_OWNER = 'public_entities'
+
 
 class EntityServer(object):
 	"""Memory layer for entity managers and owners."""
@@ -127,8 +130,4 @@ class EntityServer(object):
 
 	def get_all_public_entities(self):
 		"""Returns all the public entities."""
-
-
-
-		y = 2
-		# TODO : Method to get all public entities.
+		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(PUBLIC_ENTITIES_OWNER))

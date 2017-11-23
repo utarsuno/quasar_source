@@ -35,6 +35,9 @@ ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
 ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
 ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
 
+# Public entities owner name
+PUBLIC_ENTITIES_OWNER = 'public_entities'
+
 
 class EntityOwner(object):
 	"""Represents an Entity owner in the database."""
@@ -173,7 +176,7 @@ class EntityDatabaseAPI(object):
 
 	def _add_public_entity_owner(self):
 		"""Adds the public entity owner."""
-		o = {OWNER_KEY_PASSWORD: 'public_entities', OWNER_KEY_NAME: 'public_entities', OWNER_KEY_EMAIL: 'public_entities'}
+		o = {OWNER_KEY_PASSWORD: PUBLIC_ENTITIES_OWNER, OWNER_KEY_NAME: PUBLIC_ENTITIES_OWNER, OWNER_KEY_EMAIL: PUBLIC_ENTITIES_OWNER}
 		self._owners_cache.append(EntityOwner(o, self))
 
 	def _update_owners_cache(self):
