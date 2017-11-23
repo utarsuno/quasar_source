@@ -115,6 +115,8 @@ class EntityOwner(object):
 					base_entity._children_entities = value
 				elif key == ENTITY_PROPERTY_PARENTS:
 					base_entity._parent_entities = value
+				elif key == ENTITY_PROPERTY_ID:
+					base_entity.set_relative_id(value)
 				else:
 					base_entity.add_information(str(key), str(value))
 				#if key == ENTITY_PROPERTY_CHILDREN:
