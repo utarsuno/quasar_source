@@ -2,7 +2,6 @@
 
 """This module, entity_database_status_view.py, is used to see a summary of the current state of the database."""
 
-
 # Owner dictionary key mappings.
 OWNER_KEY_NAME      = 'name'
 OWNER_KEY_PASSWORD  = 'password'
@@ -15,8 +14,6 @@ from lazyme.string import color_print
 
 db = EntityDatabaseAPI()
 db.connect()
-
-db._full_reset()
 
 owners = db.get_all_owners()
 print('Printing all owners and their data.')

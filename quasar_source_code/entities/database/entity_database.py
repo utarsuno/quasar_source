@@ -205,6 +205,11 @@ class EntityDatabaseAPI(object):
 				return True
 		return False
 
+	def _add_owner_to_cache(self, owner_data):
+		"""Adds the owner to the owner cache."""
+		print('Need to add the following data!')
+		print(owner_data)
+
 	def create_owner(self, owner_data) -> None:
 		"""Creates an owner. Throws an exception if the required attributes are not provided."""
 		# Make sure that all the required keys are provided.
@@ -217,6 +222,7 @@ class EntityDatabaseAPI(object):
 		# Create the owner.
 		self._owners_collection.insert(owner_data)
 		# TODO : UPDATE THE CACHE!!!! Or possibly have a flag determining if an update is needed
+		self._add_owner_to_cache(owner_data)
 		# Update the owner cache.
 		#self._update_owners_cache()
 
