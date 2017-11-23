@@ -53,6 +53,10 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	def is_public_entity_owner(self) -> bool:
+		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
+		return self._data[OWNER_KEY_NAME] == 'public_entities'
+
 	def _save_to_database(self):
 		"""Utility function to send changes to the database."""
 		save_data = {}
@@ -244,7 +248,7 @@ class EntityDatabaseAPI(object):
 			raise Exception('Owner key _id not provided in {' + str(owner_data) + '}')
 		# Update the owner.
 		self._owners_collection.update(owner_data)
-		# TODO ; UPDATE THE CAHCE!!!! Or possibly have a flag determining if an update is needed
+		# TODO ; UPDATE THE CACHE!!!! Or possibly have a flag determining if an update is needed
 		print('NEED TO UPDATE OWNER')
 		print('UPDATE DATA IS : ' + str(owner_data))
 
