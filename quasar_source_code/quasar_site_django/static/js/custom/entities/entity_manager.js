@@ -1,5 +1,8 @@
 'use strict';
 
+function EntityManager() {
+    this.__init__();
+}
 
 EntityManager.prototype = {
 
@@ -10,16 +13,30 @@ EntityManager.prototype = {
     post_delete_entity: null,
     post_save_entity: null,
 
+    // TODO : add post calls for loading the entities.
+
     __init__: function() {
         this.entities = [];
         this.entities_loaded = false;
 
         this.post_delete_entity = new PostHelper('/delete_entity');
         this.post_save_entity = new PostHelper('/save_entity');
+
+        this.post_load_all_entities = new PostHelper('/get_all_entities_for_user');
+        this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this));
+
+        this.post_get_all_entities_for_user = new PostHelper('/get_all_entities_for_user');
+
+        this.post_load_all_public_entities = new PostHelper('/get_all_public_entities');
+        //this.post_load_all_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
+    },
+
+    load_all_entities: function() {
+
     },
 
     clear_all: function() {
-        this.entities_loaded = false
+        this.entities_loaded = false;
         // TODO : Double check that this will clear the list.
         this.entities.length = 0;
     },
@@ -77,7 +94,7 @@ EntityManager.prototype = {
     },
 
     delete_entity: function(entity) {
-        var entity_to_delete = null
+        var entity_to_delete = null;
         var index_to_splice = this._get_index_of_entity(entity);
         if (index_to_splice !== NOT_FOUND) {
             entity_to_delete = this.entities[index_to_splice];
@@ -89,8 +106,8 @@ EntityManager.prototype = {
 
             // TODO : Make sure the server does the same deletion steps that the client does.
             this.post_delete_entity.perform_post({
-                'username': MANAGER_WORLD.player.get_username(),
-                'password': MANAGER_WORLD.player.get_password(),
+                'username': CURRENT_PLAYER.get_username(),
+                'password': CURRENT_PLAYER.get_password(),
                 'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
             }, this.entity_deleted_response.bind(this));
         }
@@ -120,7 +137,7 @@ EntityManager.prototype = {
     get_new_entity_id: function() {
         var max_id = -1;
         for (var i = 0; i < this.entities.length; i++) {
-            var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID))
+            var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID));
             if (entity_id > max_id) {
                 max_id = entity_id;
             }
@@ -212,8 +229,8 @@ EntityManager.prototype = {
     },
 
     update_server_and_database: function() {
-        var username = MANAGER_WORLD.world_home.player.get_username();
-        var password = MANAGER_WORLD.world_home.player.get_password();
+        var username = CURRENT_PLAYER.get_username();
+        var password = CURRENT_PLAYER.get_password();
 
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {

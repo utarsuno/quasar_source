@@ -85,9 +85,9 @@ Floating3DText.prototype = {
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            MANAGER_WORLD.player.engage();
+            CURRENT_PLAYER.engage();
         } else {
-            MANAGER_WORLD.player.disengage();
+            CURRENT_PLAYER.disengage();
         }
     },
 

@@ -22,17 +22,16 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 var renderer_api = new RendererAPI();
 
 // Model of the user. Must be created AFTER the scene gets set.
-var player = new Player(renderer_api);
+CURRENT_PLAYER = new Player(renderer_api);
 
-MANAGER_WORLD.set_player(player);
-MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
+// Sets the player and current world.
+MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
 
-GUI_PAUSED_MENU.provide_player_object(player);
 // On start up we will display the paused menu.
 GUI_PAUSED_MENU.make_visible();
 
 // Now create the global audio.
-MANAGER_AUDIO = new AudioManager(player);
+MANAGER_AUDIO = new AudioManager();
 
 
 GUI_TYPING_INTERFACE.add_server_message('Welcome!');
@@ -52,13 +51,13 @@ var animate = function () {
     var delta = (time - previous_time) / 1000.0;
 
     MANAGER_MULTIPLAYER.update(delta);
-    player.update(delta);
+    CURRENT_PLAYER.update(delta);
     MANAGER_WORLD.update_current_scene();
 
     total_delta += delta;
     if (total_delta >= position_update_interval) {
         if (MANAGER_MULTIPLAYER.players.length > 1) {
-            player.try_to_send_position_update_to_server();
+            CURRENT_PLAYER.try_to_send_position_update_to_server();
         }
         total_delta -= position_update_interval;
     }

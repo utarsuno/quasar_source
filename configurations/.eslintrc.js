@@ -91,6 +91,9 @@ module.exports = {
         "EntityManager"     : true,
         "MultiPlayerManager": false,
 
+        // Global player.
+        "CURRENT_PLAYER": true,
+
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,
         "GUI_TYPING_INTERFACE": true,

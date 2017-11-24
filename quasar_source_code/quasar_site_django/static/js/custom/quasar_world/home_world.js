@@ -28,7 +28,7 @@ HomeWorld.prototype = {
     //remove_entity: function()
 
     create_entity_wall_command_entered: function() {
-        this.create_entity_wall(this.player.get_position(), 'Default');
+        this.create_entity_wall(CURRENT_PLAYER.get_position(), 'Default');
     },
 
     key_down_event: function(event) {
@@ -94,12 +94,12 @@ HomeWorld.prototype = {
     },
 
     enter_world: function() {
-        this.player.disengage();
+        CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
-            this.player.enable_controls();
+            CURRENT_PLAYER.enable_controls();
         }
 
-        this.player.set_position(new THREE.Vector3(0, 100, 0));
+        CURRENT_PLAYER.set_position(new THREE.Vector3(0, 100, 0));
     },
 
     exit_world: function() {

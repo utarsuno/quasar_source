@@ -180,7 +180,7 @@ TypingInterface.prototype = {
                     break;
                 }
             } else {
-                MANAGER_WORLD.player.send_chat_message(current_input);
+                CURRENT_PLAYER.send_chat_message(current_input);
             }
 
             // TODO : Add basic commands like save and help

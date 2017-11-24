@@ -70,15 +70,12 @@ Planet.prototype = {
             MANAGER_WORLD.set_current_world(this.world);
             this.being_engaged_with = false;
         } else {
-            MANAGER_WORLD.player.disengage();
+            CURRENT_PLAYER.disengage();
         }
     }
 };
 
 WorldManager.prototype = {
-
-    player         : null,
-
     previous_world : null,
     current_world  : null,
     current_scene  : null,
@@ -112,11 +109,11 @@ WorldManager.prototype = {
         this.planet_home.add_this_planet_to_world(this.world_settings);
     },
 
-    set_player: function(player) {
-        this.player = player;
-        this.world_login.set_player(player);
-        this.world_home.set_player(player);
-        this.world_settings.set_player(player);
+    set_player_and_current_world: function(current_world) {
+        this.world_login.set_player();
+        this.world_home.set_player();
+        this.world_settings.set_player();
+        this.set_current_world(current_world);
     },
 
     update_current_scene: function() {
@@ -127,7 +124,7 @@ WorldManager.prototype = {
         if (this.current_world !== null) {
 
             // Before exiting the world make sure to remove the camera reference.
-            this.current_world.remove_from_scene(this.player.fps_controls.yaw);
+            this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
 
             this.current_world.exit_world();
             this.current_world.current_world = false;
@@ -138,7 +135,7 @@ WorldManager.prototype = {
         this.current_scene = this.current_world.scene;
 
         // Before adding the world make sure to add the camera reference.
-        this.current_world.add_to_scene(this.player.fps_controls.yaw);
+        this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
         this.current_world.enter_world();
     },
 

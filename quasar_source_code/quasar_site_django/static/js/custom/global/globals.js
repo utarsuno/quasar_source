@@ -16,6 +16,9 @@ var MANAGER_WORLD       = null;
 var MANAGER_ENTITY      = null;
 var MANAGER_MULTIPLAYER = null;
 
+// Global player object.
+var CURRENT_PLAYER = null;
+
 // Global gui objects.
 var GUI_PAUSED_MENU      = null;
 var GUI_TYPING_INTERFACE = null;

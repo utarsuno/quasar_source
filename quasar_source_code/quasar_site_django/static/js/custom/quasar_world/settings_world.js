@@ -96,8 +96,8 @@ SettingsWorld.prototype = {
     },
 
     slider_fov_value_changed: function(fov_value) {
-        MANAGER_WORLD.player.renderer_api.camera.fov = fov_value;
-        MANAGER_WORLD.player.renderer_api.camera.updateProjectionMatrix();
+        CURRENT_PLAYER.renderer_api.camera.fov = fov_value;
+        CURRENT_PLAYER.renderer_api.camera.updateProjectionMatrix();
     },
 
     __init__: function() {
@@ -219,13 +219,13 @@ SettingsWorld.prototype = {
         this.profile_owner_id_input.update_text(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
 
 
-        this.player.disengage();
+        CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
-            this.player.enable_controls();
+            CURRENT_PLAYER.enable_controls();
         }
 
-        this.player.set_position(new THREE.Vector3(-1000, 350, 350));
-        this.player.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
+        CURRENT_PLAYER.set_position(new THREE.Vector3(-1000, 350, 350));
+        CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
 
         this.previous_world = MANAGER_WORLD.previous_world;
 
@@ -236,7 +236,7 @@ SettingsWorld.prototype = {
             this.owner_entity = MANAGER_ENTITY.get_owner_entity();
         }
 
-        this.profile_name_input.update_text(this.player.owner.username);
+        this.profile_name_input.update_text(CURRENT_PLAYER.owner.username);
         this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'));
         this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'));
         this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'));

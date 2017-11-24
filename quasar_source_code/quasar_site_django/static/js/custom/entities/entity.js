@@ -8,10 +8,6 @@ function Entity(name, keys_and_values) {
     this.__init__(name, keys_and_values);
 }
 
-function EntityManager() {
-    this.__init__();
-}
-
 Owner.prototype = {
 
     home_world: null,
@@ -20,8 +16,6 @@ Owner.prototype = {
     password: null,
 
     loading_data: null,
-
-    days: null,
 
     // POST calls.
     post_load_all_entities        : null,
@@ -48,7 +42,7 @@ Owner.prototype = {
         MANAGER_ENTITY.link_entities();
 
         // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        MANAGER_WORLD.player.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
+        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
 
         this.loading_entities_data = false;
         if (!this.loading_public_data) {
@@ -119,7 +113,7 @@ Entity.prototype = {
 
     is_owned_by_user: function() {
         if (this.has_property('public')) {
-            return this.get_value('owner') === MANAGER_WORLD.player.get_username();
+            return this.get_value('owner') === CURRENT_PLAYER.get_username();
         }
         return true;
     },
@@ -166,11 +160,11 @@ Entity.prototype = {
     },
     
     has_property: function(property_name) {
-        return this.keys_and_values.hasOwnProperty(property_name);
+        return this.hasOwnProperty(property_name);
     },
 
     get_value: function(property_name) {
-        return this.keys_and_values[property_name];
+        return this[property_name];
     },
 
     get_name: function() {

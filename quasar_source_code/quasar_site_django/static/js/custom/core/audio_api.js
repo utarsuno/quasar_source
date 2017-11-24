@@ -1,7 +1,7 @@
 'use strict';
 
-function AudioManager(player) {
-    this.__init__(player);
+function AudioManager() {
+    this.__init__();
 }
 
 AudioManager.prototype = {
@@ -22,10 +22,9 @@ AudioManager.prototype = {
     // TODO : Add global audio controls
     current_audio_level: null,
 
-    __init__: function(player) {
-        this.player = player;
+    __init__: function() {
         this.audio_listener = new THREE.AudioListener();
-        this.player.camera.add(this.audio_listener);
+        CURRENT_PLAYER.camera.add(this.audio_listener);
         this.typing_sound = new THREE.Audio(this.audio_listener);
 
         this.typing_sound_loaded = false;
@@ -41,9 +40,7 @@ AudioManager.prototype = {
                 this.typing_sound.setVolume(0.33);
                 this.typing_sound_loaded = true;
 
-
                 MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound());
-
             }.bind(this),
 
             // Function called when download progresses

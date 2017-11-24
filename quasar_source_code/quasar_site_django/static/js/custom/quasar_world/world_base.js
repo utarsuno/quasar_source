@@ -5,7 +5,6 @@ function World(planet_name) {
     this.planet_position            = null;
     this.planet_name                = planet_name;
 
-    this.player                     = null;
     this.currently_looked_at_object = null;
     this.raycaster                  = null;
     this.current_world              = false;
@@ -42,9 +41,8 @@ function World(planet_name) {
         this.remove_from_scene(object_to_remove.object3D);
     };
 
-    this.set_player =  function(player) {
-        this.player = player;
-        this.raycaster = new THREE.Raycaster(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction());
+    this.set_player = function() {
+        this.raycaster = new THREE.Raycaster(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         this.currently_looked_at_object = null;
     };
 
@@ -59,7 +57,7 @@ function World(planet_name) {
     };
 
     this.update_interactive_objects = function() {
-        this.raycaster.set(this.player.fps_controls.get_position(), this.player.fps_controls.get_direction());
+        this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
         var match_was_found = false;
 
@@ -146,17 +144,17 @@ function World(planet_name) {
                 if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
                     this.currently_looked_at_object.engage();
                 } else {
-                    MANAGER_WORLD.player.enable_controls();
+                    CURRENT_PLAYER.enable_controls();
                 }
             } else {
                 this.currently_looked_at_object.look_away();
                 this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
                 this.currently_looked_at_object.look_at();
             }
-            this.player.look_at(this.currently_looked_at_object.object3D.position);
+            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
         } else if (is_defined(this.default_tab_target)) {
             this.currently_looked_at_object = this.default_tab_target;
-            this.player.look_at(this.currently_looked_at_object.object3D.position);
+            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
             this.currently_looked_at_object.look_at();
         }
     };
@@ -177,7 +175,7 @@ function World(planet_name) {
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
-                this.player.enable_controls();
+                CURRENT_PLAYER.enable_controls();
             }
         }
     };
@@ -187,7 +185,7 @@ function World(planet_name) {
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object.is_engaged()) {
                     this.currently_looked_at_object.disengage();
-                    this.player.enable_controls();
+                    CURRENT_PLAYER.enable_controls();
                 }
             }
         } else if (event.keyCode === KEY_CODE_TAB) {
@@ -199,7 +197,6 @@ function World(planet_name) {
         }
 
         if (this.currently_looked_at_object !== null) {
-            // TODO : FIX THIS PORTION HER!!!!
             if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
                 this.currently_looked_at_object.parse_keycode(event);
             }
@@ -229,10 +226,10 @@ function World(planet_name) {
 
 
     // Create the lighting and default ground.
-    var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10);
-    plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
-    var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true});
-    var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
+    //var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10);
+    //plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
+    //var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true});
+    //var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
     //this.add_to_scene(plane_mesh)
 
     var light3 = new THREE.PointLight(0xccffcc, .8, 0);
@@ -245,15 +242,15 @@ function World(planet_name) {
     //this.add_to_scene(light2)
 
     /////////////////
-    var lightr = new THREE.PointLight(0xff8579, .8, 0);
+    var lightr = new THREE.PointLight(0xff8579, .9, 0);
     lightr.position.set(1000, 100, 0);
     this.add_to_scene(lightr);
 
-    var lightg = new THREE.PointLight(0xb1ff90, .8, 0);
+    var lightg = new THREE.PointLight(0xb1ff90, .9, 0);
     lightg.position.set(0, 100, 1000);
     this.add_to_scene(lightg);
 
-    var lightb = new THREE.PointLight(0x84b5ff, .8, 0);
+    var lightb = new THREE.PointLight(0x84b5ff, .9, 0);
     lightb.position.set(500, 100, 500);
     this.add_to_scene(lightb);
     /////////////////

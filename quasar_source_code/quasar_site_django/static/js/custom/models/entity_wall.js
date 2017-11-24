@@ -198,7 +198,7 @@ EntityWall.prototype = {
     make_entity_wall_public_button_pressed: function() {
         var save_data = {};
         save_data.public = 'true';
-        save_data.owner = MANAGER_WORLD.player.get_username();
+        save_data.owner = CURRENT_PLAYER.get_username();
 
         // TODO : Make all the individual entities get the same attributes as well.
 

@@ -22,12 +22,12 @@ urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
     url(r'web_socket', v.GET_web_socket),
 
-    url(r'create_account'         , v.POST_create_owner),
-    url(r'login'                  , v.POST_login),
-    url(r'get_all_public_entities', v.POST_load_all_public_entities),
-    url(r'get_all_entities'       , v.POST_load_all_entities),
-    url(r'save_entity'            , v.POST_save_entity),
-    url(r'delete_entity'          , v.POST_delete_entity),
+    url(r'create_account'           , v.POST_create_owner),
+    url(r'login'                    , v.POST_login),
+    url(r'get_all_public_entities'  , v.POST_load_all_public_entities),
+    url(r'get_all_entities_for_user', v.POST_load_all_entities_for_user),
+    url(r'save_entity'              , v.POST_save_entity),
+    url(r'delete_entity'            , v.POST_delete_entity),
 
     url(r'dev', v.GET_quasar_dev),
     url(r'qa', v.GET_quasar_qa),

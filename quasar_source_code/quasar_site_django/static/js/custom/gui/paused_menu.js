@@ -33,7 +33,7 @@ PausedMenu.prototype = {
 
         this.button_resume.onclick = function() {
             this.make_invisible();
-            this.player.pointer_lock_api.try_to_enable();
+            CURRENT_PLAYER.pointer_lock_api.try_to_enable();
         }.bind(this);
 
         this.button_settings.onclick = function() {
@@ -45,16 +45,12 @@ PausedMenu.prototype = {
         }.bind(this);
 
         this.button_log_out.onclick = function() {
-            this.player.log_out();
+            CURRENT_PLAYER.log_out();
         }.bind(this);
 
         // TODO : Change the title once everything has fully loaded.
         this.pause_title.innerHTML = 'Paused!';
         this.pause_sub_title.style.display = DISPLAY_SHOW;
-    },
-
-    provide_player_object: function(player_object) {
-        this.player = player_object;
     },
 
     make_visible: function() {
@@ -63,7 +59,7 @@ PausedMenu.prototype = {
         this.pause_menu.style.display = DISPLAY_SHOW;
         this.button_resume.style.display = DISPLAY_SHOW;
         this.button_help_controls.style.display = DISPLAY_SHOW;
-        if (this.player.logged_in) {
+        if (CURRENT_PLAYER.logged_in) {
             this.button_settings.style.display = DISPLAY_SHOW;
             this.button_log_out.style.display = DISPLAY_SHOW;
         }

@@ -65,7 +65,7 @@ LoginWorld.prototype = {
             if (this.remember_username_checkbox.checked) {
                 MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
             }
-            this.player.perform_login(this.attempted_username, this.attempted_password);
+            CURRENT_PLAYER.perform_login(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
@@ -239,13 +239,13 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
-        this.player.disengage();
+        CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
-            this.player.enable_controls();
+            CURRENT_PLAYER.enable_controls();
         }
 
-        this.player.set_position(new THREE.Vector3(180, 180, 390));
-        this.player.look_at(new THREE.Vector3(-0.011, -0.066, -0.998));
+        CURRENT_PLAYER.set_position(new THREE.Vector3(180, 180, 390));
+        CURRENT_PLAYER.look_at(new THREE.Vector3(-0.011, -0.066, -0.998));
 
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
