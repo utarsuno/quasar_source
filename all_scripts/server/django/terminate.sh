@@ -1,8 +1,6 @@
 #!/bin/bash
 
 cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
-pwd;
-ls;
 source universal_functions.sh;
 
 # Helps see exactly where the script's output starts.
