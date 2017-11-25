@@ -87,8 +87,10 @@ EntityManager.prototype = {
         // DELETE_FOR_PROD_START
         l('Got the following data for public entities');
         l(data);
-        l(is_string(data));
         // DELETE_FOR_PROD_END
+        if (is_string(data)) {
+            data = eval(data);
+        }
 
         MANAGER_ENTITY.add_public_entity_from_entity_data(data);
 
@@ -103,6 +105,9 @@ EntityManager.prototype = {
         l('Got the following data for user entities');
         l(data);
         // DELETE_FOR_PROD_END
+        if (is_string(data)) {
+            data = eval(data);
+        }
 
         MANAGER_ENTITY.add_user_entity_from_entity_data(data);
 
