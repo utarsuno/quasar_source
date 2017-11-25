@@ -47,9 +47,6 @@ Player.prototype = {
         this.logged_in = false;
         this.engaged   = false;
 
-        // Give reference of self to the World Manager.
-        MANAGER_WORLD.set_player(this);
-
         // Create the instance of WebSocketClient. This won't connect until the player logs in.
         this.web_socket_client = new WebSocketClient();
 

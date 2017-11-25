@@ -43,7 +43,6 @@ FPSControls.prototype = {
     diagonal_penalty  : null,
     ground_normal     : null,
 
-
     __init__: function(camera) {
         // Constants.
         this.diagonal_penalty = Math.sqrt(.5);
