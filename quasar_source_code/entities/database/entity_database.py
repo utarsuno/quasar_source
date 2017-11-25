@@ -83,6 +83,8 @@ class EntityOwner(object):
 
 	def get_owner_name(self) -> str:
 		"""Returns the name of this EntityOwner."""
+		if eo.OWNER_KEY_NAME not in self._data:
+			return 'NO_OWNER_NAME_SET'
 		return self._data[eo.OWNER_KEY_NAME]
 
 	def get_owner_password(self) -> str:
