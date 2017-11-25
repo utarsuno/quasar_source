@@ -94,8 +94,6 @@ def check_POST_arguments(arguments, dictionary):
 	:param request: Contains information regarding the request sent in.
 	:return: Boolean indicating if this threw an exception or not.
 	"""
-	print('There was a post error!')
-	print('Here is the data passed in :')
 	if len(dictionary) != len(arguments):
 		print('Got ' + str(len(dictionary)) + ' number of arguments instead of ' + str(len(arguments)))
 		for arg in dictionary:
@@ -123,12 +121,15 @@ def qdict_to_dict(qdict):
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
+	json_str = (request.body.decode('utf-8'))
+	json_obj = json.loads(json_str)
+
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], json_obj)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.body[eo.OWNER_KEY_USERNAME]
-	received_password = request.body[eo.OWNER_KEY_PASSWORD]
+	received_username = json_obj[eo.OWNER_KEY_USERNAME]
+	received_password = json_obj[eo.OWNER_KEY_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
 
@@ -175,15 +176,16 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
-	request.body = qdict_to_dict(request.body)
+	json_str = (request.body.decode('utf-8'))
+	json_obj = json.loads(json_str)
 
-	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], json_obj)
 	if post_errors is not None:
 		return post_errors
 
-	received_username  = request.body[eo.OWNER_KEY_USERNAME]
-	received_password  = request.body[eo.OWNER_KEY_PASSWORD]
-	received_entity_id = request.body[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
+	received_username  = json_obj[eo.OWNER_KEY_USERNAME]
+	received_password  = json_obj[eo.OWNER_KEY_PASSWORD]
+	received_entity_id = json_obj[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
 	print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
 
@@ -198,15 +200,16 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
-	request.body = qdict_to_dict(request.body)
+	json_str = (request.body.decode('utf-8'))
+	json_obj = json.loads(json_str)
 
-	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], json_obj)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.body[eo.OWNER_KEY_USERNAME]
-	received_password = request.body[eo.OWNER_KEY_PASSWORD]
-	received_data     = request.body[SAVE_DATA]
+	received_username = json_obj[eo.OWNER_KEY_USERNAME]
+	received_password = json_obj[eo.OWNER_KEY_PASSWORD]
+	received_data     = json_obj[SAVE_DATA]
 
 	data_dictionary = eval(received_data)
 
@@ -226,22 +229,21 @@ def POST_save_entity(request):
 @csrf_exempt
 def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.body = qdict_to_dict(request.body)
+	json_str = (request.body.decode('utf-8'))
+	json_obj = json.loads(json_str)
 
-	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], json_obj)
 	if post_errors is not None:
 		return post_errors
 
-	print('Loading all entities for : ' + request.body[eo.OWNER_KEY_USERNAME])
+	print('Loading all entities for : ' + json_obj[eo.OWNER_KEY_USERNAME])
 	global entity_server
-	return entity_server.get_all_users_entities(request.body[eo.OWNER_KEY_USERNAME], request.body[eo.OWNER_KEY_PASSWORD])
+	return entity_server.get_all_users_entities(json_obj[eo.OWNER_KEY_USERNAME], json_obj[eo.OWNER_KEY_PASSWORD])
 
 
 @csrf_exempt
 def POST_get_public_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.body = qdict_to_dict(request.body)
-
 	global entity_server
 	return entity_server.get_all_public_entities()
 
