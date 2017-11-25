@@ -81,7 +81,7 @@ HomeWorld.prototype = {
     update: function() {
         // Get the task entities once all entities have been loaded.
         if (!this.loaded_entities) {
-            if (MANAGER_ENTITY.loaded()) {
+            if (!MANAGER_ENTITY.currently_loading()) {
                 // Now create the entity walls from the entities.
                 this.load_entity_walls();
 

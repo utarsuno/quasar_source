@@ -111,8 +111,8 @@ EntityManager.prototype = {
     },
 
     all_data_loaded: function() {
-        this.loading = false;
         MANAGER_ENTITY.link_entities();
+        this.loading = false;
     },
 
     // TODO : Refactor
@@ -210,7 +210,6 @@ EntityManager.prototype = {
                 this.entities[e].add_parent(this.get_entity_by_id(parent_ids[p]));
             }
         }
-        this.entities_loaded = true;
     },
 
     /*   __   ___ ___ ___         __      __       ___
