@@ -111,10 +111,21 @@ def check_POST_arguments(arguments, request):
 	return None
 
 
+# From : https://stackoverflow.com/questions/13349573/how-to-change-a-django-querydict-to-python-dict
+def qdict_to_dict(qdict):
+    """Convert a Django QueryDict to a Python dict.
+
+    Single-value fields are put in directly, and for multi-value fields, a list
+    of all values is stored at the field's key.
+
+    """
+    return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
+
+
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	request.POST = qdict_to_dict(request.POST)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
@@ -138,9 +149,9 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
-	#print('CREATE OWNER')
-	#print(str(request.POST))
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	print('CREATE OWNER')
+	print(str(request.POST))
+	request.POST = qdict_to_dict(request.POST)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
 	if post_errors is not None:
@@ -169,7 +180,7 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	request.POST = qdict_to_dict(request.POST)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], request)
 	if post_errors is not None:
@@ -192,7 +203,7 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	request.POST = qdict_to_dict(request.POST)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], request)
 	if post_errors is not None:
@@ -220,7 +231,7 @@ def POST_save_entity(request):
 @csrf_exempt
 def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	request.POST = qdict_to_dict(request.POST)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
@@ -234,7 +245,7 @@ def POST_get_user_entities(request):
 @csrf_exempt
 def POST_get_public_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.POST = json.loads(dict(request.POST.iterlists()))
+	request.POST = qdict_to_dict(request.POST)
 
 	global entity_server
 	return entity_server.get_all_public_entities()
