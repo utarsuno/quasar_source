@@ -93,7 +93,7 @@ def check_POST_arguments(arguments, request):
 		print('They were :')
 		for arg in request.POST:
 			print(arg)
-		print('Arguments excepted for : ' + str(arguments))
+		print('Arguments excepted were : ' + str(arguments))
 		return HttpResponse(SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR)
 	for arg in arguments:
 		if arg not in request.POST:
