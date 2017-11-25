@@ -110,8 +110,6 @@ module.exports = {
         "PIE": false,
         "TWO_PIE": false,
 
-        "$": false,
-
         "Entity": false,
         "EntityWall": false,
         "CreateEntity": false,
