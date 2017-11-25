@@ -5,6 +5,12 @@
 import sys
 
 print('The arguments passed in where :')
+arguments = sys.argv[1:]
+for arg, i in enumerate(arguments):
+	print(arg)
+	print(i)
+	print()
+
 print(sys.argv)
 
 # Owner dictionary key mappings.
