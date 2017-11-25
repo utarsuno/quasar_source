@@ -64,6 +64,16 @@ Entity.prototype = {
             this.ep_type = ENTITY_TYPE_BASE;
         }
 
+        // TODO : Traverse through all properties and add the ones that start with ep_ !!!!
+        var non_default_properties = this.get_all_non_default_properties();
+        for (var key in properties) {
+            if (properties.hasOwnProperty(key)) {
+                if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && ENTITY_DEFAULT_PROPERTY_TYPE) {
+                    this.set_property(key, properties[key]);
+                }
+            }
+        }
+
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
     },
@@ -104,6 +114,17 @@ Entity.prototype = {
 
     get_name: function() {
         return this.name;
+    },
+
+    get_all_non_default_properties: function() {
+        var properties = {};
+        var all_keys = Object.keys(this);
+        for (var i = 0; i < all_keys.length; i++) {
+            if (all_keys[i].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
+                properties[all_keys[i]] = this.get_value(all_keys[i]);
+            }
+        }
+        return properties;
     },
 
     get_all_properties: function() {
