@@ -150,7 +150,7 @@ EntityWall.prototype = {
                 var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z);
                 position.addScaledVector(this.normal, 10);
 
-                var key_values = get_key_value_list_from_json_dictionary(current_entity.get_properties());
+                var key_values = get_key_value_list_from_json_dictionary(current_entity.get_all_properties());
 
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2);
                 this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world);
