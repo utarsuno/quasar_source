@@ -144,7 +144,7 @@ CreateEntity.prototype = {
             properties[entity_field_label] = entity_field_value;
         }
 
-        var new_entity = MANAGER_ENTITY.add_new_entity(properties);
+        var new_entity = MANAGER_ENTITY.add_user_entity_from_entity_data(properties);
         new_entity.add_parent(this.entity_wall.get_wall_entity());
         this.entity_wall.add_entity(new_entity);
 
