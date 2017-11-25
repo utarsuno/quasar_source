@@ -53,7 +53,10 @@ LoginWorld.prototype = {
             GUI_TYPING_INTERFACE.add_server_message('Sending login request to server...');
             this.attempted_username = login_username_text;
             this.attempted_password = login_password_text;
-            this.post_login.perform_post({'username': login_username_text, 'password': login_password_text}, this.login_button_event.bind(this));
+            var data = {};
+            data[ENTITY_PROPERTY_USERNAME] = login_username_text;
+            data[ENTITY_PROPERTY_PASSWORD] = login_password_text;
+            this.post_login.perform_post(data, this.login_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
         }
@@ -119,7 +122,10 @@ LoginWorld.prototype = {
             GUI_TYPING_INTERFACE.add_server_message('Account created! Now sending login request to server!');
             this.attempted_username = this.create_username.get_input_text();
             this.attempted_password = this.create_password.get_input_text();
-            this.post_login.perform_post({'username': this.attempted_username, 'password': this.attempted_password}, this.login_button_event.bind(this));
+            var local_data = {};
+            local_data[ENTITY_PROPERTY_USERNAME] = this.attempted_username;
+            local_data[ENTITY_PROPERTY_PASSWORD] = this.attempted_password;
+            this.post_login.perform_post(local_data, this.login_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }

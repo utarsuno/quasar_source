@@ -158,11 +158,11 @@ EntityManager.prototype = {
             this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete);
 
             // TODO : Make sure the server does the same deletion steps that the client does.
-            this.post_delete_entity.perform_post({
-                'username': CURRENT_PLAYER.get_username(),
-                'password': CURRENT_PLAYER.get_password(),
-                'ENTITY_PROPERTY_ID': entity_to_delete.get_relative_id()
-            }, this.entity_deleted_response.bind(this));
+            var data = {};
+            data[ENTITY_PROPERTY_USERNAME] = CURRENT_PLAYER.get_username();
+            data[ENTITY_PROPERTY_PASSWORD] = CURRENT_PLAYER.get_password();
+            data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = entity_to_delete.get_relative_id();
+            this.post_delete_entity.perform_post(data, this.entity_deleted_response.bind(this));
         }
 
         if (index_to_splice !== NOT_FOUND) {
@@ -198,7 +198,10 @@ EntityManager.prototype = {
 
     load_data: function() {
         this.loading = true;
-        this.post_load_user_entities.perform_post({'username': ENTITY_OWNER.get_username(), 'password': ENTITY_OWNER.get_password()}, this.all_user_entities_loaded.bind(this));
+        var data = {};
+        data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
+        data[ENTITY_PROPERTY_OWNER] = ENTITY_OWNER.get_password();
+        this.post_load_user_entities.perform_post(data, this.all_user_entities_loaded.bind(this));
         this.post_load_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
     },
 
@@ -349,7 +352,12 @@ EntityManager.prototype = {
 
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {
-                this.post_save_entity.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_all_properties())}, this.save_changes_result.bind(this, this.entities[e]));
+                var data = {};
+                data[ENTITY_PROPERTY_USERNAME] = username;
+                data[ENTITY_PROPERTY_PASSWORD] = password;
+                // TODO : Make save_data into a global constant of some sort.
+                data['save_data'] = JSON.stringify(this.entities[e].get_all_properties());
+                this.post_save_entity.perform_post(data, this.save_changes_result.bind(this, this.entities[e]));
             }
         }
     }

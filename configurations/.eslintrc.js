@@ -158,6 +158,8 @@ module.exports = {
         // Other entity properties (not default).
         "ENTITY_PROPERTY_PUBLIC"             : false,
         "ENTITY_PROPERTY_OWNER"              : false,
+        "ENTITY_PROPERTY_PASSWORD"           : false,
+        "ENTITY_PROPERTY_USERNAME"               : false,
 
         "COLOR_HIGHLIGHT"     : false,
         "COLOR_TEXT_HIGHLIGHT": false,

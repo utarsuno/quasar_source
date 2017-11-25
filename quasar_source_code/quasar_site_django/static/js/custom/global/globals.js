@@ -45,26 +45,30 @@ const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
 
+// TODO : Have this be auto-synced with the Python files.
 // Entity types.
-const ENTITY_TYPE_TASK            = 'EntityTask';
-const ENTITY_TYPE_TIME            = 'EntityTime';
-const ENTITY_TYPE_BASE            = 'Entity';
-const ENTITY_TYPE_WALL            = 'EntityWall';
-const ENTITY_TYPE_OWNER           = 'EntityOwner';
-const ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder';
+const ENTITY_TYPE_BASE          = 'Entity';
+const ENTITY_TYPE_TASK          = 'EntityTask';
+const ENTITY_TYPE_TIME          = 'EntityTime';
+const ENTITY_TYPE_WALL          = 'EntityWall';
+const ENTITY_TYPE_OWNER         = 'EntityOwner';
+const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
+const ENTITY_TYPE_ALL = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER];
 
 // The symbol to denote an entity property.
 const ENTITY_PROPERTY_START_TOKEN = 'ep_';
 
 // Entity default properties.
-const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
-const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
-const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
 const ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type';
+const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
+const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
+const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
 
 // Other entity properties (not default).
-const ENTITY_PROPERTY_PUBLIC = ENTITY_PROPERTY_START_TOKEN + 'public';
-const ENTITY_PROPERTY_OWNER  = ENTITY_PROPERTY_START_TOKEN + 'owner';
+const ENTITY_PROPERTY_PUBLIC   = ENTITY_PROPERTY_START_TOKEN + 'public';
+const ENTITY_PROPERTY_OWNER    = ENTITY_PROPERTY_START_TOKEN + 'owner';
+const ENTITY_PROPERTY_PASSWORD = ENTITY_PROPERTY_START_TOKEN + 'password';
+const ENTITY_PROPERTY_USERNAME = ENTITY_PROPERTY_START_TOKEN + 'username';
 
 const TEMP_PROPERTY_A = 'Text Contents :';
 const TEMP_PROPERTY_B = 'Seconds from now :';
@@ -92,14 +96,6 @@ const SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = 'Invalid number of P
 const SERVER_REPLY_GENERIC_NO                             = 'n';
 const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
-
-// Server post data keys.
-const POST_USERNAME   = 'username';
-const POST_PASSWORD   = 'password';
-const POST_SAVE_DATA  = 'save_data';
-const POST_EMAIL      = 'email';
-const POST_MANAGER_ID = 'manager_id';
-const POST_OWNER_ID   = 'owner_id';
 
 // Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93;
