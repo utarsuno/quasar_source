@@ -32,7 +32,7 @@ PostHelper.prototype = {
         http.onload = function() {
             l('POST onload response :');
             l(http.responseText);
-            l(http);
+            //l(http);
             self.waiting_on_reply = false;
         };
 
