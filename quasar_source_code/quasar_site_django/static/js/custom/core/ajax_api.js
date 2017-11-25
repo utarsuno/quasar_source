@@ -32,7 +32,8 @@ PostHelper.prototype = {
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         //http.send(JSON.stringify(post_data));
         //http.send('json_name=' + JSON.stringify(post_data));
-        http.send(JSON.stringify(post_data));
+        //http.send(JSON.stringify(post_data));
+        http.send(post_data);
 
         http.onload = function() {
             l('POST onload response :');
