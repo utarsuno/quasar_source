@@ -173,6 +173,7 @@ EntityManager.prototype = {
 
     __init__: function() {
         this.entities = [];
+        this.public_entities = [];
         this.user_entities_loaded = false;
         this.public_entities_loaded = false;
         this.loading = false;
@@ -269,12 +270,21 @@ EntityManager.prototype = {
     },
 
     add_entity_if_not_already_added: function(entity) {
-        for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_relative_id() === entity.get_relative_id()) {
-                return;
+        if (this.has_property(ENTITY_PROPERTY_PUBLIC)) {
+            for (var i = 0; i < this.public_entities.length; i++) {
+                if (this.public_entities[i].get_relative_id() === entity.get_relative_id()) {
+                    return;
+                }
             }
+            this.public_entities.push(entity);
+        } else {
+            for (var j = 0; j < this.entities.length; j++) {
+                if (this.entities[j].get_relative_id() === entity.get_relative_id()) {
+                    return;
+                }
+            }
+            this.entities.push(entity);
         }
-        this.entities.push(entity);
     },
 
     _get_index_of_entity: function(entity) {
@@ -296,15 +306,11 @@ EntityManager.prototype = {
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
-        var new_entity = new Entity(entity_data);
-        this.entities.push(new_entity);
-        return new_entity;
+        return new Entity(entity_data);
     },
 
     add_public_entity_from_entity_data: function(entity_data) {
-        var new_public_entity = new Entity(entity_data);
-        this.entities.push(new_public_entity);
-        return new_public_entity;
+        return new Entity(entity_data);
     },
 
     get_all_entities: function() {
