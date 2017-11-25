@@ -17,7 +17,7 @@ PostHelper.prototype = {
     perform_post: function(post_data, callback) {
         var self = this;
         this.waiting_on_reply = true;
-        l('Performing a post with the following data');
+        l('Performing a post with the following data for the url : {' + self.url + '}');
         l(post_data);
         $.post(self.url, post_data, function(data, status) {
             if (status === 'success') {
