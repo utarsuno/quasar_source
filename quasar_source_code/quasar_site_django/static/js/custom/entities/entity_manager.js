@@ -200,7 +200,7 @@ EntityManager.prototype = {
         this.loading = true;
         var data = {};
         data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
-        data[ENTITY_PROPERTY_OWNER] = ENTITY_OWNER.get_password();
+        data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
         this.post_load_user_entities.perform_post(data, this.all_user_entities_loaded.bind(this));
         this.post_load_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
     },
