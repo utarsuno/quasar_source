@@ -159,7 +159,8 @@ module.exports = {
         "ENTITY_PROPERTY_PUBLIC"             : false,
         "ENTITY_PROPERTY_OWNER"              : false,
         "ENTITY_PROPERTY_PASSWORD"           : false,
-        "ENTITY_PROPERTY_USERNAME"               : false,
+        "ENTITY_PROPERTY_USERNAME"           : false,
+        "ENTITY_PROPERTY_EMAIL"              : false,
 
         "COLOR_HIGHLIGHT"     : false,
         "COLOR_TEXT_HIGHLIGHT": false,

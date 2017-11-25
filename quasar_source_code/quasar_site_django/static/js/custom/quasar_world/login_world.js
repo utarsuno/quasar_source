@@ -110,7 +110,11 @@ LoginWorld.prototype = {
 
         if (!error) {
             GUI_TYPING_INTERFACE.add_server_message('Sending create account request to server...');
-            this.post_create_account.perform_post({'name': username_text, 'password': password_text, 'email': email_text}, this.create_account_button_event.bind(this));
+            var data = {};
+            data[ENTITY_PROPERTY_USERNAME] = username_text;
+            data[ENTITY_PROPERTY_PASSWORD] = password_text;
+            data[ENTITY_PROPERTY_EMAIL]    = email_text;
+            this.post_create_account.perform_post(data, this.create_account_button_event.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
         }
