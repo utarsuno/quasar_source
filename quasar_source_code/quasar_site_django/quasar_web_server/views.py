@@ -96,14 +96,14 @@ def check_POST_arguments(arguments, request):
 	"""
 	print('There was a post error!')
 	print('Here is the data passed in :')
-	if len(request.POST) != len(arguments):
-		print('Got ' + str(len(request.POST)) + ' number of arguments instead of ' + str(len(arguments)))
-		for arg in request.POST:
+	if len(request.body) != len(arguments):
+		print('Got ' + str(len(request.body)) + ' number of arguments instead of ' + str(len(arguments)))
+		for arg in request.body:
 			print(arg)
 		print('Arguments excepted were : ' + str(arguments))
 		return HttpResponse(SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR)
 	for arg in arguments:
-		if arg not in request.POST:
+		if arg not in request.body:
 			print('Argument not passed in : ' + str(arg) + '.')
 			return HttpResponse(SERVER_REPLY_INVALID_POST_DATA_ERROR)
 	return None
@@ -123,14 +123,12 @@ def qdict_to_dict(qdict):
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	request.POST = qdict_to_dict(request.POST)
-
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.POST[eo.OWNER_KEY_USERNAME]
-	received_password = request.POST[eo.OWNER_KEY_PASSWORD]
+	received_username = request.body[eo.OWNER_KEY_USERNAME]
+	received_password = request.body[eo.OWNER_KEY_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
 
@@ -147,19 +145,13 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
-	print('CREATE OWNER')
-	print(str(request.POST))
-	print(str(type(qdict_to_dict(request.POST))))
-	request.POST = eval(str(qdict_to_dict(request.POST)))
-	print(str(request.POST))
-
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_owner_name = request.POST[eo.OWNER_KEY_USERNAME]
-	received_owner_email = request.POST[eo.OWNER_KEY_EMAIL]
-	received_owner_password = request.POST[eo.OWNER_KEY_PASSWORD]
+	received_owner_name = request.body[eo.OWNER_KEY_USERNAME]
+	received_owner_email = request.body[eo.OWNER_KEY_EMAIL]
+	received_owner_password = request.body[eo.OWNER_KEY_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
 	#print('Creating account : ' + received_owner_name)
@@ -180,15 +172,15 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
-	request.POST = qdict_to_dict(request.POST)
+	request.body = qdict_to_dict(request.body)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username  = request.POST[eo.OWNER_KEY_USERNAME]
-	received_password  = request.POST[eo.OWNER_KEY_PASSWORD]
-	received_entity_id = request.POST[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
+	received_username  = request.body[eo.OWNER_KEY_USERNAME]
+	received_password  = request.body[eo.OWNER_KEY_PASSWORD]
+	received_entity_id = request.body[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
 	print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
 
@@ -203,15 +195,15 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
-	request.POST = qdict_to_dict(request.POST)
+	request.body = qdict_to_dict(request.body)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.POST[eo.OWNER_KEY_USERNAME]
-	received_password = request.POST[eo.OWNER_KEY_PASSWORD]
-	received_data     = request.POST[SAVE_DATA]
+	received_username = request.body[eo.OWNER_KEY_USERNAME]
+	received_password = request.body[eo.OWNER_KEY_PASSWORD]
+	received_data     = request.body[SAVE_DATA]
 
 	data_dictionary = eval(received_data)
 
@@ -231,21 +223,21 @@ def POST_save_entity(request):
 @csrf_exempt
 def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.POST = qdict_to_dict(request.POST)
+	request.body = qdict_to_dict(request.body)
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
 		return post_errors
 
-	print('Loading all entities for : ' + request.POST[eo.OWNER_KEY_USERNAME])
+	print('Loading all entities for : ' + request.body[eo.OWNER_KEY_USERNAME])
 	global entity_server
-	return entity_server.get_all_users_entities(request.POST[eo.OWNER_KEY_USERNAME], request.POST[eo.OWNER_KEY_PASSWORD])
+	return entity_server.get_all_users_entities(request.body[eo.OWNER_KEY_USERNAME], request.body[eo.OWNER_KEY_PASSWORD])
 
 
 @csrf_exempt
 def POST_get_public_entities(request):
 	"""Handles the POST request to load all entities."""
-	request.POST = qdict_to_dict(request.POST)
+	request.body = qdict_to_dict(request.body)
 
 	global entity_server
 	return entity_server.get_all_public_entities()
