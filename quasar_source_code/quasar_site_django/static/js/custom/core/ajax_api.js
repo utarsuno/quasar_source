@@ -17,8 +17,10 @@ PostHelper.prototype = {
     perform_post: function(post_data, callback) {
         var self = this;
         this.waiting_on_reply = true;
+        // DELETE_FOR_PROD_START
         l('Performing a post with the following data for the url : {' + self.url + '}');
         l(post_data);
+        // DELETE_FOR_PROD_END
         $.post(self.url, post_data, function(data, status) {
             if (status === 'success') {
                 callback(data);

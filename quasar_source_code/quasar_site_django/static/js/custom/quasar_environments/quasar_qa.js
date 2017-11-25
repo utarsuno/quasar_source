@@ -9,9 +9,6 @@ MANAGER_WORLD       = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
-// Global objects (player object needs to get set later)
-ENTITY_OWNER = new EntityOwner();
-
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu();
 GUI_TYPING_INTERFACE = new TypingInterface();

@@ -64,7 +64,7 @@ WebSocketClient.prototype = {
 
             l('Sending connected message');
             // TODO : this needs to be re-sent until there is a response.
-            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + CURRENT_PLAYER.get_username());
+            this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + ENTITY_OWNER.get_username());
 
         }.bind(this);
 

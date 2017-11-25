@@ -196,7 +196,7 @@ EntityManager.prototype = {
 
     load_data: function() {
         this.loading = true;
-        this.post_load_user_entities.perform_post({'username': CURRENT_PLAYER.get_username(), 'password': CURRENT_PLAYER.get_password()}, this.all_user_entities_loaded.bind(this));
+        this.post_load_user_entities.perform_post({'username': ENTITY_OWNER.get_username(), 'password': ENTITY_OWNER.get_password()}, this.all_user_entities_loaded.bind(this));
         this.post_load_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
     },
 
@@ -342,8 +342,8 @@ EntityManager.prototype = {
     },
 
     update_server_and_database: function() {
-        var username = CURRENT_PLAYER.get_username();
-        var password = CURRENT_PLAYER.get_password();
+        var username = ENTITY_OWNER.get_username();
+        var password = ENTITY_OWNER.get_password();
 
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {

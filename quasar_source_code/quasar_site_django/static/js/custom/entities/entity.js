@@ -69,7 +69,7 @@ Entity.prototype = {
     },
 
     is_owned_by_user: function() {
-        return this.get_value(ENTITY_PROPERTY_OWNER) === CURRENT_PLAYER.get_username();
+        return this.get_value(ENTITY_PROPERTY_OWNER) === ENTITY_OWNER.get_username();
     },
 
     set_property: function(property_name, property_value) {

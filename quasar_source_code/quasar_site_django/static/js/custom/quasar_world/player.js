@@ -77,12 +77,9 @@ Player.prototype = {
         // TODO : Notify the server that the player has logged out?
     },
 
-    get_username: function() {
-        return this.owner.username;
-    },
 
     get_password: function() {
-        return this.owner.password;
+        return ENTITY_OWNER.get_password();
     },
 
     try_to_send_position_update_to_server: function() {
@@ -121,10 +118,11 @@ Player.prototype = {
     set_player_id: function(player_id) {
         l('Setting the player id to : ' + player_id);
         this.player_id = player_id;
-        this.web_socket_client.connect(this.get_username());
+        this.web_socket_client.connect(ENTITY_OWNER);
     },
 
     login: function(username, password) {
+        ENTITY_OWNER = new EntityOwner(username, password);
         MANAGER_ENTITY.load_data(username, password);
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
         this.logged_in = true;
