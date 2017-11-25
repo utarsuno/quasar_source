@@ -93,6 +93,7 @@ def check_POST_arguments(arguments, request):
 	"""
 	print('There was a post error!')
 	print('Here is the data passed in :')
+	print('As string first {' + str(arguments) + '}')
 	for a in arguments:
 		print(str(a) + '\t' + arguments[a])
 	if len(request.POST) != len(arguments):
