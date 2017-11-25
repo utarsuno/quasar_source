@@ -16,7 +16,7 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
-python3 /home/git_repos/quasar_source/quasar_source_code/entities/database/entity_database_status_view.py
+python3 /home/git_repos/quasar_source/quasar_source_code/entities/database/entity_database_status_view.py "$@"
 
 # Helps to see exactly where the script's output ends.
 print_dashed_line_with_text "print_status script end for : ${HOST_NAME}"
