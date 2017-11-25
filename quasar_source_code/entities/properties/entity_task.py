@@ -5,6 +5,7 @@
 from datetime import datetime
 from typing import List
 from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.universal_code import time_abstraction as ta
 from quasar_source_code.entities.properties import entity_time as etp
 
@@ -28,7 +29,7 @@ class EntityTask(be.Entity):
 			if self not in parent_task.children:
 				self.add_parents(parent_task)
 
-		self._class_name = be.ENTITY_TASK
+		self._class_name = be.ENTITY_TYPE_TASK
 
 	def iterate(self):
 		"""Completes an iteration for this task."""

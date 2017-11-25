@@ -1,21 +1,30 @@
 # coding=utf-8
 
-"""This module, base_entity.py, defines the base object for all Entity objects."""
-
-from typing import List
-from enum import Enum
+"""This module, base_entity.py, defines the base object for all Entity objects as well as Entity constants."""
 
 
-# All the current possible Entity classes.
-ENTITY      = 'Entity'
-ENTITY_TASK = 'EntityTask'
-ENTITY_TIME = 'EntityTime'
+# All the current possible Entity types.
+ENTITY_TYPE_BASE          = 'Entity'
+ENTITY_TYPE_TASK          = 'EntityTask'
+ENTITY_TYPE_TIME          = 'EntityTime'
+ENTITY_TYPE_WALL          = 'EntityWall'
+ENTITY_TYPE_OWNER         = 'EntityOwner'
+ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder'
+ENTITY_TYPE_ALL   = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER]
 
-ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
-ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
-ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
-ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
-ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
+# Identifies a property as an entity property.
+ENTITY_PROPERTY_START_TOKEN = 'ep_'
+
+# The default entity properties.
+ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type'
+ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids'
+ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids'
+ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id'
+ENTITY_DEFAULT_PROPERTY_ALL         = [ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_DEFAULT_PROPERTY_CHILD_IDS, ENTITY_DEFAULT_PROPERTY_PARENT_IDS, ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
+
+# Optional (reserved) entity properties.
+ENTITY_PROPERTY_PUBLIC = ENTITY_PROPERTY_START_TOKEN + 'public'
+ENTITY_PROPERTY_OWNER  = ENTITY_PROPERTY_START_TOKEN + 'owner'
 
 
 class Entity(object):
@@ -26,7 +35,7 @@ class Entity(object):
 		self._parent_entities = []
 		self._child_entities  = []
 		self._information     = {}
-		self._class_name      = ENTITY
+		self._class_name      = ENTITY_TYPE_BASE
 
 	def is_public_entity(self) -> bool:
 		"""Returns a boolean indicating if this entity is a public entity or not."""
@@ -42,10 +51,10 @@ class Entity(object):
 
 	def get_json_data(self) -> dict:
 		"""Returns a dictionary of all the data contained in this Entity."""
-		json_data = {ENTITY_PROPERTY_TYPE: self._class_name,
-		             ENTITY_PROPERTY_PARENTS: str(self._parent_entities),
-		             ENTITY_PROPERTY_CHILDREN: str(self._child_entities),
-		             ENTITY_PROPERTY_ID: self._relative_id}
+		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
+		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
+		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self._child_entities),
+		             ENTITY_DEFAULT_PROPERTY_RELATIVE_ID: self._relative_id}
 
 		for key in self._information:
 			json_data[key] = self._information[key]
@@ -63,7 +72,8 @@ class Entity(object):
 
 	def add_information(self, key, value):
 		"""Adds to an internal dictionary. Will most likely get changed in the future."""
-		if key not in ENTITY_PROPERTY_ALL:
+		# TODO : Refactor this?
+		if key not in ENTITY_DEFAULT_PROPERTY_ALL:
 			self._information[key] = value
 		else:
 			raise Exception('Can\'t use the default key{' + str(key) + '}!')
@@ -130,7 +140,7 @@ class Entity(object):
 		for key in raw_data:
 			value = raw_data[key]
 			if str(value) != '[]':
-				if key != ENTITY_PROPERTY_ID:
+				if key != ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
 					slim_data[key] = value
 
 		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'

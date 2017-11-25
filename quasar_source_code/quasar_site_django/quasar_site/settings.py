@@ -25,7 +25,7 @@ SECRET_KEY = 'a7d%!f!40de-(=)kq!s_gl6qj0f$yjei%=$e503403_mv9k__d'
 DEBUG = True
 
 # TODO : Remove http://67.163.24.150/ eventually (fix Route 53)
-ALLOWED_HOSTS = ['quasarsource.com', '67.163.24.150']
+ALLOWED_HOSTS = ['quasarsource.com', '67.163.24.150', 'www.quasarsource.com']
 
 
 # Application definition

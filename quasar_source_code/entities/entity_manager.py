@@ -2,28 +2,9 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
-from quasar_source_code.entities.base_entity import Entity
+from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.universal_code import time_abstraction as ta
-
-ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
-ENTITY_PROPERTY_CHILDREN = 'ENTITY_PROPERTY_CHILDREN'
-ENTITY_PROPERTY_PARENTS  = 'ENTITY_PROPERTY_PARENTS'
-ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
-ENTITY_PROPERTY_ALL      = [ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_CHILDREN, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_ID]
-
-ENTITY_TYPE_TASK            = 'EntityTask'
-ENTITY_TYPE_TIME            = 'EntityTime'
-ENTITY_TYPE_BASE            = 'Entity'
-ENTITY_TYPE_WALL            = 'EntityWall'
-ENTITY_TYPE_OWNER           = 'EntityOwner'
-ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder'
-ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
-
-OWNER_KEY_NAME      = 'name'
-OWNER_KEY_PASSWORD  = 'password'
-OWNER_KEY_EMAIL     = 'email'
-OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
-OWNER_KEY_ID        = '_id'
 
 
 class EntityManager(object):
@@ -117,13 +98,13 @@ class EntityManager(object):
 
 		for key in entity_data:
 			value = entity_data[key]
-			if key == ENTITY_PROPERTY_TYPE:
+			if key == be.ENTITY_DEFAULT_PROPERTY_TYPE:
 				entity.set_entity_type(value)
-			elif key == ENTITY_PROPERTY_CHILDREN:
+			elif key == be.ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
 				entity._child_entities = value
-			elif key == ENTITY_PROPERTY_PARENTS:
+			elif key == be.ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
 				entity._parent_entities = value
-			elif key == ENTITY_PROPERTY_ID:
+			elif key == be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
 				entity.set_relative_id(value)
 			else:
 				#print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
@@ -134,13 +115,13 @@ class EntityManager(object):
 		match_found = False
 		# ENTITY_PROPERTY_ID in entity_data and
 		#if '_id' in entity_data:
-		if ENTITY_PROPERTY_ID in entity_data:
+		if be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID in entity_data:
 			for e in self.entities:
-				if str(e.relative_id) == entity_data[ENTITY_PROPERTY_ID]:
+				if str(e.relative_id) == entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]:
 					self._update_entity(e, entity_data)
 					match_found = True
 		if not match_found:
-			new_entity = Entity()
+			new_entity = be.Entity()
 			new_entity_relative_id = self.get_largest_entity_id() + 1
 			new_entity.set_relative_id(new_entity_relative_id)
 			self._update_entity(new_entity, entity_data)
@@ -169,15 +150,15 @@ class EntityManager(object):
 		#print(str(owner_data))
 
 		for e in self.entities:
-			if e.get_value(ENTITY_PROPERTY_TYPE) == ENTITY_TYPE_OWNER:
+			if e.get_value(be.ENTITY_DEFAULT_PROPERTY_TYPE) == be.ENTITY_TYPE_OWNER:
 				return False
 
 		data = {}
 		data['owner_created_at_date'] = str(ta.get_now())
-		data[ENTITY_PROPERTY_TYPE] = ENTITY_TYPE_OWNER
-		data[OWNER_KEY_NAME] = owner_data[OWNER_KEY_NAME]
-		data[OWNER_KEY_PASSWORD] = owner_data[OWNER_KEY_PASSWORD]
-		data[OWNER_KEY_EMAIL] = owner_data[OWNER_KEY_EMAIL]
+		data[be.ENTITY_DEFAULT_PROPERTY_TYPE] = be.ENTITY_TYPE_OWNER
+		data[eo.OWNER_KEY_NAME] = owner_data[eo.OWNER_KEY_NAME]
+		data[eo.OWNER_KEY_PASSWORD] = owner_data[eo.OWNER_KEY_PASSWORD]
+		data[eo.OWNER_KEY_EMAIL] = owner_data[eo.OWNER_KEY_EMAIL]
 		self.save_or_update_entity(data)
 
 		return True

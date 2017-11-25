@@ -84,9 +84,10 @@ EntityManager.prototype = {
     loading                : null,
 
     all_public_entities_loaded: function(data) {
-
+        // DELETE_FOR_PROD_START
         l('Got the following data for public entities');
         l(data);
+        // DELETE_FOR_PROD_END
 
         MANAGER_ENTITY.add_public_entity_from_entity_data(data);
 
@@ -97,9 +98,10 @@ EntityManager.prototype = {
     },
 
     all_user_entities_loaded: function(data) {
-
+        // DELETE_FOR_PROD_START
         l('Got the following data for user entities');
         l(data);
+        // DELETE_FOR_PROD_END
 
         MANAGER_ENTITY.add_user_entity_from_entity_data(data);
 

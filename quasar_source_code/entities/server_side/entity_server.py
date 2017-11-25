@@ -4,6 +4,7 @@
 
 from quasar_source_code.entities.database import entity_database
 from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.entities.server_side import text_reminders as tr
 
 # Needed for sending a simple HttpResponse such as a string response.
@@ -31,28 +32,6 @@ SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = HttpResponse('Invalid numb
 SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
 SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
 SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
-
-# Entity properties.
-ENTITY_PROPERTY_ID       = 'ENTITY_PROPERTY_ID'
-ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
-ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
-ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
-
-# Entity types.
-ENTITY_TYPE_TASK            = 'EntityTask'
-ENTITY_TYPE_TIME            = 'EntityTime'
-ENTITY_TYPE_BASE            = 'Entity'
-ENTITY_TYPE_WALL            = 'EntityWall'
-ENTITY_TYPE_OWNER           = 'EntityOwner'
-ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder'
-ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType'
-
-# Owner dictionary key mappings.
-OWNER_KEY_NAME      = 'name'
-OWNER_KEY_PASSWORD  = 'password'
-OWNER_KEY_EMAIL     = 'email'
-OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
-OWNER_KEY_ID        = '_id'
 
 # Public entities owner name
 PUBLIC_ENTITIES_OWNER = 'public_entities'
@@ -87,13 +66,13 @@ class EntityServer(object):
 	def create_owner(self, owner_data):
 		"""Creates an owner. Throws an exception if the required owner keys are not provided."""
 		# Required keys passed in check.
-		for required_key in OWNER_KEYS_REQUIRED:
+		for required_key in eo.OWNER_KEYS_REQUIRED:
 			if required_key not in owner_data:
 				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
 
 		# Username not already taken check.
-		if self._db_api.is_owner_name_taken(owner_data[OWNER_KEY_NAME]):
-			return HttpResponse('The username{' + owner_data[OWNER_KEY_NAME] + '} is already taken!')
+		if self._db_api.is_owner_name_taken(owner_data[eo.OWNER_KEY_NAME]):
+			return HttpResponse('The username{' + owner_data[eo.OWNER_KEY_NAME] + '} is already taken!')
 
 		# Checks passed, create the owner.
 		self._db_api.create_owner(owner_data)
@@ -102,12 +81,12 @@ class EntityServer(object):
 	def update_owner(self, owner_data):
 		"""Updates an owner. Throws an exception if the _id key is not provided."""
 		# Required keys passed in check.
-		if OWNER_KEY_ID not in owner_data:
+		if eo.OWNER_KEY_ID not in owner_data:
 			return HttpResponse('Required key data not provided for updating an owner! Missing at the _id key from ' + str(owner_data) + '}')
 
 		# Owner ID exists check.
-		if not self._db_api.is_owner_id_valid(owner_data[OWNER_KEY_ID]):
-			return HttpResponse('The owner ID{' + str(owner_data[OWNER_KEY_ID]) + '} is not valid!')
+		if not self._db_api.is_owner_id_valid(owner_data[eo.OWNER_KEY_ID]):
+			return HttpResponse('The owner ID{' + str(owner_data[eo.OWNER_KEY_ID]) + '} is not valid!')
 
 		self._db_api.update_owner(owner_data)
 		return SERVER_REPLY_GENERIC_YES
