@@ -84,7 +84,7 @@ EntityManager.prototype = {
     loading                : null,
 
     all_public_entities_loaded: function(data) {
-        MANAGER_ENTITY.add_user_entity_from_entity_data(data);
+        MANAGER_ENTITY.add_public_entity_from_entity_data(data);
 
         this.public_entities_loaded = true;
         if (this.user_entities_loaded) {
@@ -93,8 +93,8 @@ EntityManager.prototype = {
     },
 
     all_user_entities_loaded: function(data) {
-        MANAGER_ENTITY.add_public_entity_from_entity_data(data);
-
+        MANAGER_ENTITY.add_user_entity_from_entity_data(data);
+        
         this.user_entities_loaded = true;
 
         this.set_owner_entity();
