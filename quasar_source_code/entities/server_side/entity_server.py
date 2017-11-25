@@ -71,8 +71,8 @@ class EntityServer(object):
 				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
 
 		# Username not already taken check.
-		if self._db_api.is_owner_name_taken(owner_data[eo.OWNER_KEY_NAME]):
-			return HttpResponse('The username{' + owner_data[eo.OWNER_KEY_NAME] + '} is already taken!')
+		if self._db_api.is_owner_name_taken(owner_data[eo.OWNER_KEY_USERNAME]):
+			return HttpResponse('The username{' + owner_data[eo.OWNER_KEY_USERNAME] + '} is already taken!')
 
 		# Checks passed, create the owner.
 		self._db_api.create_owner(owner_data)

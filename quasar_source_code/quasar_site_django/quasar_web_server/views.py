@@ -91,6 +91,9 @@ def check_POST_arguments(arguments, request):
 	:param request: Contains information regarding the request sent in.
 	:return: Boolean indicating if this threw an exception or not.
 	"""
+	print('There was a post error!')
+	print('Here is the data passed in :')
+	print(arguments)
 	if len(request.POST) != len(arguments):
 		print('Got ' + str(len(request.POST)) + ' number of arguments instead of ' + str(len(arguments)))
 		print('They were :')
@@ -108,11 +111,11 @@ def check_POST_arguments(arguments, request):
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_NAME, eo.OWNER_KEY_PASSWORD], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.POST[eo.OWNER_KEY_NAME]
+	received_username = request.POST[eo.OWNER_KEY_USERNAME]
 	received_password = request.POST[eo.OWNER_KEY_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
@@ -122,7 +125,7 @@ def POST_login(request):
 	global entity_server
 	result = entity_server.is_valid_login_info(received_username, received_password)
 	if result:
-		request.session[eo.OWNER_KEY_NAME] = received_username
+		request.session[eo.OWNER_KEY_USERNAME] = received_username
 		return SERVER_REPLY_GENERIC_YES
 	return HttpResponse('Username or password is not correct!')
 
@@ -130,11 +133,11 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_NAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_owner_name = request.POST[eo.OWNER_KEY_NAME]
+	received_owner_name = request.POST[eo.OWNER_KEY_USERNAME]
 	received_owner_email = request.POST[eo.OWNER_KEY_EMAIL]
 	received_owner_password = request.POST[eo.OWNER_KEY_PASSWORD]
 
@@ -144,12 +147,12 @@ def POST_create_owner(request):
 	global entity_server
 	# FOR_DEV_START
 	owner_data = {}
-	owner_data[eo.OWNER_KEY_NAME] = received_owner_name
+	owner_data[eo.OWNER_KEY_USERNAME] = received_owner_name
 	owner_data[eo.OWNER_KEY_EMAIL] = received_owner_email
 	owner_data[eo.OWNER_KEY_PASSWORD] = received_owner_password
 	# FOR_DEV_END
 	# FOR_PROD_START
-	#owner_data = {eo.OWNER_KEY_NAME: received_owner_name, eo.OWNER_KEY_EMAIL: received_owner_email, eo.OWNER_KEY_PASSWORD: received_owner_password}
+	#owner_data = {eo.OWNER_KEY_USERNAME: received_owner_name, eo.OWNER_KEY_EMAIL: received_owner_email, eo.OWNER_KEY_PASSWORD: received_owner_password}
 	# FOR_PROD_END
 	return entity_server.create_owner(owner_data)
 
@@ -157,11 +160,11 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_NAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username  = request.POST[eo.OWNER_KEY_NAME]
+	received_username  = request.POST[eo.OWNER_KEY_USERNAME]
 	received_password  = request.POST[eo.OWNER_KEY_PASSWORD]
 	received_entity_id = request.POST[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
@@ -178,11 +181,11 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_NAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, SAVE_DATA], request)
 	if post_errors is not None:
 		return post_errors
 
-	received_username = request.POST[eo.OWNER_KEY_NAME]
+	received_username = request.POST[eo.OWNER_KEY_USERNAME]
 	received_password = request.POST[eo.OWNER_KEY_PASSWORD]
 	received_data     = request.POST[SAVE_DATA]
 
@@ -204,13 +207,13 @@ def POST_save_entity(request):
 @csrf_exempt
 def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_NAME, eo.OWNER_KEY_PASSWORD], request)
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], request)
 	if post_errors is not None:
 		return post_errors
 
-	print('Loading all entities for : ' + request.POST[eo.OWNER_KEY_NAME])
+	print('Loading all entities for : ' + request.POST[eo.OWNER_KEY_USERNAME])
 	global entity_server
-	return entity_server.get_all_users_entities(request.POST[eo.OWNER_KEY_NAME], request.POST[eo.OWNER_KEY_PASSWORD])
+	return entity_server.get_all_users_entities(request.POST[eo.OWNER_KEY_USERNAME], request.POST[eo.OWNER_KEY_PASSWORD])
 
 
 @csrf_exempt

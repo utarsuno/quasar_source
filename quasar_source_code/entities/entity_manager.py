@@ -156,7 +156,7 @@ class EntityManager(object):
 		data = {}
 		data['owner_created_at_date'] = str(ta.get_now())
 		data[be.ENTITY_DEFAULT_PROPERTY_TYPE] = be.ENTITY_TYPE_OWNER
-		data[eo.OWNER_KEY_NAME] = owner_data[eo.OWNER_KEY_NAME]
+		data[eo.OWNER_KEY_USERNAME] = owner_data[eo.OWNER_KEY_USERNAME]
 		data[eo.OWNER_KEY_PASSWORD] = owner_data[eo.OWNER_KEY_PASSWORD]
 		data[eo.OWNER_KEY_EMAIL] = owner_data[eo.OWNER_KEY_EMAIL]
 		self.save_or_update_entity(data)

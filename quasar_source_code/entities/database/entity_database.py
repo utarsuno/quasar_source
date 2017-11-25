@@ -52,9 +52,9 @@ class EntityOwner(object):
 
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
-		if eo.OWNER_KEY_NAME not in self._data:
+		if eo.OWNER_KEY_USERNAME not in self._data:
 			return False
-		return self._data[eo.OWNER_KEY_NAME] == 'public_entities'
+		return self._data[eo.OWNER_KEY_USERNAME] == 'public_entities'
 
 	def save_to_database(self):
 		"""Utility function to send changes to the database."""
@@ -83,9 +83,9 @@ class EntityOwner(object):
 
 	def get_owner_name(self) -> str:
 		"""Returns the name of this EntityOwner."""
-		if eo.OWNER_KEY_NAME not in self._data:
+		if eo.OWNER_KEY_USERNAME not in self._data:
 			return 'NO_OWNER_NAME_SET'
-		return self._data[eo.OWNER_KEY_NAME]
+		return self._data[eo.OWNER_KEY_USERNAME]
 
 	def get_owner_password(self) -> str:
 		"""Returns the password of this EntityOwner."""
@@ -183,11 +183,11 @@ class EntityDatabaseAPI(object):
 
 	def get_owner_id_by_name(self, owner_name):
 		"""Returns the _id of the owner."""
-		return self._owners_collection.get_id_by_key_value_match(eo.OWNER_KEY_NAME, owner_name)
+		return self._owners_collection.get_id_by_key_value_match(eo.OWNER_KEY_USERNAME, owner_name)
 
 	def _add_public_entity_owner(self):
 		"""Adds the public entity owner."""
-		o = {eo.OWNER_KEY_PASSWORD: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_NAME: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_EMAIL: PUBLIC_ENTITIES_OWNER}
+		o = {eo.OWNER_KEY_PASSWORD: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_USERNAME: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_EMAIL: PUBLIC_ENTITIES_OWNER}
 		self._owners_cache.append(EntityOwner(o, self))
 
 	def _update_owners_cache(self):
@@ -250,8 +250,8 @@ class EntityDatabaseAPI(object):
 			if required_key not in owner_data:
 				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
 		# Make sure that the owner name isn't already taken.
-		if self.is_owner_name_taken(owner_data[eo.OWNER_KEY_NAME]):
-			raise Exception('Owner name ' + owner_data[eo.OWNER_KEY_NAME] + ' is already taken!')
+		if self.is_owner_name_taken(owner_data[eo.OWNER_KEY_USERNAME]):
+			raise Exception('Owner name ' + owner_data[eo.OWNER_KEY_USERNAME] + ' is already taken!')
 
 		# Update the owner cache.
 		new_entity_owner = self._add_owner_to_cache(owner_data)
