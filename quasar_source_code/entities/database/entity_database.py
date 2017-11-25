@@ -52,6 +52,8 @@ class EntityOwner(object):
 
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
+		if eo.OWNER_KEY_NAME not in self._data:
+			return False
 		return self._data[eo.OWNER_KEY_NAME] == 'public_entities'
 
 	def save_to_database(self):
