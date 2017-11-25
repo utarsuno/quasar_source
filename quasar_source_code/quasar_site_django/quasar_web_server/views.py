@@ -96,10 +96,8 @@ def check_POST_arguments(arguments, request):
 	"""
 	print('There was a post error!')
 	print('Here is the data passed in :')
-	print('As a string {| ' + str(arguments) + ' |}')
 	if len(request.POST) != len(arguments):
 		print('Got ' + str(len(request.POST)) + ' number of arguments instead of ' + str(len(arguments)))
-		print('They were :')
 		for arg in request.POST:
 			print(arg)
 		print('Arguments excepted were : ' + str(arguments))
@@ -152,6 +150,7 @@ def POST_create_owner(request):
 	print('CREATE OWNER')
 	print(str(request.POST))
 	request.POST = qdict_to_dict(request.POST)
+	print(str(request.POST))
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
 	if post_errors is not None:
