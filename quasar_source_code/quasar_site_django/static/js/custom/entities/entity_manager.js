@@ -87,6 +87,7 @@ EntityManager.prototype = {
         // DELETE_FOR_PROD_START
         l('Got the following data for public entities');
         l(data);
+        l(is_string(data));
         // DELETE_FOR_PROD_END
 
         MANAGER_ENTITY.add_public_entity_from_entity_data(data);
