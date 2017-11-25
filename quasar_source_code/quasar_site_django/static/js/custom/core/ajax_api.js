@@ -35,8 +35,7 @@ PostHelper.prototype = {
 
             // if (xhr.readyState == 4 && xhr.status == 200) {
 
-            //l(http.responseText);
-            l(http);
+            callback(http.responseText);
             self.waiting_on_reply = false;
         };
 
