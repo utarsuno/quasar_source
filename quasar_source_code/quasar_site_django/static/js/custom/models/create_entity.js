@@ -88,11 +88,9 @@ CreateEntity.prototype = {
         this.entity_type_selector.set_to_invisible();
 
         this.add_create_entity_field(ENTITY_PROPERTY_NAME, 'entity default name', false, true);
-        this.add_create_entity_field(ENTITY_PROPERTY_TYPE, selected_type, false, false);
+        this.add_create_entity_field(ENTITY_DEFAULT_PROPERTY_TYPE, selected_type, false, false);
 
         switch (selected_type) {
-        case ENTITY_TYPE_NO_SPECIAL_TYPE:
-            break;
         case ENTITY_TYPE_TEXT_REMINDER:
             this.add_create_entity_field(TEMP_PROPERTY_A, 'message here', false, true);
             this.add_create_entity_field('PID :', 'to be filled out by the server', false, false);

@@ -143,6 +143,7 @@ module.exports = {
         "ENTITY_TYPE_WALL"           : false,
         "ENTITY_TYPE_OWNER"          : false,
         "ENTITY_TYPE_TEXT_REMINDER"  : false,
+        "ENTITY_TYPE_ALL"            : false,
 
         // The symbol to denote an entity property.
         "ENTITY_PROPERTY_START_TOKEN"        : false,
@@ -159,6 +160,10 @@ module.exports = {
         "ENTITY_PROPERTY_PASSWORD"           : false,
         "ENTITY_PROPERTY_USERNAME"           : false,
         "ENTITY_PROPERTY_EMAIL"              : false,
+        "ENTITY_PROPERTY_NAME"               : false,
+        "ENTITY_PROPERTY_POSITION"           : false,
+        "ENTITY_PROPERTY_LOOK_AT"            : false,
+        "ENTITY_PROPERTY_COMPLETED"          : false,
 
         "COLOR_HIGHLIGHT"     : false,
         "COLOR_TEXT_HIGHLIGHT": false,

@@ -28,11 +28,12 @@ EntityWall.prototype = {
 
         // This save data is for the Wall entity.
         var save_data = {};
-        save_data.ENTITY_PROPERTY_NAME = this.title.get_text();
+        save_data[ENTITY_PROPERTY_NAME] = this.title.get_text();
+        save_data[ENTITY_PROPERTY_POSITION] = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']';
+        save_data[ENTITY_PROPERTY_LOOK_AT] = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']';
+        save_data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = ENTITY_TYPE_WALL;
+        save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
         // TODO : figure out this y positioning issue.
-        save_data.ENTITY_PROPERTY_POSITION = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']';
-        save_data.ENTITY_PROPERTY_LOOK_AT = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']';
-        save_data.ENTITY_PROPERTY_TYPE = ENTITY_TYPE_WALL;
 
         // The wall entity has not been created yet so create it.
         if (!is_defined(this.self_entity)) {
@@ -118,12 +119,12 @@ EntityWall.prototype = {
             }
         }
 
-        var entity_id = save_data[ENTITY_PROPERTY_ID];
+        var entity_id = save_data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
         var entity = MANAGER_ENTITY.get_entity_by_id(entity_id);
         entity.update_values(save_data);
 
         this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME]);
-        if (save_data[ENTITY_PROPERTY_TYPE] === ENTITY_TYPE_TASK) {
+        if (save_data[ENTITY_DEFAULT_PROPERTY_TYPE] === ENTITY_TYPE_TASK) {
             if (save_data[ENTITY_PROPERTY_COMPLETED] === 'True') {
                 this.current_floating_entity_row.set_default_color(COLOR_TEXT_GREEN);
             } else {
@@ -326,7 +327,7 @@ EntityWall.prototype = {
     update_title: function(title) {
         this.title.update_text(title);
         var save_data = {};
-        save_data.ENTITY_PROPERTY_NAME = this.title.get_text();
+        save_data[ENTITY_PROPERTY_NAME] = this.title.get_text();
         this.self_entity.update_values(save_data);
     },
 
@@ -338,7 +339,7 @@ EntityWall.prototype = {
 
         var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset);
 
-        if (entity.get_value(ENTITY_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
+        if (entity.get_value(ENTITY_DEFAULT_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
             if (entity.get_value(ENTITY_PROPERTY_COMPLETED) === 'False') {
                 floating_row.set_default_color(COLOR_TEXT_RED);
 
