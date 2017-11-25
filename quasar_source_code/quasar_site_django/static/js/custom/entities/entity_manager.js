@@ -270,7 +270,7 @@ EntityManager.prototype = {
     },
 
     add_entity_if_not_already_added: function(entity) {
-        if (this.has_property(ENTITY_PROPERTY_PUBLIC)) {
+        if (entity.has_property(ENTITY_PROPERTY_PUBLIC)) {
             for (var i = 0; i < this.public_entities.length; i++) {
                 if (this.public_entities[i].get_relative_id() === entity.get_relative_id()) {
                     return;
