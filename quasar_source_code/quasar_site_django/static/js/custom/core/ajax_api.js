@@ -20,7 +20,7 @@ PostHelper.prototype = {
         // DELETE_FOR_PROD_START
         l('Performing a post with the following data for the url : {' + self.url + '}');
         l(post_data);
-        l(JSON.stringify(post_data));
+        //l(JSON.stringify(post_data));
         // DELETE_FOR_PROD_END
 
 
