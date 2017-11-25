@@ -84,11 +84,8 @@ EntityManager.prototype = {
     loading                : null,
 
     all_public_entities_loaded: function(data) {
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                MANAGER_ENTITY.add_user_entity_from_entity_data(data[key]);
-            }
-        }
+        MANAGER_ENTITY.add_user_entity_from_entity_data(data);
+
         this.public_entities_loaded = true;
         if (this.user_entities_loaded) {
             this.all_data_loaded();
@@ -96,11 +93,8 @@ EntityManager.prototype = {
     },
 
     all_user_entities_loaded: function(data) {
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
-            }
-        }
+        MANAGER_ENTITY.add_public_entity_from_entity_data(data);
+
         this.user_entities_loaded = true;
 
         this.set_owner_entity();
@@ -189,7 +183,7 @@ EntityManager.prototype = {
 
 
         // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
+        //CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
     },
 
     load_data: function() {
