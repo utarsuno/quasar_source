@@ -149,7 +149,8 @@ def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
 	print('CREATE OWNER')
 	print(str(request.POST))
-	request.POST = eval(qdict_to_dict(request.POST))
+	print(str(type(qdict_to_dict(request.POST))))
+	request.POST = eval(str(qdict_to_dict(request.POST)))
 	print(str(request.POST))
 
 	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
