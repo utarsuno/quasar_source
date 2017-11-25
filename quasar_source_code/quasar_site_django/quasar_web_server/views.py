@@ -88,7 +88,7 @@ SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error
 SAVE_DATA = 'save_data'
 
 
-def check_POST_arguments(arguments, request):
+def check_POST_arguments(arguments, dictionary):
 	"""Just a utility function to raise an exception if there is an in-correct match on POST arguments.
 	:param arguments: The arguments to check for.
 	:param request: Contains information regarding the request sent in.
@@ -96,14 +96,14 @@ def check_POST_arguments(arguments, request):
 	"""
 	print('There was a post error!')
 	print('Here is the data passed in :')
-	if len(request.body) != len(arguments):
-		print('Got ' + str(len(request.body)) + ' number of arguments instead of ' + str(len(arguments)))
-		for arg in request.body:
+	if len(dictionary) != len(arguments):
+		print('Got ' + str(len(dictionary)) + ' number of arguments instead of ' + str(len(arguments)))
+		for arg in dictionary:
 			print(arg)
 		print('Arguments excepted were : ' + str(arguments))
 		return HttpResponse(SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR)
 	for arg in arguments:
-		if arg not in request.body:
+		if arg not in dictionary:
 			print('Argument not passed in : ' + str(arg) + '.')
 			return HttpResponse(SERVER_REPLY_INVALID_POST_DATA_ERROR)
 	return None
@@ -145,13 +145,16 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
-	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], request)
+	json_str = (request.body.decode('utf-8'))
+	json_obj = json.loads(json_str)
+
+	post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], json_obj)
 	if post_errors is not None:
 		return post_errors
 
-	received_owner_name = request.body[eo.OWNER_KEY_USERNAME]
-	received_owner_email = request.body[eo.OWNER_KEY_EMAIL]
-	received_owner_password = request.body[eo.OWNER_KEY_PASSWORD]
+	received_owner_name = json_obj[eo.OWNER_KEY_USERNAME]
+	received_owner_email = json_obj[eo.OWNER_KEY_EMAIL]
+	received_owner_password = json_obj[eo.OWNER_KEY_PASSWORD]
 
 	# TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
 	#print('Creating account : ' + received_owner_name)
