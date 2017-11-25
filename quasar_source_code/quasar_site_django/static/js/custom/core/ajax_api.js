@@ -33,10 +33,11 @@ PostHelper.prototype = {
             l('POST onload response :');
             l(http.responseText);
             l(http);
+            self.waiting_on_reply = false;
         };
 
 
-
+        /*
         $.post(self.url, post_data, function(data, status) {
             if (status === 'success') {
                 callback(data);
@@ -46,5 +47,6 @@ PostHelper.prototype = {
             }
             self.waiting_on_reply = false;
         });
+        */
     }
 };
