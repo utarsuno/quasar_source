@@ -4,14 +4,11 @@
 
 import sys
 
-print('The arguments passed in where :')
 arguments = sys.argv[1:]
-for arg, i in enumerate(arguments):
-	print(arg)
-	print(i)
-	print()
-
-print(sys.argv)
+owner_argument = None
+for i, arg in enumerate(arguments):
+	if arg == '-o':
+		owner_argument = arguments[i + 1]
 
 # Owner dictionary key mappings.
 OWNER_KEY_NAME      = 'ep_name'
@@ -27,7 +24,14 @@ db = EntityDatabaseAPI()
 db.connect()
 
 owners = db.get_all_owners()
-print('Printing all owners and their data.')
-for o in owners:
-	color_print('OWNER : {' + str(o.get_owner_name()) + '}', color='yellow')
-	o.get_entity_manager().print_all_entities()
+if owner_argument is None:
+	print('Printing all owners and their data.')
+	for o in owners:
+		color_print('OWNER : {' + str(o.get_owner_name()) + '}', color='yellow')
+		o.get_entity_manager().print_all_entities()
+else:
+	print('Printing data on specific owner ' + owner_argument)
+	for o in owners:
+		if o.get_owner_name() == owner_argument:
+			color_print('OWNER : {' + str(o.get_owner_name()) + '}', color='yellow')
+			o.get_entity_manager().print_all_entities()
