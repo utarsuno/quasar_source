@@ -63,7 +63,7 @@ HomeWorld.prototype = {
 
             //var information = JSON.parse(wall_entities[w]['ENTITY_PROPERTY_INFORMATION'])
 
-            var position = wall_entities[w].get_value(ENTITY_PROPERTY_POSITION);
+            var position = wall_entities[w].get_value('ENTITY_PROPERTY_POSITION');
 
             position = position.replace('[', '').replace(']', '');
             position = position.split(',');

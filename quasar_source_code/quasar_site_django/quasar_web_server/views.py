@@ -154,7 +154,6 @@ def POST_create_owner(request):
 
 
 # Entity fields.
-ENTITY_PROPERTY_POSITION = 'ENTITY_PROPERTY_POSITION'
 ENTITY_PROPERTY_LOOK_AT  = 'ENTITY_PROPERTY_LOOK_AT'
 ENTITY_PROPERTY_NAME     = 'ENTITY_PROPERTY_NAME'
 ENTITY_PROPERTY_TYPE     = 'ENTITY_PROPERTY_TYPE'
@@ -209,7 +208,7 @@ def POST_save_entity(request):
 
 
 @csrf_exempt
-def POST_load_all_entities_for_user(request):
+def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
 	post_errors = check_POST_arguments([USERNAME, OWNER_PASSWORD], request)
 	if post_errors is not None:
@@ -221,7 +220,7 @@ def POST_load_all_entities_for_user(request):
 
 
 @csrf_exempt
-def POST_load_all_public_entities(request):
+def POST_get_public_entities(request):
 	"""Handles the POST request to load all entities."""
 	global entity_server
 	return entity_server.get_all_public_entities()

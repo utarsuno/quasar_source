@@ -133,8 +133,6 @@ CreateEntity.prototype = {
 
     save_entity_button_pressed: function() {
         //console.log('Save the entity!!!!')
-
-        var entity_name;
         var properties = {};
 
         for (var i = 0; i < this.create_entity_fields.length; i++) {
@@ -145,18 +143,10 @@ CreateEntity.prototype = {
             l(entity_field_label);
             l(entity_field_value);
 
-            if (entity_field_label === ENTITY_PROPERTY_NAME) {
-                entity_name = entity_field_value;
-            }
-            if (ENTITY_PROPERTY_ALL.indexOf(entity_field_label) !== NOT_FOUND) {
-                properties[entity_field_label] = entity_field_value;
-            }
+            properties[entity_field_label] = entity_field_value;
         }
 
-        //l('Printing the properties')
-        //l(properties)
-
-        var new_entity = MANAGER_ENTITY.add_new_entity(entity_name, properties);
+        var new_entity = MANAGER_ENTITY.add_new_entity(properties);
         new_entity.add_parent(this.entity_wall.get_wall_entity());
         this.entity_wall.add_entity(new_entity);
 

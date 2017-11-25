@@ -6,9 +6,6 @@ function Player(renderer_api) {
 
 Player.prototype = {
 
-    // Entity owner.
-    owner: null,
-
     // Current state.
     mouse_locked    : null,
 
@@ -130,8 +127,8 @@ Player.prototype = {
         this.web_socket_client.connect(this.get_username());
     },
 
-    perform_login: function(username, password) {
-        this.owner = new Owner(username, password, MANAGER_WORLD.world_home);
+    login: function(username, password) {
+        MANAGER_ENTITY.load_data(username, password);
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
         this.logged_in = true;
     },

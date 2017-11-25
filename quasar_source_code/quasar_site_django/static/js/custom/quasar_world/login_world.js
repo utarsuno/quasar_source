@@ -65,7 +65,7 @@ LoginWorld.prototype = {
             if (this.remember_username_checkbox.checked) {
                 MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
             }
-            CURRENT_PLAYER.perform_login(this.attempted_username, this.attempted_password);
+            CURRENT_PLAYER.login(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }

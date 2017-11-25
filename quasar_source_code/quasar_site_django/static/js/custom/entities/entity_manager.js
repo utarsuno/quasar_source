@@ -4,61 +4,118 @@ function EntityManager() {
     this.__init__();
 }
 
-EntityManager.prototype = {
+/*
 
-    entities        : null,
-    entities_loaded : null,
+Owner.prototype = {
+
+    home_world: null,
+
+    username: null,
+    password: null,
+
+    loading_data: null,
 
     // POST calls.
-    post_delete_entity: null,
-    post_save_entity: null,
+    post_load_all_entities        : null,
+    post_load_all_public_entities : null,
 
-    // TODO : add post calls for loading the entities.
+    all_public_entities_loaded: function(data) {
+        var e = get_key_value_list_from_json_dictionary(data);
+        for (var i = 0; i < e.length; i++) {
+            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
+        }
+        MANAGER_ENTITY.link_entities();
 
-    __init__: function() {
-        this.entities = [];
-        this.entities_loaded = false;
+        this.loading_public_data = false;
+        if (!this.loading_entities_data) {
+            this.loading_data = false;
+        }
+    },
 
-        this.post_delete_entity = new PostHelper('/delete_entity');
-        this.post_save_entity = new PostHelper('/save_entity');
+    all_entities_loaded: function(data) {
+        var e = get_key_value_list_from_json_dictionary(data);
+        for (var i = 0; i < e.length; i++) {
+            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
+        }
+        MANAGER_ENTITY.link_entities();
 
-        this.post_load_all_entities = new PostHelper('/get_all_entities_for_user');
+        // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
+        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
+
+        this.loading_entities_data = false;
+        if (!this.loading_public_data) {
+            this.loading_data = false;
+        }
+    },
+
+    __init__: function(username, password, home_world) {
+        this.username   = username;
+        this.password   = password;
+        this.home_world = home_world;
+
+        this.loading_data = true;
+        this.post_load_all_entities = new PostHelper('/get_all_entities');
         this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this));
 
-        this.post_get_all_entities_for_user = new PostHelper('/get_all_entities_for_user');
-
         this.post_load_all_public_entities = new PostHelper('/get_all_public_entities');
-        //this.post_load_all_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
-    },
+        this.post_load_all_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
+    }
 
-    load_all_entities: function() {
+};
 
-    },
 
-    clear_all: function() {
-        this.entities_loaded = false;
-        // TODO : Double check that this will clear the list.
-        this.entities.length = 0;
-    },
+ */
 
-    add_entity_if_not_already_added: function(entity) {
-        if (this.entities.indexOf(entity) === NOT_FOUND) {
-            this.entities.push(entity);
+EntityManager.prototype = {
+
+    // The user entities.
+    entities        : null,
+    public_entities : null,
+
+    // POST calls.
+    post_delete_entity        : null,
+    post_save_entity          : null,
+    post_load_user_entities   : null,
+    post_load_public_entities : null,
+
+    // State booleans.
+    user_entities_loaded   : null,
+    public_entities_loaded : null,
+    loading                : null,
+
+    all_public_entities_loaded: function(data) {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_user_entity_from_entity_data(data[key]);
+            }
+        }
+        this.public_entities_loaded = true;
+        if (this.user_entities_loaded) {
+            this.all_data_loaded();
         }
     },
 
-    loaded: function() {
-        return this.entities_loaded;
-    },
+    all_user_entities_loaded: function(data) {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
+            }
+        }
+        this.user_entities_loaded = true;
 
-    entity_deleted_response: function(data) {
-        if (data === SERVER_REPLY_GENERIC_YES) {
-            l('Entity deleted!');
-        } else {
-            l('Entity did not get deleted : ' + data);
+        this.set_owner_entity();
+
+        if (this.public_entities_loaded) {
+            this.all_data_loaded();
         }
     },
 
+    all_data_loaded: function() {
+        this.loading = false;
+        MANAGER_ENTITY.link_entities();
+    },
+
+    // TODO : Refactor
     delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
         for (var c = parent_entity.children.length; c--;) {
 
@@ -75,9 +132,148 @@ EntityManager.prototype = {
         }
     },
 
+    entity_deleted_response: function(data) {
+        if (data === SERVER_REPLY_GENERIC_YES) {
+            l('Entity deleted!');
+        } else {
+            l('Entity did not get deleted : {|' + data + '|}');
+        }
+    },
+
+    delete_entity: function(entity) {
+        var entity_to_delete = null;
+        var index_to_splice = this._get_index_of_entity(entity);
+        if (index_to_splice !== NOT_FOUND) {
+            entity_to_delete = this.entities[index_to_splice];
+        } else {
+            raise_exception('Entity to delete was not found!');
+        }
+
+        if (entity_to_delete !== null) {
+            // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
+            this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete);
+
+            // TODO : Make sure the server does the same deletion steps that the client does.
+            this.post_delete_entity.perform_post({
+                'username': CURRENT_PLAYER.get_username(),
+                'password': CURRENT_PLAYER.get_password(),
+                'ENTITY_PROPERTY_ID': entity_to_delete.get_relative_id()
+            }, this.entity_deleted_response.bind(this));
+        }
+
+        if (index_to_splice !== NOT_FOUND) {
+            // Re-calculate the index to splice off as child entities may have been removed thus changing the list order/indexes.
+            this.entities.splice(this._get_index_of_entity(entity), 1);
+        }
+    },
+
+    __init__: function() {
+        this.entities = [];
+        this.user_entities_loaded = false;
+        this.public_entities_loaded = false;
+        this.loading = false;
+
+        this.post_delete_entity        = new PostHelper('/delete_entity');
+        this.post_save_entity          = new PostHelper('/save_entity');
+        this.post_load_user_entities   = new PostHelper('/get_user_entities');
+        this.post_load_public_entities = new PostHelper('/get_public_entities');
+    },
+
+    /*        __        __          __      __       ___
+        |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
+        |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
+
+    set_owner_entity: function() {
+        // TODO : This function!!!
+
+
+
+        // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
+        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
+    },
+
+    load_data: function() {
+        this.loading = true;
+        this.post_load_user_entities.perform_post({'username': this.username, 'password': this.password}, this.all_user_entities_loaded.bind(this));
+        this.post_load_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
+    },
+
+    link_entities: function() {
+        for (var e = 0; e < this.entities.length; e++) {
+            var children_ids = this.entities[e].get_child_ids();
+            var parent_ids   = this.entities[e].get_parent_ids();
+
+            for (var c = 0; c < children_ids.length; c++) {
+                this.entities[e].add_child(this.get_entity_by_id(children_ids[c]));
+            }
+            for (var p = 0; p < parent_ids.length; p++) {
+                this.entities[e].add_parent(this.get_entity_by_id(parent_ids[p]));
+            }
+        }
+        this.entities_loaded = true;
+    },
+
+    /*   __   ___ ___ ___         __      __       ___
+        / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
+        \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    .*/
+    get_new_entity_id: function() {
+        var max_id = -1;
+        for (var i = 0; i < this.entities.length; i++) {
+            var entity_id = this.entities[i].get_relative_id();
+            if (entity_id > max_id) {
+                max_id = entity_id;
+            }
+        }
+        return max_id + 1;
+    },
+
+    get_all_entities_of_type: function(entity_type) {
+        var entities_to_return = [];
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].get_type() === entity_type) {
+                entities_to_return.push(this.entities[i]);
+            }
+        }
+        return entities_to_return;
+    },
+
+    currently_loading: function() {
+        return this.loading;
+    },
+
+    is_property_user_modifiable: function(property) {
+        switch(property) {
+        case ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+        case ENTITY_DEFAULT_PROPERTY_TYPE: // TODO : Maybe don't include type for this.
+        case ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+        case ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+            return false;
+        default:
+            return true;
+        }
+    },
+
+    /*   __   __   ___  __       ___    __        __
+        /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
+        \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .*/
+    clear_all: function() {
+        this.user_entities_loaded = false;
+        this.public_entities_loaded = false;
+        this.entities.length = 0;
+    },
+
+    add_entity_if_not_already_added: function(entity) {
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].get_relative_id() === entity.get_relative_id()) {
+                return;
+            }
+        }
+        this.entities.push(entity);
+    },
+
     _get_index_of_entity: function(entity) {
         for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity.get_value(ENTITY_PROPERTY_ID)) {
+            if (this.entities[i].get_relative_id() === entity.get_relative_id()) {
                 return i;
             }
         }
@@ -93,81 +289,16 @@ EntityManager.prototype = {
         }
     },
 
-    delete_entity: function(entity) {
-        var entity_to_delete = null;
-        var index_to_splice = this._get_index_of_entity(entity);
-        if (index_to_splice !== NOT_FOUND) {
-            entity_to_delete = this.entities[index_to_splice];
-        }
-
-        if (entity_to_delete !== null) {
-            // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
-            this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete);
-
-            // TODO : Make sure the server does the same deletion steps that the client does.
-            this.post_delete_entity.perform_post({
-                'username': CURRENT_PLAYER.get_username(),
-                'password': CURRENT_PLAYER.get_password(),
-                'ENTITY_PROPERTY_ID': entity_to_delete.get_value(ENTITY_PROPERTY_ID)
-            }, this.entity_deleted_response.bind(this));
-        }
-
-        if (index_to_splice !== -1) {
-            // Re-calculate the index to splice off as child entities may have been removed thus changing the list order/indexes.
-            this.entities.splice(this._get_index_of_entity(entity), 1);
-        }
-    },
-
-    add_entity: function(entity) {
-        //this.entities.push(entity)
-        this.add_entity_if_not_already_added(entity);
-    },
-
-    add_new_entity: function(entity_name, entity_data) {
-        var new_entity = new Entity(entity_name, entity_data);
-        this.add_entity_if_not_already_added(new_entity);
-        //this.entities.push(new_entity)
+    add_user_entity_from_entity_data: function(entity_data) {
+        var new_entity = new Entity(entity_data);
+        this.entities.push(new_entity);
         return new_entity;
     },
 
-    load_entity_from_data: function(entity_data) {
-
-    },
-
-    get_new_entity_id: function() {
-        var max_id = -1;
-        for (var i = 0; i < this.entities.length; i++) {
-            var entity_id = parseInt(this.entities[i].get_value(ENTITY_PROPERTY_ID));
-            if (entity_id > max_id) {
-                max_id = entity_id;
-            }
-        }
-        return max_id + 1;
-    },
-
-    link_entities: function() {
-        for (var e = 0; e < this.entities.length; e++) {
-            var children_list = this.entities[e].get_value(ENTITY_PROPERTY_CHILDREN);
-            var parent_list   = this.entities[e].get_value(ENTITY_PROPERTY_PARENTS);
-
-            for (var c = 0; c < children_list.length; c++) {
-
-                var entity_to_add = this.get_entity_by_id(children_list[c]);
-
-                if (is_defined(entity_to_add)) {
-                    this.entities[e].add_child(entity_to_add);
-                } else {
-                    l('THERE WAS AN ERROR YOU NEED TO FIX.');
-                    //this.entities[e].add_child(this.get_entity_by_id(children_list[c]))
-                }
-
-                this.entities[e].add_child(this.get_entity_by_id(children_list[c]));
-            }
-            for (var p = 0; p < parent_list.length; p++) {
-                this.entities[e].add_parent(this.get_entity_by_id(parent_list[p]));
-            }
-        }
-        this.entities_loaded = true;
+    add_public_entity_from_entity_data: function(entity_data) {
+        var new_public_entity = new Entity(entity_data);
+        this.entities.push(new_public_entity);
+        return new_public_entity;
     },
 
     get_all_entities: function() {
@@ -182,7 +313,7 @@ EntityManager.prototype = {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
         var match_found_ONLY_FOR_DEBUGGING = false;
         for (var i = 0; i < this.entities.length; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_ID) === entity_id) {
+            if (this.entities[i].get_relative_id() === entity_id) {
                 match_found_ONLY_FOR_DEBUGGING = true;
                 return this.entities[i];
             }
@@ -190,33 +321,14 @@ EntityManager.prototype = {
         if (!match_found_ONLY_FOR_DEBUGGING) {
             l('MATCH NOT FOUND FOR :');
             l(entity_id);
+            throw_exception('Entity ID match not found!');
         }
         return null;
     },
 
-    get_all_entities_of_type: function(entity_type) {
-        var type_entities = [];
-        var number_of_entities = this.entities.length;
-        for (var i = 0; i < number_of_entities; i++) {
-            if (this.entities[i].get_value(ENTITY_PROPERTY_TYPE) === entity_type) {
-                type_entities.push(this.entities[i]);
-            }
-        }
-        return type_entities;
-    },
-
-    is_property_user_modifiable: function(property) {
-        switch(property) {
-        case ENTITY_PROPERTY_ID:
-        case ENTITY_PROPERTY_PARENTS:
-        case ENTITY_PROPERTY_CHILDREN:
-            return false;
-        default:
-            return true;
-        }
-    },
-
-    ////
+    /*   __                    __      __       ___
+        /__`  /\  \  / | |\ | / _`    |  \  /\   |   /\     .
+        .__/ /~~\  \/  | | \| \__>    |__/ /~~\  |  /~~\    .*/
 
     save_changes_result: function() {
         // .bind prepends arguments so the first argument is the entity being saved and the second argument is the save result.
@@ -234,7 +346,7 @@ EntityManager.prototype = {
 
         for (var e = 0; e < this.entities.length; e++) {
             if (this.entities[e].needs_to_be_saved) {
-                this.post_save_entity.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_properties())}, this.save_changes_result.bind(this, this.entities[e]));
+                this.post_save_entity.perform_post({'username': username, 'password': password, 'save_data': JSON.stringify(this.entities[e].get_all_properties())}, this.save_changes_result.bind(this, this.entities[e]));
             }
         }
     }

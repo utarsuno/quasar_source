@@ -26,7 +26,7 @@ RendererAPI.prototype = {
             this.warning_message = Detector.getWebGLErrorMessage();
             l('WebGL is not enabled!');
             l(this.get_warning_message());
-            throw new Error('WebGL is not enabled!');
+            raise_exception('WebGL is not enabled!');
         } else {
             this.stats_api = new StatsAPI();
 

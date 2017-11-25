@@ -1,110 +1,67 @@
 'use strict';
 
-function Owner(username, password, home_world) {
-    this.__init__(username, password, home_world);
+function Entity(properties) {
+    this.__init__(properties);
 }
-
-function Entity(name, keys_and_values) {
-    this.__init__(name, keys_and_values);
-}
-
-Owner.prototype = {
-
-    home_world: null,
-
-    username: null,
-    password: null,
-
-    loading_data: null,
-
-    // POST calls.
-    post_load_all_entities        : null,
-    post_load_all_public_entities : null,
-
-    all_public_entities_loaded: function(data) {
-        var e = get_key_value_list_from_json_dictionary(data);
-        for (var i = 0; i < e.length; i++) {
-            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
-        }
-        MANAGER_ENTITY.link_entities();
-
-        this.loading_public_data = false;
-        if (!this.loading_entities_data) {
-            this.loading_data = false;
-        }
-    },
-
-    all_entities_loaded: function(data) {
-        var e = get_key_value_list_from_json_dictionary(data);
-        for (var i = 0; i < e.length; i++) {
-            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
-        }
-        MANAGER_ENTITY.link_entities();
-
-        // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
-
-        this.loading_entities_data = false;
-        if (!this.loading_public_data) {
-            this.loading_data = false;
-        }
-    },
-
-    __init__: function(username, password, home_world) {
-        this.username   = username;
-        this.password   = password;
-        this.home_world = home_world;
-
-        this.loading_data = true;
-        this.post_load_all_entities = new PostHelper('/get_all_entities');
-        this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this));
-
-        this.post_load_all_public_entities = new PostHelper('/get_all_public_entities');
-        this.post_load_all_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
-    }
-
-};
 
 Entity.prototype = {
 
-    name             : null,
-    keys_and_values  : null,
+    // Default properties.
+    ep_relative_id: null,
+    ep_child_ids  : null,
+    ep_parent_ids : null,
+    ep_parents    : null,
+    ep_children   : null,
+    ep_type       : null,
 
+    // State booleans.
     needs_to_be_saved : null,
 
-    __init__: function(name, keys_and_values) {
-        // TODO : Remove the entity name field.
-        this.name            = name;
-        this.parents         = [];
-        this.children        = [];
-        this.keys_and_values = keys_and_values;
+    __init__: function(properties) {
 
-        if (!is_defined(this.keys_and_values)) {
-            // TODO : Send error messages to the display screen as well.
-            throw 'Entity properties passed in must not be null!';
-        }
-
-        // Ensure that various entity properties exist with default values.
-        this._ensure_property_exists(ENTITY_PROPERTY_ID, MANAGER_ENTITY.get_new_entity_id());
-
-        if (this.has_property(ENTITY_PROPERTY_NAME)) {
-            this.name = this.get_value(ENTITY_PROPERTY_NAME);
+        var value = null;
+        if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)) {
+            // If the property is a string convert it to an integer.
+            value = properties[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
+            if (is_string(value)) {
+                this.ep_relative_id = parseInt(value);
+            } else {
+                this.ep_relative_id = value;
+            }
         } else {
-            this._ensure_property_exists(ENTITY_PROPERTY_NAME, this.name);
+            this.ep_relative_id = MANAGER_ENTITY.get_new_entity_id();
         }
 
-        this._ensure_property_exists(ENTITY_PROPERTY_CHILDREN, []);
-        this._ensure_property_value_is_not(ENTITY_PROPERTY_CHILDREN, '[]', []);
+        if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_CHILD_IDS)) {
+            // Make sure that any strings get converted into a list of integers.
+            value = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
+            if (is_string(value)) {
+                this.ep_child_ids = eval(value);
+            } else {
+                this.ep_child_ids = value;
+            }
+        } else {
+            this.ep_child_ids = [];
+            this.children = [];
+        }
 
-        this._ensure_property_exists(ENTITY_PROPERTY_PARENTS, []);
-        this._ensure_property_value_is_not(ENTITY_PROPERTY_PARENTS, '[]', []);
+        if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_PARENT_IDS)) {
+            // Make sure that any strings get converted into a list of integers.
+            value = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
+            if (is_string(value)) {
+                this.ep_parent_ids = eval(value);
+            } else {
+                this.ep_parent_ids = value;
+            }
+        } else {
+            this.ep_parent_ids = [];
+            this.parents = [];
+        }
 
-        this._ensure_property_exists(ENTITY_PROPERTY_TYPE, ENTITY_TYPE_BASE);
-
-        // TODO : This should be more automated going forward.
-        // If the entity is an EntityTask then ensure it has the ENTITY_PROPERTY_COMPLETED.
-        if (this.get_value(ENTITY_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
-            this._ensure_property_exists(ENTITY_PROPERTY_COMPLETED, 'False');
+        if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
+            this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
+        } else {
+            this.ep_type = ENTITY_TYPE_BASE;
         }
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
@@ -112,55 +69,33 @@ Entity.prototype = {
     },
 
     is_owned_by_user: function() {
-        if (this.has_property('public')) {
-            return this.get_value('owner') === CURRENT_PLAYER.get_username();
-        }
-        return true;
-    },
-
-    _ensure_property_exists: function(property_name, default_value) {
-        if (!this.has_property(property_name)) {
-            this.set_property(property_name, default_value);
-        } else if (!is_defined(this.get_value(property_name))) {
-            this.set_property(property_name, default_value);
-        }
-    },
-
-    _ensure_property_value_is_not: function(property_name, bad_value, default_value) {
-        if (this.has_property(property_name)) {
-            if (this.get_value(property_name) === bad_value) {
-                this.set_property(property_name, default_value);
-            }
-        }
+        return this.get_value(ENTITY_PROPERTY_OWNER) === CURRENT_PLAYER.get_username();
     },
 
     set_property: function(property_name, property_value) {
-        this.keys_and_values[property_name] = property_value;
-
-        // If the key was the name property then also update the name for the entity object.
-        if (property_name === ENTITY_PROPERTY_NAME) {
-            this.name = property_value;
-        }
-
+        this[property_name] = property_value;
         this.needs_to_be_saved = true;
     },
 
     update_values: function(new_keys_and_values) {
         for (var key in new_keys_and_values) {
             if (new_keys_and_values.hasOwnProperty(key)) {
-                this.keys_and_values[key] = new_keys_and_values[key];
-
-                // If the key was the name property then also update the name value for the entity object.
-                if (key === ENTITY_PROPERTY_NAME) {
-                    this.name = new_keys_and_values[key];
-                }
+                this[key] = new_keys_and_values[key];
             }
         }
         this.needs_to_be_saved = true;
     },
-    
+
     has_property: function(property_name) {
         return this.hasOwnProperty(property_name);
+    },
+
+    get_relative_id: function() {
+        return this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
+    },
+
+    get_type: function() {
+        return this[ENTITY_DEFAULT_PROPERTY_TYPE];
     },
 
     get_value: function(property_name) {
@@ -171,13 +106,33 @@ Entity.prototype = {
         return this.name;
     },
 
-    get_properties: function() {
-        return this.keys_and_values;
+    get_all_properties: function() {
+        var properties = {};
+        var all_keys = Object.keys(this);
+        for (var i = 0; i < all_keys.length; i++) {
+            if (all_keys[i].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
+                properties[all_keys[i]] = this.get_value(all_keys[i]);
+            }
+        }
+        // Make sure to also add the default properties.
+        properties[ENTITY_DEFAULT_PROPERTY_TYPE] = this.get_type();
+        properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = this.get_child_ids();
+        properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = this.get_parent_ids();
+        properties[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = this.get_relative_id();
+        return properties;
     },
 
     /* __               __       /     __        __   ___      ___           ___      ___   ___    ___  __
       /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
       \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */
+
+    get_child_ids: function() {
+        return this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
+    },
+
+    get_parent_ids: function() {
+        return this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
+    },
 
     number_of_parents: function() {
         return this.parents.length;
@@ -187,22 +142,27 @@ Entity.prototype = {
         return this.children.length;
     },
 
-    // TODO : To be even more safe eventually add error reporting for when any logic errors occur (since they shouldn't c:).
-
     add_child: function(child_entity) {
-        var action_occured = false;
+        if (!is_defined(child_entity)) {
+            var error_message = 'Error can\'t add a not defined object as a child entity!';
+            l(error_message);
+            GUI_TYPING_INTERFACE.add_server_message(error_message);
+            throw_exception(error_message);
+        }
+
+        var action_occurred = false;
         // First make sure this entity hasn't already been marked the provided entity as a child.
         if (this.children.indexOf(child_entity) === NOT_FOUND) {
             this.children.push(child_entity);
-            action_occured = true;
+            action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
-        var child_entity_id = child_entity.get_value(ENTITY_PROPERTY_ID);
-        if (this.get_value(ENTITY_PROPERTY_CHILDREN).indexOf(child_entity_id) === NOT_FOUND) {
-            this.keys_and_values[ENTITY_PROPERTY_CHILDREN].push(child_entity_id);
-            action_occured = true;
+        var child_entity_id = child_entity.get_relative_id();
+        if (this.get_child_ids().indexOf(child_entity_id) === NOT_FOUND) {
+            this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].push(child_entity_id);
+            action_occurred = true;
         }
-        if (action_occured) {
+        if (action_occurred) {
             this.needs_to_be_saved = true;
             // Since the child reference was added also do a redundant check to make sure that the child has this entity marked as a parent entity.
             child_entity.add_parent(this);
@@ -210,20 +170,27 @@ Entity.prototype = {
     },
 
     remove_child: function(child_entity) {
-        var index_of_child_id = this.get_value(ENTITY_PROPERTY_CHILDREN).indexOf(child_entity.get_value(ENTITY_PROPERTY_ID));
+        if (!is_defined(child_entity)) {
+            var error_message = 'Error can\'t remove a not defined object as a child entity!';
+            l(error_message);
+            GUI_TYPING_INTERFACE.add_server_message(error_message);
+            throw_exception(error_message);
+        }
+
+        var index_of_child_id = this.get_child_ids().indexOf(child_entity.get_relative_id());
         var index_of_child_object = this.children.indexOf(child_entity);
-        var action_occured = false;
+        var action_occurred = false;
         // Check if this entity actually contains the child entity.
         if (index_of_child_id !== NOT_FOUND) {
-            this.keys_and_values[ENTITY_PROPERTY_CHILDREN].splice(index_of_child_id, 1);
-            action_occured = true;
+            this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].splice(index_of_child_id, 1);
+            action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
         if (index_of_child_object !== NOT_FOUND) {
             this.children.splice(index_of_child_object, 1);
-            action_occured = true;
+            action_occurred = true;
         }
-        if (action_occured) {
+        if (action_occurred) {
             this.needs_to_be_saved = true;
             // Since the child reference was removed also do a redundant check to make sure that the child has the parent reference to this entity, removed.
             child_entity.remove_parent(this);
@@ -231,19 +198,26 @@ Entity.prototype = {
     },
 
     add_parent: function(parent_entity) {
-        var action_occured = false;
+        if (!is_defined(parent_entity)) {
+            var error_message = 'Error can\'t add a not defined object as a parent entity!';
+            l(error_message);
+            GUI_TYPING_INTERFACE.add_server_message(error_message);
+            throw_exception(error_message);
+        }
+
+        var action_occurred = false;
         // First make sure this entity hasn't already marked the provided entity as a parent.
         if (this.parents.indexOf(parent_entity) === NOT_FOUND) {
             this.parents.push(parent_entity);
-            action_occured = true;
+            action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
-        var parent_entity_id = parent_entity.get_value(ENTITY_PROPERTY_ID);
-        if (this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity_id) === NOT_FOUND) {
-            this.keys_and_values[ENTITY_PROPERTY_PARENTS].push(parent_entity_id);
-            action_occured = true;
+        var parent_entity_id = parent_entity.get_relative_id();
+        if (this.get_parent_ids().indexOf(parent_entity_id) === NOT_FOUND) {
+            this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].push(parent_entity_id);
+            action_occurred = true;
         }
-        if (action_occured) {
+        if (action_occurred) {
             this.needs_to_be_saved = true;
             // Since the parent reference was added also do a redundant check to make sure that the parent has this entity marked as a child entity.
             parent_entity.add_child(this);
@@ -251,20 +225,27 @@ Entity.prototype = {
     },
 
     remove_parent: function(parent_entity) {
-        var action_occured = false;
-        var index_of_parent_id = this.get_value(ENTITY_PROPERTY_PARENTS).indexOf(parent_entity.get_value(ENTITY_PROPERTY_ID));
+        if (!is_defined(parent_entity)) {
+            var error_message = 'Error can\'t remove a not defined object as a parent entity!';
+            l(error_message);
+            GUI_TYPING_INTERFACE.add_server_message(error_message);
+            throw_exception(error_message);
+        }
+
+        var action_occurred = false;
+        var index_of_parent_id = this.get_parent_ids().indexOf(parent_entity.get_relative_id());
         var index_of_parent_object = this.parents.indexOf(parent_entity);
         // Check if this entity actually contains the parent entity.
         if (index_of_parent_id !== NOT_FOUND) {
-            this.keys_and_values[ENTITY_PROPERTY_PARENTS].splice(index_of_parent_id, 1);
-            action_occured = true;
+            this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].splice(index_of_parent_id, 1);
+            action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
         if (index_of_parent_object !== NOT_FOUND) {
             this.parents.splice(index_of_parent_object, 1);
-            action_occured = true;
+            action_occurred = true;
         }
-        if (action_occured) {
+        if (action_occurred) {
             this.needs_to_be_saved = true;
             // Since the parent reference was removed also do a redundant check to make sure that the parent has the child reference to this entity, removed.
             parent_entity.remove_child(this);

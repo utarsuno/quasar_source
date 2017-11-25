@@ -5,10 +5,9 @@ function PostHelper(url) {
 }
 
 PostHelper.prototype = {
-    // States.
-    message_being_sent: null,
-    waiting_on_reply:   null,
 
+    // States.
+    waiting_on_reply: null,
     url: null,
 
     __init__: function(url) {
@@ -17,6 +16,7 @@ PostHelper.prototype = {
 
     perform_post: function(post_data, callback) {
         var self = this;
+        this.waiting_on_reply = true;
         $.post(this.url, post_data, function(data, status) {
             if (status === 'success') {
                 callback(data);
@@ -24,6 +24,7 @@ PostHelper.prototype = {
                 GUI_TYPING_INTERFACE.add_server_message('POST failed for ' + self.url);
                 callback(status);
             }
+            self.waiting_on_reply = false;
         });
     }
 };

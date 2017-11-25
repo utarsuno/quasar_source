@@ -9,6 +9,9 @@ MANAGER_WORLD       = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
+// Global objects (player object needs to get set later)
+ENTITY_OWNER = new EntityOwner();
+
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu();
 GUI_TYPING_INTERFACE = new TypingInterface();
@@ -21,7 +24,7 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 // Renders all the worlds.
 var renderer_api = new RendererAPI();
 
-// Model of the user. Must be created AFTER the scene gets set.
+// Model of the user.
 CURRENT_PLAYER = new Player(renderer_api);
 
 // Sets the player and current world.

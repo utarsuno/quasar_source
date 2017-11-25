@@ -16,8 +16,9 @@ var MANAGER_WORLD       = null;
 var MANAGER_ENTITY      = null;
 var MANAGER_MULTIPLAYER = null;
 
-// Global player object.
+// Global objects.
 var CURRENT_PLAYER = null;
+var ENTITY_OWNER   = null;
 
 // Global gui objects.
 var GUI_PAUSED_MENU      = null;
@@ -45,32 +46,29 @@ const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
 
 // Entity types.
-const ENTITY_TYPE_TASK          = 'EntityTask';
-const ENTITY_TYPE_TIME          = 'EntityTime';
-const ENTITY_TYPE_BASE          = 'Entity';
-const ENTITY_TYPE_WALL          = 'EntityWall';
-const ENTITY_TYPE_OWNER         = 'EntityOwner';
-const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
-const ENTITY_TYPE_NO_SPECIAL_TYPE = 'EntityNoSpecialType';
-// This list will only contain the user creatable Entity Types.
-const ENTITY_TYPE_ALL           = [ENTITY_TYPE_NO_SPECIAL_TYPE, ENTITY_TYPE_TEXT_REMINDER, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_BASE];
+const ENTITY_TYPE_TASK            = 'EntityTask';
+const ENTITY_TYPE_TIME            = 'EntityTime';
+const ENTITY_TYPE_BASE            = 'Entity';
+const ENTITY_TYPE_WALL            = 'EntityWall';
+const ENTITY_TYPE_OWNER           = 'EntityOwner';
+const ENTITY_TYPE_TEXT_REMINDER   = 'EntityTextReminder';
 
-// Entity properties.
-// TODO : Only list the default properties here
-const ENTITY_PROPERTY_ID        = 'ENTITY_PROPERTY_ID';
-const ENTITY_PROPERTY_TYPE      = 'ENTITY_PROPERTY_TYPE';
-const ENTITY_PROPERTY_NAME      = 'ENTITY_PROPERTY_NAME';
-const ENTITY_PROPERTY_POSITION  = 'ENTITY_PROPERTY_POSITION';
-const ENTITY_PROPERTY_LOOK_AT   = 'ENTITY_PROPERTY_LOOK_AT';
-const ENTITY_PROPERTY_PARENTS   = 'ENTITY_PROPERTY_PARENTS';
-const ENTITY_PROPERTY_CHILDREN  = 'ENTITY_PROPERTY_CHILDREN';
-const ENTITY_PROPERTY_COMPLETED = 'ENTITY_PROPERTY_COMPLETED';
+// The symbol to denote an entity property.
+const ENTITY_PROPERTY_START_TOKEN = 'ep_';
+
+// Entity default properties.
+const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
+const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
+const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
+const ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type';
+
+// Other entity properties (not default).
+const ENTITY_PROPERTY_PUBLIC = ENTITY_PROPERTY_START_TOKEN + 'public';
+const ENTITY_PROPERTY_OWNER  = ENTITY_PROPERTY_START_TOKEN + 'owner';
 
 const TEMP_PROPERTY_A = 'Text Contents :';
 const TEMP_PROPERTY_B = 'Seconds from now :';
 const TEMP_PROPERTY_C = 'Send to :';
-
-const ENTITY_PROPERTY_ALL       = [TEMP_PROPERTY_A, TEMP_PROPERTY_B, TEMP_PROPERTY_C, ENTITY_PROPERTY_COMPLETED, ENTITY_PROPERTY_ID, ENTITY_PROPERTY_TYPE, ENTITY_PROPERTY_NAME, ENTITY_PROPERTY_POSITION, ENTITY_PROPERTY_LOOK_AT, ENTITY_PROPERTY_PARENTS, ENTITY_PROPERTY_CHILDREN];
 
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
@@ -179,6 +177,35 @@ const DISPLAY_SHOW = 'block';
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+function is_entity_property(property) {
+    switch (property) {
+    case ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+    case ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+    case ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+    case ENTITY_DEFAULT_PROPERTY_TYPE:
+        return true;
+    default:
+        return property.startsWith(ENTITY_PROPERTY_START_TOKEN);
+    }
+}
+
+function CustomException(message) {
+    this.message = message;
+    this.name = 'CustomException';
+}
+
+function throw_exception(message) {
+    throw new CustomException(message);
+}
+
+function raise_exception(message) {
+    throw new CustomException(message);
+}
+
+// From : https://stackoverflow.com/questions/4059147/check-if-a-variable-is-a-string-in-javascript
+function is_string(value) {
+    return typeof value === 'string';
+}
 
 function round_to_n_decimal_places(text, n) {
     return Number(text).toFixed(n);
