@@ -262,9 +262,10 @@ def GET_all_database_data(request):
 
 
 @csrf_exempt
-def POST_get_all_data(request):
+def GET_get_all_data(request):
 	"""TODO : documentation"""
 	print('???/?')
 	global entity_server
 	print('Getting data from entity server')
-	return HttpResponse(entity_server.get_print_pretty_status())
+	return HttpResponse('HALLO WORLD!')
+	#return HttpResponse(entity_server.get_print_pretty_status())
