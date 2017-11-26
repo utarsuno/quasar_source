@@ -85,14 +85,10 @@ class QuasarCode(object):
 		for f in self._javascript_manager._code_files:
 			all_text.append(f.get_minified_javascript_text())
 
-		print('FKM(ADSFJ(IJV%@')
 		for a in all_text:
-			for i, l in enumerate(a):
-				print(str(i) + '- ' + str(l))
-			#print(a)
-			print()
-			print('@@@@')
-			print()
+			lines = a.split('\n')
+			for l in lines:
+				all_text.append(l.replace('\'use_strict\';', ''))
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
