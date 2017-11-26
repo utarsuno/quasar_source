@@ -92,13 +92,23 @@ def _get_all_python_files():
 	                   'manage.py',
 	                   'finance_classes.py',
 	                   'finance_database.py',
-	                   'robinhood_data.py']
+	                   'robinhood_data.py',
+	                   'example.py',
+	                   'exceptions.py',
+	                   'Robinhood.py',
+	                   'trade_history_downloader.py',
+	                   'setup.py',
+	                   'conftest.py',
+	                   'helpers.py',
+	                   'test_getdata.py',
+	                   'test_portfolio.py']
 	all_python_files = ufo.get_all_file_paths_inside_directory(all_python_files_path)
 	files_to_return = []
 	for f in all_python_files:
 		file_name = ufo.get_file_basename(f)
 		if file_name.endswith('.py'):
-			if file_name not in files_to_ignore and 'third_party_libraries' not in file_name:
+			if file_name not in files_to_ignore:
+				# TODO : check for ... and 'third_party_libraries' not in file_path
 				files_to_return.append(cf.CodeFilePython(f))
 	return files_to_return
 
