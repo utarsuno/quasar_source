@@ -31,7 +31,7 @@ path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
 path_to_universal_functions="$DIR/../universal_scripts/universal_functions.sh"
 
 # Python scripts.
-path_to_quasar_builder="$DIR/../quasar_builder/quasar_builder.py"
+path_to_quasar_builder="$DIR/../../code_api/quasar/quasar_builder.py"
 
 # Helps see exactly where the script's output starts.
 print_dashed_line_with_text "push_to_production.sh start"
