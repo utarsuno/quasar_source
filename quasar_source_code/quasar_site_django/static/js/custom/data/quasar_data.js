@@ -33,7 +33,7 @@ PostHelper.prototype = {
         http.send(JSON.stringify(post_data));
 
         http.onload = function() {
-            l('POST onload response :');
+            console.log('POST onload response :');
 
             // if (xhr.readyState == 4 && xhr.status == 200) {
 
