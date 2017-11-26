@@ -64,7 +64,7 @@ class CodeFile(object):
 		"""Returns all the text for this code file."""
 		text = ''
 		for l in self._lines_of_code:
-			text += self._lines_of_code.text
+			text += l.text
 		return text
 
 	@property
