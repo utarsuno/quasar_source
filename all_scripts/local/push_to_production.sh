@@ -58,7 +58,7 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 else
     print_script_text "Running minification on the Javascript files."
 
-    python3 ${path_to_quasar_builder} "hi" "5" "lol!"
+    python3 ${path_to_quasar_builder} "-bp"
 
     # There are uncommitted changes.
     print_script_text "Pushing the code changes."

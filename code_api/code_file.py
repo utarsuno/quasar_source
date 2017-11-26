@@ -8,6 +8,20 @@ from quasar_source_code.universal_code import useful_file_operations as ufo
 from jsmin import jsmin
 
 
+class CodeFileManager(object):
+	"""Represents a common group of code files."""
+
+	def __init__(self, code_files):
+		self._code_files = code_files
+
+	def get_total_size(self):
+		"""Returns the total size of all the code files as bytes."""
+		total_size = 0
+		for f in self._code_files:
+			total_size += f.file_size
+		return total_size
+
+
 class CodeFile(object):
 	"""Represents a single file that contains lines of code."""
 

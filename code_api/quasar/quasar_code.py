@@ -80,6 +80,14 @@ def run_analysis():
 	all_javascript_files = _get_all_javascript_files()
 
 
+class QuasarCode(object):
+	"""An abstraction to the entire Quasar code base."""
+
+	def __init__(self):
+		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files())
+
+
+
 # Check if this file is being ran as a script.
 if __name__ == '__main__':
 	color_print('Building Quasar Production', color='red', bold=True)
