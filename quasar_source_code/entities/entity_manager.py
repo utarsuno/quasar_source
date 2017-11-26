@@ -113,24 +113,26 @@ class EntityManager(object):
 	def save_or_update_entity(self, entity_data):
 		"""Creates a new entity or updates with the data provided."""
 		data_has_relative_id = be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID in entity_data
-		entity_match         = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
-		relative_id_found    = entity_match is not None
 
 		if not data_has_relative_id:
 			# Creating a brand new entity.
 			print('@@@\tCreating a brand new entity from the following data')
 			print(entity_data)
 			print('@@@\n')
-		elif relative_id_found:
-			# Performing an update.
-			print('@@@\tPerforming an entity update with the following data')
-			print(entity_data)
-			print('@@@\n')
 		else:
-			# Creating a brand new entity.
-			print('@@@\tCreating a brand new entity from the following data')
-			print(entity_data)
-			print('@@@\n')
+			entity_match         = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
+			relative_id_found    = entity_match is not None
+
+			if relative_id_found:
+				# Performing an update.
+				print('@@@\tPerforming an entity update with the following data')
+				print(entity_data)
+				print('@@@\n')
+			else:
+				# Creating a brand new entity.
+				print('@@@\tCreating a brand new entity from the following data')
+				print(entity_data)
+				print('@@@\n')
 
 		return
 
