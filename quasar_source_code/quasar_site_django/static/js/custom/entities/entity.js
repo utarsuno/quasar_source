@@ -67,10 +67,13 @@ Entity.prototype = {
         }
 
         // Handling all other properties that begin with the token 'ep_'.
-        var non_default_properties = this.get_all_non_default_properties();
-        for (var key in non_default_properties) {
-            if (non_default_properties.hasOwnProperty(key)) {
-                this.set_property(key, non_default_properties[key]);
+        for (var key in properties) {
+            if (properties.hasOwnProperty(key)) {
+                if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && ENTITY_DEFAULT_PROPERTY_TYPE) {
+                    if (key.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
+                        this.set_property(key, properties[key]);
+                    }
+                }
             }
         }
 
@@ -118,17 +121,6 @@ Entity.prototype = {
 
     get_name: function() {
         return this.name;
-    },
-
-    get_all_non_default_properties: function() {
-        var properties = {};
-        var all_keys = Object.keys(this);
-        for (var i = 0; i < all_keys.length; i++) {
-            if (all_keys[i].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
-                properties[all_keys[i]] = this.get_value(all_keys[i]);
-            }
-        }
-        return properties;
     },
 
     get_all_properties: function() {
