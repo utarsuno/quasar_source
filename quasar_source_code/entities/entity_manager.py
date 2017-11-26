@@ -6,6 +6,8 @@ from quasar_source_code.entities import base_entity as be
 from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.universal_code import time_abstraction as ta
 
+from lazyme.string import color_print
+
 
 class EntityManager(object):
 	"""Defines management operations for Entities."""
@@ -74,6 +76,15 @@ class EntityManager(object):
 				print(str(e_child))
 		print('------------------------------------------')
 
+	def _add_entity(self, e):
+		"""Adds an entity but ensures that an entity with that relative ID doesn't first already exist."""
+		if self.get_entity_by_id(e.relative_id) is None:
+			self.entities.append(e)
+		else:
+			color_print('Tried to add entity {' + str(e) + '} but an entity with the same ID already exists!', color='red', bold=True)
+			# TODO : Start making exit codes and their statues.
+			exit(-5)
+
 	def add_entities(self, e):
 		"""Adds an entity to be managed."""
 		if type(e) == list or type(e) == tuple:
@@ -119,6 +130,7 @@ class EntityManager(object):
 			new_entity_relative_id = self.get_largest_entity_id() + 1
 			new_entity = be.Entity()
 			new_entity.initialize_from_data(new_entity_relative_id, entity_data)
+			self.add_entities(new_entity)
 		else:
 			entity_match         = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
 			relative_id_found    = entity_match is not None
