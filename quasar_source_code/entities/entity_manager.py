@@ -115,6 +115,13 @@ class EntityManager(object):
 		match_found = False
 		# ENTITY_PROPERTY_ID in entity_data and
 		#if '_id' in entity_data:
+
+		print('\n-------')
+		print('Saving or updating the following entity data:')
+		print(entity_data)
+		print('is [' + str(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID) + '] in it? [' + str(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID in entity_data) + ']')
+		print('-----\n')
+
 		if be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID in entity_data:
 			for e in self.entities:
 				if str(e.relative_id) == entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]:
