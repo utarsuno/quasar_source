@@ -87,8 +87,9 @@ class QuasarCode(object):
 
 		for a in all_text:
 			lines = a.split('\n')
+			lines[0] = lines[0].replace('\'use_strict\';', '')
 			for l in lines:
-				all_text.append(l.replace('\'use_strict\';', ''))
+				all_text.append(l)
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
