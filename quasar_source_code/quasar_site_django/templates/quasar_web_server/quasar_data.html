@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="../../static/css/custom/base.css">{% extends 'templates/quasar_web_server/base_templates/base.html' %}
+{% block title %} Quasar Source {% endblock %}
+
+{% load staticfiles %}
+{% block additional_css_to_load %}
+<link rel="stylesheet" href="{% static 'css/custom/base.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div id="dark_background">
+    <textarea id="custom_text_area" readonly>
+        Hello World!
+        Test
+    </textarea>
+</div>
+
+
+{% endblock %}
+
+{% load staticfiles %}
+{% block additional_js_to_load %}
+
+<!-- Data. -->
+<script src="{% static 'js/custom/data/quasar_data.js' %}"></script>
+
+{% endblock %}
+

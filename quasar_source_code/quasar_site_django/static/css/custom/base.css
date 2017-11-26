@@ -125,6 +125,53 @@ canvas {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+#dark_background {
+    color: rgba(104, 223, 119, 0.9);
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.see_through_button_for_data {
+    font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.9);
+    width: 80%;
+    margin: 10% 0 0 10%;
+    background: transparent no-repeat;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+#custom_text_area {
+    font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    position: absolute;
+    top: 50%;
+    height: 50vh;
+    left: 0;
+
+    background: transparent no-repeat;
+    color: rgba(104, 223, 119, 0.9);
+    overflow-y: scroll;
+    font-size: 16px;
+    line-height:1.4;
+    width:100%;
+    resize: none;
+}
+
 /*__             ___  __   __     ___      __          __
  / _` |  | |    |__  /  \ |__)     |  \ / |__) | |\ | / _`
  \__> \__/ |    |    \__/ |  \     |   |  |    | | \| \__> */
