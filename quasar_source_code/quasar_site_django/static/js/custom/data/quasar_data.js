@@ -29,7 +29,7 @@ PostHelper.prototype = {
         const http = new XMLHttpRequest();
         http.open('GET', this.url, true);
         //http.send(JSON.stringify(post_data));
-        http.send();
+        http.send(null);
 
         http.onload = function() {
             console.log('POST onload response :');
