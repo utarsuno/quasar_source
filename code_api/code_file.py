@@ -52,7 +52,7 @@ class CodeFile(object):
 		return number_of_lines
 
 	def __str__(self):
-		return self._file_name + ' - [' + str(len(self.lines_of_code)) + ' \'lines of code\'].'
+		return self._file_name + ' - [' + str(self.lines_of_code) + ' \'lines of code\'].'
 
 
 class CodeFilePython(CodeFile):
