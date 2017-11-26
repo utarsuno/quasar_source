@@ -79,7 +79,7 @@ class QuasarCode(object):
 	"""An abstraction to the entire Quasar code base."""
 
 	def __init__(self):
-		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files())
+		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files(False))
 
 
 
