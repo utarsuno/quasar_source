@@ -180,7 +180,7 @@ class Entity(object):
 			if str(value) != '[]':
 				if key not in ENTITY_DEFAULT_PROPERTY_ALL:
 					slim_data[key] = value
-		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
+		print('[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}')
 
 	def __str__(self):
 		raw_data = self.get_json_data()
