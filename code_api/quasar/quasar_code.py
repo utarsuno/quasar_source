@@ -49,11 +49,6 @@ def _get_all_javascript_files():
 	return _get_all_javascript_files(False)
 
 
-def _get_all_javascript_production_files():
-	"""Returns a list of CodeFile objects of all the Quasar production Javascript files."""
-	return _get_all_javascript_files(True)
-
-
 def _get_all_python_files():
 	"""Returns a list of CodeFile objects of all the Quasar Python files."""
 	all_python_files_path = CODE_SOURCE_BASE
@@ -77,7 +72,7 @@ def produce_quasar_minified_javascript_files():
 
 def run_analysis():
 	"""Prints analysis report on the Quasar Source code base."""
-	all_javascript_files = _get_all_javascript_files()
+	all_javascript_files = _get_all_javascript_files(False)
 
 
 class QuasarCode(object):
