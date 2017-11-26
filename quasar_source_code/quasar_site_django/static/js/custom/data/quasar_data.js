@@ -29,13 +29,12 @@ PostHelper.prototype = {
         // From : https://stackoverflow.com/questions/9713058/send-post-data-using-xmlhttprequest
         const http = new XMLHttpRequest();
         http.open('GET', this.url, true);
-        http.setRequestHeader('Content-type', 'application/json');
         //http.send(JSON.stringify(post_data));
         http.send();
 
         http.onload = function() {
             console.log('POST onload response :');
-
+            console.log(http.responseText);
             // if (xhr.readyState == 4 && xhr.status == 200) {
 
             callback(http.responseText);
