@@ -124,6 +124,7 @@ class QuasarCode(object):
 		while i < len(PRODUCTION_FILE_ORDER):
 			text = self._javascript_manager.get_file_by_name(PRODUCTION_FILE_ORDER[str(i)]).get_minified_javascript_text()
 			lines = text.split('\n')
+			print(len(lines))
 			for l in lines:
 				production_javascript_build.add_line(l)
 			i += 1
