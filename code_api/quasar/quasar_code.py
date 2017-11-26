@@ -35,39 +35,33 @@ def _get_all_javascript_files(get_minified_files=False):
 		for f in all_javascript_files:
 			file_name = ufo.get_file_basename(f)
 			if file_name not in files_to_ignore and '.min.js' in file_name:
-				files_to_return.append(cf.CodeFile(f))
+				files_to_return.append(cf.CodeFileJavaScript(f))
 	else:
 		for f in all_javascript_files:
 			file_name = ufo.get_file_basename(f)
 			if file_name not in files_to_ignore and '.min.js' not in file_name:
-				files_to_return.append(cf.CodeFile(f))
+				files_to_return.append(cf.CodeFileJavaScript(f))
 	return files_to_return
 
 
 def _get_all_python_files():
 	"""Returns a list of CodeFile objects of all the Quasar Python files."""
 	all_python_files_path = CODE_SOURCE_BASE
-	files_to_ignore = ['__init__.py']
-
-
-def produce_quasar_minified_javascript_files():
-	"""Produces the *.min.js files."""
-	all_javascript_files = _get_all_javascript_files()
-	total_original_size = 0
-	for f in all_javascript_files:
-		total_original_size += f.file_size
-		f.create_minified_version()
-
-	print('Total size of dev Javascript files : {' + str(total_original_size) + '}')
-
-	#print('Total size before : ' + str(total_original_size))
-	#print('New size : ' + str(total_reduced_size))
-	#print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
-
-
-def run_analysis():
-	"""Prints analysis report on the Quasar Source code base."""
-	all_javascript_files = _get_all_javascript_files()
+	files_to_ignore = ['__init__.py',
+	                   'settings.py',
+	                   'wsgi.py',
+	                   'manage.py',
+	                   'finance_classes.py',
+	                   'finance_database.py',
+	                   'robinhood_data.py']
+	all_python_files = ufo.get_all_file_paths_inside_directory(all_python_files_path)
+	files_to_return = []
+	for f in all_python_files:
+		file_name = ufo.get_file_basename(f)
+		if file_name.endswith('.py'):
+			if file_name not in files_to_ignore:
+				files_to_return.append(cf.CodeFilePython(f))
+	return files_to_return
 
 
 class QuasarCode(object):
@@ -76,15 +70,31 @@ class QuasarCode(object):
 	def __init__(self):
 		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files())
 
+	def run_analysis(self):
+		"""Prints an analysis report on the Quasar Source code base."""
+		color_print('Printing Quasar Analysis!', color='red', bold=True)
+
+	def build_production(self):
+		"""Builds the production version of Quasar."""
+		color_print('Building Quasar Production!', color='red', bold=True)
 
 
 # Check if this file is being ran as a script.
 if __name__ == '__main__':
-	color_print('Building Quasar Production', color='red', bold=True)
+	#color_print('Building Quasar Production', color='red', bold=True)
+
+	quasar_code = QuasarCode()
 
 	arguments = sys.argv[1:]
 	for a in arguments:
 		if a == ARGUMENT_BUILD_PRODUCTION:
-			produce_quasar_minified_javascript_files()
+			quasar_code.build_production()
 		elif a == ARGUMENT_RUN_ANALYSIS:
-			run_analysis()
+			quasar_code.run_analysis()
+
+
+
+# TODO :
+	#print('Total size before : ' + str(total_original_size))
+	#print('New size : ' + str(total_reduced_size))
+	#print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))

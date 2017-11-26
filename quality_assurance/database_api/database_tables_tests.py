@@ -8,6 +8,8 @@ import unittest
 from quasar_source_code.database_api import postgresql_api as db_api
 from quasar_source_code.database_api.sql_databases import database_tables as db_tables
 
+# TODO : DEPRECIATED as of 12.25.2017
+
 
 class DatabaseTablesTestSuite(unittest.TestCase):
 
