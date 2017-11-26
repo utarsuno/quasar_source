@@ -171,8 +171,8 @@ class CodeFileJavaScript(CodeFile):
 					#print(code_lines[start + x].text, end='')
 					x += 1
 
-		#for cltr in code_lines_to_remove:
-		#	code_lines.remove(cltr)
+		for cltr in code_lines_to_remove:
+			code_lines.remove(cltr)
 
 		return code_lines
 

@@ -155,15 +155,15 @@ class QuasarCode(object):
 		self._python_manager.print_data()
 		self._script_manager.print_data()
 
-		####
+	def build_production(self):
+		"""Builds the production version of Quasar."""
+		color_print('Building Quasar Production!', color='red', bold=True)
 
 		####
-
+		####
 
 		# TODO : Organize these / create a system.
 		# TODO : GLOBAL_CONSTANTS
-		# TODO : DELETE_FOR_PROD
-		# TODO : FOR_QA_START, FOR_DEV_STARt
 
 		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
 		production_javascript_build.add_line('\'use_strict\';')
@@ -190,14 +190,7 @@ class QuasarCode(object):
 			i += 1
 
 		production_javascript_build.create_file_and_minify()
-		print('Production is size : ' + str(production_javascript_build.file_size))
-
-	def build_production(self):
-		"""Builds the production version of Quasar."""
-		color_print('Building Quasar Production!', color='red', bold=True)
-
-		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
-
+		print('Production is size : ' + str(production_javascript_build.file_size) + 'bytes.')
 
 
 # Check if this file is being ran as a script.
