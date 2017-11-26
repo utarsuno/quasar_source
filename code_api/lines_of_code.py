@@ -18,9 +18,6 @@ class LineOfCode(object):
 
 	def is_blank_line(self) -> bool:
 		"""Returns a boolean indicating if this line of code is actually just an empty line."""
-		print('LINE : ')
-		print(self._text)
-		print(len(self._text))
 		if self._text and self._text.strip():
 			return False
 		return True
@@ -31,5 +28,5 @@ def get_lines_of_code_from_file(file_path):
 	x = []
 	with open(file_path) as file:
 		for l in file:
-			x.append(l)
+			x.append(LineOfCode(l))
 	return x
