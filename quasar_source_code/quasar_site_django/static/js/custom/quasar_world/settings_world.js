@@ -70,6 +70,7 @@ SettingsWorld.prototype = {
         this.phone_carrier_list.set_to_invisible();
     },
 
+    // TODO : The .save command needs to save this data!!!
     save_changes_button_pressed: function() {
         var changes_occured = false;
 
@@ -120,11 +121,6 @@ SettingsWorld.prototype = {
         var input_width = 1024 / 2;
         var input_offset = 1024 / -4 + (1024 / 4) + 50;
 
-        // Owner ID
-        this.profile_owner_id_label = this.profile_editor.add_floating_2d_text(label_width, 'Owner ID', TYPE_CONSTANT_TEXT, label_offset, 2, 3, 0);
-        this.profile_owner_id_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 3, 0);
-
-
         // Username
         this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0);
         this.profile_name_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 4, 0);
@@ -168,9 +164,6 @@ SettingsWorld.prototype = {
         this.phone_carrier_list.set_to_invisible();
         //////
 
-        this.save_changes = this.profile_editor.add_floating_2d_text(1024, 'Save Changes', TYPE_BUTTON, 0, 2, 9, 0);
-        this.save_changes.set_engage_function(this.save_changes_button_pressed.bind(this));
-
         /////
         // Camera FOV Slider.
         var slider_fov_position     = new THREE.Vector3(1200, 500, -350);
@@ -190,8 +183,6 @@ SettingsWorld.prototype = {
         this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this);
         /////
 
-        this.interactive_objects.push(this.profile_owner_id_label);
-        this.interactive_objects.push(this.profile_owner_id_input);
         this.interactive_objects.push(this.profile_name_label);
         this.interactive_objects.push(this.profile_name_input);
         this.interactive_objects.push(this.profile_email_label);
@@ -202,7 +193,6 @@ SettingsWorld.prototype = {
         this.interactive_objects.push(this.profile_phone_carrier_input);
         this.interactive_objects.push(this.profile_created_at_date_label);
         this.interactive_objects.push(this.profile_created_at_date_input);
-        this.interactive_objects.push(this.save_changes);
     },
 
     update: function() {
@@ -214,11 +204,6 @@ SettingsWorld.prototype = {
     },
 
     enter_world: function() {
-
-        // Make sure the owner ID is set.
-        this.profile_owner_id_input.update_text(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
-
-
         CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
             CURRENT_PLAYER.enable_controls();
