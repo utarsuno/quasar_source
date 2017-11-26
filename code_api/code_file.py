@@ -87,6 +87,8 @@ class CodeFile(object):
 	@property
 	def file_size(self) -> int:
 		"""Returns the size of this file in bytes."""
+		if self._file_size == None:
+			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
 		return self._file_size
 
 	@property
