@@ -45,8 +45,8 @@ class CodeFileManager(object):
 		print('There are ' + str(self.number_of_files) + ' files.')
 		print('With ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.')
 		#print('Printing all the code files!')
-		for f in self._code_files:
-			print(f)
+		#for f in self._code_files:
+		#	print(f)
 
 
 class CodeFile(object):
