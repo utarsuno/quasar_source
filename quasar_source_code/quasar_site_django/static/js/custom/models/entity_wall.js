@@ -31,11 +31,10 @@ EntityWall.prototype = {
         save_data[ENTITY_PROPERTY_NAME] = this.title.get_text();
         save_data[ENTITY_PROPERTY_POSITION] = '[' + this.position.x + ',' + this.position.y + ',' + this.position.z + ']';
         save_data[ENTITY_PROPERTY_LOOK_AT] = '[' + this.look_at.x + ',' + this.look_at.y + ',' + this.look_at.z + ']';
-        save_data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = ENTITY_TYPE_WALL;
-        save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
 
         // The wall entity has not been created yet so create it.
         if (!is_defined(this.self_entity)) {
+            save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
             this.self_entity = new Entity(save_data);
         } else {
             // The wall entity already exists so simply update the values and then send the new values to the server.
