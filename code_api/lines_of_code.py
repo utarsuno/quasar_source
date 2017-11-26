@@ -19,6 +19,9 @@ class LineOfCode(object):
 	@property
 	def blank_line(self) -> bool:
 		"""Returns a boolean indicating if this line of code is actually just an empty line."""
+		print('LINE : ')
+		print(self._text)
+		print(len(self._text))
 		if self._text and self._text.strip():
 			return False
 		return True
