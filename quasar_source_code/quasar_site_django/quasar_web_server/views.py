@@ -252,17 +252,15 @@ def POST_get_public_entities(request):
 
 
 @csrf_exempt
-def POST_entity_manager_status(request):
-	"""Server side debugging function."""
-	global entity_server
-	# TODO : Eventually add option to pass in the specific manager to print.
-	entity_server.print_pretty_status()
-	return SERVER_REPLY_GENERIC_YES
-
-
-@csrf_exempt
 def GET_all_database_data(request):
 	"""TEMPORARY"""
 	global entity_server
 	# TODO : ...
 	return SERVER_REPLY_GENERIC_YES
+
+
+@csrf_exempt
+def POST_get_all_data(request):
+	"""TODO : documentation"""
+	global entity_server
+	return HttpResponse(entity_server.get_print_pretty_status())

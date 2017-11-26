@@ -36,12 +36,14 @@ class EntityManager(object):
 			self.delete_all_children_of_entity_that_do_not_have_other_parents(entity)
 			self.entities.remove(entity)
 
-	def pretty_print_all_entities(self):
+	def get_pretty_print_all_entities(self):
 		"""Prints condensed information of all the entities."""
-		print('Printing condensed information on the entities!')
+		#print('Printing condensed information on the entities!')
+		pretty = ''
 		for e in self.entities:
-			e.pretty_print()
-		print('------------------------------------------')
+			pretty == e.get_pretty_print()
+		#print('------------------------------------------')
+		return pretty
 
 	def print_entities(self):
 		"""Prints the information of all the entities."""
