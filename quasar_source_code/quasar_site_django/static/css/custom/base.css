@@ -128,6 +128,8 @@ canvas {
 #dark_background {
     color: rgba(104, 223, 119, 0.9);
     background: rgba(20, 20, 20, 0.9);
+    width: 100%;
+    height: 100%;
 }
 
 .see_through_button_for_data {
@@ -137,8 +139,8 @@ canvas {
     text-align: center;
 
     color: rgba(255, 255, 255, 0.9);
-    width: 80%;
-    margin: 10% 0 0 10%;
+    width: 20vw;
+    margin: 5% 0 0 5%;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
