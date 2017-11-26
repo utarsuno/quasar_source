@@ -15,6 +15,8 @@ from django.http import JsonResponse
 
 import json
 
+from urllib.parse import quote_plus
+
 from quasar_source_code.entities.server_side import entity_server as es
 from quasar_source_code.entities import base_entity as be
 from quasar_source_code.entities import entity_owner as eo
@@ -267,5 +269,5 @@ def GET_get_all_data(request):
 	print('???/?')
 	global entity_server
 	print('Getting data from entity server')
-	return HttpResponse('HALLO WORLD!')
+	return HttpResponse(quote_plus('HALLO WORLD!'))
 	#return HttpResponse(entity_server.get_print_pretty_status())
