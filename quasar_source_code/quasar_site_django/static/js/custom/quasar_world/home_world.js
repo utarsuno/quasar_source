@@ -51,10 +51,12 @@ HomeWorld.prototype = {
         var wall_entities = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
         for (var w = 0; w < wall_entities.length; w++) {
 
+            // FOR_DEV_START
             if (!is_defined(wall_entities[w])) {
                 GUI_PAUSED_MENU.add_server_message('Entity wall is not defined? Investigate.');
                 l('There is non-defined entity wall being processed! Investigate!');
             }
+            // FOR_DEV_END
 
             var position = wall_entities[w].get_value(ENTITY_PROPERTY_POSITION);
 

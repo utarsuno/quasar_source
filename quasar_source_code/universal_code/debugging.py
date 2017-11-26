@@ -7,6 +7,11 @@
 from lazyme.string import color_print
 
 
+def raise_exception(exception_message):
+	"""TEMP"""
+	raise Exception(exception_message)
+
+
 def raise_type_exception(method_name, expected_type, val):
 	"""Utility function for raising type errors."""
 	raise TypeError('Method \'' + method_name + '\' expects a ' + str(expected_type) + ' instead of {' + str(val) + '} of type {' + str(type(val)) + '}!')

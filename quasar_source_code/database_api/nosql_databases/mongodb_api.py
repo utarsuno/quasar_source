@@ -120,5 +120,5 @@ class MongoDBAPI(object):
         self._database_connection.close()
 
     def clear_database(self, database_name):
-        """Completly clears the database."""
+        """Completely clears the database."""
         self._database_connection.drop_database(database_name)

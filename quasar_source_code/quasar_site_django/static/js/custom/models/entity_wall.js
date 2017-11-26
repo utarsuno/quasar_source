@@ -43,9 +43,11 @@ EntityWall.prototype = {
     },
 
     get_wall_entity: function() {
+        // FOR_DEV_START
         if (!is_defined(this.self_entity)) {
             l('WARNING : self entity is null');
         }
+        // FOR_DEV_END
         return this.self_entity;
     },
 
@@ -137,11 +139,15 @@ EntityWall.prototype = {
     },
 
     edit_entity_pressed: function() {
+        // FOR_DEV_START
         l('EDIT THE PRESSED FLOATING ENTITY!!!!');
+        // FOR_DEV_END
 
         for (var i = 0; i < this.floating_row_to_entity_list.length; i++) {
             if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
+                // FOR_DEV_START
                 l('EDIT THE FOLLOWING ENTITIY:');
+                // FOR_DEV_END
                 var current_entity = this.floating_row_to_entity_list[i][1];
                 l(current_entity);
 
@@ -190,8 +196,10 @@ EntityWall.prototype = {
     },
 
     entity_was_created: function(entity) {
+        // FOR_DEV_START
         l('The following entity was just created!');
         l(entity);
+        // FOR_DEV_END
     },
 
     make_entity_wall_public_button_pressed: function() {
@@ -345,8 +353,9 @@ EntityWall.prototype = {
 
                 // TODO : Add a button.
                 //floating_row.
+                // FOR_DEV_START
                 var floating_row_button = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width / 4, 'mark as completed', TYPE_BUTTON, this.entities_display_wall_width  * .375, 5, 0, y_offset);
-
+                // FOR_DEV_END
             } else {
                 floating_row.set_default_color(COLOR_TEXT_GREEN);
             }

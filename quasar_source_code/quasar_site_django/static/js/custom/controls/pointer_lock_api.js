@@ -37,8 +37,11 @@ PointerLockAPI.prototype = {
             // Hook for mouse click.
             document.addEventListener('click', this.click_handler.bind(this));
         } else {
+            // FOR_DEV_START
             l('Pointer lock is not supported!');
+            // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message('Pointer lock is not supported!');
+            raise_exception('Pointer lock is not supported!')
         }
     },
 
@@ -66,7 +69,9 @@ PointerLockAPI.prototype = {
     },
 
     pointer_lock_error: function() {
+        // FOR_DEV_START
         l('Pointer lock error!');
+        // FOR_DEV_END
         GUI_TYPING_INTERFACE.add_server_message('Pointer lock error!');
     },
 

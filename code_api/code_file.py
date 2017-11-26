@@ -6,6 +6,7 @@ from code_api import lines_of_code as loc
 from quasar_source_code.universal_code import useful_file_operations as ufo
 # Current 3rd party used to handle minification.
 from jsmin import jsmin
+from quasar_source_code.universal_code import debugging as dbg
 
 
 class CodeFileManager(object):
@@ -14,7 +15,7 @@ class CodeFileManager(object):
 	def __init__(self, code_files):
 		self._code_files = code_files
 
-	def get_file_by_name(self, file_name):
+	def get_code_file_by_name(self, file_name):
 		"""Returns a CodeFile object if found."""
 		for f in self._code_files:
 			if file_name in f.file_path:
@@ -127,53 +128,75 @@ class CodeFileJavaScript(CodeFile):
 	def __init__(self, file_path, already_exists=True):
 		super().__init__(file_path, already_exists)
 		self._extension = '.js'
-		self._minified_js = None
-		self._minified_file_path = self._file_path.replace('.js', '.min.js')
 
-	def get_minified_javascript_text(self):
+	def _get_production_text(self):
+		"""Returns all the text for this code file."""
+		# TODO : Refactor this method later (its not efficient)
+
+		code_lines = []
+
+		currently_in_dev_start = False
+
+		line_chunks_to_remove = []
+
+		current_chuck_start = -1
+
+		for i, l in enumerate(self._lines_of_code):
+			if '// FOR_DEV_START' in l.text:
+				if currently_in_dev_start:
+					dbg.raise_exception('FOR_DEV_START without a FOR_DEV_END first!')
+				currently_in_dev_start = True
+				current_chuck_start = i
+			elif '// FOR_DEV_END' in l.text:
+				if currently_in_dev_start:
+					currently_in_dev_start = False
+					line_chunks_to_remove.append([current_chuck_start, i])
+					current_chuck_start = -1
+				else:
+					dbg.raise_exception('FOR_DEV_END without a FOR_DEV_START first!')
+
+			code_lines.append(l)
+
+		code_lines_to_remove = []
+
+		if len(line_chunks_to_remove) > 0:
+			#print(len(code_lines))
+			#print(line_chunks_to_remove)
+			for lc in line_chunks_to_remove:
+				start = lc[0]
+				end   = lc[1]
+				x = 0
+				while x < end - start + 1:
+					code_lines_to_remove.append(code_lines[start + x])
+					#print(code_lines[start + x].text, end='')
+					x += 1
+
+		#for cltr in code_lines_to_remove:
+		#	code_lines.remove(cltr)
+
+		return code_lines
+
+	def get_minified_production_javascript_text(self):
 		"""Gets the minified version of the Javascript file provided."""
-		if self._minified_js is None:
-			with open(self._file_path) as js_file:
-				self._minified_js = jsmin(js_file.read())
-		return self._minified_js
+		text = ''
+		production_lines = self._get_production_text()
+		for cl in production_lines:
+			text += cl.text
+		return self.get_minified_javascript_text(text)
 
-	def create_minified_version(self, file_path=None):
-		"""Creates the minified version of this Javascript file."""
-		if file_path is None:
-			ufo.create_file_or_override(self.get_minified_javascript_text(), self._minified_file_path)
+	def get_minified_javascript_text(self, text=None):
+		"""Gets the minified version of the Javascript file provided."""
+		if text is None:
+			with open(self._file_path) as js_file:
+				return jsmin(js_file.read())
 		else:
-			ufo.create_file_or_override(self.get_minified_javascript_text(), file_path)
+			return jsmin(text)
+
+	def create_minified_version(self, file_path):
+		"""Creates the minified version of this Javascript file."""
+		ufo.create_file_or_override(self.get_minified_javascript_text(), file_path)
 
 	def create_file_and_minify(self):
 		"""Creates a minified version of the file."""
 		ufo.create_file_or_override(self.get_text(), self._file_path)
 		self.create_minified_version(self._file_path)
-
-'''
-def produce_quasar_minified_javascript_files():
-	"""Produces the *.min.js files."""
-	all_javascript_files = _get_all_javascript_files()
-
-	total_original_size = 0
-	total_reduced_size  = 0
-
-	for f in all_javascript_files:
-		//minified_file_path = f.replace('.js', '.min.js')
-		total_original_size += f.file_size
-
-		#print('Currently parsing {' + str(file_name) + '} - size{' + str(original_file_size) + '}')
-
-		m = get_minifed_javascript_text(f)
-		ufo.create_file_or_override(m, minified_file_path)
-		minified_file_size = ufo.get_file_size_in_bytes(minified_file_path)
-
-		#print('Created {' + ufo.get_file_basename(minified_file_path) + '} - size{' + str(minified_file_size) + '}')
-		total_reduced_size += minified_file_size
-
-		#print()
-
-	print('Total size before : ' + str(total_original_size))
-	print('New size : ' + str(total_reduced_size))
-	print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
-
-'''

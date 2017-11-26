@@ -22,7 +22,9 @@ Planet.prototype = {
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2);
 
+        // FOR_DEV_START
         this.planet_color = 0x8effcb;
+        // FOR_DEV_END
 
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
@@ -205,15 +207,21 @@ WorldManager.prototype = {
             //function when resource is loaded
             function(texture) {
                 this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45}), position]);
+                // FOR_DEV_START
                 l('loaded texture!');
+                // FOR_DEV_END
                 //console.log(variable_to_map_to)
                 this.texture_was_loaded();
             }.bind(this),
             function(xhr) {
+                // FOR_DEV_START
                 l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
+                // FOR_DEV_END
             },
             function(xhr) {
+                // FOR_DEV_START
                 l(xhr);
+                // FOR_DEV_END
             }
         );
     }

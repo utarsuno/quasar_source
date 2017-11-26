@@ -64,7 +64,9 @@ Player.prototype = {
     },
 
     log_out: function() {
+        // FOR_DEV_START
         l('LOG OUT HERE!!!!');
+        // FOR_DEV_END
 
         MANAGER_ENTITY.clear_all();
 

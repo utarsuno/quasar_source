@@ -14,11 +14,6 @@ GUI_PAUSED_MENU      = new PausedMenu();
 GUI_TYPING_INTERFACE = new TypingInterface();
 ///////
 
-// DELETE_FOR_PROD_START
-// Global POST Calls. (used only for debugging currently)
-GLOBAL_POST_PRINT_ENTITY_MANAGER_STATUS = new GlobalPostCall(POST_URL_ENTITY_MANAGER_STATUS);
-// DELETE_FOR_PROD_END
-
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */

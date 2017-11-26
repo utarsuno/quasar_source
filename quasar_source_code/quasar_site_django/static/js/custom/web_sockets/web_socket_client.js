@@ -55,14 +55,18 @@ WebSocketClient.prototype = {
         }.bind(this);
 
         this.socket.onopen = function open() {
+            // FOR_DEV_START
             l('WebSockets connection created.');
             //self._world.add_player(self._full_id)
             l('Adding player{' + this.player_name + '} to the world!');
+            // FOR_DEV_END
 
             // TODO : once the player connects send a connected message.
             this.connected = true;
 
+            // FOR_DEV_START
             l('Sending connected message');
+            // FOR_DEV_END
             // TODO : this needs to be re-sent until there is a response.
             this.socket.send(this.player_name + WEB_SOCKET_MESSAGE_TYPE_CONNECTION + ENTITY_OWNER.get_username());
 

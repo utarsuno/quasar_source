@@ -84,10 +84,10 @@ EntityManager.prototype = {
     loading                : null,
 
     all_public_entities_loaded: function(data) {
-        // DELETE_FOR_PROD_START
+        // FOR_DEV_START
         l('Got the following data for public entities');
         l(data);
-        // DELETE_FOR_PROD_END
+        // FOR_DEV_END
         if (is_string(data)) {
             if (data === '{}') {
                 this.public_entities_loaded = true;
@@ -112,10 +112,10 @@ EntityManager.prototype = {
     },
 
     all_user_entities_loaded: function(data) {
-        // DELETE_FOR_PROD_START
+        // FOR_DEV_START
         l('Got the following data for user entities');
         l(data);
-        // DELETE_FOR_PROD_END
+        // FOR_DEV_END
         if (is_string(data)) {
             if (data === '{}') {
                 this.user_entities_loaded = true;
@@ -165,11 +165,13 @@ EntityManager.prototype = {
     },
 
     entity_deleted_response: function(data) {
+        // FOR_DEV_START
         if (data === SERVER_REPLY_GENERIC_YES) {
             l('Entity deleted!');
         } else {
             l('Entity did not get deleted : {|' + data + '|}');
         }
+        // FOR_DEV_END
     },
 
     delete_entity: function(entity) {
@@ -329,7 +331,9 @@ EntityManager.prototype = {
         if (entity !== null) {
             this.delete_entity(entity);
         } else {
+            // FOR_DEV_START
             l('No Entity found for the ID{' + entity_id + '}');
+            // FOR_DEV_END
         }
     },
 
@@ -375,8 +379,10 @@ EntityManager.prototype = {
         if (arguments[1] === SERVER_REPLY_GENERIC_YES) {
             arguments[0].needs_to_be_saved = false;
         } else {
+            // FOR_DEV_START
             l('Error saving entity : ');
             l(arguments[0]);
+            // FOR_DEV_END
         }
     },
 

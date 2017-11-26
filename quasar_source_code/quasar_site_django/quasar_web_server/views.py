@@ -174,7 +174,7 @@ def POST_create_owner(request):
 	owner_data[eo.OWNER_KEY_EMAIL] = received_owner_email
 	owner_data[eo.OWNER_KEY_PASSWORD] = received_owner_password
 	# FOR_DEV_END
-	# FOR_PROD_START
+	# FOR_PROD_START [CONVERT_CODE_COMMENT_TO_CODE]
 	#owner_data = {eo.OWNER_KEY_USERNAME: received_owner_name, eo.OWNER_KEY_EMAIL: received_owner_email, eo.OWNER_KEY_PASSWORD: received_owner_password}
 	# FOR_PROD_END
 	return entity_server.create_owner(owner_data)

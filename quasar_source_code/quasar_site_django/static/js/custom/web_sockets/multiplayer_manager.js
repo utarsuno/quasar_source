@@ -32,7 +32,9 @@ ServerPlayer.prototype = {
         this.player_title.update_position_and_look_at(player_position, player_look_at);
 
         this.geometry = new THREE.DodecahedronGeometry(10, 1);
+        // FOR_DEV_START
         this.planet_color = 0x8effcb;
+        // FOR_DEV_END
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
             // TODO : Figure out if I should use front side or back side.
@@ -179,11 +181,15 @@ MultiPlayerManager.prototype = {
             if (user_index === -1) {
                 if (!is_defined(position_update)) {
                     position_update = new THREE.Vector3(0, 0, 0);
+                    // FOR_DEV_START
                     l('LOOK INTO WHY POSITION IS NOT DEFINED');
+                    // FOR_DEV_END
                 }
                 if (!is_defined(look_at_update)) {
                     look_at_update = new THREE.Vector3(0, 0, 0);
+                    // FOR_DEV_START
                     l('LOOK INTO WHY LOOK AT IS NOT DEFINED');
+                    // FOR_DEV_END
                 }
 
                 this.players.push(new ServerPlayer(server_player, position_update, look_at_update));

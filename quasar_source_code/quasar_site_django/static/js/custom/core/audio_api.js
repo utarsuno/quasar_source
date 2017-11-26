@@ -45,11 +45,15 @@ AudioManager.prototype = {
 
             // Function called when download progresses
             function (xhr) {
+                // FOR_DEV_START
                 l((xhr.loaded / xhr.total * 100) + '% loaded for audio file.');
+                // FOR_DEV_END
             },
             // Function called when download errors
             function (xhr) {
+                // FOR_DEV_START
                 l('An error happened trying to load the audio file.');
+                // FOR_DEV_END
             }
 
         );

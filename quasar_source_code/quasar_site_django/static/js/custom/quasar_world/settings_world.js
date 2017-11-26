@@ -70,6 +70,7 @@ SettingsWorld.prototype = {
         this.phone_carrier_list.set_to_invisible();
     },
 
+    // FOR_DEV_START
     // TODO : The .save command needs to save this data!!!
     save_changes_button_pressed: function() {
         var changes_occured = false;
@@ -91,6 +92,7 @@ SettingsWorld.prototype = {
             MANAGER_ENTITY.update_server_and_database();
         }
     },
+    // FOR_DEV_END
 
     slider_master_volume_value_changed: function(master_volume_value) {
         l('Master volume value is now : ' + master_volume_value);

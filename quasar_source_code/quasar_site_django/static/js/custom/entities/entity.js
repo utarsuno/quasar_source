@@ -62,8 +62,10 @@ Entity.prototype = {
         // Handling the default property of (entity) type.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
 
+            // FOR_DEV_START
             l('Setting Entity type to ');
             l(properties[ENTITY_DEFAULT_PROPERTY_TYPE]);
+            // FOR_DEV_END
 
             this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
         } else {
@@ -166,7 +168,9 @@ Entity.prototype = {
     add_child: function(child_entity) {
         if (!is_defined(child_entity)) {
             var error_message = 'Error can\'t add a not defined object as a child entity!';
+            // FOR_DEV_START
             l(error_message);
+            // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
             throw_exception(error_message);
         }
@@ -193,7 +197,9 @@ Entity.prototype = {
     remove_child: function(child_entity) {
         if (!is_defined(child_entity)) {
             var error_message = 'Error can\'t remove a not defined object as a child entity!';
+            // FOR_DEV_START
             l(error_message);
+            // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
             throw_exception(error_message);
         }
@@ -221,7 +227,9 @@ Entity.prototype = {
     add_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
             var error_message = 'Error can\'t add a not defined object as a parent entity!';
+            // FOR_DEV_START
             l(error_message);
+            // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
             throw_exception(error_message);
         }
@@ -248,7 +256,9 @@ Entity.prototype = {
     remove_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
             var error_message = 'Error can\'t remove a not defined object as a parent entity!';
+            // FOR_DEV_START
             l(error_message);
+            // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
             throw_exception(error_message);
         }

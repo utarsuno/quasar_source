@@ -137,9 +137,11 @@ CreateEntity.prototype = {
             var entity_field_label = this.create_entity_fields[i][0].get_text();
             var entity_field_value = this.create_entity_fields[i][1].get_text();
 
+            // FOR_DEV_START
             l('Printing the label and then value :');
             l(entity_field_label);
             l(entity_field_value);
+            // FOR_DEV_END
 
             properties[entity_field_label] = entity_field_value;
         }
@@ -294,16 +296,20 @@ CreateEntity.prototype = {
             if (index_of_field_label > -1) {
                 this.entity_wall.world.interactive_objects.splice(index_of_field_label, 1);
             } else {
+                // FOR_DEV_START
                 l('Warning : did not find the field label to remove.');
                 l(field_label);
+                // FOR_DEV_END
             }
 
             var index_of_field_input = this.entity_wall.world.interactive_objects.indexOf(field_input);
             if (index_of_field_input > -1) {
                 this.entity_wall.world.interactive_objects.splice(index_of_field_input, 1);
             } else {
+                // FOR_DEV_START
                 l('WARNING : did not find the field input to remove.');
                 l(field_input);
+                // FOR_DEV_END
             }
 
             // Remove from the scene/world.
