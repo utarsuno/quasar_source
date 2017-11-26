@@ -50,9 +50,9 @@ function GlobalPostCall(url, text_area_element) {
 
 GlobalPostCall.prototype = {
     default_callback: function(data) {
-        console.log('The callback got this data back');
-        console.log(data);
-        console.log(arguments);
+        //console.log('The callback got this data back');
+        //console.log(data);
+        //console.log(arguments);
 
         var lines = data.split('\n');
         for (var i = 0; i < lines.length; i++) {

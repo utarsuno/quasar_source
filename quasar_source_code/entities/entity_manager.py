@@ -41,7 +41,7 @@ class EntityManager(object):
 		#print('Printing condensed information on the entities!')
 		pretty = ''
 		for e in self.entities:
-			pretty += e.get_pretty_print()
+			pretty += e.get_pretty_print() + '\n'
 		#print('------------------------------------------')
 		return pretty
 
