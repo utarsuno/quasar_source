@@ -161,8 +161,8 @@ canvas {
     box-shadow: none;
 
     position: absolute;
-    top: 50%;
-    height: 50vh;
+    top: 0;
+    height: 100vh;
     left: 0;
 
     background: transparent no-repeat;
