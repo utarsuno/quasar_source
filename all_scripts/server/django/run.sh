@@ -28,7 +28,7 @@ else
   python3 ${manage_path} migrate
   #sudo nohup python3 ${manage_path} runserver 0:80 > /dev/null 2>&1&
   #sudo nohup python3 ${manage_path} runserver 0:80 &
-  sudo nohup python3 ${manage_path} runserver 0:80 &
+  nohup python3 ${manage_path} runserver 0:80 &
 fi
 
 # Helps to see exactly where the script's output ends.
