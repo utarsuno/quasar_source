@@ -28,10 +28,10 @@ if owner_argument is None:
 	print('Printing all owners and their data.')
 	for o in owners:
 		color_print('OWNER : {' + str(o.get_owner_name()) + '}', color='yellow')
-		o.get_entity_manager().pretty_print_all_entities()
+		print(o.get_entity_manager().get_pretty_print_all_entities())
 else:
 	print('Printing data on specific owner ' + owner_argument)
 	for o in owners:
 		if o.get_owner_name() == owner_argument:
 			color_print('OWNER : {' + str(o.get_owner_name()) + '}', color='yellow')
-			o.get_entity_manager().pretty_print_all_entities()
+			print(o.get_entity_manager().get_pretty_print_all_entities())
