@@ -14,15 +14,29 @@ class CodeFileManager(object):
 	def __init__(self, code_files):
 		self._code_files = code_files
 
-	def get_total_size(self):
+	def get_total_size(self) -> int:
 		"""Returns the total size of all the code files as bytes."""
 		total_size = 0
 		for f in self._code_files:
 			total_size += f.file_size
 		return total_size
 
+	def get_total_lines_of_code(self) -> int:
+		"""Returns the total number of lines of codes."""
+		lines_of_code = 0
+		for f in self._code_files:
+			lines_of_code += f.lines_of_code
+		return lines_of_code
+
+	@property
+	def number_of_files(self) -> int:
+		"""Returns the number of files this manager has."""
+		return len(self._code_files)
+
 	def print_data(self):
 		"""Prints all relevant data."""
+		print('There are ' + str(self.number_of_files) + ' files.')
+		print('With ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + '.')
 		print('Printing all the code files!')
 		for f in self._code_files:
 			print(f)
