@@ -20,6 +20,7 @@ Entity.prototype = {
     __init__: function(properties) {
 
         var value = null;
+        // Handling the default property of relative ID.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)) {
             // If the property is a string convert it to an integer.
             value = properties[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
@@ -32,6 +33,7 @@ Entity.prototype = {
             this.ep_relative_id = MANAGER_ENTITY.get_new_entity_id();
         }
 
+        // Handling the default property of child IDs.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_CHILD_IDS)) {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
@@ -42,9 +44,9 @@ Entity.prototype = {
             }
         } else {
             this.ep_child_ids = [];
-            this.children = [];
         }
 
+        // Handling the default property of parent IDs.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_PARENT_IDS)) {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
@@ -55,24 +57,26 @@ Entity.prototype = {
             }
         } else {
             this.ep_parent_ids = [];
-            this.parents = [];
         }
 
+        // Handling the default property of (entity) type.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
             this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
         } else {
             this.ep_type = ENTITY_TYPE_BASE;
         }
 
-        // TODO : Traverse through all properties and add the ones that start with ep_ !!!!
+        // Handling all other properties that begin with the token 'ep_'.
         var non_default_properties = this.get_all_non_default_properties();
-        for (var key in properties) {
-            if (properties.hasOwnProperty(key)) {
-                if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && ENTITY_DEFAULT_PROPERTY_TYPE) {
-                    this.set_property(key, properties[key]);
-                }
+        for (var key in non_default_properties) {
+            if (non_default_properties.hasOwnProperty(key)) {
+                this.set_property(key, non_default_properties[key]);
             }
         }
+
+        // JavaScript Entity object specific fields. (These do not get saved, only used for client side logic).
+        this.parents  = [];
+        this.children = [];
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
