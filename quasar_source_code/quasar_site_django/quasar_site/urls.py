@@ -17,17 +17,27 @@ Including another URLconf
 from django.conf.urls import url
 from quasar_source_code.quasar_site_django.quasar_web_server import views as v
 
+# TODO : Have this auto synced with the Javascript global values.
+POST_URL_DELETE_ENTITY         = r'delete_entity'
+POST_URL_SAVE_ENTITY           = r'save_entity'
+POST_URL_GET_USER_ENTITIES     = r'get_user_entities'
+POST_URL_GET_PUBLIC_ENTITIES   = r'get_public_entities'
+POST_URL_CREATE_ACCOUNT        = r'create_account'
+POST_URL_LOGIN                 = r'login'
+POST_URL_ENTITY_MANAGER_STATUS = r'server_side_print_entity_manager_status'
+
 
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
     url(r'web_socket', v.GET_web_socket),
 
-    url(r'create_account'           , v.POST_create_owner),
-    url(r'login'                    , v.POST_login),
-    url(r'get_public_entities'      , v.POST_get_public_entities),
-    url(r'get_user_entities'        , v.POST_get_user_entities),
-    url(r'save_entity'              , v.POST_save_entity),
-    url(r'delete_entity'            , v.POST_delete_entity),
+    url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),
+    url(POST_URL_LOGIN                , v.POST_login),
+    url(POST_URL_GET_PUBLIC_ENTITIES  , v.POST_get_public_entities),
+    url(POST_URL_GET_USER_ENTITIES    , v.POST_get_user_entities),
+    url(POST_URL_SAVE_ENTITY          , v.POST_save_entity),
+    url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
+    url(POST_URL_ENTITY_MANAGER_STATUS, v.POST_entity_manager_status),
 
     url(r'dev', v.GET_quasar_dev),
     url(r'qa', v.GET_quasar_qa),

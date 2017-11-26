@@ -153,6 +153,12 @@ class EntityDatabaseAPI(object):
 		self._owners_cache      = []
 		self._update_owners_cache()
 
+	def print_data_on_all_owners(self):
+		"""Temporary debugging function."""
+		for o in self._owners_cache:
+			print(o)
+			o.print_entities()
+
 	def delete_entity(self, owner_name, entity_id_to_delete):
 		"""Deletes the entity with an ID match for the given owner."""
 		for o in self._owners_cache:

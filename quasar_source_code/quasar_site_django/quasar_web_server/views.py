@@ -247,3 +247,11 @@ def POST_get_public_entities(request):
 	global entity_server
 	return entity_server.get_all_public_entities()
 
+
+@csrf_exempt
+def POST_entity_manager_status(request):
+	"""Server side debugging function."""
+	global entity_server
+	# TODO : Eventually add option to pass in the specific manager to print.
+	entity_server.print_full_status()
+	return SERVER_REPLY_GENERIC_YES

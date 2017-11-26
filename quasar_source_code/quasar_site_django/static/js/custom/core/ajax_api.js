@@ -38,18 +38,20 @@ PostHelper.prototype = {
             callback(http.responseText);
             self.waiting_on_reply = false;
         };
+    }
+};
 
+// Currently just used for debugging server side information and state.
+function GlobalPostCall(url) {
+    this.__init__(url);
+}
 
-        /*
-        $.post(self.url, post_data, function(data, status) {
-            if (status === 'success') {
-                callback(data);
-            } else {
-                GUI_TYPING_INTERFACE.add_server_message('POST failed for ' + self.url);
-                callback(status);
-            }
-            self.waiting_on_reply = false;
-        });
-        */
+GlobalPostCall.prototype = {
+    default_callback: function() {},
+    __init__: function(url) {
+        this.post_call = new PostHelper(url);
+    },
+    perform_call: function() {
+        this.post_call.perform_post({}, this.default_callback);
     }
 };

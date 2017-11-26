@@ -104,6 +104,10 @@ module.exports = {
         "PausedMenu": false,
         "TypingInterface": false,
 
+        // Global POST calls (used for debugging).
+        "GlobalPostCall": false,
+        "GLOBAL_POST_PRINT_ENTITY_MANAGER_STATUS": true,
+
         "GLOBAL_FONT": false,
 
         "HALF_PIE": false,
@@ -118,12 +122,13 @@ module.exports = {
         "NOT_FOUND": false,
 
         // POST URLs.
-        "POST_URL_DELETE_ENTITY"      : false,
-        "POST_URL_SAVE_ENTITY"        : false,
-        "POST_URL_GET_USER_ENTITIES"  : false,
-        "POST_URL_GET_PUBLIC_ENTITIES": false,
-        "POST_URL_CREATE_ACCOUNT"     : false,
-        "POST_URL_LOGIN"              : false,
+        "POST_URL_DELETE_ENTITY"        : false,
+        "POST_URL_SAVE_ENTITY"          : false,
+        "POST_URL_GET_USER_ENTITIES"    : false,
+        "POST_URL_GET_PUBLIC_ENTITIES"  : false,
+        "POST_URL_CREATE_ACCOUNT"       : false,
+        "POST_URL_LOGIN"                : false,
+        "POST_URL_ENTITY_MANAGER_STATUS": false,
 
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR" : false,
