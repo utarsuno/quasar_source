@@ -57,7 +57,7 @@ def _get_all_python_files():
 
 def produce_quasar_minified_javascript_files():
 	"""Produces the *.min.js files."""
-	all_javascript_files = _get_all_javascript_files()
+	all_javascript_files = _get_all_javascript_files(False)
 	total_original_size = 0
 	for f in all_javascript_files:
 		total_original_size += f.file_size
