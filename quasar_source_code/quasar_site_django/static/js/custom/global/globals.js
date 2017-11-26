@@ -193,6 +193,23 @@ const DISPLAY_SHOW = 'block';
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+// From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
+function get_nearest_power_of_two_for_number(n) {
+    var v = n;
+
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++; // next power of 2
+
+    var x = v >> 1; // previous power of 2
+
+    return (v - n) > (n - x) ? x : v;
+}
+
 function is_entity_property(property) {
     switch (property) {
     case ENTITY_DEFAULT_PROPERTY_PARENT_IDS:

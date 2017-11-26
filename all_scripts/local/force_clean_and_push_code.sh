@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO : Update this file! (ec2 no longer used)
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source "$DIR/../universal_scripts/universal_functions.sh"
 

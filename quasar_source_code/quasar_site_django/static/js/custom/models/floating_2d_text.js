@@ -238,7 +238,8 @@ Floating2DText.prototype = {
         }
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2);
+        this.dynamic_texture = new THREEx.DynamicTexture(get_nearest_power_of_two_for_number(this.width * 2), get_nearest_power_of_two_for_number(this.height * 2));
+        //this.dynamic_texture = new THREEx.DynamicTexture(this.width * 2, this.height * 2);
         if (this.type == TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold 40px Arial';
         } else {

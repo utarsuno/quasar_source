@@ -266,13 +266,14 @@ module.exports = {
         "KEY_CODE_BACK_SLASH": false,
 
         // Shortcuts.
-        "l"                        : false,
-        "is_entity_property"       : false,
-        "raise_exception"          : false,
-        "throw_exception"          : false,
-        "is_string"                : false,
-        "is_defined"               : false,
-        "round_to_n_decimal_places": false,
+        "l"                                  : false,
+        "get_nearest_power_of_two_for_number": false,
+        "is_entity_property"                 : false,
+        "raise_exception"                    : false,
+        "throw_exception"                    : false,
+        "is_string"                          : false,
+        "is_defined"                         : false,
+        "round_to_n_decimal_places"          : false,
 
         "is_email_valid": false,
         "get_key_value_list_from_json_dictionary": false,

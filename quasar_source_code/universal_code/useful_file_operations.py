@@ -41,6 +41,13 @@ def _is_valid_path_parameter(path):
 
 
 # TODO : create unit tests for this function!
+def get_all_file_lines(file_path) -> list:
+	"""Return a list of strings that represent all the lines in the file."""
+	y = 2
+	# TODO : ...
+
+
+# TODO : create unit tests for this function!
 def get_file_size_in_bytes(file_path) -> str:
 	"""Return the size of the file.
 	:param file_path : The full path to the file.
