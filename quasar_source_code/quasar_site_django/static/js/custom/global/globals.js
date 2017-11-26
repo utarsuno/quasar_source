@@ -79,6 +79,14 @@ const TEMP_PROPERTY_A = 'Text Contents :';
 const TEMP_PROPERTY_B = 'Seconds from now :';
 const TEMP_PROPERTY_C = 'Send to :';
 
+// POST URLs.
+const POST_URL_DELETE_ENTITY       = '/delete_entity';
+const POST_URL_SAVE_ENTITY         = '/save_entity';
+const POST_URL_GET_USER_ENTITIES   = '/get_user_entities';
+const POST_URL_GET_PUBLIC_ENTITIES = '/get_public_entities';
+const POST_URL_CREATE_ACCOUNT      = '/create_account';
+const POST_URL_LOGIN               = '/login';
+
 // Cookie keys.
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';

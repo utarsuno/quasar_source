@@ -117,6 +117,14 @@ module.exports = {
         // From globals.js
         "NOT_FOUND": false,
 
+        // POST URLs.
+        "POST_URL_DELETE_ENTITY"      : false,
+        "POST_URL_SAVE_ENTITY"        : false,
+        "POST_URL_GET_USER_ENTITIES"  : false,
+        "POST_URL_GET_PUBLIC_ENTITIES": false,
+        "POST_URL_CREATE_ACCOUNT"     : false,
+        "POST_URL_LOGIN"              : false,
+
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR" : false,
         "TYPE_SUPER_TITLE"   : false,
