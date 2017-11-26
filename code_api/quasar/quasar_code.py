@@ -135,7 +135,7 @@ class QuasarCode(object):
 			text = self._javascript_manager.get_file_by_name(PRODUCTION_FILE_ORDER[str(i)]).get_minified_javascript_text()
 			lines = text.split('\n')
 			for l in lines:
-				production_javascript_build.add_line(l)
+				production_javascript_build.add_line(l.replace("'use strict';", ''))
 			i += 1
 
 		production_javascript_build.create_file_and_minify()

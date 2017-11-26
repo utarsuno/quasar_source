@@ -127,13 +127,12 @@ class CodeFileJavaScript(CodeFile):
 		self._minified_js = None
 		self._minified_file_path = self._file_path.replace('.js', '.min.js')
 
-
 	def get_minified_javascript_text(self):
 		"""Gets the minified version of the Javascript file provided."""
 		if self._minified_js is None:
 			with open(self._file_path) as js_file:
 				self._minified_js = jsmin(js_file.read())
-		return self._minified_js.replace('\'use_strict\';', '')
+		return self._minified_js
 
 	def create_minified_version(self, file_path=None):
 		"""Creates the minified version of this Javascript file."""
