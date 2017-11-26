@@ -126,6 +126,7 @@ def qdict_to_dict(qdict):
 @csrf_exempt
 def POST_login(request):
 	"""Handles the POST request for logging in."""
+	print('POST_login')
 	json_str = (request.body.decode('utf-8'))
 	json_obj = json.loads(json_str)
 
@@ -151,6 +152,7 @@ def POST_login(request):
 @csrf_exempt
 def POST_create_owner(request):
 	"""Handles the POST request for creating a owner."""
+	print('POST_create_owner')
 	json_str = (request.body.decode('utf-8'))
 	json_obj = json.loads(json_str)
 
@@ -181,6 +183,7 @@ def POST_create_owner(request):
 @csrf_exempt
 def POST_delete_entity(request):
 	"""Handles the POST request to delete an entity."""
+	print('POST_delete_entity')
 	json_str = (request.body.decode('utf-8'))
 	json_obj = json.loads(json_str)
 
@@ -205,6 +208,7 @@ def POST_delete_entity(request):
 @csrf_exempt
 def POST_save_entity(request):
 	"""Handles the POST request to save changed entities."""
+	print('POST_save_entity')
 	json_str = (request.body.decode('utf-8'))
 	json_obj = json.loads(json_str)
 
@@ -234,6 +238,7 @@ def POST_save_entity(request):
 @csrf_exempt
 def POST_get_user_entities(request):
 	"""Handles the POST request to load all entities."""
+	print('POST_get_user_entities')
 	json_str = (request.body.decode('utf-8'))
 	json_obj = json.loads(json_str)
 
@@ -249,6 +254,7 @@ def POST_get_user_entities(request):
 @csrf_exempt
 def POST_get_public_entities(request):
 	"""Handles the POST request to load all entities."""
+	print('POST_get_public_entities')
 	global entity_server
 	return entity_server.get_all_public_entities()
 
