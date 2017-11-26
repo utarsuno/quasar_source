@@ -24,6 +24,9 @@ elif sos.is_mac():
 ARGUMENT_BUILD_PRODUCTION = '-bp'
 ARGUMENT_RUN_ANALYSIS     = '-ra'
 
+# Production Javascript combining order.
+
+
 
 def _get_all_javascript_files(get_minified_files=False):
 	"""Returns a list of CodeFile objects of all the Quasar javascript files (with a flag to determine if minified files returned or non-minified files returned."""
@@ -87,6 +90,8 @@ class QuasarCode(object):
 
 		for a in all_text:
 			lines = a.split('\n')
+			print('Printing the lines')
+			print(lines)
 			lines[0] = lines[0].replace('\'use_strict\';', '')
 			for l in lines:
 				all_text.append(l)
