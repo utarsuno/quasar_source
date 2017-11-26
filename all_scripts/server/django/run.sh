@@ -29,7 +29,6 @@ else
   #sudo nohup python3 ${manage_path} runserver 0:80 > /dev/null 2>&1&
   #sudo nohup python3 ${manage_path} runserver 0:80 &
   sudo nohup python3 ${manage_path} runserver 0:80 &
-  disown
 fi
 
 # Helps to see exactly where the script's output ends.
