@@ -71,7 +71,22 @@ canvas {
     background: rgba(1, 1, 1, 0.75);
     border: 2px solid rgba(255, 255, 255, 0.9);
     color: rgba(255, 255, 255, 0.9);
+}
 
+.top_right_position {
+    font-smooth: always;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    position: absolute;
+    width: 15vw;
+    height: 3vh;
+    z-index: 15;
+    top: 0;
+    left: 70vw;
+    margin: -25vh 0 0 -12.5vw;
+    background: rgba(1, 1, 1, 0.75);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #background_coloring {
