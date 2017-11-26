@@ -154,7 +154,7 @@ class EntityManager(object):
 				return False
 
 		data = {}
-		data['owner_created_at_date'] = str(ta.get_now())
+		data[be.ENTITY_PROPERTY_CREATED_AT_DATE] = str(ta.get_now())
 		data[be.ENTITY_DEFAULT_PROPERTY_TYPE] = be.ENTITY_TYPE_OWNER
 		data[eo.OWNER_KEY_USERNAME] = owner_data[eo.OWNER_KEY_USERNAME]
 		data[eo.OWNER_KEY_PASSWORD] = owner_data[eo.OWNER_KEY_PASSWORD]

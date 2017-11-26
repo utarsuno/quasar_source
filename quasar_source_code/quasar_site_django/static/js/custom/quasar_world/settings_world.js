@@ -236,11 +236,11 @@ SettingsWorld.prototype = {
             this.owner_entity = MANAGER_ENTITY.get_owner_entity();
         }
 
-        this.profile_name_input.update_text(CURRENT_PLAYER.owner.username);
-        this.profile_email_input.update_text(this.owner_entity.get_value('owner_email'));
-        this.profile_phone_number_input.update_text(this.owner_entity.get_value('owner_phone_number'));
-        this.profile_phone_carrier_input.update_text(this.owner_entity.get_value('owner_phone_carrier'));
-        this.profile_created_at_date_input.update_text(this.owner_entity.get_value('owner_created_at_date'));
+        this.profile_name_input.update_text(ENTITY_OWNER.get_username());
+        this.profile_email_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_EMAIL));
+        this.profile_phone_number_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_NUMBER));
+        this.profile_phone_carrier_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_CARRIER));
+        this.profile_created_at_date_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_CREATED_AT_DATE));
     },
 
     exit_world: function() {

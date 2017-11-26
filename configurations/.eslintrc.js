@@ -172,6 +172,9 @@ module.exports = {
         "ENTITY_PROPERTY_POSITION"           : false,
         "ENTITY_PROPERTY_LOOK_AT"            : false,
         "ENTITY_PROPERTY_COMPLETED"          : false,
+        "ENTITY_PROPERTY_PHONE_NUMBER"       : false,
+        "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
+        "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
 
         "COLOR_HIGHLIGHT"     : false,
         "COLOR_TEXT_HIGHLIGHT": false,
