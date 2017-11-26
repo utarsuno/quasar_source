@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO just reference the actual code files later on
-const POST_URL_GET_ALL_DATA          = '/get_all_data';
+const POST_URL_GET_ALL_DATA = '/get_all_data';
 function PostHelper(url) {
     this.__init__(url);
 }
@@ -16,12 +16,11 @@ PostHelper.prototype = {
         this.url = url;
     },
 
-    perform_post: function(post_data, callback) {
+    perform_get: function(callback) {
         var self = this;
         this.waiting_on_reply = true;
         // DELETE_FOR_PROD_START
-        console.log('Performing a post with the following data for the url : {' + self.url + '}');
-        console.log(post_data);
+        console.log('Performing a GET with the following data for the url : {' + self.url + '}');
         //l(JSON.stringify(post_data));
         // DELETE_FOR_PROD_END
 
@@ -34,6 +33,7 @@ PostHelper.prototype = {
 
         http.onload = function() {
             console.log('POST onload response :');
+            console.log(http);
             console.log(http.responseText);
             // if (xhr.readyState == 4 && xhr.status == 200) {
 
@@ -57,7 +57,7 @@ GlobalPostCall.prototype = {
         this.post_call = new PostHelper(url);
     },
     perform_call: function() {
-        this.post_call.perform_post({}, this.default_callback.bind(this));
+        this.post_call.perform_get(this.default_callback.bind(this));
     }
 };
 
