@@ -44,6 +44,10 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	def print_entities(self):
+		"""Temporary debugging function."""
+		self._entity_manager.print_entities()
+
 	def ensure_owner_entity_exists(self):
 		"""Creates the owner entity if it does not yet exist."""
 		if self._entity_manager.ensure_owner_entity_exists(self._data):
