@@ -121,7 +121,7 @@ class QuasarCode(object):
 		production_javascript_build.add_line('\'use_strict\';')
 
 		i = 0
-		while i < 37:
+		while i < len(PRODUCTION_FILE_ORDER):
 			text = self._javascript_manager.get_file_by_name(PRODUCTION_FILE_ORDER[str(i)]).get_minified_javascript_text()
 			lines = text.split('\n')
 			for l in lines:
