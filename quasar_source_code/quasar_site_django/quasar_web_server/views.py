@@ -251,17 +251,20 @@ def POST_get_public_entities(request):
 	return entity_server.get_all_public_entities()
 
 
+'''
 @csrf_exempt
 def GET_all_database_data(request):
 	"""TEMPORARY"""
 	global entity_server
 	# TODO : ...
 	return SERVER_REPLY_GENERIC_YES
+'''
 
 
 @csrf_exempt
 def POST_get_all_data(request):
 	"""TODO : documentation"""
+	print('???/?')
 	global entity_server
 	print('Getting data from entity server')
 	return HttpResponse(entity_server.get_print_pretty_status())
