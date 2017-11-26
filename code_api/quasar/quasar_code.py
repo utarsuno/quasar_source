@@ -34,12 +34,12 @@ def _get_all_javascript_files(get_minified_files=False):
 	if get_minified_files:
 		for f in all_javascript_files:
 			file_name = ufo.get_file_basename(f)
-			if file_name not in files_to_ignore and '.min.js' in file_name:
+			if file_name not in files_to_ignore and '.min.js' in file_name and '.prod.' not in file_name:
 				files_to_return.append(cf.CodeFileJavaScript(f))
 	else:
 		for f in all_javascript_files:
 			file_name = ufo.get_file_basename(f)
-			if file_name not in files_to_ignore and '.min.js' not in file_name:
+			if file_name not in files_to_ignore and '.min.js' not in file_name and '.prod.' not in file_name:
 				files_to_return.append(cf.CodeFileJavaScript(f))
 	return files_to_return
 
@@ -76,10 +76,25 @@ class QuasarCode(object):
 		color_print('Printing Quasar Analysis!', color='red', bold=True)
 		self._javascript_manager.print_data()
 		self._python_manager.print_data()
+		# TODO Shell script manager
+
+		all_text = []
+		for f in self._javascript_manager._code_files:
+			all_text.append(f.get_minified_javascript_text())
+
+		print('FKM(ADSFJ(IJV%@')
+		for a in all_text:
+			print(a)
+			print()
+			print('@@@@')
+			print()
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
 		color_print('Building Quasar Production!', color='red', bold=True)
+
+		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', already_exists=False)
+
 
 
 # Check if this file is being ran as a script.
@@ -94,8 +109,6 @@ if __name__ == '__main__':
 			quasar_code.build_production()
 		elif a == ARGUMENT_RUN_ANALYSIS:
 			quasar_code.run_analysis()
-
-
 
 # TODO :
 	#print('Total size before : ' + str(total_original_size))

@@ -36,20 +36,21 @@ class CodeFileManager(object):
 	def print_data(self):
 		"""Prints all relevant data."""
 		print('There are ' + str(self.number_of_files) + ' files.')
-		print('With ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + '.')
-		print('Printing all the code files!')
-		for f in self._code_files:
-			print(f)
+		print('With ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.')
+		#print('Printing all the code files!')
+		#for f in self._code_files:
+		#	print(f)
 
 
 class CodeFile(object):
 	"""Represents a single file that contains lines of code."""
 
-	def __init__(self, file_path):
+	def __init__(self, file_path, already_exists=True):
 		self._file_path = file_path
-		self._file_name = ufo.get_file_basename(self._file_path)
-		self._file_size = ufo.get_file_size_in_bytes(self._file_path)
-		self._lines_of_code = loc.get_lines_of_code_from_file(self._file_path)
+		if already_exists:
+			self._file_name = ufo.get_file_basename(self._file_path)
+			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
+			self._lines_of_code = loc.get_lines_of_code_from_file(self._file_path)
 
 	@property
 	def file_size(self):
@@ -67,6 +68,14 @@ class CodeFile(object):
 
 	def __str__(self):
 		return self._file_name + ' - [' + str(self.lines_of_code) + ' \'lines of code\'].'
+
+
+class CodeFileShellScript(CodeFile):
+	"""Represents a single shell script file."""
+
+	def __init__(self, file_path):
+		super().__init__(file_path)
+		self._extension = '.sh'
 
 
 class CodeFilePython(CodeFile):
