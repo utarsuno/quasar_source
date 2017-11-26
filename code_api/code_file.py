@@ -14,6 +14,11 @@ class CodeFileManager(object):
 	def __init__(self, code_files):
 		self._code_files = code_files
 
+	def get_file_by_name(self, file_name):
+		"""Returns a CodeFile object if found."""
+		for f in self._code_files:
+			if file_name in f
+
 	def get_total_size(self) -> int:
 		"""Returns the total size of all the code files as bytes."""
 		total_size = 0
@@ -68,12 +73,22 @@ class CodeFile(object):
 		return text
 
 	@property
-	def file_size(self):
+	def file_path(self) -> str:
+		"""Returns the file path to this file."""
+		return self._file_path
+
+	@property
+	def file_name(self) -> str:
+		"""Returns the name of this file."""
+		return self._file_name
+
+	@property
+	def file_size(self) -> int:
 		"""Returns the size of this file in bytes."""
 		return self._file_size
 
 	@property
-	def lines_of_code(self):
+	def lines_of_code(self) -> int:
 		"""Returns the number of lines of code in this file."""
 		number_of_lines = 0
 		for l in self._lines_of_code:
@@ -115,7 +130,7 @@ class CodeFileJavaScript(CodeFile):
 		if self._minified_js is None:
 			with open(self._file_path) as js_file:
 				self._minified_js = jsmin(js_file.read())
-		return self._minified_js
+		return self._minified_js.replace('\'use_strict\';', '')
 
 	def create_minified_version(self):
 		"""Creates the minified version of this Javascript file."""

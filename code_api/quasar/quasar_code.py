@@ -25,7 +25,43 @@ ARGUMENT_BUILD_PRODUCTION = '-bp'
 ARGUMENT_RUN_ANALYSIS     = '-ra'
 
 # Production Javascript combining order.
-
+PRODUCTION_FILE_ORDER = {'0' : 'globals.js',
+                         '1' : 'time_abstraction.js',
+                         '2' : 'web_socket_client.js',
+                         '3' : 'multiplayer_manager.js',
+                         '4' : 'renderer_api.js',
+                         '5' : 'shader_api.js',
+                         '6' : 'ajax_api.js',
+                         '7' : 'custom_smooth_step.js',
+                         '8' : 'audio_api.js',
+                         '9' : 'input_text_processor.js',
+                         '10': 'entity.js',
+                         '11': 'entity_owner.js',
+                         '12': 'entity_manager.js',
+                         '13': 'fps_controls.js',
+                         '14': 'pointer_lock_api.js',
+                         '15': 'stats_api.js',
+                         '16': 'data_display.js',
+                         '17': 'paused_menu.js',
+                         '18': 'typing_interface.js',
+                         '19': 'dom_element.js',
+                         '20': 'player.js',
+                         '21': 'interactive.js',
+                         '22': 'visibility.js',
+                         '23': 'plane_api.js',
+                         '24': 'floating_wall.js',
+                         '25': 'floating_2d_text.js',
+                         '26': 'floating_3d_text.js',
+                         '27': 'floating_slider.js',
+                         '28': 'checkbox.js',
+                         '29': 'create_entity.js',
+                         '30': 'entity_wall.js',
+                         '31': 'world_base.js',
+                         '32': 'world_manager.js',
+                         '33': 'login_world.js',
+                         '34': 'home_world.js',
+                         '35': 'settings_world.js',
+                         '36': 'quasar.js'}
 
 
 def _get_all_javascript_files(get_minified_files=False):
@@ -84,18 +120,16 @@ class QuasarCode(object):
 		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
 		production_javascript_build.add_line('\'use_strict\';')
 
-		all_text = []
-		for f in self._javascript_manager._code_files:
-			all_text.append(f.get_minified_javascript_text())
-
-		for a in all_text:
-			lines = a.split('\n')
-			lines[0] = lines[0].replace('\'use_strict\';', '')
+		i = 0
+		while i < 10:
+			text = self._javascript_manager.get_file_by_name(PRODUCTION_FILE_ORDER[str(i)]).get_minified_javascript_text()
+			lines = text.split('\n')
 			for l in lines:
 				production_javascript_build.add_line(l)
+			i += 1
 
 		print('Production file text!')
-		print(production_javascript_build.get_text())
+		#print(production_javascript_build.get_text())
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
