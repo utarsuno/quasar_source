@@ -171,6 +171,17 @@ class Entity(object):
 		for key in json_data:
 			print(str(key) + ' - ' + str(json_data[key]))
 
+	def pretty_print(self):
+		"""Debugging"""
+		raw_data = self.get_json_data()
+		slim_data = {}
+		for key in raw_data:
+			value = raw_data[key]
+			if str(value) != '[]':
+				if key not in ENTITY_DEFAULT_PROPERTY_ALL:
+					slim_data[key] = value
+		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
+
 	def __str__(self):
 		raw_data = self.get_json_data()
 		slim_data = {}

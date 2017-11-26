@@ -44,6 +44,10 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	def pretty_print_entities(self):
+		"""Temporary"""
+		self._entity_manager.pretty_print_entities()
+
 	def print_entities(self):
 		"""Temporary debugging function."""
 		self._entity_manager.print_entities()
@@ -156,6 +160,12 @@ class EntityDatabaseAPI(object):
 		self._owners_collection = self._api.get_collection('owners')
 		self._owners_cache      = []
 		self._update_owners_cache()
+
+	def pretty_print_data_on_all_owners(self):
+		"""Temporary debugging function."""
+		for o in self._owners_cache:
+			print(o)
+			o.pretty_print_entities()
 
 	def print_data_on_all_owners(self):
 		"""Temporary debugging function."""

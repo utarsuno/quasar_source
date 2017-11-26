@@ -113,6 +113,10 @@ class EntityServer(object):
 		"""Returns all the public entities."""
 		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(PUBLIC_ENTITIES_OWNER))
 
+	def print_pretty_status(self):
+		"""Temporary debugging function."""
+		self._db_api.pretty_print_data_on_all_owners()
+
 	def print_full_status(self):
 		"""Temporary debugging function."""
 		self._db_api.print_data_on_all_owners()

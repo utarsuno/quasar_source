@@ -253,5 +253,13 @@ def POST_entity_manager_status(request):
 	"""Server side debugging function."""
 	global entity_server
 	# TODO : Eventually add option to pass in the specific manager to print.
-	entity_server.print_full_status()
+	entity_server.print_pretty_status()
+	return SERVER_REPLY_GENERIC_YES
+
+
+@csrf_exempt
+def GET_all_database_data(request):
+	"""TEMPORARY"""
+	global entity_server
+	# TODO : ...
 	return SERVER_REPLY_GENERIC_YES
