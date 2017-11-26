@@ -31,7 +31,7 @@ path_to_setup_ubuntu="$DIR/../server/setup_ubuntu.sh"
 path_to_universal_functions="$DIR/../universal_scripts/universal_functions.sh"
 
 # Python scripts.
-path_to_quasar_builder="$DIR/../../code_api/quasar/quasar_builder.py"
+#path_to_quasar_builder="$DIR/../../code_api/quasar/quasar_builder.py"
 
 # Helps see exactly where the script's output starts.
 print_dashed_line_with_text "push_to_production.sh start"
@@ -58,7 +58,7 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 else
     print_script_text "Running minification on the Javascript files."
 
-    python3 ${path_to_quasar_builder} "-bp"
+    #python3 ${path_to_quasar_builder} "-bp"
 
     # There are uncommitted changes.
     print_script_text "Pushing the code changes."
