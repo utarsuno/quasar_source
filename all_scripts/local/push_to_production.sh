@@ -21,7 +21,6 @@ nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
 nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
 
 # Scripts to make sure are executable.
-path_to_build_three_js="$DIR/../build_three_js/build_three_js.sh"
 path_to_push_local_code="$DIR/../local/push_local_code.sh"
 path_to_run_all_unit_tests="$DIR/../local/run_all_unit_tests.sh"
 path_to_ssh_to_quasar="$DIR/../local/ssh_to_quasar.sh"
@@ -71,7 +70,6 @@ else
     print_dotted_line
 
     # Make sure the following bash scripts are runnable.
-    chmod +x ${path_to_build_three_js}
     chmod +x ${path_to_push_local_code}
     chmod +x ${path_to_run_all_unit_tests}
     chmod +x ${path_to_ssh_to_quasar}

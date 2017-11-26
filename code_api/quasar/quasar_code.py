@@ -101,3 +101,4 @@ if __name__ == '__main__':
 	#print('Total size before : ' + str(total_original_size))
 	#print('New size : ' + str(total_reduced_size))
 	#print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
+# Quick test
