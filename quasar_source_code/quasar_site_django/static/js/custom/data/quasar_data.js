@@ -32,9 +32,9 @@ PostHelper.prototype = {
         http.send(null);
 
         http.onload = function() {
-            console.log('POST onload response :');
-            console.log(http);
-            console.log(http.responseText);
+            //console.log('POST onload response :');
+            //console.log(http);
+            //console.log(http.responseText);
             // if (xhr.readyState == 4 && xhr.status == 200) {
 
             callback(http.responseText);
@@ -44,8 +44,8 @@ PostHelper.prototype = {
 };
 
 // Currently just used for debugging server side information and state.
-function GlobalPostCall(url) {
-    this.__init__(url);
+function GlobalPostCall(url, text_area_element) {
+    this.__init__(url, text_area_element);
 }
 
 GlobalPostCall.prototype = {
@@ -53,16 +53,26 @@ GlobalPostCall.prototype = {
         console.log('The callback got this data back');
         console.log(data);
         console.log(arguments);
+
+        var lines = data.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+            text_area_element.innerHTML = text_area_element.innerHTML + lines[i] + '\n';
+        }
     },
-    __init__: function(url) {
+    __init__: function(url, text_area_element) {
         this.post_call = new PostHelper(url);
+        this.text_area_element = text_area_element;
     },
     perform_call: function() {
+        this.text_area_element.innerHTML = '';
         this.post_call.perform_get(this.default_callback.bind(this));
     }
 };
 
-var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_ALL_DATA);
+
+var text_area_element = document.getElementById('custom_text_area');
+
+var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_ALL_DATA, text_area_element);
 
 
 var display_all_button = document.getElementById('display_all_button');
