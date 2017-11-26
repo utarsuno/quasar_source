@@ -28,7 +28,7 @@ PostHelper.prototype = {
 
         // From : https://stackoverflow.com/questions/9713058/send-post-data-using-xmlhttprequest
         const http = new XMLHttpRequest();
-        http.open('GET', this.url, false);
+        http.open('GET', this.url, true);
         http.setRequestHeader('Content-type', 'application/json');
         //http.send(JSON.stringify(post_data));
         http.send();
@@ -50,23 +50,22 @@ function GlobalPostCall(url) {
 }
 
 GlobalPostCall.prototype = {
-    default_callback: function() {},
+    default_callback: function(data) {
+        console.log('The callback got this data back');
+        console.log(data);
+    },
     __init__: function(url) {
         this.post_call = new PostHelper(url);
     },
     perform_call: function() {
-        this.post_call.perform_post({}, this.default_callback);
+        this.post_call.perform_post({}, this.default_callback.bind(this));
     }
 };
 
-var post_call_get_all_data = new PostHelper(POST_URL_GET_ALL_DATA);
+var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_ALL_DATA);
 
-var callback = function(data) {
-    console.log('The callback got this data back');
-    console.log(data);
-};
 
 var display_all_button = document.getElementById('display_all_button');
 display_all_button.onclick = function() {
-    post_call_get_all_data.perform_post({}, callback);
+    post_call_get_all_data.perform_call();
 };
