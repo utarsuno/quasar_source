@@ -116,9 +116,9 @@ class EntityManager(object):
 
 		if not data_has_relative_id:
 			# Creating a brand new entity.
-			print('@@@\tCreating a brand new entity from the following data')
-			print(entity_data)
-			print('@@@\n')
+			new_entity_relative_id = self.get_largest_entity_id() + 1
+			new_entity = be.Entity()
+			new_entity.initialize_from_data(new_entity_relative_id, entity_data)
 		else:
 			entity_match         = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
 			relative_id_found    = entity_match is not None

@@ -47,6 +47,25 @@ class Entity(object):
 		self._information     = {}
 		self._class_name      = ENTITY_TYPE_BASE
 
+	def initialize_from_data(self, relative_id, entity_data):
+		"""Fills out an Entity object with data."""
+		self._relative_id = int(relative_id)
+		for key in entity_data:
+			value = entity_data[key]
+			if key == ENTITY_DEFAULT_PROPERTY_TYPE:
+				self.set_entity_type(key)
+			elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+				self._child_entities = value
+			elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+				self._parent_entities = value
+			elif key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+				print('\nWhy is the relative ID being set?\n')
+				self.set_relative_id(value)
+			else:
+				if key[0:3] != 'ep_':
+					print('\n\nWARNING!!! Why is a value being set not start with the text \'ep_\'?\n\n')
+				self.add_information(str(key), str(value))
+
 	def is_public_entity(self) -> bool:
 		"""Returns a boolean indicating if this entity is a public entity or not."""
 		for key in self._information:
