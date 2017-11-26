@@ -104,9 +104,8 @@ class EntityServer(object):
 		if not self._db_api.is_valid_owner(owner_name, owner_password):
 			return HttpResponse('Invalid username and password!')
 
-		print('GET ALL USER ENTITIES RESPONSE IS ')
+		#print('GET ALL USER ENTITIES RESPONSE IS ')
 		response = self._db_api.get_all_entities_from_owner_as_json(owner_name)
-		print(str(response))
 
 		return JsonResponse(response)
 

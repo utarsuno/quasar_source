@@ -89,11 +89,15 @@ EntityManager.prototype = {
         l(data);
         // DELETE_FOR_PROD_END
         if (is_string(data)) {
-            data = eval(data);
+            data = JSON.parse(data0);
         }
 
-        MANAGER_ENTITY.add_public_entity_from_entity_data(data);
-
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
+            }
+        }
+        
         this.public_entities_loaded = true;
         if (this.user_entities_loaded) {
             this.all_data_loaded();
@@ -106,10 +110,14 @@ EntityManager.prototype = {
         l(data);
         // DELETE_FOR_PROD_END
         if (is_string(data)) {
-            data = eval(data);
+            data = JSON.parse(data);
         }
 
-        MANAGER_ENTITY.add_user_entity_from_entity_data(data);
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_user_entity_from_entity_data(data[key]);
+            }
+        }
 
         this.user_entities_loaded = true;
 
