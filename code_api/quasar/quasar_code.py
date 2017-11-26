@@ -68,11 +68,14 @@ class QuasarCode(object):
 	"""An abstraction to the entire Quasar code base."""
 
 	def __init__(self):
-		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files())
+		self._javascript_manager = cf.CodeFileManager(_get_all_javascript_files())
+		self._python_manager     = cf.CodeFileManager(_get_all_python_files())
 
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""
 		color_print('Printing Quasar Analysis!', color='red', bold=True)
+		self._javascript_manager.print_data()
+		self._python_manager.print_data()
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""

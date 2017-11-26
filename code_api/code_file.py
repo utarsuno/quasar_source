@@ -21,12 +21,19 @@ class CodeFileManager(object):
 			total_size += f.file_size
 		return total_size
 
+	def print_data(self):
+		"""Prints all relevant data."""
+		print('Printing all the code files!')
+		for f in self._code_files:
+			print(f)
+
 
 class CodeFile(object):
 	"""Represents a single file that contains lines of code."""
 
 	def __init__(self, file_path):
 		self._file_path = file_path
+		self._file_name = ufo.get_file_basename(self._file_path)
 		self._file_size = ufo.get_file_size_in_bytes(self._file_path)
 		self._lines_of_code = loc.get_lines_of_code_from_file(self._file_path)
 
@@ -34,6 +41,9 @@ class CodeFile(object):
 	def file_size(self):
 		"""Returns the size of this file in bytes."""
 		return self._file_size
+
+	def __str__(self):
+		return self._file_name + ' - [' + str(len(self._lines_of_code)) + ' \'lines of code\'].'
 
 
 class CodeFilePython(CodeFile):
