@@ -59,6 +59,7 @@ class CodeFile(object):
 			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
 			self._lines_of_code = loc.get_lines_of_code_from_file(self._file_path)
 		else:
+			self._file_size = None
 			self._lines_of_code = []
 
 	def add_line(self, text):
