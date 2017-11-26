@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO just reference the actual code files later on
-
+const POST_URL_GET_ALL_DATA          = '/get_all_data';
 function PostHelper(url) {
     this.__init__(url);
 }
@@ -60,7 +60,12 @@ GlobalPostCall.prototype = {
 
 var post_call_get_all_data = new PostHelper(POST_URL_GET_ALL_DATA);
 
+var callback = function(data) {
+    console.log('The callback got this data back');
+    console.log(data);
+};
+
 var display_all_button = document.getElementById('display_all_button');
 display_all_button.onclick = function() {
-
+    post_call_get_all_data.perform_post({}, callback);
 };
