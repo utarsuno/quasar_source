@@ -50,8 +50,9 @@ HomeWorld.prototype = {
     load_entity_walls: function() {
         var wall_entities = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
 
-        //l('LOADED THE FOLLOWING DATA:');
-        //l(wall_entities);
+        l('LOADED THE FOLLOWING DATA:');
+        l(wall_entities);
+        return;
 
         var number_of_wall_entities = wall_entities.length;
         for (var w = 0; w < number_of_wall_entities; w++) {
