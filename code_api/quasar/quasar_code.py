@@ -25,7 +25,7 @@ ARGUMENT_BUILD_PRODUCTION = '-bp'
 ARGUMENT_RUN_ANALYSIS     = '-ra'
 
 
-def _get_all_javascript_files(get_minified_files):
+def _get_all_javascript_files(get_minified_files=False):
 	"""Returns a list of CodeFile objects of all the Quasar javascript files (with a flag to determine if minified files returned or non-minified files returned."""
 	all_javascript_files_path = CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom'
 	all_javascript_files = ufo.get_all_file_paths_inside_directory(all_javascript_files_path)
@@ -44,11 +44,6 @@ def _get_all_javascript_files(get_minified_files):
 	return files_to_return
 
 
-def _get_all_javascript_files():
-	"""Returns a list of CodeFile objects of all the Quasar Javascript files."""
-	return _get_all_javascript_files(False)
-
-
 def _get_all_python_files():
 	"""Returns a list of CodeFile objects of all the Quasar Python files."""
 	all_python_files_path = CODE_SOURCE_BASE
@@ -57,7 +52,7 @@ def _get_all_python_files():
 
 def produce_quasar_minified_javascript_files():
 	"""Produces the *.min.js files."""
-	all_javascript_files = _get_all_javascript_files(False)
+	all_javascript_files = _get_all_javascript_files()
 	total_original_size = 0
 	for f in all_javascript_files:
 		total_original_size += f.file_size
@@ -72,14 +67,14 @@ def produce_quasar_minified_javascript_files():
 
 def run_analysis():
 	"""Prints analysis report on the Quasar Source code base."""
-	all_javascript_files = _get_all_javascript_files(False)
+	all_javascript_files = _get_all_javascript_files()
 
 
 class QuasarCode(object):
 	"""An abstraction to the entire Quasar code base."""
 
 	def __init__(self):
-		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files(False))
+		self._javascript_files = cf.CodeFileManager(_get_all_javascript_files())
 
 
 
