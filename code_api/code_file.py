@@ -17,7 +17,9 @@ class CodeFileManager(object):
 	def get_file_by_name(self, file_name):
 		"""Returns a CodeFile object if found."""
 		for f in self._code_files:
-			if file_name in f
+			if file_name in f.file_path:
+				return f
+		return None
 
 	def get_total_size(self) -> int:
 		"""Returns the total size of all the code files as bytes."""
