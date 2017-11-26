@@ -82,7 +82,7 @@ class QuasarCode(object):
 		# TODO Shell script manager
 
 		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
-		#production_javascript_build.add_line('\'use_strict\';')
+		production_javascript_build.add_line('\'use_strict\';')
 
 		all_text = []
 		for f in self._javascript_manager._code_files:
@@ -90,11 +90,12 @@ class QuasarCode(object):
 
 		for a in all_text:
 			lines = a.split('\n')
-			print('Printing the lines')
-			print(lines)
 			lines[0] = lines[0].replace('\'use_strict\';', '')
 			for l in lines:
-				all_text.append(l)
+				production_javascript_build.add_line(l)
+
+		print('Production file text!')
+		print(production_javascript_build.get_text())
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
