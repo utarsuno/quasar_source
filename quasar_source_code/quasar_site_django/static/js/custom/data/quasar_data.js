@@ -52,6 +52,7 @@ GlobalPostCall.prototype = {
     default_callback: function(data) {
         console.log('The callback got this data back');
         console.log(data);
+        console.log(arguments);
     },
     __init__: function(url) {
         this.post_call = new PostHelper(url);
