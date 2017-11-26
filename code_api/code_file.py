@@ -47,7 +47,7 @@ class CodeFile(object):
 		"""Returns the number of lines of code in this file."""
 		number_of_lines = 0
 		for l in self._lines_of_code:
-			if not l.blank_line:
+			if not l.is_blank_line():
 				number_of_lines += 1
 		return number_of_lines
 

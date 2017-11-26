@@ -16,8 +16,7 @@ class LineOfCode(object):
 		"""Returns the text representation of this line of code."""
 		return self._text
 
-	@property
-	def blank_line(self) -> bool:
+	def is_blank_line(self) -> bool:
 		"""Returns a boolean indicating if this line of code is actually just an empty line."""
 		print('LINE : ')
 		print(self._text)
