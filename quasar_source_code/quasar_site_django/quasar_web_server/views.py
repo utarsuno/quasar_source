@@ -263,4 +263,5 @@ def GET_all_database_data(request):
 def POST_get_all_data(request):
 	"""TODO : documentation"""
 	global entity_server
+	print('Getting data from entity server')
 	return HttpResponse(entity_server.get_print_pretty_status())

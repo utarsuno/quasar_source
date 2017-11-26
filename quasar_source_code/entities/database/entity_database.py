@@ -163,6 +163,7 @@ class EntityDatabaseAPI(object):
 
 	def get_pretty_print_data_on_all_owners(self):
 		"""Temporary debugging function."""
+		print('Getting data from owners cache')
 		return_data = ''
 		for o in self._owners_cache:
 			return_data += str(o) + '\n'

@@ -115,6 +115,7 @@ class EntityServer(object):
 
 	def get_print_pretty_status(self):
 		"""Temporary debugging function."""
+		print('Getting data from database')
 		return self._db_api.get_pretty_print_data_on_all_owners()
 
 	def print_full_status(self):
