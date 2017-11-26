@@ -61,6 +61,10 @@ Entity.prototype = {
 
         // Handling the default property of (entity) type.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
+
+            l('Setting Entity type to ');
+            l(properties[ENTITY_DEFAULT_PROPERTY_TYPE]);
+
             this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
         } else {
             this.ep_type = ENTITY_TYPE_BASE;
