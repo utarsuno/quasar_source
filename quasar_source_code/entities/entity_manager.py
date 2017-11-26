@@ -93,34 +93,6 @@ class EntityManager(object):
 		else:
 			self.entities.append(e)
 
-	def _update_entity(self, entity, entity_data):
-		"""Utility function to update an entity."""
-
-		print('\n\n')
-		print('Performing update entity inside of an entity manager.')
-		print('There are ' + str(len(self.entities)) + ' entities currently.')
-		for e in self.entities:
-			print(str(e))
-		print('\n\n')
-
-		print('Updating entity{' + str(entity) + '}')
-		print('with the following data : ')
-		print(entity_data)
-
-		for key in entity_data:
-			value = entity_data[key]
-			if key == be.ENTITY_DEFAULT_PROPERTY_TYPE:
-				entity.set_entity_type(value)
-			elif key == be.ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
-				entity._child_entities = value
-			elif key == be.ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
-				entity._parent_entities = value
-			elif key == be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-				entity.set_relative_id(value)
-			else:
-				#print('ADDING{' + str(key) + '} VALUE{' + str(value) + '}')
-				entity.add_information(str(key), str(value))
-
 	def save_or_update_entity(self, entity_data):
 		"""Creates a new entity or updates with the data provided."""
 		create_a_brand_new_entity = False
