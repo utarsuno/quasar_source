@@ -26,10 +26,8 @@ TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
 TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
 TEMPLATE_LOG_FORMULAS   = _TEMPLATES_BASE + 'log_formulas.html'
-TEMPLATE_MATH_220       = _TEMPLATES_BASE + 'math220.html'
-TEMPLATE_MATH_310       = _TEMPLATES_BASE + 'math310.html'
-TEMPLATE_CS_425         = _TEMPLATES_BASE + 'cs425.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html'
+TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 
 # Global server.
@@ -43,6 +41,11 @@ def get_client_ip(request):
 	else:
 		ip = request.META.get('REMOTE_ADDR')
 	return ip
+
+
+def GET_quasar_data(request):
+	"""Returns the data interface page."""
+	return render(request, TEMPLATE_QUASAR_DATA)
 
 
 def GET_quasar_dev(request):
