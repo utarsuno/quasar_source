@@ -56,7 +56,7 @@ class Entity(object):
 		for key in new_values:
 			value = new_values[key]
 			if key == ENTITY_DEFAULT_PROPERTY_TYPE:
-				self.set_entity_type(key)
+				self.set_entity_type(value)
 			elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
 				self._child_entities = value
 			elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
