@@ -47,11 +47,14 @@ class Entity(object):
 		self._information     = {}
 		self._class_name      = ENTITY_TYPE_BASE
 
-	def initialize_from_data(self, relative_id, entity_data):
-		"""Fills out an Entity object with data."""
-		self._relative_id = int(relative_id)
-		for key in entity_data:
-			value = entity_data[key]
+	def update_values(self, new_values):
+		"""Updates the values of this entity with the values provided."""
+
+		# TODO : Add checks if the new values are the same already?
+		# TODO : Add a boolean indicating if any values ended up changing?
+
+		for key in new_values:
+			value = new_values[key]
 			if key == ENTITY_DEFAULT_PROPERTY_TYPE:
 				self.set_entity_type(key)
 			elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
@@ -65,6 +68,11 @@ class Entity(object):
 				if key[0:3] != 'ep_':
 					print('\n\nWARNING!!! Why is a value being set not start with the text \'ep_\'?\n\n')
 				self.add_information(str(key), str(value))
+
+	def initialize_from_data(self, relative_id, entity_data):
+		"""Fills out an Entity object with data."""
+		self._relative_id = int(relative_id)
+		self.update_values(entity_data)
 
 	def is_public_entity(self) -> bool:
 		"""Returns a boolean indicating if this entity is a public entity or not."""
