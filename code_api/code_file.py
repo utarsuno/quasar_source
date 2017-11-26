@@ -42,6 +42,15 @@ class CodeFile(object):
 		"""Returns the size of this file in bytes."""
 		return self._file_size
 
+	@property
+	def lines_of_code(self):
+		"""Returns the number of lines of code in this file."""
+		number_of_lines = 0
+		for l in self._lines_of_code:
+			if not l.blank_line:
+				number_of_lines += 1
+		return number_of_lines
+
 	def __str__(self):
 		return self._file_name + ' - [' + str(len(self._lines_of_code)) + ' \'lines of code\'].'
 

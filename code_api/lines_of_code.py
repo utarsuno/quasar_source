@@ -11,6 +11,16 @@ class LineOfCode(object):
 	def __init__(self, line_of_code_as_text):
 		self._text = line_of_code_as_text
 
+	@property
+	def text(self):
+		"""Returns the text representation of this line of code."""
+		return self._text
+
+	@property
+	def blank_line(self) -> bool:
+		"""Returns a boolean indicating if this line of code is actually just an empty line."""
+		return len(self._text) == 0
+
 
 def get_lines_of_code_from_file(file_path):
 	"""Returns a list of LineOfCode objects representing the contents of the file."""
