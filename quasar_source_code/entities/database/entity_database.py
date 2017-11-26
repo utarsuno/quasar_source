@@ -46,7 +46,7 @@ class EntityOwner(object):
 
 	def get_pretty_print_entities(self):
 		"""Temporary"""
-		self._entity_manager.get_pretty_print_entities()
+		return self._entity_manager.get_pretty_print_all_entities()
 
 	def print_entities(self):
 		"""Temporary debugging function."""
