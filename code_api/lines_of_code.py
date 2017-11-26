@@ -19,7 +19,9 @@ class LineOfCode(object):
 	@property
 	def blank_line(self) -> bool:
 		"""Returns a boolean indicating if this line of code is actually just an empty line."""
-		return len(self._text) == 0
+		if self._text and self._text.strip():
+			return False
+		return True
 
 
 def get_lines_of_code_from_file(file_path):
