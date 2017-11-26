@@ -138,8 +138,7 @@ class QuasarCode(object):
 				production_javascript_build.add_line(l)
 			i += 1
 
-		print('Production file text!')
-		#print(production_javascript_build.get_text())
+		production_javascript_build.create_file_and_minify()
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""

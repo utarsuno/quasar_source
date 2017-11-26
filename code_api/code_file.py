@@ -64,7 +64,7 @@ class CodeFile(object):
 	def add_line(self, text):
 		"""Adds a singles line of code to the CodeFile."""
 		if not text.endswith('\n'):
-			text = text + '\n'
+			text += '\n'
 		self._lines_of_code.append(loc.LineOfCode(text))
 
 	def get_text(self):
@@ -127,6 +127,7 @@ class CodeFileJavaScript(CodeFile):
 		self._minified_js = None
 		self._minified_file_path = self._file_path.replace('.js', '.min.js')
 
+
 	def get_minified_javascript_text(self):
 		"""Gets the minified version of the Javascript file provided."""
 		if self._minified_js is None:
@@ -134,9 +135,17 @@ class CodeFileJavaScript(CodeFile):
 				self._minified_js = jsmin(js_file.read())
 		return self._minified_js.replace('\'use_strict\';', '')
 
-	def create_minified_version(self):
+	def create_minified_version(self, file_path=None):
 		"""Creates the minified version of this Javascript file."""
-		ufo.create_file_or_override(self.get_minified_javascript_text(), self._minified_file_path)
+		if file_path is None:
+			ufo.create_file_or_override(self.get_minified_javascript_text(), self._minified_file_path)
+		else:
+			ufo.create_file_or_override(self.get_minified_javascript_text(), file_path)
+
+	def create_file_and_minify(self):
+		"""Creates a minified version of the file."""
+		ufo.create_file_or_override(self.get_text(), self._file_path)
+		self.create_minified_version(self._file_path)
 
 '''
 def produce_quasar_minified_javascript_files():
