@@ -78,13 +78,18 @@ class QuasarCode(object):
 		self._python_manager.print_data()
 		# TODO Shell script manager
 
+		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
+		production_javascript_build.add_line('\'use_strict\';')
+
 		all_text = []
 		for f in self._javascript_manager._code_files:
 			all_text.append(f.get_minified_javascript_text())
 
 		print('FKM(ADSFJ(IJV%@')
 		for a in all_text:
-			print(a)
+			for i, l in enumerate(a):
+				print(str(i) + '- ' + str(l))
+			#print(a)
 			print()
 			print('@@@@')
 			print()
@@ -93,7 +98,7 @@ class QuasarCode(object):
 		"""Builds the production version of Quasar."""
 		color_print('Building Quasar Production!', color='red', bold=True)
 
-		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', already_exists=False)
+		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
 
 
 

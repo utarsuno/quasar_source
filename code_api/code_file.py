@@ -73,24 +73,24 @@ class CodeFile(object):
 class CodeFileShellScript(CodeFile):
 	"""Represents a single shell script file."""
 
-	def __init__(self, file_path):
-		super().__init__(file_path)
+	def __init__(self, file_path, already_exists=True):
+		super().__init__(file_path, already_exists)
 		self._extension = '.sh'
 
 
 class CodeFilePython(CodeFile):
 	"""Represents a single Python file."""
 
-	def __init__(self, file_path):
-		super().__init__(file_path)
+	def __init__(self, file_path, already_exists=True):
+		super().__init__(file_path, already_exists)
 		self._extension = '.py'
 
 
 class CodeFileJavaScript(CodeFile):
 	"""Represents a single JavaScript file."""
 
-	def __init__(self, file_path):
-		super().__init__(file_path)
+	def __init__(self, file_path, already_exists=True):
+		super().__init__(file_path, already_exists)
 		self._extension = '.js'
 		self._minified_js = None
 		self._minified_file_path = self._file_path.replace('.js', '.min.js')
