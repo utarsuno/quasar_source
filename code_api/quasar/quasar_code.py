@@ -98,7 +98,7 @@ def _get_all_python_files():
 	for f in all_python_files:
 		file_name = ufo.get_file_basename(f)
 		if file_name.endswith('.py'):
-			if file_name not in files_to_ignore:
+			if file_name not in files_to_ignore and 'third_party_libraries' not in file_name:
 				files_to_return.append(cf.CodeFilePython(f))
 	return files_to_return
 
