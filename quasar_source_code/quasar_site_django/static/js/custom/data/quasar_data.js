@@ -93,7 +93,7 @@ GlobalPostCall.prototype = {
                 }
                 temp = JSON.parse(temp);
 
-                line_to_add = '<span class="see_through_button_for_data data_display_title">' + temp[ENTITY_PROPERTY_NAME] + '</span>';
+                line_to_add = '<span class="data_display_title">' + temp[ENTITY_PROPERTY_NAME] + '</span>';
             }
 
             text_area_element.innerHTML = text_area_element.innerHTML + line_to_add + '\n';
