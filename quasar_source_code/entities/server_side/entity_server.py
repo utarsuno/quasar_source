@@ -119,7 +119,7 @@ class EntityServer(object):
 
 	def get_managers_cache_report(self):
 		"""Return the current status of the managers cache."""
-		return self._db_api.get_pretty_print_data_on_all_owners()
+		return self._db_api.get_full_data_on_all_owners()
 
 	def get_database_data(self):
 		"""TODO : Document"""

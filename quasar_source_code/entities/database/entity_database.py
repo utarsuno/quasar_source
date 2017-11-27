@@ -177,20 +177,12 @@ class EntityDatabaseAPI(object):
 			text += str(e) + '\n'
 		return text
 
-	def get_managers_cache_report(self):
-		"""TODO : Document and sort"""
-		return_data = ''
-		for o in self._owners_cache:
-			return_data += str(o) + '\n'
-			return_data += o.get_full_info()
-		return return_data
-
-	def get_pretty_print_data_on_all_owners(self):
+	def get_full_data_on_all_owners(self):
 		"""Temporary debugging function."""
 		return_data = ''
 		for o in self._owners_cache:
 			return_data += str(o) + '\n'
-			return_data += o.get_pretty_print_entities()
+			return_data += o.get_entities_as_string_lines()
 		return return_data
 
 	def get_data_on_all_owners(self):
