@@ -178,7 +178,7 @@ class Entity(object):
 		for key in raw_data:
 			value = raw_data[key]
 			slim_data[key] = value
-		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
+		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}\n'
 
 	def get_pretty_print(self):
 		"""Debugging"""

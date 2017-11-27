@@ -57,7 +57,7 @@ class EntityOwner(object):
 		lines = []
 		entities = self._entity_manager.get_all_entities()
 		for e in entities:
-			lines.append(str(e))
+			lines.append(str(e.get_full_info()))
 		return lines
 
 	def ensure_owner_entity_exists(self):
