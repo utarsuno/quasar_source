@@ -56,6 +56,11 @@ GlobalPostCall.prototype = {
 
         var lines = data.split('\n');
         for (var i = 0; i < lines.length; i++) {
+
+            if (lines[i].includes('EW{{')) {
+
+            }
+
             text_area_element.innerHTML = text_area_element.innerHTML + lines[i] + '\n';
         }
     },

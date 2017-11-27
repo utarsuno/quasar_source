@@ -182,7 +182,7 @@ class EntityDatabaseAPI(object):
 		return_data = ''
 		for o in self._owners_cache:
 			return_data += str(o) + '\n'
-			return_data += o.get_pretty_print_entities()
+			return_data += o.get_full_info()
 		return return_data
 
 	def get_pretty_print_data_on_all_owners(self):
