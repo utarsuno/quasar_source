@@ -64,11 +64,11 @@ GlobalPostCall.prototype = {
                 var temp = lines[i].replace('EW{{', '{').replace('}}', '}');
                 temp = temp.substring(temp.indexOf('- {') + 2);
 
-                temp = JSON.parse(temp);
+                while (temp.includes('\'')) {
+                    temp = temp.replace('\'', '"');
+                }
 
-                //while (temp.includes('\'')) {
-                //    temp = temp.replace('\'', '"');
-                //}
+                temp = JSON.parse(temp);
 
                 console.log(temp);
 
