@@ -62,7 +62,7 @@ GlobalPostCall.prototype = {
             if (lines[i].includes('EW{{')) {
 
                 var temp = lines[i].replace('EW{{', '{').replace('}}', '}');
-                temp = temp.substring(temp.indexOf('- {'));
+                temp = temp.substring(temp.indexOf('- {') + 2);
 
                 console.log(temp);
 
