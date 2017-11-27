@@ -57,11 +57,19 @@ GlobalPostCall.prototype = {
         var lines = data.split('\n');
         for (var i = 0; i < lines.length; i++) {
 
+            var line_to_add = lines[i];
+
             if (lines[i].includes('EW{{')) {
 
+                var temp = lines[i].replace('EW{{', '{').replace('}}', '}');
+                temp = eval(temp);
+
+                console.log(temp);
+
+                //line_to_add =
             }
 
-            text_area_element.innerHTML = text_area_element.innerHTML + lines[i] + '\n';
+            text_area_element.innerHTML = text_area_element.innerHTML + line_to_add + '\n';
         }
     },
     __init__: function(url, text_area_element) {
