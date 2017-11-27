@@ -91,7 +91,7 @@ const POST_URL_GET_PUBLIC_ENTITIES   = '/get_public_entities';
 const POST_URL_CREATE_ACCOUNT        = '/create_account';
 const POST_URL_LOGIN                 = '/login';
 const POST_URL_ENTITY_MANAGER_STATUS = '/server_side_print_entity_manager_status';
-const POST_URL_GET_ALL_DATA          = '/get_all_data';
+const POST_URL_GET_DATABASE_DATA     = '/get_database_data';
 const POST_URL_GET_ALL_SERVER_CACHE  = '/get_all_server_cache';
 // UNIVERSAL_CONSTANTS_END
 

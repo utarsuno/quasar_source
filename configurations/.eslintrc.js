@@ -129,7 +129,7 @@ module.exports = {
         "POST_URL_CREATE_ACCOUNT"       : false,
         "POST_URL_LOGIN"                : false,
         "POST_URL_ENTITY_MANAGER_STATUS": false,
-        "POST_URL_GET_ALL_DATA"         : false,
+        "POST_URL_GET_DATABASE_DATA"    : false,
         "POST_URL_GET_ALL_SERVER_CACHE" : false,
         // UNIVERSAL_CONSTANTS_END
 

@@ -25,7 +25,7 @@ POST_URL_GET_PUBLIC_ENTITIES   = r'get_public_entities'
 POST_URL_CREATE_ACCOUNT        = r'create_account'
 POST_URL_LOGIN                 = r'login'
 POST_URL_ENTITY_MANAGER_STATUS = r'server_side_print_entity_manager_status'
-POST_URL_GET_ALL_DATA          = r'get_all_data'
+POST_URL_GET_DATABASE_DATA     = r'get_database_data'
 POST_URL_GET_ALL_SERVER_CACHE  = r'get_all_server_cache'
 # UNIVERSAL_CONSTANTS_END
 
@@ -41,7 +41,7 @@ urlpatterns = [
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
 
     url(POST_URL_GET_ALL_SERVER_CACHE, v.GET_all_server_cache),
-    url(POST_URL_GET_ALL_DATA, v.GET_get_all_data),
+    url(POST_URL_GET_DATABASE_DATA   , v.GET_get_database_data),
     url(r'data', v.GET_quasar_data),
 
     url(r'dev', v.GET_quasar_dev),

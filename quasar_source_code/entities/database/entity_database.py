@@ -169,6 +169,14 @@ class EntityDatabaseAPI(object):
 		self._owners_cache      = []
 		self._update_owners_cache()
 
+	def get_all_database_data(self):
+		"""TODO : Document"""
+		entities = self._owners_collection.get_all()
+		text = ''
+		for e in entities:
+			text += str(e) + '\n'
+		return text
+
 	def get_managers_cache_report(self):
 		"""TODO : Document and sort"""
 		return_data = ''

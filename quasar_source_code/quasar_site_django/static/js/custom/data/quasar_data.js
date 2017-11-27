@@ -76,8 +76,8 @@ var text_area_element = document.getElementById('custom_text_area');
 var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_ALL_DATA, text_area_element);
 var post_call_get_all_server_cache = new GlobalPostCall(POST_URL_GET_ALL_SERVER_CACHE, text_area_element);
 
-var display_all_button = document.getElementById('display_all_button');
-display_all_button.onclick = function() {
+var display_database_button = document.getElementById('display_database_button');
+display_database_button.onclick = function() {
     post_call_get_all_data.perform_call();
 };
 
