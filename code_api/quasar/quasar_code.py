@@ -146,7 +146,7 @@ class QuasarCode(object):
 		self.post_urls.add_universal_constant('CREATE_ACCOUNT'       , {JAVASCRIPT: '/create_account', PYTHON: 'r\'create_account\''})
 		self.post_urls.add_universal_constant('LOGIN'                , {JAVASCRIPT: '/login', PYTHON: 'r\'login\''})
 		self.post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', {JAVASCRIPT: '/server_side_print_entity_manager_status', PYTHON: 'r\'server_side_print_entity_manager_status\''})
-		self.post_urls.add_universal_constant('GET_ALL_DATA'         , {JAVASCRIPT: '/get_all_data', PYTHON: 'r\'get_all_data\''})
+		self.post_urls.add_universal_constant('GET_DATABASE_DATA'    , {JAVASCRIPT: '/get_database_data', PYTHON: 'r\'get_database_data\''})
 		self.post_urls.add_universal_constant('GET_ALL_SERVER_CACHE' , {JAVASCRIPT: '/get_all_server_cache', PYTHON: 'r\'get_all_server_cache\''})
 
 	def run_analysis(self):

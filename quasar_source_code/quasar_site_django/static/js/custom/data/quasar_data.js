@@ -1,12 +1,11 @@
 'use strict';
 
 // TODO just reference the actual code files later on
-const POST_URL_GET_ALL_DATA = '/get_all_data';
+const POST_URL_GET_DATABASE_DATA = '/get_database_data';
 const POST_URL_GET_ALL_SERVER_CACHE = '/get_all_server_cache';
 function PostHelper(url) {
     this.__init__(url);
 }
-
 PostHelper.prototype = {
 
     // States.
@@ -73,7 +72,7 @@ GlobalPostCall.prototype = {
 
 var text_area_element = document.getElementById('custom_text_area');
 
-var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_ALL_DATA, text_area_element);
+var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_DATABASE_DATA, text_area_element);
 var post_call_get_all_server_cache = new GlobalPostCall(POST_URL_GET_ALL_SERVER_CACHE, text_area_element);
 
 var display_database_button = document.getElementById('display_database_button');
