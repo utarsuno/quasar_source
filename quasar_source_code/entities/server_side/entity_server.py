@@ -113,10 +113,10 @@ class EntityServer(object):
 		"""Returns all the public entities."""
 		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(PUBLIC_ENTITIES_OWNER))
 
-	def get_print_pretty_status(self):
-		"""Temporary debugging function."""
-		return self._db_api.get_pretty_print_data_on_all_owners()
-
 	def print_full_status(self):
 		"""Temporary debugging function."""
-		self._db_api.print_data_on_all_owners()
+		return self._db_api.get_data_on_all_owners()
+
+	def get_managers_cache_report(self):
+		"""Return the current status of the managers cache."""
+		return self._db_api.get_pretty_print_data_on_all_owners()

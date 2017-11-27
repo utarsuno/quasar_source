@@ -280,5 +280,5 @@ def GET_get_all_data(request):
 
 def GET_all_server_cache(request):
 	"""TODO :"""
-
-	return HttpResponse('Yes!')
+	global entity_server
+	return HttpResponse(entity_server.get_managers_cache_report())

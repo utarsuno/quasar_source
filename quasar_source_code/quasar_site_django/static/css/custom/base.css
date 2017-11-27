@@ -140,13 +140,13 @@ canvas {
 
     text-align: center;
 
-    position: absolute;
+    position: relative;
     z-index: 15;
 
     color: rgba(255, 255, 255, 0.9);
     width: 20vw;
     left: 75vw;
-    top: 1vh;
+    top: 2vh;
     display: block;
     padding: 2px 2px 2px 2px;
     background: transparent no-repeat;

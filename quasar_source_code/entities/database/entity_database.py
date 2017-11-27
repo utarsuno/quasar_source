@@ -52,6 +52,14 @@ class EntityOwner(object):
 		"""Temporary debugging function."""
 		self._entity_manager.print_entities()
 
+	def get_entities_as_string_lines(self):
+		"""TODO : Document"""
+		lines = []
+		entities = self._entity_manager.get_all_entities()
+		for e in entities:
+			lines.append(str(e))
+		return lines
+
 	def ensure_owner_entity_exists(self):
 		"""Creates the owner entity if it does not yet exist."""
 		if self._entity_manager.ensure_owner_entity_exists(self._data):
@@ -161,20 +169,31 @@ class EntityDatabaseAPI(object):
 		self._owners_cache      = []
 		self._update_owners_cache()
 
-	def get_pretty_print_data_on_all_owners(self):
-		"""Temporary debugging function."""
-		print('Getting data from owners cache')
+	def get_managers_cache_report(self):
+		"""TODO : Document and sort"""
 		return_data = ''
 		for o in self._owners_cache:
 			return_data += str(o) + '\n'
 			return_data += o.get_pretty_print_entities()
 		return return_data
 
-	def print_data_on_all_owners(self):
+	def get_pretty_print_data_on_all_owners(self):
 		"""Temporary debugging function."""
+		return_data = ''
 		for o in self._owners_cache:
-			print(o)
-			o.print_entities()
+			return_data += str(o) + '\n'
+			return_data += o.get_pretty_print_entities()
+		return return_data
+
+	def get_data_on_all_owners(self):
+		"""Temporary debugging function."""
+		data = ''
+		for o in self._owners_cache:
+			data += o + '\n'
+			lines = o.get_entities_as_string_lines()
+			for l in lines:
+				data += l
+		return data
 
 	def delete_entity(self, owner_name, entity_id_to_delete):
 		"""Deletes the entity with an ID match for the given owner."""
