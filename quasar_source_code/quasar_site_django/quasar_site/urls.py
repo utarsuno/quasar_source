@@ -40,8 +40,8 @@ urlpatterns = [
     url(POST_URL_SAVE_ENTITY          , v.POST_save_entity),
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
 
-    url(POST_URL_GET_ALL_SERVER_CACHE, v.GET_all_server_cache),
-    url(POST_URL_GET_DATABASE_DATA   , v.GET_get_database_data),
+    url(r'get_all_server_cache', v.GET_all_server_cache),
+    url(r'get_database_data'   , v.GET_get_database_data),
     url(r'data', v.GET_quasar_data),
 
     url(r'dev', v.GET_quasar_dev),
