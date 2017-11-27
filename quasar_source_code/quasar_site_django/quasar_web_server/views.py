@@ -276,3 +276,9 @@ def GET_get_all_data(request):
 	global entity_server
 	#print('Getting data from entity server')
 	return HttpResponse(entity_server.get_print_pretty_status())
+
+
+def GET_all_server_cache(request):
+	"""TODO :"""
+
+	return HttpResponse('Yes!')

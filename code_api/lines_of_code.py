@@ -5,11 +5,29 @@
 from quasar_source_code.universal_code import useful_file_operations as ufo
 
 
+PYTHON     = 'python'
+JAVASCRIPT = 'javascript'
+
+
 class LineOfCode(object):
 	"""Represents a single line of code."""
 
 	def __init__(self, line_of_code_as_text):
 		self._text = line_of_code_as_text
+
+		# Gets set by CodeFile objects.
+		self._language = None
+		self._parent_code_file = None
+
+	def set_langauge_and_other_data(self, language, parent_code_file):
+		"""Sets the language of this line of code and the parent code file."""
+		self._language = language
+		self._parent_code_file = parent_code_file
+
+	@property
+	def language(self):
+		"""Returns the programming language of this LineOfCode object."""
+		return self._language
 
 	@property
 	def text(self):

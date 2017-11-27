@@ -121,7 +121,7 @@ module.exports = {
         // From globals.js
         "NOT_FOUND": false,
 
-        // POST URLs.
+        // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
         "POST_URL_DELETE_ENTITY"        : false,
         "POST_URL_SAVE_ENTITY"          : false,
         "POST_URL_GET_USER_ENTITIES"    : false,
@@ -130,6 +130,8 @@ module.exports = {
         "POST_URL_LOGIN"                : false,
         "POST_URL_ENTITY_MANAGER_STATUS": false,
         "POST_URL_GET_ALL_DATA"         : false,
+        "POST_URL_GET_ALL_SERVER_CACHE" : false,
+        // UNIVERSAL_CONSTANTS_END
 
         "TYPE_INPUT_PASSWORD": false,
         "TYPE_INPUT_REGULAR" : false,

@@ -8,46 +8,12 @@ from quasar_source_code.universal_code import useful_file_operations as ufo
 from jsmin import jsmin
 from quasar_source_code.universal_code import debugging as dbg
 
+from lazyme.string import color_print
 
-class CodeFileManager(object):
-	"""Represents a common group of code files."""
 
-	def __init__(self, code_files):
-		self._code_files = code_files
-
-	def get_code_file_by_name(self, file_name):
-		"""Returns a CodeFile object if found."""
-		for f in self._code_files:
-			if file_name in f.file_path:
-				return f
-		return None
-
-	def get_total_size(self) -> int:
-		"""Returns the total size of all the code files as bytes."""
-		total_size = 0
-		for f in self._code_files:
-			total_size += f.file_size
-		return total_size
-
-	def get_total_lines_of_code(self) -> int:
-		"""Returns the total number of lines of codes."""
-		lines_of_code = 0
-		for f in self._code_files:
-			lines_of_code += f.lines_of_code
-		return lines_of_code
-
-	@property
-	def number_of_files(self) -> int:
-		"""Returns the number of files this manager has."""
-		return len(self._code_files)
-
-	def print_data(self):
-		"""Prints all relevant data."""
-		print('There are ' + str(self.number_of_files) + ' files.')
-		print('With ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.')
-		#print('Printing all the code files!')
-		#for f in self._code_files:
-		#	print(f)
+PYTHON       = 'python'
+JAVASCRIPT   = 'javascript'
+SHELL_SCRIPT = 'shell_script'
 
 
 class CodeFile(object):
@@ -55,6 +21,7 @@ class CodeFile(object):
 
 	def __init__(self, file_path, already_exists=True):
 		self._file_path = file_path
+		self._already_exists = already_exists
 		if already_exists:
 			self._file_name = ufo.get_file_basename(self._file_path)
 			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
@@ -62,6 +29,40 @@ class CodeFile(object):
 		else:
 			self._file_size = None
 			self._lines_of_code = []
+
+		# Gets set by child objects.
+		self._language = None
+
+	def _get_code_lines_for_universal_constant_group(self, start_text, end_text):
+		"""Returns a list of LineOfCode objects representing the universal constant group."""
+		#code_lines = []
+		start_index = -1
+		end_index = -1
+		for i, l in enumerate(self._lines_of_code):
+			if start_text in l.text:
+				start_index = i
+			elif end_text in l.text:
+				end_index = i
+				break
+		return self._lines_of_code[start_index:end_index + 1]
+
+	def sync_for(self, universal_constant_group):
+		"""Syncs this code file with the provided universal constant group."""
+		lines_of_code = self._get_code_lines_for_universal_constant_group(universal_constant_group.start_token, universal_constant_group.end_token)
+
+		# Inspect the specific universal variables.
+		universal_variables = lines_of_code[1:-1]
+
+		if not universal_constant_group.verify(universal_variables):
+			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
+			# TODO : Add automatic fixing
+
+	def has_text(self, text_to_search_for) -> bool:
+		"""Returns a boolean value of true if the text was found in the code file."""
+		for l in self._lines_of_code:
+			if text_to_search_for in l.text:
+				return True
+		return False
 
 	def add_line(self, text):
 		"""Adds a singles line of code to the CodeFile."""
@@ -105,6 +106,13 @@ class CodeFile(object):
 	def __str__(self):
 		return self._file_name + ' - [' + str(self.lines_of_code) + ' \'lines of code\'].'
 
+	# Function for child objects.
+	def _apply_language_and_set_data(self):
+		"""Sends the language of this code file to the LineOfCode objects. (As well as other information)."""
+		if self._already_exists:
+			for l in self._lines_of_code:
+				l.set_langauge_and_other_data(self._language, self)
+
 
 class CodeFileShellScript(CodeFile):
 	"""Represents a single shell script file."""
@@ -112,6 +120,8 @@ class CodeFileShellScript(CodeFile):
 	def __init__(self, file_path, already_exists=True):
 		super().__init__(file_path, already_exists)
 		self._extension = '.sh'
+		self._language = SHELL_SCRIPT
+		self._apply_language_and_set_data()
 
 
 class CodeFilePython(CodeFile):
@@ -120,6 +130,8 @@ class CodeFilePython(CodeFile):
 	def __init__(self, file_path, already_exists=True):
 		super().__init__(file_path, already_exists)
 		self._extension = '.py'
+		self._language = PYTHON
+		self._apply_language_and_set_data()
 
 
 class CodeFileJavaScript(CodeFile):
@@ -128,6 +140,8 @@ class CodeFileJavaScript(CodeFile):
 	def __init__(self, file_path, already_exists=True):
 		super().__init__(file_path, already_exists)
 		self._extension = '.js'
+		self._language = JAVASCRIPT
+		self._apply_language_and_set_data()
 
 	def _get_production_text(self):
 		"""Returns all the text for this code file."""

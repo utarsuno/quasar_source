@@ -17,14 +17,17 @@ Including another URLconf
 from django.conf.urls import url
 from quasar_source_code.quasar_site_django.quasar_web_server import views as v
 
-# TODO : Have this auto synced with the Javascript global values.
+# UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 POST_URL_DELETE_ENTITY         = r'delete_entity'
 POST_URL_SAVE_ENTITY           = r'save_entity'
 POST_URL_GET_USER_ENTITIES     = r'get_user_entities'
 POST_URL_GET_PUBLIC_ENTITIES   = r'get_public_entities'
 POST_URL_CREATE_ACCOUNT        = r'create_account'
 POST_URL_LOGIN                 = r'login'
+POST_URL_ENTITY_MANAGER_STATUS = r'server_side_print_entity_manager_status'
 POST_URL_GET_ALL_DATA          = r'get_all_data'
+POST_URL_GET_ALL_SERVER_CACHE  = r'get_all_server_cache'
+# UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
@@ -37,7 +40,8 @@ urlpatterns = [
     url(POST_URL_SAVE_ENTITY          , v.POST_save_entity),
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
 
-    url(r'get_all_data', v.GET_get_all_data),
+    url(POST_URL_GET_ALL_SERVER_CACHE, v.GET_all_server_cache),
+    url(POST_URL_GET_ALL_DATA, v.GET_get_all_data),
     url(r'data', v.GET_quasar_data),
 
     url(r'dev', v.GET_quasar_dev),

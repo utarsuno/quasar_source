@@ -73,22 +73,6 @@ canvas {
     color: rgba(255, 255, 255, 0.9);
 }
 
-.top_right_position {
-    font-smooth: always;
-    -webkit-font-smoothing: subpixel-antialiased;
-
-    position: absolute;
-    width: 15vw;
-    height: 3vh;
-    z-index: 15;
-    top: 0;
-    left: 70vw;
-    margin: -25vh 0 0 -12.5vw;
-    background: rgba(1, 1, 1, 0.75);
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    color: rgba(255, 255, 255, 0.9);
-}
-
 #background_coloring {
     background: rgba(1, 1, 1, 0.5);
     width: 100vw;
@@ -140,6 +124,9 @@ canvas {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+/*   __       ___          __     __   __
+    |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
+    |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */
 #dark_background {
     color: rgba(104, 223, 119, 0.9);
     background: rgba(20, 20, 20, 0.9);
@@ -153,9 +140,15 @@ canvas {
 
     text-align: center;
 
+    position: absolute;
+    z-index: 15;
+
     color: rgba(255, 255, 255, 0.9);
     width: 20vw;
-    margin: 5% 0 0 5%;
+    left: 75vw;
+    top: 1vh;
+    display: block;
+    padding: 2px 2px 2px 2px;
     background: transparent no-repeat;
     border: 2px solid rgba(255, 255, 255, 0.9);
     cursor: pointer;
@@ -188,7 +181,6 @@ canvas {
     width:100%;
     resize: none;
 }
-
 /*__             ___  __   __     ___      __          __
  / _` |  | |    |__  /  \ |__)     |  \ / |__) | |\ | / _`
  \__> \__/ |    |    \__/ |  \     |   |  |    | | \| \__> */

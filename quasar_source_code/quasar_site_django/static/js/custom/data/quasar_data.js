@@ -2,6 +2,7 @@
 
 // TODO just reference the actual code files later on
 const POST_URL_GET_ALL_DATA = '/get_all_data';
+const POST_URL_GET_ALL_SERVER_CACHE = '/get_all_server_cache';
 function PostHelper(url) {
     this.__init__(url);
 }
@@ -78,4 +79,9 @@ var post_call_get_all_server_cache = new GlobalPostCall(POST_URL_GET_ALL_SERVER_
 var display_all_button = document.getElementById('display_all_button');
 display_all_button.onclick = function() {
     post_call_get_all_data.perform_call();
+};
+
+var display_server_cache_button = document.getElementById('display_server_cache');
+display_server_cache_button.onclick = function() {
+    post_call_get_all_server_cache.perform_call();
 };

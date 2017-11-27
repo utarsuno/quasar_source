@@ -11,6 +11,7 @@ import sys
 # Abstraction to code files.
 from code_api import lines_of_code as loc
 from code_api import code_file as cf
+from code_api import code_file_manager as cfm
 from code_api import universal_constants as uc
 
 
@@ -132,21 +133,21 @@ class QuasarCode(object):
 	"""An abstraction to the entire Quasar code base."""
 
 	def __init__(self):
-		self._javascript_manager = cf.CodeFileManager(_get_all_javascript_files())
-		self._python_manager     = cf.CodeFileManager(_get_all_python_files())
-		self._script_manager     = cf.CodeFileManager(_get_all_shell_scripts())
+		self._javascript_manager = cfm.CodeFileManager(_get_all_javascript_files())
+		self._python_manager     = cfm.CodeFileManager(_get_all_python_files())
+		self._script_manager     = cfm.CodeFileManager(_get_all_shell_scripts())
 
 		# Create universal constants that Quasar requires.
-		post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.')
-		post_urls.add_universal_constant('DELETE_ENTITY'        , '/delete_entity')
-		post_urls.add_universal_constant('SAVE_ENTITY'          , '/save_entity')
-		post_urls.add_universal_constant('GET_USER_ENTITIES'    , '/get_user_entities')
-		post_urls.add_universal_constant('GET_PUBLIC_ENTITIES'  , '/get_public_entities')
-		post_urls.add_universal_constant('CREATE_ACCOUNT'       , '/create_account')
-		post_urls.add_universal_constant('LOGIN'                , '/login')
-		post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', '/server_side_print_entity_manager_status')
-		post_urls.add_universal_constant('GET_ALL_DATA'         , '/get_all_data')
-		post_urls.add_universal_constant('GET_ALL_SERVER_CACHE' , '/get_all_server_cache')
+		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.')
+		self.post_urls.add_universal_constant('DELETE_ENTITY'        , {JAVASCRIPT: '/delete_entity', PYTHON: 'r\'delete_entity\''})
+		self.post_urls.add_universal_constant('SAVE_ENTITY'          , {JAVASCRIPT: '/save_entity', PYTHON: 'r\'save_entity\''})
+		self.post_urls.add_universal_constant('GET_USER_ENTITIES'    , {JAVASCRIPT: '/get_user_entities', PYTHON: 'r\'get_user_entities\''})
+		self.post_urls.add_universal_constant('GET_PUBLIC_ENTITIES'  , {JAVASCRIPT: '/get_public_entities', PYTHON: 'r\'get_public_entities\''})
+		self.post_urls.add_universal_constant('CREATE_ACCOUNT'       , {JAVASCRIPT: '/create_account', PYTHON: 'r\'create_account\''})
+		self.post_urls.add_universal_constant('LOGIN'                , {JAVASCRIPT: '/login', PYTHON: 'r\'login\''})
+		self.post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', {JAVASCRIPT: '/server_side_print_entity_manager_status', PYTHON: 'r\'server_side_print_entity_manager_status\''})
+		self.post_urls.add_universal_constant('GET_ALL_DATA'         , {JAVASCRIPT: '/get_all_data', PYTHON: 'r\'get_all_data\''})
+		self.post_urls.add_universal_constant('GET_ALL_SERVER_CACHE' , {JAVASCRIPT: '/get_all_server_cache', PYTHON: 'r\'get_all_server_cache\''})
 
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""
@@ -155,15 +156,17 @@ class QuasarCode(object):
 		self._python_manager.print_data()
 		self._script_manager.print_data()
 
+		self._javascript_manager.sync_universal_constants([self.post_urls])
+		self._python_manager.sync_universal_constants([self.post_urls])
+
+		print('Universal Constant inspection completed!')
+
 	def build_production(self):
 		"""Builds the production version of Quasar."""
 		color_print('Building Quasar Production!', color='red', bold=True)
 
-		####
-		####
-
-		# TODO : Organize these / create a system.
-		# TODO : GLOBAL_CONSTANTS
+		original_size = self._javascript_manager.get_total_size()
+		print('Original Javascript size : ' + str(original_size) + ' bytes.')
 
 		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
 		production_javascript_build.add_line('\'use_strict\';')
@@ -190,13 +193,14 @@ class QuasarCode(object):
 			i += 1
 
 		production_javascript_build.create_file_and_minify()
-		print('Production is size : ' + str(production_javascript_build.file_size) + 'bytes.')
+		production_size = production_javascript_build.file_size
+		print('Production is size : ' + str(production_size) + ' bytes.')
+
+		color_print('Compressed ' + str(1.0 - production_size / original_size) + ' %', color='blue', bold=True)
 
 
 # Check if this file is being ran as a script.
 if __name__ == '__main__':
-	#color_print('Building Quasar Production', color='red', bold=True)
-
 	quasar_code = QuasarCode()
 
 	arguments = sys.argv[1:]
