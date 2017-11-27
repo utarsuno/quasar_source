@@ -12,6 +12,14 @@ ENTITY_TYPE_OWNER         = 'EntityOwner'
 ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder'
 ENTITY_TYPE_ALL   = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER]
 
+# TODO : track this
+ENTITY_TYPE_TO_ABBREVIATION_DICT = {ENTITY_TYPE_BASE         : 'E',
+                                    ENTITY_TYPE_TASK         : 'ETASK',
+                                    ENTITY_TYPE_TIME         : 'ETIME',
+                                    ENTITY_TYPE_WALL         : 'EW',
+                                    ENTITY_TYPE_OWNER        : 'EO',
+                                    ENTITY_TYPE_TEXT_REMINDER: 'ETR'}
+
 # Identifies a property as an entity property.
 ENTITY_PROPERTY_START_TOKEN = 'ep_'
 
@@ -178,7 +186,7 @@ class Entity(object):
 		for key in raw_data:
 			value = raw_data[key]
 			slim_data[key] = value
-		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}\n'
+		return '[' + str(self._relative_id) + '] - ' + ENTITY_TYPE_TO_ABBREVIATION_DICT[self._class_name] + '{' + str(slim_data) + '}\n'
 
 	def get_pretty_print(self):
 		"""Debugging"""
@@ -189,7 +197,7 @@ class Entity(object):
 			if str(value) != '[]':
 				if key not in ENTITY_DEFAULT_PROPERTY_ALL:
 					slim_data[key] = value
-		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
+		return '[' + str(self._relative_id) + '] - ' + ENTITY_TYPE_TO_ABBREVIATION_DICT[self._class_name] + '{' + str(slim_data) + '}'
 
 	def __str__(self):
 		raw_data = self.get_json_data()
@@ -200,7 +208,7 @@ class Entity(object):
 				if key != ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
 					slim_data[key] = value
 
-		return '[' + str(self._relative_id) + '] - E{' + str(slim_data) + '}'
+		return '[' + str(self._relative_id) + '] - ' + ENTITY_TYPE_TO_ABBREVIATION_DICT[self._class_name] + '{' + str(slim_data) + '}'
 
 	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
 		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
