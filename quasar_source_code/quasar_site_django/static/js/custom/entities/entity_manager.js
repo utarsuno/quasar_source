@@ -4,68 +4,6 @@ function EntityManager() {
     this.__init__();
 }
 
-/*
-
-Owner.prototype = {
-
-    home_world: null,
-
-    username: null,
-    password: null,
-
-    loading_data: null,
-
-    // POST calls.
-    post_load_all_entities        : null,
-    post_load_all_public_entities : null,
-
-    all_public_entities_loaded: function(data) {
-        var e = get_key_value_list_from_json_dictionary(data);
-        for (var i = 0; i < e.length; i++) {
-            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
-        }
-        MANAGER_ENTITY.link_entities();
-
-        this.loading_public_data = false;
-        if (!this.loading_entities_data) {
-            this.loading_data = false;
-        }
-    },
-
-    all_entities_loaded: function(data) {
-        var e = get_key_value_list_from_json_dictionary(data);
-        for (var i = 0; i < e.length; i++) {
-            MANAGER_ENTITY.add_new_entity(e[i][0], e[i][1]);
-        }
-        MANAGER_ENTITY.link_entities();
-
-        // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
-
-        this.loading_entities_data = false;
-        if (!this.loading_public_data) {
-            this.loading_data = false;
-        }
-    },
-
-    __init__: function(username, password, home_world) {
-        this.username   = username;
-        this.password   = password;
-        this.home_world = home_world;
-
-        this.loading_data = true;
-        this.post_load_all_entities = new PostHelper('/get_all_entities');
-        this.post_load_all_entities.perform_post({'username': this.username, 'password': this.password}, this.all_entities_loaded.bind(this));
-
-        this.post_load_all_public_entities = new PostHelper('/get_all_public_entities');
-        this.post_load_all_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
-    }
-
-};
-
-
- */
-
 EntityManager.prototype = {
 
     // The user entities.
