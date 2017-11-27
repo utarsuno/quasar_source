@@ -134,6 +134,11 @@ canvas {
     height: 100%;
 }
 
+.data_display_title {
+    color: rgba(110, 237, 243, 0.9);
+    font-size: 16px;
+}
+
 .see_through_button_for_data {
     font-smooth: always;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -177,7 +182,7 @@ canvas {
     color: rgba(104, 223, 119, 0.9);
     overflow-y: scroll;
     font-size: 12px;
-    line-height:1.4;
+    line-height:1.2;
     width:100%;
     resize: none;
 }
