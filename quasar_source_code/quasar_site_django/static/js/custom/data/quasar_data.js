@@ -61,7 +61,7 @@ GlobalPostCall.prototype = {
             if (string_contains(line_to_add, 'EW{{')) {
                 token = 'EW{{';
             } else if (string_contains(line_to_add, 'EntityOwner{')) {
-                token = 'EO{{';
+                token = 'EntityOwner{';
             }
 
             if (token !== '') {
