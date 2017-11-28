@@ -137,6 +137,9 @@ class QuasarCode(object):
 		self._python_manager     = cfm.CodeFileManager(_get_all_python_files())
 		self._script_manager     = cfm.CodeFileManager(_get_all_shell_scripts())
 
+		# Javascript settings files.
+		self._eslint_code_file   = cf.CodeFile(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')
+
 		# Create universal constants that Quasar requires.
 		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.')
 		self.post_urls.add_universal_constant('DELETE_ENTITY'        , {JAVASCRIPT: '/delete_entity', PYTHON: 'r\'delete_entity\''})
@@ -155,6 +158,8 @@ class QuasarCode(object):
 		self._javascript_manager.print_data()
 		self._python_manager.print_data()
 		self._script_manager.print_data()
+
+		print(self._eslint_code_file)
 
 		self._javascript_manager.sync_universal_constants([self.post_urls])
 		self._python_manager.sync_universal_constants([self.post_urls])

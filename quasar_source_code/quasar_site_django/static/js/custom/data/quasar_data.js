@@ -3,6 +3,9 @@
 // TODO just reference the actual code files later on
 const local_POST_URL_GET_DATABASE_DATA = '/get_database_data';
 const local_POST_URL_GET_ALL_SERVER_CACHE = '/get_all_server_cache';
+function string_contains(base_string, sub_string) {
+    return base_string.indexOf(sub_string) !== NOT_FOUND;
+}
 
 // The symbol to denote an entity property.
 const ENTITY_PROPERTY_START_TOKEN = 'ep_';
@@ -84,16 +87,25 @@ GlobalPostCall.prototype = {
 
             var line_to_add = lines[i];
 
-            if (lines[i].includes('EW{{')) {
+            var token = '';
+            if (string_contains(line_to_add, 'EW{{')) {
+                token = 'EW{{';
+            } else if (string_contains(line_to_add, 'EntityOwner{')) {
+                token = 'EO{{';
+            }
 
-                var temp = lines[i].replace('EW{{', '{').replace('}}', '}');
-                temp = temp.substring(temp.indexOf('- {') + 2);
-                while (temp.includes('\'')) {
-                    temp = temp.replace('\'', '"');
+            if (token !== '') {
+                if (token === 'EW{{') {
+                    var temp = lines[i].replace(token, '{').replace('}}', '}');
+                    temp = temp.substring(temp.indexOf('- {') + 2);
+                    while (temp.includes('\'')) {
+                        temp = temp.replace('\'', '"');
+                    }
+                    temp = JSON.parse(temp);
+                    line_to_add = '<span class="data_display_title">' + temp[ENTITY_PROPERTY_NAME] + '</span>';
+                } else if (token == 'EntityOwner{') {
+                    line_to_add = '<span class="data_display_entity_owner">' + line_to_add + '</span>';
                 }
-                temp = JSON.parse(temp);
-
-                line_to_add = '<span class="data_display_title">' + temp[ENTITY_PROPERTY_NAME] + '</span>';
             }
 
             text_area_element.innerHTML = text_area_element.innerHTML + line_to_add + '\n';

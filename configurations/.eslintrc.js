@@ -275,6 +275,7 @@ module.exports = {
         "raise_exception"                    : false,
         "throw_exception"                    : false,
         "is_string"                          : false,
+        "string_contains"                    : false,
         "is_defined"                         : false,
         "round_to_n_decimal_places"          : false,
 

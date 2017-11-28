@@ -134,6 +134,13 @@ canvas {
     height: 100%;
 }
 
+.data_display_entity_owner {
+    webkit-font-smoothing: subpixel-antialiased;
+    color: rgba(243, 243, 129, 0.9);
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .data_display_title {
     webkit-font-smoothing: subpixel-antialiased;
     color: rgba(110, 237, 243, 0.9);

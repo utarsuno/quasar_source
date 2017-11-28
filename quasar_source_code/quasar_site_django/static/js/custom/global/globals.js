@@ -241,6 +241,10 @@ function is_string(value) {
     return typeof value === 'string';
 }
 
+function string_contains(base_string, sub_string) {
+    return base_string.indexOf(sub_string) !== NOT_FOUND;
+}
+
 function round_to_n_decimal_places(text, n) {
     return Number(text).toFixed(n);
 }
