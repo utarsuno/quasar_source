@@ -1,35 +1,5 @@
 'use strict';
 
-// TODO just reference the actual code files later on
-const local_POST_URL_GET_DATABASE_DATA = '/get_database_data';
-const local_POST_URL_GET_ALL_SERVER_CACHE = '/get_all_server_cache';
-function string_contains(base_string, sub_string) {
-    return base_string.indexOf(sub_string) !== NOT_FOUND;
-}
-
-// The symbol to denote an entity property.
-const ENTITY_PROPERTY_START_TOKEN = 'ep_';
-
-// Entity default properties.
-const ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type';
-const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
-const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
-const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
-
-// Other entity properties (not default).
-const ENTITY_PROPERTY_PUBLIC          = ENTITY_PROPERTY_START_TOKEN + 'public';
-const ENTITY_PROPERTY_OWNER           = ENTITY_PROPERTY_START_TOKEN + 'owner';
-const ENTITY_PROPERTY_PASSWORD        = ENTITY_PROPERTY_START_TOKEN + 'password';
-const ENTITY_PROPERTY_USERNAME        = ENTITY_PROPERTY_START_TOKEN + 'username';
-const ENTITY_PROPERTY_EMAIL           = ENTITY_PROPERTY_START_TOKEN + 'email';
-const ENTITY_PROPERTY_NAME            = ENTITY_PROPERTY_START_TOKEN + 'name';
-const ENTITY_PROPERTY_POSITION        = ENTITY_PROPERTY_START_TOKEN + 'position';
-const ENTITY_PROPERTY_LOOK_AT         = ENTITY_PROPERTY_START_TOKEN + 'look_at';
-const ENTITY_PROPERTY_COMPLETED       = ENTITY_PROPERTY_START_TOKEN + 'completed';
-const ENTITY_PROPERTY_PHONE_NUMBER    = ENTITY_PROPERTY_START_TOKEN + 'phone_number';
-const ENTITY_PROPERTY_PHONE_CARRIER   = ENTITY_PROPERTY_START_TOKEN + 'phone_carrier';
-const ENTITY_PROPERTY_CREATED_AT_DATE = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
-
 
 function PostHelper(url) {
     this.__init__(url);
@@ -124,8 +94,8 @@ GlobalPostCall.prototype = {
 
 var text_area_element = document.getElementById('custom_text_area');
 
-var post_call_get_all_data = new GlobalPostCall(local_POST_URL_GET_DATABASE_DATA, text_area_element);
-var post_call_get_all_server_cache = new GlobalPostCall(local_POST_URL_GET_ALL_SERVER_CACHE, text_area_element);
+var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_DATABASE_DATA, text_area_element);
+var post_call_get_all_server_cache = new GlobalPostCall(POST_URL_GET_ALL_SERVER_CACHE, text_area_element);
 
 var display_database_button = document.getElementById('display_database_button');
 display_database_button.onclick = function() {
