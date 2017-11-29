@@ -33,6 +33,18 @@ class CodeFile(object):
 		# Gets set by child objects.
 		self._language = None
 
+	def get_all_string_literals(self):
+		"""Returns all the string literals in this code file as a frequency dictionary."""
+		all_literals = {}
+		for l in self._lines_of_code:
+			literals = l.get_all_string_literals()
+			for lit in literals:
+				if lit not in all_literals:
+					all_literals[lit] = 1
+				else:
+					all_literals[lit] += 1
+		return all_literals
+
 	def _get_code_lines_for_universal_constant_group(self, start_text, end_text):
 		"""Returns a list of LineOfCode objects representing the universal constant group."""
 		#code_lines = []

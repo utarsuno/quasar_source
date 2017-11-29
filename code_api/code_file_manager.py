@@ -84,3 +84,15 @@ class CodeFileManager(object):
 
 				if cf.has_text(search_string):
 					cf.sync_for(g)
+
+	def get_all_string_literals(self):
+		"""Returns a list of all the string literals found across all files in the manager."""
+		all_string_literals = {}
+		for cf in self._code_files:
+			literals = cf.get_all_string_literals()
+			for lit in literals:
+				if lit not in all_string_literals:
+					all_string_literals[lit] = literals[lit]
+				else:
+					all_string_literals[lit] += literals[lit]
+		return all_string_literals

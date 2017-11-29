@@ -164,6 +164,9 @@ class QuasarCode(object):
 		self._javascript_manager.sync_universal_constants([self.post_urls])
 		self._python_manager.sync_universal_constants([self.post_urls])
 
+		print(self._javascript_manager.get_all_string_literals())
+		print(self._python_manager.get_all_string_literals())
+
 		print('Universal Constant inspection completed!')
 
 	def build_production(self):
