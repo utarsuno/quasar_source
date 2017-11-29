@@ -178,7 +178,7 @@ class EntityDatabaseAPI(object):
 		for o in self._owners_cache:
 			entity_owner = o.entity_manager.get_entity_owner()
 			if entity_owner is not None:
-				server_id = int(entity_owner.get_value(be.ENTITY_PROPERTY_ENTITY_OWNER_SERVER_ID))
+				server_id = int(entity_owner.get_value(eo.OWNER_KEY_SERVER_ID))
 				if server_id > largest_entity_owner_id:
 					largest_entity_owner_id = server_id
 		return largest_entity_owner_id

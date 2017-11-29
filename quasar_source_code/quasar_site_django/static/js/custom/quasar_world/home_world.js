@@ -67,6 +67,11 @@ HomeWorld.prototype = {
             var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]));
             //var wall_look_at = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
 
+            // FOR_DEV_START
+            l('Creating entity wall at the position');
+            l(wall_position);
+            // FOR_DEV_END
+
             var title = wall_entities[w].get_value(ENTITY_PROPERTY_NAME);
 
             this.create_entity_wall(wall_position, title, wall_entities[w]);
