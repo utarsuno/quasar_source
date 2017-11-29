@@ -139,10 +139,21 @@ class EntityManager(object):
 				entity_to_remove = e
 		if entity_to_remove is not None:
 			print('Before the remove there were ' + str(len(self.entities)) + ' entities!')
+			a = self.get_all_entities_as_dictionary()
 			print(self.entities)
 			self.entities.remove(entity_to_remove)
+			b = self.get_all_entities_as_dictionary()
 			print(self.entities)
 			print('There are now ' + str(len(self.entities)) + ' entities!')
+
+			unmatched_item = set(a.items()) ^ set(b.items())
+			len(unmatched_item)  # should be 0
+			print(unmatched_item)
+			print(unmatched_item)
+			print(unmatched_item)
+			print(unmatched_item)
+			print(unmatched_item)
+
 		else:
 			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
 			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
