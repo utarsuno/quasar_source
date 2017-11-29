@@ -146,13 +146,8 @@ class EntityManager(object):
 			print(self.entities)
 			print('There are now ' + str(len(self.entities)) + ' entities!')
 
-			unmatched_item = set(a.items()) ^ set(b.items())
-			len(unmatched_item)  # should be 0
-			print(unmatched_item)
-			print(unmatched_item)
-			print(unmatched_item)
-			print(unmatched_item)
-			print(unmatched_item)
+			print(len(a))
+			print(len(b))
 
 		else:
 			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
