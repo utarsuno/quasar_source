@@ -91,9 +91,9 @@ class EntityOwner(object):
 
 		self._entity_database_api.update_owner_for_database(save_data)
 
-		print('Here is the save data!!')
-		print(save_data)
-		print()
+		#print('Here is the save data!!')
+		#print(save_data)
+		#print()
 
 		if deleted_entity_id is not None:
 			y = 2

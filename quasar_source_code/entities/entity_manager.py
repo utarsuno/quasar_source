@@ -134,7 +134,9 @@ class EntityManager(object):
 			if int(e.relative_id) == int(entity_id):
 				entity_to_remove = e
 		if entity_to_remove is not None:
+			print('Before the remove there were ' + str(len(self.entities)) + ' entities!')
 			self.entities.remove(entity_to_remove)
+			print('There are now ' + str(len(self.entities)) + ' entities!')
 		else:
 			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
 			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
