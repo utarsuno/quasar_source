@@ -40,7 +40,7 @@ class EntityOwner(object):
 				self._entities[int(key)] = owner_data[key]
 			else:
 				print('PARSING THE KEY ')
-				print(key)
+				print(str(key) + '\t' + str(owner_data[key]))
 				self._data[key] = owner_data[key]
 
 		self._entity_manager = EntityManager()
