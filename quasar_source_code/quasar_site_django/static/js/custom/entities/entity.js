@@ -61,12 +61,6 @@ Entity.prototype = {
 
         // Handling the default property of (entity) type.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
-
-            // FOR_DEV_START
-            l('Setting Entity type to ');
-            l(properties[ENTITY_DEFAULT_PROPERTY_TYPE]);
-            // FOR_DEV_END
-
             this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
         } else {
             this.ep_type = ENTITY_TYPE_BASE;
@@ -96,17 +90,34 @@ Entity.prototype = {
     },
 
     set_property: function(property_name, property_value) {
-        this[property_name] = property_value;
-        this.needs_to_be_saved = true;
+        var property_was_set = false;
+        if (this.hasOwnProperty(property_name)) {
+            if (this[property_name] !== property_value) {
+                this[property_name] = property_value;
+                property_was_set = true;
+            }
+        } else {
+            this[property_name] = property_value;
+            property_was_set = true;
+        }
+        if (property_was_set) {
+            this.needs_to_be_saved = true;
+        }
     },
 
     update_values: function(new_keys_and_values) {
+        var update_occurred = false;
         for (var key in new_keys_and_values) {
             if (new_keys_and_values.hasOwnProperty(key)) {
-                this[key] = new_keys_and_values[key];
+                if (new_keys_and_values[key] !== this[key]) {
+                    this[key] = new_keys_and_values[key];
+                    update_occurred = true;
+                }
             }
         }
-        this.needs_to_be_saved = true;
+        if (update_occurred) {
+            this.needs_to_be_saved = true;
+        }
     },
 
     has_property: function(property_name) {
