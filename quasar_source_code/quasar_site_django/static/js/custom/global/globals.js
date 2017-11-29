@@ -212,15 +212,7 @@ function get_nearest_power_of_two_for_number(n) {
 }
 
 function is_entity_property(property) {
-    switch (property) {
-    case ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
-    case ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
-    case ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-    case ENTITY_DEFAULT_PROPERTY_TYPE:
-        return true;
-    default:
-        return property.startsWith(ENTITY_PROPERTY_START_TOKEN);
-    }
+    return property.startsWith(ENTITY_PROPERTY_START_TOKEN);
 }
 
 function CustomException(message) {

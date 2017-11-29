@@ -31,7 +31,7 @@ POST_URL_GET_ALL_SERVER_CACHE  = r'get_all_server_cache'
 
 urlpatterns = [
     url(r'log_formulas', v.GET_log_formulas),
-    url(r'web_socket', v.GET_web_socket),
+    url(r'web_socket'  , v.GET_web_socket),
 
     url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),
     url(POST_URL_LOGIN                , v.POST_login),
@@ -42,9 +42,9 @@ urlpatterns = [
 
     url(r'get_all_server_cache', v.GET_all_server_cache),
     url(r'get_database_data'   , v.GET_get_database_data),
-    url(r'data', v.GET_quasar_data),
+    url(r'data'                , v.GET_quasar_data),
 
     url(r'dev', v.GET_quasar_dev),
-    url(r'qa', v.GET_quasar_qa),
-    url(r'', v.GET_quasar_prod),
+    url(r'qa' , v.GET_quasar_qa),
+    url(r''   , v.GET_quasar_prod),
 ]

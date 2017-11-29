@@ -151,18 +151,20 @@ EntityManager.prototype = {
         }
     },
 
+    set_all_entities_to_not_needing_to_be_saved: function() {
+        for (var e = 0; e < this.entities.length; e++) {
+            this.entities[e].needs_to_be_saved = false;
+        }
+    },
+
     all_data_loaded: function() {
-        MANAGER_ENTITY.link_entities();
+        this.link_entities();
+        this.set_all_entities_to_not_needing_to_be_saved();
         this.loading = false;
     },
 
     set_owner_entity: function() {
-        // TODO : This function!!!
-
-
-
-        // Once all entities are loaded inform the Player object so that it can login to websockets (player ID is required for login).
-        //CURRENT_PLAYER.set_player_id(MANAGER_ENTITY.get_owner_entity().get_value('owner_id'));
+        ENTITY_OWNER.set_owner_entity(this.get_owner_entity());
     },
 
     load_data: function() {

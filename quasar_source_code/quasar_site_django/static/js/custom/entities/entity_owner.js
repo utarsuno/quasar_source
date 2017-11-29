@@ -11,8 +11,13 @@ EntityOwner.prototype = {
     ep_setting_master_volume : null,
 
     __init__: function(username, password) {
-        this.username = username;
-        this.password = password;
+        this.username     = username;
+        this.password     = password;
+        this.owner_entity = null;
+    },
+
+    set_owner_entity: function(owner_entity) {
+        this.owner_entity = owner_entity;
     },
 
     get_username: function() {
@@ -21,5 +26,22 @@ EntityOwner.prototype = {
 
     get_password: function() {
         return this.password;
+    },
+
+    // Shortcuts for various owner entity properties.
+    get_email: function() {
+        return this.owner_entity.get_value(ENTITY_PROPERTY_EMAIL);
+    },
+
+    get_phone_number: function() {
+        return this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_NUMBER);
+    },
+
+    get_phone_carrier: function() {
+        return this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_CARRIER);
+    },
+
+    get_created_at_date: function() {
+        return this.owner_entity.get_value(ENTITY_PROPERTY_CREATED_AT_DATE);
     }
 };
