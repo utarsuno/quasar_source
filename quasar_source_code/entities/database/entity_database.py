@@ -44,7 +44,7 @@ class EntityOwner(object):
 				self._entities[int(key)] = owner_data[key]
 			else:
 				self._data[key] = owner_data[key]
-		self._data = owner_data
+		
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
