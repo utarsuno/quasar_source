@@ -36,6 +36,10 @@ class EntityOwner(object):
 		# self._entities is only used for the initial data population.
 		self._entities = {}
 		for key in owner_data:
+
+			print('PARSING THE KEY ')
+			print(key)
+
 			if str(key).isdigit():
 				self._entities[int(key)] = owner_data[key]
 			else:
