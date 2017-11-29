@@ -217,6 +217,11 @@ class Entity(object):
 	# Private utility functions.
 	def _add_child(self, entity):
 		"""Adds a single child entity to this entity."""
+
+		if type(entity) == int:
+			print(entity)
+			raise Exception('YO ENTITY WAS AN INT')
+
 		if entity not in self._child_entities:
 			self._child_entities.append(entity)
 			# Make sure the child entity has a parent pointer to self.
@@ -225,6 +230,11 @@ class Entity(object):
 
 	def _add_parent(self, entity):
 		"""Adds a single parent entity to this entity."""
+
+		if type(entity) == int:
+			print(entity)
+			raise Exception('YO ENTITY WAS AN INT')
+
 		if entity not in self._parent_entities:
 			self._parent_entities.append(entity)
 			# Make sure this parent has this entity as a child.
@@ -233,6 +243,11 @@ class Entity(object):
 
 	def _remove_child(self, entity):
 		"""Removes a single child entity from this entity."""
+
+		if type(entity) == int:
+			print(entity)
+			raise Exception('YO ENTITY WAS AN INT')
+
 		if self in entity.parents:
 			entity.remove_parent(self)
 		if entity in self.children:
@@ -240,6 +255,11 @@ class Entity(object):
 
 	def _remove_parent(self, entity):
 		"""Removes a single parent entity from this entity."""
+
+		if type(entity) == int:
+			print(entity)
+			raise Exception('YO ENTITY WAS AN INT')
+
 		if self in entity.children:
 			entity.remove_child(self)
 		if entity in self.parents:
