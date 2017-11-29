@@ -168,9 +168,14 @@ class QuasarCode(object):
 		pythonliterals = self._python_manager.get_all_string_literals()
 
 		for js in jsliterals:
-			print(js)
+			if js[1] != 1:
+				print(js)
+
+		print('\n\n@@@@@@@@@@@@@\n\n')
+
 		for py in pythonliterals:
-			print(py)
+			if py[1] != 1:
+				print(py)
 
 		print('Universal Constant inspection completed!')
 

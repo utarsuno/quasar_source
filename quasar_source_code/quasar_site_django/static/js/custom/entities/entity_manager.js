@@ -63,8 +63,8 @@ EntityManager.prototype = {
 
             // TODO : Make sure the server does the same deletion steps that the client does.
             var data = {};
-            data[ENTITY_PROPERTY_USERNAME] = CURRENT_PLAYER.get_username();
-            data[ENTITY_PROPERTY_PASSWORD] = CURRENT_PLAYER.get_password();
+            data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
+            data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
             data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = entity_to_delete.get_relative_id();
             this.post_delete_entity.perform_post(data, this.entity_deleted_response.bind(this));
         }
