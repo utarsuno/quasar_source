@@ -8,6 +8,7 @@ from quasar_source_code.universal_code import useful_file_operations as ufo
 from jsmin import jsmin
 from quasar_source_code.universal_code import debugging as dbg
 
+import operator
 
 PYTHON     = 'python'
 JAVASCRIPT = 'javascript'
@@ -95,4 +96,9 @@ class CodeFileManager(object):
 					all_string_literals[lit] = literals[lit]
 				else:
 					all_string_literals[lit] += literals[lit]
-		return all_string_literals
+
+		# Sort from : https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+
+		sorted_x = sorted(all_string_literals.items(), key=operator.itemgetter(1))
+
+		return sorted_x

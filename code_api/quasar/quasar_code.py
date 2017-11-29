@@ -164,8 +164,13 @@ class QuasarCode(object):
 		self._javascript_manager.sync_universal_constants([self.post_urls])
 		self._python_manager.sync_universal_constants([self.post_urls])
 
-		print(self._javascript_manager.get_all_string_literals())
-		print(self._python_manager.get_all_string_literals())
+		jsliterals = self._javascript_manager.get_all_string_literals()
+		pythonliterals = self._python_manager.get_all_string_literals()
+
+		for js in jsliterals:
+			print(js)
+		for py in pythonliterals:
+			print(py)
 
 		print('Universal Constant inspection completed!')
 
