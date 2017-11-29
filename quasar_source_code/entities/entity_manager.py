@@ -135,6 +135,11 @@ class EntityManager(object):
 				entity_to_remove = e
 		if entity_to_remove is not None:
 			self.entities.remove(entity_to_remove)
+		else:
+			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
+			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
+			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
+			print('ERROR DID NOT FIND THE ENTITY TO DELETE ! ' + str(entity_id))
 
 	def get_entity_owner(self):
 		"""Returns the Entity that represents the EntityOwner. Returns None if no entity owner found."""

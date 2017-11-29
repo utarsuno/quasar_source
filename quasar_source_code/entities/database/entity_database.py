@@ -77,8 +77,11 @@ class EntityOwner(object):
 			return False
 		return self._data[eo.OWNER_KEY_USERNAME] == 'public_entities'
 
-	def save_to_database(self):
+	def save_to_database(self, deleted_entity_id=None):
 		"""Utility function to send changes to the database."""
+
+		# TODO : In the future only save the data that has been changed!!
+
 		save_data = {}
 		for key in self._data:
 			save_data[key] = self._data[key]
@@ -88,10 +91,13 @@ class EntityOwner(object):
 
 		self._entity_database_api.update_owner_for_database(save_data)
 
+		if deleted_entity_id is not None:
+			y = 2
+
 	def delete_entity_with_id(self, entity_id):
 		"""Deletes the specified entity."""
 		self._entity_manager.delete_entity(entity_id)
-		self.save_to_database()
+		self.save_to_database(entity_id)
 
 	def save_or_update_entity(self, entity_data):
 		"""Updates the entity."""
