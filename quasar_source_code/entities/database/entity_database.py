@@ -222,7 +222,7 @@ class EntityDatabaseAPI(object):
 		for o in self._owners_cache:
 			if o.get_owner_name() == owner_name:
 				o.delete_entity_with_id(entity_id_to_delete)
-		# SAVE DATABASE CHANGES!!!
+				o.save_to_datbase()
 
 	def get_all_entities_from_owner_as_json(self, owner_name):
 		"""Returns all the owner's entities as json."""
