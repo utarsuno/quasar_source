@@ -48,8 +48,8 @@ function GlobalPostCall(url, text_area_element) {
 
 GlobalPostCall.prototype = {
     default_callback: function(data) {
-        //console.log('The callback got this data back');
-        //console.log(data);
+        console.log('The callback got this data back');
+        console.log(data);
         //console.log(arguments);
 
         var lines = data.split('\n');
@@ -96,6 +96,7 @@ var text_area_element = document.getElementById('custom_text_area');
 
 var post_call_get_all_data = new GlobalPostCall(POST_URL_GET_DATABASE_DATA, text_area_element);
 var post_call_get_all_server_cache = new GlobalPostCall(POST_URL_GET_ALL_SERVER_CACHE, text_area_element);
+// TODO : server logs POST call
 
 var display_database_button = document.getElementById('display_database_button');
 display_database_button.onclick = function() {
@@ -105,4 +106,10 @@ display_database_button.onclick = function() {
 var display_server_cache_button = document.getElementById('display_server_cache');
 display_server_cache_button.onclick = function() {
     post_call_get_all_server_cache.perform_call();
+};
+
+var display_server_logs_button = document.getElementById('display_server_logs');
+display_server_logs_button.onclick = function() {
+    // TODO : server_logs
+    //post_call_get_all_server_logs.perform_call();
 };

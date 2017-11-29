@@ -141,22 +141,25 @@ class EntityManager(object):
 		if entity_to_remove is not None:
 			self.entities.remove(entity_to_remove)
 
-	def ensure_owner_entity_exists(self, owner_data) -> bool:
-		"""Creates the owner entity if it does not yet exist. Returns a boolean, True indicates an owner was created."""
-		# owner_username
-		#print('This is the owner data')
-		#print(str(owner_data))
-
+	def get_entity_owner(self):
+		"""Returns the Entity that represents the EntityOwner. Returns None if no entity owner found."""
 		for e in self.entities:
 			if e.get_value(be.ENTITY_DEFAULT_PROPERTY_TYPE) == be.ENTITY_TYPE_OWNER:
-				return False
+				return e
+		return None
+
+	def ensure_entity_owner_exists(self, owner_data, owner_server_id) -> bool:
+		"""Creates the owner entity if it does not yet exist. Returns a boolean, True indicates an owner was created."""
+		if self.get_entity_owner() is not None:
+			return False
 
 		data = {}
 		data[be.ENTITY_PROPERTY_CREATED_AT_DATE] = str(ta.get_now())
-		data[be.ENTITY_DEFAULT_PROPERTY_TYPE] = be.ENTITY_TYPE_OWNER
-		data[eo.OWNER_KEY_USERNAME] = owner_data[eo.OWNER_KEY_USERNAME]
-		data[eo.OWNER_KEY_PASSWORD] = owner_data[eo.OWNER_KEY_PASSWORD]
-		data[eo.OWNER_KEY_EMAIL] = owner_data[eo.OWNER_KEY_EMAIL]
+		data[be.ENTITY_DEFAULT_PROPERTY_TYPE] 	 = be.ENTITY_TYPE_OWNER
+		data[eo.OWNER_KEY_SERVER_ID] 			 = owner_server_id
+		data[eo.OWNER_KEY_USERNAME] 			 = owner_data[eo.OWNER_KEY_USERNAME]
+		data[eo.OWNER_KEY_PASSWORD] 			 = owner_data[eo.OWNER_KEY_PASSWORD]
+		data[eo.OWNER_KEY_EMAIL] 				 = owner_data[eo.OWNER_KEY_EMAIL]
 		self.save_or_update_entity(data)
 
 		return True

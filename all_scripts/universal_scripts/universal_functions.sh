@@ -3,6 +3,8 @@
 # Utility variables.
 HOST_NAME=$(hostname)
 
+
+
 # TODO : Refactor this file, it's been a long time since it's been updated!!!
 
 # TODO : Switch echo's to printfs

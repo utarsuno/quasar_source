@@ -44,6 +44,11 @@ class EntityOwner(object):
 		self._entity_manager = EntityManager()
 		self._populate_entities()
 
+	@property
+	def entity_manager(self):
+		"""Returns the entity manager object of this EntityOwner."""
+		return self._entity_manager
+
 	def get_pretty_print_entities(self):
 		"""Temporary"""
 		return self._entity_manager.get_pretty_print_all_entities()
@@ -60,10 +65,10 @@ class EntityOwner(object):
 			lines.append(str(e.get_full_info()))
 		return lines
 
-	def ensure_owner_entity_exists(self):
+	def ensure_entity_owner_exists(self):
 		"""Creates the owner entity if it does not yet exist."""
-		if self._entity_manager.ensure_owner_entity_exists(self._data):
-			# An owner was created so save this EntityOwner.
+		if self._entity_manager.ensure_entity_owner_exists(self._data, self._entity_database_api.get_largest_entity_owner_server_id() + 1):
+			# An owner was created.
 			self.save_to_database()
 
 	def is_public_entity_owner(self) -> bool:
@@ -128,8 +133,6 @@ class EntityOwner(object):
 					base_entity.set_relative_id(int(value))
 				else:
 					base_entity.add_information(str(key), str(value))
-				#if key == ENTITY_PROPERTY_CHILDREN:
-				# TODO : check for and set the child and parent values.
 
 			self._entity_manager.add_entities(base_entity)
 
@@ -168,6 +171,17 @@ class EntityDatabaseAPI(object):
 		self._owners_collection = self._api.get_collection('owners')
 		self._owners_cache      = []
 		self._update_owners_cache()
+
+	def get_largest_entity_owner_server_id(self) -> int:
+		"""Returns an integer of the current largest entity owner server id. Returns -1 if there are no owners."""
+		largest_entity_owner_id = -1
+		for o in self._owners_cache:
+			entity_owner = o.entity_manager.get_entity_owner()
+			if entity_owner is not None:
+				server_id = int(entity_owner.get_value(be.ENTITY_PROPERTY_ENTITY_OWNER_SERVER_ID))
+				if server_id > largest_entity_owner_id:
+					largest_entity_owner_id = server_id
+		return largest_entity_owner_id
 
 	def get_all_database_data(self):
 		"""TODO : Document"""
@@ -304,7 +318,7 @@ class EntityDatabaseAPI(object):
 		self._owners_collection.insert(owner_data)
 
 		# When creating the owner object we also need to create the owner entity.
-		new_entity_owner.ensure_owner_entity_exists()
+		new_entity_owner.ensure_entity_owner_exists()
 
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""

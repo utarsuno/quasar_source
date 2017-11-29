@@ -16,6 +16,7 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
+export PYTHONPATH=/home/git_repos/quasar_source/
 python3 /home/git_repos/quasar_source/quasar_source_code/entities/database/entity_database_full_reset_script.py
 
 # Helps to see exactly where the script's output ends.
