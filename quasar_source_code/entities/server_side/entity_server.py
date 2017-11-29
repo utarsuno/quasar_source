@@ -59,8 +59,6 @@ class EntityServer(object):
 
 	def delete_entity(self, owner_name, entity_id_to_delete):
 		"""Deletes an entity."""
-		if not self._db_api.is_owner_id_valid(owner_name):
-			return HttpResponse('Invalid owner name provided!')
 		self._db_api.delete_entity(owner_name, entity_id_to_delete)
 
 	def create_owner(self, owner_data):
