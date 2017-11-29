@@ -87,6 +87,9 @@ class EntityOwner(object):
 			save_data[key] = self._data[key]
 		entities_as_a_dictionary = self._entity_manager.get_all_entities_as_dictionary()
 		for key in entities_as_a_dictionary:
+			print('Adding the following to the entities dictionary')
+			print(key)
+			print(entities_as_a_dictionary[key])
 			save_data[key] = entities_as_a_dictionary[key]
 
 		self._entity_database_api.update_owner_for_database(save_data)
