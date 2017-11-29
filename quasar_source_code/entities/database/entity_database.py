@@ -85,6 +85,11 @@ class EntityOwner(object):
 		save_data = {}
 		for key in self._data:
 			save_data[key] = self._data[key]
+
+			print('Adding the following save data!?')
+			print(str(key) + '\t' + str(self._data[key]))
+			print('@@@@')
+
 		entities_as_a_dictionary = self._entity_manager.get_all_entities_as_dictionary()
 		for key in entities_as_a_dictionary:
 			print('Adding the following to the entities dictionary')
