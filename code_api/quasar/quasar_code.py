@@ -139,6 +139,7 @@ class QuasarCode(object):
 
 		# Javascript settings files.
 		self._eslint_code_file   = cf.CodeFile(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')
+		self._eslint_code_file._is_eslint_file = True
 
 		# Create universal constants that Quasar requires.
 		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.')
@@ -163,7 +164,9 @@ class QuasarCode(object):
 
 		self._javascript_manager.sync_universal_constants([self.post_urls])
 		self._python_manager.sync_universal_constants([self.post_urls])
+		self._eslint_code_file.sync_for(self.post_urls)
 
+		'''
 		jsliterals = self._javascript_manager.get_all_string_literals()
 		pythonliterals = self._python_manager.get_all_string_literals()
 
@@ -178,6 +181,7 @@ class QuasarCode(object):
 				print(py)
 
 		print('Universal Constant inspection completed!')
+		'''
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""

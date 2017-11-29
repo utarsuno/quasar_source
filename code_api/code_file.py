@@ -22,6 +22,7 @@ class CodeFile(object):
 	def __init__(self, file_path, already_exists=True):
 		self._file_path = file_path
 		self._already_exists = already_exists
+		self._is_eslint_file = False
 		if already_exists:
 			self._file_name = ufo.get_file_basename(self._file_path)
 			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
@@ -65,7 +66,7 @@ class CodeFile(object):
 		# Inspect the specific universal variables.
 		universal_variables = lines_of_code[1:-1]
 
-		if not universal_constant_group.verify(universal_variables):
+		if not universal_constant_group.verify(universal_variables, self._is_eslint_file):
 			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
 			# TODO : Add automatic fixing
 

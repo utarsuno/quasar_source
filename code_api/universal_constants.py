@@ -41,32 +41,40 @@ class UniversalConstantGroup(object):
 		self._description          = description
 		self._universal_constants  = []
 
-	def verify(self, lines_of_code):
+	def verify(self, lines_of_code, is_eslint_file=False):
 		"""Returns a boolean indicating if the lines of code match the universal constants group."""
 		if len(lines_of_code) < len(self._universal_constants):
 			return False
 		else:
 			for l in lines_of_code:
-				if not self.verify_line_of_code(l):
+				if not self.verify_line_of_code(l, is_eslint_file):
 					return False
 			return True
 
-	def verify_line_of_code(self, line_of_code) -> bool:
+	def verify_line_of_code(self, line_of_code, is_eslint_file=False) -> bool:
 		"""Returns a boolean indicating if the text passed in is a variable universal constant."""
-		for uc in self._universal_constants:
-			if uc.name in line_of_code.text:
+		if not is_eslint_file:
+			for uc in self._universal_constants:
+				if uc.name in line_of_code.text:
 
-				text_value = line_of_code.text[line_of_code.text.index(' = ') + 3:].strip().replace(';', '')
-				needed_value = uc.get_needed_value(line_of_code)
+					text_value = line_of_code.text[line_of_code.text.index(' = ') + 3:].strip().replace(';', '')
+					needed_value = uc.get_needed_value(line_of_code)
 
-				if '\'' not in needed_value:
-					needed_value = '\'' + needed_value + '\''
+					if '\'' not in needed_value:
+						needed_value = '\'' + needed_value + '\''
 
-				# Key is valid so now check if the value is valid as well.
-				return text_value == needed_value
+					# Key is valid so now check if the value is valid as well.
+					return text_value == needed_value
+		else:
+			# TODO : Eventually add auto column sorting as well.
+			for uc in self._universal_constants:
+
+
+
+			print('TODODODODOD')
 
 		return False
-
+ 
 	@property
 	def start_token(self) -> str:
 		"""Returns the string token that indicates the universal constant group is to be parsed."""
