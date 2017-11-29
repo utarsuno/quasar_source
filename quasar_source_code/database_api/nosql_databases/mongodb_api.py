@@ -72,6 +72,14 @@ class MongoCollection(object):
                 data_to_set[key] = data[key]
         self._collection.update_one({OWNER_KEY_ID: data[OWNER_KEY_ID]}, {'$set': data_to_set}, upsert=False)
 
+    def replace(self, data):
+        """Replaces an entry in the collection."""
+        data_to_set = {}
+        for key in data:
+            if key != OWNER_KEY_ID:
+                data_to_set[key] = data[key]
+        self._collection.replace_one({OWNER_KEY_ID: data[OWNER_KEY_ID]}, data_to_set)
+
     def get_id_by_key_value_match(self, key, value):
         """Gets the _id of an element by finding a key value match."""
         c = self._collection.find()

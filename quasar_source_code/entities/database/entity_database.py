@@ -79,7 +79,7 @@ class EntityOwner(object):
 			return False
 		return self._data[eo.OWNER_KEY_USERNAME] == 'public_entities'
 
-	def save_to_database(self):
+	def save_to_database(self, perform_replace=False):
 		"""Utility function to send changes to the database."""
 
 		# TODO : In the future only save the data that has been changed!!
@@ -88,18 +88,21 @@ class EntityOwner(object):
 		for key in self._data:
 			save_data[key] = self._data[key]
 
-			print('Adding the following save data!?')
-			print(str(key) + '\t' + str(self._data[key]))
-			print('@@@@')
+			#print('Adding the following save data!?')
+			#print(str(key) + '\t' + str(self._data[key]))
+			#print('@@@@')
 
 		entities_as_a_dictionary = self._entity_manager.get_all_entities_as_dictionary()
 		for key in entities_as_a_dictionary:
-			print('Adding the following to the entities dictionary')
-			print(key)
-			print(entities_as_a_dictionary[key])
+			#print('Adding the following to the entities dictionary')
+			#print(key)
+			#print(entities_as_a_dictionary[key])
 			save_data[key] = entities_as_a_dictionary[key]
 
-		self._entity_database_api.update_owner_for_database(save_data)
+		if not perform_replace:
+			self._entity_database_api.update_owner_for_database(save_data)
+		else:
+			self._entity_database_api.replace_owner_for_database(save_data)
 
 		print('Here is the save data!!')
 		print(save_data)
@@ -232,13 +235,17 @@ class EntityDatabaseAPI(object):
 		for o in self._owners_cache:
 			if o.get_owner_name() == owner_name:
 				o.delete_entity_with_id(entity_id_to_delete)
-				o.save_to_database()
+				o.save_to_database(True)
 
 	def get_all_entities_from_owner_as_json(self, owner_name):
 		"""Returns all the owner's entities as json."""
 		for o in self._owners_cache:
 			if o.get_owner_name() == owner_name:
 				return o.get_all_entities_as_dictionary()
+
+	def replace_owner_for_database(self, replace_data):
+		"""Replaces the data for the owner. (Currently needed to enable delete functionality)"""
+		self._owners_collection.replace(replace_data)
 
 	def update_owner_for_database(self, save_data):
 		"""Performs a database update for the owner."""
