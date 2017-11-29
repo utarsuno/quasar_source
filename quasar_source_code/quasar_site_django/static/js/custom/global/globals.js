@@ -228,7 +228,9 @@ function CustomException(message) {
     this.name = 'CustomException';
 }
 
-function throw_exception(message) {
+function raise_exception_with_full_logging(message) {
+    l(message);
+    GUI_TYPING_INTERFACE.add_server_message(message);
     throw new CustomException(message);
 }
 

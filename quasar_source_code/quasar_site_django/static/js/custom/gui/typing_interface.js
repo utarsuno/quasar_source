@@ -171,6 +171,8 @@ TypingInterface.prototype = {
 
                     // If the player is in the home world then update all the EntityWalls first.
                     // TODO : do a check! Since the player might be saving settings changes.
+
+                    // TODO : Investigate odd positioning data bugs
                     this.update_all_home_world_entity_walls();
 
                     MANAGER_ENTITY.update_server_and_database();

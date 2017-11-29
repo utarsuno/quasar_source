@@ -172,7 +172,7 @@ Entity.prototype = {
             l(error_message);
             // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
-            throw_exception(error_message);
+            raise_exception(error_message);
         }
 
         var action_occurred = false;
@@ -201,7 +201,7 @@ Entity.prototype = {
             l(error_message);
             // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
-            throw_exception(error_message);
+            raise_exception(error_message);
         }
 
         var index_of_child_id = this.get_child_ids().indexOf(child_entity.get_relative_id());
@@ -231,7 +231,7 @@ Entity.prototype = {
             l(error_message);
             // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
-            throw_exception(error_message);
+            raise_exception(error_message);
         }
 
         var action_occurred = false;
@@ -260,7 +260,7 @@ Entity.prototype = {
             l(error_message);
             // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message(error_message);
-            throw_exception(error_message);
+            raise_exception(error_message);
         }
 
         var action_occurred = false;

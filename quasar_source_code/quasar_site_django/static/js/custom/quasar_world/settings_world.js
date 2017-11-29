@@ -87,10 +87,6 @@ SettingsWorld.prototype = {
             this.owner_entity.set_property('owner_phone_carrier', this.profile_phone_carrier_input.get_text());
             changes_occured = true;
         }
-
-        if (changes_occured) {
-            MANAGER_ENTITY.update_server_and_database();
-        }
     },
     // FOR_DEV_END
 

@@ -132,9 +132,6 @@ EntityWall.prototype = {
             }
         }
 
-        MANAGER_ENTITY.update_server_and_database();
-        // TODO : only close if the POST call finished successfully
-
         this.current_entity_editor.remove_from_scene();
     },
 

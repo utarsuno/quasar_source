@@ -21,70 +21,6 @@ EntityManager.prototype = {
     public_entities_loaded : null,
     loading                : null,
 
-    all_public_entities_loaded: function(data) {
-        // FOR_DEV_START
-        l('Got the following data for public entities');
-        l(data);
-        // FOR_DEV_END
-        if (is_string(data)) {
-            if (data === '{}') {
-                this.public_entities_loaded = true;
-                if (this.user_entities_loaded) {
-                    this.all_data_loaded();
-                }
-                return;
-            }
-            data = JSON.parse(data);
-        }
-
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
-            }
-        }
-
-        this.public_entities_loaded = true;
-        if (this.user_entities_loaded) {
-            this.all_data_loaded();
-        }
-    },
-
-    all_user_entities_loaded: function(data) {
-        // FOR_DEV_START
-        l('Got the following data for user entities');
-        l(data);
-        // FOR_DEV_END
-        if (is_string(data)) {
-            if (data === '{}') {
-                this.user_entities_loaded = true;
-                if (this.public_entities_loaded) {
-                    this.all_data_loaded();
-                }
-                return;
-            }
-            data = JSON.parse(data);
-        }
-
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                MANAGER_ENTITY.add_user_entity_from_entity_data(data[key]);
-            }
-        }
-
-        this.user_entities_loaded = true;
-
-        this.set_owner_entity();
-
-        if (this.public_entities_loaded) {
-            this.all_data_loaded();
-        }
-    },
-
-    all_data_loaded: function() {
-        MANAGER_ENTITY.link_entities();
-        this.loading = false;
-    },
-
     // TODO : Refactor
     delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
         for (var c = parent_entity.children.length; c--;) {
@@ -155,6 +91,70 @@ EntityManager.prototype = {
     /*        __        __          __      __       ___
         |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
         |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
+
+    all_public_entities_loaded: function(data) {
+        // FOR_DEV_START
+        l('Got the following data for public entities');
+        l(data);
+        // FOR_DEV_END
+        if (is_string(data)) {
+            if (data === '{}') {
+                this.public_entities_loaded = true;
+                if (this.user_entities_loaded) {
+                    this.all_data_loaded();
+                }
+                return;
+            }
+            data = JSON.parse(data);
+        }
+
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
+            }
+        }
+
+        this.public_entities_loaded = true;
+        if (this.user_entities_loaded) {
+            this.all_data_loaded();
+        }
+    },
+
+    all_user_entities_loaded: function(data) {
+        // FOR_DEV_START
+        l('Got the following data for user entities');
+        l(data);
+        // FOR_DEV_END
+        if (is_string(data)) {
+            if (data === '{}') {
+                this.user_entities_loaded = true;
+                if (this.public_entities_loaded) {
+                    this.all_data_loaded();
+                }
+                return;
+            }
+            data = JSON.parse(data);
+        }
+
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                MANAGER_ENTITY.add_user_entity_from_entity_data(data[key]);
+            }
+        }
+
+        this.user_entities_loaded = true;
+
+        this.set_owner_entity();
+
+        if (this.public_entities_loaded) {
+            this.all_data_loaded();
+        }
+    },
+
+    all_data_loaded: function() {
+        MANAGER_ENTITY.link_entities();
+        this.loading = false;
+    },
 
     set_owner_entity: function() {
         // TODO : This function!!!
@@ -268,11 +268,12 @@ EntityManager.prototype = {
         var entity = this.get_entity_by_id(entity_id);
         if (entity !== null) {
             this.delete_entity(entity);
-        } else {
-            // FOR_DEV_START
-            l('No Entity found for the ID{' + entity_id + '}');
-            // FOR_DEV_END
         }
+        // FOR_DEV_START
+        else {
+            l('No Entity found for the ID{' + entity_id + '}');
+        }
+        // FOR_DEV_END
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
@@ -288,23 +289,24 @@ EntityManager.prototype = {
     },
 
     get_owner_entity: function() {
+        // FOR_DEV_START
+        if (!is_defined(this.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0])) {
+            raise_exception_with_full_logging('Owner Entity not found!');
+        }
+        // FOR_DEV_END
         return this.get_all_entities_of_type(ENTITY_TYPE_OWNER)[0];
     },
 
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
-        var match_found_ONLY_FOR_DEBUGGING = false;
         for (var i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_relative_id() === entity_id) {
-                match_found_ONLY_FOR_DEBUGGING = true;
                 return this.entities[i];
             }
         }
-        if (!match_found_ONLY_FOR_DEBUGGING) {
-            l('MATCH NOT FOUND FOR :');
-            l(entity_id);
-            throw_exception('Entity ID match not found!');
-        }
+        // FOR_DEV_START
+        raise_exception_with_full_logging('Entity ID match not found!');
+        // FOR_DEV_END
         return null;
     },
 

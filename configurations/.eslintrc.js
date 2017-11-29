@@ -273,7 +273,7 @@ module.exports = {
         "get_nearest_power_of_two_for_number": false,
         "is_entity_property"                 : false,
         "raise_exception"                    : false,
-        "throw_exception"                    : false,
+        "raise_exception_with_full_logging"  : false,
         "is_string"                          : false,
         "string_contains"                    : false,
         "is_defined"                         : false,
