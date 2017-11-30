@@ -78,7 +78,7 @@ Floating3DText.prototype = {
         } else {
             this.update_just_color(COLOR_TEXT_DEFAULT);
             if (this.also_color_this_floating_text !== null) {
-                this.also_color_this_floating_text.update_just_color(COLOR_TEXT_DEFAULT);
+                this.also_color_this_floating_text.update_just_color(this.default_color);
             }
         }
     },
@@ -89,6 +89,11 @@ Floating3DText.prototype = {
         } else {
             CURRENT_PLAYER.disengage();
         }
+    },
+
+    set_default_color: function(default_color) {
+        this.default_color = default_color;
+        this.update_text_color(this.text, this.default_color);
     },
 
     update_just_color: function(color_arg) {

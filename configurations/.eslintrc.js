@@ -214,9 +214,21 @@ module.exports = {
         // 3rd party hix grid reference.
         "vg": false,
 
-        "COLOR_MOST_DAY_IN_PAST_COLOR"    : false,
-        "COLOR_MOST_DAY_IN_FUTURE_COLOR"  : false,
-        "COLOR_MOST_DAY_IN_PRESENT_COLOR" : false,
+        "COLOR_DAY_PAST_SEVEN"  : false,
+        "COLOR_DAY_PAST_SIX"    : false,
+        "COLOR_DAY_PAST_FIVE"   : false,
+        "COLOR_DAY_PAST_FOUR"   : false,
+        "COLOR_DAY_PAST_THREE"  : false,
+        "COLOR_DAY_PAST_TWO"    : false,
+        "COLOR_DAY_PAST_ONE"    : false,
+        "COLOR_DAY_PRESENT"     : false,
+        "COLOR_DAY_FUTURE_ONE"  : false,
+        "COLOR_DAY_FUTURE_TWO"  : false,
+        "COLOR_DAY_FUTURE_THREE": false,
+        "COLOR_DAY_FUTURE_FOUR" : false,
+        "COLOR_DAY_FUTURE_FIVE" : false,
+        "COLOR_DAY_FUTURE_SIX"  : false,
+        "COLOR_DAY_FUTURE_SEVEN": false,
 
         // Javascript constants.
         "VISIBLE"     : false,
