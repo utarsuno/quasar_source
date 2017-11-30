@@ -340,7 +340,7 @@ EntityWall.prototype = {
 
         var y_offset = -(this.entities.length) * (16 + 2);
 
-        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.name, TYPE_BUTTON, 0, 4, 0, y_offset);
+        var floating_row = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 0, 4, 0, y_offset);
 
         if (entity.get_value(ENTITY_DEFAULT_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
             if (entity.get_value(ENTITY_PROPERTY_COMPLETED) === 'False') {
