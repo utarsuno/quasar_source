@@ -38,7 +38,7 @@ PlaneAPI.prototype = {
         var geo = new THREE.EdgesGeometry(this.mesh.geometry); // or WireframeGeometry
         var mat = new THREE.LineBasicMaterial({color: 0xFFC0CB, linewidth: 3});
         var wireframe = new THREE.LineSegments(geo, mat);
-        this.mesh.add(wireframe);
+        //this.mesh.add(wireframe);
     },
 
     update_position_and_look_at: function(position_vector, look_at_position) {
