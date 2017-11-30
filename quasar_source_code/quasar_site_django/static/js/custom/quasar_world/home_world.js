@@ -35,7 +35,7 @@ HomeWorld.prototype = {
         for (var i = 0; i < 15; i++) {
             this.test_positions.push([cos((i / 15) * PIE), sin((i / 15) * PIE)]);
 
-            var magnitude_value = 1000;
+            var magnitude_value = 1500;
 
             var p = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height, sin((i / 15) * PIE) * magnitude_value);
             var look_at = new THREE.Vector3(0, schedule_view_height, 0);
