@@ -51,7 +51,7 @@ HomeWorld.prototype = {
             floating_3d_text.update_position_and_look_at(p, look_at);
 
             var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene);
-            full_date_of_day.update_position_and_look_at(p2, look_at2);
+            floating_3d_subtitle.update_position_and_look_at(p2, look_at2);
 
 
             this.schedule_floating_day_titles.push(floating_3d_text);
