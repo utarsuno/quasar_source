@@ -33,12 +33,12 @@ HomeWorld.prototype = {
         this.test_positions = [];
         this.schedule_floating_day_titles = [];
         for (var i = 0; i < 15; i++) {
-            this.test_positions.push([cos((i / 15) * PIE), sin((i / 15) * PIE)]);
+            this.test_positions.push([cos((i / 15) * TWO_PIE), sin((i / 15) * TWO_PIE)]);
 
             var magnitude_value = 2250;
 
-            var p = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height, sin((i / 15) * PIE) * magnitude_value);
-            var p2 = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height - 200, sin((i / 15) * PIE) * magnitude_value);
+            var p = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height, sin((i / 15) * TWO_PIE) * magnitude_value);
+            var p2 = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height - 200, sin((i / 15) * TWO_PIE) * magnitude_value);
             var look_at = new THREE.Vector3(0, schedule_view_height, 0);
             var look_at2 = new THREE.Vector3(0, schedule_view_height - 200, 0);
 
