@@ -191,9 +191,9 @@ CreateEntity.prototype = {
           \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     .*/
         this.create_entity_fields = [];
 
-        this.entity_wall_width = 400;
+        this.entity_wall_width = 300;
         // TODO : Height needs to be dynamically determined from the number of rows needed.
-        var entity_wall_height = 512 / 2;
+        var entity_wall_height = 512 / 2 - 100;
         var create_entity_wall_position = new THREE.Vector3(this.position.x + this.normal.x * 28, this.position.y + this.normal.y * 28, this.position.z + this.normal.z * 28);
         this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, create_entity_wall_position, this.normal, this.world);
 

@@ -271,7 +271,7 @@ EntityWall.prototype = {
         /////
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);
-        this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2 - 100, (10) * 16);
+        this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2, (ENTITY_TYPE_ALL.length + 4) * 16);
         //this.create_entity_wall.set_to_invisible()
 
         /*      __   ___         __           __        __   ___     __   __   __         __  ___
