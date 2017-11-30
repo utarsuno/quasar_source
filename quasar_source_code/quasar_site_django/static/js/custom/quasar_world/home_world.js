@@ -38,14 +38,21 @@ HomeWorld.prototype = {
             var magnitude_value = 1500;
 
             var p = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height, sin((i / 15) * PIE) * magnitude_value);
+            var p2 = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height - 200, sin((i / 15) * PIE) * magnitude_value);
             var look_at = new THREE.Vector3(0, schedule_view_height, 0);
+            var look_at2 = new THREE.Vector3(0, schedule_view_height - 200, 0);
 
             //this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
 
             var day_of_week_work = get_day_of_week_as_word(get_just_date_object_of_date_of_n_days_offset(i - 8));
+            var full_date_of_day = get_today_with_n_days_offset(i - 8);
 
             var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_work, TYPE_TITLE, this.scene);
             floating_3d_text.update_position_and_look_at(p, look_at);
+
+            var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene);
+            floating_3d_text.update_position_and_look_at(p2, look_at2);
+
 
             this.schedule_floating_day_titles.push(floating_3d_text);
         }
