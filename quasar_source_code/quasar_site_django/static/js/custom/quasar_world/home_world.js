@@ -42,7 +42,9 @@ HomeWorld.prototype = {
 
             //this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
 
-            var floating_3d_text = new Floating3DText(schedule_view_height, i.toString(), TYPE_TITLE, this.scene);
+            var day_of_week_work = get_day_of_week_as_word(get_today_with_n_days_offset(i - 8));
+
+            var floating_3d_text = new Floating3DText(schedule_view_height, get_day_of_week_as_word(), TYPE_TITLE, this.scene);
             floating_3d_text.update_position_and_look_at(p, look_at);
 
             this.schedule_floating_day_titles.push(floating_3d_text);

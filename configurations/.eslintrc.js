@@ -299,6 +299,8 @@ module.exports = {
         "SERVER_REPLY_GENERIC_SERVER_ERROR"                  : false,
 
         // From time_abstractions.js
-        "get_list_of_dates_consisting_of_this_and_next_week": false
+        "get_list_of_dates_consisting_of_this_and_next_week": false,
+        "get_today_with_n_days_offset"                      : false,
+        "get_day_of_week_as_word"                           : false
     }
 };
