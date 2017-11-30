@@ -32,22 +32,32 @@ HomeWorld.prototype = {
 
         this.test_positions = [];
         this.schedule_floating_day_titles = [];
+
+        var today = get_today_with_n_days_offset(0);
+
         for (var i = 0; i < 15; i++) {
             this.test_positions.push([cos((i / 15) * TWO_PIE), sin((i / 15) * TWO_PIE)]);
 
-            var magnitude_value = 2250;
+            var magnitude_value = 2500;
 
             var p = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height, sin((i / 15) * TWO_PIE) * magnitude_value);
             var p2 = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height - 200, sin((i / 15) * TWO_PIE) * magnitude_value);
+            var p3 = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height - 400, sin((i / 15) * TWO_PIE) * magnitude_value);
             var look_at = new THREE.Vector3(0, schedule_view_height, 0);
             var look_at2 = new THREE.Vector3(0, schedule_view_height - 200, 0);
+            var look_at3 = new THREE.Vector3(0, schedule_view_height - 400, 0);
 
             //this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
 
-            var day_of_week_work = get_day_of_week_as_word(get_just_date_object_of_date_of_n_days_offset(i - 7));
+            var day_of_week_word = get_day_of_week_as_word(get_just_date_object_of_date_of_n_days_offset(i - 7));
             var full_date_of_day = get_today_with_n_days_offset(i - 7);
 
-            var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_work, TYPE_SUPER_TITLE, this.scene);
+            if (get_day_of_week_as_word(today) === get_day_of_week_as_word(full_date_of_day)) {
+                var floating_3d_subtitle_2 = new Floating3DText(schedule_view_height - 400, 'Today', TYPE_TITLE, this.scene);
+                floating_3d_subtitle_2.update_position_and_look_at(p3, look_at3);
+            }
+
+            var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_word, TYPE_SUPER_TITLE, this.scene);
             floating_3d_text.update_position_and_look_at(p, look_at);
 
             var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene);
