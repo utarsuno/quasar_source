@@ -297,6 +297,18 @@ EntityWall.prototype = {
         this.are_you_sure.set_to_invisible();
         //////
 
+
+        /*   __                  __   ___     __    __  ___     __       ___ ___  __
+            /  ` |__|  /\  |\ | / _` |__     /__` |  / |__     |__) |  |  |   |  /  \ |\ |    .
+            \__, |  | /~~\ | \| \__> |___    .__/ | /_ |___    |__) \__/  |   |  \__/ | \|    .*/
+
+        this.change_size_button = new Floating2DText(200, 'Change Size', TYPE_TWO_DIRECTIONAL_SLIDER, this.scene)
+
+
+
+        //////
+
+
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
         this.world.interactive_objects.push(this.make_entity_wall_public_button);

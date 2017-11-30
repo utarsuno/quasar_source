@@ -70,7 +70,6 @@ class Entity(object):
 			elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
 				self._parent_entities = value
 			elif key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-				print('\nWhy is the relative ID being set?\n')
 				self.set_relative_id(value)
 			else:
 				if key[0:3] != 'ep_':

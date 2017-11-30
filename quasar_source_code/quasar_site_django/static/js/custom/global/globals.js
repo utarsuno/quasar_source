@@ -104,16 +104,17 @@ const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
 
 // Floating2DText types.
-const TYPE_INPUT_PASSWORD = 1;  // Input password field.
-const TYPE_INPUT_REGULAR  = 2;  // Regular input field.
-const TYPE_LABEL          = 3;  // Static text.
-const TYPE_BUTTON         = 4;  // Static text that can be clicked.
-const TYPE_STATUS         = 5;  // Dynamic non-interactive text.
-const TYPE_TITLE          = 6;  // Static title text.
-const TYPE_CHECK_BOX      = 7;  // Just the X character when checked.
-const TYPE_SUPER_TITLE    = 8;  // Super large text.
-const TYPE_CONSTANT_TEXT  = 9;  // Purple lookable but not engable or editable text.
-const TYPE_SLIDER         = 10; // Slider interface.
+const TYPE_INPUT_PASSWORD         = 1;  // Input password field.
+const TYPE_INPUT_REGULAR          = 2;  // Regular input field.
+const TYPE_LABEL                  = 3;  // Static text.
+const TYPE_BUTTON                 = 4;  // Static text that can be clicked.
+const TYPE_STATUS                 = 5;  // Dynamic non-interactive text.
+const TYPE_TITLE                  = 6;  // Static title text.
+const TYPE_CHECK_BOX              = 7;  // Just the X character when checked.
+const TYPE_SUPER_TITLE            = 8;  // Super large text.
+const TYPE_CONSTANT_TEXT          = 9;  // Purple lookable but not engable or editable text.
+const TYPE_SLIDER                 = 10; // Slider interface.
+const TYPE_TWO_DIRECTIONAL_SLIDER = 11; // two directional slider.
 
 // Server response messages.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!';
@@ -198,6 +199,16 @@ const DISPLAY_SHOW = 'block';
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+
+// Math shortcuts.
+function cos(n) {
+    return Math.cos(n);
+}
+
+function sin(n) {
+    return Math.sin(n);
+}
+
 // From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
 function get_nearest_power_of_two_for_number(n) {
     var v = n;

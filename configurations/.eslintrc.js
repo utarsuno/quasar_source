@@ -275,6 +275,8 @@ module.exports = {
 
         // Shortcuts.
         "l"                                  : false,
+        "sin"                                : false,
+        "cos"                                : false,
         "get_nearest_power_of_two_for_number": false,
         "is_entity_property"                 : false,
         "raise_exception"                    : false,

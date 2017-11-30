@@ -104,9 +104,9 @@ class EntityOwner(object):
 		else:
 			self._entity_database_api.replace_owner_for_database(save_data)
 
-		print('Here is the save data!!')
-		print(save_data)
-		print()
+		#print('Here is the save data!!')
+		#print(save_data)
+		#print()
 
 	def delete_entity_with_id(self, entity_id):
 		"""Deletes the specified entity."""
