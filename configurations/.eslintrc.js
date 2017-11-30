@@ -300,6 +300,7 @@ module.exports = {
 
         // From time_abstractions.js
         "get_list_of_dates_consisting_of_this_and_next_week": false,
+        "get_just_date_object_of_date_of_n_days_offset"     : false,
         "get_today_with_n_days_offset"                      : false,
         "get_day_of_week_as_word"                           : false
     }

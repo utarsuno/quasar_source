@@ -13,7 +13,7 @@ function get_today_with_n_days_offset(n) {
     return month + '/' + day + '/' + year.toString().replace('117', '2017');
 }
 
-function get_just_date_of_date_of_n_days_offset(n) {
+function get_just_date_object_of_date_of_n_days_offset(n) {
     var date = new Date();
     var result = new Date(date);
     result.setDate(result.getDate() + n);
