@@ -36,3 +36,8 @@ function get_list_of_dates_consisting_of_this_and_next_week() {
     }
     return dates;
 }
+
+function get_day_of_week_as_word_from_date(date_object) {
+    var n = date_object.getDay();
+
+}

@@ -273,7 +273,7 @@ Floating2DText.prototype = {
         var geo = new THREE.EdgesGeometry(this.mesh.geometry); // or WireframeGeometry
         var mat = new THREE.LineBasicMaterial({color: this.original_border_color, linewidth: 3});
         this.wireframe = new THREE.LineSegments(geo, mat);
-        this.mesh.add(this.wireframe);
+        //this.mesh.add(this.wireframe);
 
         this.object3D.add(this.mesh);
         this.scene.add(this.object3D);

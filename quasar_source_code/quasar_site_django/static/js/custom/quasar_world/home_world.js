@@ -27,6 +27,9 @@ HomeWorld.prototype = {
         /*   __   __        ___  __             ___            ___
             /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |    .
             .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\|    .*/
+
+        var schedule_view_height = 1000;
+
         this.test_positions = [];
         this.schedule_floating_day_titles = [];
         for (var i = 0; i < 15; i++) {
@@ -34,12 +37,12 @@ HomeWorld.prototype = {
 
             var magnitude_value = 1000;
 
-            var p = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, 500, sin((i / 15) * PIE) * magnitude_value);
-            var look_at = new THREE.Vector3(0, 500, 0);
+            var p = new THREE.Vector3(cos((i / 15) * PIE) * magnitude_value, schedule_view_height, sin((i / 15) * PIE) * magnitude_value);
+            var look_at = new THREE.Vector3(0, schedule_view_height, 0);
 
             //this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
 
-            var floating_3d_text = new Floating3DText(500, i.toString(), TYPE_TITLE, this.scene);
+            var floating_3d_text = new Floating3DText(schedule_view_height, i.toString(), TYPE_TITLE, this.scene);
             floating_3d_text.update_position_and_look_at(p, look_at);
 
             this.schedule_floating_day_titles.push(floating_3d_text);
