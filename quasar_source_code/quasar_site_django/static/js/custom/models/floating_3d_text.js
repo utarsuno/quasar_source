@@ -54,6 +54,8 @@ Floating3DText.prototype = {
         // Inherit from Visibility.
         Visibility.call(this);
 
+        this.default_color = COLOR_TEXT_DEFAULT;
+
         this.type = type;
         this.create_outline();
         this.create();
