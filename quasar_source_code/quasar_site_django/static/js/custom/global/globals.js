@@ -157,8 +157,6 @@ const COLOR_DAY_FUTURE_SEVEN = '#fffdb5';
 const COLOR_MOST_DAY_IN_FUTURE_COLOR = '#00ffc6';
 const COLOR_MOST_DAY_IN_PRESENT_COLOR = '#feffa8';
 
-// get_color_inbetween_two_colors
-
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0;
 const MOUSE_MIDDLE_CLICK = 1;

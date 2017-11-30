@@ -39,7 +39,7 @@ Floating3DText.prototype = {
     //
     also_color_this_floating_text: null,
 
-    __init__: function(w, text, type, scene) {
+    __init__: function(w, text, type, scene, default_color) {
         this.scene = scene;
 
         this.width              = w;
@@ -57,6 +57,31 @@ Floating3DText.prototype = {
         this.default_color = COLOR_TEXT_DEFAULT;
 
         this.type = type;
+
+
+        if (!is_defined(default_color)) {
+            switch (this.type) {
+            case TYPE_BUTTON:
+            case TYPE_CHECK_BOX:
+                this.engable = false;
+                this.maintain_engage_when_tabbed_to = false;
+                this.default_color = COLOR_TEXT_BUTTON;
+                break;
+            case TYPE_TITLE:
+                this.maintain_engage_when_tabbed_to = false;
+                this.default_color = COLOR_TEXT_BUTTON;
+                break;
+            case TYPE_CONSTANT_TEXT:
+                this.default_color = COLOR_TEXT_CONSTANT;
+                this.engable = false;
+                break;
+            default:
+                this.default_color = COLOR_TEXT_DEFAULT;
+            }
+        } else {
+            this.default_color = default_color;
+        }
+
         this.create_outline();
         this.create();
     },
@@ -67,6 +92,23 @@ Floating3DText.prototype = {
         }
         return this.text;
     },
+
+    /*
+        if (being_looked_at) {
+            this.wireframe.material.color.setHex(COLOR_HIGHLIGHT);
+            this.update_color(COLOR_TEXT_HIGHLIGHT);
+            //this.update_text_color(this.text, COLOR_TEXT_HIGHLIGHT)
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, COLOR_TEXT_HIGHLIGHT);
+            }
+        } else {
+            this.wireframe.material.color.setHex(this.original_border_color);
+            this.update_color(this.default_color);
+            if (this.also_color_this_floating_text !== null) {
+                this.also_color_this_floating_text.update_text_color(this.also_color_this_floating_text.text, this.default_color);
+            }
+        }
+     */
 
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
@@ -99,6 +141,7 @@ Floating3DText.prototype = {
     },
 
     update_just_color: function(color_arg) {
+        this.default_color = color_arg;
         this.material.color.setHex(color_arg);
         this.material.needsUpdate = true;
     },
@@ -233,4 +276,4 @@ Floating3DText.prototype = {
         }
     }
 
-}
+};

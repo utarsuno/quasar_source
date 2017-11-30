@@ -103,17 +103,14 @@ HomeWorld.prototype = {
             var full_date_of_day = get_today_with_n_days_offset(i - 7);
 
             if (get_day_of_week_as_word(today) === get_day_of_week_as_word(full_date_of_day)) {
-                var floating_3d_subtitle_2 = new Floating3DText(schedule_view_height - 400, 'Today', TYPE_TITLE, this.scene);
-                floating_3d_subtitle_2.set_default_color(color);
+                var floating_3d_subtitle_2 = new Floating3DText(schedule_view_height - 400, 'Today', TYPE_TITLE, this.scene, color);
                 floating_3d_subtitle_2.update_position_and_look_at(p3, look_at3);
             }
 
-            var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_word, TYPE_SUPER_TITLE, this.scene);
-            floating_3d_text.set_default_color(color);
+            var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_word, TYPE_SUPER_TITLE, this.scene, color);
             floating_3d_text.update_position_and_look_at(p, look_at);
 
-            var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene);
-            floating_3d_subtitle.set_default_color(color);
+            var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene, color);
             floating_3d_subtitle.update_position_and_look_at(p2, look_at2);
 
 
