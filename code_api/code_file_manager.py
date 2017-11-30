@@ -72,16 +72,14 @@ class CodeFileManager(object):
 		#	print(f)
 
 		for g in list_of_groups:
-			search_string = 'UNIVERSAL_CONSTANTS_START : ' + g.description
+			search_string = g.description
 
-			#print('Search string is')
-			#print(search_string)
+			#print('Search string is {' + search_string + '}')
 
 			# Search each code file.
 			for cf in files_to_sync:
 
-				#print(cf)
-				#print(cf.has_text(search_string))
+				#print('Searching file : ' + str(cf) + '\t\thas match ' + str(cf.has_text(search_string)))
 
 				if cf.has_text(search_string):
 					cf.sync_for(g)

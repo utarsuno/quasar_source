@@ -122,13 +122,13 @@ class EntityManager(object):
 
 	def get_all_entities_as_dictionary(self) -> dict:
 		"""Returns all the entities represented in a single dictionary."""
-		print('get_all_entities_as_dictionary')
+		#print('get_all_entities_as_dictionary')
 		all_entities = {}
-		print()
+		#print()
 		for e in self.entities:
-			print(e)
+			#print(e)
 			all_entities[str(e.relative_id)] = e.get_json_data()
-		print()
+		#print()
 		return all_entities
 
 	def delete_entity(self, entity_id):

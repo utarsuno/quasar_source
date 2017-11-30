@@ -64,7 +64,7 @@ HomeWorld.prototype = {
             position = position.split(',');
 
             // TODO : shouldn't this be parseFloat?
-            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]));
+            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]) - 512, parseInt(position[2]));
             //var wall_look_at = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
 
             // FOR_DEV_START

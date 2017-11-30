@@ -55,34 +55,37 @@ const ENTITY_TYPE_OWNER         = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
 const ENTITY_TYPE_ALL = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER];
 
-// The symbol to denote an entity property.
-const ENTITY_PROPERTY_START_TOKEN = 'ep_';
+// UNIVERSAL_CONSTANTS_START : Entity property keys.
+const ENTITY_PROPERTY_START_TOKEN         = 'ep_';
+const ENTITY_PROPERTY_PUBLIC              = ENTITY_PROPERTY_START_TOKEN + 'public';
+const ENTITY_PROPERTY_OWNER               = ENTITY_PROPERTY_START_TOKEN + 'owner';
+const ENTITY_PROPERTY_PASSWORD            = ENTITY_PROPERTY_START_TOKEN + 'password';
+const ENTITY_PROPERTY_USERNAME            = ENTITY_PROPERTY_START_TOKEN + 'username';
+const ENTITY_PROPERTY_EMAIL               = ENTITY_PROPERTY_START_TOKEN + 'email';
+const ENTITY_PROPERTY_NAME                = ENTITY_PROPERTY_START_TOKEN + 'name';
+const ENTITY_PROPERTY_POSITION            = ENTITY_PROPERTY_START_TOKEN + 'position';
+const ENTITY_PROPERTY_LOOK_AT             = ENTITY_PROPERTY_START_TOKEN + 'look_at';
+const ENTITY_PROPERTY_COMPLETED           = ENTITY_PROPERTY_START_TOKEN + 'completed';
+const ENTITY_PROPERTY_PHONE_NUMBER        = ENTITY_PROPERTY_START_TOKEN + 'phone_number';
+const ENTITY_PROPERTY_PHONE_CARRIER       = ENTITY_PROPERTY_START_TOKEN + 'phone_carrier';
+const ENTITY_PROPERTY_CREATED_AT_DATE     = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
+// UNIVERSAL_CONSTANTS_END
 
-// Entity default properties.
+// UNIVERSAL_CONSTANTS_START : Entity default property keys.
 const ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type';
 const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
 const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
 const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
+// UNIVERSAL_CONSTANTS_END
 
-// Other entity properties (not default).
-const ENTITY_PROPERTY_PUBLIC          = ENTITY_PROPERTY_START_TOKEN + 'public';
-const ENTITY_PROPERTY_OWNER           = ENTITY_PROPERTY_START_TOKEN + 'owner';
-const ENTITY_PROPERTY_PASSWORD        = ENTITY_PROPERTY_START_TOKEN + 'password';
-const ENTITY_PROPERTY_USERNAME        = ENTITY_PROPERTY_START_TOKEN + 'username';
-const ENTITY_PROPERTY_EMAIL           = ENTITY_PROPERTY_START_TOKEN + 'email';
-const ENTITY_PROPERTY_NAME            = ENTITY_PROPERTY_START_TOKEN + 'name';
-const ENTITY_PROPERTY_POSITION        = ENTITY_PROPERTY_START_TOKEN + 'position';
-const ENTITY_PROPERTY_LOOK_AT         = ENTITY_PROPERTY_START_TOKEN + 'look_at';
-const ENTITY_PROPERTY_COMPLETED       = ENTITY_PROPERTY_START_TOKEN + 'completed';
-const ENTITY_PROPERTY_PHONE_NUMBER    = ENTITY_PROPERTY_START_TOKEN + 'phone_number';
-const ENTITY_PROPERTY_PHONE_CARRIER   = ENTITY_PROPERTY_START_TOKEN + 'phone_carrier';
-const ENTITY_PROPERTY_CREATED_AT_DATE = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
+// UNIVERSAL_CONSTANTS_START : Entity POST keys.
+const ENTITY_POST_SAVE_DATA = 'save_data';
+// UNIVERSAL_CONSTANTS_END
 
 const TEMP_PROPERTY_A = 'Text Contents :';
 const TEMP_PROPERTY_B = 'Seconds from now :';
 const TEMP_PROPERTY_C = 'Send to :';
 
-// TODO : sync these global values
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
 const POST_URL_SAVE_ENTITY           = '/save_entity';
@@ -93,6 +96,7 @@ const POST_URL_LOGIN                 = '/login';
 const POST_URL_ENTITY_MANAGER_STATUS = '/server_side_print_entity_manager_status';
 const POST_URL_GET_DATABASE_DATA     = '/get_database_data';
 const POST_URL_GET_ALL_SERVER_CACHE  = '/get_all_server_cache';
+const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 // UNIVERSAL_CONSTANTS_END
 
 // Cookie keys.

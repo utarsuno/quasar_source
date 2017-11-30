@@ -13,7 +13,7 @@ class LineOfCode(object):
 	"""Represents a single line of code."""
 
 	def __init__(self, line_of_code_as_text):
-		self._text = line_of_code_as_text
+		self._text = line_of_code_as_text.replace('\n', '')
 
 		# Gets set by CodeFile objects.
 		self._language = None
@@ -41,6 +41,27 @@ class LineOfCode(object):
 	def text(self):
 		"""Returns the text representation of this line of code."""
 		return self._text
+
+	@property
+	def words(self):
+		"""Returns a list of all the words in this line of code."""
+		words = []
+		currently_in_a_word = False
+		current_word = ''
+		for c in self._text:
+			if c == ' ' or c == '\t' or c == '\n':
+				if currently_in_a_word:
+					if len(current_word) > 0:
+						words.append(current_word)
+					current_word = ''
+				currently_in_a_word = False
+			else:
+				currently_in_a_word = True
+				if currently_in_a_word:
+					current_word += c
+		if currently_in_a_word:
+			words.append(current_word)
+		return words
 
 	def is_comment(self) -> bool:
 		"""Returns a boolean indicating if this line of code is a code comment or apart of one."""

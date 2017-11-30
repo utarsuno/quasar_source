@@ -138,20 +138,55 @@ class QuasarCode(object):
 		self._script_manager     = cfm.CodeFileManager(_get_all_shell_scripts())
 
 		# Javascript settings files.
-		self._eslint_code_file   = cf.CodeFile(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')
+		self._eslint_code_file   = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')
 		self._eslint_code_file._is_eslint_file = True
 
 		# Create universal constants that Quasar requires.
-		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.')
-		self.post_urls.add_universal_constant('DELETE_ENTITY'        , {JAVASCRIPT: '/delete_entity', PYTHON: 'r\'delete_entity\''})
-		self.post_urls.add_universal_constant('SAVE_ENTITY'          , {JAVASCRIPT: '/save_entity', PYTHON: 'r\'save_entity\''})
-		self.post_urls.add_universal_constant('GET_USER_ENTITIES'    , {JAVASCRIPT: '/get_user_entities', PYTHON: 'r\'get_user_entities\''})
-		self.post_urls.add_universal_constant('GET_PUBLIC_ENTITIES'  , {JAVASCRIPT: '/get_public_entities', PYTHON: 'r\'get_public_entities\''})
-		self.post_urls.add_universal_constant('CREATE_ACCOUNT'       , {JAVASCRIPT: '/create_account', PYTHON: 'r\'create_account\''})
-		self.post_urls.add_universal_constant('LOGIN'                , {JAVASCRIPT: '/login', PYTHON: 'r\'login\''})
-		self.post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', {JAVASCRIPT: '/server_side_print_entity_manager_status', PYTHON: 'r\'server_side_print_entity_manager_status\''})
-		self.post_urls.add_universal_constant('GET_DATABASE_DATA'    , {JAVASCRIPT: '/get_database_data', PYTHON: 'r\'get_database_data\''})
-		self.post_urls.add_universal_constant('GET_ALL_SERVER_CACHE' , {JAVASCRIPT: '/get_all_server_cache', PYTHON: 'r\'get_all_server_cache\''})
+		self.quasar_universal_constant_groups = []
+
+		# POST URLs.
+		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.', uc.CONSTANT_TYPE_POST_URLS)
+		self.post_urls.add_universal_constant('DELETE_ENTITY'        , 'delete_entity')
+		self.post_urls.add_universal_constant('SAVE_ENTITY'          , 'save_entity')
+		self.post_urls.add_universal_constant('GET_USER_ENTITIES'    , 'get_user_entities')
+		self.post_urls.add_universal_constant('GET_PUBLIC_ENTITIES'  , 'get_public_entities')
+		self.post_urls.add_universal_constant('CREATE_ACCOUNT'       , 'create_account')
+		self.post_urls.add_universal_constant('LOGIN'                , 'login')
+		self.post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', 'server_side_print_entity_manager_status')
+		self.post_urls.add_universal_constant('GET_DATABASE_DATA'    , 'get_database_data')
+		self.post_urls.add_universal_constant('GET_ALL_SERVER_CACHE' , 'get_all_server_cache')
+		self.post_urls.add_universal_constant('GET_SERVER_LOGS'      , 'get_server_logs')
+		self.quasar_universal_constant_groups.append(self.post_urls)
+
+		# Entity Properties.
+		self.entity_properties = uc.UniversalConstantGroup('ENTITY_PROPERTY_', 'Entity property keys.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
+		self.entity_properties.add_universal_constant('START_TOKEN'    , 'ep_')
+		self.entity_properties.add_universal_constant('PUBLIC'         , 'public')
+		self.entity_properties.add_universal_constant('OWNER'          , 'owner')
+		self.entity_properties.add_universal_constant('PASSWORD'       , 'password')
+		self.entity_properties.add_universal_constant('USERNAME'       , 'username')
+		self.entity_properties.add_universal_constant('EMAIL'          , 'email')
+		self.entity_properties.add_universal_constant('NAME'           , 'name')
+		self.entity_properties.add_universal_constant('POSITION'       , 'position')
+		self.entity_properties.add_universal_constant('LOOK_AT'        , 'look_at')
+		self.entity_properties.add_universal_constant('COMPLETED'      , 'completed')
+		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_number')
+		self.entity_properties.add_universal_constant('PHONE_CARRIER'  , 'phone_carrier')
+		self.entity_properties.add_universal_constant('CREATED_AT_DATE', 'created_at_date')
+		self.quasar_universal_constant_groups.append(self.entity_properties)
+
+		# Entity Default Properties.
+		self.entity_default_properties = uc.UniversalConstantGroup('ENTITY_DEFAULT_PROPERTY_', 'Entity default property keys.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
+		self.entity_default_properties.add_universal_constant('TYPE'       , 'type')
+		self.entity_default_properties.add_universal_constant('CHILD_IDS'  , 'child_ids')
+		self.entity_default_properties.add_universal_constant('PARENT_IDS' , 'parent_ids')
+		self.entity_default_properties.add_universal_constant('RELATIVE_ID', 'relative_id')
+		self.quasar_universal_constant_groups.append(self.entity_default_properties)
+
+		# Entity POST parameters.
+		self.entity_post_parameters = uc.UniversalConstantGroup('ENTITY_POST_', 'Entity POST keys.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
+		self.entity_post_parameters.add_universal_constant('SAVE_DATA', 'save_data')
+		self.quasar_universal_constant_groups.append(self.entity_post_parameters)
 
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""
@@ -160,11 +195,10 @@ class QuasarCode(object):
 		self._python_manager.print_data()
 		self._script_manager.print_data()
 
-		print(self._eslint_code_file)
-
-		self._javascript_manager.sync_universal_constants([self.post_urls])
-		self._python_manager.sync_universal_constants([self.post_urls])
-		self._eslint_code_file.sync_for(self.post_urls)
+		self._javascript_manager.sync_universal_constants(self.quasar_universal_constant_groups)
+		self._python_manager.sync_universal_constants(self.quasar_universal_constant_groups)
+		for g in self.quasar_universal_constant_groups:
+			self._eslint_code_file.sync_for(g)
 
 		'''
 		jsliterals = self._javascript_manager.get_all_string_literals()
@@ -196,12 +230,17 @@ class QuasarCode(object):
 		i = 0
 		while i < len(PRODUCTION_FILE_ORDER):
 
+			#color_print(str(i), color='blue')
+
 			t = self._javascript_manager.get_code_file_by_name(PRODUCTION_FILE_ORDER[str(i)]).get_minified_production_javascript_text()
 			t = t.replace("'use strict';", '')
+
+			#print(t)
 
 			s = t.split('\n')
 
 			for l in s:
+				#print('Adding line ' + str(l))
 				production_javascript_build.add_line(l)
 
 			#print(len(s))

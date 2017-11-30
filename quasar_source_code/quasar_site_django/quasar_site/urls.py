@@ -27,6 +27,7 @@ POST_URL_LOGIN                 = r'login'
 POST_URL_ENTITY_MANAGER_STATUS = r'server_side_print_entity_manager_status'
 POST_URL_GET_DATABASE_DATA     = r'get_database_data'
 POST_URL_GET_ALL_SERVER_CACHE  = r'get_all_server_cache'
+POST_URL_GET_SERVER_LOGS       = r'get_server_logs'
 # UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [

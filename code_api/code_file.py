@@ -48,20 +48,30 @@ class CodeFile(object):
 
 	def _get_code_lines_for_universal_constant_group(self, start_text, end_text):
 		"""Returns a list of LineOfCode objects representing the universal constant group."""
-		#code_lines = []
 		start_index = -1
 		end_index = -1
+
 		for i, l in enumerate(self._lines_of_code):
+
 			if start_text in l.text:
 				start_index = i
 			elif end_text in l.text:
-				end_index = i
-				break
-		return self._lines_of_code[start_index:end_index + 1]
+				if start_index != -1 and end_index == -1:
+					end_index = i
+
+		if start_index != -1 and end_index != -1:
+			return self._lines_of_code[start_index:end_index + 1]
+		else:
+			return None
 
 	def sync_for(self, universal_constant_group):
 		"""Syncs this code file with the provided universal constant group."""
 		lines_of_code = self._get_code_lines_for_universal_constant_group(universal_constant_group.start_token, universal_constant_group.end_token)
+
+		if lines_of_code is None:
+			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color = 'red')
+			return
+
 
 		# Inspect the specific universal variables.
 		universal_variables = lines_of_code[1:-1]
@@ -208,7 +218,7 @@ class CodeFileJavaScript(CodeFile):
 		text = ''
 		production_lines = self._get_production_text()
 		for cl in production_lines:
-			text += cl.text
+			text += cl.text + '\n'
 		return self.get_minified_javascript_text(text)
 
 	def get_minified_javascript_text(self, text=None):

@@ -338,7 +338,7 @@ EntityManager.prototype = {
                 data[ENTITY_PROPERTY_USERNAME] = username;
                 data[ENTITY_PROPERTY_PASSWORD] = password;
                 // TODO : Make save_data into a global constant of some sort.
-                data['save_data'] = JSON.stringify(this.entities[e].get_all_properties());
+                data[ENTITY_POST_SAVE_DATA] = JSON.stringify(this.entities[e].get_all_properties());
                 this.post_save_entity.perform_post(data, this.save_changes_result.bind(this, this.entities[e]));
             }
         }

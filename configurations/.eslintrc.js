@@ -131,6 +131,7 @@ module.exports = {
         "POST_URL_ENTITY_MANAGER_STATUS": false,
         "POST_URL_GET_DATABASE_DATA"    : false,
         "POST_URL_GET_ALL_SERVER_CACHE" : false,
+        "POST_URL_GET_SERVER_LOGS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
         "TYPE_INPUT_PASSWORD": false,
@@ -161,16 +162,15 @@ module.exports = {
         "ENTITY_TYPE_TEXT_REMINDER"  : false,
         "ENTITY_TYPE_ALL"            : false,
 
-        // The symbol to denote an entity property.
-        "ENTITY_PROPERTY_START_TOKEN"        : false,
-
-        // Entity default properties.
+        // UNIVERSAL_CONSTANTS_START : Entity default property keys.
         "ENTITY_DEFAULT_PROPERTY_PARENT_IDS" : false,
         "ENTITY_DEFAULT_PROPERTY_CHILD_IDS"  : false,
         "ENTITY_DEFAULT_PROPERTY_RELATIVE_ID": false,
         "ENTITY_DEFAULT_PROPERTY_TYPE"       : false,
+        // UNIVERSAL_CONSTANTS_END
 
-        // Other entity properties (not default).
+        // UNIVERSAL_CONSTANTS_START : Entity property keys.
+        "ENTITY_PROPERTY_START_TOKEN"        : false,
         "ENTITY_PROPERTY_PUBLIC"             : false,
         "ENTITY_PROPERTY_OWNER"              : false,
         "ENTITY_PROPERTY_PASSWORD"           : false,
@@ -183,6 +183,11 @@ module.exports = {
         "ENTITY_PROPERTY_PHONE_NUMBER"       : false,
         "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
         "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
+        // UNIVERSAL_CONSTANTS_END
+
+        // UNIVERSAL_CONSTANTS_START : Entity POST keys.
+        "ENTITY_POST_SAVE_DATA"              : false,
+        // UNIVERSAL_CONSTANTS_END
 
         "COLOR_HIGHLIGHT"     : false,
         "COLOR_TEXT_HIGHLIGHT": false,
