@@ -138,19 +138,19 @@ const COLOR_BLACK          = '#000000';
 const COLOR_HEX_BLACK      = 0x000000;
 
 
-const COLOR_DAY_PAST_SEVEN   = '#00362a';
-const COLOR_DAY_PAST_SIX     = '#004b3a';
+const COLOR_DAY_PAST_SEVEN   = 0x00362a;
+const COLOR_DAY_PAST_SIX     = 0x004b3a;
 const COLOR_DAY_PAST_FIVE    = '#00614b';
 const COLOR_DAY_PAST_FOUR    = '#008164';
 const COLOR_DAY_PAST_THREE   = '#00b78e';
 const COLOR_DAY_PAST_TWO     = '#00dbaa';
 const COLOR_DAY_PAST_ONE     = '#00e9b2';
-const COLOR_DAY_PRESENT      = '#5db2ff';
+const COLOR_DAY_PRESENT      = 0x5db2ff;
 const COLOR_DAY_FUTURE_ONE   = '#41ff92';
 const COLOR_DAY_FUTURE_TWO   = '#31ff7f';
 const COLOR_DAY_FUTURE_THREE = '#5eff7c';
 const COLOR_DAY_FUTURE_FOUR  = '#7eff91';
-const COLOR_DAY_FUTURE_FIVE  = '#a4ff98';
+const COLOR_DAY_FUTURE_FIVE  = 0xa4ff98;
 const COLOR_DAY_FUTURE_SIX   = '#d4ffb3';
 const COLOR_DAY_FUTURE_SEVEN = '#fffdb5';
 
