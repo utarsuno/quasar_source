@@ -214,6 +214,10 @@ module.exports = {
         // 3rd party hix grid reference.
         "vg": false,
 
+        "COLOR_MOST_DAY_IN_PAST_COLOR"    : false,
+        "COLOR_MOST_DAY_IN_FUTURE_COLOR"  : false,
+        "COLOR_MOST_DAY_IN_PRESENT_COLOR" : false,
+
         // Javascript constants.
         "VISIBLE"     : false,
         "NOT_VISIBLE" : false,

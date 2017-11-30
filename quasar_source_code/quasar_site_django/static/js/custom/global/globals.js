@@ -137,6 +137,13 @@ const COLOR_WHITE          = '#ffffff';
 const COLOR_BLACK          = '#000000';
 const COLOR_HEX_BLACK      = 0x000000;
 
+
+const COLOR_MOST_DAY_IN_PAST_COLOR = '#00362a';
+const COLOR_MOST_DAY_IN_FUTURE_COLOR = '#00ffc6';
+const COLOR_MOST_DAY_IN_PRESENT_COLOR = '#feffa8';
+
+// get_color_inbetween_two_colors
+
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0;
 const MOUSE_MIDDLE_CLICK = 1;
@@ -200,6 +207,16 @@ const DISPLAY_SHOW = 'block';
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+
+// Base from : https://stackoverflow.com/questions/14482226/how-can-i-get-the-color-halfway-between-two-colors
+function get_color_inbetween_two_colors(percentage, rgb_beginning, rgb_end) {
+    var w = percentage * 2 - 1;
+    var w1 = (w + 1) / 2.0;
+    var w2 = 1 - w1;
+    return [parseInt(rgb_beginning[0] * w1 + rgb_end[0] * w2),
+        parseInt(rgb_beginning[1] * w1 + rgb_end[1] * w2),
+        parseInt(rgb_beginning[2] * w1 + rgb_end[2] * w2)];
+}
 
 // Math shortcuts.
 function cos(n) {
