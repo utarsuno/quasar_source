@@ -173,6 +173,7 @@ class QuasarCode(object):
 		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_number')
 		self.entity_properties.add_universal_constant('PHONE_CARRIER'  , 'phone_carrier')
 		self.entity_properties.add_universal_constant('CREATED_AT_DATE', 'created_at_date')
+		self.entity_properties.add_universal_constant('DUE_DATE'       , 'due_date')
 		self.quasar_universal_constant_groups.append(self.entity_properties)
 
 		# Entity Default Properties.
