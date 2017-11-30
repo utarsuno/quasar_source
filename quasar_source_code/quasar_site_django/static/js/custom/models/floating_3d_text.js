@@ -136,8 +136,7 @@ Floating3DText.prototype = {
     },
 
     set_default_color: function(default_color) {
-        this.default_color = default_color;
-        this.update_text_color(this.text, this.default_color);
+        this.update_text_color(this.text, default_color);
     },
 
     update_just_color: function(color_arg) {
