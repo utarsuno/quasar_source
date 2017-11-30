@@ -232,7 +232,7 @@ function World(planet_name) {
     //var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
     //this.add_to_scene(plane_mesh)
 
-    var light3 = new THREE.PointLight(0xccffcc, .8, 0);
+    var light3 = new THREE.PointLight(0xccffcc, .75, 0);
     light3.position.set(5, 100, 5);
     this.add_to_scene(light3);
 
@@ -242,15 +242,15 @@ function World(planet_name) {
     //this.add_to_scene(light2)
 
     /////////////////
-    var lightr = new THREE.PointLight(0xff8579, .9, 0);
+    var lightr = new THREE.PointLight(0xff8579, .75, 0);
     lightr.position.set(1000, 100, 0);
     this.add_to_scene(lightr);
 
-    var lightg = new THREE.PointLight(0xb1ff90, .9, 0);
+    var lightg = new THREE.PointLight(0xb1ff90, .75, 0);
     lightg.position.set(0, 100, 1000);
     this.add_to_scene(lightg);
 
-    var lightb = new THREE.PointLight(0x84b5ff, .9, 0);
+    var lightb = new THREE.PointLight(0x84b5ff, .75, 0);
     lightb.position.set(500, 100, 500);
     this.add_to_scene(lightb);
     /////////////////

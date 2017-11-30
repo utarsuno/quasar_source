@@ -177,13 +177,13 @@ Floating3DText.prototype = {
 
     update_text: function(text) {
         if (this.current_text !== text) {
-            this.update_text_color(text, COLOR_TEXT_DEFAULT);
+            this.update_text_color(text, this.default_color);
         }
     },
 
     create_outline: function() {
-        this.material = new THREE.MeshLambertMaterial({color: COLOR_TEXT_DEFAULT});
-        this.current_color = COLOR_TEXT_DEFAULT;
+        this.material = new THREE.MeshLambertMaterial({color: this.default_color});
+        this.current_color = this.default_color;
         this.material.needsUpdate = true;
 
 

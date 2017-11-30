@@ -221,16 +221,6 @@ const DISPLAY_SHOW = 'block';
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
-// Base from : https://stackoverflow.com/questions/14482226/how-can-i-get-the-color-halfway-between-two-colors
-function get_color_inbetween_two_colors(percentage, rgb_beginning, rgb_end) {
-    var w = percentage * 2 - 1;
-    var w1 = (w + 1) / 2.0;
-    var w2 = 1 - w1;
-    return [parseInt(rgb_beginning[0] * w1 + rgb_end[0] * w2),
-        parseInt(rgb_beginning[1] * w1 + rgb_end[1] * w2),
-        parseInt(rgb_beginning[2] * w1 + rgb_end[2] * w2)];
-}
-
 // Math shortcuts.
 function cos(n) {
     return Math.cos(n);
