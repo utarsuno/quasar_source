@@ -172,7 +172,8 @@ LoginWorld.prototype = {
         this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (2 / 3), '', TYPE_INPUT_PASSWORD, login_wall_width / 3, 2, 1, 0);
         this.interactive_objects.push(this.login_password_input);
 
-
+        this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
+        this.login_remember_username_checkbox = this.login_wall.add_floating_2d_text(16, '', TYPE_CHECK_BOX, login_wall_width / 2 + 10, 2, 2, 0);
 
 
         var wall_create_account_width = 400;
@@ -183,6 +184,8 @@ LoginWorld.prototype = {
         wall_create_account_normal.normalize();
 
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this);
+        this.wall_create_account.add_3d_title('Create Account');
+
 
 
 
