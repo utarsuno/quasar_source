@@ -9,17 +9,6 @@ Floating2DText.prototype = {
     material: null,
     dynamic_texture: null,
 
-    __init__: function(w, text, type, scene, current_color) {
-        this.is_2d_text = true;
-
-        // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene, current_color);
-        // Inherit from Interactive.
-        Interactive.call(this);
-        // Inherit from Visibility.
-        Visibility.call(this);
-    },
-
     get_text_length: function() {
         return this.dynamic_texture.getTextLength(this.text);
     },
@@ -75,6 +64,17 @@ Floating2DText.prototype = {
 
         this.object3D.add(this.mesh);
         this.scene.add(this.object3D);
+    },
+
+    __init__: function(w, text, type, scene, current_color) {
+        this.is_2d_text = true;
+
+        // Inherit from FloatingText.
+        FloatingText.call(this, w, text, type, scene, current_color);
+        // Inherit from Interactive.
+        Interactive.call(this);
+        // Inherit from Visibility.
+        Visibility.call(this);
     }
 
 };

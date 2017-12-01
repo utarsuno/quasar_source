@@ -39,8 +39,6 @@ class EntityOwner(object):
 			if str(key).isdigit():
 				self._entities[int(key)] = owner_data[key]
 			else:
-				print('PARSING THE KEY ')
-				print(str(key) + '\t' + str(owner_data[key]))
 				self._data[key] = owner_data[key]
 
 		self._entity_manager = EntityManager()

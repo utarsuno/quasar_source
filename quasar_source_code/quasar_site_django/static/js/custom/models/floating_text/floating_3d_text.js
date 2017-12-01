@@ -17,17 +17,6 @@ Floating3DText.prototype = {
 
     current_text_object: null,
 
-    __init__: function(w, text, type, scene, current_color) {
-        this.is_2d_text = false;
-
-        // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene, current_color);
-        // Inherit from Interactive.
-        Interactive.call(this);
-        // Inherit from Visibility.
-        Visibility.call(this);
-    },
-
     update_just_color: function(color_arg) {
         this.default_color = color_arg;
         this.material.color.setHex(color_arg);
@@ -81,6 +70,16 @@ Floating3DText.prototype = {
             this.current_text_object.geometry.dispose();
             this.current_text_object.material.dispose();
         }
-    }
+    },
 
+    __init__: function(w, text, type, scene, current_color) {
+        this.is_2d_text = false;
+
+        // Inherit from FloatingText.
+        FloatingText.call(this, w, text, type, scene, current_color);
+        // Inherit from Interactive.
+        Interactive.call(this);
+        // Inherit from Visibility.
+        Visibility.call(this);
+    }
 };
