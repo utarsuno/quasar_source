@@ -31,6 +31,9 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     }
 
+    l('Current color ' + this.current_color);
+    l('Default color ' + this.current_color);
+
     if (this.type == TYPE_INPUT_PASSWORD) {
         this.text = '';
         for (var c = 0; c < text.length; c++) {
