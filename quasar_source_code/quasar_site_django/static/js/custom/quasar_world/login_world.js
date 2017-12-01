@@ -150,8 +150,8 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
 
-        var login_wall_width = 300;
-        var login_wall_height = 200;
+        var login_wall_width = 400;
+        var login_wall_height = 100;
         var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
         var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
@@ -159,7 +159,7 @@ LoginWorld.prototype = {
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
 
-        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 8, 0);
+        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 4, 0);
         this.interactive_objects.push(this.login_button);
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
@@ -174,8 +174,8 @@ LoginWorld.prototype = {
 
 
 
-        var wall_create_account_width = 300;
-        var wall_create_account_height = 200;
+        var wall_create_account_width = 400;
+        var wall_create_account_height = 100;
         var wall_create_account_position = new THREE.Vector3(350, wall_create_account_height, 600);
         var wall_create_account_look_at = new THREE.Vector3(0, wall_create_account_height, 0);
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);

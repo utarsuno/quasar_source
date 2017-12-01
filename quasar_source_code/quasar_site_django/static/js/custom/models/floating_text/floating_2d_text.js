@@ -18,13 +18,21 @@ Floating2DText.prototype = {
         this.dynamic_texture.needsUpdate = true;
     },
 
-    _update_text: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+    _update_text: function(center) {
+        if (is_defined(center)) {
+            if (center) {
+                this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height, this.current_color, 'black');
+            } else {
+                this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+            }
+        } else {
+            this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+        }
         this.dynamic_texture.needsUpdate = true;
     },
 
     _update_color: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height + 10, this.current_color, 'black');
+        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
         this.dynamic_texture.needsUpdate = true;
     },
 
