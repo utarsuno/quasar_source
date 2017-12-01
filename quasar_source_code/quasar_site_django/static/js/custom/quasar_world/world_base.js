@@ -61,7 +61,7 @@ function World(planet_name) {
 
         var match_was_found = false;
 
-        var closest_object    = null;
+        var closest_object = null;
         var closest_data_thing = null;
         var final_point = null;
 
@@ -232,7 +232,7 @@ function World(planet_name) {
     //var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
     //this.add_to_scene(plane_mesh)
 
-    var light3 = new THREE.PointLight(0xccffcc, .75, 0);
+    var light3 = new THREE.PointLight(0xccffcc, .5, 0);
     light3.position.set(5, 100, 5);
     this.add_to_scene(light3);
 
@@ -242,20 +242,20 @@ function World(planet_name) {
     //this.add_to_scene(light2)
 
     /////////////////
-    var lightr = new THREE.PointLight(0xff8579, .75, 0);
+    var lightr = new THREE.PointLight(0xff8579, .5, 0);
     lightr.position.set(1000, 100, 0);
     this.add_to_scene(lightr);
 
-    var lightg = new THREE.PointLight(0xb1ff90, .75, 0);
+    var lightg = new THREE.PointLight(0xb1ff90, .5, 0);
     lightg.position.set(0, 100, 1000);
     this.add_to_scene(lightg);
 
-    var lightb = new THREE.PointLight(0x84b5ff, .75, 0);
+    var lightb = new THREE.PointLight(0x84b5ff, .5, 0);
     lightb.position.set(500, 100, 500);
     this.add_to_scene(lightb);
     /////////////////
 
-    var light = new THREE.AmbientLight(0xffffff, .2); // soft white light
+    var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
     this.add_to_scene(light);
 
     // cursor

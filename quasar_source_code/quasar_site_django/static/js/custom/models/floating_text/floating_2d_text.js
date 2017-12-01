@@ -70,7 +70,9 @@ Floating2DText.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.object3D.add(this.mesh);
-        this.scene.add(this.object3D);
+        if (is_defined(this.scene)) {
+            this.scene.add(this.object3D);
+        }
     },
 
     __init__: function(w, text, type, scene, current_color) {

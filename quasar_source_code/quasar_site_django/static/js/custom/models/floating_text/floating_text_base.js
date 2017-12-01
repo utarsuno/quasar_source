@@ -51,10 +51,10 @@ function FloatingText(width, text, type, scene, current_color) {
     // Gets called from child functions.
     this.final_initialize = function() {
         switch (this.type) {
-            case TYPE_BUTTON:
-            case TYPE_CHECK_BOX:
-                this.maintain_engage_when_tabbed_to = false;
-                break;
+        case TYPE_BUTTON:
+        case TYPE_CHECK_BOX:
+            this.maintain_engage_when_tabbed_to = false;
+            break;
         }
     };
 
@@ -127,7 +127,6 @@ function FloatingText(width, text, type, scene, current_color) {
             }
             MANAGER_AUDIO.play_typing_sound();
         }
-
     };
 
     this.get_position = function() {

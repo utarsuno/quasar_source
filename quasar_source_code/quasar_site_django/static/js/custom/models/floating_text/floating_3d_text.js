@@ -4,8 +4,6 @@ function Floating3DText(w, text, type, scene, current_color) {
     this.__init__(w, text, type, scene, current_color);
 }
 
-//const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').innerHTML))
-
 Floating3DText.prototype = {
 
     size: null,
@@ -59,11 +57,14 @@ Floating3DText.prototype = {
         
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
         this.object3D.add(this.current_text_object);
-        this.scene.add(this.object3D);
 
         this.material.side = THREE.FrontSide;
         this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
+
+        if (is_defined(this.scene)) {
+            this.scene.add(this.object3D);
+        }
     },
 
     __init__: function(w, text, type, scene, current_color) {
