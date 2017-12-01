@@ -28,12 +28,16 @@ Floating2DText.prototype = {
     },
 
     _update_color: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
+        if (this.type == TYPE_BUTTON) {
+            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height, this.current_color, 'black');
+        } else {
+            this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
+        }
         this.dynamic_texture.needsUpdate = true;
     },
 
     initialize: function() {
-        if (this.type == TYPE_TITLE) {
+        if (this.type === TYPE_TITLE) {
             this.height = 32;
         } else {
             this.height = 16;
@@ -50,7 +54,7 @@ Floating2DText.prototype = {
         //l('Font size is : ' + font_size);
 
         this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
-        if (this.type == TYPE_TITLE) {
+        if (this.type === TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
         } else {
             this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
