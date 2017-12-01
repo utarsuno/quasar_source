@@ -150,8 +150,8 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
 
-        var login_wall_width = 400;
-        var login_wall_height = 100;
+        var login_wall_width = 350;
+        var login_wall_height = 90;
         var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
         var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
@@ -163,12 +163,12 @@ LoginWorld.prototype = {
         this.interactive_objects.push(this.login_button);
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
-        this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
-        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 1, 0);
+        this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 0, 0);
+        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 0, 0);
         this.interactive_objects.push(this.login_username_input);
 
-        this.login_password_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'password', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
-        this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_PASSWORD, login_wall_width / 4, 2, 2, 0);
+        this.login_password_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'password', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
+        this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_PASSWORD, login_wall_width / 4, 2, 1, 0);
         this.interactive_objects.push(this.login_password_input);
 
 
