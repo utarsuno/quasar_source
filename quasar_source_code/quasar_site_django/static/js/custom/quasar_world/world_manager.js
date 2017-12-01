@@ -17,14 +17,10 @@ Planet.prototype = {
     __init__: function(world, x, y, z) {
         this.world = world;
 
-        this.planet_title = new Floating3DText(600, world.planet_name, TYPE_SUPER_TITLE);
+        this.planet_title = new Floating3DText(600, world.planet_name, TYPE_SUPER_TITLE, world.scene);
         this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0));
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2);
-
-        // FOR_DEV_START
-        this.planet_color = 0x8effcb;
-        // FOR_DEV_END
 
         this.material = new THREE.MeshBasicMaterial({
             color: 0x8effcb, // '0x8effcb'
@@ -47,7 +43,6 @@ Planet.prototype = {
     },
 
     add_this_planet_to_world: function(world) {
-        world.add_to_scene(this.object3D);
         world.add_interactive_object(this);
         world.add_to_scene(this.planet_title.object3D);
     },
@@ -100,21 +95,20 @@ WorldManager.prototype = {
         this.final_textures = [];
         this.number_of_sky_box_textures_loaded = 0;
         this.load_sky_box();
-
-
-        this.planet_settings = new Planet(this.world_settings, 4000, 4000, 4000);
-        this.planet_home = new Planet(this.world_home, 4000, 4000, -4000);
-        this.planet_login = new Planet(this.world_login, -4000, 4000, 4000);
-
-        this.planet_settings.add_this_planet_to_world(this.world_home);
-
-        this.planet_home.add_this_planet_to_world(this.world_settings);
     },
 
     set_player_and_current_world: function(current_world) {
         this.world_login.set_player();
         this.world_home.set_player();
         this.world_settings.set_player();
+
+        this.planet_settings = new Planet(this.world_settings, 4000, 4000, 4000);
+        this.planet_home = new Planet(this.world_home, 4000, 4000, -4000);
+        this.planet_login = new Planet(this.world_login, -4000, 4000, 4000);
+
+        this.planet_settings.add_this_planet_to_world(this.world_home);
+        this.planet_home.add_this_planet_to_world(this.world_settings);
+
         this.set_current_world(current_world);
     },
 
