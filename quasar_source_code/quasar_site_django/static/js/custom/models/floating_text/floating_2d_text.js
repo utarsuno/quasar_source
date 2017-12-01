@@ -40,7 +40,7 @@ Floating2DText.prototype = {
 
         var texture_width  = get_nearest_power_of_two_for_number(this.width * 2);
         var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
-        var font_size = Math.round(texture_height * .4);
+        var font_size = Math.round(texture_height * .5);
 
         l('Font size is : ' + font_size);
 
