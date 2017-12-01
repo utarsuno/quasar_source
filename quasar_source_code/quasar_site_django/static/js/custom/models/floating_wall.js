@@ -68,6 +68,9 @@ FloatingWall.prototype = {
 
     add_3d_title: function(title_name) {
         this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene, COLOR_DAY_PRESENT);
+        var y_position = this.get_position_for_row(0, -50, 0, 0);
+        var look_at    = this.get_look_at_for_row(0, -50, 0, 0);
+        this.floating_3d_title.update_position_and_look_at(y_position, look_at);
     },
 
     update_position: function(position_vector) {
