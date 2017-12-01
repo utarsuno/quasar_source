@@ -94,11 +94,11 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this._add_character = function(character) {
-        this._update_text(this.text + character);
+        this.update_text(this.text + character);
     };
 
     this._pop_character = function() {
-        this._update_text(this.text.slice(0, -1));
+        this.update_text(this.text.slice(0, -1));
     };
 
     this.parse_keycode = function(event) {
