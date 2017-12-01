@@ -111,7 +111,7 @@ SettingsWorld.prototype = {
         this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this);
 
         var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Profile Information', TYPE_TITLE, 1024 / -4, 2, 0, 0);
-        create_entity_wall_title.set_default_color(COLOR_TEXT_CONSTANT);
+        create_entity_wall_title.set_color(COLOR_TEXT_CONSTANT);
         this.profile_editor.add_object_to_remove_later(create_entity_wall_title);
 
         var label_width = 1024 / 8;

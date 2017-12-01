@@ -59,51 +59,12 @@ FloatingWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height);
 
-        /*
-        var title_offset = this.get_relative_x_shift(-1.0 * (this.width / 4.0))
-
-        this.title = new Floating2DText(this.width / 2, 'Create New Entity', TYPE_INPUT_REGULAR, this.scene)
-        this.title.update_position_and_look_at(this.get_position_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2),
-            this.get_look_at_for_row(title_offset.x, this.get_y_position_for_row(0) + title_offset.y, title_offset.z, 2))
-
-        // Entity name.
-        this.entity_name_label = this.add_floating_2d_text(this.width / 3, 'Entity Name :', TYPE_INPUT_REGULAR, -1.0 * (this.width / 3.0), 1, 1, 0)
-        */
-
-        // Add new attribute button.
-
-        /*
-        // Save changes button.
-        this.create_entity_button = this.add_floating_2d_text(this.width, 'Create Entity', TYPE_BUTTON, 0, 2, 0, 0)
-        this.create_entity_button.set_default_color(COLOR_TEXT_GREEN)
-        this.create_entity_button.push(this.close_button)
-        //this.delete_entity_wall.set_engage_function(this.delete_entity_wall_pressed.bind(this))
-        */
-
-        //this.interactive_objects.push(this.title)
-
-        //this.interactive_objects.push(this.create_entity)
-        //this.interactive_objects.push(this.save_changes)
-        //this.interactive_objects.push(this.delete_entity_wall)
-
-        // Set the tab targets.
-        /*
-        this.title.set_next_tab_target(this.close_button)
-        this.close_button.set_next_tab_target(this.create_entity)
-
-        this.create_entity.set_next_tab_target(this.save_changes)
-        this.save_changes.set_next_tab_target(this.delete_entity_wall)
-        this.delete_entity_wall.set_next_tab_target(this.title)
-        */
-
         this.object3D.add(this.wall.mesh);
 
         this.scene.add(this.object3D);
 
-
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
-
 
         this.all_floating_2d_texts = [];
     },
