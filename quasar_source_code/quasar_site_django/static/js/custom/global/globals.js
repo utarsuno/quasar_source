@@ -36,7 +36,7 @@ const HALF_PIE = Math.PI / 2.0;
 const PIE = Math.PI;
 const TWO_PIE = Math.PI * 2.0;
 
-// Websocket message types.
+// UNIVERSAL_CONSTANTS_START : Web socket message types.
 const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
 const WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|';
 const WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|';
@@ -44,16 +44,17 @@ const WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|';
 const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
 const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
+// UNIVERSAL_CONSTANTS_END
 
-// TODO : Have this be auto-synced with the Python files.
-// Entity types.
+// UNIVERSAL_CONSTANTS_START : Entity types.
 const ENTITY_TYPE_BASE          = 'Entity';
 const ENTITY_TYPE_TASK          = 'EntityTask';
 const ENTITY_TYPE_TIME          = 'EntityTime';
 const ENTITY_TYPE_WALL          = 'EntityWall';
 const ENTITY_TYPE_OWNER         = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
-const ENTITY_TYPE_ALL = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER];
+const ENTITY_TYPE_ALL           = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER];
+// UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity property keys.
 const ENTITY_PROPERTY_START_TOKEN         = 'ep_';
@@ -104,25 +105,27 @@ const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
 
-// Floating2DText types.
-const TYPE_INPUT_PASSWORD         = 1;  // Input password field.
-const TYPE_INPUT_REGULAR          = 2;  // Regular input field.
-const TYPE_LABEL                  = 3;  // Static text.
-const TYPE_BUTTON                 = 4;  // Static text that can be clicked.
-const TYPE_STATUS                 = 5;  // Dynamic non-interactive text.
-const TYPE_TITLE                  = 6;  // Static title text.
-const TYPE_CHECK_BOX              = 7;  // Just the X character when checked.
-const TYPE_SUPER_TITLE            = 8;  // Super large text.
-const TYPE_CONSTANT_TEXT          = 9;  // Purple lookable but not engable or editable text.
-const TYPE_SLIDER                 = 10; // Slider interface.
-const TYPE_TWO_DIRECTIONAL_SLIDER = 11; // two directional slider.
+// UNIVERSAL_CONSTANTS_START : Floating text types.
+const TYPE_INPUT_PASSWORD         = 'input_password';
+const TYPE_INPUT_REGULAR          = 'input_regular';
+const TYPE_LABEL                  = 'label';
+const TYPE_BUTTON                 = 'button';
+const TYPE_STATUS                 = 'status';
+const TYPE_TITLE                  = 'title';
+const TYPE_CHECK_BOX              = 'check_box';
+const TYPE_SUPER_TITLE            = 'super_title';
+const TYPE_CONSTANT_TEXT          = 'constant_text';
+const TYPE_SLIDER                 = 'slider';
+const TYPE_TWO_DIRECTIONAL_SLIDER = 'two_directional_slider';
+// UNIVERSAL_CONSTANTS_END
 
-// Server response messages.
+// UNIVERSAL_CONSTANTS_START : Server reply message.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!';
 const SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = 'Invalid number of POST arguments!';
 const SERVER_REPLY_GENERIC_NO                             = 'n';
 const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
+// UNIVERSAL_CONSTANTS_END
 
 // Pre-defined colors.
 const COLOR_HIGHLIGHT      = 0xD4FF93;
@@ -220,6 +223,20 @@ const DISPLAY_SHOW = 'block';
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+
+// Python syntax imitation.
+function len(o) {
+    if (o.hasOwnProperty('length')) {
+        return o.length;
+    }
+    return -1;
+}
+
+// Python syntax imitation.
+function str(o) {
+    return o.toString();
+}
+
 
 // Math shortcuts.
 function cos(n) {

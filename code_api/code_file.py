@@ -69,14 +69,16 @@ class CodeFile(object):
 		lines_of_code = self._get_code_lines_for_universal_constant_group(universal_constant_group.start_token, universal_constant_group.end_token)
 
 		if lines_of_code is None:
+			print('lines_of_code is None!')
 			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color = 'red')
 			return
-
 
 		# Inspect the specific universal variables.
 		universal_variables = lines_of_code[1:-1]
 
-		if not universal_constant_group.verify(universal_variables, self._is_eslint_file):
+		report = universal_constant_group.verify(universal_variables, self._is_eslint_file)
+
+		if report != 'no_errors':
 			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
 			# TODO : Add automatic fixing
 

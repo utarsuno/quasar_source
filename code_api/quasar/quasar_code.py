@@ -27,6 +27,7 @@ ARGUMENT_BUILD_PRODUCTION = '-bp'
 ARGUMENT_RUN_ANALYSIS     = '-ra'
 
 # Production Javascript combining order.
+# TODO : This needs to get updated!!
 PRODUCTION_FILE_ORDER = {'0' : 'globals.js',
                          '1' : 'time_abstraction.js',
                          '2' : 'web_socket_client.js',
@@ -52,6 +53,7 @@ PRODUCTION_FILE_ORDER = {'0' : 'globals.js',
                          '22': 'visibility.js',
                          '23': 'plane_api.js',
                          '24': 'floating_wall.js',
+                         # TODO : add floating_text_base
                          '25': 'floating_2d_text.js',
                          '26': 'floating_3d_text.js',
                          '27': 'floating_slider.js',
@@ -144,6 +146,20 @@ class QuasarCode(object):
 		# Create universal constants that Quasar requires.
 		self.quasar_universal_constant_groups = []
 
+		# Floating text types.
+		self.floating_text_types = uc.UniversalConstantGroup('TYPE_', 'Floating text types.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
+		self.floating_text_types.add_universal_constant('INPUT_PASSWORD'        , 'input_password')
+		self.floating_text_types.add_universal_constant('INPUT_REGULAR'         , 'input_regular')
+		self.floating_text_types.add_universal_constant('LABEL'                 , 'label')
+		self.floating_text_types.add_universal_constant('BUTTON'                , 'button')
+		self.floating_text_types.add_universal_constant('STATUS'                , 'status')
+		self.floating_text_types.add_universal_constant('TITLE'                 , 'title')
+		self.floating_text_types.add_universal_constant('CHECK_BOX'             , 'check_box')
+		self.floating_text_types.add_universal_constant('SUPER_TITLE'           , 'super_title')
+		self.floating_text_types.add_universal_constant('CONSTANT_TEXT'         , 'constant_text')
+		self.floating_text_types.add_universal_constant('SLIDER'                , 'slider')
+		self.floating_text_types.add_universal_constant('TWO_DIRECTIONAL_SLIDER', 'two_directional_slider')
+
 		# POST URLs.
 		self.post_urls = uc.UniversalConstantGroup('POST_URL_', 'POST URLs for client-server communication.', uc.CONSTANT_TYPE_POST_URLS)
 		self.post_urls.add_universal_constant('DELETE_ENTITY'        , 'delete_entity')
@@ -158,6 +174,17 @@ class QuasarCode(object):
 		self.post_urls.add_universal_constant('GET_SERVER_LOGS'      , 'get_server_logs')
 		self.quasar_universal_constant_groups.append(self.post_urls)
 
+		# Entity types.
+		self.entity_types = uc.UniversalConstantGroup('ENTITY_TYPE_', 'Entity types.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
+		self.entity_types.add_universal_constant('BASE', 'Entity')
+		self.entity_types.add_universal_constant('BASE', 'EntityTask')
+		self.entity_types.add_universal_constant('BASE', 'EntityTime')
+		self.entity_types.add_universal_constant('BASE', 'EntityWall')
+		self.entity_types.add_universal_constant('BASE', 'EntityOwner')
+		self.entity_types.add_universal_constant('BASE', 'EntityTextReminder')
+		# TODO : Implement this function!
+		self.entity_types.add_universal_constant_all()
+
 		# Entity Properties.
 		self.entity_properties = uc.UniversalConstantGroup('ENTITY_PROPERTY_', 'Entity property keys.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
 		self.entity_properties.add_universal_constant('START_TOKEN'    , 'ep_')
@@ -170,7 +197,7 @@ class QuasarCode(object):
 		self.entity_properties.add_universal_constant('POSITION'       , 'position')
 		self.entity_properties.add_universal_constant('LOOK_AT'        , 'look_at')
 		self.entity_properties.add_universal_constant('COMPLETED'      , 'completed')
-		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_number')
+		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_num ber')
 		self.entity_properties.add_universal_constant('PHONE_CARRIER'  , 'phone_carrier')
 		self.entity_properties.add_universal_constant('CREATED_AT_DATE', 'created_at_date')
 		self.entity_properties.add_universal_constant('DUE_DATE'       , 'due_date')

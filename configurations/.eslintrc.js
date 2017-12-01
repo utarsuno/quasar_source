@@ -55,6 +55,7 @@ module.exports = {
         "FloatingWall": true,
         "Floating2DText": true,
         "Floating2DLabelInput": true,
+        "FloatingText": true,
         "Floating3DText": true,
         "Floating3DLabelInput": true,
         "FloatingSlider": true,
@@ -134,18 +135,21 @@ module.exports = {
         "POST_URL_GET_SERVER_LOGS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
-        "TYPE_INPUT_PASSWORD": false,
-        "TYPE_INPUT_REGULAR" : false,
-        "TYPE_SUPER_TITLE"   : false,
-        "TYPE_LABEL"         : false,
-        "TYPE_BUTTON"        : false,
-        "TYPE_STATUS"        : false,
-        "TYPE_TITLE"         : false,
-        "TYPE_CHECK_BOX"     : false,
-        "TYPE_CONSTANT_TEXT" : false,
-        "TYPE_SLIDER"        : false,
+        // UNIVERSAL_CONSTANTS_START : Floating text types.
+        "TYPE_INPUT_PASSWORD"        : false,
+        "TYPE_INPUT_REGULAR"         : false,
+        "TYPE_SUPER_TITLE"           : false,
+        "TYPE_LABEL"                 : false,
+        "TYPE_BUTTON"                : false,
+        "TYPE_STATUS"                : false,
+        "TYPE_TITLE"                 : false,
+        "TYPE_CHECK_BOX"             : false,
+        "TYPE_CONSTANT_TEXT"         : false,
+        "TYPE_SLIDER"                : false,
+        "TYPE_TWO_DIRECTIONAL_SLIDER": false,
+        // UNIVERSAL_CONSTANTS_END
 
-        // Web socket message types.
+        // UNIVERSAL_CONSTANTS_START : Web socket message types.
         "WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS"                : false,
         "WEB_SOCKET_MESSAGE_TYPE_CONNECTION"                 : false,
         "WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED"               : false,
@@ -153,7 +157,9 @@ module.exports = {
         "WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE"             : false,
         "WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE"            : false,
         "WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE": false,
+        // UNIVERSAL_CONSTANTS_END
 
+        // UNIVERSAL_CONSTANTS_START : Entity types.
         "ENTITY_TYPE_TASK"           : false,
         "ENTITY_TYPE_TIME"           : false,
         "ENTITY_TYPE_BASE"           : false,
@@ -161,6 +167,7 @@ module.exports = {
         "ENTITY_TYPE_OWNER"          : false,
         "ENTITY_TYPE_TEXT_REMINDER"  : false,
         "ENTITY_TYPE_ALL"            : false,
+        // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity default property keys.
         "ENTITY_DEFAULT_PROPERTY_PARENT_IDS" : false,
@@ -292,6 +299,10 @@ module.exports = {
 
         // Shortcuts.
         "l"                                  : false,
+        // Python syntax imitation.
+        "str"                                : false,
+        "len"                                : false,
+        // Math shortcuts.
         "sin"                                : false,
         "cos"                                : false,
         "get_nearest_power_of_two_for_number": false,

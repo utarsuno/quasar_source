@@ -133,6 +133,10 @@ class UniversalConstantGroup(object):
 		"""Returns the description of this group of universal constants (as a string)."""
 		return self._description
 
+	def add_universal_constant_all(self):
+		"""Adds a universal constant which is a list of all the other universal constants in this universal constants group."""
+
+
 	def add_universal_constant(self, key, value):
 		"""Adds a universal constant object to this group."""
 		self._universal_constants.append(UniversalConstant(self._key_name_start_token + key, value, self._constant_type))
