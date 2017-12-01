@@ -22,12 +22,13 @@ function FloatingText(width, text, type, scene, current_color) {
     }
     // Convert to the correct color type.
     if (is_list(this.current_color)) {
+        var temp = this.current_color;
         if (this.is_2d_text) {
-            this.current_color = this.current_color[COLOR_STRING_INDEX];
-            this.default_color = this.current_color[COLOR_STRING_INDEX];
+            this.current_color = temp[COLOR_STRING_INDEX];
+            this.default_color = temp[COLOR_STRING_INDEX];
         } else {
-            this.current_color = this.current_color[COLOR_HEX_INDEX];
-            this.default_color = this.current_color[COLOR_HEX_INDEX];
+            this.current_color = temp[COLOR_HEX_INDEX];
+            this.default_color = temp[COLOR_HEX_INDEX];
         }
     }
 
