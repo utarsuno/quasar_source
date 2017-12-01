@@ -48,6 +48,16 @@ function FloatingText(width, text, type, scene, current_color) {
     // Call the child initialize functions.
     this.initialize();
 
+    // Gets called from child functions.
+    this.final_initialize = function() {
+        switch (this.type) {
+            case TYPE_BUTTON:
+            case TYPE_CHECK_BOX:
+                this.maintain_engage_when_tabbed_to = false;
+                break;
+        }
+    };
+
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */

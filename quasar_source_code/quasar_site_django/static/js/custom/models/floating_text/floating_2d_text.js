@@ -82,6 +82,8 @@ Floating2DText.prototype = {
         Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
+
+        this.final_initialize();
     }
 
 };
