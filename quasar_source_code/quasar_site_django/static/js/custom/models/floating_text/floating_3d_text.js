@@ -42,6 +42,11 @@ Floating3DText.prototype = {
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
         }
+        if (this.current_text_object !== null) {
+            this.object3D.remove(this.current_text_object);
+            this.current_text_object.geometry.dispose();
+            this.current_text_object.material.dispose();
+        }
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
@@ -59,12 +64,6 @@ Floating3DText.prototype = {
         this.material.side = THREE.FrontSide;
         this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
-
-        if (this.current_text_object !== null) {
-            this.object3D.remove(this.current_text_object);
-            this.current_text_object.geometry.dispose();
-            this.current_text_object.material.dispose();
-        }
     },
 
     __init__: function(w, text, type, scene, current_color) {
