@@ -8,7 +8,8 @@ function FloatingText(width, text, type, scene, current_color) {
     this.type          = type;
     // FOR_DEV_START
     if (!is_defined(scene)) {
-        l('THE SCENE PASSED IN TO FLOATINGTEXT IS NOT DEFINED!')
+        l(text);
+        l('THE SCENE PASSED IN TO FLOATINGTEXT IS NOT DEFINED!');
     }
     // FOR_DEV_END
     this.scene         = scene;
