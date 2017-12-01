@@ -41,11 +41,12 @@ Floating3DText.prototype = {
         this.material.needsUpdate = true;
     },
 
-    _update_text: function() {
-        this._update_text_color();
+    _update_color: function() {
+        this.material.color.setHex(this.current_color);
+        this.material.needsUpdate = true;
     },
-
-    _update_text_color: function() {
+    
+    _update_text: function() {
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
         }
