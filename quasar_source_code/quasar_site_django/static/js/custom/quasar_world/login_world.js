@@ -150,17 +150,20 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
 
-        var login_wall_width = 500;
-        var login_wall_height = 400;
-        var login_wall_position = new THREE.Vector3(650, 400, 300);
-        var login_wall_look_at = new THREE.Vector3(0, 400, 0);
+        var login_wall_width = 400;
+        var login_wall_height = 300;
+        var login_wall_position = new THREE.Vector3(650, login_wall_height, 300);
+        var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
         login_wall_normal.normalize();
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
         this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 10, 0);
         this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
-        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 2), '', TYPE_INPUT_REGULAR, login_wall_width / 2, 2, 1, 0);
+        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 2), '', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 1, 0);
+
+        this.login_password_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'password', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
+        this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width / 4, '', TYPE_INPUT_PASSWORD, login_wall_width / 4, 2, 2, 0);
         /*
 
         var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0);
