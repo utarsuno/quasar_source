@@ -60,6 +60,8 @@ Floating2DText.prototype = {
         this.material.transparent = false;
         this.material.side = THREE.FrontSide;
 
+        this._update_color();
+
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.object3D.add(this.mesh);

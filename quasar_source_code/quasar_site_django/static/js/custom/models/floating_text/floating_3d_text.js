@@ -17,12 +17,6 @@ Floating3DText.prototype = {
 
     current_text_object: null,
 
-    update_just_color: function(color_arg) {
-        this.default_color = color_arg;
-        this.material.color.setHex(color_arg);
-        this.material.needsUpdate = true;
-    },
-
     initialize: function() {
         if (this.type === TYPE_SUPER_TITLE) {
             this.height = 32 * 4;
@@ -38,6 +32,7 @@ Floating3DText.prototype = {
         }
 
         this.material = new THREE.MeshLambertMaterial({color: this.current_color});
+        this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
     },
 
@@ -45,7 +40,7 @@ Floating3DText.prototype = {
         this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
     },
-    
+
     _update_text: function() {
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
