@@ -18,13 +18,9 @@ Floating2DText.prototype = {
         this.dynamic_texture.needsUpdate = true;
     },
 
-    _update_text: function(center) {
-        if (is_defined(center)) {
-            if (center) {
-                this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height, this.current_color, 'black');
-            } else {
-                this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
-            }
+    _update_text: function() {
+        if (this.type == TYPE_BUTTON) {
+            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -70,6 +66,7 @@ Floating2DText.prototype = {
         this.material.side = THREE.FrontSide;
 
         this._update_color();
+        this._update_text();
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 

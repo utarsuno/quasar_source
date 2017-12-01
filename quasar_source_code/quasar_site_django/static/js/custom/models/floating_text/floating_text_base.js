@@ -82,11 +82,7 @@ function FloatingText(width, text, type, scene, current_color) {
         // TODO : This is currently assuming this function never gets called on a Password field.
         if (this.text !== text) {
             this.text = text;
-            if (this.type == TYPE_BUTTON) {
-                this._update_text(true);
-            } else {
-                this._update_text();
-            }
+            this._update_text(true);
         }
     };
 
