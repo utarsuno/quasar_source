@@ -153,7 +153,7 @@ LoginWorld.prototype = {
 
         var login_wall_width = 500;
         var login_wall_height = 400;
-        var login_wall_position = new THREE.Vector3(500, 400, 500);
+        var login_wall_position = new THREE.Vector3(400, 400, 0);
         var login_wall_look_at = new THREE.Vector3(0, login_wall_position.y, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
         login_wall_normal.normalize();
