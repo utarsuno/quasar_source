@@ -157,6 +157,12 @@ FloatingWall.prototype = {
 
     add_floating_2d_text: function(width, text, type, x_offset, z_offset, row, additional_y_offset) {
 
+        // FOR_DEV_START
+        if (!is_defined(this.scene)) {
+            l('THE SCENE IS NOT DEFINED!')
+        }
+        // FOR_DEV_END
+
         var floating_2D_text = new Floating2DText(width, text, type, this.scene);
         var relative_x_shift = this.get_relative_x_shift(x_offset);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
