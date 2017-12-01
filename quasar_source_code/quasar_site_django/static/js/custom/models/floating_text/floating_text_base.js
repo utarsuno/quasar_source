@@ -1,6 +1,26 @@
 'use strict';
 
 function FloatingText(width, text, type, scene, current_color) {
+
+    // This is just an alternative name to the function update_color.
+    this.set_color = function(color) {
+        this.update_color(color);
+    };
+
+    // Gets called in constructor so defining this function first.
+    this.update_color = function(color) {
+        var color_to_set = null;
+        if (this.is_2d_text) {
+            color_to_set = color[COLOR_STRING_INDEX];
+        } else {
+            color_to_set = color[COLOR_HEX_INDEX];
+        }
+        if (this.current_color !== color_to_set) {
+            this.current_color = color_to_set;
+            this._update_color();
+        }
+    };
+
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
@@ -113,24 +133,6 @@ function FloatingText(width, text, type, scene, current_color) {
 
     this.delete_self = function() {
         // TODO : Implement this function!!!
-    };
-
-    // This is just an alternative name to the function update_color.
-    this.set_color = function(color) {
-        this.update_color(color);
-    };
-
-    this.update_color = function(color) {
-        var color_to_set = null;
-        if (this.is_2d_text) {
-            color_to_set = color[COLOR_STRING_INDEX];
-        } else {
-            color_to_set = color[COLOR_HEX_INDEX];
-        }
-        if (this.current_color !== color_to_set) {
-            this.current_color = color_to_set;
-            this._update_color();
-        }
     };
 
     /* __  ___      ___  ___     __                  __   ___  __
