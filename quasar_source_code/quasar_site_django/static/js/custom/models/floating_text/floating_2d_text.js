@@ -28,12 +28,12 @@ Floating2DText.prototype = {
     },
 
     _update_text: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color);
+        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
         this.dynamic_texture.needsUpdate = true;
     },
 
     _update_color: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color);
+        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
         this.dynamic_texture.needsUpdate = true;
     },
 
