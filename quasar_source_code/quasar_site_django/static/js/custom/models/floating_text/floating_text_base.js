@@ -6,6 +6,11 @@ function FloatingText(width, text, type, scene, current_color) {
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
     this.width         = width;
     this.type          = type;
+    // FOR_DEV_START
+    if (!is_defined(scene)) {
+        l('THE SCENE PASSED IN TO FLOATINGTEXT IS NOT DEFINED!')
+    }
+    // FOR_DEV_END
     this.scene         = scene;
     this.object3D      = new THREE.Object3D();
     this.current_color = COLOR_DAY_PRESENT;
