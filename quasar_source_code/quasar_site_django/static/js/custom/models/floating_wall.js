@@ -128,7 +128,7 @@ FloatingWall.prototype = {
 
         var additional_x_shift = 0;
         if (width < this.width) {
-            var additional_x_shift = ((1.0 - (width / this.width)) / 2.0) * this.width;
+            additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
         }
 
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
