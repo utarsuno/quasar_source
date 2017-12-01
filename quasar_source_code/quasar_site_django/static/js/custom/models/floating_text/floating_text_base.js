@@ -113,6 +113,11 @@ function FloatingText(width, text, type, scene, current_color) {
         // TODO : Implement this function!!!
     };
 
+    // This is just an alternative name to the function update_color.
+    this.set_color = function(color) {
+        this.update_color(color);
+    }
+
     this.update_color = function(color) {
         if (this.current_color !== color) {
             this.current_color = color;
