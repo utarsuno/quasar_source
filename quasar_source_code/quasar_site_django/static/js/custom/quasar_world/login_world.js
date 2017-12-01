@@ -149,9 +149,8 @@ LoginWorld.prototype = {
         // Inherit from World.
         World.call(this, 'LoginWorld');
 
-        var global_y_offset = 50;
 
-        var login_wall_width = 600;
+        var login_wall_width = 500;
         var login_wall_height = 400;
         var login_wall_position = new THREE.Vector3(400, 400, 0);
         var login_wall_look_at = new THREE.Vector3(0, login_wall_position.y, 0);
@@ -161,6 +160,14 @@ LoginWorld.prototype = {
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
 
 
+        var wall_create_account_width = 500;
+        var wall_create_account_height = 400;
+        var wall_create_account_position = new THREE.Vector3(240, 475, 1550);
+        var wall_create_account_look_at = new THREE.Vector3(0, 475, 0);
+        var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
+        wall_create_account_normal.normalize();
+
+        this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_look_at, this);
         /*
 
         const LOGIN_X = 0;
@@ -264,8 +271,8 @@ LoginWorld.prototype = {
             CURRENT_PLAYER.enable_controls();
         }
 
-        CURRENT_PLAYER.set_position(new THREE.Vector3(180, 180, 390));
-        CURRENT_PLAYER.look_at(new THREE.Vector3(-0.011, -0.066, -0.998));
+        CURRENT_PLAYER.set_position(new THREE.Vector3(-410, 550, -440));
+        CURRENT_PLAYER.look_at(new THREE.Vector3(0.682, -0.246, 0.688));
 
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
