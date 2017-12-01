@@ -20,7 +20,7 @@ Floating2DText.prototype = {
 
     _update_text: function() {
         if (this.type == TYPE_BUTTON || this.type == TYPE_CONSTANT_TEXT || this.type == TYPE_CHECK_BOX) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.width, this.font_size, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2, this.font_size, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -29,7 +29,7 @@ Floating2DText.prototype = {
 
     _update_color: function() {
         if (this.type == TYPE_BUTTON || this.type == TYPE_CONSTANT_TEXT || this.type == TYPE_CHECK_BOX) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.width, this.font_size, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2, this.font_size, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -46,7 +46,7 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        var texture_width  = get_nearest_power_of_two_for_number(this.width * 2);
+        this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
         var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
         //var font_size = Math.round(texture_height * .8);
         this.font_size = texture_height;
