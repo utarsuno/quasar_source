@@ -23,16 +23,16 @@ Floating2DText.prototype = {
             if (center) {
                 this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 - this.get_text_length() / 2, this.height, this.current_color, 'black');
             } else {
-                this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+                this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
             }
         } else {
-            this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
         this.dynamic_texture.needsUpdate = true;
     },
 
     _update_color: function() {
-        this.dynamic_texture.clear('black').drawText(this.text, 0, this.height, this.current_color, 'black');
+        this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         this.dynamic_texture.needsUpdate = true;
     },
 
@@ -49,15 +49,15 @@ Floating2DText.prototype = {
         var texture_width  = get_nearest_power_of_two_for_number(this.width * 2);
         var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
         //var font_size = Math.round(texture_height * .8);
-        var font_size = texture_height;
+        this.font_size = texture_height;
 
         //l('Font size is : ' + font_size);
 
         this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
         if (this.type == TYPE_TITLE) {
-            this.dynamic_texture.context.font = 'Bold ' + str(font_size) + 'px Arial';
+            this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
         } else {
-            this.dynamic_texture.context.font = str(font_size) + 'px Arial';
+            this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
         }
 
         this.dynamic_texture.texture.anisotropy = CURRENT_PLAYER.renderer_api.renderer.capabilities.getMaxAnisotropy();
