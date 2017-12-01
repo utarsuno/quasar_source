@@ -85,11 +85,11 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this._add_character = function(character) {
-        this.force_update_text(this.text + character);
+        this._update_text(this.text + character);
     };
 
     this._pop_character = function() {
-        this.force_update_text(this.text.slice(0, -1));
+        this._update_text(this.text.slice(0, -1));
     };
 
     this.parse_keycode = function(event) {
@@ -147,7 +147,8 @@ function FloatingText(width, text, type, scene, current_color) {
         if (being_looked_at) {
             this.update_color(COLOR_HIGHLIGHT);
         } else {
-            this.update_color(this.default_color);
+            this.current_color = this.default_color;
+            this._update_color();
         }
     };
 
