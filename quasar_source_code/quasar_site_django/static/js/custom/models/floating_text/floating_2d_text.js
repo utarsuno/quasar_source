@@ -19,8 +19,8 @@ Floating2DText.prototype = {
     },
 
     _update_text: function() {
-        if (this.type == TYPE_BUTTON) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 + this.get_text_length() / 2, this.font_size, this.current_color, 'black');
+        if (this.type == TYPE_BUTTON || this.type == TYPE_CONSTANT_TEXT || this.type == TYPE_CHECK_BOX) {
+            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 + this.get_text_length() / 2, this.height, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -28,8 +28,8 @@ Floating2DText.prototype = {
     },
 
     _update_color: function() {
-        if (this.type == TYPE_BUTTON) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 + this.get_text_length() / 2, this.font_size, this.current_color, 'black');
+        if (this.type == TYPE_BUTTON || this.type == TYPE_CONSTANT_TEXT || this.type == TYPE_CHECK_BOX) {
+            this.dynamic_texture.clear('black').drawText(this.text, this.width / 2 + this.get_text_length() / 2, this.height, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -37,7 +37,7 @@ Floating2DText.prototype = {
     },
 
     initialize: function() {
-        if (this.type === TYPE_TITLE || this.type == TYPE_CONSTANT_TEXT || this.type == TYPE_CHECK_BOX) {
+        if (this.type === TYPE_TITLE) {
             this.height = 32;
         } else {
             this.height = 16;
