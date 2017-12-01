@@ -47,12 +47,12 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        var texture_width  = new THREEx.DynamicTexture(get_nearest_power_of_two_for_number(this.width * 2);
-        var texture_height = new THREEx.DynamicTexture(get_nearest_power_of_two_for_number(this.height * 2));
+        var texture_width  = get_nearest_power_of_two_for_number(this.width * 2);
+        var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
+        var font_size = Math.round(texture_height * .8);
 
         this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
         if (this.type == TYPE_TITLE) {
-            font_size = Math.round(texture_height * .8);
             this.dynamic_texture.context.font = 'Bold ' + str(font_size) + 'px Arial';
         } else {
             this.dynamic_texture.context.font = str(font_size) + 'px Arial';
