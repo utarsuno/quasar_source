@@ -66,6 +66,14 @@ FloatingWall.prototype = {
         this.all_floating_2d_texts = [];
     },
 
+    clear_inputs: function() {
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            if (this.all_floating_2d_texts[i].type == TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type == TYPE_INPUT_PASSWORD) {
+                this.all_floating_2d_texts[i].clear();
+            }
+        }
+    },
+
     add_3d_title: function(title_name) {
         this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene, COLOR_DAY_PRESENT);
         var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));

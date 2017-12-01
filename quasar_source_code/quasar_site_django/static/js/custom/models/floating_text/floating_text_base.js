@@ -145,6 +145,10 @@ function FloatingText(width, text, type, scene, current_color) {
         // TODO : Implement this function!!!
     };
 
+    this.clear = function() {
+        this._update_text('');
+    };
+
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */

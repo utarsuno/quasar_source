@@ -147,7 +147,7 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
         // Quasar Source title.
-        var quasar_source_title_position = new THREE.Vector3(1200, 400, 800);
+        var quasar_source_title_position = new THREE.Vector3(800, 400, 300);
         var quasar_source_title_look_at = new THREE.Vector3(0, 400, 0);
         this.quasar_source_title = new Floating3DText(600, 'Quasar Source', TYPE_SUPER_TITLE, this.scene);
         this.quasar_source_title.update_position_and_look_at(quasar_source_title_position, quasar_source_title_look_at);
@@ -182,8 +182,8 @@ LoginWorld.prototype = {
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
         /*   __   __   ___      ___  ___          __   __   __            ___
-            /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
-            \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
+            /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |     |  |  /\  |    |
+            \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     |/\| /~~\ |___ |___  */
         var wall_create_account_width = 350;
         var wall_create_account_height = 90;
         var wall_create_account_position = new THREE.Vector3(350, wall_create_account_height, 600);
@@ -216,55 +216,9 @@ LoginWorld.prototype = {
         this.set_default_tab_target(this.login_username_input);
         this.login_username_input.set_next_tab_target(this.login_password_input);
         this.login_password_input.set_next_tab_target(this.login_button);
+        this.login_button.set_next_tab_target(this.create_account_username_input);
         // TODO : rest of them
 
-        /*
-
-        // CREATE ACCOUNT BELOW
-
-        var create_width = 150;
-
-        this.create_account_title = new Floating3DText(create_width, 'Create\nAccount', TYPE_TITLE, this.scene);
-        this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 225 + global_y_offset, 40), new THREE.Vector3(200, 225 + global_y_offset, 55));
-
-        this.create_username = new Floating2DText(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
-        this.create_username.update_position(200, 100 + global_y_offset, 45);
-
-        if (!is_defined(MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME))) {
-            MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status());
-        }
-
-        this.create_email = new Floating2DText(create_width, 'Email :', TYPE_INPUT_REGULAR, this.scene);
-        this.create_email.update_position(200, 75 + global_y_offset, 45);
-
-        this.create_password = new Floating2DText(create_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
-        this.create_password.update_position(200, 50 + global_y_offset, 45);
-
-        this.create_repeat_password = new Floating2DText(create_width, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene);
-        this.create_repeat_password.update_position(200, 25 + global_y_offset, 45);
-
-        this.create_account_button = new Floating2DText(create_width, 'Create Account', TYPE_BUTTON, this.scene);
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, global_y_offset, 45), new THREE.Vector3(200 + create_width / 2, global_y_offset, 46));
-
-        this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this));
-
-        // Quasar Source title
-        // TODO :
-        //this.quasar_source_title = new Floating3DText()
-
-        this.interactive_objects = [
-            this.login_button,
-            this.create_account_button,
-            this.login_username.floating_input,
-            this.login_password.floating_input,
-            this.create_username.floating_input,
-            this.create_email.floating_input,
-            this.create_password.floating_input,
-            this.create_repeat_password.floating_input,
-            this.remember_username_checkbox.floating_2d_text
-        ];
-
-        */
     },
 
     update: function() {
@@ -294,11 +248,7 @@ LoginWorld.prototype = {
     },
 
     exit_world: function() {
-        this.login_username.floating_input.update_text('');
-        this.login_password.floating_input.update_text('');
-        this.create_username.floating_input.update_text('');
-        this.create_email.floating_input.update_text('');
-        this.create_password.floating_input.update_text('');
-        this.create_repeat_password.floating_input.update_text('');
+        this.login_wall.clear_inputs();
+        this.wall_create_account.clear_inputs();
     }
 };

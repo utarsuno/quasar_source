@@ -13,11 +13,6 @@ Floating2DText.prototype = {
         return this.dynamic_texture.getTextLength(this.text);
     },
 
-    clear_text: function() {
-        this.dynamic_texture.clear();
-        this.dynamic_texture.needsUpdate = true;
-    },
-
     _update_text: function() {
         if (this.type == TYPE_BUTTON || this.type == TYPE_CHECK_BOX) {
             this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * .90, this.current_color, 'black');
