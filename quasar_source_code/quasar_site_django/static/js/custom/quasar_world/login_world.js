@@ -160,7 +160,7 @@ LoginWorld.prototype = {
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
         this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 10, 0);
         this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
-        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 2), 'login', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 1, 0);
+        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 2), '', TYPE_INPUT_REGULAR, login_wall_width / 2, 2, 1, 0);
         /*
 
         var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0);
