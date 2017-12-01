@@ -284,6 +284,11 @@ function is_string(value) {
     return typeof value === 'string';
 }
 
+// From : https://stackoverflow.com/questions/4775722/check-if-object-is-array
+function is_list(o) {
+    return Array.isArray(o);
+}
+
 function string_contains(base_string, sub_string) {
     return base_string.indexOf(sub_string) !== NOT_FOUND;
 }

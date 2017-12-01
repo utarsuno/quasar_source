@@ -313,6 +313,7 @@ module.exports = {
         "raise_exception"                    : false,
         "raise_exception_with_full_logging"  : false,
         "is_string"                          : false,
+        "is_list"                            : false,
         "string_contains"                    : false,
         "is_defined"                         : false,
         "round_to_n_decimal_places"          : false,

@@ -53,14 +53,17 @@ function FloatingText(width, text, type, scene, current_color) {
 
     // Gets called in constructor so defining this function first.
     this.update_color = function(color) {
-        var color_to_set = null;
-        if (this.is_2d_text) {
-            color_to_set = color[COLOR_STRING_INDEX];
-        } else {
-            color_to_set = color[COLOR_HEX_INDEX];
-        }
-        if (this.current_color !== color_to_set) {
+        if (is_list(color)) {
+            var color_to_set = null;
+            if (this.is_2d_text) {
+                color_to_set = color[COLOR_STRING_INDEX];
+            } else {
+                color_to_set = color[COLOR_HEX_INDEX];
+            }
             this.current_color = color_to_set;
+            this._update_color();
+        } else {
+            this.current_color = color;
             this._update_color();
         }
     };
@@ -147,8 +150,7 @@ function FloatingText(width, text, type, scene, current_color) {
         if (being_looked_at) {
             this.update_color(COLOR_HIGHLIGHT);
         } else {
-            this.current_color = this.default_color;
-            this._update_color();
+            this.update_color(this.default_color);
         }
     };
 
