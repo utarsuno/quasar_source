@@ -53,7 +53,7 @@ Floating2DText.prototype = {
 
         //l('Font size is : ' + font_size);
 
-        this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
+        this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, texture_height);
         if (this.type === TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
         } else {
