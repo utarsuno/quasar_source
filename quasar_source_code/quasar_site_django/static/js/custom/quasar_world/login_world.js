@@ -149,7 +149,9 @@ LoginWorld.prototype = {
         // Inherit from World.
         World.call(this, 'LoginWorld');
 
-
+        /*        __   __
+            |    /  \ / _` | |\ |    |  |  /\  |    |
+            |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
         var login_wall_width = 350;
         var login_wall_height = 90;
         var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
@@ -160,10 +162,6 @@ LoginWorld.prototype = {
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
         this.login_wall.add_3d_title('Login');
 
-        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'login', TYPE_BUTTON, login_wall_width / 4, 2, 4, 0);
-        this.interactive_objects.push(this.login_button);
-        this.login_button.set_engage_function(this.login_button_clicked.bind(this));
-
         this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 3, 'username', TYPE_CONSTANT_TEXT, 0, 2, 0, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 0, 0);
         this.interactive_objects.push(this.login_username_input);
@@ -172,12 +170,19 @@ LoginWorld.prototype = {
         this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (2 / 3), '', TYPE_INPUT_PASSWORD, login_wall_width / 3, 2, 1, 0);
         this.interactive_objects.push(this.login_password_input);
 
-        this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
-        this.login_remember_username_checkbox = this.login_wall.add_floating_2d_text(16, '', TYPE_CHECK_BOX, login_wall_width / 2 + 10, 2, 2, 0);
+        // TODO :
+        //this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
+        //this.login_remember_username_checkbox = this.login_wall.add_floating_2d_text(16, '', TYPE_CHECK_BOX, login_wall_width / 2 + 10, 2, 2, 0);
 
+        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'login', TYPE_BUTTON, login_wall_width / 2, 2, 4, 0);
+        this.interactive_objects.push(this.login_button);
+        this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
-        var wall_create_account_width = 400;
-        var wall_create_account_height = 100;
+        /*   __   __   ___      ___  ___          __   __   __            ___
+            /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
+            \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
+        var wall_create_account_width = 350;
+        var wall_create_account_height = 90;
         var wall_create_account_position = new THREE.Vector3(350, wall_create_account_height, 600);
         var wall_create_account_look_at = new THREE.Vector3(0, wall_create_account_height, 0);
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
@@ -186,9 +191,24 @@ LoginWorld.prototype = {
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this);
         this.wall_create_account.add_3d_title('Create Account');
 
+        this.create_account_username_label = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 3, 'username', TYPE_CONSTANT_TEXT, 0, 2, 0, 0);
+        this.create_account_username_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 0, 0);
+        this.interactive_objects.push(this.create_account_username_input);
 
+        this.create_account_email_label = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 3, 'email', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
+        this.create_account_email_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 1, 0);
+        this.interactive_objects.push(this.create_account_email_input);
 
+        this.create_account_password_label = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 3, 'password', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
+        this.create_account_password_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 2, 0);
+        this.interactive_objects.push(this.create_account_password_input);
 
+        this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 3, 'repeat password', TYPE_CONSTANT_TEXT, 0, 2, 3, 0);
+        this.create_account_username_repeat_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 3, 0);
+        this.interactive_objects.push(this.create_account_username_repeat_input);
+
+        this.create_account_button = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 2, 'create account', TYPE_BUTTON, 0, 2, 4, 0);
+        this.interactive_objects.push(this.create_account_button);
 
         this.set_default_tab_target(this.login_username_input);
         this.login_username_input.set_next_tab_target(this.login_password_input);
@@ -196,33 +216,6 @@ LoginWorld.prototype = {
         // TODO : rest of them
 
         /*
-
-        const LOGIN_X = 0;
-
-        // LOGIN_BELOW
-
-        var login_width = 150;
-
-        this.login_title = new Floating3DText(login_width, 'Login', TYPE_TITLE, this.scene);
-        this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200 + global_y_offset, 40), new THREE.Vector3(LOGIN_X, 200 + global_y_offset, 55));
-
-        this.login_username = new Floating2DText(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
-        this.login_username.update_position(0, 100 + global_y_offset, 45);
-
-        this.login_password = new Floating2DText(login_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
-        this.login_password.update_position(0, 75 + global_y_offset, 45);
-
-        var remember_me_width = 75;
-        this.remember_username_text = new Floating2DText(remember_me_width, 'remember me c:', TYPE_INPUT_REGULAR, this.scene);
-        this.remember_username_text.update_position_and_look_at(new THREE.Vector3(remember_me_width / 2, 50 + global_y_offset, 45), new THREE.Vector3(remember_me_width / 2, 50 + global_y_offset, 45));
-        this.remember_username_checkbox = new CheckBox(true, this.scene);
-        this.remember_username_checkbox.update_position_and_look_at(new THREE.Vector3(150 - 16 / 2, 50 + global_y_offset, 45), new THREE.Vector3(150 - 16 / 2, 50 + global_y_offset, 45));
-
-        this.remember_username_checkbox.floating_2d_text.set_engage_function(this.remember_username_clicked.bind(this));
-
-        this.login_button = new Floating2DText(login_width, 'Login', TYPE_BUTTON, this.scene);
-        this.login_button.update_position_and_look_at(new THREE.Vector3(login_width / 2, 25 + global_y_offset, 45), new THREE.Vector3(login_width / 2, 25 + global_y_offset, 55));
-        this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
         // CREATE ACCOUNT BELOW
 
