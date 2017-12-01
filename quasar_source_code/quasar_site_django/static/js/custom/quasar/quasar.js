@@ -3,6 +3,13 @@
 /*__        __   __             __
  / _` |    /  \ |__)  /\  |    /__`
  \__> |___ \__/ |__) /~~\ |___ .__/ */
+
+// Renders all the worlds.
+var renderer_api = new RendererAPI();
+
+// Model of the user.
+CURRENT_PLAYER = new Player(renderer_api);
+
 // Global Managers.
 MANAGER_COOKIES     = Cookies.noConflict();
 MANAGER_WORLD       = new WorldManager();
@@ -17,12 +24,6 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
-
-// Renders all the worlds.
-var renderer_api = new RendererAPI();
-
-// Model of the user.
-CURRENT_PLAYER = new Player(renderer_api);
 
 // Sets the player and current world.
 MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
