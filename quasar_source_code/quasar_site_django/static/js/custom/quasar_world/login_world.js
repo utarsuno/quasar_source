@@ -63,9 +63,9 @@ LoginWorld.prototype = {
     perform_login_request: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             GUI_TYPING_INTERFACE.add_server_message('Logged in!');
-            if (this.remember_username_checkbox.checked) {
-                MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
-            }
+            //if (this.remember_username_checkbox.checked) {
+            //    MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
+            //}
             CURRENT_PLAYER.login(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
@@ -77,13 +77,10 @@ LoginWorld.prototype = {
         var error_message = '';
 
         // TODO : Eventually make input parsing live for the user.
-        var email_text = this.create_email.get_text();
-        var username_text = this.create_username.get_text();
-        var password_text = this.create_password.get_text();
-
-        this.attempted_password = this.create_password.get_input_text();
-
-        var password_repeat_text = this.create_repeat_password.get_input_text();
+        var email_text = this.create_account_email_input.get_text();
+        var username_text = this.create_account_username_input.get_text();
+        var password_text = this.create_account_password_input.get_text();
+        var password_repeat_text = this.create_account_password_repeat_input.get_input_text();
 
         if (!is_email_valid(email_text)) {
             error = true;
@@ -122,8 +119,8 @@ LoginWorld.prototype = {
         if (data === SERVER_REPLY_GENERIC_YES) {
             // Auto-login for successful account creations.
             GUI_TYPING_INTERFACE.add_server_message('Account created! Now sending login request to server!');
-            this.attempted_username = this.create_username.get_input_text();
-            this.attempted_password = this.create_password.get_input_text();
+            this.attempted_username = this.create_account_username_input.get_text();
+            this.attempted_password = this.create_account_password_input.get_text();
             var local_data = {};
             local_data[ENTITY_PROPERTY_USERNAME] = this.attempted_username;
             local_data[ENTITY_PROPERTY_PASSWORD] = this.attempted_password;
@@ -150,7 +147,7 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
         // Quasar Source title.
-        var quasar_source_title_position = new THREE.Vector3(800, 400, 800);
+        var quasar_source_title_position = new THREE.Vector3(1200, 400, 800);
         var quasar_source_title_look_at = new THREE.Vector3(0, 400, 0);
         this.quasar_source_title = new Floating3DText(600, 'Quasar Source', TYPE_SUPER_TITLE, this.scene);
         this.quasar_source_title.update_position_and_look_at(quasar_source_title_position, quasar_source_title_look_at);
@@ -210,8 +207,8 @@ LoginWorld.prototype = {
         this.interactive_objects.push(this.create_account_password_input);
 
         this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 3, 'repeat password', TYPE_CONSTANT_TEXT, 0, 2, 3, 0);
-        this.create_account_username_repeat_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 3, 0);
-        this.interactive_objects.push(this.create_account_username_repeat_input);
+        this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(wall_create_account_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 3, 0);
+        this.interactive_objects.push(this.create_account_password_repeat_input);
 
         this.create_account_button = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 2, 'create account', TYPE_BUTTON, wall_create_account_width / 4, 2, 4, 0);
         this.interactive_objects.push(this.create_account_button);
