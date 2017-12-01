@@ -51,6 +51,8 @@ Floating2DText.prototype = {
         var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
         var font_size = Math.round(texture_height * .8);
 
+        l('Font size is : ' + font_size);
+
         this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
         if (this.type == TYPE_TITLE) {
             this.dynamic_texture.context.font = 'Bold ' + str(font_size) + 'px Arial';

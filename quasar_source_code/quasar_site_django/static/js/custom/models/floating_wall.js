@@ -66,6 +66,10 @@ FloatingWall.prototype = {
         this.all_floating_2d_texts = [];
     },
 
+    add_3d_title: function(title_name) {
+        this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene, COLOR_DAY_PRESENT);
+    },
+
     update_position: function(position_vector) {
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z);
         if (is_defined(this.close_button)) {
