@@ -4,8 +4,6 @@ function LoginWorld() {
     this.__init__();
 }
 
-const LOGIN_X = 0;
-
 LoginWorld.prototype = {
 
     // Create account fields.
@@ -153,7 +151,18 @@ LoginWorld.prototype = {
 
         var global_y_offset = 50;
 
+        var login_wall_width = 500;
+        var login_wall_height = 400;
+        var login_wall_position = new THREE.Vector3(500, 400, 500);
+        var login_wall_look_at = new THREE.Vector3(0, 400, 0);
+        var login_wall_normal = new THREE.Vector3(login_wall_position.x - login_wall_look_at.x, login_wall_position.y - login_wall_look_at.y, login_wall_position.z - login_wall_look_at.z)
+        login_wall_normal.normalize();
+        this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_look_at, this);
+
+        
         /*
+
+        const LOGIN_X = 0;
 
         // LOGIN_BELOW
 
