@@ -302,7 +302,7 @@ EntityWall.prototype = {
             /  ` |__|  /\  |\ | / _` |__     /__` |  / |__     |__) |  |  |   |  /  \ |\ |    .
             \__, |  | /~~\ | \| \__> |___    .__/ | /_ |___    |__) \__/  |   |  \__/ | \|    .*/
 
-        this.change_size_button = new Floating2DText(200, 'Change Size', TYPE_TWO_DIRECTIONAL_SLIDER, this.scene)
+        this.change_size_button = new Floating2DText(200, 'Change Size', TYPE_TWO_DIRECTIONAL_SLIDER, this.scene);
 
 
 

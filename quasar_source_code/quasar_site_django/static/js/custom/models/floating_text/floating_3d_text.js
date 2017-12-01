@@ -83,6 +83,6 @@ Floating3DText.prototype = {
 
     create: function() {
 
-    },
+    }
 
 };

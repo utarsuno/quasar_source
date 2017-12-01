@@ -146,26 +146,26 @@ LoginWorld.prototype = {
 
     __init__: function() {
         this.post_create_account = new PostHelper(POST_URL_CREATE_ACCOUNT);
-        this.post_login = new PostHelper(POST_URL_LOGIN);
+        this.post_login          = new PostHelper(POST_URL_LOGIN);
 
         // Inherit from World.
         World.call(this, 'LoginWorld');
 
         var global_y_offset = 50;
 
-        /*      __   __
-          |    /  \ / _` | |\ |
-          |___ \__/ \__> | | \| */
+        /*
+
+        // LOGIN_BELOW
 
         var login_width = 150;
 
         this.login_title = new Floating3DText(login_width, 'Login', TYPE_TITLE, this.scene);
         this.login_title.update_position_and_look_at(new THREE.Vector3(LOGIN_X, 200 + global_y_offset, 40), new THREE.Vector3(LOGIN_X, 200 + global_y_offset, 55));
 
-        this.login_username = new Floating2DLabelInput(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
+        this.login_username = new Floating2DText(login_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
         this.login_username.update_position(0, 100 + global_y_offset, 45);
 
-        this.login_password = new Floating2DLabelInput(login_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
+        this.login_password = new Floating2DText(login_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
         this.login_password.update_position(0, 75 + global_y_offset, 45);
 
         var remember_me_width = 75;
@@ -180,33 +180,31 @@ LoginWorld.prototype = {
         this.login_button.update_position_and_look_at(new THREE.Vector3(login_width / 2, 25 + global_y_offset, 45), new THREE.Vector3(login_width / 2, 25 + global_y_offset, 55));
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
-        /* __   __   ___      ___  ___          __   __   __            ___
-          /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
-          \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
+        // CREATE ACCOUNT BELOW
 
         var create_width = 150;
 
         this.create_account_title = new Floating3DText(create_width, 'Create\nAccount', TYPE_TITLE, this.scene);
         this.create_account_title.update_position_and_look_at(new THREE.Vector3(200, 225 + global_y_offset, 40), new THREE.Vector3(200, 225 + global_y_offset, 55));
 
-        this.create_username = new Floating2DLabelInput(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
+        this.create_username = new Floating2DText(create_width, 'Username :', TYPE_INPUT_REGULAR, this.scene);
         this.create_username.update_position(200, 100 + global_y_offset, 45);
 
         if (!is_defined(MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME))) {
             MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, this.remember_username_checkbox.status());
         }
 
-        this.create_email = new Floating2DLabelInput(create_width, 'Email :', TYPE_INPUT_REGULAR, this.scene);
+        this.create_email = new Floating2DText(create_width, 'Email :', TYPE_INPUT_REGULAR, this.scene);
         this.create_email.update_position(200, 75 + global_y_offset, 45);
 
-        this.create_password = new Floating2DLabelInput(create_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
+        this.create_password = new Floating2DText(create_width, 'Password :', TYPE_INPUT_PASSWORD, this.scene);
         this.create_password.update_position(200, 50 + global_y_offset, 45);
 
-        this.create_repeat_password = new Floating2DLabelInput(create_width, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene);
+        this.create_repeat_password = new Floating2DText(create_width, 'Repeat Password :', TYPE_INPUT_PASSWORD, this.scene);
         this.create_repeat_password.update_position(200, 25 + global_y_offset, 45);
 
         this.create_account_button = new Floating2DText(create_width, 'Create Account', TYPE_BUTTON, this.scene);
-        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, global_y_offset, 45), new THREE.Vector3(200 + create_width / 2, 0 + global_y_offset, 46));
+        this.create_account_button.update_position_and_look_at(new THREE.Vector3(200 + create_width / 2, global_y_offset, 45), new THREE.Vector3(200 + create_width / 2, global_y_offset, 46));
 
         this.create_account_button.set_engage_function(this.create_account_button_clicked.bind(this));
 
@@ -238,6 +236,8 @@ LoginWorld.prototype = {
         this.create_account_button.set_next_tab_target(this.login_username.floating_input);
 
         this.set_default_tab_target(this.login_username.floating_input);
+
+        */
     },
 
     update: function() {

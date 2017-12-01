@@ -71,6 +71,6 @@ Floating2DText.prototype = {
 
         this.object3D.add(this.mesh);
         this.scene.add(this.object3D);
-    },
+    }
 
 };
