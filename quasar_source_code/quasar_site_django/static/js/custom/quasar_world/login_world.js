@@ -31,8 +31,8 @@ LoginWorld.prototype = {
         var error = false;
         var error_message = '';
 
-        var login_username_text = this.login_username.get_input_text();
-        var login_password_text = this.login_password.get_input_text();
+        var login_username_text = this.login_username_input.get_text();
+        var login_password_text = this.login_password_input.get_text();
 
         // TODO : Create a class to handle this kind of logic.
 
@@ -54,13 +54,13 @@ LoginWorld.prototype = {
             var data = {};
             data[ENTITY_PROPERTY_USERNAME] = login_username_text;
             data[ENTITY_PROPERTY_PASSWORD] = login_password_text;
-            this.post_login.perform_post(data, this.login_button_event.bind(this));
+            this.post_login.perform_post(data, this.perform_login_request.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
         }
     },
 
-    login_button_event: function(data) {
+    perform_login_request: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
             GUI_TYPING_INTERFACE.add_server_message('Logged in!');
             if (this.remember_username_checkbox.checked) {
@@ -77,9 +77,9 @@ LoginWorld.prototype = {
         var error_message = '';
 
         // TODO : Eventually make input parsing live for the user.
-        var email_text = this.create_email.get_input_text();
-        var username_text = this.create_username.get_input_text();
-        var password_text = this.create_password.get_input_text();
+        var email_text = this.create_email.get_text();
+        var username_text = this.create_username.get_text();
+        var password_text = this.create_password.get_text();
 
         this.attempted_password = this.create_password.get_input_text();
 
@@ -127,7 +127,7 @@ LoginWorld.prototype = {
             var local_data = {};
             local_data[ENTITY_PROPERTY_USERNAME] = this.attempted_username;
             local_data[ENTITY_PROPERTY_PASSWORD] = this.attempted_password;
-            this.post_login.perform_post(local_data, this.login_button_event.bind(this));
+            this.post_login.perform_post(local_data, this.perform_login_request.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
@@ -158,23 +158,20 @@ LoginWorld.prototype = {
         login_wall_normal.normalize();
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
+
         this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 8, 0);
+        this.interactive_objects.push(this.login_button);
+        this.login_button.set_engage_function(this.login_button_clicked.bind(this));
+
         this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 1, 0);
+        this.interactive_objects.push(this.login_username_input);
 
         this.login_password_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'password', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
         this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_PASSWORD, login_wall_width / 4, 2, 2, 0);
-        /*
+        this.interactive_objects.push(this.login_password_input);
 
-        var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0);
 
-        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_TEXT_RED);
-        this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
-        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
-
-         */
-
-        //this.login_wall.add_
 
 
         var wall_create_account_width = 300;
