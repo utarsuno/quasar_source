@@ -40,9 +40,10 @@ Floating2DText.prototype = {
 
         var texture_width  = get_nearest_power_of_two_for_number(this.width * 2);
         var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
-        var font_size = Math.round(texture_height * .8);
+        //var font_size = Math.round(texture_height * .8);
+        var font_size = texture_height;
 
-        l('Font size is : ' + font_size);
+        //l('Font size is : ' + font_size);
 
         this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
         if (this.type == TYPE_TITLE) {
@@ -50,8 +51,8 @@ Floating2DText.prototype = {
         } else {
             this.dynamic_texture.context.font = str(font_size) + 'px Arial';
         }
-        // TODO : Investigate this
-        //this.dynamic_texture.texture.anisotropy = renderer_api.renderer.capabilities.getMaxAnisotropy()
+
+        this.dynamic_texture.texture.anisotropy = CURRENT_PLAYER.renderer_api.renderer.capabilities.getMaxAnisotropy();
         
         this.material = new THREE.MeshBasicMaterial({
             map : this.dynamic_texture.texture
