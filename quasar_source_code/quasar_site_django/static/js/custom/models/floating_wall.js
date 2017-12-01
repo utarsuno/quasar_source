@@ -125,7 +125,13 @@ FloatingWall.prototype = {
         // FOR_DEV_END
 
         var floating_2D_text = new Floating2DText(width, text, type, this.scene);
-        var relative_x_shift = this.get_relative_x_shift(x_offset);
+
+        var additional_x_shift = 0;
+        if (width < this.width) {
+            var additional_x_shift = ((1.0 - (width / this.width)) / 2.0) * this.width;
+        }
+
+        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
 
         floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset));
