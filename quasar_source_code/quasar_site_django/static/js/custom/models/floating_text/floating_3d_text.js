@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating3DText(w, text, type, scene) {
-    this.__init__(w, text, type, scene);
+function Floating3DText(w, text, type, scene, current_color) {
+    this.__init__(w, text, type, scene, current_color);
 }
 
 //const GLOBAL_FONT = new THREE.Font(JSON.parse(document.getElementById('font_3d').innerHTML))
@@ -17,9 +17,9 @@ Floating3DText.prototype = {
 
     current_text_object: null,
 
-    __init__: function(w, text, type, scene, default_color) {
+    __init__: function(w, text, type, scene, current_color) {
         // Inherit from FloatingText.
-        FloatingText.call(this);
+        FloatingText.call(this, w, text, type, scene, current_color);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

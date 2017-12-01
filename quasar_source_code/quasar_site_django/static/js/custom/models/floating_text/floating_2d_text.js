@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating2DText(w, text, type, scene) {
-    this.__init__(w, text, type, scene);
+function Floating2DText(w, text, type, scene, current_color) {
+    this.__init__(w, text, type, scene, current_color);
 }
 
 Floating2DText.prototype = {
@@ -9,9 +9,9 @@ Floating2DText.prototype = {
     material: null,
     dynamic_texture: null,
 
-    __init__: function(w, text, type, scene) {
+    __init__: function(w, text, type, scene, current_color) {
         // Inherit from FloatingText.
-        FloatingText.call(this);
+        FloatingText.call(this, w, text, type, scene, current_color);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
