@@ -79,10 +79,6 @@ Floating3DText.prototype = {
             this.current_text_object.geometry.dispose();
             this.current_text_object.material.dispose();
         }
-    },
-
-    create: function() {
-
     }
 
 };

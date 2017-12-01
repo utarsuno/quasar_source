@@ -152,17 +152,30 @@ LoginWorld.prototype = {
 
         var login_wall_width = 500;
         var login_wall_height = 400;
-        var login_wall_position = new THREE.Vector3(750, 400, 200);
+        var login_wall_position = new THREE.Vector3(650, 400, 300);
         var login_wall_look_at = new THREE.Vector3(0, 400, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
         login_wall_normal.normalize();
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
+        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 10, 0);
+
+        /*
+
+        var edit_entity_save_changes_button = this.current_entity_editor.add_floating_2d_text(512, 'save changes', TYPE_BUTTON, 0, 2, key_values.length + 1, 0);
+
+        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_TEXT_RED);
+        this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
+        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
+
+         */
+
+        //this.login_wall.add_
 
 
         var wall_create_account_width = 500;
         var wall_create_account_height = 400;
-        var wall_create_account_position = new THREE.Vector3(200, 400, 750);
+        var wall_create_account_position = new THREE.Vector3(300, 400, 650);
         var wall_create_account_look_at = new THREE.Vector3(0, 400, 0);
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
         wall_create_account_normal.normalize();
@@ -271,8 +284,8 @@ LoginWorld.prototype = {
             CURRENT_PLAYER.enable_controls();
         }
 
-        CURRENT_PLAYER.set_position(new THREE.Vector3(-357, 568, -168));
-        CURRENT_PLAYER.look_at(new THREE.Vector3(0.714, -0.343, 0.610));
+        CURRENT_PLAYER.set_position(new THREE.Vector3(-100, 500, -100));
+        CURRENT_PLAYER.look_at(new THREE.Vector3(0.670, 0, 0.742));
 
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {

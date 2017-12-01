@@ -6,14 +6,6 @@ function CreateEntity(entity_wall, entity_created_bind_function, position, norma
 
 // Random global TODO : eventually set a standard for the z-depth difference between layers on FloatingWalls.
 
-/*
-ENTITY_TYPE_NO_SPECIAL_TYPE
-ENTITY_TYPE_TEXT_REMINDER
-ENTITY_TYPE_TASK
-ENTITY_TYPE_TIME
-ENTITY_TYPE_BASE
- */
-
 //const TEMP_PROPERTY_A = 'Text Contents :'
 //const TEMP_PROPERTY_B = 'Seconds from now :'
 //const TEMP_PROPERTY_C = 'Send to :'

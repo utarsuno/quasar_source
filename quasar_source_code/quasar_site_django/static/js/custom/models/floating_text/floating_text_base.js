@@ -52,7 +52,7 @@ function FloatingText(width, text, type, scene, current_color) {
 
     this.get_text = function() {
         if (this.type === TYPE_INPUT_PASSWORD) {
-            return this._hidden_text;
+            return this.hidden_text;
         }
         return this.text;
     };
@@ -116,12 +116,12 @@ function FloatingText(width, text, type, scene, current_color) {
     // This is just an alternative name to the function update_color.
     this.set_color = function(color) {
         this.update_color(color);
-    }
+    };
 
     this.update_color = function(color) {
         if (this.current_color !== color) {
             this.current_color = color;
-
+            this._update_color();
         }
     };
 
