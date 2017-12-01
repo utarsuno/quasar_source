@@ -152,7 +152,7 @@ LoginWorld.prototype = {
 
         var login_wall_width = 500;
         var login_wall_height = 400;
-        var login_wall_position = new THREE.Vector3(1000, 400, -120);
+        var login_wall_position = new THREE.Vector3(750, 400, 200);
         var login_wall_look_at = new THREE.Vector3(0, 400, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
         login_wall_normal.normalize();
@@ -162,7 +162,7 @@ LoginWorld.prototype = {
 
         var wall_create_account_width = 500;
         var wall_create_account_height = 400;
-        var wall_create_account_position = new THREE.Vector3(120, 400, 1000);
+        var wall_create_account_position = new THREE.Vector3(200, 400, 750);
         var wall_create_account_look_at = new THREE.Vector3(0, 400, 0);
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
         wall_create_account_normal.normalize();
