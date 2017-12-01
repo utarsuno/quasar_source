@@ -160,7 +160,7 @@ LoginWorld.prototype = {
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
         this.login_wall.add_3d_title('Login');
 
-        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 4, 0);
+        this.login_button = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'login', TYPE_BUTTON, login_wall_width / 4, 2, 4, 0);
         this.interactive_objects.push(this.login_button);
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
@@ -183,6 +183,15 @@ LoginWorld.prototype = {
         wall_create_account_normal.normalize();
 
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this);
+
+
+
+
+        this.set_default_tab_target(this.login_username_input);
+        this.login_username_input.set_next_tab_target(this.login_password_input);
+        this.login_password_input.set_next_tab_target(this.login_button);
+        // TODO : rest of them
+
         /*
 
         const LOGIN_X = 0;
@@ -255,19 +264,6 @@ LoginWorld.prototype = {
             this.create_repeat_password.floating_input,
             this.remember_username_checkbox.floating_2d_text
         ];
-
-        // Set the tab targets.
-        this.login_username.floating_input.set_next_tab_target(this.login_password.floating_input);
-        this.login_password.floating_input.set_next_tab_target(this.remember_username_checkbox.floating_2d_text);
-        this.remember_username_checkbox.floating_2d_text.set_next_tab_target(this.login_button);
-        this.login_button.set_next_tab_target(this.create_username.floating_input);
-        this.create_username.floating_input.set_next_tab_target(this.create_email.floating_input);
-        this.create_email.floating_input.set_next_tab_target(this.create_password.floating_input);
-        this.create_password.floating_input.set_next_tab_target(this.create_repeat_password.floating_input);
-        this.create_repeat_password.floating_input.set_next_tab_target(this.create_account_button);
-        this.create_account_button.set_next_tab_target(this.login_username.floating_input);
-
-        this.set_default_tab_target(this.login_username.floating_input);
 
         */
     },

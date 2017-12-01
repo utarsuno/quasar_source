@@ -32,8 +32,8 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     }
 
-    l('Current color ' + this.current_color);
-    l('Default color ' + this.current_color);
+    //l('Current color ' + this.current_color);
+    //l('Default color ' + this.current_color);
 
     if (this.type == TYPE_INPUT_PASSWORD) {
         this.text = '';
@@ -74,10 +74,6 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     };
 
-    this.get_height = function() {
-        return this.height;
-    };
-
     this.update_text = function(text) {
         // TODO : This is currently assuming this function never gets called on a Password field.
         if (this.text !== text) {
@@ -108,13 +104,13 @@ function FloatingText(width, text, type, scene, current_color) {
             if (this.text.length > 0) {
                 this._pop_character();
                 if (this.type === TYPE_INPUT_PASSWORD) {
-                    this._hidden_text = this._hidden_text.slice(0, -1);
+                    this.hidden_text = this.hidden_text.slice(0, -1);
                 }
                 MANAGER_AUDIO.play_typing_sound();
             }
         } else if (event.key.length === 1) {
             if (this.type === TYPE_INPUT_PASSWORD) {
-                this._hidden_text += event.key;
+                this.hidden_text += event.key;
                 this._add_character('*');
             } else if (this.type === TYPE_INPUT_REGULAR) {
                 this._add_character(event.key);
