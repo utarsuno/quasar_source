@@ -163,12 +163,12 @@ LoginWorld.prototype = {
         this.interactive_objects.push(this.login_button);
         this.login_button.set_engage_function(this.login_button_clicked.bind(this));
 
-        this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'username', TYPE_CONSTANT_TEXT, 0, 2, 0, 0);
-        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_REGULAR, login_wall_width / 4, 2, 0, 0);
+        this.login_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 3, 'username', TYPE_CONSTANT_TEXT, 0, 2, 0, 0);
+        this.login_username_input = this.login_wall.add_floating_2d_text(login_wall_width * (2 / 3), '', TYPE_INPUT_REGULAR, login_wall_width / 3, 2, 0, 0);
         this.interactive_objects.push(this.login_username_input);
 
         this.login_password_label = this.login_wall.add_floating_2d_text(login_wall_width / 4, 'password', TYPE_CONSTANT_TEXT, 0, 2, 1, 0);
-        this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (3 / 4), '', TYPE_INPUT_PASSWORD, login_wall_width / 4, 2, 1, 0);
+        this.login_password_input = this.login_wall.add_floating_2d_text(login_wall_width * (2 / 3), '', TYPE_INPUT_PASSWORD, login_wall_width / 3, 2, 1, 0);
         this.interactive_objects.push(this.login_password_input);
 
 
