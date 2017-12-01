@@ -21,12 +21,14 @@ function FloatingText(width, text, type, scene, current_color) {
         this.default_color = current_color;
     }
     // Convert to the correct color type.
-    if (this.is_2d_text) {
-        this.current_color = this.current_color[COLOR_STRING_INDEX];
-        this.default_color = this.current_color[COLOR_STRING_INDEX];
-    } else {
-        this.current_color = this.current_color[COLOR_HEX_INDEX];
-        this.default_color = this.current_color[COLOR_HEX_INDEX];
+    if (is_list(this.current_color)) {
+        if (this.is_2d_text) {
+            this.current_color = this.current_color[COLOR_STRING_INDEX];
+            this.default_color = this.current_color[COLOR_STRING_INDEX];
+        } else {
+            this.current_color = this.current_color[COLOR_HEX_INDEX];
+            this.default_color = this.current_color[COLOR_HEX_INDEX];
+        }
     }
 
     if (this.type == TYPE_INPUT_PASSWORD) {
