@@ -31,14 +31,11 @@ Floating3DText.prototype = {
             this.text_height = 1;
         }
 
-        this.material = new THREE.MeshLambertMaterial({color: this.current_color});
-        this.material.color.setHex(this.current_color);
-        this.material.needsUpdate = true;
+        this._update_text();
     },
 
     _update_color: function() {
-        this.material.color.setHex(this.current_color);
-        this.material.needsUpdate = true;
+        this._update_text();
     },
 
     _update_text: function() {
@@ -52,6 +49,8 @@ Floating3DText.prototype = {
             curveSegments: 2,
             font: GLOBAL_FONT
         });
+
+        this.material = new THREE.MeshLambertMaterial({color: this.current_color});
         
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
         this.object3D.add(this.current_text_object);

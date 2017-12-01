@@ -158,7 +158,7 @@ LoginWorld.prototype = {
         login_wall_normal.normalize();
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this);
-        this.login_wall.add_3d_title('Login')
+        this.login_wall.add_3d_title('Login');
 
         this.login_button = this.login_wall.add_floating_2d_text(login_wall_width, 'login', TYPE_BUTTON, 0, 2, 4, 0);
         this.interactive_objects.push(this.login_button);
