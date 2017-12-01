@@ -197,16 +197,6 @@ module.exports = {
         "ENTITY_POST_SAVE_DATA"              : false,
         // UNIVERSAL_CONSTANTS_END
 
-        "COLOR_HIGHLIGHT"     : false,
-        "COLOR_TEXT_HIGHLIGHT": false,
-        "COLOR_TEXT_PLANET"   : false,
-        "COLOR_TEXT_CONSTANT" : false,
-        "COLOR_TEXT_DEFAULT"  : false,
-        "COLOR_TEXT_RED"      : false,
-        "COLOR_TEXT_GREEN"    : false,
-        "COLOR_TEXT_BUTTON"   : false,
-        "COLOR_HEX_BLACK"     : false,
-        "COLOR_BLACK"         : false,
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
@@ -221,6 +211,18 @@ module.exports = {
         // 3rd party hix grid reference.
         "vg": false,
 
+        // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
+        "COLOR_STRING_INDEX"    : false,
+        "COLOR_HEX_INDEX"       : false,
+        "COLOR_HIGHLIGHT"       : false,
+        "COLOR_PLANET"          : false,
+        "COLOR_TEXT_DEFAULT"    : false,
+        "COLOR_TEXT_BUTTON"     : false,
+        "COLOR_RED"             : false,
+        "COLOR_GREEN"           : false,
+        "COLOR_TEXT_CONSTANT"   : false,
+        "COLOR_WHITE"           : false,
+        "COLOR_BLACK"           : false,
         "COLOR_DAY_PAST_SEVEN"  : false,
         "COLOR_DAY_PAST_SIX"    : false,
         "COLOR_DAY_PAST_FIVE"   : false,
@@ -236,6 +238,7 @@ module.exports = {
         "COLOR_DAY_FUTURE_FIVE" : false,
         "COLOR_DAY_FUTURE_SIX"  : false,
         "COLOR_DAY_FUTURE_SEVEN": false,
+        // UNIVERSAL_CONSTANTS_END
 
         // Javascript constants.
         "VISIBLE"     : false,

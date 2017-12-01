@@ -127,38 +127,34 @@ const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
 // UNIVERSAL_CONSTANTS_END
 
-// Pre-defined colors.
-const COLOR_HIGHLIGHT      = 0xD4FF93;
-const COLOR_TEXT_HIGHLIGHT = '#D4FF93';
-const COLOR_TEXT_PLANET    = 0xAFE0FF;
-const COLOR_TEXT_DEFAULT   = '#67ffbf';
-const COLOR_TEXT_BUTTON    = '#60d6ff';
-const COLOR_TEXT_RED       = '#ff5e33';
-const COLOR_TEXT_GREEN     = '#6cff61';
-const COLOR_TEXT_CONSTANT  = '#7e58b0';
-const COLOR_WHITE          = '#ffffff';
-const COLOR_BLACK          = '#000000';
-const COLOR_HEX_BLACK      = 0x000000;
-
-
-const COLOR_DAY_PAST_SEVEN   = 0x00362a;
-const COLOR_DAY_PAST_SIX     = 0x004b3a;
-const COLOR_DAY_PAST_FIVE    = '#00614b';
-const COLOR_DAY_PAST_FOUR    = '#008164';
-const COLOR_DAY_PAST_THREE   = '#00b78e';
-const COLOR_DAY_PAST_TWO     = '#00dbaa';
-const COLOR_DAY_PAST_ONE     = '#00e9b2';
-const COLOR_DAY_PRESENT      = 0x5db2ff;
-const COLOR_DAY_FUTURE_ONE   = '#41ff92';
-const COLOR_DAY_FUTURE_TWO   = '#31ff7f';
-const COLOR_DAY_FUTURE_THREE = '#5eff7c';
-const COLOR_DAY_FUTURE_FOUR  = '#7eff91';
-const COLOR_DAY_FUTURE_FIVE  = 0xa4ff98;
-const COLOR_DAY_FUTURE_SIX   = '#d4ffb3';
-const COLOR_DAY_FUTURE_SEVEN = '#fffdb5';
-
-const COLOR_MOST_DAY_IN_FUTURE_COLOR = '#00ffc6';
-const COLOR_MOST_DAY_IN_PRESENT_COLOR = '#feffa8';
+// UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
+const COLOR_STRING_INDEX     = 1;
+const COLOR_HEX_INDEX        = 0;
+const COLOR_HIGHLIGHT        = [0xD4FF93, '#D4FF93'];
+const COLOR_PLANET           = [0xAFE0FF, '#AFE0FF'];
+const COLOR_TEXT_DEFAULT     = [0x67ffbf, '#67ffbf'];
+const COLOR_TEXT_BUTTON      = [0x60d6ff, '#60d6ff'];
+const COLOR_RED              = [0xff5e33, '#ff5e33'];
+const COLOR_GREEN            = [0x6cff61, '#6cff61'];
+const COLOR_TEXT_CONSTANT    = [0x7e58b0, '#7e58b0'];
+const COLOR_WHITE            = [0xffffff, '#ffffff'];
+const COLOR_BLACK            = [0x000000, '#000000'];
+const COLOR_DAY_PAST_SEVEN   = [0x00362a, '#00362a'];
+const COLOR_DAY_PAST_SIX     = [0x004b3a, '#004b3a'];
+const COLOR_DAY_PAST_FIVE    = [0x00614b, '#00614b'];
+const COLOR_DAY_PAST_FOUR    = [0x008164, '#008164'];
+const COLOR_DAY_PAST_THREE   = [0x00b78e, '#00b78e'];
+const COLOR_DAY_PAST_TWO     = [0x00dbaa, '#00dbaa'];
+const COLOR_DAY_PAST_ONE     = [0x00e9b2, '#00e9b2'];
+const COLOR_DAY_PRESENT      = [0x5db2ff, '#5db2ff'];
+const COLOR_DAY_FUTURE_ONE   = [0x41ff92, '#41ff92'];
+const COLOR_DAY_FUTURE_TWO   = [0x31ff7f, '#31ff7f'];
+const COLOR_DAY_FUTURE_THREE = [0x5eff7c, '#5eff7c'];
+const COLOR_DAY_FUTURE_FOUR  = [0x7eff91, '#7eff91'];
+const COLOR_DAY_FUTURE_FIVE  = [0xa4ff98, '#a4ff98'];
+const COLOR_DAY_FUTURE_SIX   = [0xd4ffb3, '#d4ffb3'];
+const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#fffdb5'];
+// UNIVERSAL_CONSTANTS_END
 
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0;

@@ -18,6 +18,8 @@ Floating3DText.prototype = {
     current_text_object: null,
 
     __init__: function(w, text, type, scene, current_color) {
+        this.is_2d_text = false;
+
         // Inherit from FloatingText.
         FloatingText.call(this, w, text, type, scene, current_color);
         // Inherit from Interactive.

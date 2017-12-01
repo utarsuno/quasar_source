@@ -10,6 +10,8 @@ Floating2DText.prototype = {
     dynamic_texture: null,
 
     __init__: function(w, text, type, scene, current_color) {
+        this.is_2d_text = true;
+
         // Inherit from FloatingText.
         FloatingText.call(this, w, text, type, scene, current_color);
         // Inherit from Interactive.

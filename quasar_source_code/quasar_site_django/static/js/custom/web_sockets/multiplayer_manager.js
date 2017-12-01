@@ -43,8 +43,8 @@ ServerPlayer.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         //this.mesh.position.set(this.position.x, this.position.y, this.position.z)
 
-        this.mesh.material.color.setHex(COLOR_TEXT_PLANET);
-        this.player_title.update_color(COLOR_TEXT_PLANET);
+        this.mesh.material.color.setHex(COLOR_PLANET[COLOR_HEX_INDEX]);
+        this.player_title.update_color(COLOR_PLANET);
 
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.mesh);

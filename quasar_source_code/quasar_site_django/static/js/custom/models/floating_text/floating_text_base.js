@@ -20,6 +20,8 @@ function FloatingText(width, text, type, scene, current_color) {
         this.current_color = current_color;
         this.default_color = current_color;
     }
+    // Convert to the correct color type.
+    this.set_color(this.current_color);
 
     if (this.type == TYPE_INPUT_PASSWORD) {
         this.text = '';
@@ -119,8 +121,14 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_color = function(color) {
-        if (this.current_color !== color) {
-            this.current_color = color;
+        var color_to_set = null;
+        if (this.is_2d_text) {
+            color_to_set = color[COLOR_STRING_INDEX];
+        } else {
+            color_to_set = color[COLOR_HEX_INDEX];
+        }
+        if (this.current_color !== color_to_set) {
+            this.current_color = color_to_set;
             this._update_color();
         }
     };
@@ -130,7 +138,7 @@ function FloatingText(width, text, type, scene, current_color) {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
-            this.update_color(COLOR_TEXT_HIGHLIGHT);
+            this.update_color(COLOR_HIGHLIGHT);
         } else {
             this.update_color(this.default_color);
         }

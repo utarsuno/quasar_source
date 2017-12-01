@@ -126,9 +126,9 @@ EntityWall.prototype = {
         this.current_floating_entity_row.update_text(save_data[ENTITY_PROPERTY_NAME]);
         if (save_data[ENTITY_DEFAULT_PROPERTY_TYPE] === ENTITY_TYPE_TASK) {
             if (save_data[ENTITY_PROPERTY_COMPLETED] === 'True') {
-                this.current_floating_entity_row.set_color(COLOR_TEXT_GREEN);
+                this.current_floating_entity_row.set_color(COLOR_GREEN);
             } else {
-                this.current_floating_entity_row.set_color(COLOR_TEXT_RED);
+                this.current_floating_entity_row.set_color(COLOR_RED);
             }
         }
 
@@ -257,7 +257,7 @@ EntityWall.prototype = {
         this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
 
         // Delete entity wall button.
-        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_TEXT_RED);
+        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_RED);
         this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
         /////
@@ -354,7 +354,7 @@ EntityWall.prototype = {
 
         if (entity.get_value(ENTITY_DEFAULT_PROPERTY_TYPE) === ENTITY_TYPE_TASK) {
             if (entity.get_value(ENTITY_PROPERTY_COMPLETED) === 'False') {
-                floating_row.set_color(COLOR_TEXT_RED);
+                floating_row.set_color(COLOR_RED);
 
                 // Since this is a task and it has a not-completed status then add a 'complete' button.
 
@@ -364,7 +364,7 @@ EntityWall.prototype = {
                 var floating_row_button = this.entities_display_wall.add_floating_2d_text(this.entities_display_wall_width / 4, 'mark as completed', TYPE_BUTTON, this.entities_display_wall_width  * .375, 5, 0, y_offset);
                 // FOR_DEV_END
             } else {
-                floating_row.set_color(COLOR_TEXT_GREEN);
+                floating_row.set_color(COLOR_GREEN);
             }
         }
 

@@ -34,8 +34,8 @@ Planet.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.position.set(x, y, z);
 
-        this.mesh.material.color.setHex(COLOR_TEXT_PLANET);
-        this.planet_title.update_just_color(COLOR_TEXT_PLANET);
+        this.mesh.material.color.setHex(COLOR_PLANET[COLOR_HEX_INDEX]);
+        this.planet_title.update_color(COLOR_PLANET);
 
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.mesh);
@@ -57,13 +57,13 @@ Planet.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
-            this.mesh.material.color.setHex(COLOR_HIGHLIGHT);
+            this.mesh.material.color.setHex(COLOR_HIGHLIGHT[COLOR_HEX_INDEX]);
             this.mesh.material.needsUpdate = true;
-            this.planet_title.update_just_color(COLOR_HIGHLIGHT);
+            this.planet_title.update_color(COLOR_HIGHLIGHT);
         } else {
-            this.mesh.material.color.setHex(COLOR_TEXT_PLANET);
+            this.mesh.material.color.setHex(COLOR_PLANET[COLOR_HEX_INDEX]);
             this.mesh.material.needsUpdate = true;
-            this.planet_title.update_just_color(COLOR_TEXT_PLANET);
+            this.planet_title.update_color(COLOR_PLANET);
         }
     },
 
