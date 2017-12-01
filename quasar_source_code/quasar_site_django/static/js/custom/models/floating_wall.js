@@ -117,10 +117,9 @@ FloatingWall.prototype = {
     },
 
     add_floating_2d_text: function(width, text, type, x_offset, z_offset, row, additional_y_offset) {
-
         // FOR_DEV_START
         if (!is_defined(this.scene)) {
-            l('THE SCENE IS NOT DEFINED!')
+            l('THE SCENE IS NOT DEFINED!');
         }
         // FOR_DEV_END
 
@@ -132,7 +131,6 @@ FloatingWall.prototype = {
 
         this.add_additional_visibility_object(floating_2D_text);
         this.add_object_to_remove_later(floating_2D_text);
-
 
         this.all_floating_2d_texts.push(floating_2D_text);
 
