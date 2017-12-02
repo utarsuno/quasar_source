@@ -41,6 +41,8 @@ PlaneAPI.prototype = {
         //this.mesh.add(wireframe);
     }
 
+
+
     /*
     update_position_and_look_at: function(position_vector, look_at_position) {
         this.object3D.position.x = position_vector.x;
