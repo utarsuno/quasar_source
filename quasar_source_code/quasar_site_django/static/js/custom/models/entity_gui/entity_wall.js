@@ -325,9 +325,7 @@ EntityWall.prototype = {
         this.create_entity_button.set_next_tab_target(this.make_entity_wall_public_button);
         this.make_entity_wall_public_button.set_next_tab_target(this.delete_entity_wall_button);
         this.delete_entity_wall_button.set_next_tab_target(this.title);
-
-        this.object3D.add(this.wall.mesh);
-
+        
         this.scene.add(this.object3D);
 
         this.floating_row_to_entity_list = [];

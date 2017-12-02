@@ -78,7 +78,7 @@ FloatingWall.prototype = {
 
         this.object3D.add(this.wall.mesh);
         this.scene.add(this.object3D);
-        //this.scene.add(this.cursor_object3D);
+        this.scene.add(this.cursor_object3D);
     },
 
     _update_scale: function() {
