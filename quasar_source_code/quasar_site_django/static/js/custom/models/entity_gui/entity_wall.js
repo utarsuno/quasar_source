@@ -236,7 +236,7 @@ EntityWall.prototype = {
 
         // Base wall.
         var wall_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
-        var wall_look_at = new THREE.Vector3(wall_position.x + this.normal.x, wall_position.y + this.normal.y + this.height / 2, wall_position.z + this.normal.y);
+        var wall_look_at = new THREE.Vector3(wall_position.x + this.normal.x * 10, wall_position.y + this.normal.y * 10 + this.height / 2, wall_position.z + this.normal.z * 10);
         this.wall = new FloatingWall(this.width, this.height, wall_position, wall_look_at, this.world);
 
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
@@ -325,7 +325,7 @@ EntityWall.prototype = {
         this.create_entity_button.set_next_tab_target(this.make_entity_wall_public_button);
         this.make_entity_wall_public_button.set_next_tab_target(this.delete_entity_wall_button);
         this.delete_entity_wall_button.set_next_tab_target(this.title);
-        
+
         this.scene.add(this.object3D);
 
         this.floating_row_to_entity_list = [];
@@ -335,30 +335,6 @@ EntityWall.prototype = {
         } else {
             this.create_or_update_self_wall_entity();
         }
-    },
-
-    _update_scale: function() {
-        var scale_position = this.get_player_look_at_intersection_point_without_is_point_inside_check();
-        l('The scale position is at ');
-        l(scale_position);
-
-        l('The current scale sphere position is at ');
-        l(this.cursor.position);
-    },
-
-    turn_off_scaling: function() {
-        this.currently_scaling = false;
-        CURRENT_PLAYER.disengage();
-    },
-
-    lock_on_scaling: function() {
-        this.currently_scaling = true;
-        CURRENT_PLAYER.engage_but_leave_controls_enabled();
-        CURRENT_PLAYER.look_at(this.cursor.position);
-        var current_player_position = CURRENT_PLAYER.get_position();
-        this.position_cache_x = int(current_player_position.x);
-        this.position_cache_y = int(current_player_position.y);
-        this.position_cache_z = int(current_player_position.z);
     },
 
     update: function() {
@@ -371,7 +347,7 @@ EntityWall.prototype = {
             }
         }
 
-
+        this.wall.update();
         this.entities_display_wall.update();
         this.are_you_sure.update();
 
