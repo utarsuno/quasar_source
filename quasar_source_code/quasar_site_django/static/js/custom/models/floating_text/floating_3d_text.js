@@ -37,6 +37,10 @@ Floating3DText.prototype = {
     },
 
     _update_text: function() {
+        // FOR_DEV_START
+        l('Creating 3D Text!');
+        // FOR_DEV_END
+
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
         }

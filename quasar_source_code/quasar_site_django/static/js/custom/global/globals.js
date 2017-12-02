@@ -244,7 +244,10 @@ const DISPLAY_SHOW = 'block';
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
-// Python syntax imitation.
+
+/* __      ___       __           __           ___                       ___      ___    __
+  |__) \ /  |  |__| /  \ |\ |    /__` \ / |\ |  |   /\  \_/    |  |\/| |  |   /\   |  | /  \ |\ |
+  |     |   |  |  | \__/ | \|    .__/  |  | \|  |  /~~\ / \    |  |  | |  |  /~~\  |  | \__/ | \| */
 function len(o) {
     if (o.hasOwnProperty('length')) {
         return o.length;
@@ -252,7 +255,6 @@ function len(o) {
     return -1;
 }
 
-// Python syntax imitation.
 function str(o) {
     return o.toString();
 }

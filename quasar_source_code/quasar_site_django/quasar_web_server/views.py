@@ -27,8 +27,7 @@ _TEMPLATES_BASE         = 'templates/quasar_web_server/'
 TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
 TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
-TEMPLATE_LOG_FORMULAS   = _TEMPLATES_BASE + 'log_formulas.html'
-TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + '/web_socket_server/web_sockets.html'
+TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + 'web_sockets.html'
 TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 
@@ -63,11 +62,6 @@ def GET_quasar_qa(request):
 def GET_quasar_prod(request):
     """Returns the Production environment version of Quasar (minified files), future code work features to be added."""
     return render(request, TEMPLATE_QUASAR_PROD)
-
-
-def GET_log_formulas(request):
-    """Returns the HTML page for log formulas."""
-    return render(request, TEMPLATE_LOG_FORMULAS)
 
 
 def GET_web_socket(request):

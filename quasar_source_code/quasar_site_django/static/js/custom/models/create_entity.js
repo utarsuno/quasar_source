@@ -57,9 +57,10 @@ CreateEntity.prototype = {
 
         switch (selected_type) {
         case ENTITY_TYPE_TEXT_REMINDER:
-            this.add_create_entity_field(TEMP_PROPERTY_A, 'message here', false, true);
+            this.add_create_entity_field(ENTITY_PROPERTY_TEXT_CONTENTS, 'message here', false, true);
             this.add_create_entity_field('PID :', 'to be filled out by the server', false, false);
 
+            // TODO : Refactor
             this.add_create_entity_field(TEMP_PROPERTY_B, '5', false, true);
             this.add_create_entity_field(TEMP_PROPERTY_C, this.get_owner_sms_email(), false, false);
 

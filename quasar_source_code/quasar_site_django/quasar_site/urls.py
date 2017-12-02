@@ -31,8 +31,7 @@ POST_URL_GET_SERVER_LOGS       = r'get_server_logs'
 # UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [
-    url(r'log_formulas', v.GET_log_formulas),
-    url(r'web_socket'  , v.GET_web_socket),
+    url(r'web_socket', v.GET_web_socket),
 
     url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),
     url(POST_URL_LOGIN                , v.POST_login),
