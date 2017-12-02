@@ -4,57 +4,6 @@ function SettingsWorld() {
     this.__init__();
 }
 
-/*
-
-// Cell phone carriers.
-const CELL_PHONE_CARRIERS = {
-    'No Value'         : '',
-    'AT&T'             : 'number@txt.att.net',
-    'T-Mobile'         : 'number@tmomail.net',
-    'Verizon'          : 'number@vtext.com',
-    'Sprint'           : 'number@pm.sprint.com',
-    'Virgin Mobile'    : 'number@vmobl.com',
-    'Tracfone'         : 'number@mmst5.tracfone.com',
-    'Metro PCS'        : 'number@mymetropcs.com',
-    'Boost Mobile'     : 'number@myboostmobile.com',
-    'Cricket'          : 'number@mms.cricketwireless.net',
-    'Ptel'             : 'number@ptel.com',
-    'Republic Wireless': 'number@text.republicwireless.com',
-    'Google Fi'        : 'number@msg.fi.google.com',
-    'Suncom'           : 'number@tms.suncom.com',
-    'Ting'             : 'number@message.ting.com',
-    'U.S. Cellular'    : 'number@email.uscc.net',
-    'Consumer Cellular': 'number@cingularme.com',
-    'C-Spire'          : 'number@cspire1.com',
-    'Page Plus'        : 'number@vtext.com'
-}
-
-*/
-
-
-// TODO : Move to globals
-const CELL_PHONE_CARRIERS_AS_LIST = [
-    'No Value',
-    'AT&T',
-    'T-Mobile',
-    'Verizon',
-    'Sprint',
-    'Virgin Mobile',
-    'Tracfone',
-    'Metro PCS',
-    'Boost Mobile',
-    'Cricket',
-    'Ptel',
-    'Republic Wireless',
-    'Google Fi',
-    'Suncom',
-    'Ting',
-    'U.S. Cellular',
-    'Consumer Cellular',
-    'C-Spire',
-    'Page Plus'
-];
-
 SettingsWorld.prototype = {
 
     previous_world: null,

@@ -193,6 +193,12 @@ module.exports = {
         "ENTITY_PROPERTY_DUE_DATE"           : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "ENTITY_PROPERTY_TEXT_CONTENTS": false,
+        "ENTITY_PROPERTY_DUE_TIME": false,
+        "ENTITY_PROPERTY_EXECUTE_DATE": false,
+        "ENTITY_PROPERTY_EXECUTE_TIME": false,
+        "CELL_PHONE_CARRIERS": false,
+
         // UNIVERSAL_CONSTANTS_START : Entity POST keys.
         "ENTITY_POST_SAVE_DATA"              : false,
         // UNIVERSAL_CONSTANTS_END

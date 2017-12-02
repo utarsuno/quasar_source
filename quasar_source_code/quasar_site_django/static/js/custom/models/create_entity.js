@@ -6,33 +6,6 @@ function CreateEntity(entity_wall, entity_created_bind_function, position, norma
 
 // Random global TODO : eventually set a standard for the z-depth difference between layers on FloatingWalls.
 
-//const TEMP_PROPERTY_A = 'Text Contents :'
-//const TEMP_PROPERTY_B = 'Seconds from now :'
-//const TEMP_PROPERTY_C = 'Send to :'
-
-// TODO : Move this to globals.
-const CELL_PHONE_CARRIERS = {
-    'No Value'         : '',
-    'AT&T'             : 'number@txt.att.net',
-    'T-Mobile'         : 'number@tmomail.net',
-    'Verizon'          : 'number@vtext.com',
-    'Sprint'           : 'number@pm.sprint.com',
-    'Virgin Mobile'    : 'number@vmobl.com',
-    'Tracfone'         : 'number@mmst5.tracfone.com',
-    'Metro PCS'        : 'number@mymetropcs.com',
-    'Boost Mobile'     : 'number@myboostmobile.com',
-    'Cricket'          : 'number@mms.cricketwireless.net',
-    'Ptel'             : 'number@ptel.com',
-    'Republic Wireless': 'number@text.republicwireless.com',
-    'Google Fi'        : 'number@msg.fi.google.com',
-    'Suncom'           : 'number@tms.suncom.com',
-    'Ting'             : 'number@message.ting.com',
-    'U.S. Cellular'    : 'number@email.uscc.net',
-    'Consumer Cellular': 'number@cingularme.com',
-    'C-Spire'          : 'number@cspire1.com',
-    'Page Plus'        : 'number@vtext.com'
-};
-
 CreateEntity.prototype = {
 
     // TODO : Deal with all 'set_engage_function' functions.
@@ -79,8 +52,8 @@ CreateEntity.prototype = {
         this.create_entity_wall_title = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Create a New ' + selected_type, TYPE_TITLE, 0, 2, 1, 0);
         this.entity_type_selector.set_to_invisible();
 
-        this.add_create_entity_field(ENTITY_PROPERTY_NAME, 'entity default name', false, true);
-        this.add_create_entity_field(ENTITY_DEFAULT_PROPERTY_TYPE, selected_type, false, false);
+        this.add_create_entity_field(ENTITY_PROPERTY_NAME, 'default name', false, true);
+        //this.add_create_entity_field(ENTITY_DEFAULT_PROPERTY_TYPE, selected_type, false, false);
 
         switch (selected_type) {
         case ENTITY_TYPE_TEXT_REMINDER:
@@ -95,8 +68,6 @@ CreateEntity.prototype = {
             //fields[1].set_engage_function(this.select_date.bind(this, fields[1]))
             break;
         case ENTITY_TYPE_TASK:
-            break;
-        case ENTITY_TYPE_TIME:
             break;
         case ENTITY_TYPE_BASE:
             break;
@@ -121,7 +92,7 @@ CreateEntity.prototype = {
         this.add_attribute_prompt.set_to_visible();
     },
 
-    save_entity_button_pressed: function() {
+    create_entity_button_pressed: function() {
         //console.log('Save the entity!!!!')
         var properties = {};
 
@@ -168,12 +139,12 @@ CreateEntity.prototype = {
         this.entity_type_selector.add_floating_2d_text(this.width, 'Select Entity Type', TYPE_TITLE, 0, 4, 1, 0);
         var entity_type_row_index = 4;
         for (var f = 0; f < ENTITY_TYPE_ALL.length; f++) {
-            var entity_type_row = this.entity_type_selector.add_floating_2d_text(this.width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0);
-            entity_type_row_index += 1;
-
-            this.entity_wall.world.interactive_objects.push(entity_type_row);
-
-            entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]));
+            if (ENTITY_TYPE_ALL[f] !== ENTITY_TYPE_TIME && ENTITY_TYPE_ALL[f] !== ENTITY_TYPE_OWNER && ENTITY_TYPE_ALL[f] !== ENTITY_TYPE_WALL) {
+                var entity_type_row = this.entity_type_selector.add_floating_2d_text(this.width, ENTITY_TYPE_ALL[f], TYPE_BUTTON, 0, 4, entity_type_row_index, 0);
+                entity_type_row_index += 1;
+                this.entity_wall.world.interactive_objects.push(entity_type_row);
+                entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[f]));
+            }
         }
 
         this.entity_type_selector.set_to_invisible();
@@ -183,7 +154,7 @@ CreateEntity.prototype = {
           \__, |  \ |___ /~~\  |  |___    |___ | \|  |  |  |   |     .*/
         this.create_entity_fields = [];
 
-        this.entity_wall_width = 300;
+        this.entity_wall_width = 512;
         // TODO : Height needs to be dynamically determined from the number of rows needed.
         var entity_wall_height = 512 / 2 - 100;
         var create_entity_wall_position = new THREE.Vector3(this.position.x + this.normal.x * 28, this.position.y + this.normal.y * 28, this.position.z + this.normal.z * 28);
@@ -198,8 +169,8 @@ CreateEntity.prototype = {
         this.add_attribute_button.set_engage_function(this.add_attribute_button_pressed.bind(this));
 
         // Save Entity button.
-        this.save_entity_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Save Entity', TYPE_BUTTON, 0, 2, 0, (-entity_wall_height + 16));
-        this.save_entity_button.set_engage_function(this.save_entity_button_pressed.bind(this));
+        this.create_entity_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Create Entity', TYPE_BUTTON, 0, 2, 0, (-entity_wall_height + 16));
+        this.create_entity_button.set_engage_function(this.save_entity_button_pressed.bind(this));
         //////
 
         this.create_entity_wall.set_to_invisible();
@@ -224,7 +195,7 @@ CreateEntity.prototype = {
 
         // Make sure to add interactive objects back to the wall.
         this.entity_wall.world.interactive_objects.push(this.add_attribute_button);
-        this.entity_wall.world.interactive_objects.push(this.save_entity_button);
+        this.entity_wall.world.interactive_objects.push(this.create_entity_button);
         this.entity_wall.world.interactive_objects.push(create_entity_wall_close_button);
     },
 

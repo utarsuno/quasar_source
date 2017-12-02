@@ -71,6 +71,10 @@ const ENTITY_PROPERTY_PHONE_NUMBER        = ENTITY_PROPERTY_START_TOKEN + 'phone
 const ENTITY_PROPERTY_PHONE_CARRIER       = ENTITY_PROPERTY_START_TOKEN + 'phone_carrier';
 const ENTITY_PROPERTY_CREATED_AT_DATE     = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
 const ENTITY_PROPERTY_DUE_DATE            = ENTITY_PROPERTY_START_TOKEN + 'due_date';
+const ENTITY_PROPERTY_TEXT_CONTENTS       = ENTITY_PROPERTY_START_TOKEN + 'text_contents';
+const ENTITY_PROPERTY_DUE_TIME            = ENTITY_PROPERTY_START_TOKEN + 'due_time';
+const ENTITY_PROPERTY_EXECUTE_DATE        = ENTITY_PROPERTY_START_TOKEN + 'execute_date';
+const ENTITY_PROPERTY_EXECUTE_TIME        = ENTITY_PROPERTY_START_TOKEN + 'execute_time';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity default property keys.
@@ -83,10 +87,6 @@ const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relat
 // UNIVERSAL_CONSTANTS_START : Entity POST keys.
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
-
-const TEMP_PROPERTY_A = 'Text Contents :';
-const TEMP_PROPERTY_B = 'Seconds from now :';
-const TEMP_PROPERTY_C = 'Send to :';
 
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
@@ -139,22 +139,45 @@ const COLOR_GREEN            = [0x6cff61, '#6cff61'];
 const COLOR_TEXT_CONSTANT    = [0x7e58b0, '#7e58b0'];
 const COLOR_WHITE            = [0xffffff, '#ffffff'];
 const COLOR_BLACK            = [0x000000, '#000000'];
-const COLOR_DAY_PAST_SEVEN   = [0x00362a, '#00362a'];
-const COLOR_DAY_PAST_SIX     = [0x004b3a, '#004b3a'];
-const COLOR_DAY_PAST_FIVE    = [0x00614b, '#00614b'];
-const COLOR_DAY_PAST_FOUR    = [0x008164, '#008164'];
-const COLOR_DAY_PAST_THREE   = [0x00b78e, '#00b78e'];
-const COLOR_DAY_PAST_TWO     = [0x00dbaa, '#00dbaa'];
-const COLOR_DAY_PAST_ONE     = [0x00e9b2, '#00e9b2'];
-const COLOR_DAY_PRESENT      = [0x5db2ff, '#5db2ff'];
-const COLOR_DAY_FUTURE_ONE   = [0x41ff92, '#41ff92'];
-const COLOR_DAY_FUTURE_TWO   = [0x31ff7f, '#31ff7f'];
-const COLOR_DAY_FUTURE_THREE = [0x5eff7c, '#5eff7c'];
-const COLOR_DAY_FUTURE_FOUR  = [0x7eff91, '#7eff91'];
-const COLOR_DAY_FUTURE_FIVE  = [0xa4ff98, '#a4ff98'];
-const COLOR_DAY_FUTURE_SIX   = [0xd4ffb3, '#d4ffb3'];
-const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#fffdb5'];
+const COLOR_DAY_PAST_SEVEN   = [0x00362a, '#002411'];
+const COLOR_DAY_PAST_SIX     = [0x004b3a, '#09312f'];
+const COLOR_DAY_PAST_FIVE    = [0x00614b, '#113e4d'];
+const COLOR_DAY_PAST_FOUR    = [0x008164, '#1a4b6b'];
+const COLOR_DAY_PAST_THREE   = [0x00b78e, '#225788'];
+const COLOR_DAY_PAST_TWO     = [0x00dbaa, '#2b64a6'];
+const COLOR_DAY_PAST_ONE     = [0x00e9b2, '#3371c4'];
+const COLOR_DAY_PRESENT      = [0x5db2ff, '#448aff'];
+const COLOR_DAY_FUTURE_ONE   = [0x41ff92, '#4b77c3'];
+const COLOR_DAY_FUTURE_TWO   = [0x31ff7f, '#4f6ea4'];
+const COLOR_DAY_FUTURE_THREE = [0x5eff7c, '#526486'];
+const COLOR_DAY_FUTURE_FOUR  = [0x7eff91, '#555a68'];
+const COLOR_DAY_FUTURE_FIVE  = [0xa4ff98, '#595149'];
+const COLOR_DAY_FUTURE_SIX   = [0xd4ffb3, '#5c472b'];
+const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#5f3d0c'];
 // UNIVERSAL_CONSTANTS_END
+
+const CELL_PHONE_CARRIERS = {
+    'No Value'         : '',
+    'AT&T'             : 'number@txt.att.net',
+    'T-Mobile'         : 'number@tmomail.net',
+    'Verizon'          : 'number@vtext.com',
+    'Sprint'           : 'number@pm.sprint.com',
+    'Virgin Mobile'    : 'number@vmobl.com',
+    'Tracfone'         : 'number@mmst5.tracfone.com',
+    'Metro PCS'        : 'number@mymetropcs.com',
+    'Boost Mobile'     : 'number@myboostmobile.com',
+    'Cricket'          : 'number@mms.cricketwireless.net',
+    'Ptel'             : 'number@ptel.com',
+    'Republic Wireless': 'number@text.republicwireless.com',
+    'Google Fi'        : 'number@msg.fi.google.com',
+    'Suncom'           : 'number@tms.suncom.com',
+    'Ting'             : 'number@message.ting.com',
+    'U.S. Cellular'    : 'number@email.uscc.net',
+    'Consumer Cellular': 'number@cingularme.com',
+    'C-Spire'          : 'number@cspire1.com',
+    'Page Plus'        : 'number@vtext.com'
+};
+
 
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0;
@@ -317,3 +340,40 @@ function get_key_value_list_from_json_dictionary(json_data) {
     }
     return return_list;
 }
+
+
+
+// TODO : Make this into a function later.
+// Base from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript
+/*
+ratios = [0, 1, 2, 3, 4, 5, 6, 7];
+
+var color1 = '448aff';
+var color2 = '5f3d0c';
+
+var hex = function(x) {
+    x = x.toString(16);
+    return (x.length == 1) ? '0' + x : x;
+};
+
+function pickHex(color1, color2, weight) {
+    var p = weight;
+    var w = p * 2 - 1;
+    var w1 = (w/1+1) / 2;
+    var w2 = 1 - w1;
+    var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+        Math.round(color1[1] * w1 + color2[1] * w2),
+        Math.round(color1[2] * w1 + color2[2] * w2)];
+    return rgb;
+}
+
+for (var i = 0; i < ratios.length; i++) {
+	var ratio = i / ratios.length;
+  var r = Math.ceil(parseInt(color1.substring(0,2), 16) * ratio + parseInt(color2.substring(0,2), 16) * (1-ratio));
+	var g = Math.ceil(parseInt(color1.substring(2,4), 16) * ratio + parseInt(color2.substring(2,4), 16) * (1-ratio));
+	var b = Math.ceil(parseInt(color1.substring(4,6), 16) * ratio + parseInt(color2.substring(4,6), 16) * (1-ratio));
+
+	var middle = hex(r) + hex(g) + hex(b);
+	console.log(middle);
+}
+ */

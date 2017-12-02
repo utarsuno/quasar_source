@@ -117,9 +117,9 @@ FloatingWall.prototype = {
 
     add_close_button: function(additional_depth) {
         if (additional_depth !== null && additional_depth !== null) {
-            this.close_button = this.add_floating_2d_text(16, 'X', TYPE_BUTTON, (this.width / 2.0) - 16 / 2, 2 + additional_depth, 0, 0);
+            this.close_button = this.add_floating_2d_text(16, 'X', TYPE_BUTTON, this.width - 16 / 2, 2 + additional_depth, 0, 0);
         } else {
-            this.close_button = this.add_floating_2d_text(16, 'X', TYPE_BUTTON, (this.width / 2.0) - 16 / 2, 2, 0, 0);
+            this.close_button = this.add_floating_2d_text(16, 'X', TYPE_BUTTON, this.width - 16 / 2, 2, 0, 0);
         }
         this.interactive_objects.push(this.close_button);
         return this.close_button;

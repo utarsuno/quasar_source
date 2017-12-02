@@ -22,8 +22,6 @@ HomeWorld.prototype = {
 
         this.players = [];
 
-
-
         /*   __   __        ___  __             ___            ___
             /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |    .
             .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\|    .*/
@@ -99,9 +97,6 @@ HomeWorld.prototype = {
                 break;
             }
 
-            l('Color chosen is :');
-            l(color);
-
             var day_of_week_word = get_day_of_week_as_word(get_just_date_object_of_date_of_n_days_offset(i - 7));
             var full_date_of_day = get_today_with_n_days_offset(i - 7);
 
@@ -119,8 +114,6 @@ HomeWorld.prototype = {
 
             this.schedule_floating_day_titles.push(floating_3d_text);
         }
-
-
     },
 
     control_key_down: null,
@@ -164,7 +157,7 @@ HomeWorld.prototype = {
             position = position.split(',');
 
             // TODO : shouldn't this be parseFloat?
-            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]) - 512, parseInt(position[2]));
+            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]));
             //var wall_look_at = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
 
             // FOR_DEV_START

@@ -27,7 +27,7 @@ LoginWorld.prototype = {
 
     },
 
-    login_button_clicked: function() {
+    login_button_pressed: function() {
         var error = false;
         var error_message = '';
 
@@ -72,7 +72,7 @@ LoginWorld.prototype = {
         }
     },
 
-    create_account_button_clicked: function() {
+    create_account_button_pressed: function() {
         var error = false;
         var error_message = '';
 
@@ -130,7 +130,7 @@ LoginWorld.prototype = {
         }
     },
 
-    remember_username_clicked: function() {
+    remember_username_pressed: function() {
         this.remember_username_checkbox.toggle();
         if (this.remember_username_checkbox.status()) {
             MANAGER_COOKIES.set(COOKIE_SHOULD_REMEMBER_USERNAME, 'true');
@@ -179,7 +179,7 @@ LoginWorld.prototype = {
 
         this.login_button = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'login', TYPE_BUTTON, login_wall_width / 4, 2, 4, 0);
         this.interactive_objects.push(this.login_button);
-        this.login_button.set_engage_function(this.login_button_clicked.bind(this));
+        this.login_button.set_engage_function(this.login_button_pressed.bind(this));
 
         /*   __   __   ___      ___  ___          __   __   __            ___
             /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |     |  |  /\  |    |
