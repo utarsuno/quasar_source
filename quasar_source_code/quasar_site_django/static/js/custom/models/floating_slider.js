@@ -74,7 +74,6 @@ FloatingSlider.prototype = {
 
         // Create the slider wall here.
         this.wall = new PlaneAPI(this.width, 20);
-        this.object3D.add(this.wall.mesh);
 
         // Create the actual slider object.
         var current_percentage = (this.current_value - this.minimum_value) / (this.maximum_value - this.minimum_value);
@@ -98,13 +97,15 @@ FloatingSlider.prototype = {
         this.object3D.position.z = position.z;
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z));
 
+        this.wall.update_position_and_look_at(new THREE.Vector3(position.x, position.y, position.z), new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z));
+
         this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 40, 0), this._get_current_look_at_on_slider(0, 40, 0));
         this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
         this.slider_object.requires_mouse_x_movement = true;
 
         this.slider_object.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
 
-        this.world.scene.add(this.object3D);
+        this.world.scene.add(this.wall.object3D);
         this.world.interactive_objects.push(this.slider_object);
 
         this.value_changed_function = null;
