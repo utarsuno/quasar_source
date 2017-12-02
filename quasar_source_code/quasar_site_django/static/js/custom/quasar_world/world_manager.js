@@ -97,8 +97,6 @@ WorldManager.prototype = {
         this.number_of_sky_box_textures_loaded = 0;
         this.load_sky_box();
 
-        this.number_of_cursor_textures_loaded = 0;
-
         this.load_cursors();
     },
 
@@ -205,27 +203,15 @@ WorldManager.prototype = {
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upRight.png', 'cursor_texture_up_right');
     },
 
-    send_cursor_textures: function() {
-        this.world_login.add_cursor();
-        this.world_home.add_cursor();
-        this.world_settings.add_cursor();
-    },
-
     load_cursor_texture: function(texture_url, variable_to_save_into) {
-
         var self = this;
-
         new THREE.TextureLoader().load(texture_url,
             //function when resource is loaded
             function(texture) {
-
-                self.number_of_cursor_textures_loaded += 1;
-                self[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
-
+                self[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
                 // FOR_DEV_START
                 l('loaded texture!');
                 // FOR_DEV_END
-                this.texture_was_loaded();
             }.bind(this),
             function(xhr) {
                 // FOR_DEV_START
@@ -238,10 +224,6 @@ WorldManager.prototype = {
                 // FOR_DEV_END
             }
         );
-
-        if (this.number_of_cursor_textures_loaded == 10) {
-            this.send_cursor_textures();
-        }
     },
 
     texture_was_loaded: function() {
