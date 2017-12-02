@@ -238,13 +238,13 @@ Player.prototype = {
 
     get_parametric_equation: function() {
         var position = this.get_position();
-        var vector   = this.get_direction();
+        var vector   = this.fps_controls.get_direction();
         return [[position.x, vector.x], [position.y, vector.y], [position.z, vector.z]];
     },
 
     get_parametric_value: function(t) {
         var position = this.get_position();
-        var vector   = this.get_direction();
+        var vector   = this.fps_controls.get_direction();
         return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
     }
 };
