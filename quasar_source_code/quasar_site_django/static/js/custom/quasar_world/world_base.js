@@ -140,6 +140,7 @@ function World(planet_name) {
             var walls = this.entity_walls;
             for (var w = 0; w < walls.length; w++) {
                 var intersection_point = walls[w].wall.get_player_look_at_intersection_point();
+                l(intersection_point);
                 if (intersection_point !== false) {
 
                     if (walls[w].wall.scalable) {

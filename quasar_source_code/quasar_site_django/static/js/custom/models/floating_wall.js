@@ -1,7 +1,7 @@
 'use strict';
 
-function FloatingWall(width, height, position, look_at, world) {
-    this.__init__(width, height, position, look_at, world);
+function FloatingWall(width, height, position, look_at, world, scalable) {
+    this.__init__(width, height, position, look_at, world, scalable);
 }
 
 FloatingWall.prototype = {
