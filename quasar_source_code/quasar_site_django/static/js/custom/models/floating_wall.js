@@ -23,7 +23,7 @@ FloatingWall.prototype = {
 
     interactive_objects: null,
 
-    __init__: function (width, height, position, normal, world) {
+    __init__: function (width, height, position, normal, world, scalable) {
 
         this.position = position;
         //this.look_at = new THREE.Vector3(0, this.position.y, 0)
@@ -65,13 +65,17 @@ FloatingWall.prototype = {
         //this.wall_mesh.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
         // Base wall.
 
-        // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
-        var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
-        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
-        this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
-        this.cursor_object3D = new THREE.Object3D();
-        this.cursor_object3D.add(this.cursor);
-        this.cursor_object3D.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
+        if (is_defined(scalable)) {
+            if (scalable) {
+                // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
+                var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
+                var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
+                this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
+                this.cursor_object3D = new THREE.Object3D();
+                this.cursor_object3D.add(this.cursor);
+                this.cursor_object3D.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
+            }
+        }
 
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
@@ -97,16 +101,17 @@ FloatingWall.prototype = {
 
         l('The current scale sphere position is at ');
         l(this.cursor_object3D.position);
+
+        this.cursor_object3D.position.set(scale_position.x, scale_position.y, scale_position.z);
+
+        //  Dynamically change the width and height!
+        l('TODO : Dynamically change the width and height!');
     },
 
     update: function() {
         if (this.currently_scaling) {
             var p = CURRENT_PLAYER.get_position();
             if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.z)) {
-                //l('Cache mis match!');
-                //l(int(p.x));
-                //l(int(p.y));
-                //l(int(p.z));
                 this.turn_off_scaling();
             } else {
                 this._update_scale();

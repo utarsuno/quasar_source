@@ -239,7 +239,7 @@ EntityWall.prototype = {
         var wall_look_at = new THREE.Vector3(0, this.height, 0);
         var wall_normal = new THREE.Vector3(wall_look_at.x - wall_position.x, wall_look_at.y - wall_position.y, wall_look_at.z - wall_position.z);
         wall_normal.normalize();
-        this.wall = new FloatingWall(this.width, this.height, wall_position, wall_normal, this.world);
+        this.wall = new FloatingWall(this.width, this.height, wall_position, wall_normal, this.world, true);
 
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1));
