@@ -206,21 +206,21 @@ FloatingWall.prototype = {
         l(x);
 
         if (right_side.x < 0) {
-            if (this.position.x + right_side.x < x) {
+            if (this.position.x + right_side.x > x) {
                 return false;
             }
         } else {
-            if (this.position.x + right_side.x > x) {
+            if (this.position.x + right_side.x < x) {
                 return false;
             }
         }
 
         if (right_side.z < 0) {
-            if (this.position.z + right_side.z < z) {
+            if (this.position.z + right_side.z > z) {
                 return false;
             }
         } else {
-            if (this.position.z + right_side.z > z) {
+            if (this.position.z + right_side.z < z) {
                 return false;
             }
         }
