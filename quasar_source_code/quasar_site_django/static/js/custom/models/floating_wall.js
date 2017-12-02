@@ -205,10 +205,10 @@ FloatingWall.prototype = {
         var plane_nz = floating_wall_parametric_equation[2];
         var plane_d  = floating_wall_parametric_equation[3];
 
-        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (line_nx + line_ny + line_nz);
+        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 
         l((plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0));
-        l((line_nx + line_ny + line_nz));
+        l((plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz));
         l(t);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
