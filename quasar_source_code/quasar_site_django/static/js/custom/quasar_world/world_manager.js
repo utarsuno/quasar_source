@@ -210,6 +210,9 @@ WorldManager.prototype = {
                 this[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
                 // FOR_DEV_START
                 l('loaded texture!');
+                l(texture_url);
+                l(this[variable_to_save_into]);
+                l('-----\n');
                 // FOR_DEV_END
             }.bind(this),
             function(xhr) {
