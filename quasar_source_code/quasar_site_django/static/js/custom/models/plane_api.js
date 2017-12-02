@@ -23,7 +23,7 @@ PlaneAPI.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        this.object3d.add(this.geometry.mesh)
+        this.object3D.add(this.geometry.mesh);
 
         this.create();
     },
