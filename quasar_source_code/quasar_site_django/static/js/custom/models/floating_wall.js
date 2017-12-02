@@ -72,9 +72,9 @@ FloatingWall.prototype = {
                 // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
                 var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
                 var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
-                this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
+                this.sliding_cursor = new THREE.Mesh(sphereGeom, blueMaterial);
                 this.cursor_object3D = new THREE.Object3D();
-                this.cursor_object3D.add(this.cursor);
+                this.cursor_object3D.add(this.sliding_cursor);
                 this.cursor_object3D.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
             }
         }
@@ -109,7 +109,7 @@ FloatingWall.prototype = {
         l(this.cursor_object3D.position);
 
         this.cursor_object3D.position.set(scale_position.x, scale_position.y, scale_position.z);
-        
+
         //  Dynamically change the width and height!
         l('TODO : Dynamically change the width and height!');
 
