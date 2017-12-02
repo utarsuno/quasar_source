@@ -234,9 +234,10 @@ EntityWall.prototype = {
         this.width = 512;
         this.height = 1024;
 
-        // TODO : Convert the base wall into an FloatingWall !!!!
         // Base wall.
-        this.wall = new PlaneAPI(this.width, this.height);
+        var wall_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
+        var wall_look_at = new THREE.Vector3(wall_position.x + this.normal.x, wall_position.y + this.normal.y, wall_position.z + this.normal.y);
+        this.wall = new FloatingWall(this.width, this.height, wall_position, wall_look_at, this.world);
 
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
         this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1));
@@ -338,10 +339,17 @@ EntityWall.prototype = {
         }
     },
 
+    lock_on_scaling: function() {
+        fdsfdsf
+    },
+
     update: function() {
-        //this.entities_display_wall.update();
-        //this.are_you_sure.update();
-        //this.current_entity_editor.update();
+        this.entities_display_wall.update();
+        this.are_you_sure.update();
+
+        if (is_defined(this.current_entity_editor)) {
+            this.current_entity_editor.update();
+        }
     },
 
     update_title: function(title) {
