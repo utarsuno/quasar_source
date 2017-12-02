@@ -192,23 +192,26 @@ FloatingWall.prototype = {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
-        var d = floating_wall_parametric_equation[3];
+        // TODO : Simplify later.
+        var line_x0 = player_parametric_equation[0][1];
+        var line_y0 = player_parametric_equation[1][1];
+        var line_z0 = player_parametric_equation[2][1];
+        var line_nx = player_parametric_equation[0][0];
+        var line_ny = player_parametric_equation[1][0];
+        var line_nz = player_parametric_equation[2][0];
 
-        l(d);
+        var plane_nx = floating_wall_parametric_equation[0];
+        var plane_ny = floating_wall_parametric_equation[1];
+        var plane_nz = floating_wall_parametric_equation[2];
+        var plane_d  = floating_wall_parametric_equation[3];
 
-        var t_coefficient = player_parametric_equation[0][1] + player_parametric_equation[1][1] + player_parametric_equation[2][1];
-
-        l(t_coefficient);
-
-        var t = (d - player_parametric_equation[0][0] + player_parametric_equation[1][0] + player_parametric_equation[2][0]) / t_coefficient;
+        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (line_nx + line_ny + line_nz);
 
         l(t);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
         var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-
-        l(intersection_point);
-
+        
         l('The intersection point is');
         l(intersection_point);
 
