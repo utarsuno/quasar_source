@@ -337,6 +337,13 @@ EntityWall.prototype = {
         }
     },
 
+    get_parametric_plane_equation: function() {
+
+        
+
+        return 'hi, todo lol';
+    },
+
     update_title: function(title) {
         this.title.update_text(title);
         var save_data = {};

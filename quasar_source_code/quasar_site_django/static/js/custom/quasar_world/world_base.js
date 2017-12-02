@@ -135,6 +135,14 @@ function World(planet_name) {
     };
 
     this.scale_command = function() {
+
+        if (this.hasOwnProperty('entity_walls')) {
+            var walls = this.entity_walls;
+            for (var w = 0; w < walls.length; w++) {
+                l(walls[w].get_parametric_plane_equation());
+            }
+        }
+
         if (is_defined(this.currently_looked_at_object)) {
             l('TODO : THE SCALE COMMAND!!!');
         }
