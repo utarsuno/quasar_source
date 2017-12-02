@@ -57,7 +57,6 @@ FloatingWall.prototype = {
         this.wall = new PlaneAPI(this.width, this.height);
 
         this.object3D.add(this.wall.mesh);
-
         this.scene.add(this.object3D);
 
         this.objects_to_remove_later = [];

@@ -102,7 +102,7 @@ FloatingSlider.prototype = {
         this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
         this.slider_object.requires_mouse_x_movement = true;
 
-        this.slider_object.bind_increase_and_decrease_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
+        this.slider_object.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
 
         this.world.scene.add(this.object3D);
         this.world.interactive_objects.push(this.slider_object);

@@ -355,6 +355,9 @@ FPSControls.prototype = {
                 if (c.requires_mouse_x_movement) {
                     c.provide_mouse_x_movement(movement_x);
                 }
+                if (c.requires_mouse_y_movement) {
+                    c.provide_mouse_y_movement(movement_y);
+                }
             }
         }
     },

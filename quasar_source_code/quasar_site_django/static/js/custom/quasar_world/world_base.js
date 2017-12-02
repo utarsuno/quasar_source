@@ -134,8 +134,14 @@ function World(planet_name) {
         }
     };
 
+    this.scale_command = function() {
+        if (is_defined(this.currently_looked_at_object)) {
+            l('TODO : THE SCALE COMMAND!!!');
+        }
+    };
+
     this.tab_to_next_interactive_object = function() {
-        if (this.currently_looked_at_object !== null) {
+        if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
                 this.currently_looked_at_object.look_away();

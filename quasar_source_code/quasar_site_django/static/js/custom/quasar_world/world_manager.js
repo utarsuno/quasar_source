@@ -98,6 +98,10 @@ WorldManager.prototype = {
         this.load_sky_box();
     },
 
+    scale_command: function() {
+        this.current_world.scale_command();
+    },
+
     set_player_and_current_world: function(current_world) {
         this.world_login.set_player();
         this.world_home.set_player();
