@@ -234,6 +234,7 @@ EntityWall.prototype = {
         this.width = 512;
         this.height = 1024;
 
+        // TODO : Convert the base wall into an FloatingWall !!!!
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height);
 
@@ -335,6 +336,12 @@ EntityWall.prototype = {
         } else {
             this.create_or_update_self_wall_entity();
         }
+    },
+
+    update: function() {
+        this.entities_display_wall.update();
+        this.are_you_sure.update();
+        this.current_entity_editor.update();
     },
 
     update_title: function(title) {

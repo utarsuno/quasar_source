@@ -259,6 +259,10 @@ function str(o) {
     return o.toString();
 }
 
+function int(f) {
+    return f | 0;
+}
+
 
 // Math shortcuts.
 function cos(n) {

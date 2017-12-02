@@ -147,6 +147,11 @@ Player.prototype = {
         return this.engaged;
     },
 
+    engage_but_leave_controls_enabled: function() {
+        this.engaged = true;
+        this.fps_controls.enable();
+    },
+
     engage: function() {
         this.engaged = true;
         this.fps_controls.disable();

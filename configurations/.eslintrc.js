@@ -310,6 +310,7 @@ module.exports = {
         "l"                                  : false,
         // Python syntax imitation.
         "str"                                : false,
+        "int"                                : false,
         "len"                                : false,
         // Math shortcuts.
         "sin"                                : false,

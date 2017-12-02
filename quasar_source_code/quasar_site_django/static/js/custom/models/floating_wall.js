@@ -23,6 +23,8 @@ FloatingWall.prototype = {
 
     interactive_objects: null,
 
+
+
     __init__: function (width, height, position, normal, world) {
 
         this.position = position;
@@ -36,6 +38,8 @@ FloatingWall.prototype = {
         this.left_right = new THREE.Vector3(0, 1, 0);
         this.left_right.cross(this.normal);
         this.left_right.normalize();
+
+        var right_side = this.get_relative_x_shift(-this.width / 2);
 
         this.world = world;
         this.scene = this.world.scene;
@@ -56,13 +60,58 @@ FloatingWall.prototype = {
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height);
 
-        this.object3D.add(this.wall.mesh);
-        this.scene.add(this.object3D);
+        // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
+        var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
+        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
+        this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
+        this.cursor.mesh.position.set(position.x + right_side.x, position.y - this.height / 2 + right_side.y, position.z + right_side.z);
 
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
 
         this.all_floating_2d_texts = [];
+
+        this.currently_scaling = false;
+        this.position_cache_x = null;
+
+        this.object3D.add(this.wall.mesh);
+        this.object3D.add(this.cursor);
+        this.scene.add(this.object3D);
+    },
+
+    _update_scale: function() {
+        var scale_position = this.get_player_look_at_intersection_point_without_is_point_inside_check();
+        l('The scale position is at ');
+        l(scale_position);
+
+        l('The current scale sphere position is at ');
+        l(this.cursor.mesh.position);
+    },
+
+    update: function() {
+        if (this.currently_scaling) {
+            var p = CURRENT_PLAYER.get_position();
+            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.y)) {
+                this.turn_off_scaling();
+            } else {
+                this._update_scale();
+            }
+        }
+    },
+
+    turn_off_scaling: function() {
+        this.currently_scaling = false;
+        CURRENT_PLAYER.disengage();
+    },
+
+    lock_on_scaling: function() {
+        this.currently_scaling = true;
+        CURRENT_PLAYER.engage_but_leave_controls_enabled();
+        CURRENT_PLAYER.look_at(this.cursor.mesh.position);
+        var current_player_position = CURRENT_PLAYER.get_position();
+        this.position_cache_x = int(current_player_position.x);
+        this.position_cache_y = int(current_player_position.y);
+        this.position_cache_z = int(current_player_position.z);
     },
 
     clear_inputs: function() {
@@ -190,20 +239,13 @@ FloatingWall.prototype = {
 
     _is_point_inside_floating_wall: function(x, y, z) {
         // TODO : Simplify later.
-
         if (this.position.y + this.height / 2 < y) {
             return false;
         }
         if (this.position.y - this.height / 2 > y) {
             return false;
         }
-
         var right_side = this.get_relative_x_shift(-this.width / 2);
-
-        l('RIGHT SIDE : ');
-        l(right_side);
-        l(this.position.x + right_side.x);
-        l(x);
 
         if (right_side.x < 0) {
             if (this.position.x + right_side.x > x) {
@@ -214,7 +256,6 @@ FloatingWall.prototype = {
                 return false;
             }
         }
-
         if (right_side.z < 0) {
             if (this.position.z + right_side.z > z) {
                 return false;
@@ -224,8 +265,33 @@ FloatingWall.prototype = {
                 return false;
             }
         }
-
         return true;
+    },
+
+    get_player_look_at_intersection_point_without_is_point_inside_check: function() {
+        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
+        var floating_wall_parametric_equation = this.get_parametric_equation();
+
+        // TODO : Simplify later.
+        const INDEX_OF_POSITION = 0;
+        const INDEX_OF_DIRECTION = 1;
+
+        var line_x0 = player_parametric_equation[0][INDEX_OF_POSITION];
+        var line_y0 = player_parametric_equation[1][INDEX_OF_POSITION];
+        var line_z0 = player_parametric_equation[2][INDEX_OF_POSITION];
+        var line_nx = player_parametric_equation[0][INDEX_OF_DIRECTION];
+        var line_ny = player_parametric_equation[1][INDEX_OF_DIRECTION];
+        var line_nz = player_parametric_equation[2][INDEX_OF_DIRECTION];
+
+        var plane_nx = floating_wall_parametric_equation[0];
+        var plane_ny = floating_wall_parametric_equation[1];
+        var plane_nz = floating_wall_parametric_equation[2];
+        var plane_d  = floating_wall_parametric_equation[3];
+
+        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
+
+        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
+        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
     get_player_look_at_intersection_point: function() {

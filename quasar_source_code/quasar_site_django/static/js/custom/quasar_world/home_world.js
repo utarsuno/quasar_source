@@ -180,6 +180,11 @@ HomeWorld.prototype = {
 
                 this.loaded_entities = true;
             }
+        } else {
+            // Update all the FloatingWalls.
+            for (var i = 0; i < this.entity_walls.length; i++) {
+                this.entity_walls[i].update();
+            }
         }
 
         // World function.
