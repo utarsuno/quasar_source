@@ -195,12 +195,15 @@ FloatingWall.prototype = {
         l(floating_wall_parametric_equation);
 
         // TODO : Simplify later.
-        var line_x0 = player_parametric_equation[0][1];
-        var line_y0 = player_parametric_equation[1][1];
-        var line_z0 = player_parametric_equation[2][1];
-        var line_nx = player_parametric_equation[0][0];
-        var line_ny = player_parametric_equation[1][0];
-        var line_nz = player_parametric_equation[2][0];
+        const INDEX_OF_POSITION = 0;
+        const INDEX_OF_DIRECTION = 1;
+
+        var line_x0 = player_parametric_equation[0][INDEX_OF_POSITION];
+        var line_y0 = player_parametric_equation[1][INDEX_OF_POSITION];
+        var line_z0 = player_parametric_equation[2][INDEX_OF_POSITION];
+        var line_nx = player_parametric_equation[0][INDEX_OF_DIRECTION];
+        var line_ny = player_parametric_equation[1][INDEX_OF_DIRECTION];
+        var line_nz = player_parametric_equation[2][INDEX_OF_DIRECTION];
 
         var plane_nx = floating_wall_parametric_equation[0];
         var plane_ny = floating_wall_parametric_equation[1];
@@ -215,9 +218,6 @@ FloatingWall.prototype = {
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
         var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-
-        l('The intersection point is');
-        l(intersection_point);
 
         return intersection_point;
     }
