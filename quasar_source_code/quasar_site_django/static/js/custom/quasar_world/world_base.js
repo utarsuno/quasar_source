@@ -115,9 +115,11 @@ function World(planet_name) {
         this.floating_cursor.set_position(position);
 
         // Check if we need to change cursor texture type.
-        if (this.currently_looked_at_object.hasOwnProperty('type')) {
-            if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
-                this.floating_cursor.set_material(MANAGER_WORLD.cursor_texture_hand);
+        if (is_defined(this.currently_looked_at_object)) {
+            if (this.currently_looked_at_object.hasOwnProperty('type')) {
+                if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
+                    this.floating_cursor.set_material(MANAGER_WORLD.cursor_texture_hand);
+                }
             }
         }
     };
