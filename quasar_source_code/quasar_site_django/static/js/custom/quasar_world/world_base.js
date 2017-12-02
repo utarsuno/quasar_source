@@ -298,13 +298,12 @@ function World(planet_name) {
         this.cursor_texture_default    = null;
      */
 
-    // Add the cursor.
-    this.add_cursor = function() {
-        var plane_geometry = new THREE.PlaneGeometry(5, 1, 1);
-        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5});
-        this.cursor = new THREE.Mesh(plane_geometry, blueMaterial);
-        this.add_to_scene(this.cursor);
-    };
+    // The cursor texture will get set once loaded.
+    var plane_geometry = new THREE.PlaneGeometry(5, 1, 1);
+    // TODO : Dispose of this original material later on.
+    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5});
+    this.cursor = new THREE.Mesh(plane_geometry, blueMaterial);
+    this.add_to_scene(this.cursor);
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {

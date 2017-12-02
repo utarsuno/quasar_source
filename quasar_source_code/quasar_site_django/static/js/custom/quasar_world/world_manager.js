@@ -275,7 +275,6 @@ WorldManager.prototype = {
                 // FOR_DEV_START
                 l('loaded texture!');
                 // FOR_DEV_END
-                //console.log(variable_to_map_to)
                 this.texture_was_loaded();
             }.bind(this),
             function(xhr) {
