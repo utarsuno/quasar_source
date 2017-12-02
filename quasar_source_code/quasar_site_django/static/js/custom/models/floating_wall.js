@@ -190,6 +190,10 @@ FloatingWall.prototype = {
         l(this.object3D.position.y);
         l(this.object3D.position.z);
         l('@@@');
+        l(this.normal.x);
+        l(this.normal.y);
+        l(this.normal.z);
+        l('---\n');
         return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
     },
 
