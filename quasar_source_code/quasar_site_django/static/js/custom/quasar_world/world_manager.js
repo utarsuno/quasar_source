@@ -204,11 +204,10 @@ WorldManager.prototype = {
     },
 
     load_cursor_texture: function(texture_url, variable_to_save_into) {
-        var self = this;
         new THREE.TextureLoader().load(texture_url,
             //function when resource is loaded
             function(texture) {
-                self[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
+                this[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
                 // FOR_DEV_START
                 l('loaded texture!');
                 // FOR_DEV_END
