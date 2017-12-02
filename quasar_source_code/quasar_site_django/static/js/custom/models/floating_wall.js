@@ -207,11 +207,13 @@ FloatingWall.prototype = {
 
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (line_nx + line_ny + line_nz);
 
+        l((plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0));
+        l((line_nx + line_ny + line_nz));
         l(t);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
         var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-        
+
         l('The intersection point is');
         l(intersection_point);
 
