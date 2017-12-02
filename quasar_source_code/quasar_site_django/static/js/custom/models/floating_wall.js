@@ -23,8 +23,6 @@ FloatingWall.prototype = {
 
     interactive_objects: null,
 
-
-
     __init__: function (width, height, position, normal, world) {
 
         this.position = position;
