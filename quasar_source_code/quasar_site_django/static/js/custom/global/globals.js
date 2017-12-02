@@ -127,6 +127,8 @@ const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
 // UNIVERSAL_CONSTANTS_END
 
+// TODO (global todo) : all modules that have independent resource loading should be abstracted
+// TODO : Use less color constants and generate them at startup instead.
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 const COLOR_STRING_INDEX     = 1;
 const COLOR_HEX_INDEX        = 0;
@@ -177,7 +179,6 @@ const CELL_PHONE_CARRIERS = {
     'C-Spire'          : 'number@cspire1.com',
     'Page Plus'        : 'number@vtext.com'
 };
-
 
 // Mouse-click events.
 const MOUSE_LEFT_CLICK   = 0;
