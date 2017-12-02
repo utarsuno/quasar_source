@@ -185,6 +185,11 @@ FloatingWall.prototype = {
     },
 
     get_parametric_equation: function() {
+        l('@@@');
+        l(this.object3D.position.x);
+        l(this.object3D.position.y);
+        l(this.object3D.position.z);
+        l('@@@');
         return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
     },
 
