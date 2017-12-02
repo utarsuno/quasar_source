@@ -48,7 +48,7 @@ PlaneAPI.prototype = {
         this.object3D.position.y = position_vector.y;
         this.object3D.position.z = position_vector.z;
 
-        var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y + this.height / 2, this.look_at_position.z);
+        var look_at = new THREE.Vector3(look_at_position.x, look_at_position.y + this.height / 2, look_at_position.z);
 
         this.object3D.lookAt(look_at);
     }
