@@ -96,6 +96,10 @@ WorldManager.prototype = {
         this.final_textures = [];
         this.number_of_sky_box_textures_loaded = 0;
         this.load_sky_box();
+
+        this.number_of_cursor_textures_loaded = 0;
+
+        this.load_cursors();
     },
 
     scale_command: function() {
@@ -176,6 +180,68 @@ WorldManager.prototype = {
         this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jpg');
         this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jpg');
         this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jpg');
+    },
+
+    load_cursors: function() {
+        this.cursor_texture_down       = null;
+        this.cursor_texture_left       = null;
+        this.cursor_texture_right      = null;
+        this.cursor_texture_up         = null;
+        this.cursor_texture_down_left  = null;
+        this.cursor_texture_down_right = null;
+        this.cursor_texture_up_left    = null;
+        this.cursor_texture_up_right   = null;
+        this.cursor_texture_hand       = null;
+        this.cursor_texture_default    = null;
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowDown.png', 'cursor_texture_down');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowLeft.png', 'this.cursor_texture_left');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowRight.png', 'cursor_texture_right');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowUp.png', 'cursor_texture_up');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png', 'cursor_texture_hand');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer3D_shadow.png', 'cursor_texture_default');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downLeft.png', 'cursor_texture_down_left');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downRight.png', 'cursor_texture_down_right');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upLeft.png', 'cursor_texture_up_left');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upRight.png', 'cursor_texture_up_right');
+    },
+
+    send_cursor_textures: function() {
+        this.world_login.add_cursor();
+        this.world_home.add_cursor();
+        this.world_settings.add_cursor();
+    },
+
+    load_cursor_texture: function(texture_url, variable_to_save_into) {
+
+        var self = this;
+
+        new THREE.TextureLoader().load(texture_url,
+            //function when resource is loaded
+            function(texture) {
+
+                self.number_of_cursor_textures_loaded += 1;
+                self[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+
+                // FOR_DEV_START
+                l('loaded texture!');
+                // FOR_DEV_END
+                this.texture_was_loaded();
+            }.bind(this),
+            function(xhr) {
+                // FOR_DEV_START
+                l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
+                // FOR_DEV_END
+            },
+            function(xhr) {
+                // FOR_DEV_START
+                l(xhr);
+                // FOR_DEV_END
+            }
+        );
+
+        if (this.number_of_cursor_textures_loaded == 10) {
+            this.send_cursor_textures();
+        }
     },
 
     texture_was_loaded: function() {

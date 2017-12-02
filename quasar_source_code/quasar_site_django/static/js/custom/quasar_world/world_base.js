@@ -285,11 +285,30 @@ function World(planet_name) {
     this.add_to_scene(light);
 
     // cursor
-    var sphereGeom = new THREE.SphereGeometry(4, 25, 25);
-    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5});
-    this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
+    /*
+        this.cursor_texture_down       = null;
+        this.cursor_texture_left       = null;
+        this.cursor_texture_right      = null;
+        this.cursor_texture_up         = null;
+        this.cursor_texture_down_left  = null;
+        this.cursor_texture_down_right = null;
+        this.cursor_texture_up_left    = null;
+        this.cursor_texture_up_right   = null;
+        this.cursor_texture_hand       = null;
+        this.cursor_texture_default    = null;
+     */
+    var plane_geometry = new THREE.PlaneGeometry(5, 1, 1);
+    this.cursor = new THREE.Mesh(plane_geometry, MANAGER_WORLD.cursor_texture_default);
     this.add_to_scene(this.cursor);
 
+
+    // Add the cursor.
+    this.add_cursor = function() {
+        var plane_geometry = new THREE.PlaneGeometry(5, 1, 1);
+        var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5});
+        this.cursor = new THREE.Mesh(plane_geometry, blueMaterial);
+        this.add_to_scene(this.cursor);
+    };
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {

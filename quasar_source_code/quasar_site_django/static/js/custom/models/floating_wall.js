@@ -109,7 +109,7 @@ FloatingWall.prototype = {
         l(this.cursor_object3D.position);
 
         this.cursor_object3D.position.set(scale_position.x, scale_position.y, scale_position.z);
-
+        
         //  Dynamically change the width and height!
         l('TODO : Dynamically change the width and height!');
 
