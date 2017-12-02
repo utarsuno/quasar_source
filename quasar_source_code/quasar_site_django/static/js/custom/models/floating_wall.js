@@ -64,7 +64,7 @@ FloatingWall.prototype = {
         var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
         var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
         this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
-        this.cursor.mesh.position.set(position.x + right_side.x, position.y - this.height / 2 + right_side.y, position.z + right_side.z);
+        this.cursor.position.set(position.x + right_side.x, position.y - this.height / 2 + right_side.y, position.z + right_side.z);
 
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
@@ -107,7 +107,7 @@ FloatingWall.prototype = {
     lock_on_scaling: function() {
         this.currently_scaling = true;
         CURRENT_PLAYER.engage_but_leave_controls_enabled();
-        CURRENT_PLAYER.look_at(this.cursor.mesh.position);
+        CURRENT_PLAYER.look_at(this.cursor.position);
         var current_player_position = CURRENT_PLAYER.get_position();
         this.position_cache_x = int(current_player_position.x);
         this.position_cache_y = int(current_player_position.y);
