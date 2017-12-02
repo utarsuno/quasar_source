@@ -139,13 +139,12 @@ function World(planet_name) {
         if (this.hasOwnProperty('entity_walls')) {
             var walls = this.entity_walls;
             for (var w = 0; w < walls.length; w++) {
-                l(walls[w].get_player_look_at_intersection_point_to_any_floating_wall());
+                l(walls[w].entities_display_wall.get_player_look_at_intersection_point_to_any_floating_wall());
             }
         }
-
-        if (is_defined(this.currently_looked_at_object)) {
-            l('TODO : THE SCALE COMMAND!!!');
-        }
+        //if (is_defined(this.currently_looked_at_object)) {
+        //    l('TODO : THE SCALE COMMAND!!!');
+        //}
     };
 
     this.tab_to_next_interactive_object = function() {

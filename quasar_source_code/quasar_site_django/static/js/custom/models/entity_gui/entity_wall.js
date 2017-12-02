@@ -337,27 +337,6 @@ EntityWall.prototype = {
         }
     },
 
-    get_parametric_equation: function() {
-        return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.position.x + this.normal.y * this.position.y + this.normal.z * this.position.z)];
-    },
-
-    get_player_look_at_intersection_point_to_any_floating_wall: function() {
-        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        var floating_wall_parametric_equation = this.get_parametric_equation();
-
-        var d = floating_wall_parametric_equation[4];
-        var t_coefficient = player_parametric_equation[0][1] + player_parametric_equation[1][1] + player_parametric_equation[2][1];
-        var t = (d - player_parametric_equation[0][0] + player_parametric_equation[1][0] + player_parametric_equation[2][0]) / t_coefficient;
-
-        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-
-        l('The intersection point is');
-        l(intersection_point);
-
-        return intersection_point;
-    },
-
     update_title: function(title) {
         this.title.update_text(title);
         var save_data = {};
