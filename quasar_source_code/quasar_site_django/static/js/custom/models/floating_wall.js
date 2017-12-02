@@ -39,6 +39,9 @@ FloatingWall.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
+        this.width = width;
+        this.height = height;
+
         var right_side = this.get_relative_x_shift(-this.width / 2);
 
         this.world = world;
@@ -53,9 +56,6 @@ FloatingWall.prototype = {
         Visibility.call(this);
 
         this.interactive_objects = [];
-
-        this.width = width;
-        this.height = height;
 
         // Base wall.
         this.wall = new PlaneAPI(this.width, this.height);
