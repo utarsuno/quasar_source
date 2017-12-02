@@ -55,7 +55,16 @@ FloatingWall.prototype = {
         this.interactive_objects = [];
 
         // Base wall.
-        this.wall = new PlaneAPI(this.width, this.height);
+        // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
+        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.material = new THREE.MeshBasicMaterial({
+            color: 0x060606,
+            //transparent: true,
+            //opacity: 0.85,
+            side: THREE.DoubleSide
+        });
+        this.wall_mesh = new THREE.Mesh(this.geometry, this.material);
+        // Base wall.
 
         // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
         var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
@@ -73,14 +82,13 @@ FloatingWall.prototype = {
         this.currently_scaling = false;
         this.position_cache_x = null;
 
-        this.scene.add(this.wall.object3D);
+        this.object3D.add(this.wall_mesh);
+
         this.scene.add(this.object3D);
         this.scene.add(this.cursor_object3D);
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
-
-        this.wall.update_position_and_look_at(new THREE.Vector3(position.x, position.y, position.z), new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
     },
 
     _update_scale: function() {
