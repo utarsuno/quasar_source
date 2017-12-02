@@ -73,13 +73,14 @@ FloatingWall.prototype = {
         this.currently_scaling = false;
         this.position_cache_x = null;
 
-        this.object3D.add(this.wall.mesh);
+        this.scene.add(this.wall.object3D);
         this.scene.add(this.object3D);
         this.scene.add(this.cursor_object3D);
 
-
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
+
+        this.wall.update_position_and_look_at(new THREE.Vector3(position.x, position.y, position.z), new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
     },
 
     _update_scale: function() {
