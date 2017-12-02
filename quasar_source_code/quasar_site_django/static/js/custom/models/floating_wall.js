@@ -85,7 +85,7 @@ FloatingWall.prototype = {
         l(scale_position);
 
         l('The current scale sphere position is at ');
-        l(this.cursor.mesh.position);
+        l(this.cursor.position);
     },
 
     update: function() {
