@@ -112,6 +112,16 @@ FloatingWall.prototype = {
 
         //  Dynamically change the width and height!
         l('TODO : Dynamically change the width and height!');
+
+        this.object3D.remove(this.wall_mesh);
+        //this.scene.remove(this.wall_mesh);
+
+        // TODO : Calculate the new width and height
+        var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.geometry.dispose();
+        this.geometry = new_geometry;
+        this.wall_mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.wall_mesh);
     },
 
     update: function() {
