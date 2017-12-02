@@ -236,7 +236,7 @@ EntityWall.prototype = {
 
         // Base wall.
         var wall_position = new THREE.Vector3(position.x, position.y, position.z);
-        var wall_look_at = new THREE.Vector3(0, this.height, 0);
+        var wall_look_at = new THREE.Vector3(0, position.y, 0);
         var wall_normal = new THREE.Vector3(wall_look_at.x - wall_position.x, wall_look_at.y - wall_position.y, wall_look_at.z - wall_position.z);
         wall_normal.normalize();
         this.wall = new FloatingWall(this.width, this.height, wall_position, wall_normal, this.world, true);
