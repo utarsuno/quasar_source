@@ -185,7 +185,7 @@ FloatingWall.prototype = {
     },
 
     get_parametric_equation: function() {
-        return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.position.object3D.z)];
+        return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
     },
 
     get_player_look_at_intersection_point_to_any_floating_wall: function() {
