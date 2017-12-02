@@ -192,7 +192,7 @@ WorldManager.prototype = {
         this.cursor_texture_hand       = null;
         this.cursor_texture_default    = null;
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowDown.png', 'cursor_texture_down');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowLeft.png', 'this.cursor_texture_left');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowLeft.png', 'cursor_texture_left');
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowRight.png', 'cursor_texture_right');
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowUp.png', 'cursor_texture_up');
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png', 'cursor_texture_hand');
@@ -203,16 +203,18 @@ WorldManager.prototype = {
         this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upRight.png', 'cursor_texture_up_right');
     },
 
+    // TODO : Cleanup all the loading logic!
+
     load_cursor_texture: function(texture_url, variable_to_save_into) {
         new THREE.TextureLoader().load(texture_url,
             //function when resource is loaded
             function(texture) {
                 this[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
                 // FOR_DEV_START
-                l('loaded texture!');
-                l(texture_url);
-                l(this[variable_to_save_into]);
-                l('-----\n');
+                //l('loaded texture!');
+                //l(texture_url);
+                //l(this[variable_to_save_into]);
+                //l('-----\n');
                 // FOR_DEV_END
             }.bind(this),
             function(xhr) {

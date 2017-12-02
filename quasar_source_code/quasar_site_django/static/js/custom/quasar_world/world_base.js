@@ -1,5 +1,66 @@
 'use strict';
 
+function FloatingCursor(scene) {
+    this.__init__(scene);
+}
+
+    /*
+        this.cursor_texture_down       = null;
+        this.cursor_texture_left       = null;
+        this.cursor_texture_right      = null;
+        this.cursor_texture_up         = null;
+        this.cursor_texture_down_left  = null;
+        this.cursor_texture_down_right = null;
+        this.cursor_texture_up_left    = null;
+        this.cursor_texture_up_right   = null;
+        this.cursor_texture_hand       = null;
+        this.cursor_texture_default    = null;
+     */
+
+
+FloatingCursor.prototype = {
+
+    __init__: function(scene) {
+        // The cursor texture will get set once loaded.
+        this.plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
+        // TODO : Dispose of this original material later on.
+        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
+        this.current_material = null;
+        this.cursor = new THREE.Mesh(this.plane_geometry, this.temp_material);
+
+        this.object3D = new THREE.Object3D();
+        this.object3D.add(this.cursor);
+
+        scene.add_to_scene(this.object3D);
+    },
+
+    set_material: function(material) {
+        if (!is_defined(this.current_material)) {
+            this.cursor.setMaterial(material);
+            this.cursor.needsUpdate = true;
+            this.temp_material.dispose();
+        } else if (this.current_material !== material) {
+            this.cursor.setMaterial(material);
+            this.cursor.needsUpdate = true;
+        }
+    },
+
+    set_position: function(position) {
+
+        var cursor_offset = 2;
+
+        var player_position = CURRENT_PLAYER.get_position();
+        var direction_vector_to_player = new THREE.Vector3(player_position.x - position.x, player_position.y - position.y, player_position.z - position.z);
+        direction_vector_to_player.normalize();
+
+        var offset_vector = new THREE.Vector3(direction_vector_to_player.x * cursor_offset, direction_vector_to_player.y * cursor_offset, direction_vector_to_player.z * cursor_offset);
+
+        this.object3D.position.set(position.x + offset_vector.x, position.y + offset_vector.y, position.z + offset_vector.z);
+        
+        this.object3D.lookAt(player_position);
+    }
+}
+
 function World(planet_name) {
 
     this.planet_position            = null;
@@ -51,9 +112,20 @@ function World(planet_name) {
     };
 
     this.set_cursor_position = function(position) {
+
         this.cursor.position.x = position.x;
         this.cursor.position.y = position.y;
         this.cursor.position.z = position.z;
+
+        var look_at = new THREE.Vector3(position.x + (player_position.x - position.x), position.y + (player_position.y - position.y), position.z + (player_position.z - position.z));
+        this.cursor.
+
+        // Check if we need to change cursor texture type.
+        if (this.currently_looked_at_object.hasOwnProperty('type')) {
+            if (this.currently_looked_at_object['type'] == TYPE_BUTTON || this.currently_looked_at_object['type'] == TYPE_TITLE) {
+                this.cursor.setTexture(MANAGER_WORLD.cursor_texture_hand);
+            }
+        }
     };
 
     this.update_interactive_objects = function() {
@@ -109,7 +181,7 @@ function World(planet_name) {
             }
         }
 
-        if (interactive_index !== -1) {
+        if (interactive_index !== NOT_FOUND) {
             // A new object is being looked at, so look away from the old one and look at new one.
             if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
                 if (this.currently_looked_at_object !== null) {
@@ -284,29 +356,8 @@ function World(planet_name) {
     var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
     this.add_to_scene(light);
 
-    // cursor
-    /*
-        this.cursor_texture_down       = null;
-        this.cursor_texture_left       = null;
-        this.cursor_texture_right      = null;
-        this.cursor_texture_up         = null;
-        this.cursor_texture_down_left  = null;
-        this.cursor_texture_down_right = null;
-        this.cursor_texture_up_left    = null;
-        this.cursor_texture_up_right   = null;
-        this.cursor_texture_hand       = null;
-        this.cursor_texture_default    = null;
-     */
-
-    // The cursor texture will get set once loaded.
-    var plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
-    // TODO : Dispose of this original material later on.
-    var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
-    this.cursor = new THREE.Mesh(plane_geometry, blueMaterial);
-
-    this.cursor.rotateY((45 * Math.PI) / 180.0);
-
-    this.add_to_scene(this.cursor);
+    // TODO : Cursor
+    this.floating_cursor = new FloatingCursor(this.scene);
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {
