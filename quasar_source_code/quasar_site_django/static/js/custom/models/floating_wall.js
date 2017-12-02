@@ -194,7 +194,10 @@ FloatingWall.prototype = {
         l(this.normal.y);
         l(this.normal.z);
         l('---\n');
-        return [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
+        var v = [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
+        l('returning');
+        l(v);
+        return v;
     },
 
     get_player_look_at_intersection_point_to_any_floating_wall: function() {
