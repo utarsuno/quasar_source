@@ -59,7 +59,7 @@ FloatingCursor.prototype = {
 
         this.object3D.lookAt(player_position);
     }
-}
+};
 
 function World(planet_name) {
 
@@ -112,18 +112,12 @@ function World(planet_name) {
     };
 
     this.set_cursor_position = function(position) {
-
-        this.cursor.position.x = position.x;
-        this.cursor.position.y = position.y;
-        this.cursor.position.z = position.z;
-
-        var look_at = new THREE.Vector3(position.x + (player_position.x - position.x), position.y + (player_position.y - position.y), position.z + (player_position.z - position.z));
-        this.cursor.
+        this.floating_cursor.set_position(position);
 
         // Check if we need to change cursor texture type.
         if (this.currently_looked_at_object.hasOwnProperty('type')) {
-            if (this.currently_looked_at_object['type'] == TYPE_BUTTON || this.currently_looked_at_object['type'] == TYPE_TITLE) {
-                this.cursor.setTexture(MANAGER_WORLD.cursor_texture_hand);
+            if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
+                this.floating_cursor.set_material(MANAGER_WORLD.cursor_texture_hand);
             }
         }
     };
