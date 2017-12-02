@@ -189,6 +189,8 @@ FloatingWall.prototype = {
     },
 
     _is_point_inside_floating_wall: function(x, y, z) {
+        // TODO : Clean up this function later on.
+
         if (this.position.y + this.height / 2 < y) {
             return false;
         }
@@ -196,22 +198,35 @@ FloatingWall.prototype = {
             return false;
         }
 
-        var left_side = this.get_relative_x_shift(-this.width / 2);
-        var right_side = this.get_relative_x_shift(this.width / 2);
+        var left_side = this.get_relative_x_shift(this.width / 2);
+        var right_side = this.get_relative_x_shift(-this.width / 2);
 
-        l('');
-        l(left_side);
-        l(right_side);
-        l('');
+        if (right_side.x < 0) {
+            if (this.position.x + left_side.x < x) {
+                return false;
+            }
+        } else {
+            if (this.position.x + right_side.x > x) {
+                return false;
+            }
+        }
+
+        if (right_side.z < 0) {
+            if (this.position.z + left_side.z < z) {
+                return false;
+            }
+        } else {
+            if (this.position.z + right_side.z > z) {
+                return false;
+            }
+        }
 
         return true;
     },
 
     get_player_look_at_intersection_point: function() {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        l(player_parametric_equation);
         var floating_wall_parametric_equation = this.get_parametric_equation();
-        l(floating_wall_parametric_equation);
 
         // TODO : Simplify later.
         const INDEX_OF_POSITION = 0;
