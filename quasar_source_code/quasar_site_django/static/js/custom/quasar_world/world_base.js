@@ -31,7 +31,7 @@ FloatingCursor.prototype = {
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.cursor);
 
-        scene.add_to_scene(this.object3D);
+        scene.add(this.object3D);
     },
 
     set_material: function(material) {
