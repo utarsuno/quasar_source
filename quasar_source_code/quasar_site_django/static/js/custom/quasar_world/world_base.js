@@ -139,7 +139,10 @@ function World(planet_name) {
         if (this.hasOwnProperty('entity_walls')) {
             var walls = this.entity_walls;
             for (var w = 0; w < walls.length; w++) {
-                l(walls[w].entities_display_wall.get_player_look_at_intersection_point_to_any_floating_wall());
+                var intersection_point = walls[w].entities_display_wall.get_player_look_at_intersection_point();
+                if (intersection_point !== false) {
+
+                }
             }
         }
         //if (is_defined(this.currently_looked_at_object)) {

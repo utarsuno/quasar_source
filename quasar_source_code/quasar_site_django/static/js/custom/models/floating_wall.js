@@ -188,7 +188,26 @@ FloatingWall.prototype = {
         return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
     },
 
-    get_player_look_at_intersection_point_to_any_floating_wall: function() {
+    _is_point_inside_floating_wall: function(x, y, z) {
+        if (this.position.y + this.height / 2 < y) {
+            return false;
+        }
+        if (this.position.y - this.height / 2 > y) {
+            return false;
+        }
+
+        var left_side = this.get_relative_x_shift(-this.width / 2);
+        var right_side = this.get_relative_x_shift(this.width / 2);
+
+        l('');
+        l(left_side);
+        l(right_side);
+        l('');
+
+        return true;
+    },
+
+    get_player_look_at_intersection_point: function() {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         l(player_parametric_equation);
         var floating_wall_parametric_equation = this.get_parametric_equation();
@@ -212,13 +231,11 @@ FloatingWall.prototype = {
 
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 
-        l((plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0));
-        l((plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz));
-        l(t);
-
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
 
-        return intersection_point;
+        if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
+            return false;
+        }
+        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     }
 };
