@@ -204,7 +204,7 @@ FloatingWall.prototype = {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
-        var d = floating_wall_parametric_equation[4];
+        var d = floating_wall_parametric_equation[3];
 
         l(d);
 
