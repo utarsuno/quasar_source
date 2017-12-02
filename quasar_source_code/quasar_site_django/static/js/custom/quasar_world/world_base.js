@@ -297,10 +297,6 @@ function World(planet_name) {
         this.cursor_texture_hand       = null;
         this.cursor_texture_default    = null;
      */
-    var plane_geometry = new THREE.PlaneGeometry(5, 1, 1);
-    this.cursor = new THREE.Mesh(plane_geometry, MANAGER_WORLD.cursor_texture_default);
-    this.add_to_scene(this.cursor);
-
 
     // Add the cursor.
     this.add_cursor = function() {
