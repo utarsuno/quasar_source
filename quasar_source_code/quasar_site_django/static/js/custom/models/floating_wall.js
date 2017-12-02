@@ -190,7 +190,9 @@ FloatingWall.prototype = {
 
     get_player_look_at_intersection_point_to_any_floating_wall: function() {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
+        l(player_parametric_equation);
         var floating_wall_parametric_equation = this.get_parametric_equation();
+        l(floating_wall_parametric_equation);
 
         // TODO : Simplify later.
         var line_x0 = player_parametric_equation[0][1];
