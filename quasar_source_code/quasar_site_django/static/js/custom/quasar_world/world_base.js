@@ -139,7 +139,7 @@ function World(planet_name) {
         if (this.hasOwnProperty('entity_walls')) {
             var walls = this.entity_walls;
             for (var w = 0; w < walls.length; w++) {
-                l(walls[w].get_parametric_plane_equation());
+                l(walls[w].get_player_look_at_intersection_point_to_any_floating_wall());
             }
         }
 
