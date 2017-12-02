@@ -87,7 +87,7 @@ FloatingWall.prototype = {
         l(scale_position);
 
         l('The current scale sphere position is at ');
-        l(this.cursor.position);
+        l(this.cursor_object3D.position);
     },
 
     update: function() {
@@ -109,7 +109,7 @@ FloatingWall.prototype = {
     lock_on_scaling: function() {
         this.currently_scaling = true;
         CURRENT_PLAYER.engage_but_leave_controls_enabled();
-        CURRENT_PLAYER.look_at(this.cursor.position);
+        CURRENT_PLAYER.look_at(this.cursor_object3D.position);
         var current_player_position = CURRENT_PLAYER.get_position();
         this.position_cache_x = int(current_player_position.x);
         this.position_cache_y = int(current_player_position.y);
