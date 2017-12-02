@@ -65,6 +65,8 @@ FloatingWall.prototype = {
         var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
         this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
         this.cursor.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
+        this.cursor_object3D = new THREE.Object3D();
+        this.cursor_object3D.add(this.cursor);
 
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
@@ -76,7 +78,7 @@ FloatingWall.prototype = {
 
         this.object3D.add(this.wall.mesh);
         this.scene.add(this.object3D);
-        this.scene.add(this.cursor);
+        this.scene.add(this.cursor_object3D);
     },
 
     _update_scale: function() {
