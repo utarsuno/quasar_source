@@ -65,6 +65,8 @@ FloatingWall.prototype = {
         //this.wall_mesh.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
         // Base wall.
 
+        this.scalable = scalable;
+
         if (is_defined(scalable)) {
             if (scalable) {
                 // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
