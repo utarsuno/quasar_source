@@ -339,9 +339,9 @@ EntityWall.prototype = {
     },
 
     update: function() {
-        this.entities_display_wall.update();
-        this.are_you_sure.update();
-        this.current_entity_editor.update();
+        //this.entities_display_wall.update();
+        //this.are_you_sure.update();
+        //this.current_entity_editor.update();
     },
 
     update_title: function(title) {
