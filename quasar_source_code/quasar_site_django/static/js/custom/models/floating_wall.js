@@ -102,7 +102,11 @@ FloatingWall.prototype = {
     update: function() {
         if (this.currently_scaling) {
             var p = CURRENT_PLAYER.get_position();
-            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.y)) {
+            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.z)) {
+                //l('Cache mis match!');
+                //l(int(p.x));
+                //l(int(p.y));
+                //l(int(p.z));
                 this.turn_off_scaling();
             } else {
                 this._update_scale();
