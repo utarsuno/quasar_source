@@ -62,7 +62,9 @@ Floating2DText.prototype = {
         });
 
         this.material.transparent = false;
-        this.material.side = THREE.FrontSide;
+        // TODO : Temporary for debugging.
+        //this.material.side = THREE.FrontSide;
+        this.material.side = THREE.DoubleSide;
 
         this._update_color();
         this._update_text();
