@@ -193,11 +193,24 @@ FloatingWall.prototype = {
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
         var d = floating_wall_parametric_equation[4];
+
+        l(d);
+
         var t_coefficient = player_parametric_equation[0][1] + player_parametric_equation[1][1] + player_parametric_equation[2][1];
+
+        l(t_coefficient);
+
         var t = (d - player_parametric_equation[0][0] + player_parametric_equation[1][0] + player_parametric_equation[2][0]) / t_coefficient;
 
+        l(t);
+
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
+
+        l(t);
+
         var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
+
+        l(intersection_point);
 
         l('The intersection point is');
         l(intersection_point);
