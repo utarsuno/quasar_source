@@ -185,19 +185,7 @@ FloatingWall.prototype = {
     },
 
     get_parametric_equation: function() {
-        l('@@@');
-        l(this.object3D.position.x);
-        l(this.object3D.position.y);
-        l(this.object3D.position.z);
-        l('@@@');
-        l(this.normal.x);
-        l(this.normal.y);
-        l(this.normal.z);
-        l('---\n');
-        var v = [this.normal.x, this.normal.y, this.normal.z, -1.0 * (this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z)];
-        l('returning');
-        l(v);
-        return v;
+        return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
     },
 
     get_player_look_at_intersection_point_to_any_floating_wall: function() {
@@ -217,9 +205,6 @@ FloatingWall.prototype = {
         l(t);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-
-        l(t);
-
         var intersection_point = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
 
         l(intersection_point);
