@@ -341,6 +341,7 @@ EntityWall.prototype = {
 
     lock_on_scaling: function() {
         fdsfdsf
+        
     },
 
     update: function() {

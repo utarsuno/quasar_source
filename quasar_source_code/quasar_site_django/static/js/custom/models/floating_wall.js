@@ -64,7 +64,7 @@ FloatingWall.prototype = {
         var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
         var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
         this.cursor = new THREE.Mesh(sphereGeom, blueMaterial);
-        this.cursor.position.set(position.x + right_side.x, position.y - this.height / 2 + right_side.y, position.z + right_side.z);
+        this.cursor.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
 
         this.objects_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
