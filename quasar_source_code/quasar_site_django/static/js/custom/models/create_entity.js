@@ -170,7 +170,7 @@ CreateEntity.prototype = {
 
         // Save Entity button.
         this.create_entity_button = this.create_entity_wall.add_floating_2d_text(this.entity_wall_width, 'Create Entity', TYPE_BUTTON, 0, 2, 0, (-entity_wall_height + 16));
-        this.create_entity_button.set_engage_function(this.save_entity_button_pressed.bind(this));
+        this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
         //////
 
         this.create_entity_wall.set_to_invisible();

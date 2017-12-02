@@ -40,7 +40,8 @@ function get_list_of_dates_consisting_of_this_and_next_week() {
 function get_day_of_week_as_word(d) {
     if (is_string(d)) {
         // TODO : !!!
-        l('TODO!!!');
+        l('TODO! Get the day of week as word for the following input :');
+        l(d);
     } else {
         switch (d.getDay()){
         case 0:
