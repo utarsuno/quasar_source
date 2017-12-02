@@ -31,20 +31,22 @@ PlaneAPI.prototype = {
             color: 0x060606,
             //transparent: true,
             //opacity: 0.85,
-            side: THREE.FrontSide
+            side: THREE.DoubleSide
         });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
-        var geo = new THREE.EdgesGeometry(this.mesh.geometry); // or WireframeGeometry
-        var mat = new THREE.LineBasicMaterial({color: 0xFFC0CB, linewidth: 3});
-        var wireframe = new THREE.LineSegments(geo, mat);
+        //var geo = new THREE.EdgesGeometry(this.mesh.geometry); // or WireframeGeometry
+        //var mat = new THREE.LineBasicMaterial({color: 0xFFC0CB, linewidth: 3});
+        //var wireframe = new THREE.LineSegments(geo, mat);
         //this.mesh.add(wireframe);
-    },
+    }
 
+    /*
     update_position_and_look_at: function(position_vector, look_at_position) {
         this.object3D.position.x = position_vector.x;
         this.object3D.position.y = position_vector.y;
         this.object3D.position.z = position_vector.z;
         this.object3D.lookAt(look_at_position);
     }
+    */
 };
