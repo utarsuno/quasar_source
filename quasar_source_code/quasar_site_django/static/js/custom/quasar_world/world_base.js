@@ -56,7 +56,7 @@ FloatingCursor.prototype = {
         var offset_vector = new THREE.Vector3(direction_vector_to_player.x * cursor_offset, direction_vector_to_player.y * cursor_offset, direction_vector_to_player.z * cursor_offset);
 
         this.object3D.position.set(position.x + offset_vector.x, position.y + offset_vector.y, position.z + offset_vector.z);
-        
+
         this.object3D.lookAt(player_position);
     }
 }
