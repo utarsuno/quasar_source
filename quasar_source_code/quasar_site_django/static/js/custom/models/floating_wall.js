@@ -189,7 +189,7 @@ FloatingWall.prototype = {
     },
 
     _is_point_inside_floating_wall: function(x, y, z) {
-        // TODO : Clean up this function later on.
+        // TODO : Simplify later.
 
         if (this.position.y + this.height / 2 < y) {
             return false;
