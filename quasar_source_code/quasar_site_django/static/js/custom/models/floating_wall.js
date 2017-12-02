@@ -88,7 +88,11 @@ FloatingWall.prototype = {
         this.object3D.add(this.wall_mesh);
 
         this.scene.add(this.object3D);
-        this.scene.add(this.cursor_object3D);
+        if (is_defined(scalable)) {
+            if (scalable) {
+                this.scene.add(this.cursor_object3D);
+            }
+        }
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
