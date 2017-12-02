@@ -339,12 +339,41 @@ EntityWall.prototype = {
         }
     },
 
+    _update_scale: function() {
+        var scale_position = this.get_player_look_at_intersection_point_without_is_point_inside_check();
+        l('The scale position is at ');
+        l(scale_position);
+
+        l('The current scale sphere position is at ');
+        l(this.cursor.position);
+    },
+
+    turn_off_scaling: function() {
+        this.currently_scaling = false;
+        CURRENT_PLAYER.disengage();
+    },
+
     lock_on_scaling: function() {
-        fdsfdsf
-        
+        this.currently_scaling = true;
+        CURRENT_PLAYER.engage_but_leave_controls_enabled();
+        CURRENT_PLAYER.look_at(this.cursor.position);
+        var current_player_position = CURRENT_PLAYER.get_position();
+        this.position_cache_x = int(current_player_position.x);
+        this.position_cache_y = int(current_player_position.y);
+        this.position_cache_z = int(current_player_position.z);
     },
 
     update: function() {
+        if (this.currently_scaling) {
+            var p = CURRENT_PLAYER.get_position();
+            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.y)) {
+                this.turn_off_scaling();
+            } else {
+                this._update_scale();
+            }
+        }
+
+
         this.entities_display_wall.update();
         this.are_you_sure.update();
 
