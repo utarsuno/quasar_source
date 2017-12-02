@@ -64,6 +64,7 @@ FloatingWall.prototype = {
             side: THREE.DoubleSide
         });
         this.wall_mesh = new THREE.Mesh(this.geometry, this.material);
+        this.wall_mesh.position.set(position.x, position.y + this.height / 2, position.z);
         // Base wall.
 
         // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
