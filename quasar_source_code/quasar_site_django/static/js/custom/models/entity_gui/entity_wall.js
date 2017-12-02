@@ -235,8 +235,8 @@ EntityWall.prototype = {
         this.height = 1024;
 
         // Base wall.
-        var wall_position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
-        var wall_look_at = new THREE.Vector3(wall_position.x + this.normal.x * 10, wall_position.y + this.normal.y * 10 + this.height / 2, wall_position.z + this.normal.z * 10);
+        var wall_position = new THREE.Vector3(position.x, position.y, position.z);
+        var wall_look_at = new THREE.Vector3(wall_position.x + this.normal.x * 10, wall_position.y + this.normal.y * 10, wall_position.z + this.normal.z * 10);
         this.wall = new FloatingWall(this.width, this.height, wall_position, wall_look_at, this.world);
 
         this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
@@ -296,15 +296,6 @@ EntityWall.prototype = {
 
         this.are_you_sure.set_to_invisible();
         //////
-
-
-        /*   __                  __   ___     __    __  ___     __       ___ ___  __
-            /  ` |__|  /\  |\ | / _` |__     /__` |  / |__     |__) |  |  |   |  /  \ |\ |    .
-            \__, |  | /~~\ | \| \__> |___    .__/ | /_ |___    |__) \__/  |   |  \__/ | \|    .*/
-
-        this.change_size_button = new Floating2DText(200, 'Change Size', TYPE_TWO_DIRECTIONAL_SLIDER, this.scene);
-
-
 
         //////
 
