@@ -4,44 +4,47 @@ function FloatingCursor(scene) {
     this.__init__(scene);
 }
 
-    /*
-        this.cursor_texture_down       = null;
-        this.cursor_texture_left       = null;
-        this.cursor_texture_right      = null;
-        this.cursor_texture_up         = null;
-        this.cursor_texture_down_left  = null;
-        this.cursor_texture_down_right = null;
-        this.cursor_texture_up_left    = null;
-        this.cursor_texture_up_right   = null;
-        this.cursor_texture_hand       = null;
-        this.cursor_texture_default    = null;
-     */
-
-
 FloatingCursor.prototype = {
 
     __init__: function(scene) {
+
+        // Inherit from Visibility.
+        Visibility.call(this);
+
+        // TODO : Optimize in the future.
+        // Load all instances of the cursor needed.
+        this.cursors = {};
+
         // The cursor texture will get set once loaded.
         this.plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
         // TODO : Dispose of this original material later on.
         this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
-        this.current_material = null;
-        this.cursor = new THREE.Mesh(this.plane_geometry, this.temp_material);
+        this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
+
+        this.previous_cursor = null;
+        this.current_cursor = this.cursor_temp;
 
         this.object3D = new THREE.Object3D();
-        this.object3D.add(this.cursor);
+        this.object3D.add(this.cursor_temp);
 
         scene.add(this.object3D);
     },
 
-    set_material: function(material) {
-        if (!is_defined(this.current_material)) {
-            this.cursor.setMaterial(material);
-            this.cursor.needsUpdate = true;
-            this.temp_material.dispose();
-        } else if (this.current_material !== material) {
-            this.cursor.setMaterial(material);
-            this.cursor.needsUpdate = true;
+    add_cursor_material: function(cursor_material, cursor_name) {
+        var cursor_plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
+        var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
+        this.object3D.add(c);
+        this.cursors[cursor_name] = cursor_material;
+    },
+
+    set_cursor: function(cursor_type) {
+        if (this.cursors.hasOwnProperty(cursor_type)) {
+            if (this.cursors(cursor_type) !== this.current_cursor) {
+                this.previous_cursor = this.current_cursor;
+                this.previous_cursor.set_to_invisible();
+                this.current_cursor = this.cursors(cursor_type);
+                this.current_cursor.set_to_visible();
+            }
         }
     },
 
@@ -73,6 +76,10 @@ function World(planet_name) {
 
     this.default_tab_target         = null;
     this.interactive_objects        = [];
+
+    this.provide_cursor_material = function(cursor_material, cursor_name) {
+        this.floating_cursor.add_cursor_material(cursor_material, cursor_name);
+    };
 
     this.add_to_scene = function(object) {
         this.scene.add(object);
@@ -118,7 +125,7 @@ function World(planet_name) {
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.hasOwnProperty('type')) {
                 if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
-                    this.floating_cursor.set_material(MANAGER_WORLD.cursor_texture_hand);
+                    this.floating_cursor.set_cursor(CURSOR_TYPE_HAND);
                 }
             }
         }
@@ -352,7 +359,6 @@ function World(planet_name) {
     var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
     this.add_to_scene(light);
 
-    // TODO : Cursor
     this.floating_cursor = new FloatingCursor(this.scene);
 
     // Add the skybox here as well.

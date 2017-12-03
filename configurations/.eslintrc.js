@@ -192,6 +192,19 @@ module.exports = {
         "ENTITY_PROPERTY_DUE_DATE"           : false,
         // UNIVERSAL_CONSTANTS_END
 
+        // UNIVERSAL_CONSTANTS_START : Cursor types.
+        "CURSOR_TYPE_DOWN"      : true,
+        "CURSOR_TYPE_LEFT"      : true,
+        "CURSOR_TYPE_RIGHT"     : true,
+        "CURSOR_TYPE_UP"        : true,
+        "CURSOR_TYPE_DOWN_LEFT" : true,
+        "CURSOR_TYPE_DOWN_RIGHT": true,
+        "CURSOR_TYPE_UP_LEFT"   : true,
+        "CURSOR_TYPE_UP_RIGHT"  : true,
+        "CURSOR_TYPE_HAND"      : true,
+        "CURSOR_TYPE_POINTER"   : true,
+        // UNIVERSAL_CONSTANTS_END
+
         "ENTITY_PROPERTY_TEXT_CONTENTS": false,
         "ENTITY_PROPERTY_DUE_TIME": false,
         "ENTITY_PROPERTY_EXECUTE_DATE": false,

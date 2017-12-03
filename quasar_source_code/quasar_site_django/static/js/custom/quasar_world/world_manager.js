@@ -181,26 +181,16 @@ WorldManager.prototype = {
     },
 
     load_cursors: function() {
-        this.cursor_texture_down       = null;
-        this.cursor_texture_left       = null;
-        this.cursor_texture_right      = null;
-        this.cursor_texture_up         = null;
-        this.cursor_texture_down_left  = null;
-        this.cursor_texture_down_right = null;
-        this.cursor_texture_up_left    = null;
-        this.cursor_texture_up_right   = null;
-        this.cursor_texture_hand       = null;
-        this.cursor_texture_default    = null;
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowDown.png', 'cursor_texture_down');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowLeft.png', 'cursor_texture_left');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowRight.png', 'cursor_texture_right');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowUp.png', 'cursor_texture_up');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png', 'cursor_texture_hand');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer3D_shadow.png', 'cursor_texture_default');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downLeft.png', 'cursor_texture_down_left');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downRight.png', 'cursor_texture_down_right');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upLeft.png', 'cursor_texture_up_left');
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upRight.png', 'cursor_texture_up_right');
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowDown.png', CURSOR_TYPE_DOWN);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowLeft.png', CURSOR_TYPE_LEFT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowRight.png', CURSOR_TYPE_RIGHT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrowUp.png', CURSOR_TYPE_UP);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png', CURSOR_TYPE_HAND);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer3D_shadow.png', CURSOR_TYPE_POINTER);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downLeft.png', CURSOR_TYPE_DOWN_LEFT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/downRight.png', CURSOR_TYPE_DOWN_RIGHT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upLeft.png', CURSOR_TYPE_UP_LEFT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/upRight.png', CURSOR_TYPE_UP_RIGHT);
     },
 
     // TODO : Cleanup all the loading logic!
@@ -209,7 +199,12 @@ WorldManager.prototype = {
         new THREE.TextureLoader().load(texture_url,
             //function when resource is loaded
             function(texture) {
-                this[variable_to_save_into] = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
+
+                var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45});
+                this.world_login.provide_cursor_material(cursor_material, variable_to_save_into);
+                this.world_home.provide_cursor_material(cursor_material, variable_to_save_into);
+                this.world_settings.provide_cursor_material(cursor_material, variable_to_save_into);
+
                 // FOR_DEV_START
                 //l('loaded texture!');
                 //l(texture_url);
