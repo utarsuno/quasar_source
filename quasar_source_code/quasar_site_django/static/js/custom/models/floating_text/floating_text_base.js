@@ -146,7 +146,7 @@ function FloatingText(width, text, type, scene, current_color) {
         this.object3D.position.x = position_vector.x;
         this.object3D.position.y = position_vector.y;
         this.object3D.position.z = position_vector.z;
-        this.object3D.lookAt(look_at_position);
+        this.update_look_at(look_at_position);
     };
 
     this.delete_self = function() {
