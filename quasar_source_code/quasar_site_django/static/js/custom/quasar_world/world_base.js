@@ -39,7 +39,7 @@ FloatingCursor.prototype = {
 
     set_cursor: function(cursor_type) {
         if (this.cursors.hasOwnProperty(cursor_type)) {
-            if (this.cursors(cursor_type) !== this.current_cursor) {
+            if (this.cursors[cursor_type] !== this.current_cursor) {
                 this.previous_cursor = this.current_cursor;
                 this.previous_cursor.set_to_invisible();
                 this.current_cursor = this.cursors(cursor_type);
