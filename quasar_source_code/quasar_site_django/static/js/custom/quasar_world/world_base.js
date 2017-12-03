@@ -45,7 +45,7 @@ FloatingCursor.prototype = {
                 this.previous_cursor = this.current_cursor;
                 //this.previous_cursor.set_to_invisible();
                 this.previous_cursor.visible = false;
-                this.current_cursor = this.cursors(cursor_type);
+                this.current_cursor = this.cursors[cursor_type];
                 //this.current_cursor.set_to_visible();
                 this.current_cursor.visible = true;
             }
