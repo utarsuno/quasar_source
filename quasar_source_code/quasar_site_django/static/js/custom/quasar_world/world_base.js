@@ -33,20 +33,21 @@ FloatingCursor.prototype = {
     add_cursor_material: function(cursor_material, cursor_name) {
         var cursor_plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
-        c.userData.name = cursor_name;
+        //c.userData.name = cursor_name;
+        c.visible = false;
         this.object3D.add(c);
         this.cursors[cursor_name] = cursor_material;
     },
 
     set_cursor: function(cursor_type) {
         if (this.cursors.hasOwnProperty(cursor_type)) {
-            if (!is_defined(this.current_cursor)) {
-                this.current_cursor = this.cursors[cursor_type];
-            } else if (this.cursors[cursor_type] !== this.current_cursor) {
+            if (this.cursors[cursor_type] !== this.current_cursor) {
                 this.previous_cursor = this.current_cursor;
-                this.previous_cursor.set_to_invisible();
+                //this.previous_cursor.set_to_invisible();
+                this.previous_cursor.visible = false;
                 this.current_cursor = this.cursors(cursor_type);
-                this.current_cursor.set_to_visible();
+                //this.current_cursor.set_to_visible();
+                this.current_cursor.visible = true;
             }
         }
     },
