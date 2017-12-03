@@ -54,11 +54,13 @@ FloatingCursor.prototype = {
     set_position: function(position) {
         var cursor_offset = 2;
 
+        var normal = this.currently_looked_at_object.normal;
+
         var player_position = CURRENT_PLAYER.get_position();
         var direction_vector_to_player = new THREE.Vector3(player_position.x - position.x, player_position.y - position.y, player_position.z - position.z);
         direction_vector_to_player.normalize();
 
-        var offset_vector = new THREE.Vector3(direction_vector_to_player.x * cursor_offset, direction_vector_to_player.y * cursor_offset, direction_vector_to_player.z * cursor_offset);
+        var offset_vector = new THREE.Vector3(position.x * normal.x * cursor_offset, position.y * normal.y * cursor_offset, position.z * normal.z * cursor_offset);
 
         this.object3D.position.set(position.x + offset_vector.x, position.y + offset_vector.y, position.z + offset_vector.z);
 
@@ -132,6 +134,7 @@ function World(planet_name) {
                 if (!this.currently_looked_at_object.hasOwnProperty('normal')) {
                     l('WARNING! NO NORMAL TO USE!!');
                     l('This is for the following object.');
+                    raise_exception('no normal to use!');
                 }
 
                 if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
