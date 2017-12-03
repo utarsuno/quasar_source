@@ -27,6 +27,7 @@ FloatingCursor.prototype = {
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.cursor_temp);
 
+        this.scene = scene;
         scene.add(this.object3D);
     },
 
@@ -36,6 +37,7 @@ FloatingCursor.prototype = {
         //c.userData.name = cursor_name;
         c.visible = false;
         this.object3D.add(c);
+        this.scene.add(c);
         this.cursors[cursor_name] = cursor_material;
     },
 
