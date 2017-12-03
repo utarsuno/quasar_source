@@ -137,6 +137,8 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_look_at = function(look_at_position_vector) {
+        this.normal = new THREE.Vector3(look_at_position_vector.x - this.object3D.position.x, look_at_position_vector.y - this.object3D.position.y, look_at_position_vector.z - this.object3D.position.z);
+        this.normal.normalize();
         this.object3D.lookAt(look_at_position_vector);
     };
 

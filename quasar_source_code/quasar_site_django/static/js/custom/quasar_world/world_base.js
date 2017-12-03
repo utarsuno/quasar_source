@@ -13,9 +13,9 @@ FloatingCursor.prototype = {
         this.cursors = {};
 
         // The cursor texture will get set once loaded.
-        this.plane_geometry = new THREE.PlaneGeometry(10, 10, 1);
+        this.plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
         // TODO : Dispose of this original material later on.
-        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
+        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.95, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
 
         this.previous_cursor = null;
@@ -29,7 +29,7 @@ FloatingCursor.prototype = {
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
-        var cursor_plane_geometry = new THREE.PlaneGeometry(10, 10, 1);
+        var cursor_plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         //c.userData.name = cursor_name;
         c.visible = false;
@@ -128,6 +128,11 @@ function World(planet_name) {
             if (this.currently_looked_at_object.hasOwnProperty('type')) {
 
                 // TODO : Complete all the case scenarios!!!
+
+                if (!this.currently_looked_at_object.hasOwnProperty('normal')) {
+                    l('WARNING! NO NORMAL TO USE!!');
+                    l('This is for the following object.');
+                }
 
                 if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
                     this.floating_cursor.set_cursor(CURSOR_TYPE_HAND);

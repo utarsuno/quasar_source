@@ -203,6 +203,7 @@ module.exports = {
         "CURSOR_TYPE_UP_RIGHT"  : true,
         "CURSOR_TYPE_HAND"      : true,
         "CURSOR_TYPE_POINTER"   : true,
+        "CURSOR_TYPE_MOUSE"     : true,
         // UNIVERSAL_CONSTANTS_END
 
         "ENTITY_PROPERTY_TEXT_CONTENTS": false,
