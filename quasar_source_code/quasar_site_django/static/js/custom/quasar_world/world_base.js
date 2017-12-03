@@ -37,8 +37,8 @@ FloatingCursor.prototype = {
         //c.userData.name = cursor_name;
         c.visible = false;
         this.object3D.add(c);
-        this.scene.add(c);
-        this.cursors[cursor_name] = cursor_material;
+        //this.scene.add(c);
+        this.cursors[cursor_name] = c;
     },
 
     set_cursor: function(cursor_type) {
