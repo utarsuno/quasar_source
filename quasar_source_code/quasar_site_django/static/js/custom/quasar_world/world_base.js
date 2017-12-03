@@ -8,9 +8,6 @@ FloatingCursor.prototype = {
 
     __init__: function(scene) {
 
-        // Inherit from Visibility.
-        Visibility.call(this);
-
         // TODO : Optimize in the future.
         // Load all instances of the cursor needed.
         this.cursors = {};
