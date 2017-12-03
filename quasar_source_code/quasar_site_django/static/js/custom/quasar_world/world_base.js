@@ -16,7 +16,7 @@ FloatingCursor.prototype = {
         this.cursors = {};
 
         // The cursor texture will get set once loaded.
-        this.plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
+        this.plane_geometry = new THREE.PlaneGeometry(15, 1, 1);
         // TODO : Dispose of this original material later on.
         this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
@@ -32,7 +32,7 @@ FloatingCursor.prototype = {
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
-        var cursor_plane_geometry = new THREE.PlaneGeometry(50, 50, 50);
+        var cursor_plane_geometry = new THREE.PlaneGeometry(15, 1, 1);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         //c.userData.name = cursor_name;
         c.visible = false;
@@ -55,7 +55,6 @@ FloatingCursor.prototype = {
     },
 
     set_position: function(position) {
-
         var cursor_offset = 2;
 
         var player_position = CURRENT_PLAYER.get_position();
@@ -130,8 +129,13 @@ function World(planet_name) {
         // Check if we need to change cursor texture type.
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.hasOwnProperty('type')) {
+
+                // TODO : Complete all the case scenarios!!!
+
                 if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
                     this.floating_cursor.set_cursor(CURSOR_TYPE_HAND);
+                } else {
+                    this.floating_cursor.set_cursor(CURSOR_TYPE_POINTER);
                 }
             }
         }
