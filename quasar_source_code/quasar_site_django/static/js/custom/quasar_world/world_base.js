@@ -13,7 +13,7 @@ FloatingCursor.prototype = {
         this.cursors = {};
 
         // The cursor texture will get set once loaded.
-        this.plane_geometry = new THREE.PlaneGeometry(50, 1, 1);
+        this.plane_geometry = new THREE.PlaneGeometry(50, 10, 10);
         // TODO : Dispose of this original material later on.
         this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.5, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
@@ -29,7 +29,7 @@ FloatingCursor.prototype = {
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
-        var cursor_plane_geometry = new THREE.PlaneGeometry(50, 1, 1);
+        var cursor_plane_geometry = new THREE.PlaneGeometry(50, 10, 10);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         //c.userData.name = cursor_name;
         c.visible = false;
