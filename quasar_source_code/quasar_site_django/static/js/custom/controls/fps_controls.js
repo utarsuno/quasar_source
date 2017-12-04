@@ -345,7 +345,7 @@ FPSControls.prototype = {
 
     on_mouse_down: function() {
         this.mouse_down = true;
-        l('Mouse down!');
+        //l('Mouse down!');
         if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
             MANAGER_WORLD.current_world.floating_cursor.engaged = true;
             CURRENT_PLAYER.engage();
@@ -371,7 +371,7 @@ FPSControls.prototype = {
         }
 
         if (this.mouse_down) {
-            l('Mouse drag!');
+            //l('Mouse drag!');
             MANAGER_WORLD.current_world.parse_mouse_drag();
         } else {
             MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);

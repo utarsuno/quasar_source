@@ -76,6 +76,10 @@ FloatingCursor.prototype = {
         }
     },
 
+    get_position: function() {
+        return this.object3D.position;
+    },
+
     set_position: function(position) {
         var cursor_offset = 2;
 

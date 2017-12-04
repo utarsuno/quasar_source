@@ -36,8 +36,6 @@ FloatingWall.prototype = {
         this.width = width;
         this.height = height;
 
-        var right_side = this.get_relative_x_shift(-this.width / 2);
-
         this.world = world;
         this.scene = this.world.scene;
 
@@ -85,14 +83,26 @@ FloatingWall.prototype = {
     },
 
     perform_action: function(cursor_type) {
-        l('PERFORM AN ACTION PLZ');
-        if (this.current_cursor == CURSOR_TYPE_HORIZONTAL) {
+        // TODO : Clean up this function later on.
 
+        l('PERFORM AN ACTION PLZ');
+
+        if (this.current_cursor == CURSOR_TYPE_HORIZONTAL) {
+            var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+            var horizontal_new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
+            this._update_width(horizontal_new_width_percentage);
         }
     },
 
-    _update_width: function() {
+    _update_width: function(horizontal_new_width_percentage) {
+        this.width *= horizontal_new_width_percentage;
 
+        this.object3D.remove(this.mesh);
+        var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.geometry.dispose();
+        this.geometry = new_geometry;
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
     },
 
     _update_scale: function() {
