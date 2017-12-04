@@ -180,11 +180,13 @@ FloatingWall.prototype = {
     },
 
     update: function() {
-        if (this.scalable) {
-            var data = this.get_player_look_at_intersection_point();
-            if (data !== false) {
-                MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
-                MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
+        if (!MANAGER_WORLD.current_world.floating_cursor.engaged) {
+            if (this.scalable) {
+                var data = this.get_player_look_at_intersection_point();
+                if (data !== false) {
+                    MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
+                    MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
+                }
             }
         }
 

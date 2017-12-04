@@ -202,6 +202,8 @@ function World(planet_name) {
     this.update_interactive_objects = function() {
         // TODO : Eventually optimize this function.
 
+
+
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
         var match_was_found = false;
