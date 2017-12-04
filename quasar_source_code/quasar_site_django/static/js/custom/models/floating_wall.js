@@ -299,7 +299,7 @@ FloatingWall.prototype = {
         // TODO FIX : The right side isn't working.
 
         if (right_side.x < 0) {
-            if (this.object3D.position.x + right_side.x > x) {
+            if (this.object3D.position.x - left_side.x > x) {
                 l('FALSE X A!');
                 return false;
             }
