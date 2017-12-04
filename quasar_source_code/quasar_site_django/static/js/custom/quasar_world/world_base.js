@@ -224,10 +224,11 @@ function World(planet_name) {
                 this.currently_looked_at_object = this.interactive_objects[interactive_index];
                 this.currently_looked_at_object.look_at();
             }
+            if (!is_defined(this.currently_looked_at_object)) {
+                raise_exception('hodl IOTA');
+            }
             this.set_cursor_position(final_point.point);
-            // Regardless a match was found and only one intersection can occur so break.
             match_was_found = true;
-            //break
         } else {
             this.floating_cursor.set_to_invisible();
         }
