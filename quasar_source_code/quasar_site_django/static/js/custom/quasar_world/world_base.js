@@ -33,6 +33,7 @@ FloatingCursor.prototype = {
         this.cursor_needed_from_interactive_objects = false;
         this.cursor_needed_from_floating_walls = false;
         this.current_normal = null;
+        this.engaged = false;
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
@@ -62,7 +63,9 @@ FloatingCursor.prototype = {
             this.cursor_needed_from_floating_walls = false;
             this.cursor_needed_from_interactive_objects = false;
         } else {
-            this.current_cursor.visible = false;
+            if (!this.engaged) {
+                this.current_cursor.visible = false;
+            }
         }
     },
 
