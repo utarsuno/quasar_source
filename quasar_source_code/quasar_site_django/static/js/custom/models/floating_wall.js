@@ -46,7 +46,7 @@ FloatingWall.prototype = {
         // Inherit from Visibility.
         Visibility.call(this);
         // Inherit from Interactive.
-        Interactive.call(this);
+        //Interactive.call(this);
 
         this.interactive_objects = [];
 
@@ -110,7 +110,7 @@ FloatingWall.prototype = {
         if (this.scalable) {
             var data = this.get_player_look_at_intersection_point();
             if (data !== false) {
-                MANAGER_WORLD.current_world.floating_cursor.current_normal = new THREE.Vector3(this.normal.x, this.normal.y, this.normal.z);
+                MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
                 MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
             }
         }
