@@ -239,7 +239,6 @@ FPSControls.prototype = {
         this.right      = false;
         this.space      = false;
         this.shift      = false;
-        this.mouse_down = false;
     },
 
     on_key_down: function(event) {
