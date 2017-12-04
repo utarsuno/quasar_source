@@ -38,6 +38,14 @@ FloatingCursor.prototype = {
         this.cursors[cursor_name] = c;
     },
 
+    make_current_cursor_invisible: function() {
+        this.current_cursor.visible = false;
+    },
+
+    make_current_cursor_visible: function() {
+        this.current_cursor.visible = true;
+    },
+
     set_cursor: function(cursor_type) {
         if (this.cursors.hasOwnProperty(cursor_type)) {
             if (this.cursors[cursor_type] !== this.current_cursor) {
@@ -54,6 +62,7 @@ FloatingCursor.prototype = {
     set_position: function(position) {
         var cursor_offset = 2;
 
+        l(currently_looked_at_object);
         var normal = this.currently_looked_at_object.normal;
 
         var player_position = CURRENT_PLAYER.get_position();
@@ -65,6 +74,9 @@ FloatingCursor.prototype = {
         this.object3D.position.set(position.x + offset_vector.x, position.y + offset_vector.y, position.z + offset_vector.z);
 
         this.object3D.lookAt(player_position);
+
+        // Ensure that the current cursor is visible.
+        this.current_cursor.visible = true;
     }
 };
 
@@ -213,8 +225,7 @@ function World(planet_name) {
             match_was_found = true;
             //break
         } else {
-            // TODO : Eventually just make the cursor not visible.
-            this.set_cursor_position(-5000, -5000, -5000);
+            this.floating_cursor.set_to_invisible();
         }
 
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
