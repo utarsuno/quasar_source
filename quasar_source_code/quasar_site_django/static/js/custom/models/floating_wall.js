@@ -46,7 +46,7 @@ FloatingWall.prototype = {
         // Inherit from Visibility.
         Visibility.call(this);
         // Inherit from Interactive.
-        //Interactive.call(this);
+        Interactive.call(this);
 
         this.interactive_objects = [];
 
