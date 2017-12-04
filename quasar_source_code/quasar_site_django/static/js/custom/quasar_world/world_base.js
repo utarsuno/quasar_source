@@ -1,12 +1,12 @@
 'use strict';
 
-function FloatingCursor(scene) {
-    this.__init__(scene);
+function FloatingCursor(world) {
+    this.__init__(world);
 }
 
 FloatingCursor.prototype = {
 
-    __init__: function(scene) {
+    __init__: function(world) {
 
         // TODO : Optimize in the future.
         // Load all instances of the cursor needed.
@@ -24,8 +24,9 @@ FloatingCursor.prototype = {
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.cursor_temp);
 
-        this.scene = scene;
-        scene.add(this.object3D);
+        this.world = world;
+        this.scene = this.world.scene;
+        this.scene.add(this.object3D);
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
@@ -62,12 +63,13 @@ FloatingCursor.prototype = {
     set_position: function(position) {
         var cursor_offset = 2;
 
-        //l(currently_looked_at_object);
-        if (!this.currently_looked_at_object.hasOwnProperty('normal')) {
+        // FOR_DEV_START
+        if (!this.world.currently_looked_at_object.hasOwnProperty('normal')) {
             l('WHAT THE HECK');
-            l(this.currently_looked_at_object);
+            l(this.world.currently_looked_at_object);
         }
-        var normal = this.currently_looked_at_object.normal;
+        // FOR_DEV_END
+        var normal = this.world.currently_looked_at_object.normal;
 
         var player_position = CURRENT_PLAYER.get_position();
         var direction_vector_to_player = new THREE.Vector3(player_position.x - position.x, player_position.y - position.y, player_position.z - position.z);
@@ -224,9 +226,11 @@ function World(planet_name) {
                 this.currently_looked_at_object = this.interactive_objects[interactive_index];
                 this.currently_looked_at_object.look_at();
             }
+            // FOR_DEV_START
             if (!is_defined(this.currently_looked_at_object)) {
                 raise_exception('hodl IOTA');
             }
+            // FOR_DEV_END
             this.set_cursor_position(final_point.point);
             match_was_found = true;
         } else {
@@ -390,7 +394,7 @@ function World(planet_name) {
     var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
     this.add_to_scene(light);
 
-    this.floating_cursor = new FloatingCursor(this.scene);
+    this.floating_cursor = new FloatingCursor(this);
 
     // Add the skybox here as well.
     this.add_sky_box = function(skybox_material) {
