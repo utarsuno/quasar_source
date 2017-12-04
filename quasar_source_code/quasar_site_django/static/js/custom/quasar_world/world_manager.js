@@ -40,6 +40,8 @@ Planet.prototype = {
         Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
+
+        this.uses_cursor = false;
     },
 
     add_this_planet_to_world: function(world) {

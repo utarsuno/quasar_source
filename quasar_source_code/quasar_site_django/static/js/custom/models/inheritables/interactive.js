@@ -6,6 +6,7 @@ function Interactive() {
     this.needs_engage_for_parsing_input = true;
     this.maintain_engage_when_tabbed_to = true;
     this.engable                        = true;
+    this.uses_cursor                    = true;
 
     // Used for sliders.
     this.requires_mouse_x_movement      = false;
