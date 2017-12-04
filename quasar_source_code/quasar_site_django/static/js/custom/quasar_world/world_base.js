@@ -38,7 +38,7 @@ FloatingCursor.prototype = {
     add_cursor_material: function(cursor_material, cursor_name) {
         var cursor_plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
-        //c.userData.name = cursor_name;
+        c.userData.name = cursor_name;
         c.visible = false;
         this.object3D.add(c);
         //this.scene.add(c);
@@ -81,7 +81,6 @@ FloatingCursor.prototype = {
 
         var normal;
         if (is_defined(this.world.currently_looked_at_object)) {
-            l(this.world.currently_looked_at_object);
             normal = this.world.currently_looked_at_object.normal;
         } else {
             normal = this.current_normal;
@@ -173,6 +172,12 @@ function World(planet_name) {
         }
     };
 
+    this.parse_mouse_drag = function() {
+        if (this.floating_cursor.engaged) {
+            this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+        }
+    };
+
     this.parse_mouse_movement = function(movement_x, movement_y) {
         if (CURRENT_PLAYER.is_engaged()) {
             var c = MANAGER_WORLD.current_world.currently_looked_at_object;
@@ -184,8 +189,6 @@ function World(planet_name) {
                     c.provide_mouse_y_movement(movement_y);
                 }
             }
-        } else if (this.floating_cursor.is_currently_visible()) {
-            l('PERFORM ACTION!');
         }
     };
 

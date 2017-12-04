@@ -346,10 +346,19 @@ FPSControls.prototype = {
 
     on_mouse_down: function() {
         this.mouse_down = true;
+        if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
+            MANAGER_WORLD.current_world.floating_cursor.engaged = true;
+            CURRENT_PLAYER.engage();
+            CURRENT_PLAYER.enable_controls();
+        }
     },
 
     on_mouse_up: function() {
         this.mouse_down = false;
+        if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
+            MANAGER_WORLD.current_world.floating_cursor.engaged = false;
+            CURRENT_PLAYER.disengage();
+        }
     },
 
     on_mouse_move: function(event) {
@@ -361,7 +370,11 @@ FPSControls.prototype = {
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002);
         }
 
-        MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
+        if (this.mouse_down) {
+            MANAGER_WORLD.current_world.parse_mouse_drag();
+        } else {
+            MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
+        }
     },
 
     get_direction: function() {

@@ -76,14 +76,23 @@ FloatingWall.prototype = {
         // Used to determine what actions to be taking.
         this.current_cursor = null;
 
-        this.position_cache_x = null;
-
         this.object3D.add(this.mesh);
 
         this.scene.add(this.object3D);
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
+    },
+
+    perform_action: function(cursor_type) {
+        l('PERFORM AN ACTION PLZ');
+        if (this.current_cursor == CURSOR_TYPE_HORIZONTAL) {
+
+        }
+    },
+
+    _update_width: function() {
+
     },
 
     _update_scale: function() {
