@@ -63,6 +63,10 @@ FloatingCursor.prototype = {
         var cursor_offset = 2;
 
         //l(currently_looked_at_object);
+        if (!this.currently_looked_at_object.hasOwnProperty('normal')) {
+            l('WHAT THE HECK');
+            l(this.currently_looked_at_object);
+        }
         var normal = this.currently_looked_at_object.normal;
 
         var player_position = CURRENT_PLAYER.get_position();
