@@ -78,6 +78,8 @@ FloatingWall.prototype = {
 
         this.scene.add(this.object3D);
 
+        this.position_offset = new THREE.Vector3(0, 0, 0);
+
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
     },
@@ -107,9 +109,27 @@ FloatingWall.prototype = {
             if (new_height_percentage < 0) {
                 new_height_percentage *= -1;
                 new_height_percentage += 1;
+            } else if (new_height_percentage < .25) {
+                new_height_percentage = 1 - new_height_percentage;
             }
             this._update_height(new_height_percentage);
+        } else if (cursor_type == CURSOR_TYPE_MOUSE) {
+            var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
+
+            var delta_vector = new THREE.Vector3(new_cursor_position.x - old_cursor_position.x, new_cursor_position.y - old_cursor_position.y, new_cursor_position.z - old_cursor_position.z);
+            this._update_position_offset(delta_vector);
         }
+    },
+
+    _update_position_offset: function(delta_vector) {
+        this.position_offset.x += delta_vector.x;
+        this.position_offset.y += delta_vector.y;
+        this.position_offset.z += delta_vector.z;
+
+        this.object3D.position.x += delta_vector.x;
+        this.object3D.position.y += delta_vector.y;
+        this.object3D.position.z += delta_vector.z;
     },
 
     _update_height: function(new_height_percentage) {
