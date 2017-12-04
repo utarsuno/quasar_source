@@ -82,7 +82,7 @@ FloatingCursor.prototype = {
 
         // TODO : determine if there needs to be a horizontal shift as well.
 
-        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y + normal.y * 4, position.z + normal.z * 4);
+        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height, position.z + normal.z * 4);
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y + normal.y * cursor_offset - this.height, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
 
