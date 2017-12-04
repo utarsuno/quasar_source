@@ -88,7 +88,7 @@ FloatingWall.prototype = {
         l('PERFORM AN ACTION PLZ');
         l(cursor_type);
 
-        if (this.current_cursor == CURSOR_TYPE_HORIZONTAL) {
+        if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
             var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             var horizontal_new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
             this._update_width(horizontal_new_width_percentage);
