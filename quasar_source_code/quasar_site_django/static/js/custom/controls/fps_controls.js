@@ -109,8 +109,8 @@ FPSControls.prototype = {
     },
 
     fly_backward: function(delta) {
-        this.velocity.x += 200 * delta * this.walking_direction.x;
-        this.velocity.z += 200 * delta * this.walking_direction.z;
+        this.velocity.x -= 200 * delta * this.walking_direction.x;
+        this.velocity.z -= 200 * delta * this.walking_direction.z;
 
         //this.velocity.x -= 200 * delta * this.direction_vector.x;
         //this.velocity.y -= 200 * delta * this.direction_vector.y;

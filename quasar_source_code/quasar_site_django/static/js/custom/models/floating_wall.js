@@ -119,6 +119,7 @@ FloatingWall.prototype = {
 
             var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y, 0);
             this._update_position_offset(delta_vector);
+            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
         }
     },
 
