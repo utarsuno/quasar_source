@@ -136,9 +136,7 @@ FloatingWall.prototype = {
 
     get_required_cursor: function(cursor_position_vector) {
         var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
-        var horizontal_percentage = this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z);
-        l('Y % :');
-        l(y_percentage);
+        var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
         l('H % :');
         l(horizontal_percentage);
     },
