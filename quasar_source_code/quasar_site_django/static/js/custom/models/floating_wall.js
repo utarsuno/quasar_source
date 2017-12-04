@@ -151,23 +151,6 @@ FloatingWall.prototype = {
         }
     },
 
-    turn_off_scaling: function() {
-        //this.currently_scaling = false;
-        //CURRENT_PLAYER.disengage();
-    },
-
-    lock_on_scaling: function() {
-        /*
-        this.currently_scaling = true;
-        CURRENT_PLAYER.engage_but_leave_controls_enabled();
-        CURRENT_PLAYER.look_at(this.cursor_object3D.position);
-        var current_player_position = CURRENT_PLAYER.get_position();
-        this.position_cache_x = int(current_player_position.x);
-        this.position_cache_y = int(current_player_position.y);
-        this.position_cache_z = int(current_player_position.z);
-        */
-    },
-
     clear_inputs: function() {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             if (this.all_floating_2d_texts[i].type == TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type == TYPE_INPUT_PASSWORD) {

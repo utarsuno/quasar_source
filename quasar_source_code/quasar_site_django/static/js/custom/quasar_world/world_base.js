@@ -257,10 +257,9 @@ function World(planet_name) {
                 raise_exception('hodl IOTA');
             }
             // FOR_DEV_END
+            this.floating_cursor.cursor_needed_from_interactive_objects = true;
             this.set_cursor_position(final_point.point);
             match_was_found = true;
-        } else {
-            this.floating_cursor.cursor_needed_from_interactive_objects = false;
         }
 
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.

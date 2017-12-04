@@ -302,7 +302,7 @@ EntityWall.prototype = {
         //////
 
 
-        this.world.interactive_objects.push(this.wall);
+        //this.world.interactive_objects.push(this.wall);
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
         this.world.interactive_objects.push(this.make_entity_wall_public_button);
@@ -332,15 +332,6 @@ EntityWall.prototype = {
     },
 
     update: function() {
-        if (this.currently_scaling) {
-            var p = CURRENT_PLAYER.get_position();
-            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.y)) {
-                this.turn_off_scaling();
-            } else {
-                this._update_scale();
-            }
-        }
-
         this.wall.update();
         this.entities_display_wall.update();
         this.are_you_sure.update();
