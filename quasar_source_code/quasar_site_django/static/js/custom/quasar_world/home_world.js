@@ -195,7 +195,7 @@ HomeWorld.prototype = {
             var intersection_point = walls[w].wall.get_player_look_at_intersection_point();
 
 
-
+            /*
             l(intersection_point);
             if (intersection_point !== false) {
                 if (walls[w].wall.scalable) {
@@ -204,6 +204,7 @@ HomeWorld.prototype = {
                     walls[w].wall.lock_on_scaling();
                 }
             }
+            */
         }
 
     },

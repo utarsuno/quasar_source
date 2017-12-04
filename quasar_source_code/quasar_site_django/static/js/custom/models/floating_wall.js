@@ -149,6 +149,7 @@ FloatingWall.prototype = {
     },
 
     lock_on_scaling: function() {
+        /*
         this.currently_scaling = true;
         CURRENT_PLAYER.engage_but_leave_controls_enabled();
         CURRENT_PLAYER.look_at(this.cursor_object3D.position);
@@ -156,6 +157,7 @@ FloatingWall.prototype = {
         this.position_cache_x = int(current_player_position.x);
         this.position_cache_y = int(current_player_position.y);
         this.position_cache_z = int(current_player_position.z);
+        */
     },
 
     clear_inputs: function() {
