@@ -43,10 +43,10 @@ FloatingWall.prototype = {
 
         this.object3D = new THREE.Object3D();
 
-        // Inherit from Visibility.
-        Visibility.call(this);
         // Inherit from Interactive.
         Interactive.call(this);
+        // Inherit from Visibility.
+        Visibility.call(this);
 
         this.interactive_objects = [];
 
