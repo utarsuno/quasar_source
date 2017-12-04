@@ -57,7 +57,7 @@ FloatingWall.prototype = {
             //opacity: 0.85,
             side: THREE.DoubleSide
         });
-        this.wall_mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
         //this.wall_mesh.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
         // Base wall.
 
@@ -93,15 +93,15 @@ FloatingWall.prototype = {
         //  Dynamically change the width and height!
         l('TODO : Dynamically change the width and height!');
 
-        this.object3D.remove(this.wall_mesh);
+        this.object3D.remove(this.mesh);
         //this.scene.remove(this.wall_mesh);
 
         // TODO : Calculate the new width and height
         var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.geometry.dispose();
         this.geometry = new_geometry;
-        this.wall_mesh = new THREE.Mesh(this.geometry, this.material);
-        this.object3D.add(this.wall_mesh);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
     },
 
     update: function() {
