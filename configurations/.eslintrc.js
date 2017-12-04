@@ -193,14 +193,9 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Cursor types.
-        "CURSOR_TYPE_DOWN"      : true,
-        "CURSOR_TYPE_LEFT"      : true,
-        "CURSOR_TYPE_RIGHT"     : true,
-        "CURSOR_TYPE_UP"        : true,
-        "CURSOR_TYPE_DOWN_LEFT" : true,
-        "CURSOR_TYPE_DOWN_RIGHT": true,
-        "CURSOR_TYPE_UP_LEFT"   : true,
-        "CURSOR_TYPE_UP_RIGHT"  : true,
+        "CURSOR_TYPE_HORIZONTAL": true,
+        "CURSOR_TYPE_VERTICAL"  : true,
+        "CURSOR_TYPE_LARGER"    : true,
         "CURSOR_TYPE_HAND"      : true,
         "CURSOR_TYPE_POINTER"   : true,
         "CURSOR_TYPE_MOUSE"     : true,

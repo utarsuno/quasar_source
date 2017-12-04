@@ -189,24 +189,6 @@ HomeWorld.prototype = {
 
         // World function.
         this.update_interactive_objects();
-
-        var walls = this.entity_walls;
-        for (var w = 0; w < walls.length; w++) {
-            var intersection_point = walls[w].wall.get_player_look_at_intersection_point();
-
-
-            /*
-            l(intersection_point);
-            if (intersection_point !== false) {
-                if (walls[w].wall.scalable) {
-                    l('Scalable!');
-                    l(walls[w].wall.scalable);
-                    walls[w].wall.lock_on_scaling();
-                }
-            }
-            */
-        }
-
     },
 
     enter_world: function() {

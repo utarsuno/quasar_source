@@ -181,17 +181,15 @@ WorldManager.prototype = {
     },
 
     load_cursors: function() {
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrow_down.png'    , CURSOR_TYPE_DOWN);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrow_left.png'    , CURSOR_TYPE_LEFT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrow_right.png'   , CURSOR_TYPE_RIGHT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/arrow_up.png'      , CURSOR_TYPE_UP);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png'   , CURSOR_TYPE_HAND);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer.png', CURSOR_TYPE_POINTER);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/down_left.png'     , CURSOR_TYPE_DOWN_LEFT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/down_right.png'    , CURSOR_TYPE_DOWN_RIGHT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/up_left.png'       , CURSOR_TYPE_UP_LEFT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/up_right.png'      , CURSOR_TYPE_UP_RIGHT);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/mouse.png'         , CURSOR_TYPE_MOUSE);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/scroll_horizontal.png', CURSOR_TYPE_HORIZONTAL);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/scroll_vertical.png'  , CURSOR_TYPE_VERTICAL);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png'      , CURSOR_TYPE_HAND);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer.png'   , CURSOR_TYPE_POINTER);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/down_left.png'        , CURSOR_TYPE_DOWN_LEFT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/down_right.png'       , CURSOR_TYPE_DOWN_RIGHT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/up_left.png'          , CURSOR_TYPE_UP_LEFT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/up_right.png'         , CURSOR_TYPE_UP_RIGHT);
+        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/mouse.png'            , CURSOR_TYPE_MOUSE);
     },
 
     // TODO : Cleanup all the loading logic!

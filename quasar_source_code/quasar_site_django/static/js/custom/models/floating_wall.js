@@ -62,17 +62,8 @@ FloatingWall.prototype = {
         // Base wall.
 
         this.scalable = scalable;
-
-        if (is_defined(scalable)) {
-            if (scalable) {
-                // The scaling slider is an invisible sphere that sits in the bottom right corner of the wall.
-                var sphereGeom = new THREE.SphereGeometry(8, 4, 4);
-                var blueMaterial = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.8});
-                this.sliding_cursor = new THREE.Mesh(sphereGeom, blueMaterial);
-                this.cursor_object3D = new THREE.Object3D();
-                this.cursor_object3D.add(this.sliding_cursor);
-                this.cursor_object3D.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
-            }
+        if (!is_defined(this.scalable)) {
+            this.scalable = false;
         }
 
         this.objects_to_remove_later = [];
@@ -88,25 +79,16 @@ FloatingWall.prototype = {
         this.object3D.add(this.wall_mesh);
 
         this.scene.add(this.object3D);
-        if (is_defined(scalable)) {
-            if (scalable) {
-                this.scene.add(this.cursor_object3D);
-            }
-        }
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
     },
 
     _update_scale: function() {
-        var scale_position = this.get_player_look_at_intersection_point_without_is_point_inside_check();
+        var data = this.get_player_look_at_intersection_point_without_is_point_inside_check();
+        var scale_position = data[0];
         l('The scale position is at ');
         l(scale_position);
-
-        l('The current scale sphere position is at ');
-        l(this.cursor_object3D.position);
-
-        this.cursor_object3D.position.set(scale_position.x, scale_position.y, scale_position.z);
 
         //  Dynamically change the width and height!
         l('TODO : Dynamically change the width and height!');
@@ -123,6 +105,14 @@ FloatingWall.prototype = {
     },
 
     update: function() {
+        if (this.scalable) {
+            var data = this.get_player_look_at_intersection_point();
+            if (data !== false) {
+                MANAGER_WORLD.current_world.floating_cursor.set_data(data);
+            }
+        }
+
+
         /*
         if (this.currently_scaling) {
             var p = CURRENT_PLAYER.get_position();
@@ -137,8 +127,25 @@ FloatingWall.prototype = {
     get_required_cursor: function(cursor_position_vector) {
         var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
         var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
-        l('H % :');
-        l(horizontal_percentage);
+
+        var vertical_scroll = false;
+        var horizontal_scroll = false;
+
+        if (y_percentage < 0.05 || y_percentage > 0.95) {
+            vertical_scroll = true;
+        }
+        if (horizontal_percentage > .45) {
+            horizontal_scroll = true;
+        }
+        if (vertical_scroll && horizontal_scroll) {
+            return CURSOR_TYPE_LARGER;
+        } else if (vertical_scroll) {
+            return CURSOR_TYPE_VERTICAL;
+        } else if (horizontal_scroll) {
+            return CURSOR_TYPE_HORIZONTAL;
+        } else {
+            return CURSOR_TYPE_MOUSE;
+        }
     },
 
     turn_off_scaling: function() {
@@ -302,32 +309,6 @@ FloatingWall.prototype = {
         return this._get_horizontal_distance_to_center(x, z) <= this.width / 2;
     },
 
-    get_player_look_at_intersection_point_without_is_point_inside_check: function() {
-        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        var floating_wall_parametric_equation = this.get_parametric_equation();
-
-        // TODO : Simplify later.
-        const INDEX_OF_POSITION = 0;
-        const INDEX_OF_DIRECTION = 1;
-
-        var line_x0 = player_parametric_equation[0][INDEX_OF_POSITION];
-        var line_y0 = player_parametric_equation[1][INDEX_OF_POSITION];
-        var line_z0 = player_parametric_equation[2][INDEX_OF_POSITION];
-        var line_nx = player_parametric_equation[0][INDEX_OF_DIRECTION];
-        var line_ny = player_parametric_equation[1][INDEX_OF_DIRECTION];
-        var line_nz = player_parametric_equation[2][INDEX_OF_DIRECTION];
-
-        var plane_nx = floating_wall_parametric_equation[0];
-        var plane_ny = floating_wall_parametric_equation[1];
-        var plane_nz = floating_wall_parametric_equation[2];
-        var plane_d  = floating_wall_parametric_equation[3];
-
-        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
-
-        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-    },
-
     get_player_look_at_intersection_point: function() {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var floating_wall_parametric_equation = this.get_parametric_equation();
@@ -362,6 +343,6 @@ FloatingWall.prototype = {
 
         //l(c);
 
-        return cursor_position;
+        return [cursor_position, c];
     }
 };

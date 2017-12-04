@@ -159,16 +159,11 @@ const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#5f3d0c'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Cursor types.
-const CURSOR_TYPE_DOWN       = 'arrow_down.png';
-const CURSOR_TYPE_LEFT       = 'arrowLeft.png';
-const CURSOR_TYPE_RIGHT      = 'arrowRight.png';
-const CURSOR_TYPE_UP         = 'arrowUp.png';
-const CURSOR_TYPE_DOWN_LEFT  = 'down_left.png';
-const CURSOR_TYPE_DOWN_RIGHT = 'down_right.png';
-const CURSOR_TYPE_UP_LEFT    = 'up_left.png';
-const CURSOR_TYPE_UP_RIGHT   = 'up_right.png';
+const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
+const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
+const CURSOR_TYPE_LARGER     = 'larger.png';
 const CURSOR_TYPE_HAND       = 'cursor_hand.png';
-const CURSOR_TYPE_POINTER    = 'cursor_pointer3D_shadow.png';
+const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
 const CURSOR_TYPE_MOUSE      = 'mouse.png';
 // UNIVERSAL_CONSTANTS_END
 

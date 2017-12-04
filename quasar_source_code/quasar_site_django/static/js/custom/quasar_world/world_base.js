@@ -47,6 +47,11 @@ FloatingCursor.prototype = {
         this.current_cursor.visible = true;
     },
 
+    set_data: function(data) {
+        this.set_cursor(data[1]);
+        this.set_position(data[0]);
+    },
+
     set_cursor: function(cursor_type) {
         if (this.cursors.hasOwnProperty(cursor_type)) {
             if (this.cursors[cursor_type] !== this.current_cursor) {
