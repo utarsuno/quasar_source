@@ -106,6 +106,7 @@ FloatingWall.prototype = {
             var new_height_percentage = (((this.object3D.position.y + this.height / 2) - cursor_position.y) / this.height);
             if (new_height_percentage < 0) {
                 new_height_percentage *= -1;
+                new_height_percentage += 1;
             }
             this._update_height(new_height_percentage);
         }
