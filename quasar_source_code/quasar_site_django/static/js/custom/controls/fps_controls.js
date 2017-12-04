@@ -371,6 +371,7 @@ FPSControls.prototype = {
         }
 
         if (this.mouse_down) {
+            l('Mouse drag!');
             MANAGER_WORLD.current_world.parse_mouse_drag();
         } else {
             MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
