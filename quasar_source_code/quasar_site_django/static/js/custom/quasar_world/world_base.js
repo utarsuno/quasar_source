@@ -81,6 +81,7 @@ FloatingCursor.prototype = {
 
         var normal;
         if (is_defined(this.world.currently_looked_at_object)) {
+            l(this.world.currently_looked_at_object);
             normal = this.world.currently_looked_at_object.normal;
         } else {
             normal = this.current_normal;
