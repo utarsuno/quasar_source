@@ -135,7 +135,7 @@ FloatingWall.prototype = {
     },
 
     get_required_cursor: function(cursor_position_vector) {
-        var y_percentage = cursor_position_vector.y / this.object3D.position.y;
+        var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
         var horizontal_percentage = this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z);
         l('Y % :');
         l(y_percentage);
@@ -376,7 +376,7 @@ FloatingWall.prototype = {
         var cursor_position = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
         var c = this.get_required_cursor(cursor_position);
 
-        l(c);
+        //l(c);
 
         return cursor_position;
     }
