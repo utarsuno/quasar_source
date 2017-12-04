@@ -100,15 +100,21 @@ FPSControls.prototype = {
     },
 
     fly_forward: function(delta) {
-        this.velocity.x += 200 * delta * this.direction_vector.x;
-        this.velocity.y += 200 * delta * this.direction_vector.y;
-        this.velocity.z += 200 * delta * this.direction_vector.z;
+        this.velocity.x += 200 * delta * this.walking_direction.x;
+        this.velocity.z += 200 * delta * this.walking_direction.z;
+
+        //this.velocity.x += 200 * delta * this.direction_vector.x;
+        //this.velocity.y += 200 * delta * this.direction_vector.y;
+        //this.velocity.z += 200 * delta * this.direction_vector.z;
     },
 
     fly_backward: function(delta) {
-        this.velocity.x -= 200 * delta * this.direction_vector.x;
-        this.velocity.y -= 200 * delta * this.direction_vector.y;
-        this.velocity.z -= 200 * delta * this.direction_vector.z;
+        this.velocity.x += 200 * delta * this.walking_direction.x;
+        this.velocity.z += 200 * delta * this.walking_direction.z;
+
+        //this.velocity.x -= 200 * delta * this.direction_vector.x;
+        //this.velocity.y -= 200 * delta * this.direction_vector.y;
+        //this.velocity.z -= 200 * delta * this.direction_vector.z;
     },
 
     move_forward: function(delta) {
@@ -336,11 +342,9 @@ FPSControls.prototype = {
         this.left_right.cross(this.direction_vector);
         this.left_right.normalize();
 
-        if (!this.flying_on) {
-            this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
-            this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal);
-            this.walking_direction.normalize();
-        }
+        this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
+        this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal);
+        this.walking_direction.normalize();
     },
 
     on_mouse_down: function() {
