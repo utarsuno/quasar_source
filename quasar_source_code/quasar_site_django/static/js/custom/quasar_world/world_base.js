@@ -70,12 +70,6 @@ FloatingCursor.prototype = {
     set_position: function(position) {
         var cursor_offset = 2;
 
-        // FOR_DEV_START
-        if (!this.world.currently_looked_at_object.hasOwnProperty('normal')) {
-            l('WHAT THE HECK');
-            l(this.world.currently_looked_at_object);
-        }
-        // FOR_DEV_END
         var normal;
         if (is_defined(this.world.currently_looked_at_object)) {
             normal = this.world.currently_looked_at_object.normal;
