@@ -30,7 +30,8 @@ FloatingCursor.prototype = {
         this.scene = this.world.scene;
         this.scene.add(this.object3D);
 
-        this.updated = false;
+        this.cursor_needed_from_interactive_objects = false;
+        this.cursor_needed_from_floating_walls = false;
         this.current_normal = null;
     },
 
@@ -55,6 +56,15 @@ FloatingCursor.prototype = {
     set_data: function(data) {
         this.set_cursor(data[1]);
         this.set_position(data[0]);
+        this.cursor_needed_from_floating_walls = true;
+    },
+
+    update: function() {
+        if (this.cursor_needed_from_floating_walls || this.cursor_needed_from_interactive_objects) {
+            this.current_cursor.visible = true;
+            this.cursor_needed_from_floating_walls = false;
+            this.cursor_needed_from_interactive_objects = false;
+        }
     },
 
     set_cursor: function(cursor_type) {
@@ -83,7 +93,7 @@ FloatingCursor.prototype = {
         // TODO : determine if there needs to be a horizontal shift as well.
 
         var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height, position.z + normal.z * 4);
-        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y + normal.y * cursor_offset - this.height, position.z + normal.z * cursor_offset);
+        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
 
         // Ensure that the current cursor is visible.
@@ -241,11 +251,7 @@ function World(planet_name) {
             this.set_cursor_position(final_point.point);
             match_was_found = true;
         } else {
-            if (!this.floating_cursor.updated) {
-                this.floating_cursor.updated = false;
-            } else {
-                this.floating_cursor.set_to_invisible();
-            }
+            this.floating_cursor.cursor_needed_from_interactive_objects = false;
         }
 
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.

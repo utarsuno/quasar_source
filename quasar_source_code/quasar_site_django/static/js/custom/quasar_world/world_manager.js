@@ -117,6 +117,7 @@ WorldManager.prototype = {
 
     update_current_scene: function() {
         this.current_world.update();
+        this.current_world.floating_cursor.update();
     },
 
     set_current_world: function(world) {
