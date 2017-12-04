@@ -104,13 +104,26 @@ FloatingWall.prototype = {
 
             cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             var new_height_percentage = (((this.object3D.position.y + this.height / 2) - cursor_position.y) / this.height);
-            l(new_height_percentage);
+            if (new_height_percentage < 0) {
+                new_height_percentage *= -1;
+            }
+            this._update_height(new_height_percentage);
         }
     },
 
-    _update_width: function(horizontal_new_width_percentage) {
-        l('Updating width!');
-        this.width *= horizontal_new_width_percentage;
+    _update_height: function(new_height_percentage) {
+        this.height *= new_height_percentage;
+
+        this.object3D.remove(this.mesh);
+        var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.geometry.dispose();
+        this.geometry = new_geometry;
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
+    },
+
+    _update_width: function(new_width_percentage) {
+        this.width *= new_width_percentage;
 
         this.object3D.remove(this.mesh);
         var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
