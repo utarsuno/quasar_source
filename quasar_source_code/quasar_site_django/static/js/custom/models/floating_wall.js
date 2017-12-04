@@ -86,6 +86,7 @@ FloatingWall.prototype = {
         // TODO : Clean up this function later on.
 
         l('PERFORM AN ACTION PLZ');
+        l(cursor_type);
 
         if (this.current_cursor == CURSOR_TYPE_HORIZONTAL) {
             var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
@@ -95,6 +96,7 @@ FloatingWall.prototype = {
     },
 
     _update_width: function(horizontal_new_width_percentage) {
+        l('Updating width!');
         this.width *= horizontal_new_width_percentage;
 
         this.object3D.remove(this.mesh);
