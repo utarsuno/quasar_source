@@ -61,6 +61,11 @@ FloatingCursor.prototype = {
     },
 
     set_position: function(position) {
+
+        l('Position set is :');
+        l(position);
+        
+
         var cursor_offset = 2;
 
         // FOR_DEV_START
@@ -71,15 +76,9 @@ FloatingCursor.prototype = {
         // FOR_DEV_END
         var normal = this.world.currently_looked_at_object.normal;
 
-        var player_position = CURRENT_PLAYER.get_position();
-        var direction_vector_to_player = new THREE.Vector3(player_position.x - position.x, player_position.y - position.y, player_position.z - position.z);
-        direction_vector_to_player.normalize();
-
-        var offset_vector = new THREE.Vector3(position.x * normal.x * cursor_offset, position.y * normal.y * cursor_offset, position.z * normal.z * cursor_offset);
-
-        this.object3D.position.set(position.x + offset_vector.x, position.y + offset_vector.y, position.z + offset_vector.z);
-
-        this.object3D.lookAt(player_position);
+        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y + normal.y * 4, position.z + normal.z * 4);
+        this.object3D.position.set(position.x * normal.x * cursor_offset, position.y * normal.y * cursor_offset, position.z * normal.z * cursor_offset);
+        this.object3D.lookAt(cursor_look_at);
 
         // Ensure that the current cursor is visible.
         this.current_cursor.visible = true;
