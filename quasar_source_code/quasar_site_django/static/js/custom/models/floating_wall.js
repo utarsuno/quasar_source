@@ -300,7 +300,7 @@ FloatingWall.prototype = {
                 return false;
             }
         } else {
-            if (this.object3D.position.x + right_side.x < x) {
+            if (this.object3D.position.x - right_side.x < x) {
                 return false;
             }
         }
@@ -309,7 +309,7 @@ FloatingWall.prototype = {
                 return false;
             }
         } else {
-            if (this.object3D.position.z + right_side.z < z) {
+            if (this.object3D.position.z - right_side.z < z) {
                 return false;
             }
         }
