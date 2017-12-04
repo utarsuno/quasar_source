@@ -38,11 +38,11 @@ FloatingCursor.prototype = {
         this.cursors[cursor_name] = c;
     },
 
-    make_current_cursor_invisible: function() {
+    set_to_invisible: function() {
         this.current_cursor.visible = false;
     },
 
-    make_current_cursor_visible: function() {
+    set_to_visible: function() {
         this.current_cursor.visible = true;
     },
 
@@ -62,7 +62,7 @@ FloatingCursor.prototype = {
     set_position: function(position) {
         var cursor_offset = 2;
 
-        l(currently_looked_at_object);
+        //l(currently_looked_at_object);
         var normal = this.currently_looked_at_object.normal;
 
         var player_position = CURRENT_PLAYER.get_position();
