@@ -302,6 +302,7 @@ EntityWall.prototype = {
         //////
 
 
+        this.world.interactive_objects.push(this.wall);
         this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
         this.world.interactive_objects.push(this.make_entity_wall_public_button);
