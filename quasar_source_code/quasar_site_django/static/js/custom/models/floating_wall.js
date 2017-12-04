@@ -24,14 +24,10 @@ FloatingWall.prototype = {
     interactive_objects: null,
 
     __init__: function (width, height, position, normal, world, scalable) {
-
-        this.position = position;
-        //this.look_at = new THREE.Vector3(0, this.position.y, 0)
-
         this.normal = normal;
         this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2);
 
-        this.look_at = new THREE.Vector3(this.position.x + this.depth_start.x, this.position.y + this.depth_start.y, this.position.z + this.depth_start.z);
+        this.look_at = new THREE.Vector3(position.x + this.depth_start.x, position.y + this.depth_start.y, position.z + this.depth_start.z);
 
         this.left_right = new THREE.Vector3(0, 1, 0);
         this.left_right.cross(this.normal);
@@ -84,7 +80,9 @@ FloatingWall.prototype = {
 
         this.all_floating_2d_texts = [];
 
-        this.currently_scaling = false;
+        // Used to determine what actions to be taking.
+        this.current_cursor = null;
+
         this.position_cache_x = null;
 
         this.object3D.add(this.wall_mesh);
@@ -125,6 +123,7 @@ FloatingWall.prototype = {
     },
 
     update: function() {
+        /*
         if (this.currently_scaling) {
             var p = CURRENT_PLAYER.get_position();
             if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.z)) {
@@ -132,12 +131,21 @@ FloatingWall.prototype = {
             } else {
                 this._update_scale();
             }
-        }
+        }*/
+    },
+
+    get_required_cursor: function(cursor_position_vector) {
+        var y_percentage = cursor_position_vector.y / this.object3D.position.y;
+        var horizontal_percentage = this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z);
+        l('Y % :');
+        l(y_percentage);
+        l('H % :');
+        l(horizontal_percentage);
     },
 
     turn_off_scaling: function() {
-        this.currently_scaling = false;
-        CURRENT_PLAYER.disengage();
+        //this.currently_scaling = false;
+        //CURRENT_PLAYER.disengage();
     },
 
     lock_on_scaling: function() {
@@ -248,6 +256,10 @@ FloatingWall.prototype = {
         return (-16.0 / 2.0) * (1 + (2 * y_index));
     },
 
+    _get_horizontal_distance_to_center: function(x, z) {
+        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
+    },
+
     // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
     get_relative_x_shift: function(distance) {
         return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
@@ -275,29 +287,29 @@ FloatingWall.prototype = {
 
     _is_point_inside_floating_wall: function(x, y, z) {
         // TODO : Simplify later.
-        if (this.position.y + this.height / 2 < y) {
+        if (this.object3D.position.y + this.height / 2 < y) {
             return false;
         }
-        if (this.position.y - this.height / 2 > y) {
+        if (this.object3D.position.y - this.height / 2 > y) {
             return false;
         }
         var right_side = this.get_relative_x_shift(-this.width / 2);
 
         if (right_side.x < 0) {
-            if (this.position.x + right_side.x > x) {
+            if (this.object3D.position.x + right_side.x > x) {
                 return false;
             }
         } else {
-            if (this.position.x + right_side.x < x) {
+            if (this.object3D.position.x + right_side.x < x) {
                 return false;
             }
         }
         if (right_side.z < 0) {
-            if (this.position.z + right_side.z > z) {
+            if (this.object3D.position.z + right_side.z > z) {
                 return false;
             }
         } else {
-            if (this.position.z + right_side.z < z) {
+            if (this.object3D.position.z + right_side.z < z) {
                 return false;
             }
         }
@@ -357,6 +369,13 @@ FloatingWall.prototype = {
         if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
             return false;
         }
-        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
+
+        // Also add the cursor type needed.
+        var cursor_position = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
+        var c = this.get_required_cursor(cursor_position);
+
+        l(c);
+
+        return cursor_position;
     }
 };

@@ -287,6 +287,14 @@ function sin(n) {
     return Math.sin(n);
 }
 
+function sqrt(n) {
+    return Math.sqrt(n);
+}
+
+function squared(n) {
+    return n * n;
+}
+
 // From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
 function get_nearest_power_of_two_for_number(n) {
     var v = n;

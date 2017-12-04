@@ -328,7 +328,10 @@ module.exports = {
         // Math shortcuts.
         "sin"                                : false,
         "cos"                                : false,
+        "sqrt"                               : false,
+        "squared"                            : false,
         "get_nearest_power_of_two_for_number": false,
+
         "is_entity_property"                 : false,
         "raise_exception"                    : false,
         "raise_exception_with_full_logging"  : false,
