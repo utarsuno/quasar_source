@@ -71,6 +71,10 @@ FPSControls.prototype = {
 
         // TODO : Add smooth step to the movement buffers!!!
 
+        this.mouse_down = false;
+
+        document.addEventListener('mousedown', this.on_mouse_down.bind(this), false);
+        document.addEventListener('mouseup', this.on_mouse_up.bind(this), false);
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false);
         document.addEventListener('keydown', this.on_key_down.bind(this), false);
         document.addEventListener('keyup', this.on_key_up.bind(this), false);
@@ -229,12 +233,13 @@ FPSControls.prototype = {
         this.enabled = false;
         // In case pause was pressed as a movement key was held down.
         // Reset movement variables so resuming back in doesn't leave one down until re-clicked.
-        this.up    = false;
-        this.down  = false;
-        this.left  = false;
-        this.right = false;
-        this.space = false;
-        this.shift = false;
+        this.up         = false;
+        this.down       = false;
+        this.left       = false;
+        this.right      = false;
+        this.space      = false;
+        this.shift      = false;
+        this.mouse_down = false;
     },
 
     on_key_down: function(event) {
@@ -339,27 +344,24 @@ FPSControls.prototype = {
         }
     },
 
+    on_mouse_down: function() {
+        this.mouse_down = true;
+    },
+
+    on_mouse_up: function() {
+        this.mouse_down = false;
+    },
+
     on_mouse_move: function(event) {
         var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+        var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
         if (this.enabled) {
-            var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-
             this.mouse_movement_x_buffer.add_force(movement_x * -0.002);
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002);
         }
 
-        if (CURRENT_PLAYER.is_engaged()) {
-            var c = MANAGER_WORLD.current_world.currently_looked_at_object;
-            if (is_defined(c)) {
-                if (c.requires_mouse_x_movement) {
-                    c.provide_mouse_x_movement(movement_x);
-                }
-                if (c.requires_mouse_y_movement) {
-                    c.provide_mouse_y_movement(movement_y);
-                }
-            }
-        }
+        MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
     },
 
     get_direction: function() {

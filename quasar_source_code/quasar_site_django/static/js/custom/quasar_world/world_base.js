@@ -45,17 +45,14 @@ FloatingCursor.prototype = {
         this.cursors[cursor_name] = c;
     },
 
-    set_to_invisible: function() {
-        this.current_cursor.visible = false;
-    },
-
-    set_to_visible: function() {
-        this.current_cursor.visible = true;
+    is_currently_visible: function() {
+        return this.current_cursor.visible;
     },
 
     set_data: function(data) {
         this.set_cursor(data[1]);
         this.set_position(data[0]);
+        this.current_floating_wall = data[2];
         this.cursor_needed_from_floating_walls = true;
     },
 
@@ -64,6 +61,8 @@ FloatingCursor.prototype = {
             this.current_cursor.visible = true;
             this.cursor_needed_from_floating_walls = false;
             this.cursor_needed_from_interactive_objects = false;
+        } else {
+            this.current_cursor.visible = false;
         }
     },
 
@@ -71,11 +70,8 @@ FloatingCursor.prototype = {
         if (this.cursors.hasOwnProperty(cursor_type)) {
             if (this.cursors[cursor_type] !== this.current_cursor) {
                 this.previous_cursor = this.current_cursor;
-                //this.previous_cursor.set_to_invisible();
                 this.previous_cursor.visible = false;
                 this.current_cursor = this.cursors[cursor_type];
-                //this.current_cursor.set_to_visible();
-                this.current_cursor.visible = true;
             }
         }
     },
@@ -95,9 +91,6 @@ FloatingCursor.prototype = {
         var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height, position.z + normal.z * 4);
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
-
-        // Ensure that the current cursor is visible.
-        this.current_cursor.visible = true;
     }
 };
 
@@ -176,6 +169,22 @@ function World(planet_name) {
                     this.floating_cursor.set_cursor(CURSOR_TYPE_POINTER);
                 }
             }
+        }
+    };
+
+    this.parse_mouse_movement = function(movement_x, movement_y) {
+        if (CURRENT_PLAYER.is_engaged()) {
+            var c = MANAGER_WORLD.current_world.currently_looked_at_object;
+            if (is_defined(c)) {
+                if (c.requires_mouse_x_movement) {
+                    c.provide_mouse_x_movement(movement_x);
+                }
+                if (c.requires_mouse_y_movement) {
+                    c.provide_mouse_y_movement(movement_y);
+                }
+            }
+        } else if (this.floating_cursor.current_cursor.is_currently_visible()) {
+            l('PERFORM ACTION!');
         }
     };
 

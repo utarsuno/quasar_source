@@ -41,7 +41,7 @@ PointerLockAPI.prototype = {
             l('Pointer lock is not supported!');
             // FOR_DEV_END
             GUI_TYPING_INTERFACE.add_server_message('Pointer lock is not supported!');
-            raise_exception('Pointer lock is not supported!')
+            raise_exception('Pointer lock is not supported!');
         }
     },
 
