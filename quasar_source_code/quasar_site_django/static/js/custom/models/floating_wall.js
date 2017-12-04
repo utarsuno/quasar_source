@@ -293,34 +293,13 @@ FloatingWall.prototype = {
         if (this.object3D.position.y - this.height / 2 > y) {
             return false;
         }
-        var right_side = this.get_relative_x_shift(-this.width / 2);
-        var left_side = this.get_relative_x_shift(this.width / 2);
-
-        // TODO FIX : The right side isn't working.
-
-        if (right_side.x < 0) {
-            if (this.object3D.position.x - left_side.x > x) {
-                l('FALSE X A!');
-                return false;
-            }
-        } else {
-            if (this.object3D.position.x + right_side.x < x) {
-                l('FALSE X B!');
-                return false;
-            }
-        }
-        if (right_side.z < 0) {
-            if (this.object3D.position.z + right_side.z > z) {
-                l('FALSE Z!');
-                return false;
-            }
-        } else {
-            if (this.object3D.position.z + right_side.z < z) {
-                l('FALSE Z!');
-                return false;
-            }
+        /*
+        if (this._get_horizontal_distance_to_center(x, z) > this.width / 2) {
+            return false;
         }
         return true;
+        */
+        return this._get_horizontal_distance_to_center(x, z) <= this.width / 2;
     },
 
     get_player_look_at_intersection_point_without_is_point_inside_check: function() {
