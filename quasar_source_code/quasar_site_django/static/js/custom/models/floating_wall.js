@@ -88,14 +88,23 @@ FloatingWall.prototype = {
         l('PERFORM AN ACTION PLZ');
         l(cursor_type);
 
-        if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
+        var new_cursor_position;
+        var cursor_position;
 
-            var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
+        if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
+            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
-            var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
-            var horizontal_new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
-            this._update_width(horizontal_new_width_percentage);
+            cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+            var new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
+            this._update_width(new_width_percentage);
+        } else if (cursor_type == CURSOR_TYPE_VERTICAL) {
+            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
+            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
+
+            cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+            var new_height_percentage = (((this.object3D.position.y + this.height / 2) - cursor_position.y) / this.height);
+            l(new_height_percentage);
         }
     },
 
@@ -343,7 +352,7 @@ FloatingWall.prototype = {
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        
+
         return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
