@@ -121,7 +121,7 @@ FloatingWall.prototype = {
             l(old_cursor_position.y);
 
             // TODO : 10 is the cursor height, get this dynamically
-            var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y + 10, 0);
+            var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - 10, 0);
             this._update_position_offset(delta_vector);
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
         }
