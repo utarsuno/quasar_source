@@ -76,7 +76,7 @@ FloatingWall.prototype = {
 
         this.position_cache_x = null;
 
-        this.object3D.add(this.wall_mesh);
+        this.object3D.add(this.mesh);
 
         this.scene.add(this.object3D);
 
