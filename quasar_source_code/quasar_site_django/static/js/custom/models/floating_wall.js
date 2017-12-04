@@ -343,12 +343,7 @@ FloatingWall.prototype = {
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-
-        if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
-            return false;
-        }
-
-        // Also add the cursor type needed.
+        
         return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
