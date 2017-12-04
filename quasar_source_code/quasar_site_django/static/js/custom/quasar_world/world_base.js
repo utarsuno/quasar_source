@@ -27,6 +27,8 @@ FloatingCursor.prototype = {
         this.world = world;
         this.scene = this.world.scene;
         this.scene.add(this.object3D);
+
+        this.current_normal = null;
     },
 
     add_cursor_material: function(cursor_material, cursor_name) {
@@ -66,11 +68,6 @@ FloatingCursor.prototype = {
     },
 
     set_position: function(position) {
-
-        l('Position set is :');
-        l(position);
-
-
         var cursor_offset = 2;
 
         // FOR_DEV_START
@@ -79,7 +76,12 @@ FloatingCursor.prototype = {
             l(this.world.currently_looked_at_object);
         }
         // FOR_DEV_END
-        var normal = this.world.currently_looked_at_object.normal;
+        var normal;
+        if (is_defined(this.world.currently_looked_at_object)) {
+            normal = this.world.currently_looked_at_object.normal;
+        } else {
+            normal = this.current_normal;
+        }
 
         var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y + normal.y * 4, position.z + normal.z * 4);
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y + normal.y * cursor_offset, position.z + normal.z * cursor_offset);
