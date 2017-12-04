@@ -300,12 +300,12 @@ FloatingWall.prototype = {
 
         if (right_side.x < 0) {
             if (this.object3D.position.x + right_side.x > x) {
-                l('FALSE X!');
+                l('FALSE X A!');
                 return false;
             }
         } else {
             if (this.object3D.position.x + right_side.x < x) {
-                l('FALSE X!');
+                l('FALSE X B!');
                 return false;
             }
         }
