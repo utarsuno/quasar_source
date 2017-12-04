@@ -183,7 +183,7 @@ function World(planet_name) {
                     c.provide_mouse_y_movement(movement_y);
                 }
             }
-        } else if (this.floating_cursor.current_cursor.is_currently_visible()) {
+        } else if (this.floating_cursor.is_currently_visible()) {
             l('PERFORM ACTION!');
         }
     };
