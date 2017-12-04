@@ -89,6 +89,10 @@ FloatingWall.prototype = {
         l(cursor_type);
 
         if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
+
+            var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
+            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
+
             var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             var horizontal_new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
             this._update_width(horizontal_new_width_percentage);
@@ -314,6 +318,38 @@ FloatingWall.prototype = {
         return true;
         */
         return this._get_horizontal_distance_to_center(x, z) <= this.width / 2;
+    },
+
+    get_player_look_at_infinite_plane_intersection_point: function() {
+        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
+        var floating_wall_parametric_equation = this.get_parametric_equation();
+
+        // TODO : Simplify later.
+        const INDEX_OF_POSITION = 0;
+        const INDEX_OF_DIRECTION = 1;
+
+        var line_x0 = player_parametric_equation[0][INDEX_OF_POSITION];
+        var line_y0 = player_parametric_equation[1][INDEX_OF_POSITION];
+        var line_z0 = player_parametric_equation[2][INDEX_OF_POSITION];
+        var line_nx = player_parametric_equation[0][INDEX_OF_DIRECTION];
+        var line_ny = player_parametric_equation[1][INDEX_OF_DIRECTION];
+        var line_nz = player_parametric_equation[2][INDEX_OF_DIRECTION];
+
+        var plane_nx = floating_wall_parametric_equation[0];
+        var plane_ny = floating_wall_parametric_equation[1];
+        var plane_nz = floating_wall_parametric_equation[2];
+        var plane_d  = floating_wall_parametric_equation[3];
+
+        var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
+
+        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
+
+        if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
+            return false;
+        }
+
+        // Also add the cursor type needed.
+        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
     get_player_look_at_intersection_point: function() {
