@@ -125,6 +125,7 @@ FloatingWall.prototype = {
             var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
 
             this.update_normal(reverse_player_normal);
+            this.update_position(new THREE.Vector3(player_position.x + player_normal.x * distance, this.object3D.position.y, player_position.z + player_normal * distance));
 
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
@@ -157,7 +158,7 @@ FloatingWall.prototype = {
         }
     },
 
-    _update_position_offset: function(delta_vector) {
+    update_position_offset: function(delta_vector) {
         this.position_offset.x += delta_vector.x;
         this.position_offset.y += delta_vector.y;
         this.position_offset.z += delta_vector.z;
