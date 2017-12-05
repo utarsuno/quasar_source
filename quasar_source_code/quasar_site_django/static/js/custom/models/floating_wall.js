@@ -131,7 +131,7 @@ FloatingWall.prototype = {
             var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
 
             this.update_normal(reverse_player_normal);
-            this.update_position(new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal * this.player_horizontal_distance_to_wall_center_liner));
+            this.update_position(new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal.z * this.player_horizontal_distance_to_wall_center_liner));
 
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
@@ -148,13 +148,7 @@ FloatingWall.prototype = {
                 //CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, this.object3D.position.y, this.object3D.position.z + this.normal.z * distance);
                 //CURRENT_PLAYER.look_at(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
             }
-
-
-            var horizontal_rotation = new THREE.Vector2(player_normal.x, player_normal.z);
-            horizontal_rotation.normalize();
-            var angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
-
-            l('The angle is : ' + angle);
+            
 
             //l(new_cursor_position.y);
             //l(old_cursor_position.y);
