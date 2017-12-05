@@ -260,7 +260,6 @@ FloatingWall.prototype = {
         if (is_defined(this.floating_3d_title)) {
             this.floating_3d_title.update_normal(this.normal);
         }
-
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_normal(this.normal);
         }
@@ -274,7 +273,7 @@ FloatingWall.prototype = {
 
         // TODO : refactor
         if (is_defined(this.close_button)) {
-            this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0);
+            //this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0);
         }
 
         if (is_defined(this.floating_3d_title)) {
@@ -284,20 +283,6 @@ FloatingWall.prototype = {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
-    },
-
-    update_floating_2d_text_position: function(position_vector, floating_2d_text, x_offset, z_offset, row, additional_y_offset) {
-        var relative_x_shift = this.get_relative_x_shift(x_offset);
-        var y_position = this.get_y_position_for_row(row) + additional_y_offset;
-
-        var new_position = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z);
-        new_position.addScaledVector(this.depth_start, z_offset);
-
-        var new_look_at = new THREE.Vector3(position_vector.x + relative_x_shift.x, position_vector.y + this.height / 2 + y_position + relative_x_shift.y, position_vector.z + relative_x_shift.z);
-        new_look_at.addScaledVector(this.depth_start, z_offset);
-        new_look_at.addScaledVector(this.normal, 10);
-
-        floating_2d_text.update_position_and_look_at(new_position, new_look_at);
     },
 
     add_object_to_remove_later: function(object_to_remove) {
@@ -342,9 +327,8 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
 
-        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset));
-
         floating_2D_text.set_normal_depth(z_offset);
+        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset));
 
         this.add_additional_visibility_object(floating_2D_text);
         this.add_object_to_remove_later(floating_2D_text);

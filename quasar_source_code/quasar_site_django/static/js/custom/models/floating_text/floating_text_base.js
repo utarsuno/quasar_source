@@ -148,6 +148,10 @@ function FloatingText(width, text, type, scene, current_color) {
         this.object3D.position.z += z;
     };
 
+    this.ensure_normal_depth = function() {
+
+    };
+
     this.set_normal_depth = function(depth) {
         this.normal_depth = depth;
     };
