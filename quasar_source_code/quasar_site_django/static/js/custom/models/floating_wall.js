@@ -359,13 +359,13 @@ FloatingWall.prototype = {
 
     get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
         var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
-        p.addScaledVector(this.depth_start, depth);
+        //p.addScaledVector(this.depth_start, depth);
         return p;
     },
 
     get_look_at_for_row: function (x_offset, y_offset, z_offset, depth) {
         var la = new THREE.Vector3(this.look_at.x + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z + z_offset);
-        la.addScaledVector(this.depth_start, depth);
+        //la.addScaledVector(this.depth_start, depth);
         return la;
     },
 
