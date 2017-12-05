@@ -217,14 +217,18 @@ FloatingWall.prototype = {
                 this.player_horizontal_distance_to_wall_center_liner = null;
                 var data = this.get_player_look_at_intersection_point();
                 if (data !== false) {
+                    this.currently_engaged_with_cursor = true;
                     MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
                     MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
+                } else {
+                    this.currently_engaged_with_cursor = false;
                 }
             }
         } else {
-            if (MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
-                l('zzdasdfas');
-                this.perform_action(CURSOR_TYPE_MOUSE);
+            if (this.currently_engaged_with_cursor) {
+                if (MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
+                    this.perform_action(CURSOR_TYPE_MOUSE);
+                }
             }
         }
     },
