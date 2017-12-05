@@ -121,6 +121,7 @@ FloatingWall.prototype = {
             var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
 
 
+            /*
             var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
 
@@ -142,6 +143,8 @@ FloatingWall.prototype = {
             var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
             this._update_position_offset(delta_vector);
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
+            
+            */
         }
     },
 
