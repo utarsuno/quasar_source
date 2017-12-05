@@ -143,7 +143,7 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position = function(position_vector) {
-        if (is_defined(this.normal_depth)) {
+        if (is_defined(this.normal_depth) && is_defined(this.normal)) {
             this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
             this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
             this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
