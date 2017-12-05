@@ -240,7 +240,7 @@ FloatingWall.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        this.object3D.lookAt(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z);
+        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z));
     },
 
     update_position: function(position_vector) {
