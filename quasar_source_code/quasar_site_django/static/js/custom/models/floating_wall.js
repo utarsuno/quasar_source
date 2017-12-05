@@ -254,7 +254,11 @@ FloatingWall.prototype = {
         this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z));
 
         if (is_defined(this.floating_3d_title)) {
-            this.floating_3d_title.update_normal();
+            this.floating_3d_title.update_normal(this.normal);
+        }
+
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].update_normal(this.normal);
         }
     },
 
@@ -263,13 +267,19 @@ FloatingWall.prototype = {
         var y_offset = position_vector.y - this.object3D.position.y;
         var z_offset = position_vector.z - this.object3D.position.z;
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z);
+
+        // TODO : refactor
         if (is_defined(this.close_button)) {
             this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0);
         }
+
         if (is_defined(this.floating_3d_title)) {
             this.floating_3d_title.update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
-        // TODO : update the remaining positions as well.
+
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
+        }
     },
 
     update_floating_2d_text_position: function(position_vector, floating_2d_text, x_offset, z_offset, row, additional_y_offset) {
