@@ -329,7 +329,8 @@ FloatingWall.prototype = {
 
         floating_2D_text.normal = new THREE.Vector3(this.normal.x, this.normal.y, this.normal.z);
         floating_2D_text.set_normal_depth(z_offset);
-        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, z_offset));
+        // TODO : Clean this line up.
+        floating_2D_text.update_position_and_look_at(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.get_look_at_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0));
 
         this.add_additional_visibility_object(floating_2D_text);
         this.add_object_to_remove_later(floating_2D_text);
