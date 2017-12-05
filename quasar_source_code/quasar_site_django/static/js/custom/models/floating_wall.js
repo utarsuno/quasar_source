@@ -130,7 +130,7 @@ FloatingWall.prototype = {
 
 
                 CURRENT_PLAYER.set_position(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
-                CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
+                //CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
             }
             /*
 
