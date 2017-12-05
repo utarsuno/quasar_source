@@ -181,7 +181,9 @@ function World(planet_name) {
 
     this.parse_mouse_drag = function() {
         if (this.floating_cursor.engaged) {
-            this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+            if (this.floating_cursor.current_cursor.userData.name !== CURSOR_TYPE_HAND) {
+                this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+            }
         }
     };
 
