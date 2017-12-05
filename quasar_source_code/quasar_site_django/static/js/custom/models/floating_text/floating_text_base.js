@@ -130,6 +130,14 @@ function FloatingText(width, text, type, scene, current_color) {
         return this.object3D.position;
     };
 
+    this.update_position_and_look_at_origin = function(position_vector) {
+        this.object3D.position.x = position_vector.x;
+        this.object3D.position.y = position_vector.y;
+        this.object3D.position.z = position_vector.z;
+        this.normal = new THREE.Vector3(0 - position_vector.x, 0, 0 - position_vector.z);
+        this.normal.normalize();
+    };
+
     this.update_position = function(position_vector) {
         if (is_defined(this.normal_depth)) {
             this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;

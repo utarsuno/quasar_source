@@ -148,9 +148,8 @@ LoginWorld.prototype = {
 
         // Quasar Source title.
         var quasar_source_title_position = new THREE.Vector3(800, 400, 300);
-        var quasar_source_title_look_at = new THREE.Vector3(0, 400, 0);
         this.quasar_source_title = new Floating3DText(600, 'Quasar Source', TYPE_SUPER_TITLE, this.scene);
-        this.quasar_source_title.update_position_and_look_at(quasar_source_title_position, quasar_source_title_look_at);
+        this.quasar_source_title.update_position_and_look_at_origin(quasar_source_title_position);
 
         /*        __   __
             |    /  \ / _` | |\ |    |  |  /\  |    |
