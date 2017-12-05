@@ -309,10 +309,10 @@ FPSControls.prototype = {
         var look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x);
 
         var d = this.get_direction();
-        var x_rotation = new THREE.Vector2(d.x, d.z);
-        x_rotation.normalize();
+        var horizontal_rotation = new THREE.Vector2(d.x, d.z);
+        horizontal_rotation.normalize();
 
-        var angle = Math.atan2(x_rotation.y, x_rotation.x);
+        var angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
 
         var current_x_value = this.mouse_movement_x_buffer.get_current_value();
         this.mouse_movement_x_buffer.clear_buffer();

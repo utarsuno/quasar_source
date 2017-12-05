@@ -142,6 +142,13 @@ FloatingWall.prototype = {
                 //CURRENT_PLAYER.look_at(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
             }
 
+
+            var horizontal_rotation = new THREE.Vector2(player_normal.x, player_normal.z);
+            horizontal_rotation.normalize();
+            var angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
+
+            l('The angle is : ' + angle);
+
             //l(new_cursor_position.y);
             //l(old_cursor_position.y);
 
