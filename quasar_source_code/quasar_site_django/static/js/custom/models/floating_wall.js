@@ -245,8 +245,7 @@ FloatingWall.prototype = {
         this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene, COLOR_DAY_PRESENT);
         var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
-        var look_at    = this.get_look_at_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
-        this.floating_3d_title.update_position_and_look_at(y_position, look_at);
+        this.floating_3d_title.update_position_and_normal(y_position, this.normal);
     },
 
     update_normal: function(normal) {

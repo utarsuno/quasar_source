@@ -10,6 +10,10 @@ function FloatingText(width, text, type, scene, current_color) {
     this.object3D      = new THREE.Object3D();
     this.current_color = COLOR_DAY_PRESENT;
     this.default_color = COLOR_DAY_PRESENT;
+
+    // Default value.
+    this.normal_depth  = 1;
+
     if (is_defined(current_color)) {
         this.current_color = current_color;
         this.default_color = current_color;
