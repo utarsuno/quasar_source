@@ -241,6 +241,10 @@ Player.prototype = {
         this.fps_controls.yaw.position.z = vector.z;
     },
 
+    get_direction: function() {
+        return this.fps_controls.get_direction();
+    },
+
     get_parametric_equation: function() {
         var position = this.get_position();
         var vector   = this.fps_controls.get_direction();
