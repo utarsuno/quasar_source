@@ -235,6 +235,12 @@ Player.prototype = {
         this.fps_controls.look_at(vector);
     },
 
+    set_position_xyz: function(x, y, z) {
+        this.fps_controls.yaw.position.x = x;
+        this.fps_controls.yaw.position.y = y;
+        this.fps_controls.yaw.position.z = z;
+    },
+
     set_position: function(vector) {
         this.fps_controls.yaw.position.x = vector.x;
         this.fps_controls.yaw.position.y = vector.y;

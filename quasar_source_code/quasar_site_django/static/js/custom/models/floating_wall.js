@@ -129,30 +129,18 @@ FloatingWall.prototype = {
 
 
 
-                CURRENT_PLAYER.set_position(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
-                //CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
-            }
-            /*
-
-            var player_normal = CURRENT_PLAYER.get_direction();
-            if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
-
-
-
-                CURRENT_PLAYER.set_position(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
+                CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
                 CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
             }
-
-
+            
             //l(new_cursor_position.y);
             //l(old_cursor_position.y);
 
-            // TODO : 10 is the cursor height, get this dynamically
             var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
             this._update_position_offset(delta_vector);
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
-            */
+
         }
     },
 
