@@ -135,14 +135,14 @@ FloatingWall.prototype = {
                 l(distance);
 
                 CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal.z * distance);
-                //CURRENT_PLAYER.look_at(new_cursor_position.x, new_cursor_position.y, new_cursor_position.z);
+                CURRENT_PLAYER.look_at(new_cursor_position.x, new_cursor_position.y, new_cursor_position.z);
             }
 
             //l(new_cursor_position.y);
             //l(old_cursor_position.y);
 
-            var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
-            this._update_position_offset(delta_vector);
+            //var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
+            //this._update_position_offset(delta_vector);
         }
     },
 
