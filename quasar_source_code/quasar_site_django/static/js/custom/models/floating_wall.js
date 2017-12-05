@@ -222,6 +222,8 @@ FloatingWall.prototype = {
                     MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
                 } else {
                     this.currently_engaged_with_cursor = false;
+                    this.player_horizontal_distance_to_wall_center_liner = null;
+                    this.player_previous_y_position = null;
                 }
             }
         } else {
