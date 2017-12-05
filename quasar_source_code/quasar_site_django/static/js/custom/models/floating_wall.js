@@ -82,6 +82,10 @@ FloatingWall.prototype = {
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
+
+
+
+        this.player_horizontal_distance_to_wall_center_liner = null;
     },
 
     perform_action: function(cursor_type) {
@@ -118,14 +122,16 @@ FloatingWall.prototype = {
             var player_position = CURRENT_PLAYER.get_position();
 
             // Get the player's current distance to the nearest center line point.
-            var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
+            if (!is_defined(this.player_horizontal_distance_to_wall_center_liner)) {
+                this.player_horizontal_distance_to_wall_center_liner = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
+            }
 
             var player_normal = CURRENT_PLAYER.get_direction();
 
             var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
 
             this.update_normal(reverse_player_normal);
-            this.update_position(new THREE.Vector3(player_position.x + player_normal.x * distance, this.object3D.position.y, player_position.z + player_normal * distance));
+            this.update_position(new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal * this.player_horizontal_distance_to_wall_center_liner));
 
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
@@ -193,6 +199,7 @@ FloatingWall.prototype = {
     update: function() {
         if (!MANAGER_WORLD.current_world.floating_cursor.engaged) {
             if (this.scalable) {
+                this.player_horizontal_distance_to_wall_center_liner = null;
                 var data = this.get_player_look_at_intersection_point();
                 if (data !== false) {
                     MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
