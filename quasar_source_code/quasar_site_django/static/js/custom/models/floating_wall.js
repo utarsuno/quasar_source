@@ -87,22 +87,21 @@ FloatingWall.prototype = {
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
 
-        l('PERFORM AN ACTION PLZ');
-        l(cursor_type);
+        //l('PERFORM AN ACTION PLZ');
+        //l(cursor_type);
 
+        var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
         var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
-        var cursor_position;
+        MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
+        var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
 
         if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
-            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
-            cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             var new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
             this._update_width(new_width_percentage);
-        } else if (cursor_type == CURSOR_TYPE_VERTICAL) {
-            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
-            cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+        } else if (cursor_type == CURSOR_TYPE_VERTICAL) {
+
             var new_height_percentage = (((this.object3D.position.y + this.height / 2) - cursor_position.y) / this.height);
             if (new_height_percentage < 0) {
                 new_height_percentage *= -1;
@@ -111,14 +110,13 @@ FloatingWall.prototype = {
                 new_height_percentage = 1 - new_height_percentage;
             }
             this._update_height(new_height_percentage);
+
         } else if (cursor_type == CURSOR_TYPE_MOUSE) {
 
             var player_position = CURRENT_PLAYER.get_position();
 
             // Get the player's current distance to the nearest center line point.
             var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
-
-            var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
 
 
             var player_normal = CURRENT_PLAYER.get_direction();
@@ -143,9 +141,6 @@ FloatingWall.prototype = {
 
             var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
             this._update_position_offset(delta_vector);
-            MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
-
-
         }
     },
 
