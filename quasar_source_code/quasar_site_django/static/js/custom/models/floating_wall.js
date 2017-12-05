@@ -122,10 +122,17 @@ FloatingWall.prototype = {
 
             var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
-            /*
-            var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
-            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
 
+
+            var player_normal = CURRENT_PLAYER.get_direction();
+            if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
+
+
+
+                CURRENT_PLAYER.set_position(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
+                CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
+            }
+            /*
 
             var player_normal = CURRENT_PLAYER.get_direction();
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
