@@ -132,6 +132,7 @@ FloatingWall.prototype = {
                 this.player_previous_y_position = player_position.y;
             } else {
                 y_offset = player_position.y - this.player_previous_y_position;
+                this.player_previous_y_position = player_position.y;
             }
 
             var player_normal = CURRENT_PLAYER.get_direction();
