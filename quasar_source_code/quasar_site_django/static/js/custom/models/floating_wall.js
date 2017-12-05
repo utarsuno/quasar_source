@@ -90,18 +90,16 @@ FloatingWall.prototype = {
         l('PERFORM AN ACTION PLZ');
         l(cursor_type);
 
-        var new_cursor_position;
+        var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
         var cursor_position;
 
         if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
-            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
             cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             var new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
             this._update_width(new_width_percentage);
         } else if (cursor_type == CURSOR_TYPE_VERTICAL) {
-            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
 
             cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
@@ -121,7 +119,6 @@ FloatingWall.prototype = {
             var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
 
             var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
-            new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
 
 
             var player_normal = CURRENT_PLAYER.get_direction();
