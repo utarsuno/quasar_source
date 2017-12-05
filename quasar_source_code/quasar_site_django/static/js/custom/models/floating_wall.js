@@ -206,6 +206,10 @@ FloatingWall.prototype = {
                     MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
                 }
             }
+        } else {
+            if (MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name == CURSOR_TYPE_HAND) {
+                this.perform_action(CURSOR_TYPE_HAND);
+            }
         }
     },
 
