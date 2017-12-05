@@ -128,11 +128,14 @@ FloatingWall.prototype = {
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
 
+                l(this.object3D.position.x + this.normal.x * distance);
+                l(new_cursor_position.y);
+                l(this.object3D.position.z + this.normal * distance);
 
                 CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
                 CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
             }
-            
+
             //l(new_cursor_position.y);
             //l(old_cursor_position.y);
 
