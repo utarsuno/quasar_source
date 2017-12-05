@@ -157,24 +157,14 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_normal = function(normal) {
-        this.normal = normal;
+        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
+        this.normal.normalize();
         this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
     };
 
-    this.update_look_at = function(look_at_position_vector) {
-        this.normal = new THREE.Vector3(look_at_position_vector.x - this.object3D.position.x, look_at_position_vector.y - this.object3D.position.y, look_at_position_vector.z - this.object3D.position.z);
-        this.normal.normalize();
-        if (is_defined(this.normal_depth)) {
-            var position_to_look_at = new THREE.Vector3(look_at_position_vector.x + this.normal.x * 100, look_at_position_vector.y + this.normal.y * 100, look_at_position_vector.z + this.normal.z * 100);
-            this.object3D.lookAt(position_to_look_at);
-        } else {
-            this.object3D.lookAt(look_at_position_vector);
-        }
-    };
-
-    this.update_position_and_look_at = function(position_vector, look_at_position) {
+    this.update_position_and_normal = function(position_vector, normal) {
         this.update_position(position_vector);
-        this.update_look_at(look_at_position);
+        this.update_normal(normal);
     };
 
     this.delete_self = function() {
