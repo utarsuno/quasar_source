@@ -22,10 +22,12 @@ HomeWorld.prototype = {
 
         this.players = [];
 
+        // Create a seperate class for this!
+
         /*   __   __        ___  __             ___            ___
             /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |    .
             .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\|    .*/
-
+        /*
         var schedule_view_height = 1000;
 
         this.test_positions = [];
@@ -114,6 +116,7 @@ HomeWorld.prototype = {
 
             this.schedule_floating_day_titles.push(floating_3d_text);
         }
+        */
     },
 
     control_key_down: null,
