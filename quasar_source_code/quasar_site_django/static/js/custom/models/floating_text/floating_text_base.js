@@ -152,10 +152,6 @@ function FloatingText(width, text, type, scene, current_color) {
         this.normal_depth = depth;
     };
 
-    this._update_look_at = function() {
-
-    };
-
     this.update_normal = function(normal) {
         this.normal = normal;
         this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
@@ -173,9 +169,7 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position_and_look_at = function(position_vector, look_at_position) {
-        this.object3D.position.x = position_vector.x;
-        this.object3D.position.y = position_vector.y;
-        this.object3D.position.z = position_vector.z;
+        this.update_position(position_vector);
         this.update_look_at(look_at_position);
     };
 

@@ -147,6 +147,10 @@ FloatingWall.prototype = {
         this.object3D.position.x += x;
         this.object3D.position.y += y;
         this.object3D.position.z += z;
+
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
+        }
     },
 
     update_position_offset: function(delta_vector) {
