@@ -65,11 +65,12 @@ EntityWall.prototype = {
         // All child entities will be automatically deleted (if they don't have any other parent entity objects).
         MANAGER_ENTITY.delete_entity(this.self_entity);
 
-        this.world.remove_from_interactive_then_scene(this.title);
+        //this.world.remove_from_interactive_then_scene(this.title);
         this.world.remove_from_interactive_then_scene(this.create_entity_button);
         this.world.remove_from_interactive_then_scene(this.make_entity_wall_public_button);
         this.world.remove_from_interactive_then_scene(this.delete_entity_wall_button);
-        
+
+        this.wall.remove_from_scene();
         this.are_you_sure.remove_from_scene();
         this.entities_display_wall.remove_from_scene();
         this.create_entity_wall.remove_from_scene();
@@ -241,8 +242,11 @@ EntityWall.prototype = {
         wall_normal.normalize();
         this.wall = new FloatingWall(this.width, this.height, wall_position, wall_normal, this.world, true);
 
-        this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
-        this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1));
+        //var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 1, 0);
+        this.title = this.wall.add_floating_2d_text(this.width * .9, 'Default Group Name', TYPE_INPUT_REGULAR, this.width * .05, 2, 1, 0);
+
+        //this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
+        //this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1));
 
         // Create entity button.
         var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1);
@@ -303,7 +307,7 @@ EntityWall.prototype = {
 
 
         //this.world.interactive_objects.push(this.wall);
-        this.world.interactive_objects.push(this.title);
+        //this.world.interactive_objects.push(this.title);
         this.world.interactive_objects.push(this.create_entity_button);
         this.world.interactive_objects.push(this.make_entity_wall_public_button);
         this.world.interactive_objects.push(this.delete_entity_wall_button);
