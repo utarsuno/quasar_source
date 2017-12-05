@@ -83,8 +83,6 @@ FloatingWall.prototype = {
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
 
-
-
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
     },
@@ -121,10 +119,8 @@ FloatingWall.prototype = {
         } else if (cursor_type == CURSOR_TYPE_MOUSE) {
 
             var player_position = CURRENT_PLAYER.get_position();
-
             var y_offset = 0;
 
-            // Get the player's current distance to the nearest center line point.
             if (!is_defined(this.player_horizontal_distance_to_wall_center_liner)) {
                 this.player_horizontal_distance_to_wall_center_liner = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
             }
@@ -136,37 +132,10 @@ FloatingWall.prototype = {
             }
 
             var player_normal = CURRENT_PLAYER.get_direction();
-
             var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
-
             this.update_normal(reverse_player_normal);
-
             this.update_position_offset_xyz(0, y_offset, 0);
-
             this.update_position(new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal.z * this.player_horizontal_distance_to_wall_center_liner));
-
-            if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
-
-                l(this.object3D.position.x);
-                l(this.normal.x);
-                l(distance);
-                l(this.object3D.position.x + this.normal.x * distance);
-                l(new_cursor_position.y);
-                l(this.object3D.position.z + this.normal.z * distance);
-                l(this.object3D.position.z);
-                l(this.normal.z);
-                l(distance);
-
-                //CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, this.object3D.position.y, this.object3D.position.z + this.normal.z * distance);
-                //CURRENT_PLAYER.look_at(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
-            }
-
-
-            //l(new_cursor_position.y);
-            //l(old_cursor_position.y);
-
-            //var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
-            //this._update_position_offset(delta_vector);
         }
     },
 
@@ -283,12 +252,22 @@ FloatingWall.prototype = {
         this.left_right.normalize();
 
         this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z));
+
+        if (is_defined(this.floating_3d_title)) {
+            this.floating_3d_title.update_normal();
+        }
     },
 
     update_position: function(position_vector) {
+        var x_offset = position_vector.x - this.object3D.position.x;
+        var y_offset = position_vector.y - this.object3D.position.y;
+        var z_offset = position_vector.z - this.object3D.position.z;
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z);
         if (is_defined(this.close_button)) {
             this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0);
+        }
+        if (is_defined(this.floating_3d_title)) {
+            this.floating_3d_title.update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
         // TODO : update the remaining positions as well.
     },
