@@ -120,8 +120,12 @@ FloatingWall.prototype = {
             // Get the player's current distance to the nearest center line point.
             var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
 
-
             var player_normal = CURRENT_PLAYER.get_direction();
+
+            var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
+
+            this.update_normal(reverse_player_normal);
+
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
                 l(this.object3D.position.x);
@@ -134,8 +138,8 @@ FloatingWall.prototype = {
                 l(this.normal.z);
                 l(distance);
 
-                CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, this.object3D.position.y, this.object3D.position.z + this.normal.z * distance);
-                CURRENT_PLAYER.look_at(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
+                //CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, this.object3D.position.y, this.object3D.position.z + this.normal.z * distance);
+                //CURRENT_PLAYER.look_at(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
             }
 
             //l(new_cursor_position.y);
@@ -228,6 +232,15 @@ FloatingWall.prototype = {
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
         var look_at    = this.get_look_at_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
         this.floating_3d_title.update_position_and_look_at(y_position, look_at);
+    },
+
+    update_normal: function(normal) {
+        this.normal = normal;
+        this.left_right = new THREE.Vector3(0, 1, 0);
+        this.left_right.cross(this.normal);
+        this.left_right.normalize();
+
+        this.object3D.lookAt(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z);
     },
 
     update_position: function(position_vector) {

@@ -40,9 +40,9 @@ DataDisplay.prototype = {
             this.y_coordinate.textContent = 'y : ' + int(position.y) + ' | ' + int(this.fps_controls.get_velocity().y);
             this.z_coordinate.textContent = 'z : ' + int(position.z) + ' | ' + int(this.fps_controls.get_velocity().z);
 
-            this.x_direction.textContent = 'xd : ' + int(direction.x);
-            this.y_direction.textContent = 'yd : ' + int(direction.y);
-            this.z_direction.textContent = 'zd : ' + int(direction.z);
+            this.x_direction.textContent = 'xd : ' + direction.x;
+            this.y_direction.textContent = 'yd : ' + direction.y;
+            this.z_direction.textContent = 'zd : ' + direction.z;
         }
     },
 
