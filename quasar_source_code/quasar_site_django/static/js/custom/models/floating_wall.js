@@ -114,14 +114,32 @@ FloatingWall.prototype = {
             }
             this._update_height(new_height_percentage);
         } else if (cursor_type == CURSOR_TYPE_MOUSE) {
+
+            var player_position = CURRENT_PLAYER.get_position();
+
+            // Get the player's current distance to the nearest center line point.
+            var distance = this._get_horizontal_distance_to_center(player_position.x, player_position.z);
+
+
             var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
             new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
 
-            l(new_cursor_position.y);
-            l(old_cursor_position.y);
+
+            var player_normal = CURRENT_PLAYER.get_direction();
+            if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
+
+
+
+                CURRENT_PLAYER.set_position(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
+                CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
+            }
+
+
+            //l(new_cursor_position.y);
+            //l(old_cursor_position.y);
 
             // TODO : 10 is the cursor height, get this dynamically
-            var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - 10, 0);
+            var delta_vector = new THREE.Vector3(0, new_cursor_position.y - old_cursor_position.y - MANAGER_WORLD.current_world.floating_cursor.height, 0);
             this._update_position_offset(delta_vector);
             MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
         }
@@ -159,26 +177,6 @@ FloatingWall.prototype = {
         this.object3D.add(this.mesh);
     },
 
-    _update_scale: function() {
-        var data = this.get_player_look_at_intersection_point_without_is_point_inside_check();
-        var scale_position = data[0];
-        l('The scale position is at ');
-        l(scale_position);
-
-        //  Dynamically change the width and height!
-        l('TODO : Dynamically change the width and height!');
-
-        this.object3D.remove(this.mesh);
-        //this.scene.remove(this.wall_mesh);
-
-        // TODO : Calculate the new width and height
-        var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.geometry.dispose();
-        this.geometry = new_geometry;
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.object3D.add(this.mesh);
-    },
-
     update: function() {
         if (!MANAGER_WORLD.current_world.floating_cursor.engaged) {
             if (this.scalable) {
@@ -189,17 +187,6 @@ FloatingWall.prototype = {
                 }
             }
         }
-
-
-        /*
-        if (this.currently_scaling) {
-            var p = CURRENT_PLAYER.get_position();
-            if (this.position_cache_x !== int(p.x) || this.position_cache_y !== int(p.y) || this.position_cache_z !== int(p.z)) {
-                this.turn_off_scaling();
-            } else {
-                this._update_scale();
-            }
-        }*/
     },
 
     get_required_cursor: function(cursor_position_vector) {
