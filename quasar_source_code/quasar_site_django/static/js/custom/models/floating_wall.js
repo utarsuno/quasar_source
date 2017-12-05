@@ -127,12 +127,17 @@ FloatingWall.prototype = {
             var player_normal = CURRENT_PLAYER.get_direction();
             if (player_normal.x !== -1 * this.normal.x || player_normal.z !== -1 * this.normal.z) {
 
-
+                l(this.object3D.position.x);
+                l(this.normal.x);
+                l(distance);
                 l(this.object3D.position.x + this.normal.x * distance);
                 l(new_cursor_position.y);
                 l(this.object3D.position.z + this.normal * distance);
+                l(this.object3D.position.z);
+                l(this.normal.z);
+                l(distance);
 
-                CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
+                //CURRENT_PLAYER.set_position_xyz(this.object3D.position.x + this.normal.x * distance, new_cursor_position.y, this.object3D.position.z + this.normal * distance);
                 CURRENT_PLAYER.look_at(this.object3D.position.x, new_cursor_position.y, this.object3D.position.z);
             }
 
