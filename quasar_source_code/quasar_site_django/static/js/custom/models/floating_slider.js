@@ -93,7 +93,7 @@ FloatingSlider.prototype = {
 
         // Minimum Value Label
         this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene);
-        this.minimum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(0, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(0, 0, -40, 0));
+        this.minimum_value_label.update_position_and_normal(this.get_position_on_slider_based_off_percentage(0, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(0, 0, -40, 0));
 
         // Maximum Value Label
         this.maximum_value_label = new Floating2DText(25, this.maximum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene);
@@ -111,7 +111,7 @@ FloatingSlider.prototype = {
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z));
 
         this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 40, 0), this._get_current_look_at_on_slider(0, 40, 0));
-        this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
+        this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
         this.slider_object.requires_mouse_x_movement = true;
 
         this.slider_object.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
@@ -147,11 +147,6 @@ FloatingSlider.prototype = {
             position.z += z_offset;
         }
         return position;
-    },
-
-    get_look_at_on_slider_based_off_percentage: function(percentage, x_offset, y_offset, z_offset) {
-        var position = this.get_position_on_slider_based_off_percentage(percentage, x_offset, y_offset, z_offset);
-        return new THREE.Vector3(position.x + this.normal.x, position.y + this.normal.y, position.z + this.normal.z);
     },
 
     _get_current_position_on_slider: function(x_offset, y_offset, z_offset) {
