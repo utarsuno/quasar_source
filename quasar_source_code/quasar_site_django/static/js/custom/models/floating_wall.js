@@ -319,9 +319,6 @@ FloatingWall.prototype = {
 
         this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
 
-        //for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-        //    this.all_floating_2d_texts[i].update_normal(this.normal);
-        //}
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_normal(normal);
         }
@@ -350,10 +347,6 @@ FloatingWall.prototype = {
         this.close_button.set_engage_function(this.close_button_pressed.bind(this));
         this.all_floating_2d_texts.push(this.close_button);
         return this.close_button;
-    },
-
-    get_all_floating_2d_texts: function() {
-        return this.all_floating_2d_texts;
     },
 
     add_floating_wall_off_of_button: function(width, height, button, scalable, normal_depth) {
@@ -394,21 +387,7 @@ FloatingWall.prototype = {
         floating_2D_text.pfw_position_offset = position_offset;
         floating_2D_text.pfw_row = row;
         floating_2D_text.pfw_additional_normal_depth = additional_normal_depth;
-
-        /*
-        var additional_x_shift = 0;
-        if (width < this.width) {
-            additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
-        }
-        if (position_offset < 0) {
-            position_offset = this.width + position_offset;
-        }
-        var x_offset = this.width * (position_offset / this.width);
-        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
-        var y_position = this.get_y_position_for_row(row);
-        floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + additional_normal_depth);
-        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
-        */
+        
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
         if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
@@ -458,23 +437,6 @@ FloatingWall.prototype = {
         floating_2D_text.pfw_row = row;
         floating_2D_text.pfw_additional_normal_depth = additional_normal_depth;
 
-        /*
-        var additional_x_shift = 0;
-        if (floating_2d_text_width < this.width) {
-            additional_x_shift = -1.0 * ((1.0 - (floating_2d_text_width / this.width)) / 2.0) * this.width;
-        }
-        var x_offset = this.width * x_start;
-
-        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
-        var y_position = this.get_y_position_for_row(row);
-
-        if (is_defined(additional_normal_depth)) {
-            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + additional_normal_depth);
-        } else {
-            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
-        }
-        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
-        */
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
         if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
