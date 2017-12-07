@@ -134,9 +134,8 @@ CreateEntity.prototype = {
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
           |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
         var entity_type_selector_position = new THREE.Vector3(this.position.x + this.normal.x * 14, this.position.y + this.normal.y * 14, this.position.z + this.normal.z * 14);
-        this.entity_type_selector = new FloatingWall(this.width, this.height, entity_type_selector_position, this.normal, this.world);
-
-
+        //this.entity_type_selector = new FloatingWall(this.width, this.height, entity_type_selector_position, this.normal, this.world);
+        this.entity_type_selector = this.entity_wall.wall.add_floating_wall_to_center_of_position(this.width, this.height, entity_type_selector_position, false);
 
         // Entity type selector - title.
         this.entity_type_selector.add_floating_2d_text(this.width, 'Select Entity Type', TYPE_TITLE, 0, 4, 1, 0);
@@ -209,8 +208,8 @@ CreateEntity.prototype = {
     },
 
     remove_from_scene: function() {
-        this.entity_type_selector.remove_from_scene();
-        this.create_entity_wall.remove_from_scene();
+        //this.entity_type_selector.remove_from_scene();
+        //this.create_entity_wall.remove_from_scene();
         this.add_attribute_prompt.remove_from_scene();
     },
 
