@@ -136,6 +136,8 @@ CreateEntity.prototype = {
         var entity_type_selector_position = new THREE.Vector3(this.position.x + this.normal.x * 14, this.position.y + this.normal.y * 14, this.position.z + this.normal.z * 14);
         this.entity_type_selector = new FloatingWall(this.width, this.height, entity_type_selector_position, this.normal, this.world);
 
+
+
         // Entity type selector - title.
         this.entity_type_selector.add_floating_2d_text(this.width, 'Select Entity Type', TYPE_TITLE, 0, 4, 1, 0);
         var entity_type_row_index = 4;
@@ -159,7 +161,8 @@ CreateEntity.prototype = {
         // TODO : Height needs to be dynamically determined from the number of rows needed.
         var entity_wall_height = 512 / 2 - 100;
         var create_entity_wall_position = new THREE.Vector3(this.position.x + this.normal.x * 28, this.position.y + this.normal.y * 28, this.position.z + this.normal.z * 28);
-        this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, create_entity_wall_position, this.normal, this.world);
+        //this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, create_entity_wall_position, this.normal, this.world);
+        this.entity_wall.wall.add_floating_wall_to_center_of_position(this.entity_wall_width, entity_wall_height, create_entity_wall_position, false);
 
         // Close button.
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button(3);

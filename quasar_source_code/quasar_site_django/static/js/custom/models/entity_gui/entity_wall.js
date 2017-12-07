@@ -156,6 +156,9 @@ EntityWall.prototype = {
 
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2);
                 this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world);
+
+
+
                 this.current_floating_entity_row = this.floating_row_to_entity_list[i][0];
 
                 var entity_editor_close_button = this.current_entity_editor.add_close_button(1);
