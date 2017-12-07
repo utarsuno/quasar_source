@@ -303,11 +303,8 @@ FloatingWall.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x, this.object3D.position.y + this.normal.y, this.object3D.position.z + this.normal.z));
+        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
 
-        if (is_defined(this.floating_3d_title)) {
-            this.floating_3d_title.update_normal(this.normal);
-        }
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_normal(this.normal);
         }
