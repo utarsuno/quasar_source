@@ -250,8 +250,9 @@ EntityWall.prototype = {
 
         // Create entity button.
         var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1);
-        this.create_entity_button = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene);
-        this.create_entity_button.update_position_and_normal(create_entity_position, this.normal);
+        this.create_entity_button = this.wall.add_floating_2d_text(this.width * .9, 'Create New Entity', TYPE_BUTTON, this.width * .05, 2, 2, 0);
+        //this.create_entity_button = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene);
+        //this.create_entity_button.update_position_and_normal(create_entity_position, this.normal);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
         //
 
@@ -392,6 +393,6 @@ EntityWall.prototype = {
         var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z);
         p.addScaledVector(this.depth_start, depth);
         return p;
-    },
+    }
 
 };
