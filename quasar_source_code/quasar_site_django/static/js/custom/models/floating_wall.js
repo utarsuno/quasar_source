@@ -145,11 +145,7 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_all_floating_text();
         for (var j = 0; j < this.all_floating_walls.length; j++) {
-            l('Updating the wall');
-            l(this.all_floating_walls[j]);
             this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
-            l(this.all_floating_walls[j]);
-            l('------')
         }
     },
 
@@ -172,7 +168,10 @@ FloatingWall.prototype = {
         //    this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
         //}
         for (var j = 0; j < this.all_floating_walls.length; j++) {
+            l(this.all_floating_walls[j]);
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
+            l(this.all_floating_walls[j]);
+            l('-----');
         }
     },
 
