@@ -141,9 +141,16 @@ FloatingWall.prototype = {
 
             this.update_position_with_offset_xyz(new_position.x - this.x_without_normal, new_position.y - this.y_without_normal + y_offset, new_position.z - this.z_without_normal);
 
-            for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-                this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
+            this.update_position_and_normal_for_all_floating_text();
+            for (var j = 0; j < this.all_floating_walls.length; j++) {
+                this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
             }
+        }
+    },
+
+    update_position_and_normal_for_all_floating_text: function() {
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
         }
     },
 
