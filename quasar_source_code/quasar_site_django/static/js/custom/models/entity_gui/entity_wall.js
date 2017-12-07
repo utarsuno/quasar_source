@@ -272,7 +272,7 @@ EntityWall.prototype = {
 
         // Make entity wall public button.
         this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene, COLOR_TEXT_BUTTON);
-        this.make_entity_wall_public_button.update_position_normal(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.normal);
+        this.make_entity_wall_public_button.update_position_and_normal(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.normal);
         this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
         /////
 
