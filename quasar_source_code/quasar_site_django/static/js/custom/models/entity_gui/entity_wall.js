@@ -27,10 +27,10 @@ EntityWall.prototype = {
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
         // Select entity type floating wall.
-        this.select_entity_type = this.wall.add_floating_wall_off_of_button(300, 400, this.create_entity_button, false, this.normal_depth * 2);
+        this.select_entity_type = this.wall.add_floating_wall_off_of_button(300, 400, this.create_entity_button, false, this.normal_depth * 4);
 
         this.select_entity_type.add_floating_2d_text(0, 1, 'Select Entity Type', TYPE_TITLE, 0);
-        this.select_entity_type.add_floating_2d_text(0, 1, 'Entity', TYPE_CONSTANT_TEXT, 3);
+        this.select_entity_type.add_floating_2d_text(0, 1, 'Entity', TYPE_BUTTON, 3);
 
         this.select_entity_type.add_close_button();
         this.select_entity_type.hide();

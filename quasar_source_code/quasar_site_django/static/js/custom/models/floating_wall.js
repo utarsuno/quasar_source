@@ -341,7 +341,7 @@ FloatingWall.prototype = {
     add_floating_wall_to_center_of_position: function(width, height, position, scalable, normal_depth) {
         var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
         var floating_wall;
-        
+
         if (is_defined(scalable)) {
             if (is_defined(normal_depth)) {
                 floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, normal_depth);
