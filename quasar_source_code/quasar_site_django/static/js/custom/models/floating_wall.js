@@ -347,7 +347,7 @@ FloatingWall.prototype = {
 
     add_floating_2d_text_fixed_position: function(width, position_offset, text, type, row, additional_normal_depth) {
         var floating_2D_text = new Floating2DText(width, text, type, this.scene);
-            var additional_x_shift = 0;
+        var additional_x_shift = 0;
         if (width < this.width) {
             additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
         }
@@ -382,7 +382,11 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row);
 
-        floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + additional_normal_depth);
+        if (is_defined(additional_normal_depth)) {
+            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + additional_normal_depth);
+        } else {
+            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
+        }
         floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
 
         if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
