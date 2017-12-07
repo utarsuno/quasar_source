@@ -168,7 +168,7 @@ LoginWorld.prototype = {
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
 
         this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 1);
-        this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 1);
+        this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 1);
 
         // TODO :
         //this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
