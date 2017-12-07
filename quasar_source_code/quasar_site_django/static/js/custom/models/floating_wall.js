@@ -24,12 +24,8 @@ FloatingWall.prototype = {
         this.object3D = new THREE.Object3D();
 
         this.normal = normal;
-        if (is_defined(normal_depth)) {
-            this.normal_depth = normal_depth;
-            this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
-        } else {
-            this.normal_depth = 1;
-        }
+        this.normal_depth = normal_depth;
+        this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
 
         this.look_at = new THREE.Vector3(position.x + this.normal.x * 100, position.y + this.normal.y * 100, position.z + this.normal.z * 100);
 
@@ -494,11 +490,23 @@ FloatingWall.prototype = {
     },
 
     // Visibility.
-    set_to_visible: function() {
-        l('TODO!! set to visible!!');
+    hide: function() {
+        this.set_to_invisible();
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].set_to_invisible();
+        }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].hide();
+        }
     },
 
-    set_to_invisible: function() {
-        l('TODO!! set to invisible!!!');
+    show: function() {
+        this.set_to_visible();
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].set_to_visible();
+        }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].show();
+        }
     }
 };
