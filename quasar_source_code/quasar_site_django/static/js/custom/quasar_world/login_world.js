@@ -80,7 +80,7 @@ LoginWorld.prototype = {
         var email_text = this.create_account_email_input.get_text();
         var username_text = this.create_account_username_input.get_text();
         var password_text = this.create_account_password_input.get_text();
-        var password_repeat_text = this.create_account_password_repeat_input.get_input_text();
+        var password_repeat_text = this.create_account_password_repeat_input.get_text();
 
         if (!is_email_valid(email_text)) {
             error = true;
