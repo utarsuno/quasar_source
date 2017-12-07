@@ -38,7 +38,7 @@ FloatingSlider.prototype = {
 
         this.current_value_text.update_text(current_value_text);
         this.current_value_text.update_position(this._get_current_position_on_slider(0, 50, 0));
-        this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._gl.x * 2);
+        this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
 
         // World manager won't be defined on the first call to update.
         // TODO : Eventually change the design then
