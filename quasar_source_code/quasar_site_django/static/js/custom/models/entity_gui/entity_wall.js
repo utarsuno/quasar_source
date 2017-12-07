@@ -246,13 +246,16 @@ EntityWall.prototype = {
 
         this.create_entity_button = this.wall.add_floating_2d_text(this.width * .9, 'Create New Entity', TYPE_BUTTON, this.width * .05, 2, 2, 0);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
+        this.world.interactive_objects.push(this.create_entity_button);
 
         this.delete_entity_wall_button = this.wall.add_floating_2d_text(this.width * .9, 'Delete Entity Wall', TYPE_BUTTON, this.width * .05, 2, 0, this.title.height - this.height);
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
+        this.world.interactive_objects.push(this.delete_entity_wall_button);
 
         this.make_entity_wall_public_button = this.wall.add_floating_2d_text(this.width * .9, 'Make Entity Wall Public', TYPE_BUTTON, this.width * .05, 2, 0, this.title.height * 2 - this.height);
         this.make_entity_wall_public_button.update_color(COLOR_TEXT_BUTTON);
         this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
+        this.world.interactive_objects.push(this.make_entity_wall_public_button);
         //
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
@@ -263,10 +266,13 @@ EntityWall.prototype = {
         this.entities_display_wall_height = this.height * 0.70;
         var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2);
         //this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
-        this.entities_display_wall = this.wall.add_floating_wall_to_center_of_position(this.width * 0.9, this.height * 0.7, entities_display_wall_position);
+        this.entities_display_wall = this.wall.add_floating_wall_to_center_of_position(this.width * 0.9, this.height * 0.7, entities_display_wall_position, true);
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);
         this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2 + 512 / 4, (ENTITY_TYPE_ALL.length + 4 - 3) * 16);
+
+        // TODO : connect create entity wall to this.wall
+
         //this.create_entity_wall.set_to_invisible()
 
         /*      __   ___         __           __        __   ___     __   __   __         __  ___
@@ -274,8 +280,7 @@ EntityWall.prototype = {
           /~~\ |  \ |___     |  \__/ \__/    .__/ \__/ |  \ |___    |    |  \ \__/  |  | |     |     .*/
         var are_you_sure_width = 300;
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3);
-        this.are_you_sure = new FloatingWall(are_you_sure_width, 100, are_you_sure_position, this.normal, this.world);
-        //this.are_you_
+        this.are_you_sure = this.wall.add_floating_wall_to_center_of_position(300, 100, are_you_sure_position, false);
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 1, 0);
         var are_you_sure_close_button = this.are_you_sure.add_close_button(1);
@@ -293,19 +298,6 @@ EntityWall.prototype = {
         //////
 
         //////
-
-
-        //this.world.interactive_objects.push(this.wall);
-        //this.world.interactive_objects.push(this.title);
-        this.world.interactive_objects.push(this.create_entity_button);
-        this.world.interactive_objects.push(this.make_entity_wall_public_button);
-        this.world.interactive_objects.push(this.delete_entity_wall_button);
-
-        // TODO : Change the design so this for loop isn't needed.
-        var extra_interactives = this.are_you_sure.get_all_interactive_objects();
-        for (var d = 0; d < extra_interactives.length; d++) {
-            this.world.interactive_objects.push(extra_interactives[d]);
-        }
 
         // Set the tab targets.
         this.title.set_next_tab_target(this.create_entity_button);
@@ -326,12 +318,6 @@ EntityWall.prototype = {
 
     update: function() {
         this.wall.update();
-        this.entities_display_wall.update();
-        this.are_you_sure.update();
-
-        if (is_defined(this.current_entity_editor)) {
-            this.current_entity_editor.update();
-        }
     },
 
     update_title: function(title) {

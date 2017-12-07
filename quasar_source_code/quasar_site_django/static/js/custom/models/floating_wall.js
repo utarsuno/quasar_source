@@ -333,9 +333,14 @@ FloatingWall.prototype = {
         return this.all_floating_2d_texts;
     },
 
-    add_floating_wall_to_center_of_position: function(width, height, position) {
+    add_floating_wall_to_center_of_position: function(width, height, position, scalable) {
         var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
-        var floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
+        var floating_wall;
+        if (is_defined(scalable)) {
+            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable);
+        } else {
+            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
+        }
 
         // TODO : visibility for floating walls to remove
         this.add_floating_wall_to_remove_later(floating_wall);
