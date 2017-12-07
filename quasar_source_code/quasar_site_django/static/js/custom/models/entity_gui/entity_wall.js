@@ -28,6 +28,7 @@ EntityWall.prototype = {
 
         // Create entity floating wall.
         this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false, this.normal_depth);
+        this.create_entity_wall.add_close_button();
         this.create_entity_wall.hide();
     },
 
