@@ -242,18 +242,17 @@ EntityWall.prototype = {
         wall_normal.normalize();
         this.wall = new FloatingWall(this.width, this.height, wall_position, wall_normal, this.world, true);
 
-        //var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 1, 0);
         this.title = this.wall.add_floating_2d_text(this.width * .9, 'Default Group Name', TYPE_INPUT_REGULAR, this.width * .05, 2, 1, 0);
 
-        //this.title = new Floating2DText(this.width, 'Default Group Name', TYPE_INPUT_REGULAR, this.scene);
-        //this.title.update_position_and_look_at(this.get_position_for_row(0, this.get_y_position_for_row(0), 0, 1), this.get_look_at_for_row(0, this.get_y_position_for_row(0), 0, 1));
-
-        // Create entity button.
-        var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1);
         this.create_entity_button = this.wall.add_floating_2d_text(this.width * .9, 'Create New Entity', TYPE_BUTTON, this.width * .05, 2, 2, 0);
-        //this.create_entity_button = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene);
-        //this.create_entity_button.update_position_and_normal(create_entity_position, this.normal);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
+
+        this.delete_entity_wall_button = this.wall.add_floating_2d_text(this.width * .9, 'Delete Entity Wall', TYPE_BUTTON, this.width * .05, 2, 0, this.title.height - this.height);
+        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
+
+        this.make_entity_wall_public_button = this.wall.add_floating_2d_text(this.width * .9, 'Make Entity Wall Public', TYPE_BUTTON, this.width * .05, 2, 0, this.title.height * 2 - this.height);
+        this.make_entity_wall_public_button.update_color(COLOR_TEXT_BUTTON);
+        this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
         //
 
         /* ___      ___   ___    ___  __             __  ___     __     __   __
@@ -264,18 +263,6 @@ EntityWall.prototype = {
         this.entities_display_wall_height = this.height * 0.75;
         var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2);
         this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
-
-        // Delete entity wall button.
-        this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_RED);
-        this.delete_entity_wall_button.update_position_and_normal(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.normal);
-        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
-        /////
-
-        // Make entity wall public button.
-        this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene, COLOR_TEXT_BUTTON);
-        this.make_entity_wall_public_button.update_position_and_normal(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.normal);
-        this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
-        /////
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);
         this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2 + 512 / 4, (ENTITY_TYPE_ALL.length + 4 - 3) * 16);
