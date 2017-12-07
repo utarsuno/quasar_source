@@ -364,7 +364,7 @@ FloatingWall.prototype = {
         floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
         floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
 
-        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD) {
+        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
             floating_2D_text.is_in_interactive_list = true;
             this.world.interactive_objects.push(floating_2D_text);
         }
