@@ -1,19 +1,16 @@
 'use strict';
 
-function FloatingWall(width, height, position, look_at, world, scalable) {
-    this.__init__(width, height, position, look_at, world, scalable);
+function FloatingWall(width, height, position, look_at, world, scalable, normal_depth) {
+    this.__init__(width, height, position, look_at, world, scalable, normal_depth);
 }
 
 FloatingWall.prototype = {
 
-    position: null,
-    look_at: null,
     world: null,
     scene: null,
 
     normal: null,
-    depth_start: null,
-    depth: null,
+    normal_depth: null,
 
     width: null,
     height: null,
@@ -23,11 +20,16 @@ FloatingWall.prototype = {
 
     interactive_objects: null,
 
-    __init__: function (width, height, position, normal, world, scalable) {
+    __init__: function (width, height, position, normal, world, scalable, normal_depth) {
         this.normal = normal;
+        if (is_defined(normal_depth)) {
+            this.normal_depth = normal_depth;
+        } else {
+            this.normal_depth = 1;
+        }
         this.depth_start = new THREE.Vector3(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2);
 
-        this.look_at = new THREE.Vector3(position.x + this.depth_start.x, position.y + this.depth_start.y, position.z + this.depth_start.z);
+        this.look_at = new THREE.Vector3(position.x + this.normal.x * 100, position.y + this.normal.y * 100, position.z + this.normal.z * 100);
 
         this.left_right = new THREE.Vector3(0, 1, 0);
         this.left_right.cross(this.normal);
@@ -79,8 +81,6 @@ FloatingWall.prototype = {
         this.object3D.add(this.mesh);
 
         this.scene.add(this.object3D);
-
-        this.position_offset = new THREE.Vector3(0, 0, 0);
 
         this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
@@ -142,10 +142,6 @@ FloatingWall.prototype = {
     },
 
     update_position_offset_xyz: function(x, y, z) {
-        this.position_offset.x += x;
-        this.position_offset.y += y;
-        this.position_offset.z += z;
-
         this.object3D.position.x += x;
         this.object3D.position.y += y;
         this.object3D.position.z += z;
@@ -333,13 +329,21 @@ FloatingWall.prototype = {
         return this.all_floating_2d_texts;
     },
 
-    add_floating_wall_to_center_of_position: function(width, height, position, scalable) {
+    add_floating_wall_to_center_of_position: function(width, height, position, scalable, normal_depth) {
         var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
         var floating_wall;
         if (is_defined(scalable)) {
-            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable);
+            if (is_defined(normal_depth)) {
+                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, normal_depth);
+            } else {
+                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, this.normal_depth + 5);
+            }
         } else {
-            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
+            if (is_defined(normal_depth)) {
+                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable, normal_depth);
+            } else {
+                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable, this.normal_depth + 5);
+            }
         }
 
         // TODO : visibility for floating walls to remove
@@ -367,8 +371,8 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
 
-        floating_2D_text.set_normal_depth(z_offset);
-        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), new THREE.Vector3(this.normal.x, this.normal.y, this.normal.z));
+        floating_2D_text.set_normal_depth(this.normal_depth + z_offset);
+        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
 
         this.add_additional_visibility_object(floating_2D_text);
         this.add_object_to_remove_later(floating_2D_text);
