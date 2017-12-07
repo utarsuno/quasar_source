@@ -163,6 +163,9 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position_with_offset_xyz = function(x, y, z) {
+        l(this.x_without_normal);
+        l(this.y_without_normal);
+        l(this.z_without_normal);
         if (is_defined(this.normal_depth) && is_defined(this.normal)) {
             this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
             this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
