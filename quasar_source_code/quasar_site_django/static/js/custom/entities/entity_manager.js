@@ -193,6 +193,9 @@ EntityManager.prototype = {
     /*   __   ___ ___ ___         __      __       ___
         / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
         \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    .*/
+
+
+
     get_new_entity_id: function() {
         var max_id = -1;
         for (var i = 0; i < this.entities.length; i++) {
@@ -233,6 +236,7 @@ EntityManager.prototype = {
     /*   __   __   ___  __       ___    __        __
         /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
         \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .*/
+
     clear_all: function() {
         this.user_entities_loaded = false;
         this.public_entities_loaded = false;

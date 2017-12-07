@@ -195,7 +195,7 @@ class QuasarCode(object):
 		self.entity_properties.add_universal_constant('EMAIL'          , 'email')
 		self.entity_properties.add_universal_constant('NAME'           , 'name')
 		self.entity_properties.add_universal_constant('POSITION'       , 'position')
-		self.entity_properties.add_universal_constant('LOOK_AT'        , 'look_at')
+		self.entity_properties.add_universal_constant('NORMAL'         , 'normal')
 		self.entity_properties.add_universal_constant('COMPLETED'      , 'completed')
 		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_num ber')
 		self.entity_properties.add_universal_constant('PHONE_CARRIER'  , 'phone_carrier')

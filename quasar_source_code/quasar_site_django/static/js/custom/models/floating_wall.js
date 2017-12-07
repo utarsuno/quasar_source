@@ -280,11 +280,6 @@ FloatingWall.prototype = {
         var z_offset = position_vector.z - this.object3D.position.z;
         this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z);
 
-        // TODO : refactor
-        if (is_defined(this.close_button)) {
-            //this.update_floating_2d_text_position(position_vector, this.close_button, (this.width / 2.0) - 16 / 2, 2, 0, 0);
-        }
-
         if (is_defined(this.floating_3d_title)) {
             this.floating_3d_title.update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }

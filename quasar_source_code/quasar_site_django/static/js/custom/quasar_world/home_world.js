@@ -124,7 +124,27 @@ HomeWorld.prototype = {
     //remove_entity: function()
 
     create_entity_wall_command_entered: function() {
-        this.create_entity_wall(CURRENT_PLAYER.get_position(), 'Default');
+        // The wall will be generated 100 units away from the player and looking at the player (while perpendicular to the y-axis).
+        var player_position = CURRENT_PLAYER.get_position();
+        var player_normal = CURRENT_PLAYER.get_direction();
+        var wall_normal = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
+        var wall_position = new THREE.Vector3(player_position + player_normal.x * 100, player_position.y, player_position.z + player_normal.z * 100);
+        var wall_width = 512;
+        var wall_height = 512;
+        var wall_normal_depth = 2;
+
+        // Create the entity wall entity.
+        var save_data = {};
+        save_data[ENTITY_PROPERTY_POSITION] = '[' + wall_position.x + ',' + wall_position.y + ',' + wall_position.z + ']';
+        save_data[ENTITY_PROPERTY_NORMAL] = '[' + wall_normal.x + ',' + wall_normal.y + ',' + wall_normal.z + ']';
+        save_data[ENTITY_PROPERTY_WIDTH] = wall_width;
+        save_data[ENTITY_PROPERTY_HEIGHT] = wall_height;
+        save_data[ENTITY_PROPERTY_NORMAL_DEPTH] = wall_normal_depth;
+        save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
+        var entity_wall_entity = new Entity(save_data);
+
+        var entity_wall = new EntityWall(this, entity_wall_entity);
+        this.entity_walls.push(entity_wall);
     },
 
     key_down_event: function(event) {
@@ -132,6 +152,9 @@ HomeWorld.prototype = {
     },
 
     create_entity_wall: function(position, wall_text, entity) {
+        // The wall will be generated 100 units away from the player and looking at the player (while perpendicular to the y-axis).
+        var player_normal = CURRENT_PLAYER.get_direction();
+        var wall_normal = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
         var entity_wall = new EntityWall(position, this, entity);
         entity_wall.update_title(wall_text);
         if (is_defined(entity)) {
