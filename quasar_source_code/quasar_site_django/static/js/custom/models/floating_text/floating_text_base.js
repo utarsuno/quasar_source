@@ -143,6 +143,8 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position = function(position_vector) {
+        // TODO : optimize
+
         if (is_defined(this.normal_depth) && is_defined(this.normal)) {
             this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
             this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
@@ -163,6 +165,8 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position_with_offset_xyz = function(x, y, z) {
+        // TODO : optimize
+
         l(this.x_without_normal);
         l(this.y_without_normal);
         l(this.z_without_normal);
@@ -170,10 +174,18 @@ function FloatingText(width, text, type, scene, current_color) {
             this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
             this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
             this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
+
+            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
         } else {
             this.object3D.position.x = this.x_without_normal + x;
             this.object3D.position.y = this.y_without_normal + y;
             this.object3D.position.z = this.z_without_normal + z;
+
+            this.x_without_normal = this.object3D.position.x;
+            this.y_without_normal = this.object3D.position.y;
+            this.z_without_normal = this.object3D.position.z;
         }
     };
 
