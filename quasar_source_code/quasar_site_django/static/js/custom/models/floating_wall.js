@@ -383,7 +383,7 @@ FloatingWall.prototype = {
 
         floating_2D_text.parent_floating_wall = this;
         floating_2D_text.pfw_fixed_width = width;
-        floating_2D_text.position_offset = position_offset;
+        floating_2D_text.pfw_position_offset = position_offset;
         floating_2D_text.pfw_row = row;
         floating_2D_text.pfw_additional_normal_depth = additional_normal_depth;
 
@@ -418,13 +418,13 @@ FloatingWall.prototype = {
         var x_offset;
         if (floating_2D_text.hasOwnProperty('pwd_fixed_width')) {
             width = floating_2D_text['pwd_fixed_width'];
-            if (floating_2D_text['position_offset'] < 0) {
-                floating_2D_text['position_offset'] = this.width + floating_2D_text['position_offset'];
+            if (floating_2D_text['pfw_position_offset'] < 0) {
+                floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
             }
-            x_offset = this.width * (floating_2D_text['position_offset'] / this.width);
+            x_offset = this.width * (floating_2D_text['pfw_position_offset'] / this.width);
         } else {
-            width = this.width * (floating_2D_text['x_end'] - floating_2D_text['x_start']);
-            x_offset = this.width * floating_2D_text['x_start'];
+            width = this.width * (floating_2D_text['pfw_x_end'] - floating_2D_text['pfw_x_start']);
+            x_offset = this.width * floating_2D_text['pfw_x_start'];
         }
         var additional_x_shift = 0;
         if (width < this.width) {
@@ -432,8 +432,8 @@ FloatingWall.prototype = {
         }
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(floating_2D_text['row']);
-        if (is_defined(floating_2D_text['additional_normal_depth'])) {
-            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + floating_2D_text['additional_normal_depth']);
+        if (is_defined(floating_2D_text['pfw_additional_normal_depth'])) {
+            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + floating_2D_text['pfw_additional_normal_depth']);
         } else {
             floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
         }
