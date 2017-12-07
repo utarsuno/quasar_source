@@ -25,6 +25,7 @@ FloatingWall.prototype = {
 
         this.normal = normal;
         this.normal_depth = normal_depth;
+        l('ND: ' + normal_depth);
         this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
 
         this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
