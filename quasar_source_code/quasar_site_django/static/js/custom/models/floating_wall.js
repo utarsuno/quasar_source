@@ -156,6 +156,7 @@ FloatingWall.prototype = {
     },
 
     update_position_with_offset_xyz: function(x, y, z) {
+        l('Normal depth is : ' + this.normal_depth);
         this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
         this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
         this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
