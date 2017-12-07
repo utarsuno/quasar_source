@@ -145,6 +145,8 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_all_floating_text();
         for (var j = 0; j < this.all_floating_walls.length; j++) {
+            l('Updating the wall');
+            l(this.all_floating_walls[j]);
             this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
         }
     },
