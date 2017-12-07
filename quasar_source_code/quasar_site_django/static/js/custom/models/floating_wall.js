@@ -300,7 +300,8 @@ FloatingWall.prototype = {
     },
 
     update_normal: function(normal) {
-        this.normal = normal;
+        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
+        this.normal.normalize();
         this.left_right = new THREE.Vector3(0, 1, 0);
         this.left_right.cross(this.normal);
         this.left_right.normalize();
