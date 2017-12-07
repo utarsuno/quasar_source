@@ -19,6 +19,10 @@ EntityWall.prototype = {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true);
     },
 
+    update: function() {
+
+    },
+
     get_position: function() {
         if (!is_defined(this.position)) {
             var position_value = this.entity.get_value(ENTITY_PROPERTY_POSITION);
