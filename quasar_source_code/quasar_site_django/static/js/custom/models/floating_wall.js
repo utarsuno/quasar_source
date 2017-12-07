@@ -325,7 +325,7 @@ FloatingWall.prototype = {
 
     add_floating_wall_off_of_button: function(width, height, button, scalable, normal_depth) {
         var button_position = button.get_position();
-        return add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable, normal_depth);
+        return this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable, normal_depth);
     },
 
     add_floating_wall_to_center_of_position: function(width, height, position, scalable, normal_depth) {
