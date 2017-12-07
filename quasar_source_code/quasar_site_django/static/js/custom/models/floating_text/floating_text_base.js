@@ -175,8 +175,8 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position_and_normal = function(position_vector, normal) {
-        this.update_position(position_vector);
         this.update_normal(normal);
+        this.update_position(position_vector);
     };
 
     this.delete_self = function() {
