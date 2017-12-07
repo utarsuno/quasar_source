@@ -416,8 +416,8 @@ FloatingWall.prototype = {
     update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
         var width;
         var x_offset;
-        if (floating_2D_text.hasOwnProperty('pwd_fixed_width')) {
-            width = floating_2D_text['pwd_fixed_width'];
+        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
+            width = floating_2D_text['pfw_fixed_width'];
             if (floating_2D_text['pfw_position_offset'] < 0) {
                 floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
             }
@@ -431,7 +431,7 @@ FloatingWall.prototype = {
             additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
         }
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
-        var y_position = this.get_y_position_for_row(floating_2D_text['row']);
+        var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
         if (is_defined(floating_2D_text['pfw_additional_normal_depth'])) {
             floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + floating_2D_text['pfw_additional_normal_depth']);
         } else {
