@@ -37,8 +37,8 @@ FloatingSlider.prototype = {
         var current_value_text = round_to_n_decimal_places(this.current_value.toString(), 3);
 
         this.current_value_text.update_text(current_value_text);
-        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 50, 0), this._get_current_look_at_on_slider(0, 50, 0));
-        this.slider_object.update_position_and_look_at(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._get_current_look_at_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
+        this.current_value_text.update_position(this._get_current_position_on_slider(0, 50, 0));
+        this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this._gl.x * 2);
 
         // World manager won't be defined on the first call to update.
         // TODO : Eventually change the design then
@@ -111,7 +111,7 @@ FloatingSlider.prototype = {
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z));
 
         this.current_value_text.update_position_and_normal(this._get_current_position_on_slider(0, 40, 0), this.normal);
-        this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
+        this.slider_object.update_position_and_normal(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2), this.normal);
         this.slider_object.requires_mouse_x_movement = true;
 
         this.slider_object.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));

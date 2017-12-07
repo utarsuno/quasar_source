@@ -162,7 +162,7 @@ function FloatingText(width, text, type, scene, current_color) {
 
     this.set_normal_depth = function(depth) {
         if (depth <= 0) {
-            this.normal_depth  = 1;
+            this.normal_depth = 1;
         } else {
             this.normal_depth = depth;
         }
