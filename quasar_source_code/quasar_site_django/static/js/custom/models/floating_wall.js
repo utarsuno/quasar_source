@@ -349,13 +349,7 @@ FloatingWall.prototype = {
         return floating_wall;
     },
 
-    add_floating_2d_text: function(width, text, type, x_offset, z_offset, row, additional_y_offset) {
-        // FOR_DEV_START
-        if (!is_defined(this.scene)) {
-            l('THE SCENE IS NOT DEFINED!');
-        }
-        // FOR_DEV_END
-
+    add_floating_2d_text: function(width, text, type, x_offset, row, additional_y_offset) {
         var floating_2D_text = new Floating2DText(width, text, type, this.scene);
 
         var additional_x_shift = 0;
@@ -366,7 +360,7 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
 
-        floating_2D_text.set_normal_depth(this.normal_depth + z_offset);
+        floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
         floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
 
         this.add_additional_visibility_object(floating_2D_text);

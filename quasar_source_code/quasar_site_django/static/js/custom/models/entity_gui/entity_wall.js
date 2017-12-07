@@ -16,7 +16,9 @@ EntityWall.prototype = {
         this.width = this.get_width();
         this.height = this.get_height();
 
-        this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true);
+        this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
+
+        this.title = this.wall.add_floating_2d_text(this.width * .9, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, this.width * .05, 1, 0);
     },
 
     update: function() {
