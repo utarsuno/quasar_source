@@ -31,7 +31,16 @@ Floating2DText.prototype = {
         this.dynamic_texture.needsUpdate = true;
     },
 
-    initialize: function() {
+    _update_width: function(width) {
+        this.width = width;
+        this.material.dispose();
+        this.geometry.dispose();
+        this.mesh.dispose();
+        this.object3D.remove(this.mesh);
+        this.initialize(false);
+    },
+
+    initialize: function(add_to_scene) {
         if (this.type === TYPE_TITLE) {
             this.height = 32;
         } else {
@@ -72,8 +81,14 @@ Floating2DText.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.object3D.add(this.mesh);
-        if (is_defined(this.scene)) {
-            this.scene.add(this.object3D);
+        if (!is_defined(add_to_scene)) {
+            if (is_defined(this.scene)) {
+                this.scene.add(this.object3D);
+            }
+        } else {
+            if (add_to_scene) {
+                this.scene.add(this.object3D);
+            }
         }
     },
 

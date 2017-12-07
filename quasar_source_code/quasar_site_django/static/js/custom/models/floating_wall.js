@@ -140,11 +140,12 @@ FloatingWall.prototype = {
             var new_position = new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal.z * this.player_horizontal_distance_to_wall_center_liner);
 
             this.update_position_with_offset_xyz(new_position.x - this.x_without_normal, new_position.y - this.y_without_normal + y_offset, new_position.z - this.z_without_normal);
+        }
 
-            this.update_position_and_normal_for_all_floating_text();
-            for (var j = 0; j < this.all_floating_walls.length; j++) {
-                this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
-            }
+
+        this.update_position_and_normal_for_all_floating_text();
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
         }
     },
 
@@ -155,15 +156,6 @@ FloatingWall.prototype = {
     },
 
     update_position_with_offset_xyz: function(x, y, z) {
-        // FOR_DEV_START
-        if (!is_defined(this.normal)) {
-            l('ERROR A');
-        }
-        if (!is_defined(this.normal_depth)) {
-            l('ERROR B');
-        }
-        // FOR_DEV_END
-
         this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
         this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
         this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
@@ -181,15 +173,6 @@ FloatingWall.prototype = {
     },
 
     update_position: function(position_vector) {
-        // FOR_DEV_START
-        if (!is_defined(this.normal)) {
-            l('ERROR A');
-        }
-        if (!is_defined(this.normal_depth)) {
-            l('ERROR B');
-        }
-        // FOR_DEV_END
-
         this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
         this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
         this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
@@ -387,7 +370,7 @@ FloatingWall.prototype = {
         floating_2D_text.pfw_position_offset = position_offset;
         floating_2D_text.pfw_row = row;
         floating_2D_text.pfw_additional_normal_depth = additional_normal_depth;
-        
+
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
         if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
