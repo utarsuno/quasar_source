@@ -148,6 +148,8 @@ FloatingWall.prototype = {
             l('Updating the wall');
             l(this.all_floating_walls[j]);
             this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
+            l(this.all_floating_walls[j]);
+            l('------')
         }
     },
 
