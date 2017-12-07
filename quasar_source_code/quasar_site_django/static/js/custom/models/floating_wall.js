@@ -21,6 +21,8 @@ FloatingWall.prototype = {
     interactive_objects: null,
 
     __init__: function (width, height, position, normal, world, scalable, normal_depth) {
+        this.object3D = new THREE.Object3D();
+
         this.normal = normal;
         if (is_defined(normal_depth)) {
             this.normal_depth = normal_depth;
@@ -40,8 +42,6 @@ FloatingWall.prototype = {
 
         this.world = world;
         this.scene = this.world.scene;
-
-        this.object3D = new THREE.Object3D();
 
         // Inherit from Interactive.
         //Interactive.call(this);
