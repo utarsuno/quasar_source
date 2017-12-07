@@ -6,6 +6,10 @@ function EntityWall(world, entity) {
 
 EntityWall.prototype = {
 
+    create_entity_button_pressed: function() {
+        this.create_entity_wall.set_to_visible();
+    },
+
     __init__: function(world, entity) {
         this.world = world;
         this.entity = entity;
@@ -16,14 +20,22 @@ EntityWall.prototype = {
         this.width = this.get_width();
         this.height = this.get_height();
 
+        // Base wall.
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
+        this.title = this.wall.add_floating_2d_text(.25, .75, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, 0);
+        this.create_entity_button = this.wall.add_floating_2d_text(1 / 3, 2 / 3, 'Create New Entity', TYPE_BUTTON, 1);
+        this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
-        this.title = this.wall.add_floating_2d_text(.5, .95, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, 0);
+        // Create entity floating wall.
+        this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false, this.normal_depth);
+        
     },
 
     update: function() {
-        
+
     },
+
+    // Entity values.
 
     get_position: function() {
         if (!is_defined(this.position)) {
