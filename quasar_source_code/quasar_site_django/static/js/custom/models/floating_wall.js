@@ -326,10 +326,8 @@ FloatingWall.prototype = {
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(row) + additional_y_offset;
 
-        floating_2D_text.normal = new THREE.Vector3(this.normal.x, this.normal.y, this.normal.z);
         floating_2D_text.set_normal_depth(z_offset);
-        // TODO : Clean this line up.
-        floating_2D_text.update_position(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0));
+        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), new THREE.Vector3(this.normal.x, this.normal.y, this.normal.z));
 
         this.add_additional_visibility_object(floating_2D_text);
         this.add_object_to_remove_later(floating_2D_text);
@@ -360,12 +358,6 @@ FloatingWall.prototype = {
         var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
         //p.addScaledVector(this.depth_start, depth);
         return p;
-    },
-
-    get_look_at_for_row: function (x_offset, y_offset, z_offset, depth) {
-        var la = new THREE.Vector3(this.look_at.x + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z + z_offset);
-        //la.addScaledVector(this.depth_start, depth);
-        return la;
     },
 
     get_all_interactive_objects: function () {

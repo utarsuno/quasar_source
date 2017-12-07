@@ -394,10 +394,4 @@ EntityWall.prototype = {
         return p;
     },
 
-    get_look_at_for_row: function(x_offset, y_offset, z_offset, depth) {
-        var la = new THREE.Vector3(this.look_at.x + x_offset, this.look_at.y + this.height / 2 + y_offset, this.look_at.z);
-        la.addScaledVector(this.depth_start, depth);
-        return la;
-    }
-
 };
