@@ -202,7 +202,7 @@ LoginWorld.prototype = {
         this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'repeat password', TYPE_CONSTANT_TEXT, 3);
         this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 3);
 
-        this.create_account_button = this.wall_create_account.add_floating_2d_text(.25, .75, 'login', TYPE_BUTTON, 5);
+        this.create_account_button = this.wall_create_account.add_floating_2d_text(.25, .75, 'create account', TYPE_BUTTON, 5);
         this.create_account_button.set_engage_function(this.create_account_button_pressed.bind(this));
 
         this.set_default_tab_target(this.login_username_input);
