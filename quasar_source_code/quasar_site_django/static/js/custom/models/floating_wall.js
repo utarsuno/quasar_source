@@ -67,9 +67,11 @@ FloatingWall.prototype = {
         }
 
         this.objects_to_remove_later = [];
+        this.floating_walls_to_remove_later = [];
         //this.add_additional_visibility_object(this.title)
 
         this.all_floating_2d_texts = [];
+        this.all_floating_walls = [];
 
         // Used to determine what actions to be taking.
         this.current_cursor = null;
@@ -151,16 +153,9 @@ FloatingWall.prototype = {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
         }
-    },
-
-    update_position_offset: function(delta_vector) {
-        this.position_offset.x += delta_vector.x;
-        this.position_offset.y += delta_vector.y;
-        this.position_offset.z += delta_vector.z;
-
-        this.object3D.position.x += delta_vector.x;
-        this.object3D.position.y += delta_vector.y;
-        this.object3D.position.z += delta_vector.z;
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
+        }
     },
 
     _update_height: function(new_height_percentage) {
@@ -172,6 +167,12 @@ FloatingWall.prototype = {
         this.geometry = new_geometry;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
+
+        for (var i = 0; i < this.all_floating_walls.length; i++) {
+            if (this.all_floating_walls[i].scalable) {
+                this.all_floating_walls[i]._update_height(new_height_percentage);
+            }
+        }
     },
 
     _update_width: function(new_width_percentage) {
@@ -183,9 +184,19 @@ FloatingWall.prototype = {
         this.geometry = new_geometry;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
+
+        for (var i = 0; i < this.all_floating_walls.length; i++) {
+            if (this.all_floating_walls[i].scalable) {
+                this.all_floating_walls[i]._update_width(new_width_percentage);
+            }
+        }
     },
 
     update: function() {
+        for (var i = 0; i < this.all_floating_walls.length; i++) {
+            this.all_floating_walls[i].update();
+        }
+
         if (!MANAGER_WORLD.current_world.floating_cursor.engaged) {
             if (this.scalable) {
                 this.player_horizontal_distance_to_wall_center_liner = null;
@@ -262,6 +273,9 @@ FloatingWall.prototype = {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_normal(this.normal);
         }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_normal(normal);
+        }
     },
 
     update_position: function(position_vector) {
@@ -282,6 +296,13 @@ FloatingWall.prototype = {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_position(position_vector);
+        }
+    },
+
+    add_floating_wall_to_remove_later: function(floating_wall_to_remove_later) {
+        this.floating_walls_to_remove_later.push(floating_wall_to_remove_later);
     },
 
     add_object_to_remove_later: function(object_to_remove) {
@@ -289,6 +310,9 @@ FloatingWall.prototype = {
     },
 
     remove_from_scene: function() {
+        for (var j = 0; j < this.floating_walls_to_remove_later.length; j++) {
+            this.floating_walls_to_remove_later[j].remove_from_scene();
+        }
         for (var i = 0; i < this.objects_to_remove_later.length; i++) {
             this.world.remove_from_interactive_then_scene(this.objects_to_remove_later[i]);
         }
@@ -307,6 +331,18 @@ FloatingWall.prototype = {
 
     get_all_floating_2d_texts: function() {
         return this.all_floating_2d_texts;
+    },
+
+    add_floating_wall_to_center_of_position: function(width, height, position) {
+        var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
+        var floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
+
+        // TODO : visibility for floating walls to remove
+        this.add_floating_wall_to_remove_later(floating_wall);
+
+        this.all_floating_walls.push(floating_wall);
+
+        return floating_wall;
     },
 
     add_floating_2d_text: function(width, text, type, x_offset, z_offset, row, additional_y_offset) {

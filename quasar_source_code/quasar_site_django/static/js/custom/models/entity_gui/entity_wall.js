@@ -260,9 +260,10 @@ EntityWall.prototype = {
           |___ | \|  |  |  |  | |___ .__/    |___ | .__/  |     |__/ | .__/ |    |___ /~~\  |     .*/
         this.entities = [];
         this.entities_display_wall_width = this.width * 0.9;
-        this.entities_display_wall_height = this.height * 0.75;
+        this.entities_display_wall_height = this.height * 0.70;
         var entities_display_wall_position = this.get_position_for_row(0, -this.height / 2, 0, 2);
-        this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
+        //this.entities_display_wall = new FloatingWall(this.entities_display_wall_width, this.entities_display_wall_height, entities_display_wall_position, this.normal, this.world);
+        this.entities_display_wall = this.wall.add_floating_wall_to_center_of_position(this.width * 0.9, this.height * 0.7, entities_display_wall_position);
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);
         this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2 + 512 / 4, (ENTITY_TYPE_ALL.length + 4 - 3) * 16);
@@ -274,9 +275,9 @@ EntityWall.prototype = {
         var are_you_sure_width = 300;
         var are_you_sure_position = this.get_position_for_row(0, this.title.height - this.height, 0, 3);
         this.are_you_sure = new FloatingWall(are_you_sure_width, 100, are_you_sure_position, this.normal, this.world);
+        //this.are_you_
 
         var prompt = this.are_you_sure.add_floating_2d_text(are_you_sure_width / 2, 'Are you sure?', TYPE_TITLE, -1.0 * (are_you_sure_width / 4.0), 2, 1, 0);
-        this.are_you_sure.add_object_to_remove_later(prompt);
         var are_you_sure_close_button = this.are_you_sure.add_close_button(1);
         are_you_sure_close_button.set_engage_function(this.are_you_sure_close_button_pressed.bind(this));
 
