@@ -147,6 +147,10 @@ function FloatingText(width, text, type, scene, current_color) {
             this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
             this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
             this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
+
+            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
         } else {
             this.object3D.position.x = position_vector.x;
             this.object3D.position.y = position_vector.y;
@@ -155,9 +159,9 @@ function FloatingText(width, text, type, scene, current_color) {
     };
 
     this.update_position_with_offset_xyz = function(x, y, z) {
-        this.object3D.position.x += x;
-        this.object3D.position.y += y;
-        this.object3D.position.z += z;
+        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
+        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
+        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
     };
 
     this.set_normal_depth = function(depth) {
