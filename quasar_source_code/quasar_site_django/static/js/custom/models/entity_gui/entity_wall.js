@@ -166,11 +166,7 @@ EntityWall.prototype = {
 
                 for (var p = 0; p < key_values.length; p++) {
                     var property_name = this.current_entity_editor.add_floating_2d_text(512 / 3, key_values[p][0], TYPE_INPUT_REGULAR, -512 / 3, 2, p, 0);
-                    property_name.set_label('l');
-                    property_name.set_label_position(p);
                     var property_value = this.current_entity_editor.add_floating_2d_text((512 / 3) * 2, key_values[p][1], TYPE_INPUT_REGULAR, 512 / 3 - (512 / 6), 2, p, 0);
-                    property_value.set_label('v');
-                    property_value.set_label_position(p);
 
                     if (MANAGER_ENTITY.is_property_user_modifiable(property_name.get_text())) {
                         this.world.interactive_objects.push(property_name);
