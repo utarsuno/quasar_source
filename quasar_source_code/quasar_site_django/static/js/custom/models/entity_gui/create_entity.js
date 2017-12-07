@@ -133,7 +133,7 @@ CreateEntity.prototype = {
         /* ___      ___   ___        ___      __   ___     __   ___       ___  __  ___  __   __
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
           |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
-        var entity_type_selector_position = new THREE.Vector3(this.position.x + this.normal.x * 14, this.position.y + this.normal.y * 14, this.position.z + this.normal.z * 14);
+        var entity_type_selector_position = new THREE.Vector3(this.position.x, this.position.y, this.position.z);
         //this.entity_type_selector = new FloatingWall(this.width, this.height, entity_type_selector_position, this.normal, this.world);
         this.entity_type_selector = this.entity_wall.wall.add_floating_wall_to_center_of_position(this.width, this.height, entity_type_selector_position, false);
 
