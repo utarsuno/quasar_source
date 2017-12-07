@@ -152,8 +152,10 @@ EntityWall.prototype = {
                 var current_entity = this.floating_row_to_entity_list[i][1];
                 l(current_entity);
 
-                var position = new THREE.Vector3(this.world.currently_looked_at_object.get_position().x, this.world.currently_looked_at_object.get_position().y, this.world.currently_looked_at_object.get_position().z);
-                position.addScaledVector(this.normal, 10);
+                var the_position = this.world.currently_looked_at_object.get_position();
+
+                var position = new THREE.Vector3(the_position.x, the_position.y, the_position.z);
+                //position.addScaledVector(this.normal, 10);
 
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_all_properties());
 
@@ -275,6 +277,8 @@ EntityWall.prototype = {
 
         var entity_wall_position = new THREE.Vector3(this.create_entity_button.get_position().x + this.normal.x * 3, this.create_entity_button.get_position().y + this.normal.y * 3, this.create_entity_button.get_position().z + this.normal.z * 3);
         this.create_entity_wall = new CreateEntity(this, this.entity_was_created.bind(this), entity_wall_position, this.normal, 512 / 2 + 512 / 4, (ENTITY_TYPE_ALL.length + 4 - 3) * 16);
+
+
 
         // TODO : connect create entity wall to this.wall
 

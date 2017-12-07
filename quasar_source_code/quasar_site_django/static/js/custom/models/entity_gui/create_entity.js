@@ -134,6 +134,8 @@ CreateEntity.prototype = {
           |__  |\ |  |  |  |  \ /     |  \ / |__) |__     /__` |__  |    |__  /  `  |  /  \ |__)    .
           |___ | \|  |  |  |   |      |   |  |    |___    .__/ |___ |___ |___ \__,  |  \__/ |  \    .*/
         var entity_type_selector_position = new THREE.Vector3(this.position.x, this.position.y, this.position.z);
+        l('Entity Type Selector position is :');
+        l(entity_type_selector_position);
         //this.entity_type_selector = new FloatingWall(this.width, this.height, entity_type_selector_position, this.normal, this.world);
         this.entity_type_selector = this.entity_wall.wall.add_floating_wall_to_center_of_position(this.width, this.height, entity_type_selector_position, false);
 
@@ -183,7 +185,8 @@ CreateEntity.prototype = {
           /~~\ |__/ |__/    /~~\  |   |  |  \ | |__) \__/  |  |___    .*/
         var add_attribute_prompt_width = 400;
         var temp_position = new THREE.Vector3(0, 0, 0);
-        this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world);
+        //this.add_attribute_prompt = new FloatingWall(add_attribute_prompt_width, 300, temp_position, this.normal, this.world);
+        this.add_attribute_prompt = this.entity_wall.wall.add_floating_wall_to_center_of_position(add_attribute_prompt_width, 300, temp_position, false);
 
         // TODO : Create/fill out the add attribute wall, custom Entity types will require this (currently only need to use set in stone entity types)
 
