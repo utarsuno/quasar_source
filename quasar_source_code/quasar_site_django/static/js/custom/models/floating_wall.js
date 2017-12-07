@@ -154,7 +154,7 @@ FloatingWall.prototype = {
             this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
         }
         for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
+            this.all_floating_walls[j].update_position_offset_xyz(x, y, z);
         }
     },
 
