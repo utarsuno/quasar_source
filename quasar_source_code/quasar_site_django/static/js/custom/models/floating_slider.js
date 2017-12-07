@@ -93,15 +93,15 @@ FloatingSlider.prototype = {
 
         // Minimum Value Label
         this.minimum_value_label = new Floating2DText(25, this.minimum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene);
-        this.minimum_value_label.update_position_and_normal(this.get_position_on_slider_based_off_percentage(0, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(0, 0, -40, 0));
+        this.minimum_value_label.update_position_and_normal(this.get_position_on_slider_based_off_percentage(0, 0, -40, 0), this.normal);
 
         // Maximum Value Label
         this.maximum_value_label = new Floating2DText(25, this.maximum_value.toString(), TYPE_CONSTANT_TEXT, this.world.scene);
-        this.maximum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(1, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(1, 0, -40, 0));
+        this.maximum_value_label.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(1, 0, -40, 0), this.normal);
 
         // Slider Title.
         this.slider_floating_title = new Floating2DText(this.width / 2.0, this.slider_title, TYPE_TITLE, this.world.scene);
-        this.slider_floating_title.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(.5, 0, -40, 0), this.get_look_at_on_slider_based_off_percentage(.5, 0, -40, 0));
+        this.slider_floating_title.update_position_and_look_at(this.get_position_on_slider_based_off_percentage(.5, 0, -40, 0), this.normal);
 
         this.object3D.add(this.wall_mesh);
 
