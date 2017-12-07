@@ -89,6 +89,7 @@ EntityWall.prototype = {
 
     entity_editor_close_button_pressed: function() {
         this.current_entity_editor.remove_from_scene();
+        this.current_entity_editor = null;
     },
 
     entity_editor_save_changes_button_pressed: function() {
@@ -133,7 +134,7 @@ EntityWall.prototype = {
             }
         }
 
-        this.current_entity_editor.remove_from_scene();
+        this.entity_editor_close_button_pressed();
     },
 
     edit_entity_pressed: function() {
@@ -143,9 +144,11 @@ EntityWall.prototype = {
 
         for (var i = 0; i < this.floating_row_to_entity_list.length; i++) {
             if (this.floating_row_to_entity_list[i][0] === this.world.currently_looked_at_object) {
+
                 // FOR_DEV_START
                 l('EDIT THE FOLLOWING ENTITIY:');
                 // FOR_DEV_END
+
                 var current_entity = this.floating_row_to_entity_list[i][1];
                 l(current_entity);
 
@@ -155,9 +158,12 @@ EntityWall.prototype = {
                 var key_values = get_key_value_list_from_json_dictionary(current_entity.get_all_properties());
 
                 var current_entity_editor_height = (key_values.length + 2) * (16 + 2);
-                this.current_entity_editor = new FloatingWall(512, current_entity_editor_height, position, this.normal, this.world);
 
-
+                //  TODO : Make sure previous current entity editor has been deleted
+                if (is_defined(this.current_entity_editor)) {
+                    this.entity_editor_close_button_pressed();
+                }
+                this.current_entity_editor = this.wall.add_floating_wall_to_center_of_position(512, current_entity_editor_height, position);
 
                 this.current_floating_entity_row = this.floating_row_to_entity_list[i][0];
 
