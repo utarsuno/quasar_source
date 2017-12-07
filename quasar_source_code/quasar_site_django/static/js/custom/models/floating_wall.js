@@ -131,7 +131,7 @@ FloatingWall.prototype = {
             var player_normal = CURRENT_PLAYER.get_direction();
             var reverse_player_normal = new THREE.Vector3(player_normal.x * -1, 0, player_normal.z * -1);
             this.update_normal(reverse_player_normal);
-            this.update_position_offset_xyz(0, y_offset, 0);
+            this.update_position_with_offset_xyz(0, y_offset, 0);
             this.update_position(new THREE.Vector3(player_position.x + player_normal.x * this.player_horizontal_distance_to_wall_center_liner, this.object3D.position.y, player_position.z + player_normal.z * this.player_horizontal_distance_to_wall_center_liner));
         }
     },
