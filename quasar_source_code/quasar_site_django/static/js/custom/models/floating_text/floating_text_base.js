@@ -48,6 +48,7 @@ function FloatingText(width, text, type, scene, current_color) {
 
     // Gets called from child functions.
     this.final_initialize = function() {
+        this.is_in_interactive_list = false;
         switch (this.type) {
         case TYPE_BUTTON:
         case TYPE_CHECK_BOX:
