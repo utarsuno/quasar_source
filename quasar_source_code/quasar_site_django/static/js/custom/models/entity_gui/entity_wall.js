@@ -33,7 +33,7 @@ EntityWall.prototype = {
     },
 
     update: function() {
-
+        this.wall.update();
     },
 
     // Entity values.
