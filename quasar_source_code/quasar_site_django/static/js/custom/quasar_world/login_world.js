@@ -211,6 +211,7 @@ LoginWorld.prototype = {
 
         this.create_account_button = this.wall_create_account.add_floating_2d_text(wall_create_account_width / 2, 'create account', TYPE_BUTTON, wall_create_account_width / 4, 2, 4, 0);
         this.interactive_objects.push(this.create_account_button);
+        this.create_account_button.set_engage_function(this.create_account_button_pressed.bind(this));
 
         this.set_default_tab_target(this.login_username_input);
         this.login_username_input.set_next_tab_target(this.login_password_input);
