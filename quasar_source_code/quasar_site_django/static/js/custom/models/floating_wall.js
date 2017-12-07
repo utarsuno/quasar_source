@@ -24,6 +24,7 @@ FloatingWall.prototype = {
         this.normal = normal;
         if (is_defined(normal_depth)) {
             this.normal_depth = normal_depth;
+            this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
         } else {
             this.normal_depth = 1;
         }
@@ -81,7 +82,6 @@ FloatingWall.prototype = {
 
         this.scene.add(this.object3D);
 
-        this.object3D.position.set(position.x, position.y, position.z);
         this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
 
         this.player_horizontal_distance_to_wall_center_liner = null;
