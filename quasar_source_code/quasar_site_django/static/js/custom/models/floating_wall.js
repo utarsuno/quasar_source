@@ -136,16 +136,41 @@ FloatingWall.prototype = {
         }
     },
 
-    update_position_offset_xyz: function(x, y, z) {
-        this.object3D.position.x += x;
-        this.object3D.position.y += y;
-        this.object3D.position.z += z;
+    update_position_with_offset_xyz: function(x, y, z) {
+        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
+        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
+        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
+
+        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
 
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
         }
         for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position_offset_xyz(x, y, z);
+            this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
+        }
+    },
+
+    update_position: function(position_vector) {
+        this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
+        this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
+        this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
+
+        var x_offset = position_vector.x - this.x_without_normal;
+        var y_offset = position_vector.y - this.y_without_normal;
+        var z_offset = position_vector.z - this.z_without_normal;
+
+        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.all_floating_2d_texts[i].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
+        }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
     },
 
@@ -266,24 +291,6 @@ FloatingWall.prototype = {
         }
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_normal(normal);
-        }
-    },
-
-    update_position: function(position_vector) {
-        var x_offset = position_vector.x - this.object3D.position.x;
-        var y_offset = position_vector.y - this.object3D.position.y;
-        var z_offset = position_vector.z - this.object3D.position.z;
-        this.object3D.position.set(position_vector.x, position_vector.y, position_vector.z);
-
-        if (is_defined(this.floating_3d_title)) {
-            this.floating_3d_title.update_position_with_offset_xyz(x_offset, y_offset, z_offset);
-        }
-
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.all_floating_2d_texts[i].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
-        }
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position(position_vector);
         }
     },
 
