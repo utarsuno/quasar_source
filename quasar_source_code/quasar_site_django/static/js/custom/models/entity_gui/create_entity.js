@@ -162,7 +162,7 @@ CreateEntity.prototype = {
         var entity_wall_height = 512 / 2 - 100;
         var create_entity_wall_position = new THREE.Vector3(this.position.x + this.normal.x * 28, this.position.y + this.normal.y * 28, this.position.z + this.normal.z * 28);
         //this.create_entity_wall = new FloatingWall(this.entity_wall_width, entity_wall_height, create_entity_wall_position, this.normal, this.world);
-        this.entity_wall.wall.add_floating_wall_to_center_of_position(this.entity_wall_width, entity_wall_height, create_entity_wall_position, false);
+        this.create_entity_wall = this.entity_wall.wall.add_floating_wall_to_center_of_position(this.entity_wall_width, entity_wall_height, create_entity_wall_position, false);
 
         // Close button.
         var create_entity_wall_close_button = this.create_entity_wall.add_close_button(3);
