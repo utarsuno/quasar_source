@@ -7,7 +7,7 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     create_entity_button_pressed: function() {
-        this.create_entity_wall.set_to_visible();
+        this.select_entity_type.show();
     },
 
     __init__: function(world, entity) {
@@ -26,10 +26,15 @@ EntityWall.prototype = {
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
+        // Select entity type floating wall.
+        this.select_entity_type = this.wall.add_floating_wall_off_of_button(300, 400, this.create_entity_button, false, this.normal_depth * 2);
+        this.select_entity_type.add_close_button();
+        this.select_entity_type.hide();
+
         // Create entity floating wall.
-        this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false, this.normal_depth);
-        this.create_entity_wall.add_close_button();
-        this.create_entity_wall.hide();
+        //this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false, this.normal_depth);
+        //this.create_entity_wall.add_close_button();
+        //this.create_entity_wall.hide();
     },
 
     update: function() {

@@ -172,6 +172,7 @@ FloatingWall.prototype = {
         }
     },
 
+    /*
     update_position: function(position_vector) {
         this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
         this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
@@ -191,7 +192,7 @@ FloatingWall.prototype = {
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_position_with_offset_xyz(x_offset, y_offset, z_offset);
         }
-    },
+    },*/
 
     _update_height: function(new_height_percentage) {
         this.height *= new_height_percentage;
