@@ -18,7 +18,7 @@ Planet.prototype = {
         this.world = world;
 
         this.planet_title = new Floating3DText(600, world.planet_name, TYPE_SUPER_TITLE);
-        this.planet_title.update_position_and_look_at(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0));
+        this.planet_title.update_position_and_look_at_origin(new THREE.Vector3(x, y - 500, z), new THREE.Vector3(0, 0, 0));
 
         this.geometry = new THREE.DodecahedronGeometry(200, 2);
 

@@ -251,7 +251,7 @@ EntityWall.prototype = {
         // Create entity button.
         var create_entity_position = this.get_position_for_row(0, this.get_y_position_for_row(1), 0, 1);
         this.create_entity_button = new Floating2DText(this.width, 'Create Entity', TYPE_BUTTON, this.scene);
-        this.create_entity_button.update_position_and_look_at(create_entity_position, this.get_look_at_for_row(0, this.get_y_position_for_row(1), 0, 1));
+        this.create_entity_button.update_position_and_normal(create_entity_position, this.normal);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
         //
 
@@ -266,13 +266,13 @@ EntityWall.prototype = {
 
         // Delete entity wall button.
         this.delete_entity_wall_button = new Floating2DText(this.width, 'Delete Entity Wall', TYPE_BUTTON, this.scene, COLOR_RED);
-        this.delete_entity_wall_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height - this.height, 0, 1));
+        this.delete_entity_wall_button.update_position_and_normal(this.get_position_for_row(0, this.title.height - this.height, 0, 1), this.normal);
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_pressed.bind(this));
         /////
 
         // Make entity wall public button.
         this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene, COLOR_TEXT_BUTTON);
-        this.make_entity_wall_public_button.update_position_and_look_at(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.get_look_at_for_row(0, this.title.height * 2 - this.height, 0, 1));
+        this.make_entity_wall_public_button.update_position_normal(this.get_position_for_row(0, this.title.height * 2 - this.height, 0, 1), this.normal);
         this.make_entity_wall_public_button.set_engage_function(this.make_entity_wall_public_button_pressed.bind(this));
         /////
 

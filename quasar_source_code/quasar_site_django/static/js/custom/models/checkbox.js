@@ -28,8 +28,8 @@ CheckBox.prototype = {
         this.floating_2d_text = new Floating2DText(16, this.text, TYPE_CHECK_BOX, this.scene);
     },
 
-    update_position_and_look_at: function(position, look_at) {
-        this.floating_2d_text.update_position_and_look_at(position, look_at);
+    update_position_and_normal: function(position, normal) {
+        this.floating_2d_text.update_position_and_normal(position, normal);
     },
 
     toggle: function() {
