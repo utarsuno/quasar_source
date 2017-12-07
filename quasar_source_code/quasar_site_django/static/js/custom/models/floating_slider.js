@@ -110,7 +110,7 @@ FloatingSlider.prototype = {
         this.object3D.position.z = position.z;
         this.object3D.lookAt(new THREE.Vector3(position.x + normal.x, position.y + normal.y, position.z + normal.z));
 
-        this.current_value_text.update_position_and_look_at(this._get_current_position_on_slider(0, 40, 0), this._get_current_look_at_on_slider(0, 40, 0));
+        this.current_value_text.update_position_and_normal(this._get_current_position_on_slider(0, 40, 0), this.normal);
         this.slider_object.update_position(this._get_current_position_on_slider(this.normal.x * 2, this.normal.y * 2, this.normal.z * 2));
         this.slider_object.requires_mouse_x_movement = true;
 
