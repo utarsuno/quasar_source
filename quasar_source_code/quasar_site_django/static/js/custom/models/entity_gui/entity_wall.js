@@ -138,9 +138,12 @@ EntityWall.prototype = {
         } else {
             this.wall_edit_entity['pfw_button'] = new_floating_row;
             // TODO : make better design
-            this.wall_edit_entity.update_position_with_offset_xyz(0, 0, 0);
+            //this.wall_edit_entity.update_position_with_offset_xyz(0, 0, 0);
         }
         this.wall_edit_entity.clear_floating_2d_texts();
+
+
+
         this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
 
         this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
@@ -160,8 +163,8 @@ EntityWall.prototype = {
             }
         }
 
-        // Now add 2 to the row index to give space to the save_changes button.
-        row_index += 2;
+        // Now add 1 to the row index to give space to the save_changes button.
+        row_index += 1;
 
         // TODO : Make the save changes button only appear after a change has been made (and go away as well if the changes dont change default values).
         var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, row_index);

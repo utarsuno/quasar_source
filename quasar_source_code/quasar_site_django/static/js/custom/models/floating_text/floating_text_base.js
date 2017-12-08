@@ -13,6 +13,7 @@ function FloatingText(width, text, type, scene, current_color) {
 
     // Default value.
     this.normal_depth  = 1;
+    this.additional_normal_depth = null;
 
     if (is_defined(current_color)) {
         this.current_color = current_color;
