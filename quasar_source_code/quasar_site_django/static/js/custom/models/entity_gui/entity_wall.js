@@ -173,6 +173,7 @@ EntityWall.prototype = {
             this.entity_rows.splice(index_to_remove, 1);
         }
         this.entity.remove_child(entity);
+        MANAGER_ENTITY.delete_entity(entity);
         this.wall_edit_entity.hide();
         this.reload_entity_rows();
     },
