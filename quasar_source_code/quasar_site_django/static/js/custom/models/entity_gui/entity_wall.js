@@ -13,7 +13,15 @@ EntityWall.prototype = {
     create_new_entity: function() {
         l('TODO: !!! Create this new entity');
         l(this.create_entity_dictionary);
-        var new_entity = new Entity(this.create_entity_dictionary);
+
+        var entity_data = {};
+        for (var key in this.create_entity_dictionary) {
+            if (this.create_entity_dictionary.hasOwnProperty(key)) {
+                entity_data[key] = this.create_entity_dictionary[key].get_text();
+            }
+        }
+
+        var new_entity = new Entity(entity_data);
         this.load_entity(new_entity);
         this.create_entity_wall.hide();
     },
@@ -120,6 +128,11 @@ EntityWall.prototype = {
 
     update: function() {
         this.wall.update();
+
+        // TODO: Optimize later.
+        if (this.title.get_text() !== this.get_value(ENTITY_PROPERTY_NAME)) {
+            this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
+        }
     },
 
     /*                        __   __   ___      ___    __
