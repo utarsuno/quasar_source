@@ -43,5 +43,22 @@ EntityOwner.prototype = {
 
     get_created_at_date: function() {
         return this.owner_entity.get_value(ENTITY_PROPERTY_CREATED_AT_DATE);
-    }
+    },
+
+    get_owner_sms_email: function() {
+        var owner_provider = this.get_phone_carrier();
+        var owner_phone_number = this.get_phone_number();
+        var owner_sms_address;
+
+        for (var key in CELL_PHONE_CARRIERS) {
+            if (CELL_PHONE_CARRIERS.hasOwnProperty(key)) {
+
+                if (key === owner_provider) {
+                    owner_sms_address = CELL_PHONE_CARRIERS[key].replace('number', owner_phone_number);
+                }
+            }
+        }
+
+        return owner_sms_address;
+    },
 };
