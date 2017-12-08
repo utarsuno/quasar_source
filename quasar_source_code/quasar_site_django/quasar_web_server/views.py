@@ -19,7 +19,6 @@ from urllib.parse import quote_plus
 
 from quasar_source_code.entities.server_side import entity_server as es
 from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities import entity_owner as eo
 
 
 # Define all the pages.
@@ -125,12 +124,12 @@ def POST_login(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_username = json_obj[eo.OWNER_KEY_USERNAME]
-    received_password = json_obj[eo.OWNER_KEY_PASSWORD]
+    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
     # TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
 
@@ -139,7 +138,7 @@ def POST_login(request):
     global entity_server
     result = entity_server.is_valid_login_info(received_username, received_password)
     if result:
-        request.session[eo.OWNER_KEY_USERNAME] = received_username
+        request.session[be.ENTITY_PROPERTY_USERNAME] = received_username
         return SERVER_REPLY_GENERIC_YES
     return HttpResponse('Username or password is not correct!')
 
@@ -151,22 +150,22 @@ def POST_create_owner(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, eo.OWNER_KEY_EMAIL], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_owner_name = json_obj[eo.OWNER_KEY_USERNAME]
-    received_owner_email = json_obj[eo.OWNER_KEY_EMAIL]
-    received_owner_password = json_obj[eo.OWNER_KEY_PASSWORD]
+    received_owner_name = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_owner_email = json_obj[be.ENTITY_PROPERTY_EMAIL]
+    received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
     # TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
     #print('Creating account : ' + received_owner_name)
 
     global entity_server
     owner_data = {}
-    owner_data[eo.OWNER_KEY_USERNAME] = received_owner_name
-    owner_data[eo.OWNER_KEY_EMAIL] = received_owner_email
-    owner_data[eo.OWNER_KEY_PASSWORD] = received_owner_password
+    owner_data[be.ENTITY_PROPERTY_USERNAME] = received_owner_name
+    owner_data[be.ENTITY_PROPERTY_EMAIL] = received_owner_email
+    owner_data[be.ENTITY_PROPERTY_PASSWORD] = received_owner_password
     return entity_server.create_owner(owner_data)
 
 
@@ -177,12 +176,12 @@ def POST_delete_entity(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_username  = json_obj[eo.OWNER_KEY_USERNAME]
-    received_password  = json_obj[eo.OWNER_KEY_PASSWORD]
+    received_username  = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_password  = json_obj[be.ENTITY_PROPERTY_PASSWORD]
     received_entity_id = json_obj[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
     print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
@@ -202,12 +201,12 @@ def POST_save_entity(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD, ENTITY_POST_SAVE_DATA], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, ENTITY_POST_SAVE_DATA], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_username = json_obj[eo.OWNER_KEY_USERNAME]
-    received_password = json_obj[eo.OWNER_KEY_PASSWORD]
+    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
     received_data     = json_obj[ENTITY_POST_SAVE_DATA]
 
     data_dictionary = eval(received_data)
@@ -232,13 +231,13 @@ def POST_get_user_entities(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([eo.OWNER_KEY_USERNAME, eo.OWNER_KEY_PASSWORD], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
     if post_errors is not None:
         return post_errors
 
-    print('Loading all entities for : ' + json_obj[eo.OWNER_KEY_USERNAME])
+    print('Loading all entities for : ' + json_obj[be.ENTITY_PROPERTY_USERNAME])
     global entity_server
-    return entity_server.get_all_users_entities(json_obj[eo.OWNER_KEY_USERNAME], json_obj[eo.OWNER_KEY_PASSWORD])
+    return entity_server.get_all_users_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
 
 
 @csrf_exempt

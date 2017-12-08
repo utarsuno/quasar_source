@@ -37,13 +37,8 @@ data_types_and_ids = {'Double'                  : 1,
 # 28017 - The default port for the web status page. The web status page is always accessible at a port number that is 1000 greater than the port determined by port.
 #         MongoDB comes with a built-in HTTP interface that provides you with information about the MongoDB server. (That's the 28017 port).
 
-
-# Owner dictionary key mappings.
-OWNER_KEY_NAME      = 'name'
-OWNER_KEY_PASSWORD  = 'password'
-OWNER_KEY_EMAIL     = 'email'
-OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
-OWNER_KEY_ID        = '_id'
+#OWNER_KEY_ID        = '_id'
+OWNER_KEY_ID        = 'ep__id'
 
 
 class MongoCollection(object):

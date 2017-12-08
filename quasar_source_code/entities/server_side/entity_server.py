@@ -4,7 +4,6 @@
 
 from quasar_source_code.entities.database import entity_database
 from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.entities.server_side import text_reminders as tr
 
 # Needed for sending a simple HttpResponse such as a string response.
@@ -64,13 +63,13 @@ class EntityServer(object):
 	def create_owner(self, owner_data):
 		"""Creates an owner. Throws an exception if the required owner keys are not provided."""
 		# Required keys passed in check.
-		for required_key in eo.OWNER_KEYS_REQUIRED:
+		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
 			if required_key not in owner_data:
 				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
 
 		# Username not already taken check.
-		if self._db_api.is_owner_name_taken(owner_data[eo.OWNER_KEY_USERNAME]):
-			return HttpResponse('The username{' + owner_data[eo.OWNER_KEY_USERNAME] + '} is already taken!')
+		if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
+			return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
 
 		# Checks passed, create the owner.
 		self._db_api.create_owner(owner_data)
@@ -79,12 +78,12 @@ class EntityServer(object):
 	def update_owner(self, owner_data):
 		"""Updates an owner. Throws an exception if the _id key is not provided."""
 		# Required keys passed in check.
-		if eo.OWNER_KEY_ID not in owner_data:
+		if be.ENTITY_PROPERTY_SERVER_ID not in owner_data:
 			return HttpResponse('Required key data not provided for updating an owner! Missing at the _id key from ' + str(owner_data) + '}')
 
 		# Owner ID exists check.
-		if not self._db_api.is_owner_id_valid(owner_data[eo.OWNER_KEY_ID]):
-			return HttpResponse('The owner ID{' + str(owner_data[eo.OWNER_KEY_ID]) + '} is not valid!')
+		if not self._db_api.is_owner_id_valid(owner_data[be.ENTITY_PROPERTY_SERVER_ID]):
+			return HttpResponse('The owner ID{' + str(owner_data[be.ENTITY_PROPERTY_SERVER_ID]) + '} is not valid!')
 
 		self._db_api.update_owner(owner_data)
 		return SERVER_REPLY_GENERIC_YES

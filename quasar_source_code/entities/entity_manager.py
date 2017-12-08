@@ -3,7 +3,6 @@
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
 from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.universal_code import time_abstraction as ta
 
 from lazyme.string import color_print
@@ -166,10 +165,10 @@ class EntityManager(object):
 		data = {}
 		data[be.ENTITY_PROPERTY_CREATED_AT_DATE] = str(ta.get_now())
 		data[be.ENTITY_DEFAULT_PROPERTY_TYPE]    = be.ENTITY_TYPE_OWNER
-		data[eo.OWNER_KEY_SERVER_ID]             = owner_server_id
-		data[eo.OWNER_KEY_USERNAME]              = owner_data[eo.OWNER_KEY_USERNAME]
-		data[eo.OWNER_KEY_PASSWORD]              = owner_data[eo.OWNER_KEY_PASSWORD]
-		data[eo.OWNER_KEY_EMAIL]                 = owner_data[eo.OWNER_KEY_EMAIL]
+		data[be.ENTITY_PROPERTY_SERVER_ID]       = owner_server_id
+		data[be.ENTITY_PROPERTY_USERNAME]        = owner_data[be.ENTITY_PROPERTY_USERNAME]
+		data[be.ENTITY_PROPERTY_PASSWORD]        = owner_data[be.ENTITY_PROPERTY_PASSWORD]
+		data[be.ENTITY_PROPERTY_EMAIL]           = owner_data[be.ENTITY_PROPERTY_EMAIL]
 		self.save_or_update_entity(data)
 
 		return True

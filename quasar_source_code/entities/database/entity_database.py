@@ -4,7 +4,6 @@
 
 from quasar_source_code.database_api.nosql_databases import mongodb_api as db_api
 from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities import entity_owner as eo
 from quasar_source_code.entities.entity_manager import EntityManager
 
 import ast
@@ -73,9 +72,9 @@ class EntityOwner(object):
 
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
-		if eo.OWNER_KEY_USERNAME not in self._data:
+		if be.ENTITY_PROPERTY_USERNAME not in self._data:
 			return False
-		return self._data[eo.OWNER_KEY_USERNAME] == 'public_entities'
+		return self._data[be.ENTITY_PROPERTY_USERNAME] == 'public_entities'
 
 	def save_to_database(self, perform_replace=False):
 		"""Utility function to send changes to the database."""
@@ -121,17 +120,17 @@ class EntityOwner(object):
 
 	def get_owner_name(self) -> str:
 		"""Returns the name of this EntityOwner."""
-		if eo.OWNER_KEY_USERNAME not in self._data:
+		if be.ENTITY_PROPERTY_USERNAME not in self._data:
 			return 'NO_OWNER_NAME_SET'
-		return self._data[eo.OWNER_KEY_USERNAME]
+		return self._data[be.ENTITY_PROPERTY_USERNAME]
 
 	def get_owner_password(self) -> str:
 		"""Returns the password of this EntityOwner."""
-		return self._data[eo.OWNER_KEY_PASSWORD]
+		return self._data[be.ENTITY_PROPERTY_PASSWORD]
 
 	def get_owner_id(self):
 		"""Returns the _id of this EntityOwner."""
-		return self._data[eo.OWNER_KEY_ID]
+		return self._data[be.ENTITY_PROPERTY_SERVER_ID]
 
 	def _populate_entities(self):
 		"""Gives the entity data to the EntityManager."""
@@ -195,7 +194,7 @@ class EntityDatabaseAPI(object):
 		for o in self._owners_cache:
 			entity_owner = o.entity_manager.get_entity_owner()
 			if entity_owner is not None:
-				server_id = int(entity_owner.get_value(eo.OWNER_KEY_SERVER_ID))
+				server_id = int(entity_owner.get_value(be.ENTITY_PROPERTY_SERVER_ID))
 				if server_id > largest_entity_owner_id:
 					largest_entity_owner_id = server_id
 		return largest_entity_owner_id
@@ -263,11 +262,11 @@ class EntityDatabaseAPI(object):
 
 	def get_owner_id_by_name(self, owner_name):
 		"""Returns the _id of the owner."""
-		return self._owners_collection.get_id_by_key_value_match(eo.OWNER_KEY_USERNAME, owner_name)
+		return self._owners_collection.get_id_by_key_value_match(be.ENTITY_PROPERTY_USERNAME, owner_name)
 
 	def _add_public_entity_owner(self):
 		"""Adds the public entity owner."""
-		o = {eo.OWNER_KEY_PASSWORD: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_USERNAME: PUBLIC_ENTITIES_OWNER, eo.OWNER_KEY_EMAIL: PUBLIC_ENTITIES_OWNER}
+		o = {be.ENTITY_PROPERTY_PASSWORD: PUBLIC_ENTITIES_OWNER, be.ENTITY_PROPERTY_USERNAME: PUBLIC_ENTITIES_OWNER, be.ENTITY_PROPERTY_EMAIL: PUBLIC_ENTITIES_OWNER}
 		self._owners_cache.append(EntityOwner(o, self))
 
 	def _update_owners_cache(self):
@@ -326,12 +325,12 @@ class EntityDatabaseAPI(object):
 	def create_owner(self, owner_data) -> None:
 		"""Creates an owner. Throws an exception if the required attributes are not provided."""
 		# Make sure that all the required keys are provided.
-		for required_key in eo.OWNER_KEYS_REQUIRED:
+		for required_key in [be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL]:
 			if required_key not in owner_data:
 				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
 		# Make sure that the owner name isn't already taken.
-		if self.is_owner_name_taken(owner_data[eo.OWNER_KEY_USERNAME]):
-			raise Exception('Owner name ' + owner_data[eo.OWNER_KEY_USERNAME] + ' is already taken!')
+		if self.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
+			raise Exception('Owner name ' + owner_data[be.ENTITY_PROPERTY_USERNAME] + ' is already taken!')
 
 		# Update the owner cache.
 		new_entity_owner = self._add_owner_to_cache(owner_data)
@@ -345,7 +344,7 @@ class EntityDatabaseAPI(object):
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""
 		# Make sure the the _id key is provided.
-		if eo.OWNER_KEY_ID not in owner_data:
+		if be.ENTITY_PROPERTY_SERVER_ID not in owner_data:
 			raise Exception('Owner key _id not provided in {' + str(owner_data) + '}')
 		# Update the owner.
 		self._owners_collection.update(owner_data)

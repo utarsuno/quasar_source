@@ -10,13 +10,6 @@ for i, arg in enumerate(arguments):
 	if arg == '-o':
 		owner_argument = arguments[i + 1]
 
-# Owner dictionary key mappings.
-OWNER_KEY_NAME      = 'ep_name'
-OWNER_KEY_PASSWORD  = 'ep_password'
-OWNER_KEY_EMAIL     = 'ep_email'
-OWNER_KEYS_REQUIRED = [OWNER_KEY_PASSWORD, OWNER_KEY_NAME, OWNER_KEY_EMAIL]
-OWNER_KEY_ID        = 'ep_id'
-
 from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
 from lazyme.string import color_print
 
