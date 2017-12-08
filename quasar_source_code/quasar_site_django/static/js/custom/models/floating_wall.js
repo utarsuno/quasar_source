@@ -328,6 +328,7 @@ FloatingWall.prototype = {
         }
 
         if (is_defined(this.entity_to_update)) {
+            l(this.entity_to_update);
             this.entity_to_update.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
         }
     },
