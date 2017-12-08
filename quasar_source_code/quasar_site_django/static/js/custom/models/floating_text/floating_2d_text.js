@@ -42,7 +42,7 @@ Floating2DText.prototype = {
 
     initialize: function(add_to_scene) {
         if (this.type === TYPE_TITLE) {
-            this.height = 32;
+            this.height = 26;
         } else {
             this.height = 16;
         }

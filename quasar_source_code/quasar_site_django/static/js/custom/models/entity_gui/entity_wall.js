@@ -6,6 +6,13 @@ function EntityWall(world, entity) {
 
 EntityWall.prototype = {
 
+    create_new_entity: function() {
+        l('TODO: !!! Create this new entity');
+        l(this.create_entity_dictionary);
+
+        this.create_entity_wall.hide();
+    },
+
     create_entity_button_pressed: function() {
         this.entity_type_selector_wall.show();
     },
@@ -17,13 +24,19 @@ EntityWall.prototype = {
     attribute_selected: function(attribute) {
         this.wall_select_attribute.hide();
 
-        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, attribute, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
-        this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'value_here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
+        // TODO : Make sure to only list attributes that are not already added.
 
+        this._add_label_and_input_for_create_entity_wall(attribute);
+    },
+
+    _add_label_and_input_for_create_entity_wall: function(label) {
+        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
+        // TODO : Make the first click clear the value here text.
+        this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'value here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
         this.current_create_entity_wall_row_index += 1;
     },
 
-    entity_row_type_selected: function(selected_type) {
+    entity_type_selected: function(selected_type) {
         this.entity_type_selector_wall.hide();
 
 
@@ -31,25 +44,23 @@ EntityWall.prototype = {
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
 
+        // Select new attribute.
         this.current_add_new_attribute_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'add new attribute', TYPE_BUTTON, 3);
-
         if (!is_defined(this.wall_select_attribute)) {
             this.init_select_new_attribute_wall();
         } else {
             this.wall_select_attribute.pfw_button = this.current_add_new_attribute_button;
         }
-
         this.current_add_new_attribute_button.set_engage_function(this.add_new_attribute_pressed.bind(this));
 
+        // Entity data.
         this.current_create_entity_wall_row_index = 5;
+        this.create_entity_dictionary = {};
+        this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_NAME);
 
-        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, ENTITY_PROPERTY_NAME, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
-        // TODO : Make the first click clear the name_here text.
-        this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'name here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
-
-        this.current_create_entity_wall_row_index += 1;
-
-        this.create_entity_wall.add_floating_2d_text(.05, .95, 'create entity', TYPE_BUTTON, -1);
+        // Create new entity button.
+        this.create_new_entity_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'create entity', TYPE_BUTTON, -1);
+        this.create_new_entity_button.set_engage_function(this.create_new_entity.bind(this));
 
         this.create_entity_wall.add_close_button();
         this.create_entity_wall.show();
@@ -100,7 +111,7 @@ EntityWall.prototype = {
             if (ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_TIME && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_OWNER && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_WALL) {
                 var entity_type_row = this.entity_type_selector_wall.add_floating_2d_text(0, 1, ENTITY_TYPE_ALL[et], TYPE_BUTTON, entity_type_row_index, 0);
                 entity_type_row_index += 1;
-                entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[et]));
+                entity_type_row.set_engage_function(this.entity_type_selected.bind(this, ENTITY_TYPE_ALL[et]));
             }
         }
         this.entity_type_selector_wall.add_close_button();
