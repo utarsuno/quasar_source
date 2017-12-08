@@ -1,7 +1,7 @@
 'use strict';
 
-function FloatingWall(width, height, position, normal, world, scalable, normal_depth) {
-    this.__init__(width, height, position, normal, world, scalable, normal_depth);
+function FloatingWall(width, height, position, normal, world, scalable) {
+    this.__init__(width, height, position, normal, world, scalable);
 }
 
 FloatingWall.prototype = {
@@ -20,12 +20,11 @@ FloatingWall.prototype = {
 
     interactive_objects: null,
 
-    __init__: function (width, height, position, normal, world, scalable, normal_depth) {
+    __init__: function (width, height, position, normal, world, scalable) {
         this.object3D = new THREE.Object3D();
 
         this.normal = normal;
-        this.normal_depth = normal_depth;
-        l('ND: ' + normal_depth);
+        this.normal_depth = 5;
         this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
 
         this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
@@ -48,8 +47,6 @@ FloatingWall.prototype = {
         //Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
-
-        this.interactive_objects = [];
 
         // Base wall.
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
@@ -158,22 +155,41 @@ FloatingWall.prototype = {
 
     update_position_with_offset_xyz: function(x, y, z) {
         l('Normal depth is : ' + this.normal_depth);
-        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
-        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
-        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
 
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+        if (this.hasOwnProperty('parent_floating_wall')) {
+
+            var width = this['pfw_width'];
+            var height = this['pfw_height'];
+
+            // Follows add_floating_wall_to_center_of_position
+            if (this.hasOwnProperty('pfw_button')) {
+                var button = this['pfw_button'];
+                //  var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable);
+                this.object3D.position.set(button.x + this.normal.x * this.normal_depth, button.y + this.normal.y * this.normal_depth, button.z + this.normal.z * this.normal_depth);
+                
+                this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+                this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+                this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+            } else {
+                // Follows add_floating_2d_text_fixed_position
+                l('TODO: IMPLEMENT THIS!');
+            }
+
+        } else {
+            this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
+            this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
+            this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
+
+            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+        }
 
         //for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
         //    this.all_floating_2d_texts[i].update_position_with_offset_xyz(x, y, z);
         //}
         for (var j = 0; j < this.all_floating_walls.length; j++) {
-            l(this.all_floating_walls[j]);
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
-            l(this.all_floating_walls[j]);
-            l('-----');
         }
     },
 
@@ -339,28 +355,60 @@ FloatingWall.prototype = {
         return this.close_button;
     },
 
-    add_floating_wall_off_of_button: function(width, height, button, scalable, normal_depth) {
-        var button_position = button.get_position();
-        return this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable, normal_depth + 2);
+    update_title: function (title) {
+        this.title.update_text(title);
     },
 
-    add_floating_wall_to_center_of_position: function(width, height, position, scalable, normal_depth) {
+    get_y_position_for_row: function (y_index) {
+        return (-16.0 / 2.0) * (1 + (2 * y_index));
+    },
+
+    _get_horizontal_distance_to_center: function(x, z) {
+        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
+    },
+
+    // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
+    get_relative_x_shift: function(distance) {
+        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
+    },
+
+    get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
+        var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
+        return p;
+    },
+
+    /* ___       __       ___         __                          __                __     ___  ___     ___
+      |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
+      |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
+    add_floating_wall_off_of_button: function(width, height, button, scalable) {
+        var button_position = button.get_position();
+
+        var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable);
+
+        floating_wall.pfw_button = button;
+
+        return floating_wall;
+    },
+
+    // TODO : Create a floating wall updating position and normal function here!
+    update_position_and_normal_for_floating_wall: function(floating_wall) {
+
+    },
+
+    add_floating_wall_to_center_of_position: function(width, height, position, scalable) {
         var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
         var floating_wall;
 
         if (is_defined(scalable)) {
-            if (is_defined(normal_depth)) {
-                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, normal_depth);
-            } else {
-                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, this.normal_depth + 5);
-            }
+            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable);
         } else {
-            if (is_defined(normal_depth)) {
-                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable, normal_depth);
-            } else {
-                floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable, this.normal_depth + 5);
-            }
+            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
         }
+
+        floating_wall.parent_floating_wall = this;
+        floating_wall.pfw_width = width;
+        floating_wall.pfw_height = height;
+        floating_wall.pfw_position = position;
 
         // TODO : visibility for floating walls to remove
         this.add_floating_wall_to_remove_later(floating_wall);
@@ -443,32 +491,9 @@ FloatingWall.prototype = {
         return floating_2D_text;
     },
 
-    update_title: function (title) {
-        this.title.update_text(title);
-    },
-
-    get_y_position_for_row: function (y_index) {
-        return (-16.0 / 2.0) * (1 + (2 * y_index));
-    },
-
-    _get_horizontal_distance_to_center: function(x, z) {
-        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
-    },
-
-    // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
-    get_relative_x_shift: function(distance) {
-        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
-    },
-
-    get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
-        var p = new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
-        return p;
-    },
-
-    get_all_interactive_objects: function () {
-        return this.interactive_objects;
-    },
-
+    /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___
+      |__) |     /\  |\ | |__     | |\ |  |  |__  |__) /__` |__  /  `  |  | /  \ |\ |     |\/|  /\   |  |__|
+      |    |___ /~~\ | \| |___    | | \|  |  |___ |  \ .__/ |___ \__,  |  | \__/ | \|     |  | /~~\  |  |  | */
     get_parametric_equation: function() {
         return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
     },
@@ -554,7 +579,9 @@ FloatingWall.prototype = {
         return [cursor_position, c];
     },
 
-    // Visibility.
+    /*        __     __           ___
+      \  / | /__` | |__) | |    |  |  \ /
+       \/  | .__/ | |__) | |___ |  |   |  */
     close_button_pressed: function() {
         this.hide();
     },

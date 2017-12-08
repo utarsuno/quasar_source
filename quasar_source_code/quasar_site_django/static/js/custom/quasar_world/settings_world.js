@@ -57,7 +57,7 @@ SettingsWorld.prototype = {
         var position = new THREE.Vector3(500, 500, 700);
         this.normal = new THREE.Vector3(-.5, 0, -.85);
         this.normal.normalize();
-        this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this);
+        this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this, false, 2);
 
         var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Profile Information', TYPE_TITLE, 1024 / -4, 2, 0, 0);
         // FOR_DEV_START
@@ -96,7 +96,7 @@ SettingsWorld.prototype = {
 
         //////
         var phone_carrier_list_position = new THREE.Vector3(this.profile_phone_carrier_input.get_position().x + this.normal.x * 8, this.profile_phone_carrier_input.get_position().y + this.normal.y * 8, this.profile_phone_carrier_input.get_position().z + this.normal.z * 8);
-        this.phone_carrier_list = new FloatingWall(512 / 2, 512, phone_carrier_list_position, this.normal, this);
+        this.phone_carrier_list = new FloatingWall(512 / 2, 512, phone_carrier_list_position, this.normal, this, false, 2);
         var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0);
 
         var current_row_index = 4;
