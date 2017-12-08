@@ -356,6 +356,10 @@ EntityWall.prototype = {
             value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
         }
         this.entity.set_property(value_name, value);
+        if (value_name === ENTITY_PROPERTY_HEIGHT) {
+            l(this.entity);
+            l(value);
+        }
     },
 
     get_value: function(value_name) {
