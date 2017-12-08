@@ -195,6 +195,7 @@ module.exports = {
         "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
         "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
         "ENTITY_PROPERTY_DUE_DATE"           : false,
+        "ENTITY_PROPERTY_IMPORTANCE"         : false,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Cursor types.

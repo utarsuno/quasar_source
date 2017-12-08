@@ -8,8 +8,8 @@ function FloatingText(width, text, type, scene, current_color) {
     this.type          = type;
     this.scene         = scene;
     this.object3D      = new THREE.Object3D();
-    this.current_color = COLOR_DAY_PRESENT;
-    this.default_color = COLOR_DAY_PRESENT;
+    this.current_color = null;
+    this.default_color = null;
 
     // Default value.
     this.normal_depth  = 1;
@@ -31,9 +31,6 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     }
 
-    //l('Current color ' + this.current_color);
-    //l('Default color ' + this.current_color);
-
     if (this.type == TYPE_INPUT_PASSWORD) {
         this.text = '';
         for (var c = 0; c < text.length; c++) {
@@ -50,20 +47,27 @@ function FloatingText(width, text, type, scene, current_color) {
     // Gets called from child functions.
     this.final_initialize = function() {
         this.is_in_interactive_list = false;
-        switch (this.type) {
-        case TYPE_BUTTON:
-        case TYPE_CHECK_BOX:
-            this.set_color(COLOR_TEXT_BUTTON);
-            this.maintain_engage_when_tabbed_to = false;
-            this.engable = false;
-            break;
-        case TYPE_CONSTANT_TEXT:
-            this.set_color(COLOR_TEXT_CONSTANT);
-            this.engable = false;
-            break;
-        case TYPE_TITLE:
-            this.set_color(COLOR_TEXT_DEFAULT);
-            break;
+        if(!is_defined(this.current_color)) {
+            switch (this.type) {
+            case TYPE_BUTTON:
+            case TYPE_CHECK_BOX:
+                this.set_default_color(COLOR_TEXT_BUTTON);
+                this.maintain_engage_when_tabbed_to = false;
+                this.engable = false;
+                break;
+            case TYPE_CONSTANT_TEXT:
+                this.set_default_color(COLOR_TEXT_CONSTANT);
+                this.engable = false;
+                break;
+            case TYPE_TITLE:
+                this.set_default_color(COLOR_TEXT_DEFAULT);
+                this.engable = false;
+                break;
+            default:
+                this.set_default_color(COLOR_TEXT_DEFAULT);
+                this.set_color(this.default_color);
+                break;
+            }
         }
     };
 
@@ -74,6 +78,18 @@ function FloatingText(width, text, type, scene, current_color) {
     // This is just an alternative name to the function update_color.
     this.set_color = function(color) {
         this.update_color(color);
+    };
+
+    this.set_default_color = function(default_color) {
+        if (is_list(default_color)) {
+            if (this.is_2d_text) {
+                this.default_color = default_color[COLOR_STRING_INDEX];
+            } else {
+                this.default_color = default_color[COLOR_HEX_INDEX];
+            }
+        } else {
+            this.default_color = default_color;
+        }
     };
 
     // Gets called in constructor so defining this function first.

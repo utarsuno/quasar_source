@@ -262,12 +262,10 @@ EntityWall.prototype = {
         edit_entity_delete_entity_button.set_color(COLOR_RED);
         edit_entity_delete_entity_button.set_engage_function(this.edit_entity_delete_entity_button_pressed.bind(this, new_floating_row, entity));
 
-        var desired_height = row_index * edit_entity_save_changes_button.height;
-        var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
-
-        l(percent_change_needed);
-        this.wall_edit_entity._set_height(desired_height);
+        //var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
         //this.wall_edit_entity._update_height(percent_change_needed);
+        var desired_height = row_index * edit_entity_save_changes_button.height;
+        this.wall_edit_entity._set_height(desired_height);
 
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();

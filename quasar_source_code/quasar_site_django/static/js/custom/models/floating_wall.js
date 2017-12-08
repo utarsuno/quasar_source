@@ -200,8 +200,6 @@ FloatingWall.prototype = {
     },
 
     _update_height: function(new_height_percentage) {
-        l('THE HEIGHT IS : ' + this.height);
-
         this.height *= new_height_percentage;
 
         this.object3D.remove(this.mesh);
@@ -592,6 +590,11 @@ FloatingWall.prototype = {
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
 
         if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
+            return false;
+        }
+
+        // TODO : clean this design up at some point.
+        if (GUI_PAUSED_MENU.is_currently_visible()) {
             return false;
         }
 
