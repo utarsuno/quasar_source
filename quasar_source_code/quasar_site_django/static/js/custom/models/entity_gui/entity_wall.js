@@ -131,7 +131,14 @@ EntityWall.prototype = {
         }
         this._current_entity.update_values(values);
         this.wall_edit_entity.hide();
+        this.reload_entity_rows();
     },
+
+    /*
+            if (this.title.get_text() !== this.get_value(ENTITY_PROPERTY_NAME)) {
+            this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
+        }
+     */
 
     attribute_selected_for_edit_entity: function(attribute_name, button, entity) {
         this.wall_edit_entity_add_attribute.hide();
@@ -252,11 +259,6 @@ EntityWall.prototype = {
 
     update: function() {
         this.wall.update();
-
-        // TODO: Optimize later.
-        if (this.title.get_text() !== this.get_value(ENTITY_PROPERTY_NAME)) {
-            this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
-        }
     },
 
     /*                        __   __   ___      ___    __
@@ -293,7 +295,7 @@ EntityWall.prototype = {
 
         this.wall.entity_wall_to_update = this;
 
-        this.title = this.wall.add_floating_2d_text(.25, .75, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, 0);
+        this.title = this.wall.add_floating_2d_text(.25, .75, this.get_value(ENTITY_PROPERTY_NAME), TYPE_INPUT_REGULAR, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
@@ -345,6 +347,10 @@ EntityWall.prototype = {
             value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
         }
         this.entity.set_property(value_name, value);
+    },
+
+    update_values: function() {
+        this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
     },
 
     get_value: function(value_name) {
