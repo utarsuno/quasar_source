@@ -189,6 +189,8 @@ FloatingWall.prototype = {
     },
 
     _update_height: function(new_height_percentage) {
+        l('THE HEIGHT IS : ' + this.height)
+
         this.height *= new_height_percentage;
 
         this.object3D.remove(this.mesh);
