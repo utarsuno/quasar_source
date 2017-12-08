@@ -358,6 +358,7 @@ EntityWall.prototype = {
             value = value.replace('[', '').replace(']', '').split(',');
             return new THREE.Vector3(parseFloat(value[0]), parseFloat(value[1]), parseFloat(value[2]));
         case ENTITY_PROPERTY_POSITION:
+            l(this.entity);
             value = this.entity.get_value(value_name);
             value = value.replace('[', '').replace(']', '').split(',');
             return new THREE.Vector3(parseInt(value[0]), parseInt(value[1]), parseInt(value[2]));
