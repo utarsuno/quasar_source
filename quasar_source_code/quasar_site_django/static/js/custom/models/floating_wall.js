@@ -191,7 +191,7 @@ FloatingWall.prototype = {
         }
 
         if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.x_without_normal, this.y_without_normal, this.z_without_normal));
+            this.entity_to_update.set_property(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.x_without_normal, this.y_without_normal, this.z_without_normal));
         }
     },
 
@@ -212,7 +212,7 @@ FloatingWall.prototype = {
         }
 
         if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.update_value(ENTITY_PROPERTY_HEIGHT, this.height);
+            this.entity_to_update.set_property(ENTITY_PROPERTY_HEIGHT, this.height);
         }
         // TODO : auto-scale floating 2d texts!
     },
@@ -234,7 +234,7 @@ FloatingWall.prototype = {
         }
 
         if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.update_value(ENTITY_PROPERTY_WIDTH, this.width);
+            this.entity_to_update.set_property(ENTITY_PROPERTY_WIDTH, this.width);
         }
         // TODO : auto-scale floating 2d texts!
     },
@@ -329,7 +329,7 @@ FloatingWall.prototype = {
 
         if (is_defined(this.entity_to_update)) {
             l(this.entity_to_update);
-            this.entity_to_update.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
+            this.entity_to_update.set_property(ENTITY_PROPERTY_NORMAL, this.normal);
         }
     },
 
@@ -364,7 +364,7 @@ FloatingWall.prototype = {
         this.title.update_text(title);
 
         if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
+            this.entity_to_update.set_property(ENTITY_PROPERTY_NAME, this.title.get_text());
         }
     },
 
