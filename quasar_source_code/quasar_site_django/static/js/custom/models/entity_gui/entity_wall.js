@@ -19,8 +19,10 @@ EntityWall.prototype = {
         }
 
         var new_entity = new Entity(entity_data);
-        this.load_entity(new_entity);
+        this.entity.add_child(new_entity);
         this.create_entity_wall.hide();
+
+        this.reload_entity_rows();
     },
 
     create_entity_button_pressed: function() {
@@ -299,10 +301,13 @@ EntityWall.prototype = {
 
     load_entity: function(entity) {
         this.entity.add_child(entity);
+        this.reload_entity_rows();
+        /*
         var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
         new_floating_row.remove_on_reload = true;
         new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, entity));
         this.entity_rows.push([new_floating_row, entity]);
+        */
     },
 
     update: function() {
