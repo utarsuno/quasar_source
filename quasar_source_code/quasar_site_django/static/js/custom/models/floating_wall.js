@@ -157,7 +157,9 @@ FloatingWall.prototype = {
     },
 
     update_position_with_offset_xyz: function(x, y, z) {
-        if (this.hasOwnProperty('parent_floating_wall')) {
+        // TODO : Optimize later.
+        
+        if (this.hasOwnProperty('parent_floating_wall') || this.hasOwnProperty('pfw_button')) {
 
             var width = this['pfw_width'];
             var height = this['pfw_height'];
