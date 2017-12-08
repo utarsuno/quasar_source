@@ -39,7 +39,7 @@ EntityWall.prototype = {
             this.wall_select_attribute.pfw_button = this.current_add_new_attribute_button;
         }
 
-        this.current_add_new_attribute_button.set_engage_function(this.current_add_new_attribute_button.bind(this));
+        this.current_add_new_attribute_button.set_engage_function(this.add_new_attribute_pressed.bind(this));
 
         this.current_create_entity_wall_row_index = 5;
 
