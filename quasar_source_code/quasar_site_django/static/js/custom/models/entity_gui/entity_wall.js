@@ -121,7 +121,14 @@ EntityWall.prototype = {
         this.wall_edit_entity = null;
     },
 
-    edit_entity_cancel_button_pressed: function() {
+    edit_entity_save_changes_button_pressed: function() {
+        var values = {};
+        for (var key in this._current_properties) {
+            if (this._current_properties.hasOwnProperty(key)) {
+                values[key] = this._current_properties[key].get_text();
+            }
+        }
+        this._current_entity.update_values(values);
         this.wall_edit_entity.hide();
     },
 
@@ -132,19 +139,29 @@ EntityWall.prototype = {
             this.wall_edit_entity['pfw_button'] = new_floating_row;
         }
         this.wall_edit_entity.clear_floating_2d_texts();
-        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Edit', TYPE_TITLE, 0);
+        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
 
-        var row_index = 3;
+        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
+
+        this._current_properties = {};
+        this._current_entity = entity;
+
+        var row_index = 5;
         var entity_properties = entity.get_all_non_default_properties();
         for (var key in entity_properties) {
             if (entity_properties.hasOwnProperty(key)) {
                 this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
-                this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
+                this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
                 row_index += 1;
             }
         }
-        var edit_entity_cancel_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Cancel', TYPE_BUTTON, -1);
-        edit_entity_cancel_button.set_engage_function(this.edit_entity_cancel_button_pressed.bind(this));
+
+        // Now add 2 to the row index to give space to the save_changes button.
+        row_index += 2;
+
+        // TODO : Make the save changes button only appear after a change has been made (and go away as well if the changes dont change default values).
+        var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, -1);
+        edit_entity_save_changes_button.set_engage_function(this.edit_entity_save_changes_button_pressed.bind(this));
 
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();

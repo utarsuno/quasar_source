@@ -52,11 +52,17 @@ function FloatingText(width, text, type, scene, current_color) {
         switch (this.type) {
         case TYPE_BUTTON:
         case TYPE_CHECK_BOX:
+            this.set_color(COLOR_TEXT_BUTTON);
             this.maintain_engage_when_tabbed_to = false;
             this.engable = false;
             break;
         case TYPE_CONSTANT_TEXT:
+            this.set_color(COLOR_TEXT_CONSTANT);
             this.engable = false;
+            break;
+        case TYPE_TITLE:
+            this.set_color(COLOR_TEXT_DEFAULT);
+            break;
         }
     };
 
