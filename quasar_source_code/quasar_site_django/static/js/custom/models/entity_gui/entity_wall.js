@@ -97,10 +97,10 @@ EntityWall.prototype = {
         this.world = world;
         this.entity = entity;
 
-        this.position = this.get_position();
-        this.normal = this.get_normal();
-        this.width = this.get_width();
-        this.height = this.get_height();
+        this.position = this.get_value(ENTITY_PROPERTY_POSITION);
+        this.normal = this.get_value(ENTITY_PROPERTY_NORMAL);
+        this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
+        this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
 
         this.entities = [];
 
@@ -142,6 +142,9 @@ EntityWall.prototype = {
 
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
+
+        this.wall.entity_to_update = this.entity;
+
         this.title = this.wall.add_floating_2d_text(.25, .75, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
@@ -187,45 +190,30 @@ EntityWall.prototype = {
       |__  |\ |  |  |  |  \ /    \  /  /\  |    |  | |__  /__`
       |___ | \|  |  |  |   |      \/  /~~\ |___ \__/ |___ .__/ */
 
-    get_horizontal_offset: function() {
-        if (!is_defined(this.horizontal_offset)) {
-            var horizontal_offset_value = this.entity.get_value(ENTITY_PROPERTY_HORIZONTAL_OFFSET);
-            this.horizontal_offset = parseInt(horizontal_offset_value);
+    update_value: function(value_name, value) {
+        if (value_name === ENTITY_PROPERTY_POSITION) {
+            value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
         }
-        return this.horizontal_offset;
+        this.entity.set_property(value_name, value);
     },
 
-    get_vertical_offset: function() {
-        if (is_defined(this.vertical_offset)) {
-            var vertical_offset_value = this.entity.get_value(ENTITY_PROPERTY_VERTICAL_OFFSET);
-            this.vertical_offset = parseInt(vertical_offset_value);
+    get_value: function(value_name) {
+        var value;
+        switch(value_name) {
+        case ENTITY_PROPERTY_HORIZONTAL_OFFSET:
+        case ENTITY_PROPERTY_VERTICAL_OFFSET:
+        case ENTITY_PROPERTY_WIDTH:
+        case ENTITY_PROPERTY_HEIGHT:
+            return parseInt(this.entity.get_value(value_name));
+        case ENTITY_PROPERTY_NORMAL:
+            value = this.entity.get_value(value_name);
+            value = value.replace('[', '').replace(']', '').split(',');
+            return new THREE.Vector3(parseFloat(value[0]), parseFloat(value[1]), parseFloat(value[2]));
+        case ENTITY_PROPERTY_POSITION:
+            value = this.entity.get_value(value_name);
+            value = value.replace('[', '').replace(']', '').split(',');
+            return new THREE.Vector3(parseInt(value[0]), parseInt(value[1]), parseInt(value[2]));
         }
-        return this.vertical_offset;
-    },
-
-    get_normal: function() {
-        if (!is_defined(this.normal)) {
-            var position_value = this.entity.get_value(ENTITY_PROPERTY_NORMAL);
-            position_value = position_value.replace('[', '').replace(']', '');
-            position_value = position_value.split(',');
-            this.normal = new THREE.Vector3(parseFloat(position_value[0]), parseFloat(position_value[1]), parseFloat(position_value[2]));
-        }
-        return this.normal;
-    },
-
-    get_width: function() {
-        if (!is_defined(this.width)) {
-            var width_value = this.entity.get_value(ENTITY_PROPERTY_WIDTH);
-            this.width = parseInt(width_value);
-        }
-        return this.width;
-    },
-
-    get_height: function() {
-        if (!is_defined(this.height)) {
-            var height_value = this.entity.get_value(ENTITY_PROPERTY_HEIGHT);
-            this.height = parseInt(height_value);
-        }
-        return this.height;
     }
+
 };

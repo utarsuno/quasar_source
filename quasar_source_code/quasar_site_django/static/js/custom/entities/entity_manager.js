@@ -224,7 +224,7 @@ EntityManager.prototype = {
     is_property_user_modifiable: function(property) {
         switch(property) {
         case ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
-        case ENTITY_DEFAULT_PROPERTY_TYPE: // TODO : Maybe don't include type for this.
+        case ENTITY_DEFAULT_PROPERTY_TYPE:
         case ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
         case ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
             return false;
