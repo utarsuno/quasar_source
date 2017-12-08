@@ -117,15 +117,45 @@ EntityWall.prototype = {
         this.init_are_you_sure_wall();
         this.init_create_entity_wall();
         this.init_select_entity_type_wall();
+        this.init_edit_entity_wall();
         this.wall_select_attribute = null;
+        this.wall_edit_entity = null;
+    },
+
+    edit_entity_cancel_button_pressed: function() {
+        this.wall_edit_entity.hide();
+    },
+
+    edit_this_entity: function(new_floating_row, entity) {
+        if (!is_defined(this.wall_edit_entity)) {
+            this.init_edit_entity_wall(new_floating_row);
+        } else {
+            this.wall_edit_entity['pfw_button'] = new_floating_row;
+        }
+        this.wall_edit_entity.clear_floating_2d_texts();
+        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Edit', TYPE_TITLE, 0);
+
+        var row_index = 3;
+        var entity_properties = entity.get_all_non_default_properties();
+        for (var key in entity_properties) {
+            if (entity_properties.hasOwnProperty(key)) {
+                this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
+                this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
+                row_index += 1;
+            }
+        }
+        var edit_entity_cancel_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Cancel', TYPE_BUTTON, -1);
+        edit_entity_cancel_button.set_engage_function(this.edit_entity_cancel_button_pressed.bind(this));
+
+        this.wall_edit_entity.add_close_button();
+        this.wall_edit_entity.show();
     },
 
     load_entity: function(entity) {
-        l('Need to load the following entity in');
         this.entity.add_child(entity);
-        l(entity);
-
-        this.entity_rows.push([this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 3 + this.entity_rows.length), entity]);
+        var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 3 + this.entity_rows.length);
+        new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, entity));
+        this.entity_rows.push([new_floating_row, entity]);
     },
 
     update: function() {
@@ -150,6 +180,10 @@ EntityWall.prototype = {
         this.yes_button.set_engage_function(this.yes_button_pressed.bind(this));
         this.yes_button.set_color(COLOR_GREEN);
         this.wall_are_you_sure.hide();
+    },
+
+    init_edit_entity_wall: function(button) {
+        this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(400, 400, button, false);
     },
 
     init_create_entity_wall: function() {

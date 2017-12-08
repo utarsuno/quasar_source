@@ -140,7 +140,7 @@ Entity.prototype = {
         return this.name;
     },
 
-    get_all_properties: function() {
+    get_all_non_default_properties: function() {
         var properties = {};
         var all_keys = Object.keys(this);
         for (var i = 0; i < all_keys.length; i++) {
@@ -148,6 +148,11 @@ Entity.prototype = {
                 properties[all_keys[i]] = this.get_value(all_keys[i]);
             }
         }
+        return properties;
+    },
+
+    get_all_properties: function() {
+        var properties = this.get_all_non_default_properties();
         // Make sure to also add the default properties.
         properties[ENTITY_DEFAULT_PROPERTY_TYPE] = this.get_type();
         properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = this.get_child_ids();
