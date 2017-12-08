@@ -137,6 +137,8 @@ EntityWall.prototype = {
             this.init_edit_entity_wall(new_floating_row);
         } else {
             this.wall_edit_entity['pfw_button'] = new_floating_row;
+            // TODO : make better design
+            this.wall_edit_entity.update_position_with_offset_xyz(0, 0, 0);
         }
         this.wall_edit_entity.clear_floating_2d_texts();
         this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
