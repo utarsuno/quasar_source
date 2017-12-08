@@ -111,7 +111,7 @@ EntityWall.prototype = {
         this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
         this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
 
-        this.entities = [];
+        this.entity_rows = [];
 
         this.init_base_wall();
         this.init_are_you_sure_wall();
@@ -124,6 +124,8 @@ EntityWall.prototype = {
         l('Need to load the following entity in');
         this.entity.add_child(entity);
         l(entity);
+
+        this.entity_rows.push([this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 3 + this.entity_rows.length), entity]);
     },
 
     update: function() {
