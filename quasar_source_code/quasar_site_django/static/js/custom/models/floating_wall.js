@@ -357,6 +357,7 @@ FloatingWall.prototype = {
     add_close_button: function() {
         this.close_button = this.add_floating_2d_text_fixed_position(16, -16, 'X', TYPE_BUTTON, 0, 2);
         this.close_button.set_engage_function(this.close_button_pressed.bind(this));
+        this.close_button.pfw_additional_normal_offset = 2;
         this.all_floating_2d_texts.push(this.close_button);
         return this.close_button;
     },
