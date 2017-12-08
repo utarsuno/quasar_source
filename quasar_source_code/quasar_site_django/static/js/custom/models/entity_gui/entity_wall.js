@@ -7,11 +7,11 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     create_entity_button_pressed: function() {
-        this.select_entity_type.show();
+        this.entity_type_selector_wall.show();
     },
 
     entity_row_type_selected: function(selected_type) {
-        this.select_entity_type.hide();
+        this.entity_type_selector_wall.hide();
 
         this.create_entity_wall.clear_floating_2d_texts();
 
@@ -63,18 +63,18 @@ EntityWall.prototype = {
     },
 
     init_select_entity_type_wall: function() {
-        this.select_entity_type = this.wall.add_floating_wall_off_of_button(350, 250, this.create_entity_button, false);
-        this.select_entity_type.add_floating_2d_text(0, 1, 'Select Entity Type', TYPE_TITLE, 0);
+        this.entity_type_selector_wall = this.wall.add_floating_wall_off_of_button(350, 250, this.create_entity_button, false);
+        this.entity_type_selector_wall.add_floating_2d_text(0, 1, 'Select Entity Type', TYPE_TITLE, 0);
         var entity_type_row_index = 3;
         for (var et = 0; et < ENTITY_TYPE_ALL.length; et++) {
             if (ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_TIME && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_OWNER && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_WALL) {
-                var entity_type_row = this.entity_type_selector.add_floating_2d_text(0, 1, ENTITY_TYPE_ALL[et], TYPE_BUTTON, entity_type_row_index, 0);
+                var entity_type_row = this.entity_type_selector_wall.add_floating_2d_text(0, 1, ENTITY_TYPE_ALL[et], TYPE_BUTTON, entity_type_row_index, 0);
                 entity_type_row_index += 1;
                 entity_type_row.set_engage_function(this.entity_row_type_selected.bind(this, ENTITY_TYPE_ALL[et]));
             }
         }
-        this.select_entity_type.add_close_button();
-        this.select_entity_type.hide();
+        this.entity_type_selector_wall.add_close_button();
+        this.entity_type_selector_wall.hide();
     },
 
     /* ___      ___   ___                             ___  __
