@@ -594,7 +594,7 @@ FloatingWall.prototype = {
         }
 
         // TODO : clean this design up at some point.
-        if (GUI_PAUSED_MENU.is_currently_visible()) {
+        if (GUI_PAUSED_MENU.currently_displayed) {
             return false;
         }
 

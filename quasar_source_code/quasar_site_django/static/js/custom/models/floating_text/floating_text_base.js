@@ -65,9 +65,9 @@ function FloatingText(width, text, type, scene, current_color) {
                 break;
             default:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
-                this.set_color(this.default_color);
                 break;
             }
+            this.set_color(this.default_color);
         }
     };
 
