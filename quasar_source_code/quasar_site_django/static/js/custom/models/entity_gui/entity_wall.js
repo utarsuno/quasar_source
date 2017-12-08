@@ -120,6 +120,8 @@ EntityWall.prototype = {
         this.wall_select_attribute = null;
         this.wall_edit_entity = null;
         this.wall_edit_entity_add_attribute = null;
+
+        this.reload_entity_rows();
     },
 
     edit_entity_save_changes_button_pressed: function() {
