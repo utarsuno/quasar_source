@@ -114,6 +114,7 @@ EntityWall.prototype = {
 
     load_entity: function(entity) {
         l('Need to load the following entity in');
+        this.entity.add_child(entity);
         l(entity);
     },
 
