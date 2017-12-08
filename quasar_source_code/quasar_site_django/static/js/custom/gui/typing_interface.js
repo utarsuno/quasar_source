@@ -190,11 +190,4 @@ TypingInterface.prototype = {
     add_server_message: function(server_message) {
         this.add_message('server : ' + server_message, MESSAGE_TYPE_SERVER);
     },
-
-    update_all_home_world_entity_walls: function() {
-        var entity_walls = MANAGER_WORLD.world_home.entity_walls;
-        for (var i = 0; i < entity_walls.length; i++) {
-            entity_walls[i].create_or_update_self_wall_entity();
-        }
-    }
 };
