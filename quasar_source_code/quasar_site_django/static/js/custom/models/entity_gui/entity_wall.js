@@ -279,7 +279,7 @@ EntityWall.prototype = {
 
         for (var c = 0; c < this.entity.children.length; c++) {
 
-            var current_child = this.entity.child[c];
+            var current_child = this.entity.children[c];
 
             var new_floating_row = this.wall.add_floating_2d_text(.1, .9, current_child.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
             new_floating_row.remove_on_reload = true;
