@@ -310,9 +310,6 @@ EntityManager.prototype = {
                 return this.entities[i];
             }
         }
-        // FOR_DEV_START
-        raise_exception_with_full_logging('Entity ID match not found!');
-        // FOR_DEV_END
         return null;
     },
 
