@@ -169,13 +169,9 @@ TypingInterface.prototype = {
                 case '.save':
                     this.add_server_message('Saving changes to the server!');
 
-                    // If the player is in the home world then update all the EntityWalls first.
-                    // TODO : do a check! Since the player might be saving settings changes.
-
-                    // TODO : Investigate odd positioning data bugs
-                    this.update_all_home_world_entity_walls();
-
+                    // Any changes to entities will be saved.
                     MANAGER_ENTITY.update_server_and_database();
+
                     break;
                 case '.create_wall':
                     MANAGER_WORLD.world_home.create_entity_wall_command_entered();
