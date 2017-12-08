@@ -283,7 +283,7 @@ EntityWall.prototype = {
 
             var current_child = this.entity.children[c];
 
-            var new_floating_row = this.wall.add_floating_2d_text(.1, .9, current_child.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
+            var new_floating_row = this.wall.add_floating_2d_text(.1, .9, current_child.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 6 + this.entity_rows.length);
             new_floating_row.remove_on_reload = true;
             new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, current_child));
 
@@ -301,6 +301,7 @@ EntityWall.prototype = {
 
     load_entity: function(entity) {
         this.entity.add_child(entity);
+        // TODO : Optimize this routine.
         this.reload_entity_rows();
         /*
         var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
@@ -347,8 +348,8 @@ EntityWall.prototype = {
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
 
-        this.title = this.wall.add_floating_2d_text(.25, .75, this.get_value(ENTITY_PROPERTY_NAME), TYPE_INPUT_REGULAR, 0);
-        this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);
+        this.title = this.wall.add_floating_2d_text(.25, .75, this.get_value(ENTITY_PROPERTY_NAME), TYPE_TITLE, 0);
+        this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 3);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
         this.delete_entity_wall_button = this.wall.add_floating_2d_text(.05, .95, 'Delete Entity Wall', TYPE_BUTTON, -1);

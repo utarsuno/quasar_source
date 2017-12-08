@@ -67,7 +67,6 @@ function FloatingText(width, text, type, scene, current_color) {
                 this.set_default_color(COLOR_TEXT_DEFAULT);
                 break;
             }
-            this.set_color(this.default_color);
         }
     };
 
@@ -90,6 +89,8 @@ function FloatingText(width, text, type, scene, current_color) {
         } else {
             this.default_color = default_color;
         }
+        this.current_color = this.default_color;
+        this._update_color();
     };
 
     // Gets called in constructor so defining this function first.
