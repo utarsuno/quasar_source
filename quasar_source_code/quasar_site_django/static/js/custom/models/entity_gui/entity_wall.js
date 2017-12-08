@@ -263,7 +263,7 @@ EntityWall.prototype = {
         edit_entity_delete_entity_button.set_engage_function(this.edit_entity_delete_entity_button_pressed.bind(this, new_floating_row, entity));
 
         var desired_height = row_index * edit_entity_save_changes_button.height;
-        var percent_change_needed = desired_height / 400;
+        var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
 
         l(percent_change_needed);
         this.wall_edit_entity._update_height(percent_change_needed);
@@ -313,7 +313,8 @@ EntityWall.prototype = {
     },
 
     init_edit_entity_wall: function(button) {
-        this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(600, 350, button, false);
+        this.wall_edit_entity_default_height = 350;
+        this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(600, this.wall_edit_entity_default_height, button, false);
     },
 
     init_create_entity_wall: function() {
