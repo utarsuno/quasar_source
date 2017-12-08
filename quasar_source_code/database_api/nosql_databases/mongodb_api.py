@@ -62,10 +62,21 @@ class MongoCollection(object):
     def update(self, data):
         """Updates an entry in the collection."""
         data_to_set = {}
+        a_random_key = None
+        a_random_value = None
         for key in data:
             if key != OWNER_KEY_ID:
                 data_to_set[key] = data[key]
-        self._collection.update_one({OWNER_KEY_ID: data[OWNER_KEY_ID]}, {'$set': data_to_set}, upsert=False)
+                a_random_key = key
+                a_random_value = data[key]
+
+        id_to_use = None
+        if OWNER_KEY_ID not in data:
+            id_to_use = self.get_id_by_key_value_match(a_random_key, a_random_value)
+        else:
+            id_to_use = data[OWNER_KEY_ID]
+
+        self._collection.update_one({OWNER_KEY_ID: id_to_use}, {'$set': data_to_set}, upsert=False)
 
     def replace(self, data):
         """Replaces an entry in the collection."""
