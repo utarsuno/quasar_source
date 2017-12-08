@@ -6,7 +6,7 @@ function EntityWall(world, entity) {
 
 EntityWall.prototype = {
 
-    delete_entity_well_button_pressed: function() {
+    delete_entity_wall_button_pressed: function() {
         this.wall_are_you_sure.show();
     },
 
