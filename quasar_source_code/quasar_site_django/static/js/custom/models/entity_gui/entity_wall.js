@@ -313,11 +313,11 @@ EntityWall.prototype = {
     },
 
     init_edit_entity_wall: function(button) {
-        this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(400, 400, button, false);
+        this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(600, 350, button, false);
     },
 
     init_create_entity_wall: function() {
-        this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false);
+        this.create_entity_wall = this.wall.add_floating_wall_off_of_button(600, 250, this.create_entity_button, false);
         this.create_entity_wall.add_close_button();
         this.create_entity_wall.hide();
     },
