@@ -13,6 +13,7 @@ EntityWall.prototype = {
     entity_row_type_selected: function(selected_type) {
         this.entity_type_selector_wall.hide();
 
+
         this.create_entity_wall.clear_floating_2d_texts();
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
@@ -23,6 +24,9 @@ EntityWall.prototype = {
         this.create_entity_wall.add_floating_2d_text(1 / 3, 1, ENTITY_PROPERTY_NAME, TYPE_CONSTANT_TEXT, 5);
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'create entity', TYPE_BUTTON, -1);
+
+
+        this.create_entity_wall.show();
     },
 
     __init__: function(world, entity) {
