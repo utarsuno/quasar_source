@@ -150,9 +150,11 @@ EntityWall.prototype = {
         var entity_properties = entity.get_all_non_default_properties();
         for (var key in entity_properties) {
             if (entity_properties.hasOwnProperty(key)) {
-                this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
-                this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
-                row_index += 1;
+                if (key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS) {
+                    this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
+                    this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
+                    row_index += 1;
+                }
             }
         }
 
@@ -160,7 +162,7 @@ EntityWall.prototype = {
         row_index += 2;
 
         // TODO : Make the save changes button only appear after a change has been made (and go away as well if the changes dont change default values).
-        var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, -1);
+        var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, row_index);
         edit_entity_save_changes_button.set_engage_function(this.edit_entity_save_changes_button_pressed.bind(this));
 
         var desired_height = row_index * edit_entity_save_changes_button.height;
