@@ -169,6 +169,8 @@ TypingInterface.prototype = {
                 case '.save':
                     this.add_server_message('Saving changes to the server!');
 
+                    MANAGER_WORLD.world_home.prepare_for_save();
+
                     // Any changes to entities will be saved.
                     MANAGER_ENTITY.update_server_and_database();
 

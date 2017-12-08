@@ -152,6 +152,12 @@ HomeWorld.prototype = {
         this.key_down_event_for_interactive_objects(event);
     },
 
+    prepare_for_save: function() {
+        for (var i = 0; i < this.entity_walls.length; i++) {
+            this.entity_walls[i].prepare_for_save();
+        }
+    },
+
     load_entity_walls: function() {
         var wall_entities = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
         for (var w = 0; w < wall_entities.length; w++) {

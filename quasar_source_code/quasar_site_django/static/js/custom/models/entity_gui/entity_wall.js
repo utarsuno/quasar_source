@@ -136,6 +136,14 @@ EntityWall.prototype = {
         this.reload_entity_rows();
     },
 
+    prepare_for_save: function() {
+        this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
+        this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
+        this.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
+        this.update_value(ENTITY_PROPERTY_WIDTH, this.width);
+        this.update_value(ENTITY_PROPERTY_HEIGHT, this.height);
+    },
+
     /*
             if (this.title.get_text() !== this.get_value(ENTITY_PROPERTY_NAME)) {
             this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
