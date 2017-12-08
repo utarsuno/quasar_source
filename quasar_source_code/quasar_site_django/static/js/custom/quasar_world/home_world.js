@@ -179,7 +179,7 @@ HomeWorld.prototype = {
             // TODO : Optimize later.
             MANAGER_ENTITY.link_entities();
 
-            var entity_wall = new EntityWall(this, entity_wall_entity);
+            //var entity_wall = new EntityWall(this, entity_wall_entity);
             this.entity_walls.push(new EntityWall(this, wall_entities[w]));
         }
     },
