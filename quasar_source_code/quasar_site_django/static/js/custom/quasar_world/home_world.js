@@ -161,8 +161,8 @@ HomeWorld.prototype = {
             }
             // FOR_DEV_END
 
-
             var save_data = wall_entities[w].get_all_properties();
+            l(save_data);
             var entity_wall_entity = new Entity(save_data);
 
             // TODO : Optimize later.
