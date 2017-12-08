@@ -78,6 +78,7 @@ EntityWall.prototype = {
         if (selected_type === ENTITY_TYPE_TASK) {
             this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_DUE_DATE, 'tbd');
             this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_COMPLETED, 'no');
+            this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_IMPORTANCE, '-1');
         }
 
         // Create new entity button.
