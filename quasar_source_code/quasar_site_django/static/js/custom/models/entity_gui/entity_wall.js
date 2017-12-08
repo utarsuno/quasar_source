@@ -6,6 +6,10 @@ function EntityWall(world, entity) {
 
 EntityWall.prototype = {
 
+    delete_entity_well_button_pressed: function() {
+        this.wall_are_you_sure.show();
+    },
+
     create_new_entity: function() {
         l('TODO: !!! Create this new entity');
         l(this.create_entity_dictionary);
@@ -77,6 +81,7 @@ EntityWall.prototype = {
         this.height = this.get_height();
 
         this.init_base_wall();
+        this.init_are_you_sure_wall();
         this.init_create_entity_wall();
         this.init_select_entity_type_wall();
         this.wall_select_attribute = null;
@@ -87,9 +92,30 @@ EntityWall.prototype = {
         this.wall.update();
     },
 
+    no_button_pressed: function() {
+        this.wall_are_you_sure.hide();
+    },
+
+    yes_button_pressed: function() {
+        this.wall_are_you_sure.hide();
+        this.wall.remove_from_scene();
+        // Now also delete the entity!
+        MANAGER_ENTITY.delete_entity(this.entity);
+    },
+
     /*                        __   __   ___      ___    __
       |  |  /\  |    |       /  ` |__) |__   /\   |  | /  \ |\ |
       |/\| /~~\ |___ |___    \__, |  \ |___ /~~\  |  | \__/ | \| */
+    init_are_you_sure_wall: function() {
+        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(200, 100, this.delete_entity_wall_button, false);
+        this.wall_are_you_sure.add_floating_2d_text(0, 1, 'Are you sure?', TYPE_CONSTANT_TEXT, 0);
+        this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 2);
+        this.no_button.set_engage_function(this.no_button_pressed.bind(this));
+        this.yes_button = this.wall_are_you_sure.add_floating_2d_text(.5, 1, 'Yes', TYPE_BUTTON, 2);
+        this.yes_button.set_engage_function(this.yes_button_pressed.bind(this));
+        this.wall_are_you_sure.hide();
+    },
+
     init_create_entity_wall: function() {
         this.create_entity_wall = this.wall.add_floating_wall_off_of_button(400, 500, this.create_entity_button, false);
         this.create_entity_wall.add_close_button();
@@ -101,6 +127,9 @@ EntityWall.prototype = {
         this.title = this.wall.add_floating_2d_text(.25, .75, 'Default Entity Wall Name', TYPE_INPUT_REGULAR, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
+
+        this.delete_entity_wall_button = this.wall.add_floating_2d_text(.05, .95, 'Delete Entity Wall', TYPE_BUTTON, -1);
+        this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_button_pressed.bind(this));
     },
 
     init_select_entity_type_wall: function() {
