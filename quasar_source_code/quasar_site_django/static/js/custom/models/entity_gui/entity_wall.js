@@ -161,6 +161,20 @@ EntityWall.prototype = {
         this.wall_edit_entity_add_attribute.show();
     },
 
+    edit_entity_delete_entity_button_pressed: function(entity_row, entity) {
+        var index_to_remove = -1;
+        for (var i = 0; i < this.entity_rows.length; i++) {
+            if (this.entity_rows[i][1] === entity) {
+                index_to_remove = i;
+            }
+        }
+        if (index_to_remove !== NOT_FOUND) {
+            this.entity_rows.splice(index_to_remove, 1);
+        }
+        this.entity.remove_child(entity);
+        this.reload_entity_rows();
+    },
+
     edit_this_entity: function(new_floating_row, entity) {
         if (!is_defined(this.wall_edit_entity)) {
             this.init_edit_entity_wall(new_floating_row);
@@ -191,11 +205,15 @@ EntityWall.prototype = {
         }
 
         // Now add 1 to the row index to give space to the save_changes button.
-        row_index += 1;
+        row_index += 2;
 
         // TODO : Make the save changes button only appear after a change has been made (and go away as well if the changes dont change default values).
-        var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, row_index);
+        var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, row_index - 1);
         edit_entity_save_changes_button.set_engage_function(this.edit_entity_save_changes_button_pressed.bind(this));
+
+        var edit_entity_delete_entity_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Delete Entity', TYPE_BUTTON, row_index);
+        edit_entity_delete_entity_button.set_color(COLOR_RED);
+        edit_entity_delete_entity_button.set_engage_function(this.edit_entity_delete_entity_button_pressed.bind(this, new_floating_row, entity));
 
         var desired_height = row_index * edit_entity_save_changes_button.height;
         var percent_change_needed = desired_height / 400;
@@ -206,6 +224,13 @@ EntityWall.prototype = {
 
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();
+    },
+
+    reload_entity_rows: function() {
+        l('Reload entity rows!')
+        for (var i = 0; i < this.entity_rows.length; i++) {
+
+        }
     },
 
     load_entity: function(entity) {

@@ -4,6 +4,8 @@ function Floating2DText(w, text, type, scene, current_color) {
     this.__init__(w, text, type, scene, current_color);
 }
 
+const TEMP_SMUDGE_FACTOR = .7;
+
 Floating2DText.prototype = {
 
     material: null,
@@ -15,7 +17,7 @@ Floating2DText.prototype = {
 
     _update_text: function() {
         if (this.type == TYPE_BUTTON || this.type == TYPE_CHECK_BOX || this.type == TYPE_TITLE) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * .8, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, 'black');
         } else {
             this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size, this.current_color, 'black');
         }
@@ -26,9 +28,9 @@ Floating2DText.prototype = {
 
     _update_color: function() {
         if (this.type == TYPE_BUTTON || this.type == TYPE_CHECK_BOX || this.type == TYPE_TITLE) {
-            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * 1.2, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, 'black');
         } else {
-            this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size * .9, this.current_color, 'black');
+            this.dynamic_texture.clear('black').drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, 'black');
         }
         this.dynamic_texture.needsUpdate = true;
     },
