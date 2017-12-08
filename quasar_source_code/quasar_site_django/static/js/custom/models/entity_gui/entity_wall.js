@@ -278,9 +278,21 @@ EntityWall.prototype = {
         this.wall.remove_floating_2d_texts_with_property('remove_on_reload');
 
         for (var c = 0; c < this.entity.children.length; c++) {
-            var new_floating_row = this.wall.add_floating_2d_text(.1, .9, this.entity.children[c].get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
+
+            var current_child = this.entity.child[c];
+
+            var new_floating_row = this.wall.add_floating_2d_text(.1, .9, current_child.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
             new_floating_row.remove_on_reload = true;
-            new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, this.entity.children[c]));
+            new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, current_child));
+
+            if (current_child.has_property(ENTITY_PROPERTY_COMPLETED)) {
+                if (current_child.get_value(ENTITY_PROPERTY_COMPLETED) === 'no') {
+                    new_floating_row.set_default_color(COLOR_RED);
+                } else {
+                    new_floating_row.set_default_color(COLOR_GREEN);
+                }
+            }
+
             this.entity_rows.push([new_floating_row, this.entity.children[c]]);
         }
     },
