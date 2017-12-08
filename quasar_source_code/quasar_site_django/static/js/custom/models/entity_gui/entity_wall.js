@@ -43,7 +43,6 @@ EntityWall.prototype = {
     entity_type_selected: function(selected_type) {
         this.entity_type_selector_wall.hide();
 
-
         this.create_entity_wall.clear_floating_2d_texts();
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
@@ -70,21 +69,49 @@ EntityWall.prototype = {
         this.create_entity_wall.show();
     },
 
+    no_button_pressed: function() {
+        this.wall_are_you_sure.hide();
+    },
+
+    yes_button_pressed: function() {
+        this.wall_are_you_sure.hide();
+        // TODO : Not everything is getting fully removed!
+        this.wall.remove_from_scene();
+
+        var all_walls = MANAGER_WORLD.world_home.entity_walls;
+        var index_to_remove = -1;
+        for (var i = 0; i < all_walls.length; i++) {
+            if (all_walls[i].entity === this.entity) {
+                index_to_remove = i;
+            }
+        }
+        // TODO : Test if this was the solution.
+        if (index_to_remove !== NOT_FOUND) {
+            MANAGER_WORLD.world_home.entity_walls.splice(index_to_remove, 1);
+        }
+        // Now also delete the entity!
+        MANAGER_ENTITY.delete_entity(this.entity);
+    },
+
     __init__: function(world, entity) {
         this.world = world;
         this.entity = entity;
 
-        this.normal_depth = this.get_normal_depth();
         this.position = this.get_position();
         this.normal = this.get_normal();
         this.width = this.get_width();
         this.height = this.get_height();
+
+        this.entities = [];
 
         this.init_base_wall();
         this.init_are_you_sure_wall();
         this.init_create_entity_wall();
         this.init_select_entity_type_wall();
         this.wall_select_attribute = null;
+    },
+
+    add_entity: function(entity) {
 
     },
 
@@ -92,27 +119,18 @@ EntityWall.prototype = {
         this.wall.update();
     },
 
-    no_button_pressed: function() {
-        this.wall_are_you_sure.hide();
-    },
-
-    yes_button_pressed: function() {
-        this.wall_are_you_sure.hide();
-        this.wall.remove_from_scene();
-        // Now also delete the entity!
-        MANAGER_ENTITY.delete_entity(this.entity);
-    },
-
     /*                        __   __   ___      ___    __
       |  |  /\  |    |       /  ` |__) |__   /\   |  | /  \ |\ |
       |/\| /~~\ |___ |___    \__, |  \ |___ /~~\  |  | \__/ | \| */
     init_are_you_sure_wall: function() {
-        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(200, 100, this.delete_entity_wall_button, false);
+        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(200, 70, this.delete_entity_wall_button, false);
         this.wall_are_you_sure.add_floating_2d_text(0, 1, 'Are you sure?', TYPE_CONSTANT_TEXT, 0);
         this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 2);
         this.no_button.set_engage_function(this.no_button_pressed.bind(this));
+        this.no_button.set_color(COLOR_RED);
         this.yes_button = this.wall_are_you_sure.add_floating_2d_text(.5, 1, 'Yes', TYPE_BUTTON, 2);
         this.yes_button.set_engage_function(this.yes_button_pressed.bind(this));
+        this.yes_button.set_color(COLOR_GREEN);
         this.wall_are_you_sure.hide();
     },
 
@@ -130,6 +148,7 @@ EntityWall.prototype = {
 
         this.delete_entity_wall_button = this.wall.add_floating_2d_text(.05, .95, 'Delete Entity Wall', TYPE_BUTTON, -1);
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_button_pressed.bind(this));
+        this.delete_entity_wall_button.set_color(COLOR_RED);
     },
 
     init_select_entity_type_wall: function() {
@@ -168,14 +187,20 @@ EntityWall.prototype = {
       |__  |\ |  |  |  |  \ /    \  /  /\  |    |  | |__  /__`
       |___ | \|  |  |  |   |      \/  /~~\ |___ \__/ |___ .__/ */
 
-    get_position: function() {
-        if (!is_defined(this.position)) {
-            var position_value = this.entity.get_value(ENTITY_PROPERTY_POSITION);
-            position_value = position_value.replace('[', '').replace(']', '');
-            position_value = position_value.split(',');
-            this.position = new THREE.Vector3(parseFloat(position_value[0]), parseFloat(position_value[1]), parseFloat(position_value[2]));
+    get_horizontal_offset: function() {
+        if (!is_defined(this.horizontal_offset)) {
+            var horizontal_offset_value = this.entity.get_value(ENTITY_PROPERTY_HORIZONTAL_OFFSET);
+            this.horizontal_offset = parseInt(horizontal_offset_value);
         }
-        return this.position;
+        return this.horizontal_offset;
+    },
+
+    get_vertical_offset: function() {
+        if (is_defined(this.vertical_offset)) {
+            var vertical_offset_value = this.entity.get_value(ENTITY_PROPERTY_VERTICAL_OFFSET);
+            this.vertical_offset = parseInt(vertical_offset_value);
+        }
+        return this.vertical_offset;
     },
 
     get_normal: function() {
@@ -202,13 +227,5 @@ EntityWall.prototype = {
             this.height = parseInt(height_value);
         }
         return this.height;
-    },
-
-    get_normal_depth: function() {
-        if (!is_defined(this.normal_depth)) {
-            var normal_depth = this.entity.get_value(ENTITY_PROPERTY_NORMAL_DEPTH);
-            this.normal_depth = parseInt(normal_depth);
-        }
-        return this.normal_depth;
     }
 };

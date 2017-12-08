@@ -186,6 +186,8 @@ module.exports = {
         "ENTITY_PROPERTY_POSITION"           : false,
         "ENTITY_PROPERTY_WIDTH"              : false,
         "ENTITY_PROPERTY_HEIGHT"             : false,
+        "ENTITY_PROPERTY_HORIZONTAL_OFFSET"  : false,
+        "ENTITY_PROPERTY_VERTICAL_OFFSET"    : false,
         "ENTITY_PROPERTY_NORMAL_DEPTH"       : false,
         "ENTITY_PROPERTY_NORMAL"             : false,
         "ENTITY_PROPERTY_COMPLETED"          : false,

@@ -4,6 +4,8 @@ function FloatingSlider(slider_title, current_value, minimum_value, maximum_valu
     this.__init__(slider_title, current_value, minimum_value, maximum_value, width, position, normal, world);
 }
 
+// TODO : Delete this file and integrate it into FloatingTextBase!
+
 FloatingSlider.prototype = {
 
     minimum_value: null,
