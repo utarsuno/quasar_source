@@ -158,7 +158,7 @@ FloatingWall.prototype = {
 
     update_position_with_offset_xyz: function(x, y, z) {
         // TODO : Optimize later.
-        
+
         if (this.hasOwnProperty('parent_floating_wall') || this.hasOwnProperty('pfw_button')) {
 
             var width = this['pfw_width'];
@@ -427,13 +427,16 @@ FloatingWall.prototype = {
         return floating_wall;
     },
 
-    add_floating_2d_text_fixed_position: function(width, position_offset, text, type, row) {
+    add_floating_2d_text_fixed_position: function(width, position_offset, text, type, row, additional_normal_offset) {
         var floating_2D_text = new Floating2DText(width, text, type, this.scene);
 
         floating_2D_text.parent_floating_wall = this;
         floating_2D_text.pfw_fixed_width = width;
         floating_2D_text.pfw_position_offset = position_offset;
         floating_2D_text.pfw_row = row;
+        if (is_defined(additional_normal_offset)) {
+            floating_2D_text.pfw_additional_normal_offset = additional_normal_offset;
+        }
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
@@ -466,7 +469,11 @@ FloatingWall.prototype = {
         }
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
-        floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
+        if (floating_2D_text.hasOwnProperty('additional_normal_offset')) {
+            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + this['additional_normal_offset']);
+        } else {
+            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
+        }
         floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
     },
 
