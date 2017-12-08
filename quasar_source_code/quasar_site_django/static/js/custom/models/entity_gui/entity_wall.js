@@ -266,7 +266,8 @@ EntityWall.prototype = {
         var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
 
         l(percent_change_needed);
-        this.wall_edit_entity._update_height(percent_change_needed);
+        this.wall_edit_entity._set_height(desired_height);
+        //this.wall_edit_entity._update_height(percent_change_needed);
 
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();

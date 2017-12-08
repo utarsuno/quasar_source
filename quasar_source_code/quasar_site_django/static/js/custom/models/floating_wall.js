@@ -188,6 +188,17 @@ FloatingWall.prototype = {
 
     },
 
+    _set_height: function(new_height) {
+        this.height = new_height;
+
+        this.object3D.remove(this.mesh);
+        var new_geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.geometry.dispose();
+        this.geometry = new_geometry;
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
+    },
+
     _update_height: function(new_height_percentage) {
         l('THE HEIGHT IS : ' + this.height);
 
