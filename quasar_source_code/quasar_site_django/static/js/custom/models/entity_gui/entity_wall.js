@@ -341,6 +341,8 @@ EntityWall.prototype = {
     update_value: function(value_name, value) {
         if (value_name === ENTITY_PROPERTY_POSITION) {
             value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
+        } else if (value_name === ENTITY_PROPERTY_NORMAL) {
+            value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
         }
         this.entity.set_property(value_name, value);
     },
