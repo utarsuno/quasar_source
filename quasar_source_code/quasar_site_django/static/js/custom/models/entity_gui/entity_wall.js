@@ -10,6 +10,8 @@ EntityWall.prototype = {
         this.wall_are_you_sure.show();
     },
 
+
+
     create_new_entity: function() {
         l('TODO: !!! Create this new entity');
         l(this.create_entity_dictionary);
@@ -141,8 +143,24 @@ EntityWall.prototype = {
         this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
         this.update_value(ENTITY_PROPERTY_NORMAL, this.wall.normal);
         this.update_value(ENTITY_PROPERTY_WIDTH, this.wall.width);
-        l('Setting wall height to : ' + this.wall.height);
         this.update_value(ENTITY_PROPERTY_HEIGHT, this.wall.height);
+
+        var all_entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
+        var wall_entity = null;
+        for (var i = 0; i < all_entity_walls.length; i++) {
+            if (all_entity_walls.get_value(ENTITY_PROPERTY_NAME) === this.title.get_text()) {
+                wall_entity = all_entity_walls[i];
+                break;
+            }
+        }
+
+        if (is_defined(wall_entity)) {
+            this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
+            this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
+            this.update_value(ENTITY_PROPERTY_NORMAL, this.wall.normal);
+            this.update_value(ENTITY_PROPERTY_WIDTH, this.wall.width);
+            this.update_value(ENTITY_PROPERTY_HEIGHT, this.wall.height);
+        }
     },
 
     /*

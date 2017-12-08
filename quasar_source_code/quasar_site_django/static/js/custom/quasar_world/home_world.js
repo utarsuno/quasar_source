@@ -169,6 +169,10 @@ HomeWorld.prototype = {
             // FOR_DEV_END
 
             var save_data = wall_entities[w].get_all_properties();
+
+            // Get the matching entity from the Entity Manager.
+
+
             l(save_data);
             var entity_wall_entity = new Entity(save_data);
 
@@ -176,7 +180,7 @@ HomeWorld.prototype = {
             MANAGER_ENTITY.link_entities();
 
             var entity_wall = new EntityWall(this, entity_wall_entity);
-            this.entity_walls.push(entity_wall);
+            this.entity_walls.push(new EntityWall(this, wall_entities[w]));
         }
     },
 
