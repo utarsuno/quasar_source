@@ -10,6 +10,19 @@ EntityWall.prototype = {
         this.entity_type_selector_wall.show();
     },
 
+    add_new_attribute_pressed: function() {
+        this.wall_select_attribute.show();
+    },
+
+    attribute_selected: function(attribute) {
+        this.wall_select_attribute.hide();
+
+        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, attribute, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
+        this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'value_here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
+
+        this.current_create_entity_wall_row_index += 1;
+    },
+
     entity_row_type_selected: function(selected_type) {
         this.entity_type_selector_wall.hide();
 
@@ -18,14 +31,27 @@ EntityWall.prototype = {
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
 
-        this.create_entity_wall.add_floating_2d_text(.05, .95, 'add new attribute', TYPE_BUTTON, 3);
+        this.current_add_new_attribute_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'add new attribute', TYPE_BUTTON, 3);
 
-        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, ENTITY_PROPERTY_NAME, TYPE_CONSTANT_TEXT, 5);
-        this.create_entity_wall.add_floating_2d_text(1 / 3, 1, ENTITY_PROPERTY_NAME, TYPE_CONSTANT_TEXT, 5);
+        if (!is_defined(this.wall_select_attribute)) {
+            this.init_select_new_attribute_wall();
+        } else {
+            this.wall_select_attribute.pfw_button = this.current_add_new_attribute_button;
+        }
+
+        this.current_add_new_attribute_button.set_engage_function(this.current_add_new_attribute_button.bind(this));
+
+        this.current_create_entity_wall_row_index = 5;
+
+        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, ENTITY_PROPERTY_NAME, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
+        // TODO : Make the first click clear the name_here text.
+        this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'name here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
+
+        this.current_create_entity_wall_row_index += 1;
 
         this.create_entity_wall.add_floating_2d_text(.05, .95, 'create entity', TYPE_BUTTON, -1);
 
-
+        this.create_entity_wall.add_close_button();
         this.create_entity_wall.show();
     },
 
@@ -42,7 +68,7 @@ EntityWall.prototype = {
         this.init_base_wall();
         this.init_create_entity_wall();
         this.init_select_entity_type_wall();
-
+        this.wall_select_attribute = null;
 
     },
 
@@ -67,7 +93,7 @@ EntityWall.prototype = {
     },
 
     init_select_entity_type_wall: function() {
-        this.entity_type_selector_wall = this.wall.add_floating_wall_off_of_button(350, 250, this.create_entity_button, false);
+        this.entity_type_selector_wall = this.wall.add_floating_wall_off_of_button(400, 250, this.create_entity_button, false);
         this.entity_type_selector_wall.add_floating_2d_text(0, 1, 'Select Entity Type', TYPE_TITLE, 0);
         var entity_type_row_index = 3;
         for (var et = 0; et < ENTITY_TYPE_ALL.length; et++) {
@@ -79,6 +105,23 @@ EntityWall.prototype = {
         }
         this.entity_type_selector_wall.add_close_button();
         this.entity_type_selector_wall.hide();
+    },
+
+    init_select_new_attribute_wall: function() {
+        this.wall_select_attribute = this.wall.add_floating_wall_off_of_button(400, 250, this.current_add_new_attribute_button, false);
+
+        this.wall_select_attribute.add_floating_2d_text(.05, .95, 'Select Entity Attribute', 0);
+
+        var a0 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, 3);
+        var a1 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, 4);
+        var a2 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_COMPLETED, 5);
+
+        a0.set_engage_function(this.attribute_selected.bind(this, ENTITY_PROPERTY_DUE_DATE));
+        a1.set_engage_function(this.attribute_selected.bind(this, ENTITY_PROPERTY_DUE_TIME));
+        a2.set_engage_function(this.attribute_selected.bind(this, ENTITY_PROPERTY_COMPLETED));
+
+        this.wall_select_attribute.add_close_button();
+        this.wall_select_attribute.hide();
     },
 
     /* ___      ___   ___                             ___  __
