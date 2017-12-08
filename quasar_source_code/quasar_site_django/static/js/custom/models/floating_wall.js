@@ -86,7 +86,7 @@ FloatingWall.prototype = {
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
 
-        this.entity_to_update = null;
+        this.entity_wall_to_update = null;
     },
 
     perform_action: function(cursor_type) {
@@ -190,8 +190,8 @@ FloatingWall.prototype = {
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
         }
 
-        if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.set_property(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.x_without_normal, this.y_without_normal, this.z_without_normal));
+        if (is_defined(this.entity_wall_to_update)) {
+            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.x_without_normal, this.y_without_normal, this.z_without_normal));
         }
     },
 
@@ -211,8 +211,8 @@ FloatingWall.prototype = {
             }
         }
 
-        if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.set_property(ENTITY_PROPERTY_HEIGHT, this.height);
+        if (is_defined(this.entity_wall_to_update)) {
+            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_HEIGHT, this.height);
         }
         // TODO : auto-scale floating 2d texts!
     },
@@ -233,8 +233,8 @@ FloatingWall.prototype = {
             }
         }
 
-        if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.set_property(ENTITY_PROPERTY_WIDTH, this.width);
+        if (is_defined(this.entity_wall_to_update)) {
+            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_WIDTH, this.width);
         }
         // TODO : auto-scale floating 2d texts!
     },
@@ -327,9 +327,8 @@ FloatingWall.prototype = {
             this.all_floating_walls[j].update_normal(normal);
         }
 
-        if (is_defined(this.entity_to_update)) {
-            l(this.entity_to_update);
-            this.entity_to_update.set_property(ENTITY_PROPERTY_NORMAL, this.normal);
+        if (is_defined(this.entity_wall_to_update)) {
+            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
         }
     },
 
@@ -363,8 +362,8 @@ FloatingWall.prototype = {
     update_title: function (title) {
         this.title.update_text(title);
 
-        if (is_defined(this.entity_to_update)) {
-            this.entity_to_update.set_property(ENTITY_PROPERTY_NAME, this.title.get_text());
+        if (is_defined(this.entity_wall_to_update)) {
+            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
         }
     },
 
