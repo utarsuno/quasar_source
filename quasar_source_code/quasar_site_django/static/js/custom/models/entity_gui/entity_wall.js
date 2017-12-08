@@ -139,9 +139,9 @@ EntityWall.prototype = {
     prepare_for_save: function() {
         this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
         this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
-        this.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
-        this.update_value(ENTITY_PROPERTY_WIDTH, this.width);
-        this.update_value(ENTITY_PROPERTY_HEIGHT, this.height);
+        this.update_value(ENTITY_PROPERTY_NORMAL, this.wall.normal);
+        this.update_value(ENTITY_PROPERTY_WIDTH, this.wall.width);
+        this.update_value(ENTITY_PROPERTY_HEIGHT, this.wall.height);
     },
 
     /*
@@ -302,8 +302,6 @@ EntityWall.prototype = {
 
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
-
-        this.wall.entity_wall_to_update = this;
 
         this.title = this.wall.add_floating_2d_text(.25, .75, this.get_value(ENTITY_PROPERTY_NAME), TYPE_INPUT_REGULAR, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 1);

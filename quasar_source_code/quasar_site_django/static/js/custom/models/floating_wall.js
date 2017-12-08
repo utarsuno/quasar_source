@@ -85,8 +85,6 @@ FloatingWall.prototype = {
 
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
-
-        this.entity_wall_to_update = null;
     },
 
     perform_action: function(cursor_type) {
@@ -192,9 +190,6 @@ FloatingWall.prototype = {
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
         }
 
-        if (is_defined(this.entity_wall_to_update)) {
-            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.x_without_normal, this.y_without_normal, this.z_without_normal));
-        }
     },
 
     _update_height: function(new_height_percentage) {
@@ -213,9 +208,6 @@ FloatingWall.prototype = {
             }
         }
 
-        if (is_defined(this.entity_wall_to_update)) {
-            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_HEIGHT, this.height);
-        }
         // TODO : auto-scale floating 2d texts!
     },
 
@@ -235,9 +227,6 @@ FloatingWall.prototype = {
             }
         }
 
-        if (is_defined(this.entity_wall_to_update)) {
-            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_WIDTH, this.width);
-        }
         // TODO : auto-scale floating 2d texts!
     },
 
@@ -328,10 +317,6 @@ FloatingWall.prototype = {
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_normal(normal);
         }
-
-        if (is_defined(this.entity_wall_to_update)) {
-            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_NORMAL, this.normal);
-        }
     },
 
     add_floating_wall_to_remove_later: function(floating_wall_to_remove_later) {
@@ -364,10 +349,6 @@ FloatingWall.prototype = {
 
     update_title: function (title) {
         this.title.update_text(title);
-
-        if (is_defined(this.entity_wall_to_update)) {
-            this.entity_wall_to_update.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
-        }
     },
 
     get_y_position_for_row: function (y_index) {
