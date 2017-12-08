@@ -10,12 +10,7 @@ EntityWall.prototype = {
         this.wall_are_you_sure.show();
     },
 
-
-
     create_new_entity: function() {
-        l('TODO: !!! Create this new entity');
-        l(this.create_entity_dictionary);
-
         var entity_data = {};
         for (var key in this.create_entity_dictionary) {
             if (this.create_entity_dictionary.hasOwnProperty(key)) {
@@ -44,7 +39,7 @@ EntityWall.prototype = {
         this._add_label_and_input_for_create_entity_wall(attribute);
     },
 
-    _add_label_and_input_for_create_entity_wall: function(label) {
+    _add_label_and_input_for_create_entity_wall: function(label, default_value) {
         this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
         // TODO : Make the first click clear the value here text.
         this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, 'value here', TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
@@ -71,6 +66,11 @@ EntityWall.prototype = {
         this.current_create_entity_wall_row_index = 5;
         this.create_entity_dictionary = {};
         this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_NAME);
+
+        if (selected_type === ENTITY_TYPE_TASK) {
+            this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_DUE_DATE, 'today');
+            this._add_label_and_input_for_create_entity_wall(ENTITY_PROPERTY_COMPLETED, 'no');
+        }
 
         // Create new entity button.
         this.create_new_entity_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'create entity', TYPE_BUTTON, -1);
