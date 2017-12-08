@@ -163,10 +163,10 @@ FloatingWall.prototype = {
 
             // Follows add_floating_wall_to_center_of_position
             if (this.hasOwnProperty('pfw_button')) {
-                var button = this['pfw_button'];
+                var button = this['pfw_button'].get_position();
                 //  var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable);
                 this.object3D.position.set(button.x + this.normal.x * this.normal_depth, button.y + this.normal.y * this.normal_depth, button.z + this.normal.z * this.normal_depth);
-                
+
                 this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
                 this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
                 this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
