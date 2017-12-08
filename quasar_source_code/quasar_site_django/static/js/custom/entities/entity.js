@@ -29,6 +29,10 @@ Entity.prototype = {
             } else {
                 this.ep_relative_id = value;
             }
+            // Raise an exception if there is already an entity with that relative id.
+            if (is_defined(MANAGER_ENTITY.get_entity_by_id(this.ep_relative_id))) {
+                raise_exception_with_full_logging('Can\'t add/create entity with duplicate ID of ' + this.ep_relative_id + '!');
+            }
         } else {
             this.ep_relative_id = MANAGER_ENTITY.get_new_entity_id();
         }
@@ -80,6 +84,8 @@ Entity.prototype = {
         // JavaScript Entity object specific fields. (These do not get saved, only used for client side logic).
         this.parents  = [];
         this.children = [];
+
+
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);

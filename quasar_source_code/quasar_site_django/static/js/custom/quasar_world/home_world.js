@@ -171,7 +171,7 @@ HomeWorld.prototype = {
             //var save_data = wall_entities[w].get_all_properties();
 
             // Get the matching entity from the Entity Manager.
-
+1
 
             //l(save_data);
             //var entity_wall_entity = new Entity(save_data);

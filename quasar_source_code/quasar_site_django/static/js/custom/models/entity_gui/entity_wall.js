@@ -148,7 +148,7 @@ EntityWall.prototype = {
         var all_entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
         var wall_entity = null;
         for (var i = 0; i < all_entity_walls.length; i++) {
-            if (all_entity_walls.get_value(ENTITY_PROPERTY_NAME) === this.title.get_text()) {
+            if (all_entity_walls[i].get_value(ENTITY_PROPERTY_NAME) === this.title.get_text()) {
                 wall_entity = all_entity_walls[i];
                 break;
             }
