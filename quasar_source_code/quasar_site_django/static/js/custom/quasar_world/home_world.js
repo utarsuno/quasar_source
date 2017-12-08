@@ -140,6 +140,7 @@ HomeWorld.prototype = {
         save_data[ENTITY_PROPERTY_WIDTH] = wall_width;
         save_data[ENTITY_PROPERTY_HEIGHT] = wall_height;
         save_data[ENTITY_PROPERTY_NORMAL_DEPTH] = wall_normal_depth;
+        save_data[ENTITY_PROPERTY_NAME] = 'generic entity group';
         save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
         var entity_wall_entity = new Entity(save_data);
 
