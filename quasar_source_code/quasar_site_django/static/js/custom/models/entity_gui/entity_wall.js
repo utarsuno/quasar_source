@@ -13,7 +13,8 @@ EntityWall.prototype = {
     create_new_entity: function() {
         l('TODO: !!! Create this new entity');
         l(this.create_entity_dictionary);
-
+        var new_entity = new Entity(this.create_entity_dictionary);
+        this.load_entity(new_entity);
         this.create_entity_wall.hide();
     },
 
@@ -111,8 +112,9 @@ EntityWall.prototype = {
         this.wall_select_attribute = null;
     },
 
-    add_entity: function(entity) {
-
+    load_entity: function(entity) {
+        l('Need to load the following entity in');
+        l(entity);
     },
 
     update: function() {
