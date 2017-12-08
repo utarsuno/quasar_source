@@ -141,6 +141,7 @@ EntityWall.prototype = {
         this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
         this.update_value(ENTITY_PROPERTY_NORMAL, this.wall.normal);
         this.update_value(ENTITY_PROPERTY_WIDTH, this.wall.width);
+        l('Setting wall height to : ' + this.wall.height);
         this.update_value(ENTITY_PROPERTY_HEIGHT, this.wall.height);
     },
 
@@ -355,10 +356,6 @@ EntityWall.prototype = {
             value = '[' + value.x + ',' + value.y + ',' + value.z + ']';
         }
         this.entity.set_property(value_name, value);
-    },
-
-    update_values: function() {
-        this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
     },
 
     get_value: function(value_name) {

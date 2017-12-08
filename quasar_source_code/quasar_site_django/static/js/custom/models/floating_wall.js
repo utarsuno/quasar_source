@@ -158,10 +158,6 @@ FloatingWall.prototype = {
         // TODO : Optimize later.
 
         if (this.hasOwnProperty('parent_floating_wall') || this.hasOwnProperty('pfw_button')) {
-
-            var width = this['pfw_width'];
-            var height = this['pfw_height'];
-
             // Follows add_floating_wall_to_center_of_position
             if (this.hasOwnProperty('pfw_button')) {
                 var button = this['pfw_button'].get_position();
