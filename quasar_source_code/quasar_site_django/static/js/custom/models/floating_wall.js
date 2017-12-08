@@ -392,6 +392,30 @@ FloatingWall.prototype = {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
     },
 
+    remove_floating_2d_texts_with_property: function(property_name) {
+        var elements_to_remove = this.get_all_floating_2d_texts_with_property(property_name);
+        for (var i = 0; i < elements_to_remove.length; i++) {
+            var index_to_remove = -1;
+            for (var j = 0; j < this.all_floating_2d_texts.length; j++) {
+                if (this.all_floating_2d_texts[j].hasOwnProperty(property_name)) {
+                    index_to_remove = j;
+                }
+            }
+            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[index_to_remove]);
+            this.all_floating_2d_texts.splice(index_to_remove, 1);
+        }
+    },
+
+    get_all_floating_2d_texts_with_property: function(property_name) {
+        var floating_texts = [];
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            if (this.all_floating_2d_texts[i].hasOwnProperty(property_name)) {
+                floating_texts.push(this.all_floating_2d_texts[i]);
+            }
+        }
+        return floating_texts;
+    },
+
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */

@@ -143,7 +143,7 @@ function World(planet_name) {
             this.interactive_objects.splice(index_to_remove, 1);
         }
         // Next remove the object from the scene.
-        this.remove_from_scene(object_to_remove.object3D);
+        this.remove_from_scene(object_to_remove);
     };
 
     this.set_player = function() {

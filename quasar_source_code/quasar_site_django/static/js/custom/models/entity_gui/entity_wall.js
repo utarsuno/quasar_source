@@ -169,9 +169,11 @@ EntityWall.prototype = {
             }
         }
         if (index_to_remove !== NOT_FOUND) {
+
             this.entity_rows.splice(index_to_remove, 1);
         }
         this.entity.remove_child(entity);
+        this.wall_edit_entity.hide();
         this.reload_entity_rows();
     },
 
@@ -227,15 +229,22 @@ EntityWall.prototype = {
     },
 
     reload_entity_rows: function() {
-        l('Reload entity rows!')
-        for (var i = 0; i < this.entity_rows.length; i++) {
+        l('Reload entity rows!');
+        this.entity_rows.length = 0;
+        this.wall.remove_floating_2d_texts_with_property('remove_on_reload');
 
+        for (var c = 0; c < this.entity.children.length; c++) {
+            var new_floating_row = this.wall.add_floating_2d_text(.1, .9, this.entity.children[c].get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
+            new_floating_row.remove_on_reload = true;
+            new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, this.entity.children[c]));
+            this.entity_rows.push([new_floating_row, this.entity.children[c]]);
         }
     },
 
     load_entity: function(entity) {
         this.entity.add_child(entity);
-        var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 3 + this.entity_rows.length);
+        var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
+        new_floating_row.remove_on_reload = true;
         new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, entity));
         this.entity_rows.push([new_floating_row, entity]);
     },
