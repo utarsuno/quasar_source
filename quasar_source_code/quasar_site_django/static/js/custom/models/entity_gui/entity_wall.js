@@ -163,6 +163,11 @@ EntityWall.prototype = {
         var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, -1);
         edit_entity_save_changes_button.set_engage_function(this.edit_entity_save_changes_button_pressed.bind(this));
 
+        var desired_height = row_index * edit_entity_save_changes_button.height;
+        var percent_change_needed = desired_height / 400;
+
+        this.wall_edit_entity._update_height(percent_change_needed);
+
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();
     },
