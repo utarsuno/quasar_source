@@ -119,6 +119,7 @@ EntityWall.prototype = {
         this.init_select_entity_type_wall();
         this.wall_select_attribute = null;
         this.wall_edit_entity = null;
+        this.wall_edit_entity_add_attribute = null;
     },
 
     edit_entity_save_changes_button_pressed: function() {
@@ -132,21 +133,47 @@ EntityWall.prototype = {
         this.wall_edit_entity.hide();
     },
 
+    attribute_selected_for_edit_entity: function(attribute_name, button, entity) {
+        this.wall_edit_entity_add_attribute.hide();
+        entity.set_property(attribute_name, 'no value');
+        this.edit_this_entity(button, entity);
+    },
+
+    edit_entity_add_attribute_button_pressed: function(button, entity) {
+        if (!is_defined(this.wall_edit_entity_add_attribute)) {
+            this.init_edit_entity_attribute_wall(button);
+        } else {
+            this.wall_edit_entity_add_attribute['pfw_button'] = button;
+        }
+        this.wall_edit_entity_add_attribute.clear_floating_2d_texts();
+
+        this.wall_edit_entity_add_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE, 0);
+
+        var a0 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
+        var a1 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);
+        var a2 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_COMPLETED, TYPE_BUTTON, 5);
+
+        a0.set_engage_function(this.attribute_selected_for_edit_entity.bind(this, ENTITY_PROPERTY_DUE_DATE, button, entity));
+        a1.set_engage_function(this.attribute_selected_for_edit_entity.bind(this, ENTITY_PROPERTY_DUE_TIME, button, entity));
+        a2.set_engage_function(this.attribute_selected_for_edit_entity.bind(this, ENTITY_PROPERTY_COMPLETED, button, entity));
+
+        this.wall_edit_entity_add_attribute.add_close_button();
+        this.wall_edit_entity_add_attribute.show();
+    },
+
     edit_this_entity: function(new_floating_row, entity) {
         if (!is_defined(this.wall_edit_entity)) {
             this.init_edit_entity_wall(new_floating_row);
         } else {
             this.wall_edit_entity['pfw_button'] = new_floating_row;
-            // TODO : make better design
-            //this.wall_edit_entity.update_position_with_offset_xyz(0, 0, 0);
         }
         this.wall_edit_entity.clear_floating_2d_texts();
 
-
-
         this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
 
-        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
+        var edit_entity_add_attribute_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
+        edit_entity_add_attribute_button.set_engage_function(this.edit_entity_add_attribute_button_pressed.bind(this, edit_entity_add_attribute_button, entity));
+
 
         this._current_properties = {};
         this._current_entity = entity;
@@ -222,6 +249,10 @@ EntityWall.prototype = {
         this.create_entity_wall.hide();
     },
 
+    init_edit_entity_attribute_wall: function(button) {
+        this.wall_edit_entity_add_attribute = this.wall.add_floating_wall_off_of_button(400, 400, button, false);
+    },
+
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
 
@@ -254,7 +285,7 @@ EntityWall.prototype = {
     init_select_new_attribute_wall: function() {
         this.wall_select_attribute = this.wall.add_floating_wall_off_of_button(400, 250, this.current_add_new_attribute_button, false);
 
-        this.wall_select_attribute.add_floating_2d_text(.05, .95, 'Select Entity Attribute', TYPE_TITLE, 0);
+        this.wall_select_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE, 0);
 
         var a0 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
         var a1 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);
