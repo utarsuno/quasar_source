@@ -117,7 +117,6 @@ EntityWall.prototype = {
         this.init_are_you_sure_wall();
         this.init_create_entity_wall();
         this.init_select_entity_type_wall();
-        this.init_edit_entity_wall();
         this.wall_select_attribute = null;
         this.wall_edit_entity = null;
     },
