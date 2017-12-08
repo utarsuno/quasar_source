@@ -151,25 +151,9 @@ HomeWorld.prototype = {
         this.key_down_event_for_interactive_objects(event);
     },
 
-    create_entity_wall: function(position, wall_text, entity) {
-        // The wall will be generated 100 units away from the player and looking at the player (while perpendicular to the y-axis).
-        var player_normal = CURRENT_PLAYER.get_direction();
-        var wall_normal = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
-        var entity_wall = new EntityWall(position, this, entity);
-        entity_wall.update_title(wall_text);
-        if (is_defined(entity)) {
-            entity_wall.set_entity(entity);
-            for (var ce = 0; ce < entity.children.length; ce++) {
-                entity_wall.add_entity(entity.children[ce]);
-            }
-        }
-        this.entity_walls.push(entity_wall);
-    },
-
     load_entity_walls: function() {
         var wall_entities = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
         for (var w = 0; w < wall_entities.length; w++) {
-
             // FOR_DEV_START
             if (!is_defined(wall_entities[w])) {
                 GUI_PAUSED_MENU.add_server_message('Entity wall is not defined? Investigate.');
@@ -177,23 +161,15 @@ HomeWorld.prototype = {
             }
             // FOR_DEV_END
 
-            var position = wall_entities[w].get_value(ENTITY_PROPERTY_POSITION);
 
-            position = position.replace('[', '').replace(']', '');
-            position = position.split(',');
+            var save_data = wall_entities[w].get_all_properties();
+            var entity_wall_entity = new Entity(save_data);
 
-            // TODO : shouldn't this be parseFloat?
-            var wall_position = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]));
-            //var wall_look_at = new THREE.Vector3(parseInt(position[0]), parseInt(position[1]), parseInt(position[2]))
+            // TODO : Optimize later.
+            MANAGER_ENTITY.link_entities();
 
-            // FOR_DEV_START
-            l('Creating entity wall at the position');
-            l(wall_position);
-            // FOR_DEV_END
-
-            var title = wall_entities[w].get_value(ENTITY_PROPERTY_NAME);
-
-            this.create_entity_wall(wall_position, title, wall_entities[w]);
+            var entity_wall = new EntityWall(this, entity_wall_entity);
+            this.entity_walls.push(entity_wall);
         }
     },
 
