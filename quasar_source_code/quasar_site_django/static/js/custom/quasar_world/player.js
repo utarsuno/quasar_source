@@ -27,11 +27,11 @@ Player.prototype = {
     key_down_d   : null,
 
     turn_off_menu: function() {
-        MANAGER_WORLD.current_world.player_menu.make_invisible();
+        MANAGER_WORLD.current_world.player_menu.set_to_invisible();
     },
 
     turn_on_menu: function() {
-        MANAGER_WORLD.current_world.player_menu.make_visible();
+        MANAGER_WORLD.current_world.player_menu.set_to_visible();
     },
 
     is_menu_on: function() {
