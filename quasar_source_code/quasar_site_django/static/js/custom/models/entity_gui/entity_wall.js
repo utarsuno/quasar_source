@@ -348,7 +348,7 @@ EntityWall.prototype = {
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
 
-        this.title = this.wall.add_floating_2d_text(.25, .75, this.get_value(ENTITY_PROPERTY_NAME), TYPE_TITLE, 0);
+        this.title = this.wall.add_floating_2d_text(.1, .9, this.get_value(ENTITY_PROPERTY_NAME), TYPE_TITLE, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 3);
         this.create_entity_button.set_engage_function(this.create_entity_button_pressed.bind(this));
 
