@@ -71,8 +71,8 @@ Player.prototype = {
     },
 
     _set_menu_position_and_normal: function() {
-        var player_position = CURRENT_PLAYER.get_position();
-        var player_direction = CURRENT_PLAYER.get_direction();
+        var player_position = this.get_position();
+        var player_direction = this.get_direction();
 
         var distance_from_player = 100;
 
