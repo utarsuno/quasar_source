@@ -71,16 +71,18 @@ Player.prototype = {
     },
 
     _set_menu_position_and_normal: function() {
-        var player_position = this.get_position();
-        var player_direction = this.get_direction();
+        if (is_defined(MANAGER_WORLD)) {
+            var player_position = this.get_position();
+            var player_direction = this.get_direction();
 
-        var distance_from_player = 100;
+            var distance_from_player = 100;
 
-        MANAGER_WORLD.current_world.player_menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
-        MANAGER_WORLD.current_world.player_menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
-        MANAGER_WORLD.current_world.player_menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
+            MANAGER_WORLD.current_world.player_menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
+            MANAGER_WORLD.current_world.player_menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
+            MANAGER_WORLD.current_world.player_menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
 
-        MANAGER_WORLD.current_world.player_menu.object3D.lookAt(player_position);
+            MANAGER_WORLD.current_world.player_menu.object3D.lookAt(player_position);
+        }
     },
 
     send_chat_message: function(chat_message) {
