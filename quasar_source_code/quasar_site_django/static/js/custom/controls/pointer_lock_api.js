@@ -34,7 +34,7 @@ PointerLockAPI.prototype = {
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false);
 
             document.addEventListener('onmousedown', this.on_mouse_down.bind(this), false);
-            document.addEventListener('onmouseup', this.on_mouse_u[.bind(this), false);
+            document.addEventListener('onmouseup', this.on_mouse_up.bind(this), false);
 
             this.key_down_buffer = [];
             // Hook for mouse click.
