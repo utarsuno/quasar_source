@@ -27,15 +27,15 @@ Player.prototype = {
     key_down_d   : null,
 
     turn_off_menu: function() {
-        this.menu.make_invisible();
+        MANAGER_WORLD.current_world.player_menu.make_invisible();
     },
 
     turn_on_menu: function() {
-        this.menu.make_visible();
+        MANAGER_WORLD.current_world.player_menu.make_visible();
     },
 
     is_menu_on: function() {
-        return this.menu.is_visible;
+        return MANAGER_WORLD.current_world.player_menu.is_visible;
     },
 
     __init__: function(renderer_api) {
@@ -67,13 +67,6 @@ Player.prototype = {
         // TODO : move this state somewhere else
         this.currently_fullscreen = false;
 
-        // Player menu.
-        this.menu = new FloatingWall(100, 50, new THREE.Vector3(-5000, -5000, -5000), new THREE.Vector3(0, 0, 0), this, false);
-
-        this.menu.add_floating_2d_text(0, 1, 'Create Entity Wall', TYPE_BUTTON, 0);
-        this.menu.add_floating_2d_text(0, 1, 'Create Image', TYPE_BUTTON, 1);
-        this.menu.add_floating_2d_text(0, 1, 'Save', TYPE_BUTTON, 2);
-
         this._set_menu_position_and_normal();
     },
 
@@ -83,11 +76,11 @@ Player.prototype = {
 
         var distance_from_player = 100;
 
-        this.menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
-        this.menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
-        this.menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
+        MANAGER_WORLD.current_world.player_menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
+        MANAGER_WORLD.current_world.player_menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
+        MANAGER_WORLD.current_world.player_menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
 
-        this.menu.object3D.lookAt(player_position);
+        MANAGER_WORLD.current_world.player_menu.object3D.lookAt(player_position);
     },
 
     send_chat_message: function(chat_message) {
