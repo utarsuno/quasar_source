@@ -66,8 +66,6 @@ Player.prototype = {
 
         // TODO : move this state somewhere else
         this.currently_fullscreen = false;
-
-        this._set_menu_position_and_normal();
     },
 
     _set_menu_position_and_normal: function() {
