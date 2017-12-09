@@ -110,6 +110,8 @@ module.exports = {
 
         "GLOBAL_FONT": false,
 
+        "DragNDrop": false,
+
         "HALF_PIE": false,
         "PIE": false,
         "TWO_PIE": false,
