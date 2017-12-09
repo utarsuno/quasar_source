@@ -185,7 +185,6 @@ FloatingWall.prototype = {
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
         }
-
     },
 
     _set_height: function(new_height) {
@@ -306,7 +305,7 @@ FloatingWall.prototype = {
     },
 
     add_3d_title: function(title_name) {
-        this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene, COLOR_DAY_PRESENT);
+        this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene);
         var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
@@ -453,7 +452,7 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
-        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
+        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON || type == TYPE_TITLE) {
             floating_2D_text.is_in_interactive_list = true;
             this.world.interactive_objects.push(floating_2D_text);
         }

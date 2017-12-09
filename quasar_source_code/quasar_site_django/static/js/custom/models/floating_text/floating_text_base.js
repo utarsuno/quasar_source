@@ -61,7 +61,6 @@ function FloatingText(width, text, type, scene, current_color) {
                 break;
             case TYPE_TITLE:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
-                this.engable = false;
                 break;
             default:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
@@ -149,6 +148,8 @@ function FloatingText(width, text, type, scene, current_color) {
                 this.hidden_text += event.key;
                 this._add_character('*');
             } else if (this.type === TYPE_INPUT_REGULAR) {
+                this._add_character(event.key);
+            } else if (this.type === TYPE_TITLE) {
                 this._add_character(event.key);
             }
             MANAGER_AUDIO.play_typing_sound();
