@@ -33,6 +33,9 @@ PointerLockAPI.prototype = {
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false);
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false);
 
+            document.addEventListener('onmousedown', this.on_mouse_down.bind(this), false);
+            document.addEventListener('onmouseup', this.on_mouse_u[.bind(this), false);
+
             this.key_down_buffer = [];
             // Hook for mouse click.
             document.addEventListener('click', this.click_handler.bind(this));
@@ -73,6 +76,45 @@ PointerLockAPI.prototype = {
         l('Pointer lock error!');
         // FOR_DEV_END
         GUI_TYPING_INTERFACE.add_server_message('Pointer lock error!');
+    },
+
+    // Code from : https://stackoverflow.com/questions/9521519/how-can-i-detect-a-rightmouse-button-event-on-mousedown
+    on_mouse_down: function(e) {
+        e = e || window.event;
+        switch (e.which) {
+        case 1:
+            this.left_click_down = true;
+            break;
+        case 2:
+            this.middle_click_down = true;
+            break;
+        case 3:
+            if (!this.right_click_down) {
+                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+                    CURRENT_PLAYER.turn_on_menu();
+                }
+            }
+            this.right_click_down = true;
+            break;
+        }
+    },
+
+    on_mouse_up: function(e) {
+        e = e || window.event;
+        switch (e.which) {
+        case 1:
+            this.left_click_down = false;
+            break;
+        case 2:
+            this.middle_click_down = false;
+            break;
+        case 3:
+            if (CURRENT_PLAYER.is_menu_on()) {
+                CURRENT_PLAYER.turn_off_menu();
+            }
+            this.right_click_down = false;
+            break;
+        }
     },
 
     click_handler: function(e) {

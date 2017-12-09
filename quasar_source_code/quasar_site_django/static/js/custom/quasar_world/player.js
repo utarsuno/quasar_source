@@ -26,6 +26,18 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
+    turn_off_menu: function() {
+        this.menu.make_invisible();
+    },
+
+    turn_on_menu: function() {
+        this.menu.make_visible();
+    },
+
+    is_menu_on: function() {
+        return this.menu.is_visible;
+    },
+
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api;
         this.camera = this.renderer_api.camera;
@@ -54,6 +66,28 @@ Player.prototype = {
 
         // TODO : move this state somewhere else
         this.currently_fullscreen = false;
+
+        // Player menu.
+        this.menu = new FloatingWall(100, 50, new THREE.Vector3(-5000, -5000, -5000), new THREE.Vector3(0, 0, 0), this, false);
+
+        this.menu.add_floating_2d_text(0, 1, 'Create Entity Wall', TYPE_BUTTON, 0);
+        this.menu.add_floating_2d_text(0, 1, 'Create Image', TYPE_BUTTON, 1);
+        this.menu.add_floating_2d_text(0, 1, 'Save', TYPE_BUTTON, 2);
+
+        this._set_menu_position_and_normal();
+    },
+
+    _set_menu_position_and_normal: function() {
+        var player_position = CURRENT_PLAYER.get_position();
+        var player_direction = CURRENT_PLAYER.get_direction();
+
+        var distance_from_player = 100;
+
+        this.menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
+        this.menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
+        this.menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
+
+        this.menu.object3D.lookAt(player_position);
     },
 
     send_chat_message: function(chat_message) {
@@ -160,6 +194,10 @@ Player.prototype = {
     update: function(delta) {
         this.fps_controls.physics(delta);
         this.data_display.update();
+
+        if (this.is_menu_on()) {
+            this._set_menu_position_and_normal();
+        }
     },
 
     on_key_down: function(event) {
