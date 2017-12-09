@@ -170,7 +170,7 @@ function World(planet_name) {
                     raise_exception('no normal to use!');
                 }
 
-                if (this.currently_looked_at_object['type'] == TYPE_BUTTON) {
+                if (this.currently_looked_at_object['type'] === TYPE_BUTTON || this.currently_looked_at_object['type'] === TYPE_CHECK_BOX) {
                     this.floating_cursor.set_cursor(CURSOR_TYPE_HAND);
                 } else {
                     this.floating_cursor.set_cursor(CURSOR_TYPE_POINTER);

@@ -211,10 +211,6 @@ function FloatingText(width, text, type, scene, current_color) {
         this.update_position(position_vector);
     };
 
-    this.delete_self = function() {
-        // TODO : Implement this function!!!
-    };
-
     this.clear = function() {
         this._update_text('');
     };

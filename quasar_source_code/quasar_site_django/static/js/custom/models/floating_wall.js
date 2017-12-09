@@ -500,7 +500,7 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
-        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON) {
+        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON || type == TYPE_TITLE) {
             floating_2D_text.is_in_interactive_list = true;
             this.world.interactive_objects.push(floating_2D_text);
         }
