@@ -23,7 +23,7 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 
 // TODO : DragNDrop
 
-var drag_and_drop_file_support = new DragNDrop();
+//var drag_and_drop_file_support = new DragNDrop();
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
