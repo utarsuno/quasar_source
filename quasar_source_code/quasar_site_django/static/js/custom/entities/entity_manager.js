@@ -217,7 +217,7 @@ EntityManager.prototype = {
         }
 
         return list_to_return.sort(function(a, b) {
-            return a.sort_value - b.sort_value;
+            return b.sort_value - a.sort_value;
         });
     },
 

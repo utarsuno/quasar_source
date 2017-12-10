@@ -279,14 +279,10 @@ EntityWall.prototype = {
         this.entity_rows.length = 0;
         this.wall.remove_floating_2d_texts_with_property('remove_on_reload');
 
-        l(MANAGER_ENTITY.get_entities_sorted_by_priority(this.entity.children));
+        var entity_row_order = MANAGER_ENTITY.get_entities_sorted_by_priority(this.entity.children);
 
-        // First figure out the order to add the entities in.
-
-
-        for (var c = 0; c < this.entity.children.length; c++) {
-
-            var current_child = this.entity.children[c];
+        for (var e = 0; e < entity_row_order.length; e++) {
+            var current_child = entity_row_order[e];
 
             var new_floating_row = this.wall.add_floating_2d_text(.1, .9, current_child.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 6 + this.entity_rows.length);
             new_floating_row.remove_on_reload = true;
@@ -308,12 +304,6 @@ EntityWall.prototype = {
         this.entity.add_child(entity);
         // TODO : Optimize this routine.
         this.reload_entity_rows();
-        /*
-        var new_floating_row = this.wall.add_floating_2d_text(.1, .9, entity.get_value(ENTITY_PROPERTY_NAME), TYPE_BUTTON, 5 + this.entity_rows.length);
-        new_floating_row.remove_on_reload = true;
-        new_floating_row.set_engage_function(this.edit_this_entity.bind(this, new_floating_row, entity));
-        this.entity_rows.push([new_floating_row, entity]);
-        */
     },
 
     update: function() {
