@@ -296,7 +296,7 @@ EntityWall.prototype = {
                 }
             }
 
-            this.entity_rows.push([new_floating_row, this.entity.children[c]]);
+            this.entity_rows.push([new_floating_row, this.entity.children[e]]);
         }
     },
 
