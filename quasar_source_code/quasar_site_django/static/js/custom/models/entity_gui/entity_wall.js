@@ -259,10 +259,11 @@ EntityWall.prototype = {
 
         // TODO : Make the save changes button only appear after a change has been made (and go away as well if the changes dont change default values).
         var edit_entity_save_changes_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Save Changes', TYPE_BUTTON, row_index - 1);
+        edit_entity_save_changes_button.set_default_color(COLOR_GREEN);
         edit_entity_save_changes_button.set_engage_function(this.edit_entity_save_changes_button_pressed.bind(this));
 
         var edit_entity_delete_entity_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Delete Entity', TYPE_BUTTON, row_index);
-        edit_entity_delete_entity_button.set_color(COLOR_RED);
+        edit_entity_delete_entity_button.set_default_color(COLOR_RED);
         edit_entity_delete_entity_button.set_engage_function(this.edit_entity_delete_entity_button_pressed.bind(this, new_floating_row, entity));
 
         //var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
@@ -275,9 +276,13 @@ EntityWall.prototype = {
     },
 
     reload_entity_rows: function() {
-        l('Reload entity rows!');
         this.entity_rows.length = 0;
         this.wall.remove_floating_2d_texts_with_property('remove_on_reload');
+
+        l(MANAGER_ENTITY.get_entities_sorted_by_priority(this.entity.children));
+
+        // First figure out the order to add the entities in.
+
 
         for (var c = 0; c < this.entity.children.length; c++) {
 

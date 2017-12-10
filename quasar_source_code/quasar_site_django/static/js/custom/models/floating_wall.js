@@ -93,7 +93,7 @@ FloatingWall.prototype = {
         //l('PERFORM AN ACTION PLZ');
         //l(cursor_type);
 
-        var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+        //var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
         var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
         //l('The new cursor position is :');
         //l(new_cursor_position);

@@ -194,7 +194,32 @@ EntityManager.prototype = {
         / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
         \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    .*/
 
+    get_entities_sorted_by_priority: function(list_of_entities) {
+        var list_to_return = [];
 
+        // First value to sort by is by completed or not.
+        // Second value to sort by is importance.
+
+        for (var i = 0; i < list_of_entities.length; i++) {
+            var e = list_of_entities[i];
+            e.sort_value = 0;
+            if (e.has_property(ENTITY_PROPERTY_COMPLETED)) {
+                if (e.get_value(ENTITY_PROPERTY_COMPLETED) === 'yes') {
+                    e.sort_value += 2000;
+                } else {
+                    e.sort_value += 1000;
+                }
+            }
+            if (e.has_property(ENTITY_PROPERTY_IMPORTANCE)) {
+                e.sort_value += e.get_value(ENTITY_PROPERTY_IMPORTANCE) * 100;
+            }
+            list_to_return.push(e);
+        }
+
+        return list_to_return.sort(function(a, b) {
+            return a.sort_value - b.sort_value;
+        });
+    },
 
     get_new_entity_id: function() {
         var max_id = -1;
