@@ -332,6 +332,8 @@ module.exports = {
         // Math world constants.
         "DIAGONAL_PENALTY": false,
         "GROUND_NORMAL"   : false,
+        "ONE_THIRD"       : false,
+        "TWO_THIRDS"      : false,
 
         // Shortcuts.
         "l"                                  : false,

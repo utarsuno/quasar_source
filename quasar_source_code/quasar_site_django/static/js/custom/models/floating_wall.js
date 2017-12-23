@@ -406,7 +406,6 @@ FloatingWall.prototype = {
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
-    // TODO : Add floating Slider
 
     add_floating_wall_off_of_button: function(width, height, button, scalable) {
         var button_position = button.get_position();
@@ -513,6 +512,92 @@ FloatingWall.prototype = {
         this.all_floating_2d_texts.push(floating_2D_text);
 
         return floating_2D_text;
+    },
+
+    /*__          __   ___  __      __   __        __
+     /__` |    | |  \ |__  |__)    |__) /  \ |  | /__`
+     .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
+
+    // TODO : Add floating Slider
+
+    // this.wall_settings_slider_fov = this.wall_settings.add_floating_slider(0, 1, 90, 20, 160, 'Camera Field of View : ', 1);
+    add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
+
+        // Determine the % width that 25 pixels will be.
+        var min_max_width = 25 / this.width;
+
+        // Label width will be 1/3 width.
+        // Slider width will be the remaining 2/3 width.
+        var label_width = (this.width * (x_end - x_start)) * ONE_THIRD;
+        var slider_width = (this.width * (x_end - x_start)) * TWO_THIRDS;
+
+        var max_one = x_end * ONE_THIRD;
+
+        // Floating Label.
+        var floating_label = new Floating2DText(label_width, label, TYPE_CONSTANT_TEXT, this.scene);
+        floating_label.parent_floating_wall = this;
+        floating_label.pfw_x_start = x_start;
+        floating_label.pfw_x_end = max_one;
+        floating_label.pfw_row = row;
+
+        // TODO : Eventually the minimum and maximum label should just dynamically move out of the way if the slider objects overlaps with them.
+        // TODO : For now make the minimum and maximum labels be transparent.
+
+        // Minimum Value Label.
+        var floating_minimum_label = new Floating2DText(25, minimum_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
+        floating_minimum_label.parent_floating_wall = this;
+        floating_minimum_label.pfw_x_start = max_one;
+        floating_minimum_label.pfw_x_end = max_one + min_max_width;
+        floating_minimum_label.pfw_row = row;
+
+        // Maximum Value Label.
+        var floating_maximum_label = new Floating2DText(25, maximum_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
+        floating_maximum_label.parent_floating_wall = this;
+        floating_maximum_label.pfw_x_start = x_end - min_max_width;
+        floating_maximum_label.pfw_x_end = x_end;
+        floating_maximum_label.pfw_row = row;
+
+        // Slider object.
+        // TODO : Make sure to dynamically update the value of the floating slider (do it in the value changed function).
+        var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
+        floating_slider.is_in_interactive_list = true;
+        this.world.interactive_objects.push(floating_slider);
+        floating_slider.parent_floating_wall = this;
+
+        // TODO :
+        //floating_slider.pfw_x_start =
+
+        /*
+        // Camera FOV Slider.
+        var slider_fov_position     = new THREE.Vector3(1200, 500, -350);
+        var slider_fov_normal       = new THREE.Vector3(-0.969, -0.115, -0.221);
+        var slider_fov_width        = 500;
+        this.slider_fov = new FloatingSlider('Camera FOV', 90, 20, 160, slider_fov_width, slider_fov_position, slider_fov_normal, this);
+        this.slider_fov.value_changed_function = this.slider_fov_value_changed.bind(this);
+        // TODO : Actually save the settings and dynamically load them!!!
+
+        // Global Audio Level Slider.
+        var slider_global_audio_level_position = new THREE.Vector3(1200, 750, -350);
+        var slider_global_audio_level_normal   = new THREE.Vector3(-0.969, -0.115, -0.221);
+        var slider_global_audio_level_width    = 500;
+        this.slider_global_audio_level = new FloatingSlider('Master Volume', 100, 0, 100, slider_global_audio_level_width, slider_global_audio_level_position, slider_global_audio_level_normal, this);
+        this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this);
+        */
+
+        this.add_additional_visibility_object(floating_label);
+        this.add_additional_visibility_object(floating_minimum_label);
+        this.add_additional_visibility_object(floating_maximum_label);
+        this.add_additional_visibility_object(floating_slider);
+
+        this.add_object_to_remove_later(floating_label);
+        this.add_object_to_remove_later(floating_minimum_label);
+        this.add_object_to_remove_later(floating_maximum_label);
+        this.add_object_to_remove_later(floating_slider);
+
+        this.all_floating_2d_texts.push(floating_label);
+        this.all_floating_2d_texts.push(floating_minimum_label);
+        this.all_floating_2d_texts.push(floating_maximum_label);
+        this.all_floating_2d_texts.push(floating_slider);
     },
 
     /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___

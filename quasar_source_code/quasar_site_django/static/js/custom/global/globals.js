@@ -31,6 +31,8 @@ var GUI_TYPING_INTERFACE = null;
 // World math constants.
 const DIAGONAL_PENALTY = Math.sqrt(.5);
 const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
+const ONE_THIRD        = 1 / 3;
+const TWO_THIRDS       = 2 / 3;
 
 // Logical constants.
 const NOT_FOUND = -1;
