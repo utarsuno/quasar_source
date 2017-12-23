@@ -591,6 +591,11 @@ FloatingWall.prototype = {
         this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this);
         */
 
+        this.update_position_and_normal_for_floating_2D_text(floating_label);
+        this.update_position_and_normal_for_floating_2D_text(floating_minimum_label);
+        this.update_position_and_normal_for_floating_2D_text(floating_maximum_label);
+        this.update_position_and_normal_for_floating_2D_text(floating_slider);
+
         this.add_additional_visibility_object(floating_label);
         this.add_additional_visibility_object(floating_minimum_label);
         this.add_additional_visibility_object(floating_maximum_label);

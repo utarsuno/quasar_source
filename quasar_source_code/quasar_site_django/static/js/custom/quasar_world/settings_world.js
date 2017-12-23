@@ -110,7 +110,7 @@ SettingsWorld.prototype = {
         var wall_settings_position = new THREE.Vector3(1150, 600, 200);
         var wall_settings_width    = 400;
         var wall_settings_height   = 512;
-        var wall_settings_normal   = new THREE.Vector3(-0.969, -0.115, -0.221);
+        var wall_settings_normal   = new THREE.Vector3(-0.969, 0, -0.221);
         var wall_settings_scalable = false;
 
         this.wall_settings = new FloatingWall(wall_settings_width, wall_settings_height, wall_settings_position, wall_settings_normal, this, wall_settings_scalable);
