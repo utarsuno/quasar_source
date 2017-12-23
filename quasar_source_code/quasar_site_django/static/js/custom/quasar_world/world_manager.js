@@ -238,11 +238,11 @@ WorldManager.prototype = {
             new THREE.TextureLoader().load(this.current_texture_name,
                 //function when resource is loaded
                 function(texture) {
-                    l('Loaded the following skybox texture : ' + this.current_texture_name);
-                    l('HELLO HELLO LOOK AT THE ARGUMENTS!');
-                    l(arguments);
-                    l('\n');
-                    this.texture_loaded(texture, this.current_texture_name);
+                    //l('Loaded the following skybox texture : ' + this.current_texture_name);
+                    //l('HELLO HELLO LOOK AT THE ARGUMENTS!');
+                    //l(arguments);
+                    //l('\n');
+                    this.texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this.textures_to_load[t]),
                 // FOR_DEV_START
                 function(xhr) {
