@@ -195,7 +195,7 @@ WorldManager.prototype = {
     },
 
     texture_loaded: function(texture, texture_name) {
-        if (texture.includes('skybox')) {
+        if (texture_name.includes('skybox')) {
             var position = -1;
             if (texture_name.includes(SKYBOX_FRONT)) {
                 position = 0;
@@ -217,7 +217,7 @@ WorldManager.prototype = {
                 this.create_sky_boxes();
             }
 
-        } else if (texture.includes('cursors')) {
+        } else if (texture_name.includes('cursors')) {
             var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
             this.world_login.provide_cursor_material(cursor_material, texture_name);
             this.world_home.provide_cursor_material(cursor_material, texture_name);
