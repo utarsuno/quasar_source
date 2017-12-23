@@ -147,7 +147,7 @@ LoginWorld.prototype = {
         World.call(this, 'LoginWorld');
 
         // Quasar Source title.
-        var quasar_source_title_position = new THREE.Vector3(800, 400, 300);
+        var quasar_source_title_position = new THREE.Vector3(1200, 400, 400);
         this.quasar_source_title = new Floating3DText(600, 'Quasar Source', TYPE_SUPER_TITLE, this.scene);
         this.quasar_source_title.update_position_and_look_at_origin(quasar_source_title_position);
 
@@ -156,7 +156,7 @@ LoginWorld.prototype = {
             |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
         var login_wall_width = 350;
         var login_wall_height = 90;
-        var login_wall_position = new THREE.Vector3(1200, login_wall_height, 400);
+        var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
         var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
 
