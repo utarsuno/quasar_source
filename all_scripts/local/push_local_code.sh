@@ -65,13 +65,8 @@ else
     print_dotted_line
 
     # Make sure the following bash scripts are runnable.
-    chmod +x ${path_to_build_three_js}
     chmod +x ${path_to_push_local_code}
-    chmod +x ${path_to_run_all_unit_tests}
-    chmod +x ${path_to_ssh_to_quasar}
     chmod +x ${path_to_ssh_to_nexus}
-    chmod +x ${path_to_ssh_to_peon}
-    chmod +x ${path_to_setup_ubuntu}
     chmod +x ${path_to_universal_functions}
 
 #    ssh -i ${pem_path} ${ec2_url} << HERE
