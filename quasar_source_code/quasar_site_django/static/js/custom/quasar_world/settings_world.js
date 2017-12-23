@@ -90,7 +90,7 @@ SettingsWorld.prototype = {
         var current_row_index = 0;
         for (var property in CELL_PHONE_CARRIERS) {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
-                var current_cell_phone_carrier = this.profile_phone_carrier_list.add_floating_2d_text(0, 1, CELL_PHONE_CARRIERS[property], TYPE_BUTTON, current_row_index);
+                var current_cell_phone_carrier = this.profile_phone_carrier_list.add_floating_2d_text(0, 1, property, TYPE_BUTTON, current_row_index);
                 current_row_index += 1;
                 current_cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property));
             }

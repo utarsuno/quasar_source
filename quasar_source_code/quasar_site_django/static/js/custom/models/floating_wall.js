@@ -309,6 +309,13 @@ FloatingWall.prototype = {
         var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
+
+        this.add_additional_visibility_object(this.floating_3d_title);
+        this.add_object_to_remove_later(this.floating_3d_title);
+
+        //this.all_floating_2d_texts.push(floating_2D_text);
+
+        //this.
     },
 
     update_normal: function(normal) {
