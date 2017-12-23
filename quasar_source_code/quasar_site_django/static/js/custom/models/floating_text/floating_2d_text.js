@@ -4,7 +4,7 @@ function Floating2DText(w, text, type, scene, current_color) {
     this.__init__(w, text, type, scene, current_color);
 }
 
-const TEMP_SMUDGE_FACTOR = .75;
+const TEMP_SMUDGE_FACTOR = 0.75;
 
 Floating2DText.prototype = {
 

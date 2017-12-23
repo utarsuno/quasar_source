@@ -167,7 +167,7 @@ function FloatingText(width, text, type, scene, current_color) {
         // TODO : Fix this (current solution is being tested)
         this.normal = new THREE.Vector3(0 - position_vector.x, 0, 0 - position_vector.z);
         this.normal.normalize();
-        this.object3D.lookAt(0, 0, 0);
+        //this.object3D.lookAt(0, 0, 0);
     };
 
     this.update_position = function(position_vector) {
