@@ -598,6 +598,9 @@ FloatingWall.prototype = {
         this.all_floating_2d_texts.push(floating_minimum_label);
         this.all_floating_2d_texts.push(floating_maximum_label);
         this.all_floating_2d_texts.push(floating_slider);
+
+        // Return the slider object so that a value changed function can be binded.
+        return floating_slider;
     },
 
     /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___
