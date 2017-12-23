@@ -81,6 +81,13 @@ class Vector(object):
 	def __truediv__(self, other):
 		return Vector([e / other for e in self.elements])
 
+	# -----
+
+	def cross(self, v):
+		"""Returns a Vector representing the cross product between this vector and the vector provided."""
+		# TODO : Generalize this method, right now it assumes 3D vectors.
+		return Vector(self.elements[1] * v.elements[2] - self.elements[2] * v.elements[1], self.elements[2] * v.elements[0] - self.elements[0] * v.elements[2], self.elements[0] * v.elements[1] - self.elements[1] * v.elements[0])
+
 	# ------------------------------------------------------------------------
 	def dot(self, other):
 		"""Returns a Vector representing the dot product between this vector and the vector provided."""

@@ -46,12 +46,14 @@ class CodeFileManager(object):
 		"""Returns the number of files this manager has."""
 		return len(self._code_files)
 
-	def print_data(self):
+	def get_data(self):
 		"""Prints all relevant data."""
-		print('There are ' + str(self.number_of_files) + ' files composed of ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.')
+		language = self._code_files[0].language
+		#print('There are ' + str(self.number_of_files) + ' ' + str(language) + ' files composed of ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.')
 		#print('Printing all the code files!')
 		#for f in self._code_files:
 		#	print(f)
+		return 'There are ' + str(self.number_of_files) + ' ' + str(language) + ' files composed of ' + str(self.get_total_lines_of_code()) + ' lines of code for a total size of ' + str(self.get_total_size()) + ' bytes.'
 
 	def get_all_code_files_that_have_text(self, text_to_match):
 		"""Returns a list of CodeFile objects that also contain at least one occurrence of the text to match."""
@@ -84,6 +86,20 @@ class CodeFileManager(object):
 				if cf.has_text(search_string):
 					cf.sync_for(g)
 
+	def get_all_words(self):
+		"""Returns a list of all the words across all the files in the manager."""
+		all_words = {}
+		for cf in self._code_files:
+			words = cf.get_all_words_and_frequency()
+			for w in words:
+				if w not in all_words:
+					all_words[w] = words[w]
+				else:
+					all_words[w] += words[w]
+
+		# Sort from: https: // stackoverflow.com / questions / 613183 / how - do - i - sort - a - dictionary - by - value
+		return sorted(all_words.items(), key=operator.itemgetter(1))
+
 	def get_all_string_literals(self):
 		"""Returns a list of all the string literals found across all files in the manager."""
 		all_string_literals = {}
@@ -96,7 +112,4 @@ class CodeFileManager(object):
 					all_string_literals[lit] += literals[lit]
 
 		# Sort from : https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
-
-		sorted_x = sorted(all_string_literals.items(), key=operator.itemgetter(1))
-
-		return sorted_x
+		return sorted(all_string_literals.items(), key=operator.itemgetter(1))

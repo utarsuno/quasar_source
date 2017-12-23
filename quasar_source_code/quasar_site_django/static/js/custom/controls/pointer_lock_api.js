@@ -12,8 +12,6 @@ PointerLockAPI.prototype = {
     currently_locked: false,
     controls        : null,
 
-    l_key_currently_down: false,
-
     // Needed for detecting double clicks.
     key_down_buffer: null,
 
@@ -133,7 +131,7 @@ PointerLockAPI.prototype = {
         this.key_down_buffer.push(current_milliseconds);
 
         // Single click event.
-        if (this.key_down_buffer.length == 1) {
+        if (this.key_down_buffer.length === 1) {
             if (this.currently_locked !== false) {
                 switch(e.button) {
                 case MOUSE_LEFT_CLICK:

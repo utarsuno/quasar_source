@@ -39,29 +39,28 @@ DataDisplay.prototype = {
             this.x_coordinate.textContent = 'x : ' + int(position.x) + ' | ' + int(this.fps_controls.get_velocity().x);
             this.y_coordinate.textContent = 'y : ' + int(position.y) + ' | ' + int(this.fps_controls.get_velocity().y);
             this.z_coordinate.textContent = 'z : ' + int(position.z) + ' | ' + int(this.fps_controls.get_velocity().z);
-
-            this.x_direction.textContent = 'xd : ' + direction.x;
-            this.y_direction.textContent = 'yd : ' + direction.y;
-            this.z_direction.textContent = 'zd : ' + direction.z;
+            this.x_direction.textContent  = 'xd : ' + direction.x;
+            this.y_direction.textContent  = 'yd : ' + direction.y;
+            this.z_direction.textContent  = 'zd : ' + direction.z;
         }
     },
 
     toggle: function() {
         this.enabled = !this.enabled;
         if (!this.enabled) {
-            this.x_coordinate.style.visibility = 'hidden';
-            this.y_coordinate.style.visibility = 'hidden';
-            this.z_coordinate.style.visibility = 'hidden';
-            this.x_direction.style.visibility = 'hidden';
-            this.y_direction.style.visibility = 'hidden';
-            this.z_direction.style.visibility = 'hidden';
+            this.x_coordinate.style.visibility = NOT_VISIBLE;
+            this.y_coordinate.style.visibility = NOT_VISIBLE;
+            this.z_coordinate.style.visibility = NOT_VISIBLE;
+            this.x_direction.style.visibility  = NOT_VISIBLE;
+            this.y_direction.style.visibility  = NOT_VISIBLE;
+            this.z_direction.style.visibility  = NOT_VISIBLE;
         } else {
-            this.x_coordinate.style.visibility = 'visible';
-            this.y_coordinate.style.visibility = 'visible';
-            this.z_coordinate.style.visibility = 'visible';
-            this.x_direction.style.visibility = 'visible';
-            this.y_direction.style.visibility = 'visible';
-            this.z_direction.style.visibility = 'visible';
+            this.x_coordinate.style.visibility = VISIBLE;
+            this.y_coordinate.style.visibility = VISIBLE;
+            this.z_coordinate.style.visibility = VISIBLE;
+            this.x_direction.style.visibility  = VISIBLE;
+            this.y_direction.style.visibility  = VISIBLE;
+            this.z_direction.style.visibility  = VISIBLE;
         }
     }
 };

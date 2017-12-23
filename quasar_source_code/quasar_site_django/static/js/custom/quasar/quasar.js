@@ -19,9 +19,6 @@ MANAGER_MULTIPLAYER = new MultiPlayerManager();
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu();
 GUI_TYPING_INTERFACE = new TypingInterface();
-///////
-
-// TODO : DragNDrop
 
 //var drag_and_drop_file_support = new DragNDrop();
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
@@ -37,12 +34,13 @@ GUI_PAUSED_MENU.make_visible();
 // Now create the global audio.
 MANAGER_AUDIO = new AudioManager();
 
+// TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
+GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
 
-GUI_TYPING_INTERFACE.add_server_message('Welcome!');
 
+// Game loop below.
 
 var previous_time = performance.now();
-
 
 var total_delta = 0;
 var position_update_interval = 1 / 20;

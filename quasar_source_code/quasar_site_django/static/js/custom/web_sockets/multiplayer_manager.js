@@ -32,11 +32,8 @@ ServerPlayer.prototype = {
         this.player_title.update_position_and_look_at(player_position, player_look_at);
 
         this.geometry = new THREE.DodecahedronGeometry(10, 1);
-        // FOR_DEV_START
-        this.planet_color = 0x8effcb;
-        // FOR_DEV_END
         this.material = new THREE.MeshBasicMaterial({
-            color: 0x8effcb, // '0x8effcb'
+            color: COLOR_PLANET[COLOR_HEX_INDEX],
             // TODO : Figure out if I should use front side or back side.
             side: THREE.DoubleSide
         });

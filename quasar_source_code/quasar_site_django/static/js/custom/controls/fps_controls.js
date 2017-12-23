@@ -37,16 +37,7 @@ FPSControls.prototype = {
     mouse_movement_x_buffer: null,
     mouse_movement_y_buffer: null,
 
-    // Constants.
-    half_pie          : null,
-    max_view_angle    : null,
-    diagonal_penalty  : null,
-    ground_normal     : null,
-
     __init__: function(camera) {
-        // Constants.
-        this.diagonal_penalty = Math.sqrt(.5);
-        this.ground_normal    = new THREE.Vector3(0, 1, 0);
 
         this.camera = camera;
         //this.camera.rotation.set(0, 0, 0)
@@ -154,14 +145,14 @@ FPSControls.prototype = {
 
                 if ((this.up ^ this.down) & (this.left ^ this.right)) {
                     if (this.up) {
-                        this.fly_forward(delta * this.diagonal_penalty);
+                        this.fly_forward(delta * DIAGONAL_PENALTY);
                     } else {
-                        this.fly_backward(delta * this.diagonal_penalty);
+                        this.fly_backward(delta * DIAGONAL_PENALTY);
                     }
                     if (this.left) {
-                        this.fly_left(delta * this.diagonal_penalty);
+                        this.fly_left(delta * DIAGONAL_PENALTY);
                     } else {
-                        this.fly_right(delta * this.diagonal_penalty);
+                        this.fly_right(delta * DIAGONAL_PENALTY);
                     }
                 } else if (this.up ^ this.down) {
                     if (this.up) {
@@ -182,14 +173,14 @@ FPSControls.prototype = {
                 // Walking code.
                 if ((this.up ^ this.down) & (this.left ^ this.right)) {
                     if (this.up) {
-                        this.move_forward(delta * this.diagonal_penalty);
+                        this.move_forward(delta * DIAGONAL_PENALTY);
                     } else {
-                        this.move_backward(delta * this.diagonal_penalty);
+                        this.move_backward(delta * DIAGONAL_PENALTY);
                     }
                     if (this.left) {
-                        this.move_left(delta * this.diagonal_penalty);
+                        this.move_left(delta * DIAGONAL_PENALTY);
                     } else {
-                        this.move_right(delta * this.diagonal_penalty);
+                        this.move_right(delta * DIAGONAL_PENALTY);
                     }
                 } else if (this.up ^ this.down) {
                     if (this.up) {
@@ -343,7 +334,7 @@ FPSControls.prototype = {
         this.left_right.normalize();
 
         this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
-        this.walking_direction = this.walking_direction.projectOnPlane(this.ground_normal);
+        this.walking_direction = this.walking_direction.projectOnPlane(GROUND_NORMAL);
         this.walking_direction.normalize();
     },
 

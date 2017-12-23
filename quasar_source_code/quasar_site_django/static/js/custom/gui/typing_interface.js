@@ -164,6 +164,7 @@ TypingInterface.prototype = {
         if (current_input.length > 0) {
             //this.add_message(current_input, MESSAGE_TYPE_USER);
 
+            // TODO : Abstract these commands, possibly place all of them into a Player menu.
             if (current_input[0] === '.') {
                 switch(current_input) {
                 case '.save':
@@ -191,5 +192,5 @@ TypingInterface.prototype = {
 
     add_server_message: function(server_message) {
         this.add_message('server : ' + server_message, MESSAGE_TYPE_SERVER);
-    },
+    }
 };

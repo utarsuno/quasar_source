@@ -298,7 +298,7 @@ FloatingWall.prototype = {
 
     clear_inputs: function() {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            if (this.all_floating_2d_texts[i].type == TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type == TYPE_INPUT_PASSWORD) {
+            if (this.all_floating_2d_texts[i].type === TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type === TYPE_INPUT_PASSWORD) {
                 this.all_floating_2d_texts[i].clear();
             }
         }
@@ -406,6 +406,8 @@ FloatingWall.prototype = {
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
+    // TODO : Add floating Slider
+
     add_floating_wall_off_of_button: function(width, height, button, scalable) {
         var button_position = button.get_position();
 
@@ -452,7 +454,7 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
-        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON || type == TYPE_TITLE) {
+        if (type === TYPE_INPUT_REGULAR || type === TYPE_INPUT_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
             floating_2D_text.is_in_interactive_list = true;
             this.world.interactive_objects.push(floating_2D_text);
         }
@@ -585,6 +587,8 @@ FloatingWall.prototype = {
         var plane_d  = floating_wall_parametric_equation[3];
 
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
+
+        // TODO : Debug t value
 
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
 

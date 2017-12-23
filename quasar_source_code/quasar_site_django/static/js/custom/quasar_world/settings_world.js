@@ -8,8 +8,6 @@ SettingsWorld.prototype = {
 
     previous_world: null,
 
-    owner_entity: null,
-
     select_phone_carrier: function() {
         this.phone_carrier_list.set_to_visible();
     },
@@ -18,6 +16,8 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_input.update_text(selected_phone_carrier);
         this.phone_carrier_list.set_to_invisible();
     },
+
+
 
     // FOR_DEV_START
     // TODO : The .save command needs to save this data!!!
@@ -40,79 +40,94 @@ SettingsWorld.prototype = {
     // FOR_DEV_END
 
     slider_master_volume_value_changed: function(master_volume_value) {
+        // TODO : Don't linerally adjust the volume but instead follow that audio volume changing guide!!!!
         l('Master volume value is now : ' + master_volume_value);
+        // TODO : Save the new value into ENTITY OWNER settings
     },
 
     slider_fov_value_changed: function(fov_value) {
         CURRENT_PLAYER.renderer_api.camera.fov = fov_value;
         CURRENT_PLAYER.renderer_api.camera.updateProjectionMatrix();
+        // TODO : Save the new value into ENTITY OWNER settings.
     },
 
     __init__: function() {
-        this.owner_entity = null;
-
         // Inherit world properties.
         World.call(this, 'SettingsWorld');
 
-        var position = new THREE.Vector3(500, 500, 700);
-        this.normal = new THREE.Vector3(-.5, 0, -.85);
-        this.normal.normalize();
-        this.profile_editor = new FloatingWall(1024, 512 / 2, position, this.normal, this, false, 2);
+        /* __   __   __   ___         ___
+          |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
+          |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
+        var wall_profile_position = new THREE.Vector3(500, 500, 700);
+        var wall_profile_width    = 1024;
+        var wall_profile_height   = 512 / 2;
+        var wall_profile_normal   = new THREE.Vector3(-0.5, 0.0, -0.85);
+        var wall_profile_scalable = false;
+        this.wall_user_profile = new FloatingWall(wall_profile_width, wall_profile_height, wall_profile_position, wall_profile_normal, this, wall_profile_scalable);
+        this.wall_user_profile.add_3d_title('Profile Information');
 
-        var create_entity_wall_title = this.profile_editor.add_floating_2d_text(1024 / 2, 'Profile Information', TYPE_TITLE, 1024 / -4, 2, 0, 0);
-        // FOR_DEV_START
-        l(create_entity_wall_title);
-        // FOR_DEV_END
-        create_entity_wall_title.set_color(COLOR_TEXT_CONSTANT);
-        this.profile_editor.add_object_to_remove_later(create_entity_wall_title);
+        // Username.
+        this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT_TEXT, 0);
+        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
 
-        var label_width = 1024 / 8;
-        var label_offset = (1024 / -4) - label_width / 2;
-        var input_width = 1024 / 2;
-        var input_offset = 1024 / -4 + (1024 / 4) + 50;
+        // Email.
+        this.profile_email_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Email :', TYPE_CONSTANT_TEXT, 1);
+        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1);
 
-        // Username
-        this.profile_name_label = this.profile_editor.add_floating_2d_text(label_width, 'Username', TYPE_CONSTANT_TEXT, label_offset, 2, 4, 0);
-        this.profile_name_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 4, 0);
+        // Phone Number.
+        this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT_TEXT, 2);
+        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, TYPE_INPUT_REGULAR, 2);
 
-        // Email
-        this.profile_email_label = this.profile_editor.add_floating_2d_text(label_width, 'Email', TYPE_CONSTANT_TEXT, label_offset, 2, 5, 0);
-        this.profile_email_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 5, 0);
-
-        // Phone number
-        this.profile_phone_number_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Number', TYPE_CONSTANT_TEXT, label_offset, 2, 6, 0);
-        this.profile_phone_number_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 6, 0);
-
-        // Phone carrier
-        this.profile_phone_carrier_label = this.profile_editor.add_floating_2d_text(label_width, 'Phone Carrier', TYPE_CONSTANT_TEXT, label_offset, 2, 7, 0);
-        this.profile_phone_carrier_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_INPUT_REGULAR, input_offset, 2, 7, 0);
+        // Phone Carrier.
+        this.profile_phone_carrier_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Carrier :', TYPE_CONSTANT_TEXT, 3);
+        this.profile_phone_carrier_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 3);
         this.profile_phone_carrier_input.engable = false;
-
-        // Created at date.
-        this.profile_created_at_date_label = this.profile_editor.add_floating_2d_text(label_width, 'Created at Date', TYPE_CONSTANT_TEXT, label_offset, 2, 8, 0);
-        this.profile_created_at_date_input = this.profile_editor.add_floating_2d_text(input_width, '', TYPE_CONSTANT_TEXT, input_offset, 2, 8, 0);
-
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this));
 
-        //////
-        var phone_carrier_list_position = new THREE.Vector3(this.profile_phone_carrier_input.get_position().x + this.normal.x * 8, this.profile_phone_carrier_input.get_position().y + this.normal.y * 8, this.profile_phone_carrier_input.get_position().z + this.normal.z * 8);
-        this.phone_carrier_list = new FloatingWall(512 / 2, 512, phone_carrier_list_position, this.normal, this, false, 2);
-        var phone_carrier_title = this.phone_carrier_list.add_floating_2d_text(512 / 2, 'Select Phone Carrier', TYPE_TITLE, 0, 4, 0, 0);
-
-        var current_row_index = 4;
-
-        // Add all the possible cell phone carriers.
+        // Phone Carrier List.
+        this.profile_phone_carrier_list = this.wall_user_profile.add_floating_wall_off_of_button(350, 400, this.profile_phone_carrier_input, false);
+        this.profile_phone_carrier_list.add_3d_title('Select Phone Carrier');
+        var current_row_index = 0;
         for (var property in CELL_PHONE_CARRIERS) {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
-                var current_cell_phone_carrier = this.phone_carrier_list.add_floating_2d_text(512 / 2, CELL_PHONE_CARRIERS[property], TYPE_BUTTON, 0, 4, current_row_index, 0);
+                var current_cell_phone_carrier = this.profile_phone_carrier_list.add_floating_2d_text(0, 1, CELL_PHONE_CARRIERS[property], TYPE_BUTTON, current_row_index);
                 current_row_index += 1;
-                this.interactive_objects.push(current_cell_phone_carrier);
                 current_cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property));
             }
         }
+        this.profile_phone_carrier_list.set_to_invisible();
 
-        this.phone_carrier_list.set_to_invisible();
-        //////
+        // Created at date.
+        this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT_TEXT, 4);
+        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 4);
+
+        /* __   ___ ___ ___         __   __
+          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
+          .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
+
+        var wall_settings_position = new THREE.Vector3();
+        var wall_settings_width    = 400;
+        var wall_settings_height   = 512;
+        var wall_settings_normal   = new THREE.Vector3(-0.969, -0.115, -0.221);
+        var wall_settings_scalable = false;
+
+        this.wall_settings = new FloatingWall(wall_settings_width, wall_settings_height, wall_settings_position, wall_settings_normal, this, wall_settings_scalable);
+        this.wall_settings.add_3d_title('General Settings');
+
+        // TODO : Support this functionality
+        // TODO : Instead of always using the default value of 90 it needs to get loaded from the ENTITY_OWNER settings values.
+        this.wall_settings_slider_fov = this.wall_settings.add_floating_slider(0, 1, 90, 20, 160, 'Camera Field of View : ', 1);
+        // TODO : Implement the value changed function, Oh awesome! This will also work out for checking/displaying live syntax coloring.
+        this.wall_settings_slider_fov.value_changed_function(this.slider_fov_value_changed.bind(this));
+        // TODO : Don't use the default value but instead load from the ENTITY_OWNER settings value.
+        this.wall_settings_slider_audio = this.wall_settings.add_floating_slider(0, 1, 100, 0, 100, 'Master Volume : ', 2);
+        this.wall_settings_slider_audio.value_changed_function(this.slider_master_volume_value_changed.bind(this));
+
+        // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
+
+
+        /*
+
 
         /////
         // Camera FOV Slider.
@@ -133,16 +148,8 @@ SettingsWorld.prototype = {
         this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this);
         /////
 
-        this.interactive_objects.push(this.profile_name_label);
-        this.interactive_objects.push(this.profile_name_input);
-        this.interactive_objects.push(this.profile_email_label);
-        this.interactive_objects.push(this.profile_email_input);
-        this.interactive_objects.push(this.profile_phone_number_label);
-        this.interactive_objects.push(this.profile_phone_number_input);
-        this.interactive_objects.push(this.profile_phone_carrier_label);
-        this.interactive_objects.push(this.profile_phone_carrier_input);
-        this.interactive_objects.push(this.profile_created_at_date_label);
-        this.interactive_objects.push(this.profile_created_at_date_input);
+
+        */
     },
 
     update: function() {
@@ -159,23 +166,18 @@ SettingsWorld.prototype = {
             CURRENT_PLAYER.enable_controls();
         }
 
-        CURRENT_PLAYER.set_position(new THREE.Vector3(-1000, 350, 350));
+        CURRENT_PLAYER.set_position_xyz(-1000, 350, 350);
         CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
 
         this.previous_world = MANAGER_WORLD.previous_world;
 
         // Set the profile information values.
 
-        // TODO : Grab the values from the owner entity!
-        if (this.owner_entity === null) {
-            this.owner_entity = MANAGER_ENTITY.get_owner_entity();
-        }
-
         this.profile_name_input.update_text(ENTITY_OWNER.get_username());
-        this.profile_email_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_EMAIL));
-        this.profile_phone_number_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_NUMBER));
-        this.profile_phone_carrier_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_PHONE_CARRIER));
-        this.profile_created_at_date_input.update_text(this.owner_entity.get_value(ENTITY_PROPERTY_CREATED_AT_DATE));
+        this.profile_email_input.update_text(ENTITY_OWNER.get_email());
+        this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
+        this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
+        this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
     },
 
     exit_world: function() {

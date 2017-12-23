@@ -3,6 +3,7 @@
 """This module, lines_of_code.py, works with the abstraction of a single line of code."""
 
 from quasar_source_code.universal_code import useful_file_operations as ufo
+from quasar_source_code.universal_code import string_utilities as su
 import re
 
 PYTHON     = 'python'
@@ -19,8 +20,14 @@ class LineOfCode(object):
 		self._language = None
 		self._parent_code_file = None
 
+	def get_all_words(self):
+		"""Returns a list of all words that appear in this line of code."""
+		return su.get_list_of_words_from_string(self._text)
+
 	def get_all_string_literals(self):
 		"""Returns a list of all """
+		# TODO : Finish documentation for this method!
+
 		if self.is_blank_line():
 			return []
 
@@ -87,6 +94,9 @@ class LineOfCode(object):
 		if self._text and self._text.strip():
 			return False
 		return True
+
+	def __str__(self):
+		return 'LineOfCode() - ' + str(self._language) + ' - {' + str(self._text) + '}'
 
 
 def get_lines_of_code_from_file(file_path):

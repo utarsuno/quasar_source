@@ -48,15 +48,12 @@ module.exports = {
         "CUSTOM_COLORS": true,
         "Client": true,
         "World": true,
-        "LoginPanel": true,
         "WebSocketClient": false,
 
         "FloatingWall": true,
         "Floating2DText": true,
-        "Floating2DLabelInput": true,
         "FloatingText": true,
         "Floating3DText": true,
-        "Floating3DLabelInput": true,
         "FloatingSlider": true,
         "CheckBox": true,
 
@@ -197,7 +194,12 @@ module.exports = {
         "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
         "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
         "ENTITY_PROPERTY_DUE_DATE"           : false,
+        "ENTITY_PROPERTY_DUE_TIME"           : false,
         "ENTITY_PROPERTY_IMPORTANCE"         : false,
+        "ENTITY_PROPERTY_SERVER_ID"          : false,
+        "ENTITY_PROPERTY_EXECUTE_DATE"       : false,
+        "ENTITY_PROPERTY_EXECUTE_TIME"       : false,
+        "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Cursor types.
@@ -209,10 +211,15 @@ module.exports = {
         "CURSOR_TYPE_MOUSE"     : true,
         // UNIVERSAL_CONSTANTS_END
 
-        "ENTITY_PROPERTY_TEXT_CONTENTS": false,
-        "ENTITY_PROPERTY_DUE_TIME": false,
-        "ENTITY_PROPERTY_EXECUTE_DATE": false,
-        "ENTITY_PROPERTY_EXECUTE_TIME": false,
+        // UNIVERSAL_CONSTANTS_START : Skybox textures.
+        "SKYBOX_FRONT" : true,
+        "SKYBOX_BACK"  : true,
+        "SKYBOX_LEFT"  : true,
+        "SKYBOX_RIGHT" : true,
+        "SKYBOX_TOP"   : true,
+        "SKYBOX_BOTTOM": true,
+        // UNIVERSAL_CONSTANTS_END
+
         "CELL_PHONE_CARRIERS": false,
 
         // UNIVERSAL_CONSTANTS_START : Entity POST keys.
@@ -321,6 +328,10 @@ module.exports = {
         "KEY_CODE_ENTER"     : false,
         "KEY_CODE_CONTROL"   : false,
         "KEY_CODE_BACK_SLASH": false,
+
+        // Math world constants.
+        "DIAGONAL_PENALTY": false,
+        "GROUND_NORMAL"   : false,
 
         // Shortcuts.
         "l"                                  : false,

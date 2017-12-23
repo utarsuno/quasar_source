@@ -23,7 +23,7 @@ Planet.prototype = {
         this.geometry = new THREE.DodecahedronGeometry(200, 2);
 
         this.material = new THREE.MeshBasicMaterial({
-            color: 0x8effcb, // '0x8effcb'
+            color: COLOR_PLANET[COLOR_HEX_INDEX],
             // TODO : Figure out if I should use front side or back side.
             side: THREE.DoubleSide
         });
@@ -75,6 +75,16 @@ Planet.prototype = {
     }
 };
 
+const TEXTURE_URL_BASE = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/';
+const TEXTURE_URL_SKYBOX = TEXTURE_URL_BASE + 'skybox/skybox_texture_';
+const TEXTURE_URL_CURSOR = TEXTURE_URL_BASE + 'cursors/';
+
+// TODO : Eventually make this into a configurable setting.
+const CURSOR_DEFAULT_OPACITY = 0.90;
+
+// TODO : Eventually make this into a configurable setting.
+const SKYBOX_DEFAULT_OPACITY = 0.50;
+
 WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
@@ -97,9 +107,26 @@ WorldManager.prototype = {
         this.sky_box_textures = [];
         this.final_textures = [];
         this.number_of_sky_box_textures_loaded = 0;
-        this.load_sky_box();
 
-        this.load_cursors();
+        // The textures to load.
+        this.textures_to_load = [];
+        // First load the cursors.
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HORIZONTAL);
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_VERTICAL);
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HAND);
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_POINTER);
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_LARGER);
+        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_MOUSE);
+        // Next load the skybox textures.
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_FRONT);
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BACK);
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_TOP);
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BOTTOM);
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_RIGHT);
+        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_LEFT);
+
+        // TODO : Eventually give this to some sort of loading/ajax manager.
+        this.load_textures();
     },
 
     set_player_and_current_world: function(current_world) {
@@ -124,7 +151,6 @@ WorldManager.prototype = {
 
     set_current_world: function(world) {
         if (this.current_world !== null) {
-
             // Before exiting the world make sure to remove the camera reference.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
 
@@ -154,7 +180,6 @@ WorldManager.prototype = {
         this.world_home.add_to_scene(object);
     },
 
-    // Skybox
     create_sky_boxes: function() {
         for (var i = 0; i < 6; i++) {
             this.final_textures.push(null);
@@ -164,105 +189,60 @@ WorldManager.prototype = {
                 }
             }
         }
-
         this.world_login.add_sky_box(this.final_textures);
         this.world_home.add_sky_box(this.final_textures);
         this.world_settings.add_sky_box(this.final_textures);
     },
 
-    load_sky_box: function() {
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_front.jpg');
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_back.jpg');
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_top.jpg');
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_bottom.jpg');
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_right.jpg');
-        this.load_specific_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/skybox/skybox_texture_left.jpg');
-    },
-
-    load_cursors: function() {
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/scroll_horizontal.png', CURSOR_TYPE_HORIZONTAL);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/scroll_vertical.png'  , CURSOR_TYPE_VERTICAL);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_hand.png'      , CURSOR_TYPE_HAND);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/cursor_pointer.png'   , CURSOR_TYPE_POINTER);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/larger.png'           , CURSOR_TYPE_LARGER);
-        this.load_cursor_texture('/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/cursors/mouse.png'            , CURSOR_TYPE_MOUSE);
-    },
-
-    // TODO : Cleanup all the loading logic!
-
-    load_cursor_texture: function(texture_url, variable_to_save_into) {
-        new THREE.TextureLoader().load(texture_url,
-            //function when resource is loaded
-            function(texture) {
-
-                var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.95});
-                this.world_login.provide_cursor_material(cursor_material, variable_to_save_into);
-                this.world_home.provide_cursor_material(cursor_material, variable_to_save_into);
-                this.world_settings.provide_cursor_material(cursor_material, variable_to_save_into);
-
-                // FOR_DEV_START
-                //l('loaded texture!');
-                //l(texture_url);
-                //l(this[variable_to_save_into]);
-                //l('-----\n');
-                // FOR_DEV_END
-            }.bind(this),
-            function(xhr) {
-                // FOR_DEV_START
-                l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
-                // FOR_DEV_END
-            },
-            function(xhr) {
-                // FOR_DEV_START
-                l(xhr);
-                // FOR_DEV_END
+    texture_loaded: function(texture, texture_name) {
+        if (texture.includes('skybox')) {
+            var position = -1;
+            if (texture_name.includes(SKYBOX_FRONT)) {
+                position = 0;
+            } else if (texture_name.includes(SKYBOX_BACK)) {
+                position = 1;
+            } else if (texture_name.includes(SKYBOX_TOP)) {
+                position = 2;
+            } else if (texture_name.includes(SKYBOX_BOTTOM)) {
+                position = 3;
+            } else if (texture_name.includes(SKYBOX_RIGHT)) {
+                position = 4;
+            } else if (texture_name.includes(SKYBOX_LEFT)) {
+                position = 5;
             }
-        );
-    },
+            this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
 
-    texture_was_loaded: function() {
-        this.number_of_sky_box_textures_loaded += 1;
-        if (this.number_of_sky_box_textures_loaded == 6) {
-            this.create_sky_boxes();
+            this.number_of_sky_box_textures_loaded += 1;
+            if (this.number_of_sky_box_textures_loaded === 6) {
+                this.create_sky_boxes();
+            }
+
+        } else if (texture.includes('cursors')) {
+            var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
+            this.world_login.provide_cursor_material(cursor_material, texture_name);
+            this.world_home.provide_cursor_material(cursor_material, texture_name);
+            this.world_settings.provide_cursor_material(cursor_material, texture_name);
         }
     },
 
-    // TODO : Add error checking.
-    load_specific_texture: function(texture_url) {
-        var position = -1;
-        if (texture_url.includes('front')) {
-            position = 0;
-        } else if (texture_url.includes('back')) {
-            position = 1;
-        } else if (texture_url.includes('top')) {
-            position = 2;
-        } else if (texture_url.includes('bottom')) {
-            position = 3;
-        } else if (texture_url.includes('right')) {
-            position = 4;
-        } else if (texture_url.includes('left')) {
-            position = 5;
-        }
+    load_textures: function() {
+        for (var t = 0; t < this.textures_to_load.length; t++) {
 
-        new THREE.TextureLoader().load(texture_url,
-            //function when resource is loaded
-            function(texture) {
-                this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: 0.45}), position]);
+            this.current_texture_name = this.textures_to_load[t];
+
+            new THREE.TextureLoader().load(this.current_texture_name,
+                //function when resource is loaded
+                function(texture) {
+                    this.texture_loaded(texture, this.current_texture_name);
+                }.bind(this),
                 // FOR_DEV_START
-                l('loaded texture!');
-                // FOR_DEV_END
-                this.texture_was_loaded();
-            }.bind(this),
-            function(xhr) {
-                // FOR_DEV_START
-                l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
-                // FOR_DEV_END
-            },
-            function(xhr) {
-                // FOR_DEV_START
-                l(xhr);
-                // FOR_DEV_END
-            }
-        );
+                function(xhr) {
+                    l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
+                },
+                function(xhr) {
+                    l(xhr);
+                });
+            // FOR_DEV_END
+        }
     }
 };

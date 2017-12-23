@@ -4,6 +4,8 @@
 
 from quasar_source_code.universal_code import useful_file_operations as ufo
 
+from quasar_source_code.universal_code import output_coloring as oc
+
 # Pretty printing!
 from lazyme.string import color_print
 # Used to get arguments passed into the program.
@@ -13,6 +15,10 @@ from code_api import lines_of_code as loc
 from code_api import code_file as cf
 from code_api import code_file_manager as cfm
 from code_api import universal_constants as uc
+
+# Needed for fuzzy string matches.
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 
 from quasar_source_code.universal_code import system_os as sos
@@ -25,9 +31,11 @@ elif sos.is_mac():
 # Program arguments.
 ARGUMENT_BUILD_PRODUCTION = '-bp'
 ARGUMENT_RUN_ANALYSIS     = '-ra'
+ARGUMENT_FEATURE_TESTING  = '-ft'
 
 # Production Javascript combining order.
 # TODO : This needs to get updated!!
+# TODO : Make this automatically/dynamically get determined (the order of file adds that is)
 PRODUCTION_FILE_ORDER = {'0' : 'globals.js',
                          '1' : 'time_abstraction.js',
                          '2' : 'web_socket_client.js',
@@ -81,7 +89,7 @@ def _get_all_javascript_files(get_minified_files=False):
 	if get_minified_files:
 		for f in all_javascript_files:
 			file_name = ufo.get_file_basename(f)
-			if file_name not in files_to_ignore and '.min.js' in file_name and '.prod.' not in file_name:
+			if file_name not in files_to_ignore and '.prod.' not in file_name:
 				files_to_return.append(cf.CodeFileJavaScript(f))
 	else:
 		for f in all_javascript_files:
@@ -187,20 +195,31 @@ class QuasarCode(object):
 
 		# Entity Properties.
 		self.entity_properties = uc.UniversalConstantGroup('ENTITY_PROPERTY_', 'Entity property keys.', uc.CONSTANT_TYPE_GLOBAL_VARIABLE)
-		self.entity_properties.add_universal_constant('START_TOKEN'    , 'ep_')
-		self.entity_properties.add_universal_constant('PUBLIC'         , 'public')
-		self.entity_properties.add_universal_constant('OWNER'          , 'owner')
-		self.entity_properties.add_universal_constant('PASSWORD'       , 'password')
-		self.entity_properties.add_universal_constant('USERNAME'       , 'username')
-		self.entity_properties.add_universal_constant('EMAIL'          , 'email')
-		self.entity_properties.add_universal_constant('NAME'           , 'name')
-		self.entity_properties.add_universal_constant('POSITION'       , 'position')
-		self.entity_properties.add_universal_constant('NORMAL'         , 'normal')
-		self.entity_properties.add_universal_constant('COMPLETED'      , 'completed')
-		self.entity_properties.add_universal_constant('PHONE_NUMBER'   , 'phone_num ber')
-		self.entity_properties.add_universal_constant('PHONE_CARRIER'  , 'phone_carrier')
-		self.entity_properties.add_universal_constant('CREATED_AT_DATE', 'created_at_date')
-		self.entity_properties.add_universal_constant('DUE_DATE'       , 'due_date')
+		self.entity_properties.add_universal_constant('START_TOKEN'       , 'ep_')
+		self.entity_properties.add_universal_constant('PUBLIC'            , 'public')
+		self.entity_properties.add_universal_constant('OWNER'             , 'owner')
+		self.entity_properties.add_universal_constant('PASSWORD'          , 'password')
+		self.entity_properties.add_universal_constant('USERNAME'          , 'username')
+		self.entity_properties.add_universal_constant('EMAIL'             , 'email')
+		self.entity_properties.add_universal_constant('NAME'              , 'name')
+		self.entity_properties.add_universal_constant('POSITION'          , 'position')
+		self.entity_properties.add_universal_constant('WIDTH'             , 'width')
+		self.entity_properties.add_universal_constant('HEIGHT'            , 'height')
+		self.entity_properties.add_universal_constant('HORIZONTAL_OFFSET' , 'horizontal_offset')
+		self.entity_properties.add_universal_constant('VERTICAL_OFFSET'   , 'vertical_offset')
+		self.entity_properties.add_universal_constant('NORMAL_DEPTH'      , 'normal_depth')
+		self.entity_properties.add_universal_constant('NORMAL'            , 'normal')
+		self.entity_properties.add_universal_constant('COMPLETED'         , 'completed')
+		self.entity_properties.add_universal_constant('PHONE_NUMBER'      , 'phone_number')
+		self.entity_properties.add_universal_constant('PHONE_CARRIER'     , 'phone_carrier')
+		self.entity_properties.add_universal_constant('CREATED_AT_DATE'   , 'created_at_date')
+		self.entity_properties.add_universal_constant('DUE_DATE'          , 'due_date')
+		self.entity_properties.add_universal_constant('DUE_TIME'          , 'due_time')
+		self.entity_properties.add_universal_constant('IMPORTANCE'        , 'importance')
+		self.entity_properties.add_universal_constant('TEXT_CONTENTS'     , 'text_contents')
+		self.entity_properties.add_universal_constant('EXECUTE_DATE'      , 'execute_date')
+		self.entity_properties.add_universal_constant('EXECUTE_TIME'      , 'execute_time')
+		self.entity_properties.add_universal_constant('SERVER_ID'         , '_id')
 		self.quasar_universal_constant_groups.append(self.entity_properties)
 
 		# Entity Default Properties.
@@ -247,34 +266,64 @@ class QuasarCode(object):
         "COLOR_DAY_FUTURE_SEVEN": false,
 		"""
 
+	def feature_testing(self):
+		"""Temporary function for feature testing."""
+		#jsliterals = self._javascript_manager.get_all_string_literals()
+		js_words = self._javascript_manager.get_all_words()
+
+		literals = []
+
+		for l in js_words:
+			literals.append(l[0])
+
+		# matches = process.extract(asset_to_find, list_of_asset_names, limit=1)
+
+		print('\n\n------------------\n\n')
+
+		for cg in self.quasar_universal_constant_groups:
+			print(cg)
+
+			print('\n')
+
+			for c in cg.universal_constants:
+
+				print('\n' + c.name)
+
+				test_matches = process.extract(c.name, literals)
+				#test_matches = process.extract('player', literals)
+
+				for m in test_matches:
+					print(m)
+
+			print('\n')
+
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""
-		color_print('Printing Quasar Analysis!', color='red', bold=True)
-		self._javascript_manager.print_data()
-		self._python_manager.print_data()
-		self._script_manager.print_data()
+		oc.print_title('Printing Quasar Analysis!')
+		oc.print_data(self._javascript_manager.get_data())
+		oc.print_data(self._python_manager.get_data())
+		oc.print_data(self._script_manager.get_data())
 
+		# Make sure all the Universal Constants are synchronized across the code base.
 		self._javascript_manager.sync_universal_constants(self.quasar_universal_constant_groups)
 		self._python_manager.sync_universal_constants(self.quasar_universal_constant_groups)
 		for g in self.quasar_universal_constant_groups:
 			self._eslint_code_file.sync_for(g)
 
-		'''
-		jsliterals = self._javascript_manager.get_all_string_literals()
-		pythonliterals = self._python_manager.get_all_string_literals()
+		#jsliterals = self._javascript_manager.get_all_string_literals()
+		#pythonliterals = self._python_manager.get_all_string_literals()
 
-		for js in jsliterals:
-			if js[1] != 1:
-				print(js)
+		#for js in jsliterals:
+		#	if js[1] != 1:
+		#		print(js)
 
-		print('\n\n@@@@@@@@@@@@@\n\n')
+		#print('\n\n@@@@@@@@@@@@@\n\n')
 
-		for py in pythonliterals:
-			if py[1] != 1:
-				print(py)
+		#for py in pythonliterals:
+		#	if py[1] != 1:
+		#		print(py)
 
-		print('Universal Constant inspection completed!')
-		'''
+		oc.print_success('Universal Constants inspection completed!')
 
 	def build_production(self):
 		"""Builds the production version of Quasar."""
@@ -329,6 +378,12 @@ if __name__ == '__main__':
 			quasar_code.build_production()
 		elif a == ARGUMENT_RUN_ANALYSIS:
 			quasar_code.run_analysis()
+		elif a == ARGUMENT_FEATURE_TESTING:
+			quasar_code.feature_testing()
+		else:
+			# TODO : Automate/add colored terminal printing
+			color_print('The argument passed {' + str(a) + '} is not valid!', color='red')
+
 
 # TODO :
 	#print('Total size before : ' + str(total_original_size))

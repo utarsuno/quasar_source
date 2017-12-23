@@ -36,7 +36,23 @@ FloatingCursor.prototype = {
         this.engaged = false;
     },
 
-    add_cursor_material: function(cursor_material, cursor_name) {
+    add_cursor_material: function(cursor_material, texture_name) {
+        var cursor_name = '';
+
+        if (texture_name.includes(CURSOR_TYPE_HORIZONTAL)) {
+            cursor_name = CURSOR_TYPE_HORIZONTAL;
+        } else if (texture_name.includes(CURSOR_TYPE_VERTICAL)) {
+            cursor_name = CURSOR_TYPE_VERTICAL;
+        } else if (texture_name.includes(CURSOR_TYPE_HAND)) {
+            cursor_name = CURSOR_TYPE_HAND;
+        } else if (texture_name.includes(CURSOR_TYPE_POINTER)) {
+            cursor_name = CURSOR_TYPE_POINTER;
+        } else if (texture_name.includes(CURSOR_TYPE_LARGER)) {
+            cursor_name = CURSOR_TYPE_LARGER;
+        } else if (texture_name.includes(CURSOR_TYPE_MOUSE)) {
+            cursor_name = CURSOR_TYPE_MOUSE;
+        }
+
         var cursor_plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         c.userData.name = cursor_name;
@@ -95,6 +111,7 @@ FloatingCursor.prototype = {
 
         // TODO : determine if there needs to be a horizontal shift as well.
 
+        // TODO : The cursor position needs to be fixed (x-y offset)
         var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height, position.z + normal.z * 4);
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
@@ -115,14 +132,15 @@ function World(planet_name) {
     this.interactive_objects        = [];
 
     // Player menu.
+    // TODO : The player menu needs heavy re-factorizations.
     this.player_menu = new FloatingWall(100, 50, new THREE.Vector3(-5000, -5000, -5000), new THREE.Vector3(0, 0, 0), this, false);
     this.player_menu.add_floating_2d_text(0, 1, 'Create Entity Wall', TYPE_BUTTON, 0);
     this.player_menu.add_floating_2d_text(0, 1, 'Create Image', TYPE_BUTTON, 1);
     this.player_menu.add_floating_2d_text(0, 1, 'Save', TYPE_BUTTON, 2);
     this.player_menu.set_to_invisible();
 
-    this.provide_cursor_material = function(cursor_material, cursor_name) {
-        this.floating_cursor.add_cursor_material(cursor_material, cursor_name);
+    this.provide_cursor_material = function(cursor_material, texture_name) {
+        this.floating_cursor.add_cursor_material(cursor_material, texture_name);
     };
 
     this.add_to_scene = function(object) {

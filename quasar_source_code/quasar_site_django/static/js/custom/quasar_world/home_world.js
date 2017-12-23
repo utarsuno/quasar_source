@@ -209,8 +209,7 @@ HomeWorld.prototype = {
         if (!GUI_PAUSED_MENU.currently_displayed) {
             CURRENT_PLAYER.enable_controls();
         }
-
-        CURRENT_PLAYER.set_position(new THREE.Vector3(0, 100, 0));
+        CURRENT_PLAYER.set_position_xyz(0, 100, 0);
     },
 
     exit_world: function() {

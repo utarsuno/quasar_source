@@ -6,6 +6,8 @@ function EntityWall(world, entity) {
 
 EntityWall.prototype = {
 
+    // TODO : Abstract away the Entity Attribute Selector
+
     delete_entity_wall_button_pressed: function() {
         this.wall_are_you_sure.show();
     },
@@ -341,7 +343,7 @@ EntityWall.prototype = {
     },
 
     init_base_wall: function() {
-        this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true, this.normal_depth);
+        this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true);
 
         this.title = this.wall.add_floating_2d_text(.1, .9, this.get_value(ENTITY_PROPERTY_NAME), TYPE_TITLE, 0);
         this.create_entity_button = this.wall.add_floating_2d_text(.25, .75, 'Create New Entity', TYPE_BUTTON, 3);
@@ -349,7 +351,7 @@ EntityWall.prototype = {
 
         this.delete_entity_wall_button = this.wall.add_floating_2d_text(.05, .95, 'Delete Entity Wall', TYPE_BUTTON, -1);
         this.delete_entity_wall_button.set_engage_function(this.delete_entity_wall_button_pressed.bind(this));
-        this.delete_entity_wall_button.set_color(COLOR_RED);
+        this.delete_entity_wall_button.set_default_color(COLOR_RED);
     },
 
     init_select_entity_type_wall: function() {

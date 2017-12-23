@@ -267,9 +267,10 @@ Player.prototype = {
     },
 
     set_position_xyz: function(x, y, z) {
-        this.fps_controls.yaw.position.x = x;
-        this.fps_controls.yaw.position.y = y;
-        this.fps_controls.yaw.position.z = z;
+        this.fps_controls.yaw.position.set(x, y, z);
+        //this.fps_controls.yaw.position.x = x;
+        //this.fps_controls.yaw.position.y = y;
+        //this.fps_controls.yaw.position.z = z;
     },
 
     set_position: function(vector) {

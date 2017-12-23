@@ -85,8 +85,6 @@ Entity.prototype = {
         this.parents  = [];
         this.children = [];
 
-
-
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
     },

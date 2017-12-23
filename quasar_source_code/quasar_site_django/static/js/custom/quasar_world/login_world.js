@@ -160,7 +160,7 @@ LoginWorld.prototype = {
         var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
 
-        this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false, 2);
+        this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3d_title('Login');
 
         this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
@@ -185,7 +185,7 @@ LoginWorld.prototype = {
         var wall_create_account_look_at = new THREE.Vector3(0, wall_create_account_height, 0);
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
 
-        this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this, false, 2);
+        this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this, false);
         this.wall_create_account.add_3d_title('Create Account');
 
         this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
@@ -228,7 +228,7 @@ LoginWorld.prototype = {
             CURRENT_PLAYER.enable_controls();
         }
 
-        CURRENT_PLAYER.set_position(new THREE.Vector3(0, 200, 0));
+        CURRENT_PLAYER.set_position_xyz(0, 200, 0);
         CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
 
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {

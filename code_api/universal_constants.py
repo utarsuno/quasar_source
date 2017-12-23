@@ -6,7 +6,7 @@ PYTHON     = 'python'
 JAVASCRIPT = 'javascript'
 
 
-CONSTANT_TYPE_POST_URLS 	  = 'post_urls'
+CONSTANT_TYPE_POST_URLS       = 'post_urls'
 CONSTANT_TYPE_GLOBAL_VARIABLE = 'global_variable'
 
 
@@ -39,11 +39,12 @@ class UniversalConstant(object):
 		return self._name + ' - ' + str(self._value)
 
 
+# TODO : ADD PYTHON INTERNAL FUNCTIONS SO THAT THIS OBJECT CAN AUTOMATICALLY BE ITERATED.
 class UniversalConstantGroup(object):
 	"""Represents a common group of UniversalConstant objects."""
 
 	def __init__(self, key_name_start_token, description, constant_type):
-		self._constant_type		   = constant_type
+		self._constant_type        = constant_type
 		self._key_name_start_token = key_name_start_token
 		#self._start_token          = 'UNIVERSAL_CONSTANTS_START : ' + description
 		self._start_token          = description
@@ -57,12 +58,25 @@ class UniversalConstantGroup(object):
 			print('Unmatched number of universal constants!')
 			print(str(len(lines_of_code)) + ' to the needed ' + str(len(self._universal_constants)))
 			#print(lines_of_code)
+			#for l in lines_of_code:
+			#	print(l.text)
+			#for uc in self._universal_constants:
+			#	print(uc)
+
+			bad_rows = []
 			for l in lines_of_code:
-				print(l.text)
+				if not self.verify_line_of_code(l, is_eslint_file):
+					bad_rows.append(l)
+
+			print('Printing the bad rows :')
+			for br in bad_rows:
+				print(br.text)
+
 			return False
 		else:
 			for l in lines_of_code:
 				if not self.verify_line_of_code(l, is_eslint_file):
+					print('Failed to verify : ' + l)
 					return False
 			return True
 
@@ -117,6 +131,11 @@ class UniversalConstantGroup(object):
 						return True
 
 		return False
+
+	@property
+	def universal_constants(self):
+		"""Returns a list of universal constants that make up this Universal Constants Group."""
+		return self._universal_constants
 
 	@property
 	def start_token(self) -> str:

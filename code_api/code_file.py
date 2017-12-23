@@ -34,6 +34,18 @@ class CodeFile(object):
 		# Gets set by child objects.
 		self._language = None
 
+	def get_all_words_and_frequency(self):
+		"""Returns a list of words as a frequency dictionary."""
+		all_words = {}
+		for l in self._lines_of_code:
+			words = l.get_all_words()
+			for w in words:
+				if w in all_words:
+					all_words[w] += 1
+				else:
+					all_words[w] = 1
+		return all_words
+
 	def get_all_string_literals(self):
 		"""Returns all the string literals in this code file as a frequency dictionary."""
 		all_literals = {}
@@ -70,7 +82,7 @@ class CodeFile(object):
 
 		if lines_of_code is None:
 			print('lines_of_code is None!')
-			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color = 'red')
+			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
 			return
 
 		# Inspect the specific universal variables.
@@ -78,7 +90,7 @@ class CodeFile(object):
 
 		report = universal_constant_group.verify(universal_variables, self._is_eslint_file)
 
-		if report != 'no_errors':
+		if not report:
 			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
 			# TODO : Add automatic fixing
 
@@ -101,6 +113,11 @@ class CodeFile(object):
 		for l in self._lines_of_code:
 			text += l.text
 		return text
+
+	@property
+	def language(self):
+		"""Returns the programming language of this code file."""
+		return self._language
 
 	@property
 	def file_path(self) -> str:

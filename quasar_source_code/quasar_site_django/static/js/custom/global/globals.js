@@ -28,6 +28,10 @@ var GUI_TYPING_INTERFACE = null;
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
+// World math constants.
+const DIAGONAL_PENALTY = Math.sqrt(.5);
+const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
+
 // Logical constants.
 const NOT_FOUND = -1;
 
@@ -172,6 +176,15 @@ const CURSOR_TYPE_LARGER     = 'larger.png';
 const CURSOR_TYPE_HAND       = 'cursor_hand.png';
 const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
 const CURSOR_TYPE_MOUSE      = 'mouse.png';
+// UNIVERSAL_CONSTANTS_END
+
+// UNIVERSAL_CONSTANTS_START : Skybox textures.
+const SKYBOX_FRONT  = 'front.jpg';
+const SKYBOX_BACK   = 'back.jpg';
+const SKYBOX_LEFT   = 'left.jpg';
+const SKYBOX_RIGHT  = 'right.jpg';
+const SKYBOX_TOP    = 'top.jpg';
+const SKYBOX_BOTTOM = 'bottom.jpg';
 // UNIVERSAL_CONSTANTS_END
 
 const CELL_PHONE_CARRIERS = {
