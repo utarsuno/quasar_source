@@ -189,6 +189,7 @@ WorldManager.prototype = {
                 }
             }
         }
+        l('Adding the sky boxes!');
         this.world_login.add_sky_box(this.final_textures);
         this.world_home.add_sky_box(this.final_textures);
         this.world_settings.add_sky_box(this.final_textures);
@@ -233,6 +234,7 @@ WorldManager.prototype = {
             new THREE.TextureLoader().load(this.current_texture_name,
                 //function when resource is loaded
                 function(texture) {
+                    l('Loaded the following skybox texture : ' + this.current_texture_name);
                     this.texture_loaded(texture, this.current_texture_name);
                 }.bind(this),
                 // FOR_DEV_START
