@@ -231,6 +231,10 @@ WorldManager.prototype = {
 
             this.current_texture_name = this.textures_to_load[t];
 
+            l('Trying to load the following : ' + this.current_texture_name);
+            l(t);
+            l(this.textures_to_load[t]);
+
             new THREE.TextureLoader().load(this.current_texture_name,
                 //function when resource is loaded
                 function(texture) {
