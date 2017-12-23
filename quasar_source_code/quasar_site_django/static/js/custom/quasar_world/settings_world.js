@@ -118,10 +118,10 @@ SettingsWorld.prototype = {
         // TODO : Instead of always using the default value of 90 it needs to get loaded from the ENTITY_OWNER settings values.
         this.wall_settings_slider_fov = this.wall_settings.add_floating_slider(0, 1, 90, 20, 160, 'Camera Field of View : ', 1);
         // TODO : Implement the value changed function, Oh awesome! This will also work out for checking/displaying live syntax coloring.
-        this.wall_settings_slider_fov.value_changed_function(this.slider_fov_value_changed.bind(this));
+        this.wall_settings_slider_fov.set_value_changed_function(this.slider_fov_value_changed.bind(this));
         // TODO : Don't use the default value but instead load from the ENTITY_OWNER settings value.
         this.wall_settings_slider_audio = this.wall_settings.add_floating_slider(0, 1, 100, 0, 100, 'Master Volume : ', 2);
-        this.wall_settings_slider_audio.value_changed_function(this.slider_master_volume_value_changed.bind(this));
+        this.wall_settings_slider_audio.set_value_changed_function(this.slider_master_volume_value_changed.bind(this));
 
         // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
     },

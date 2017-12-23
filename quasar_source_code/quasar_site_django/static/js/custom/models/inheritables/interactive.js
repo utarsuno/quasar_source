@@ -85,6 +85,12 @@ function Interactive() {
         this.next_tab_target = tab_target;
     };
 
+    // TODO : Label the following.
+    this.set_value_changed_function = function() {
+        l('Set value changed function triggered!');
+        l(arguments);
+    };
+
     /* __          __   ___  __      __   __       ___  __   __        __
       /__` |    | |  \ |__  |__)    /  ` /  \ |\ |  |  |__) /  \ |    /__`
       .__/ |___ | |__/ |___ |  \    \__, \__/ | \|  |  |  \ \__/ |___ .__/ */
