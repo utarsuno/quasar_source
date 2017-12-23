@@ -60,5 +60,5 @@ EntityOwner.prototype = {
         }
 
         return owner_sms_address;
-    },
+    }
 };

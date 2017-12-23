@@ -46,6 +46,7 @@ SettingsWorld.prototype = {
     },
 
     slider_fov_value_changed: function(fov_value) {
+        l('FOV value is now : ' + fov_value);
         CURRENT_PLAYER.renderer_api.camera.fov = fov_value;
         CURRENT_PLAYER.renderer_api.camera.updateProjectionMatrix();
         // TODO : Save the new value into ENTITY OWNER settings.
@@ -68,11 +69,11 @@ SettingsWorld.prototype = {
 
         // Username.
         this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT_TEXT, 0);
-        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
+        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 0);
 
         // Email.
         this.profile_email_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Email :', TYPE_CONSTANT_TEXT, 1);
-        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1);
+        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 1);
 
         // Phone Number.
         this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT_TEXT, 2);
@@ -100,13 +101,13 @@ SettingsWorld.prototype = {
 
         // Created at date.
         this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT_TEXT, 4);
-        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 4);
+        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 4);
 
         /* __   ___ ___ ___         __   __
           /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
           .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
 
-        var wall_settings_position = new THREE.Vector3();
+        var wall_settings_position = new THREE.Vector3(1150, 600, 200);
         var wall_settings_width    = 400;
         var wall_settings_height   = 512;
         var wall_settings_normal   = new THREE.Vector3(-0.969, -0.115, -0.221);
