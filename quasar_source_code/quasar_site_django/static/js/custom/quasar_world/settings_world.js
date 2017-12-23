@@ -59,7 +59,7 @@ SettingsWorld.prototype = {
           |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
           |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
         var wall_profile_position = new THREE.Vector3(500, 500, 700);
-        var wall_profile_width    = 1024;
+        var wall_profile_width    = 650;
         var wall_profile_height   = 512 / 2;
         var wall_profile_normal   = new THREE.Vector3(-0.5, 0.0, -0.85);
         var wall_profile_scalable = false;
@@ -76,7 +76,7 @@ SettingsWorld.prototype = {
 
         // Phone Number.
         this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT_TEXT, 2);
-        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, TYPE_INPUT_REGULAR, 2);
+        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 2);
 
         // Phone Carrier.
         this.profile_phone_carrier_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Carrier :', TYPE_CONSTANT_TEXT, 3);
@@ -95,6 +95,7 @@ SettingsWorld.prototype = {
                 current_cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property));
             }
         }
+
         this.profile_phone_carrier_list.set_to_invisible();
 
         // Created at date.
