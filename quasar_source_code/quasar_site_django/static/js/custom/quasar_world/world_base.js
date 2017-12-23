@@ -53,7 +53,7 @@ FloatingCursor.prototype = {
             cursor_name = CURSOR_TYPE_MOUSE;
         }
 
-        var cursor_plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
+        var cursor_plane_geometry = new THREE.PlaneGeometry(this.width, this.height, 1);
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         c.userData.name = cursor_name;
         c.visible = false;
@@ -112,8 +112,8 @@ FloatingCursor.prototype = {
         // TODO : determine if there needs to be a horizontal shift as well.
 
         // TODO : The cursor position needs to be fixed (x-y offset)
-        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height, position.z + normal.z * 4);
-        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height, position.z + normal.z * cursor_offset);
+        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height / 2, position.z + normal.z * 4);
+        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height / 2, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
     }
 };
