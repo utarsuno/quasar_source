@@ -189,7 +189,6 @@ WorldManager.prototype = {
                 }
             }
         }
-        l('Adding the sky boxes!');
         this.world_login.add_sky_box(this.final_textures);
         this.world_home.add_sky_box(this.final_textures);
         this.world_settings.add_sky_box(this.final_textures);
@@ -228,20 +227,9 @@ WorldManager.prototype = {
 
     load_textures: function() {
         for (var t = 0; t < this.textures_to_load.length; t++) {
-
-            this.current_texture_name = this.textures_to_load[t];
-
-            l('Trying to load the following : ' + this.current_texture_name);
-            l(t);
-            l(this.textures_to_load[t]);
-
-            new THREE.TextureLoader().load(this.current_texture_name,
+            new THREE.TextureLoader().load(this.textures_to_load[t],
                 //function when resource is loaded
                 function(texture) {
-                    //l('Loaded the following skybox texture : ' + this.current_texture_name);
-                    //l('HELLO HELLO LOOK AT THE ARGUMENTS!');
-                    //l(arguments);
-                    //l('\n');
                     this.texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this.textures_to_load[t]),
                 // FOR_DEV_START
