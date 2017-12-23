@@ -9,12 +9,12 @@ SettingsWorld.prototype = {
     previous_world: null,
 
     select_phone_carrier: function() {
-        this.phone_carrier_list.set_to_visible();
+        this.profile_phone_carrier_list.set_to_visible();
     },
 
     selected_phone_carrier: function(selected_phone_carrier) {
         this.profile_phone_carrier_input.update_text(selected_phone_carrier);
-        this.phone_carrier_list.set_to_invisible();
+        this.profile_phone_carrier_list.set_to_invisible();
     },
 
 
