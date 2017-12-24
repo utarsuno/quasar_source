@@ -27,7 +27,25 @@ MenuIcon.prototype = {
                 //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
 
-                this.floating_label = new Floating2DText(150, icon_type, TYPE_BUTTON, this.world.scene);
+                var icon_label = '';
+                switch (icon_type) {
+                case ICON_SAVE:
+                    icon_label = 'save';
+                    break;
+                case ICON_EXIT:
+                    icon_label = 'exit';
+                    break;
+                case ICON_MULTIPLAYER:
+                    icon_label = 'multiplayer';
+                    break;
+                case ICON_HOME:
+                    icon_label = 'home';
+                    break;
+                case ICON_SETTINGS:
+                    icon_label = 'settings';
+                    break;
+                }
+                this.floating_label = new Floating2DText(100, icon_label, TYPE_BUTTON, this.world.scene);
 
                 this.object3D.add(this.icon);
 
@@ -46,7 +64,9 @@ MenuIcon.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * 30, this.object3D.position.y, this.object3D.position.z + this.left_right.z * 30), this.normal);
+        var horizontal_shift = 75;
+
+        this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift), this.normal);
     },
 
     update_y_position: function(y_offset) {
