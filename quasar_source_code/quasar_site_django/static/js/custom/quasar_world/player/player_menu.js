@@ -1,5 +1,8 @@
 'use strict';
 
+const SPACE_BETWEEN_MENU_ICONS = 20;
+const ONE_SECOND = 1.0;
+
 function PlayerMenu(world) {
     this.__init__(world);
 }
@@ -31,9 +34,14 @@ MenuIcon.prototype = {
         }
     },
 
-    update_position_and_normal: function(position, nx, nz) {
-        this.object3D.position.set(position.x, position.y - this.row * 12, position.z);
-        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - this.row * 12, position.z + nz * 5));
+    set_position_and_normal: function(position, nx, nz) {
+        this.y_position = position.y - (this.row - 1) * SPACE_BETWEEN_MENU_ICONS
+        this.object3D.position.set(position.x, this.y_position, position.z);
+        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - (this.row - 1) * SPACE_BETWEEN_MENU_ICONS, position.z + nz * 5));
+    },
+
+    update_y_position: function(y_offset) {
+        this.object3D.y = this.y_position - y_offset;
     }
 };
 
@@ -46,6 +54,9 @@ PlayerMenu.prototype = {
 
         this.visible = false;
         this.total_delta = 0;
+
+        this.time_needed_for_each_row = ONE_SECOND / 5;
+        this.total_distance = 5 * SPACE_BETWEEN_MENU_ICONS;
     },
 
     set_to_invisible: function() {
@@ -61,12 +72,12 @@ PlayerMenu.prototype = {
 
         var start_position = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100, pp.z + pd.z * 100);
 
-        this.icon_create_entity_group.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_settings.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_home.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_multiplayer.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_log_out.update_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_create_entity_group.set_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_save.set_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_settings.set_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_home.set_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_multiplayer.set_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_log_out.set_position_and_normal(start_position, -pd.x, -pd.z);
     },
 
     is_visible: function() {
@@ -76,7 +87,18 @@ PlayerMenu.prototype = {
     update: function(delta) {
         this.total_delta += delta;
         if (this.total_delta >= 1.0) {
-            this.total_delta -= 1.0;
+            this.percentage = 1.0;
+        } else {
+            this.percentage = this.total_delta / 1.0;
+        }
+
+        for (var i = 0; i < this.icons.length; i++) {
+            if (this.icons[i].row !== 0) {
+                var this_icons_max_delta = this.time_needed_for_each_row * this.icons[i].row;
+                if (this.percentage < this_icons_max_delta) {
+                    this.icons[i].update_y_position(this.percentage * this.total_distance);
+                }
+            }
         }
     },
 
@@ -88,15 +110,8 @@ PlayerMenu.prototype = {
         this.icon_home = new MenuIcon(ICON_HOME, this.world, 3);
         this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, 4);
         this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, 5);
+
+        this.icons = [this.icon_create_entity_group, this.icon_save, this.icon_settings, this.icon_home, this.icon_multiplayer, this.icon_log_out];
     }
 
 };
-
-
-/*
-this.player_menu = new FloatingWall(100, 50, new THREE.Vector3(-5000, -5000, -5000), new THREE.Vector3(0, 0, 0), this, false);
-this.player_menu.add_floating_2d_text(0, 1, 'Create Entity Wall', TYPE_BUTTON, 0);
-this.player_menu.add_floating_2d_text(0, 1, 'Create Image', TYPE_BUTTON, 1);
-this.player_menu.add_floating_2d_text(0, 1, 'Save', TYPE_BUTTON, 2);
-this.player_menu.set_to_invisible();
- */
