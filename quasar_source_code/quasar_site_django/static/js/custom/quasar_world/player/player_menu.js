@@ -1,17 +1,50 @@
 'use strict';
 
-function PlayerMenu() {
-    this.__init__();
+function PlayerMenu(world) {
+    this.__init__(world);
 }
+
+function MenuIcon(icon_type, world) {
+    this.__init__(icon_type, world);
+}
+
+//             this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
+
+
+MenuIcon.prototype = {
+    __init__: function(icon_type, world) {
+        this.world = world;
+
+        for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
+            if (MANAGER_WORLD.icon_textures[i][1] == icon_type) {
+                this.geometry = new THREE.CircleGeometry(10, 32);
+                // TODO : Eventually just do FrontSide
+                // TODO : Eventually add some transparency.
+                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide});
+                this.icon = new THREE.Mesh(this.geometry, this.material);
+                this.world.add_to_scene(this.icon);
+            }
+        }
+    }
+};
 
 PlayerMenu.prototype = {
 
-    __init__: function() {
+    world: null,
+
+    __init__: function(world) {
+        this.world = world;
+
         this.visible = false;
+
+        this.icon_save = new MenuIcon(ICON_SAVE, this.world);
+        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world);
     },
 
     set_to_invisible: function() {
         this.visible = false;
+
+        //this.start_position =
     },
 
     set_to_visible: function() {

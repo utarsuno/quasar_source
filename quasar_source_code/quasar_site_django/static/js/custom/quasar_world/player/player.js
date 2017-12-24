@@ -64,6 +64,8 @@ Player.prototype = {
     },
 
     log_out: function() {
+        // TODO : Log out needs to be updated to be fully functional and bug free.
+
         // FOR_DEV_START
         l('LOG OUT HERE!!!!');
         // FOR_DEV_END
@@ -268,18 +270,6 @@ Player.prototype = {
         var position = this.get_position();
         var vector   = this.fps_controls.get_direction();
         return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
-    },
-
-    /*___       __       ___         __            ___
-     |__  |    /  \  /\   |  | |\ | / _`     |\/| |__  |\ | |  |
-     |    |___ \__/ /~~\  |  | | \| \__>     |  | |___ | \| \__/ */
-
-    turn_off_menu: function() {
-        MANAGER_WORLD.current_player_menu.set_to_invisible();
-    },
-
-    turn_on_menu: function() {
-        MANAGER_WORLD.current_player_menu.set_to_visible();
     }
 };
 

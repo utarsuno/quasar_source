@@ -109,6 +109,9 @@ WorldManager.prototype = {
 
         this.sky_box_textures = [];
         this.final_textures = [];
+
+        this.icon_textures = [];
+
         this.number_of_sky_box_textures_loaded = 0;
 
         // The textures to load.
@@ -237,7 +240,7 @@ WorldManager.prototype = {
             this.world_settings.provide_cursor_material(cursor_material, texture_name);
         } else if (texture_name.includes('icons')) {
             // Icons.
-
+            this.icon_textures.push([texture, texture_name]);
         }
     },
 

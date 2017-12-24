@@ -91,7 +91,7 @@ PointerLockAPI.prototype = {
         case 3:
             if (!this.right_click_down) {
                 if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-                    CURRENT_PLAYER.turn_on_menu();
+                    MANAGER_WORLD.current_player_menu.set_to_visible();
                 }
             }
             this.right_click_down = true;
