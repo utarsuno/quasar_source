@@ -84,20 +84,29 @@ Floating2DText.prototype = {
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
-        /*
+
         // Shader testing
-        this.shader_material = new THREE.ShaderMaterial(
-            {
-                uniforms: {
-                    'c': {type: 'f', value: 1.0},
-                    'p': {type: 'f', value: 1.4}
-                },
-                vertexShader:
-            });
+        this.shader_material = new THREE.ShaderMaterial({
+            uniforms: {
+                'c': {type: 'f', value: 1.0},
+                'p': {type: 'f', value: 1.4}
+            },
+            vertexShader: MANAGER_SHADER.VERTEX_GLOW,
+            fragmentShader: MANAGER_SHADER.FRAGMENT_GLOW,
+            side: THREE.FrontSide,
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+
+        // TODO : Investigate if shader_material needs to be cloned or not.
+        this.glow = new THREE.Mesh(this.geometry.clone(), this.shader_material.clone());
+        this.glow.position = this.mesh.position;
+        this.glow.scale.multiplyScalar(1.2);
         //
-        */
 
         this.object3D.add(this.mesh);
+        this.object3D.add(this.glow);
+
         if (!is_defined(add_to_scene)) {
             if (is_defined(this.scene)) {
                 this.scene.add(this.object3D);
