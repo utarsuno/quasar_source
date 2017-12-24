@@ -37,7 +37,7 @@ MenuIcon.prototype = {
                     icon_label = 'exit';
                     break;
                 case ICON_MULTIPLAYER:
-                    icon_label = 'multiplayer';
+                    icon_label = 'online';
                     break;
                 case ICON_HOME:
                     icon_label = 'home';
@@ -54,6 +54,9 @@ MenuIcon.prototype = {
                 this.object3D.add(this.icon);
 
                 this.world.add_to_scene(this.object3D);
+
+                this.world.interactive_objects.push(this.icon);
+                this.world.interactive_objects.push(this.floating_label);
             }
         }
     },
@@ -68,7 +71,7 @@ MenuIcon.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        var horizontal_shift = 65;
+        var horizontal_shift = 50;
 
         this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift), this.normal);
     },
