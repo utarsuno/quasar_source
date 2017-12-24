@@ -33,7 +33,7 @@ MenuIcon.prototype = {
 
     update_position_and_normal: function(position, nx, nz) {
         this.object3D.position.set(position.x, position.y - this.row * 40, position.z);
-        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y, position.z + nz * 5));
+        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - this.row * 40, position.z + nz * 5));
     }
 };
 
@@ -80,15 +80,15 @@ PlayerMenu.prototype = {
     update: function(delta) {
         l(delta);
         this.total_delta += delta;
-        if (this.total_delta >= ONE_SECOND) {
+        if (this.total_delta >= 1.0) {
             l('One second has passed!');
         }
     },
 
     // This function gets called once per player menu object.
     load_icon_textures: function() {
-        this.icon_save = new MenuIcon(ICON_SAVE, this.world);
-        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world);
+        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, 0);
+        this.icon_save = new MenuIcon(ICON_SAVE, this.world, 1);
     }
 
 };
