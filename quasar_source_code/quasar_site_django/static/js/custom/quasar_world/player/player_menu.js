@@ -2,6 +2,7 @@
 
 const SPACE_BETWEEN_MENU_ICONS = 20;
 const ONE_SECOND = 1.0;
+const ANIMATION_TIME = ONE_SECOND / 2;
 
 function PlayerMenu(world) {
     this.__init__(world);
@@ -17,7 +18,6 @@ MenuIcon.prototype = {
         this.row = row;
         this.object3D = new THREE.Object3D();
 
-
         for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
             if (MANAGER_WORLD.icon_textures[i][1].includes(icon_type)) {
                 this.geometry = new THREE.CircleGeometry(10, 32);
@@ -26,6 +26,8 @@ MenuIcon.prototype = {
                 this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: true, opacity: .75});
                 //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
+
+                this.floating_label = new Floating2DText(150, icon_type, TYPE_BUTTON, this.world.scene);
 
                 this.object3D.add(this.icon);
 
@@ -38,6 +40,13 @@ MenuIcon.prototype = {
         this.y_position = position.y + SPACE_BETWEEN_MENU_ICONS * 2;
         this.object3D.position.set(position.x, this.y_position, position.z);
         this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, this.y_position, position.z + nz * 5));
+
+        this.normal = new THREE.Vector3(-nx, 0, -nz);
+        this.left_right = new THREE.Vector3(0, 1, 0);
+        this.left_right.cross(this.normal);
+        this.left_right.normalize();
+        
+        this.floating_label.update_position_and_normal(this.object3D.position.x + this.left_right.x * 30, this.object3D.position.y, this.object3D.position.z + this.left_right.z * 30);
     },
 
     update_y_position: function(y_offset) {
@@ -86,10 +95,10 @@ PlayerMenu.prototype = {
 
     update: function(delta) {
         this.total_delta += delta;
-        if (this.total_delta >= 1.0) {
+        if (this.total_delta >= ANIMATION_TIME) {
             this.percentage = 1.0;
         } else {
-            this.percentage = this.total_delta / 1.0;
+            this.percentage = this.total_delta / ANIMATION_TIME;
         }
 
         for (var i = 0; i < this.icons.length; i++) {
