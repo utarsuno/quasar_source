@@ -8,9 +8,6 @@ function MenuIcon(icon_type, world) {
     this.__init__(icon_type, world);
 }
 
-//             this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
-
-
 MenuIcon.prototype = {
     __init__: function(icon_type, world) {
         this.world = world;

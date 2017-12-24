@@ -130,8 +130,10 @@ function World(planet_name) {
 
     this.default_tab_target         = null;
     this.interactive_objects        = [];
-
-    this.player_menu = new PlayerMenu(this);
+    
+    this.load_icon_textures = function() {
+        this.player_menu = new PlayerMenu(this);
+    },
 
     this.provide_cursor_material = function(cursor_material, texture_name) {
         this.floating_cursor.add_cursor_material(cursor_material, texture_name);

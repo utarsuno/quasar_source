@@ -107,12 +107,15 @@ WorldManager.prototype = {
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
 
+        this.all_worlds = [this.world_login, this.world_home, this.world_settings];
+
         this.sky_box_textures = [];
         this.final_textures = [];
 
         this.icon_textures = [];
 
         this.number_of_sky_box_textures_loaded = 0;
+        this.number_of_icons_loaded = 0;
 
         // The textures to load.
         this.textures_to_load = [];
@@ -241,6 +244,12 @@ WorldManager.prototype = {
         } else if (texture_name.includes('icons')) {
             // Icons.
             this.icon_textures.push([texture, texture_name]);
+            this.number_of_icons_loaded += 1;
+            if (this.number_of_icons_loaded === 6) {
+                for (var i = 0; i < this.all_worlds.length; i++) {
+                    this.all_worlds[i].load_icon_textures();
+                }
+            }
         }
     },
 
