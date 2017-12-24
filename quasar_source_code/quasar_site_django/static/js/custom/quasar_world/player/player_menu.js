@@ -74,10 +74,10 @@ PlayerMenu.prototype = {
     },
 
     update: function(delta) {
-        l(delta);
         this.total_delta += delta;
         if (this.total_delta >= 1.0) {
             l('One second has passed!');
+            this.total_delta -= 1.0;
         }
     },
 
