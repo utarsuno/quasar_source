@@ -109,8 +109,8 @@ PointerLockAPI.prototype = {
             this.middle_click_down = false;
             break;
         case 3:
-            if (CURRENT_PLAYER.is_menu_on()) {
-                CURRENT_PLAYER.turn_off_menu();
+            if (MANAGER_WORLD.current_player_menu.is_visible()) {
+                MANAGER_WORLD.current_player_menu.set_to_invisible();
             }
             this.right_click_down = false;
             break;
