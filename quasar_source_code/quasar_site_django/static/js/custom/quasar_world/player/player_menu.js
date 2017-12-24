@@ -43,13 +43,15 @@ PlayerMenu.prototype = {
 
         this.visible = false;
 
-        this.icon_save = new MenuIcon(ICON_SAVE, this.world);
-        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world);
     },
 
     set_to_invisible: function() {
         this.visible = false;
+    },
 
+    set_to_visible: function() {
+        this.visible = true;
+        
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
 
@@ -58,16 +60,18 @@ PlayerMenu.prototype = {
         this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
     },
 
-    set_to_visible: function() {
-        this.visible = true;
-    },
-
     is_visible: function() {
         return this.visible;
     },
 
     update: function(delta) {
         l(delta);
+    },
+
+    // This function gets called once per player menu object.
+    load_icon_textures: function() {
+        this.icon_save = new MenuIcon(ICON_SAVE, this.world);
+        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world);
     }
 
 };
