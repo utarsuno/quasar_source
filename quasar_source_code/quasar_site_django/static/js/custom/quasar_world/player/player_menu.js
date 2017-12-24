@@ -61,7 +61,7 @@ PlayerMenu.prototype = {
         var start_position_2 = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100 - 50, pp.z + pd.z * 100);
 
         this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_create_entity_group.update_position_and_normal(start_position_2, -pd.x, -pd.z)
+        this.icon_create_entity_group.update_position_and_normal(start_position_2, -pd.x, -pd.z);
     },
 
     is_visible: function() {
