@@ -240,6 +240,11 @@ module.exports = {
         // 3rd party hix grid reference.
         "vg": false,
 
+        "BACKGROUND_COLOR_DEFAULT" : false,
+        "BACKGROUND_COLOR_FOCUS"   : false,
+        "BACKGROUND_COLOR_ERROR"   : false,
+        "BACKGROUND_COLOR_SUCCESS" : false,
+
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
         "COLOR_STRING_INDEX"    : false,
         "COLOR_HEX_INDEX"       : false,

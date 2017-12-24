@@ -141,6 +141,11 @@ const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
 // UNIVERSAL_CONSTANTS_END
 
+const BACKGROUND_COLOR_DEFAULT = '#000000';
+const BACKGROUND_COLOR_FOCUS   = '#264241';
+const BACKGROUND_COLOR_ERROR   = '#390006';
+const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
+
 // TODO (global todo) : all modules that have independent resource loading should be abstracted
 // TODO : Use less color constants and generate them at startup instead.
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
