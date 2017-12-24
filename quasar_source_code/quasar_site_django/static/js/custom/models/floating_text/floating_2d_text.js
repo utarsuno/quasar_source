@@ -84,7 +84,7 @@ Floating2DText.prototype = {
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
-
+        /*
         // Shader testing
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: {
@@ -106,8 +106,18 @@ Floating2DText.prototype = {
         this.glow.scale.multiplyScalar(1.4);
         //
 
-        this.object3D.add(this.mesh);
         this.object3D.add(this.glow);
+        */
+
+        //
+        var outlineMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, side: THREE.BackSide } );
+        var outlineMesh = new THREE.Mesh(this.geometry, outlineMaterial);
+        outlineMesh.scale.multiplyScalar(1.1);
+        this.object3D.add(outlineMesh);
+        //
+
+        this.object3D.add(this.mesh);
+
 
         if (!is_defined(add_to_scene)) {
             if (is_defined(this.scene)) {
