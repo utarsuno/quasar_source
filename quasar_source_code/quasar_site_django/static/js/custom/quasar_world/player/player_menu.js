@@ -22,9 +22,18 @@ MenuIcon.prototype = {
                 // TODO : Eventually add some transparency.
                 this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
-                this.world.add_to_scene(this.icon);
+
+                this.object3D = new THREE.Object3D();
+                this.object3D.add(this.icon);
+
+                this.world.add_to_scene(this.object3D);
             }
         }
+    },
+
+    update_position_and_normal: function(position, nx, nz) {
+        this.object3D.position.set(position.x, position.y, position.z);
+        this.object3D.lookAt(new THREE.Vector3(position.x + nx, 0, position.y + ny));
     }
 };
 
@@ -44,7 +53,12 @@ PlayerMenu.prototype = {
     set_to_invisible: function() {
         this.visible = false;
 
-        //this.start_position =
+        var pp = CURRENT_PLAYER.get_position();
+        var pd = CURRENT_PLAYER.get_direction();
+
+        var start_position = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100, pp.z + pd.z * 100);
+
+        this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
     },
 
     set_to_visible: function() {
