@@ -76,6 +76,16 @@ MenuIcon.prototype = {
     update_y_position: function(y_offset) {
         this.object3D.position.y = this.y_position - y_offset;
         this.floating_label.object3D.position.y = this.y_position - y_offset;
+    },
+
+    set_to_invisible: function() {
+        this.icon.visible = false;
+        this.floating_label.set_to_invisible();
+    },
+
+    set_to_visible: function() {
+        this.icon.visible = true;
+        this.floating_label.set_to_visible();
     }
 };
 
@@ -95,6 +105,9 @@ PlayerMenu.prototype = {
 
     set_to_invisible: function() {
         this.visible = false;
+        for (var i = 0; i < this.icons.length; i++) {
+            this.icons[i].set_to_invisible();
+        }
     },
 
     set_to_visible: function() {
@@ -112,6 +125,10 @@ PlayerMenu.prototype = {
         this.icon_home.set_position_and_normal(start_position, -pd.x, -pd.z);
         this.icon_multiplayer.set_position_and_normal(start_position, -pd.x, -pd.z);
         this.icon_log_out.set_position_and_normal(start_position, -pd.x, -pd.z);
+
+        for (var i = 0; i < this.icons.length; i++) {
+            this.icons[i].set_to_visible();
+        }
     },
 
     is_visible: function() {
