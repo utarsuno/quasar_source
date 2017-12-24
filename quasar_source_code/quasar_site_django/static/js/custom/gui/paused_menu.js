@@ -78,6 +78,10 @@ PausedMenu.prototype = {
             this.background_coloring.id = 'no_background_coloring';
         }
         this.currently_displayed = false;
+    },
+
+    is_visible: function() {
+        return this.currently_displayed;
     }
 };
 
