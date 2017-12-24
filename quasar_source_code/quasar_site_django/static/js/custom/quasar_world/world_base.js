@@ -353,6 +353,8 @@ function World(planet_name) {
                 this.currently_looked_at_object.disengage();
                 CURRENT_PLAYER.enable_controls();
             }
+        } else {
+            l('TURN ON PLAYER MENU?');
         }
     };
 
