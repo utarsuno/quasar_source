@@ -85,10 +85,10 @@ PlayerMenu.prototype = {
     load_icon_textures: function() {
         this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, 0);
         this.icon_save = new MenuIcon(ICON_SAVE, this.world, 1);
-        this.icon_settings.update_position_and_normal(ICON_SETTINGS, this.world, 2);
-        this.icon_home.update_position_and_normal(ICON_HOME, this.world, 3);
-        this.icon_multiplayer.update_position_and_normal(ICON_MULTIPLAYER, this.world, 4);
-        this.icon_log_out.update_position_and_normal(ICON_EXIT, this.world, 5);
+        this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, 2);
+        this.icon_home = new MenuIcon(ICON_HOME, this.world, 3);
+        this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, 4);
+        this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, 5);
     }
 
 };
