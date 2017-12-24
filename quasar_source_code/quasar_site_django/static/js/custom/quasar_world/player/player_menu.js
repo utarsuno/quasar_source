@@ -61,11 +61,11 @@ PlayerMenu.prototype = {
 
     set_to_invisible: function() {
         this.visible = false;
-        this.total_delta = 0;
     },
 
     set_to_visible: function() {
         this.visible = true;
+        this.total_delta = 0;
 
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
