@@ -4,8 +4,8 @@ function PlayerMenu(world) {
     this.__init__(world);
 }
 
-function MenuIcon(icon_type, world) {
-    this.__init__(icon_type, world);
+function MenuIcon(icon_type, world, row) {
+    this.__init__(icon_type, world, row);
 }
 
 MenuIcon.prototype = {
@@ -34,9 +34,6 @@ MenuIcon.prototype = {
     update_position_and_normal: function(position, nx, nz) {
         this.object3D.position.set(position.x, position.y - this.row * 40, position.z);
         this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - this.row * 40, position.z + nz * 5));
-
-        //this.object3D.position.set(position.x, position.y, position.z);
-        //this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y, position.z + nz * 5));
     }
 };
 
