@@ -97,7 +97,7 @@ Floating2DText.prototype = {
             fragmentShader: MANAGER_SHADER.FRAGMENT_GLOW,
             side: THREE.FrontSide,
             blending: THREE.AdditiveBlending,
-            transparent: false
+            transparent: true
         });
 
         // TODO : Investigate if shader_material needs to be cloned or not.
