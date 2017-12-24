@@ -35,7 +35,7 @@ MenuIcon.prototype = {
     },
 
     set_position_and_normal: function(position, nx, nz) {
-        this.y_position = position.y - (this.row - 1) * SPACE_BETWEEN_MENU_ICONS;
+        this.y_position = position.y + SPACE_BETWEEN_MENU_ICONS * 2;
         this.object3D.position.set(position.x, this.y_position, position.z);
         this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - (this.row - 1) * SPACE_BETWEEN_MENU_ICONS, position.z + nz * 5));
     },
