@@ -687,7 +687,9 @@ FloatingWall.prototype = {
 
         var t = (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 
-        l('THE VALUE OF T IS : ' + t);
+        if (t < 0) {
+            return false;
+        }
 
         // TODO : Debug t value
 
