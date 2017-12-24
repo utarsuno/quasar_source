@@ -56,11 +56,11 @@ MenuIcon.prototype = {
                 this.world.add_to_scene(this.object3D);
 
                 // Inherit from Interactive.
-                Interactive.call(this);
+                //Interactive.call(this);
                 // Inherit from Visibility.
-                Visibility.call(this);
+                //Visibility.call(this);
 
-                this.world.interactive_objects.push(this.icon);
+                //this.world.interactive_objects.push(this.icon);
                 this.world.interactive_objects.push(this.floating_label);
             }
         }
