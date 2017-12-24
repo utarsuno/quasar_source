@@ -80,6 +80,7 @@ FloatingSlider.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, 20);
         this.material = new THREE.MeshBasicMaterial({
+            // TODO : Replace this with a color constant
             color: 0x060606,
             //transparent: true,
             //opacity: 0.85,
@@ -160,4 +161,4 @@ FloatingSlider.prototype = {
         return new THREE.Vector3(position.x + this.normal.x, position.y + this.normal.y, position.z + this.normal.z);
     }
 
-}
+};

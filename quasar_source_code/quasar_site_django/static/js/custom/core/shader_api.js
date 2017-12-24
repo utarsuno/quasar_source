@@ -1,42 +1,40 @@
 'use strict';
 
-function ShaderAPI(renderer_api, scene, camera) {
-    this.__init__(renderer_api, scene, camera);
+const FRAGMENT_GLOW = [
+    'uniform vec3 glowColor;',
+    'varying float intensity;',
+    'void main() {',
+    '\tvec3 glow = glowColor * intensity;',
+    '\tgl_FragColor = vec4( glow, 1.0 );',
+    '}'
+].join('\n');
+
+const VERTEX_GLOW = [
+    'uniform vec3 viewVector;',
+    'uniform float c;',
+    'uniform float p;',
+    'varying float intensity;',
+    'void main() {',
+    '\tvec3 vNormal = normalize( normalMatrix * normal );',
+    '\tvec3 vNormel = normalize( normalMatrix * viewVector );',
+    '\tintensity = pow( c - dot(vNormal, vNormel), p );',
+    '\tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );',
+    '}'
+].join('\n');
+
+function ShaderAPI() {
+    this.__init__();
 }
 
 ShaderAPI.prototype = {
-    composer: null,
-    render_pass: null,
 
-    __init__: function(renderer_api, scene, camera) {
-        // COMPOSER
-        this.composer = new THREE.EffectComposer(renderer_api.renderer);
-
-        // PASSES
-        this.render_pass = new THREE.RenderPass(scene, camera);
-
-        this.copy_pass = new THREE.ShaderPass(THREE.CopyShader);
-
-        this.glitch_pass = new THREE.GlitchPass(0);
-
-        this.composer.addPass(this.render_pass);
-        this.composer.addPass(this.copy_pass);
-        this.composer.addPass(this.glitch_pass);
-
-        this.glitch_pass.renderToScreen = true;
-
-        //this.render_pass.renderToScreen = true
-    },
-
-    render: function() {
-        this.composer.render();
+    __init__: function() {
+        l('GLOW!');
+        l(FRAGMENT_GLOW);
+        l('\n\n');
+        l('GLOW 2');
+        l(VERTEX_GLOW);
+        l('\n\n');
     }
 };
 
-
-/*
-var material = new THREE.ShaderMaterial({
-    vertex_shader: vertex_shader.vert text contents
-    fragments_shader: fragment_shader.frag text contents
-});
- */

@@ -84,6 +84,19 @@ Floating2DText.prototype = {
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
+
+        // Shader testing
+        this.shader_material = new THREE.ShaderMaterial(
+            {
+                uniforms: {
+                    'c': {type: 'f', value: 1.0},
+                    'p': {type: 'f', value: 1.4}
+                },
+                vertexShader:
+            });
+        //
+
+
         this.object3D.add(this.mesh);
         if (!is_defined(add_to_scene)) {
             if (is_defined(this.scene)) {

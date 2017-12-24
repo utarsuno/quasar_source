@@ -691,8 +691,6 @@ FloatingWall.prototype = {
             return false;
         }
 
-        // TODO : Debug t value
-
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
 
         if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
