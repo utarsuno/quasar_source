@@ -15,7 +15,7 @@ MenuIcon.prototype = {
 
 
         for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
-            if (MANAGER_WORLD.icon_textures[i][1] === icon_type) {
+            if (MANAGER_WORLD.icon_textures[i][1].includes(icon_type)) {}
                 this.geometry = new THREE.CircleGeometry(10, 32);
                 // TODO : Eventually just do FrontSide
                 // TODO : Eventually add some transparency.
