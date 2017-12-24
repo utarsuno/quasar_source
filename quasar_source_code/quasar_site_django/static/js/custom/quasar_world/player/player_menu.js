@@ -123,8 +123,10 @@ PlayerMenu.prototype = {
 
     set_to_invisible: function() {
         this.visible = false;
-        for (var i = 0; i < this.icons.length; i++) {
-            this.icons[i].set_to_invisible();
+        if (is_defined(this.icons)) {
+            for (var i = 0; i < this.icons.length; i++) {
+                this.icons[i].set_to_invisible();
+            }
         }
     },
 
@@ -190,6 +192,10 @@ PlayerMenu.prototype = {
         this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, 5);
 
         this.icons = [this.icon_create_entity_group, this.icon_save, this.icon_settings, this.icon_home, this.icon_multiplayer, this.icon_log_out];
+
+        for (var i = 0; i < this.icons.length; i++) {
+            this.icons[i].set_to_invisible();
+        }
     }
 
 };
