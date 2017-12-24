@@ -4,6 +4,9 @@
  / _` |    /  \ |__)  /\  |    /__`
  \__> |___ \__/ |__) /~~\ |___ .__/ */
 
+// A global manager to load first.
+MANAGER_SHADER      = new ShaderAPI();
+
 // Renders all the worlds.
 var renderer_api = new RendererAPI();
 
@@ -15,7 +18,6 @@ MANAGER_COOKIES     = Cookies.noConflict();
 MANAGER_WORLD       = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
-MANAGER_SHADER      = new ShaderAPI();
 
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu();
