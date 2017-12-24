@@ -32,8 +32,8 @@ MenuIcon.prototype = {
     },
 
     update_position_and_normal: function(position, nx, nz) {
-        this.object3D.position.set(position.x, position.y - this.row * 35, position.z);
-        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - this.row * 35, position.z + nz * 5));
+        this.object3D.position.set(position.x, position.y - this.row * 12, position.z);
+        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y - this.row * 12, position.z + nz * 5));
     }
 };
 
@@ -76,7 +76,6 @@ PlayerMenu.prototype = {
     update: function(delta) {
         this.total_delta += delta;
         if (this.total_delta >= 1.0) {
-            l('One second has passed!');
             this.total_delta -= 1.0;
         }
     },
