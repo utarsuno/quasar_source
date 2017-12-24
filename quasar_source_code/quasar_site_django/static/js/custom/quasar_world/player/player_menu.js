@@ -2,7 +2,8 @@
 
 const SPACE_BETWEEN_MENU_ICONS = 20;
 const ONE_SECOND = 1.0;
-const ANIMATION_TIME = ONE_SECOND / 2;
+const ANIMATION_TIME = ONE_SECOND / 4;
+const MENU_DISTANCE_FROM_PLAYER = 150;
 
 function PlayerMenu(world) {
     this.__init__(world);
@@ -44,8 +45,11 @@ MenuIcon.prototype = {
                 case ICON_SETTINGS:
                     icon_label = 'settings';
                     break;
+                case ICON_ENTITY_GROUP:
+                    icon_label = 'entities';
+                    break;
                 }
-                this.floating_label = new Floating2DText(100, icon_label, TYPE_BUTTON, this.world.scene);
+                this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
 
                 this.object3D.add(this.icon);
 
@@ -64,7 +68,7 @@ MenuIcon.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        var horizontal_shift = 75;
+        var horizontal_shift = 65;
 
         this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift), this.normal);
     },
@@ -100,7 +104,7 @@ PlayerMenu.prototype = {
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
 
-        var start_position = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100, pp.z + pd.z * 100);
+        var start_position = new THREE.Vector3(pp.x + pd.x * MENU_DISTANCE_FROM_PLAYER, pp.y + pd.y * MENU_DISTANCE_FROM_PLAYER, pp.z + pd.z * MENU_DISTANCE_FROM_PLAYER);
 
         this.icon_create_entity_group.set_position_and_normal(start_position, -pd.x, -pd.z);
         this.icon_save.set_position_and_normal(start_position, -pd.x, -pd.z);
@@ -127,6 +131,8 @@ PlayerMenu.prototype = {
                 var this_icons_max_delta = this.time_needed_for_each_row * this.icons[i].row;
                 if (this.percentage < this_icons_max_delta) {
                     this.icons[i].update_y_position(this.percentage * this.total_distance);
+                } else {
+                    this.icons[i].update_y_position(this_icons_max_delta * this.total_distance);
                 }
             }
         }
