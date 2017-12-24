@@ -89,7 +89,7 @@ Floating2DText.prototype = {
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: {
                 'c': {type: 'f', value: 1.0},
-                'p': {type: 'f', value: 1.4},
+                'p': {type: 'f', value: 6},
                 glowColor: {type: 'c', value: new THREE.Color(0xffff00)},
                 viewVector: {type: 'v3', value: this.object3D.position}
             },
