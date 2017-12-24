@@ -525,9 +525,14 @@ FloatingWall.prototype = {
      /__` |    | |  \ |__  |__)    |__) /  \ |  | /__`
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
-    // TODO : Add floating Slider
+    slider_increased: function() {
 
-    // this.wall_settings_slider_fov = this.wall_settings.add_floating_slider(0, 1, 90, 20, 160, 'Camera Field of View : ', 1);
+    },
+
+    slider_decreased: function() {
+
+    },
+
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
 
         // Determine the % width that 25 pixels will be.
@@ -572,6 +577,7 @@ FloatingWall.prototype = {
         floating_slider.parent_floating_wall = this;
         // TODO :
         //floating_slider.pfw_x_start =
+        floating_slider.pfw_row = row;
 
         /*
         // Camera FOV Slider.

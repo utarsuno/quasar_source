@@ -245,6 +245,15 @@ module.exports = {
         "BACKGROUND_COLOR_ERROR"   : false,
         "BACKGROUND_COLOR_SUCCESS" : false,
 
+        // UNIVERSAL_CONSTANTS_START : Icons.
+        "ICON_EXIT"        : false,
+        "ICON_SETTINGS"    : false,
+        "ICON_MULTIPLAYER" : false,
+        "ICON_HOME"        : false,
+        "ICON_SAVE"        : false,
+        "ICON_ENTITY_GROUP": false,
+        // UNIVERSAL_CONSTANTS_END
+
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
         "COLOR_STRING_INDEX"    : false,
         "COLOR_HEX_INDEX"       : false,

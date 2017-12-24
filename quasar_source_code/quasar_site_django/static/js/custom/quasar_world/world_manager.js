@@ -78,6 +78,7 @@ Planet.prototype = {
 const TEXTURE_URL_BASE = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/';
 const TEXTURE_URL_SKYBOX = TEXTURE_URL_BASE + 'skybox/skybox_texture_';
 const TEXTURE_URL_CURSOR = TEXTURE_URL_BASE + 'cursors/';
+const TEXTURE_URL_ICONS  = TEXTURE_URL_BASE + 'icons/';
 
 // TODO : Eventually make this into a configurable setting.
 const CURSOR_DEFAULT_OPACITY = 0.90;
@@ -110,20 +111,27 @@ WorldManager.prototype = {
 
         // The textures to load.
         this.textures_to_load = [];
-        // First load the cursors.
+        // Load the cursors.
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HORIZONTAL);
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_VERTICAL);
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HAND);
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_POINTER);
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_LARGER);
         this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_MOUSE);
-        // Next load the skybox textures.
+        // Load the skybox textures.
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_FRONT);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BACK);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_TOP);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BOTTOM);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_RIGHT);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_LEFT);
+        // Load the icons.
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_EXIT);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SETTINGS);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_ENTITY_GROUP);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_HOME);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_MULTIPLAYER);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SAVE);
 
         // TODO : Eventually give this to some sort of loading/ajax manager.
         this.load_textures();
@@ -196,6 +204,7 @@ WorldManager.prototype = {
 
     texture_loaded: function(texture, texture_name) {
         if (texture_name.includes('skybox')) {
+            // Skybox.
             var position = -1;
             if (texture_name.includes(SKYBOX_FRONT)) {
                 position = 0;
@@ -218,10 +227,14 @@ WorldManager.prototype = {
             }
 
         } else if (texture_name.includes('cursors')) {
+            // Cursors.
             var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
             this.world_login.provide_cursor_material(cursor_material, texture_name);
             this.world_home.provide_cursor_material(cursor_material, texture_name);
             this.world_settings.provide_cursor_material(cursor_material, texture_name);
+        } else if (texture_name.includes('icons')) {
+            // Icons.
+
         }
     },
 

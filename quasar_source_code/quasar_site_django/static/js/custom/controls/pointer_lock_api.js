@@ -34,6 +34,8 @@ PointerLockAPI.prototype = {
             document.addEventListener('onmousedown', this.on_mouse_down.bind(this), false);
             document.addEventListener('onmouseup', this.on_mouse_up.bind(this), false);
 
+            this.right_click_down = false;
+
             this.key_down_buffer = [];
             // Hook for mouse click.
             document.addEventListener('click', this.click_handler.bind(this));

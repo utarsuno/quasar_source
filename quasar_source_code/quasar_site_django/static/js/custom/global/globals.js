@@ -177,6 +177,15 @@ const COLOR_DAY_FUTURE_SIX   = [0xd4ffb3, '#5c472b'];
 const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#5f3d0c'];
 // UNIVERSAL_CONSTANTS_END
 
+// UNIVERSAL_CONSTANTS_START : Icons.
+const ICON_EXIT         = 'exit.png';
+const ICON_SETTINGS     = 'gear.png';
+const ICON_MULTIPLAYER  = 'massiveMultiplayer.png';
+const ICON_HOME         = 'home.png';
+const ICON_SAVE         = 'save.png';
+const ICON_ENTITY_GROUP = 'share2.png';
+// UNIVERSAL_CONSTANTS_END
+
 // UNIVERSAL_CONSTANTS_START : Cursor types.
 const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
 const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
