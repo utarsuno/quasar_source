@@ -90,8 +90,8 @@ Floating2DText.prototype = {
             uniforms: {
                 'c': {type: 'f', value: 1.0},
                 'p': {type: 'f', value: 1.4},
-                glowColor: {type: 'c', value: new THREE.Color(0xffff00)}
-                //viewColor: {type: 'v3', value: camera.p}
+                glowColor: {type: 'c', value: new THREE.Color(0xffff00)},
+                viewVector: {type: 'v3', value: this.object3D.position}
             },
             vertexShader: MANAGER_SHADER.VERTEX_GLOW,
             fragmentShader: MANAGER_SHADER.FRAGMENT_GLOW,
