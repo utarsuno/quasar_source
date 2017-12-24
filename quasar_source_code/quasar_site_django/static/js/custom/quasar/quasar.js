@@ -15,6 +15,7 @@ MANAGER_COOKIES     = Cookies.noConflict();
 MANAGER_WORLD       = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
+MANAGER_SHADER      = new ShaderAPI();
 
 // Global 2D GUI objects.
 GUI_PAUSED_MENU      = new PausedMenu();

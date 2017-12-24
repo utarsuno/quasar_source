@@ -15,6 +15,7 @@ var MANAGER_COOKIES     = null;
 var MANAGER_WORLD       = null;
 var MANAGER_ENTITY      = null;
 var MANAGER_MULTIPLAYER = null;
+var MANAGER_SHADER      = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;

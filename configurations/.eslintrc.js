@@ -72,15 +72,15 @@ module.exports = {
 
         "Interactive": true,
         "Visibility": true,
-        "Button3D": true,
         "DomElement": false,
 
         // Global Managers.
-        "MANAGER_COOKIES": true,
+        "MANAGER_COOKIES"    : true,
         "MANAGER_AUDIO"      : true,
         "MANAGER_WORLD"      : true,
         "MANAGER_ENTITY"     : true,
         "MANAGER_MULTIPLAYER": true,
+        "MANAGER_SHADER"     : true,
         // and their class names.
         "WorldManager"      : true,
         "AudioManager"      : false,
