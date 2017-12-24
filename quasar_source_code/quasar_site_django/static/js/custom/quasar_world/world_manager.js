@@ -91,6 +91,8 @@ WorldManager.prototype = {
     current_world  : null,
     current_scene  : null,
 
+    current_player_menu: null,
+
     // Pre-defined worlds.
     world_login    : null,
     world_home     : null,
@@ -167,6 +169,7 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
+        this.current_player_menu = this.current_world.player_menu;
         this.current_world.current_world = true;
         this.current_scene = this.current_world.scene;
 

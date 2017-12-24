@@ -94,6 +94,8 @@ module.exports = {
         "EntityOwner": false,
         "Player": true,
 
+        "PlayerMenu": true,
+
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,
         "GUI_TYPING_INTERFACE": true,

@@ -26,18 +26,6 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
-    turn_off_menu: function() {
-        MANAGER_WORLD.current_world.player_menu.set_to_invisible();
-    },
-
-    turn_on_menu: function() {
-        MANAGER_WORLD.current_world.player_menu.set_to_visible();
-    },
-
-    is_menu_on: function() {
-        return MANAGER_WORLD.current_world.player_menu.is_visible;
-    },
-
     __init__: function(renderer_api) {
         this.renderer_api = renderer_api;
         this.camera = this.renderer_api.camera;
@@ -66,21 +54,6 @@ Player.prototype = {
 
         // TODO : move this state somewhere else
         this.currently_fullscreen = false;
-    },
-
-    _set_menu_position_and_normal: function() {
-        if (is_defined(MANAGER_WORLD)) {
-            var player_position = this.get_position();
-            var player_direction = this.get_direction();
-
-            var distance_from_player = 100;
-
-            MANAGER_WORLD.current_world.player_menu.object3D.position.x = player_position.x + player_direction.x * distance_from_player;
-            MANAGER_WORLD.current_world.player_menu.object3D.position.y = player_position.y + player_direction.y * distance_from_player;
-            MANAGER_WORLD.current_world.player_menu.object3D.position.z = player_position.z + player_direction.z * distance_from_player;
-
-            MANAGER_WORLD.current_world.player_menu.object3D.lookAt(player_position);
-        }
     },
 
     send_chat_message: function(chat_message) {
@@ -188,8 +161,10 @@ Player.prototype = {
         this.fps_controls.physics(delta);
         this.data_display.update();
 
-        if (this.is_menu_on()) {
-            this._set_menu_position_and_normal();
+        if (is_defined(MANAGER_WORLD)) {
+            if (MANAGER_WORLD.current_player_menu.is_visible()) {
+                MANAGER_WORLD.current_player_menu.update(delta);
+            }
         }
     },
 
@@ -293,6 +268,18 @@ Player.prototype = {
         var position = this.get_position();
         var vector   = this.fps_controls.get_direction();
         return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
+    },
+
+    /*___       __       ___         __            ___
+     |__  |    /  \  /\   |  | |\ | / _`     |\/| |__  |\ | |  |
+     |    |___ \__/ /~~\  |  | | \| \__>     |  | |___ | \| \__/ */
+
+    turn_off_menu: function() {
+        MANAGER_WORLD.current_player_menu.set_to_invisible();
+    },
+
+    turn_on_menu: function() {
+        MANAGER_WORLD.current_player_menu.set_to_visible();
     }
 };
 

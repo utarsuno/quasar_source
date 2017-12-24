@@ -80,9 +80,6 @@ PointerLockAPI.prototype = {
 
     // Code from : https://stackoverflow.com/questions/9521519/how-can-i-detect-a-rightmouse-button-event-on-mousedown
     on_mouse_down: function(e) {
-
-        l('BLA BLA?');
-
         e = e || window.event;
         switch (e.which) {
         case 1:
@@ -94,7 +91,6 @@ PointerLockAPI.prototype = {
         case 3:
             if (!this.right_click_down) {
                 if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-                    l('Turning on the menu!');
                     CURRENT_PLAYER.turn_on_menu();
                 }
             }
@@ -114,7 +110,6 @@ PointerLockAPI.prototype = {
             break;
         case 3:
             if (CURRENT_PLAYER.is_menu_on()) {
-                l('Turing off the menu!');
                 CURRENT_PLAYER.turn_off_menu();
             }
             this.right_click_down = false;
