@@ -31,8 +31,8 @@ PointerLockAPI.prototype = {
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false);
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false);
 
-            document.addEventListener('onmousedown', this.on_mouse_down.bind(this), false);
-            document.addEventListener('onmouseup', this.on_mouse_up.bind(this), false);
+            document.addEventListener('mousedown', this.on_mouse_down.bind(this), false);
+            document.addEventListener('mouseup', this.on_mouse_up.bind(this), false);
 
             this.right_click_down = false;
 
