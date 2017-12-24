@@ -7,15 +7,19 @@ function PlayerMenu() {
 PlayerMenu.prototype = {
 
     __init__: function() {
-
+        this.visible = false;
     },
 
     set_to_invisible: function() {
-
+        this.visible = false;
     },
 
     set_to_visible: function() {
+        this.visible = true;
+    },
 
+    is_visible: function() {
+        return this.visible;
     },
 
     update: function(delta) {
