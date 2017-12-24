@@ -11,16 +11,17 @@ function MenuIcon(icon_type, world) {
 MenuIcon.prototype = {
     __init__: function(icon_type, world) {
         this.world = world;
+        this.object3D = new THREE.Object3D();
+
 
         for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
-            if (MANAGER_WORLD.icon_textures[i][1] == icon_type) {
+            if (MANAGER_WORLD.icon_textures[i][1] === icon_type) {
                 this.geometry = new THREE.CircleGeometry(10, 32);
                 // TODO : Eventually just do FrontSide
                 // TODO : Eventually add some transparency.
                 this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
 
-                this.object3D = new THREE.Object3D();
                 this.object3D.add(this.icon);
 
                 this.world.add_to_scene(this.object3D);
@@ -51,7 +52,7 @@ PlayerMenu.prototype = {
 
     set_to_visible: function() {
         this.visible = true;
-        
+
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
 
