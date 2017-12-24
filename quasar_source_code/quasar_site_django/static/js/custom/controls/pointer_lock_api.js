@@ -80,6 +80,9 @@ PointerLockAPI.prototype = {
 
     // Code from : https://stackoverflow.com/questions/9521519/how-can-i-detect-a-rightmouse-button-event-on-mousedown
     on_mouse_down: function(e) {
+
+        l('BLA BLA?');
+
         e = e || window.event;
         switch (e.which) {
         case 1:
