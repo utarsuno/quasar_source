@@ -100,7 +100,7 @@ Floating2DText.prototype = {
 
         // TODO : Investigate if shader_material needs to be cloned or not.
         this.glow = new THREE.Mesh(this.geometry.clone(), this.shader_material.clone());
-        this.glow.position = this.mesh.position;
+        //this.glow.position = this.mesh.position;
         this.glow.scale.multiplyScalar(1.2);
         //
 
