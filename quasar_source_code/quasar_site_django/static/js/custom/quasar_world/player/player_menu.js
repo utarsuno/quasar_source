@@ -31,7 +31,7 @@ MenuIcon.prototype = {
 
     update_position_and_normal: function(position, nx, nz) {
         this.object3D.position.set(position.x, position.y, position.z);
-        this.object3D.lookAt(new THREE.Vector3(position.x + nx, 0, position.y + nz));
+        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, 0, position.z + nz * 5));
     }
 };
 
@@ -57,8 +57,10 @@ PlayerMenu.prototype = {
         var pd = CURRENT_PLAYER.get_direction();
 
         var start_position = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100, pp.z + pd.z * 100);
+        var start_position_2 = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100 - 50, pp.z + pd.z * 100);
 
         this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_create_entity_group.update_position_and_normal(start_position_2, -pd.x, -pd.z)
     },
 
     is_visible: function() {
