@@ -20,7 +20,7 @@ MenuIcon.prototype = {
                 this.geometry = new THREE.CircleGeometry(10, 32);
                 // TODO : Eventually just do FrontSide
                 // TODO : Eventually add some transparency.
-                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: false, opacity: .75});
+                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: true, opacity: .75});
                 //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
 
@@ -32,7 +32,7 @@ MenuIcon.prototype = {
     },
 
     update_position_and_normal: function(position, nx, nz) {
-        this.object3D.position.set(position.x, position.y, position.z);
+        this.object3D.position.set(position.x, position.y - this.row * 40, position.z);
         this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, position.y, position.z + nz * 5));
     }
 };
@@ -45,11 +45,12 @@ PlayerMenu.prototype = {
         this.world = world;
 
         this.visible = false;
-
+        this.total_delta = 0;
     },
 
     set_to_invisible: function() {
         this.visible = false;
+        this.total_delta = 0;
     },
 
     set_to_visible: function() {
@@ -78,6 +79,10 @@ PlayerMenu.prototype = {
 
     update: function(delta) {
         l(delta);
+        this.total_delta += delta;
+        if (this.total_delta >= ONE_SECOND) {
+            l('One second has passed!');
+        }
     },
 
     // This function gets called once per player menu object.

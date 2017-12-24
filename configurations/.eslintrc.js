@@ -114,6 +114,7 @@ module.exports = {
         "HALF_PIE": false,
         "PIE": false,
         "TWO_PIE": false,
+        "ONE_SECOND": false,
 
         "Entity": false,
         "EntityWall": false,

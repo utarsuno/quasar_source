@@ -42,6 +42,7 @@ const NOT_FOUND = -1;
 const HALF_PIE = Math.PI / 2.0;
 const PIE = Math.PI;
 const TWO_PIE = Math.PI * 2.0;
+const ONE_SECOND = 1000;
 
 // UNIVERSAL_CONSTANTS_START : Web socket message types.
 const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
