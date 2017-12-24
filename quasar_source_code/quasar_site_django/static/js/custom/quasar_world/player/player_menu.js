@@ -45,8 +45,8 @@ MenuIcon.prototype = {
         this.left_right = new THREE.Vector3(0, 1, 0);
         this.left_right.cross(this.normal);
         this.left_right.normalize();
-        
-        this.floating_label.update_position_and_normal(this.object3D.position.x + this.left_right.x * 30, this.object3D.position.y, this.object3D.position.z + this.left_right.z * 30);
+
+        this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * 30, this.object3D.position.y, this.object3D.position.z + this.left_right.z * 30), this.normal);
     },
 
     update_y_position: function(y_offset) {
