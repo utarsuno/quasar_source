@@ -9,8 +9,9 @@ function MenuIcon(icon_type, world) {
 }
 
 MenuIcon.prototype = {
-    __init__: function(icon_type, world) {
+    __init__: function(icon_type, world, row) {
         this.world = world;
+        this.row = row;
         this.object3D = new THREE.Object3D();
 
 
@@ -19,7 +20,7 @@ MenuIcon.prototype = {
                 this.geometry = new THREE.CircleGeometry(10, 32);
                 // TODO : Eventually just do FrontSide
                 // TODO : Eventually add some transparency.
-                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: true, opacity: .75});
+                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: false, opacity: .75});
                 //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
                 this.icon = new THREE.Mesh(this.geometry, this.material);
 
@@ -60,8 +61,12 @@ PlayerMenu.prototype = {
         var start_position = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100, pp.z + pd.z * 100);
         var start_position_2 = new THREE.Vector3(pp.x + pd.x * 100, pp.y + pd.y * 100 - 50, pp.z + pd.z * 100);
 
-        this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
         this.icon_create_entity_group.update_position_and_normal(start_position_2, -pd.x, -pd.z);
+        this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
+        this.icon_settings.update_position_and_normal();
+        this.icon_home.update_position_and_normal();
+        this.icon_multiplayer.update_position_and_normal();
+        this.icon_log_out.update_position_and_normal();
     },
 
     is_visible: function() {
