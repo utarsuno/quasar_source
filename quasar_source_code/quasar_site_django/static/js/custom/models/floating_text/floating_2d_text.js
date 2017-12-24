@@ -95,7 +95,7 @@ Floating2DText.prototype = {
             },
             vertexShader: MANAGER_SHADER.VERTEX_GLOW,
             fragmentShader: MANAGER_SHADER.FRAGMENT_GLOW,
-            side: THREE.FrontSide,
+            side: THREE.BackSide,
             blending: THREE.AdditiveBlending,
             transparent: true
         });
