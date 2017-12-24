@@ -63,10 +63,13 @@ PlayerMenu.prototype = {
 
         this.icon_create_entity_group.update_position_and_normal(start_position_2, -pd.x, -pd.z);
         this.icon_save.update_position_and_normal(start_position, -pd.x, -pd.z);
+
+        /*
         this.icon_settings.update_position_and_normal();
         this.icon_home.update_position_and_normal();
         this.icon_multiplayer.update_position_and_normal();
         this.icon_log_out.update_position_and_normal();
+        */
     },
 
     is_visible: function() {
