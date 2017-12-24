@@ -5,7 +5,7 @@
  \__> |___ \__/ |__) /~~\ |___ .__/ */
 
 // A global manager to load first.
-MANAGER_SHADER      = new ShaderAPI();
+//MANAGER_SHADER      = new ShaderAPI();
 
 // Renders all the worlds.
 var renderer_api = new RendererAPI();

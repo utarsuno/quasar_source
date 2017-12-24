@@ -55,8 +55,7 @@ Floating2DText.prototype = {
     },
 
     initialize: function(add_to_scene) {
-
-        this.background_color = BACKGROUND_COLOR_ERROR;
+        this.background_color = BACKGROUND_COLOR_DEFAULT;
 
         if (this.type === TYPE_TITLE) {
             this.height = 26;

@@ -281,6 +281,7 @@ function World(planet_name) {
             }
         }
 
+        // A match was found.
         if (interactive_index !== NOT_FOUND) {
             // A new object is being looked at, so look away from the old one and look at new one.
             if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
