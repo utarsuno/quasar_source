@@ -13,6 +13,10 @@ function MenuIcon(icon_type, world, row) {
     this.__init__(icon_type, world, row);
 }
 
+function global_save() {
+    l('PERFORM A GLOBAL SAVE!');
+}
+
 MenuIcon.prototype = {
     __init__: function(icon_type, world, row) {
         this.world = world;
@@ -29,9 +33,11 @@ MenuIcon.prototype = {
                 this.icon = new THREE.Mesh(this.geometry, this.material);
 
                 var icon_label = '';
+                var function_to_bind = null;
                 switch (icon_type) {
                 case ICON_SAVE:
                     icon_label = 'save';
+                    function_to_bind = global_save;
                     break;
                 case ICON_EXIT:
                     icon_label = 'exit';
@@ -50,6 +56,7 @@ MenuIcon.prototype = {
                     break;
                 }
                 this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
+                this.floating_label.set_engage_function(function_to_bind);
 
                 this.object3D.add(this.icon);
 
@@ -61,6 +68,7 @@ MenuIcon.prototype = {
                 //Visibility.call(this);
 
                 //this.world.interactive_objects.push(this.icon);
+
                 this.world.interactive_objects.push(this.floating_label);
             }
         }
@@ -109,6 +117,8 @@ PlayerMenu.prototype = {
 
         this.time_needed_for_each_row = ONE_SECOND / 5;
         this.total_distance = 5 * SPACE_BETWEEN_MENU_ICONS;
+
+        this.set_to_invisible();
     },
 
     set_to_invisible: function() {
@@ -119,6 +129,13 @@ PlayerMenu.prototype = {
     },
 
     set_to_visible: function() {
+        if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+            return;
+        }
+        if (GUI_PAUSED_MENU.is_visible()) {
+            return;
+        }
+
         this.visible = true;
         this.total_delta = 0;
 

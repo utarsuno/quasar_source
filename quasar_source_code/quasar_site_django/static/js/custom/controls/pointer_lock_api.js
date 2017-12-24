@@ -90,9 +90,8 @@ PointerLockAPI.prototype = {
             break;
         case 3:
             if (!this.right_click_down) {
-                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-                    MANAGER_WORLD.current_player_menu.set_to_visible();
-                }
+                // The player menu will only get set to visible if the correct conditions are present.
+                MANAGER_WORLD.current_player_menu.set_to_visible();
             }
             this.right_click_down = true;
             break;
