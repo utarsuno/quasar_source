@@ -85,10 +85,8 @@ function Interactive() {
         this.next_tab_target = tab_target;
     };
 
-    // TODO : Label the following.
-    this.set_value_changed_function = function() {
-        l('Set value changed function triggered!');
-        l(arguments);
+    this.set_value_changed_function = function(value_changed_function) {
+        this.value_changed_function = value_changed_function;
     };
 
     /* __          __   ___  __      __   __       ___  __   __        __

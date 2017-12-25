@@ -114,6 +114,9 @@ function FloatingText(width, text, type, scene, current_color) {
         if (this.text !== text) {
             this.text = text;
             this._update_text();
+            if (is_defined(this.value_changed_function)) {
+                this.value_changed_function(text);
+            }
         }
     };
 

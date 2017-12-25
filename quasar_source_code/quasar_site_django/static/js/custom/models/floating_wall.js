@@ -548,7 +548,6 @@ FloatingWall.prototype = {
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
     slider_change: function(slider, delta) {
-
         var new_value = slider.get_text_as_value() + delta;
         slider.current_percentage = (new_value - slider.minimum_value) / (slider.maximum_value - slider.minimum_value);
         slider.update_text(new_value.toString());
@@ -566,11 +565,15 @@ FloatingWall.prototype = {
     },
 
     slider_increased: function(slider) {
-        this.slider_change(slider, 1);
+        if (slider.get_text_as_value() < slider.maximum_value) {
+            this.slider_change(slider, 1);
+        }
     },
 
     slider_decreased: function(slider) {
-        this.slider_change(slider, -1);
+        if (slider.get_text_as_value() > slider.minimum_value) {
+            this.slider_change(slider, -1);
+        }
     },
 
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
