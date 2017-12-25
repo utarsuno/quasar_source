@@ -202,6 +202,9 @@ PlayerMenu.prototype = {
         var current_row = 0;
         this.icons = [];
 
+        l(list_of_icons_not_to_load);
+        l(list_of_icons_not_to_load.includes(ICON_SETTINGS));
+
         if (list_of_icons_not_to_load.includes(ICON_ENTITY_GROUP)) {
             this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
             current_row += 1;
