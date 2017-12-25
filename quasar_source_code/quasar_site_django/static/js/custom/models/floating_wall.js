@@ -526,11 +526,11 @@ FloatingWall.prototype = {
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
     slider_increased: function() {
-
+        l('Slider increased !');
     },
 
     slider_decreased: function() {
-
+        l('Slider decreased!');
     },
 
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
