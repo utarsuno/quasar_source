@@ -152,6 +152,8 @@ EntityWall.prototype = {
     },
 
     prepare_for_save: function() {
+        // TODO : Get save status back!
+
         this.update_value(ENTITY_PROPERTY_NAME, this.title.get_text());
         this.update_value(ENTITY_PROPERTY_POSITION, new THREE.Vector3(this.wall.x_without_normal, this.wall.y_without_normal, this.wall.z_without_normal));
         this.update_value(ENTITY_PROPERTY_NORMAL, this.wall.normal);

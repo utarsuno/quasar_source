@@ -16,7 +16,7 @@ function MenuIcon(icon_type, world, row) {
 function global_save() {
     l('PERFORM A GLOBAL SAVE!');
 
-    this.add_server_message('Saving changes to the server!');
+    GUI_TYPING_INTERFACE.add_server_message('Saving changes to the server! TODO : Get a response back!');
 
     MANAGER_WORLD.world_home.prepare_for_save();
 
@@ -214,9 +214,6 @@ PlayerMenu.prototype = {
         var current_row = 0;
         this.icons = [];
 
-        l(list_of_icons_not_to_load);
-        l(list_of_icons_not_to_load.contains(ICON_SETTINGS));
-
         if (!list_of_icons_not_to_load.contains(ICON_ENTITY_GROUP)) {
             this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
             current_row += 1;
@@ -252,7 +249,6 @@ PlayerMenu.prototype = {
             current_row += 1;
             this.icons.push(this.icon_log_out);
         }
-
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
