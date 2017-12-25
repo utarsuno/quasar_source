@@ -26,6 +26,9 @@ HomeWorld.prototype = {
         var n = new THREE.Vector3(-x_position, 1000, -z_position);
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
+
+        l('Created ' + day.to_string_without_year());
+
         month_day_wall.add_3d_title(day.to_string_without_year());
 
         return month_day_wall;
