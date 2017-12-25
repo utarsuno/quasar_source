@@ -74,7 +74,9 @@ MenuIcon.prototype = {
                     break;
                 }
                 this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
-                this.floating_label.set_engage_function(function_to_bind);
+                if (is_defined(function_to_bind)) {
+                    this.floating_label.set_engage_function(function_to_bind);
+                }
 
                 this.object3D.add(this.icon);
 
@@ -132,11 +134,6 @@ PlayerMenu.prototype = {
 
         this.visible = false;
         this.total_delta = 0;
-
-        this.time_needed_for_each_row = ONE_SECOND / 5;
-        this.total_distance = 5 * SPACE_BETWEEN_MENU_ICONS;
-
-        this.set_to_invisible();
     },
 
     set_to_invisible: function() {
@@ -241,9 +238,11 @@ PlayerMenu.prototype = {
             this.icons.push(this.icon_log_out);
         }
 
-        for (var i = 0; i < this.icons.length; i++) {
-            this.icons[i].set_to_invisible();
-        }
+
+        this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
+        this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
+
+        this.set_to_invisible();
     }
 
 };
