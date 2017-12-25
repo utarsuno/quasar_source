@@ -576,7 +576,15 @@ FloatingWall.prototype = {
         this.world.interactive_objects.push(floating_slider);
         floating_slider.parent_floating_wall = this;
         // TODO :
-        //floating_slider.pfw_x_start =
+
+        var current_percentage = (current_value - minimum_value) / (maximum_value - minimum_value);
+        var current_value = (current_percentage * (maximum_value - minimum_value) + minimum_value);
+
+        // max_one is the start
+        // x_end is the end
+
+        floating_slider.pfw_x_start = ((x_end - max_one) * current_percentage) + max_one;
+        floating_slider.pfw_x_end = floating_slider.pfw_x_start + min_max_width;
         floating_slider.pfw_row = row;
 
         /*

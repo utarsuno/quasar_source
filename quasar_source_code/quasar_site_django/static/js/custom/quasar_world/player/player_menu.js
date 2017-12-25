@@ -15,21 +15,34 @@ function MenuIcon(icon_type, world, row) {
 
 function global_save() {
     l('PERFORM A GLOBAL SAVE!');
+
+    this.add_server_message('Saving changes to the server!');
+
+    MANAGER_WORLD.world_home.prepare_for_save();
+
+    // Any changes to entities will be saved.
+    MANAGER_ENTITY.update_server_and_database();
 }
 
 function go_to_settings_world() {
-    l('Going to settings world!');
-    //MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
+    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
 }
 
 function go_to_home_world() {
-    l('Going to home world!');
     MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
 }
 
 function create_entity_wall() {
     l('Creating entity wall!');
     MANAGER_WORLD.world_home.create_entity_wall_command_entered();
+}
+
+function exit_function() {
+    if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_login) {
+        window.close();
+    } else {
+        l('TODO : regular log out functionality');
+    }
 }
 
 MenuIcon.prototype = {

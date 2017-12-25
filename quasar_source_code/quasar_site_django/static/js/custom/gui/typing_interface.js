@@ -163,27 +163,7 @@ TypingInterface.prototype = {
         var current_input = this.input_text.get_text();
         if (current_input.length > 0) {
             //this.add_message(current_input, MESSAGE_TYPE_USER);
-
-            // TODO : Abstract these commands, possibly place all of them into a Player menu.
-            if (current_input[0] === '.') {
-                switch(current_input) {
-                case '.save':
-                    this.add_server_message('Saving changes to the server!');
-
-                    MANAGER_WORLD.world_home.prepare_for_save();
-
-                    // Any changes to entities will be saved.
-                    MANAGER_ENTITY.update_server_and_database();
-
-                    break;
-                }
-            } else {
-                CURRENT_PLAYER.send_chat_message(current_input);
-            }
-
-            // TODO : Add basic commands like save and help
-            // This will be the response for unknown commands.
-            //this.add_server_message('¯\\_(ツ)_/¯')
+            CURRENT_PLAYER.send_chat_message(current_input);
         }
     },
 
