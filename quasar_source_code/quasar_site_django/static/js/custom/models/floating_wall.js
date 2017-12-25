@@ -548,26 +548,27 @@ FloatingWall.prototype = {
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
     slider_change: function(slider, delta) {
-        slider.current_percentage = slider.current_percentage + delta;
-        var new_value = (((slider.maximum_value - slider.minimum_value) * slider.current_percentage) + slider.minimum_value).toString();
-        slider.update_text(new_value);
 
+        var new_value = slider.get_text_as_value() + delta;
+        slider.current_percentage = (new_value - slider.minimum_value) / (slider.maximum_value - slider.minimum_value);
+        slider.update_text(new_value.toString());
+
+        var max_one = ONE_THIRD;
         var min_max_width = 25 / this.width;
-        var x_start = ONE_THIRD + min_max_width;
-        var x_end = 1 - min_max_width;
+        var x_end = 1;
 
-        slider.pfw_x_start = ((x_end - x_start) * slider.current_percentage) + (x_start);
+        slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * slider.current_percentage) + (max_one);
 
         this.update_position_for_floating_2D_text(slider);
         CURRENT_PLAYER.look_at(slider.get_position());
     },
 
     slider_increased: function(slider) {
-        this.slider_change(slider, 0.01);
+        this.slider_change(slider, 1);
     },
 
     slider_decreased: function(slider) {
-        this.slider_change(slider, -0.01);
+        this.slider_change(slider, -1);
     },
 
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
@@ -578,7 +579,6 @@ FloatingWall.prototype = {
         // Label width will be 1/3 width.
         // Slider width will be the remaining 2/3 width.
         var label_width = (this.width * (x_end - x_start)) * ONE_THIRD;
-        var slider_width = (this.width * (x_end - x_start)) * TWO_THIRDS;
 
         var max_one = x_end * ONE_THIRD;
 
@@ -607,18 +607,12 @@ FloatingWall.prototype = {
         floating_maximum_label.pfw_row = row;
 
         // Slider object.
-        // TODO : Make sure to dynamically update the value of the floating slider (do it in the value changed function).
         var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
         floating_slider.is_in_interactive_list = true;
         this.world.interactive_objects.push(floating_slider);
         floating_slider.parent_floating_wall = this;
-        // TODO :
 
         var current_percentage = (current_value - minimum_value) / (maximum_value - minimum_value);
-        //var current_value = (current_percentage * (maximum_value - minimum_value) + minimum_value);
-
-        // max_one is the start
-        // x_end is the end
 
         floating_slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * current_percentage) + (max_one);
         floating_slider.pfw_x_end = floating_slider.pfw_x_start + min_max_width;
@@ -629,23 +623,6 @@ FloatingWall.prototype = {
 
         floating_slider.requires_mouse_x_movement = true;
         floating_slider.bind_slider_delta_x_functions(this.slider_increased.bind(this, floating_slider), this.slider_decreased.bind(this, floating_slider));
-
-        /*
-        // Camera FOV Slider.
-        var slider_fov_position     = new THREE.Vector3(1200, 500, -350);
-        var slider_fov_normal       = new THREE.Vector3(-0.969, -0.115, -0.221);
-        var slider_fov_width        = 500;
-        this.slider_fov = new FloatingSlider('Camera FOV', 90, 20, 160, slider_fov_width, slider_fov_position, slider_fov_normal, this);
-        this.slider_fov.value_changed_function = this.slider_fov_value_changed.bind(this);
-        // TODO : Actually save the settings and dynamically load them!!!
-
-        // Global Audio Level Slider.
-        var slider_global_audio_level_position = new THREE.Vector3(1200, 750, -350);
-        var slider_global_audio_level_normal   = new THREE.Vector3(-0.969, -0.115, -0.221);
-        var slider_global_audio_level_width    = 500;
-        this.slider_global_audio_level = new FloatingSlider('Master Volume', 100, 0, 100, slider_global_audio_level_width, slider_global_audio_level_position, slider_global_audio_level_normal, this);
-        this.slider_global_audio_level.value_changed_function = this.slider_master_volume_value_changed.bind(this);
-        */
 
         this.update_position_and_normal_for_floating_2D_text(floating_label);
         this.update_position_and_normal_for_floating_2D_text(floating_minimum_label);

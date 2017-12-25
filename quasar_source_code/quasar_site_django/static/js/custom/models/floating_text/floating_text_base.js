@@ -117,6 +117,10 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     };
 
+    this.get_text_as_value = function() {
+        return parseInt(this.get_text());
+    };
+
     this.get_text = function() {
         if (this.type === TYPE_INPUT_PASSWORD) {
             return this.hidden_text;
