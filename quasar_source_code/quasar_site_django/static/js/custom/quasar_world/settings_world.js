@@ -108,7 +108,7 @@ SettingsWorld.prototype = {
           .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
 
         var wall_settings_position = new THREE.Vector3(1150, 600, 200);
-        var wall_settings_width    = 400;
+        var wall_settings_width    = 600;
         var wall_settings_height   = 512;
         var wall_settings_normal   = new THREE.Vector3(-0.969, 0, -0.221);
         var wall_settings_scalable = false;
