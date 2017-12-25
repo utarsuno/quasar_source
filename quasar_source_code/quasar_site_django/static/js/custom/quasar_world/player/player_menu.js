@@ -200,19 +200,47 @@ PlayerMenu.prototype = {
     },
 
     // This function gets called once per player menu object.
-    load_icon_textures: function() {
+    load_icon_textures: function(list_of_icons_not_to_load) {
 
         var current_row = 0;
+        this.icons = [];
 
-        this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, 0);
-        this.icon_save = new MenuIcon(ICON_SAVE, this.world, 1);
-        this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, 2);
-        this.icon_home = new MenuIcon(ICON_HOME, this.world, 3);
-        this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, 4);
-        this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, 5);
+        if (list_of_icons_not_to_load.includes(ICON_ENTITY_GROUP)) {
+            this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_create_entity_group);
+        }
 
-        this.icons = [this.icon_create_entity_group, this.icon_save, this.icon_settings, this.icon_home, this.icon_multiplayer, this.icon_log_out];
+        if (list_of_icons_not_to_load.includes(ICON_SAVE)) {
+            this.icon_save = new MenuIcon(ICON_SAVE, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_save);
+        }
 
+        if (list_of_icons_not_to_load.includes(ICON_SETTINGS)) {
+            this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_settings);
+        }
+
+        if (list_of_icons_not_to_load.includes(ICON_HOME)) {
+            this.icon_home = new MenuIcon(ICON_HOME, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_home);
+        }
+
+        if (list_of_icons_not_to_load.includes(ICON_MULTIPLAYER)) {
+            this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_multiplayer);
+        }
+
+        if (list_of_icons_not_to_load.includes(ICON_EXIT)) {
+            this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_log_out);
+        }
+        
         for (var i = 0; i < this.icons.length; i++) {
             this.icons[i].set_to_invisible();
         }
