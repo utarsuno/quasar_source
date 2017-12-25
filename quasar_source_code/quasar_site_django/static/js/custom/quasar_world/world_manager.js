@@ -252,7 +252,7 @@ WorldManager.prototype = {
                 // The parameters passed in are the icons not to load.
                 this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
                 this.world_home.player_menu.load_icon_textures([ICON_HOME]);
-                this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS]);
+                this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
             }
         }
     },

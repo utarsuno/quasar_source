@@ -19,14 +19,16 @@ function global_save() {
 
 function go_to_settings_world() {
     l('Going to settings world!');
-    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
+    //MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
 }
 
 function go_to_home_world() {
+    l('Going to home world!');
     MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
 }
 
 function create_entity_wall() {
+    l('Creating entity wall!');
     MANAGER_WORLD.world_home.create_entity_wall_command_entered();
 }
 
