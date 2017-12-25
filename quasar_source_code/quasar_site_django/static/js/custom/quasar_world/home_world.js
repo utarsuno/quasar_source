@@ -4,6 +4,8 @@ function HomeWorld() {
     this.__init__();
 }
 
+const MONTH_VIEW_RADIUS = 3000;
+
 HomeWorld.prototype = {
 
     //
@@ -11,6 +13,23 @@ HomeWorld.prototype = {
 
     //
     loaded_entities: null,
+
+    create_month_day_wall: function(day, index, total_number_of_days) {
+        var w = 500;
+        var h = 1000;
+
+        var percentage = index / total_number_of_days;
+        var x_position = cos(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
+        var z_position = sin(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
+
+        var p = new THREE.Vector3(x_position, 1000, z_position);
+        var n = new THREE.Vector3(-x_position, 1000, -z_position);
+
+        var month_day_wall = new FloatingWall(w, h, p, n, this, false);
+        month_day_wall.add_3d_title(day.to_string_without_year());
+
+        return month_day_wall;
+    },
 
     __init__: function() {
 
@@ -20,7 +39,18 @@ HomeWorld.prototype = {
 
         this.entity_walls = [];
 
+        // TODO : What is this for?
         this.players = [];
+
+        // The 360 schedule view.
+        this.month_day_walls = [];
+        this.month_days = new MyDates(THIS_MONTH);
+
+        for (var md = 0; md < this.month_days.length; md++) {
+            this.month_day_walls.push(this.create_month_day_wall(this.month_days[md], md, this.month_days.length));
+        }
+
+
 
         // Create a seperate class for this!
 
@@ -118,8 +148,6 @@ HomeWorld.prototype = {
         }
         */
     },
-
-    control_key_down: null,
 
     //remove_entity: function()
 
