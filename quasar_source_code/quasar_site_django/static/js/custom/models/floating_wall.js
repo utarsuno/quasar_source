@@ -470,6 +470,28 @@ FloatingWall.prototype = {
         return floating_2D_text;
     },
 
+    update_position_for_floating_2D_text: function(floating_2D_text) {
+        var width;
+        var x_offset;
+        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
+            width = floating_2D_text['pfw_fixed_width'];
+            if (floating_2D_text['pfw_position_offset'] < 0) {
+                floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
+            }
+            x_offset = this.width * (floating_2D_text['pfw_position_offset'] / this.width);
+        } else {
+            width = this.width * (floating_2D_text['pfw_x_end'] - floating_2D_text['pfw_x_start']);
+            x_offset = this.width * floating_2D_text['pfw_x_start'];
+        }
+        var additional_x_shift = 0;
+        if (width < this.width) {
+            additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
+        }
+        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
+        var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
+        floating_2D_text.update_position(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0));
+    },
+
     update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
         var width;
         var x_offset;
@@ -525,18 +547,26 @@ FloatingWall.prototype = {
      /__` |    | |  \ |__  |__)    |__) /  \ |  | /__`
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
-    slider_change: function(slider) {
+    slider_change: function(slider, delta) {
+        slider.current_percentage = slider.current_percentage + delta;
+        var new_value = (((slider.maximum_value - slider.minimum_value) * slider.current_percentage) + slider.minimum_value).toString();
+        slider.update_text(new_value);
 
+        var min_max_width = 25 / this.width;
+        var x_start = ONE_THIRD + min_max_width;
+        var x_end = 1 - min_max_width;
+
+        slider.pfw_x_start = ((x_end - x_start) * slider.current_percentage) + (x_start);
+        
+        this.update_position_for_floating_2D_text(slider);
     },
 
     slider_increased: function(slider) {
-        l('Slider increased !');
-        l(slider.current_percentage);
+        this.slider_change(slider, 0.01);
     },
 
     slider_decreased: function(slider) {
-        l('Slider decreased!');
-        l(slider.minimum_value);
+        this.slider_change(slider, -0.01);
     },
 
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
@@ -589,13 +619,12 @@ FloatingWall.prototype = {
         // max_one is the start
         // x_end is the end
 
-        floating_slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * current_percentage) + (max_one + min_max_width);
+        floating_slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * current_percentage) + (max_one);
         floating_slider.pfw_x_end = floating_slider.pfw_x_start + min_max_width;
         floating_slider.pfw_row = row;
         floating_slider.current_percentage = current_percentage;
         floating_slider.maximum_value = maximum_value;
         floating_slider.minimum_value = minimum_value;
-        floating_slider.one_percent_value = (maximum_value - minimum_value) * 0.01;
 
         floating_slider.requires_mouse_x_movement = true;
         floating_slider.bind_slider_delta_x_functions(this.slider_increased.bind(this, floating_slider), this.slider_decreased.bind(this, floating_slider));
