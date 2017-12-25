@@ -525,12 +525,18 @@ FloatingWall.prototype = {
      /__` |    | |  \ |__  |__)    |__) /  \ |  | /__`
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
-    slider_increased: function() {
-        l('Slider increased !');
+    slider_change: function(slider) {
+
     },
 
-    slider_decreased: function() {
+    slider_increased: function(slider) {
+        l('Slider increased !');
+        l(slider.current_percentage);
+    },
+
+    slider_decreased: function(slider) {
         l('Slider decreased!');
+        l(slider.minimum_value);
     },
 
     add_floating_slider: function(x_start, x_end, current_value, minimum_value, maximum_value, label, row) {
@@ -586,9 +592,13 @@ FloatingWall.prototype = {
         floating_slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * current_percentage) + (max_one + min_max_width);
         floating_slider.pfw_x_end = floating_slider.pfw_x_start + min_max_width;
         floating_slider.pfw_row = row;
+        floating_slider.current_percentage = current_percentage;
+        floating_slider.maximum_value = maximum_value;
+        floating_slider.minimum_value = minimum_value;
+        floating_slider.one_percent_value = (maximum_value - minimum_value) * 0.01;
 
         floating_slider.requires_mouse_x_movement = true;
-        floating_slider.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
+        floating_slider.bind_slider_delta_x_functions(this.slider_increased.bind(this, floating_slider), this.slider_decreased.bind(this, floating_slider));
 
         /*
         // Camera FOV Slider.
