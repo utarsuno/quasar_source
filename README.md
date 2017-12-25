@@ -2,6 +2,9 @@
 
 ### Development Screenshots:
 
+As of December 24th
+![alt_text](https://i.imgur.com/ygTs717.png)
+
 As of November 22th
 - Networking work cleaned up
 - Switched from PostgreSQL to MongoDB
