@@ -64,15 +64,15 @@ MenuIcon.prototype = {
                     break;
                 case ICON_HOME:
                     icon_label = 'home';
-                    function_to_bind = go_to_home_world();
+                    function_to_bind = go_to_home_world;
                     break;
                 case ICON_SETTINGS:
                     icon_label = 'settings';
-                    function_to_bind = go_to_settings_world();
+                    function_to_bind = go_to_settings_world;
                     break;
                 case ICON_ENTITY_GROUP:
                     icon_label = 'entities';
-                    function_to_bind = create_entity_wall();
+                    function_to_bind = create_entity_wall;
                     break;
                 }
                 this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
