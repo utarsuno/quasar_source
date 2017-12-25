@@ -215,7 +215,7 @@ WorldManager.prototype = {
         if (texture_name.includes('skybox')) {
             // Skybox.
             var position = -1;
-            if (texture_name.includes(SKYBOX_FRONT)) {
+            if (texture_name.contains(SKYBOX_FRONT)) {
                 position = 0;
             } else if (texture_name.includes(SKYBOX_BACK)) {
                 position = 1;

@@ -290,6 +290,10 @@ const DISPLAY_SHOW = 'block';
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
+// From : https://stackoverflow.com/questions/12623272/how-to-check-if-a-string-array-contains-one-string-in-javascript
+Array.prototype.contains = function(element) {
+    return this.indexOf(element) > -1;
+}
 
 /* __      ___       __           __           ___                       ___      ___    __
   |__) \ /  |  |__| /  \ |\ |    /__` \ / |\ |  |   /\  \_/    |  |\/| |  |   /\   |  | /  \ |\ |

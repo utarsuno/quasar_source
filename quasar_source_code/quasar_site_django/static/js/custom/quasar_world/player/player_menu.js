@@ -203,39 +203,39 @@ PlayerMenu.prototype = {
         this.icons = [];
 
         l(list_of_icons_not_to_load);
-        l(list_of_icons_not_to_load.includes(ICON_SETTINGS));
+        l(list_of_icons_not_to_load.contains(ICON_SETTINGS));
 
-        if (list_of_icons_not_to_load.includes(ICON_ENTITY_GROUP)) {
+        if (!list_of_icons_not_to_load.contains(ICON_ENTITY_GROUP)) {
             this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_create_entity_group);
         }
 
-        if (list_of_icons_not_to_load.includes(ICON_SAVE)) {
+        if (!list_of_icons_not_to_load.contains(ICON_SAVE)) {
             this.icon_save = new MenuIcon(ICON_SAVE, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_save);
         }
 
-        if (list_of_icons_not_to_load.includes(ICON_SETTINGS)) {
+        if (!list_of_icons_not_to_load.contains(ICON_SETTINGS)) {
             this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_settings);
         }
 
-        if (list_of_icons_not_to_load.includes(ICON_HOME)) {
+        if (!list_of_icons_not_to_load.contains(ICON_HOME)) {
             this.icon_home = new MenuIcon(ICON_HOME, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_home);
         }
 
-        if (list_of_icons_not_to_load.includes(ICON_MULTIPLAYER)) {
+        if (!list_of_icons_not_to_load.contains(ICON_MULTIPLAYER)) {
             this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_multiplayer);
         }
 
-        if (list_of_icons_not_to_load.includes(ICON_EXIT)) {
+        if (!list_of_icons_not_to_load.contains(ICON_EXIT)) {
             this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_log_out);
