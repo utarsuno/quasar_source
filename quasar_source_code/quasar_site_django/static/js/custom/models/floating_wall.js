@@ -557,7 +557,9 @@ FloatingWall.prototype = {
         var min_max_width = 25 / this.width;
         var x_end = 1;
 
-        slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * slider.current_percentage) + (max_one);
+        //slider.pfw_x_start = ((x_end - max_one - min_max_width * 2) * slider.current_percentage) + (max_one);
+        slider.pfw_x_start = (((x_end - min_max_width) - (max_one + min_max_width)) * slider.current_percentage) + (max_one + min_max_width);
+        slider.pfw_x_end = slider.pfw_x_start + min_max_width;
 
         this.update_position_for_floating_2D_text(slider);
         CURRENT_PLAYER.look_at(slider.get_position());
