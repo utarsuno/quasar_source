@@ -23,7 +23,7 @@ HomeWorld.prototype = {
         var z_position = sin(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
 
         var p = new THREE.Vector3(x_position, 1000, z_position);
-        var n = new THREE.Vector3(-x_position, 1000, -z_position);
+        var n = new THREE.Vector3(-x_position, 0, -z_position);
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
 
