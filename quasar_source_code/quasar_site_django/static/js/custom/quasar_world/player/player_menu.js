@@ -163,15 +163,9 @@ PlayerMenu.prototype = {
         var pd = CURRENT_PLAYER.get_direction();
 
         var start_position = new THREE.Vector3(pp.x + pd.x * MENU_DISTANCE_FROM_PLAYER, pp.y + pd.y * MENU_DISTANCE_FROM_PLAYER, pp.z + pd.z * MENU_DISTANCE_FROM_PLAYER);
-
-        this.icon_create_entity_group.set_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_save.set_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_settings.set_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_home.set_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_multiplayer.set_position_and_normal(start_position, -pd.x, -pd.z);
-        this.icon_log_out.set_position_and_normal(start_position, -pd.x, -pd.z);
-
+        
         for (var i = 0; i < this.icons.length; i++) {
+            this.icons[i].set_position_and_normal(start_position, -pd.x, -pd.z);
             this.icons[i].set_to_visible();
         }
     },
