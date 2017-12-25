@@ -17,6 +17,18 @@ function global_save() {
     l('PERFORM A GLOBAL SAVE!');
 }
 
+function go_to_settings_world() {
+    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
+}
+
+function go_to_home_world() {
+    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
+}
+
+function create_entity_wall() {
+    MANAGER_WORLD.world_home.create_entity_wall_command_entered();
+}
+
 MenuIcon.prototype = {
     __init__: function(icon_type, world, row) {
         this.world = world;
@@ -41,18 +53,23 @@ MenuIcon.prototype = {
                     break;
                 case ICON_EXIT:
                     icon_label = 'exit';
+                    l('TODO : Logout');
                     break;
                 case ICON_MULTIPLAYER:
                     icon_label = 'online';
+                    l('TODO : Go online');
                     break;
                 case ICON_HOME:
                     icon_label = 'home';
+                    function_to_bind = go_to_home_world();
                     break;
                 case ICON_SETTINGS:
                     icon_label = 'settings';
+                    function_to_bind = go_to_settings_world();
                     break;
                 case ICON_ENTITY_GROUP:
                     icon_label = 'entities';
+                    function_to_bind = create_entity_wall();
                     break;
                 }
                 this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
@@ -184,6 +201,9 @@ PlayerMenu.prototype = {
 
     // This function gets called once per player menu object.
     load_icon_textures: function() {
+
+        var current_row = 0;
+
         this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, 0);
         this.icon_save = new MenuIcon(ICON_SAVE, this.world, 1);
         this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, 2);

@@ -13,7 +13,6 @@ PausedMenu.prototype = {
     background_coloring: null,
 
     button_resume: null,
-    button_settings: null,
     button_help_controls: null,
     button_log_out: null,
 
@@ -27,17 +26,12 @@ PausedMenu.prototype = {
         this.pause_title          = document.getElementById('menu_title');
         this.pause_sub_title      = document.getElementById('menu_header');
         this.button_resume        = document.getElementById('button_resume');
-        this.button_settings      = document.getElementById('button_settings');
         this.button_help_controls = document.getElementById('button_help_controls');
         this.button_log_out       = document.getElementById('button_log_out');
 
         this.button_resume.onclick = function() {
             this.make_invisible();
             CURRENT_PLAYER.pointer_lock_api.try_to_enable();
-        }.bind(this);
-
-        this.button_settings.onclick = function() {
-            MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
         }.bind(this);
 
         this.button_help_controls.onclick = function() {
@@ -60,7 +54,6 @@ PausedMenu.prototype = {
         this.button_resume.style.display = DISPLAY_SHOW;
         this.button_help_controls.style.display = DISPLAY_SHOW;
         if (CURRENT_PLAYER.logged_in) {
-            this.button_settings.style.display = DISPLAY_SHOW;
             this.button_log_out.style.display = DISPLAY_SHOW;
         }
 
@@ -73,7 +66,6 @@ PausedMenu.prototype = {
             // TODO : Testing this out.
             //this.button_resume.style.display = DISPLAY_NONE
             //this.button_help_controls.display = DISPLAY_NONE
-            //this.button_settings.display = DISPLAY_NONE
             //this.button_log_out.display = DISPLAY_NONE
             this.background_coloring.id = 'no_background_coloring';
         }

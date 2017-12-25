@@ -246,9 +246,8 @@ WorldManager.prototype = {
             this.icon_textures.push([texture, texture_name]);
             this.number_of_icons_loaded += 1;
             if (this.number_of_icons_loaded === 6) {
-                for (var i = 0; i < this.all_worlds.length; i++) {
-                    this.all_worlds[i].player_menu.load_icon_textures();
-                }
+                this.world_home.load_icon_textures();
+                this.world_settings.load_icon_textures();
             }
         }
     },

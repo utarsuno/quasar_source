@@ -113,11 +113,3 @@ display_server_logs_button.onclick = function() {
     // TODO : server_logs
     //post_call_get_all_server_logs.perform_call();
 };
-
-var display_all_commands_button = document.getElementById('display_all_commands');
-display_all_commands_button.onclick = function() {
-
-    var commands = '.save\n.create_wall\n';
-
-    text_area_element.innerHTML = text_area_element.innerHTML + commands;
-};

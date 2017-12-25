@@ -176,9 +176,6 @@ TypingInterface.prototype = {
                     MANAGER_ENTITY.update_server_and_database();
 
                     break;
-                case '.create_wall':
-                    MANAGER_WORLD.world_home.create_entity_wall_command_entered();
-                    break;
                 }
             } else {
                 CURRENT_PLAYER.send_chat_message(current_input);
