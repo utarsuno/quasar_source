@@ -588,6 +588,7 @@ FloatingWall.prototype = {
         floating_slider.pfw_row = row;
 
         floating_slider.requires_mouse_x_movement = true;
+        floating_slider.bind_slider_delta_x_functions(this.slider_increased.bind(this), this.slider_decreased.bind(this));
 
         /*
         // Camera FOV Slider.
