@@ -49,8 +49,8 @@ HomeWorld.prototype = {
         this.month_day_walls = [];
         this.month_days = new MyDates(THIS_MONTH);
 
-        for (var md = 0; md < this.month_days.length; md++) {
-            this.month_day_walls.push(this.create_month_day_wall(this.month_days[md], md, this.month_days.length));
+        for (var md = 0; md < this.month_days.dates.length; md++) {
+            this.month_day_walls.push(this.create_month_day_wall(this.month_days.dates[md], md, this.month_days.dates.length));
         }
 
 
