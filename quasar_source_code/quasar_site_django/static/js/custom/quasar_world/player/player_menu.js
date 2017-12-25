@@ -18,6 +18,7 @@ function global_save() {
 }
 
 function go_to_settings_world() {
+    l('Going to settings world!');
     MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
 }
 
@@ -240,7 +241,7 @@ PlayerMenu.prototype = {
             current_row += 1;
             this.icons.push(this.icon_log_out);
         }
-        
+
         for (var i = 0; i < this.icons.length; i++) {
             this.icons[i].set_to_invisible();
         }
