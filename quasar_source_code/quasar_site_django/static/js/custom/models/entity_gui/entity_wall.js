@@ -51,7 +51,7 @@ EntityWall.prototype = {
         var n = this.world.date_selector.wall.normal;
         this.world.date_selector.wall.object3D.position.set(bp.x + n.x * nd, bp.y + n.y * nd, bp.z + n.z * nd);
 
-        
+        l('SHOW THE DATE SELECTOR!');
     },
 
     _add_label_and_input_for_create_entity_wall: function(label, default_value) {
