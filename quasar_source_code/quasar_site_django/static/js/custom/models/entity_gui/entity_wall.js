@@ -67,6 +67,9 @@ EntityWall.prototype = {
 
         this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, value, TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
 
+        l('Just added the following label : ');
+        l(label);
+
         if (label === ENTITY_PROPERTY_DUE_DATE) {
             this.create_entity_dictionary[label].engable = false;
             this.create_entity_dictionary.set_engage_function(this.show_date_selector.bind(this, this.create_entity_dictionary[label]));
