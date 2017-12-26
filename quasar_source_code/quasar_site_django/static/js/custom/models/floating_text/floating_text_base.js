@@ -6,12 +6,7 @@ function FloatingText(width, text, type, scene, current_color) {
         if (this.is_2D_text) {
             return this.dynamic_texture.getTextLength(this.text);
         } else {
-            //var box = this.text_geometry.computeBoundingBox();
-            var box = new THREE.Box3().setFromObject(this.current_text_object);
-            l(box);
-            l(box.min);
-            l(box.max);
-            l(box.size());
+            return this.width;
         }
     };
 

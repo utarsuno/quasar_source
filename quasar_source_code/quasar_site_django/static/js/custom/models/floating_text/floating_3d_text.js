@@ -60,6 +60,10 @@ Floating3DText.prototype = {
         this.material = new THREE.MeshLambertMaterial({color: this.current_color});
         
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
+
+        var box = new THREE.Box3().setFromObject(this.current_text_object);
+        this.width = box.max.x;
+
         this.object3D.add(this.current_text_object);
 
         this.material.side = THREE.FrontSide;
@@ -71,11 +75,11 @@ Floating3DText.prototype = {
         }
     },
 
-    __init__: function(w, text, type, scene, current_color) {
+    __init__: function(text, type, scene, current_color) {
         this.is_2D_text = false;
 
         // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene, current_color);
+        FloatingText.call(this, 0, text, type, scene, current_color);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

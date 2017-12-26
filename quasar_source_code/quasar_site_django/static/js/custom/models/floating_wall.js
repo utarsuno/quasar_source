@@ -306,13 +306,18 @@ FloatingWall.prototype = {
 
     add_3D_title: function(title_name, color) {
         this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene);
-        var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
+        //var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
+        var x_shift = this.get_relative_x_shift(-(this.width / 2) + (this.floating_3d_title.width / 2));
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
 
         if (is_defined(color)) {
             this.floating_3d_title.set_default_color(color);
         }
+
+        //get_relative_x_shift: function(distance) {
+        //    return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
+        //}
 
         this.add_additional_visibility_object(this.floating_3d_title);
         this.add_object_to_remove_later(this.floating_3d_title);
