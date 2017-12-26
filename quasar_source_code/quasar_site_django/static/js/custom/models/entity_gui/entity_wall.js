@@ -274,7 +274,12 @@ EntityWall.prototype = {
                     this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
                     this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
 
+
+
                     if (entity_properties[key] === ENTITY_PROPERTY_DUE_DATE) {
+
+                        l('DUE DATE VHHAAATTT?');
+
                         this._current_properties[key].engable = false;
                         this._current_properties[key].set_engage_function(this.show_date_selector.bind(this, this._current_properties[key]));
                     }
