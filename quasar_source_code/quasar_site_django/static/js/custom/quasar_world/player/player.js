@@ -277,6 +277,9 @@ Player.prototype = {
     on_paste: function(e) {
         l('PASTE EVENT!');
         l(e);
+        var clipboardData = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+        var pastedData = clipboardData.getData('text');
+        l(pastedData);
     }
 };
 
