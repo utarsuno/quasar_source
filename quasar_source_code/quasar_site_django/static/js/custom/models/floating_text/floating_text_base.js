@@ -22,7 +22,7 @@ function FloatingText(width, text, type, scene, current_color) {
     // Convert to the correct color type.
     if (is_list(this.current_color)) {
         var temp = this.current_color;
-        if (this.is_2d_text) {
+        if (this.is_2D_text) {
             this.current_color = temp[COLOR_STRING_INDEX];
             this.default_color = temp[COLOR_STRING_INDEX];
         } else {
@@ -73,6 +73,17 @@ function FloatingText(width, text, type, scene, current_color) {
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 
+    this.get_text_length = function() {
+        if (this.is_2D_text) {
+            return this.dynamic_texture.getTextLength(this.text);
+        } else {
+            var box = new THREE.Box3().setFromObject(this.text_geometry);
+            l(box.min);
+            l(box.max);
+            l(box.size());
+        }
+    };
+
     // This is just an alternative name to the function update_color.
     this.set_color = function(color) {
         this.update_color(color);
@@ -80,13 +91,13 @@ function FloatingText(width, text, type, scene, current_color) {
 
     this.set_default_color = function(default_color) {
         if (is_list(default_color)) {
-            if (this.is_2d_text) {
+            if (this.is_2D_text) {
                 this.default_color = default_color[COLOR_STRING_INDEX];
             } else {
                 this.default_color = default_color[COLOR_HEX_INDEX];
             }
         } else {
-            if (!this.is_2d_text) {
+            if (!this.is_2D_text) {
                 if (default_color.toString().includes('#')) {
                     default_color = parseInt(default_color.replace('#', '0x'));
                 }
@@ -101,7 +112,7 @@ function FloatingText(width, text, type, scene, current_color) {
     this.update_color = function(color) {
         if (is_list(color)) {
             var color_to_set = null;
-            if (this.is_2d_text) {
+            if (this.is_2D_text) {
                 color_to_set = color[COLOR_STRING_INDEX];
             } else {
                 color_to_set = color[COLOR_HEX_INDEX];
@@ -109,7 +120,7 @@ function FloatingText(width, text, type, scene, current_color) {
             this.current_color = color_to_set;
             this._update_color();
         } else {
-            if (this.is_2d_text) {
+            if (this.is_2D_text) {
                 this.current_color = color;
                 this._update_color();
             } else {

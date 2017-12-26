@@ -13,10 +13,6 @@ Floating2DText.prototype = {
 
     background_color: null,
 
-    get_text_length: function() {
-        return this.dynamic_texture.getTextLength(this.text);
-    },
-
     _update_text: function() {
         if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE) {
             this.dynamic_texture.clear(this.background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.background_color);
@@ -132,7 +128,7 @@ Floating2DText.prototype = {
     },
 
     __init__: function(w, text, type, scene, current_color) {
-        this.is_2d_text = true;
+        this.is_2D_text = true;
 
         // Inherit from FloatingText.
         FloatingText.call(this, w, text, type, scene, current_color);

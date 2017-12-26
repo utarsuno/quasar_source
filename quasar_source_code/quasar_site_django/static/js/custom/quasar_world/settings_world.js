@@ -157,5 +157,7 @@ SettingsWorld.prototype = {
     },
 
     exit_world: function() {
+        l(this.wall_user_profile.floating_3d_title.get_text_length());
+        l(this.wall_settings.floating_3d_title.get_text_length());
     }
 };
