@@ -72,7 +72,7 @@ EntityWall.prototype = {
 
         if (label === ENTITY_PROPERTY_DUE_DATE) {
             this.create_entity_dictionary[label].engable = false;
-            this.create_entity_dictionary.set_engage_function(this.show_date_selector.bind(this, this.create_entity_dictionary[label]));
+            this.create_entity_dictionary[label].set_engage_function(this.show_date_selector.bind(this, this.create_entity_dictionary[label]));
         }
 
         this.current_create_entity_wall_row_index += 1;
@@ -83,7 +83,7 @@ EntityWall.prototype = {
 
         this.create_entity_wall.clear_floating_2d_texts();
 
-        this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
+        this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE_CONSTANT, 0);
 
         // Select new attribute.
         this.current_add_new_attribute_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'add new attribute', TYPE_BUTTON, 3);
