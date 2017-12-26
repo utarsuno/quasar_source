@@ -43,6 +43,17 @@ EntityWall.prototype = {
         this._add_label_and_input_for_create_entity_wall(attribute);
     },
 
+    show_date_selector: function(floating_2D_text) {
+        //this.world.date_selector.wall.pfw_button = floating_2D_text;
+        var bp = floating_2D_text.get_position();
+        var nd = this.world.date_selector.wall.normal_depth;
+        this.world.date_selector.wall.normal = floating_2D_text.normal;
+        var n = this.world.date_selector.wall.normal;
+        this.world.date_selector.wall.object3D.position.set(bp.x + n.x * nd, bp.y + n.y * nd, bp.z + n.z * nd);
+
+        
+    },
+
     _add_label_and_input_for_create_entity_wall: function(label, default_value) {
         this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
         // TODO : Make the first click clear the value here text.
@@ -55,6 +66,12 @@ EntityWall.prototype = {
         }
 
         this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, value, TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
+
+        if (label === ENTITY_PROPERTY_DUE_DATE) {
+            this.create_entity_dictionary[label].engable = false;
+            this.create_entity_dictionary.set_engage_function(this.show_date_selector.bind(this, this.create_entity_dictionary[label]));
+        }
+
         this.current_create_entity_wall_row_index += 1;
     },
 
@@ -358,7 +375,7 @@ EntityWall.prototype = {
 
     init_select_entity_type_wall: function() {
         this.entity_type_selector_wall = this.wall.add_floating_wall_off_of_button(400, 250, this.create_entity_button, false);
-        this.entity_type_selector_wall.add_floating_2d_text(0, 1, 'Select Entity Type', TYPE_TITLE, 0);
+        this.entity_type_selector_wall.add_floating_2d_text(.1, .9, 'Select Entity Type', TYPE_TITLE_CONSTANT, 0);
         var entity_type_row_index = 3;
         for (var et = 0; et < ENTITY_TYPE_ALL.length; et++) {
             if (ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_TIME && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_OWNER && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_WALL) {
@@ -374,7 +391,7 @@ EntityWall.prototype = {
     init_select_new_attribute_wall: function() {
         this.wall_select_attribute = this.wall.add_floating_wall_off_of_button(400, 250, this.current_add_new_attribute_button, false);
 
-        this.wall_select_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE, 0);
+        this.wall_select_attribute.add_floating_2d_text(.1, .9, 'Select Entity Attribute', TYPE_TITLE_CONSTANT, 0);
 
         var a0 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
         var a1 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);

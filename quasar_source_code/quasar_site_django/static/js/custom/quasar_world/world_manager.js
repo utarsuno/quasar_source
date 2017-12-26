@@ -88,7 +88,7 @@ const SKYBOX_DEFAULT_OPACITY = 0.50;
 
 // TODO : make this dynamic.
 const NUMBER_OF_SKYBOX_TEXTURES = 6;
-const NUMBER_OF_ICON_TEXTURES = 7;
+const NUMBER_OF_ICON_TEXTURES = 9;
 
 WorldManager.prototype = {
     previous_world : null,
@@ -146,6 +146,8 @@ WorldManager.prototype = {
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_MULTIPLAYER);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SAVE);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_FULLSCREEN);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_LEFT);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_RIGHT);
 
         // TODO : Eventually give this to some sort of loading/ajax manager.
         this.load_textures();

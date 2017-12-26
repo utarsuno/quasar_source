@@ -92,6 +92,7 @@ HomeWorld.prototype = {
 
         if (!this.schedule_loaded) {
             this.load_schedule();
+            this.load_date_selector();
         }
     },
 
@@ -121,6 +122,10 @@ HomeWorld.prototype = {
 
         var entity_wall = new EntityWall(this, entity_wall_entity);
         this.entity_walls.push(entity_wall);
+    },
+
+    load_date_selector: function() {
+        this.date_selector = new DateSelector(this);
     },
 
     /*__   __        ___  __             ___            ___

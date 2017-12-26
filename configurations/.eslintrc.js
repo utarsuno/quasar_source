@@ -231,6 +231,7 @@ module.exports = {
         "ENTITY_POST_SAVE_DATA"              : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "DateSelector": true,
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
@@ -258,6 +259,8 @@ module.exports = {
         "ICON_SAVE"        : false,
         "ICON_ENTITY_GROUP": false,
         "ICON_FULLSCREEN"  : false,
+        "ICON_LEFT"        : false,
+        "ICON_RIGHT"       : false,
         // UNIVERSAL_CONSTANTS_END
 
         "get_color_range_list": false,
