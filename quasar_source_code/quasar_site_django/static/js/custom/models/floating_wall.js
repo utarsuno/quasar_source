@@ -315,16 +315,8 @@ FloatingWall.prototype = {
             this.floating_3d_title.set_default_color(color);
         }
 
-        //get_relative_x_shift: function(distance) {
-        //    return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
-        //}
-
         this.add_additional_visibility_object(this.floating_3d_title);
         this.add_object_to_remove_later(this.floating_3d_title);
-
-        //this.all_floating_2d_texts.push(floating_2D_text);
-
-        //this.
     },
 
     update_normal: function(normal) {
