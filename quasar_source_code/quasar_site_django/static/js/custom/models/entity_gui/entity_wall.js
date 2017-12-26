@@ -44,14 +44,7 @@ EntityWall.prototype = {
     },
 
     show_date_selector: function(floating_2D_text) {
-        //this.world.date_selector.wall.pfw_button = floating_2D_text;
-        var bp = floating_2D_text.get_position();
-        var nd = this.world.date_selector.wall.normal_depth;
-        this.world.date_selector.wall.normal = floating_2D_text.normal;
-        var n = this.world.date_selector.wall.normal;
-        this.world.date_selector.wall.object3D.position.set(bp.x + n.x * nd, bp.y + n.y * nd, bp.z + n.z * nd);
-
-        l('SHOW THE DATE SELECTOR!');
+        this.world.date_selector.show_at(floating_2D_text);
     },
 
     _add_label_and_input_for_create_entity_wall: function(label, default_value) {
