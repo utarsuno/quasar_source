@@ -35,6 +35,7 @@ DateSelector.prototype = {
 
         this.wall.pfw_button = floating_2D_text;
         this.wall.update_position_with_offset_xyz(0, 0, 0);
+        this.wall.update_normal(bn);
         this.wall.update_position_and_normal_for_all_floating_text();
 
         l(this.wall.normal);
