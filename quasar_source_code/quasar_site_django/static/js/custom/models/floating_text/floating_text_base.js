@@ -86,6 +86,11 @@ function FloatingText(width, text, type, scene, current_color) {
                 this.default_color = default_color[COLOR_HEX_INDEX];
             }
         } else {
+            if (!this.is_2d_text) {
+                if (default_color.toString().includes('#')) {
+                    default_color = parseInt(default_color.replace('#', '0x'));
+                }
+            }
             this.default_color = default_color;
         }
         this.current_color = this.default_color;
@@ -110,7 +115,6 @@ function FloatingText(width, text, type, scene, current_color) {
             } else {
                 if (color.toString().includes('#')) {
                     color = parseInt(color.replace('#', '0x'));
-                    l(color);
                     this.current_color = color;
                     this._update_color();
                 }
