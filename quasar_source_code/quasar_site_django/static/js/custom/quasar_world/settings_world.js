@@ -65,7 +65,7 @@ SettingsWorld.prototype = {
         var wall_profile_normal   = new THREE.Vector3(-0.5, 0.0, -0.85);
         var wall_profile_scalable = false;
         this.wall_user_profile = new FloatingWall(wall_profile_width, wall_profile_height, wall_profile_position, wall_profile_normal, this, wall_profile_scalable);
-        this.wall_user_profile.add_3d_title('Profile Information');
+        this.wall_user_profile.add_3D_title('Profile Information');
 
         // Username.
         this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT_TEXT, 0);
@@ -87,7 +87,7 @@ SettingsWorld.prototype = {
 
         // Phone Carrier List.
         this.profile_phone_carrier_list = this.wall_user_profile.add_floating_wall_off_of_button(350, 400, this.profile_phone_carrier_input, false);
-        this.profile_phone_carrier_list.add_3d_title('Select Phone Carrier');
+        this.profile_phone_carrier_list.add_3D_title('Select Phone Carrier');
         var current_row_index = 0;
         for (var property in CELL_PHONE_CARRIERS) {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
@@ -114,7 +114,7 @@ SettingsWorld.prototype = {
         var wall_settings_scalable = false;
 
         this.wall_settings = new FloatingWall(wall_settings_width, wall_settings_height, wall_settings_position, wall_settings_normal, this, wall_settings_scalable);
-        this.wall_settings.add_3d_title('General Settings');
+        this.wall_settings.add_3D_title('General Settings');
 
         // TODO : Support this functionality
         // TODO : Instead of always using the default value of 90 it needs to get loaded from the ENTITY_OWNER settings values.

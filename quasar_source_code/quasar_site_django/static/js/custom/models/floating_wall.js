@@ -304,11 +304,15 @@ FloatingWall.prototype = {
         }
     },
 
-    add_3d_title: function(title_name) {
+    add_3D_title: function(title_name, color) {
         this.floating_3d_title = new Floating3DText(this.width, title_name, TYPE_TITLE, this.scene);
         var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
-        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z, 0);
+        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
+
+        if (is_defined(color)) {
+            this.floating_3d_title.set_default_color(color);
+        }
 
         this.add_additional_visibility_object(this.floating_3d_title);
         this.add_object_to_remove_later(this.floating_3d_title);
@@ -382,7 +386,7 @@ FloatingWall.prototype = {
         return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
     },
 
-    get_position_for_row: function (x_offset, y_offset, z_offset, depth) {
+    get_position_for_row: function (x_offset, y_offset, z_offset) {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
     },
 
@@ -489,7 +493,7 @@ FloatingWall.prototype = {
         }
         var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
         var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
-        floating_2D_text.update_position(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0));
+        floating_2D_text.update_position(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z));
     },
 
     update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
@@ -516,7 +520,7 @@ FloatingWall.prototype = {
         } else {
             floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
         }
-        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z, 0), this.normal);
+        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z), this.normal);
     },
 
     add_floating_2d_text: function(x_start, x_end, text, type, row) {

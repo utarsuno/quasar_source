@@ -235,36 +235,7 @@ class QuasarCode(object):
 		self.entity_post_parameters.add_universal_constant('SAVE_DATA', 'save_data')
 		self.quasar_universal_constant_groups.append(self.entity_post_parameters)
 
-		# TODO :
-		"""
-		Colors and utility indexes.
-        "COLOR_STRING_INDEX"    : false,
-        "COLOR_HEX_INDEX"       : false,
-        "COLOR_HIGHLIGHT"       : false,
-        "COLOR_PLANET"          : false,
-        "COLOR_TEXT_DEFAULT"    : false,
-        "COLOR_TEXT_BUTTON"     : false,
-        "COLOR_RED"             : false,
-        "COLOR_GREEN"           : false,
-        "COLOR_TEXT_CONSTANT"   : false,
-        "COLOR_WHITE"           : false,
-        "COLOR_BLACK"           : false,
-        "COLOR_DAY_PAST_SEVEN"  : false,
-        "COLOR_DAY_PAST_SIX"    : false,
-        "COLOR_DAY_PAST_FIVE"   : false,
-        "COLOR_DAY_PAST_FOUR"   : false,
-        "COLOR_DAY_PAST_THREE"  : false,
-        "COLOR_DAY_PAST_TWO"    : false,
-        "COLOR_DAY_PAST_ONE"    : false,
-        "COLOR_DAY_PRESENT"     : false,
-        "COLOR_DAY_FUTURE_ONE"  : false,
-        "COLOR_DAY_FUTURE_TWO"  : false,
-        "COLOR_DAY_FUTURE_THREE": false,
-        "COLOR_DAY_FUTURE_FOUR" : false,
-        "COLOR_DAY_FUTURE_FIVE" : false,
-        "COLOR_DAY_FUTURE_SIX"  : false,
-        "COLOR_DAY_FUTURE_SEVEN": false,
-		"""
+		# TODO : Get a list of remaining universal constants needed to be put in!
 
 	def feature_testing(self):
 		"""Temporary function for feature testing."""

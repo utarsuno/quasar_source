@@ -14,7 +14,7 @@ HomeWorld.prototype = {
     //
     loaded_entities: null,
 
-    create_month_day_wall: function(day, index, total_number_of_days) {
+    create_month_day_wall: function(day, index, total_number_of_days, color) {
         var w = 500;
         var h = 1000;
 
@@ -29,13 +29,12 @@ HomeWorld.prototype = {
 
         l('Created ' + day.to_string_without_year());
 
-        month_day_wall.add_3d_title(day.to_string_without_year());
+        month_day_wall.add_3D_title(day.to_string_without_year(), color);
 
         return month_day_wall;
     },
 
     __init__: function() {
-
         World.call(this, 'HomeWorld');
 
         this.loaded_entities = false;
@@ -48,111 +47,12 @@ HomeWorld.prototype = {
         // The 360 schedule view.
         this.month_day_walls = [];
         this.month_days = new MyDates(THIS_MONTH);
+        this.month_day_colors = get_color_range_list(COLOR_SCHEDULE_START, COLOR_SCHEDULE_END, this.month_days.dates.length);
 
         for (var md = 0; md < this.month_days.dates.length; md++) {
-            this.month_day_walls.push(this.create_month_day_wall(this.month_days.dates[md], md, this.month_days.dates.length));
+            this.month_day_walls.push(this.create_month_day_wall(this.month_days.dates[md], md, this.month_days.dates.length, this.month_day_colors[md]));
         }
-
-
-
-        // Create a seperate class for this!
-
-        /*   __   __        ___  __             ___            ___
-            /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |    .
-            .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\|    .*/
-        /*
-        var schedule_view_height = 1000;
-
-        this.test_positions = [];
-        this.schedule_floating_day_titles = [];
-
-        var today = get_today_with_n_days_offset(0);
-
-        for (var i = 0; i < 15; i++) {
-            this.test_positions.push([cos((i / 15) * TWO_PIE), sin((i / 15) * TWO_PIE)]);
-
-            var magnitude_value = 2500;
-
-            var p = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height, sin((i / 15) * TWO_PIE) * magnitude_value);
-            var p2 = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height - 200, sin((i / 15) * TWO_PIE) * magnitude_value);
-            var p3 = new THREE.Vector3(cos((i / 15) * TWO_PIE) * magnitude_value, schedule_view_height - 400, sin((i / 15) * TWO_PIE) * magnitude_value);
-            var look_at = new THREE.Vector3(0, schedule_view_height, 0);
-            var look_at2 = new THREE.Vector3(0, schedule_view_height - 200, 0);
-            var look_at3 = new THREE.Vector3(0, schedule_view_height - 400, 0);
-
-            //this.make_entity_wall_public_button = new Floating2DText(this.width, 'Make Entity Wall Public', TYPE_BUTTON, this.scene);
-
-            var color = null;
-
-            switch(i-7) {
-            case -7:
-                color = COLOR_DAY_PAST_SEVEN;
-                break;
-            case -6:
-                color = COLOR_DAY_PAST_SIX;
-                break;
-            case -5:
-                color = COLOR_DAY_PAST_FIVE;
-                break;
-            case -4:
-                color = COLOR_DAY_PAST_FOUR;
-                break;
-            case -3:
-                color = COLOR_DAY_PAST_THREE;
-                break;
-            case -2:
-                color = COLOR_DAY_PAST_TWO;
-                break;
-            case -1:
-                color = COLOR_DAY_PAST_ONE;
-                break;
-            case 0:
-                color = COLOR_DAY_PRESENT;
-                break;
-            case 1:
-                color = COLOR_DAY_FUTURE_ONE;
-                break;
-            case 2:
-                color = COLOR_DAY_FUTURE_TWO;
-                break;
-            case 3:
-                color = COLOR_DAY_FUTURE_THREE;
-                break;
-            case 4:
-                color = COLOR_DAY_FUTURE_FOUR;
-                break;
-            case 5:
-                color = COLOR_DAY_FUTURE_FIVE;
-                break;
-            case 6:
-                color = COLOR_DAY_FUTURE_SIX;
-                break;
-            case 7:
-                color = COLOR_DAY_FUTURE_SEVEN;
-                break;
-            }
-
-            var day_of_week_word = get_day_of_week_as_word(get_just_date_object_of_date_of_n_days_offset(i - 7));
-            var full_date_of_day = get_today_with_n_days_offset(i - 7);
-
-            if (get_day_of_week_as_word(today) === get_day_of_week_as_word(full_date_of_day)) {
-                var floating_3d_subtitle_2 = new Floating3DText(schedule_view_height - 400, 'Today', TYPE_TITLE, this.scene, color);
-                floating_3d_subtitle_2.update_position_and_look_at(p3, look_at3);
-            }
-
-            var floating_3d_text = new Floating3DText(schedule_view_height, day_of_week_word, TYPE_SUPER_TITLE, this.scene, color);
-            floating_3d_text.update_position_and_look_at(p, look_at);
-
-            var floating_3d_subtitle = new Floating3DText(schedule_view_height - 200, full_date_of_day, TYPE_TITLE, this.scene, color);
-            floating_3d_subtitle.update_position_and_look_at(p2, look_at2);
-
-
-            this.schedule_floating_day_titles.push(floating_3d_text);
-        }
-        */
     },
-
-    //remove_entity: function()
 
     create_entity_wall_command_entered: function() {
         // The wall will be generated 100 units away from the player and looking at the player (while perpendicular to the y-axis).

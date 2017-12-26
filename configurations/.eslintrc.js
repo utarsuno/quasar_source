@@ -256,6 +256,8 @@ module.exports = {
         "ICON_ENTITY_GROUP": false,
         // UNIVERSAL_CONSTANTS_END
 
+        "get_color_range_list": false,
+
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
         "COLOR_STRING_INDEX"    : false,
         "COLOR_HEX_INDEX"       : false,
@@ -268,21 +270,8 @@ module.exports = {
         "COLOR_TEXT_CONSTANT"   : false,
         "COLOR_WHITE"           : false,
         "COLOR_BLACK"           : false,
-        "COLOR_DAY_PAST_SEVEN"  : false,
-        "COLOR_DAY_PAST_SIX"    : false,
-        "COLOR_DAY_PAST_FIVE"   : false,
-        "COLOR_DAY_PAST_FOUR"   : false,
-        "COLOR_DAY_PAST_THREE"  : false,
-        "COLOR_DAY_PAST_TWO"    : false,
-        "COLOR_DAY_PAST_ONE"    : false,
-        "COLOR_DAY_PRESENT"     : false,
-        "COLOR_DAY_FUTURE_ONE"  : false,
-        "COLOR_DAY_FUTURE_TWO"  : false,
-        "COLOR_DAY_FUTURE_THREE": false,
-        "COLOR_DAY_FUTURE_FOUR" : false,
-        "COLOR_DAY_FUTURE_FIVE" : false,
-        "COLOR_DAY_FUTURE_SIX"  : false,
-        "COLOR_DAY_FUTURE_SEVEN": false,
+        "COLOR_SCHEDULE_START"  : false,
+        "COLOR_SCHEDULE_END"    : false,
         // UNIVERSAL_CONSTANTS_END
 
         // Javascript constants.

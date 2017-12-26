@@ -146,8 +146,6 @@ const BACKGROUND_COLOR_FOCUS   = '#264241';
 const BACKGROUND_COLOR_ERROR   = '#390006';
 const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
 
-// TODO (global todo) : all modules that have independent resource loading should be abstracted
-// TODO : Use less color constants and generate them at startup instead.
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 const COLOR_STRING_INDEX     = 1;
 const COLOR_HEX_INDEX        = 0;
@@ -160,21 +158,8 @@ const COLOR_GREEN            = [0x6cff61, '#6cff61'];
 const COLOR_TEXT_CONSTANT    = [0x7e58b0, '#7e58b0'];
 const COLOR_WHITE            = [0xffffff, '#ffffff'];
 const COLOR_BLACK            = [0x000000, '#000000'];
-const COLOR_DAY_PAST_SEVEN   = [0x00362a, '#002411'];
-const COLOR_DAY_PAST_SIX     = [0x004b3a, '#09312f'];
-const COLOR_DAY_PAST_FIVE    = [0x00614b, '#113e4d'];
-const COLOR_DAY_PAST_FOUR    = [0x008164, '#1a4b6b'];
-const COLOR_DAY_PAST_THREE   = [0x00b78e, '#225788'];
-const COLOR_DAY_PAST_TWO     = [0x00dbaa, '#2b64a6'];
-const COLOR_DAY_PAST_ONE     = [0x00e9b2, '#3371c4'];
-const COLOR_DAY_PRESENT      = [0x5db2ff, '#448aff'];
-const COLOR_DAY_FUTURE_ONE   = [0x41ff92, '#4b77c3'];
-const COLOR_DAY_FUTURE_TWO   = [0x31ff7f, '#4f6ea4'];
-const COLOR_DAY_FUTURE_THREE = [0x5eff7c, '#526486'];
-const COLOR_DAY_FUTURE_FOUR  = [0x7eff91, '#555a68'];
-const COLOR_DAY_FUTURE_FIVE  = [0xa4ff98, '#595149'];
-const COLOR_DAY_FUTURE_SIX   = [0xd4ffb3, '#5c472b'];
-const COLOR_DAY_FUTURE_SEVEN = [0xfffdb5, '#5f3d0c'];
+const COLOR_SCHEDULE_START   = [0x8effae, '#8effae'];
+const COLOR_SCHEDULE_END     = [0x000b1c, '#000b1c'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Icons.
@@ -406,39 +391,33 @@ function get_key_value_list_from_json_dictionary(json_data) {
     return return_list;
 }
 
-
-
-// TODO : Make this into a function later.
-// Base from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript
-/*
-ratios = [0, 1, 2, 3, 4, 5, 6, 7];
-
-var color1 = '448aff';
-var color2 = '5f3d0c';
+// Base code from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript
 
 var hex = function(x) {
     x = x.toString(16);
     return (x.length == 1) ? '0' + x : x;
 };
 
-function pickHex(color1, color2, weight) {
-    var p = weight;
-    var w = p * 2 - 1;
-    var w1 = (w/1+1) / 2;
-    var w2 = 1 - w1;
-    var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
-        Math.round(color1[1] * w1 + color2[1] * w2),
-        Math.round(color1[2] * w1 + color2[2] * w2)];
-    return rgb;
-}
+function get_color_range_list(start_color, end_color, number_of_colors) {
+    if (is_list(start_color)) {
+        start_color = start_color[COLOR_STRING_INDEX].replace('#', '');
+    } else if (start_color.includes('#')) {
+        start_color = start_color.replace('#', '');
+    }
+    if (is_list(end_color)) {
+        end_color = end_color[COLOR_STRING_INDEX].replace('#', '');
+    } else if (end_color.includes('#')) {
+        end_color = end_color.replace('#', '');
+    }
 
-for (var i = 0; i < ratios.length; i++) {
-	var ratio = i / ratios.length;
-  var r = Math.ceil(parseInt(color1.substring(0,2), 16) * ratio + parseInt(color2.substring(0,2), 16) * (1-ratio));
-	var g = Math.ceil(parseInt(color1.substring(2,4), 16) * ratio + parseInt(color2.substring(2,4), 16) * (1-ratio));
-	var b = Math.ceil(parseInt(color1.substring(4,6), 16) * ratio + parseInt(color2.substring(4,6), 16) * (1-ratio));
+    var colors = [];
+    for (var c = 0; c < number_of_colors; c++) {
+        var ratio = c / number_of_colors;
+        var r = Math.ceil(parseInt(end_color.substring(0,2), 16) * ratio + parseInt(start_color.substring(0,2), 16) * (1 - ratio));
+        var g = Math.ceil(parseInt(end_color.substring(2,4), 16) * ratio + parseInt(start_color.substring(2,4), 16) * (1 - ratio));
+        var b = Math.ceil(parseInt(end_color.substring(4,6), 16) * ratio + parseInt(start_color.substring(4,6), 16) * (1 - ratio));
+        colors.push('#' + hex(r) + hex(g) + hex(b));
+    }
 
-	var middle = hex(r) + hex(g) + hex(b);
-	console.log(middle);
+    return colors;
 }
- */
