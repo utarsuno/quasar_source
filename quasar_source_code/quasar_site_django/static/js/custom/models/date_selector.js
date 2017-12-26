@@ -10,7 +10,7 @@ DateSelector.prototype = {
     __init__: function(world) {
         this.world = world;
 
-        var w = 600;
+        var w = 400;
         var h = 700;
         var p = new THREE.Vector3(-5000, -5000, -5000);
         var n = new THREE.Vector3(0, 0, 0);
@@ -24,13 +24,22 @@ DateSelector.prototype = {
 
         this.date = new MyDate(THIS_DAY);
 
+        // Year.
         this.decrease_year_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 3);
         this.decrease_year_button.set_engage_function(this.decrease_year.bind(this));
-        this.year = this.wall.add_floating_2d_text(.25, .75, this.date.get_year_as_string(), TYPE_TITLE_CONSTANT, 3);
+        this.year = this.wall.add_floating_2d_text(.25, .75, this.date.get_year_as_string(), TYPE_CONSTANT_TEXT, 3);
         this.increase_year_button = this.wall.add_floating_2d_text(.75, 1, ICON_RIGHT, TYPE_BUTTON, 3);
         this.increase_year_button.set_engage_function(this.increase_year.bind(this));
 
+        // Month.
+        this.decrease_month_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 4);
+        this.decrease_month_button.set_engage_function(this.decrease_month.bind(this));
+        this.month = this.wall.add_floating_2d_text(.25, .75, this.date.get_month_full_data_string(), TYPE_CONSTANT_TEXT, 4);
+        this.increase_month_button = this.wall.add_floating_2d_text(.75, 1, ICON_RIGHT, TYPE_BUTTON, 4);
+        this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
+        // Days.
+        
     },
 
     show_at: function(floating_2D_text) {
@@ -67,8 +76,19 @@ DateSelector.prototype = {
     increase_year: function() {
         this.date.apply_delta(DELTA_YEARS, 1);
         this.year.update_text(this.date.get_year_as_string());
-    }
+    },
 
     // Month.
+    decrease_month: function() {
+        this.date.apply_delta(DELTA_MONTHS, -1);
+        this.month.update_text(this.date.get_month_full_data_string());
+    },
+
+    increase_month: function() {
+        this.date.apply_delta(DELTA_MONTHS, 1);
+        this.month.update_text(this.date.get_month_full_data_string());
+    }
+
+    // Days.
 
 };

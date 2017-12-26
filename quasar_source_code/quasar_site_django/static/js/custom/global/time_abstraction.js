@@ -5,6 +5,8 @@ const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
 // TODO : create the other deltas needed.
 
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 function MyDates(dates_base) {
     this.__init__(dates_base);
 }
@@ -100,16 +102,28 @@ MyDate.prototype = {
         return (this.date.getMonth() + 1) + '.' + this.date.getDate();
     },
 
-    get_month_number_as_string: function() {
-        return (this.date.getMonth() + 1).toString();
-    },
-
     get_year_as_string: function() {
         return this.date.getFullYear();
     },
 
     get_day_number_as_string: function() {
         return this.date.getDate();
+    },
+
+    /*     __       ___          __       ___
+     |\/| /  \ |\ |  |  |__|    |  \  /\   |   /\
+     |  | \__/ | \|  |  |  |    |__/ /~~\  |  /~~\ */
+
+    get_month_as_word: function() {
+        return MONTH_NAMES[this.date.getMonth()];
+    },
+
+    get_month_full_data_string: function() {
+        return this.get_month_as_word() + '(' + this.get_month_number_as_string() + ')';
+    },
+
+    get_month_number_as_string: function() {
+        return (this.date.getMonth() + 1).toString();
     }
 };
 
