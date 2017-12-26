@@ -276,7 +276,7 @@ EntityWall.prototype = {
 
 
 
-                    if (entity_properties[key] === ENTITY_PROPERTY_DUE_DATE) {
+                    if (key === ENTITY_PROPERTY_DUE_DATE) {
 
                         l('DUE DATE VHHAAATTT?');
 
