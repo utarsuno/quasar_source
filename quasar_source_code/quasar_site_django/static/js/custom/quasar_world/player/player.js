@@ -280,7 +280,7 @@ Player.prototype = {
         var pasted_data = clipboard_data.getData('text');
         if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
             if (this.is_engaged()) {
-                this.currently_looked_at_object.parse_text(pasted_data);
+                MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
             }
         }
     }
