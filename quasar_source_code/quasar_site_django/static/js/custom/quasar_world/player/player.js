@@ -54,6 +54,9 @@ Player.prototype = {
 
         // TODO : move this state somewhere else
         this.currently_fullscreen = false;
+
+        // TODO : move this somewhere else eventually
+        document.addEventListener('paste', this.on_paste.bind(this));
     },
 
     send_chat_message: function(chat_message) {
@@ -80,7 +83,6 @@ Player.prototype = {
         this.logged_in = false;
         // TODO : Notify the server that the player has logged out?
     },
-
 
     get_password: function() {
         return ENTITY_OWNER.get_password();
@@ -270,6 +272,11 @@ Player.prototype = {
         var position = this.get_position();
         var vector   = this.fps_controls.get_direction();
         return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
+    },
+
+    on_paste: function(e) {
+        l('PASTE EVENT!');
+        l(e);
     }
 };
 
