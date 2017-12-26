@@ -1,6 +1,18 @@
 'use strict';
 
 function FloatingText(width, text, type, scene, current_color) {
+
+    this.get_text_length = function() {
+        if (this.is_2D_text) {
+            return this.dynamic_texture.getTextLength(this.text);
+        } else {
+            var box = new THREE.Box3().setFromObject(this.text_geometry);
+            l(box.min);
+            l(box.max);
+            l(box.size());
+        }
+    };
+
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
@@ -72,17 +84,6 @@ function FloatingText(width, text, type, scene, current_color) {
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-
-    this.get_text_length = function() {
-        if (this.is_2D_text) {
-            return this.dynamic_texture.getTextLength(this.text);
-        } else {
-            var box = new THREE.Box3().setFromObject(this.text_geometry);
-            l(box.min);
-            l(box.max);
-            l(box.size());
-        }
-    };
 
     // This is just an alternative name to the function update_color.
     this.set_color = function(color) {
