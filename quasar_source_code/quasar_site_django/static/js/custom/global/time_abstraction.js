@@ -88,6 +88,10 @@ MyDate.prototype = {
 
     to_string_without_year: function() {
         return (this.date.getMonth() + 1) + '.' + this.date.getDate();
+    },
+
+    get_day_number_as_string: function() {
+        return this.date.getDate();
     }
 };
 

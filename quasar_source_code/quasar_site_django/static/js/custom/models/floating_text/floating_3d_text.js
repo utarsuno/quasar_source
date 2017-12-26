@@ -63,6 +63,7 @@ Floating3DText.prototype = {
 
         var box = new THREE.Box3().setFromObject(this.current_text_object);
         this.width = box.max.x;
+        this.height = box.max.y;
 
         this.object3D.add(this.current_text_object);
 

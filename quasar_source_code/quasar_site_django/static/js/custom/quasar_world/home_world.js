@@ -140,7 +140,7 @@ HomeWorld.prototype = {
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
 
-        month_day_wall.add_3D_title(day.to_string_without_year(), TYPE_SUPER_TITLE, color);
+        month_day_wall.add_3D_title(day.get_day_number_as_string(), TYPE_SUPER_TITLE, color);
 
         if (present) {
             month_day_wall.add_3D_title_above('Today', TYPE_SUPER_TITLE, color);
@@ -148,7 +148,7 @@ HomeWorld.prototype = {
 
         return month_day_wall;
     },
-    
+
     load_schedule: function() {
         // The 360 schedule view.
         this.month_day_walls = [];
