@@ -301,6 +301,10 @@ function int(f) {
 
 
 // Math shortcuts.
+function pow(n, p) {
+    return Math.pow(n, p);
+}
+
 function cos(n) {
     return Math.cos(n);
 }

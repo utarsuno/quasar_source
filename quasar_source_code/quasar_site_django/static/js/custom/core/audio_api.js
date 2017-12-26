@@ -1,12 +1,12 @@
 'use strict';
 
+// Important reference : https://imgur.com/gallery/J6WA6eo
+
 function AudioManager() {
     this.__init__();
 }
 
 AudioManager.prototype = {
-
-    player        : null,
 
     // audio objects
     audio_listener: null,
@@ -24,6 +24,8 @@ AudioManager.prototype = {
 
     __init__: function() {
         this.audio_listener = new THREE.AudioListener();
+        this.audio_listener.setMasterVolume(this.get_true_audio_level(0.33));
+
         CURRENT_PLAYER.camera.add(this.audio_listener);
         this.typing_sound = new THREE.Audio(this.audio_listener);
 
@@ -37,7 +39,7 @@ AudioManager.prototype = {
             // Function when resource is loaded
             function (audio_buffer) {
                 this.typing_sound.setBuffer(audio_buffer);
-                this.typing_sound.setVolume(0.33);
+                //this.typing_sound.setVolume(this.get_true_audio_level(0.33));
                 this.typing_sound_loaded = true;
 
                 MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound());
@@ -57,6 +59,10 @@ AudioManager.prototype = {
             }
 
         );
+    },
+
+    get_true_audio_level: function(audio_percentage) {
+        return pow(audio_percentage, Math.E);
     },
 
     get_typing_sound: function() {

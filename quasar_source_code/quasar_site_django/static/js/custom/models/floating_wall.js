@@ -304,9 +304,12 @@ FloatingWall.prototype = {
         }
     },
 
-    add_3D_title: function(title_name, color) {
-        this.floating_3d_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
-        //var x_shift    = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
+    add_3D_title: function(title_name, type, color) {
+        if (is_defined(type)) {
+            this.floating_3d_title = new Floating3DText(title_name, type, this.scene);
+        } else {
+            this.floating_3d_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
+        }
         var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
         var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
@@ -314,9 +317,25 @@ FloatingWall.prototype = {
         if (is_defined(color)) {
             this.floating_3d_title.set_default_color(color);
         }
-
         this.add_additional_visibility_object(this.floating_3d_title);
         this.add_object_to_remove_later(this.floating_3d_title);
+    },
+
+    add_3D_title_above: function(title_name, type, color) {
+        if (is_defined(type)) {
+            this.floating_3D_above_title = new Floating3DText(title_name, type, this.scene);
+        } else {
+            this.floating_3D_above_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
+        }
+        var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_above_title.width / 2.0));
+        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + (this.floating_3D_above_title.height / 2) * 3, x_shift.z);
+        this.floating_3D_above_title.update_position_and_normal(y_position, this.normal);
+
+        if (is_defined(color)) {
+            this.floating_3D_above_title.set_default_color(color);
+        }
+        this.add_additional_visibility_object(this.floating_3D_above_title);
+        this.add_object_to_remove_later(this.floating_3D_above_title);
     },
 
     update_normal: function(normal) {

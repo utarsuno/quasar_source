@@ -348,6 +348,7 @@ module.exports = {
         "int"                                : false,
         "len"                                : false,
         // Math shortcuts.
+        "pow"                                : false,
         "sin"                                : false,
         "cos"                                : false,
         "sqrt"                               : false,

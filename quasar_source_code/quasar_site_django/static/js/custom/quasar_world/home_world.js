@@ -8,29 +8,8 @@ const MONTH_VIEW_RADIUS = 3000;
 
 HomeWorld.prototype = {
 
-    //
     entity_walls: null,
-
-    //
     loaded_entities: null,
-
-    create_month_day_wall: function(day, index, total_number_of_days, color) {
-        var w = 500;
-        var h = 1000;
-
-        var percentage = index / total_number_of_days;
-        var x_position = cos(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
-        var z_position = sin(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
-
-        var p = new THREE.Vector3(x_position, 1000, z_position);
-        var n = new THREE.Vector3(-x_position, 0, -z_position);
-
-        var month_day_wall = new FloatingWall(w, h, p, n, this, false);
-
-        month_day_wall.add_3D_title(day.to_string_without_year(), color);
-
-        return month_day_wall;
-    },
 
     __init__: function() {
         World.call(this, 'HomeWorld');
@@ -119,10 +98,6 @@ HomeWorld.prototype = {
     exit_world: function() {
     },
 
-    /*__   __        ___  __             ___            ___
-     /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
-     .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
-
     create_entity_wall_command_entered: function() {
         // The wall will be generated 100 units away from the player and looking at the player (while perpendicular to the y-axis).
         var player_position = CURRENT_PLAYER.get_position();
@@ -148,6 +123,32 @@ HomeWorld.prototype = {
         this.entity_walls.push(entity_wall);
     },
 
+    /*__   __        ___  __             ___            ___
+     /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
+     .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
+
+    create_month_day_wall: function(day, index, total_number_of_days, color, present) {
+        var w = 500;
+        var h = 1000;
+
+        var percentage = index / total_number_of_days;
+        var x_position = cos(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
+        var z_position = sin(percentage * TWO_PIE) * MONTH_VIEW_RADIUS;
+
+        var p = new THREE.Vector3(x_position, 1000, z_position);
+        var n = new THREE.Vector3(-x_position, 0, -z_position);
+
+        var month_day_wall = new FloatingWall(w, h, p, n, this, false);
+
+        month_day_wall.add_3D_title(day.to_string_without_year(), TYPE_SUPER_TITLE, color);
+
+        if (present) {
+            month_day_wall.add_3D_title_above('Today', TYPE_SUPER_TITLE, color);
+        }
+
+        return month_day_wall;
+    },
+    
     load_schedule: function() {
         // The 360 schedule view.
         this.month_day_walls = [];
@@ -163,13 +164,13 @@ HomeWorld.prototype = {
         var day_index = 0;
         var d;
         for (d = 0; d < dates_in_past.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, dates_in_past_colors[d]));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, dates_in_past_colors[d], false));
             day_index += 1;
         }
-        this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT));
+        this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT, true));
         day_index += 1;
         for (d = 0; d < dates_in_future.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, dates_in_future_colors[d + 1]));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, dates_in_future_colors[d + 1], false));
             day_index += 1;
         }
     }
