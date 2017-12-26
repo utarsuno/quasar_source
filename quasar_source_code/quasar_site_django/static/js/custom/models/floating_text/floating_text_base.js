@@ -104,8 +104,16 @@ function FloatingText(width, text, type, scene, current_color) {
             this.current_color = color_to_set;
             this._update_color();
         } else {
-            this.current_color = color;
-            this._update_color();
+            if (this.is_2d_text) {
+                this.current_color = color;
+                this._update_color();
+            } else {
+                if (color.toString().includes('#')) {
+                    color = parseInt(color.replace('#', '0x'));
+                    this.current_color = color;
+                    this._update_color();
+                }
+            }
         }
     };
 
