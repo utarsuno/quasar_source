@@ -161,6 +161,17 @@ function FloatingText(width, text, type, scene, current_color) {
         this.update_text(this.text.slice(0, -1));
     };
 
+    this.parse_text = function(text) {
+        for (var i = 0; i < text.length; i++) {
+            if (this.type === TYPE_INPUT_PASSWORD) {
+                this.hidden_text += text.charAt(i);
+                this._add_character('*');
+            } else {
+                this._add_character(text.charAt(i));
+            }
+        }
+    },
+
     this.parse_keycode = function(event) {
         var keycode = event.keyCode;
 

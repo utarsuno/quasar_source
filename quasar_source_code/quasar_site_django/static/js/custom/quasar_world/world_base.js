@@ -291,7 +291,7 @@ function World(planet_name) {
             }
             // FOR_DEV_START
             if (!is_defined(this.currently_looked_at_object)) {
-                raise_exception('hodl IOTA');
+                raise_exception('hodl IOTA');n
             }
             // FOR_DEV_END
             if (this.currently_looked_at_object.uses_cursor) {

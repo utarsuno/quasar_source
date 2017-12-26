@@ -275,11 +275,14 @@ Player.prototype = {
     },
 
     on_paste: function(e) {
-        l('PASTE EVENT!');
-        l(e);
-        var clipboardData = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
-        var pastedData = clipboardData.getData('text');
-        l(pastedData);
+        // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
+        var clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+        var pasted_data = clipboard_data.getData('text');
+        if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+            if (this.is_engaged()) {
+                this.currently_looked_at_object.parse_text(pasted_data);
+            }
+        }
     }
 };
 
