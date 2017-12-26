@@ -16,6 +16,7 @@ var MANAGER_WORLD       = null;
 var MANAGER_ENTITY      = null;
 var MANAGER_MULTIPLAYER = null;
 var MANAGER_SHADER      = null;
+var MANAGER_RENDERER    = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
@@ -126,6 +127,8 @@ const TYPE_LABEL                  = 'label';
 const TYPE_BUTTON                 = 'button';
 const TYPE_STATUS                 = 'status';
 const TYPE_TITLE                  = 'title';
+const TYPE_TITLE_CONSTANT         = 'title_constant';
+const TYPE_SUPER_TITLE_CONSTANT   = 'super_title_constant';
 const TYPE_CHECK_BOX              = 'check_box';
 const TYPE_SUPER_TITLE            = 'super_title';
 const TYPE_CONSTANT_TEXT          = 'constant_text';
@@ -160,7 +163,7 @@ const COLOR_WHITE            = [0xffffff, '#ffffff'];
 const COLOR_BLACK            = [0x000000, '#000000'];
 const COLOR_SCHEDULE_PAST    = [0x0b3162, '#09254b'];
 const COLOR_SCHEDULE_PRESENT = [0x8effae, '#4dff78'];
-const COLOR_SCHEDULE_FUTURE  = [0x000b1c, '#e2e2aa'];
+const COLOR_SCHEDULE_FUTURE  = [0x000b1c, '#d58900'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Icons.
@@ -170,6 +173,7 @@ const ICON_MULTIPLAYER  = 'massiveMultiplayer.png';
 const ICON_HOME         = 'home.png';
 const ICON_SAVE         = 'save.png';
 const ICON_ENTITY_GROUP = 'share2.png';
+const ICON_FULLSCREEN   = 'larger.png';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Cursor types.

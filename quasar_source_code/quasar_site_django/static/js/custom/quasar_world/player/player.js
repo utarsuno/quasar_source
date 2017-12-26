@@ -1,7 +1,7 @@
 'use strict';
 
-function Player(renderer_api) {
-    this.__init__(renderer_api);
+function Player() {
+    this.__init__();
 }
 
 Player.prototype = {
@@ -17,7 +17,6 @@ Player.prototype = {
     camera          : null,
 
     // Custom objects.
-    renderer_api    : null,
     pointer_lock_api: null,
     fps_controls    : null,
     data_display    : null,
@@ -26,9 +25,8 @@ Player.prototype = {
     key_down_ctrl: null,
     key_down_d   : null,
 
-    __init__: function(renderer_api) {
-        this.renderer_api = renderer_api;
-        this.camera = this.renderer_api.camera;
+    __init__: function() {
+        this.camera = MANAGER_RENDERER.camera;
 
         this.fps_controls = new FPSControls(this.camera);
         this.pointer_lock_api = new PointerLockAPI(this.fps_controls);
@@ -53,7 +51,6 @@ Player.prototype = {
         this.owner_name = null;
 
         // TODO : move this state somewhere else
-        this.currently_fullscreen = false;
 
         // TODO : move this somewhere else eventually
         document.addEventListener('paste', this.on_paste.bind(this));
@@ -182,23 +179,8 @@ Player.prototype = {
             if (this.key_down_ctrl) {
                 // Toggle debugging.
                 this.data_display.toggle();
-                this.renderer_api.stats_api.toggle();
+                MANAGER_RENDERER.stats_api.toggle();
             }
-            break;
-        case KEY_CODE_F:
-            // Toggle fullscreen.
-            if (this.key_down_ctrl) {
-                if (!this.currently_fullscreen) {
-                    THREEx.FullScreen.request();
-                    this.renderer_api.on_window_resize();
-                } else {
-                    THREEx.FullScreen.cancel();
-                }
-                this.currently_fullscreen = !this.currently_fullscreen;
-            }
-            //if (!this.is_engaged()) {
-            //this.fps_controls.toggle_flying()
-            //}
             break;
         case KEY_CODE_ENTER:
             if (GUI_TYPING_INTERFACE.is_visible()) {

@@ -40,7 +40,6 @@ module.exports = {
         "Detector": true,
         "StatsAPI": true,
         "PointerLockAPI": true,
-        "RendererAPI": true,
         "CSSRendererAPI": true,
         "FPSControls": true,
         "ShaderAPI": true,
@@ -81,11 +80,13 @@ module.exports = {
         "MANAGER_ENTITY"     : true,
         "MANAGER_MULTIPLAYER": true,
         "MANAGER_SHADER"     : true,
+        "MANAGER_RENDERER"   : true,
         // and their class names.
         "WorldManager"      : true,
         "AudioManager"      : false,
         "EntityManager"     : true,
         "MultiPlayerManager": false,
+        "RendererAPI"       : false,
 
         // Global objects.
         "CURRENT_PLAYER": true,
@@ -143,6 +144,8 @@ module.exports = {
         "TYPE_BUTTON"                : false,
         "TYPE_STATUS"                : false,
         "TYPE_TITLE"                 : false,
+        "TYPE_TITLE_CONSTANT"        : false,
+        "TYPE_SUPER_TITLE_CONSTANT"  : false,
         "TYPE_CHECK_BOX"             : false,
         "TYPE_CONSTANT_TEXT"         : false,
         "TYPE_SLIDER"                : false,
@@ -254,6 +257,7 @@ module.exports = {
         "ICON_HOME"        : false,
         "ICON_SAVE"        : false,
         "ICON_ENTITY_GROUP": false,
+        "ICON_FULLSCREEN"  : false,
         // UNIVERSAL_CONSTANTS_END
 
         "get_color_range_list": false,

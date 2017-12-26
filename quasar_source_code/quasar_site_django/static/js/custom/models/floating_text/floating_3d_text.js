@@ -16,11 +16,11 @@ Floating3DText.prototype = {
     current_text_object: null,
 
     initialize: function() {
-        if (this.type === TYPE_SUPER_TITLE) {
+        if (this.type === TYPE_SUPER_TITLE || this.type === TYPE_SUPER_TITLE_CONSTANT) {
             this.height = 32 * 4;
             this.size = 40 * 4;
             this.text_height = 2 * 4;
-        } else if (this.type === TYPE_TITLE) {
+        } else if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
             this.height = 32;
             this.size = 40;
             this.text_height = 2;
@@ -89,3 +89,4 @@ Floating3DText.prototype = {
         this.final_initialize();
     }
 };
+

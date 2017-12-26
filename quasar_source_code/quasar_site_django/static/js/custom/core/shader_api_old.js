@@ -1,16 +1,16 @@
 'use strict';
 
-function ShaderAPI(renderer_api, scene, camera) {
-    this.__init__(renderer_api, scene, camera);
+function ShaderAPI(scene, camera) {
+    this.__init__(scene, camera);
 }
 
 ShaderAPI.prototype = {
     composer: null,
     render_pass: null,
 
-    __init__: function(renderer_api, scene, camera) {
+    __init__: function(scene, camera) {
         // COMPOSER
-        this.composer = new THREE.EffectComposer(renderer_api.renderer);
+        this.composer = new THREE.EffectComposer(MANAGER_RENDERER.renderer);
 
         // PASSES
         this.render_pass = new THREE.RenderPass(scene, camera);

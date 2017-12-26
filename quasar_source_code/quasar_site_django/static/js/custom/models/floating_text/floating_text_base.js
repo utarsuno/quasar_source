@@ -65,6 +65,8 @@ function FloatingText(width, text, type, scene, current_color) {
                 this.engable = false;
                 break;
             case TYPE_CONSTANT_TEXT:
+            case TYPE_TITLE_CONSTANT:
+            case TYPE_SUPER_TITLE_CONSTANT:
                 this.set_default_color(COLOR_TEXT_CONSTANT);
                 this.engable = false;
                 break;

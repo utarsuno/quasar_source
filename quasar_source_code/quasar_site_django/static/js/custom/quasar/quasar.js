@@ -8,10 +8,10 @@
 //MANAGER_SHADER      = new ShaderAPI();
 
 // Renders all the worlds.
-var renderer_api = new RendererAPI();
+MANAGER_RENDERER = new RendererAPI();
 
 // Model of the user.
-CURRENT_PLAYER = new Player(renderer_api);
+CURRENT_PLAYER = new Player();
 
 // Global Managers.
 MANAGER_COOKIES     = Cookies.noConflict();
@@ -50,7 +50,7 @@ var position_update_interval = 1 / 20;
 
 var animate = function () {
     requestAnimationFrame(animate);
-    renderer_api.pre_render();
+    MANAGER_RENDERER.pre_render();
 
     var time = performance.now();
     var delta = (time - previous_time) / 1000.0;
@@ -73,8 +73,8 @@ var animate = function () {
     }
     ////
 
-    renderer_api.render();
-    renderer_api.post_render();
+    MANAGER_RENDERER.render();
+    MANAGER_RENDERER.post_render();
 
     previous_time = time;
 };

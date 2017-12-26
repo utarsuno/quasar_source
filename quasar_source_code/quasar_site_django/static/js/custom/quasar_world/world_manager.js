@@ -140,6 +140,7 @@ WorldManager.prototype = {
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_HOME);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_MULTIPLAYER);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SAVE);
+        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_FULLSCREEN);
 
         // TODO : Eventually give this to some sort of loading/ajax manager.
         this.load_textures();

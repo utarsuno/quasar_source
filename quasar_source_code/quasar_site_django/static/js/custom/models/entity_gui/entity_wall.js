@@ -237,7 +237,7 @@ EntityWall.prototype = {
         }
         this.wall_edit_entity.clear_floating_2d_texts();
 
-        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
+        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE_CONSTANT, 0);
 
         var edit_entity_add_attribute_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
         edit_entity_add_attribute_button.set_engage_function(this.edit_entity_add_attribute_button_pressed.bind(this, edit_entity_add_attribute_button, entity));

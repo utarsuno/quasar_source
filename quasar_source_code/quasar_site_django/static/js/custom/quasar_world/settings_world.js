@@ -47,8 +47,8 @@ SettingsWorld.prototype = {
 
     slider_fov_value_changed: function(fov_value) {
         l('FOV value is now : ' + fov_value);
-        CURRENT_PLAYER.renderer_api.camera.fov = fov_value;
-        CURRENT_PLAYER.renderer_api.camera.updateProjectionMatrix();
+        MANAGER_RENDERER.camera.fov = fov_value;
+        MANAGER_RENDERER.camera.updateProjectionMatrix();
         // TODO : Save the new value into ENTITY OWNER settings.
     },
 
