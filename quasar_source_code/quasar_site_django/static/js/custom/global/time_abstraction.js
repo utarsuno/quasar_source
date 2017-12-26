@@ -11,6 +11,7 @@ function MyDates(dates_base) {
 }
 
 MyDates.prototype = {
+
     __init__: function(dates_base) {
         this.dates = [];
         if (dates_base === THIS_MONTH) {
@@ -19,7 +20,38 @@ MyDates.prototype = {
                 this.dates.push(new MyDate(days_of_this_month[d]));
             }
         }
+    },
+
+    get_dates_in_past: function() {
+        var past_dates = [];
+        for (var d = 0; d < this.dates.length; d++) {
+            if (this.dates[d].in_past()) {
+                past_dates.push(this.dates[d]);
+            }
+        }
+        return past_dates;
+    },
+
+    get_dates_in_future: function() {
+        var future_dates = [];
+        for (var d = 0; d < this.dates.length; d++) {
+            if (this.dates[d].in_future()) {
+                future_dates.push(this.dates[d]);
+            }
+        }
+        return future_dates;
+    },
+
+    get_dates_in_present: function() {
+        var present_dates = [];
+        for (var d = 0; d < this.dates.length; d++) {
+            if (this.dates[d].in_present()) {
+                present_dates.push(this.dates[d]);
+            }
+        }
+        return present_dates;
     }
+
 };
 
 function MyDate(date_base) {
@@ -29,12 +61,25 @@ function MyDate(date_base) {
 MyDate.prototype = {
 
     __init__: function(date_base) {
+        this.now = new Date();
         this.date = null;
         if (date_base === THIS_DAY) {
             this.date = get_date_object_from_today_with_n_day_offset(0);
         } else {
             this.date = date_base;
         }
+    },
+
+    in_past: function() {
+        return this.date.getDate() < this.now.getDate();
+    },
+
+    in_future: function() {
+        return this.date.getDate() > this.now.getDate();
+    },
+
+    in_present: function() {
+        return this.date.getDate() == this.now.getDate();
     },
 
     to_string: function() {
@@ -61,10 +106,6 @@ function get_date_object_from_today_with_n_day_offset(n) {
         date.setDate(date.getDate() + n);
     }
     return date;
-}
-
-function get_date_string_without_year_from_today_with_n_day_offset(n) {
-
 }
 
 // TODO : check if still needed

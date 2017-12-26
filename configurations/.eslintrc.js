@@ -270,8 +270,9 @@ module.exports = {
         "COLOR_TEXT_CONSTANT"   : false,
         "COLOR_WHITE"           : false,
         "COLOR_BLACK"           : false,
-        "COLOR_SCHEDULE_START"  : false,
-        "COLOR_SCHEDULE_END"    : false,
+        "COLOR_SCHEDULE_PAST"   : false,
+        "COLOR_SCHEDULE_PRESENT": false,
+        "COLOR_SCHEDULE_FUTURE" : false,
         // UNIVERSAL_CONSTANTS_END
 
         // Javascript constants.

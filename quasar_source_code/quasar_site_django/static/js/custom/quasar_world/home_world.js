@@ -26,9 +26,7 @@ HomeWorld.prototype = {
         var n = new THREE.Vector3(-x_position, 0, -z_position);
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
-
-        l('Created ' + day.to_string_without_year());
-
+        
         month_day_wall.add_3D_title(day.to_string_without_year(), color);
 
         return month_day_wall;
@@ -38,19 +36,30 @@ HomeWorld.prototype = {
         World.call(this, 'HomeWorld');
 
         this.loaded_entities = false;
-
         this.entity_walls = [];
-
-        // TODO : What is this for?
-        this.players = [];
 
         // The 360 schedule view.
         this.month_day_walls = [];
         this.month_days = new MyDates(THIS_MONTH);
-        this.month_day_colors = get_color_range_list(COLOR_SCHEDULE_START, COLOR_SCHEDULE_END, this.month_days.dates.length);
 
-        for (var md = 0; md < this.month_days.dates.length; md++) {
-            this.month_day_walls.push(this.create_month_day_wall(this.month_days.dates[md], md, this.month_days.dates.length, this.month_day_colors[md]));
+        var dates_in_past = this.month_days.get_dates_in_past();
+        var dates_in_present = this.month_days.get_dates_in_present();
+        var dates_in_future = this.month_days.get_dates_in_future();
+
+        var dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
+        var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_past.length + 1);
+
+        var day_index = 0;
+        var d;
+        for (d = 0; d < dates_in_past; d++) {
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, dates_in_past_colors[d]));
+            day_index += 1;
+        }
+        this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT));
+        day_index += 1;
+        for (d = 0; d < dates_in_past; d++) {
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, dates_in_future_colors[d + 1]));
+            day_index += 1;
         }
     },
 
