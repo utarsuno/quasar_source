@@ -21,9 +21,11 @@ DateSelector.prototype = {
     },
 
     show_at: function(floating_2D_text) {
+        this.wall.show();
+
         var bp = floating_2D_text.get_position();
-        var bnd = floating_2D_text.normal_depth * 2;
-        var bn = floating_2D_text.normal;
+        var bnd = floating_2D_text.parent_floating_wall.normal_depth;
+        var bn = floating_2D_text.parent_floating_wall.normal;
 
         this.wall.normal = bn;
         this.wall.normal_depth = bnd;

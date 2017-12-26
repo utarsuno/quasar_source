@@ -211,7 +211,7 @@ EntityWall.prototype = {
         }
         this.wall_edit_entity_add_attribute.clear_floating_2d_texts();
 
-        this.wall_edit_entity_add_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE, 0);
+        this.wall_edit_entity_add_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE_CONSTANT, 0);
 
         var a0 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
         var a1 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);
