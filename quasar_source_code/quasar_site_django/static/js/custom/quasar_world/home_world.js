@@ -117,7 +117,7 @@ HomeWorld.prototype = {
     },
 
     exit_world: function() {
-    }
+    },
 
     /*__   __        ___  __             ___            ___
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
@@ -148,7 +148,7 @@ HomeWorld.prototype = {
         this.entity_walls.push(entity_wall);
     },
 
-        load_schedule: function() {
+    load_schedule: function() {
         // The 360 schedule view.
         this.month_day_walls = [];
         this.month_days = new MyDates(THIS_MONTH);
