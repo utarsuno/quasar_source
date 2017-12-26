@@ -16,8 +16,21 @@ DateSelector.prototype = {
         var n = new THREE.Vector3(0, 0, 0);
 
         this.wall = new FloatingWall(w, h, p, n, this.world, false);
+        // TODO : Fix the title movement!
         this.wall.add_3D_title('Select Date');
         this.wall.add_close_button();
+
+        this.wall.add_floating_2d_text(.1, .9, 'Select Date', TYPE_TITLE_CONSTANT, 0);
+
+        this.date = new MyDate(THIS_DAY);
+
+        this.decrease_year_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 3);
+        this.decrease_year_button.set_engage_function(this.decrease_year.bind(this));
+        this.year = this.wall.add_floating_2d_text(.25, .75, this.date.get_year_as_string(), TYPE_TITLE_CONSTANT, 3);
+        this.increase_year_button = this.wall.add_floating_2d_text(.75, 1, ICON_RIGHT, TYPE_BUTTON, 3);
+        this.increase_year_button.set_engage_function(this.increase_year.bind(this));
+
+
     },
 
     show_at: function(floating_2D_text) {
@@ -38,13 +51,24 @@ DateSelector.prototype = {
         this.wall.update_normal(bn);
         this.wall.update_position_and_normal_for_all_floating_text();
 
-        l(this.wall.normal);
-        l(this.wall.normal_depth);
     },
 
     // TODO:
     hide: function() {
 
+    },
+
+    // Year.
+    decrease_year: function() {
+        this.date.apply_delta(DELTA_YEARS, -1);
+        this.year.update_text(this.date.get_year_as_string());
+    },
+
+    increase_year: function() {
+        this.date.apply_delta(DELTA_YEARS, 1);
+        this.year.update_text(this.date.get_year_as_string());
     }
+
+    // Month.
 
 };

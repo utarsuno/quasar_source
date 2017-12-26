@@ -54,33 +54,40 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
-        var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
-        //var font_size = Math.round(texture_height * .8);
-        this.font_size = texture_height;
-
-        //l('Font size is : ' + font_size);
-
-        this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, texture_height);
-        if (this.type === TYPE_TITLE) {
-            this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
+        if (this.text === ICON_LEFT || this.text === ICON_RIGHT) {
+            this.material = new THREE.MeshBasicMaterial({
+                map : MANAGER_WORLD.get_icon_texture(this.text)
+            });
+            this.material.transparent = true;
         } else {
-            this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
+            this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
+            var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
+            //var font_size = Math.round(texture_height * .8);
+            this.font_size = texture_height;
+
+            //l('Font size is : ' + font_size);
+
+            this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, texture_height);
+            if (this.type === TYPE_TITLE) {
+                this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
+            } else {
+                this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
+            }
+
+            this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
+
+            this.material = new THREE.MeshBasicMaterial({
+                map : this.dynamic_texture.texture
+            });
+
+            this.material.transparent = false;
+            // TODO : Temporary for debugging.
+            //this.material.side = THREE.FrontSide;
+            this.material.side = THREE.DoubleSide;
+
+            this._update_color();
+            this._update_text();
         }
-
-        this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
-        
-        this.material = new THREE.MeshBasicMaterial({
-            map : this.dynamic_texture.texture
-        });
-
-        this.material.transparent = false;
-        // TODO : Temporary for debugging.
-        //this.material.side = THREE.FrontSide;
-        this.material.side = THREE.DoubleSide;
-
-        this._update_color();
-        this._update_text();
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 

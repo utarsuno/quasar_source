@@ -219,6 +219,17 @@ WorldManager.prototype = {
         this.world_settings.add_sky_box(this.final_textures);
     },
 
+    // TODO : Create texture manager?
+    get_icon_texture: function(texture_name) {
+        for (var i = 0; i < this.icon_textures.length; i++) {
+            if (this.icon_textures[i][1].includes(texture_name)) {
+                return this.icon_textures[i][0];
+            }
+        }
+        // throw exception?
+        return null;
+    },
+
     texture_loaded: function(texture, texture_name) {
         if (texture_name.includes('skybox')) {
             // Skybox.

@@ -3,7 +3,6 @@
 // TODO : create a universal constant here.
 const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
-const DELTA_DAYS = 'delta_days';
 // TODO : create the other deltas needed.
 
 function MyDates(dates_base) {
@@ -82,12 +81,31 @@ MyDate.prototype = {
         return this.date.getDate() == this.now.getDate();
     },
 
+    apply_delta: function(units, magnitude) {
+        switch (units) {
+        case DELTA_YEARS:
+            this.date.setFullYear(this.date.getFullYear() + magnitude);
+            break;
+        case DELTA_DAYS:
+            this.date.setDate(this.date.getDate() + magnitude);
+            break;
+        }
+    },
+
     to_string: function() {
         return (this.date.getMonth() + 1) + '.' + this.date.getDate() + '.' + this.date.getFullYear();
     },
 
     to_string_without_year: function() {
         return (this.date.getMonth() + 1) + '.' + this.date.getDate();
+    },
+
+    get_month_number_as_string: function() {
+        return (this.date.getMonth() + 1).toString();
+    },
+
+    get_year_as_string: function() {
+        return this.date.getFullYear();
     },
 
     get_day_number_as_string: function() {

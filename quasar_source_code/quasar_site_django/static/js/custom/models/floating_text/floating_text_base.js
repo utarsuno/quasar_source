@@ -22,7 +22,6 @@ function FloatingText(width, text, type, scene, current_color) {
 
     // Default value.
     this.normal_depth  = 1;
-    this.additional_normal_depth = null;
 
     if (is_defined(current_color)) {
         this.current_color = current_color;
@@ -40,7 +39,7 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     }
 
-    if (this.type == TYPE_INPUT_PASSWORD) {
+    if (this.type === TYPE_INPUT_PASSWORD) {
         this.text = '';
         for (var c = 0; c < text.length; c++) {
             this.text += '*';

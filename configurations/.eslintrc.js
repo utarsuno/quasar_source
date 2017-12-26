@@ -386,7 +386,10 @@ module.exports = {
         // From time_abstractions.js
         "THIS_DAY"   : false,
         "THIS_MONTH" : false,
-        "DELTA_DAYS" : false,
+
+        "DELTA_YEARS" : false,
+        "DELTA_DAYS"  : false,
+        "DELTA_MONTHS": false,
 
         "MyDates": false,
         "MyDate" : false,

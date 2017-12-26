@@ -278,6 +278,11 @@ const NOT_VISIBLE = 'hidden';
 const DISPLAY_NONE = 'none';
 const DISPLAY_SHOW = 'block';
 
+// Time constants.
+const DELTA_YEARS  = 'delta_years';
+const DELTA_DAYS   = 'delta_days';
+const DELTA_MONTHS = 'delta_months';
+
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */

@@ -149,6 +149,12 @@ FloatingWall.prototype = {
     },
 
     update_position_and_normal_for_all_floating_text: function() {
+        if (is_defined(this.floating_3d_title)) {
+
+        }
+        if (is_defined(this.floating_3D_above_title)) {
+
+        }
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
         }
