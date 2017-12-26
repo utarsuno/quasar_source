@@ -17,6 +17,7 @@ DateSelector.prototype = {
 
         this.wall = new FloatingWall(w, h, p, n, this.world, false);
         this.wall.add_3D_title('Select Date');
+        this.wall.add_close_button();
     },
 
     show_at: function(floating_2D_text) {
@@ -27,8 +28,12 @@ DateSelector.prototype = {
         this.wall.normal = bn;
         this.wall.normal_depth = bnd;
 
-        this.world.date_selector.wall.object3D.position.set(bp.x + bn.x * bnd, bp.y + bn.y * bnd, bp.z + bn.z * bnd);
-        this.world.date_selector.wall.object3D.lookAt(new THREE.Vector3(bp.x + bn.x * bnd * 2, bp.y + bn.y * bnd * 2, bp.z + bn.z * bnd * 2));
+        //this.wall.object3D.position.set(bp.x + bn.x * bnd, bp.y + bn.y * bnd, bp.z + bn.z * bnd);
+        //this.wall.object3D.lookAt(new THREE.Vector3(bp.x + bn.x * bnd * 2, bp.y + bn.y * bnd * 2, bp.z + bn.z * bnd * 2));
+
+        this.wall.pfw_button = floating_2D_text;
+        this.wall.update_position_with_offset_xyz(0, 0, 0);
+        this.wall.update_position_and_normal_for_floating_2D_text();
     },
 
     // TODO:
