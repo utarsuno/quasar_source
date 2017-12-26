@@ -170,7 +170,7 @@ function FloatingText(width, text, type, scene, current_color) {
                 this._add_character(text.charAt(i));
             }
         }
-    },
+    };
 
     this.parse_keycode = function(event) {
         var keycode = event.keyCode;
