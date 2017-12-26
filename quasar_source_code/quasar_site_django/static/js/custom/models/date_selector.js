@@ -39,7 +39,7 @@ DateSelector.prototype = {
         this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
         // Days.
-        
+
     },
 
     show_at: function(floating_2D_text) {

@@ -91,6 +91,9 @@ MyDate.prototype = {
         case DELTA_DAYS:
             this.date.setDate(this.date.getDate() + magnitude);
             break;
+        case DELTA_MONTHS:
+            this.date.setMonth(this.date.getMonth() + magnitude);
+            break;
         }
     },
 
