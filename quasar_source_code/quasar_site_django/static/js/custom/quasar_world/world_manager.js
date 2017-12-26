@@ -86,6 +86,10 @@ const CURSOR_DEFAULT_OPACITY = 0.90;
 // TODO : Eventually make this into a configurable setting.
 const SKYBOX_DEFAULT_OPACITY = 0.50;
 
+// TODO : make this dynamic.
+const NUMBER_OF_SKYBOX_TEXTURES = 6;
+const NUMBER_OF_ICON_TEXTURES = 7;
+
 WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
@@ -134,6 +138,7 @@ WorldManager.prototype = {
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_RIGHT);
         this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_LEFT);
         // Load the icons.
+        // TODO : Dynamically update the number of icon textures.
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_EXIT);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SETTINGS);
         this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_ENTITY_GROUP);
@@ -232,7 +237,7 @@ WorldManager.prototype = {
             this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
 
             this.number_of_sky_box_textures_loaded += 1;
-            if (this.number_of_sky_box_textures_loaded === 6) {
+            if (this.number_of_sky_box_textures_loaded === NUMBER_OF_SKYBOX_TEXTURES) {
                 this.create_sky_boxes();
             }
 
@@ -246,7 +251,7 @@ WorldManager.prototype = {
             // Icons.
             this.icon_textures.push([texture, texture_name]);
             this.number_of_icons_loaded += 1;
-            if (this.number_of_icons_loaded === 6) {
+            if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
                 // The parameters passed in are the icons not to load.
                 this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
                 this.world_home.player_menu.load_icon_textures([ICON_HOME]);
