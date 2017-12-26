@@ -26,7 +26,7 @@ HomeWorld.prototype = {
         var n = new THREE.Vector3(-x_position, 0, -z_position);
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
-        
+
         month_day_wall.add_3D_title(day.to_string_without_year(), color);
 
         return month_day_wall;
@@ -51,13 +51,13 @@ HomeWorld.prototype = {
 
         var day_index = 0;
         var d;
-        for (d = 0; d < dates_in_past; d++) {
+        for (d = 0; d < dates_in_past.length; d++) {
             this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, dates_in_past_colors[d]));
             day_index += 1;
         }
         this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT));
         day_index += 1;
-        for (d = 0; d < dates_in_past; d++) {
+        for (d = 0; d < dates_in_future.length; d++) {
             this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, dates_in_future_colors[d + 1]));
             day_index += 1;
         }
