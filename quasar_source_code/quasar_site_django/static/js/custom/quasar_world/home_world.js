@@ -159,7 +159,7 @@ HomeWorld.prototype = {
         var dates_in_future = this.month_days.get_dates_in_future();
 
         var dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
-        var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_past.length + 1);
+        var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
 
         var day_index = 0;
         var d;
