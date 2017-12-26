@@ -154,10 +154,12 @@ SettingsWorld.prototype = {
         this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
         this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
         this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
+
+
+        l(this.wall_user_profile.floating_3d_title.get_text_length());
+        l(this.wall_settings.floating_3d_title.get_text_length());
     },
 
     exit_world: function() {
-        l(this.wall_user_profile.floating_3d_title.get_text_length());
-        l(this.wall_settings.floating_3d_title.get_text_length());
     }
 };
