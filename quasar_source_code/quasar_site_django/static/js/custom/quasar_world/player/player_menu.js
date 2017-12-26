@@ -94,6 +94,7 @@ MenuIcon.prototype = {
                 case ICON_FULLSCREEN:
                     icon_label = 'fullscreen';
                     function_to_bind = toggle_fullscreen;
+                    break;
                 }
                 this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
                 if (is_defined(function_to_bind)) {
@@ -255,16 +256,16 @@ PlayerMenu.prototype = {
             this.icons.push(this.icon_multiplayer);
         }
 
-        if (!list_of_icons_not_to_load.contains(ICON_EXIT)) {
-            this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_log_out);
-        }
-
         if (!list_of_icons_not_to_load.contains(ICON_FULLSCREEN)) {
             this.icon_toggle_fullscreen = new MenuIcon(ICON_FULLSCREEN, this.world, current_row);
             current_row += 1;
             this.icons.push(this.icon_toggle_fullscreen);
+        }
+
+        if (!list_of_icons_not_to_load.contains(ICON_EXIT)) {
+            this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, current_row);
+            current_row += 1;
+            this.icons.push(this.icon_log_out);
         }
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
