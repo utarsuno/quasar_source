@@ -80,14 +80,8 @@ class FinanceServer(object):
 				print('New output!')
 				old_size += 1
 
-		for p in self.workers:
-			p.join()
-		r = []
-		for p in self.workers:
-			r.append(self.output.get())
-		self._db_connection.print_database_names()
+		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
-		return r
 
 fs = FinanceServer()
 fs.setup()
@@ -96,3 +90,4 @@ fs.run_worker()
 fs.run_worker()
 fs.run_worker()
 fs.run_worker()
+fs.run()
