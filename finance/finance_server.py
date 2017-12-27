@@ -97,6 +97,7 @@ class FinanceServer(object):
 			if len(self.output_dictionary) > old_size:
 				old_size = len(self.output_dictionary)
 				print('new entries!')
+				print(self.output_dictionary)
 			else:
 				print('no output!')
 				time.sleep(1)
