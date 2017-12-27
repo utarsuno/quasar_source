@@ -31,7 +31,7 @@ class Worker(object):
 
 	def __init__(self, lock, output_dictionary, worker_id):
 		self._worker_id = worker_id
-		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary, worker_id))
+		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary))
 		#self.output_queue = output_queue
 		#self.output_queue.put(result)
 
