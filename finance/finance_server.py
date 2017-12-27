@@ -88,6 +88,12 @@ class FinanceServer(object):
 		oc.print_title('Running the finance server!')
 		old_size = 0
 		while True:
+
+			data = sys.stdin.readlines()
+			print('DATA :')
+			print(data)
+
+
 			if self.output.empty():
 				print('output is empty')
 				time.sleep(1)
