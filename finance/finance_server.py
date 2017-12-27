@@ -70,5 +70,4 @@ class FinanceServer(object):
 		return r
 
 fs = FinanceServer()
-results = fs.setup()
-print(results)
+fs.setup()
