@@ -31,12 +31,12 @@ class FinanceServer(object):
 		for x in range(4):
 			self.workers.append(mp.Process(target=self.worker(x)))
 
-	def _run_bash_command(self, arguments, parameters=None):
+	def _run_bash_command(self, arguments):
 		"""Runs the provided bash command."""
-		if parameters is not None:
-			p = sp.Popen(args=[arguments, parameters], stdout=sp.PIPE, stderr=sp.PIPE)
+		if type(arguments) == str:
+			p = sp.Popen(args=[arguments], stdout = sp.PIPE, stderr = sp.PIPE)
 		else:
-			p = sp.Popen(args=[arguments, '\'Hello World\''], stdout=sp.PIPE, stderr=sp.PIPE)
+			p = sp.Popen(args=arguments, stdout=sp.PIPE, stderr=sp.PIPE)
 		p.wait()
 		output = p.stdout.read().decode()
 		errors = p.stderr.read().decode()
@@ -49,7 +49,7 @@ class FinanceServer(object):
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		result = self._run_bash_command('ls')
+		result = self._run_bash_command(['ls'])
 		print(result)
 		#self._run_bash_command(['gcc', 'finance.c'])
 
