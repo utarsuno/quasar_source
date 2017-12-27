@@ -55,10 +55,9 @@ class FinanceServer(object):
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		result = _terminal_command('ls')
-		print(result)
 		result = _terminal_command('gcc -O3 finance.c')
-		print(result)
+		if len(result) != 0:
+			print('Error compiling finance.c!')
 
 	def worker(self, id):
 		self.output.put('Hello World ' + str(id))
