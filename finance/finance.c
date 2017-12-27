@@ -4,8 +4,6 @@
 // Library that includes sleep().
 #include <unistd.h>
 
-#define EXIT_SUCCESS 77
-
 int main(int argc, char * argv[]) {
 
     // Sleep for n seconds.
@@ -13,5 +11,5 @@ int main(int argc, char * argv[]) {
 
     printf("Hello World\n");
 
-    return EXIT_SUCCESS;
+    return 0;
 }
