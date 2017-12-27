@@ -14,6 +14,14 @@ from quasar_source_code.universal_code import debugging as dbg
 from database_api.nosql_databases import mongodb_api as mongo
 
 
+def _terminal_command(arguments):
+	"""Runs the provided arguments as a regular terminal command."""
+	try:
+		return (sp.check_output(arguments, shell=True)).decode()
+	except sp.CalledProcessError:
+		return 'Error in process running \'' + arguments + '\'!'
+
+
 class FinanceServer(object):
 	"""An API to running C programs."""
 
@@ -28,13 +36,6 @@ class FinanceServer(object):
 		self.workers = []
 		for x in range(4):
 			self.workers.append(mp.Process(target=self.worker(x)))
-
-	def _terminal_command(self, arguments):
-		"""Runs the provided arguments as a regular terminal command."""
-		try:
-			return sp.check_output(arguments, shell=True)
-		except sp.CalledProcessError:
-			return 'Error in process running \'' + arguments + '\'!'
 
 	def _run_bash_command2(self, arguments):
 		"""Runs the provided bash command."""
@@ -54,9 +55,9 @@ class FinanceServer(object):
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		result = self._terminal_command('ls')
+		result = _terminal_command('ls')
 		print(result)
-		result = self._terminal_command('gcc finance.c')
+		result = _terminal_command('gcc finance.c')
 		print(result)
 
 	def worker(self, id):
