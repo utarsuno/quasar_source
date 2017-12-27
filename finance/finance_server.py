@@ -68,6 +68,8 @@ class FinanceServer(object):
 		result = run_terminal_command('gcc -O3 finance.c')
 		if len(result) != 0:
 			print('Error compiling finance.c!')
+		else:
+			print(result)
 
 	def run_worker(self):
 		self.workers.append(Worker(self.output))
