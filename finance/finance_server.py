@@ -9,6 +9,8 @@ import subprocess as sp
 # OS level related.
 import os
 
+import time
+
 from quasar_source_code.universal_code import debugging as dbg
 
 from database_api.nosql_databases import mongodb_api as mongo
@@ -79,6 +81,9 @@ class FinanceServer(object):
 			if len(self.output_history) > old_size:
 				print('New output!')
 				old_size += 1
+
+			print('sleeping for 1 second')
+			time.sleep(1)
 
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
