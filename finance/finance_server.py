@@ -49,7 +49,7 @@ class FinanceServer(object):
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		self._run_bash_command('gcc finance.c')
+		self._run_bash_command(['gcc', 'finance.c'])
 
 	def worker(self, pos):
 		y = 2
