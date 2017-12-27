@@ -41,18 +41,20 @@ class FinanceServer(object):
 		output = p.stdout.read().decode()
 		errors = p.stderr.read().decode()
 		if len(errors) != 0:
-			self.output.put('E:<<' + str(errors) + '>>')
+			return 'E:<<' + str(errors) + '>>'
 		elif len(output) != 0:
-			self.output.put(str(output))
+			return str(output)
 		else:
-			self.output.put(str(p.returncode))
+			return str(p.returncode)
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		self._run_bash_command(['gcc', 'finance.c'])
+		result = self._run_bash_command(['ls'])
+		print(result)
+		#self._run_bash_command(['gcc', 'finance.c'])
 
-	def worker(self, pos):
-		y = 2
+	def worker(self, id):
+		self.output.put('Hello World ' + str(id))
 
 	def run(self):
 		for p in self.workers:
