@@ -69,7 +69,8 @@ class FinanceServer(object):
 		if len(result) != 0:
 			print('Error compiling finance.c!')
 		else:
-			print(result)
+			if len(result) > 0:
+				print(result)
 
 	def run_worker(self):
 		self.workers.append(Worker(self.output))
@@ -78,7 +79,7 @@ class FinanceServer(object):
 		old_size = 0
 		while True:
 			if self.output.empty():
-				break
+				continue
 			self.output_history.append(self.output.get_nowait())
 			if len(self.output_history) > old_size:
 				print('New output!')
