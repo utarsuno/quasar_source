@@ -56,7 +56,7 @@ class FinanceServer(object):
 		"""Compiles all the C programs."""
 		result = self._terminal_command('ls')
 		print(result)
-		result = self._terminal_command('gcc', 'finance.c')
+		result = self._terminal_command('gcc finance.c')
 		print(result)
 
 	def worker(self, id):
