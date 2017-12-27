@@ -52,6 +52,7 @@ class FinanceServer(object):
 		self._run_bash_command('gcc finance.c')
 
 	def worker(self, pos):
+		y = 2
 
 	def run(self):
 		for p in self.workers:
@@ -66,5 +67,5 @@ class FinanceServer(object):
 		return r
 
 fs = FinanceServer()
-results = fs.run()
+results = fs.setup()
 print(results)
