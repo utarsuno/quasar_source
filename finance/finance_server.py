@@ -14,12 +14,33 @@ from quasar_source_code.universal_code import debugging as dbg
 from database_api.nosql_databases import mongodb_api as mongo
 
 
-def _terminal_command(arguments):
+def run_terminal_command(arguments):
 	"""Runs the provided arguments as a regular terminal command."""
 	try:
 		return (sp.check_output(arguments, shell=True)).decode()
 	except sp.CalledProcessError:
 		return 'Error in process running \'' + arguments + '\'!'
+
+
+class Worker(object):
+	"""A single 'thread' running a C program."""
+
+	def __init__(self, output_queue):
+		self.worker = mp.Process(target=self.work)
+		self.output_queue = output_queue
+
+	def run(self):
+		"""Runs this worker."""
+		self.worker.start()
+
+	def work(self):
+		"""Performs the work that needs to be done."""
+		result = run_terminal_command('./a.out')
+		if len(result) != 0:
+			self.output_queue.put('Error running a.out! - ' + str(result))
+			print('Error running a.out! - ' + str(result))
+		else:
+			self.output_queue.put(result)
 
 
 class FinanceServer(object):
@@ -34,37 +55,31 @@ class FinanceServer(object):
 
 		# Setup all the workers.
 		self.workers = []
-		for x in range(4):
-			self.workers.append(mp.Process(target=self.worker(x)))
 
-	def _run_bash_command2(self, arguments):
-		"""Runs the provided bash command."""
-		if type(arguments) == str:
-			p = sp.Popen(args=[arguments], stdout=sp.PIPE, stderr=sp.PIPE)
-		else:
-			p = sp.Popen(args=arguments, stdout=sp.PIPE, stderr=sp.PIPE)
-		p.wait()
-		output = p.stdout.read().decode()
-		errors = p.stderr.read().decode()
-		if len(errors) != 0:
-			return 'E:<<' + str(errors) + '>>'
-		elif len(output) != 0:
-			return str(output)
-		else:
-			return str(p.returncode)
+		self.output_history = []
+
+		#for x in range(4):
+		#	self.workers.append(mp.Process(target=self.worker(x)))
 
 	def setup(self):
 		"""Compiles all the C programs."""
-		result = _terminal_command('gcc -O3 finance.c')
+		result = run_terminal_command('gcc -O3 finance.c')
 		if len(result) != 0:
 			print('Error compiling finance.c!')
 
-	def worker(self, id):
-		self.output.put('Hello World ' + str(id))
+	def run_worker(self):
+		self.workers.append(Worker(self.output))
 
 	def run(self):
-		for p in self.workers:
-			p.start()
+		old_size = 0
+		while True:
+			if self.output.empty():
+				break
+			self.output_history.append(self.output.get_nowait())
+			if len(self.output_history) > old_size:
+				print('New output!')
+				old_size += 1
+
 		for p in self.workers:
 			p.join()
 		r = []
@@ -76,3 +91,8 @@ class FinanceServer(object):
 
 fs = FinanceServer()
 fs.setup()
+fs.run_worker()
+fs.run_worker()
+fs.run_worker()
+fs.run_worker()
+fs.run_worker()
