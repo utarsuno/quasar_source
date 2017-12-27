@@ -9,7 +9,7 @@
 int main(int argc, char * argv[]) {
 
     // Sleep for n seconds.
-    sleep(8);
+    sleep(2);
 
     printf("Hello World\n");
 

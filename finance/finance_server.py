@@ -11,6 +11,8 @@ import os
 
 import time
 
+from quasar_source_code.universal_code import output_coloring as oc
+
 from quasar_source_code.universal_code import debugging as dbg
 
 from database_api.nosql_databases import mongodb_api as mongo
@@ -76,6 +78,7 @@ class FinanceServer(object):
 		self.workers.append(Worker(self.output))
 
 	def run(self):
+		oc.print_title('Running the finance server!')
 		old_size = 0
 		while True:
 			if self.output.empty():
@@ -91,7 +94,6 @@ class FinanceServer(object):
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
 
-print('test')
 fs = FinanceServer()
 fs.setup()
 fs.run_worker()
