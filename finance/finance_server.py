@@ -82,6 +82,7 @@ class FinanceServer(object):
 		old_size = 0
 		while True:
 			if self.output.empty():
+				print('output is empty')
 				continue
 			self.output_history.append(self.output.get_nowait())
 			if len(self.output_history) > old_size:
