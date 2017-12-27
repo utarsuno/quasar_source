@@ -45,6 +45,7 @@ class Worker(object):
 			result = 'Error running! - {' + str(result) + '}'
 		lock.acquire()
 		stream.write(str(result))
+		stream.write('hello?\n')
 		lock.release()
 
 
