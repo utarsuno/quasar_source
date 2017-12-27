@@ -30,7 +30,7 @@ class Worker(object):
 	"""A single 'thread' running a C program."""
 
 	def __init__(self, lock):
-		self.worker = mp.Process(target=self.run, args=(lock, sys.stdout))
+		self.worker = mp.Process(target=self.work, args=(lock, sys.stdout))
 		#self.output_queue = output_queue
 		#self.output_queue.put(result)
 
@@ -82,7 +82,9 @@ class FinanceServer(object):
 				oc.print_data('Compiled finance.c!')
 
 	def run_worker(self):
-		self.workers.append(Worker(self.lock))
+		worker = Worker(self.lock)
+		worker.run()
+		self.workers.append(worker)
 
 	def run(self):
 		oc.print_title('Running the finance server!')
