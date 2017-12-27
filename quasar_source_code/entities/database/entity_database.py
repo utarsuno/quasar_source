@@ -2,13 +2,11 @@
 
 """This module, entity_database.py, contains a database api layer for entity objects."""
 
-from quasar_source_code.database_api.nosql_databases import mongodb_api as db_api
-from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities.entity_manager import EntityManager
-
 import ast
 
-import ctypes
+from database_api.nosql_databases import mongodb_api as db_api
+from quasar_source_code.entities import base_entity as be
+from quasar_source_code.entities.entity_manager import EntityManager
 
 '''  __       ___       __        __   ___          __
 	|  \  /\   |   /\  |__)  /\  /__` |__      /\  |__) |    .

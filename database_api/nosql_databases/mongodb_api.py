@@ -117,9 +117,6 @@ class MongoDBAPI(object):
     def connect(self) -> None:
         """Connects to the database."""
 
-        # TODO : Delete, once external connection is confirmed as no longer needed.
-        #connection_uri = url.quote('mongodb://' + self._database_parameters['user'] + ':' + self._database_parameters['password'] + '@' + self._database_parameters['host'] + ':' + self._database_parameters['port'] + '/' + self._database_parameters['database'])
-
         # Connecting locally.
         self._database_connection = pymongo.MongoClient()
         # Database object for the 'quasar' database.

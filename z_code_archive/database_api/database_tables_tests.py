@@ -5,8 +5,8 @@
 # Needed for running unit tests.
 import unittest
 
-from quasar_source_code.database_api import postgresql_api as db_api
-from quasar_source_code.database_api.sql_databases import database_tables as db_tables
+from database_api import database_tables as db_tables
+from database_api import postgresql_api as db_api
 
 # TODO : DEPRECIATED as of 12.25.2017
 

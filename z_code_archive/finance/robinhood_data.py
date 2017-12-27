@@ -3,18 +3,15 @@
 """This module, robinhood_data.py, utilizes a 3rd party un-official Robinhood API."""
 
 # Robinhood API.
-from third_party_libraries.Robinhood.Robinhood.Robinhood import Robinhood
-# Useful file + directory operations.
-from quasar_source_code.universal_code import useful_file_operations as ufo
-# Contains useful paths for this project.
-from quasar_source_code.universal_code import path_manager as pm
-# Used for IDE typing.
 from typing import List
-# Finance classes.
-from quasar_source_code.finance.finance_classes import FinancePortfolio
-from quasar_source_code.finance.finance_classes import Trade
+
+from finance import FinancePortfolio
+from finance import Trade
+from quasar_source_code.universal_code import path_manager as pm
+from quasar_source_code.universal_code import useful_file_operations as ufo
+from third_party_libraries.Robinhood.Robinhood.Robinhood import Robinhood
+
 # Used to get Datetime objects from strings.
-from dateutil import parser
 
 # Raw data key names.
 SIDE    = 'side'
