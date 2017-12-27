@@ -22,8 +22,8 @@ def run_terminal_command(arguments):
 	"""Runs the provided arguments as a regular terminal command."""
 	try:
 		return (sp.check_output(arguments, shell=True)).decode()
-	except sp.CalledProcessError:
-		return 'Error in process running \'' + arguments + '\'!'
+	except sp.CalledProcessError as e:
+		return 'Error in process running \'' + arguments + '\'! + - {' + str(e) + '}'
 
 
 class Worker(object):
