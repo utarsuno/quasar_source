@@ -90,6 +90,7 @@ class FinanceServer(object):
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
 
+print('test')
 fs = FinanceServer()
 fs.setup()
 fs.run_worker()
