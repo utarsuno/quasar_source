@@ -8,7 +8,7 @@ import multiprocessing as mp
 import subprocess as sp
 # OS level related.
 import os
-
+import sys
 import time
 
 from quasar_source_code.universal_code import output_coloring as oc
@@ -29,22 +29,23 @@ def run_terminal_command(arguments):
 class Worker(object):
 	"""A single 'thread' running a C program."""
 
-	def __init__(self, output_queue):
-		self.worker = mp.Process(target=self.work)
-		self.output_queue = output_queue
+	def __init__(self, lock):
+		self.worker = mp.Process(target=self.work, args=(lock, sys.stdout))
+		#self.output_queue = output_queue
+		#self.output_queue.put(result)
 
 	def run(self):
 		"""Runs this worker."""
 		self.worker.start()
 
-	def work(self):
+	def work(self, lock, stream):
 		"""Performs the work that needs to be done."""
 		result = run_terminal_command('./a.out')
 		if len(result) != 0:
-			self.output_queue.put('Error running a.out! - ' + str(result))
-			print('Error running a.out! - ' + str(result))
-		else:
-			self.output_queue.put(result)
+			result = 'Error running! - {' + str(result) + '}'
+		lock.acquire()
+		stream.write(str(result))
+		lock.release()
 
 
 class FinanceServer(object):
@@ -56,6 +57,8 @@ class FinanceServer(object):
 
 		# Output queue.
 		self.output = mp.Queue()
+
+		self.lock = mp.Lock()
 
 		# Setup all the workers.
 		self.workers = []
@@ -75,7 +78,7 @@ class FinanceServer(object):
 				print(result)
 
 	def run_worker(self):
-		self.workers.append(Worker(self.output))
+		self.workers.append(Worker(self.lock))
 
 	def run(self):
 		oc.print_title('Running the finance server!')
