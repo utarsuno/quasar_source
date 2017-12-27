@@ -51,7 +51,7 @@ class FinanceServer(object):
 		"""Compiles all the C programs."""
 		result = self._run_bash_command(['ls'])
 		print(result)
-		self._run_bash_command(['gcc', 'finance.c'])
+		result = self._run_bash_command(['gcc', 'finance.c'])
 		print(result)
 
 	def worker(self, id):
