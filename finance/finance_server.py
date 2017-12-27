@@ -31,8 +31,10 @@ class FinanceServer(object):
 
 	def _terminal_command(self, arguments):
 		"""Runs the provided arguments as a regular terminal command."""
-		results = sp.call(arguments, shell=True)
-		return results
+		try:
+			return sp.check_output(arguments, shell=True)
+		except sp.CalledProcessError:
+			return 'Error in process running \'' + arguments + '\'!'
 
 	def _run_bash_command2(self, arguments):
 		"""Runs the provided bash command."""
