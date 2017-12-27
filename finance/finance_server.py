@@ -77,6 +77,8 @@ class FinanceServer(object):
 		else:
 			if len(result) > 0:
 				print(result)
+			else:
+				oc.print_data('Compiled finance.c!')
 
 	def run_worker(self):
 		self.workers.append(Worker(self.lock))
