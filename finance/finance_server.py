@@ -83,14 +83,12 @@ class FinanceServer(object):
 		while True:
 			if self.output.empty():
 				print('output is empty')
+				time.sleep(1)
 				continue
 			self.output_history.append(self.output.get_nowait())
 			if len(self.output_history) > old_size:
 				print('New output!')
 				old_size += 1
-
-			print('sleeping for 1 second')
-			time.sleep(1000)
 
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
