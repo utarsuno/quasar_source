@@ -13,8 +13,6 @@ from quasar_source_code.universal_code import debugging as dbg
 
 from database_api.nosql_databases import mongodb_api as mongo
 
-TEMP_PATH = '/Users/utarsuno/git_repos/quasar_source/finance/a.out'
-
 
 class FinanceServer(object):
 	"""An API to running C programs."""
@@ -33,7 +31,7 @@ class FinanceServer(object):
 
 	def _terminal_command(self, arguments):
 		"""Runs the provided arguments as a regular terminal command."""
-		results = sp.call(arguments)
+		results = sp.call(arguments, shell=True)
 		return results
 
 	def _run_bash_command2(self, arguments):
