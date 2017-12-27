@@ -29,8 +29,9 @@ def run_terminal_command(arguments):
 class Worker(object):
 	"""A single 'thread' running a C program."""
 
-	def __init__(self, lock):
-		self.worker = mp.Process(target=self.work, args=(lock, sys.stdin))
+	def __init__(self, lock, output_dictionary, worker_id):
+		self._worker_id = worker_id
+		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary, worker_id))
 		#self.output_queue = output_queue
 		#self.output_queue.put(result)
 
@@ -38,12 +39,12 @@ class Worker(object):
 		"""Runs this worker."""
 		self.worker.start()
 
-	def work(self, lock, stream):
+	def work(self, lock, output_dictionary):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 		result = run_terminal_command('./a.out')
 		lock.acquire()
-		stream.write(str(result))
+		output_dictionary[self._worker_id] = str(result)
 		lock.release()
 		oc.print_data('Worked finished!')
 
@@ -58,9 +59,12 @@ class FinanceServer(object):
 		# Output queue.
 		self.output = mp.Queue()
 
+		self.manager = mp.Manager()
+		self.output_dictionary = self.manager.dict({})
 		self.lock = mp.Lock()
 
 		# Setup all the workers.
+		self._worker_id = 0
 		self.workers = []
 
 		self.output_history = []
@@ -80,7 +84,8 @@ class FinanceServer(object):
 				oc.print_data('Compiled finance.c!')
 
 	def run_worker(self):
-		worker = Worker(self.lock)
+		worker = Worker(self.lock, self.output_dictionary, self._worker_id)
+		self._worker_id += 1
 		worker.run()
 		self.workers.append(worker)
 
@@ -89,9 +94,14 @@ class FinanceServer(object):
 		old_size = 0
 		while True:
 
-			data = sys.stdin.readlines()
-			print('DATA :')
-			print(data)
+			if len(self.output_dictionary) > old_size:
+				old_size = len(self.output_dictionary)
+				print('new entries!')
+			else:
+				print('no output!')
+				time.sleep(1)
+
+			continue
 
 
 			if self.output.empty():
