@@ -30,7 +30,7 @@ class Worker(object):
 	"""A single 'thread' running a C program."""
 
 	def __init__(self, lock):
-		self.worker = mp.Process(target=self.work, args=(lock, sys.stdout))
+		self.worker = mp.Process(target=self.work, args=(lock, sys.stdin))
 		#self.output_queue = output_queue
 		#self.output_queue.put(result)
 
