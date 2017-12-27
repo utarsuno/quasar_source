@@ -42,11 +42,8 @@ class Worker(object):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 		result = run_terminal_command('./a.out')
-		if len(result) != 0:
-			result = 'Error running! - {' + str(result) + '}'
 		lock.acquire()
 		stream.write(str(result))
-		stream.write('hello?\n')
 		lock.release()
 
 
