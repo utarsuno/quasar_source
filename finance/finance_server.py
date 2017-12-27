@@ -36,7 +36,7 @@ class FinanceServer(object):
 		if parameters is not None:
 			p = sp.Popen(args=[arguments, parameters], stdout=sp.PIPE, stderr=sp.PIPE)
 		else:
-			p = sp.Popen(args=[arguments, 'Hello World'], stdout=sp.PIPE, stderr=sp.PIPE)
+			p = sp.Popen(args=[arguments, '\'Hello World\''], stdout=sp.PIPE, stderr=sp.PIPE)
 		p.wait()
 		output = p.stdout.read().decode()
 		errors = p.stderr.read().decode()
