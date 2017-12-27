@@ -90,7 +90,7 @@ class FinanceServer(object):
 				old_size += 1
 
 			print('sleeping for 1 second')
-			time.sleep(1)
+			time.sleep(1000)
 
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
