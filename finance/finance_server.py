@@ -45,6 +45,7 @@ class Worker(object):
 		lock.acquire()
 		stream.write(str(result))
 		lock.release()
+		oc.print_data('Worked finished!')
 
 
 class FinanceServer(object):
