@@ -72,10 +72,8 @@ class FinanceServer(object):
 			if combined is None:
 				combined = dd.field_to_c_binary(field)
 			else:
+				combined = dd.field_to_c_binary(field) + combined
 				print(combined)
-				print(type(combined))
-				print(combined + dd.field_to_c_binary(field))
-				#combined.append(dd.field_to_c_binary(field))
 		return combined
 
 	def setup(self):
