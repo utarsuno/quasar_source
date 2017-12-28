@@ -18,7 +18,7 @@ from finance.monte_carlo_simulator.strategies.buy import buy_strategy as bs
 from finance.monte_carlo_simulator.strategies.sell import sell_strategy as ss
 from finance.monte_carlo_simulator.strategies.hold import hold_strategy as hs
 
-from finance.monte_carlo_simulator import strategies as s
+from finance import finance_code_generator as fcg
 
 
 def run_terminal_command(arguments):
