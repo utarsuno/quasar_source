@@ -49,7 +49,8 @@ class FinanceServer(object):
 		self._db = f_db.FinanceDatabase(True)
 		self._db.health_check()
 
-		self._iota_day_data = self._db.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
+		self._data_scraper = ds.DataScraper()
+		self._iota_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 		self._iota_open_binary_data_for_c = self.get_all_day_data_as_binary_for_field(self._iota_day_data, ds.KEY_OPEN)
 
 		print(self._iota_open_binary_data_for_c)
