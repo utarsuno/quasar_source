@@ -35,7 +35,7 @@ class Worker(object):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 
-		result = run_terminal_command('./a.out ' + floats_binary_data)
+		result = run_terminal_command('./a.out ' + floats_binary_data.decode('utf-8'))
 		lock.acquire()
 		output_dictionary[self._worker_id] = str(result)
 		lock.release()
