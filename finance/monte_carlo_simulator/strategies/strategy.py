@@ -58,7 +58,7 @@ class StrategySetGenerator(object):
 	def get_all_strategy_sets(self):
 		"""Returns a list of all the strategy sets."""
 		if len(self._all_strategy_sets) == 0:
-			all_sets = set()
+			all_sets = []
 
 			buy_combinations  = self._get_combinations(self._buy_strategies)
 			sell_combinations = self._get_combinations(self._sell_strategies)
@@ -67,8 +67,7 @@ class StrategySetGenerator(object):
 			for bc in buy_combinations:
 				for sc in sell_combinations:
 					for hc in hold_combinations:
-						all_sets.add(str(bc + sc + hc))
+						all_sets.append([bc] + [sc] + [hc])
 
-			self._all_strategy_sets = list(all_sets)
-
+			self._all_strategy_sets = all_sets
 		return self._all_strategy_sets
