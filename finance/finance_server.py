@@ -69,6 +69,7 @@ class FinanceServer(object):
 		combined = None
 		for dd in all_day_data:
 			print(dd)
+			print(type(dd))
 			if combined is None:
 				combined = dd.field_to_c_binary(field)
 			else:
