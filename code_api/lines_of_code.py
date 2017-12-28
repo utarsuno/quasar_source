@@ -4,7 +4,7 @@
 
 import re
 
-from quasar_source_code.universal_code import string_utilities as su
+from universal_code import string_utilities as su
 
 PYTHON     = 'python'
 JAVASCRIPT = 'javascript'

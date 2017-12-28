@@ -6,7 +6,7 @@
 from typing import List
 
 import psycopg2
-from quasar_source_code.universal_code import path_manager as pm
+from universal_code import path_manager as pm
 
 from universal_code import useful_file_operations as ufo
 

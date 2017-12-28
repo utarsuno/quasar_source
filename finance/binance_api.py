@@ -3,7 +3,7 @@
 """This module, binance_api.py, defines an API for accessing Binance cryptocurrency information."""
 
 import requests as r
-from quasar_source_code.universal_code import path_manager as pm
+from universal_code import path_manager as pm
 
 from universal_code import useful_file_operations as ufo
 

@@ -5,7 +5,7 @@
 # Robinhood API.
 from typing import List
 
-from quasar_source_code.universal_code import path_manager as pm
+from universal_code import path_manager as pm
 
 from finance import FinancePortfolio
 from finance import Trade

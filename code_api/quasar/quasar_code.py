@@ -6,8 +6,8 @@ import sys
 
 from fuzzywuzzy import process
 from lazyme.string import color_print
-from quasar_source_code.universal_code import output_coloring as oc
-from quasar_source_code.universal_code import system_os as sos
+from universal_code import output_coloring as oc
+from universal_code import system_os as sos
 
 from code_api import code_file as cf
 from code_api import code_file_manager as cfm

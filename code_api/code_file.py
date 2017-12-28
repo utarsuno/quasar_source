@@ -4,7 +4,7 @@
 
 from jsmin import jsmin
 from lazyme.string import color_print
-from quasar_source_code.universal_code import debugging as dbg
+from universal_code import debugging as dbg
 
 from code_api import lines_of_code as loc
 from universal_code import useful_file_operations as ufo
