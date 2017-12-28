@@ -60,6 +60,8 @@ class MonteCarloSimulator(object):
 		ssg = s.StrategySetGenerator(bs.all_strategies, ss.all_strategies, hs.all_strategies)
 		self.all_strategy_sets = ssg.get_all_strategy_sets()
 
+	def __len__(self):
+		return len(self.all_strategy_sets)
 
 
 class FinanceServer(object):
@@ -123,7 +125,7 @@ class FinanceServer(object):
 
 			if len(self.output_dictionary) > old_size:
 				old_size = len(self.output_dictionary)
-				if old_size == len(self.all_strategy_sets):
+				if old_size == len(self._monte_carlo_simulator):
 					break
 				print('new entries!')
 				print(self.output_dictionary)
