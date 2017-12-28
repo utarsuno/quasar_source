@@ -35,6 +35,8 @@ class Worker(object):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 
+		print('The data is : ' + str(floats_binary_data.decode('utf-8')))
+
 		result = run_terminal_command('./a.out ' + floats_binary_data.decode('utf-8'))
 		lock.acquire()
 		output_dictionary[self._worker_id] = str(result)
@@ -71,7 +73,6 @@ class FinanceServer(object):
 				combined = dd.field_to_c_binary(field)
 			else:
 				combined = dd.field_to_c_binary(field) + combined
-				print(combined)
 		return combined
 
 	def setup(self):
