@@ -13,5 +13,6 @@ class StrategyBuy(s.Strategy):
 
 bs_0 = StrategyBuy('simple_moving_average_streak')
 bs_0.description = 'Returns a 0-1 confidence rating on buying a stock based off how consistent the moving average has been positive.'
+bs_0.dynamic_variables = ['day_range']
 
 all_strategies = [bs_0]

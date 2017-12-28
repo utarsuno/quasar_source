@@ -24,4 +24,4 @@ class SimpleMovingAverage(Indicator):
 	"""The simple moving average indicator."""
 
 	def __init__(self):
-		super().__init__('simple_moving_average', ['day_range'])
+		super().__init__('simple_moving_average', [['day_range', 1, 10]])

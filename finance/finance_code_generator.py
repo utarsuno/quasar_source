@@ -6,9 +6,6 @@ from universal_code import path_manager as pm
 from code_api import c_code_generator as c
 
 
-
-
-
 class FinanceCodeGenerator(object):
 	"""An API to create c code files."""
 
@@ -16,3 +13,8 @@ class FinanceCodeGenerator(object):
 		self._c_file_template = c.CFile(pm.PATH_TO_FINANCE_C_DUMP + '/finance_file.c')
 		self._c_file_template.create()
 
+
+	def generate_file(self, file_name):
+		"""Temporary function."""
+		c_file = c.CFile(pm.PATH_TO_FINANCE_C_DUMP + '/' + file_name.replace(' ', '') + '.c')
+		c_file.create()

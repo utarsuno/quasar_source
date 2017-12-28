@@ -18,6 +18,8 @@ from finance.monte_carlo_simulator.strategies.buy import buy_strategy as bs
 from finance.monte_carlo_simulator.strategies.sell import sell_strategy as ss
 from finance.monte_carlo_simulator.strategies.hold import hold_strategy as hs
 
+from . import finance_code_generator as fcg
+
 
 def run_terminal_command(arguments):
 	"""Runs the provided arguments as a regular terminal command."""
@@ -62,10 +64,19 @@ class MonteCarloSimulator(object):
 		self.all_strategy_sets = []
 		self._current_index = 0
 
+		self._code_generator = fcg.FinanceCodeGenerator()
+
+	def _generate_c_files(self, strategy_set):
+		"""Generates the required c files for this strategy set."""
+		self._code_generator.generate_file(str(strategy_set))
+
 	def generate_strategy_sets(self):
 		"""Generates the strategy sets to test."""
 		ssg = s.StrategySetGenerator(bs.all_strategies, ss.all_strategies, hs.all_strategies)
 		self.all_strategy_sets = ssg.get_all_strategy_sets()
+
+		for set in ssg:
+			self._generate_c_files(set)
 
 	def __len__(self):
 		return len(self.all_strategy_sets)

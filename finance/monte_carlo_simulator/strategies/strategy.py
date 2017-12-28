@@ -12,9 +12,24 @@ STRATEGY_TYPE_HOLD = 'hold'
 class Strategy(object):
 	"""Base class for buy, sell, and hold strategies."""
 	def __init__(self, name):
-		self._name        = name
-		self._description = None
-		self._type        = None
+		self._name                        = name
+		self._description                 = None
+		self._type                        = None
+		self._dynamic_variables           = []
+
+	def get_number_of_dynamic_variables(self) -> int:
+		"""Returns the number of dynamic variables that this strategy has."""
+		return len(self._dynamic_variables)
+
+	@property
+	def dynamic_variables(self) -> list:
+		"""Returns a list of the dynamic variable names."""
+		return self._dynamic_variables
+
+	@dynamic_variables.setter
+	def dynamic_variables(self, dv):
+		"""Sets the dynamic variables."""
+		self._dynamic_variables = dv
 
 	@property
 	def name(self) -> str:
