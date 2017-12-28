@@ -7,6 +7,8 @@ import multiprocessing as mp
 import subprocess as sp
 import time
 
+import binascii
+
 from universal_code import output_coloring as oc
 from finance.data_related import finance_database as f_db
 from finance.data_related import data_scraper as ds
@@ -35,9 +37,9 @@ class Worker(object):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 
-		print('The data is : ' + str(floats_binary_data.decode('utf-8')))
+		print('The data is : ' + str(floats_binary_data))
 
-		result = run_terminal_command('./a.out ' + floats_binary_data.decode('utf-8'))
+		result = run_terminal_command('./a.out ' + floats_binary_data)
 		lock.acquire()
 		output_dictionary[self._worker_id] = str(result)
 		lock.release()
@@ -73,6 +75,9 @@ class FinanceServer(object):
 				combined = dd.field_to_c_binary(field)
 			else:
 				combined = dd.field_to_c_binary(field) + combined
+
+		combined = binascii.b2a_base64(combined)
+
 		return combined
 
 	def setup(self):
