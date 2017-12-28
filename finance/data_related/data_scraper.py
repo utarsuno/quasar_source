@@ -6,6 +6,14 @@ from universal_code import debugging as dbg
 from universal_code.time_abstraction import time_abstraction as ta
 import requests as r
 
+KEY_DATE       = 'date'
+KEY_OPEN       = 'open'
+KEY_HIGH       = 'high'
+KEY_LOW        = 'low'
+KEY_CLOSE      = 'close'
+KEY_VOLUME     = 'volume'
+KEY_MARKET_CAP = 'market_cap'
+
 CRYPTO_CURRENCY_IOTA = 'iota'
 CRYPTO_CURRENCY_ALL = [CRYPTO_CURRENCY_IOTA]
 
@@ -24,6 +32,16 @@ class DayData(object):
 		self.close      = c
 		self.volume     = v
 		self.market_cap = mc
+
+	def to_json(self):
+		"""Get database friendly data of this DayData."""
+		return {KEY_DATE       : self.date,
+		        KEY_OPEN       : self.open,
+		        KEY_HIGH       : self.high,
+		        KEY_LOW        : self.low,
+		        KEY_CLOSE      : self.close,
+		        KEY_VOLUME     : self.volume,
+		        KEY_MARKET_CAP : self.market_cap}
 
 	def __str__(self):
 		return str(self.date) + '|' + str(self.open) + '|' + str(self.high) + '|' + str(self.low) + '|' + str(self.close) + '|' + str(self.volume) + '|' + str(self.market_cap)

@@ -12,7 +12,7 @@ class FinanceDatabase(object):
 	"""API for working with the finance data."""
 
 	def __init__(self, debug=False):
-		self._debug			= debug
+		self._debug         = debug
 
 		self._data_scraper  = ds.DataScraper()
 
@@ -29,7 +29,8 @@ class FinanceDatabase(object):
 		iota_data = self.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 		if len(iota_data) == 0:
 			all_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
-			print(all_day_data)
+			for dd in all_day_data:
+				print(dd.to_json())
 
 	def get_all_day_data_for(self, coin):
 		if coin not in self._coins:
