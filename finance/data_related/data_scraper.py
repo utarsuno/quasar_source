@@ -74,7 +74,8 @@ class DataScraper(object):
 				data += c
 			if c == '>':
 				in_data = True
-		return data
+		# ',' Only applies the the MARKET_CAP value.
+		return data.replace(',', '')
 
 	def get_all_day_data_for(self, coin):
 		"""Retrieves a list of DayData objects for the provided crypto coin."""
