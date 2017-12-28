@@ -2,6 +2,7 @@
 
 """This module, data_scraper.py, gathers historical data for crypto-currencies."""
 
+import struct
 from universal_code import debugging as dbg
 from universal_code.time_abstraction import time_abstraction as ta
 import requests as r
@@ -32,16 +33,22 @@ class DayData(object):
 		self.close      = c
 		self.volume     = v
 		self.market_cap = mc
+		self._json      = {KEY_DATE       : self.date,
+					       KEY_OPEN       : self.open,
+					       KEY_HIGH       : self.high,
+					       KEY_LOW        : self.low,
+					       KEY_CLOSE      : self.close,
+					       KEY_VOLUME     : self.volume,
+					       KEY_MARKET_CAP : self.market_cap}
 
-	def to_json(self):
+	@property
+	def json(self):
 		"""Get database friendly data of this DayData."""
-		return {KEY_DATE       : self.date,
-		        KEY_OPEN       : self.open,
-		        KEY_HIGH       : self.high,
-		        KEY_LOW        : self.low,
-		        KEY_CLOSE      : self.close,
-		        KEY_VOLUME     : self.volume,
-		        KEY_MARKET_CAP : self.market_cap}
+		return self._json
+
+	def field_to_c_binary(self, field):
+		"""Returns a c compatible binary representation of this DayData field's value."""
+		return bytearray(struct.pack(self.json[field]))
 
 	def __str__(self):
 		return str(self.date) + '|' + str(self.open) + '|' + str(self.high) + '|' + str(self.low) + '|' + str(self.close) + '|' + str(self.volume) + '|' + str(self.market_cap)

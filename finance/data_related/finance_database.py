@@ -32,11 +32,14 @@ class FinanceDatabase(object):
 			all_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 			for dd in all_day_data:
 				self._iota.insert(dd.to_json())
+		else:
+			y = 2
+			# TODO : Check if the latest data is needed!!!
 
 	def get_all_day_data_for(self, coin):
+		"""Returns the database day data of this coin."""
 		if coin not in self._coins:
 			dbg.raise_exception('Day data not available for : {' + str(coin) + '}')
-
 		return self._iota.get_all()
 
 	def terminate(self):

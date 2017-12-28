@@ -34,6 +34,7 @@ class Worker(object):
 	def work(self, lock, output_dictionary):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
+
 		result = run_terminal_command('./a.out')
 		lock.acquire()
 		output_dictionary[self._worker_id] = str(result)
@@ -48,6 +49,11 @@ class FinanceServer(object):
 		self._db = f_db.FinanceDatabase(True)
 		self._db.health_check()
 
+		self._iota_day_data = self._db.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
+		self._iota_open_binary_data_for_c = self.get_all_day_data_as_binary_for_field(self._iota_day_data, ds.KEY_OPEN)
+
+		print(self._iota_open_binary_data_for_c)
+
 		# The manager allows for shared access to data between processes.
 		self.manager = mp.Manager()
 		self.output_dictionary = self.manager.dict({})
@@ -57,6 +63,16 @@ class FinanceServer(object):
 		# Setup all the workers.
 		self._worker_id = 0
 		self.workers = []
+
+	def get_all_day_data_as_binary_for_field(self, all_day_data, field):
+		"""Returns a bytearray of all the floats from the field of all the day data."""
+		combined = None
+		for dd in all_day_data:
+			if combined is None:
+				combined = dd.field_to_c_binary(field)
+			else:
+				combined.append(dd.field_to_c_binary(field))
+		return combined
 
 	def setup(self):
 		"""Compiles all the C programs."""

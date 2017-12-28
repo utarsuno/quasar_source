@@ -6,10 +6,12 @@
 
 int main(int argc, char * argv[]) {
 
-    // Sleep for n seconds.
-    sleep(2);
+	float * nums = (float *) argv;
 
-    printf("Hello World\n");
+    printf("Hello World{%f}\n", nums[0]);
+    printf("Hello World{%f}\n", nums[1]);
+    printf("Hello World{%f}\n", nums[2]);
+    printf("Hello World{%f}\n", nums[3]);
 
     return 0;
 }
