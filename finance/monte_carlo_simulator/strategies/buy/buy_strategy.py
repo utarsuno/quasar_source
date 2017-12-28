@@ -9,6 +9,7 @@ class StrategyBuy(s.Strategy):
 	"""Base class for a buy strategy."""
 	def __init__(self, name):
 		super().__init__(name)
+		self._type = s.STRATEGY_TYPE_BUY
 
 bs_0 = StrategyBuy('simple_moving_average_streak')
 bs_0.description = 'Returns a 0-1 confidence rating on buying a stock based off how consistent the moving average has been positive.'

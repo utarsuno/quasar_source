@@ -44,6 +44,8 @@ class Worker(object):
 
 		# TODO : Generate the needed file here.
 		print('Need to make a strategy set for :')
+		for s in strategy_set:
+			print(s)
 		print(strategy_set)
 
 		result = run_terminal_command('./a.out ' + floats_binary_data)

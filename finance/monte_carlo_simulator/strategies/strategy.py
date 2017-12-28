@@ -14,6 +14,7 @@ class Strategy(object):
 	def __init__(self, name):
 		self._name        = name
 		self._description = None
+		self._type        = None
 
 	@property
 	def name(self) -> str:
@@ -29,6 +30,9 @@ class Strategy(object):
 	def description(self, d) -> None:
 		"""Sets the description of this strategy."""
 		self._description = d
+
+	def __str__(self):
+		return self._type + '{' + self._name + '}'
 
 
 class StrategySetGenerator(object):
