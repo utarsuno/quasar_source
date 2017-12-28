@@ -68,6 +68,7 @@ class FinanceServer(object):
 		"""Returns a bytearray of all the floats from the field of all the day data."""
 		combined = None
 		for dd in all_day_data:
+			print(dd)
 			if combined is None:
 				combined = dd.field_to_c_binary(field)
 			else:
