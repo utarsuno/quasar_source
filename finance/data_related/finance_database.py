@@ -35,8 +35,7 @@ class FinanceDatabase(object):
 		if coin not in self._coins:
 			dbg.raise_exception('Day data not available for : {' + str(coin) + '}')
 
-		data = self._iota.get_all()
-		print(data)
+		return self._iota.get_all()
 
 	def terminate(self):
 		"""Terminates the connection to the database."""
