@@ -28,9 +28,10 @@ class FinanceDatabase(object):
 		oc.print_data_with_red_dashes_at_start('Running health check on database!')
 		iota_data = self.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 		if len(iota_data) == 0:
+			oc.print_data_with_red_dashes_at_start('IOTA has no data, populating now!')
 			all_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 			for dd in all_day_data:
-				print(dd.to_json())
+				self._iota.insert(dd.to_json())
 
 	def get_all_day_data_for(self, coin):
 		if coin not in self._coins:
