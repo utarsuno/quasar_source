@@ -78,8 +78,6 @@ class FinanceServer(object):
 	def run(self):
 		oc.print_title('Running the finance server!')
 
-		print(self._db.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA))
-
 		old_size = 0
 		while True:
 
