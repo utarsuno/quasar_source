@@ -52,8 +52,9 @@ class Worker(object):
 class MonteCarloSimulator(object):
 	"""Runs monte carlo simulations."""
 
-	def __init__(self):
+	def __init__(self, finance_server):
 		self.all_strategy_sets = []
+		self._current_index = 0
 
 	def generate_strategy_sets(self):
 		"""Generates the strategy sets to test."""
@@ -85,7 +86,7 @@ class FinanceServer(object):
 		self._worker_id = 0
 		self.workers = []
 
-		self._monte_carlo_simulator = MonteCarloSimulator()
+		self._monte_carlo_simulator = MonteCarloSimulator(self)
 
 	def get_all_day_data_as_binary_for_field(self, all_day_data, field):
 		"""Returns a bytearray of all the floats from the field of all the day data."""
@@ -110,6 +111,10 @@ class FinanceServer(object):
 		self._monte_carlo_simulator.generate_strategy_sets()
 		oc.print_data_with_red_dashes_at_start('finished!')
 
+		oc.print_data_with_red_dashes_at_start('Spawning workers!')
+		for ss in self._monte_carlo_simulator.all_strategy_sets:
+			print(ss)
+
 	def run_worker(self):
 		"""Runs a new worker."""
 		worker = Worker(self.lock, self.output_dictionary, self._worker_id, self._iota_open_binary_data_for_c)
@@ -118,7 +123,7 @@ class FinanceServer(object):
 		self.workers.append(worker)
 
 	def run(self):
-		oc.print_title('Running the finance server!')
+		oc.print_title('Running the finance simulations!')
 
 		old_size = 0
 		while True:
@@ -127,11 +132,11 @@ class FinanceServer(object):
 				old_size = len(self.output_dictionary)
 				if old_size == len(self._monte_carlo_simulator):
 					break
-				print('new entries!')
+				print('New data!')
 				print(self.output_dictionary)
 			else:
-				print('no output!')
-				time.sleep(1)
+				print('Waiting for output...')
+				time.sleep(2)
 
 		oc.print_success('Finished running simulations!')
 
@@ -144,9 +149,11 @@ class FinanceServer(object):
 
 fs = FinanceServer()
 fs.setup()
+'''
 fs.run_worker()
 fs.run_worker()
 fs.run_worker()
 fs.run_worker()
 fs.run_worker()
+'''
 fs.run()
