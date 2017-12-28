@@ -6,8 +6,6 @@
 
 int main(int argc, char * argv[]) {
 
-	printf("%d\n", argc);
-	return 0;
 	float * nums = (float *) argv[1];
 
     printf("Hello World{%f}\n", nums[0]);
