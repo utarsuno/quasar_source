@@ -77,7 +77,7 @@ class FinanceServer(object):
 			else:
 				combined = dd.field_to_c_binary(field) + combined
 
-		combined = binascii.b2a_base64(combined).decode('ascii')
+		combined = binascii.b2a_base64(combined).decode('ascii').replace('\n', '')
 
 		return combined
 
