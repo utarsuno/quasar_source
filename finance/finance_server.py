@@ -23,19 +23,19 @@ def run_terminal_command(arguments):
 class Worker(object):
 	"""A single 'thread' that runs a C program and returns the output to the FinanceServer."""
 
-	def __init__(self, lock, output_dictionary, worker_id):
+	def __init__(self, lock, output_dictionary, worker_id, floats_binary_data):
 		self._worker_id = worker_id
-		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary))
+		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary, floats_binary_data))
 
 	def run(self):
 		"""Runs this worker."""
 		self.worker.start()
 
-	def work(self, lock, output_dictionary):
+	def work(self, lock, output_dictionary, floats_binary_data):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
 
-		result = run_terminal_command('./a.out')
+		result = run_terminal_command('./a.out ' + floats_binary_data)
 		lock.acquire()
 		output_dictionary[self._worker_id] = str(result)
 		lock.release()
@@ -52,8 +52,6 @@ class FinanceServer(object):
 		self._data_scraper = ds.DataScraper()
 		self._iota_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 		self._iota_open_binary_data_for_c = self.get_all_day_data_as_binary_for_field(self._iota_day_data, ds.KEY_OPEN)
-
-		print(self._iota_open_binary_data_for_c)
 
 		# The manager allows for shared access to data between processes.
 		self.manager = mp.Manager()
@@ -88,7 +86,8 @@ class FinanceServer(object):
 				oc.print_data('Compiled finance.c!')
 
 	def run_worker(self):
-		worker = Worker(self.lock, self.output_dictionary, self._worker_id)
+		"""Runs a new worker."""
+		worker = Worker(self.lock, self.output_dictionary, self._worker_id, self._iota_open_binary_data_for_c)
 		self._worker_id += 1
 		worker.run()
 		self.workers.append(worker)
