@@ -30,17 +30,21 @@ def run_terminal_command(arguments):
 class Worker(object):
 	"""A single 'thread' that runs a C program and returns the output to the FinanceServer."""
 
-	def __init__(self, lock, output_dictionary, worker_id, floats_binary_data):
+	def __init__(self, lock, output_dictionary, worker_id, floats_binary_data, strategy_set):
 		self._worker_id = worker_id
-		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary, floats_binary_data))
+		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary, floats_binary_data, strategy_set))
 
 	def run(self):
 		"""Runs this worker."""
 		self.worker.start()
 
-	def work(self, lock, output_dictionary, floats_binary_data):
+	def work(self, lock, output_dictionary, floats_binary_data, strategy_set):
 		"""Performs the work that needs to be done."""
 		oc.print_data('Running a worker!')
+
+		# TODO : Generate the needed file here.
+		print('Need to make a strategy set for :')
+		print(strategy_set)
 
 		result = run_terminal_command('./a.out ' + floats_binary_data)
 		lock.acquire()
@@ -52,7 +56,7 @@ class Worker(object):
 class MonteCarloSimulator(object):
 	"""Runs monte carlo simulations."""
 
-	def __init__(self, finance_server):
+	def __init__(self):
 		self.all_strategy_sets = []
 		self._current_index = 0
 
@@ -86,7 +90,7 @@ class FinanceServer(object):
 		self._worker_id = 0
 		self.workers = []
 
-		self._monte_carlo_simulator = MonteCarloSimulator(self)
+		self._monte_carlo_simulator = MonteCarloSimulator()
 
 	def get_all_day_data_as_binary_for_field(self, all_day_data, field):
 		"""Returns a bytearray of all the floats from the field of all the day data."""
@@ -112,12 +116,12 @@ class FinanceServer(object):
 		oc.print_data_with_red_dashes_at_start('finished!')
 
 		oc.print_data_with_red_dashes_at_start('Spawning workers!')
-		for ss in self._monte_carlo_simulator.all_strategy_sets:
-			print(ss)
+		for strategy_set in self._monte_carlo_simulator.all_strategy_sets:
+			self.run_worker(strategy_set)
 
-	def run_worker(self):
+	def run_worker(self, strategy_set):
 		"""Runs a new worker."""
-		worker = Worker(self.lock, self.output_dictionary, self._worker_id, self._iota_open_binary_data_for_c)
+		worker = Worker(self.lock, self.output_dictionary, self._worker_id, self._iota_open_binary_data_for_c, strategy_set)
 		self._worker_id += 1
 		worker.run()
 		self.workers.append(worker)
