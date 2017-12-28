@@ -2,9 +2,9 @@
 
 """This module, lines_of_code.py, works with the abstraction of a single line of code."""
 
-from quasar_source_code.universal_code import useful_file_operations as ufo
-from quasar_source_code.universal_code import string_utilities as su
 import re
+
+from quasar_source_code.universal_code import string_utilities as su
 
 PYTHON     = 'python'
 JAVASCRIPT = 'javascript'

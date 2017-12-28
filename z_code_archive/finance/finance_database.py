@@ -6,7 +6,7 @@ from database_api import PostgreSQLAPI
 from database_api import database_tables as db_tables
 from finance import finance_classes as fc
 from finance import robinhood_data as rh
-from quasar_source_code.universal_code import time_abstraction as time
+from universal_code import time_abstraction as time
 
 
 class FinanceDatabase(object):

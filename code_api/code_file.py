@@ -2,14 +2,12 @@
 
 """This module, code_file.py, represents an abstraction layer to a file of code."""
 
-from code_api import lines_of_code as loc
-from quasar_source_code.universal_code import useful_file_operations as ufo
-# Current 3rd party used to handle minification.
 from jsmin import jsmin
+from lazyme.string import color_print
 from quasar_source_code.universal_code import debugging as dbg
 
-from lazyme.string import color_print
-
+from code_api import lines_of_code as loc
+from universal_code import useful_file_operations as ufo
 
 PYTHON       = 'python'
 JAVASCRIPT   = 'javascript'

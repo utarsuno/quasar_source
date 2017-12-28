@@ -2,10 +2,10 @@
 
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
-from quasar_source_code.entities import base_entity as be
-from quasar_source_code.universal_code import time_abstraction as ta
-
 from lazyme.string import color_print
+
+from entities import base_entity as be
+from universal_code import time_abstraction as ta
 
 
 class EntityManager(object):

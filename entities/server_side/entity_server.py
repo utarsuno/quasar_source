@@ -2,20 +2,11 @@
 
 """This module, entity_server.py, is used to manager a server's memory + cache of entity managers and owners."""
 
-from quasar_source_code.entities.database import entity_database
-from quasar_source_code.entities import base_entity as be
-from quasar_source_code.entities.server_side import text_reminders as tr
-
-# Needed for sending a simple HttpResponse such as a string response.
 from django.http import HttpResponse
-
-from quasar_source_code.universal_code import time_abstraction as ta
-
-import json
-
 from django.http import JsonResponse
 
-from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
+from entities import EntityDatabaseAPI
+from entities import base_entity as be
 
 
 # Utility indexes.

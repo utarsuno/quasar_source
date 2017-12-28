@@ -5,11 +5,12 @@
 # Robinhood API.
 from typing import List
 
+from quasar_source_code.universal_code import path_manager as pm
+
 from finance import FinancePortfolio
 from finance import Trade
-from quasar_source_code.universal_code import path_manager as pm
-from quasar_source_code.universal_code import useful_file_operations as ufo
 from third_party_libraries.Robinhood.Robinhood.Robinhood import Robinhood
+from universal_code import useful_file_operations as ufo
 
 # Used to get Datetime objects from strings.
 

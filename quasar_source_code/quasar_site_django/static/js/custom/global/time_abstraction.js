@@ -11,6 +11,10 @@ function MyDates(dates_base) {
     this.__init__(dates_base);
 }
 
+// TODO : Match the design of the python time abstraction
+// TODO : Match the design of the python time abstraction
+// TODO : Match the design of the python time abstraction
+
 MyDates.prototype = {
 
     __init__: function(dates_base) {

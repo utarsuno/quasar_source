@@ -4,11 +4,9 @@
 
 # Python library for accessing MongoDB.
 import pymongo
-# Needed for creating HTTP urls with special characters included.
-#import urllib.parse as url
-# Needed for getting authentication information.
 from quasar_source_code.universal_code import path_manager as pm
-from quasar_source_code.universal_code import useful_file_operations as ufo
+
+from universal_code import useful_file_operations as ufo
 
 # MongoDB Data Types and Corresponding ID number.
 data_types_and_ids = {'Double'                  : 1,

@@ -4,18 +4,12 @@
 
 # Allows Python to run sub-processes 'enabling' a form of Python con-currency.
 import multiprocessing as mp
-# Allows Python to a process and obtain the output.
 import subprocess as sp
-# OS level related.
-import os
-import sys
 import time
 
-from quasar_source_code.universal_code import output_coloring as oc
-
-from quasar_source_code.universal_code import debugging as dbg
-
-from database_api.nosql_databases import mongodb_api as mongo
+from universal_code import output_coloring as oc
+from finance.data_related import finance_database as f_db
+from finance.data_related import data_scraper as ds
 
 
 def run_terminal_command(arguments):
@@ -27,13 +21,11 @@ def run_terminal_command(arguments):
 
 
 class Worker(object):
-	"""A single 'thread' running a C program."""
+	"""A single 'thread' that runs a C program and returns the output to the FinanceServer."""
 
 	def __init__(self, lock, output_dictionary, worker_id):
 		self._worker_id = worker_id
 		self.worker = mp.Process(target=self.work, args=(lock, output_dictionary))
-		#self.output_queue = output_queue
-		#self.output_queue.put(result)
 
 	def run(self):
 		"""Runs this worker."""
@@ -53,24 +45,17 @@ class FinanceServer(object):
 	"""An API to running C programs."""
 
 	def __init__(self):
-		self._db_connection = mongo.MongoDBAPI()
-		self._db_connection.connect()
+		self._db = f_db.FinanceDatabase()
 
-		# Output queue.
-		self.output = mp.Queue()
-
+		# The manager allows for shared access to data between processes.
 		self.manager = mp.Manager()
 		self.output_dictionary = self.manager.dict({})
+		# The lock allows for safe con-current writes to the dictionary.
 		self.lock = mp.Lock()
 
 		# Setup all the workers.
 		self._worker_id = 0
 		self.workers = []
-
-		self.output_history = []
-
-		#for x in range(4):
-		#	self.workers.append(mp.Process(target=self.worker(x)))
 
 	def setup(self):
 		"""Compiles all the C programs."""
@@ -91,6 +76,9 @@ class FinanceServer(object):
 
 	def run(self):
 		oc.print_title('Running the finance server!')
+
+		print(self._db.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA))
+		
 		old_size = 0
 		while True:
 
@@ -102,20 +90,12 @@ class FinanceServer(object):
 				print('no output!')
 				time.sleep(1)
 
-			continue
-
-
-			if self.output.empty():
-				print('output is empty')
-				time.sleep(1)
-				continue
-			self.output_history.append(self.output.get_nowait())
-			if len(self.output_history) > old_size:
-				print('New output!')
-				old_size += 1
-
 		#self._db_connection.print_database_names()
 		self._db_connection.terminate()
+
+
+
+
 
 fs = FinanceServer()
 fs.setup()

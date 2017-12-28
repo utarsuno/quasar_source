@@ -10,7 +10,7 @@ for i, arg in enumerate(arguments):
 	if arg == '-o':
 		owner_argument = arguments[i + 1]
 
-from quasar_source_code.entities.database.entity_database import EntityDatabaseAPI
+from entities import EntityDatabaseAPI
 from lazyme.string import color_print
 
 db = EntityDatabaseAPI()

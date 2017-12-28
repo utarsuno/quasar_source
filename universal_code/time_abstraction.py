@@ -4,10 +4,10 @@
 
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import List
-from quasar_source_code.universal_code import debugging as dbg
 
-'''  ___                  __  
+from universal_code import debugging as dbg
+
+'''  ___                  __
 	|__  |\ | |  |  |\/| /__` 
 	|___ | \| \__/  |  | .__/ 
 '''

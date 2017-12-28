@@ -5,7 +5,7 @@
 # Needed for system operations.
 import os
 
-from quasar_source_code.universal_code.system_os import is_linux
+from universal_code.system_os import is_linux
 
 _current_path = os.path.dirname(os.path.realpath(__file__))
 _project_base_path = _current_path.replace('quasar_source_code/universal_code', '')

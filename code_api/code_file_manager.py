@@ -2,11 +2,7 @@
 
 """This module, code_file.py, represents an abstraction layer to a file of code."""
 
-from code_api import lines_of_code as loc
-from quasar_source_code.universal_code import useful_file_operations as ufo
 # Current 3rd party used to handle minification.
-from jsmin import jsmin
-from quasar_source_code.universal_code import debugging as dbg
 
 import operator
 

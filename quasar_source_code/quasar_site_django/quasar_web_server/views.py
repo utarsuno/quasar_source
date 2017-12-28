@@ -3,23 +3,14 @@
 """This module, views.py, defines server HTTP request responses."""
 
 # Needed to send back a rendered HTML page.
-from django.shortcuts import render
-# Needed for sending a simple HttpResponse such as a string response.
-from django.http import HttpResponse
-# Needed for allowing POST requests without requiring a CSRF token.
-from django.views.decorators.csrf import csrf_exempt
-# Needed to perform HttpRequests to run Locust.
-import requests
-# Needed for making JsonResponses.
-from django.http import JsonResponse
-
 import json
 
-from urllib.parse import quote_plus
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
-from quasar_source_code.entities.server_side import entity_server as es
-from quasar_source_code.entities import base_entity as be
-
+from entities import base_entity as be
+from entities import entity_server as es
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'

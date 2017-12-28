@@ -3,7 +3,6 @@
 """This module, output_coloring.py, is an abstraction to providing color and other syntax to debug/output statements."""
 
 from lazyme import color_print
-from quasar_source_code.universal_code import string_utilities as su
 
 
 def print_title(text):

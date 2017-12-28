@@ -11,9 +11,9 @@ if '/home/git_repos/quasar_source/' not in sys.path:
 
 
 # Useful file + directory operations.
-from quasar_source_code.universal_code import useful_file_operations as ufo
+from universal_code import useful_file_operations as ufo
 # Contains useful paths needed.
-from quasar_source_code.universal_code import path_manager as pm
+from universal_code import path_manager as pm
 
 # TODO : Research and look into Twilio.
 
