@@ -75,8 +75,8 @@ class MonteCarloSimulator(object):
 		ssg = s.StrategySetGenerator(bs.all_strategies, ss.all_strategies, hs.all_strategies)
 		self.all_strategy_sets = ssg.get_all_strategy_sets()
 
-		for set in ssg:
-			self._generate_c_files(set)
+		for strategy_set in self.all_strategy_sets:
+			self._generate_c_files(strategy_set)
 
 	def __len__(self):
 		return len(self.all_strategy_sets)
