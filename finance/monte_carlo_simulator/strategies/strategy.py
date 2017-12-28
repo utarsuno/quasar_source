@@ -34,6 +34,12 @@ class Strategy(object):
 class StrategySetGenerator(object):
 	"""Generates all the possible strategy sets."""
 
+	def __init__(self, all_buy_strategies, all_sell_strategies, all_hold_strategies):
+		self._buy_strategies    = all_buy_strategies
+		self._sell_strategies   = all_sell_strategies
+		self._hold_strategies   = all_hold_strategies
+		self._all_strategy_sets = []
+
 	def _get_combinations(self, strategies):
 		"""Utility function to get a combination of a list."""
 		i = 1
@@ -45,49 +51,20 @@ class StrategySetGenerator(object):
 			i += 1
 		return list(combinations)
 
-	def __init__(self, all_buy_strategies, all_sell_strategies, all_hold_strategies):
-		self._buy_strategies  = all_buy_strategies
-		self._sell_strategies = all_sell_strategies
-		self._hold_strategies = all_hold_strategies
-
-		buy_combinations  = self._get_combinations(self._buy_strategies)
-		sell_combinations = self._get_combinations(self._sell_strategies)
-		hold_combinations = self._get_combinations(self._hold_strategies)
-
-		#print(buy_combinations)
-
-		all_sets = set()
-
-		for bc in buy_combinations:
-			for sc in sell_combinations:
-				for hc in hold_combinations:
-					all_sets.add(str(bc + sc + hc))
-
-		#for bc in all_sets:
-		#	print(bc)
-
-		print(len(all_sets))
-
-		return
-
-		sets = []
-
-		i = 0
-		while i < len(a) - 1:
-			j = 0
-			while j < len(b) - 1:
-				#a = list(itertools.combinations)
-					#sets.append()
-				j += 1
-			i += 1
-
-		print(list(itertools.combinations(a, 2)))
-
 	def get_all_strategy_sets(self):
 		"""Returns a list of all the strategy sets."""
-		strategy_sets = []
+		if len(self._all_strategy_sets) == 0:
+			all_sets = set()
 
-		# A strategy_set must contain at least a single buy, sell, and hold strategy.
+			buy_combinations  = self._get_combinations(self._buy_strategies)
+			sell_combinations = self._get_combinations(self._sell_strategies)
+			hold_combinations = self._get_combinations(self._hold_strategies)
 
-		# TODO : This needs to be dynamically determined later on.
+			for bc in buy_combinations:
+				for sc in sell_combinations:
+					for hc in hold_combinations:
+						all_sets.add(str(bc + sc + hc))
 
+			self._all_strategy_sets = list(all_sets)
+
+		return self._all_strategy_sets
