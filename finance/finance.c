@@ -8,7 +8,7 @@ int main(int argc, char * argv[]) {
 
 	printf("%s\n", argv);
 
-	float * nums = (float *) argv;
+	float * nums = (float *) argv[1];
 
     printf("Hello World{%f}\n", nums[0]);
     printf("Hello World{%f}\n", nums[1]);
