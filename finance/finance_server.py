@@ -94,6 +94,7 @@ class FinanceServer(object):
 		oc.print_data_with_red_dashes_at_start('Generating all strategy sets!')
 		ssg = s.StrategySetGenerator(bs.all_strategies, ss.all_strategies, hs.all_strategies)
 		self.all_strategy_sets = ssg.get_all_strategy_sets()
+		oc.print_data_with_red_dashes_at_start('finished!')
 
 	def run_worker(self):
 		"""Runs a new worker."""
@@ -110,14 +111,18 @@ class FinanceServer(object):
 
 			if len(self.output_dictionary) > old_size:
 				old_size = len(self.output_dictionary)
+				if old_size == len(self.all_strategy_sets):
+					break
 				print('new entries!')
 				print(self.output_dictionary)
 			else:
 				print('no output!')
 				time.sleep(1)
 
+		oc.print_success('Finished running simulations!')
+
 		#self._db_connection.print_database_names()
-		self._db_connection.terminate()
+		self._db.terminate()
 
 
 
