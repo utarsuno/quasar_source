@@ -38,6 +38,7 @@ class Worker(object):
 		oc.print_data('Running a worker!')
 
 		print('The data is : ' + str(floats_binary_data))
+		print('The data is : ' + type(floats_binary_data))
 
 		result = run_terminal_command('./a.out ' + floats_binary_data)
 		lock.acquire()
@@ -76,7 +77,7 @@ class FinanceServer(object):
 			else:
 				combined = dd.field_to_c_binary(field) + combined
 
-		combined = binascii.b2a_base64(combined)
+		combined = binascii.b2a_base64(combined).replace('\n', '')
 
 		return combined
 
