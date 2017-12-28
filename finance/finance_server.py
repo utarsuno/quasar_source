@@ -13,6 +13,11 @@ from universal_code import output_coloring as oc
 from finance.data_related import finance_database as f_db
 from finance.data_related import data_scraper as ds
 
+from finance.monte_carlo_simulator.strategies import strategy as s
+from finance.monte_carlo_simulator.strategies.buy import buy_strategy as bs
+from finance.monte_carlo_simulator.strategies.sell import sell_strategy as ss
+from finance.monte_carlo_simulator.strategies.hold import hold_strategy as hs
+
 
 def run_terminal_command(arguments):
 	"""Runs the provided arguments as a regular terminal command."""
@@ -65,6 +70,8 @@ class FinanceServer(object):
 		self._worker_id = 0
 		self.workers = []
 
+		self.all_strategy_sets = []
+
 	def get_all_day_data_as_binary_for_field(self, all_day_data, field):
 		"""Returns a bytearray of all the floats from the field of all the day data."""
 		combined = None
@@ -80,12 +87,13 @@ class FinanceServer(object):
 		"""Compiles all the C programs."""
 		result = run_terminal_command('gcc -O3 finance.c')
 		if len(result) != 0:
-			print('Error compiling finance.c!')
+			oc.print_error('Error compiling finance.c!')
 		else:
-			if len(result) > 0:
-				print(result)
-			else:
-				oc.print_data('Compiled finance.c!')
+			oc.print_data('Compiled finance.c!')
+
+		oc.print_data_with_red_dashes_at_start('Generating all strategy sets!')
+		ssg = s.StrategySetGenerator(bs.all_strategies, ss.all_strategies, hs.all_strategies)
+		self.all_strategy_sets = ssg.get_all_strategy_sets()
 
 	def run_worker(self):
 		"""Runs a new worker."""

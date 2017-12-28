@@ -8,7 +8,11 @@ import os
 from universal_code.system_os import is_linux
 
 _current_path = os.path.dirname(os.path.realpath(__file__))
-_project_base_path = _current_path.replace('quasar_source_code/universal_code', '')
+_project_base_path = _current_path.replace('universal_code', '')
+
+
+PATH_TO_FINANCE_DIRECTORY = _project_base_path + 'finance'
+PATH_TO_FINANCE_C_DUMP    = PATH_TO_FINANCE_DIRECTORY + '/c_dump'
 
 
 def get_config_ini() -> str:
@@ -16,3 +20,4 @@ def get_config_ini() -> str:
 	if is_linux():
 		return '/home/config.ini'
 	return _project_base_path + 'configuration_files/config.ini'
+
