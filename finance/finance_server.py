@@ -70,7 +70,8 @@ class MonteCarloSimulator(object):
 		"""Generates the required c files for this strategy set."""
 		name = ''
 		for s_s in strategy_set:
-		self._code_generator.generate_file(s_s.name + '_')
+			name += s_s.name + '_'
+		self._code_generator.generate_file(name)
 
 	def generate_strategy_sets(self):
 		"""Generates the strategy sets to test."""
