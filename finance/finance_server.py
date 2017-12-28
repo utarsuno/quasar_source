@@ -45,10 +45,10 @@ class Worker(object):
 		oc.print_data('Running a worker!')
 
 		# TODO : Generate the needed file here.
-		print('Need to make a strategy set for :')
-		for s in strategy_set:
-			print(s)
-		print(strategy_set)
+		#print('Need to make a strategy set for :')
+		#for s in strategy_set:
+		#	print(s)
+		#print(strategy_set)
 
 		result = run_terminal_command('./a.out ' + floats_binary_data)
 		lock.acquire()
@@ -68,6 +68,9 @@ class MonteCarloSimulator(object):
 
 	def _generate_c_files(self, strategy_set):
 		"""Generates the required c files for this strategy set."""
+		name = ''
+		for s_s in strategy_set:
+			name += s_s.name
 		self._code_generator.generate_file(str(strategy_set))
 
 	def generate_strategy_sets(self):
