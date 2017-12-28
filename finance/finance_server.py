@@ -45,7 +45,8 @@ class FinanceServer(object):
 	"""An API to running C programs."""
 
 	def __init__(self):
-		self._db = f_db.FinanceDatabase()
+		self._db = f_db.FinanceDatabase(True)
+		self._db.health_check()
 
 		# The manager allows for shared access to data between processes.
 		self.manager = mp.Manager()

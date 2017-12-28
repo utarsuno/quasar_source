@@ -5,6 +5,12 @@
 from lazyme import color_print
 
 
+def print_data_with_red_dashes_at_start(text):
+	"""Prints data with red dashes at the start."""
+	color_print('-> ', color='red', end='')
+	color_print(text, color='blue', bold=True)
+
+
 def print_title(text):
 	"""Prints a title text."""
 	color_print(text, color='yellow', underline=True, bold=True)
