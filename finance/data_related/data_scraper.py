@@ -104,12 +104,12 @@ class DataScraper(object):
 		for i, l in enumerate(data_lines):
 			if l.strip() == '<tr class="text-right">':
 				all_day_data.append(DayData(self.parse_out_data_from_html_line(data_lines[i + 1]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 2]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 3]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 4]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 5]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 6]),
-				                            self.parse_out_data_from_html_line(data_lines[i + 7])))
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 2])),
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 3])),
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 4])),
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 5])),
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 6])),
+				                            float(self.parse_out_data_from_html_line(data_lines[i + 7]))))
 
 		return all_day_data
 
