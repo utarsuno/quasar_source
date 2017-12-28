@@ -67,7 +67,7 @@ class StrategySetGenerator(object):
 			for bc in buy_combinations:
 				for sc in sell_combinations:
 					for hc in hold_combinations:
-						all_sets.append([bc] + [sc] + [hc])
+						all_sets.append(bc + sc + hc)
 
 			self._all_strategy_sets = all_sets
 		return self._all_strategy_sets
