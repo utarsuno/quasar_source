@@ -48,7 +48,7 @@ class DayData(object):
 
 	def field_to_c_binary(self, field):
 		"""Returns a c compatible binary representation of this DayData field's value."""
-		return bytearray(struct.pack(bytes(self.json[field])))
+		return bytearray(struct.pack('f', self.json[field]))
 
 	def __str__(self):
 		return str(self.date) + '|' + str(self.open) + '|' + str(self.high) + '|' + str(self.low) + '|' + str(self.close) + '|' + str(self.volume) + '|' + str(self.market_cap)
