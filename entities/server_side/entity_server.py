@@ -5,7 +5,7 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-from entities import EntityDatabaseAPI
+from entities.database.entity_database import EntityDatabaseAPI
 from entities import base_entity as be
 
 
