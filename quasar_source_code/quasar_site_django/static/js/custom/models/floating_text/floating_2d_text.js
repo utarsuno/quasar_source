@@ -33,9 +33,6 @@ Floating2DText.prototype = {
             } else {
                 this.dynamic_texture.clear(this.background_color).drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.background_color);
             }
-            if (this.background_color === COLOR_TRANSPARENT) {
-                this.dynamic_texture.transparent = true;
-            }
             this.dynamic_texture.needsUpdate = true;
         }
     },
@@ -88,7 +85,7 @@ Floating2DText.prototype = {
                 map : this.dynamic_texture.texture
             });
 
-            this.material.transparent = false;
+            this.material.transparent = true;
             // TODO : Temporary for debugging.
             this.material.side = THREE.FrontSide;
             //this.material.side = THREE.DoubleSide;
