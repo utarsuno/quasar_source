@@ -176,6 +176,7 @@ const ICON_ENTITY_GROUP = 'share2.png';
 const ICON_FULLSCREEN   = 'larger.png';
 const ICON_LEFT         = 'arrowLeft.png';
 const ICON_RIGHT        = 'arrowRight.png';
+const ICON_CROSS        = 'cross.png';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Cursor types.

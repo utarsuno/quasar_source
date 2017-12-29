@@ -6,37 +6,23 @@ function FloatingWall(width, height, position, normal, world, scalable) {
 
 FloatingWall.prototype = {
 
-    world: null,
-    scene: null,
-
-    normal: null,
-    normal_depth: null,
-
-    width: null,
-    height: null,
-
-    title_text: null,
-    title: null,
-
-    interactive_objects: null,
-
     __init__: function (width, height, position, normal, world, scalable) {
+        this.all_floating_2d_texts          = [];
+        this.all_floating_3D_texts          = [];
+        this.all_floating_walls             = [];
+        this.objects_to_remove_later        = [];
+        this.floating_walls_to_remove_later = [];
+
         this.object3D = new THREE.Object3D();
-
-        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-        this.normal.normalize();
+        // Default value.
         this.normal_depth = 5;
-        this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
 
+        this.update_normal(normal);
+
+        this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
         this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
         this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
         this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-
-        this.look_at = new THREE.Vector3(position.x + this.normal.x * 100, position.y + this.normal.y * 100, position.z + this.normal.z * 100);
-
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.normal);
-        this.left_right.normalize();
 
         this.width = width;
         this.height = height;
@@ -44,8 +30,6 @@ FloatingWall.prototype = {
         this.world = world;
         this.scene = this.world.scene;
 
-        // Inherit from Interactive.
-        //Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
 
@@ -60,28 +44,17 @@ FloatingWall.prototype = {
         });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         //this.wall_mesh.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
-        // Base wall.
 
         this.scalable = scalable;
         if (!is_defined(this.scalable)) {
             this.scalable = false;
         }
 
-        this.objects_to_remove_later = [];
-        this.floating_walls_to_remove_later = [];
-        //this.add_additional_visibility_object(this.title)
-
-        this.all_floating_2d_texts = [];
-        this.all_floating_walls = [];
-
         // Used to determine what actions to be taking.
         this.current_cursor = null;
 
         this.object3D.add(this.mesh);
-
         this.scene.add(this.object3D);
-
-        this.object3D.lookAt(new THREE.Vector3(this.look_at.x, this.look_at.y, this.look_at.z));
 
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
@@ -100,12 +73,12 @@ FloatingWall.prototype = {
         MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
         var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
 
-        if (cursor_type == CURSOR_TYPE_HORIZONTAL) {
+        if (cursor_type === CURSOR_TYPE_HORIZONTAL) {
 
             var new_width_percentage = (this._get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / this.width) * 2;
             this._update_width(new_width_percentage);
 
-        } else if (cursor_type == CURSOR_TYPE_VERTICAL) {
+        } else if (cursor_type === CURSOR_TYPE_VERTICAL) {
 
             var new_height_percentage = (((this.object3D.position.y + this.height / 2) - cursor_position.y) / this.height);
             if (new_height_percentage < 0) {
@@ -116,7 +89,7 @@ FloatingWall.prototype = {
             }
             this._update_height(new_height_percentage);
 
-        } else if (cursor_type == CURSOR_TYPE_MOUSE) {
+        } else if (cursor_type === CURSOR_TYPE_MOUSE) {
 
             var player_position = CURRENT_PLAYER.get_position();
             var y_offset = 0;
@@ -141,7 +114,6 @@ FloatingWall.prototype = {
             this.update_position_with_offset_xyz(new_position.x - this.x_without_normal, new_position.y - this.y_without_normal + y_offset, new_position.z - this.z_without_normal);
         }
 
-
         this.update_position_and_normal_for_all_floating_text();
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
@@ -149,12 +121,7 @@ FloatingWall.prototype = {
     },
 
     update_position_and_normal_for_all_floating_text: function() {
-        if (is_defined(this.floating_3d_title)) {
-
-        }
-        if (is_defined(this.floating_3D_above_title)) {
-
-        }
+        // TODO : Update position for all floating 3D text
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
             this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
         }
@@ -173,9 +140,6 @@ FloatingWall.prototype = {
                 this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
                 this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
                 this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-            } else {
-                // Follows add_floating_2d_text_fixed_position
-                l('TODO: IMPLEMENT THIS!');
             }
 
         } else {
@@ -242,153 +206,26 @@ FloatingWall.prototype = {
         // TODO : auto-scale floating 2d texts!
     },
 
-    update: function() {
-        for (var i = 0; i < this.all_floating_walls.length; i++) {
-            this.all_floating_walls[i].update();
-        }
-
-        if (!MANAGER_WORLD.current_world.floating_cursor.engaged) {
-            if (this.scalable) {
-                this.player_horizontal_distance_to_wall_center_liner = null;
-                var data = this.get_player_look_at_intersection_point();
-                if (data !== false) {
-                    this.currently_engaged_with_cursor = true;
-                    MANAGER_WORLD.current_world.floating_cursor.current_normal = this.normal;
-                    MANAGER_WORLD.current_world.floating_cursor.set_data([data[0], data[1], this]);
-                } else {
-                    this.currently_engaged_with_cursor = false;
-                    this.player_horizontal_distance_to_wall_center_liner = null;
-                    this.player_previous_y_position = null;
-                }
-            }
-        } else {
-            if (this.currently_engaged_with_cursor) {
-                if (MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
-                    this.perform_action(CURSOR_TYPE_MOUSE);
-                }
-            }
-        }
-    },
-
-    get_required_cursor: function(cursor_position_vector) {
-        var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
-        var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
-
-        var vertical_scroll = false;
-        var horizontal_scroll = false;
-
-        if (y_percentage < 0.05 || y_percentage > 0.95) {
-            vertical_scroll = true;
-        }
-        if (horizontal_percentage > .45) {
-            horizontal_scroll = true;
-        }
-        if (vertical_scroll && horizontal_scroll) {
-            return CURSOR_TYPE_LARGER;
-        } else if (vertical_scroll) {
-            return CURSOR_TYPE_VERTICAL;
-        } else if (horizontal_scroll) {
-            return CURSOR_TYPE_HORIZONTAL;
-        } else {
-            return CURSOR_TYPE_MOUSE;
-        }
-    },
-
-    clear_floating_2d_texts: function() {
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[i]);
-        }
-        this.objects_to_remove_later.length = 0;
-        this.all_floating_2d_texts.length = 0;
-    },
-
-    clear_inputs: function() {
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            if (this.all_floating_2d_texts[i].type === TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type === TYPE_INPUT_PASSWORD) {
-                this.all_floating_2d_texts[i].clear();
-            }
-        }
-    },
-
-    add_3D_title: function(title_name, type, color) {
+    add_3D_title: function(title_name, type, color, row) {
         if (is_defined(type)) {
             this.floating_3d_title = new Floating3DText(title_name, type, this.scene);
         } else {
             this.floating_3d_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
         }
         var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
-        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2, x_shift.z);
+        var additional_y_height = 0;
+        if (is_defined(row)) {
+            additional_y_height = this.floating_3d_title.height * row;
+        }
+        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2 + additional_y_height, x_shift.z);
         this.floating_3d_title.update_position_and_normal(y_position, this.normal);
-
         if (is_defined(color)) {
             this.floating_3d_title.set_default_color(color);
         }
         this.add_additional_visibility_object(this.floating_3d_title);
-        this.add_object_to_remove_later(this.floating_3d_title);
+        this.objects_to_remove_later.push(this.floating_3d_title);
     },
 
-    add_3D_title_above: function(title_name, type, color) {
-        if (is_defined(type)) {
-            this.floating_3D_above_title = new Floating3DText(title_name, type, this.scene);
-        } else {
-            this.floating_3D_above_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
-        }
-        var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_above_title.width / 2.0));
-        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + (this.floating_3D_above_title.height / 2) * 3, x_shift.z);
-        this.floating_3D_above_title.update_position_and_normal(y_position, this.normal);
-
-        if (is_defined(color)) {
-            this.floating_3D_above_title.set_default_color(color);
-        }
-        this.add_additional_visibility_object(this.floating_3D_above_title);
-        this.add_object_to_remove_later(this.floating_3D_above_title);
-    },
-
-    update_normal: function(normal) {
-        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-        this.normal.normalize();
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.normal);
-        this.left_right.normalize();
-
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
-
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_normal(normal);
-        }
-    },
-
-    add_floating_wall_to_remove_later: function(floating_wall_to_remove_later) {
-        this.floating_walls_to_remove_later.push(floating_wall_to_remove_later);
-    },
-
-    add_object_to_remove_later: function(object_to_remove) {
-        this.objects_to_remove_later.push(object_to_remove);
-    },
-
-    remove_from_scene: function() {
-        // TODO : Double check if any dispose methods need to be called.
-
-        for (var j = 0; j < this.floating_walls_to_remove_later.length; j++) {
-            this.floating_walls_to_remove_later[j].remove_from_scene();
-        }
-        for (var i = 0; i < this.objects_to_remove_later.length; i++) {
-            this.world.remove_from_interactive_then_scene(this.objects_to_remove_later[i]);
-        }
-        this.scene.remove(this.object3D);
-    },
-
-    add_close_button: function() {
-        this.close_button = this.add_floating_2d_text_fixed_position(16, -16, 'X', TYPE_BUTTON, 0, 2);
-        this.close_button.set_engage_function(this.close_button_pressed.bind(this));
-        this.close_button.pfw_additional_normal_offset = 2;
-        this.all_floating_2d_texts.push(this.close_button);
-        return this.close_button;
-    },
-
-    update_title: function (title) {
-        this.title.update_text(title);
-    },
 
     get_y_position_for_row: function (y_index) {
         if (y_index < 0) {
@@ -397,10 +234,6 @@ FloatingWall.prototype = {
             return -this.height + offset;
         }
         return (-16.0 / 2.0) * (1 + (2 * y_index));
-    },
-
-    _get_horizontal_distance_to_center: function(x, z) {
-        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
     },
 
     // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
@@ -412,33 +245,15 @@ FloatingWall.prototype = {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
     },
 
-    remove_floating_2d_texts_with_property: function(property_name) {
-        var elements_to_remove = this.get_all_floating_2d_texts_with_property(property_name);
-        for (var i = 0; i < elements_to_remove.length; i++) {
-            var index_to_remove = -1;
-            for (var j = 0; j < this.all_floating_2d_texts.length; j++) {
-                if (this.all_floating_2d_texts[j].hasOwnProperty(property_name)) {
-                    index_to_remove = j;
-                }
-            }
-            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[index_to_remove]);
-            this.all_floating_2d_texts.splice(index_to_remove, 1);
-        }
-    },
-
-    get_all_floating_2d_texts_with_property: function(property_name) {
-        var floating_texts = [];
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            if (this.all_floating_2d_texts[i].hasOwnProperty(property_name)) {
-                floating_texts.push(this.all_floating_2d_texts[i]);
-            }
-        }
-        return floating_texts;
-    },
-
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
+    add_close_button: function() {
+        var one_pixel_width = 1 / this.width;
+        this.close_button = this.add_floating_2d_text(1 - (one_pixel_width * 16), 1, ICON_CROSS, TYPE_BUTTON, 0);
+        this.close_button.set_engage_function(this.close_button_pressed.bind(this));
+        return this.close_button;
+    },
 
     add_floating_wall_off_of_button: function(width, height, button, scalable) {
         var button_position = button.get_position();
@@ -466,34 +281,11 @@ FloatingWall.prototype = {
         floating_wall.pfw_position = position;
 
         // TODO : visibility for floating walls to remove
-        this.add_floating_wall_to_remove_later(floating_wall);
+        this.floating_walls_to_remove_later.push(floating_wall);
 
         this.all_floating_walls.push(floating_wall);
 
         return floating_wall;
-    },
-
-    add_floating_2d_text_fixed_position: function(width, position_offset, text, type, row, additional_normal_offset) {
-        var floating_2D_text = new Floating2DText(width, text, type, this.scene);
-
-        floating_2D_text.parent_floating_wall = this;
-        floating_2D_text.pfw_fixed_width = width;
-        floating_2D_text.pfw_position_offset = position_offset;
-        floating_2D_text.pfw_row = row;
-        if (is_defined(additional_normal_offset)) {
-            floating_2D_text.pfw_additional_normal_offset = additional_normal_offset;
-        }
-
-        this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
-
-        if (type === TYPE_INPUT_REGULAR || type === TYPE_INPUT_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
-            floating_2D_text.is_in_interactive_list = true;
-            this.world.interactive_objects.push(floating_2D_text);
-        }
-        this.add_additional_visibility_object(floating_2D_text);
-        this.add_object_to_remove_later(floating_2D_text);
-        this.all_floating_2d_texts.push(floating_2D_text);
-        return floating_2D_text;
     },
 
     update_position_for_floating_2D_text: function(floating_2D_text) {
@@ -521,7 +313,7 @@ FloatingWall.prototype = {
     update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
         var width;
         var x_offset;
-        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
+        if (floating_2D_text.hasOwnProperty('pfw_fixe d_width')) {
             width = floating_2D_text['pfw_fixed_width'];
             if (floating_2D_text['pfw_position_offset'] < 0) {
                 floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
@@ -556,14 +348,13 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
-        if (type == TYPE_INPUT_REGULAR || type == TYPE_INPUT_PASSWORD || type == TYPE_BUTTON || type == TYPE_TITLE) {
+        if (type === TYPE_INPUT_REGULAR || type === TYPE_INPUT_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
             floating_2D_text.is_in_interactive_list = true;
             this.world.interactive_objects.push(floating_2D_text);
         }
 
         this.add_additional_visibility_object(floating_2D_text);
-        this.add_object_to_remove_later(floating_2D_text);
-
+        this.objects_to_remove_later.push(floating_2D_text);
         this.all_floating_2d_texts.push(floating_2D_text);
 
         return floating_2D_text;
@@ -665,10 +456,10 @@ FloatingWall.prototype = {
         this.add_additional_visibility_object(floating_maximum_label);
         this.add_additional_visibility_object(floating_slider);
 
-        this.add_object_to_remove_later(floating_label);
-        this.add_object_to_remove_later(floating_minimum_label);
-        this.add_object_to_remove_later(floating_maximum_label);
-        this.add_object_to_remove_later(floating_slider);
+        this.objects_to_remove_later.push(floating_label);
+        this.objects_to_remove_later.push(floating_minimum_label);
+        this.objects_to_remove_later.push(floating_maximum_label);
+        this.objects_to_remove_later.push(floating_slider);
 
         this.all_floating_2d_texts.push(floating_label);
         this.all_floating_2d_texts.push(floating_minimum_label);
@@ -677,6 +468,80 @@ FloatingWall.prototype = {
 
         // Return the slider object so that a value changed function can be binded.
         return floating_slider;
+    },
+
+    /*     __   __       ___  ___                         ___  __
+     |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
+     \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
+
+    update_normal: function(normal) {
+        if (normal.x !== this.normal.x && normal.y !== this.normal.y && normal.z !== this.normal.z) {
+            this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
+            this.normal.normalize();
+            this.left_right = new THREE.Vector3(0, 1, 0);
+            this.left_right.cross(this.normal);
+            this.left_right.normalize();
+
+            this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
+
+            for (var j = 0; j < this.all_floating_walls.length; j++) {
+                this.all_floating_walls[j].update_normal(normal);
+            }
+        }
+    },
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+
+    _get_horizontal_distance_to_center: function(x, z) {
+        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
+    },
+
+    get_required_cursor: function(cursor_position_vector) {
+        var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
+        var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
+
+        var vertical_scroll = false;
+        var horizontal_scroll = false;
+
+        if (y_percentage < 0.02 || y_percentage > 0.98) {
+            vertical_scroll = true;
+        }
+        if (horizontal_percentage > .48) {
+            horizontal_scroll = true;
+        }
+        if (vertical_scroll && horizontal_scroll) {
+            return CURSOR_TYPE_LARGER;
+        } else if (vertical_scroll) {
+            return CURSOR_TYPE_VERTICAL;
+        } else if (horizontal_scroll) {
+            return CURSOR_TYPE_HORIZONTAL;
+        } else {
+            return CURSOR_TYPE_MOUSE;
+        }
+    },
+
+    get_all_floating_2D_texts_with_property: function(property_name) {
+        var floating_texts = [];
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            if (this.all_floating_2d_texts[i].hasOwnProperty(property_name)) {
+                floating_texts.push(this.all_floating_2d_texts[i]);
+            }
+        }
+        return floating_texts;
+    },
+
+    get_all_floating_wall_children_recursively: function() {
+        var all_wall_children = [];
+        for (var w = 0; w < this.all_floating_walls.length; w++) {
+            all_wall_children.push(this.all_floating_walls[w]);
+            var all_sub_children = this.all_floating_walls[w].get_all_floating_wall_children_recursively();
+            for (var s = 0; s < all_sub_children.length; s++) {
+                all_wall_children.push(all_sub_children[s]);
+            }
+        }
+        return all_wall_children;
     },
 
     /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___
@@ -694,20 +559,14 @@ FloatingWall.prototype = {
         if (this.object3D.position.y - this.height / 2 > y) {
             return false;
         }
-        /*
-        if (this._get_horizontal_distance_to_center(x, z) > this.width / 2) {
-            return false;
-        }
-        return true;
-        */
         return this._get_horizontal_distance_to_center(x, z) <= this.width / 2;
     },
 
     get_player_look_at_infinite_plane_intersection_point: function() {
+        // TODO : Check if the player_parametric_equation can be passed in instead of re-calculated so often.
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
-        // TODO : Simplify later.
         const INDEX_OF_POSITION = 0;
         const INDEX_OF_DIRECTION = 1;
 
@@ -730,11 +589,9 @@ FloatingWall.prototype = {
         return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
-    get_player_look_at_intersection_point: function() {
-        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
+    get_player_look_at_intersection_point: function(player_parametric_equation) {
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
-        // TODO : Simplify later.
         const INDEX_OF_POSITION = 0;
         const INDEX_OF_DIRECTION = 1;
 
@@ -762,18 +619,56 @@ FloatingWall.prototype = {
             return false;
         }
 
-        // TODO : clean this design up at some point.
-        if (GUI_PAUSED_MENU.currently_displayed) {
-            return false;
-        }
-
         // Also add the cursor type needed.
         var cursor_position = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
         var c = this.get_required_cursor(cursor_position);
 
-        //l(c);
-
         return [cursor_position, c];
+    },
+
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    clear_inputs: function() {
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            if (this.all_floating_2d_texts[i].type === TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type === TYPE_INPUT_PASSWORD) {
+                this.all_floating_2d_texts[i].clear();
+            }
+        }
+    },
+
+    clear_floating_2d_texts: function() {
+        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[i]);
+        }
+        this.objects_to_remove_later.length = 0;
+        this.all_floating_2d_texts.length = 0;
+    },
+
+    remove_from_scene: function() {
+        for (var j = 0; j < this.floating_walls_to_remove_later.length; j++) {
+            this.floating_walls_to_remove_later[j].remove_from_scene();
+        }
+        for (var i = 0; i < this.objects_to_remove_later.length; i++) {
+            this.world.remove_from_interactive_then_scene(this.objects_to_remove_later[i]);
+        }
+        this.scene.remove(this.object3D);
+        this.mesh.material.dispose();
+        this.mesh.geometry.dispose();
+    },
+
+    remove_floating_2d_texts_with_property: function(property_name) {
+        var elements_to_remove = this.get_all_floating_2D_texts_with_property(property_name);
+        for (var i = 0; i < elements_to_remove.length; i++) {
+            var index_to_remove = -1;
+            for (var j = 0; j < this.all_floating_2d_texts.length; j++) {
+                if (this.all_floating_2d_texts[j].hasOwnProperty(property_name)) {
+                    index_to_remove = j;
+                }
+            }
+            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[index_to_remove]);
+            this.all_floating_2d_texts.splice(index_to_remove, 1);
+        }
     },
 
     /*        __     __           ___

@@ -133,6 +133,8 @@ function World(planet_name) {
 
     this.player_menu = new PlayerMenu(this);
 
+    this._previously_intersected_plane = null;
+
     this.provide_cursor_material = function(cursor_material, texture_name) {
         this.floating_cursor.add_cursor_material(cursor_material, texture_name);
     };
@@ -147,6 +149,8 @@ function World(planet_name) {
         if (object.hasOwnProperty('object3D')) {
             this.scene.remove(object.object3D);
         }
+
+        // TODO : check if there is a geometry or material to dipose of.
     };
 
     this.remove_from_interactive_then_scene = function(object_to_remove) {
@@ -258,6 +262,7 @@ function World(planet_name) {
 
                     var has_match = false;
 
+                    // TODO : Check if this check is still needed
                     if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
                         if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
                             has_match = true;
@@ -291,7 +296,7 @@ function World(planet_name) {
             }
             // FOR_DEV_START
             if (!is_defined(this.currently_looked_at_object)) {
-                raise_exception('hodl IOTA');n
+                raise_exception('hodl IOTA');
             }
             // FOR_DEV_END
             if (this.currently_looked_at_object.uses_cursor) {
@@ -301,11 +306,80 @@ function World(planet_name) {
             match_was_found = true;
         }
 
+        if (!match_was_found) {
+            // If the 'currently_looked_at_object' is not null then set it to null.
+            if (this.currently_looked_at_object !== null) {
+                this.currently_looked_at_object.look_away();
+                this.currently_looked_at_object = null;
+            }
+
+            // Now check for for any intersection to custom planes.
+            if (is_defined(this.entity_walls)) {
+                this._check_for_custom_plane_intersections();
+            }
+        }
+
         // If no match was found but 'currently_looked_at_object' is not null then set it to null.
         if (!match_was_found && this.currently_looked_at_object !== null) {
             this.currently_looked_at_object.look_away();
             this.currently_looked_at_object = null;
         }
+
+    };
+
+    this._check_for_custom_plane_intersections = function() {
+        if (GUI_PAUSED_MENU.currently_displayed) {
+            return;
+        }
+
+        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
+        var player_position = CURRENT_PLAYER.get_position();
+
+        // Eventually just keep track of a persisting list.
+        var all_walls = [];
+
+        for (var w = 0; w < this.entity_walls.length; w++) {
+            if (this.entity_walls[w].scalable) {
+                all_walls.push(this.entity_walls[w]);
+            }
+            var all_children = this.entity_walls[w].get_all_floating_wall_children_recursively();
+            for (var c = 0; c < all_children.length; c++) {
+                if (all_children[c].scalable) {
+                    all_walls.push(all_children[c]);
+                }
+            }
+        }
+
+        var smallest_distance = 999999;
+        var smallest_index = NOT_FOUND;
+        var best_result = null;
+        for (w = 0; w < all_walls.length; w++) {
+            var result = all_walls[w].get_player_look_at_intersection_point(player_parametric_equation);
+            if (result !== false) {
+                // Intersection position.
+                var ip = result[0];
+                var distance = sqrt(squared(player_position.x - ip.x) + squared(player_position.y - ip.y) + squared(player_position.z - ip.z));
+                if (distance < smallest_distance) {
+                    distance = smallest_distance;
+                    smallest_index = w;
+                    best_result = result;
+                }
+            }
+        }
+
+        if (smallest_index !== NOT_FOUND) {
+            all_walls[smallest_index].currently_engaged_with_cursor = true;
+            this._previously_intersected_plane = all_walls[smallest_index];
+            MANAGER_WORLD.current_world.floating_cursor.current_normal = all_walls[smallest_index].normal;
+            MANAGER_WORLD.current_world.floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
+        } else {
+            if (is_defined(this._previously_intersected_plane)) {
+                this._previously_intersected_plane.currently_engaged_with_cursor = false;
+                this._previously_intersected_plane = null;
+            }
+        }
+
+
     };
 
     this.tab_to_next_interactive_object = function() {

@@ -64,19 +64,6 @@ HomeWorld.prototype = {
 
                 this.loaded_entities = true;
             }
-        } else {
-
-            // TODO : Fix this system so only one floating wall at a time gets grabbed.
-
-            // Update all the FloatingWalls.
-            for (var i = 0; i < this.entity_walls.length; i++) {
-                this.entity_walls[i].update();
-            }
-
-            // Now that all the entity walls have been updated check for the closest intersection point if any.
-            for (i = 0; i < this.entity_walls.length; i++) {
-                // TODO : This!!
-            }
         }
 
         // World function.
@@ -148,7 +135,7 @@ HomeWorld.prototype = {
         month_day_wall.add_3D_title(day.get_day_number(), TYPE_SUPER_TITLE, color);
 
         if (present) {
-            month_day_wall.add_3D_title_above('Today', TYPE_SUPER_TITLE, color);
+            month_day_wall.add_3D_title('Today', TYPE_SUPER_TITLE, color, 1);
         }
 
         return month_day_wall;

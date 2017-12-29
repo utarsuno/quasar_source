@@ -260,6 +260,7 @@ module.exports = {
         "ICON_FULLSCREEN"  : false,
         "ICON_LEFT"        : false,
         "ICON_RIGHT"       : false,
+        "ICON_CROSS"       : false,
         // UNIVERSAL_CONSTANTS_END
 
         "get_color_range_list": false,

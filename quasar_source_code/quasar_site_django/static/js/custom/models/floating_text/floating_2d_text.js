@@ -14,7 +14,7 @@ Floating2DText.prototype = {
     background_color: null,
 
     _update_text: function() {
-        if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT) {
+        if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
             if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE) {
                 this.dynamic_texture.clear(this.background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.background_color);
             } else {
@@ -27,7 +27,7 @@ Floating2DText.prototype = {
     // NOTE : Values are different for testing purposes.
 
     _update_color: function() {
-        if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT) {
+        if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
             if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE) {
                 this.dynamic_texture.clear(this.background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.background_color);
             } else {
@@ -49,7 +49,7 @@ Floating2DText.prototype = {
     initialize: function(add_to_scene) {
         this.background_color = BACKGROUND_COLOR_DEFAULT;
 
-        if (this.type === TYPE_TITLE) {
+        if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
             this.height = 26;
         } else {
             this.height = 16;
@@ -58,7 +58,7 @@ Floating2DText.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        if (this.text === ICON_LEFT || this.text === ICON_RIGHT) {
+        if (this.text === ICON_LEFT || this.text === ICON_RIGHT || this.text === ICON_CROSS) {
             this.material = new THREE.MeshBasicMaterial({
                 map : MANAGER_WORLD.get_icon_texture(this.text)
             });
@@ -86,8 +86,8 @@ Floating2DText.prototype = {
 
             this.material.transparent = false;
             // TODO : Temporary for debugging.
-            //this.material.side = THREE.FrontSide;
-            this.material.side = THREE.DoubleSide;
+            this.material.side = THREE.FrontSide;
+            //this.material.side = THREE.DoubleSide;
 
             this._update_color();
             this._update_text();

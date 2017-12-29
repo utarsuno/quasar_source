@@ -10,8 +10,8 @@ DateSelector.prototype = {
     __init__: function(world) {
         this.world = world;
 
-        var w = 500;
-        var h = 400;
+        var w = 600;
+        var h = 250;
         var p = new THREE.Vector3(-5000, -5000, -5000);
         var n = new THREE.Vector3(0, 0, 0);
 
