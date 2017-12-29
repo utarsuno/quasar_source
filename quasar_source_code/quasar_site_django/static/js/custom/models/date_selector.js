@@ -40,6 +40,7 @@ DateSelector.prototype = {
         this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
         // Days.
+        l(this.month);
         var days = this.month.get_all_dates();
         for (var d = 0; d < days.length; d++) {
             l(days[d]);
