@@ -58,10 +58,22 @@ DateSelector.prototype = {
             var day_cell = null;
             if (num == 0) {
                 day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
+                day_cell.set_engage_function(this.date_selected.bind(this, days[d]));
             } else {
                 day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
+                day_cell.set_engage_function(this.date_selected.bind(this, days[d]));
             }
         }
+    },
+
+    date_selected: function(date) {
+        var year = this.year.get_text();
+        var month = this.month.get_text();
+        var day = date.get_day_number();
+
+        this.wall.pfw_button.update_text(day.toString() + '.' + month.toString() + '.' + year.toString());
+
+        this.wall.hide();
     },
 
     show_at: function(floating_2D_text) {
