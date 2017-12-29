@@ -475,18 +475,16 @@ FloatingWall.prototype = {
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
 
     update_normal: function(normal) {
-        if (normal.x !== this.normal.x && normal.y !== this.normal.y && normal.z !== this.normal.z) {
-            this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-            this.normal.normalize();
-            this.left_right = new THREE.Vector3(0, 1, 0);
-            this.left_right.cross(this.normal);
-            this.left_right.normalize();
+        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
+        this.normal.normalize();
+        this.left_right = new THREE.Vector3(0, 1, 0);
+        this.left_right.cross(this.normal);
+        this.left_right.normalize();
 
-            this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
+        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
 
-            for (var j = 0; j < this.all_floating_walls.length; j++) {
-                this.all_floating_walls[j].update_normal(normal);
-            }
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_normal(normal);
         }
     },
 
