@@ -23,7 +23,7 @@ DateSelector.prototype = {
         this.wall.add_floating_2d_text(.1, .9, 'Select Date', TYPE_TITLE_CONSTANT, 0);
 
         this.date = new MyDate(THIS_DAY);
-        this.month = new MyDates(THIS_MONTH);
+        this.current_month = new MyDates(THIS_MONTH);
 
         // Year.
         this.decrease_year_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 3);
@@ -40,8 +40,7 @@ DateSelector.prototype = {
         this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
         // Days.
-        l(this.month);
-        var days = this.month.get_all_dates();
+        var days = this.current_month.get_all_dates();
         for (var d = 0; d < days.length; d++) {
             l(days[d]);
             l(days[d].get_day_number_relative_to_current_week + '\t' + days[d].get_day_as_word());
