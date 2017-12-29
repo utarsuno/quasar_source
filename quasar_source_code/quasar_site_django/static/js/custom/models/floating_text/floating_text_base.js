@@ -82,12 +82,6 @@ function FloatingText(width, text, type, scene, current_color) {
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-
-    // This is just an alternative name to the function update_color.
-    this.set_color = function(color) {
-        this.update_color(color);
-    };
-
     this.set_default_color = function(default_color) {
         if (is_list(default_color)) {
             if (this.is_2D_text) {
@@ -263,7 +257,7 @@ function FloatingText(width, text, type, scene, current_color) {
             this.update_color(COLOR_HIGHLIGHT);
         } else {
             if (this.hasOwnProperty('background_color')) {
-                this.background_color = BACKGROUND_COLOR_DEFAULT;
+                this.background_color = COLOR_TRANSPARENT;
             }
             this.update_color(this.default_color);
         }

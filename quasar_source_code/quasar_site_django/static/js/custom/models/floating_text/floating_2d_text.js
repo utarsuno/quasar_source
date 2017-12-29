@@ -47,7 +47,6 @@ Floating2DText.prototype = {
     },
 
     initialize: function(add_to_scene) {
-        //this.background_color = BACKGROUND_COLOR_DEFAULT;
         this.background_color = COLOR_TRANSPARENT;
 
         if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
@@ -86,9 +85,7 @@ Floating2DText.prototype = {
             });
 
             this.material.transparent = true;
-            // TODO : Temporary for debugging.
             this.material.side = THREE.FrontSide;
-            //this.material.side = THREE.DoubleSide;
 
             this._update_color();
             this._update_text();

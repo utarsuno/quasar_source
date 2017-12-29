@@ -337,14 +337,14 @@ EntityWall.prototype = {
       |  |  /\  |    |       /  ` |__) |__   /\   |  | /  \ |\ |
       |/\| /~~\ |___ |___    \__, |  \ |___ /~~\  |  | \__/ | \| */
     init_are_you_sure_wall: function() {
-        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(200, 70, this.delete_entity_wall_button, false);
-        this.wall_are_you_sure.add_floating_2d_text(0, 1, 'Are you sure?', TYPE_CONSTANT_TEXT, 0);
-        this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 2);
+        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(180, 50, this.delete_entity_wall_button, false);
+        this.wall_are_you_sure.add_floating_2d_text(.25, .75, 'Are you sure?', TYPE_CONSTANT_TEXT, 0);
+        this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 1);
         this.no_button.set_engage_function(this.no_button_pressed.bind(this));
-        this.no_button.set_color(COLOR_RED);
-        this.yes_button = this.wall_are_you_sure.add_floating_2d_text(.5, 1, 'Yes', TYPE_BUTTON, 2);
+        this.no_button.set_default_color(COLOR_RED);
+        this.yes_button = this.wall_are_you_sure.add_floating_2d_text(.5, 1, 'Yes', TYPE_BUTTON, 1);
         this.yes_button.set_engage_function(this.yes_button_pressed.bind(this));
-        this.yes_button.set_color(COLOR_GREEN);
+        this.yes_button.set_default_color(COLOR_GREEN);
         this.wall_are_you_sure.hide();
     },
 
