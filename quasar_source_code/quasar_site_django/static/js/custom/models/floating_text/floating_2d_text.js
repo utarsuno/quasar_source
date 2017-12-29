@@ -33,6 +33,9 @@ Floating2DText.prototype = {
             } else {
                 this.dynamic_texture.clear(this.background_color).drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.background_color);
             }
+            if (this.background_color === COLOR_TRANSPARENT) {
+                this.dynamic_texture.transparent = true;
+            }
             this.dynamic_texture.needsUpdate = true;
         }
     },
