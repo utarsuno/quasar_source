@@ -55,7 +55,11 @@ EntityWall.prototype = {
         if (is_defined(default_value)) {
             value = default_value;
         } else {
-            value = 'default_value';
+            if (label === ENTITY_PROPERTY_DUE_DATE) {
+                value = 'click to set value'
+            } else {
+                value = 'default_value';
+            }
         }
 
         this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, value, TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);

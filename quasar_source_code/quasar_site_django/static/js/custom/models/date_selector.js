@@ -10,8 +10,8 @@ DateSelector.prototype = {
     __init__: function(world) {
         this.world = world;
 
-        var w = 400;
-        var h = 700;
+        var w = 500;
+        var h = 400;
         var p = new THREE.Vector3(-5000, -5000, -5000);
         var n = new THREE.Vector3(0, 0, 0);
 
@@ -57,7 +57,7 @@ DateSelector.prototype = {
             var num = days[d].get_day_number_relative_to_current_week();
             var day_cell = null;
             if (num == 0) {
-                day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
+                day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 7 + row);
                 day_cell.set_engage_function(this.date_selected.bind(this, days[d]));
             } else {
                 day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8 + row);

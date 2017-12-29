@@ -54,7 +54,6 @@ module.exports = {
         "FloatingText": true,
         "Floating3DText": true,
         "FloatingSlider": true,
-        "CheckBox": true,
 
         // Core
         "InputTextProcessor": false,
