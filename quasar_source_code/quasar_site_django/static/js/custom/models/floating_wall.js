@@ -1,12 +1,15 @@
 'use strict';
 
-function FloatingWall(width, height, position, normal, world, scalable) {
-    this.__init__(width, height, position, normal, world, scalable);
+// var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
+const COLORS = get_color_range_list(COLOR_FLOATING_WALL_BASE, COLOR_FLOATING_WALL_TOP, 8);
+
+function FloatingWall(width, height, position, normal, world, scalable, color_index) {
+    this.__init__(width, height, position, normal, world, scalable, color_index);
 }
 
 FloatingWall.prototype = {
 
-    __init__: function (width, height, position, normal, world, scalable) {
+    __init__: function (width, height, position, normal, world, scalable, color_index) {
         this.all_floating_2d_texts          = [];
         this.all_floating_3D_texts          = [];
         this.all_floating_walls             = [];
@@ -30,6 +33,12 @@ FloatingWall.prototype = {
         this.world = world;
         this.scene = this.world.scene;
 
+        if (!is_defined(color_index)) {
+            this.color_index = 0;
+        } else {
+            this.color_index = color_index;
+        }
+
         // Inherit from Visibility.
         Visibility.call(this);
 
@@ -37,7 +46,7 @@ FloatingWall.prototype = {
         // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.material = new THREE.MeshBasicMaterial({
-            color: 0x060606,
+            color: COLORS[this.color_index],
             //transparent: true,
             //opacity: 0.85,
             side: THREE.DoubleSide
@@ -258,22 +267,16 @@ FloatingWall.prototype = {
     add_floating_wall_off_of_button: function(width, height, button, scalable) {
         var button_position = button.get_position();
 
-        var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable);
+        var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable, this.color_index + 1);
 
         floating_wall.pfw_button = button;
 
         return floating_wall;
     },
 
-    add_floating_wall_to_center_of_position: function(width, height, position, scalable) {
+    add_floating_wall_to_center_of_position: function(width, height, position, scalable, color_index) {
         var floating_wall_position = new THREE.Vector3(position.x, position.y, position.z);
-        var floating_wall;
-
-        if (is_defined(scalable)) {
-            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable);
-        } else {
-            floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, this.scalable);
-        }
+        var floating_wall = new FloatingWall(width, height, floating_wall_position, this.normal, this.world, scalable, color_index);
 
         floating_wall.parent_floating_wall = this;
         floating_wall.pfw_width = width;

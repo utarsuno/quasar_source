@@ -150,20 +150,22 @@ const BACKGROUND_COLOR_ERROR   = '#390006';
 const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
 
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
-const COLOR_STRING_INDEX     = 1;
-const COLOR_HEX_INDEX        = 0;
-const COLOR_HIGHLIGHT        = [0xD4FF93, '#D4FF93'];
-const COLOR_PLANET           = [0xAFE0FF, '#AFE0FF'];
-const COLOR_TEXT_DEFAULT     = [0x67ffbf, '#67ffbf'];
-const COLOR_TEXT_BUTTON      = [0x60d6ff, '#60d6ff'];
-const COLOR_RED              = [0xff5e33, '#ff5e33'];
-const COLOR_GREEN            = [0x6cff61, '#6cff61'];
-const COLOR_TEXT_CONSTANT    = [0x7e58b0, '#7e58b0'];
-const COLOR_WHITE            = [0xffffff, '#ffffff'];
-const COLOR_BLACK            = [0x000000, '#000000'];
-const COLOR_SCHEDULE_PAST    = [0x0b3162, '#09254b'];
-const COLOR_SCHEDULE_PRESENT = [0x8effae, '#4dff78'];
-const COLOR_SCHEDULE_FUTURE  = [0x000b1c, '#d58900'];
+const COLOR_STRING_INDEX       = 1;
+const COLOR_HEX_INDEX          = 0;
+const COLOR_HIGHLIGHT          = [0xD4FF93, '#D4FF93'];
+const COLOR_PLANET             = [0xAFE0FF, '#AFE0FF'];
+const COLOR_TEXT_DEFAULT       = [0x67ffbf, '#67ffbf'];
+const COLOR_TEXT_BUTTON        = [0x60d6ff, '#60d6ff'];
+const COLOR_RED                = [0xff5e33, '#ff5e33'];
+const COLOR_GREEN              = [0x6cff61, '#6cff61'];
+const COLOR_TEXT_CONSTANT      = [0x7e58b0, '#7e58b0'];
+const COLOR_WHITE              = [0xffffff, '#ffffff'];
+const COLOR_BLACK              = [0x000000, '#000000'];
+const COLOR_SCHEDULE_PAST      = [0x0b3162, '#09254b'];
+const COLOR_SCHEDULE_PRESENT   = [0x8effae, '#4dff78'];
+const COLOR_SCHEDULE_FUTURE    = [0x000b1c, '#d58900'];
+const COLOR_FLOATING_WALL_BASE = [0x151515, '#151515'];
+const COLOR_FLOATING_WALL_TOP  = [0xacdfbc, '#acdfbc'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Icons.
