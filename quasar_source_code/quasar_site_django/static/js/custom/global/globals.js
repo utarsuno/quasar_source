@@ -166,6 +166,7 @@ const COLOR_SCHEDULE_PRESENT   = [0x8effae, '#4dff78'];
 const COLOR_SCHEDULE_FUTURE    = [0x000b1c, '#d58900'];
 const COLOR_FLOATING_WALL_BASE = [0x151515, '#151515'];
 const COLOR_FLOATING_WALL_TOP  = [0xacdfbc, '#acdfbc'];
+const COLOR_TRANSPARENT        = 'rgba(255, 255, 255, 0.0)';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Icons.

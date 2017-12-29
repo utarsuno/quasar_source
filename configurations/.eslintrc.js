@@ -282,6 +282,7 @@ module.exports = {
         "COLOR_SCHEDULE_FUTURE"   : false,
         "COLOR_FLOATING_WALL_BASE": false,
         "COLOR_FLOATING_WALL_TOP" : false,
+        "COLOR_TRANSPARENT"       : false,
         // UNIVERSAL_CONSTANTS_END
 
         // Javascript constants.
