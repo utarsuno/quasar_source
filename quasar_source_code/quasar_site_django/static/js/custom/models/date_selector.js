@@ -52,14 +52,14 @@ DateSelector.prototype = {
 
         for (var d = 0; d < days.length; d++) {
 
-            l(days[d].get_week_relative_to_current_month());
+            var row = days[d].get_week_relative_to_current_month();
 
             var num = days[d].get_day_number_relative_to_current_week();
             var day_cell = null;
             if (num == 0) {
-                day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 8);
+                day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
             } else {
-                day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8);
+                day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
             }
         }
     },
