@@ -339,10 +339,10 @@ function World(planet_name) {
         var all_walls = [];
 
         for (var w = 0; w < this.entity_walls.length; w++) {
-            if (this.entity_walls[w].scalable) {
-                all_walls.push(this.entity_walls[w]);
+            if (this.entity_walls[w].wall.scalable) {
+                all_walls.push(this.entity_walls[w].wall);
             }
-            var all_children = this.entity_walls[w].get_all_floating_wall_children_recursively();
+            var all_children = this.entity_walls[w].wall.get_all_floating_wall_children_recursively();
             for (var c = 0; c < all_children.length; c++) {
                 if (all_children[c].scalable) {
                     all_walls.push(all_children[c]);
