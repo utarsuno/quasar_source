@@ -10,7 +10,7 @@ for i, arg in enumerate(arguments):
 	if arg == '-o':
 		owner_argument = arguments[i + 1]
 
-from entities import EntityDatabaseAPI
+from entities.database.entity_database import EntityDatabaseAPI
 from lazyme.string import color_print
 
 db = EntityDatabaseAPI()

@@ -5,7 +5,7 @@
 import ast
 
 from database_api.nosql_databases import mongodb_api as db_api
-from entities import EntityManager
+from entities.entity_manager import EntityManager
 from entities import base_entity as be
 
 '''  __       ___       __        __   ___          __
