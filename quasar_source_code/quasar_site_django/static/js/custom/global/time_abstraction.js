@@ -102,14 +102,6 @@ MyDate.prototype = {
             break;
         case DELTA_MONTHS:
             this.date.setMonth(this.date.getMonth() + magnitude);
-            // If the month increased to January then increase the year.
-            if (this.date.getMonth() === 0 && magnitude > 0) {
-                this.date.setFullYear(this.date.getFullYear() + 1);
-            }
-            // If the month decreased to December then decrease the year.
-            if (this.date.getMonth() === 11 && magnitude < 0) {
-                this.date.setFullYear(this.date.getFullYear() - 1);
-            }
             break;
         }
     },

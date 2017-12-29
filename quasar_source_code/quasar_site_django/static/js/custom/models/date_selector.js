@@ -43,7 +43,7 @@ DateSelector.prototype = {
         var days = this.current_month.get_all_dates();
         for (var d = 0; d < days.length; d++) {
             l(days[d]);
-            l(days[d].get_day_number_relative_to_current_week + '\t' + days[d].get_day_as_word());
+            l(days[d].get_day_number_relative_to_current_week() + '\t' + days[d].get_day_as_word());
         }
     },
 
