@@ -45,6 +45,16 @@ DateSelector.prototype = {
             l(days[d]);
             l(days[d].get_day_number_relative_to_current_week() + '\t' + days[d].get_day_as_word());
         }
+
+        this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 7, 'Monday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 7, 2 / 7, 'Tuesday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_wednesday = this.wall.add_floating_2d_text(2 / 7, 3 / 7, 'Wednesday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_thursday  = this.wall.add_floating_2d_text(3 / 7, 4 / 7, 'Thursday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_friday    = this.wall.add_floating_2d_text(4 / 7, 5 / 7, 'Friday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 7, 6 / 7, 'Saturday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 7, 1, 'Sunday', TYPE_CONSTANT_TEXT, 6);
+
+        
     },
 
     show_at: function(floating_2D_text) {
