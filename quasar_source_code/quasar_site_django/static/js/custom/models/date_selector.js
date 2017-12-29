@@ -23,6 +23,7 @@ DateSelector.prototype = {
         this.wall.add_floating_2d_text(.1, .9, 'Select Date', TYPE_TITLE_CONSTANT, 0);
 
         this.date = new MyDate(THIS_DAY);
+        this.month = new MyDates(THIS_MONTH);
 
         // Year.
         this.decrease_year_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 3);
@@ -39,7 +40,11 @@ DateSelector.prototype = {
         this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
         // Days.
-
+        var days = this.month.get_all_dates();
+        for (var d = 0; d < days.length; d++) {
+            l(days[d]);
+            l(days[d].get_day_number_relative_to_current_week + '\t' + days[d].get_day_as_word());
+        }
     },
 
     show_at: function(floating_2D_text) {
@@ -82,13 +87,18 @@ DateSelector.prototype = {
     decrease_month: function() {
         this.date.apply_delta(DELTA_MONTHS, -1);
         this.month.update_text(this.date.get_month_full_data_string());
+        // If the month overflows below 0 or past december then the year should update as well.
+        this.year.update_text(this.date.get_year_as_string());
     },
 
     increase_month: function() {
         this.date.apply_delta(DELTA_MONTHS, 1);
         this.month.update_text(this.date.get_month_full_data_string());
+        // If the month overflows below 0 or past december then the year should update as well.
+        this.year.update_text(this.date.get_year_as_string());
     }
 
     // Days.
+
 
 };

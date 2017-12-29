@@ -5,6 +5,7 @@ const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
 // TODO : create the other deltas needed.
 
+const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function MyDates(dates_base) {
@@ -55,6 +56,10 @@ MyDates.prototype = {
             }
         }
         return present_dates;
+    },
+
+    get_all_dates: function() {
+        return this.dates;
     }
 
 };
@@ -121,7 +126,18 @@ MyDate.prototype = {
         return this.date.getFullYear();
     },
 
-    get_day_number_as_string: function() {
+    /*__               __       ___
+     |  \  /\  \ /    |  \  /\   |   /\
+     |__/ /~~\  |     |__/ /~~\  |  /~~\ */
+    get_day_as_word: function() {
+        return DAY_NAMES[this.get_day_number_relative_to_current_week()];
+    },
+
+    get_day_number_relative_to_current_week: function() {
+        return this.date.getDay();
+    },
+
+    get_day_number: function() {
         return this.date.getDate();
     },
 
@@ -211,16 +227,19 @@ function get_day_of_week_as_word(d) {
     }
 }
 
+// TODO : check if still needed
 // GLOBAL_FUNCTION
 function get_current_month() {
     return new Date().getMonth();
 }
 
+// TODO : check if still needed
 // GLOBAL_FUNCTION
 function get_current_year() {
     return new Date().getFullYear();
 }
 
+// TODO : check if still needed
 // GLOBAL_FUNCTION
 function get_all_days_in_current_month() {
     return get_days_in_month(get_current_month(), get_current_year());
