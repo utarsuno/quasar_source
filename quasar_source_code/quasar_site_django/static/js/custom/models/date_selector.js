@@ -41,10 +41,6 @@ DateSelector.prototype = {
 
         // Days.
         var days = this.current_month.get_all_dates();
-        for (var d = 0; d < days.length; d++) {
-            l(days[d]);
-            l(days[d].get_day_number_relative_to_current_week() + '\t' + days[d].get_day_as_word());
-        }
 
         this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 7, 'Monday', TYPE_CONSTANT_TEXT, 6);
         this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 7, 2 / 7, 'Tuesday', TYPE_CONSTANT_TEXT, 6);
@@ -54,7 +50,18 @@ DateSelector.prototype = {
         this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 7, 6 / 7, 'Saturday', TYPE_CONSTANT_TEXT, 6);
         this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 7, 1, 'Sunday', TYPE_CONSTANT_TEXT, 6);
 
-        
+        for (var d = 0; d < days.length; d++) {
+
+            l(days[d].get_week_relative_to_current_month());
+
+            var num = days[d].get_day_number_relative_to_current_week();
+            var day_cell = null;
+            if (num == 0) {
+                day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 8);
+            } else {
+                day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8);
+            }
+        }
     },
 
     show_at: function(floating_2D_text) {
@@ -74,7 +81,6 @@ DateSelector.prototype = {
         this.wall.update_position_with_offset_xyz(0, 0, 0);
         this.wall.update_normal(bn);
         this.wall.update_position_and_normal_for_all_floating_text();
-
     },
 
     // TODO:

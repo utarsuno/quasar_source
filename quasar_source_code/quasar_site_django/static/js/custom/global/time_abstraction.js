@@ -118,6 +118,12 @@ MyDate.prototype = {
         return this.date.getFullYear();
     },
 
+    // Base from : http://www.somethinghitme.com/2010/04/14/how-to-get-the-week-in-a-month-for-a-date-with-javascript/
+    get_week_relative_to_current_month: function() {
+        var first_day = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
+        return Math.ceil((this.date.getDate() + first_day) / 7);
+    },
+
     /*__               __       ___
      |  \  /\  \ /    |  \  /\   |   /\
      |__/ /~~\  |     |__/ /~~\  |  /~~\ */
