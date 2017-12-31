@@ -1,5 +1,7 @@
 'use strict';
 
+const LIGHT_CIRCLE_RADIUS = 1000;
+
 function FloatingCursor(world) {
     this.__init__(world);
 }
@@ -7,7 +9,6 @@ function FloatingCursor(world) {
 FloatingCursor.prototype = {
 
     __init__: function(world) {
-
         // TODO : Optimize in the future.
         // Load all instances of the cursor needed.
         this.cursors = {};
@@ -17,7 +18,7 @@ FloatingCursor.prototype = {
         this.height = 10;
         this.plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
         // TODO : Dispose of this original material later on.
-        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.95, side: THREE.DoubleSide});
+        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
 
         this.previous_cursor = null;
@@ -83,6 +84,8 @@ FloatingCursor.prototype = {
                 this.current_cursor.visible = false;
             }
         }
+
+        // TODO : Update the late positions here.
     },
 
     set_cursor: function(cursor_type) {
@@ -262,13 +265,17 @@ function World(planet_name) {
 
                     var has_match = false;
 
+                    // FOR_DEV_START
                     // TODO : Check if this check is still needed
                     if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
+                        l('This logging statement was made! Keep this if statement!');
                         if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
                             has_match = true;
                         }
                     }
+                    // FOR_DEV_END
 
+                    // TODO : Check if the mesh or geometry is used. Both probably don't need to check both.
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid) {
                         has_match = true;
                     }
@@ -372,13 +379,13 @@ function World(planet_name) {
             this._previously_intersected_plane = all_walls[smallest_index];
             MANAGER_WORLD.current_world.floating_cursor.current_normal = all_walls[smallest_index].normal;
             MANAGER_WORLD.current_world.floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
+            //MANAGER_WORLD.current_world.floating_cursor.
         } else {
             if (is_defined(this._previously_intersected_plane)) {
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
                 this._previously_intersected_plane = null;
             }
         }
-
 
     };
 
@@ -490,6 +497,13 @@ function World(planet_name) {
     //this.add_to_scene(light2)
 
     /////////////////
+    this.lights = [];
+
+    var light_0 = new THREE.PointLight(COLOR_WHITE);
+
+    var light_c0 = new THREE.PointLight(COLOR_RED);
+
+
     var lightr = new THREE.PointLight(0xff8579, .5, 0);
     lightr.position.set(1000, 100, 0);
     this.add_to_scene(lightr);

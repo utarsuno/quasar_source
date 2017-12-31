@@ -341,6 +341,7 @@ FPSControls.prototype = {
     on_mouse_down: function() {
         this.mouse_down = true;
         //l('Mouse down!');
+        // TODO : Investigate this patricular logic.
         if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
             MANAGER_WORLD.current_world.floating_cursor.engaged = true;
             CURRENT_PLAYER.engage();
