@@ -5,14 +5,12 @@
 from finance.data_related import finance_database as fdb
 from finance.data_related import data_scraper as ds
 
-
-
 '''__       ___
   |  \  /\   |   /\
   |__/ /~~\  |  /~~\ '''
 db = fdb.FinanceDatabase()
 db.health_check()
-all_data = db.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
+all_data = db.get_all_vector_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 
 
 '''     ___ ___       __   __

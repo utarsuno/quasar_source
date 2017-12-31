@@ -46,6 +46,11 @@ class DayData(object):
 		"""Get database friendly data of this DayData."""
 		return self._json
 
+	@property
+	def vector_data(self) -> list:
+		"""Get data needed for a neural network."""
+		return [self.open, self.high, self.low, self.high, self.close, self.volume, self.market_cap]
+
 	def field_to_c_binary(self, field):
 		"""Returns a c compatible binary representation of this DayData field's value."""
 		return bytearray(struct.pack('f', self.json[field]))

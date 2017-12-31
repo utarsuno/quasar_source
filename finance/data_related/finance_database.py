@@ -26,7 +26,7 @@ class FinanceDatabase(object):
 	def health_check(self):
 		"""Performs a health check on the database."""
 		oc.print_data_with_red_dashes_at_start('Running health check on database!')
-		iota_data = self.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
+		iota_data = self._get_all_database_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
 		if iota_data is None or len(iota_data) == 0:
 			oc.print_data_with_red_dashes_at_start('IOTA has no data, populating now!')
 			all_day_data = self._data_scraper.get_all_day_data_for(ds.CRYPTO_CURRENCY_IOTA)
@@ -36,23 +36,28 @@ class FinanceDatabase(object):
 			y = 2
 			# TODO : Check if the latest data is needed!!!
 
-	def get_all_day_data_for(self, coin):
-		"""Returns the database day data of this coin."""
+	def _get_all_database_day_data_for(self, coin):
+		"""Returns the database day data for this coin."""
+		if coin not in self._coins:
+			dbg.raise_exception('Day data not available for : {' + str(coin) + '}')
+		return self._iota.get_all()
+
+	def get_all_vector_day_data_for(self, coin):
+		"""Returns the vector day data for this coin."""
 		if coin not in self._coins:
 			dbg.raise_exception('Day data not available for : {' + str(coin) + '}')
 
 		all_data = self._iota.get_all()
-
-		print('bla bla ta')
+		all_vector_data = []
 		for d in all_data:
-			print(d)
-
-
-
-		exit(5)
-
-
-		#return self._iota.get_all()
+			all_vector_data.append(ds.DayData(d=d['date'],
+			                                  o=d['open'],
+			                                  h=d['high'],
+			                                  l=d['low'],
+			                                  c=d['close'],
+			                                  v=d['volume'],
+			                                  mc=d['market_cap']).vector_data)
+		return all_vector_data
 
 	def terminate(self):
 		"""Terminates the connection to the database."""
