@@ -35,12 +35,27 @@ class NetworkLayer(object):
 			self._all_neuron_weights.append([1] * self._network.number_of_data_elements)
 			self._all_neuron_triggers.append(1)
 			i += 1
+		self._number_of_neurons = len(self._all_neuron_weights)
 
-	def run(self, day_vector_data):
+	def run(self, vector_data):
 		"""Performs the calculations of each of the node."""
+		output_values = [0] * self._number_of_neurons
+
 		if self._neuron_type == NEURON_TYPE_LTG:
-			y = 2
-			#for n in self._all
+
+			trigger_values = [0] * self._number_of_neurons
+
+			# 'For each neuron'
+			for neuron, weights in enumerate(self._all_neuron_weights):
+
+				# For each weight.
+				for i, w in enumerate(weights):
+					trigger_values[neuron] += w * vector_data[i]
+
+				if trigger_values[neuron] > self._all_neuron_triggers[neuron]:
+					output_values[neuron] = 1
+
+			return output_values
 
 		else:
 			dbg.raise_exception('Not valid neuron type set')
@@ -67,10 +82,12 @@ class NeuralNetwork(object):
 		"""Adds a layer to the neural network."""
 		self._network_layers.append(NetworkLayer(number_of_nodes, node_type, self))
 
-	def run_forward_step(self):
+	def run_forward_step(self, day_data):
 		"""Runs a single run step forward through of the neural network."""
-		for network_layer in self._network_layers:
-			network_layer.run()
+		output_vector = self._network_layers[0].run(day_data)
+		for i, network_layer in enumerate(self._network_layers):
+			if i != 0:
+				output_vector = network_layer.run(output_vector)
 
 '''__                         ___    __
   /__` |  |\/| |  | |     /\   |  | /  \ |\ |
@@ -93,7 +110,7 @@ class Simulation(object):
 
 	def _run_day(self, day_data):
 		"""Runs this specific day."""
-		print(day_data)
+		self._network.run_forward_step(day_data)
 
 
 n = NeuralNetwork()
