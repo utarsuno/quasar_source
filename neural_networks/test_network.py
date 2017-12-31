@@ -39,8 +39,8 @@ class NetworkLayer(object):
 	def run(self, day_vector_data):
 		"""Performs the calculations of each of the node."""
 		if self._neuron_type == NEURON_TYPE_LTG:
-
-			for n in self._all
+			y = 2
+			#for n in self._all
 
 		else:
 			dbg.raise_exception('Not valid neuron type set')
