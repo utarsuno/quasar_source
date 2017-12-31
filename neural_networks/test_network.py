@@ -5,6 +5,8 @@
 from finance.data_related import finance_database as fdb
 from finance.data_related import data_scraper as ds
 
+
+
 '''__       ___
   |  \  /\   |   /\
   |__/ /~~\  |  /~~\ '''
@@ -51,18 +53,30 @@ class Simulation(object):
 
 	def run_simulation(self):
 		"""Runs the simulation."""
+
+		self._data_vectors = []
+
+		# First get a list of all the input data vectors.
+		for day in self._days_data:
+			print(day)
+
 		for day in self._days_data:
 			self._run_day(day)
 
 	def _run_day(self, day):
 		"""Runs this specific day."""
-		print('GET DATA FOR DAY : ')
-		print(day)
+		y = 2
+		#print('GET DATA FOR DAY : ')
+		#print(day)
 
 
-n = NeuralNetwork()
-n.add_network_layer(4, NEURON_TYPE_LTG)
-n.add_network_layer(3, NEURON_TYPE_LTG)
+for d in all_data:
+	print(d)
 
-s = Simulation(all_data, n)
-s.run_simulation()
+
+#n = NeuralNetwork()
+#n.add_network_layer(4, NEURON_TYPE_LTG)
+#n.add_network_layer(3, NEURON_TYPE_LTG)
+
+#s = Simulation(all_data, n)
+#s.run_simulation()
