@@ -58,11 +58,16 @@ class FinanceDatabase(object):
 			                                  v=d['volume'],
 			                                  mc=d['market_cap']))
 
-		all_data = reversed(all_data)
+		all_vector_data = list(reversed(all_vector_data))
+
+		normalized_all_vector_data = []
 
 		print('BLALALALA\n\n\n')
-		for d in all_data:
-			print(d)
+		for i, d in enumerate(all_vector_data):
+			if i != 0:
+
+				print(all_vector_data[i])
+
 
 
 		exit(5)
