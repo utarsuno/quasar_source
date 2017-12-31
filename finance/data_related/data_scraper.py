@@ -56,7 +56,7 @@ class DayData(object):
 	@property
 	def vector_data(self) -> list:
 		"""Get data needed for a neural network."""
-		return [float(self.open), float(self.high), float(self.low), float(self.close), float(self.volume), float(self.market_cap)]
+		return [float(self.open), float(self.high), float(self.low), float(self.close), float(self.volume), float(self.market_cap.replace(',', ''))]
 
 	def field_to_c_binary(self, field):
 		"""Returns a c compatible binary representation of this DayData field's value."""
