@@ -6,6 +6,7 @@ from database_api.nosql_databases import mongodb_api as mongo
 from finance.data_related import data_scraper as ds
 from universal_code import debugging as dbg
 from universal_code import output_coloring as oc
+import math
 
 
 class FinanceDatabase(object):
@@ -68,12 +69,12 @@ class FinanceDatabase(object):
 				# Current day.
 				cd = all_vector_data[i].vector_data
 
-				normalized_all_vector_data.append([cd[ds.VECTOR_DATA_INDEX_OPEN]       - pd[ds.VECTOR_DATA_INDEX_OPEN],
-				                                   cd[ds.VECTOR_DATA_INDEX_HIGH]       - pd[ds.VECTOR_DATA_INDEX_HIGH],
-				                                   cd[ds.VECTOR_DATA_INDEX_LOW]        - pd[ds.VECTOR_DATA_INDEX_LOW],
-				                                   cd[ds.VECTOR_DATA_INDEX_CLOSE]      - pd[ds.VECTOR_DATA_INDEX_CLOSE],
-				                                   cd[ds.VECTOR_DATA_INDEX_VOLUME]     - pd[ds.VECTOR_DATA_INDEX_VOLUME],
-				                                   cd[ds.VECTOR_DATA_INDEX_MARKET_CAP] - pd[ds.VECTOR_DATA_INDEX_MARKET_CAP]])
+				normalized_all_vector_data.append([math.erf(cd[ds.VECTOR_DATA_INDEX_OPEN]       - pd[ds.VECTOR_DATA_INDEX_OPEN]),
+				                                   math.erf(cd[ds.VECTOR_DATA_INDEX_HIGH]       - pd[ds.VECTOR_DATA_INDEX_HIGH]),
+				                                   math.erf(cd[ds.VECTOR_DATA_INDEX_LOW]        - pd[ds.VECTOR_DATA_INDEX_LOW]),
+				                                   math.erf(cd[ds.VECTOR_DATA_INDEX_CLOSE]      - pd[ds.VECTOR_DATA_INDEX_CLOSE]),
+				                                   math.erf(cd[ds.VECTOR_DATA_INDEX_VOLUME]     - pd[ds.VECTOR_DATA_INDEX_VOLUME]),
+				                                   math.erf(cd[ds.VECTOR_DATA_INDEX_MARKET_CAP] - pd[ds.VECTOR_DATA_INDEX_MARKET_CAP])])
 
 		return normalized_all_vector_data
 
