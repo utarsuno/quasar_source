@@ -43,6 +43,7 @@ class FinanceDatabase(object):
 
 		all_data = self._iota.get_all()
 
+		print('bla bla ta')
 		for d in all_data:
 			print(d)
 
