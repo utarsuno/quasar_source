@@ -59,20 +59,23 @@ class FinanceDatabase(object):
 			                                  mc=d['market_cap']))
 
 		all_vector_data = list(reversed(all_vector_data))
-
 		normalized_all_vector_data = []
 
-		print('BLALALALA\n\n\n')
 		for i, d in enumerate(all_vector_data):
 			if i != 0:
+				# Previous day.
+				pd = all_vector_data[i - 1].vector_data
+				# Current day.
+				cd = all_vector_data[i].vector_data
 
-				print(all_vector_data[i])
+				normalized_all_vector_data.append([cd[ds.VECTOR_DATA_INDEX_OPEN]       - pd[ds.VECTOR_DATA_INDEX_OPEN],
+				                                   cd[ds.VECTOR_DATA_INDEX_HIGH]       - pd[ds.VECTOR_DATA_INDEX_HIGH],
+				                                   cd[ds.VECTOR_DATA_INDEX_LOW]        - pd[ds.VECTOR_DATA_INDEX_LOW],
+				                                   cd[ds.VECTOR_DATA_INDEX_CLOSE]      - pd[ds.VECTOR_DATA_INDEX_CLOSE],
+				                                   cd[ds.VECTOR_DATA_INDEX_VOLUME]     - pd[ds.VECTOR_DATA_INDEX_VOLUME],
+				                                   cd[ds.VECTOR_DATA_INDEX_MARKET_CAP] - pd[ds.VECTOR_DATA_INDEX_MARKET_CAP]])
 
-
-
-		exit(5)
-
-		return all_vector_data
+		return normalized_all_vector_data
 
 	def terminate(self):
 		"""Terminates the connection to the database."""

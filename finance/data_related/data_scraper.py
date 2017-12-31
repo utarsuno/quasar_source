@@ -21,6 +21,13 @@ CRYPTO_CURRENCY_ALL = [CRYPTO_CURRENCY_IOTA]
 COINS = {CRYPTO_CURRENCY_IOTA : ['20130428']}
 INDEX_START_DATE = 0
 
+VECTOR_DATA_INDEX_OPEN       = 0
+VECTOR_DATA_INDEX_HIGH       = 1
+VECTOR_DATA_INDEX_LOW        = 2
+VECTOR_DATA_INDEX_CLOSE      = 3
+VECTOR_DATA_INDEX_VOLUME     = 4
+VECTOR_DATA_INDEX_MARKET_CAP = 5
+
 
 class DayData(object):
 	"""Represents a single instance of a coin's day data."""
@@ -49,7 +56,7 @@ class DayData(object):
 	@property
 	def vector_data(self) -> list:
 		"""Get data needed for a neural network."""
-		return [self.open, self.high, self.low, self.high, self.close, self.volume, self.market_cap]
+		return [self.open, self.high, self.low, self.close, self.volume, self.market_cap]
 
 	def field_to_c_binary(self, field):
 		"""Returns a c compatible binary representation of this DayData field's value."""
