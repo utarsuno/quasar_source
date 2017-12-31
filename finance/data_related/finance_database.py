@@ -56,7 +56,17 @@ class FinanceDatabase(object):
 			                                  l=d['low'],
 			                                  c=d['close'],
 			                                  v=d['volume'],
-			                                  mc=d['market_cap']).vector_data)
+			                                  mc=d['market_cap']))
+
+		all_data = reversed(all_data)
+
+		print('BLALALALA\n\n\n')
+		for d in all_data:
+			print(d)
+
+
+		exit(5)
+
 		return all_vector_data
 
 	def terminate(self):

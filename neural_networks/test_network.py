@@ -51,7 +51,6 @@ class Simulation(object):
 
 	def run_simulation(self):
 		"""Runs the simulation."""
-
 		self._data_vectors = []
 
 		# First get a list of all the input data vectors.
