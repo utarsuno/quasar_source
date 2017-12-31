@@ -52,9 +52,9 @@ class Simulation(object):
 	def run_simulation(self):
 		"""Runs the simulation."""
 		for day in self._days_data:
-			self.run_day(day)
+			self._run_day(day)
 
-	def run_day(self, day):
+	def _run_day(self, day):
 		"""Runs this specific day."""
 		print('GET DATA FOR DAY : ')
 		print(day)
@@ -65,3 +65,4 @@ n.add_network_layer(4, NEURON_TYPE_LTG)
 n.add_network_layer(3, NEURON_TYPE_LTG)
 
 s = Simulation(all_data, n)
+s.run_simulation()
