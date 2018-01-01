@@ -131,8 +131,8 @@ class Simulation(object):
 
 
 n = NeuralNetwork()
-n.add_network_layer(300, NEURON_TYPE_LTG)
-n.add_network_layer(20, NEURON_TYPE_LTG)
+n.add_network_layer(3000, NEURON_TYPE_LTG)
+n.add_network_layer(200, NEURON_TYPE_LTG)
 n.add_network_layer(2, NEURON_TYPE_LTG)
 
 s = Simulation(all_data, n)
