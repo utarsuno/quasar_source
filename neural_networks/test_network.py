@@ -25,14 +25,13 @@ NEURON_TYPE_QTG = 'quadratic threshold gate'
 class NetworkLayer(object):
 	"""Represents a single layer in a neural network."""
 
-	def __init__(self, number_of_nodes, neuron_type, parent_network):
+	def __init__(self, number_of_nodes, neuron_type, number_of_weights):
 		self._neuron_type         = neuron_type
-		self._network             = parent_network
 		self._all_neuron_weights  = []
 		self._all_neuron_triggers = []
 		i = 0
 		while i < number_of_nodes:
-			self._all_neuron_weights.append([1] * self._network.number_of_data_elements)
+			self._all_neuron_weights.append([1] * number_of_weights)
 			self._all_neuron_triggers.append(1)
 			i += 1
 		self._number_of_neurons = len(self._all_neuron_weights)
@@ -60,6 +59,11 @@ class NetworkLayer(object):
 		else:
 			dbg.raise_exception('Not valid neuron type set')
 
+	@property
+	def number_of_nodes(self) -> int:
+		"""Returns the number of nodes that this layer has."""
+		return self._number_of_neurons
+
 
 class NeuralNetwork(object):
 	"""Represents a single unique neural network."""
@@ -80,7 +84,10 @@ class NeuralNetwork(object):
 
 	def add_network_layer(self, number_of_nodes, node_type):
 		"""Adds a layer to the neural network."""
-		self._network_layers.append(NetworkLayer(number_of_nodes, node_type, self))
+		if len(self._network_layers) == 0:
+			self._network_layers.append(NetworkLayer(number_of_nodes, node_type, self._number_of_data_vector_elements))
+		else:
+			self._network_layers.append(NetworkLayer(number_of_nodes, node_type, self._network_layers[-1].number_of_nodes))
 
 	def run_forward_step(self, day_data):
 		"""Runs a single run step forward through of the neural network."""
