@@ -59,6 +59,13 @@ class NetworkLayer(object):
 		else:
 			dbg.raise_exception('Not valid neuron type set')
 
+	def set_trigger_value_for_each_neuron(self, trigger_value):
+		"""Sets a trigger value for every neuron in this layer."""
+		tv = 0
+		while tv < len(self._all_neuron_triggers):
+			self._all_neuron_triggers[tv] = trigger_value
+		return tv
+
 	@property
 	def number_of_nodes(self) -> int:
 		"""Returns the number of nodes that this layer has."""
@@ -91,10 +98,13 @@ class NeuralNetwork(object):
 
 	def run_forward_step(self, day_data):
 		"""Runs a single run step forward through of the neural network."""
+		oc.print_data_with_red_dashes_at_start('Running forward step!')
 		output_vector = self._network_layers[0].run(day_data)
 		for i, network_layer in enumerate(self._network_layers):
 			if i != 0:
 				output_vector = network_layer.run(output_vector)
+
+		oc.print_data(str(output_vector))
 
 '''__                         ___    __
   /__` |  |\/| |  | |     /\   |  | /  \ |\ |
@@ -121,7 +131,9 @@ class Simulation(object):
 
 
 n = NeuralNetwork()
-n.add_network_layer(4, NEURON_TYPE_LTG)
+n.add_network_layer(3, NEURON_TYPE_LTG)
+n.add_network_layer(2, NEURON_TYPE_LTG)
+n.add_network_layer(2, NEURON_TYPE_LTG)
 
 s = Simulation(all_data, n)
 s.run_simulation()
