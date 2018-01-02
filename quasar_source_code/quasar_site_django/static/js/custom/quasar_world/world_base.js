@@ -310,6 +310,10 @@ function World(planet_name) {
                     CURRENT_PLAYER.enable_controls();
                 }
             }
+
+            if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                MANAGER_WORLD.current_floating_cursor.disengage();
+            }
         }
     };
 
