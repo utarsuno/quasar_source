@@ -79,10 +79,10 @@ FloatingCursor.prototype = {
 
     set_data: function(data) {
         this.set_cursor(data[1]);
-        this.set_position(data[0]);
         this.current_floating_wall = data[2];
         this.current_floating_wall.currently_engaged_with_cursor = true;
         this.cursor_needed_from_floating_walls = true;
+        this.set_position(data[0]);
     },
 
     update: function() {
