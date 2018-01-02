@@ -781,6 +781,7 @@ FloatingWall.prototype = {
     // TODO : Perhaps add a border glow? Learn the 3rd party line api
 
     state_change_look_at: function(being_looked_at) {
+        l('Being looked at : ' + being_looked_at);
         if (being_looked_at) {
             this.set_background_color(COLOR_FLOATING_WALL_HIGHLIGHT);
             //MANAGER_WORLD.current_floating_cursor.engage();
@@ -792,6 +793,7 @@ FloatingWall.prototype = {
     },
 
     state_change_engage: function(being_engaged_with) {
+        l('Being engaged with : ' + being_engaged_with);
         if (being_engaged_with) {
             this.set_background_color(COLOR_FLOATING_WALL_HIGHLIGHT);
             //MANAGER_WORLD.current_floating_cursor.engage();

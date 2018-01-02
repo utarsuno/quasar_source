@@ -230,6 +230,4 @@ InputManager.prototype = {
         }
     }
 
-
-
 };
