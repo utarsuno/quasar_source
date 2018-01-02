@@ -248,7 +248,7 @@ function World(planet_name) {
 
         if (smallest_index !== NOT_FOUND) {
             if (!all_walls[smallest_index].currently_engaged_with_cursor) {
-                MANAGER_WORLD.current_floating_cursor.look_at();
+                all_walls[smallest_index].look_at();
                 all_walls[smallest_index].currently_engaged_with_cursor = true;
             }
             this._previously_intersected_plane = all_walls[smallest_index];
