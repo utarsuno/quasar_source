@@ -200,12 +200,13 @@ function World(planet_name) {
             if (is_defined(this.entity_walls)) {
                 this._check_for_custom_plane_intersections();
             }
-        }
-
-        // If no match was found but 'currently_looked_at_object' is not null then set it to null.
-        if (!match_was_found && this.currently_looked_at_object !== null) {
-            this.currently_looked_at_object.look_away();
-            this.currently_looked_at_object = null;
+        } else {
+            // Since a match was found check if we need to look away from the any previous floating wall.
+            if (is_defined(this._previously_intersected_plane)) {
+                this._previously_intersected_plane.look_away();
+                this._previously_intersected_plane.currently_engaged_with_cursor = false;
+                this._previously_intersected_plane = null;
+            }
         }
 
     };
@@ -260,8 +261,6 @@ function World(planet_name) {
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
                 this._previously_intersected_plane = null;
             }
-
-
         }
 
     };
