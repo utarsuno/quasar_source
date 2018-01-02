@@ -247,7 +247,7 @@ FloatingWall.prototype = {
 
         if (is_defined(formatting)) {
             if (formatting === TEXT_FORMAT_LEFT) {
-                x_shift = this.get_relative_x_shift(0);
+                x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 4.0));
             } else {
                 x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
             }

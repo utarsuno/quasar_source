@@ -56,7 +56,7 @@ LoginWorld.prototype = {
                 }
             }
             // TODO : Update to check based off syntax rules.
-            if (text.length < 3) {
+            if (text.length < 4) {
                 //l('Error text needed!');
                 this.login_errors[field] = field + ' can not be less than 4 characters!';
             } else {
@@ -72,7 +72,7 @@ LoginWorld.prototype = {
                 }
             }
             // TODO : Update to check based off syntax rules.
-            if (text.length < 3) {
+            if (text.length < 4) {
                 //l('Error text needed!');
                 this.create_errors[field] = field + ' can not be less than 4 characters!';
             } else {
@@ -94,12 +94,12 @@ LoginWorld.prototype = {
 
         // TODO : Create a class to handle this kind of logic.
 
-        if (login_username_text.length < 5) {
+        if (login_username_text.length < 4) {
             error = true;
             error_message = 'Username must be at least 4 characters.';
         }
         if (!error) {
-            if (login_password_text.length < 5) {
+            if (login_password_text.length < 4) {
                 error = true;
                 error_message = 'Passwords are at least 4 characters!';
             }
