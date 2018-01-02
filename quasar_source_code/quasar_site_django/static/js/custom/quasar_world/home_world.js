@@ -161,7 +161,7 @@ HomeWorld.prototype = {
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
 
         month_day_wall.add_3D_title(day.get_day_number(), TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index));
-        
+
         if (present) {
             month_day_wall.add_3D_title('Today', TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index), 1);
         }

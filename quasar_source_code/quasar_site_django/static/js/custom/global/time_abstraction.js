@@ -35,9 +35,9 @@ MyDates.prototype = {
     },
 
     get_day_color_by_index: function(index) {
-        if (this.days[index].in_present()) {
+        if (this.dates[index].in_present()) {
             return COLOR_SCHEDULE_PRESENT;
-        } else if (this.days[index].in_past()) {
+        } else if (this.dates[index].in_past()) {
             return this.dates_in_past_colors[index];
         } else {
             return this.dates_in_future_colors[index - 1 - this.dates_in_past_colors.length + 1];
