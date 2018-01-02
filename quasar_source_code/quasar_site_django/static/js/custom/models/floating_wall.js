@@ -492,6 +492,7 @@ FloatingWall.prototype = {
             // 0 - COLOR_HEX_INDEX
             c = c[0];
         }
+        l('Setting floating wall background color to : ' + c);
         this.material.color.setHex(c);
         this.material.needsUpdate = true;
     },
