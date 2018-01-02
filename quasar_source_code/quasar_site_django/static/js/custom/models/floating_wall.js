@@ -237,22 +237,24 @@ FloatingWall.prototype = {
 
     add_3D_title: function(title_name, type, color, row) {
         if (is_defined(type)) {
-            this.floating_3d_title = new Floating3DText(title_name, type, this.scene);
+            this.floating_3D_title = new Floating3DText(title_name, type, this.scene);
         } else {
-            this.floating_3d_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
+            this.floating_3D_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
         }
-        var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3d_title.width / 2.0));
+        var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
         var additional_y_height = 0;
         if (is_defined(row)) {
-            additional_y_height = this.floating_3d_title.height * row;
+            additional_y_height = this.floating_3D_title.height * row;
         }
-        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3d_title.height / 2 + additional_y_height, x_shift.z);
-        this.floating_3d_title.update_position_and_normal(y_position, this.normal);
+        var y_position = this.get_position_for_row(x_shift.x, x_shift.y + this.floating_3D_title.height / 2 + additional_y_height, x_shift.z);
+        this.floating_3D_title.update_position_and_normal(y_position, this.normal);
         if (is_defined(color)) {
-            this.floating_3d_title.set_default_color(color);
+            this.floating_3D_title.set_default_color(color);
         }
-        this.add_additional_visibility_object(this.floating_3d_title);
-        this.objects_to_remove_later.push(this.floating_3d_title);
+        this.add_additional_visibility_object(this.floating_3D_title);
+        this.objects_to_remove_later.push(this.floating_3D_title);
+
+        return this.floating_3D_title;
     },
 
     /* ___       __       ___         __                          __                __     ___  ___     ___
