@@ -169,7 +169,8 @@ LoginWorld.prototype = {
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3D_title('Login');
-        this.login_wall_errors = this.login_wall.add_3D_title('', TYPE_TITLE_CONSTANT, COLOR_RED, 1);
+        this.login_wall_errors = this.login_wall.add_3D_title('!', TYPE_TITLE_CONSTANT, COLOR_RED, 1);
+        this.login_wall_errors.update_text('');
 
         this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
