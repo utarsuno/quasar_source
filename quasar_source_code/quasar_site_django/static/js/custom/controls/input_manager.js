@@ -202,8 +202,16 @@ InputManager.prototype = {
 
             this._key_down_buffer.push(current_milliseconds);
 
-            if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
-                MANAGER_WORLD.current_floating_cursor.engage();
+            if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+                if (!MANAGER_WORLD.current_world.currently_looked_at_object.is_engaged()) {
+                    if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
+                        MANAGER_WORLD.current_floating_cursor.engage();
+                    }
+                }
+            } else {
+                if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
+                    MANAGER_WORLD.current_floating_cursor.engage();
+                }
             }
 
             this.click_down_left = true;

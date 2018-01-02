@@ -298,7 +298,6 @@ function World(planet_name) {
     this.single_left_click = function() {
         if (this.currently_looked_at_object !== null) {
             if (!this.currently_looked_at_object.is_engaged()) {
-                l('Engage!');
                 this.currently_looked_at_object.engage();
             }
             //else if (MANAGER_WORLD.current_floating_cursor.engaged) {
