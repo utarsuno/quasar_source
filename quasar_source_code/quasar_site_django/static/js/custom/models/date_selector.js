@@ -43,15 +43,15 @@ DateSelector.prototype = {
         var days = this.current_month.get_all_dates();
 
         // Adjustment amount.
-        var am = (1 / 7) * (1 / 10);
+        var gap = (1 / 8) * (1 / 6) * (1 / 2);
 
-        this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 7, 'Monday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 7 - am, 2 / 7 - am, 'Tuesday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_wednesday = this.wall.add_floating_2d_text(2 / 7 - am, 3 / 7 - am, 'Wednesday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_thursday  = this.wall.add_floating_2d_text(3 / 7, 4 / 7, 'Thursday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_friday    = this.wall.add_floating_2d_text(4 / 7 + am, 5 / 7 + am, 'Friday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 7 - am, 6 / 7 - am, 'Saturday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 7, 1, 'Sunday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 8 + gap, 'Monday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 8 + 2 * gap, 2 / 8 + 3 * gap, 'Tuesday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_wednesday = this.wall.add_floating_2d_text(2 / 8 + 4 * gap, 3 / 8 + 5 * gap, 'Wednesday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_thursday  = this.wall.add_floating_2d_text(3 / 8 + 6 * gap, 4 / 8 + 7 * gap, 'Thursday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_friday    = this.wall.add_floating_2d_text(4 / 8 + 8 * gap, 5 / 8 + 9 * gap, 'Friday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 8 + 10 * gap, 6 / 8 + 11 * gap, 'Saturday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 8 + 12 * gap, 1, 'Sunday', TYPE_CONSTANT_TEXT, 6);
 
         for (var d = 0; d < days.length; d++) {
 
