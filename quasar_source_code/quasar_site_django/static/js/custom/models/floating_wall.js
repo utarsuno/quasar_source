@@ -72,6 +72,8 @@ FloatingWall.prototype = {
 
 
 
+        this.default_background_color = COLOR_FLOATING_WALL_BASE;
+
 
         this.previous_cursor_y_position = null;
     },
@@ -476,6 +478,24 @@ FloatingWall.prototype = {
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
+    set_background_color: function(color) {
+        if (color === null) {
+            this._set_background_color(this.default_background_color);
+        } else {
+            this._set_background_color(color);
+        }
+    },
+
+    _set_background_color: function(c) {
+        if (is_list(c)) {
+            // TODO : Automate this.
+            // 0 - COLOR_HEX_INDEX
+            c = c[0];
+        }
+        this.material.color.setHex(c);
+        this.material.needsUpdate = true;
+    },
+
     wheel_event: function(delta) {
         if (delta === 1) {
             this.player_horizontal_distance_to_wall_center_liner *= 1.1;
