@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating3DText(w, text, type, scene, current_color) {
-    this.__init__(w, text, type, scene, current_color);
+function Floating3DText(text, type, scene, current_color) {
+    this.__init__(text, type, scene, current_color);
 }
 
 Floating3DText.prototype = {
