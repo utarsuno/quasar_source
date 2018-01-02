@@ -165,18 +165,11 @@ InputManager.prototype = {
         switch (e.which) {
         case CLICK_LEFT:
             this.click_down_left = false;
-
             if (this._key_down_buffer.length === 1) {
                 MANAGER_WORLD.current_world.single_left_click();
             } else if (this._key_down_buffer.length !== 0) {
                 MANAGER_WORLD.current_world.multi_left_click();
             }
-
-            // TODO : Does this need to be deleted?
-            if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                MANAGER_WORLD.current_floating_cursor.disengage();
-            }
-
             break;
         case CLICK_MIDDLE:
             MANAGER_WORLD.current_world.single_middle_click();
