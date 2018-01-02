@@ -69,6 +69,11 @@ FloatingWall.prototype = {
 
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
+
+
+
+
+        this.previous_cursor_y_position = null;
     },
 
     perform_action: function(cursor_type) {
@@ -103,7 +108,17 @@ FloatingWall.prototype = {
         } else if (cursor_type === CURSOR_TYPE_MOUSE) {
 
             var player_position = CURRENT_PLAYER.get_position();
+
             var y_offset = 0;
+            var current_floating_cursor_y = MANAGER_WORLD.current_floating_cursor.get_position().y;
+            if (this.previous_cursor_y_position === null) {
+                this.previous_cursor_y_position = current_floating_cursor_y;
+            } else if (this.previous_cursor_y_position !== current_floating_cursor_y) {
+                var delta_y = current_floating_cursor_y - this.previous_cursor_y_position;
+                y_offset += delta_y;
+                this.previous_cursor_y_position = current_floating_cursor_y;
+            }
+            //if (MANAGER_WORLD.current_floating_cursor.get_position().y - )
 
             if (!is_defined(this.player_horizontal_distance_to_wall_center_liner)) {
                 this.player_horizontal_distance_to_wall_center_liner = this._get_horizontal_distance_to_center(player_position.x, player_position.z);

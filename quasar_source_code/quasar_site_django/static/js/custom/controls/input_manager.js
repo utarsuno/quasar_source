@@ -139,6 +139,7 @@ InputManager.prototype = {
         switch (e.which) {
         case CLICK_LEFT:        
             this.click_down_left = false;
+
             if (this._key_down_buffer.length === 1) {
                 MANAGER_WORLD.current_world.single_left_click();
             } else if (this._key_down_buffer.length !== 0) {

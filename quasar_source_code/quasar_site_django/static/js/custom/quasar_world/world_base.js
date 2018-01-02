@@ -89,7 +89,7 @@ function World(planet_name) {
     this.parse_mouse_drag = function(movement_x, movement_y) {
         if (this.floating_cursor.engaged) {
             if (is_defined(this.floating_cursor.current_floating_wall)) {
-                this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name, movement_x, movement_y);
+                this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
             }
         }
     };
@@ -243,7 +243,6 @@ function World(planet_name) {
         if (smallest_index !== NOT_FOUND) {
             all_walls[smallest_index].currently_engaged_with_cursor = true;
             this._previously_intersected_plane = all_walls[smallest_index];
-            MANAGER_WORLD.current_floating_cursor.current_normal = all_walls[smallest_index].normal;
             MANAGER_WORLD.current_floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
             //MANAGER_WORLD.current_world.floating_cursor.
         } else {
@@ -297,10 +296,12 @@ function World(planet_name) {
     };
 
     this.single_right_click = function() {
-        if (this.currently_looked_at_object !== null) {
-            if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage();
-                CURRENT_PLAYER.enable_controls();
+        if (!GUI_PAUSED_MENU.is_visible()) {
+            if (this.currently_looked_at_object !== null) {
+                if (this.currently_looked_at_object.is_engaged()) {
+                    this.currently_looked_at_object.disengage();
+                    CURRENT_PLAYER.enable_controls();
+                }
             }
         }
     };
@@ -309,9 +310,10 @@ function World(planet_name) {
         if (GUI_PAUSED_MENU.is_visible()) {
             GUI_PAUSED_MENU.make_invisible();
             MANAGER_POINTER_LOCK.request_pointer_lock();
+        } else {
+            // For now just perform a regular left click action.
+            this.single_left_click();
         }
-        // For now just perform a regular left click action.
-        this.single_left_click();
     };
 
     this.multi_middle_click = function() {

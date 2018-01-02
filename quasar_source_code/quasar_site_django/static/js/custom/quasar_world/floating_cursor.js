@@ -31,7 +31,6 @@ FloatingCursor.prototype = {
 
         this.cursor_needed_from_interactive_objects = false;
         this.cursor_needed_from_floating_walls = false;
-        this.current_normal = null;
         this.engaged = false;
     },
 
@@ -39,11 +38,13 @@ FloatingCursor.prototype = {
         this.engaged = true;
         CURRENT_PLAYER.engage();
         CURRENT_PLAYER.enable_controls();
+
     },
 
     disengage: function() {
         this.engaged = false;
         CURRENT_PLAYER.disengage();
+        this.current_floating_wall = null;
     },
 
     add_cursor_material: function(cursor_material, texture_name) {
@@ -123,7 +124,7 @@ FloatingCursor.prototype = {
         if (is_defined(this.world.currently_looked_at_object)) {
             normal = this.world.currently_looked_at_object.normal;
         } else {
-            normal = this.current_normal;
+            normal = this.current_floating_wall.normal;
         }
 
         // TODO : determine if there needs to be a horizontal shift as well.
