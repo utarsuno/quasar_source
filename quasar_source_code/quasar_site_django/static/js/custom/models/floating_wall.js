@@ -476,6 +476,14 @@ FloatingWall.prototype = {
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
+    wheel_event: function(delta) {
+        if (delta === 1) {
+            this.player_horizontal_distance_to_wall_center_liner *= 1.1;
+        } else if (delta == -1) {
+            this.player_horizontal_distance_to_wall_center_liner *= .9;
+        }
+    },
+
     cursor_action_disengaged: function() {
         //MANAGER_WORLD.current_floating_cursor.disengage();
         this.player_horizontal_distance_to_wall_center_liner = null;

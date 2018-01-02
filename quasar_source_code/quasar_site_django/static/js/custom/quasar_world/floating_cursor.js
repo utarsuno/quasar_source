@@ -101,7 +101,9 @@ FloatingCursor.prototype = {
         }
 
         if (this.engaged) {
-            this.current_floating_wall.perform_action(this.current_cursor.userData.name);
+            if (is_defined(this.current_floating_wall)) {
+                this.current_floating_wall.perform_action(this.current_cursor.userData.name);
+            }
         }
 
         // TODO : Update the late positions here.

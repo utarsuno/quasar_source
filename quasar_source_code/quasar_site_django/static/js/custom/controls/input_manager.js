@@ -130,7 +130,7 @@ InputManager.prototype = {
         var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
         
         /* ... */
-        l(delta);
+        MANAGER_WORLD.current_world.wheel_event(delta);
     },
 
     on_key_up: function(event) {
