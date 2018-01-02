@@ -300,10 +300,14 @@ function World(planet_name) {
                 this.currently_looked_at_object.engage();
             } else if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 MANAGER_WORLD.current_floating_cursor.disengage();
+                l('Bug fix test 0x0');
+                CURRENT_PLAYER.enable_controls();
             }
         } else {
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 MANAGER_WORLD.current_floating_cursor.disengage();
+                l('Bug fix test 0x1');
+                CURRENT_PLAYER.enable_controls();
             }
         }
     };
