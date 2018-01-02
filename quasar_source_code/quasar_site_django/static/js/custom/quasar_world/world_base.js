@@ -264,6 +264,11 @@ function World(planet_name) {
     };
 
     this.tab_to_next_interactive_object = function() {
+        if (MANAGER_WORLD.current_floating_cursor.engaged) {
+            MANAGER_WORLD.current_floating_cursor.disengage();
+        }
+
+
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
