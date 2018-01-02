@@ -20,6 +20,7 @@ function FloatingText(width, text, type, scene, current_color) {
     this.current_color = null;
     this.default_color = null;
     this.syntax_type   = null;
+    self.format_type   = null;
 
     // Default value.
     this.normal_depth  = 1;
@@ -104,8 +105,12 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     };
 
+    this.set_format_type = function(format_type) {
+        this.format_type = format_type;
+    };
+
     this.set_syntax_type = function(syntax_type) {
-        this._syntax_type = syntax_type;
+        this.syntax_type = syntax_type;
     };
 
     this.set_default_color = function(default_color) {
