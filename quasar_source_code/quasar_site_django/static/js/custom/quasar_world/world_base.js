@@ -123,11 +123,13 @@ function World(planet_name) {
             return;
         }
 
+
         if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
-            if (MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
+            if (MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name === CURSOR_TYPE_VERTICAL) {
                 return;
             }
         }
+
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
@@ -270,6 +272,14 @@ function World(planet_name) {
             MANAGER_WORLD.current_floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
             //MANAGER_WORLD.current_world.floating_cursor.
         } else {
+
+            /*
+            if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
+                if (MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
+                    return;
+                }
+            }*/
+
             if (is_defined(this._previously_intersected_plane)) {
                 this._previously_intersected_plane.look_away();
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
