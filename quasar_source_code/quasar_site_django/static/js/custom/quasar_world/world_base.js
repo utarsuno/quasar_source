@@ -194,6 +194,11 @@ function World(planet_name) {
             if (this.currently_looked_at_object !== null) {
                 this.currently_looked_at_object.look_away();
                 this.currently_looked_at_object = null;
+
+                if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                    l('Another disengage fix test.');
+                    MANAGER_WORLD.current_floating_cursor.disengage();
+                }
             }
 
             // Now check for for any intersection to custom planes.
