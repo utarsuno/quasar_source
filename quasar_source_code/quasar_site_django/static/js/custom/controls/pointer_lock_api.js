@@ -27,9 +27,6 @@ PointerLockAPI.prototype = {
             document.addEventListener('pointerlockerror', this.pointer_lock_error.bind(this), false);
             document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false);
             document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false);
-
-            document.addEventListener('mousedown', this.on_mouse_down.bind(this), false);
-            document.addEventListener('mouseup', this.on_mouse_up.bind(this), false);
         } else {
             raise_exception_with_full_logging('Pointer lock is not supported!');
         }
