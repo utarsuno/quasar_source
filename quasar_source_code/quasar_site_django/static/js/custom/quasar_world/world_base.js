@@ -123,6 +123,12 @@ function World(planet_name) {
             return;
         }
 
+        if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
+            if (MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
+                return;
+            }
+        }
+
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
         var match_was_found = false;
