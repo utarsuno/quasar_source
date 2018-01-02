@@ -42,10 +42,13 @@ FloatingCursor.prototype = {
     },
 
     disengage: function() {
-        this.engaged = false;
-        CURRENT_PLAYER.disengage();
-        this.current_floating_wall.cursor_action_disengaged();
-        this.current_floating_wall = null;
+        // TODO : temp fix.
+        if (this.engaged) {
+            this.engaged = false;
+            CURRENT_PLAYER.disengage();
+            this.current_floating_wall.cursor_action_disengaged();
+            this.current_floating_wall = null;
+        }
     },
 
     add_cursor_material: function(cursor_material, texture_name) {
