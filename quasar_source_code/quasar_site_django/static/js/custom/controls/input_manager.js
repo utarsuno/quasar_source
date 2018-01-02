@@ -9,6 +9,9 @@ const EVENT_MOUSE_UP   = 'mouseup';
 const EVENT_KEY_DOWN   = 'keydown';
 const EVENT_KEY_UP     = 'keyup';
 const EVENT_PASTE      = 'paste';
+const EVENT_WHEEL_V0   = 'wheel';
+const EVENT_WHEEL_V1   = 'mousewheel';
+const EVENT_WHEEL_V2   = 'DOMMouseScroll';
 
 function InputManager() {
     this.__init__();
@@ -44,7 +47,17 @@ InputManager.prototype = {
         document.addEventListener(EVENT_KEY_UP    , this.on_key_up.bind(this));
         document.addEventListener(EVENT_PASTE     , this.on_paste.bind(this));
 
+        // Cross browser support for wheel events.
+        // TODO : Double check to only add one of them and not all 3 if all 3 are supported.
+        document.addEventListener(EVENT_WHEEL_V0  , this.on_wheel_event.bind(this));
+        document.addEventListener(EVENT_WHEEL_V1  , this.on_wheel_event.bind(this));
+        document.addEventListener(EVENT_WHEEL_V2  , this.on_wheel_event.bind(this));
+
         this._key_down_buffer = [];
+
+        // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
+        /* The flag that determines whether the wheel event is supported. */
+        this.supports_wheel = false;
     },
 
     on_paste: function(e) {
@@ -105,6 +118,19 @@ InputManager.prototype = {
         } else {
             MANAGER_WORLD.key_down_event(event);
         }
+    },
+
+    // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
+    on_wheel_event: function(e) {
+        /* Check whether the wheel event is supported. */
+        if (e.type =='"wheel') this.supports_wheel = true;
+        else if (this.supports_wheel) return;
+
+        /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
+        var delta = ((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1;
+        
+        /* ... */
+        l(delta);
     },
 
     on_key_up: function(event) {
@@ -202,5 +228,7 @@ InputManager.prototype = {
             break;
         }
     }
+
+
 
 };
