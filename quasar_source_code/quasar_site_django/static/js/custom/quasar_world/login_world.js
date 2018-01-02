@@ -23,8 +23,9 @@ LoginWorld.prototype = {
     /*             ___     __           ___
       |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
       |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
-    login_username_character_change: function() {
-
+    login_username_character_change: function(text) {
+        l('The username text is now :');
+        l(text);
     },
 
     login_button_pressed: function() {
@@ -190,6 +191,7 @@ LoginWorld.prototype = {
 
         this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
+        this.create_account_username_input.set_value_changed_function(this.login_username_character_change.bind(this));
 
         this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT_TEXT, 1);
         this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1);
