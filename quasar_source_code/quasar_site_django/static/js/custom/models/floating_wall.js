@@ -742,8 +742,11 @@ FloatingWall.prototype = {
         if (being_engaged_with) {
             MANAGER_WORLD.current_floating_cursor.engage();
         } else {
+            l('Floating wall disengage!');
             MANAGER_WORLD.current_floating_cursor.disengage();
             this.player_horizontal_distance_to_wall_center_liner = null;
+            this.previous_cursor_y_position = null;
+            this.player_previous_y_position = null;
         }
     }
 
