@@ -116,7 +116,10 @@ function World(planet_name) {
 
     this.update_interactive_objects = function() {
         // Don't check for an intersection if the cursor is currently engaged or the paused menu is displayed.
-        if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
+        //if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
+        //    return;
+        //}
+        if (GUI_PAUSED_MENU.currently_displayed) {
             return;
         }
 
