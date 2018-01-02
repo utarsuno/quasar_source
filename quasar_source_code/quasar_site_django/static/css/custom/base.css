@@ -63,7 +63,7 @@ canvas {
 
     position: absolute;
     /*width: 25vw;*/
-    /*z-index: 15;*/
+    z-index: 15;
     top: 50%;
     left: 25%;
     text-align: center;
