@@ -126,10 +126,10 @@ FPSControls.prototype = {
         if (this.enabled) {
             if (this.flying_on) {
                 // Flying code.
-                if (this.space) {
+                if (MANAGER_INPUT.space) {
                     this.velocity.y += 200.0 * delta;
                 }
-                if (this.shift) {
+                if (MANAGER_INPUT.shift) {
                     this.velocity.y -= 200.0 * delta;
                 }
 

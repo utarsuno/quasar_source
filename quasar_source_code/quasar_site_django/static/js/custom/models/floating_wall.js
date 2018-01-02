@@ -235,25 +235,6 @@ FloatingWall.prototype = {
         this.objects_to_remove_later.push(this.floating_3d_title);
     },
 
-
-    get_y_position_for_row: function (y_index) {
-        if (y_index < 0) {
-            y_index *= -1;
-            var offset = (-16.0 / 2.0) * (1 + (2 * y_index));
-            return -this.height + offset;
-        }
-        return (-16.0 / 2.0) * (1 + (2 * y_index));
-    },
-
-    // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
-    get_relative_x_shift: function(distance) {
-        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
-    },
-
-    get_position_for_row: function (x_offset, y_offset, z_offset) {
-        return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
-    },
-
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
@@ -476,7 +457,6 @@ FloatingWall.prototype = {
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
-
     update_normal: function(normal) {
         this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
         this.normal.normalize();
@@ -494,6 +474,23 @@ FloatingWall.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    get_y_position_for_row: function (y_index) {
+        if (y_index < 0) {
+            y_index *= -1;
+            var offset = (-16.0 / 2.0) * (1 + (2 * y_index));
+            return -this.height + offset;
+        }
+        return (-16.0 / 2.0) * (1 + (2 * y_index));
+    },
+
+    // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
+    get_relative_x_shift: function(distance) {
+        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
+    },
+
+    get_position_for_row: function (x_offset, y_offset, z_offset) {
+        return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
+    },
 
     _get_horizontal_distance_to_center: function(x, z) {
         return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
