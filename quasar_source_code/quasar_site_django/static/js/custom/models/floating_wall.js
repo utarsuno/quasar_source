@@ -789,6 +789,10 @@ FloatingWall.prototype = {
             // null will restore color to default.
             this.set_background_color(null);
             //l('Floating wall disengage!');
+
+            if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                MANAGER_WORLD.current_floating_cursor.disengage();
+            }
         }
     },
 
