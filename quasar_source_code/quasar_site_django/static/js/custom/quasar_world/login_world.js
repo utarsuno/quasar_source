@@ -30,7 +30,7 @@ LoginWorld.prototype = {
         var error_text = '';
         for (var key in all_errors) {
             if (all_errors.hasOwnProperty(key)) {
-                error_text += error_type[key] + '\n';
+                error_text += all_errors[key] + '\n';
             }
         }
         if (error_type === ERROR_CHECK_TYPE_LOGIN) {
