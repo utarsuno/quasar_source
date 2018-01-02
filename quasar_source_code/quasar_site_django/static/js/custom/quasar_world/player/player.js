@@ -137,7 +137,6 @@ Player.prototype = {
         this.fps_controls.physics(delta);
         this.data_display.update();
 
-
         if (is_defined(MANAGER_WORLD.current_world.current_cursor)) {
             if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
                 if (is_defined(MANAGER_WORLD.current_world.floating_cursor.current_floating_wall)) {

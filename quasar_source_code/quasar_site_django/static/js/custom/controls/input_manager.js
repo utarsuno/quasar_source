@@ -70,7 +70,7 @@ InputManager.prototype = {
             this.shift = true;
             break;
         case KEY_CODE_ENTER:
-        	if (GUI_TYPING_INTERFACE.is_visible()) {
+            if (GUI_TYPING_INTERFACE.is_visible()) {
                 GUI_TYPING_INTERFACE.add_user_text();
                 GUI_TYPING_INTERFACE.hide();
                 CURRENT_PLAYER.disengage();
@@ -83,10 +83,8 @@ InputManager.prototype = {
                     }
                 }
             }
-        	break;
+            break;
         }
-
-        CURRENT_PLAYER.on_key_down(event.keyCode);
 
         // Check who should currently process events.
         if (GUI_TYPING_INTERFACE.is_visible()) {
