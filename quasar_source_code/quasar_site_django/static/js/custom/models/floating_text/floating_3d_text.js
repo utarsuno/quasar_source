@@ -50,13 +50,6 @@ Floating3DText.prototype = {
             this.current_text_object.material.dispose();
         }
 
-        if (this.text.length === 0) {
-            this.text = '___REMOVE_ME___';
-        }
-
-        l('text is :');
-        l(this.text);
-
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,
@@ -77,11 +70,6 @@ Floating3DText.prototype = {
         this.material.side = THREE.FrontSide;
         this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
-
-        if (this.text === '___REMOVE_ME___') {
-            this.object3D.visible = false;
-            this.mesh.visible = false;
-        }
 
         if (is_defined(this.scene)) {
             this.scene.add(this.object3D);

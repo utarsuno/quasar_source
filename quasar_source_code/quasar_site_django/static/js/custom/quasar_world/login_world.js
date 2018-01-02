@@ -1,5 +1,8 @@
 'use strict';
 
+const ERROR_CHECK_TYPE_LOGIN          = 'error_checks_for_login';
+const ERROR_CHECK_TTPE_CREATE_ACCOUNT = 'error_checks_for_account_creation';
+
 function LoginWorld() {
     this.__init__();
 }
@@ -23,23 +26,47 @@ LoginWorld.prototype = {
     /*             ___     __           ___
       |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
       |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
-    _text_error_check: function(field, text) {
-        for (var key in this.current_login_errors) {
-            if (this.current_login_errors.hasOwnProperty(key)) {
-                field[field] = text;
+    _update_error_text: function(error_type, all_errors) {
+        var error_text = '';
+        for (var key in all_errors) {
+            if (all_errors.hasOwnProperty(key)) {
+                error_text += error_type[key] + '\n';
             }
         }
+        if (error_type === ERROR_CHECK_TYPE_LOGIN) {
+            if (error_text.length !== 0) {
+                this.login_wall_errors.update_text(error_text);
+            } else {
+                this.login_wall_errors.update_text('|');
+            }
+        } else if (error_type === ERROR_CHECK_TTPE_CREATE_ACCOUNT) {
+            if (error_text.length !== 0) {
+                this.wall_create_account_errors.update_text(error_text);
+            } else {
+                this.wall_create_account_errors.update_text('|');
+            }
+        }
+    },
 
+    _text_error_check: function(field, error_type, all_errors, text) {
+        for (var key in this.current_login_errors) {
+            if (all_errors.hasOwnProperty(key)) {
+                all_errors[field] = text;
+            }
+        }
         l('----');
         l(text);
         l(field);
         l('--');
+        // TODO : Update to check based off syntax rules.
         if (text.length < 3) {
             l('Error text needed!');
-            this.login_wall_errors.update_text(field + ' can not be less than 4 characters!');
+            this.login_errors[field] = field + ' can not be less than 4 characters!';
         } else {
             delete this.current_login_errors[field];
         }
+
+        this._update_error_text(error_type, all_errors);
     },
 
     login_button_pressed: function() {
@@ -181,18 +208,17 @@ LoginWorld.prototype = {
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3D_title('Login', TYPE_TITLE_CONSTANT, null, 2);
-        this.login_wall_errors = this.login_wall.add_3D_title('!', TYPE_CONSTANT_TEXT, COLOR_RED, 1, TEXT_FORMAT_LEFT);
-        this.login_wall_errors.update_text('');
+        this.login_wall_errors = this.login_wall.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 1, TEXT_FORMAT_LEFT);
 
         this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
         this.login_username_input.set_syntax_type(TEXT_SYNTAX_FOUR_MINIMUM);
-        this.login_username_input.set_value_changed_function(this._text_error_check.bind(this, this.login_username_input));
+        this.login_username_input.set_value_changed_function(this._text_error_check.bind(this, this.login_username_input, ERROR_CHECK_TYPE_LOGIN, this.login_errors));
 
         this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 1);
         this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 1);
         this.login_password_input.set_syntax_type(TEXT_SYNTAX_PASSWORD);
-        this.login_password_input.set_value_changed_function(this._text_error_check.bind(this, this.login_password_input));
+        this.login_password_input.set_value_changed_function(this._text_error_check.bind(this, this.login_password_input, ERROR_CHECK_TYPE_LOGIN, this.login_errors));
 
         // TODO :
         //this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
@@ -215,26 +241,27 @@ LoginWorld.prototype = {
 
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this, false);
         this.wall_create_account.add_3D_title('Create Account', TYPE_TITLE_CONSTANT, null, 3);
+        this.wall_create_account_errors = this.wall_create_account.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 1, TEXT_FORMAT_LEFT);
 
         this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
         this.create_account_username_input.set_syntax_type(TEXT_SYNTAX_FOUR_MINIMUM);
-        this.create_account_username_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_username_input));
+        this.create_account_username_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_username_input, ERROR_CHECK_TTPE_CREATE_ACCOUNT, this.create_errors));
 
         this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT_TEXT, 1);
         this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1);
         this.create_account_email_input.set_syntax_type(TEXT_SYNTAX_EMAIL);
-        this.create_account_email_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_email_input));
+        this.create_account_email_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_email_input, ERROR_CHECK_TTPE_CREATE_ACCOUNT, this.create_errors));
 
         this.create_account_password_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 2);
         this.create_account_password_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 2);
         this.create_account_password_input.set_syntax_type(TEXT_SYNTAX_PASSWORD);
-        this.create_account_password_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_password_input));
+        this.create_account_password_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_password_input, ERROR_CHECK_TTPE_CREATE_ACCOUNT, this.create_errors));
 
         this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'repeat password', TYPE_CONSTANT_TEXT, 3);
         this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 3);
         this.create_account_password_repeat_input.set_syntax_type(TEXT_SYNTAX_PASSWORD);
-        this.create_account_password_repeat_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_password_repeat_input));
+        this.create_account_password_repeat_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_password_repeat_input, ERROR_CHECK_TTPE_CREATE_ACCOUNT, this.create_errors));
 
         this.create_account_button = this.wall_create_account.add_floating_2d_text(.25, .75, 'create account', TYPE_BUTTON, 5);
         this.create_account_button.set_engage_function(this.create_account_button_pressed.bind(this));
