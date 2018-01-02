@@ -54,6 +54,9 @@ Floating3DText.prototype = {
             this.text = '___REMOVE_ME___';
         }
 
+        l('text is :');
+        l(this.text);
+
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,
