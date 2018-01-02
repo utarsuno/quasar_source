@@ -70,10 +70,9 @@ FloatingWall.prototype = {
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
 
-
-
+        l('The default background color is :');
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
-
+        l(this.default_background_color);
 
         this.previous_cursor_y_position = null;
     },
