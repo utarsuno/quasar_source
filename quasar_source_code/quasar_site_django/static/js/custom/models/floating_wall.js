@@ -757,19 +757,14 @@ FloatingWall.prototype = {
     // TODO : Perhaps add a border glow? Learn the 3rd party line api
 
     state_change_look_at: function(being_looked_at) {
-        /*
         if (being_looked_at) {
-            if (this.hasOwnProperty('background_color')) {
-                this.background_color = BACKGROUND_COLOR_FOCUS;
-            }
-            this.update_color(COLOR_HIGHLIGHT);
+            this.set_background_color(COLOR_FLOATING_WALL_HIGHLIGHT);
+            //MANAGER_WORLD.current_floating_cursor.engage();
         } else {
-            if (this.hasOwnProperty('background_color')) {
-                this.background_color = COLOR_TRANSPARENT;
-            }
-            this.update_color(this.default_color);
+            // null will restore color to default.
+            this.set_background_color(null);
+            //l('Floating wall disengage!');
         }
-        */
     },
 
     state_change_engage: function(being_engaged_with) {

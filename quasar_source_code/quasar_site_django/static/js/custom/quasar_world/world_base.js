@@ -247,13 +247,16 @@ function World(planet_name) {
         }
 
         if (smallest_index !== NOT_FOUND) {
-            all_walls[smallest_index].currently_engaged_with_cursor = true;
+            if (!all_walls[smallest_index].currently_engaged_with_cursor) {
+                MANAGER_WORLD.current_floating_cursor.look_at();
+                all_walls[smallest_index].currently_engaged_with_cursor = true;
+            }
             this._previously_intersected_plane = all_walls[smallest_index];
             MANAGER_WORLD.current_floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
             //MANAGER_WORLD.current_world.floating_cursor.
         } else {
             if (is_defined(this._previously_intersected_plane)) {
-                this._previously_intersected_plane.disengage();
+                this._previously_intersected_plane.look_away();
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
                 this._previously_intersected_plane = null;
             }
