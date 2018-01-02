@@ -29,6 +29,7 @@ LoginWorld.prototype = {
         l(field);
         l('--');
         if (text.length < 3) {
+            l('Error text needed!');
             this.login_wall_errors.update_text(field + ' can not be less than 4 characters!');
         }
     },
