@@ -74,6 +74,7 @@ DateSelector.prototype = {
                 day_cell = this.wall.add_floating_2d_text((num - 1) / 7, num / 7, days[d].get_day_number(), TYPE_BUTTON, 8 + row);
                 day_cell.set_engage_function(this.date_selected.bind(this, days[d]));
             }
+            day_cell.set_default_color(this.current_month.get_day_color_by_index(d));
         }
     },
 

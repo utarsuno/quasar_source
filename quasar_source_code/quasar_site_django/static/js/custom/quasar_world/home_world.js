@@ -147,7 +147,7 @@ HomeWorld.prototype = {
         }
     },
 
-    create_month_day_wall: function(day, index, total_number_of_days, color, present) {
+    create_month_day_wall: function(day, index, total_number_of_days, present) {
         var w = 500;
         var h = 1000;
 
@@ -160,10 +160,10 @@ HomeWorld.prototype = {
 
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
 
-        month_day_wall.add_3D_title(day.get_day_number(), TYPE_SUPER_TITLE, color);
-
+        month_day_wall.add_3D_title(day.get_day_number(), TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index));
+        
         if (present) {
-            month_day_wall.add_3D_title('Today', TYPE_SUPER_TITLE, color, 1);
+            month_day_wall.add_3D_title('Today', TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index), 1);
         }
 
         return month_day_wall;
@@ -181,13 +181,13 @@ HomeWorld.prototype = {
         var day_index = 0;
         var d;
         for (d = 0; d < dates_in_past.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, this.month_days.dates_in_past_colors[d], false));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, false));
             day_index += 1;
         }
-        this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT, true));
+        this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, true));
         day_index += 1;
         for (d = 0; d < dates_in_future.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, this.month_days.dates_in_future_colors[d + 1], false));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, false));
             day_index += 1;
         }
     }
