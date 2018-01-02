@@ -250,7 +250,7 @@ FloatingWall.prototype = {
             if (formatting === TEXT_FORMAT_LEFT) {
                 l('Formatting is defined!');
                 floating_3D_title.set_format_type(formatting);
-                x_shift = this.get_relative_x_shift(60);
+                x_shift = this.get_relative_x_shift(this.width / 2);
             } else {
                 l('Formatting is not defined!');
                 x_shift = this.get_relative_x_shift(-1.0 * (floating_3D_title.width / 2.0));
