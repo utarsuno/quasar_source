@@ -242,6 +242,16 @@ EntityManager.prototype = {
         return entities_to_return;
     },
 
+    get_all_entities_with_property: function(entity_property) {
+        var entities_to_return = [];
+        for (var i = 0; i < this.entities.length; i++) {
+            if (this.entities[i].has_property(entity_property)) {
+                entities_to_return.push(this.entities[i]);
+            }
+        }
+        return entities_to_return;
+    },
+
     currently_loading: function() {
         return this.loading;
     },

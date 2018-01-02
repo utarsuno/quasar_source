@@ -18,6 +18,8 @@ HomeWorld.prototype = {
         this.entity_walls = [];
 
         this.schedule_loaded = false;
+
+        this.add_to_schedules = false;
     },
 
     key_down_event: function(event) {
@@ -53,6 +55,10 @@ HomeWorld.prototype = {
             //var entity_wall = new EntityWall(this, entity_wall_entity);
             this.entity_walls.push(new EntityWall(this, wall_entities[w]));
         }
+
+
+
+        this.add_to_schedules = true;
     },
 
     update: function() {
@@ -64,6 +70,11 @@ HomeWorld.prototype = {
 
                 this.loaded_entities = true;
             }
+        }
+
+        if (this.add_to_schedules) {
+            this.add_content_to_schedules();
+            this.add_to_schedules = false;
         }
 
         // World function.
@@ -118,6 +129,23 @@ HomeWorld.prototype = {
     /*__   __        ___  __             ___            ___
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
      .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
+    add_content_to_schedules: function() {
+        var dates_in_past = this.month_days.get_dates_in_past();
+        var dates_in_present = this.month_days.get_dates_in_present();
+        var dates_in_future = this.month_days.get_dates_in_future();
+
+        var all_entities = MANAGER_ENTITY.get_all_entities_with_property(ENTITY_PROPERTY_DUE_DATE);
+
+        var d;
+        for (d = 0; d < all_entities.length; d++) {
+            l(all_entities[d]);
+        }
+
+        for (d = 0; d < dates_in_future.length; d++) {
+            l('Checking');
+            l(dates_in_future[d]);
+        }
+    },
 
     create_month_day_wall: function(day, index, total_number_of_days, color, present) {
         var w = 500;
