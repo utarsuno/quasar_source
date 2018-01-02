@@ -250,6 +250,8 @@ FloatingWall.prototype = {
             } else {
                 x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
             }
+        } else {
+            x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
         }
 
         var additional_y_height = 0;
