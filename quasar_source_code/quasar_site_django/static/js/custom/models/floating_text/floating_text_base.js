@@ -304,6 +304,11 @@ function FloatingText(width, text, type, scene, current_color) {
             } else {
                 this.being_engaged_with = false;
                 CURRENT_PLAYER.disengage();
+
+                if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                    l('disengage the cursor please!');
+                    MANAGER_WORLD.current_floating_cursor.disengage();
+                }
             }
         } else {
             CURRENT_PLAYER.disengage();
