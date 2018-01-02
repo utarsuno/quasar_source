@@ -46,8 +46,10 @@ FloatingCursor.prototype = {
         if (this.engaged) {
             this.engaged = false;
             CURRENT_PLAYER.disengage();
-            this.current_floating_wall.cursor_action_disengaged();
-            this.current_floating_wall = null;
+            if (is_defined(this.current_floating_wall)) {
+                this.current_floating_wall.cursor_action_disengaged();
+                this.current_floating_wall = null;
+            }
         }
     },
 

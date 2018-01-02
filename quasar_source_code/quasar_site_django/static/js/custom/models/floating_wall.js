@@ -754,8 +754,11 @@ FloatingWall.prototype = {
 
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
+            this.set_background_color(COLOR_FLOATING_WALL_HIGHLIGHT);
             //MANAGER_WORLD.current_floating_cursor.engage();
         } else {
+            // null will restore color to default.
+            this.set_background_color(null);
             //l('Floating wall disengage!');
         }
     }
