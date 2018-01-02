@@ -24,10 +24,10 @@ LoginWorld.prototype = {
       |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
       |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
     _text_error_check: function(field, text) {
-        //l('----');
-        //l(text);
-        //l(field);
-        //l('--');
+        l('----');
+        l(text);
+        l(field);
+        l('--');
         if (text.length < 3) {
             this.login_wall_errors.update_text(field + ' can not be less than 4 characters!');
         }
