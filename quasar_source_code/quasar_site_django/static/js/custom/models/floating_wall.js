@@ -791,6 +791,7 @@ FloatingWall.prototype = {
             //l('Floating wall disengage!');
 
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                l('disengage the cursor!');
                 MANAGER_WORLD.current_floating_cursor.disengage();
             }
         }
