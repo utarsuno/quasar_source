@@ -492,8 +492,8 @@ FloatingWall.prototype = {
             // 0 - COLOR_HEX_INDEX
             c = c[0];
         }
-        this.material.color.setHex(c);
-        this.material.needsUpdate = true;
+        this.mesh.material.color.setHex(c);
+        this.mesh.material.needsUpdate = true;
     },
 
     wheel_event: function(delta) {

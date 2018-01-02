@@ -268,7 +268,6 @@ function World(planet_name) {
             MANAGER_WORLD.current_floating_cursor.disengage();
         }
 
-
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
