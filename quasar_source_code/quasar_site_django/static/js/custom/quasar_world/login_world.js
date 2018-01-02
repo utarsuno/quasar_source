@@ -94,12 +94,12 @@ LoginWorld.prototype = {
 
         // TODO : Create a class to handle this kind of logic.
 
-        if (login_username_text.length < 4) {
+        if (login_username_text.length < 5) {
             error = true;
             error_message = 'Username must be at least 4 characters.';
         }
         if (!error) {
-            if (login_password_text.length < 4) {
+            if (login_password_text.length < 5) {
                 error = true;
                 error_message = 'Passwords are at least 4 characters!';
             }

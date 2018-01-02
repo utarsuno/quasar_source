@@ -51,6 +51,16 @@ Floating3DText.prototype = {
             this.current_text_object.material.dispose();
         }
 
+        // FOR_DEV_START
+        if (!is_defined(this.text)) {
+            l('Text is not defined!');
+        } else {
+            if (this.text.length === 0) {
+                l('Text has a length of 0!');
+            }
+        }
+        // FOR_DEV_END
+
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,

@@ -236,6 +236,7 @@ FloatingWall.prototype = {
     },
 
     add_3D_title: function(title_name, type, color, row, formatting) {
+        // Default type is TYPE_TITLE.
         if (is_defined(type)) {
             this.floating_3D_title = new Floating3DText(title_name, type, this.scene);
         } else {
