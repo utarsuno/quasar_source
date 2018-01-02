@@ -127,7 +127,7 @@ function World(planet_name) {
         if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 var current_cursor = MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name;
-                if (current_cursor === CURSOR_TYPE_HAND || current_cursor === CURSOR_TYPE_VERTICAL || current_cursor === CURSOR_TYPE_HORIZONTAL) {
+                if (current_cursor === CURSOR_TYPE_MOUSE || current_cursor === CURSOR_TYPE_VERTICAL || current_cursor === CURSOR_TYPE_HORIZONTAL) {
                     return;
                 }
             }
