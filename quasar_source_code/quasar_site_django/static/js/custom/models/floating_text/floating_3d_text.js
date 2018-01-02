@@ -26,6 +26,7 @@ Floating3DText.prototype = {
             this.text_height = 2;
         } else {
             this.height = 16;
+            this.size = 20;
             this.text_height = 1;
         }
 
