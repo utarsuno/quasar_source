@@ -79,7 +79,7 @@ FloatingWall.prototype = {
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
 
-        l('PERFORM AN ACTION PLZ');
+        //l('PERFORM AN ACTION PLZ');
         //l(cursor_type);
 
         //var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
@@ -126,7 +126,7 @@ FloatingWall.prototype = {
             if (!is_defined(this.player_previous_y_position)) {
                 this.player_previous_y_position = player_position.y;
             } else {
-                y_offset = player_position.y - this.player_previous_y_position;
+                y_offset += player_position.y - this.player_previous_y_position;
                 this.player_previous_y_position = player_position.y;
             }
 
