@@ -62,8 +62,6 @@ FPSControls.prototype = {
 
         // TODO : Add smooth step to the movement buffers!!!
 
-        this.mouse_down = false;
-
         document.addEventListener('mousedown', this.on_mouse_down.bind(this), false);
         document.addEventListener('mouseup', this.on_mouse_up.bind(this), false);
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false);
@@ -339,8 +337,6 @@ FPSControls.prototype = {
     },
 
     on_mouse_down: function() {
-        this.mouse_down = true;
-        //l('Mouse down!');
         // TODO : Investigate this particular logic.
         if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
             MANAGER_WORLD.current_world.floating_cursor.engaged = true;
@@ -350,7 +346,6 @@ FPSControls.prototype = {
     },
 
     on_mouse_up: function() {
-        this.mouse_down = false;
         if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
             MANAGER_WORLD.current_world.floating_cursor.engaged = false;
             CURRENT_PLAYER.disengage();
@@ -366,8 +361,8 @@ FPSControls.prototype = {
             this.mouse_movement_y_buffer.add_force(movement_y * -0.002);
         }
 
-        if (this.mouse_down) {
-            //l('Mouse drag!');
+        // Only left click dragging will be supported for now.
+        if (MANAGER_INPUT.click_down_left) {
             MANAGER_WORLD.current_world.parse_mouse_drag(movement_x, movement_y);
         } else {
             MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
