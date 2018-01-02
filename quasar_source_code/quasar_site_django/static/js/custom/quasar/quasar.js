@@ -7,14 +7,18 @@
 // A global manager to load first.
 //MANAGER_SHADER      = new ShaderAPI();
 
-// Renders all the worlds.
-MANAGER_RENDERER = new RendererAPI();
+// Careful setting the creation order of the managers.
+// TODO : Eventually CodeAPI should automatically set the import order.
+
+MANAGER_RENDERER = new RendererManager();
 MANAGER_INPUT    = new InputManager();
 
 // Model of the user.
 CURRENT_PLAYER = new Player();
 
-// Global Managers.
+MANAGER_POINTER_LOCK = new PointerLockManager(CURRENT_PLAYER.fps_controls);
+MANAGER_DATA_DISPLAY = new DataDisplay(CURRENT_PLAYER.fps_controls);
+
 MANAGER_COOKIES     = Cookies.noConflict();
 MANAGER_WORLD       = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
@@ -55,6 +59,18 @@ var animate = function () {
 
     var time = performance.now();
     var delta = (time - previous_time) / 1000.0;
+
+    MANAGER_DATA_DISPLAY.update();
+
+    if (MANAGER_WORLD.current_floating_cursor.engaged) {
+        MANAGER_WORLD.current_floating_cursor.update();
+    }
+
+    if (MANAGER_WORLD.current_player_menu.is_visible()) {
+        if (MANAGER_WORLD.current_player_menu.loaded) {
+            MANAGER_WORLD.current_player_menu.update(delta);
+        }
+    }
 
     MANAGER_MULTIPLAYER.update(delta);
     CURRENT_PLAYER.update(delta);

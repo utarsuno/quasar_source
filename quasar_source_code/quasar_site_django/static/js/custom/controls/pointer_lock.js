@@ -2,11 +2,11 @@
 
 // https://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
-function PointerLockAPI(controls) {
+function PointerLockManager(controls) {
     this.__init__(controls);
 }
 
-PointerLockAPI.prototype = {
+PointerLockManager.prototype = {
     has_pointer_lock: null,
     element         : null,
     currently_locked: false,
@@ -59,12 +59,9 @@ PointerLockAPI.prototype = {
         raise_exception_with_full_logging('Pointer lock error!');
     },
 
-    try_to_enable: function() {
-        if (this.currently_locked === false) {
-            this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
-            this.element.requestPointerLock();
-            GUI_PAUSED_MENU.make_invisible();
-        }
+    request_pointer_lock: function() {
+        this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
+        this.element.requestPointerLock();
     }
 
 };

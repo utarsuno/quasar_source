@@ -18,12 +18,7 @@ Player.prototype = {
     data_display    : null,
 
     __init__: function() {
-        this.camera = MANAGER_RENDERER.camera;
-
-        this.fps_controls = new FPSControls(this.camera);
-        this.pointer_lock_api = new PointerLockAPI(this.fps_controls);
-
-        this.data_display = new DataDisplay(this.fps_controls);
+        this.fps_controls = new FPSControls();
 
         // Set player state.
         this.logged_in = false;
@@ -31,11 +26,6 @@ Player.prototype = {
 
         // Create the instance of WebSocketClient. This won't connect until the player logs in.
         this.web_socket_client = new WebSocketClient();
-
-        // TODO : move this state somewhere else
-
-        // TODO : move this somewhere else eventually
-        document.addEventListener('paste', this.on_paste.bind(this));
     },
 
     send_chat_message: function(chat_message) {
@@ -54,14 +44,9 @@ Player.prototype = {
         // TODO : Create generic functionality for worlds to handle when a player has logged out.
         MANAGER_WORLD.world_home.loaded_entities = false;
 
-        this.owner = null;
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
         this.logged_in = false;
         // TODO : Notify the server that the player has logged out?
-    },
-
-    get_password: function() {
-        return ENTITY_OWNER.get_password();
     },
 
     try_to_send_position_update_to_server: function() {
@@ -135,21 +120,6 @@ Player.prototype = {
 
     update: function(delta) {
         this.fps_controls.physics(delta);
-        this.data_display.update();
-
-        if (is_defined(MANAGER_WORLD.current_world.current_cursor)) {
-            if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
-                if (is_defined(MANAGER_WORLD.current_world.floating_cursor.current_floating_wall)) {
-                    MANAGER_WORLD.current_world.floating_cursor.current_floating_wall.perform_action(MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name);
-                }
-            }
-        }
-
-        if (is_defined(MANAGER_WORLD)) {
-            if (MANAGER_WORLD.current_player_menu.is_visible()) {
-                MANAGER_WORLD.current_player_menu.update(delta);
-            }
-        }
     },
 
     get_position: function() {
@@ -187,19 +157,5 @@ Player.prototype = {
         var position = this.get_position();
         var vector   = this.fps_controls.get_direction();
         return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
-    },
-
-    on_paste: function(e) {
-        // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
-        var clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
-        var pasted_data = clipboard_data.getData('text');
-        if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-            if (this.is_engaged()) {
-                MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
-            }
-        }
     }
 };
-
-
-

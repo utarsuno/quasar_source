@@ -184,6 +184,7 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
+        this.current_floating_cursor = this.current_world.floating_cursor;
         this.current_player_menu = this.current_world.player_menu;
         this.current_world.current_world = true;
         this.current_scene = this.current_world.scene;

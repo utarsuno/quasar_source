@@ -26,7 +26,7 @@ AudioManager.prototype = {
         this.audio_listener = new THREE.AudioListener();
         this.audio_listener.setMasterVolume(this.get_true_audio_level(0.5));
 
-        CURRENT_PLAYER.camera.add(this.audio_listener);
+        MANAGER_RENDERER.camera.add(this.audio_listener);
         this.typing_sound = new THREE.Audio(this.audio_listener);
 
         this.typing_sound_loaded = false;

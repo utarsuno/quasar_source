@@ -8,6 +8,7 @@ const EVENT_MOUSE_DOWN = 'mousedown';
 const EVENT_MOUSE_UP   = 'mouseup';
 const EVENT_KEY_DOWN   = 'keydown';
 const EVENT_KEY_UP     = 'keyup';
+const EVENT_PASTE      = 'paste';
 
 function InputManager() {
     this.__init__();
@@ -38,14 +39,26 @@ InputManager.prototype = {
         this.shift  		   = false;
 
         document.addEventListener(EVENT_MOUSE_DOWN, this.on_mouse_down.bind(this));
-        document.addEventListener(EVENT_MOUSE_UP, this.on_mouse_up.bind(this));
-        document.addEventListener(EVENT_KEY_DOWN, this.on_key_down.bind(this));
-        document.addEventListener(EVENT_KEY_UP, this.on_key_up.bind(this));
+        document.addEventListener(EVENT_MOUSE_UP  , this.on_mouse_up.bind(this));
+        document.addEventListener(EVENT_KEY_DOWN  , this.on_key_down.bind(this));
+        document.addEventListener(EVENT_KEY_UP    , this.on_key_up.bind(this));
+        document.addEventListener(EVENT_PASTE     , this.on_paste.bind(this));
 
         this._key_down_buffer = [];
     },
 
-    on_key_down: function(e) {
+    on_paste: function(e) {
+        // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
+        var clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+        var pasted_data = clipboard_data.getData('text');
+        if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+            if (CURRENT_PLAYER.is_engaged()) {
+                MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
+            }
+        }
+    },
+
+    on_key_down: function(event) {
         switch(event.keyCode) {
         case KEY_CODE_UP:
         case KEY_CODE_W:
@@ -132,9 +145,8 @@ InputManager.prototype = {
                 MANAGER_WORLD.current_world.multi_left_click();
             }
 
-            if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
-                MANAGER_WORLD.current_world.floating_cursor.engaged = false;
-                CURRENT_PLAYER.disengage();
+            if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                MANAGER_WORLD.current_floating_cursor.disengage();
             }
 
             break;
@@ -169,13 +181,9 @@ InputManager.prototype = {
 
             this._key_down_buffer.push(current_milliseconds);
 
-
-            if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
-                MANAGER_WORLD.current_world.floating_cursor.engaged = true;
-                CURRENT_PLAYER.engage();
-                CURRENT_PLAYER.enable_controls();
+            if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
+                MANAGER_WORLD.current_floating_cursor.engage();
             }
-
 
             this.click_down_left = true;
             break;

@@ -39,6 +39,8 @@ FloatingWall.prototype = {
             this.color_index = color_index;
         }
 
+        // Inherit from Interactive.
+        Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
 
@@ -79,8 +81,8 @@ FloatingWall.prototype = {
         var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
         //l('The new cursor position is :');
         //l(new_cursor_position);
-        MANAGER_WORLD.current_world.floating_cursor.set_position(new_cursor_position);
-        var cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
+        MANAGER_WORLD.current_floating_cursor.set_position(new_cursor_position);
+        var cursor_position = MANAGER_WORLD.current_floating_cursor.get_position();
 
         if (cursor_type === CURSOR_TYPE_HORIZONTAL) {
 
@@ -694,5 +696,37 @@ FloatingWall.prototype = {
         for (var j = 0; j < this.all_floating_walls.length; j++) {
             this.all_floating_walls[j].show();
         }
+    },
+
+    /* __  ___      ___  ___     __                  __   ___  __
+      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+
+    // TODO : Perhaps add a border glow? Learn the 3rd party line api
+
+    state_change_look_at: function(being_looked_at) {
+        /*
+        if (being_looked_at) {
+            if (this.hasOwnProperty('background_color')) {
+                this.background_color = BACKGROUND_COLOR_FOCUS;
+            }
+            this.update_color(COLOR_HIGHLIGHT);
+        } else {
+            if (this.hasOwnProperty('background_color')) {
+                this.background_color = COLOR_TRANSPARENT;
+            }
+            this.update_color(this.default_color);
+        }
+        */
+    },
+
+
+    state_change_engage: function(being_engaged_with) {
+        if (being_engaged_with) {
+            MANAGER_WORLD.current_floating_cursor.engage();
+        } else {
+            MANAGER_WORLD.current_floating_cursor.disengage();
+        }
     }
+
 };

@@ -10,14 +10,16 @@ const l = console.log;
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
 // Global managers.
-var MANAGER_AUDIO       = null;
-var MANAGER_COOKIES     = null;
-var MANAGER_WORLD       = null;
-var MANAGER_ENTITY      = null;
-var MANAGER_MULTIPLAYER = null;
-var MANAGER_SHADER      = null;
-var MANAGER_RENDERER    = null;
-var MANAGER_INPUT       = null;
+var MANAGER_AUDIO        = null;
+var MANAGER_COOKIES      = null;
+var MANAGER_WORLD        = null;
+var MANAGER_ENTITY       = null;
+var MANAGER_MULTIPLAYER  = null;
+var MANAGER_SHADER       = null;
+var MANAGER_RENDERER     = null;
+var MANAGER_INPUT        = null;
+var MANAGER_POINTER_LOCK = null;
+var MANAGER_DATA_DISPLAY = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;

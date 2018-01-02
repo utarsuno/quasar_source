@@ -1,7 +1,7 @@
 'use strict';
 
-function FPSControls(camera) {
-    this.__init__(camera);
+function FPSControls() {
+    this.__init__();
 }
 
 FPSControls.prototype = {
@@ -32,16 +32,16 @@ FPSControls.prototype = {
     mouse_movement_x_buffer: null,
     mouse_movement_y_buffer: null,
 
-    __init__: function(camera) {
+    __init__: function() {
 
-        this.camera = camera;
+        this.camera = MANAGER_RENDERER.camera;
         //this.camera.rotation.set(0, 0, 0)
         //this.camera.eulerOrder = 'ZYX'
         //this.camera.up = new THREE.Vector3(0, 1, 0)
 
         this.pitch = new THREE.Object3D();
 
-        this.pitch.add(camera);
+        this.pitch.add(this.camera);
 
         this.yaw = new THREE.Object3D();
         this.yaw.add(this.pitch);

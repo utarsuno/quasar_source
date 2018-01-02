@@ -155,6 +155,8 @@ PlayerMenu.prototype = {
     __init__: function(world) {
         this.world = world;
 
+        this.loaded = false;
+
         this.visible = false;
         this.total_delta = 0;
     },
@@ -270,6 +272,8 @@ PlayerMenu.prototype = {
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
+
+        this.loaded = true;
 
         this.set_to_invisible();
     }

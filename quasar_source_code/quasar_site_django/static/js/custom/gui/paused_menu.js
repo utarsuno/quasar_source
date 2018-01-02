@@ -31,7 +31,9 @@ PausedMenu.prototype = {
 
         this.button_resume.onclick = function() {
             this.make_invisible();
-            CURRENT_PLAYER.pointer_lock_api.try_to_enable();
+            GUI_PAUSED_MENU.make_invisible();
+            MANAGER_POINTER_LOCK.request_pointer_lock();
+            CURRENT_PLAYER.pointer_lock_api.request_pointer_lock();
         }.bind(this);
 
         this.button_help_controls.onclick = function() {

@@ -35,6 +35,17 @@ FloatingCursor.prototype = {
         this.engaged = false;
     },
 
+    engage: function() {
+        this.engaged = true;
+        CURRENT_PLAYER.engage();
+        CURRENT_PLAYER.enable_controls();
+    },
+
+    disengage: function() {
+        this.engaged = false;
+        CURRENT_PLAYER.disengage();
+    },
+
     add_cursor_material: function(cursor_material, texture_name) {
         var cursor_name = '';
 
@@ -82,6 +93,10 @@ FloatingCursor.prototype = {
             if (!this.engaged) {
                 this.current_cursor.visible = false;
             }
+        }
+
+        if (this.engaged) {
+            this.current_floating_wall.perform_action(this.current_cursor.userData.name);
         }
 
         // TODO : Update the late positions here.

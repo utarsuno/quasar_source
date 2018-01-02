@@ -1,10 +1,10 @@
 'use strict';
 
-function RendererAPI() {
+function RendererManager() {
     this.__init__();
 }
 
-RendererAPI.prototype = {
+RendererManager.prototype = {
     field_of_view   : null,
     window_width    : null,
     window_height   : null,
