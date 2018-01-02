@@ -88,12 +88,10 @@ function World(planet_name) {
 
     this.parse_mouse_drag = function(movement_x, movement_y) {
         if (this.floating_cursor.engaged) {
-            if (this.floating_cursor.current_cursor.userData.name !== CURSOR_TYPE_MOUSE) {
-                if (is_defined(this.floating_cursor.current_floating_wall)) {
-                    this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
-                } else {
-                    this.parse_mouse_movement(movement_x, movement_y);
-                }
+            if (is_defined(this.floating_cursor.current_floating_wall)) {
+                this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+            } else {
+                this.parse_mouse_movement(movement_x, movement_y);
             }
         }
     };
