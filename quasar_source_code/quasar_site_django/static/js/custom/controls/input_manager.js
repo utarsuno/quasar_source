@@ -69,6 +69,30 @@ InputManager.prototype = {
         case KEY_CODE_SHIFT:
             this.shift = true;
             break;
+        case KEY_CODE_ENTER:
+        	if (GUI_TYPING_INTERFACE.is_visible()) {
+                GUI_TYPING_INTERFACE.add_user_text();
+                GUI_TYPING_INTERFACE.hide();
+                CURRENT_PLAYER.disengage();
+                CURRENT_PLAYER.fps_controls.enable();
+            } else if (!CURRENT_PLAYER.is_engaged()) {
+                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+                    if (!GUI_TYPING_INTERFACE.is_visible()) {
+                        GUI_TYPING_INTERFACE.show();
+                        CURRENT_PLAYER.engage();
+                    }
+                }
+            }
+        	break;
+        }
+
+        CURRENT_PLAYER.on_key_down(event.keyCode);
+
+        // Check who should currently process events.
+        if (GUI_TYPING_INTERFACE.is_visible()) {
+            GUI_TYPING_INTERFACE.key_down_event(event);
+        } else {
+            MANAGER_WORLD.key_down_event(event);
         }
     },
 

@@ -5,10 +5,6 @@ function Player() {
 }
 
 Player.prototype = {
-
-    // Current state.
-    mouse_locked    : null,
-
     // Custom state variables.
     logged_in       : null,
     engaged         : null, 
@@ -21,10 +17,6 @@ Player.prototype = {
     fps_controls    : null,
     data_display    : null,
 
-    // Tracking keyboard keys.
-    key_down_ctrl: null,
-    key_down_d   : null,
-
     __init__: function() {
         this.camera = MANAGER_RENDERER.camera;
 
@@ -33,22 +25,12 @@ Player.prototype = {
 
         this.data_display = new DataDisplay(this.fps_controls);
 
-        this.key_down_ctrl = false;
-        this.key_down_d    = false;
-
-        // Handle key down events.
-        document.addEventListener('keydown', this.on_key_down.bind(this), false);
-        // Handle key up events.
-        document.addEventListener('keyup', this.on_key_up.bind(this), false);
-
         // Set player state.
         this.logged_in = false;
         this.engaged   = false;
 
         // Create the instance of WebSocketClient. This won't connect until the player logs in.
         this.web_socket_client = new WebSocketClient();
-
-        this.owner_name = null;
 
         // TODO : move this state somewhere else
 
@@ -57,9 +39,6 @@ Player.prototype = {
     },
 
     send_chat_message: function(chat_message) {
-        if (!is_defined(this.owner_name)) {
-            this.owner_name = MANAGER_ENTITY.get_owner_entity().get_value('owner_username');
-        }
         this.web_socket_client.send_chat_message(chat_message);
     },
 
@@ -67,7 +46,7 @@ Player.prototype = {
         // TODO : Log out needs to be updated to be fully functional and bug free.
 
         // FOR_DEV_START
-        l('LOG OUT HERE!!!!');
+        l('LOG OUT needs to be updated!');
         // FOR_DEV_END
 
         MANAGER_ENTITY.clear_all();
@@ -118,6 +97,7 @@ Player.prototype = {
         }
     },
 
+    // TODO : Update multi-player.
     set_player_id: function(player_id) {
         l('Setting the player id to : ' + player_id);
         this.player_id = player_id;
@@ -148,11 +128,6 @@ Player.prototype = {
         return this.engaged;
     },
 
-    engage_but_leave_controls_enabled: function() {
-        this.engaged = true;
-        this.fps_controls.enable();
-    },
-
     engage: function() {
         this.engaged = true;
         this.fps_controls.disable();
@@ -162,69 +137,19 @@ Player.prototype = {
         this.fps_controls.physics(delta);
         this.data_display.update();
 
-        /*
+
         if (is_defined(MANAGER_WORLD.current_world.current_cursor)) {
-            if (this.floating_cursor.engaged) {
-                if (is_defined(this.floating_cursor.current_floating_wall)) {
-                    this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+            if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
+                if (is_defined(MANAGER_WORLD.current_world.floating_cursor.current_floating_wall)) {
+                    MANAGER_WORLD.current_world.floating_cursor.current_floating_wall.perform_action(MANAGER_WORLD.current_world.floating_cursor.current_cursor.userData.name);
                 }
             }
-        }*/
+        }
 
         if (is_defined(MANAGER_WORLD)) {
             if (MANAGER_WORLD.current_player_menu.is_visible()) {
                 MANAGER_WORLD.current_player_menu.update(delta);
             }
-        }
-    },
-
-    on_key_down: function(event) {
-        switch(event.keyCode) {
-        case KEY_CODE_CONTROL:
-            this.key_down_ctrl = true;
-            break;
-        case KEY_CODE_D:
-            this.key_down_d = true;
-            if (this.key_down_ctrl) {
-                // Toggle debugging.
-                this.data_display.toggle();
-                MANAGER_RENDERER.stats_api.toggle();
-            }
-            break;
-        case KEY_CODE_ENTER:
-            if (GUI_TYPING_INTERFACE.is_visible()) {
-                GUI_TYPING_INTERFACE.add_user_text();
-                GUI_TYPING_INTERFACE.hide();
-                this.disengage();
-                this.fps_controls.enable();
-            } else if (!this.is_engaged()) {
-                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-                    if (!GUI_TYPING_INTERFACE.is_visible()) {
-                        GUI_TYPING_INTERFACE.show();
-                        this.engage();
-                    }
-                }
-            }
-            break;
-        }
-
-        // Check who should currently process events.
-
-        if (GUI_TYPING_INTERFACE.is_visible()) {
-            GUI_TYPING_INTERFACE.key_down_event(event);
-        } else {
-            MANAGER_WORLD.key_down_event(event);
-        }
-    },
-
-    on_key_up: function(event) {
-        switch(event.keyCode) {
-        case KEY_CODE_CONTROL:
-            this.key_down_ctrl = false;
-            break;
-        case KEY_CODE_D:
-            this.key_down_d = false;
-            break;
         }
     },
 
