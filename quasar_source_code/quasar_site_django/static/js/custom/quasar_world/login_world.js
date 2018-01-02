@@ -60,10 +60,12 @@ LoginWorld.prototype = {
         l('--');
         // TODO : Update to check based off syntax rules.
         if (text.length < 3) {
-            l('Error text needed!');
+            //l('Error text needed!');
             this.login_errors[field] = field + ' can not be less than 4 characters!';
         } else {
-            delete this.current_login_errors[field];
+            if (field in all_errors) {
+                delete all_errors[field];
+            }
         }
 
         this._update_error_text(error_type, all_errors);
