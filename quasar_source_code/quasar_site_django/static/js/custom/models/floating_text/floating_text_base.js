@@ -126,13 +126,13 @@ function FloatingText(width, text, type, scene, current_color) {
         }
     };
 
+    this._error_check_text = function() {
+        return this.get_text_length() > 3;
+    };
+
     this.update_text = function(text) {
-        // TODO : This is currently assuming this function never gets called on a Password field.
         if (this.text !== text) {
-            l('Updating text to : {' + text + '}');
-            l(is_defined(this.value_changed_function));
             if (is_defined(this.value_changed_function)) {
-                l('Value changed function is defined');
                 this.value_changed_function(text);
             }
             this.text = text;

@@ -23,9 +23,14 @@ LoginWorld.prototype = {
     /*             ___     __           ___
       |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
       |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
-    login_username_character_change: function(text) {
-        l('The username text is now :');
+    _text_error_check: function(text, field) {
+        l('----');
         l(text);
+        l(field);
+        l('--');
+        if (text.length < 3) {
+            this.login_wall_errors.update_text(field + ' can not be less than 4 characters!');
+        }
     },
 
     login_button_pressed: function() {
@@ -163,9 +168,11 @@ LoginWorld.prototype = {
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3D_title('Login');
+        this.login_wall_errors = this.login_wall.add_3D_title('', TYPE_TITLE_CONSTANT, COLOR_RED, 1);
 
         this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
+        this.login_username_input.set_value_changed_function(this._text_error_check.bind(this, this.login_username_input));
 
         this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 1);
         this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 1);
@@ -191,7 +198,7 @@ LoginWorld.prototype = {
 
         this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
-        this.create_account_username_input.set_value_changed_function(this.login_username_character_change.bind(this));
+        this.create_account_username_input.set_value_changed_function(this._text_error_check.bind(this, this.create_account_username_input));
 
         this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT_TEXT, 1);
         this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1);
@@ -236,7 +243,7 @@ LoginWorld.prototype = {
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
                 if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
-                    this.login_username.set_input_value(MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME));
+                    this.login_username_input.update_text(MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME));
                 }
             }
         }
