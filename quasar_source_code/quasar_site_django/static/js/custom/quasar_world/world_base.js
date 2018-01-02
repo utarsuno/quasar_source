@@ -247,6 +247,7 @@ function World(planet_name) {
             //MANAGER_WORLD.current_world.floating_cursor.
         } else {
             if (is_defined(this._previously_intersected_plane)) {
+                this._previously_intersected_plane.disengage();
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
                 this._previously_intersected_plane = null;
             }
