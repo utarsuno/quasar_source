@@ -49,7 +49,7 @@ LoginWorld.prototype = {
     },
 
     _text_error_check: function(field, error_type, all_errors, text) {
-        for (var key in this.current_login_errors) {
+        for (var key in all_errors) {
             if (all_errors.hasOwnProperty(key)) {
                 all_errors[field] = text;
             }
