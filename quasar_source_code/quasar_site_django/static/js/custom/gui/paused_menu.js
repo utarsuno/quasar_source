@@ -12,10 +12,6 @@ PausedMenu.prototype = {
     pause_menu: null,
     background_coloring: null,
 
-    button_resume: null,
-    button_help_controls: null,
-    button_log_out: null,
-
     __init__: function() {
 
         // The paused menu starts off displayed.
@@ -35,11 +31,6 @@ PausedMenu.prototype = {
         this.currently_displayed = true;
 
         this.pause_menu.style.display = DISPLAY_SHOW;
-        this.button_resume.style.display = DISPLAY_SHOW;
-        this.button_help_controls.style.display = DISPLAY_SHOW;
-        if (CURRENT_PLAYER.logged_in) {
-            this.button_log_out.style.display = DISPLAY_SHOW;
-        }
 
         this.background_coloring.id = 'background_coloring';
     },
