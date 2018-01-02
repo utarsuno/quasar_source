@@ -303,6 +303,10 @@ function World(planet_name) {
             //else if (MANAGER_WORLD.current_floating_cursor.engaged) {
             //    MANAGER_WORLD.current_floating_cursor.disengage();
             //}
+        } else {
+            if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                MANAGER_WORLD.current_floating_cursor.disengage();
+            }
         }
     };
 
