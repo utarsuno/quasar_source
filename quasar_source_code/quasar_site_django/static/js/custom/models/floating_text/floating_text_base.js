@@ -312,6 +312,11 @@ function FloatingText(width, text, type, scene, current_color) {
             }
         } else {
             CURRENT_PLAYER.disengage();
+
+            if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                l('disengage the cursor please 2!');
+                MANAGER_WORLD.current_floating_cursor.disengage();
+            }
         }
     };
 }
