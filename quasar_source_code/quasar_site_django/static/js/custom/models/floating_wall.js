@@ -316,7 +316,7 @@ FloatingWall.prototype = {
     update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
         var width;
         var x_offset;
-        if (floating_2D_text.hasOwnProperty('pfw_fixe d_width')) {
+        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
             width = floating_2D_text['pfw_fixed_width'];
             if (floating_2D_text['pfw_position_offset'] < 0) {
                 floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];

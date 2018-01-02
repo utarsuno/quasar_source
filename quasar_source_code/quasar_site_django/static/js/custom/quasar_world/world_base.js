@@ -71,6 +71,7 @@ FloatingCursor.prototype = {
         this.set_cursor(data[1]);
         this.set_position(data[0]);
         this.current_floating_wall = data[2];
+        this.current_floating_wall.currently_engaged_with_cursor = true;
         this.cursor_needed_from_floating_walls = true;
     },
 
@@ -267,12 +268,12 @@ function World(planet_name) {
 
                     // FOR_DEV_START
                     // TODO : Check if this check is still needed
-                    if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
-                        l('This logging statement was made! Keep this if statement!');
-                        if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
-                            has_match = true;
-                        }
-                    }
+                    //if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
+                    //    l('This logging statement was made! Keep this if statement!');
+                    //    if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
+                    //        has_match = true;
+                    //    }
+                    //}
                     // FOR_DEV_END
 
                     // TODO : Check if the mesh or geometry is used. Both probably don't need to check both.
