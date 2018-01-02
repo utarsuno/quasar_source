@@ -476,6 +476,13 @@ FloatingWall.prototype = {
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
+    cursor_action_disengaged: function() {
+        //MANAGER_WORLD.current_floating_cursor.disengage();
+        this.player_horizontal_distance_to_wall_center_liner = null;
+        this.previous_cursor_y_position = null;
+        this.player_previous_y_position = null;
+    },
+
     update_normal: function(normal) {
         this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
         this.normal.normalize();
@@ -737,16 +744,11 @@ FloatingWall.prototype = {
         */
     },
 
-
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            MANAGER_WORLD.current_floating_cursor.engage();
+            //MANAGER_WORLD.current_floating_cursor.engage();
         } else {
-            l('Floating wall disengage!');
-            MANAGER_WORLD.current_floating_cursor.disengage();
-            this.player_horizontal_distance_to_wall_center_liner = null;
-            this.previous_cursor_y_position = null;
-            this.player_previous_y_position = null;
+            //l('Floating wall disengage!');
         }
     }
 

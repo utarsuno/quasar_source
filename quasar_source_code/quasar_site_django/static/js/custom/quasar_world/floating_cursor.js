@@ -44,6 +44,7 @@ FloatingCursor.prototype = {
     disengage: function() {
         this.engaged = false;
         CURRENT_PLAYER.disengage();
+        this.current_floating_wall.cursor_action_disengaged();
         this.current_floating_wall = null;
     },
 

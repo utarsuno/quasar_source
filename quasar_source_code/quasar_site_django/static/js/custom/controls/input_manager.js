@@ -137,7 +137,7 @@ InputManager.prototype = {
     on_mouse_up: function(e) {
         e = e || window.event;
         switch (e.which) {
-        case CLICK_LEFT:        
+        case CLICK_LEFT:
             this.click_down_left = false;
 
             if (this._key_down_buffer.length === 1) {
@@ -146,6 +146,7 @@ InputManager.prototype = {
                 MANAGER_WORLD.current_world.multi_left_click();
             }
 
+            // TODO : Does this need to be deleted?
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 MANAGER_WORLD.current_floating_cursor.disengage();
             }
