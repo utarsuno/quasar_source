@@ -114,8 +114,10 @@ FloatingWall.prototype = {
             if (this.previous_cursor_y_position === null) {
                 this.previous_cursor_y_position = current_floating_cursor_y;
             } else if (this.previous_cursor_y_position !== current_floating_cursor_y) {
-                var delta_y = current_floating_cursor_y - this.previous_cursor_y_position;
-                y_offset += delta_y;
+                // TODO : Temporary fix.
+                if (!MANAGER_INPUT.space && !MANAGER_INPUT.shift) {
+                    y_offset += current_floating_cursor_y - this.previous_cursor_y_position;
+                }
                 this.previous_cursor_y_position = current_floating_cursor_y;
             }
             //if (MANAGER_WORLD.current_floating_cursor.get_position().y - )
@@ -741,6 +743,7 @@ FloatingWall.prototype = {
             MANAGER_WORLD.current_floating_cursor.engage();
         } else {
             MANAGER_WORLD.current_floating_cursor.disengage();
+            this.player_horizontal_distance_to_wall_center_liner = null;
         }
     }
 
