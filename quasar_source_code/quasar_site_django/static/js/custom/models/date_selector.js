@@ -55,11 +55,19 @@ DateSelector.prototype = {
 
         for (var d = 0; d < days.length; d++) {
 
-            var row = days[d].get_week_relative_to_current_month();
+            l(days[d].to_string() + ' is in the :');
+            if (days[d].in_past()) {
+                l('past!');
+            } else if (days[d].in_future()) {
+                l('future!');
+            } else {
+                l('present!');
+            }
 
+            var row = days[d].get_week_relative_to_current_month();
             var num = days[d].get_day_number_relative_to_current_week();
             var day_cell = null;
-            if (num == 0) {
+            if (num === 0) {
                 day_cell = this.wall.add_floating_2d_text(6 / 7, 1, days[d].get_day_number(), TYPE_BUTTON, 7 + row);
                 day_cell.set_engage_function(this.date_selected.bind(this, days[d]));
             } else {

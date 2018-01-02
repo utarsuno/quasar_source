@@ -24,6 +24,12 @@ MyDates.prototype = {
             var days_of_this_month = get_all_days_in_current_month();
             for (var d = 0; d < days_of_this_month.length; d++) {
                 this.dates.push(new MyDate(days_of_this_month[d]));
+
+                var dates_in_past = this.get_dates_in_past();
+                var dates_in_future = this.get_dates_in_future();
+
+                this.dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
+                this.dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
             }
         }
     },

@@ -32,6 +32,7 @@ FloatingCursor.prototype = {
         this.cursor_needed_from_interactive_objects = false;
         this.cursor_needed_from_floating_walls = false;
         this.engaged = false;
+        this.visible = false;
     },
 
     engage: function() {

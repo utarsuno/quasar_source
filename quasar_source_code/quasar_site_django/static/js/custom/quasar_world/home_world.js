@@ -178,19 +178,16 @@ HomeWorld.prototype = {
         var dates_in_present = this.month_days.get_dates_in_present();
         var dates_in_future = this.month_days.get_dates_in_future();
 
-        var dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
-        var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
-
         var day_index = 0;
         var d;
         for (d = 0; d < dates_in_past.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, dates_in_past_colors[d], false));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_past[d], day_index, this.month_days.dates.length, this.month_days.dates_in_past_colors[d], false));
             day_index += 1;
         }
         this.month_day_walls.push(this.create_month_day_wall(dates_in_present[0], day_index, this.month_days.dates.length, COLOR_SCHEDULE_PRESENT, true));
         day_index += 1;
         for (d = 0; d < dates_in_future.length; d++) {
-            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, dates_in_future_colors[d + 1], false));
+            this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, this.month_days.dates_in_future_colors[d + 1], false));
             day_index += 1;
         }
     }
