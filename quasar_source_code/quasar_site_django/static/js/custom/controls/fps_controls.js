@@ -11,11 +11,6 @@ FPSControls.prototype = {
     enabled           : null,
 
     // Movement.
-    up                : null,
-    down              : null,
-    left              : null,
-    right             : null,
-
     velocity          : null,
     acceleration      : null,
 
@@ -62,11 +57,8 @@ FPSControls.prototype = {
 
         // TODO : Add smooth step to the movement buffers!!!
 
-        document.addEventListener('mousedown', this.on_mouse_down.bind(this), false);
-        document.addEventListener('mouseup', this.on_mouse_up.bind(this), false);
+        // TODO : Eventually move this into the input_manager
         document.addEventListener('mousemove', this.on_mouse_move.bind(this), false);
-        document.addEventListener('keydown', this.on_key_down.bind(this), false);
-        document.addEventListener('keyup', this.on_key_up.bind(this), false);
     },
 
     toggle_flying: function() {
@@ -141,25 +133,25 @@ FPSControls.prototype = {
                     this.velocity.y -= 200.0 * delta;
                 }
 
-                if ((this.up ^ this.down) & (this.left ^ this.right)) {
-                    if (this.up) {
+                if ((MANAGER_INPUT.up ^ MANAGER_INPUT.down) & (MANAGER_INPUT.left ^ MANAGER_INPUT.right)) {
+                    if (MANAGER_INPUT.up) {
                         this.fly_forward(delta * DIAGONAL_PENALTY);
                     } else {
                         this.fly_backward(delta * DIAGONAL_PENALTY);
                     }
-                    if (this.left) {
+                    if (MANAGER_INPUT.left) {
                         this.fly_left(delta * DIAGONAL_PENALTY);
                     } else {
                         this.fly_right(delta * DIAGONAL_PENALTY);
                     }
-                } else if (this.up ^ this.down) {
-                    if (this.up) {
+                } else if (MANAGER_INPUT.up ^ MANAGER_INPUT.down) {
+                    if (MANAGER_INPUT.up) {
                         this.fly_forward(delta);
                     } else {
                         this.fly_backward(delta);
                     }
-                } else if (this.left ^ this.right) {
-                    if (this.left) {
+                } else if (MANAGER_INPUT.left ^ MANAGER_INPUT.right) {
+                    if (MANAGER_INPUT.left) {
                         this.fly_left(delta);
                     } else {
                         this.fly_right(delta);
@@ -169,25 +161,25 @@ FPSControls.prototype = {
                 this.yaw.position.y += this.velocity.y;
             } else {
                 // Walking code.
-                if ((this.up ^ this.down) & (this.left ^ this.right)) {
-                    if (this.up) {
+                if ((MANAGER_INPUT.up ^ MANAGER_INPUT.down) & (MANAGER_INPUT.left ^ MANAGER_INPUT.right)) {
+                    if (MANAGER_INPUT.up) {
                         this.move_forward(delta * DIAGONAL_PENALTY);
                     } else {
                         this.move_backward(delta * DIAGONAL_PENALTY);
                     }
-                    if (this.left) {
+                    if (MANAGER_INPUT.left) {
                         this.move_left(delta * DIAGONAL_PENALTY);
                     } else {
                         this.move_right(delta * DIAGONAL_PENALTY);
                     }
-                } else if (this.up ^ this.down) {
-                    if (this.up) {
+                } else if (MANAGER_INPUT.up ^ MANAGER_INPUT.down) {
+                    if (MANAGER_INPUT.up) {
                         this.fly_forward(delta);
                     } else {
                         this.fly_backward(delta);
                     }
-                } else if (this.left ^ this.right) {
-                    if (this.left) {
+                } else if (MANAGER_INPUT.left ^ MANAGER_INPUT.right) {
+                    if (MANAGER_INPUT.left) {
                         this.move_left(delta);
                     } else {
                         this.move_right(delta);
@@ -228,66 +220,12 @@ FPSControls.prototype = {
         this.enabled = false;
         // In case pause was pressed as a movement key was held down.
         // Reset movement variables so resuming back in doesn't leave one down until re-clicked.
-        this.up         = false;
-        this.down       = false;
-        this.left       = false;
-        this.right      = false;
-        this.space      = false;
-        this.shift      = false;
-    },
-
-    on_key_down: function(event) {
-        switch(event.keyCode) {
-        case KEY_CODE_UP:
-        case KEY_CODE_W:
-            this.up = true;
-            break;
-        case KEY_CODE_LEFT:
-        case KEY_CODE_A:
-            this.left = true;
-            break;
-        case KEY_CODE_DOWN:
-        case KEY_CODE_S:
-            this.down = true;
-            break;
-        case KEY_CODE_RIGHT:
-        case KEY_CODE_D:
-            this.right = true;
-            break;
-        case KEY_CODE_SPACE:
-            this.space = true;
-            break;
-        case KEY_CODE_SHIFT:
-            this.shift = true;
-            break;
-        }
-    },
-
-    on_key_up: function(event) {
-        switch(event.keyCode) {
-        case KEY_CODE_UP:
-        case KEY_CODE_W:
-            this.up = false;
-            break;
-        case KEY_CODE_LEFT:
-        case KEY_CODE_A:
-            this.left = false;
-            break;
-        case KEY_CODE_DOWN:
-        case KEY_CODE_S:
-            this.down = false;
-            break;
-        case KEY_CODE_RIGHT:
-        case KEY_CODE_D:
-            this.right = false;
-            break;
-        case KEY_CODE_SPACE:
-            this.space = false;
-            break;
-        case KEY_CODE_SHIFT:
-            this.shift = false;
-            break;
-        }
+        MANAGER_INPUT.up    = false;
+        MANAGER_INPUT.down  = false;
+        MANAGER_INPUT.left  = false;
+        MANAGER_INPUT.right = false;
+        MANAGER_INPUT.space = false;
+        MANAGER_INPUT.shift = false;
     },
 
     look_at: function(position_vector_to_look_at) {
@@ -334,22 +272,6 @@ FPSControls.prototype = {
         this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
         this.walking_direction = this.walking_direction.projectOnPlane(GROUND_NORMAL);
         this.walking_direction.normalize();
-    },
-
-    on_mouse_down: function() {
-        // TODO : Investigate this particular logic.
-        if (MANAGER_WORLD.current_world.floating_cursor.is_currently_visible()) {
-            MANAGER_WORLD.current_world.floating_cursor.engaged = true;
-            CURRENT_PLAYER.engage();
-            CURRENT_PLAYER.enable_controls();
-        }
-    },
-
-    on_mouse_up: function() {
-        if (MANAGER_WORLD.current_world.floating_cursor.engaged) {
-            MANAGER_WORLD.current_world.floating_cursor.engaged = false;
-            CURRENT_PLAYER.disengage();
-        }
     },
 
     on_mouse_move: function(event) {

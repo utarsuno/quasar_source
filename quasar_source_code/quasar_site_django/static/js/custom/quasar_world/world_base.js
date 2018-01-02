@@ -111,7 +111,10 @@ function World(planet_name) {
     };
 
     this.update_interactive_objects = function() {
-        // TODO : Eventually optimize this function.
+        // Don't check for an intersection if the cursor is currently engaged or the paused menu is displayed.
+        if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
+            return;
+        }
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
@@ -204,15 +207,6 @@ function World(planet_name) {
     };
 
     this._check_for_custom_plane_intersections = function() {
-        if (GUI_PAUSED_MENU.currently_displayed) {
-            return;
-        }
-
-        // Don't check for an intersection
-        if (this.floating_cursor.engaged) {
-            return;
-        }
-
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var player_position = CURRENT_PLAYER.get_position();
 
@@ -259,6 +253,8 @@ function World(planet_name) {
                 this._previously_intersected_plane.currently_engaged_with_cursor = false;
                 this._previously_intersected_plane = null;
             }
+
+
         }
 
     };
@@ -294,6 +290,7 @@ function World(planet_name) {
                 this.currently_looked_at_object.engage();
             }
         }
+
     };
 
     // For now a middle click will act like a left click.
