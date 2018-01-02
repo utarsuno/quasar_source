@@ -144,16 +144,6 @@ function World(planet_name) {
 
                     var has_match = false;
 
-                    // FOR_DEV_START
-                    // TODO : Check if this check is still needed
-                    //if (this.interactive_objects[m].mesh.hasOwnProperty('wireframe')) {
-                    //    l('This logging statement was made! Keep this if statement!');
-                    //    if (this.interactive_objects[m].wireframe.uuid === closest_object.uuid) {
-                    //        has_match = true;
-                    //    }
-                    //}
-                    // FOR_DEV_END
-
                     // TODO : Check if the mesh or geometry is used. Both probably don't need to check both.
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid) {
                         has_match = true;

@@ -162,6 +162,14 @@ Player.prototype = {
         this.fps_controls.physics(delta);
         this.data_display.update();
 
+        if (is_defined(MANAGER_WORLD.current_world.current_cursor)) {
+            if (this.floating_cursor.engaged) {
+                if (is_defined(this.floating_cursor.current_floating_wall)) {
+                    this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
+                }
+            }
+        }
+
         if (is_defined(MANAGER_WORLD)) {
             if (MANAGER_WORLD.current_player_menu.is_visible()) {
                 MANAGER_WORLD.current_player_menu.update(delta);
