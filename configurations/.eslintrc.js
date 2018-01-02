@@ -268,6 +268,13 @@ module.exports = {
         "ICON_CROSS"       : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "TEXT_FORMAT_LEFT"        : false,
+        "TEXT_FORMAT_CENTER"      : false,
+        "TEXT_FORMAT_RIGHT"       : false,
+        "TEXT_SYNTAX_FOUR_MINIMUM": false,
+        "TEXT_SYNTAX_EMAIL"       : false,
+        "TEXT_SYNTAX_PASSWORD"    : false,
+
         "get_color_range_list": false,
 
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.

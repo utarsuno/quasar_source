@@ -235,13 +235,23 @@ FloatingWall.prototype = {
         // TODO : auto-scale floating 2d texts!
     },
 
-    add_3D_title: function(title_name, type, color, row) {
+    add_3D_title: function(title_name, type, color, row, formatting) {
         if (is_defined(type)) {
             this.floating_3D_title = new Floating3DText(title_name, type, this.scene);
         } else {
             this.floating_3D_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
         }
-        var x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
+
+        var x_shift = null;
+
+        if (is_defined(formatting)) {
+            if (formatting === TEXT_FORMAT_LEFT) {
+                x_shift = this.get_relative_x_shift(0);
+            } else {
+                x_shift = this.get_relative_x_shift(-1.0 * (this.floating_3D_title.width / 2.0));
+            }
+        }
+
         var additional_y_height = 0;
         if (is_defined(row)) {
             additional_y_height = this.floating_3D_title.height * row;

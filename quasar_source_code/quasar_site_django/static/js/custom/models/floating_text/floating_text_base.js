@@ -19,6 +19,7 @@ function FloatingText(width, text, type, scene, current_color) {
     this.object3D      = new THREE.Object3D();
     this.current_color = null;
     this.default_color = null;
+    this.syntax_type   = null;
 
     // Default value.
     this.normal_depth  = 1;
@@ -77,11 +78,36 @@ function FloatingText(width, text, type, scene, current_color) {
                 break;
             }
         }
+
+        if (this.type === TYPE_BUTTON) {
+            this._disabled = false;
+        }
     };
 
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+    // Used for buttons.
+    this.disable = function() {
+        if (this.type === TYPE_BUTTON) {
+            this.previous_default_color = this.default_color;
+            this.set_default_color(COLOR_RED);
+            this._disabled = true;
+        }
+    };
+
+    // Used for buttons.
+    this.enable = function() {
+        if (this.type === TYPE_BUTTON) {
+            this.set_default_color(this.previous_default_color);
+            this._disabled = false;
+        }
+    };
+
+    this.set_syntax_type = function(syntax_type) {
+        this._syntax_type = syntax_type;
+    };
+
     this.set_default_color = function(default_color) {
         if (is_list(default_color)) {
             if (this.is_2D_text) {

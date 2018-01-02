@@ -201,6 +201,13 @@ const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
 const CURSOR_TYPE_MOUSE      = 'mouse.png';
 // UNIVERSAL_CONSTANTS_END
 
+const TEXT_FORMAT_LEFT         = 'text_format_left';
+const TEXT_FORMAT_CENTER       = 'text_format_center';
+const TEXT_FORMAT_RIGHT        = 'text_format_right';
+const TEXT_SYNTAX_FOUR_MINIMUM = 'text_syntax_for_minimum';
+const TEXT_SYNTAX_EMAIL        = 'text_syntax_email';
+const TEXT_SYNTAX_PASSWORD     = 'text_syntax_password';
+
 // UNIVERSAL_CONSTANTS_START : Skybox textures.
 const SKYBOX_FRONT  = 'front.jpg';
 const SKYBOX_BACK   = 'back.jpg';
