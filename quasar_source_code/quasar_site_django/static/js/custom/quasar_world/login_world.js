@@ -224,7 +224,7 @@ LoginWorld.prototype = {
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3D_title('Login', TYPE_TITLE_CONSTANT, null, 2);
-        this.login_wall_errors = this.login_wall.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 1, TEXT_FORMAT_LEFT);
+        this.login_wall_errors = this.login_wall.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 2, TEXT_FORMAT_LEFT);
 
         this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
@@ -257,7 +257,7 @@ LoginWorld.prototype = {
 
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this, false);
         this.wall_create_account.add_3D_title('Create Account', TYPE_TITLE_CONSTANT, null, 3);
-        this.wall_create_account_errors = this.wall_create_account.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 1, TEXT_FORMAT_LEFT);
+        this.wall_create_account_errors = this.wall_create_account.add_3D_title('|', TYPE_CONSTANT_TEXT, COLOR_RED, 3, TEXT_FORMAT_LEFT);
 
         this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
         this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
