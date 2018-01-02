@@ -252,11 +252,15 @@ FloatingWall.prototype = {
                 floating_3D_title.set_format_type(formatting);
                 x_shift = this.get_relative_x_shift(60);
             } else {
+                l('Formatting is not defined!');
                 x_shift = this.get_relative_x_shift(-1.0 * (floating_3D_title.width / 2.0));
             }
         } else {
+            l('Formatting is not defined!');
             x_shift = this.get_relative_x_shift(-1.0 * (floating_3D_title.width / 2.0));
         }
+
+        l(x_shift);
 
         var additional_y_height = 0;
         if (is_defined(row)) {
