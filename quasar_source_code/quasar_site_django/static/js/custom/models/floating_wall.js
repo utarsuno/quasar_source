@@ -72,7 +72,7 @@ FloatingWall.prototype = {
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
 
-        //l('PERFORM AN ACTION PLZ');
+        l('PERFORM AN ACTION PLZ');
         //l(cursor_type);
 
         //var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();

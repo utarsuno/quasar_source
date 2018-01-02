@@ -17,6 +17,7 @@ var MANAGER_ENTITY      = null;
 var MANAGER_MULTIPLAYER = null;
 var MANAGER_SHADER      = null;
 var MANAGER_RENDERER    = null;
+var MANAGER_INPUT       = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;

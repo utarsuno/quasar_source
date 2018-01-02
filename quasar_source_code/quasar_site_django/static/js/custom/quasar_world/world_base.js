@@ -2,126 +2,6 @@
 
 const LIGHT_CIRCLE_RADIUS = 1000;
 
-function FloatingCursor(world) {
-    this.__init__(world);
-}
-
-FloatingCursor.prototype = {
-
-    __init__: function(world) {
-        // TODO : Optimize in the future.
-        // Load all instances of the cursor needed.
-        this.cursors = {};
-
-        // The cursor texture will get set once loaded.
-        this.width = 7;
-        this.height = 10;
-        this.plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
-        // TODO : Dispose of this original material later on.
-        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
-        this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
-
-        this.previous_cursor = null;
-        this.current_cursor = this.cursor_temp;
-
-        this.object3D = new THREE.Object3D();
-        this.object3D.add(this.cursor_temp);
-
-        this.world = world;
-        this.scene = this.world.scene;
-        this.scene.add(this.object3D);
-
-        this.cursor_needed_from_interactive_objects = false;
-        this.cursor_needed_from_floating_walls = false;
-        this.current_normal = null;
-        this.engaged = false;
-    },
-
-    add_cursor_material: function(cursor_material, texture_name) {
-        var cursor_name = '';
-
-        if (texture_name.includes(CURSOR_TYPE_HORIZONTAL)) {
-            cursor_name = CURSOR_TYPE_HORIZONTAL;
-        } else if (texture_name.includes(CURSOR_TYPE_VERTICAL)) {
-            cursor_name = CURSOR_TYPE_VERTICAL;
-        } else if (texture_name.includes(CURSOR_TYPE_HAND)) {
-            cursor_name = CURSOR_TYPE_HAND;
-        } else if (texture_name.includes(CURSOR_TYPE_POINTER)) {
-            cursor_name = CURSOR_TYPE_POINTER;
-        } else if (texture_name.includes(CURSOR_TYPE_LARGER)) {
-            cursor_name = CURSOR_TYPE_LARGER;
-        } else if (texture_name.includes(CURSOR_TYPE_MOUSE)) {
-            cursor_name = CURSOR_TYPE_MOUSE;
-        }
-
-        var cursor_plane_geometry = new THREE.PlaneGeometry(this.width, this.height, 1);
-        var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
-        c.userData.name = cursor_name;
-        c.visible = false;
-        this.object3D.add(c);
-        //this.scene.add(c);
-        this.cursors[cursor_name] = c;
-    },
-
-    is_currently_visible: function() {
-        return this.current_cursor.visible;
-    },
-
-    set_data: function(data) {
-        this.set_cursor(data[1]);
-        this.set_position(data[0]);
-        this.current_floating_wall = data[2];
-        this.current_floating_wall.currently_engaged_with_cursor = true;
-        this.cursor_needed_from_floating_walls = true;
-    },
-
-    update: function() {
-        if (this.cursor_needed_from_floating_walls || this.cursor_needed_from_interactive_objects) {
-            this.current_cursor.visible = true;
-            this.cursor_needed_from_floating_walls = false;
-            this.cursor_needed_from_interactive_objects = false;
-        } else {
-            if (!this.engaged) {
-                this.current_cursor.visible = false;
-            }
-        }
-
-        // TODO : Update the late positions here.
-    },
-
-    set_cursor: function(cursor_type) {
-        if (this.cursors.hasOwnProperty(cursor_type)) {
-            if (this.cursors[cursor_type] !== this.current_cursor) {
-                this.previous_cursor = this.current_cursor;
-                this.previous_cursor.visible = false;
-                this.current_cursor = this.cursors[cursor_type];
-            }
-        }
-    },
-
-    get_position: function() {
-        return this.object3D.position;
-    },
-
-    set_position: function(position) {
-        var cursor_offset = 2;
-
-        var normal;
-        if (is_defined(this.world.currently_looked_at_object)) {
-            normal = this.world.currently_looked_at_object.normal;
-        } else {
-            normal = this.current_normal;
-        }
-
-        // TODO : determine if there needs to be a horizontal shift as well.
-
-        // TODO : The cursor position needs to be fixed (x-y offset)
-        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height / 2, position.z + normal.z * 4);
-        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height / 2, position.z + normal.z * cursor_offset);
-        this.object3D.lookAt(cursor_look_at);
-    }
-};
-
 function World(planet_name) {
 
     this.planet_position            = null;
@@ -154,7 +34,7 @@ function World(planet_name) {
             this.scene.remove(object.object3D);
         }
 
-        // TODO : check if there is a geometry or material to dipose of.
+        // TODO : check if there is a geometry or material to dispose of.
     };
 
     this.remove_from_interactive_then_scene = function(object_to_remove) {
@@ -340,6 +220,11 @@ function World(planet_name) {
             return;
         }
 
+        // Don't check for an intersection
+        if (this.floating_cursor.engaged) {
+            return;
+        }
+
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var player_position = CURRENT_PLAYER.get_position();
 
@@ -423,8 +308,9 @@ function World(planet_name) {
         }
     };
 
+    // For now a middle click will act like a left click.
     this.single_middle_click = function() {
-
+        this.single_left_click();
     };
 
     this.single_right_click = function() {
@@ -434,6 +320,21 @@ function World(planet_name) {
                 CURRENT_PLAYER.enable_controls();
             }
         }
+    };
+
+    this.multi_left_click = function() {
+        // For now just perform a regular left click action.
+        this.single_left_click();
+    };
+
+    this.multi_middle_click = function() {
+        // Fow now just perform a regular left click action.
+        this.single_left_click();
+    };
+
+    this.multi_right_click = function() {
+        // Fow nbow just perform a regular right click action.
+        this.single_right_click();
     };
 
     this.key_down_event_for_interactive_objects = function(event) {
@@ -500,9 +401,9 @@ function World(planet_name) {
     /////////////////
     this.lights = [];
 
-    var light_0 = new THREE.PointLight(COLOR_WHITE);
+    //var light_0 = new THREE.PointLight(COLOR_WHITE);
 
-    var light_c0 = new THREE.PointLight(COLOR_RED);
+    //var light_c0 = new THREE.PointLight(COLOR_RED);
 
 
     var lightr = new THREE.PointLight(0xff8579, .5, 0);

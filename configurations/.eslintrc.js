@@ -80,12 +80,14 @@ module.exports = {
         "MANAGER_MULTIPLAYER": true,
         "MANAGER_SHADER"     : true,
         "MANAGER_RENDERER"   : true,
+        "MANAGER_INPUT"      : true,
         // and their class names.
-        "WorldManager"      : true,
+        "WorldManager"      : false,
         "AudioManager"      : false,
-        "EntityManager"     : true,
+        "EntityManager"     : false,
         "MultiPlayerManager": false,
         "RendererAPI"       : false,
+        "InputManager"      : false,
 
         // Global objects.
         "CURRENT_PLAYER": true,

@@ -171,6 +171,7 @@
 <!-- Controls. -->
 <script src="{% static 'js/custom/controls/fps_controls.js' %}"></script>
 <script src="{% static 'js/custom/controls/pointer_lock_api.js' %}"></script>
+<script src="{% static 'js/custom/controls/input_manager.js' %}"></script>
 
 <!-- 2D GUI Overlay -->
 <script src="{% static 'js/custom/gui/stats_api.js' %}"></script>
@@ -179,9 +180,10 @@
 <script src="{% static 'js/custom/gui/typing_interface.js' %}"></script>
 <script src="{% static 'js/custom/gui/dom_element.js' %}"></script>
 
-<!-- Player defined ahead of time. -->
+<!-- Quasar world files to load first. -->
 <script src="{% static 'js/custom/quasar_world/player/player_menu.js' %}"></script>
 <script src="{% static 'js/custom/quasar_world/player/player.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/floating_cursor.js' %}"></script>
 
 <!-- Models. -->
 <script src="{% static 'js/custom/models/inheritables/interactive.js' %}"></script>

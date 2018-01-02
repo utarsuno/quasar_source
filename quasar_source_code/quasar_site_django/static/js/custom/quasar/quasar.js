@@ -9,6 +9,7 @@
 
 // Renders all the worlds.
 MANAGER_RENDERER = new RendererAPI();
+MANAGER_INPUT    = new InputManager();
 
 // Model of the user.
 CURRENT_PLAYER = new Player();
