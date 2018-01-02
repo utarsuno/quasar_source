@@ -25,24 +25,6 @@ PausedMenu.prototype = {
         this.pause_menu           = document.getElementById('pause_menu');
         this.pause_title          = document.getElementById('menu_title');
         this.pause_sub_title      = document.getElementById('menu_header');
-        this.button_resume        = document.getElementById('button_resume');
-        this.button_help_controls = document.getElementById('button_help_controls');
-        this.button_log_out       = document.getElementById('button_log_out');
-
-        this.button_resume.onclick = function() {
-            this.make_invisible();
-            GUI_PAUSED_MENU.make_invisible();
-            MANAGER_POINTER_LOCK.request_pointer_lock();
-            CURRENT_PLAYER.pointer_lock_api.request_pointer_lock();
-        }.bind(this);
-
-        this.button_help_controls.onclick = function() {
-
-        }.bind(this);
-
-        this.button_log_out.onclick = function() {
-            CURRENT_PLAYER.log_out();
-        }.bind(this);
 
         // TODO : Change the title once everything has fully loaded.
         this.pause_title.innerHTML = 'Paused!';
