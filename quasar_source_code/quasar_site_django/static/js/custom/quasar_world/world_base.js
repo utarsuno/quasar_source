@@ -299,10 +299,9 @@ function World(planet_name) {
         if (this.currently_looked_at_object !== null) {
             if (!this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.engage();
+            } else if (MANAGER_WORLD.current_floating_cursor.engaged) {
+                MANAGER_WORLD.current_floating_cursor.disengage();
             }
-            //else if (MANAGER_WORLD.current_floating_cursor.engaged) {
-            //    MANAGER_WORLD.current_floating_cursor.disengage();
-            //}
         } else {
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 MANAGER_WORLD.current_floating_cursor.disengage();
