@@ -261,7 +261,7 @@ class QuasarCode(object):
 
 	def feature_testing(self):
 		"""The current feature to be tested."""
-
+		print('hi!')
 		# Verify the 'all_scripts' directory.
 		oc.print_data(self._script_manager.get_data())
 
