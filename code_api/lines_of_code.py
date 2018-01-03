@@ -102,7 +102,7 @@ class LineOfCode(object):
 def get_lines_of_code_from_file(file_path):
 	"""Returns a list of LineOfCode objects representing the contents of the file."""
 	x = []
-	with open(file_path) as file:
+	with open(file_path, 'r') as file:
 		for l in file:
 			x.append(LineOfCode(l))
 	return x
