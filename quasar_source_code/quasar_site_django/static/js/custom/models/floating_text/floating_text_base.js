@@ -20,7 +20,7 @@ function FloatingText(width, text, type, scene, current_color) {
     this.current_color = null;
     this.default_color = null;
     this.syntax_type   = null;
-    self.format_type   = null;
+    this.format_type   = null;
 
     // Default value.
     this.normal_depth  = 1;
