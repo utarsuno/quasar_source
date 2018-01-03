@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 CONFIG_PATH="$DIR/../../configuration_files/config.ini"
 CONFIG_READER="$DIR/../universal_scripts/config_reader_for_bash.py"
 

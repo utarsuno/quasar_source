@@ -2,8 +2,8 @@
 
 """This module, finance_code_generator.py, generates finance code."""
 
+from code_api.code_generator import c_code_generator as c
 from universal_code import path_manager as pm
-from code_api import c_code_generator as c
 
 
 class FinanceCodeGenerator(object):

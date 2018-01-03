@@ -59,37 +59,37 @@ function print_green_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_green_text' requires a parameter."
     fi
-    echo "${FG_GREEN}${FS_REG}${1}${RESET_ALL}"
+    printf "${FG_GREEN}${FS_REG}${1}${RESET_ALL}"
 }
 
 function print_dotted_line {
-    echo "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
 }
 
 function print_red_dotted_line {
-    echo "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
 }
 
 function print_dash_line {
-    echo "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}"
+    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}"
 }
 
 function print_script_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_script_text' requires a parameter."
     fi
-    echo "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
+    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
 }
 
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
-        echo "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
+        printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
         print_red_dotted_line
     else
-        echo "${FG_RED}${FS_UL}${1}${RESET_ALL}"
-        echo ""
-        echo "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
+        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}"
+        printf ""
+        printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
         print_red_dotted_line
     fi
     exit
@@ -122,10 +122,10 @@ function print_dashed_line_with_text {
 
 function print_line_in_between_dashed_lines {
     if [ -z "$1" ]; then
-        echo "The function 'print_line_in_between_dashed_lines' has to have an argument passed into it. The program will now terminate as most likely a programmer error has occurred lol."
+        printf "The function 'print_line_in_between_dashed_lines' has to have an argument passed into it. The program will now terminate as most likely a programmer error has occurred lol."
     fi
     print_dash_line
-    echo $1
+    printf $1
     print_dash_line
 }
 

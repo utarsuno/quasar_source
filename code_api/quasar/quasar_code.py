@@ -228,7 +228,7 @@ class QuasarCode(object):
 
 		# TODO : Get a list of remaining universal constants needed to be put in!
 
-	def feature_testing(self):
+	def feature_testing_string_stuff(self):
 		"""Temporary function for feature testing."""
 		#jsliterals = self._javascript_manager.get_all_string_literals()
 		js_words = self._javascript_manager.get_all_words()
@@ -258,6 +258,12 @@ class QuasarCode(object):
 					print(m)
 
 			print('\n')
+
+	def feature_testing(self):
+		"""The current feature to be tested."""
+
+		# Verify the 'all_scripts' directory.
+		oc.print_data(self._script_manager.get_data())
 
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""
