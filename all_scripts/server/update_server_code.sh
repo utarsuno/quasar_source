@@ -17,6 +17,8 @@ FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
 RESET_ALL="${ESC_SEQ}0m"
 FS_BOLD="1m"
+FG_RED="${ESC_SEQ}31;"
+FS_UL="4m"
 FG_MAGENTA="${ESC_SEQ}35;"
 DOTTED_LINE="................................................................................."
 
@@ -45,6 +47,20 @@ function print_dashed_line_with_text {
       printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     done
     printf "\n"
+}
+
+function terminate_script {
+    print_red_dotted_line
+    if [ -z "$1" ]; then
+        printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
+        print_red_dotted_line
+    else
+        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}"
+        printf ""
+        printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
+        print_red_dotted_line
+    fi
+    exit
 }
 
 #  __   __   __      __  ___          __   __      __  

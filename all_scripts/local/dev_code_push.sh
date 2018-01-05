@@ -69,12 +69,6 @@ function print_dotted_line {
     printf "\n"
 }
 
-function terminate_if_sudo {
-    if [[ $EUID -eq 0 ]]; then
-        terminate_script "dev_code_push.sh should not be ran as sudo!"
-    fi
-}
-
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
@@ -87,6 +81,12 @@ function terminate_script {
         print_red_dotted_line
     fi
     exit
+}
+
+function terminate_if_sudo {
+    if [[ $EUID -eq 0 ]]; then
+        terminate_script "dev_code_push.sh should not be ran as sudo!"
+    fi
 }
 
 #  __        ___  ___ ___         __        ___  __        __  

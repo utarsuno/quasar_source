@@ -55,6 +55,7 @@ HERE
 
 fi''')
 
+
 # Connect to server script.
 local_ssh_to_nexus = local_scripts.add_code_file('ssh_to_nexus.sh')
 local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_IP)
@@ -62,6 +63,7 @@ local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_PORT)
 local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_PEM_PATH)
 local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_USER)
 local_ssh_to_nexus.add_main_logic('''ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/ ; bash"''')
+
 '''__   ___  __        ___  __
   /__` |__  |__) \  / |__  |__)
   .__/ |___ |  \  \/  |___ |  \ '''
@@ -70,8 +72,6 @@ server_scripts = all_scripts.add_sub_directory('server')
 # Update server code script.
 server_scripts_update_server_code = server_scripts.add_code_file('update_server_code.sh')
 server_scripts_update_server_code.require_start_and_stop_print()
-# TODO : Fix this so it is not required to be manually added.
-server_scripts_update_server_code.add_required_function(ssg._FUNCTION_PRINT_RED_DOTTED_LINE)
 #server_scripts_update_server_code.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 server_scripts_update_server_code.add_main_logic('''# Go to the projects base directory.
 cd /home/git_repos/quasar_source;
@@ -108,6 +108,7 @@ fi''')
 # Quasar server scripts.
 quasar = server_scripts.add_sub_directory('quasar')
 
+
 # Live run script.
 quasar_live_run = quasar.add_code_file('live_run.sh')
 quasar_live_run.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
@@ -120,8 +121,10 @@ else
   python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80
 fi''')
 
+
 # Entity server scripts.
 entity = server_scripts.add_sub_directory('entity')
+
 
 # Finance server scripts.
 

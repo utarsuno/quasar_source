@@ -6,6 +6,7 @@ from code_api import code_file as cf
 from universal_code import debugging as dbg
 from universal_code.time_abstraction import time_abstraction as ta
 from universal_code import path_manager as pm
+from universal_code import output_coloring as oc
 
 
 SHELL_SCRIPT_TYPE_LOCAL     = 'local'
@@ -127,6 +128,7 @@ class ShellFunction(object):
 		self._required_variables = []
 		self._required_functions = []
 		if self._type == _FUNCTION_TERMINATE_SCRIPT:
+			self._function_name = 'terminate_script'
 			self.add_required_function(_FUNCTION_PRINT_RED_DOTTED_LINE)
 			self.add_required_variable(_VARIABLE_ESC_SEC)
 			self.add_required_variable(_VARIABLE_FS_RED)
@@ -134,11 +136,13 @@ class ShellFunction(object):
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 			self.add_required_variable(_VARIABLE_FS_UL)
 		elif self._type == _FUNCTION_PRINT_RED_DOTTED_LINE:
+			self._function_name = 'print_red_dotted_line'
 			self.add_required_variable(_VARIABLE_FS_MAGENTA)
 			self.add_required_variable(_VARIABLE_FS_REG)
 			self.add_required_variable(_VARIABLE_DOTTED_LINE)
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 		elif self._type == _FUNCTION_PRINT_DASHED_LINE_WITH_TEXT:
+			self._function_name = 'print_dashed_line_with_text'
 			self._required_functions.append(_FUNCTION_TERMINATE_SCRIPT)
 			# Not including the variables that are already included in '_FUNCTION_TERMINATE_SCRIPT'
 			self.add_required_variable(_VARIABLE_FS_YELLOW)
@@ -147,27 +151,36 @@ class ShellFunction(object):
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 			self.add_required_variable(_VARIABLE_FS_BOLD)
 		elif self._type == _FUNCTION_PRINT_DOTTED_LINE:
+			self._function_name = 'print_dotted_line'
 			self.add_required_variable(_VARIABLE_FS_MAGENTA)
 			self.add_required_variable(_VARIABLE_DOTTED_LINE)
 			self.add_required_variable(_VARIABLE_FS_REG)
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 		elif self._type == _FUNCTION_PRINT_SCRIPT_TEXT:
+			self._function_name = 'print_script_text'
 			self.add_required_variable(_VARIABLE_FS_CYAN)
 			self.add_required_variable(_VARIABLE_FS_REG)
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 		elif self._type == _FUNCTION_TERMINATE_IF_SUDO:
+			self._function_name = 'terminate_if_sudo'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
+			self._function_name = 'terminate_if_sudo'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SUDO))
 		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU:
+			self._function_name = 'terminate_if_system_is_ubuntu'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU:
+			self._function_name = 'terminate_if_system_is_not_ubuntu'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
+			self._function_name = 'terminate_if_system_is_ubuntu'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU))
 		elif self._type == SAFETY_CHECK_ONLY_ALLOW_UBUNTU:
+			self._function_name = 'terminate_if_system_is_not_ubuntu'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
+			self._function_name = 'terminate_if_sudo'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 
 	def add_required_function(self, rf):
@@ -196,11 +209,22 @@ class ShellFunction(object):
 		rv = []
 		for r_v in self._required_variables:
 			rv.append(r_v)
+
+		#print('rv is : ' + str(rv))
+
 		all_required_functions = self.get_all_required_functions_recursively()
 		for rf in all_required_functions:
 			for r_v in rf._required_variables:
 				rv.append(r_v)
+
+		#print('rv is : ' + str(rv))
+
 		return rv
+
+	@property
+	def function_name(self) -> str:
+		"""Returns the name of this shell function."""
+		return self._function_name
 
 	def __str__(self):
 		if self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
@@ -319,6 +343,9 @@ class CodeFileShellScript(cf.CodeFile):
 			for rv in rf._required_variables:
 				# Only adds if its not already added.
 				self.add_required_variable(rv)
+			for r_f in rf._required_functions:
+				# Only adds if its not already added.
+				self.add_required_function(r_f)
 
 		for sc in self._required_safety_checks:
 			sub_all_required_variables = sc.get_all_required_variables_recursively()
@@ -359,6 +386,8 @@ class CodeFileShellScript(cf.CodeFile):
 	def _generate_script(self):
 		"""Generates the script."""
 		self._set_needed_variables_and_functions()
+
+		oc.print_data_with_red_dashes_at_start('Generating : ' + self.file_name)
 
 		# Generation report.
 		self.add_3D_comment('generation notes')

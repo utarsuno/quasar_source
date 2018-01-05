@@ -49,12 +49,6 @@ function print_dashed_line_with_text {
     printf "\n"
 }
 
-function terminate_if_system_is_not_ubuntu {
-    if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "update_server_code_force_clean.sh should be run on an ubuntu system."
-    fi
-}
-
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
@@ -67,6 +61,12 @@ function terminate_script {
         print_red_dotted_line
     fi
     exit
+}
+
+function terminate_if_system_is_not_ubuntu {
+    if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
+        terminate_script "update_server_code_force_clean.sh should be run on an ubuntu system."
+    fi
 }
 
 #  __        ___  ___ ___         __        ___  __        __  
