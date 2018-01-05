@@ -17,8 +17,14 @@ FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
 RESET_ALL="${ESC_SEQ}0m"
 FS_BOLD="1m"
+FG_MAGENTA="${ESC_SEQ}35;"
+DOTTED_LINE="................................................................................."
 
 # Required functions.
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function print_dashed_line_with_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_dashed_line_with_text' requires a parameter."

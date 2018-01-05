@@ -70,6 +70,8 @@ server_scripts = all_scripts.add_sub_directory('server')
 # Update server code script.
 server_scripts_update_server_code = server_scripts.add_code_file('update_server_code.sh')
 server_scripts_update_server_code.require_start_and_stop_print()
+# TODO : Fix this so it is not required to be manually added.
+server_scripts_update_server_code.add_required_function(ssg._FUNCTION_PRINT_RED_DOTTED_LINE)
 #server_scripts_update_server_code.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 server_scripts_update_server_code.add_main_logic('''# Go to the projects base directory.
 cd /home/git_repos/quasar_source;
