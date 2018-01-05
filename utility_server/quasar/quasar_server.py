@@ -32,8 +32,8 @@ class QuasarServer(object):
 
 		print('Client got this response : ' + response)
 		time.sleep(2)
-		self._entity_server_connection.send_message('Hello from client 1')
+		response = self._entity_server_connection.send_message('Hello from client 1')
 		print('Client got this response : ' + response)
 		time.sleep(4)
-		self._entity_server_connection.send_message('Hello from client 2')
+		response = self._entity_server_connection.send_message('Hello from client 2')
 		print('Client got this response : ' + response)
