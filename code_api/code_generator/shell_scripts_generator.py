@@ -301,7 +301,7 @@ class CodeFileShellScript(cf.CodeFile):
 			for rf in self._required_functions:
 				if f == str(rf):
 					return True
-		return False # test
+		return False
 
 	def _remove_function(self, f):
 		if type(f) == str:

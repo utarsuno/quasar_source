@@ -27,7 +27,6 @@ local_code_api_feature_test.add_main_logic('''python3 /Users/utarsuno/git_repos/
 # Code push script.
 local_dev_code_push = local_scripts.add_code_file('dev_code_push.sh')
 local_dev_code_push.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_SUDO)
-local_dev_code_push.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
 local_dev_code_push.require_start_and_stop_print()
 local_dev_code_push.add_required_argument('the commit message')
 local_dev_code_push.add_required_function(ssg._FUNCTION_PRINT_SCRIPT_TEXT)
