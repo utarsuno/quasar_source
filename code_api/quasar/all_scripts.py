@@ -111,6 +111,7 @@ quasar = server_scripts.add_sub_directory('quasar')
 
 # Live run script.
 quasar_live_run = quasar.add_code_file('live_run.sh')
+quasar_live_run.require_start_and_stop_print()
 quasar_live_run.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 quasar_live_run.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
 if [ "${is_django_running}" == "true" ]; then
