@@ -8,10 +8,9 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from utility_server.quasar import quasar_server as qs
 
 from entities import base_entity as be
-from entities.server import entity_server as es
-from utility_server.quasar import quasar_server as qs
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'

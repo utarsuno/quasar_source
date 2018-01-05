@@ -81,7 +81,7 @@ terminate_if_system_is_not_ubuntu
 # ----------------------------------------------------------------------------
 print_dashed_line_with_text "status.sh script start for : ${HOST_NAME}."
 
-is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py '/home/git_repos/quasar_source/entities/server/entity_server.py')
+is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py '/home/git_repos/quasar_source/servers/entities/entity_server.py')
 if [ "${is_entity_server_running}" == "true" ]; then
   echo 'Entity server is currently running!'
 else

@@ -87,12 +87,12 @@ terminate_if_not_sudo
 # ----------------------------------------------------------------------------
 print_dashed_line_with_text "run_in_background.sh script start for : ${HOST_NAME}."
 
-is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py '/home/git_repos/quasar_source/entities/server/entity_server.py')
+is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py '/home/git_repos/quasar_source/servers/entities/entity_server.py')
 if [ "${is_entity_server_running}" == "true" ]; then
   echo 'Entity server is already running!'
 else
   export PYTHONPATH=/home/git_repos/quasar_source/
-  nohup python3 /home/git_repos/quasar_source/entities/server/entity_server.py -r &
+  nohup python3 /home/git_repos/quasar_source/servers/entities/entity_server.py -r &
 fi
 
 print_dashed_line_with_text "run_in_background.sh script end for : ${HOST_NAME}."
