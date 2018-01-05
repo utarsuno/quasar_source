@@ -35,7 +35,6 @@ class EntityServer(object):
 
 		self._db_api = EntityDatabaseAPI()
 		print('Test function!')
-		print(self._db_api.test_function())
 
 	def run(self):
 		"""Runs the entity server."""
@@ -45,7 +44,7 @@ class EntityServer(object):
 			message = self._host_server.get_message()
 
 			if message == SERVER_COMMAND_REQUEST_ALL_DATA:
-				self._host_server.send_reply('All data command reply!')
+				self._host_server.send_reply(str(self._db_api.test_function()))
 			else:
 				self._host_server.send_reply('Server says hello!')
 

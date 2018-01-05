@@ -12,6 +12,8 @@ from universal_code import useful_file_operations as ufo
 SUCCESS_MESSAGE = 's:'
 ERROR_MESSAGE   = 'e:'
 
+SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
+
 
 class QuasarServer(object):
 	"""Represents the Quasar utility server."""
@@ -46,6 +48,9 @@ class QuasarServer(object):
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
+
+		reply = self._entity_server_connection.send_message(SERVER_COMMAND_REQUEST_ALL_DATA)
+
 		print('Need to create an entity owner for the following data :')
 		print(owner_data)
 		return SUCCESS_MESSAGE
