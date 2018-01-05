@@ -51,7 +51,7 @@ function print_dashed_line_with_text {
 
 function terminate_if_system_is_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "This script should be run on an ubuntu system."
+        terminate_script "update_server_code_force_clean.sh should be run on an ubuntu system."
     fi
 }
 

@@ -71,7 +71,7 @@ function print_dotted_line {
 
 function terminate_if_sudo {
     if [[ $EUID -eq 0 ]]; then
-        terminate_script "This script should not be ran as sudo!"
+        terminate_script "dev_code_push.sh should not be ran as sudo!"
     fi
 }
 
@@ -91,7 +91,7 @@ function terminate_script {
 
 function terminate_if_system_is_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
-        terminate_script "This script should not be run on an ubuntu system."
+        terminate_script "dev_code_push.sh should not be run on an ubuntu system."
     fi
 }
 

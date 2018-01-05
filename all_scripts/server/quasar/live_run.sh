@@ -27,7 +27,7 @@ function print_red_dotted_line {
 }
 function terminate_if_system_is_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "This script should be run on an ubuntu system."
+        terminate_script "live_run.sh should be run on an ubuntu system."
     fi
 }
 

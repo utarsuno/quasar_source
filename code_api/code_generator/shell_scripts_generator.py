@@ -76,21 +76,21 @@ _FUNCTION_TERMINATE_SCRIPT = '''function terminate_script {
 
 _FUNCTION_TERMINATE_IF_SUDO = '''function terminate_if_sudo {
     if [[ $EUID -eq 0 ]]; then
-        terminate_script "This script should not be ran as sudo!"
+        terminate_script "<<THIS_SCRIPT_NAME>> should not be ran as sudo!"
     fi
 }
 '''
 
 _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU = '''function terminate_if_system_is_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
-        terminate_script "This script should not be run on an ubuntu system."
+        terminate_script "<<THIS_SCRIPT_NAME>> should not be run on an ubuntu system."
     fi
 }
 '''
 
 _FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU = '''function terminate_if_system_is_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "This script should be run on an ubuntu system."
+        terminate_script "<<THIS_SCRIPT_NAME>> should be run on an ubuntu system."
     fi
 }
 '''
@@ -288,6 +288,10 @@ class CodeFileShellScript(cf.CodeFile):
 			self._generate_script()
 		else:
 			dbg.raise_exception('Invalid script type set for ' + self.file_path)
+
+		for l in self._lines_of_code:
+			if '<<THIS_SCRIPT_NAME>>' in l.text:
+				l.text = l.text.replace('<<THIS_SCRIPT_NAME>>', self.file_name)
 
 		self.create_code_file()
 

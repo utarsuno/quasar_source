@@ -54,7 +54,7 @@ else
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
-fi''') #another test
+fi''')
 
 # Connect to server script.
 local_ssh_to_nexus = local_scripts.add_code_file('ssh_to_nexus.sh')
