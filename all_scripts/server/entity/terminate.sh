@@ -87,6 +87,6 @@ terminate_if_system_is_not_ubuntu
 # ----------------------------------------------------------------------------
 print_dashed_line_with_text "terminate.sh script start for : ${HOST_NAME}."
 
-sudo pkill -f "runserver"
+sudo pkill -f "/home/git_repos/quasar_source/entities/server/entity_server.py"
 
 print_dashed_line_with_text "terminate.sh script end for : ${HOST_NAME}."
