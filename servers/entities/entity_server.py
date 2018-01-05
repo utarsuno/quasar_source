@@ -60,8 +60,8 @@ class EntityServer(object):
 
 			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._host_server.send_reply(self._create_entity_owner(data))
-			#if message == SERVER_COMMAND_REQUEST_ALL_DATA:
-			#	self._host_server.send_reply(str(self._db_api.test_function()))
+			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
+				self._host_server.send_reply(str(self._get_all_database_data()))
 			else:
 				self._host_server.send_reply('Server says hello!')
 
@@ -72,6 +72,10 @@ class EntityServer(object):
 	def _success(self, m):
 		"""Utility function for returning success messages."""
 		return us.SUCCESS_MESSAGE + ':' + str(m)
+
+	def _get_all_database_data(self):
+		"""Returns all the database data."""
+		return self._db_api.get_all_database_data()
 
 	def _create_entity_owner(self, data):
 		"""Performs this server command and returns the reply."""

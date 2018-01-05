@@ -40,9 +40,15 @@ class QuasarServer(object):
 		print('Client got this response : ' + response)
 		'''
 
-	def _send_command_to_entity_server(self, command, data):
+	def _send_command_to_entity_server(self, command, data=''):
 		"""Sends a command to the entity server."""
 		return self._entity_server_connection.send_message(command + ':' + str(data))
+
+	def get_all_data(self):
+		"""Returns all the data in the database."""
+		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_REQUEST_ALL_DATA)
+		print(reply)
+		return reply
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
