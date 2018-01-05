@@ -2,40 +2,58 @@
 
 """This module, entity_server.py, is used to manager a server's memory + cache of entity managers and owners."""
 
-from django.http import HttpResponse
-from django.http import JsonResponse
-
 from entities.database.entity_database import EntityDatabaseAPI
 from entities import base_entity as be
 
+from universal_code import useful_file_operations as ufo
+from universal_code import path_manager as pm
+from utility_server import utility_servers as us
 
-# Utility indexes.
-INDEX_OWNER_NAME       = 0
-INDEX_OWNER_PASSWORD   = 1
-INDEX_OWNER_EMAIL      = 2
-INDEX_OWNER_ID         = 3
-INDEX_OWNER_MANAGER_ID = 4
+from universal_code import system_os as so
 
-# Server response messages.
-SERVER_REPLY_INVALID_POST_DATA_ERROR                = HttpResponse('Invalid POST data!')
-SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = HttpResponse('Invalid number of POST arguments!')
-SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
-SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
-SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
+import time
+
 
 # Public entities owner name
 PUBLIC_ENTITIES_OWNER = 'public_entities'
 
 
+class EntityOwner(object):
+	"""Cache for an instance of an EntityOwner."""
+
+	def __init__(self, entity_manager):
+		self._entity_manager = entity_manager
+
+
 class EntityServer(object):
+	"""Represents the Entity Data Server."""
+
+	def __init__(self):
+		self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), us.SERVER_ENTITY)
+		self._host_server = us.HostServer(us.SERVER_ENTITY, self._host_server_data[us.ADDRESS], self._host_server_data[us.PORT])
+
+	# self._db_api = EntityDatabaseAPI()
+
+	def run(self):
+		"""Runs the entity server."""
+		self._host_server.bind()
+
+		while True:
+			message = self._host_server.get_message()
+
+			self._host_server.send_reply('Server says hello!')
+
+
+'''
+class EntityServerOld(object):
 	"""Memory layer for entity managers and owners."""
 
 	def __init__(self):
 		self._db_api = EntityDatabaseAPI()
 
-		# TODO : Add the text reminder object here.
-		# TODO : Eventually pass in all the current text reminders in order to do a health check.
-		# self._text_reminders_manager = tr.TextReminderManager()
+
+
+		# TODO : Text reminder support.
 
 	def is_valid_login_info(self, username, password) -> bool:
 		"""Returns a boolean indicating if a username and password combination is valid."""
@@ -112,3 +130,15 @@ class EntityServer(object):
 	def get_database_data(self):
 		"""TODO : Document"""
 		return self._db_api.get_all_database_data()
+'''
+
+
+'''___  __   __                  ___     __                         __
+  |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`
+  |    \__/ |  \    |___ |  \/  |___    |  \ \__/ | \| | \| | | \| \__> '''
+
+arguments = so.get_all_program_arguments()
+if len(arguments) == 1:
+	if arguments[0] == '-r':
+		entity_server = EntityServer()
+		entity_server.run()

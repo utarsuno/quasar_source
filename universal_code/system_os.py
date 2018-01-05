@@ -2,7 +2,9 @@
 
 """This module, system_os.py, simply returns the current OS being ran."""
 
+import sys
 from sys import platform
+import os
 
 _is_linux   = False
 _is_mac     = False
@@ -28,3 +30,10 @@ def is_linux() -> bool:
 def is_windows() -> bool:
 	"""Returns a boolean indicating if the current os is Windows."""
 	return _is_windows
+
+
+def get_all_program_arguments():
+	"""Get all arguments passed to this program."""
+	if len(sys.argv) == 1:
+		return []
+	return sys.argv[1:]

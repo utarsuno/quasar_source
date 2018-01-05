@@ -13,13 +13,6 @@ from entities import base_entity as be
 	|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    /~~\ |    |    .
 '''
 
-# Utility indexes.
-INDEX_OWNER_NAME       = 0
-INDEX_OWNER_PASSWORD   = 1
-INDEX_OWNER_EMAIL      = 2
-INDEX_OWNER_ID         = 3
-INDEX_OWNER_MANAGER_ID = 4
-
 # Public entities owner name
 PUBLIC_ENTITIES_OWNER = 'public_entities'
 
@@ -183,8 +176,23 @@ class EntityDatabaseAPI(object):
 		self._debug             = debug
 		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
+
+
 		self._owners_cache      = []
 		self._update_owners_cache()
+
+
+	# OLD CODE BELOW
+	# OLD CODE BELOW
+	# OLD CODE BELOW
+
+	def connect(self):
+		"""Connect to the database."""
+		self._api.connect()
+
+	def terminate(self):
+		"""Cleanly exit the connection from the database."""
+		self._api.terminate()
 
 	def get_largest_entity_owner_server_id(self) -> int:
 		"""Returns an integer of the current largest entity owner server id. Returns -1 if there are no owners."""
@@ -353,14 +361,6 @@ class EntityDatabaseAPI(object):
 
 		# Update the owner cache.
 		#self._update_owners_cache()
-
-	def connect(self):
-		"""Connect to the database."""
-		self._api.connect()
-
-	def terminate(self):
-		"""Cleanly exit the connection from the database."""
-		self._api.terminate()
 
 	# TODO : save_entity_manager(self, entity_manager):
 

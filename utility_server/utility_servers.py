@@ -21,6 +21,21 @@ SERVER_FINANCE = 'zmq_finance'
 SERVER_QUASAR  = 'zmq_quasar'
 
 
+# Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3
+def to_bytes(arg):
+	"""Utility function."""
+	if isinstance(arg, str):
+		return arg.encode()
+	return arg
+
+
+def to_str(arg):
+	"""Utility function."""
+	if isinstance(arg, bytes):
+		return arg.decode()
+	return arg
+
+
 class ZMQBase(object):
 	"""Defines the common networking variables."""
 
@@ -36,27 +51,28 @@ class ZMQBase(object):
 		self._context = zmq.Context()
 		self._socket = self._context.socket(zmq.PAIR)
 
-	# Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3
-	def to_bytes(self, arg):
-		"""Utility function."""
-		if isinstance(arg, str):
-			return arg.encode()
-		return arg
-
-	def to_str(self, arg):
-		"""Utility function."""
-		if isinstance(arg, bytes):
-			return arg.decode()
-		return arg
-
 
 class HostServer(ZMQBase):
 	"""Represents a single unique host server."""
 
 	def __init__(self, name, ip, port):
 		super().__init__(name, ip, port)
-
 		self._reconnection_interval = 10
+
+	def bind(self):
+		"""Starts up the server."""
+		oc.print_title('Binding server{' + self._name + '}')
+		self._initialize_zmq_variables()
+		self._socket.bind('tcp://' + self._ip + ':' + self._port)
+		oc.print_data_with_red_dashes_at_start('Binded! Running server!')
+
+	def get_message(self):
+		"""Returns the next message that this server receives."""
+		return to_str(self._socket.recv())
+
+	def send_reply(self, m):
+		"""Sends a reply message."""
+		self._socket.send(to_bytes(m))
 
 	def run(self):
 		"""Runs the host server."""
@@ -71,12 +87,14 @@ class HostServer(ZMQBase):
 
 			print('Server waiting for message...')
 
-			message = self.to_str(self._socket.recv())
+			message = to_str(self._socket.recv())
 
 			print('Server got the message : ')
 			print(message)
 
-			self._socket.send(self.to_bytes('Server says hello{' + str(response_number) + '}'))
+			response_number += 1
+			self._socket.send(to_bytes('Server says hello{' + str(response_number) + '}'))
+
 
 			time.sleep(1)
 
@@ -96,30 +114,16 @@ class ClientConnection(ZMQBase):
 
 	def send_message(self, m):
 		"""Sends the message to the host server."""
-		self._socket.send(self.to_bytes(m))
-		return self.to_str(self._socket.recv())
-
-
-class EntityServer(object):
-	"""Represents the Entity Data Server."""
-
-	def __init__(self):
-		self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), SERVER_ENTITY)
-		self._host_server = HostServer(SERVER_ENTITY, self._host_server_data[ADDRESS], self._host_server_data[PORT])
-
-		self._db_api = EntityDatabaseAPI()
-
-	def run(self):
-		"""Runs the entity server."""
-		self._host_server.run()
+		self._socket.send(to_bytes(m))
+		return to_str(self._socket.recv())
 
 
 class QuasarServer(object):
 	"""Represents the Quasar utility server."""
 
 	def __init__(self):
-		self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), SERVER_QUASAR)
-		self._host_server = HostServer(SERVER_QUASAR, self._host_server_data[ADDRESS], self._host_server_data[PORT])
+		#self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), SERVER_QUASAR)
+		#self._host_server = HostServer(SERVER_QUASAR, self._host_server_data[ADDRESS], self._host_server_data[PORT])
 
 		# Client connection to the entity data server.
 		self._entity_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), SERVER_ENTITY)
