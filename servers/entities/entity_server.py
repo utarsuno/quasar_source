@@ -59,29 +59,41 @@ class EntityServer(object):
 			command, data = self._parse_out_server_command(self._host_server.get_message())
 
 			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
-				self._create_entity_owner(data)
-
-				self._host_server.send_reply('todo!!!')
+				self._host_server.send_reply(self._create_entity_owner(data))
 			#if message == SERVER_COMMAND_REQUEST_ALL_DATA:
 			#	self._host_server.send_reply(str(self._db_api.test_function()))
 			else:
 				self._host_server.send_reply('Server says hello!')
 
+	def _error(self, m):
+		"""Utility function for returning error messages."""
+		return us.ERROR_MESSAGE + ':' + str(m)
+
+	def _success(self, m):
+		"""Utility function for returning success messages."""
+		return us.SUCCESS_MESSAGE + ':' + str(m)
+
 	def _create_entity_owner(self, data):
-		"""Performs this server command."""
+		"""Performs this server command and returns the reply."""
 
 		self._host_server.log('Entity server needs to create the following owner :')
 		self._host_server.log(str(data))
 
-		'''
 		# Required keys passed in check.
 		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
-			if required_key not in owner_data:
-				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
+			if required_key not in data:
+				return self._error('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(data) + '}')
 
+		# TODO :
 		# Username not already taken check.
-		if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
-			return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
+		#if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
+		#	return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
+
+		self._db_api.create_owner(data)
+
+		return us.SUCCESS_MESSAGE
+
+		'''
 
 		# Checks passed, create the owner.
 		self._db_api.create_owner(owner_data)

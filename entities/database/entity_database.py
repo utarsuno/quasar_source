@@ -181,16 +181,18 @@ class EntityDatabaseAPI(object):
 		#self._owners_cache      = []
 		#self._update_owners_cache()
 
-
-
 	def test_function(self):
 		return self._owners_collection.get_all()
 
+	def create_owner(self, owner_data):
+		"""Creates the owner."""
+		self._owners_collection.insert(owner_data)
+
 	# OLD CODE BELOW
 	# OLD CODE BELOW
 	# OLD CODE BELOW
 
-	def create_owner(self, owner_data) -> None:
+	def create_owner_old(self, owner_data) -> None:
 		"""Creates an owner. Throws an exception if the required attributes are not provided."""
 		# Make sure that all the required keys are provided.
 		for required_key in [be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL]:
