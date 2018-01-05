@@ -14,9 +14,10 @@ SHELL_SCRIPT_TYPE_SERVER    = 'server'
 SHELL_SCRIPT_TYPE_UNIVERSAL = 'universal'
 
 SAFETY_CHECK_DONT_ALLOW_SUDO = 'sudo'
+SAFETY_CHECK_ONLY_ALLOW_SUDO = 'not_sudo'
 SAFETY_CHECK_DONT_ALLOW_UBUNTU = 'system_is_ubuntu'
 SAFETY_CHECK_ONLY_ALLOW_UBUNTU = 'system_is_not_ubuntu'
-ALL_SAFETY_CHECKS = [SAFETY_CHECK_DONT_ALLOW_SUDO, SAFETY_CHECK_DONT_ALLOW_UBUNTU, SAFETY_CHECK_ONLY_ALLOW_UBUNTU]
+ALL_SAFETY_CHECKS = [SAFETY_CHECK_DONT_ALLOW_SUDO, SAFETY_CHECK_DONT_ALLOW_UBUNTU, SAFETY_CHECK_ONLY_ALLOW_UBUNTU, SAFETY_CHECK_ONLY_ALLOW_SUDO]
 
 _VARIABLE_CONFIG_PATH_LOCAL        = 'CONFIG_PATH="' + pm.PATH_TO_CONFIG_FILE + '"'
 _VARIABLE_CONFIG_READER_PATH_LOCAL = 'CONFIG_READER="' + pm.PATH_TO_CONFIG_READER + '"'
@@ -74,6 +75,12 @@ _FUNCTION_TERMINATE_SCRIPT = '''function terminate_script {
     exit
 }
 '''
+
+_FUNCTION_TERMINATE_IF_NOT_SUDO = '''function terminate_if_not_sudo {
+    if [ `id -u` != 0 ] ; then
+        terminate_script "This script requires root privileges to run."
+    fi
+}'''
 
 _FUNCTION_TERMINATE_IF_SUDO = '''function terminate_if_sudo {
     if [[ $EUID -eq 0 ]]; then
@@ -167,6 +174,12 @@ class ShellFunction(object):
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._function_name = 'terminate_if_sudo'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SUDO))
+		elif self._type == _FUNCTION_TERMINATE_IF_NOT_SUDO:
+			self._function_name = 'terminate_if_not_sudo'
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
+		elif self._type == SAFETY_CHECK_ONLY_ALLOW_SUDO:
+			self._function_name = 'terminate_if_not_sudo'
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_NOT_SUDO))
 		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU:
 			self._function_name = 'terminate_if_system_is_ubuntu'
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
@@ -229,6 +242,8 @@ class ShellFunction(object):
 	def __str__(self):
 		if self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			return 'terminate_if_sudo'
+		elif self._type == SAFETY_CHECK_ONLY_ALLOW_SUDO:
+			return 'terminate_if_not_sudo'
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
 			return 'terminate_if_system_is_ubuntu'
 		elif self._type == SAFETY_CHECK_ONLY_ALLOW_UBUNTU:
@@ -423,7 +438,7 @@ class CodeFileShellScript(cf.CodeFile):
 
 		# Check for any arguments needed.
 		if len(self._required_arguments) > 0:
-			self.add_3D_comment('program arguments')
+			self.add_3D_comment('script arguments')
 			self.add_line('if [ "$#" -ne NUM_ARGS ]; then'.replace('NUM_ARGS', str(len(self._required_arguments))))
 			self.add_line('\tterminate script "The script{' + self.file_name + '} requires exactly{' + str(len(self._required_arguments)) + '} arguments. They are ' + str(self._required_arguments) + '."')
 			self.add_line('fi')

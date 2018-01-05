@@ -55,7 +55,6 @@ HERE
 
 fi''')
 
-
 # Connect to server script.
 local_ssh_to_nexus = local_scripts.add_code_file('ssh_to_nexus.sh')
 local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_IP)
@@ -108,6 +107,25 @@ fi''')
 # Quasar server scripts.
 quasar = server_scripts.add_sub_directory('quasar')
 
+# Terminate script.
+quasar_terminate = quasar.add_code_file('terminate.sh')
+quasar_terminate.require_start_and_stop_print()
+quasar_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
+quasar_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+quasar_terminate.add_main_logic('''sudo pkill -f "runserver"''')
+
+# Run in background script.
+quasar_run_in_background = quasar.add_code_file('run_in_background.sh')
+quasar_run_in_background.require_start_and_stop_print()
+quasar_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+quasar_run_in_background.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
+if [ "${is_django_running}" == "true" ]; then
+  echo 'Django is already running!'
+else
+  export PYTHONPATH=/home/git_repos/quasar_source/
+  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py migrate
+  nohup python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80 &
+fi''')
 
 # Live run script.
 quasar_live_run = quasar.add_code_file('live_run.sh')
@@ -126,6 +144,22 @@ fi''')
 # Entity server scripts.
 entity = server_scripts.add_sub_directory('entity')
 
+
+# Entity run script.
+"""
+entity_live_run = entity.add_code_file('live_run.sh')
+entity_live_run.require_start_and_stop_print()
+entity_live_run.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+entity_live_run.add_main_logic('''is_quasar_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'quasar_live_run_flag')
+if [ "${is_quasar_running}" == "true" ]; then
+  echo 'Quasar is already running!'
+else
+  export PYTHONPATH=/home/git_repos/quasar_source/
+  echo "TODO : Run Quasar here"
+  #python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py migrate
+  #python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80
+fi''')
+"""
 
 # Finance server scripts.
 
