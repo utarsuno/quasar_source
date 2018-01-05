@@ -86,7 +86,7 @@ if [ "${is_entity_server_running}" == "true" ]; then
   echo 'Entity server is already running!'
 else
   export PYTHONPATH=/home/git_repos/quasar_source/
-  python3 /home/git_repos/quasar_source/entities/server/entity_server.py
+  python3 /home/git_repos/quasar_source/entities/server/entity_server.py -r
 fi
 
 print_dashed_line_with_text "live_run.sh script end for : ${HOST_NAME}."
