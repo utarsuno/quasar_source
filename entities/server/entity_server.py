@@ -65,8 +65,9 @@ class EntityServer(object):
 			if command == SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._create_entity_owner(data)
 
-			if message == SERVER_COMMAND_REQUEST_ALL_DATA:
-				self._host_server.send_reply(str(self._db_api.test_function()))
+				self._host_server.send_reply('todo!!!')
+			#if message == SERVER_COMMAND_REQUEST_ALL_DATA:
+			#	self._host_server.send_reply(str(self._db_api.test_function()))
 			else:
 				self._host_server.send_reply('Server says hello!')
 
