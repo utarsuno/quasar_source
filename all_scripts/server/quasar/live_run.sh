@@ -21,6 +21,10 @@ FS_REG="21;24m"
 DOTTED_LINE="................................................................................."
 
 # Required functions.
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function terminate_if_system_is_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
         terminate_script "This script should be run on an ubuntu system."
@@ -41,10 +45,6 @@ function terminate_script {
     exit
 }
 
-function print_red_dotted_line {
-    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
-    printf "\n"
-}
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 

@@ -23,6 +23,10 @@ FG_MAGENTA="${ESC_SEQ}35;"
 DOTTED_LINE="................................................................................."
 
 # Required functions.
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function print_dashed_line_with_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_dashed_line_with_text' requires a parameter."
@@ -65,10 +69,6 @@ function terminate_script {
     exit
 }
 
-function print_red_dotted_line {
-    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
-    printf "\n"
-}
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 

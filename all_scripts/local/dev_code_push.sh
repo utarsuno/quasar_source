@@ -30,6 +30,10 @@ FG_RED="${ESC_SEQ}31;"
 FS_UL="4m"
 
 # Required functions.
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function print_dashed_line_with_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_dashed_line_with_text' requires a parameter."
@@ -85,10 +89,6 @@ function terminate_script {
     exit
 }
 
-function print_red_dotted_line {
-    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
-    printf "\n"
-}
 function terminate_if_system_is_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
         terminate_script "This script should not be run on an ubuntu system."

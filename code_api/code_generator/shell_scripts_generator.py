@@ -291,6 +291,24 @@ class CodeFileShellScript(cf.CodeFile):
 
 		self.create_code_file()
 
+	def _has_function(self, f):
+		"""Checks if this script contains the following function."""
+		if type(f) == str:
+			for rf in self._required_functions:
+				if f == str(rf):
+					return True
+		return False
+
+	def _remove_function(self, f):
+		if type(f) == str:
+			function_to_remove = None
+			for rf in self._required_functions:
+				if f == str(rf):
+					function_to_remove = rf
+					break
+			if function_to_remove is not None:
+				self._required_functions.remove(function_to_remove)
+
 	def _set_needed_variables_and_functions(self):
 		"""Utility function."""
 		for rf in self._required_functions:
@@ -316,9 +334,9 @@ class CodeFileShellScript(cf.CodeFile):
 			self._required_variables.insert(0, _VARIABLE_ESC_SEC)
 
 		# TODO : Make a better system for variable and function placement order.
-		if _FUNCTION_PRINT_RED_DOTTED_LINE in self._required_functions:
-			self._required_functions.remove(_FUNCTION_PRINT_RED_DOTTED_LINE)
-			self._required_functions.insert(0, _FUNCTION_PRINT_RED_DOTTED_LINE)
+		if self._has_function(_FUNCTION_PRINT_RED_DOTTED_LINE):
+			self._remove_function(_FUNCTION_PRINT_RED_DOTTED_LINE)
+			self._required_functions.insert(0, ShellFunction(_FUNCTION_PRINT_RED_DOTTED_LINE))
 
 		# Add any OS specific variables needed.
 		for rv in self._required_variables:
