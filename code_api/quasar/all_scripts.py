@@ -7,6 +7,11 @@ from code_api import code_directory as cd
 from universal_code import path_manager as pm
 from code_api.code_generator import shell_scripts_generator as ssg
 
+# Utility variables.
+RUN_IN_BACKGROUND = 'run_in_background.sh'
+TERMINATE         = 'terminate.sh'
+LIVE_RUN          = 'live_run.sh'
+
 
 all_scripts = cd.CodeDirectory(pm.PATH_TO_ALL_SCRIPTS_DIRECTORY)
 
@@ -129,14 +134,14 @@ else
 fi''')
 
 # Terminate script.
-quasar_terminate = quasar.add_code_file('terminate.sh')
+quasar_terminate = quasar.add_code_file(TERMINATE)
 quasar_terminate.require_start_and_stop_print()
 quasar_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
 quasar_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 quasar_terminate.add_main_logic('''sudo pkill -f "runserver"''')
 
 # Run in background script.
-quasar_run_in_background = quasar.add_code_file('run_in_background.sh')
+quasar_run_in_background = quasar.add_code_file(RUN_IN_BACKGROUND)
 quasar_run_in_background.require_start_and_stop_print()
 quasar_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 quasar_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
@@ -150,7 +155,7 @@ else
 fi''')
 
 # Live run script.
-quasar_live_run = quasar.add_code_file('live_run.sh')
+quasar_live_run = quasar.add_code_file(LIVE_RUN)
 quasar_live_run.require_start_and_stop_print()
 quasar_live_run.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 quasar_live_run.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
@@ -168,8 +173,15 @@ fi''')
 # Entity server scripts.
 entity = server_scripts.add_sub_directory('entity')
 
+# Terminate script.
+entity_terminate = entity.add_code_file(TERMINATE)
+entity_terminate.require_start_and_stop_print()
+entity_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
+entity_terminate.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+entity_terminate.add_main_logic('''sudo pkill -f "runserver"''')
+
 # Entity run script.
-entity_live_run = entity.add_code_file('live_run.sh')
+entity_live_run = entity.add_code_file(LIVE_RUN)
 entity_live_run.require_start_and_stop_print()
 entity_live_run.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
 entity_live_run.add_main_logic('''is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'quasar_live_run_flag')
@@ -180,18 +192,20 @@ else
   python3 /home/git_repos/quasar_source/entities/server/entity_server.py -r
 fi''')
 
-
-# Finance server scripts.
-
+# Run in background script.
+entity_run_in_background = entity.add_code_file(RUN_IN_BACKGROUND)
+entity_run_in_background.require_start_and_stop_print()
+entity_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+entity_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
+entity_run_in_background.add_main_logic('''is_entity_server_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'quasar_live_run_flag')
+if [ "${is_entity_server_running}" == "true" ]; then
+  echo 'Entity server is already running!'
+else
+  export PYTHONPATH=/home/git_repos/quasar_source/
+  nohup python3 /home/git_repos/quasar_source/entities/server/entity_server.py -r &
+fi''')
 
 '''                 ___  __   __
   |  | |\ | | \  / |__  |__) /__`  /\  |
   \__/ | \| |  \/  |___ |  \ .__/ /~~\ |___ '''
 #universal_scripts = all_scripts.add_sub_directory('universal')
-
-
-
-
-
-
-# test push
