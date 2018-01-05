@@ -88,6 +88,6 @@ terminate_if_system_is_not_ubuntu
 print_dashed_line_with_text "restart.sh script start for : ${HOST_NAME}."
 
 sudo bash /home/git_repos/quasar_source/all_scripts/server/quasar/terminate.sh
-sudo bash /home/git_repos/quasar_source/all_scripts/server/quasar/run.sh
+sudo bash /home/git_repos/quasar_source/all_scripts/server/quasar/run_in_background.sh
 
 print_dashed_line_with_text "restart.sh script end for : ${HOST_NAME}."

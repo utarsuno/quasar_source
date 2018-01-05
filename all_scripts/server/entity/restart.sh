@@ -63,9 +63,14 @@ function terminate_script {
     exit
 }
 
+function terminate_if_not_sudo {
+    if [ `id -u` != 0 ] ; then
+        terminate_script "This script requires root privileges to run."
+    fi
+}
 function terminate_if_system_is_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
-        terminate_script "status.sh should be run on an ubuntu system."
+        terminate_script "restart.sh should be run on an ubuntu system."
     fi
 }
 
@@ -73,19 +78,16 @@ function terminate_if_system_is_not_ubuntu {
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
+terminate_if_not_sudo
 terminate_if_system_is_not_ubuntu
 
 #  __   __   __      __  ___          __   __      __  
 # /__` /  ` |__) |  |__)  |     |    /  \ / _` |  /  ` 
 # .__/ \__, |  \ |  |     |     |___ \__/ \__> |  \__, 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "status.sh script start for : ${HOST_NAME}."
+print_dashed_line_with_text "restart.sh script start for : ${HOST_NAME}."
 
-is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
-if [ "${is_django_running}" == "true" ]; then
-  echo 'Django is currently running!'
-else
-  echo 'Django is currently not running!'
-fi
+sudo bash /home/git_repos/quasar_source/all_scripts/server/entity/terminate.sh
+sudo bash /home/git_repos/quasar_source/all_scripts/server/entity/run_in_background.sh
 
-print_dashed_line_with_text "status.sh script end for : ${HOST_NAME}."
+print_dashed_line_with_text "restart.sh script end for : ${HOST_NAME}."
