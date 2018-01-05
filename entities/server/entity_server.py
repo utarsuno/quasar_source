@@ -74,8 +74,8 @@ class EntityServer(object):
 	def _create_entity_owner(self, data):
 		"""Performs this server command."""
 
-		print('Entity server needs to create the following owner :')
-		print(data)
+		self._host_server.log('Entity server needs to create the following owner :')
+		self._host_server.log(str(data))
 
 		'''
 		# Required keys passed in check.

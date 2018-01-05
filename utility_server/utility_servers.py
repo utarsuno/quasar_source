@@ -70,6 +70,10 @@ class HostServer(ZMQBase):
 		self._socket.bind('tcp://' + self._ip + ':' + self._port)
 		oc.print_data_with_red_dashes_at_start('Binded! Running server!')
 
+	def log(self, l):
+		"""Logs the message l."""
+		print(l, flush=True)
+
 	def get_message(self):
 		"""Returns the next message that this server receives."""
 		return to_str(self._socket.recv())
