@@ -69,11 +69,17 @@ function terminate_if_system_is_not_ubuntu {
     fi
 }
 
+function terminate_if_not_sudo {
+    if [ `id -u` != 0 ] ; then
+        terminate_script "This script requires root privileges to run."
+    fi
+}
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
 terminate_if_system_is_not_ubuntu
+terminate_if_not_sudo
 
 #  __   __   __      __  ___          __   __      __  
 # /__` /  ` |__) |  |__)  |     |    /  \ / _` |  /  ` 

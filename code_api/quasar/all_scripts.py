@@ -107,6 +107,19 @@ fi''')
 # Quasar server scripts.
 quasar = server_scripts.add_sub_directory('quasar')
 
+
+
+# Status script.
+quasar_status = quasar.add_code_file('status.sh')
+quasar_status.require_start_and_stop_print()
+quasar_status.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+quasar_status.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
+if [ "${is_django_running}" == "true" ]; then
+  echo 'Django is already running!'
+else
+  echo 'Django is not currently running!'
+fi''')
+
 # Terminate script.
 quasar_terminate = quasar.add_code_file('terminate.sh')
 quasar_terminate.require_start_and_stop_print()
@@ -118,6 +131,7 @@ quasar_terminate.add_main_logic('''sudo pkill -f "runserver"''')
 quasar_run_in_background = quasar.add_code_file('run_in_background.sh')
 quasar_run_in_background.require_start_and_stop_print()
 quasar_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+quasar_run_in_background.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
 quasar_run_in_background.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
 if [ "${is_django_running}" == "true" ]; then
   echo 'Django is already running!'
