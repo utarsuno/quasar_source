@@ -23,6 +23,7 @@ TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 # Global server.
 entity_server = es.EntityServer()
+entity_server.
 
 
 def get_client_ip(request):
