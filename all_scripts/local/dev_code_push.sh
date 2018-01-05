@@ -34,16 +34,16 @@ function print_dashed_line_with_text {
     declare -i max=100
     declare -i first=(max-length)/2
     if [ $((length%2)) -ne 0 ]; then
-        printf "${FG_GREEN}${FS_REG}${RESET_ALL}"
+        printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     fi
     for i in `seq 2 ${first}`
     do
-      printf "${FG_GREEN}${FS_REG}${RESET_ALL}"
+      printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     done
     printf "${FG_YELLOW}${FS_BOLD}${1}${RESET_ALL}"
     for i in `seq 2 ${first}`
     do
-      printf "${FG_GREEN}${FS_REG}${RESET_ALL}"
+      printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     done
     printf "\n"
 }
