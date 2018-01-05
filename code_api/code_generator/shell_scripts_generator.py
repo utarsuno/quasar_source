@@ -55,6 +55,7 @@ _FUNCTION_PRINT_SCRIPT_TEXT = '''function print_script_text {
        terminate_script "The function 'print_script_text' requires a parameter."
     fi
     printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
+    printf "\\n"
 }
 '''
 
