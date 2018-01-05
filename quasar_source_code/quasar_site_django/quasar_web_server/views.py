@@ -158,7 +158,7 @@ def POST_create_owner(request):
                   be.ENTITY_PROPERTY_EMAIL: received_owner_email,
                   be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
 
-    if quasar_server.create_owner(owner_data):
+    if quasar_server.create_entity_owner(owner_data):
         return SERVER_REPLY_GENERIC_YES
     return SERVER_REPLY_GENERIC_NO
 
