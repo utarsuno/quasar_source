@@ -182,12 +182,32 @@ class EntityDatabaseAPI(object):
 		#self._update_owners_cache()
 
 
+
 	def test_function(self):
 		return self._owners_collection.get_all()
 
 	# OLD CODE BELOW
 	# OLD CODE BELOW
 	# OLD CODE BELOW
+
+	def create_owner(self, owner_data) -> None:
+		"""Creates an owner. Throws an exception if the required attributes are not provided."""
+		# Make sure that all the required keys are provided.
+		for required_key in [be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL]:
+			if required_key not in owner_data:
+				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
+		# Make sure that the owner name isn't already taken.
+		if self.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
+			raise Exception('Owner name ' + owner_data[be.ENTITY_PROPERTY_USERNAME] + ' is already taken!')
+
+		# Update the owner cache.
+		new_entity_owner = self._add_owner_to_cache(owner_data)
+
+		# Create the owner.
+		self._owners_collection.insert(owner_data)
+
+		# When creating the owner object we also need to create the owner entity.
+		new_entity_owner.ensure_entity_owner_exists()
 
 	def connect(self):
 		"""Connect to the database."""
@@ -330,25 +350,6 @@ class EntityDatabaseAPI(object):
 		new_entity_owner = EntityOwner(owner_data, self)
 		self._owners_cache.append(new_entity_owner)
 		return new_entity_owner
-
-	def create_owner(self, owner_data) -> None:
-		"""Creates an owner. Throws an exception if the required attributes are not provided."""
-		# Make sure that all the required keys are provided.
-		for required_key in [be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL]:
-			if required_key not in owner_data:
-				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
-		# Make sure that the owner name isn't already taken.
-		if self.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
-			raise Exception('Owner name ' + owner_data[be.ENTITY_PROPERTY_USERNAME] + ' is already taken!')
-
-		# Update the owner cache.
-		new_entity_owner = self._add_owner_to_cache(owner_data)
-
-		# Create the owner.
-		self._owners_collection.insert(owner_data)
-
-		# When creating the owner object we also need to create the owner entity.
-		new_entity_owner.ensure_entity_owner_exists()
 
 	def update_owner(self, owner_data) -> None:
 		"""Updates an owner. Throws an exception if the _id key is not passed in."""

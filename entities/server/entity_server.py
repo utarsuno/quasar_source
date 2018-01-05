@@ -15,6 +15,7 @@ import time
 
 
 SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
+SERVER_COMMAND_CREATE_ENTITY_OWNER = 'ceo'
 
 
 class EntityOwner(object):
@@ -36,18 +37,59 @@ class EntityServer(object):
 		self._db_api = EntityDatabaseAPI()
 		print('Test function!')
 
+	def _parse_out_server_command(self, raw_message):
+		"""Returns the server command type and data."""
+		first_match_found = False
+		command = ''
+		data = ''
+		for c in raw_message:
+			if c == ':':
+				if not first_match_found:
+					first_match_found = True
+				else:
+					data += c
+			else:
+				if first_match_found:
+					data += c
+				else:
+					command += c
+		return command, data
+
 	def run(self):
 		"""Runs the entity server."""
 		self._host_server.bind()
 
 		while True:
-			message = self._host_server.get_message()
+			command, data = self._parse_out_server_command(self._host_server.get_message())
+
+			if command == SERVER_COMMAND_CREATE_ENTITY_OWNER:
+				self._create_entity_owner(data)
 
 			if message == SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._db_api.test_function()))
 			else:
 				self._host_server.send_reply('Server says hello!')
 
+	def _create_entity_owner(self, data):
+		"""Performs this server command."""
+
+		print('Entity server needs to create the following owner :')
+		print(data)
+
+		'''
+		# Required keys passed in check.
+		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
+			if required_key not in owner_data:
+				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
+
+		# Username not already taken check.
+		if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
+			return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
+
+		# Checks passed, create the owner.
+		self._db_api.create_owner(owner_data)
+		return SERVER_REPLY_GENERIC_YES
+		'''
 
 '''
 class EntityServerOld(object):

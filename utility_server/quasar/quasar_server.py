@@ -58,3 +58,4 @@ class QuasarServer(object):
 		print('Need to create an entity owner for the following data :')
 		print(owner_data)
 		return SUCCESS_MESSAGE
+
