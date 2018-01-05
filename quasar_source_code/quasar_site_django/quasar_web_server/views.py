@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from entities import base_entity as be
-from entities.server_side import entity_server as es
+from entities.server import entity_server as es
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
