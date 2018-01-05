@@ -41,6 +41,7 @@ _VARIABLE_DOTTED_LINE = 'DOTTED_LINE="..........................................
 
 _FUNCTION_PRINT_DOTTED_LINE = '''function print_dotted_line {
     printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\\n"
 }
 '''
 
@@ -194,6 +195,8 @@ class ShellFunction(object):
 			return 'terminate_if_sudo'
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
 			return 'terminate_if_system_is_ubuntu'
+		elif self._type == SAFETY_CHECK_ONLY_ALLOW_UBUNTU:
+			return 'terminate_if_system_is_not_ubuntu'
 		return self._type
 
 

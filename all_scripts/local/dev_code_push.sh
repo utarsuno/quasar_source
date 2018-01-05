@@ -62,6 +62,7 @@ function print_script_text {
 
 function print_dotted_line {
     printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
 }
 
 function terminate_if_sudo {
