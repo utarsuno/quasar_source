@@ -14,8 +14,7 @@ from universal_code import system_os as so
 import time
 
 
-# Public entities owner name
-PUBLIC_ENTITIES_OWNER = 'public_entities'
+SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
 
 
 class EntityOwner(object):
@@ -41,7 +40,10 @@ class EntityServer(object):
 		while True:
 			message = self._host_server.get_message()
 
-			self._host_server.send_reply('Server says hello!')
+			if message == SERVER_COMMAND_REQUEST_ALL_DATA:
+				self._host_server.send_reply('All data command reply!')
+			else:
+				self._host_server.send_reply('Server says hello!')
 
 
 '''
