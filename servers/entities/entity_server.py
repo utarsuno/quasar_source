@@ -80,8 +80,11 @@ class EntityServer(object):
 	def _create_entity_owner(self, data):
 		"""Performs this server command and returns the reply."""
 
-		self._host_server.log('Entity server needs to create the following owner :')
-		self._host_server.log(str(data))
+		us.log('Entity server needs to create the following owner :')
+		us.log(str(data))
+
+		all_data = self._get_all_database_data()
+		us.log(all_data)
 
 		# Required keys passed in check.
 		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:

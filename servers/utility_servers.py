@@ -47,6 +47,11 @@ def to_str(arg):
 	return arg
 
 
+def log(l):
+		"""Logs the message l."""
+		print(l, flush=True)
+
+
 class ZMQBase(object):
 	"""Defines the common networking variables."""
 
@@ -76,10 +81,6 @@ class HostServer(ZMQBase):
 		self._initialize_zmq_variables()
 		self._socket.bind('tcp://' + self._ip + ':' + self._port)
 		oc.print_data_with_red_dashes_at_start('Binded! Running server!')
-
-	def log(self, l):
-		"""Logs the message l."""
-		print(l, flush=True)
 
 	def get_message(self):
 		"""Returns the next message that this server receives."""
