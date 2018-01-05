@@ -8,6 +8,9 @@ from universal_code import debugging as dbg
 
 from code_api import lines_of_code as loc
 from universal_code import useful_file_operations as ufo
+from code_api import fancy_comments as fc
+
+from universal_code import string_utilities as su
 
 PYTHON       = 'python'
 JAVASCRIPT   = 'javascript'
@@ -19,17 +22,17 @@ class CodeFile(object):
 
 	def __init__(self, file_path, already_exists=True):
 		self._file_path = file_path
+		self._file_name = ufo.get_file_basename(self._file_path)
 		self._already_exists = already_exists
 		self._is_eslint_file = False
 		if already_exists:
-			self._file_name = ufo.get_file_basename(self._file_path)
 			self._file_size = ufo.get_file_size_in_bytes(self._file_path)
 			self._lines_of_code = loc.get_lines_of_code_from_file(self._file_path)
 		else:
 			self._file_size = None
 			self._lines_of_code = []
 
-		# Gets set by child objects.
+		# Gets set by other objects.
 		self._language = None
 
 	def get_all_words_and_frequency(self):
@@ -92,6 +95,20 @@ class CodeFile(object):
 			color_print('TODO Fixing [' + self._file_name + ']\'s universal_variables for {' + str(universal_constant_group) + '}', color='red')
 			# TODO : Add automatic fixing
 
+	def sort_lines_by_delimiter(self, lines, delimiter):
+		"""Sorts the provided lines by the provided delimiter."""
+		text = ''
+		for l in lines:
+			if l in self._lines_of_code:
+				text += l.text + '\n'
+
+		text_lines = su.sort_by_deliminator(delimiter, text).split('\n')[:-1]
+
+		for i, l in enumerate(text_lines):
+			#print(str(len(lines)) + '\t' + str(lines))
+			#print(str(len(text_lines)) + '\t' + str(text_lines))
+			lines[i].text = l
+
 	def has_text(self, text_to_search_for) -> bool:
 		"""Returns a boolean value of true if the text was found in the code file."""
 		for l in self._lines_of_code:
@@ -100,22 +117,72 @@ class CodeFile(object):
 		return False
 
 	def add_line(self, text):
-		"""Adds a singles line of code to the CodeFile."""
+		"""Adds a single line of code to the CodeFile."""
 		if not text.endswith('\n'):
 			text += '\n'
-		self._lines_of_code.append(loc.LineOfCode(text))
+		line_of_code = loc.LineOfCode(text, self._language)
+		self._lines_of_code.append(line_of_code)
+		return line_of_code
+
+	def add_lines(self, lines):
+		"""Adds multiple lines of code."""
+		returned_lines = []
+		if type(lines) == str:
+			l = lines.split('\n')
+		else:
+			l = lines
+		for line in l:
+			returned_lines.append(self.add_line(line))
+		return returned_lines
+
+	def add_3D_comment(self, text):
+		"""Adds multiple comments to construct a 3D ascii text."""
+		returned_lines = []
+		if self._language == SHELL_SCRIPT:
+			comment = fc.get_fancy_shell_comment(text)
+			for c in comment:
+				line_of_code = loc.LineOfCode(c, self._language)
+				line_of_code.set_to_comment()
+				returned_lines.append(self._lines_of_code.append(line_of_code))
+		return returned_lines
+
+	def add_comment(self, text):
+		"""Adds a single code comment to the CodeFile."""
+		if not text.endswith('\n'):
+			text += '\n'
+		line_of_code = loc.LineOfCode(text, self._language)
+		line_of_code.set_to_comment()
+		self._lines_of_code.append(line_of_code)
+		return line_of_code
+
+	def create_code_file(self):
+		"""Creates this code file."""
+		ufo.create_file_or_override(self.get_text(), self._file_path)
 
 	def get_text(self):
 		"""Returns all the text for this code file."""
 		text = ''
 		for l in self._lines_of_code:
-			text += l.text
+			if not l.text.endswith('\n'):
+				text += l.text + '\n'
+			else:
+				text += l.text
 		return text
+
+	@property
+	def file_name(self) -> str:
+		"""Returns the name of this file."""
+		return self._file_name
 
 	@property
 	def language(self):
 		"""Returns the programming language of this code file."""
 		return self._language
+
+	@language.setter
+	def language(self, l):
+		"""Sets the language of this code file."""
+		self._language = l
 
 	@property
 	def file_path(self) -> str:
@@ -152,16 +219,6 @@ class CodeFile(object):
 		if self._already_exists:
 			for l in self._lines_of_code:
 				l.set_langauge_and_other_data(self._language, self)
-
-
-class CodeFileShellScript(CodeFile):
-	"""Represents a single shell script file."""
-
-	def __init__(self, file_path, already_exists=True):
-		super().__init__(file_path, already_exists)
-		self._extension = '.sh'
-		self._language = SHELL_SCRIPT
-		self._apply_language_and_set_data()
 
 
 class CodeFilePython(CodeFile):

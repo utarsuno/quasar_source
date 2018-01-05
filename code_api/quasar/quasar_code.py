@@ -13,11 +13,10 @@ from code_api import code_file as cf
 from code_api import code_file_manager as cfm
 from code_api import universal_constants as uc
 from universal_code import useful_file_operations as ufo
+from code_api.quasar import all_scripts
+from code_api.code_generator import shell_scripts_generator
 
-if sos.is_linux():
-	CODE_SOURCE_BASE = '/home/git_repos/quasar_source/'
-elif sos.is_mac():
-	CODE_SOURCE_BASE = '/Users/utarsuno/git_repos/quasar_source/'
+CODE_SOURCE_BASE = '/Users/utarsuno/git_repos/quasar_source/'
 
 # Program arguments.
 ARGUMENT_BUILD_PRODUCTION = '-bp'
@@ -126,7 +125,7 @@ def _get_all_shell_scripts():
 	all_script_files = ufo.get_all_file_paths_inside_directory(all_script_files_path)
 	files_to_return = []
 	for f in all_script_files:
-		files_to_return.append(cf.CodeFileShellScript(f))
+		files_to_return.append(shell_scripts_generator.CodeFileShellScript(f))
 	return files_to_return
 
 
@@ -261,9 +260,11 @@ class QuasarCode(object):
 
 	def feature_testing(self):
 		"""The current feature to be tested."""
-		print('hi!')
 		# Verify the 'all_scripts' directory.
 		oc.print_data(self._script_manager.get_data())
+		oc.print_title('Generate all scripts!')
+		all_scripts.local_scripts.generate()
+		oc.print_success('finished!')
 
 	def run_analysis(self):
 		"""Prints an analysis report on the Quasar Source code base."""

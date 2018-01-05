@@ -11,8 +11,11 @@ _current_path = os.path.dirname(os.path.realpath(__file__))
 _project_base_path = _current_path.replace('universal_code', '')
 
 
-PATH_TO_FINANCE_DIRECTORY = _project_base_path + 'finance'
-PATH_TO_FINANCE_C_DUMP    = PATH_TO_FINANCE_DIRECTORY + '/c_dump'
+PATH_TO_ALL_SCRIPTS_DIRECTORY = _project_base_path + 'all_scripts'
+PATH_TO_CONFIG_READER         = PATH_TO_ALL_SCRIPTS_DIRECTORY + 'universal/config_reader_for_bash.py'
+PATH_TO_CONFIG_FILE           = _project_base_path + 'configuration_files/config.ini'
+PATH_TO_FINANCE_DIRECTORY     = _project_base_path + 'finance'
+PATH_TO_FINANCE_C_DUMP        = PATH_TO_FINANCE_DIRECTORY + '/c_dump'
 
 
 def get_config_ini() -> str:

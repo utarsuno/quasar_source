@@ -136,10 +136,14 @@ def get_all_file_names_inside_directory(path: str) -> List[str]:
 	\__, |  \ |___ /~~\  |  | \__/ | \|
 '''
 def create_file_or_override(file_text, file_path):
-	file = open(file_path, 'w')
+	file = open(file_path, 'w+')
 	file.write(file_text)
 	file.close()
 
+
+def create_directory(path: str) -> None:
+	"""Creates the directory at the provided path."""
+	os.makedirs(path)
 
 
 # Temporary on hold.

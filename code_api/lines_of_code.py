@@ -4,21 +4,34 @@
 
 import re
 
+from universal_code import debugging as dbg
 from universal_code import string_utilities as su
 
-PYTHON     = 'python'
-JAVASCRIPT = 'javascript'
+PYTHON       = 'python'
+JAVASCRIPT   = 'javascript'
+SHELL_SCRIPT = 'shell_script'
 
 
 class LineOfCode(object):
 	"""Represents a single line of code."""
 
-	def __init__(self, line_of_code_as_text):
+	def __init__(self, line_of_code_as_text, language=None):
 		self._text = line_of_code_as_text.replace('\n', '')
 
 		# Gets set by CodeFile objects.
-		self._language = None
+		self._language = language
 		self._parent_code_file = None
+		self._comment = False
+
+	def set_to_comment(self):
+		"""Sets this line of code to be a comment line."""
+		if self._language is None:
+			dbg.raise_exception('The line of code\'s language must be set before setting it a comment line!')
+		elif self._language == SHELL_SCRIPT:
+			if self._text[0:2] != '# ':
+				self._text = '# ' + self._text
+		else:
+			dbg.raise_exception('TODO : Other languages not yet supported!')
 
 	def get_all_words(self):
 		"""Returns a list of all words that appear in this line of code."""
@@ -48,6 +61,11 @@ class LineOfCode(object):
 	def text(self):
 		"""Returns the text representation of this line of code."""
 		return self._text
+
+	@text.setter
+	def text(self, t):
+		"""Sets new text for this LineOfCode."""
+		self._text = t
 
 	@property
 	def words(self):

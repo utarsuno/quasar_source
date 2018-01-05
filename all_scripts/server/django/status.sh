@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/git_repos/quasar_source/all_scripts/universal_scripts;
+cd /home/git_repos/quasar_source/all_scripts/universal;
 source universal_functions.sh;
 
 # Helps see exactly where the script's output starts.
@@ -16,7 +16,7 @@ terminate_if_system_is_not_ubuntu
 # /__` /  ` |__) | |__)  |     |    /  \ / _` | /  `    |__) |__  |    /  \ |  |
 # .__/ \__, |  \ | |     |     |___ \__/ \__> | \__,    |__) |___ |___ \__/ |/\|
 
-path_to_script=/home/git_repos/quasar_source/all_scripts/universal_scripts/is_program_running.py
+path_to_script=/home/git_repos/quasar_source/all_scripts/universal/is_program_running.py
 is_django_running=$(python3 ${path_to_script} 'runserver')
 
 if [ "${is_django_running}" == "true" ]; then

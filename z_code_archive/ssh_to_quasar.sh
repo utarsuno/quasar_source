@@ -2,7 +2,7 @@
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 CONFIG_PATH="$DIR/../../configuration_files/config.ini"
-CONFIG_READER="$DIR/../universal_scripts/config_reader_for_bash.py"
+CONFIG_READER="$DIR/../universal/config_reader_for_bash.py"
 
 pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws pem_path)
 ec2_url=$(python3 ${CONFIG_READER} ${CONFIG_PATH} aws ec2_url)
