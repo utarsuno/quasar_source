@@ -354,6 +354,10 @@ class CodeFileShellScript(cf.CodeFile):
 
 	def _set_needed_variables_and_functions(self):
 		"""Utility function."""
+		for l in self._main_logic:
+			if 'print_script_text ' in l:
+				self.add_required_function(_FUNCTION_PRINT_SCRIPT_TEXT)
+
 		for rf in self._required_functions:
 			for rv in rf._required_variables:
 				# Only adds if its not already added.

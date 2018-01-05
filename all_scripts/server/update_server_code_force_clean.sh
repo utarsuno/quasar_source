@@ -17,6 +17,7 @@ FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
 RESET_ALL="${ESC_SEQ}0m"
 FS_BOLD="1m"
+FG_CYAN="${ESC_SEQ}36;"
 FG_RED="${ESC_SEQ}31;"
 FS_UL="4m"
 FG_MAGENTA="${ESC_SEQ}35;"
@@ -46,6 +47,14 @@ function print_dashed_line_with_text {
     do
       printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     done
+    printf "\n"
+}
+
+function print_script_text {
+    if [ -z "$1" ]; then
+       terminate_script "The function 'print_script_text' requires a parameter."
+    fi
+    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
     printf "\n"
 }
 
