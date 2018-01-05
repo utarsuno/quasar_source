@@ -45,6 +45,7 @@ _FUNCTION_PRINT_DOTTED_LINE = '''function print_dotted_line {
 
 _FUNCTION_PRINT_RED_DOTTED_LINE = '''function print_dotted_line {
     printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\\n"
 }
 '''
 
