@@ -25,6 +25,13 @@ SERVER_FINANCE = 'zmq_finance'
 SERVER_QUASAR  = 'zmq_quasar'
 
 
+SUCCESS_MESSAGE = 's:'
+ERROR_MESSAGE   = 'e:'
+
+SERVER_COMMAND_REQUEST_ALL_DATA    = 'a'
+SERVER_COMMAND_CREATE_ENTITY_OWNER = 'ceo'
+
+
 # Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3
 def to_bytes(arg):
 	"""Utility function."""

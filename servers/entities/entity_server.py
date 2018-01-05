@@ -14,10 +14,6 @@ from universal_code import system_os as so
 import time
 
 
-SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
-SERVER_COMMAND_CREATE_ENTITY_OWNER = 'ceo'
-
-
 class EntityOwner(object):
 	"""Cache for an instance of an EntityOwner."""
 
@@ -62,7 +58,7 @@ class EntityServer(object):
 		while True:
 			command, data = self._parse_out_server_command(self._host_server.get_message())
 
-			if command == SERVER_COMMAND_CREATE_ENTITY_OWNER:
+			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._create_entity_owner(data)
 
 				self._host_server.send_reply('todo!!!')

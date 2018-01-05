@@ -9,12 +9,6 @@ from universal_code import path_manager as pm
 from universal_code import useful_file_operations as ufo
 
 
-SUCCESS_MESSAGE = 's:'
-ERROR_MESSAGE   = 'e:'
-
-SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
-
-
 class QuasarServer(object):
 	"""Represents the Quasar utility server."""
 
@@ -46,11 +40,15 @@ class QuasarServer(object):
 		print('Client got this response : ' + response)
 		'''
 
+	def _send_command_to_entity_server(self, command, data):
+		"""Sends a command to the entity server."""
+		return self._entity_server_connection.send_message(command + ':' + str(data))
+
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
 		print('Create entity owner start!')
 
-		reply = self._entity_server_connection.send_message(SERVER_COMMAND_REQUEST_ALL_DATA)
+		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
 
 		#reply = eval(reply)
 		print(type(reply))
@@ -58,5 +56,5 @@ class QuasarServer(object):
 
 		print('Need to create an entity owner for the following data :')
 		print(owner_data)
-		return SUCCESS_MESSAGE
+		return us.SUCCESS_MESSAGE
 

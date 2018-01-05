@@ -18,6 +18,3 @@ SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
 
 result = quasar_server.create_entity_owner(owner_data)
 print(result)
-
-
-# fake push
