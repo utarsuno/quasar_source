@@ -113,10 +113,16 @@ class ShellFunction(object):
 			# Not including the variables that are already included in '_FUNCTION_TERMINATE_SCRIPT'
 			self.add_required_variable(_VARIABLE_FS_YELLOW)
 			self.add_required_variable(_VARIABLE_FS_GREEN)
-		elif self._type == _FUNCTION_TERMINATE_IF_SUDO or self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
+		elif self._type == _FUNCTION_TERMINATE_IF_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
-		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU or self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
+		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SUDO))
+		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU:
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
+		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 
@@ -235,6 +241,7 @@ class CodeFileShellScript(cf.CodeFile):
 		"""Utility function."""
 		for rf in self._required_functions:
 			for rv in rf._required_variables:
+				# Only adds if its not already added.
 				self.add_required_variable(rv)
 
 		for sc in self._required_safety_checks:
@@ -245,6 +252,7 @@ class CodeFileShellScript(cf.CodeFile):
 
 			sub_all_required_functions = sc.get_all_required_functions_recursively()
 			for rf in sub_all_required_functions:
+				#print(rf)
 				# Only adds if its not already added.
 				self.add_required_function(rf)
 

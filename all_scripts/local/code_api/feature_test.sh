@@ -32,6 +32,18 @@ function terminate_script {
     exit
 }
 
+function terminate_if_sudo {
+    if [[ $EUID -eq 0 ]]; then
+        terminate_script "This script should not be ran as sudo!"
+    fi
+}
+
+function terminate_if_system_is_ubuntu {
+    if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
+        terminate_script "This script should not be run on an ubuntu system."
+    fi
+}
+
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
