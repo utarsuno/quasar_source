@@ -24,7 +24,7 @@ TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 # Global server.
 quasar_server = qs.QuasarServer()
-quasar_server.run()
+quasar_server.connect()
 
 
 def get_client_ip(request):
@@ -152,14 +152,20 @@ def POST_create_owner(request):
     received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
     # TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
-    #print('Creating account : ' + received_owner_name)
 
-    global entity_server
-    owner_data = {}
-    owner_data[be.ENTITY_PROPERTY_USERNAME] = received_owner_name
-    owner_data[be.ENTITY_PROPERTY_EMAIL] = received_owner_email
-    owner_data[be.ENTITY_PROPERTY_PASSWORD] = received_owner_password
-    return entity_server.create_owner(owner_data)
+    global quasar_server
+    owner_data = {be.ENTITY_PROPERTY_USERNAME: received_owner_name,
+                  be.ENTITY_PROPERTY_EMAIL: received_owner_email,
+                  be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
+
+    if quasar_server.create_owner(owner_data):
+        return SERVER_REPLY_GENERIC_YES
+    return SERVER_REPLY_GENERIC_NO
+
+    # OLD CODE
+    #global entity_server
+    #owner_data = {}
+    #return entity_server.create_owner(owner_data)
 
 
 @csrf_exempt
