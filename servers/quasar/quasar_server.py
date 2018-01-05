@@ -2,7 +2,7 @@
 
 """This module, quasar_server.py, is the utility quasar client to the entity server."""
 
-from utility_server import utility_servers as us
+from servers import utility_servers as us
 
 import time
 from universal_code import path_manager as pm

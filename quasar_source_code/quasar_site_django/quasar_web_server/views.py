@@ -8,7 +8,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from utility_server.quasar import quasar_server as qs
+from servers.quasar import quasar_server as qs
 
 from entities import base_entity as be
 

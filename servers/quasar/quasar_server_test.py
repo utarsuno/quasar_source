@@ -1,7 +1,7 @@
 
 
 
-from utility_server.quasar import quasar_server as qs
+from servers.quasar import quasar_server as qs
 from entities import base_entity as be
 
 
