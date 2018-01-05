@@ -103,10 +103,19 @@ else
     print_script_text "The code base is already up to date so a pull will not be performed."
 fi''')
 
+'''__   ___  __        ___  __            __             __        __
+  /__` |__  |__) \  / |__  |__)    __    /  \ |  |  /\  /__`  /\  |__)
+  .__/ |___ |  \  \/  |___ |  \          \__X \__/ /~~\ .__/ /~~\ |  \ '''
 # Quasar server scripts.
 quasar = server_scripts.add_sub_directory('quasar')
 
-
+# Restart script.
+quasar_restart = quasar.add_code_file('restart.sh')
+quasar_restart.require_start_and_stop_print()
+quasar_restart.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_SUDO)
+quasar_restart.add_required_safety_check(ssg.SAFETY_CHECK_ONLY_ALLOW_UBUNTU)
+quasar_restart.add_main_logic('''sudo bash /home/git_repos/quasar_source/all_scripts/server/quasar/terminate.sh
+sudo bash /home/git_repos/quasar_source/all_scripts/server/quasar/run.sh''')
 
 # Status script.
 quasar_status = quasar.add_code_file('status.sh')
@@ -153,7 +162,9 @@ else
   python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80
 fi''')
 
-
+''' __   ___  __        ___  __            ___      ___   ___
+  /__` |__  |__) \  / |__  |__)    __    |__  |\ |  |  |  |  \ /
+  .__/ |___ |  \  \/  |___ |  \          |___ | \|  |  |  |   |  '''
 # Entity server scripts.
 entity = server_scripts.add_sub_directory('entity')
 
