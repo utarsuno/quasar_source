@@ -149,6 +149,8 @@ def POST_login(request):
 
     print('USERNAME LOGIN : ' + received_username)
 
+    #global quasar_server
+
     global entity_server
     result = entity_server.is_valid_login_info(received_username, received_password)
     if result:

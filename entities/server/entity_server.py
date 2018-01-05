@@ -34,7 +34,8 @@ class EntityServer(object):
 		self._entity_owners = []
 
 		self._db_api = EntityDatabaseAPI()
-		self._db_api.test_function()
+		print('Test function!')
+		print(self._db_api.test_function())
 
 	def run(self):
 		"""Runs the entity server."""

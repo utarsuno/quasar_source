@@ -8,8 +8,6 @@ import time
 from universal_code import path_manager as pm
 from universal_code import useful_file_operations as ufo
 
-from entities.server import entity_server as es
-
 
 SUCCESS_MESSAGE = 's:'
 ERROR_MESSAGE   = 'e:'
