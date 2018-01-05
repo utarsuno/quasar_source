@@ -48,6 +48,17 @@ function print_dashed_line_with_text {
     printf "\n"
 }
 
+function print_script_text {
+    if [ -z "$1" ]; then
+       terminate_script "The function 'print_script_text' requires a parameter."
+    fi
+    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
+}
+
+function print_dotted_line {
+    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+}
+
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
