@@ -310,9 +310,15 @@ class CodeFileShellScript(cf.CodeFile):
 				# Only adds if its not already added.
 				self.add_required_function(rf)
 
+		# TODO : Make a better system for variable and function placement order.
 		if _VARIABLE_ESC_SEC in self._required_variables:
 			self._required_variables.remove(_VARIABLE_ESC_SEC)
 			self._required_variables.insert(0, _VARIABLE_ESC_SEC)
+
+		# TODO : Make a better system for variable and function placement order.
+		if _FUNCTION_PRINT_RED_DOTTED_LINE in self._required_functions:
+			self._required_functions.remove(_FUNCTION_PRINT_RED_DOTTED_LINE)
+			self._required_functions.insert(0, _FUNCTION_PRINT_RED_DOTTED_LINE)
 
 		# Add any OS specific variables needed.
 		for rv in self._required_variables:
