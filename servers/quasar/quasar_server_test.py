@@ -16,8 +16,8 @@ owner_data = {be.ENTITY_PROPERTY_USERNAME: 'aaaa',
 SERVER_COMMAND_REQUEST_ALL_DATA = 'a'
 
 
-#result = quasar_server.create_entity_owner(owner_data)
-#print(result)
-
-result = quasar_server.get_all_data()
+result = quasar_server.create_entity_owner(owner_data)
 print(result)
+
+#result = quasar_server.get_all_data()
+#print(result)
