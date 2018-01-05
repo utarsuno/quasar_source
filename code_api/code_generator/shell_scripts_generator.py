@@ -347,12 +347,6 @@ class CodeFileShellScript(cf.CodeFile):
 					self._required_variables.insert(0, _VARIABLE_CONFIG_READER_PATH_LOCAL)
 
 		# Check if any variables have been added that require other variables.
-		'''
-		FG_YELLOW="${ESC_SEQ}33;"
-		FG_GREEN="${ESC_SEQ}32;"
-		FS_REG="21;24m"
-		RESET_ALL="${ESC_SEQ}0m"
-		'''
 		for rv in self._required_variables:
 			if 'ESC_SEQ' in str(rv):
 				if _VARIABLE_ESC_SEC not in self._required_variables:
