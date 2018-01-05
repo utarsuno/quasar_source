@@ -11,7 +11,7 @@
 # .__/ |___  |  \__/ |       /~~\ | \| |__/    |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
 # Required variables.
-CONFIG_READER="/Users/utarsuno/git_repos/quasar_source/all_scriptsuniversal/config_reader_for_bash.py"
+CONFIG_READER="/Users/utarsuno/git_repos/quasar_source/all_scripts/universal/config_reader_for_bash.py"
 CONFIG_PATH="/Users/utarsuno/git_repos/quasar_source/configuration_files/config.ini"
 nexus_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus ip)
 nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
