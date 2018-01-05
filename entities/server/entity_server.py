@@ -31,7 +31,10 @@ class EntityServer(object):
 		self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), us.SERVER_ENTITY)
 		self._host_server = us.HostServer(us.SERVER_ENTITY, self._host_server_data[us.ADDRESS], self._host_server_data[us.PORT])
 
-	# self._db_api = EntityDatabaseAPI()
+		self._entity_owners = []
+
+		self._db_api = EntityDatabaseAPI()
+		self._db_api.test_function()
 
 	def run(self):
 		"""Runs the entity server."""

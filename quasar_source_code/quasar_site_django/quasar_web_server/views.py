@@ -80,6 +80,27 @@ ENTITY_POST_SAVE_DATA = 'save_data'
 # UNIVERSAL_CONSTANTS_END
 
 
+def is_result_is_error(result):
+    """Returns a boolean indicating if the result is an error."""
+    if result.startswith('e:'):
+        return True
+    return False
+
+
+def is_result_success(result):
+    """Returns a boolean indicating if the result is a success."""
+    if result.startswith('s:'):
+        return True
+    return False
+
+
+def return_based_on_result(result):
+    """Returns a HTTPResponse based off the result."""
+    if is_result_success(result):
+        return SERVER_REPLY_GENERIC_YES
+    return HttpResponse(result[2:])
+
+
 def check_POST_arguments(arguments, dictionary):
     """Just a utility function to raise an exception if there is an in-correct match on POST arguments.
     :param arguments: The arguments to check for.
@@ -158,14 +179,7 @@ def POST_create_owner(request):
                   be.ENTITY_PROPERTY_EMAIL: received_owner_email,
                   be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
 
-    if quasar_server.create_entity_owner(owner_data):
-        return SERVER_REPLY_GENERIC_YES
-    return SERVER_REPLY_GENERIC_NO
-
-    # OLD CODE
-    #global entity_server
-    #owner_data = {}
-    #return entity_server.create_owner(owner_data)
+    return return_based_on_result(quasar_server.create_entity_owner(owner_data))
 
 
 @csrf_exempt

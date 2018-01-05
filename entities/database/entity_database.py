@@ -177,10 +177,13 @@ class EntityDatabaseAPI(object):
 		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
 
+		# OLD CODE BELOW
+		#self._owners_cache      = []
+		#self._update_owners_cache()
 
-		self._owners_cache      = []
-		self._update_owners_cache()
 
+	def test_function(self):
+		return self._owners_collection.get_all()
 
 	# OLD CODE BELOW
 	# OLD CODE BELOW
