@@ -27,6 +27,7 @@ _VARIABLE_NEXUS_USER     = 'nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH}
 _VARIABLES_THAT_REQUIRE_LOCAL_CONFIG_PATH_AND_READER = [_VARIABLE_NEXUS_IP, _VARIABLE_NEXUS_PORT, _VARIABLE_NEXUS_PEM_PATH, _VARIABLE_NEXUS_USER]
 
 _VARIABLE_ESC_SEC     = 'ESC_SEQ="\\x1b["'
+_VARIABLE_FS_CYAN     = 'FG_CYAN="${ESC_SEQ}36;"'
 _VARIABLE_FS_RED      = 'FG_RED="${ESC_SEQ}31;"'
 _VARIABLE_FS_MAGENTA  = 'FG_MAGENTA="${ESC_SEQ}35;"'
 _VARIABLE_FS_GREEN    = 'FG_GREEN="${ESC_SEQ}32;"'
@@ -37,8 +38,21 @@ _VARIABLE_FS_UL       = 'FS_UL="4m"'
 _VARIABLE_RESET_ALL   = 'RESET_ALL="${ESC_SEQ}0m"'
 _VARIABLE_DOTTED_LINE = 'DOTTED_LINE="................................................................................."'
 
-_PRINT_RED_DOTTED_LINE = '''function print_dotted_line {
+_FUNCTION_PRINT_DOTTED_LINE = '''function print_dotted_line {
     printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+}
+'''
+
+_FUNCTION_PRINT_RED_DOTTED_LINE = '''function print_dotted_line {
+    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+}
+'''
+
+_FUNCTION_PRINT_SCRIPT_TEXT = '''function print_script_text {
+    if [ -z "$1" ]; then
+       terminate_script "The function 'print_script_text' requires a parameter."
+    fi
+    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
 }
 '''
 
