@@ -111,8 +111,8 @@ class ShellFunction(object):
 		elif self._type == _FUNCTION_PRINT_DASHED_LINE_WITH_TEXT:
 			self._required_functions.append(_FUNCTION_TERMINATE_SCRIPT)
 			# Not including the variables that are already included in '_FUNCTION_TERMINATE_SCRIPT'
-			self._required_variables.append(_VARIABLE_FS_YELLOW)
-			self._required_variables.append(_VARIABLE_FS_GREEN)
+			self.add_required_variable(_VARIABLE_FS_YELLOW)
+			self.add_required_variable(_VARIABLE_FS_GREEN)
 		elif self._type == _FUNCTION_TERMINATE_IF_SUDO or self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU or self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
@@ -201,6 +201,8 @@ class CodeFileShellScript(cf.CodeFile):
 
 	def add_required_function(self, function):
 		"""Adds a required function to the shell script."""
+		if type(function) == str:
+			function = ShellFunction(function)
 		for rf in self._required_functions:
 			if str(rf) == str(function):
 				return
@@ -231,6 +233,10 @@ class CodeFileShellScript(cf.CodeFile):
 
 	def _set_needed_variables_and_functions(self):
 		"""Utility function."""
+		for rf in self._required_functions:
+			for rv in rf._required_variables:
+				self.add_required_variable(rv)
+
 		for sc in self._required_safety_checks:
 			sub_all_required_variables = sc.get_all_required_variables_recursively()
 			for rv in sub_all_required_variables:
@@ -241,6 +247,7 @@ class CodeFileShellScript(cf.CodeFile):
 			for rf in sub_all_required_functions:
 				# Only adds if its not already added.
 				self.add_required_function(rf)
+
 
 		# Add any OS specific variables needed.
 		for rv in self._required_variables:
