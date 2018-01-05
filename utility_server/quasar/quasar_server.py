@@ -48,6 +48,7 @@ class QuasarServer(object):
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
+		print('Create entity owner start!')
 
 		reply = self._entity_server_connection.send_message(SERVER_COMMAND_REQUEST_ALL_DATA)
 		print(reply)
