@@ -22,6 +22,7 @@ local_code_api_feature_test = local_code_api.add_code_file('feature_test.sh')
 local_code_api_feature_test.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_SUDO)
 local_code_api_feature_test.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
 local_code_api_feature_test.require_start_and_stop_print()
+local_code_api_feature_test.add_main_logic('''python3 /Users/utarsuno/git_repos/quasar_source/code_api/quasar/quasar_code.py -ft''')
 
 # Code push script.
 local_dev_code_push = local_scripts.add_code_file('dev_code_push.sh')
@@ -29,7 +30,6 @@ local_dev_code_push.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_SUDO)
 local_dev_code_push.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
 local_dev_code_push.require_start_and_stop_print()
 local_dev_code_push.add_required_argument('the commit message')
-local_dev_code_push.add_required_function(ssg._FUNCTION_PRINT_DASHED_LINE_WITH_TEXT)
 local_dev_code_push.add_required_function(ssg._FUNCTION_PRINT_SCRIPT_TEXT)
 local_dev_code_push.add_required_function(ssg._FUNCTION_PRINT_DOTTED_LINE)
 local_dev_code_push.add_required_variable(ssg._VARIABLE_NEXUS_IP)
@@ -58,11 +58,71 @@ fi''')
 
 # Connect to server script.
 local_ssh_to_nexus = local_scripts.add_code_file('ssh_to_nexus.sh')
-
+local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_IP)
+local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_PORT)
+local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_PEM_PATH)
+local_ssh_to_nexus.add_required_variable(ssg._VARIABLE_NEXUS_USER)
+local_ssh_to_nexus.add_main_logic('''ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/django/ ; bash"''')
 '''__   ___  __        ___  __
   /__` |__  |__) \  / |__  |__)
   .__/ |___ |  \  \/  |___ |  \ '''
-#server_scripts = all_scripts.add_sub_directory('server')
+server_scripts = all_scripts.add_sub_directory('server')
+
+# Update server code script.
+server_scripts_update_server_code = server_scripts.add_code_file('update_server_code.sh')
+server_scripts_update_server_code.require_start_and_stop_print()
+server_scripts_update_server_code.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
+server_scripts_update_server_code.add_main_logic('''# Go to the projects base directory.
+cd /home/git_repos/quasar_source;
+git fetch --all;
+reslog=$(git log HEAD..origin/master --oneline)
+if [[ "${reslog}" != "" ]] ; then
+    print_script_text "Updating the code base."
+    # This resets to master.
+    git reset --hard origin/master;
+else
+    # We do not have to update the code.
+    print_script_text "The code base is already up to date so a pull will not be performed."
+fi''')
+
+# Update server code force clean script.
+server_scripts_update_server_code_force_clean = server_scripts.add_code_file('update_server_code_force_clean.sh')
+server_scripts_update_server_code_force_clean.require_start_and_stop_print()
+server_scripts_update_server_code_force_clean.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
+server_scripts_update_server_code_force_clean.add_main_logic('''# Go to the projects base directory.
+cd /home/git_repos/quasar_source;
+git fetch --all;
+reslog=$(git log HEAD..origin/master --oneline)
+if [[ "${reslog}" != "" ]] ; then
+    print_script_text "Updating the code base."
+    # This resets to master.
+    git reset --hard origin/master;
+    # Remove files that are not tracked. The -d flag is needed for removing directories as well.
+    git clean -fd;
+else
+    # We do not have to update the code.
+    print_script_text "The code base is already up to date so a pull will not be performed."
+fi''')
+
+# Quasar server scripts.
+quasar = server_scripts.add_sub_directory('quasar')
+
+# Live run script.
+quasar_live_run = quasar.add_code_file('live_run.sh')
+quasar_live_run.add_required_safety_check(ssg.SAFETY_CHECK_DONT_ALLOW_UBUNTU)
+quasar_live_run.add_main_logic('''is_django_running=$(python3 /home/git_repos/quasar_source/all_scripts/universal/is_program_running.py 'runserver')
+if [ "${is_django_running}" == "true" ]; then
+  echo 'Django is already running!'
+else
+  export PYTHONPATH=/home/git_repos/quasar_source/
+  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py migrate
+  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80
+fi''')
+
+# Entity server scripts.
+entity = server_scripts.add_sub_directory('entity')
+
+# Finance server scripts.
 
 
 '''                 ___  __   __

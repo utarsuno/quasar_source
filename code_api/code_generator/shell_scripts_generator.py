@@ -129,6 +129,8 @@ class ShellFunction(object):
 			self.add_required_variable(_VARIABLE_FS_YELLOW)
 			self.add_required_variable(_VARIABLE_FS_GREEN)
 			self.add_required_variable(_VARIABLE_FS_REG)
+			self.add_required_variable(_VARIABLE_RESET_ALL)
+			self.add_required_variable(_VARIABLE_FS_BOLD)
 		elif self._type == _FUNCTION_PRINT_DOTTED_LINE:
 			self.add_required_variable(_VARIABLE_FS_MAGENTA)
 			self.add_required_variable(_VARIABLE_DOTTED_LINE)
@@ -222,6 +224,7 @@ class CodeFileShellScript(cf.CodeFile):
 	def require_start_and_stop_print(self):
 		"""Adds a start and stop output to this shell script."""
 		self._requires_start_and_stop_print = True
+		self.add_required_function(_FUNCTION_PRINT_DASHED_LINE_WITH_TEXT)
 
 	def add_required_variable(self, variable):
 		"""Adds a required variable to the shell script."""
@@ -252,11 +255,11 @@ class CodeFileShellScript(cf.CodeFile):
 	def generate(self):
 		"""Generates this code file."""
 		if self._script_type == SHELL_SCRIPT_TYPE_LOCAL:
-			self._generate_local_script()
+			self._generate_script()
 		elif self._script_type == SHELL_SCRIPT_TYPE_SERVER:
-			self._generate_server_script()
+			self._generate_script()
 		elif self._script_type == SHELL_SCRIPT_TYPE_UNIVERSAL:
-			self._generate_universal_script()
+			self._generate_script()
 		else:
 			dbg.raise_exception('Invalid script type set for ' + self.file_path)
 
@@ -293,11 +296,20 @@ class CodeFileShellScript(cf.CodeFile):
 				if _VARIABLE_CONFIG_READER_PATH_LOCAL not in self._required_variables:
 					self._required_variables.insert(0, _VARIABLE_CONFIG_READER_PATH_LOCAL)
 
-	def _generate_local_script(self):
-		"""Generates this type of script."""
-		#self.add_line('')
-		#self.add_line('DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )')
+		# Check if any variables have been added that require other variables.
+		'''
+		FG_YELLOW="${ESC_SEQ}33;"
+		FG_GREEN="${ESC_SEQ}32;"
+		FS_REG="21;24m"
+		RESET_ALL="${ESC_SEQ}0m"
+		'''
+		for rv in self._required_variables:
+			if 'ESC_SEQ' in str(rv):
+				if _VARIABLE_ESC_SEC not in self._required_variables:
+					self._required_variables.insert(0, _VARIABLE_ESC_SEC)
 
+	def _generate_script(self):
+		"""Generates the script."""
 		self._set_needed_variables_and_functions()
 
 		# Generation report.
@@ -306,7 +318,7 @@ class CodeFileShellScript(cf.CodeFile):
 		self.add_line('')
 
 		# Setup and imports.
-		if len(self._required_safety_checks) > 0 and (len(self._required_variables) > 0 or len(self._required_functions) > 0):
+		if len(self._required_variables) > 0 or len(self._required_functions) > 0:
 			self.add_3D_comment('setup and imports')
 
 			lines_to_sort = []
@@ -343,7 +355,7 @@ class CodeFileShellScript(cf.CodeFile):
 		# Script main logic.
 		self.add_3D_comment('script logic')
 		if self._requires_start_and_stop_print:
-			self.add_line('print_dashed_line_with_text "' + self.file_name + ' script start."')
+			self.add_line('print_dashed_line_with_text "' + self.file_name + ' script start for : ${HOST_NAME}."')
 
 		self.add_line('')
 
@@ -353,12 +365,4 @@ class CodeFileShellScript(cf.CodeFile):
 		self.add_line('')
 
 		if self._requires_start_and_stop_print:
-			self.add_line('print_dashed_line_with_text "' + self.file_name + ' script end."')
-
-	def _generate_server_script(self):
-		"""Generates this type of script."""
-		y = 2
-
-	def _generate_universal_script(self):
-		"""Generates this type of script."""
-		y = 2
+			self.add_line('print_dashed_line_with_text "' + self.file_name + ' script end for : ${HOST_NAME}."')

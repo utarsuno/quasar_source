@@ -263,7 +263,7 @@ class QuasarCode(object):
 		# Verify the 'all_scripts' directory.
 		oc.print_data(self._script_manager.get_data())
 		oc.print_title('Generate all scripts!')
-		all_scripts.local_scripts.generate()
+		all_scripts.all_scripts.generate()
 		oc.print_success('finished!')
 
 	def run_analysis(self):

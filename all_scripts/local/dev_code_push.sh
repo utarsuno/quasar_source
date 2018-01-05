@@ -21,12 +21,12 @@ nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
 FG_YELLOW="${ESC_SEQ}33;"
 FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
-FG_CYAN="${ESC_SEQ}36;"
 RESET_ALL="${ESC_SEQ}0m"
+FS_BOLD="1m"
+FG_CYAN="${ESC_SEQ}36;"
 FG_MAGENTA="${ESC_SEQ}35;"
 DOTTED_LINE="................................................................................."
 FG_RED="${ESC_SEQ}31;"
-FS_BOLD="1m"
 FS_UL="4m"
 
 # Required functions.
@@ -108,7 +108,7 @@ fi
 # /__` /  ` |__) |  |__)  |     |    /  \ / _` |  /  ` 
 # .__/ \__, |  \ |  |     |     |___ \__/ \__> |  \__, 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "dev_code_push.sh script start."
+print_dashed_line_with_text "dev_code_push.sh script start for : ${HOST_NAME}."
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
     # Working directory clean
@@ -130,4 +130,4 @@ HERE
 
 fi
 
-print_dashed_line_with_text "dev_code_push.sh script end."
+print_dashed_line_with_text "dev_code_push.sh script end for : ${HOST_NAME}."
