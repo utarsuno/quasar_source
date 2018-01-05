@@ -5,6 +5,7 @@
 import zmq
 import time
 from universal_code import output_coloring as oc
+'''
 from universal_code import path_manager as pm
 from universal_code import useful_file_operations as ufo
 
@@ -12,6 +13,7 @@ from entities.database.entity_database import EntityDatabaseAPI
 from entities import base_entity as be
 
 from entities.server import entity_server as es
+'''
 
 # Utility variables.
 ADDRESS = 'address'
