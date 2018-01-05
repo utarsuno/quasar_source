@@ -50,6 +50,7 @@ class QuasarServer(object):
 
 		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
 
+		print(reply)
 		#reply = eval(reply)
 		print(type(reply))
 		#print(reply)
