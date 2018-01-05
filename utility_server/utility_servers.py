@@ -11,6 +11,8 @@ from universal_code import useful_file_operations as ufo
 from entities.database.entity_database import EntityDatabaseAPI
 from entities import base_entity as be
 
+from entities.server import entity_server as es
+
 # Utility variables.
 ADDRESS = 'address'
 PORT    = 'port'
@@ -133,7 +135,7 @@ class QuasarServer(object):
 		"""Runs the Quasar server."""
 		self._entity_server_connection.attempt_connection()
 
-		response = self._entity_server_connection.send_message('Hello from client 0')
+		response = self._entity_server_connection.send_message(es.SERVER_COMMAND_REQUEST_ALL_DATA)
 		print('Client got this response : ' + response)
 		time.sleep(2)
 		response = self._entity_server_connection.send_message('Hello from client 1')
