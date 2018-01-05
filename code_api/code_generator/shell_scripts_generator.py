@@ -127,6 +127,16 @@ class ShellFunction(object):
 			# Not including the variables that are already included in '_FUNCTION_TERMINATE_SCRIPT'
 			self.add_required_variable(_VARIABLE_FS_YELLOW)
 			self.add_required_variable(_VARIABLE_FS_GREEN)
+			self.add_required_variable(_VARIABLE_FS_REG)
+		elif self._type == _FUNCTION_PRINT_DOTTED_LINE:
+			self.add_required_variable(_VARIABLE_FS_MAGENTA)
+			self.add_required_variable(_VARIABLE_DOTTED_LINE)
+			self.add_required_variable(_VARIABLE_FS_REG)
+			self.add_required_variable(_VARIABLE_RESET_ALL)
+		elif self._type == _FUNCTION_PRINT_SCRIPT_TEXT:
+			self.add_required_variable(_VARIABLE_FS_CYAN)
+			self.add_required_variable(_VARIABLE_FS_REG)
+			self.add_required_variable(_VARIABLE_RESET_ALL)
 		elif self._type == _FUNCTION_TERMINATE_IF_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
@@ -270,6 +280,9 @@ class CodeFileShellScript(cf.CodeFile):
 				# Only adds if its not already added.
 				self.add_required_function(rf)
 
+		if _VARIABLE_ESC_SEC in self._required_variables:
+			self._required_variables.remove(_VARIABLE_ESC_SEC)
+			self._required_variables.insert(0, _VARIABLE_ESC_SEC)
 
 		# Add any OS specific variables needed.
 		for rv in self._required_variables:

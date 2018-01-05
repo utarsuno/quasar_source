@@ -13,16 +13,20 @@
 # Required variables.
 CONFIG_READER="/Users/utarsuno/git_repos/quasar_source/all_scripts/universal/config_reader_for_bash.py"
 CONFIG_PATH="/Users/utarsuno/git_repos/quasar_source/configuration_files/config.ini"
+ESC_SEQ="\x1b["
 nexus_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus ip)
 nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
 nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
 nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
 FG_YELLOW="${ESC_SEQ}33;"
 FG_GREEN="${ESC_SEQ}32;"
-ESC_SEQ="\x1b["
+FS_REG="21;24m"
+FG_CYAN="${ESC_SEQ}36;"
+RESET_ALL="${ESC_SEQ}0m"
+FG_MAGENTA="${ESC_SEQ}35;"
+DOTTED_LINE="................................................................................."
 FG_RED="${ESC_SEQ}31;"
 FS_BOLD="1m"
-RESET_ALL="${ESC_SEQ}0m"
 FS_UL="4m"
 
 # Required functions.
