@@ -127,8 +127,7 @@ entity = server_scripts.add_sub_directory('entity')
 '''                 ___  __   __
   |  | |\ | | \  / |__  |__) /__`  /\  |
   \__/ | \| |  \/  |___ |  \ .__/ /~~\ |___ '''
-#universal_scripts = all_scripts.add_sub_directory('universal') # test push
-
+#universal_scripts = all_scripts.add_sub_directory('universal')
 
 
 
