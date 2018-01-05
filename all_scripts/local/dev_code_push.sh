@@ -85,6 +85,10 @@ function terminate_script {
     exit
 }
 
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function terminate_if_system_is_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
         terminate_script "This script should not be run on an ubuntu system."

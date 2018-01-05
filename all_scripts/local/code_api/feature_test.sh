@@ -19,6 +19,8 @@ RESET_ALL="${ESC_SEQ}0m"
 FS_BOLD="1m"
 FG_RED="${ESC_SEQ}31;"
 FS_UL="4m"
+FG_MAGENTA="${ESC_SEQ}35;"
+DOTTED_LINE="................................................................................."
 
 # Required functions.
 function print_dashed_line_with_text {
@@ -63,6 +65,10 @@ function terminate_script {
     exit
 }
 
+function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "\n"
+}
 function terminate_if_system_is_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
         terminate_script "This script should not be run on an ubuntu system."

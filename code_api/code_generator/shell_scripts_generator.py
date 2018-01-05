@@ -45,11 +45,10 @@ _FUNCTION_PRINT_DOTTED_LINE = '''function print_dotted_line {
 }
 '''
 
-_FUNCTION_PRINT_RED_DOTTED_LINE = '''function print_dotted_line {
-    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+_FUNCTION_PRINT_RED_DOTTED_LINE = '''function print_red_dotted_line {
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
     printf "\\n"
-}
-'''
+}'''
 
 _FUNCTION_PRINT_SCRIPT_TEXT = '''function print_script_text {
     if [ -z "$1" ]; then
@@ -128,11 +127,17 @@ class ShellFunction(object):
 		self._required_variables = []
 		self._required_functions = []
 		if self._type == _FUNCTION_TERMINATE_SCRIPT:
+			self.add_required_function(_FUNCTION_PRINT_RED_DOTTED_LINE)
 			self.add_required_variable(_VARIABLE_ESC_SEC)
 			self.add_required_variable(_VARIABLE_FS_RED)
 			self.add_required_variable(_VARIABLE_FS_BOLD)
 			self.add_required_variable(_VARIABLE_RESET_ALL)
 			self.add_required_variable(_VARIABLE_FS_UL)
+		elif self._type == _FUNCTION_PRINT_RED_DOTTED_LINE:
+			self.add_required_variable(_VARIABLE_FS_MAGENTA)
+			self.add_required_variable(_VARIABLE_FS_REG)
+			self.add_required_variable(_VARIABLE_DOTTED_LINE)
+			self.add_required_variable(_VARIABLE_RESET_ALL)
 		elif self._type == _FUNCTION_PRINT_DASHED_LINE_WITH_TEXT:
 			self._required_functions.append(_FUNCTION_TERMINATE_SCRIPT)
 			# Not including the variables that are already included in '_FUNCTION_TERMINATE_SCRIPT'
@@ -165,6 +170,12 @@ class ShellFunction(object):
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 
+	def add_required_function(self, rf):
+		"""Adds a required function to this shell function."""
+		if type(rf) == str:
+			rf = ShellFunction(rf)
+		self._required_functions.append(rf)
+
 	def add_required_variable(self, rv):
 		"""Adds a required variable to this shell function."""
 		self._required_variables.append(rv)
@@ -176,6 +187,7 @@ class ShellFunction(object):
 			rf.append(r_f)
 			srf = r_f.get_all_required_functions_recursively()
 			for s_r_f in srf:
+				#print('Adding : {' + str(s_r_f) + '}')
 				rf.append(s_r_f)
 		return rf
 
