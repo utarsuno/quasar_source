@@ -24,6 +24,28 @@ RESET_ALL="${ESC_SEQ}0m"
 FS_UL="4m"
 
 # Required functions.
+function print_dashed_line_with_text {
+    if [ -z "$1" ]; then
+       terminate_script "The function 'print_dashed_line_with_text' requires a parameter."
+    fi
+    length=${#1}
+    declare -i max=100
+    declare -i first=(max-length)/2
+    if [ $((length%2)) -ne 0 ]; then
+        printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
+    fi
+    for i in `seq 2 ${first}`
+    do
+      printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
+    done
+    printf "${FG_YELLOW}${FS_BOLD}${1}${RESET_ALL}"
+    for i in `seq 2 ${first}`
+    do
+      printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
+    done
+    printf "\n"
+}
+
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then

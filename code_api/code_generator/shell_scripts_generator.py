@@ -90,7 +90,7 @@ _FUNCTION_PRINT_DASHED_LINE_WITH_TEXT = '''function print_dashed_line_with_text 
     do
       printf "${FG_GREEN}${FS_REG}-${RESET_ALL}"
     done
-    printf "\n"
+    printf "\\n"
 }
 '''
 
