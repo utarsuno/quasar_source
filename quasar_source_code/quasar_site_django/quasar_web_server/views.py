@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from entities import base_entity as be
 from entities.server import entity_server as es
+from utility_server.quasar import quasar_server as qs
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
@@ -22,8 +23,8 @@ TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 
 # Global server.
-entity_server = es.EntityServer()
-entity_server.run()
+quasar_server = qs.QuasarServer()
+quasar_server.run()
 
 
 def get_client_ip(request):
