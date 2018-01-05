@@ -14,7 +14,8 @@ SHELL_SCRIPT_TYPE_UNIVERSAL = 'universal'
 
 SAFETY_CHECK_DONT_ALLOW_SUDO = 'sudo'
 SAFETY_CHECK_DONT_ALLOW_UBUNTU = 'system_is_ubuntu'
-ALL_SAFETY_CHECKS = [SAFETY_CHECK_DONT_ALLOW_SUDO, SAFETY_CHECK_DONT_ALLOW_UBUNTU]
+SAFETY_CHECK_ONLY_ALLOW_UBUNTU = 'system_is_not_ubuntu'
+ALL_SAFETY_CHECKS = [SAFETY_CHECK_DONT_ALLOW_SUDO, SAFETY_CHECK_DONT_ALLOW_UBUNTU, SAFETY_CHECK_ONLY_ALLOW_UBUNTU]
 
 _VARIABLE_CONFIG_PATH_LOCAL        = 'CONFIG_PATH="' + pm.PATH_TO_CONFIG_FILE + '"'
 _VARIABLE_CONFIG_READER_PATH_LOCAL = 'CONFIG_READER="' + pm.PATH_TO_CONFIG_READER + '"'
@@ -86,6 +87,13 @@ _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU = '''function terminate_if_system_is_ubu
 }
 '''
 
+_FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU = '''function terminate_if_system_is_not_ubuntu {
+    if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
+        terminate_script "This script should be run on an ubuntu system."
+    fi
+}
+'''
+
 _FUNCTION_PRINT_DASHED_LINE_WITH_TEXT = '''function print_dashed_line_with_text {
     if [ -z "$1" ]; then
        terminate_script "The function 'print_dashed_line_with_text' requires a parameter."
@@ -143,13 +151,15 @@ class ShellFunction(object):
 		elif self._type == _FUNCTION_TERMINATE_IF_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
-			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SUDO))
 		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
-		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
+		elif self._type == _FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
+		elif self._type == SAFETY_CHECK_DONT_ALLOW_UBUNTU:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SYSTEM_IS_UBUNTU))
+		elif self._type == SAFETY_CHECK_ONLY_ALLOW_UBUNTU:
+			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_IF_SYSTEM_IS_NOT_UBUNTU))
 		elif self._type == SAFETY_CHECK_DONT_ALLOW_SUDO:
 			self._required_functions.append(ShellFunction(_FUNCTION_TERMINATE_SCRIPT))
 

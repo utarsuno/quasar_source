@@ -43,6 +43,12 @@ function print_dashed_line_with_text {
     printf "\n"
 }
 
+function terminate_if_system_is_not_ubuntu {
+    if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
+        terminate_script "This script should be run on an ubuntu system."
+    fi
+}
+
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
@@ -57,17 +63,11 @@ function terminate_script {
     exit
 }
 
-function terminate_if_system_is_ubuntu {
-    if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
-        terminate_script "This script should not be run on an ubuntu system."
-    fi
-}
-
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
-terminate_if_system_is_ubuntu
+system_is_not_ubuntu
 
 #  __   __   __      __  ___          __   __      __  
 # /__` /  ` |__) |  |__)  |     |    /  \ / _` |  /  ` 

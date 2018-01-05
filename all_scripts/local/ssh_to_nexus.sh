@@ -23,5 +23,5 @@ nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
 # .__/ \__, |  \ |  |     |     |___ \__/ \__> |  \__, 
 # ----------------------------------------------------------------------------
 
-ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/django/ ; bash"
+ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/ ; bash"
 
