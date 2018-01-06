@@ -56,9 +56,18 @@ class EntityServer(object):
 					command += c
 		return command, data
 
+	def _load_entity_owners(self):
+		"""Does the initial load of the entity owner cache objects."""
+		all_data = self._get_all_database_data()
+
+		print('ALL DATA')
+		print(all_data)
+
 	def run(self):
 		"""Runs the entity server."""
 		self._host_server.bind()
+
+		self._load_entity_owners()
 
 		while True:
 			command, data = self._parse_out_server_command(self._host_server.get_message())
