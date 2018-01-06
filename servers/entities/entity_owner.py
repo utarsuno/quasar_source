@@ -27,15 +27,10 @@ class EntityOwner(object):
 		"""Creates the initial entities that this EntityOwner needs."""
 		owner_entity = be.Entity()
 		owner_entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_OWNER)
+		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_USERNAME, self._username)
+		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_EMAIL, self._email)
+		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
 		self._entity_manager.add_entity(owner_entity)
-
-	def _set_entities(self):
-		"""Utility function."""
-		entities = self._entity_manager.get_all_entities()
-
-		print('Printing all the entities!')
-		for e in entities:
-			print(e)
 
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`

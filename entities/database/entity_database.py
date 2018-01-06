@@ -55,12 +55,6 @@ class EntityOwner(object):
 			lines.append(str(e.get_full_info()))
 		return lines
 
-	def ensure_entity_owner_exists(self):
-		"""Creates the owner entity if it does not yet exist."""
-		if self._entity_manager.ensure_entity_owner_exists(self._data, self._entity_database_api.get_largest_entity_owner_server_id() + 1):
-			# An owner was created.
-			self.save_to_database()
-
 	def is_public_entity_owner(self) -> bool:
 		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
 		if be.ENTITY_PROPERTY_USERNAME not in self._data:
@@ -161,10 +155,6 @@ class EntityOwner(object):
 				return True
 		return False
 
-	def get_all_entities_as_dictionary(self):
-		"""Returns a dictionary of all the entities."""
-		return self._entity_manager.get_all_entities_as_dictionary()
-
 	def __str__(self):
 		return 'EntityOwner{' + str(self.get_owner_name()) + '} (has ' + str(self.get_number_of_entities()) + ' entities)'
 
@@ -177,59 +167,17 @@ class EntityDatabaseAPI(object):
 		self._api               = db_api.MongoDBAPI()
 		self._owners_collection = self._api.get_collection('owners')
 
-		# OLD CODE BELOW
-		#self._owners_cache      = []
-		#self._update_owners_cache()
-
-	def test_function(self):
-		return self._owners_collection.get_all()
-
-	def get_all_current_owners(self):
-		"""Returns all the current Entity Owners found in the database data."""
-		# TODO :
-		y = 2
-
 	def get_all_database_data_as_list_of_dictionaries(self) -> list:
 		"""Returns all the database data as a list where each element is a python dictionary of that database entry."""
 		return self._owners_collection.get_all()
 
 	def create_owner(self, owner_data):
 		"""Creates the owner."""
-
-		print('owner data to create is : ')
-		print(owner_data)
-		print(type(self._owners_collection))
-		print(self._owners_collection)
 		self._owners_collection.insert_one(owner_data)
 
-		print('\nPRINTING ALL : ')
-		for o in self._owners_collection.get_all():
-			print(o)
-		print('---END---')
-		#self._owners_collection.insert(owner_data)
-
 	# OLD CODE BELOW
 	# OLD CODE BELOW
 	# OLD CODE BELOW
-
-	def create_owner_old(self, owner_data) -> None:
-		"""Creates an owner. Throws an exception if the required attributes are not provided."""
-		# Make sure that all the required keys are provided.
-		for required_key in [be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL]:
-			if required_key not in owner_data:
-				raise Exception('Owner key ' + required_key + ' not provided in {' + str(owner_data) + '}!')
-		# Make sure that the owner name isn't already taken.
-		if self.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
-			raise Exception('Owner name ' + owner_data[be.ENTITY_PROPERTY_USERNAME] + ' is already taken!')
-
-		# Update the owner cache.
-		new_entity_owner = self._add_owner_to_cache(owner_data)
-
-		# Create the owner.
-		self._owners_collection.insert(owner_data)
-
-		# When creating the owner object we also need to create the owner entity.
-		new_entity_owner.ensure_entity_owner_exists()
 
 	def connect(self):
 		"""Connect to the database."""
