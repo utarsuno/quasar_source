@@ -66,6 +66,7 @@ class EntityServer(object):
 		data = all_data.split('\n')
 		for d in data:
 			print(d)
+			print('@@@')
 			print(eval(d.replace('ObjectId', '')))
 
 	def run(self):
