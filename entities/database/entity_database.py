@@ -192,6 +192,11 @@ class EntityDatabaseAPI(object):
 		print(type(self._owners_collection))
 		print(self._owners_collection)
 		self._owners_collection.insert_one(owner_data)
+
+		print('\nPRINTING ALL : ')
+		for o in self._owners_collection.get_all():
+			print(o)
+		print('---END---')
 		#self._owners_collection.insert(owner_data)
 
 	# OLD CODE BELOW
