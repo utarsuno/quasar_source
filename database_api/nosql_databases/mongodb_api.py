@@ -57,6 +57,10 @@ class MongoCollection(object):
         """Inserts the data into the collection."""
         self._collection.insert(data)
 
+    def insert_one(self, data):
+        """Inserts the single data into the collection."""
+        self._collection.insert_one(data)
+
     def update(self, data):
         """Updates an entry in the collection."""
         data_to_set = {}

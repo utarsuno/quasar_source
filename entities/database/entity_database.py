@@ -191,6 +191,7 @@ class EntityDatabaseAPI(object):
 		print(owner_data)
 		print(type(self._owners_collection))
 		print(self._owners_collection)
+		self._owners_collection.insert_one(owner_data)
 		#self._owners_collection.insert(owner_data)
 
 	# OLD CODE BELOW
