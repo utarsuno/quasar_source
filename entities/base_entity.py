@@ -74,13 +74,13 @@ class Entity(object):
 	'''__   ___ ___ ___  ___  __   __  
 	  / _` |__   |   |  |__  |__) /__` 
 	  \__> |___  |   |  |___ |  \ .__/ '''
-    def has_property(self, key) -> bool:
-    	"""Returns True if this entity has the property."""
-    	if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-    		if self._relative_id == -1:
-    			return False
-    	return key in self._information:
 
+	def has_property(self, key) -> bool:
+		"""Returns True if this entity has the property."""
+		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+			if self._relative_id == -1:
+				return False
+		return key in self._information
 
 	@property
 	def relative_id(self) -> int:
