@@ -184,6 +184,11 @@ class EntityDatabaseAPI(object):
 	def test_function(self):
 		return self._owners_collection.get_all()
 
+	def get_all_current_owners(self):
+		"""Returns all the current Entity Owners found in the database data."""
+		# TODO :
+		y = 2
+
 	def create_owner(self, owner_data):
 		"""Creates the owner."""
 
@@ -241,11 +246,13 @@ class EntityDatabaseAPI(object):
 					largest_entity_owner_id = server_id
 		return largest_entity_owner_id
 
-	def get_all_database_data(self):
-		"""TODO : Document"""
+	def get_all_database_raw_data(self):
+		"""Returns the raw data of the database."""
 		entities = self._owners_collection.get_all()
 		text = ''
 		for e in entities:
+			#print(e)
+			print(type(e))
 			text += str(e) + '\n'
 		return text
 

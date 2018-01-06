@@ -67,8 +67,7 @@ class EntityServer(object):
 
 	def _load_entity_owners(self):
 		"""Does the initial load of the entity owner cache objects."""
-		all_data = self._get_all_database_data()
-
+		all_data = self._get_all_database_raw_data()
 		data = all_data.split('\n')
 		for d in data:
 			if len(d) > 0:
@@ -88,7 +87,7 @@ class EntityServer(object):
 			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._host_server.send_reply(self._create_entity_owner(data))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
-				self._host_server.send_reply(str(self._get_all_database_data()))
+				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
 				self._host_server.send_reply(self._is_username_taken(data))
 			else:
@@ -101,42 +100,31 @@ class EntityServer(object):
 				return us.SUCCESS_MESSAGE
 		return us.ERROR_MESSAGE
 
-	def _get_all_database_data(self):
+	def _get_all_database_raw_data(self):
 		"""Returns all the database data."""
-		return self._db_api.get_all_database_data()
+		return self._db_api.get_all_database_raw_data()
 
 	def _create_entity_owner(self, data):
 		"""Performs this server command and returns the reply."""
-
-		us.log('Entity server needs to create the following owner :')
+		us.log('Entity server is creating the following owner : { ' + str(data) + ' }')
 		if type(data) == str:
 			data = eval(data)
-		us.log(str(data))
-		#us.log(type(data))
 
-		all_data = self._get_all_database_data()
-		us.log(all_data)
+		# TODO : Add syntax rule checks on the entity owner data provided.
 
 		# Required keys passed in check.
 		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
 			if required_key not in data:
 				return us.error('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(data) + '}')
 
-		# TODO :
-		# Username not already taken check.
-		#if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
-		#	return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
+		# Username already taken check.
+		if us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])):
+			return us.error('Username is already taken!')
 
+		# All designated error checks passed, create the new owner.
 		self._db_api.create_owner(data)
-
 		return us.SUCCESS_MESSAGE
 
-		'''
-
-		# Checks passed, create the owner.
-		self._db_api.create_owner(owner_data)
-		return SERVER_REPLY_GENERIC_YES
-		'''
 
 '''
 class EntityServerOld(object):

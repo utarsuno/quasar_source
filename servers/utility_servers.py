@@ -55,6 +55,16 @@ def log(l):
 		print(l, flush=True)
 
 
+def is_error_message(m) -> bool:
+	"""Returns True if the message provided is an error message (False otherwise)."""
+	return m.startswith(ERROR_MESSAGE)
+
+
+def is_success_message(m) -> bool:
+	"""Returns True if the message provided is a success message (False otherwise)."""
+	return m.startswith(SUCCESS_MESSAGE)
+
+
 def error(m):
 	"""Utility function for returning error messages."""
 	return ERROR_MESSAGE + ':' + str(m)
