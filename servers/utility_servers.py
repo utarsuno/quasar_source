@@ -68,12 +68,16 @@ def is_success_message(m) -> bool:
 
 def error(m):
 	"""Utility function for returning error messages."""
-	return ERROR_MESSAGE + ':' + str(m)
+	if not str(m).startswith(ERROR_MESSAGE):
+		return ERROR_MESSAGE + ':' + str(m)
+	return str(m)
 
 
 def success(m):
 	"""Utility function for returning success messages."""
-	return SUCCESS_MESSAGE + ':' + str(m)
+	if not str(m).startswith(SUCCESS_MESSAGE):
+		return SUCCESS_MESSAGE + ':' + str(m)
+	return str(m)
 
 
 class ZMQBase(object):

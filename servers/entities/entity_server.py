@@ -105,6 +105,7 @@ class EntityServer(object):
 		print(data[be.ENTITY_PROPERTY_USERNAME])
 		print(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME]))
 		print(us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])))
+		us.log('\n')
 
 		if us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])):
 			return us.error('Username is already taken!')
