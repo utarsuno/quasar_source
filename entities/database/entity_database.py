@@ -177,11 +177,7 @@ class EntityDatabaseAPI(object):
 
 	def delete_owner(self, username):
 		"""Deletes the owner by username match."""
-		result = self._owners_collection.delete_many(be.ENTITY_PROPERTY_USERNAME, username)
-		print('\n')
-		print(result)
-		print(result.deleted_count)
-		print('\n')
+		self._owners_collection.delete_many(be.ENTITY_PROPERTY_USERNAME, username)
 
 	# OLD CODE BELOW
 	# OLD CODE BELOW

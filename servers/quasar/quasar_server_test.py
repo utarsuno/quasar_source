@@ -11,8 +11,17 @@ quasar_server.connect()
 
 args = so.get_all_program_arguments()
 name = 'GET_NAME'
+name_to_delete = None
 if len(args) > 0:
-    name = args[0]
+    command = args[0]
+    if command.startswith('d:'):
+        c = command.replace('d:', '')
+        name_to_delete = c
+    elif command.startswith('c:'):
+        c = command.replace('c:', '')
+        name = c
+
+
 
 
 owner_data = {be.ENTITY_PROPERTY_USERNAME: name,
