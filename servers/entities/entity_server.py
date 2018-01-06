@@ -85,6 +85,12 @@ class EntityServer(object):
 	def _delete_entity_owner(self, username):
 		"""Deletes an entity owner."""
 		us.log('Entity server is deleting the following owner : { ' + username + ' }')
+		owners_to_remove = []
+		for e_o in self._entity_owners:
+			if e_o.username == username:
+				owners_to_remove.append(e_o)
+		for e_o in owners_to_remove:
+			self._entity_owners.remove(e_o)
 		self._db_api.delete_owner(username)
 		return us.SUCCESS_MESSAGE
 
