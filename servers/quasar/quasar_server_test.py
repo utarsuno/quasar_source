@@ -26,6 +26,8 @@ print(result)
 print('Printing all data!')
 result = quasar_server.get_all_data()
 
+quasar_server.delete_entity_owner('aaaa')
+
 print('Is username{aaaa} taken?')
 print(quasar_server.is_username_taken('aaaa'))
 print('Is username{bbbb} taken?')

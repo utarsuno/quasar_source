@@ -70,6 +70,8 @@ class EntityServer(object):
 			elif command == us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID:
 				cleaned_data = data.split('|')
 				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
+			elif command == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
+				self._host_server.send_reply(self._delete_entity_owner(data))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
@@ -82,7 +84,9 @@ class EntityServer(object):
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
 	def _delete_entity_owner(self, username):
 		"""Deletes an entity owner."""
-		y = 2
+		us.log('Entity server is deleting the following owner : { ' + username + ' }')
+		self._db_api.delete_owner(username)
+		return us.SUCCESS_MESSAGE
 
 	'''__   __   ___      ___    __
 	  /  ` |__) |__   /\   |  | /  \ |\ |
@@ -114,11 +118,6 @@ class EntityServer(object):
 		"""Creates a new entity owner and adds it to cache."""
 		new_entity_owner = eo.EntityOwner(data)
 		new_entity_owner.create_initial_entities()
-
-		us.log('About to save this data.')
-		print(new_entity_owner.get_data_for_database())
-		us.log('\nthere it is!\n\n')
-
 		self._db_api.create_owner(new_entity_owner.get_data_for_database())
 		self._entity_owners.append(new_entity_owner)
 

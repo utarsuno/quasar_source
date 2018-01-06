@@ -175,6 +175,10 @@ class EntityDatabaseAPI(object):
 		"""Creates the owner."""
 		self._owners_collection.insert_one(owner_data)
 
+	def delete_owner(self, username):
+		"""Deletes the owner by username match."""
+		self._owners_collection.delete_many(be.ENTITY_PROPERTY_USERNAME, username)
+
 	# OLD CODE BELOW
 	# OLD CODE BELOW
 	# OLD CODE BELOW

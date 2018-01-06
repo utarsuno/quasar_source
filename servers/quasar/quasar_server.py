@@ -60,3 +60,9 @@ class QuasarServer(object):
 		"""Sends a command to the entity server."""
 		return self._entity_server_connection.send_message(command + ':' + str(data))
 
+	'''__   ___       ___ ___    __
+	  |  \ |__  |    |__   |  | /  \ |\ |
+	  |__/ |___ |___ |___  |  | \__/ | \| '''
+	def delete_entity_owner(self, username):
+		"""Deletes the entity owner found by username match."""
+		return self._entity_server_connection.send_message(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)

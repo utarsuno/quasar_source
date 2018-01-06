@@ -45,6 +45,10 @@ class MongoCollection(object):
     def __init__(self, collection_object):
         self._collection = collection_object
 
+    def delete_many(self, key, value):
+        """Deletes by key and value matches."""
+
+
     def get_all(self):
         """Returns all the entities(items) in this collection."""
         entities = []
