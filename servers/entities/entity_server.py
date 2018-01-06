@@ -55,12 +55,10 @@ class EntityServer(object):
 
 		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
 
-		entity_owners = []
-
 		for d in all_data:
 			if '_id' in d:
 				del d['_id']
-			entity_owners.append(eo.EntityOwner(d))
+			self._entity_owners.append(eo.EntityOwner(d))
 
 	def run(self):
 		"""Runs the entity server."""

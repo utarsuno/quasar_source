@@ -13,11 +13,11 @@ owner_data = {be.ENTITY_PROPERTY_USERNAME: 'aaaa',
               be.ENTITY_PROPERTY_PASSWORD: 'cccc'}
 
 
-result = quasar_server.create_entity_owner(owner_data)
-print(result)
+#result = quasar_server.create_entity_owner(owner_data)
+#print(result)
 
+print('Printing all data!')
 result = quasar_server.get_all_data()
-print(result)
 
 print('Is username{aaaa} taken?')
 print(quasar_server.is_username_taken('aaaa'))
