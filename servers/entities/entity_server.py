@@ -101,14 +101,8 @@ class EntityServer(object):
 				return us.error('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(data) + '}')
 
 		# Username already taken check.
-		print('Is username already taken test.')
-		print(data[be.ENTITY_PROPERTY_USERNAME])
-		print(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME]))
-		print(us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])))
-		us.log('\n')
-
-		if us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])):
-			return us.error('Username is already taken!')
+		if us.is_success_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])):
+			return us.error('The username{' + data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
 
 		# TODO : Create the EntityOwner object first!
 
