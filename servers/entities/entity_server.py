@@ -69,7 +69,12 @@ class EntityServer(object):
 		"""Does the initial load of the entity owner cache objects."""
 		us.log('Entity server loading the initial entity owners!')
 
-		
+		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
+
+		for d in all_data:
+			print('NEW @@@ NEW')
+			print(d)
+			print(type(d))
 
 		return
 		all_data = self._get_all_database_raw_data()
