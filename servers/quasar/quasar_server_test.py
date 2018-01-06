@@ -17,7 +17,7 @@ owner_data = {be.ENTITY_PROPERTY_USERNAME: 'aaaa',
 #print(result)
 
 result = quasar_server.get_all_data()
-print(result)
+#print(result)
 
 print('Is username{aaaa} taken?')
 print(quasar_server.is_username_taken('aaaa'))
