@@ -82,6 +82,7 @@ class EntityServer(object):
 
 		us.log('Entity server needs to create the following owner :')
 		us.log(str(data))
+		us.log(type(data))
 
 		all_data = self._get_all_database_data()
 		us.log(all_data)
