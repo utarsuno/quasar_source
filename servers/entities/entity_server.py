@@ -99,7 +99,7 @@ class EntityServer(object):
 	  \__, |  \ |___ /~~\  |  | \__/ | \| '''
 	def _create_entity_owner(self, data):
 		"""Performs this server command and returns the reply."""
-		us.log('Entity server is creating the following owner : { ' + str(data) + ' }')
+		#us.log('Entity server is creating the following owner : { ' + str(data) + ' }')
 		if type(data) == str:
 			data = eval(data)
 
