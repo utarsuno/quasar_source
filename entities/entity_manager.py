@@ -13,6 +13,36 @@ class EntityManager(object):
 
 	def __init__(self):
 		self.entities = []
+		self._entities = []
+
+	def add_entity(self, entity):
+		"""Adds an entity to this EntityManager."""
+		# If the entity being added has no relative_id then assign it one.
+		if not entity.has_property(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID):
+			entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, self.get_largest_entity_id() + 1)
+		self._entities.append(entity)
+
+	'''__   ___ ___ ___  ___  __   __
+	  / _` |__   |   |  |__  |__) /__`
+	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_all_entities(self):
+		"""Returns all the entities of this manager."""
+		return self._entities
+
+	def get_largest_entity_id(self) -> int:
+		"""Returns the largest entity ID found, -1 if there are no entities."""
+		largest_id = -1
+		for e in self.entities:
+			if int(e.relative_id) > largest_id:
+				largest_id = int(e.relative_id)
+		return largest_id
+
+	def __len__(self):
+		return len(self._entities)
+
+	# OLD FUNCTIONS BELOW!!!
+	# OLD FUNCTIONS BELOW!!!
+	# OLD FUNCTIONS BELOW!!!
 
 	def get_number_of_entities(self) -> int:
 		"""Returns the number of entities that this EntityManager has."""
@@ -51,24 +81,12 @@ class EntityManager(object):
 			print(str(e))
 		print('------------------------------------------')
 
-	def get_largest_entity_id(self) -> int:
-		"""Returns the largest entity ID found, -1 if there are no entities."""
-		largest_id = -1
-		for e in self.entities:
-			if int(e.relative_id) > largest_id:
-				largest_id = int(e.relative_id)
-		return largest_id
-
 	def get_entity_by_id(self, entity_id):
 		"""Returns an entity."""
 		for e in self.entities:
 			if e.relative_id == entity_id:
 				return e
 		return None
-
-	def get_all_entities(self):
-		"""Returns all the entities of this manager."""
-		return self.entities
 
 	def print_all_entities(self):
 		"""Prints information for all entities and any linked entities."""

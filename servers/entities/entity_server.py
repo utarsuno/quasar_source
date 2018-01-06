@@ -31,6 +31,13 @@ class EntityServer(object):
 
 		# TODO : Text reminder support.
 
+	def _get_all_database_raw_data(self):
+		"""Returns all the database data."""
+		return self._db_api.get_all_database_raw_data()
+	'''__   ___  __        ___  __           __   __     __
+	  /__` |__  |__) \  / |__  |__)    |    /  \ / _` | /  `
+	  .__/ |___ |  \  \/  |___ |  \    |___ \__/ \__> | \__, '''
+
 	def _parse_out_server_command(self, raw_message):
 		"""Returns the server command type and data."""
 		first_match_found = False
@@ -48,17 +55,6 @@ class EntityServer(object):
 				else:
 					command += c
 		return command, data
-
-	def _load_entity_owners(self):
-		"""Does the initial load of the entity owner cache objects."""
-		us.log('Entity server loading the initial entity owners!')
-
-		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
-
-		for d in all_data:
-			if '_id' in d:
-				del d['_id']
-			self._entity_owners.append(eo.EntityOwner(d))
 
 	def run(self):
 		"""Runs the entity server."""
@@ -81,9 +77,6 @@ class EntityServer(object):
 			else:
 				self._host_server.send_reply('Invalid server command sent!')
 
-	def _get_all_database_raw_data(self):
-		"""Returns all the database data."""
-		return self._db_api.get_all_database_raw_data()
 	'''__   ___       ___ ___    __
 	  |  \ |__  |    |__   |  | /  \ |\ |
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
@@ -116,6 +109,24 @@ class EntityServer(object):
 		# All designated error checks passed, create the new owner.
 		self._db_api.create_owner(data)
 		return us.SUCCESS_MESSAGE
+
+	def _create_new_entity_owner(self, data):
+		"""Creates a new entity owner and adds it to cache."""
+		new_entity_owner = eo.EntityOwner(data)
+		new_entity_owner.create_initial_entities()
+		self._entity_owners.append(new_entity_owner)
+
+	'''__       ___               __        __          __
+	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
+	  |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> '''
+	def _load_entity_owners(self):
+		"""Does the initial load of the entity owner cache objects."""
+		us.log('Entity server loading the initial entity owners!')
+		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
+		for d in all_data:
+			if '_id' in d:
+				del d['_id']
+			self._entity_owners.append(eo.EntityOwner(d))
 
 	'''      ___  ___  __   __    ___         __        ___  __        __
       | |\ |  |  |__  / _` |__) |  |  \ /    /  ` |__| |__  /  ` |__/ /__`

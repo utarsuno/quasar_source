@@ -54,42 +54,42 @@ class Entity(object):
 		self._relative_id     = -1
 		self._parent_entities = []
 		self._child_entities  = []
+		# Holds all other data attached to this entity.
 		self._information     = {}
 		self._class_name      = ENTITY_TYPE_BASE
 
-	def update_values(self, new_values):
-		"""Updates the values of this entity with the values provided."""
+	def set_property_and_value(self, key, value):
+		"""Sets a specific key{also called entity property} and its value."""
+		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+			self._relative_id = value
+		elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+			self._parent_entities = value
+		elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+			self._child_entities = value
+		elif key == ENTITY_DEFAULT_PROPERTY_TYPE:
+			self._class_name = value
+		else:
+			self._information[key] = value
 
-		# TODO : Add checks if the new values are the same already?
-		# TODO : Add a boolean indicating if any values ended up changing?
+	'''__   ___ ___ ___  ___  __   __  
+	  / _` |__   |   |  |__  |__) /__` 
+	  \__> |___  |   |  |___ |  \ .__/ '''
+    def has_property(self, key) -> bool:
+    	"""Returns True if this entity has the property."""
+    	if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+    		if self._relative_id == -1:
+    			return False
+    	return key in self._information:
 
-		for key in new_values:
-			value = new_values[key]
-			if key == ENTITY_DEFAULT_PROPERTY_TYPE:
-				self.set_entity_type(value)
-			elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
-				self._child_entities = value
-			elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
-				self._parent_entities = value
-			elif key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-				self.set_relative_id(value)
-			else:
-				if key[0:3] != 'ep_':
-					print('\n\nWARNING!!! Why is a value being set not start with the text \'ep_\'?\n\n')
-				self.add_information(str(key), str(value))
 
-	def initialize_from_data(self, relative_id, entity_data):
-		"""Fills out an Entity object with data."""
-		self._relative_id = int(relative_id)
-		self.update_values(entity_data)
+	@property
+	def relative_id(self) -> int:
+		"""Returns the global ID of this Entity."""
+		return self._relative_id
 
-	def is_public_entity(self) -> bool:
-		"""Returns a boolean indicating if this entity is a public entity or not."""
-		for key in self._information:
-			if key == 'public':
-				if self._information[key] == 'true':
-					return True
-		return False
+	# TODO : REFORMAT EVERYTHING BELOW
+	# TODO : REFORMAT EVERYTHING BELOW
+	# TODO : REFORMAT EVERYTHING BELOW
 
 	def get_additional_json_data(self) -> dict:
 		"""To be implemented by child classes."""
@@ -106,32 +106,6 @@ class Entity(object):
 			json_data[key] = self._information[key]
 
 		return {**json_data, **self.get_additional_json_data()}
-
-	@property
-	def class_name(self) -> str:
-		"""Returns the class name of this Entity."""
-		return self._class_name
-
-	def set_entity_type(self, val):
-		"""TODO:"""
-		self._class_name = val
-
-	def add_information(self, key, value):
-		"""Adds to an internal dictionary. Will most likely get changed in the future."""
-		# TODO : Refactor this?
-		if key not in ENTITY_DEFAULT_PROPERTY_ALL:
-			self._information[key] = value
-		else:
-			raise Exception('Can\'t use the default key{' + str(key) + '}!')
-
-	@property
-	def relative_id(self) -> int:
-		"""Returns the global ID of this Entity."""
-		return self._relative_id
-
-	def set_relative_id(self, val):
-		"""Set the relative ID of this entity."""
-		self._relative_id = val
 
 	@property
 	def is_child(self) -> bool:
