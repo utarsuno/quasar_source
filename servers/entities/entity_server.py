@@ -81,8 +81,10 @@ class EntityServer(object):
 		"""Performs this server command and returns the reply."""
 
 		us.log('Entity server needs to create the following owner :')
+		if type(data) == str:
+			data = eval(data)
 		us.log(str(data))
-		us.log(type(data))
+		#us.log(type(data))
 
 		all_data = self._get_all_database_data()
 		us.log(all_data)
