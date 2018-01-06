@@ -186,6 +186,8 @@ class EntityDatabaseAPI(object):
 
 	def create_owner(self, owner_data):
 		"""Creates the owner."""
+
+		print('owner data to create is : ')
 		print(owner_data)
 		#self._owners_collection.insert(owner_data)
 
