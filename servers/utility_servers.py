@@ -28,9 +28,10 @@ SERVER_QUASAR  = 'zmq_quasar'
 SUCCESS_MESSAGE = 's:'
 ERROR_MESSAGE   = 'e:'
 
-SERVER_COMMAND_REQUEST_ALL_DATA    = 'rad'
-SERVER_COMMAND_CREATE_ENTITY_OWNER = 'ceo'
-SERVER_COMMAND_IS_USERNAME_TAKEN   = 'ist'
+SERVER_COMMAND_REQUEST_ALL_DATA           = 'rad'
+SERVER_COMMAND_CREATE_ENTITY_OWNER        = 'ceo'
+SERVER_COMMAND_IS_USERNAME_TAKEN          = 'ist'
+SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID = 'ilv'
 
 
 # Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3

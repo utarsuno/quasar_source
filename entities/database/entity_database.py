@@ -349,27 +349,6 @@ class EntityDatabaseAPI(object):
 				return o
 		return None
 
-	def is_valid_owner(self, owner_name, owner_password) -> bool:
-		"""Returns a boolean indicating if the owner name and password combination maps to a valid owner."""
-		for o in self._owners_cache:
-			if o.get_owner_name() == owner_name and o.get_owner_password() == owner_password:
-				return True
-		return False
-
-	def is_owner_id_valid(self, owner_id) -> bool:
-		"""Returns a boolean indicating if the owner id maps to a valid owner."""
-		for o in self._owners_cache:
-			if o.get_owner_id() == owner_id:
-				return True
-		return False
-
-	def is_owner_name_taken(self, owner_name):
-		"""Returns a boolean indicating if the owner name has already been taken."""
-		for o in self._owners_cache:
-			if o.get_owner_name() == owner_name:
-				return True
-		return False
-
 	def _add_owner_to_cache(self, owner_data):
 		"""Adds the owner to the owner cache and returns the EntityOwner created."""
 		new_entity_owner = EntityOwner(owner_data, self)

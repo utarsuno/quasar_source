@@ -14,26 +14,7 @@ from universal_code import system_os as so
 from entities import base_entity as be
 
 import time
-
-
-class EntityOwner(object):
-	"""Cache for an instance of an EntityOwner."""
-
-	def __init__(self, raw_data):
-		for key in raw_data:
-			if key == be.ENTITY_PROPERTY_EMAIL:
-				self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
-			elif key == be.ENTITY_PROPERTY_PASSWORD:
-				self._password = raw_data[be.ENTITY_PROPERTY_PASSWORD]
-			elif key == be.ENTITY_PROPERTY_USERNAME:
-				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
-			elif key == 'entities':
-				self._entities = raw_data['entities']
-
-	@property
-	def username(self) -> str:
-		"""Returns the username of this EntityOwner."""
-		return self._username
+from servers.entities import entity_owner as eo
 
 
 class EntityServer(object):
@@ -43,9 +24,12 @@ class EntityServer(object):
 		self._host_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), us.SERVER_ENTITY)
 		self._host_server = us.HostServer(us.SERVER_ENTITY, self._host_server_data[us.ADDRESS], self._host_server_data[us.PORT])
 
+		# Acts as cache.
 		self._entity_owners = []
 
 		self._db_api = EntityDatabaseAPI()
+
+		# TODO : Text reminder support.
 
 	def _parse_out_server_command(self, raw_message):
 		"""Returns the server command type and data."""
@@ -71,21 +55,12 @@ class EntityServer(object):
 
 		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
 
+		entity_owners = []
+
 		for d in all_data:
 			if '_id' in d:
 				del d['_id']
-			print('NEW @@@ NEW')
-			print(d)
-			print(type(d))
-
-		return
-		all_data = self._get_all_database_raw_data()
-		data = all_data.split('\n')
-		for d in data:
-			if len(d) > 0:
-				json_data = eval(d.replace('ObjectId', ''))
-				del json_data['_id']
-				self._entity_owners.append(EntityOwner(json_data))
+			entity_owners.append(eo.EntityOwner(d))
 
 	def run(self):
 		"""Runs the entity server."""
@@ -98,6 +73,9 @@ class EntityServer(object):
 
 			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._host_server.send_reply(self._create_entity_owner(data))
+			elif command == us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID:
+				cleaned_data = data.split('|')
+				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
@@ -105,17 +83,19 @@ class EntityServer(object):
 			else:
 				self._host_server.send_reply('Invalid server command sent!')
 
-	def _is_username_taken(self, username):
-		"""Checks if the provided username is taken."""
-		for eo in self._entity_owners:
-			if eo.username == username:
-				return us.SUCCESS_MESSAGE
-		return us.ERROR_MESSAGE
-
 	def _get_all_database_raw_data(self):
 		"""Returns all the database data."""
 		return self._db_api.get_all_database_raw_data()
+	'''__   ___       ___ ___    __
+	  |  \ |__  |    |__   |  | /  \ |\ |
+	  |__/ |___ |___ |___  |  | \__/ | \| '''
+	def _delete_entity_owner(self, username):
+		"""Deletes an entity owner."""
+		y = 2
 
+	'''__   __   ___      ___    __
+	  /  ` |__) |__   /\   |  | /  \ |\ |
+	  \__, |  \ |___ /~~\  |  | \__/ | \| '''
 	def _create_entity_owner(self, data):
 		"""Performs this server command and returns the reply."""
 		us.log('Entity server is creating the following owner : { ' + str(data) + ' }')
@@ -133,50 +113,39 @@ class EntityServer(object):
 		if us.is_error_message(self._is_username_taken(data[be.ENTITY_PROPERTY_USERNAME])):
 			return us.error('Username is already taken!')
 
+		# TODO : Create the EntityOwner object first!
+
 		# All designated error checks passed, create the new owner.
 		self._db_api.create_owner(data)
 		return us.SUCCESS_MESSAGE
+
+	'''      ___  ___  __   __    ___         __        ___  __        __
+      | |\ |  |  |__  / _` |__) |  |  \ /    /  ` |__| |__  /  ` |__/ /__`
+      | | \|  |  |___ \__> |  \ |  |   |     \__, |  | |___ \__, |  \ .__/ '''
+	def _is_username_taken(self, username):
+		"""Checks if the provided username is taken."""
+		for e_o in self._entity_owners:
+			if e_o.username == username:
+				return us.SUCCESS_MESSAGE
+		return us.ERROR_MESSAGE
+
+	def _is_login_info_valid(self, username, password):
+		"""Checks if the login information provided is a valid combination."""
+		for e_o in self._entity_owners:
+			if e_o.username == username and e_o.password == password:
+				return us.SUCCESS_MESSAGE
+		return us.ERROR_MESSAGE
 
 
 '''
 class EntityServerOld(object):
 	"""Memory layer for entity managers and owners."""
 
-	def __init__(self):
-		self._db_api = EntityDatabaseAPI()
-
-
-
-		# TODO : Text reminder support.
-
-	def is_valid_login_info(self, username, password) -> bool:
-		"""Returns a boolean indicating if a username and password combination is valid."""
-		return self._db_api.is_valid_owner(username, password)
-
-	def is_username_taken(self, username) -> bool:
-		"""Returns a boolean indicating if the username is taken."""
-		return self._db_api.is_owner_name_taken(username)
-
 	# TODO : delete owner function
 
 	def delete_entity(self, owner_name, entity_id_to_delete):
 		"""Deletes an entity."""
 		self._db_api.delete_entity(owner_name, entity_id_to_delete)
-
-	def create_owner(self, owner_data):
-		"""Creates an owner. Throws an exception if the required owner keys are not provided."""
-		# Required keys passed in check.
-		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
-			if required_key not in owner_data:
-				return HttpResponse('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(owner_data) + '}')
-
-		# Username not already taken check.
-		if self._db_api.is_owner_name_taken(owner_data[be.ENTITY_PROPERTY_USERNAME]):
-			return HttpResponse('The username{' + owner_data[be.ENTITY_PROPERTY_USERNAME] + '} is already taken!')
-
-		# Checks passed, create the owner.
-		self._db_api.create_owner(owner_data)
-		return SERVER_REPLY_GENERIC_YES
 
 	def update_owner(self, owner_data):
 		"""Updates an owner. Throws an exception if the _id key is not provided."""
@@ -213,17 +182,6 @@ class EntityServerOld(object):
 		"""Returns all the public entities."""
 		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(PUBLIC_ENTITIES_OWNER))
 
-	def print_full_status(self):
-		"""Temporary debugging function."""
-		return self._db_api.get_data_on_all_owners()
-
-	def get_managers_cache_report(self):
-		"""Return the current status of the managers cache."""
-		return self._db_api.get_full_data_on_all_owners()
-
-	def get_database_data(self):
-		"""TODO : Document"""
-		return self._db_api.get_all_database_data()
 '''
 
 

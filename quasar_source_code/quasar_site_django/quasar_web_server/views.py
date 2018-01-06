@@ -144,18 +144,14 @@ def POST_login(request):
     received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
     received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
-    # TODO : ADD SERVER SIDE CHECK SO THESE PARAMETERS!!!! (currently its only client side)
-
-    print('USERNAME LOGIN : ' + received_username)
-
-    #global quasar_server
-
-    global entity_server
-    result = entity_server.is_valid_login_info(received_username, received_password)
-    if result:
+    global quasar_server
+    result = quasar_server.is_valid_login(received_username, received_password)
+    if is_result_success(result):
         request.session[be.ENTITY_PROPERTY_USERNAME] = received_username
         return SERVER_REPLY_GENERIC_YES
-    return HttpResponse('Username or password is not correct!')
+    else:
+        return HttpResponse(result[2:])
+    return return_based_on_result(quasar_server.is_valid_login(received_username, received_password))
 
 
 @csrf_exempt
@@ -173,8 +169,6 @@ def POST_create_owner(request):
     received_owner_email = json_obj[be.ENTITY_PROPERTY_EMAIL]
     received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
-    # TODO : ADD SERVER SIDE CHECKS TO THESE PARAMETERS!!! (currently its only client side)
-
     global quasar_server
     owner_data = {be.ENTITY_PROPERTY_USERNAME: received_owner_name,
                   be.ENTITY_PROPERTY_EMAIL: received_owner_email,
@@ -183,6 +177,7 @@ def POST_create_owner(request):
     return return_based_on_result(quasar_server.create_entity_owner(owner_data))
 
 
+# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_delete_entity(request):
     """Handles the POST request to delete an entity."""
@@ -208,6 +203,7 @@ def POST_delete_entity(request):
     return HttpResponse('Username or password is not correct!')
 
 
+# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_save_entity(request):
     """Handles the POST request to save changed entities."""
@@ -238,6 +234,7 @@ def POST_save_entity(request):
     return HttpResponse('Username or password is not correct!')
 
 
+# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_get_user_entities(request):
     """Handles the POST request to load all entities."""
@@ -254,6 +251,7 @@ def POST_get_user_entities(request):
     return entity_server.get_all_users_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
 
 
+# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_get_public_entities(request):
     """Handles the POST request to load all entities."""
@@ -262,6 +260,7 @@ def POST_get_public_entities(request):
     return entity_server.get_all_public_entities()
 
 
+# TODO : REFORMAT!!!!
 @csrf_exempt
 def GET_get_database_data(request):
     """TODO : documentation"""
@@ -269,6 +268,7 @@ def GET_get_database_data(request):
     return HttpResponse(entity_server.get_database_data())
 
 
+# TODO : REFORMAT!!!!
 def GET_all_server_cache(request):
     """TODO :"""
     global entity_server

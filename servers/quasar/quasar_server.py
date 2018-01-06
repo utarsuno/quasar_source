@@ -24,8 +24,6 @@ class QuasarServer(object):
 		"""Performs the initial connection."""
 		self._entity_server_connection.attempt_connection()
 
-
-
 		'''
 		response = self._entity_server_connection.send_message(es.SERVER_COMMAND_REQUEST_ALL_DATA)
 
@@ -40,15 +38,15 @@ class QuasarServer(object):
 		print('Client got this response : ' + response)
 		'''
 
-	def _send_command_to_entity_server(self, command, data=''):
-		"""Sends a command to the entity server."""
-		return self._entity_server_connection.send_message(command + ':' + str(data))
-
 	def get_all_data(self):
 		"""Returns all the data in the database."""
 		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_REQUEST_ALL_DATA)
 		print(reply)
 		return reply
+
+	def is_valid_login(self, username, password):
+		"""Checks that the login username and password have a match."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID, username + '|' + password)
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
@@ -68,4 +66,8 @@ class QuasarServer(object):
 	def is_username_taken(self, username):
 		"""Checks if the username is taken."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_USERNAME_TAKEN, username)
+
+	def _send_command_to_entity_server(self, command, data=''):
+		"""Sends a command to the entity server."""
+		return self._entity_server_connection.send_message(command + ':' + str(data))
 
