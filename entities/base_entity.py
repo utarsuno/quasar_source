@@ -74,6 +74,15 @@ class Entity(object):
 	'''__   ___ ___ ___  ___  __   __  
 	  / _` |__   |   |  |__  |__) /__` 
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	  def get_json_data(self) -> dict:
+		"""Returns a dictionary of all the data contained in this Entity."""
+		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
+		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
+		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self._child_entities),
+		             ENTITY_DEFAULT_PROPERTY_RELATIVE_ID: self._relative_id}
+		for key in self._information:
+			json_data[key] = self._information[key]
+		return json_data
 
 	def has_property(self, key) -> bool:
 		"""Returns True if this entity has the property."""
@@ -90,22 +99,6 @@ class Entity(object):
 	# TODO : REFORMAT EVERYTHING BELOW
 	# TODO : REFORMAT EVERYTHING BELOW
 	# TODO : REFORMAT EVERYTHING BELOW
-
-	def get_additional_json_data(self) -> dict:
-		"""To be implemented by child classes."""
-		return {}
-
-	def get_json_data(self) -> dict:
-		"""Returns a dictionary of all the data contained in this Entity."""
-		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
-		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
-		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self._child_entities),
-		             ENTITY_DEFAULT_PROPERTY_RELATIVE_ID: self._relative_id}
-
-		for key in self._information:
-			json_data[key] = self._information[key]
-
-		return {**json_data, **self.get_additional_json_data()}
 
 	@property
 	def is_child(self) -> bool:

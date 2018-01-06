@@ -40,6 +40,20 @@ class EntityOwner(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_data_for_database(self):
+		"""Returns the data in database saveable format."""
+		json_data = {be.ENTITY_PROPERTY_EMAIL: self._email,
+		             be.ENTITY_PROPERTY_PASSWORD: self._password,
+		             be.ENTITY_PROPERTY_USERNAME: self._username}
+
+		entities_data = {}
+		all_entities = self._entity_manager.get_all_entities()
+
+		for e in all_entities:
+			entities_data[str(e.relative_id)] = e.get_json_data()
+
+		json_data['entities'] = str(all_entities)
+		return json_data
 
 	def needs_to_be_saved(self) -> bool:
 		"""Returns a boolean indicating if this entity owner needs to be saved on the database."""

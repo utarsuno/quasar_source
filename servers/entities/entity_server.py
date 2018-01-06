@@ -107,13 +107,19 @@ class EntityServer(object):
 		# TODO : Create the EntityOwner object first!
 
 		# All designated error checks passed, create the new owner.
-		self._db_api.create_owner(data)
+		self._create_new_entity_owner(data)
 		return us.SUCCESS_MESSAGE
 
 	def _create_new_entity_owner(self, data):
 		"""Creates a new entity owner and adds it to cache."""
 		new_entity_owner = eo.EntityOwner(data)
 		new_entity_owner.create_initial_entities()
+
+		us.log('About to save this data.')
+		print(new_entity_owner.get_data_for_database())
+		us.log('\nthere it is!\n\n')
+
+		self._db_api.create_owner(new_entity_owner.get_data_for_database())
 		self._entity_owners.append(new_entity_owner)
 
 	'''__       ___               __        __          __
