@@ -189,6 +189,10 @@ class EntityDatabaseAPI(object):
 		# TODO :
 		y = 2
 
+	def get_all_database_data_as_list_of_dictionaries(self) -> list:
+		"""Returns all the database data as a list where each element is a python dictionary of that database entry."""
+		return self._owners_collection.get_all()
+
 	def create_owner(self, owner_data):
 		"""Creates the owner."""
 

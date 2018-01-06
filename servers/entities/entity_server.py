@@ -67,6 +67,11 @@ class EntityServer(object):
 
 	def _load_entity_owners(self):
 		"""Does the initial load of the entity owner cache objects."""
+		us.log('Entity server loading the initial entity owners!')
+
+		
+
+		return
 		all_data = self._get_all_database_raw_data()
 		data = all_data.split('\n')
 		for d in data:
