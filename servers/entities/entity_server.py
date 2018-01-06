@@ -11,15 +11,24 @@ from servers import utility_servers as us
 
 from universal_code import system_os as so
 
+from entities import base_entity as be
+
 import time
 
 
 class EntityOwner(object):
 	"""Cache for an instance of an EntityOwner."""
 
-	def __init__(self, entity_manager):
-		self._entity_manager = entity_manager
-		self._username = None
+	def __init__(self, raw_data):
+		for key in raw_data:
+			if key == be.ENTITY_PROPERTY_EMAIL:
+				self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
+			elif key == be.ENTITY_PROPERTY_PASSWORD:
+				self._password = raw_data[be.ENTITY_PROPERTY_PASSWORD]
+			elif key == be.ENTITY_PROPERTY_USERNAME:
+				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
+			elif key == 'entities':
+				self._entities = raw_data['entities']
 
 	@property
 	def username(self) -> str:
@@ -60,15 +69,12 @@ class EntityServer(object):
 		"""Does the initial load of the entity owner cache objects."""
 		all_data = self._get_all_database_data()
 
-		print('ALL DATA')
-		print(type(all_data))
-		print(all_data)
 		data = all_data.split('\n')
 		for d in data:
 			if len(d) > 0:
-				print(d)
-				print('@@@')
-				print(eval(d.replace('ObjectId', '')))
+				json_data = eval(d.replace('ObjectId', ''))
+				del json_data['_id']
+				self._entity_owners.append(EntityOwner(json_data))
 
 	def run(self):
 		"""Runs the entity server."""
