@@ -76,8 +76,8 @@ class EntityServer(object):
 		"""Checks if the provided username is taken."""
 		for eo in self._entity_owners:
 			if eo.username == username:
-				return True
-		return False
+				return us.SUCCESS_MESSAGE
+		return us.ERROR_MESSAGE
 
 	def _get_all_database_data(self):
 		"""Returns all the database data."""
