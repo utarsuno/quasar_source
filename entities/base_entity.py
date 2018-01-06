@@ -74,7 +74,7 @@ class Entity(object):
 	'''__   ___ ___ ___  ___  __   __  
 	  / _` |__   |   |  |__  |__) /__` 
 	  \__> |___  |   |  |___ |  \ .__/ '''
-	  def get_json_data(self) -> dict:
+	def get_json_data(self) -> dict:
 		"""Returns a dictionary of all the data contained in this Entity."""
 		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
 		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
