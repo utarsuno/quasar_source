@@ -19,6 +19,12 @@ class EntityOwner(object):
 
 	def __init__(self, entity_manager):
 		self._entity_manager = entity_manager
+		self._username = None
+
+	@property
+	def username(self) -> str:
+		"""Returns the username of this EntityOwner."""
+		return self._username
 
 
 class EntityServer(object):
@@ -31,7 +37,6 @@ class EntityServer(object):
 		self._entity_owners = []
 
 		self._db_api = EntityDatabaseAPI()
-		print('Test function!')
 
 	def _parse_out_server_command(self, raw_message):
 		"""Returns the server command type and data."""
@@ -62,16 +67,17 @@ class EntityServer(object):
 				self._host_server.send_reply(self._create_entity_owner(data))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_data()))
+			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
+				self._host_server.send_reply(self._is_username_taken(data))
 			else:
-				self._host_server.send_reply('Server says hello!')
+				self._host_server.send_reply('Invalid server command sent!')
 
-	def _error(self, m):
-		"""Utility function for returning error messages."""
-		return us.ERROR_MESSAGE + ':' + str(m)
-
-	def _success(self, m):
-		"""Utility function for returning success messages."""
-		return us.SUCCESS_MESSAGE + ':' + str(m)
+	def _is_username_taken(self, username):
+		"""Checks if the provided username is taken."""
+		for eo in self._entity_owners:
+			if eo.username == username:
+				return True
+		return False
 
 	def _get_all_database_data(self):
 		"""Returns all the database data."""
@@ -92,7 +98,7 @@ class EntityServer(object):
 		# Required keys passed in check.
 		for required_key in [be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL, be.ENTITY_PROPERTY_USERNAME]:
 			if required_key not in data:
-				return self._error('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(data) + '}')
+				return us.error('Required key data not provided for creating an owner! Missing at least {' + required_key + '} from the provided {' + str(data) + '}')
 
 		# TODO :
 		# Username not already taken check.

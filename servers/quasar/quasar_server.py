@@ -65,3 +65,10 @@ class QuasarServer(object):
 		print(owner_data)
 		return us.SUCCESS_MESSAGE
 
+	def is_username_taken(self, username):
+		"""Checks if the username is taken."""
+		result = self._send_command_to_entity_server(us.SERVER_COMMAND_IS_USERNAME_TAKEN, username)
+		if result:
+			return us.SUCCESS_MESSAGE
+		return us.ERROR_MESSAGE
+

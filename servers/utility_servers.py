@@ -28,8 +28,9 @@ SERVER_QUASAR  = 'zmq_quasar'
 SUCCESS_MESSAGE = 's:'
 ERROR_MESSAGE   = 'e:'
 
-SERVER_COMMAND_REQUEST_ALL_DATA    = 'a'
+SERVER_COMMAND_REQUEST_ALL_DATA    = 'rad'
 SERVER_COMMAND_CREATE_ENTITY_OWNER = 'ceo'
+SERVER_COMMAND_IS_USERNAME_TAKEN   = 'ist'
 
 
 # Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3
@@ -50,6 +51,16 @@ def to_str(arg):
 def log(l):
 		"""Logs the message l."""
 		print(l, flush=True)
+
+
+def error(m):
+	"""Utility function for returning error messages."""
+	return ERROR_MESSAGE + ':' + str(m)
+
+
+def success(m):
+	"""Utility function for returning success messages."""
+	return SUCCESS_MESSAGE + ':' + str(m)
 
 
 class ZMQBase(object):
