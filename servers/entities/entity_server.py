@@ -73,7 +73,7 @@ class EntityServer(object):
 
 		for d in all_data:
 			if '_id' in d:
-				del d['_od']
+				del d['_id']
 			print('NEW @@@ NEW')
 			print(d)
 			print(type(d))
