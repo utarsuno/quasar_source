@@ -63,6 +63,9 @@ class EntityServer(object):
 		print('ALL DATA')
 		print(type(all_data))
 		print(all_data)
+		data = all_data.split('\n')
+		for d in data:
+			print(d)
 
 	def run(self):
 		"""Runs the entity server."""
