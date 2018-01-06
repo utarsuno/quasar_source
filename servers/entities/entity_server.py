@@ -72,6 +72,8 @@ class EntityServer(object):
 		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
 
 		for d in all_data:
+			if '_id' in d:
+				del d['_od']
 			print('NEW @@@ NEW')
 			print(d)
 			print(type(d))
