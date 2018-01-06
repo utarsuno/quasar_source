@@ -10,6 +10,7 @@ from universal_code import useful_file_operations as ufo
 from entities import base_entity as be
 from universal_code import system_os as so
 
+
 class QuasarServer(object):
 	"""Represents the Quasar utility server."""
 
@@ -49,6 +50,13 @@ class QuasarServer(object):
 		"""Checks that the login username and password have a match."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID, username + '|' + password)
 
+	def get_owner_entities(self, username, password):
+		"""Gets owner entities for the provided owner."""
+		if us.is_success_message(self.is_valid_login(username, password)):
+			return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_OWNER_ENTITIES, username)
+		else:
+			return us.error('Not valid username and password for getting owner entities.')
+
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
@@ -67,8 +75,6 @@ class QuasarServer(object):
 	def delete_entity_owner(self, username):
 		"""Deletes the entity owner found by username match."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
-
-
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`

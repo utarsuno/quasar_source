@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from servers.quasar import quasar_server as qs
-
+from django.http import JsonResponse
 from entities import base_entity as be
 
 # Define all the pages.
@@ -246,9 +246,8 @@ def POST_get_user_entities(request):
     if post_errors is not None:
         return post_errors
 
-    print('Loading all entities for : ' + json_obj[be.ENTITY_PROPERTY_USERNAME])
-    global entity_server
-    return entity_server.get_all_users_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
+    global quasar_server
+    return JsonResponse(quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
 
 
 # TODO : REFORMAT!!!!

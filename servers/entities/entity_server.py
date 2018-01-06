@@ -31,9 +31,6 @@ class EntityServer(object):
 
 		# TODO : Text reminder support.
 
-	def _get_all_database_raw_data(self):
-		"""Returns all the database data."""
-		return self._db_api.get_all_database_raw_data()
 	'''__   ___  __        ___  __           __   __     __
 	  /__` |__  |__) \  / |__  |__)    |    /  \ / _` | /  `
 	  .__/ |___ |  \  \/  |___ |  \    |___ \__/ \__> | \__, '''
@@ -72,6 +69,8 @@ class EntityServer(object):
 				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
 			elif command == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
 				self._host_server.send_reply(self._delete_entity_owner(data))
+			elif command == us.SERVER_COMMAND_GET_OWNER_ENTITIES:
+				self._host_server.send_reply(self._get_all_owner_entities(data))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
@@ -126,6 +125,23 @@ class EntityServer(object):
 		new_entity_owner.create_initial_entities()
 		self._db_api.create_owner(new_entity_owner.get_data_for_database())
 		self._entity_owners.append(new_entity_owner)
+
+	'''__   ___ ___ ___  ___  __   __
+	  / _` |__   |   |  |__  |__) /__`
+	  \__> |___  |   |  |___ |  \ .__/ '''
+	def _get_all_owner_entities(self, username):
+		"""Returns all the entities for the provided owner."""
+		entities = {}
+		for e_o in self._entity_owners:
+			if e_o.username == self._entity_owners:
+				all_entities = e_o.get_all_entities()
+				for e in all_entities:
+					entities[e.relative_id] = e.get_json_data()
+		return entities
+
+	def _get_all_database_raw_data(self):
+		"""Returns all the database data."""
+		return self._db_api.get_all_database_raw_data()
 
 	'''__       ___               __        __          __
 	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
