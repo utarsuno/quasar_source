@@ -36,6 +36,8 @@ SERVER_COMMAND_IS_USERNAME_TAKEN   = 'ist'
 # Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3
 def to_bytes(arg):
 	"""Utility function."""
+	if isinstance(arg, bool):
+		arg = str(arg)
 	if isinstance(arg, str):
 		return arg.encode()
 	return arg
