@@ -50,18 +50,7 @@ class QuasarServer(object):
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""
-		print('Create entity owner start!')
-
-		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
-
-		print(reply)
-		#reply = eval(reply)
-		print(type(reply))
-		#print(reply)
-
-		print('Need to create an entity owner for the following data :')
-		print(owner_data)
-		return us.SUCCESS_MESSAGE
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
 
 	def is_username_taken(self, username):
 		"""Checks if the username is taken."""
