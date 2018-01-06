@@ -65,9 +65,10 @@ class EntityServer(object):
 		print(all_data)
 		data = all_data.split('\n')
 		for d in data:
-			print(d)
-			print('@@@')
-			print(eval(d.replace('ObjectId', '')))
+			if len(d) > 0:
+				print(d)
+				print('@@@')
+				print(eval(d.replace('ObjectId', '')))
 
 	def run(self):
 		"""Runs the entity server."""
