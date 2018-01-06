@@ -61,6 +61,7 @@ class EntityServer(object):
 		all_data = self._get_all_database_data()
 
 		print('ALL DATA')
+		print(type(all_data))
 		print(all_data)
 
 	def run(self):
