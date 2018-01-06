@@ -253,6 +253,7 @@ class EntityDatabaseAPI(object):
 		for e in entities:
 			#print(e)
 			print(type(e))
+			print(str(e))
 			text += str(e) + '\n'
 		return text
 
