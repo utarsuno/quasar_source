@@ -52,7 +52,7 @@ class EntityOwner(object):
 		for e in all_entities:
 			entities_data[str(e.relative_id)] = e.get_json_data()
 
-		json_data['entities'] = str(all_entities)
+		json_data['entities'] = str(entities_data)
 		return json_data
 
 	def needs_to_be_saved(self) -> bool:
