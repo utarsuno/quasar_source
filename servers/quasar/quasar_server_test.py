@@ -12,7 +12,7 @@ quasar_server.connect()
 args = so.get_all_program_arguments()
 name = 'GET_NAME'
 if len(args) > 0:
-    name = args[1]
+    name = args[0]
 
 
 owner_data = {be.ENTITY_PROPERTY_USERNAME: name,
