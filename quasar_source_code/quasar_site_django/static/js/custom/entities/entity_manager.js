@@ -100,8 +100,7 @@ EntityManager.prototype = {
             data = JSON.parse(data);
         }
 
-        l(typeof(data));
-        
+        data = eval(data);
 
         for (var entity_id_num in data) {
             if (data.hasOwnProperty(entity_id_num)) {
