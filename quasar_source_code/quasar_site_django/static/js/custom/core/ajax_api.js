@@ -28,8 +28,6 @@ PostHelper.prototype = {
         const http = new XMLHttpRequest();
         http.open('POST', this.url, true);
         http.setRequestHeader('Content-type', 'application/json');
-        http.send(JSON.stringify(post_data));
-
 
 
         http.onload = function() {
@@ -50,5 +48,9 @@ PostHelper.prototype = {
             callback(http.responseText);
             self.waiting_on_reply = false;
         };
+
+
+        http.send(JSON.stringify(post_data));
+
     }
 };
