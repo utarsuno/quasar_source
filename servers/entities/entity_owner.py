@@ -29,8 +29,6 @@ class EntityOwner(object):
 
 				for id_num in self._entities:
 					raw_entity = be.Entity()
-					print(id_num)
-					print(type(id_num))
 					for p in self._entities[id_num]:
 						raw_entity.set_property_and_value(p, self._entities[id_num][p])
 					self._entity_manager.add_entity(raw_entity)
