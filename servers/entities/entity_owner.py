@@ -22,8 +22,14 @@ class EntityOwner(object):
 				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
 			elif key == 'entities':
 				self._entities = raw_data['entities']
-				print('NEED TO SET FROM THE FOLLOWING DATA :!!!!')
-				print(self._entities)
+				#print('NEED TO SET FROM THE FOLLOWING DATA :!!!!')
+
+				for id_num in self._entities:
+					raw_entity = be.Entity()
+					for p in self._entities[id_num]:
+						raw_entity.set_property_and_value(p, self._entities[id_num][p])
+					self._entity_manager.add_entity(raw_entity)
+				#print(self._entities)
 
 	def create_initial_entities(self):
 		"""Creates the initial entities that this EntityOwner needs."""
