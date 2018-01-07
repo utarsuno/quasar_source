@@ -237,6 +237,6 @@ def POST_get_user_entities(request):
         print(data_to_return)
         print(json.dumps(data_to_return))
         #return JsonResponse(data_to_return, safe=False)
-        return HttpResponse(json.dumps(data_to_return), mimetype = "application/json")
+        return HttpResponse(json.dumps(data_to_return))
         #return JsonResponse(data_to_return, safe=False)
     return HttpResponse(reply)
