@@ -8,17 +8,14 @@ EntityManager.prototype = {
 
     // The user entities.
     entities        : null,
-    public_entities : null,
 
     // POST calls.
     post_delete_entity        : null,
     post_save_entity          : null,
     post_load_user_entities   : null,
-    post_load_public_entities : null,
 
     // State booleans.
     user_entities_loaded   : null,
-    public_entities_loaded : null,
     loading                : null,
 
     // TODO : Refactor
@@ -77,48 +74,17 @@ EntityManager.prototype = {
 
     __init__: function() {
         this.entities = [];
-        this.public_entities = [];
         this.user_entities_loaded = false;
-        this.public_entities_loaded = false;
         this.loading = false;
 
         this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
         this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
         this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
-        this.post_load_public_entities = new PostHelper(POST_URL_GET_PUBLIC_ENTITIES);
     },
 
     /*        __        __          __      __       ___
         |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
         |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
-
-    all_public_entities_loaded: function(data) {
-        // FOR_DEV_START
-        l('Got the following data for public entities');
-        l(data);
-        // FOR_DEV_END
-        if (is_string(data)) {
-            if (data === '{}') {
-                this.public_entities_loaded = true;
-                if (this.user_entities_loaded) {
-                    this.all_data_loaded();
-                }
-                return;
-            }
-            data = JSON.parse(data);
-        }
-
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                MANAGER_ENTITY.add_public_entity_from_entity_data(data[key]);
-            }
-        }
-
-        this.public_entities_loaded = true;
-        if (this.user_entities_loaded) {
-            this.all_data_loaded();
-        }
-    },
 
     all_user_entities_loaded: function(data) {
         // FOR_DEV_START
@@ -128,9 +94,7 @@ EntityManager.prototype = {
         if (is_string(data)) {
             if (data === '{}') {
                 this.user_entities_loaded = true;
-                if (this.public_entities_loaded) {
-                    this.all_data_loaded();
-                }
+                this.all_data_loaded();
                 return;
             }
             data = JSON.parse(data);
@@ -146,9 +110,7 @@ EntityManager.prototype = {
 
         this.set_owner_entity();
 
-        if (this.public_entities_loaded) {
-            this.all_data_loaded();
-        }
+        this.all_data_loaded();
     },
 
     set_all_entities_to_not_needing_to_be_saved: function() {
@@ -173,7 +135,6 @@ EntityManager.prototype = {
         data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
         data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
         this.post_load_user_entities.perform_post(data, this.all_user_entities_loaded.bind(this));
-        this.post_load_public_entities.perform_post({}, this.all_public_entities_loaded.bind(this));
     },
 
     link_entities: function() {
@@ -274,26 +235,16 @@ EntityManager.prototype = {
 
     clear_all: function() {
         this.user_entities_loaded = false;
-        this.public_entities_loaded = false;
         this.entities.length = 0;
     },
 
     add_entity_if_not_already_added: function(entity) {
-        if (entity.has_property(ENTITY_PROPERTY_PUBLIC)) {
-            for (var i = 0; i < this.public_entities.length; i++) {
-                if (this.public_entities[i].get_relative_id() === entity.get_relative_id()) {
-                    return;
-                }
+        for (var j = 0; j < this.entities.length; j++) {
+            if (this.entities[j].get_relative_id() === entity.get_relative_id()) {
+                return;
             }
-            this.public_entities.push(entity);
-        } else {
-            for (var j = 0; j < this.entities.length; j++) {
-                if (this.entities[j].get_relative_id() === entity.get_relative_id()) {
-                    return;
-                }
-            }
-            this.entities.push(entity);
         }
+        this.entities.push(entity);
     },
 
     _get_index_of_entity: function(entity) {

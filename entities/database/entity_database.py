@@ -13,9 +13,6 @@ from entities import base_entity as be
 	|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    /~~\ |    |    .
 '''
 
-# Public entities owner name
-PUBLIC_ENTITIES_OWNER = 'public_entities'
-
 
 class EntityOwner(object):
 	"""Represents an Entity owner in the database."""
@@ -54,12 +51,6 @@ class EntityOwner(object):
 		for e in entities:
 			lines.append(str(e.get_full_info()))
 		return lines
-
-	def is_public_entity_owner(self) -> bool:
-		"""Returns a boolean indicating if this EntityOwner account is the public entities owner."""
-		if be.ENTITY_PROPERTY_USERNAME not in self._data:
-			return False
-		return self._data[be.ENTITY_PROPERTY_USERNAME] == 'public_entities'
 
 	def save_to_database(self, perform_replace=False):
 		"""Utility function to send changes to the database."""
@@ -212,39 +203,6 @@ class EntityDatabaseAPI(object):
 			print(str(e))
 			text += str(e) + '\n'
 		return text
-
-	def get_full_data_on_all_owners(self):
-		"""Temporary debugging function."""
-		return_data = ''
-		for o in self._owners_cache:
-			return_data += str(o) + '\n'
-			d = o.get_entities_as_string_lines()
-			for l in d:
-				return_data += l
-		return return_data
-
-	def get_data_on_all_owners(self):
-		"""Temporary debugging function."""
-		data = ''
-		for o in self._owners_cache:
-			data += o + '\n'
-			lines = o.get_entities_as_string_lines()
-			for l in lines:
-				data += l
-		return data
-
-	def delete_entity(self, owner_name, entity_id_to_delete):
-		"""Deletes the entity with an ID match for the given owner."""
-		for o in self._owners_cache:
-			if o.get_owner_name() == owner_name:
-				o.delete_entity_with_id(entity_id_to_delete)
-				o.save_to_database(True)
-
-	def get_all_entities_from_owner_as_json(self, owner_name):
-		"""Returns all the owner's entities as json."""
-		for o in self._owners_cache:
-			if o.get_owner_name() == owner_name:
-				return o.get_all_entities_as_dictionary()
 
 	def replace_owner_for_database(self, replace_data):
 		"""Replaces the data for the owner. (Currently needed to enable delete functionality)"""

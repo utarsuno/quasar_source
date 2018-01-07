@@ -18,7 +18,6 @@ TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
 TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + 'web_sockets.html'
-TEMPLATE_QUASAR_DATA    = _TEMPLATES_BASE + 'quasar_data.html'
 
 
 # Global server.
@@ -33,11 +32,6 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
-
-
-def GET_quasar_data(request):
-    """Returns the data interface page."""
-    return render(request, TEMPLATE_QUASAR_DATA)
 
 
 def GET_quasar_dev(request):
@@ -234,7 +228,6 @@ def POST_save_entity(request):
     return HttpResponse('Username or password is not correct!')
 
 
-# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_get_user_entities(request):
     """Handles the POST request to load all entities."""
@@ -248,27 +241,3 @@ def POST_get_user_entities(request):
 
     global quasar_server
     return JsonResponse(quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
-
-
-# TODO : REFORMAT!!!!
-@csrf_exempt
-def POST_get_public_entities(request):
-    """Handles the POST request to load all entities."""
-    print('POST_get_public_entities')
-    global entity_server
-    return entity_server.get_all_public_entities()
-
-
-# TODO : REFORMAT!!!!
-@csrf_exempt
-def GET_get_database_data(request):
-    """TODO : documentation"""
-    global entity_server
-    return HttpResponse(entity_server.get_database_data())
-
-
-# TODO : REFORMAT!!!!
-def GET_all_server_cache(request):
-    """TODO :"""
-    global entity_server
-    return HttpResponse(entity_server.get_managers_cache_report())

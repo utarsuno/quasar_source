@@ -133,7 +133,7 @@ class EntityServer(object):
 		"""Returns all the entities for the provided owner."""
 		entities = {}
 		for e_o in self._entity_owners:
-			if e_o.username == self._entity_owners:
+			if e_o.username == username:
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
 					entities[e.relative_id] = e.get_json_data()
@@ -203,20 +203,6 @@ class EntityServerOld(object):
 
 		# TODO : Add text reminder checking logic here
 
-	def get_all_users_entities(self, owner_name, owner_password):
-		"""Returns a JSON response containing all the user's entities."""
-		# Check for valid username and password.
-		if not self._db_api.is_valid_owner(owner_name, owner_password):
-			return HttpResponse('Invalid username and password!')
-
-		#print('GET ALL USER ENTITIES RESPONSE IS ')
-		response = self._db_api.get_all_entities_from_owner_as_json(owner_name)
-
-		return JsonResponse(response)
-
-	def get_all_public_entities(self):
-		"""Returns all the public entities."""
-		return JsonResponse(self._db_api.get_all_entities_from_owner_as_json(PUBLIC_ENTITIES_OWNER))
 
 '''
 

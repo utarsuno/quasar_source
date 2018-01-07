@@ -163,7 +163,6 @@ class QuasarCode(object):
 		self.post_urls.add_universal_constant('DELETE_ENTITY'        , 'delete_entity')
 		self.post_urls.add_universal_constant('SAVE_ENTITY'          , 'save_entity')
 		self.post_urls.add_universal_constant('GET_USER_ENTITIES'    , 'get_user_entities')
-		self.post_urls.add_universal_constant('GET_PUBLIC_ENTITIES'  , 'get_public_entities')
 		self.post_urls.add_universal_constant('CREATE_ACCOUNT'       , 'create_account')
 		self.post_urls.add_universal_constant('LOGIN'                , 'login')
 		self.post_urls.add_universal_constant('ENTITY_MANAGER_STATUS', 'server_side_print_entity_manager_status')

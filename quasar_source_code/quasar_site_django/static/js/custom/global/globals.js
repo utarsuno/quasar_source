@@ -110,7 +110,6 @@ const ENTITY_POST_SAVE_DATA = 'save_data';
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
 const POST_URL_SAVE_ENTITY           = '/save_entity';
 const POST_URL_GET_USER_ENTITIES     = '/get_user_entities';
-const POST_URL_GET_PUBLIC_ENTITIES   = '/get_public_entities';
 const POST_URL_CREATE_ACCOUNT        = '/create_account';
 const POST_URL_LOGIN                 = '/login';
 const POST_URL_ENTITY_MANAGER_STATUS = '/server_side_print_entity_manager_status';
