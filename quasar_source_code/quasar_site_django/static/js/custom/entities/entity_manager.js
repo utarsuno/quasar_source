@@ -90,17 +90,23 @@ EntityManager.prototype = {
         // FOR_DEV_START
         l('Got the following data for user entities');
         l(data);
+        l(typeof(data));
+
         // FOR_DEV_END
         if (is_string(data)) {
+            l('Data is a string!');
             if (data === '{}') {
                 this.user_entities_loaded = true;
                 this.all_data_loaded();
                 return;
             }
-            data = JSON.parse(data);
+            //data = JSON.parse(data);
         }
-        
-        //data = eval(data);
+
+
+        data = eval(data);
+        l(data);
+        l(typeof(data));
 
         for (var entity_id_num in data) {
             if (data.hasOwnProperty(entity_id_num)) {
