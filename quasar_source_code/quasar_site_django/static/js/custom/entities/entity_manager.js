@@ -106,6 +106,10 @@ EntityManager.prototype = {
             data = JSON.parse(data);
             l(data);
             l(typeof(data));
+
+            data = JSON.parse(data);
+            l(data);
+            l(typeof(data));
         }
 
 
