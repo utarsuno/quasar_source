@@ -111,6 +111,7 @@ if len(arguments) == 1:
 		print(quasar_server.create_entity_owner(owner_data))
 	elif command == COMMAND_PRINT_ALL_DATA:
 		print('Printing all data!')
-		quasar_server.get_all_data()
+		results = quasar_server.get_all_data()
+		print(data)
 	elif command == COMMAND_DELETE_OWNER:
 		print(quasar_server.delete_entity_owner(data))
