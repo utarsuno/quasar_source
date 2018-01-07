@@ -232,5 +232,8 @@ def POST_get_user_entities(request):
     reply = us.is_success_message(quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
     print(reply)
     if reply:
-        return JsonResponse(quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME]))
+        print('Getting data to return')
+        data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
+        print(data_to_return)
+        return JsonResponse(data_to_return)
     return HttpResponse(reply)

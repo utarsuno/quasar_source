@@ -43,7 +43,7 @@ class QuasarServer(object):
 	def get_all_data(self):
 		"""Returns all the data in the database."""
 		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_REQUEST_ALL_DATA)
-		print(reply)
+		#print(reply)
 		return reply
 
 	def is_valid_login(self, username, password):
