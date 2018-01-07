@@ -43,6 +43,8 @@ class EntityOwner(object):
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
 		self._entity_manager.add_entity(owner_entity)
 
+	def update
+
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''

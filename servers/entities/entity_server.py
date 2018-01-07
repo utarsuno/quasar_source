@@ -31,6 +31,16 @@ class EntityServer(object):
 
 		# TODO : Text reminder support.
 
+	def _update_entity(self, username, entity_data):
+		"""Updates the entity cache object."""
+		for e_o in self._entity_owners:
+			if e_o.username == username:
+				e_o.update_entity(entity_data)
+
+		return us.SUCCESS_MESSAGE
+
+		# TODO : Eventually don't save after every entity update.
+
 	'''__   ___  __        ___  __           __   __     __
 	  /__` |__  |__) \  / |__  |__)    |    /  \ / _` | /  `
 	  .__/ |___ |  \  \/  |___ |  \    |___ \__/ \__> | \__, '''
@@ -71,6 +81,9 @@ class EntityServer(object):
 				self._host_server.send_reply(self._delete_entity_owner(data))
 			elif command == us.SERVER_COMMAND_GET_OWNER_ENTITIES:
 				self._host_server.send_reply(self._get_all_owner_entities(data))
+			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
+				raw_data = data.split('|')
+				self._host_server.send_reply(self._update_entity(raw_data[0], raw_data[1]))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
@@ -83,7 +96,7 @@ class EntityServer(object):
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
 	def _delete_entity_owner(self, username):
 		"""Deletes an entity owner."""
-		us.log('Entity server is deleting the following owner : { ' + username + ' }')
+		#us.log('Entity server is deleting the following owner : { ' + username + ' }')
 		owners_to_remove = []
 		for e_o in self._entity_owners:
 			if e_o.username == username:
@@ -131,11 +144,11 @@ class EntityServer(object):
 	  \__> |___  |   |  |___ |  \ .__/ '''
 	def _get_all_owner_entities(self, username):
 		"""Returns all the entities for the provided owner."""
-		print('Returning all entities for username{' + username + '}!')
+		#print('Returning all entities for username{' + username + '}!')
 		entities = {}
 		for e_o in self._entity_owners:
 			if e_o.username == username:
-				print('Found username match!')
+				#print('Found username match!')
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
 					entities[str(e.relative_id)] = e.get_json_data()

@@ -88,38 +88,20 @@ EntityManager.prototype = {
 
     all_user_entities_loaded: function(data) {
         // FOR_DEV_START
-        l('Got the following data for user entities');
-        l(data);
-        l(typeof(data));
-
+        //l('Got the following data for user entities');
+        //l(data);
+        //l(typeof(data));
         // FOR_DEV_END
         if (is_string(data)) {
-            l('Data is a string!');
+            //l('Data is a string!');
             if (data === '{}') {
                 this.user_entities_loaded = true;
                 this.all_data_loaded();
                 return;
             }
-            //data = JSON.parse(data);
-
 
             data = JSON.parse(data);
-            l(data);
-            l(typeof(data));
-
-            data = JSON.parse(data);
-            l(data);
-            l(typeof(data));
         }
-
-
-        data = eval(data);
-        l(data);
-        l(typeof(data));
-
-        data = eval(data);
-        l(data);
-        l(typeof(data));
 
         for (var entity_id_num in data) {
             if (data.hasOwnProperty(entity_id_num)) {
@@ -128,9 +110,7 @@ EntityManager.prototype = {
         }
 
         this.user_entities_loaded = true;
-
-        this.set_owner_entity();
-
+        ENTITY_OWNER.set_owner_entity(this.get_owner_entity());
         this.all_data_loaded();
     },
 
@@ -144,10 +124,6 @@ EntityManager.prototype = {
         this.link_entities();
         this.set_all_entities_to_not_needing_to_be_saved();
         this.loading = false;
-    },
-
-    set_owner_entity: function() {
-        ENTITY_OWNER.set_owner_entity(this.get_owner_entity());
     },
 
     load_data: function() {

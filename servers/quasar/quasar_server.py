@@ -40,6 +40,11 @@ class QuasarServer(object):
 		print('Client got this response : ' + response)
 		'''
 
+	# return quasar_server.update_entity(received_username, data_dictionary)
+	def update_entity(self, username, entity_data):
+		"""Updates an entity for the provided entity owner."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY, username + '|' + str(entity_data))
+
 	def get_all_data(self):
 		"""Returns all the data in the database."""
 		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_REQUEST_ALL_DATA)

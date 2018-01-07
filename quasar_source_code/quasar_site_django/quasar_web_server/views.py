@@ -202,17 +202,13 @@ def POST_save_entity(request):
 
     data_dictionary = eval(received_data)
 
-    global entity_server
-    result = entity_server.is_valid_login_info(received_username, received_password)
-    if result:
-        # Now save the entities since the username and password is verified.
-
-        print('NEED TO SAVE ENTITIES FOR : ' + str(received_username) + ' THE DATA IS : ' + str(received_data))
-        entity_server.save_or_update_entity(received_username, data_dictionary)
-
-        return SERVER_REPLY_GENERIC_YES
-
-    return HttpResponse('Username or password is not correct!')
+    global quasar_server
+    message = quasar_server.is_valid_login(received_username, received_password)
+    reply = us.is_success_message(message)
+    if reply:
+        return quasar_server.update_entity(received_username, data_dictionary)
+    else:
+        return HttpResponse(message)
 
 
 @csrf_exempt
@@ -228,9 +224,10 @@ def POST_get_user_entities(request):
 
     global quasar_server
 
-    print('is the login valid?')
-    reply = us.is_success_message(quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
-    print(reply)
+    #print('is the login valid?')
+    message = quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
+    reply = us.is_success_message(message)
+    #print(reply)
     if reply:
         print('Getting data to return')
         data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME]) # .replace("'", "\\'")
@@ -239,4 +236,4 @@ def POST_get_user_entities(request):
         return JsonResponse(data_to_return, safe=False)
         #return HttpResponse(json.dumps(data_to_return))
         #return JsonResponse(data_to_return, safe=False)
-    return HttpResponse(reply)
+    return HttpResponse(message)
