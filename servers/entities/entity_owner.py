@@ -43,7 +43,11 @@ class EntityOwner(object):
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
 		self._entity_manager.add_entity(owner_entity)
 
-	def update
+	def update_entity(self, entity_data):
+		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
+		print('Entity Owner needs to update the following data!!! ')
+		print(str(entity_data))
+		print(type(entity_data))
 
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
