@@ -131,9 +131,11 @@ class EntityServer(object):
 	  \__> |___  |   |  |___ |  \ .__/ '''
 	def _get_all_owner_entities(self, username):
 		"""Returns all the entities for the provided owner."""
+		print('Returning all entities for username{' + username + '}!')
 		entities = {}
 		for e_o in self._entity_owners:
 			if e_o.username == username:
+				print('Found username match!')
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
 					entities[e.relative_id] = e.get_json_data()
