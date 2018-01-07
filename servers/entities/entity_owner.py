@@ -35,6 +35,10 @@ class EntityOwner(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_all_entities(self):
+		"""Returns all the entities in this EntityOwner."""
+		return self._entity_manager.get_all_entities()
+
 	def get_data_for_database(self):
 		"""Returns the data in database saveable format."""
 		json_data = {be.ENTITY_PROPERTY_EMAIL: self._email,
