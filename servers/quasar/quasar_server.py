@@ -50,12 +50,9 @@ class QuasarServer(object):
 		"""Checks that the login username and password have a match."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID, username + '|' + password)
 
-	def get_owner_entities(self, username, password):
+	def get_owner_entities(self, username):
 		"""Gets owner entities for the provided owner."""
-		if us.is_success_message(self.is_valid_login(username, password)):
-			return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_OWNER_ENTITIES, username)
-		else:
-			return us.error('Not valid username and password for getting owner entities.')
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_OWNER_ENTITIES, username)
 
 	def create_entity_owner(self, owner_data):
 		"""Creates a new entity owner."""

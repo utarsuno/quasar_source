@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from servers.quasar import quasar_server as qs
 from django.http import JsonResponse
 from entities import base_entity as be
+from servers import utility_servers as us
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
@@ -73,23 +74,9 @@ ENTITY_POST_SAVE_DATA = 'save_data'
 # UNIVERSAL_CONSTANTS_END
 
 
-def is_result_is_error(result):
-    """Returns a boolean indicating if the result is an error."""
-    if result.startswith('e:'):
-        return True
-    return False
-
-
-def is_result_success(result):
-    """Returns a boolean indicating if the result is a success."""
-    if result.startswith('s:'):
-        return True
-    return False
-
-
 def return_based_on_result(result):
     """Returns a HTTPResponse based off the result."""
-    if is_result_success(result):
+    if us.is_success_message(result):
         return SERVER_REPLY_GENERIC_YES
     return HttpResponse(result[2:])
 
@@ -140,7 +127,7 @@ def POST_login(request):
 
     global quasar_server
     result = quasar_server.is_valid_login(received_username, received_password)
-    if is_result_success(result):
+    if us.is_success_message(result):
         request.session[be.ENTITY_PROPERTY_USERNAME] = received_username
         return SERVER_REPLY_GENERIC_YES
     else:
@@ -240,4 +227,8 @@ def POST_get_user_entities(request):
         return post_errors
 
     global quasar_server
-    return JsonResponse(quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
+
+    reply = us.is_success_message(quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
+    if reply:
+        return JsonResponse(quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD]))
+    return HttpResponse(reply)
