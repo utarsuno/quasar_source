@@ -30,12 +30,22 @@ PostHelper.prototype = {
         http.setRequestHeader('Content-type', 'application/json');
         http.send(JSON.stringify(post_data));
 
+
+
         http.onload = function() {
             // FOR_DEV_START
             l('POST onload response :');
             // FOR_DEV_END
 
             // if (xhr.readyState == 4 && xhr.status == 200) {
+
+            callback(http.responseText);
+            self.waiting_on_reply = false;
+        };
+
+        http.onerror = function() {
+            l('POST onerror response :');
+            l(http.responseText);
 
             callback(http.responseText);
             self.waiting_on_reply = false;
