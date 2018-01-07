@@ -139,7 +139,7 @@ class EntityServer(object):
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
 					entities[str(e.relative_id)] = e.get_json_data()
-		return str(entities)
+		return str(entities).replace("'", '"')
 
 	def _get_all_database_raw_data(self):
 		"""Returns all the database data."""
