@@ -108,6 +108,10 @@ EntityManager.prototype = {
         l(data);
         l(typeof(data));
 
+        data = eval(data);
+        l(data);
+        l(typeof(data));
+
         for (var entity_id_num in data) {
             if (data.hasOwnProperty(entity_id_num)) {
                 MANAGER_ENTITY.add_user_entity_from_entity_data(data[entity_id_num]);
