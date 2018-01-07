@@ -156,6 +156,7 @@ class EntityServer(object):
 			if '_id' in d:
 				del d['_id']
 			self._entity_owners.append(eo.EntityOwner(d))
+		us.log('Loaded!')
 
 	'''      ___  ___  __   __    ___         __        ___  __        __
       | |\ |  |  |__  / _` |__) |  |  \ /    /  ` |__| |__  /  ` |__/ /__`
