@@ -101,6 +101,11 @@ EntityManager.prototype = {
                 return;
             }
             //data = JSON.parse(data);
+
+
+            data = JSON.parse(data);
+            l(data);
+            l(typeof(data));
         }
 
 
