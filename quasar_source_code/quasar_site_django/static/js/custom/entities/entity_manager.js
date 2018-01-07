@@ -99,8 +99,8 @@ EntityManager.prototype = {
             }
             data = JSON.parse(data);
         }
-
-        data = eval(data);
+        
+        //data = eval(data);
 
         for (var entity_id_num in data) {
             if (data.hasOwnProperty(entity_id_num)) {
