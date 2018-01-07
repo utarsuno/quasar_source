@@ -236,6 +236,6 @@ def POST_get_user_entities(request):
         data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME]).replace("'", '\\\\\'')
         print(data_to_return)
         print(json.dumps(data_to_return))
-        return json.dumps(data_to_return)
+        return JsonResponse(json.dumps(data_to_return))
         #return JsonResponse(data_to_return, safe=False)
     return HttpResponse(reply)
