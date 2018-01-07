@@ -24,6 +24,9 @@ class EntityOwner(object):
 				self._entities = raw_data['entities']
 				#print('NEED TO SET FROM THE FOLLOWING DATA :!!!!')
 
+				if type(self._entities) == str:
+					self._entities = eval(self._entities)
+
 				for id_num in self._entities:
 					raw_entity = be.Entity()
 					print(id_num)
