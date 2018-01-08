@@ -49,6 +49,10 @@ class MongoCollection(object):
         """Deletes by key and value matches."""
         self._collection.delete_many({key: value})
 
+    def find_one(self, key, value):
+        """Returns a single collection element if found."""
+        return self._collection.find_one({key: value})
+
     def get_all(self):
         """Returns all the entities(items) in this collection."""
         entities = []
