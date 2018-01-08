@@ -76,6 +76,8 @@ ENTITY_POST_SAVE_DATA = 'save_data'
 
 def return_based_on_result(result):
     """Returns a HTTPResponse based off the result."""
+    if us.is_success_message(result):
+        return SERVER_REPLY_GENERIC_YES
     return HttpResponse(result[2:])
 
 
