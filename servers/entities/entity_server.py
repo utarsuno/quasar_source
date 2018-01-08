@@ -38,6 +38,9 @@ class EntityServer(object):
 
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
+		if type(entity_data) == str:
+			entity_data = eval(entity_data)
+
 		updated_entity = None
 		for e_o in self._entity_owners:
 			if e_o.username == username:
