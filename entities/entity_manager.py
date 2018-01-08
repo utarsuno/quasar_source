@@ -57,7 +57,7 @@ class EntityManager(object):
 			if entity_match is None:
 
 				print('\n\nADDING THE FOLLOWING ENTITY MATCH :')
-				print(entity_match.get_json_data())
+				print(raw_entity.get_json_data())
 
 				print('The entity being added is a new one but DOES have a relative ID!')
 
