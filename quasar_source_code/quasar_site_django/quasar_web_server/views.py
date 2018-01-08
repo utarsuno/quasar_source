@@ -176,12 +176,13 @@ def POST_delete_entity(request):
 
     print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
 
-    global entity_server
-    result = entity_server.is_valid_login_info(received_username, received_password)
-    if result:
-        entity_server.delete_entity(received_username, received_entity_id)
-        return SERVER_REPLY_GENERIC_YES
-    return HttpResponse('Username or password is not correct!')
+    global quasar_server
+    message = quasar_server.is_valid_login(received_username, received_password)
+    reply = us.is_success_message(message)
+    if reply:
+        return return_based_on_result(quasar_server.delete_entity(received_username, received_entity_id))
+    else:
+        return return_based_on_result(message)
 
 
 @csrf_exempt
@@ -223,16 +224,12 @@ def POST_get_user_entities(request):
 
     global quasar_server
 
-    #print('is the login valid?')
     message = quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
     reply = us.is_success_message(message)
-    #print(reply)
     if reply:
         print('Getting data to return')
-        data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME]) # .replace("'", "\\'")
+        data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
         print(data_to_return)
         print(json.dumps(data_to_return))
         return JsonResponse(data_to_return, safe=False)
-        #return HttpResponse(json.dumps(data_to_return))
-        #return JsonResponse(data_to_return, safe=False)
     return HttpResponse(message)

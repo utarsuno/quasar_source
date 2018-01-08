@@ -10,6 +10,8 @@ from universal_code import useful_file_operations as ufo
 from entities import base_entity as be
 from universal_code import system_os as so
 
+import threading as t
+
 
 class QuasarServer(object):
 	"""Represents the Quasar utility server."""
@@ -21,6 +23,8 @@ class QuasarServer(object):
 		# Client connection to the entity data server.
 		self._entity_server_data = ufo.get_ini_section_dictionary(pm.get_config_ini(), us.SERVER_ENTITY)
 		self._entity_server_connection = us.ClientConnection('client:' + us.SERVER_ENTITY, self._entity_server_data[us.ADDRESS], self._entity_server_data[us.PORT])
+
+		self._client_message_lock = t.Lock()
 
 	def connect(self):
 		"""Performs the initial connection."""
@@ -69,6 +73,7 @@ class QuasarServer(object):
 
 	def _send_command_to_entity_server(self, command, data=''):
 		"""Sends a command to the entity server."""
+
 		return self._entity_server_connection.send_message(command + ':' + str(data))
 
 	'''__   ___       ___ ___    __
@@ -76,7 +81,10 @@ class QuasarServer(object):
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
 	def delete_entity_owner(self, username):
 		"""Deletes the entity owner found by username match."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
+		self._client_message_lock.acquire()
+		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
+		self._client_message_lock.release()
+		return reply
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`
