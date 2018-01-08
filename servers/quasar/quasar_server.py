@@ -56,7 +56,7 @@ class QuasarServer(object):
 
 	def get_owner_entities(self, username):
 		"""Gets owner entities for the provided owner."""
-		print('Quasar Utility Server getting owner entities for username{' + username + '}')
+		#print('Quasar Utility Server getting owner entities for username{' + username + '}')
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_OWNER_ENTITIES, username)
 
 	def create_entity_owner(self, owner_data):

@@ -104,6 +104,9 @@ class EntityServer(object):
 			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
 				raw_data = data.split('|')
 				self._host_server.send_reply(self._update_entity(raw_data[0], raw_data[1]))
+			elif command == us.SERVER_COMMAND_DELETE_ENTITY:
+				raw_data = data.split('|')
+				self._host_server.send_reply(self._delete_entity_by_id(raw_data[0], raw_data[1]))
 			elif command == us.SERVER_COMMAND_REQUEST_ALL_DATA:
 				self._host_server.send_reply(str(self._get_all_database_raw_data()))
 			elif command == us.SERVER_COMMAND_IS_USERNAME_TAKEN:
@@ -114,6 +117,16 @@ class EntityServer(object):
 	'''__   ___       ___ ___    __
 	  |  \ |__  |    |__   |  | /  \ |\ |
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
+	def _delete_entity_by_id(self, username, relative_id):
+		"""Deletes an entity by ID."""
+		entity_owner = self._get_entity_owner_by_username(username)
+		entity_owner.remove_entity(relative_id)
+
+		# TODO : Eventually move/change the save logic.
+		self._update_owner(username)
+
+		return us.SUCCESS_MESSAGE
+
 	def _delete_entity_owner(self, username):
 		"""Deletes an entity owner."""
 		#us.log('Entity server is deleting the following owner : { ' + username + ' }')

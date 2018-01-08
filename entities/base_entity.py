@@ -51,6 +51,7 @@ class Entity(object):
 	"""Defines properties of all entities."""
 
 	def __init__(self):
+		# TODO : Reformat to put all properties into a single properties dictionary
 		self._relative_id     = -1
 		self._parent_entities = []
 		self._child_entities  = []

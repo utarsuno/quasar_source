@@ -39,11 +39,17 @@ OWNER_KEY_ID        = '_id'
 #OWNER_KEY_ID        = 'ep__id'
 
 
+# TODO : Eventually clean up this design or remove it all together (@MongoCollection)
 class MongoCollection(object):
     """API for using MongoDB Collections."""
 
     def __init__(self, collection_object):
         self._collection = collection_object
+
+    @property
+    def collection(self):
+        """Returns this collection."""
+        return self._collection
 
     def delete_many(self, key, value):
         """Deletes by key and value matches."""

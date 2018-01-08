@@ -5,6 +5,7 @@
 import sys
 
 from fuzzywuzzy import process
+# TODO : Use output color
 from lazyme.string import color_print
 from universal_code import output_coloring as oc
 from universal_code import system_os as sos

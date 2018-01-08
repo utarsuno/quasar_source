@@ -13,6 +13,7 @@ from entities import base_entity as be
 	|__/ /~~\  |  /~~\ |__) /~~\ .__/ |___    /~~\ |    |    .
 '''
 
+
 class EntityDatabaseAPI(object):
 	"""An API for Entity database operations."""
 
@@ -27,12 +28,7 @@ class EntityDatabaseAPI(object):
 
 	def update_owner(self, username, json_data):
 		"""Updates the owner by username match with the provided json data."""
-		#self._db_api._update_owner(username, json_data)
-		self._owners_collection._collection.find_one_and_replace({be.ENTITY_PROPERTY_USERNAME: username}, json_data)
-
-	#def get_owner_id(self, username):
-	#	"""Gets the owner id object by owner username match."""
-	#	return self._owners_collection.find(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)
+		self._owners_collection.collection.find_one_and_replace({be.ENTITY_PROPERTY_USERNAME: username}, json_data)
 
 	def create_owner(self, owner_data):
 		"""Creates the owner."""

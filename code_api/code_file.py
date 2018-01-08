@@ -3,6 +3,7 @@
 """This module, code_file.py, represents an abstraction layer to a file of code."""
 
 from jsmin import jsmin
+# TODO : Use output_color
 from lazyme.string import color_print
 from universal_code import debugging as dbg
 
