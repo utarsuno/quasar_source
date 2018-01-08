@@ -11,7 +11,6 @@ class EntityManager(object):
 	"""Defines management operations for Entities."""
 
 	def __init__(self):
-		self.entities = []
 		self._entities = []
 
 	def add_entity(self, entity):
@@ -66,6 +65,11 @@ class EntityManager(object):
 		if entity_to_remove is not None:
 			self._entities.remove(entity_to_remove)
 		else:
+			print('\nThe entity to remove was not found {' + str(relative_id) + '}\n')
+			print('\nPrinting all the current entities.\n')
+			for e in self._entities:
+				print(e)
+			print('\n')
 			dbg.raise_exception('The entity to remove was not found!')
 
 		# TODO : Decide if this should automatically remove other Entities based off of child/parent relationships.
@@ -87,7 +91,7 @@ class EntityManager(object):
 	def get_largest_entity_id(self) -> int:
 		"""Returns the largest entity ID found, -1 if there are no entities."""
 		largest_id = -1
-		for e in self.entities:
+		for e in self._entities:
 			if int(e.relative_id) > largest_id:
 				largest_id = int(e.relative_id)
 		return largest_id
