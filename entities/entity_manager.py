@@ -56,6 +56,8 @@ class EntityManager(object):
 			else:
 				self.replace_entity(raw_entity)
 
+		return raw_entity
+
 	def get_entity_by_id(self, id):
 		"""Returns an Entity object or None if the match doesn't exist."""
 		for e in self._entities:

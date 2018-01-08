@@ -45,7 +45,7 @@ class EntityOwner(object):
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
-		self._entity_manager.update_entity(entity_data)
+		return self._entity_manager.update_entity(entity_data)
 
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
