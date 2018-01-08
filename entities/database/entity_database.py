@@ -28,8 +28,12 @@ class EntityDatabaseAPI(object):
 	def update_owner(self, username, json_data):
 		"""Updates the owner by username match with the provided json data."""
 		#self._db_api._update_owner(username, json_data)
-		self._owners_collection._collection.find_one_and_replace({be.ENTITY_PROPERTY_USERNAME: username}, json_data)
 
+		print('Updating the owner{' + username '} with this data :')
+		print(json_data)
+		print()
+
+		self._owners_collection._collection.find_one_and_replace({be.ENTITY_PROPERTY_USERNAME: username}, json_data)
 
 	#def get_owner_id(self, username):
 	#	"""Gets the owner id object by owner username match."""
