@@ -46,14 +46,23 @@ class EntityManager(object):
 
 		# If the entity data doesn't have a relative ID then we can create a new entity based off the data.
 		if raw_entity.has_property(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID):
+
+			print('The entity being added does not have a relative ID!!')
+
 			self.add_entity(raw_entity)
 		else:
 			# The entity has an ID so check if the cache already contains a match by entity ID.
 			entity_match = self.get_entity_by_id(raw_entity.get_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID))
 
 			if entity_match is None:
+
+				print('The entity being added is a new one but DOES have a relative ID!')
+
 				self.add_entity(raw_entity)
 			else:
+
+				print('The entity being added was found and is being replaced.')
+
 				self.replace_entity(raw_entity)
 
 		return raw_entity
