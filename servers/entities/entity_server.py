@@ -32,14 +32,14 @@ class EntityServer(object):
 
 		# TODO : Text reminder support.
 
-	def _update_owner(self, owner_username, owner_data):
+	def _update_owner(self, owner_username):
 		"""Saves all the cache object information to the database."""
 		#print('Need to update owner!')
 		#print(owner_username)
 		#print(type(owner_username))
 		#print(owner_data)
 		#print(type(owner_data))
-		self._db_api.update_owner(owner_username, owner_data)
+		self._db_api.update_owner(owner_username, self._get_entity_owner_by_username(owner_username).get_data_for_database())
 
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
@@ -54,11 +54,8 @@ class EntityServer(object):
 		if updated_entity is None:
 			dbg.raise_exception('The provided entity to update is None!')
 
-		# get_data_for_database
-
 		# TODO : Eventually remove this. The perform saves should cover it.
-		self._update_owner(username, self._get_entity_owner_by_username(username).get_data_for_database())
-		#self._db_api.update_entity_for_owner(username, updated_entity.get_json_data())
+		self._update_owner(username)
 
 		return us.SUCCESS_MESSAGE
 
