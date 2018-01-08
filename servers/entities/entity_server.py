@@ -34,11 +34,11 @@ class EntityServer(object):
 
 	def _update_owner(self, owner_username, owner_data):
 		"""Saves all the cache object information to the database."""
-		print('Need to update owner!')
-		print(owner_username)
-		print(type(owner_username))
-		print(owner_data)
-		print(type(owner_data))
+		#print('Need to update owner!')
+		#print(owner_username)
+		#print(type(owner_username))
+		#print(owner_data)
+		#print(type(owner_data))
 		self._db_api.update_owner(owner_username, owner_data)
 
 	def _update_entity(self, username, entity_data):
@@ -228,26 +228,6 @@ class EntityServerOld(object):
 	def delete_entity(self, owner_name, entity_id_to_delete):
 		"""Deletes an entity."""
 		self._db_api.delete_entity(owner_name, entity_id_to_delete)
-
-	def update_owner(self, owner_data):
-		"""Updates an owner. Throws an exception if the _id key is not provided."""
-		# Required keys passed in check.
-		if be.ENTITY_PROPERTY_SERVER_ID not in owner_data:
-			return HttpResponse('Required key data not provided for updating an owner! Missing at the _id key from ' + str(owner_data) + '}')
-
-		# Owner ID exists check.
-		if not self._db_api.is_owner_id_valid(owner_data[be.ENTITY_PROPERTY_SERVER_ID]):
-			return HttpResponse('The owner ID{' + str(owner_data[be.ENTITY_PROPERTY_SERVER_ID]) + '} is not valid!')
-
-		self._db_api.update_owner(owner_data)
-		return SERVER_REPLY_GENERIC_YES
-
-	def save_or_update_entity(self, owner_name, entity_data):
-		"""Creates a new entity or modifies an existing with with the new data."""
-		# Update the entity for the owner.
-		self._db_api.save_or_update_entity(owner_name, entity_data)
-
-		# TODO : Add text reminder checking logic here
 
 
 '''
