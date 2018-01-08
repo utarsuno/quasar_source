@@ -76,8 +76,6 @@ ENTITY_POST_SAVE_DATA = 'save_data'
 
 def return_based_on_result(result):
     """Returns a HTTPResponse based off the result."""
-    if us.is_success_message(result):
-        return SERVER_REPLY_GENERIC_YES
     return HttpResponse(result[2:])
 
 
@@ -184,7 +182,6 @@ def POST_delete_entity(request):
     return HttpResponse('Username or password is not correct!')
 
 
-# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_save_entity(request):
     """Handles the POST request to save changed entities."""
@@ -206,9 +203,9 @@ def POST_save_entity(request):
     message = quasar_server.is_valid_login(received_username, received_password)
     reply = us.is_success_message(message)
     if reply:
-        return quasar_server.update_entity(received_username, data_dictionary)
+        return return_based_on_result(quasar_server.update_entity(received_username, data_dictionary))
     else:
-        return HttpResponse(message)
+        return return_based_on_result(message)
 
 
 @csrf_exempt
