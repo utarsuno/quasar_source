@@ -19,7 +19,14 @@ class EntityManager(object):
 	def add_entity(self, entity):
 		"""Adds an entity to this EntityManager."""
 		# If the entity being added has no relative_id then assign it one.
+
+		print('Adding the following entity')
+		print(entity.get_json_data())
+
 		if not entity.has_property(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID):
+
+			print('THE ENTITY DOES NOT HAVE A RELATIVE ID')
+
 			entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, self.get_largest_entity_id() + 1)
 		self._entities.append(entity)
 
