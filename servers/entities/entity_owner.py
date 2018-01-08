@@ -49,6 +49,12 @@ class EntityOwner(object):
 		print(str(entity_data))
 		print(type(entity_data))
 
+		print('Printing all the current entities.')
+		for e in self._entities:
+			print(e)
+
+
+
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''

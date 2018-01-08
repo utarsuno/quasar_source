@@ -91,6 +91,19 @@ class Entity(object):
 				return False
 		return key in self._information
 
+	def get_value(self, key):
+		"""Returns the value for the provided property key."""
+		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+			return self._relative_id
+		elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+			return str(self._child_entities)
+		elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+			return str(self._parent_entities)
+		elif key == ENTITY_DEFAULT_PROPERTY_TYPE:
+			return self._class_name
+		else:
+			return self._information[key]
+
 	@property
 	def relative_id(self) -> int:
 		"""Returns the global ID of this Entity."""

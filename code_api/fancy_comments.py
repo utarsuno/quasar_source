@@ -158,3 +158,4 @@ def get_fancy_python_comment(string_to_print):
 		line_three += character.split('\n')[2] + ' '
 
 	return line_one + '\n' + line_two + '\n' + line_three + '\'\'\'\n'
+

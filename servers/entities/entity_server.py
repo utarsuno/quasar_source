@@ -15,6 +15,7 @@ from entities import base_entity as be
 
 import time
 from servers.entities import entity_owner as eo
+from universal_code import debugging as dbg
 
 
 class EntityServer(object):
@@ -31,11 +32,23 @@ class EntityServer(object):
 
 		# TODO : Text reminder support.
 
+	def _update_owner(self, owner_username, owner_data):
+		"""Saves all the cache object information to the database."""
+		self._db_api._update_owner(owner_username, owner_data)
+
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
+		updated_entity = None
 		for e_o in self._entity_owners:
 			if e_o.username == username:
-				e_o.update_entity(entity_data)
+				updated_entity = e_o.update_entity(entity_data)
+
+		if updated_entity is None:
+			dbg.raise_exception('The provided entity to update is None!')
+
+		# TODO : Eventually remove this. The perform saves should cover it.
+		self._update_owner(username, self._get_entity_owner_by_username(username))
+		#self._db_api.update_entity_for_owner(username, updated_entity.get_json_data())
 
 		return us.SUCCESS_MESSAGE
 
@@ -142,6 +155,13 @@ class EntityServer(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def _get_entity_owner_by_username(self, username):
+		"""Returns an EntityOwner object matched by username (or None if not found)."""
+		for e_o in self._entity_owners:
+			if e_o.username == username:
+				return e_o
+		return None
+
 	def _get_all_owner_entities(self, username):
 		"""Returns all the entities for the provided owner."""
 		#print('Returning all entities for username{' + username + '}!')
