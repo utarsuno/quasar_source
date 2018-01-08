@@ -84,6 +84,9 @@ def success(m):
 	return str(m)
 
 
+# TODO : Make server utility functions for creating commands + messages, as well as functions for parsing data from messages
+
+
 class ZMQBase(object):
 	"""Defines the common networking variables."""
 
