@@ -73,8 +73,10 @@ class QuasarServer(object):
 
 	def _send_command_to_entity_server(self, command, data=''):
 		"""Sends a command to the entity server."""
-
-		return self._entity_server_connection.send_message(command + ':' + str(data))
+		self._client_message_lock.acquire()
+		reply = self._entity_server_connection.send_message(command + ':' + str(data))
+		self._client_message_lock.release()
+		return reply
 
 	'''__   ___       ___ ___    __
 	  |  \ |__  |    |__   |  | /  \ |\ |
@@ -85,10 +87,7 @@ class QuasarServer(object):
 
 	def delete_entity_owner(self, username):
 		"""Deletes the entity owner found by username match."""
-		self._client_message_lock.acquire()
-		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
-		self._client_message_lock.release()
-		return reply
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`
