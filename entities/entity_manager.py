@@ -60,7 +60,7 @@ class EntityManager(object):
 		entity_to_remove = None
 		for e in self._entities:
 			if str(e.relative_id) == str(relative_id):
-				entity_to_remove = entity_to_remove
+				entity_to_remove = e
 				break
 		if entity_to_remove is not None:
 			self._entities.remove(entity_to_remove)
