@@ -38,15 +38,10 @@ class EntityManager(object):
 
 	def update_entity(self, entity_data):
 		"""Updates, adds, or create an entity based off the entity data provided."""
-
-		print('The entity date to update is :')
-		print(entity_data)
-		print(type(entity_data))
-
 		raw_entity = be.Entity()
 		for key in entity_data:
-			print('key : ' + str(key) + ' {' + str(type(key)) + '}')
-			print('value : ' + str(entity_data[key]) + '{' + str(type(entity_data[key])) + '}')
+			#print('key : ' + str(key) + ' {' + str(type(key)) + '}')
+			#print('value : ' + str(entity_data[key]) + '{' + str(type(entity_data[key])) + '}')
 			raw_entity.set_property_and_value(key, entity_data[key])
 
 		# If the entity data doesn't have a relative ID then we can create a new entity based off the data.

@@ -34,7 +34,7 @@ class EntityServer(object):
 
 	def _update_owner(self, owner_username, owner_data):
 		"""Saves all the cache object information to the database."""
-		self._db_api._update_owner(owner_username, owner_data)
+		self._db_api.update_owner(owner_username, owner_data)
 
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
