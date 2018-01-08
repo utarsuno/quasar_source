@@ -61,6 +61,11 @@ class EntityManager(object):
 				self.add_entity(raw_entity)
 			else:
 
+				print()
+				for e in self._entities:
+					print(e)
+				print('@@@@@')
+
 				print('The entity being added was found and is being replaced.')
 
 				self.replace_entity(raw_entity)
