@@ -226,21 +226,7 @@ class EntityServer(object):
 		for e_o in self._entity_owners:
 			if e_o.username == username and e_o.password == password:
 				return us.SUCCESS_MESSAGE
-		return us.ERROR_MESSAGE
-
-
-'''
-class EntityServerOld(object):
-	"""Memory layer for entity managers and owners."""
-
-	# TODO : delete owner function
-
-	def delete_entity(self, owner_name, entity_id_to_delete):
-		"""Deletes an entity."""
-		self._db_api.delete_entity(owner_name, entity_id_to_delete)
-
-
-'''
+		return us.ERROR_MESSAGE + 'provided username and password are not valid'
 
 
 '''___  __   __                  ___     __                         __

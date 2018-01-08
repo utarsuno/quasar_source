@@ -30,20 +30,6 @@ class QuasarServer(object):
 		"""Performs the initial connection."""
 		self._entity_server_connection.attempt_connection()
 
-		'''
-		response = self._entity_server_connection.send_message(es.SERVER_COMMAND_REQUEST_ALL_DATA)
-
-		#response = self._entity_server_connection.send_message('Hello from client 0')
-
-		print('Client got this response : ' + response)
-		time.sleep(2)
-		response = self._entity_server_connection.send_message('Hello from client 1')
-		print('Client got this response : ' + response)
-		time.sleep(4)
-		response = self._entity_server_connection.send_message('Hello from client 2')
-		print('Client got this response : ' + response)
-		'''
-
 	def update_entity(self, username, entity_data):
 		"""Updates an entity for the provided entity owner."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY, username + '|' + str(entity_data))

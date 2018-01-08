@@ -70,7 +70,7 @@ class EntityManager(object):
 			for e in self._entities:
 				print(e)
 			print('\n')
-			dbg.raise_exception('The entity to remove was not found!')
+			#dbg.raise_exception('The entity to remove was not found!')
 
 		# TODO : Decide if this should automatically remove other Entities based off of child/parent relationships.
 

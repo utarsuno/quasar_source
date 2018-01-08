@@ -158,7 +158,6 @@ def POST_create_owner(request):
     return return_based_on_result(quasar_server.create_entity_owner(owner_data))
 
 
-# TODO : REFORMAT!!!!
 @csrf_exempt
 def POST_delete_entity(request):
     """Handles the POST request to delete an entity."""

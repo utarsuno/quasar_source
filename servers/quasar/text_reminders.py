@@ -10,6 +10,8 @@ TEMP_PROPERTY_B = 'Seconds from now :'
 TEMP_PROPERTY_C = 'Send to :'
 
 
+# TODO : This entire file/design needs to be re-made!
+
 
 class TextReminderManager(object):
 	"""Manages and schedules text reminders."""
