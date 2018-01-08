@@ -46,8 +46,10 @@ class EntityServer(object):
 		if updated_entity is None:
 			dbg.raise_exception('The provided entity to update is None!')
 
+		# get_data_for_database
+
 		# TODO : Eventually remove this. The perform saves should cover it.
-		self._update_owner(username, self._get_entity_owner_by_username(username))
+		self._update_owner(username, self._get_entity_owner_by_username(username).get_data_for_database())
 		#self._db_api.update_entity_for_owner(username, updated_entity.get_json_data())
 
 		return us.SUCCESS_MESSAGE

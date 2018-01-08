@@ -45,14 +45,7 @@ class EntityOwner(object):
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
-		print('Entity Owner needs to update the following data!!! ')
-		print(str(entity_data))
-		print(type(entity_data))
-
-		print('Printing all the current entities.')
-		entities = self.get_all_entities()
-		for e in entities:
-			print(e)
+		self._entity_manager.update_entity(entity_data)
 
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
