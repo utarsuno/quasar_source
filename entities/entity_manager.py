@@ -38,6 +38,11 @@ class EntityManager(object):
 
 	def update_entity(self, entity_data):
 		"""Updates, adds, or create an entity based off the entity data provided."""
+
+		print('The entity date to update is :')
+		print(entity_data)
+		print(type(entity_data))
+
 		raw_entity = be.Entity()
 		for key in entity_data:
 			print('key : ' + str(key) + ' {' + str(type(key)) + '}')
