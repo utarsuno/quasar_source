@@ -29,7 +29,7 @@ class EntityDatabaseAPI(object):
 		"""Updates the owner by username match with the provided json data."""
 		#self._db_api._update_owner(username, json_data)
 
-		print('Updating the owner{' + username '} with this data :')
+		print('Updating the owner{' + username + '} with this data :')
 		print(json_data)
 		print()
 
