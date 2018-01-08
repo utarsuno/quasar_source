@@ -89,6 +89,7 @@ class Entity(object):
 		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
 			if self._relative_id == -1:
 				return False
+			return True
 		return key in self._information
 
 	def get_value(self, key):
