@@ -15,6 +15,9 @@ from entities import base_entity as be
 from entities.server import entity_server as es
 '''
 
+# HTTP variables.
+HTTP_SUCCESS = 200
+
 # Utility variables.
 ADDRESS = 'address'
 PORT    = 'port'

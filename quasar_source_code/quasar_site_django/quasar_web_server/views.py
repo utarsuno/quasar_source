@@ -110,6 +110,10 @@ def qdict_to_dict(qdict):
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
 
+'''___      ___   ___         __             ___  __      __   __   ___  __       ___    __        __
+  |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+  |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+
 
 @csrf_exempt
 def POST_login(request):
@@ -173,8 +177,6 @@ def POST_delete_entity(request):
     received_password  = json_obj[be.ENTITY_PROPERTY_PASSWORD]
     received_entity_id = json_obj[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
-    print('Deleting entity ID{' + str(received_entity_id) + '} - for user: ' + str(received_username))
-
     global quasar_server
     message = quasar_server.is_valid_login(received_username, received_password)
     reply = us.is_success_message(message)
@@ -226,9 +228,6 @@ def POST_get_user_entities(request):
     message = quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
     reply = us.is_success_message(message)
     if reply:
-        print('Getting data to return')
         data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
-        print(data_to_return)
-        print(json.dumps(data_to_return))
         return JsonResponse(data_to_return, safe=False)
     return HttpResponse(message)
