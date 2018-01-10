@@ -33,7 +33,7 @@ LoginWorld.prototype = {
             } else {
                 this.login_wall_errors.update_text('|');
             }
-        } else if (error_type === ERROR_CHECK_TTPE_CREATE_ACCOUNT) {
+        } else if (error_type === ERROR_CHECK_TYPE_CREATE_ACCOUNT) {
             if (error_text.length !== 0) {
                 this.wall_create_account_errors.update_text(error_text);
             } else {
@@ -61,7 +61,7 @@ LoginWorld.prototype = {
                 }
             }
             this._update_error_text(error_type, this.login_errors);
-        } else if (error_type === ERROR_CHECK_TTPE_CREATE_ACCOUNT) {
+        } else if (error_type === ERROR_CHECK_TYPE_CREATE_ACCOUNT) {
             for (var key in this.create_errors) {
                 if (this.create_errors.hasOwnProperty(key)) {
                     this.create_errors[field] = text;
@@ -73,7 +73,9 @@ LoginWorld.prototype = {
                 this.create_errors[field] = field + ' can not be less than 4 characters!';
             } else {
                 if (field in this.create_errors) {
-                    delete this.create_errors[field];
+                    if (this.create_errors[field].length > 3) {
+                        delete this.create_errors[field];
+                    }
                 }
             }
             this._update_error_text(error_type, this.create_errors);
@@ -226,6 +228,8 @@ LoginWorld.prototype = {
         this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0);
         this.login_username_input.set_syntax_type(TEXT_SYNTAX_FOUR_MINIMUM);
         this.login_username_input.set_value_changed_function(this._text_error_check.bind(this, 'username', ERROR_CHECK_TYPE_LOGIN));
+
+        this.login_username_input.set_background_color(COLOR_FLOATING_WALL_ERROR);
 
         this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 1);
         this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 1);
