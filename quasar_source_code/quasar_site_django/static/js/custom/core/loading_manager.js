@@ -45,7 +45,7 @@ TextureGroup.prototype = {
             this.world_home.provide_cursor_material(cursor_material, texture_name);
             this.world_settings.provide_cursor_material(cursor_material, texture_name);
             break;
-            case TEXTURE_GROUP_ICONS:
+        case TEXTURE_GROUP_ICONS:
             // TODO : CHANGE THIS
             this.number_of_icons_loaded = 50505050;
             if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
