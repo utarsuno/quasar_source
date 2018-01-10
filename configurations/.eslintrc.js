@@ -43,7 +43,6 @@ module.exports = {
         "CSSRendererAPI": true,
         "FPSControls": true,
         "ShaderAPI": true,
-        "CUSTOM_COLORS": true,
         "Client": true,
         "World": true,
         "WebSocketClient": false,
@@ -64,11 +63,13 @@ module.exports = {
         "HomeWorld": true,
         "SettingsWorld": true,
 
-        "Crosshair": true,
         "PostHelper": true,
 
-        "Interactive": true,
-        "Visibility": true,
+        "Interactive"      : true,
+        "TextSyntax"       : true,
+        "InheritableButton": true,
+        "Visibility"       : true,
+
         "DomElement": false,
 
         // Global Managers.
@@ -82,6 +83,7 @@ module.exports = {
         "MANAGER_INPUT"       : true,
         "MANAGER_POINTER_LOCK": true,
         "MANAGER_DATA_DISPLAY": true,
+        "MANAGER_LOADING"     : true,
         // and their class names.
         "WorldManager"      : false,
         "AudioManager"      : false,
@@ -91,6 +93,7 @@ module.exports = {
         "InputManager"      : false,
         "PointerLockManager": false,
         "DataDisplay"       : false,
+        "LoadingManager"    : false,
 
         // Global objects.
         "CURRENT_PLAYER": true,
@@ -123,6 +126,8 @@ module.exports = {
         "Entity": false,
         "EntityWall": false,
         "CreateEntity": false,
+
+        "TextSyntaxManager": true,
 
         // From globals.js
         "NOT_FOUND": false,
@@ -211,6 +216,10 @@ module.exports = {
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "TEXTURE_GROUP_SKYBOX": true,
+        "TEXTURE_GROUP_CURSOR": true,
+        "TEXTURE_GROUP_ICONS" : true,
+
         // UNIVERSAL_CONSTANTS_START : Cursor types.
         "CURSOR_TYPE_HORIZONTAL": true,
         "CURSOR_TYPE_VERTICAL"  : true,
@@ -227,6 +236,11 @@ module.exports = {
         "SKYBOX_RIGHT" : true,
         "SKYBOX_TOP"   : true,
         "SKYBOX_BOTTOM": true,
+        // UNIVERSAL_CONSTANTS_END
+
+        // UNIVERSAL_CONSTANTS_START : Text syntax error checks.
+        "TEXT_SYNTAX_STANDARD_LENGTH": true,
+        "TEXT_SYNTAX_EMAIL"          : true,
         // UNIVERSAL_CONSTANTS_END
 
         "CELL_PHONE_CARRIERS": false,
@@ -266,14 +280,15 @@ module.exports = {
         "ICON_LEFT"        : false,
         "ICON_RIGHT"       : false,
         "ICON_CROSS"       : false,
+        "ICON_WORLDS"      : false,
+        "ICON_LOCKED"      : false,
+        "ICON_UNLOCKED"    : false,
+        "ICON_WARNING"     : false,
         // UNIVERSAL_CONSTANTS_END
 
         "TEXT_FORMAT_LEFT"        : false,
         "TEXT_FORMAT_CENTER"      : false,
         "TEXT_FORMAT_RIGHT"       : false,
-        "TEXT_SYNTAX_FOUR_MINIMUM": false,
-        "TEXT_SYNTAX_EMAIL"       : false,
-        "TEXT_SYNTAX_PASSWORD"    : false,
 
         "get_color_range_list": false,
 

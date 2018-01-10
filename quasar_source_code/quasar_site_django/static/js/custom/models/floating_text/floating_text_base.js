@@ -1,6 +1,6 @@
 'use strict';
 
-function FloatingText(width, text, type, scene, current_color) {
+function FloatingText(width, text, type, scene) {
 
     this.get_text_length = function() {
         if (this.is_2D_text) {
@@ -19,27 +19,10 @@ function FloatingText(width, text, type, scene, current_color) {
     this.object3D      = new THREE.Object3D();
     this.current_color = null;
     this.default_color = null;
-    this.syntax_type   = null;
     this.format_type   = null;
 
     // Default value.
     this.normal_depth  = 1;
-
-    if (is_defined(current_color)) {
-        this.current_color = current_color;
-        this.default_color = current_color;
-    }
-    // Convert to the correct color type.
-    if (is_list(this.current_color)) {
-        var temp = this.current_color;
-        if (this.is_2D_text) {
-            this.current_color = temp[COLOR_STRING_INDEX];
-            this.default_color = temp[COLOR_STRING_INDEX];
-        } else {
-            this.current_color = temp[COLOR_HEX_INDEX];
-            this.default_color = temp[COLOR_HEX_INDEX];
-        }
-    }
 
     if (this.type === TYPE_INPUT_PASSWORD) {
         this.text = '';
@@ -81,36 +64,16 @@ function FloatingText(width, text, type, scene, current_color) {
         }
 
         if (this.type === TYPE_BUTTON) {
-            this._disabled = false;
+            // Inherit from InheritableButton.
+            InheritableButton.call(this);
         }
     };
 
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-    // Used for buttons.
-    this.disable = function() {
-        if (this.type === TYPE_BUTTON) {
-            this.previous_default_color = this.default_color;
-            this.set_default_color(COLOR_RED);
-            this._disabled = true;
-        }
-    };
-
-    // Used for buttons.
-    this.enable = function() {
-        if (this.type === TYPE_BUTTON) {
-            this.set_default_color(this.previous_default_color);
-            this._disabled = false;
-        }
-    };
-
     this.set_format_type = function(format_type) {
         this.format_type = format_type;
-    };
-
-    this.set_syntax_type = function(syntax_type) {
-        this.syntax_type = syntax_type;
     };
 
     this.set_default_color = function(default_color) {
@@ -168,6 +131,9 @@ function FloatingText(width, text, type, scene, current_color) {
             }
             this.text = text;
             this._update_text();
+            if (this._requires_syntax_checks) {
+                this.perform_syntax_checks();
+            }
         }
     };
 

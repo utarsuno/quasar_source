@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating2DText(w, text, type, scene, current_color) {
-    this.__init__(w, text, type, scene, current_color);
+function Floating2DText(w, text, type, scene, syntax_checks) {
+    this.__init__(w, text, type, scene, syntax_checks);
 }
 
 const TEMP_SMUDGE_FACTOR = 0.75;
@@ -12,6 +12,8 @@ Floating2DText.prototype = {
     dynamic_texture: null,
 
     current_background_color: null,
+
+    tool_tip_text: null,
 
     _update_text: function() {
         if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
@@ -68,11 +70,23 @@ Floating2DText.prototype = {
         } else {
             this.default_background_color = color;
         }
+        this._update_text(this.get_text());
+    },
+
+    perform_syntax_checks: function() {
+        var results = this.syntax_check();
+        if (results !== '') {
+            this.set_background_color(COLOR_FLOATING_WALL_ERROR);
+        } else {
+            this.set_background_color(COLOR_TRANSPARENT);
+        }
     },
 
     initialize: function(add_to_scene) {
         this.default_background_color = COLOR_TRANSPARENT;
         this.current_background_color = COLOR_TRANSPARENT;
+
+
 
         if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
             this.height = 26;
@@ -160,11 +174,25 @@ Floating2DText.prototype = {
         }
     },
 
-    __init__: function(w, text, type, scene, current_color) {
+    __init__: function(w, text, type, scene, syntax_checks) {
         this.is_2D_text = true;
 
+        if (is_defined(syntax_checks)) {
+
+            // Inherit from TextSyntax.
+            TextSyntax.call(this, syntax_checks);
+
+            for (var key in syntax_checks) {
+                if (syntax_checks.hasOwnProperty(key)) {
+                    this.add
+                }
+            }
+        } else {
+            this._requires_syntax_checks = false;
+        }
+
         // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene, current_color);
+        FloatingText.call(this, w, text, type, scene);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

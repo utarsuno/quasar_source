@@ -248,4 +248,7 @@ canvas {
 
 #canvas_id {
     left: 0;
+    position: absolute;
+    z-index: 1;
+    top: 0;
 }

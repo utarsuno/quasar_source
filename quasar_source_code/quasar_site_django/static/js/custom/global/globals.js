@@ -20,6 +20,7 @@ var MANAGER_RENDERER     = null;
 var MANAGER_INPUT        = null;
 var MANAGER_POINTER_LOCK = null;
 var MANAGER_DATA_DISPLAY = null;
+var MANAGER_LOADING      = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
@@ -178,17 +179,36 @@ const COLOR_FLOATING_WALL_ERROR     = [0x230002, '#230002'];
 const COLOR_TRANSPARENT             = 'rgba(255, 255, 255, 0.0)';
 // UNIVERSAL_CONSTANTS_END
 
-// UNIVERSAL_CONSTANTS_START : Icons.
+// UNIVERSAL_CONSTANTS_START : Texture types.
+const TEXTURE_GROUP_SKYBOX = 'skybox/';
+const TEXTURE_GROUP_CURSOR = 'cursors/';
+const TEXTURE_GROUP_ICONS  = 'icons/';
+// UNIVERSAL_CONSTANTS_END
+
+// UNIVERSAL_CONSTANTS_START : Textures for icons.
 const ICON_EXIT         = 'exit.png';
 const ICON_SETTINGS     = 'gear.png';
-const ICON_MULTIPLAYER  = 'massiveMultiplayer.png';
+const ICON_MULTIPLAYER  = 'multiplayer.png.png';
 const ICON_HOME         = 'home.png';
 const ICON_SAVE         = 'save.png';
-const ICON_ENTITY_GROUP = 'share2.png';
+const ICON_ENTITY_GROUP = 'share.png';
 const ICON_FULLSCREEN   = 'larger.png';
-const ICON_LEFT         = 'arrowLeft.png';
-const ICON_RIGHT        = 'arrowRight.png';
+const ICON_LEFT         = 'arrow_left.png';
+const ICON_RIGHT        = 'arrow_right.png';
 const ICON_CROSS        = 'cross.png';
+const ICON_WORLDS       = 'bars_horizontal.png';
+const ICON_LOCKED       = 'locked.png';
+const ICON_UNLOCKED     = 'unlocked.png';
+const ICON_WARNING      = 'warning';
+// UNIVERSAL_CONSTANTS_END
+
+// UNIVERSAL_CONSTANTS_START : Textures for skybox.
+const SKYBOX_FRONT  = 'front.jpg';
+const SKYBOX_BACK   = 'back.jpg';
+const SKYBOX_LEFT   = 'left.jpg';
+const SKYBOX_RIGHT  = 'right.jpg';
+const SKYBOX_TOP    = 'top.jpg';
+const SKYBOX_BOTTOM = 'bottom.jpg';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Cursor types.
@@ -203,18 +223,7 @@ const CURSOR_TYPE_MOUSE      = 'mouse.png';
 const TEXT_FORMAT_LEFT         = 'text_format_left';
 const TEXT_FORMAT_CENTER       = 'text_format_center';
 const TEXT_FORMAT_RIGHT        = 'text_format_right';
-const TEXT_SYNTAX_FOUR_MINIMUM = 'text_syntax_for_minimum';
-const TEXT_SYNTAX_EMAIL        = 'text_syntax_email';
-const TEXT_SYNTAX_PASSWORD     = 'text_syntax_password';
 
-// UNIVERSAL_CONSTANTS_START : Skybox textures.
-const SKYBOX_FRONT  = 'front.jpg';
-const SKYBOX_BACK   = 'back.jpg';
-const SKYBOX_LEFT   = 'left.jpg';
-const SKYBOX_RIGHT  = 'right.jpg';
-const SKYBOX_TOP    = 'top.jpg';
-const SKYBOX_BOTTOM = 'bottom.jpg';
-// UNIVERSAL_CONSTANTS_END
 
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',
@@ -302,6 +311,11 @@ const DISPLAY_SHOW = 'block';
 const DELTA_YEARS  = 'delta_years';
 const DELTA_DAYS   = 'delta_days';
 const DELTA_MONTHS = 'delta_months';
+
+// UNIVERSAL_CONSTANTS_START : Text syntax error checks.
+const TEXT_SYNTAX_STANDARD_LENGTH = 'Text length must be greater than 3 characters and less than 32.'
+const TEXT_SYNTAX_EMAIL           = 'Text must match email snytax rules.'
+// UNIVERSAL_CONSTANTS_END
 
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`

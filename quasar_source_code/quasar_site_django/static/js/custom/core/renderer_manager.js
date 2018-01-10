@@ -48,14 +48,14 @@ RendererManager.prototype = {
 
             this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
-            this.renderer.domElement.style.position = 'absolute';
-            this.renderer.domElement.style.zIndex = 1;
-            this.renderer.domElement.style.top = 0;
+            // TODO : Eventually delete this code.
+            //this.renderer.domElement.style.position = 'absolute';
+            //this.renderer.domElement.style.zIndex = 1;
+            //this.renderer.domElement.style.top = 0;
 
             document.body.appendChild(this.renderer.domElement);
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
-
 
             this.currently_fullscreen = false;
         }
@@ -86,10 +86,6 @@ RendererManager.prototype = {
         this.renderer.setSize(this.window_width, this.window_height);
 
         GUI_TYPING_INTERFACE.window_was_resized();
-    },
-
-    set_camera: function(camera) {
-        this.camera = camera;
     },
 
     is_webgl_enabled: function() {

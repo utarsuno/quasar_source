@@ -1,34 +1,5 @@
 'use strict';
 
-/*__        __   __             __
- / _` |    /  \ |__)  /\  |    /__`
- \__> |___ \__/ |__) /~~\ |___ .__/ */
-
-// A global manager to load first.
-//MANAGER_SHADER      = new ShaderAPI();
-
-// Careful setting the creation order of the managers.
-// TODO : Eventually CodeAPI should automatically set the import order.
-
-MANAGER_RENDERER = new RendererManager();
-MANAGER_INPUT    = new InputManager();
-
-// Model of the user.
-CURRENT_PLAYER = new Player();
-
-MANAGER_POINTER_LOCK = new PointerLockManager(CURRENT_PLAYER.fps_controls);
-MANAGER_DATA_DISPLAY = new DataDisplay(CURRENT_PLAYER.fps_controls);
-
-MANAGER_COOKIES     = Cookies.noConflict();
-MANAGER_WORLD       = new WorldManager();
-MANAGER_ENTITY      = new EntityManager();
-MANAGER_MULTIPLAYER = new MultiPlayerManager();
-
-// Global 2D GUI objects.
-GUI_PAUSED_MENU      = new PausedMenu();
-GUI_TYPING_INTERFACE = new TypingInterface();
-
-//var drag_and_drop_file_support = new DragNDrop();
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
@@ -36,15 +7,10 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 // Sets the player and current world.
 MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
 
-// On start up we will display the paused menu.
-GUI_PAUSED_MENU.make_visible();
-
-// Now create the global audio.
-MANAGER_AUDIO = new AudioManager();
+MANAGER_LOADING.perform_initial_load();
 
 // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
 GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
-
 
 // Game loop below.
 

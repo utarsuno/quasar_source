@@ -75,21 +75,6 @@ Planet.prototype = {
     }
 };
 
-const TEXTURE_URL_BASE = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/';
-const TEXTURE_URL_SKYBOX = TEXTURE_URL_BASE + 'skybox/skybox_texture_';
-const TEXTURE_URL_CURSOR = TEXTURE_URL_BASE + 'cursors/';
-const TEXTURE_URL_ICONS  = TEXTURE_URL_BASE + 'icons/';
-
-// TODO : Eventually make this into a configurable setting.
-const CURSOR_DEFAULT_OPACITY = 0.90;
-
-// TODO : Eventually make this into a configurable setting.
-const SKYBOX_DEFAULT_OPACITY = 0.50;
-
-// TODO : make this dynamic.
-const NUMBER_OF_SKYBOX_TEXTURES = 6;
-const NUMBER_OF_ICON_TEXTURES = 10;
-
 WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
@@ -112,43 +97,6 @@ WorldManager.prototype = {
         this.world_settings = new SettingsWorld();
 
         this.all_worlds = [this.world_login, this.world_home, this.world_settings];
-
-        this.sky_box_textures = [];
-        this.final_textures = [];
-
-        this.icon_textures = [];
-
-        this.number_of_sky_box_textures_loaded = 0;
-        this.number_of_icons_loaded = 0;
-
-        // The textures to load.
-        this.textures_to_load = [];
-        // Load the cursors.
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HORIZONTAL);
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_VERTICAL);
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_HAND);
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_POINTER);
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_LARGER);
-        this.textures_to_load.push(TEXTURE_URL_CURSOR + CURSOR_TYPE_MOUSE);
-        // Load the skybox textures.
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_FRONT);
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BACK);
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_TOP);
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_BOTTOM);
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_RIGHT);
-        this.textures_to_load.push(TEXTURE_URL_SKYBOX + SKYBOX_LEFT);
-        // Load the icons.
-        // TODO : Dynamically update the number of icon textures.
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_EXIT);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SETTINGS);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_ENTITY_GROUP);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_HOME);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_MULTIPLAYER);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_SAVE);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_FULLSCREEN);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_LEFT);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_RIGHT);
-        this.textures_to_load.push(TEXTURE_URL_ICONS + ICON_CROSS);
 
         // TODO : Eventually give this to some sort of loading/ajax manager.
         this.load_textures();
@@ -221,75 +169,4 @@ WorldManager.prototype = {
         this.world_settings.add_sky_box(this.final_textures);
     },
 
-    // TODO : Create texture manager?
-    get_icon_texture: function(texture_name) {
-        for (var i = 0; i < this.icon_textures.length; i++) {
-            if (this.icon_textures[i][1].includes(texture_name)) {
-                return this.icon_textures[i][0];
-            }
-        }
-        // throw exception?
-        return null;
-    },
-
-    texture_loaded: function(texture, texture_name) {
-        if (texture_name.includes('skybox')) {
-            // Skybox.
-            var position = -1;
-            if (texture_name.includes(SKYBOX_FRONT)) {
-                position = 0;
-            } else if (texture_name.includes(SKYBOX_BACK)) {
-                position = 1;
-            } else if (texture_name.includes(SKYBOX_TOP)) {
-                position = 2;
-            } else if (texture_name.includes(SKYBOX_BOTTOM)) {
-                position = 3;
-            } else if (texture_name.includes(SKYBOX_RIGHT)) {
-                position = 4;
-            } else if (texture_name.includes(SKYBOX_LEFT)) {
-                position = 5;
-            }
-            this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
-
-            this.number_of_sky_box_textures_loaded += 1;
-            if (this.number_of_sky_box_textures_loaded === NUMBER_OF_SKYBOX_TEXTURES) {
-                this.create_sky_boxes();
-            }
-
-        } else if (texture_name.includes('cursors')) {
-            // Cursors.
-            var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
-            this.world_login.provide_cursor_material(cursor_material, texture_name);
-            this.world_home.provide_cursor_material(cursor_material, texture_name);
-            this.world_settings.provide_cursor_material(cursor_material, texture_name);
-        } else if (texture_name.includes('icons')) {
-            // Icons.
-            this.icon_textures.push([texture, texture_name]);
-            this.number_of_icons_loaded += 1;
-            if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
-                // The parameters passed in are the icons not to load.
-                this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
-                this.world_home.player_menu.load_icon_textures([ICON_HOME]);
-                this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-            }
-        }
-    },
-
-    load_textures: function() {
-        for (var t = 0; t < this.textures_to_load.length; t++) {
-            new THREE.TextureLoader().load(this.textures_to_load[t],
-                //function when resource is loaded
-                function(texture) {
-                    this.texture_loaded(arguments[1], arguments[0]);
-                }.bind(this, this.textures_to_load[t]),
-                // FOR_DEV_START
-                function(xhr) {
-                    l((xhr.loaded / xhr.total * 100) + '% loaded for texture file.');
-                },
-                function(xhr) {
-                    l(xhr);
-                });
-            // FOR_DEV_END
-        }
-    }
 };

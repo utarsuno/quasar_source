@@ -365,9 +365,9 @@ FloatingWall.prototype = {
         floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z), this.normal);
     },
 
-    add_floating_2d_text: function(x_start, x_end, text, type, row) {
+    add_floating_2d_text: function(x_start, x_end, text, type, row, syntax_checks) {
         var floating_2d_text_width = this.width * (x_end - x_start);
-        var floating_2D_text = new Floating2DText(floating_2d_text_width, text, type, this.scene);
+        var floating_2D_text = new Floating2DText(floating_2d_text_width, text, type, this.scene, syntax_checks);
 
         floating_2D_text.parent_floating_wall = this;
         floating_2D_text.pfw_x_start = x_start;

@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating3DText(text, type, scene, current_color) {
-    this.__init__(text, type, scene, current_color);
+function Floating3DText(text, type, scene) {
+    this.__init__(text, type, scene);
 }
 
 Floating3DText.prototype = {
@@ -16,6 +16,8 @@ Floating3DText.prototype = {
     current_text_object: null,
 
     initialize: function() {
+        this._requires_syntax_checks = false;
+
         if (this.type === TYPE_SUPER_TITLE || this.type === TYPE_SUPER_TITLE_CONSTANT) {
             this.height = 32 * 4;
             this.size = 40 * 4;
@@ -87,11 +89,11 @@ Floating3DText.prototype = {
         }
     },
 
-    __init__: function(text, type, scene, current_color) {
+    __init__: function(text, type, scene) {
         this.is_2D_text = false;
 
         // Inherit from FloatingText.
-        FloatingText.call(this, 0, text, type, scene, current_color);
+        FloatingText.call(this, 0, text, type, scene);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
