@@ -133,6 +133,7 @@ Floating2DText.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         /*
+        // small push to do a force pull
         // Shader testing
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: {
