@@ -291,7 +291,7 @@ function FloatingText(width, text, type, scene, current_color) {
             this.update_color(COLOR_HIGHLIGHT);
         } else {
             if (this.hasOwnProperty('current_background_color')) {
-                this.background_color = this.default_background_color;
+                this.current_background_color = this.default_background_color;
             }
             this.update_color(this.default_color);
         }
