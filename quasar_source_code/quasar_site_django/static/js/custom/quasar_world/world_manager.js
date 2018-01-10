@@ -95,8 +95,6 @@ WorldManager.prototype = {
         this.world_login = new LoginWorld();
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
-
-        MANAGER_LOADING.load_textures();
     },
 
     set_player_and_current_world: function(current_world) {
@@ -164,6 +162,6 @@ WorldManager.prototype = {
         this.world_login.add_sky_box(this.final_textures);
         this.world_home.add_sky_box(this.final_textures);
         this.world_settings.add_sky_box(this.final_textures);
-    },
+    }
 
 };
