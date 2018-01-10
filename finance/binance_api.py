@@ -59,7 +59,7 @@ class BinancePOST(object):
 		self._secret_key = secret_key
 		self.args = {}
 		self.is_post = True
-		if self._url == _URL_GET_ACCOUNT_TRADES:
+		if self._url == _URL_GET_ACCOUNT_TRADES or self._url == _URL_GET_ACCOUNT_INFORMATION:
 			self.is_post = False
 
 	@property
@@ -119,7 +119,7 @@ class BinancePOST(object):
 				arguments.append(POSTKey(a, self.args[a]))
 
 		# Sort the list of arguments in place. From : https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects
-		arguments.sort(key=lambda x: x.key, reverse=True)
+		arguments.sort(key=lambda x: x.key, reverse=False)
 
 		args_as_tuple = ()
 		for a in arguments:
@@ -154,16 +154,16 @@ class BinanceAPI(object):
 		self._session    = None
 		self._listen_key = None
 
-		logging.basicConfig(level=logging.DEBUG)
+		#logging.basicConfig(level=logging.DEBUG)
 
 		self._POST_connect = BinancePOST(_URL_POST_CONNECT, self._secret_key)
 
 	def connect(self):
 		"""Creates a session."""
 		self._session = r.Session()
-		#BinanceAPI.SESSION_HEADER_0_KEY: 'application/json'
-		#BinanceAPI.SESSION_HEADER_1_KEY: BinanceAPI.SESSION_HEADER_1_VALUE,
-		self._session.headers.update({BinanceAPI.SESSION_HEADER_2_KEY: self._api_key})
+		self._session.headers.update({BinanceAPI.SESSION_HEADER_0_KEY: 'application/json',
+		                              BinanceAPI.SESSION_HEADER_2_KEY: self._api_key,
+		                              BinanceAPI.SESSION_HEADER_1_KEY: BinanceAPI.SESSION_HEADER_1_VALUE})
 
 		self._listen_key = self.run_POST(self._POST_connect)
 		if self._listen_key.status_code == us.HTTP_SUCCESS:
@@ -171,10 +171,32 @@ class BinanceAPI(object):
 		else:
 			dbg.raise_exception('Failed to obtain listen key!')
 
-	def get_account_trades(self):
+	def _eval_response(self, raw_data):
+		"""Converts the server reply into a Python data type."""
+		if type(raw_data) != str:
+			dbg.raise_exception('A non string was passed to _eval_response {' + str(raw_data))
+
+		raw_data = raw_data.replace('true', 'True').replace('false', 'False')
+		return eval(raw_data)
+
+	def get_account_information(self):
 		"""Returns information on this account."""
+		bp = BinancePOST(_URL_GET_ACCOUNT_INFORMATION, self._secret_key)
+		result = self.run_POST(bp)
+		if result.status_code == us.HTTP_SUCCESS:
+			data = self._eval_response(result.text)
+			return data
+		return result
+
+	def get_account_trades(self):
+		"""Returns all trades made by this account."""
 		bp = BinancePOST(_URL_GET_ACCOUNT_TRADES, self._secret_key)
-		return self.run_POST(bp)
+		result = self.run_POST(bp)
+		if result.status_code == us.HTTP_SUCCESS:
+			d = self._eval_response(result.text)
+			return d
+		print('Get account trades failed! : {' + result.text + '}')
+		return result
 
 	def run_POST(self, binance_post):
 		"""Runs the provided POST method."""
@@ -184,18 +206,22 @@ class BinanceAPI(object):
 			binance_post.add_parameter(POST_KEY_SIGNATURE)
 		elif binance_post.url == _URL_GET_ACCOUNT_TRADES:
 			binance_post.add_parameter(POST_KEY_SYMBOL, 'IOTABTC')
-			binance_post.add_parameter(POST_KEY_RECEIVE_WINDOW, 5000)
+			binance_post.add_parameter(POST_KEY_RECEIVE_WINDOW, 6000000)
 			binance_post.add_parameter(POST_KEY_TIMESTAMP)
 			binance_post.add_parameter(POST_KEY_SIGNATURE)
+
 
 		#if binance_post.is_post:
 		#	self._session.headers.update({BinanceAPI.SESSION_HEADER_0_KEY: 'application/x-www-form-urlencoded'})
 		#else:
 		#	self._session.headers.update({BinanceAPI.SESSION_HEADER_0_KEY: 'application/json'})
 
-		print('Making a call on : {' + str(binance_post) + '}')
+		#print('Making a call on : {' + str(binance_post) + '}')
 
 		if len(binance_post.args) > 0:
+
+			#print(binance_post.get_ordered_arguments_as_tuple())
+
 			if binance_post.is_post:
 
 				#print(binance_post.full_url)
@@ -204,6 +230,11 @@ class BinanceAPI(object):
 				response = self._session.post(binance_post.full_url, params=binance_post.get_ordered_arguments_as_tuple())
 			else:
 				response = self._session.get(binance_post.full_url, params=binance_post.get_ordered_arguments_as_tuple())
+
+
+			#print(response.url)
+			#print(response.headers)
+
 		else:
 			if binance_post.is_post:
 				response = self._session.post(binance_post.full_url)
@@ -213,37 +244,17 @@ class BinanceAPI(object):
 
 api = BinanceAPI()
 api.connect()
-#api.get_test()
 
-trades = api.get_account_trades()
+#r = api.get_account_information()
+
+#api.get_test()
 
 #trades = api.run_POST(API_GET_ACCOUNT_TRADES, {'symbol': 'IOTABTC'})
 
-print(trades)
-print(trades.text)
-print(trades.content)
-print(trades.elapsed)
-print(trades.headers)
-print('\n')
-print(trades.history)
-print(trades.json)
-print(trades.reason)
-print(trades.json)
-print(type(trades.json))
-print('---')
-'''
-	def get_test(self):
-		"""Gets current exchange information."""
-		print('test start')
-		self.test = self._session.get(self._api_url + '/api/v1/trades', params={'symbol': 'IOTABTC'})
-		print(self.test.text)
 
-		text = eval(self.test.text.replace('true', 'True').replace('false', 'False'))
+trades = api.get_account_trades()
 
-		for t in text:
-			print(t)
-'''
+for t in trades:
+	print(t)
 
-# c3b0d91d720b736b11ff8ecb704e8b4548eb866bfb9f7fb7e8f9137d6c6edce5
-# 596341df177bd2f1dc9756608a4b8960cc3297c1f4a6d75408e9a30dff138bbe
-# 4a411a8d12616b5c218a1ed4f0a7201be5154ab9a097e572458ada7a8798740b
+#print(trades)

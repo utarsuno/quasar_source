@@ -43,8 +43,11 @@ def _is_valid_path_parameter(path):
 # TODO : create unit tests for this function!
 def get_all_file_lines(file_path) -> list:
 	"""Return a list of strings that represent all the lines in the file."""
-	y = 2
-	# TODO : ...
+	file_lines = []
+	with open(file_path, 'r') as f:
+		for l in f:
+			file_lines.append(l)
+	return file_lines
 
 
 # TODO : create unit tests for this function!
