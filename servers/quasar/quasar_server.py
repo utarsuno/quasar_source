@@ -114,7 +114,7 @@ if len(arguments) == 1:
 		print('Printing all data!')
 		results = quasar_server.get_all_data()
 
-		clean_data = eval(results)
+		clean_data = eval(results.replace('ObjectId', ''))
 		print(clean_data)
 		print(type(clean_data))
 
