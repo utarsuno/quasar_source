@@ -22,21 +22,22 @@ MANAGER_POINTER_LOCK = new PointerLockManager(CURRENT_PLAYER.fps_controls);
 MANAGER_DATA_DISPLAY = new DataDisplay(CURRENT_PLAYER.fps_controls);
 
 
-// 0x4 : Handles most if not all of the resource loading.
+// 0x4 : The paused menu.
+GUI_PAUSED_MENU      = new PausedMenu();
+// 0x4 : The HTML typing interface.
+GUI_TYPING_INTERFACE = new TypingInterface();
+
+
+// 0x5 : Handles most if not all of the resource loading.
 MANAGER_LOADING     = new LoadingManager();
-// 0x4 : Handles all audio operations.
+// 0x5 : Handles all audio operations.
 MANAGER_AUDIO       = new AudioManager();
-// 0x4 : Handles cookies.
+// 0x5 : Handles cookies.
 MANAGER_COOKIES     = Cookies.noConflict();
-// 0x4 : Handles all static and dynamic worlds.
+// 0x5 : Handles all static and dynamic worlds.
 MANAGER_WORLD       = new WorldManager();
-// 0x4 : Handles all user and shared entities.
+// 0x5 : Handles all user and shared entities.
 MANAGER_ENTITY      = new EntityManager();
-// 0x4 : Handles all multi-player/online interaction.
+// 0x5 : Handles all multi-player/online interaction.
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
-
-// 0x5 : The paused menu.
-GUI_PAUSED_MENU      = new PausedMenu();
-// 0x5 : The HTML typing interface.
-GUI_TYPING_INTERFACE = new TypingInterface();

@@ -174,9 +174,7 @@ LoadingManager.prototype = {
         this.currently_loading = false;
 
         this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR);
-
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX);
-
         this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS);
     },
 
@@ -195,8 +193,9 @@ LoadingManager.prototype = {
     perform_initial_load: function() {
         this.currently_loading = true;
 
-
-        // TODO : Perform the needed initial loads here!!!
+        this.textures_cursor.load_textures();
+        this.textures_skybox.load_textures();
+        this.textures_icon.load_textures();
 
 
         GUI_PAUSED_MENU.make_visible();
