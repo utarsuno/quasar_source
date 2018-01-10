@@ -45,9 +45,9 @@ TextureGroup.prototype = {
             this.world_home.provide_cursor_material(cursor_material, texture_name);
             this.world_settings.provide_cursor_material(cursor_material, texture_name);
             break;
-        case TEXTURE_GROUP_ICONS:
-            this.icon_textures.push([texture, texture_name]);
-            this.number_of_icons_loaded += 1;
+            case TEXTURE_GROUP_ICONS:
+            // TODO : CHANGE THIS
+            this.number_of_icons_loaded = 50505050;
             if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
                 // The parameters passed in are the icons not to load.
                 this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
