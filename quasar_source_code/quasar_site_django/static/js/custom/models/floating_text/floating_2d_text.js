@@ -63,7 +63,11 @@ Floating2DText.prototype = {
     },
 
     set_background_color: function(color) {
-        this.default_background_color = color;
+        if (is_list(color)) {
+            this.default_background_color = color[COLOR_STRING_INDEX];
+        } else {
+            this.default_background_color = color;
+        }
     },
 
     initialize: function(add_to_scene) {
