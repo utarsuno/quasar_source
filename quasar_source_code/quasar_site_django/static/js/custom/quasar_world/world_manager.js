@@ -96,10 +96,7 @@ WorldManager.prototype = {
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
 
-        this.all_worlds = [this.world_login, this.world_home, this.world_settings];
-
-        // TODO : Eventually give this to some sort of loading/ajax manager.
-        this.load_textures();
+        MANAGER_LOADING.load_textures();
     },
 
     set_player_and_current_world: function(current_world) {
