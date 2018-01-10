@@ -7,6 +7,7 @@
 // Sets the player and current world.
 MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
 
+// Load all the initially needed resources. Once complete the paused menu will go away.
 MANAGER_LOADING.perform_initial_load();
 
 // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.

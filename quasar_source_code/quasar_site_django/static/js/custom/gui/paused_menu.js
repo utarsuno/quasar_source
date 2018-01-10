@@ -49,6 +49,14 @@ PausedMenu.prototype = {
 
     is_visible: function() {
         return this.currently_displayed;
+    },
+
+    set_title: function(t) {
+        this.pause_title.innerHTML = t;
+    },
+
+    set_sub_text: function(t) {
+        this.pause_sub_title.innerHTML = t;
     }
 };
 

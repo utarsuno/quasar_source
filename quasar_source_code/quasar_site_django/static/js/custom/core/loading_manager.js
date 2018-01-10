@@ -198,8 +198,8 @@ LoadingManager.prototype = {
         this.textures_icon.load_textures();
 
 
-        GUI_PAUSED_MENU.make_visible();
-        this.currently_loading = false;
+        //GUI_PAUSED_MENU.make_visible();
+        //this.currently_loading = false;
     }
 
 };
