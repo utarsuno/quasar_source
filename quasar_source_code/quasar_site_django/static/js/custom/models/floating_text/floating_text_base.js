@@ -285,13 +285,13 @@ function FloatingText(width, text, type, scene, current_color) {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
-            if (this.hasOwnProperty('background_color')) {
-                this.background_color = BACKGROUND_COLOR_FOCUS;
+            if (this.hasOwnProperty('current_background_color')) {
+                this.current_background_color = BACKGROUND_COLOR_FOCUS;
             }
             this.update_color(COLOR_HIGHLIGHT);
         } else {
-            if (this.hasOwnProperty('background_color')) {
-                this.background_color = COLOR_TRANSPARENT;
+            if (this.hasOwnProperty('current_background_color')) {
+                this.background_color = this.default_background_color;
             }
             this.update_color(this.default_color);
         }
