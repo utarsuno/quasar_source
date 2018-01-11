@@ -42,37 +42,11 @@ Floating2DText.prototype = {
         this.initialize(false);
     },
 
-    resource_cleanup: function() {
-        this.material.dispose();
-        this.geometry.dispose();
-        this.mesh.dispose();
-        this.object3D.remove(this.mesh);
-        /*
-        if (!keep_icons) {
-            if (is_defined(this._icon_to_the_right)) {
-                this.world.remove_from_interactive_then_scene(this._icon_to_the_right);
-            }
-            if (is_defined(this._icon_over_center)) {
-                this.world.remove_from_interactive_then_scene(this._icon_over_center);
-            }
-        }
-        */
-    },
-
-    set_background_color: function(color) {
-        if (is_list(color)) {
-            this.default_background_color = color[COLOR_STRING_INDEX];
-        } else {
-            this.default_background_color = color;
-        }
-        this.current_background_color = this.default_background_color;
-        this._update_text(this.get_text());
-    },
-
     set_tool_tip: function() {
         l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
     },
 
+    // TODO : Removing this portion Completly! Design is being cleaned up!
     initialize: function(add_to_scene) {
         if (this.type === TYPE_TITLE) {
             this.height = 26;
@@ -158,6 +132,26 @@ Floating2DText.prototype = {
         Visibility.call(this);
 
         this.final_initialize();
-    }
+    },
 
+    /*__        ___                 __
+     /  ` |    |__   /\  |\ | |  | |__)
+     \__, |___ |___ /~~\ | \| \__/ |    */
+    // TODO : This function is under construction!
+    resource_cleanup: function() {
+        this.material.dispose();
+        this.geometry.dispose();
+        this.mesh.dispose();
+        this.object3D.remove(this.mesh);
+        /*
+        if (!keep_icons) {
+            if (is_defined(this._icon_to_the_right)) {
+                this.world.remove_from_interactive_then_scene(this._icon_to_the_right);
+            }
+            if (is_defined(this._icon_over_center)) {
+                this.world.remove_from_interactive_then_scene(this._icon_over_center);
+            }
+        }
+        */
+    }
 };

@@ -17,7 +17,6 @@ function FloatingText(text, type, world, is_2D_text) {
     this.default_color = null;
     this.current_color = null;
 
-
     this.format_type   = null;
 
     // Default value.
@@ -32,9 +31,6 @@ function FloatingText(text, type, world, is_2D_text) {
     } else {
         this.text = text;
     }
-
-    // Call the child initialize functions.
-    this.initialize();
 
     // Gets called from child functions.
     this.final_initialize = function() {

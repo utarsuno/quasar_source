@@ -22,16 +22,7 @@ Floating3DText.prototype = {
     },
 
     _update_text: function() {
-        if (this.text_geometry !== null) {
-            this.text_geometry.dispose();
-            this.material.dispose();
-        }
-
-        if (this.current_text_object !== null) {
-            this.object3D.remove(this.current_text_object);
-            this.current_text_object.geometry.dispose();
-            this.current_text_object.material.dispose();
-        }
+        this.resource_cleanup();
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
@@ -84,5 +75,34 @@ Floating3DText.prototype = {
         Visibility.call(this);
 
         this.final_initialize();
+    },
+
+    /*__        ___                 __
+     /  ` |    |__   /\  |\ | |  | |__)
+     \__, |___ |___ /~~\ | \| \__/ |    */
+    // TODO : This function is under construction!
+    resource_cleanup: function() {
+        if (this.current_text_object !== null) {
+            this.object3D.remove(this.current_text_object);
+            this.current_text_object.geometry.dispose();
+            this.current_text_object.material.dispose();
+            this.current_text_object = null;
+        }
+
+
+        this.material.dispose();
+        this.geometry.dispose();
+        this.mesh.dispose();
+        this.object3D.remove(this.mesh);
+        /*
+        if (!keep_icons) {
+            if (is_defined(this._icon_to_the_right)) {
+                this.world.remove_from_interactive_then_scene(this._icon_to_the_right);
+            }
+            if (is_defined(this._icon_over_center)) {
+                this.world.remove_from_interactive_then_scene(this._icon_over_center);
+            }
+        }
+        */
     }
 };
