@@ -9,7 +9,7 @@ function InheritableButton() {
         l(this.previous_default_color);
         l(this.default_color);
 
-
+        // TODO : Fix this..
         this.previous_default_color = this.default_color;
         this.set_default_color(COLOR_RED);
         this._disabled = true;
@@ -20,9 +20,8 @@ function InheritableButton() {
         l('Button is now enabled! Setting the color to :');
         l(this.previous_default_color);
 
-        this.set_default_color(this.previous_default_color);
+        this.set_default_color(COLOR_GREEN);
         this._disabled = false;
     };
-
 
 }
