@@ -2,6 +2,15 @@
 
 function FloatingText(width, text, type, scene, is_2D_text) {
 
+    // Needs to be defined here for now.
+    this.get_text_length = function() {
+        if (this.is_2D_text) {
+            return this.dynamic_texture.getTextLength(this.text);
+        } else {
+            return this.width;
+        }
+    };
+
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
@@ -20,11 +29,11 @@ function FloatingText(width, text, type, scene, is_2D_text) {
     this.normal_depth  = 1;
 
     if (this.type === TYPE_PASSWORD) {
+        this.hidden_text = text;
         this.text = '';
-        for (var c = 0; c < text.length; c++) {
+        for (var c = 0; c < this.hidden_text.length; c++) {
             this.text += '*';
         }
-        this.hidden_text = text;
     } else {
         this.text = text;
     }
@@ -236,13 +245,6 @@ function FloatingText(width, text, type, scene, is_2D_text) {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    this.get_text_length = function() {
-        if (this.is_2D_text) {
-            return this.dynamic_texture.getTextLength(this.text);
-        } else {
-            return this.width;
-        }
-    };
 
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
