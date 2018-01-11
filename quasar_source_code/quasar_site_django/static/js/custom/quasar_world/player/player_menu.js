@@ -55,7 +55,11 @@ MenuIcon.prototype = {
     },
 
     hide_teleport_worlds: function() {
-        this.teleport_wall.hide();
+        if (!is_defined(this.teleport_world_needs_to_be_chosen)) {
+            this.teleport_wall.hide();
+        } else if (!this.teleport_world_needs_to_be_chosen) {
+            this.teleport_wall.hide();
+        }
     },
 
     select_a_world_to_teleport_to: function() {
@@ -71,8 +75,8 @@ MenuIcon.prototype = {
         this.row = row;
         this.object3D = new THREE.Object3D();
 
-
         if (this._icon_type === ICON_TELEPORT) {
+            this.teleport_world_needs_to_be_chosen = false;
             this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
             this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_TITLE, 0);
             this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_BUTTON, 2);
