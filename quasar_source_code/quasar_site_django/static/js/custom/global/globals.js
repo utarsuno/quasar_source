@@ -140,6 +140,7 @@ const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
 // UNIVERSAL_CONSTANTS_START : Floating text types.
 const TYPE_PASSWORD               = 'password';
 const TYPE_INPUT                  = 'input';
+const TYPE_ICON                   = 'icon';
 const TYPE_BUTTON                 = 'button';
 const TYPE_TITLE                  = 'title';
 const TYPE_SUPER_TITLE            = 'super_title';

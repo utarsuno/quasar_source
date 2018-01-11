@@ -559,8 +559,7 @@ FloatingWall.prototype = {
     _set_background_color: function(c) {
         if (is_list(c)) {
             // TODO : Automate this.
-            // 0 - COLOR_HEX_INDEX
-            c = c[0];
+            c = c[COLOR_HEX_INDEX];
         }
         //l('Setting floating wall background color to : ' + c);
         this.material.color.setHex(c);

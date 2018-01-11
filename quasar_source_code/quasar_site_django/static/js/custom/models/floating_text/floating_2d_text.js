@@ -85,8 +85,11 @@ Floating2DText.prototype = {
             this.height = 16;
         }
 
-        // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+
+        if (this.type === TYPE_ICON) {
+
+        }
 
         if (this.text === ICON_LEFT || this.text === ICON_RIGHT || this.text === ICON_CROSS) {
             this.material = new THREE.MeshBasicMaterial({
@@ -135,6 +138,11 @@ Floating2DText.prototype = {
                 this.scene.add(this.object3D);
             }
         }
+    },
+
+    display_icon_to_the_right: function(icon_type) {
+        l('TODO !!!! DISPLAY AN ICON TO THE RIGHT!!');
+
     },
 
     __init__: function(w, text, type, scene, syntax_checks) {

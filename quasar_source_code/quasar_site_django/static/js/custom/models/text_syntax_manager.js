@@ -29,8 +29,8 @@ TextSyntaxManager.prototype = {
                 label.set_background_color(COLOR_FLOATING_WALL_ERROR);
                 input.set_background_color(COLOR_FLOATING_WALL_ERROR);
 
-
                 // TODO : Add warning icon
+                input.display_icon_to_the_right(ICON_WARNING);
 
                 errors.push([label.get_text(), result]);
             } else {
