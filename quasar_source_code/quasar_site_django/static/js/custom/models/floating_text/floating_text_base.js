@@ -120,16 +120,21 @@ function FloatingText(width, text, type, scene) {
         }
     };
 
-    this._error_check_text = function() {
-        return this.get_text_length() > 3;
-    };
-
     this.update_text = function(text) {
-        if (this.text !== text) {
+        if (this.get_text() !== text) {
             if (is_defined(this.value_pre_changed_function)) {
                 this.value_pre_changed_function(text);
             }
-            this.text = text;
+            if (this.type === TYPE_INPUT_PASSWORD) {
+                this.hidden_text = '';
+                this.text = '';
+                for (var c = 0; c < text.length; c++) {
+                    this.hidden_text += text.charAt(c);
+                    this.text += '*';
+                }
+            } else {
+                this.text = text;
+            }
             this._update_text();
             if (is_defined(this.value_post_changed_function)) {
                 this.value_post_changed_function(text);
