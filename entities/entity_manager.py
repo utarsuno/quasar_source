@@ -80,6 +80,8 @@ class EntityManager(object):
 	def get_owner_entity(self):
 		"""Returns the Entity that represents the Entity Owner."""
 		for e in self._entities:
+			print('Currently looking at this entity:')
+			print(e)
 			if e.get_value(be.ENTITY_DEFAULT_PROPERTY_TYPE) == be.ENTITY_PROPERTY_OWNER:
 				return e
 		dbg.raise_exception('Entity owner not found!')
