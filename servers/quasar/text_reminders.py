@@ -50,4 +50,6 @@ class TextReminder(object):
 
 	def __init__(self):
 		y = 2
+		self.my_var = None
+
 

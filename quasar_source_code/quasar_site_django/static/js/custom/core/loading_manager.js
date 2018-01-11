@@ -8,12 +8,8 @@ const CURSOR_DEFAULT_OPACITY = 0.90;
 // TODO : Eventually make this into a configurable setting.
 const SKYBOX_DEFAULT_OPACITY = 0.50;
 
-// TODO : make this dynamic.
-const NUMBER_OF_SKYBOX_TEXTURES = 6;
-const NUMBER_OF_ICON_TEXTURES = 10;
-
-function TextureGroup() {
-    this.__init__();
+function TextureGroup(texture_group, loading_manager) {
+    this.__init__(texture_group, loading_manager);
 }
 
 // Utility variables.
@@ -22,22 +18,33 @@ const INDEX_TEXTURE_NAME = 1;
 const INDEX_TEXTURE      = 2;
 
 TextureGroup.prototype = {
-    __init__: function(texture_group) {
+    __init__: function(texture_group, loading_manager) {
         this._texture_group    = texture_group;
+        this._loading_manager  = loading_manager;
         this._texture_base_url = TEXTURE_URL_BASE + this._texture_group;
         this._textures = [];
         this._add_textures_needed();
+        this._number_of_textures_to_load = this._textures.length;
+        this._number_of_loaded_textures = 0;
     },
 
     get_texture: function(texture_name) {
-        for (var t = 0; t < this._textures.length; t++) {
+        for (var t = 0; t < this._number_of_textures_to_load; t++) {
             if (this._textures[t][INDEX_TEXTURE_NAME] === texture_name) {
                 return this._textures[t][INDEX_TEXTURE];
             }
         }
     },
 
-    texture_loaded: function(texture, texture_name) {
+    _texture_loaded: function(texture, texture_name) {
+        for (var t = 0; t < this._number_of_textures_to_load; t++) {
+            if (this._textures[t][INDEX_TEXTURE_NAME] === texture_name) {
+                this._textures[t][INDEX_TEXTURE] = texture;
+                this._number_of_loaded_textures += 1;
+                break;
+            }
+        }
+
         switch (this._texture_group) {
         case TEXTURE_GROUP_CURSOR:
             var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
@@ -46,10 +53,8 @@ TextureGroup.prototype = {
             this.world_settings.provide_cursor_material(cursor_material, texture_name);
             break;
         case TEXTURE_GROUP_ICONS:
-            // TODO : CHANGE THIS
-            this.number_of_icons_loaded = 50505050;
-            if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
-                // The parameters passed in are the icons not to load.
+            if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
+                // The parameters passed in are the icons not to load from the set of standard player menu icons.
                 this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
                 this.world_home.player_menu.load_icon_textures([ICON_HOME]);
                 this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
@@ -106,7 +111,7 @@ TextureGroup.prototype = {
                     l(arguments[0]);
                     l('ARG 1');
                     l(arguments[1]);
-                    this.texture_loaded(arguments[1], arguments[0]);
+                    this._texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this._textures[t][INDEX_TEXTURE_NAME]),
                 // FOR_DEV_START
                 function(xhr) {
@@ -171,11 +176,9 @@ LoadingManager.prototype = {
     currently_loading: null,
 
     __init__: function() {
-        this.currently_loading = false;
-
-        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR);
-        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX);
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS);
+        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this);
+        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this);
+        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS , this);
     },
 
     get_texture: function(texture_group, texture_name) {
@@ -191,6 +194,7 @@ LoadingManager.prototype = {
 
     // Occurs only once on website start up.
     perform_initial_load: function() {
+        l('Performing the initial load!!');
         this.currently_loading = true;
 
         this.textures_cursor.load_textures();

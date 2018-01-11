@@ -150,18 +150,4 @@ WorldManager.prototype = {
         this.world_home.add_to_scene(object);
     },
 
-    create_sky_boxes: function() {
-        for (var i = 0; i < 6; i++) {
-            this.final_textures.push(null);
-            for (var j = 0; j < 6; j++) {
-                if (this.sky_box_textures[j][1] === i) {
-                    this.final_textures[i] = this.sky_box_textures[j][0];
-                }
-            }
-        }
-        this.world_login.add_sky_box(this.final_textures);
-        this.world_home.add_sky_box(this.final_textures);
-        this.world_settings.add_sky_box(this.final_textures);
-    }
-
 };
