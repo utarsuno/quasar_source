@@ -67,46 +67,17 @@ LoginWorld.prototype = {
     },
 
     create_account_button_pressed: function() {
-        var error = false;
-        var error_message = '';
-
-        // TODO : Eventually make input parsing live for the user.
         var email_text = this.create_account_email_input.get_text();
         var username_text = this.create_account_username_input.get_text();
         var password_text = this.create_account_password_input.get_text();
         var password_repeat_text = this.create_account_password_repeat_input.get_text();
 
-        if (!is_email_valid(email_text)) {
-            error = true;
-            error_message = 'invalid email format';
-        }
-        if (!error) {
-            if (username_text.length < 4) {
-                error = true;
-                error_message = 'username text length < 4';
-            }
-        }
-        if (!error) {
-            if (password_text.length < 4 || password_text !== password_repeat_text) {
-                error = true;
-                if (password_text.length < 4) {
-                    error_message = 'password length < 4';
-                } else {
-                    error_message = 'passwords do not match';
-                }
-            }
-        }
-
-        if (!error) {
-            GUI_TYPING_INTERFACE.add_server_message('Sending create account request to server...');
-            var data = {};
-            data[ENTITY_PROPERTY_USERNAME] = username_text;
-            data[ENTITY_PROPERTY_PASSWORD] = password_text;
-            data[ENTITY_PROPERTY_EMAIL]    = email_text;
-            this.post_create_account.perform_post(data, this.create_account_button_event.bind(this));
-        } else {
-            GUI_TYPING_INTERFACE.add_server_message('Error : ' + error_message);
-        }
+        GUI_TYPING_INTERFACE.add_server_message('Sending create account request to server...');
+        var data = {};
+        data[ENTITY_PROPERTY_USERNAME] = username_text;
+        data[ENTITY_PROPERTY_PASSWORD] = password_text;
+        data[ENTITY_PROPERTY_EMAIL]    = email_text;
+        this.post_create_account.perform_post(data, this.create_account_button_event.bind(this));
     },
 
     create_account_button_event: function(data) {
@@ -198,17 +169,17 @@ LoginWorld.prototype = {
         this.create_account_username_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
         this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT, 1);
-        this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 1, [TEXT_SYNTAX_EMAIL]);
+        this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 1, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_EMAIL]);
         this.create_account_errors.add_label_and_input(this.create_account_email_label, this.create_account_email_input);
         this.create_account_email_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
         this.create_account_password_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT, 2);
-        this.create_account_password_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 2, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_password_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 2, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
         this.create_account_errors.add_label_and_input(this.create_account_password_label, this.create_account_password_input);
         this.create_account_password_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
         this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'repeat password', TYPE_CONSTANT, 3);
-        this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 3, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 3, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
         this.create_account_errors.add_label_and_input(this.create_account_password_repeat_label, this.create_account_password_repeat_input);
         this.create_account_password_repeat_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 

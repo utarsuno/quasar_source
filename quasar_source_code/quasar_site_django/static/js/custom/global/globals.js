@@ -329,8 +329,9 @@ const DELTA_DAYS   = 'delta_days';
 const DELTA_MONTHS = 'delta_months';
 
 // UNIVERSAL_CONSTANTS_START : Text syntax error checks.
-const TEXT_SYNTAX_STANDARD_LENGTH = 'Text length must be greater than 3 characters and less than 32.'
-const TEXT_SYNTAX_EMAIL           = 'Text must match email snytax rules.'
+const TEXT_SYNTAX_STANDARD_LENGTH = 'Text length must be greater than 3 characters and less than 32.';
+const TEXT_SYNTAX_EMAIL           = 'Text must match email snytax rules.';
+const TEXT_SYNTAX_MATCH_PASSWORDS = 'Passwords must match!';
 // UNIVERSAL_CONSTANTS_END
 
 /* __        __   __                ___            __  ___    __        __
@@ -349,6 +350,8 @@ function len(o) {
     if (o.hasOwnProperty('length')) {
         return o.length;
     }
+    l('TODO : Object o needs to be supported : ');
+    l(o);
     return -1;
 }
 
@@ -382,10 +385,13 @@ function squared(n) {
     return n * n;
 }
 
+function round_to_n_decimal_places(text, n) {
+    return Number(text).toFixed(n);
+}
+
 // From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
 function get_nearest_power_of_two_for_number(n) {
     var v = n;
-
     v--;
     v |= v >> 1;
     v |= v >> 2;
@@ -393,9 +399,7 @@ function get_nearest_power_of_two_for_number(n) {
     v |= v >> 8;
     v |= v >> 16;
     v++; // next power of 2
-
     var x = v >> 1; // previous power of 2
-
     return (v - n) > (n - x) ? x : v;
 }
 
@@ -432,10 +436,6 @@ function string_contains(base_string, sub_string) {
     return base_string.indexOf(sub_string) !== NOT_FOUND;
 }
 
-function round_to_n_decimal_places(text, n) {
-    return Number(text).toFixed(n);
-}
-
 function is_defined(object) {
     return object !== null && object !== undefined;
 }
@@ -444,17 +444,6 @@ function is_defined(object) {
 function is_email_valid(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-}
-
-function get_key_value_list_from_json_dictionary(json_data) {
-    var return_list = [];
-    for (var key in json_data) {
-        // check if the property/key is defined in the object itself, not in parent
-        if (json_data.hasOwnProperty(key)) {
-            return_list.push([key, json_data[key]]);
-        }
-    }
-    return return_list;
 }
 
 // Base code from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript
@@ -475,7 +464,6 @@ function get_color_range_list(start_color, end_color, number_of_colors) {
     } else if (end_color.includes('#')) {
         end_color = end_color.replace('#', '');
     }
-
     var colors = [];
     for (var c = 0; c < number_of_colors; c++) {
         var ratio = c / number_of_colors;
@@ -484,6 +472,5 @@ function get_color_range_list(start_color, end_color, number_of_colors) {
         var b = Math.ceil(parseInt(end_color.substring(4,6), 16) * ratio + parseInt(start_color.substring(4,6), 16) * (1 - ratio));
         colors.push('#' + hex(r) + hex(g) + hex(b));
     }
-
     return colors;
 }

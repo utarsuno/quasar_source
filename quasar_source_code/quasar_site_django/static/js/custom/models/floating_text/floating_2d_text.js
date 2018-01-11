@@ -15,6 +15,7 @@ Floating2DText.prototype = {
 
     tool_tip_text: null,
 
+    // TODO : Refactoring
     _update_text: function() {
         if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
             if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
@@ -34,22 +35,19 @@ Floating2DText.prototype = {
         }
     },
 
-    // NOTE : Values are different for testing purposes.
-
-    _update_color: function() {
-        if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
+    refresh: function() {
+        if (this.type === TYPE_ICON) {
+            // TODO :
+            l('REFRESH THIS ICON!!');
+        } else {
+            var x_offset = 0;
             if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
-                if (this.current_background_color !== COLOR_TRANSPARENT) {
-                    this.dynamic_texture.clear(this.current_background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                } else {
-                    this.dynamic_texture.clear().drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                }
+                x_offset = this.texture_width / 2 - this.get_text_length() / 2;
+            }
+            if (this.current_background_color !== COLOR_TRANSPARENT) {
+                this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
             } else {
-                if (this.current_background_color !== COLOR_TRANSPARENT) {
-                    this.dynamic_texture.clear(this.current_background_color).drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                } else {
-                    this.dynamic_texture.clear().drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                }
+                this.dynamic_texture.clear().drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
             }
             this.dynamic_texture.needsUpdate = true;
         }
@@ -57,12 +55,26 @@ Floating2DText.prototype = {
 
     _update_width: function(width) {
         this.width = width;
+        this.resource_cleanup();
+        // TODO : Probably need a better design than this.
+        this.initialize(false);
+    },
+
+    resource_cleanup: function() {
         this.material.dispose();
         this.geometry.dispose();
         this.mesh.dispose();
         this.object3D.remove(this.mesh);
-        // TODO : Probably need a better design than this.
-        this.initialize(false);
+        /*
+        if (!keep_icons) {
+            if (is_defined(this._icon_to_the_right)) {
+                this.world.remove_from_interactive_then_scene(this._icon_to_the_right);
+            }
+            if (is_defined(this._icon_over_center)) {
+                this.world.remove_from_interactive_then_scene(this._icon_over_center);
+            }
+        }
+        */
     },
 
     set_background_color: function(color) {
@@ -75,13 +87,11 @@ Floating2DText.prototype = {
         this._update_text(this.get_text());
     },
 
+    set_tool_tip: function() {
+        l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
+    },
+
     initialize: function(add_to_scene) {
-        this._icon_to_the_right = null;
-        this._icon_over_center  = null;
-
-        this.default_background_color = COLOR_TRANSPARENT;
-        this.current_background_color = COLOR_TRANSPARENT;
-
         if (this.type === TYPE_TITLE) {
             this.height = 26;
         } else {
@@ -118,7 +128,7 @@ Floating2DText.prototype = {
             this.material.transparent = true;
             this.material.side = THREE.FrontSide;
 
-            this._update_color();
+            //this._update_color();
             this._update_text();
         }
 

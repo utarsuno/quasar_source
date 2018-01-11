@@ -10,6 +10,19 @@ function TextSyntax(syntax_checks) {
         this._required_syntax_rules.push(syntax_checks[sc]);
     }
 
+    this.has_syntax_rule = function(sr) {
+        for (var r = 0; r < this._required_syntax_rules; r++) {
+            if (this._required_syntax_rules[r] === sr) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    this.set_syntax_manager = function(sm) {
+        this._syntax_manager = sm;
+    };
+
     this.syntax_check = function() {
         var text = this.get_text();
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
@@ -29,6 +42,9 @@ function TextSyntax(syntax_checks) {
                 } else {
                     return 'Invalid email format.';
                 }
+            case TEXT_SYNTAX_MATCH_PASSWORDS:
+                this._syntax_manager.add_password_to_match(text);
+                break;
             }
         }
         return SUCCESS_MESSAGE;

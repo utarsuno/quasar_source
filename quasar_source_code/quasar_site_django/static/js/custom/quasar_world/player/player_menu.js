@@ -121,7 +121,7 @@ MenuIcon.prototype = {
             icon_label = 'exit';
             l('TODO : Logout');
             break;
-        case ICON_MULTIPLAYER:
+        case ICON_MULTI_PLAYER:
             icon_label = 'online';
             l('TODO : Go online');
             break;
@@ -302,7 +302,7 @@ PlayerMenu.prototype = {
         this._add_menu_icon(ICON_ENTITY_GROUP, list_of_icons_not_to_load);
         this._add_menu_icon(ICON_SAVE        , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_TELEPORT    , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_MULTIPLAYER , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_MULTI_PLAYER , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_FULLSCREEN  , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_EXIT        , list_of_icons_not_to_load);
 

@@ -35,10 +35,6 @@ Floating3DText.prototype = {
         this._update_text();
     },
 
-    _update_color: function() {
-        this._update_text();
-    },
-
     _update_text: function() {
         // FOR_DEV_START
         l('Creating 3D Text!');

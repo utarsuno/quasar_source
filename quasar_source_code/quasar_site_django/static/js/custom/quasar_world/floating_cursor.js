@@ -12,9 +12,10 @@ FloatingCursor.prototype = {
         this.cursors = {};
 
         // The cursor texture will get set once loaded.
-        this.width = 7;
-        this.height = 10;
-        this.plane_geometry = new THREE.PlaneGeometry(7, 10, 1);
+        // Width used to be 7 and height used to be 10
+        this.width = 16;
+        this.height = 16;
+        this.plane_geometry = new THREE.PlaneGeometry(16, 16, 1);
         // TODO : Dispose of this original material later on.
         this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
@@ -29,6 +30,7 @@ FloatingCursor.prototype = {
         this.scene = this.world.scene;
         this.scene.add(this.object3D);
 
+        // TODO : Double check on this design
         this.cursor_needed_from_interactive_objects = false;
         this.cursor_needed_from_floating_walls = false;
         this.engaged = false;
