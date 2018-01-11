@@ -204,6 +204,7 @@ LoadingManager.prototype = {
         GUI_PAUSED_MENU.set_sub_text(text);
         if (this._number_of_textures_loaded === this._number_of_textures_to_load) {
             GUI_PAUSED_MENU.make_invisible();
+            MANAGER_POINTER_LOCK.request_pointer_lock();
         }
     },
 
