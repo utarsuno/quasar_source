@@ -45,7 +45,7 @@ TextureGroup.prototype = {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
 
-                texture_name = his._textures[t][INDEX_TEXTURE_NAME];
+                texture_name = this._textures[t][INDEX_TEXTURE_NAME];
                 this._loading_manager.update_text('Loaded ' + texture_name);
 
                 break;
