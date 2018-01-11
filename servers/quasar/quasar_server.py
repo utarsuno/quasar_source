@@ -98,8 +98,13 @@ COMMAND_SET_ACCOUNT_TYPE = 'at'
 arguments = so.get_all_program_arguments()
 if len(arguments) == 1:
 	flag = arguments[0]
-	command = flag[:flag.index(':')]
-	data = flag[flag.index(':') + 1:]
+
+	if ':' in flag:
+		command = flag[:flag.index(':')]
+		data = flag[flag.index(':') + 1:]
+	else:
+		command = flag
+		data = ''
 
 	quasar_server = QuasarServer()
 	quasar_server.connect()
