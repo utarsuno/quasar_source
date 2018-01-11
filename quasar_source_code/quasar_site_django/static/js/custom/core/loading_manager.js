@@ -198,16 +198,16 @@ LoadingManager.prototype = {
         this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this._cursors_loaded.bind(this), this);
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
         this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this._icons_loaded.bind(this)  , this);
+
+
     },
 
     update_text: function(text) {
         this._number_of_textures_loaded += 1;
-        GUI_PAUSED_MENU.set_text(int((this._number_of_textures_to_load / this._number_of_textures_loaded) * 100.0) + '% loaded');
+        GUI_PAUSED_MENU.set_text(int((this._number_of_textures_loaded / this._number_of_textures_to_load) * 100.0) + '% loaded');
         GUI_PAUSED_MENU.set_sub_text(text);
         if (this._number_of_textures_loaded === this._number_of_textures_to_load) {
-            GUI_PAUSED_MENU.make_invisible();
-            l('ENABLE PLAYER CONTROLS?');
-            MANAGER_POINTER_LOCK.request_pointer_lock();
+            GUI_PAUSED_MENU.make_visible();
         }
     },
 
