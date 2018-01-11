@@ -16,8 +16,6 @@ Floating3DText.prototype = {
     current_text_object: null,
 
     initialize: function() {
-        this._requires_syntax_checks = false;
-
         if (this.type === TYPE_SUPER_TITLE || this.type === TYPE_SUPER_TITLE_CONSTANT) {
             this.height = 32 * 4;
             this.size = 40 * 4;

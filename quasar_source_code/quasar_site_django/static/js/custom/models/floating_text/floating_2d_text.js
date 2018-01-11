@@ -73,15 +73,6 @@ Floating2DText.prototype = {
         this._update_text(this.get_text());
     },
 
-    perform_syntax_checks: function() {
-        var results = this.syntax_check();
-        if (results !== '') {
-            this.set_background_color(COLOR_FLOATING_WALL_ERROR);
-        } else {
-            this.set_background_color(COLOR_TRANSPARENT);
-        }
-    },
-
     initialize: function(add_to_scene) {
         this.default_background_color = COLOR_TRANSPARENT;
         this.current_background_color = COLOR_TRANSPARENT;
@@ -178,17 +169,8 @@ Floating2DText.prototype = {
         this.is_2D_text = true;
 
         if (is_defined(syntax_checks)) {
-
             // Inherit from TextSyntax.
             TextSyntax.call(this, syntax_checks);
-
-            for (var key in syntax_checks) {
-                if (syntax_checks.hasOwnProperty(key)) {
-                    this.add
-                }
-            }
-        } else {
-            this._requires_syntax_checks = false;
         }
 
         // Inherit from FloatingText.

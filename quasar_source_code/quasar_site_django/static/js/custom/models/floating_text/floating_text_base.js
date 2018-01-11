@@ -131,9 +131,6 @@ function FloatingText(width, text, type, scene) {
             }
             this.text = text;
             this._update_text();
-            if (this._requires_syntax_checks) {
-                this.perform_syntax_checks();
-            }
         }
     };
 

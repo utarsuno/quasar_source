@@ -4,7 +4,6 @@ const SUCCESS_MESSAGE = '';
 
 function TextSyntax(syntax_checks) {
 
-    this._requires_syntax_checks = true;
     this._required_syntax_rules = [];
 
     for (var sc in syntax_checks) {
