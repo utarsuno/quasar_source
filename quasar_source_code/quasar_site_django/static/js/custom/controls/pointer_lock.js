@@ -33,6 +33,8 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
+        l('Pointer lock change!');
+
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
             this.currently_locked = true;
 
@@ -51,10 +53,14 @@ PointerLockManager.prototype = {
                 currently_looked_at_object.disengage();
             }
 
+            // TODO : Disengage from everything else as well
+
             if (!MANAGER_LOADING.currently_loading()) {
                 GUI_PAUSED_MENU.make_visible();
             }
         }
+
+        l('Pointer lock change finish!');
     },
 
     pointer_lock_error: function(e) {
