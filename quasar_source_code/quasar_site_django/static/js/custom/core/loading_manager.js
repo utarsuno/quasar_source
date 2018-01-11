@@ -110,12 +110,12 @@ TextureGroup.prototype = {
             new THREE.TextureLoader().load(this._textures[t][INDEX_TEXTURE_NAME],
                 //function when resource is loaded
                 function(texture) {
-                    //l('QUICK TODO : ');
-                    //l(texture);
-                    //l('ARG 0');
-                    //l(arguments[0][INDEX_FULL_URL]);
-                    //l('ARG 1');
-                    //l(arguments[1]);
+                    l('QUICK TODO : ');
+                    l(texture);
+                    l('ARG 0');
+                    l(arguments[0][INDEX_FULL_URL]);
+                    l('ARG 1');
+                    l(arguments[1]);
 
                     this._texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this._textures[t][INDEX_TEXTURE_NAME]),
