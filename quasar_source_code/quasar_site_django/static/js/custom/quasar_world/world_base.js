@@ -363,6 +363,7 @@ function World(planet_name) {
     };
 
     this.multi_left_click = function() {
+        l('Multi left click!');
         if (GUI_PAUSED_MENU.is_visible() && !MANAGER_LOADING.currently_loading()) {
             l('Requesting pointer lock!');
             GUI_PAUSED_MENU.make_invisible();
