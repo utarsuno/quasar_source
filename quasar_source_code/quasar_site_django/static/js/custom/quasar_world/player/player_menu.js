@@ -63,6 +63,7 @@ MenuIcon.prototype = {
     },
 
     select_a_world_to_teleport_to: function() {
+        this.teleport_world_needs_to_be_chosen = true;
         this._player_menu.set_to_invisible();
         this.teleport_wall.show();
     },
