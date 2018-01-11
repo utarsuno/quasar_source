@@ -33,6 +33,9 @@ PausedMenu.prototype = {
         this.pause_menu.style.display = DISPLAY_SHOW;
 
         this.background_coloring.id = 'background_coloring';
+
+        this.pause_title.innerHTML = 'paused';
+        this.pause_sub_title.innerHTML = 'double click anywhere to resume';
     },
 
     make_invisible: function() {

@@ -200,11 +200,11 @@ LoadingManager.prototype = {
 
     update_text: function(text) {
         this._number_of_textures_loaded += 1;
-        l(this._number_of_textures_to_load);
-        l(this._number_of_textures_loaded);
-        l(round_to_n_decimal_places((this._number_of_textures_loaded / this._number_of_textures_to_load) * 100, 2));
-        GUI_PAUSED_MENU.set_text(round_to_n_decimal_places(this._number_of_textures_to_load / this._number_of_textures_loaded, 2) + '% loaded');
+        GUI_PAUSED_MENU.set_text(int((this._number_of_textures_to_load / this._number_of_textures_loaded) * 100.0) + '% loaded');
         GUI_PAUSED_MENU.set_sub_text(text);
+        if (this._number_of_textures_loaded === this._number_of_textures_to_load) {
+            GUI_PAUSED_MENU.make_invisible();
+        }
     },
 
     get_texture: function(texture_group, texture_name) {
