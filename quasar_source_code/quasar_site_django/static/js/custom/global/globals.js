@@ -188,7 +188,7 @@ const TEXTURE_GROUP_ICONS  = 'icons/';
 // UNIVERSAL_CONSTANTS_START : Textures for icons.
 const ICON_EXIT         = 'exit.png';
 const ICON_SETTINGS     = 'gear.png';
-const ICON_MULTIPLAYER  = 'multiplayer.png.png';
+const ICON_MULTIPLAYER  = 'multiplayer.png';
 const ICON_HOME         = 'home.png';
 const ICON_SAVE         = 'save.png';
 const ICON_ENTITY_GROUP = 'share.png';
