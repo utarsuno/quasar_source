@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating2DText(w, text, type, scene, syntax_checks) {
-    this.__init__(w, text, type, scene, syntax_checks);
+function Floating2DText(w, text, type, world, syntax_checks) {
+    this.__init__(w, text, type, world, syntax_checks);
 }
 
 const TEMP_SMUDGE_FACTOR = 0.75;
@@ -76,6 +76,9 @@ Floating2DText.prototype = {
     },
 
     initialize: function(add_to_scene) {
+        this._icon_to_the_right = null;
+        this._icon_over_center  = null;
+
         this.default_background_color = COLOR_TRANSPARENT;
         this.current_background_color = COLOR_TRANSPARENT;
 
@@ -88,21 +91,17 @@ Floating2DText.prototype = {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
         if (this.type === TYPE_ICON) {
-
-        }
-
-        if (this.text === ICON_LEFT || this.text === ICON_RIGHT || this.text === ICON_CROSS) {
             this.material = new THREE.MeshBasicMaterial({
                 map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)
             });
             this.material.transparent = true;
         } else {
+
             this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
             var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
             //var font_size = Math.round(texture_height * .8);
-            this.font_size = texture_height;
-
             //l('Font size is : ' + font_size);
+            this.font_size = texture_height;
 
             this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, texture_height);
             if (this.type === TYPE_TITLE) {
@@ -110,7 +109,6 @@ Floating2DText.prototype = {
             } else {
                 this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
             }
-
             this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
 
             this.material = new THREE.MeshBasicMaterial({
@@ -128,7 +126,6 @@ Floating2DText.prototype = {
 
         this.object3D.add(this.mesh);
 
-
         if (!is_defined(add_to_scene)) {
             if (is_defined(this.scene)) {
                 this.scene.add(this.object3D);
@@ -142,19 +139,24 @@ Floating2DText.prototype = {
 
     display_icon_to_the_right: function(icon_type) {
         l('TODO !!!! DISPLAY AN ICON TO THE RIGHT!!');
+        if (!is_defined(this._icon_to_the_right)) {
+
+        }
+    },
+
+    display_icon_over_center: function(icon_type) {
+        l('TODO !!!! DISPLAY AN ICON HOVERING OVER THE CENTER!!');
 
     },
 
-    __init__: function(w, text, type, scene, syntax_checks) {
-        this.is_2D_text = true;
-
+    __init__: function(w, text, type, world, syntax_checks) {
         if (is_defined(syntax_checks)) {
             // Inherit from TextSyntax.
             TextSyntax.call(this, syntax_checks);
         }
 
         // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene, true);
+        FloatingText.call(this, w, text, type, world, true);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

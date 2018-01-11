@@ -170,7 +170,7 @@ TextureGroup.prototype = {
             this._add_texture_needed(ICON_SETTINGS);
             this._add_texture_needed(ICON_ENTITY_GROUP);
             this._add_texture_needed(ICON_HOME);
-            this._add_texture_needed(ICON_MULTIPLAYER);
+            this._add_texture_needed(ICON_MULTI_PLAYER);
             this._add_texture_needed(ICON_SAVE);
             this._add_texture_needed(ICON_FULLSCREEN);
             this._add_texture_needed(ICON_LEFT);
@@ -181,6 +181,8 @@ TextureGroup.prototype = {
             this._add_texture_needed(ICON_WORLDS);
             this._add_texture_needed(ICON_WARNING);
             this._add_texture_needed(ICON_TELEPORT);
+            this._add_texture_needed(ICON_CHECKMARK);
+            this._add_texture_needed(ICON_SINGLE_PLAYER);
             break;
         }
     }

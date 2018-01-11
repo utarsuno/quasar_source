@@ -1,7 +1,7 @@
 'use strict';
 
-function Floating3DText(text, type, scene) {
-    this.__init__(text, type, scene);
+function Floating3DText(text, type, world) {
+    this.__init__(text, type, world);
 }
 
 Floating3DText.prototype = {
@@ -85,16 +85,14 @@ Floating3DText.prototype = {
         this.material.color.setHex(this.current_color);
         this.material.needsUpdate = true;
 
-        if (is_defined(this.scene)) {
-            this.scene.add(this.object3D);
+        if (is_defined(this.world)) {
+            this.world.scene.add(this.object3D);
         }
     },
 
-    __init__: function(text, type, scene) {
-        this.is_2D_text = false;
-
+    __init__: function(text, type, world) {
         // Inherit from FloatingText.
-        FloatingText.call(this, 0, text, type, scene);
+        FloatingText.call(this, 0, text, type, world, false);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

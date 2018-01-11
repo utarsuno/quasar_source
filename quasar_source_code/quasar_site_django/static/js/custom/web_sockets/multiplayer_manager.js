@@ -19,7 +19,7 @@ ServerPlayer.prototype = {
 
         // TODO : server player objects need to contain a position smooth step buffer
 
-        this.player_title = new Floating2DText(100, player_name, TYPE_TITLE, MANAGER_WORLD.world_home.scene);
+        this.player_title = new Floating2DText(100, player_name, TYPE_TITLE, MANAGER_WORLD.world_home);
         var player_position = new THREE.Vector3(this.position.x, this.position.y + 10, this.position.z);
 
 

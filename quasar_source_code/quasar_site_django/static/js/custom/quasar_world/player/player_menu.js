@@ -149,7 +149,7 @@ MenuIcon.prototype = {
             function_to_bind = toggle_fullscreen;
             break;
         }
-        this.floating_label = new Floating2DText(90, icon_label, TYPE_BUTTON, this.world.scene);
+        this.floating_label = new Floating2DText(90, icon_label, TYPE_BUTTON, this.world);
         if (is_defined(function_to_bind)) {
             this.floating_label.set_engage_function(function_to_bind);
         }

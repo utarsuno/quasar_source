@@ -1,6 +1,6 @@
 'use strict';
 
-function FloatingText(width, text, type, scene, is_2D_text) {
+function FloatingText(width, text, type, world, is_2D_text) {
 
     // Needs to be defined here for now.
     this.get_text_length = function() {
@@ -14,10 +14,11 @@ function FloatingText(width, text, type, scene, is_2D_text) {
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
-    this.is_2D_text = is_2D_text;
+    this.is_2D_text    = is_2D_text;
     this.width         = width;
     this.type          = type;
-    this.scene         = scene;
+    this.world         = world;
+    this.scene         = this.world.scene;
     this.object3D      = new THREE.Object3D();
 
     this.current_color = null;
@@ -44,7 +45,24 @@ function FloatingText(width, text, type, scene, is_2D_text) {
 
     // Gets called from child functions.
     this.final_initialize = function() {
+        switch (this.type) {
+        case TYPE_BUTTON:
+        case TYPE_CHECK_BOX:
+            this.maintain_engage_when_tabbed_to = false;
+            this.engable = false;
+            // Inherit from InheritableButton (to gain properties of a button).
+            InheritableButton.call(this);
+            break;
+        case TYPE_CONSTANT:
+            this.maintain_engage_when_tabbed_to = false;
+            this.engable = false;
+            break;
+        }
+
         if(!is_defined(this.current_color)) {
+
+            l('The current color is not defined!!!');
+
             switch (this.type) {
             case TYPE_BUTTON:
             case TYPE_CHECK_BOX:
@@ -63,11 +81,6 @@ function FloatingText(width, text, type, scene, is_2D_text) {
                 this.set_default_color(COLOR_TEXT_DEFAULT);
                 break;
             }
-        }
-
-        if (this.type === TYPE_BUTTON) {
-            // Inherit from InheritableButton.
-            InheritableButton.call(this);
         }
     };
 

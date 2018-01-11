@@ -286,9 +286,9 @@ FloatingWall.prototype = {
         var floating_3D_title = null;
         // Default type is TYPE_TITLE.
         if (is_defined(type)) {
-            floating_3D_title = new Floating3DText(title_name, type, this.scene);
+            floating_3D_title = new Floating3DText(title_name, type, this.world);
         } else {
-            floating_3D_title = new Floating3DText(title_name, TYPE_TITLE, this.scene);
+            floating_3D_title = new Floating3DText(title_name, TYPE_TITLE, this.world);
         }
 
         var x_shift = null;
@@ -414,7 +414,7 @@ FloatingWall.prototype = {
 
     add_floating_2d_text: function(x_start, x_end, text, type, row, syntax_checks) {
         var floating_2d_text_width = this.width * (x_end - x_start);
-        var floating_2D_text = new Floating2DText(floating_2d_text_width, text, type, this.scene, syntax_checks);
+        var floating_2D_text = new Floating2DText(floating_2d_text_width, text, type, this.world, syntax_checks);
 
         floating_2D_text.parent_floating_wall = this;
         floating_2D_text.pfw_x_start = x_start;
@@ -479,7 +479,7 @@ FloatingWall.prototype = {
         var max_one = x_end * ONE_THIRD;
 
         // Floating Label.
-        var floating_label = new Floating2DText(label_width, label, TYPE_CONSTANT, this.scene);
+        var floating_label = new Floating2DText(label_width, label, TYPE_CONSTANT, this.world);
         floating_label.parent_floating_wall = this;
         floating_label.pfw_x_start = x_start;
         floating_label.pfw_x_end = max_one;
@@ -489,21 +489,21 @@ FloatingWall.prototype = {
         // TODO : For now make the minimum and maximum labels be transparent.
 
         // Minimum Value Label.
-        var floating_minimum_label = new Floating2DText(25, minimum_value.toString(), TYPE_CONSTANT, this.scene);
+        var floating_minimum_label = new Floating2DText(25, minimum_value.toString(), TYPE_CONSTANT, this.world);
         floating_minimum_label.parent_floating_wall = this;
         floating_minimum_label.pfw_x_start = max_one;
         floating_minimum_label.pfw_x_end = max_one + min_max_width;
         floating_minimum_label.pfw_row = row;
 
         // Maximum Value Label.
-        var floating_maximum_label = new Floating2DText(25, maximum_value.toString(), TYPE_CONSTANT, this.scene);
+        var floating_maximum_label = new Floating2DText(25, maximum_value.toString(), TYPE_CONSTANT, this.world);
         floating_maximum_label.parent_floating_wall = this;
         floating_maximum_label.pfw_x_start = x_end - min_max_width;
         floating_maximum_label.pfw_x_end = x_end;
         floating_maximum_label.pfw_row = row;
 
         // Slider object.
-        var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT, this.scene);
+        var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT, this.world);
         this.world.interactive_objects.push(floating_slider);
         floating_slider.parent_floating_wall = this;
 

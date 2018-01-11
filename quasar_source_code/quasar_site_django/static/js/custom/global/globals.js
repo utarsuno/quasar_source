@@ -197,21 +197,23 @@ const TEXTURE_GROUP_ICONS  = 'icons/';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Textures for icons.
-const ICON_EXIT         = 'exit.png';
-const ICON_SETTINGS     = 'gear.png';
-const ICON_MULTIPLAYER  = 'multiplayer.png';
-const ICON_HOME         = 'home.png';
-const ICON_SAVE         = 'save.png';
-const ICON_ENTITY_GROUP = 'share.png';
-const ICON_FULLSCREEN   = 'larger.png';
-const ICON_LEFT         = 'arrow_left.png';
-const ICON_RIGHT        = 'arrow_right.png';
-const ICON_CROSS        = 'cross.png';
-const ICON_WORLDS       = 'bars_horizontal.png';
-const ICON_LOCKED       = 'locked.png';
-const ICON_UNLOCKED     = 'unlocked.png';
-const ICON_WARNING      = 'warning.png';
-const ICON_TELEPORT     = 'open.png';
+const ICON_EXIT          = 'exit.png';
+const ICON_SETTINGS      = 'gear.png';
+const ICON_MULTI_PLAYER  = 'multiplayer.png';
+const ICON_HOME          = 'home.png';
+const ICON_SAVE          = 'save.png';
+const ICON_ENTITY_GROUP  = 'share.png';
+const ICON_FULLSCREEN    = 'larger.png';
+const ICON_LEFT          = 'arrow_left.png';
+const ICON_RIGHT         = 'arrow_right.png';
+const ICON_CROSS         = 'cross.png';
+const ICON_WORLDS        = 'bars_horizontal.png';
+const ICON_LOCKED        = 'locked.png';
+const ICON_UNLOCKED      = 'unlocked.png';
+const ICON_WARNING       = 'warning.png';
+const ICON_TELEPORT      = 'open.png';
+const ICON_CHECKMARK     = 'checkmark.png';
+const ICON_SINGLE_PLAYER = 'singleplayer.png';
 // UNIVERSAL_CONSTANTS_END
 
 // TODO : Audio stuff.
