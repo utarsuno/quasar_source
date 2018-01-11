@@ -25,15 +25,8 @@ TextSyntaxManager.prototype = {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
             // On success <result> will be ''. (If ('') returns false).
-
             if (result) {
-                l('Need to set label background color to red :');
-                l(label);
-
                 label.set_background_color(COLOR_FLOATING_WALL_ERROR);
-                l(label);
-
-
                 input.set_background_color(COLOR_FLOATING_WALL_ERROR);
 
                 // TODO : Add warning icon
@@ -52,7 +45,6 @@ TextSyntaxManager.prototype = {
         } else {
             this._final_button.enable();
         }
-
     },
 
     add_label_and_input: function(label, input) {
