@@ -1,21 +1,11 @@
 'use strict';
 
-function FloatingText(width, text, type, world, is_2D_text) {
-
-    // Needs to be defined here for now.
-    this.get_text_length = function() {
-        if (this.is_2D_text) {
-            return this.dynamic_texture.getTextLength(this.text);
-        } else {
-            return this.width;
-        }
-    };
+function FloatingText(text, type, world, is_2D_text) {
 
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
     this.is_2D_text    = is_2D_text;
-    this.width         = width;
     this.type          = type;
     this.world         = world;
     this.scene         = this.world.scene;
@@ -45,7 +35,6 @@ function FloatingText(width, text, type, world, is_2D_text) {
 
     // Call the child initialize functions.
     this.initialize();
-
 
     // Gets called from child functions.
     this.final_initialize = function() {
@@ -100,6 +89,60 @@ function FloatingText(width, text, type, world, is_2D_text) {
         this.format_type = format_type;
     };
 
+    this.update_position_and_look_at_origin = function(position_vector) {
+        this.update_position_and_normal(position_vector, new THREE.Vector3(0 - position_vector.x, 0, 0 - position_vector.z));
+    };
+
+    this.update_position = function(position_vector) {
+        // TODO : optimize
+
+        this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
+        this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
+        this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
+
+        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+    };
+
+    this.update_position_with_offset_xyz = function(x, y, z) {
+        // TODO : optimize
+
+        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
+        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
+        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
+
+        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+    };
+
+    this.set_normal_depth = function(depth) {
+        if (depth <= 0) {
+            this.normal_depth = 1;
+        } else {
+            this.normal_depth = depth;
+        }
+    };
+
+    this.update_normal = function(normal) {
+        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
+        this.normal.normalize();
+        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
+    };
+
+    this.update_position_and_normal = function(position_vector, normal) {
+        this.update_normal(normal);
+        this.update_position(position_vector);
+    };
+
+    this.clear = function() {
+        this._update_text('');
+    };
+
+    /*___  ___     ___     __   __   ___  __       ___    __        __
+       |  |__  \_/  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+       |  |___ / \  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this.update_text = function(text) {
         if (this.get_text() !== text) {
             if (is_defined(this.value_pre_changed_function)) {
@@ -151,56 +194,6 @@ function FloatingText(width, text, type, world, is_2D_text) {
         }
     };
 
-    this.update_position_and_look_at_origin = function(position_vector) {
-        this.update_position_and_normal(position_vector, new THREE.Vector3(0 - position_vector.x, 0, 0 - position_vector.z));
-    };
-
-    this.update_position = function(position_vector) {
-        // TODO : optimize
-
-        this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
-        this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
-        this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
-
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-    };
-
-    this.update_position_with_offset_xyz = function(x, y, z) {
-        // TODO : optimize
-
-        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
-        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
-        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
-
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-    };
-
-    this.set_normal_depth = function(depth) {
-        if (depth <= 0) {
-            this.normal_depth = 1;
-        } else {
-            this.normal_depth = depth;
-        }
-    };
-
-    this.update_normal = function(normal) {
-        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-        this.normal.normalize();
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
-    };
-
-    this.update_position_and_normal = function(position_vector, normal) {
-        this.update_normal(normal);
-        this.update_position(position_vector);
-    };
-
-    this.clear = function() {
-        this._update_text('');
-    };
 
     /*__   __        __   __      __   __   ___  __       ___    __        __
      /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
