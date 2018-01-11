@@ -82,6 +82,7 @@ function FloatingText(width, text, type, world, is_2D_text) {
                 this.set_default_color(COLOR_TEXT_DEFAULT);
                 break;
             }
+            this.refresh();
         }
     };
 
