@@ -77,6 +77,12 @@ class EntityManager(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_owner_entity(self):
+		"""Returns the Entity that represents the Entity Owner."""
+		for e in self._entities:
+			if e.get_value(be.ENTITY_DEFAULT_PROPERTY_TYPE) == be.ENTITY_PROPERTY_OWNER:
+				return e
+
 	def get_entity_by_id(self, relative_id):
 		"""Returns an Entity object or None if the match doesn't exist."""
 		for e in self._entities:

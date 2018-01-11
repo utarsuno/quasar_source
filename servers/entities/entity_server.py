@@ -34,17 +34,17 @@ class EntityServer(object):
 
 	def _update_owner(self, owner_username):
 		"""Saves all the cache object information to the database."""
-		#print('Need to update owner!')
-		#print(owner_username)
-		#print(type(owner_username))
-		#print(owner_data)
-		#print(type(owner_data))
 		self._db_api.update_owner(owner_username, self._get_entity_owner_by_username(owner_username).get_data_for_database())
 
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
 		if type(entity_data) == str:
 			entity_data = eval(entity_data)
+
+		# ENTITY_PROPERTIES_ONLY_SERVER_SIDE
+		for key in entity_data:
+			if key in be.ENTITY_PROPERTIES_ONLY_SERVER_SIDE:
+				return us.error('An entity property was sent that should only be updated on the server side! { ' + str(entity_data) + '}')
 
 		updated_entity = None
 		for e_o in self._entity_owners:
@@ -59,7 +59,15 @@ class EntityServer(object):
 
 		return us.SUCCESS_MESSAGE
 
-		# TODO : Eventually don't save after every entity update.
+	def _set_entity_owner_account_type(self, username, account_type):
+		"""Sets the entity owner's account type."""
+		entity_owner = self._get_entity_owner_by_username(username)
+		entity_owner.set_entity_owner_account_type(account_type)
+
+		# TODO : Eventually remove this. The perform saves should cover it.
+		self._update_owner(username)
+
+		return us.SUCCESS_MESSAGE
 
 	'''__   ___  __        ___  __           __   __     __
 	  /__` |__  |__) \  / |__  |__)    |    /  \ / _` | /  `
@@ -67,20 +75,10 @@ class EntityServer(object):
 
 	def _parse_out_server_command(self, raw_message):
 		"""Returns the server command type and data."""
-		first_match_found = False
-		command = ''
-		data = ''
-		for c in raw_message:
-			if c == ':':
-				if not first_match_found:
-					first_match_found = True
-				else:
-					data += c
-			else:
-				if first_match_found:
-					data += c
-				else:
-					command += c
+		if ':' not in raw_message:
+			dbg.raise_exception('Not a valid raw message passed in {{' + str(raw_message) + '}}')
+		command = raw_message[:raw_message.index(':')]
+		data = raw_message[raw_message.index(':') + 1:]
 		return command, data
 
 	def run(self):
@@ -104,6 +102,20 @@ class EntityServer(object):
 			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
 				raw_data = data.split('|')
 				self._host_server.send_reply(self._update_entity(raw_data[0], raw_data[1]))
+			elif command == us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION:
+
+				sub_command, sub_data = self._parse_out_server_command(data)
+
+				cleaned_data = sub_data.split('|')
+				username = cleaned_data[0]
+				data     = cleaned_data[1]
+
+				if sub_command == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
+
+					self._host_server.send_reply(self._set_entity_owner_account_type(username, data))
+				else:
+					dbg.raise_exception('Invalid sub command passed in!')
+
 			elif command == us.SERVER_COMMAND_DELETE_ENTITY:
 				raw_data = data.split('|')
 				self._host_server.send_reply(self._delete_entity_by_id(raw_data[0], raw_data[1]))

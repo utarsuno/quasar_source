@@ -23,14 +23,14 @@ ENTITY_TYPE_TO_ABBREVIATION_DICT = {ENTITY_TYPE_BASE         : 'E',
 # Identifies a property as an entity property.
 ENTITY_PROPERTY_START_TOKEN = 'ep_'
 
-# The default entity properties.
+# The default (reserved) entity properties.
 ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type'
 ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids'
 ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids'
 ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id'
 ENTITY_DEFAULT_PROPERTY_ALL         = [ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_DEFAULT_PROPERTY_CHILD_IDS, ENTITY_DEFAULT_PROPERTY_PARENT_IDS, ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 
-# Optional (reserved) entity properties.
+# Reserved entity properties.
 ENTITY_PROPERTY_PUBLIC                 = ENTITY_PROPERTY_START_TOKEN + 'public'
 ENTITY_PROPERTY_OWNER                  = ENTITY_PROPERTY_START_TOKEN + 'owner'
 ENTITY_PROPERTY_PASSWORD               = ENTITY_PROPERTY_START_TOKEN + 'password'
@@ -46,9 +46,16 @@ ENTITY_PROPERTY_CREATED_AT_DATE        = ENTITY_PROPERTY_START_TOKEN + 'created_
 ENTITY_PROPERTY_DUE_DATE               = ENTITY_PROPERTY_START_TOKEN + 'due_date'
 ENTITY_PROPERTY_SERVER_ID              = ENTITY_PROPERTY_START_TOKEN + 'server_id'
 
+# Entity owner reserved properties.
+ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE     = ENTITY_PROPERTY_START_TOKEN + 'account_type'
+
+ENTITY_PROPERTIES_ONLY_SERVER_SIDE = [ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE]
+
 
 class Entity(object):
 	"""Defines properties of all entities."""
+
+	# TODO : Create option to send out and also un-package a condensed version of Entities!!!
 
 	def __init__(self):
 		# TODO : Reformat to put all properties into a single properties dictionary

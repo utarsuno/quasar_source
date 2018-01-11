@@ -34,6 +34,24 @@ class QuasarServer(object):
 		"""Updates an entity for the provided entity owner."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY, username + '|' + str(entity_data))
 
+	def create_entity_owner(self, owner_data):
+		"""Creates a new entity owner."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
+
+	def _send_command_to_entity_server(self, command, data=''):
+		"""Sends a command to the entity server."""
+		self._client_message_lock.acquire()
+		reply = self._entity_server_connection.send_message(command + ':' + str(data))
+		self._client_message_lock.release()
+		return reply
+
+	'''__   ___ ___ ___  ___  __   __
+	  / _` |__   |   |  |__  |__) /__`
+	  \__> |___  |   |  |___ |  \ .__/ '''
+	def is_username_taken(self, username):
+		"""Checks if the username is taken."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_USERNAME_TAKEN, username)
+
 	def get_all_data(self):
 		"""Returns all the data in the database."""
 		reply = self._send_command_to_entity_server(us.SERVER_COMMAND_REQUEST_ALL_DATA)
@@ -49,21 +67,6 @@ class QuasarServer(object):
 		#print('Quasar Utility Server getting owner entities for username{' + username + '}')
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_OWNER_ENTITIES, username)
 
-	def create_entity_owner(self, owner_data):
-		"""Creates a new entity owner."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_CREATE_ENTITY_OWNER, owner_data)
-
-	def is_username_taken(self, username):
-		"""Checks if the username is taken."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_USERNAME_TAKEN, username)
-
-	def _send_command_to_entity_server(self, command, data=''):
-		"""Sends a command to the entity server."""
-		self._client_message_lock.acquire()
-		reply = self._entity_server_connection.send_message(command + ':' + str(data))
-		self._client_message_lock.release()
-		return reply
-
 	'''__   ___       ___ ___    __
 	  |  \ |__  |    |__   |  | /  \ |\ |
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
@@ -74,6 +77,13 @@ class QuasarServer(object):
 	def delete_entity_owner(self, username):
 		"""Deletes the entity owner found by username match."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
+
+	'''     __                   __   __   ___  __       ___    __        __
+       /\  |  \  |\/| | |\ |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+	  /~~\ |__/  |  | | | \|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+	def set_entity_owner_account_type(self, username, account_type):
+		"""Sets an entity owner's account type."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE + ':' + username + '|' + account_type)
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`

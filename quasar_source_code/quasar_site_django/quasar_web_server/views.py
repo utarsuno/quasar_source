@@ -12,6 +12,7 @@ from servers.quasar import quasar_server as qs
 from django.http import JsonResponse
 from entities import base_entity as be
 from servers import utility_servers as us
+from universal_code import debugging as dbg
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
@@ -109,6 +110,39 @@ def qdict_to_dict(qdict):
 
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
+
+'''___      ___   ___         __             ___  __           __                   __   __   ___  __       ___    __        __
+  |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)     /\  |  \  |\/| | |\ |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+  |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    /~~\ |__/  |  | | | \|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+
+
+@csrf_exempt
+def POST_entity_owner_admin_command(request):
+    """Handles the POST request for entity owner admin commands."""
+    print('POST entity owner admin command')
+    json_str = (request.body.decode('utf-8'))
+    json_obj = json.loads(json_str)
+
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION], json_obj)
+    if post_errors is not None:
+        return post_errors
+
+    received_username  = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_password  = json_obj[be.ENTITY_PROPERTY_PASSWORD]
+    received_operation = json_obj[us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION]
+    received_data      = json_obj[us.POST_KEY_GENERIC_DATA]
+
+    global quasar_server
+    message = quasar_server.is_valid_login(received_username, received_password)
+    reply = us.is_success_message(message)
+    if reply:
+        if received_operation == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
+            return return_based_on_result(quasar_server.set_entity_owner_account_type(received_username, received_data))
+        else:
+            dbg.raise_exception('Invalid command received!')
+    else:
+        return return_based_on_result(message)
+
 
 '''___      ___   ___         __             ___  __      __   __   ___  __       ___    __        __
   |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`

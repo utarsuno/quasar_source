@@ -17,9 +17,9 @@ CURRENT_PLAYER = new Player();
 
 
 // 0x3 : Handles specifically pointer lock.
-MANAGER_POINTER_LOCK = new PointerLockManager(CURRENT_PLAYER.fps_controls);
+MANAGER_POINTER_LOCK = new PointerLockManager();
 // 0x3 : Handles the debug display.
-MANAGER_DATA_DISPLAY = new DataDisplay(CURRENT_PLAYER.fps_controls);
+MANAGER_DATA_DISPLAY = new DataDisplay();
 
 
 // 0x4 : The paused menu.

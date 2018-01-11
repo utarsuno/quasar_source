@@ -216,6 +216,16 @@ module.exports = {
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION"  : true,
+        "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
+
+        "ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE" : false,
+
+        "ACCOUNT_TYPE_INTERNAL": true,
+        "ACCOUNT_TYPE_DEFAULT" : true,
+        "ACCOUNT_TYPE_ADMIN"   : true,
+        "ACCOUNT_TYPE_SUDO"    : true,
+
         "AUDIO_TYPING_SOUND"  : true,
 
         "TEXTURE_GROUP_SKYBOX": true,
@@ -255,6 +265,8 @@ module.exports = {
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
+
+        "POST_KEY_GENERIC_DATA" : true,
 
         "POST_USERNAME"  : false,
         "POST_PASSWORD"  : false,

@@ -13,13 +13,9 @@ DataDisplay.prototype = {
     y_direction: null,
     z_direction: null,
 
-    fps_controls: null,
-
     enabled: null,
 
-    __init__: function(fps_controls) {
-        this.fps_controls = fps_controls;
-
+    __init__: function() {
         this.enabled = true;
 
         // DOM elements.
@@ -34,11 +30,12 @@ DataDisplay.prototype = {
 
     update: function() {
         if (this.enabled) {
-            var position = this.fps_controls.get_position();
-            var direction = this.fps_controls.get_direction();
-            this.x_coordinate.textContent = 'x : ' + int(position.x) + ' | ' + int(this.fps_controls.get_velocity().x);
-            this.y_coordinate.textContent = 'y : ' + int(position.y) + ' | ' + int(this.fps_controls.get_velocity().y);
-            this.z_coordinate.textContent = 'z : ' + int(position.z) + ' | ' + int(this.fps_controls.get_velocity().z);
+            var position = CURRENT_PLAYER.fps_controls.get_position();
+            var direction = CURRENT_PLAYER.fps_controls.get_direction();
+            var velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
+            this.x_coordinate.textContent = 'x : ' + int(position.x) + ' | ' + int(velocity.x);
+            this.y_coordinate.textContent = 'y : ' + int(position.y) + ' | ' + int(velocity.y);
+            this.z_coordinate.textContent = 'z : ' + int(position.z) + ' | ' + int(velocity.z);
             this.x_direction.textContent  = 'xd : ' + direction.x;
             this.y_direction.textContent  = 'yd : ' + direction.y;
             this.z_direction.textContent  = 'zd : ' + direction.z;

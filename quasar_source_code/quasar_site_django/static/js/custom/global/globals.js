@@ -107,6 +107,19 @@ const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relat
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
 
+
+const SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION = 'eoo';
+const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
+
+const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = '';
+
+const ACCOUNT_TYPE_INTERNAL = 'internal';
+const ACCOUNT_TYPE_DEFAULT  = 'default';
+const ACCOUNT_TYPE_ADMIN    = 'admin';
+const ACCOUNT_TYPE_SUDO     = 'sudo';
+
+const POST_KEY_GENERIC_DATA = 'generic_data_key';
+
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
 const POST_URL_SAVE_ENTITY           = '/save_entity';
@@ -226,7 +239,6 @@ const CURSOR_TYPE_MOUSE      = 'mouse.png';
 const TEXT_FORMAT_LEFT         = 'text_format_left';
 const TEXT_FORMAT_CENTER       = 'text_format_center';
 const TEXT_FORMAT_RIGHT        = 'text_format_right';
-
 
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',

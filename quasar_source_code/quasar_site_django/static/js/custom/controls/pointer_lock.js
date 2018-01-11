@@ -2,18 +2,18 @@
 
 // https://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
-function PointerLockManager(controls) {
-    this.__init__(controls);
+function PointerLockManager() {
+    this.__init__();
 }
 
 PointerLockManager.prototype = {
+    // TODO : is this needed?
     has_pointer_lock: null,
     element         : null,
+    // TODO : is this needed?
     currently_locked: false,
-    controls        : null,
 
-    __init__: function (controls) {
-        this.controls = controls;
+    __init__: function () {
         this.element = document.body;
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
         if (this.has_pointer_lock === true) {
@@ -33,18 +33,18 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
-        l('Pointer lock change!');
+        //l('Pointer lock change!');
 
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
             this.currently_locked = true;
 
             // Only enable the controls if the Typing GUI isn't displayed.
             if (!GUI_TYPING_INTERFACE.is_visible()) {
-                this.controls.enable();
+                CURRENT_PLAYER.fps_controls.enable();
             }
         } else {
             this.currently_locked = false;
-            this.controls.disable();
+            CURRENT_PLAYER.fps_controls.disable();
             CURRENT_PLAYER.disengage();
 
             var currently_looked_at_object = MANAGER_WORLD.current_world.currently_looked_at_object;
@@ -60,7 +60,7 @@ PointerLockManager.prototype = {
             }
         }
 
-        l('Pointer lock change finish!');
+        //l('Pointer lock change finish!');
     },
 
     pointer_lock_error: function(e) {

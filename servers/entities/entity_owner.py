@@ -5,6 +5,12 @@
 from entities import base_entity as be
 from entities import entity_manager as em
 
+# All pre-defined account types.
+ACCOUNT_TYPE_INTERNAL = 'internal'
+ACCOUNT_TYPE_DEFAULT  = 'default'
+ACCOUNT_TYPE_ADMIN    = 'admin'
+ACCOUNT_TYPE_SUDO     = 'sudo'
+
 
 class EntityOwner(object):
 	"""Represents a single unique EntityOwner."""
@@ -22,8 +28,6 @@ class EntityOwner(object):
 				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
 			elif key == 'entities':
 				self._entities = raw_data['entities']
-				#print('NEED TO SET FROM THE FOLLOWING DATA :!!!!')
-
 				if type(self._entities) == str:
 					self._entities = eval(self._entities)
 
@@ -32,7 +36,10 @@ class EntityOwner(object):
 					for p in self._entities[id_num]:
 						raw_entity.set_property_and_value(p, self._entities[id_num][p])
 					self._entity_manager.add_entity(raw_entity)
-				#print(self._entities)
+
+	def set_entity_owner_account_type(self, account_type):
+		"""Sets the Entity Owner's account type."""
+		self._entity_manager.get_owner_entity().set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, account_type)
 
 	def create_initial_entities(self):
 		"""Creates the initial entities that this EntityOwner needs."""
@@ -41,6 +48,7 @@ class EntityOwner(object):
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_USERNAME, self._username)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_EMAIL, self._email)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
+		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, ACCOUNT_TYPE_DEFAULT)
 		self._entity_manager.add_entity(owner_entity)
 
 	def update_entity(self, entity_data):
@@ -54,12 +62,16 @@ class EntityOwner(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_account_type(self):
+		"""Returns the account type of this Entity Owner."""
+
+
 	def get_all_entities(self):
 		"""Returns all the entities in this EntityOwner."""
 		return self._entity_manager.get_all_entities()
 
 	def get_data_for_database(self):
-		"""Returns the data in database saveable format."""
+		"""Returns the data in database savable format."""
 		json_data = {be.ENTITY_PROPERTY_EMAIL: self._email,
 		             be.ENTITY_PROPERTY_PASSWORD: self._password,
 		             be.ENTITY_PROPERTY_USERNAME: self._username}
