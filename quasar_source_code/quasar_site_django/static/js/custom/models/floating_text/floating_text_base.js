@@ -68,12 +68,9 @@ function FloatingText(width, text, type, world, is_2D_text) {
             case TYPE_BUTTON:
             case TYPE_CHECK_BOX:
                 this.set_default_color(COLOR_TEXT_BUTTON);
-                this.maintain_engage_when_tabbed_to = false;
-                this.engable = false;
                 break;
             case TYPE_CONSTANT:
                 this.set_default_color(COLOR_TEXT_CONSTANT);
-                this.engable = false;
                 break;
             case TYPE_TITLE:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
