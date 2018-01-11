@@ -39,12 +39,14 @@ TextureGroup.prototype = {
     },
 
     _texture_loaded: function(texture, texture_full_url) {
+        var texture_name = 'missing';
         for (var t = 0; t < this._number_of_textures_to_load; t++) {
             if (this._textures[t][INDEX_FULL_URL] === texture_full_url) {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
 
-                this._loading_manager.update_text('Loaded ' + this._textures[t][INDEX_TEXTURE_NAME]);
+                texture_name = his._textures[t][INDEX_TEXTURE_NAME];
+                this._loading_manager.update_text('Loaded ' + texture_name);
 
                 break;
             }
@@ -53,9 +55,9 @@ TextureGroup.prototype = {
         switch (this._texture_group) {
         case TEXTURE_GROUP_CURSOR:
             var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
-            this.world_login.provide_cursor_material(cursor_material, texture_name);
-            this.world_home.provide_cursor_material(cursor_material, texture_name);
-            this.world_settings.provide_cursor_material(cursor_material, texture_name);
+            MANAGER_WORLD.world_login.provide_cursor_material(cursor_material, texture_name);
+            MANAGER_WORLD.world_home.provide_cursor_material(cursor_material, texture_name);
+            MANAGER_WORLD.world_settings.provide_cursor_material(cursor_material, texture_name);
             break;
         case TEXTURE_GROUP_ICONS:
             if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
