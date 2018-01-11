@@ -198,6 +198,9 @@ PlayerMenu.prototype = {
 
         this.visible = false;
         this.total_delta = 0;
+
+        // Only used for the initial loading.
+        this.current_row = 0;
     },
 
     set_to_invisible: function() {
@@ -257,15 +260,24 @@ PlayerMenu.prototype = {
 
     },
 
-    // TODO : create this utility function later, especially when there are more icons.
-    //_add_menu_icon: function(icon) {
-    //},
+    _add_menu_icon: function(icon, list_of_icons_not_to_load) {
+        if (this.current_row === 0) {
+            this.icons = [];
+        }
+        if (!list_of_icons_not_to_load.contains(icon)) {
+            this.icons.push(new MenuIcon(icon, this.world, this.current_row));
+            this.current_row += 1;
+        }
+    },
 
     // This function gets called once per player menu object.
     load_icon_textures: function(list_of_icons_not_to_load) {
-
-        var current_row = 0;
-        this.icons = [];
+        this._add_menu_icon(ICON_ENTITY_GROUP, list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_SAVE        , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_TELEPORT    , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_MULTIPLAYER , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_FULLSCREEN  , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_EXIT        , list_of_icons_not_to_load);
 
         if (!list_of_icons_not_to_load.contains(ICON_ENTITY_GROUP)) {
             this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
@@ -279,16 +291,10 @@ PlayerMenu.prototype = {
             this.icons.push(this.icon_save);
         }
 
-        if (!list_of_icons_not_to_load.contains(ICON_SETTINGS)) {
-            this.icon_settings = new MenuIcon(ICON_SETTINGS, this.world, current_row);
+        if (!list_of_icons_not_to_load.contains(ICON_TELEPORT)) {
+            this.icon_teleport = new MenuIcon(ICON_TELEPORT, this.world, current_row);
             current_row += 1;
-            this.icons.push(this.icon_settings);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_HOME)) {
-            this.icon_home = new MenuIcon(ICON_HOME, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_home);
+            this.icons.push(this.icon_teleport);
         }
 
         if (!list_of_icons_not_to_load.contains(ICON_MULTIPLAYER)) {
