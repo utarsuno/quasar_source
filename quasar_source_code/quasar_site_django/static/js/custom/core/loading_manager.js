@@ -39,8 +39,16 @@ TextureGroup.prototype = {
     },
 
     _texture_loaded: function(texture, texture_full_url) {
+
+        l('Looking for : ');
+        l(texture_full_url);
+
         var texture_name = 'missing';
         for (var t = 0; t < this._number_of_textures_to_load; t++) {
+
+            l(this._textures[t][INDEX_FULL_URL]);
+            l((this._textures[t][INDEX_FULL_URL]) === (texture_full_url));
+
             if (this._textures[t][INDEX_FULL_URL] === texture_full_url) {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
