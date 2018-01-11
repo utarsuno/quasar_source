@@ -170,11 +170,6 @@ PlayerMenu.prototype = {
             return;
         }
 
-        if (GUI_PAUSED_MENU.is_visible()) {
-            l('hmn..?');
-            return;
-        }
-
         this.visible = true;
         this.total_delta = 0;
 
