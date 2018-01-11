@@ -202,7 +202,7 @@ LoadingManager.prototype = {
         this._number_of_textures_loaded += 1;
         l(this._number_of_textures_to_load);
         l(this._number_of_textures_loaded);
-        l(round_to_n_decimal_places(this._number_of_textures_to_load / this._number_of_textures_loaded, 2));
+        l(round_to_n_decimal_places((this._number_of_textures_loaded / this._number_of_textures_to_load) * 100, 2));
         GUI_PAUSED_MENU.set_text(round_to_n_decimal_places(this._number_of_textures_to_load / this._number_of_textures_loaded, 2) + '% loaded');
         GUI_PAUSED_MENU.set_sub_text(text);
     },
