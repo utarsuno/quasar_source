@@ -34,9 +34,7 @@ var animate = function () {
     }
 
     if (MANAGER_WORLD.current_player_menu.is_visible()) {
-        if (MANAGER_WORLD.current_player_menu.loaded) {
-            MANAGER_WORLD.current_player_menu.update(delta);
-        }
+        MANAGER_WORLD.current_player_menu.update(delta);
     }
 
     MANAGER_MULTIPLAYER.update(delta);

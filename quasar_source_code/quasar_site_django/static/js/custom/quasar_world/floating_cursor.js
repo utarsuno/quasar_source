@@ -39,7 +39,6 @@ FloatingCursor.prototype = {
         this.engaged = true;
         CURRENT_PLAYER.engage();
         CURRENT_PLAYER.enable_controls();
-
     },
 
     disengage: function() {
@@ -56,6 +55,10 @@ FloatingCursor.prototype = {
 
     load_cursor: function(texture_name) {
         var cursor_name = '';
+
+        l('Loading cursor : {' + texture_name + '}');
+        l('Texture is : ' );
+        l(MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, texture_name));
 
         var cursor_material = new THREE.MeshBasicMaterial({map: MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, texture_name), transparent: true, opacity: 0.90, side: THREE.DoubleSide});
 

@@ -154,8 +154,6 @@ PlayerMenu.prototype = {
     __init__: function(world) {
         this.world = world;
 
-        this.loaded = false;
-
         this.visible = false;
         this.total_delta = 0;
     },
@@ -205,6 +203,8 @@ PlayerMenu.prototype = {
             this.percentage = this.total_delta / ANIMATION_TIME;
         }
 
+
+        // TODO : Refactor this!!!!
         if (is_defined(this.icons)) {
             for (var i = 0; i < this.icons.length; i++) {
                 if (this.icons[i].row !== 0) {
@@ -217,6 +217,7 @@ PlayerMenu.prototype = {
                 }
             }
         }
+
     },
 
     // TODO : create this utility function later, especially when there are more icons.
@@ -273,8 +274,6 @@ PlayerMenu.prototype = {
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
-
-        this.loaded = true;
 
         this.set_to_invisible();
     }
