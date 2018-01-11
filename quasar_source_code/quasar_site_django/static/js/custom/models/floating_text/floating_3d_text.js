@@ -35,13 +35,16 @@ Floating3DText.prototype = {
         this._update_text();
     },
 
-    _update_text: function() {
-        // FOR_DEV_START
-        l('Creating 3D Text!');
-        // FOR_DEV_END
+    _calculate_dimensions: function() {
+        var box = new THREE.Box3().setFromObject(this.current_text_object);
+        this.width = box.max.x;
+        this.height = box.max.y;
+    },
 
+    _update_text: function() {
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
+            this.material.dispose();
         }
 
         if (this.current_text_object !== null) {
@@ -50,16 +53,6 @@ Floating3DText.prototype = {
             this.current_text_object.material.dispose();
         }
 
-        // FOR_DEV_START
-        if (!is_defined(this.text)) {
-            l('Text is not defined!');
-        } else {
-            if (this.text.length === 0) {
-                l('Text has a length of 0!');
-            }
-        }
-        // FOR_DEV_END
-
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,
@@ -67,13 +60,13 @@ Floating3DText.prototype = {
             font: GLOBAL_FONT
         });
 
+
+        l('3D text is trying to set color to : ');
+        l(this.current_color);
         this.material = new THREE.MeshLambertMaterial({color: this.current_color});
-        
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
 
-        var box = new THREE.Box3().setFromObject(this.current_text_object);
-        this.width = box.max.x;
-        this.height = box.max.y;
+        this._calculate_dimensions();
 
         this.object3D.add(this.current_text_object);
 
@@ -87,6 +80,9 @@ Floating3DText.prototype = {
     },
 
     __init__: function(text, type, world) {
+
+
+
         // Inherit from FloatingText.
         FloatingText.call(this, 0, text, type, world, false);
         // Inherit from Interactive.
