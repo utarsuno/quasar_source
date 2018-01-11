@@ -54,8 +54,14 @@ MenuIcon.prototype = {
         this.teleport_wall.show();
     },
 
-    hide_teleport_worlds: function() {
-        this.teleport_wall.hide();
+    hide_teleport_worlds: function(dont_hide) {
+        if (is_defined(dont_hide)) {
+            if (!dont_hide) {
+                this.teleport_wall.hide();
+            }
+        } else {
+            this.teleport_wall.hide();
+        }
     },
 
     select_a_world_to_teleport_to: function() {
