@@ -56,10 +56,6 @@ FloatingCursor.prototype = {
     load_cursor: function(texture_name, texture) {
         var cursor_name = '';
 
-        l('Loading cursor : {' + texture_name + '}');
-        l('Texture is : ' );
-        l(texture);
-
         var cursor_material = new THREE.MeshBasicMaterial({map: texture, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
 
         if (texture_name === CURSOR_TYPE_HORIZONTAL) {

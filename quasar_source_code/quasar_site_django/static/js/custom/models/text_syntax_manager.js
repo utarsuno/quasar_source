@@ -25,6 +25,11 @@ TextSyntaxManager.prototype = {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
             // On success <result> will be ''. (If ('') returns false).
+
+            print('Checking : ' + label.get_text());
+            print('Results are :');
+            print(result);
+
             if (result) {
                 label.set_background_color(COLOR_FLOATING_WALL_ERROR);
                 input.set_background_color(COLOR_FLOATING_WALL_ERROR);
