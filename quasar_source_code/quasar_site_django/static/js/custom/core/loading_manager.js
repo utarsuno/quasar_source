@@ -56,55 +56,6 @@ TextureGroup.prototype = {
         if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
             this._loaded_callback();
         }
-
-        /*
-        switch (this._texture_group) {
-        case TEXTURE_GROUP_ICONS:
-            if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
-                // The parameters passed in are the icons not to load from the set of standard player menu icons.
-                MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
-                MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
-                MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-            }
-            break;
-        }
-        */
-
-        /*
-        if (texture_name.includes('skybox')) {
-            // Skybox.
-            var position = -1;
-            if (texture_name.includes(SKYBOX_FRONT)) {
-                position = 0;
-            } else if (texture_name.includes(SKYBOX_BACK)) {
-                position = 1;
-            } else if (texture_name.includes(SKYBOX_TOP)) {
-                position = 2;
-            } else if (texture_name.includes(SKYBOX_BOTTOM)) {
-                position = 3;
-            } else if (texture_name.includes(SKYBOX_RIGHT)) {
-                position = 4;
-            } else if (texture_name.includes(SKYBOX_LEFT)) {
-                position = 5;
-            }
-            this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
-
-            this.number_of_sky_box_textures_loaded += 1;
-            if (this.number_of_sky_box_textures_loaded === NUMBER_OF_SKYBOX_TEXTURES) {
-                this.create_sky_boxes();
-            }
-
-        } else if (texture_name.includes('icons')) {
-            // Icons.
-            this.icon_textures.push([texture, texture_name]);
-            this.number_of_icons_loaded += 1;
-            if (this.number_of_icons_loaded === NUMBER_OF_ICON_TEXTURES) {
-                // The parameters passed in are the icons not to load.
-                this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
-                this.world_home.player_menu.load_icon_textures([ICON_HOME]);
-                this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-            }
-        }*/
     },
 
     load_textures: function() {
@@ -175,35 +126,63 @@ function LoadingManager() {
 
 LoadingManager.prototype = {
 
-    /*
-        this.provide_cursor_material = function(cursor_material, texture_name) {
-        l('Got the following cursor material : ');
-        l(cursor_material);
-        l(texture_name);
-
-        this.floating_cursor.add_cursor_material(cursor_material, texture_name);
-    };
-     */
-
     _cursors_loaded: function() {
         for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
             MANAGER_WORLD.world_login.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
             MANAGER_WORLD.world_home.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
             MANAGER_WORLD.world_settings.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
         }
-        //MANAGER_WORLD.world_login.floating_cursor.
-        l('The cursors loaded!');
     },
 
     _skyboxs_loaded: function() {
-        l('The skyboxs loaded!');
+        /*
+        if (texture_name.includes('skybox')) {
+            // Skybox.
+            var position = -1;
+            if (texture_name.includes(SKYBOX_FRONT)) {
+                position = 0;
+            } else if (texture_name.includes(SKYBOX_BACK)) {
+                position = 1;
+            } else if (texture_name.includes(SKYBOX_TOP)) {
+                position = 2;
+            } else if (texture_name.includes(SKYBOX_BOTTOM)) {
+                position = 3;
+            } else if (texture_name.includes(SKYBOX_RIGHT)) {
+                position = 4;
+            } else if (texture_name.includes(SKYBOX_LEFT)) {
+                position = 5;
+            }
+            this.sky_box_textures.push([new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY}), position]);
+
+            this.number_of_sky_box_textures_loaded += 1;
+            if (this.number_of_sky_box_textures_loaded === NUMBER_OF_SKYBOX_TEXTURES) {
+                this.create_sky_boxes();
+            }
+
+        }*/
+
+        var sky_box_textures = [];
+        // The order of these gets matter.
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_FRONT));
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BACK));
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_TOP));
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BOTTOM));
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
+        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
+
+        for (var t = 0; t < sky_box_textures.length; t++) {
+            sky_box_textures[t] = new THREE.MeshBasicMaterial({map: sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
+        }
+
+        MANAGER_WORLD.world_login.add_sky_box(sky_box_textures);
+        MANAGER_WORLD.world_home.add_sky_box(sky_box_textures);
+        MANAGER_WORLD.world_settings.add_sky_box(sky_box_textures);
     },
 
     _icons_loaded: function() {
         MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
         MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
         MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-        l('The icons loaded!');
     },
 
     __init__: function() {
@@ -213,8 +192,6 @@ LoadingManager.prototype = {
         this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this._cursors_loaded.bind(this), this);
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
         this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this._icons_loaded.bind(this)  , this);
-
-
     },
 
     update_text: function(text) {
