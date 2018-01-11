@@ -17,6 +17,9 @@ function InheritableButton() {
 
     // Used for buttons.
     this.enable = function() {
+        l('Button is now enabled! Setting the color to :');
+        l(this.previous_default_color);
+
         this.set_default_color(this.previous_default_color);
         this._disabled = false;
     };
