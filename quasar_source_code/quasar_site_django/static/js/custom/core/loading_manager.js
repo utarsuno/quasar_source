@@ -208,7 +208,6 @@ LoadingManager.prototype = {
     // Occurs only once on website start up.
     perform_initial_load: function() {
         l('Performing the initial load!!');
-        this.currently_loading = true;
 
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
