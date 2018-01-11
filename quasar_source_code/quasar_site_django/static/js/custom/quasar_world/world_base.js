@@ -360,6 +360,13 @@ function World(planet_name) {
         //l(!MANAGER_LOADING.currently_loading());
         if (GUI_PAUSED_MENU.is_visible() && !MANAGER_LOADING.currently_loading()) {
             //l('Requesting pointer lock!');
+
+            if (this.currently_looked_at_object !== null) {
+                if (this.currently_looked_at_object.is_engaged()) {
+                    this.currently_looked_at_object.disengage();
+                }
+            }
+
             GUI_PAUSED_MENU.make_invisible();
             MANAGER_POINTER_LOCK.request_pointer_lock();
         } else {

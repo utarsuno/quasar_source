@@ -92,6 +92,9 @@ function FloatingText(width, text, type, scene) {
             this.default_color = default_color;
         }
         this.current_color = this.default_color;
+        if (!is_defined(this.previous_default_color)) {
+            this.previous_default_color = this.default_color;
+        }
         this._update_color();
     };
 
