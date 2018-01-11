@@ -55,66 +55,68 @@ MenuIcon.prototype = {
         this.row = row;
         this.object3D = new THREE.Object3D();
 
-        for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
-            if (MANAGER_WORLD.icon_textures[i][1].includes(icon_type)) {
-                this.geometry = new THREE.CircleGeometry(10, 32);
-                // TODO : Eventually just do FrontSide
-                // TODO : Eventually add some transparency.
-                this.material = new THREE.MeshBasicMaterial({map: MANAGER_WORLD.icon_textures[i][0], side: THREE.DoubleSide, transparent: true, opacity: .75});
-                //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
-                this.icon = new THREE.Mesh(this.geometry, this.material);
 
-                var icon_label = '';
-                var function_to_bind = null;
-                switch (icon_type) {
-                case ICON_SAVE:
-                    icon_label = 'save';
-                    function_to_bind = global_save;
-                    break;
-                case ICON_EXIT:
-                    icon_label = 'exit';
-                    l('TODO : Logout');
-                    break;
-                case ICON_MULTIPLAYER:
-                    icon_label = 'online';
-                    l('TODO : Go online');
-                    break;
-                case ICON_HOME:
-                    icon_label = 'home';
-                    function_to_bind = go_to_home_world;
-                    break;
-                case ICON_SETTINGS:
-                    icon_label = 'settings';
-                    function_to_bind = go_to_settings_world;
-                    break;
-                case ICON_ENTITY_GROUP:
-                    icon_label = 'entities';
-                    function_to_bind = create_entity_wall;
-                    break;
-                case ICON_FULLSCREEN:
-                    icon_label = 'fullscreen';
-                    function_to_bind = toggle_fullscreen;
-                    break;
-                }
-                this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
-                if (is_defined(function_to_bind)) {
-                    this.floating_label.set_engage_function(function_to_bind);
-                }
+        //for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
+        //if (MANAGER_WORLD.icon_textures[i][1].includes(icon_type)) {
 
-                this.object3D.add(this.icon);
+        this.geometry = new THREE.CircleGeometry(10, 32);
+        // TODO : Eventually just do FrontSide
+        // TODO : Eventually add some transparency.
+        this.material = new THREE.MeshBasicMaterial({map: MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type), side: THREE.DoubleSide, transparent: true, opacity: .75});
+        //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
+        this.icon = new THREE.Mesh(this.geometry, this.material);
 
-                this.world.add_to_scene(this.object3D);
-
-                // Inherit from Interactive.
-                //Interactive.call(this);
-                // Inherit from Visibility.
-                //Visibility.call(this);
-
-                //this.world.interactive_objects.push(this.icon);
-
-                this.world.interactive_objects.push(this.floating_label);
-            }
+        var icon_label = '';
+        var function_to_bind = null;
+        switch (icon_type) {
+        case ICON_SAVE:
+            icon_label = 'save';
+            function_to_bind = global_save;
+            break;
+        case ICON_EXIT:
+            icon_label = 'exit';
+            l('TODO : Logout');
+            break;
+        case ICON_MULTIPLAYER:
+            icon_label = 'online';
+            l('TODO : Go online');
+            break;
+        case ICON_HOME:
+            icon_label = 'home';
+            function_to_bind = go_to_home_world;
+            break;
+        case ICON_SETTINGS:
+            icon_label = 'settings';
+            function_to_bind = go_to_settings_world;
+            break;
+        case ICON_ENTITY_GROUP:
+            icon_label = 'entities';
+            function_to_bind = create_entity_wall;
+            break;
+        case ICON_FULLSCREEN:
+            icon_label = 'fullscreen';
+            function_to_bind = toggle_fullscreen;
+            break;
         }
+        this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
+        if (is_defined(function_to_bind)) {
+            this.floating_label.set_engage_function(function_to_bind);
+        }
+
+        this.object3D.add(this.icon);
+
+        this.world.add_to_scene(this.object3D);
+
+        // Inherit from Interactive.
+        //Interactive.call(this);
+        // Inherit from Visibility.
+        //Visibility.call(this);
+
+        //this.world.interactive_objects.push(this.icon);
+
+        this.world.interactive_objects.push(this.floating_label);
+        //    }
+        //}
     },
 
     set_position_and_normal: function(position, nx, nz) {

@@ -8,8 +8,8 @@ const CURSOR_DEFAULT_OPACITY = 0.90;
 // TODO : Eventually make this into a configurable setting.
 const SKYBOX_DEFAULT_OPACITY = 0.50;
 
-function TextureGroup(texture_group, loading_manager) {
-    this.__init__(texture_group, loading_manager);
+function TextureGroup(texture_group, loaded_callback, loading_manager) {
+    this.__init__(texture_group, loaded_callback, loading_manager);
 }
 
 // Utility variables.
@@ -18,8 +18,9 @@ const INDEX_TEXTURE_NAME = 1;
 const INDEX_TEXTURE      = 2;
 
 TextureGroup.prototype = {
-    __init__: function(texture_group, loading_manager) {
+    __init__: function(texture_group, loaded_callback, loading_manager) {
         this._loading_manager  = loading_manager;
+        this._loaded_callback  = loaded_callback;
         this._texture_group    = texture_group;
         this._texture_base_url = TEXTURE_URL_BASE + this._texture_group;
         this._textures = [];
@@ -52,13 +53,12 @@ TextureGroup.prototype = {
             }
         }
 
+        if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
+            this._loaded_callback();
+        }
+
+        /*
         switch (this._texture_group) {
-        case TEXTURE_GROUP_CURSOR:
-            var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
-            MANAGER_WORLD.world_login.provide_cursor_material(cursor_material, texture_name);
-            MANAGER_WORLD.world_home.provide_cursor_material(cursor_material, texture_name);
-            MANAGER_WORLD.world_settings.provide_cursor_material(cursor_material, texture_name);
-            break;
         case TEXTURE_GROUP_ICONS:
             if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
                 // The parameters passed in are the icons not to load from the set of standard player menu icons.
@@ -68,6 +68,7 @@ TextureGroup.prototype = {
             }
             break;
         }
+        */
 
         /*
         if (texture_name.includes('skybox')) {
@@ -174,10 +175,24 @@ function LoadingManager() {
 
 LoadingManager.prototype = {
 
+    _cursors_loaded: function() {
+        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
+        MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
+        MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+    },
+
+    _skyboxs_loaded: function() {
+
+    },
+
+    _icons_loaded: function() {
+
+    },
+
     __init__: function() {
-        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this);
-        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this);
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this);
+        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this._cursors_loaded.bind(this), this);
+        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
+        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this._icons_loaded.bind(this)  , this);
 
         this._number_of_textures_to_load = 0;
         this._number_of_textures_loaded  = 0;
