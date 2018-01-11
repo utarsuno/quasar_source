@@ -55,14 +55,15 @@ MenuIcon.prototype = {
         this.row = row;
         this.object3D = new THREE.Object3D();
 
-
-        //for (var i = 0; i < MANAGER_WORLD.icon_textures.length; i++) {
-        //if (MANAGER_WORLD.icon_textures[i][1].includes(icon_type)) {
-
         this.geometry = new THREE.CircleGeometry(10, 32);
         // TODO : Eventually just do FrontSide
         // TODO : Eventually add some transparency.
-        this.material = new THREE.MeshBasicMaterial({map: MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type), side: THREE.DoubleSide, transparent: true, opacity: .75});
+
+        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type);
+        l('Cursor {' + icon_type + '} got this texture:');
+        l(texture);
+
+        this.material = new THREE.MeshBasicMaterial({map: , side: THREE.DoubleSide, transparent: true, opacity: .75});
         //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
         this.icon = new THREE.Mesh(this.geometry, this.material);
 
@@ -112,11 +113,7 @@ MenuIcon.prototype = {
         // Inherit from Visibility.
         //Visibility.call(this);
 
-        //this.world.interactive_objects.push(this.icon);
-
         this.world.interactive_objects.push(this.floating_label);
-        //    }
-        //}
     },
 
     set_position_and_normal: function(position, nx, nz) {
