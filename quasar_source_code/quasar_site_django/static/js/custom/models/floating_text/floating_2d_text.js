@@ -70,6 +70,7 @@ Floating2DText.prototype = {
         } else {
             this.default_background_color = color;
         }
+        this.current_background_color = this.default_background_color;
         this._update_text(this.get_text());
     },
 
