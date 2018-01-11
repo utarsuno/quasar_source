@@ -18,7 +18,12 @@ function TextSyntax(syntax_checks) {
 
         l(text.length);
 
+
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
+
+            l('??');
+            l(this._required_syntax_rules[r]);
+
             switch(this._required_syntax_rules[r]) {
             case TEXT_SYNTAX_STANDARD_LENGTH:
 
