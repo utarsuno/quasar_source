@@ -6,15 +6,10 @@ function TextSyntax(syntax_checks) {
 
     this._required_syntax_rules = [];
 
-    l('I GOT THIS PASSED IN!!!!');
-    l(syntax_checks);
-
-    for (var sc in syntax_checks) {
-        if (syntax_checks.hasOwnProperty(sc)) {
-            this._required_syntax_rules.push(sc);
-        }
+    for (var sc = 0; sc < syntax_checks.length; sc++) {
+        this._required_syntax_rules.push(syntax_checks[sc]);
     }
-
+    
     this.syntax_check = function() {
         var text = this.get_text();
         l('Performing syntax check on : {' + text + '}');
