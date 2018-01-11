@@ -50,10 +50,30 @@ function toggle_fullscreen() {
 }
 
 MenuIcon.prototype = {
+    display_teleport_worlds: function() {
+        this.teleport_wall.show();
+    },
+
+    hide_teleport_worlds: function() {
+        this.teleport_wall.hide();
+    },
+
+    select_a_world_to_teleport_to: function() {
+
+    },
+
     __init__: function(icon_type, world, row) {
         this.world = world;
         this.row = row;
         this.object3D = new THREE.Object3D();
+
+
+        // width, height, position, normal, world, scalable, color_index
+
+
+        this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
+        this.teleport_wall.hide();
+
 
         this.geometry = new THREE.CircleGeometry(10, 32);
         // TODO : Eventually just do FrontSide
@@ -67,6 +87,8 @@ MenuIcon.prototype = {
 
         var icon_label = '';
         var function_to_bind = null;
+        var function_look_at_bind = null;
+        var function_look_away_bind = null;
         switch (icon_type) {
         case ICON_SAVE:
             icon_label = 'save';
@@ -79,6 +101,12 @@ MenuIcon.prototype = {
         case ICON_MULTIPLAYER:
             icon_label = 'online';
             l('TODO : Go online');
+            break;
+        case ICON_TELEPORT:
+            icon_label = 'teleport';
+            function_look_at_bind = this.display_teleport_worlds.bind(this);
+            function_look_away_bind = this.hide_teleport_worlds.bind(this);
+            function_to_bind = this.select_a_world_to_teleport_to.bind(this);
             break;
         case ICON_HOME:
             icon_label = 'home';
@@ -97,7 +125,7 @@ MenuIcon.prototype = {
             function_to_bind = toggle_fullscreen;
             break;
         }
-        this.floating_label = new Floating2DText(80, icon_label, TYPE_BUTTON, this.world.scene);
+        this.floating_label = new Floating2DText(90, icon_label, TYPE_BUTTON, this.world.scene);
         if (is_defined(function_to_bind)) {
             this.floating_label.set_engage_function(function_to_bind);
         }
@@ -124,9 +152,11 @@ MenuIcon.prototype = {
         this.left_right.cross(this.normal);
         this.left_right.normalize();
 
-        var horizontal_shift = 50;
+        var horizontal_shift = 60;
 
         this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift), this.normal);
+
+        this.teleport_wall.update_position_and_normal();
     },
 
     update_y_position: function(y_offset) {

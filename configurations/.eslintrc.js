@@ -221,10 +221,11 @@ module.exports = {
 
         "ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE" : false,
 
-        "ACCOUNT_TYPE_INTERNAL": true,
-        "ACCOUNT_TYPE_DEFAULT" : true,
-        "ACCOUNT_TYPE_ADMIN"   : true,
-        "ACCOUNT_TYPE_SUDO"    : true,
+        "ACCOUNT_TYPE_NOT_VERIFIED": true,
+        "ACCOUNT_TYPE_INTERNAL"    : true,
+        "ACCOUNT_TYPE_DEFAULT"     : true,
+        "ACCOUNT_TYPE_ADMIN"       : true,
+        "ACCOUNT_TYPE_SUDO"        : true,
 
         "AUDIO_TYPING_SOUND"  : true,
 
@@ -298,6 +299,7 @@ module.exports = {
         "ICON_LOCKED"      : false,
         "ICON_UNLOCKED"    : false,
         "ICON_WARNING"     : false,
+        "ICON_TELEPORT"    : false,
         // UNIVERSAL_CONSTANTS_END
 
         "TEXT_FORMAT_LEFT"        : false,

@@ -111,12 +111,13 @@ const ENTITY_POST_SAVE_DATA = 'save_data';
 const SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION = 'eoo';
 const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
 
-const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = '';
+const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = ENTITY_PROPERTY_START_TOKEN + 'account_type';
 
-const ACCOUNT_TYPE_INTERNAL = 'internal';
-const ACCOUNT_TYPE_DEFAULT  = 'default';
-const ACCOUNT_TYPE_ADMIN    = 'admin';
-const ACCOUNT_TYPE_SUDO     = 'sudo';
+const ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified';
+const ACCOUNT_TYPE_INTERNAL     = 'internal';
+const ACCOUNT_TYPE_DEFAULT      = 'default';
+const ACCOUNT_TYPE_ADMIN        = 'admin';
+const ACCOUNT_TYPE_SUDO         = 'sudo';
 
 const POST_KEY_GENERIC_DATA = 'generic_data_key';
 
@@ -213,6 +214,7 @@ const ICON_WORLDS       = 'bars_horizontal.png';
 const ICON_LOCKED       = 'locked.png';
 const ICON_UNLOCKED     = 'unlocked.png';
 const ICON_WARNING      = 'warning.png';
+const ICON_TELEPORT     = 'open.png';
 // UNIVERSAL_CONSTANTS_END
 
 // TODO : Audio stuff.

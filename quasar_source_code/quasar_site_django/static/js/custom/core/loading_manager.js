@@ -180,6 +180,7 @@ TextureGroup.prototype = {
             this._add_texture_needed(ICON_UNLOCKED);
             this._add_texture_needed(ICON_WORLDS);
             this._add_texture_needed(ICON_WARNING);
+            this._add_texture_needed(ICON_TELEPORT);
             break;
         }
     }

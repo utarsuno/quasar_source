@@ -143,17 +143,45 @@ FloatingWall.prototype = {
             this.update_position_with_offset_xyz(new_position.x - this.x_without_normal, new_position.y - this.y_without_normal + y_offset, new_position.z - this.z_without_normal);
         }
 
-        this.update_position_and_normal_for_all_floating_text();
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
-        }
+        //this.update_position_and_normal_for_all_floating_text();
+        //for (var j = 0; j < this.all_floating_walls.length; j++) {
+        //    this.all_floating_walls[j].update_position_and_normal_for_all_floating_text();
+        //}
+
+        this.update_position_and_normal_for_all_floating_text_recursively();
     },
 
-    update_position_and_normal_for_all_floating_text: function() {
+    // TODO : Double check that this function is still working properly.
+    update_position_and_normal_for_all_floating_text_recursively: function() {
         // TODO : Update position for all floating 3D text
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
+        for (var f = 0; f < this.all_floating_2d_texts.length; f++) {
+            this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[f]);
         }
+
+        for (var j = 0; j < this.all_floating_walls.length; j++) {
+            this.all_floating_walls[j].update_position_and_normal_for_all_floating_text_recursively();
+        }
+
+        return;
+        // OLD CODE BELOW
+        // OLD CODE BELOW
+
+        // TODO : Update position for all floating 3D text
+        //for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
+        //    this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
+        //}
+    },
+
+    // TODO : Verify that this function works with the rest of this class.
+    set_position_and_normal: function(p, n) {
+        this.update_normal(n);
+
+        this.object3D.position.set(p.x + this.normal.x * this.normal_depth, p.y + this.normal.y * this.normal_depth, p.z + this.normal.z * this.normal_depth);
+        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+
+        this.update_position_and_normal_for_all_floating_text_recursively();
     },
 
     update_position_with_offset_xyz: function(x, y, z) {

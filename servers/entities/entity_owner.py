@@ -6,10 +6,11 @@ from entities import base_entity as be
 from entities import entity_manager as em
 
 # All pre-defined account types.
-ACCOUNT_TYPE_INTERNAL = 'internal'
-ACCOUNT_TYPE_DEFAULT  = 'default'
-ACCOUNT_TYPE_ADMIN    = 'admin'
-ACCOUNT_TYPE_SUDO     = 'sudo'
+ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified'
+ACCOUNT_TYPE_INTERNAL     = 'internal'
+ACCOUNT_TYPE_DEFAULT      = 'default'
+ACCOUNT_TYPE_ADMIN        = 'admin'
+ACCOUNT_TYPE_SUDO         = 'sudo'
 
 
 class EntityOwner(object):
@@ -39,9 +40,6 @@ class EntityOwner(object):
 
 	def set_entity_owner_account_type(self, account_type):
 		"""Sets the Entity Owner's account type."""
-		owner_entity = self._entity_manager.get_owner_entity()
-
-
 		self._entity_manager.get_owner_entity().set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, account_type)
 
 	def create_initial_entities(self):
@@ -51,7 +49,7 @@ class EntityOwner(object):
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_USERNAME, self._username)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_EMAIL, self._email)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
-		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, ACCOUNT_TYPE_DEFAULT)
+		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, ACCOUNT_TYPE_NOT_VERIFIED)
 		self._entity_manager.add_entity(owner_entity)
 
 	def update_entity(self, entity_data):
