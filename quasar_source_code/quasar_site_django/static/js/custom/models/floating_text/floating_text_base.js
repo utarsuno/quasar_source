@@ -281,11 +281,10 @@ function FloatingText(width, text, type, world, is_2D_text) {
         if (being_looked_at) {
             this.set_background_color(BACKGROUND_COLOR_FOCUS, false);
             this.set_color(COLOR_HIGHLIGHT, true);
-            this.current_background_color = BACKGROUND_COLOR_FOCUS;
-            this.update_color(COLOR_HIGHLIGHT);
         } else {
+            this.current_color = this.default_color;
             this.current_background_color = this.default_background_color;
-            this.update_color(this.default_color);
+            this.refresh();
         }
     };
 
