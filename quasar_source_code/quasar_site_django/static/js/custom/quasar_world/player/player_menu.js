@@ -59,8 +59,8 @@ MenuIcon.prototype = {
         // TODO : Eventually just do FrontSide
         // TODO : Eventually add some transparency.
 
-        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, icon_type);
-        l('Cursor {' + icon_type + '} got this texture:');
+        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type);
+        l('Icon {' + icon_type + '} got this texture:');
         l(texture);
 
         this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: .75});
