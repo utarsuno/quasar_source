@@ -192,10 +192,10 @@ function LoadingManager() {
 LoadingManager.prototype = {
 
     _cursors_loaded: function() {
-        for (var t = 0; t < this.textures_cursor._number_of_resources_to_load; t++) {
-            MANAGER_WORLD.world_login.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME]);
-            MANAGER_WORLD.world_home.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME]);
-            MANAGER_WORLD.world_settings.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME]);
+        for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
+            MANAGER_WORLD.world_login.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
+            MANAGER_WORLD.world_home.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
+            MANAGER_WORLD.world_settings.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
         }
     },
 

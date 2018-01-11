@@ -53,14 +53,14 @@ FloatingCursor.prototype = {
         }
     },
 
-    load_cursor: function(texture_name) {
+    load_cursor: function(texture_name, texture) {
         var cursor_name = '';
 
         l('Loading cursor : {' + texture_name + '}');
         l('Texture is : ' );
-        l(MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, texture_name));
+        l(texture);
 
-        var cursor_material = new THREE.MeshBasicMaterial({map: MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, texture_name), transparent: true, opacity: 0.90, side: THREE.DoubleSide});
+        var cursor_material = new THREE.MeshBasicMaterial({map: texture, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
 
         if (texture_name === CURSOR_TYPE_HORIZONTAL) {
             cursor_name = CURSOR_TYPE_HORIZONTAL;
