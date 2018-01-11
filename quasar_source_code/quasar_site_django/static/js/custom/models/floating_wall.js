@@ -173,13 +173,29 @@ FloatingWall.prototype = {
     },
 
     // TODO : Verify that this function works with the rest of this class.
-    set_position_and_normal: function(p, n) {
-        this.update_normal(n);
+    set_position_and_normal: function(p, n, no_depth) {
 
-        this.object3D.position.set(p.x + this.normal.x * this.normal_depth, p.y + this.normal.y * this.normal_depth, p.z + this.normal.z * this.normal_depth);
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+        // TODO : Improve design of this function.
+
+        var depth = true;
+        if (is_defined(no_depth)) {
+            depth = !no_depth;
+        }
+        if (depth) {
+            this.update_normal(n);
+            this.object3D.position.set(p.x + this.normal.x * this.normal_depth, p.y + this.normal.y * this.normal_depth, p.z + this.normal.z * this.normal_depth);
+            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
+            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
+            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
+        } else {
+            this.object3D.position.set(p.x, p.y, p.z);
+            this.x_without_normal = this.object3D.position.x;
+            this.y_without_normal = this.object3D.position.y;
+            this.z_without_normal = this.object3D.position.z;
+            this.update_normal(n);
+        }
+
+        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
 
         this.update_position_and_normal_for_all_floating_text_recursively();
     },

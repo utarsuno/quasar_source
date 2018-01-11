@@ -170,7 +170,7 @@ MenuIcon.prototype = {
             var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift);
             var teleport_wall_look_at = new THREE.Vector3(teleport_wall_position.x - player_position.x, teleport_wall_position.y, teleport_wall_position.z - player_position.z);
             teleport_wall_look_at.normalize();
-            this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at);
+            this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at, false);
         }
     },
 
