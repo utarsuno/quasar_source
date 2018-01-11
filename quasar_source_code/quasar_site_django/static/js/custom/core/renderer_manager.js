@@ -49,9 +49,9 @@ RendererManager.prototype = {
             this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
             // TODO : Eventually delete this code.
-            //this.renderer.domElement.style.position = 'absolute';
-            //this.renderer.domElement.style.zIndex = 1;
-            //this.renderer.domElement.style.top = 0;
+            this.renderer.domElement.style.position = 'absolute';
+            this.renderer.domElement.style.zIndex = 1;
+            this.renderer.domElement.style.top = 0;
 
             document.body.appendChild(this.renderer.domElement);
 
