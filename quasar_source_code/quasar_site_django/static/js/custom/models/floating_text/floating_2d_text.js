@@ -24,7 +24,7 @@ Floating2DText.prototype = {
                     this.dynamic_texture.clear().drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
                 }
             } else {
-                if (this.background_color !== COLOR_TRANSPARENT) {
+                if (this.current_background_color !== COLOR_TRANSPARENT) {
                     this.dynamic_texture.clear(this.current_background_color).drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
                 } else {
                     this.dynamic_texture.clear().drawText(this.text, 0, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
