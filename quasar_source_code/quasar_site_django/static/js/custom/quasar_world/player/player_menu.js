@@ -279,42 +279,6 @@ PlayerMenu.prototype = {
         this._add_menu_icon(ICON_FULLSCREEN  , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_EXIT        , list_of_icons_not_to_load);
 
-        if (!list_of_icons_not_to_load.contains(ICON_ENTITY_GROUP)) {
-            this.icon_create_entity_group = new MenuIcon(ICON_ENTITY_GROUP, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_create_entity_group);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_SAVE)) {
-            this.icon_save = new MenuIcon(ICON_SAVE, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_save);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_TELEPORT)) {
-            this.icon_teleport = new MenuIcon(ICON_TELEPORT, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_teleport);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_MULTIPLAYER)) {
-            this.icon_multiplayer = new MenuIcon(ICON_MULTIPLAYER, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_multiplayer);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_FULLSCREEN)) {
-            this.icon_toggle_fullscreen = new MenuIcon(ICON_FULLSCREEN, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_toggle_fullscreen);
-        }
-
-        if (!list_of_icons_not_to_load.contains(ICON_EXIT)) {
-            this.icon_log_out = new MenuIcon(ICON_EXIT, this.world, current_row);
-            current_row += 1;
-            this.icons.push(this.icon_log_out);
-        }
-
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
 
