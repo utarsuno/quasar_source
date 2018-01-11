@@ -26,12 +26,14 @@ TextSyntaxManager.prototype = {
             var input = this._pairs[i][INDEX_INPUT];
             // On success <result> will be ''. (If ('') returns false).
 
-            l('Checking : ' + label.get_text());
-            l('Results are :');
-            l(result);
-
             if (result) {
+                l('Need to set label background color to red :');
+                l(label);
+
                 label.set_background_color(COLOR_FLOATING_WALL_ERROR);
+                l(label);
+
+
                 input.set_background_color(COLOR_FLOATING_WALL_ERROR);
 
                 // TODO : Add warning icon

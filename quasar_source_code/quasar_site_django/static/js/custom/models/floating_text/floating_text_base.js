@@ -154,21 +154,17 @@ function FloatingText(width, text, type, scene) {
     };
 
     this._add_character = function(character) {
-        this.update_text(this.text + character);
+        this.update_text(this.get_text() + character);
     };
 
     this._pop_character = function() {
-        this.update_text(this.text.slice(0, -1));
+        var t = this.get_text();
+        this.update_text(t.slice(0, -1));
     };
 
     this.parse_text = function(text) {
         for (var i = 0; i < text.length; i++) {
-            if (this.type === TYPE_INPUT_PASSWORD) {
-                this.hidden_text += text.charAt(i);
-                this._add_character('*');
-            } else {
-                this._add_character(text.charAt(i));
-            }
+            this._add_character(text.charAt(i));
         }
     };
 
@@ -176,7 +172,7 @@ function FloatingText(width, text, type, scene) {
         var keycode = event.keyCode;
 
         if (keycode === KEY_CODE_DELETE) {
-            if (this.text.length > 0) {
+            if (this.get_text().length > 0) {
                 this._pop_character();
                 if (this.type === TYPE_INPUT_PASSWORD) {
                     this.hidden_text = this.hidden_text.slice(0, -1);
