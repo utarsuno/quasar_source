@@ -22,23 +22,30 @@ TextSyntaxManager.prototype = {
         var errors = [];
         for (var i = 0; i < this._pairs.length; i++) {
             var result = this._pairs[i][INDEX_INPUT].syntax_check();
+            var label = this._pairs[i][INDEX_LABEL];
+            var input = this._pairs[i][INDEX_INPUT];
             // On success <result> will be ''. (If ('') returns false).
             if (result) {
-                var label = this._pairs[i][INDEX_LABEL];
                 label.set_background_color(COLOR_FLOATING_WALL_ERROR);
+                input.set_background_color(COLOR_FLOATING_WALL_ERROR);
+
+                // TODO : Add warning icon
+
                 errors.push([label.get_text(), result]);
             } else {
                 label.set_background_color(COLOR_TRANSPARENT);
+                input.set_background_color(COLOR_TRANSPARENT);
+
+                // TODO : Remove warning icon
             }
         }
 
-        /*
         if (errors.length > 0) {
-
+            this._final_button.disable();
         } else {
-            this._final_button
+            this._final_button.enable();
         }
-        */
+
     },
 
     add_label_and_input: function(label, input) {

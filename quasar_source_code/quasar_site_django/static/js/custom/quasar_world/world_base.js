@@ -355,11 +355,11 @@ function World(planet_name) {
     };
 
     this.multi_left_click = function() {
-        l('Multi left click!');
-        l(GUI_PAUSED_MENU.is_visible());
-        l(!MANAGER_LOADING.currently_loading());
+        //l('Multi left click!');
+        //l(GUI_PAUSED_MENU.is_visible());
+        //l(!MANAGER_LOADING.currently_loading());
         if (GUI_PAUSED_MENU.is_visible() && !MANAGER_LOADING.currently_loading()) {
-            l('Requesting pointer lock!');
+            //l('Requesting pointer lock!');
             GUI_PAUSED_MENU.make_invisible();
             MANAGER_POINTER_LOCK.request_pointer_lock();
         } else {

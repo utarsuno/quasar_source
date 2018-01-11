@@ -60,8 +60,6 @@ MenuIcon.prototype = {
         // TODO : Eventually add some transparency.
 
         var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type);
-        l('Icon {' + icon_type + '} got this texture:');
-        l(texture);
 
         this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: .75});
         //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});

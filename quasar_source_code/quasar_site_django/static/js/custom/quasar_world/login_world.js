@@ -17,74 +17,8 @@ LoginWorld.prototype = {
     /*             ___     __           ___
       |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
       |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
-    _update_error_text: function(error_type, all_errors) {
-        var error_text = '';
-        for (var key in all_errors) {
-            if (all_errors.hasOwnProperty(key)) {
-                error_text += all_errors[key] + '\n';
-            }
-        }
-        if (error_type === ERROR_CHECK_TYPE_LOGIN) {
-            if (error_text.length !== 0) {
-                this.login_wall_errors.update_text(error_text);
-            } else {
-                this.login_wall_errors.update_text('|');
-            }
-        } else if (error_type === ERROR_CHECK_TYPE_CREATE_ACCOUNT) {
-            if (error_text.length !== 0) {
-                this.wall_create_account_errors.update_text(error_text);
-            } else {
-                this.wall_create_account_errors.update_text('|');
-            }
-        }
-    },
-
     _error_check: function(error_manager) {
-
-
-
-        // OLD CODE BELOW!!!!
-        // OLD CODE BELOW!!!!
-        // OLD CODE BELOW!!!!
-
-        if (error_type === ERROR_CHECK_TYPE_LOGIN) {
-            for (var key in this.login_errors) {
-                if (this.login_errors.hasOwnProperty(key)) {
-                    this.login_errors[field] = text;
-                }
-            }
-            // TODO : Update to check based off syntax rules.
-            if (text.length < 4) {
-                //l('Error text needed!');
-                this.login_errors[field] = field + ' can not be less than 4 characters!';
-            } else {
-                if (field in this.login_errors) {
-                    if (this.login_errors[field].length > 3) {
-                        delete this.login_errors[field];
-                    }
-                }
-            }
-            this._update_error_text(error_type, this.login_errors);
-        } else if (error_type === ERROR_CHECK_TYPE_CREATE_ACCOUNT) {
-            for (var key in this.create_errors) {
-                if (this.create_errors.hasOwnProperty(key)) {
-                    this.create_errors[field] = text;
-                }
-            }
-            // TODO : Update to check based off syntax rules.
-            if (text.length < 4) {
-                //l('Error text needed!');
-                this.create_errors[field] = field + ' can not be less than 4 characters!';
-            } else {
-                if (field in this.create_errors) {
-                    if (this.create_errors[field].length > 3) {
-                        delete this.create_errors[field];
-                    }
-                }
-            }
-            this._update_error_text(error_type, this.create_errors);
-        }
-
+        error_manager.error_check();
     },
 
     login_button_pressed: function() {
