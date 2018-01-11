@@ -119,6 +119,7 @@ function World(planet_name) {
         //if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
         //    return;
         //}
+        // TODO : Shouldn't this be : is_visible() ?
         if (GUI_PAUSED_MENU.currently_displayed) {
             return;
         }
@@ -358,7 +359,7 @@ function World(planet_name) {
     };
 
     this.multi_left_click = function() {
-        if (GUI_PAUSED_MENU.is_visible()) {
+        if (GUI_PAUSED_MENU.is_visible() && !MANAGER_LOADING.currently_loading()) {
             GUI_PAUSED_MENU.make_invisible();
             MANAGER_POINTER_LOCK.request_pointer_lock();
         } else {

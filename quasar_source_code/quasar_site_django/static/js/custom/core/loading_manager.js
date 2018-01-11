@@ -19,13 +19,15 @@ const INDEX_TEXTURE      = 2;
 
 TextureGroup.prototype = {
     __init__: function(texture_group, loading_manager) {
-        this._texture_group    = texture_group;
         this._loading_manager  = loading_manager;
+        this._texture_group    = texture_group;
         this._texture_base_url = TEXTURE_URL_BASE + this._texture_group;
         this._textures = [];
         this._add_textures_needed();
         this._number_of_textures_to_load = this._textures.length;
         this._number_of_loaded_textures = 0;
+
+        this._loading_manager._number_of_textures_to_load += this._number_of_textures_to_load;
     },
 
     get_texture: function(texture_name) {
@@ -41,6 +43,9 @@ TextureGroup.prototype = {
             if (this._textures[t][INDEX_TEXTURE_NAME] === texture_name) {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
+
+                this._loading_manager.update_text('Loaded ' + texture_name);
+
                 break;
             }
         }
@@ -102,17 +107,17 @@ TextureGroup.prototype = {
     load_textures: function() {
         for (var t = 0; t < this._textures.length; t++) {
 
-            new THREE.TextureLoader().load(this._textures[t],
+            new THREE.TextureLoader().load(this._textures[t][INDEX_TEXTURE_NAME],
                 //function when resource is loaded
                 function(texture) {
-                    l('QUICK TODO : ');
-                    l(texture);
-                    l('ARG 0');
-                    l(arguments[0][INDEX_FULL_URL]);
-                    l('ARG 1');
-                    l(arguments[1]);
+                    //l('QUICK TODO : ');
+                    //l(texture);
+                    //l('ARG 0');
+                    //l(arguments[0][INDEX_FULL_URL]);
+                    //l('ARG 1');
+                    //l(arguments[1]);
 
-                    this._texture_loaded(texture, arguments[0][INDEX_TEXTURE_NAME]);
+                    this._texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this._textures[t][INDEX_TEXTURE_NAME]),
                 // FOR_DEV_START
                 function(xhr) {
@@ -174,12 +179,19 @@ function LoadingManager() {
 
 LoadingManager.prototype = {
 
-    currently_loading: null,
-
     __init__: function() {
         this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this);
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this);
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS , this);
+        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this);
+
+        this._number_of_textures_to_load = 0;
+        this._number_of_textures_loaded  = 0;
+    },
+
+    update_text: function(text) {
+        this._number_of_textures_to_load += 1;
+        GUI_PAUSED_MENU.set_text(round_to_n_decimal_places(this._number_of_textures_to_load / this._number_of_textures_loaded, 2) + '% loaded');
+        GUI_PAUSED_MENU.set_sub_text(text);
     },
 
     get_texture: function(texture_group, texture_name) {
@@ -205,6 +217,10 @@ LoadingManager.prototype = {
 
         //GUI_PAUSED_MENU.make_visible();
         //this.currently_loading = false;
+    },
+
+    currently_loading: function() {
+        return this._number_of_textures_loaded !== this._number_of_textures_to_load;
     }
 
 };

@@ -51,7 +51,7 @@ PausedMenu.prototype = {
         return this.currently_displayed;
     },
 
-    set_title: function(t) {
+    set_text: function(t) {
         this.pause_title.innerHTML = t;
     },
 
