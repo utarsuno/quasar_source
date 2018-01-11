@@ -91,6 +91,16 @@ function FloatingText(width, text, type, world, is_2D_text) {
     /*   ___            __  ___    __        __
         |__  |  | |\ | /  `  |  | /  \ |\ | /__`
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+    this.refresh = function() {
+        // If there was any text or color changes this will have them appear.
+        if (this.is_2D_text) {
+            this.refresh_for_2D_text();
+        } else {
+            l('TODO : Refresh for 3D text!');
+        }
+    };
+
+
     this.set_format_type = function(format_type) {
         this.format_type = format_type;
     };

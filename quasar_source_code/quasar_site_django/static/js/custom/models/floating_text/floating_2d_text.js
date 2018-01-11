@@ -35,7 +35,7 @@ Floating2DText.prototype = {
         }
     },
 
-    refresh: function() {
+    refresh_for_2D_text: function() {
         if (this.type === TYPE_ICON) {
             // TODO :
             l('REFRESH THIS ICON!!');
