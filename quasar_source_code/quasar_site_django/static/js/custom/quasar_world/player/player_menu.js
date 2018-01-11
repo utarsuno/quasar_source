@@ -176,7 +176,9 @@ PlayerMenu.prototype = {
         if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
             return;
         }
+
         if (GUI_PAUSED_MENU.is_visible()) {
+            l('hmn..?');
             return;
         }
 
