@@ -199,7 +199,7 @@ LoadingManager.prototype = {
     },
 
     update_text: function(text) {
-        this._number_of_textures_to_load += 1;
+        this._number_of_textures_loaded += 1;
         l(this._number_of_textures_to_load);
         l(this._number_of_textures_loaded);
         l(round_to_n_decimal_places(this._number_of_textures_to_load / this._number_of_textures_loaded, 2));
