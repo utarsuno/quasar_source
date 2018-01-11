@@ -90,7 +90,7 @@ Floating2DText.prototype = {
 
         if (this.text === ICON_LEFT || this.text === ICON_RIGHT || this.text === ICON_CROSS) {
             this.material = new THREE.MeshBasicMaterial({
-                map : MANAGER_WORLD.get_icon_texture(this.text)
+                map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)
             });
             this.material.transparent = true;
         } else {
