@@ -199,7 +199,7 @@ const ICON_CROSS        = 'cross.png';
 const ICON_WORLDS       = 'bars_horizontal.png';
 const ICON_LOCKED       = 'locked.png';
 const ICON_UNLOCKED     = 'unlocked.png';
-const ICON_WARNING      = 'warning';
+const ICON_WARNING      = 'warning.png';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Textures for skybox.

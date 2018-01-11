@@ -102,16 +102,17 @@ TextureGroup.prototype = {
     load_textures: function() {
         for (var t = 0; t < this._textures.length; t++) {
 
-            new THREE.TextureLoader().load(this._textures[t][INDEX_FULL_URL],
+            new THREE.TextureLoader().load(this._textures[t],
                 //function when resource is loaded
                 function(texture) {
                     l('QUICK TODO : ');
                     l(texture);
                     l('ARG 0');
-                    l(arguments[0]);
+                    l(arguments[0][INDEX_FULL_URL]);
                     l('ARG 1');
                     l(arguments[1]);
-                    this._texture_loaded(arguments[1], arguments[0]);
+
+                    this._texture_loaded(texture, arguments[0][INDEX_TEXTURE_NAME]);
                 }.bind(this, this._textures[t][INDEX_TEXTURE_NAME]),
                 // FOR_DEV_START
                 function(xhr) {
