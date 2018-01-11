@@ -82,6 +82,7 @@ class EntityManager(object):
 		for e in self._entities:
 			if e.get_value(be.ENTITY_DEFAULT_PROPERTY_TYPE) == be.ENTITY_PROPERTY_OWNER:
 				return e
+		dbg.raise_exception('Entity owner not found!')
 
 	def get_entity_by_id(self, relative_id):
 		"""Returns an Entity object or None if the match doesn't exist."""

@@ -39,6 +39,9 @@ class EntityOwner(object):
 
 	def set_entity_owner_account_type(self, account_type):
 		"""Sets the Entity Owner's account type."""
+		owner_entity = self._entity_manager.get_owner_entity()
+
+
 		self._entity_manager.get_owner_entity().set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, account_type)
 
 	def create_initial_entities(self):
@@ -62,9 +65,6 @@ class EntityOwner(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
-	def get_account_type(self):
-		"""Returns the account type of this Entity Owner."""
-
 
 	def get_all_entities(self):
 		"""Returns all the entities in this EntityOwner."""
