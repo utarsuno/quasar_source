@@ -74,6 +74,7 @@ MenuIcon.prototype = {
         if (this._icon_type === ICON_TELEPORT) {
             this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
             this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_TITLE, 0);
+            this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_BUTTON, 2);
             this.teleport_wall.hide();
         }
 
@@ -166,7 +167,7 @@ MenuIcon.prototype = {
 
         if (is_defined(this.teleport_wall)) {
             var player_position = CURRENT_PLAYER.get_position();
-            var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 2, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift * 2);
+            var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift);
             var teleport_wall_look_at = new THREE.Vector3(teleport_wall_position.x - player_position.x, teleport_wall_position.y, teleport_wall_position.z - player_position.z);
             teleport_wall_look_at.normalize();
             this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at);
