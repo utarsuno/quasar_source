@@ -12,7 +12,9 @@ function TextSyntax(syntax_checks) {
         }
     }
 
-    this.syntax_check = function(text) {
+    this.syntax_check = function() {
+        var text = this.get_text();
+
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
             switch(this._required_syntax_rules[r]) {
             case TEXT_SYNTAX_STANDARD_LENGTH:
