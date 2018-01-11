@@ -16,9 +16,14 @@ function TextSyntax(syntax_checks) {
         var text = this.get_text();
         l('Performing syntax check on : {' + text + '}');
 
+        l(text.length);
+
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
             switch(this._required_syntax_rules[r]) {
             case TEXT_SYNTAX_STANDARD_LENGTH:
+
+                l('Checking standard length!');
+
                 if (text.length < 4) {
                     return 'Text length is below 4.';
                 } else if (text.length > 32) {
@@ -27,6 +32,9 @@ function TextSyntax(syntax_checks) {
                     return SUCCESS_MESSAGE;
                 }
             case TEXT_SYNTAX_EMAIL:
+
+                l('Checking email!');
+
                 var valid_email = is_email_valid(text);
                 if (valid_email) {
                     return SUCCESS_MESSAGE;
