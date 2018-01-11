@@ -51,7 +51,9 @@ PointerLockManager.prototype = {
                 currently_looked_at_object.disengage();
             }
 
-            GUI_PAUSED_MENU.make_visible();
+            if (!MANAGER_LOADING.currently_loading()) {
+                GUI_PAUSED_MENU.make_visible();
+            }
         }
     },
 
