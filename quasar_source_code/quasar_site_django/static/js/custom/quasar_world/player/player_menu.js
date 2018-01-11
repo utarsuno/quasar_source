@@ -59,7 +59,7 @@ MenuIcon.prototype = {
         // TODO : Eventually just do FrontSide
         // TODO : Eventually add some transparency.
 
-        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type);
+        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, icon_type);
         l('Cursor {' + icon_type + '} got this texture:');
         l(texture);
 
