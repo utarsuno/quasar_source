@@ -9,8 +9,8 @@ function PlayerMenu(world) {
     this.__init__(world);
 }
 
-function MenuIcon(icon_type, world, row) {
-    this.__init__(icon_type, world, row);
+function MenuIcon(icon_type, world, row, player_menu) {
+    this.__init__(icon_type, world, row, player_menu);
 }
 
 function global_save() {
