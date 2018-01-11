@@ -122,6 +122,6 @@ if len(arguments) == 1:
 
 	elif command == COMMAND_SET_ACCOUNT_TYPE:
 
-		d = data.split('|')
+		d = data.split(':')
 
 		print(quasar_server.set_entity_owner_account_type(d[0], d[1]))
