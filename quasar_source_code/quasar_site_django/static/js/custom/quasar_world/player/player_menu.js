@@ -65,7 +65,6 @@ MenuIcon.prototype = {
     },
 
     select_a_world_to_teleport_to: function() {
-        this.teleport_wall_selected = true;
         this.teleport_wall.show();
     },
 
@@ -78,16 +77,19 @@ MenuIcon.prototype = {
         this.object3D = new THREE.Object3D();
 
         if (this._icon_type === ICON_TELEPORT) {
-            this.teleport_wall_selected = false;
             this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
 
             // TODO : Need to dynamically load all shared worlds that the player has.
 
 
-
             this.teleport_wall.add_floating_2d_text(0, 1, 'Teleport To...', TYPE_CONSTANT_TEXT, 0);
-            this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_BUTTON, 2);
-            this.teleport_wall.add_floating_2d_text(.1, .9, 'Can you see this text?', TYPE_BUTTON, 3);
+
+            // TODO : Also dynamically only load the worlds that are available.
+
+            // TODO : Make a TYPE_TEXTURE!!!
+            this.teleport_wall.add_floating_2d_text(0, .25, ICON_SETTINGS, TYPE_CONSTANT_TEXT, 2);
+            this.teleport_wall.add_floating_2d_text(.25, 1, 'Settings', TYPE_BUTTON, 2);
+            this.teleport_wall.add_floating_2d_text(.25, 1, 'Home', TYPE_BUTTON, 3);
 
 
             this.teleport_wall.hide();
@@ -201,6 +203,9 @@ MenuIcon.prototype = {
     set_to_invisible: function() {
         this.icon.visible = false;
         this.floating_label.set_to_invisible();
+        if (is_defined(this.teleport_wall)) {
+            this.hide_teleport_worlds();
+        }
     },
 
     set_to_visible: function() {
