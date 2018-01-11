@@ -57,7 +57,8 @@ PointerLockManager.prototype = {
         }
     },
 
-    pointer_lock_error: function() {
+    pointer_lock_error: function(e) {
+        l(e);
         raise_exception_with_full_logging('Pointer lock error!');
     },
 
