@@ -85,8 +85,12 @@ function Interactive() {
         this.next_tab_target = tab_target;
     };
 
-    this.set_value_changed_function = function(value_changed_function) {
-        this.value_changed_function = value_changed_function;
+    this.set_value_pre_changed_function = function(value_pre_changed_function) {
+        this.value_pre_changed_function = value_pre_changed_function;
+    };
+
+    this.set_value_post_changed_function = function(value_post_changed_function) {
+        this.value_post_changed_function = value_post_changed_function;
     };
 
     /* __          __   ___  __      __   __       ___  __   __        __

@@ -126,11 +126,14 @@ function FloatingText(width, text, type, scene) {
 
     this.update_text = function(text) {
         if (this.text !== text) {
-            if (is_defined(this.value_changed_function)) {
-                this.value_changed_function(text);
+            if (is_defined(this.value_pre_changed_function)) {
+                this.value_pre_changed_function(text);
             }
             this.text = text;
             this._update_text();
+            if (is_defined(this.value_post_changed_function)) {
+                this.value_post_changed_function(text);
+            }
         }
     };
 

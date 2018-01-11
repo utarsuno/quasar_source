@@ -9,7 +9,7 @@ function TextSyntax(syntax_checks) {
     for (var sc = 0; sc < syntax_checks.length; sc++) {
         this._required_syntax_rules.push(syntax_checks[sc]);
     }
-    
+
     this.syntax_check = function() {
         var text = this.get_text();
         l('Performing syntax check on : {' + text + '}');
