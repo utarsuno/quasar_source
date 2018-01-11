@@ -190,12 +190,12 @@ LoadingManager.prototype = {
     },
 
     __init__: function() {
+        this._number_of_textures_to_load = 0;
+        this._number_of_textures_loaded  = 0;
+
         this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this._cursors_loaded.bind(this), this);
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
         this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this._icons_loaded.bind(this)  , this);
-
-        this._number_of_textures_to_load = 0;
-        this._number_of_textures_loaded  = 0;
     },
 
     update_text: function(text) {
