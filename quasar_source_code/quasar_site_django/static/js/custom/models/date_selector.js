@@ -20,7 +20,7 @@ DateSelector.prototype = {
         this.wall.add_3D_title('Select Date');
         this.wall.add_close_button();
 
-        this.wall.add_floating_2d_text(.1, .9, 'Select Date', TYPE_TITLE_CONSTANT, 0);
+        this.wall.add_floating_2d_text(.1, .9, 'Select Date', TYPE_TITLE, 0);
 
         this.date = new MyDate(THIS_DAY);
         this.current_month = new MyDates(THIS_MONTH);
@@ -28,14 +28,14 @@ DateSelector.prototype = {
         // Year.
         this.decrease_year_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 3);
         this.decrease_year_button.set_engage_function(this.decrease_year.bind(this));
-        this.year = this.wall.add_floating_2d_text(.25, .75, this.date.get_year_as_string(), TYPE_CONSTANT_TEXT, 3);
+        this.year = this.wall.add_floating_2d_text(.25, .75, this.date.get_year_as_string(), TYPE_CONSTANT, 3);
         this.increase_year_button = this.wall.add_floating_2d_text(.75, 1, ICON_RIGHT, TYPE_BUTTON, 3);
         this.increase_year_button.set_engage_function(this.increase_year.bind(this));
 
         // Month.
         this.decrease_month_button = this.wall.add_floating_2d_text(0, .25, ICON_LEFT, TYPE_BUTTON, 4);
         this.decrease_month_button.set_engage_function(this.decrease_month.bind(this));
-        this.month = this.wall.add_floating_2d_text(.25, .75, this.date.get_month_full_data_string(), TYPE_CONSTANT_TEXT, 4);
+        this.month = this.wall.add_floating_2d_text(.25, .75, this.date.get_month_full_data_string(), TYPE_CONSTANT, 4);
         this.increase_month_button = this.wall.add_floating_2d_text(.75, 1, ICON_RIGHT, TYPE_BUTTON, 4);
         this.increase_month_button.set_engage_function(this.increase_month.bind(this));
 
@@ -45,13 +45,13 @@ DateSelector.prototype = {
         // Adjustment amount.
         var gap = (1 / 8) * (1 / 6) * (1 / 2);
 
-        this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 8 + gap, 'Monday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 8 + 2 * gap, 2 / 8 + 3 * gap, 'Tuesday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_wednesday = this.wall.add_floating_2d_text(2 / 8 + 4 * gap, 3 / 8 + 5 * gap, 'Wednesday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_thursday  = this.wall.add_floating_2d_text(3 / 8 + 6 * gap, 4 / 8 + 7 * gap, 'Thursday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_friday    = this.wall.add_floating_2d_text(4 / 8 + 8 * gap, 5 / 8 + 9 * gap, 'Friday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 8 + 10 * gap, 6 / 8 + 11 * gap, 'Saturday', TYPE_CONSTANT_TEXT, 6);
-        this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 8 + 12 * gap, 1, 'Sunday', TYPE_CONSTANT_TEXT, 6);
+        this.label_day_monday    = this.wall.add_floating_2d_text(0, 1 / 8 + gap, 'Monday', TYPE_CONSTANT, 6);
+        this.label_day_tuesday   = this.wall.add_floating_2d_text(1 / 8 + 2 * gap, 2 / 8 + 3 * gap, 'Tuesday', TYPE_CONSTANT, 6);
+        this.label_day_wednesday = this.wall.add_floating_2d_text(2 / 8 + 4 * gap, 3 / 8 + 5 * gap, 'Wednesday', TYPE_CONSTANT, 6);
+        this.label_day_thursday  = this.wall.add_floating_2d_text(3 / 8 + 6 * gap, 4 / 8 + 7 * gap, 'Thursday', TYPE_CONSTANT, 6);
+        this.label_day_friday    = this.wall.add_floating_2d_text(4 / 8 + 8 * gap, 5 / 8 + 9 * gap, 'Friday', TYPE_CONSTANT, 6);
+        this.label_day_saturday  = this.wall.add_floating_2d_text(5 / 8 + 10 * gap, 6 / 8 + 11 * gap, 'Saturday', TYPE_CONSTANT, 6);
+        this.label_day_sunday    = this.wall.add_floating_2d_text(6 / 8 + 12 * gap, 1, 'Sunday', TYPE_CONSTANT, 6);
 
         for (var d = 0; d < days.length; d++) {
 

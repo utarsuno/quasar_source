@@ -48,7 +48,7 @@ EntityWall.prototype = {
     },
 
     _add_label_and_input_for_create_entity_wall: function(label, default_value) {
-        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT_TEXT, this.current_create_entity_wall_row_index);
+        this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT, this.current_create_entity_wall_row_index);
         // TODO : Make the first click clear the value here text.
 
         var value;
@@ -62,7 +62,7 @@ EntityWall.prototype = {
             }
         }
 
-        this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, value, TYPE_INPUT_REGULAR, this.current_create_entity_wall_row_index);
+        this.create_entity_dictionary[label] = this.create_entity_wall.add_floating_2d_text(1 / 3, 1, value, TYPE_INPUT, this.current_create_entity_wall_row_index);
 
         l('Just added the following label : ');
         l(label);
@@ -80,7 +80,7 @@ EntityWall.prototype = {
 
         this.create_entity_wall.clear_floating_2d_texts();
 
-        this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE_CONSTANT, 0);
+        this.create_entity_wall.add_floating_2d_text(.05, .95, 'Create New ' + selected_type, TYPE_TITLE, 0);
 
         // Select new attribute.
         this.current_add_new_attribute_button = this.create_entity_wall.add_floating_2d_text(.05, .95, 'add new attribute', TYPE_BUTTON, 3);
@@ -215,7 +215,7 @@ EntityWall.prototype = {
         }
         this.wall_edit_entity_add_attribute.clear_floating_2d_texts();
 
-        this.wall_edit_entity_add_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE_CONSTANT, 0);
+        this.wall_edit_entity_add_attribute.add_floating_2d_text(.10, .90, 'Select Entity Attribute', TYPE_TITLE, 0);
 
         var a0 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
         var a1 = this.wall_edit_entity_add_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);
@@ -254,7 +254,7 @@ EntityWall.prototype = {
         }
         this.wall_edit_entity.clear_floating_2d_texts();
 
-        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE_CONSTANT, 0);
+        this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Editing Entity', TYPE_TITLE, 0);
 
         var edit_entity_add_attribute_button = this.wall_edit_entity.add_floating_2d_text(0.25, 0.75, 'Add Attribute', TYPE_BUTTON, 3);
         edit_entity_add_attribute_button.set_engage_function(this.edit_entity_add_attribute_button_pressed.bind(this, edit_entity_add_attribute_button, entity));
@@ -268,8 +268,8 @@ EntityWall.prototype = {
         for (var key in entity_properties) {
             if (entity_properties.hasOwnProperty(key)) {
                 if (key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS) {
-                    this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT_TEXT, row_index);
-                    this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT_REGULAR, row_index);
+                    this.wall_edit_entity.add_floating_2d_text(0, 1 / 3, key, TYPE_CONSTANT, row_index);
+                    this._current_properties[key] = this.wall_edit_entity.add_floating_2d_text(1 / 3, 1, entity_properties[key], TYPE_INPUT, row_index);
 
                     if (key === ENTITY_PROPERTY_DUE_DATE) {
                         this._current_properties[key].engable = false;
@@ -338,7 +338,7 @@ EntityWall.prototype = {
       |/\| /~~\ |___ |___    \__, |  \ |___ /~~\  |  | \__/ | \| */
     init_are_you_sure_wall: function() {
         this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(180, 50, this.delete_entity_wall_button, false);
-        this.wall_are_you_sure.add_floating_2d_text(.25, .75, 'Are you sure?', TYPE_CONSTANT_TEXT, 0);
+        this.wall_are_you_sure.add_floating_2d_text(.25, .75, 'Are you sure?', TYPE_CONSTANT, 0);
         this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 1);
         this.no_button.set_engage_function(this.no_button_pressed.bind(this));
         this.no_button.set_default_color(COLOR_RED);
@@ -377,7 +377,7 @@ EntityWall.prototype = {
 
     init_select_entity_type_wall: function() {
         this.entity_type_selector_wall = this.wall.add_floating_wall_off_of_button(400, 250, this.create_entity_button, false);
-        this.entity_type_selector_wall.add_floating_2d_text(.1, .9, 'Select Entity Type', TYPE_TITLE_CONSTANT, 0);
+        this.entity_type_selector_wall.add_floating_2d_text(.1, .9, 'Select Entity Type', TYPE_TITLE, 0);
         var entity_type_row_index = 3;
         for (var et = 0; et < ENTITY_TYPE_ALL.length; et++) {
             if (ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_TIME && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_OWNER && ENTITY_TYPE_ALL[et] !== ENTITY_TYPE_WALL) {
@@ -393,7 +393,7 @@ EntityWall.prototype = {
     init_select_new_attribute_wall: function() {
         this.wall_select_attribute = this.wall.add_floating_wall_off_of_button(400, 250, this.current_add_new_attribute_button, false);
 
-        this.wall_select_attribute.add_floating_2d_text(.1, .9, 'Select Entity Attribute', TYPE_TITLE_CONSTANT, 0);
+        this.wall_select_attribute.add_floating_2d_text(.1, .9, 'Select Entity Attribute', TYPE_TITLE, 0);
 
         var a0 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON, 3);
         var a1 = this.wall_select_attribute.add_floating_2d_text(0, 1, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON, 4);

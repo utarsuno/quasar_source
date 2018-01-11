@@ -1,30 +1,25 @@
 'use strict';
 
-function FloatingText(width, text, type, scene) {
-
-    this.get_text_length = function() {
-        if (this.is_2D_text) {
-            return this.dynamic_texture.getTextLength(this.text);
-        } else {
-            return this.width;
-        }
-    };
+function FloatingText(width, text, type, scene, is_2D_text) {
 
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
+    this.is_2D_text = is_2D_text;
     this.width         = width;
     this.type          = type;
     this.scene         = scene;
     this.object3D      = new THREE.Object3D();
+
     this.current_color = null;
     this.default_color = null;
+
     this.format_type   = null;
 
     // Default value.
     this.normal_depth  = 1;
 
-    if (this.type === TYPE_INPUT_PASSWORD) {
+    if (this.type === TYPE_PASSWORD) {
         this.text = '';
         for (var c = 0; c < text.length; c++) {
             this.text += '*';
@@ -37,9 +32,9 @@ function FloatingText(width, text, type, scene) {
     // Call the child initialize functions.
     this.initialize();
 
+
     // Gets called from child functions.
     this.final_initialize = function() {
-        this.is_in_interactive_list = false;
         if(!is_defined(this.current_color)) {
             switch (this.type) {
             case TYPE_BUTTON:
@@ -48,9 +43,7 @@ function FloatingText(width, text, type, scene) {
                 this.maintain_engage_when_tabbed_to = false;
                 this.engable = false;
                 break;
-            case TYPE_CONSTANT_TEXT:
-            case TYPE_TITLE_CONSTANT:
-            case TYPE_SUPER_TITLE_CONSTANT:
+            case TYPE_CONSTANT:
                 this.set_default_color(COLOR_TEXT_CONSTANT);
                 this.engable = false;
                 break;
@@ -128,7 +121,7 @@ function FloatingText(width, text, type, scene) {
             if (is_defined(this.value_pre_changed_function)) {
                 this.value_pre_changed_function(text);
             }
-            if (this.type === TYPE_INPUT_PASSWORD) {
+            if (this.type === TYPE_PASSWORD) {
                 this.hidden_text = '';
                 this.text = '';
                 for (var c = 0; c < text.length; c++) {
@@ -150,7 +143,7 @@ function FloatingText(width, text, type, scene) {
     };
 
     this.get_text = function() {
-        if (this.type === TYPE_INPUT_PASSWORD) {
+        if (this.type === TYPE_PASSWORD) {
             return this.hidden_text;
         }
         return this.text;
@@ -238,6 +231,17 @@ function FloatingText(width, text, type, scene) {
 
     this.clear = function() {
         this._update_text('');
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    this.get_text_length = function() {
+        if (this.is_2D_text) {
+            return this.dynamic_texture.getTextLength(this.text);
+        } else {
+            return this.width;
+        }
     };
 
     /* __  ___      ___  ___     __                  __   ___  __

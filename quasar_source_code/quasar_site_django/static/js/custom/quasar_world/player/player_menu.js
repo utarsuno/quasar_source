@@ -82,14 +82,16 @@ MenuIcon.prototype = {
             // TODO : Need to dynamically load all shared worlds that the player has.
 
 
-            this.teleport_wall.add_floating_2d_text(0, 1, 'Teleport To...', TYPE_CONSTANT_TEXT, 0);
+            this.teleport_wall.add_floating_2d_text(0, 1, 'Teleport To...', TYPE_CONSTANT, 0);
 
             // TODO : Also dynamically only load the worlds that are available.
 
             // TODO : Make a TYPE_TEXTURE!!!
-            this.teleport_wall.add_floating_2d_text(0, .25, ICON_SETTINGS, TYPE_CONSTANT_TEXT, 2);
+            this.teleport_wall.add_floating_2d_text(0, .25, ICON_SETTINGS, TYPE_CONSTANT, 2);
             this.teleport_wall.add_floating_2d_text(.25, 1, 'Settings', TYPE_BUTTON, 2);
             this.teleport_wall.add_floating_2d_text(.25, 1, 'Home', TYPE_BUTTON, 3);
+
+
 
 
             this.teleport_wall.hide();

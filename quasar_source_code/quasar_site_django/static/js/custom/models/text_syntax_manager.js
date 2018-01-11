@@ -43,6 +43,7 @@ TextSyntaxManager.prototype = {
         if (errors.length > 0) {
             this._final_button.disable();
         } else {
+            l('Trying to enable the button!');
             this._final_button.enable();
         }
     },
@@ -53,6 +54,8 @@ TextSyntaxManager.prototype = {
 
     add_final_button: function(button) {
         this._final_button = button;
+        // Start off with the button disabled.
+        this._final_button.disable();
     }
 
 };

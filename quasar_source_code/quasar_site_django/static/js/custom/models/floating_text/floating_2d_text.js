@@ -17,7 +17,7 @@ Floating2DText.prototype = {
 
     _update_text: function() {
         if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
-            if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE) {
+            if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
                 if (this.current_background_color !== COLOR_TRANSPARENT) {
                     this.dynamic_texture.clear(this.current_background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
                 } else {
@@ -38,7 +38,7 @@ Floating2DText.prototype = {
 
     _update_color: function() {
         if (this.text !== ICON_LEFT && this.text !== ICON_RIGHT && this.text !== ICON_CROSS) {
-            if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE_CONSTANT || this.type === TYPE_SUPER_TITLE) {
+            if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
                 if (this.current_background_color !== COLOR_TRANSPARENT) {
                     this.dynamic_texture.clear(this.current_background_color).drawText(this.text, this.texture_width / 2 - this.get_text_length() / 2, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
                 } else {
@@ -61,6 +61,7 @@ Floating2DText.prototype = {
         this.geometry.dispose();
         this.mesh.dispose();
         this.object3D.remove(this.mesh);
+        // TODO : Probably need a better design than this.
         this.initialize(false);
     },
 
@@ -78,7 +79,7 @@ Floating2DText.prototype = {
         this.default_background_color = COLOR_TRANSPARENT;
         this.current_background_color = COLOR_TRANSPARENT;
 
-        if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
+        if (this.type === TYPE_TITLE) {
             this.height = 26;
         } else {
             this.height = 16;
@@ -122,34 +123,6 @@ Floating2DText.prototype = {
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
-        /*
-        // Shader testing
-        this.shader_material = new THREE.ShaderMaterial({
-            uniforms: {
-                'c': {type: 'f', value: 1.0},
-                'p': {type: 'f', value: 6},
-                glowColor: {type: 'c', value: new THREE.Color(0xffff00)},
-                viewVector: {type: 'v3', value: this.object3D.position}
-            },
-            vertexShader: MANAGER_SHADER.VERTEX_GLOW,
-            fragmentShader: MANAGER_SHADER.FRAGMENT_GLOW,
-            side: THREE.BackSide,
-            blending: THREE.AdditiveBlending,
-            transparent: true
-        });
-
-        // TODO : Investigate if shader_material needs to be cloned or not.
-        this.glow = new THREE.Mesh(this.geometry.clone(), this.shader_material.clone());
-        //this.glow.position = this.mesh.position;
-        this.glow.scale.multiplyScalar(1.4);
-        //
-
-        this.object3D.add(this.glow);
-        */
-
-        //
-        //
-
         this.object3D.add(this.mesh);
 
 
@@ -173,7 +146,7 @@ Floating2DText.prototype = {
         }
 
         // Inherit from FloatingText.
-        FloatingText.call(this, w, text, type, scene);
+        FloatingText.call(this, w, text, type, scene, true);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.

@@ -68,20 +68,20 @@ SettingsWorld.prototype = {
         this.wall_user_profile.add_3D_title('Profile Information');
 
         // Username.
-        this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT_TEXT, 0);
-        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 0);
+        this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT, 0);
+        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 0);
 
         // Email.
-        this.profile_email_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Email :', TYPE_CONSTANT_TEXT, 1);
-        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 1);
+        this.profile_email_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Email :', TYPE_CONSTANT, 1);
+        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 1);
 
         // Phone Number.
-        this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT_TEXT, 2);
-        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 2);
+        this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT, 2);
+        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 2);
 
         // Phone Carrier.
-        this.profile_phone_carrier_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Carrier :', TYPE_CONSTANT_TEXT, 3);
-        this.profile_phone_carrier_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 3);
+        this.profile_phone_carrier_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Carrier :', TYPE_CONSTANT, 3);
+        this.profile_phone_carrier_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 3);
         this.profile_phone_carrier_input.engable = false;
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this));
 
@@ -100,8 +100,8 @@ SettingsWorld.prototype = {
         this.profile_phone_carrier_list.set_to_invisible();
 
         // Created at date.
-        this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT_TEXT, 4);
-        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT_TEXT, 4);
+        this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT, 4);
+        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 4);
 
         /* __   ___ ___ ___         __   __
           /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |

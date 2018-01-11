@@ -146,17 +146,14 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Floating text types.
-        "TYPE_INPUT_PASSWORD"        : false,
-        "TYPE_INPUT_REGULAR"         : false,
+        "TYPE_PASSWORD"        : false,
+        "TYPE_INPUT"         : false,
         "TYPE_SUPER_TITLE"           : false,
-        "TYPE_LABEL"                 : false,
         "TYPE_BUTTON"                : false,
-        "TYPE_STATUS"                : false,
         "TYPE_TITLE"                 : false,
-        "TYPE_TITLE_CONSTANT"        : false,
         "TYPE_SUPER_TITLE_CONSTANT"  : false,
         "TYPE_CHECK_BOX"             : false,
-        "TYPE_CONSTANT_TEXT"         : false,
+        "TYPE_CONSTANT"         : false,
         "TYPE_SLIDER"                : false,
         "TYPE_TWO_DIRECTIONAL_SLIDER": false,
         // UNIVERSAL_CONSTANTS_END

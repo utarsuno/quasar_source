@@ -157,15 +157,15 @@ LoginWorld.prototype = {
         var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
-        this.login_wall.add_3D_title('Login', TYPE_TITLE_CONSTANT, null, 0);
+        this.login_wall.add_3D_title('Login', TYPE_TITLE, null, 0);
 
-        this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
-        this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_username_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT, 0);
+        this.login_username_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 0, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_errors.add_label_and_input(this.login_username_label, this.login_username_input);
         this.login_username_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
-        this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 1);
-        this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 1, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_password_label = this.login_wall.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT, 1);
+        this.login_password_input = this.login_wall.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 1, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_errors.add_label_and_input(this.login_password_label, this.login_password_input);
         this.login_password_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
@@ -176,7 +176,6 @@ LoginWorld.prototype = {
 
         this.login_button = this.login_wall.add_floating_2d_text(.25, .75, 'login', TYPE_BUTTON, 3);
         this.login_button.set_engage_function(this.login_button_pressed.bind(this));
-        this.login_button.disable();
         this.login_errors.add_final_button(this.login_button);
 
         /*   __   __   ___      ___  ___          __   __   __            ___
@@ -191,31 +190,30 @@ LoginWorld.prototype = {
         var wall_create_account_normal = new THREE.Vector3(wall_create_account_look_at.x - wall_create_account_position.x, wall_create_account_look_at.y - wall_create_account_position.y, wall_create_account_look_at.z - wall_create_account_position.z);
 
         this.wall_create_account = new FloatingWall(wall_create_account_width, wall_create_account_height, wall_create_account_position, wall_create_account_normal, this, false);
-        this.wall_create_account.add_3D_title('Create Account', TYPE_TITLE_CONSTANT, null, 0);
+        this.wall_create_account.add_3D_title('Create Account', TYPE_TITLE, null, 0);
 
-        this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT_TEXT, 0);
-        this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 0, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_username_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'username', TYPE_CONSTANT, 0);
+        this.create_account_username_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 0, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.create_account_errors.add_label_and_input(this.create_account_username_label, this.create_account_username_input);
         this.create_account_username_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT_TEXT, 1);
-        this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_REGULAR, 1, [TEXT_SYNTAX_EMAIL]);
+        this.create_account_email_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'email', TYPE_CONSTANT, 1);
+        this.create_account_email_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 1, [TEXT_SYNTAX_EMAIL]);
         this.create_account_errors.add_label_and_input(this.create_account_email_label, this.create_account_email_input);
         this.create_account_email_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_password_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT_TEXT, 2);
-        this.create_account_password_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 2, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_password_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'password', TYPE_CONSTANT, 2);
+        this.create_account_password_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 2, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.create_account_errors.add_label_and_input(this.create_account_password_label, this.create_account_password_input);
         this.create_account_password_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'repeat password', TYPE_CONSTANT_TEXT, 3);
-        this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT_PASSWORD, 3, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_password_repeat_label = this.wall_create_account.add_floating_2d_text(0, 1 / 3, 'repeat password', TYPE_CONSTANT, 3);
+        this.create_account_password_repeat_input = this.wall_create_account.add_floating_2d_text(1 / 3, 1, '', TYPE_PASSWORD, 3, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.create_account_errors.add_label_and_input(this.create_account_password_repeat_label, this.create_account_password_repeat_input);
         this.create_account_password_repeat_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
         this.create_account_button = this.wall_create_account.add_floating_2d_text(.25, .75, 'create account', TYPE_BUTTON, 5);
         this.create_account_button.set_engage_function(this.create_account_button_pressed.bind(this));
-        this.create_account_button.disable();
         this.create_account_errors.add_final_button(this.create_account_button);
 
         this.set_default_tab_target(this.login_username_input);

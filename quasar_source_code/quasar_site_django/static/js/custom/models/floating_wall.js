@@ -13,6 +13,9 @@ FloatingWall.prototype = {
         this.all_floating_2d_texts          = [];
         this.all_floating_3D_texts          = [];
         this.all_floating_walls             = [];
+
+        // TODO : Double check design choice here.
+
         this.objects_to_remove_later        = [];
         this.floating_walls_to_remove_later = [];
 
@@ -420,8 +423,7 @@ FloatingWall.prototype = {
 
         this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
 
-        if (type === TYPE_INPUT_REGULAR || type === TYPE_INPUT_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
-            floating_2D_text.is_in_interactive_list = true;
+        if (type === TYPE_INPUT || type === TYPE_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
             this.world.interactive_objects.push(floating_2D_text);
         }
 
@@ -477,7 +479,7 @@ FloatingWall.prototype = {
         var max_one = x_end * ONE_THIRD;
 
         // Floating Label.
-        var floating_label = new Floating2DText(label_width, label, TYPE_CONSTANT_TEXT, this.scene);
+        var floating_label = new Floating2DText(label_width, label, TYPE_CONSTANT, this.scene);
         floating_label.parent_floating_wall = this;
         floating_label.pfw_x_start = x_start;
         floating_label.pfw_x_end = max_one;
@@ -487,22 +489,21 @@ FloatingWall.prototype = {
         // TODO : For now make the minimum and maximum labels be transparent.
 
         // Minimum Value Label.
-        var floating_minimum_label = new Floating2DText(25, minimum_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
+        var floating_minimum_label = new Floating2DText(25, minimum_value.toString(), TYPE_CONSTANT, this.scene);
         floating_minimum_label.parent_floating_wall = this;
         floating_minimum_label.pfw_x_start = max_one;
         floating_minimum_label.pfw_x_end = max_one + min_max_width;
         floating_minimum_label.pfw_row = row;
 
         // Maximum Value Label.
-        var floating_maximum_label = new Floating2DText(25, maximum_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
+        var floating_maximum_label = new Floating2DText(25, maximum_value.toString(), TYPE_CONSTANT, this.scene);
         floating_maximum_label.parent_floating_wall = this;
         floating_maximum_label.pfw_x_start = x_end - min_max_width;
         floating_maximum_label.pfw_x_end = x_end;
         floating_maximum_label.pfw_row = row;
 
         // Slider object.
-        var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT_TEXT, this.scene);
-        floating_slider.is_in_interactive_list = true;
+        var floating_slider = new Floating2DText(25, current_value.toString(), TYPE_CONSTANT, this.scene);
         this.world.interactive_objects.push(floating_slider);
         floating_slider.parent_floating_wall = this;
 
@@ -545,6 +546,7 @@ FloatingWall.prototype = {
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
      \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
+    // TODO : Abstract colors better!
     set_background_color: function(color) {
         if (color === null) {
             this._set_background_color(this.default_background_color);
@@ -553,6 +555,7 @@ FloatingWall.prototype = {
         }
     },
 
+    // TODO : Abstract colors better!
     _set_background_color: function(c) {
         if (is_list(c)) {
             // TODO : Automate this.
@@ -683,7 +686,6 @@ FloatingWall.prototype = {
     },
 
     get_player_look_at_infinite_plane_intersection_point: function() {
-        // TODO : Check if the player_parametric_equation can be passed in instead of re-calculated so often.
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
         var floating_wall_parametric_equation = this.get_parametric_equation();
 
@@ -751,7 +753,7 @@ FloatingWall.prototype = {
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
     clear_inputs: function() {
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            if (this.all_floating_2d_texts[i].type === TYPE_INPUT_REGULAR || this.all_floating_2d_texts[i].type === TYPE_INPUT_PASSWORD) {
+            if (this.all_floating_2d_texts[i].type === TYPE_INPUT || this.all_floating_2d_texts[i].type === TYPE_PASSWORD) {
                 this.all_floating_2d_texts[i].clear();
             }
         }

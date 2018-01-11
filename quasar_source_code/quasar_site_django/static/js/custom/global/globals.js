@@ -138,17 +138,13 @@ const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
 
 // UNIVERSAL_CONSTANTS_START : Floating text types.
-const TYPE_INPUT_PASSWORD         = 'input_password';
-const TYPE_INPUT_REGULAR          = 'input_regular';
-const TYPE_LABEL                  = 'label';
+const TYPE_PASSWORD               = 'password';
+const TYPE_INPUT                  = 'input';
 const TYPE_BUTTON                 = 'button';
-const TYPE_STATUS                 = 'status';
 const TYPE_TITLE                  = 'title';
-const TYPE_TITLE_CONSTANT         = 'title_constant';
-const TYPE_SUPER_TITLE_CONSTANT   = 'super_title_constant';
-const TYPE_CHECK_BOX              = 'check_box';
 const TYPE_SUPER_TITLE            = 'super_title';
-const TYPE_CONSTANT_TEXT          = 'constant_text';
+const TYPE_CHECK_BOX              = 'check_box';
+const TYPE_CONSTANT               = 'constant';
 const TYPE_SLIDER                 = 'slider';
 const TYPE_TWO_DIRECTIONAL_SLIDER = 'two_directional_slider';
 // UNIVERSAL_CONSTANTS_END

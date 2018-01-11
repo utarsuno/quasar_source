@@ -16,11 +16,13 @@ Floating3DText.prototype = {
     current_text_object: null,
 
     initialize: function() {
-        if (this.type === TYPE_SUPER_TITLE || this.type === TYPE_SUPER_TITLE_CONSTANT) {
+        // TODO : Investigate into making these variables more dynamic.
+
+        if (this.type === TYPE_SUPER_TITLE) {
             this.height = 32 * 4;
             this.size = 40 * 4;
             this.text_height = 2 * 4;
-        } else if (this.type === TYPE_TITLE || this.type === TYPE_TITLE_CONSTANT) {
+        } else if (this.type === TYPE_TITLE) {
             this.height = 32;
             this.size = 40;
             this.text_height = 2;
@@ -45,6 +47,7 @@ Floating3DText.prototype = {
         if (this.text_geometry !== null) {
             this.text_geometry.dispose();
         }
+
         if (this.current_text_object !== null) {
             this.object3D.remove(this.current_text_object);
             this.current_text_object.geometry.dispose();
@@ -100,4 +103,3 @@ Floating3DText.prototype = {
         this.final_initialize();
     }
 };
-
