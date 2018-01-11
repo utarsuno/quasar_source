@@ -207,7 +207,7 @@ LoadingManager.prototype = {
         if (this._number_of_textures_loaded === this._number_of_textures_to_load) {
             GUI_PAUSED_MENU.make_invisible();
             l('ENABLE PLAYER CONTROLS?');
-            //MANAGER_POINTER_LOCK.request_pointer_lock();
+            MANAGER_POINTER_LOCK.request_pointer_lock();
         }
     },
 
