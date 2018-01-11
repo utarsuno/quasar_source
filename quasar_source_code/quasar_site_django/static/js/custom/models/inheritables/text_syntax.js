@@ -6,6 +6,9 @@ function TextSyntax(syntax_checks) {
 
     this._required_syntax_rules = [];
 
+    l('I GOT THIS PASSED IN!!!!');
+    l(syntax_checks);
+
     for (var sc in syntax_checks) {
         if (syntax_checks.hasOwnProperty(sc)) {
             this._required_syntax_rules.push(sc);
