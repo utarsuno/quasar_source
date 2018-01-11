@@ -202,6 +202,9 @@ const ICON_UNLOCKED     = 'unlocked.png';
 const ICON_WARNING      = 'warning.png';
 // UNIVERSAL_CONSTANTS_END
 
+// TODO : Audio stuff.
+const AUDIO_TYPING_SOUND = 'typing_sound.wav';
+
 // UNIVERSAL_CONSTANTS_START : Textures for skybox.
 const SKYBOX_FRONT  = 'front.jpg';
 const SKYBOX_BACK   = 'back.jpg';

@@ -216,6 +216,8 @@ module.exports = {
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
+        "AUDIO_TYPING_SOUND"  : true,
+
         "TEXTURE_GROUP_SKYBOX": true,
         "TEXTURE_GROUP_CURSOR": true,
         "TEXTURE_GROUP_ICONS" : true,

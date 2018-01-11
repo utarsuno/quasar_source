@@ -10,72 +10,33 @@ AudioManager.prototype = {
 
     // audio objects
     audio_listener: null,
-    loader        : null,
-
-    typing_sound: null,
-    typing_sound_loaded: null,
-
-    // SOUNDS TODO!!!
-    hover_over_sound: null,
-    hover_over_sound_loaded: null,
 
     // TODO : Add global audio controls
     current_audio_level: null,
 
     __init__: function() {
         this.audio_listener = new THREE.AudioListener();
-        this.audio_listener.setMasterVolume(this.get_true_audio_level(0.5));
-
+        this.audio_listener.setMasterVolume(this.get_true_audio_level(0.6));
         MANAGER_RENDERER.camera.add(this.audio_listener);
-        this.typing_sound = new THREE.Audio(this.audio_listener);
 
-        this.typing_sound_loaded = false;
-
-        this.loader = new THREE.AudioLoader();
-        this.loader.load(
-
-            // resource URL
-            '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/audio/typing_sound.wav',
-            // Function when resource is loaded
-            function (audio_buffer) {
-                this.typing_sound.setBuffer(audio_buffer);
-                //this.typing_sound.setVolume(this.get_true_audio_level(0.33));
-                this.typing_sound_loaded = true;
-
-                MANAGER_WORLD.add_to_all_scenes(MANAGER_AUDIO.get_typing_sound());
-            }.bind(this),
-
-            // Function called when download progresses
-            function (xhr) {
-                // FOR_DEV_START
-                l((xhr.loaded / xhr.total * 100) + '% loaded for audio file.');
-                // FOR_DEV_END
-            },
-            // Function called when download errors
-            function (xhr) {
-                // FOR_DEV_START
-                l('An error happened trying to load the audio file.');
-                // FOR_DEV_END
-            }
-
-        );
+        this._all_audio = {};
     },
 
     get_true_audio_level: function(audio_percentage) {
         return pow(audio_percentage, Math.E);
     },
 
-    get_typing_sound: function() {
-        return this.typing_sound;
+    play_typing_sound: function() {
+        if (this._all_audio[AUDIO_TYPING_SOUND].isPlaying) {
+            this._all_audio[AUDIO_TYPING_SOUND].stop();
+        }
+        this._all_audio[AUDIO_TYPING_SOUND].play();
     },
 
-    play_typing_sound: function() {
-        if (this.typing_sound_loaded) {
-            if (this.typing_sound.isPlaying) {
-                this.typing_sound.stop();
-            }
-            this.typing_sound.play();
-        }
+    set_audio: function(audio_name, audio_buffer) {
+        this._all_audio[audio_name] = new THREE.Audio(this.audio_listener);
+        this._all_audio[audio_name].setBuffer(audio_buffer);
+        MANAGER_WORLD.add_to_all_scenes(this._all_audio[audio_name]);
     }
 };
 
