@@ -179,14 +179,16 @@ LoadingManager.prototype = {
         MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
         MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
         MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+
+        l('The cursors loaded!');
     },
 
     _skyboxs_loaded: function() {
-
+        l('The skyboxs loaded!');
     },
 
     _icons_loaded: function() {
-
+        l('The icons loaded!');
     },
 
     __init__: function() {
@@ -204,7 +206,8 @@ LoadingManager.prototype = {
         GUI_PAUSED_MENU.set_sub_text(text);
         if (this._number_of_textures_loaded === this._number_of_textures_to_load) {
             GUI_PAUSED_MENU.make_invisible();
-            MANAGER_POINTER_LOCK.request_pointer_lock();
+            l('ENABLE PLAYER CONTROLS?');
+            //MANAGER_POINTER_LOCK.request_pointer_lock();
         }
     },
 
