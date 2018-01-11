@@ -14,6 +14,7 @@ function TextSyntax(syntax_checks) {
 
     this.syntax_check = function() {
         var text = this.get_text();
+        l('Performing syntax check on : {' + text + '}');
 
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
             switch(this._required_syntax_rules[r]) {
