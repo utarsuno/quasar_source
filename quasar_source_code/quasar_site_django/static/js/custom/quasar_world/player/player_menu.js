@@ -55,11 +55,7 @@ MenuIcon.prototype = {
     },
 
     hide_teleport_worlds: function() {
-        if (!is_defined(this.teleport_world_needs_to_be_chosen)) {
-            this.teleport_wall.hide();
-        } else if (!this.teleport_world_needs_to_be_chosen) {
-            this.teleport_wall.hide();
-        }
+        this.teleport_wall.hide();
     },
 
     select_a_world_to_teleport_to: function() {
@@ -79,9 +75,16 @@ MenuIcon.prototype = {
         if (this._icon_type === ICON_TELEPORT) {
             this.teleport_world_needs_to_be_chosen = false;
             this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
-            this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_TITLE, 0);
+
+            // TODO : Need to dynamically load all shared worlds that the player has.
+
+
+
+            this.teleport_wall.add_floating_2d_text(0, 1, 'Teleport To...', TYPE_CONSTANT_TEXT, 0);
             this.teleport_wall.add_floating_2d_text(0, 1, 'TELEPORT WALL?', TYPE_BUTTON, 2);
-            this.teleport_wall.add_floating_2d_text(.1, .9, 'Can you see this text?', TYPE_BUTTON, 4);
+            this.teleport_wall.add_floating_2d_text(.1, .9, 'Can you see this text?', TYPE_BUTTON, 3);
+
+
             this.teleport_wall.hide();
         }
 
@@ -105,6 +108,7 @@ MenuIcon.prototype = {
             function_to_bind = global_save;
             break;
         case ICON_EXIT:
+            // TODO : Remove from here and place above
             icon_label = 'exit';
             l('TODO : Logout');
             break;
@@ -119,6 +123,7 @@ MenuIcon.prototype = {
             function_to_bind = this.select_a_world_to_teleport_to.bind(this);
             break;
         case ICON_HOME:
+            // TODO : Remove from here and place above
             icon_label = 'home';
             function_to_bind = go_to_home_world;
             break;
@@ -177,7 +182,7 @@ MenuIcon.prototype = {
             var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3 + this.normal.x * 30,
                                                            this.object3D.position.y,
                                                            this.object3D.position.z + this.left_right.z * horizontal_shift * 3 + this.normal.z * 30);
-            var teleport_wall_look_at = new THREE.Vector3(teleport_wall_position.x - player_position.x, 0, teleport_wall_position.z - player_position.z);
+            var teleport_wall_look_at = new THREE.Vector3(player_position.x - teleport_wall_position.x, 0, player_position.z - teleport_wall_position.z);
             teleport_wall_look_at.normalize();
             this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at, false);
         }
