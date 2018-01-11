@@ -92,25 +92,14 @@ class QuasarServer(object):
 COMMAND_DELETE_OWNER = 'do'
 COMMAND_CREATE_OWNER = 'co'
 COMMAND_PRINT_ALL_DATA = 'pd'
+COMMAND_SET_ACCOUNT_TYPE = 'at'
 
 
 arguments = so.get_all_program_arguments()
 if len(arguments) == 1:
 	flag = arguments[0]
-	first_match_hit = False
-	command = ''
-	data = ''
-	for c in flag:
-		if c == ':':
-			if not first_match_hit:
-				first_match_hit = True
-			else:
-				data += c
-		else:
-			if first_match_hit:
-				data += c
-			else:
-				command += c
+	command = flag[:flag.index(':')]
+	data = flag[flag.index(':') + 1:]
 
 	quasar_server = QuasarServer()
 	quasar_server.connect()
@@ -130,3 +119,9 @@ if len(arguments) == 1:
 
 	elif command == COMMAND_DELETE_OWNER:
 		print(quasar_server.delete_entity_owner(data))
+
+	elif command == COMMAND_SET_ACCOUNT_TYPE:
+
+		d = data.split('|')
+
+		print(quasar_server.set_entity_owner_account_type(d[0], d[1]))
