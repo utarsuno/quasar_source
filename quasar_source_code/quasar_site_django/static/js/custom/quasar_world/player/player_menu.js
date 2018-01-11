@@ -59,8 +59,7 @@ MenuIcon.prototype = {
     },
 
     select_a_world_to_teleport_to: function() {
-        this.teleport_world_needs_to_be_chosen = true;
-        this._player_menu.set_to_invisible();
+        this.teleport_wall_selected = true;
         this.teleport_wall.show();
     },
 
@@ -73,7 +72,7 @@ MenuIcon.prototype = {
         this.object3D = new THREE.Object3D();
 
         if (this._icon_type === ICON_TELEPORT) {
-            this.teleport_world_needs_to_be_chosen = false;
+            this.teleport_wall_selected = false;
             this.teleport_wall = new FloatingWall(150, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
 
             // TODO : Need to dynamically load all shared worlds that the player has.
@@ -119,7 +118,7 @@ MenuIcon.prototype = {
         case ICON_TELEPORT:
             icon_label = 'teleport';
             function_look_at_bind = this.display_teleport_worlds.bind(this);
-            function_look_away_bind = this.hide_teleport_worlds.bind(this);
+            function_look_away_bind = this.hide_teleport_worlds.bind(this, true);
             function_to_bind = this.select_a_world_to_teleport_to.bind(this);
             break;
         case ICON_HOME:
