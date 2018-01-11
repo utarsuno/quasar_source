@@ -59,11 +59,13 @@ MenuIcon.prototype = {
     },
 
     select_a_world_to_teleport_to: function() {
-
+        this._player_menu.set_to_invisible();
+        this.teleport_wall.show();
     },
 
-    __init__: function(icon_type, world, row) {
+    __init__: function(icon_type, world, row, player_menu) {
         this._icon_type = icon_type;
+        this._player_menu = player_menu;
 
         this.world = world;
         this.row = row;
@@ -167,7 +169,9 @@ MenuIcon.prototype = {
 
         if (is_defined(this.teleport_wall)) {
             var player_position = CURRENT_PLAYER.get_position();
-            var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift * 3);
+            var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3 + this.normal.x * 30,
+                                                           this.object3D.position.y,
+                                                           this.object3D.position.z + this.left_right.z * horizontal_shift * 3 + this.normal.z * 30);
             var teleport_wall_look_at = new THREE.Vector3(teleport_wall_position.x - player_position.x, 0, teleport_wall_position.z - player_position.z);
             teleport_wall_look_at.normalize();
             this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at, false);
@@ -266,7 +270,7 @@ PlayerMenu.prototype = {
             this.icons = [];
         }
         if (!list_of_icons_not_to_load.contains(icon)) {
-            this.icons.push(new MenuIcon(icon, this.world, this.current_row));
+            this.icons.push(new MenuIcon(icon, this.world, this.current_row, this));
             this.current_row += 1;
         }
     },
