@@ -64,9 +64,6 @@ function FloatingText(width, text, type, world, is_2D_text) {
         }
 
         if(!is_defined(this.current_color)) {
-
-            l('The current color is not defined!!!');
-
             switch (this.type) {
             case TYPE_BUTTON:
             case TYPE_CHECK_BOX:
@@ -103,30 +100,6 @@ function FloatingText(width, text, type, world, is_2D_text) {
 
     this.set_format_type = function(format_type) {
         this.format_type = format_type;
-    };
-
-    this.update_color = function(color) {
-        if (is_list(color)) {
-            var color_to_set = null;
-            if (this.is_2D_text) {
-                color_to_set = color[COLOR_STRING_INDEX];
-            } else {
-                color_to_set = color[COLOR_HEX_INDEX];
-            }
-            this.current_color = color_to_set;
-            //this._update_color();
-        } else {
-            if (this.is_2D_text) {
-                this.current_color = color;
-                //this._update_color();
-            } else {
-                if (color.toString().includes('#')) {
-                    color = parseInt(color.replace('#', '0x'));
-                    this.current_color = color;
-                    //this._update_color();
-                }
-            }
-        }
     };
 
     this.update_text = function(text) {
@@ -247,36 +220,41 @@ function FloatingText(width, text, type, world, is_2D_text) {
         }
     };
 
-    /*
-    this.set_default_color = function(default_color) {
-        if (is_list(default_color)) {
-            if (this.is_2D_text) {
-                this.default_color = default_color[COLOR_STRING_INDEX];
-            } else {
-                this.default_color = default_color[COLOR_HEX_INDEX];
+    this.set_background_color = function(color, refresh) {
+        this.current_background_color = this._parse_color(color);
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
             }
-        } else {
-            if (!this.is_2D_text) {
-                if (default_color.toString().includes('#')) {
-                    default_color = parseInt(default_color.replace('#', '0x'));
-                }
-            }
-            this.default_color = default_color;
         }
-        this.current_color = this.default_color;
-        if (!is_defined(this.previous_default_color)) {
-            this.previous_default_color = this.default_color;
-        }
-        //this._update_color();
     };
-    */
 
-    this.set_default_color = function(color) {
+    this.set_default_background_color = function(color, refresh) {
+        this.default_background_color = this._parse_color(color);
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
+    this.set_color = function(color, refresh) {
+        this.current_color = this._parse_color(color);
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
+    this.set_default_color = function(color, refresh) {
         this.default_color = this._parse_color(color);
-        // TODO : Consider moving the location of this call.
-        this.refresh();
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
     };
-
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
@@ -301,6 +279,8 @@ function FloatingText(width, text, type, world, is_2D_text) {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
+            this.set_background_color(BACKGROUND_COLOR_FOCUS, false);
+            this.set_color(COLOR_HIGHLIGHT, true);
             this.current_background_color = BACKGROUND_COLOR_FOCUS;
             this.update_color(COLOR_HIGHLIGHT);
         } else {
