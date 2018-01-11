@@ -19,14 +19,6 @@ function World(planet_name) {
 
     this._previously_intersected_plane = null;
 
-    this.provide_cursor_material = function(cursor_material, texture_name) {
-        l('Got the following cursor material : ');
-        l(cursor_material);
-        l(texture_name);
-
-        this.floating_cursor.add_cursor_material(cursor_material, texture_name);
-    };
-
     this.add_to_scene = function(object) {
         this.scene.add(object);
     };

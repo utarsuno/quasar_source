@@ -175,11 +175,23 @@ function LoadingManager() {
 
 LoadingManager.prototype = {
 
-    _cursors_loaded: function() {
-        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
-        MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
-        MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+    /*
+        this.provide_cursor_material = function(cursor_material, texture_name) {
+        l('Got the following cursor material : ');
+        l(cursor_material);
+        l(texture_name);
 
+        this.floating_cursor.add_cursor_material(cursor_material, texture_name);
+    };
+     */
+
+    _cursors_loaded: function() {
+        for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
+            MANAGER_WORLD.world_login.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
+            MANAGER_WORLD.world_home.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
+            MANAGER_WORLD.world_settings.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_TEXTURE_NAME]);
+        }
+        //MANAGER_WORLD.world_login.floating_cursor.
         l('The cursors loaded!');
     },
 
@@ -188,6 +200,9 @@ LoadingManager.prototype = {
     },
 
     _icons_loaded: function() {
+        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
+        MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
+        MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
         l('The icons loaded!');
     },
 

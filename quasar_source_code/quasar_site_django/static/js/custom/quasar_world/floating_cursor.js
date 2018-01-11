@@ -54,20 +54,22 @@ FloatingCursor.prototype = {
         }
     },
 
-    add_cursor_material: function(cursor_material, texture_name) {
+    load_cursor: function(texture_name) {
         var cursor_name = '';
 
-        if (texture_name.includes(CURSOR_TYPE_HORIZONTAL)) {
+        var cursor_material = new THREE.MeshBasicMaterial({map: MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, texture_name), transparent: true, opacity: 0.90, side: THREE.DoubleSide});
+
+        if (texture_name === CURSOR_TYPE_HORIZONTAL) {
             cursor_name = CURSOR_TYPE_HORIZONTAL;
-        } else if (texture_name.includes(CURSOR_TYPE_VERTICAL)) {
+        } else if (texture_name === CURSOR_TYPE_VERTICAL) {
             cursor_name = CURSOR_TYPE_VERTICAL;
-        } else if (texture_name.includes(CURSOR_TYPE_HAND)) {
+        } else if (texture_name === CURSOR_TYPE_HAND) {
             cursor_name = CURSOR_TYPE_HAND;
-        } else if (texture_name.includes(CURSOR_TYPE_POINTER)) {
+        } else if (texture_name === CURSOR_TYPE_POINTER) {
             cursor_name = CURSOR_TYPE_POINTER;
-        } else if (texture_name.includes(CURSOR_TYPE_LARGER)) {
+        } else if (texture_name === CURSOR_TYPE_LARGER) {
             cursor_name = CURSOR_TYPE_LARGER;
-        } else if (texture_name.includes(CURSOR_TYPE_MOUSE)) {
+        } else if (texture_name === CURSOR_TYPE_MOUSE) {
             cursor_name = CURSOR_TYPE_MOUSE;
         }
 
