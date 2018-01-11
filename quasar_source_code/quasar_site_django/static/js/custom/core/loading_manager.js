@@ -38,13 +38,13 @@ TextureGroup.prototype = {
         }
     },
 
-    _texture_loaded: function(texture, texture_name) {
+    _texture_loaded: function(texture, texture_full_url) {
         for (var t = 0; t < this._number_of_textures_to_load; t++) {
-            if (this._textures[t][INDEX_TEXTURE_NAME] === texture_name) {
+            if (this._textures[t][INDEX_FULL_URL] === texture_full_url) {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
 
-                this._loading_manager.update_text('Loaded ' + texture_name);
+                this._loading_manager.update_text('Loaded ' + this._textures[t][INDEX_TEXTURE_NAME]);
 
                 break;
             }
@@ -107,16 +107,9 @@ TextureGroup.prototype = {
     load_textures: function() {
         for (var t = 0; t < this._textures.length; t++) {
 
-            new THREE.TextureLoader().load(this._textures[t][INDEX_TEXTURE_NAME],
+            new THREE.TextureLoader().load(this._textures[t][INDEX_FULL_URL],
                 //function when resource is loaded
                 function(texture) {
-                    l('QUICK TODO : ');
-                    l(texture);
-                    l('ARG 0');
-                    l(arguments[0][INDEX_FULL_URL]);
-                    l('ARG 1');
-                    l(arguments[1]);
-
                     this._texture_loaded(arguments[1], arguments[0]);
                 }.bind(this, this._textures[t][INDEX_TEXTURE_NAME]),
                 // FOR_DEV_START
