@@ -39,16 +39,8 @@ TextureGroup.prototype = {
     },
 
     _texture_loaded: function(texture, texture_full_url) {
-
-        l('Looking for : ');
-        l(texture_full_url);
-
         var texture_name = 'missing';
         for (var t = 0; t < this._number_of_textures_to_load; t++) {
-
-            l(this._textures[t][INDEX_TEXTURE_NAME]);
-            l((this._textures[t][INDEX_TEXTURE_NAME]) === (texture_full_url));
-
             if (this._textures[t][INDEX_TEXTURE_NAME] === texture_full_url) {
                 this._textures[t][INDEX_TEXTURE] = texture;
                 this._number_of_loaded_textures += 1;
@@ -70,9 +62,9 @@ TextureGroup.prototype = {
         case TEXTURE_GROUP_ICONS:
             if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
                 // The parameters passed in are the icons not to load from the set of standard player menu icons.
-                this.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
-                this.world_home.player_menu.load_icon_textures([ICON_HOME]);
-                this.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+                MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTIPLAYER]);
+                MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
+                MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
             }
             break;
         }
