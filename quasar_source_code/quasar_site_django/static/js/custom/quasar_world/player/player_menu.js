@@ -63,7 +63,7 @@ MenuIcon.prototype = {
         l('Cursor {' + icon_type + '} got this texture:');
         l(texture);
 
-        this.material = new THREE.MeshBasicMaterial({map: , side: THREE.DoubleSide, transparent: true, opacity: .75});
+        this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: .75});
         //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
         this.icon = new THREE.Mesh(this.geometry, this.material);
 
