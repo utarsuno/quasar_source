@@ -21,6 +21,8 @@ TextSyntaxManager.prototype = {
         var error = false;
         var result = null;
 
+        var bad_indexes = [];
+
         // First check the standard syntax rules.
         for (var i = 0; i < this._pairs.length; i++) {
             this._pairs[i][INDEX_INPUT].set_syntax_manager(this);
@@ -28,6 +30,7 @@ TextSyntaxManager.prototype = {
             result = this._pairs[i][INDEX_INPUT].syntax_check();
 
             if (result !== '') {
+                bad_indexes.push(i);
                 error = true;
                 this.set_error_to_pair_by_index(i, result);
                 //break;
@@ -52,6 +55,7 @@ TextSyntaxManager.prototype = {
             if (!passwords_matched) {
                 for (i = 0; i < this._pairs.length; i++) {
                     if (this._pairs[i][INDEX_INPUT].has_syntax_rule(TEXT_SYNTAX_MATCH_PASSWORDS)) {
+                        bad_indexes.push(i);
                         this.set_error_to_pair_by_index(i, 'Not all passwords match!');
                     }
                 }
@@ -65,6 +69,18 @@ TextSyntaxManager.prototype = {
 
             l('Trying to enable the button!');
             this._final_button.enable();
+        } else {
+            for (i = 0; i < this._pairs.length; i++) {
+                if (bad_indexes.indexOf(i) === NOT_FOUND) {
+                    var label = this._pairs[i][INDEX_LABEL];
+                    var input = this._pairs[i][INDEX_INPUT];
+                    label.color_change_locked = false;
+                    input.color_change_locked = false;
+                    label.set_background_color(COLOR_TRANSPARENT, true);
+                    input.set_background_color(COLOR_TRANSPARENT, true);
+                }
+            }
+            this._final_button.disable();
         }
     },
 
