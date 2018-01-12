@@ -90,8 +90,7 @@ Floating2DText.prototype = {
             } else {
                 this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
             }
-            // TODO : Just testing without out.
-            //this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
+            this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
 
             this.material = new THREE.MeshBasicMaterial({
                 map : this.dynamic_texture.texture

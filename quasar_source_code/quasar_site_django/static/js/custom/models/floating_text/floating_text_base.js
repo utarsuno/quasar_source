@@ -67,8 +67,8 @@ function FloatingText(text, type, world, is_2D_text) {
                 this.set_default_color(COLOR_TEXT_DEFAULT);
                 break;
             }
-            this.refresh();
         }
+        this.refresh();
     };
 
     /*   ___            __  ___    __        __
@@ -136,7 +136,7 @@ function FloatingText(text, type, world, is_2D_text) {
     };
 
     this.clear = function() {
-        this._update_text('');
+        this.update_text('');
     };
 
     /*___  ___     ___     __   __   ___  __       ___    __        __
@@ -157,11 +157,11 @@ function FloatingText(text, type, world, is_2D_text) {
             } else {
                 this.text = text;
             }
-            this._update_text();
             if (is_defined(this.value_post_changed_function)) {
                 this.value_post_changed_function(text);
             }
             this.text_changed = true;
+            this.refresh();
         }
     };
 
