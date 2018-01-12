@@ -86,9 +86,9 @@ MenuIcon.prototype = {
 
             // TODO : Also dynamically only load the worlds that are available.
 
-            // TODO : Make a TYPE_TEXTURE!!!
-            this.teleport_wall.add_floating_2d_text(0, .25, ICON_SETTINGS, TYPE_CONSTANT, 2);
+            this.teleport_wall.add_floating_2d_text(0, .25, ICON_SETTINGS, TYPE_ICON, 2);
             this.teleport_wall.add_floating_2d_text(.25, 1, 'Settings', TYPE_BUTTON, 2);
+            this.teleport_wall.add_floating_2d_text(0, .25, ICON_HOME, TYPE_ICON, 3);
             this.teleport_wall.add_floating_2d_text(.25, 1, 'Home', TYPE_BUTTON, 3);
 
 
@@ -149,7 +149,7 @@ MenuIcon.prototype = {
             function_to_bind = toggle_fullscreen;
             break;
         }
-        this.floating_label = new Floating2DText(90, icon_label, TYPE_BUTTON, this.world);
+        this.floating_label = new Floating2DText(100, icon_label, TYPE_BUTTON, this.world);
         if (is_defined(function_to_bind)) {
             this.floating_label.set_engage_function(function_to_bind);
         }

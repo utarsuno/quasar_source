@@ -224,7 +224,7 @@ LoadingManager.prototype = {
     },
 
     _icons_loaded: function() {
-        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER]);
+        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
         MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
         MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
     },
