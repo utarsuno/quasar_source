@@ -59,7 +59,8 @@ FloatingCursor.prototype = {
         var cursor_name = '';
 
         // The opacity was at 0.90 before
-        var cursor_material = new THREE.MeshBasicMaterial({map: texture, transparent: true, opacity: 1.0, side: THREE.DoubleSide});
+        // transparent: true, opacity: 1.0
+        var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.FrontSide});
 
         if (texture_name === CURSOR_TYPE_HORIZONTAL) {
             cursor_name = CURSOR_TYPE_HORIZONTAL;
