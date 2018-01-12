@@ -119,6 +119,9 @@ Floating2DText.prototype = {
 
 
 
+        // TODO : Place 2D init here
+
+
         if (is_defined(syntax_checks)) {
             // Inherit from TextSyntax.
             TextSyntax.call(this, syntax_checks);
