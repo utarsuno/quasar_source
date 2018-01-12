@@ -20,7 +20,7 @@ function World(planet_name) {
     this._previously_intersected_plane = null;
 
     // Base code from : https://codepen.io/asjas/pen/pWawPm
-    this.Element = function ( id, x, y, z, ry ) {
+    var Element = function ( id, x, y, z, ry ) {
         var div = document.createElement( 'div' );
         div.style.width = '480px';
         div.style.height = '360px';
