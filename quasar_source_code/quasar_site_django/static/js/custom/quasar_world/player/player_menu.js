@@ -82,7 +82,7 @@ MenuIcon.prototype = {
         this.object3D = new THREE.Object3D();
 
 
-        var utiltiy_wall_width = 150;
+        var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;
 
         switch (this._icon_type) {
@@ -309,12 +309,11 @@ PlayerMenu.prototype = {
 
     // This function gets called once per player menu object.
     load_icon_textures: function(list_of_icons_not_to_load) {
-        this._add_menu_icon(ICON_ENTITY_GROUP, list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_WRENCH      , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_SAVE        , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_TELEPORT    , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_MULTI_PLAYER , list_of_icons_not_to_load);
+        this._add_menu_icon(ICON_MULTI_PLAYER, list_of_icons_not_to_load);
         this._add_menu_icon(ICON_FULLSCREEN  , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_EXIT        , list_of_icons_not_to_load);
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
