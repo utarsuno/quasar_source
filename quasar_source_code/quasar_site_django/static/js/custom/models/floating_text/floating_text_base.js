@@ -124,6 +124,7 @@ function FloatingText(text, type, world, is_2D_text) {
                 break;
             }
         }
+        this.color_changed = true;
         this.refresh();
     };
 
