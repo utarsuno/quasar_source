@@ -30,6 +30,7 @@ function World(planet_name) {
         div.position.z = -185;
         div.rotation.y = Math.PI;
         this.css_scene.add(div);
+
     };
 
     this.add_to_scene = function(object) {

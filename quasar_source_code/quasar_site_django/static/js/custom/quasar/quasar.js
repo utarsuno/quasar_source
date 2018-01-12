@@ -56,11 +56,15 @@ var animate = function () {
     ////
 
     //renderer2.render(scene2, camera);
+
+    MANAGER_RENDERER.render();
+
+
     if (is_defined(MANAGER_WORLD.world_login.css_scene)) {
         MANAGER_RENDERER.css_renderer.render(MANAGER_WORLD.world_login.css_scene, CURRENT_PLAYER.fps_controls.camera);
     }
 
-    MANAGER_RENDERER.render();
+
     MANAGER_RENDERER.post_render();
 
     previous_time = time;
