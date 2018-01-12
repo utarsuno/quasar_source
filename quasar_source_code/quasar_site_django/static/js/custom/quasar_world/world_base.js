@@ -21,7 +21,7 @@ function World(planet_name) {
 
     // Base code from : https://codepen.io/asjas/pen/pWawPm
     var Element = function ( id, x, y, z, ry ) {
-        var div = document.createElement( 'three-div' );
+        var div = document.createElement( 'div' );
         div.style.width = '480px';
         div.style.height = '360px';
         div.style.backgroundColor = '#000';
@@ -53,7 +53,10 @@ function World(planet_name) {
         this.container = document.getElementById('container');
         this.group = new THREE.Group();
 
-        this.group.add(new Element('xBOqwRRj82A', 0, 0, 240, 0 ));
+        this.group.add( new Element( 'xBOqwRRj82A', 0, 0, 240, 0 ) );
+        this.group.add( new Element( 'x4q86IjJFag', 240, 0, 0, Math.PI / 2 ) );
+        this.group.add( new Element( 'JhngfOK_2-0', 0, 0, - 240, Math.PI ) );
+        this.group.add( new Element( 'Grg3461lAPg', - 240, 0, 0, - Math.PI / 2 ) );
         this.css_scene.add(this.group);
 
     };

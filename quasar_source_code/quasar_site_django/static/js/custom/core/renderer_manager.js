@@ -96,6 +96,10 @@ RendererManager.prototype = {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.window_width, this.window_height);
 
+        if (is_defined(this.css_renderer)) {
+            this.css_renderer.setSize(this.window_width, this.window_height);
+        }
+
         GUI_TYPING_INTERFACE.window_was_resized();
     },
 
