@@ -48,12 +48,27 @@ RendererManager.prototype = {
 
             this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
-            // TODO : Eventually delete this code.
-            this.renderer.domElement.style.position = 'absolute';
-            this.renderer.domElement.style.zIndex = 1;
-            this.renderer.domElement.style.top = 0;
+            //this.renderer.domElement.style.position = 'absolute';
+            this.renderer.domElement.style.zIndex = 5;
+
 
             document.body.appendChild(this.renderer.domElement);
+
+
+            //
+            var element = document.createElement('div');
+            element.innerHTML = 'Plain text inside a div.';
+            element.className = 'three-div';
+            // CSS3DRenderer.
+            this.css_renderer = new THREE.CSS3DRenderer();
+            this.css_renderer.setSize(this.window_width, this.window_height);
+            this.css_renderer.domElement.style.position = 'absolute';
+            this.css_renderer.domElement.style.top = 0;
+            document.body.appendChild(this.css_renderer.domElement);
+
+
+            //this.renderer.domElement.style.top = 0;
+
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 

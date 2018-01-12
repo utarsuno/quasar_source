@@ -638,6 +638,7 @@ FloatingWall.prototype = {
         }
     },
 
+    // TODO : Remove or re-format
     get_all_floating_2D_texts_with_property: function(property_name) {
         var floating_texts = [];
         for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
@@ -697,12 +698,8 @@ FloatingWall.prototype = {
 
     get_player_look_at_infinite_plane_intersection_point: function() {
         var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        var floating_wall_parametric_equation = this.get_parametric_equation();
-
         var t = this._calculate_t_value(player_parametric_equation);
-
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-
         return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
     },
 
