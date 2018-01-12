@@ -15,10 +15,10 @@ function FloatingText(text, type, world, is_2D_text) {
     this.color_changed = false;
 
     // Color variables.
-    this.default_background_color = COLOR_TRANSPARENT;
-    this.current_background_color = COLOR_TRANSPARENT;
-    this.default_color = COLOR_TEXT_DEFAULT;
-    this.current_color = COLOR_TEXT_DEFAULT;
+    this.set_default_background_color(COLOR_TRANSPARENT, false);
+    this.set_background_color(COLOR_TRANSPARENT, false);
+    this.set_default_color(COLOR_TEXT_DEFAULT, false);
+    this.set_color(COLOR_TEXT_DEFAULT, false);
 
     this.format_type   = null;
 
