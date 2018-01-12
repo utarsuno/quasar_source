@@ -21,6 +21,9 @@ function World(planet_name) {
 
     // Base code from : https://codepen.io/asjas/pen/pWawPm
     var Element = function ( id, x, y, z, ry ) {
+
+        l('Creating element!');
+
         var div = document.createElement( 'div' );
         div.style.width = '4800px'; // was 480
         div.style.height = '3600px'; // was 360
