@@ -17,8 +17,8 @@ function FloatingText(text, type, world, is_2D_text) {
     // Color variables.
     this.default_background_color = COLOR_TRANSPARENT;
     this.current_background_color = COLOR_TRANSPARENT;
-    this.default_color = null;
-    this.current_color = null;
+    this.default_color = COLOR_TEXT_DEFAULT;
+    this.current_color = COLOR_TEXT_DEFAULT;
 
     this.format_type   = null;
 
