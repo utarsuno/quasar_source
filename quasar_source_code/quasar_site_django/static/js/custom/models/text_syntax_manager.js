@@ -80,7 +80,9 @@ TextSyntaxManager.prototype = {
     },
 
     set_error_to_pair_by_index: function(pair_index, result) {
-        this._pairs[pair_index][INDEX_INPUT].set_default_background_color(COLOR_FLOATING_WALL_ERROR, true);
+        this._pairs[pair_index][INDEX_INPUT].set_default_background_color(COLOR_FLOATING_WALL_ERROR);
+        this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
+
         this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_RED, true);
         // TODO : Add warning icon
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
@@ -95,7 +97,8 @@ TextSyntaxManager.prototype = {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
             label.set_color(this.default_color, true);
-            input.set_default_background_color(COLOR_TRANSPARENT, true);
+            input.set_default_background_color(COLOR_TRANSPARENT);
+            input.set_background_color(COLOR_TRANSPARENT, true);
         }
         l('TODO : Enable the final button!');
         this._final_button.enable();
