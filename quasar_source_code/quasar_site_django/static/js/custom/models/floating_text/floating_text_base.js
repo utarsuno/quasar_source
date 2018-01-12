@@ -2,6 +2,62 @@
 
 function FloatingText(text, type, world, is_2D_text) {
 
+    /*__   __        __   __      __   __   ___  __       ___    __        __
+     /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+     \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this._parse_color = function(c) {
+        if (is_list(c)) {
+            if (this.is_2D_text) {
+                return c[COLOR_STRING_INDEX];
+            }
+            return c[COLOR_HEX_INDEX];
+        } else {
+            l('A non list color was passed?');
+            l(c);
+            return c;
+        }
+    };
+
+    this.set_background_color = function(color, refresh) {
+        this.current_background_color = this._parse_color(color);
+        this.color_changed = true;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
+    this.set_default_background_color = function(color, refresh) {
+        this.default_background_color = this._parse_color(color);
+        this.color_changed = true;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
+    this.set_color = function(color, refresh) {
+        this.current_color = this._parse_color(color);
+        this.color_changed = true;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
+    this.set_default_color = function(color, refresh) {
+        this.default_color = this._parse_color(color);
+        this.color_changed = true;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                this.refresh();
+            }
+        }
+    };
+
     /*   __   __        __  ___  __        __  ___  __   __
         /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
         \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
@@ -191,63 +247,6 @@ function FloatingText(text, type, world, is_2D_text) {
         } else if (event.key.length === 1) {
             this._add_character(event.key);
             MANAGER_AUDIO.play_typing_sound();
-        }
-    };
-
-
-    /*__   __        __   __      __   __   ___  __       ___    __        __
-     /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
-     \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
-    this._parse_color = function(c) {
-        if (is_list(c)) {
-            if (this.is_2D_text) {
-                return c[COLOR_STRING_INDEX];
-            }
-            return c[COLOR_HEX_INDEX];
-        } else {
-            l('A non list color was passed?');
-            l(c);
-            return c;
-        }
-    };
-
-    this.set_background_color = function(color, refresh) {
-        this.current_background_color = this._parse_color(color);
-        this.color_changed = true;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                this.refresh();
-            }
-        }
-    };
-
-    this.set_default_background_color = function(color, refresh) {
-        this.default_background_color = this._parse_color(color);
-        this.color_changed = true;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                this.refresh();
-            }
-        }
-    };
-
-    this.set_color = function(color, refresh) {
-        this.current_color = this._parse_color(color);
-        this.color_changed = true;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                this.refresh();
-            }
-        }
-    };
-
-    this.set_default_color = function(color, refresh) {
-        this.default_color = this._parse_color(color);
-        this.color_changed = true;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                this.refresh();
-            }
         }
     };
 
