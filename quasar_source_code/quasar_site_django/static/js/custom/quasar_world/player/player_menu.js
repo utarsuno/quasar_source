@@ -51,6 +51,29 @@ function toggle_fullscreen() {
 }
 
 MenuIcon.prototype = {
+
+    /*__   __   ___      ___  ___
+     /  ` |__) |__   /\   |  |__
+     \__, |  \ |___ /~~\  |  |___ */
+    display_create_options: function() {
+        this.create_wall.show();
+    },
+
+    hide_create_options: function(dont_hide) {
+        if (is_defined(dont_hide)) {
+            if (!dont_hide) {
+                this.teleport_wall.hide();
+            }
+        } else {
+            this.teleport_wall.hide();
+        }
+    },
+
+
+
+    /*___  ___       ___  __   __   __  ___
+       |  |__  |    |__  |__) /  \ |__)  |
+       |  |___ |___ |___ |    \__/ |  \  |  */
     display_teleport_worlds: function() {
         this.teleport_wall.show();
     },
@@ -63,10 +86,6 @@ MenuIcon.prototype = {
         } else {
             this.teleport_wall.hide();
         }
-    },
-
-    select_a_world_to_teleport_to: function() {
-        this.teleport_wall.show();
     },
 
     __init__: function(icon_type, world, row, player_menu) {
@@ -88,6 +107,9 @@ MenuIcon.prototype = {
         switch (this._icon_type) {
             case ICON_WRENCH:
                 this.icon_label = 'create';
+                this.function_look_at_bind = this.display_create_options.bind(this);
+                this.function_look_away_bind = this.hide_create_options.bind(this, true);
+
                 this.create_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 this.create_wall.add_floating_2d_text(0, 1, 'Create a...', TYPE_CONSTANT, 0);
 
@@ -118,7 +140,6 @@ MenuIcon.prototype = {
                 this.icon_label = 'teleport';
                 this.function_look_at_bind = this.display_teleport_worlds.bind(this);
                 this.function_look_away_bind = this.hide_teleport_worlds.bind(this, true);
-                this.function_to_bind = this.select_a_world_to_teleport_to.bind(this);
 
                 this.teleport_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 // TODO : Need to dynamically load all shared worlds that the player has.
