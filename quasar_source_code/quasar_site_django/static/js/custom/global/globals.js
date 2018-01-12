@@ -214,6 +214,7 @@ const ICON_WARNING       = 'warning.png';
 const ICON_TELEPORT      = 'open.png';
 const ICON_CHECKMARK     = 'checkmark.png';
 const ICON_SINGLE_PLAYER = 'singleplayer.png';
+const ICON_WRENCH        = 'wrench.png';
 // UNIVERSAL_CONSTANTS_END
 
 // TODO : Audio stuff.

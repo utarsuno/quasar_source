@@ -301,6 +301,7 @@ module.exports = {
         "ICON_TELEPORT"     : false,
         "ICON_CHECKMARK"    : false,
         "ICON_SINGLE_PLAYER": false,
+        "ICON_WRENCH"       : false,
         // UNIVERSAL_CONSTANTS_END
 
         "TEXT_FORMAT_LEFT"        : false,

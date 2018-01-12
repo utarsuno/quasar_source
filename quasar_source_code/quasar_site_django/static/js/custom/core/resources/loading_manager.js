@@ -183,6 +183,7 @@ TextureGroup.prototype = {
             this._add_texture_needed(ICON_TELEPORT);
             this._add_texture_needed(ICON_CHECKMARK);
             this._add_texture_needed(ICON_SINGLE_PLAYER);
+            this._add_texture_needed(ICON_WRENCH);
             break;
         }
     }
