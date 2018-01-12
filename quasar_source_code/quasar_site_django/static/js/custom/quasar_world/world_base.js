@@ -51,6 +51,9 @@ function World(planet_name) {
 
 
         this.container = document.getElementById('container');
+
+        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+
         this.group = new THREE.Group();
 
         this.group.add( new Element( 'xBOqwRRj82A', 0, 0, 240, 0 ) );
