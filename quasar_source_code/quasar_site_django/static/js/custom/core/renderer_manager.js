@@ -55,10 +55,6 @@ RendererManager.prototype = {
             document.body.appendChild(this.renderer.domElement);
 
 
-            //
-            var element = document.createElement('div');
-            element.innerHTML = 'Plain text inside a div.';
-            element.className = 'three-div';
             // CSS3DRenderer.
             this.css_renderer = new THREE.CSS3DRenderer();
             this.css_renderer.setSize(this.window_width, this.window_height);
