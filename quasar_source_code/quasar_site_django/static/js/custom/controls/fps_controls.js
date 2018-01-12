@@ -275,19 +275,21 @@ FPSControls.prototype = {
     },
 
     on_mouse_move: function(event) {
-        var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        if (!MANAGER_LOADING.currently_loading()) {
+            var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+            var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
-        if (this.enabled) {
-            this.mouse_movement_x_buffer.add_force(movement_x * -0.002);
-            this.mouse_movement_y_buffer.add_force(movement_y * -0.002);
-        }
+            if (this.enabled) {
+                this.mouse_movement_x_buffer.add_force(movement_x * -0.002);
+                this.mouse_movement_y_buffer.add_force(movement_y * -0.002);
+            }
 
-        // Only left click dragging will be supported for now.
-        if (MANAGER_INPUT.click_down_left) {
-            MANAGER_WORLD.current_world.parse_mouse_drag(movement_x, movement_y);
-        } else {
-            MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
+            // Only left click dragging will be supported for now.
+            if (MANAGER_INPUT.click_down_left) {
+                MANAGER_WORLD.current_world.parse_mouse_drag(movement_x, movement_y);
+            } else {
+                MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
+            }
         }
     },
 
