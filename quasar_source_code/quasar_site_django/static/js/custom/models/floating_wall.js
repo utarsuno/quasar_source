@@ -817,6 +817,7 @@ FloatingWall.prototype = {
                 MANAGER_WORLD.current_floating_cursor.disengage();
             }
         }
+        this.refresh();
     },
 
     state_change_engage: function(being_engaged_with) {
@@ -826,6 +827,7 @@ FloatingWall.prototype = {
         } else {
             this.current_background_color = this.default_background_color;
         }
+        this.refresh();
     }
 
 };

@@ -304,5 +304,6 @@ function FloatingText(text, type, world, is_2D_text) {
                 MANAGER_WORLD.current_floating_cursor.disengage();
             }
         }
+        this.refresh();
     };
 }
