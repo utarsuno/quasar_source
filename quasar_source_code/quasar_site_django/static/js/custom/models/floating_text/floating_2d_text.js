@@ -50,7 +50,7 @@ Floating2DText.prototype = {
     set_tool_tip: function() {
         l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
     },
-    
+
     display_icon_to_the_right: function(icon_type) {
         l('TODO !!!! DISPLAY AN ICON TO THE RIGHT!!');
     },
@@ -60,6 +60,14 @@ Floating2DText.prototype = {
     },
 
     __init__: function(w, text, type, world, syntax_checks) {
+        if (is_defined(syntax_checks)) {
+            // Inherit from TextSyntax.
+            TextSyntax.call(this, syntax_checks);
+        }
+
+        // Inherit from FloatingText.
+        FloatingText.call(this, text, type, world, true);
+
         this.width = w;
         if (type === TYPE_TITLE) {
             this.height = 26;
@@ -93,16 +101,8 @@ Floating2DText.prototype = {
         this.material.side = THREE.FrontSide;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
-        this.scene.add(this.object3D);
+        world.scene.add(this.object3D);
 
-
-        if (is_defined(syntax_checks)) {
-            // Inherit from TextSyntax.
-            TextSyntax.call(this, syntax_checks);
-        }
-
-        // Inherit from FloatingText.
-        FloatingText.call(this, text, type, world, true);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
