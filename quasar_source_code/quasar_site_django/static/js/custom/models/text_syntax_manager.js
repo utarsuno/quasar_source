@@ -61,8 +61,8 @@ TextSyntaxManager.prototype = {
         }
 
         if (!error) {
-            label.set_background_color(COLOR_TRANSPARENT);
-            input.set_background_color(COLOR_TRANSPARENT);
+            label.set_background_color(COLOR_TRANSPARENT, true);
+            input.set_background_color(COLOR_TRANSPARENT, true);
             // TODO : Remove warning icon
 
             l('Trying to enable the button!');
@@ -71,8 +71,8 @@ TextSyntaxManager.prototype = {
     },
 
     set_error_to_pair_by_index: function(pair_index, result) {
-        this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR);
-        this._pairs[pair_index][INDEX_LABEL].set_background_color(COLOR_FLOATING_WALL_ERROR);
+        this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
+        this._pairs[pair_index][INDEX_LABEL].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
         // TODO : Add warning icon
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);

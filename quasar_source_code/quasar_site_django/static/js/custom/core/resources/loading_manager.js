@@ -213,7 +213,8 @@ LoadingManager.prototype = {
         sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
 
         for (var t = 0; t < sky_box_textures.length; t++) {
-            sky_box_textures[t] = new THREE.MeshBasicMaterial({map: sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY, depthWrite: false, depthTest: false});
+            // depthWrite: false, depthTest: false
+            sky_box_textures[t] = new THREE.MeshBasicMaterial({map: sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
         }
 
         MANAGER_WORLD.world_login.add_sky_box(sky_box_textures);
