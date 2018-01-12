@@ -52,16 +52,16 @@ function World(planet_name) {
 
         this.container = document.getElementById('container');
 
-        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
-
         this.group = new THREE.Group();
 
         this.group.add( new Element( 'xBOqwRRj82A', 0, 0, 240, 0 ) );
         this.group.add( new Element( 'x4q86IjJFag', 240, 0, 0, Math.PI / 2 ) );
         this.group.add( new Element( 'JhngfOK_2-0', 0, 0, - 240, Math.PI ) );
         this.group.add( new Element( 'Grg3461lAPg', - 240, 0, 0, - Math.PI / 2 ) );
+
         this.css_scene.add(this.group);
 
+        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.add_to_scene = function(object) {
