@@ -133,22 +133,13 @@ function FloatingText(text, type, world, is_2D_text) {
         |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     this.refresh = function() {
         // If there was any text or color changes this will have them appear.
-
-        if (this.color_changed) {
+        if (this.color_changed || this.text_changed) {
             if (this.is_2D_text) {
                 this.refresh_for_2D_text();
             } else {
                 this.refresh_for_3D_text();
             }
             this.color_changed = false;
-            this.color_changed = false;
-        } else if (this.text_changed) {
-            if (this.is_2D_text) {
-                this.refresh_for_2D_text();
-            } else {
-                this.refresh_for_3D_text();
-            }
-            this.text_changed = false;
             this.color_changed = false;
         }
     };

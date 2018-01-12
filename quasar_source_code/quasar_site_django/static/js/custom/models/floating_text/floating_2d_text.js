@@ -69,7 +69,9 @@ Floating2DText.prototype = {
         FloatingText.call(this, text, type, world, true);
 
         this.width = w;
-        if (type === TYPE_TITLE) {
+        if (type === TYPE_SUPER_TITLE) {
+            this.height = 36;
+        } else if (type === TYPE_TITLE) {
             this.height = 26;
         } else {
             this.height = 16;
@@ -85,7 +87,7 @@ Floating2DText.prototype = {
             this.font_size = texture_height;
 
             this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, texture_height);
-            if (this.type === TYPE_TITLE || this.type === TYPE_CONSTANT) {
+            if (this.type === TYPE_TITLE || this.type === TYPE_CONSTANT || this.type === TYPE_BUTTON) {
                 this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
             } else {
                 this.dynamic_texture.context.font = str(this.font_size) + 'px Arial';
