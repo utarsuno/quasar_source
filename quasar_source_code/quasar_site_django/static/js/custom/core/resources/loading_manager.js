@@ -134,7 +134,7 @@ TextureGroup.prototype = {
             if (this._textures[t][INDEX_RESOURCE_NAME] === texture_name) {
                 this._textures[t][INDEX_RESOURCE] = texture;
                 this._number_of_loaded_textures += 1;
-                this._loading_manager.update_text('Loaded ' + texture_name);
+                this._loading_manager.update_text('loaded ' + texture_name);
                 break;
             }
         }
@@ -229,7 +229,7 @@ LoadingManager.prototype = {
     },
 
     _icons_loaded: function() {
-        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_ENTITY_GROUP, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
+        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
         MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
         MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
     },

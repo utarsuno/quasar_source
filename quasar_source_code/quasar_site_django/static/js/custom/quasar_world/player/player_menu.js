@@ -113,6 +113,7 @@ MenuIcon.prototype = {
             case ICON_SAVE:
                 this.icon_label = 'save';
                 this.function_to_bind = global_save;
+                break;
             case ICON_TELEPORT:
                 this.icon_label = 'teleport';
                 this.function_look_at_bind = this.display_teleport_worlds.bind(this);
