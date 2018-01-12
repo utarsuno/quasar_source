@@ -24,29 +24,21 @@ Floating3DText.prototype = {
             if (this.text_changed || this.color_changed) {
 
                 this.resource_cleanup();
-
                 this.text_geometry = new THREE.TextGeometry(this.text, {
                     size: this.size,
                     height: this.text_height,
                     curveSegments: 2,
                     font: GLOBAL_FONT
                 });
-
                 //l('3D text is trying to set color to : ');
                 //l(this.current_color);
-
                 this.material = new THREE.MeshLambertMaterial({color: this.current_color});
                 this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
-
                 this._calculate_dimensions();
-
                 this.object3D.add(this.current_text_object);
-
                 this.material.side = THREE.FrontSide;
-                this.material.color.setHex(this.current_color);
+                //this.material.color.setHex(this.current_color);
                 this.material.needsUpdate = true;
-
-                this.world.scene.add(this.object3D);
 
                 this.text_changed = false;
                 this.color_changed = false;
@@ -75,6 +67,24 @@ Floating3DText.prototype = {
             this.size = 20;
             this.text_height = 1;
         }
+
+
+        this.text_geometry = new THREE.TextGeometry(this.text, {
+            size: this.size,
+            height: this.text_height,
+            curveSegments: 2,
+            font: GLOBAL_FONT
+        });
+        //l('3D text is trying to set color to : ');
+        //l(this.current_color);
+        this.material = new THREE.MeshLambertMaterial({color: this.current_color});
+        this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
+        this._calculate_dimensions();
+        this.object3D.add(this.current_text_object);
+        this.material.side = THREE.FrontSide;
+        //this.material.color.setHex(this.current_color);
+        this.material.needsUpdate = true;
+        this.world.scene.add(this.object3D);
 
         // Inherit from FloatingText.
         FloatingText.call(this, text, type, world, false);
