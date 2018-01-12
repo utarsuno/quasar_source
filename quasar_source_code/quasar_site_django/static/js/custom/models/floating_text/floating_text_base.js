@@ -279,6 +279,7 @@ function FloatingText(text, type, world, is_2D_text) {
         } else {
             this.current_color = this.default_color;
             this.current_background_color = this.default_background_color;
+            this.color_changed = true;
             this.refresh();
         }
     };
@@ -298,12 +299,12 @@ function FloatingText(text, type, world, is_2D_text) {
             }
         } else {
             CURRENT_PLAYER.disengage();
-
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 l('disengage the cursor please 2!');
                 MANAGER_WORLD.current_floating_cursor.disengage();
             }
         }
+        this.color_changed = true;
         this.refresh();
     };
 }
