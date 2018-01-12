@@ -25,13 +25,13 @@ function World(planet_name) {
         l('Creating element!');
 
         var div = document.createElement( 'div' );
-        div.style.width = '4800px'; // was 480
-        div.style.height = '3600px'; // was 360
+        div.style.width = '480px'; // was 480
+        div.style.height = '360px'; // was 360
         div.style.backgroundColor = '#000';
         var iframe = document.createElement( 'iframe' );
-        iframe.style.width = '4800px';
-        iframe.style.height = '3600px';
-        iframe.style.border = '50px';
+        iframe.style.width = '480px';
+        iframe.style.height = '360px';
+        iframe.style.border = '0px';
         iframe.src = [ 'https://www.youtube.com/embed/', id, '?rel=0'   ].join( '' );
         div.appendChild( iframe );
         var object = new THREE.CSS3DObject(div);

@@ -27,7 +27,7 @@ WorldManager.prototype = {
         this.world_home.set_player();
         this.world_settings.set_player();
 
-        this.world_home.add_css_scene();
+        //this.world_home.add_css_scene();
 
         this.set_current_world(current_world);
     },
