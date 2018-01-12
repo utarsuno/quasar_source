@@ -53,6 +53,9 @@ Floating3DText.prototype = {
     },
 
     __init__: function(text, type, world) {
+        // Inherit from FloatingText.
+        FloatingText.call(this, text, type, world, true);
+
         // TODO : Investigate into making these variables more dynamic.
         if (this.type === TYPE_SUPER_TITLE) {
             this.height = 32 * 4;
@@ -67,7 +70,6 @@ Floating3DText.prototype = {
             this.size = 20;
             this.text_height = 1;
         }
-
 
         this.text_geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
