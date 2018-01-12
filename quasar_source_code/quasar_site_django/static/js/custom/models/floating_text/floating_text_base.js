@@ -118,15 +118,19 @@ function FloatingText(text, type, world, is_2D_text) {
             case TYPE_BUTTON:
             case TYPE_CHECK_BOX:
                 this.set_default_color(COLOR_TEXT_BUTTON);
+                this.set_color(COLOR_TEXT_BUTTON);
                 break;
             case TYPE_CONSTANT:
                 this.set_default_color(COLOR_TEXT_CONSTANT);
+                this.set_color(COLOR_TEXT_CONSTANT);
                 break;
             case TYPE_TITLE:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
+                this.set_color(COLOR_TEXT_DEFAULT);
                 break;
             default:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
+                this.set_color(COLOR_TEXT_DEFAULT);
                 break;
             }
         }
