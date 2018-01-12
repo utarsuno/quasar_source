@@ -64,11 +64,8 @@ TextSyntaxManager.prototype = {
 
         if (!error) {
             this._set_all_fields_to_error_free();
-
             // TODO : Remove warning icon
 
-            l('Trying to enable the button!');
-            this._final_button.enable();
         } else {
             for (i = 0; i < this._pairs.length; i++) {
                 if (bad_indexes.indexOf(i) === NOT_FOUND) {
@@ -84,7 +81,7 @@ TextSyntaxManager.prototype = {
 
     set_error_to_pair_by_index: function(pair_index, result) {
         this._pairs[pair_index][INDEX_INPUT].set_default_background_color(COLOR_FLOATING_WALL_ERROR, true);
-        this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_FLOATING_WALL_ERROR, true);
+        this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_RED, true);
         // TODO : Add warning icon
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);
@@ -97,9 +94,11 @@ TextSyntaxManager.prototype = {
         for (var i = 0; i < this._pairs.length; i++) {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
-            label.set_color(COLOR_TRANSPARENT, true);
+            label.set_color(this.default_color, true);
             input.set_default_background_color(COLOR_TRANSPARENT, true);
         }
+        l('TODO : Enable the final button!');
+        this._final_button.enable();
     },
 
     _matches_all_passwords_to_match: function(text) {
