@@ -708,21 +708,16 @@ FloatingWall.prototype = {
 
     get_player_look_at_intersection_point: function(player_parametric_equation) {
         var t = this._calculate_t_value(player_parametric_equation);
-
         if (t < 0) {
             return false;
         }
-
         var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-
         if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
             return false;
         }
-
         // Also add the cursor type needed.
         var cursor_position = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
         var c = this.get_required_cursor(cursor_position);
-
         return [cursor_position, c];
     },
 
