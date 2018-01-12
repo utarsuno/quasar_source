@@ -39,7 +39,6 @@ TextSyntaxManager.prototype = {
 
         // Now check for any non-matched passwords.
         if (!error) {
-
             var passwords_matched = true;
 
             for (i = 0; i < this._pairs.length; i++) {
@@ -96,7 +95,7 @@ TextSyntaxManager.prototype = {
         for (var i = 0; i < this._pairs.length; i++) {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
-            label.set_color(this.default_color, true);
+            label.set_color(label.default_color, true);
             input.set_default_background_color(COLOR_TRANSPARENT);
             input.set_background_color(COLOR_TRANSPARENT, true);
         }
