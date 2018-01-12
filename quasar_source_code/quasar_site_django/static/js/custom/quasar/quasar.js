@@ -56,8 +56,8 @@ var animate = function () {
     ////
 
     //renderer2.render(scene2, camera);
-    if (is_defined(MANAGER_WORLD.css_scene)) {
-        MANAGER_RENDERER.css_renderer.render(MANAGER_WORLD.css_scene, CURRENT_PLAYER.fps_controls.camera);
+    if (is_defined(MANAGER_WORLD.world_login.css_scene)) {
+        MANAGER_RENDERER.css_renderer.render(MANAGER_WORLD.world_login.css_scene, CURRENT_PLAYER.fps_controls.camera);
     }
 
     MANAGER_RENDERER.render();
