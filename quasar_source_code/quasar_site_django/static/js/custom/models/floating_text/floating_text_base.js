@@ -11,6 +11,9 @@ function FloatingText(text, type, world, is_2D_text) {
     this.scene         = this.world.scene;
     this.object3D      = new THREE.Object3D();
 
+    this.text_changed = false;
+    this.color_changed = false;
+
     // Color variables.
     this.default_background_color = COLOR_TRANSPARENT;
     this.current_background_color = COLOR_TRANSPARENT;
@@ -76,7 +79,7 @@ function FloatingText(text, type, world, is_2D_text) {
         if (this.is_2D_text) {
             this.refresh_for_2D_text();
         } else {
-            l('TODO : Refresh for 3D text!');
+            this.refresh_for_3D_text();
         }
     };
 
@@ -158,6 +161,7 @@ function FloatingText(text, type, world, is_2D_text) {
             if (is_defined(this.value_post_changed_function)) {
                 this.value_post_changed_function(text);
             }
+            this.text_changed = true;
         }
     };
 
@@ -209,6 +213,7 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_background_color = function(color, refresh) {
         this.current_background_color = this._parse_color(color);
+        this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
                 this.refresh();
@@ -218,6 +223,7 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_default_background_color = function(color, refresh) {
         this.default_background_color = this._parse_color(color);
+        this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
                 this.refresh();
@@ -227,6 +233,7 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_color = function(color, refresh) {
         this.current_color = this._parse_color(color);
+        this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
                 this.refresh();
@@ -236,6 +243,7 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_default_color = function(color, refresh) {
         this.default_color = this._parse_color(color);
+        this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
                 this.refresh();
