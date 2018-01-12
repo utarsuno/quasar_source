@@ -19,6 +19,24 @@ function World(planet_name) {
 
     this._previously_intersected_plane = null;
 
+    // Base code from : https://codepen.io/asjas/pen/pWawPm
+    this.Element = function ( id, x, y, z, ry ) {
+        var div = document.createElement( 'div' );
+        div.style.width = '480px';
+        div.style.height = '360px';
+        div.style.backgroundColor = '#000';
+        var iframe = document.createElement( 'iframe' );
+        iframe.style.width = '480px';
+        iframe.style.height = '360px';
+        iframe.style.border = '0px';
+        iframe.src = [ 'https://www.youtube.com/embed/', id, '?rel=0'   ].join( '' );
+        div.appendChild( iframe );
+        var object = new THREE.CSS3DObject( div );
+        object.position.set( x, y, z );
+        object.rotation.y = ry;
+        return object;
+    };
+
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
         var element = document.createElement('div');
@@ -30,6 +48,13 @@ function World(planet_name) {
         div.position.z = -185;
         div.rotation.y = Math.PI;
         this.css_scene.add(div);
+
+
+        this.container = document.getElementById('container');
+        this.group = new THREE.Group();
+
+        this.group.add(new Element('xBOqwRRj82A', 0, 0, 240, 0 ));
+        this.css_scene.add(this.group);
 
     };
 
