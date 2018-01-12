@@ -30,6 +30,9 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_default_background_color = function(color, refresh) {
         this.default_background_color = this._parse_color(color);
+        if (!is_defined(this.current_background_color)) {
+            this.current_background_color = this.default_background_color;
+        }
         this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
@@ -50,6 +53,9 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_default_color = function(color, refresh) {
         this.default_color = this._parse_color(color);
+        if (!is_defined(this.current_color)) {
+            this.current_color = this.default_color;
+        }
         this.color_changed = true;
         if (is_defined(refresh)) {
             if (refresh) {
