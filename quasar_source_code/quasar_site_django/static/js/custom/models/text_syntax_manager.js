@@ -71,7 +71,7 @@ TextSyntaxManager.prototype = {
                 if (bad_indexes.indexOf(i) === NOT_FOUND) {
                     var label = this._pairs[i][INDEX_LABEL];
                     var input = this._pairs[i][INDEX_INPUT];
-                    label.set_color(COLOR_TRANSPARENT, true);
+                    label.set_color(label.default_color, true);
                     input.set_default_background_color(COLOR_TRANSPARENT, true);
                 }
             }
