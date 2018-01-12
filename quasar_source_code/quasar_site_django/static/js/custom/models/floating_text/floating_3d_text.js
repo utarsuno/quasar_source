@@ -32,8 +32,8 @@ Floating3DText.prototype = {
                     font: GLOBAL_FONT
                 });
 
-                l('3D text is trying to set color to : ');
-                l(this.current_color);
+                //l('3D text is trying to set color to : ');
+                //l(this.current_color);
 
                 this.material = new THREE.MeshLambertMaterial({color: this.current_color});
                 this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);

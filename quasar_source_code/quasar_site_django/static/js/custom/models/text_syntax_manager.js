@@ -26,8 +26,6 @@ TextSyntaxManager.prototype = {
             this._pairs[i][INDEX_INPUT].set_syntax_manager(this);
 
             result = this._pairs[i][INDEX_INPUT].syntax_check();
-            var label = this._pairs[i][INDEX_LABEL];
-            var input = this._pairs[i][INDEX_INPUT];
 
             if (result !== '') {
                 error = true;
@@ -61,11 +59,7 @@ TextSyntaxManager.prototype = {
         }
 
         if (!error) {
-            label.set_background_color(COLOR_TRANSPARENT, true);
-            input.set_background_color(COLOR_TRANSPARENT, true);
-
-            this._pairs[pair_index][INDEX_LABEL].color_change_locked = true;
-            this._pairs[pair_index][INDEX_LABEL].color_change_locked = false;
+            this._set_all_fields_to_error_free();
 
             // TODO : Remove warning icon
 
