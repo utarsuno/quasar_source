@@ -32,7 +32,7 @@ TextSyntaxManager.prototype = {
             if (result !== '') {
                 error = true;
                 this.set_error_to_pair_by_index(i, result);
-                break;
+                //break;
             }
         }
 
@@ -63,6 +63,7 @@ TextSyntaxManager.prototype = {
         if (!error) {
             label.set_background_color(COLOR_TRANSPARENT, true);
             input.set_background_color(COLOR_TRANSPARENT, true);
+
             // TODO : Remove warning icon
 
             l('Trying to enable the button!');
