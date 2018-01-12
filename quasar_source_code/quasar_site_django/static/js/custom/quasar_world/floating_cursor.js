@@ -17,7 +17,7 @@ FloatingCursor.prototype = {
         this.height = 16;
         this.plane_geometry = new THREE.PlaneGeometry(16, 16, 1);
         // TODO : Dispose of this original material later on.
-        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, transparent: true, opacity: 0.90, side: THREE.DoubleSide});
+        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
 
         this.previous_cursor = null;
@@ -60,7 +60,9 @@ FloatingCursor.prototype = {
 
         // The opacity was at 0.90 before
         // transparent: true, opacity: 1.0
-        var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.FrontSide});
+        //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.FrontSide});
+        // Testing fix from : https://stackoverflow.com/questions/11165345/three-js-webgl-transparent-planes-hiding-other-planes-behind-them
+        var cursor_material = new THREE.MeshBasicMaterial({ side:THREE.BackSide,map:texture, depthWrite: false, depthTest: false});
 
         if (texture_name === CURSOR_TYPE_HORIZONTAL) {
             cursor_name = CURSOR_TYPE_HORIZONTAL;
