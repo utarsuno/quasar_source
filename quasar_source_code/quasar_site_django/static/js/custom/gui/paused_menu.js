@@ -23,8 +23,8 @@ PausedMenu.prototype = {
         this.pause_sub_title      = document.getElementById('menu_header');
 
         // TODO : Change the title once everything has fully loaded.
-        this.pause_title.innerHTML = 'Paused!';
-        this.pause_sub_title.style.display = DISPLAY_SHOW;
+        //this.pause_title.innerHTML = 'Paused!';
+        //this.pause_sub_title.style.display = DISPLAY_SHOW;
     },
 
     make_visible: function() {
