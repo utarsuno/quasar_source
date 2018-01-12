@@ -42,16 +42,6 @@ function World(planet_name) {
 
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
-        var element = document.createElement('div');
-        element.innerHTML = 'Plain text inside a div.';
-        element.className = 'three-div';
-        var div = new THREE.CSS3DObject(element);
-        div.position.x = 0;
-        div.position.y = 0;
-        div.position.z = -185;
-        div.rotation.y = Math.PI;
-        this.css_scene.add(div);
-
 
         this.container = document.getElementById('container');
 
