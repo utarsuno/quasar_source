@@ -285,9 +285,9 @@ function FloatingText(text, type, world, is_2D_text) {
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
             this.set_background_color(BACKGROUND_COLOR_FOCUS, false);
-            this.set_color(COLOR_HIGHLIGHT, false);
+            //this.set_color(COLOR_HIGHLIGHT, false);
         } else {
-            this.current_color = this.default_color;
+            //this.current_color = this.default_color;
             this.current_background_color = this.default_background_color;
         }
         this.color_changed = true;
