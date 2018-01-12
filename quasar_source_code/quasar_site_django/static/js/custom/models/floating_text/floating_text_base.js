@@ -12,8 +12,8 @@ function FloatingText(text, type, world, is_2D_text) {
             }
             return c[COLOR_HEX_INDEX];
         } else {
-            l('A non list color was passed?');
-            l(c);
+            //l('A non list color was passed?');
+            //(c);
             return c;
         }
     };
@@ -135,15 +135,13 @@ function FloatingText(text, type, world, is_2D_text) {
         // If there was any text or color changes this will have them appear.
 
         if (this.color_changed) {
-            if (!this.color_change_locked) {
-                if (this.is_2D_text) {
-                    this.refresh_for_2D_text();
-                } else {
-                    this.refresh_for_3D_text();
-                }
-                this.color_changed = false;
-                this.color_changed = false;
+            if (this.is_2D_text) {
+                this.refresh_for_2D_text();
+            } else {
+                this.refresh_for_3D_text();
             }
+            this.color_changed = false;
+            this.color_changed = false;
         } else if (this.text_changed) {
             if (this.is_2D_text) {
                 this.refresh_for_2D_text();

@@ -74,10 +74,8 @@ TextSyntaxManager.prototype = {
                 if (bad_indexes.indexOf(i) === NOT_FOUND) {
                     var label = this._pairs[i][INDEX_LABEL];
                     var input = this._pairs[i][INDEX_INPUT];
-                    label.color_change_locked = false;
-                    input.color_change_locked = false;
-                    label.set_background_color(COLOR_TRANSPARENT, true);
-                    input.set_background_color(COLOR_TRANSPARENT, true);
+                    label.set_default_background_color(COLOR_TRANSPARENT, true);
+                    input.set_default_background_color(COLOR_TRANSPARENT, true);
                 }
             }
             this._final_button.disable();
@@ -85,14 +83,11 @@ TextSyntaxManager.prototype = {
     },
 
     set_error_to_pair_by_index: function(pair_index, result) {
-        this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
-        this._pairs[pair_index][INDEX_LABEL].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
+        this._pairs[pair_index][INDEX_INPUT].set_default_background_color(COLOR_FLOATING_WALL_ERROR, true);
+        this._pairs[pair_index][INDEX_LABEL].set_default_background_color(COLOR_FLOATING_WALL_ERROR, true);
         // TODO : Add warning icon
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);
-
-        this._pairs[pair_index][INDEX_LABEL].color_change_locked = true;
-        this._pairs[pair_index][INDEX_LABEL].color_change_locked = true;
 
         // TODO : Eventually optimize this design.
         this._final_button.disable();
@@ -102,10 +97,8 @@ TextSyntaxManager.prototype = {
         for (var i = 0; i < this._pairs.length; i++) {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
-            label.color_change_locked = false;
-            input.color_change_locked = false;
-            label.set_background_color(COLOR_TRANSPARENT, true);
-            input.set_background_color(COLOR_TRANSPARENT, true);
+            label.set_default_background_color(COLOR_TRANSPARENT, true);
+            input.set_default_background_color(COLOR_TRANSPARENT, true);
         }
     },
 
