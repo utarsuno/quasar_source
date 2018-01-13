@@ -52,40 +52,42 @@ function toggle_fullscreen() {
 
 MenuIcon.prototype = {
 
+    _display_utility_wall: function(utility_wall_to_display) {
+        if (utility_wall_to_display === this.teleport_wall) {
+            this.teleport_wall.show();
+            this._hide_utility_wall(this.create_wall);
+        } else if (utility_wall_to_display === this.create_wall) {
+            this.create_wall.show();
+            this._hide_utility_wall(this.teleport_wall);
+        }
+    },
+
+    _hide_utility_wall: function(utility_wall_to_hide) {
+        if (is_defined(utility_wall_to_hide)) {
+            utility_wall_to_hide.hide();
+        }
+    },
+
     /*__   __   ___      ___  ___
      /  ` |__) |__   /\   |  |__
      \__, |  \ |___ /~~\  |  |___ */
     display_create_options: function() {
-        this.teleport_wall.hide();
-        this.create_wall.show();
+        this._display_utility_wall(this.create_wall);
     },
 
-    hide_create_options: function(dont_hide) {
-        if (is_defined(dont_hide)) {
-            if (!dont_hide) {
-                this.teleport_wall.hide();
-            }
-        } else {
-            this.teleport_wall.hide();
-        }
+    hide_create_options: function() {
+        this._hide_utility_wall(this.create_wall);
     },
 
     /*___  ___       ___  __   __   __  ___
        |  |__  |    |__  |__) /  \ |__)  |
        |  |___ |___ |___ |    \__/ |  \  |  */
     display_teleport_worlds: function() {
-        this.create_wall.hide();
-        this.teleport_wall.show();
+        this._display_utility_wall(this.teleport_wall);
     },
 
-    hide_teleport_worlds: function(dont_hide) {
-        if (is_defined(dont_hide)) {
-            if (!dont_hide) {
-                this.teleport_wall.hide();
-            }
-        } else {
-            this.teleport_wall.hide();
-        }
+    hide_teleport_worlds: function() {
+        this._hide_utility_wall(this.teleport_wall);
     },
 
     __init__: function(icon_type, world, row, player_menu) {
@@ -108,7 +110,7 @@ MenuIcon.prototype = {
             case ICON_WRENCH:
                 this.icon_label = 'create';
                 this.function_look_at_bind = this.display_create_options.bind(this);
-                this.function_look_away_bind = this.hide_create_options.bind(this, true);
+                this.function_look_away_bind = this.hide_create_options.bind(this);
 
                 this.create_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 this.create_wall.add_floating_2d_text(0, 1, 'Create a...', TYPE_CONSTANT, 0);
@@ -138,7 +140,7 @@ MenuIcon.prototype = {
             case ICON_TELEPORT:
                 this.icon_label = 'teleport';
                 this.function_look_at_bind = this.display_teleport_worlds.bind(this);
-                this.function_look_away_bind = this.hide_teleport_worlds.bind(this, true);
+                this.function_look_away_bind = this.hide_teleport_worlds.bind(this);
 
                 this.teleport_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 // TODO : Need to dynamically load all shared worlds that the player has.
