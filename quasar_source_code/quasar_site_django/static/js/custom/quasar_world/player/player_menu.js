@@ -115,20 +115,21 @@ MenuIcon.prototype = {
                 this.create_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 this.create_wall.add_floating_2d_text(0, 1, 'Create a...', TYPE_CONSTANT, 0);
 
+
                 this.create_wall.add_floating_2d_text(0, icon_width, ICON_INFORMATION, TYPE_ICON, 2);
-                var create_floating_2D_text_button = this.create_wall.add_floating_2d_text(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), this.world, false, 2);
+                var create_floating_2D_text_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Floating Text', TYPE_BUTTON, 2);
                 // TODO : create_floating_2D_text_button.set_engage_function();
 
                 this.create_wall.add_floating_2d_text(0, icon_width, ICON_MENU_LIST, TYPE_ICON, 3);
-                var create_entity_wall_button = this.create_wall.add_floating_2d_text(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), this.world, false, 3);
+                var create_entity_wall_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Entity Group', TYPE_BUTTON, 3);
                 // TODO : create_entity_wall_button.set_engage_function();
 
                 this.create_wall.add_floating_2d_text(0, icon_width, ICON_IMPORT, TYPE_ICON, 4);
-                var create_floating_picture_button = this.create_wall.add_floating_2d_text(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), this.world, false, 4);
+                var create_floating_picture_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Picture', TYPE_BUTTON, 4);
                 // TODO : create_floating_picture_button.set_engage_function();
 
                 this.create_wall.add_floating_2d_text(0, icon_width, ICON_MOVIE, TYPE_ICON, 5);
-                var create_floating_video_button = this.create_wall.add_floating_2d_text(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), this.world, false, 5);
+                var create_floating_video_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'YouTube Video', TYPE_BUTTON, 5);
                 // TODO : create_floating_video_button.set_engage_function();
 
                 this.create_wall.hide();
