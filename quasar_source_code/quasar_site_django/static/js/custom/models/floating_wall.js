@@ -20,6 +20,7 @@ FloatingWall.prototype = {
         this.floating_walls_to_remove_later = [];
 
         this.object3D = new THREE.Object3D();
+
         // Default value.
         this.normal_depth = 5;
 
@@ -575,6 +576,12 @@ FloatingWall.prototype = {
         this.player_previous_y_position = null;
     },
 
+    // TODO : DELETE THIS!!!
+    // TODO : DELETE THIS!!!
+    // TODO : DELETE THIS!!!
+    // TODO : DELETE THIS!!!
+    // TODO : DELETE THIS!!!
+    // TODO : DELETE THIS!!!
     update_normal: function(normal) {
         this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
         this.normal.normalize();

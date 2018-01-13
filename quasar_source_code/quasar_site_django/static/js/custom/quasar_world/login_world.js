@@ -93,18 +93,18 @@ LoginWorld.prototype = {
         // Quasar Source title.
         var quasar_source_title_position = new THREE.Vector3(1200, 400, 400);
         this.quasar_source_title = new Floating3DText('Quasar Source', TYPE_SUPER_TITLE, this);
+        // TODO : Fix this
         this.quasar_source_title.update_position_and_look_at_origin(quasar_source_title_position);
 
-        /*        __   __
-            |    /  \ / _` | |\ |    |  |  /\  |    |
-            |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
-        this.login_errors = new TextSyntaxManager();
+        /*     __   __
+         |    /  \ / _` | |\ |    |  |  /\  |    |
+         |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
+        this.login_errors = new TextSyntaxManager(this);
 
         var login_wall_width = 350;
         var login_wall_height = 95;
         var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
-        var login_wall_look_at = new THREE.Vector3(0, login_wall_height, 0);
-        var login_wall_normal = new THREE.Vector3(login_wall_look_at.x - login_wall_position.x, login_wall_look_at.y - login_wall_position.y, login_wall_look_at.z - login_wall_position.z);
+        var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
 
         this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.login_wall.add_3D_title('Login', TYPE_TITLE, null, 0);
@@ -131,7 +131,7 @@ LoginWorld.prototype = {
         /*   __   __   ___      ___  ___          __   __   __            ___
             /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |     |  |  /\  |    |
             \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     |/\| /~~\ |___ |___  */
-        this.create_account_errors = new TextSyntaxManager();
+        this.create_account_errors = new TextSyntaxManager(this);
 
         var wall_create_account_width = 350;
         var wall_create_account_height = 90;

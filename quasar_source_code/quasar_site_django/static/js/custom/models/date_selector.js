@@ -88,30 +88,6 @@ DateSelector.prototype = {
         this.wall.hide();
     },
 
-    show_at: function(floating_2D_text) {
-        this.wall.show();
-
-        var bp = floating_2D_text.get_position();
-        var bnd = floating_2D_text.parent_floating_wall.normal_depth;
-        var bn = floating_2D_text.parent_floating_wall.normal;
-
-        this.wall.normal = bn;
-        this.wall.normal_depth = bnd;
-
-        //this.wall.object3D.position.set(bp.x + bn.x * bnd, bp.y + bn.y * bnd, bp.z + bn.z * bnd);
-        //this.wall.object3D.lookAt(new THREE.Vector3(bp.x + bn.x * bnd * 2, bp.y + bn.y * bnd * 2, bp.z + bn.z * bnd * 2));
-
-        this.wall.pfw_button = floating_2D_text;
-        this.wall.update_position_with_offset_xyz(0, 0, 0);
-        this.wall.update_normal(bn);
-        this.wall.update_position_and_normal_for_all_floating_text();
-    },
-
-    // TODO:
-    hide: function() {
-
-    },
-
     // Year.
     decrease_year: function() {
         this.date.apply_delta(DELTA_YEARS, -1);

@@ -328,6 +328,12 @@ const NOT_VISIBLE = 'hidden';
 const DISPLAY_NONE = 'none';
 const DISPLAY_SHOW = 'block';
 
+const ATTACHMENT_OFFSET_HORIZONTAL_RIGHT = 'horizontal_offset_right';
+const ATTACHMENT_OFFSET_HORIZONTAL_LEFT  = 'horizontal_offset_right';
+const ATTACHMENT_OFFSET_VERTICAL_UP      = 'vertical_offset_up';
+const ATTACHMENT_OFFSET_VERTICAL_DOWN    = 'vertical_offset_down';
+const ATTACHMENT_OFFSET_DEPTH            = 'depth_offset';
+
 // Time constants.
 const DELTA_YEARS  = 'delta_years';
 const DELTA_DAYS   = 'delta_days';

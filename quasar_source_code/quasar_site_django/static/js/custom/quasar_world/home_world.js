@@ -105,7 +105,7 @@ HomeWorld.prototype = {
         var wall_position = new THREE.Vector3(player_position.x + player_normal.x * 100, player_position.y, player_position.z + player_normal.z * 100);
         var wall_width = 512;
         var wall_height = 512;
-        var wall_normal_depth = 2;
+        //var wall_normal_depth = 2;
 
         // Create the entity wall entity.
         var save_data = {};
@@ -113,7 +113,7 @@ HomeWorld.prototype = {
         save_data[ENTITY_PROPERTY_NORMAL] = '[' + wall_normal.x + ',' + wall_normal.y + ',' + wall_normal.z + ']';
         save_data[ENTITY_PROPERTY_WIDTH] = wall_width;
         save_data[ENTITY_PROPERTY_HEIGHT] = wall_height;
-        save_data[ENTITY_PROPERTY_NORMAL_DEPTH] = wall_normal_depth;
+        //save_data[ENTITY_PROPERTY_NORMAL_DEPTH] = wall_normal_depth;
         save_data[ENTITY_PROPERTY_NAME] = 'generic entity group';
         save_data[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_WALL;
         var entity_wall_entity = new Entity(save_data);

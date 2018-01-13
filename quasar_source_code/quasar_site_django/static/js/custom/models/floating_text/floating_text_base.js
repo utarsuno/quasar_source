@@ -154,7 +154,6 @@ function FloatingText(text, type, world, is_2D_text) {
         }
     };
 
-
     this.set_format_type = function(format_type) {
         this.format_type = format_type;
     };
@@ -193,12 +192,6 @@ function FloatingText(text, type, world, is_2D_text) {
         } else {
             this.normal_depth = depth;
         }
-    };
-
-    this.update_normal = function(normal) {
-        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-        this.normal.normalize();
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
     };
 
     this.update_position_and_normal = function(position_vector, normal) {
@@ -277,10 +270,6 @@ function FloatingText(text, type, world, is_2D_text) {
             return this.hidden_text;
         }
         return this.text;
-    };
-
-    this.get_position = function() {
-        return this.object3D.position;
     };
 
     /* __  ___      ___  ___     __                  __   ___  __

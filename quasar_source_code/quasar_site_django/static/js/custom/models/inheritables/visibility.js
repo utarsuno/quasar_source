@@ -4,12 +4,8 @@ function Visibility() {
 
     // States.
     this.currently_visible = true;
-
-    this.additional_visibility_objects = [];
-
-    this.add_additional_visibility_object = function(child_object) {
-        this.additional_visibility_objects.push(child_object);
-    };
+    // If this variable is set to to 'true' then calls to 'display_all_attachments_recursively' will not affect this Visibility object.
+    this.manual_visibility = false;
 
     this.is_visible = function() {
         return this.currently_visible;
@@ -24,9 +20,6 @@ function Visibility() {
                 child.visible = true;
             }
         });
-        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
-            this.additional_visibility_objects[i].set_to_visible();
-        }
     };
 
     this.set_to_invisible = function() {
@@ -38,26 +31,6 @@ function Visibility() {
                 child.visible = false;
             }
         });
-        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
-            this.additional_visibility_objects[i].set_to_invisible();
-        }
     };
 
-    this.toggle_visiblity = function() {
-        this.currently_visible = !this.currently_visible;
-        var local_is_visible = this.currently_visible;
-        this.object3D.visible = local_is_visible;
-        this.object3D.traverse(function(child) {
-            if (child instanceof THREE.Mesh) {
-                child.visible = local_is_visible;
-            }
-        });
-        for (var i = 0; i < this.additional_visibility_objects.length; i++) {
-            if (local_is_visible) {
-                this.additional_visibility_objects[i].set_to_visible();
-            } else {
-                this.additional_visibility_objects[i].set_to_invisible();
-            }
-        }
-    };
 }

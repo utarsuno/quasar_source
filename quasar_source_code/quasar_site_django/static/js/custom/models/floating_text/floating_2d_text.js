@@ -125,3 +125,11 @@ Floating2DText.prototype = {
         this.object3D.remove(this.mesh);
     }
 };
+
+
+/* ___  __   __      __   __             ___         ___       __   ___
+  |__  /  \ |__)    /  ` /  \ |\ | \  / |__  |\ | | |__  |\ | /  ` |__
+  |    \__/ |  \    \__, \__/ | \|  \/  |___ | \| | |___ | \| \__, |___ */
+function get_new_floating_icon(icon_type, world) {
+    return new Floating2DText(16, icon_type, TYPE_ICON, world);
+}

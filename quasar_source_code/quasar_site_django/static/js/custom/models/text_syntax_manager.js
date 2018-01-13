@@ -4,13 +4,19 @@
 const INDEX_LABEL = 0;
 const INDEX_INPUT = 1;
 
-function TextSyntaxManager() {
-    this.__init__();
+const ATTACHMENT_NAME_WARNING = 1;
+const ATTACHMENT_NAME_SUCCESS = 2;
+const ATTACHMENT_NAME_ERROR   = 3;
+
+function TextSyntaxManager(world) {
+    this.__init__(world);
 }
 
 TextSyntaxManager.prototype = {
 
-    __init__: function() {
+    __init__: function(world) {
+        this.world = world;
+
         this._pairs = [];
         this._final_button = null;
 
@@ -75,7 +81,9 @@ TextSyntaxManager.prototype = {
                     input.set_background_color(COLOR_TRANSPARENT);
                 }
             }
-            this._final_button.disable();
+            if (this._final_button.is_enabled()) {
+                this._final_button.disable();
+            }
         }
     },
 
@@ -91,7 +99,9 @@ TextSyntaxManager.prototype = {
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);
 
         // TODO : Eventually optimize this design.
-        this._final_button.disable();
+        if (this._final_button.is_enabled()) {
+            this._final_button.disable();
+        }
     },
 
     _set_all_fields_to_error_free: function() {
@@ -102,7 +112,6 @@ TextSyntaxManager.prototype = {
             input.set_default_background_color(COLOR_TRANSPARENT);
             input.set_background_color(COLOR_TRANSPARENT, true);
         }
-        l('TODO : Enable the final button!');
         this._final_button.enable();
     },
 
@@ -120,11 +129,33 @@ TextSyntaxManager.prototype = {
     },
 
     add_label_and_input: function(label, input) {
+        var warning_icon = get_new_floating_icon(ICON_WARNING, this.world);
+        warning_icon.set_attachment_horizontal_offset(16 + input.width / 2);
+        warning_icon.set_attachment_depth(1);
+        warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
+        warning_icon.manual_visibility = true;
+
+        var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);
+        success_icon.set_attachment_horizontal_offset(16 + input.width / 2);
+        success_icon.set_attachment_depth(1);
+        success_icon.set_attachment_name(ATTACHMENT_NAME_SUCCESS);
+        success_icon.manual_visibility = true;
+
+        input.add_attachment(warning_icon);
+
         this._pairs.push([label, input]);
     },
 
     add_final_button: function(button) {
         this._final_button = button;
+
+        var cross_icon = get_new_floating_icon(ICON_CROSS, this.world);
+        cross_icon.set_attachment_depth(1);
+        cross_icon.set_attachment_name(ATTACHMENT_NAME_ERROR);
+        cross_icon.manual_visibility = true;
+
+        this._final_button.add_attachment(cross_icon);
+
         // Start off with the button disabled.
         this._final_button.disable();
     }

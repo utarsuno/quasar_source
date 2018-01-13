@@ -1,19 +1,27 @@
 'use strict';
 
+const ATTACHMENT_NAME_WARNING = 1;
+const ATTACHMENT_NAME_SUCCESS = 2;
+const ATTACHMENT_NAME_ERROR   = 3;
+
+
 function InheritableButton() {
 
-    // Used for buttons.
     this.disable = function() {
-        this.color_changed = true;
         this.set_color(COLOR_RED, true);
+        this.display_all_attachments_with_name(ATTACHMENT_NAME_ERROR);
+        // TODO : Refactor this out (have it get set somewhere else)
         this._disabled = true;
     };
 
-    // Used for buttons.
     this.enable = function() {
-        this.color_changed = true;
         this.set_color(COLOR_GREEN, true);
+        this.hide_all_attachments_with_name(ATTACHMENT_NAME_ERROR);
+        // TODO : Refactor this out (have it get set somewhere else)
         this._disabled = false;
     };
 
+    this.is_enabled = function() {
+        return !this._disabled;
+    };
 }

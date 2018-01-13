@@ -49,6 +49,7 @@ module.exports = {
 
         "FloatingWall": true,
         "Floating2DText": true,
+        "FloatingIcon": true,
         "FloatingText": true,
         "Floating3DText": true,
         "FloatingSlider": true,
@@ -72,6 +73,12 @@ module.exports = {
         "Visibility"       : true,
 
         "DomElement": false,
+
+        "ATTACHMENT_OFFSET_HORIZONTAL_RIGHT": false,
+        "ATTACHMENT_OFFSET_HORIZONTAL_LEFT" : false,
+        "ATTACHMENT_OFFSET_VERTICAL_UP"     : false,
+        "ATTACHMENT_OFFSET_VERTICAL_DOWN"   : false,
+        "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
         "MANAGER_COOKIES"     : true,
@@ -441,6 +448,8 @@ module.exports = {
         "SERVER_REPLY_GENERIC_NO"                            : false,
         "SERVER_REPLY_GENERIC_YES"                           : false,
         "SERVER_REPLY_GENERIC_SERVER_ERROR"                  : false,
+
+        "get_new_floating_icon" : true,
 
         // From time_abstractions.js
         "THIS_DAY"   : false,
