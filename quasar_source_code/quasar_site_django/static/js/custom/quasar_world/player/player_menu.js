@@ -231,24 +231,6 @@ MenuIcon.prototype = {
 
         this._set_utility_wall_position_and_normal(this.teleport_wall, horizontal_shift);
         this._set_utility_wall_position_and_normal(this.create_wall, horizontal_shift);
-
-        if (is_defined(this.teleport_wall)) {
-            var teleport_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3 + this.normal.x * 30,
-                                                           this.object3D.position.y,
-                                                           this.object3D.position.z + this.left_right.z * horizontal_shift * 3 + this.normal.z * 30);
-            var teleport_wall_look_at = new THREE.Vector3(player_position.x - teleport_wall_position.x, 0, player_position.z - teleport_wall_position.z);
-            teleport_wall_look_at.normalize();
-            this.teleport_wall.set_position_and_normal(teleport_wall_position, teleport_wall_look_at, false);
-        }
-
-        if (is_defined(this.create_wall)) {
-            var create_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3 + this.normal.x * 30,
-                                                           this.object3D.position.y,
-                                                           this.object3D.position.z + this.left_right.z * horizontal_shift * 3 + this.normal.z * 30);
-            var create_wall_look_at = new THREE.Vector3(player_position.x - create_wall_position.x, 0, player_position.z - create_wall_position.z);
-            teleport_wall_look_at.normalize();
-            this.teleport_wall.set_position_and_normal(create_wall_position, create_wall_look_at, false);
-        }
     },
 
     update_y_position: function(y_offset) {
