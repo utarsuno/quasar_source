@@ -110,7 +110,7 @@ MenuIcon.prototype = {
             case ICON_WRENCH:
                 this.icon_label = 'create';
                 this.function_look_at_bind = this.display_create_options.bind(this);
-                this.function_look_away_bind = this.hide_create_options.bind(this);
+                //this.function_look_away_bind = this.hide_create_options.bind(this);
 
                 this.create_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 this.create_wall.add_floating_2d_text(0, 1, 'Create a...', TYPE_CONSTANT, 0);
@@ -140,7 +140,7 @@ MenuIcon.prototype = {
             case ICON_TELEPORT:
                 this.icon_label = 'teleport';
                 this.function_look_at_bind = this.display_teleport_worlds.bind(this);
-                this.function_look_away_bind = this.hide_teleport_worlds.bind(this);
+                //this.function_look_away_bind = this.hide_teleport_worlds.bind(this);
 
                 this.teleport_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
                 // TODO : Need to dynamically load all shared worlds that the player has.
@@ -243,6 +243,8 @@ MenuIcon.prototype = {
     set_to_invisible: function() {
         this.icon.visible = false;
         this.floating_label.set_to_invisible();
+        this.teleport_wall.hide();
+        this.create_wall.hide();
         if (is_defined(this.teleport_wall)) {
             this.hide_teleport_worlds();
         }
