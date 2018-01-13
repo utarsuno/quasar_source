@@ -172,7 +172,6 @@ MenuIcon.prototype = {
                 break;
         }
 
-
         this.geometry = new THREE.CircleGeometry(10, 32);
         // TODO : Eventually just do FrontSide
         // TODO : Eventually add some transparency.
