@@ -243,11 +243,8 @@ MenuIcon.prototype = {
     set_to_invisible: function() {
         this.icon.visible = false;
         this.floating_label.set_to_invisible();
-        this.teleport_wall.hide();
-        this.create_wall.hide();
-        if (is_defined(this.teleport_wall)) {
-            this.hide_teleport_worlds();
-        }
+        this._hide_utility_wall(this.teleport_wall);
+        this._hide_utility_wall(this.create_wall);
     },
 
     set_to_visible: function() {
