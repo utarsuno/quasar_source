@@ -68,6 +68,7 @@ module.exports = {
         "Interactive"      : true,
         "TextSyntax"       : true,
         "InheritableButton": true,
+        "Attachmentable"   : true,
         "Visibility"       : true,
 
         "DomElement": false,

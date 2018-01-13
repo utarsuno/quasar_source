@@ -85,6 +85,8 @@ TextSyntaxManager.prototype = {
 
         this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_RED, true);
         // TODO : Add warning icon
+        //this._pairs[pair_index][INDEX_INPUT].display_icon_attachment(ICON_WARNING, {'RIGHT': 10});
+
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);
 

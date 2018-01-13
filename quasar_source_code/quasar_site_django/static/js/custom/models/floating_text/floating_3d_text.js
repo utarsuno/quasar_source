@@ -53,6 +53,9 @@ Floating3DText.prototype = {
     },
 
     __init__: function(text, type, world) {
+        // Inherit from Atachmentable.
+        Attachmentable.call(this);
+
         // Inherit from FloatingText.
         FloatingText.call(this, text, type, world, true);
 

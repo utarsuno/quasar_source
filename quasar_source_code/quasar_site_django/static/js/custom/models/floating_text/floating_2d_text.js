@@ -65,6 +65,9 @@ Floating2DText.prototype = {
             TextSyntax.call(this, syntax_checks);
         }
 
+        // Inherit from Atachmentable.
+        Attachmentable.call(this);
+
         // Inherit from FloatingText.
         FloatingText.call(this, text, type, world, true);
 
