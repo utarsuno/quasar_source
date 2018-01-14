@@ -1,28 +1,28 @@
 'use strict';
 
-const TEXTURE_URL_BASE = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/';
-const AUDIO_URL_BASE   = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/audio/';
-
-// AUDIO_TYPING_SOUND
-
 // TODO : Eventually make this into a configurable setting.
 const CURSOR_DEFAULT_OPACITY = 0.90;
 
 // TODO : Eventually make this into a configurable setting.
 const SKYBOX_DEFAULT_OPACITY = 0.50;
 
+// Utility variables.
+const INDEX_FULL_URL        = 0;
+const INDEX_RESOURCE_NAME   = 1;
+const INDEX_RESOURCE        = 2;
+
+const INDEX_WORLD_TO_LOAD   = 0;
+const INDEX_SKYBOX_TEXTURES = 1;
+const INDEX_ICONS_LIST      = 2;
+
+/*          __     __
+  /\  |  | |  \ | /  \
+ /~~\ \__/ |__/ | \__/ */
+const AUDIO_URL_BASE   = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/audio/';
+
 function AudioGroup(loaded_callback, loading_manager) {
     this.__init__(loaded_callback, loading_manager);
 }
-
-function TextureGroup(texture_group, loaded_callback, loading_manager) {
-    this.__init__(texture_group, loaded_callback, loading_manager);
-}
-
-// Utility variables.
-const INDEX_FULL_URL      = 0;
-const INDEX_RESOURCE_NAME = 1;
-const INDEX_RESOURCE      = 2;
 
 AudioGroup.prototype = {
     __init__: function(loaded_callback, loading_manager) {
@@ -86,6 +86,15 @@ AudioGroup.prototype = {
         this._audio_buffers.push([AUDIO_URL_BASE + AUDIO_TYPING_SOUND, AUDIO_TYPING_SOUND, null]);
     }
 };
+
+/*___  ___     ___       __   ___  __
+   |  |__  \_/  |  |  | |__) |__  /__`
+   |  |___ / \  |  \__/ |  \ |___ .__/ */
+const TEXTURE_URL_BASE = '/home/git_repos/quasar_source/quasar_source_code/quasar_site_django/static/assets/';
+
+function TextureGroup(texture_group, loaded_callback, loading_manager) {
+    this.__init__(texture_group, loaded_callback, loading_manager);
+}
 
 TextureGroup.prototype = {
     __init__: function(texture_group, loaded_callback, loading_manager) {
@@ -194,45 +203,14 @@ TextureGroup.prototype = {
     }
 };
 
+/*     __        __          __                           __   ___  __
+ |    /  \  /\  |  \ | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__)
+ |___ \__/ /~~\ |__/ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ */
 function LoadingManager() {
     this.__init__();
 }
 
 LoadingManager.prototype = {
-
-    _cursors_loaded: function() {
-        for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
-            MANAGER_WORLD.world_login.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
-            MANAGER_WORLD.world_home.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
-            MANAGER_WORLD.world_settings.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
-        }
-    },
-
-    _skyboxs_loaded: function() {
-        var sky_box_textures = [];
-        // The order of these gets matter.
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_FRONT));
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BACK));
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_TOP));
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BOTTOM));
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
-        sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
-
-        for (var t = 0; t < sky_box_textures.length; t++) {
-            // depthWrite: false, depthTest: false
-            sky_box_textures[t] = new THREE.MeshBasicMaterial({map: sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
-        }
-
-        MANAGER_WORLD.world_login.add_sky_box(sky_box_textures);
-        MANAGER_WORLD.world_home.add_sky_box(sky_box_textures);
-        MANAGER_WORLD.world_settings.add_sky_box(sky_box_textures);
-    },
-
-    _icons_loaded: function() {
-        MANAGER_WORLD.world_login.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
-        MANAGER_WORLD.world_home.player_menu.load_icon_textures([ICON_HOME]);
-        MANAGER_WORLD.world_settings.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-    },
 
     _audio_loaded: function() {
     },
@@ -268,6 +246,21 @@ LoadingManager.prototype = {
         }
     },
 
+    perform_login_load: function() {
+        // TODO :
+        l('TODO : Display the loading screen while loading!');
+        this._load_cursors_for_world(MANAGER_WORLD.world_home);
+        this._load_cursors_for_world(MANAGER_WORLD.world_settings);
+
+        this._load_skybox_for_world(MANAGER_WORLD.world_home);
+        this._load_skybox_for_world(MANAGER_WORLD.world_settings);
+
+        this._load_icons_for_world(MANAGER_WORLD.world_home);
+        this._load_icons_for_world(MANAGER_WORLD.world_settings);
+
+        l('Loading finished!');
+    },
+
     // Occurs only once on client initial connection.
     perform_initial_load: function() {
         // Sets the player and current world.
@@ -281,6 +274,64 @@ LoadingManager.prototype = {
 
     currently_loading: function() {
         return this._number_of_resources_loaded !== this._number_of_resources_to_load;
+    },
+
+    /*  __   __        __
+     | /  ` /  \ |\ | /__`
+     | \__, \__/ | \| .__/ */
+    // Gets called once when all the icons get loaded.
+    _icons_loaded: function() {
+        this._load_icons_for_world(MANAGER_WORLD.world_login);
+    },
+
+    _load_icons_for_world: function(world) {
+        if (world === MANAGER_WORLD.world_login) {
+            world.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
+        } else if (world === MANAGER_WORLD.world_home) {
+            world.player_menu.load_icon_textures([ICON_HOME]);
+        } else if (world === MANAGER_WORLD.world_settings) {
+            world.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+        }
+    },
+
+    /*__            __   __
+     /__` |__/ \ / |__) /  \ \_/
+     .__/ |  \  |  |__) \__/ / \ */
+    // Gets called once when all the skybox textures get loaded.
+    _skyboxs_loaded: function() {
+        this.sky_box_textures = [];
+        // The order of these gets matter.
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_FRONT));
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BACK));
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_TOP));
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BOTTOM));
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
+        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
+
+        for (var t = 0; t <this. sky_box_textures.length; t++) {
+            // depthWrite: false, depthTest: false
+            this.sky_box_textures[t] = new THREE.MeshBasicMaterial({map: this.sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
+        }
+
+        this._load_skybox_for_world(MANAGER_WORLD.world_login);
+    },
+
+    _load_skybox_for_world: function(world) {
+        world.add_sky_box(this.sky_box_textures);
+    },
+
+    /*__        __   __   __   __   __
+     /  ` |  | |__) /__` /  \ |__) /__`
+     \__, \__/ |  \ .__/ \__/ |  \ .__/*/
+    // Gets called once when all the cursor textures get loaded.
+    _cursors_loaded: function() {
+        this._load_cursors_for_world(MANAGER_WORLD.world_login);
+    },
+
+    _load_cursors_for_world: function(world) {
+        for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
+            world.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
+        }
     }
 
 };

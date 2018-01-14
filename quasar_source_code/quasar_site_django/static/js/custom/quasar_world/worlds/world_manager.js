@@ -58,7 +58,7 @@ WorldManager.prototype = {
     },
 
     key_down_event: function(event) {
-        this.current_world.key_down_event(event);
+        this.current_world.key_down_event_for_interactive_objects(event);
     },
 
     add_to_current_scene: function(object) {

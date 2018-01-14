@@ -22,10 +22,6 @@ HomeWorld.prototype = {
         this.add_to_schedules = false;
     },
 
-    key_down_event: function(event) {
-        this.key_down_event_for_interactive_objects(event);
-    },
-
     prepare_for_save: function() {
         for (var i = 0; i < this.entity_walls.length; i++) {
             this.entity_walls[i].prepare_for_save();

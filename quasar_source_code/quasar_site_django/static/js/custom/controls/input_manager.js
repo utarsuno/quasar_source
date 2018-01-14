@@ -48,6 +48,8 @@ InputManager.prototype = {
         document.addEventListener(EVENT_PASTE     , this.on_paste.bind(this));
 
         // Cross browser support for wheel events.
+        // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
+
         // TODO : Double check to only add one of them and not all 3 if all 3 are supported.
         document.addEventListener(EVENT_WHEEL_V0  , this.on_wheel_event.bind(this));
         document.addEventListener(EVENT_WHEEL_V1  , this.on_wheel_event.bind(this));
@@ -55,7 +57,6 @@ InputManager.prototype = {
 
         this._key_down_buffer = [];
 
-        // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
         /* The flag that determines whether the wheel event is supported. */
         this.supports_wheel = false;
     },

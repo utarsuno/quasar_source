@@ -132,10 +132,6 @@ SettingsWorld.prototype = {
         this.update_interactive_objects();
     },
 
-    key_down_event: function(event) {
-        this.key_down_event_for_interactive_objects(event);
-    },
-
     enter_world: function() {
         CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {

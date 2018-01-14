@@ -188,10 +188,6 @@ LoginWorld.prototype = {
         this.update_interactive_objects();
     },
 
-    key_down_event: function(event) {
-        this.key_down_event_for_interactive_objects(event);
-    },
-
     enter_world: function() {
         // TODO : Reformat this, it's not world specific so should be generalized to world_base.js
         CURRENT_PLAYER.disengage();
