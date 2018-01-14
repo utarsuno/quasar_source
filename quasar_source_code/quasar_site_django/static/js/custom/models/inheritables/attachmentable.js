@@ -113,6 +113,8 @@ function Attachmentable() {
             this._refresh_look_at();
             this.update_all_child_attachments();
         }
+        l('THE NORMAL VECTOR IS NOW :');
+        l(this.normal);
     };
 
     this.set_attachment_name = function(n) {
