@@ -95,6 +95,7 @@ function FloatingText(text, type, world, is_2D_text) {
     }
 
     // Gets called from child functions.
+    // TODO : Reformat this so this function isn't needed anymore
     this.final_initialize = function() {
         switch (this.type) {
         case TYPE_BUTTON:
@@ -234,16 +235,12 @@ function FloatingText(text, type, world, is_2D_text) {
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
             this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
-            //this.set_color(COLOR_HIGHLIGHT, false);
         } else {
-            //this.current_color = this.default_color;
-            //this.current_background_color = this.default_background_color;
             this.set_background_color(this.default_background_color, true);
         }
-        //this.color_changed = true;
-        //this.refresh();
     };
 
+    // TODO : Reformat engage / disengage logic.
     this.state_change_engage = function(being_engaged_with) {
         if (being_engaged_with) {
             if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {

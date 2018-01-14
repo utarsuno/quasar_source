@@ -31,25 +31,21 @@ FloatingWall.prototype = {
             side: THREE.DoubleSide
         });
 
-
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
-
 
         this.scalable = scalable;
         if (!is_defined(this.scalable)) {
             this.scalable = false;
         }
 
-        // Used to determine what actions to be taking.
-        this.current_cursor = null;
-
         this.object3D.add(this.mesh);
         this.scene.add(this.object3D);
 
         // TODO : Double check this design.
+        this.current_cursor = null;
         this.player_horizontal_distance_to_wall_center_liner = null;
         this.player_previous_y_position = null;
         this.previous_cursor_y_position = null;
@@ -66,6 +62,7 @@ FloatingWall.prototype = {
         this.object3D.add(this.mesh);
     },
 
+    // TODO : NEED TO REFORMAT THIS FUNCTION! Potentially move all the logic to the Cursor class.
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
 

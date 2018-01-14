@@ -193,6 +193,7 @@ LoginWorld.prototype = {
     },
 
     enter_world: function() {
+        // TODO : Reformat this, it's not world specific so should be generalized to world_base.js
         CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
             CURRENT_PLAYER.enable_controls();
