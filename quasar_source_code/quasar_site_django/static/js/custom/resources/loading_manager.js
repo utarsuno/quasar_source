@@ -290,13 +290,7 @@ LoadingManager.prototype = {
     },
 
     _load_icons_for_world: function(world) {
-        if (world === MANAGER_WORLD.world_login) {
-            world.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
-        } else if (world === MANAGER_WORLD.world_home) {
-            world.player_menu.load_icon_textures([ICON_HOME]);
-        } else if (world === MANAGER_WORLD.world_settings) {
-            world.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-        }
+        world.player_menu.load_icon_textures();
     },
 
     /*__            __   __

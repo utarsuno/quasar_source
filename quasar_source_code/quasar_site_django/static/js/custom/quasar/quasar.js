@@ -35,7 +35,7 @@ var animate = function () {
 
     MANAGER_MULTIPLAYER.update(delta);
     CURRENT_PLAYER.update(delta);
-    MANAGER_WORLD.update_current_scene();
+    MANAGER_WORLD.update_current_scene(delta);
 
     total_delta += delta;
     if (total_delta >= position_update_interval) {

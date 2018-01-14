@@ -9,7 +9,6 @@ const MONTH_VIEW_RADIUS = 3000;
 HomeWorld.prototype = {
 
     entity_walls: null,
-    loaded_entities: null,
 
     __init__: function() {
         // Inherit from World.
@@ -17,10 +16,9 @@ HomeWorld.prototype = {
     },
 
     create_world: function() {
-        this.loaded_entities = false;
         this.entity_walls = [];
-        this.schedule_loaded = false;
-        this.add_to_schedules = false;
+
+        this.load_entity_walls();
     },
 
     prepare_for_save: function() {
@@ -29,6 +27,7 @@ HomeWorld.prototype = {
         }
     },
 
+    // TODO : This needs to get called from the Loading Manager.
     load_entity_walls: function() {
         var wall_entities = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
         for (var w = 0; w < wall_entities.length; w++) {
@@ -53,29 +52,7 @@ HomeWorld.prototype = {
             this.entity_walls.push(new EntityWall(this, wall_entities[w]));
         }
 
-
-
-        this.add_to_schedules = true;
-    },
-
-    update: function() {
-        // Get the task entities once all entities have been loaded.
-        if (!this.loaded_entities) {
-            if (!MANAGER_ENTITY.currently_loading()) {
-                // Now create the entity walls from the entities.
-                this.load_entity_walls();
-
-                this.loaded_entities = true;
-            }
-        }
-
-        if (this.add_to_schedules) {
-            this.add_content_to_schedules();
-            this.add_to_schedules = false;
-        }
-
-        // World function.
-        this.update_interactive_objects();
+        this.add_content_to_schedules();
     },
 
     enter_world: function() {
@@ -127,6 +104,8 @@ HomeWorld.prototype = {
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
      .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
     add_content_to_schedules: function() {
+        l('TODO : Add content to schedules');
+        /*
         var dates_in_past = this.month_days.get_dates_in_past();
         var dates_in_present = this.month_days.get_dates_in_present();
         var dates_in_future = this.month_days.get_dates_in_future();
@@ -142,6 +121,7 @@ HomeWorld.prototype = {
             l('Checking');
             l(dates_in_future[d]);
         }
+        */
     },
 
     create_month_day_wall: function(day, index, total_number_of_days, present) {

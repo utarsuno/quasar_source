@@ -3,6 +3,7 @@
 const SPACE_BETWEEN_MENU_ICONS = 20;
 const ONE_SECOND = 1.0;
 const ANIMATION_TIME = ONE_SECOND / 4;
+
 const MENU_DISTANCE_FROM_PLAYER = 150;
 
 function PlayerMenu(world) {
@@ -232,6 +233,18 @@ MenuIcon.prototype = {
 
 };
 
+/*
+        if (world === MANAGER_WORLD.world_login) {
+            world.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
+        } else if (world === MANAGER_WORLD.world_home) {
+            world.player_menu.load_icon_textures([ICON_HOME]);
+        } else if (world === MANAGER_WORLD.world_settings) {
+            world.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
+        }
+
+ */
+
+
 PlayerMenu.prototype = {
 
     __init__: function(world) {
@@ -244,12 +257,10 @@ PlayerMenu.prototype = {
         this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
-        this.total_delta = 0;
+        this._number_of_main_menu_rows = 0;
     },
 
-
     set_to_invisible: function() {
-        this.visible = false;
         if (is_defined(this.icons)) {
             for (var i = 0; i < this.icons.length; i++) {
                 this.icons[i].set_to_invisible();
@@ -258,8 +269,9 @@ PlayerMenu.prototype = {
     },
 
     set_to_visible: function() {
-        this.visible = true;
-        this.total_delta = 0;
+        this._player_menu.restart_all_animations();
+
+
 
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
@@ -279,17 +291,6 @@ PlayerMenu.prototype = {
     },
 
     update: function(delta) {
-        this.total_delta += delta;
-        if (this.total_delta >= ANIMATION_TIME) {
-            this.percentage = 1.0;
-        } else {
-            this.percentage = this.total_delta / ANIMATION_TIME;
-        }
-
-
-
-
-
 
 
 
@@ -319,7 +320,15 @@ PlayerMenu.prototype = {
     },
 
     // This function gets called once per player menu object.
-    load_icon_textures: function(list_of_icons_not_to_load) {
+    load_icon_textures: function() {
+        if (this.world === MANAGER_WORLD.world_login) {
+            this._add_main_menu_icon(ICON_FULLSCREEN);
+        } else if (this.world === MANAGER_WORLD.world_home) {
+
+        } else if (this.world === MANAGER_WORLD.world_settings) {
+
+        }
+
         this._add_menu_icon(ICON_WRENCH      , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_SAVE        , list_of_icons_not_to_load);
         this._add_menu_icon(ICON_TELEPORT    , list_of_icons_not_to_load);
@@ -328,6 +337,27 @@ PlayerMenu.prototype = {
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
-    }
+    },
+
+    /*                          ___
+     |\/|  /\  | |\ |     |\/| |__  |\ | |  |
+     |  | /~~\ | | \|     |  | |___ | \| \__/ */
+    // Add the icons that appear on the main player menu.
+    _add_main_menu_icon: function(icon) {
+        //var menu_button = this._player_menu.add_row_2D_text([0, 1], this._number_of_main_menu_rows, icon, TYPE_ICON);
+
+        // TODO : Add the icons once the menu display works!
+
+        switch (icon) {
+            case ICON_WRENCH:
+                var menu_button = this._player_menu.add_row_2D_text([0, 1], this._number_of_main_menu_rows, 'create', TYPE_CONSTANT);
+
+                break;
+        }
+
+        this._number_of_main_menu_rows += 1;
+    },
+
+
 
 };

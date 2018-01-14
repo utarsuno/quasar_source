@@ -12,6 +12,8 @@ function World(planet_name) {
     this.current_world              = false;
     this.scene                      = new THREE.Scene();
 
+    this.root_attachables = [];
+
     this.default_tab_target         = null;
     this.interactive_objects        = [];
 
@@ -145,6 +147,17 @@ function World(planet_name) {
     this.wheel_event = function(delta) {
         if (this.floating_cursor.engaged) {
             this.floating_cursor.current_floating_wall.wheel_event(delta);
+        }
+    };
+
+    this.update = function(delta) {
+        this.update_interactive_objects();
+
+        for (var a = 0; a < this.root_attachables.length; a++) {
+            if (this.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
+                this.root_attachables[a].update(delta);
+            }
+            this.root_attachables[a].update_all_child_animations_recursively(delta);
         }
     };
 

@@ -130,9 +130,6 @@ SettingsWorld.prototype = {
         // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
     },
 
-    update: function() {
-        this.update_interactive_objects();
-    },
 
     enter_world: function() {
         CURRENT_PLAYER.disengage();

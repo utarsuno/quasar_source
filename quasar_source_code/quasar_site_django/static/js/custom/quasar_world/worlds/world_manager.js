@@ -32,8 +32,9 @@ WorldManager.prototype = {
         this.set_current_world(current_world);
     },
 
-    update_current_scene: function() {
-        this.current_world.update();
+    update_current_scene: function(delta) {
+        this.current_world.update(delta);
+        // TODO : Refactor so that this line isn't needed here.
         this.current_world.floating_cursor.update();
     },
 
@@ -65,6 +66,8 @@ WorldManager.prototype = {
         this.world_login.add_to_scene(object);
         this.world_home.add_to_scene(object);
         this.world_settings.add_to_scene(object);
+
+        // TODO : Make sure dynamic worlds are dealt with.
     }
 
 };

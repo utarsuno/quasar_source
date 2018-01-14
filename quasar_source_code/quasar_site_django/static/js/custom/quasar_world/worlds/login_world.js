@@ -184,10 +184,15 @@ LoginWorld.prototype = {
         this.create_account_password_input.set_next_tab_target(this.create_account_password_repeat_input);
         this.create_account_password_repeat_input.set_next_tab_target(this.create_account_button);
         this.create_account_button.set_next_tab_target(this.login_username_input);
-    },
 
-    update: function() {
-        this.update_interactive_objects();
+
+
+
+
+
+        this.root_attachables.push(this.quasar_source_title);
+        this.root_attachables.push(this.login_wall);
+        this.root_attachables.push(this.wall_create_account);
     },
 
     enter_world: function() {

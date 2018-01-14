@@ -72,6 +72,9 @@ Floating2DText.prototype = {
         // Inherit from FloatingText.
         FloatingText.call(this, text, type, world, true);
 
+        // Inherit from Animatable.
+        Animatable.call(this);
+
         this.width = w;
         if (type === TYPE_SUPER_TITLE) {
             this.height = 36;

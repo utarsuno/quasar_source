@@ -32,6 +32,8 @@ function Attachmentable() {
         if (is_defined(depth_offset)) {
             floating_wall.set_attachment_depth_offset(depth_offset);
         }
+        // TODO : Add to the interactive list?
+        // return the floating wall?
     };
 
     this.add_floating_2D_text = function(width, horizontal_offset, vertical_offset, depth_offset, text, type) {
@@ -45,6 +47,7 @@ function Attachmentable() {
         if (is_defined(depth_offset)) {
             floating_2D_text.set_attachment_depth_offset(depth_offset);
         }
+        // TODO : Add to interactive list.
         return floating_2D_text;
     };
 
@@ -96,7 +99,7 @@ function Attachmentable() {
             this.object3D.position.set(x, y, z);
         } else {
             var position_offset = this.get_position_offset();
-            this.object3D.position.set(x + position_offset.x, y + position_offset.y, z + position_offset.z);
+            this.object3D.position.set(x + position_offset[0], y + position_offset[1], z + position_offset[2]);
         }
         if (refresh) {
             this._refresh_look_at();
@@ -130,14 +133,19 @@ function Attachmentable() {
     };
 
     this.set_attachment_depth_offset = function(depth_offset) {
-        this.offset_normal_depth_distance = depth_offset;
+        this.offset_normal_distance = depth_offset;
     };
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    this.get_position_offset = function() {
-        var normal = this.get_normal();
+    this.get_position_offset = function(n) {
+        var normal;
+        if (is_defined(n)) {
+            normal = n;
+        } else {
+            normal = this.get_normal();
+        }
         var dx = 0;
         var dy = 0;
         var dz = 0;
@@ -161,10 +169,10 @@ function Attachmentable() {
         if (is_defined(this.offset_vertical_parent_height_percentage)) {
             dy += this.offset_vertical_parent_height_percentage * this.attachment_parent.height;
         }
-        if (is_defined(this.offset_normal_depth_distance)) {
-            dx += normal.x * this.offset_normal_depth_distance;
-            dy += normal.y * this.offset_normal_depth_distance;
-            dz += normal.z * this.offset_normal_depth_distance;
+        if (is_defined(this.offset_normal_distance)) {
+            dx += normal.x * this.offset_normal_distance;
+            dy += normal.y * this.offset_normal_distance;
+            dz += normal.z * this.offset_normal_distance;
         }
         return [dx, dy, dz];
     };

@@ -20,7 +20,6 @@ Floating3DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!! not really though');
         } else {
-
             if (this.text_changed || this.color_changed) {
                 this.resource_cleanup();
                 this._create_3D_text_internally();
@@ -42,7 +41,10 @@ Floating3DText.prototype = {
         Attachmentable.call(this);
 
         // Inherit from FloatingText.
-        FloatingText.call(this, text, type, world, true);
+        FloatingText.call(this, text, type, world, false);
+
+        // Inherit from Animatable.
+        Animatable.call(this);
 
         // TODO : Investigate into making these variables more dynamic.
         if (this.type === TYPE_SUPER_TITLE) {
@@ -61,8 +63,6 @@ Floating3DText.prototype = {
 
         this._create_3D_text_internally();
 
-        // Inherit from FloatingText.
-        FloatingText.call(this, text, type, world, false);
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
