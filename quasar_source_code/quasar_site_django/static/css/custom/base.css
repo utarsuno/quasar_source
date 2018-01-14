@@ -168,53 +168,6 @@ canvas {
     font-weight: bold;
 }
 
-.see_through_button_for_data {
-    font-smooth: always;
-    -webkit-font-smoothing: subpixel-antialiased;
-
-    text-align: center;
-
-    position: relative;
-    z-index: 15;
-
-    color: rgba(255, 255, 255, 0.9);
-    width: 20vw;
-    left: 75vw;
-    top: 2vh;
-    display: block;
-    padding: 2px 2px 2px 2px;
-    background: transparent no-repeat;
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-}
-
-#custom_text_area {
-    font-smooth: always;
-    -webkit-font-smoothing: subpixel-antialiased;
-
-    border: none;
-    overflow: auto;
-    outline: none;
-
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-
-    position: absolute;
-    top: 0;
-    height: 100vh;
-    left: 0;
-
-    background: transparent no-repeat;
-    color: rgba(104, 223, 119, 0.9);
-    overflow-y: scroll;
-    font-size: 12px;
-    line-height:1.2;
-    width:100%;
-    resize: none;
-}
 /*__             ___  __   __     ___      __          __
  / _` |  | |    |__  /  \ |__)     |  \ / |__) | |\ | / _`
  \__> \__/ |    |    \__/ |  \     |   |  |    | | \| \__> */

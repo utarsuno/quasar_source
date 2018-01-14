@@ -132,6 +132,7 @@ FloatingCursor.prototype = {
         return this.object3D.position;
     },
 
+    // TODO : Remove this
     set_position: function(position) {
         var cursor_offset = 2;
 

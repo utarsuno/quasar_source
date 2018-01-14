@@ -91,6 +91,9 @@ MenuIcon.prototype = {
     },
 
     __init__: function(icon_type, world, row, player_menu) {
+        // Inherit from Attachmentable.
+        Attachmentable.call(this);
+
         this._icon_type = icon_type;
         this._player_menu = player_menu;
 
@@ -100,8 +103,6 @@ MenuIcon.prototype = {
 
         this.world = world;
         this.row = row;
-        this.object3D = new THREE.Object3D();
-
 
         var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;
@@ -172,26 +173,15 @@ MenuIcon.prototype = {
                 break;
         }
 
-        this.geometry = new THREE.CircleGeometry(10, 32);
-        // TODO : Eventually just do FrontSide
-        // TODO : Eventually add some transparency.
+        this.icon = get_new_floating_icon(icon_type, this.world);
+        var label = this.icon.add_floating_2D_text();
 
-        var texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, icon_type);
-
-        this.material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: .75});
-        //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide, transparent: true, opacity: CURSOR_DEFAULT_OPACITY});
-        this.icon = new THREE.Mesh(this.geometry, this.material);
-
+        // Refactor this so that it's attached to the icon.
         this.floating_label = new Floating2DText(100, this.icon_label, TYPE_BUTTON, this.world);
-        if (is_defined(this.function_to_bind)) {
-            this.floating_label.set_engage_function(this.function_to_bind);
-        }
-        if (is_defined(this.function_look_at_bind)) {
-            this.floating_label.set_look_at_function(this.function_look_at_bind);
-        }
-        if (is_defined(this.function_look_away_bind)) {
-            this.floating_label.set_look_away_function(this.function_look_away_bind);
-        }
+        this.floating_label.set_engage_function(this.function_to_bind);
+        this.floating_label.set_look_at_function(this.function_look_at_bind);
+        this.floating_label.set_look_away_function(this.function_look_away_bind);
+
 
         this.object3D.add(this.icon);
 
@@ -240,17 +230,6 @@ MenuIcon.prototype = {
         this.floating_label.object3D.position.y = this.y_position - y_offset;
     },
 
-    set_to_invisible: function() {
-        this.icon.visible = false;
-        this.floating_label.set_to_invisible();
-        this._hide_utility_wall(this.teleport_wall);
-        this._hide_utility_wall(this.create_wall);
-    },
-
-    set_to_visible: function() {
-        this.icon.visible = true;
-        this.floating_label.set_to_visible();
-    }
 };
 
 PlayerMenu.prototype = {

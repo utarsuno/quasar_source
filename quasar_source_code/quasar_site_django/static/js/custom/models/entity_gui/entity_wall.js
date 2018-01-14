@@ -43,9 +43,11 @@ EntityWall.prototype = {
         this._add_label_and_input_for_create_entity_wall(attribute);
     },
 
+    /*
     show_date_selector: function(floating_2D_text) {
         this.world.date_selector.show_at(floating_2D_text);
     },
+    */
 
     _add_label_and_input_for_create_entity_wall: function(label, default_value) {
         this.create_entity_wall.add_floating_2d_text(0, 1 / 3, label, TYPE_CONSTANT, this.current_create_entity_wall_row_index);
@@ -107,6 +109,7 @@ EntityWall.prototype = {
         this.create_new_entity_button.set_engage_function(this.create_new_entity.bind(this));
 
         this.create_entity_wall.add_close_button();
+
         this.create_entity_wall.show();
     },
 
@@ -296,13 +299,16 @@ EntityWall.prototype = {
         //var percent_change_needed = desired_height / this.wall_edit_entity_default_height;
         //this.wall_edit_entity._update_height(percent_change_needed);
         var desired_height = row_index * edit_entity_save_changes_button.height;
-        this.wall_edit_entity._set_height(desired_height);
+        //this.wall_edit_entity._set_height(desired_height);
 
         this.wall_edit_entity.add_close_button();
         this.wall_edit_entity.show();
     },
 
     reload_entity_rows: function() {
+        // TODO :
+        l('TODO : Re-do this function!!')
+
         this.entity_rows.length = 0;
         this.wall.remove_floating_2d_texts_with_property('remove_on_reload');
 
@@ -337,18 +343,20 @@ EntityWall.prototype = {
       |  |  /\  |    |       /  ` |__) |__   /\   |  | /  \ |\ |
       |/\| /~~\ |___ |___    \__, |  \ |___ /~~\  |  | \__/ | \| */
     init_are_you_sure_wall: function() {
-        this.wall_are_you_sure = this.wall.add_floating_wall_off_of_button(180, 50, this.delete_entity_wall_button, false);
+        this.wall_are_you_sure = this.delete_entity_wall_button.add_floating_wall_attachment(180, 50, null, null, 5, false);
         this.wall_are_you_sure.add_floating_2d_text(.25, .75, 'Are you sure?', TYPE_CONSTANT, 0);
-        this.no_button = this.wall_are_you_sure.add_floating_2d_text(0, .5, 'No', TYPE_BUTTON, 1);
-        this.no_button.set_engage_function(this.no_button_pressed.bind(this));
-        this.no_button.set_default_color(COLOR_RED);
-        this.yes_button = this.wall_are_you_sure.add_floating_2d_text(.5, 1, 'Yes', TYPE_BUTTON, 1);
-        this.yes_button.set_engage_function(this.yes_button_pressed.bind(this));
-        this.yes_button.set_default_color(COLOR_GREEN);
-        this.wall_are_you_sure.hide();
+        var no_button = this.wall_are_you_sure.add_floating_2d_text(0, HALF, 'No', TYPE_BUTTON, 1);
+        no_button.set_default_color(COLOR_RED);
+        no_button.set_engage_function(this.no_button_pressed.bind(this));
+        var yes_button = this.wall_are_you_sure.add_floating_2d_text(HALF, 1, 'Yes', TYPE_BUTTON, 1);
+        yes_button.set_default_color(COLOR_GREEN);
+        yes_button.set_engage_function(this.yes_button_pressed.bind(this));
+        this.wall_are_you_sure.hide_self_and_all_child_attachments_recursively();
     },
 
     init_edit_entity_wall: function(button) {
+
+
         this.wall_edit_entity_default_height = 350;
         this.wall_edit_entity = this.wall.add_floating_wall_off_of_button(600, this.wall_edit_entity_default_height, button, false);
     },
@@ -359,9 +367,9 @@ EntityWall.prototype = {
         this.create_entity_wall.hide();
     },
 
-    init_edit_entity_attribute_wall: function(button) {
-        this.wall_edit_entity_add_attribute = this.wall.add_floating_wall_off_of_button(400, 400, button, false);
-    },
+    //init_edit_entity_attribute_wall: function(button) {
+    //    this.wall_edit_entity_add_attribute = this.wall.add_floating_wall_off_of_button(400, 400, button, false);
+    //},
 
     init_base_wall: function() {
         this.wall = new FloatingWall(this.width, this.height, this.position, this.normal, this.world, true);
@@ -410,6 +418,7 @@ EntityWall.prototype = {
     /* ___      ___   ___                             ___  __
       |__  |\ |  |  |  |  \ /    \  /  /\  |    |  | |__  /__`
       |___ | \|  |  |  |   |      \/  /~~\ |___ \__/ |___ .__/ */
+    // TODO : Reformat this section!!!
 
     update_value: function(value_name, value) {
         if (value_name === ENTITY_PROPERTY_POSITION) {

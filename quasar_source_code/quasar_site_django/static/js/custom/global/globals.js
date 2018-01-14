@@ -47,6 +47,7 @@ const NOT_FOUND = -1;
 const HALF_PIE = Math.PI / 2.0;
 const PIE = Math.PI;
 const TWO_PIE = Math.PI * 2.0;
+const HALF = 0.5;
 
 // UNIVERSAL_CONSTANTS_START : Web socket message types.
 const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
@@ -327,6 +328,15 @@ const VISIBLE = 'visible';
 const NOT_VISIBLE = 'hidden';
 const DISPLAY_NONE = 'none';
 const DISPLAY_SHOW = 'block';
+
+const ATTACHMENT_NAME_WARNING = 'attachment_warning';
+const ATTACHMENT_NAME_SUCCESS = 'attachment_success';
+const ATTACHMENT_NAME_ERROR   = 'attachment_error';
+
+const ATTACHMENT_TYPE_FLOATING_WALL    = 'attachment_type_floating_wall';
+const ATTACHMENT_TYPE_FLOATING_TEXT    = 'attachment_type_floating_wall';
+const ATTACHMENT_TYPE_FLOATING_PICTURE = 'attachment_type_floating_picture';
+const ATTACHMENT_TYPE_FLOATING_VIDEO   = 'attachment_type_floating_video';
 
 const ATTACHMENT_OFFSET_HORIZONTAL_RIGHT = 'horizontal_offset_right';
 const ATTACHMENT_OFFSET_HORIZONTAL_LEFT  = 'horizontal_offset_right';

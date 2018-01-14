@@ -78,9 +78,6 @@ RendererManager.prototype = {
 
     render: function() {
         this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
-    },
-
-    render_3D_css: function() {
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
                 this.css_renderer.render(MANAGER_WORLD.current_world.css_scene, this.camera);

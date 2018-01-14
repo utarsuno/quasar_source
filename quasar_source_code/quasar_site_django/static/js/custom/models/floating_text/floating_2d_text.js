@@ -22,9 +22,7 @@ Floating2DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!!');
         } else {
-
             if (this.text_changed || this.color_changed) {
-
                 var x_offset = 0;
                 if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
                     x_offset = this.texture_width / 2 - this._get_text_length() / 2;
@@ -42,6 +40,7 @@ Floating2DText.prototype = {
         }
     },
 
+    // TODO : Refactor!!!
     _update_width: function(new_width_percentage) {
         this.width *= new_width_percentage;
         this.resource_cleanup();
@@ -51,10 +50,12 @@ Floating2DText.prototype = {
         l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
     },
 
+    // TODO : REMOVE!!!
     display_icon_to_the_right: function(icon_type) {
         l('TODO !!!! DISPLAY AN ICON TO THE RIGHT!!');
     },
 
+    // TODO : REMOVE!!!
     display_icon_over_center: function(icon_type) {
         l('TODO !!!! DISPLAY AN ICON HOVERING OVER THE CENTER!!');
     },
@@ -104,6 +105,7 @@ Floating2DText.prototype = {
         this.material.transparent = true;
         this.material.side = THREE.FrontSide;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+
         this.object3D.add(this.mesh);
         world.scene.add(this.object3D);
 
@@ -119,10 +121,12 @@ Floating2DText.prototype = {
      /  ` |    |__   /\  |\ | |  | |__)
      \__, |___ |___ /~~\ | \| \__/ |    */
     resource_cleanup: function() {
-        this.material.dispose();
-        this.geometry.dispose();
-        this.mesh.dispose();
-        this.object3D.remove(this.mesh);
+        if (is_defined(this.mesh)) {
+            this.material.dispose();
+            this.geometry.dispose();
+            this.mesh.dispose();
+            this.object3D.remove(this.mesh);
+        }
     }
 };
 

@@ -75,7 +75,7 @@ def _get_all_javascript_files(get_minified_files=False):
 	"""Returns a list of CodeFile objects of all the Quasar javascript files (with a flag to determine if minified files returned or non-minified files returned."""
 	all_javascript_files_path = CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom'
 	all_javascript_files = ufo.get_all_file_paths_inside_directory(all_javascript_files_path)
-	files_to_ignore = ['helvetiker_regular.typeface.json.js', 'quasar_data.js']
+	files_to_ignore = ['helvetiker_regular.typeface.json.js']
 	files_to_return = []
 	if get_minified_files:
 		for f in all_javascript_files:

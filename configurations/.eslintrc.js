@@ -74,6 +74,15 @@ module.exports = {
 
         "DomElement": false,
 
+        "ATTACHMENT_NAME_WARNING": false,
+        "ATTACHMENT_NAME_SUCCESS": false,
+        "ATTACHMENT_NAME_ERROR"  : false,
+
+        "ATTACHMENT_TYPE_FLOATING_WALL"   : false,
+        "ATTACHMENT_TYPE_FLOATING_TEXT"   : false,
+        "ATTACHMENT_TYPE_FLOATING_PICTURE": false,
+        "ATTACHMENT_TYPE_FLOATING_VIDEO"  : false,
+
         "ATTACHMENT_OFFSET_HORIZONTAL_RIGHT": false,
         "ATTACHMENT_OFFSET_HORIZONTAL_LEFT" : false,
         "ATTACHMENT_OFFSET_VERTICAL_UP"     : false,
@@ -414,6 +423,7 @@ module.exports = {
         "GROUND_NORMAL"   : false,
         "ONE_THIRD"       : false,
         "TWO_THIRDS"      : false,
+        "HALF"            : false,
 
         // Shortcuts.
         "l"                                  : false,

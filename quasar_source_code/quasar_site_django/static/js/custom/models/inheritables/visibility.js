@@ -33,4 +33,43 @@ function Visibility() {
         });
     };
 
+    /*__   ___  __          __   ___  __          ___ ___       __              ___      ___  __  
+     |__) |__  /  \ |  | | |__) |__  /__`     /\   |   |   /\  /  ` |__|  |\/| |__  |\ |  |  /__` 
+     |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
+    this.display_self_and_all_child_attachments_recursively = function() {
+        this.set_to_visible();
+        var all_attachments = this._get_all_attachments_recursively();
+        for (var a = 0; a < all_attachments.length; a++) {
+            if (!all_attachments[a].manual_visibility) {
+                all_attachments[a].set_to_visible();
+            }
+        }
+    };
+
+    this.hide_self_and_all_child_attachments_recursively = function() {
+        this.set_to_invisible();
+        var all_attachments = this._get_all_attachments_recursively();
+        for (var a = 0; a < all_attachments.length; a++) {
+            if (!all_attachments[a].manual_visibility) {
+                all_attachments[a].set_to_invisible();
+            }
+        }
+    };
+
+    this.display_all_child_attachments_with_name = function(n) {
+        for (var a = 0; a < this.attachments.length; a++) {
+            if (this.attachments.relative_name === n) {
+                this.attachments[a].set_to_visible();
+            }
+        }
+    };
+
+    this.hide_all_child_attachments_with_name = function(n) {
+        for (var a = 0; a < this.attachments.length; a++) {
+            if (this.attachments.relative_name === n) {
+                this.attachments[a].set_to_visible();
+            }
+        }
+    };
+
 }

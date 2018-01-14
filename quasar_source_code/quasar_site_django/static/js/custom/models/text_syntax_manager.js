@@ -4,10 +4,6 @@
 const INDEX_LABEL = 0;
 const INDEX_INPUT = 1;
 
-const ATTACHMENT_NAME_WARNING = 1;
-const ATTACHMENT_NAME_SUCCESS = 2;
-const ATTACHMENT_NAME_ERROR   = 3;
-
 function TextSyntaxManager(world) {
     this.__init__(world);
 }
@@ -130,13 +126,13 @@ TextSyntaxManager.prototype = {
 
     add_label_and_input: function(label, input) {
         var warning_icon = get_new_floating_icon(ICON_WARNING, this.world);
-        warning_icon.set_attachment_horizontal_offset(16 + input.width / 2);
+        warning_icon.set_attachment_horizontal_offset(16, HALF);
         warning_icon.set_attachment_depth(1);
         warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
         warning_icon.manual_visibility = true;
 
         var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);
-        success_icon.set_attachment_horizontal_offset(16 + input.width / 2);
+        success_icon.set_attachment_horizontal_offset(16, HALF);
         success_icon.set_attachment_depth(1);
         success_icon.set_attachment_name(ATTACHMENT_NAME_SUCCESS);
         success_icon.manual_visibility = true;

@@ -64,9 +64,9 @@ function FloatingText(text, type, world, is_2D_text) {
         }
     };
 
-    /*   __   __        __  ___  __        __  ___  __   __
-        /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
-        \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
+    /*__   __        __  ___  __        __  ___  __   __
+     /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
+     \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
     this.is_2D_text    = is_2D_text;
     this.type          = type;
     this.world         = world;
@@ -83,9 +83,6 @@ function FloatingText(text, type, world, is_2D_text) {
     this.set_color(COLOR_TEXT_DEFAULT, false);
 
     this.format_type   = null;
-
-    // Default value.
-    this.normal_depth  = 1;
 
     if (this.type === TYPE_PASSWORD) {
         this.hidden_text = text;
@@ -138,9 +135,9 @@ function FloatingText(text, type, world, is_2D_text) {
         this.refresh();
     };
 
-    /*   ___            __  ___    __        __
-        |__  |  | |\ | /  `  |  | /  \ |\ | /__`
-        |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+    /*___            __  ___    __        __
+     |__  |  | |\ | /  `  |  | /  \ |\ | /__`
+     |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     this.refresh = function() {
         // If there was any text or color changes this will have them appear.
         if (this.color_changed || this.text_changed) {
@@ -156,47 +153,6 @@ function FloatingText(text, type, world, is_2D_text) {
 
     this.set_format_type = function(format_type) {
         this.format_type = format_type;
-    };
-
-    this.update_position_and_look_at_origin = function(position_vector) {
-        this.update_position_and_normal(position_vector, new THREE.Vector3(0 - position_vector.x, 0, 0 - position_vector.z));
-    };
-
-    this.update_position = function(position_vector) {
-        // TODO : optimize
-
-        this.object3D.position.x = position_vector.x + this.normal.x * this.normal_depth;
-        this.object3D.position.y = position_vector.y + this.normal.y * this.normal_depth;
-        this.object3D.position.z = position_vector.z + this.normal.z * this.normal_depth;
-
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-    };
-
-    this.update_position_with_offset_xyz = function(x, y, z) {
-        // TODO : optimize
-
-        this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
-        this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
-        this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
-
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-    };
-
-    this.set_normal_depth = function(depth) {
-        if (depth <= 0) {
-            this.normal_depth = 1;
-        } else {
-            this.normal_depth = depth;
-        }
-    };
-
-    this.update_position_and_normal = function(position_vector, normal) {
-        this.update_normal(normal);
-        this.update_position(position_vector);
     };
 
     this.clear = function() {
@@ -277,14 +233,15 @@ function FloatingText(text, type, world, is_2D_text) {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
-            this.set_background_color(BACKGROUND_COLOR_FOCUS, false);
+            this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
             //this.set_color(COLOR_HIGHLIGHT, false);
         } else {
             //this.current_color = this.default_color;
-            this.current_background_color = this.default_background_color;
+            //this.current_background_color = this.default_background_color;
+            this.set_background_color(this.default_background_color, true);
         }
-        this.color_changed = true;
-        this.refresh();
+        //this.color_changed = true;
+        //this.refresh();
     };
 
     this.state_change_engage = function(being_engaged_with) {

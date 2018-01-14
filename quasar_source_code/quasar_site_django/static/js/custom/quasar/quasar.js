@@ -3,10 +3,6 @@
 /* __             __        __      __   __        __   __   ___                          __   __   __   ___
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
-
-// Sets the player and current world.
-MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
-
 // Load all the initially needed resources. Once complete the paused menu will go away.
 MANAGER_LOADING.perform_initial_load();
 
@@ -55,18 +51,8 @@ var animate = function () {
     }
     ////
 
-    //renderer2.render(scene2, camera);
-
     MANAGER_RENDERER.render();
-    MANAGER_RENDERER.render_3D_css();
-
-    //if (is_defined(MANAGER_WORLD.world_login.css_scene)) {
-    //    MANAGER_RENDERER.css_renderer.render(MANAGER_WORLD.world_login.css_scene, CURRENT_PLAYER.fps_controls.camera);
-    //}
-
-
     MANAGER_RENDERER.post_render();
-
     previous_time = time;
 };
 

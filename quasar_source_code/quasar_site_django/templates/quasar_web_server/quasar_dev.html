@@ -122,12 +122,9 @@
 <script src="{% static 'js/third_party/hex_grid/hex-grid.min.js' %}"></script>
 <script src="{% static 'js/third_party/threex/THREEx.FullScreen.js' %}"></script>
 <script src="{% static 'js/third_party/CSS3DRenderer.js' %}"></script>
-
-
 <!-- <script src="{% static 'js/third_party/lines/THREE.MeshLine.js' %}"></script> -->
-
-<!-- Font file. -->
-<script src="{% static 'js/custom/models/helvetiker_regular.typeface.json.js' %}"></script>
+<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictexture.js' %}"></script>
+<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictext2dobject.js' %}"></script>
 
 <!-- Shaders. -->
 <!-- <script src="{% static 'js/third_party/EffectComposer.js' %}"></script> -->
@@ -137,9 +134,6 @@
 <!-- <script src="{% static 'js/third_party/GlitchPass.js' %}"></script> -->
 <!-- <script src="{% static 'js/third_party/ShaderPass.js' %}"></script> -->
 
-<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictexture.js' %}"></script>
-<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictext2dobject.js' %}"></script>
-
 <!-- First custom file is global declarations. -->
 <script src="{% static 'js/custom/global/globals.js' %}"></script>
 <script src="{% static 'js/custom/global/time_abstraction.js' %}"></script>
@@ -148,15 +142,18 @@
 <script src="{% static 'js/custom/web_sockets/web_socket_client.js' %}"></script>
 <script src="{% static 'js/custom/web_sockets/multiplayer_manager.js' %}"></script>
 
-<!-- Core files. -->
+<!-- Resources. -->
+<script src="{% static 'js/custom/resources/file_drag_and_drop_transfer.js' %}"></script>
+<script src="{% static 'js/custom/resources/loading_manager.js' %}"></script>
+<script src="{% static 'js/custom/models/helvetiker_regular.typeface.json.js' %}"></script>
+
+<!-- Core. -->
+<script src="{% static 'js/custom/core/audio_api.js' %}"></script>
 <script src="{% static 'js/custom/core/renderer_manager.js' %}"></script>
 <!-- <script src="{% static 'js/custom/core/shader_api.js' %}"></script> -->
 <script src="{% static 'js/custom/core/ajax_api.js' %}"></script>
 <script src="{% static 'js/custom/core/custom_smooth_step.js' %}"></script>
 <script src="{% static 'js/custom/core/input_text_processor.js' %}"></script>
-<script src="{% static 'js/custom/core/resources/audio_api.js' %}"></script>
-<script src="{% static 'js/custom/core/resources/file_drag_and_drop_transfer.js' %}"></script>
-<script src="{% static 'js/custom/core/resources/loading_manager.js' %}"></script>
 
 <!-- Entities. -->
 <script src="{% static 'js/custom/entities/entity.js' %}"></script>
@@ -178,9 +175,9 @@
 <!-- Quasar world files to load first. -->
 <script src="{% static 'js/custom/quasar_world/player/player_menu.js' %}"></script>
 <script src="{% static 'js/custom/quasar_world/player/player.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/floating_cursor.js' %}"></script>
 
 <!-- Models. -->
+<script src="{% static 'js/custom/quasar_world/floating_cursor.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/attachmentable.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/interactive.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/visibility.js' %}"></script>
@@ -195,11 +192,11 @@
 <script src="{% static 'js/custom/models/entity_gui/entity_wall.js' %}"></script>
 
 <!-- The worlds. -->
-<script src="{% static 'js/custom/quasar_world/world_base.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/world_manager.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/login_world.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/home_world.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/settings_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/world_base.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/world_manager.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/login_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/home_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/settings_world.js' %}"></script>
 
 <!-- Quasar. -->
 <script src="{% static 'js/custom/quasar/manager_manager.js' %}"></script>

@@ -1,35 +1,21 @@
 'use strict';
 
-// var dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
 const COLORS = get_color_range_list(COLOR_FLOATING_WALL_BASE, COLOR_FLOATING_WALL_TOP, 8);
 
-function FloatingWall(width, height, position, normal, world, scalable, color_index) {
-    this.__init__(width, height, position, normal, world, scalable, color_index);
+function FloatingWall(width, height, position, normal, world, scalable) {
+    this.__init__(width, height, position, normal, world, scalable);
 }
 
 FloatingWall.prototype = {
 
-    __init__: function (width, height, position, normal, world, scalable, color_index) {
-        this.all_floating_2d_texts          = [];
-        this.all_floating_3D_texts          = [];
-        this.all_floating_walls             = [];
+    __init__: function (width, height, position, normal, world, scalable) {
 
-        // TODO : Double check design choice here.
+        // Inherit from Attachmentable.
+        Attachmentable.call(this);
 
-        this.objects_to_remove_later        = [];
-        this.floating_walls_to_remove_later = [];
+        this.set_normal(normal.x, normal.y, normal.z, false);
+        this.set_position(position.x, position.y, position.z, true);
 
-        this.object3D = new THREE.Object3D();
-
-        // Default value.
-        this.normal_depth = 5;
-
-        this.update_normal(normal);
-
-        this.object3D.position.set(position.x + this.normal.x * this.normal_depth, position.y + this.normal.y * this.normal_depth, position.z + this.normal.z * this.normal_depth);
-        this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-        this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-        this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
 
         this.width = width;
         this.height = height;
@@ -37,28 +23,20 @@ FloatingWall.prototype = {
         this.world = world;
         this.scene = this.world.scene;
 
-        if (!is_defined(color_index)) {
-            this.color_index = 0;
-        } else {
-            this.color_index = color_index;
-        }
+        this.material = new THREE.MeshBasicMaterial({
+            // TODO : THE COLOR IS TEMPORARY!!!
+            color: COLORS[0],
+            //transparent: true,
+            //opacity: 0.85,
+            side: THREE.DoubleSide
+        });
+
 
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
 
-        // Base wall.
-        // PlaneGeometry takes in a width, height, optionalWidthSegments (default 1), optionalHeightSegments (default 1)
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.material = new THREE.MeshBasicMaterial({
-            color: COLORS[this.color_index],
-            //transparent: true,
-            //opacity: 0.85,
-            side: THREE.DoubleSide
-        });
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        //this.wall_mesh.position.set(position.x - right_side.x, position.y - this.height / 2 - right_side.y, position.z - right_side.z);
 
         this.scalable = scalable;
         if (!is_defined(this.scalable)) {
@@ -79,11 +57,17 @@ FloatingWall.prototype = {
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
     },
 
+    _create_base_wall: function() {
+        // Check if the there is an existing wall that needs to be fully cleaned up.
+        this.resource_cleanup();
+        // Now re-create the base wall.
+        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
+    },
+
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
-
-        //l('PERFORM AN ACTION PLZ');
-        //l(cursor_type);
 
         //var old_cursor_position = MANAGER_WORLD.current_world.floating_cursor.get_position();
         var new_cursor_position = this.get_player_look_at_infinite_plane_intersection_point();
@@ -153,27 +137,6 @@ FloatingWall.prototype = {
         this.update_position_and_normal_for_all_floating_text_recursively();
     },
 
-    // TODO : Double check that this function is still working properly.
-    update_position_and_normal_for_all_floating_text_recursively: function() {
-        // TODO : Update position for all floating 3D text
-        for (var f = 0; f < this.all_floating_2d_texts.length; f++) {
-            this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[f]);
-        }
-
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position_and_normal_for_all_floating_text_recursively();
-        }
-
-        return;
-        // OLD CODE BELOW
-        // OLD CODE BELOW
-
-        // TODO : Update position for all floating 3D text
-        //for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-        //    this.update_position_and_normal_for_floating_2D_text(this.all_floating_2d_texts[i]);
-        //}
-    },
-
     // TODO : Verify that this function works with the rest of this class.
     set_position_and_normal: function(p, n, no_depth) {
 
@@ -232,22 +195,9 @@ FloatingWall.prototype = {
         }
     },
 
-    // TODO : Check if this is used.
-    _set_height: function(new_height) {
-        this.height = new_height;
-
-        this.geometry_and_mesh_cleanup();
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.object3D.add(this.mesh);
-    },
-
     _dimensions_changed: function(is_width, new_percentage) {
         if (this.scalable) {
-            this.geometry_and_mesh_cleanup();
-            this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-            this.mesh = new THREE.Mesh(this.geometry, this.material);
-            this.object3D.add(this.mesh);
+            this._create_base_wall();
 
             for (var f = 0; f < this.all_floating_2d_texts.length; f++) {
                 if (is_width) {
@@ -316,9 +266,7 @@ FloatingWall.prototype = {
             floating_3D_title.set_default_color(color);
         }
 
-        this.add_additional_visibility_object(floating_3D_title);
         this.objects_to_remove_later.push(floating_3D_title);
-
         this.all_floating_3D_texts.push(floating_3D_title);
 
         return floating_3D_title;
@@ -338,7 +286,7 @@ FloatingWall.prototype = {
     add_close_button: function() {
         var one_pixel_width = 1 / this.width;
         this.close_button = this.add_floating_2d_text(1 - (one_pixel_width * 16), 1, ICON_CROSS, TYPE_BUTTON, 0);
-        this.close_button.set_engage_function(this.close_button_pressed.bind(this));
+        this.close_button.set_engage_function(this.set_to_invisible.bind(this));
         return this.close_button;
     },
 
@@ -369,73 +317,22 @@ FloatingWall.prototype = {
         return floating_wall;
     },
 
-    update_position_for_floating_2D_text: function(floating_2D_text) {
-        var width;
-        var x_offset;
-        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
-            width = floating_2D_text['pfw_fixed_width'];
-            if (floating_2D_text['pfw_position_offset'] < 0) {
-                floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
-            }
-            x_offset = this.width * (floating_2D_text['pfw_position_offset'] / this.width);
-        } else {
-            width = this.width * (floating_2D_text['pfw_x_end'] - floating_2D_text['pfw_x_start']);
-            x_offset = this.width * floating_2D_text['pfw_x_start'];
-        }
-        var additional_x_shift = 0;
-        if (width < this.width) {
-            additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
-        }
-        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
-        var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
-        floating_2D_text.update_position(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z));
-    },
+    add_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks) {
+        var total_percentage_of_parent_width = (x_start_and_stop[1] - x_start_and_stop[0]);
+        var floating_2D_text_width = this.width * total_percentage_of_parent_width;
+        var floating_2D_text = new Floating2DText(floating_2D_text_width, text, type, this.world, syntax_checks);
 
-    update_position_and_normal_for_floating_2D_text: function(floating_2D_text) {
-        var width;
-        var x_offset;
-        if (floating_2D_text.hasOwnProperty('pfw_fixed_width')) {
-            width = floating_2D_text['pfw_fixed_width'];
-            if (floating_2D_text['pfw_position_offset'] < 0) {
-                floating_2D_text['pfw_position_offset'] = this.width + floating_2D_text['pfw_position_offset'];
-            }
-            x_offset = this.width * (floating_2D_text['pfw_position_offset'] / this.width);
-        } else {
-            width = this.width * (floating_2D_text['pfw_x_end'] - floating_2D_text['pfw_x_start']);
-            x_offset = this.width * floating_2D_text['pfw_x_start'];
-        }
-        var additional_x_shift = 0;
-        if (width < this.width) {
-            additional_x_shift = -1.0 * ((1.0 - (width / this.width)) / 2.0) * this.width;
-        }
-        var relative_x_shift = this.get_relative_x_shift(x_offset + additional_x_shift);
-        var y_position = this.get_y_position_for_row(floating_2D_text['pfw_row']);
-        if (floating_2D_text.hasOwnProperty('additional_normal_offset')) {
-            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth + this['additional_normal_offset']);
-        } else {
-            floating_2D_text.set_normal_depth(this.normal_depth + this.normal_depth);
-        }
-        floating_2D_text.update_position_and_normal(this.get_position_for_row(relative_x_shift.x, relative_x_shift.y + y_position, relative_x_shift.z), this.normal);
-    },
-
-    add_floating_2d_text: function(x_start, x_end, text, type, row, syntax_checks) {
-        var floating_2d_text_width = this.width * (x_end - x_start);
-        var floating_2D_text = new Floating2DText(floating_2d_text_width, text, type, this.world, syntax_checks);
-
-        floating_2D_text.parent_floating_wall = this;
-        floating_2D_text.pfw_x_start = x_start;
-        floating_2D_text.pfw_x_end = x_end;
-        floating_2D_text.pfw_row = row;
-
-        this.update_position_and_normal_for_floating_2D_text(floating_2D_text);
-
-        if (type === TYPE_INPUT || type === TYPE_PASSWORD || type === TYPE_BUTTON || type === TYPE_TITLE) {
+        if (type === TYPE_INPUT || type == TYPE_PASSWORD || type === TYPE_BUTTON) {
             this.world.interactive_objects.push(floating_2D_text);
         }
 
-        this.add_additional_visibility_object(floating_2D_text);
-        this.objects_to_remove_later.push(floating_2D_text);
-        this.all_floating_2d_texts.push(floating_2D_text);
+        floating_2D_text.set_attachment_depth_offset(1);
+        floating_2D_text.set_attachment_horizontal_offset(0, -HALF + x_start_and_stop[0] + total_percentage_of_parent_width / 2);
+
+        // TODO : WARNING : For now every row is set to 16 height distance. This should eventually be made to allow for dynamic row heights.
+        floating_2D_text.set_attachment_vertical_offset(-16 * row, HALF);
+
+        floating_2D_text.attach_to(this);
 
         return floating_2D_text;
     },
@@ -530,21 +427,6 @@ FloatingWall.prototype = {
         this.update_position_and_normal_for_floating_2D_text(floating_maximum_label);
         this.update_position_and_normal_for_floating_2D_text(floating_slider);
 
-        this.add_additional_visibility_object(floating_label);
-        this.add_additional_visibility_object(floating_minimum_label);
-        this.add_additional_visibility_object(floating_maximum_label);
-        this.add_additional_visibility_object(floating_slider);
-
-        this.objects_to_remove_later.push(floating_label);
-        this.objects_to_remove_later.push(floating_minimum_label);
-        this.objects_to_remove_later.push(floating_maximum_label);
-        this.objects_to_remove_later.push(floating_slider);
-
-        this.all_floating_2d_texts.push(floating_label);
-        this.all_floating_2d_texts.push(floating_minimum_label);
-        this.all_floating_2d_texts.push(floating_maximum_label);
-        this.all_floating_2d_texts.push(floating_slider);
-
         // Return the slider object so that a value changed function can be binded.
         return floating_slider;
     },
@@ -576,49 +458,11 @@ FloatingWall.prototype = {
         this.player_previous_y_position = null;
     },
 
-    // TODO : DELETE THIS!!!
-    // TODO : DELETE THIS!!!
-    // TODO : DELETE THIS!!!
-    // TODO : DELETE THIS!!!
-    // TODO : DELETE THIS!!!
-    // TODO : DELETE THIS!!!
-    update_normal: function(normal) {
-        this.normal = new THREE.Vector3(normal.x, normal.y, normal.z);
-        this.normal.normalize();
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.normal);
-        this.left_right.normalize();
-
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
-
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_normal(normal);
-        }
-    },
-
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    get_y_position_for_row: function (y_index) {
-        if (y_index < 0) {
-            y_index *= -1;
-            var offset = (-16.0 / 2.0) * (1 + (2 * y_index));
-            return -this.height + offset;
-        }
-        return (-16.0 / 2.0) * (1 + (2 * y_index));
-    },
-
-    // Shifts the left-right position (on the wall) of the object by the distance provided. Negative values go left, positive go right.
-    get_relative_x_shift: function(distance) {
-        return new THREE.Vector3(this.left_right.x * distance, this.left_right.y * distance, this.left_right.z * distance);
-    },
-
     get_position_for_row: function (x_offset, y_offset, z_offset) {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
-    },
-
-    _get_horizontal_distance_to_center: function(x, z) {
-        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
     },
 
     get_required_cursor: function(cursor_position_vector) {
@@ -675,6 +519,7 @@ FloatingWall.prototype = {
         return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
     },
 
+    // TODO : This will only work for walls that have a y normal of 0.
     _is_point_inside_floating_wall: function(x, y, z) {
         // TODO : Simplify later.
         if (this.object3D.position.y + this.height / 2 < y) {
@@ -683,7 +528,7 @@ FloatingWall.prototype = {
         if (this.object3D.position.y - this.height / 2 > y) {
             return false;
         }
-        return this._get_horizontal_distance_to_center(x, z) <= this.width / 2;
+        return this.get_horizontal_distance_to_center(x, z) <= this.width / 2;
     },
 
     _calculate_t_value: function(player_parametric_equation) {
@@ -728,9 +573,12 @@ FloatingWall.prototype = {
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
-    geometry_and_mesh_cleanup: function() {
-        this.object3D.remove(this.mesh);
-        this.geometry.dispose();
+    resource_cleanup: function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+            this.geometry.dispose();
+            //this.material.dispose();
+        }
     },
 
     clear_floating_2d_texts: function() {
@@ -764,33 +612,6 @@ FloatingWall.prototype = {
             }
             this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[index_to_remove]);
             this.all_floating_2d_texts.splice(index_to_remove, 1);
-        }
-    },
-
-    /*        __     __           ___
-      \  / | /__` | |__) | |    |  |  \ /
-       \/  | .__/ | |__) | |___ |  |   |  */
-    close_button_pressed: function() {
-        this.hide();
-    },
-
-    hide: function() {
-        this.set_to_invisible();
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.all_floating_2d_texts[i].set_to_invisible();
-        }
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].hide();
-        }
-    },
-
-    show: function() {
-        this.set_to_visible();
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.all_floating_2d_texts[i].set_to_visible();
-        }
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].show();
         }
     },
 

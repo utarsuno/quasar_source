@@ -250,7 +250,7 @@ LoadingManager.prototype = {
 
     update_text: function(text) {
         this._number_of_resources_loaded += 1;
-        GUI_PAUSED_MENU.set_text(int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '% loaded');
+        GUI_PAUSED_MENU.set_text(int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%');
         GUI_PAUSED_MENU.set_sub_text(text);
         if (this._number_of_resources_loaded === this._number_of_resources_to_load) {
             GUI_PAUSED_MENU.make_visible();
@@ -268,8 +268,11 @@ LoadingManager.prototype = {
         }
     },
 
-    // Occurs only once on website start up.
+    // Occurs only once on client initial connection.
     perform_initial_load: function() {
+        // Sets the player and current world.
+        MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
+
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
         this.textures_icon.load_textures();
