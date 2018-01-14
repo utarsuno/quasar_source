@@ -17,6 +17,7 @@ FloatingWall.prototype = {
         this.set_position(position.x, position.y, position.z, true);
 
 
+
         this.width = width;
         this.height = height;
 

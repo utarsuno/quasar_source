@@ -15,6 +15,8 @@ function Attachmentable() {
     // A name given to find this attachment later.
     this.relative_name = null;
 
+    this.normal = null;
+
     this.attach_to = function(attachment_parent) {
         attachment_parent.add_attachment(this);
     };
