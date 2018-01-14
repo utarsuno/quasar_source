@@ -241,6 +241,7 @@ PlayerMenu.prototype = {
         var temp_position = new THREE.Vector3(-10000, -10000, -10000);
         var temp_normal   = new THREE.Vector3(0, 0, 0);
         this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
+        this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
         this.total_delta = 0;
