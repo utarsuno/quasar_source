@@ -241,7 +241,7 @@ PlayerMenu.prototype = {
         var temp_position = new THREE.Vector3(-10000, -10000, -10000);
         var temp_normal   = new THREE.Vector3(0, 0, 0);
         this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
-        this._player_menu.make_base_wall_invisible();
+        //this._player_menu.make_base_wall_invisible();
 
         this.total_delta = 0;
     },
@@ -264,6 +264,8 @@ PlayerMenu.prototype = {
 
         var start_position = new THREE.Vector3(pp.x + pd.x * MENU_DISTANCE_FROM_PLAYER, pp.y + pd.y * MENU_DISTANCE_FROM_PLAYER, pp.z + pd.z * MENU_DISTANCE_FROM_PLAYER);
 
+
+
         for (var i = 0; i < this.icons.length; i++) {
             this.icons[i].set_position_and_normal(start_position, -pd.x, -pd.z);
             this.icons[i].set_to_visible();
@@ -281,6 +283,12 @@ PlayerMenu.prototype = {
         } else {
             this.percentage = this.total_delta / ANIMATION_TIME;
         }
+
+
+
+
+
+
 
 
         // TODO : Refactor this!!!!
