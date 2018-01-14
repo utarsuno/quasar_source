@@ -183,7 +183,7 @@ MenuIcon.prototype = {
         this.floating_label.set_look_away_function(this.function_look_away_bind);
 
 
-        this.object3D.add(this.icon);
+        //this.object3D.add(this.icon);
 
         this.world.add_to_scene(this.object3D);
 
