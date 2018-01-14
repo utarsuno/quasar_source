@@ -78,6 +78,13 @@ function Attachmentable() {
      .__/ |___  |   |  |___ |  \ .__/ */
     this.look_at_origin = function(refresh) {
         this.object3D.lookAt(-this.object3D.position.x, 0, -this.object3D.position.z);
+        if (this.is_root()) {
+            if (!is_defined(this.normal)) {
+                var normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
+                normal.normalize();
+                this.normal = normal;
+            }
+        }
         if (refresh) {
             this._refresh_look_at();
         }
