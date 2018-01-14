@@ -238,8 +238,8 @@ PlayerMenu.prototype = {
         this.world = world;
 
         // TODO : Make a better design for the temp values.
-        var temp_position = new Vector3(-10000, -10000, -10000);
-        var temp_normal   = new Vector3(0, 0, 0);
+        var temp_position = new THREE.Vector3(-10000, -10000, -10000);
+        var temp_normal   = new THREE.Vector3(0, 0, 0);
         this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
         this._player_menu.make_base_wall_invisible();
 
