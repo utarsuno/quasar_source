@@ -1,10 +1,12 @@
 'use strict';
 
+/*
 const SPACE_BETWEEN_MENU_ICONS = 20;
 const ONE_SECOND = 1.0;
 const ANIMATION_TIME = ONE_SECOND / 4;
 
 const MENU_DISTANCE_FROM_PLAYER = 150;
+*/
 
 function PlayerMenu(world) {
     this.__init__(world);
@@ -257,6 +259,22 @@ PlayerMenu.prototype = {
         this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
+        this._player_menu.attached_to_player = true;
+
+        /*
+                if (this.attached_to_player) {
+            var player_position = CURRENT_PLAYER.get_position();
+            var player_normal = CURRENT_PLAYER.get_direction();
+
+            this.animation_start_position_x = player_position.x;
+            this.animation_start_position_y = player_position.y;
+            this.animation_start_position_z = player_position.z;
+
+            this.animation_offset = this.get_animation_total_offset(player_normal);
+
+         */
+
+
         this._number_of_main_menu_rows = 0;
     },
 
@@ -271,7 +289,18 @@ PlayerMenu.prototype = {
     set_to_visible: function() {
         this._player_menu.restart_all_animations();
 
+        /*
+                if (this.attached_to_player) {
+            var player_position = CURRENT_PLAYER.get_position();
+            var player_normal = CURRENT_PLAYER.get_direction();
 
+            this.animation_start_position_x = player_position.x;
+            this.animation_start_position_y = player_position.y;
+            this.animation_start_position_z = player_position.z;
+
+            this.animation_offset = this.get_animation_total_offset(player_normal);
+
+        this.animation_start_position_x*/
 
         var pp = CURRENT_PLAYER.get_position();
         var pd = CURRENT_PLAYER.get_direction();
@@ -310,15 +339,6 @@ PlayerMenu.prototype = {
 
     },
 
-    _add_menu_icon: function(icon, list_of_icons_not_to_load) {
-        if (!is_defined(this.icons)) {
-            this.icons = [];
-        }
-        if (!list_of_icons_not_to_load.contains(icon)) {
-            this.icons.push(new MenuIcon(icon, this.world, this.icons.length, this));
-        }
-    },
-
     // This function gets called once per player menu object.
     load_icon_textures: function() {
         if (this.world === MANAGER_WORLD.world_login) {
@@ -348,12 +368,22 @@ PlayerMenu.prototype = {
 
         // TODO : Add the icons once the menu display works!
 
+        var label;
+
         switch (icon) {
             case ICON_WRENCH:
-                var menu_button = this._player_menu.add_row_2D_text([0, 1], this._number_of_main_menu_rows, 'create', TYPE_CONSTANT);
-
+                label = 'create';
+                break;
+            case ICON_FULLSCREEN:
+                label = 'fullscreen';
                 break;
         }
+
+        var menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, [-30, null], [40 * this._number_of_main_menu_rows, HALF], 150,label, TYPE_BUTTON);
+
+        menu_button.set_animation_horizontal_offset(-30, null);
+        menu_button.set_animation_vertical_offset(null, HALF);
+        menu_button.set_animation_depth_offset(150);
 
         this._number_of_main_menu_rows += 1;
     },

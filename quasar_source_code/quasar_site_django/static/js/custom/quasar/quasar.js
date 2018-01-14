@@ -16,8 +16,8 @@ var previous_time = performance.now();
 var total_delta = 0;
 var position_update_interval = 1 / 20;
 
-var animate = function () {
-    requestAnimationFrame(animate);
+var quasar_main_loop = function () {
+    requestAnimationFrame(quasar_main_loop);
     MANAGER_RENDERER.pre_render();
 
     var time = performance.now();
@@ -56,4 +56,4 @@ var animate = function () {
     previous_time = time;
 };
 
-animate();
+quasar_main_loop();
