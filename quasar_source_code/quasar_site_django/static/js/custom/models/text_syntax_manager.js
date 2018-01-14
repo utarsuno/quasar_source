@@ -127,13 +127,13 @@ TextSyntaxManager.prototype = {
     add_label_and_input: function(label, input) {
         var warning_icon = get_new_floating_icon(ICON_WARNING, this.world);
         warning_icon.set_attachment_horizontal_offset(16, HALF);
-        warning_icon.set_attachment_depth(1);
+        warning_icon.set_attachment_depth_offset(1);
         warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
         warning_icon.manual_visibility = true;
 
         var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);
         success_icon.set_attachment_horizontal_offset(16, HALF);
-        success_icon.set_attachment_depth(1);
+        success_icon.set_attachment_depth_offset(1);
         success_icon.set_attachment_name(ATTACHMENT_NAME_SUCCESS);
         success_icon.manual_visibility = true;
 
@@ -146,7 +146,7 @@ TextSyntaxManager.prototype = {
         this._final_button = button;
 
         var cross_icon = get_new_floating_icon(ICON_CROSS, this.world);
-        cross_icon.set_attachment_depth(1);
+        cross_icon.set_attachment_depth_offset(1);
         cross_icon.set_attachment_name(ATTACHMENT_NAME_ERROR);
         cross_icon.manual_visibility = true;
 
