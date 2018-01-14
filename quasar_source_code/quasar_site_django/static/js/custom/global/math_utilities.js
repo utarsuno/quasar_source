@@ -68,7 +68,7 @@ function get_nearest_power_of_two_for_number(n) {
 // TODO : add quality assurance to make sure x and z form a 2D unit vector. (Add the check only for DEV/QA mode)
 function get_left_right_unit_vector(x, z) {
     var left_right = new THREE.Vector3(x, 0, z);
-    left_right.crossVector(UP_VECTOR);
+    left_right.cross(UP_VECTOR);
     left_right.normalize();
     return left_right;
 }
