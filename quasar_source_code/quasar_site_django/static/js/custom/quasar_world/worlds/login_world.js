@@ -84,11 +84,13 @@ LoginWorld.prototype = {
     },
 
     __init__: function() {
-        this.post_create_account = new PostHelper(POST_URL_CREATE_ACCOUNT);
-        this.post_login          = new PostHelper(POST_URL_LOGIN);
-
         // Inherit from World.
         World.call(this, 'LoginWorld');
+    },
+
+    create_world: function() {
+        this.post_create_account = new PostHelper(POST_URL_CREATE_ACCOUNT);
+        this.post_login          = new PostHelper(POST_URL_LOGIN);
 
         /*__             __        __     ___   ___       ___
          /  \ |  |  /\  /__`  /\  |__)     |  |  |  |    |__

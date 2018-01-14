@@ -12,13 +12,14 @@ HomeWorld.prototype = {
     loaded_entities: null,
 
     __init__: function() {
+        // Inherit from World.
         World.call(this, 'HomeWorld');
+    },
 
+    create_world: function() {
         this.loaded_entities = false;
         this.entity_walls = [];
-
         this.schedule_loaded = false;
-
         this.add_to_schedules = false;
     },
 

@@ -258,11 +258,16 @@ LoadingManager.prototype = {
         this._load_icons_for_world(MANAGER_WORLD.world_home);
         this._load_icons_for_world(MANAGER_WORLD.world_settings);
 
+        MANAGER_WORLD.world_home.create_world();
+        MANAGER_WORLD.world_settings.create_world();
+
         l('Loading finished!');
     },
 
     // Occurs only once on client initial connection.
     perform_initial_load: function() {
+        MANAGER_WORLD.world_login.create_world();
+
         // Sets the player and current world.
         MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
 

@@ -55,10 +55,12 @@ SettingsWorld.prototype = {
     __init__: function() {
         // Inherit world properties.
         World.call(this, 'SettingsWorld');
+    },
 
-        /* __   __   __   ___         ___
-          |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
-          |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
+    create_world: function() {
+        /*__   __   __   ___         ___
+         |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
+         |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
         var wall_profile_position = new THREE.Vector3(500, 500, 700);
         var wall_profile_width    = 650;
         var wall_profile_height   = 512 / 2;
@@ -103,9 +105,9 @@ SettingsWorld.prototype = {
         this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT, 4);
         this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 4);
 
-        /* __   ___ ___ ___         __   __
-          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
-          .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
+        /*__   ___ ___ ___         __   __
+         /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
+         .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
 
         var wall_settings_position = new THREE.Vector3(1150, 600, 200);
         var wall_settings_width    = 600;

@@ -19,10 +19,6 @@ function World(planet_name) {
 
     this._previously_intersected_plane = null;
 
-
-
-
-
     // Base code from : https://codepen.io/asjas/pen/pWawPm
     var Element = function ( id, x, y, z, ry ) {
 

@@ -8,6 +8,8 @@ FinanceWorld.prototype = {
 
     __init__: function () {
         World.call(this, 'FinanceWorld');
-    }
+    },
 
+    create_world: function() {
+    }
 };

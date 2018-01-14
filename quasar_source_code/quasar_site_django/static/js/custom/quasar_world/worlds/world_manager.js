@@ -61,13 +61,10 @@ WorldManager.prototype = {
         this.current_world.key_down_event_for_interactive_objects(event);
     },
 
-    add_to_current_scene: function(object) {
-        this.current_world.add(object);
-    },
-
     add_to_all_scenes: function(object) {
         this.world_login.add_to_scene(object);
         this.world_home.add_to_scene(object);
+        this.world_settings.add_to_scene(object);
     }
 
 };
