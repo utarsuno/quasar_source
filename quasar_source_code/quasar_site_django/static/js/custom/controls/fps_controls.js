@@ -69,15 +69,15 @@ FPSControls.prototype = {
     },
 
     fly_left: function(delta) {
-        this.velocity.x += 200 * delta * this.left_right.x;
-        this.velocity.y += 200 * delta * this.left_right.y;
-        this.velocity.z += 200 * delta * this.left_right.z;
-    },
-
-    fly_right: function(delta) {
         this.velocity.x -= 200 * delta * this.left_right.x;
         this.velocity.y -= 200 * delta * this.left_right.y;
         this.velocity.z -= 200 * delta * this.left_right.z;
+    },
+
+    fly_right: function(delta) {
+        this.velocity.x += 200 * delta * this.left_right.x;
+        this.velocity.y += 200 * delta * this.left_right.y;
+        this.velocity.z += 200 * delta * this.left_right.z;
     },
 
     fly_forward: function(delta) {
