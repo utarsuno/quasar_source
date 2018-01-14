@@ -223,10 +223,11 @@ InputManager.prototype = {
             break;
         case CLICK_RIGHT:
             if (!this.click_down_right) {
-                // The player menu will only get set to visible if the correct conditions are present.
-                if (!GUI_PAUSED_MENU.is_visible()) {
-                    if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-                        MANAGER_WORLD.current_player_menu.set_to_visible();
+                if (!is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
+                    if (!GUI_PAUSED_MENU.is_visible()) {
+                        if (!MANAGER_WORLD.current_player_menu.is_visible()) {
+                            MANAGER_WORLD.current_player_menu.set_to_visible();
+                        }
                     }
                 }
             }

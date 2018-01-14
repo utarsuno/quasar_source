@@ -136,10 +136,6 @@ module.exports = {
 
         "DragNDrop": false,
 
-        "HALF_PIE": false,
-        "PIE": false,
-        "TWO_PIE": false,
-
         "Entity": false,
         "EntityWall": false,
         "CreateEntity": false,
@@ -418,26 +414,12 @@ module.exports = {
         "KEY_CODE_CONTROL"   : false,
         "KEY_CODE_BACK_SLASH": false,
 
-        // Math world constants.
-        "DIAGONAL_PENALTY": false,
-        "GROUND_NORMAL"   : false,
-        "ONE_THIRD"       : false,
-        "TWO_THIRDS"      : false,
-        "HALF"            : false,
-
         // Shortcuts.
         "l"                                  : false,
         // Python syntax imitation.
         "str"                                : false,
         "int"                                : false,
         "len"                                : false,
-        // Math shortcuts.
-        "pow"                                : false,
-        "sin"                                : false,
-        "cos"                                : false,
-        "sqrt"                               : false,
-        "squared"                            : false,
-        "get_nearest_power_of_two_for_number": false,
 
         "is_entity_property"                 : false,
         "raise_exception"                    : false,
@@ -446,7 +428,6 @@ module.exports = {
         "is_list"                            : false,
         "string_contains"                    : false,
         "is_defined"                         : false,
-        "round_to_n_decimal_places"          : false,
 
         "is_email_valid": false,
 
@@ -479,7 +460,38 @@ module.exports = {
         "get_days_in_month"                                 : false,
         "get_current_month"                                 : false,
         "get_current_year"                                  : false,
-        "get_all_days_in_current_month"                     : false
+        "get_all_days_in_current_month"                     : false,
+
+        //           ___
+        // |\/|  /\   |  |__|
+        // |  | /~~\  |  |  |
+
+        // Utility constants.
+        "DIAGONAL_PENALTY": false,
+        "GROUND_NORMAL"   : false,
+        "ONE_THIRD"       : false,
+        "ONE_FOURTH"      : false,
+        "THREE_FOURTHS"   : false,
+        "TWO_THIRDS"      : false,
+        "HALF"            : false,
+        "HALF_PIE"        : false,
+        "PIE"             : false,
+        "TWO_PIE"         : false,
+
+        // World constants.
+        // none needed for now
+
+        // Utility functions and shortcuts.
+        "pow"                                : false,
+        "sin"                                : false,
+        "cos"                                : false,
+        "sqrt"                               : false,
+        "squared"                            : false,
+        "get_nearest_power_of_two_for_number": false,
+        "round_to_n_decimal_places"          : false,
+
+        // World physics functions.
+        "get_left_right_unit_vector" : false
 
     }
 };

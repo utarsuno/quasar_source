@@ -212,10 +212,10 @@ MenuIcon.prototype = {
         this.object3D.position.set(position.x, this.y_position, position.z);
         this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, this.y_position, position.z + nz * 5));
 
+        // TODO : Delete this?
         this.normal = new THREE.Vector3(nx, 0, nz);
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.normal);
-        this.left_right.normalize();
+
+        this.left_right = get_left_right_unit_vector(nx, nz);
 
         var horizontal_shift = 60;
 
@@ -234,16 +234,16 @@ MenuIcon.prototype = {
 
 PlayerMenu.prototype = {
 
-    world: null,
-
     __init__: function(world) {
         this.world = world;
 
-        this.visible = false;
-        this.total_delta = 0;
+        // TODO : Make a better design for the temp values.
+        var temp_position = new Vector3(-10000, -10000, -10000);
+        var temp_normal   = new Vector3(0, 0, 0);
+        this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
+        this._player_menu.make_base_wall_invisible();
 
-        // Only used for the initial loading.
-        this.current_row = 0;
+        this.total_delta = 0;
     },
 
     set_to_invisible: function() {
@@ -256,10 +256,6 @@ PlayerMenu.prototype = {
     },
 
     set_to_visible: function() {
-        if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-            return;
-        }
-
         this.visible = true;
         this.total_delta = 0;
 
@@ -304,12 +300,11 @@ PlayerMenu.prototype = {
     },
 
     _add_menu_icon: function(icon, list_of_icons_not_to_load) {
-        if (this.current_row === 0) {
+        if (!is_defined(this.icons)) {
             this.icons = [];
         }
         if (!list_of_icons_not_to_load.contains(icon)) {
-            this.icons.push(new MenuIcon(icon, this.world, this.current_row, this));
-            this.current_row += 1;
+            this.icons.push(new MenuIcon(icon, this.world, this.icons.length, this));
         }
     },
 

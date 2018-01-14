@@ -38,7 +38,6 @@ function Attachmentable() {
         }
     };
 
-    // TODO : Change this to support having offsets be composed of a pixel offset + %width/height offset
     this.add_floating_2D_text = function(width, horizontal_offset, vertical_offset, depth_offset, text, type) {
         var floating_2D_text = new Floating2DText(width, text, type, this.world);
         if (is_defined(horizontal_offset)) {
@@ -97,7 +96,6 @@ function Attachmentable() {
             var position_offset = this.get_position_offset();
             this.object3D.position.set(x + position_offset.x, y + position_offset.y, z + position_offset.z);
         }
-
         if (refresh) {
             this._refresh_look_at();
             this.update_all_child_attachments();
@@ -108,17 +106,12 @@ function Attachmentable() {
     this.set_normal = function(x, y, z, refresh) {
         this.normal = new THREE.Vector3(x, y, z);
         this.normal.normalize();
-
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.normal);
-        this.left_right.normalize();
-
+        this.left_right = get_left_right_unit_vector(this.normal.x, this.normal.z);
         if (refresh) {
             this._refresh_look_at();
             this.update_all_child_attachments();
         }
     };
-
 
     this.set_attachment_name = function(n) {
         this.relative_name = n;
@@ -201,7 +194,7 @@ function Attachmentable() {
         if (is_defined(this.left_right)) {
             return this.left_right;
         } else {
-            return this.attachment_parent.left_right;
+            return this.attachment_parent.get_left_right();
         }
     };
 
@@ -213,7 +206,7 @@ function Attachmentable() {
         var attachments = [];
         for (var a = 0; a < this.attachments.length; a++) {
             attachments.push(this.attachments[a]);
-            var attachments_of_this_attachment = this.attachments[a].get_all_attachments_recursively();
+            var attachments_of_this_attachment = this.attachments[a]._get_all_attachments_recursively();
             for (var aa = 0; aa < attachments_of_this_attachment.length; aa++) {
                 attachments.push(attachments_of_this_attachment[aa]);
             }

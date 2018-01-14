@@ -34,20 +34,8 @@ var GUI_TYPING_INTERFACE = null;
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
-// World math constants.
-const DIAGONAL_PENALTY = Math.sqrt(.5);
-const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
-const ONE_THIRD        = 1 / 3;
-const TWO_THIRDS       = 2 / 3;
-
 // Logical constants.
 const NOT_FOUND = -1;
-
-// Math constants.
-const HALF_PIE = Math.PI / 2.0;
-const PIE = Math.PI;
-const TWO_PIE = Math.PI * 2.0;
-const HALF = 0.5;
 
 // UNIVERSAL_CONSTANTS_START : Web socket message types.
 const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
@@ -107,7 +95,6 @@ const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relat
 // UNIVERSAL_CONSTANTS_START : Entity POST keys.
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
-
 
 const SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION = 'eoo';
 const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
@@ -382,46 +369,6 @@ function str(o) {
 
 function int(f) {
     return f | 0;
-}
-
-
-// Math shortcuts.
-function pow(n, p) {
-    return Math.pow(n, p);
-}
-
-function cos(n) {
-    return Math.cos(n);
-}
-
-function sin(n) {
-    return Math.sin(n);
-}
-
-function sqrt(n) {
-    return Math.sqrt(n);
-}
-
-function squared(n) {
-    return n * n;
-}
-
-function round_to_n_decimal_places(text, n) {
-    return Number(text).toFixed(n);
-}
-
-// From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
-function get_nearest_power_of_two_for_number(n) {
-    var v = n;
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    v++; // next power of 2
-    var x = v >> 1; // previous power of 2
-    return (v - n) > (n - x) ? x : v;
 }
 
 function is_entity_property(property) {

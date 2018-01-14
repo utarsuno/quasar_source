@@ -18,18 +18,27 @@ print(camera_direction.project_onto_plane(ground_normal))
 '''
 
 
-a = Vector(-40, -20, -150)
-b = Vector(-40, -20, 40)
-c = Vector(80, -20, 150)
+a = Vector(20, 300, 40)
 
 
-line_a = a - b
-line_b = b - c
-print(line_a)
-print(line_b)
-
-print(line_a.cross(line_b))
+c = Vector(a.elements[0], 0, a.elements[2])
+c = c.normalized
 
 
+a = a.normalized
 
+
+b = Vector(0, 1, 0)
+
+print(a.cross(b).normalized)
+print(b.cross(a).normalized)
+
+print()
+
+print(c.cross(b).normalized)
+print(b.cross(c).normalized)
+
+print()
+
+print(c)
 

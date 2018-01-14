@@ -50,6 +50,22 @@ FloatingWall.prototype = {
         this.previous_cursor_y_position = null;
 
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
+
+        this.make_base_wall_visible();
+    },
+
+    make_base_wall_invisible: function() {
+        this._make_base_wall_visible = false;
+        if (is_defined(this.mesh)) {
+            this.mesh.visible = false;
+        }
+    },
+
+    make_base_wall_visible: function() {
+        this._make_base_wall_visible = true;
+        if (is_defined(this.mesh)) {
+            this.mesh.visible = true;
+        }
     },
 
     _create_base_wall: function() {
@@ -58,6 +74,9 @@ FloatingWall.prototype = {
         // Now re-create the base wall.
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+        if (!this._make_base_wall_visible) {
+            this.mesh.visible = false;
+        }
         this.object3D.add(this.mesh);
     },
 

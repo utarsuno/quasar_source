@@ -263,15 +263,18 @@ FPSControls.prototype = {
         this.pitch.rotation.x = Math.max(-0.999 * HALF_PIE, Math.min(HALF_PIE - 0.001, this.mouse_movement_y_buffer.get_current_value()));
 
         this.direction_vector = this.get_direction();
+
+        this.walking_direction = new THREE.Vector3(this.direction_vector.x, 0, this.direction_vector.z);
+        this.walking_direction.normalize();
+
         this.direction_vector.normalize();
 
-        this.left_right = new THREE.Vector3(0, 1, 0);
-        this.left_right.cross(this.direction_vector);
-        this.left_right.normalize();
+        this.left_right = get_left_right_unit_vector(this.walking_direction.x, this.walking_direction.z);
 
-        this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
-        this.walking_direction = this.walking_direction.projectOnPlane(GROUND_NORMAL);
-        this.walking_direction.normalize();
+        // TODO : Delete this once confirmed that walking_direction still works as intended
+        //this.walking_direction = new THREE.Vector3(this.direction_vector.x, this.direction_vector.y, this.direction_vector.z);
+        //this.walking_direction = this.walking_direction.projectOnPlane(GROUND_NORMAL);
+        //this.walking_direction.normalize();
     },
 
     on_mouse_move: function(event) {
