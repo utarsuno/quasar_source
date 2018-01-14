@@ -71,6 +71,7 @@ function FloatingText(text, type, world, is_2D_text) {
     this.type          = type;
     this.world         = world;
     this.scene         = this.world.scene;
+    this.scene.add(this.object3D);
 
     this.text_changed = false;
     this.color_changed = false;

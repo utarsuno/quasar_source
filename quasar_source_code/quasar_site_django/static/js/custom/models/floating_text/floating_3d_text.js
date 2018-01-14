@@ -61,8 +61,6 @@ Floating3DText.prototype = {
 
         this._create_3D_text_internally();
 
-        this.world.scene.add(this.object3D);
-
         // Inherit from FloatingText.
         FloatingText.call(this, text, type, world, false);
         // Inherit from Interactive.
