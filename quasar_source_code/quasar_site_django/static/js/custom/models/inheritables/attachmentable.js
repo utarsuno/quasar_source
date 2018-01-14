@@ -15,12 +15,6 @@ function Attachmentable() {
     // A name given to find this attachment later.
     this.relative_name = null;
 
-    this.normal = null;
-
-    this.attach_to = function(attachment_parent) {
-        attachment_parent.add_attachment(this);
-    };
-
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
         var position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
         var floating_wall;
@@ -54,15 +48,6 @@ function Attachmentable() {
         return floating_2D_text;
     };
 
-    this.add_attachment = function(attachment) {
-        this.attachments.push(attachment);
-        if (this.root_parent === null) {
-            attachment.root_parent = this;
-        } else {
-            attachment.root_parent = this.root_parent;
-        }
-    };
-
     // WARNING : This is recursive. Change the design later.
     this.update_all_child_attachments = function() {
         var parent_position = this.get_position();
@@ -70,6 +55,22 @@ function Attachmentable() {
             this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
             this.attachments[a]._refresh_look_at();
             this.attachments[a].update_all_child_attachments();
+        }
+    };
+
+    /*    ___ ___       __               __
+      /\   |   |   /\  /  ` |__| | |\ | / _`
+     /~~\  |   |  /~~\ \__, |  | | | \| \__> */
+    this.attach_to = function(attachment_parent) {
+        attachment_parent.add_attachment(this);
+    };
+
+    this.add_attachment = function(attachment) {
+        this.attachments.push(attachment);
+        if (this.is_root()) {
+            attachment.root_parent = this;
+        } else {
+            attachment.root_parent = this.root_parent;
         }
     };
 
@@ -200,7 +201,7 @@ function Attachmentable() {
     };
 
     this.is_root = function() {
-        return this.attachment_parent === null;
+        return !is_defined(this.attachment_parent);
     };
 
     this._get_all_attachments_recursively = function() {
