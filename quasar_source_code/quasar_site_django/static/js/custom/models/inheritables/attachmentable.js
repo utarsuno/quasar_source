@@ -66,10 +66,9 @@ function Attachmentable() {
     // WARNING : This is recursive. Change the design later.
     this.update_all_child_attachments = function() {
         var parent_position = this.get_position();
-        this.set_position(parent_position.x, parent_position.y, parent_position.z, false);
-        this._refresh_look_at();
-
         for (var a = 0; a < this.attachments.length; a++) {
+            this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
+            this.attachments[a]._refresh_look_at();
             this.attachments[a].update_all_child_attachments();
         }
     };
@@ -113,8 +112,6 @@ function Attachmentable() {
             this._refresh_look_at();
             this.update_all_child_attachments();
         }
-        l('THE NORMAL VECTOR IS NOW :');
-        l(this.normal);
     };
 
     this.set_attachment_name = function(n) {
