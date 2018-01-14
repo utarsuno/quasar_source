@@ -34,7 +34,7 @@ function Attachmentable() {
             floating_wall.set_attachment_vertical_offset(vertical_offset[0], vertical_offset[1]);
         }
         if (is_defined(depth_offset)) {
-            floating_wall.set_attachment_depth(depth_offset);
+            floating_wall.set_attachment_depth_offset(depth_offset);
         }
     };
 
@@ -48,7 +48,7 @@ function Attachmentable() {
             floating_2D_text.set_attachment_vertical_offset(vertical_offset[0], vertical_offset[1]);
         }
         if (is_defined(depth_offset)) {
-            floating_2D_text.set_attachment_depth(depth_offset);
+            floating_2D_text.set_attachment_depth_offset(depth_offset);
         }
         return floating_2D_text;
     };
@@ -64,7 +64,7 @@ function Attachmentable() {
 
     // WARNING : This is recursive. Change the design later.
     this.update_all_child_attachments = function() {
-        var parent_position = this.attachment_parent.get_position();
+        var parent_position = this.get_position();
         this.set_position(parent_position.x, parent_position.y, parent_position.z, false);
         this._refresh_look_at();
 
