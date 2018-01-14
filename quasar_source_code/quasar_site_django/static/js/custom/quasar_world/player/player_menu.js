@@ -328,8 +328,6 @@ PlayerMenu.prototype = {
 
         this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
         this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
-
-        this.set_to_invisible();
     }
 
 };
