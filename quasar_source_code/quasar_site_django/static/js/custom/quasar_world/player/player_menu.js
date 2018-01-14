@@ -247,6 +247,7 @@ PlayerMenu.prototype = {
         this.total_delta = 0;
     },
 
+
     set_to_invisible: function() {
         this.visible = false;
         if (is_defined(this.icons)) {
@@ -274,7 +275,7 @@ PlayerMenu.prototype = {
     },
 
     is_visible: function() {
-        return this.visible;
+        return this._player_menu.is_visible();
     },
 
     update: function(delta) {
