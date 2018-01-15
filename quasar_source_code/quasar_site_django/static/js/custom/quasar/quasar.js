@@ -13,9 +13,6 @@ GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
 
 var previous_time = performance.now();
 
-var total_delta = 0;
-var position_update_interval = 1 / 20;
-
 var quasar_main_loop = function () {
     requestAnimationFrame(quasar_main_loop);
     MANAGER_RENDERER.pre_render();
@@ -26,21 +23,13 @@ var quasar_main_loop = function () {
     MANAGER_DATA_DISPLAY.update();
 
     // TODO : Refactor this logic into ManagerWorld?
-    if (MANAGER_WORLD.current_floating_cursor.engaged) {
-        MANAGER_WORLD.current_floating_cursor.update();
-    }
+    //if (MANAGER_WORLD.current_floating_cursor.engaged) {
+    //    MANAGER_WORLD.current_floating_cursor.update();
+    //}
 
-    MANAGER_MULTIPLAYER.update(delta);
+    //MANAGER_MULTIPLAYER.update(delta);
     CURRENT_PLAYER.update(delta);
     MANAGER_WORLD.update_current_world(delta);
-
-    total_delta += delta;
-    if (total_delta >= position_update_interval) {
-        if (MANAGER_MULTIPLAYER.players.length > 1) {
-            CURRENT_PLAYER.try_to_send_position_update_to_server();
-        }
-        total_delta -= position_update_interval;
-    }
 
     ////
     if (GUI_TYPING_INTERFACE.needs_an_update()) {
@@ -54,3 +43,5 @@ var quasar_main_loop = function () {
 };
 
 quasar_main_loop();
+
+

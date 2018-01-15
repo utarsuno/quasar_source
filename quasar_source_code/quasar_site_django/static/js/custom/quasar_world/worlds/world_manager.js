@@ -54,9 +54,11 @@ WorldManager.prototype = {
         if (this.current_world !== null) {
             // Before exiting the world make sure to remove the camera reference.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
-
             this.current_world.exit_world();
-            this.current_world.current_world = false;
+
+            // TODO : figure out if this is used
+            //this.current_world.current_world = false;
+
             this.previous_world = this.current_world;
         }
         this.current_world = world;
@@ -79,6 +81,13 @@ WorldManager.prototype = {
         this.world_settings.add_to_scene(object);
 
         // TODO : Make sure dynamic worlds are dealt with.
+    },
+
+    create_world: function(world) {
+        world.raycaster = new THREE.Raycaster();
+        world.create_world();
     }
 
 };
+
+

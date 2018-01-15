@@ -258,25 +258,20 @@ LoadingManager.prototype = {
         this._load_icons_for_world(MANAGER_WORLD.world_home);
         this._load_icons_for_world(MANAGER_WORLD.world_settings);
 
-        MANAGER_WORLD.world_home.create_world();
-        MANAGER_WORLD.world_settings.create_world();
+        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
+        MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
 
         l('Loading finished!');
     },
 
     // Occurs only once on client initial connection.
     perform_initial_load: function() {
-
-
-        MANAGER_WORLD.world_login.create_world();
-
-        // Sets the player and current world.
-        MANAGER_WORLD.set_player_and_current_world(MANAGER_WORLD.world_login);
-
+        l('Performing the initial load!');
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
         this.textures_icon.load_textures();
         this.all_audio.load_audio_buffers();
+        l('Initial load finished!');
     },
 
     currently_loading: function() {

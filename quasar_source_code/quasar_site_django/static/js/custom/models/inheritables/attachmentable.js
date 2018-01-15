@@ -1,9 +1,11 @@
 'use strict';
 
 
-function Attachmentable() {
+function Attachmentable(world) {
 
     this.object3D = new THREE.Object3D();
+    this.world    = world;
+    this.world.add_to_scene(this.object3D);
 
     // All attachments will inherit Attachmentable.
     this.attachments = [];

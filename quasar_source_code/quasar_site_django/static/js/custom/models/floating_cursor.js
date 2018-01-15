@@ -7,14 +7,19 @@ function FloatingCursor(world) {
 FloatingCursor.prototype = {
 
     __init__: function(world) {
+        this.cursor_wall = new FloatingWall(16, 16, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), world, false);
+
+        this.cursor_wall.add
+
         this.cursors = {};
 
         // TODO : Dispose of this original material later on.
-        this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, side: THREE.DoubleSide});
-        this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
+        //this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, side: THREE.DoubleSide});
+        //this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
 
         this.previous_cursor = null;
-        this.current_cursor = this.cursor_temp;
+        this.current_cursor  = null;
+        //this.current_cursor = this.cursor_temp;
 
         this.object3D = new THREE.Object3D();
         this.object3D.add(this.cursor_temp);
@@ -71,10 +76,12 @@ FloatingCursor.prototype = {
         }
 
         var cursor_plane_geometry = new THREE.PlaneGeometry(this.width, this.height, 1);
+
         var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
         c.userData.name = cursor_name;
         c.visible = false;
-        this.object3D.add(c);
+        //this.object3D.add(c);
+
         //this.scene.add(c);
         this.cursors[cursor_name] = c;
     },
@@ -148,7 +155,12 @@ FloatingCursor.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     _create_cursor: function(cursor_type) {
+        this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
+
         var cursor_texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, cursor_type);
+
+        var c = new Floating2DText();
+
 
         var cursor_geometry = new THREE.PlaneGeometry(16, 16);
         var cursor_material = new THREE.MeshBasicMaterial({side : THREE.FrontSide, map : cursor_texture, transparent: true});
@@ -157,7 +169,6 @@ FloatingCursor.prototype = {
     },
 
     load_all_cursors: function() {
-        this.object3D = new THREE.Object3D();
         this._create_cursor(CURSOR_TYPE_HORIZONTAL);
         this._create_cursor(CURSOR_TYPE_VERTICAL);
         this._create_cursor(CURSOR_TYPE_HAND);

@@ -6,7 +6,6 @@ function World(planet_name) {
 
     this.currently_looked_at_object = null;
     this.raycaster                  = null;
-    this.current_world              = false;
     this.scene                      = new THREE.Scene();
 
     this.root_attachables = [];
@@ -84,11 +83,6 @@ function World(planet_name) {
         }
         // Next remove the object from the scene.
         this.remove_from_scene(object_to_remove);
-    };
-
-    this.set_player = function() {
-        this.raycaster = new THREE.Raycaster(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
-        this.currently_looked_at_object = null;
     };
 
     this.set_cursor_position = function(position) {
@@ -518,4 +512,6 @@ function World(planet_name) {
         skybox_cube.position.set(0, 0, 0);
         this.add_to_scene(skybox_cube);
     };
+
+
 }

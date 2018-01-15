@@ -11,7 +11,7 @@ FloatingWall.prototype = {
     __init__: function (width, height, position, normal, world, scalable) {
 
         // Inherit from Attachmentable.
-        Attachmentable.call(this);
+        Attachmentable.call(this, world);
 
         // Inherit from Animatable.
         Animatable.call(this);
@@ -19,13 +19,8 @@ FloatingWall.prototype = {
         this.set_normal(normal.x, normal.y, normal.z, false);
         this.set_position(position.x, position.y, position.z, true);
 
-
-
         this.width = width;
         this.height = height;
-
-        this.world = world;
-        this.scene = this.world.scene;
 
         this.material = new THREE.MeshBasicMaterial({
             // TODO : THE COLOR IS TEMPORARY!!!
@@ -44,8 +39,6 @@ FloatingWall.prototype = {
         if (!is_defined(this.scalable)) {
             this.scalable = false;
         }
-
-        this.scene.add(this.object3D);
 
         // TODO : Double check this design.
         this.current_cursor = null;

@@ -320,6 +320,4 @@ PlayerMenu.prototype = {
         this._number_of_main_menu_rows += 1;
     },
 
-
-
 };

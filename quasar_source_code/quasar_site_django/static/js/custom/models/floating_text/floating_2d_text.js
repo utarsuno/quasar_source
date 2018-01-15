@@ -110,7 +110,6 @@ Floating2DText.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.object3D.add(this.mesh);
-        world.scene.add(this.object3D);
 
         // Inherit from Interactive.
         Interactive.call(this);

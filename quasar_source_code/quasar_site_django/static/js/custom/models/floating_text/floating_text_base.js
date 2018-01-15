@@ -69,9 +69,6 @@ function FloatingText(text, type, world, is_2D_text) {
      \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
     this.is_2D_text    = is_2D_text;
     this.type          = type;
-    this.world         = world;
-    this.scene         = this.world.scene;
-    this.scene.add(this.object3D);
 
     this.text_changed = false;
     this.color_changed = false;
@@ -82,7 +79,7 @@ function FloatingText(text, type, world, is_2D_text) {
     this.set_default_color(COLOR_TEXT_DEFAULT, false);
     this.set_color(COLOR_TEXT_DEFAULT, false);
 
-    this.format_type   = null;
+    this.format_type = null;
 
     if (this.type === TYPE_PASSWORD) {
         this.hidden_text = text;
