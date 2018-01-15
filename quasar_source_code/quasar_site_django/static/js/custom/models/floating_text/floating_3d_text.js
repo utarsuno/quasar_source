@@ -61,14 +61,14 @@ Floating3DText.prototype = {
             this.text_height = 1;
         }
 
-        this._create_3D_text_internally();
-
         // Inherit from Interactive.
         Interactive.call(this);
         // Inherit from Visibility.
         Visibility.call(this);
 
         this.final_initialize();
+
+        this._create_3D_text_internally();
     },
 
     _create_3D_text_internally: function() {

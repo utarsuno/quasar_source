@@ -4,9 +4,6 @@ const LIGHT_CIRCLE_RADIUS = 1000;
 
 function World(planet_name) {
 
-    this.planet_position            = null;
-    this.planet_name                = planet_name;
-
     this.currently_looked_at_object = null;
     this.raycaster                  = null;
     this.current_world              = false;
