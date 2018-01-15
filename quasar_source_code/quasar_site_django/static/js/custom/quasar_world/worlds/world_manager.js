@@ -45,7 +45,7 @@ WorldManager.prototype = {
             this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
         }
 
-        this.update_interactive_objects();
+        this.current_world.update_interactive_objects();
 
         this.current_world.floating_cursor.update();
     },
