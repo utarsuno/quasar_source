@@ -111,6 +111,10 @@ function FloatingText(text, type, world, is_2D_text) {
             break;
         }
 
+        if (type === TYPE_INPUT || type === TYPE_PASSWORD || type === TYPE_BUTTON) {
+            this.world.interactive_objects.push(this);
+        }
+
         if(!is_defined(this.current_color)) {
             switch (this.type) {
             case TYPE_BUTTON:

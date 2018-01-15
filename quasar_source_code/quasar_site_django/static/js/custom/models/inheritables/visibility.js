@@ -36,6 +36,8 @@ function Visibility() {
     /*__   ___  __          __   ___  __          ___ ___       __              ___      ___  __  
      |__) |__  /  \ |  | | |__) |__  /__`     /\   |   |   /\  /  ` |__|  |\/| |__  |\ |  |  /__` 
      |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
+
+
     this.display_self_and_all_child_attachments_recursively = function() {
         this.set_to_visible();
         var all_attachments = this._get_all_attachments_recursively();

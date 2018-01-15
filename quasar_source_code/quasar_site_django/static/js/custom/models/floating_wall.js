@@ -292,10 +292,6 @@ FloatingWall.prototype = {
         var floating_2D_text_width = this.width * total_percentage_of_parent_width;
         var floating_2D_text = new Floating2DText(floating_2D_text_width, text, type, this.world, syntax_checks);
 
-        if (type === TYPE_INPUT || type == TYPE_PASSWORD || type === TYPE_BUTTON) {
-            this.world.interactive_objects.push(floating_2D_text);
-        }
-
         floating_2D_text.set_attachment_depth_offset(1);
         floating_2D_text.set_attachment_horizontal_offset(0, -HALF + x_start_and_stop[0] + total_percentage_of_parent_width / 2);
 

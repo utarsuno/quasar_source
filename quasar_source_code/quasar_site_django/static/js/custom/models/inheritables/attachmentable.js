@@ -32,8 +32,7 @@ function Attachmentable() {
         if (is_defined(depth_offset)) {
             floating_wall.set_attachment_depth_offset(depth_offset);
         }
-        // TODO : Add to the interactive list?
-        // return the floating wall?
+        return floating_wall;
     };
 
     this.add_floating_2D_text = function(width, horizontal_offset, vertical_offset, depth_offset, text, type) {
@@ -47,7 +46,6 @@ function Attachmentable() {
         if (is_defined(depth_offset)) {
             floating_2D_text.set_attachment_depth_offset(depth_offset);
         }
-        // TODO : Add to interactive list.
         return floating_2D_text;
     };
 
@@ -123,12 +121,14 @@ function Attachmentable() {
     };
 
     this.set_attachment_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {
-        this.offset_horizontal_distance                = distance_offset;
+        // No need for is_defined checks as the values will be checked before being used.
+        this.offset_horizontal_distance = distance_offset;
         this.offset_horizontal_parent_width_percentage = parent_width_percentage_offset;
     };
 
     this.set_attachment_vertical_offset = function(distance_offset, parent_height_percentage_offset) {
-        this.offset_vertical_distance                 = distance_offset;
+        // No need for is_defined checks as the values will be checked before being used.
+        this.offset_vertical_distance = distance_offset;
         this.offset_vertical_parent_height_percentage = parent_height_percentage_offset;
     };
 

@@ -25,17 +25,14 @@ var quasar_main_loop = function () {
 
     MANAGER_DATA_DISPLAY.update();
 
+    // TODO : Refactor this logic into ManagerWorld?
     if (MANAGER_WORLD.current_floating_cursor.engaged) {
         MANAGER_WORLD.current_floating_cursor.update();
     }
 
-    if (MANAGER_WORLD.current_player_menu.is_visible()) {
-        MANAGER_WORLD.current_player_menu.update(delta);
-    }
-
     MANAGER_MULTIPLAYER.update(delta);
     CURRENT_PLAYER.update(delta);
-    MANAGER_WORLD.update_current_scene(delta);
+    MANAGER_WORLD.update_current_world(delta);
 
     total_delta += delta;
     if (total_delta >= position_update_interval) {

@@ -71,44 +71,7 @@ MenuIcon.prototype = {
         }
     },
 
-    /*__   __   ___      ___  ___
-     /  ` |__) |__   /\   |  |__
-     \__, |  \ |___ /~~\  |  |___ */
-    display_create_options: function() {
-        this._display_utility_wall(this.create_wall);
-    },
-
-    hide_create_options: function() {
-        this._hide_utility_wall(this.create_wall);
-    },
-
-    /*___  ___       ___  __   __   __  ___
-       |  |__  |    |__  |__) /  \ |__)  |
-       |  |___ |___ |___ |    \__/ |  \  |  */
-    display_teleport_worlds: function() {
-        this._display_utility_wall(this.teleport_wall);
-    },
-
-    hide_teleport_worlds: function() {
-        this._hide_utility_wall(this.teleport_wall);
-    },
-
     __init__: function(icon_type, world, row, player_menu) {
-        // Inherit from Attachmentable.
-        Attachmentable.call(this);
-
-        this._icon_type = icon_type;
-        this._player_menu = player_menu;
-
-        this.function_to_bind = null;
-        this.function_look_at_bind = null;
-        this.function_look_away_bind = null;
-
-        this.world = world;
-        this.row = row;
-
-        var utiltiy_wall_width = 120;
-        var icon_width = 16 / utiltiy_wall_width;
 
         switch (this._icon_type) {
             case ICON_WRENCH:
@@ -138,10 +101,6 @@ MenuIcon.prototype = {
 
                 this.create_wall.hide();
                 break;
-            case ICON_SAVE:
-                this.icon_label = 'save';
-                this.function_to_bind = global_save;
-                break;
             case ICON_TELEPORT:
                 this.icon_label = 'teleport';
                 this.function_look_at_bind = this.display_teleport_worlds.bind(this);
@@ -167,9 +126,6 @@ MenuIcon.prototype = {
 
                 this.teleport_wall.hide();
                 break;
-            case ICON_MULTI_PLAYER:
-                this.icon_label = 'online';
-                break;
             case ICON_FULLSCREEN:
                 this.icon_label = 'fullscreen';
                 this.function_to_bind = toggle_fullscreen;
@@ -185,52 +141,6 @@ MenuIcon.prototype = {
         this.floating_label.set_look_at_function(this.function_look_at_bind);
         this.floating_label.set_look_away_function(this.function_look_away_bind);
 
-
-        //this.object3D.add(this.icon);
-
-        this.world.add_to_scene(this.object3D);
-
-        // Inherit from Interactive.
-        //Interactive.call(this);
-        // Inherit from Visibility.
-        //Visibility.call(this);
-
-        this.world.interactive_objects.push(this.floating_label);
-    },
-
-    _set_utility_wall_position_and_normal: function(utility_wall, horizontal_shift) {
-        if (is_defined(utility_wall)) {
-            var player_position = CURRENT_PLAYER.get_position();
-            var utility_wall_position = new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift * 3 + this.normal.x * 30,
-                                                           this.object3D.position.y,
-                                                           this.object3D.position.z + this.left_right.z * horizontal_shift * 3 + this.normal.z * 30);
-            var utility_wall_look_at = new THREE.Vector3(player_position.x - utility_wall_position.x, 0, player_position.z - utility_wall_position.z);
-            utility_wall_look_at.normalize();
-            utility_wall.set_position_and_normal(utility_wall_position, utility_wall_look_at, false);
-        }
-    },
-
-    set_position_and_normal: function(position, nx, nz) {
-        this.y_position = position.y + SPACE_BETWEEN_MENU_ICONS * 2;
-        this.object3D.position.set(position.x, this.y_position, position.z);
-        this.object3D.lookAt(new THREE.Vector3(position.x + nx * 5, this.y_position, position.z + nz * 5));
-
-        // TODO : Delete this?
-        this.normal = new THREE.Vector3(nx, 0, nz);
-
-        this.left_right = get_left_right_unit_vector(nx, nz);
-
-        var horizontal_shift = 60;
-
-        this.floating_label.update_position_and_normal(new THREE.Vector3(this.object3D.position.x + this.left_right.x * horizontal_shift, this.object3D.position.y, this.object3D.position.z + this.left_right.z * horizontal_shift), this.normal);
-
-        this._set_utility_wall_position_and_normal(this.teleport_wall, horizontal_shift);
-        this._set_utility_wall_position_and_normal(this.create_wall, horizontal_shift);
-    },
-
-    update_y_position: function(y_offset) {
-        this.object3D.position.y = this.y_position - y_offset;
-        this.floating_label.object3D.position.y = this.y_position - y_offset;
     },
 
 };
@@ -259,60 +169,30 @@ PlayerMenu.prototype = {
         this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
-        this._player_menu.attached_to_player = true;
+        this._player_menu.set_attachment_horizontal_offset(-30, null);
+        this._player_menu.set_attachment_vertical_offset(-30, null);
+        this._player_menu.set_attachment_depth_offset(150);
 
-        /*
-                if (this.attached_to_player) {
-            var player_position = CURRENT_PLAYER.get_position();
-            var player_normal = CURRENT_PLAYER.get_direction();
-
-            this.animation_start_position_x = player_position.x;
-            this.animation_start_position_y = player_position.y;
-            this.animation_start_position_z = player_position.z;
-
-            this.animation_offset = this.get_animation_total_offset(player_normal);
-
-         */
-
-
+        this._sub_menus = [];
         this._number_of_main_menu_rows = 0;
     },
 
     set_to_invisible: function() {
-        if (is_defined(this.icons)) {
-            for (var i = 0; i < this.icons.length; i++) {
-                this.icons[i].set_to_invisible();
-            }
-        }
+        this._player_menu.set_to_invisible();
     },
 
     set_to_visible: function() {
+        var player_position = CURRENT_PLAYER.get_position();
+        var player_normal   = CURRENT_PLAYER.get_direction();
+
+        var position_offset = this._player_menu.get_position_offset(player_normal);
+
+        // TODO : Flip the player menu wall normal?
+
+        this._player_menu.set_position(player_position.x + position_offset[0], player_position.y + position_offset[1], player_position.z + position_offset[2], true);
+
+        this._player_menu.set_to_visible();
         this._player_menu.restart_all_animations();
-
-        /*
-                if (this.attached_to_player) {
-            var player_position = CURRENT_PLAYER.get_position();
-            var player_normal = CURRENT_PLAYER.get_direction();
-
-            this.animation_start_position_x = player_position.x;
-            this.animation_start_position_y = player_position.y;
-            this.animation_start_position_z = player_position.z;
-
-            this.animation_offset = this.get_animation_total_offset(player_normal);
-
-        this.animation_start_position_x*/
-
-        var pp = CURRENT_PLAYER.get_position();
-        var pd = CURRENT_PLAYER.get_direction();
-
-        var start_position = new THREE.Vector3(pp.x + pd.x * MENU_DISTANCE_FROM_PLAYER, pp.y + pd.y * MENU_DISTANCE_FROM_PLAYER, pp.z + pd.z * MENU_DISTANCE_FROM_PLAYER);
-
-
-
-        for (var i = 0; i < this.icons.length; i++) {
-            this.icons[i].set_position_and_normal(start_position, -pd.x, -pd.z);
-            this.icons[i].set_to_visible();
-        }
     },
 
     is_visible: function() {
@@ -320,23 +200,7 @@ PlayerMenu.prototype = {
     },
 
     update: function(delta) {
-
-
-
-        // TODO : Refactor this!!!!
-        if (is_defined(this.icons)) {
-            for (var i = 0; i < this.icons.length; i++) {
-                if (this.icons[i].row !== 0) {
-                    var this_icons_max_delta = this.time_needed_for_each_row * this.icons[i].row;
-                    if (this.percentage < this_icons_max_delta) {
-                        this.icons[i].update_y_position(this.percentage * this.total_distance);
-                    } else {
-                        this.icons[i].update_y_position(this_icons_max_delta * this.total_distance);
-                    }
-                }
-            }
-        }
-
+        this._player_menu.update_all_child_animations_recursively(delta);
     },
 
     // This function gets called once per player menu object.
@@ -344,47 +208,115 @@ PlayerMenu.prototype = {
         if (this.world === MANAGER_WORLD.world_login) {
             this._add_main_menu_icon(ICON_FULLSCREEN);
         } else if (this.world === MANAGER_WORLD.world_home) {
-
+            this._add_main_menu_icon(ICON_WRENCH);
+            this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_SAVE);
+            this._add_main_menu_icon(ICON_FULLSCREEN);
         } else if (this.world === MANAGER_WORLD.world_settings) {
-
+            this._add_main_menu_icon(ICON_WRENCH);
+            this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_SAVE);
+            this._add_main_menu_icon(ICON_FULLSCREEN);
         }
-
-        this._add_menu_icon(ICON_WRENCH      , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_SAVE        , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_TELEPORT    , list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_MULTI_PLAYER, list_of_icons_not_to_load);
-        this._add_menu_icon(ICON_FULLSCREEN  , list_of_icons_not_to_load);
-
-        this.time_needed_for_each_row = ONE_SECOND / (this.icons.length);
-        this.total_distance = this.icons.length * SPACE_BETWEEN_MENU_ICONS;
     },
 
     /*                          ___
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
+    _teleport_to_world: function(world) {
+        MANAGER_WORLD.set_current_world(world);
+    },
+
+    _main_menu_button_looked_at: function(sub_menu) {
+        for (var m = 0; m < this._sub_menus.length; m++) {
+            if (sub_menu === this._sub_menus[m]) {
+                sub_menu.display_self_and_all_child_attachments_recursively();
+            } else {
+                sub_menu.hide_self_and_all_child_attachments_recursively();
+            }
+        }
+    },
+
     // Add the icons that appear on the main player menu.
     _add_main_menu_icon: function(icon) {
-        //var menu_button = this._player_menu.add_row_2D_text([0, 1], this._number_of_main_menu_rows, icon, TYPE_ICON);
+        var utiltiy_wall_width = 120;
+        var icon_width = 16 / utiltiy_wall_width;
 
-        // TODO : Add the icons once the menu display works!
-
-        var label;
+        var menu_button;
+        var sub_menu;
+        var utility_wall;
 
         switch (icon) {
             case ICON_WRENCH:
-                label = 'create';
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'create', TYPE_BUTTON);
+
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], null, null, false);
+                utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
+
+                utility_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 2, 'Text', TYPE_BUTTON);
+
+                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
+
+                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 3, 'Picture', TYPE_BUTTON);
+
+                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 3, 'YouTube Video', TYPE_BUTTON);
+
+                this._sub_menus.push(utility_wall);
+
+                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, utility_wall));
+                utility_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_FULLSCREEN:
-                label = 'fullscreen';
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'fullscreen', TYPE_BUTTON);
+                menu_button.set_engage_function(toggle_fullscreen);
+                break;
+            case ICON_TELEPORT:
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'teleport', TYPE_BUTTON);
+
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], null, null, false);
+                utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
+
+                var current_button_row = 2;
+                var teleport_button;
+
+                if (this.world !== MANAGER_WORLD.world_settings) {
+                    utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SETTINGS, TYPE_ICON);
+                    teleport_button = utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Settings', TYPE_BUTTON);
+                    teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_settings));
+                    current_button_row += 1;
+                }
+
+                if (this.world !== MANAGER_WORLD.world_home) {
+                    utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_HOME, TYPE_ICON);
+                    teleport_button = utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Home', TYPE_BUTTON);
+                    teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_home));
+                    current_button_row += 1;
+                }
+
+                utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_EXIT, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Logout', TYPE_BUTTON);
+                // TODO : logout functionality
+                current_button_row += 1;
+
+                this._sub_menus.push(utility_wall);
+
+                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, utility_wall));
+                utility_wall.hide_self_and_all_child_attachments_recursively();
+                break;
+            case ICON_MULTI_PLAYER:
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'online', TYPE_BUTTON);
+                break;
+            case ICON_SAVE:
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'save', TYPE_BUTTON);
+                menu_button.set_engage_function(global_save);
                 break;
         }
 
-        var menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, [-30, null], [40 * this._number_of_main_menu_rows, HALF], 150,label, TYPE_BUTTON);
-
-        menu_button.set_animation_horizontal_offset(-30, null);
-        menu_button.set_animation_vertical_offset(null, HALF);
-        menu_button.set_animation_depth_offset(150);
-
+        menu_button.set_animation_vertical_offset(20 * this._number_of_main_menu_rows, null);
         this._number_of_main_menu_rows += 1;
     },
 

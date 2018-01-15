@@ -32,9 +32,22 @@ WorldManager.prototype = {
         this.set_current_world(current_world);
     },
 
-    update_current_scene: function(delta) {
-        this.current_world.update(delta);
-        // TODO : Refactor so that this line isn't needed here.
+    update_current_world: function(delta) {
+        // TODO : Double check on what order these should update.
+
+        if (MANAGER_WORLD.current_player_menu.is_visible()) {
+            MANAGER_WORLD.current_player_menu.update(delta);
+        }
+
+        for (var a = 0; a < this.root_attachables.length; a++) {
+            if (this.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
+                this.root_attachables[a].update(delta);
+            }
+            this.root_attachables[a].update_all_child_animations_recursively(delta);
+        }
+
+        this.update_interactive_objects();
+
         this.current_world.floating_cursor.update();
     },
 

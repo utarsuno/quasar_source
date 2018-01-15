@@ -94,10 +94,6 @@ function World(planet_name) {
         this.currently_looked_at_object = null;
     };
 
-    this.add_interactive_object = function(interactive_object) {
-        this.interactive_objects.push(interactive_object);
-    };
-
     this.set_cursor_position = function(position) {
         this.floating_cursor.set_position(position);
 
@@ -147,17 +143,6 @@ function World(planet_name) {
     this.wheel_event = function(delta) {
         if (this.floating_cursor.engaged) {
             this.floating_cursor.current_floating_wall.wheel_event(delta);
-        }
-    };
-
-    this.update = function(delta) {
-        this.update_interactive_objects();
-
-        for (var a = 0; a < this.root_attachables.length; a++) {
-            if (this.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
-                this.root_attachables[a].update(delta);
-            }
-            this.root_attachables[a].update_all_child_animations_recursively(delta);
         }
     };
 
