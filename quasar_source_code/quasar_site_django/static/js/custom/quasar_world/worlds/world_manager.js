@@ -7,7 +7,6 @@ function WorldManager() {
 WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
-    current_scene  : null,
 
     current_player_menu: null,
 
@@ -39,9 +38,9 @@ WorldManager.prototype = {
             MANAGER_WORLD.current_player_menu.update(delta);
         }
 
-        for (var a = 0; a < this.root_attachables.length; a++) {
-            if (this.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
-                this.root_attachables[a].update(delta);
+        for (var a = 0; a < this.current_world.root_attachables.length; a++) {
+            if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
+                this.current_world.root_attachables[a].update(delta);
             }
             this.root_attachables[a].update_all_child_animations_recursively(delta);
         }
@@ -64,7 +63,6 @@ WorldManager.prototype = {
         this.current_floating_cursor = this.current_world.floating_cursor;
         this.current_player_menu = this.current_world.player_menu;
         this.current_world.current_world = true;
-        this.current_scene = this.current_world.scene;
 
         // Before adding the world make sure to add the camera reference.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
