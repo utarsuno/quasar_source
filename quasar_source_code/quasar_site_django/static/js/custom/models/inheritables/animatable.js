@@ -8,8 +8,6 @@ function Animatable() {
     this.has_animation = false;
     this.requires_animation_update = false;
 
-    this.attached_to_player = false;
-
     this._elapsed_delta = 0;
     this.percentage_elapsed = 0;
 
@@ -17,23 +15,11 @@ function Animatable() {
         this.requires_animation_update = true;
         this._elapsed_delta = 0;
         this.percentage_elapsed = 0;
-
-        if (this.attached_to_player) {
-            var player_position = CURRENT_PLAYER.get_position();
-            var player_normal = CURRENT_PLAYER.get_direction();
-
-            this.animation_start_position_x = player_position.x;
-            this.animation_start_position_y = player_position.y;
-            this.animation_start_position_z = player_position.z;
-
-            this.animation_offset = this.get_animation_total_offset(player_normal);
-        } else {
-            // TODO : 
-            l('TODO : Enable normal animations too!');
-        }
     };
 
     this.update = function(delta) {
+        l('Performing an animation update!');
+
         this._elapsed_delta += delta;
         if (this._elapsed_delta >= this.animation_time) {
             this.percentage_elapsed = 1.0;
@@ -42,9 +28,9 @@ function Animatable() {
             this.requires_animation_update = false;
         }
 
-        this.set_position(this.animation_start_position_x + this.animation_offset[0] * this.percentage_elapsed,
-            this.animation_start_position_y + this.animation_offset[1] * this.percentage_elapsed,
-            this.animation_start_position_z + this.animation_offset[2] * this.percentage_elapsed, true);
+        //this.set_position(this.animation_start_position_x + this.animation_offset[0] * this.percentage_elapsed,
+        //     this.animation_start_position_y + this.animation_offset[1] * this.percentage_elapsed,
+        //     this.animation_start_position_z + this.animation_offset[2] * this.percentage_elapsed, true);
     };
 
     this.update_all_child_animations_recursively = function(delta) {
