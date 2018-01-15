@@ -266,6 +266,8 @@ LoadingManager.prototype = {
 
     // Occurs only once on client initial connection.
     perform_initial_load: function() {
+
+
         MANAGER_WORLD.world_login.create_world();
 
         // Sets the player and current world.
@@ -328,9 +330,7 @@ LoadingManager.prototype = {
     },
 
     _load_cursors_for_world: function(world) {
-        for (var t = 0; t < this.textures_cursor._number_of_textures_to_load; t++) {
-            world.floating_cursor.load_cursor(this.textures_cursor._textures[t][INDEX_RESOURCE_NAME], this.textures_cursor._textures[t][INDEX_RESOURCE]);
-        }
+        world.floating_cursor.load_all_cursors();
     }
 
 };

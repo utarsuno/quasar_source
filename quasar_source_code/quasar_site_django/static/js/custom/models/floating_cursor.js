@@ -7,15 +7,8 @@ function FloatingCursor(world) {
 FloatingCursor.prototype = {
 
     __init__: function(world) {
-        // TODO : Optimize in the future.
-        // Load all instances of the cursor needed.
         this.cursors = {};
 
-        // The cursor texture will get set once loaded.
-        // Width used to be 7 and height used to be 10
-        this.width = 16;
-        this.height = 16;
-        this.plane_geometry = new THREE.PlaneGeometry(16, 16, 1);
         // TODO : Dispose of this original material later on.
         this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, side: THREE.DoubleSide});
         this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
@@ -149,5 +142,27 @@ FloatingCursor.prototype = {
         var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height / 2, position.z + normal.z * 4);
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height / 2, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
+    },
+
+    /*        ___                      __        __
+     | |\ | |  |  |  /\  |       |    /  \  /\  |  \
+     | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
+    _create_cursor: function(cursor_type) {
+        var cursor_texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, cursor_type);
+
+        var cursor_geometry = new THREE.PlaneGeometry(16, 16);
+        var cursor_material = new THREE.MeshBasicMaterial({side : THREE.FrontSide, map : cursor_texture, transparent: true});
+
+        var cursor = new THREE.PlaneGeometry(16, 16);
+    },
+
+    load_all_cursors: function() {
+        this.object3D = new THREE.Object3D();
+        this._create_cursor(CURSOR_TYPE_HORIZONTAL);
+        this._create_cursor(CURSOR_TYPE_VERTICAL);
+        this._create_cursor(CURSOR_TYPE_HAND);
+        this._create_cursor(CURSOR_TYPE_POINTER);
+        this._create_cursor(CURSOR_TYPE_LARGER);
+        this._create_cursor(CURSOR_TYPE_MOUSE);
     }
 };
