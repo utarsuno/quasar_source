@@ -11,10 +11,6 @@ const INDEX_FULL_URL        = 0;
 const INDEX_RESOURCE_NAME   = 1;
 const INDEX_RESOURCE        = 2;
 
-const INDEX_WORLD_TO_LOAD   = 0;
-const INDEX_SKYBOX_TEXTURES = 1;
-const INDEX_ICONS_LIST      = 2;
-
 /*          __     __
   /\  |  | |  \ | /  \
  /~~\ \__/ |__/ | \__/ */
@@ -34,6 +30,8 @@ AudioGroup.prototype = {
         this._number_of_audio_buffers_loaded = 0;
 
         this._loading_manager._number_of_resources_to_load += this._number_of_audio_buffers_to_load;
+
+        this.finished_loading = false;
     },
 
     _audio_buffer_loaded: function(audio_buffer, audio_name) {
@@ -48,6 +46,7 @@ AudioGroup.prototype = {
             }
         }
         if (this._number_of_audio_buffers_loaded === this._number_of_audio_buffers_to_load) {
+            this.finished_loading = true;
             this._loaded_callback();
         }
     },
@@ -75,9 +74,7 @@ AudioGroup.prototype = {
                 //l('An error happened trying to load the audio file.');
                 // FOR_DEV_END
                 }
-
             );
-
         }
     },
 
@@ -108,6 +105,8 @@ TextureGroup.prototype = {
         this._number_of_loaded_textures = 0;
 
         this._loading_manager._number_of_resources_to_load += this._number_of_textures_to_load;
+
+        this.finished_loading = false;
     },
 
     get_texture: function(texture_name) {
@@ -148,6 +147,7 @@ TextureGroup.prototype = {
             }
         }
         if (this._number_of_loaded_textures === this._number_of_textures_to_load) {
+            this.finished_loading = true;
             this._loaded_callback();
         }
     },
@@ -212,18 +212,15 @@ function LoadingManager() {
 
 LoadingManager.prototype = {
 
-    _audio_loaded: function() {
-    },
-
     __init__: function() {
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
-        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this._cursors_loaded.bind(this), this);
+        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this.check_if_initial_resources_loaded.bind(this), this);
         this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this._icons_loaded.bind(this)  , this);
+        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this.check_if_initial_resources_loaded.bind(this), this);
 
-        this.all_audio       = new AudioGroup(this._audio_loaded.bind(this), this);
+        this.all_audio       = new AudioGroup(this.check_if_initial_resources_loaded.bind(this), this);
     },
 
     update_text: function(text) {
@@ -274,20 +271,14 @@ LoadingManager.prototype = {
         l('Initial load finished!');
     },
 
+    check_if_initial_resources_loaded: function() {
+        if (this.textures_cursor.finished_loading && this.textures_skybox.finished_loading && this.textures_icon.finished_loading && this.all_audio.finished_loading) {
+            MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
+        }
+    },
+
     currently_loading: function() {
         return this._number_of_resources_loaded !== this._number_of_resources_to_load;
-    },
-
-    /*  __   __        __
-     | /  ` /  \ |\ | /__`
-     | \__, \__/ | \| .__/ */
-    // Gets called once when all the icons get loaded.
-    _icons_loaded: function() {
-        this._load_icons_for_world(MANAGER_WORLD.world_login);
-    },
-
-    _load_icons_for_world: function(world) {
-        world.player_menu.load_icon_textures();
     },
 
     /*__            __   __
@@ -295,37 +286,19 @@ LoadingManager.prototype = {
      .__/ |  \  |  |__) \__/ / \ */
     // Gets called once when all the skybox textures get loaded.
     _skyboxs_loaded: function() {
-        this.sky_box_textures = [];
+        this.sky_box_material = [];
         // The order of these gets matter.
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_FRONT));
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BACK));
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_TOP));
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BOTTOM));
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
-        this.sky_box_textures.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_FRONT));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BACK));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_TOP));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_BOTTOM));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
+        this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
 
-        for (var t = 0; t <this. sky_box_textures.length; t++) {
+        for (var t = 0; t < this.sky_box_material.length; t++) {
             // depthWrite: false, depthTest: false
-            this.sky_box_textures[t] = new THREE.MeshBasicMaterial({map: this.sky_box_textures[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
+            this.sky_box_material[t] = new THREE.MeshBasicMaterial({map: this.sky_box_material[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
         }
-
-        this._load_skybox_for_world(MANAGER_WORLD.world_login);
-    },
-
-    _load_skybox_for_world: function(world) {
-        world.add_sky_box(this.sky_box_textures);
-    },
-
-    /*__        __   __   __   __   __
-     /  ` |  | |__) /__` /  \ |__) /__`
-     \__, \__/ |  \ .__/ \__/ |  \ .__/*/
-    // Gets called once when all the cursor textures get loaded.
-    _cursors_loaded: function() {
-        this._load_cursors_for_world(MANAGER_WORLD.world_login);
-    },
-
-    _load_cursors_for_world: function(world) {
-        world.floating_cursor.load_all_cursors();
     }
 
 };

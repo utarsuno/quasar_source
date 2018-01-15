@@ -2,18 +2,18 @@
 
 const LIGHT_CIRCLE_RADIUS = 1000;
 
-function World(planet_name) {
+function World() {
 
     this.currently_looked_at_object = null;
-    this.raycaster                  = null;
+    this.raycaster                  = new THREE.Raycaster();
     this.scene                      = new THREE.Scene();
+    this.player_menu                = new PlayerMenu(this);
+    this.floating_cursor            = new FloatingCursor(this);
 
     this.root_attachables = [];
 
     this.default_tab_target         = null;
     this.interactive_objects        = [];
-
-    this.player_menu = new PlayerMenu(this);
 
     this._previously_intersected_plane = null;
 
@@ -62,6 +62,7 @@ function World(planet_name) {
     this.remove_from_scene = function(object) {
         this.scene.remove(object);
 
+        // TODO : Refactor this
         if (object.hasOwnProperty('object3D')) {
             this.scene.remove(object.object3D);
         }
@@ -454,64 +455,5 @@ function World(planet_name) {
     this.set_default_tab_target = function(default_tab_target) {
         this.default_tab_target = default_tab_target;
     };
-
-    // World defaults.
-    var grid = new vg.HexGrid({cellSize: 100});
-    grid.generate({size: 10});
-    var board = new vg.Board(grid);
-    board.generateTilemap({cellSize: 100, tileScale: 0.99});
-    this.add_to_scene(board.group);
-
-
-    // Create the lighting and default ground.
-    //var plane_geometry = new THREE.PlaneGeometry(2000, 2000, 10, 10);
-    //plane_geometry.applyMatrix(new THREE.Matrix4().makeRotationX(- Math.PI / 2));
-    //var plane_material = new THREE.MeshLambertMaterial({color: 0xccffcc, side: THREE.FrontSide, wireframe: true});
-    //var plane_mesh     = new THREE.Mesh(plane_geometry, plane_material);
-    //this.add_to_scene(plane_mesh)
-
-    var light3 = new THREE.PointLight(0xccffcc, .5, 0);
-    light3.position.set(5, 100, 5);
-    this.add_to_scene(light3);
-
-    //var color1 = '#b9ffd2'
-    //var color2 = '#090920'
-    //var light2 = new THREE.HemisphereLight(color1, color2, .5)
-    //this.add_to_scene(light2)
-
-    /////////////////
-    this.lights = [];
-
-    //var light_0 = new THREE.PointLight(COLOR_WHITE);
-
-    //var light_c0 = new THREE.PointLight(COLOR_RED);
-
-
-    var lightr = new THREE.PointLight(0xff8579, .5, 0);
-    lightr.position.set(1000, 100, 0);
-    this.add_to_scene(lightr);
-
-    var lightg = new THREE.PointLight(0xb1ff90, .5, 0);
-    lightg.position.set(0, 100, 1000);
-    this.add_to_scene(lightg);
-
-    var lightb = new THREE.PointLight(0x84b5ff, .5, 0);
-    lightb.position.set(500, 100, 500);
-    this.add_to_scene(lightb);
-    /////////////////
-
-    var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
-    this.add_to_scene(light);
-
-    this.floating_cursor = new FloatingCursor(this);
-
-    // Add the skybox here as well.
-    this.add_sky_box = function(skybox_material) {
-        var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000);
-        var skybox_cube = new THREE.Mesh(skybox_geometry, skybox_material);
-        skybox_cube.position.set(0, 0, 0);
-        this.add_to_scene(skybox_cube);
-    };
-
 
 }

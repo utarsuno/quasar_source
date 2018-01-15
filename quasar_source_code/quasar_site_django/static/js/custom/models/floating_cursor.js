@@ -7,32 +7,7 @@ function FloatingCursor(world) {
 FloatingCursor.prototype = {
 
     __init__: function(world) {
-        this.cursor_wall = new FloatingWall(16, 16, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), world, false);
-
-        this.cursor_wall.add
-
-        this.cursors = {};
-
-        // TODO : Dispose of this original material later on.
-        //this.temp_material = new THREE.MeshBasicMaterial({color: 0xa6fff2, side: THREE.DoubleSide});
-        //this.cursor_temp = new THREE.Mesh(this.plane_geometry, this.temp_material);
-
-        this.previous_cursor = null;
-        this.current_cursor  = null;
-        //this.current_cursor = this.cursor_temp;
-
-        this.object3D = new THREE.Object3D();
-        this.object3D.add(this.cursor_temp);
-
         this.world = world;
-        this.scene = this.world.scene;
-        this.scene.add(this.object3D);
-
-        // TODO : Double check on this design
-        this.cursor_needed_from_interactive_objects = false;
-        this.cursor_needed_from_floating_walls = false;
-        this.engaged = false;
-        this.visible = false;
     },
 
     engage: function() {
@@ -154,6 +129,17 @@ FloatingCursor.prototype = {
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
+    create: function() {
+        this.cursor_wall = new FloatingWall(16, 16, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false);
+
+        this._create_cursor(CURSOR_TYPE_HORIZONTAL);
+        this._create_cursor(CURSOR_TYPE_VERTICAL);
+        this._create_cursor(CURSOR_TYPE_HAND);
+        this._create_cursor(CURSOR_TYPE_POINTER);
+        this._create_cursor(CURSOR_TYPE_LARGER);
+        this._create_cursor(CURSOR_TYPE_MOUSE);
+    },
+
     _create_cursor: function(cursor_type) {
         this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
 
@@ -168,12 +154,4 @@ FloatingCursor.prototype = {
         var cursor = new THREE.PlaneGeometry(16, 16);
     },
 
-    load_all_cursors: function() {
-        this._create_cursor(CURSOR_TYPE_HORIZONTAL);
-        this._create_cursor(CURSOR_TYPE_VERTICAL);
-        this._create_cursor(CURSOR_TYPE_HAND);
-        this._create_cursor(CURSOR_TYPE_POINTER);
-        this._create_cursor(CURSOR_TYPE_LARGER);
-        this._create_cursor(CURSOR_TYPE_MOUSE);
-    }
 };

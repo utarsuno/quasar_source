@@ -64,7 +64,6 @@ WorldManager.prototype = {
         this.current_world = world;
         this.current_floating_cursor = this.current_world.floating_cursor;
         this.current_player_menu = this.current_world.player_menu;
-        this.current_world.current_world = true;
 
         // Before adding the world make sure to add the camera reference.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
@@ -84,8 +83,50 @@ WorldManager.prototype = {
     },
 
     create_world: function(world) {
-        world.raycaster = new THREE.Raycaster();
-        world.create_world();
+        world.player_menu.create();
+        world.floating_cursor.create();
+
+        var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000);
+        var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_LOADING.sky_box_material);
+        skybox_cube.position.set(0, 0, 0);
+        world.add_to_scene(skybox_cube);
+
+
+        // Default hex grid ground.
+        var grid = new vg.HexGrid({cellSize: 100});
+        grid.generate({size: 10});
+        var board = new vg.Board(grid);
+        board.generateTilemap({cellSize: 100, tileScale: 0.99});
+        world.add_to_scene(board.group);
+
+        // Default lights.
+
+        var light3 = new THREE.PointLight(0xccffcc, .5, 0);
+        light3.position.set(5, 100, 5);
+        world.add_to_scene(light3);
+
+        /////////////////
+        this.lights = [];
+
+        var lightr = new THREE.PointLight(0xff8579, .5, 0);
+        lightr.position.set(1000, 100, 0);
+        world.add_to_scene(lightr);
+
+        var lightg = new THREE.PointLight(0xb1ff90, .5, 0);
+        lightg.position.set(0, 100, 1000);
+        world.add_to_scene(lightg);
+
+        var lightb = new THREE.PointLight(0x84b5ff, .5, 0);
+        lightb.position.set(500, 100, 500);
+        world.add_to_scene(lightb);
+        /////////////////
+
+        var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
+        world.add_to_scene(light);
+
+
+        // Now finally create the actual world.
+        world.create();
     }
 
 };

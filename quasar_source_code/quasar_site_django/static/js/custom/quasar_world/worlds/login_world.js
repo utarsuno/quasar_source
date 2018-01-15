@@ -85,10 +85,40 @@ LoginWorld.prototype = {
 
     __init__: function() {
         // Inherit from World.
-        World.call(this, 'LoginWorld');
+        World.call(this);
     },
 
-    create_world: function() {
+    enter_world: function() {
+        // TODO : Reformat this, it's not world specific so should be generalized to world_base.js
+        CURRENT_PLAYER.disengage();
+        if (!GUI_PAUSED_MENU.currently_displayed) {
+            CURRENT_PLAYER.enable_controls();
+        }
+
+        CURRENT_PLAYER.set_position_xyz(0, 200, 0);
+        CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
+
+        if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
+            if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
+                if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
+                    this.login_username_input.update_text(MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME));
+                }
+            }
+        }
+    },
+
+    exit_world: function() {
+        this.login_wall.clear_inputs();
+        this.wall_create_account.clear_inputs();
+    },
+
+
+
+
+    /*        ___                      __        __
+     | |\ | |  |  |  /\  |       |    /  \  /\  |  \
+     | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
+    create: function() {
         this.post_create_account = new PostHelper(POST_URL_CREATE_ACCOUNT);
         this.post_login          = new PostHelper(POST_URL_LOGIN);
 
@@ -188,34 +218,8 @@ LoginWorld.prototype = {
 
 
 
-
-
         this.root_attachables.push(this.quasar_source_title);
         this.root_attachables.push(this.login_wall);
         this.root_attachables.push(this.wall_create_account);
     },
-
-    enter_world: function() {
-        // TODO : Reformat this, it's not world specific so should be generalized to world_base.js
-        CURRENT_PLAYER.disengage();
-        if (!GUI_PAUSED_MENU.currently_displayed) {
-            CURRENT_PLAYER.enable_controls();
-        }
-
-        CURRENT_PLAYER.set_position_xyz(0, 200, 0);
-        CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
-
-        if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
-            if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
-                if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
-                    this.login_username_input.update_text(MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME));
-                }
-            }
-        }
-    },
-
-    exit_world: function() {
-        this.login_wall.clear_inputs();
-        this.wall_create_account.clear_inputs();
-    }
 };

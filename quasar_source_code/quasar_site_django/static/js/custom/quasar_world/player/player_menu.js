@@ -160,20 +160,8 @@ MenuIcon.prototype = {
 PlayerMenu.prototype = {
 
     __init__: function(world) {
-        this.world = world;
-
-        // TODO : Make a better design for the temp values.
-        var temp_position = new THREE.Vector3(-10000, -10000, -10000);
-        var temp_normal   = new THREE.Vector3(0, 0, 0);
-        this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
-        this._player_menu.hide_self_and_all_child_attachments_recursively();
-        //this._player_menu.make_base_wall_invisible();
-
-        this._player_menu.set_attachment_horizontal_offset(-30, null);
-        this._player_menu.set_attachment_vertical_offset(-30, null);
-        this._player_menu.set_attachment_depth_offset(150);
-
-        this._sub_menus = [];
+        this.world                     = world;
+        this._sub_menus                = [];
         this._number_of_main_menu_rows = 0;
     },
 
@@ -203,23 +191,6 @@ PlayerMenu.prototype = {
         this._player_menu.update_all_child_animations_recursively(delta);
     },
 
-    // This function gets called once per player menu object.
-    load_icon_textures: function() {
-        if (this.world === MANAGER_WORLD.world_login) {
-            this._add_main_menu_icon(ICON_FULLSCREEN);
-        } else if (this.world === MANAGER_WORLD.world_home) {
-            this._add_main_menu_icon(ICON_WRENCH);
-            this._add_main_menu_icon(ICON_TELEPORT);
-            this._add_main_menu_icon(ICON_SAVE);
-            this._add_main_menu_icon(ICON_FULLSCREEN);
-        } else if (this.world === MANAGER_WORLD.world_settings) {
-            this._add_main_menu_icon(ICON_WRENCH);
-            this._add_main_menu_icon(ICON_TELEPORT);
-            this._add_main_menu_icon(ICON_SAVE);
-            this._add_main_menu_icon(ICON_FULLSCREEN);
-        }
-    },
-
     /*                          ___
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
@@ -237,7 +208,36 @@ PlayerMenu.prototype = {
         }
     },
 
-    // Add the icons that appear on the main player menu.
+    /*        ___                      __        __
+     | |\ | |  |  |  /\  |       |    /  \  /\  |  \
+     | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
+    create: function() {
+        // TODO : Make a better design for the temp values.
+        var temp_position = new THREE.Vector3(-10000, -10000, -10000);
+        var temp_normal   = new THREE.Vector3(0, 0, 0);
+        this._player_menu = new FloatingWall(100, 200, temp_position, temp_normal, this.world);
+        //this._player_menu.hide_self_and_all_child_attachments_recursively();
+        //this._player_menu.make_base_wall_invisible();
+
+        this._player_menu.set_attachment_horizontal_offset(-30, null);
+        this._player_menu.set_attachment_vertical_offset(-30, null);
+        this._player_menu.set_attachment_depth_offset(150);
+
+        if (this.world === MANAGER_WORLD.world_login) {
+            this._add_main_menu_icon(ICON_FULLSCREEN);
+        } else if (this.world === MANAGER_WORLD.world_home) {
+            this._add_main_menu_icon(ICON_WRENCH);
+            this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_SAVE);
+            this._add_main_menu_icon(ICON_FULLSCREEN);
+        } else if (this.world === MANAGER_WORLD.world_settings) {
+            this._add_main_menu_icon(ICON_WRENCH);
+            this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_SAVE);
+            this._add_main_menu_icon(ICON_FULLSCREEN);
+        }
+    },
+
     _add_main_menu_icon: function(icon) {
         var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;

@@ -57,7 +57,7 @@ SettingsWorld.prototype = {
         World.call(this, 'SettingsWorld');
     },
 
-    create_world: function() {
+    create: function() {
         /*__   __   __   ___         ___
          |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
          |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
