@@ -42,7 +42,7 @@ WorldManager.prototype = {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
             }
-            this.root_attachables[a].update_all_child_animations_recursively(delta);
+            this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
         }
 
         this.update_interactive_objects();
