@@ -264,7 +264,7 @@ function Attachmentable(world) {
         l(this.object3D.position.y + normal.y * 100);
         l(this.object3D.position.z + normal.z * 100);
 
-        var look_at_position = new THREE.Vector3(this.object3D.position.z + normal.z * 100, this.object3D.position.z + normal.z * 100, this.object3D.position.z + normal.z * 100);
+        var look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
         this.object3D.lookAt(look_at_position);
 
         //this.object3D.lookAt(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
