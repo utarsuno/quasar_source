@@ -206,13 +206,15 @@ TextureGroup.prototype = {
 /*     __        __          __                           __   ___  __
  |    /  \  /\  |  \ | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__)
  |___ \__/ /~~\ |__/ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ */
-function LoadingManager() {
-    this.__init__();
+function LoadingManager(quasar_main_loop) {
+    this.__init__(quasar_main_loop);
 }
 
 LoadingManager.prototype = {
 
-    __init__: function() {
+    __init__: function(quasar_main_loop) {
+        this.quasar_main_loop = quasar_main_loop;
+
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
@@ -263,17 +265,17 @@ LoadingManager.prototype = {
 
     // Occurs only once on client initial connection.
     perform_initial_load: function() {
-        l('Performing the initial load!');
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
         this.textures_icon.load_textures();
         this.all_audio.load_audio_buffers();
-        l('Initial load finished!');
     },
 
     check_if_initial_resources_loaded: function() {
         if (this.textures_cursor.finished_loading && this.textures_skybox.finished_loading && this.textures_icon.finished_loading && this.all_audio.finished_loading) {
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
+
+            this.quasar_main_loop.run();
         }
     },
 

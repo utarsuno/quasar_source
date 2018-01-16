@@ -162,8 +162,6 @@ InputManager.prototype = {
     },
 
     on_mouse_up: function(e) {
-        l('Mouse up event!')
-
         e = e || window.event;
         switch (e.which) {
         case CLICK_LEFT:
