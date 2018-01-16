@@ -155,6 +155,7 @@ function World() {
         }
 
 
+        /*
         if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
             if (MANAGER_WORLD.current_floating_cursor.engaged) {
                 var current_cursor = MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name;
@@ -163,7 +164,7 @@ function World() {
                 }
             }
         }
-
+        */
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
 
