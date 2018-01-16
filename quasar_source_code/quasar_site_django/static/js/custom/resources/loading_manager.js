@@ -206,15 +206,13 @@ TextureGroup.prototype = {
 /*     __        __          __                           __   ___  __
  |    /  \  /\  |  \ | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__)
  |___ \__/ /~~\ |__/ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ */
-function LoadingManager(quasar_main_loop) {
-    this.__init__(quasar_main_loop);
+function LoadingManager() {
+    this.__init__();
 }
 
 LoadingManager.prototype = {
 
-    __init__: function(quasar_main_loop) {
-        this.quasar_main_loop = quasar_main_loop;
-
+    __init__: function() {
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
@@ -264,7 +262,9 @@ LoadingManager.prototype = {
     },
 
     // Occurs only once on client initial connection.
-    perform_initial_load: function() {
+    perform_initial_load: function(quasar_main_loop) {
+        this.quasar_main_loop = quasar_main_loop;
+
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
         this.textures_icon.load_textures();
