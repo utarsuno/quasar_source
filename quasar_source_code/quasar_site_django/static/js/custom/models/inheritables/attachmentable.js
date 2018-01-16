@@ -72,7 +72,10 @@ function Attachmentable(world) {
 
             this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
             this.attachments[a]._refresh_look_at();
-            this.attachments[a].update_all_child_attachments();
+
+            if (this.attachments.length > 0) {
+                this.attachments[a].update_all_child_attachments();
+            }
         }
     };
 
