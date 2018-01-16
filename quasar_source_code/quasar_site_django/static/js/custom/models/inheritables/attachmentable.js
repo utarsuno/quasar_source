@@ -91,6 +91,7 @@ function Attachmentable(world) {
         } else {
             attachment.root_parent = this.root_parent;
         }
+        attachment.attachment_parent = this;
     };
 
     /*__   ___ ___ ___  ___  __   __

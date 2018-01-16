@@ -296,6 +296,7 @@ FloatingWall.prototype = {
         floating_2D_text.set_attachment_vertical_offset(-16 * row, HALF);
 
         floating_2D_text.attach_to(this);
+
         return floating_2D_text;
     },
 
