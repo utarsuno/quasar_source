@@ -47,8 +47,6 @@ QuasarMainLoop.prototype = {
         MANAGER_RENDERER.render();
         MANAGER_RENDERER.post_render();
         this.previous_time = this.time;
-
-        l('Finished a single frame!');
     }
 };
 
