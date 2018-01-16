@@ -49,9 +49,6 @@ QuasarMainLoop.prototype = {
     }
 };
 
-var quasar = QuasarMainLoop();
-
-
 // Load all the initially needed resources. Once loaded start the main loop.
-MANAGER_LOADING.perform_initial_load(quasar);
+MANAGER_LOADING.perform_initial_load(new QuasarMainLoop());
 
