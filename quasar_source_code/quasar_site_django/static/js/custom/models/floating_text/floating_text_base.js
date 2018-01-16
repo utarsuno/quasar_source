@@ -1,6 +1,6 @@
 'use strict';
 
-function FloatingText(text, type, world, is_2D_text) {
+function FloatingText(text, type, is_2D_text) {
 
     /*__   __        __   __      __   __   ___  __       ___    __        __
      /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`

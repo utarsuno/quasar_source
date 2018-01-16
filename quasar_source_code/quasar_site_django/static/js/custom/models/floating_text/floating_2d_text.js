@@ -61,16 +61,16 @@ Floating2DText.prototype = {
     },
 
     __init__: function(w, text, type, world, syntax_checks) {
+        // Inherit from Atachmentable.
+        Attachmentable.call(this, world);
+
         if (is_defined(syntax_checks)) {
             // Inherit from TextSyntax.
             TextSyntax.call(this, syntax_checks);
         }
 
-        // Inherit from Atachmentable.
-        Attachmentable.call(this);
-
         // Inherit from FloatingText.
-        FloatingText.call(this, text, type, world, true);
+        FloatingText.call(this, text, type, true);
 
         // Inherit from Animatable.
         Animatable.call(this);

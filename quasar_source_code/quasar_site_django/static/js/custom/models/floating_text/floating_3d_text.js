@@ -41,7 +41,7 @@ Floating3DText.prototype = {
         Attachmentable.call(this);
 
         // Inherit from FloatingText.
-        FloatingText.call(this, text, type, world, false);
+        FloatingText.call(this, text, type, false);
 
         // Inherit from Animatable.
         Animatable.call(this);
