@@ -91,6 +91,7 @@ TextSyntaxManager.prototype = {
         // TODO : Add warning icon
         //this._pairs[pair_index][INDEX_INPUT].display_icon_attachment(ICON_WARNING, {'RIGHT': 10});
 
+        // TODO : Refactor!!!
         this._pairs[pair_index][INDEX_INPUT].display_icon_to_the_right(ICON_WARNING);
         this._pairs[pair_index][INDEX_INPUT].set_tool_tip(result);
 
@@ -126,13 +127,13 @@ TextSyntaxManager.prototype = {
 
     add_label_and_input: function(label, input) {
         var warning_icon = get_new_floating_icon(ICON_WARNING, this.world);
-        warning_icon.set_attachment_horizontal_offset(16, HALF);
+        warning_icon.set_attachment_horizontal_offset(-16, -HALF);
         warning_icon.set_attachment_depth_offset(1);
         warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
         warning_icon.manual_visibility = true;
 
         var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);
-        success_icon.set_attachment_horizontal_offset(16, HALF);
+        success_icon.set_attachment_horizontal_offset(-16, -HALF);
         success_icon.set_attachment_depth_offset(1);
         success_icon.set_attachment_name(ATTACHMENT_NAME_SUCCESS);
         success_icon.manual_visibility = true;
