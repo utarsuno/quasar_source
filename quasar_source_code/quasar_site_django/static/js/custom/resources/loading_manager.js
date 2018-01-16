@@ -275,6 +275,8 @@ LoadingManager.prototype = {
         if (this.textures_cursor.finished_loading && this.textures_skybox.finished_loading && this.textures_icon.finished_loading && this.all_audio.finished_loading) {
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
 
+            MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
+
             this.quasar_main_loop.run();
         }
     },
