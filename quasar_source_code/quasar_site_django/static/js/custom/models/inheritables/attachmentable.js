@@ -139,7 +139,7 @@ function Attachmentable(world) {
     this.set_normal = function(x, y, z, refresh) {
         this.normal = new THREE.Vector3(x, y, z);
         this.normal.normalize();
-        this.left_right = get_left_right_unit_vector(this.normal.x, this.normal.z);
+        this.left_right = get_left_right_unit_vector(-this.normal.x, -this.normal.z);
         if (refresh) {
             this._refresh_look_at();
             this.update_all_child_attachments();
