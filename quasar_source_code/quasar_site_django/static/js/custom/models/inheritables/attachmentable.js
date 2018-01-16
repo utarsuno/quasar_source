@@ -254,6 +254,10 @@ function Attachmentable(world) {
      | | \|  |  |___ |  \ | \| /~~\ |___    \__/  |  | |___ |  |  | |___ .__/ */
     this._refresh_look_at = function() {
         var normal = this.get_normal();
+        l('Setting look at to :');
+        l(this.object3D.position.x + normal.x * 100);
+        l(this.object3D.position.y + normal.y * 100);
+        l(this.object3D.position.z + normal.z * 100);
         this.object3D.lookAt(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
     };
 }

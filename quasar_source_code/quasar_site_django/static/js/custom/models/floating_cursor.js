@@ -71,6 +71,10 @@ FloatingCursor.prototype = {
         }
     },
 
+
+    /*
+
+
     // TODO : Remove this
     set_position: function(position) {
         var cursor_offset = 2;
@@ -90,6 +94,8 @@ FloatingCursor.prototype = {
         this.object3D.lookAt(cursor_look_at);
     },
     //////
+
+    */
 
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \

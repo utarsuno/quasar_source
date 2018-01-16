@@ -110,7 +110,8 @@ Floating2DText.prototype = {
             });
         }
         this.material.transparent = true;
-        this.material.side = THREE.FrontSide;
+        // TODO : DoubleSide is temporary
+        this.material.side = THREE.DoubleSide;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.object3D.add(this.mesh);

@@ -82,7 +82,8 @@ Floating3DText.prototype = {
         this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
         this._calculate_dimensions();
         this.object3D.add(this.current_text_object);
-        this.material.side = THREE.FrontSide;
+        // TODO : DoubleSide is temporary.
+        this.material.side = THREE.DoubleSide;
         this.material.needsUpdate = true;
     },
 
