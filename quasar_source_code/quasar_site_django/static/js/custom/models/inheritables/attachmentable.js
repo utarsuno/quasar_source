@@ -25,6 +25,9 @@ function Attachmentable(world) {
         } else {
             floating_wall = new FloatingWall(width, height, position, this.normal, this.world, false);
         }
+
+        this.add_attachment(floating_wall);
+
         if (is_defined(horizontal_offset)) {
             floating_wall.set_attachment_horizontal_offset(horizontal_offset[0], horizontal_offset[1]);
         }
@@ -39,6 +42,9 @@ function Attachmentable(world) {
 
     this.add_floating_2D_text = function(width, horizontal_offset, vertical_offset, depth_offset, text, type) {
         var floating_2D_text = new Floating2DText(width, text, type, this.world);
+
+        this.add_attachment(floating_2D_text);
+
         if (is_defined(horizontal_offset)) {
             floating_2D_text.set_attachment_horizontal_offset(horizontal_offset[0], horizontal_offset[1]);
         }
