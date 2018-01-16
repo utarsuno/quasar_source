@@ -34,11 +34,6 @@ QuasarMainLoop.prototype = {
 
         MANAGER_DATA_DISPLAY.update();
 
-        // TODO : Refactor this logic into ManagerWorld?
-        //if (MANAGER_WORLD.current_floating_cursor.engaged) {
-        //    MANAGER_WORLD.current_floating_cursor.update();
-        //}
-
         //MANAGER_MULTIPLAYER.update(delta);
         CURRENT_PLAYER.update(this.delta);
         MANAGER_WORLD.update_current_world(this.delta);

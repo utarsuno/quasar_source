@@ -47,7 +47,7 @@ WorldManager.prototype = {
 
         this.current_world.update_interactive_objects();
 
-        this.current_world.floating_cursor.update();
+        //this.current_world.floating_cursor.update();
     },
 
     set_current_world: function(world) {
