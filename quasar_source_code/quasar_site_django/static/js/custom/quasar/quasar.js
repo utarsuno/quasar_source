@@ -4,9 +4,6 @@
   /  \ |  |  /\  /__`  /\  |__)    /__` /  \ |  | |__) /  ` |__      |\/|  /\  | |\ |    /  ` /  \ |  \ |__
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
 
-
-const QUASAR = new QuasarMainLoop();
-
 // The main loop will start after the required initial resources have loaded.
 function QuasarMainLoop() {
     this.__init__();
@@ -59,6 +56,8 @@ QuasarMainLoop.prototype = {
         l('Finished a single frame!');
     }
 };
+
+const QUASAR = new QuasarMainLoop();
 
 // Load all the initially needed resources. Once loaded start the main loop.
 MANAGER_LOADING.perform_initial_load(QUASAR);
