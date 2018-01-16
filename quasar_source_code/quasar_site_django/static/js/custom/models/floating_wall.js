@@ -77,6 +77,8 @@ FloatingWall.prototype = {
         this.object3D.add(this.mesh);
     },
 
+    /*
+
     // TODO : NEED TO REFORMAT THIS FUNCTION! Potentially move all the logic to the Cursor class.
     perform_action: function(cursor_type) {
         // TODO : Clean up this function later on.
@@ -206,6 +208,8 @@ FloatingWall.prototype = {
             this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
         }
     },
+
+    */
 
     _dimensions_changed: function(is_width, new_percentage) {
         if (this.scalable) {

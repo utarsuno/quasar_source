@@ -85,9 +85,13 @@ Floating2DText.prototype = {
         }
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         if (type === TYPE_ICON) {
-            this.material = new THREE.MeshBasicMaterial({
-                map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)
-            });
+
+            // TODO : Create a cleaner design in the future.
+            if (this.text === CURSOR_TYPE_HORIZONTAL || this.text === CURSOR_TYPE_VERTICAL || this.text === CURSOR_TYPE_HAND || this.text === CURSOR_TYPE_POINTER || this.text === CURSOR_TYPE_LARGER || this.text === CURSOR_TYPE_MOUSE) {
+                this.material = new THREE.MeshBasicMaterial({map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, this.text), transparent : true});
+            } else {
+                this.material = new THREE.MeshBasicMaterial({map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)});
+            }
         } else {
             this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
             var texture_height = get_nearest_power_of_two_for_number(this.height * 2);

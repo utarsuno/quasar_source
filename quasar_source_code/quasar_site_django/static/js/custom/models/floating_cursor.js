@@ -10,6 +10,7 @@ FloatingCursor.prototype = {
         this.world = world;
     },
 
+    ////////
     engage: function() {
         this.engaged = true;
         CURRENT_PLAYER.engage();
@@ -26,39 +27,6 @@ FloatingCursor.prototype = {
                 this.current_floating_wall = null;
             }
         }
-    },
-
-    load_cursor: function(texture_name, texture) {
-        var cursor_name = '';
-
-        // The opacity was at 0.90 before
-        // transparent: true, opacity: 1.0
-        //var cursor_material = new THREE.MeshBasicMaterial({map: texture, side: THREE.FrontSide});
-        var cursor_material = new THREE.MeshBasicMaterial({side:THREE.FrontSide, map:texture, transparent: true});
-
-        if (texture_name === CURSOR_TYPE_HORIZONTAL) {
-            cursor_name = CURSOR_TYPE_HORIZONTAL;
-        } else if (texture_name === CURSOR_TYPE_VERTICAL) {
-            cursor_name = CURSOR_TYPE_VERTICAL;
-        } else if (texture_name === CURSOR_TYPE_HAND) {
-            cursor_name = CURSOR_TYPE_HAND;
-        } else if (texture_name === CURSOR_TYPE_POINTER) {
-            cursor_name = CURSOR_TYPE_POINTER;
-        } else if (texture_name === CURSOR_TYPE_LARGER) {
-            cursor_name = CURSOR_TYPE_LARGER;
-        } else if (texture_name === CURSOR_TYPE_MOUSE) {
-            cursor_name = CURSOR_TYPE_MOUSE;
-        }
-
-        var cursor_plane_geometry = new THREE.PlaneGeometry(this.width, this.height, 1);
-
-        var c = new THREE.Mesh(cursor_plane_geometry, cursor_material);
-        c.userData.name = cursor_name;
-        c.visible = false;
-        //this.object3D.add(c);
-
-        //this.scene.add(c);
-        this.cursors[cursor_name] = c;
     },
 
     is_currently_visible: function() {
@@ -103,10 +71,6 @@ FloatingCursor.prototype = {
         }
     },
 
-    get_position: function() {
-        return this.object3D.position;
-    },
-
     // TODO : Remove this
     set_position: function(position) {
         var cursor_offset = 2;
@@ -125,13 +89,13 @@ FloatingCursor.prototype = {
         this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height / 2, position.z + normal.z * cursor_offset);
         this.object3D.lookAt(cursor_look_at);
     },
+    //////
 
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
         this.cursor_wall = new FloatingWall(16, 16, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false);
-
         this._create_cursor(CURSOR_TYPE_HORIZONTAL);
         this._create_cursor(CURSOR_TYPE_VERTICAL);
         this._create_cursor(CURSOR_TYPE_HAND);
@@ -141,17 +105,9 @@ FloatingCursor.prototype = {
     },
 
     _create_cursor: function(cursor_type) {
-        this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
+        var c = this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
 
-        var cursor_texture = MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, cursor_type);
-
-        var c = new Floating2DText();
-
-
-        var cursor_geometry = new THREE.PlaneGeometry(16, 16);
-        var cursor_material = new THREE.MeshBasicMaterial({side : THREE.FrontSide, map : cursor_texture, transparent: true});
-
-        var cursor = new THREE.PlaneGeometry(16, 16);
-    },
+        c.set_attachment_depth_offset(1);
+    }
 
 };
