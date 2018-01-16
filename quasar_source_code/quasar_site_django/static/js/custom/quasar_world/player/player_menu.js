@@ -182,7 +182,7 @@ PlayerMenu.prototype = {
         var position_z = player_position.z + position_offset[2];
 
         this._player_menu.set_position(position_x, position_y, position_z, false);
-        this._player_menu.set_normal(position_x - player_position.x, 0, position_z - player_position.z);
+        this._player_menu.set_normal(position_x - player_position.x, 0, position_z - player_position.z, true);
         this._player_menu.set_to_visible();
 
         this._player_menu.restart_all_animations();
