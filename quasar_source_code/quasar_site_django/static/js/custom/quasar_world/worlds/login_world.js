@@ -105,15 +105,16 @@ LoginWorld.prototype = {
                 }
             }
         }
+
+        this.quasar_source_title.refresh_position_and_look_at_for_self_and_all_children();
+        this.login_wall.refresh_position_and_look_at_for_self_and_all_children();
+        this.wall_create_account.refresh_position_and_look_at_for_self_and_all_children();
     },
 
     exit_world: function() {
         this.login_wall.clear_inputs();
         this.wall_create_account.clear_inputs();
     },
-
-
-
 
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \

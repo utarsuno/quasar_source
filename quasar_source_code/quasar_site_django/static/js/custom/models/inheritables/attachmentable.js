@@ -54,11 +54,27 @@ function Attachmentable(world) {
     // WARNING : This is recursive. Change the design later.
     this.update_all_child_attachments = function() {
         var parent_position = this.get_position();
+
+        l('The parent position is : ');
+        l(parent_position);
+        l('There are ' + this.attachments.length + ' attachments!');
+
         for (var a = 0; a < this.attachments.length; a++) {
+
+            l('Currently updating :');
+            l(this.attachments[a]);
+
             this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
             this.attachments[a]._refresh_look_at();
             this.attachments[a].update_all_child_attachments();
         }
+    };
+
+    this.refresh_position_and_look_at_for_self_and_all_children = function() {
+        // TODO :
+        l('TODOD!!!!!!');
+
+
     };
 
     /*    ___ ___       __               __
