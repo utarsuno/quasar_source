@@ -87,6 +87,7 @@ function World() {
     };
 
     this.set_cursor_position = function(position) {
+        /*
         this.floating_cursor.set_position(position);
 
         // Check if we need to change cursor texture type.
@@ -108,17 +109,21 @@ function World() {
                 }
             }
         }
+        */
     };
 
     this.parse_mouse_drag = function(movement_x, movement_y) {
+        /*
         if (this.floating_cursor.engaged) {
             if (is_defined(this.floating_cursor.current_floating_wall)) {
                 this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
             }
         }
+        */
     };
 
     this.parse_mouse_movement = function(movement_x, movement_y) {
+        /*
         if (CURRENT_PLAYER.is_engaged()) {
             var c = MANAGER_WORLD.current_world.currently_looked_at_object;
             if (is_defined(c)) {
@@ -130,6 +135,7 @@ function World() {
                 }
             }
         }
+        */
     };
 
     this.wheel_event = function(delta) {
