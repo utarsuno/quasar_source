@@ -26,7 +26,7 @@ QuasarMainLoop.prototype = {
     },
 
     quasar_main_loop: function() {
-        requestAnimationFrame(QUASAR.quasar_main_loop);
+        requestAnimationFrame(this.quasar_main_loop.bind(this));
         MANAGER_RENDERER.pre_render();
 
         this.time = performance.now();
@@ -61,4 +61,6 @@ const QUASAR = new QuasarMainLoop();
 
 // Load all the initially needed resources. Once loaded start the main loop.
 MANAGER_LOADING.perform_initial_load(QUASAR);
+
+
 
