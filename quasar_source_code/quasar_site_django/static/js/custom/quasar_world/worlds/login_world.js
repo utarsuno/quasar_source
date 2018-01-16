@@ -128,7 +128,7 @@ LoginWorld.prototype = {
          \__X \__/ /~~\ .__/ /~~\ |  \     |  |  |  |___ |___ */
         this.quasar_source_title = new Floating3DText('Quasar Source', TYPE_SUPER_TITLE, this);
         this.quasar_source_title.set_position(1200, 400, 400, false);
-        this.quasar_source_title.look_at_origin(true);
+        this.quasar_source_title.look_at_origin(false);
 
         /*     __   __
          |    /  \ / _` | |\ |    |  |  /\  |    |

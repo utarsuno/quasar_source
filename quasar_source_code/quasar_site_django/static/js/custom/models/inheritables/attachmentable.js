@@ -107,9 +107,11 @@ function Attachmentable(world) {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.look_at_origin = function(refresh) {
-        this.object3D.lookAt(-this.object3D.position.x, 0, -this.object3D.position.z);
+        // OLD : this.object3D.lookAt(-this.object3D.position.x, 0, -this.object3D.position.z);
+        this.object3D.lookAt(0, this.object3D.position.y, 0);
         if (this.is_root()) {
             if (!is_defined(this.normal)) {
+                // OLD : var normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
                 var normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
                 normal.normalize();
                 this.normal = normal;
@@ -262,5 +264,7 @@ function Attachmentable(world) {
         l(this.object3D.position.y + normal.y * 100);
         l(this.object3D.position.z + normal.z * 100);
         this.object3D.lookAt(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+
+
     };
 }
