@@ -5,6 +5,8 @@
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
 
 
+const QUASAR = new QuasarMainLoop();
+
 // The main loop will start after the required initial resources have loaded.
 function QuasarMainLoop() {
     this.__init__();
@@ -27,11 +29,11 @@ QuasarMainLoop.prototype = {
     },
 
     quasar_main_loop: function() {
-        requestAnimationFrame(this.quasar_main_loop);
+        requestAnimationFrame(QUASAR.quasar_main_loop);
         MANAGER_RENDERER.pre_render();
 
-        var time = performance.now();
-        var delta = (time - this.previous_time) / 1000.0;
+        this.time = performance.now();
+        this.delta = (this.time - this.previous_time) / 1000.0;
 
         MANAGER_DATA_DISPLAY.update();
 
@@ -41,8 +43,8 @@ QuasarMainLoop.prototype = {
         //}
 
         //MANAGER_MULTIPLAYER.update(delta);
-        CURRENT_PLAYER.update(delta);
-        MANAGER_WORLD.update_current_world(delta);
+        CURRENT_PLAYER.update(this.delta);
+        MANAGER_WORLD.update_current_world(this.delta);
 
         ////
         if (GUI_TYPING_INTERFACE.needs_an_update()) {
@@ -52,12 +54,12 @@ QuasarMainLoop.prototype = {
 
         MANAGER_RENDERER.render();
         MANAGER_RENDERER.post_render();
-        this.previous_time = time;
+        this.previous_time = this.time;
 
         l('Finished a single frame!');
     }
 };
 
 // Load all the initially needed resources. Once loaded start the main loop.
-MANAGER_LOADING.perform_initial_load(new QuasarMainLoop());
+MANAGER_LOADING.perform_initial_load(QUASAR);
 
