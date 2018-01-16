@@ -17,7 +17,7 @@ FloatingWall.prototype = {
         Animatable.call(this);
 
         this.set_normal(normal.x, normal.y, normal.z, false);
-        this.set_position(position.x, position.y, position.z, true);
+        this.set_position(position.x, position.y, position.z, false);
 
         this.width = width;
         this.height = height;
