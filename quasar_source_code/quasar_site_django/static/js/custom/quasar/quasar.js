@@ -7,45 +7,54 @@
 
 // The main loop will start after the required initial resources have loaded.
 function QuasarMainLoop() {
+    this.__init__();
 }
 
 QuasarMainLoop.prototype = {
+
+    __init__: function() {
+        this.previous_time = null;
+    },
+
     run: function() {
         // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
         GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
 
         // Game loop below.
 
-        var previous_time = performance.now();
+        this.previous_time = performance.now();
+        this.quasar_main_loop();
+    },
 
-        var quasar_main_loop = function () {
-            requestAnimationFrame(quasar_main_loop);
-            MANAGER_RENDERER.pre_render();
+    quasar_main_loop: function() {
+        requestAnimationFrame(this.quasar_main_loop);
+        MANAGER_RENDERER.pre_render();
 
-            var time = performance.now();
-            var delta = (time - previous_time) / 1000.0;
+        var time = performance.now();
+        var delta = (time - this.previous_time) / 1000.0;
 
-            MANAGER_DATA_DISPLAY.update();
+        MANAGER_DATA_DISPLAY.update();
 
-            // TODO : Refactor this logic into ManagerWorld?
-            //if (MANAGER_WORLD.current_floating_cursor.engaged) {
-            //    MANAGER_WORLD.current_floating_cursor.update();
-            //}
+        // TODO : Refactor this logic into ManagerWorld?
+        //if (MANAGER_WORLD.current_floating_cursor.engaged) {
+        //    MANAGER_WORLD.current_floating_cursor.update();
+        //}
 
-            //MANAGER_MULTIPLAYER.update(delta);
-            CURRENT_PLAYER.update(delta);
-            MANAGER_WORLD.update_current_world(delta);
+        //MANAGER_MULTIPLAYER.update(delta);
+        CURRENT_PLAYER.update(delta);
+        MANAGER_WORLD.update_current_world(delta);
 
-            ////
-            if (GUI_TYPING_INTERFACE.needs_an_update()) {
-                GUI_TYPING_INTERFACE.update();
-            }
-            ////
+        ////
+        if (GUI_TYPING_INTERFACE.needs_an_update()) {
+            GUI_TYPING_INTERFACE.update();
+        }
+        ////
 
-            MANAGER_RENDERER.render();
-            MANAGER_RENDERER.post_render();
-            previous_time = time;
-        };
+        MANAGER_RENDERER.render();
+        MANAGER_RENDERER.post_render();
+        this.previous_time = time;
+
+        l('Finished a single frame!');
     }
 };
 
