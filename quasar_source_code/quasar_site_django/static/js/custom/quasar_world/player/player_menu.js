@@ -177,9 +177,14 @@ PlayerMenu.prototype = {
 
         // TODO : Flip the player menu wall normal?
 
-        this._player_menu.set_position(player_position.x + position_offset[0], player_position.y + position_offset[1], player_position.z + position_offset[2], true);
+        var position_x = player_position.x + position_offset[0];
+        var position_y = player_position.y + position_offset[1];
+        var position_z = player_position.z + position_offset[2];
 
+        this._player_menu.set_position(position_x, position_y, position_z, false);
+        this._player_menu.set_normal(position_x - player_position.x, 0, position_z - player_position.z);
         this._player_menu.set_to_visible();
+
         this._player_menu.restart_all_animations();
     },
 
