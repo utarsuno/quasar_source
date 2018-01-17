@@ -243,25 +243,38 @@ LoadingManager.prototype = {
         }
     },
 
+    /*     __   __                  __        __          __
+     |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
+     |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
+    /*
+    login: function(username, password) {
+        ENTITY_OWNER = new EntityOwner(username, password);
+        MANAGER_ENTITY.load_data(username, password);
+        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
+        this.logged_in = true;
+    },
+     */
+
     perform_login_load: function() {
-        // TODO :
-        l('TODO : Display the loading screen while loading!');
-        this._load_cursors_for_world(MANAGER_WORLD.world_home);
-        this._load_cursors_for_world(MANAGER_WORLD.world_settings);
+        GUI_PAUSED_MENU.set_text('Loading!');
+        GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
+        GUI_PAUSED_MENU.make_visible();
 
-        this._load_skybox_for_world(MANAGER_WORLD.world_home);
-        this._load_skybox_for_world(MANAGER_WORLD.world_settings);
-
-        this._load_icons_for_world(MANAGER_WORLD.world_home);
-        this._load_icons_for_world(MANAGER_WORLD.world_settings);
-
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
 
-        l('Loading finished!');
+        GUI_PAUSED_MENU.set_sub_text('Creating home world...');
+
+        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
+
+        GUI_PAUSED_MENU.make_invisible();
+
+        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
     },
 
-    // Occurs only once on client initial connection.
+
+    /*__             __        __              ___                      __        __          __
+     /  \ |  |  /\  /__`  /\  |__)    | |\ | |  |  |  /\  |       |    /  \  /\  |  \ | |\ | / _`
+     \__X \__/ /~~\ .__/ /~~\ |  \    | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ | | \| \__> */
     perform_initial_load: function(quasar_main_loop) {
         this.quasar_main_loop = quasar_main_loop;
 
@@ -273,8 +286,8 @@ LoadingManager.prototype = {
 
     check_if_initial_resources_loaded: function() {
         if (this.textures_cursor.finished_loading && this.textures_skybox.finished_loading && this.textures_icon.finished_loading && this.all_audio.finished_loading) {
-            MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
 
+            MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
             MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
 
             this.quasar_main_loop.run();

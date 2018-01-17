@@ -21,6 +21,9 @@ LoginWorld.prototype = {
         error_manager.error_check();
     },
 
+    /*     __   __
+     |    /  \ / _` | |\ |
+     |___ \__/ \__> | | \| */
     login_button_pressed: function() {
         var login_username_text = this.login_username_input.get_text();
         var login_password_text = this.login_password_input.get_text();
@@ -39,12 +42,18 @@ LoginWorld.prototype = {
             //if (this.remember_username_checkbox.checked) {
             //    MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
             //}
+
+
+
             CURRENT_PLAYER.login(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
     },
 
+    /*__   __   ___      ___  ___          __   __   __            ___
+     /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |
+     \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |  */
     create_account_button_pressed: function() {
         var email_text = this.create_account_email_input.get_text();
         var username_text = this.create_account_username_input.get_text();
@@ -73,6 +82,8 @@ LoginWorld.prototype = {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
     },
+
+    ///////
 
     remember_username_pressed: function() {
         this.remember_username_checkbox.toggle();

@@ -21,15 +21,7 @@ WorldManager.prototype = {
         this.world_settings = new SettingsWorld();
     },
 
-    set_player_and_current_world: function(current_world) {
-        this.world_login.set_player();
-        this.world_home.set_player();
-        this.world_settings.set_player();
-
-        //this.world_home.add_css_scene();
-
-        this.set_current_world(current_world);
-    },
+    //this.world_home.add_css_scene();
 
     update_current_world: function(delta) {
         // TODO : Double check on what order these should update.

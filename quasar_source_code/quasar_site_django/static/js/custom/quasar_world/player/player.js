@@ -9,9 +9,6 @@ Player.prototype = {
     logged_in       : null,
     engaged         : null, 
 
-    // Three JS objects.
-    camera          : null,
-
     // Custom objects.
     pointer_lock_api: null,
     fps_controls    : null,
@@ -89,12 +86,14 @@ Player.prototype = {
         this.web_socket_client.connect(ENTITY_OWNER);
     },
 
+    /*
     login: function(username, password) {
         ENTITY_OWNER = new EntityOwner(username, password);
         MANAGER_ENTITY.load_data(username, password);
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
         this.logged_in = true;
     },
+    */
 
     // TODO : consider holding the currently engaged object so that the player can send a disengage/engage message to it.
 

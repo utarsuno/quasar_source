@@ -121,6 +121,7 @@ module.exports = {
         "Player": true,
 
         "PlayerMenu": true,
+        "FloatingCursor": true,
 
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,
@@ -129,17 +130,12 @@ module.exports = {
         "PausedMenu": false,
         "TypingInterface": false,
 
-        // Global POST calls (used for debugging).
-        "GlobalPostCall": false,
-        "GLOBAL_POST_PRINT_ENTITY_MANAGER_STATUS": true,
-
         "GLOBAL_FONT": false,
 
         "DragNDrop": false,
 
         "Entity": false,
         "EntityWall": false,
-        "CreateEntity": false,
 
         "TextSyntaxManager": true,
 
