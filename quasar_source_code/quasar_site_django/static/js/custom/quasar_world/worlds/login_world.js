@@ -167,10 +167,10 @@ LoginWorld.prototype = {
             \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     |/\| /~~\ |___ |___  */
         this.create_account_errors = new TextSyntaxManager(this);
 
-        var wall_create_account_position = new THREE.Vector3(350, 90, 600);
+        var wall_create_account_position = new THREE.Vector3(350, 95, 600);
         var wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
 
-        this.wall_create_account = new FloatingWall(350, 90, wall_create_account_position, wall_create_account_normal, this, false);
+        this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this, false);
         this.wall_create_account.add_row_3D_text(true, -1, 'Create Account', TYPE_TITLE);
 
         this.create_account_username_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
