@@ -69,7 +69,7 @@ function Visibility() {
     this.hide_all_child_attachments_with_name = function(n) {
         for (var a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].relative_name === n) {
-                this.attachments[a].set_to_visible();
+                this.attachments[a].set_to_invisible();
             }
         }
     };
