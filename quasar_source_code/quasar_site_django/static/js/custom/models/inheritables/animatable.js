@@ -19,9 +19,9 @@ function Animatable() {
         var start_position = this.get_position();
         var start_offset   = this.get_position_offset();
 
-        this.animation_start_position_x = start_position.x + start_position[0];
-        this.animation_start_position_y = start_position.y + start_position[1];
-        this.animation_start_position_z = start_position.z + start_position[2];
+        this.animation_start_position_x = start_position.x + start_offset[0];
+        this.animation_start_position_y = start_position.y + start_offset[1];
+        this.animation_start_position_z = start_position.z + start_offset[2];
     };
 
     this.update = function(delta) {
