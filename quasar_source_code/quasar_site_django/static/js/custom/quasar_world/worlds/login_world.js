@@ -105,14 +105,10 @@ LoginWorld.prototype = {
                 }
             }
         }
-
-        //this.quasar_source_title.refresh_position_and_look_at_for_self_and_all_children();
-        //this.login_wall.refresh_position_and_look_at_for_self_and_all_children();
-        //this.wall_create_account.refresh_position_and_look_at_for_self_and_all_children();
-
-        this.quasar_source_title.update_all_child_attachments();
-        this.login_wall.update_all_child_attachments();
-        this.wall_create_account.update_all_child_attachments();
+        
+        this.quasar_source_title.refresh_position_and_look_at();
+        this.login_wall.refresh_position_and_look_at();
+        this.wall_create_account.refresh_position_and_look_at();
     },
 
     exit_world: function() {
