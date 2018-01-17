@@ -279,9 +279,9 @@ FloatingWall.prototype = {
         var floating_3D_text = new Floating3DText(text, type, this.world);
 
         if (centered) {
-            floating_3D_text.set_attachment_horizontal_offset(0, 0);
+            floating_3D_text.set_attachment_horizontal_offset(0, -HALF);
         } else {
-            floating_3D_text.set_attachment_horizontal_offset(0, -1);
+            floating_3D_text.set_attachment_horizontal_offset(0, 0);
         }
 
         // TODO : WARNING : Fix row height at some point.
