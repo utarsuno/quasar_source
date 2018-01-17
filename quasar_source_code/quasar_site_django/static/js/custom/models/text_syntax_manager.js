@@ -157,7 +157,7 @@ TextSyntaxManager.prototype = {
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
 
-        var tooltip = input.add_floating_2D_text(input.width * 1.8, null, null, 2, 'should not be visible', TYPE_CONSTANT);
+        var tooltip = input.add_floating_2D_text(input.width * 1, null, null, 2, 'should not be visible', TYPE_CONSTANT);
         tooltip.set_attachment_name(ATTACHMENT_NAME_TOOLTIP);
         tooltip.set_animation_vertical_offset(20, HALF);
         tooltip.set_animation_depth_offset(4);

@@ -279,13 +279,13 @@ FloatingWall.prototype = {
         var floating_3D_text = new Floating3DText(text, type, this.world);
 
         if (centered) {
-            floating_3D_text.set_attachment_vertical_offset(0, 0);
+            floating_3D_text.set_attachment_horizontal_offset(0, 0);
         } else {
-            floating_3D_text.set_attachment_vertical_offset(0, HALF);
+            floating_3D_text.set_attachment_horizontal_offset(0, HALF);
         }
 
         // TODO : WARNING : Fix row height at some point.
-        floating_3D_text.set_attachment_vertical_offset(-32 * row, HALF);
+        floating_3D_text.set_attachment_vertical_offset(-16 + -32 * row, HALF);
 
         floating_3D_text.attach_to(this);
         return floating_3D_text;

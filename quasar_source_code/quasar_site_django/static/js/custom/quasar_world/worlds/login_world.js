@@ -107,7 +107,7 @@ LoginWorld.prototype = {
         }
 
         this.quasar_source_title.refresh_position_and_look_at();
-        this.login_wall.refresh_position_and_look_at();
+        this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
     },
 
@@ -140,20 +140,16 @@ LoginWorld.prototype = {
         var login_wall_position = new THREE.Vector3(600, login_wall_height, 350);
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
 
-        this.login_wall = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
+        this.wall_login = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
+        this.wall_login.add_row_3D_text(false, -1, 'Login', TYPE_TITLE);
 
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        // this.login_wall.add_3D_title('Login', TYPE_TITLE, null, 0);
-
-        this.login_username_label = this.login_wall.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
-        this.login_username_input = this.login_wall.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_username_label = this.wall_login.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
+        this.login_username_input = this.wall_login.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_errors.add_label_and_input(this.login_username_label, this.login_username_input);
         this.login_username_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
-        this.login_password_label = this.login_wall.add_row_2D_text([0, ONE_THIRD], 1, 'password', TYPE_CONSTANT);
-        this.login_password_input = this.login_wall.add_row_2D_text([ONE_THIRD, 1], 1, '', TYPE_PASSWORD, [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_password_label = this.wall_login.add_row_2D_text([0, ONE_THIRD], 1, 'password', TYPE_CONSTANT);
+        this.login_password_input = this.wall_login.add_row_2D_text([ONE_THIRD, 1], 1, '', TYPE_PASSWORD, [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_errors.add_label_and_input(this.login_password_label, this.login_password_input);
         this.login_password_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
@@ -162,7 +158,7 @@ LoginWorld.prototype = {
         //this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
         //this.login_remember_username_checkbox = this.login_wall.add_floating_2d_text(16, '', TYPE_CHECK_BOX, login_wall_width / 2 + 10, 2, 2, 0);
 
-        this.login_button = this.login_wall.add_row_2D_text([.25, .75], 3, 'login', TYPE_BUTTON);
+        this.login_button = this.wall_login.add_row_2D_text([.25, .75], 3, 'login', TYPE_BUTTON);
         this.login_button.set_engage_function(this.login_button_pressed.bind(this));
         this.login_errors.add_final_button(this.login_button);
 
@@ -175,6 +171,7 @@ LoginWorld.prototype = {
         var wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
 
         this.wall_create_account = new FloatingWall(350, 90, wall_create_account_position, wall_create_account_normal, this, false);
+        this.wall_create_account.add_row_3D_text(true, 1, 'Create Account', TYPE_TITLE);
 
         // TODO : THIS NEEDS TO GET REFACTORED!!
         // TODO : THIS NEEDS TO GET REFACTORED!!
@@ -220,7 +217,7 @@ LoginWorld.prototype = {
 
 
         this.root_attachables.push(this.quasar_source_title);
-        this.root_attachables.push(this.login_wall);
+        this.root_attachables.push(this.wall_login);
         this.root_attachables.push(this.wall_create_account);
     }
 };
