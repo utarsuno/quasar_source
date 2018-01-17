@@ -88,6 +88,10 @@ TextSyntaxManager.prototype = {
         this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
 
         this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_RED, true);
+
+        this._pairs[pair_index][INDEX_INPUT].hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+        this._pairs[pair_index][INDEX_INPUT].display_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+
         // TODO : Add warning icon
         //this._pairs[pair_index][INDEX_INPUT].display_icon_attachment(ICON_WARNING, {'RIGHT': 10});
 
@@ -105,6 +109,10 @@ TextSyntaxManager.prototype = {
         for (var i = 0; i < this._pairs.length; i++) {
             var label = this._pairs[i][INDEX_LABEL];
             var input = this._pairs[i][INDEX_INPUT];
+
+            input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+            input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+
             label.set_color(label.default_color, true);
             input.set_default_background_color(COLOR_TRANSPARENT);
             input.set_background_color(COLOR_TRANSPARENT, true);
@@ -130,6 +138,7 @@ TextSyntaxManager.prototype = {
         warning_icon.set_attachment_horizontal_offset(-16, -HALF);
         warning_icon.set_attachment_depth_offset(1);
         warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
+        hide_all_child_attachments_with_name
         warning_icon.manual_visibility = true;
 
         var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);

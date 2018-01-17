@@ -96,6 +96,10 @@ function Attachmentable(world) {
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
+    this.set_attachment_name = function(n) {
+        this.relative_name = n;
+    };
+
     this.look_at_origin = function(refresh) {
         // OLD : this.object3D.lookAt(-this.object3D.position.x, 0, -this.object3D.position.z);
         this.object3D.lookAt(0, this.object3D.position.y, 0);
@@ -134,10 +138,6 @@ function Attachmentable(world) {
             this._refresh_look_at();
             this.update_all_child_attachments();
         }
-    };
-
-    this.set_attachment_name = function(n) {
-        this.relative_name = n;
     };
 
     this.set_attachment_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {
