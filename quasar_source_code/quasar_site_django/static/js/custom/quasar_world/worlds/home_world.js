@@ -8,11 +8,9 @@ const MONTH_VIEW_RADIUS = 3000;
 
 HomeWorld.prototype = {
 
-    entity_walls: null,
-
     __init__: function() {
         // Inherit from World.
-        World.call(this, 'HomeWorld');
+        World.call(this);
     },
 
     create_world: function() {
@@ -62,10 +60,12 @@ HomeWorld.prototype = {
         }
         CURRENT_PLAYER.set_position_xyz(0, 100, 0);
 
+        /*
         if (!this.schedule_loaded) {
             this.load_schedule();
             this.load_date_selector();
         }
+        */
     },
 
     exit_world: function() {
