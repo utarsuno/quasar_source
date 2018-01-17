@@ -16,21 +16,13 @@ FloatingWall.prototype = {
         // Inherit from Animatable.
         Animatable.call(this);
 
+        this.width = width;
+        this.height = height;
+
         this._create_base_wall();
 
         this.set_normal(normal.x, normal.y, normal.z, false);
         this.set_position(position.x, position.y, position.z, false);
-
-        this.width = width;
-        this.height = height;
-
-        this.material = new THREE.MeshBasicMaterial({
-            // TODO : THE COLOR IS TEMPORARY!!!
-            color: COLORS[0],
-            //transparent: true,
-            //opacity: 0.85,
-            side: THREE.DoubleSide
-        });
 
         // Inherit from Interactive.
         Interactive.call(this);
@@ -50,7 +42,7 @@ FloatingWall.prototype = {
 
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
 
-        this.make_base_wall_visible();
+        //this.make_base_wall_visible();
     },
 
     make_base_wall_invisible: function() {
@@ -70,12 +62,23 @@ FloatingWall.prototype = {
     _create_base_wall: function() {
         // Check if the there is an existing wall that needs to be fully cleaned up.
         this.resource_cleanup();
+
+        if (!is_defined(this.material)) {
+            this.material = new THREE.MeshBasicMaterial({
+                // TODO : THE COLOR IS TEMPORARY!!!
+                color: COLORS[0],
+                //transparent: true,
+                //opacity: 0.85,
+                side: THREE.DoubleSide
+            });
+        }
+
         // Now re-create the base wall.
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
-        if (!this._make_base_wall_visible) {
-            this.mesh.visible = false;
-        }
+        //if (!this._make_base_wall_visible) {
+        //    this.mesh.visible = false;
+        //}
         this.object3D.add(this.mesh);
     },
 
@@ -213,6 +216,7 @@ FloatingWall.prototype = {
 
     */
 
+    /*
     _dimensions_changed: function(is_width, new_percentage) {
         if (this.scalable) {
             this._create_base_wall();
@@ -255,6 +259,7 @@ FloatingWall.prototype = {
             }
         }
     },
+    */
 
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
