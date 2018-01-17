@@ -141,7 +141,7 @@ LoginWorld.prototype = {
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
 
         this.wall_login = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
-        this.wall_login.add_row_3D_text(false, -1, 'Login', TYPE_TITLE);
+        this.wall_login.add_row_3D_text(true, -1, 'Login', TYPE_TITLE);
 
         this.login_username_label = this.wall_login.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
         this.login_username_input = this.wall_login.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);
@@ -171,12 +171,7 @@ LoginWorld.prototype = {
         var wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
 
         this.wall_create_account = new FloatingWall(350, 90, wall_create_account_position, wall_create_account_normal, this, false);
-        this.wall_create_account.add_row_3D_text(true, 1, 'Create Account', TYPE_TITLE);
-
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        // TODO : THIS NEEDS TO GET REFACTORED!!
-        //this.wall_create_account.add_3D_title('Create Account', TYPE_TITLE, null, 0);
+        this.wall_create_account.add_row_3D_text(true, -1, 'Create Account', TYPE_TITLE);
 
         this.create_account_username_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
         this.create_account_username_input = this.wall_create_account.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);

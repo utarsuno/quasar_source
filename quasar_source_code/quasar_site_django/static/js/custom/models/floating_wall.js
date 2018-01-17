@@ -281,7 +281,7 @@ FloatingWall.prototype = {
         if (centered) {
             floating_3D_text.set_attachment_horizontal_offset(0, 0);
         } else {
-            floating_3D_text.set_attachment_horizontal_offset(0, HALF);
+            floating_3D_text.set_attachment_horizontal_offset(0, -HALF);
         }
 
         // TODO : WARNING : Fix row height at some point.
