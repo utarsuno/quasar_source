@@ -226,5 +226,5 @@ LoginWorld.prototype = {
         this.root_attachables.push(this.quasar_source_title);
         this.root_attachables.push(this.login_wall);
         this.root_attachables.push(this.wall_create_account);
-    },
+    }
 };
