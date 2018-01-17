@@ -138,7 +138,6 @@ TextSyntaxManager.prototype = {
         warning_icon.set_attachment_horizontal_offset(-16, -HALF);
         warning_icon.set_attachment_depth_offset(1);
         warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
-        hide_all_child_attachments_with_name
         warning_icon.manual_visibility = true;
 
         var success_icon = get_new_floating_icon(ICON_CHECKMARK, this.world);
@@ -148,6 +147,9 @@ TextSyntaxManager.prototype = {
         success_icon.manual_visibility = true;
 
         input.add_attachment(warning_icon);
+        input.add_attachment(success_icon);
+        input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+        input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
 
         this._pairs.push([label, input]);
     },
