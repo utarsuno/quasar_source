@@ -40,6 +40,9 @@ function Animatable() {
         this.set_position(this.animation_start_position_x + animation_offset[0] * this.percentage_elapsed,
             this.animation_start_position_y + animation_offset[1] * this.percentage_elapsed,
             this.animation_start_position_z + animation_offset[2] * this.percentage_elapsed, true);
+
+        l('The position is now :');
+        l(this.get_position());
     };
 
     this.update_all_child_animations_recursively = function(delta) {
