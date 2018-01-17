@@ -206,6 +206,10 @@ function Attachmentable(world) {
         return new THREE.Vector3(left_right.x * distance, left_right.y * distance, left_right.z * distance);
     };
 
+    this.get_parent_position = function() {
+        return this.attachment_parent.object3D.position;
+    };
+
     this.get_position = function() {
         return this.object3D.position;
     };

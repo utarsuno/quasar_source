@@ -16,7 +16,8 @@ function Animatable() {
         this._elapsed_delta = 0;
         this.percentage_elapsed = 0;
 
-        var start_position = this.get_position();
+
+        var start_position = this.get_parent_position();
         var start_offset   = this.get_position_offset();
 
         this.animation_start_position_x = start_position.x + start_offset[0];
@@ -42,6 +43,7 @@ function Animatable() {
             this.animation_start_position_y + animation_offset[1] * this.percentage_elapsed,
             this.animation_start_position_z + animation_offset[2] * this.percentage_elapsed, true);
 
+        /*
         l(this.animation_start_position_x);
         l(this.animation_start_position_y);
         l(this.animation_start_position_z);
@@ -54,6 +56,7 @@ function Animatable() {
 
         l('The position is now :');
         l(this.get_position());
+        */
     };
 
     this.update_all_child_animations_recursively = function(delta) {
