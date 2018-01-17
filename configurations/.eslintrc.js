@@ -77,6 +77,7 @@ module.exports = {
         "ATTACHMENT_NAME_WARNING": false,
         "ATTACHMENT_NAME_SUCCESS": false,
         "ATTACHMENT_NAME_ERROR"  : false,
+        "ATTACHMENT_NAME_TOOLTIP": false,
 
         "ATTACHMENT_TYPE_FLOATING_WALL"   : false,
         "ATTACHMENT_TYPE_FLOATING_TEXT"   : false,

@@ -4,7 +4,7 @@ function Animatable() {
 
     // TODO : Eventually change the design so not every instance requires a tracking of delta.
 
-    this.animation_time = null;
+    this.animation_duration = null;
     this.has_animation = false;
     this.requires_animation_update = false;
 
@@ -21,10 +21,10 @@ function Animatable() {
         l('Performing an animation update!');
 
         this._elapsed_delta += delta;
-        if (this._elapsed_delta >= this.animation_time) {
+        if (this._elapsed_delta >= this.animation_duration) {
             this.percentage_elapsed = 1.0;
         } else {
-            this.percentage_elapsed = this._elapsed_delta / this.animation_time;
+            this.percentage_elapsed = this._elapsed_delta / this.animation_duration;
             this.requires_animation_update = false;
         }
 
@@ -40,6 +40,10 @@ function Animatable() {
             }
             this.attachments[a].update_all_child_animations_recursively(delta);
         }
+    };
+
+    this.set_animation_duration = function(d) {
+        this.animation_duration = d;
     };
 
     this.set_animation_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {

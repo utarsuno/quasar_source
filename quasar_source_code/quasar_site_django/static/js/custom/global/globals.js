@@ -319,6 +319,7 @@ const DISPLAY_SHOW = 'block';
 const ATTACHMENT_NAME_WARNING = 'attachment_warning';
 const ATTACHMENT_NAME_SUCCESS = 'attachment_success';
 const ATTACHMENT_NAME_ERROR   = 'attachment_error';
+const ATTACHMENT_NAME_TOOLTIP = 'attachment_tooltip';
 
 const ATTACHMENT_TYPE_FLOATING_WALL    = 'attachment_type_floating_wall';
 const ATTACHMENT_TYPE_FLOATING_TEXT    = 'attachment_type_floating_wall';

@@ -50,16 +50,6 @@ Floating2DText.prototype = {
         l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
     },
 
-    // TODO : REMOVE!!!
-    display_icon_to_the_right: function(icon_type) {
-        l('TODO !!!! DISPLAY AN ICON TO THE RIGHT!!');
-    },
-
-    // TODO : REMOVE!!!
-    display_icon_over_center: function(icon_type) {
-        l('TODO !!!! DISPLAY AN ICON HOVERING OVER THE CENTER!!');
-    },
-
     __init__: function(w, text, type, world, syntax_checks) {
         // Inherit from Atachmentable.
         Attachmentable.call(this, world);
