@@ -22,6 +22,7 @@ function Animatable() {
         this.animation_start_position_x = start_position.x + start_offset[0];
         this.animation_start_position_y = start_position.y + start_offset[1];
         this.animation_start_position_z = start_position.z + start_offset[2];
+        this.set_position(this.animation_start_position_x, this.animation_start_position_y, this.animation_start_position_z);
     };
 
     this.update = function(delta) {
