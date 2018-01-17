@@ -32,6 +32,11 @@ function Animatable() {
             this.percentage_elapsed = 1.0;
         } else {
             this.percentage_elapsed = this._elapsed_delta / this.animation_duration;
+
+            l(this._elapsed_delta);
+            l(this.animation_duration);
+            l(this.percentage_elapsed);
+
             this.requires_animation_update = false;
         }
 
