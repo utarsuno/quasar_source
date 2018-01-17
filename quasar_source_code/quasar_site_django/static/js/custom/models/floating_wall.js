@@ -16,6 +16,8 @@ FloatingWall.prototype = {
         // Inherit from Animatable.
         Animatable.call(this);
 
+        this._create_base_wall();
+
         this.set_normal(normal.x, normal.y, normal.z, false);
         this.set_position(position.x, position.y, position.z, false);
 
