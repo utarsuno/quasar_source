@@ -30,14 +30,9 @@ function Animatable() {
         this._elapsed_delta += delta;
         if (this._elapsed_delta >= this.animation_duration) {
             this.percentage_elapsed = 1.0;
+            this.requires_animation_update = false;
         } else {
             this.percentage_elapsed = this._elapsed_delta / this.animation_duration;
-
-            l(this._elapsed_delta);
-            l(this.animation_duration);
-            l(this.percentage_elapsed);
-
-            this.requires_animation_update = false;
         }
 
         var animation_offset = this.get_animation_total_offset();
