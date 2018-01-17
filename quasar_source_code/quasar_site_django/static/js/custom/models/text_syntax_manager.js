@@ -1,9 +1,9 @@
 'use strict';
 
 // Utility variables.
-const INDEX_LABEL   = 0;
-const INDEX_INPUT   = 1;
-const INDEX_TOOLTIP = 2;
+const INDEX_LABEL     = 0;
+const INDEX_INPUT     = 1;
+const INDEX_TOOLTIP   = 2;
 
 function TextSyntaxManager(world) {
     this.__init__(world);
@@ -77,7 +77,10 @@ TextSyntaxManager.prototype = {
                     input.set_default_background_color(COLOR_TRANSPARENT);
                     input.set_background_color(COLOR_TRANSPARENT, true);
 
+
+                    input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_ERROR);
                     input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+                    this._pairs[i][INDEX_TOOLTIP].___has_error = false;
                 }
             }
             if (this._final_button.is_enabled()) {
@@ -95,6 +98,7 @@ TextSyntaxManager.prototype = {
         this._pairs[pair_index][INDEX_INPUT].hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
         this._pairs[pair_index][INDEX_INPUT].display_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
 
+        this._pairs[pair_index][INDEX_TOOLTIP].___has_error = true;
         this._pairs[pair_index][INDEX_TOOLTIP].update_text(result);
 
         //.set_tool_tip(result);
@@ -112,6 +116,7 @@ TextSyntaxManager.prototype = {
 
             input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
             input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+            this._pairs[i][INDEX_TOOLTIP].___has_error = false;
 
             label.set_color(label.default_color, true);
             input.set_default_background_color(COLOR_TRANSPARENT);
@@ -151,16 +156,17 @@ TextSyntaxManager.prototype = {
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
 
-        var tooltip = input.add_floating_2D_text(input.width * .8, null, null, 2, 'TODO : ERROR TEXT', TYPE_CONSTANT);
+        var tooltip = input.add_floating_2D_text(input.width * .8, null, null, 2, 'should not be visible', TYPE_CONSTANT);
         tooltip.set_attachment_name(ATTACHMENT_NAME_TOOLTIP);
         tooltip.set_animation_vertical_offset(10, HALF);
         tooltip.set_animation_depth_offset(3);
         tooltip.set_animation_duration(2.25);
+        tooltip.set_to_invisible();
 
         input.set_look_at_function(this.input_look_at_function.bind(this, tooltip));
         input.set_look_away_function(this.input_look_away_function.bind(this, tooltip));
 
-        this._pairs.push([label, input, tooltip]);
+        this._pairs.push([label, input, tooltip, false]);
     },
 
     add_final_button: function(button) {
@@ -178,8 +184,10 @@ TextSyntaxManager.prototype = {
     },
 
     input_look_at_function: function(tooltip) {
-        tooltip._restart_animation();
-        tooltip.set_to_visible();
+        if (tooltip.___has_error) {
+            tooltip._restart_animation();
+            tooltip.set_to_visible();
+        }
     },
 
     input_look_away_function: function(tooltip) {

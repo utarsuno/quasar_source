@@ -15,6 +15,13 @@ function Animatable() {
         this.requires_animation_update = true;
         this._elapsed_delta = 0;
         this.percentage_elapsed = 0;
+
+        var start_position = this.get_position();
+        var start_offset   = this.get_position_offset();
+
+        this.animation_start_position_x = start_position.x + start_position[0];
+        this.animation_start_position_y = start_position.y + start_position[1];
+        this.animation_start_position_z = start_position.z + start_position[2];
     };
 
     this.update = function(delta) {
@@ -28,9 +35,11 @@ function Animatable() {
             this.requires_animation_update = false;
         }
 
-        //this.set_position(this.animation_start_position_x + this.animation_offset[0] * this.percentage_elapsed,
-        //     this.animation_start_position_y + this.animation_offset[1] * this.percentage_elapsed,
-        //     this.animation_start_position_z + this.animation_offset[2] * this.percentage_elapsed, true);
+        var animation_offset = this.get_animation_total_offset();
+
+        this.set_position(this.animation_start_position_x + animation_offset[0] * this.percentage_elapsed,
+            this.animation_start_position_y + animation_offset[1] * this.percentage_elapsed,
+            this.animation_start_position_z + animation_offset[2] * this.percentage_elapsed, true);
     };
 
     this.update_all_child_animations_recursively = function(delta) {
