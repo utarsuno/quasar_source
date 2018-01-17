@@ -105,15 +105,15 @@ LoginWorld.prototype = {
                 }
             }
         }
-        
+
         this.quasar_source_title.refresh_position_and_look_at();
         this.login_wall.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
     },
 
     exit_world: function() {
-        this.login_wall.clear_inputs();
-        this.wall_create_account.clear_inputs();
+        //this.login_wall.clear_inputs();
+        //this.wall_create_account.clear_inputs();
     },
 
     /*        ___                      __        __

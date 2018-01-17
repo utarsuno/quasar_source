@@ -300,7 +300,7 @@ FloatingWall.prototype = {
         floating_2D_text.set_attachment_horizontal_offset(0, -HALF + x_start_and_stop[0] + total_percentage_of_parent_width / 2);
 
         // TODO : WARNING : For now every row is set to 16 height distance. This should eventually be made to allow for dynamic row heights.
-        floating_2D_text.set_attachment_vertical_offset(-16 * row, HALF);
+        floating_2D_text.set_attachment_vertical_offset(-8 + -16 * row, HALF);
 
         floating_2D_text.attach_to(this);
 
