@@ -21,122 +21,55 @@ TextSyntaxManager.prototype = {
     },
 
     error_check: function() {
-        var error = false;
-        var result = null;
+        var no_errors = true;
 
-        var bad_indexes = [];
+        for (var p = 0; p < this._pairs.length; p++) {
+            var label = this._pairs[p][INDEX_LABEL];
+            var input = this._pairs[p][INDEX_INPUT];
+            var tooltip = this._pairs[p][INDEX_TOOLTIP];
 
-        // First check the standard syntax rules.
-        for (var i = 0; i < this._pairs.length; i++) {
-            this._pairs[i][INDEX_INPUT].set_syntax_manager(this);
+            if (input._has_syntax_error) {
 
-            result = this._pairs[i][INDEX_INPUT].syntax_check();
+                no_errors = false;
 
-            if (result !== '') {
-                bad_indexes.push(i);
-                error = true;
-                this.set_error_to_pair_by_index(i, result);
-                //break;
+                input.set_default_background_color(COLOR_FLOATING_WALL_ERROR);
+                input.set_background_color(COLOR_FLOATING_WALL_ERROR, true);
+                input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+                input.display_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+
+                label.set_color(COLOR_RED, true);
+
+                tooltip.update_text(input._syntax_error_message);
+
+                if (this._final_button.is_enabled()) {
+                    this._final_button.disable();
+                }
+            } else {
+
+                input.set_default_background_color(COLOR_TRANSPARENT);
+                input.set_background_color(COLOR_TRANSPARENT, true);
+                input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+                input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
+
+                label.set_color(label.default_color, true);
+
+                tooltip.end_animation();
+                tooltip.set_to_invisible();
             }
         }
 
-        // Now check for any non-matched passwords.
-        if (!error) {
-            var passwords_matched = true;
-
-            for (i = 0; i < this._pairs.length; i++) {
-                if (this._pairs[i][INDEX_INPUT].has_syntax_rule(TEXT_SYNTAX_MATCH_PASSWORDS)) {
-                    if (!this._matches_all_passwords_to_match(this._pairs[i][INDEX_INPUT].get_text())) {
-                        passwords_matched = false;
-                        error = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!passwords_matched) {
-                for (i = 0; i < this._pairs.length; i++) {
-                    if (this._pairs[i][INDEX_INPUT].has_syntax_rule(TEXT_SYNTAX_MATCH_PASSWORDS)) {
-                        bad_indexes.push(i);
-                        this.set_error_to_pair_by_index(i, 'Not all passwords match!');
-                    }
-                }
-            }
-        }
-
-        if (!error) {
-            this._set_all_fields_to_error_free();
-        } else {
-            for (i = 0; i < this._pairs.length; i++) {
-                if (bad_indexes.indexOf(i) === NOT_FOUND) {
-                    var label = this._pairs[i][INDEX_LABEL];
-                    var input = this._pairs[i][INDEX_INPUT];
-                    label.set_color(label.default_color, true);
-                    input.set_default_background_color(COLOR_TRANSPARENT);
-                    input.set_background_color(COLOR_TRANSPARENT, true);
-
-
-                    input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
-                    input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_ERROR);
-
-                    l('Hide the error icon!');
-
-                    this._pairs[i][INDEX_TOOLTIP].___has_error = false;
-                }
-            }
-            if (this._final_button.is_enabled()) {
-                this._final_button.disable();
-            }
+        if (no_errors) {
+            this._final_button.enable();
         }
     },
 
-    set_error_to_pair_by_index: function(pair_index, result) {
-        this._pairs[pair_index][INDEX_INPUT].set_default_background_color(COLOR_FLOATING_WALL_ERROR);
-        this._pairs[pair_index][INDEX_INPUT].set_background_color(COLOR_FLOATING_WALL_ERROR, true);
-
-        this._pairs[pair_index][INDEX_LABEL].set_color(COLOR_RED, true);
-
-        this._pairs[pair_index][INDEX_INPUT].hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
-        this._pairs[pair_index][INDEX_INPUT].display_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
-
-        this._pairs[pair_index][INDEX_TOOLTIP].___has_error = true;
-        this._pairs[pair_index][INDEX_TOOLTIP].update_text(result);
-
-        //.set_tool_tip(result);
-
-        // TODO : Eventually optimize this design.
-        if (this._final_button.is_enabled()) {
-            this._final_button.disable();
-        }
-    },
-
-    _set_all_fields_to_error_free: function() {
-        for (var i = 0; i < this._pairs.length; i++) {
-            var label = this._pairs[i][INDEX_LABEL];
-            var input = this._pairs[i][INDEX_INPUT];
-
-            input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
-            input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
-            this._pairs[i][INDEX_TOOLTIP].___has_error = false;
-
-            label.set_color(label.default_color, true);
-            input.set_default_background_color(COLOR_TRANSPARENT);
-            input.set_background_color(COLOR_TRANSPARENT, true);
-        }
-        this._final_button.enable();
-    },
-
-    _matches_all_passwords_to_match: function(text) {
-        for (var p = 0; p < this._passwords_to_match; p++) {
-            if (this._passwords_to_match !== text) {
+    matches_required_passwords: function(text) {
+        for (var p = 0; p < this._passwords_to_match.length; p++) {
+            if (text !== this._passwords_to_match[p].get_text()) {
                 return false;
             }
         }
         return true;
-    },
-
-    add_password_to_match: function(p) {
-        this._passwords_to_match.push(p);
     },
 
     add_label_and_input: function(label, input) {
@@ -164,8 +97,14 @@ TextSyntaxManager.prototype = {
         tooltip.set_animation_duration(.25);
         tooltip.set_to_invisible();
 
-        input.set_look_at_function(this.input_look_at_function.bind(this, tooltip));
+        input.set_look_at_function(this.input_look_at_function.bind(this, input, tooltip));
         input.set_look_away_function(this.input_look_away_function.bind(this, tooltip));
+
+        if (input.has_syntax_rule(TEXT_SYNTAX_MATCH_PASSWORDS)) {
+            this._passwords_to_match.push(input);
+        }
+
+        input.set_syntax_manager(this);
 
         this._pairs.push([label, input, tooltip, false]);
     },
@@ -184,8 +123,8 @@ TextSyntaxManager.prototype = {
         this._final_button.disable();
     },
 
-    input_look_at_function: function(tooltip) {
-        if (tooltip.___has_error) {
+    input_look_at_function: function(input, tooltip) {
+        if (input._has_syntax_error) {
             tooltip._restart_animation();
             tooltip.set_to_visible();
         }

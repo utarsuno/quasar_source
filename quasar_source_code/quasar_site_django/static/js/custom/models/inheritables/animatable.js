@@ -26,6 +26,10 @@ function Animatable() {
         this.set_position(this.animation_start_position_x, this.animation_start_position_y, this.animation_start_position_z);
     };
 
+    this.end_animation = function() {
+        this.requires_animation_update = false;
+    };
+
     this.update = function(delta) {
         //l('Performing an animation update!');
 
