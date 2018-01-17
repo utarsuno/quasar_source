@@ -52,7 +52,7 @@ function TextSyntax(syntax_checks) {
         }
     };
 
-    this._set_syntax_error(error_message) {
+    this._set_syntax_error = function(error_message) {
         this._has_syntax_error = true;
         this._syntax_error_message = error_message;
     };

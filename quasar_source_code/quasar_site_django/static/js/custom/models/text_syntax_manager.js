@@ -28,6 +28,8 @@ TextSyntaxManager.prototype = {
             var input = this._pairs[p][INDEX_INPUT];
             var tooltip = this._pairs[p][INDEX_TOOLTIP];
 
+            input.syntax_check();
+
             if (input._has_syntax_error) {
 
                 no_errors = false;
