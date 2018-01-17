@@ -66,8 +66,6 @@ TextSyntaxManager.prototype = {
 
         if (!error) {
             this._set_all_fields_to_error_free();
-            // TODO : Remove warning icon
-
         } else {
             for (i = 0; i < this._pairs.length; i++) {
                 if (bad_indexes.indexOf(i) === NOT_FOUND) {
@@ -78,8 +76,11 @@ TextSyntaxManager.prototype = {
                     input.set_background_color(COLOR_TRANSPARENT, true);
 
 
-                    input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_ERROR);
                     input.display_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
+                    input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_ERROR);
+
+                    l('Hide the error icon!');
+
                     this._pairs[i][INDEX_TOOLTIP].___has_error = false;
                 }
             }
@@ -156,11 +157,11 @@ TextSyntaxManager.prototype = {
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_WARNING);
         input.hide_all_child_attachments_with_name(ATTACHMENT_NAME_SUCCESS);
 
-        var tooltip = input.add_floating_2D_text(input.width * .8, null, null, 2, 'should not be visible', TYPE_CONSTANT);
+        var tooltip = input.add_floating_2D_text(input.width * 1.8, null, null, 2, 'should not be visible', TYPE_CONSTANT);
         tooltip.set_attachment_name(ATTACHMENT_NAME_TOOLTIP);
-        tooltip.set_animation_vertical_offset(10, HALF);
-        tooltip.set_animation_depth_offset(3);
-        tooltip.set_animation_duration(2.25);
+        tooltip.set_animation_vertical_offset(20, HALF);
+        tooltip.set_animation_depth_offset(4);
+        tooltip.set_animation_duration(.25);
         tooltip.set_to_invisible();
 
         input.set_look_at_function(this.input_look_at_function.bind(this, tooltip));

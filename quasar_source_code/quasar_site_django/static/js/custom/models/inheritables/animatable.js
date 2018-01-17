@@ -27,7 +27,7 @@ function Animatable() {
     };
 
     this.update = function(delta) {
-        l('Performing an animation update!');
+        //l('Performing an animation update!');
 
         this._elapsed_delta += delta;
         if (this._elapsed_delta >= this.animation_duration) {
