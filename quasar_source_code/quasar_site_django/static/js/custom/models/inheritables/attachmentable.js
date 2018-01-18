@@ -23,9 +23,10 @@ function Attachmentable(world) {
         var position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
         var floating_wall;
         if (is_defined(scalable)) {
-            floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
+            // OLD : floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
+            floating_wall = new FloatingWall(width, height, null, null, this.world, scalable);
         } else {
-            floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, false);
+            floating_wall = new FloatingWall(width, height, null, null, this.world, false);
         }
 
         this.add_attachment(floating_wall);

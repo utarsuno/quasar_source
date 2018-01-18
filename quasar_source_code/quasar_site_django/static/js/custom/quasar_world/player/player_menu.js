@@ -166,7 +166,7 @@ PlayerMenu.prototype = {
 
                 utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [400, null], null, null, false);
 
-                utility_wall.manual_visibility = true;
+                //utility_wall.manual_visibility = true;
 
                 utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
@@ -196,7 +196,7 @@ PlayerMenu.prototype = {
 
                 utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [600, null], null, null, false);
 
-                utility_wall.manual_visibility = true;
+                //utility_wall.manual_visibility = true;
 
                 utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
