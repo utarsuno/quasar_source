@@ -44,8 +44,6 @@ LoginWorld.prototype = {
             //}
 
             MANAGER_LOADING.perform_login_load();
-
-            CURRENT_PLAYER.login(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
