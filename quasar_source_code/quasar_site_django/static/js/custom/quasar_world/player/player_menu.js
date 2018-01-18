@@ -73,6 +73,9 @@ PlayerMenu.prototype = {
 
         this._player_menu.set_position(position_x, position_y, position_z, false);
         this._player_menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, true);
+
+        this._player_menu.refresh_position_and_look_at();
+
         this._player_menu.set_to_visible();
 
         this._player_menu.restart_all_animations();
