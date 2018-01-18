@@ -213,6 +213,8 @@ function LoadingManager() {
 LoadingManager.prototype = {
 
     __init__: function() {
+        this._currently_creating_world = false;
+
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
@@ -250,9 +252,13 @@ LoadingManager.prototype = {
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
         GUI_PAUSED_MENU.make_invisible();
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
+
+        this._currently_creating_world = false;
     },
 
     perform_login_load: function(username, password) {
+        this._currently_creating_world = true;
+
         GUI_PAUSED_MENU.set_text('Loading!');
         GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
         GUI_PAUSED_MENU.make_visible();

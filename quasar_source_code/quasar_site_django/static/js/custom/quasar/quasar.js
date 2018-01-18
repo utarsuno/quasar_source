@@ -26,27 +26,30 @@ QuasarMainLoop.prototype = {
     },
 
     quasar_main_loop: function() {
-        requestAnimationFrame(this.quasar_main_loop.bind(this));
-        MANAGER_RENDERER.pre_render();
+        if (!MANAGER_LOADING._currently_creating_world) {
 
-        this.time = performance.now();
-        this.delta = (this.time - this.previous_time) / 1000.0;
+            requestAnimationFrame(this.quasar_main_loop.bind(this));
+            MANAGER_RENDERER.pre_render();
 
-        MANAGER_DATA_DISPLAY.update();
+            this.time = performance.now();
+            this.delta = (this.time - this.previous_time) / 1000.0;
 
-        //MANAGER_MULTIPLAYER.update(delta);
-        CURRENT_PLAYER.update(this.delta);
-        MANAGER_WORLD.update_current_world(this.delta);
+            MANAGER_DATA_DISPLAY.update();
 
-        ////
-        if (GUI_TYPING_INTERFACE.needs_an_update()) {
-            GUI_TYPING_INTERFACE.update();
+            //MANAGER_MULTIPLAYER.update(delta);
+            CURRENT_PLAYER.update(this.delta);
+            MANAGER_WORLD.update_current_world(this.delta);
+
+            ////
+            if (GUI_TYPING_INTERFACE.needs_an_update()) {
+                GUI_TYPING_INTERFACE.update();
+            }
+            ////
+
+            MANAGER_RENDERER.render();
+            MANAGER_RENDERER.post_render();
+            this.previous_time = this.time;
         }
-        ////
-
-        MANAGER_RENDERER.render();
-        MANAGER_RENDERER.post_render();
-        this.previous_time = this.time;
     }
 };
 

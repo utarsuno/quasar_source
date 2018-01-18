@@ -76,7 +76,6 @@ WorldManager.prototype = {
 
     create_world: function(world) {
         world.player_menu.create();
-
         world.player_menu.set_to_invisible();
 
         world.floating_cursor.create();
