@@ -43,7 +43,7 @@ LoginWorld.prototype = {
             //    MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
             //}
 
-            MANAGER_LOADING.perform_login_load();
+            MANAGER_LOADING.perform_login_load(this.attempted_username, this.attempted_password);
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error : ' + data);
         }
