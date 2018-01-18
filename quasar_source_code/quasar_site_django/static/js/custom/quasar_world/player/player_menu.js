@@ -178,8 +178,8 @@ PlayerMenu.prototype = {
                 this.create_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_FULLSCREEN:
-                this.full_screen_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
-                this.full_screen_button.set_engage_function(toggle_fullscreen);
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
+                menu_button.set_engage_function(toggle_fullscreen);
 
                 this.full_screen_button = menu_button;
 
