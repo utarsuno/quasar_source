@@ -127,6 +127,8 @@ EntityManager.prototype = {
         this.link_entities();
         this.set_all_entities_to_not_needing_to_be_saved();
         this.loading = false;
+
+        MANAGER_LOADING.all_entities_loaded();
     },
 
     load_data: function() {
@@ -154,7 +156,6 @@ EntityManager.prototype = {
     /*   __   ___ ___ ___         __      __       ___
         / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
         \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    .*/
-
     get_entities_sorted_by_priority: function(list_of_entities) {
         var list_to_return = [];
 

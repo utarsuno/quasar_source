@@ -246,16 +246,13 @@ LoadingManager.prototype = {
     /*     __   __                  __        __          __
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
-    /*
-    login: function(username, password) {
-        ENTITY_OWNER = new EntityOwner(username, password);
-        MANAGER_ENTITY.load_data(username, password);
+    all_entities_loaded: function() {
+        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
+        GUI_PAUSED_MENU.make_invisible();
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
-        this.logged_in = true;
     },
-     */
 
-    perform_login_load: function() {
+    perform_login_load: function(username, password) {
         GUI_PAUSED_MENU.set_text('Loading!');
         GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
         GUI_PAUSED_MENU.make_visible();
@@ -264,13 +261,9 @@ LoadingManager.prototype = {
 
         GUI_PAUSED_MENU.set_sub_text('Creating home world...');
 
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
-
-        GUI_PAUSED_MENU.make_invisible();
-
-        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
+        ENTITY_OWNER = new EntityOwner(username, password);
+        MANAGER_ENTITY.load_data();
     },
-
 
     /*__             __        __              ___                      __        __          __
      /  \ |  |  /\  /__`  /\  |__)    | |\ | |  |  |  /\  |       |    /  \  /\  |  \ | |\ | / _`

@@ -38,12 +38,12 @@ LoginWorld.prototype = {
 
     perform_login_request: function(data) {
         if (data === SERVER_REPLY_GENERIC_YES) {
-            GUI_TYPING_INTERFACE.add_server_message('Logged in!');
+            GUI_TYPING_INTERFACE.add_server_message('Login successful!');
             //if (this.remember_username_checkbox.checked) {
             //    MANAGER_COOKIES.set(COOKIE_REMEMBERED_USERNAME, this.attempted_username);
             //}
 
-
+            MANAGER_LOADING.perform_login_load();
 
             CURRENT_PLAYER.login(this.attempted_username, this.attempted_password);
         } else {
