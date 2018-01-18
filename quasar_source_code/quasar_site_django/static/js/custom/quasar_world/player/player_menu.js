@@ -158,7 +158,7 @@ PlayerMenu.prototype = {
 
                 this.create_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
-                this.create_wall.manual_visibility = true;
+                //this.create_wall.manual_visibility = true;
 
                 this.create_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
@@ -178,8 +178,8 @@ PlayerMenu.prototype = {
                 this.create_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_FULLSCREEN:
-                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
-                menu_button.set_engage_function(toggle_fullscreen);
+                this.full_screen_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
+                this.full_screen_button.set_engage_function(toggle_fullscreen);
 
                 this.full_screen_button = menu_button;
 
@@ -189,7 +189,7 @@ PlayerMenu.prototype = {
 
                 this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
-                this.teleport_wall.manual_visibility = true;
+                //this.teleport_wall.manual_visibility = true;
 
                 this.teleport_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
