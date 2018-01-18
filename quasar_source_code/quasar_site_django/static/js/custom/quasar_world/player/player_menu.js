@@ -218,7 +218,7 @@ PlayerMenu.prototype = {
                 break;
         }
 
-        menu_button.set_animation_vertical_offset(20 * this._number_of_main_menu_rows, null);
+        //menu_button.set_animation_vertical_offset(20 * this._number_of_main_menu_rows, null);
         this._number_of_main_menu_rows += 1;
     },
 
