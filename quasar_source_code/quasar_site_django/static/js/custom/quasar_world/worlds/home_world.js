@@ -13,6 +13,16 @@ HomeWorld.prototype = {
         World.call(this);
     },
 
+    create_picture_prompt: function(position, normal) {
+
+        var picture_prompt_wall = new FloatingWall(300, 300, position, normal, this, true);
+
+
+
+        this.root_attachables.push(picture_prompt_wall);
+    },
+
+
     create: function() {
         this.entity_walls = [];
         //this.load_entity_walls();

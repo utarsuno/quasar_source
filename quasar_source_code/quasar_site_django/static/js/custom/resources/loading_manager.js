@@ -234,6 +234,17 @@ LoadingManager.prototype = {
         }
     },
 
+    get_texture_dynamically: function(texture_url, callback) {
+        var texture_loader = new THREE.TextureLoader();
+        texture_loader.crossOrigin = 'Anonymous';
+
+        texture_loader.load(texture_url,
+            function(texture) {
+                callback(texture);
+            }
+        );
+    },
+
     get_texture: function(texture_group, texture_name) {
         switch (texture_group) {
         case TEXTURE_GROUP_CURSOR:

@@ -95,6 +95,12 @@ PlayerMenu.prototype = {
         this._player_menu.update_all_child_animations_recursively(delta);
     },
 
+    _create_picture_prompt: function() {
+        this._player_menu.set_to_invisible();
+
+        this.world.create_picture_prompt(this.create_picutre_button.get_position(), this.create_picutre_button.get_normal());
+    },
+
     /*                          ___
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
@@ -173,7 +179,8 @@ PlayerMenu.prototype = {
                 this.create_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
 
                 this.create_wall.add_row_2D_text([0, icon_width], 4, ICON_MENU_LIST, TYPE_ICON);
-                this.create_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
+                this.create_picutre_button = this.create_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
+                this.create_picutre_button.set_engage_function(this._create_picture_prompt());
 
                 this.create_wall.add_row_2D_text([0, icon_width], 5, ICON_MENU_LIST, TYPE_ICON);
                 this.create_wall.add_row_2D_text([icon_width, 1], 5, 'YouTube Video', TYPE_BUTTON);
