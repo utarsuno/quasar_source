@@ -6,8 +6,6 @@ function SettingsWorld() {
 
 SettingsWorld.prototype = {
 
-    previous_world: null,
-
     select_phone_carrier: function() {
         this.profile_phone_carrier_list.set_to_visible();
     },
@@ -18,7 +16,7 @@ SettingsWorld.prototype = {
     },
 
 
-
+    /*
     // FOR_DEV_START
     // TODO : The .save command needs to save this data!!!
     save_changes_button_pressed: function() {
@@ -38,6 +36,7 @@ SettingsWorld.prototype = {
         }
     },
     // FOR_DEV_END
+    */
 
     slider_master_volume_value_changed: function(master_volume_value) {
         // TODO : Don't linerally adjust the volume but instead follow that audio volume changing guide!!!!
@@ -54,7 +53,7 @@ SettingsWorld.prototype = {
 
     __init__: function() {
         // Inherit world properties.
-        World.call(this, 'SettingsWorld');
+        World.call(this);
     },
 
     create: function() {
@@ -65,50 +64,49 @@ SettingsWorld.prototype = {
         var wall_profile_width    = 650;
         var wall_profile_height   = 512 / 2;
         var wall_profile_normal   = new THREE.Vector3(-0.5, 0.0, -0.85);
-        var wall_profile_scalable = false;
-        this.wall_user_profile = new FloatingWall(wall_profile_width, wall_profile_height, wall_profile_position, wall_profile_normal, this, wall_profile_scalable);
-        this.wall_user_profile.add_3D_title('Profile Information');
+        this.wall_user_profile = new FloatingWall(wall_profile_width, wall_profile_height, wall_profile_position, wall_profile_normal, this, false);
+        this.wall_user_profile.add_row_3D_text(false, -1, 'Profile Information', TYPE_TITLE);
 
         // Username.
-        this.profile_name_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Username :', TYPE_CONSTANT, 0);
-        this.profile_name_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 0);
+        this.profile_name_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 0, 'Username :', TYPE_CONSTANT);
+        this.profile_name_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_CONSTANT);
 
         // Email.
-        this.profile_email_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Email :', TYPE_CONSTANT, 1);
-        this.profile_email_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 1);
+        this.profile_email_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 1, 'Email :', TYPE_CONSTANT);
+        this.profile_email_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 1, '', TYPE_CONSTANT);
 
         // Phone Number.
-        this.profile_phone_number_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Number :', TYPE_CONSTANT, 2);
-        this.profile_phone_number_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 2);
+        this.profile_phone_number_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 2, 'Email :', TYPE_CONSTANT);
+        this.profile_phone_number_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_INPUT);
 
         // Phone Carrier.
-        this.profile_phone_carrier_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Phone Carrier :', TYPE_CONSTANT, 3);
-        this.profile_phone_carrier_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_INPUT, 3);
+        this.profile_phone_carrier_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 3, 'Email :', TYPE_CONSTANT);
+        this.profile_phone_carrier_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 3, '', TYPE_INPUT);
         this.profile_phone_carrier_input.engable = false;
         this.profile_phone_carrier_input.set_engage_function(this.select_phone_carrier.bind(this));
 
         // Phone Carrier List.
-        this.profile_phone_carrier_list = this.wall_user_profile.add_floating_wall_off_of_button(350, 400, this.profile_phone_carrier_input, false);
-        this.profile_phone_carrier_list.add_3D_title('Select Phone Carrier');
+        this.profile_phone_carrier_list = this.profile_phone_carrier_input.add_floating_wall_attachment(350, 400, null, null, 5, false);
+        this.profile_phone_carrier_list.add_row_3D_text(false, -1, 'Select Phone Carrier', TYPE_TITLE);
         var current_row_index = 0;
         for (var property in CELL_PHONE_CARRIERS) {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(property)) {
-                var current_cell_phone_carrier = this.profile_phone_carrier_list.add_floating_2d_text(0, 1, property, TYPE_BUTTON, current_row_index);
+                var cell_phone_carrier = this.profile_phone_carrier_list.add_row_2D_text([0, 1], current_row_index, property, TYPE_BUTTON);
                 current_row_index += 1;
-                current_cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property));
+                cell_phone_carrier.set_engage_function(this.selected_phone_carrier.bind(this, property));
             }
         }
-
         this.profile_phone_carrier_list.set_to_invisible();
 
         // Created at date.
-        this.profile_created_at_date_label = this.wall_user_profile.add_floating_2d_text(0, 1 / 3, 'Date Created :', TYPE_CONSTANT, 4);
-        this.profile_created_at_date_input = this.wall_user_profile.add_floating_2d_text(1 / 3, 1, '', TYPE_CONSTANT, 4);
+        this.profile_created_at_date_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 4, 'Date Created :', TYPE_CONSTANT);
+        this.profile_created_at_date_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 4, '', TYPE_CONSTANT);
 
         /*__   ___ ___ ___         __   __
          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
          .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
 
+        /*
         var wall_settings_position = new THREE.Vector3(1150, 600, 200);
         var wall_settings_width    = 600;
         var wall_settings_height   = 512;
@@ -128,6 +126,7 @@ SettingsWorld.prototype = {
         this.wall_settings_slider_audio.set_value_post_changed_function(this.slider_master_volume_value_changed.bind(this));
 
         // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
+        */
     },
 
 
@@ -140,16 +139,12 @@ SettingsWorld.prototype = {
         CURRENT_PLAYER.set_position_xyz(-1000, 350, 350);
         CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
 
-        this.previous_world = MANAGER_WORLD.previous_world;
-
         // Set the profile information values.
-
         this.profile_name_input.update_text(ENTITY_OWNER.get_username());
         this.profile_email_input.update_text(ENTITY_OWNER.get_email());
         this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
         this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
         this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
-
     },
 
     exit_world: function() {
