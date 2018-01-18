@@ -26,9 +26,9 @@ QuasarMainLoop.prototype = {
     },
 
     quasar_main_loop: function() {
-        if (!MANAGER_LOADING._currently_creating_world) {
+        requestAnimationFrame(this.quasar_main_loop.bind(this));
 
-            requestAnimationFrame(this.quasar_main_loop.bind(this));
+        if (!MANAGER_LOADING._currently_creating_world) {
             MANAGER_RENDERER.pre_render();
 
             this.time = performance.now();

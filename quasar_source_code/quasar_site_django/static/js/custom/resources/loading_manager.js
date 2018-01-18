@@ -252,8 +252,7 @@ LoadingManager.prototype = {
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
         GUI_PAUSED_MENU.make_invisible();
 
-        //MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
-        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
+        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
 
         this._currently_creating_world = false;
     },
