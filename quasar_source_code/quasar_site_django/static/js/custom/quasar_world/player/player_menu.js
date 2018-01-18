@@ -53,7 +53,6 @@ PlayerMenu.prototype = {
 
     __init__: function(world) {
         this.world                     = world;
-        this._sub_menus                = [];
         this._number_of_main_menu_rows = 0;
     },
 
@@ -85,12 +84,6 @@ PlayerMenu.prototype = {
         this._player_menu.refresh_position_and_look_at();
 
         //this._player_menu.set_to_visible();
-
-
-
-        //this.quasar_source_title.refresh_position_and_look_at();
-        //this.wall_login.refresh_position_and_look_at();
-        //this.wall_create_account.refresh_position_and_look_at();
     },
 
     is_visible: function() {
@@ -109,13 +102,12 @@ PlayerMenu.prototype = {
     },
 
     _main_menu_button_looked_at: function(sub_menu) {
-        for (var m = 0; m < this._sub_menus.length; m++) {
-            if (sub_menu === this._sub_menus[m]) {
-                sub_menu._refresh_look_at()
-                sub_menu.display_self_and_all_child_attachments_recursively();
-            } else {
-                sub_menu.hide_self_and_all_child_attachments_recursively();
-            }
+        if (sub_menu === this.teleport_wall) {
+            this.create_wall.hide_self_and_all_child_attachments_recursively();
+            this.teleport_wall.display_self_and_all_child_attachments_recursively();
+        } else if (sub_menu === this.create_wall) {
+            this.teleport_wall.hide_self_and_all_child_attachments_recursively();
+            this.create_wall.display_self_and_all_child_attachments_recursively();
         }
     },
 
@@ -155,7 +147,6 @@ PlayerMenu.prototype = {
 
         var menu_button;
         var sub_menu;
-        var utility_wall;
 
         //var temp_position = new THREE.Vector3(-10000, -10000, -10000);
         //var temp_normal   = new THREE.Vector3(0, 0, 0);
@@ -164,28 +155,26 @@ PlayerMenu.prototype = {
             case ICON_WRENCH:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'create', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
+                this.create_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
                 //utility_wall.manual_visibility = true;
 
-                utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
+                this.create_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
-                utility_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 2, 'Text', TYPE_BUTTON);
+                this.create_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
+                this.create_wall.add_row_2D_text([icon_width, 1], 2, 'Text', TYPE_BUTTON);
 
-                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
+                this.create_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
+                this.create_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
 
-                utility_wall.add_row_2D_text([0, icon_width], 4, ICON_MENU_LIST, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
+                this.create_wall.add_row_2D_text([0, icon_width], 4, ICON_MENU_LIST, TYPE_ICON);
+                this.create_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
 
-                utility_wall.add_row_2D_text([0, icon_width], 5, ICON_MENU_LIST, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 5, 'YouTube Video', TYPE_BUTTON);
+                this.create_wall.add_row_2D_text([0, icon_width], 5, ICON_MENU_LIST, TYPE_ICON);
+                this.create_wall.add_row_2D_text([icon_width, 1], 5, 'YouTube Video', TYPE_BUTTON);
 
-                this._sub_menus.push(utility_wall);
-
-                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, utility_wall));
-                utility_wall.hide_self_and_all_child_attachments_recursively();
+                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, this.create_wall));
+                this.create_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_FULLSCREEN:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
@@ -194,38 +183,36 @@ PlayerMenu.prototype = {
             case ICON_TELEPORT:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'teleport', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
+                this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
                 //utility_wall.manual_visibility = true;
 
-                utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
+                this.teleport_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
                 var current_button_row = 2;
                 var teleport_button;
 
                 if (this.world !== MANAGER_WORLD.world_settings) {
-                    utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SETTINGS, TYPE_ICON);
-                    teleport_button = utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Settings', TYPE_BUTTON);
+                    this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SETTINGS, TYPE_ICON);
+                    teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Settings', TYPE_BUTTON);
                     teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_settings));
                     current_button_row += 1;
                 }
 
                 if (this.world !== MANAGER_WORLD.world_home) {
-                    utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_HOME, TYPE_ICON);
-                    teleport_button = utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Home', TYPE_BUTTON);
+                    this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_HOME, TYPE_ICON);
+                    teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Home', TYPE_BUTTON);
                     teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_home));
                     current_button_row += 1;
                 }
 
-                utility_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_EXIT, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Logout', TYPE_BUTTON);
+                this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_EXIT, TYPE_ICON);
+                this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Logout', TYPE_BUTTON);
                 // TODO : logout functionality
                 current_button_row += 1;
 
-                this._sub_menus.push(utility_wall);
-
-                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, utility_wall));
-                utility_wall.hide_self_and_all_child_attachments_recursively();
+                menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, this.teleport_wall));
+                this.teleport_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_SAVE:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'save', TYPE_BUTTON);
