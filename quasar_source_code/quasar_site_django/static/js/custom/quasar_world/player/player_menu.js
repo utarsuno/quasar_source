@@ -152,7 +152,7 @@ PlayerMenu.prototype = {
             case ICON_WRENCH:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-18 * this._number_of_main_menu_rows, HALF], 1, 'create', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 400, [200, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [400, null], null, null, false);
                 utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
                 utility_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
@@ -179,7 +179,7 @@ PlayerMenu.prototype = {
             case ICON_TELEPORT:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-18 * this._number_of_main_menu_rows, HALF], 1, 'teleport', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 600, [200, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [600, null], null, null, false);
                 utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
                 var current_button_row = 2;
