@@ -158,7 +158,7 @@ PlayerMenu.prototype = {
 
                 this.create_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
-                utility_wall.manual_visibility = true;
+                this.create_wall.manual_visibility = true;
 
                 this.create_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
@@ -189,7 +189,7 @@ PlayerMenu.prototype = {
 
                 this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
-                utility_wall.manual_visibility = true;
+                this.teleport_wall.manual_visibility = true;
 
                 this.teleport_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
