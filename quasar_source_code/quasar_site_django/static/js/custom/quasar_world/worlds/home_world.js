@@ -13,9 +13,8 @@ HomeWorld.prototype = {
         World.call(this);
     },
 
-    create_world: function() {
+    create: function() {
         this.entity_walls = [];
-
         //this.load_entity_walls();
     },
 
