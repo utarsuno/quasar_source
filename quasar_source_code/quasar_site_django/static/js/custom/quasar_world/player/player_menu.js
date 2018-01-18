@@ -80,6 +80,10 @@ PlayerMenu.prototype = {
 
         this._player_menu.refresh_position_and_look_at();
 
+
+        this.create_wall.hide_self_and_all_child_attachments_recursively();
+        this.teleport_wall.hide_self_and_all_child_attachments_recursively();
+
         //this._player_menu.set_to_visible();
     },
 
