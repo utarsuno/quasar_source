@@ -12,10 +12,6 @@ function PlayerMenu(world) {
     this.__init__(world);
 }
 
-function MenuIcon(icon_type, world, row, player_menu) {
-    this.__init__(icon_type, world, row, player_menu);
-}
-
 function global_save() {
     l('PERFORM A GLOBAL SAVE!');
 
@@ -53,110 +49,6 @@ function toggle_fullscreen() {
     MANAGER_RENDERER.toggle_fullscreen();
 }
 
-MenuIcon.prototype = {
-
-    _display_utility_wall: function(utility_wall_to_display) {
-        if (utility_wall_to_display === this.teleport_wall) {
-            this.teleport_wall.show();
-            this._hide_utility_wall(this.create_wall);
-        } else if (utility_wall_to_display === this.create_wall) {
-            this.create_wall.show();
-            this._hide_utility_wall(this.teleport_wall);
-        }
-    },
-
-    _hide_utility_wall: function(utility_wall_to_hide) {
-        if (is_defined(utility_wall_to_hide)) {
-            utility_wall_to_hide.hide();
-        }
-    },
-
-    __init__: function(icon_type, world, row, player_menu) {
-
-        switch (this._icon_type) {
-            case ICON_WRENCH:
-                this.icon_label = 'create';
-                this.function_look_at_bind = this.display_create_options.bind(this);
-                //this.function_look_away_bind = this.hide_create_options.bind(this);
-
-                this.create_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
-                this.create_wall.add_floating_2d_text(0, 1, 'Create a...', TYPE_CONSTANT, 0);
-
-
-                this.create_wall.add_floating_2d_text(0, icon_width, ICON_INFORMATION, TYPE_ICON, 2);
-                var create_floating_2D_text_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Floating Text', TYPE_BUTTON, 2);
-                // TODO : create_floating_2D_text_button.set_engage_function();
-
-                this.create_wall.add_floating_2d_text(0, icon_width, ICON_MENU_LIST, TYPE_ICON, 3);
-                var create_entity_wall_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Entity Group', TYPE_BUTTON, 3);
-                // TODO : create_entity_wall_button.set_engage_function();
-
-                this.create_wall.add_floating_2d_text(0, icon_width, ICON_IMPORT, TYPE_ICON, 4);
-                var create_floating_picture_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'Picture', TYPE_BUTTON, 4);
-                // TODO : create_floating_picture_button.set_engage_function();
-
-                this.create_wall.add_floating_2d_text(0, icon_width, ICON_MOVIE, TYPE_ICON, 5);
-                var create_floating_video_button = this.create_wall.add_floating_2d_text(icon_width, 1, 'YouTube Video', TYPE_BUTTON, 5);
-                // TODO : create_floating_video_button.set_engage_function();
-
-                this.create_wall.hide();
-                break;
-            case ICON_TELEPORT:
-                this.icon_label = 'teleport';
-                this.function_look_at_bind = this.display_teleport_worlds.bind(this);
-                //this.function_look_away_bind = this.hide_teleport_worlds.bind(this);
-
-                this.teleport_wall = new FloatingWall(utiltiy_wall_width, 200, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.world, false, 0);
-                // TODO : Need to dynamically load all shared worlds that the player has.
-                this.teleport_wall.add_floating_2d_text(0, 1, 'Teleport To...', TYPE_CONSTANT, 0);
-
-                // TODO : Also dynamically only load the worlds that are available.
-
-                this.teleport_wall.add_floating_2d_text(0, icon_width, ICON_SETTINGS, TYPE_ICON, 2);
-                var settings_button = this.teleport_wall.add_floating_2d_text(icon_width, 1, 'Settings', TYPE_BUTTON, 2);
-                settings_button.set_engage_function(go_to_settings_world);
-
-                this.teleport_wall.add_floating_2d_text(0, icon_width, ICON_HOME, TYPE_ICON, 3);
-                var home_button = this.teleport_wall.add_floating_2d_text(icon_width, 1, 'Home', TYPE_BUTTON, 3);
-                home_button.set_engage_function(go_to_home_world);
-
-                this.teleport_wall.add_floating_2d_text(0, icon_width, ICON_EXIT, TYPE_ICON, 4);
-                var exit_button = this.teleport_wall.add_floating_2d_text(icon_width, 1, 'Exit', TYPE_BUTTON, 4);
-                exit_button.set_engage_function(exit_function);
-
-                this.teleport_wall.hide();
-                break;
-            case ICON_FULLSCREEN:
-                this.icon_label = 'fullscreen';
-                this.function_to_bind = toggle_fullscreen;
-                break;
-        }
-
-        this.icon = get_new_floating_icon(icon_type, this.world);
-        var label = this.icon.add_floating_2D_text();
-
-        // Refactor this so that it's attached to the icon.
-        this.floating_label = new Floating2DText(100, this.icon_label, TYPE_BUTTON, this.world);
-        this.floating_label.set_engage_function(this.function_to_bind);
-        this.floating_label.set_look_at_function(this.function_look_at_bind);
-        this.floating_label.set_look_away_function(this.function_look_away_bind);
-
-    },
-
-};
-
-/*
-        if (world === MANAGER_WORLD.world_login) {
-            world.player_menu.load_icon_textures([ICON_WRENCH, ICON_SAVE, ICON_SETTINGS, ICON_HOME, ICON_MULTI_PLAYER, ICON_TELEPORT, ICON_EXIT]);
-        } else if (world === MANAGER_WORLD.world_home) {
-            world.player_menu.load_icon_textures([ICON_HOME]);
-        } else if (world === MANAGER_WORLD.world_settings) {
-            world.player_menu.load_icon_textures([ICON_SETTINGS, ICON_ENTITY_GROUP]);
-        }
-
- */
-
-
 PlayerMenu.prototype = {
 
     __init__: function(world) {
@@ -174,8 +66,6 @@ PlayerMenu.prototype = {
         var player_normal   = CURRENT_PLAYER.get_direction();
 
         var position_offset = this._player_menu.get_position_offset(player_normal);
-
-        // TODO : Flip the player menu wall normal?
 
         var position_x = player_position.x + position_offset[0];
         var position_y = player_position.y + position_offset[1];
@@ -251,11 +141,14 @@ PlayerMenu.prototype = {
         var sub_menu;
         var utility_wall;
 
+        var temp_position = new THREE.Vector3(-10000, -10000, -10000);
+        var temp_normal   = new THREE.Vector3(0, 0, 0);
+
         switch (icon) {
             case ICON_WRENCH:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'create', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], temp_position, temp_normal, false);
                 utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
                 utility_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
@@ -282,7 +175,7 @@ PlayerMenu.prototype = {
             case ICON_TELEPORT:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [40 * this._number_of_main_menu_rows, null], 1, 'teleport', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [200, null], temp_position, temp_normal, false);
                 utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
                 var current_button_row = 2;
