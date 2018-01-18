@@ -138,12 +138,12 @@ PlayerMenu.prototype = {
             this._add_main_menu_icon(ICON_FULLSCREEN);
         } else if (this.world === MANAGER_WORLD.world_home) {
             this._add_main_menu_icon(ICON_WRENCH);
-            //this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_TELEPORT);
             this._add_main_menu_icon(ICON_SAVE);
             this._add_main_menu_icon(ICON_FULLSCREEN);
         } else if (this.world === MANAGER_WORLD.world_settings) {
             this._add_main_menu_icon(ICON_WRENCH);
-            //this._add_main_menu_icon(ICON_TELEPORT);
+            this._add_main_menu_icon(ICON_TELEPORT);
             this._add_main_menu_icon(ICON_SAVE);
             this._add_main_menu_icon(ICON_FULLSCREEN);
         }
@@ -164,7 +164,7 @@ PlayerMenu.prototype = {
             case ICON_WRENCH:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'create', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [400, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
                 //utility_wall.manual_visibility = true;
 
@@ -194,7 +194,7 @@ PlayerMenu.prototype = {
             case ICON_TELEPORT:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'teleport', TYPE_BUTTON);
 
-                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [600, null], null, null, false);
+                utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
                 //utility_wall.manual_visibility = true;
 
