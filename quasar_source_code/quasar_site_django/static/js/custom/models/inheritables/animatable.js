@@ -8,10 +8,13 @@ function Animatable() {
     this.has_animation = false;
     this.requires_animation_update = false;
 
+    this.animation_finished = false;
+
     this._elapsed_delta = 0;
     this.percentage_elapsed = 0;
 
     this._restart_animation = function() {
+        this.animation_finished = false;
         this.requires_animation_update = true;
         this._elapsed_delta = 0;
         this.percentage_elapsed = 0;
@@ -35,6 +38,7 @@ function Animatable() {
 
         this._elapsed_delta += delta;
         if (this._elapsed_delta >= this.animation_duration) {
+            this.animation_finished = true;
             this.percentage_elapsed = 1.0;
             this.requires_animation_update = false;
         } else {

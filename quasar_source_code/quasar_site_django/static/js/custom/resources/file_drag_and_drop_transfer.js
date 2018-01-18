@@ -34,6 +34,8 @@ DragNDrop.prototype = {
                 l('Upload the following file into the world!');
                 l(files[0]);
 
+
+                /*
                 var form_data = new FormData();
                 form_data.append('file', files[0]);
 
@@ -46,6 +48,9 @@ DragNDrop.prototype = {
                         l('File upload did not work!');
                     }
                 };
+                */
+
+
             }
 
             l('JUST GOT THE FOLLOWING FILE !');
