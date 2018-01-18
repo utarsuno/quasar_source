@@ -18,12 +18,14 @@ function Attachmentable(world) {
     this.relative_name = null;
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
-        var position = new THREE.Vector3(this.object3D.position.x, this.object3D.position.y, this.object3D.position.z);
+        var temp_position = this.get_parent_position();
+
+        var position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
         var floating_wall;
         if (is_defined(scalable)) {
-            floating_wall = new FloatingWall(width, height, position, this.normal, this.world, scalable);
+            floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
         } else {
-            floating_wall = new FloatingWall(width, height, position, this.normal, this.world, false);
+            floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, false);
         }
 
         this.add_attachment(floating_wall);
