@@ -58,7 +58,8 @@ PlayerMenu.prototype = {
     },
 
     set_to_invisible: function() {
-        this._player_menu.set_to_invisible();
+        //this._player_menu.set_to_invisible();
+        this._player_menu.hide_self_and_all_child_attachments_recursively();
     },
 
     set_to_visible: function() {
@@ -72,13 +73,24 @@ PlayerMenu.prototype = {
         var position_z = player_position.z + position_offset[2];
 
         this._player_menu.set_position(position_x, position_y, position_z, false);
-        this._player_menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, true);
+        this._player_menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, false);
+
+
+        this._player_menu.restart_all_animations();
+
+
+        this._player_menu.display_self_and_all_child_attachments_recursively();
+
 
         this._player_menu.refresh_position_and_look_at();
 
-        this._player_menu.set_to_visible();
+        //this._player_menu.set_to_visible();
 
-        this._player_menu.restart_all_animations();
+
+
+        //this.quasar_source_title.refresh_position_and_look_at();
+        //this.wall_login.refresh_position_and_look_at();
+        //this.wall_create_account.refresh_position_and_look_at();
     },
 
     is_visible: function() {
@@ -153,6 +165,9 @@ PlayerMenu.prototype = {
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'create', TYPE_BUTTON);
 
                 utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [400, null], null, null, false);
+
+                utility_wall.manual_visibility = true;
+
                 utility_wall.add_row_2D_text([0, 1], 0, 'Create a...', TYPE_CONSTANT);
 
                 utility_wall.add_row_2D_text([0, icon_width], 2, ICON_INFORMATION, TYPE_ICON);
@@ -161,11 +176,11 @@ PlayerMenu.prototype = {
                 utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
                 utility_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
 
-                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 3, 'Picture', TYPE_BUTTON);
+                utility_wall.add_row_2D_text([0, icon_width], 4, ICON_MENU_LIST, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
 
-                utility_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
-                utility_wall.add_row_2D_text([icon_width, 1], 3, 'YouTube Video', TYPE_BUTTON);
+                utility_wall.add_row_2D_text([0, icon_width], 5, ICON_MENU_LIST, TYPE_ICON);
+                utility_wall.add_row_2D_text([icon_width, 1], 5, 'YouTube Video', TYPE_BUTTON);
 
                 this._sub_menus.push(utility_wall);
 
@@ -180,6 +195,9 @@ PlayerMenu.prototype = {
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width, null, [-8, .25], 1, 'teleport', TYPE_BUTTON);
 
                 utility_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [600, null], null, null, false);
+
+                utility_wall.manual_visibility = true;
+
                 utility_wall.add_row_2D_text([0, 1], 0, 'Teleport to...', TYPE_CONSTANT);
 
                 var current_button_row = 2;
