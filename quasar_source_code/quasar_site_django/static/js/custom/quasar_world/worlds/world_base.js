@@ -368,6 +368,21 @@ function World() {
     /*__   __   ___      ___  ___     __     __  ___       __   ___
      /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
+
+    this.create_new_floating_picture = function(image_file) {
+        var image_texture = new THREE.Texture(image_file);
+        var image_material = new THREE.MeshBasicMaterial({map : image_texture});
+
+        var floating_picture = new FloatingPicture(image_file, this);
+        this.root_attachables.push(floating_picture);
+    };
+
+    /*
+                            MANAGER_WORLD.world_home.create_new_floating_picture(files[0]);
+                        this.material = new THREE.MeshBasicMaterial({map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)});
+
+     */
+
     this.picture_was_dropped_in = function() {
         l('Picture was dropped in function is TODO!!!!');
     };

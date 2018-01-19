@@ -428,6 +428,7 @@ FloatingWall.prototype = {
         }
     },
 
+    // TODO : Reformat this!
     cursor_action_disengaged: function() {
         //MANAGER_WORLD.current_floating_cursor.disengage();
         this.player_horizontal_distance_to_wall_center_liner = null;
@@ -442,6 +443,7 @@ FloatingWall.prototype = {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
     },
 
+    // TODO : Reformat this!
     get_required_cursor: function(cursor_position_vector) {
         var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
         var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
@@ -477,6 +479,7 @@ FloatingWall.prototype = {
         return floating_texts;
     },
 
+    // TODO : Reformat this!
     get_all_floating_wall_children_recursively: function() {
         var all_wall_children = [];
         for (var w = 0; w < this.all_floating_walls.length; w++) {

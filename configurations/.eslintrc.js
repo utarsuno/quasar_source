@@ -48,11 +48,10 @@ module.exports = {
         "WebSocketClient": false,
 
         "FloatingWall": true,
-        "Floating2DText": true,
-        "FloatingIcon": true,
         "FloatingText": true,
+        "Floating2DText": true,
         "Floating3DText": true,
-        "FloatingSlider": true,
+        "FloatingPicture": true,
 
         // Core
         "InputTextProcessor": false,

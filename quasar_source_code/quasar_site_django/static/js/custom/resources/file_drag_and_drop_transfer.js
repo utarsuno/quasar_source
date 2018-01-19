@@ -1,5 +1,8 @@
 'use strict';
 
+const IMAGE_TYPE_PNG  = 'image/png';
+const IMAGE_TYPE_JPEG = 'image/jpeg';
+
 function DragNDrop() {
     this.__init__();
 }
@@ -14,15 +17,15 @@ DragNDrop.prototype = {
 
         // FOR_DEV_START
         document_element.ondragover = function () {
-            l('ondragover event');
+            //l('ondragover event');
             return false;
         };
         document_element.ondragend = function () {
-            l('ondragend event');
+            //l('ondragend event');
             return false;
         };
         // FOR_DEV_END
-        
+
 
 
 
@@ -41,6 +44,13 @@ DragNDrop.prototype = {
                 l('Upload the following file into the world!');
                 l(files[0]);
 
+                if (files[0].type === IMAGE_TYPE_JPEG || files[0].type === IMAGE_TYPE_PNG) {
+                    l('TODO : Create the image!');
+
+                    if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_home) {
+                        MANAGER_WORLD.world_home.create_new_floating_picture(files[0]);
+                    }
+                }
 
                 /*
                 var form_data = new FormData();
@@ -59,9 +69,6 @@ DragNDrop.prototype = {
 
 
             }
-
-            l('JUST GOT THE FOLLOWING FILE !');
-            l(files);
         
             return false;
         };
