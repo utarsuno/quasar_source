@@ -238,8 +238,12 @@ LoadingManager.prototype = {
         var texture_loader = new THREE.TextureLoader();
         texture_loader.crossOrigin = 'Anonymous';
 
+        l('Get texture dynamically called!');
+
         texture_loader.load(texture_url,
             function(texture) {
+                l('Loaded the texture!');
+                l(texture);
                 callback(texture);
             }
         );
