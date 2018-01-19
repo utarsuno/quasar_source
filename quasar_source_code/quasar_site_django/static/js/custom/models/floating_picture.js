@@ -25,7 +25,7 @@ FloatingPicture.prototype = {
 
         // THIS IS TEMPORARY.
         var player_position = CURRENT_PLAYER.get_position();
-        var player_normal   = CURRENT_PLAYER.get_normal();
+        var player_normal   = CURRENT_PLAYER.get_direction();
 
         this.set_position(player_position.x, player_position.y, player_position.z, false);
         this.set_normal(player_normal.x, player_normal.y, player_normal.z, false);
