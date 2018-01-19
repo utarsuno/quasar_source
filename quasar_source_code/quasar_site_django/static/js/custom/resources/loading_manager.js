@@ -242,6 +242,7 @@ LoadingManager.prototype = {
         l('The texture URL to load is:');
         l(texture_url);
 
+        /*
         texture_loader.load(texture_url,
             function(texture) {
                 l('Loaded the texture!');
@@ -260,7 +261,7 @@ LoadingManager.prototype = {
                 l(xhr);
                 // FOR_DEV_END
             }
-        );
+        );*/
 
 
         THREE.ImageUtils.crossOrigin = '';
