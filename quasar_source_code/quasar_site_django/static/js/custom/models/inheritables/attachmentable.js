@@ -268,17 +268,13 @@ function Attachmentable(world) {
     };
 
     this.fully_remove_self_and_all_sub_attachments = function() {
-        this.remove_from_root_attachmentables_if_needed(this);
-        this.world.remove_from_interactive_then_scene(this);
-        this.full_remove();
-
-        for (var a = 0; a < this.attachments; a++) {
-            this.remove_from_root_attachmentables_if_needed(this.attachments[a]);
-            this.attachments[a].full_remove();
+        for (var a = 0; a < this.attachments.length; a++) {
             this.attachments[a].fully_remove_self_and_all_sub_attachments();
         }
 
-        // TODO : incorporate this.remove_from_root_attachmentables_if_needed();
+        this.remove_from_root_attachmentables_if_needed(this);
+        this.world.remove_from_interactive_then_scene(this);
+        this.full_remove();
     };
 
 
