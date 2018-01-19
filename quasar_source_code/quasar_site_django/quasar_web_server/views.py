@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from entities import base_entity as be
 from servers import utility_servers as us
 from universal_code import debugging as dbg
+import urllib.request
 
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
@@ -147,6 +148,25 @@ def POST_entity_owner_admin_command(request):
 '''___      ___   ___         __             ___  __      __   __   ___  __       ___    __        __
   |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
   |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+
+
+
+@csrf_exempt
+def POST_server_load_image(request):
+    """Handles the POST request for having the server load an image."""
+    print('POST_server_load_image')
+    json_str = (request.body.decode('utf-8'))
+    json_obj = json.loads(json_str)
+
+    post_errors = check_POST_arguments(['image_url'], json_obj)
+    if post_errors is not None:
+        return post_errors
+
+    received_image_url = json_obj['image_url']
+
+    # TODO : Add safety checks against the URL sent in!!
+
+    urllib.request.urlretrieve(received_image_url, 'dynamically_loaded_images' 'test_image.png')
 
 
 @csrf_exempt

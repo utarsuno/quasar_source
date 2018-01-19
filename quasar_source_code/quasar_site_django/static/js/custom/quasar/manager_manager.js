@@ -41,3 +41,6 @@ MANAGER_ENTITY      = new EntityManager();
 // 0x5 : Handles all multi-player/online interaction.
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
+
+// 0x6 : Add the drop and drop feature.
+var DRAG_AND_DROP = new DragNDrop();

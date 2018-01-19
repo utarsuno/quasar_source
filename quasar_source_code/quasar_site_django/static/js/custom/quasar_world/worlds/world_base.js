@@ -368,6 +368,12 @@ function World() {
     /*__   __   ___      ___  ___     __     __  ___       __   ___
      /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
+    this.picture_was_dropped_in = function() {
+        l('Picture was dropped in function is TODO!!!!');
+    };
+
+    /*
+
     this.cancel_picture_prompt = function(picture_prompt_wall) {
         picture_prompt_wall.fully_remove_self_and_all_sub_attachments();
     };
@@ -410,6 +416,8 @@ function World() {
 
         picture_prompt_wall.refresh_position_and_look_at();
     };
+
+    */
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)

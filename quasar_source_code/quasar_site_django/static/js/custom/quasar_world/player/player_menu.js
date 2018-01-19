@@ -92,8 +92,8 @@ PlayerMenu.prototype = {
 
     _create_picture_prompt: function() {
         this.set_to_invisible();
-
-        this.world.create_picture_prompt(this.create_picture_button.get_position(), this.create_picture_button.get_normal());
+        GUI_TYPING_INTERFACE.add_server_message('To create an image simply drag and drop the image file into the browser!');
+        //this.world.create_picture_prompt(this.create_picture_button.get_position(), this.create_picture_button.get_normal());
     },
 
     /*                          ___

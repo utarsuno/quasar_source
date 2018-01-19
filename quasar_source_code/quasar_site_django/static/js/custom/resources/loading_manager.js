@@ -236,10 +236,9 @@ LoadingManager.prototype = {
 
     get_texture_dynamically: function(texture_url, callback) {
         var texture_loader = new THREE.TextureLoader();
-        texture_loader.crossOrigin = 'use-credentials';
+        texture_loader.crossOrigin = 'Anonymous';
 
         l('Get texture dynamically called!');
-        l('The texture URL to load is:');
         l(texture_url);
 
 
@@ -264,9 +263,9 @@ LoadingManager.prototype = {
         );
 
 
-        THREE.ImageUtils.crossOrigin = '';
-        var texture_load_test = THREE.ImageUtils.loadTexture(texture_url);
-        l(texture_load_test);
+        //THREE.ImageUtils.crossOrigin = '';
+        //var texture_load_test = THREE.ImageUtils.loadTexture(texture_url);
+        //l(texture_load_test);
     },
 
     get_texture: function(texture_group, texture_name) {
