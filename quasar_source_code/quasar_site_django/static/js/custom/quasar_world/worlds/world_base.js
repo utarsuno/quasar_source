@@ -232,7 +232,6 @@ function World() {
                 this._previously_intersected_plane = null;
             }
         }
-
     };
 
     this._check_for_custom_plane_intersections = function() {
