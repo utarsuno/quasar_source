@@ -172,7 +172,7 @@ function World() {
                     this.look_away_from_currently_looked_at_object();
                 } else {
                     // Since the currently looked at object match is the same then all we need to do is update the cursor position.
-                    this.floating_cursor.update_position(intersection_data);
+                    this.floating_cursor.update_position(intersection_data.point);
                 }
             } else {
                 // An object is being looked at for the first time.

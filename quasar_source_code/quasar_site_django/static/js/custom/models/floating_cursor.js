@@ -38,12 +38,7 @@ FloatingCursor.prototype = {
 
         var normal = this.currently_attached_to.get_normal();
 
-        l(p);
-        l(p.point);
-        l(p.point.x);
-        l('@@@@');
-
-        this.cursor_wall.set_position(p.point.x, p.point.y, p.point.z, false);
+        this.cursor_wall.set_position(p.x, p.y, p.z, false);
         this.cursor_wall.set_normal(normal.x, normal.y, normal.z, false);
         this.cursor_wall.refresh_position_and_look_at();
     },
@@ -155,6 +150,7 @@ FloatingCursor.prototype = {
     _create_cursor: function(cursor_type) {
         var c = this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
         c.set_attachment_depth_offset(1);
+        c.set_attachment_vertical_offset(-8, 0);
         c.set_to_invisible();
         this._cursors[cursor_type] = c;
     }
