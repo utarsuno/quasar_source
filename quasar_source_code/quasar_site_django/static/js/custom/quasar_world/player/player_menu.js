@@ -96,7 +96,7 @@ PlayerMenu.prototype = {
     },
 
     _create_picture_prompt: function() {
-        this._player_menu.set_to_invisible();
+        this.set_to_invisible();
 
         this.world.create_picture_prompt(this.create_picture_button.get_position(), this.create_picture_button.get_normal());
     },

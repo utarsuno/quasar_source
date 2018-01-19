@@ -251,6 +251,37 @@ function Attachmentable(world) {
         return attachments;
     };
 
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    this.remove_from_root_attachmentables_if_needed = function(object_to_check) {
+        var index_to_remove = -1;
+        for (var i = 0; i < this.world.root_attachables.length; i++) {
+            if (this.world.root_attachables[i] === object_to_check) {
+                index_to_remove = i;
+                break;
+            }
+        }
+        if (index_to_remove !== NOT_FOUND) {
+            this.world.root_attachables.splice(index_to_remove, 1);
+        }
+    };
+
+    this.fully_remove_self_and_all_sub_attachments = function() {
+        this.remove_from_root_attachmentables_if_needed(this);
+        this.world.remove_from_interactive_then_scene(this);
+        this.full_remove();
+
+        for (var a = 0; a < this.attachments; a++) {
+            this.remove_from_root_attachmentables_if_needed(this.attachments[a]);
+            this.attachments[a].full_remove();
+            this.attachments[a].fully_remove_self_and_all_sub_attachments();
+        }
+
+        // TODO : incorporate this.remove_from_root_attachmentables_if_needed();
+    };
+
+
     /*      ___  ___  __                         ___          ___    ___  __
      | |\ |  |  |__  |__) |\ |  /\  |       |  |  |  | |    |  |  | |__  /__`
      | | \|  |  |___ |  \ | \| /~~\ |___    \__/  |  | |___ |  |  | |___ .__/ */

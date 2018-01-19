@@ -489,6 +489,8 @@ FloatingWall.prototype = {
     /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___
       |__) |     /\  |\ | |__     | |\ |  |  |__  |__) /__` |__  /  `  |  | /  \ |\ |     |\/|  /\   |  |__|
       |    |___ /~~\ | \| |___    | | \|  |  |___ |  \ .__/ |___ \__,  |  | \__/ | \|     |  | /~~\  |  |  | */
+    // TODO : REFACTOR INTO MATH UTILITIES!!!
+
     get_parametric_equation: function() {
         return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
     },
@@ -547,45 +549,16 @@ FloatingWall.prototype = {
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
-    resource_cleanup: function() {
+    full_remove: function() {
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);
+            this.mesh.dispose();
+        }
+        if (is_defined(this.geometry)) {
             this.geometry.dispose();
-            //this.material.dispose();
         }
-    },
-
-    clear_floating_2d_texts: function() {
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[i]);
-        }
-        this.objects_to_remove_later.length = 0;
-        this.all_floating_2d_texts.length = 0;
-    },
-
-    remove_from_scene: function() {
-        for (var j = 0; j < this.floating_walls_to_remove_later.length; j++) {
-            this.floating_walls_to_remove_later[j].remove_from_scene();
-        }
-        for (var i = 0; i < this.objects_to_remove_later.length; i++) {
-            this.world.remove_from_interactive_then_scene(this.objects_to_remove_later[i]);
-        }
-        this.scene.remove(this.object3D);
-        this.mesh.material.dispose();
-        this.mesh.geometry.dispose();
-    },
-
-    remove_floating_2d_texts_with_property: function(property_name) {
-        var elements_to_remove = this.get_all_floating_2D_texts_with_property(property_name);
-        for (var i = 0; i < elements_to_remove.length; i++) {
-            var index_to_remove = -1;
-            for (var j = 0; j < this.all_floating_2d_texts.length; j++) {
-                if (this.all_floating_2d_texts[j].hasOwnProperty(property_name)) {
-                    index_to_remove = j;
-                }
-            }
-            this.world.remove_from_interactive_then_scene(this.all_floating_2d_texts[index_to_remove]);
-            this.all_floating_2d_texts.splice(index_to_remove, 1);
+        if (is_defined(this.material)) {
+            this.material.dispose();
         }
     },
 

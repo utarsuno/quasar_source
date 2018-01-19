@@ -59,33 +59,6 @@ function World() {
         this.scene.add(object);
     };
 
-    this.remove_from_scene = function(object) {
-        this.scene.remove(object);
-
-        // TODO : Refactor this
-        if (object.hasOwnProperty('object3D')) {
-            this.scene.remove(object.object3D);
-        }
-
-        // TODO : check if there is a geometry or material to dispose of.
-    };
-
-    this.remove_from_interactive_then_scene = function(object_to_remove) {
-        // First remove the interactive.
-        var index_to_remove = -1;
-        for (var i = 0; i < this.interactive_objects.length; i++) {
-            if (this.interactive_objects[i] === object_to_remove) {
-                index_to_remove = i;
-                break;
-            }
-        }
-        if (index_to_remove !== -1) {
-            this.interactive_objects.splice(index_to_remove, 1);
-        }
-        // Next remove the object from the scene.
-        this.remove_from_scene(object_to_remove);
-    };
-
     this.set_cursor_position = function(position) {
         /*
         this.floating_cursor.set_position(position);
@@ -273,6 +246,7 @@ function World() {
             if (this.entity_walls[w].wall.scalable) {
                 all_walls.push(this.entity_walls[w].wall);
             }
+            // TODO : Refactor this..
             var all_children = this.entity_walls[w].wall.get_all_floating_wall_children_recursively();
             for (var c = 0; c < all_children.length; c++) {
                 if (all_children[c].scalable) {
@@ -463,4 +437,61 @@ function World() {
         this.default_tab_target = default_tab_target;
     };
 
+    /*__   __   ___      ___  ___     __     __  ___       __   ___
+     /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
+     \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
+    this.cancel_picture_prompt = function(picture_prompt_wall) {
+        picture_prompt_wall.fully_remove_self_and_all_sub_attachments();
+    };
+
+    this.create_picture = function(picture_prompt_wall) {
+        picture_prompt_wall.fully_remove_self_and_all_sub_attachments();
+
+        // TODO : Create the picture wall!
+        l('TODO : Create the picture wall!');
+    };
+
+    this.create_picture_prompt = function(position, normal) {
+        var picture_prompt_wall = new FloatingWall(300, 50, position, normal, this, true);
+
+        picture_prompt_wall.add_row_3D_text(false, -1, 'Create New Picture', TYPE_TITLE);
+
+        picture_prompt_wall.add_row_2D_text([0, ONE_FOURTH], 0, 'Image URL:', TYPE_CONSTANT);
+        picture_prompt_wall.add_row_2D_text([ONE_FOURTH, 1], 0, '', TYPE_INPUT);
+
+        var cancel_button = picture_prompt_wall.add_row_2D_text([0, HALF], 2, 'Cancel', TYPE_BUTTON);
+        cancel_button.set_engage_function(this.cancel_picture_prompt.bind(this, picture_prompt_wall));
+        var create_button = picture_prompt_wall.add_row_2D_text([HALF, 1], 2, 'Create', TYPE_BUTTON);
+        create_button.set_engage_function(this.create_picture.bind(this, picture_prompt_wall));
+
+        this.root_attachables.push(picture_prompt_wall);
+    };
+
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    this.remove_from_scene = function(object) {
+        this.scene.remove(object);
+
+        // TODO : Refactor this
+        if (object.hasOwnProperty('object3D')) {
+            this.scene.remove(object.object3D);
+        }
+    };
+
+    this.remove_from_interactive_then_scene = function(object_to_remove) {
+        // First remove the interactive.
+        var index_to_remove = -1;
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i] === object_to_remove) {
+                index_to_remove = i;
+                break;
+            }
+        }
+        if (index_to_remove !== -1) {
+            this.interactive_objects.splice(index_to_remove, 1);
+        }
+        // Next remove the object from the scene.
+        this.remove_from_scene(object_to_remove);
+    };
 }

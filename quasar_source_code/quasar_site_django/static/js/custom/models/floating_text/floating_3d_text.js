@@ -87,15 +87,25 @@ Floating3DText.prototype = {
         this.material.needsUpdate = true;
     },
 
-    /*__        ___                 __
-     /  ` |    |__   /\  |\ | |  | |__)
-     \__, |___ |___ /~~\ | \| \__/ |    */
-    resource_cleanup: function() {
-        if (this.current_text_object !== null) {
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    full_remove: function() {
+        if (is_defined(this.current_text_object)) {
             this.object3D.remove(this.current_text_object);
+            this.current_text_object.dispose();
             this.current_text_object.geometry.dispose();
             this.current_text_object.material.dispose();
-            this.current_text_object = null;
         }
-    }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+        if (is_defined(this.material)) {
+            this.material.dispose();
+        }
+        if (is_defined(this.dynamic_texture)) {
+            this.dynamic_texture.dispose();
+        }
+    },
+
 };

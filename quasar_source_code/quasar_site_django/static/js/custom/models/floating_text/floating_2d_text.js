@@ -114,17 +114,25 @@ Floating2DText.prototype = {
         this.final_initialize();
     },
 
-    /*__        ___                 __
-     /  ` |    |__   /\  |\ | |  | |__)
-     \__, |___ |___ /~~\ | \| \__/ |    */
-    resource_cleanup: function() {
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    full_remove: function() {
         if (is_defined(this.mesh)) {
-            this.material.dispose();
-            this.geometry.dispose();
-            this.mesh.dispose();
             this.object3D.remove(this.mesh);
+            this.mesh.dispose();
         }
-    }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+        if (is_defined(this.material)) {
+            this.material.dispose();
+        }
+        if (is_defined(this.dynamic_texture)) {
+            this.dynamic_texture.dispose();
+        }
+    },
+
 };
 
 
