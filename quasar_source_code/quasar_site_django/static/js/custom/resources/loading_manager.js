@@ -255,6 +255,7 @@ LoadingManager.prototype = {
             function (xhr) {
                 // FOR_DEV_START
                 l('An error happened trying to load the texture file.');
+                l(xhr);
                 // FOR_DEV_END
             }
         );
