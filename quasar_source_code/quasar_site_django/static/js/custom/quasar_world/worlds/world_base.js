@@ -122,10 +122,7 @@ function World() {
         //if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
         //    return;
         //}
-        // TODO : Shouldn't this be : is_visible() ?
-        if (GUI_PAUSED_MENU.currently_displayed) {
-            return;
-        }
+
 
 
         /*

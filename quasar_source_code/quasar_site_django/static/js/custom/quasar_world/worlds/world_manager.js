@@ -24,6 +24,10 @@ WorldManager.prototype = {
     //this.world_home.add_css_scene();
 
     update_current_world: function(delta) {
+        if (GUI_PAUSED_MENU.is_visible()) {
+            return;
+        }
+
         // TODO : Double check on what order these should update.
 
         if (MANAGER_WORLD.current_player_menu.is_visible()) {
