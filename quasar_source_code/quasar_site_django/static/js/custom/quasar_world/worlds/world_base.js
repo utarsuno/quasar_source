@@ -393,8 +393,8 @@ function World() {
 
         picture_prompt_wall.add_row_3D_text(false, -1, 'Create New Picture', TYPE_TITLE);
 
-        var image_url_input = picture_prompt_wall.add_row_2D_text([0, ONE_THIRD], 0, 'Image URL:', TYPE_CONSTANT);
-        picture_prompt_wall.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT);
+        picture_prompt_wall.add_row_2D_text([0, ONE_THIRD], 0, 'Image URL:', TYPE_CONSTANT);
+        var image_url_input = picture_prompt_wall.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT);
 
         var cancel_button = picture_prompt_wall.add_row_2D_text([0, HALF], 2, 'Cancel', TYPE_BUTTON);
         cancel_button.set_engage_function(this.cancel_picture_prompt.bind(this, picture_prompt_wall));
