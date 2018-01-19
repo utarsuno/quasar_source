@@ -316,6 +316,7 @@ FloatingWall.prototype = {
      /__` |    | |  \ |__  |__)    |__) /  \ |  | /__`
      .__/ |___ | |__/ |___ |  \    |  \ \__/ |/\| .__/ */
 
+    /*
     slider_change: function(slider, delta) {
         var new_value = slider.get_text_as_value() + delta;
         slider.current_percentage = (new_value - slider.minimum_value) / (slider.maximum_value - slider.minimum_value);
@@ -405,6 +406,7 @@ FloatingWall.prototype = {
         // Return the slider object so that a value changed function can be binded.
         return floating_slider;
     },
+    */
 
     /*     __   __       ___  ___                         ___  __
      |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`

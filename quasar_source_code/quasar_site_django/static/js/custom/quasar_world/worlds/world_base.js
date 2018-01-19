@@ -167,7 +167,7 @@ function World() {
 
                     var has_match = false;
 
-                    // TODO : Check if the mesh or geometry is used. Both probably don't need to check both.
+                    // TODO : Check if the mesh or geometry is used. Probably don't need to check both.
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid) {
                         has_match = true;
                     }
@@ -189,15 +189,27 @@ function World() {
             if (this.currently_looked_at_object !== this.interactive_objects[interactive_index]) {
                 if (this.currently_looked_at_object !== null) {
                     this.currently_looked_at_object.look_away();
+
+                    // TODO : Detach the cursor
+                    if (this.currently_looked_at_object.uses_cursor) {
+                        l('TODO : Detach the cursor');
+                    }
                 }
                 this.currently_looked_at_object = this.interactive_objects[interactive_index];
                 this.currently_looked_at_object.look_at();
+
+                // TODO : Attach the cursor
+                if (this.currently_looked_at_object.uses_cursor) {
+                    l('TODO : Attach the cursor');
+                }
             }
+
             // FOR_DEV_START
             if (!is_defined(this.currently_looked_at_object)) {
                 raise_exception('hodl IOTA');
             }
             // FOR_DEV_END
+
             if (this.currently_looked_at_object.uses_cursor) {
                 this.floating_cursor.cursor_needed_from_interactive_objects = true;
                 this.set_cursor_position(final_point.point);

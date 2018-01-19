@@ -1,2 +1,5 @@
 'use strict';
 
+function Scalable() {
+
+}
