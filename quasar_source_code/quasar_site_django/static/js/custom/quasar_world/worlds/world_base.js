@@ -465,6 +465,8 @@ function World() {
         create_button.set_engage_function(this.create_picture.bind(this, picture_prompt_wall));
 
         this.root_attachables.push(picture_prompt_wall);
+
+        picture_prompt_wall.refresh_position_and_look_at();
     };
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
