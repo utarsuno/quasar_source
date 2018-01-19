@@ -65,7 +65,8 @@ FloatingWall.prototype = {
 
     _create_base_wall: function() {
         // Check if the there is an existing wall that needs to be fully cleaned up.
-        this.resource_cleanup();
+        // TODO : Refactor this!!!
+        //this.resource_cleanup();
 
         if (!is_defined(this.material)) {
             this.material = new THREE.MeshBasicMaterial({
