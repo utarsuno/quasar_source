@@ -20,7 +20,7 @@ FloatingCursor.prototype = {
     },
 
     update_position: function(p) {
-        l('TODO : Update cursor position!');
+        //l('TODO : Update cursor position!');
         l(p);
     },
 
