@@ -261,6 +261,11 @@ LoadingManager.prototype = {
                 // FOR_DEV_END
             }
         );
+
+
+        THREE.ImageUtils.crossOrigin = '';
+        var texture_load_test = THREE.ImageUtils.loadTexture(texture_url);
+        l(texture_load_test);
     },
 
     get_texture: function(texture_group, texture_name) {
