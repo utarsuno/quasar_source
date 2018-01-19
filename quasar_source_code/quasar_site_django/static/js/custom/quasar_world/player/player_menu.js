@@ -169,8 +169,8 @@ PlayerMenu.prototype = {
 
         switch (icon) {
             case ICON_WRENCH:
-                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - player_menu_icon_width, [player_menu_icon_width, null], [-8, .25], 1, 'create', TYPE_BUTTON);
-                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -HALF], [-8, .25], 1, ICON_WRENCH, TYPE_ICON);
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [16, null], [-8, .25], 1, 'create', TYPE_BUTTON);
+                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -ONE_FOURTH], [-8, .25], 1, ICON_WRENCH, TYPE_ICON);
 
                 this.create_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
@@ -196,17 +196,17 @@ PlayerMenu.prototype = {
                 this.create_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_FULLSCREEN:
-                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - player_menu_icon_width, [player_menu_icon_width, null], [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [16, null], [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
                 menu_button.set_engage_function(toggle_fullscreen);
 
-                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -HALF], [-8, .25], 1, ICON_FULLSCREEN, TYPE_ICON);
+                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -ONE_FOURTH], [-8, .25], 1, ICON_FULLSCREEN, TYPE_ICON);
 
                 this.full_screen_button = menu_button;
 
                 break;
             case ICON_TELEPORT:
-                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - player_menu_icon_width, [player_menu_icon_width, null], [-8, .25], 1, 'teleport', TYPE_BUTTON);
-                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -HALF], [-8, .25], 1, ICON_TELEPORT, TYPE_ICON);
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [16, null], [-8, .25], 1, 'teleport', TYPE_BUTTON);
+                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -ONE_FOURTH], [-8, .25], 1, ICON_TELEPORT, TYPE_ICON);
 
                 this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
 
@@ -240,8 +240,8 @@ PlayerMenu.prototype = {
                 this.teleport_wall.hide_self_and_all_child_attachments_recursively();
                 break;
             case ICON_SAVE:
-                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - player_menu_icon_width, [player_menu_icon_width, null], [-8, .25], 1, 'save', TYPE_BUTTON);
-                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -HALF], [-8, .25], 1, ICON_SAVE, TYPE_ICON);
+                menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [16, null], [-8, .25], 1, 'save', TYPE_BUTTON);
+                menu_icon = this._player_menu.add_floating_2D_text(16, [null, -ONE_FOURTH], [-8, .25], 1, ICON_SAVE, TYPE_ICON);
                 menu_button.set_engage_function(global_save);
                 break;
         }
