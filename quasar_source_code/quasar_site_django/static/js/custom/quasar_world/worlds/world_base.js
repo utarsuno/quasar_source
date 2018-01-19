@@ -372,11 +372,20 @@ function World() {
         picture_prompt_wall.fully_remove_self_and_all_sub_attachments();
     };
 
-    this.create_picture = function(picture_prompt_wall) {
+    this.create_picture = function(picture_prompt_wall, image_url_input) {
+        var image_url = image_url_input.get_text();
+
         picture_prompt_wall.fully_remove_self_and_all_sub_attachments();
 
         // TODO : Create the picture wall!
         l('TODO : Create the picture wall!');
+
+        MANAGER_LOADING.get_texture_dynamically(image_url, this._picture_ready_to_be_created.bind(this));
+    };
+
+    this._picture_ready_to_be_created = function(loaded_texture) {
+        l('CREATE THE FOLLOWING TEXTURE : ');
+        l(loaded_texture);
     };
 
     this.create_picture_prompt = function(position, normal) {
@@ -384,7 +393,7 @@ function World() {
 
         picture_prompt_wall.add_row_3D_text(false, -1, 'Create New Picture', TYPE_TITLE);
 
-        picture_prompt_wall.add_row_2D_text([0, ONE_THIRD], 0, 'Image URL:', TYPE_CONSTANT);
+        var image_url_input = picture_prompt_wall.add_row_2D_text([0, ONE_THIRD], 0, 'Image URL:', TYPE_CONSTANT);
         picture_prompt_wall.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT);
 
         var cancel_button = picture_prompt_wall.add_row_2D_text([0, HALF], 2, 'Cancel', TYPE_BUTTON);
@@ -393,7 +402,7 @@ function World() {
         cancel_button.set_color(COLOR_RED, true);
 
         var create_button = picture_prompt_wall.add_row_2D_text([HALF, 1], 2, 'Create', TYPE_BUTTON);
-        create_button.set_engage_function(this.create_picture.bind(this, picture_prompt_wall));
+        create_button.set_engage_function(this.create_picture.bind(this, picture_prompt_wall, image_url_input));
         create_button.set_default_color(COLOR_GREEN);
         create_button.set_color(COLOR_GREEN, true);
 
