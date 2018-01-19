@@ -117,13 +117,73 @@ function World() {
         }
     };
 
+    this._look_at_match_found = function() {
+
+    };
+
+    this._look_at_match_not_found = function() {
+
+    };
+
+    this._match_found = function(object_to_match) {
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid || this.interactive_objects[i].geometry.uuid === object_to_match.uuid) {
+
+                if(this.interactive_objects[i].mesh.uuid === object_to_match.uuid) {
+                    l('Mesh match!');
+                } else {
+                    l('Geometry match!');
+                }
+
+                return i;
+            }
+        }
+        return -1;
+    };
+
     this.update_interactive_objects = function() {
+        this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
+        var smallest_distance = 99999;
+        var interactive_index = -1;
+        var closest_object    = null;
+        var intersection_data = null;
+
+        // Find out what's currently being looked at if anything.
+        for (var i = 0; i < this.interactive_objects.length; i++) {
+            // The true parameter indicates recursive search.
+            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
+
+            for (var d = 0; d < intersections.length; d++) {
+                if (intersections[d].distance < smallest_distance) {
+                    var current_object = intersections[d].object;
+                    var match_found = this._match_found(current_object);
+                    if (match_found !== NOT_FOUND) {
+                        smallest_distance = intersections[d].distance;
+                        closest_object = current_object;
+                        interactive_index = match_found;
+                        intersection_data = intersections[d];
+                    }
+                }
+            }
+        }
+
+        if (interactive_index === NOT_FOUND) {
+            // Interactive match not found.
+
+            l('Interactive match not found!');
+
+        } else {
+            // Interactive match found.
+
+            l('Interactive match found!');
+        }
+    };
+
+    this.update_interactive_objects_OLD = function() {
         // Don't check for an intersection if the cursor is currently engaged or the paused menu is displayed.
         //if (this.floating_cursor.engaged || GUI_PAUSED_MENU.currently_displayed) {
         //    return;
         //}
-
-
 
         /*
         if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
@@ -137,16 +197,16 @@ function World() {
         */
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
+        var smallest_distance = 99999;
+        var interactive_index = -1;
+
+
 
         var match_was_found = false;
 
         var closest_object = null;
         var closest_data_thing = null;
         var final_point = null;
-
-        var smallest_distance = 99999;
-
-        var interactive_index = -1;
 
         // Find out what's currently being looked at if anything.
         for (var i = 0; i < this.interactive_objects.length; i++) {
@@ -164,14 +224,11 @@ function World() {
                 }
                 // Now get the interactive_object match of the found intersections object.
                 for (var m = 0; m < this.interactive_objects.length; m++) {
-
                     var has_match = false;
-
                     // TODO : Check if the mesh or geometry is used. Probably don't need to check both.
                     if (this.interactive_objects[m].mesh.uuid === closest_object.uuid || this.interactive_objects[m].geometry.uuid === closest_object.uuid) {
                         has_match = true;
                     }
-
                     if (has_match) {
                         if (current_smallest_distance < smallest_distance) {
                             smallest_distance = current_smallest_distance;
@@ -214,7 +271,13 @@ function World() {
                 this.floating_cursor.cursor_needed_from_interactive_objects = true;
                 this.set_cursor_position(final_point.point);
             }
+
+
+
+
             match_was_found = true;
+        } else {
+
         }
 
         if (!match_was_found) {
