@@ -236,7 +236,7 @@ LoadingManager.prototype = {
 
     get_texture_dynamically: function(texture_url, callback) {
         var texture_loader = new THREE.TextureLoader();
-        texture_loader.crossOrigin = '';
+        texture_loader.crossOrigin = 'use-credentials';
 
         l('Get texture dynamically called!');
         l('The texture URL to load is:');
