@@ -239,6 +239,8 @@ LoadingManager.prototype = {
         texture_loader.crossOrigin = 'Anonymous';
 
         l('Get texture dynamically called!');
+        l('The texture URL to load is:');
+        l(texture_url);
 
         texture_loader.load(texture_url,
             function(texture) {
