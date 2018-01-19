@@ -38,6 +38,11 @@ FloatingCursor.prototype = {
 
         var normal = this.currently_attached_to.get_normal();
 
+        l(p);
+        l(p.point);
+        l(p.point.x);
+        l('@@@@');
+
         this.cursor_wall.set_position(p.point.x, p.point.y, p.point.z, false);
         this.cursor_wall.set_normal(normal.x, normal.y, normal.z, false);
         this.cursor_wall.refresh_position_and_look_at();
