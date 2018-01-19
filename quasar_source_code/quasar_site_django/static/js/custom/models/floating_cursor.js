@@ -107,32 +107,6 @@ FloatingCursor.prototype = {
         }
     },
 
-
-    /*
-
-
-    // TODO : Remove this
-    set_position: function(position) {
-        var cursor_offset = 2;
-
-        var normal;
-        if (is_defined(this.world.currently_looked_at_object)) {
-            normal = this.world.currently_looked_at_object.normal;
-        } else {
-            normal = this.current_floating_wall.normal;
-        }
-
-        // TODO : determine if there needs to be a horizontal shift as well.
-
-        // TODO : The cursor position needs to be fixed (x-y offset)
-        var cursor_look_at = new THREE.Vector3(position.x + normal.x * 4, position.y - this.height / 2, position.z + normal.z * 4);
-        this.object3D.position.set(position.x + normal.x * cursor_offset, position.y - this.height / 2, position.z + normal.z * cursor_offset);
-        this.object3D.lookAt(cursor_look_at);
-    },
-    //////
-
-    */
-
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */

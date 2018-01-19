@@ -1,13 +1,5 @@
 'use strict';
 
-/*
-const SPACE_BETWEEN_MENU_ICONS = 20;
-const ONE_SECOND = 1.0;
-const ANIMATION_TIME = ONE_SECOND / 4;
-
-const MENU_DISTANCE_FROM_PLAYER = 150;
-*/
-
 function PlayerMenu(world) {
     this.__init__(world);
 }
@@ -132,13 +124,13 @@ PlayerMenu.prototype = {
         // TODO : Make a better design for the temp values.
         var temp_position = new THREE.Vector3(-10000, -10000, -10000);
         var temp_normal   = new THREE.Vector3(0, 0, 0);
-        this._player_menu = new FloatingWall(130, 150, temp_position, temp_normal, this.world);
+        this._player_menu = new FloatingWall(130, 100, temp_position, temp_normal, this.world);
         //this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
         this._player_menu.set_attachment_horizontal_offset(-30, null);
         this._player_menu.set_attachment_vertical_offset(-30, null);
-        this._player_menu.set_attachment_depth_offset(150);
+        this._player_menu.set_attachment_depth_offset(200);
 
         if (this.world === MANAGER_WORLD.world_login) {
             this._add_main_menu_icon(ICON_FULLSCREEN);
@@ -159,9 +151,7 @@ PlayerMenu.prototype = {
         var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;
 
-
         var player_menu_icon_width = 16 / 110;
-
 
         var menu_button;
         var menu_icon;
@@ -187,12 +177,11 @@ PlayerMenu.prototype = {
                 this.create_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
                 this.create_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
 
-                this.create_wall.add_row_2D_text([0, icon_width], 4, ICON_MENU_LIST, TYPE_ICON);
-
+                this.create_wall.add_row_2D_text([0, icon_width], 4, ICON_IMPORT, TYPE_ICON);
                 this.create_picture_button = this.create_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
                 this.create_picture_button.set_engage_function(this._create_picture_prompt.bind(this));
 
-                this.create_wall.add_row_2D_text([0, icon_width], 5, ICON_MENU_LIST, TYPE_ICON);
+                this.create_wall.add_row_2D_text([0, icon_width], 5, ICON_MOVIE, TYPE_ICON);
                 this.create_wall.add_row_2D_text([icon_width, 1], 5, 'YouTube Video', TYPE_BUTTON);
 
                 menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, this.create_wall));
@@ -223,14 +212,14 @@ PlayerMenu.prototype = {
                 if (this.world !== MANAGER_WORLD.world_settings) {
                     this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SETTINGS, TYPE_ICON);
                     teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Settings', TYPE_BUTTON);
-                    teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_settings));
+                    teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
                     current_button_row += 1;
                 }
 
                 if (this.world !== MANAGER_WORLD.world_home) {
                     this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_HOME, TYPE_ICON);
                     teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Home', TYPE_BUTTON);
-                    teleport_button.set_engage_function(this._teleport_to_world(MANAGER_WORLD.world_home));
+                    teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_home));
                     current_button_row += 1;
                 }
 

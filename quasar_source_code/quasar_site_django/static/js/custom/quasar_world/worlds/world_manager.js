@@ -15,6 +15,10 @@ WorldManager.prototype = {
     world_home     : null,
     world_settings : null,
 
+    world_global   : null,
+
+    world_admin    : null,
+
     __init__: function() {
         this.world_login = new LoginWorld();
         this.world_home = new HomeWorld();
@@ -84,7 +88,7 @@ WorldManager.prototype = {
 
         world.floating_cursor.create();
 
-        var skybox_geometry = new THREE.BoxGeometry(14000, 14000, 14000);
+        var skybox_geometry = new THREE.BoxGeometry(15000, 15000, 15000);
         var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_LOADING.sky_box_material);
         skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(skybox_cube);
@@ -98,13 +102,11 @@ WorldManager.prototype = {
         world.add_to_scene(board.group);
 
         // Default lights.
+        this.lights = [];
 
         var light3 = new THREE.PointLight(0xccffcc, .5, 0);
         light3.position.set(5, 100, 5);
         world.add_to_scene(light3);
-
-        /////////////////
-        this.lights = [];
 
         var lightr = new THREE.PointLight(0xff8579, .5, 0);
         lightr.position.set(1000, 100, 0);

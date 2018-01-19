@@ -17,6 +17,8 @@ function World() {
 
     this._previously_intersected_plane = null;
 
+    // TODO : Logically abstract the YouTube video creater!
+
     // Base code from : https://codepen.io/asjas/pen/pWawPm
     var Element = function ( id, x, y, z, ry ) {
 
@@ -45,10 +47,10 @@ function World() {
 
         this.group = new THREE.Group();
 
-        this.group.add( new Element( 'xBOqwRRj82A', 0, 0, 240, 0 ) );
-        this.group.add( new Element( 'x4q86IjJFag', 240, 0, 0, Math.PI / 2 ) );
-        this.group.add( new Element( 'JhngfOK_2-0', 0, 0, - 240, Math.PI ) );
-        this.group.add( new Element( 'Grg3461lAPg', - 240, 0, 0, - Math.PI / 2 ) );
+        this.group.add(new Element( 'xBOqwRRj82A', 0, 0, 240, 0 ) );
+        this.group.add(new Element( 'x4q86IjJFag', 240, 0, 0, Math.PI / 2 ) );
+        this.group.add(new Element( 'JhngfOK_2-0', 0, 0, - 240, Math.PI ) );
+        this.group.add(new Element( 'Grg3461lAPg', - 240, 0, 0, - Math.PI / 2 ) );
 
         this.css_scene.add(this.group);
 
@@ -57,32 +59,6 @@ function World() {
 
     this.add_to_scene = function(object) {
         this.scene.add(object);
-    };
-
-    this.set_cursor_position = function(position) {
-        /*
-        this.floating_cursor.set_position(position);
-
-        // Check if we need to change cursor texture type.
-        if (is_defined(this.currently_looked_at_object)) {
-            if (this.currently_looked_at_object.hasOwnProperty('type')) {
-
-                // TODO : Complete all the case scenarios!!!
-
-                if (!this.currently_looked_at_object.hasOwnProperty('normal')) {
-                    l('WARNING! NO NORMAL TO USE!!');
-                    l('This is for the following object.');
-                    raise_exception('no normal to use!');
-                }
-
-                if (this.currently_looked_at_object['type'] === TYPE_BUTTON || this.currently_looked_at_object['type'] === TYPE_CHECK_BOX) {
-                    this.floating_cursor.set_cursor(CURSOR_TYPE_HAND);
-                } else {
-                    this.floating_cursor.set_cursor(CURSOR_TYPE_POINTER);
-                }
-            }
-        }
-        */
     };
 
     this.parse_mouse_drag = function(movement_x, movement_y) {
