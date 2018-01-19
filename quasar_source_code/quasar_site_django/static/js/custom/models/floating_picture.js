@@ -12,6 +12,11 @@ FloatingPicture.prototype = {
         // Inherit from Animatable.
         Animatable.call(this);
 
+        // Inherit from Interactive.
+        Interactive.call(this);
+        // Inherit from Visibility.
+        Visibility.call(this);
+
         // TODO : Dynamically determine this from the image file provided.
         this.width = 600;
         this.height = 400;
