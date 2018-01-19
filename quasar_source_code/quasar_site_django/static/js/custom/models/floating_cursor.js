@@ -8,7 +8,23 @@ FloatingCursor.prototype = {
 
     __init__: function(world) {
         this.world = world;
+        this.currently_attached_to = null;
     },
+
+    attach: function(object_to_attach_to) {
+        l('TODO : Cursor attach!');
+    },
+
+    detach: function() {
+        l('TODO : Cursor detach!');
+    },
+
+    update_position: function(p) {
+        l('TODO : Update cursor position!');
+    },
+
+
+
 
     ////////
     engage: function() {
