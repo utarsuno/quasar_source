@@ -179,7 +179,7 @@ function World() {
                 this.currently_looked_at_object = interactive_match;
                 this.currently_looked_at_object.look_at();
                 this.floating_cursor.attach(interactive_match);
-                this.floating_cursor.update_position(intersection_data);
+                this.floating_cursor.update_position(intersection_data.point);
             }
         }
     };
