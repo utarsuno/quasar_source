@@ -153,6 +153,10 @@ FloatingCursor.prototype = {
         c.set_attachment_horizontal_offset(8, 0);
         c.set_attachment_vertical_offset(-8, 0);
         c.set_to_invisible();
+
+        // Needed for fixing transparency issues. This has the cursor be rendered last.
+        c.mesh.renderDepth = -1;
+
         this._cursors[cursor_type] = c;
     }
 
