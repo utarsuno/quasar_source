@@ -129,9 +129,6 @@ Floating2DText.prototype = {
         if (is_defined(this.material)) {
             this.material.dispose();
         }
-        if (is_defined(this.dynamic_texture)) {
-            this.dynamic_texture.dispose();
-        }
     },
 
 };
