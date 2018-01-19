@@ -245,6 +245,17 @@ LoadingManager.prototype = {
                 l('Loaded the texture!');
                 l(texture);
                 callback(texture);
+            },
+            function (xhr) {
+                // FOR_DEV_START
+                l((xhr.loaded / xhr.total * 100) + '% loaded for dynamic texture file.');
+                // FOR_DEV_END
+            },
+            // Function called when download errors
+            function (xhr) {
+                // FOR_DEV_START
+                l('An error happened trying to load the texture file.');
+                // FOR_DEV_END
             }
         );
     },
