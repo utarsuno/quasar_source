@@ -150,6 +150,7 @@ FloatingCursor.prototype = {
     _create_cursor: function(cursor_type) {
         var c = this.cursor_wall.add_row_2D_text([0, 1], 0, cursor_type, TYPE_ICON);
         c.set_attachment_depth_offset(1);
+        c.set_attachment_horizontal_offset(-8, 0);
         c.set_attachment_vertical_offset(-8, 0);
         c.set_to_invisible();
         this._cursors[cursor_type] = c;
