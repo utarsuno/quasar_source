@@ -18,7 +18,7 @@ FloatingPicture.prototype = {
         this.material = new THREE.MeshBasicMaterial({map : this.texture});
 
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.mesh = new THREE.mesh(this.geometry, this.material);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.world.root_attachables.push(this);
 
