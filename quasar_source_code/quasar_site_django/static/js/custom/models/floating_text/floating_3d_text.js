@@ -21,7 +21,10 @@ Floating3DText.prototype = {
             l('REFRESH THIS ICON!! not really though');
         } else {
             if (this.text_changed || this.color_changed) {
-                this.resource_cleanup();
+
+                // TODO : Refactor this!!!
+                //this.resource_cleanup();
+
                 this._create_3D_text_internally();
 
                 this.text_changed = false;
