@@ -452,17 +452,22 @@ function World() {
     };
 
     this.create_picture_prompt = function(position, normal) {
-        var picture_prompt_wall = new FloatingWall(300, 50, position, normal, this, true);
+        var picture_prompt_wall = new FloatingWall(500, 100, position, normal, this, true);
 
         picture_prompt_wall.add_row_3D_text(false, -1, 'Create New Picture', TYPE_TITLE);
 
-        picture_prompt_wall.add_row_2D_text([0, ONE_FOURTH], 0, 'Image URL:', TYPE_CONSTANT);
-        picture_prompt_wall.add_row_2D_text([ONE_FOURTH, 1], 0, '', TYPE_INPUT);
+        picture_prompt_wall.add_row_2D_text([0, ONE_THIRD], 0, 'Image URL:', TYPE_CONSTANT);
+        picture_prompt_wall.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT);
 
         var cancel_button = picture_prompt_wall.add_row_2D_text([0, HALF], 2, 'Cancel', TYPE_BUTTON);
         cancel_button.set_engage_function(this.cancel_picture_prompt.bind(this, picture_prompt_wall));
+        cancel_button.set_default_color(COLOR_RED);
+        cancel_button.set_color(COLOR_RED, true);
+
         var create_button = picture_prompt_wall.add_row_2D_text([HALF, 1], 2, 'Create', TYPE_BUTTON);
         create_button.set_engage_function(this.create_picture.bind(this, picture_prompt_wall));
+        create_button.set_default_color(COLOR_GREEN);
+        create_button.set_color(COLOR_GREEN, true);
 
         this.root_attachables.push(picture_prompt_wall);
 

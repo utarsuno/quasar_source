@@ -96,16 +96,20 @@ Floating3DText.prototype = {
     full_remove: function() {
         if (is_defined(this.current_text_object)) {
             this.object3D.remove(this.current_text_object);
-            this.current_text_object.dispose();
+            // TODO : UPDATE THREE JS VERSION!
+            //this.current_text_object.dispose();
+            //this.current_text_object.dispose();
             this.current_text_object.geometry.dispose();
             this.current_text_object.material.dispose();
         }
+        /*
         if (is_defined(this.geometry)) {
             this.geometry.dispose();
         }
         if (is_defined(this.material)) {
             this.material.dispose();
         }
+        */
         if (is_defined(this.dynamic_texture)) {
             this.dynamic_texture.dispose();
         }

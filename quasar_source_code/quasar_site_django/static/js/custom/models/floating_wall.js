@@ -553,7 +553,8 @@ FloatingWall.prototype = {
     full_remove: function() {
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);
-            this.mesh.dispose();
+            // TODO : UPDATE THREE JS VERSION!
+            //this.mesh.dispose();
         }
         if (is_defined(this.geometry)) {
             this.geometry.dispose();
