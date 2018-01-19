@@ -9,10 +9,8 @@ function FloatingWall(width, height, position, normal, world, scalable) {
 FloatingWall.prototype = {
 
     __init__: function (width, height, position, normal, world, scalable) {
-
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);
-
         // Inherit from Animatable.
         Animatable.call(this);
 

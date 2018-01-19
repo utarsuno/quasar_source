@@ -9,8 +9,10 @@ FloatingPicture.prototype = {
     __init__: function(image_file, world) {
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);
+        // Inherit from Animatable.
+        Animatable.call(this);
 
-        // TODO : Dynamically determine this from the iamge file provided.
+        // TODO : Dynamically determine this from the image file provided.
         this.width = 600;
         this.height = 400;
 
