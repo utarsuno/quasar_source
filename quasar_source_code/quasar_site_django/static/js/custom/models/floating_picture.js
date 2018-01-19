@@ -21,12 +21,17 @@ FloatingPicture.prototype = {
         this.width = 600;
         this.height = 400;
 
-        this.texture = new THREE.Texture(image_file);
+        var image = document.createElement('img');
+        image.src = image_file.target.result;
+
+        this.texture = new THREE.Texture(image);
+        this.texture.needsUpdate = true;
+
         this.material = new THREE.MeshBasicMaterial({map : this.texture});
 
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
-        
+
 
         // THIS IS TEMPORARY.
         var player_position = CURRENT_PLAYER.get_position();
