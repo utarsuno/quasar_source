@@ -34,6 +34,13 @@ DragNDrop.prototype = {
             event.preventDefault && event.preventDefault();
 
 
+            l(event);
+            l('@@@@@@@');
+            l(event.target);
+            l('@@@@@@');
+            l(event.target.result);
+            l('@@@@@@');
+
             // now do something with:
             var files = event.dataTransfer.files;
 
