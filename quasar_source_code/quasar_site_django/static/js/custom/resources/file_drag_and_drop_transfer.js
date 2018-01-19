@@ -34,6 +34,16 @@ DragNDrop.prototype = {
             event.preventDefault && event.preventDefault();
 
 
+            var file = event.dataTransfer.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                l(e.target);
+                l(e);
+            }
+            reader.readAsDataURL(file);
+            return false;
+
+
             l(event);
             l('@@@@@@@');
             l(event.target);
