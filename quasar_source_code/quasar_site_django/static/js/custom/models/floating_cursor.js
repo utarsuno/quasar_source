@@ -8,7 +8,7 @@ FloatingCursor.prototype = {
 
     __init__: function(world) {
         this.world                 = world;
-        this._cursors              = null;
+        this._cursors              = {};
         this.currently_attached_to = null;
 
         this._current_cursor       = null;
