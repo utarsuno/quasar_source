@@ -27,8 +27,10 @@ FloatingPicture.prototype = {
 
         l('The image width is :');
         l(image.width);
+        l(image_file.width);
         l('The image height is :');
         l(image.height);
+        l(image_file.height);
 
 
         /*
