@@ -166,6 +166,11 @@ InputManager.prototype = {
         switch (e.which) {
         case CLICK_LEFT:
             this.click_down_left = false;
+
+            if (MANAGER_WORLD.current_world.floating_cursor._currently_engaged) {
+                MANAGER_WORLD.current_world.floating_cursor.disengage();
+            }
+
             if (this._key_down_buffer.length === 1) {
                 MANAGER_WORLD.current_world.single_left_click();
             } else if (this._key_down_buffer.length !== 0) {
@@ -203,19 +208,10 @@ InputManager.prototype = {
 
             this._key_down_buffer.push(current_milliseconds);
 
-            /*
-            if (is_defined(MANAGER_WORLD.current_world.currently_looked_at_object)) {
-                if (!MANAGER_WORLD.current_world.currently_looked_at_object.is_engaged()) {
-                    if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
-                        MANAGER_WORLD.current_floating_cursor.engage();
-                    }
-                }
-            } else {
-                if (MANAGER_WORLD.current_floating_cursor.is_currently_visible()) {
-                    MANAGER_WORLD.current_floating_cursor.engage();
-                }
+            // Cursor engage.
+            if (is_defined(MANAGER_WORLD.current_world.floating_cursor.currently_attached_to)) {
+                MANAGER_WORLD.current_world.floating_cursor.engage();
             }
-            */
 
             this.click_down_left = true;
             break;

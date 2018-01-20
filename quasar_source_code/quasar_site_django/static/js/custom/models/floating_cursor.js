@@ -13,48 +13,28 @@ FloatingCursor.prototype = {
 
         this._current_cursor       = null;
         this._previous_cursor      = null;
+
+        this._currently_engaged    = false;
+    },
+
+    engage: function() {
+        this._currently_engaged = true;
+    },
+
+    disengage: function() {
+        this._currently_engaged = false;
     },
 
     attach: function(object_to_attach_to) {
         this.currently_attached_to = object_to_attach_to;
 
         if (this.currently_attached_to.type === TYPE_BUTTON || this.currently_attached_to.type === TYPE_CHECK_BOX) {
-            this._current_cursor = this._cursors[CURSOR_TYPE_HAND];
+            this._set_current_cursor(CURSOR_TYPE_HAND);
         } else if (this.currently_attached_to.scalable) {
-
-            var h = this.currently_attached_to.height;
-            var w = this.currently_attached_to.width;
-
-            var cursor_position = this.cursor_wall.get_position();
-
-            var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
-            var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
-
-            var scroll_vertical   = false;
-            var scroll_horizontal = false;
-
-            if (vertical_percentage < 0.02 || vertical_percentage > 0.98) {
-                scroll_vertical = true;
-            }
-            if (horizontal_percentage > .48) {
-                scroll_horizontal = true;
-            }
-
-            if (scroll_horizontal && scroll_vertical) {
-                this._current_cursor = this._cursors[CURSOR_TYPE_LARGER];
-            } else if (scroll_vertical) {
-                this._current_cursor = this._cursors[CURSOR_TYPE_VERTICAL];
-            } else if (scroll_horizontal) {
-                this._current_cursor = this._cursors[CURSOR_TYPE_HORIZONTAL];
-            } else {
-                this._current_cursor = this._cursors[CURSOR_TYPE_MOUSE];
-            }
-
+            this._get_scalable_cursor_needed();
         } else {
-            this._current_cursor = this._cursors[CURSOR_TYPE_POINTER];
+            this._set_current_cursor(CURSOR_TYPE_POINTER);
         }
-
-        this._current_cursor.set_to_visible();
     },
 
     detach: function() {
@@ -63,9 +43,6 @@ FloatingCursor.prototype = {
     },
 
     update_position: function(p) {
-        //l('TODO : Update cursor position!');
-        //l(p.point);
-
         var normal = this.currently_attached_to.get_normal();
 
         this.cursor_wall.set_position(p.x, p.y, p.z, false);
@@ -73,16 +50,30 @@ FloatingCursor.prototype = {
         this.cursor_wall.refresh_position_and_look_at();
     },
 
+    // TODO : update
+    update: function() {
+        if (this._currently_engaged) {
 
+            l('TODO : Currently engaged cursor function!');
+
+        } else {
+            if (this.currently_attached_to.scalable) {
+                this._get_scalable_cursor_needed();
+            }
+        }
+    },
 
 
     ////////
-    engage: function() {
-        this.engaged = true;
-        CURRENT_PLAYER.engage();
-        CURRENT_PLAYER.enable_controls();
-    },
+    // TODO : Remove
+    //engage: function() {
+    //    this.engaged = true;
+    //    CURRENT_PLAYER.engage();
+    //    CURRENT_PLAYER.enable_controls();
+    //},
 
+    // TODO : Remove
+    /*
     disengage: function() {
         // TODO : temp fix.
         if (this.engaged) {
@@ -94,20 +85,15 @@ FloatingCursor.prototype = {
             }
         }
     },
+    */
 
+    // TODO : Remove
     is_currently_visible: function() {
         return this.current_cursor.visible;
     },
 
-    set_data: function(data) {
-        this.set_cursor(data[1]);
-        this.current_floating_wall = data[2];
-        this.current_floating_wall.currently_engaged_with_cursor = true;
-        this.cursor_needed_from_floating_walls = true;
-        this.set_position(data[0]);
-    },
-
-    update: function() {
+    // TODO : Remove
+    update_OLD: function() {
         if (this.cursor_needed_from_floating_walls || this.cursor_needed_from_interactive_objects) {
             this.current_cursor.visible = true;
             this.cursor_needed_from_floating_walls = false;
@@ -127,13 +113,44 @@ FloatingCursor.prototype = {
         // TODO : Update the late positions here.
     },
 
-    set_cursor: function(cursor_type) {
-        if (this.cursors.hasOwnProperty(cursor_type)) {
-            if (this.cursors[cursor_type] !== this.current_cursor) {
-                this.previous_cursor = this.current_cursor;
-                this.previous_cursor.visible = false;
-                this.current_cursor = this.cursors[cursor_type];
+    _get_scalable_cursor_needed: function() {
+        var h = this.currently_attached_to.height;
+        var w = this.currently_attached_to.width;
+
+        var cursor_position = this.cursor_wall.get_position();
+
+        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
+        var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
+
+        var scroll_vertical   = false;
+        var scroll_horizontal = false;
+
+        if (vertical_percentage < 0.02 || vertical_percentage > 0.98) {
+            scroll_vertical = true;
+        }
+        if (horizontal_percentage > .48) {
+            scroll_horizontal = true;
+        }
+
+        if (scroll_horizontal && scroll_vertical) {
+            this._set_current_cursor(CURSOR_TYPE_LARGER);
+        } else if (scroll_vertical) {
+            this._set_current_cursor(CURSOR_TYPE_VERTICAL);
+        } else if (scroll_horizontal) {
+            this._set_current_cursor(CURSOR_TYPE_HORIZONTAL);
+        } else {
+            this._set_current_cursor(CURSOR_TYPE_MOUSE);
+        }
+    },
+
+    _set_current_cursor: function(cursor) {
+        if (this._current_cursor !== this._cursors[cursor]) {
+            this._previous_cursor = this._current_cursor;
+            if (is_defined(this._previous_cursor)) {
+                this._previous_cursor.set_to_invisible();
             }
+            this._current_cursor = this._cursors[cursor];
+            this._current_cursor.set_to_visible();
         }
     },
 

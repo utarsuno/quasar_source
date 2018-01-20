@@ -190,6 +190,7 @@ function World() {
         }
     };
 
+    // This gets called on left mouse button up event.
     this.single_left_click = function() {
         if (this.currently_looked_at_object !== null) {
             if (!this.currently_looked_at_object.is_engaged()) {
