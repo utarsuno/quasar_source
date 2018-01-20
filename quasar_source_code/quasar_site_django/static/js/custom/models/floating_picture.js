@@ -32,6 +32,7 @@ FloatingPicture.prototype = {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
+        this.object3D.add(this.mesh);
 
         // THIS IS TEMPORARY.
         var player_position = CURRENT_PLAYER.get_position();
