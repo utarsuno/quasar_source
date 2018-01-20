@@ -383,10 +383,6 @@ function World() {
 
      */
 
-    this.picture_was_dropped_in = function() {
-        l('Picture was dropped in function is TODO!!!!');
-    };
-
     /*
 
     this.cancel_picture_prompt = function(picture_prompt_wall) {

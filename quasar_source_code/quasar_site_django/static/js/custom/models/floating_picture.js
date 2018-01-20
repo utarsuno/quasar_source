@@ -24,6 +24,29 @@ FloatingPicture.prototype = {
         var image = document.createElement('img');
         image.src = image_file;
 
+
+        l('The image width is :');
+        l(image.width);
+        l('The image height is :');
+        l(image.height);
+
+
+        /*
+                var form_data = new FormData();
+                form_data.append('file', files[0]);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/file_upload');
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        l('File upload finished!');
+                    } else {
+                        l('File upload did not work!');
+                    }
+                };
+        */
+
+
         this.texture = new THREE.Texture(image);
         this.texture.needsUpdate = true;
 
