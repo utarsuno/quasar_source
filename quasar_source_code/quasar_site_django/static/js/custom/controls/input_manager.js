@@ -210,7 +210,9 @@ InputManager.prototype = {
 
             // Cursor engage.
             if (is_defined(MANAGER_WORLD.current_world.floating_cursor.currently_attached_to)) {
-                MANAGER_WORLD.current_world.floating_cursor.engage();
+                if (MANAGER_WORLD.current_world.floating_cursor.currently_attached_to.scalable) {
+                    MANAGER_WORLD.current_world.floating_cursor.engage();
+                }
             }
 
             this.click_down_left = true;
