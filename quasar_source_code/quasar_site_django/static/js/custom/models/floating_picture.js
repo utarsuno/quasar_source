@@ -22,7 +22,7 @@ FloatingPicture.prototype = {
         this.height = 400;
 
         var image = document.createElement('img');
-        image.src = image_file.target.result;
+        image.src = image_file;
 
         this.texture = new THREE.Texture(image);
         this.texture.needsUpdate = true;
