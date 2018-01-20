@@ -47,6 +47,8 @@ WorldManager.prototype = {
 
         if (!this.current_world.floating_cursor._currently_engaged) {
             this.current_world.update_interactive_objects();
+        } else {
+            this.current_world.floating_cursor.update();
         }
 
         //this.current_world.floating_cursor.update();
