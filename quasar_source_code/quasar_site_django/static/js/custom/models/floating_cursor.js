@@ -60,8 +60,10 @@ FloatingCursor.prototype = {
             l('TODO : Currently engaged cursor function!');
 
         } else {
-            if (this.currently_attached_to.scalable) {
-                this._get_scalable_cursor_needed();
+            if (is_defined(this.currently_attached_to)) {
+                if (this.currently_attached_to.scalable) {
+                    this._get_scalable_cursor_needed();
+                }
             }
         }
     },

@@ -50,7 +50,7 @@ WorldManager.prototype = {
         }
 
         this.current_world.floating_cursor.update();
-        
+
         //this.current_world.floating_cursor.update();
     },
 
