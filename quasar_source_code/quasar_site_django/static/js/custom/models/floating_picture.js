@@ -71,6 +71,10 @@ FloatingPicture.prototype = {
         this.set_normal(player_normal.x, player_normal.y, player_normal.z, false);
 
         this.refresh_position_and_look_at();
+    },
+
+    state_change_look_at: function(being_looked_at) {
+        l('Floating picture look at change!');
     }
 
 };
