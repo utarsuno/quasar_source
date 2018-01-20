@@ -40,6 +40,9 @@ FloatingCursor.prototype = {
     detach: function() {
         this.currently_attached_to = null;
         this._current_cursor.set_to_invisible();
+
+        this._previous_cursor = null;
+        this._current_cursor = null;
     },
 
     update_position: function(p) {
