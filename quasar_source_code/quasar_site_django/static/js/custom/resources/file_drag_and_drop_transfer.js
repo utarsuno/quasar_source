@@ -37,11 +37,18 @@ DragNDrop.prototype = {
             var file = event.dataTransfer.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
+
+                if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_home) {
+                    MANAGER_WORLD.world_home.create_new_floating_picture(e.target.result);
+                }
+
                 l(e.target);
                 l(e);
             }
             reader.readAsDataURL(file);
             return false;
+
+            // TODO : Delete all code below.
 
 
             l(event);
