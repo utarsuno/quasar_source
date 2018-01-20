@@ -445,31 +445,6 @@ FloatingWall.prototype = {
         return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
     },
 
-    // TODO : Reformat this!
-    get_required_cursor: function(cursor_position_vector) {
-        var y_percentage = ((this.object3D.position.y + this.height / 2) - cursor_position_vector.y) / this.height;
-        var horizontal_percentage = (this._get_horizontal_distance_to_center(cursor_position_vector.x, cursor_position_vector.z) / this.width);
-
-        var vertical_scroll = false;
-        var horizontal_scroll = false;
-
-        if (y_percentage < 0.02 || y_percentage > 0.98) {
-            vertical_scroll = true;
-        }
-        if (horizontal_percentage > .48) {
-            horizontal_scroll = true;
-        }
-        if (vertical_scroll && horizontal_scroll) {
-            return CURSOR_TYPE_LARGER;
-        } else if (vertical_scroll) {
-            return CURSOR_TYPE_VERTICAL;
-        } else if (horizontal_scroll) {
-            return CURSOR_TYPE_HORIZONTAL;
-        } else {
-            return CURSOR_TYPE_MOUSE;
-        }
-    },
-
     // TODO : Remove or re-format
     get_all_floating_2D_texts_with_property: function(property_name) {
         var floating_texts = [];

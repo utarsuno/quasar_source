@@ -20,6 +20,36 @@ FloatingCursor.prototype = {
 
         if (this.currently_attached_to.type === TYPE_BUTTON || this.currently_attached_to.type === TYPE_CHECK_BOX) {
             this._current_cursor = this._cursors[CURSOR_TYPE_HAND];
+        } else if (this.currently_attached_to.scalable) {
+
+            var h = this.currently_attached_to.height;
+            var w = this.currently_attached_to.width;
+
+            var cursor_position = this.cursor_wall.object3D.get_position();
+
+            var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
+            var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
+
+            var scroll_vertical   = false;
+            var scroll_horizontal = false;
+
+            if (vertical_percentage < 0.02 || vertical_percentage > 0.98) {
+                scroll_vertical = true;
+            }
+            if (horizontal_percentage > .48) {
+                scroll_horizontal = true;
+            }
+
+            if (scroll_horizontal && scroll_vertical) {
+                this._current_cursor = this._cursors[CURSOR_TYPE_LARGER];
+            } else if (scroll_vertical) {
+                this._current_cursor = this._cursors[CURSOR_TYPE_VERTICAL];
+            } else if (scroll_horizontal) {
+                this._current_cursor = this._cursors[CURSOR_TYPE_HORIZONTAL];
+            } else {
+                this._current_cursor = this._cursors[CURSOR_TYPE_MOUSE];
+            }
+
         } else {
             this._current_cursor = this._cursors[CURSOR_TYPE_POINTER];
         }
