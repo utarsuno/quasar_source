@@ -30,9 +30,14 @@ FloatingPicture.prototype = {
         l('The image width is :');
         l(image.width);
         l(image_file.width);
+        l(image.naturalWidth);
+        l(image_file.naturalWidth);
         l('The image height is :');
         l(image.height);
         l(image_file.height);
+        l(image.naturalHeight);
+        l(image_file.naturalHeight);
+
 
 
         /*
@@ -57,12 +62,12 @@ FloatingPicture.prototype = {
 
         this.material = new THREE.MeshBasicMaterial({map : this.texture});
 
-
+        /*
         l(image_file);
         l(image);
         l(this.texture);
         l(this.material);
-
+        */
 
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
