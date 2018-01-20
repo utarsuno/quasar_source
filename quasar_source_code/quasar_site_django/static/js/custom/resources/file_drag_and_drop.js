@@ -33,6 +33,12 @@ DragNDrop.prototype = {
                     l(reader.width);
                     l(reader.height);
 
+                    l(e);
+                    l(e.width);
+                    l(e.height);
+                    l(e.target.width);
+                    l(e.target.naturalWidth);
+
                     MANAGER_WORLD.world_home.create_new_floating_picture(e.target.result);
                 }
             };
