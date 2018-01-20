@@ -28,7 +28,7 @@ function Interactive() {
     this.look_away = function() {
         this.being_looked_at = false;
         this.state_change_look_at(false);
-        if (this.look_away_function !== null) {
+        if (is_defined(this.look_away_function)) {
             this.look_away_function();
         }
     };
@@ -36,7 +36,7 @@ function Interactive() {
     this.look_at = function() {
         this.being_looked_at = true;
         this.state_change_look_at(true);
-        if (this.look_at_function !== null) {
+        if (is_defined(this.look_at_function)) {
             this.look_at_function();
         }
     };
@@ -46,7 +46,7 @@ function Interactive() {
         if (this.engable) {
             this.state_change_engage(false);
         }
-        if (this.disengage_function !== null) {
+        if (is_defined(this.disengage_function)) {
             this.disengage_function();
         }
     };
@@ -60,7 +60,7 @@ function Interactive() {
             this.being_engaged_with = true;
             this.state_change_engage(true);
         }
-        if (this.engage_function !== null) {
+        if (is_defined(this.engage_function)) {
             this.engage_function();
         }
     };
