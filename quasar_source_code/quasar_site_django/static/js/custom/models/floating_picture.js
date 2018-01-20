@@ -19,6 +19,7 @@ FloatingPicture.prototype = {
 
         this.engable = false;
         this.scalable = true;
+        this.world.interactive_objects.push(this);
 
         // TODO : Dynamically determine this from the image file provided.
         this.width = 600;
