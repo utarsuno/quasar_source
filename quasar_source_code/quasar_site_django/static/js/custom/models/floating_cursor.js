@@ -25,7 +25,7 @@ FloatingCursor.prototype = {
             var h = this.currently_attached_to.height;
             var w = this.currently_attached_to.width;
 
-            var cursor_position = this.cursor_wall.object3D.get_position();
+            var cursor_position = this.cursor_wall.get_position();
 
             var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
             var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
