@@ -17,27 +17,15 @@ FloatingPicture.prototype = {
         // Inherit from Visibility.
         Visibility.call(this);
 
+        this.engable = false;
+        this.scalable = true;
+
         // TODO : Dynamically determine this from the image file provided.
         this.width = 600;
         this.height = 400;
 
         var image = document.createElement('img');
         image.src = image_file;
-
-
-
-
-        l('The image width is :');
-        l(image.width);
-        l(image_file.width);
-        l(image.naturalWidth);
-        l(image_file.naturalWidth);
-        l('The image height is :');
-        l(image.height);
-        l(image_file.height);
-        l(image.naturalHeight);
-        l(image_file.naturalHeight);
-
 
 
         /*

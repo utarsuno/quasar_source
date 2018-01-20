@@ -15,8 +15,6 @@ function World() {
     this.default_tab_target         = null;
     this.interactive_objects        = [];
 
-    this._previously_intersected_plane = null;
-
     // TODO : Logically abstract the YouTube video creater!
 
     // Base code from : https://codepen.io/asjas/pen/pWawPm
@@ -138,6 +136,9 @@ function World() {
             if (this.currently_looked_at_object !== null) {
                 this.look_away_from_currently_looked_at_object();
             }
+
+            // Check for any custom plane intersection.
+
         } else {
             // Interactive match found.
             var interactive_match = this.interactive_objects[interactive_index];
@@ -158,72 +159,6 @@ function World() {
                 this.floating_cursor.update_position(intersection_data.point);
             }
         }
-    };
-
-    // TODO : REFACTOR THIS!!!
-    // TODO : REFACTOR THIS!!!
-    // TODO : REFACTOR THIS!!!
-    this._check_for_custom_plane_intersections = function() {
-        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        var player_position = CURRENT_PLAYER.get_position();
-
-        // Eventually just keep track of a persisting list.
-        var all_walls = [];
-
-        for (var w = 0; w < this.entity_walls.length; w++) {
-            if (this.entity_walls[w].wall.scalable) {
-                all_walls.push(this.entity_walls[w].wall);
-            }
-            // TODO : Refactor this..
-            var all_children = this.entity_walls[w].wall.get_all_floating_wall_children_recursively();
-            for (var c = 0; c < all_children.length; c++) {
-                if (all_children[c].scalable) {
-                    all_walls.push(all_children[c]);
-                }
-            }
-        }
-
-        var smallest_distance = 999999;
-        var smallest_index = NOT_FOUND;
-        var best_result = null;
-        for (w = 0; w < all_walls.length; w++) {
-            var result = all_walls[w].get_player_look_at_intersection_point(player_parametric_equation);
-            if (result !== false) {
-                // Intersection position.
-                var ip = result[0];
-                var distance = sqrt(squared(player_position.x - ip.x) + squared(player_position.y - ip.y) + squared(player_position.z - ip.z));
-                if (distance < smallest_distance) {
-                    distance = smallest_distance;
-                    smallest_index = w;
-                    best_result = result;
-                }
-            }
-        }
-
-        if (smallest_index !== NOT_FOUND) {
-            if (!all_walls[smallest_index].currently_engaged_with_cursor) {
-                all_walls[smallest_index].look_at();
-                all_walls[smallest_index].currently_engaged_with_cursor = true;
-            }
-            this._previously_intersected_plane = all_walls[smallest_index];
-            MANAGER_WORLD.current_floating_cursor.set_data([best_result[0], best_result[1], all_walls[smallest_index]]);
-            //MANAGER_WORLD.current_world.floating_cursor.
-        } else {
-
-            /*
-            if (is_defined(MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name)) {
-                if (MANAGER_WORLD.current_floating_cursor.current_cursor.userData.name === CURSOR_TYPE_MOUSE) {
-                    return;
-                }
-            }*/
-
-            if (is_defined(this._previously_intersected_plane)) {
-                this._previously_intersected_plane.look_away();
-                this._previously_intersected_plane.currently_engaged_with_cursor = false;
-                this._previously_intersected_plane = null;
-            }
-        }
-
     };
 
     this.tab_to_next_interactive_object = function() {
@@ -323,14 +258,7 @@ function World() {
     };
 
     this.key_down_event_for_interactive_objects = function(event) {
-        if (event.keyCode === KEY_CODE_BACK_SLASH) {
-            if (this.currently_looked_at_object !== null) {
-                if (this.currently_looked_at_object.is_engaged()) {
-                    this.currently_looked_at_object.disengage();
-                    CURRENT_PLAYER.enable_controls();
-                }
-            }
-        } else if (event.keyCode === KEY_CODE_TAB) {
+        if (event.keyCode === KEY_CODE_TAB) {
             this.tab_to_next_interactive_object();
             //event.preventDefault()
             event.stopPropagation();
@@ -343,7 +271,7 @@ function World() {
                 this.currently_looked_at_object.parse_keycode(event);
             }
         }
-        if (event.keyCode === KEY_CODE_E || event.keyCode === KEY_CODE_ENTER) {
+        if (event.keyCode === KEY_CODE_ENTER) {
             if (this.currently_looked_at_object !== null) {
                 if (!this.currently_looked_at_object.is_engaged()) {
                     if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
@@ -370,9 +298,6 @@ function World() {
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
 
     this.create_new_floating_picture = function(image_file) {
-        var image_texture = new THREE.Texture(image_file);
-        var image_material = new THREE.MeshBasicMaterial({map : image_texture});
-
         var floating_picture = new FloatingPicture(image_file, this);
         this.root_attachables.push(floating_picture);
     };

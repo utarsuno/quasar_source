@@ -28,17 +28,6 @@ DragNDrop.prototype = {
             var reader = new FileReader();
             reader.onload = function(e) {
                 if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_home) {
-
-                    l('WIDTH : ');
-                    l(reader.width);
-                    l(reader.height);
-
-                    l(e);
-                    l(e.width);
-                    l(e.height);
-                    l(e.target.width);
-                    l(e.target.naturalWidth);
-
                     MANAGER_WORLD.world_home.create_new_floating_picture(e.target.result);
                 }
             };

@@ -36,6 +36,10 @@ FloatingWall.prototype = {
             this.scalable = false;
         }
 
+        if (this.scalable) {
+            this.engable = false;
+        }
+
         // TODO : Double check this design.
         this.current_cursor = null;
         this.player_horizontal_distance_to_wall_center_liner = null;
