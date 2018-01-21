@@ -119,7 +119,9 @@ FloatingCursor.prototype = {
                 //l(current_vertical_percentage);
                 //l(this._previous_vertical_percentage);
 
-                l(current_vertical_percentage - this._previous_vertical_percentage);
+                var height_change = this._previous_vertical_percentage - current_vertical_percentage;
+
+                this.currently_attached_to.update_height(height_change);
 
                 this._previous_vertical_percentage = current_vertical_percentage;
 

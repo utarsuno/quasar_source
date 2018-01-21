@@ -96,6 +96,36 @@ function Attachmentable(world) {
         attachment.attachment_parent = this;
     };
 
+    /*                    ___          __   __       ___  ___  __
+     \  /  /\  |    |  | |__     |  | |__) |  \  /\   |  |__  /__`
+      \/  /~~\ |___ \__/ |___    \__/ |    |__/ /~~\  |  |___ .__/ */
+    this.update_height = function(percentage_change) {
+        this.height *= percentage_change;
+        this.update_dimensions();
+    };
+
+    this.update_width = function(percentage_change) {
+        this.width *= percentage_change;
+        this.update_dimensions();
+    };
+
+    this.update_dimensions = function() {
+        if (this.scalable) {
+            this.dimensions_changed();
+        }
+        for (var a = 0; a < this.attachments.length; a++) {
+            if (this.attachments[a].scalable) {
+                this.attachments[a].dimensions_changed();
+                this.attachments[a].update_dimensions();
+            }
+        }
+    };
+
+    this.dimensions_changed = function() {
+        this.delete_mesh();
+        this.create_base_mesh();
+    };
+
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */

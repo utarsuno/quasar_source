@@ -73,8 +73,8 @@ Floating2DText.prototype = {
         } else {
             this.height = 16;
         }
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        if (type === TYPE_ICON) {
+
+        if (this.type === TYPE_ICON) {
 
             // TODO : Create a cleaner design in the future.
             if (this.text === CURSOR_TYPE_HORIZONTAL || this.text === CURSOR_TYPE_VERTICAL || this.text === CURSOR_TYPE_HAND || this.text === CURSOR_TYPE_POINTER || this.text === CURSOR_TYPE_LARGER || this.text === CURSOR_TYPE_MOUSE) {
@@ -102,9 +102,6 @@ Floating2DText.prototype = {
         this.material.transparent = true;
         // TODO : DoubleSide is temporary
         this.material.side = THREE.DoubleSide;
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-
-        this.object3D.add(this.mesh);
 
         // Inherit from Interactive.
         Interactive.call(this);
@@ -114,9 +111,27 @@ Floating2DText.prototype = {
         this.final_initialize();
     },
 
+    /*__   __   ___      ___    __
+     /  ` |__) |__   /\   |  | /  \ |\ |
+     \__, |  \ |___ /~~\  |  | \__/ | \| */
+    create_base_mesh: function() {
+        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
+    },
+
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    delete_mesh: function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+        }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+    },
+
     full_remove: function() {
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);

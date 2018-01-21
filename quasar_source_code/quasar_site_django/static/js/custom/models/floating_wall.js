@@ -17,7 +17,7 @@ FloatingWall.prototype = {
         this.width = width;
         this.height = height;
 
-        this._create_base_wall();
+        this.create_base_mesh();
 
         if (is_defined(normal)) {
             this.set_normal(normal.x, normal.y, normal.z, false);
@@ -59,7 +59,7 @@ FloatingWall.prototype = {
         }
     },
 
-    _create_base_wall: function() {
+    create_base_mesh: function() {
         // Check if the there is an existing wall that needs to be fully cleaned up.
         // TODO : Refactor this!!!
         //this.resource_cleanup();
@@ -183,16 +183,6 @@ FloatingWall.prototype = {
                 }
             }
         }
-    },
-
-    _update_height: function(new_height_percentage) {
-        this.height *= new_height_percentage;
-        this._dimensions_changed(false, new_height_percentage);
-    },
-
-    _update_width: function(new_width_percentage) {
-        this.width *= new_width_percentage;
-        this._dimensions_changed(true, new_width_percentage);
     },
 
     clear_inputs: function() {
@@ -388,6 +378,15 @@ FloatingWall.prototype = {
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    delete_mesh: function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+        }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+    },
+
     full_remove: function() {
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);

@@ -28,7 +28,7 @@ FloatingPicture.prototype = {
         var image = document.createElement('img');
         image.src = image_file;
 
-
+        // TODO : ADD A SAVE FUNCTION!
         /*
                 var form_data = new FormData();
                 form_data.append('file', files[0]);
@@ -44,24 +44,13 @@ FloatingPicture.prototype = {
                 };
         */
 
-
         this.texture = new THREE.Texture(image);
         this.texture.needsUpdate = true;
 
-
         this.material = new THREE.MeshBasicMaterial({map : this.texture});
 
-        /*
-        l(image_file);
-        l(image);
-        l(this.texture);
-        l(this.material);
-        */
+        this.create_base_mesh();
 
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-
-        this.object3D.add(this.mesh);
 
         // THIS IS TEMPORARY.
         var player_position = CURRENT_PLAYER.get_position();
@@ -73,8 +62,40 @@ FloatingPicture.prototype = {
         this.refresh_position_and_look_at();
     },
 
+    create_base_mesh: function() {
+        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.object3D.add(this.mesh);
+    },
+
     state_change_look_at: function(being_looked_at) {
         l('Floating picture look at change!');
+    },
+
+    /*__   ___  __   __        __   __   ___     __        ___                 __
+     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
+     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    delete_mesh: function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+        }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+    },
+
+    full_remove: function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+            // TODO : UPDATE THREE JS VERSION!
+            //this.mesh.dispose();
+        }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+        if (is_defined(this.material)) {
+            this.material.dispose();
+        }
     }
 
 };
