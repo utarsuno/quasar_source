@@ -130,10 +130,14 @@ FloatingCursor.prototype = {
         var scroll_vertical   = false;
         var scroll_horizontal = false;
 
-        if (vertical_percentage < 0.02 || vertical_percentage > 0.98) {
+        l(vertical_percentage);
+        l(horizontal_percentage);
+
+        if (vertical_percentage < 0.03 || vertical_percentage > 0.97) {
             scroll_vertical = true;
         }
-        if (horizontal_percentage > .48) {
+
+        if (horizontal_percentage > .47) {
             scroll_horizontal = true;
         }
 
