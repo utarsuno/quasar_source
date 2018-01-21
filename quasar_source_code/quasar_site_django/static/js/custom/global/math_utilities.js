@@ -75,12 +75,12 @@ function get_left_right_unit_vector(x, z) {
 }
 
 
-
-
-
-
 function get_parametric_line_equation(position_vector, velocity_vector) {
     return [[position_vector.x, velocity_vector.x], [position_vector.y, velocity_vector.y], [position_vector.z, velocity_vector.z]];
+}
+
+function get_parametric_plane_equation(position_vector, normal_vector) {
+    return [normal_vector.x, normal_vector.y, normal_vector.z, normal_vector.x * position_vector.x + normal_vector.y * position_vector.y + normal_vector.z * position_vector.z];
 }
 
 function is_point_inside_floating_wall(x, y, z) {
@@ -93,38 +93,26 @@ function is_point_inside_floating_wall(x, y, z) {
     return this.get_horizontal_distance_to_center(x, z) <= this.width / 2;
 }
 
+const _INDEX_OF_POSITION = 0;
+const _INDEX_OF_DIRECTION = 1;
+
+function _calculate_t_value(line_parametric_equation, plane_parametric_equation) {
+    var line_x0 = line_parametric_equation[0][_INDEX_OF_POSITION];
+    var line_y0 = line_parametric_equation[1][_INDEX_OF_POSITION];
+    var line_z0 = line_parametric_equation[2][_INDEX_OF_POSITION];
+    var line_nx = line_parametric_equation[0][_INDEX_OF_DIRECTION];
+    var line_ny = line_parametric_equation[1][_INDEX_OF_DIRECTION];
+    var line_nz = line_parametric_equation[2][_INDEX_OF_DIRECTION];
+    var plane_nx = plane_parametric_equation[0];
+    var plane_ny = plane_parametric_equation[1];
+    var plane_nz = plane_parametric_equation[2];
+    var plane_d  = plane_parametric_equation[3];
+    return (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
+}
+
 function get_line_intersection_on_infinite_plane(line_parametric_equation, plane_parametric_equation) {
     var t = _calculate_t_value(line_parametric_equation, plane_parametric_equation);
-
-}
-
-
-/*
-
-get_parametric_equation: function() {
-        var position = this.get_position();
-        var vector   = this.fps_controls.get_direction();
-        return [[position.x, vector.x], [position.y, vector.y], [position.z, vector.z]];
-},
-
-get_parametric_value: function(t) {
-    var position = this.get_position();
-    var vector   = this.fps_controls.get_direction();
-    return [position.x + vector.x * t, position.y + vector.y * t, position.z + vector.z * t];
-}
-
-*/
-
-
-function get_position_from_line_parametric_equation(t_value) {
-
-}
-
-
-function get_position_on_parametric_line_equation(line_parametric_equation, t_value) {
-    // 0, 1, 2 - x, y, z respectively
-
-    // 0 - position index
-    // 1 - velocity index
-    return [line_parametric_equation[0][0] + line_parametric_equation[0][1] * t_value, line_parametric_equation[1][0] + line_parametric_equation[1][1] * t_value, line_parametric_equation[2][0] + line_parametric_equation[2][1] * t_value];
+    return [line_parametric_equation[0][0] + line_parametric_equation[0][1] * t,
+        line_parametric_equation[1][0] + line_parametric_equation[1][1] * t,
+        line_parametric_equation[2][0] + line_parametric_equation[2][1] * t];
 }

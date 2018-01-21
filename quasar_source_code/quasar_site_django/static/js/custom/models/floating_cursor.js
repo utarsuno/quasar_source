@@ -19,6 +19,11 @@ FloatingCursor.prototype = {
 
     engage: function() {
         this._currently_engaged = true;
+
+        // Save the initial position at the engage.
+        this._previous_position = this.cursor_wall.get_position();
+
+        this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(this._previous_position.x, this._previous_position.z);
     },
 
     disengage: function() {
@@ -38,11 +43,11 @@ FloatingCursor.prototype = {
     },
 
     detach: function() {
-        this.currently_attached_to = null;
         this._current_cursor.set_to_invisible();
 
-        this._previous_cursor = null;
-        this._current_cursor = null;
+        this.currently_attached_to = null;
+        this._previous_cursor      = null;
+        this._current_cursor       = null;
     },
 
     update_position: function(p) {
@@ -59,6 +64,17 @@ FloatingCursor.prototype = {
 
             l('TODO : Currently engaged cursor function!');
 
+            var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
+            var plane_parametric_equation = get_parametric_plane_equation(this.currently_attached_to.get_position(), this.currently_attached_to.get_normal());
+
+            var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
+
+            l('OFFSET IS :');
+            l(this._previous_position.x - current_position[0]);
+            l(this._previous_position.y - current_position[1]);
+            l(this._previous_position.z - current_position[2]);
+
+
         } else {
             if (is_defined(this.currently_attached_to)) {
                 if (this.currently_attached_to.scalable) {
@@ -66,35 +82,6 @@ FloatingCursor.prototype = {
                 }
             }
         }
-    },
-
-
-    ////////
-    // TODO : Remove
-    //engage: function() {
-    //    this.engaged = true;
-    //    CURRENT_PLAYER.engage();
-    //    CURRENT_PLAYER.enable_controls();
-    //},
-
-    // TODO : Remove
-    /*
-    disengage: function() {
-        // TODO : temp fix.
-        if (this.engaged) {
-            this.engaged = false;
-            CURRENT_PLAYER.disengage();
-            if (is_defined(this.current_floating_wall)) {
-                this.current_floating_wall.cursor_action_disengaged();
-                this.current_floating_wall = null;
-            }
-        }
-    },
-    */
-
-    // TODO : Remove
-    is_currently_visible: function() {
-        return this.current_cursor.visible;
     },
 
     // TODO : Remove
@@ -184,6 +171,7 @@ FloatingCursor.prototype = {
         c.set_attachment_vertical_offset(-8, 0);
         c.set_to_invisible();
 
+        // TODO : Transparency issues still exist.
         // Needed for fixing transparency issues. This has the cursor be rendered last.
         c.mesh.renderDepth = -1;
 

@@ -60,29 +60,9 @@ function World() {
     };
 
     this.parse_mouse_drag = function(movement_x, movement_y) {
-        /*
-        if (this.floating_cursor.engaged) {
-            if (is_defined(this.floating_cursor.current_floating_wall)) {
-                this.floating_cursor.current_floating_wall.perform_action(this.floating_cursor.current_cursor.userData.name);
-            }
-        }
-        */
     };
 
     this.parse_mouse_movement = function(movement_x, movement_y) {
-        /*
-        if (CURRENT_PLAYER.is_engaged()) {
-            var c = MANAGER_WORLD.current_world.currently_looked_at_object;
-            if (is_defined(c)) {
-                if (c.requires_mouse_x_movement) {
-                    c.provide_mouse_x_movement(movement_x);
-                }
-                if (c.requires_mouse_y_movement) {
-                    c.provide_mouse_y_movement(movement_y);
-                }
-            }
-        }
-        */
     };
 
     this.wheel_event = function(delta) {
@@ -302,12 +282,6 @@ function World() {
         var floating_picture = new FloatingPicture(image_file, this);
         this.root_attachables.push(floating_picture);
     };
-
-    /*
-                            MANAGER_WORLD.world_home.create_new_floating_picture(files[0]);
-                        this.material = new THREE.MeshBasicMaterial({map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_ICONS, this.text)});
-
-     */
 
     /*
 

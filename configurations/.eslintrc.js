@@ -462,6 +462,11 @@ module.exports = {
         // |\/|  /\   |  |__|
         // |  | /~~\  |  |  |
 
+        "get_parametric_line_equation"           : false,
+        "get_parametric_plane_equation"          : false,
+        "is_point_inside_floating_wall"          : false,
+        "get_line_intersection_on_infinite_plane": false,
+
         // Utility constants.
         "DIAGONAL_PENALTY": false,
         "GROUND_NORMAL"   : false,
