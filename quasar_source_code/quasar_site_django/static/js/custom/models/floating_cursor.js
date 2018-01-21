@@ -20,6 +20,16 @@ FloatingCursor.prototype = {
     engage: function() {
         this._currently_engaged = true;
 
+        var h = this.currently_attached_to.height;
+        var w = this.currently_attached_to.width;
+
+        var cursor_position = this.cursor_wall.get_position();
+
+        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
+        var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
+
+        this._engaged_vertical_percentage = vertical_percentage;
+
         // Save the initial position at the engage.
         this._previous_position = this.cursor_wall.get_position();
 
@@ -64,16 +74,23 @@ FloatingCursor.prototype = {
 
             l('TODO : Currently engaged cursor function!');
 
+            var plane_current_position = this.currently_attached_to.get_position();
+
             var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
-            var plane_parametric_equation = get_parametric_plane_equation(this.currently_attached_to.get_position(), this.currently_attached_to.get_normal());
+            var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
 
             var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
             l('OFFSET IS :');
-            l(this._previous_position.x - current_position[0]);
-            l(this._previous_position.y - current_position[1]);
-            l(this._previous_position.z - current_position[2]);
+            l(current_position[0] - this._previous_position.x);
+            l(current_position[1] - this._previous_position.y);
+            l(current_position[2] - this._previous_position.z);
 
+            this.currently_attached_to.set_position(new THREE.Vector3(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z));
+
+
+
+            //this._previous_position = this.cursor_wall.get_position();
 
         } else {
             if (is_defined(this.currently_attached_to)) {
