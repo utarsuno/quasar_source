@@ -96,7 +96,7 @@ FloatingCursor.prototype = {
 
             var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
-            if (this._is_current_cursor_type(CURSOR_TYPE_HAND)) {
+            if (this._is_current_cursor_type(CURSOR_TYPE_MOUSE)) {
                 var pp = CURRENT_PLAYER.get_position();
                 var pn = CURRENT_PLAYER.get_direction();
 
@@ -113,10 +113,14 @@ FloatingCursor.prototype = {
 
                 var h = this.currently_attached_to.height;
 
-                var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position.y ) / h;
+                var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
+
+                //l(h);
+                //l(current_vertical_percentage);
+                //l(this._previous_vertical_percentage);
 
                 l(current_vertical_percentage - this._previous_vertical_percentage);
-                
+
                 this._previous_vertical_percentage = current_vertical_percentage;
 
             }
