@@ -40,7 +40,7 @@ function Saveable(save_type) {
                 entity_data[key] = this.is_root();
                 break;
             case ENTITY_PROPERTY_IMAGE_DATA:
-                entity_data[key] = this._image_data;
+                entity_data[key] = "'" + this._image_data + "'";
                 break;
             default:
                 l('THE KEY {' + key + '} IS NOT DEFINED YET FOR SAVING!!!');
