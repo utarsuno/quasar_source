@@ -48,6 +48,8 @@ function Saveable(save_type) {
             }
         }
 
+        entity_data[ENTITY_DEFAULT_PROPERTY_TYPE] = this.save_type;
+
         // Creating a new entity will automatically add it to the EntityManager.
         this._entity = new Entity(entity_data);
     };
