@@ -255,6 +255,9 @@ def POST_save_entity(request):
     received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
     received_data     = json_obj[ENTITY_POST_SAVE_DATA]
 
+    print('Need to save the following data:')
+    print(data_dictionary)
+
     data_dictionary = eval(received_data)
 
     global quasar_server
