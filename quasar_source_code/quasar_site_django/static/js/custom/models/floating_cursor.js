@@ -1,5 +1,11 @@
 'use strict';
 
+// TEMPORARY VARIABLES
+const ENGAGE_ACTION_MOVE = 1;
+const ENGAGE_ACTION_SCALE_HEIGHT = 2;
+const ENGAGE_ACTION_SCALE_WIDTH = 3;
+const ENGAGE_ACTION_SCALE_BOTH = 4;
+
 function FloatingCursor(world) {
     this.__init__(world);
 }
@@ -18,18 +24,28 @@ FloatingCursor.prototype = {
     },
 
     wheel_event: function(delta) {
-        l('WHEEL EVENT!!');
-        l(delta);
-        /*
-                if (delta === 1) {
-            this.player_horizontal_distance_to_wall_center_liner *= 1.1;
-        } else if (delta == -1) {
-            this.player_horizontal_distance_to_wall_center_liner *= .9;
+        switch (delta) {
+        case 1:
+            this._horizontal_distance_to_player *= 1.1;
+            break;
+        case -1:
+            this._horizontal_distance_to_player *= 0.9;
+            break;
         }
-        */
     },
 
     engage: function() {
+        this._engage_action = null;
+        if (this._current_cursor === this._cursors[CURSOR_TYPE_HAND]) {
+            this._engage_action = ENGAGE_ACTION_MOVE;
+        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_VERTICAL]) {
+            this._engage_action = ENGAGE_ACTION_SCALE_HEIGHT;
+        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_HORIZONTAL]) {
+            this._engage_action = ENGAGE_ACTION_SCALE_WIDTH;
+        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_LARGER]) {
+            this._engage_action = ENGAGE_ACTION_SCALE_BOTH;
+        }
+
         this._currently_engaged = true;
 
         var h = this.currently_attached_to.height;
@@ -44,10 +60,9 @@ FloatingCursor.prototype = {
 
         // Save the initial position at the engage.
         this._previous_position = this.cursor_wall.get_position();
+        this._previous_y = cursor_position.y;
 
         this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(this._previous_position.x, this._previous_position.z);
-
-
 
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_invisible();
@@ -55,7 +70,6 @@ FloatingCursor.prototype = {
 
     disengage: function() {
         this._currently_engaged = false;
-
 
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_visible();
@@ -103,16 +117,28 @@ FloatingCursor.prototype = {
             var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
             //l('OFFSET IS :');
+
             //l(current_position[0] - this._previous_position.x);
             l(current_position[1] - this._previous_position.y);
             //l(current_position[2] - this._previous_position.z);
 
 
+            if (this._engage_action === ENGAGE_ACTION_MOVE) {
 
-            this.currently_attached_to.set_position(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z);
+
+                var pp = CURRENT_PLAYER.get_position();
+                var pn = CURRENT_PLAYER.get_direction();
+
+                var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
+                var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
 
 
-            this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
+                this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
+                this._previous_y = current_position[1];
+                //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
+            }
+
+
 
             //this._previous_position = this.cursor_wall.get_position();
 
@@ -123,27 +149,6 @@ FloatingCursor.prototype = {
                 }
             }
         }
-    },
-
-    // TODO : Remove
-    update_OLD: function() {
-        if (this.cursor_needed_from_floating_walls || this.cursor_needed_from_interactive_objects) {
-            this.current_cursor.visible = true;
-            this.cursor_needed_from_floating_walls = false;
-            this.cursor_needed_from_interactive_objects = false;
-        } else {
-            if (!this.engaged) {
-                this.current_cursor.visible = false;
-            }
-        }
-
-        if (this.engaged) {
-            if (is_defined(this.current_floating_wall)) {
-                this.current_floating_wall.perform_action(this.current_cursor.userData.name);
-            }
-        }
-
-        // TODO : Update the late positions here.
     },
 
     _get_scalable_cursor_needed: function() {
@@ -157,9 +162,6 @@ FloatingCursor.prototype = {
 
         var scroll_vertical   = false;
         var scroll_horizontal = false;
-
-        //l(vertical_percentage);
-        //l(horizontal_percentage);
 
         if (vertical_percentage < 0.03 || vertical_percentage > 0.97) {
             scroll_vertical = true;
