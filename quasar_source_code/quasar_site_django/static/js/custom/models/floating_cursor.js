@@ -56,6 +56,24 @@ FloatingCursor.prototype = {
 
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_visible();
+
+        if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
+            var plane_current_position = this.currently_attached_to.get_position();
+            var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
+            var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
+            var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
+            var h = this.currently_attached_to.height;
+
+            var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
+
+            var height_change = this._previous_vertical_percentage - current_vertical_percentage;
+
+            l(height_change);
+
+            this.currently_attached_to.update_height(height_change);
+
+        }
+
     },
 
     attach: function(object_to_attach_to) {
@@ -109,24 +127,6 @@ FloatingCursor.prototype = {
 
                 this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
                 this.currently_attached_to.refresh_position_and_look_at();
-            } else if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
-
-                var h = this.currently_attached_to.height;
-
-                var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
-
-                //l(h);
-                //l(current_vertical_percentage);
-                //l(this._previous_vertical_percentage);
-
-                var height_change = this._previous_vertical_percentage - current_vertical_percentage;
-
-                l(height_change);
-
-                this.currently_attached_to.update_height(height_change);
-
-                this._previous_vertical_percentage = current_vertical_percentage;
-
             }
 
 
