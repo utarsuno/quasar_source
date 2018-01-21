@@ -72,7 +72,7 @@ FloatingCursor.prototype = {
     update: function() {
         if (this._currently_engaged) {
 
-            l('TODO : Currently engaged cursor function!');
+            //l('TODO : Currently engaged cursor function!');
 
             var plane_current_position = this.currently_attached_to.get_position();
 
@@ -81,14 +81,14 @@ FloatingCursor.prototype = {
 
             var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
-            l('OFFSET IS :');
+            //l('OFFSET IS :');
             //l(current_position[0] - this._previous_position.x);
             l(current_position[1] - this._previous_position.y);
             //l(current_position[2] - this._previous_position.z);
 
 
 
-            //this.currently_attached_to.set_position(new THREE.Vector3(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z));
+            this.currently_attached_to.set_position(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z);
 
             this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
 
