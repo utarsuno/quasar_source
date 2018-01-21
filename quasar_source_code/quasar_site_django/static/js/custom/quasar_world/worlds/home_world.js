@@ -19,9 +19,18 @@ HomeWorld.prototype = {
     },
 
     prepare_for_save: function() {
+
+
+        for (var r = 0; r < this.root_attachables.length; r++) {
+            this.root_attachables[r].update_values_for_entity();
+        }
+
+
+        /*
         for (var i = 0; i < this.entity_walls.length; i++) {
             this.entity_walls[i].prepare_for_save();
         }
+        */
     },
 
     // TODO : This needs to get called from the Loading Manager.
