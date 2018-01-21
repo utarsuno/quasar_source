@@ -25,6 +25,9 @@ FloatingPicture.prototype = {
         this.width = 600;
         this.height = 400;
 
+        l('NEED TO SAVE THE FOLLOWING!');
+        l(image_file);
+
         var image = document.createElement('img');
         image.src = image_file;
 
