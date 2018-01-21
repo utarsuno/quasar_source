@@ -64,7 +64,9 @@ FloatingCursor.prototype = {
         this._previous_position = this.cursor_wall.get_position();
         this._previous_y = cursor_position.y;
 
-        this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(this._previous_position.x, this._previous_position.z);
+        var pp = CURRENT_PLAYER.get_position();
+
+        this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(pp.x, pp.z);
 
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_invisible();
@@ -138,7 +140,7 @@ FloatingCursor.prototype = {
             this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
             this._previous_y = current_position[1];
 
-            
+
                 //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
             //}
 
