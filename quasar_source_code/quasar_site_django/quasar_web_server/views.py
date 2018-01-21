@@ -256,7 +256,7 @@ def POST_save_entity(request):
     received_data     = json_obj[ENTITY_POST_SAVE_DATA]
 
     print('Need to save the following data:')
-    print(data_dictionary)
+    print(received_data)
 
     data_dictionary = eval(received_data)
 
