@@ -75,6 +75,8 @@ FloatingCursor.prototype = {
 
             var current_horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(current_position[0], current_position[2]) / w;
 
+            current_horizontal_percentage = 0.5 - current_horizontal_percentage;
+
             l(current_horizontal_percentage);
 
             //current_vertical_percentage *= -1;
