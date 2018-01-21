@@ -40,16 +40,6 @@ Floating2DText.prototype = {
         }
     },
 
-    // TODO : Refactor!!!
-    _update_width: function(new_width_percentage) {
-        this.width *= new_width_percentage;
-        this.resource_cleanup();
-    },
-
-    set_tool_tip: function() {
-        l('TODO : IMPLEMENT THE SET TOOL TIP FUNCTION!!');
-    },
-
     __init__: function(w, text, type, world, syntax_checks) {
         // Inherit from Atachmentable.
         Attachmentable.call(this, world);
@@ -75,7 +65,6 @@ Floating2DText.prototype = {
         }
 
         if (this.type === TYPE_ICON) {
-
             // TODO : Create a cleaner design in the future.
             if (this.text === CURSOR_TYPE_HORIZONTAL || this.text === CURSOR_TYPE_VERTICAL || this.text === CURSOR_TYPE_HAND || this.text === CURSOR_TYPE_POINTER || this.text === CURSOR_TYPE_LARGER || this.text === CURSOR_TYPE_MOUSE) {
                 this.material = new THREE.MeshBasicMaterial({map : MANAGER_LOADING.get_texture(TEXTURE_GROUP_CURSOR, this.text), transparent : true});
@@ -102,6 +91,8 @@ Floating2DText.prototype = {
         this.material.transparent = true;
         // TODO : DoubleSide is temporary
         this.material.side = THREE.DoubleSide;
+
+        this.create_base_mesh();
 
         // Inherit from Interactive.
         Interactive.call(this);
