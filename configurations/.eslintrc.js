@@ -70,6 +70,7 @@ module.exports = {
         "InheritableButton": true,
         "Attachmentable"   : true,
         "Visibility"       : true,
+        "Saveable"         : true,
 
         "DomElement": false,
 
@@ -185,6 +186,7 @@ module.exports = {
         "ENTITY_TYPE_WALL"           : false,
         "ENTITY_TYPE_OWNER"          : false,
         "ENTITY_TYPE_TEXT_REMINDER"  : false,
+        "ENTITY_TYPE_PICTURE"        : false,
         "ENTITY_TYPE_ALL"            : false,
         // UNIVERSAL_CONSTANTS_END
 
@@ -221,6 +223,8 @@ module.exports = {
         "ENTITY_PROPERTY_EXECUTE_DATE"       : false,
         "ENTITY_PROPERTY_EXECUTE_TIME"       : false,
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
+        "ENTITY_PROPERTY_IMAGE_DATA"         : false,
+        "ENTITY_PROPERTY_IS_ROOT_ATTACHABLE" : false,
         // UNIVERSAL_CONSTANTS_END
 
         "SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION"  : true,

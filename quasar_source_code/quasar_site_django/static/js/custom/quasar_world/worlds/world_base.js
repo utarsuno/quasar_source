@@ -279,7 +279,7 @@ function World() {
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
 
     this.create_new_floating_picture = function(image_file) {
-        var floating_picture = new FloatingPicture(image_file, this);
+        var floating_picture = new FloatingPicture(image_file, this, false);
         this.root_attachables.push(floating_picture);
     };
 

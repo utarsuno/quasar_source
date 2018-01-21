@@ -1,12 +1,12 @@
 'use strict';
 
-function FloatingPicture(image_file, world) {
-    this.__init__(image_file, world);
+function FloatingPicture(image_file, world, create_from_entity_data) {
+    this.__init__(image_file, world, create_from_entity_data);
 }
 
 FloatingPicture.prototype = {
 
-    __init__: function(image_file, world) {
+    __init__: function(image_file, world, create_from_entity_data) {
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);
         // Inherit from Animatable.
@@ -17,50 +17,48 @@ FloatingPicture.prototype = {
         // Inherit from Visibility.
         Visibility.call(this);
 
+        // Inherit from Saveable.
+        Saveable.call(this, ENTITY_TYPE_PICTURE);
+        this.add_save_field(ENTITY_PROPERTY_WIDTH);
+        this.add_save_field(ENTITY_PROPERTY_HEIGHT);
+        this.add_save_field(ENTITY_PROPERTY_POSITION);
+        this.add_save_field(ENTITY_PROPERTY_NORMAL);
+        this.add_save_field(ENTITY_PROPERTY_IMAGE_DATA);
+        this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
+
         this.engable = false;
         this.scalable = true;
         this.world.interactive_objects.push(this);
 
-        // TODO : Dynamically determine this from the image file provided.
-        this.width = 600;
-        this.height = 400;
+        if (create_from_entity_data) {
+            // If being created from entity then the field 'image_file' will actually be the entity.
 
-        l('NEED TO SAVE THE FOLLOWING!');
-        l(image_file);
+            l('TODO : CREATE FLOATING PICTURE FROM ENTITY DATA!!!!');
 
-        var image = document.createElement('img');
-        image.src = image_file;
+        } else {
+            // This FloatingPicture is being created from a drag and drop action.
+            this._image_data = image_file;
+            // TODO : Dynamically determine this from the image file provided.
+            this.width = 600;
+            this.height = 400;
 
-        // TODO : ADD A SAVE FUNCTION!
-        /*
-                var form_data = new FormData();
-                form_data.append('file', files[0]);
+            var image = document.createElement('img');
+            image.src = image_file;
 
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/file_upload');
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        l('File upload finished!');
-                    } else {
-                        l('File upload did not work!');
-                    }
-                };
-        */
+            // THIS IS TEMPORARY.
+            var player_position = CURRENT_PLAYER.get_position();
+            var player_normal   = CURRENT_PLAYER.get_direction();
+
+            this.set_position(player_position.x + player_normal.x * 200, player_position.y, player_position.z + player_normal.z * 200, false);
+            this.set_normal(-player_normal.x, 0, -player_normal.z, false);
+
+            this.create_new_entity();
+        }
 
         this.texture = new THREE.Texture(image);
         this.texture.needsUpdate = true;
-
         this.material = new THREE.MeshBasicMaterial({map : this.texture});
-
         this.create_base_mesh();
-
-
-        // THIS IS TEMPORARY.
-        var player_position = CURRENT_PLAYER.get_position();
-        var player_normal   = CURRENT_PLAYER.get_direction();
-
-        this.set_position(player_position.x, player_position.y, player_position.z, false);
-        this.set_normal(player_normal.x, 0, player_normal.z, false);
 
         this.refresh_position_and_look_at();
     },

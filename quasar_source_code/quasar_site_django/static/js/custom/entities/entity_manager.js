@@ -300,9 +300,9 @@ EntityManager.prototype = {
         return null;
     },
 
-    /*   __                    __      __       ___
-        /__`  /\  \  / | |\ | / _`    |  \  /\   |   /\     .
-        .__/ /~~\  \/  | | \| \__>    |__/ /~~\  |  /~~\    .*/
+    /*__                    __      __       ___
+     /__`  /\  \  / | |\ | / _`    |  \  /\   |   /\     .
+     .__/ /~~\  \/  | | \| \__>    |__/ /~~\  |  /~~\    . */
 
     save_changes_result: function() {
         // .bind prepends arguments so the first argument is the entity being saved and the second argument is the save result.
