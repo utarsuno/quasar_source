@@ -88,7 +88,7 @@ FloatingCursor.prototype = {
 
 
 
-            this.currently_attached_to.set_position(new THREE.Vector3(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z));
+            //this.currently_attached_to.set_position(new THREE.Vector3(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z));
 
             this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
 
