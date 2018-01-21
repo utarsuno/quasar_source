@@ -35,6 +35,7 @@ FloatingCursor.prototype = {
     },
 
     engage: function() {
+        /*
         this._engage_action = null;
         if (this._current_cursor === this._cursors[CURSOR_TYPE_HAND]) {
             this._engage_action = ENGAGE_ACTION_MOVE;
@@ -45,6 +46,7 @@ FloatingCursor.prototype = {
         } else if (this._current_cursor === this._cursors[CURSOR_TYPE_LARGER]) {
             this._engage_action = ENGAGE_ACTION_SCALE_BOTH;
         }
+        */
 
         this._currently_engaged = true;
 
@@ -123,20 +125,22 @@ FloatingCursor.prototype = {
             //l(current_position[2] - this._previous_position.z);
 
 
-            if (this._engage_action === ENGAGE_ACTION_MOVE) {
+            //if (this._engage_action === ENGAGE_ACTION_MOVE) {
 
 
-                var pp = CURRENT_PLAYER.get_position();
-                var pn = CURRENT_PLAYER.get_direction();
+            var pp = CURRENT_PLAYER.get_position();
+            var pn = CURRENT_PLAYER.get_direction();
 
-                var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
-                var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
+            var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
+            var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
 
 
-                this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
-                this._previous_y = current_position[1];
+            this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
+            this._previous_y = current_position[1];
+
+            
                 //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
-            }
+            //}
 
 
 
