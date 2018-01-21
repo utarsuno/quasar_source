@@ -68,7 +68,7 @@ FloatingPicture.prototype = {
         var player_normal   = CURRENT_PLAYER.get_direction();
 
         this.set_position(player_position.x, player_position.y, player_position.z, false);
-        this.set_normal(player_normal.x, player_normal.y, player_normal.z, false);
+        this.set_normal(player_normal.x, 0, player_normal.z, false);
 
         this.refresh_position_and_look_at();
     },
