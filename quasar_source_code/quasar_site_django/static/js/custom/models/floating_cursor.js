@@ -1,11 +1,5 @@
 'use strict';
 
-// TEMPORARY VARIABLES
-const ENGAGE_ACTION_MOVE = 1;
-const ENGAGE_ACTION_SCALE_HEIGHT = 2;
-const ENGAGE_ACTION_SCALE_WIDTH = 3;
-const ENGAGE_ACTION_SCALE_BOTH = 4;
-
 function FloatingCursor(world) {
     this.__init__(world);
 }
@@ -35,19 +29,6 @@ FloatingCursor.prototype = {
     },
 
     engage: function() {
-        /*
-        this._engage_action = null;
-        if (this._current_cursor === this._cursors[CURSOR_TYPE_HAND]) {
-            this._engage_action = ENGAGE_ACTION_MOVE;
-        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_VERTICAL]) {
-            this._engage_action = ENGAGE_ACTION_SCALE_HEIGHT;
-        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_HORIZONTAL]) {
-            this._engage_action = ENGAGE_ACTION_SCALE_WIDTH;
-        } else if (this._current_cursor === this._cursors[CURSOR_TYPE_LARGER]) {
-            this._engage_action = ENGAGE_ACTION_SCALE_BOTH;
-        }
-        */
-
         this._currently_engaged = true;
 
         var h = this.currently_attached_to.height;
@@ -55,13 +36,11 @@ FloatingCursor.prototype = {
 
         var cursor_position = this.cursor_wall.get_position();
 
-        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
         var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
 
-        this._engaged_vertical_percentage = vertical_percentage;
+        this._previous_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
 
         // Save the initial position at the engage.
-        this._previous_position = this.cursor_wall.get_position();
         this._previous_y = cursor_position.y;
 
         var pp = CURRENT_PLAYER.get_position();
@@ -107,11 +86,8 @@ FloatingCursor.prototype = {
         this.cursor_wall.refresh_position_and_look_at();
     },
 
-    // TODO : update
     update: function() {
         if (this._currently_engaged) {
-
-            //l('TODO : Currently engaged cursor function!');
 
             var plane_current_position = this.currently_attached_to.get_position();
 
@@ -120,39 +96,31 @@ FloatingCursor.prototype = {
 
             var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
-            //l('OFFSET IS :');
+            if (this._is_current_cursor_type(CURSOR_TYPE_HAND)) {
+                var pp = CURRENT_PLAYER.get_position();
+                var pn = CURRENT_PLAYER.get_direction();
 
-            //l(current_position[0] - this._previous_position.x);
-            l(current_position[1] - this._previous_position.y);
-            //l(current_position[2] - this._previous_position.z);
+                var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
+                var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
 
-
-            //if (this._engage_action === ENGAGE_ACTION_MOVE) {
-
-
-            var pp = CURRENT_PLAYER.get_position();
-            var pn = CURRENT_PLAYER.get_direction();
-
-            var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
-            var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
+                this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
+                this._previous_y = current_position[1];
 
 
-            this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
-            this._previous_y = current_position[1];
+                this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
+                this.currently_attached_to.refresh_position_and_look_at();
+            } else if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
 
+                var h = this.currently_attached_to.height;
 
-            // TODO : Update the normal of the currently attached object!!!
+                var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position.y ) / h;
 
-            this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
-            this.currently_attached_to.refresh_position_and_look_at();
+                l(current_vertical_percentage - this._previous_vertical_percentage);
+                
+                this._previous_vertical_percentage = current_vertical_percentage;
 
+            }
 
-            //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
-            //}
-
-
-
-            //this._previous_position = this.cursor_wall.get_position();
 
         } else {
             if (is_defined(this.currently_attached_to)) {
@@ -203,6 +171,10 @@ FloatingCursor.prototype = {
             this._current_cursor = this._cursors[cursor];
             this._current_cursor.set_to_visible();
         }
+    },
+
+    _is_current_cursor_type: function(cursor_type) {
+        return this._current_cursor.get_text() === cursor_type;
     },
 
     /*        ___                      __        __
