@@ -17,6 +17,18 @@ FloatingCursor.prototype = {
         this._currently_engaged    = false;
     },
 
+    wheel_event: function(delta) {
+        l('WHEEL EVENT!!');
+        l(delta);
+        /*
+                if (delta === 1) {
+            this.player_horizontal_distance_to_wall_center_liner *= 1.1;
+        } else if (delta == -1) {
+            this.player_horizontal_distance_to_wall_center_liner *= .9;
+        }
+        */
+    },
+
     engage: function() {
         this._currently_engaged = true;
 
@@ -34,10 +46,19 @@ FloatingCursor.prototype = {
         this._previous_position = this.cursor_wall.get_position();
 
         this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(this._previous_position.x, this._previous_position.z);
+
+
+
+        // TODO : TEMPORARY MEASURE.
+        this._current_cursor.set_to_invisible();
     },
 
     disengage: function() {
         this._currently_engaged = false;
+
+
+        // TODO : TEMPORARY MEASURE.
+        this._current_cursor.set_to_visible();
     },
 
     attach: function(object_to_attach_to) {
@@ -89,6 +110,7 @@ FloatingCursor.prototype = {
 
 
             this.currently_attached_to.set_position(plane_current_position.x, (current_position[1] - this._previous_position.y) + plane_current_position.y, plane_current_position.z);
+
 
             this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
 

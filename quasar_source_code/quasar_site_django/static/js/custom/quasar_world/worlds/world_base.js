@@ -66,8 +66,8 @@ function World() {
     };
 
     this.wheel_event = function(delta) {
-        if (this.floating_cursor.engaged) {
-            this.floating_cursor.current_floating_wall.wheel_event(delta);
+        if (this.floating_cursor._currently_engaged) {
+            this.floating_cursor.wheel_event(delta);
         }
     };
 

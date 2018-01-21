@@ -40,12 +40,6 @@ FloatingWall.prototype = {
             this.engable = false;
         }
 
-        // TODO : Double check this design.
-        this.current_cursor = null;
-        this.player_horizontal_distance_to_wall_center_liner = null;
-        this.player_previous_y_position = null;
-        this.previous_cursor_y_position = null;
-
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
 
         //this.make_base_wall_visible();
@@ -161,64 +155,6 @@ FloatingWall.prototype = {
         //}
 
         this.update_position_and_normal_for_all_floating_text_recursively();
-    },
-
-    // TODO : Verify that this function works with the rest of this class.
-    set_position_and_normal: function(p, n, no_depth) {
-
-        // TODO : Improve design of this function.
-
-        var depth = true;
-        if (is_defined(no_depth)) {
-            depth = !no_depth;
-        }
-        if (depth) {
-            this.update_normal(n);
-            this.object3D.position.set(p.x + this.normal.x * this.normal_depth, p.y + this.normal.y * this.normal_depth, p.z + this.normal.z * this.normal_depth);
-            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-        } else {
-            this.object3D.position.set(p.x, p.y, p.z);
-            this.x_without_normal = this.object3D.position.x;
-            this.y_without_normal = this.object3D.position.y;
-            this.z_without_normal = this.object3D.position.z;
-            this.update_normal(n);
-        }
-
-        this.object3D.lookAt(new THREE.Vector3(this.object3D.position.x + this.normal.x * 100, this.object3D.position.y + this.normal.y * 100, this.object3D.position.z + this.normal.z * 100));
-
-        this.update_position_and_normal_for_all_floating_text_recursively();
-    },
-
-    update_position_with_offset_xyz: function(x, y, z) {
-        // TODO : Optimize later.
-
-        if (this.hasOwnProperty('parent_floating_wall') || this.hasOwnProperty('pfw_button')) {
-            // Follows add_floating_wall_to_center_of_position
-            if (this.hasOwnProperty('pfw_button')) {
-                var button = this['pfw_button'].get_position();
-                //  var floating_wall = this.add_floating_wall_to_center_of_position(width, height, new THREE.Vector3(button_position.x, button_position.y, button_position.z), scalable);
-                this.object3D.position.set(button.x + this.normal.x * this.normal_depth, button.y + this.normal.y * this.normal_depth, button.z + this.normal.z * this.normal_depth);
-
-                this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-                this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-                this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-            }
-
-        } else {
-            this.object3D.position.x = this.x_without_normal + x + this.normal.x * this.normal_depth;
-            this.object3D.position.y = this.y_without_normal + y + this.normal.y * this.normal_depth;
-            this.object3D.position.z = this.z_without_normal + z + this.normal.z * this.normal_depth;
-
-            this.x_without_normal = this.object3D.position.x - this.normal.x * this.normal_depth;
-            this.y_without_normal = this.object3D.position.y - this.normal.y * this.normal_depth;
-            this.z_without_normal = this.object3D.position.z - this.normal.z * this.normal_depth;
-        }
-
-        for (var j = 0; j < this.all_floating_walls.length; j++) {
-            this.all_floating_walls[j].update_position_with_offset_xyz(x, y, z);
-        }
     },
 
     */
@@ -422,29 +358,9 @@ FloatingWall.prototype = {
         this.material.needsUpdate = true;
     },
 
-    wheel_event: function(delta) {
-        if (delta === 1) {
-            this.player_horizontal_distance_to_wall_center_liner *= 1.1;
-        } else if (delta == -1) {
-            this.player_horizontal_distance_to_wall_center_liner *= .9;
-        }
-    },
-
-    // TODO : Reformat this!
-    cursor_action_disengaged: function() {
-        //MANAGER_WORLD.current_floating_cursor.disengage();
-        this.player_horizontal_distance_to_wall_center_liner = null;
-        this.previous_cursor_y_position = null;
-        this.player_previous_y_position = null;
-    },
-
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    get_position_for_row: function (x_offset, y_offset, z_offset) {
-        return new THREE.Vector3(this.object3D.position.x + x_offset, this.object3D.position.y + this.height / 2 + y_offset, this.object3D.position.z + z_offset);
-    },
-
     // TODO : Remove or re-format
     get_all_floating_2D_texts_with_property: function(property_name) {
         var floating_texts = [];
@@ -467,66 +383,6 @@ FloatingWall.prototype = {
             }
         }
         return all_wall_children;
-    },
-
-    /* __                  ___           ___  ___  __   __   ___  __  ___    __                     ___
-      |__) |     /\  |\ | |__     | |\ |  |  |__  |__) /__` |__  /  `  |  | /  \ |\ |     |\/|  /\   |  |__|
-      |    |___ /~~\ | \| |___    | | \|  |  |___ |  \ .__/ |___ \__,  |  | \__/ | \|     |  | /~~\  |  |  | */
-    // TODO : REFACTOR INTO MATH UTILITIES!!!
-
-    get_parametric_equation: function() {
-        return [this.normal.x, this.normal.y, this.normal.z, this.normal.x * this.object3D.position.x + this.normal.y * this.object3D.position.y + this.normal.z * this.object3D.position.z];
-    },
-
-    // TODO : This will only work for walls that have a y normal of 0.
-    _is_point_inside_floating_wall: function(x, y, z) {
-        // TODO : Simplify later.
-        if (this.object3D.position.y + this.height / 2 < y) {
-            return false;
-        }
-        if (this.object3D.position.y - this.height / 2 > y) {
-            return false;
-        }
-        return this.get_horizontal_distance_to_center(x, z) <= this.width / 2;
-    },
-
-    _calculate_t_value: function(player_parametric_equation) {
-        var floating_wall_parametric_equation = this.get_parametric_equation();
-        const INDEX_OF_POSITION = 0;
-        const INDEX_OF_DIRECTION = 1;
-        var line_x0 = player_parametric_equation[0][INDEX_OF_POSITION];
-        var line_y0 = player_parametric_equation[1][INDEX_OF_POSITION];
-        var line_z0 = player_parametric_equation[2][INDEX_OF_POSITION];
-        var line_nx = player_parametric_equation[0][INDEX_OF_DIRECTION];
-        var line_ny = player_parametric_equation[1][INDEX_OF_DIRECTION];
-        var line_nz = player_parametric_equation[2][INDEX_OF_DIRECTION];
-        var plane_nx = floating_wall_parametric_equation[0];
-        var plane_ny = floating_wall_parametric_equation[1];
-        var plane_nz = floating_wall_parametric_equation[2];
-        var plane_d  = floating_wall_parametric_equation[3];
-        return (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
-    },
-
-    get_player_look_at_infinite_plane_intersection_point: function() {
-        var player_parametric_equation = CURRENT_PLAYER.get_parametric_equation();
-        var t = this._calculate_t_value(player_parametric_equation);
-        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        return new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-    },
-
-    get_player_look_at_intersection_point: function(player_parametric_equation) {
-        var t = this._calculate_t_value(player_parametric_equation);
-        if (t < 0) {
-            return false;
-        }
-        var intersection_values = CURRENT_PLAYER.get_parametric_value(t);
-        if (!this._is_point_inside_floating_wall(intersection_values[0], intersection_values[1], intersection_values[2])) {
-            return false;
-        }
-        // Also add the cursor type needed.
-        var cursor_position = new THREE.Vector3(intersection_values[0], intersection_values[1], intersection_values[2]);
-        var c = this.get_required_cursor(cursor_position);
-        return [cursor_position, c];
     },
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
@@ -562,11 +418,6 @@ FloatingWall.prototype = {
             //this.refresh();
 
             //l('Floating wall disengage!');
-
-            if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                l('disengage the cursor!');
-                MANAGER_WORLD.current_floating_cursor.disengage();
-            }
         }
         this.refresh();
     },

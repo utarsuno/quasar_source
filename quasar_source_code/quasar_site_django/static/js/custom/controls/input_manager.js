@@ -124,7 +124,7 @@ InputManager.prototype = {
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
     on_wheel_event: function(e) {
         /* Check whether the wheel event is supported. */
-        if (e.type =='"wheel') this.supports_wheel = true;
+        if (e.type =='wheel') this.supports_wheel = true;
         else if (this.supports_wheel) return;
 
         /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
