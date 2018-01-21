@@ -37,7 +37,7 @@ function Saveable(save_type) {
                 entity_data[key] = p.x + '|' + p.y + '|' + p.z;
                 break;
             case ENTITY_PROPERTY_IS_ROOT_ATTACHABLE:
-                entity_data[key] = this.is_root();
+                entity_data[key] = this.is_root().toString();
                 break;
             case ENTITY_PROPERTY_IMAGE_DATA:
                 entity_data[key] = this._image_data;
