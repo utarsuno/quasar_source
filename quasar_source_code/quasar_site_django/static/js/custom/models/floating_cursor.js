@@ -141,7 +141,13 @@ FloatingCursor.prototype = {
             this._previous_y = current_position[1];
 
 
-                //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
+            // TODO : Update the normal of the currently attached object!!!
+
+            this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
+            this.currently_attached_to.refresh_position_and_look_at();
+
+
+            //this._previous_position = new THREE.Vector3(this._previous_position.x, current_position[1], this._previous_position.z);
             //}
 
 
