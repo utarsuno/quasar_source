@@ -39,6 +39,9 @@ class EntityServer(object):
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
 		if type(entity_data) == str:
+
+			print(entity_data)
+
 			entity_data = eval(entity_data)
 
 		# ENTITY_PROPERTIES_ONLY_SERVER_SIDE
