@@ -81,8 +81,7 @@ function World() {
 
     this._match_found = function(object_to_match) {
         for (var i = 0; i < this.interactive_objects.length; i++) {
-            // OLD : this.interactive_objects[i].geometry.uuid === object_to_match.uuid
-            if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid) {
+            if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid || this.interactive_objects[i].geometry.uuid === object_to_match.uuid) {
                 return i;
             }
         }
