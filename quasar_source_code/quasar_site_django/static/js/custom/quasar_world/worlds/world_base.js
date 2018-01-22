@@ -89,6 +89,14 @@ function World() {
     };
 
     this.update_interactive_objects = function() {
+        // Don't perform an update if currently engaged with 3D text.
+        if (is_defined(this.currently_looked_at_object)) {
+            if (this.currently_looked_at_object.maintain_engage_until_right_click) {
+                return;
+            }
+        }
+
+
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         var smallest_distance = 99999;
         var interactive_index = -1;

@@ -61,6 +61,8 @@ Floating3DText.prototype = {
 
         this.final_initialize();
 
+        this.maintain_engage_until_right_click = true;
+
         //this._create_3D_text_internally();
     },
 
@@ -78,8 +80,6 @@ Floating3DText.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_mesh: function() {
-        l('CREATING 3D BASE MESH!');
-
         this.geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,

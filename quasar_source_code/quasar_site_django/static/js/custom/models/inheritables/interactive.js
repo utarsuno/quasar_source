@@ -8,6 +8,8 @@ function Interactive() {
     this.engable                        = true;
     this.uses_cursor                    = true;
 
+    this.maintain_engage_until_right_click = false;
+
     // Used for sliders.
     this.requires_mouse_x_movement      = false;
     this.requires_mouse_y_movement      = false;
