@@ -30,11 +30,11 @@ function Saveable(save_type) {
                 break;
             case ENTITY_PROPERTY_NORMAL:
                 var n = this.get_normal();
-                entity_data[key] = n.x + '|' + n.y + '|' + n.z;
+                entity_data[key] = n.x + '-' + n.y + '-' + n.z;
                 break;
             case ENTITY_PROPERTY_POSITION:
                 var p = this.get_position();
-                entity_data[key] = p.x + '|' + p.y + '|' + p.z;
+                entity_data[key] = p.x + '-' + p.y + '-' + p.z;
                 break;
             case ENTITY_PROPERTY_IS_ROOT_ATTACHABLE:
                 entity_data[key] = this.is_root().toString();
@@ -66,11 +66,11 @@ function Saveable(save_type) {
                 break;
             case ENTITY_PROPERTY_NORMAL:
                 var n = this.get_normal();
-                this._entity.set_property(key, n.x + '|' + n.y + '|' + n.z);
+                this._entity.set_property(key, n.x + '-' + n.y + '-' + n.z);
                 break;
             case ENTITY_PROPERTY_POSITION:
                 var p = this.get_position();
-                this._entity.set_property(key, p.x + '|' + p.y + '|' + p.z);
+                this._entity.set_property(key, p.x + '-' + p.y + '-' + p.z);
                 break;
             }
         }
