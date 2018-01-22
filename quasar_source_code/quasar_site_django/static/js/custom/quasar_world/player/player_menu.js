@@ -15,17 +15,8 @@ function global_save() {
     MANAGER_ENTITY.update_server_and_database();
 }
 
-function go_to_settings_world() {
-    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_settings);
-}
-
-function go_to_home_world() {
-    MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
-}
-
 function create_entity_wall() {
-    l('Creating entity wall!');
-    MANAGER_WORLD.world_home.create_entity_wall_command_entered();
+    MANAGER_WORLD.current_world.create_new_entity_wall();
 }
 
 function exit_function() {
