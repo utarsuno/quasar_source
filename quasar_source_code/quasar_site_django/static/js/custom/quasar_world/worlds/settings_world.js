@@ -102,6 +102,8 @@ SettingsWorld.prototype = {
         this.profile_created_at_date_label = this.wall_user_profile.add_row_2D_text([0, ONE_THIRD], 4, 'Date Created :', TYPE_CONSTANT);
         this.profile_created_at_date_input = this.wall_user_profile.add_row_2D_text([ONE_THIRD, 1], 4, '', TYPE_CONSTANT);
 
+        this.wall_user_profile.refresh_position_and_look_at();
+
         /*__   ___ ___ ___         __   __
          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
          .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */

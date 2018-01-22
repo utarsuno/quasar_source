@@ -6,10 +6,6 @@ function Floating3DText(text, type, world) {
 
 Floating3DText.prototype = {
 
-    size: null,
-    height: null,
-    text_height: null,
-
     refresh_for_3D_text: function() {
         if (this.type === TYPE_ICON) {
             // TODO :
