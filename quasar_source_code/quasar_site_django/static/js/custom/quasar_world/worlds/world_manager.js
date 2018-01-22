@@ -37,9 +37,9 @@ WorldManager.prototype = {
         this.light_delta += delta;
         this.light_percentage = this.light_delta / this.light_delta_cap;
         this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
-        this.light_1.position.set(cos(this.light_percentage + .25 * 10) * 1000, 100, sin(this.light_percentage + .25 * 10) * 1000);
-        this.light_2.position.set(cos(this.light_percentage + .50 * 10) * 1000, 100, sin(this.light_percentage + .50 * 10) * 1000);
-        this.light_3.position.set(cos(this.light_percentage + .75 * 10) * 1000, 100, sin(this.light_percentage + .75 * 10) * 1000);
+        this.light_1.position.set(cos(this.light_percentage + .33 * 10) * 1000, 100, sin(this.light_percentage + .33 * 10) * 1000);
+        this.light_2.position.set(cos(this.light_percentage + .66 * 10) * 1000, 100, sin(this.light_percentage + .66 * 10) * 1000);
+        this.light_3.position.set(cos(this.light_percentage + .99 * 10) * 1000, 100, sin(this.light_percentage + .99 * 10) * 1000);
 
         if (GUI_PAUSED_MENU.is_visible()) {
             return;
