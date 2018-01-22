@@ -193,7 +193,7 @@ PlayerMenu.prototype = {
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [4, null], [-8, .25], 1, 'teleport', TYPE_BUTTON);
                 menu_icon = this._player_menu.add_floating_2D_text(16, [4, -ONE_FOURTH], [-8, .25], 1, ICON_TELEPORT, TYPE_ICON);
 
-                this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
+                this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [125, null], null, null, false);
 
                 //this.teleport_wall.manual_visibility = true;
 
@@ -201,6 +201,9 @@ PlayerMenu.prototype = {
 
                 var current_button_row = 2;
                 var teleport_button;
+
+                this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Personal Worlds', TYPE_CONSTANT);
+                current_button_row += 1;
 
                 if (this.world !== MANAGER_WORLD.world_settings) {
                     this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SETTINGS, TYPE_ICON);
@@ -215,6 +218,14 @@ PlayerMenu.prototype = {
                     teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_home));
                     current_button_row += 1;
                 }
+
+                current_button_row += 1;
+                this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Global Worlds', TYPE_CONSTANT);
+
+                current_button_row += 1;
+                this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Shared Worlds', TYPE_CONSTANT);
+
+                current_button_row += 1;
 
                 this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_EXIT, TYPE_ICON);
                 this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Logout', TYPE_BUTTON);

@@ -117,19 +117,19 @@ function FloatingText(text, type, is_2D_text) {
             case TYPE_BUTTON:
             case TYPE_CHECK_BOX:
                 this.set_default_color(COLOR_TEXT_BUTTON);
-                this.set_color(COLOR_TEXT_BUTTON);
+                this.set_color(COLOR_TEXT_BUTTON, true);
                 break;
             case TYPE_CONSTANT:
                 this.set_default_color(COLOR_TEXT_CONSTANT);
-                this.set_color(COLOR_TEXT_CONSTANT);
+                this.set_color(COLOR_TEXT_CONSTANT, true);
                 break;
             case TYPE_TITLE:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
-                this.set_color(COLOR_TEXT_DEFAULT);
+                this.set_color(COLOR_TEXT_DEFAULT, true);
                 break;
             default:
                 this.set_default_color(COLOR_TEXT_DEFAULT);
-                this.set_color(COLOR_TEXT_DEFAULT);
+                this.set_color(COLOR_TEXT_DEFAULT, true);
                 break;
             }
         }
