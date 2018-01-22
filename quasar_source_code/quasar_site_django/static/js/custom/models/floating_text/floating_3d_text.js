@@ -10,11 +10,6 @@ Floating3DText.prototype = {
     height: null,
     text_height: null,
 
-    material: null,
-    text_geometry: null,
-
-    current_text_object: null,
-
     refresh_for_3D_text: function() {
         if (this.type === TYPE_ICON) {
             // TODO :
@@ -34,7 +29,7 @@ Floating3DText.prototype = {
     },
 
     _calculate_dimensions: function() {
-        var box = new THREE.Box3().setFromObject(this.current_text_object);
+        var box = new THREE.Box3().setFromObject(this.mesh);
         this.width = box.max.x;
         this.height = box.max.y;
     },
@@ -88,37 +83,34 @@ Floating3DText.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_mesh: function() {
-        this.text_geometry = new THREE.TextGeometry(this.text, {
+        this.geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,
             curveSegments: 2,
             font: GLOBAL_FONT
         });
-        this.current_text_object = new THREE.Mesh(this.text_geometry, this.material);
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
         this._calculate_dimensions();
-        this.object3D.add(this.current_text_object);
+        this.object3D.add(this.mesh);
     },
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
     delete_mesh: function() {
-        if (is_defined(this.current_text_object)) {
-            this.object3D.remove(this.current_text_object);
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
         }
-        if (is_defined(this.current_text_object.geometry)) {
-            this.current_text_object.geometry.dispose();
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
         }
     },
 
     full_remove: function() {
-        if (is_defined(this.current_text_object)) {
-            this.object3D.remove(this.current_text_object);
-            // TODO : UPDATE THREE JS VERSION!
-            //this.current_text_object.dispose();
-            //this.current_text_object.dispose();
-            this.current_text_object.geometry.dispose();
-            this.current_text_object.material.dispose();
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+            this.geometry.dispose();
+            this.material.dispose();
         }
         /*
         if (is_defined(this.geometry)) {
