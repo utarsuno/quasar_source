@@ -35,6 +35,16 @@ FloatingPicture.prototype = {
 
             l('TODO : CREATE FLOATING PICTURE FROM ENTITY DATA!!!!');
 
+            this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
+            this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
+            var n = this.get_value(ENTITY_PROPERTY_NORMAL);
+            this.set_normal(n.x, n.y, n.z);
+            var p = this.get_value(ENTITY_PROPERTY_POSITION);
+            this.set_position(p.x, p.y, p.z);
+
+            
+
+
         } else {
             // This FloatingPicture is being created from a drag and drop action.
             this._image_data = image_file;
@@ -61,6 +71,11 @@ FloatingPicture.prototype = {
         this.create_base_mesh();
 
         this.refresh_position_and_look_at();
+
+
+        if (create_from_entity_data) {
+            this.world.root_attachables.push(this);
+        }
     },
 
     create_base_mesh: function() {

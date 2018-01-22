@@ -153,9 +153,9 @@ EntityManager.prototype = {
         }
     },
 
-    /*   __   ___ ___ ___         __      __       ___
-        / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
-        \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    .*/
+    /*__   ___ ___ ___         __      __       ___
+     / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
+     \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    . */
     get_entities_sorted_by_priority: function(list_of_entities) {
         var list_to_return = [];
 

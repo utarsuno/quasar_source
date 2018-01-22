@@ -42,7 +42,7 @@ class EntityServer(object):
 
 			entity_data = entity_data.replace('\'', '"')
 
-			print(entity_data)
+			#print(entity_data)
 
 			entity_data = eval(entity_data)
 

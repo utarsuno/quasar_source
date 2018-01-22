@@ -16,6 +16,14 @@ HomeWorld.prototype = {
     create: function() {
         this.entity_walls = [];
         //this.load_entity_walls();
+
+
+        var floating_pictures = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_PICTURE);
+
+        for (var p = 0; p < floating_pictures.length; p++) {
+            var fp = new FloatingPicture(floating_pictures[p], this, true);
+        }
+
     },
 
     prepare_for_save: function() {
