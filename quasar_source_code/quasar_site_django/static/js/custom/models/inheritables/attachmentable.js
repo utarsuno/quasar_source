@@ -123,7 +123,6 @@ function Attachmentable(world) {
 
     this.dimensions_changed = function() {
         this.delete_mesh();
-        l('DIMENSIONS CHANGED!');
         this.create_base_mesh();
     };
 

@@ -61,7 +61,7 @@ Floating3DText.prototype = {
 
         this.final_initialize();
 
-        this._create_3D_text_internally();
+        //this._create_3D_text_internally();
     },
 
     _create_3D_text_internally: function() {
