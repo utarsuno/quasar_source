@@ -286,7 +286,7 @@ function World() {
         entity_wall.base_wall.set_position(pp.x + pn.x * 200, pp.y + pn.y * 200, pp.z * pn.z * 200);
         entity_wall.base_wall.set_normal(-pn.x, 0, -pn.z);
 
-        this.root_attachables.push(entity_wall);
+        this.root_attachables.push(entity_wall.base_wall);
     };
 
     /*__   __   ___      ___  ___     __     __  ___       __   ___
