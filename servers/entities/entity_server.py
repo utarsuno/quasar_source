@@ -40,6 +40,8 @@ class EntityServer(object):
 		"""Updates the entity cache object."""
 		if type(entity_data) == str:
 
+			entity_data = entity_data.replace('\'', '"')
+
 			print(entity_data)
 
 			entity_data = eval(entity_data)
