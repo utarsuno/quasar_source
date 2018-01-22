@@ -54,11 +54,12 @@ FloatingCursor.prototype = {
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_visible();
 
+        var plane_current_position = this.currently_attached_to.get_position();
+        var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
+        var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
+        var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
+
         if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
-            var plane_current_position = this.currently_attached_to.get_position();
-            var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
-            var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
-            var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
             var h = this.currently_attached_to.height;
 
             var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
@@ -70,16 +71,12 @@ FloatingCursor.prototype = {
             this.currently_attached_to.update_height(1 + current_vertical_percentage);
         } else if (this._is_current_cursor_type(CURSOR_TYPE_HORIZONTAL)) {
 
-            var plane_current_position = this.currently_attached_to.get_position();
-            var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
-            var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
-            var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
             var w = this.currently_attached_to.width;
 
             var current_horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(current_position[0], current_position[2]) / w;
 
             current_horizontal_percentage = 0.5 - current_horizontal_percentage;
-            current_vertical_percentage *= 2;
+            current_horizontal_percentage *= 2;
             current_horizontal_percentage *= -1;
 
             //current_vertical_percentage *= -1;

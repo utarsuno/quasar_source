@@ -1,6 +1,5 @@
 'use strict';
 
-
 function InheritableButton() {
 
     this.disable = function() {
