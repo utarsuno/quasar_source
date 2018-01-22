@@ -11,8 +11,15 @@ Floating3DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!! not really though');
         } else {
+
+            var was_engaged = this.is_engaged();
+
             this.full_remove();
             this._create_3D_text_internally();
+
+            if (was_engaged) {
+                //this.world.interactive_objects.push(this);
+            }
         }
     },
 
@@ -95,6 +102,8 @@ Floating3DText.prototype = {
     },
 
     full_remove: function() {
+        //this.world.remove_from_interactive_then_scene(this);
+
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);
             this.geometry.dispose();
