@@ -92,7 +92,9 @@ function World() {
         // Don't perform an update if currently engaged with 3D text.
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.maintain_engage_until_right_click) {
-                return;
+                if (this.currently_looked_at_object.is_engaged()) {
+                    return;
+                }
             }
         }
 
