@@ -37,9 +37,9 @@ WorldManager.prototype = {
         this.light_delta += delta;
         this.light_percentage = this.light_delta / this.light_delta_cap;
         this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
-        this.light_1.position.set(cos(this.light_percentage + .33 * 10) * 1000, 100, sin(this.light_percentage + .33 * 10) * 1000);
-        this.light_2.position.set(cos(this.light_percentage + .66 * 10) * 1000, 100, sin(this.light_percentage + .66 * 10) * 1000);
-        this.light_3.position.set(cos(this.light_percentage + .99 * 10) * 1000, 100, sin(this.light_percentage + .99 * 10) * 1000);
+        this.light_1.position.set(cos(this.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
+        this.light_2.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
+        this.light_3.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
         if (GUI_PAUSED_MENU.is_visible()) {
             return;
@@ -72,9 +72,6 @@ WorldManager.prototype = {
             // Before exiting the world make sure to remove the camera reference.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
             this.current_world.exit_world();
-
-            // TODO : figure out if this is used
-            //this.current_world.current_world = false;
 
             this.previous_world = this.current_world;
         }
