@@ -23,11 +23,27 @@ WorldManager.prototype = {
         this.world_login = new LoginWorld();
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
+
+        this.light_delta = 0;
+        this.light_delta_cap = 10;
+        this.light_radius = 1000;
     },
 
     //this.world_home.add_css_scene();
 
     update_current_world: function(delta) {
+
+        // Temp just for fun, rotate the lights in a circle.
+        this.light_delta += delta;
+        this.light_percentage = this.light_delta / this.light_delta_cap;
+        if (this.light_delta >= this.light_delta_cap) {
+            this.light_delta -= this.light_delta_cap;
+        }
+        this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
+        this.light_1.position.set(cos(this.light_percentage + .25) * 1000, 100, sin(this.light_percentage + .25) * 1000);
+        this.light_2.position.set(cos(this.light_percentage + .50) * 1000, 100, sin(this.light_percentage + .50) * 1000);
+        this.light_3.position.set(cos(this.light_percentage + .75) * 1000, 100, sin(this.light_percentage + .75) * 1000);
+
         if (GUI_PAUSED_MENU.is_visible()) {
             return;
         }
@@ -108,21 +124,21 @@ WorldManager.prototype = {
         // Default lights.
         this.lights = [];
 
-        var light3 = new THREE.PointLight(0xccffcc, .5, 0);
-        light3.position.set(5, 100, 5);
-        world.add_to_scene(light3);
+        this.light_0 = new THREE.PointLight(0xccffcc, .4, 0);
+        this.light_0.position.set(5, 100, 5);
+        world.add_to_scene(this.light_0);
 
-        var lightr = new THREE.PointLight(0xff8579, .5, 0);
-        lightr.position.set(1000, 100, 0);
-        world.add_to_scene(lightr);
+        this.light_1 = new THREE.PointLight(0xff8579, .4, 0);
+        this.light_1.position.set(1000, 100, 0);
+        world.add_to_scene(this.light_1);
 
-        var lightg = new THREE.PointLight(0xb1ff90, .5, 0);
-        lightg.position.set(0, 100, 1000);
-        world.add_to_scene(lightg);
+        this.light_2 = new THREE.PointLight(0xb1ff90, .4, 0);
+        this.light_2.position.set(0, 100, 1000);
+        world.add_to_scene(this.light_2);
 
-        var lightb = new THREE.PointLight(0x84b5ff, .5, 0);
-        lightb.position.set(500, 100, 500);
-        world.add_to_scene(lightb);
+        this.light_3 = new THREE.PointLight(0x84b5ff, .4, 0);
+        this.light_3.position.set(500, 100, 500);
+        world.add_to_scene(this.light_3);
         /////////////////
 
         var light = new THREE.AmbientLight(0xffffff, .25); // soft white light
