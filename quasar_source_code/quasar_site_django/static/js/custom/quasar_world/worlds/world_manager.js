@@ -36,9 +36,6 @@ WorldManager.prototype = {
         // Temp just for fun, rotate the lights in a circle.
         this.light_delta += delta;
         this.light_percentage = this.light_delta / this.light_delta_cap;
-        if (this.light_delta >= this.light_delta_cap) {
-            this.light_delta -= this.light_delta_cap;
-        }
         this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
         this.light_1.position.set(cos(this.light_percentage + .25) * 1000, 100, sin(this.light_percentage + .25) * 1000);
         this.light_2.position.set(cos(this.light_percentage + .50) * 1000, 100, sin(this.light_percentage + .50) * 1000);
