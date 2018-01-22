@@ -78,6 +78,8 @@ Floating3DText.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_mesh: function() {
+        l('CREATING 3D BASE MESH!');
+
         this.geometry = new THREE.TextGeometry(this.text, {
             size: this.size,
             height: this.text_height,
