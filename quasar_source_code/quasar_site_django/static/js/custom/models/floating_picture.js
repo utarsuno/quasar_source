@@ -34,7 +34,7 @@ FloatingPicture.prototype = {
             // If being created from entity then the field 'image_file' will actually be the entity.
             this._entity = image_file;
 
-            
+
             l('TODO : CREATE FLOATING PICTURE FROM ENTITY DATA!!!!');
 
 
@@ -45,7 +45,8 @@ FloatingPicture.prototype = {
             var p = this.get_value(ENTITY_PROPERTY_POSITION);
             this.set_position(p.x, p.y, p.z);
 
-
+            var image = document.createElement('img');
+            image.src = this.get_value(ENTITY_PROPERTY_IMAGE_DATA);
 
 
         } else {
@@ -89,6 +90,10 @@ FloatingPicture.prototype = {
 
     state_change_look_at: function(being_looked_at) {
         l('Floating picture look at change!');
+    },
+
+    _create_image: function(raw_data) {
+
     },
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
