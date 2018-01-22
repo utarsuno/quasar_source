@@ -80,11 +80,11 @@ function Saveable(save_type) {
         switch (key) {
         case ENTITY_PROPERTY_NORMAL:
             var n = this._entity.get_value(key);
-            n = n.split('|');
+            n = n.split('-');
             return new THREE.Vector3(parseFloat(n[0]), parseFloat(n[1]), parseFloat(n[2]));
         case ENTITY_PROPERTY_POSITION:
             var p = this._entity.get_value(key);
-            p = p.split('|');
+            p = p.split('-');
             return new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]));
         default:
             return this._entity.get_value(key);
