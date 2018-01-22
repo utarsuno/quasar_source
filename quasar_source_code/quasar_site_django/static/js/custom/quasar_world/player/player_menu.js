@@ -167,7 +167,7 @@ PlayerMenu.prototype = {
 
                 this.create_wall.add_row_2D_text([0, icon_width], 3, ICON_MENU_LIST, TYPE_ICON);
                 this.create_entity_wall = this.create_wall.add_row_2D_text([icon_width, 1], 3, 'Entity Wall', TYPE_BUTTON);
-                this.create_entity_wall.set_engage_function(this.create_entity_wall.bind(this));
+                this.create_entity_wall.set_engage_function(create_entity_wall.bind(this));
 
                 this.create_wall.add_row_2D_text([0, icon_width], 4, ICON_IMPORT, TYPE_ICON);
                 this.create_picture_button = this.create_wall.add_row_2D_text([icon_width, 1], 4, 'Picture', TYPE_BUTTON);
