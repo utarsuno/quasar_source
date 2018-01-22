@@ -11,7 +11,7 @@ Floating3DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!! not really though');
         } else {
-            this.delete_mesh();
+            this.full_remove();
             this._create_3D_text_internally();
         }
     },
