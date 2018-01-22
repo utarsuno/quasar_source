@@ -148,7 +148,7 @@ function FloatingText(text, type, is_2D_text) {
             } else {
                 this.refresh_for_3D_text();
             }
-            this.color_changed = false;
+            this.text_changed = false;
             this.color_changed = false;
         }
     };

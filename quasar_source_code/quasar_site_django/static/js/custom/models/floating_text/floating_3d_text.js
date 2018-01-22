@@ -15,16 +15,8 @@ Floating3DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!! not really though');
         } else {
-            if (this.text_changed || this.color_changed) {
-
-                // TODO : Refactor this!!!
-                //this.resource_cleanup();
-
-                this._create_3D_text_internally();
-
-                this.text_changed = false;
-                this.color_changed = false;
-            }
+            this.delete_mesh();
+            this._create_3D_text_internally();
         }
     },
 

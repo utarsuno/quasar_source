@@ -22,21 +22,16 @@ Floating2DText.prototype = {
             // TODO :
             l('REFRESH THIS ICON!!');
         } else {
-            if (this.text_changed || this.color_changed) {
-                var x_offset = 0;
-                if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
-                    x_offset = this.texture_width / 2 - this._get_text_length() / 2;
-                }
-                if (this.current_background_color !== COLOR_TRANSPARENT) {
-                    this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                } else {
-                    this.dynamic_texture.clear().drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
-                }
-                this.dynamic_texture.needsUpdate = true;
-
-                this.text_changed = false;
-                this.color_changed = false;
+            var x_offset = 0;
+            if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
+                x_offset = this.texture_width / 2 - this._get_text_length() / 2;
             }
+            if (this.current_background_color !== COLOR_TRANSPARENT) {
+                this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
+            } else {
+                this.dynamic_texture.clear().drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color, this.current_background_color);
+            }
+            this.dynamic_texture.needsUpdate = true;
         }
     },
 
