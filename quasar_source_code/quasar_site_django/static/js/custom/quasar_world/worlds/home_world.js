@@ -101,10 +101,12 @@ HomeWorld.prototype = {
         var month_day_wall = new FloatingWall(w, h, p, n, this, false);
 
         month_day_wall.add_row_3D_text(false, -1, day.get_day_number(), TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index));
-        
+
         if (present) {
             month_day_wall.add_row_3D_text(false, -2, 'Today', TYPE_SUPER_TITLE, this.month_days.get_day_color_by_index(index));
         }
+
+        month_day_wall.refresh_position_and_look_at();
 
         return month_day_wall;
     },
