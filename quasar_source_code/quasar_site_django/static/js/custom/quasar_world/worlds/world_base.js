@@ -288,6 +288,8 @@ function World() {
 
         entity_wall.base_wall.refresh_position_and_look_at();
 
+        this.world.interactive_objects.push(entity_wall.base_wall);
+
         this.root_attachables.push(entity_wall.base_wall);
     };
 
