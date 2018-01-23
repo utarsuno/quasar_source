@@ -15,15 +15,15 @@ EntityWall.prototype = {
         } else {
             // -1+Second wall to save as a test....;D?+input+rgba(255, 255, 255, 0.0)@
 
-            this.set_entity(entity);
+            this.base_wall.set_entity(entity);
 
-            var width = this.get_value(ENTITY_PROPERTY_WIDTH);
-            var height = this.get_value(ENTITY_PROPERTY_HEIGHT);
-            var position = this.get_value(ENTITY_PROPERTY_POSITION);
-            var normal = this.get_value(ENTITY_PROPERTY_NORMAL);
+            var width = this.base_wall.get_value(ENTITY_PROPERTY_WIDTH);
+            var height = this.base_wall.get_value(ENTITY_PROPERTY_HEIGHT);
+            var position = this.base_wall.get_value(ENTITY_PROPERTY_POSITION);
+            var normal = this.base_wall.get_value(ENTITY_PROPERTY_NORMAL);
 
-            var rows_2D = this.get_value(ENTITY_PROPERTY_2D_ROWS);
-            var rows_3D = this.get_value(ENTITY_PROPERTY_3D_ROWS);
+            var rows_2D = this.base_wall.get_value(ENTITY_PROPERTY_2D_ROWS);
+            var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
 
 
             // Parse the 2D rows.
