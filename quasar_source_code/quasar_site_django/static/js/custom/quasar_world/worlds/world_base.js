@@ -296,10 +296,6 @@ function World() {
         entity_wall.base_wall.set_normal(-pn.x, 0, -pn.z);
 
         entity_wall.base_wall.refresh_position_and_look_at();
-
-        this.interactive_objects.push(entity_wall.base_wall);
-
-        this.root_attachables.push(entity_wall.base_wall);
     };
 
     /*__   __   ___      ___  ___     __     __  ___       __   ___
