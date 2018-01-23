@@ -49,7 +49,7 @@ EntityWall.prototype = {
                     // INDEX {COLOR}        - 5
                     // INDEX {SYNTAX_RULES} - 6
 
-                    var d = rows_2D.split('+');
+                    var d = rows_2D[r2].split('+');
 
                     this.base_wall.add_row_2D_text([d[1], d[2]], d[0], d[3], d[4], d[6], d[5]);
                 }
@@ -68,7 +68,7 @@ EntityWall.prototype = {
                     // INDEX {TYPE}     - 3
                     // INDEX {COLOR}    - 4
 
-                    var d = rows_3D.split('+');
+                    var d = rows_3D[r3].split('+');
 
                     this.base_wall.add_row_3D_text(d[1], d[0], d[2], d[3], d[4]);
 
