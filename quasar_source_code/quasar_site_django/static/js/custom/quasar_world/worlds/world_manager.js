@@ -107,7 +107,6 @@ WorldManager.prototype = {
         skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(skybox_cube);
 
-
         // Default hex grid ground.
         var grid = new vg.HexGrid({cellSize: 100});
         grid.generate({size: 10});

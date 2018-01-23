@@ -1,6 +1,5 @@
 'use strict';
 
-
 function Attachmentable(world) {
 
     this.object3D = new THREE.Object3D();

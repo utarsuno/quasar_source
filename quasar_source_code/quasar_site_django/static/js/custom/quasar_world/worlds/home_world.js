@@ -21,6 +21,14 @@ HomeWorld.prototype = {
         var floating_pictures = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_PICTURE);
         for (var p = 0; p < floating_pictures.length; p++) {
             var fp = new FloatingPicture(floating_pictures[p], this, true);
+
+            // TODO : Add this floating picture to root attachables?
+        }
+
+        var entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
+        for (var ew = 0; ew < entity_walls.length; ew++) {
+            var entity_wall = new EntityWall(this, entity_walls[ew]);
+            this.root_attachables.push(entity_wall);
         }
 
         // TODO : Load all entity walls.

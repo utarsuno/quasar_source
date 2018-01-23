@@ -137,7 +137,10 @@ Entity.prototype = {
     },
 
     get_value: function(property_name) {
-        return this[property_name];
+        if (this.hasOwnProperty(property_name)) {
+            return this[property_name];
+        }
+        return null;
     },
 
     get_name: function() {

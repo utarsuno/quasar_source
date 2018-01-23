@@ -115,12 +115,6 @@ function Saveable(save_type) {
             var p = this._entity.get_value(key);
             p = p.split('+');
             return new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]));
-        case ENTITY_PROPERTY_2D_ROWS:
-            l('TODO : 2D ROWS LOADING!!!!');
-            break;
-        case ENTITY_PROPERTY_3D_ROWS:
-            l('TODO : 3D ROWS LOADING!!!!!');
-            break;
         default:
             return this._entity.get_value(key);
         }
