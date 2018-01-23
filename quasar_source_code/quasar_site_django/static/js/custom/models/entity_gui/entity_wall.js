@@ -10,7 +10,7 @@ EntityWall.prototype = {
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.add_row_3D_text(false, -1, 'Entity Wall', TYPE_INPUT);
 
-        this.base_wall.saveable = true;
+        this.base_wall.set_to_saveable();
     }
 
 };

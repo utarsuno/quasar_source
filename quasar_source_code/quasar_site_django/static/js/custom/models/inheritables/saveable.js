@@ -8,6 +8,12 @@ function Saveable(save_type) {
 
     this._entity = null;
 
+    this.set_to_saveable = function() {
+        if (!is_defined(this._entity)) {
+            this.create_new_entity();
+        }
+    };
+
     this.set_entity = function(e) {
         this._entity = e;
     };
