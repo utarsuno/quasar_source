@@ -3,6 +3,7 @@
 function Saveable(save_type) {
 
     this.save_type = save_type;
+    // TODO : Change design so that this is false and saving must be explicitly enabled.
     this.saveable  = true;
     this._save_field_keys = [];
 
@@ -65,7 +66,7 @@ function Saveable(save_type) {
                 this._entity.set_property(key, p.x + '+' + p.y + '+' + p.z);
                 break;
             case ENTITY_PROPERTY_2D_ROWS:
-                l('TODO!!! SAVE ALL THE 2D ROWS!!!');
+                //l('TODO!!! SAVE ALL THE 2D ROWS!!!');
 
                 var row_data = '';
 
@@ -78,6 +79,8 @@ function Saveable(save_type) {
                     row_data += this._2D_rows[r][1].type + '+';
                     row_data += this._2D_rows[r][1].default_background_color + '@';
                 }
+
+                this._entity.set_property(key, row_data);
 
                 break;
             case ENTITY_PROPERTY_3D_ROWS:
@@ -94,7 +97,9 @@ function Saveable(save_type) {
                     row_data += this._3D_rows[r][1].default_background_color + '@';
                 }
 
-                l('TODO!!! SAVE ALL THE 3D ROWS!!!');
+                this._entity.set_property(key, row_data);
+
+                //l('TODO!!! SAVE ALL THE 3D ROWS!!!');
                 break;
             }
         }
