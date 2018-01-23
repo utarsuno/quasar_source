@@ -14,7 +14,7 @@ EntityWall.prototype = {
             this.base_wall.set_to_saveable();
         } else {
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
-            
+
             // -1+Second wall to save as a test....;D?+input+rgba(255, 255, 255, 0.0)@
 
             this.base_wall.set_entity(entity);
