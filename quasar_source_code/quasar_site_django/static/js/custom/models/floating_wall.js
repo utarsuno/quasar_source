@@ -43,6 +43,22 @@ FloatingWall.prototype = {
         this.default_background_color = COLOR_FLOATING_WALL_BASE;
 
         //this.make_base_wall_visible();
+
+        this._2D_rows = [];
+        this._3D_rows = [];
+
+        // Inherit from Saveable but set to false by default.
+        Saveable.call(this, ENTITY_TYPE_WALL);
+        this.saveable = false;
+        this.add_save_field(ENTITY_PROPERTY_WIDTH);
+        this.add_save_field(ENTITY_PROPERTY_HEIGHT);
+        this.add_save_field(ENTITY_PROPERTY_POSITION);
+        this.add_save_field(ENTITY_PROPERTY_NORMAL);
+        this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
+        this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
+        this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
+
+        // TODO : ADD SAVE FIELDS FOR ALL THE 2D AND 3D ROWS!!!
     },
 
     make_base_wall_invisible: function() {
@@ -115,6 +131,9 @@ FloatingWall.prototype = {
         floating_3D_text.set_attachment_vertical_offset(-16 + -32 * row, HALF);
 
         floating_3D_text.attach_to(this);
+
+        this._3D_rows.push([row, floating_3D_text]);
+
         return floating_3D_text;
     },
 
@@ -130,6 +149,8 @@ FloatingWall.prototype = {
         floating_2D_text.set_attachment_vertical_offset(-8 + -16 * row, HALF);
 
         floating_2D_text.attach_to(this);
+
+        this._2D_rows.push([row, floating_2D_text]);
 
         return floating_2D_text;
     },

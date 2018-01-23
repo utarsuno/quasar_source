@@ -225,6 +225,8 @@ module.exports = {
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
         "ENTITY_PROPERTY_IMAGE_DATA"         : false,
         "ENTITY_PROPERTY_IS_ROOT_ATTACHABLE" : false,
+        "ENTITY_PROPERTY_3D_ROWS"            : false,
+        "ENTITY_PROPERTY_2D_ROWS"            : false,
         // UNIVERSAL_CONSTANTS_END
 
         "SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION"  : true,
