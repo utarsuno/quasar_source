@@ -28,26 +28,6 @@ function Saveable(save_type) {
         for (var k = 0; k < this._save_field_keys.length; k++) {
             var key = this._save_field_keys[k];
             switch(key) {
-            case ENTITY_PROPERTY_WIDTH:
-                entity_data[key] = this.width;
-                break;
-            case ENTITY_PROPERTY_HEIGHT:
-                entity_data[key] = this.height;
-                break;
-            case ENTITY_PROPERTY_NORMAL:
-                var n = this.get_normal();
-                // The normal might be set later during a value update.
-                if (is_defined(n)) {
-                    entity_data[key] = n.x + '+' + n.y + '+' + n.z;
-                }
-                break;
-            case ENTITY_PROPERTY_POSITION:
-                var p = this.get_position();
-                // The position might be set later during a value update.
-                if (is_defined(p)) {
-                    entity_data[key] = p.x + '+' + p.y + '+' + p.z;
-                }
-                break;
             case ENTITY_PROPERTY_IS_ROOT_ATTACHABLE:
                 entity_data[key] = this.is_root().toString();
                 break;
