@@ -49,8 +49,8 @@ EntityWall.prototype = {
 
 
         // Regardless if created or loaded the following operations must be taken.
-        this.world.interactive_objects.push(this.base_wall);
-        this.world.root_attachables.push(this.base_wall);
+        this.base_wall.world.interactive_objects.push(this.base_wall);
+        this.base_wall.world.root_attachables.push(this.base_wall);
 
     }
 
