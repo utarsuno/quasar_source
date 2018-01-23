@@ -71,13 +71,17 @@ function Saveable(save_type) {
                 var row_data = '';
 
                 // INDEX {ROW}              - 0
-                // INDEX {FLOATING_2D_TEXT} - 1
+                // INDEX {X_START}          - 1
+                // INDEX {X_END}            - 2
+                // INDEX {FLOATING_2D_TEXT} - 3
 
                 for (var r = 0; r < this._2D_rows.length; r++) {
                     row_data += this._2D_rows[r][0] + '+';
-                    row_data += this._2D_rows[r][1].get_text() + '+';
-                    row_data += this._2D_rows[r][1].type + '+';
-                    row_data += this._2D_rows[r][1].default_background_color + '@';
+                    row_data += this._2D_rows[r][1] + '+';
+                    row_data += this._2D_rows[r][2] + '+';
+                    row_data += this._2D_rows[r][3].get_text() + '+';
+                    row_data += this._2D_rows[r][3].type + '+';
+                    row_data += this._2D_rows[r][3].default_color + '@';
                 }
 
                 this._entity.set_property(key, row_data);
@@ -88,13 +92,15 @@ function Saveable(save_type) {
                 var row_data = '';
 
                 // INDEX {ROW}              - 0
-                // INDEX {FLOATING_3D_TEXT} - 1
+                // INDEX {CENTERED}         - 1
+                // INDEX {FLOATING_3D_TEXT} - 2
 
                 for (var r = 0; r < this._3D_rows.length; r++) {
                     row_data += this._3D_rows[r][0] + '+';
-                    row_data += this._3D_rows[r][1].get_text() + '+';
-                    row_data += this._3D_rows[r][1].type + '+';
-                    row_data += this._3D_rows[r][1].default_background_color + '@';
+                    row_data += this._3D_rows[r][1].toString() + '+';
+                    row_data += this._3D_rows[r][2].get_text() + '+';
+                    row_data += this._3D_rows[r][2].type + '+';
+                    row_data += this._3D_rows[r][2].default_color + '@';
                 }
 
                 this._entity.set_property(key, row_data);
@@ -110,10 +116,12 @@ function Saveable(save_type) {
         case ENTITY_PROPERTY_NORMAL:
             var n = this._entity.get_value(key);
             n = n.split('+');
+            // TODO : Actually just send a list of 3 values.
             return new THREE.Vector3(parseFloat(n[0]), parseFloat(n[1]), parseFloat(n[2]));
         case ENTITY_PROPERTY_POSITION:
             var p = this._entity.get_value(key);
             p = p.split('+');
+            // TODO : Actually just send a list of 3 values.
             return new THREE.Vector3(parseFloat(p[0]), parseFloat(p[1]), parseFloat(p[2]));
         default:
             return this._entity.get_value(key);

@@ -130,15 +130,21 @@ FloatingWall.prototype = {
 
         floating_3D_text.attach_to(this);
 
-        this._3D_rows.push([row, floating_3D_text]);
+        // Needed for saving.
+        this._3D_rows.push([row, centered, floating_3D_text]);
 
         return floating_3D_text;
     },
 
-    add_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks) {
+    add_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks, color) {
         var total_percentage_of_parent_width = (x_start_and_stop[1] - x_start_and_stop[0]);
         var floating_2D_text_width = this.width * total_percentage_of_parent_width;
         var floating_2D_text = new Floating2DText(floating_2D_text_width, text, type, this.world, syntax_checks);
+
+        if (is_defined(color)) {
+            floating_2D_text.set_default_color(color);
+            floating_2D_text.set_color(color, true);
+        }
 
         floating_2D_text.set_attachment_depth_offset(1);
         floating_2D_text.set_attachment_horizontal_offset(0, -HALF + x_start_and_stop[0] + total_percentage_of_parent_width / 2);
@@ -148,7 +154,8 @@ FloatingWall.prototype = {
 
         floating_2D_text.attach_to(this);
 
-        this._2D_rows.push([row, floating_2D_text]);
+        // Needed for saving.
+        this._2D_rows.push([row, x_start_and_stop[0], x_start_and_stop[1], floating_2D_text]);
 
         return floating_2D_text;
     },
