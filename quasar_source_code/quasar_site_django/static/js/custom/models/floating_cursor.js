@@ -69,6 +69,8 @@ FloatingCursor.prototype = {
             current_vertical_percentage *= 2;
             current_vertical_percentage *= -1;
             this.currently_attached_to.update_height(1 + current_vertical_percentage);
+            this.currently_attached_to.refresh_position_and_look_at();
+
         } else if (this._is_current_cursor_type(CURSOR_TYPE_HORIZONTAL)) {
 
             var w = this.currently_attached_to.width;
@@ -81,7 +83,7 @@ FloatingCursor.prototype = {
 
             //current_vertical_percentage *= -1;
             this.currently_attached_to.update_width(1 + current_horizontal_percentage);
-
+            this.currently_attached_to.refresh_position_and_look_at();
         }
 
     },
