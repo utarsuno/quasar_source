@@ -18,6 +18,9 @@ Account.prototype = {
     },
 
     is_listed_on_floating_wall: function() {
+        if (!is_defined(this.floating_wall)) {
+            return false;
+        }
         for (var f = 0; f < this.floating_wall._2D_rows.length; f++) {
             // 3 is the index of the floating_2D_text
             if (this.floating_wall._2D_rows[f][3].get_text() === this.account_name) {
