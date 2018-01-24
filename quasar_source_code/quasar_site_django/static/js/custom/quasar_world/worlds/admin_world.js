@@ -66,11 +66,12 @@ AdminWorld.prototype = {
 
         // Account actions list.
         this.wall_account_actions = new FloatingWall(200, 300, null, null, this, false);
+        this.wall_account_actions.add_close_button();
         this.wall_account_actions.add_row_3D_text(false, -1, 'Account Actions', TYPE_TITLE);
 
         // TODO : Add the actions here
-        this.wall_account_actions.add_row_2D_text([0, 1], 0, 'Set to Verified', TYPE_BUTTON);
-        this.wall_account_actions.add_row_2D_text([0, 1], 1, 'Delete Account', TYPE_BUTTON);
+        this.wall_account_actions.add_row_2D_text([0, 1], 1, 'Set to Verified', TYPE_BUTTON);
+        this.wall_account_actions.add_row_2D_text([0, 1], 2, 'Delete Account', TYPE_BUTTON);
 
         this.wall_account_actions.set_attachment_depth_offset(5);
         this.wall_account_actions.hide_self_and_all_child_attachments_recursively();
@@ -142,6 +143,7 @@ AdminWorld.prototype = {
         this.wall_account_actions.attach_to(account.button);
 
         this.wall_account_actions.refresh_position_and_look_at();
+        this.wall_account_actions.display_self_and_all_child_attachments_recursively();
     },
 
     enter_world: function() {
