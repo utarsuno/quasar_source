@@ -93,7 +93,7 @@ AdminWorld.prototype = {
             if (is_defined(account_data[0] && is_defined(account_data[1]))) {
                 if (account_data[0] !== '') {
                     if (!this._have_account(account_data[0])) {
-                        this.accounts.push(new Account(account_data[0], account_data[1]));
+                        this.accounts.push(new Account(account_data[0], account_data[1], this.floating_wall));
                     }
                 }
             }
