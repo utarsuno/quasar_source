@@ -10,11 +10,11 @@ Account.prototype = {
         this.account_type = account_type;
         this.floating_wall = floating_wall;
 
-        this._button = null;
+        this.button = null;
     },
 
     set_button: function(b) {
-        this._button = b;
+        this.button = b;
     },
 
     is_listed_on_floating_wall: function() {
@@ -47,7 +47,7 @@ AdminWorld.prototype = {
 
         var p = new THREE.Vector3(1000, 1000, 1500);
         var n = new THREE.Vector3(-.56, 0, -.8);
-        this.wall_all_accounts = new FloatingWall(600, 1000, p, n, this, false);
+        this.wall_all_accounts = new FloatingWall(500, 1000, p, n, this, false);
         this.wall_all_accounts.add_row_3D_text(false, -1, 'All Accounts', TYPE_TITLE, COLOR_BLUE);
 
         this.button_load_all_accounts = this.wall_all_accounts.add_row_2D_text([0, 1], 0, 'Refresh/Load All Accounts', TYPE_BUTTON, null, COLOR_YELLOW);
@@ -67,9 +67,13 @@ AdminWorld.prototype = {
         // Account actions list.
         this.wall_account_actions = new FloatingWall(200, 300, null, null, this, false);
         this.wall_account_actions.add_row_3D_text(false, -1, 'Account Actions', TYPE_TITLE);
-        // TODO : Add the actions here
 
-        this.wall_account_actions.set_to_invisible();
+        // TODO : Add the actions here
+        this.wall_account_actions.add_row_2D_text([0, 1], 0, 'Set to Verified', TYPE_BUTTON);
+        this.wall_account_actions.add_row_2D_text([0, 1], 1, 'Delete Account', TYPE_BUTTON);
+
+        this.wall_account_actions.set_attachment_depth_offset(5);
+        this.wall_account_actions.hide_self_and_all_child_attachments_recursively();
     },
 
     _load_all_accounts_action: function() {
@@ -131,6 +135,13 @@ AdminWorld.prototype = {
 
     _perform_account_actions_button_pressed: function(account) {
         l('TODO : Perform account actions!');
+        if (this.wall_account_actions.is_attached()) {
+            this.wall_account_actions.detach_from_parent();
+        }
+
+        this.wall_account_actions.attach_to(account.button);
+
+        this.wall_account_actions.refresh_position_and_look_at();
     },
 
     enter_world: function() {

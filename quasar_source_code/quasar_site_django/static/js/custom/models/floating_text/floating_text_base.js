@@ -76,8 +76,6 @@ function FloatingText(text, type, is_2D_text) {
     // Color variables.
     this.set_default_background_color(COLOR_TRANSPARENT, false);
     this.set_background_color(COLOR_TRANSPARENT, false);
-    this.set_default_color(COLOR_TEXT_DEFAULT, false);
-    this.set_color(COLOR_TEXT_DEFAULT, false);
 
     this.format_type = null;
 
@@ -133,6 +131,7 @@ function FloatingText(text, type, is_2D_text) {
                 break;
             }
         }
+        // TODO : Remove or refactor this.
         this.color_changed = true;
         this.refresh();
     };

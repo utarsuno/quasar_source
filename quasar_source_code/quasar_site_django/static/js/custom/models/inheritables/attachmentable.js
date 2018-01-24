@@ -81,6 +81,23 @@ function Attachmentable(world) {
     /*    ___ ___       __               __
       /\   |   |   /\  /  ` |__| | |\ | / _`
      /~~\  |   |  /~~\ \__, |  | | | \| \__> */
+    this.is_attached = function() {
+        return !(this.attachment_parent === null);
+    };
+
+    this.detach_from_parent = function() {
+        var remove_index = -1;
+        for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
+            if (this.attachment_parent.attachments[a] === this) {
+                remove_index = a;
+                break;
+            }
+        }
+        if (remove_index !== NOT_FOUND) {
+            this.attachment_parent.attachments.slice(remove_index, 1);
+        }
+    };
+
     this.attach_to = function(attachment_parent) {
         attachment_parent.add_attachment(this);
     };
