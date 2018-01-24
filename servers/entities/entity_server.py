@@ -121,11 +121,15 @@ class EntityServer(object):
 				self._host_server.send_reply(self._update_entity(raw_data[0], raw_data[1]))
 			elif command == us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION:
 
-				sub_command, sub_data = self._parse_out_server_command(data)
+				username = None
 
-				cleaned_data = sub_data.split('|')
-				username = cleaned_data[0]
-				data     = cleaned_data[1]
+				if ':' in data:
+					sub_command, sub_data = self._parse_out_server_command(data)
+					cleaned_data = sub_data.split('|')
+					username = cleaned_data[0]
+					data = cleaned_data[1]
+				else:
+					sub_command = data
 
 				if sub_command == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
 					self._host_server.send_reply(self._set_entity_owner_account_type(username, data))
