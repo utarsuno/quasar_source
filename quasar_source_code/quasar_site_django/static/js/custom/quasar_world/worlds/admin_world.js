@@ -144,6 +144,8 @@ AdminWorld.prototype = {
 
         this.wall_account_actions.refresh_position_and_look_at();
         this.wall_account_actions.display_self_and_all_child_attachments_recursively();
+
+        this.wall_all_accounts.refresh_position_and_look_at();
     },
 
     enter_world: function() {
