@@ -86,7 +86,9 @@ AdminWorld.prototype = {
         var all_accounts = result.split('-');
         for (var a = 0; a < all_accounts.length; a++) {
             var account_data = all_accounts[a].split('+');
-            this.accounts.push(new Account(account_data[0], account_data[1]));
+            if (!this._have_account(account_data[0])) {
+                this.accounts.push(new Account(account_data[0], account_data[1]));
+            }
         }
 
         this._refresh_account_list();
@@ -105,6 +107,15 @@ AdminWorld.prototype = {
                 this.number_of_accounts_listed += 1;
             }
         }
+    },
+
+    _have_account: function(account_name) {
+        for (var a = 0; a < this.accounts.length; a++) {
+            if (this.accounts[a].account_name === account_name) {
+                return true;
+            }
+        }
+        return false;
     },
 
     _perform_account_actions_button_pressed: function(account) {
