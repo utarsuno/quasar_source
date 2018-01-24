@@ -64,6 +64,14 @@ class EntityServer(object):
 
 		return us.SUCCESS_MESSAGE
 
+	def _get_all_accounts_information(self):
+		"""Returns all account information."""
+		data = ''
+		for e_o in self._entity_owners:
+			owner_entity = e_o.get_owner_entity()
+			data += owner_entity.get_value(be.ENTITY_PROPERTY_USERNAME) + '+' + owner_entity.get_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE) + '-'
+		return data
+
 	def _set_entity_owner_account_type(self, username, account_type):
 		"""Sets the entity owner's account type."""
 		entity_owner = self._get_entity_owner_by_username(username)
@@ -116,8 +124,9 @@ class EntityServer(object):
 				data     = cleaned_data[1]
 
 				if sub_command == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
-
 					self._host_server.send_reply(self._set_entity_owner_account_type(username, data))
+				elif sub_command == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
+					self._host_server.send_reply(self._get_all_accounts_information())
 				else:
 					dbg.raise_exception('Invalid sub command passed in!')
 

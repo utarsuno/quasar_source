@@ -46,6 +46,7 @@ POST_KEY_GENERIC_DATA = 'generic_data_key'
 # Django commands.
 SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION   = 'eoo'
 SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat'
+SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai'
 
 
 # Code from https://stackoverflow.com/questions/7585435/best-way-to-convert-string-to-bytes-in-python-3

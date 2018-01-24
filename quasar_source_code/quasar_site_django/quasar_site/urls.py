@@ -23,10 +23,9 @@ POST_URL_SAVE_ENTITY           = r'save_entity'
 POST_URL_GET_USER_ENTITIES     = r'get_user_entities'
 POST_URL_CREATE_ACCOUNT        = r'create_account'
 POST_URL_LOGIN                 = r'login'
-POST_URL_ENTITY_MANAGER_STATUS = r'server_side_print_entity_manager_status'
 POST_URL_GET_DATABASE_DATA     = r'get_database_data'
-POST_URL_GET_ALL_SERVER_CACHE  = r'get_all_server_cache'
 POST_URL_GET_SERVER_LOGS       = r'get_server_logs'
+POST_URL_SUDO_COMMAND          = r'sudo_command'
 # UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [
@@ -37,6 +36,7 @@ urlpatterns = [
     url(POST_URL_GET_USER_ENTITIES    , v.POST_get_user_entities),
     url(POST_URL_SAVE_ENTITY          , v.POST_save_entity),
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
+    url(POST_URL_SUDO_COMMAND         , v.POST_sudo_command),
 
     url(r'dev', v.GET_quasar_dev),
     url(r'qa' , v.GET_quasar_qa),

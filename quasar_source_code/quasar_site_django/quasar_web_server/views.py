@@ -59,10 +59,9 @@ def GET_web_socket(request):
 
 # everything above is being organized.
 
-'''  __        __           ___       __
-    |__)  /\  /  ` |__/    |__  |\ | |  \
-    |__) /~~\ \__, |  \    |___ | \| |__/
-'''
+'''__        __           ___       __
+  |__)  /\  /  ` |__/    |__  |\ | |  \
+  |__) /~~\ \__, |  \    |___ | \| |__/ '''
 
 # Server response messages.
 SERVER_REPLY_INVALID_POST_DATA_ERROR                = HttpResponse('Invalid POST data!')
@@ -86,7 +85,7 @@ def return_based_on_result(result):
 def check_POST_arguments(arguments, dictionary):
     """Just a utility function to raise an exception if there is an in-correct match on POST arguments.
     :param arguments: The arguments to check for.
-    :param request: Contains information regarding the request sent in.
+    :param dictionary: Contains information regarding the request sent in.
     :return: Boolean indicating if this threw an exception or not.
     """
     if len(dictionary) != len(arguments):
@@ -105,10 +104,8 @@ def check_POST_arguments(arguments, dictionary):
 # From : https://stackoverflow.com/questions/13349573/how-to-change-a-django-querydict-to-python-dict
 def qdict_to_dict(qdict):
     """Convert a Django QueryDict to a Python dict.
-
     Single-value fields are put in directly, and for multi-value fields, a list
     of all values is stored at the field's key.
-
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
 
@@ -118,9 +115,9 @@ def qdict_to_dict(qdict):
 
 
 @csrf_exempt
-def POST_entity_owner_admin_command(request):
+def POST_sudo_command(request):
     """Handles the POST request for entity owner admin commands."""
-    print('POST entity owner admin command')
+    print('POST sudo command')
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
@@ -139,6 +136,8 @@ def POST_entity_owner_admin_command(request):
     if reply:
         if received_operation == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
             return return_based_on_result(quasar_server.set_entity_owner_account_type(received_username, received_data))
+        elif received_operation == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
+            return return_based_on_result(quasar_server.get_all_accounts_information())
         else:
             dbg.raise_exception('Invalid command received!')
     else:
@@ -148,7 +147,6 @@ def POST_entity_owner_admin_command(request):
 '''___      ___   ___         __             ___  __      __   __   ___  __       ___    __        __
   |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
   |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
-
 
 
 @csrf_exempt
@@ -269,6 +267,7 @@ def POST_save_entity(request):
         return return_based_on_result(message)
 
 
+# TODO : DELETE THIS!
 @csrf_exempt
 def POST_get_user_entities(request):
     """Handles the POST request to load all entities."""

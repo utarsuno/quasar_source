@@ -121,9 +121,7 @@ const POST_URL_SAVE_ENTITY           = '/save_entity';
 const POST_URL_GET_USER_ENTITIES     = '/get_user_entities';
 const POST_URL_CREATE_ACCOUNT        = '/create_account';
 const POST_URL_LOGIN                 = '/login';
-const POST_URL_ENTITY_MANAGER_STATUS = '/server_side_print_entity_manager_status';
 const POST_URL_GET_DATABASE_DATA     = '/get_database_data';
-const POST_URL_GET_ALL_SERVER_CACHE  = '/get_all_server_cache';
 const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 // UNIVERSAL_CONSTANTS_END
 
@@ -167,6 +165,7 @@ const COLOR_TEXT_BUTTON             = [0x60d6ff, '#60d6ff'];
 const COLOR_RED                     = [0xff5e33, '#ff5e33'];
 const COLOR_ORANGE                  = [0xFF7F00, '#FF7F00'];
 const COLOR_GREEN                   = [0x6cff61, '#6cff61'];
+const COLOR_YELLOW                  = [0xf3ff5b, '#f3ff5b'];
 const COLOR_BLUE                    = [0x2a33ff, '#2a33ff'];
 const COLOR_DARK_PURPLE             = [0x4B0082, '#4B0082'];
 const COLOR_LIGHT_PURPLE            = [0x8F00FF, '#8F00FF'];
