@@ -68,7 +68,8 @@ class EntityServer(object):
 		"""Returns all account information."""
 		data = ''
 		for e_o in self._entity_owners:
-			data += e_o.get_value(be.ENTITY_PROPERTY_USERNAME) + '+' + e_o.get_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE) + '-'
+			username, account_type = e_o.get_account_name_and_type()
+			data += username + '+' + account_type + '-'
 		return data
 
 	def _set_entity_owner_account_type(self, username, account_type):

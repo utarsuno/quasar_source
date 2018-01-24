@@ -63,6 +63,14 @@ class EntityOwner(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_account_name_and_type(self):
+		"""Returns the account name and account type."""
+		entity_owner_entity = self._entity_manager.get_owner_entity()
+		return entity_owner_entity.get_value(be.ENTITY_PROPERTY_USERNAME), entity_owner_entity.get_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE)
+
+	def get_entity_manager(self):
+		"""Returns the entity manager of this EntityOwner."""
+		return self._entity_manager
 
 	def get_all_entities(self):
 		"""Returns all the entities in this EntityOwner."""
