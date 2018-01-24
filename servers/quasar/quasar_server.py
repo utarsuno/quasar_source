@@ -83,7 +83,7 @@ class QuasarServer(object):
 	  /~~\ |__/  |  | | | \|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
 	def get_all_accounts_information(self):
 		"""Returns a list of all the accounts and their account type."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION + ':')
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION)
 
 	def set_entity_owner_account_type(self, username, account_type):
 		"""Sets an entity owner's account type."""
@@ -107,7 +107,7 @@ if len(arguments) == 1:
 		command = flag[:flag.index(':')]
 		data = flag[flag.index(':') + 1:]
 	else:
-		command = flag
+		command = flag1
 		data = ''
 
 	quasar_server = QuasarServer()
