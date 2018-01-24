@@ -22,6 +22,8 @@ AdminWorld.prototype = {
 
         this.button_load_all_accounts = this.wall_all_accounts.add_row_2D_text([0, 1], 0, 'Refresh/Load All Accounts', TYPE_BUTTON, null, COLOR_YELLOW);
         this.button_load_all_accounts.set_engage_function(this._load_all_accounts_action.bind(this));
+
+        this.wall_all_accounts.refresh_position_and_look_at();
     },
 
     _load_all_accounts_action: function() {
@@ -30,7 +32,7 @@ AdminWorld.prototype = {
         data[ENTITY_PROPERTY_PASSWORD]      = ENTITY_OWNER.get_password();
         data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION;
         data[POST_KEY_GENERIC_DATA]         = 'not_needed';
-        this.post_get_all_accounts_information(data, this._all_accounts_information_result.bind(this));
+        this.post_get_all_accounts_information.perform_post(data, this._all_accounts_information_result.bind(this));
     },
 
     _all_accounts_information_result: function(result) {
