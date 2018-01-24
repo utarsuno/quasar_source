@@ -290,6 +290,9 @@ LoadingManager.prototype = {
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_admin);
         }
 
+        GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
+        MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
+
         GUI_PAUSED_MENU.make_invisible();
 
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
@@ -301,12 +304,8 @@ LoadingManager.prototype = {
         this._currently_creating_world = true;
 
         GUI_PAUSED_MENU.set_text('Loading!');
-        GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
-        GUI_PAUSED_MENU.make_visible();
-
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
-
         GUI_PAUSED_MENU.set_sub_text('Creating home world...');
+        GUI_PAUSED_MENU.make_visible();
 
         ENTITY_OWNER = new EntityOwner(username, password);
         MANAGER_ENTITY.load_data();

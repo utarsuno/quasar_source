@@ -9,7 +9,7 @@ AdminWorld.prototype = {
     __init__: function () {
         World.call(this);
 
-        
+
 
     },
 
