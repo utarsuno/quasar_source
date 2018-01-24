@@ -228,8 +228,10 @@ module.exports = {
         "ENTITY_PROPERTY_2D_ROWS"            : false,
         // UNIVERSAL_CONSTANTS_END
 
-        "SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION"  : true,
+        "POST_KEY_GENERIC_DATA"                       : true,
+        "SERVER_COMMAND_SUDO_OPERATION"               : true,
         "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
+        "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
 
         "ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE" : false,
 
@@ -279,8 +281,6 @@ module.exports = {
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
-
-        "POST_KEY_GENERIC_DATA" : true,
 
         "POST_USERNAME"  : false,
         "POST_PASSWORD"  : false,

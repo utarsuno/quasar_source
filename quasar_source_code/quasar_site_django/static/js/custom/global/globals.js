@@ -102,9 +102,6 @@ const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relat
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
 
-const SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION = 'eoo';
-const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
-
 const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = ENTITY_PROPERTY_START_TOKEN + 'account_type';
 
 const ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified';
@@ -113,7 +110,11 @@ const ACCOUNT_TYPE_DEFAULT      = 'default';
 const ACCOUNT_TYPE_ADMIN        = 'admin';
 const ACCOUNT_TYPE_SUDO         = 'sudo';
 
-const POST_KEY_GENERIC_DATA = 'generic_data_key';
+const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
+const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';
+const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
+const SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai';
+
 
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
