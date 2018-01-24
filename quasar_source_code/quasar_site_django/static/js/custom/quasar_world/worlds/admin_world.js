@@ -47,7 +47,7 @@ AdminWorld.prototype = {
 
         var p = new THREE.Vector3(1000, 1000, 1500);
         var n = new THREE.Vector3(-.56, 0, -.8);
-        this.wall_all_accounts = new FloatingWall(1000, 1000, p, n, this, false);
+        this.wall_all_accounts = new FloatingWall(600, 1000, p, n, this, false);
         this.wall_all_accounts.add_row_3D_text(false, -1, 'All Accounts', TYPE_TITLE, COLOR_BLUE);
 
         this.button_load_all_accounts = this.wall_all_accounts.add_row_2D_text([0, 1], 0, 'Refresh/Load All Accounts', TYPE_BUTTON, null, COLOR_YELLOW);
@@ -82,15 +82,14 @@ AdminWorld.prototype = {
     },
 
     _all_accounts_information_result: function(result) {
-        l('ALL ACCOUNTS INFORMATION RESULT');
-        l(result);
-
         var all_accounts = result.split('-');
         for (var a = 0; a < all_accounts.length; a++) {
             var account_data = all_accounts[a].split('+');
             if (is_defined(account_data[0] && is_defined(account_data[1]))) {
-                if (!this._have_account(account_data[0])) {
-                    this.accounts.push(new Account(account_data[0], account_data[1]));
+                if (account_data[0] !== '') {
+                    if (!this._have_account(account_data[0])) {
+                        this.accounts.push(new Account(account_data[0], account_data[1]));
+                    }
                 }
             }
         }
@@ -103,9 +102,9 @@ AdminWorld.prototype = {
 
         for (var a = 0; a < this.accounts.length; a++) {
             if (!this.accounts[a].is_listed_on_floating_wall()) {
-                this.wall_all_accounts.add_row_2D_text([0, ONE_THIRD], 2 + this.number_of_accounts_listed, this.accounts[a].account_name, TYPE_CONSTANT);
-                this.wall_all_accounts.add_row_2D_text([ONE_THIRD, TWO_THIRDS], 2 + this.number_of_accounts_listed, this.accounts[a].account_type, TYPE_CONSTANT);
-                var perform_account_actions_button =  this.wall_all_accounts.add_row_2D_text([TWO_THIRDS, 1], 2 + this.number_of_accounts_listed, 'actions', TYPE_BUTTON);
+                this.wall_all_accounts.add_row_2D_text([0, ONE_THIRD], 3 + this.number_of_accounts_listed, this.accounts[a].account_name, TYPE_CONSTANT);
+                this.wall_all_accounts.add_row_2D_text([ONE_THIRD, TWO_THIRDS], 3 + this.number_of_accounts_listed, this.accounts[a].account_type, TYPE_CONSTANT);
+                var perform_account_actions_button =  this.wall_all_accounts.add_row_2D_text([TWO_THIRDS, 1], 3 + this.number_of_accounts_listed, 'actions', TYPE_BUTTON);
                 perform_account_actions_button.set_engage_function(this._perform_account_actions_button_pressed.bind(this, this.accounts[a]));
 
                 this.accounts[a].set_button(perform_account_actions_button);
