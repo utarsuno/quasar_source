@@ -113,7 +113,9 @@ PlayerMenu.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
-        this._player_menu = new FloatingWall(130, 100, null, null, this.world);
+        var temp_position = new THREE.Vector3(0, 0, 0);
+        var temp_normal = new THREE.Vector3(0, 0, 0);
+        this._player_menu = new FloatingWall(130, 100, temp_position, temp_normal, this.world);
         //this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
