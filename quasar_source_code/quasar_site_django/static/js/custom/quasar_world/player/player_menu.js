@@ -228,9 +228,11 @@ PlayerMenu.prototype = {
 
                 current_button_row += 1;
                 this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Global Worlds', TYPE_CONSTANT);
+                current_button_row += 1;
 
                 current_button_row += 1;
                 this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Shared Worlds', TYPE_CONSTANT);
+                current_button_row += 1;
 
                 if (is_defined(ENTITY_OWNER)) {
                     if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
