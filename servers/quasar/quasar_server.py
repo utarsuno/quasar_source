@@ -43,10 +43,6 @@ class QuasarServer(object):
 		self._client_message_lock.acquire()
 		reply = self._entity_server_connection.send_message(command + ':' + str(data))
 		self._client_message_lock.release()
-
-		print('The reply to send back is :')
-		print(reply)
-
 		return reply
 
 	'''__   ___ ___ ___  ___  __   __

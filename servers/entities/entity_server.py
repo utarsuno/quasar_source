@@ -88,10 +88,6 @@ class EntityServer(object):
 
 	def _parse_out_server_command(self, raw_message):
 		"""Returns the server command type and data."""
-
-		print('The raw message received is :')
-		print(raw_message)
-
 		if ':' not in raw_message:
 			dbg.raise_exception('Not a valid raw message passed in {{' + str(raw_message) + '}}')
 		command = raw_message[:raw_message.index(':')]
