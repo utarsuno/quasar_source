@@ -1,11 +1,5 @@
 'use strict';
 
-// TODO : TEMPORARY LOCATION, EVENTUALLY MOVE THIS!
-const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';
-const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
-const SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai';
-const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
-
 function AdminWorld() {
     this.__init__();
 }
