@@ -137,7 +137,7 @@ def POST_sudo_command(request):
         if received_operation == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
             return return_based_on_result(quasar_server.set_entity_owner_account_type(received_username, received_data))
         elif received_operation == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
-            return return_based_on_result(quasar_server.get_all_accounts_information())
+            return HttpResponse(quasar_server.get_all_accounts_information())
         else:
             dbg.raise_exception('Invalid command received!')
     else:
