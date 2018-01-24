@@ -107,7 +107,7 @@ if len(arguments) == 1:
 		command = flag[:flag.index(':')]
 		data = flag[flag.index(':') + 1:]
 	else:
-		command = flag1
+		command = flag
 		data = ''
 
 	quasar_server = QuasarServer()
