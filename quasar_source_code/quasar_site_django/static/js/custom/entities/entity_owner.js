@@ -16,6 +16,10 @@ EntityOwner.prototype = {
         this.owner_entity = null;
     },
 
+    get_account_type: function() {
+        return this.owner_entity.get_value(ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE);
+    },
+
     set_owner_entity: function(owner_entity) {
         this.owner_entity = owner_entity;
     },

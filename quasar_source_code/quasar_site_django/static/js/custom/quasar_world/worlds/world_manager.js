@@ -23,6 +23,7 @@ WorldManager.prototype = {
         this.world_login = new LoginWorld();
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
+        this.world_admin = new AdminWorld();
 
         this.light_delta = 0;
         this.light_delta_cap = 10;

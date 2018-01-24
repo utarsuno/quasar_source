@@ -7,9 +7,9 @@ function FinanceWorld() {
 FinanceWorld.prototype = {
 
     __init__: function () {
-        World.call(this, 'FinanceWorld');
+        World.call(this);
     },
 
-    create_world: function() {
+    create: function() {
     }
 };

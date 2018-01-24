@@ -284,6 +284,12 @@ LoadingManager.prototype = {
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
     all_entities_loaded: function() {
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
+
+        if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
+            GUI_PAUSED_MENU.set_sub_text('Creating admin world...');
+            MANAGER_WORLD.create_world(MANAGER_WORLD.world_admin);
+        }
+
         GUI_PAUSED_MENU.make_invisible();
 
         MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);

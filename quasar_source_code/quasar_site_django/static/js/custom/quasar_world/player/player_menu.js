@@ -113,10 +113,7 @@ PlayerMenu.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
-        // TODO : Make a better design for the temp values.
-        var temp_position = new THREE.Vector3(-10000, -10000, -10000);
-        var temp_normal   = new THREE.Vector3(0, 0, 0);
-        this._player_menu = new FloatingWall(130, 100, temp_position, temp_normal, this.world);
+        this._player_menu = new FloatingWall(130, 100, null, null, this.world);
         //this._player_menu.hide_self_and_all_child_attachments_recursively();
         //this._player_menu.make_base_wall_invisible();
 
@@ -124,18 +121,26 @@ PlayerMenu.prototype = {
         this._player_menu.set_attachment_vertical_offset(-30, null);
         this._player_menu.set_attachment_depth_offset(200);
 
-        if (this.world === MANAGER_WORLD.world_login) {
-            this._add_main_menu_icon(ICON_FULLSCREEN);
-        } else if (this.world === MANAGER_WORLD.world_home) {
-            this._add_main_menu_icon(ICON_WRENCH);
-            this._add_main_menu_icon(ICON_TELEPORT);
-            this._add_main_menu_icon(ICON_SAVE);
-            this._add_main_menu_icon(ICON_FULLSCREEN);
-        } else if (this.world === MANAGER_WORLD.world_settings) {
-            this._add_main_menu_icon(ICON_WRENCH);
-            this._add_main_menu_icon(ICON_TELEPORT);
-            this._add_main_menu_icon(ICON_SAVE);
-            this._add_main_menu_icon(ICON_FULLSCREEN);
+        switch(this.world) {
+            case MANAGER_WORLD.world_login:
+                this._add_main_menu_icon(ICON_FULLSCREEN);
+                break;
+            case MANAGER_WORLD.world_home:
+                this._add_main_menu_icon(ICON_WRENCH);
+                this._add_main_menu_icon(ICON_TELEPORT);
+                this._add_main_menu_icon(ICON_SAVE);
+                this._add_main_menu_icon(ICON_FULLSCREEN);
+                break;
+            case MANAGER_WORLD.world_settings:
+                this._add_main_menu_icon(ICON_WRENCH);
+                this._add_main_menu_icon(ICON_TELEPORT);
+                this._add_main_menu_icon(ICON_SAVE);
+                this._add_main_menu_icon(ICON_FULLSCREEN);
+                break;
+            case MANAGER_WORLD.world_admin:
+                this._add_main_menu_icon(ICON_TELEPORT);
+                this._add_main_menu_icon(ICON_FULLSCREEN);
+                break;
         }
     },
 
@@ -225,7 +230,16 @@ PlayerMenu.prototype = {
                 current_button_row += 1;
                 this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Shared Worlds', TYPE_CONSTANT);
 
-                current_button_row += 1;
+                if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
+                    if (this.world !== MANAGER_WORLD.world_admin) {
+                        this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SINGLE_PLAYER, TYPE_ICON);
+                        teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Admin', TYPE_BUTTON);
+                        teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
+                        current_button_row += 1;
+                    }
+                }
+
+                current_button_row += 2;
 
                 this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_EXIT, TYPE_ICON);
                 this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Logout', TYPE_BUTTON);

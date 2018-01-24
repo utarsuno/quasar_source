@@ -47,10 +47,10 @@ module.exports = {
         "World": true,
         "WebSocketClient": false,
 
-        "FloatingWall": true,
-        "FloatingText": true,
-        "Floating2DText": true,
-        "Floating3DText": true,
+        "FloatingWall"   : true,
+        "FloatingText"   : true,
+        "Floating2DText" : true,
+        "Floating3DText" : true,
         "FloatingPicture": true,
 
         // Core
@@ -59,9 +59,10 @@ module.exports = {
 
         "Owner": true,
 
-        "LoginWorld": true,
-        "HomeWorld": true,
+        "LoginWorld"   : true,
+        "HomeWorld"    : true,
         "SettingsWorld": true,
+        "AdminWorld"   : true,
 
         "PostHelper": true,
 
