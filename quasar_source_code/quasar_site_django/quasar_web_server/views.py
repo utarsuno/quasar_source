@@ -121,7 +121,7 @@ def POST_sudo_command(request):
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.POST_KEY_GENERIC_DATA], json_obj)
     if post_errors is not None:
         return post_errors
 
