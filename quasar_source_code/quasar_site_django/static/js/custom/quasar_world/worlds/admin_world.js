@@ -68,6 +68,8 @@ AdminWorld.prototype = {
         this.wall_account_actions = new FloatingWall(200, 300, null, null, this, false);
         this.wall_account_actions.add_row_3D_text(false, -1, 'Account Actions', TYPE_TITLE);
         // TODO : Add the actions here
+
+        this.wall_account_actions.set_to_invisible();
     },
 
     _load_all_accounts_action: function() {
@@ -86,8 +88,10 @@ AdminWorld.prototype = {
         var all_accounts = result.split('-');
         for (var a = 0; a < all_accounts.length; a++) {
             var account_data = all_accounts[a].split('+');
-            if (!this._have_account(account_data[0])) {
-                this.accounts.push(new Account(account_data[0], account_data[1]));
+            if (is_defined(account_data[0] && is_defined(account_data[1]))) {
+                if (!this._have_account(account_data[0])) {
+                    this.accounts.push(new Account(account_data[0], account_data[1]));
+                }
             }
         }
 
@@ -95,6 +99,8 @@ AdminWorld.prototype = {
     },
 
     _refresh_account_list: function() {
+        var account_added_or_removed = false;
+
         for (var a = 0; a < this.accounts.length; a++) {
             if (!this.accounts[a].is_listed_on_floating_wall()) {
                 this.wall_all_accounts.add_row_2D_text([0, ONE_THIRD], 2 + this.number_of_accounts_listed, this.accounts[a].account_name, TYPE_CONSTANT);
@@ -105,7 +111,13 @@ AdminWorld.prototype = {
                 this.accounts[a].set_button(perform_account_actions_button);
 
                 this.number_of_accounts_listed += 1;
+
+                account_added_or_removed = true;
             }
+        }
+
+        if (account_added_or_removed) {
+            this.wall_all_accounts.refresh_position_and_look_at();
         }
     },
 
