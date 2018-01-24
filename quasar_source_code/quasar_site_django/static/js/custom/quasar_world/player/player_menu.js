@@ -230,12 +230,14 @@ PlayerMenu.prototype = {
                 current_button_row += 1;
                 this.teleport_wall.add_row_2D_text([0, 1], current_button_row, 'Shared Worlds', TYPE_CONSTANT);
 
-                if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
-                    if (this.world !== MANAGER_WORLD.world_admin) {
-                        this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SINGLE_PLAYER, TYPE_ICON);
-                        teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Admin', TYPE_BUTTON);
-                        teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
-                        current_button_row += 1;
+                if (is_defined(ENTITY_OWNER)) {
+                    if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
+                        if (this.world !== MANAGER_WORLD.world_admin) {
+                            this.teleport_wall.add_row_2D_text([0, icon_width], current_button_row, ICON_SINGLE_PLAYER, TYPE_ICON);
+                            teleport_button = this.teleport_wall.add_row_2D_text([icon_width, 1], current_button_row, 'Admin', TYPE_BUTTON);
+                            teleport_button.set_engage_function(this._teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
+                            current_button_row += 1;
+                        }
                     }
                 }
 
