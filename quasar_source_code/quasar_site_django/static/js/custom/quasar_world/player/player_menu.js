@@ -99,7 +99,9 @@ PlayerMenu.prototype = {
         if (this.full_screen_button.animation_finished) {
 
             if (sub_menu === this.teleport_wall) {
-                this.create_wall.hide_self_and_all_child_attachments_recursively();
+                if (is_defined(this.create_wall)) {
+                    this.create_wall.hide_self_and_all_child_attachments_recursively();
+                }
                 this.teleport_wall.display_self_and_all_child_attachments_recursively();
             } else if (sub_menu === this.create_wall) {
                 this.teleport_wall.hide_self_and_all_child_attachments_recursively();
