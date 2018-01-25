@@ -39,4 +39,3 @@ AudioManager.prototype = {
         MANAGER_WORLD.add_to_all_scenes(this._all_audio[audio_name]);
     }
 };
-

@@ -51,7 +51,9 @@ EntityWall.prototype = {
 
                     var d = rows_2D[r2].split('+');
 
-                    this.base_wall.add_row_2D_text([d[1], d[2]], d[0], d[3], d[4], d[6], d[5]);
+                    if (d.length === 6) {
+                        this.base_wall.add_row_2D_text([d[1], d[2]], d[0], d[3], d[4], d[6], d[5]);
+                    }
                 }
             }
 

@@ -20,7 +20,7 @@ Floating2DText.prototype = {
     refresh_for_2D_text: function() {
         if (this.type === TYPE_ICON) {
             // TODO :
-            l('REFRESH THIS ICON!!');
+            //l('REFRESH THIS ICON!!');
         } else {
             var x_offset = 0;
             if (this.type === TYPE_BUTTON || this.type === TYPE_CHECK_BOX || this.type === TYPE_TITLE || this.type === TYPE_SUPER_TITLE) {
