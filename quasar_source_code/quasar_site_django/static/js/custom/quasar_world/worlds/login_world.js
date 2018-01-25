@@ -232,6 +232,8 @@ LoginWorld.prototype = {
         this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.');
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.');
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.');
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 3, '- Hit the escape key to release control of the mouse', null, COLOR_RED);
+
         this.wall_tips_and_tricks.refresh_position_and_look_at();
 
     }
