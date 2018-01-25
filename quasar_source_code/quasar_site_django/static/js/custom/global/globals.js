@@ -114,6 +114,7 @@ const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
 const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';
 const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
 const SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai';
+const SERVER_COMMAND_DELETE_ENTITY_OWNER           = 'deo';
 
 
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.

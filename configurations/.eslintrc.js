@@ -232,6 +232,7 @@ module.exports = {
         "SERVER_COMMAND_SUDO_OPERATION"               : true,
         "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
         "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
+        "SERVER_COMMAND_DELETE_ENTITY_OWNER"          : true,
 
         "ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE" : false,
 

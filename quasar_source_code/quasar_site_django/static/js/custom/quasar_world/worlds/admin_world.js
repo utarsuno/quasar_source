@@ -103,12 +103,12 @@ AdminWorld.prototype = {
         var data = {};
         data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
         data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
-        data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION;
         return data;
     },
 
     _delete_account_button_pressed: function() {
         var data = this._get_sudo_command_post_data_start();
+        data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_DELETE_ENTITY_OWNER;
         data[POST_KEY_GENERIC_DATA] = this._current_account.account_name;
         this.post_delete_account.perform_post(data, this._delete_account_result.bind(this));
     },
@@ -117,11 +117,12 @@ AdminWorld.prototype = {
         l('DELETE ACCOUNT RESULT!');
         l(result);
 
-        
+
     },
 
     _load_all_accounts_action: function() {
         var data = this._get_sudo_command_post_data_start();
+        data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION;
         data[POST_KEY_GENERIC_DATA] = 'not_needed';
         this.post_get_all_accounts_information.perform_post(data, this._all_accounts_information_result.bind(this));
     },
