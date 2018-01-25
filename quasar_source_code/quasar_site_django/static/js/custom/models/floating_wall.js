@@ -194,7 +194,7 @@ FloatingWall.prototype = {
 
         for (var d = 0; d < objects_to_delete.length; d++) {
             var sub_attachments = objects_to_delete[d]._get_all_attachments_recursively();
-            for (s = 0; s < sub_attachments.length; s++) {
+            for (var s = 0; s < sub_attachments.length; s++) {
                 if (objects_to_delete.indexOf(sub_attachments[s]) === NOT_FOUND) {
                     objects_to_delete.push(sub_attachments[s]);
                 }
