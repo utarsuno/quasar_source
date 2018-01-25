@@ -2,6 +2,10 @@
 
 ### Development Screenshots:
 
+As of January 24th
+![alt text](https://i.imgur.com/3hxELAM.png)
+- Major engine re-work, for both client side and server side.
+
 As of December 24th
 ![alt_text](https://i.imgur.com/ygTs717.png)
 
