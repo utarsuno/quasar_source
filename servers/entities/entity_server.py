@@ -119,18 +119,20 @@ class EntityServer(object):
 
 				if ':' in data:
 					sub_command, sub_data = self._parse_out_server_command(data)
-					cleaned_data = sub_data.split('|')
-					username = cleaned_data[0]
-					data = cleaned_data[1]
 				else:
 					sub_command = data
 
 				if sub_command == us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE:
+
+					cleaned_data = sub_data.split('|')
+					username = cleaned_data[0]
+					data = cleaned_data[1]
+
 					self._host_server.send_reply(self._set_entity_owner_account_type(username, data))
 				elif sub_command == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
 					self._host_server.send_reply(self._get_all_accounts_information())
 				elif sub_command == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
-					self._host_server.send_reply(self._delete_entity_owner(data))
+					self._host_server.send_reply(self._delete_entity_owner(sub_data))
 				else:
 					dbg.raise_exception('Invalid sub command passed in!')
 
