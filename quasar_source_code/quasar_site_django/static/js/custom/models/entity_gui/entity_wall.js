@@ -106,6 +106,10 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_row_3D_text(false, -1, 'Create New Entity', TYPE_TITLE, COLOR_GREEN);
         this.wall_create_new_entity.add_close_button();
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
+
+        // TODO : Create all the default fields =)
+        //this.wall_create_new_entity.add_row_2D_text();
+
         this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
     },
 
