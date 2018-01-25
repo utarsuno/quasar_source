@@ -117,9 +117,9 @@ FloatingWall.prototype = {
         return this.close_button;
     },
 
-    /*     __   __      __   __        __
-      /\  |  \ |  \    |__) /  \ |  | /__`
-     /~~\ |__/ |__/    |  \ \__/ |/\| .__/ */
+    /*__   __           __   __   ___  __       ___    __        __  
+     |__) /  \ |  |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__` 
+     |  \ \__/ |/\|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/  */
     add_row_3D_text: function(centered, row, text, type, color) {
         var floating_3D_text = new Floating3DText(text, type, this.world);
 
@@ -167,6 +167,53 @@ FloatingWall.prototype = {
         this._2D_rows.push([row, x_start_and_stop[0], x_start_and_stop[1], floating_2D_text]);
 
         return floating_2D_text;
+    },
+
+    _delete_row: function(row) {
+        var delete_index = -1;
+        for (var r = 0; r < this._2D_rows.length; r++) {
+            if (this._2D_rows[r] === row) {
+                delete_index = r;
+                break;
+            }
+        }
+        this._2D_rows.splice(delete_index, 1);
+    },
+
+    delete_row: function(row) {
+        var objects_to_delete = [];
+
+        var row_objects_to_remove = [];
+
+        for (var r = 0; r < this._2D_rows.length; r++) {
+            if (this._2D_rows[r][0] === row) {
+                objects_to_delete.push(this._2D_rows[r][3]);
+                row_objects_to_remove.push(this._2D_rows);
+            }
+        }
+
+        for (var d = 0; d < objects_to_delete.length; d++) {
+            var sub_attachments = objects_to_delete[d]._get_all_attachments_recursively();
+            for (s = 0; s < sub_attachments.length; s++) {
+                if (objects_to_delete.indexOf(sub_attachments[s]) === NOT_FOUND) {
+                    objects_to_delete.push(sub_attachments[s]);
+                }
+            }
+        }
+
+        // Delete the rows.
+        for (r = 0; r < row_objects_to_remove.length; r++) {
+            this._delete_row(row_objects_to_remove[r]);
+        }
+
+        // Delete all objects.
+        for (d = 0; d < objects_to_delete.length; d++) {
+            this.world.remove_from_interactive_then_scene(objects_to_delete[d]);
+            objects_to_delete[d].full_remove();
+        }
+
+        // Perform a refresh.
+        this.refresh_position_and_look_at();
     },
 
     /*__          __   ___  __      __   __        __

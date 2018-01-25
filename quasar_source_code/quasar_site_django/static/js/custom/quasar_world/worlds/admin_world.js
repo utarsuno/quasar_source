@@ -114,10 +114,40 @@ AdminWorld.prototype = {
     },
 
     _delete_account_result: function(result) {
-        l('DELETE ACCOUNT RESULT!');
-        l(result);
+        if (result === SERVER_REPLY_GENERIC_YES) {
+            GUI_TYPING_INTERFACE.add_server_message('Account deleted!');
+            if (this.wall_account_actions.is_attached()) {
+                this.wall_account_actions.detach_from_parent();
+            }
+            this.wall_account_actions.hide_self_and_all_child_attachments_recursively();
 
+            var account_name_to_remove = this._current_account.account_name;
 
+            // TODO : Refresh the list here!
+            var account_to_remove_index = -1;
+            var a;
+            for (a = 0; a < this.accounts.length; a++) {
+                if (this.accounts[a].account_name === account_name_to_remove) {
+                    account_to_remove_index = a;
+                    break;
+                }
+            }
+            if (account_to_remove_index !== NOT_FOUND) {
+                this.accounts.splice(account_to_remove_index, 1);
+            }
+
+            var row_to_remove = -1;
+            for (a = 0; a < this.wall_all_accounts._2D_rows.length; a++) {
+                if (this.wall_all_accounts._2D_rows[a][3].get_text() === account_name_to_remove) {
+                    row_to_remove = this.wall_all_accounts._2D_rows[a][0];
+                    break;
+                }
+            }
+            this.wall_all_accounts.delete_row(row_to_remove);
+        } else {
+            GUI_TYPING_INTERFACE.add_server_message('Error deleting account!');
+            GUI_TYPING_INTERFACE.add_server_message(result);
+        }
     },
 
     _load_all_accounts_action: function() {
@@ -192,7 +222,7 @@ AdminWorld.prototype = {
         if (!GUI_PAUSED_MENU.currently_displayed) {
             CURRENT_PLAYER.enable_controls();
         }
-        CURRENT_PLAYER.set_position_xyz(0, 100, 0);
+        CURRENT_PLAYER.set_position_xyz(0, 1000, 0);
     },
 
     exit_world: function() {
