@@ -40,18 +40,18 @@ EntityWall.prototype = {
                 for (var r2 = 0; r2 < rows_2D.length; r2++) {
                     l('PARSE THE FOLLOWING 2D ROW!!!');
                     l(rows_2D[r2]);
+                    if (rows_2D[r2] !== '') {
 
-                    // INDEX {ROW}          - 0
-                    // INDEX {X_START}      - 1
-                    // INDEX {X_END}        - 2
-                    // INDEX {TEXT}         - 3
-                    // INDEX {TYPE}         - 4
-                    // INDEX {COLOR}        - 5
-                    // INDEX {SYNTAX_RULES} - 6
+                        // INDEX {ROW}          - 0
+                        // INDEX {X_START}      - 1
+                        // INDEX {X_END}        - 2
+                        // INDEX {TEXT}         - 3
+                        // INDEX {TYPE}         - 4
+                        // INDEX {COLOR}        - 5
+                        // INDEX {SYNTAX_RULES} - 6
 
-                    var d = rows_2D[r2].split('+');
+                        var d = rows_2D[r2].split('+');
 
-                    if (d.length === 6) {
                         this.base_wall.add_row_2D_text([d[1], d[2]], d[0], d[3], d[4], d[6], d[5]);
                     }
                 }
@@ -63,17 +63,18 @@ EntityWall.prototype = {
                 for (var r3 = 0; r3 < rows_3D.length; r3++) {
                     l('PARSE THE FOLLOWING 3D ROW!!!');
                     l(rows_3D[r3]);
+                    if (rows_3D[r3] !== '') {
 
-                    // INDEX {ROW}      - 0
-                    // INDEX {CENTERED} - 1
-                    // INDEX {TEXT}     - 2
-                    // INDEX {TYPE}     - 3
-                    // INDEX {COLOR}    - 4
+                        // INDEX {ROW}      - 0
+                        // INDEX {CENTERED} - 1
+                        // INDEX {TEXT}     - 2
+                        // INDEX {TYPE}     - 3
+                        // INDEX {COLOR}    - 4
 
-                    var d = rows_3D[r3].split('+');
+                        var d = rows_3D[r3].split('+');
 
-                    this.base_wall.add_row_3D_text(d[1], d[0], d[2], d[3], d[4]);
-
+                        this.base_wall.add_row_3D_text(d[1], d[0], d[2], d[3], d[4]);
+                    }
                 }
             }
 
