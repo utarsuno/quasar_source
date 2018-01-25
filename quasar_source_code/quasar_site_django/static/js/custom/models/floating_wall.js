@@ -2,13 +2,13 @@
 
 const COLORS = get_color_range_list(COLOR_FLOATING_WALL_BASE, COLOR_FLOATING_WALL_TOP, 8);
 
-function FloatingWall(width, height, position, normal, world, scalable) {
-    this.__init__(width, height, position, normal, world, scalable);
+function FloatingWall(width, height, position, normal, world, scalable, default_background_color) {
+    this.__init__(width, height, position, normal, world, scalable, default_background_color);
 }
 
 FloatingWall.prototype = {
 
-    __init__: function (width, height, position, normal, world, scalable) {
+    __init__: function (width, height, position, normal, world, scalable, default_background_color) {
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);
         // Inherit from Animatable.
@@ -40,7 +40,11 @@ FloatingWall.prototype = {
             this.engable = false;
         }
 
-        this.default_background_color = COLOR_FLOATING_WALL_BASE;
+        if (is_defined(default_background_color)) {
+            this.default_background_color = default_background_color;
+        } else {
+            this.default_background_color = COLOR_FLOATING_WALL_BASE;
+        }
 
         //this.make_base_wall_visible();
 
