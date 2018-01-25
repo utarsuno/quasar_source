@@ -101,6 +101,7 @@ EntityWall.prototype = {
          /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
          \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
         this.wall_create_new_entity = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
+        this.wall_create_new_entity.set_attachment_depth_offset(10);
         this.wall_create_new_entity.add_row_3D_text(false, -1, 'Create New Entity', TYPE_TITLE, COLOR_GREEN);
         this.wall_create_new_entity.add_close_button();
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
@@ -109,6 +110,7 @@ EntityWall.prototype = {
 
     _create_new_entity_button_pressed: function() {
         this.wall_create_new_entity.display_self_and_all_child_attachments_recursively();
+        this.wall_create_new_entity.refresh_position_and_look_at();
     }
 
 
