@@ -95,17 +95,20 @@ EntityWall.prototype = {
         // Regardless if created or loaded the following operations must be taken.
         this.base_wall.world.interactive_objects.push(this.base_wall);
         this.base_wall.world.root_attachables.push(this.base_wall);
+        this.base_wall.refresh_position_and_look_at();
 
         /*__   __   ___      ___  ___          ___          ___      ___   ___
          /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
          \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
         this.wall_create_new_entity = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
         this.wall_create_new_entity.add_row_3D_text(false, -1, 'Create New Entity', TYPE_TITLE, COLOR_GREEN);
+        this.wall_create_new_entity.add_close_button();
+        this.wall_create_new_entity.attach_to(this.create_new_entity_button);
         this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
     },
 
     _create_new_entity_button_pressed: function() {
-        
+        this.wall_create_new_entity.display_self_and_all_child_attachments_recursively();
     }
 
 

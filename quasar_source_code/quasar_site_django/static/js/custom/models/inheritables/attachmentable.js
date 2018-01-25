@@ -330,6 +330,7 @@ function Attachmentable(world) {
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
+    // TODO : Refactor the design of this (resource cleanup needs to be cleaned up in general).
     this.remove_from_root_attachmentables_if_needed = function(object_to_check) {
         var index_to_remove = -1;
         for (var i = 0; i < this.world.root_attachables.length; i++) {
