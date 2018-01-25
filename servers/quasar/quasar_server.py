@@ -87,7 +87,7 @@ class QuasarServer(object):
 
 	def delete_entity_owner(self, username):
 		"""Deletes the entity owner found by username match."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.SERVER_COMMAND_DELETE_ENTITY_OWNER + ':' + username)
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`
