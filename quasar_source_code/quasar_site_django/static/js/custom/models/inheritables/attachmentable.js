@@ -195,10 +195,36 @@ function Attachmentable(world) {
         this.offset_horizontal_parent_width_percentage = parent_width_percentage_offset;
     };
 
+    this.apply_delta_to_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {
+        if (is_defined(this.offset_horizontal_distance)) {
+            this.offset_horizontal_distance += distance_offset;
+        } else {
+            this.offset_horizontal_distance = distance_offset;
+        }
+        if (is_defined(parent_width_percentage_offset)) {
+            this.offset_horizontal_parent_width_percentage += parent_width_percentage_offset;
+        } else {
+            this.offset_horizontal_parent_width_percentage = parent_width_percentage_offset;
+        }
+    };
+
     this.set_attachment_vertical_offset = function(distance_offset, parent_height_percentage_offset) {
         // No need for is_defined checks as the values will be checked before being used.
         this.offset_vertical_distance = distance_offset;
         this.offset_vertical_parent_height_percentage = parent_height_percentage_offset;
+    };
+
+    this.apply_delta_to_vertical_offset = function(distance_offset, parent_height_percentage_offset) {
+        if (is_defined(this.offset_vertical_distance)) {
+            this.offset_vertical_distance += distance_offset;
+        } else {
+            this.offset_vertical_distance = distance_offset;
+        }
+        if (is_defined(this.offset_vertical_parent_height_percentage)) {
+            this.offset_vertical_parent_height_percentage += parent_height_percentage_offset;
+        } else {
+            this.offset_vertical_parent_height_percentage = parent_height_percentage_offset;
+        }
     };
 
     this.set_attachment_depth_offset = function(depth_offset) {
@@ -208,6 +234,10 @@ function Attachmentable(world) {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    this.get_attachment_vertical_offset = function() {
+        return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
+    };
+
     this.get_position_offset = function(n) {
         var normal;
         if (is_defined(n)) {
