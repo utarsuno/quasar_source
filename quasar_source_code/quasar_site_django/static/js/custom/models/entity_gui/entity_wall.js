@@ -73,6 +73,12 @@ EntityWall.prototype = {
 
                         var d = rows_3D[r3].split('+');
 
+                        if (d[1] === 'true' || d[1] === 'True') {
+                            d[1] = true;
+                        } else if (d[1] === 'false' || d[1] === 'False') {
+                            d[1] = false;
+                        }
+
                         this.base_wall.add_row_3D_text(d[1], d[0], d[2], d[3], d[4]);
                     }
                 }
@@ -81,9 +87,26 @@ EntityWall.prototype = {
             this.base_wall.refresh_position_and_look_at();
         }
 
+        // Create the standard functionality of the entity wall.
+        this.create_new_entity_button = this.base_wall.add_row_2D_text([0, 1], 0, 'Create New Entity', TYPE_BUTTON, null, COLOR_GREEN);
+        this.create_new_entity_button.set_engage_function(this._create_new_entity_button_pressed.bind(this));
+
+
         // Regardless if created or loaded the following operations must be taken.
         this.base_wall.world.interactive_objects.push(this.base_wall);
         this.base_wall.world.root_attachables.push(this.base_wall);
+
+        /*__   __   ___      ___  ___          ___          ___      ___   ___
+         /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+         \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+        this.wall_create_new_entity = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
+        this.wall_create_new_entity.add_row_3D_text(false, -1, 'Create New Entity', TYPE_TITLE, COLOR_GREEN);
+        this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
+    },
+
+    _create_new_entity_button_pressed: function() {
+        
     }
+
 
 };
