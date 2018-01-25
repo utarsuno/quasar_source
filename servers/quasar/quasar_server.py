@@ -74,10 +74,6 @@ class QuasarServer(object):
 		"""Deletes the provided entity for the needed owner (found from the provided username)."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY, owner_username + '|' + str(entity_relative_id))
 
-	def delete_entity_owner(self, username):
-		"""Deletes the entity owner found by username match."""
-		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
-
 	'''     __                   __   __   ___  __       ___    __        __
        /\  |  \  |\/| | |\ |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
 	  /~~\ |__/  |  | | | \|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
@@ -88,6 +84,10 @@ class QuasarServer(object):
 	def set_entity_owner_account_type(self, username, account_type):
 		"""Sets an entity owner's account type."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION, us.SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE + ':' + username + '|' + account_type)
+
+	def delete_entity_owner(self, username):
+		"""Deletes the entity owner found by username match."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_OWNER, username)
 
 '''___  __   __                  ___     __                         __
   |__  /  \ |__)    |    | \  / |__     |__) |  | |\ | |\ | | |\ | / _`

@@ -1,17 +1,18 @@
 'use strict';
 
-function PostHelper(url) {
-    this.__init__(url);
+function PostHelper(url, callback) {
+    this.__init__(url, callback);
 }
 
 PostHelper.prototype = {
 
     // States.
     waiting_on_reply: null,
-    //url: null,
 
-    __init__: function(url) {
+    __init__: function(url, callback) {
         this.url = url;
+        // TODO : Implement this.
+        this.default_callback = callback;
     },
 
     perform_post: function(post_data, callback) {

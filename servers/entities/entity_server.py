@@ -108,8 +108,6 @@ class EntityServer(object):
 			elif command == us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID:
 				cleaned_data = data.split('|')
 				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
-			elif command == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
-				self._host_server.send_reply(self._delete_entity_owner(data))
 			elif command == us.SERVER_COMMAND_GET_OWNER_ENTITIES:
 				self._host_server.send_reply(self._get_all_owner_entities(data))
 			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
@@ -131,6 +129,8 @@ class EntityServer(object):
 					self._host_server.send_reply(self._set_entity_owner_account_type(username, data))
 				elif sub_command == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
 					self._host_server.send_reply(self._get_all_accounts_information())
+				elif sub_command == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
+					self._host_server.send_reply(self._delete_entity_owner(data))
 				else:
 					dbg.raise_exception('Invalid sub command passed in!')
 

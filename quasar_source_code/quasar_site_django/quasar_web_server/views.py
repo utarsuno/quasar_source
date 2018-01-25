@@ -109,9 +109,9 @@ def qdict_to_dict(qdict):
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
 
-'''___      ___   ___         __             ___  __           __                   __   __   ___  __       ___    __        __
-  |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)     /\  |  \  |\/| | |\ |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
-  |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    /~~\ |__/  |  | | | \|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+'''     __                   __   __                         __   __
+   /\  |  \  |\/| | |\ |    /  ` /  \  |\/|  |\/|  /\  |\ | |  \ /__`
+  /~~\ |__/  |  | | | \|    \__, \__/  |  |  |  | /~~\ | \| |__/ .__/ '''
 
 
 @csrf_exempt
@@ -130,6 +130,8 @@ def POST_sudo_command(request):
     received_operation = json_obj[us.SERVER_COMMAND_ENTITY_OWNER_SUDO_OPERATION]
     received_data      = json_obj[us.POST_KEY_GENERIC_DATA]
 
+    # TODO : Enforce admin account check (on the provided username and password).
+
     global quasar_server
     message = quasar_server.is_valid_login(received_username, received_password)
     reply = us.is_success_message(message)
@@ -138,6 +140,8 @@ def POST_sudo_command(request):
             return return_based_on_result(quasar_server.set_entity_owner_account_type(received_username, received_data))
         elif received_operation == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
             return HttpResponse(quasar_server.get_all_accounts_information())
+        elif received_operation == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
+            return HttpResponse(quasar_server.delete_entity_owner(received_data))
         else:
             dbg.raise_exception('Invalid command received!')
     else:

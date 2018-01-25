@@ -45,6 +45,7 @@ FloatingWall.prototype = {
         } else {
             this.default_background_color = COLOR_FLOATING_WALL_BASE;
         }
+        this.set_background_color(this.default_background_color, true);
 
         //this.make_base_wall_visible();
 
