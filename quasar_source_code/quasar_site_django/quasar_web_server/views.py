@@ -141,7 +141,7 @@ def POST_sudo_command(request):
         elif received_operation == us.SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION:
             return HttpResponse(quasar_server.get_all_accounts_information())
         elif received_operation == us.SERVER_COMMAND_DELETE_ENTITY_OWNER:
-            return HttpResponse(quasar_server.delete_entity_owner(received_data))
+            return return_based_on_result(quasar_server.delete_entity_owner(received_data))
         else:
             dbg.raise_exception('Invalid command received!')
     else:
