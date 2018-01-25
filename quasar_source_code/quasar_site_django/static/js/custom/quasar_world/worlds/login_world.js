@@ -14,9 +14,9 @@ LoginWorld.prototype = {
     attempted_username: null,
     attempted_password: null,
 
-    /*             ___     __           ___
-      |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
-      |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
+    /*            ___     __           ___
+     |    | \  / |__     /__` \ / |\ |  |   /\  \_/    .
+     |___ |  \/  |___    .__/  |  | \|  |  /~~\ / \    .*/
     _error_check: function(error_manager) {
         error_manager.error_check();
     },
@@ -171,9 +171,9 @@ LoginWorld.prototype = {
         this.login_button.set_engage_function(this.login_button_pressed.bind(this));
         this.login_errors.add_final_button(this.login_button);
 
-        /*   __   __   ___      ___  ___          __   __   __            ___
-            /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |     |  |  /\  |    |
-            \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     |/\| /~~\ |___ |___  */
+        /*__   __   ___      ___  ___          __   __   __            ___
+         /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |     |  |  /\  |    |
+         \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     |/\| /~~\ |___ |___  */
         this.create_account_errors = new TextSyntaxManager(this);
 
         var wall_create_account_position = new THREE.Vector3(350, 95, 600);
@@ -217,12 +217,6 @@ LoginWorld.prototype = {
         this.create_account_password_repeat_input.set_next_tab_target(this.create_account_button);
         this.create_account_button.set_next_tab_target(this.login_username_input);
 
-
-        // TODO : DELETE THIS?
-        //this.root_attachables.push(this.quasar_source_title);
-        //this.root_attachables.push(this.wall_login);
-        //this.root_attachables.push(this.wall_create_account);
-
         /*___    __   __             ___  __     __        __
            |  | |__) /__`    |\ |     |  |__) | /  ` |__/ /__`    |  |  /\  |    |
            |  | |    .__/    | \|     |  |  \ | \__, |  \ .__/    |/\| /~~\ |___ |___ */
@@ -233,6 +227,7 @@ LoginWorld.prototype = {
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.');
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.');
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 3, '- Hit the escape key to release control of the mouse', null, COLOR_RED);
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 4, '- Hit the tab key to cycle through engable/clickable objects.');
 
         this.wall_tips_and_tricks.refresh_position_and_look_at();
 
