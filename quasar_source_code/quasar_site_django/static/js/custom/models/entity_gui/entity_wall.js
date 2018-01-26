@@ -100,19 +100,64 @@ EntityWall.prototype = {
         // Regardless if created or loaded the following operations must be taken.
         // TODO : This should be automatic? Remove the need to explicitly need to write this code.
         this.base_wall.world.root_attachables.push(this.base_wall);
-        this.base_wall.refresh_position_and_look_at();
 
-        /*__   __   ___      ___  ___          ___          ___      ___   ___
-         /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
-         \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+        this._init_create_new_entity_wall();
+        this._init_select_entity_type_wall();
+        this._init_add_new_field_wall();
+
+        this.base_wall.refresh_position_and_look_at();
+    },
+
+    /*     __   __           ___          ___    ___       __
+      /\  |  \ |  \    |\ | |__  |  |    |__  | |__  |    |  \    |  |  /\  |    |
+     /~~\ |__/ |__/    | \| |___ |/\|    |    | |___ |___ |__/    |/\| /~~\ |___ |___ */
+
+    _init_add_new_field_wall: function() {
+        this.wall_add_new_field = new FloatingWall(200, 300, null, null, this.base_wall.world, false, COLOR_BLUE);
+        this.wall_add_new_field.manual_visibility = true;
+        this.wall_add_new_field.set_attachment_depth_offset(10);
+        this.wall_add_new_field.attach_to(this.add_new_field_button);
+        this.wall_add_new_field.add_close_button();
+        this.wall_add_new_field.add_row_3D_text(false, -1, 'Add New Field', TYPE_TITLE);
+        this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
+    },
+
+    _add_entity_field_button_pressed: function() {
+
+    },
+
+    /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___
+     /__` |__  |    |__  /  `  |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     |  |  /\  |    |
+     .__/ |___ |___ |___ \__,  |     |___ | \|  |  |  |   |      |   |  |    |___    |/\| /~~\ |___ |___ */
+
+    _init_select_entity_type_wall: function() {
+        this.wall_select_entity_type = new FloatingWall(300, 400, null, null, this.base_wall.world, false, COLOR_YELLOW);
+        this.wall_select_entity_type.manual_visibility = true;
+        this.wall_select_entity_type.set_attachment_depth_offset(10);
+        this.wall_select_entity_type.attach_to(this.create_new_entity_select_entity_type_button);
+        this.wall_select_entity_type.add_close_button();
+        this.wall_select_entity_type.add_row_3D_text(false, -1, 'Select Entity Type', TYPE_TITLE);
+        this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
+    },
+
+    _select_entity_type_button_pressed: function() {
+        this.wall_select_entity_type.display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
+    },
+
+    /*__   __   ___      ___  ___          ___          ___      ___   ___
+     /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+     \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+
+    _init_create_new_entity_wall: function() {
         this.wall_create_new_entity = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
         this.wall_create_new_entity.manual_visibility = true;
         this.wall_create_new_entity.set_attachment_depth_offset(10);
         this.wall_create_new_entity.add_row_3D_text(false, -1, 'Create New Entity', TYPE_TITLE, COLOR_GREEN);
         this.wall_create_new_entity.add_close_button();
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
+        this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
 
-        // TODO : Create all the default fields =)
         this.create_new_entity_select_entity_type_button = this.wall_create_new_entity.add_row_2D_text([0, .75], 0, 'Select Base Entity Type', TYPE_BUTTON);
         this.create_new_entity_select_entity_type_button.set_engage_function(this._select_entity_type_button_pressed.bind(this));
         this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 1, 'Entity Type :', TYPE_CONSTANT);
@@ -121,28 +166,9 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 2, 'Entity Name :', TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_INPUT);
 
-        this.wall_create_new_entity.add_row_2D_text([0, 1], 3, 'Add new field', TYPE_BUTTON);
+        this.add_new_field_button = this.wall_create_new_entity.add_row_2D_text([0, 1], 3, 'Add new field', TYPE_BUTTON);
+        this.add_new_field_button.set_engage_function(this._add_entity_field_button_pressed.bind(this));
         this.wall_create_new_entity.add_row_2D_text([0, 1], 4, 'Create Entity', TYPE_BUTTON);
-
-
-        this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
-
-        /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___
-         /__` |__  |    |__  /  `  |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     |  |  /\  |    |
-         .__/ |___ |___ |___ \__,  |     |___ | \|  |  |  |   |      |   |  |    |___    |/\| /~~\ |___ |___ */
-        this.wall_select_entity_type = new FloatingWall(300, 400, null, null, this.base_wall.world, false, COLOR_YELLOW);
-        this.wall_select_entity_type.manual_visibility = true;
-        this.wall_select_entity_type.set_attachment_depth_offset(10);
-        this.wall_select_entity_type.attach_to(this.create_new_entity_select_entity_type_button);
-        this.wall_select_entity_type.add_close_button();
-        this.wall_select_entity_type.add_row_3D_text(false, -1, 'Select Entity Type', TYPE_TITLE);
-        this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
-
-    },
-
-    _select_entity_type_button_pressed: function() {
-        this.wall_select_entity_type.display_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
     },
 
     _create_new_entity_button_pressed: function() {
