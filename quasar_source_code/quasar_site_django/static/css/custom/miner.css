@@ -10,6 +10,6 @@
 }
 
 body {
-    background: url('../assets/gifs/iota_gif.gif') no-repeat center center fixed;
+    background: url('../../assets/gifs/iota_gif.gif') no-repeat center center fixed;
     background-size: cover;
 }
