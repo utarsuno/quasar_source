@@ -7,14 +7,20 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     __init__: function(world, entity) {
-        this.base_wall = new FloatingWall(400, 600, null, null, world, true);
-
         if (!is_defined(entity)) {
+            this.base_wall = new FloatingWall(400, 600, null, null, world, true);
+
+            var pp = CURRENT_PLAYER.get_position();
+            var pn = CURRENT_PLAYER.get_direction();
+
+            this.base_wall.base_wall.set_position(pp.x + pn.x * 200, pp.y + pn.y * 200, pp.z + pn.z * 200);
+            this.base_wall.base_wall.set_normal(-pn.x, 0, -pn.z);
+            
             this.base_wall.add_row_3D_text(false, -1, 'Entity Wall', TYPE_INPUT);
 
             this.base_wall.set_to_saveable();
         } else {
-            // -1+Second wall to save as a test....;D?+input+rgba(255, 255, 255, 0.0)@
+            this.base_wall = new FloatingWall(400, 600, null, null, world, true);
 
             this.base_wall.set_entity(entity);
 

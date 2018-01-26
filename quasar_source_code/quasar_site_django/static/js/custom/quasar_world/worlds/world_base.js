@@ -288,14 +288,6 @@ function World() {
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
     this.create_new_entity_wall = function() {
         var entity_wall = new EntityWall(this);
-
-        var pp = CURRENT_PLAYER.get_position();
-        var pn = CURRENT_PLAYER.get_direction();
-
-        entity_wall.base_wall.set_position(pp.x + pn.x * 200, pp.y + pn.y * 200, pp.z + pn.z * 200);
-        entity_wall.base_wall.set_normal(-pn.x, 0, -pn.z);
-
-        entity_wall.base_wall.refresh_position_and_look_at();
     };
 
     /*__   __   ___      ___  ___     __     __  ___       __   ___
