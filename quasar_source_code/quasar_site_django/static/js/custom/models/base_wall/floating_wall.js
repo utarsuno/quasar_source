@@ -38,7 +38,9 @@ FloatingWall.prototype = {
 
         this.world.interactive_objects.push(this);
         this.engable = false;
-        this.only_used_for_blocking_input = true;
+        if (!this.scalable) {
+            this.only_used_for_blocking_input = true;
+        }
 
         if (is_defined(default_background_color)) {
             this.default_background_color = default_background_color;

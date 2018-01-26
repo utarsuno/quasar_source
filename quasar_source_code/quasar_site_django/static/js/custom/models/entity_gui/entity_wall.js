@@ -119,11 +119,16 @@ EntityWall.prototype = {
         this.wall_add_new_field.attach_to(this.add_new_field_button);
         this.wall_add_new_field.add_close_button();
         this.wall_add_new_field.add_row_3D_text(false, -1, 'Add New Field', TYPE_TITLE);
+
+        // All the field options.
+        //this.wall_add_new_field.add_row_2D_text();
+
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
     },
 
     _add_entity_field_button_pressed: function() {
-
+        this.wall_add_new_field.display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
     },
 
     /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___

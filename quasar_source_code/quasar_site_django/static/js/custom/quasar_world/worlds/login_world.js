@@ -223,13 +223,19 @@ LoginWorld.prototype = {
         this.wall_tips_and_tricks = new FloatingWall(500, 300, new THREE.Vector3(850, 200, -50), new THREE.Vector3(-.99, 0, 0.07), this, false, COLOR_FLOATING_WALL_HIGHLIGHT);
         this.wall_tips_and_tricks.add_close_button();
         this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
-        this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.');
-        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.');
-        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.');
-        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 3, '- Hit the escape key to release control of the mouse', null, COLOR_RED);
-        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 4, '- Hit the tab key to cycle through engable/clickable objects.');
-
+        this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 3, '- Hit the escape key to release control of the mouse', TYPE_CONSTANT, null, COLOR_RED);
+        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 4, '- Hit the tab key to cycle through engable/clickable objects.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.refresh_position_and_look_at();
 
+        /*              ___       __                   ___      ___   ___
+         |  | |__|  /\   |     | /__`     /\  |\ |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+         |/\| |  | /~~\  |     | .__/    /~~\ | \|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+        this.wall_what_is_an_entity = new FloatingWall(500, 600, new THREE.Vector3(810, 550, -800), new THREE.Vector3(-.8, 0, .575), this, false, COLOR_FLOATING_WALL_SUCCESS);
+        this.wall_what_is_an_entity.add_close_button();
+        this.wall_what_is_an_entity.add_row_3D_text(false, -1, 'So what\'s an Entity?', TYPE_TITLE, COLOR_YELLOW);
+        this.wall_what_is_an_entity.add_row_2D_text([0, 1], 0, 'ToDo =)', TYPE_CONSTANT);
     }
 };
