@@ -50,7 +50,9 @@ FloatingWall.prototype = {
         //this.make_base_wall_visible();
 
         this._2D_rows = [];
+        this.max_row_2D = -1;
         this._3D_rows = [];
+        this.max_row_3D = 0;
 
         // Inherit from Saveable but set to false by default.
         Saveable.call(this, ENTITY_TYPE_WALL);
@@ -146,6 +148,10 @@ FloatingWall.prototype = {
     },
 
     add_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks, color) {
+        if (row > this.max_row_2D) {
+            this.max_row_2D = row;
+        }
+
         var total_percentage_of_parent_width = (x_start_and_stop[1] - x_start_and_stop[0]);
         var floating_2D_text_width = this.width * total_percentage_of_parent_width;
         var floating_2D_text = new Floating2DText(floating_2D_text_width, text, type, this.world, syntax_checks);
@@ -219,6 +225,15 @@ FloatingWall.prototype = {
                 this._2D_rows[r][3].apply_delta_to_vertical_offset(8, null);
             }
         }
+
+        // Update the value for max row.
+        var current_max_row = -1;
+        for (r = 0; r < this._2D_rows.length; r++) {
+            if (this._2D_rows[r][0] > current_max_row) {
+                current_max_row = this._2D_rows[r][0];
+            }
+        }
+        this.max_row_2D = current_max_row;
 
         // Perform a refresh.
         this.refresh_position_and_look_at();

@@ -30,18 +30,22 @@ function Interactive() {
     this.next_tab_target    = null;
 
     this.look_away = function() {
-        this.being_looked_at = false;
-        this.state_change_look_at(false);
-        if (is_defined(this.look_away_function)) {
-            this.look_away_function();
+        if (!this.only_used_for_blocking_input) {
+            this.being_looked_at = false;
+            this.state_change_look_at(false);
+            if (is_defined(this.look_away_function)) {
+                this.look_away_function();
+            }
         }
     };
 
     this.look_at = function() {
-        this.being_looked_at = true;
-        this.state_change_look_at(true);
-        if (is_defined(this.look_at_function)) {
-            this.look_at_function();
+        if (!this.only_used_for_blocking_input) {
+            this.being_looked_at = true;
+            this.state_change_look_at(true);
+            if (is_defined(this.look_at_function)) {
+                this.look_at_function();
+            }
         }
     };
 
