@@ -37,7 +37,6 @@ function Visibility() {
      |__) |__  /  \ |  | | |__) |__  /__`     /\   |   |   /\  /  ` |__|  |\/| |__  |\ |  |  /__` 
      |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
 
-
     this.display_self_and_all_child_attachments_recursively = function() {
         this.set_to_visible();
         for (var a = 0; a < this.attachments.length; a++) {
@@ -47,17 +46,12 @@ function Visibility() {
         }
     };
 
-    /*
-    this.display_self_and_all_child_attachments_recursively = function() {
+    this.force_display_self_and_all_child_attachments_recursively = function() {
         this.set_to_visible();
-        var all_attachments = this._get_all_attachments_recursively();
-        for (var a = 0; a < all_attachments.length; a++) {
-            if (!all_attachments[a].manual_visibility) {
-                all_attachments[a].set_to_visible();
-            }
+        for (var a = 0; a < this.attachments.length; a++) {
+            this.attachments[a].display_self_and_all_child_attachments_recursively();
         }
     };
-    */
 
     this.hide_self_and_all_child_attachments_recursively = function() {
         this.set_to_invisible();
@@ -68,13 +62,10 @@ function Visibility() {
         }
     };
 
-    this.hide_self_and_all_child_attachments_recursively = function() {
+    this.force_hide_self_and_all_child_attachments_recursively = function() {
         this.set_to_invisible();
-        var all_attachments = this._get_all_attachments_recursively();
-        for (var a = 0; a < all_attachments.length; a++) {
-            if (!all_attachments[a].manual_visibility) {
-                all_attachments[a].set_to_invisible();
-            }
+        for (var a = 0; a < this.attachments.length; a++) {
+            this.attachments[a].hide_self_and_all_child_attachments_recursively();
         }
     };
 

@@ -112,7 +112,7 @@ FloatingWall.prototype = {
         this.close_button = this.add_row_2D_text([1 - (one_pixel_width * 16), 1], 0, ICON_CROSS, TYPE_ICON);
         this.close_button.set_attachment_depth_offset(2);
         this.close_button.engable = false;
-        this.close_button.set_engage_function(this.hide_self_and_all_child_attachments_recursively.bind(this));
+        this.close_button.set_engage_function(this.force_hide_self_and_all_child_attachments_recursively.bind(this));
 
         this.world.interactive_objects.push(this.close_button);
 
