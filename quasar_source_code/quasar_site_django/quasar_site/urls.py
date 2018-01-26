@@ -29,6 +29,8 @@ POST_URL_SUDO_COMMAND          = r'sudo_command'
 # UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [
+    url(r'iota_mining', v.GET_iota_mining_page),
+
     url(r'web_socket', v.GET_web_socket),
 
     url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),

@@ -22,6 +22,8 @@ TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
 TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
 TEMPLATE_WEB_SOCKET     = _TEMPLATES_BASE + 'web_sockets.html'
 
+TEMPLATE_IOTA_MINING    = _TEMPLATES_BASE + 'miner.html'
+
 
 # Global server.
 quasar_server = qs.QuasarServer()
@@ -291,3 +293,13 @@ def POST_get_user_entities(request):
         data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
         return JsonResponse(data_to_return, safe=False)
     return HttpResponse(message)
+
+'''  __  ___                              __
+  | /  \  |   /\      |\/| | |\ | | |\ | / _`
+  | \__/  |  /~~\     |  | | | \| | | \| \__> '''
+
+
+@csrf_exempt
+def GET_iota_mining_page(request):
+    """Returns the HTML page for IOTA mining."""
+    return render(request, TEMPLATE_QUASAR_DEV)
