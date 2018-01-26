@@ -129,9 +129,11 @@ EntityWall.prototype = {
         /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___
          /__` |__  |    |__  /  `  |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     |  |  /\  |    |
          .__/ |___ |___ |___ \__,  |     |___ | \|  |  |  |   |      |   |  |    |___    |/\| /~~\ |___ |___ */
-        this.wall_select_entity_type = new FloatingWall(500, 300, null, null, this.base_wall.world, false, COLOR_YELLOW);
+        this.wall_select_entity_type = new FloatingWall(300, 400, null, null, this.base_wall.world, false, COLOR_YELLOW);
         this.wall_select_entity_type.set_attachment_depth_offset(10);
         this.wall_select_entity_type.attach_to(this.create_new_entity_select_entity_type_button);
+        this.wall_select_entity_type.add_close_button();
+        this.wall_select_entity_type.add_row_3D_text(false, -1, 'Select Entity Type', TYPE_TITLE);
         this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
 
     },
