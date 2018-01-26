@@ -24,10 +24,6 @@ WorldManager.prototype = {
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
         this.world_admin = new AdminWorld();
-
-        this.light_delta = 0;
-        this.light_delta_cap = 10;
-        this.light_radius = 1000;
     },
 
     //this.world_home.add_css_scene();
@@ -35,12 +31,12 @@ WorldManager.prototype = {
     update_current_world: function(delta) {
 
         // Temp just for fun, rotate the lights in a circle.
-        this.light_delta += delta;
-        this.light_percentage = this.light_delta / this.light_delta_cap;
-        this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
-        this.light_1.position.set(cos(this.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
-        this.light_2.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
-        this.light_3.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
+        this.current_world.light_delta += delta;
+        this.current_world.light_percentage = this.light_delta / this.current_world.light_delta_cap;
+        this.current_world.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
+        this.current_world.light_1.position.set(cos(this.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
+        this.current_world.light_2.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
+        this.current_world.light_3.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
         if (GUI_PAUSED_MENU.is_visible()) {
             return;
@@ -102,6 +98,10 @@ WorldManager.prototype = {
     },
 
     create_world: function(world) {
+        world.light_delta = 0;
+        world.light_delta_cap = 10;
+        world.light_radius = 1000;
+
         world.player_menu.create();
         world.player_menu.set_to_invisible();
 
