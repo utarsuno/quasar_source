@@ -302,4 +302,4 @@ def POST_get_user_entities(request):
 @csrf_exempt
 def GET_iota_mining_page(request):
     """Returns the HTML page for IOTA mining."""
-    return render(request, TEMPLATE_QUASAR_DEV)
+    return render(request, TEMPLATE_IOTA_MINING)
