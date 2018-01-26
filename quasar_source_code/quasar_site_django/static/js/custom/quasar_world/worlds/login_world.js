@@ -220,7 +220,7 @@ LoginWorld.prototype = {
         /*___    __   __             ___  __     __        __
            |  | |__) /__`    |\ |     |  |__) | /  ` |__/ /__`    |  |  /\  |    |
            |  | |    .__/    | \|     |  |  \ | \__, |  \ .__/    |/\| /~~\ |___ |___ */
-        this.wall_tips_and_tricks = new FloatingWall(500, 300, new THREE.Vector3(850, 200, -50), new THREE.Vector3(-.99, 0, 0.07), this, false, COLOR_FLOATING_WALL_HIGHLIGHT);
+        this.wall_tips_and_tricks = new FloatingWall(500, 300, new THREE.Vector3(850, 200, -50), new THREE.Vector3(-.99, 0, 0.07), this, false, COLOR_BLACK);
         this.wall_tips_and_tricks.add_close_button();
         this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
@@ -237,5 +237,6 @@ LoginWorld.prototype = {
         this.wall_what_is_an_entity.add_close_button();
         this.wall_what_is_an_entity.add_row_3D_text(false, -1, 'So what\'s an Entity?', TYPE_TITLE, COLOR_YELLOW);
         this.wall_what_is_an_entity.add_row_2D_text([0, 1], 0, 'ToDo =)', TYPE_CONSTANT);
+        this.wall_what_is_an_entity.refresh_position_and_look_at();
     }
 };

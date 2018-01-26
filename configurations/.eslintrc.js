@@ -226,6 +226,7 @@ module.exports = {
         "ENTITY_PROPERTY_IS_ROOT_ATTACHABLE" : false,
         "ENTITY_PROPERTY_3D_ROWS"            : false,
         "ENTITY_PROPERTY_2D_ROWS"            : false,
+        "ENTITY_PROPERTY_TAGS"               : false,
         // UNIVERSAL_CONSTANTS_END
 
         "POST_KEY_GENERIC_DATA"                       : true,
