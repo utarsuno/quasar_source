@@ -49,7 +49,7 @@ function Visibility() {
     this.force_display_self_and_all_child_attachments_recursively = function() {
         this.set_to_visible();
         for (var a = 0; a < this.attachments.length; a++) {
-            this.attachments[a].display_self_and_all_child_attachments_recursively();
+            this.attachments[a].force_display_self_and_all_child_attachments_recursively();
         }
     };
 
@@ -65,7 +65,7 @@ function Visibility() {
     this.force_hide_self_and_all_child_attachments_recursively = function() {
         this.set_to_invisible();
         for (var a = 0; a < this.attachments.length; a++) {
-            this.attachments[a].hide_self_and_all_child_attachments_recursively();
+            this.attachments[a].force_hide_self_and_all_child_attachments_recursively();
         }
     };
 

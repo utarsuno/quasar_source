@@ -32,11 +32,11 @@ WorldManager.prototype = {
 
         // Temp just for fun, rotate the lights in a circle.
         this.current_world.light_delta += delta;
-        this.current_world.light_percentage = this.light_delta / this.current_world.light_delta_cap;
-        this.current_world.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
-        this.current_world.light_1.position.set(cos(this.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
-        this.current_world.light_2.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
-        this.current_world.light_3.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
+        this.current_world.light_percentage = this.current_world.light_delta / this.current_world.light_delta_cap;
+        this.current_world.light_0.position.set(cos(this.current_world.light_percentage) * 1000, 100, sin(this.current_world.light_percentage) * 1000);
+        this.current_world.light_1.position.set(cos(this.current_world.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.current_world.light_percentage + TWO_PIE / 4) * 1000);
+        this.current_world.light_2.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000);
+        this.current_world.light_3.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
         if (GUI_PAUSED_MENU.is_visible()) {
             return;
