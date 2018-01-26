@@ -120,7 +120,8 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 2, 'Entity Name :', TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_INPUT);
 
-        this.wall_create_new_entity.add_row_2D_text();
+        this.wall_create_new_entity.add_row_2D_text([0, 1], 3, 'Add new field', TYPE_BUTTON);
+        this.wall_create_new_entity.add_row_2D_text([0, 1], 4, 'Create Entity', TYPE_BUTTON);
 
 
         this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
