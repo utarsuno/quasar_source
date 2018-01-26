@@ -117,7 +117,7 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_row_2D_text([0, .5], 1, 'Entity Type :', TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([.5, 1], 1, 'Default', TYPE_CONSTANT);
 
-        this.wall_create_new_entity.add_row_2D_text([0, .5], 2, 'Entity Name :', TYPE_CONSTANT;
+        this.wall_create_new_entity.add_row_2D_text([0, .5], 2, 'Entity Name :', TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([.5, 1], 2, '', TYPE_INPUT);
 
 
