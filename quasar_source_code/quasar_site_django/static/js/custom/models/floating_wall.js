@@ -36,7 +36,7 @@ FloatingWall.prototype = {
             this.scalable = false;
         }
 
-        this.world.interactive_objects.push(this.object3D);
+        this.world.interactive_objects.push(this);
         this.engable = false;
         this.only_used_for_blocking_input = true;
 

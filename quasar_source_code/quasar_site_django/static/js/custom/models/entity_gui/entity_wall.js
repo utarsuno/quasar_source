@@ -99,7 +99,6 @@ EntityWall.prototype = {
 
         // Regardless if created or loaded the following operations must be taken.
         // TODO : This should be automatic? Remove the need to explicitly need to write this code.
-        this.base_wall.world.interactive_objects.push(this.base_wall);
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
 
