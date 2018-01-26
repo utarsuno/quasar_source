@@ -113,14 +113,28 @@ EntityWall.prototype = {
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
 
         // TODO : Create all the default fields =)
-        //this.wall_create_new_entity.add_row_2D_text();
+        this.wall_create_new_entity.add_row_2D_text([0, .75], 0, 'Select Base Entity Type', TYPE_BUTTON);
+        this.wall_create_new_entity.add_row_2D_text([0, .5], 1, 'Entity Type :', TYPE_CONSTANT);
+        this.wall_create_new_entity.add_row_2D_text([.5, 1], 1, 'Default', TYPE_CONSTANT);
+
+        this.wall_create_new_entity.add_row_2D_text([0, .5], 2, 'Entity Name :', TYPE_CONSTANT;
+        this.wall_create_new_entity.add_row_2D_text([.5, 1], 2, '', TYPE_INPUT);
+
 
         this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
+
+        /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___
+         /__` |__  |    |__  /  `  |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     |  |  /\  |    |
+         .__/ |___ |___ |___ \__,  |     |___ | \|  |  |  |   |      |   |  |    |___    |/\| /~~\ |___ |___ */
+        this.wall_select_entity_type = new FloatingWall(500, 300, null, null, this.base_wall.world, false, COLOR_YELLOW);
+        this.wall_select_entity_type.set_attachment_depth_offset(10);
+
+
     },
 
     _create_new_entity_button_pressed: function() {
         this.wall_create_new_entity.display_self_and_all_child_attachments_recursively();
-        this.wall_create_new_entity.refresh_position_and_look_at();
+        this.base_wall.refresh_position_and_look_at();
     }
 
 

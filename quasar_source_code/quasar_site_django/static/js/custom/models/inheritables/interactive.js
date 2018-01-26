@@ -8,6 +8,8 @@ function Interactive() {
     this.engable                        = true;
     this.uses_cursor                    = true;
 
+    this.only_used_for_blocking_input   = false;
+
     this.maintain_engage_until_right_click = false;
 
     // Used for sliders.

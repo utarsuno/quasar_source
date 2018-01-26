@@ -296,6 +296,7 @@ function World() {
 
     this.create_new_floating_picture = function(image_file) {
         var floating_picture = new FloatingPicture(image_file, this, false);
+        // TODO : Move this logic.
         this.root_attachables.push(floating_picture);
     };
 
