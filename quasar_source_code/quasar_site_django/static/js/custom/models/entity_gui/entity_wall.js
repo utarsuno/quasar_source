@@ -144,8 +144,8 @@ EntityWall.prototype = {
         l('TODO : ADD THE ENTITY FIELD!');
 
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
-        this.wall_create_new_entity.insert_row_2D_text([0, 1], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
-        this.wall_create_new_entity.add_row_2D_text([0, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
+        this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
+        this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
         this.last_entity_field_row += 1;
     },
 
@@ -195,10 +195,10 @@ EntityWall.prototype = {
 
         this.create_new_entity_select_entity_type_button = this.wall_create_new_entity.add_row_2D_text([0, .75], 0, 'Select Base Entity Type', TYPE_BUTTON);
         this.create_new_entity_select_entity_type_button.set_engage_function(this._select_entity_type_button_pressed.bind(this));
-        this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 1, 'Entity Type :', TYPE_CONSTANT);
+        this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 1, ENTITY_DEFAULT_PROPERTY_TYPE, TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], 1, 'Default', TYPE_CONSTANT);
 
-        this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 2, 'Entity Name :', TYPE_CONSTANT);
+        this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 2, ENTITY_PROPERTY_NAME, TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_INPUT);
 
         this.last_entity_field_row = 2;
