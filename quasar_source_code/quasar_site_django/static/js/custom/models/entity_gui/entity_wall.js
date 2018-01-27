@@ -113,8 +113,7 @@ EntityWall.prototype = {
      /~~\ |__/ |__/    | \| |___ |/\|    |    | |___ |___ |__/    |/\| /~~\ |___ |___ */
     _init_add_new_field_wall: function() {
         if (is_defined(this.wall_add_new_field)) {
-            this.base_wall.world.remove_from_interactive_then_scene(this.wall_add_new_field);
-            this.wall_add_new_field.full_remove();
+            this.wall_add_new_field.fully_remove_self_and_all_sub_attachments();
         }
 
         this.wall_add_new_field = new FloatingWall(200, 300, null, null, this.base_wall.world, false, COLOR_BLUE);
@@ -154,6 +153,8 @@ EntityWall.prototype = {
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
         this.last_entity_field_row += 1;
+
+        this.current_entity_fields.push(field_name);
 
         this.base_wall.refresh_position_and_look_at();
     },
