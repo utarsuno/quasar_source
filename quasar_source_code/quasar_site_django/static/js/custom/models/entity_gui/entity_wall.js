@@ -147,6 +147,8 @@ EntityWall.prototype = {
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
         this.last_entity_field_row += 1;
+
+        this.base_wall.refresh_position_and_look_at();
     },
 
     _custom_field_added: function() {
