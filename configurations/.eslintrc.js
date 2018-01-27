@@ -227,6 +227,7 @@ module.exports = {
         "ENTITY_PROPERTY_3D_ROWS"            : false,
         "ENTITY_PROPERTY_2D_ROWS"            : false,
         "ENTITY_PROPERTY_TAGS"               : false,
+        "ENTITY_PROPERTY_NOTE"               : false,
         // UNIVERSAL_CONSTANTS_END
 
         "POST_KEY_GENERIC_DATA"                       : true,

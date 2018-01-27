@@ -177,6 +177,26 @@ FloatingWall.prototype = {
         return floating_2D_text;
     },
 
+    insert_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks, color) {
+        // First shift all rows needed.
+        var rows_to_shift = [];
+        for (var r = 0; r < this._2D_rows.length; r++) {
+            if (this._2D_rows[r][0] >= row) {
+                rows_to_shift.push(this._2D_rows[r]);
+            }
+        }
+        for (r = 0; r < rows_to_shift.length; r++) {
+            rows_to_shift[r][0] += 1;
+            rows_to_shift[r][3].apply_delta_to_vertical_offset(-16, null);
+        }
+
+        // Now insert the needed row.
+        this.add_row_2D_text(x_start_and_stop, row, text, type, syntax_checks, color);
+
+        // Perform a refresh.
+        this.refresh_position_and_look_at();
+    },
+
     _delete_row: function(row) {
         var delete_index = -1;
         for (var r = 0; r < this._2D_rows.length; r++) {

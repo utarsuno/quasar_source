@@ -120,14 +120,21 @@ EntityWall.prototype = {
         this.wall_add_new_field.add_row_3D_text(false, -1, 'Add New Field', TYPE_TITLE);
 
         // All the field options.
+        var button;
         this.wall_add_new_field.add_row_2D_text([0, 1], 1, 'Default Fields', TYPE_CONSTANT);
-        this.wall_add_new_field.add_row_2D_text([0, 1], 2, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON);
-        this.wall_add_new_field.add_row_2D_text([0, 1], 3, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON);
-        this.wall_add_new_field.add_row_2D_text([0, 1], 4, ENTITY_PROPERTY_TAGS, TYPE_BUTTON);
+        button = this.wall_add_new_field.add_row_2D_text([0, 1], 2, ENTITY_PROPERTY_DUE_DATE, TYPE_BUTTON);
+        button.set_engage_function(this._add_entity_field.bind(this, ENTITY_PROPERTY_DUE_DATE));
+        button = this.wall_add_new_field.add_row_2D_text([0, 1], 3, ENTITY_PROPERTY_DUE_TIME, TYPE_BUTTON);
+        button.set_engage_function(this._add_entity_field.bind(this, ENTITY_PROPERTY_DUE_TIME));
+        button = this.wall_add_new_field.add_row_2D_text([0, 1], 4, ENTITY_PROPERTY_TAGS, TYPE_BUTTON);
+        button.set_engage_function(this._add_entity_field.bind(this, ENTITY_PROPERTY_TAGS));
+        button = this.wall_add_new_field.add_row_2D_text([0, 1], 5, ENTITY_PROPERTY_NOTE, TYPE_BUTTON);
+        button.set_engage_function(this._add_entity_field.bind(this, ENTITY_PROPERTY_NOTE));
 
-        this.wall_add_new_field.add_row_2D_text([0, 1], 5, 'Or create custom', TYPE_CONSTANT);
-        this.custom_field_name = this.wall_add_new_field.add_row_2D_text([0, 1], 6, 'Field Name', TYPE_INPUT);
-        this.add_custom_field_button = this.wall_add_new_field.add_row_2D_text([0, 1], 7, 'Add Custom Field', TYPE_BUTTON);
+        this.wall_add_new_field.add_row_2D_text([0, 1], 7, 'Or create a custom field', TYPE_CONSTANT);
+        this.custom_field_name = this.wall_add_new_field.add_row_2D_text([0, 1], 8, 'Field Name', TYPE_INPUT);
+        this.add_custom_field_button = this.wall_add_new_field.add_row_2D_text([0, 1], 9, 'Add Custom Field', TYPE_BUTTON);
+        this.add_custom_field_button.set_engage_function(this._custom_field_added.bind(this));
 
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
     },
@@ -135,11 +142,20 @@ EntityWall.prototype = {
     _add_entity_field: function(field_name) {
         // TODO : ADD THE ENTITY FIELD!
         l('TODO : ADD THE ENTITY FIELD!');
+
+        this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
+        this.wall_create_new_entity.insert_row_2D_text([0, 1], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
+        this.wall_create_new_entity.add_row_2D_text([0, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
+        this.last_entity_field_row += 1;
     },
 
     _custom_field_added: function() {
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
         var custom_field_name = this.custom_field_name.get_text();
+        if (!custom_field_name.startsWith('ep_')) {
+            custom_field_name = 'ep_' + custom_field_name;
+        }
+        this._add_entity_field(custom_field_name);
         // TODO : Add all the error checking needed!!!
     },
 
@@ -184,6 +200,8 @@ EntityWall.prototype = {
 
         this.wall_create_new_entity.add_row_2D_text([0, ONE_THIRD], 2, 'Entity Name :', TYPE_CONSTANT);
         this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_INPUT);
+
+        this.last_entity_field_row = 2;
 
         this.add_new_field_button = this.wall_create_new_entity.add_row_2D_text([0, 1], 3, 'Add new field', TYPE_BUTTON);
         this.add_new_field_button.set_engage_function(this._add_entity_field_button_pressed.bind(this));
