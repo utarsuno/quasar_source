@@ -87,7 +87,7 @@ if [ "${is_django_running}" == "true" ]; then
 else
   export PYTHONPATH=/home/git_repos/quasar_source/
   python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py migrate
-  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80
+  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:6969
 fi
 
 print_dashed_line_with_text "live_run.sh script end for : ${HOST_NAME}."
