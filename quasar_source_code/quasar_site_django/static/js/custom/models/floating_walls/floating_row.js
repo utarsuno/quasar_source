@@ -29,8 +29,11 @@ FloatingRow.prototype = {
         return floating_element;
     },
 
-    add_2D_element: function(width, text, type, color, syntax_checks) {
-        var floating_element = new Floating2DText(width, text, type, this.parent_wall.world, syntax_checks);
+    add_2D_element: function(x_start_n_stop, text, type, color, syntax_checks) {
+        var total_percentage_of_parent_width = x_start_n_stop[1] - x_start_n_stop[0];
+        var floating_element_width = this.parent_wall.width * total_percentage_of_parent_width;
+
+        var floating_element = new Floating2DText(floating_element_width, text, type, this.parent_wall.world, syntax_checks);
 
         if (is_defined(color)) {
             floating_element.set_default_color(color);
@@ -41,7 +44,7 @@ FloatingRow.prototype = {
         floating_element.set_attachment_horizontal_offset(null, HALF);
 
         // TODO : This should eventually be dynamic.
-        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
+        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
 
         floating_element.attach_to(this.parent_wall);
 

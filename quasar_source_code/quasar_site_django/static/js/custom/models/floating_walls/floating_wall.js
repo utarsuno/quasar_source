@@ -175,7 +175,7 @@ FloatingWall.prototype = {
         l(row_index);
         var current_row = this.add_row(row_index);
 
-        current_row.add_2D_element(this.width, text, type, color, syntax_checks);
+        current_row.add_2D_element([0, 1], text, type, color, syntax_checks);
     },
 
     // OLD ROWS CODE BEING REFACTORED BELOW!!!
