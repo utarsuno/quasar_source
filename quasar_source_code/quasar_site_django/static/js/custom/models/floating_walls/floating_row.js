@@ -29,6 +29,20 @@ FloatingRow.prototype = {
         return floating_element;
     },
 
+    add_2D_label_and_input: function(x_divide_mark, text, syntax_checks) {
+    	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
+    	var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, syntax_checks);
+    	input.set_engage_function(function_to_bind);
+    	return [label, input];
+    },
+
+    add_2D_label_and_button: function(x_divide_mark, label_text, button_text, function_to_bind) {
+    	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
+    	var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON, syntax_checks);
+    	button.set_engage_function(function_to_bind);
+    	return [label, button];
+    },
+
     add_2D_element: function(x_start_n_stop, text, type, color, syntax_checks) {
         var total_percentage_of_parent_width = x_start_n_stop[1] - x_start_n_stop[0];
         var floating_element_width = this.parent_wall.width * total_percentage_of_parent_width;
@@ -49,6 +63,12 @@ FloatingRow.prototype = {
         floating_element.attach_to(this.parent_wall);
 
         return floating_element;
+    },
+
+    add_2D_button: function(x_start_n_stop, text, color, function_to_bind) {
+    	var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
+    	button.set_engage_function(function_to_bind);
+    	return button;
     },
 
     shift_down: function() {

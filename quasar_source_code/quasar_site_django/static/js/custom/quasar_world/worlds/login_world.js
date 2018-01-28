@@ -181,30 +181,29 @@ LoginWorld.prototype = {
         var wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
 
         this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this, false);
-        this.wall_create_account.add_row_3D_text(false, -1, 'Create Account', TYPE_TITLE);
+        this.wall_create_account.add_full_row_3D(-1, 'Create Account', TYPE_TITLE);
 
-        this.create_account_username_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
-        this.create_account_username_input = this.wall_create_account.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);
-        this.create_account_errors.add_label_and_input(this.create_account_username_label, this.create_account_username_input);
+        var create_username_row = this.wall_create_account.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.create_account_username_input = create_username_row[1];
         this.create_account_username_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
+        this.create_account_errors.add_label_and_input(create_username_row[0], create_username_row[1]);
 
-        this.create_account_email_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 1, 'email', TYPE_CONSTANT);
-        this.create_account_email_input = this.wall_create_account.add_row_2D_text([ONE_THIRD, 1], 1, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_EMAIL]);
-        this.create_account_errors.add_label_and_input(this.create_account_email_label, this.create_account_email_input);
+        var create_email_row = this.wall_create_account.add_row(1).add_2D_label_and_input(ONE_THIRD, 'email', [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_EMAIL]);
+        this.create_account_email_input = create_email_row[1];
+        this.create_account_errors.add_label_and_input(create_email_row[0], create_email_row[1]);
         this.create_account_email_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_password_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 2, 'password', TYPE_CONSTANT);
-        this.create_account_password_input = this.wall_create_account.add_row_2D_text([ONE_THIRD, 1], 2, '', TYPE_PASSWORD, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
-        this.create_account_errors.add_label_and_input(this.create_account_password_label, this.create_account_password_input);
+        var create_password_row = this.wall_create_account.add_row(2).add_2D_label_and_input(ONE_THIRD, 'password', [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
+        this.create_account_password_input = create_password_row[1];
+        this.create_account_errors.add_label_and_input(create_password_row[0], create_password_row[1]);
         this.create_account_password_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_password_repeat_label = this.wall_create_account.add_row_2D_text([0, ONE_THIRD], 3, 'repeat password', TYPE_CONSTANT);
-        this.create_account_password_repeat_input = this.wall_create_account.add_row_2D_text([ONE_THIRD, 1], 3, '', TYPE_PASSWORD, [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
-        this.create_account_errors.add_label_and_input(this.create_account_password_repeat_label, this.create_account_password_repeat_input);
+        var create_password_repeat_row = this.wall_create_account.add_row(3).add_2D_label_and_input(ONE_THIRD, 'repeat password', [TEXT_SYNTAX_STANDARD_LENGTH, TEXT_SYNTAX_MATCH_PASSWORDS]);
+        this.create_account_password_repeat_input = create_password_repeat_row[1];
+        this.create_account_errors.add_label_and_input(create_password_repeat_row[0], create_password_repeat_row[1]);
         this.create_account_password_repeat_input.set_value_post_changed_function(this._error_check.bind(this, this.create_account_errors));
 
-        this.create_account_button = this.wall_create_account.add_row_2D_text([.25, .75], 5, 'create account', TYPE_BUTTON);
-        this.create_account_button.set_engage_function(this.create_account_button_pressed.bind(this));
+        this.create_account_button = this.wall_create_account.add_row(5).add_2D_button([ONE_FOURTH, THREE_FOURTHS], 'create account', null, this.create_account_button_pressed.bind(this));
         this.create_account_errors.add_final_button(this.create_account_button);
 
         // TODO : Delete this or reformat
@@ -236,8 +235,8 @@ LoginWorld.prototype = {
          |/\| |  | /~~\  |     | .__/    /~~\ | \|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
         this.wall_what_is_an_entity = new FloatingWall(500, 600, new THREE.Vector3(810, 550, -800), new THREE.Vector3(-.8, 0, .575), this, false, COLOR_FLOATING_WALL_SUCCESS);
         this.wall_what_is_an_entity.add_close_button();
-        this.wall_what_is_an_entity.add_row_3D_text(false, -1, 'So what\'s an Entity?', TYPE_TITLE, COLOR_YELLOW);
-        this.wall_what_is_an_entity.add_row_2D_text([0, 1], 0, 'ToDo =)', TYPE_CONSTANT);
+        this.wall_what_is_an_entity.add_full_row_3D(-1, 'So What\'s an Entity?', TYPE_TITLE, COLOR_YELLOW);
+        this.wall_what_is_an_entity.add_full_row_2D(null, 'ToDo =)', TYPE_CONSTANT);
         this.wall_what_is_an_entity.refresh_position_and_look_at();
     }
 };
