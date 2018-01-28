@@ -49,6 +49,9 @@ MonthInstance.prototype = {
 
     apply_delta: function(units, magnitude) {
         switch (units) {
+        case DELTA_YEARS:
+            this._year_number += magnitude;
+            break;
         case DELTA_MONTHS:
             this._month_number += magnitude;
             while (this._month_number > 11) {

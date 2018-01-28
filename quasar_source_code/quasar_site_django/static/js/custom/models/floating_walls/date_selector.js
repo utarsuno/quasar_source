@@ -112,7 +112,7 @@ DateSelector.prototype = {
         this.date.apply_delta(DELTA_YEARS, -1);
         this.year.update_text(this.date.get_year_as_string());
 
-        
+        this.current_month.apply_delta(DELTA_YEARS, -1);
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -122,6 +122,8 @@ DateSelector.prototype = {
     button_year_increase_pressed: function() {
         this.date.apply_delta(DELTA_YEARS, 1);
         this.year.update_text(this.date.get_year_as_string());
+
+        this.current_month.apply_delta(DELTA_YEARS, 1);
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -135,6 +137,8 @@ DateSelector.prototype = {
         // If the month overflows below 0 or past december then the year should update as well.
         this.year.update_text(this.date.get_year_as_string());
 
+        this.current_month.apply_delta(DELTA_MONTHS, -1);
+
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
         this._create_all_day_buttons();
@@ -145,6 +149,8 @@ DateSelector.prototype = {
         this.month.update_text(this.date.get_month_full_data_string());
         // If the month overflows below 0 or past december then the year should update as well.
         this.year.update_text(this.date.get_year_as_string());
+
+        this.current_month.apply_delta(DELTA_YEARS, 1);
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
