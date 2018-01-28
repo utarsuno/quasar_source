@@ -30,22 +30,22 @@ FloatingRow.prototype = {
     },
 
     add_2D_element: function(width, text, type, color, syntax_checks) {
-    	var floating_element = new Floating2DText(width, text, type, this.parent_wall.world, syntax_colors);
+        var floating_element = new Floating2DText(width, text, type, this.parent_wall.world, syntax_checks);
 
-    	is (is_defined(color)) {
-    		floating_element.set_default_color(color);
-    		floating_element.set_color(color, true);
-    	}
+        if (is_defined(color)) {
+            floating_element.set_default_color(color);
+            floating_element.set_color(color, true);
+        }
 
-    	floating_element.set_attachment_depth_offset(1);
-    	floating_element.set_attachment_horizontal_offset(null, HALF);
+        floating_element.set_attachment_depth_offset(1);
+        floating_element.set_attachment_horizontal_offset(null, HALF);
 
-    	// TODO : This should eventually be dynamic.
-    	floating_element.set_attachment_vertical_offset(-8 + -16 * row, HALF);
+        // TODO : This should eventually be dynamic.
+        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
-    	floating_element.attach_to(this.parent_wall);
+        floating_element.attach_to(this.parent_wall);
 
-    	return floating_element;
+        return floating_element;
     },
 
     shift_down: function() {
