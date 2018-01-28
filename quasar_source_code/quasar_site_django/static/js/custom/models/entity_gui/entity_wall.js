@@ -119,7 +119,7 @@ EntityWall.prototype = {
     },
 
     _show_date_selector: function() {
-        this.date_selector.display_self_and_all_child_attachments_recursively();
+        this.date_selector.wall_date_selector.display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     },
 
