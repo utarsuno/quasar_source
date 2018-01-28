@@ -114,7 +114,13 @@ FloatingWall.prototype = {
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
     add_close_button: function() {
         var one_pixel_width = 1 / this.width;
-        this.close_button = this.add_row_2D_text([1 - (one_pixel_width * 16), 1], 0, ICON_CROSS, TYPE_ICON);
+        var x_start = 1 - (one_pixel_width * 16);
+        var x_stop = 1;
+        var total_percentage_of_parent_width = (x_stop - x_start);
+        this.close_button = new Floating2DText(one_pixel_width * 16, ICON_CROSS, TYPE_ICON);
+
+        this.close_button.set_attachment_vertical_offset(-8, HALF);
+        this.close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
         this.close_button.set_attachment_depth_offset(2);
         this.close_button.engable = false;
         this.close_button.set_engage_function(this.force_hide_self_and_all_child_attachments_recursively.bind(this));
@@ -166,16 +172,21 @@ FloatingWall.prototype = {
         return floating_row;
     },
 
+    // This utility function is used for creating a single row that contains a single 3D element.
+    add_full_row_3D: function(row_index, text, type, color) {
+        var current_row = this.add_row(row_index);
+        current_row.add_3D_element(type, type, color);
+        return current_row;
+    },
+
     // This utility function is used for creating a single row that contains a single 2D element that spans the entire width.
     add_full_row_2D: function(row_index, text, type, color, syntax_checks) {
         if (!is_defined(row_index)) {
             row_index = this._get_max_row_number() + 1;
         }
-        l('The row index is :');
-        l(row_index);
         var current_row = this.add_row(row_index);
-
         current_row.add_2D_element([0, 1], text, type, color, syntax_checks);
+        return current_row;
     },
 
     // OLD ROWS CODE BEING REFACTORED BELOW!!!
