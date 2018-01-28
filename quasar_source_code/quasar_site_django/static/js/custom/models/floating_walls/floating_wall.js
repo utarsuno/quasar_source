@@ -123,6 +123,9 @@ FloatingWall.prototype = {
         this.close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
         this.close_button.set_attachment_depth_offset(2);
         this.close_button.engable = false;
+
+        this.close_button.attach_to(this);
+
         this.close_button.set_engage_function(this.force_hide_self_and_all_child_attachments_recursively.bind(this));
 
         this.world.interactive_objects.push(this.close_button);
@@ -160,7 +163,6 @@ FloatingWall.prototype = {
             // Check if any existing rows need to be shifted down.
             var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(row_index);
             for (var r = 0; r < all_rows_to_shift.length; r++) {
-                l(all_rows_to_shift[r]);
                 all_rows_to_shift[r].shift_down();
             }
         }
@@ -175,7 +177,7 @@ FloatingWall.prototype = {
     // This utility function is used for creating a single row that contains a single 3D element.
     add_full_row_3D: function(row_index, text, type, color) {
         var current_row = this.add_row(row_index);
-        current_row.add_3D_element(type, type, color);
+        current_row.add_3D_element(text, type, color);
         return current_row;
     },
 

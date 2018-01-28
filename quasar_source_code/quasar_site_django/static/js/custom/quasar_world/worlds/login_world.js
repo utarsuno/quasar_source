@@ -227,7 +227,7 @@ LoginWorld.prototype = {
         this.wall_tips_and_tricks.add_full_row_2D(null, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_full_row_2D(null, '- Left click to click buttons or engage with engable objects.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_full_row_2D(null, '- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
-        this.wall_tips_and_tricks.add_full_row_2D(null, '- Hit the escape key to release control of the mouse', TYPE_CONSTANT, null, COLOR_RED);
+        this.wall_tips_and_tricks.add_full_row_2D(null, '- Hit the escape key to release control of the mouse', TYPE_CONSTANT, COLOR_RED);
         this.wall_tips_and_tricks.add_full_row_2D(null, '- Hit the tab key to cycle through engable/clickable objects.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.refresh_position_and_look_at();
 
