@@ -158,7 +158,7 @@ EntityWall.prototype = {
     _add_selectable_entity_field: function(field_name) {
         if (this.current_entity_fields.indexOf(field_name) === NOT_FOUND) {
             var button = this.wall_add_new_field.add_row_2D_text([0, 1], this.current_entity_field_row, field_name, TYPE_BUTTON);
-            button.set_engage_function(this._show_date_selector.bind(this));
+            button.set_engage_function(this._add_entity_field.bind(this, field_name));
             this.current_entity_field_row += 1;
         }
     },
@@ -167,14 +167,11 @@ EntityWall.prototype = {
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
 
-        l('Add the following field name!');
-        l(field_name);
-        l(field_name === ENTITY_PROPERTY_DUE_DATE);
-
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
             var select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
             this.date_selector.attach_to(select_date_button);
-            select_date_button.set_engage_function(this.date_selector.display_self_and_all_child_attachments_recursively);
+            select_date_button.set_engage_function(this._show_date_selector.bind(this));
+            //select_date_button.set_engage_function(this.date_selector.display_self_and_all_child_attachments_recursively);
         } else {
             this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
         }
