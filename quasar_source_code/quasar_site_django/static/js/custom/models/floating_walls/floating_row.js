@@ -31,14 +31,16 @@ FloatingRow.prototype = {
 
     add_2D_label_and_input: function(x_divide_mark, text, syntax_checks) {
     	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
-    	var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, syntax_checks);
+    	var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, null, syntax_checks);
     	return [label, input];
     },
 
     add_2D_label_and_button: function(x_divide_mark, label_text, button_text, function_to_bind) {
     	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
-    	var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON, syntax_checks);
-    	button.set_engage_function(function_to_bind);
+    	var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON, null, syntax_checks);
+    	if (is_defined(function_to_bind)) {
+    		button.set_engage_function(function_to_bind);
+    	}
     	return [label, button];
     },
 
