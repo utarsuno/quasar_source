@@ -228,9 +228,12 @@ LoginWorld.prototype = {
         current_row = this.wall_tips_and_tricks.add_row(-1);
         current_row.add_3D_element('Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
 
+        this.wall_tips_and_tricks.add_full_row_2D('- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_full_row_2D('- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
+
         //this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
-        this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
-        this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.', TYPE_CONSTANT, COLOR_YELLOW);
+        //this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
+        //this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 3, '- Hit the escape key to release control of the mouse', TYPE_CONSTANT, null, COLOR_RED);
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 4, '- Hit the tab key to cycle through engable/clickable objects.', TYPE_CONSTANT, COLOR_YELLOW);
