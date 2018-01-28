@@ -228,8 +228,8 @@ LoginWorld.prototype = {
         current_row = this.wall_tips_and_tricks.add_row(-1);
         current_row.add_3D_element('Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
 
-        this.wall_tips_and_tricks.add_full_row_2D('- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
-        this.wall_tips_and_tricks.add_full_row_2D('- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_full_row_2D(null, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
+        this.wall_tips_and_tricks.add_full_row_2D(null, '- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
 
         //this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
         //this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
