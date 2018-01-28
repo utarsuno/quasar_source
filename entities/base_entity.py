@@ -6,16 +6,14 @@
 # All the current possible Entity types.
 ENTITY_TYPE_BASE          = 'Entity'
 ENTITY_TYPE_TASK          = 'EntityTask'
-ENTITY_TYPE_TIME          = 'EntityTime'
 ENTITY_TYPE_WALL          = 'EntityWall'
 ENTITY_TYPE_OWNER         = 'EntityOwner'
 ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder'
-ENTITY_TYPE_ALL   = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_TIME, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER]
+ENTITY_TYPE_ALL   = [ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER]
 
 # TODO : track this
 ENTITY_TYPE_TO_ABBREVIATION_DICT = {ENTITY_TYPE_BASE         : 'E',
                                     ENTITY_TYPE_TASK         : 'ETASK',
-                                    ENTITY_TYPE_TIME         : 'ETIME',
                                     ENTITY_TYPE_WALL         : 'EW',
                                     ENTITY_TYPE_OWNER        : 'EO',
                                     ENTITY_TYPE_TEXT_REMINDER: 'ETR'}

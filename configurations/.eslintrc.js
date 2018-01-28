@@ -180,7 +180,6 @@ module.exports = {
 
         // UNIVERSAL_CONSTANTS_START : Entity types.
         "ENTITY_TYPE_TASK"           : false,
-        "ENTITY_TYPE_TIME"           : false,
         "ENTITY_TYPE_BASE"           : false,
         "ENTITY_TYPE_WALL"           : false,
         "ENTITY_TYPE_OWNER"          : false,
@@ -353,6 +352,7 @@ module.exports = {
         "COLOR_SCHEDULE_FUTURE"        : false,
         "COLOR_FLOATING_WALL_BASE"     : false,
         "COLOR_FLOATING_WALL_TOP"      : false,
+        "COLOR_FLOATING_WALL_YELLOW"   : false,
         "COLOR_FLOATING_WALL_HIGHLIGHT": false,
         "COLOR_FLOATING_WALL_SUCCESS"  : false,
         "COLOR_FLOATING_WALL_ERROR"    : false,
