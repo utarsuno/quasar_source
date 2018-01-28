@@ -167,6 +167,10 @@ EntityWall.prototype = {
     },
 
     _delete_entity_field: function(row_number, field_name) {
+        if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+            this.date_selector.wall_date_selector.detach_from_parent();
+        }
+
         this.wall_create_new_entity.delete_row(row_number);
 
         this.last_entity_field_row -= 1;
