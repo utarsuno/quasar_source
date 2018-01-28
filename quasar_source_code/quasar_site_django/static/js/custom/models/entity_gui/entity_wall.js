@@ -166,8 +166,19 @@ EntityWall.prototype = {
         }
     },
 
-    _delete_entity_field: function(row_number) {
+    _delete_entity_field: function(row_number, field_name) {
         this.wall_create_new_entity.delete_row(row_number);
+
+        var remove_index = -1;
+        for (var f = 0; f < this.current_entity_fields.length; f++) {
+            if (this.current_entity_fields[f] === field_name) {
+                remove_index = f;
+                break;
+            }
+        }
+        if (remove_index !== NOT_FOUND) {
+            this.current_entity_fields.splice(remove_index, 1);
+        }
     },
 
     _add_entity_field: function(field_name) {
@@ -196,7 +207,7 @@ EntityWall.prototype = {
         var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
         delete_entity_field_button.set_attachment_horizontal_offset(50 + input_field.width / 2, null);
         delete_entity_field_button.attach_to(input_field);
-        delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, this.last_entity_field_row + 1));
+        delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, this.last_entity_field_row + 1, field_name));
 
         this.last_entity_field_row += 1;
 
