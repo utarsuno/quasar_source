@@ -57,6 +57,22 @@ DateSelector.prototype = {
         this.day_label_sunday    = this.wall_date_selector.add_row_2D_text([6 / 7, 1]    , 3, 'Sunday'   , TYPE_CONSTANT);
 
         // All the day buttons.
+        this._create_all_day_buttons();
+
+        //
+        this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
+    },
+
+    _delete_all_day_buttons: function() {
+        for (var d = 0; d < this.all_day_buttons.length; d++) {
+            this.all_day_buttons[d].remove_from_root_attachmentables_if_needed();
+            this.all_day_buttons[d].full_remove();
+        }
+        this.all_day_buttons.length = 0;
+    },
+
+    _create_all_day_buttons: function() {
+        this.all_day_buttons = [];
         for (var d = 0; d < this.all_days.length; d++) {
 
             var row = this.all_days[d].get_week_relative_to_current_month();
@@ -71,21 +87,28 @@ DateSelector.prototype = {
             day_cell.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
             day_cell.set_default_color(this.current_month.get_day_color_by_index(d));
             day_cell.set_color(this.current_month.get_day_color_by_index(d), true);
-        }
 
-        //
-        this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
+            this.all_day_buttons.push(day_cell);
+        }
     },
 
     // Year.
     button_year_decrease_pressed: function() {
         this.date.apply_delta(DELTA_YEARS, -1);
         this.year.update_text(this.date.get_year_as_string());
+
+        // TODO : Eventually implement cache to improve performance!
+        this._delete_all_day_buttons();
+        this._create_all_day_buttons();
     },
 
     button_year_increase_pressed: function() {
         this.date.apply_delta(DELTA_YEARS, 1);
         this.year.update_text(this.date.get_year_as_string());
+
+        // TODO : Eventually implement cache to improve performance!
+        this._delete_all_day_buttons();
+        this._create_all_day_buttons();
     },
 
     // Month.
@@ -94,6 +117,10 @@ DateSelector.prototype = {
         this.month.update_text(this.date.get_month_full_data_string());
         // If the month overflows below 0 or past december then the year should update as well.
         this.year.update_text(this.date.get_year_as_string());
+
+        // TODO : Eventually implement cache to improve performance!
+        this._delete_all_day_buttons();
+        this._create_all_day_buttons();
     },
 
     button_month_increase_pressed: function() {
@@ -101,5 +128,9 @@ DateSelector.prototype = {
         this.month.update_text(this.date.get_month_full_data_string());
         // If the month overflows below 0 or past december then the year should update as well.
         this.year.update_text(this.date.get_year_as_string());
+
+        // TODO : Eventually implement cache to improve performance!
+        this._delete_all_day_buttons();
+        this._create_all_day_buttons();
     }
 };

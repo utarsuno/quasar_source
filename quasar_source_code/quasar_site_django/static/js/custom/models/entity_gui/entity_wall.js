@@ -116,10 +116,13 @@ EntityWall.prototype = {
         //var year = date_object.get_year_as_string();
         //var month = date_object.get_month_number_as_string();
         l('DATE WAS SELECTED!!!');
+        this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
+
+        this.select_date_button.update_text(date_object.to_string());
     },
 
     _show_date_selector: function() {
-        this.date_selector.wall_date_selector.display_self_and_all_child_attachments_recursively();
+        this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -168,9 +171,9 @@ EntityWall.prototype = {
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
 
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
-            var select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
-            this.date_selector.wall_date_selector.attach_to(select_date_button);
-            select_date_button.set_engage_function(this._show_date_selector.bind(this));
+            this.select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
+            this.date_selector.wall_date_selector.attach_to(this.select_date_button);
+            this.select_date_button.set_engage_function(this._show_date_selector.bind(this));
             //select_date_button.set_engage_function(this.date_selector.display_self_and_all_child_attachments_recursively);
         } else {
             this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
