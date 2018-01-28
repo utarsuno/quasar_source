@@ -32,7 +32,6 @@ FloatingRow.prototype = {
     add_2D_label_and_input: function(x_divide_mark, text, syntax_checks) {
     	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
     	var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, syntax_checks);
-    	input.set_engage_function(function_to_bind);
     	return [label, input];
     },
 
