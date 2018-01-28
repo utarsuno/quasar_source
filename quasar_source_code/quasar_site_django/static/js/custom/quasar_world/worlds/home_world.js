@@ -66,10 +66,6 @@ HomeWorld.prototype = {
     exit_world: function() {
     },
 
-    load_date_selector: function() {
-        this.date_selector = new DateSelector(this);
-    },
-
     /*__   __        ___  __             ___            ___
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
      .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */

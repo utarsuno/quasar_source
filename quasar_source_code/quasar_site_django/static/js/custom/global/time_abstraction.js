@@ -1,9 +1,7 @@
 'use strict';
 
-// TODO : create a universal constant here.
 const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
-// TODO : create the other deltas needed.
 
 const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -11,6 +9,10 @@ const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'Ju
 function MyDates(dates_base) {
     this.__init__(dates_base);
 }
+
+// TODO : Eventually this will need to automatically update at midnight.
+//const CURRENT_DAY_OBJECT   = new MyDate(THIS_DAY);
+//const CURRENT_MONTH_OBJECT = new MyDates(THIS_MONTH);
 
 // TODO : Match the design of the python time abstraction
 // TODO : Match the design of the python time abstraction

@@ -7,6 +7,8 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     __init__: function(world, entity) {
+        this.date_selector = new DateSelector(world, this.date_selected.bind(this));
+
         if (!is_defined(entity)) {
             var pp = CURRENT_PLAYER.get_position();
             var pn = CURRENT_PLAYER.get_direction();
@@ -37,7 +39,6 @@ EntityWall.prototype = {
 
             var rows_2D = this.base_wall.get_value(ENTITY_PROPERTY_2D_ROWS);
             var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
-
 
             // Parse the 2D rows.
             if (is_defined(rows_2D)) {
@@ -108,6 +109,20 @@ EntityWall.prototype = {
         this.base_wall.refresh_position_and_look_at();
     },
 
+    /*__       ___  ___     __   ___       ___  __  ___  __   __
+     |  \  /\   |  |__     /__` |__  |    |__  /  `  |  /  \ |__)
+     |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
+    date_selected: function(date_object) {
+        //var year = date_object.get_year_as_string();
+        //var month = date_object.get_month_number_as_string();
+
+    },
+
+    _show_date_selector: function() {
+        this.date_selector.display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
+    },
+
     /*     __   __           ___          ___    ___       __
       /\  |  \ |  \    |\ | |__  |  |    |__  | |__  |    |  \    |  |  /\  |    |
      /~~\ |__/ |__/    | \| |___ |/\|    |    | |___ |___ |__/    |/\| /~~\ |___ |___ */
@@ -143,7 +158,7 @@ EntityWall.prototype = {
     _add_selectable_entity_field: function(field_name) {
         if (this.current_entity_fields.indexOf(field_name) === NOT_FOUND) {
             var button = this.wall_add_new_field.add_row_2D_text([0, 1], this.current_entity_field_row, field_name, TYPE_BUTTON);
-            button.set_engage_function(this._add_entity_field.bind(this, field_name));
+            button.set_engage_function(this._show_date_selector.bind(this));
             this.current_entity_field_row += 1;
         }
     },
@@ -151,7 +166,15 @@ EntityWall.prototype = {
     _add_entity_field: function(field_name) {
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
-        this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
+
+        if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+            var select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
+            this.date_selector.attach_to(select_date_button);
+            select_date_button.set_engage_function(this.date_selector.display_self_and_all_child_attachments_recursively);
+        } else {
+            this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, '', TYPE_INPUT);
+        }
+
         this.last_entity_field_row += 1;
 
         this.current_entity_fields.push(field_name);

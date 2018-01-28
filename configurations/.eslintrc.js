@@ -448,8 +448,10 @@ module.exports = {
         "get_new_floating_icon" : true,
 
         // From time_abstractions.js
-        "THIS_DAY"   : false,
-        "THIS_MONTH" : false,
+        "THIS_DAY"             : false,
+        "THIS_MONTH"           : false,
+        "CURRENT_MONTH_OBJECT" : false,
+        "CURRENT_DAY_OBJECT"   : false,
 
         "DELTA_YEARS" : false,
         "DELTA_DAYS"  : false,
