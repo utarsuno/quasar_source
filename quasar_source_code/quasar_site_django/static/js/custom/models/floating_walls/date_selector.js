@@ -40,7 +40,7 @@ DateSelector.prototype = {
         this.button_month_decrease.set_engage_function(this.button_month_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_month_decrease);
 
-        this.year = this.wall_date_selector.add_row_2D_text([ONE_FOURTH, THREE_FOURTHS], 1, this.date.get_month_full_data_string(), TYPE_CONSTANT);
+        this.month = this.wall_date_selector.add_row_2D_text([ONE_FOURTH, THREE_FOURTHS], 1, this.date.get_month_full_data_string(), TYPE_CONSTANT);
 
         this.button_month_increase = this.wall_date_selector.add_row_2D_text([THREE_FOURTHS, 1], 1, ICON_RIGHT, TYPE_ICON);
         this.button_month_increase.engable = false;
@@ -64,7 +64,7 @@ DateSelector.prototype = {
             var day_cell = null;
 
             if (num === 0) {
-                day_cell = this.wall_date_selector.add_row_2D_text([6 / 7, 1], 4 + row, this.all_days[d].get_day_number(), TYPE_BUTTON);
+                day_cell = this.wall_date_selector.add_row_2D_text([6 / 7, 1], 4 + row - 1, this.all_days[d].get_day_number(), TYPE_BUTTON);
             } else {
                 day_cell = this.wall_date_selector.add_row_2D_text([(num - 1) / 7, num / 7], 4 + row, this.all_days[d].get_day_number(), TYPE_BUTTON);
             }

@@ -115,7 +115,7 @@ EntityWall.prototype = {
     date_selected: function(date_object) {
         //var year = date_object.get_year_as_string();
         //var month = date_object.get_month_number_as_string();
-
+        l('DATE WAS SELECTED!!!');
     },
 
     _show_date_selector: function() {
