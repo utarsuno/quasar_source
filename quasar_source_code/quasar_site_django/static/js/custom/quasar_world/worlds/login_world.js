@@ -25,6 +25,7 @@ LoginWorld.prototype = {
      |    /  \ / _` | |\ |
      |___ \__/ \__> | | \| */
     login_button_pressed: function() {
+        // TODO : Move this logic elsewhere.
         var login_username_text = this.login_username_input.get_text();
         var login_password_text = this.login_password_input.get_text();
         GUI_TYPING_INTERFACE.add_server_message('Sending login request to server...');
@@ -221,8 +222,13 @@ LoginWorld.prototype = {
            |  | |__) /__`    |\ |     |  |__) | /  ` |__/ /__`    |  |  /\  |    |
            |  | |    .__/    | \|     |  |  \ | \__, |  \ .__/    |/\| /~~\ |___ |___ */
         this.wall_tips_and_tricks = new FloatingWall(500, 300, new THREE.Vector3(850, 200, -50), new THREE.Vector3(-.99, 0, 0.07), this, false, COLOR_BLACK);
-        this.wall_tips_and_tricks.add_close_button();
-        this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
+        //this.wall_tips_and_tricks.add_close_button();
+
+        var current_row;
+        current_row = this.wall_tips_and_tricks.add_row(-1);
+        current_row.add_3D_element('Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
+
+        //this.wall_tips_and_tricks.add_row_3D_text(false, -1, 'Tips N Tricks', TYPE_TITLE, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, .9], 0, '- A cursor will only be visible for anything interactive.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 1, '- Left click to click buttons or engage with engable objects.', TYPE_CONSTANT, COLOR_YELLOW);
         this.wall_tips_and_tricks.add_row_2D_text([0, 1], 2, '- Once engaged, right click to dis-engage.', TYPE_CONSTANT, COLOR_YELLOW);
