@@ -169,6 +169,8 @@ EntityWall.prototype = {
     _delete_entity_field: function(row_number, field_name) {
         this.wall_create_new_entity.delete_row(row_number);
 
+        this.last_entity_field_row -= 1;
+
         var remove_index = -1;
         for (var f = 0; f < this.current_entity_fields.length; f++) {
             if (this.current_entity_fields[f] === field_name) {
