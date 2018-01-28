@@ -41,10 +41,10 @@ FloatingRow.prototype = {
         }
 
         floating_element.set_attachment_depth_offset(1);
-        floating_element.set_attachment_horizontal_offset(null, HALF);
+        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
 
         // TODO : This should eventually be dynamic.
-        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
+        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
         floating_element.attach_to(this.parent_wall);
 
