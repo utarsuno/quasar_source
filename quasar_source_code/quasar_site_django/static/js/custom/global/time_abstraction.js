@@ -6,8 +6,8 @@ const THIS_MONTH = 'this_month';
 const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-function MyDates(dates_base) {
-    this.__init__(dates_base);
+function MonthInstance(month_number) {
+    this.__init__(month_number);
 }
 
 // TODO : Eventually this will need to automatically update at midnight.
@@ -18,22 +18,51 @@ function MyDates(dates_base) {
 // TODO : Match the design of the python time abstraction
 // TODO : Match the design of the python time abstraction
 
-MyDates.prototype = {
+MonthInstance.prototype = {
 
     __init__: function(dates_base) {
         this.dates = [];
+
+        this._year_number = new Date().getFullYear();
         if (dates_base === THIS_MONTH) {
-            var days_of_this_month = get_all_days_in_current_month();
-            for (var d = 0; d < days_of_this_month.length; d++) {
-                this.dates.push(new MyDate(days_of_this_month[d]));
-
-                var dates_in_past = this.get_dates_in_past();
-                var dates_in_future = this.get_dates_in_future();
-
-                this.dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
-                this.dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
-            }
+            this._month_number = new Date().getMonth();
+        } else {
+            this._month_number = dates_base;
         }
+
+        this._create_days_of_this_month();
+    },
+
+    _create_days_of_this_month: function() {
+        this.dates.length = 0;
+        var days_of_this_month = get_days_in_month(this._month_number, this._year_number);
+        for (var d = 0; d < days_of_this_month.length; d++) {
+            this.dates.push(new MyDate(days_of_this_month[d]));
+
+            var dates_in_past = this.get_dates_in_past();
+            var dates_in_future = this.get_dates_in_future();
+
+            this.dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
+            this.dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
+        }
+    },
+
+    apply_delta: function(units, magnitude) {
+        switch (units) {
+        case DELTA_MONTHS:
+            this._month_number += magnitude;
+            while (this._month_number > 11) {
+                this._month_number -= 11;
+                this._year_number += 1;
+            }
+            while (this._month_number < 0) {
+                this._month_number += 11;
+                this._year_number -= 1;
+            }
+            break;
+        }
+
+        this._create_days_of_this_month();
     },
 
     get_day_color_by_index: function(index) {
@@ -160,6 +189,9 @@ MyDate.prototype = {
     /*     __       ___          __       ___
      |\/| /  \ |\ |  |  |__|    |  \  /\   |   /\
      |  | \__/ | \|  |  |  |    |__/ /~~\  |  /~~\ */
+    get_all_days_in_this_month: function() {
+
+    },
 
     get_month_as_word: function() {
         return MONTH_NAMES[this.date.getMonth()];
@@ -174,15 +206,6 @@ MyDate.prototype = {
     }
 };
 
-// Solution modified from : https://stackoverflow.com/questions/3818193/how-to-add-number-of-days-to-todays-date
-function get_date_string_from_today_with_n_day_offset(n) {
-    var date = get_date_object_from_today_with_n_day_offset(n);
-    var day   = date.getDate();
-    var month = date.getMonth() + 1;
-    var year  = date.getFullYear();
-    return month + '.' + day + '.' + year;
-}
-
 function get_date_object_from_today_with_n_day_offset(n) {
     var date = new Date();
     if (n !== 0) {
@@ -191,75 +214,6 @@ function get_date_object_from_today_with_n_day_offset(n) {
     return date;
 }
 
-// TODO : check if still needed
-function get_just_date_object_of_date_of_n_days_offset(n) {
-    var date = new Date();
-    var result = new Date(date);
-    result.setDate(result.getDate() + n);
-    return result;
-}
-
-// TODO : check if still needed
-function get_list_of_dates_consisting_of_this_and_next_week() {
-    var dates      = [];
-    var date       = new Date(); // Right now instance.
-    var day_offset = date.getDay();
-
-    if (day_offset == 0) {
-        day_offset = 6;
-    } else {
-        day_offset--;
-    }
-
-    for (var i = 0; i < 14; i++) {
-        dates.push(get_today_with_n_days_offset(i - day_offset));
-    }
-    return dates;
-}
-
-// TODO : check if still needed
-function get_day_of_week_as_word(d) {
-    if (is_string(d)) {
-        // TODO : !!!
-        l('TODO! Get the day of week as word for the following input :');
-        l(d);
-    } else {
-        switch (d.getDay()){
-        case 0:
-            return 'Sunday';
-        case 1:
-            return 'Monday';
-        case 2:
-            return 'Tuesday';
-        case 3:
-            return 'Wednesday';
-        case 4:
-            return 'Thursday';
-        case 5:
-            return 'Friday';
-        case 6:
-            return 'Saturday';
-        }
-    }
-}
-
-// TODO : check if still needed
-// GLOBAL_FUNCTION
-function get_current_month() {
-    return new Date().getMonth();
-}
-
-// TODO : check if still needed
-// GLOBAL_FUNCTION
-function get_current_year() {
-    return new Date().getFullYear();
-}
-
-// TODO : check if still needed
-// GLOBAL_FUNCTION
-function get_all_days_in_current_month() {
-    return get_days_in_month(get_current_month(), get_current_year());
-}
 
 // From : https://stackoverflow.com/questions/13146418/find-all-the-days-in-a-month-with-date-object
 /**

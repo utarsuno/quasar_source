@@ -457,17 +457,8 @@ module.exports = {
         "DELTA_DAYS"  : false,
         "DELTA_MONTHS": false,
 
-        "MyDates": false,
+        "MonthInstance": false,
         "MyDate" : false,
-
-        "get_list_of_dates_consisting_of_this_and_next_week": false,
-        "get_just_date_object_of_date_of_n_days_offset"     : false,
-        "get_date_string_from_today_with_n_day_offset"      : false,
-        "get_day_of_week_as_word"                           : false,
-        "get_days_in_month"                                 : false,
-        "get_current_month"                                 : false,
-        "get_current_year"                                  : false,
-        "get_all_days_in_current_month"                     : false,
 
         //           ___
         // |\/|  /\   |  |__|

@@ -18,7 +18,7 @@ DateSelector.prototype = {
 
         // Time Logic.
         this.date = new MyDate(THIS_DAY);
-        this.current_month = new MyDates(THIS_MONTH);
+        this.current_month = new MonthInstance(THIS_MONTH);
         this.all_days = this.current_month.get_all_dates();
 
         // Year.
@@ -83,9 +83,6 @@ DateSelector.prototype = {
     _create_all_day_buttons: function() {
         this.all_days = this.current_month.get_all_dates();
 
-        l('Printing all days!');
-
-
         this.all_day_buttons = [];
         for (var d = 0; d < this.all_days.length; d++) {
 
@@ -114,6 +111,8 @@ DateSelector.prototype = {
     button_year_decrease_pressed: function() {
         this.date.apply_delta(DELTA_YEARS, -1);
         this.year.update_text(this.date.get_year_as_string());
+
+        
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();

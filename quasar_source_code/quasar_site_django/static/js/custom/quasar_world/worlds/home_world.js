@@ -117,7 +117,7 @@ HomeWorld.prototype = {
     load_schedule: function() {
         // The 360 schedule view.
         this.month_day_walls = [];
-        this.month_days = new MyDates(THIS_MONTH);
+        this.month_days = new MonthInstance(THIS_MONTH);
 
         var dates_in_past = this.month_days.get_dates_in_past();
         var dates_in_present = this.month_days.get_dates_in_present();
