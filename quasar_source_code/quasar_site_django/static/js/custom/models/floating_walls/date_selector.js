@@ -57,10 +57,19 @@ DateSelector.prototype = {
         this.day_label_sunday    = this.wall_date_selector.add_row_2D_text([6 / 7, 1]    , 3, 'Sunday'   , TYPE_CONSTANT);
 
         // All the day buttons.
-        this._create_all_day_buttons();
+        //this._create_all_day_buttons();
 
         //
         this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
+    },
+
+    refresh_dates: function() {
+        if (is_defined(this.all_day_buttons)) {
+            if (this.all_day_buttons.length > 0) {
+                this._delete_all_day_buttons();
+            }
+        }
+        this._create_all_day_buttons();
     },
 
     _delete_all_day_buttons: function() {

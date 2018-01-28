@@ -177,6 +177,7 @@ EntityWall.prototype = {
 
             this.select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
             this.date_selector.wall_date_selector.attach_to(this.select_date_button);
+            this.date_selector.refresh_dates();
             this.select_date_button.set_engage_function(this._show_date_selector.bind(this));
             //select_date_button.set_engage_function(this.date_selector.display_self_and_all_child_attachments_recursively);
         } else {
