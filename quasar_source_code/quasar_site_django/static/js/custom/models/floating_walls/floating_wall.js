@@ -167,6 +167,9 @@ FloatingWall.prototype = {
 
     // This utility function is used for creating a single row that contains a single 2D element that spans the entire width.
     add_full_row_2D: function(row_index, text, type, color, syntax_checks) {
+        if (!is_defined(row_index)) {
+            row_index = this._get_max_row_number() + 1;
+        }
         var current_row = this.add_row(row_index);
 
         current_row.add_2D_element(this.width, text, type, color, syntax_checks);
