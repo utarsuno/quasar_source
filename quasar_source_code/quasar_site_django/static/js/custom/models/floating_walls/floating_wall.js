@@ -154,6 +154,7 @@ FloatingWall.prototype = {
             // Check if any existing rows need to be shifted down.
             var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(row_index);
             for (var r = 0; r < all_rows_to_shift.length; r++) {
+                l(all_rows_to_shift[r]);
                 all_rows_to_shift[r].shift_down();
             }
         }
@@ -170,6 +171,8 @@ FloatingWall.prototype = {
         if (!is_defined(row_index)) {
             row_index = this._get_max_row_number() + 1;
         }
+        l('The row index is :');
+        l(row_index);
         var current_row = this.add_row(row_index);
 
         current_row.add_2D_element(this.width, text, type, color, syntax_checks);
