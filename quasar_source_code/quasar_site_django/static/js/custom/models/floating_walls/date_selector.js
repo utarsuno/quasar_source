@@ -97,6 +97,8 @@ DateSelector.prototype = {
 
             this.all_day_buttons.push(day_cell);
         }
+
+        this.wall_date_selector.refresh_position_and_look_at();
     },
 
     // Year.
