@@ -7,7 +7,7 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     __init__: function(world, entity) {
-        this.date_selector = new DateSelector(world, this.date_selected.bind(this));
+        this.date_selector = null;
 
         if (!is_defined(entity)) {
             var pp = CURRENT_PLAYER.get_position();
@@ -113,15 +113,15 @@ EntityWall.prototype = {
      |  \  /\   |  |__     /__` |__  |    |__  /  `  |  /  \ |__)
      |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
     date_selected: function(date_object) {
-        //var year = date_object.get_year_as_string();
-        //var month = date_object.get_month_number_as_string();
-        l('DATE WAS SELECTED!!!');
         this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
-
         this.select_date_button.update_text(date_object.to_string());
     },
 
     _show_date_selector: function() {
+        if (!is_defined(this.date_selector)) {
+            this.date_selector = new DateSelector(this.base_wall.world, this.date_selected.bind(this));
+        }
+
         this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     },
