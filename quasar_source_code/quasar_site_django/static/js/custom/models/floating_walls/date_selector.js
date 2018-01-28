@@ -73,8 +73,14 @@ DateSelector.prototype = {
 
     _create_all_day_buttons: function() {
         this.all_days = this.current_month.get_all_dates();
+
+        l('Printing all days!');
+
+
         this.all_day_buttons = [];
         for (var d = 0; d < this.all_days.length; d++) {
+
+            l(this.all_days[d]);
 
             var row = this.all_days[d].get_week_relative_to_current_month();
             var num = this.all_days[d].get_day_number_relative_to_current_week();
