@@ -151,16 +151,16 @@ LoginWorld.prototype = {
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
 
         this.wall_login = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
-        this.wall_login.add_row_3D_text(false, -1, 'Login', TYPE_TITLE);
+        this.wall_login.add_full_row_3D(-1, 'Login', TYPE_TITLE);
 
-        this.login_username_label = this.wall_login.add_row_2D_text([0, ONE_THIRD], 0, 'username', TYPE_CONSTANT);
-        this.login_username_input = this.wall_login.add_row_2D_text([ONE_THIRD, 1], 0, '', TYPE_INPUT, [TEXT_SYNTAX_STANDARD_LENGTH]);
-        this.login_errors.add_label_and_input(this.login_username_label, this.login_username_input);
+        var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_username_input = login_username_row[1];
+        this.login_errors.add_label_and_input(login_username_row[0], login_username_row[1]);
         this.login_username_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
-        this.login_password_label = this.wall_login.add_row_2D_text([0, ONE_THIRD], 1, 'password', TYPE_CONSTANT);
-        this.login_password_input = this.wall_login.add_row_2D_text([ONE_THIRD, 1], 1, '', TYPE_PASSWORD, [TEXT_SYNTAX_STANDARD_LENGTH]);
-        this.login_errors.add_label_and_input(this.login_password_label, this.login_password_input);
+        var login_password_row = this.wall_login.add_row(1).add_2D_label_and_input(ONE_THIRD, 'password', [TEXT_SYNTAX_STANDARD_LENGTH]);
+        this.login_password_input = login_password_row[1];
+        this.login_errors.add_label_and_input(login_password_row[0], login_password_row[1]);
         this.login_password_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
         // TODO :
@@ -168,8 +168,7 @@ LoginWorld.prototype = {
         //this.login_remember_username_label = this.login_wall.add_floating_2d_text(login_wall_width / 2, 'remember username', TYPE_CONSTANT_TEXT, 0, 2, 2, 0);
         //this.login_remember_username_checkbox = this.login_wall.add_floating_2d_text(16, '', TYPE_CHECK_BOX, login_wall_width / 2 + 10, 2, 2, 0);
 
-        this.login_button = this.wall_login.add_row_2D_text([.25, .75], 3, 'login', TYPE_BUTTON);
-        this.login_button.set_engage_function(this.login_button_pressed.bind(this));
+        this.login_button = this.wall_login.add_row(3).add_2D_button([ONE_FOURTH, THREE_FOURTHS], 'login', null, this.login_button_pressed.bind(this));
         this.login_errors.add_final_button(this.login_button);
 
         /*__   __   ___      ___  ___          __   __   __            ___
