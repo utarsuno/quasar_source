@@ -171,6 +171,10 @@ EntityWall.prototype = {
         this.wall_create_new_entity.insert_row_2D_text([0, ONE_THIRD], this.last_entity_field_row + 1, field_name, TYPE_CONSTANT);
 
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+            if (!is_defined(this.date_selector)) {
+                this.date_selector = new DateSelector(this.base_wall.world, this.date_selected.bind(this));
+            }
+
             this.select_date_button = this.wall_create_new_entity.add_row_2D_text([ONE_THIRD, 1], this.last_entity_field_row + 1, 'Select Date', TYPE_BUTTON);
             this.date_selector.wall_date_selector.attach_to(this.select_date_button);
             this.select_date_button.set_engage_function(this._show_date_selector.bind(this));
