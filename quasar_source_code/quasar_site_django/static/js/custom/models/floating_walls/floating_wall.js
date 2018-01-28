@@ -244,7 +244,7 @@ FloatingWall.prototype = {
         for (r = 0; r < this._2D_rows.length; r++) {
             if (this._2D_rows[r][0] > row) {
                 this._2D_rows[r][0] -= 1;
-                this._2D_rows[r][3].apply_delta_to_vertical_offset(8, null);
+                this._2D_rows[r][3].apply_delta_to_vertical_offset(16, null);
             }
         }
 
