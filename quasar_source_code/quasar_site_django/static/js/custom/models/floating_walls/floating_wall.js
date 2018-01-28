@@ -51,10 +51,13 @@ FloatingWall.prototype = {
 
         //this.make_base_wall_visible();
 
+        // REFACTORING ROWS!!!
         this._2D_rows = [];
         this.max_row_2D = -1;
         this._3D_rows = [];
         this.max_row_3D = 0;
+
+        this.rows = [];
 
         // Inherit from Saveable but set to false by default.
         Saveable.call(this, ENTITY_TYPE_WALL);
@@ -124,6 +127,48 @@ FloatingWall.prototype = {
     /*__   __           __   __   ___  __       ___    __        __  
      |__) /  \ |  |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__` 
      |  \ \__/ |/\|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/  */
+    _get_all_rows_with_index_equal_to_or_greater: function(row_index) {
+        var local_rows = [];
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r] >= row_index) {
+                local_rows.push(row_index);
+            }
+        }
+        return local_rows;
+    },
+
+    _get_max_row_number: function() {
+        var max_row = -1;
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].row_number > max_row) {
+                max_row = this.rows[r].row_number;
+            }
+        }
+        return max_row;
+    },
+
+    add_row: function(row_index) {
+        if (!is_defined(row_index)) {
+            row_index = this._get_max_row_number() + 1;
+        } else {
+            // Check if any existing rows need to be shifted down.
+            var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(row_index);
+            for (var r = 0; r < all_rows_to_shift.length; r++) {
+                all_rows_to_shift[r].shift_down();
+            }
+        }
+
+        // Now create the new row.
+        var floating_row = new FloatingRow(row_index);
+        this.rows.push(floating_row);
+
+        return floating_row;
+    },
+
+    // OLD ROWS CODE BEING REFACTORED BELOW!!!
+    // OLD ROWS CODE BEING REFACTORED BELOW!!!
+    // OLD ROWS CODE BEING REFACTORED BELOW!!!
+
     add_row_3D_text: function(centered, row, text, type, color) {
         var floating_3D_text = new Floating3DText(text, type, this.world);
 

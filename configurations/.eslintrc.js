@@ -47,6 +47,7 @@ module.exports = {
         "World": true,
         "WebSocketClient": false,
 
+        "FloatingRow"    : true,
         "FloatingWall"   : true,
         "FloatingText"   : true,
         "Floating2DText" : true,
