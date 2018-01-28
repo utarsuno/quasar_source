@@ -95,6 +95,7 @@ function Attachmentable(world) {
         }
         if (remove_index !== NOT_FOUND) {
             this.attachment_parent.attachments.slice(remove_index, 1);
+            this.attachment_parent = null;
         }
     };
 
