@@ -117,7 +117,8 @@ FloatingWall.prototype = {
         var x_start = 1 - (one_pixel_width * 16);
         var x_stop = 1;
         var total_percentage_of_parent_width = (x_stop - x_start);
-        this.close_button = new Floating2DText(one_pixel_width * 16, ICON_CROSS, TYPE_ICON, this.world);
+        var close_button_width = this.width * total_percentage_of_parent_width;
+        this.close_button = new Floating2DText(close_button_width, ICON_CROSS, TYPE_ICON, this.world);
 
         this.close_button.set_attachment_vertical_offset(-8, HALF);
         this.close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
