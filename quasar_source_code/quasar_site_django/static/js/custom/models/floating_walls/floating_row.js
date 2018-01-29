@@ -96,7 +96,7 @@ FloatingRow.prototype = {
         }
 
         for (var s = 0; s < objects_to_shift.length; s++) {
-            objects_to_shift[s].apply_delta_to_vertical_offset();
+            objects_to_shift[s].apply_delta_to_vertical_offset(-16, null);
         }
     }
 
