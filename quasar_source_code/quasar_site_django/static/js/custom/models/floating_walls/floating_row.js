@@ -30,18 +30,18 @@ FloatingRow.prototype = {
     },
 
     add_2D_label_and_input: function(x_divide_mark, text, syntax_checks) {
-    	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
-    	var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, null, syntax_checks);
-    	return [label, input];
+        var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
+        var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, null, syntax_checks);
+        return [label, input];
     },
 
     add_2D_label_and_button: function(x_divide_mark, label_text, button_text, function_to_bind) {
-    	var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
-    	var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON, null, syntax_checks);
-    	if (is_defined(function_to_bind)) {
-    		button.set_engage_function(function_to_bind);
-    	}
-    	return [label, button];
+        var label = this.add_2D_element([0, x_divide_mark], label_text, TYPE_CONSTANT);
+        var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON);
+        if (is_defined(function_to_bind)) {
+            button.set_engage_function(function_to_bind);
+        }
+        return [label, button];
     },
 
     add_2D_element: function(x_start_n_stop, text, type, color, syntax_checks) {
@@ -67,9 +67,9 @@ FloatingRow.prototype = {
     },
 
     add_2D_button: function(x_start_n_stop, text, color, function_to_bind) {
-    	var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
-    	button.set_engage_function(function_to_bind);
-    	return button;
+        var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
+        button.set_engage_function(function_to_bind);
+        return button;
     },
 
     shift_down: function() {
