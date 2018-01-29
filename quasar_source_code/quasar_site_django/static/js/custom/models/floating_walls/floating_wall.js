@@ -157,7 +157,25 @@ FloatingWall.prototype = {
         return max_row;
     },
 
-    add_row: function(row_index) {
+    get_row_with_name: function(name) {
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].row_name === name) {
+                return this.rows[r];
+            }
+        }
+        return null;
+    },
+
+    has_row_with_name: function(name) {
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].row_name === name) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    add_row: function(row_index, row_name) {
         if (!is_defined(row_index)) {
             row_index = this._get_max_row_number() + 1;
         } else {
