@@ -187,7 +187,7 @@ FloatingWall.prototype = {
         }
 
         // Now create the new row.
-        var floating_row = new FloatingRow(this, row_index);
+        var floating_row = new FloatingRow(this, row_index, row_name);
         this.rows.push(floating_row);
 
         return floating_row;

@@ -1,14 +1,15 @@
 'use strict';
 
-function FloatingRow(parent_wall, row_number) {
-    this.__init__(parent_wall, row_number);
+function FloatingRow(parent_wall, row_number, row_name) {
+    this.__init__(parent_wall, row_number, row_name);
 }
 
 FloatingRow.prototype = {
 
-    __init__: function(parent_wall, row_number) {
+    __init__: function(parent_wall, row_number, row_name) {
         this.parent_wall = parent_wall;
         this.row_number = row_number;
+        this.row_name = row_name;
         this.elements = [];
     },
 

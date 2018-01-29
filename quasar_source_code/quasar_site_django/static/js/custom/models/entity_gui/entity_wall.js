@@ -285,7 +285,7 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_close_button();
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
 
-        var entity_type_row = this.wall_create_new_entity.add_row(0, ENTITY_DEFAULT_PROPERTY_TYPE).add_2D_label_and_button(ONE_THIRD, ENTITY_DEFAULT_PROPERTY_TYPE, 'Default', this._select_entity_type_button_pressed.bind(this));
+        var entity_type_row = this.wall_create_new_entity.add_row(0, ENTITY_DEFAULT_PROPERTY_TYPE).add_2D_label_and_button(ONE_THIRD, ENTITY_DEFAULT_PROPERTY_TYPE, 'Entity', this._select_entity_type_button_pressed.bind(this));
         this.entity_type_button = entity_type_row[1];
 
         this.wall_create_new_entity.add_row(1, ENTITY_PROPERTY_NAME).add_2D_label_and_input(ONE_THIRD, ENTITY_PROPERTY_NAME);
