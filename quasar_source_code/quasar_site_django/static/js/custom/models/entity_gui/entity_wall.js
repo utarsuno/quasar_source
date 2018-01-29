@@ -263,7 +263,7 @@ EntityWall.prototype = {
 
     _entity_type_selected: function(entity_type) {
         this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
-        this.entity_type_field.update_text(entity_type);
+        this.entity_type_button.update_text(entity_type);
         if (entity_type === ENTITY_TYPE_TASK) {
             this._add_entity_field(ENTITY_PROPERTY_DUE_DATE);
         }

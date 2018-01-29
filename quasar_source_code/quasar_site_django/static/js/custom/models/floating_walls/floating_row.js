@@ -37,7 +37,7 @@ FloatingRow.prototype = {
 
     add_2D_label_and_button: function(x_divide_mark, label_text, button_text, function_to_bind) {
         var label = this.add_2D_element([0, x_divide_mark], label_text, TYPE_CONSTANT);
-        var button = this.add_2D_element([x_divide_mark, 1], '', TYPE_BUTTON);
+        var button = this.add_2D_element([x_divide_mark, 1], button_text, TYPE_BUTTON);
         if (is_defined(function_to_bind)) {
             button.set_engage_function(function_to_bind);
         }
