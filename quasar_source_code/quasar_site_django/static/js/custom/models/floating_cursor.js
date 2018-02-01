@@ -203,19 +203,20 @@ FloatingCursor.prototype = {
     create: function() {
         this.cursor_wall = new FloatingWall(16, 16, null, null, this.world, false);
         this.cursor_wall.set_to_invisible();
-        this._create_cursor(CURSOR_TYPE_HORIZONTAL);
-        this._create_cursor(CURSOR_TYPE_VERTICAL);
-        this._create_cursor(CURSOR_TYPE_HAND);
-        this._create_cursor(CURSOR_TYPE_POINTER);
-        this._create_cursor(CURSOR_TYPE_LARGER);
-        this._create_cursor(CURSOR_TYPE_MOUSE);
+        var cursor_row = this.cursor_wall.add_row(0);
+        this._create_cursor(CURSOR_TYPE_HORIZONTAL, cursor_row);
+        this._create_cursor(CURSOR_TYPE_VERTICAL, cursor_row);
+        this._create_cursor(CURSOR_TYPE_HAND, cursor_row);
+        this._create_cursor(CURSOR_TYPE_POINTER, cursor_row);
+        this._create_cursor(CURSOR_TYPE_LARGER, cursor_row);
+        this._create_cursor(CURSOR_TYPE_MOUSE, cursor_row);
     },
 
-    _create_cursor: function(cursor_type) {
-        var c = this.cursor_wall.add_full_row_2D(0, cursor_type, TYPE_ICON).elements[0];
+    _create_cursor: function(cursor_type, cursor_row) {
+        var c = cursor_row.add_2D_element([0, 1], cursor_ttype, TYPE_ICON);
         c.set_attachment_depth_offset(6);
-        c.set_attachment_horizontal_offset(8, 0);
-        c.set_attachment_vertical_offset(-8, 0);
+        c.set_attachment_horizontal_offset(8, null);
+        c.set_attachment_vertical_offset(-8, null);
         c.set_to_invisible();
 
         // TODO : Transparency issues still exist.
