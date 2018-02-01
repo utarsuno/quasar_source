@@ -179,7 +179,12 @@ EntityWall.prototype = {
         // TEMPORARY FOR DEBUGGING.
         var attachments = this.base_wall._get_all_attachments_recursively();
 
-        for (var a = 0; a < attachments.length; a++) {
+        //for (var a = 0; a < attachments.length; a++) {
+        //    l(attachments[a]);
+        //}
+
+        attachments = this.select_date_button._get_all_attachments_recursively();
+        for (var a  = 0; a < attachments.length; a++) {
             l(attachments[a]);
         }
 
