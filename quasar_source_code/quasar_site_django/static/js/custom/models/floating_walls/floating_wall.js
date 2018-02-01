@@ -141,7 +141,7 @@ FloatingWall.prototype = {
         var local_rows = [];
         for (var r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_number >= row_index) {
-                local_rows.push(row_index);
+                local_rows.push(this.rows[r]);
             }
         }
         return local_rows;
