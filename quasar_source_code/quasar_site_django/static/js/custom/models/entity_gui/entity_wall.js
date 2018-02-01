@@ -173,6 +173,7 @@ EntityWall.prototype = {
             this.date_selector.wall_date_selector.detach_from_parent();
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
+        this.base_wall.refresh_position_and_look_at();
     },
 
     _add_entity_field: function(field_name) {
