@@ -60,6 +60,8 @@ SettingsWorld.prototype = {
         /*__   __   __   ___         ___
          |__) |__) /  \ |__  | |    |__     |  |  /\  |    |
          |    |  \ \__/ |    | |___ |___    |/\| /~~\ |___ |___ */
+
+        /*
         var wall_profile_position = new THREE.Vector3(500, 500, 700);
         var wall_profile_width    = 650;
         var wall_profile_height   = 512 / 2;
@@ -104,6 +106,8 @@ SettingsWorld.prototype = {
 
         this.wall_user_profile.refresh_position_and_look_at();
 
+        */
+
         /*__   ___ ___ ___         __   __
          /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
          .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
@@ -142,11 +146,11 @@ SettingsWorld.prototype = {
         CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
 
         // Set the profile information values.
-        this.profile_name_input.update_text(ENTITY_OWNER.get_username());
-        this.profile_email_input.update_text(ENTITY_OWNER.get_email());
-        this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
-        this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
-        this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
+        //this.profile_name_input.update_text(ENTITY_OWNER.get_username());
+        //this.profile_email_input.update_text(ENTITY_OWNER.get_email());
+        //this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
+        //this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
+        //this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
     },
 
     exit_world: function() {

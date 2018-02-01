@@ -37,65 +37,15 @@ EntityWall.prototype = {
 
             this.base_wall.dimensions_changed();
 
-            var rows_2D = this.base_wall.get_value(ENTITY_PROPERTY_2D_ROWS);
-            var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
-
-            // Parse the 2D rows.
-            if (is_defined(rows_2D)) {
-                rows_2D = rows_2D.split('@');
-                for (var r2 = 0; r2 < rows_2D.length; r2++) {
-                    l('PARSE THE FOLLOWING 2D ROW!!!');
-                    l(rows_2D[r2]);
-                    if (rows_2D[r2] !== '') {
-
-                        // INDEX {ROW}          - 0
-                        // INDEX {X_START}      - 1
-                        // INDEX {X_END}        - 2
-                        // INDEX {TEXT}         - 3
-                        // INDEX {TYPE}         - 4
-                        // INDEX {COLOR}        - 5
-                        // INDEX {SYNTAX_RULES} - 6
-
-                        var d = rows_2D[r2].split('+');
-
-                        this.base_wall.add_row_2D_text([d[1], d[2]], d[0], d[3], d[4], d[6], d[5]);
-                    }
-                }
-            }
-
-            // Parse the 3D rows.
-            if (is_defined(rows_3D)) {
-                rows_3D = rows_3D.split('@');
-                for (var r3 = 0; r3 < rows_3D.length; r3++) {
-                    l('PARSE THE FOLLOWING 3D ROW!!!');
-                    l(rows_3D[r3]);
-                    if (rows_3D[r3] !== '') {
-
-                        // INDEX {ROW}      - 0
-                        // INDEX {CENTERED} - 1
-                        // INDEX {TEXT}     - 2
-                        // INDEX {TYPE}     - 3
-                        // INDEX {COLOR}    - 4
-
-                        var d = rows_3D[r3].split('+');
-
-                        if (d[1] === 'true' || d[1] === 'True') {
-                            d[1] = true;
-                        } else if (d[1] === 'false' || d[1] === 'False') {
-                            d[1] = false;
-                        }
-
-                        this.base_wall.add_row_3D_text(d[1], d[0], d[2], d[3], d[4]);
-                    }
-                }
-            }
+            // TODO : ADD ROWS!!!!
+            // TODO : ADD ROWS!!!!
 
             this.base_wall.refresh_position_and_look_at();
         }
 
         // Create the standard functionality of the entity wall.
-        this.create_new_entity_button = this.base_wall.add_row_2D_text([0, 1], 0, 'create new entity', TYPE_BUTTON, null, COLOR_GREEN);
-        this.create_new_entity_button.set_engage_function(this._create_new_entity_button_pressed.bind(this));
+        this.base_wall.add_row(0).add_2D_button([0, 1], 'create new entity', COLOR_GREEN, this._create_new_entity_button_pressed.bind(this));
+
 
         // TODO : Create a button for deleting the entity wall!!
 

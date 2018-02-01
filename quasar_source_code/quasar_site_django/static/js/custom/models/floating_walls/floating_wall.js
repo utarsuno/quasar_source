@@ -51,12 +51,6 @@ FloatingWall.prototype = {
 
         //this.make_base_wall_visible();
 
-        // REFACTORING ROWS!!!
-        this._2D_rows = [];
-        this.max_row_2D = -1;
-        this._3D_rows = [];
-        this.max_row_3D = 0;
-
         this.rows = [];
 
         // Inherit from Saveable but set to false by default.
@@ -67,6 +61,7 @@ FloatingWall.prototype = {
         this.add_save_field(ENTITY_PROPERTY_POSITION);
         this.add_save_field(ENTITY_PROPERTY_NORMAL);
         this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
+        // TODO : REFACTOR THIS!!!
         this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
         this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
     },
@@ -229,147 +224,6 @@ FloatingWall.prototype = {
                 all_rows_to_shift[r].shift_up();
             }
         }
-    },
-
-    // OLD ROWS CODE BEING REFACTORED BELOW!!!
-    // OLD ROWS CODE BEING REFACTORED BELOW!!!
-    // OLD ROWS CODE BEING REFACTORED BELOW!!!
-
-    add_row_3D_text: function(centered, row, text, type, color) {
-        var floating_3D_text = new Floating3DText(text, type, this.world);
-
-        if (centered) {
-            floating_3D_text.set_attachment_horizontal_offset(0, 0);
-        } else {
-            floating_3D_text.set_attachment_horizontal_offset(0, -HALF);
-        }
-
-        if (is_defined(color)) {
-            floating_3D_text.set_default_color(color);
-            floating_3D_text.set_color(color, true);
-        }
-
-        // TODO : WARNING : Fix row height at some point.
-        floating_3D_text.set_attachment_vertical_offset(-16 + -32 * row, HALF);
-
-        floating_3D_text.attach_to(this);
-
-        // Needed for saving.
-        this._3D_rows.push([row, centered, floating_3D_text]);
-
-        return floating_3D_text;
-    },
-
-    add_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks, color) {
-        if (row > this.max_row_2D) {
-            this.max_row_2D = row;
-        }
-
-        var total_percentage_of_parent_width = (x_start_and_stop[1] - x_start_and_stop[0]);
-        var floating_2D_text_width = this.width * total_percentage_of_parent_width;
-        var floating_2D_text = new Floating2DText(floating_2D_text_width, text, type, this.world, syntax_checks);
-
-        if (is_defined(color)) {
-            floating_2D_text.set_default_color(color);
-            floating_2D_text.set_color(color, true);
-        }
-
-        floating_2D_text.set_attachment_depth_offset(1);
-        floating_2D_text.set_attachment_horizontal_offset(0, -HALF + x_start_and_stop[0] + total_percentage_of_parent_width / 2);
-
-        // TODO : WARNING : For now every row is set to 16 height distance. This should eventually be made to allow for dynamic row heights.
-        floating_2D_text.set_attachment_vertical_offset(-8 + -16 * row, HALF);
-
-        floating_2D_text.attach_to(this);
-
-        // Needed for saving.
-        this._2D_rows.push([row, x_start_and_stop[0], x_start_and_stop[1], floating_2D_text]);
-
-        return floating_2D_text;
-    },
-
-    insert_row_2D_text: function(x_start_and_stop, row, text, type, syntax_checks, color) {
-        // First shift all rows needed.
-        var rows_to_shift = [];
-        for (var r = 0; r < this._2D_rows.length; r++) {
-            if (this._2D_rows[r][0] >= row) {
-                rows_to_shift.push(this._2D_rows[r]);
-            }
-        }
-        for (r = 0; r < rows_to_shift.length; r++) {
-            rows_to_shift[r][0] += 1;
-            rows_to_shift[r][3].apply_delta_to_vertical_offset(-16, null);
-        }
-
-        // Now insert the needed row.
-        this.add_row_2D_text(x_start_and_stop, row, text, type, syntax_checks, color);
-
-        // Perform a refresh.
-        this.refresh_position_and_look_at();
-    },
-
-    _delete_row: function(row) {
-        var delete_index = -1;
-        for (var r = 0; r < this._2D_rows.length; r++) {
-            if (this._2D_rows[r] === row) {
-                delete_index = r;
-                break;
-            }
-        }
-        this._2D_rows.splice(delete_index, 1);
-    },
-
-    delete_row: function(row) {
-        var objects_to_delete = [];
-
-        var row_objects_to_remove = [];
-
-        for (var r = 0; r < this._2D_rows.length; r++) {
-            if (this._2D_rows[r][0] === row) {
-                objects_to_delete.push(this._2D_rows[r][3]);
-                row_objects_to_remove.push(this._2D_rows);
-            }
-        }
-
-        for (var d = 0; d < objects_to_delete.length; d++) {
-            var sub_attachments = objects_to_delete[d]._get_all_attachments_recursively();
-            for (var s = 0; s < sub_attachments.length; s++) {
-                if (objects_to_delete.indexOf(sub_attachments[s]) === NOT_FOUND) {
-                    objects_to_delete.push(sub_attachments[s]);
-                }
-            }
-        }
-
-        // Delete the rows.
-        for (r = 0; r < row_objects_to_remove.length; r++) {
-            this._delete_row(row_objects_to_remove[r]);
-        }
-
-        // Delete all objects.
-        for (d = 0; d < objects_to_delete.length; d++) {
-            this.world.remove_from_interactive_then_scene(objects_to_delete[d]);
-            objects_to_delete[d].full_remove();
-        }
-
-        // Update the position of any rows below the deleted row.
-        for (r = 0; r < this._2D_rows.length; r++) {
-            if (this._2D_rows[r][0] > row) {
-                this._2D_rows[r][0] -= 1;
-                this._2D_rows[r][3].apply_delta_to_vertical_offset(16, null);
-            }
-        }
-
-        // Update the value for max row.
-        var current_max_row = -1;
-        for (r = 0; r < this._2D_rows.length; r++) {
-            if (this._2D_rows[r][0] > current_max_row) {
-                current_max_row = this._2D_rows[r][0];
-            }
-        }
-        this.max_row_2D = current_max_row;
-
-        // Perform a refresh.
-        this.refresh_position_and_look_at();
     },
 
     /*__          __   ___  __      __   __        __
