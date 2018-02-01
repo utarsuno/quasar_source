@@ -76,7 +76,6 @@ FloatingRow.prototype = {
     add_2D_button: function(x_start_n_stop, text, color, function_to_bind) {
         var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
         button.set_engage_function(function_to_bind);
-        this.elements.push(button);
         return button;
     },
 
