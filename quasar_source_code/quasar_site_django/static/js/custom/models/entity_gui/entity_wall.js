@@ -187,6 +187,9 @@ EntityWall.prototype = {
             // Get the row index of the add_field_button.
             var insert_index_for_row = this.wall_create_new_entity.get_row_with_name('add_new_field').row_number;
 
+            l('The insert row index is :');
+            l(insert_index_for_row);
+
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
             new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT);
 
