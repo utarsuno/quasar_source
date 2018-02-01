@@ -172,9 +172,11 @@ EntityWall.prototype = {
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
             l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
             l(this.date_selector.wall_date_selector.attachment_parent);
+            l(this.select_date_button.attachments);
             this.date_selector.wall_date_selector.detach_from_parent();
             l(this.date_selector.wall_date_selector.attachment_parent);
             l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
+            l(this.select_date_button.attachments);
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
 
