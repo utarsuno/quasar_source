@@ -170,7 +170,9 @@ EntityWall.prototype = {
 
     _delete_entity_field: function(field_name) {
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+            l(this.date_selector.wall_date_selector.attachment_parent);
             this.date_selector.wall_date_selector.detach_from_parent();
+            l(this.date_selector.wall_date_selector.attachment_parent);
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
         this.base_wall.refresh_position_and_look_at();

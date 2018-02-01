@@ -246,7 +246,7 @@ function Attachmentable(world) {
                 this.offset_normal_distance = depth_offset;
             }
         }
-    }
+    };
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
