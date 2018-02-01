@@ -65,48 +65,6 @@ function Saveable(save_type) {
                 var p = this.get_position();
                 this._entity.set_property(key, p.x + '+' + p.y + '+' + p.z);
                 break;
-            case ENTITY_PROPERTY_2D_ROWS:
-                //l('TODO!!! SAVE ALL THE 2D ROWS!!!');
-
-                var row_data = '';
-
-                // INDEX {ROW}              - 0
-                // INDEX {X_START}          - 1
-                // INDEX {X_END}            - 2
-                // INDEX {FLOATING_2D_TEXT} - 3
-
-                for (var r = 0; r < this._2D_rows.length; r++) {
-                    row_data += this._2D_rows[r][0] + '+';
-                    row_data += this._2D_rows[r][1] + '+';
-                    row_data += this._2D_rows[r][2] + '+';
-                    row_data += this._2D_rows[r][3].get_text() + '+';
-                    row_data += this._2D_rows[r][3].type + '+';
-                    row_data += this._2D_rows[r][3].default_color + '@';
-                }
-
-                this._entity.set_property(key, row_data);
-
-                break;
-            case ENTITY_PROPERTY_3D_ROWS:
-
-                var row_data = '';
-
-                // INDEX {ROW}              - 0
-                // INDEX {CENTERED}         - 1
-                // INDEX {FLOATING_3D_TEXT} - 2
-
-                for (var r = 0; r < this._3D_rows.length; r++) {
-                    row_data += this._3D_rows[r][0] + '+';
-                    row_data += this._3D_rows[r][1].toString() + '+';
-                    row_data += this._3D_rows[r][2].get_text() + '+';
-                    row_data += this._3D_rows[r][2].type + '+';
-                    row_data += this._3D_rows[r][2].default_color + '@';
-                }
-
-                this._entity.set_property(key, row_data);
-
-                //l('TODO!!! SAVE ALL THE 3D ROWS!!!');
-                break;
             }
         }
     };

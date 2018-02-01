@@ -183,10 +183,10 @@ module.exports = {
         "ENTITY_TYPE_TASK"           : false,
         "ENTITY_TYPE_BASE"           : false,
         "ENTITY_TYPE_WALL"           : false,
+        "ENTITY_TYPE_ENTITY_WALL"    : false,
         "ENTITY_TYPE_OWNER"          : false,
         "ENTITY_TYPE_TEXT_REMINDER"  : false,
         "ENTITY_TYPE_PICTURE"        : false,
-        "ENTITY_TYPE_ALL"            : false,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity default property keys.

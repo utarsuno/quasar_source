@@ -51,10 +51,10 @@ const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
 const ENTITY_TYPE_BASE          = 'Entity';
 const ENTITY_TYPE_TASK          = 'EntityTask';
 const ENTITY_TYPE_WALL          = 'EntityWall';
+const ENTITY_TYPE_ENTITY_WALL   = 'EntityWallEntity';
 const ENTITY_TYPE_OWNER         = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
 const ENTITY_TYPE_PICTURE       = 'EntityFloatingPicture';
-const ENTITY_TYPE_ALL           = [ENTITY_TYPE_PICTURE, ENTITY_TYPE_BASE, ENTITY_TYPE_TASK, ENTITY_TYPE_WALL, ENTITY_TYPE_OWNER, ENTITY_TYPE_TEXT_REMINDER];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity property keys.

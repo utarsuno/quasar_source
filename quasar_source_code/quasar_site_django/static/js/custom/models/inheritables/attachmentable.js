@@ -101,9 +101,10 @@ function Attachmentable(world) {
             }
         }
 
+        // TEMPORARY FOR DEBUGGING
         if (number_of_attachments > 1) {
             l('ERROR: NUMBER OF ATTACHMENTS IS GREATER THAN 1');
-        } else if (number_of_attachments == 0) {
+        } else if (number_of_attachments === 0) {
             l('ERROR: DID NOT FIND THE ATTACHMENT TO REMOVE!');
         }
 

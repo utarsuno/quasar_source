@@ -94,8 +94,13 @@ EntityWall.prototype = {
         }
 
         // Create the standard functionality of the entity wall.
-        this.create_new_entity_button = this.base_wall.add_row_2D_text([0, 1], 0, 'Create New Entity', TYPE_BUTTON, null, COLOR_GREEN);
+        this.create_new_entity_button = this.base_wall.add_row_2D_text([0, 1], 0, 'create new entity', TYPE_BUTTON, null, COLOR_GREEN);
         this.create_new_entity_button.set_engage_function(this._create_new_entity_button_pressed.bind(this));
+
+        // TODO : Create a button for deleting the entity wall!!
+
+
+
 
 
         // Regardless if created or loaded the following operations must be taken.
@@ -170,28 +175,9 @@ EntityWall.prototype = {
 
     _delete_entity_field: function(field_name) {
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
-            l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
-            l(this.date_selector.wall_date_selector.attachment_parent);
-            l(this.select_date_button.attachments);
             this.date_selector.wall_date_selector.detach_from_parent();
-            l(this.date_selector.wall_date_selector.attachment_parent);
-            l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
-            l(this.select_date_button.attachments);
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
-
-        // TEMPORARY FOR DEBUGGING.
-        var attachments = this.base_wall._get_all_attachments_recursively();
-
-        //for (var a = 0; a < attachments.length; a++) {
-        //    l(attachments[a]);
-        //}
-
-        attachments = this.select_date_button._get_all_attachments_recursively();
-        for (var a  = 0; a < attachments.length; a++) {
-            //l(attachments[a]);
-        }
-
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -203,9 +189,6 @@ EntityWall.prototype = {
 
             // Get the row index of the add_field_button.
             var insert_index_for_row = this.wall_create_new_entity.get_row_with_name('add_new_field').row_number;
-
-            l('The insert row index is :');
-            l(insert_index_for_row);
 
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
             new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT);
