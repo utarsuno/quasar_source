@@ -170,7 +170,7 @@ PlayerMenu.prototype = {
 
                 //this.create_wall.manual_visibility = true;
 
-                this.create_wall.add_full_row_2D([0, 1], 'Create a...', TYPE_CONSTANT);
+                this.create_wall.add_full_row_2D(null, 'Create a...', TYPE_CONSTANT);
 
                 // Add an empty row for spacing.
                 this.create_wall.add_row(null);
@@ -186,6 +186,7 @@ PlayerMenu.prototype = {
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_IMPORT, TYPE_ICON);
+                current_row.add_2D_button([icon_width, 1], 'Picture', null, this._create_picture_prompt.bind(this));
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MOVIE, TYPE_ICON);
@@ -258,7 +259,6 @@ PlayerMenu.prototype = {
                 }
 
                 // Add an empty row for spacing.
-                this.teleport_wall.add_row(null);
                 this.teleport_wall.add_row(null);
 
                 teleport_row = this.teleport_wall.add_row(null);
