@@ -170,9 +170,11 @@ EntityWall.prototype = {
 
     _delete_entity_field: function(field_name) {
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+            l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
             l(this.date_selector.wall_date_selector.attachment_parent);
             this.date_selector.wall_date_selector.detach_from_parent();
             l(this.date_selector.wall_date_selector.attachment_parent);
+            l(this.select_date_button.has_attachment(this.date_selector.wall_date_selector));
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
 
@@ -185,7 +187,7 @@ EntityWall.prototype = {
 
         attachments = this.select_date_button._get_all_attachments_recursively();
         for (var a  = 0; a < attachments.length; a++) {
-            l(attachments[a]);
+            //l(attachments[a]);
         }
 
         this.base_wall.refresh_position_and_look_at();

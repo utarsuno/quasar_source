@@ -263,6 +263,15 @@ function Attachmentable(world) {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    this.has_attachment = function(attachment) {
+        for (var a = 0; a < this.attachments.length; a++) {
+            if (this.attachments[a] === attachment) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     this.get_attachment_vertical_offset = function() {
         return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
     };
