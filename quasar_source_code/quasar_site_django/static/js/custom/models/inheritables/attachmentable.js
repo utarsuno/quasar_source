@@ -6,6 +6,8 @@ function Attachmentable(world) {
     this.world    = world;
     this.world.add_to_scene(this.object3D);
 
+    this.immune_to_attachment_deltas = false;
+
     // All attachments will inherit Attachmentable.
     this.attachments = [];
 
@@ -197,15 +199,17 @@ function Attachmentable(world) {
     };
 
     this.apply_delta_to_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {
-        if (is_defined(this.offset_horizontal_distance)) {
-            this.offset_horizontal_distance += distance_offset;
-        } else {
-            this.offset_horizontal_distance = distance_offset;
-        }
-        if (is_defined(parent_width_percentage_offset)) {
-            this.offset_horizontal_parent_width_percentage += parent_width_percentage_offset;
-        } else {
-            this.offset_horizontal_parent_width_percentage = parent_width_percentage_offset;
+        if (!this.immune_to_attachment_deltas) {
+            if (is_defined(this.offset_horizontal_distance)) {
+                this.offset_horizontal_distance += distance_offset;
+            } else {
+                this.offset_horizontal_distance = distance_offset;
+            }
+            if (is_defined(parent_width_percentage_offset)) {
+                this.offset_horizontal_parent_width_percentage += parent_width_percentage_offset;
+            } else {
+                this.offset_horizontal_parent_width_percentage = parent_width_percentage_offset;
+            }
         }
     };
 
@@ -216,21 +220,33 @@ function Attachmentable(world) {
     };
 
     this.apply_delta_to_vertical_offset = function(distance_offset, parent_height_percentage_offset) {
-        if (is_defined(this.offset_vertical_distance)) {
-            this.offset_vertical_distance += distance_offset;
-        } else {
-            this.offset_vertical_distance = distance_offset;
-        }
-        if (is_defined(this.offset_vertical_parent_height_percentage)) {
-            this.offset_vertical_parent_height_percentage += parent_height_percentage_offset;
-        } else {
-            this.offset_vertical_parent_height_percentage = parent_height_percentage_offset;
+        if (!this.immune_to_attachment_deltas) {
+            if (is_defined(this.offset_vertical_distance)) {
+                this.offset_vertical_distance += distance_offset;
+            } else {
+                this.offset_vertical_distance = distance_offset;
+            }
+            if (is_defined(this.offset_vertical_parent_height_percentage)) {
+                this.offset_vertical_parent_height_percentage += parent_height_percentage_offset;
+            } else {
+                this.offset_vertical_parent_height_percentage = parent_height_percentage_offset;
+            }
         }
     };
 
     this.set_attachment_depth_offset = function(depth_offset) {
         this.offset_normal_distance = depth_offset;
     };
+
+    this.apply_delta_to_depth_offset = function(depth_offset) {
+        if (!this.immune_to_attachment_deltas) {
+            if (is_defined(this.offset_normal_distance)) {
+                this.offset_normal_distance += depth_offset;
+            } else {
+                this.offset_normal_distance = depth_offset;
+            }
+        }
+    }
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`

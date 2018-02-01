@@ -206,6 +206,7 @@ EntityWall.prototype = {
             // Add button to delete the entity field.
             var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
             delete_entity_field_button.set_attachment_horizontal_offset(50 + input_field.width / 2, null);
+            delete_entity_field_button.immune_to_attachment_deltas = true;
             delete_entity_field_button.attach_to(input_field);
             delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, field_name));
 
