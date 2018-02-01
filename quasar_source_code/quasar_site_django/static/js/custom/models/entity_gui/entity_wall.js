@@ -168,27 +168,11 @@ EntityWall.prototype = {
         }
     },
 
-    _delete_entity_field: function(row_number, field_name) {
+    _delete_entity_field: function(field_name) {
         if (field_name === ENTITY_PROPERTY_DUE_DATE) {
-            l(this.date_selector.wall_date_selector.attachment_parent);
             this.date_selector.wall_date_selector.detach_from_parent();
-            l(this.date_selector.wall_date_selector.attachment_parent);
         }
-
-        this.wall_create_new_entity.delete_row(row_number);
-
-        this.last_entity_field_row -= 1;
-
-        var remove_index = -1;
-        for (var f = 0; f < this.current_entity_fields.length; f++) {
-            if (this.current_entity_fields[f] === field_name) {
-                remove_index = f;
-                break;
-            }
-        }
-        if (remove_index !== NOT_FOUND) {
-            this.current_entity_fields.splice(remove_index, 1);
-        }
+        this.wall_create_new_entity.delete_row_by_name(field_name);
     },
 
     _add_entity_field: function(field_name) {
@@ -199,9 +183,6 @@ EntityWall.prototype = {
 
             // Get the row index of the add_field_button.
             var insert_index_for_row = this.wall_create_new_entity.get_row_with_name('add_new_field').row_number;
-
-            l('The insert index is :');
-            l(insert_index_for_row);
 
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
             new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT);
@@ -225,7 +206,7 @@ EntityWall.prototype = {
             var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
             delete_entity_field_button.set_attachment_horizontal_offset(50 + input_field.width / 2, null);
             delete_entity_field_button.attach_to(input_field);
-            //delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, this.last_entity_field_row + 1, field_name));
+            delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, field_name));
 
             this.base_wall.refresh_position_and_look_at();
         }

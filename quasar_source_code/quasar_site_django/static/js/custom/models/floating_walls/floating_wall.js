@@ -182,7 +182,6 @@ FloatingWall.prototype = {
             // Check if any existing rows need to be shifted down.
             var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(row_index);
             for (var r = 0; r < all_rows_to_shift.length; r++) {
-                l('Shifting a row down!');
                 all_rows_to_shift[r].shift_down();
             }
         }
@@ -209,6 +208,26 @@ FloatingWall.prototype = {
         var current_row = this.add_row(row_index);
         current_row.add_2D_element([0, 1], text, type, color, syntax_checks);
         return current_row;
+    },
+
+    delete_row_by_name: function(row_name) {
+        var row_to_delete = -1;
+        var deleted_rows_index = null;
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].row_name === row_name) {
+                row_to_delete = r;
+                deleted_rows_index = this.rows[r].row_number;
+                break;
+            }
+        }
+        if (row_to_delete !== NOT_FOUND) {
+            this.rows.splice(row_to_delete, 1);
+            // Check if any existing rows need to be shifted up.
+            var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(deleted_rows_index);
+            for (r = 0; r < all_rows_to_shift.length; r++) {
+                all_rows_to_shift[r].shift_up();
+            }
+        }
     },
 
     // OLD ROWS CODE BEING REFACTORED BELOW!!!

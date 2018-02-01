@@ -80,9 +80,27 @@ FloatingRow.prototype = {
         return button;
     },
 
+    shift_up: function() {
+        this.row_number -= 1;
+
+        var objects_to_shift = [];
+        for (var e = 0; e < this.elements.length; e++) {
+            objects_to_shift.push(this.elements[e]);
+            var all_sub_attachments = this.elements[e]._get_all_attachments_recursively();
+            for (var a = 0; a < all_sub_attachments.length; a++) {
+                if (objects_to_shift.indexOf(all_sub_attachments[a]) === NOT_FOUND) {
+                    objects_to_shift.push(all_sub_attachments[a]);
+                }
+            }
+        }
+
+        for (var s = 0; s < objects_to_shift.length; s++) {
+            objects_to_shift[s].apply_delta_to_vertical_offset(16, null);
+        }
+    },
+
     shift_down: function() {
         this.row_number += 1;
-        // TODO : PERFROM VERTICAL SHIFT ON ALL ELEMENTS!
 
         var objects_to_shift = [];
         for (var e = 0; e < this.elements.length; e++) {
