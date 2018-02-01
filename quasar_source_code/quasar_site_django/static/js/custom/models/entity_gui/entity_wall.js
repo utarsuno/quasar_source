@@ -43,7 +43,7 @@ EntityWall.prototype = {
         }
 
         // Create the standard functionality of the entity wall.
-        this.base_wall.add_row(0).add_2D_button([0, 1], 'create new entity', COLOR_GREEN, this._create_new_entity_button_pressed.bind(this));
+        this.create_new_entity_button = this.base_wall.add_row(0).add_2D_button([0, 1], 'create new entity', COLOR_GREEN, this._create_new_entity_button_pressed.bind(this));
 
 
         // TODO : Create a button for deleting the entity wall!!

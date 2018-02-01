@@ -186,7 +186,6 @@ PlayerMenu.prototype = {
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_IMPORT, TYPE_ICON);
-                current_row.add_2D_button([icon_width, 1], 'Picture', null, this._create_picture_prompt.bind(this));
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MOVIE, TYPE_ICON);
