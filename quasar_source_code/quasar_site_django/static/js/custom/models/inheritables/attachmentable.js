@@ -89,12 +89,22 @@ function Attachmentable(world) {
 
     this.detach_from_parent = function() {
         var remove_index = -1;
+
+        // TEMPORARY FOR DEBUGGING
+        var number_of_attachments = 0;
+
         for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
             if (this.attachment_parent.attachments[a] === this) {
                 remove_index = a;
-                break;
+                number_of_attachments += 1;
+                //break;
             }
         }
+
+        if (number_of_attachments > 1) {
+            l('ERROR: NUMBER OF ATTACHMENTS IS GREATER THAN 1');
+        }
+
         if (remove_index !== NOT_FOUND) {
             this.attachment_parent.attachments.slice(remove_index, 1);
             this.attachment_parent = null;
