@@ -182,6 +182,7 @@ FloatingWall.prototype = {
             // Check if any existing rows need to be shifted down.
             var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(row_index);
             for (var r = 0; r < all_rows_to_shift.length; r++) {
+                l('Shifting a row down!');
                 all_rows_to_shift[r].shift_down();
             }
         }
