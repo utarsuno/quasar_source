@@ -212,7 +212,7 @@ FloatingCursor.prototype = {
     },
 
     _create_cursor: function(cursor_type) {
-        var c = this.cursor_wall.add_full_row_2D(0, cursor_type, TYPE_ICON);
+        var c = this.cursor_wall.add_full_row_2D(0, cursor_type, TYPE_ICON).elements[0];
         c.set_attachment_depth_offset(6);
         c.set_attachment_horizontal_offset(8, 0);
         c.set_attachment_vertical_offset(-8, 0);
