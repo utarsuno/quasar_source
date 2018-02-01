@@ -82,18 +82,7 @@ FloatingRow.prototype = {
 
     shift_up: function() {
         this.row_number -= 1;
-
-        var objects_to_shift = [];
-        for (var e = 0; e < this.elements.length; e++) {
-            objects_to_shift.push(this.elements[e]);
-            var all_sub_attachments = this.elements[e]._get_all_attachments_recursively();
-            for (var a = 0; a < all_sub_attachments.length; a++) {
-                if (objects_to_shift.indexOf(all_sub_attachments[a]) === NOT_FOUND) {
-                    objects_to_shift.push(all_sub_attachments[a]);
-                }
-            }
-        }
-
+        var objects_to_shift = this.get_all_elements_and_sub_attachments();
         for (var s = 0; s < objects_to_shift.length; s++) {
             objects_to_shift[s].apply_delta_to_vertical_offset(16, null);
         }
@@ -101,20 +90,36 @@ FloatingRow.prototype = {
 
     shift_down: function() {
         this.row_number += 1;
+        var objects_to_shift = this.get_all_elements_and_sub_attachments();
+        for (var s = 0; s < objects_to_shift.length; s++) {
+            objects_to_shift[s].apply_delta_to_vertical_offset(-16, null);
+        }
+    },
 
-        var objects_to_shift = [];
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    get_all_elements_and_sub_attachments: function() {
+        var all_objects = [];
         for (var e = 0; e < this.elements.length; e++) {
-            objects_to_shift.push(this.elements[e]);
+            all_objects.push(this.elements[e]);
             var all_sub_attachments = this.elements[e]._get_all_attachments_recursively();
             for (var a = 0; a < all_sub_attachments.length; a++) {
-                if (objects_to_shift.indexOf(all_sub_attachments[a]) === NOT_FOUND) {
-                    objects_to_shift.push(all_sub_attachments[a]);
+                if (all_objects.indexOf(all_sub_attachments[a]) === NOT_FOUND) {
+                    all_objects.push(all_sub_attachments[a]);
                 }
             }
         }
+        return all_objects;
+    },
 
-        for (var s = 0; s < objects_to_shift.length; s++) {
-            objects_to_shift[s].apply_delta_to_vertical_offset(-16, null);
+    /*__   ___       ___ ___    __
+     |  \ |__  |    |__   |  | /  \ |\ |
+     |__/ |___ |___ |___  |  | \__/ | \| */
+    delete_all_elements: function() {
+        var all_objects = this.get_all_elements_and_sub_attachments();
+        for (var a = 0; a < all_objects.length; a++) {
+            all_objects[a].fully_remove_self_and_all_sub_attachments();
         }
     }
 

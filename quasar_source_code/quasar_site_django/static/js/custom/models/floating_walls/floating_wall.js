@@ -221,6 +221,7 @@ FloatingWall.prototype = {
             }
         }
         if (row_to_delete !== NOT_FOUND) {
+            this.rows[r].delete_all_elements();
             this.rows.splice(row_to_delete, 1);
             // Check if any existing rows need to be shifted up.
             var all_rows_to_shift = this._get_all_rows_with_index_equal_to_or_greater(deleted_rows_index);
