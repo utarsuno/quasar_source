@@ -175,6 +175,14 @@ EntityWall.prototype = {
             l(this.date_selector.wall_date_selector.attachment_parent);
         }
         this.wall_create_new_entity.delete_row_by_name(field_name);
+
+        // TEMPORARY FOR DEBUGGING.
+        var attachments = this.base_wall._get_all_attachments_recursively();
+
+        for (var a = 0; a < attachments.length; a++) {
+            l(attachments[a]);
+        }
+
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -289,6 +297,8 @@ EntityWall.prototype = {
 
     _entity_created: function() {
         l('TODO : CREATE THE ENTITY!!');
+
+
     },
 
     _create_new_entity_button_pressed: function() {
