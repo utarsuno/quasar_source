@@ -224,6 +224,8 @@ EntityWall.prototype = {
             delete_entity_field_button.attach_to(input_field);
             //delete_entity_field_button.set_engage_function(this._delete_entity_field.bind(this, this.last_entity_field_row + 1, field_name));
 
+            l('Field added!');
+
             this.base_wall.refresh_position_and_look_at();
         }
     },
