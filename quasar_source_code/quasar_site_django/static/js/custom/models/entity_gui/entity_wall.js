@@ -158,7 +158,10 @@ EntityWall.prototype = {
             var insert_index_for_row = this.wall_create_new_entity.get_row_with_name('add_new_field').row_number;
 
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
-            new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT).add_tag(TYPE_CONSTANT);
+            var field_row_label = new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT).add_tag(TYPE_CONSTANT);
+
+            l('Printing the new field row label!');
+            l(field_row_label);
 
             var input_field;
 
@@ -176,6 +179,8 @@ EntityWall.prototype = {
             }
 
             input_field.add_tag(TYPE_INPUT);
+            l('printing the field input!');
+            l(input_field);
 
             // Add button to delete the entity field.
             var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
