@@ -67,9 +67,6 @@ FloatingWall.prototype = {
     },
 
     load_from_entity_data: function(entity) {
-
-        //-1+Entity Wall To Save TEST+input
-
         this.set_entity(entity);
         this.width = this.base_wall.get_value(ENTITY_PROPERTY_WIDTH);
         this.height = this.base_wall.get_value(ENTITY_PROPERTY_HEIGHT);

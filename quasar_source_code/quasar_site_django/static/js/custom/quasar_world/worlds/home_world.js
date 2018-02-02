@@ -34,13 +34,8 @@ HomeWorld.prototype = {
 
         var entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_ENTITY_WALL);
         for (var ew = 0; ew < entity_walls.length; ew++) {
-
-            l('NEED TO LOAD THE FOLLOWING DATA');
-            l(entity_walls[ew]);
-
-            //var entity_wall = new EntityWall(this, entity_walls[ew]);
-
-            //this.entity_walls.push(entity_wall);
+            var entity_wall = new EntityWall(this, entity_walls[ew]);
+            this.entity_walls.push(entity_wall);
         }
 
         // TODO : Load all entity walls.
