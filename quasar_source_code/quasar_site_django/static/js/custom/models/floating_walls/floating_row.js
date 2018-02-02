@@ -102,7 +102,7 @@ FloatingRow.prototype = {
         var fields = [];
         var all_elements = this.get_all_elements_and_sub_attachments();
         for (var e = 0; e < all_elements.length; e++) {
-            if (all_elements[e].hasOwnProperty('type')) {
+            if (is_defined(all_elements[e].type)) {
                 if (all_elements[e].type === type) {
                     fields.push(all_elements[e]);
                 }
