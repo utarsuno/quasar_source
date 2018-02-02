@@ -261,7 +261,7 @@ EntityWall.prototype = {
         var entity_fields = [];
         for (var f = 0; f < this.wall_create_new_entity.rows.length; f++) {
             if (is_defined(this.wall_create_new_entity.rows[f].row_name)) {
-                var row_name = this.wall_create_new_entity.rows[f];
+                var row_name = this.wall_create_new_entity.rows[f].row_name;
                 if (row_name.startsWith('ep_')) {
                     entity_fields.push(this.wall_create_new_entity.rows[f]);
                 }
@@ -271,6 +271,7 @@ EntityWall.prototype = {
         l('The fields to save are :');
         for (f = 0; f < entity_fields.length; f++) {
             l(entity_fields[f]);
+
         }
 
     },
