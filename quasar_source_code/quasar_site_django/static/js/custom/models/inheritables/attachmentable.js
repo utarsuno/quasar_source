@@ -43,7 +43,7 @@ function Attachmentable(world) {
             }
         }
         return false;
-    }
+    };
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
         var temp_position = this.get_position();
