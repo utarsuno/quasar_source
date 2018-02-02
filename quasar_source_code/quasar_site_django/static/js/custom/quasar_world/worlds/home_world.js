@@ -32,7 +32,7 @@ HomeWorld.prototype = {
             // TODO : Add this floating picture to root attachables?
         }
 
-        var entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_WALL);
+        var entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_ENTITY_WALL);
         for (var ew = 0; ew < entity_walls.length; ew++) {
 
             l('NEED TO LOAD THE FOLLOWING DATA');
