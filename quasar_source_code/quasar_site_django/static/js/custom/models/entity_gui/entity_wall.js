@@ -68,7 +68,9 @@ EntityWall.prototype = {
     },
 
     _create_entity_wall: function() {
-
+        l(this.base_wall.object3D);
+        l(this.base_wall);
+        l(this.base_wall.object3D.position);
 
         this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
         this.entity_wall.set_background_color(COLOR_BLACK, true);
