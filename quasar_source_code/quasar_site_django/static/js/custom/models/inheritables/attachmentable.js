@@ -19,7 +19,7 @@ function Attachmentable(world) {
     this.relative_name = null;
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
-        var temp_position = this.get_parent_position();
+        var temp_position = this.get_position();
 
         var position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
         var floating_wall;
