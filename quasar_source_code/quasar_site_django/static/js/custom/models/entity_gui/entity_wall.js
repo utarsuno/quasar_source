@@ -9,8 +9,6 @@ EntityWall.prototype = {
     __init__: function(world, entity) {
         this.entity_wall_needs_to_load_entities = false;
 
-        this.entity_wall_entity = entity;
-
         if (!is_defined(entity)) {
             /*__   __   ___      ___         __           ___          ___      ___   ___
              /  ` |__) |__   /\   |  | |\ | / _`    |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
@@ -28,6 +26,8 @@ EntityWall.prototype = {
             /*     __        __          __      ___      ___   ___
              |    /  \  /\  |  \ | |\ | / _`    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
              |___ \__/ /~~\ |__/ | | \| \__>    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+            this.entity_wall_entity = entity;
+
             // Load the base wall.
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
             this.base_wall.load_from_entity_data(MANAGER_ENTITY.get_entity_by_id(entity.get_parent_ids()[0]));
@@ -74,6 +74,7 @@ EntityWall.prototype = {
         } else {
             // The entity wall is being created for the first time.
             this.entity_wall.set_to_saveable();
+            this.entity_wall_entity = this.entity_wall._entity;
             this.entity_wall._entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
             this.entity_wall._entity.add_parent(this.base_wall._entity);
         }
