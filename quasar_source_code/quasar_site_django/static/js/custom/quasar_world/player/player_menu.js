@@ -249,13 +249,13 @@ PlayerMenu.prototype = {
                 this.teleport_wall.add_row(null);
 
                 if (is_defined(ENTITY_OWNER)) {
-                    if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
+                    //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
                         if (this.world !== MANAGER_WORLD.world_admin) {
                             teleport_row = this.teleport_wall.add_row(null);
                             teleport_row.add_2D_element([0, icon_width], ICON_SINGLE_PLAYER, TYPE_ICON);
                             teleport_row.add_2D_button([icon_width, 1], 'Admin', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
                         }
-                    }
+                    //}
                 }
 
                 // Add an empty row for spacing.
