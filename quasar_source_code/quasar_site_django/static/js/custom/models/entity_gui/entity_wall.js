@@ -9,6 +9,8 @@ EntityWall.prototype = {
     __init__: function(world, entity) {
         this.entity_wall_needs_to_load_entities = false;
 
+        this.entity_wall_entity = entity;
+
         if (!is_defined(entity)) {
             /*__   __   ___      ___         __           ___          ___      ___   ___
              /  ` |__) |__   /\   |  | |\ | / _`    |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
@@ -51,6 +53,8 @@ EntityWall.prototype = {
         this.wall_create_new_entity = new EntityCreator(this.base_wall, this.entity_wall);
         this.wall_create_new_entity.set_display_button(this.create_new_entity_button);
 
+        // Wall used for editing entities.
+        this.wall_edit_entity = new EntityEditor();
 
         this.base_wall.refresh_position_and_look_at();
     },
@@ -61,6 +65,12 @@ EntityWall.prototype = {
 
         if (this.entity_wall_needs_to_load_entities) {
             l('TODO : Load the entity walls!');
+
+            var number_of_children = this.entity_wall_entity.number_of_children();
+            for (var e = 0; e < number_of_children; e++) {
+                this.add_entity(this.entity_wall_entity.children[e]);
+            }
+
         } else {
             // The entity wall is being created for the first time.
             this.entity_wall.set_to_saveable();
@@ -71,6 +81,12 @@ EntityWall.prototype = {
         //this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
         //this.entity_wall.attach_to(this.base_wall);
         //this.entity_wall.set_attachment_depth_offset(5);
+    },
+
+    add_entity: function (entity) {
+        var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
+        this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+        // this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
     }
 
 };

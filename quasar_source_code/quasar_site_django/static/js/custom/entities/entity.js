@@ -175,6 +175,9 @@ Entity.prototype = {
     /* __               __       /     __        __   ___      ___           ___      ___   ___    ___  __
       /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
       \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */
+    get_children: function() {
+        return this.children;
+    },
 
     get_child_ids: function() {
         return this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];

@@ -1,14 +1,15 @@
 'use strict';
 
-function EntityCreator(base_wall, entity_wall) {
-    this.__init__(base_wall, entity_wall);
+function EntityCreator(entity_wall) {
+    this.__init__(entity_wall);
 }
 
 EntityCreator.prototype = {
 
-    __init__: function(base_wall, entity_wall) {
-        this.base_wall = base_wall;
-        this.entity_wall = entity_wall;
+    __init__: function(entity_wall) {
+        this.entity_wall_manager = entity_wall;
+        this.base_wall = entity_wall_manager.base_wall;
+        this.entity_wall = entity_wall_manager.entity_wall;
     },
 
     set_display_button: function(button) {
@@ -123,25 +124,16 @@ EntityCreator.prototype = {
 
         // TODO : Add needed custom logic for saving Due Date!!
 
-        var entity_name = 'no_entity_name_set';
-
         for (f = 0; f < entity_fields.length; f++) {
-
             var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
             var entity_value    = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
-
-            if (entity_property === ENTITY_PROPERTY_NAME) {
-                entity_name = entity_value;
-            }
 
             entity_to_create.set_property(entity_property, entity_value);
         }
 
-        // Now create the floating row representing the entity.
-        this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+        this.entity_wall_manager.add_entity(entity_to_create);
 
         // TODO : Reset the create new entity wall!
-
 
         this.wall_create_new_entity.force_hide_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
