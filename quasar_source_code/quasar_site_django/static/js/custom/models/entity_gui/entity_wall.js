@@ -281,6 +281,10 @@ EntityWall.prototype = {
 
             var input_label = entity_fields[f].get_all_fields_of_type(TYPE_CONSTANT)[0].get_text();
             var input_field = entity_fields[f].get_all_fields_of_type(TYPE_INPUT)[0];
+
+            l('Here are all the input fields');
+            l(entity_fields[f].get_all_fields_of_type(TYPE_INPUT));
+
             var input_text = input_field.get_text();
 
             if (input_label === ENTITY_PROPERTY_NAME) {
