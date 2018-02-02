@@ -282,6 +282,9 @@ EntityWall.prototype = {
         l('The fields to save are :');
         for (f = 0; f < entity_fields.length; f++) {
 
+            l('Trying to save the following row');
+            l(entity_fields[f]);
+
             var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
             var entity_value    = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
 
