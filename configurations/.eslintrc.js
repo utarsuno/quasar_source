@@ -144,6 +144,10 @@ module.exports = {
         "EntityEditor"      : false,
         "EntityFieldCreator": false,
 
+        "NO_SAVE_DATA"   : false,
+        "SAVE_TAG_3D_ROW": false,
+        "SAVE_TAG_2D_ROW": false,
+
         "TextSyntaxManager": true,
 
         // From globals.js

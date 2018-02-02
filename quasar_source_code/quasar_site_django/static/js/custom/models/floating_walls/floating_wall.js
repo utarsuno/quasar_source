@@ -62,7 +62,7 @@ FloatingWall.prototype = {
         this.add_save_field(ENTITY_PROPERTY_NORMAL);
         this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
         // TODO : REFACTOR THIS!!!
-        //this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
+        this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
         //this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
     },
 
@@ -337,28 +337,31 @@ FloatingWall.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    // TODO : Remove or re-format
-    get_all_floating_2D_texts_with_property: function(property_name) {
-        var floating_texts = [];
-        for (var i = 0; i < this.all_floating_2d_texts.length; i++) {
-            if (this.all_floating_2d_texts[i].hasOwnProperty(property_name)) {
-                floating_texts.push(this.all_floating_2d_texts[i]);
+    get_3D_rows_save_data: function() {
+        var save_data = '';
+        var add_seperator = false;
+        for (var r = 0; r < this.rows.length; r++) {
+            var data = this.rows[r].get_3D_rows_save_data();
+            if (data !== NO_SAVE_DATA) {
+                if (add_seperator) {
+                    save_data += '@';
+                }
+                save_data += data;
+                if (!add_seperator) {
+                    add_seperator = true;
+                }
             }
         }
-        return floating_texts;
+        return save_data;
     },
 
-    // TODO : Reformat this!
-    get_all_floating_wall_children_recursively: function() {
-        var all_wall_children = [];
-        for (var w = 0; w < this.all_floating_walls.length; w++) {
-            all_wall_children.push(this.all_floating_walls[w]);
-            var all_sub_children = this.all_floating_walls[w].get_all_floating_wall_children_recursively();
-            for (var s = 0; s < all_sub_children.length; s++) {
-                all_wall_children.push(all_sub_children[s]);
+    has_3D_rows: function() {
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].get_all_elements_with_tag(SAVE_TAG_3D_ROW).length > 0) {
+                return true;
             }
         }
-        return all_wall_children;
+        return false;
     },
 
     /*__   ___  __   __        __   __   ___     __        ___                 __

@@ -144,8 +144,13 @@ EntityCreator.prototype = {
 
 
         this.wall_create_new_entity.force_hide_self_and_all_child_attachments_recursively();
-        this.base_wall.display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
 
+        // TODO : Only delete the needed fields in the future.
+        if (is_defined(this.wall_create_new_entity)) {
+            this.wall_create_new_entity.fully_remove_self_and_all_sub_attachments();
+            this.wall_create_new_entity = null;
+        }
     },
 
     _reset_create_new_entity_wall: function() {

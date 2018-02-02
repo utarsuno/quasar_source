@@ -8,7 +8,9 @@ EntityWall.prototype = {
 
     __init__: function(world, entity) {
         if (!is_defined(entity)) {
-            // The entity wall is being created for the first time.
+            /*__   __   ___      ___         __           ___          ___      ___   ___
+             /  ` |__) |__   /\   |  | |\ | / _`    |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+             \__, |  \ |___ /~~\  |  | | \| \__>    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
             var pp = CURRENT_PLAYER.get_position();
             var pn = CURRENT_PLAYER.get_direction();
             var p = new THREE.Vector3(pp.x + pn.x * 200, pp.y + pn.y * 200, pp.z + pn.z * 200);
@@ -19,7 +21,9 @@ EntityWall.prototype = {
 
             this.base_wall.set_to_saveable();
         } else {
-            // The entity wall is being loaded from an entity.
+            /*     __        __          __      ___      ___   ___
+             |    /  \  /\  |  \ | |\ | / _`    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+             |___ \__/ /~~\ |__/ | | \| \__>    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
 
             this.base_wall.set_entity(entity);
@@ -35,6 +39,12 @@ EntityWall.prototype = {
             this.base_wall.set_normal(normal.x, normal.y, normal.z);
 
             this.base_wall.dimensions_changed();
+
+            var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
+            // INDEX --> 0 - row_number, 1 - text, 2 - type
+            if (rows_3D !== 'none') {
+
+            }
 
             // TODO : ADD ROWS!!!!
             // TODO : ADD ROWS!!!!

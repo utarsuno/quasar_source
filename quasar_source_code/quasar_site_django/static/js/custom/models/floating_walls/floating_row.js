@@ -27,6 +27,8 @@ FloatingRow.prototype = {
         floating_element.set_attachment_vertical_offset(-32 * this.row_number, HALF);
         floating_element.attach_to(this.parent_wall);
 
+        floating_element.add_tag(SAVE_TAG_3D_ROW);
+
         this.elements.push(floating_element);
         return floating_element;
     },
@@ -98,6 +100,25 @@ FloatingRow.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    get_3D_rows_save_data: function() {
+        var save_data = '';
+        var all_elements = this.get_all_elements_and_sub_attachments();
+        for (var e = 0; e < all_elements.length; e++) {
+            if (all_elements[e].has_tag(SAVE_TAG_3D_ROW)) {
+
+                var element = all_elements[e];
+
+                save_data += this.row_number + '+';
+                save_data += element.get_text() + '+';
+                save_data += element.get_type();
+            }
+        }
+        if (save_data === '') {
+            return NO_SAVE_DATA;
+        }
+        return save_data;
+    },
+
     get_all_elements_with_tag: function(tag) {
         var elements = [];
         var all_elements = this.get_all_elements_and_sub_attachments();

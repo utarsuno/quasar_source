@@ -36,7 +36,7 @@ function Saveable(save_type) {
                 entity_data[key] = this._image_data;
                 break;
             default:
-                l('THE KEY {' + key + '} IS NOT DEFINED YET FOR SAVING!!!');
+                //l('THE KEY {' + key + '} IS NOT DEFINED YET FOR SAVING!!!');
                 break;
             }
         }
@@ -64,6 +64,13 @@ function Saveable(save_type) {
             case ENTITY_PROPERTY_POSITION:
                 var p = this.get_position();
                 this._entity.set_property(key, p.x + '+' + p.y + '+' + p.z);
+                break;
+            case ENTITY_PROPERTY_3D_ROWS:
+                if (this.has_3D_rows()) {
+                    this._entity.set_property(ENTITY_PROPERTY_3D_ROWS, this.get_3D_rows_save_data());
+                } else {
+                    this._entity.set_property(ENTITY_PROPERTY_3D_ROWS, NO_SAVE_DATA);
+                }
                 break;
             }
         }

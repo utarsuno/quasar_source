@@ -37,6 +37,11 @@ var GUI_TYPING_INTERFACE = null;
 // Logical constants.
 const NOT_FOUND = -1;
 
+// TODO : Clean up this design.
+const SAVE_TAG_3D_ROW = '3d_row';
+const SAVE_TAG_2D_ROW = '2d_row';
+const NO_SAVE_DATA = 'no_save_data';
+
 // UNIVERSAL_CONSTANTS_START : Web socket message types.
 const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
 const WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|';
