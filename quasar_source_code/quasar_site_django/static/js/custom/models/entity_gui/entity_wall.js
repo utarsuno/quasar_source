@@ -291,6 +291,9 @@ EntityWall.prototype = {
                 entity_name = input_text;
             }
 
+            l('Setting the following label and text:');
+            l(input_label);
+            l(input_text);
             entity_to_create.set_property(input_label, input_text);
         }
 
