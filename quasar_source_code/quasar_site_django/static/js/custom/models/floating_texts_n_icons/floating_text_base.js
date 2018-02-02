@@ -218,7 +218,7 @@ function FloatingText(text, type, is_2D_text) {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    this.get_type() = function() {
+    this.get_type = function() {
         return this.type;
     };
 
