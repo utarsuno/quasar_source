@@ -58,9 +58,8 @@ EntityWall.prototype = {
         // TODO : This should be automatic? Remove the need to explicitly need to write this code.
         this.base_wall.world.root_attachables.push(this.base_wall);
 
-        this._init_create_new_entity_wall();
-        // Create a entity type selector.
         this.wall_select_entity_type = new EntityTypeSelector(this.base_wall);
+        this._init_create_new_entity_wall();
         this._init_add_new_field_wall();
 
         this.base_wall.refresh_position_and_look_at();
