@@ -8,8 +8,8 @@ EntityCreator.prototype = {
 
     __init__: function(entity_wall) {
         this.entity_wall_manager = entity_wall;
-        this.base_wall = entity_wall_manager.base_wall;
-        this.entity_wall = entity_wall_manager.entity_wall;
+        this.base_wall = this.entity_wall_manager.base_wall;
+        this.entity_wall = this.entity_wall_manager.entity_wall;
     },
 
     set_display_button: function(button) {
