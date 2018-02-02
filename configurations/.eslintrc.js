@@ -139,8 +139,10 @@ module.exports = {
         "Entity": false,
 
         "EntityWall"        : false,
+        "EntityCreator"     : false,
         "EntityTypeSelector": false,
         "EntityEditor"      : false,
+        "EntityFieldCreator": false,
 
         "TextSyntaxManager": true,
 

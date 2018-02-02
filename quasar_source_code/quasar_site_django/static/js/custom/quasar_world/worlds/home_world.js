@@ -43,18 +43,9 @@ HomeWorld.prototype = {
     },
 
     prepare_for_save: function() {
-
-
         for (var r = 0; r < this.root_attachables.length; r++) {
             this.root_attachables[r].update_values_for_entity();
         }
-
-
-        /*
-        for (var i = 0; i < this.entity_walls.length; i++) {
-            this.entity_walls[i].prepare_for_save();
-        }
-        */
     },
 
     enter_world: function() {
@@ -63,13 +54,6 @@ HomeWorld.prototype = {
             CURRENT_PLAYER.enable_controls();
         }
         CURRENT_PLAYER.set_position_xyz(0, 100, 0);
-
-        /*
-        if (!this.schedule_loaded) {
-            this.load_schedule();
-            this.load_date_selector();
-        }
-        */
     },
 
     exit_world: function() {
