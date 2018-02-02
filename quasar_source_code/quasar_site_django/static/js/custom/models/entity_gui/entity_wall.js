@@ -160,8 +160,6 @@ EntityWall.prototype = {
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
             var field_row_label = new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT);
             field_row_label.add_tag(TYPE_CONSTANT);
-            l('Printing the new field row label!');
-            l(field_row_label);
 
             var input_field;
 
@@ -179,8 +177,6 @@ EntityWall.prototype = {
             }
 
             input_field.add_tag(TYPE_INPUT);
-            l('printing the field input!');
-            l(input_field);
 
             // Add button to delete the entity field.
             var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
@@ -255,7 +251,9 @@ EntityWall.prototype = {
         this.entity_type_button = entity_type_row[1];
         this.entity_type_button.add_tag(TYPE_INPUT);
 
-        this.wall_create_new_entity.add_row(1, ENTITY_PROPERTY_NAME).add_2D_label_and_input(ONE_THIRD, ENTITY_PROPERTY_NAME);
+        var name_label_and_input = this.wall_create_new_entity.add_row(1, ENTITY_PROPERTY_NAME).add_2D_label_and_input(ONE_THIRD, ENTITY_PROPERTY_NAME);
+        name_label_and_input[0].add_tag(TYPE_CONSTANT);
+        name_label_and_input[1].add_tag(TYPE_INPUT);
 
         this.add_new_field_button = this.wall_create_new_entity.add_row(2, 'add_new_field').add_2D_button([0, 1], 'add new field', null, this._add_entity_field_button_pressed.bind(this));
         this.wall_create_new_entity.add_row(3).add_2D_button([0, 1], 'create entity', null, this._entity_created.bind(this));
