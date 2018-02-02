@@ -7,6 +7,8 @@ function EntityWall(world, entity) {
 EntityWall.prototype = {
 
     __init__: function(world, entity) {
+        this.entity_wall_needs_to_load_entities = false;
+
         if (!is_defined(entity)) {
             /*__   __   ___      ___         __           ___          ___      ___   ___
              /  ` |__) |__   /\   |  | |\ | / _`    |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
@@ -24,32 +26,12 @@ EntityWall.prototype = {
             /*     __        __          __      ___      ___   ___
              |    /  \  /\  |  \ | |\ | / _`    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
              |___ \__/ /~~\ |__/ | | \| \__>    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+            // Load the base wall.
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
-
-            this.base_wall.set_entity(entity);
-
-            var width = this.base_wall.get_value(ENTITY_PROPERTY_WIDTH);
-            var height = this.base_wall.get_value(ENTITY_PROPERTY_HEIGHT);
-            var position = this.base_wall.get_value(ENTITY_PROPERTY_POSITION);
-            var normal = this.base_wall.get_value(ENTITY_PROPERTY_NORMAL);
-
-            this.base_wall.width = width;
-            this.base_wall.height = height;
-            this.base_wall.set_position(position.x, position.y, position.z);
-            this.base_wall.set_normal(normal.x, normal.y, normal.z);
-
-            this.base_wall.dimensions_changed();
-
-            var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
-            // INDEX --> 0 - row_number, 1 - text, 2 - type
-            if (rows_3D !== NO_SAVE_DATA) {
-
-            }
-
-            // TODO : ADD ROWS!!!!
-            // TODO : ADD ROWS!!!!
-
+            this.base_wall.load_from_entity_data(MANAGER_ENTITY.get_entity_by_id(entity.get_parent_ids()[0]));
             this.base_wall.refresh_position_and_look_at();
+
+            this.entity_wall_needs_to_load_entities = true;
         }
 
         // Create the standard functionality of the entity wall.
@@ -80,7 +62,9 @@ EntityWall.prototype = {
         this.entity_wall._entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
         this.entity_wall._entity.add_parent(this.base_wall._entity);
 
+        if (this.entity_wall_needs_to_load_entities) {
 
+        }
 
         //this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
         //this.entity_wall.attach_to(this.base_wall);

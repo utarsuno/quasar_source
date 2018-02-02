@@ -66,6 +66,38 @@ FloatingWall.prototype = {
         //this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
     },
 
+    load_from_entity_data: function(entity) {
+
+        //-1+Entity Wall To Save TEST+input
+
+        this.set_entity(entity);
+        this.width = this.base_wall.get_value(ENTITY_PROPERTY_WIDTH);
+        this.height = this.base_wall.get_value(ENTITY_PROPERTY_HEIGHT);
+        var position = this.base_wall.get_value(ENTITY_PROPERTY_POSITION);
+        var normal = this.base_wall.get_value(ENTITY_PROPERTY_NORMAL);
+        this.set_position(position.x, position.y, position.z);
+        this.set_normal(normal.x, normal.y, normal.z);
+        this.dimensions_changed();
+
+        var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
+        // INDEX --> 0 - row_number, 1 - text, 2 - type
+        if (rows_3D !== NO_SAVE_DATA) {
+            var rows_3D_to_load = [];
+            // Check if there is only a single row or multiple.
+            if (rows_3D.indexOf('@') === NOT_FOUND) {
+                // Single row.
+                rows_3D_to_load.push(rows_3D);
+            } else {
+                // Multiple.
+                rows_3D_to_load = rows_3D.split('@');
+            }
+            for (var r = 0; r < rows_3D_to_load.length; r++) {
+                var data = rows_3D_to_load[r].split('+');
+                this.add_full_row_3D(data[0], data[1], data[2]);
+            }
+        }
+    },
+
     make_base_wall_invisible: function() {
         this._make_base_wall_visible = false;
         if (is_defined(this.mesh)) {
