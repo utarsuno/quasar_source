@@ -68,12 +68,13 @@ EntityWall.prototype = {
     },
 
     _create_entity_wall: function() {
-        l(this.base_wall.object3D);
-        l(this.base_wall);
-        l(this.base_wall.object3D.position);
-
         this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
         this.entity_wall.set_background_color(COLOR_BLACK, true);
+        this.entity_wall.set_to_saveable();
+        this.entity_wall._entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
+        this.entity_wall._entity.add_parent(this.base_wall._entity);
+
+
 
         //this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
         //this.entity_wall.attach_to(this.base_wall);
@@ -256,6 +257,21 @@ EntityWall.prototype = {
     _entity_created: function() {
         l('TODO : CREATE THE ENTITY!!');
 
+        // Iterate through the create new entity fields.
+        var entity_fields = [];
+        for (var f = 0; f < this.wall_create_new_entity.rows.length; f++) {
+            if (is_defined(this.wall_create_new_entity.rows[f].row_name)) {
+                var row_name = this.wall_create_new_entity.rows[f];
+                if (row_name.startsWith('ep_')) {
+                    entity_fields.push(this.wall_create_new_entity.rows[f]);
+                }
+            }
+        }
+
+        l('The fields to save are :');
+        for (f = 0; f < entity_fields.length; f++) {
+            l(entity_fields[f]);
+        }
 
     },
 
