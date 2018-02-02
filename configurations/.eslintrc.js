@@ -137,7 +137,10 @@ module.exports = {
         "DragNDrop": false,
 
         "Entity": false,
-        "EntityWall": false,
+
+        "EntityWall"        : false,
+        "EntityTypeSelector": false,
+        "EntityEditor"      : false,
 
         "TextSyntaxManager": true,
 

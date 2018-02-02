@@ -59,7 +59,8 @@ EntityWall.prototype = {
         this.base_wall.world.root_attachables.push(this.base_wall);
 
         this._init_create_new_entity_wall();
-        this._init_select_entity_type_wall();
+        // Create a entity type selector.
+        this.wall_select_entity_type = new EntityTypeSelector(this.base_wall);
         this._init_add_new_field_wall();
 
         this.base_wall.refresh_position_and_look_at();
@@ -205,36 +206,6 @@ EntityWall.prototype = {
         this.base_wall.refresh_position_and_look_at();
     },
 
-    /*__   ___       ___  __  ___     ___      ___   ___        ___      __   ___
-     /__` |__  |    |__  /  `  |     |__  |\ |  |  |  |  \ /     |  \ / |__) |__     |  |  /\  |    |
-     .__/ |___ |___ |___ \__,  |     |___ | \|  |  |  |   |      |   |  |    |___    |/\| /~~\ |___ |___ */
-    _init_select_entity_type_wall: function() {
-        this.wall_select_entity_type = new FloatingWall(200, 100, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_YELLOW);
-        this.wall_select_entity_type.manual_visibility = true;
-        this.wall_select_entity_type.set_attachment_depth_offset(10);
-        this.wall_select_entity_type.attach_to(this.entity_type_button);
-        this.wall_select_entity_type.add_close_button();
-        this.wall_select_entity_type.add_full_row_3D(-1, 'Select Entity Type', TYPE_TITLE);
-
-        this.wall_select_entity_type.add_row(1).add_2D_button([0, 1], ENTITY_TYPE_BASE, null, this._entity_type_selected.bind(this, ENTITY_TYPE_BASE));
-        this.wall_select_entity_type.add_row(2).add_2D_button([0, 1], ENTITY_TYPE_TASK, null, this._entity_type_selected.bind(this, ENTITY_TYPE_TASK));
-
-        this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
-    },
-
-    _entity_type_selected: function(entity_type) {
-        this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
-        this.entity_type_button.update_text(entity_type);
-        if (entity_type === ENTITY_TYPE_TASK) {
-            this._add_entity_field(ENTITY_PROPERTY_DUE_DATE);
-        }
-    },
-
-    _select_entity_type_button_pressed: function() {
-        this.wall_select_entity_type.display_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
-    },
-
     /*__   __   ___      ___  ___          ___          ___      ___   ___
      /  ` |__) |__   /\   |  |__     |\ | |__  |  |    |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      \__, |  \ |___ /~~\  |  |___    | \| |___ |/\|    |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
@@ -246,7 +217,7 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_close_button();
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
 
-        var entity_type_row = this.wall_create_new_entity.add_row(0, ENTITY_DEFAULT_PROPERTY_TYPE).add_2D_label_and_button(ONE_THIRD, ENTITY_DEFAULT_PROPERTY_TYPE, 'Entity', this._select_entity_type_button_pressed.bind(this));
+        var entity_type_row = this.wall_create_new_entity.add_row(0, ENTITY_DEFAULT_PROPERTY_TYPE).add_2D_label_and_button(ONE_THIRD, ENTITY_DEFAULT_PROPERTY_TYPE, 'Entity', this.wall_select_entity_type.select_entity_type_button_pressed);
         entity_type_row[0].add_tag(TYPE_CONSTANT);
         this.entity_type_button = entity_type_row[1];
         this.entity_type_button.add_tag(TYPE_INPUT);
@@ -259,6 +230,11 @@ EntityWall.prototype = {
         this.wall_create_new_entity.add_row(3).add_2D_button([0, 1], 'create entity', null, this._entity_created.bind(this));
 
         this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
+    },
+
+    _reset_create_new_entity_wall: function() {
+        // TODO :!!!
+        l('TODO : Reset create new entity wall!');
     },
 
     _entity_created: function() {
@@ -282,23 +258,23 @@ EntityWall.prototype = {
 
         var entity_name = 'no_entity_name_set';
 
-        l('The fields to save are :');
         for (f = 0; f < entity_fields.length; f++) {
-
-            l('Trying to save the following row');
-            l(entity_fields[f]);
 
             var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
             var entity_value    = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
 
-            l('Setting the following label and text:');
-            l(entity_property);
-            l(entity_value);
+            if (entity_property === ENTITY_PROPERTY_NAME) {
+                entity_name = entity_value;
+            }
+
             entity_to_create.set_property(entity_property, entity_value);
         }
 
         // Now create the floating row representing the entity.
         this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+
+        // TODO : Reset the create new entity wall!
+
 
         this.wall_create_new_entity.force_hide_self_and_all_child_attachments_recursively();
         this.base_wall.display_self_and_all_child_attachments_recursively();
