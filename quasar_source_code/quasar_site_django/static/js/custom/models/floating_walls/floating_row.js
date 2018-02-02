@@ -102,11 +102,10 @@ FloatingRow.prototype = {
      \__> |___  |   |  |___ |  \ .__/ */
     get_3D_rows_save_data: function() {
         var save_data = '';
-        var all_elements = this.get_all_elements_and_sub_attachments();
-        for (var e = 0; e < all_elements.length; e++) {
-            if (all_elements[e].has_tag(SAVE_TAG_3D_ROW)) {
+        for (var e = 0; e < this.elements.length; e++) {
+            if (this.elements[e].has_tag(SAVE_TAG_3D_ROW)) {
 
-                var element = all_elements[e];
+                var element = this.elements[e];
 
                 save_data += this.row_number + '+';
                 save_data += element.get_text() + '+';
