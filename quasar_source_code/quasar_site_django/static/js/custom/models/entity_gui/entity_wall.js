@@ -58,12 +58,14 @@ EntityWall.prototype = {
     _create_entity_wall: function() {
         this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
         this.entity_wall.set_background_color(COLOR_BLACK, true);
-        this.entity_wall.set_to_saveable();
-        this.entity_wall._entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
-        this.entity_wall._entity.add_parent(this.base_wall._entity);
 
         if (this.entity_wall_needs_to_load_entities) {
-
+            l('TODO : Load the entity walls!');
+        } else {
+            // The entity wall is being created for the first time.
+            this.entity_wall.set_to_saveable();
+            this.entity_wall._entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
+            this.entity_wall._entity.add_parent(this.base_wall._entity);
         }
 
         //this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
