@@ -68,9 +68,12 @@ EntityWall.prototype = {
     },
 
     _create_entity_wall: function() {
-        this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
-        this.entity_wall.attach_to(this.base_wall);
-        this.entity_wall.set_attachment_depth_offset(5);
+        this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
+        this.entity_wall.set_background_color(COLOR_BLACK, true);
+
+        //this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
+        //this.entity_wall.attach_to(this.base_wall);
+        //this.entity_wall.set_attachment_depth_offset(5);
     },
 
     /*__       ___  ___     __   ___       ___  __  ___  __   __
