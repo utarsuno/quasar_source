@@ -50,7 +50,7 @@ EntityWall.prototype = {
         this._create_entity_wall();
 
         // Wall used for creating new entities.
-        this.wall_create_new_entity = new EntityCreator(this.base_wall, this.entity_wall);
+        this.wall_create_new_entity = new EntityCreator(this);
         this.wall_create_new_entity.set_display_button(this.create_new_entity_button);
 
         // Wall used for editing entities.
