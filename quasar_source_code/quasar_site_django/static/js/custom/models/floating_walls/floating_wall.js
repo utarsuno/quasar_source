@@ -352,6 +352,9 @@ FloatingWall.prototype = {
                 }
             }
         }
+        if (save_data === '') {
+            return NO_SAVE_DATA;
+        }
         return save_data;
     },
 

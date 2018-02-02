@@ -42,7 +42,7 @@ EntityWall.prototype = {
 
             var rows_3D = this.base_wall.get_value(ENTITY_PROPERTY_3D_ROWS);
             // INDEX --> 0 - row_number, 1 - text, 2 - type
-            if (rows_3D !== 'none') {
+            if (rows_3D !== NO_SAVE_DATA) {
 
             }
 
