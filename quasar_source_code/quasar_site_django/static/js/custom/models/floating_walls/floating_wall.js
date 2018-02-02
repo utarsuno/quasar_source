@@ -62,8 +62,8 @@ FloatingWall.prototype = {
         this.add_save_field(ENTITY_PROPERTY_NORMAL);
         this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
         // TODO : REFACTOR THIS!!!
-        this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
-        this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
+        //this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
+        //this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
     },
 
     make_base_wall_invisible: function() {

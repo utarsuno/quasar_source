@@ -1,7 +1,5 @@
 'use strict';
 
-const LIGHT_CIRCLE_RADIUS = 1000;
-
 function World() {
 
     this.currently_looked_at_object = null;
@@ -243,7 +241,7 @@ function World() {
     };
 
     this.multi_right_click = function() {
-        // Fow nbow just perform a regular right click action.
+        // Fow now just perform a regular right click action.
         this.single_right_click();
     };
 

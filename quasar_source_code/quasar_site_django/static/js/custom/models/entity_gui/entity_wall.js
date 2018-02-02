@@ -10,6 +10,7 @@ EntityWall.prototype = {
         this.date_selector = null;
 
         if (!is_defined(entity)) {
+            // The entity wall is being created for the first time.
             var pp = CURRENT_PLAYER.get_position();
             var pn = CURRENT_PLAYER.get_direction();
             var p = new THREE.Vector3(pp.x + pn.x * 200, pp.y + pn.y * 200, pp.z + pn.z * 200);
@@ -19,7 +20,10 @@ EntityWall.prototype = {
             this.base_wall.add_full_row_3D(-1, 'Entity Wall', TYPE_INPUT);
 
             this.base_wall.set_to_saveable();
+
+            this._create_entity_wall();
         } else {
+            // The entity wall is being loaded from an entity.
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
 
             this.base_wall.set_entity(entity);
@@ -61,6 +65,12 @@ EntityWall.prototype = {
         this._init_add_new_field_wall();
 
         this.base_wall.refresh_position_and_look_at();
+    },
+
+    _create_entity_wall: function() {
+        this.entity_wall = new FloatingWall(this.base_wall.width * .8, this.base_wall.height * .8, null, null, this.base_wall.normal, false, COLOR_BLACK);
+        this.entity_wall.attach_to(this.base_wall);
+        this.entity_wall.set_attachment_depth_offset(5);
     },
 
     /*__       ___  ___     __   ___       ___  __  ___  __   __
