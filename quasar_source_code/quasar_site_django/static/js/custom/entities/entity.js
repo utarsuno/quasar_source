@@ -19,6 +19,10 @@ Entity.prototype = {
 
     __init__: function(properties) {
 
+        if (!is_defined(properties)) {
+            properties = {};
+        }
+
         var value = null;
         // Handling the default property of relative ID.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)) {
