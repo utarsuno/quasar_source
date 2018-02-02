@@ -21,7 +21,7 @@ EntityTypeSelector.prototype = {
 
         this.wall_select_entity_type.display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
-    }
+    },
 
     create: function() {
         this.wall_select_entity_type = new FloatingWall(200, 100, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_YELLOW);
