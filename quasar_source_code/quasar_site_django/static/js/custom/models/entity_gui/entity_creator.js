@@ -1,14 +1,14 @@
 'use strict';
 
-function EntityCreator(base_wall) {
-    this.__init__(base_wall);
+function EntityCreator(base_wall, entity_wall) {
+    this.__init__(base_wall, entity_wall);
 }
 
 EntityCreator.prototype = {
 
-    __init__: function(base_wall) {
+    __init__: function(base_wall, entity_wall) {
         this.base_wall = base_wall;
-        this.entity_wall = this.base_wall.entity_wall;
+        this.entity_wall = entity_wall;
     },
 
     set_display_button: function(button) {

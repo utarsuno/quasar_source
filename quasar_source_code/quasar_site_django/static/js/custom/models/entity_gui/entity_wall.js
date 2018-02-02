@@ -49,9 +49,6 @@ EntityWall.prototype = {
         // TODO : Create a button for deleting the entity wall!!
 
 
-
-
-
         // Regardless if created or loaded the following operations must be taken.
         // TODO : This should be automatic? Remove the need to explicitly need to write this code.
         this.base_wall.world.root_attachables.push(this.base_wall);
@@ -59,7 +56,7 @@ EntityWall.prototype = {
         this._create_entity_wall();
 
         // Wall used for creating new entities.
-        this.wall_create_new_entity = new EntityCreator(this.base_wall);
+        this.wall_create_new_entity = new EntityCreator(this.base_wall, this.entity_wall);
         this.wall_create_new_entity.set_display_button(this.create_new_entity_button);
 
 
