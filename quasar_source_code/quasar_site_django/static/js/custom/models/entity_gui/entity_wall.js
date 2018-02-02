@@ -20,8 +20,6 @@ EntityWall.prototype = {
             this.base_wall.add_full_row_3D(-1, 'Entity Wall', TYPE_INPUT);
 
             this.base_wall.set_to_saveable();
-
-            this._create_entity_wall();
         } else {
             // The entity wall is being loaded from an entity.
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
@@ -65,9 +63,13 @@ EntityWall.prototype = {
         this._init_add_new_field_wall();
 
         this.base_wall.refresh_position_and_look_at();
+
+        this._create_entity_wall();
     },
 
     _create_entity_wall: function() {
+
+
         this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
         this.entity_wall.set_background_color(COLOR_BLACK, true);
 
