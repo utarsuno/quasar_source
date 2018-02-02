@@ -268,11 +268,33 @@ EntityWall.prototype = {
             }
         }
 
+        var entity_to_create = new Entity();
+        entity_to_create.add_parent(this.entity_wall);
+
+        // TODO : Add needed custom logic for saving Due Date!!
+
+        var entity_name = 'no_entity_name_set';
+
         l('The fields to save are :');
         for (f = 0; f < entity_fields.length; f++) {
             l(entity_fields[f]);
 
+            var input_label = entity_fields[f].get_all_fields_of_type(TYPE_CONSTANT)[0].get_text();
+            var input_field = entity_fields[f].get_all_fields_of_type(TYPE_INPUT)[0];
+            var input_text = input_field.get_text();
+
+            if (input_label === ENTITY_PROPERTY_NAME) {
+                entity_name = input_text;
+            }
+
+            entity_to_create.set_property(input_label, input_text);
         }
+
+        // Now create the floating row representing the entity.
+        this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+
+        this.wall_create_new_entity.force_hide_self_and_all_child_attachments_recursively();
+        this.base_wall.display_self_and_all_child_attachments_recursively();
 
     },
 
