@@ -269,7 +269,7 @@ EntityWall.prototype = {
         }
 
         var entity_to_create = new Entity();
-        entity_to_create.add_parent(this.entity_wall);
+        entity_to_create.add_parent(this.entity_wall._entity);
 
         // TODO : Add needed custom logic for saving Due Date!!
 
