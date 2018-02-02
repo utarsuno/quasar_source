@@ -158,7 +158,7 @@ EntityWall.prototype = {
             var insert_index_for_row = this.wall_create_new_entity.get_row_with_name('add_new_field').row_number;
 
             var new_field_row = this.wall_create_new_entity.add_row(insert_index_for_row, field_name);
-            new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT);
+            new_field_row.add_2D_element([0, ONE_THIRD], field_name, TYPE_CONSTANT).add_tag(TYPE_CONSTANT);
 
             var input_field;
 
@@ -174,6 +174,8 @@ EntityWall.prototype = {
             } else {
                 input_field = new_field_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
             }
+
+            input_field.add_tag(TYPE_INPUT);
 
             // Add button to delete the entity field.
             var delete_entity_field_button = new Floating2DText(100, 'Delete Field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
@@ -244,7 +246,9 @@ EntityWall.prototype = {
         this.wall_create_new_entity.attach_to(this.create_new_entity_button);
 
         var entity_type_row = this.wall_create_new_entity.add_row(0, ENTITY_DEFAULT_PROPERTY_TYPE).add_2D_label_and_button(ONE_THIRD, ENTITY_DEFAULT_PROPERTY_TYPE, 'Entity', this._select_entity_type_button_pressed.bind(this));
+        entity_type_row[0].add_tag(TYPE_CONSTANT);
         this.entity_type_button = entity_type_row[1];
+        this.entity_type_button.add_tag(TYPE_INPUT);
 
         this.wall_create_new_entity.add_row(1, ENTITY_PROPERTY_NAME).add_2D_label_and_input(ONE_THIRD, ENTITY_PROPERTY_NAME);
 
@@ -277,24 +281,14 @@ EntityWall.prototype = {
 
         l('The fields to save are :');
         for (f = 0; f < entity_fields.length; f++) {
-            l(entity_fields[f]);
 
-            var input_label = entity_fields[f].get_all_fields_of_type(TYPE_CONSTANT)[0].get_text();
-            var input_field = entity_fields[f].get_all_fields_of_type(TYPE_INPUT)[0];
-
-            l('Here are all the input fields');
-            l(entity_fields[f].get_all_fields_of_type(TYPE_INPUT));
-
-            var input_text = input_field.get_text();
-
-            if (input_label === ENTITY_PROPERTY_NAME) {
-                entity_name = input_text;
-            }
+            var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
+            var entity_value    = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
 
             l('Setting the following label and text:');
-            l(input_label);
-            l(input_text);
-            entity_to_create.set_property(input_label, input_text);
+            l(entity_property);
+            l(entity_value);
+            entity_to_create.set_property(entity_property, entity_value);
         }
 
         // Now create the floating row representing the entity.

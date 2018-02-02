@@ -18,6 +18,33 @@ function Attachmentable(world) {
     // A name given to find this attachment later.
     this.relative_name = null;
 
+    // Utility tags used for finding certain objects with more ease.
+    this.dev_tags = [];
+
+    this.add_tag = function(tag) {
+        this.dev_tags.push(tag);
+    };
+
+    this.remove_tag = function(tag) {
+        var remove_index = -1;
+        for (var t = 0; t < this.dev_tags.length; t++) {
+            if (this.dev_tags[t] === tag) {
+                remove_index = t;
+                break;
+            }
+        }
+        this.dev_tags.splice(remove_index, 1);
+    };
+
+    this.has_tag = function(tag) {
+        for (var t = 0; t < this.dev_tags.length; t++) {
+            if (this.dev_tags[t] === tag) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
         var temp_position = this.get_position();
 

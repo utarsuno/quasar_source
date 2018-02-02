@@ -98,15 +98,21 @@ FloatingRow.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    get_all_elements_with_tag: function(tag) {
+        var elements = [];
+        var all_elements = this.get_all_elements_and_sub_attachments();
+        for (var e = 0; e < all_elements.length; e++) {
+            if (all_elements[e].has_tag(tag)) {
+                elements.push(all_elements[e]);
+            }
+        }
+        return elements;
+    },
+
     get_all_fields_of_type: function(type) {
         var fields = [];
         var all_elements = this.get_all_elements_and_sub_attachments();
         for (var e = 0; e < all_elements.length; e++) {
-
-            l('Checking element');
-            l(all_elements[e]);
-            l(all_elements[e].type);
-
             if (is_defined(all_elements[e].type)) {
                 if (all_elements[e].type === type) {
                     fields.push(all_elements[e]);
