@@ -153,6 +153,13 @@ EntityCreator.prototype = {
         l('TODO : Reset create new entity wall!');
     },
 
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    has_field: function(field_name) {
+        return this.wall_create_new_entity.has_row_with_name(field_name);
+    },
+
     /*__       ___  ___     __   ___       ___  __  ___  __   __
      |  \  /\   |  |__     /__` |__  |    |__  /  `  |  /  \ |__)
      |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */

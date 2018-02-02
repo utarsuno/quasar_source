@@ -71,7 +71,7 @@ EntityFieldCreator.prototype = {
     },
 
     _add_selectable_entity_field: function(field_name) {
-        if (!this.entity_creator_or_editor.has_row_with_name(field_name)) {
+        if (!this.entity_creator_or_editor.has_field(field_name)) {
             this.wall_add_new_field.add_row(null, field_name).add_2D_button([0, 1], field_name, null, this._add_entity_field.bind(this, field_name));
         }
     }
