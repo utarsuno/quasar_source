@@ -68,10 +68,10 @@ FloatingWall.prototype = {
 
     load_from_entity_data: function(entity) {
         this.set_entity(entity);
-        this.width = this.base_wall.get_value(ENTITY_PROPERTY_WIDTH);
-        this.height = this.base_wall.get_value(ENTITY_PROPERTY_HEIGHT);
-        var position = this.base_wall.get_value(ENTITY_PROPERTY_POSITION);
-        var normal = this.base_wall.get_value(ENTITY_PROPERTY_NORMAL);
+        this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
+        this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
+        var position = this.get_value(ENTITY_PROPERTY_POSITION);
+        var normal = this.get_value(ENTITY_PROPERTY_NORMAL);
         this.set_position(position.x, position.y, position.z);
         this.set_normal(normal.x, normal.y, normal.z);
         this.dimensions_changed();
