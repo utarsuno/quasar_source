@@ -154,7 +154,7 @@ LoginWorld.prototype = {
         this.wall_login.add_full_row_3D(-1, 'Login', TYPE_TITLE);
 
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
-        login_username_row.set_type(TYPE_PASSWORD);
+        login_username_row[0].set_type(TYPE_PASSWORD);
         this.login_username_input = login_username_row[1];
         this.login_errors.add_label_and_input(login_username_row[0], login_username_row[1]);
         this.login_username_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
