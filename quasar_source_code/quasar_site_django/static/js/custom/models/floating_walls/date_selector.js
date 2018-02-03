@@ -52,7 +52,7 @@ DateSelector.prototype = {
         // Day labels.
         var row_labels = this.wall_date_selector.add_row(null);
         this.day_label_monday    = row_labels.add_2D_element([0, 1 / 7]    , 'Monday'   , TYPE_CONSTANT);
-        this.day_label_tuesday   = row_labels.add_2D_element([1 / 7, 1 / 7], 'Tuesday'  , TYPE_CONSTANT);
+        this.day_label_tuesday   = row_labels.add_2D_element([1 / 7, 2 / 7], 'Tuesday'  , TYPE_CONSTANT);
         this.day_label_wednesday = row_labels.add_2D_element([2 / 7, 3 / 7], 'Wednesday', TYPE_CONSTANT);
         this.day_label_thursday  = row_labels.add_2D_element([3 / 7, 4 / 7], 'Thursday' , TYPE_CONSTANT);
         this.day_label_friday    = row_labels.add_2D_element([4 / 7, 5 / 7], 'Friday'   , TYPE_CONSTANT);
@@ -93,7 +93,6 @@ DateSelector.prototype = {
         var third_row = this.wall_date_selector.add_row(null);
         var fourth_row = this.wall_date_selector.add_row(null);
         var fifth_row = this.wall_date_selector.add_row(null);
-
 
         for (var d = 0; d < this.all_days.length; d++) {
 

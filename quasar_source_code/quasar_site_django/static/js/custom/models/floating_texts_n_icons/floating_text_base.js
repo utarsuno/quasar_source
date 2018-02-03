@@ -216,6 +216,13 @@ function FloatingText(text, type, is_2D_text) {
     };
 
     /*__   ___ ___ ___  ___  __   __
+     /__` |__   |   |  |__  |__) /__`
+     .__/ |___  |   |  |___ |  \ .__/ */
+    this.set_type = function(type) {
+        this.type = type;
+    };
+
+    /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.get_type = function() {
