@@ -27,6 +27,9 @@ function TextSyntax(syntax_checks) {
 
     this.syntax_check = function() {
         var text = this.get_text();
+
+
+
         this._has_syntax_error = false;
         for (var r = 0; r < this._required_syntax_rules.length; r++) {
             switch(this._required_syntax_rules[r]) {

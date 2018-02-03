@@ -219,6 +219,14 @@ function FloatingText(text, type, is_2D_text) {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.set_type = function(type) {
+        // If the previous type was input and the new type password then transfer any needed text.
+        if (this.type === TYPE_INPUT && type === TYPE_PASSWORD) {
+            if (is_defined(this.text)) {
+                this.hidden_text = this.text;
+            } else {
+                this.hidden_text = '';
+            }
+        }
         this.type = type;
     };
 
