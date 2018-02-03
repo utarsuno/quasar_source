@@ -23,7 +23,7 @@ DateSelector.prototype = {
 
         // Year.
         var row_year = this.wall_date_selector.add_row(null);
-        this.button_year_decrease = row_year.add_2D_element([0, 1], ICON_LEFT, TYPE_ICON);
+        this.button_year_decrease = row_year.add_2D_element([0, ONE_FOURTH], ICON_LEFT, TYPE_ICON);
         this.button_year_decrease.engable = false;
         this.button_year_decrease.set_engage_function(this.button_year_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_year_decrease);
