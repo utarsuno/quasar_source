@@ -181,6 +181,15 @@ FloatingWall.prototype = {
         return max_row;
     },
 
+    get_row_with_index: function(index) {
+        for (var r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].row_number === index) {
+                return this.rows[r];
+            }
+        }
+        return null;
+    },
+
     get_row_with_name: function(name) {
         for (var r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_name === name) {

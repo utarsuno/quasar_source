@@ -22,44 +22,43 @@ DateSelector.prototype = {
         this.all_days = this.current_month.get_all_dates();
 
         // Year.
-        this.button_year_decrease = this.wall_date_selector.add_row_2D_text([0, ONE_FOURTH], 0, ICON_LEFT, TYPE_ICON);
+        var row_year = this.wall_date_selector.add_row(null);
+        this.button_year_decrease = row_year.add_2D_element([0, 1], ICON_LEFT, TYPE_ICON);
         this.button_year_decrease.engable = false;
         this.button_year_decrease.set_engage_function(this.button_year_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_year_decrease);
 
-        this.year = this.wall_date_selector.add_row_2D_text([ONE_FOURTH, THREE_FOURTHS], 0, this.date.get_year_as_string(), TYPE_CONSTANT);
+        this.year = row_year.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.date.get_year_as_string(), TYPE_CONSTANT);
 
-        this.button_year_increase = this.wall_date_selector.add_row_2D_text([THREE_FOURTHS, 1], 0, ICON_RIGHT, TYPE_ICON);
+        this.button_year_increase = row_year.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
         this.button_year_increase.engable = false;
         this.button_year_increase.set_engage_function(this.button_year_increase_pressed.bind(this));
         world.interactive_objects.push(this.button_year_increase);
 
         // Month.
-        this.button_month_decrease = this.wall_date_selector.add_row_2D_text([0, ONE_FOURTH], 1, ICON_LEFT, TYPE_ICON);
+        var row_month = this.wall_date_selector.add_row(null);
+        this.button_month_decrease =  row_month.add_2D_element([0, ONE_FOURTH], ICON_LEFT, TYPE_ICON);
         this.button_month_decrease.engable = false;
         this.button_month_decrease.set_engage_function(this.button_month_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_month_decrease);
 
-        this.month = this.wall_date_selector.add_row_2D_text([ONE_FOURTH, THREE_FOURTHS], 1, this.date.get_month_full_data_string(), TYPE_CONSTANT);
+        this.month = row_month.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.date.get_month_full_data_string(), TYPE_CONSTANT);
 
-        this.button_month_increase = this.wall_date_selector.add_row_2D_text([THREE_FOURTHS, 1], 1, ICON_RIGHT, TYPE_ICON);
+        this.button_month_increase = row_month.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
         this.button_month_increase.engable = false;
         this.button_month_increase.set_engage_function(this.button_month_increase_pressed.bind(this));
         world.interactive_objects.push(this.button_month_increase);
 
         // Day labels.
-        this.day_label_monday    = this.wall_date_selector.add_row_2D_text([0, 1 / 7]    , 3, 'Monday'   , TYPE_CONSTANT);
-        this.day_label_tuesday   = this.wall_date_selector.add_row_2D_text([1 / 7, 2 / 7], 3, 'Tuesday'  , TYPE_CONSTANT);
-        this.day_label_wednesday = this.wall_date_selector.add_row_2D_text([2 / 7, 3 / 7], 3, 'Wednesday', TYPE_CONSTANT);
-        this.day_label_thursday  = this.wall_date_selector.add_row_2D_text([3 / 7, 4 / 7], 3, 'Thursday' , TYPE_CONSTANT);
-        this.day_label_friday    = this.wall_date_selector.add_row_2D_text([4 / 7, 5 / 7], 3, 'Friday'   , TYPE_CONSTANT);
-        this.day_label_saturday  = this.wall_date_selector.add_row_2D_text([5 / 7, 6 / 7], 3, 'Saturday' , TYPE_CONSTANT);
-        this.day_label_sunday    = this.wall_date_selector.add_row_2D_text([6 / 7, 1]    , 3, 'Sunday'   , TYPE_CONSTANT);
+        var row_labels = this.wall_date_selector.add_row(null);
+        this.day_label_monday    = row_labels.add_2D_element([0, 1 / 7]    , 'Monday'   , TYPE_CONSTANT);
+        this.day_label_tuesday   = row_labels.add_2D_element([1 / 7, 1 / 7], 'Tuesday'  , TYPE_CONSTANT);
+        this.day_label_wednesday = row_labels.add_2D_element([2 / 7, 3 / 7], 'Wednesday', TYPE_CONSTANT);
+        this.day_label_thursday  = row_labels.add_2D_element([3 / 7, 4 / 7], 'Thursday' , TYPE_CONSTANT);
+        this.day_label_friday    = row_labels.add_2D_element([4 / 7, 5 / 7], 'Friday'   , TYPE_CONSTANT);
+        this.day_label_saturday  = row_labels.add_2D_element([5 / 7, 6 / 7], 'Saturday' , TYPE_CONSTANT);
+        this.day_label_sunday    = row_labels.add_2D_element([6 / 7, 1]    , 'Sunday'   , TYPE_CONSTANT);
 
-        // All the day buttons.
-        //this._create_all_day_buttons();
-
-        //
         this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
     },
 
@@ -84,23 +83,40 @@ DateSelector.prototype = {
         this.all_days = this.current_month.get_all_dates();
 
         this.all_day_buttons = [];
+
+        // Add a row for spacing.
+        var spacing_row = this.wall_date_selector.add_row(null);
+        var row_index = spacing_row.row_number;
+
+        var first_row = this.wall_date_selector.add_row(null);
+        var second_row = this.wall_date_selector.add_row(null);
+        var third_row = this.wall_date_selector.add_row(null);
+        var fourth_row = this.wall_date_selector.add_row(null);
+        var fifth_row = this.wall_date_selector.add_row(null);
+
+
         for (var d = 0; d < this.all_days.length; d++) {
 
-            l(this.all_days[d]);
+            //l(this.all_days[d]);
 
             var row = this.all_days[d].get_week_relative_to_current_month();
             var num = this.all_days[d].get_day_number_relative_to_current_week();
             var day_cell = null;
 
-            if (num === 0) {
-                day_cell = this.wall_date_selector.add_row_2D_text([6 / 7, 1], 4 + row - 1, this.all_days[d].get_day_number(), TYPE_BUTTON);
-            } else {
-                day_cell = this.wall_date_selector.add_row_2D_text([(num - 1) / 7, num / 7], 4 + row, this.all_days[d].get_day_number(), TYPE_BUTTON);
-            }
-            day_cell.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
-            day_cell.set_default_color(this.current_month.get_day_color_by_index(d));
-            day_cell.set_color(this.current_month.get_day_color_by_index(d), true);
+            var row_offset = 0;
+            var start_position;
+            var end_position;
 
+            if (num === 0) {
+                row_offset = -1;
+                start_position = 6 / 7;
+                end_position = 1;
+            } else {
+                start_position = (num - 1) / 7;
+                end_position = num / 7;
+            }
+
+            day_cell = this.wall_date_selector.get_row_with_index(row_index + row + row_offset).add_2D_button([start_position, end_position], this.all_days[d].get_day_number(), this.current_month.get_day_color_by_index(d), this.date_selected.bind(this, this.all_days[d]));
             this.all_day_buttons.push(day_cell);
         }
 
