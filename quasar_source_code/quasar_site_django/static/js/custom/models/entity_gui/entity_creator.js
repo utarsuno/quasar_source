@@ -9,6 +9,7 @@ EntityCreator.prototype = {
     __init__: function(entity_wall) {
         this.entity_wall_manager = entity_wall;
         this.base_wall = this.entity_wall_manager.base_wall;
+        this.world = this.base_wall.world;
         this.entity_wall = this.entity_wall_manager.entity_wall;
     },
 
@@ -50,11 +51,11 @@ EntityCreator.prototype = {
 
 
         // Create the entity type selector.
-        this.wall_select_entity_type = new EntityTypeSelector(this.base_wall);
+        this.wall_select_entity_type = new EntityTypeSelector(this);
         this.wall_select_entity_type.set_display_button(this.entity_type_button);
 
         // Create the entity field creator.
-        this.wall_add_new_field = new EntityFieldCreator(this.base_wall, this);
+        this.wall_add_new_field = new EntityFieldCreator(this);
         this.wall_add_new_field.set_display_button(this.add_new_field_button);
     },
 
@@ -106,8 +107,6 @@ EntityCreator.prototype = {
     },
 
     _entity_created: function() {
-        l('TODO : CREATE THE ENTITY!!');
-
         // Iterate through the create new entity fields.
         var entity_fields = [];
         for (var f = 0; f < this.wall_create_new_entity.rows.length; f++) {

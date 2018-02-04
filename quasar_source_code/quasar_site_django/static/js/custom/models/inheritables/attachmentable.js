@@ -117,22 +117,11 @@ function Attachmentable(world) {
     this.detach_from_parent = function() {
         var remove_index = -1;
 
-        // TEMPORARY FOR DEBUGGING
-        var number_of_attachments = 0;
-
         for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
             if (this.attachment_parent.attachments[a] === this) {
                 remove_index = a;
-                number_of_attachments += 1;
-                //break;
+                break;
             }
-        }
-
-        // TEMPORARY FOR DEBUGGING
-        if (number_of_attachments > 1) {
-            l('ERROR: NUMBER OF ATTACHMENTS IS GREATER THAN 1');
-        } else if (number_of_attachments === 0) {
-            l('ERROR: DID NOT FIND THE ATTACHMENT TO REMOVE!');
         }
 
         if (remove_index !== NOT_FOUND) {

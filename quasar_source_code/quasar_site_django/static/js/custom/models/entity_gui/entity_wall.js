@@ -84,10 +84,25 @@ EntityWall.prototype = {
         //this.entity_wall.set_attachment_depth_offset(5);
     },
 
+    _edit_entity: function(entity) {
+        this.wall_edit_entity.edit_entity(entity);
+    },
+
     add_entity: function (entity) {
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
-        this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
-        // this.entity_wall.add_row(null).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+        var entity_relative_id = entity.get_relative_id();
+        this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, this._edit_entity.bind(this, entity));
+
+        this.base_wall.refresh_position_and_look_at();
+    },
+
+    delete_entity: function(entity) {
+        var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
+        var entity_relative_id = entity.get_relative_id();
+        this.entity_wall.delete_row_by_name(entity_relative_id);
+        MANAGER_ENTITY.delete_entity_by_id(entity_relative_id);
+
+        this.base_wall.refresh_position_and_look_at();
     }
 
 };
