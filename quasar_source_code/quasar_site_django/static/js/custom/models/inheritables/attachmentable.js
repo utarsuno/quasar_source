@@ -115,18 +115,21 @@ function Attachmentable(world) {
     };
 
     this.detach_from_parent = function() {
-        var remove_index = -1;
+        if (is_defined(this.attachment_parent)) {
 
-        for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
-            if (this.attachment_parent.attachments[a] === this) {
-                remove_index = a;
-                break;
+            var remove_index = -1;
+
+            for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
+                if (this.attachment_parent.attachments[a] === this) {
+                    remove_index = a;
+                    break;
+                }
             }
-        }
 
-        if (remove_index !== NOT_FOUND) {
-            this.attachment_parent.attachments.splice(remove_index, 1);
-            this.attachment_parent = null;
+            if (remove_index !== NOT_FOUND) {
+                this.attachment_parent.attachments.splice(remove_index, 1);
+                this.attachment_parent = null;
+            }
         }
     };
 
