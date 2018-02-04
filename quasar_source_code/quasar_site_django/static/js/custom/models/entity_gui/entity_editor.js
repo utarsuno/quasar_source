@@ -158,7 +158,7 @@ EntityEditor.prototype = {
             if (field_name === ENTITY_PROPERTY_DUE_DATE) {
                 this.select_date_button = new_field_row.add_2D_button([ONE_THIRD, 1], 'select date', null, this._show_date_selector.bind(this));
                 input_field = this.select_date_button;
-                this.date_selector.detach_from_parent();
+                this.date_selector.wall_date_selector.detach_from_parent();
                 this.date_selector.wall_date_selector.attach_to(this.select_date_button);
                 this.date_selector.refresh_dates();
                 this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();

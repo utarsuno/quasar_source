@@ -12,7 +12,6 @@ EntityTypeSelector.prototype = {
     set_display_button: function(button) {
         this.entity_type_button = button;
         this.entity_type_button.set_engage_function(this.select_entity_type_button_pressed.bind(this));
-        this.entity_editor.base_wall.refresh_position_and_look_at();
     },
 
     select_entity_type_button_pressed: function() {
@@ -21,6 +20,7 @@ EntityTypeSelector.prototype = {
         }
 
         this.wall_select_entity_type.force_display_self_and_all_child_attachments_recursively();
+        this.entity_editor.base_wall.refresh_position_and_look_at();
     },
 
     create: function() {
@@ -33,8 +33,6 @@ EntityTypeSelector.prototype = {
 
         this.wall_select_entity_type.add_row(1).add_2D_button([0, 1], ENTITY_TYPE_BASE, null, this.entity_type_selected.bind(this, ENTITY_TYPE_BASE));
         this.wall_select_entity_type.add_row(2).add_2D_button([0, 1], ENTITY_TYPE_TASK, null, this.entity_type_selected.bind(this, ENTITY_TYPE_TASK));
-
-        this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
     },
 
     entity_type_selected: function(entity_type) {
