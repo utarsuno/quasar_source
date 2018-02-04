@@ -240,7 +240,7 @@ EntityEditor.prototype = {
     _modify_entity: function() {
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
-            this.entity_being_edited.set_property(all_entities_fields_and_values[0], all_entities_fields_and_values[1]);
+            this.entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
             this.entity_being_edited.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
         this._hide_self_and_update();
@@ -255,7 +255,7 @@ EntityEditor.prototype = {
 
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
-            entity_to_create.set_property(all_entities_fields_and_values[0], all_entities_fields_and_values[1]);
+            entity_to_create.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
         }
         this.entity_wall_manager.add_entity(entity_to_create);
         this._hide_self_and_update();
