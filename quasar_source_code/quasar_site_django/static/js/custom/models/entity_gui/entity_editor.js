@@ -34,8 +34,7 @@ EntityEditor.prototype = {
         if (this.current_mode === EDITOR_MODE_CREATE) {
             this._entity_created();
         } else {
-            l('TODO : SAVE ENTITY CHANGES!!');
-            // TODO : ...
+            this._modify_entity();
         }
     },
 
@@ -204,6 +203,30 @@ EntityEditor.prototype = {
         }
     },
 
+    _get_all_entity_fields_and_values: function() {
+        var entity_fields_and_values = [];
+        var entity_fields = [];
+        for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
+            if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
+                var row_name = this.wall_entity_editor.rows[f].row_name;
+                if (row_name.startsWith('ep_')) {
+                    entity_fields.push(this.wall_entity_editor.rows[f]);
+                }
+            }
+        }
+        for (f = 0; f < entity_fields.length; f++) {
+            var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
+            var entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
+            entity_fields_and_values.push(entity_property, entity_value);
+        }
+        return entity_fields_and_values;
+    },
+
+    _hide_self_and_update: function() {
+        this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
+    },
+
     /*___      ___   ___         ___  __    ___         __
      |__  |\ |  |  |  |  \ /    |__  |  \ |  |  | |\ | / _`
      |___ | \|  |  |  |   |     |___ |__/ |  |  | | \| \__> */
@@ -214,39 +237,28 @@ EntityEditor.prototype = {
         this._opened_for_first_time();
     },
 
+    _modify_entity: function() {
+        var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
+        for (var f = 0; f < all_entities_fields_and_values.length; f++) {
+            this.entity_being_edited.set_property(all_entities_fields_and_values[0], all_entities_fields_and_values[1]);
+            this.entity_being_edited.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
+        }
+        this._hide_self_and_update();
+    },
+
     /*___      ___   ___         __   __   ___      ___    __
      |__  |\ |  |  |  |  \ /    /  ` |__) |__   /\   |  | /  \ |\ |
      |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     _entity_created: function() {
-        // Iterate through the create new entity fields.
-        var entity_fields = [];
-        for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
-            if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
-                var row_name = this.wall_entity_editor.rows[f].row_name;
-                if (row_name.startsWith('ep_')) {
-                    entity_fields.push(this.wall_entity_editor.rows[f]);
-                }
-            }
-        }
-
         var entity_to_create = new Entity();
         entity_to_create.add_parent(this.entity_wall_manager.entity_wall_entity);
 
-        // TODO : Add needed custom logic for saving Due Date!!
-
-        for (f = 0; f < entity_fields.length; f++) {
-            var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
-            var entity_value    = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
-
-            entity_to_create.set_property(entity_property, entity_value);
+        var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
+        for (var f = 0; f < all_entities_fields_and_values.length; f++) {
+            entity_to_create.set_property(all_entities_fields_and_values[0], all_entities_fields_and_values[1]);
         }
-
         this.entity_wall_manager.add_entity(entity_to_create);
-
-        // TODO : Reset the create new entity wall!
-
-        this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
+        this._hide_self_and_update();
     },
 
     set_create_entity_display_button: function(button) {
