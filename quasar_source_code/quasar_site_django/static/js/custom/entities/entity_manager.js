@@ -260,7 +260,14 @@ EntityManager.prototype = {
     delete_entity_by_id: function(entity_id) {
         var entity = this.get_entity_by_id(entity_id);
         if (entity !== null) {
+            // Check if this entity has an parent entities. They need to remove reference to it.
+            var entity_parents = entity.get_parents();
+            for (var p = 0; p < entity_parents.length; p++) {
+                entity_parents[p].remove_child(entity);
+            }
+
             this.delete_entity(entity);
+
         }
         // FOR_DEV_START
         else {
