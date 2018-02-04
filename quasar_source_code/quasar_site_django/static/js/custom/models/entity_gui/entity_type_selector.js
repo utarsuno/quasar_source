@@ -12,6 +12,7 @@ EntityTypeSelector.prototype = {
     set_display_button: function(button) {
         this.entity_type_button = button;
         this.entity_type_button.set_engage_function(this.select_entity_type_button_pressed.bind(this));
+        this.entity_editor.base_wall.refresh_position_and_look_at();
     },
 
     select_entity_type_button_pressed: function() {
