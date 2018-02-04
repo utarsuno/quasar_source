@@ -241,7 +241,7 @@ EntityEditor.prototype = {
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
             this.entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
-            this.entity_being_edited.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
+            this.entity_being_edited_button.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
         this._hide_self_and_update();
     },
