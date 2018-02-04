@@ -202,6 +202,9 @@ EntityEditor.prototype = {
         if (is_defined(this.wall_entity_field_creater.wall_add_new_field)) {
             this.wall_entity_field_creater.wall_add_new_field.force_hide_self_and_all_child_attachments_recursively();
         }
+        if (is_defined(this.date_selector.wall_date_selector)) {
+            this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
+        }
     },
 
     /*___      ___   ___         ___  __    ___         __
