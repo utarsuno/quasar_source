@@ -233,8 +233,8 @@ EntityEditor.prototype = {
 
     _create_new_entity_button_pressed: function() {
         this.create(EDITOR_MODE_CREATE);
-        this.wall_entity_type_selector.force_hide_self_and_all_child_attachments_recursively();
-        this.wall_entity_field_creater.force_hide_self_and_all_child_attachments_recursively();
+        this.wall_entity_type_selector.wall_select_entity_type.force_hide_self_and_all_child_attachments_recursively();
+        this.wall_entity_field_creater.wall_add_new_field.force_hide_self_and_all_child_attachments_recursively();
     },
 
     /*__   ___ ___ ___  ___  __   __
