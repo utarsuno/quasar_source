@@ -84,14 +84,15 @@ EntityWall.prototype = {
         //this.entity_wall.set_attachment_depth_offset(5);
     },
 
-    _edit_entity: function(entity) {
-        this.wall_edit_entity.edit_entity(entity);
+    _edit_entity: function(entity, entity_button) {
+        this.wall_edit_entity.edit_entity(entity, entity_button);
     },
 
     add_entity: function (entity) {
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         var entity_relative_id = entity.get_relative_id();
-        this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, this._edit_entity.bind(this, entity));
+        var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+        entity_button.set_engage_function(this._edit_entity.bind(this, entity, entity_button));
 
         this.base_wall.refresh_position_and_look_at();
     },
