@@ -11,7 +11,8 @@ EntityEditor.prototype = {
         this.world = this.entity_wall_manager.base_wall.world;
     },
 
-    edit_entity: function(entity, entity_row_button) {
+    edit_entity: function(entity) {
+        this.entity_wall_manager.entity_wall.get_row_with_name(entity.get_relative_id());
         this.entity_button = entity_row_button;
         this.entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         this.current_entity = entity;
