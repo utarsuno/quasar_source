@@ -276,8 +276,8 @@ EntityEditor.prototype = {
 
     _show_date_selector: function() {
         this.date_selector.wall_date_selector.detach_from_parent();
-        this.date_selector.refresh_dates();
         this.date_selector.wall_date_selector.attach_to(this.select_date_button);
+        this.date_selector.refresh_dates();
         this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     }
