@@ -197,6 +197,9 @@ EntityEditor.prototype = {
         for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
             if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
                 var row_name = this.wall_entity_editor.rows[f].row_name;
+                l('The current row name is :');
+                l(row_name);
+                l(this.wall_entity_editor.rows[f]);
                 if (row_name.startsWith('ep_')) {
                     entity_fields.push(this.wall_entity_editor.rows[f]);
                 }
