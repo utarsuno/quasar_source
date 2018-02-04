@@ -9,7 +9,7 @@ DateSelector.prototype = {
 
     hide: function() {
         this.wall_date_selector.detach_from_parent();
-        this.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
+        this.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
     },
 
     __init__: function(world, date_selected_callback) {
