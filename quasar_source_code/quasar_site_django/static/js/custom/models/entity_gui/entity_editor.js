@@ -217,7 +217,7 @@ EntityEditor.prototype = {
         for (f = 0; f < entity_fields.length; f++) {
             var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
             var entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
-            entity_fields_and_values.push(entity_property, entity_value);
+            entity_fields_and_values.push([entity_property, entity_value]);
         }
         return entity_fields_and_values;
     },
