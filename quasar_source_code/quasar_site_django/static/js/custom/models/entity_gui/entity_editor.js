@@ -105,6 +105,7 @@ EntityEditor.prototype = {
         }
 
         // Delete all previously made non-default entity field rows.
+        this.date_selector.hide();
         var row_names_to_delete = [];
         for (var r = 0; r < this.wall_entity_editor.rows.length; r++) {
             if (this.wall_entity_editor.rows[r].has_element_with_tag(DELETABLE_ROW)) {
@@ -170,8 +171,7 @@ EntityEditor.prototype = {
             if (field_name === ENTITY_PROPERTY_DUE_DATE) {
                 this.select_date_button = new_field_row.add_2D_button([ONE_THIRD, 1], 'select date', null, this._show_date_selector.bind(this));
                 input_field = this.select_date_button;
-                this.date_selector.wall_date_selector.detach_from_parent();
-                this.date_selector.wall_date_selector.attach_to(this.select_date_button);
+                // TODO : Consider moving this line?
                 this.date_selector.refresh_dates();
                 this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
             } else {
@@ -203,7 +203,7 @@ EntityEditor.prototype = {
             this.wall_entity_field_creater.wall_add_new_field.force_hide_self_and_all_child_attachments_recursively();
         }
         if (is_defined(this.date_selector.wall_date_selector)) {
-            this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
+            this.date_selector.hide();
         }
     },
 
@@ -273,11 +273,13 @@ EntityEditor.prototype = {
      |  \  /\   |  |__     /__` |__  |    |__  /  `  |  /  \ |__)
      |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
     date_selected: function(date_object) {
-        this.date_selector.wall_date_selector.force_hide_self_and_all_child_attachments_recursively();
+        this.date_selector.hide();
         this.select_date_button.update_text(date_object.to_string());
     },
 
     _show_date_selector: function() {
+        this.date_selector.wall_date_selector.detach_from_parent();
+        this.date_selector.wall_date_selector.attach_to(this.select_date_button);
         this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     }
