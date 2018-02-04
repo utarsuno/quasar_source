@@ -34,6 +34,7 @@ EntityEditor.prototype = {
         if (this.current_mode === EDITOR_MODE_CREATE) {
             this._entity_created();
         } else {
+            l('TODO : SAVE ENTITY CHANGES!!');
             // TODO : ...
         }
     },
@@ -137,13 +138,22 @@ EntityEditor.prototype = {
             this.entity_name_input.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
 
             // TODO : Populate all the required entity field rows.
+            var all_non_default_editable_fields = this.entity_being_edited.get_all_non_default_editable_fields();
+            // Sort the fields alphabetically.
+            all_non_default_editable_fields = all_non_default_editable_fields.sort(function(a, b) {
+                return a[0] > b[0];
+            });
+
+            for (var f = 0; f < all_non_default_editable_fields.length; f++) {
+                this.add_entity_field(all_non_default_editable_fields[f][0], all_non_default_editable_fields[f][1]);
+            }
         }
 
         this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     },
 
-    add_entity_field: function(field_name) {
+    add_entity_field: function(field_name, field_value) {
         // Check if the field was already added.
         if (!this.wall_entity_editor.has_row_with_name(field_name)) {
 
@@ -171,6 +181,10 @@ EntityEditor.prototype = {
             input_field.add_tag(TYPE_INPUT);
             input_field.add_tag(DELETABLE_ROW);
 
+            if (is_defined(field_value)) {
+                input_field.update_text(field_value);
+            }
+
             // Add button to delete the entity field.
             var delete_entity_field_button = new Floating2DText(100, 'delete field', TYPE_BUTTON, this.base_wall.world, null, COLOR_RED);
             delete_entity_field_button.set_attachment_horizontal_offset(50 + input_field.width / 2, null);
@@ -181,6 +195,15 @@ EntityEditor.prototype = {
         }
     },
 
+    _opened_for_first_time: function() {
+        if (is_defined(this.wall_entity_type_selector.wall_select_entity_type)) {
+            this.wall_entity_type_selector.wall_select_entity_type.force_hide_self_and_all_child_attachments_recursively();
+        }
+        if (is_defined(this.wall_entity_field_creater.wall_add_new_field)) {
+            this.wall_entity_field_creater.wall_add_new_field.force_hide_self_and_all_child_attachments_recursively();
+        }
+    },
+
     /*___      ___   ___         ___  __    ___         __
      |__  |\ |  |  |  |  \ /    |__  |  \ |  |  | |\ | / _`
      |___ | \|  |  |  |   |     |___ |__/ |  |  | | \| \__> */
@@ -188,6 +211,7 @@ EntityEditor.prototype = {
         this.entity_being_edited_button = entity_row_button;
         this.entity_being_edited = entity;
         this.create(EDITOR_MODE_EDIT);
+        this._opened_for_first_time();
     },
 
     /*___      ___   ___         __   __   ___      ___    __
@@ -199,9 +223,6 @@ EntityEditor.prototype = {
         for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
             if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
                 var row_name = this.wall_entity_editor.rows[f].row_name;
-                l('The current row name is :');
-                l(row_name);
-                l(this.wall_entity_editor.rows[f]);
                 if (row_name.startsWith('ep_')) {
                     entity_fields.push(this.wall_entity_editor.rows[f]);
                 }
@@ -235,12 +256,7 @@ EntityEditor.prototype = {
 
     _create_new_entity_button_pressed: function() {
         this.create(EDITOR_MODE_CREATE);
-        if (is_defined(this.wall_entity_type_selector.wall_select_entity_type)) {
-            this.wall_entity_type_selector.wall_select_entity_type.force_hide_self_and_all_child_attachments_recursively();
-        }
-        if (is_defined(this.wall_entity_field_creater.wall_add_new_field)) {
-            this.wall_entity_field_creater.wall_add_new_field.force_hide_self_and_all_child_attachments_recursively();
-        }
+        this._opened_for_first_time();
     },
 
     /*__   ___ ___ ___  ___  __   __

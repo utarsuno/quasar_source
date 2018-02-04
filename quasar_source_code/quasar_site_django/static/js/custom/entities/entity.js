@@ -135,6 +135,20 @@ Entity.prototype = {
         return this.get_value(ENTITY_PROPERTY_OWNER) === ENTITY_OWNER.get_username();
     },
 
+    get_all_non_default_editable_fields: function() {
+        var all_editable_fields = [];
+        var all_keys = Object.keys(this);
+        for (var f = 0; f < all_keys.length; f++) {
+            if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
+                var field_name = all_keys[f];
+                if (field_name !== 'ep_child_ids' && field_name !== 'ep_parent_ids' && field_name !== 'ep_relative_id' && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME) {
+                    all_editable_fields.push([field_name, this[field_name]]);
+                }
+            }
+        }
+        return all_editable_fields;
+    },
+
     get_all_editable_fields: function() {
         var all_editable_fields = [];
         var all_keys = Object.keys(this);
