@@ -55,6 +55,11 @@ EntityEditor.prototype = {
     },
 
     create: function(edit_mode) {
+        if (!is_defined(this.date_selector)) {
+            // Both creating a new entity and editing an existing entity will potentially need to utilize the date selector.
+            this.date_selecter = new DateSelector(this.world, this.date_selected.bind(this));
+        }
+
         if (!is_defined(this.wall_entity_editor)) {
             this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
             this.wall_entity_editor.manual_visibility = true;
@@ -77,9 +82,6 @@ EntityEditor.prototype = {
             this.entity_name_input = this.row_entity_name.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
             this.entity_name_input.add_tag(TYPE_INPUT);
             this.entity_name_input.set_value_post_changed_function(this.entity_name_changed.bind(this));
-
-            // Both creating a new entity and editing an existing entity will potentially need to utilize the date selector.
-            this.date_selecter = new DateSelector(this.world, this.date_selected.bind(this));
 
             // Both creating a new entity and editing an existing entity will contain an add a new field button.
             this.add_new_field_button = this.wall_entity_editor.add_row(null, ADD_NEW_FIELD_BUTTON_ROW).add_2D_button([0, 1], 'add new field', COLOR_BLUE, null);
@@ -114,6 +116,7 @@ EntityEditor.prototype = {
             this.wall_entity_editor.attach_to(this.create_new_entity_button);
             this.wall_title.update_text('Create New Entity');
 
+            this.entity_type_button.update_text('Entity');
             this.create_or_save_changes_button.update_text('create entity');
             this.cancel_or_delete_button.update_text('cancel');
         } else {
@@ -230,6 +233,8 @@ EntityEditor.prototype = {
 
     _create_new_entity_button_pressed: function() {
         this.create(EDITOR_MODE_CREATE);
+        this.wall_entity_type_selector.force_hide_self_and_all_child_attachments_recursively();
+        this.wall_entity_field_creater.force_hide_self_and_all_child_attachments_recursively();
     },
 
     /*__   ___ ___ ___  ___  __   __

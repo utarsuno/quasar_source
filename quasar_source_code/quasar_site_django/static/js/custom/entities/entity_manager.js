@@ -265,9 +265,7 @@ EntityManager.prototype = {
             for (var p = 0; p < entity_parents.length; p++) {
                 entity_parents[p].remove_child(entity);
             }
-
             this.delete_entity(entity);
-
         }
         // FOR_DEV_START
         else {
