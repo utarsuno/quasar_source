@@ -19,7 +19,7 @@ EntityTypeSelector.prototype = {
             this.create();
         }
 
-        this.wall_select_entity_type.display_self_and_all_child_attachments_recursively();
+        this.wall_select_entity_type.force_display_self_and_all_child_attachments_recursively();
     },
 
     create: function() {

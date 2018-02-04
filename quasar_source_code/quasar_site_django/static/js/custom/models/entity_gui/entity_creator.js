@@ -44,11 +44,8 @@ EntityCreator.prototype = {
         name_label_and_input[0].add_tag(TYPE_CONSTANT);
         name_label_and_input[1].add_tag(TYPE_INPUT);
 
-        this.add_new_field_button = this.wall_create_new_entity.add_row(2, 'add_new_field').add_2D_button([0, 1], 'add new field', null, null);
-        this.wall_create_new_entity.add_row(3).add_2D_button([0, 1], 'create entity', null, this._entity_created.bind(this));
-
-        this.wall_create_new_entity.hide_self_and_all_child_attachments_recursively();
-
+        this.add_new_field_button = this.wall_create_new_entity.add_row(2, 'add_new_field').add_2D_button([0, 1], 'add new field', COLOR_BLUE, null);
+        this.wall_create_new_entity.add_row(3).add_2D_button([0, 1], 'create entity', COLOR_GREEN, this._entity_created.bind(this));
 
         // Create the entity type selector.
         this.wall_select_entity_type = new EntityTypeSelector(this);
