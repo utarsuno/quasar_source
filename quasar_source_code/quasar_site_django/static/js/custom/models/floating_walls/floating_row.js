@@ -100,6 +100,16 @@ FloatingRow.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    has_element_with_tag: function(tag) {
+        var all_elements = this.get_all_elements_and_sub_attachments();
+        for (var e = 0; e < all_elements.length; e++) {
+            if (all_elements[e].has_tag(tag)) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     get_3D_rows_save_data: function() {
         var save_data = '';
         for (var e = 0; e < this.elements.length; e++) {

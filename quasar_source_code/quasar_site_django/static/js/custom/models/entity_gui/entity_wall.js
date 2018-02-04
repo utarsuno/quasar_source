@@ -49,12 +49,9 @@ EntityWall.prototype = {
         this.base_wall.refresh_position_and_look_at();
         this._create_entity_wall();
 
-        // Wall used for creating new entities.
-        this.wall_create_new_entity = new EntityCreator(this);
-        this.wall_create_new_entity.set_display_button(this.create_new_entity_button);
-
-        // Wall used for editing entities.
-        this.wall_edit_entity = new EntityEditor(this);
+        // Wall used for creating new entities and editing existing entities.
+        this.wall_entity_editor = new EntityEditor(this);
+        this.wall_entity_editor.set_create_entity_display_button(this.create_new_entity_button);
 
         this.base_wall.refresh_position_and_look_at();
     },
@@ -64,13 +61,11 @@ EntityWall.prototype = {
         this.entity_wall.set_background_color(COLOR_BLACK, true);
 
         if (this.entity_wall_needs_to_load_entities) {
-            l('TODO : Load the entity walls!');
-
+            // The entity wall is being loaded.
             var number_of_children = this.entity_wall_entity.number_of_children();
             for (var e = 0; e < number_of_children; e++) {
                 this.add_entity(this.entity_wall_entity.children[e]);
             }
-
         } else {
             // The entity wall is being created for the first time.
             this.entity_wall.set_to_saveable();
@@ -85,7 +80,7 @@ EntityWall.prototype = {
     },
 
     _edit_entity: function(entity, entity_button) {
-        this.wall_edit_entity.edit_entity(entity, entity_button);
+        this.wall_entity_editor.edit_entity(entity, entity_button);
     },
 
     add_entity: function (entity) {

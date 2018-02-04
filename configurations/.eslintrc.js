@@ -139,9 +139,8 @@ module.exports = {
         "Entity": false,
 
         "EntityWall"        : false,
-        "EntityCreator"     : false,
-        "EntityTypeSelector": false,
         "EntityEditor"      : false,
+        "EntityTypeSelector": false,
         "EntityFieldCreator": false,
 
         "NO_SAVE_DATA"   : false,

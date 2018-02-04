@@ -1,12 +1,12 @@
 'use strict';
 
-function EntityTypeSelector(entity_creater_or_editor) {
-    this.__init__(entity_creater_or_editor);
+function EntityTypeSelector(entity_editor) {
+    this.__init__(entity_editor);
 }
 
 EntityTypeSelector.prototype = {
-    __init__: function(entity_creater_or_editor) {
-        this.entity_creater_or_editor = entity_creater_or_editor;
+    __init__: function(entity_editor) {
+        this.entity_editor = entity_editor;
     },
 
     set_display_button: function(button) {
@@ -23,7 +23,7 @@ EntityTypeSelector.prototype = {
     },
 
     create: function() {
-        this.wall_select_entity_type = new FloatingWall(200, 100, null, null, this.entity_creater_or_editor.world, false, COLOR_FLOATING_WALL_YELLOW);
+        this.wall_select_entity_type = new FloatingWall(200, 100, null, null, this.entity_editor.world, false, COLOR_FLOATING_WALL_YELLOW);
         this.wall_select_entity_type.manual_visibility = true;
         this.wall_select_entity_type.set_attachment_depth_offset(10);
         this.wall_select_entity_type.attach_to(this.entity_type_button);
@@ -40,7 +40,7 @@ EntityTypeSelector.prototype = {
         this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
         this.entity_type_button.update_text(entity_type);
         if (entity_type === ENTITY_TYPE_TASK) {
-            this.entity_creater_or_editor.add_entity_field(ENTITY_PROPERTY_DUE_DATE);
+            this.entity_editor.add_entity_field(ENTITY_PROPERTY_DUE_DATE);
         }
     }
 
