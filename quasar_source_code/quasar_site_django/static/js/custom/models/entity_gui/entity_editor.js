@@ -9,6 +9,7 @@ EntityEditor.prototype = {
     __init__: function(entity_wall_manager) {
         this.entity_wall_manager = entity_wall_manager;
         this.world = this.entity_wall_manager.base_wall.world;
+        this.base_wall = this.entity_wall_manager.base_wall;
     },
 
     edit_entity: function(entity, entity_row_button) {
@@ -110,11 +111,11 @@ EntityEditor.prototype = {
         this.wall_edit_entity.add_row(null).add_2D_button([0, 1], 'delete entity', COLOR_RED, this._delete_entity.bind(this));
 
         this.wall_edit_entity.force_display_self_and_all_child_attachments_recursively();
-        this.entity_wall_manager.base_wall.refresh_position_and_look_at();
+        this.base_wall.refresh_position_and_look_at();
     },
 
     add_entity_field: function(entity_field) {
-
+        l('TODO : Add entity field');
     },
 
     has_field: function(field_name) {
