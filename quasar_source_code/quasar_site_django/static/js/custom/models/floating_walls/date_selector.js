@@ -64,6 +64,16 @@ DateSelector.prototype = {
         this.day_label_saturday  = row_labels.add_2D_element([5 / 7, 6 / 7], 'Saturday' , TYPE_CONSTANT);
         this.day_label_sunday    = row_labels.add_2D_element([6 / 7, 1]    , 'Sunday'   , TYPE_CONSTANT);
 
+        // Add a row for spacing.
+        this.spacing_row = this.wall_date_selector.add_row(null);
+
+        // The rows that the date buttons will go into.
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+
         this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
     },
 
@@ -89,15 +99,7 @@ DateSelector.prototype = {
 
         this.all_day_buttons = [];
 
-        // Add a row for spacing.
-        var spacing_row = this.wall_date_selector.add_row(null);
-        var row_index = spacing_row.row_number;
-
-        var first_row = this.wall_date_selector.add_row(null);
-        var second_row = this.wall_date_selector.add_row(null);
-        var third_row = this.wall_date_selector.add_row(null);
-        var fourth_row = this.wall_date_selector.add_row(null);
-        var fifth_row = this.wall_date_selector.add_row(null);
+        var row_index = this.spacing_row.row_number;
 
         for (var d = 0; d < this.all_days.length; d++) {
 
