@@ -3,9 +3,9 @@
 const EDITOR_MODE_CREATE = 1;
 const EDITOR_MODE_EDIT   = 2;
 
-const ADD_NEW_FIELD_BUTTON_ROW = 3;
+const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
-const DELETABLE_ROW = 4;
+const DELETABLE_ROW = 'deletable_row';
 
 function EntityEditor(entity_wall) {
     this.__init__(entity_wall);
