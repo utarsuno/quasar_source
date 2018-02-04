@@ -54,7 +54,7 @@ EntityWall.prototype = {
         this.wall_create_new_entity.set_display_button(this.create_new_entity_button);
 
         // Wall used for editing entities.
-        this.wall_edit_entity = new EntityEditor();
+        this.wall_edit_entity = new EntityEditor(this);
 
         this.base_wall.refresh_position_and_look_at();
     },
