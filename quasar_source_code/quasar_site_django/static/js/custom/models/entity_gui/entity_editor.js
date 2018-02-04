@@ -57,7 +57,7 @@ EntityEditor.prototype = {
     create: function(edit_mode) {
         if (!is_defined(this.date_selector)) {
             // Both creating a new entity and editing an existing entity will potentially need to utilize the date selector.
-            this.date_selecter = new DateSelector(this.world, this.date_selected.bind(this));
+            this.date_selector = new DateSelector(this.world, this.date_selected.bind(this));
         }
 
         if (!is_defined(this.wall_entity_editor)) {
@@ -259,9 +259,6 @@ EntityEditor.prototype = {
     },
 
     _show_date_selector: function() {
-        if (!is_defined(this.date_selector)) {
-            this.date_selector = new DateSelector(this.world, this.date_selected.bind(this));
-        }
         this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
     }
