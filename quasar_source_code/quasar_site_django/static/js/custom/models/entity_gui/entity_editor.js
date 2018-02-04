@@ -32,7 +32,7 @@ EntityEditor.prototype = {
 
     create_or_save_changes_button_pressed: function() {
         if (this.current_mode === EDITOR_MODE_CREATE) {
-            // TODO : ...
+            this._entity_created();
         } else {
             // TODO : ...
         }
@@ -106,6 +106,8 @@ EntityEditor.prototype = {
         // Delete all previously made non-default entity field rows.
         for (var r = 0; r < this.wall_entity_editor.rows.length; r++) {
             if (this.wall_entity_editor.rows[r].has_element_with_tag(DELETABLE_ROW)) {
+                l('Deleting the following row');
+                l(this.wall_entity_editor.rows[r]);
                 this.wall_entity_editor.delete_row_by_index(this.wall_entity_editor.rows[r].row_number);
             }
         }
@@ -117,6 +119,7 @@ EntityEditor.prototype = {
             this.wall_title.update_text('Create New Entity');
 
             this.entity_type_button.update_text('Entity');
+            this.entity_name_input.update_text('');
             this.create_or_save_changes_button.update_text('create entity');
             this.cancel_or_delete_button.update_text('cancel');
         } else {
@@ -176,14 +179,26 @@ EntityEditor.prototype = {
         }
     },
 
+    /*___      ___   ___         ___  __    ___         __
+     |__  |\ |  |  |  |  \ /    |__  |  \ |  |  | |\ | / _`
+     |___ | \|  |  |  |   |     |___ |__/ |  |  | | \| \__> */
+    edit_entity: function(entity, entity_row_button) {
+        this.entity_being_edited_button = entity_row_button;
+        this.entity_being_edited = entity;
+        this.create(EDITOR_MODE_EDIT);
+    },
+
+    /*___      ___   ___         __   __   ___      ___    __
+     |__  |\ |  |  |  |  \ /    /  ` |__) |__   /\   |  | /  \ |\ |
+     |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     _entity_created: function() {
         // Iterate through the create new entity fields.
         var entity_fields = [];
-        for (var f = 0; f < this.wall_create_new_entity.rows.length; f++) {
-            if (is_defined(this.wall_create_new_entity.rows[f].row_name)) {
-                var row_name = this.wall_create_new_entity.rows[f].row_name;
+        for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
+            if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
+                var row_name = this.wall_entity_editor.rows[f].row_name;
                 if (row_name.startsWith('ep_')) {
-                    entity_fields.push(this.wall_create_new_entity.rows[f]);
+                    entity_fields.push(this.wall_entity_editor.rows[f]);
                 }
             }
         }
@@ -204,28 +219,10 @@ EntityEditor.prototype = {
 
         // TODO : Reset the create new entity wall!
 
-        this.wall_create_new_entity.force_hide_self_and_all_child_attachments_recursively();
+        this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
-
-        // TODO : Only delete the needed fields in the future.
-        if (is_defined(this.wall_create_new_entity)) {
-            this.wall_create_new_entity.fully_remove_self_and_all_sub_attachments();
-            this.wall_create_new_entity = null;
-        }
     },
 
-    /*___      ___   ___         ___  __    ___         __
-     |__  |\ |  |  |  |  \ /    |__  |  \ |  |  | |\ | / _`
-     |___ | \|  |  |  |   |     |___ |__/ |  |  | | \| \__> */
-    edit_entity: function(entity, entity_row_button) {
-        this.entity_being_edited_button = entity_row_button;
-        this.entity_being_edited = entity;
-        this.create(EDITOR_MODE_EDIT);
-    },
-
-    /*___      ___   ___         __   __   ___      ___    __
-     |__  |\ |  |  |  |  \ /    /  ` |__) |__   /\   |  | /  \ |\ |
-     |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     set_create_entity_display_button: function(button) {
         this.create_new_entity_button = button;
         this.create_new_entity_button.set_engage_function(this._create_new_entity_button_pressed.bind(this));
