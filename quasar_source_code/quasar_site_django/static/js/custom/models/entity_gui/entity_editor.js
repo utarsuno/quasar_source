@@ -106,8 +106,8 @@ EntityEditor.prototype = {
         // Delete all previously made non-default entity field rows.
         for (var r = 0; r < this.wall_entity_editor.rows.length; r++) {
             if (this.wall_entity_editor.rows[r].has_element_with_tag(DELETABLE_ROW)) {
-                //l('Deleting the following row');
-                //l(this.wall_entity_editor.rows[r]);
+                l('Deleting the following row');
+                l(this.wall_entity_editor.rows[r]);
                 this.wall_entity_editor.delete_row_by_name(this.wall_entity_editor.rows[r].row_name);
             }
         }
