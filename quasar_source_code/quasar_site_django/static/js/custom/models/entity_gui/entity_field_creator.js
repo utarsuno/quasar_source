@@ -18,7 +18,7 @@ EntityFieldCreator.prototype = {
     _add_entity_field_button_pressed: function() {
         this.create();
         this.wall_add_new_field.force_display_self_and_all_child_attachments_recursively();
-        l('Display the add new entity field!');
+        this.entity_creator_or_editor.refresh_position_and_look_at();
     },
 
     create: function() {
