@@ -189,6 +189,9 @@ EntityEditor.prototype = {
                 select_time_button.add_tag(TYPE_INPUT);
                 select_date_button.add_tag(DELETABLE_ROW);
                 select_time_button.add_tag(DELETABLE_ROW);
+
+                // This needs to get set for positioning of the delete field button.
+                input_field = select_time_button;
             } else {
                 input_field = new_field_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
                 input_field.add_tag(TYPE_INPUT);

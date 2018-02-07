@@ -46,6 +46,10 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
+        this.wall_add_new_field.add_full_row_2D(null, 'Time Fields', TYPE_CONSTANT);
+        // Adding an empty row for spacing.
+        this.wall_add_new_field.add_row();
+
         // All the time related field options.
         this._add_selectable_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
         this._add_selectable_entity_field(ENTITY_PROPERTY_END_DATE_TIME);

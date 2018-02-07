@@ -8,7 +8,7 @@ TimeSelector.prototype = {
     __init__: function(world, time_selected_callback) {
         this.time_selected = time_selected_callback;
 
-        this.wall_time_selector = new FloatingWall(400, 200, null, null, world, false, COLOR_BLACK);
+        this.wall_time_selector = new FloatingWall(300, 200, null, null, world, false, COLOR_BLACK);
         this.wall_time_selector.add_full_row_3D(-1, 'Time Selector', TYPE_TITLE, COLOR_YELLOW);
         this.wall_time_selector.add_close_button();
         this.wall_time_selector.set_attachment_depth_offset(10);
