@@ -5,6 +5,12 @@ function TimeSelector(world, time_selected_callback) {
 }
 
 TimeSelector.prototype = {
+
+    hide: function() {
+        this.wall_time_selector.detach_from_parent();
+        this.wall_time_selector.force_hide_self_and_all_child_attachments_recursively();
+    },
+
     __init__: function(world, time_selected_callback) {
         this.time_selected = time_selected_callback;
 
@@ -31,12 +37,12 @@ TimeSelector.prototype = {
 
         this.minute = minute_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
 
-        minute_row.add_2D_button([0, 1 / 9], '10', COLOR_RED, this.decrease_minute(10));
-        minute_row.add_2D_button([1 / 9, 2 / 9], '5', COLOR_RED, this.decrease_minute(5));
-        minute_row.add_2D_button([2 / 9, 3 / 9], '1', COLOR_RED, this.decrease_minute(1));
-        minute_row.add_2D_button([6 / 9, 7 / 9], '1', COLOR_GREEN, this.increase_minute(1));
-        minute_row.add_2D_button([7 / 9, 8 / 9], '5', COLOR_GREEN, this.increase_minute(5));
-        minute_row.add_2D_button([8 / 9, 1], '10', COLOR_GREEN, this.increase_minute(10));
+        minute_row.add_2D_button([0, 1 / 9], '10', COLOR_RED, this.decrease_minute.bind(this, 10));
+        minute_row.add_2D_button([1 / 9, 2 / 9], '5', COLOR_RED, this.decrease_minute.bind(this, 5));
+        minute_row.add_2D_button([2 / 9, 3 / 9], '1', COLOR_RED, this.decrease_minute.bind(this, 1));
+        minute_row.add_2D_button([6 / 9, 7 / 9], '1', COLOR_GREEN, this.increase_minute.bind(this, 1));
+        minute_row.add_2D_button([7 / 9, 8 / 9], '5', COLOR_GREEN, this.increase_minute.bind(this, 5));
+        minute_row.add_2D_button([8 / 9, 1], '10', COLOR_GREEN, this.increase_minute.bind(this, 10));
 
         this.refresh_time_selector();
 
