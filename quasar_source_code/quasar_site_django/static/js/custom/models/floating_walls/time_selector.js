@@ -17,19 +17,23 @@ TimeSelector.prototype = {
         // Hour.
         this.wall_time_selector.add_row(null).add_2D_element([0, 1], 'hour', TYPE_CONSTANT);
         var hour_row = this.wall_time_selector.add_row(null);
+
+        this.hour = hour_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
+
         hour_row.add_2D_button([0, 1 / 6], '5', COLOR_RED, this.decrease_hour.bind(this, 5));
         hour_row.add_2D_button([1 / 6, 2 / 6], '1', COLOR_RED, this.decrease_hour.bind(this, 1));
-        this.hour = hour_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
         hour_row.add_2D_button([4 / 6, 5 / 6], '1', COLOR_GREEN, this.increase_hour.bind(this, 1));
         hour_row.add_2D_button([5 / 6, 1], '5', COLOR_GREEN, this.increase_hour.bind(this, 5));
 
         // Minute.
         this.wall_time_selector.add_row(null).add_2D_element([0, 1], 'minute', TYPE_CONSTANT);
         var minute_row = this.wall_time_selector.add_row(null);
+
+        this.minute = minute_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
+
         minute_row.add_2D_button([0, 1 / 9], '10', COLOR_RED, this.decrease_minute(10));
         minute_row.add_2D_button([1 / 9, 2 / 9], '5', COLOR_RED, this.decrease_minute(5));
         minute_row.add_2D_button([2 / 9, 3 / 9], '1', COLOR_RED, this.decrease_minute(1));
-        this.minute = minute_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
         minute_row.add_2D_button([6 / 9, 7 / 9], '1', COLOR_GREEN, this.increase_minute(1));
         minute_row.add_2D_button([7 / 9, 8 / 9], '5', COLOR_GREEN, this.increase_minute(5));
         minute_row.add_2D_button([8 / 9, 1], '10', COLOR_GREEN, this.increase_minute(10));
