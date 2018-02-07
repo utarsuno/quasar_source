@@ -27,7 +27,7 @@ EntityFieldCreator.prototype = {
             this.wall_add_new_field.fully_remove_self_and_all_sub_attachments();
         }
 
-        this.wall_add_new_field = new FloatingWall(200, 300, null, null, this.entity_creator_or_editor.world, false, COLOR_BLUE);
+        this.wall_add_new_field = new FloatingWall(200, 350, null, null, this.entity_creator_or_editor.world, false, COLOR_BLUE);
         this.wall_add_new_field.manual_visibility = true;
         this.wall_add_new_field.set_attachment_depth_offset(10);
         this.wall_add_new_field.attach_to(this.add_new_field_button);
@@ -40,10 +40,17 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
-        this._add_selectable_entity_field(ENTITY_PROPERTY_DUE_DATE);
-        this._add_selectable_entity_field(ENTITY_PROPERTY_DUE_TIME);
         this._add_selectable_entity_field(ENTITY_PROPERTY_TAGS);
         this._add_selectable_entity_field(ENTITY_PROPERTY_NOTE);
+
+        // Adding an emtpy row for spacing.
+        this.wall_add_new_field.add_row();
+
+        // All the time related field options.
+        this._add_selectable_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
+        this._add_selectable_entity_field(ENTITY_PROPERTY_END_DATE_TIME);
+        this._add_selectable_entity_field(ENTITY_PROPERTY_TIME_NEEDED);
+        this._add_selectable_entity_field(ENTITY_PROPERTY_TIME_DURATION);
 
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();

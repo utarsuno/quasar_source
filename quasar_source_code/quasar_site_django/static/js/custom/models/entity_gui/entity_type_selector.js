@@ -39,7 +39,8 @@ EntityTypeSelector.prototype = {
         this.wall_select_entity_type.hide_self_and_all_child_attachments_recursively();
         this.entity_type_button.update_text(entity_type);
         if (entity_type === ENTITY_TYPE_TASK) {
-            this.entity_editor.add_entity_field(ENTITY_PROPERTY_DUE_DATE);
+            this.entity_editor.add_entity_field(ENTITY_PROPERTY_END_DATE_TIME);
+            this.entity_editor.add_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
         }
     }
 

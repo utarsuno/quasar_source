@@ -222,9 +222,6 @@ module.exports = {
         "ENTITY_PROPERTY_COMPLETED"          : false,
         "ENTITY_PROPERTY_PHONE_NUMBER"       : false,
         "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
-        "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
-        "ENTITY_PROPERTY_DUE_DATE"           : false,
-        "ENTITY_PROPERTY_DUE_TIME"           : false,
         "ENTITY_PROPERTY_IMPORTANCE"         : false,
         "ENTITY_PROPERTY_SERVER_ID"          : false,
         "ENTITY_PROPERTY_EXECUTE_DATE"       : false,
@@ -236,6 +233,12 @@ module.exports = {
         "ENTITY_PROPERTY_2D_ROWS"            : false,
         "ENTITY_PROPERTY_TAGS"               : false,
         "ENTITY_PROPERTY_NOTE"               : false,
+        "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
+
+        "ENTITY_PROPERTY_START_DATE_TIME"    : false,
+        "ENTITY_PROPERTY_END_DATE_TIME"      : false,
+        "ENTITY_PROPERTY_TIME_DURATION"      : false,
+        "ENTITY_PROPERTY_TIME_NEEDED"        : false,
         // UNIVERSAL_CONSTANTS_END
 
         "POST_KEY_GENERIC_DATA"                       : true,
@@ -289,6 +292,7 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         "DateSelector": true,
+        "TimeSelector": true,
 
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,

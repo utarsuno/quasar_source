@@ -47,10 +47,17 @@ EntityEditor.prototype = {
     },
 
     delete_entity_field: function(field_name) {
-        if (field_name === ENTITY_PROPERTY_DUE_DATE) {
+        if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
             this.date_selector.wall_date_selector.detach_from_parent();
+            this.time_selector.wall_time_selector.detach_from_parent();
         }
         this.wall_entity_editor.delete_row_by_name(field_name);
+
+        if (this.current_mode === EDITOR_MODE_EDIT) {
+            // TODO : REMOVE THE ENTITY PROPERTY!!!!
+            l('TODO: REMOVE THE ENTITY PROPERTY!!!!!');
+        }
+
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -58,6 +65,10 @@ EntityEditor.prototype = {
         if (!is_defined(this.date_selector)) {
             // Both creating a new entity and editing an existing entity will potentially need to utilize the date selector.
             this.date_selector = new DateSelector(this.world, this.date_selected.bind(this));
+        }
+        if (!is_defined(this.time_selector)) {
+            // Both creating a new entity and editing an existing entity will potentially need to utilize the time selector.
+            this.time_selector = new TimeSelector(this.world, this.time_selected.bind(this));
         }
 
         if (!is_defined(this.wall_entity_editor)) {
@@ -167,15 +178,22 @@ EntityEditor.prototype = {
 
             var input_field;
 
-            if (field_name === ENTITY_PROPERTY_DUE_DATE) {
-                this.select_date_button = new_field_row.add_2D_button([ONE_THIRD, 1], 'select date', null, this._show_date_selector.bind(this));
-                input_field = this.select_date_button;
+            if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
+                var select_date_button = new_field_row.add_2D_button([ONE_THIRD, TWO_THIRDS], 'select date', null, null);
+                var select_time_button = new_field_row.add_2D_button([TWO_THIRDS, 1], 'select time', null, null);
+
+                select_date_button.set_engage_function(this._show_date_selector.bind(this, select_date_button));
+                select_time_button.set_engage_function(this._show_time_selector.bind(this, select_time_button));
+
+                select_date_button.add_tag(TYPE_INPUT);
+                select_time_button.add_tag(TYPE_INPUT);
+                select_date_button.add_tag(DELETABLE_ROW);
+                select_time_button.add_tag(DELETABLE_ROW);
             } else {
                 input_field = new_field_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+                input_field.add_tag(TYPE_INPUT);
+                input_field.add_tag(DELETABLE_ROW);
             }
-
-            input_field.add_tag(TYPE_INPUT);
-            input_field.add_tag(DELETABLE_ROW);
 
             if (is_defined(field_value)) {
                 input_field.update_text(field_value);
@@ -278,17 +296,37 @@ EntityEditor.prototype = {
         return this.wall_entity_editor.has_row_with_name(field_name);
     },
 
+    /*___          ___     __   ___       ___  __  ___  __   __
+       |  |  |\/| |__     /__` |__  |    |__  /  `  |  /  \ |__)
+       |  |  |  | |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
+    time_selected: function(hour, minute) {
+        this.time_selector.hide();
+        this.last_used_select_time_button.update_text(hour + ':' + minute);
+    },
+
+    _show_time_selector: function(select_time_button) {
+        this.last_used_select_time_button = select_time_button;
+
+        this.time_selector.wall_time_selector.detach_from_parent();
+        this.time_selector.wall_time_selector.attach_to(select_time_button);
+        this.time_selector.refresh_time_selector();
+        this.time_selector.wall_time_selector.force_display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
+    },
+
     /*__       ___  ___     __   ___       ___  __  ___  __   __
      |  \  /\   |  |__     /__` |__  |    |__  /  `  |  /  \ |__)
      |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
     date_selected: function(date_object) {
         this.date_selector.hide();
-        this.select_date_button.update_text(date_object.to_string());
+        this.last_used_select_date_button.update_text(date_object.to_string());
     },
 
-    _show_date_selector: function() {
+    _show_date_selector: function(select_date_button) {
+        this.last_used_select_date_button = select_date_button;
+
         this.date_selector.wall_date_selector.detach_from_parent();
-        this.date_selector.wall_date_selector.attach_to(this.select_date_button);
+        this.date_selector.wall_date_selector.attach_to(select_date_button);
         this.date_selector.refresh_dates();
         this.date_selector.wall_date_selector.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
