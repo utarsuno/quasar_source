@@ -233,6 +233,9 @@ EntityEditor.prototype = {
         if (is_defined(this.date_selector.wall_date_selector)) {
             this.date_selector.hide();
         }
+        if (is_defined(this.time_selector.wall_time_selector)) {
+            this.time_selector.hide();
+        }
     },
 
     _get_all_entity_fields_and_values: function() {
