@@ -7,6 +7,11 @@ const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
 const DELETABLE_ROW = 'deletable_row';
 
+const TYPE_INPUT_DATE = 'input_date';
+const TYPE_INPUT_TIME = 'input_time';
+const NO_DATE_SELECTED = 'select date';
+const NO_TIME_SELECTED = 'select time';
+
 function EntityEditor(entity_wall) {
     this.__init__(entity_wall);
 }
@@ -179,14 +184,14 @@ EntityEditor.prototype = {
             var input_field;
 
             if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
-                var select_date_button = new_field_row.add_2D_button([ONE_THIRD, TWO_THIRDS], 'select date', null, null);
-                var select_time_button = new_field_row.add_2D_button([TWO_THIRDS, 1], 'select time', null, null);
+                var select_date_button = new_field_row.add_2D_button([ONE_THIRD, TWO_THIRDS], NO_DATE_SELECTED, null, null);
+                var select_time_button = new_field_row.add_2D_button([TWO_THIRDS, 1], NO_TIME_SELECTED, null, null);
 
                 select_date_button.set_engage_function(this._show_date_selector.bind(this, select_date_button));
                 select_time_button.set_engage_function(this._show_time_selector.bind(this, select_time_button));
 
-                select_date_button.add_tag(TYPE_INPUT);
-                select_time_button.add_tag(TYPE_INPUT);
+                select_date_button.add_tag(TYPE_INPUT_DATE);
+                select_time_button.add_tag(TYPE_INPUT_TIME);
                 select_date_button.add_tag(DELETABLE_ROW);
                 select_time_button.add_tag(DELETABLE_ROW);
 
@@ -199,7 +204,14 @@ EntityEditor.prototype = {
             }
 
             if (is_defined(field_value)) {
-                input_field.update_text(field_value);
+
+                if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
+                    var field_value_list = field_value.split('+');
+                    select_date_button.update_text(field_value_list[0]);
+                    select_time_button.update_text(field_value_list[1]);
+                } else {
+                    input_field.update_text(field_value);
+                }
             }
 
             // Add button to delete the entity field.
@@ -237,7 +249,14 @@ EntityEditor.prototype = {
         }
         for (f = 0; f < entity_fields.length; f++) {
             var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
-            var entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
+            var entity_value = '';
+            if (entity_property === ENTITY_PROPERTY_START_DATE_TIME || entity_property === ENTITY_PROPERTY_END_DATE_TIME) {
+                var selected_date = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_DATE)[0].get_text();
+                var selected_time = entity_property[f].get_all_elements_with_tag(TYPE_INPUT_TIME)[0].get_text();
+                entity_value = selected_date + '+' + selected_time;
+            } else {
+                entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
+            }
             entity_fields_and_values.push([entity_property, entity_value]);
         }
         return entity_fields_and_values;
