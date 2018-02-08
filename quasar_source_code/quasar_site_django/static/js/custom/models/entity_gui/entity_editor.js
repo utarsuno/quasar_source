@@ -252,7 +252,7 @@ EntityEditor.prototype = {
             var entity_value = '';
             if (entity_property === ENTITY_PROPERTY_START_DATE_TIME || entity_property === ENTITY_PROPERTY_END_DATE_TIME) {
                 var selected_date = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_DATE)[0].get_text();
-                var selected_time = entity_property[f].get_all_elements_with_tag(TYPE_INPUT_TIME)[0].get_text();
+                var selected_time = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_TIME)[0].get_text();
                 entity_value = selected_date + '+' + selected_time;
             } else {
                 entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
