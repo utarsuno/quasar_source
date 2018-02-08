@@ -93,6 +93,13 @@ Entity.prototype = {
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
     },
 
+    delete_property: function(property_name) {
+        if (this.hasOwnProperty(property_name)) {
+            delete this[property_name];
+            this.needs_to_be_saved = true;
+        }
+    },
+
     set_property: function(property_name, property_value) {
         var property_was_set = false;
         if (this.hasOwnProperty(property_name)) {

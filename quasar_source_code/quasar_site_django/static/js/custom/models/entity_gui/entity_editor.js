@@ -59,8 +59,7 @@ EntityEditor.prototype = {
         this.wall_entity_editor.delete_row_by_name(field_name);
 
         if (this.current_mode === EDITOR_MODE_EDIT) {
-            // TODO : REMOVE THE ENTITY PROPERTY!!!!
-            l('TODO: REMOVE THE ENTITY PROPERTY!!!!!');
+            this.entity_being_edited.delete_property(field_name);
         }
 
         this.base_wall.refresh_position_and_look_at();
@@ -323,7 +322,11 @@ EntityEditor.prototype = {
        |  |  |  | |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
     time_selected: function(hour, minute) {
         this.time_selector.hide();
-        this.last_used_select_time_button.update_text(hour + ':' + minute);
+        if (!is_defined(hour) && !is_defined(minute)) {
+            this.last_used_select_time_button.update_text(NO_TIME_SELECTED);
+        } else {
+            this.last_used_select_time_button.update_text(hour + ':' + minute);
+        }
     },
 
     _show_time_selector: function(select_time_button) {
