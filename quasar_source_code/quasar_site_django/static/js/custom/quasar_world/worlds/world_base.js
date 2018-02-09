@@ -286,6 +286,9 @@ function World() {
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
     this.create_new_entity_wall = function() {
         var entity_wall = new EntityWall(this);
+        if (is_defined(this.entity_walls)) {
+            this.entity_walls.push(entity_wall);
+        }
     };
 
     /*__   __   ___      ___  ___     __     __  ___       __   ___

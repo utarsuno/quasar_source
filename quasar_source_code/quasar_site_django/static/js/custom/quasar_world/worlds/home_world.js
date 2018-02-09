@@ -18,10 +18,6 @@ HomeWorld.prototype = {
         this.floating_pictures = [];
         this.entity_walls =  [];
 
-
-        // Create the current month view.
-        this.load_schedule();
-
         // Load all the floating pictures.
         var floating_pictures = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_PICTURE);
         for (var p = 0; p < floating_pictures.length; p++) {
@@ -38,7 +34,8 @@ HomeWorld.prototype = {
             this.entity_walls.push(entity_wall);
         }
 
-        // TODO : Load all entity walls.
+        // Create the current month view.
+        this.load_schedule();
     },
 
     prepare_for_save: function() {
@@ -80,6 +77,10 @@ HomeWorld.prototype = {
             l(dates_in_future[d]);
         }
         */
+
+        for (var ew = 0; ew < this.entity_walls.length; ew++) {
+            //var entities = this.entity_walls[ew].
+        }
     },
 
     create_month_day_wall: function(day, index, total_number_of_days, present) {
@@ -126,6 +127,9 @@ HomeWorld.prototype = {
             this.month_day_walls.push(this.create_month_day_wall(dates_in_future[d], day_index, this.month_days.dates.length, false));
             day_index += 1;
         }
+
+        // Load the initial data.
+        this.add_content_to_schedules();
     }
 };
 

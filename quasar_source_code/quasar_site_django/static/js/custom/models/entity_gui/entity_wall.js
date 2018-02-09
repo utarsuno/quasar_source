@@ -8,6 +8,7 @@ EntityWall.prototype = {
 
     __init__: function(world, entity) {
         this.entity_wall_needs_to_load_entities = false;
+        this.all_entities = [];
 
         if (!is_defined(entity)) {
             /*__   __   ___      ___         __           ___          ___      ___   ___
@@ -79,6 +80,10 @@ EntityWall.prototype = {
         //this.entity_wall.set_attachment_depth_offset(5);
     },
 
+    get_all_entities: function() {
+        return this.all_entities;
+    },
+
     _edit_entity: function(entity, entity_button) {
         this.wall_entity_editor.edit_entity(entity, entity_button);
     },
@@ -89,10 +94,23 @@ EntityWall.prototype = {
         var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
         entity_button.set_engage_function(this._edit_entity.bind(this, entity, entity_button));
 
+        this.all_entities.push(entity);
+
         this.base_wall.refresh_position_and_look_at();
     },
 
     delete_entity: function(entity) {
+        var entity_reference_to_remove = -1;
+        for (var e = 0; e < this.all_entities.length; e++) {
+            if (this.all_entities[e] === entity) {
+                entity_reference_to_remove = e;
+                break;
+            }
+        }
+        if (entity_reference_to_remove !== NOT_FOUND) {
+            this.all_entities[e].splice(entity_reference_to_remove, 1);
+        }
+
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         var entity_relative_id = entity.get_relative_id();
         this.entity_wall.delete_row_by_name(entity_relative_id);

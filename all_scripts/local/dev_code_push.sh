@@ -14,10 +14,10 @@
 CONFIG_READER="/Users/utarsuno/git_repos/quasar_source/all_scripts/universal/config_reader_for_bash.py"
 CONFIG_PATH="/Users/utarsuno/git_repos/quasar_source/configuration_files/config.ini"
 ESC_SEQ="\x1b["
-nexus_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus ip)
-nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
-nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
-nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
+quasar_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar ip)
+quasar_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar port)
+quasar_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar pem_path)
+quasar_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar user)
 FG_YELLOW="${ESC_SEQ}33;"
 FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
@@ -123,7 +123,7 @@ else
     git push --force;
     print_dotted_line
 
-    ssh -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} << HERE
+    ssh -i ${quasar_pem_path} "${quasar_user}@${quasar_ip}" -p ${quasar_port} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 

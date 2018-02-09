@@ -1,0 +1,30 @@
+# TODO : Eventually convert this into a script OR create a Docker setup.
+
+
+// Install pip3
+sudo apt install python3-pip
+// Update pip3.
+pip3 install --upgrade pip
+
+
+// Install pymongo
+pip3 install pymongo
+
+
+// Install zmq.
+sudo pip3 install zmq
+
+
+// Install lazyme
+sudo pip3 install lazyme
+
+
+// Install Django.
+sudo pip3 install Django
+sudo pip3 install django-channels
+
+
+
+
+// Setup MongoDB
+https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04

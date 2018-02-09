@@ -13,15 +13,15 @@
 # Required variables.
 CONFIG_READER="/Users/utarsuno/git_repos/quasar_source/all_scripts/universal/config_reader_for_bash.py"
 CONFIG_PATH="/Users/utarsuno/git_repos/quasar_source/configuration_files/config.ini"
-nexus_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus ip)
-nexus_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus port)
-nexus_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus pem_path)
-nexus_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} nexus user)
+quasar_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar ip)
+quasar_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar port)
+quasar_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar pem_path)
+quasar_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar user)
 
 #  __   __   __      __  ___          __   __      __  
 # /__` /  ` |__) |  |__)  |     |    /  \ / _` |  /  ` 
 # .__/ \__, |  \ |  |     |     |___ \__/ \__> |  \__, 
 # ----------------------------------------------------------------------------
 
-ssh -t -i ${nexus_pem_path} "${nexus_user}@${nexus_ip}" -p ${nexus_port} "cd /home/git_repos/quasar_source/all_scripts/server/ ; bash"
+ssh -t -i ${quasar_pem_path} "${quasar_user}@${quasar_ip}" -p ${quasar_port} "cd /home/git_repos/quasar_source/all_scripts/server/ ; bash"
 
