@@ -53,7 +53,7 @@ ScheduleView.prototype = {
 
     create_month_view: function(month, y_index) {
         // 50 is the y spacing between rows for now. 1000 is the starting height.
-        var y_position = y_index * 800 + 50 * y_index;
+        var y_position = y_index * 800 + 150 * y_index;
 
         // TODO : Eventually refactor this.
         var dates_in_past = month.get_dates_in_past();
@@ -89,8 +89,7 @@ ScheduleView.prototype = {
             if (this.months.hasOwnProperty(key)) {
                 var month = this.months[key][0];
 
-                // A negative y-index indicates that the month is in the future.
-                var y_index = this.current_month - month.get_month_number();
+                var y_index = (this.current_month - month.get_month_number()) * -1;
 
                 this.months[key][1] = this.create_month_view(month, y_index);
             }
