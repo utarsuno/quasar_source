@@ -291,12 +291,6 @@ module.exports = {
         "ENTITY_POST_SAVE_DATA"              : false,
         // UNIVERSAL_CONSTANTS_END
 
-        "DateSelector": true,
-        "TimeSelector": true,
-
-        "ScheduleView": true,
-        "DayView"     : true,
-
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
 
@@ -469,12 +463,31 @@ module.exports = {
         "CURRENT_MONTH_OBJECT" : false,
         "CURRENT_DAY_OBJECT"   : false,
 
+        "DateSelector": true,
+        "TimeSelector": true,
+
+        "MONTH_JANUARY"  : true,
+        "MONTH_FEBRUARY" : true,
+        "MONTH_MARCH"    : true,
+        "MONTH_APRIL"    : true,
+        "MONTH_MAY"      : true,
+        "MONTH_JUNE"     : true,
+        "MONTH_JULY"     : true,
+        "MONTH_AUGUST"   : true,
+        "MONTH_SEPTEMBER": true,
+        "MONTH_OCTOBER"  : true,
+        "MONTH_NOVEMBER" : true,
+        "MONTH_DECEMBER" : true,
+
+        "ScheduleView": true,
+        "DayView"     : true,
+
         "DELTA_YEARS" : false,
         "DELTA_DAYS"  : false,
         "DELTA_MONTHS": false,
 
         "MonthInstance": false,
-        "MyDate" : false,
+        "DayInstance"  : false,
 
         //           ___
         // |\/|  /\   |  |__|

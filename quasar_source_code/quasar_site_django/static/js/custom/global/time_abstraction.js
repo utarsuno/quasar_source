@@ -3,6 +3,19 @@
 const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
 
+const MONTH_JANUARY   = 0;
+const MONTH_FEBRUARY  = 1;
+const MONTH_MARCH     = 2;
+const MONTH_APRIL     = 3;
+const MONTH_MAY       = 4;
+const MONTH_JUNE      = 5;
+const MONTH_JULY      = 6;
+const MONTH_AUGUST    = 7;
+const MONTH_SEPTEMBER = 8;
+const MONTH_OCTOBER   = 9;
+const MONTH_NOVEMBER  = 10;
+const MONTH_DECEMBER  = 11;
+
 const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -16,14 +29,14 @@ function MonthInstance(month_number) {
 
 MonthInstance.prototype = {
 
-    __init__: function(dates_base) {
+    __init__: function(month_key) {
         this.dates = [];
 
         this._year_number = new Date().getFullYear();
-        if (dates_base === THIS_MONTH) {
+        if (month_key === THIS_MONTH) {
             this._month_number = new Date().getMonth();
         } else {
-            this._month_number = dates_base;
+            this._month_number = month_key;
         }
 
         this._create_days_of_this_month();
@@ -33,11 +46,12 @@ MonthInstance.prototype = {
         this.dates.length = 0;
         var days_of_this_month = get_days_in_month(this._month_number, this._year_number);
         for (var d = 0; d < days_of_this_month.length; d++) {
-            this.dates.push(new MyDate(days_of_this_month[d]));
+            this.dates.push(new DayInstance(days_of_this_month[d]));
 
             var dates_in_past = this.get_dates_in_past();
             var dates_in_future = this.get_dates_in_future();
 
+            // TODO : Eventually refactor this system.
             this.dates_in_past_colors = get_color_range_list(COLOR_SCHEDULE_PAST, COLOR_SCHEDULE_PRESENT, dates_in_past.length + 1);
             this.dates_in_future_colors = get_color_range_list(COLOR_SCHEDULE_PRESENT, COLOR_SCHEDULE_FUTURE, dates_in_future.length + 1);
         }
@@ -117,11 +131,11 @@ MonthInstance.prototype = {
 
 };
 
-function MyDate(date_base) {
+function DayInstance(date_base) {
     this.__init__(date_base);
 }
 
-MyDate.prototype = {
+DayInstance.prototype = {
 
     __init__: function(date_base) {
         this.date = null;
@@ -209,6 +223,10 @@ MyDate.prototype = {
     get_month_number_as_string: function() {
         return (this.date.getMonth() + 1).toString();
     },
+
+    get_month_number: function() {
+        return this.date.getMonth();
+    }
 
 };
 

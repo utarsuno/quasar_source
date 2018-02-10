@@ -22,7 +22,7 @@ DateSelector.prototype = {
         this.wall_date_selector.manual_visibility = true;
 
         // Time Logic.
-        this.date = new MyDate(THIS_DAY);
+        this.date = new DayInstance(THIS_DAY);
         this.current_month = new MonthInstance(THIS_MONTH);
         this.all_days = this.current_month.get_all_dates();
 
