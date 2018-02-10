@@ -69,8 +69,6 @@ ScheduleView.prototype = {
         var day_index = 0;
         var d;
 
-
-
         if (month_type === MONTH_TYPE_PRESENT) {
             // Past dates.
             for (d = 0; d < dates_in_past.length; d++) {
@@ -124,9 +122,9 @@ ScheduleView.prototype = {
                 var y_index = (this.current_month - month.get_month_number()) * -1;
 
                 var month_type;
-                if (this.current_month === month) {
+                if (this.current_month === month.get_month_number()) {
                     month_type = MONTH_TYPE_PRESENT;
-                } else if (this.current_month > month) {
+                } else if (this.current_month > month.get_month_number()) {
                     month_type = MONTH_TYPE_PAST;
                 } else {
                     month_type = MONTH_TYPE_FUTURE;
