@@ -2,6 +2,10 @@
 
 const MONTH_VIEW_RADIUS = 3000;
 
+const MONTH_TYPE_PAST    = 1;
+const MONTH_TYPE_PRESENT = 2;
+const MONTH_TYPE_FUTURE  = 3;
+
 function ScheduleView(world) {
     this.__init__(world);
 }
@@ -51,7 +55,7 @@ ScheduleView.prototype = {
         return month_day_wall;
     },
 
-    create_month_view: function(month, y_index) {
+    create_month_view: function(month, y_index, month_type) {
         // 50 is the y spacing between rows for now. 1000 is the starting height.
         var y_position = y_index * 800 + 150 * y_index;
 
@@ -65,20 +69,48 @@ ScheduleView.prototype = {
         var day_index = 0;
         var d;
 
-        // Past dates.
-        for (d = 0; d < dates_in_past.length; d++) {
-            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_past[d], month.dates.length, false));
-            day_index += 1;
-        }
-        // Present dates.
-        for (d = 0; d < dates_in_present.length; d++) {
-            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_present[d], month.dates.length, true));
-            day_index += 1;
-        }
-        // Future dates.
-        for (d = 0; d < dates_in_future.length; d++) {
-            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_future[d], month.dates.length, false));
-            day_index += 1;
+
+
+        if (month_type === MONTH_TYPE_PRESENT) {
+            // Past dates.
+            for (d = 0; d < dates_in_past.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_past[d], month.dates.length, false));
+                day_index += 1;
+            }
+            // Present dates.
+            for (d = 0; d < dates_in_present.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_present[d], month.dates.length, true));
+                day_index += 1;
+            }
+            // Future dates.
+            for (d = 0; d < dates_in_future.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_future[d], month.dates.length, false));
+                day_index += 1;
+            }
+        } else {
+
+            var color_to_use;
+            if (month_type === MONTH_TYPE_FUTURE) {
+                color_to_use = COLOR_YELLOW;
+            } else {
+                color_to_use = COLOR_RED;
+            }
+
+            // Past dates.
+            for (d = 0; d < dates_in_past.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(color_to_use, day_index, y_position, dates_in_past[d], month.dates.length, false));
+                day_index += 1;
+            }
+            // Present dates.
+            for (d = 0; d < dates_in_present.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(color_to_use, day_index, y_position, dates_in_present[d], month.dates.length, true));
+                day_index += 1;
+            }
+            // Future dates.
+            for (d = 0; d < dates_in_future.length; d++) {
+                month_day_walls.push(this.create_specific_month_day_wall(color_to_use, day_index, y_position, dates_in_future[d], month.dates.length, false));
+                day_index += 1;
+            }
         }
 
         return month_day_walls;
@@ -91,7 +123,16 @@ ScheduleView.prototype = {
 
                 var y_index = (this.current_month - month.get_month_number()) * -1;
 
-                this.months[key][1] = this.create_month_view(month, y_index);
+                var month_type;
+                if (this.current_month === month) {
+                    month_type = MONTH_TYPE_PRESENT;
+                } else if (this.current_month > month) {
+                    month_type = MONTH_TYPE_PAST;
+                } else {
+                    month_type = MONTH_TYPE_FUTURE;
+                }
+
+                this.months[key][1] = this.create_month_view(month, y_index, month_type);
             }
         }
     }
