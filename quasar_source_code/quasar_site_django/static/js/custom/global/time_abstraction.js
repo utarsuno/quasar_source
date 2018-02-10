@@ -11,7 +11,7 @@ function MonthInstance(month_number) {
 }
 
 // TODO : Eventually this will need to automatically update at midnight.
-//const CURRENT_DAY_OBJECT   = new MyDate(THIS_DAY);
+const CURRENT_DAY_OBJECT   = new MyDate(THIS_DAY);
 //const CURRENT_MONTH_OBJECT = new MyDates(THIS_MONTH);
 
 // TODO : Match the design of the python time abstraction
@@ -121,7 +121,6 @@ function MyDate(date_base) {
 MyDate.prototype = {
 
     __init__: function(date_base) {
-        this.now = new Date();
         this.date = null;
         if (date_base === THIS_DAY) {
             this.date = get_date_object_from_today_with_n_day_offset(0);
@@ -131,15 +130,15 @@ MyDate.prototype = {
     },
 
     in_past: function() {
-        return this.date.getDate() < this.now.getDate();
+        return this.date.getDate() < CURRENT_DAY_OBJECT.getDate();
     },
 
     in_future: function() {
-        return this.date.getDate() > this.now.getDate();
+        return this.date.getDate() > CURRENT_DAY_OBJECT.getDate();
     },
 
     in_present: function() {
-        return this.date.getDate() == this.now.getDate();
+        return this.date.getDate() == CURRENT_DAY_OBJECT.getDate();
     },
 
     apply_delta: function(units, magnitude) {
