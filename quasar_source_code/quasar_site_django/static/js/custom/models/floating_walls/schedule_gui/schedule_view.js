@@ -72,12 +72,12 @@ ScheduleView.prototype = {
         }
         // Present dates.
         for (d = 0; d < dates_in_present.length; d++) {
-            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_past[d], month.dates.length, true));
+            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_present[d], month.dates.length, true));
             day_index += 1;
         }
         // Future dates.
         for (d = 0; d < dates_in_future.length; d++) {
-            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_past[d], month.dates.length, false));
+            month_day_walls.push(this.create_specific_month_day_wall(month.get_day_color_by_index(day_index), day_index, y_position, dates_in_future[d], month.dates.length, false));
             day_index += 1;
         }
 
