@@ -133,15 +133,15 @@ MyDate.prototype = {
     },
 
     in_past: function() {
-        return this.date.getDate() < CURRENT_DAY_OBJECT.getDate();
+        return this.date.getDate() < CURRENT_DAY_OBJECT.date.getDate();
     },
 
     in_future: function() {
-        return this.date.getDate() > CURRENT_DAY_OBJECT.getDate();
+        return this.date.getDate() > CURRENT_DAY_OBJECT.date.getDate();
     },
 
     in_present: function() {
-        return this.date.getDate() == CURRENT_DAY_OBJECT.getDate();
+        return this.date.getDate() === CURRENT_DAY_OBJECT.date.getDate();
     },
 
     apply_delta: function(units, magnitude) {
@@ -208,7 +208,8 @@ MyDate.prototype = {
 
     get_month_number_as_string: function() {
         return (this.date.getMonth() + 1).toString();
-    }
+    },
+
 };
 
 function get_date_object_from_today_with_n_day_offset(n) {
