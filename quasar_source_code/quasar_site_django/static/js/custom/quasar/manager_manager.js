@@ -44,3 +44,8 @@ MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
 // 0x6 : Add the drop and drop feature.
 var DRAG_AND_DROP = new DragNDrop();
+
+
+// TODO : Eventually this will need to automatically update at midnight.
+const CURRENT_DAY_OBJECT   = new MyDate(THIS_DAY);
+//const CURRENT_MONTH_OBJECT = new MyDates(THIS_MONTH);
