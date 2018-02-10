@@ -33,6 +33,7 @@ var GUI_TYPING_INTERFACE = null;
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
+var CURRENT_DAY_OBJECT = null;
 
 // Logical constants.
 const NOT_FOUND = -1;
