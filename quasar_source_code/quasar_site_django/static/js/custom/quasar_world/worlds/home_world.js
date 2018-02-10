@@ -35,7 +35,9 @@ HomeWorld.prototype = {
         }
 
         // Create the current month view.
-        this.load_schedule();
+        //this.load_schedule();
+
+        this.schedule_view = new ScheduleView(this);
     },
 
     prepare_for_save: function() {

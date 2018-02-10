@@ -294,6 +294,9 @@ module.exports = {
         "DateSelector": true,
         "TimeSelector": true,
 
+        "ScheduleView": true,
+        "DayView"     : true,
+
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
 

@@ -110,6 +110,13 @@ MonthInstance.prototype = {
 
     get_all_dates: function() {
         return this.dates;
+    },
+
+    /*     __       ___          __       ___
+     |\/| /  \ |\ |  |  |__|    |  \  /\   |   /\
+     |  | \__/ | \|  |  |  |    |__/ /~~\  |  /~~\ */
+    get_month_number: function() {
+        return this._month_number;
     }
 
 };
