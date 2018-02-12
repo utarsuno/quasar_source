@@ -33,6 +33,8 @@ DayView.prototype = {
         var row_index = this.wall.get_row_with_name(group_name).row_number + 1;
 
         this.wall.add_row(row_index).add_2D_element([0, 1], entity.get_value(ENTITY_PROPERTY_NAME));
+
+        this.wall.refresh_position_and_look_at();
     },
 
     create: function() {
