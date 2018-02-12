@@ -141,7 +141,7 @@ ScheduleView.prototype = {
 
         // Create the DayView walls.
         for (var d = 0; d < this.all_days.length; d++) {
-            this.all_days[d].create_wall();
+            this.all_days[d].create();
         }
 
         // OLD CODE BELOW

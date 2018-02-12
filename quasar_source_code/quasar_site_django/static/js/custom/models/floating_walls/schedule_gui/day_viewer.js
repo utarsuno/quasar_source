@@ -12,8 +12,8 @@ DayView.prototype = {
     },
 
     create: function() {
-    	l('Need to create this day view!');
-    	l(this.day_instance.get_day_number_relative_to_current_week());
+        l('Need to create this day view!');
+        l(this.day_instance.get_day_number_relative_to_current_week());
     }
 
 };
