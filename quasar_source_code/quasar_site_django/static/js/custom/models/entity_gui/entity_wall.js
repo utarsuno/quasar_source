@@ -34,6 +34,8 @@ EntityWall.prototype = {
             this.base_wall.load_from_entity_data(MANAGER_ENTITY.get_entity_by_id(entity.get_parent_ids()[0]));
             this.base_wall.refresh_position_and_look_at();
 
+            l(this.base_wall);
+
             this.entity_wall_title = this.base_wall.get_row_with_index(-1).elements[0];
 
             this.entity_wall_needs_to_load_entities = true;
