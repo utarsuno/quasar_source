@@ -2,13 +2,13 @@
 
 
 // Install pip3
-sudo apt install python3-pip
+sudo apt install python3-pip -y
 // Update pip3.
 pip3 install --upgrade pip
 
 
 // Install pymongo
-pip3 install pymongo
+sudo pip3 install pymongo
 
 
 // Install zmq.
@@ -28,3 +28,15 @@ sudo pip3 install django-channels
 
 // Setup MongoDB
 https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04
+
+
+// CD TO HOME
+sudo mkdir git_repos
+cd git_repos
+sudo git clone https://github.com/utarsuno/quasar_source
+cd ..
+// Set permission on the git folder created.
+sudo chmod 777 -R ./git_repos
+
+
+

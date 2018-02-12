@@ -16,6 +16,8 @@ const MONTH_OCTOBER   = 9;
 const MONTH_NOVEMBER  = 10;
 const MONTH_DECEMBER  = 11;
 
+const DAY_MONDAY      = 0;
+
 const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -116,6 +118,14 @@ MonthInstance.prototype = {
             }
         }
         return present_dates;
+    },
+
+    get_all_day_instances: function() {
+        var day_instances = [];
+        for (var d = 0; d < this.dates.length; d++) {
+            day_instances.push(new DayInstance(this.dates[d]));
+        }
+        return day_instances;
     },
 
     get_all_dates: function() {

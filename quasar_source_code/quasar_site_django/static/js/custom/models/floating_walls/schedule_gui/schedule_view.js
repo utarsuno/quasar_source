@@ -1,6 +1,6 @@
 'use strict';
 
-const MONTH_VIEW_RADIUS = 3000;
+const MONTH_VIEW_RADIUS = 4000;
 
 const MONTH_TYPE_PAST    = 1;
 const MONTH_TYPE_PRESENT = 2;
@@ -31,6 +31,9 @@ ScheduleView.prototype = {
 
         this.today = new DayInstance(THIS_DAY);
         this.current_month = this.today.get_month_number();
+
+        // TODO : Get all the days and add them into an entire list in order.
+        this.all_days = [];
     },
 
     create_specific_month_day_wall: function(color, index, y_position, day, total_number_of_days, present) {
@@ -114,7 +117,36 @@ ScheduleView.prototype = {
         return month_day_walls;
     },
 
+    add_days_from_month: function(month) {
+        var all_dates = month.get_all_day_instances();
+        for (var d = 0; d < all_dates.length; d++) {
+            //this.all_days.push(all_dates[d]);
+            this.all_days.push(new DayView(this, all_dates[d]));
+        }
+    },
+
     create_year_schedule_view: function() {
+        this.add_days_from_month(this.months[MONTH_JANUARY]);
+        this.add_days_from_month(this.months[MONTH_FEBRUARY]);
+        this.add_days_from_month(this.months[MONTH_MARCH]);
+        this.add_days_from_month(this.months[MONTH_APRIL]);
+        this.add_days_from_month(this.months[MONTH_MAY]);
+        this.add_days_from_month(this.months[MONTH_JUNE]);
+        this.add_days_from_month(this.months[MONTH_JULY]);
+        this.add_days_from_month(this.months[MONTH_AUGUST]);
+        this.add_days_from_month(this.months[MONTH_SEPTEMBER]);
+        this.add_days_from_month(this.months[MONTH_OCTOBER]);
+        this.add_days_from_month(this.months[MONTH_NOVEMBER]);
+        this.add_days_from_month(this.months[MONTH_DECEMBER]);
+
+        // Create the DayView walls.
+        for (var d = 0; d < this.all_days.length; d++) {
+            this.all_days[d].create_wall();
+        }
+
+        // OLD CODE BELOW
+        return;
+
         for (var key in this.months) {
             if (this.months.hasOwnProperty(key)) {
                 var month = this.months[key][0];
