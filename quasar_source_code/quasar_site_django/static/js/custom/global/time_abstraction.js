@@ -157,7 +157,7 @@ DayInstance.prototype = {
     },
 
     in_current_week: function() {
-        if (this.in_current_month) {
+        if (this.in_current_month()) {
             if (this.get_week_relative_to_current_month() === CURRENT_DAY_OBJECT.get_week_relative_to_current_month()) {
                 return true;
             }

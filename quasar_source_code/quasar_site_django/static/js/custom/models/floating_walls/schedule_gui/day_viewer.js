@@ -61,7 +61,7 @@ DayView.prototype = {
             break;
         }
         this.wall.add_full_row_3D(-1, month + '.' + date + ' - ' + this.day_instance.get_day_as_word(), TYPE_TITLE, title_color);
-        
+
         this.wall.refresh_position_and_look_at();
     }
 
