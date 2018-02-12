@@ -43,7 +43,7 @@ ScheduleView.prototype = {
             }
             var day_view = new DayView(this, all_dates[d], this.start_index + this.total_offset);
             this.all_days.push(day_view);
-            this.all_days_reference[day_view.to_string()] = day_view;
+            this.all_days_reference[day_view.day_instance.to_string()] = day_view;
             this.total_offset += 1;
         }
     },
