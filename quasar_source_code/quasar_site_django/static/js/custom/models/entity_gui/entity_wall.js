@@ -20,7 +20,7 @@ EntityWall.prototype = {
             var n = new THREE.Vector3(-pn.x, 0, -pn.z);
 
             this.base_wall = new FloatingWall(400, 600, p, n, world, true);
-            this.entity_wall_title = this.base_wall.add_full_row_3D(-1, 'Entity Wall', TYPE_INPUT);
+            this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Wall', TYPE_INPUT);
 
             this.base_wall.set_to_saveable();
         } else {
