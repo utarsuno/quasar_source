@@ -21,14 +21,14 @@ DayView.prototype = {
     create: function() {
         var x_position = cos(this.row_index * TWO_PIE) * POSITION_RADIUS;
         var z_position = sin(this.row_index * TWO_PIE) * POSITION_RADIUS;
-        var y_position = this.row * HEIGHT + 180 * this.row;
+        var y_position = this.row * HEIGHT + 180 * this.row - 750;
         var position = new THREE.Vector3(x_position, y_position, z_position);
         var normal = new THREE.Vector3(-x_position, 0, -z_position);
 
         if (this.day_instance.in_current_week()) {
-            this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false, COLOR_FLOATING_WALL_HIGHLIGHT);
-        } else if (this.day_instance.in_current_month()) {
             this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false, COLOR_FLOATING_WALL_SUCCESS);
+        } else if (this.day_instance.in_current_month()) {
+            this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false, COLOR_FLOATING_WALL_HIGHLIGHT);
         } else {
             this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false);
         }

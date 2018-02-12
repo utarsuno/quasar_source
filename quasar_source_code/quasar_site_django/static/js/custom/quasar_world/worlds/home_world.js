@@ -36,6 +36,8 @@ HomeWorld.prototype = {
 
         this.schedule_view = new ScheduleView(this);
         this.schedule_view.create_year_schedule_view();
+
+        this.add_content_to_schedules();
     },
 
     prepare_for_save: function() {
@@ -79,7 +81,16 @@ HomeWorld.prototype = {
         */
 
         for (var ew = 0; ew < this.entity_walls.length; ew++) {
-            //var entities = this.entity_walls[ew].
+            var entities = this.entity_walls[ew].get_all_entities();
+
+            for (var e = 0; e < entities.length; e++) {
+                var current_entity = entities[e];
+
+                if (current_entity.has_property(ENTITY_PROPERTY_END_DATE_TIME)) {
+                    l(current_entity);
+                    l(current_entity.get_value(ENTITY_PROPERTY_END_DATE_TIME));
+                }
+            }
         }
     }
 };
