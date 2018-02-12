@@ -2,7 +2,7 @@
 
 const WIDTH = 500;
 const HEIGHT = 800;
-const POSITION_RADIUS = 4000;
+const POSITION_RADIUS = 3500;
 
 function DayView(schedule_view, day_instance, index) {
     this.__init__(schedule_view, day_instance, index);
@@ -25,14 +25,43 @@ DayView.prototype = {
         var position = new THREE.Vector3(x_position, y_position, z_position);
         var normal = new THREE.Vector3(-x_position, 0, -z_position);
 
-        this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false);
+        if (this.day_instance.in_current_week()) {
+            this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false, COLOR_FLOATING_WALL_HIGHLIGHT);
+        } else if (this.day_instance.in_current_month()) {
+            this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false, COLOR_FLOATING_WALL_SUCCESS);
+        } else {
+            this.wall = new FloatingWall(WIDTH, HEIGHT, position, normal, this.schedule_view.world, false);
+        }
 
         var month = this.day_instance.get_month_number_as_string();
         var date  = this.day_instance.get_day_number();
 
-        this.wall.add_full_row_3D(-1, month + '.' + date, TYPE_TITLE);
-        this.wall.add_row(null).add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.day_instance.get_day_as_word(), TYPE_CONSTANT, COLOR_BLUE);
-
+        var title_color;
+        switch(this.day_instance.get_day_number_relative_to_current_week()) {
+        case 0:
+            title_color = COLOR_SUNDAY;
+            break;
+        case 1:
+            title_color = COLOR_MONDAY;
+            break;
+        case 2:
+            title_color = COLOR_TUESDAY;
+            break;
+        case 3:
+            title_color = COLOR_WEDNESDAY;
+            break;
+        case 4:
+            title_color = COLOR_THURSDAY;
+            break;
+        case 5:
+            title_color = COLOR_FRIDAY;
+            break;
+        case 6:
+            title_color = COLOR_SATURDAY;
+            break;
+        }
+        this.wall.add_full_row_3D(-1, month + '.' + date + ' - ' + this.day_instance.get_day_as_word(), TYPE_TITLE, title_color);
+        
         this.wall.refresh_position_and_look_at();
     }
 

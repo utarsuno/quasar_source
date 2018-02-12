@@ -193,6 +193,13 @@ const COLOR_FLOATING_WALL_HIGHLIGHT = [0x152319, '#001f23'];
 const COLOR_FLOATING_WALL_SUCCESS   = [0x092300, '#092300'];
 const COLOR_FLOATING_WALL_ERROR     = [0x230002, '#230002'];
 const COLOR_TRANSPARENT             = 'rgba(255, 255, 255, 0.0)';
+const COLOR_MONDAY                  = [0xff9162, '#ff9162'];
+const COLOR_TUESDAY                 = [0xffba5d, '#ffba5d'];
+const COLOR_WEDNESDAY               = [0xfff883, '#fff883'];
+const COLOR_THURSDAY                = [0xdaff90, '#daff90'];
+const COLOR_FRIDAY                  = [0xafff84, '#afff84'];
+const COLOR_SATURDAY                = [0x68ff6c, '#68ff6c'];
+const COLOR_SUNDAY                  = [0x5aff94, '#5aff94'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Texture types.

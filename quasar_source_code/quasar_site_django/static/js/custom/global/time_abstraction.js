@@ -152,6 +152,19 @@ DayInstance.prototype = {
         }
     },
 
+    in_current_month: function() {
+        return this.date.getMonth() === CURRENT_DAY_OBJECT.date.getMonth();
+    },
+
+    in_current_week: function() {
+        if (this.in_current_month) {
+            if (this.get_week_relative_to_current_month() === CURRENT_DAY_OBJECT.get_week_relative_to_current_month()) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     in_past: function() {
         return this.date.getDate() < CURRENT_DAY_OBJECT.date.getDate();
     },
