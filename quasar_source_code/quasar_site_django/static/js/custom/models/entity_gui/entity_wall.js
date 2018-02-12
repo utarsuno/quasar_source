@@ -20,7 +20,7 @@ EntityWall.prototype = {
             var n = new THREE.Vector3(-pn.x, 0, -pn.z);
 
             this.base_wall = new FloatingWall(400, 600, p, n, world, true);
-            this.base_wall.add_full_row_3D(-1, 'Entity Wall', TYPE_INPUT);
+            this.entity_wall_title = this.base_wall.add_full_row_3D(-1, 'Entity Wall', TYPE_INPUT);
 
             this.base_wall.set_to_saveable();
         } else {
@@ -33,6 +33,8 @@ EntityWall.prototype = {
             this.base_wall = new FloatingWall(400, 600, null, null, world, true);
             this.base_wall.load_from_entity_data(MANAGER_ENTITY.get_entity_by_id(entity.get_parent_ids()[0]));
             this.base_wall.refresh_position_and_look_at();
+
+            this.entity_wall_title = this.base_wall.get_row_with_index(-1).elements[0];
 
             this.entity_wall_needs_to_load_entities = true;
         }
@@ -89,6 +91,9 @@ EntityWall.prototype = {
     },
 
     add_entity: function (entity) {
+        // TODO : This needs to dynamically update.
+        entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
+
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         var entity_relative_id = entity.get_relative_id();
         var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
@@ -108,7 +113,7 @@ EntityWall.prototype = {
             }
         }
         if (entity_reference_to_remove !== NOT_FOUND) {
-            this.all_entities[e].splice(entity_reference_to_remove, 1);
+            this.all_entities.splice(entity_reference_to_remove, 1);
         }
 
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);

@@ -234,7 +234,7 @@ module.exports = {
         "ENTITY_PROPERTY_TAGS"               : false,
         "ENTITY_PROPERTY_NOTE"               : false,
         "ENTITY_PROPERTY_CREATED_AT_DATE"    : false,
-
+        "ENTITY_PROPERTY_GROUP_NAME"         : false,
         "ENTITY_PROPERTY_START_DATE_TIME"    : false,
         "ENTITY_PROPERTY_END_DATE_TIME"      : false,
         "ENTITY_PROPERTY_TIME_DURATION"      : false,
