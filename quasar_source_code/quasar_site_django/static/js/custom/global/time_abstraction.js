@@ -208,6 +208,7 @@ DayInstance.prototype = {
     },
 
     get_day_number_relative_to_current_week: function() {
+        l(this.date);
         return this.date.getDay();
     },
 
