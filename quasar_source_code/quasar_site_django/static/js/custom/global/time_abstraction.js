@@ -127,6 +127,10 @@ MonthInstance.prototype = {
     /*     __       ___          __       ___
      |\/| /  \ |\ |  |  |__|    |  \  /\   |   /\
      |  | \__/ | \|  |  |  |    |__/ /~~\  |  /~~\ */
+    get_number_of_days_in_this_month: function() {
+        return this.dates.length;
+    },
+
     get_month_number: function() {
         return this._month_number;
     }
