@@ -90,7 +90,11 @@ FloatingWall.prototype = {
             }
             for (var r = 0; r < rows_3D_to_load.length; r++) {
                 var data = rows_3D_to_load[r].split('+');
-                this.add_full_row_3D(data[0], data[1], data[2]);
+                if (is_string(data[0])) {
+                    this.add_full_row_3D(parseInt(data[0]), data[1], data[2]);
+                } else {
+                    this.add_full_row_3D(data[0], data[1], data[2]);
+                }
             }
         }
     },
@@ -228,9 +232,6 @@ FloatingWall.prototype = {
 
     // This utility function is used for creating a single row that contains a single 3D element.
     add_full_row_3D: function(row_index, text, type, color) {
-        if (is_string(row_index)) {
-            row_index = row_index.toString();
-        }
         var current_row = this.add_row(row_index);
         current_row.add_3D_element(text, type, color);
         return current_row;
