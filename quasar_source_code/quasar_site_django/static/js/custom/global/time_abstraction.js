@@ -121,14 +121,6 @@ MonthInstance.prototype = {
     },
 
     get_all_day_instances: function() {
-        var day_instances = [];
-        for (var d = 0; d < this.dates.length; d++) {
-            day_instances.push(new DayInstance(this.dates[d]));
-        }
-        return day_instances;
-    },
-
-    get_all_dates: function() {
         return this.dates;
     },
 
@@ -208,7 +200,6 @@ DayInstance.prototype = {
     },
 
     get_day_number_relative_to_current_week: function() {
-        l(this.date);
         return this.date.getDay();
     },
 

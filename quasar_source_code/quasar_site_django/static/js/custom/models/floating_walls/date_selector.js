@@ -24,7 +24,7 @@ DateSelector.prototype = {
         // Time Logic.
         this.date = new DayInstance(THIS_DAY);
         this.current_month = new MonthInstance(THIS_MONTH);
-        this.all_days = this.current_month.get_all_dates();
+        this.all_days = this.current_month.get_all_day_instances();
 
         // Year.
         var row_year = this.wall_date_selector.add_row(null);
@@ -95,7 +95,7 @@ DateSelector.prototype = {
     },
 
     _create_all_day_buttons: function() {
-        this.all_days = this.current_month.get_all_dates();
+        this.all_days = this.current_month.get_all_day_instances();
 
         this.all_day_buttons = [];
 
