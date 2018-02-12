@@ -228,6 +228,9 @@ FloatingWall.prototype = {
 
     // This utility function is used for creating a single row that contains a single 3D element.
     add_full_row_3D: function(row_index, text, type, color) {
+        if (is_string(row_index)) {
+            row_index = row_index.toString();
+        }
         var current_row = this.add_row(row_index);
         current_row.add_3D_element(text, type, color);
         return current_row;
