@@ -7,11 +7,6 @@ const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
 const DELETABLE_ROW = 'deletable_row';
 
-const TYPE_INPUT_DATE = 'input_date';
-const TYPE_INPUT_TIME = 'input_time';
-const NO_DATE_SELECTED = 'select date';
-const NO_TIME_SELECTED = 'select time';
-
 function EntityEditor(entity_wall) {
     this.__init__(entity_wall);
 }

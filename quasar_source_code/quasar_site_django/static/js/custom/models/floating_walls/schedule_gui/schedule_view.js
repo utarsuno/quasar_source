@@ -28,6 +28,11 @@ ScheduleView.prototype = {
 
         // TODO : Get all the days and add them into an entire list in order.
         this.all_days = [];
+        this.all_days_reference = {};
+    },
+
+    add_entity_to_day_view: function(date, entity) {
+        this.all_days_reference[date].add_entity(entity);
     },
 
     add_days_from_month: function(month, record_start_index) {
@@ -36,7 +41,9 @@ ScheduleView.prototype = {
             if (d === 0 && record_start_index) {
                 this.start_index = all_dates[d].get_day_number_relative_to_current_week();
             }
-            this.all_days.push(new DayView(this, all_dates[d], this.start_index + this.total_offset));
+            var day_view = new DayView(this, all_dates[d], this.start_index + this.total_offset);
+            this.all_days.push(day_view);
+            this.all_days_reference[day_view.to_string()] = day_view;
             this.total_offset += 1;
         }
     },

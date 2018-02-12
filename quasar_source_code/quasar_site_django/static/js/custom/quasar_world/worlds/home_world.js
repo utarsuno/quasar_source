@@ -61,25 +61,6 @@ HomeWorld.prototype = {
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
      .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
     add_content_to_schedules: function() {
-        l('TODO : Add content to schedules');
-        /*
-        var dates_in_past = this.month_days.get_dates_in_past();
-        var dates_in_present = this.month_days.get_dates_in_present();
-        var dates_in_future = this.month_days.get_dates_in_future();
-
-        var all_entities = MANAGER_ENTITY.get_all_entities_with_property(ENTITY_PROPERTY_DUE_DATE);
-
-        var d;
-        for (d = 0; d < all_entities.length; d++) {
-            l(all_entities[d]);
-        }
-
-        for (d = 0; d < dates_in_future.length; d++) {
-            l('Checking');
-            l(dates_in_future[d]);
-        }
-        */
-
         for (var ew = 0; ew < this.entity_walls.length; ew++) {
             var entities = this.entity_walls[ew].get_all_entities();
 
@@ -87,8 +68,13 @@ HomeWorld.prototype = {
                 var current_entity = entities[e];
 
                 if (current_entity.has_property(ENTITY_PROPERTY_END_DATE_TIME)) {
-                    l(current_entity);
-                    l(current_entity.get_value(ENTITY_PROPERTY_END_DATE_TIME));
+                    var due_date_time = current_entity.get_value(ENTITY_PROPERTY_END_DATE_TIME);
+                    due_date_time = due_date_time.split('+');
+                    var due_date = due_date_time[0];
+
+                    if (due_date !== NO_DATE_SELECTED) {
+                        this.schedule_view.add_entity_to_day_view(due_date, current_entity);
+                    }
                 }
             }
         }

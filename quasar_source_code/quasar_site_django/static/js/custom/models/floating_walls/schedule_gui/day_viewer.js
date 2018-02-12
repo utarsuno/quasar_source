@@ -16,6 +16,23 @@ DayView.prototype = {
         this.index = index;
         this.row = Math.floor(this.index / 28);
         this.row_index = (this.index - (this.row * 28)) / 28;
+
+        this.task_group_names = {};
+    },
+
+    add_entity: function(entity) {
+        var group_name = entity.get_value(ENTITY_PROPERTY_GROUP_NAME);
+
+        if (group_name in this.task_group_names) {
+            // TODO : This section!
+        } else {
+            this.task_group_names[group_name] = [];
+            this.wall.add_row(null, group_name).add_2D_element([0, 1], 'Tasks for : ' + group_name, TYPE_CONSTANT);
+        }
+
+        var row_index = this.wall.get_row_with_name(group_name).row_number + 1;
+
+        this.wall.add_row(row_index).add_2D_element([0, 1], entity.get_value(ENTITY_PROPERTY_NAME));
     },
 
     create: function() {

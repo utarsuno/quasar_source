@@ -54,6 +54,11 @@ module.exports = {
         "Floating3DText" : true,
         "FloatingPicture": true,
 
+        "TYPE_INPUT_DATE" : true,
+        "TYPE_INPUT_TIME" : true,
+        "NO_DATE_SELECTED": true,
+        "NO_TIME_SELECTED": true,
+
         // Core
         "InputTextProcessor": false,
         "CustomSmoothStep": false,
