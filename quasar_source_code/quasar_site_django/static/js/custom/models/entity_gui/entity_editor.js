@@ -207,6 +207,8 @@ EntityEditor.prototype = {
                 mark_as_not_completed.add_tag(TAG_COMPLETED_LABEL);
                 mark_as_not_completed.add_attachment(this.completed_check_mark);
 
+                mark_as_completed.add_tag(TAG_COMPLETED);
+                mark_as_not_completed.add_tag(TAG_NOT_COMPLETED);
                 mark_as_completed.add_tag(DELETABLE_ROW);
                 mark_as_not_completed.add_tag(DELETABLE_ROW);
 
@@ -329,6 +331,14 @@ EntityEditor.prototype = {
                 entity_value = selected_date + '+' + selected_time;
             } else if (entity_property === ENTITY_PROPERTY_COMPLETED) {
 
+                var completed = entity_fields[f].get_all_elements_with_tag(TAG_COMPLETED)[0].has_tag(TAG_COMPLETED_LABEL);
+
+                if (completed) {
+                    entity_value = 'yes';
+                } else {
+                    entity_value = 'no';
+                }
+
             } else {
                 entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
             }
@@ -368,6 +378,8 @@ EntityEditor.prototype = {
                 this.entity_being_edited.set_property(ENTITY_PROPERTY_COMPLETED, 'no');
             }
         }
+
+        this.base_wall.refresh_position_and_look_at();
     },
 
     /*___          ___     __   ___       ___  __  ___  __   __
