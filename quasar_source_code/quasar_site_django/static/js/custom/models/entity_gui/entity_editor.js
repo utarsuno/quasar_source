@@ -76,7 +76,7 @@ EntityEditor.prototype = {
             this.completed_check_mark = new Floating2DText(16, ICON_CHECKMARK, TYPE_ICON, this.world);
             this.completed_check_mark.set_attachment_depth_offset(2);
             this.completed_check_mark.set_attachment_horizontal_offset(null, -HALF);
-            this.completed_check_mark.hide();
+            this.completed_check_mark.set_to_invisible();
         }
 
         if (!is_defined(this.wall_entity_editor)) {
