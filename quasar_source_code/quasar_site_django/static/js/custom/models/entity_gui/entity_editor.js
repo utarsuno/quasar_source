@@ -206,6 +206,7 @@ EntityEditor.prototype = {
                 var mark_as_completed     = new_field_row.add_2D_button([TWO_THIRDS, 1], 'yes', COLOR_GREEN, null);
                 mark_as_not_completed.add_tag(TAG_COMPLETED_LABEL);
                 mark_as_not_completed.add_attachment(this.completed_check_mark);
+                this.completed_check_mark.set_to_visible();
 
                 mark_as_completed.add_tag(TAG_COMPLETED);
                 mark_as_not_completed.add_tag(TAG_NOT_COMPLETED);
