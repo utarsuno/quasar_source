@@ -224,12 +224,23 @@ EntityEditor.prototype = {
                 input_field.add_tag(DELETABLE_ROW);
             }
 
+            // Field is being added in EDITOR mode.
             if (is_defined(field_value)) {
-
                 if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
                     var field_value_list = field_value.split('+');
                     select_date_button.update_text(field_value_list[0]);
                     select_time_button.update_text(field_value_list[1]);
+                } else if (field_name === ENTITY_PROPERTY_COMPLETED) {
+                    mark_as_completed.remove_tag(TAG_COMPLETED_LABEL);
+                    mark_as_not_completed.remove_tag(TAG_COMPLETED_LABEL);
+                    this.completed_check_mark.remove_parent();
+                    if (field_value === 'yes') {
+                        mark_as_completed.add_tag(TAG_COMPLETED_LABEL);
+                        mark_as_completed.add_attachment(this.completed_check_mark);
+                    } else {
+                        mark_as_not_completed.add_tag(TAG_COMPLETED_LABEL);
+                        mark_as_not_completed.add_attachment(this.completed_check_mark);
+                    }
                 } else {
                     input_field.update_text(field_value);
                 }
