@@ -148,7 +148,7 @@ Entity.prototype = {
         for (var f = 0; f < all_keys.length; f++) {
             if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                 var field_name = all_keys[f];
-                if (field_name !== 'ep_child_ids' && field_name !== 'ep_parent_ids' && field_name !== 'ep_relative_id' && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME) {
+                if (field_name !== 'ep_child_ids' && field_name !== 'ep_parent_ids' && field_name !== 'ep_relative_id' && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME && field_name !== ENTITY_PROPERTY_GROUP_NAME) {
                     all_editable_fields.push([field_name, this[field_name]]);
                 }
             }
