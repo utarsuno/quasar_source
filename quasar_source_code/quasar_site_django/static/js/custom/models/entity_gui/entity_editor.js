@@ -332,6 +332,8 @@ EntityEditor.prototype = {
                 entity_value = selected_date + '+' + selected_time;
             } else if (entity_property === ENTITY_PROPERTY_COMPLETED) {
 
+                l(entity_fields[f]);
+
                 var completed = entity_fields[f].get_all_elements_with_tag(TAG_COMPLETED)[0].has_tag(TAG_COMPLETED_LABEL);
 
                 if (completed) {
