@@ -212,6 +212,9 @@ EntityEditor.prototype = {
 
                 mark_as_not_completed.set_engage_function(this._mark_completed.bind(this, false, mark_as_not_completed, mark_as_completed));
                 mark_as_completed.set_engage_function(this._mark_completed.bind(this, true, mark_as_not_completed, mark_as_completed));
+
+                // This needs to get set for positioning of the delete field button.
+                input_field = mark_as_completed;
             } else {
                 input_field = new_field_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
                 input_field.add_tag(TYPE_INPUT);
