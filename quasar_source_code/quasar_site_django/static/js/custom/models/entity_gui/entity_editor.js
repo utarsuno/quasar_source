@@ -50,6 +50,8 @@ EntityEditor.prototype = {
         if (field_name === ENTITY_PROPERTY_START_DATE_TIME || field_name === ENTITY_PROPERTY_END_DATE_TIME) {
             this.date_selector.wall_date_selector.detach_from_parent();
             this.time_selector.wall_time_selector.detach_from_parent();
+        } else if (field_name === ENTITY_PROPERTY_COMPLETED) {
+            this.completed_check_mark.detach_from_parent();
         }
         this.wall_entity_editor.delete_row_by_name(field_name);
 
@@ -68,6 +70,13 @@ EntityEditor.prototype = {
         if (!is_defined(this.time_selector)) {
             // Both creating a new entity and editing an existing entity will potentially need to utilize the time selector.
             this.time_selector = new TimeSelector(this.world, this.time_selected.bind(this));
+        }
+        // Checkmark used in the completed field.
+        if (!is_defined(this.completed_check_mark)) {
+            this.completed_check_mark = new Floating2DText(16, ICON_CHECKMARK, TYPE_ICON, this.world);
+            this.completed_check_mark.set_attachment_depth_offset(2);
+            this.completed_check_mark.set_attachment_horizontal_offset(null, -HALF);
+            this.completed_check_mark.hide();
         }
 
         if (!is_defined(this.wall_entity_editor)) {
@@ -191,6 +200,18 @@ EntityEditor.prototype = {
 
                 // This needs to get set for positioning of the delete field button.
                 input_field = select_time_button;
+
+            } else if (field_name === ENTITY_PROPERTY_COMPLETED) {
+                var mark_as_not_completed = new_field_row.add_2D_button([ONE_THIRD, TWO_THIRDS], 'no', COLOR_RED, null);
+                var mark_as_completed     = new_field_row.add_2D_button([TWO_THIRDS, 1], 'yes', COLOR_GREEN, null);
+                mark_as_not_completed.add_tag(TAG_COMPLETED_LABEL);
+                mark_as_not_completed.add_attachment(this.completed_check_mark);
+
+                mark_as_completed.add_tag(DELETABLE_ROW);
+                mark_as_not_completed.add_tag(DELETABLE_ROW);
+
+                mark_as_not_completed.set_engage_function(this._mark_completed.bind(this, false, mark_as_not_completed, mark_as_completed));
+                mark_as_completed.set_engage_function(this._mark_completed.bind(this, true, mark_as_not_completed, mark_as_completed));
             } else {
                 input_field = new_field_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
                 input_field.add_tag(TYPE_INPUT);
@@ -231,32 +252,6 @@ EntityEditor.prototype = {
         if (is_defined(this.time_selector.wall_time_selector)) {
             this.time_selector.hide();
         }
-    },
-
-    _get_all_entity_fields_and_values: function() {
-        var entity_fields_and_values = [];
-        var entity_fields = [];
-        for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
-            if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
-                var row_name = this.wall_entity_editor.rows[f].row_name;
-                if (row_name.startsWith('ep_')) {
-                    entity_fields.push(this.wall_entity_editor.rows[f]);
-                }
-            }
-        }
-        for (f = 0; f < entity_fields.length; f++) {
-            var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
-            var entity_value = '';
-            if (entity_property === ENTITY_PROPERTY_START_DATE_TIME || entity_property === ENTITY_PROPERTY_END_DATE_TIME) {
-                var selected_date = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_DATE)[0].get_text();
-                var selected_time = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_TIME)[0].get_text();
-                entity_value = selected_date + '+' + selected_time;
-            } else {
-                entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
-            }
-            entity_fields_and_values.push([entity_property, entity_value]);
-        }
-        return entity_fields_and_values;
     },
 
     _hide_self_and_update: function() {
@@ -311,8 +306,65 @@ EntityEditor.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    _get_all_entity_fields_and_values: function() {
+        var entity_fields_and_values = [];
+        var entity_fields = [];
+        for (var f = 0; f < this.wall_entity_editor.rows.length; f++) {
+            if (is_defined(this.wall_entity_editor.rows[f].row_name)) {
+                var row_name = this.wall_entity_editor.rows[f].row_name;
+                if (row_name.startsWith('ep_')) {
+                    entity_fields.push(this.wall_entity_editor.rows[f]);
+                }
+            }
+        }
+        for (f = 0; f < entity_fields.length; f++) {
+            var entity_property = entity_fields[f].get_all_elements_with_tag(TYPE_CONSTANT)[0].get_text();
+            var entity_value = '';
+            if (entity_property === ENTITY_PROPERTY_START_DATE_TIME || entity_property === ENTITY_PROPERTY_END_DATE_TIME) {
+                var selected_date = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_DATE)[0].get_text();
+                var selected_time = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT_TIME)[0].get_text();
+                entity_value = selected_date + '+' + selected_time;
+            } else if (entity_property === ENTITY_PROPERTY_COMPLETED) {
+
+            } else {
+                entity_value = entity_fields[f].get_all_elements_with_tag(TYPE_INPUT)[0].get_text();
+            }
+            entity_fields_and_values.push([entity_property, entity_value]);
+        }
+        return entity_fields_and_values;
+    },
+
     has_field: function(field_name) {
         return this.wall_entity_editor.has_row_with_name(field_name);
+    },
+
+    /*__   __         __        ___ ___  ___  __     ___  __   __   __        ___
+     /  ` /  \  |\/| |__) |    |__   |  |__  |  \     |  /  \ / _` / _` |    |__
+     \__, \__/  |  | |    |___ |___  |  |___ |__/     |  \__/ \__> \__> |___ |___ */
+    _mark_completed: function(is_completed, button_not_completed, button_completed) {
+        this.completed_check_mark.detach_from_parent();
+
+        if (is_completed) {
+            button_not_completed.remove_tag(TAG_COMPLETED_LABEL);
+            button_completed.add_tag(TAG_COMPLETED_LABEL);
+        } else {
+            button_not_completed.add_tag(TAG_COMPLETED_LABEL);
+            button_completed.remove_tag(TAG_COMPLETED_LABEL);
+        }
+
+        if (button_completed.has_tag(TAG_COMPLETED_LABEL)) {
+            button_completed.add_attachment(this.completed_check_mark);
+        } else {
+            button_not_completed.add_attachment(this.completed_check_mark);
+        }
+
+        if (this.current_mode === EDITOR_MODE_EDIT) {
+            if (button_completed.has_tag(TAG_COMPLETED_LABEL)) {
+                this.entity_being_edited.set_property(ENTITY_PROPERTY_COMPLETED, 'yes');
+            } else {
+                this.entity_being_edited.set_property(ENTITY_PROPERTY_COMPLETED, 'no');
+            }
+        }
     },
 
     /*___          ___     __   ___       ___  __  ___  __   __

@@ -42,6 +42,7 @@ EntityFieldCreator.prototype = {
 
         this._add_selectable_entity_field(ENTITY_PROPERTY_TAGS);
         this._add_selectable_entity_field(ENTITY_PROPERTY_NOTE);
+        this._add_selectable_entity_field(ENTITY_PROPERTY_COMPLETED);
 
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();

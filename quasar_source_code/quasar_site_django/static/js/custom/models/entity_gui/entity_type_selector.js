@@ -41,6 +41,7 @@ EntityTypeSelector.prototype = {
         if (entity_type === ENTITY_TYPE_TASK) {
             this.entity_editor.add_entity_field(ENTITY_PROPERTY_END_DATE_TIME);
             this.entity_editor.add_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
+            this.entity_editor.add_entity_field(ENTITY_PROPERTY_COMPLETED);
         }
     }
 

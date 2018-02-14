@@ -35,10 +35,14 @@ var GUI_TYPING_INTERFACE = null;
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 var CURRENT_DAY_OBJECT = null;
 
-const TYPE_INPUT_DATE = 'input_date';
-const TYPE_INPUT_TIME = 'input_time';
-const NO_DATE_SELECTED = 'select date';
-const NO_TIME_SELECTED = 'select time';
+// Tags
+const TYPE_INPUT_DATE     = 'input_date';
+const TYPE_INPUT_TIME     = 'input_time';
+const NO_DATE_SELECTED    = 'select date';
+const NO_TIME_SELECTED    = 'select time';
+const TAG_COMPLETED       = 'completed';
+const TAG_NOT_COMPLETED   = 'not_completed';
+const TAG_COMPLETED_LABEL = 'completed_label';
 
 // Logical constants.
 const NOT_FOUND = -1;
