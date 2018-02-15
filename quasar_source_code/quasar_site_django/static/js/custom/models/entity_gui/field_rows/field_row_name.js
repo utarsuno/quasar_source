@@ -7,10 +7,9 @@ function FieldRowName(entity_editor) {
 FieldRowName.prototype = {
 
     __init__: function(entity_editor) {
-        this.set_entity_property(ENTITY_PROPERTY_NAME);
-
         // Inherit.
         EntityEditorFieldRow.call(this, entity_editor);
+        this.set_entity_property(ENTITY_PROPERTY_NAME);
     },
 
     entity_name_changed: function() {

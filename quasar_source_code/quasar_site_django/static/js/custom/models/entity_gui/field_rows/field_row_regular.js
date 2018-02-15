@@ -7,10 +7,9 @@ function FieldRowRegular(entity_editor, field_type) {
 FieldRowRegular.prototype = {
 
     __init__: function(entity_editor, field_type) {
-        this.set_entity_property(field_type);
-
         // Inherit.
         EntityEditorFieldRow.call(this, entity_editor);
+        this.set_entity_property(field_type);
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __

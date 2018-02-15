@@ -143,7 +143,7 @@ EntityEditor.prototype = {
         } else if (field_name === ENTITY_PROPERTY_COMPLETED) {
             this.entity_field_rows[field_name] = new FieldRowCompleted(this);
         } else {
-            this.entity_field_rows[field_name] = new FieldRowRegular(this);
+            this.entity_field_rows[field_name] = new FieldRowRegular(this, field_name);
         }
         return this.entity_field_rows[field_name];
     },

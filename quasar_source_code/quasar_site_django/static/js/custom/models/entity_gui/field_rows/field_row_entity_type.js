@@ -7,10 +7,9 @@ function FieldRowEntityType(entity_editor) {
 FieldRowEntityType.prototype = {
 
     __init__: function(entity_editor) {
-        this.set_entity_property(ENTITY_DEFAULT_PROPERTY_TYPE);
-
         // Inherit.
         EntityEditorFieldRow.call(this, entity_editor);
+        this.set_entity_property(ENTITY_DEFAULT_PROPERTY_TYPE);
     },
 
     hide_extra_elements: function() {

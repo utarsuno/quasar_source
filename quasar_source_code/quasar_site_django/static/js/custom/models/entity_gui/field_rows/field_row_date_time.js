@@ -6,15 +6,12 @@ function FieldRowDateTime(entity_editor, specific_type) {
 
 FieldRowDateTime.prototype = {
     __init__: function(entity_editor, specific_type) {
-        this.type = specific_type;
-        if (this.type !== ENTITY_PROPERTY_START_DATE_TIME && this.type !== ENTITY_PROPERTY_END_DATE_TIME) {
-            raise_exception_with_full_logging('Invalid type passed to FieldRowDateTime!');
-        }
-
-        this.set_entity_property(this.type);
-
         // Inherit.
         EntityEditorFieldRow.call(this, entity_editor);
+        if (specific_type !== ENTITY_PROPERTY_START_DATE_TIME && specific_type !== ENTITY_PROPERTY_END_DATE_TIME) {
+            raise_exception_with_full_logging('Invalid type passed to FieldRowDateTime!');
+        }
+        this.set_entity_property(specific_type);
     },
 
     /*___          ___     __   ___       ___  __  ___  __   __

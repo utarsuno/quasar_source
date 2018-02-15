@@ -7,10 +7,9 @@ function FieldRowCompleted(entity_editor) {
 FieldRowCompleted.prototype = {
 
     __init__: function(entity_editor) {
-        this.set_entity_property(ENTITY_PROPERTY_COMPLETED);
-
         // Inherit.
         EntityEditorFieldRow.call(this, entity_editor);
+        this.set_entity_property(ENTITY_PROPERTY_COMPLETED);
 
         this.completed = false;
     },
