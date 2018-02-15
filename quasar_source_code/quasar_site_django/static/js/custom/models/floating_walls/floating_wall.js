@@ -102,10 +102,12 @@ FloatingWall.prototype = {
     },
 
     auto_adjust_height_if_needed: function() {
-        var height_needed = this._get_max_row_number() * 16;
-        if (Math.abs(this.height - height_needed) > 1) {
-            this.update_height(this.height / height_needed);
-            this.refresh_position_and_look_at();
+        if (this.auto_adjust_height) {
+            var height_needed = this._get_max_row_number() * 16;
+            if (Math.abs(this.height - height_needed) > 1) {
+                this.update_height(this.height / height_needed);
+                this.refresh_position_and_look_at();
+            }
         }
     },
 
