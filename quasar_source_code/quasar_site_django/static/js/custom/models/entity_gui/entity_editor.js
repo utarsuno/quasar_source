@@ -53,6 +53,7 @@ EntityEditor.prototype = {
         if (!is_defined(this.wall_entity_editor)) {
             this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
             this.wall_entity_editor.manual_visibility = true;
+            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_entity_editor.set_attachment_depth_offset(10);
             this.wall_entity_editor.add_close_button();
 

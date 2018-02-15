@@ -29,6 +29,7 @@ EntityFieldCreator.prototype = {
 
         this.wall_add_new_field = new FloatingWall(200, 350, null, null, this.entity_creator_or_editor.world, false, COLOR_BLUE);
         this.wall_add_new_field.manual_visibility = true;
+        this.wall_add_new_field.set_auto_adjust_height(true);
         this.wall_add_new_field.set_attachment_depth_offset(10);
         this.wall_add_new_field.attach_to(this.add_new_field_button);
         this.wall_add_new_field.add_close_button();
