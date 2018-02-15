@@ -53,7 +53,6 @@ EntityEditor.prototype = {
         if (!is_defined(this.wall_entity_editor)) {
             this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
             this.wall_entity_editor.manual_visibility = true;
-            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_entity_editor.set_attachment_depth_offset(10);
             this.wall_entity_editor.add_close_button();
 
@@ -103,6 +102,7 @@ EntityEditor.prototype = {
             this.current_mode = EDITOR_MODE_CREATE;
 
             this.wall_entity_editor.attach_to(this.create_new_entity_button);
+            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_title.update_text('Create New Entity');
 
             this.entity_field_rows[ENTITY_DEFAULT_PROPERTY_TYPE].set_value_to_default();
@@ -114,6 +114,7 @@ EntityEditor.prototype = {
             this.current_mode = EDITOR_MODE_EDIT;
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
+            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_title.update_text('Editing : ' + this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
 
             this.create_or_save_changes_button.update_text('save changes');

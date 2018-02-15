@@ -252,7 +252,6 @@ FloatingWall.prototype = {
         var current_row = this.add_row(row_index);
         current_row.add_3D_element(text, type, color);
 
-        this.auto_adjust_height_if_needed();
         return current_row;
     },
 
