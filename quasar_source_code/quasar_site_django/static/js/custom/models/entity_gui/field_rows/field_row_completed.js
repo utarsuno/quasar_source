@@ -64,8 +64,8 @@ FieldRowCompleted.prototype = {
 
     get_value: function() {
         if (this.completed) {
-            return 'no';
+            return 'yes';
         }
-        return 'yes';
+        return 'no';
     }
 };
