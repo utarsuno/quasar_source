@@ -241,6 +241,7 @@ EntityEditor.prototype = {
                         mark_as_not_completed.add_tag(TAG_COMPLETED_LABEL);
                         mark_as_not_completed.add_attachment(this.completed_check_mark);
                     }
+                    this.completed_check_mark.set_to_visible();
                 } else {
                     input_field.update_text(field_value);
                 }
