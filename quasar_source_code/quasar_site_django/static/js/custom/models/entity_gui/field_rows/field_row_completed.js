@@ -29,6 +29,7 @@ FieldRowCompleted.prototype = {
                 this.completed = false;
                 this.completed_check_mark.detach_from_parent();
                 this.mark_as_not_completed_button.add_attachment(this.completed_check_mark);
+                refresh_needed = true;
             }
         }
 
