@@ -13,7 +13,9 @@ FieldRowEntityType.prototype = {
     },
 
     hide_extra_elements: function() {
-        this.wall_entity_type_selector.wall_select_entity_type.force_hide_self_and_all_child_attachments_recursively();
+        if (is_defined(this.wall_entity_type_selector.wall_select_entity_type)) {
+            this.wall_entity_type_selector.wall_select_entity_type.force_hide_self_and_all_child_attachments_recursively();
+        }
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __
