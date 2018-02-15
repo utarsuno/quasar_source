@@ -38,7 +38,11 @@ FieldRowDateTime.prototype = {
      |__/ /~~\  |  |___    .__/ |___ |___ |___ \__,  |  \__/ |  \ */
     date_selected: function(date_object) {
         this.date_selector.hide();
-        this.select_date_button.update_text(date_object.to_string());
+        if (date_object === NO_DATE_SELECTED) {
+            this.select_date_button.update_text(NO_DATE_SELECTED);
+        } else {
+            this.select_date_button.update_text(date_object.to_string());
+        }
     },
 
     _show_date_selector: function() {

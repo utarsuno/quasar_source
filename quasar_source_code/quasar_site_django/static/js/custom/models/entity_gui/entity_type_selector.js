@@ -26,6 +26,7 @@ EntityTypeSelector.prototype = {
     create: function() {
         this.wall_select_entity_type = new FloatingWall(200, 100, null, null, this.entity_editor.world, false, COLOR_FLOATING_WALL_YELLOW);
         this.wall_select_entity_type.manual_visibility = true;
+        this.wall_select_entity_type.set_auto_adjust_height(true);
         this.wall_select_entity_type.set_attachment_depth_offset(10);
         this.wall_select_entity_type.attach_to(this.entity_type_button);
         this.wall_select_entity_type.add_close_button();

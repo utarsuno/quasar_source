@@ -37,9 +37,6 @@ EntityFieldCreator.prototype = {
         // All the field options.
         this.wall_add_new_field.add_full_row_2D(0, 'Default Fields', TYPE_CONSTANT);
 
-        // Adding an emtpy row for spacing.
-        this.wall_add_new_field.add_row();
-
         this._add_selectable_entity_field(ENTITY_PROPERTY_TAGS);
         this._add_selectable_entity_field(ENTITY_PROPERTY_NOTE);
         this._add_selectable_entity_field(ENTITY_PROPERTY_COMPLETED);
@@ -48,8 +45,6 @@ EntityFieldCreator.prototype = {
         this.wall_add_new_field.add_row();
 
         this.wall_add_new_field.add_full_row_2D(null, 'Time Fields', TYPE_CONSTANT);
-        // Adding an empty row for spacing.
-        this.wall_add_new_field.add_row();
 
         // All the time related field options.
         this._add_selectable_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
@@ -81,7 +76,7 @@ EntityFieldCreator.prototype = {
 
     _add_selectable_entity_field: function(field_name) {
         if (!this.entity_creator_or_editor.has_field(field_name)) {
-            this.wall_add_new_field.add_row(null, field_name).add_2D_button([0, 1], field_name, null, this.add_entity_field.bind(this, field_name));
+            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_2D_button([0, 1], field_name, null, this.add_entity_field.bind(this, field_name));
         }
     }
 

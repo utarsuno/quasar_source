@@ -17,6 +17,8 @@ FloatingWall.prototype = {
         this.width = width;
         this.height = height;
 
+        this.auto_adjust_height = false;
+
         this.create_base_mesh();
 
         if (is_defined(normal)) {
@@ -97,6 +99,18 @@ FloatingWall.prototype = {
                 }
             }
         }
+    },
+
+    auto_adjust_height_if_needed: function() {
+        var height_needed = this._get_max_row_number() * 16;
+        if (Math.abs(this.height - height_needed) > 1) {
+            this.update_height(this.height / height_needed);
+            this.refresh_position_and_look_at();
+        }
+    },
+
+    set_auto_adjust_height: function(auto_adjust) {
+        this.auto_adjust_height = auto_adjust;
     },
 
     make_base_wall_invisible: function() {
@@ -227,6 +241,7 @@ FloatingWall.prototype = {
         var floating_row = new FloatingRow(this, row_index, row_name);
         this.rows.push(floating_row);
 
+        this.auto_adjust_height_if_needed();
         return floating_row;
     },
 
@@ -234,6 +249,8 @@ FloatingWall.prototype = {
     add_full_row_3D: function(row_index, text, type, color) {
         var current_row = this.add_row(row_index);
         current_row.add_3D_element(text, type, color);
+
+        this.auto_adjust_height_if_needed();
         return current_row;
     },
 
@@ -244,6 +261,8 @@ FloatingWall.prototype = {
         }
         var current_row = this.add_row(row_index);
         current_row.add_2D_element([0, 1], text, type, color, syntax_checks);
+
+        this.auto_adjust_height_if_needed();
         return current_row;
     },
 
@@ -266,6 +285,8 @@ FloatingWall.prototype = {
                 all_rows_to_shift[r].shift_up();
             }
         }
+
+        this.auto_adjust_height_if_needed();
     },
 
     delete_row_by_name: function(row_name) {
@@ -287,6 +308,8 @@ FloatingWall.prototype = {
                 all_rows_to_shift[r].shift_up();
             }
         }
+
+        this.auto_adjust_height_if_needed();
     },
 
     /*__          __   ___  __      __   __        __

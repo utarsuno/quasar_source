@@ -26,6 +26,8 @@ FieldRowEntityType.prototype = {
 
         this.wall_entity_type_selector = new EntityTypeSelector(this.entity_editor);
         this.wall_entity_type_selector.set_display_button(this.entity_type_button);
+
+        this.hide_extra_elements();
     },
 
     get_value: function() {
