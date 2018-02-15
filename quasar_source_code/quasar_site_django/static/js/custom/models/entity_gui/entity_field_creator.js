@@ -61,7 +61,7 @@ EntityFieldCreator.prototype = {
         this.wall_add_new_field.add_row();
 
         this.wall_add_new_field.add_full_row_2D(null, 'Or create a custom field', TYPE_CONSTANT);
-        this.custom_field_name = this.wall_add_new_field.add_full_row_2D(null, 'Field Name', TYPE_INPUT);
+        this.custom_field_name = this.wall_add_new_field.add_row(null).add_2D_element([0, 1], 'Field Name Here', TYPE_INPUT);
         this.wall_add_new_field.add_row(null).add_2D_button([0, 1], 'Add custom field', null, this._add_selectable_custom_entity_field.bind(this));
     },
 
