@@ -44,7 +44,7 @@ FieldRowCompleted.prototype = {
         this.mark_as_not_completed_button = this.row.add_2D_button([ONE_THIRD, TWO_THIRDS], 'no', COLOR_RED, this._mark_completed_as.bind(this, false));
         this.mark_as_completed_button = this.row.add_2D_button([TWO_THIRDS, 1], 'yes', COLOR_GREEN, this._mark_completed_as.bind(this, true));
 
-        this.completed_check_mark = new Floating2DText(16, ICON_CHECKMARK, TYPE_ICON, this.world);
+        this.completed_check_mark = new Floating2DText(16, ICON_CHECKMARK, TYPE_ICON, this.entity_editor.world);
         this.completed_check_mark.set_attachment_depth_offset(2);
         this.completed_check_mark.set_attachment_horizontal_offset(null, -HALF);
 
