@@ -51,8 +51,10 @@ FieldRowCompleted.prototype = {
 
         if (is_defined(field_value)) {
             if (field_value === 'yes') {
+                this.completed = false;
                 this._mark_completed_as(true);
             } else {
+                this.completed = true;
                 this._mark_completed_as(false);
             }
         } else {
