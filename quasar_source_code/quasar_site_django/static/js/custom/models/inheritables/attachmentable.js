@@ -150,6 +150,11 @@ function Attachmentable(world) {
     /*                    ___          __   __       ___  ___  __
      \  /  /\  |    |  | |__     |  | |__) |  \  /\   |  |__  /__`
       \/  /~~\ |___ \__/ |___    \__/ |    |__/ /~~\  |  |___ .__/ */
+    this.set_new_height = function(height) {
+        this.height = height;
+        this.dimensions_changed();
+    };
+
     this.update_height = function(percentage_change) {
         this.height *= percentage_change;
         this.update_dimensions();
