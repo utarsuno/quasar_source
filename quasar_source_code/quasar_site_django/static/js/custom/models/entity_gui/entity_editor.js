@@ -233,7 +233,7 @@ EntityEditor.prototype = {
                 } else if (field_name === ENTITY_PROPERTY_COMPLETED) {
                     mark_as_completed.remove_tag(TAG_COMPLETED_LABEL);
                     mark_as_not_completed.remove_tag(TAG_COMPLETED_LABEL);
-                    this.completed_check_mark.remove_parent();
+                    this.completed_check_mark.detach_from_parent();
                     if (field_value === 'yes') {
                         mark_as_completed.add_tag(TAG_COMPLETED_LABEL);
                         mark_as_completed.add_attachment(this.completed_check_mark);
