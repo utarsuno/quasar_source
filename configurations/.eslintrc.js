@@ -84,6 +84,13 @@ module.exports = {
 
         "DomElement": false,
 
+        "EntityEditorFieldRow": true,
+        "FieldRowCompleted"   : true,
+        "FieldRowDateTime"    : true,
+        "FieldRowEntityType"  : true,
+        "FieldRowName"        : true,
+        "FieldRowRegular"     : true,
+
         "ATTACHMENT_NAME_WARNING": false,
         "ATTACHMENT_NAME_SUCCESS": false,
         "ATTACHMENT_NAME_ERROR"  : false,
