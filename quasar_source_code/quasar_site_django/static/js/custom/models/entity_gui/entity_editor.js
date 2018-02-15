@@ -85,6 +85,7 @@ EntityEditor.prototype = {
         }
 
         // Delete all previously made non-default entity field rows.
+        this.wall_entity_editor.set_auto_adjust_height(false);
         var field_rows_to_delete = [];
         for (var key in this.entity_field_rows) {
             if (this.entity_field_rows.hasOwnProperty(key)) {
