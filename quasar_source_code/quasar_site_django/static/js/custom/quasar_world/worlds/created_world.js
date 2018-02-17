@@ -13,7 +13,10 @@ CreatedWorld.prototype = {
         this.entity                       = created_world_entity;
         this.created_world_manager_entity = created_world_manager_entity;
 
-        this.world_name = null;
+        this.world_name = 'THIS SHOULD BE SET';
+        if (is_defined(this.entity)) {
+            this.world_name = this.entity.get_value(ENTITY_PROPERTY_NAME);
+        }
     },
 
     get_shared_player_list: function() {
@@ -70,6 +73,8 @@ CreatedWorld.prototype = {
     prepare_for_save: function() {
         // TODO :
         l('SAVE THIS CREATED WORLD!!!');
+
+        l('Saving this world name');
 
         this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_name);
     },
