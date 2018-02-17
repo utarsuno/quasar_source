@@ -7,7 +7,6 @@ function CreatedWorldsManager() {
 CreatedWorldsManager.prototype = {
 
     __init__: function() {
-        this.created_worlds = [];
     },
 
     create_new_created_world: function() {
@@ -21,9 +20,11 @@ CreatedWorldsManager.prototype = {
 
         this.entity.add_child(created_world_entity);
 
-        var created_world = new CreatedWorld();
+        var created_world = new CreatedWorld(created_world_entity, this.entity);
         MANAGER_WORLD.create_world(created_world);
         MANAGER_WORLD.set_current_world(created_world);
+
+        // TODO : Add to player menu.
     },
 
     load: function() {
@@ -39,8 +40,15 @@ CreatedWorldsManager.prototype = {
         for (var c = 0; c < created_worlds.length; c++) {
 
             // There are no shared worlds for now so cant test yet.
-            var created_world = created_worlds[c];
+            var created_world_entity = created_worlds[c];
 
+
+            var created_world = new CreatedWorld(created_world_entity, this.entity);
+            MANAGER_WORLD.create_world(created_world);
+
+            // TODO : Load all data.
+
+            // TODO : Add to player menu.
         }
     }
 
