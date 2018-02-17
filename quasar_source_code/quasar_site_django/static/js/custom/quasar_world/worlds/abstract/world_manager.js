@@ -24,6 +24,25 @@ WorldManager.prototype = {
         this.world_home = new HomeWorld();
         this.world_settings = new SettingsWorld();
         this.world_admin = new AdminWorld();
+
+        this.created_worlds = [];
+    },
+
+    add_created_world: function(created_world, add_to_teleport_menu) {
+        this.created_worlds.push(created_world);
+        if (add_to_teleport_menu) {
+            this.add_world_to_teleport_menu(created_world);
+        }
+    },
+
+    all_created_worlds_loaded: function() {
+        for (var w = 0; w < this.created_worlds.length; w++) {
+            for (var v = 0; v < this.created_worlds.length; v++) {
+                if (w !== v) {
+                    this.created_worlds[w].player_menu.add_personal_teleport_button(this.created_worlds[v]);
+                }
+            }
+        }
     },
 
     //this.world_home.add_css_scene();
@@ -148,7 +167,11 @@ WorldManager.prototype = {
 
         // Now finally create the actual world.
         world.create();
-    }
+    },
+
+    prepare_for_save: function() {
+
+    },
 
 };
 

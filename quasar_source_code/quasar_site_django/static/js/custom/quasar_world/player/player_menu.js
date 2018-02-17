@@ -10,7 +10,7 @@ function global_save() {
     GUI_TYPING_INTERFACE.add_server_message('Saving changes to the server! TODO : Get a response back!');
 
     if (is_defined(MANAGER_WORLD.current_world.prepare_for_save)) {
-        MANAGER_WORLD.current_world.prepare_for_save();
+        MANAGER_WORLD.prepare_for_save();
 
         // TODO : Only save changes if there were any changes made.
 

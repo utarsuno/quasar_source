@@ -33,6 +33,7 @@ CreatedWorld.prototype = {
     },
 
     world_name_changed: function(name_currently) {
+        this.world_name_input.update_text(name_currently);
         this.world_title.update_text(name_currently);
         this.world_name = name_currently;
     },

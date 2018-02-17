@@ -23,8 +23,7 @@ CreatedWorldsManager.prototype = {
         var created_world = new CreatedWorld(created_world_entity, this.entity);
         MANAGER_WORLD.create_world(created_world);
         MANAGER_WORLD.set_current_world(created_world);
-
-        MANAGER_WORLD.add_world_to_teleport_menu(created_world);
+        MANAGER_WORLD.add_created_world(created_world, true);
 
         // TODO : Add to player menu.
     },
@@ -46,12 +45,15 @@ CreatedWorldsManager.prototype = {
 
             var created_world = new CreatedWorld(created_world_entity, this.entity);
             MANAGER_WORLD.create_world(created_world);
-            MANAGER_WORLD.add_world_to_teleport_menu(created_world);
+            MANAGER_WORLD.add_created_world(created_world, false);
 
             // TODO : Load all data.
 
             // TODO : Add to player menu.
         }
+
+        MANAGER_WORLD.all_created_worlds_loaded();
+
     }
 
 };
