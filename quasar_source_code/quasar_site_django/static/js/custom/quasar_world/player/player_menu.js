@@ -149,6 +149,13 @@ PlayerMenu.prototype = {
                 this._add_main_menu_icon(ICON_TELEPORT);
                 this._add_main_menu_icon(ICON_FULLSCREEN);
                 break;
+            default:
+                // Default occurs for created worlds.
+                this._add_main_menu_icon(ICON_WRENCH);
+                this._add_main_menu_icon(ICON_TELEPORT);
+                this._add_main_menu_icon(ICON_SAVE);
+                this._add_main_menu_icon(ICON_FULLSCREEN);
+                break;
         }
     },
 
