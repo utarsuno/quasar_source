@@ -175,6 +175,7 @@ TextureGroup.prototype = {
             this._add_texture_needed(SKYBOX_LEFT);
             break;
         case TEXTURE_GROUP_ICONS:
+            this._add_texture_needed(ICON_STAR);
             this._add_texture_needed(ICON_EXIT);
             this._add_texture_needed(ICON_SETTINGS);
             this._add_texture_needed(ICON_ENTITY_GROUP);
@@ -283,6 +284,8 @@ LoadingManager.prototype = {
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
     all_entities_loaded: function() {
+        MANAGER_CREATED_WORLDS.load();
+
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
 
         //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {

@@ -34,10 +34,9 @@ HomeWorld.prototype = {
 
 
 
-        this.schedule_view = new ScheduleView(this);
-        this.schedule_view.create_year_schedule_view();
-
-        this.add_content_to_schedules();
+        //this.schedule_view = new ScheduleView(this);
+        //this.schedule_view.create_year_schedule_view();
+        //this.add_content_to_schedules();
     },
 
     prepare_for_save: function() {

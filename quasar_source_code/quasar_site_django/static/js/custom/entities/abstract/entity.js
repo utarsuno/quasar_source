@@ -213,6 +213,14 @@ Entity.prototype = {
     /* __               __       /     __        __   ___      ___           ___      ___   ___    ___  __
       /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
       \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */
+    get_parent: function() {
+        return this.parents[0];
+    },
+
+    get_child: function() {
+        return this.children[0];
+    },
+
     get_parents: function() {
         return this.parents;
     },

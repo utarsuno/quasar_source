@@ -4,12 +4,13 @@
 
 
 # All the current possible Entity types.
-ENTITY_TYPE_BASE          = 'Entity'
-ENTITY_TYPE_TASK          = 'EntityTask'
-ENTITY_TYPE_WALL          = 'EntityWall'
-ENTITY_TYPE_ENTITY_WALL   = 'EntityWallEntity'
-ENTITY_TYPE_OWNER         = 'EntityOwner'
-ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder'
+ENTITY_TYPE_BASE                   = 'Entity'
+ENTITY_TYPE_TASK                   = 'EntityTask'
+ENTITY_TYPE_WALL                   = 'EntityWall'
+ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity'
+ENTITY_TYPE_OWNER                  = 'EntityOwner'
+ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder'
+ENTITY_TYPE_CREATED_WORLDS_MANAGER = 'EntityCreatedWorldsManager'
 
 # TODO : track this
 ENTITY_TYPE_TO_ABBREVIATION_DICT = {ENTITY_TYPE_BASE         : 'E',

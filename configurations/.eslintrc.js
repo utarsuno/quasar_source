@@ -47,12 +47,13 @@ module.exports = {
         "World": true,
         "WebSocketClient": false,
 
-        "FloatingRow"    : true,
-        "FloatingWall"   : true,
-        "FloatingText"   : true,
-        "Floating2DText" : true,
-        "Floating3DText" : true,
-        "FloatingPicture": true,
+        "FloatingYouTubeVideo": true,
+        "FloatingRow"         : true,
+        "FloatingWall"        : true,
+        "FloatingText"        : true,
+        "Floating2DText"      : true,
+        "Floating3DText"      : true,
+        "FloatingPicture"     : true,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
@@ -72,6 +73,7 @@ module.exports = {
         "HomeWorld"    : true,
         "SettingsWorld": true,
         "AdminWorld"   : true,
+        "CreatedWorld" : true,
 
         "PostHelper": true,
 
@@ -108,27 +110,29 @@ module.exports = {
         "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
-        "MANAGER_COOKIES"     : true,
-        "MANAGER_AUDIO"       : true,
-        "MANAGER_WORLD"       : true,
-        "MANAGER_ENTITY"      : true,
-        "MANAGER_MULTIPLAYER" : true,
-        "MANAGER_SHADER"      : true,
-        "MANAGER_RENDERER"    : true,
-        "MANAGER_INPUT"       : true,
-        "MANAGER_POINTER_LOCK": true,
-        "MANAGER_DATA_DISPLAY": true,
-        "MANAGER_LOADING"     : true,
+        "MANAGER_CREATED_WORLDS": true,
+        "MANAGER_COOKIES"       : true,
+        "MANAGER_AUDIO"         : true,
+        "MANAGER_WORLD"         : true,
+        "MANAGER_ENTITY"        : true,
+        "MANAGER_MULTIPLAYER"   : true,
+        "MANAGER_SHADER"        : true,
+        "MANAGER_RENDERER"      : true,
+        "MANAGER_INPUT"         : true,
+        "MANAGER_POINTER_LOCK"  : true,
+        "MANAGER_DATA_DISPLAY"  : true,
+        "MANAGER_LOADING"       : true,
         // and their class names.
-        "WorldManager"      : false,
-        "AudioManager"      : false,
-        "EntityManager"     : false,
-        "MultiPlayerManager": false,
-        "RendererManager"   : false,
-        "InputManager"      : false,
-        "PointerLockManager": false,
-        "DataDisplay"       : false,
-        "LoadingManager"    : false,
+        "CreatedWorldsManager": false,
+        "WorldManager"        : false,
+        "AudioManager"        : false,
+        "EntityManager"       : false,
+        "MultiPlayerManager"  : false,
+        "RendererManager"     : false,
+        "InputManager"        : false,
+        "PointerLockManager"  : false,
+        "DataDisplay"         : false,
+        "LoadingManager"      : false,
 
         // Global objects.
         "CURRENT_PLAYER": true,
@@ -168,6 +172,7 @@ module.exports = {
         "NOT_FOUND": false,
 
         // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
+        "POST_URL_GET_SHARED_WORLDS:"   : false,
         "POST_URL_DELETE_ENTITY"        : false,
         "POST_URL_SAVE_ENTITY"          : false,
         "POST_URL_GET_USER_ENTITIES"    : false,
@@ -203,13 +208,15 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity types.
-        "ENTITY_TYPE_TASK"           : false,
-        "ENTITY_TYPE_BASE"           : false,
-        "ENTITY_TYPE_WALL"           : false,
-        "ENTITY_TYPE_ENTITY_WALL"    : false,
-        "ENTITY_TYPE_OWNER"          : false,
-        "ENTITY_TYPE_TEXT_REMINDER"  : false,
-        "ENTITY_TYPE_PICTURE"        : false,
+        "ENTITY_TYPE_CREATED_WORLDS_MANAGER": false,
+        "ENTITY_TYPE_CREATED_WORLD"         : false,
+        "ENTITY_TYPE_TASK"                  : false,
+        "ENTITY_TYPE_BASE"                  : false,
+        "ENTITY_TYPE_WALL"                  : false,
+        "ENTITY_TYPE_ENTITY_WALL"           : false,
+        "ENTITY_TYPE_OWNER"                 : false,
+        "ENTITY_TYPE_TEXT_REMINDER"         : false,
+        "ENTITY_TYPE_PICTURE"               : false,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity default property keys.
@@ -325,6 +332,7 @@ module.exports = {
         "BACKGROUND_COLOR_SUCCESS" : false,
 
         // UNIVERSAL_CONSTANTS_START : Icons.
+        "ICON_STAR"         : false,
         "ICON_EXIT"         : false,
         "ICON_SETTINGS"     : false,
         "ICON_MULTI_PLAYER" : false,
@@ -514,6 +522,8 @@ module.exports = {
         //           ___
         // |\/|  /\   |  |__|
         // |  | /~~\  |  |  |
+
+        "get_player_blink_spot": false,
 
         "get_parametric_line_equation"           : false,
         "get_parametric_plane_equation"          : false,

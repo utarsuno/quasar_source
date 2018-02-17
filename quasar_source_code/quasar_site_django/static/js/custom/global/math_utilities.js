@@ -64,6 +64,13 @@ function get_nearest_power_of_two_for_number(n) {
 /*__            __     __   __      ___            __  ___    __        __
  |__) |__| \ / /__` | /  ` /__`    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  |    |  |  |  .__/ | \__, .__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+function get_player_blink_spot(distance) {
+    var player_position = CURRENT_PLAYER.get_position();
+    var player_normal   = CURRENT_PLAYER.get_direction();
+    var new_position = new THREE.Vector3(player_position.x + player_normal.x * distance, player_position.y + player_normal.y * distance, player_position.z + player_normal.z * distance);
+    var new_normal   = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
+    return [new_position, new_normal];
+}
 
 
 // TODO : add quality assurance to make sure x and z form a 2D unit vector. (Add the check only for DEV/QA mode)

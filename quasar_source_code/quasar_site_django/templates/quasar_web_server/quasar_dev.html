@@ -157,9 +157,9 @@
 <script src="{% static 'js/custom/core/input_text_processor.js' %}"></script>
 
 <!-- Entities. -->
-<script src="{% static 'js/custom/entities/entity.js' %}"></script>
-<script src="{% static 'js/custom/entities/entity_owner.js' %}"></script>
-<script src="{% static 'js/custom/entities/entity_manager.js' %}"></script>
+<script src="{% static 'js/custom/entities/abstract/entity.js' %}"></script>
+<script src="{% static 'js/custom/entities/abstract/entity_owner.js' %}"></script>
+<script src="{% static 'js/custom/entities/abstract/entity_manager.js' %}"></script>
 
 <!-- Controls. -->
 <script src="{% static 'js/custom/controls/fps_controls.js' %}"></script>
@@ -195,6 +195,7 @@
 <script src="{% static 'js/custom/models/floating_walls/date_selector.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/time_selector.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/schedule_gui/day_view.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_walls/schedule_gui/month_view.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/schedule_gui/schedule_view.js' %}"></script>
 <script src="{% static 'js/custom/models/text_syntax_manager.js' %}"></script>
 <script src="{% static 'js/custom/models/entity_gui/entity_wall.js' %}"></script>
@@ -209,12 +210,13 @@
 <script src="{% static 'js/custom/models/entity_gui/field_rows/field_row_regular.js' %}"></script>
 
 <!-- The worlds. -->
-<script src="{% static 'js/custom/quasar_world/worlds/world_base.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/worlds/world_manager.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/worlds/login_world.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/worlds/home_world.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/worlds/settings_world.js' %}"></script>
-<script src="{% static 'js/custom/quasar_world/worlds/admin_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/abstract/world_base.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/abstract/world_manager.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/static_worlds/login_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/static_worlds/home_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/static_worlds/settings_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/static_worlds/admin_world.js' %}"></script>
+<script src="{% static 'js/custom/quasar_world/worlds/created_world.js' %}"></script>
 
 <!-- Quasar. -->
 <script src="{% static 'js/custom/quasar/manager_manager.js' %}"></script>

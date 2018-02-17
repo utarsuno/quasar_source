@@ -42,6 +42,9 @@ MANAGER_ENTITY      = new EntityManager();
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
 
 
+MANAGER_CREATED_WORLDS = new CreatedWorldsManager();
+
+
 // 0x6 : Add the drop and drop feature.
 var DRAG_AND_DROP = new DragNDrop();
 

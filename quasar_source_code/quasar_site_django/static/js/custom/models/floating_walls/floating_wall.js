@@ -8,6 +8,10 @@ function FloatingWall(width, height, position, normal, world, scalable, default_
 
 FloatingWall.prototype = {
 
+    load_completed: function() {
+        this.dimensions_changed();
+    },
+
     __init__: function (width, height, position, normal, world, scalable, default_background_color) {
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);
@@ -56,49 +60,14 @@ FloatingWall.prototype = {
         this.rows = [];
 
         // Inherit from Saveable but set to false by default.
-        Saveable.call(this, ENTITY_TYPE_WALL);
+        Saveable.call(this, ENTITY_TYPE_WALL, this.load_completed.bind(this));
         this.saveable = false;
         this.add_save_field(ENTITY_PROPERTY_WIDTH);
         this.add_save_field(ENTITY_PROPERTY_HEIGHT);
         this.add_save_field(ENTITY_PROPERTY_POSITION);
         this.add_save_field(ENTITY_PROPERTY_NORMAL);
         this.add_save_field(ENTITY_PROPERTY_IS_ROOT_ATTACHABLE);
-        // TODO : REFACTOR THIS!!!
         this.add_save_field(ENTITY_PROPERTY_3D_ROWS);
-        //this.add_save_field(ENTITY_PROPERTY_2D_ROWS);
-    },
-
-    load_from_entity_data: function(entity) {
-        this.set_entity(entity);
-        this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
-        this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
-        var position = this.get_value(ENTITY_PROPERTY_POSITION);
-        var normal = this.get_value(ENTITY_PROPERTY_NORMAL);
-        this.set_position(position.x, position.y, position.z);
-        this.set_normal(normal.x, normal.y, normal.z);
-        this.dimensions_changed();
-
-        var rows_3D = this.get_value(ENTITY_PROPERTY_3D_ROWS);
-        // INDEX --> 0 - row_number, 1 - text, 2 - type
-        if (rows_3D !== NO_SAVE_DATA) {
-            var rows_3D_to_load = [];
-            // Check if there is only a single row or multiple.
-            if (rows_3D.indexOf('@') === NOT_FOUND) {
-                // Single row.
-                rows_3D_to_load.push(rows_3D);
-            } else {
-                // Multiple.
-                rows_3D_to_load = rows_3D.split('@');
-            }
-            for (var r = 0; r < rows_3D_to_load.length; r++) {
-                var data = rows_3D_to_load[r].split('+');
-                if (is_string(data[0])) {
-                    this.add_full_row_3D(parseInt(data[0]), data[1], data[2]);
-                } else {
-                    this.add_full_row_3D(data[0], data[1], data[2]);
-                }
-            }
-        }
     },
 
     auto_adjust_height_if_needed: function() {

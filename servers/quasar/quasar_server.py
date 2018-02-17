@@ -48,6 +48,10 @@ class QuasarServer(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def get_shared_worlds(self, username):
+		"""Gets shared worlds for the specified username."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_GET_SHARED_WORLDS, username)
+
 	def is_username_taken(self, username):
 		"""Checks if the username is taken."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_IS_USERNAME_TAKEN, username)

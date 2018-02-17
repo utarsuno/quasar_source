@@ -10,17 +10,18 @@ const l = console.log;
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
 // Global managers.
-var MANAGER_AUDIO        = null;
-var MANAGER_COOKIES      = null;
-var MANAGER_WORLD        = null;
-var MANAGER_ENTITY       = null;
-var MANAGER_MULTIPLAYER  = null;
-var MANAGER_SHADER       = null;
-var MANAGER_RENDERER     = null;
-var MANAGER_INPUT        = null;
-var MANAGER_POINTER_LOCK = null;
-var MANAGER_DATA_DISPLAY = null;
-var MANAGER_LOADING      = null;
+var MANAGER_AUDIO          = null;
+var MANAGER_COOKIES        = null;
+var MANAGER_WORLD          = null;
+var MANAGER_ENTITY         = null;
+var MANAGER_MULTIPLAYER    = null;
+var MANAGER_SHADER         = null;
+var MANAGER_RENDERER       = null;
+var MANAGER_INPUT          = null;
+var MANAGER_POINTER_LOCK   = null;
+var MANAGER_DATA_DISPLAY   = null;
+var MANAGER_LOADING        = null;
+var MANAGER_CREATED_WORLDS = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
@@ -63,13 +64,15 @@ const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity types.
-const ENTITY_TYPE_BASE          = 'Entity';
-const ENTITY_TYPE_TASK          = 'EntityTask';
-const ENTITY_TYPE_WALL          = 'EntityWall';
-const ENTITY_TYPE_ENTITY_WALL   = 'EntityWallEntity';
-const ENTITY_TYPE_OWNER         = 'EntityOwner';
-const ENTITY_TYPE_TEXT_REMINDER = 'EntityTextReminder';
-const ENTITY_TYPE_PICTURE       = 'EntityFloatingPicture';
+const ENTITY_TYPE_BASE                   = 'Entity';
+const ENTITY_TYPE_TASK                   = 'EntityTask';
+const ENTITY_TYPE_WALL                   = 'EntityWall';
+const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
+const ENTITY_TYPE_OWNER                  = 'EntityOwner';
+const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
+const ENTITY_TYPE_PICTURE                = 'EntityFloatingPicture';
+const ENTITY_TYPE_CREATED_WORLD          = 'EntityCreatedWorld';
+const ENTITY_TYPE_CREATED_WORLDS_MANAGER = 'EntityCreatedWorldsManager';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity property keys.
@@ -138,6 +141,7 @@ const SERVER_COMMAND_DELETE_ENTITY_OWNER           = 'deo';
 
 
 // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
+const POST_URL_GET_SHARED_WORLDS     = '/get_shared_worlds';
 const POST_URL_DELETE_ENTITY         = '/delete_entity';
 const POST_URL_SAVE_ENTITY           = '/save_entity';
 const POST_URL_GET_USER_ENTITIES     = '/get_user_entities';
@@ -220,6 +224,7 @@ const TEXTURE_GROUP_ICONS  = 'icons/';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Textures for icons.
+const ICON_STAR          = 'star.png';
 const ICON_EXIT          = 'exit.png';
 const ICON_SETTINGS      = 'gear.png';
 const ICON_MULTI_PLAYER  = 'multiplayer.png';

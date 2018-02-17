@@ -26,6 +26,7 @@ POST_URL_LOGIN                 = r'login'
 POST_URL_GET_DATABASE_DATA     = r'get_database_data'
 POST_URL_GET_SERVER_LOGS       = r'get_server_logs'
 POST_URL_SUDO_COMMAND          = r'sudo_command'
+POST_URL_GET_SHARED_WORLDS     = r'get_shared_worlds'
 # UNIVERSAL_CONSTANTS_END
 
 urlpatterns = [
@@ -39,6 +40,7 @@ urlpatterns = [
     url(POST_URL_SAVE_ENTITY          , v.POST_save_entity),
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
     url(POST_URL_SUDO_COMMAND         , v.POST_sudo_command),
+    url(POST_URL_GET_SHARED_WORLDS    , v.POST_get_shared_worlds),
 
     url(r'dev', v.GET_quasar_dev),
     url(r'qa' , v.GET_quasar_qa),

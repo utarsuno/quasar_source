@@ -172,10 +172,17 @@ PlayerMenu.prototype = {
 
                 this.create_wall.add_full_row_2D(null, 'Create a...', TYPE_CONSTANT);
 
-                // Add an empty row for spacing.
-                this.create_wall.add_row(null);
-
                 var current_row;
+                current_row = this.create_wall.add_row(null);
+                current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
+                // TODO : This functionality.
+                current_row.add_2D_button([icon_width, 1], 'New World', null, null);
+
+                current_row = this.create_wall.add_row(null);
+                current_row.add_2D_element([0, icon_width], ICON_MENU_LIST, TYPE_ICON);
+                // TODO : This functionality.
+                current_row.add_2D_button([icon_width, 1], 'Month View', null, null);
+
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_INFORMATION, TYPE_ICON);
                 current_row.add_2D_button([icon_width, 1], 'Text', null, null);

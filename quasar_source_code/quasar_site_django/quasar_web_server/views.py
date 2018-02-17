@@ -156,6 +156,24 @@ def POST_sudo_command(request):
 
 
 @csrf_exempt
+def POST_get_shared_worlds(request):
+    """Handles the POST request for getting shared worlds."""
+    print('POST_get_shared_worlds')
+
+    json_str = (request.body.decode('utf-8'))
+    json_obj = json.loads(json_str)
+
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME], json_obj)
+    if post_errors is not None:
+        return post_errors
+
+    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
+
+    global quasar_server
+    return HttpResponse(quasar_server.get_shared_worlds(received_username))
+
+
+@csrf_exempt
 def POST_server_load_image(request):
     """Handles the POST request for having the server load an image."""
     print('POST_server_load_image')

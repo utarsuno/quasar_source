@@ -108,6 +108,8 @@ class EntityServer(object):
 			elif command == us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID:
 				cleaned_data = data.split('|')
 				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
+			elif command == us.SERVER_COMMAND_GET_SHARED_WORLDS:
+				self._host_server.send_reply(self._get_shared_worlds(data))
 			elif command == us.SERVER_COMMAND_GET_OWNER_ENTITIES:
 				self._host_server.send_reply(self._get_all_owner_entities(data))
 			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
@@ -207,6 +209,10 @@ class EntityServer(object):
 	'''__   ___ ___ ___  ___  __   __
 	  / _` |__   |   |  |__  |__) /__`
 	  \__> |___  |   |  |___ |  \ .__/ '''
+	def _get_shared_worlds(self, username):
+		"""Gets shared worlds for this username."""
+		return 'TODO:GET_SHARED_WORLDS!!!'
+
 	def _get_entity_owner_by_username(self, username):
 		"""Returns an EntityOwner object matched by username (or None if not found)."""
 		for e_o in self._entity_owners:

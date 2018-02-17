@@ -6,6 +6,8 @@ function FloatingPicture(image_file, world, create_from_entity_data) {
 
 FloatingPicture.prototype = {
 
+    // TODO : THIS NEEDS TO BE REFACTORED TO USE FLOATING WALL SAVE SYSTEM!
+
     __init__: function(image_file, world, create_from_entity_data) {
         // Inherit from Attachmentable.
         Attachmentable.call(this, world);

@@ -44,13 +44,22 @@ class EntityOwner(object):
 
 	def create_initial_entities(self):
 		"""Creates the initial entities that this EntityOwner needs."""
+		# Add the owner entity.
 		owner_entity = be.Entity()
+
 		owner_entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_OWNER)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_USERNAME, self._username)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_EMAIL, self._email)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_PASSWORD, self._password)
 		owner_entity.set_property_and_value(be.ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE, ACCOUNT_TYPE_NOT_VERIFIED)
 		self._entity_manager.add_entity(owner_entity)
+
+		# Add the created worlds manager.
+		created_worlds_manager = be.Entity()
+
+		created_worlds_manager.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_CREATED_WORLDS_MANAGER)
+		self._entity_manager.add_entity(created_worlds_manager)
+		# ENTITY_TYPE_CREATED_WORLDS_MANAGER
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
