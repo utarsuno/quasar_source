@@ -17,6 +17,8 @@ CreatedWorld.prototype = {
         if (is_defined(this.entity)) {
             this.world_name = this.entity.get_value(ENTITY_PROPERTY_NAME);
         }
+
+        this.world_name_changed = false;
     },
 
     get_shared_player_list: function() {
@@ -30,6 +32,11 @@ CreatedWorld.prototype = {
 
     button_action_share_with_player: function() {
 
+    },
+
+    world_name_changed_from_input_event: function(name_currently) {
+        this.world_name_changed = true;
+        this.world_name_changed(name_currently);
     },
 
     world_name_changed: function(name_currently) {
@@ -53,7 +60,7 @@ CreatedWorld.prototype = {
         var current_row = this.world_wall.add_row(null);
         current_row.add_2D_element([0, ONE_THIRD], 'World Name :', TYPE_CONSTANT);
         this.world_name_input = current_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
-        this.world_name_input.set_value_post_changed_function(this.world_name_changed.bind(this));
+        this.world_name_input.set_value_post_changed_function(this.world_name_changed_from_input_event().bind(this));
 
         // Adding a row for spacing.
         current_row = this.world_wall.add_row(null);
@@ -67,21 +74,18 @@ CreatedWorld.prototype = {
         current_row.add_2D_button([0, 1], 'Share With Player', null, null);
 
 
-        if (this.world_name !== 'THIS SHOULD BE SET') {
-            this.world_title.update_text(this.world_name);
-        }
-
+        this.world_title.update_text(this.world_name);
 
         this.world_wall.refresh_position_and_look_at();
     },
 
     prepare_for_save: function() {
-        // TODO :
-        l('SAVE THIS CREATED WORLD!!!');
-
-        l('Saving this world name');
-
-        this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_name);
+        var save_needed = false;
+        if (this.world_name_changed) {
+            this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_name);
+            save_needed = true;
+        }
+        return save_needed;
     },
 
     enter_world: function() {
