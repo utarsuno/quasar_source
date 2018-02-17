@@ -7,15 +7,11 @@ function CreatedWorld() {
 CreatedWorld.prototype = {
 
     __init__: function() {
-        this.loaded = false;
-        
         // Inherit.
         World.call(this);
     },
 
     create: function() {
-        MANAGER_WORLD.create_world(this);
-
         // Add the world label and settings panel.
         this.world_title = 'TODO : this might need to be loaded.';
 
@@ -52,10 +48,6 @@ CreatedWorld.prototype = {
     },
 
     enter_world: function() {
-        if (!this.loaded) {
-            this.create();
-        }
-
         CURRENT_PLAYER.disengage();
         if (!GUI_PAUSED_MENU.currently_displayed) {
             CURRENT_PLAYER.enable_controls();

@@ -22,6 +22,7 @@ CreatedWorldsManager.prototype = {
         this.entity.add_child(created_world_entity);
 
         var created_world = new CreatedWorld();
+        MANAGER_WORLD.create_world(created_world);
         MANAGER_WORLD.set_current_world(created_world);
     },
 
