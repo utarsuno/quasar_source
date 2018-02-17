@@ -8,12 +8,12 @@ CreatedWorld.prototype = {
 
     __init__: function() {
         this.loaded = false;
+        
+        // Inherit.
+        World.call(this);
     },
 
     create: function() {
-        // Inherit.
-        World.call(this);
-
         MANAGER_WORLD.create_world(this);
 
         // Add the world label and settings panel.
