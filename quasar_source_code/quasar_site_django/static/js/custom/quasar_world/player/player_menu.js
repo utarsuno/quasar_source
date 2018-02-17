@@ -160,7 +160,7 @@ PlayerMenu.prototype = {
     },
 
     add_personal_teleport_button: function(created_world) {
-        var index_of_settings_world = this.teleport_wall.get_row_with_name(ICON_SETTINGS).row_number;
+        var index_of_settings_world = this.teleport_wall.get_row_with_name(ICON_SETTINGS).row_number + 1;
 
         var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;

@@ -66,8 +66,6 @@ CreatedWorld.prototype = {
         current_row.add_2D_button([0, 1], 'Share With Player', null, null);
 
         this.world_wall.refresh_position_and_look_at();
-
-
     },
 
     prepare_for_save: function() {
