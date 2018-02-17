@@ -248,14 +248,15 @@ PlayerMenu.prototype = {
                 // Add an empty row for spacing.
                 this.teleport_wall.add_row(null);
 
-                this.teleport_wall.add_full_row_2D(null, 'Personal Worlds', TYPE_CONSTANT);
+                var personal_worlds_title = this.teleport_wall.add_row(null, ICON_SETTINGS);
+                personal_worlds_title.add_2D_element([0, 1], 'Personal Worlds', TYPE_CONSTANT)
 
                 var teleport_row;
 
                 // TODO : LOAD ALL PERSONAL WORLDS HERE!!!
 
                 if (this.world !== MANAGER_WORLD.world_settings) {
-                    teleport_row = this.teleport_wall.add_row(null, ICON_SETTINGS);
+                    teleport_row = this.teleport_wall.add_row(null);
                     teleport_row.add_2D_element([0, icon_width], ICON_SETTINGS, TYPE_ICON);
                     teleport_row.add_2D_button([icon_width, 1], 'Settings', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
                 }
