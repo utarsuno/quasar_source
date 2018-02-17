@@ -65,6 +65,12 @@ CreatedWorld.prototype = {
         // TODO : This functionality.
         current_row.add_2D_button([0, 1], 'Share With Player', null, null);
 
+
+        if (this.world_name !== 'THIS SHOULD BE SET') {
+            this.world_title.update_text(this.world_name);
+        }
+
+
         this.world_wall.refresh_position_and_look_at();
     },
 
