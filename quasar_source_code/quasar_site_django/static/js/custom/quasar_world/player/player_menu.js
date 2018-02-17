@@ -9,10 +9,14 @@ function global_save() {
 
     GUI_TYPING_INTERFACE.add_server_message('Saving changes to the server! TODO : Get a response back!');
 
-    MANAGER_WORLD.world_home.prepare_for_save();
+    if (is_defined(MANAGER_WORLD.current_world.prepare_for_save)) {
+        MANAGER_WORLD.current_world.prepare_for_save();
 
-    // Any changes to entities will be saved.
-    MANAGER_ENTITY.update_server_and_database();
+        // TODO : Only save changes if there were any changes made.
+
+        // Any changes to entities will be saved.
+        MANAGER_ENTITY.update_server_and_database();
+    }
 }
 
 function create_entity_wall() {
@@ -176,7 +180,7 @@ PlayerMenu.prototype = {
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
                 // TODO : This functionality.
-                current_row.add_2D_button([icon_width, 1], 'New World', null, null);
+                current_row.add_2D_button([icon_width, 1], 'New World', null, MANAGER_CREATED_WORLDS.create_new_created_world);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MENU_LIST, TYPE_ICON);

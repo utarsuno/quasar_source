@@ -18,11 +18,11 @@ CreatedWorldsManager.prototype = {
         this.entity.add_child(created_world_entity);
 
         var created_world = new CreatedWorld();
-        MANAGER_WORLD.create_world(created_world);
         MANAGER_WORLD.set_current_world(created_world);
     },
 
     load: function() {
+        l('TODO : Load shared worlds!');
         // TODO : USE THIS POST!!!
         //this.post_get_shared_worlds = new PostHelper(POST_URL_GET_SHARED_WORLDS);
 
