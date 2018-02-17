@@ -26,6 +26,7 @@ CreatedWorldsManager.prototype = {
         // TODO : USE THIS POST!!!
         //this.post_get_shared_worlds = new PostHelper(POST_URL_GET_SHARED_WORLDS);
 
+        l(MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_CREATED_WORLDS_MANAGER));
         this.entity = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_CREATED_WORLDS_MANAGER)[0];
 
         // Iterate through the children of this manager. They each are a created world.
