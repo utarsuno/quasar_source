@@ -71,7 +71,7 @@ CreatedWorld.prototype = {
         // TODO :
         l('SAVE THIS CREATED WORLD!!!');
 
-        this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_title.get_text());
+        this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_name);
     },
 
     enter_world: function() {
