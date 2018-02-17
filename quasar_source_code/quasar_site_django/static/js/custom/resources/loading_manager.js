@@ -284,8 +284,6 @@ LoadingManager.prototype = {
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
     all_entities_loaded: function() {
-        MANAGER_CREATED_WORLDS.load();
-
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
 
         //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
@@ -295,6 +293,8 @@ LoadingManager.prototype = {
 
         GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
         MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
+
+        MANAGER_CREATED_WORLDS.load();
 
         GUI_PAUSED_MENU.make_invisible();
 

@@ -9,11 +9,6 @@ CreatedWorldsManager.prototype = {
     __init__: function() {
     },
 
-    /*
-            MANAGER_WORLD.add_world_to_teleport_menu(created_world);
-        add_personal_teleport_button
-     */
-
     create_new_created_world: function() {
         MANAGER_CREATED_WORLDS._create_new_created_world();
     },
