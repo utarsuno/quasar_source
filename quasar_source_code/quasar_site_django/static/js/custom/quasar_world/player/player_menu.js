@@ -159,6 +159,17 @@ PlayerMenu.prototype = {
         }
     },
 
+    add_personal_teleport_button: function(created_world) {
+        var index_of_settings_world = this.teleport_wall.get_row_with_name(ICON_SETTINGS).row_number;
+
+        var utiltiy_wall_width = 120;
+        var icon_width = 16 / utiltiy_wall_width;
+
+        var current_row = this.teleport_wall.add_row(index_of_settings_world);
+        current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
+        current_row.add_2D_button([icon_width, 1], created_world.world_name, COLOR_YELLOW, this._teleport_to_world.bind(this, created_world));
+    },
+
     _add_main_menu_icon: function(icon) {
         var utiltiy_wall_width = 120;
         var icon_width = 16 / utiltiy_wall_width;
@@ -241,8 +252,10 @@ PlayerMenu.prototype = {
 
                 var teleport_row;
 
+                // TODO : LOAD ALL PERSONAL WORLDS HERE!!!
+
                 if (this.world !== MANAGER_WORLD.world_settings) {
-                    teleport_row = this.teleport_wall.add_row(null);
+                    teleport_row = this.teleport_wall.add_row(null, ICON_SETTINGS);
                     teleport_row.add_2D_element([0, icon_width], ICON_SETTINGS, TYPE_ICON);
                     teleport_row.add_2D_button([icon_width, 1], 'Settings', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
                 }
@@ -261,7 +274,9 @@ PlayerMenu.prototype = {
                 // Add an empty row for spacing.
                 this.teleport_wall.add_row(null);
 
-                this.teleport_wall.add_full_row_2D(null, 'Shared Worlds', TYPE_CONSTANT)
+                this.teleport_wall.add_full_row_2D(null, 'Shared Worlds', TYPE_CONSTANT);
+
+                // TODO : LOAD ALL SHARED WORLDS HERE!!!
 
                 // Add an empty row for spacing.
                 this.teleport_wall.add_row(null);

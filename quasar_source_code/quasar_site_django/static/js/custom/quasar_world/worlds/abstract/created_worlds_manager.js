@@ -9,6 +9,11 @@ CreatedWorldsManager.prototype = {
     __init__: function() {
     },
 
+    /*
+            MANAGER_WORLD.add_world_to_teleport_menu(created_world);
+        add_personal_teleport_button
+     */
+
     create_new_created_world: function() {
         MANAGER_CREATED_WORLDS._create_new_created_world();
     },
@@ -23,6 +28,8 @@ CreatedWorldsManager.prototype = {
         var created_world = new CreatedWorld(created_world_entity, this.entity);
         MANAGER_WORLD.create_world(created_world);
         MANAGER_WORLD.set_current_world(created_world);
+
+        MANAGER_WORLD.add_world_to_teleport_menu(created_world);
 
         // TODO : Add to player menu.
     },
@@ -39,12 +46,13 @@ CreatedWorldsManager.prototype = {
         var created_worlds = this.entity.get_children();
         for (var c = 0; c < created_worlds.length; c++) {
 
-            // There are no shared worlds for now so cant test yet.
+            // TODO : There are no shared worlds for now so cant test yet.
             var created_world_entity = created_worlds[c];
-
 
             var created_world = new CreatedWorld(created_world_entity, this.entity);
             MANAGER_WORLD.create_world(created_world);
+
+            //MANAGER_WORLD.add_world_to
 
             // TODO : Load all data.
 

@@ -97,6 +97,17 @@ WorldManager.prototype = {
         // TODO : Make sure dynamic worlds are dealt with.
     },
 
+    /*
+            MANAGER_WORLD.add_world_to_teleport_menu(created_world);
+        add_personal_teleport_button
+
+     */
+
+    add_world_to_teleport_menu: function(world) {
+        this.world_home.player_menu.add_personal_teleport_button(world);
+        this.world_settings.player_menu.add_personal_teleport_button(world);
+    },
+
     create_world: function(world) {
         world.light_delta = 0;
         world.light_delta_cap = 10;

@@ -12,6 +12,8 @@ CreatedWorld.prototype = {
 
         this.entity                       = created_world_entity;
         this.created_world_manager_entity = created_world_manager_entity;
+
+        this.world_name = null;
     },
 
     get_shared_player_list: function() {
@@ -29,6 +31,7 @@ CreatedWorld.prototype = {
 
     world_name_changed: function(name_currently) {
         this.world_title.update_text(name_currently);
+        this.world_name = name_currently;
     },
 
     create: function() {
@@ -60,6 +63,8 @@ CreatedWorld.prototype = {
         current_row.add_2D_button([0, 1], 'Share With Player', null, null);
 
         this.world_wall.refresh_position_and_look_at();
+
+
     },
 
     prepare_for_save: function() {
