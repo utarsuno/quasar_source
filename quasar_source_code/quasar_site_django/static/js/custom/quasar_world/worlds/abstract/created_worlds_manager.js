@@ -11,6 +11,10 @@ CreatedWorldsManager.prototype = {
     },
 
     create_new_created_world: function() {
+        MANAGER_CREATED_WORLDS._create_new_created_world();
+    },
+
+    _create_new_created_world: function() {
         // Create a new created world Entity.
         var created_world_entity = new Entity();
         created_world_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_CREATED_WORLD);
