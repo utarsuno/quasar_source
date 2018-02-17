@@ -52,7 +52,7 @@ CreatedWorldsManager.prototype = {
             var created_world = new CreatedWorld(created_world_entity, this.entity);
             MANAGER_WORLD.create_world(created_world);
 
-            //MANAGER_WORLD.add_world_to
+            MANAGER_WORLD.add_world_to_teleport_menu(created_world);
 
             // TODO : Load all data.
 
