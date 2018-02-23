@@ -29,6 +29,8 @@ WorldManager.prototype = {
     },
 
     add_created_world: function(created_world, add_to_teleport_menu) {
+        // TODO : Only print this for dev mode.
+        l('Adding a created world!');
         this.created_worlds.push(created_world);
         if (add_to_teleport_menu) {
             this.add_world_to_teleport_menu(created_world);
@@ -170,8 +172,15 @@ WorldManager.prototype = {
     },
 
     prepare_for_save: function() {
+        this.world_home.prepare_for_save();
+        // TODO : this.world_settings.prepare_for_save();
 
-    },
+        for (var cw = 0; cw < this.created_worlds.length; cw++) {
+            this.created_worlds.prepare_for_save();
+        }
+
+        MANAGER_ENTITY.update_server_and_database();
+    }
 
 };
 

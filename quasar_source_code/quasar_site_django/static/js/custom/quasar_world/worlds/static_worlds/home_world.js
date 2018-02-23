@@ -40,6 +40,7 @@ HomeWorld.prototype = {
     },
 
     prepare_for_save: function() {
+        // TODO : Return a boolean indicating if anything needs to be saved.
         for (var r = 0; r < this.root_attachables.length; r++) {
             this.root_attachables[r].update_values_for_entity();
         }

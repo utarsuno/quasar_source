@@ -53,7 +53,6 @@ CreatedWorldsManager.prototype = {
         }
 
         MANAGER_WORLD.all_created_worlds_loaded();
-
     }
 
 };
