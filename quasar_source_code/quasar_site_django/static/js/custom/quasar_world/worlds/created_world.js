@@ -60,7 +60,7 @@ CreatedWorld.prototype = {
         var current_row = this.world_wall.add_row(null);
         current_row.add_2D_element([0, ONE_THIRD], 'World Name :', TYPE_CONSTANT);
         this.world_name_input = current_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
-        this.world_name_input.set_value_post_changed_function(this.world_name_changed_from_input_event().bind(this));
+        this.world_name_input.set_value_post_changed_function(this.world_name_changed_from_input_event.bind(this));
 
         // Adding a row for spacing.
         current_row = this.world_wall.add_row(null);
