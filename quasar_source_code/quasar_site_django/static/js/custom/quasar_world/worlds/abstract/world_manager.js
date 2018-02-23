@@ -176,7 +176,7 @@ WorldManager.prototype = {
         // TODO : this.world_settings.prepare_for_save();
 
         for (var cw = 0; cw < this.created_worlds.length; cw++) {
-            this.created_worlds.prepare_for_save();
+            this.created_worlds[cw].prepare_for_save();
         }
 
         MANAGER_ENTITY.update_server_and_database();
