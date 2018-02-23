@@ -36,10 +36,10 @@ CreatedWorld.prototype = {
 
     world_name_changed_from_input_event: function(name_currently) {
         this.world_name_changed = true;
-        this.world_name_changed(name_currently);
+        this.world_name_changed_event(name_currently);
     },
 
-    world_name_changed: function(name_currently) {
+    world_name_changed_event: function(name_currently) {
         this.world_name_input.update_text(name_currently);
         this.world_title.update_text(name_currently);
         this.world_name = name_currently;
