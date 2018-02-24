@@ -41,6 +41,7 @@ PointerLockManager.prototype = {
             */
 
         } else {
+            l('Set to paused!!!');
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
         }
     },
