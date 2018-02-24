@@ -92,8 +92,11 @@ function PlayerState() {
     };
 
     this.get_currently_looked_at_object = function() {
+        if (!is_defined(MANAGER_WORLD.current_world)) {
+            return null;
+        }
         return MANAGER_WORLD.current_world.currently_looked_at_object;
-    },
+    };
 
     this.engaged_with_object = function() {
         var currently_engaged_object = this.get_currently_looked_at_object();
@@ -101,5 +104,5 @@ function PlayerState() {
             return currently_engaged_object.is_engaged();
         }
         return false;
-    }
+    };
 }
