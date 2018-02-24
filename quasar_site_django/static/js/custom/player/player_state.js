@@ -6,6 +6,7 @@ function PlayerState() {
     this.current_state = PLAYER_STATE_LOADING;
 
     this.set_state = function(player_state) {
+        this.previous_state = this.current_state;
         this.current_state = player_state;
 
         switch(player_state) {
@@ -32,6 +33,11 @@ function PlayerState() {
             break;
         case PLAYER_STATE_TYPING:
             GUI_TYPING_INTERFACE.show();
+            break;
+        default:
+            if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {
+                GUI_PAUSED_MENU.make_invisible();
+            }
             break;
         }
     };
