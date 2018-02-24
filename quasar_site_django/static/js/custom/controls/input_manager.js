@@ -209,6 +209,7 @@ InputManager.prototype = {
                 break;
             }
         } else if (e.which === CLICK_LEFT && CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
+            l('ENABLE PLAYER FULL CONTROL!!');
             CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
         }
     },
