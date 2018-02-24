@@ -14,7 +14,7 @@ TextureGroup.prototype = {
     },
 
     _texture_loaded: function(texture, asset_name) {
-        MANAGER_TEXTURE.set_texture(asset_name, this._texture_group, texture);
+        MANAGER_TEXTURE.set_texture(this._texture_group, asset_name, texture);
         this._asset_loaded(asset_name);
     },
 
