@@ -160,7 +160,6 @@ const POST_URL_SAVE_ENTITY           = '/save_entity';
 const POST_URL_GET_USER_ENTITIES     = '/get_user_entities';
 const POST_URL_CREATE_ACCOUNT        = '/create_account';
 const POST_URL_LOGIN                 = '/login';
-const POST_URL_GET_DATABASE_DATA     = '/get_database_data';
 const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 // UNIVERSAL_CONSTANTS_END
 

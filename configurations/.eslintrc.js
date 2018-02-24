@@ -197,7 +197,6 @@ module.exports = {
         "POST_URL_GET_PUBLIC_ENTITIES"  : false,
         "POST_URL_CREATE_ACCOUNT"       : false,
         "POST_URL_LOGIN"                : false,
-        "POST_URL_GET_DATABASE_DATA"    : false,
         "POST_URL_GET_SERVER_LOGS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
