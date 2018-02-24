@@ -18,7 +18,7 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
     };
 
     this._initial_assets_to_load_set = function() {
-        this._loading_manager._add_number_of_assets_to_load(this._number_of_assets_to_load);
+        this._loading_manager._number_of_resources_to_load += this._number_of_assets_to_load;
     };
 
     this._add_required_initial_assets(this._initial_assets_to_load_set.bind(this));
