@@ -17,16 +17,16 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
         this._number_of_assets_to_load += 1;
     };
 
-    this._add_required_initial_assets(this._initial_assets_to_load_set.bind(this));
-
     this._initial_assets_to_load_set = function() {
         this._loading_manager._add_number_of_assets_to_load(this._number_of_assets_to_load);
     };
 
+    this._add_required_initial_assets(this._initial_assets_to_load_set.bind(this));
+
     this._asset_loaded = function(asset_name) {
         this._loading_manager.asset_loaded(asset_name);
         this._number_of_assets_loaded += 1;
-        if (this._number_of_assets_to_load === this._number_of_assets_to_load) {
+        if (this._number_of_assets_to_load === this._number_of_assets_loaded) {
             this._loaded = true;
             this._fully_loaded_callback();
         }
