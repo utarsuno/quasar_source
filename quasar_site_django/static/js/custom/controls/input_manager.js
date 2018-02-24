@@ -108,29 +108,31 @@ InputManager.prototype = {
                     MANAGER_WORLD.key_down_event(event);
                 }
             } else {
-                switch (event.keyCode) {
-                case KEY_CODE_UP:
-                case KEY_CODE_W:
-                    this.up = true;
-                    break;
-                case KEY_CODE_LEFT:
-                case KEY_CODE_A:
-                    this.left = true;
-                    break;
-                case KEY_CODE_DOWN:
-                case KEY_CODE_S:
-                    this.down = true;
-                    break;
-                case KEY_CODE_RIGHT:
-                case KEY_CODE_D:
-                    this.right = true;
-                    break;
-                case KEY_CODE_SPACE:
-                    this.space = true;
-                    break;
-                case KEY_CODE_SHIFT:
-                    this.shift = true;
-                    break;
+                if (CURRENT_PLAYER.has_movement()) {
+                    switch (event.keyCode) {
+                    case KEY_CODE_UP:
+                    case KEY_CODE_W:
+                        this.up = true;
+                        break;
+                    case KEY_CODE_LEFT:
+                    case KEY_CODE_A:
+                        this.left = true;
+                        break;
+                    case KEY_CODE_DOWN:
+                    case KEY_CODE_S:
+                        this.down = true;
+                        break;
+                    case KEY_CODE_RIGHT:
+                    case KEY_CODE_D:
+                        this.right = true;
+                        break;
+                    case KEY_CODE_SPACE:
+                        this.space = true;
+                        break;
+                    case KEY_CODE_SHIFT:
+                        this.shift = true;
+                        break;
+                    }
                 }
                 MANAGER_WORLD.key_down_event(event);
             }
@@ -150,7 +152,7 @@ InputManager.prototype = {
     },
 
     on_key_up: function(event) {
-        if (CURRENT_PLAYER.has_input()) {
+        if (CURRENT_PLAYER.has_movement()) {
             switch (event.keyCode) {
             case KEY_CODE_UP:
             case KEY_CODE_W:
