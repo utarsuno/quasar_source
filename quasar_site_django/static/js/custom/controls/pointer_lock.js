@@ -8,8 +8,6 @@ function PointerLockManager() {
 
 PointerLockManager.prototype = {
     __init__: function () {
-        this.currently_locked = false;
-
         this.element = document.body;
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
         if (this.has_pointer_lock === true) {
@@ -29,8 +27,6 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
-        l('Pointer lock change!');
-
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
 
             // TODO : Delete this code?

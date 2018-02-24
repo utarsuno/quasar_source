@@ -222,22 +222,9 @@ function World() {
 
     // This gets called on left mouse button up event.
     this.single_left_click = function() {
-        if (CURRENT_PLAYER.has_input()) {
-
-        }
-
-
-        if (this.currently_looked_at_object !== null) {
+        if (is_defined(this.currently_looked_at_object)) {
             if (!this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.engage();
-            } else if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                MANAGER_WORLD.current_floating_cursor.disengage();
-            }
-        } else {
-            if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                MANAGER_WORLD.current_floating_cursor.disengage();
-                l('Bug fix test 0x1');
-                CURRENT_PLAYER.enable_controls();
             }
         }
     };

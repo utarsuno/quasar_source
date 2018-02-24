@@ -263,21 +263,7 @@ function FloatingText(text, type, is_2D_text) {
     this.state_change_engage = function(being_engaged_with) {
         if (being_engaged_with) {
             if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
-                CURRENT_PLAYER.engage();
-            } else {
-                this.being_engaged_with = false;
-                CURRENT_PLAYER.disengage();
-
-                if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                    l('disengage the cursor please!');
-                    MANAGER_WORLD.current_floating_cursor.disengage();
-                }
-            }
-        } else {
-            CURRENT_PLAYER.disengage();
-            if (MANAGER_WORLD.current_floating_cursor.engaged) {
-                l('disengage the cursor please 2!');
-                MANAGER_WORLD.current_floating_cursor.disengage();
+                CURRENT_PLAYER.set_state(PLAYER_STATE_ENGAGED);
             }
         }
         this.color_changed = true;
