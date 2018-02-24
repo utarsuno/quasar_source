@@ -35,6 +35,8 @@ function PlayerState() {
             GUI_TYPING_INTERFACE.show();
             break;
         default:
+            l('PREVIOUS STATE WAS :');
+            l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {
                 GUI_PAUSED_MENU.make_invisible();
             }
