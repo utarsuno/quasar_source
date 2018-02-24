@@ -27,7 +27,7 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
-        //l('Pointer lock change!');
+        l('Pointer lock change!');
 
         if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
 
