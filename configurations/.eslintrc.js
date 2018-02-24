@@ -31,6 +31,15 @@ module.exports = {
     },
     "globals": {
 
+        // Asset Loading.
+        "AssetGroup"  : false,
+        "AudioGroup"  : false,
+        "TextureGroup": false,
+
+        "ASSET_GROUP_AUDIO"  : false,
+        "ASSET_GROUP_TEXTURE": false,
+
+
         "console": false,
         "Cookies": false,
 
@@ -113,6 +122,7 @@ module.exports = {
         "MANAGER_CREATED_WORLDS": true,
         "MANAGER_COOKIES"       : true,
         "MANAGER_AUDIO"         : true,
+        "MANAGER_TEXTURE"       : true,
         "MANAGER_WORLD"         : true,
         "MANAGER_ENTITY"        : true,
         "MANAGER_MULTIPLAYER"   : true,
@@ -170,6 +180,14 @@ module.exports = {
 
         // From globals.js
         "NOT_FOUND": false,
+
+        "PlayerState"              : false,
+        "PLAYER_STATE_FULL_CONTROL": false,
+        "PLAYER_STATE_PAUSED"      : false,
+        "PLAYER_STATE_AJAX"        : false,
+        "PLAYER_STATE_LOADING"     : false,
+        "PLAYER_STATE_ENGAGED"     : false,
+        "PLAYER_STATE_TYPING"      : false,
 
         // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
         "POST_URL_GET_SHARED_WORLDS:"   : false,

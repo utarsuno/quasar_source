@@ -73,7 +73,7 @@ JAVASCRIPT = 'javascript'
 
 def _get_all_javascript_files(get_minified_files=False):
 	"""Returns a list of CodeFile objects of all the Quasar javascript files (with a flag to determine if minified files returned or non-minified files returned."""
-	all_javascript_files_path = CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom'
+	all_javascript_files_path = CODE_SOURCE_BASE + 'quasar_site_django/static/js/custom'
 	all_javascript_files = ufo.get_all_file_paths_inside_directory(all_javascript_files_path)
 	files_to_ignore = ['helvetiker_regular.typeface.json.js']
 	files_to_return = []
@@ -303,7 +303,7 @@ class QuasarCode(object):
 		original_size = self._javascript_manager.get_total_size()
 		print('Original Javascript size : ' + str(original_size) + ' bytes.')
 
-		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_source_code/quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
+		production_javascript_build = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'quasar_site_django/static/js/custom/quasar/quasar.prod.min.js', False)
 		production_javascript_build.add_line('\'use_strict\';')
 
 		i = 0

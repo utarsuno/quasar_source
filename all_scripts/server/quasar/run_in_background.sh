@@ -92,8 +92,8 @@ if [ "${is_django_running}" == "true" ]; then
   echo 'Django is already running!'
 else
   export PYTHONPATH=/home/git_repos/quasar_source/
-  python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py migrate
-  nohup python3 /home/git_repos/quasar_source/quasar_source_code/quasar_site_django/manage.py runserver 0:80 &
+  python3 /home/git_repos/quasar_source/quasar_site_django/manage.py migrate
+  nohup python3 /home/git_repos/quasar_source/quasar_site_django/manage.py runserver 0:80 &
 fi
 
 print_dashed_line_with_text "run_in_background.sh script end for : ${HOST_NAME}."
