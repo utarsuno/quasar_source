@@ -230,9 +230,9 @@ const COLOR_SUNDAY                  = [0x5aff94, '#5aff94'];
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Texture types.
-const TEXTURE_GROUP_SKYBOX = 'skybox/';
-const TEXTURE_GROUP_CURSOR = 'cursors/';
-const TEXTURE_GROUP_ICONS  = 'icons/';
+const TEXTURE_GROUP_SKYBOX = 'skybox';
+const TEXTURE_GROUP_CURSOR = 'cursors';
+const TEXTURE_GROUP_ICONS  = 'icons';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Textures for icons.
