@@ -10,7 +10,7 @@ TextureGroup.prototype = {
         this._texture_group = texture_group;
 
         // Inherit.
-        AssetGroup.call(this, ASSET_GROUP_TEXTURE + '/texture_group', loading_manager, fully_loaded_callback);
+        AssetGroup.call(this, ASSET_GROUP_TEXTURE + '/' + this._texture_group, loading_manager, fully_loaded_callback);
     },
 
     _texture_loaded: function(texture, asset_name) {
