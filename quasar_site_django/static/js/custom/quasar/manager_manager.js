@@ -20,7 +20,7 @@ CURRENT_PLAYER = new Player();
  | |\ | |__) |  |  |      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
  | | \| |    \__/  |      |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
 // Handles most I/O and sends events to needed objects.
-MANAGER_INPUT    = new InputManager();
+MANAGER_INPUT        = new InputManager();
 // Handles specifically pointer lock.
 MANAGER_POINTER_LOCK = new PointerLockManager();
 // Handles the debug display.

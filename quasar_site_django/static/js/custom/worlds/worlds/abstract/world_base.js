@@ -254,28 +254,8 @@ function World() {
     };
 
     this.multi_left_click = function() {
-        if (CURRENT_PLAYER.is_paused()) {
-
-        }
-
-
-        if (GUI_PAUSED_MENU.is_visible() && !MANAGER_LOADING.currently_loading()) {
-
-            // TODO : Remove this code?
-            /*
-            if (this.currently_looked_at_object !== null) {
-                if (this.currently_looked_at_object.is_engaged()) {
-                    this.currently_looked_at_object.disengage();
-                }
-            }
-            */
-
-            GUI_PAUSED_MENU.make_invisible();
-            MANAGER_POINTER_LOCK.request_pointer_lock();
-        } else {
-            // For now just perform a regular left click action.
-            this.single_left_click();
-        }
+        // For now just perform a regular left click action.
+        this.single_left_click();
     };
 
     this.multi_middle_click = function() {
