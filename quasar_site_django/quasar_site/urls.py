@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.conf.urls import url
 
-from quasar_site_django import views as v
+from quasar_site_django.quasar_web_server import views as v
 
 # UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 POST_URL_DELETE_ENTITY         = r'delete_entity'

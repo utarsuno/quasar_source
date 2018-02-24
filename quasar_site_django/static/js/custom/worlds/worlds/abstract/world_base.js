@@ -223,7 +223,7 @@ function World() {
     // This gets called on left mouse button up event.
     this.single_left_click = function() {
         if (CURRENT_PLAYER.has_input()) {
-            
+
         }
 
 
