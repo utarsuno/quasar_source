@@ -16,9 +16,9 @@ LoadingManager.prototype = {
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
-        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this.check_if_initial_resources_loaded.bind(this), this);
-        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this._skyboxs_loaded.bind(this), this);
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this.check_if_initial_resources_loaded.bind(this), this);
+        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this, this.check_if_initial_resources_loaded.bind(this));
+        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this, this.check_if_initial_resources_loaded.bind(this));
+        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this, this.check_if_initial_resources_loaded.bind(this));
 
         this.all_audio       = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
     },
