@@ -22,25 +22,17 @@ function PlayerState() {
 
             // Hide the player menu if visible.
 
-            // Show the paused GUI menu.
-            GUI_PAUSED_MENU.make_visible();
+            if (this.current_state === PLAYER_STATE_PAUSED) {
+                GUI_PAUSED_MENU.set_to_paused();
+            } else {
+                // Show the paused GUI menu.
+                GUI_PAUSED_MENU.make_visible();
+            }
 
             break;
         case PLAYER_STATE_TYPING:
             GUI_TYPING_INTERFACE.show();
             break;
-        }
-
-
-        if (player_state === PLAYER_STATE_LOADING || player_state === PLAYER_STATE_AJAX) {
-            // TODO : disengage from any engaged object.
-            // TODO : remove player menu if present.
-            this.fps_controls.disable();
-        } else if (player_state === PLAYER_STATE_PAUSED) {
-            GUI_PAUSED_MENU.set_to_paused();
-            // TODO : disengage from any engaged object.
-            // TODO : remove player menu if present.
-
         }
     };
 
