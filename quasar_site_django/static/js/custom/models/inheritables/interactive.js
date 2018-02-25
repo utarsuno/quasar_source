@@ -37,6 +37,9 @@ function Interactive() {
                 this.look_away_function();
             }
         }
+        if (this.being_engaged_with) {
+            this.being_engaged_with = false;
+        }
     };
 
     this.look_at = function() {

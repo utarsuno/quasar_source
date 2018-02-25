@@ -137,11 +137,6 @@ SettingsWorld.prototype = {
 
 
     enter_world: function() {
-        CURRENT_PLAYER.disengage();
-        if (!GUI_PAUSED_MENU.currently_displayed) {
-            CURRENT_PLAYER.enable_controls();
-        }
-
         CURRENT_PLAYER.set_position_xyz(-1000, 350, 350);
         CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
 
