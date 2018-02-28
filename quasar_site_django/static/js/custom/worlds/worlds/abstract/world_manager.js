@@ -137,7 +137,7 @@ WorldManager.prototype = {
         world.floating_cursor.create();
 
         var skybox_geometry = new THREE.BoxGeometry(22500, 22500, 22500);
-        var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_LOADING.sky_box_material);
+        var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
         skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(skybox_cube);
 

@@ -69,3 +69,5 @@ MANAGER_MULTIPLAYER = new MultiPlayerManager();
 // TODO : Eventually this will need to automatically update at midnight.
 CURRENT_DAY_OBJECT = new DayInstance(THIS_DAY);
 //const CURRENT_MONTH_OBJECT = new MyDates(THIS_MONTH);
+
+
