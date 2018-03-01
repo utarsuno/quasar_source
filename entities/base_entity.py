@@ -99,12 +99,19 @@ class Entity(object):
 	def get_json_data(self) -> dict:
 		"""Returns a dictionary of all the data contained in this Entity."""
 		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
-		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
-		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self._child_entities),
+		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self.get_list_of_relative_ids_from_entities(self._parent_entities)),
+		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self.get_list_of_relative_ids_from_entities(self._child_entities)),
 		             ENTITY_DEFAULT_PROPERTY_RELATIVE_ID: self._relative_id}
 		for key in self._information:
 			json_data[key] = self._information[key]
 		return json_data
+
+	def get_list_of_relative_ids_from_entities(self, entity_list):
+		"""Returns a list of integers representing relative keys of entities."""
+		relative_ids = []
+		for e in entity_list:
+			relative_ids.append(e.relative_id)
+		return relative_ids
 
 	def has_property(self, key) -> bool:
 		"""Returns True if this entity has the property."""

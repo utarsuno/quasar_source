@@ -226,7 +226,6 @@ class EntityServer(object):
 		entities = {}
 		for e_o in self._entity_owners:
 			if e_o.username == username:
-				#print('Found username match!')
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
 					entities[str(e.relative_id)] = e.get_json_data()

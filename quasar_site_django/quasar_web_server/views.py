@@ -289,7 +289,6 @@ def POST_save_entity(request):
         return return_based_on_result(message)
 
 
-# TODO : DELETE THIS!
 @csrf_exempt
 def POST_get_user_entities(request):
     """Handles the POST request to load all entities."""
