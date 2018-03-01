@@ -26,6 +26,8 @@ AdminWorld.prototype = {
         World.call(this, static_world_entity);
         // Inherit.
         WorldInput.call(this);
+        // Inherit.
+        WorldObjectSavingAndLoading.call(this);
     },
 
     _perform_account_actions_button_pressed: function(account) {

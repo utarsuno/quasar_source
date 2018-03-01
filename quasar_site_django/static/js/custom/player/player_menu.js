@@ -13,6 +13,7 @@ PlayerMenu.prototype = {
         this.world                     = world;
         this._number_of_main_menu_rows = 0;
 
+        // Keeps track of what teleport buttons to other dynamic worlds have already been added.
         this.dynamic_worlds            = {};
     },
 
@@ -114,7 +115,6 @@ PlayerMenu.prototype = {
         }
     },
 
-    // TODO : REFACTOR THIS
     add_personal_teleport_button: function(dynamic_world) {
         var index_of_settings_world = this.teleport_wall.get_row_with_name(ICON_SETTINGS).row_number + 1;
 

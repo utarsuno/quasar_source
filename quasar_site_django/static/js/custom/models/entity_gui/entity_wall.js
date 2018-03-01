@@ -12,10 +12,10 @@ EntityWall.prototype = {
         var was_loaded = false;
 
         if (!is_defined(entity)) {
-            this.create_new();
+            this.create_new(world);
         } else {
             was_loaded = true;
-            this.load_from_entity();
+            this.load_from_entity(world, entity);
         }
         this.base_wall_init_start();
 
@@ -96,7 +96,7 @@ EntityWall.prototype = {
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
         this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Wall', TYPE_INPUT);
 
-        this.base_wall.set_to_saveable();
+        this.base_wall.set_to_saveable(world.entity);
     },
 
     create_new_finalize: function() {

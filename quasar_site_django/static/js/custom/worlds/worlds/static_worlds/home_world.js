@@ -11,6 +11,8 @@ HomeWorld.prototype = {
         World.call(this, static_world_entity);
         // Inherit.
         WorldInput.call(this);
+        // Inherit.
+        WorldObjectSavingAndLoading.call(this);
     },
 
     create: function() {
@@ -39,13 +41,6 @@ HomeWorld.prototype = {
         //this.schedule_view = new ScheduleView(this);
         //this.schedule_view.create_year_schedule_view();
         //this.add_content_to_schedules();
-    },
-
-    prepare_for_save: function() {
-        // TODO : Return a boolean indicating if anything needs to be saved.
-        for (var r = 0; r < this.root_attachables.length; r++) {
-            this.root_attachables[r].update_values_for_entity();
-        }
     },
 
     enter_world: function() {

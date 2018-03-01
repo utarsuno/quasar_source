@@ -6,14 +6,17 @@ function Saveable(entity_type, load_completed_callback) {
 
     this.save_type = entity_type;
     // TODO : Change design so that this is false and saving must be explicitly enabled.
-    this.saveable  = true;
+    this.saveable  = false;
     this._save_field_keys = [];
 
     this._entity = null;
 
-    this.set_to_saveable = function() {
+    this.set_to_saveable = function(entity_parent_to_add) {
         if (!is_defined(this._entity)) {
             this.create_new_entity();
+        }
+        if (is_defined(entity_parent_to_add)) {
+            this._entity.add_parent(entity_parent_to_add);
         }
     };
 

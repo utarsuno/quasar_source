@@ -11,6 +11,8 @@ DynamicWorld.prototype = {
         World.call(this, dynamic_world_entity);
         // Inherit.
         WorldInput.call(this);
+        // Inherit.
+        WorldObjectSavingAndLoading.call(this);
 
         if (this.entity.has_property(ENTITY_PROPERTY_NAME)) {
             this.world_name = this.entity.get_value(ENTITY_PROPERTY_NAME);
@@ -72,15 +74,6 @@ DynamicWorld.prototype = {
 
 
         this.world_wall.refresh_position_and_look_at();
-    },
-
-    prepare_for_save: function() {
-        var save_needed = false;
-        if (this.world_name_changed) {
-            this.entity.set_property(ENTITY_PROPERTY_NAME, this.world_name);
-            save_needed = true;
-        }
-        return save_needed;
     },
 
     enter_world: function() {

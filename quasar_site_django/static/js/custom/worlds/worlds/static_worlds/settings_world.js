@@ -56,6 +56,8 @@ SettingsWorld.prototype = {
         World.call(this, static_world_entity);
         // Inherit.
         WorldInput.call(this);
+        // Inherit.
+        WorldObjectSavingAndLoading.call(this);
     },
 
     create: function() {
