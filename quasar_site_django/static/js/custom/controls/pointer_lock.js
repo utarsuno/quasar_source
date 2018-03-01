@@ -27,25 +27,13 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
-        if (document.pointerLockElement === this.element || document.mozPointerLockElement === this.element || document.webkitPointerLockElement === this.element) {
-
-            // TODO : Delete this code?
-            /*
-            this.currently_locked = true;
-            // Only enable the controls if the Typing GUI isn't displayed.
-            if (!GUI_TYPING_INTERFACE.is_visible()) {
-                CURRENT_PLAYER.fps_controls.enable();
-            }
-            */
-
-        } else {
-            l('Set to paused!!!');
+        if (document.pointerLockElement !== this.element || document.mozPointerLockElement !== this.element || document.webkitPointerLockElement !== this.element) {
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
         }
     },
 
     pointer_lock_error: function(e) {
-        raise_exception_with_full_logging('Pointer lock error!');
+        raise_exception_with_full_logging('Pointer lock error!' + e);
     },
 
     request_pointer_lock: function() {

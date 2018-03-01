@@ -23,10 +23,6 @@ LoadingManager.prototype = {
         this.all_audio       = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
     },
 
-    _add_number_of_assets_to_load: function(number_of_assets) {
-        this._number_of_resources_to_load += number_of_assets;
-    },
-
     asset_loaded: function(asset) {
         this._number_of_resources_loaded += 1;
         GUI_PAUSED_MENU.set_text(int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%');
@@ -47,30 +43,16 @@ LoadingManager.prototype = {
     /*     __   __                  __        __          __
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
+    // Gets called once entities are loaded from the MANAGER_ENTITY.
     all_entities_loaded: function() {
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_home);
-
-        //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
-        GUI_PAUSED_MENU.set_sub_text('Creating admin world...');
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_admin);
-        //}
-
-        GUI_PAUSED_MENU.set_sub_text('Creating settings world...');
-        MANAGER_WORLD.create_world(MANAGER_WORLD.world_settings);
-
-        MANAGER_CREATED_WORLDS.load();
-
-        MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_home);
-        GUI_PAUSED_MENU.make_invisible();
-
-        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+        MANAGER_WORLD.all_entities_loaded();
     },
 
     perform_login_load: function(username, password) {
         CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
 
         GUI_PAUSED_MENU.set_text('Loading!');
-        GUI_PAUSED_MENU.set_sub_text('Creating home world...');
+        GUI_PAUSED_MENU.set_sub_text('creating static and dyamic worlds');
         GUI_PAUSED_MENU.make_visible();
 
         ENTITY_OWNER = new EntityOwner(username, password);

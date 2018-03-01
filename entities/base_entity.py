@@ -10,7 +10,14 @@ ENTITY_TYPE_WALL                   = 'EntityWall'
 ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity'
 ENTITY_TYPE_OWNER                  = 'EntityOwner'
 ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder'
-ENTITY_TYPE_CREATED_WORLDS_MANAGER = 'EntityCreatedWorldsManager'
+ENTITY_TYPE_DYNAMIC_WORLD          = 'EntityDynamicWorld'
+ENTITY_TYPE_STATIC_WORLD           = 'EntityStaticWorld'
+ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER = 'EntityDynamicWorldsManager'
+ENTITY_TYPE_STATIC_WORLDS_MANAGER  = 'EntityStaticWorldsManager'
+
+ENTITY_STATIC_WORLD_HOME     = 'home'
+ENTITY_STATIC_WORLD_SETTINGS = 'settings'
+ENTITY_STATIC_WORLD_ADMIN    = 'admin'
 
 # TODO : track this
 ENTITY_TYPE_TO_ABBREVIATION_DICT = {ENTITY_TYPE_BASE         : 'E',

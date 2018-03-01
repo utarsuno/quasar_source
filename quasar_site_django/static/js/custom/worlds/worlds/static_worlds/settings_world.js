@@ -1,7 +1,7 @@
 'use strict';
 
-function SettingsWorld() {
-    this.__init__();
+function SettingsWorld(static_world_entity) {
+    this.__init__(static_world_entity);
 }
 
 SettingsWorld.prototype = {
@@ -51,9 +51,11 @@ SettingsWorld.prototype = {
         // TODO : Save the new value into ENTITY OWNER settings.
     },
 
-    __init__: function() {
-        // Inherit world properties.
-        World.call(this);
+    __init__: function(static_world_entity) {
+        // Inherit.
+        World.call(this, static_world_entity);
+        // Inherit.
+        WorldInput.call(this);
     },
 
     create: function() {

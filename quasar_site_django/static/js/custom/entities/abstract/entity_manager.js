@@ -194,6 +194,18 @@ EntityManager.prototype = {
         return max_id + 1;
     },
 
+    get_entity_of_type: function(entity_type) {
+        var entity_matches = this.get_all_entities_of_type(entity_type);
+
+        if (entity_matches.length > 1) {
+            raise_exception_with_full_logging('More than one entity found with type : ' + entity_type);
+        } else if (entity_matches === 0) {
+            raise_exception_with_full_logging('No entities found with type : ' + entity_type);
+        }
+
+        return entity_matches[0];
+    },
+
     get_all_entities_of_type: function(entity_type) {
         var entities_to_return = [];
         for (var i = 0; i < this.entities.length; i++) {

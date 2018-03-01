@@ -15,14 +15,17 @@ Account.prototype = {
     }
 };
 
-function AdminWorld() {
-    this.__init__();
+function AdminWorld(static_world_entity) {
+    this.__init__(static_world_entity);
 }
 
 AdminWorld.prototype = {
 
-    __init__: function () {
-        World.call(this);
+    __init__: function (static_world_entity) {
+        // Inherit.
+        World.call(this, static_world_entity);
+        // Inherit.
+        WorldInput.call(this);
     },
 
     _perform_account_actions_button_pressed: function(account) {

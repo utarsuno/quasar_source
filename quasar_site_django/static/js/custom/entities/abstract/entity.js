@@ -210,6 +210,24 @@ Entity.prototype = {
         return properties;
     },
 
+    get_child_entity_with_property_value: function(property, value) {
+        for (var i = 0; i < this.children.length; i++) {
+            if (this.children[i].get_value(property) === value) {
+                return this.children[i];
+            }
+        }
+        raise_exception_with_full_logging('No child with property-value match : {' + property + '} : {' + value + '}');
+    },
+
+    get_child_with_relative_id: function(relative_id) {
+        for (var i = 0; i < this.children.length; i++) {
+            if (this.children[i].get_relative_id() === relative_id) {
+                return this.children[i];
+            }
+        }
+        raise_exception_with_full_logging('No child with relative_id match : {' + relative_id + '}');
+    },
+
     /* __               __       /     __        __   ___      ___           ___      ___   ___    ___  __
       /  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     __    |__  |\ |  |  |  |  | |__  /__`
       \__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |           |___ | \|  |  |  |  | |___ .__/ */

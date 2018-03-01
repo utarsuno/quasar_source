@@ -53,9 +53,6 @@ MANAGER_COOKIES     = Cookies.noConflict();
  |/\| \__/ |  \ |___ |__/     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
 // Handles all static and dynamic worlds.
 MANAGER_WORLD          = new WorldManager();
-MANAGER_CREATED_WORLDS = new CreatedWorldsManager();
-
-
 
 
 // Handles all user and shared entities.

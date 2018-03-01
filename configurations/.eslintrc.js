@@ -39,6 +39,8 @@ module.exports = {
         "ASSET_GROUP_AUDIO"  : false,
         "ASSET_GROUP_TEXTURE": false,
 
+        "World"     : true,
+        "WorldInput": true,
 
         "console": false,
         "Cookies": false,
@@ -53,7 +55,6 @@ module.exports = {
         "FPSControls": true,
         "ShaderAPI": true,
         "Client": true,
-        "World": true,
         "WebSocketClient": false,
 
         "FloatingYouTubeVideo": true,
@@ -82,7 +83,7 @@ module.exports = {
         "HomeWorld"    : true,
         "SettingsWorld": true,
         "AdminWorld"   : true,
-        "CreatedWorld" : true,
+        "DynamicWorld" : true,
 
         "PostHelper": true,
 
@@ -119,7 +120,6 @@ module.exports = {
         "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
-        "MANAGER_CREATED_WORLDS": true,
         "MANAGER_COOKIES"       : true,
         "MANAGER_AUDIO"         : true,
         "MANAGER_TEXTURE"       : true,
@@ -151,7 +151,16 @@ module.exports = {
         "EntityOwner": false,
         "Player": true,
 
-        "PlayerMenu": true,
+        "PlayerMenu"   : true,
+
+        // Player actions.
+        "player_action_global_save"       : false,
+        "player_action_create_entity_wall": false,
+        "player_action_exit_function"     : false,
+        "player_action_toggle_fullscreen" : false,
+        "player_action_teleport_to_world" : false,
+        "player_action_create_picture"    : false,
+
         "FloatingCursor": true,
 
         // Global GUI objects.
@@ -180,6 +189,10 @@ module.exports = {
 
         // From globals.js
         "NOT_FOUND": false,
+
+        "ENTITY_STATIC_WORLD_HOME"    : false,
+        "ENTITY_STATIC_WORLD_SETTINGS": false,
+        "ENTITY_STATIC_WORLD_ADMIN"   : false,
 
         "PlayerState"              : false,
         "PLAYER_STATE_FULL_CONTROL": false,
@@ -225,8 +238,10 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity types.
-        "ENTITY_TYPE_CREATED_WORLDS_MANAGER": false,
-        "ENTITY_TYPE_CREATED_WORLD"         : false,
+        "ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER": false,
+        "ENTITY_TYPE_STATIC_WORLDS_MANAGER" : false,
+        "ENTITY_TYPE_DYNAMIC_WORLD"         : false,
+        "ENTITY_TYPE_STATIC_WORLD"          : false,
         "ENTITY_TYPE_TASK"                  : false,
         "ENTITY_TYPE_BASE"                  : false,
         "ENTITY_TYPE_WALL"                  : false,

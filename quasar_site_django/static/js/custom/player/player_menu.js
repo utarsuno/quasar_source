@@ -1,45 +1,10 @@
 'use strict';
 
+const INDEX_DYNAMIC_WORLD_OBJECT          = 0;
+const INDEX_DYNAMIC_WORLD_TELEPORT_BUTTON = 1;
+
 function PlayerMenu(world) {
     this.__init__(world);
-}
-
-function global_save() {
-    l('PERFORM A GLOBAL SAVE!');
-
-    GUI_TYPING_INTERFACE.add_server_message('Saving changes to the server! TODO : Get a response back!');
-
-    MANAGER_WORLD.prepare_for_save();
-
-    // TODO : OLD CODE TO DELETE.
-    /*
-    if (is_defined(MANAGER_WORLD.current_world.prepare_for_save)) {
-        MANAGER_WORLD.prepare_for_save();
-
-        // TODO : Only save changes if there were any changes made.
-
-        // Any changes to entities will be saved.
-        MANAGER_ENTITY.update_server_and_database();
-    }
-    */
-}
-
-function create_entity_wall() {
-    l('TODO : Create new entity wall!');
-    MANAGER_WORLD.current_world.create_new_entity_wall();
-}
-
-function exit_function() {
-    if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_login) {
-        // TODO : remove this or refactor
-        window.close();
-    } else {
-        l('TODO : regular log out functionality');
-    }
-}
-
-function toggle_fullscreen() {
-    MANAGER_RENDERER.toggle_fullscreen();
 }
 
 PlayerMenu.prototype = {
@@ -47,10 +12,11 @@ PlayerMenu.prototype = {
     __init__: function(world) {
         this.world                     = world;
         this._number_of_main_menu_rows = 0;
+
+        this.dynamic_worlds            = {};
     },
 
     set_to_invisible: function() {
-        //this._player_menu.set_to_invisible();
         this._player_menu.hide_self_and_all_child_attachments_recursively();
     },
 
@@ -68,9 +34,7 @@ PlayerMenu.prototype = {
         this._player_menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, false);
 
         this._player_menu.restart_all_animations();
-
         this._player_menu.display_self_and_all_child_attachments_recursively();
-
         this._player_menu.refresh_position_and_look_at();
 
         if (is_defined(this.create_wall)) {
@@ -79,8 +43,6 @@ PlayerMenu.prototype = {
         if (is_defined(this.teleport_wall)) {
             this.teleport_wall.hide_self_and_all_child_attachments_recursively();
         }
-
-        //this._player_menu.set_to_visible();
     },
 
     is_visible: function() {
@@ -91,22 +53,11 @@ PlayerMenu.prototype = {
         this._player_menu.update_all_child_animations_recursively(delta);
     },
 
-    _create_picture_prompt: function() {
-        this.set_to_invisible();
-        GUI_TYPING_INTERFACE.add_server_message('To create an image simply drag and drop the image file into the browser!');
-        //this.world.create_picture_prompt(this.create_picture_button.get_position(), this.create_picture_button.get_normal());
-    },
-
     /*                          ___
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
-    _teleport_to_world: function(world) {
-        MANAGER_WORLD.set_current_world(world);
-    },
-
     _main_menu_button_looked_at: function(sub_menu) {
         if (this.full_screen_button.animation_finished) {
-
             if (sub_menu === this.teleport_wall) {
                 if (is_defined(this.create_wall)) {
                     this.create_wall.hide_self_and_all_child_attachments_recursively();
@@ -116,7 +67,6 @@ PlayerMenu.prototype = {
                 this.teleport_wall.hide_self_and_all_child_attachments_recursively();
                 this.create_wall.display_self_and_all_child_attachments_recursively();
             }
-
         }
     },
 
@@ -155,7 +105,7 @@ PlayerMenu.prototype = {
                 this._add_main_menu_icon(ICON_FULLSCREEN);
                 break;
             default:
-                // Default occurs for created worlds.
+                // Default occurs for dynamic worlds.
                 this._add_main_menu_icon(ICON_WRENCH);
                 this._add_main_menu_icon(ICON_TELEPORT);
                 this._add_main_menu_icon(ICON_SAVE);
@@ -164,7 +114,8 @@ PlayerMenu.prototype = {
         }
     },
 
-    add_personal_teleport_button: function(created_world) {
+    // TODO : REFACTOR THIS
+    add_personal_teleport_button: function(dynamic_world) {
         var index_of_settings_world = this.teleport_wall.get_row_with_name(ICON_SETTINGS).row_number + 1;
 
         var utiltiy_wall_width = 120;
@@ -172,7 +123,19 @@ PlayerMenu.prototype = {
 
         var current_row = this.teleport_wall.add_row(index_of_settings_world);
         current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
-        current_row.add_2D_button([icon_width, 1], created_world.world_name, COLOR_YELLOW, this._teleport_to_world.bind(this, created_world));
+        var teleport_button = current_row.add_2D_button([icon_width, 1], dynamic_world.world_name, COLOR_YELLOW, player_action_teleport_to_world.bind(this, dynamic_world));
+
+        this.dynamic_worlds[dynamic_world.entity.get_relative_id()] = [dynamic_world, teleport_button];
+    },
+
+    update_or_add_personal_teleport_button: function(dynamic_world) {
+        var relative_id = dynamic_world.entity.get_relative_id();
+
+        if (relative_id in this.dynamic_worlds) {
+            this.dynamic_worlds[relative_id][INDEX_DYNAMIC_WORLD_TELEPORT_BUTTON].update_text(this.dynamic_worlds[relative_id][INDEX_DYNAMIC_WORLD_OBJECT].world_name);
+        } else {
+            this.add_personal_teleport_button(dynamic_world);
+        }
     },
 
     _add_main_menu_icon: function(icon) {
@@ -184,9 +147,6 @@ PlayerMenu.prototype = {
         var menu_button;
         var menu_icon;
         var sub_menu;
-
-        //var temp_position = new THREE.Vector3(-10000, -10000, -10000);
-        //var temp_normal   = new THREE.Vector3(0, 0, 0);
 
         switch (icon) {
             case ICON_WRENCH:
@@ -203,7 +163,7 @@ PlayerMenu.prototype = {
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
                 // TODO : This functionality.
-                current_row.add_2D_button([icon_width, 1], 'New World', null, MANAGER_CREATED_WORLDS.create_new_created_world);
+                current_row.add_2D_button([icon_width, 1], 'New World', null, MANAGER_WORLD.create_new_dynamic_world);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MENU_LIST, TYPE_ICON);
@@ -216,11 +176,11 @@ PlayerMenu.prototype = {
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_INFORMATION, TYPE_ICON);
-                current_row.add_2D_button([icon_width, 1], 'Entity Wall', null, create_entity_wall);
+                current_row.add_2D_button([icon_width, 1], 'Entity Wall', null, player_action_create_entity_wall);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_IMPORT, TYPE_ICON);
-                current_row.add_2D_button([icon_width, 1], 'Picture', null, this._create_picture_prompt.bind(this));
+                current_row.add_2D_button([icon_width, 1], 'Picture', null, player_action_create_picture);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MOVIE, TYPE_ICON);
@@ -232,7 +192,7 @@ PlayerMenu.prototype = {
                 break;
             case ICON_FULLSCREEN:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [4, null], [-8, .25], 1, 'fullscreen', TYPE_BUTTON);
-                menu_button.set_engage_function(toggle_fullscreen);
+                menu_button.set_engage_function(player_action_toggle_fullscreen);
 
                 menu_icon = this._player_menu.add_floating_2D_text(16, [4, -ONE_FOURTH], [-8, .25], 1, ICON_FULLSCREEN, TYPE_ICON);
 
@@ -245,7 +205,6 @@ PlayerMenu.prototype = {
 
                 this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [125, null], null, null, false);
 
-                //this.teleport_wall.manual_visibility = true;
                 this.teleport_wall.add_full_row_2D(0, 'Teleport to...', TYPE_CONSTANT);
 
                 var teleport_button;
@@ -263,13 +222,13 @@ PlayerMenu.prototype = {
                 if (this.world !== MANAGER_WORLD.world_settings) {
                     teleport_row = this.teleport_wall.add_row(null);
                     teleport_row.add_2D_element([0, icon_width], ICON_SETTINGS, TYPE_ICON);
-                    teleport_row.add_2D_button([icon_width, 1], 'Settings', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
+                    teleport_row.add_2D_button([icon_width, 1], 'Settings', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
                 }
 
                 if (this.world !== MANAGER_WORLD.world_home) {
                     teleport_row = this.teleport_wall.add_row(null);
                     teleport_row.add_2D_element([0, icon_width], ICON_HOME, TYPE_ICON);
-                    teleport_row.add_2D_button([icon_width, 1], 'Home', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_home));
+                    teleport_row.add_2D_button([icon_width, 1], 'Home', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_home));
                 }
 
                 // Add an empty row for spacing.
@@ -292,7 +251,7 @@ PlayerMenu.prototype = {
                         if (this.world !== MANAGER_WORLD.world_admin) {
                             teleport_row = this.teleport_wall.add_row(null);
                             teleport_row.add_2D_element([0, icon_width], ICON_SINGLE_PLAYER, TYPE_ICON);
-                            teleport_row.add_2D_button([icon_width, 1], 'Admin', null, this._teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
+                            teleport_row.add_2D_button([icon_width, 1], 'Admin', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
                         }
                     //}
                 }
@@ -310,7 +269,7 @@ PlayerMenu.prototype = {
             case ICON_SAVE:
                 menu_button = this._player_menu.add_floating_2D_text(this._player_menu.width - 16, [4, null], [-8, .25], 1, 'save', TYPE_BUTTON);
                 menu_icon = this._player_menu.add_floating_2D_text(16, [4, -ONE_FOURTH], [-8, .25], 1, ICON_SAVE, TYPE_ICON);
-                menu_button.set_engage_function(global_save);
+                menu_button.set_engage_function(player_action_global_save);
                 break;
         }
 

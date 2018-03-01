@@ -5,52 +5,27 @@ function WorldManager() {
 }
 
 WorldManager.prototype = {
+
     previous_world : null,
     current_world  : null,
 
     current_player_menu: null,
 
-    // Pre-defined worlds.
+    // Static worlds.
     world_login    : null,
     world_home     : null,
     world_settings : null,
-
-    world_global   : null,
-
     world_admin    : null,
 
     __init__: function() {
+        // Static world objects without static entity.
         this.world_login = new LoginWorld();
-        this.world_home = new HomeWorld();
-        this.world_settings = new SettingsWorld();
-        this.world_admin = new AdminWorld();
 
-        this.created_worlds = [];
+        // List of all dynamic worlds.
+        this.dynamic_worlds = {};
     },
-
-    add_created_world: function(created_world, add_to_teleport_menu) {
-        // TODO : Only print this for dev mode.
-        l('Adding a created world!');
-        this.created_worlds.push(created_world);
-        if (add_to_teleport_menu) {
-            this.add_world_to_teleport_menu(created_world);
-        }
-    },
-
-    all_created_worlds_loaded: function() {
-        for (var w = 0; w < this.created_worlds.length; w++) {
-            for (var v = 0; v < this.created_worlds.length; v++) {
-                if (w !== v) {
-                    this.created_worlds[w].player_menu.add_personal_teleport_button(this.created_worlds[v]);
-                }
-            }
-        }
-    },
-
-    //this.world_home.add_css_scene();
 
     update: function(delta) {
-
         if (CURRENT_PLAYER.currently_loading()) {
             return;
         }
@@ -75,11 +50,12 @@ WorldManager.prototype = {
         for (var a = 0; a < this.current_world.root_attachables.length; a++) {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
-            }
-            if (this.current_world.root_attachables[a].hasOwnProperty('update_all_child_animations_recursively')) {
-                this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
-            } else {
-                l('Investigate this?');
+
+                if (this.current_world.root_attachables[a].hasOwnProperty('update_all_child_animations_recursively')) {
+                    this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
+                } else {
+                    l('Investigate this?');
+                }
             }
         }
 
@@ -101,7 +77,6 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
-        this.current_floating_cursor = this.current_world.floating_cursor;
         this.current_player_menu = this.current_world.player_menu;
 
         // Before adding the world make sure to add the camera reference.
@@ -121,21 +96,15 @@ WorldManager.prototype = {
         // TODO : Make sure dynamic worlds are dealt with.
     },
 
-    add_world_to_teleport_menu: function(world) {
-        this.world_home.player_menu.add_personal_teleport_button(world);
-        this.world_settings.player_menu.add_personal_teleport_button(world);
-    },
-
     create_world: function(world) {
-        world.light_delta = 0;
-        world.light_delta_cap = 10;
-        world.light_radius = 1000;
-
+        // Player menu.
         world.player_menu.create();
         world.player_menu.set_to_invisible();
 
+        // Player floating cursor.
         world.floating_cursor.create();
 
+        // Default skybox.
         var skybox_geometry = new THREE.BoxGeometry(22500, 22500, 22500);
         var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
         skybox_cube.position.set(0, 0, 0);
@@ -149,6 +118,10 @@ WorldManager.prototype = {
         world.add_to_scene(board.group);
 
         // Default lights.
+        world.light_delta = 0;
+        world.light_delta_cap = 10;
+        world.light_radius = 1000;
+
         world.light_0 = new THREE.PointLight(0xccffcc, .4, 0);
         world.light_0.position.set(5, 100, 5);
         world.add_to_scene(world.light_0);
@@ -164,17 +137,21 @@ WorldManager.prototype = {
         world.light_3 = new THREE.PointLight(0x84b5ff, .4, 0);
         world.light_3.position.set(500, 100, 500);
         world.add_to_scene(world.light_3);
-        /////////////////
 
         world.light = new THREE.AmbientLight(0xffffff, .25); // soft white light
         world.add_to_scene(world.light);
 
+        // Add audio needed for the world.
+        MANAGER_AUDIO.set_audio_for_world(world);
 
         // Now finally create the actual world.
         world.create();
     },
 
+    // TODO : Refactor this!!!
     prepare_for_save: function() {
+        l('TODO: REFACTOR SAVING!!!');
+        /*
         this.world_home.prepare_for_save();
         // TODO : this.world_settings.prepare_for_save();
 
@@ -183,6 +160,112 @@ WorldManager.prototype = {
         }
 
         MANAGER_ENTITY.update_server_and_database();
+        */
+    },
+
+    /*     __   __                  __        __          __
+     |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
+     |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
+    all_entities_loaded: function() {
+        this.static_worlds_manager_entity = MANAGER_ENTITY.get_entity_of_type(ENTITY_TYPE_STATIC_WORLDS_MANAGER);
+        this.dynamic_worlds_manager_entity = MANAGER_ENTITY.get_entity_of_type(ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER);
+
+        // Create the static worlds needed.
+        this.world_home     = new HomeWorld(this.static_worlds_manager_entity.get_child_entity_with_property_value(ENTITY_PROPERTY_NAME, ENTITY_STATIC_WORLD_HOME));
+        this.world_settings = new SettingsWorld(this.static_worlds_manager_entity.get_child_entity_with_property_value(ENTITY_PROPERTY_NAME, ENTITY_STATIC_WORLD_SETTINGS));
+        this.world_admin    = new AdminWorld(this.static_worlds_manager_entity.get_child_entity_with_property_value(ENTITY_PROPERTY_NAME, ENTITY_STATIC_WORLD_ADMIN));
+
+        this.create_world(this.world_home);
+        this.create_world(this.world_settings);
+        this.create_world(this.world_admin);
+
+        // Create the dynamic worlds needed.
+        // Iterate through the children of this entity. They each are a created world.
+        var dynamic_worlds = this.dynamic_worlds_manager_entity.get_children();
+        for (var c = 0; c < dynamic_worlds.length; c++) {
+            var created_world_entity = dynamic_worlds[c];
+
+            var created_world = new DynamicWorld(created_world_entity);
+            // TODO : In the future only create the created worlds on first teleport into them!
+            this.create_world(created_world);
+            this.add_dynamic_world(created_world);
+        }
+
+        MANAGER_WORLD.all_dynamic_worlds_loaded();
+
+        // All initial loading is completed so place the player into the home world.
+        this.set_current_world(this.world_home);
+        GUI_PAUSED_MENU.make_invisible();
+        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+    },
+
+    /*__                         __           __   __        __   __                           __   ___        ___      ___
+     |  \ \ / |\ |  /\   |\/| | /  `    |  | /  \ |__) |    |  \ /__`     |\/|  /\  |\ |  /\  / _` |__   |\/| |__  |\ |  |
+     |__/  |  | \| /~~\  |  | | \__,    |/\| \__/ |  \ |___ |__/ .__/     |  | /~~\ | \| /~~\ \__> |___  |  | |___ | \|  |  */
+    update_world_name_for_teleport_buttons: function(dynamic_world) {
+        this.update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu(dynamic_world);
+
+        this.world_home.player_menu.update_or_add_personal_teleport_button(dynamic_world);
+        this.world_settings.player_menu.update_or_add_personal_teleport_button(dynamic_world);
+        this.world_admin.player_menu.update_or_add_personal_teleport_button(dynamic_world);
+    },
+
+    all_dynamic_worlds_loaded: function() {
+        for (var relative_id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
+
+                for (var inner_relative_id in this.dynamic_worlds) {
+                    if (this.dynamic_worlds.hasOwnProperty(inner_relative_id)) {
+                        if (inner_relative_id !== relative_id) {
+                            this.dynamic_worlds[inner_relative_id].player_menu.add_personal_teleport_button(this.dynamic_worlds[relative_id]);
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    add_dynamic_world_to_static_teleport_menu: function(dynamic_world) {
+        this.world_home.player_menu.add_personal_teleport_button(dynamic_world);
+        this.world_settings.player_menu.add_personal_teleport_button(dynamic_world);
+        this.world_admin.player_menu.add_personal_teleport_button(dynamic_world);
+    },
+
+    update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu: function(dynamic_world) {
+        var world_relative_id = dynamic_world.entity.get_relative_id();
+
+        // Update all dynamic worlds with the new teleport name.
+        for (var relative_id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
+                if (world_relative_id !== relative_id) {
+                    this.dynamic_worlds[relative_id].player_menu.update_or_add_personal_teleport_button(dynamic_world);
+                }
+            }
+        }
+    },
+
+    add_dynamic_world: function(dynamic_world) {
+        this.dynamic_worlds[dynamic_world.entity.get_relative_id()] = dynamic_world;
+        this.add_dynamic_world_to_static_teleport_menu(dynamic_world);
+    },
+
+    _create_new_dynamic_world: function() {
+        // Create a new created world Entity.
+        var dynamic_world_entity = new Entity();
+        dynamic_world_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_DYNAMIC_WORLD);
+
+        this.dynamic_worlds_manager_entity.add_child(dynamic_world_entity);
+
+        var dynamic_world = new DynamicWorld(dynamic_world_entity);
+        this.create_world(dynamic_world);
+        this.set_current_world(dynamic_world);
+        this.add_dynamic_world(dynamic_world);
+
+        this.update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu(dynamic_world);
+    },
+
+    create_new_dynamic_world: function() {
+        MANAGER_WORLD._create_new_dynamic_world();
     }
 
 };

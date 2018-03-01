@@ -39,5 +39,13 @@ AudioManager.prototype = {
 
         // TODO : THIS NEEDS TO GET SET ONCE ALL WORLDS ALL LOADED!!
         //MANAGER_WORLD.add_to_all_scenes(this._all_audio[audio_name]);
-    }
+    },
+
+    set_audio_for_world: function(world) {
+        for (var audio in this._all_audio) {
+            if (this._all_audio.hasOwnProperty(audio)) {
+                world.add_to_scene(this._all_audio[audio]);
+            }
+        }
+    },
 };

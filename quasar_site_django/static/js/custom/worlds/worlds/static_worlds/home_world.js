@@ -1,14 +1,16 @@
 'use strict';
 
-function HomeWorld() {
-    this.__init__();
+function HomeWorld(static_world_entity) {
+    this.__init__(static_world_entity);
 }
 
 HomeWorld.prototype = {
 
-    __init__: function() {
-        // Inherit from World.
-        World.call(this);
+    __init__: function(static_world_entity) {
+        // Inherit.
+        World.call(this, static_world_entity);
+        // Inherit.
+        WorldInput.call(this);
     },
 
     create: function() {

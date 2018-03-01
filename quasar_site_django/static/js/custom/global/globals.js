@@ -22,7 +22,6 @@ var MANAGER_INPUT          = null;
 var MANAGER_POINTER_LOCK   = null;
 var MANAGER_DATA_DISPLAY   = null;
 var MANAGER_LOADING        = null;
-var MANAGER_CREATED_WORLDS = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
@@ -84,9 +83,15 @@ const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
 const ENTITY_TYPE_OWNER                  = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
 const ENTITY_TYPE_PICTURE                = 'EntityFloatingPicture';
-const ENTITY_TYPE_CREATED_WORLD          = 'EntityCreatedWorld';
-const ENTITY_TYPE_CREATED_WORLDS_MANAGER = 'EntityCreatedWorldsManager';
+const ENTITY_TYPE_DYNAMIC_WORLD          = 'EntityDynamicWorld';
+const ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER = 'EntityDynamicWorldsManager';
+const ENTITY_TYPE_STATIC_WORLD           = 'EntityStaticWorld';
+const ENTITY_TYPE_STATIC_WORLDS_MANAGER  = 'EntityStaticWorldsManager';
 // UNIVERSAL_CONSTANTS_END
+
+const ENTITY_STATIC_WORLD_HOME     = 'home';
+const ENTITY_STATIC_WORLD_SETTINGS = 'settings';
+const ENTITY_STATIC_WORLD_ADMIN    = 'admin';
 
 // UNIVERSAL_CONSTANTS_START : Entity property keys.
 const ENTITY_PROPERTY_START_TOKEN         = 'ep_';

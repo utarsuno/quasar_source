@@ -1,31 +1,24 @@
 'use strict';
 
-function CreatedWorld(created_world_entity, created_world_manager_entity) {
-    this.__init__(created_world_entity, created_world_manager_entity);
+function DynamicWorld(dynamic_world_entity) {
+    this.__init__(created_world_entity);
 }
 
-CreatedWorld.prototype = {
+DynamicWorld.prototype = {
 
-    __init__: function(created_world_entity, created_world_manager_entity) {
+    __init__: function(dynamic_world_entity) {
         // Inherit.
-        World.call(this);
+        World.call(this, dynamic_world_entity);
+        // Inherit.
+        WorldInput.call(this);
 
-        this.entity                       = created_world_entity;
-        this.created_world_manager_entity = created_world_manager_entity;
-
-        this.world_name = 'THIS SHOULD BE SET';
-        if (is_defined(this.entity)) {
+        if (this.entity.has_property(ENTITY_PROPERTY_NAME)) {
             this.world_name = this.entity.get_value(ENTITY_PROPERTY_NAME);
+        } else {
+            this.world_name = 'New World';
         }
 
         this.world_name_changed = false;
-
-        this.world_needs_loading = false;
-    },
-
-    get_shared_player_list: function() {
-        var shared_player_data = this.created_world_manager_entity.get_value(ENTITY_PROPERTY_SHARED_PLAYERS_LIST);
-        // TODO : Finish this function
     },
 
     button_action_set_to_private: function() {
@@ -39,6 +32,8 @@ CreatedWorld.prototype = {
     world_name_changed_from_input_event: function(name_currently) {
         this.world_name_changed = true;
         this.world_name_changed_event(name_currently);
+
+        MANAGER_WORLD.update_world_name_for_teleport_buttons(this.entity);
     },
 
     world_name_changed_event: function(name_currently) {
@@ -49,7 +44,6 @@ CreatedWorld.prototype = {
 
     create: function() {
         // Add the world label and settings panel.
-
         var world_wall_width = 400;
         var world_wall_height = 300;
 
@@ -57,15 +51,16 @@ CreatedWorld.prototype = {
         var world_wall_normal = new THREE.Vector3(-500, 0, -500);
 
         this.world_wall = new FloatingWall(world_wall_width, world_wall_height, world_wall_position, world_wall_normal, this, false);
-        this.world_title = this.world_wall.add_row(-1).add_3D_element('New World', TYPE_TITLE);
+        this.world_wall.set_auto_adjust_height(true);
+        this.world_title = this.world_wall.add_row(-1).add_3D_element(this.world_name, TYPE_TITLE);
 
         var current_row = this.world_wall.add_row(null);
         current_row.add_2D_element([0, ONE_THIRD], 'World Name :', TYPE_CONSTANT);
-        this.world_name_input = current_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+        this.world_name_input = current_row.add_2D_element([ONE_THIRD, 1], this.world_name, TYPE_INPUT);
         this.world_name_input.set_value_post_changed_function(this.world_name_changed_from_input_event.bind(this));
 
         // Adding a row for spacing.
-        current_row = this.world_wall.add_row(null);
+        this.world_wall.add_row(null);
 
         current_row = this.world_wall.add_row(null);
         // TODO : This functionality.
@@ -76,13 +71,7 @@ CreatedWorld.prototype = {
         current_row.add_2D_button([0, 1], 'Share With Player', null, null);
 
 
-        this.world_title.update_text(this.world_name);
-
         this.world_wall.refresh_position_and_look_at();
-    },
-
-    load_world: function() {
-
     },
 
     prepare_for_save: function() {

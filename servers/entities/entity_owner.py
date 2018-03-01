@@ -55,11 +55,30 @@ class EntityOwner(object):
 		self._entity_manager.add_entity(owner_entity)
 
 		# Add the created worlds manager.
-		created_worlds_manager = be.Entity()
+		dynamic_worlds_manager = be.Entity()
+		dynamic_worlds_manager.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER)
+		self._entity_manager.add_entity(dynamic_worlds_manager)
 
-		created_worlds_manager.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_CREATED_WORLDS_MANAGER)
-		self._entity_manager.add_entity(created_worlds_manager)
-		# ENTITY_TYPE_CREATED_WORLDS_MANAGER
+		# Add the dynamic worlds manager.
+		static_worlds_manager = be.Entity()
+		static_worlds_manager.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLDS_MANAGER)
+		self._entity_manager.add_entity(static_worlds_manager)
+
+		# Add the 3 static worlds.
+		static_world_home = be.Entity()
+		static_world_home.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
+		static_world_home.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_HOME)
+		static_worlds_manager.add_children(static_world_home)
+
+		static_world_settings = be.Entity()
+		static_world_settings.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
+		static_world_settings.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_SETTINGS)
+		static_worlds_manager.add_children(static_world_settings)
+
+		static_world_admin = be.Entity()
+		static_world_admin.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
+		static_world_admin.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_ADMIN)
+		static_worlds_manager.add_children(static_world_admin)
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""

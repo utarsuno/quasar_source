@@ -84,12 +84,15 @@ InputManager.prototype = {
             var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
             CURRENT_PLAYER.fps_controls.on_mouse_move(movement_x, movement_y);
 
+            // TODO : Not currently used for now.
+            /*
             // Only left click dragging will be supported for now.
             if (this.click_down_left) {
                 MANAGER_WORLD.current_world.parse_mouse_drag(movement_x, movement_y);
             } else {
                 MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
             }
+            */
         }
     },
 
@@ -211,7 +214,6 @@ InputManager.prototype = {
                 break;
             }
         } else if (e.which === CLICK_LEFT && CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
-            l('ENABLE PLAYER FULL CONTROL!!');
             CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
         }
     },

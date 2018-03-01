@@ -1,6 +1,8 @@
 'use strict';
 
-function World() {
+function World(world_entity) {
+
+    this.entity = world_entity;
 
     this.currently_looked_at_object = null;
     this.raycaster                  = new THREE.Raycaster();
@@ -13,60 +15,11 @@ function World() {
     this.default_tab_target         = null;
     this.interactive_objects        = [];
 
-    // TODO : Logically abstract the YouTube video creater!
-
-    // Base code from : https://codepen.io/asjas/pen/pWawPm
-    var Element = function ( id, x, y, z, ry ) {
-
-        l('Creating element!');
-
-        var div = document.createElement( 'div' );
-        div.style.width = '480px'; // was 480
-        div.style.height = '360px'; // was 360
-        div.style.backgroundColor = '#000';
-        var iframe = document.createElement('iframe');
-        iframe.style.width = '480px';
-        iframe.style.height = '360px';
-        iframe.style.border = '0px';
-        iframe.src = ['https://www.youtube.com/embed/', id, '?rel=0'].join( '' );
-        div.appendChild(iframe);
-        var object = new THREE.CSS3DObject(div);
-        object.position.set(x, y, z);
-        object.rotation.y = ry;
-        return object;
-    };
-
-    this.add_css_scene = function() {
-        this.css_scene = new THREE.Scene();
-
-        this.container = document.getElementById('container');
-
-        this.group = new THREE.Group();
-
-        this.group.add(new Element('xBOqwRRj82A', 0, 0, 240, 0 ) );
-        this.group.add(new Element('x4q86IjJFag', 240, 0, 0, Math.PI / 2 ) );
-        this.group.add(new Element('JhngfOK_2-0', 0, 0, - 240, Math.PI ) );
-        this.group.add(new Element('Grg3461lAPg', - 240, 0, 0, - Math.PI / 2 ) );
-
-        this.css_scene.add(this.group);
-
-        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
-    };
+    // TODO : Implement this.
+    this.player_exit_position = null;
 
     this.add_to_scene = function(object) {
         this.scene.add(object);
-    };
-
-    this.parse_mouse_drag = function(movement_x, movement_y) {
-    };
-
-    this.parse_mouse_movement = function(movement_x, movement_y) {
-    };
-
-    this.wheel_event = function(delta) {
-        if (this.floating_cursor._currently_engaged) {
-            this.floating_cursor.wheel_event(delta);
-        }
     };
 
     this.look_away_from_currently_looked_at_object = function() {
@@ -95,7 +48,6 @@ function World() {
                 }
             }
         }
-
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         var smallest_distance = 99999;
@@ -148,114 +100,9 @@ function World() {
         }
     };
 
-    // TODO : This needs to be refactored!
-    this.tab_to_next_interactive_object = function() {
-        /*
-        if (MANAGER_WORLD.current_floating_cursor.engaged) {
-            MANAGER_WORLD.current_floating_cursor.disengage();
-        }
-
-        if (is_defined(this.currently_looked_at_object)) {
-            if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage();
-                this.currently_looked_at_object.look_away();
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
-                this.currently_looked_at_object.look_at();
-                if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
-                    this.currently_looked_at_object.engage();
-                } else {
-                    CURRENT_PLAYER.enable_controls();
-                }
-            } else {
-                this.currently_looked_at_object.look_away();
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
-                this.currently_looked_at_object.look_at();
-            }
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
-        } else if (is_defined(this.default_tab_target)) {
-            this.currently_looked_at_object = this.default_tab_target;
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
-            this.currently_looked_at_object.look_at();
-        }
-        */
-    };
-
-    this.key_down_event_for_interactive_objects = function(event) {
-        if (event.keyCode === KEY_CODE_TAB) {
-            this.tab_to_next_interactive_object();
-            //event.preventDefault()
-            event.stopPropagation();
-        } else if (this.currently_looked_at_object !== null) {
-            //this.currently_looked_at_object.parse_keycode(event);
-        }
-
-        if (this.currently_looked_at_object !== null) {
-            if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
-                this.currently_looked_at_object.parse_keycode(event);
-            }
-        }
-        if (event.keyCode === KEY_CODE_ENTER) {
-            if (this.currently_looked_at_object !== null) {
-                if (!this.currently_looked_at_object.is_engaged()) {
-                    if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
-                        if (!this.currently_looked_at_object['_disabled']) {
-                            this.currently_looked_at_object.engage();
-                        }
-                    } else {
-                        this.currently_looked_at_object.engage();
-                    }
-                }
-            }
-        }
-
-        // No defaults will be useful (for now).
-        event.preventDefault();
-    };
-
     this.set_default_tab_target = function(default_tab_target) {
         this.default_tab_target = default_tab_target;
     };
-
-    /*     __        __   ___     ___       ___      ___  __  
-     |\/| /  \ |  | /__` |__     |__  \  / |__  |\ |  |  /__` 
-     |  | \__/ \__/ .__/ |___    |___  \/  |___ | \|  |  .__/ */
-
-    // This gets called on left mouse button up event.
-    this.single_left_click = function() {
-        if (is_defined(this.currently_looked_at_object)) {
-            if (!this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.engage();
-            }
-        }
-    };
-
-    // For now a middle click will act like a left click.
-    this.single_middle_click = function() {
-        this.single_left_click();
-    };
-
-    this.single_right_click = function() {
-        if (CURRENT_PLAYER.is_engaged()) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-        }
-    };
-
-    this.multi_left_click = function() {
-        // For now just perform a regular left click action.
-        this.single_left_click();
-    };
-
-    this.multi_middle_click = function() {
-        // Fow now just perform a regular left click action.
-        this.single_left_click();
-    };
-
-    this.multi_right_click = function() {
-        // Fow now just perform a regular right click action.
-        this.single_right_click();
-    };
-
-
 
     /*___      ___   ___
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
@@ -270,7 +117,6 @@ function World() {
     /*__   __   ___      ___  ___     __     __  ___       __   ___
      /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
-
     this.create_new_floating_picture = function(image_file) {
         var floating_picture = new FloatingPicture(image_file, this, false);
         // TODO : Move this logic.
