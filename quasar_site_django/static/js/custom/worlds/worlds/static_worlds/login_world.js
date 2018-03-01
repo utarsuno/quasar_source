@@ -94,8 +94,10 @@ LoginWorld.prototype = {
     },
 
     __init__: function() {
-        // Inherit from World.
+        // Inherit.
         World.call(this);
+        // Inherit.
+        WorldInput.call(this);
     },
 
     enter_world: function() {
