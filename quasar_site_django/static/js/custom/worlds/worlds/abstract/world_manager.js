@@ -239,11 +239,6 @@ WorldManager.prototype = {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 if (world_relative_id !== relative_id) {
 
-                    l(relative_id);
-                    l(world_relative_id);
-                    l(typeof relative_id);
-                    l(typeof world_relative_id);
-
                     this.dynamic_worlds[relative_id].player_menu.update_or_add_personal_teleport_button(dynamic_world);
                 }
             }
@@ -268,6 +263,16 @@ WorldManager.prototype = {
         this.add_dynamic_world(dynamic_world);
 
         this.update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu(dynamic_world);
+
+        // Add all other dynamic worlds as a teleport button for this dynamic world.
+        var relative_id = dynamic_world_entity.get_relative_id().toString();
+        for (var other_relative_id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(other_relative_id)) {
+                if (other_relative_id !== relative_id) {
+                    dynamic_world.player_menu.update_or_add_personal_teleport_button(this.dynamic_worlds[other_relative_id]);
+                }
+            }
+        }
     },
 
     create_new_dynamic_world: function() {
