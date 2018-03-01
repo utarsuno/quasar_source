@@ -135,8 +135,8 @@ class HostServer(ZMQBase):
 
 	def send_reply(self, m):
 		"""Sends a reply message."""
-		print('Sending the following reply:')
-		print(m)
+		#print('Sending the following reply:')
+		#print(m)
 		self._socket.send(to_bytes(m))
 
 

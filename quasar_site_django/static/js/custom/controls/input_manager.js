@@ -260,6 +260,8 @@ InputManager.prototype = {
                             if (!MANAGER_WORLD.current_player_menu.is_visible()) {
                                 MANAGER_WORLD.current_player_menu.set_to_visible();
                             }
+                        } else {
+                            currently_looked_at_object.disengage();
                         }
                     } else {
                         if (!MANAGER_WORLD.current_player_menu.is_visible()) {
