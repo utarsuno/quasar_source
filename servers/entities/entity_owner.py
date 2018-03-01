@@ -84,10 +84,10 @@ class EntityOwner(object):
 		#static_worlds_manager.add_children(static_world_admin)
 
 		# TODO : THIS IS A TEMPORARY MESURE. Eventually fix up the architecture to not require this work-around.
-		static_worlds_manager._child_entities = '[' + static_world_home.relative_id + ',' + static_world_settings.relative_id + ',' + static_world_admin.relative_id + ']'
-		static_world_home._parent_entities = '[' + static_worlds_manager.relative_id + ']'
-		static_world_settings._parent_entities = '[' + static_worlds_manager.relative_id + ']'
-		static_world_admin._parent_entities = '[' + static_worlds_manager.relative_id + ']'
+		static_worlds_manager._child_entities = '[' + str(static_world_home.relative_id) + ',' + str(static_world_settings.relative_id) + ',' + str(static_world_admin.relative_id) + ']'
+		static_world_home._parent_entities = '[' + str(static_worlds_manager.relative_id) + ']'
+		static_world_settings._parent_entities = '[' + str(static_worlds_manager.relative_id) + ']'
+		static_world_admin._parent_entities = '[' + str(static_worlds_manager.relative_id) + ']'
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
