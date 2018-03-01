@@ -238,6 +238,10 @@ WorldManager.prototype = {
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 if (world_relative_id !== relative_id) {
+
+                    l(relative_id);
+                    l(world_relative_id);
+
                     this.dynamic_worlds[relative_id].player_menu.update_or_add_personal_teleport_button(dynamic_world);
                 }
             }
