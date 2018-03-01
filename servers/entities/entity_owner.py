@@ -35,10 +35,6 @@ class EntityOwner(object):
 				for id_num in self._entities:
 					raw_entity = be.Entity()
 					for p in self._entities[id_num]:
-
-						print(p)
-						print(self._entities[id_num][p])
-
 						raw_entity.set_property_and_value(p, self._entities[id_num][p])
 					self._entity_manager.add_entity(raw_entity)
 
@@ -69,22 +65,29 @@ class EntityOwner(object):
 		self._entity_manager.add_entity(static_worlds_manager)
 
 		# Add the 3 static worlds.
-		'''
 		static_world_home = be.Entity()
 		static_world_home.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_home.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_HOME)
-		static_worlds_manager.add_children(static_world_home)
+		self._entity_manager.add_entity(static_world_home)
+		#static_worlds_manager.add_children(static_world_home)
 
 		static_world_settings = be.Entity()
 		static_world_settings.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_settings.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_SETTINGS)
-		static_worlds_manager.add_children(static_world_settings)
+		self._entity_manager.add_entity(static_world_settings)
+		#static_worlds_manager.add_children(static_world_settings)
 
 		static_world_admin = be.Entity()
 		static_world_admin.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_admin.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_ADMIN)
-		static_worlds_manager.add_children(static_world_admin)
-		'''
+		self._entity_manager.add_entity(static_world_admin)
+		#static_worlds_manager.add_children(static_world_admin)
+
+		# TODO : THIS IS A TEMPORARY MESURE. Eventually fix up the architecture to not require this work-around.
+		static_worlds_manager._child_entities = '[' + static_world_home.relative_id + ',' + static_world_settings.relative_id + ',' + static_world_admin.relative_id + ']'
+		static_world_home._parent_entities = '[' + static_worlds_manager.relative_id + ']'
+		static_world_settings._parent_entities = '[' + static_worlds_manager.relative_id + ']'
+		static_world_admin._parent_entities = '[' + static_worlds_manager.relative_id + ']'
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
