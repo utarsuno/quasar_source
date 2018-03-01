@@ -33,7 +33,7 @@ DynamicWorld.prototype = {
         this.world_name_changed = true;
         this.world_name_changed_event(name_currently);
 
-        MANAGER_WORLD.update_world_name_for_teleport_buttons(this.entity);
+        MANAGER_WORLD.update_world_name_for_teleport_buttons(this);
     },
 
     world_name_changed_event: function(name_currently) {
