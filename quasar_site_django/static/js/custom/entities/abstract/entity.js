@@ -171,7 +171,7 @@ Entity.prototype = {
     },
 
     get_relative_id: function() {
-        return this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
+        return parseInt(this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]);
     },
 
     get_type: function() {
