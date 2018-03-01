@@ -106,11 +106,15 @@ class Entity(object):
 			json_data[key] = self._information[key]
 		return json_data
 
+	# TODO : Eventually clean up architecture design to fix this dirty fix.
 	def get_list_of_relative_ids_from_entities(self, entity_list):
 		"""Returns a list of integers representing relative keys of entities."""
 		relative_ids = []
 		for e in entity_list:
-			relative_ids.append(e.relative_id)
+			if type(e) == Entity:
+				relative_ids.append(e.relative_id)
+			else:
+				relative_ids.append(e)
 		return relative_ids
 
 	def has_property(self, key) -> bool:
