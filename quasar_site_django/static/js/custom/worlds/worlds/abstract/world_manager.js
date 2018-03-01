@@ -232,7 +232,7 @@ WorldManager.prototype = {
     },
 
     update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu: function(dynamic_world) {
-        var world_relative_id = dynamic_world.entity.get_relative_id();
+        var world_relative_id = (dynamic_world.entity.get_relative_id()).toString();
 
         // Update all dynamic worlds with the new teleport name.
         for (var relative_id in this.dynamic_worlds) {

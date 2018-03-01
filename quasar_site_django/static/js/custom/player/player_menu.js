@@ -129,7 +129,7 @@ PlayerMenu.prototype = {
     },
 
     update_or_add_personal_teleport_button: function(dynamic_world) {
-        var relative_id = dynamic_world.entity.get_relative_id();
+        var relative_id = (dynamic_world.entity.get_relative_id()).toString();
 
         if (relative_id in this.dynamic_worlds) {
             this.dynamic_worlds[relative_id][INDEX_DYNAMIC_WORLD_TELEPORT_BUTTON].update_text(this.dynamic_worlds[relative_id][INDEX_DYNAMIC_WORLD_OBJECT].world_name);
