@@ -287,10 +287,6 @@ EntityManager.prototype = {
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
-
-        l('ADD A USER ENTITY FROM ENTITY DATA!!');
-        l(entity_data);
-
         return new Entity(entity_data);
     },
 
