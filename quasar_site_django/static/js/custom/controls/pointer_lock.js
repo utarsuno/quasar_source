@@ -27,13 +27,13 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_change: function () {
-        if (document.pointerLockElement !== this.element || document.mozPointerLockElement !== this.element || document.webkitPointerLockElement !== this.element) {
+        if (document.pointerLockElement !== this.element && document.mozPointerLockElement !== this.element && document.webkitPointerLockElement !== this.element) {
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
         }
     },
 
     pointer_lock_error: function(e) {
-        raise_exception_with_full_logging('Pointer lock error!' + e);
+        raise_exception_with_full_logging('Pointer lock error!');
     },
 
     request_pointer_lock: function() {
