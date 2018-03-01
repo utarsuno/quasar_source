@@ -5,11 +5,25 @@ function WorldInput() {
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE_TAB) {
             this.tab_to_next_interactive_object();
-            //event.preventDefault()
             event.stopPropagation();
-        } else if (this.currently_looked_at_object !== null) {
-            //this.currently_looked_at_object.parse_keycode(event);
         }
+
+        if (is_defined(this.currently_looked_at_object)) {
+            if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+                this.currently_looked_at_object.parse_keycode(event);
+            } else if (event.keyCode === KEY_CODE_ENTER) {
+                if (!this.currently_looked_at_object.is_engaged()) {
+                    if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
+                        if (!this.currently_looked_at_object['_disabled']) {
+                            this.currently_looked_at_object.engage();
+                        }
+                    } else {
+                        this.currently_looked_at_object.engage();
+                    }
+                }
+            }
+        }
+
 
         if (this.currently_looked_at_object !== null) {
             if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
@@ -46,30 +60,6 @@ function WorldInput() {
             } else {
                 // Object is not currently engaged.
                 if (event.keyCode === KEY_CODE_ENTER) {
-                    if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
-                        if (!this.currently_looked_at_object['_disabled']) {
-                            this.currently_looked_at_object.engage();
-                        }
-                    } else {
-                        this.currently_looked_at_object.engage();
-                    }
-                }
-            }
-        }
-
-        // No defaults will be useful (for now).
-        event.preventDefault();
-    };
-
-    this.key_down_event_for_interactive_objectsOLD = function(event) {
-        if (this.currently_looked_at_object !== null) {
-            if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
-                this.currently_looked_at_object.parse_keycode(event);
-            }
-        }
-        if (event.keyCode === KEY_CODE_ENTER) {
-            if (this.currently_looked_at_object !== null) {
-                if (!this.currently_looked_at_object.is_engaged()) {
                     if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
                         if (!this.currently_looked_at_object['_disabled']) {
                             this.currently_looked_at_object.engage();
