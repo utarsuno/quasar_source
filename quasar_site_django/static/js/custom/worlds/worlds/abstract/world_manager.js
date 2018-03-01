@@ -241,6 +241,8 @@ WorldManager.prototype = {
 
                     l(relative_id);
                     l(world_relative_id);
+                    l(typeof relative_id);
+                    l(typeof world_relative_id);
 
                     this.dynamic_worlds[relative_id].player_menu.update_or_add_personal_teleport_button(dynamic_world);
                 }
