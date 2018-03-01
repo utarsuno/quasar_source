@@ -68,17 +68,17 @@ class EntityOwner(object):
 		static_world_home = be.Entity()
 		static_world_home.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_home.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_HOME)
-		static_worlds_manager.add_children(static_world_home.relative_id)
+		static_worlds_manager.add_children(static_world_home)
 
 		static_world_settings = be.Entity()
 		static_world_settings.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_settings.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_SETTINGS)
-		static_worlds_manager.add_children(static_world_settings.relative_id)
+		static_worlds_manager.add_children(static_world_settings)
 
 		static_world_admin = be.Entity()
 		static_world_admin.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_TYPE, be.ENTITY_TYPE_STATIC_WORLD)
 		static_world_admin.set_property_and_value(be.ENTITY_PROPERTY_NAME, be.ENTITY_STATIC_WORLD_ADMIN)
-		static_worlds_manager.add_children(static_world_admin.relative_id)
+		static_worlds_manager.add_children(static_world_admin)
 
 	def update_entity(self, entity_data):
 		"""Updates the entity with the provided entity data (or adds a new one if that entity does not exist)."""
