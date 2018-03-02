@@ -41,9 +41,9 @@ function WorldDynamicContent() {
     /*___      ___   ___
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
-    this.create_new_entity_wall = function() {
-        var entity_wall = new EntityWall(this);
-        this.entity_walls.push(entity_wall);
+    this.create_new_entity_wall = function(this_context) {
+        var entity_wall = new EntityWall(this_context);
+        this_context.entity_walls.push(entity_wall);
     };
 
 }

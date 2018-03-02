@@ -14,7 +14,7 @@ function player_action_global_save() {
 
 function player_action_create_entity_wall() {
     l('TODO : Create new entity wall!');
-    MANAGER_WORLD.current_world.create_new_entity_wall();
+    MANAGER_WORLD.current_world.create_new_entity_wall(MANAGER_WORLD.current_world);
 }
 
 function player_action_teleport_to_world(world) {
