@@ -39,10 +39,10 @@ module.exports = {
         "ASSET_GROUP_AUDIO"  : false,
         "ASSET_GROUP_TEXTURE": false,
 
-        "World"                      : true,
-        "WorldInput"                 : true,
-        "WorldState"                 : true,
-        "WorldObjectSavingAndLoading": true,
+        "World"              : true,
+        "WorldInput"         : true,
+        "WorldState"         : true,
+        "WorldDynamicContent": true,
 
         "console": false,
         "Cookies": false,

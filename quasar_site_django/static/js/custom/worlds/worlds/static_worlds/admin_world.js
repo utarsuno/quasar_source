@@ -26,7 +26,7 @@ AdminWorld.prototype = {
         World.call(this, static_world_entity);
         WorldInput.call(this);
         WorldState.call(this, new THREE.Vector3(0, 1000, 0));
-        WorldObjectSavingAndLoading.call(this);
+        WorldDynamicContent.call(this);
     },
 
     _perform_account_actions_button_pressed: function(account) {

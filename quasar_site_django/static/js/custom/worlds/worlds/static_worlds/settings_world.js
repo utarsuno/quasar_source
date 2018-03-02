@@ -56,7 +56,7 @@ SettingsWorld.prototype = {
         World.call(this, static_world_entity);
         WorldInput.call(this);
         WorldState.call(this, new THREE.Vector3(-1000, 350, 350), new THREE.Vector3(.992, .124, -.122));
-        WorldObjectSavingAndLoading.call(this);
+        WorldDynamicContent.call(this);
     },
 
     create: function() {

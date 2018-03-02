@@ -1,6 +1,6 @@
 'use strict';
 
-function WorldObjectSavingAndLoading() {
+function WorldDynamicContent() {
 
     this.floating_pictures = [];
     this.entity_walls      = [];
@@ -32,7 +32,18 @@ function WorldObjectSavingAndLoading() {
             this.entity_walls.push(entity_wall);
         }
 
+        this.dynamic_content_loaded = true;
+
         // TODO : Load all floating pictures.
+    };
+
+
+    /*___      ___   ___
+     |__  |\ |  |  |  |  \ /    |  |  /\  |    |
+     |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
+    this.create_new_entity_wall = function() {
+        var entity_wall = new EntityWall(this);
+        this.entity_walls.push(entity_wall);
     };
 
 }

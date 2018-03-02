@@ -11,7 +11,7 @@ DynamicWorld.prototype = {
         World.call(this, dynamic_world_entity);
         WorldInput.call(this);
         WorldState.call(this, new THREE.Vector3(0, 100, 0));
-        WorldObjectSavingAndLoading.call(this);
+        WorldDynamicContent.call(this);
 
         if (this.entity.has_property(ENTITY_PROPERTY_NAME)) {
             this.world_name = this.entity.get_value(ENTITY_PROPERTY_NAME);

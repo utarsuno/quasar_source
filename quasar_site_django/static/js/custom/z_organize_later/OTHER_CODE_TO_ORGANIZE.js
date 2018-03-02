@@ -1,3 +1,6 @@
+/**
+ * Created by utarsuno on 3/2/18.
+ */
 OLD PLAYER CODE TO ORGANIZE
 
     log_out: function() {
