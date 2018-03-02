@@ -23,7 +23,7 @@ EntityWall.prototype = {
         }
         this.base_wall_init_start();
 
-        if (was_loaded) {
+        if (!was_loaded) {
             this.create_new_finalize();
         } else {
             this.load_from_entity_finalize();
