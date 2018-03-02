@@ -42,6 +42,8 @@ function WorldDynamicContent() {
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
     this.create_new_entity_wall = function(this_context) {
+        l('Creating a new entity wall with the following context:');
+        l(this_context);
         var entity_wall = new EntityWall(this_context);
         this_context.entity_walls.push(entity_wall);
     };
