@@ -16,6 +16,9 @@ HomeWorld.prototype = {
     },
 
     create: function() {
+
+        // TODO : REMOVE ALL THIS CODE. IT SHOULD BE GENERALIZED FOR ALL WORLDS!
+
         // Used for debugging for now.
         this.floating_pictures = [];
         this.entity_walls =  [];
@@ -32,6 +35,7 @@ HomeWorld.prototype = {
 
         var entity_walls = MANAGER_ENTITY.get_all_entities_of_type(ENTITY_TYPE_ENTITY_WALL);
         for (var ew = 0; ew < entity_walls.length; ew++) {
+            l('Creating a new entity wall!');
             var entity_wall = new EntityWall(this, entity_walls[ew]);
             this.entity_walls.push(entity_wall);
         }

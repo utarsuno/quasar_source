@@ -19,6 +19,11 @@ function WorldObjectSavingAndLoading() {
         }
     };
 
+
+    // TODO : ADD DYNAMIC LOADING!!!
+    // TODO : ADD DYNAMIC LOADING!!!
+    // TODO : ADD DYNAMIC LOADING!!!
+
 }
 
 
