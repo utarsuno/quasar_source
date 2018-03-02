@@ -9,9 +9,8 @@ HomeWorld.prototype = {
     __init__: function(static_world_entity) {
         // Inherit.
         World.call(this, static_world_entity);
-        // Inherit.
         WorldInput.call(this);
-        // Inherit.
+        WorldState.call(this, new THREE.Vector3(0, 100, 0));
         WorldObjectSavingAndLoading.call(this);
     },
 
@@ -47,16 +46,10 @@ HomeWorld.prototype = {
         //this.add_content_to_schedules();
     },
 
-    enter_world: function() {
-        CURRENT_PLAYER.set_position_xyz(0, 100, 0);
-    },
-
-    exit_world: function() {
-    },
-
     /*__   __        ___  __             ___            ___
      /__` /  ` |__| |__  |  \ |  | |    |__     \  / | |__  |  |
      .__/ \__, |  | |___ |__/ \__/ |___ |___     \/  | |___ |/\| */
+    // TODO : REFACTOR THIS, GENERALIZE IT FOR ALL WORLDS!!!
     add_content_to_schedules: function() {
         for (var ew = 0; ew < this.entity_walls.length; ew++) {
             var entities = this.entity_walls[ew].get_all_entities();

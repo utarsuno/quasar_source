@@ -154,6 +154,7 @@ PlayerMenu.prototype = {
                 menu_icon = this._player_menu.add_floating_2D_text(16, [4, -ONE_FOURTH], [-8, .25], 1, ICON_WRENCH, TYPE_ICON);
 
                 this.create_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 100, [125, null], null, null, false);
+                this.create_wall.set_auto_adjust_height(true);
 
                 //this.create_wall.manual_visibility = true;
 
@@ -204,6 +205,7 @@ PlayerMenu.prototype = {
                 menu_icon = this._player_menu.add_floating_2D_text(16, [4, -ONE_FOURTH], [-8, .25], 1, ICON_TELEPORT, TYPE_ICON);
 
                 this.teleport_wall = menu_button.add_floating_wall_attachment(utiltiy_wall_width, 200, [125, null], null, null, false);
+                this.teleport_wall.set_auto_adjust_height(true);
 
                 this.teleport_wall.add_full_row_2D(0, 'Teleport to...', TYPE_CONSTANT);
 

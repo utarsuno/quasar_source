@@ -24,9 +24,8 @@ AdminWorld.prototype = {
     __init__: function (static_world_entity) {
         // Inherit.
         World.call(this, static_world_entity);
-        // Inherit.
         WorldInput.call(this);
-        // Inherit.
+        WorldState.call(this, new THREE.Vector3(0, 1000, 0));
         WorldObjectSavingAndLoading.call(this);
     },
 
@@ -166,12 +165,5 @@ AdminWorld.prototype = {
         this.wall_account_actions.set_attachment_depth_offset(5);
         this.wall_account_actions.set_attachment_horizontal_offset(100, null);
         this.wall_account_actions.hide_self_and_all_child_attachments_recursively();
-    },
-
-    enter_world: function() {
-        CURRENT_PLAYER.set_position_xyz(0, 1000, 0);
-    },
-
-    exit_world: function() {
     }
 };

@@ -41,6 +41,7 @@ module.exports = {
 
         "World"                      : true,
         "WorldInput"                 : true,
+        "WorldState"                 : true,
         "WorldObjectSavingAndLoading": true,
 
         "console": false,

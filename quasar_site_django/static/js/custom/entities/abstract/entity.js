@@ -210,6 +210,16 @@ Entity.prototype = {
         return properties;
     },
 
+    get_children_of_type: function(entity_type) {
+        var children_to_return = [];
+        for (var i = 0; i < this.children.length; i++) {
+            if (this.children[i].get_type() === entity_type) {
+                children_to_return.push(this.children[i]);
+            }
+        }
+        return children_to_return;
+    },
+
     get_child_entity_with_property_value: function(property, value) {
         for (var i = 0; i < this.children.length; i++) {
             if (this.children[i].get_value(property) === value) {

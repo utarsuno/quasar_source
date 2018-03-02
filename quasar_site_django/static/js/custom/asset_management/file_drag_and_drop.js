@@ -27,6 +27,7 @@ DragNDrop.prototype = {
             var file = event.dataTransfer.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
+                // TODO : Generalize this!!!
                 if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_home) {
                     MANAGER_WORLD.world_home.create_new_floating_picture(e.target.result);
                 }
@@ -36,3 +37,5 @@ DragNDrop.prototype = {
         };
     }
 };
+
+

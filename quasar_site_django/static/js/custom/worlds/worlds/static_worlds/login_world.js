@@ -96,14 +96,11 @@ LoginWorld.prototype = {
     __init__: function() {
         // Inherit.
         World.call(this);
-        // Inherit.
+        WorldState.call(this, new THREE.Vector3(0, 200, 0), new THREE.Vector3(400, 200, 430), this.custom_world_enter.bind(this), this.custom_world_exit.bind(this));
         WorldInput.call(this);
     },
 
-    enter_world: function() {
-        CURRENT_PLAYER.set_position_xyz(0, 200, 0);
-        CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
-
+    custom_world_enter: function() {
         if (MANAGER_COOKIES.get(COOKIE_SHOULD_REMEMBER_USERNAME) === 'true') {
             if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== undefined) {
                 if (MANAGER_COOKIES.get(COOKIE_REMEMBERED_USERNAME) !== 'undefined') {
@@ -117,7 +114,7 @@ LoginWorld.prototype = {
         this.wall_create_account.refresh_position_and_look_at();
     },
 
-    exit_world: function() {
+    custom_world_exit: function() {
         //this.login_wall.clear_inputs();
         //this.wall_create_account.clear_inputs();
     },

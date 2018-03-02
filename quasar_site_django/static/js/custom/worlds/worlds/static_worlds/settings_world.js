@@ -54,9 +54,8 @@ SettingsWorld.prototype = {
     __init__: function(static_world_entity) {
         // Inherit.
         World.call(this, static_world_entity);
-        // Inherit.
         WorldInput.call(this);
-        // Inherit.
+        WorldState.call(this, new THREE.Vector3(-1000, 350, 350), new THREE.Vector3(.992, .124, -.122));
         WorldObjectSavingAndLoading.call(this);
     },
 
@@ -137,21 +136,6 @@ SettingsWorld.prototype = {
 
         // TODO : Create option for a FloatingWall's height to be dynamically be updated based on how many rows there are.
         */
-    },
-
-
-    enter_world: function() {
-        CURRENT_PLAYER.set_position_xyz(-1000, 350, 350);
-        CURRENT_PLAYER.look_at(new THREE.Vector3(0.992, 0.124, -0.122));
-
-        // Set the profile information values.
-        //this.profile_name_input.update_text(ENTITY_OWNER.get_username());
-        //this.profile_email_input.update_text(ENTITY_OWNER.get_email());
-        //this.profile_phone_number_input.update_text(ENTITY_OWNER.get_phone_number());
-        //this.profile_phone_carrier_input.update_text(ENTITY_OWNER.get_phone_carrier());
-        //this.profile_created_at_date_input.update_text(ENTITY_OWNER.get_created_at_date());
-    },
-
-    exit_world: function() {
     }
+
 };

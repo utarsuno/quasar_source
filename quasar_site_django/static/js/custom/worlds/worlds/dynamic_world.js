@@ -9,9 +9,8 @@ DynamicWorld.prototype = {
     __init__: function(dynamic_world_entity) {
         // Inherit.
         World.call(this, dynamic_world_entity);
-        // Inherit.
         WorldInput.call(this);
-        // Inherit.
+        WorldState.call(this, new THREE.Vector3(0, 100, 0));
         WorldObjectSavingAndLoading.call(this);
 
         if (this.entity.has_property(ENTITY_PROPERTY_NAME)) {
@@ -74,13 +73,6 @@ DynamicWorld.prototype = {
 
 
         this.world_wall.refresh_position_and_look_at();
-    },
-
-    enter_world: function() {
-        CURRENT_PLAYER.set_position_xyz(0, 100, 0);
-    },
-
-    exit_world: function() {
     }
 
 };
