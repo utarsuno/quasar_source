@@ -29,7 +29,7 @@ VidoeCSSElement.prototype = {
         this.object.lookAt(n);
 
         //base_wall.object3D.add(this.object);
-        
+
         base_wall.world.css_scene.add(this.group);
     }
 };
@@ -123,6 +123,8 @@ FloatingVideo.prototype = {
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
 
         if (!this.loaded_css_element) {
+
+            l(this.base_wall.get_position());
 
             var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
 
