@@ -82,6 +82,7 @@ const ENTITY_TYPE_WALL                   = 'EntityWall';
 const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
 const ENTITY_TYPE_OWNER                  = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
+const ENTITY_TYPE_VIDEO                  = 'EntityVideo';
 const ENTITY_TYPE_PICTURE                = 'EntityFloatingPicture';
 const ENTITY_TYPE_DYNAMIC_WORLD          = 'EntityDynamicWorld';
 const ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER = 'EntityDynamicWorldsManager';

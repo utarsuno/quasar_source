@@ -185,7 +185,7 @@ PlayerMenu.prototype = {
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MOVIE, TYPE_ICON);
-                current_row.add_2D_button([icon_width, 1], 'YouTube Video', null, null);
+                current_row.add_2D_button([icon_width, 1], 'YouTube Video', null, player_action_create_new_video);
 
                 // TODO : REFACTOR
                 menu_button.set_look_at_function(this._main_menu_button_looked_at.bind(this, this.create_wall));

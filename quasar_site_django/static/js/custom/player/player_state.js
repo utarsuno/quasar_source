@@ -67,6 +67,7 @@ function PlayerState() {
 
     this.add_text_and_leave_typing_state = function() {
         GUI_TYPING_INTERFACE.add_user_text();
+
         this.set_state(PLAYER_STATE_FULL_CONTROL);
     };
 

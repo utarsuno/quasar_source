@@ -5,8 +5,6 @@ function Saveable(entity_type, load_completed_callback) {
     this.load_completed_callback = load_completed_callback;
 
     this.save_type = entity_type;
-    // TODO : Change design so that this is false and saving must be explicitly enabled.
-    this.saveable  = false;
     this._save_field_keys = [];
 
     this._entity = null;

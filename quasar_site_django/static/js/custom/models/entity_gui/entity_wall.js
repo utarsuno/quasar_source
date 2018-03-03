@@ -9,10 +9,6 @@ EntityWall.prototype = {
     __init__: function(world, entity) {
         this.all_entities = [];
 
-        l('Creating a new EntityWall for the following world and entity');
-        l(world);
-        l(entity);
-
         var was_loaded = false;
 
         if (!is_defined(entity)) {
@@ -30,6 +26,7 @@ EntityWall.prototype = {
         }
         this.base_wall_init_end();
     },
+
     get_all_entities: function() {
         return this.all_entities;
     },
@@ -114,7 +111,6 @@ EntityWall.prototype = {
     },
 
     load_from_entity_finalize: function() {
-        l(this.entity_wall_entity);
         var number_of_children = this.entity_wall_entity.number_of_children();
         for (var e = 0; e < number_of_children; e++) {
             this.add_entity(this.entity_wall_entity.children[e]);

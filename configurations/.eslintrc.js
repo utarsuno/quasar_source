@@ -59,13 +59,13 @@ module.exports = {
         "Client": true,
         "WebSocketClient": false,
 
-        "FloatingYouTubeVideo": true,
-        "FloatingRow"         : true,
-        "FloatingWall"        : true,
-        "FloatingText"        : true,
-        "Floating2DText"      : true,
-        "Floating3DText"      : true,
-        "FloatingPicture"     : true,
+        "FloatingVideo"  : true,
+        "FloatingRow"    : true,
+        "FloatingWall"   : true,
+        "FloatingText"   : true,
+        "Floating2DText" : true,
+        "Floating3DText" : true,
+        "FloatingPicture": true,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
@@ -251,6 +251,7 @@ module.exports = {
         "ENTITY_TYPE_OWNER"                 : false,
         "ENTITY_TYPE_TEXT_REMINDER"         : false,
         "ENTITY_TYPE_PICTURE"               : false,
+        "ENTITY_TYPE_VIDEO"                 : false,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Entity default property keys.

@@ -4,6 +4,7 @@ function WorldDynamicContent() {
 
     this.floating_pictures = [];
     this.entity_walls      = [];
+    this.videos            = [];
 
     this.dynamic_content_loaded = false;
 
@@ -35,7 +36,9 @@ function WorldDynamicContent() {
 
             if (child_entity.get_type() === ENTITY_TYPE_ENTITY_WALL) {
                 this.load_entity_wall(child_entity);
-            } else {
+            } else if (child_entity.get_type() === ENTITY_TYPE_VIDEO) {
+                this.load_video_wall(child_entity);
+            }else {
                 // TODO :
                 l('TODO : COVER LOADING FUNCTIONALITY OF THIS ENTITY CHILD TYPE!!');
             }
@@ -59,6 +62,17 @@ function WorldDynamicContent() {
         this.entity_walls.push(entity_wall);
     };
 
+    /*       __   ___  __
+     \  / | |  \ |__  /  \    |  |  /\  |    |
+      \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
+    this.create_new_video_wall = function(this_context) {
+        var video_wall = new FloatingVideo(this_context);
+        this_context.video_entity.push(video_wall);
+    };
+
+    this.load_video_wall = function(video_entity) {
+        var video_wall = new FloatingVideo(this, video_entity);
+        this.videos.push(video_wall);
+    };
+
 }
-
-

@@ -25,6 +25,10 @@ function player_action_create_picture() {
     GUI_TYPING_INTERFACE.add_server_message('To create an image simply drag and drop the image file into the browser!');
 }
 
+function player_action_create_new_video() {
+    MANAGER_WORLD.current_world.create_new_video(MANAGER_WORLD.current_world);
+}
+
 // TODO :
 function player_action_exit_function() {
     if (MANAGER_WORLD.current_world === MANAGER_WORLD.world_login) {

@@ -98,7 +98,9 @@ InputManager.prototype = {
 
     on_key_down: function(event) {
         if (CURRENT_PLAYER.in_typing_state()) {
+            l('CURRENT PLAYER is in typing state.');
             if (event.keyCode === KEY_CODE_ENTER) {
+                l('NEED TO EXIT TYPING STATE!');
                 CURRENT_PLAYER.add_text_and_leave_typing_state();
             } else {
                 GUI_TYPING_INTERFACE.key_down_event(event);
