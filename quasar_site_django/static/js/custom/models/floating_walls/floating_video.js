@@ -10,10 +10,8 @@ VidoeCSSElement.prototype = {
         var w = base_wall.width.toString() + 'px';
         var h = base_wall.height.toString() + 'px';
         var p = base_wall.get_position();
-        l(p);
-        l(base_wall.get_position());
         var nn = base_wall.get_normal();
-        var n = new THREE.Vector3(n.x + p.x, n.y + p.y, n.z + p.z);
+        var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
 
         var div = document.createElement('div');
         div.style.width = w;
@@ -125,9 +123,6 @@ FloatingVideo.prototype = {
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
 
         if (!this.loaded_css_element) {
-
-            l(this.base_wall.get_position());
-
             var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
 
             this.loaded_css_element = true;
