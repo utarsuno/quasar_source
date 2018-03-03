@@ -14,6 +14,7 @@ FloatingVideo.prototype = {
         }
 
         this.base_wall.world.root_attachables.push(this.base_wall);
+        this.base_wall.refresh_position_and_look_at();
     },
 
     /*___  __    ___
