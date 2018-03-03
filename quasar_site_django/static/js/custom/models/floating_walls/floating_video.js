@@ -1,14 +1,16 @@
 'use strict';
 
-function VidoeCSSElement(width, height, position, normal, video_source, world) {
-    this.__init__(width, height, position, normal, video_source, world);
+function VidoeCSSElement(base_wall, video_source) {
+    this.__init__(base_wall, video_source);
 }
 
 VidoeCSSElement.prototype = {
-    __init__: function(width, height, position, normal, video_source, world) {
+    __init__: function(base_wall, video_source) {
         // Base code from : https://codepen.io/asjas/pen/pWawPm
-        var w = width.toString() + 'px';
-        var h = height.toString() + 'px';
+        var w = base_wall.width.toString() + 'px';
+        var h = base_wall.height.toString() + 'px';
+        var p = base_wall.get_position();
+        var n = base_wall.get_normal();
 
         var div = document.createElement('div');
         div.style.width = w;
@@ -22,15 +24,18 @@ VidoeCSSElement.prototype = {
         div.appendChild(iframe);
 
         this.object = new THREE.CSS3DObject(div);
-        this.object.position.set(position.x, position.y, position.z);
-        this.object.rotation.x = normal.x;
-        this.object.rotation.y = normal.y;
-        this.object.rotation.z = normal.z;
+        //this.object.position.set(p.x, p.y, p.z);
 
-        this.group = new THREE.Group();
-        this.group.add(this.object);
+        //this.object.rotation.x = normal.x;
+        //this.object.rotation.y = normal.y;
+        //this.object.rotation.z = normal.z;
 
-        world.css_scene.add(this.group);
+        //this.group = new THREE.Group();
+        //this.group.add(this.object);
+
+        base_wall.object3D.add(this.object);
+
+        base_wall.world.css_scene.add(this.group);
     }
 };
 
@@ -124,7 +129,7 @@ FloatingVideo.prototype = {
 
         if (!this.loaded_css_element) {
 
-            var video = new VidoeCSSElement(this.base_wall.width, this.base_wall.height, this.base_wall.get_position(), this.base_wall.get_normal(), this.video_entity.get_value(ENTITY_PROPERTY_NAME), this.base_wall.world);
+            var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
 
             this.loaded_css_element = true;
         }
