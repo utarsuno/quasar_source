@@ -22,10 +22,10 @@ VidoeCSSElement.prototype = {
         div.appendChild(iframe);
 
         this.object = new THREE.CSS3DObject(div);
-        object.position.set(position.x, position.y, position.z);
-        object.rotation.x = normal.x;
-        object.rotation.y = normal.y;
-        object.rotation.z = normal.z;
+        this.object.position.set(position.x, position.y, position.z);
+        this.object.rotation.x = normal.x;
+        this.object.rotation.y = normal.y;
+        this.object.rotation.z = normal.z;
 
         this.group = new THREE.Group();
         this.group.add(this.object);
