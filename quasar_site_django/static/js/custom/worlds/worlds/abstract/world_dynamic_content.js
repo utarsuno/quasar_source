@@ -65,7 +65,7 @@ function WorldDynamicContent() {
     /*       __   ___  __
      \  / | |  \ |__  /  \    |  |  /\  |    |
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
-    this.create_new_video_wall = function(this_context) {
+    this.create_new_video = function(this_context) {
         var video_wall = new FloatingVideo(this_context);
         this_context.video_entity.push(video_wall);
     };
