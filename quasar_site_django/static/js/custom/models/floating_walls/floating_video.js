@@ -12,6 +12,8 @@ FloatingVideo.prototype = {
         } else {
             this.load_floating_video(world, entity);
         }
+
+        this.base_wall.world.root_attachables.push(this.base_wall);
     },
 
     /*___  __    ___
@@ -39,8 +41,6 @@ FloatingVideo.prototype = {
         // Load the base wall.
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
-
-
     }
 };
 
