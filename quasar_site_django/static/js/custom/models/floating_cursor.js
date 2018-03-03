@@ -15,6 +15,10 @@ FloatingCursor.prototype = {
         this._previous_cursor      = null;
 
         this._currently_engaged    = false;
+
+        // Used for CSS clicking.
+        this.css_click_down = false;
+        this.css_click_event = false;
     },
 
     wheel_event: function(delta) {
@@ -116,7 +120,20 @@ FloatingCursor.prototype = {
         this.cursor_wall.refresh_position_and_look_at();
     },
 
+    css_event_check: function(was_down) {
+        if (was_down) {
+            if (!this.css_click_event) {
+                l('CSS EVENT CLICK!');
+                this.css_click_event = true;
+            }
+        } else {
+            this.css_click_event = false;
+        }
+    },
+
     update: function() {
+        var css_click_was_down = false;
+
         if (this._currently_engaged) {
 
             var plane_current_position = this.currently_attached_to.get_position();
@@ -140,7 +157,7 @@ FloatingCursor.prototype = {
                 this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
                 this.currently_attached_to.refresh_position_and_look_at();
             } else if (this._is_current_cursor_type(CURSOR_TYPE_CSS)) {
-                l('PERFORM CSS ACTION!!');
+                css_click_was_down = true;
             }
 
 
@@ -151,6 +168,8 @@ FloatingCursor.prototype = {
                 }
             }
         }
+
+        this.css_click_down(css_click_was_down);
     },
 
     _get_scalable_cursor_needed: function() {
