@@ -177,8 +177,8 @@ FloatingCursor.prototype = {
         if (is_defined(this.currently_attached_to.block_input_on_inner_70_percent)) {
             if (this.currently_attached_to.block_input_on_inner_70_percent) {
                 if (vertical_percentage > .3 && vertical_percentage < .7 && horizontal_percentage < .35) {
-                    l('SET CURSOR TO CSS');
                     this._set_current_cursor(CURSOR_TYPE_CSS);
+                    cursor_already_set = true;
                 }
             }
         }
