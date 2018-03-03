@@ -73,8 +73,7 @@ InputManager.prototype = {
             // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
             var clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
             var pasted_data = clipboard_data.getData('text');
-            MANAGER_WORLD.handle_paste(pasted_data);
-            // MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
+            MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
         }
     },
 
