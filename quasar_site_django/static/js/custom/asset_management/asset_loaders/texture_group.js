@@ -55,6 +55,7 @@ TextureGroup.prototype = {
             this._add_required_initial_asset(CURSOR_TYPE_POINTER);
             this._add_required_initial_asset(CURSOR_TYPE_LARGER);
             this._add_required_initial_asset(CURSOR_TYPE_MOUSE);
+            this._add_required_initial_asset(CURSOR_TYPE_CSS);
             break;
         case TEXTURE_GROUP_SKYBOX:
             this._add_required_initial_asset(SKYBOX_FRONT);

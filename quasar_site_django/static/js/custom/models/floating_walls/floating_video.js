@@ -7,8 +7,8 @@ function VidoeCSSElement(base_wall, video_source) {
 VidoeCSSElement.prototype = {
     __init__: function(base_wall, video_source) {
         // Base code from : https://codepen.io/asjas/pen/pWawPm
-        var w = (base_wall.width * .8).toString() + 'px';
-        var h = (base_wall.height * .8).toString() + 'px';
+        var w = (base_wall.width * .7).toString() + 'px';
+        var h = (base_wall.height * .7).toString() + 'px';
         var p = base_wall.get_position();
         var nn = base_wall.get_normal();
         var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
@@ -133,6 +133,7 @@ FloatingVideo.prototype = {
         // Load the base wall.
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
+        this.base_wall.block_input_on_inner_70_percent = true;
 
         var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
         this.base_wall.post_position_update = this.update_position_for_video.bind(this, video);

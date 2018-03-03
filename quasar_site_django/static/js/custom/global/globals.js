@@ -286,6 +286,7 @@ const CURSOR_TYPE_LARGER     = 'larger.png';
 const CURSOR_TYPE_HAND       = 'cursor_hand.png';
 const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
 const CURSOR_TYPE_MOUSE      = 'mouse.png';
+const CURSOR_TYPE_CSS        = 'cursor_css.png';
 // UNIVERSAL_CONSTANTS_END
 
 const TEXT_FORMAT_LEFT         = 'text_format_left';

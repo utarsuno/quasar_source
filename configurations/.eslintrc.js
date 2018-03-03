@@ -325,6 +325,7 @@ module.exports = {
         "CURSOR_TYPE_HAND"      : true,
         "CURSOR_TYPE_POINTER"   : true,
         "CURSOR_TYPE_MOUSE"     : true,
+        "CURSOR_TYPE_CSS"       : true,
         // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Skybox textures.
