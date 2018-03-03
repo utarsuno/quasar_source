@@ -13,6 +13,8 @@ FloatingVideo.prototype = {
             this.load_floating_video(world, entity);
         }
 
+        this.add_base_wall_functionality();
+
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
     },
@@ -20,11 +22,52 @@ FloatingVideo.prototype = {
     /*___  __    ___
      |__  |  \ |  |     |  |  /\  |    |
      |___ |__/ |  |     |/\| /~~\ |___ |___ */
+    show_settings_wall: function() {
+        this.settings_wall.force_display_self_and_all_child_attachments_recursively();
+    },
 
+    set_video: function() {
+        var video_code = this.video_code_input.get_text();
+        this.video_entity.set_property(ENTITY_PROPERTY_NAME, video_code);
+
+        this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
+    },
 
     /*        ___                 __   __   ___      ___         __                __           __        __          __
      | |\ | |  |  |  /\  |       /  ` |__) |__   /\   |  | |\ | / _`     /\  |\ | |  \    |    /  \  /\  |  \ | |\ | / _`
      | | \| |  |  | /~~\ |___    \__, |  \ |___ /~~\  |  | | \| \__>    /~~\ | \| |__/    |___ \__/ /~~\ |__/ | | \| \__> */
+    add_base_wall_functionality: function() {
+        // Create the settings wall.
+        this.settings_wall = this.base_wall.add_floating_wall_attachment(400, 400, null, null, 10, false);
+        this.settings_wall.add_close_button();
+        this.settings_wall.set_auto_adjust_height(true);
+        this.settings_wall.manual_visibility = true;
+
+        var settings_row = this.settings_wall.add_row();
+        settings_row.add_2D_element([0, ONE_THIRD], 'Video Code: ', TYPE_CONSTANT);
+        this.video_code_input = settings_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+
+        settings_row = this.settings_wall.add_row();
+        settings_row.add_2D_button([0, 1], 'Set Video', null, this.set_video.bind(this));
+
+        this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
+
+        // Create the settings button.
+        var row = this.base_wall.add_row(-1);
+        var icon_width = 16 / this.base_wall.width;
+
+        var settings_button = row.add_2D_element([0, icon_width], ICON_SETTINGS, TYPE_ICON);
+        this.base_wall.world.interactive_objects.push(settings_button);
+        settings_button.engable = false;
+        settings_button.set_engage_function(this.show_settings_wall.bind(this));
+
+        // Create the delete button.
+        var close_button = row.add_2D_element([icon_width, icon_width * 2], ICON_CROSS, TYPE_ICON);
+        this.base_wall.world.interactive_objects.push(close_button);
+        close_button.engable = false;
+        // TODO : close_button.set_engage_function()
+    },
+
     create_new_floating_video: function(world) {
         var data = get_player_blink_spot(200);
 
@@ -44,23 +87,3 @@ FloatingVideo.prototype = {
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
     }
 };
-
-
-
-
-/*
-        var row = this.base_wall.add_row();
-        row.add_2D_element([0, ONE_THIRD], 'Video Code:', TYPE_CONSTANT);
-        row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
-
-        row = this.base_wall.add_row();
-        row.add_2D_button([0, 1], 'create video', null, null);
-
-        row = this.base_wall.add_row();
-        row.add_2D_button([0, 1], 'delete', null, null);
-
-
- */
-
-
-
