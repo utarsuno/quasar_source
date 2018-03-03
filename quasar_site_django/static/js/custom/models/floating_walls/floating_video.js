@@ -28,9 +28,9 @@ VidoeCSSElement.prototype = {
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
 
-        //base_wall.object3D.add(this.object);
+        base_wall.object3D.add(this.object);
 
-        base_wall.world.css_scene.add(this.group);
+        base_wall.world.css_scene.add(this.object);
     }
 };
 
