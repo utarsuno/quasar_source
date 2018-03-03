@@ -7,8 +7,8 @@ function VidoeCSSElement(base_wall, video_source) {
 VidoeCSSElement.prototype = {
     __init__: function(base_wall, video_source) {
         // Base code from : https://codepen.io/asjas/pen/pWawPm
-        var w = base_wall.width.toString() + 'px';
-        var h = base_wall.height.toString() + 'px';
+        var w = (base_wall.width * .8).toString() + 'px';
+        var h = (base_wall.height * .8).toString() + 'px';
         var p = base_wall.get_position();
         var nn = base_wall.get_normal();
         var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
@@ -28,9 +28,17 @@ VidoeCSSElement.prototype = {
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
 
-        base_wall.object3D.add(this.object);
+        //base_wall.object3D.add(this.object);
 
         base_wall.world.css_scene.add(this.object);
+    },
+
+    set_position_and_normal: function(position, normal) {
+        var p = position;
+        var nn = normal;
+        var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
+        this.object.position.set(p.x, p.y, p.z);
+        this.object.lookAt(n);
     }
 };
 
@@ -53,6 +61,10 @@ FloatingVideo.prototype = {
 
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
+    },
+
+    update_position_for_video: function(video) {
+        video.set_position_and_normal(this.base_wall.get_position(), this.base_wall.get_normal());
     },
 
     /*___  __    ___
@@ -122,10 +134,7 @@ FloatingVideo.prototype = {
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
 
-        if (!this.loaded_css_element) {
-            var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
-
-            this.loaded_css_element = true;
-        }
+        var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
+        this.base_wall.post_position_update = this.update_position_for_video.bind(this, video);
     }
 };

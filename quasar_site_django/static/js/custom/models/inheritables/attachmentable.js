@@ -91,6 +91,10 @@ function Attachmentable(world) {
     this.refresh_position_and_look_at = function() {
         this._refresh_look_at();
         this.update_all_child_attachments();
+
+        if (is_defined(this.post_position_update)) {
+            this.post_position_update();
+        }
     };
 
     // WARNING : This is recursive. Change the design later.
