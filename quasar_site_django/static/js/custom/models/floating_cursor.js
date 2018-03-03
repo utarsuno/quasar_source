@@ -169,7 +169,7 @@ FloatingCursor.prototype = {
             }
         }
 
-        this.css_click_down(css_click_was_down);
+        this.css_event_check(css_click_was_down);
     },
 
     _get_scalable_cursor_needed: function() {
