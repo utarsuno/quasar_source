@@ -10,6 +10,8 @@ VidoeCSSElement.prototype = {
         var w = base_wall.width.toString() + 'px';
         var h = base_wall.height.toString() + 'px';
         var p = base_wall.get_position();
+        l(p);
+        l(base_wall.get_position());
         var nn = base_wall.get_normal();
         var n = new THREE.Vector3(n.x + p.x, n.y + p.y, n.z + p.z);
 
