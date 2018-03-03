@@ -124,7 +124,7 @@ FloatingVideo.prototype = {
 
         if (!this.loaded_css_element) {
 
-            var video = new VidoeCSSElement(this.base_wall.width, this.base_wall.height, this.base_wall.get_position(), this.base_wall.get_direction(), this.video_entity.get_value(ENTITY_PROPERTY_NAME), this.base_wall.world);
+            var video = new VidoeCSSElement(this.base_wall.width, this.base_wall.height, this.base_wall.get_position(), this.base_wall.get_normal(), this.video_entity.get_value(ENTITY_PROPERTY_NAME), this.base_wall.world);
 
             this.loaded_css_element = true;
         }
