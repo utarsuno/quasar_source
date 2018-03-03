@@ -1,5 +1,39 @@
 'use strict';
 
+function VidoeCSSElement(width, height, position, normal, video_source, world) {
+    this.__init__(width, height, position, normal, video_source, world);
+}
+
+VidoeCSSElement.prototype = {
+    __init__: function(width, height, position, normal, video_source, world) {
+        // Base code from : https://codepen.io/asjas/pen/pWawPm
+        var w = width.toString() + 'px';
+        var h = height.toString() + 'px';
+
+        var div = document.createElement('div');
+        div.style.width = w;
+        div.style.height = h;
+        div.style.backgroundColor = '#ff009b';
+        var iframe = document.createElement('iframe');
+        iframe.style.width = w;
+        iframe.style.height = h;
+        iframe.style.border = '0px';
+        iframe.src = ['https://www.youtube.com/embed/', video_source, '?rel=0'].join( '' );
+        div.appendChild(iframe);
+
+        this.object = new THREE.CSS3DObject(div);
+        object.position.set(position.x, position.y, position.z);
+        object.rotation.x = normal.x;
+        object.rotation.y = normal.y;
+        object.rotation.z = normal.z;
+
+        this.group = new THREE.Group();
+        this.group.add(this.object);
+
+        world.css_scene.add(this.group);
+    }
+};
+
 function FloatingVideo(world, entity) {
     this.__init__(world, entity);
 }
@@ -7,6 +41,8 @@ function FloatingVideo(world, entity) {
 FloatingVideo.prototype = {
 
     __init__: function(world, entity) {
+        this.loaded_css_element = false;
+
         if (!is_defined(entity)) {
             this.create_new_floating_video(world);
         } else {
@@ -85,5 +121,12 @@ FloatingVideo.prototype = {
         // Load the base wall.
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
+
+        if (!this.loaded_css_element) {
+
+            var video = new VidoeCSSElement(this.base_wall.width, this.base_wall.height, this.base_wall.get_position(), this.base_wall.get_direction(), this.video_entity.get_value(ENTITY_PROPERTY_NAME), this.base_wall.world);
+
+            this.loaded_css_element = true;
+        }
     }
 };

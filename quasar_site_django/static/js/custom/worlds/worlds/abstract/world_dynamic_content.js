@@ -6,6 +6,8 @@ function WorldDynamicContent() {
     this.entity_walls      = [];
     this.videos            = [];
 
+    this.css_scene_added = false;
+
     this.dynamic_content_loaded = false;
 
     this.prepare_for_save = function() {
@@ -65,12 +67,26 @@ function WorldDynamicContent() {
     /*       __   ___  __
      \  / | |  \ |__  /  \    |  |  /\  |    |
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
+    this.add_css_scene = function() {
+        this.css_scene = new THREE.Scene();
+        this.container = document.getElementById('container');
+        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+    };
+
     this.create_new_video = function(this_context) {
+        if (!this.css_scene_added) {
+            this.add_css_scene();
+        }
+
         var video_wall = new FloatingVideo(this_context);
         this_context.videos.push(video_wall);
     };
 
     this.load_video_wall = function(video_entity) {
+        if (!this.css_scene_added) {
+            this.add_css_scene();
+        }
+
         var video_wall = new FloatingVideo(this, video_entity);
         this.videos.push(video_wall);
     };
