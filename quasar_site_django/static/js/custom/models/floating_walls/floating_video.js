@@ -10,7 +10,8 @@ VidoeCSSElement.prototype = {
         var w = base_wall.width.toString() + 'px';
         var h = base_wall.height.toString() + 'px';
         var p = base_wall.get_position();
-        var n = base_wall.get_normal();
+        var nn = base_wall.get_normal();
+        var n = new THREE.Vector3(n.x + p.x, n.y + p.y, n.z + p.z);
 
         var div = document.createElement('div');
         div.style.width = w;
@@ -24,17 +25,11 @@ VidoeCSSElement.prototype = {
         div.appendChild(iframe);
 
         this.object = new THREE.CSS3DObject(div);
-        //this.object.position.set(p.x, p.y, p.z);
+        this.object.position.set(p.x, p.y, p.z);
+        this.object.lookAt(n);
 
-        //this.object.rotation.x = normal.x;
-        //this.object.rotation.y = normal.y;
-        //this.object.rotation.z = normal.z;
-
-        //this.group = new THREE.Group();
-        //this.group.add(this.object);
-
-        base_wall.object3D.add(this.object);
-
+        //base_wall.object3D.add(this.object);
+        
         base_wall.world.css_scene.add(this.group);
     }
 };
