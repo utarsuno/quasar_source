@@ -31,6 +31,16 @@ VidoeCSSElement.prototype = {
 
         //base_wall.object3D.add(this.object);
 
+
+        /////
+
+        this.iframe.contentWindow.addEventListener('onclick', function(event) {
+
+        });
+
+        /////
+
+
         base_wall.world.css_scene.add(this.object);
     },
 
@@ -52,8 +62,11 @@ VidoeCSSElement.prototype = {
             'screenY': 50
         });
 
-        this.iframe.simulate('click', mouse_event);
 
+
+        //this.iframe
+
+        //this.iframe.simulate('click', mouse_event);
         //this.iframe.trigger('click');
     }
 };
