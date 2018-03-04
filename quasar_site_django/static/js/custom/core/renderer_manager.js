@@ -46,8 +46,6 @@ RendererManager.prototype = {
             this.renderer.setSize(this.window_width, this.window_height);
             this.renderer.setClearColor(0x000000, 1);
 
-            this.renderer.domElement.style.visibility = 'hidden';
-
             this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
             //this.renderer.domElement.style.position = 'absolute';
