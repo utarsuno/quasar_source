@@ -33,6 +33,7 @@ VidoeCSSElement.prototype = {
 
 
         /////
+        
 
         //this.iframe.contentWindow.addEventListener('onclick', function(event) {
         //});
@@ -61,7 +62,7 @@ VidoeCSSElement.prototype = {
             'screenY': 50
         });
 
-
+        this.iframe.contentWindow.postMessage(mouse_event, '*');
 
         //this.iframe
 
