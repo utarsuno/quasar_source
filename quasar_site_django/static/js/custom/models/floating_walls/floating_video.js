@@ -43,7 +43,18 @@ VidoeCSSElement.prototype = {
     },
 
     trigger_click_event: function(x, y) {
-        this.iframe.trigger('click');
+
+        var mouse_event = new MouseEvent('click', {
+            'view': window,
+            'bubbles': false,
+            'cancelable': true,
+            'screenX': 50,
+            'screenY': 50
+        });
+
+        this.iframe.simulate('click', mouse_event);
+
+        //this.iframe.trigger('click');
     }
 };
 
@@ -144,7 +155,7 @@ FloatingVideo.prototype = {
 
         this.video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
         this.base_wall.post_position_update = this.update_position_for_video.bind(this);
-        
+
         this.base_wall.trigger_click_event = this.trigger_click_event.bind(this);
     }
 };
