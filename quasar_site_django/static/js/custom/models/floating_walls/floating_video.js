@@ -34,9 +34,8 @@ VidoeCSSElement.prototype = {
 
         /////
 
-        this.iframe.contentWindow.addEventListener('onclick', function(event) {
-
-        });
+        //this.iframe.contentWindow.addEventListener('onclick', function(event) {
+        //});
 
         /////
 
