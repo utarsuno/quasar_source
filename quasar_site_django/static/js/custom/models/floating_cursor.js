@@ -120,17 +120,6 @@ FloatingCursor.prototype = {
         this.cursor_wall.refresh_position_and_look_at();
     },
 
-    css_event_check: function(was_down) {
-        if (was_down) {
-            if (!this.css_click_event) {
-                l('CSS EVENT CLICK!');
-                this.css_click_event = true;
-            }
-        } else {
-            this.css_click_event = false;
-        }
-    },
-
     update: function() {
         var css_click_was_down = false;
 
@@ -229,6 +218,33 @@ FloatingCursor.prototype = {
     _is_current_cursor_type: function(cursor_type) {
         return this._current_cursor.get_text() === cursor_type;
     },
+
+    /*__   __   __      ___       ___      ___  __
+     /  ` /__` /__`    |__  \  / |__  |\ |  |  /__`
+     \__, .__/ .__/    |___  \/  |___ | \|  |  .__/ */
+    perform_css_event: function() {
+        var h = this.currently_attached_to.height;
+        var w = this.currently_attached_to.width;
+
+        var cursor_position = this.cursor_wall.get_position();
+
+        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
+        var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
+
+        this.currently_attached_to.trigger_click_event();
+    },
+
+    css_event_check: function(was_down) {
+        if (was_down) {
+            if (!this.css_click_event) {
+                this.perform_css_event();
+                this.css_click_event = true;
+            }
+        } else {
+            this.css_click_event = false;
+        }
+    },
+
 
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \

@@ -17,12 +17,13 @@ VidoeCSSElement.prototype = {
         div.style.width = w;
         div.style.height = h;
         div.style.backgroundColor = '#ff009b';
-        var iframe = document.createElement('iframe');
-        iframe.style.width = w;
-        iframe.style.height = h;
-        iframe.style.border = '0px';
-        iframe.src = ['https://www.youtube.com/embed/', video_source, '?rel=0'].join( '' );
-        div.appendChild(iframe);
+
+        this.iframe = document.createElement('iframe');
+        this.iframe.style.width = w;
+        this.iframe.style.height = h;
+        this.iframe.style.border = '0px';
+        this.iframe.src = ['https://www.youtube.com/embed/', video_source, '?rel=0'].join( '' );
+        div.appendChild(this.iframe);
 
         this.object = new THREE.CSS3DObject(div);
         this.object.position.set(p.x, p.y, p.z);
@@ -39,6 +40,10 @@ VidoeCSSElement.prototype = {
         var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
+    },
+
+    trigger_click_event: function(x, y) {
+        this.iframe.trigger('click');
     }
 };
 
@@ -63,8 +68,12 @@ FloatingVideo.prototype = {
         this.base_wall.refresh_position_and_look_at();
     },
 
-    update_position_for_video: function(video) {
-        video.set_position_and_normal(this.base_wall.get_position(), this.base_wall.get_normal());
+    update_position_for_video: function() {
+        this.video.set_position_and_normal(this.base_wall.get_position(), this.base_wall.get_normal());
+    },
+
+    trigger_click_event: function(x, y) {
+        this.video.trigger_click_event(x, y);
     },
 
     /*___  __    ___
@@ -135,7 +144,7 @@ FloatingVideo.prototype = {
         this.base_wall.load_from_entity_data(this.video_entity.get_parent());
         this.base_wall.block_input_on_inner_70_percent = true;
 
-        var video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
-        this.base_wall.post_position_update = this.update_position_for_video.bind(this, video);
+        this.video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
+        this.base_wall.post_position_update = this.update_position_for_video.bind(this);
     }
 };
