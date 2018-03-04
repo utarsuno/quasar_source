@@ -56,15 +56,15 @@ VidoeCSSElement.prototype = {
 
         var mouse_event = new MouseEvent('click', {
             'view': window,
-            'bubbles': false,
+            'bubbles': true,
             'cancelable': true,
-            'screenX': 50,
-            'screenY': 50
+            'screenX': 200,
+            'screenY': 200
         });
 
         var event = JSON.parse(JSON.stringify(mouse_event));
 
-        this.iframe.contentWindow.postMessage(event, '*');
+        //this.iframe.contentWindow.postMessage(event, '*');
 
         //this.iframe
 

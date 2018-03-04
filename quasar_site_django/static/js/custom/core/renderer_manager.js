@@ -60,6 +60,7 @@ RendererManager.prototype = {
             this.css_renderer.setSize(this.window_width, this.window_height);
             this.css_renderer.domElement.style.position = 'absolute';
             this.css_renderer.domElement.style.top = 0;
+            this.css_renderer.domElement.style.visibility = 'hidden';
             // TEMP
             this.css_renderer.domElement.zIndex = 0;
             //
