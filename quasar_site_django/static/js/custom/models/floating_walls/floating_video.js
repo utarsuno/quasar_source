@@ -54,8 +54,6 @@ function FloatingVideo(world, entity) {
 FloatingVideo.prototype = {
 
     __init__: function(world, entity) {
-        this.loaded_css_element = false;
-
         if (!is_defined(entity)) {
             this.create_new_floating_video(world);
         } else {
@@ -146,5 +144,7 @@ FloatingVideo.prototype = {
 
         this.video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
         this.base_wall.post_position_update = this.update_position_for_video.bind(this);
+        
+        this.base_wall.trigger_click_event = this.trigger_click_event.bind(this);
     }
 };
