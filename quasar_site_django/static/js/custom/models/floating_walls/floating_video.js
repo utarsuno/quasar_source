@@ -43,14 +43,13 @@ VidoeCSSElement.prototype = {
     },
 
     update_width_and_height: function(width, height) {
+        // TODO : INVESTIGATE WHY THIS HAPPENS!
+        if (height < 0) {
+            height *= -1;
+        }
+
         var w = (width).toString() + 'px';
         var h = (height).toString() + 'px';
-
-        l('WIDTH TO SET: ');
-        l(w);
-
-        l('HEIGHT TO SET: ');
-        l(h);
 
         this.div.style.width = w;
         this.div.style.height = h;

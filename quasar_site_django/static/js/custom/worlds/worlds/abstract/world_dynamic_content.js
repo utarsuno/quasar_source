@@ -69,8 +69,12 @@ function WorldDynamicContent() {
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
-        this.container = document.getElementById('container');
-        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+    };
+
+    this.add_video_container = function() {
+        var div = document.createElement('div');
+        div.classList.add('container');
+        div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.create_new_video = function(this_context) {
@@ -86,6 +90,8 @@ function WorldDynamicContent() {
         if (!this.css_scene_added) {
             this.add_css_scene();
         }
+
+        this.add_video_container();
 
         var video_wall = new FloatingVideo(this, video_entity);
         this.videos.push(video_wall);
