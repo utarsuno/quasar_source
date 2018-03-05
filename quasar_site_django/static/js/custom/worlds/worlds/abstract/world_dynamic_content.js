@@ -72,7 +72,7 @@ function WorldDynamicContent() {
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
-        this.container = document.getElementById('container');
+        this.container = document.getElementById('video_one');
         this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
