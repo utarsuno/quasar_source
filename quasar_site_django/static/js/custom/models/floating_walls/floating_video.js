@@ -46,6 +46,12 @@ VidoeCSSElement.prototype = {
         var w = (width).toString() + 'px';
         var h = (height).toString() + 'px';
 
+        l('WIDTH TO SET: ');
+        l(w);
+
+        l('HEIGHT TO SET: ');
+        l(h);
+
         this.div.style.width = w;
         this.div.style.height = h;
 
