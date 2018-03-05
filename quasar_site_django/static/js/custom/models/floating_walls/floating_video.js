@@ -142,6 +142,8 @@ VidoeCSSElement.prototype = {
         this.iframe.dispatchEvent(mouse_event);
         this.simulatedClick(this.iframe);
 
+        this.iframe.playVideo();
+
         var event = JSON.parse(JSON.stringify(mouse_event));
 
         //this.iframe.contentWindow.postMessage(event, '*');
