@@ -75,7 +75,7 @@ FloatingVideo.prototype = {
 
     update_dimensions_for_video: function() {
         this.video.update_width_and_height(this.base_wall.width * .7, this.base_wall.height * .7);
-    }
+    },
 
     /*___  __    ___
      |__  |  \ |  |     |  |  /\  |    |
