@@ -1,7 +1,8 @@
 'use strict';
 
 // TEMPORARY MEASURE
-var video_id = 1;
+var video_id = 0;
+var videos = [];
 
 function WorldDynamicContent() {
 
@@ -75,11 +76,23 @@ function WorldDynamicContent() {
         this.container = document.getElementById('video_one');
         this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
 
-        this.container2 = document.getElementById('video_two');
-        this.container2.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+        //this.container2 = document.getElementById('video_two');
+        //this.container2.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.add_video_to_css_group = function(video) {
+        video_id += 1;
+        videos.push(video);
+
+        if (video_id === 3) {
+            this.video_group = new THREE.Group();
+            for (var v = 0; v < videos.length; v++) {
+                this.video_group.add(videos[v]);
+            }
+            this.css_scene.add(this.video_group);
+        }
+
+
         /*
         if (!is_defined(this.video_group)) {
             this.video_group = new THREE.Group();

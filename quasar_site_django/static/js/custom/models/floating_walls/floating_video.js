@@ -39,8 +39,8 @@ VidoeCSSElement.prototype = {
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
 
-        //base_wall.world.add_video_to_css_group(this.object);
-        base_wall.world.css_scene.add(this.object);
+        base_wall.world.add_video_to_css_group(this.object);
+        //base_wall.world.css_scene.add(this.object);
     },
 
     set_position_and_normal: function(position, normal) {
