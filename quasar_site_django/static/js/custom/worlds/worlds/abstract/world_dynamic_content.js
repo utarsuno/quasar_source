@@ -79,9 +79,10 @@ function WorldDynamicContent() {
     this.add_video_to_css_group = function(video) {
         if (!is_defined(this.video_group)) {
             this.video_group = new THREE.Group();
+            this.video_group.add(video);
             this.css_scene.add(this.video_group);
         }
-        this.video_group.add(video);
+        //this.video_group.add(video);
     };
 
     this.add_video_container = function() {
