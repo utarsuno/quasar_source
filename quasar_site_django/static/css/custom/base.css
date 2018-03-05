@@ -137,7 +137,7 @@ canvas {
 }
 
 /* Video Player ID */
-#display {
+#container {
     position: absolute;
     z-index: 8000;
 }
