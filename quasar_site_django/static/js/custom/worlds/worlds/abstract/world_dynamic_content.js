@@ -76,11 +76,19 @@ function WorldDynamicContent() {
         this.container = document.getElementById('video_one');
         this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
 
+
+        this.video_group = new THREE.Group();
+        this.css_scene.add(this.video_group);
+
         //this.container2 = document.getElementById('video_two');
         //this.container2.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.add_video_to_css_group = function(video) {
+        this.video_group.add(video);
+
+        /*
+        // THIS CODE WORKS
         video_id += 1;
         videos.push(video);
 
@@ -91,18 +99,8 @@ function WorldDynamicContent() {
             }
             this.css_scene.add(this.video_group);
         }
-
-
-        /*
-        if (!is_defined(this.video_group)) {
-            this.video_group = new THREE.Group();
-            l('ADDING VIDEO');
-            this.css_scene.add(video);
-            //this.video_group.add(video);
-            //this.css_scene.add(this.video_group);
-        }
-        //this.video_group.add(video);
         */
+
     };
 
     this.add_video_container = function() {
