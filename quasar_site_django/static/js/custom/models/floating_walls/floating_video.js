@@ -19,7 +19,6 @@ VidoeCSSElement.prototype = {
         this.div.style.backgroundColor = '#ff009b';
 
         this.iframe = document.createElement('iframe');
-        this.iframe.id = 'player';
 
         this.iframe.style.width = w;
         this.iframe.style.height = h;
