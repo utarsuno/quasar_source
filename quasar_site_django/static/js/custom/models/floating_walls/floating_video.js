@@ -41,6 +41,7 @@ VidoeCSSElement.prototype = {
         /////
 
 
+        /*
         this.iframe.contentWindow.addEventListener('onclick', function(event) {
 
             l('SIMULATING MOUSE CLICK?');
@@ -58,7 +59,7 @@ VidoeCSSElement.prototype = {
             this.iframe.dispatchEvent(mouse_event);
 
         }).bind(this);
-
+        */
 
         base_wall.world.css_scene.add(this.object);
     },
