@@ -136,7 +136,8 @@ canvas {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
-.display {
+/* Video Player ID */
+#display {
     position: absolute;
     z-index: 8000;
 }
