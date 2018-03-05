@@ -72,11 +72,12 @@ function WorldDynamicContent() {
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
-        var container = document.getElementById('video_one');
-        container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+        this.container = document.getElementById('container');
+        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.add_video_to_css_group = function(video) {
+        /*
         if (!is_defined(this.video_group)) {
             this.video_group = new THREE.Group();
             l('ADDING VIDEO');
@@ -85,6 +86,7 @@ function WorldDynamicContent() {
             //this.css_scene.add(this.video_group);
         }
         //this.video_group.add(video);
+        */
     };
 
     this.add_video_container = function() {
