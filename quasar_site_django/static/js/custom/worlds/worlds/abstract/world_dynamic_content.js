@@ -74,6 +74,9 @@ function WorldDynamicContent() {
         this.css_scene = new THREE.Scene();
         this.container = document.getElementById('video_one');
         this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+
+        this.container2 = document.getElementById('video_two');
+        this.container2.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.add_video_to_css_group = function(video) {
