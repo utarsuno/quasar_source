@@ -41,6 +41,25 @@ VidoeCSSElement.prototype = {
         /////
 
 
+        this.iframe.contentWindow.addEventListener('onclick', function(event) {
+
+            l('SIMULATING MOUSE CLICK?');
+
+            var mouse_event = new MouseEvent('click', {
+                'bubbles': true,
+                'cancelable': true,
+                'screenX': 200,
+                'screenY': 200
+            });
+
+            mouse_event.clientX = 200;
+            mouse_event.clientY = 200;
+
+            this.iframe.dispatchEvent(mouse_event);
+
+        }).bind(this);
+
+
         base_wall.world.css_scene.add(this.object);
     },
 
@@ -54,6 +73,8 @@ VidoeCSSElement.prototype = {
 
     trigger_click_event: function(x, y) {
 
+        l('TODO : Trigger click event!');
+
         var mouse_event = new MouseEvent('click', {
             'view': window,
             'bubbles': true,
@@ -61,6 +82,8 @@ VidoeCSSElement.prototype = {
             'screenX': 200,
             'screenY': 200
         });
+
+        this.iframe.dispatchEvent(mouse_event);
 
         var event = JSON.parse(JSON.stringify(mouse_event));
 
