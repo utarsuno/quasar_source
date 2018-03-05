@@ -77,12 +77,14 @@ function WorldDynamicContent() {
     this.add_video_container = function() {
         if (video_id === 1) {
             var div = document.getElementById('video_one');
-            div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+            //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+            MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
 
             video_id += 1;
         } else if (video_id === 2) {
             var div = document.getElementById('video_two');
-            div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+            MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
+            //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
         }
 
         //var div = document.createElement('div');
