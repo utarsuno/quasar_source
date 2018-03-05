@@ -85,7 +85,12 @@ function WorldDynamicContent() {
     };
 
     this.add_video_to_css_group = function(video) {
+
+        this.css_scene.remove(this.video_group);
+
         this.video_group.add(video);
+
+        this.css_scene.add(this.video_group);
 
         /*
         // THIS CODE WORKS
