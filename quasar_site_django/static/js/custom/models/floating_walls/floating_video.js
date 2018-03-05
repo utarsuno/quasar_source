@@ -105,7 +105,7 @@ FloatingVideo.prototype = {
      | | \| |  |  | /~~\ |___    \__, |  \ |___ /~~\  |  | | \| \__>    /~~\ | \| |__/    |___ \__/ /~~\ |__/ | | \| \__> */
     add_base_wall_functionality: function() {
         // Create the settings wall.
-        this.settings_wall = this.base_wall.add_floating_wall_attachment(400, 400, null, null, 10, false);
+        this.settings_wall = this.base_wall.add_floating_wall_attachment(400, 400, null, [null, HALF], 10, false);
         this.settings_wall.add_close_button();
         this.settings_wall.set_auto_adjust_height(true);
         this.settings_wall.manual_visibility = true;
