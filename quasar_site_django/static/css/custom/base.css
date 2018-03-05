@@ -136,6 +136,11 @@ canvas {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.display {
+    position: absolute;
+    z-index: 8000;
+}
+
 /*   __       ___          __     __   __
     |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
     |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */

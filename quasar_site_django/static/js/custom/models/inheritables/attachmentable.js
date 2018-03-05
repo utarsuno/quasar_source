@@ -170,6 +170,10 @@ function Attachmentable(world) {
     };
 
     this.update_dimensions = function() {
+        if (is_defined(this.post_update_dimensions)) {
+            this.post_update_dimensions();
+        }
+
         if (this.scalable) {
             this.dimensions_changed();
         }

@@ -21,7 +21,6 @@ VidoeCSSElement.prototype = {
         this.iframe = document.createElement('iframe');
         this.iframe.id = 'player';
 
-
         this.iframe.style.width = w;
         this.iframe.style.height = h;
         this.iframe.style.border = '0px';
@@ -32,95 +31,8 @@ VidoeCSSElement.prototype = {
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
 
-        //base_wall.object3D.add(this.object);
-
-
-        /////
-
-
-        //this.iframe.contentWindow.addEventListener('onclick', function(event) {
-        //});
-
-        /////
-
-
-        /*
-        this.iframe.contentWindow.addEventListener('onclick', function(event) {
-
-            l('SIMULATING MOUSE CLICK?');
-
-            var mouse_event = new MouseEvent('click', {
-                'bubbles': true,
-                'cancelable': true,
-                'screenX': 200,
-                'screenY': 200
-            });
-
-            mouse_event.clientX = 200;
-            mouse_event.clientY = 200;
-
-            this.iframe.dispatchEvent(mouse_event);
-
-        }).bind(this);
-        */
-
         base_wall.world.css_scene.add(this.object);
     },
-
-    // Base code from : https://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript
-    simulatedClick: function(target, options) {
-
-        var event = target.ownerDocument.createEvent('MouseEvents'),
-            options = options || {},
-            opts = { // These are the default values, set up for un-modified left clicks
-                type: 'click',
-                canBubble: true,
-                cancelable: true,
-                view: target.ownerDocument.defaultView,
-                detail: 1,
-                screenX: 0, //The coordinates within the entire page
-                screenY: 0,
-                clientX: 0, //The coordinates within the viewport
-                clientY: 0,
-                ctrlKey: false,
-                altKey: false,
-                shiftKey: false,
-                metaKey: false, //I *think* 'meta' is 'Cmd/Apple' on Mac, and 'Windows key' on Win. Not sure, though!
-                button: 0, //0 = left, 1 = middle, 2 = right
-                relatedTarget: null,
-            };
-
-        //Merge the options with the defaults
-        for (var key in options) {
-            if (options.hasOwnProperty(key)) {
-                opts[key] = options[key];
-            }
-        }
-
-        //Pass in the options
-        event.initMouseEvent(
-            opts.type,
-            opts.canBubble,
-            opts.cancelable,
-            opts.view,
-            opts.detail,
-            opts.screenX,
-            opts.screenY,
-            opts.clientX,
-            opts.clientY,
-            opts.ctrlKey,
-            opts.altKey,
-            opts.shiftKey,
-            opts.metaKey,
-            opts.button,
-            opts.relatedTarget
-        );
-
-        //Fire the event
-        target.dispatchEvent(event);
-    },
-
-    /////
 
     set_position_and_normal: function(position, normal) {
         var p = position;
@@ -130,31 +42,11 @@ VidoeCSSElement.prototype = {
         this.object.lookAt(n);
     },
 
-    trigger_click_event: function(x, y) {
-
-        l('TODO : Trigger click event!');
-
-        var mouse_event = new MouseEvent('click', {
-            'view': window,
-            'bubbles': true,
-            'cancelable': true,
-            'screenX': 200,
-            'screenY': 200
-        });
-
-        this.iframe.dispatchEvent(mouse_event);
-        this.simulatedClick(this.iframe);
-
-        //this.iframe.playVideo();
-
-        var event = JSON.parse(JSON.stringify(mouse_event));
-
-        //this.iframe.contentWindow.postMessage(event, '*');
-
-        //this.iframe
-
-        //this.iframe.simulate('click', mouse_event);
-        //this.iframe.trigger('click');
+    update_width_and_height: function(width, height) {
+        var w = (width).toString() + 'px';
+        var h = (height).toString() + 'px';
+        this.iframe.style.width = w;
+        this.iframe.style.height = h;
     }
 };
 
@@ -181,9 +73,9 @@ FloatingVideo.prototype = {
         this.video.set_position_and_normal(this.base_wall.get_position(), this.base_wall.get_normal());
     },
 
-    trigger_click_event: function(x, y) {
-        this.video.trigger_click_event(x, y);
-    },
+    update_dimensions_for_video: function() {
+        this.video.update_width_and_height(this.base_wall.width * .7, this.base_wall.height * .7);
+    }
 
     /*___  __    ___
      |__  |  \ |  |     |  |  /\  |    |
@@ -255,7 +147,6 @@ FloatingVideo.prototype = {
 
         this.video = new VidoeCSSElement(this.base_wall, this.video_entity.get_value(ENTITY_PROPERTY_NAME));
         this.base_wall.post_position_update = this.update_position_for_video.bind(this);
-
-        this.base_wall.trigger_click_event = this.trigger_click_event.bind(this);
+        this.base_wall.post_update_dimensions = this.update_dimensions_for_video.bind(this);
     }
 };

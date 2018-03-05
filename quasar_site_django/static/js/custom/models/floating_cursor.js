@@ -121,8 +121,6 @@ FloatingCursor.prototype = {
     },
 
     update: function() {
-        var css_click_was_down = false;
-
         if (this._currently_engaged) {
 
             var plane_current_position = this.currently_attached_to.get_position();
@@ -146,9 +144,8 @@ FloatingCursor.prototype = {
                 this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
                 this.currently_attached_to.refresh_position_and_look_at();
             } else if (this._is_current_cursor_type(CURSOR_TYPE_CSS)) {
-                css_click_was_down = true;
+                // For now do nothing.
             }
-
 
         } else {
             if (is_defined(this.currently_attached_to)) {
@@ -157,8 +154,6 @@ FloatingCursor.prototype = {
                 }
             }
         }
-
-        this.css_event_check(css_click_was_down);
     },
 
     _get_scalable_cursor_needed: function() {
@@ -218,33 +213,6 @@ FloatingCursor.prototype = {
     _is_current_cursor_type: function(cursor_type) {
         return this._current_cursor.get_text() === cursor_type;
     },
-
-    /*__   __   __      ___       ___      ___  __
-     /  ` /__` /__`    |__  \  / |__  |\ |  |  /__`
-     \__, .__/ .__/    |___  \/  |___ | \|  |  .__/ */
-    perform_css_event: function() {
-        var h = this.currently_attached_to.height;
-        var w = this.currently_attached_to.width;
-
-        var cursor_position = this.cursor_wall.get_position();
-
-        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
-        var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
-
-        this.currently_attached_to.trigger_click_event();
-    },
-
-    css_event_check: function(was_down) {
-        if (was_down) {
-            if (!this.css_click_event) {
-                this.perform_css_event();
-                this.css_click_event = true;
-            }
-        } else {
-            this.css_click_event = false;
-        }
-    },
-
 
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
