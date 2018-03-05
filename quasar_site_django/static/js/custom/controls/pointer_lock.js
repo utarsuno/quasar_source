@@ -9,6 +9,7 @@ function PointerLockManager() {
 PointerLockManager.prototype = {
     __init__: function () {
         this.dont_pause = false;
+        this.pointer_is_locked = false;
 
         this.element = document.body;
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -35,6 +36,9 @@ PointerLockManager.prototype = {
             } else {
                 this.dont_pause = false;
             }
+            this.pointer_is_locked = false;
+        } else {
+            this.pointer_is_locked = true;
         }
     },
 
