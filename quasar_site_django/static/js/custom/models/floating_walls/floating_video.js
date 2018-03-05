@@ -19,6 +19,9 @@ VidoeCSSElement.prototype = {
         div.style.backgroundColor = '#ff009b';
 
         this.iframe = document.createElement('iframe');
+        this.iframe.id = 'player';
+
+
         this.iframe.style.width = w;
         this.iframe.style.height = h;
         this.iframe.style.border = '0px';
@@ -142,7 +145,7 @@ VidoeCSSElement.prototype = {
         this.iframe.dispatchEvent(mouse_event);
         this.simulatedClick(this.iframe);
 
-        this.iframe.playVideo();
+        //this.iframe.playVideo();
 
         var event = JSON.parse(JSON.stringify(mouse_event));
 
