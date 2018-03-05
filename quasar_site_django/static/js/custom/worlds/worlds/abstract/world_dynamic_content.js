@@ -86,6 +86,9 @@ function WorldDynamicContent() {
 
     this.add_video_to_css_group = function(video) {
 
+        this.container.removeChild(MANAGER_RENDERER.css_renderer.domElement);
+        this.container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+
         this.css_scene.remove(this.video_group);
 
         this.video_group.add(video);
@@ -106,25 +109,6 @@ function WorldDynamicContent() {
         }
         */
 
-    };
-
-    this.add_video_container = function() {
-        if (video_id === 1) {
-            var div = document.getElementById('video_one');
-            //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
-            //MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
-
-            video_id += 1;
-        } else if (video_id === 2) {
-            var div = document.getElementById('video_two');
-            MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
-            //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
-        }
-
-        //var div = document.createElement('div');
-        //div.classList.add('container');
-        //document.body.appendChild(div);
-        //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
     this.create_new_video = function(this_context) {
