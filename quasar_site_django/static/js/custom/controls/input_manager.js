@@ -203,7 +203,7 @@ InputManager.prototype = {
                 break;
             case CLICK_MIDDLE:
 
-                if (MANAGER_POINTER_LOCK.has_pointer_lock) {
+                if (MANAGER_POINTER_LOCK.pointer_is_locked) {
                     MANAGER_POINTER_LOCK.release_pointer_lock();
                 } else {
                     MANAGER_POINTER_LOCK.request_pointer_lock();
