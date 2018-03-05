@@ -1,5 +1,14 @@
 'use strict';
 
+// TEMPORARY
+function VIDEO_MANAGER() {
+
+}
+
+VIDEO_MANAGER.prototype = {
+
+};
+
 function VidoeCSSElement(base_wall, video_source) {
     this.__init__(base_wall, video_source);
 }

@@ -72,13 +72,23 @@ function WorldDynamicContent() {
       \/  | |__/ |___ \__/    |/\| /~~\ |___ |___ */
     this.add_css_scene = function() {
         this.css_scene = new THREE.Scene();
+        var container = document.getElementById('video_one');
+        container.appendChild(MANAGER_RENDERER.css_renderer.domElement);
+    };
+
+    this.add_video_to_css_group = function(video) {
+        if (!is_defined(this.video_group)) {
+            this.video_group = new THREE.Group();
+            this.css_scene.add(this.video_group);
+        }
+        this.video_group.add(video);
     };
 
     this.add_video_container = function() {
         if (video_id === 1) {
             var div = document.getElementById('video_one');
             //div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
-            MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
+            //MANAGER_RENDERER.css_renderer.domElement.appendChild(div);
 
             video_id += 1;
         } else if (video_id === 2) {
@@ -107,7 +117,7 @@ function WorldDynamicContent() {
             this.add_css_scene();
         }
 
-        this.add_video_container();
+        //this.add_video_container();
 
         var video_wall = new FloatingVideo(this, video_entity);
         this.videos.push(video_wall);
