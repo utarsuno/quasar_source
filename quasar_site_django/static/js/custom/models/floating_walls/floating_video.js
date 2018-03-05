@@ -13,10 +13,10 @@ VidoeCSSElement.prototype = {
         var nn = base_wall.get_normal();
         var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
 
-        var div = document.createElement('div');
-        div.style.width = w;
-        div.style.height = h;
-        div.style.backgroundColor = '#ff009b';
+        this.div = document.createElement('div');
+        this.div.style.width = w;
+        this.div.style.height = h;
+        this.div.style.backgroundColor = '#ff009b';
 
         this.iframe = document.createElement('iframe');
         this.iframe.id = 'player';
@@ -25,9 +25,9 @@ VidoeCSSElement.prototype = {
         this.iframe.style.height = h;
         this.iframe.style.border = '0px';
         this.iframe.src = ['https://www.youtube.com/embed/', video_source, '?rel=0'].join( '' );
-        div.appendChild(this.iframe);
+        this.div.appendChild(this.iframe);
 
-        this.object = new THREE.CSS3DObject(div);
+        this.object = new THREE.CSS3DObject(this.div);
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
 
@@ -45,6 +45,10 @@ VidoeCSSElement.prototype = {
     update_width_and_height: function(width, height) {
         var w = (width).toString() + 'px';
         var h = (height).toString() + 'px';
+
+        this.div.style.width = w;
+        this.div.style.height = h;
+
         this.iframe.style.width = w;
         this.iframe.style.height = h;
     }
