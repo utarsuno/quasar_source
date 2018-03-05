@@ -74,6 +74,7 @@ function WorldDynamicContent() {
     this.add_video_container = function() {
         var div = document.createElement('div');
         div.classList.add('container');
+        document.body.appendChild(div);
         div.appendChild(MANAGER_RENDERER.css_renderer.domElement);
     };
 
