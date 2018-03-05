@@ -202,7 +202,12 @@ InputManager.prototype = {
 
                 break;
             case CLICK_MIDDLE:
-                MANAGER_WORLD.current_world.single_middle_click();
+
+                if (CURRENT_PLAYER.has_movement()) {
+                    MANAGER_POINTER_LOCK.release_pointer_lock();
+                }
+
+                //MANAGER_WORLD.current_world.single_middle_click();
                 this.click_down_middle = false;
                 break;
             case CLICK_RIGHT:

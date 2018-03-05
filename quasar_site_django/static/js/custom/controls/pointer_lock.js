@@ -8,6 +8,8 @@ function PointerLockManager() {
 
 PointerLockManager.prototype = {
     __init__: function () {
+        this.dont_pause = false;
+
         this.element = document.body;
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
         if (this.has_pointer_lock === true) {
@@ -28,7 +30,11 @@ PointerLockManager.prototype = {
 
     pointer_lock_change: function () {
         if (document.pointerLockElement !== this.element && document.mozPointerLockElement !== this.element && document.webkitPointerLockElement !== this.element) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
+            if (!this.dont_pause) {
+                CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
+            } else {
+                this.dont_pause = false;
+            }
         }
     },
 
@@ -39,6 +45,11 @@ PointerLockManager.prototype = {
     request_pointer_lock: function() {
         this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
         this.element.requestPointerLock();
+    },
+
+    release_pointer_lock: function() {
+        document.exitPointerLock();
+        this.dont_pause = true;
     }
 
 };

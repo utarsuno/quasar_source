@@ -15,10 +15,6 @@ FloatingCursor.prototype = {
         this._previous_cursor      = null;
 
         this._currently_engaged    = false;
-
-        // Used for CSS clicking.
-        this.css_click_down = false;
-        this.css_click_event = false;
     },
 
     wheel_event: function(delta) {
@@ -143,8 +139,6 @@ FloatingCursor.prototype = {
 
                 this.currently_attached_to.set_normal(-pn.x, 0, -pn.z);
                 this.currently_attached_to.refresh_position_and_look_at();
-            } else if (this._is_current_cursor_type(CURSOR_TYPE_CSS)) {
-                // For now do nothing.
             }
 
         } else {
@@ -176,26 +170,14 @@ FloatingCursor.prototype = {
             scroll_horizontal = true;
         }
 
-        var cursor_already_set = false;
-        if (is_defined(this.currently_attached_to.block_input_on_inner_70_percent)) {
-            if (this.currently_attached_to.block_input_on_inner_70_percent) {
-                if (vertical_percentage > .3 && vertical_percentage < .7 && horizontal_percentage < .35) {
-                    this._set_current_cursor(CURSOR_TYPE_CSS);
-                    cursor_already_set = true;
-                }
-            }
-        }
-
-        if (!cursor_already_set) {
-            if (scroll_horizontal && scroll_vertical) {
-                this._set_current_cursor(CURSOR_TYPE_LARGER);
-            } else if (scroll_vertical) {
-                this._set_current_cursor(CURSOR_TYPE_VERTICAL);
-            } else if (scroll_horizontal) {
-                this._set_current_cursor(CURSOR_TYPE_HORIZONTAL);
-            } else {
-                this._set_current_cursor(CURSOR_TYPE_MOUSE);
-            }
+        if (scroll_horizontal && scroll_vertical) {
+            this._set_current_cursor(CURSOR_TYPE_LARGER);
+        } else if (scroll_vertical) {
+            this._set_current_cursor(CURSOR_TYPE_VERTICAL);
+        } else if (scroll_horizontal) {
+            this._set_current_cursor(CURSOR_TYPE_HORIZONTAL);
+        } else {
+            this._set_current_cursor(CURSOR_TYPE_MOUSE);
         }
     },
 
@@ -227,7 +209,6 @@ FloatingCursor.prototype = {
         this._create_cursor(CURSOR_TYPE_POINTER, cursor_row);
         this._create_cursor(CURSOR_TYPE_LARGER, cursor_row);
         this._create_cursor(CURSOR_TYPE_MOUSE, cursor_row);
-        this._create_cursor(CURSOR_TYPE_CSS, cursor_row);
     },
 
     _create_cursor: function(cursor_type, cursor_row) {
