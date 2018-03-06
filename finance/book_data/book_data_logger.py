@@ -8,7 +8,7 @@ import requests as r
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 
 if result.status_code == 200:
-	data = str(result.content)
+	data = result.content.decode("utf-8")
 	print(data)
 	print()
 	data = eval(data)
