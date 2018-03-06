@@ -7,5 +7,8 @@ import requests as r
 
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 
-print(result)
-print(result.content)
+if result.status_code == 200:
+	data = str(result.content)
+	print(data)
+else:
+	print('TODO : Log an error!')
