@@ -23,7 +23,7 @@ int main(int argc, char * argv[]) {
     // Third argument is number of entries.
     int number_of_entries = atoi(argv[ARGUMENT_NUM_ROWS]);
 
-    char file_name[100];
+    char file_name[1024];
 
     //printf("timestamp %s\n", timestamp);
     //printf("book_type %d\n", book_type);
@@ -37,6 +37,7 @@ int main(int argc, char * argv[]) {
         strcpy(file_name, DIRECTORY_SELL_ORDERS);
     }
     strcpy(file_name, timestamp);
+    printf("Filename is {%s}", file_name);
     file_pointer = fopen(file_name, "ab+");
 
     int current_entry = 0;
