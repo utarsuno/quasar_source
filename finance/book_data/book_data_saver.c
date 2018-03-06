@@ -25,10 +25,10 @@ int main(int argc, char * argv[]) {
 
     char file_name[100];
 
-    printf("timestamp %s\n", timestamp);
-    printf("book_type %d\n", book_type);
-    printf("number_of_entries %d\n", number_of_entries);
-    return SUCCESS;
+    //printf("timestamp %s\n", timestamp);
+    //printf("book_type %d\n", book_type);
+    //printf("number_of_entries %d\n", number_of_entries);
+    //return SUCCESS;
 
     FILE * file_pointer;
     if (book_type == BOOK_TYPE_BUY_ORDERS) {
