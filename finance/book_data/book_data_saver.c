@@ -5,7 +5,7 @@
 
 int main(int argc, char * argv[]) {
 
-    printf('Got %d arguments\n', argc);
+    printf("Got %d arguments\n", argc);
 
     FILE * fp = fopen("data.data", "ab+");
 
