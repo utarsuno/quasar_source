@@ -32,8 +32,8 @@ def float_to_str(f):
 class BookOrders(object):
 	"""Utility objects to parse data raw data into C data."""
 
-	def __init__(self, type, data):
-		self.type = type
+	def __init__(self, order_type, data):
+		self.order_type = order_type
 		for row in data:
 			amount = row[KEY_AMOUNT]
 			price = row[KEY_PRICE]
