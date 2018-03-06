@@ -20,7 +20,7 @@ int main(int argc, char * argv[]) {
     // Second argument is book type (buy or sell).
     int book_type = atoi(argv[ARGUMENT_BOOK_TYPE]);
     // Third argument is number of entries.
-    int number_of_entries = atoi([ARGUMENT_NUM_ROWS]);
+    int number_of_entries = atoi(argv[ARGUMENT_NUM_ROWS]);
 
     char file_name[100];
 
