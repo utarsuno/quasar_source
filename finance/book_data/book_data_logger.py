@@ -14,5 +14,9 @@ if result.status_code == 200:
 	data = eval(data)
 	print(data)
 	print(type(data))
+
+
+	for key in data:
+		print(key)
 else:
 	print('TODO : Log an error!')
