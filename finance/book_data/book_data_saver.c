@@ -24,9 +24,9 @@ int main(int argc, char * argv[]) {
 
     char file_name[100];
 
-    printf("timestamp\n", argc);
-    printf("book_type\n", argc);
-    printf("number_of_entries\n", argc);
+    printf("timestamp %s\n", timestamp);
+    printf("book_type %d\n", book_type);
+    printf("number_of_entries %d\n", number_of_entries);
 
     FILE * file_pointer;
     if (book_type == BOOK_TYPE_BUY_ORDERS) {
