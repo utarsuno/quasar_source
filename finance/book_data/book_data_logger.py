@@ -29,7 +29,7 @@ class BookOrders(object):
 		self.order_type = order_type
 		self.number_of_rows = len(data)
 
-		p = Popen('a.out', stdin=PIPE)
+		p = Popen('./a.out', stdin=PIPE)
 
 		for row in data:
 			amount = row[KEY_AMOUNT]
