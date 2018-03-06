@@ -42,7 +42,7 @@ int main(int argc, char * argv[]) {
         // TODO : Add error checking.
         float num;
         scanf("%f", & num);
-        fwrite(& num, 1, sizeof(num), fp);
+        fwrite(& num, 1, sizeof(num), file_pointer);
         current_entry += 1;
     }
 
