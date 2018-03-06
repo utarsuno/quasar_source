@@ -18,6 +18,8 @@ quasar_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar ip)
 quasar_port=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar port)
 quasar_pem_path=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar pem_path)
 quasar_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} quasar user)
+databoi_user=$(python3 ${CONFIG_READER} ${CONFIG_PATH} databoi user)
+databoi_ip=$(python3 ${CONFIG_READER} ${CONFIG_PATH} databoi ip)
 FG_YELLOW="${ESC_SEQ}33;"
 FG_GREEN="${ESC_SEQ}32;"
 FS_REG="21;24m"
@@ -124,6 +126,10 @@ else
     print_dotted_line
 
     ssh -i ${quasar_pem_path} "${quasar_user}@${quasar_ip}" -p ${quasar_port} << HERE
+    bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
+HERE
+
+    ssh "${databoi_user}@${databoi_ip}" << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
