@@ -3,8 +3,11 @@
 """This module, book_data_logger.py, saves book data and saves it through the C program."""
 
 import requests as r
+
 from datetime import datetime
 import calendar
+
+from subprocess import Popen, PIPE
 
 d = datetime.now()
 unixtime = calendar.timegm(d.utctimetuple())
@@ -24,10 +27,12 @@ class BookOrders(object):
 
 	def __init__(self, order_type, data):
 		self.order_type = order_type
+		self.number_of_rows = len(data)
 		for row in data:
 			amount = row[KEY_AMOUNT]
 			price = int(('{:.8f}'.format(row[KEY_PRICE])).replace('0.', ''))
-			#print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
+
+		c_process = Popen
 
 
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')

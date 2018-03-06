@@ -4,7 +4,7 @@
 
 int main(int argc, char * argv[]) {
 
-    
+    printf('Got %d arguments\n', argc);
 
     return SUCCESS;
 }
