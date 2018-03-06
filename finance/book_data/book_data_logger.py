@@ -28,11 +28,19 @@ class BookOrders(object):
 	def __init__(self, order_type, data):
 		self.order_type = order_type
 		self.number_of_rows = len(data)
+
+		p = Popen('a.out', stdin=PIPE)
+
 		for row in data:
 			amount = row[KEY_AMOUNT]
 			price = int(('{:.8f}'.format(row[KEY_PRICE])).replace('0.', ''))
 
-		c_process = Popen
+			p.stdin.write('%f\n' % amount)
+		p.stdin.close()
+		p.wait()
+
+		#c_process = Popen('a.out', stdin=PIPE, stdout=PIPE)
+		#out, err = c_process.communicate()
 
 
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
