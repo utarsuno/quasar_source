@@ -35,7 +35,7 @@ class BookOrders(object):
 			amount = row[KEY_AMOUNT]
 			price = int(('{:.8f}'.format(row[KEY_PRICE])).replace('0.', ''))
 
-			p.stdin.write('%f\n' % amount)
+			p.stdin.write(bytes('%f\n' % amount))
 		p.stdin.close()
 		p.wait()
 
