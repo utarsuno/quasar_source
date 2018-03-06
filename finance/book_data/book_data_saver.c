@@ -32,9 +32,11 @@ int main(int argc, char * argv[]) {
 
     FILE * file_pointer;
     if (book_type == BOOK_TYPE_BUY_ORDERS) {
-        strcpy(file_name, DIRECTORY_BUY_ORDERS);
+        char * file_directory = DIRECTORY_BUY_ORDERS;
+        strcpy(file_name, file_directory);
     } else {
-        strcpy(file_name, DIRECTORY_SELL_ORDERS);
+        char * file_directory = DIRECTORY_SELL_ORDERS;
+        strcpy(file_name, file_directory);
     }
     strcpy(file_name, timestamp);
     printf("Filename is {%s}", file_name);
