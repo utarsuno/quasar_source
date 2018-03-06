@@ -17,13 +17,10 @@ result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 if result.status_code == 200:
 	data = eval(result.content.decode("utf-8"))
 
-	for i in data[ORDER_TYPE_BUY]:
-		print(i)
-		print(type(i))
-		amount = data[ORDER_TYPE_BUY][i][KEY_AMOUNT]
-		print(str(amount) + '\t' + type(amount))
-		price = data[ORDER_TYPE_BUY][i][KEY_PRICE]
-		print(str(price) + '\t' + type(price))
+	for row in data[ORDER_TYPE_BUY]:
+		amount = row[KEY_AMOUNT]
+		price  = row[KEY_PRICE]
+		print(str(amount) + ' {' + type(amount) + '}\t' + str(price) + ' {' + type(price) + '}')
 
 else:
 	print('TODO : Log an error!')
