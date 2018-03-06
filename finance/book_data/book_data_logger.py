@@ -37,7 +37,10 @@ class BookOrders(object):
 		for row in data:
 			amount = float_to_str(row[KEY_AMOUNT])
 			price = row[KEY_PRICE]
-			print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
+			print(amount)
+			print(price)
+			print()
+			#print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
 
 
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
