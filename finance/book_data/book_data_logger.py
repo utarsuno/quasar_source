@@ -36,7 +36,7 @@ class BookOrders(object):
 		self.order_type = order_type
 		for row in data:
 			amount = row[KEY_AMOUNT]
-			price = '{:.8f'.format(row[KEY_PRICE])
+			price = '{:.8f}'.format(row[KEY_PRICE])
 			print(amount)
 			print(type(amount))
 			print(price)
