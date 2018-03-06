@@ -4,19 +4,17 @@
 
 import requests as r
 
+ORDER_TYPE_SELL = 'SellOrders'
+ORDER_TYPE_BUY  = 'BuyOrders'
+
 
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 
 if result.status_code == 200:
-	data = result.content.decode("utf-8")
-	print(data)
-	print()
-	data = eval(data)
-	print(data)
-	print(type(data))
+	data = eval(result.content.decode("utf-8"))
 
+	for i in data[ORDER_TYPE_BUY]:
+		print(i)
 
-	for key in data:
-		print(key)
 else:
 	print('TODO : Log an error!')
