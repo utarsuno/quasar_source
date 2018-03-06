@@ -125,10 +125,12 @@ else
     git push --force;
     print_dotted_line
 
+    # Quasar server + database.
     ssh -i ${quasar_pem_path} "${quasar_user}@${quasar_ip}" -p ${quasar_port} << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
+    # Data server for historical book orders.
     ssh -i "${databoi_user}@${databoi_ip}" << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
