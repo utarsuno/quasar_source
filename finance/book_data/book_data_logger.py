@@ -35,10 +35,12 @@ class BookOrders(object):
 	def __init__(self, type, data):
 		self.type = type
 		for row in data:
-			amount = float_to_str(row[KEY_AMOUNT])
+			amount = row[KEY_AMOUNT]
 			price = row[KEY_PRICE]
 			print(amount)
+			print(type(amount))
 			print(price)
+			print(type(price))
 			print()
 			#print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
 
