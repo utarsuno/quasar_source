@@ -19,9 +19,9 @@ if result.status_code == 200:
 
 	for i in data[ORDER_TYPE_BUY]:
 		print(i)
-		amount = data[ORDER_TYPE_BUY][KEY_AMOUNT]
+		amount = data[ORDER_TYPE_BUY][i][KEY_AMOUNT]
 		print(str(amount) + '\t' + type(amount))
-		price = data[ORDER_TYPE_BUY][KEY_AMOUNT]
+		price = data[ORDER_TYPE_BUY][i][KEY_AMOUNT]
 		print(str(price) + '\t' + type(price))
 
 else:
