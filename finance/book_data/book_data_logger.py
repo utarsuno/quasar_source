@@ -9,10 +9,8 @@ import calendar
 
 from subprocess import Popen, PIPE
 
-d = datetime.now()
-unixtime = calendar.timegm(d.utctimetuple())
-print(unixtime)
-
+#define BOOK_TYPE_BUY_ORDERS  2
+#define BOOK_TYPE_SELL_ORDERS 3
 
 ORDER_TYPE_SELL = 'SellOrders'
 ORDER_TYPE_BUY  = 'BuyOrders'
@@ -27,9 +25,16 @@ class BookOrders(object):
 
 	def __init__(self, order_type, data):
 		self.order_type = order_type
+		if self.order_type == ORDER_TYPE_BUY:
+			self.order_type_number = 2
+		else:
+			self.order_type_number = 3
 		self.number_of_rows = len(data)
 
-		p = Popen('./a.out ' + str(self.number_of_rows), shell=True, stdin=PIPE)
+		d = datetime.now()
+		unixtime = calendar.timegm(d.utctimetuple())
+
+		p = Popen('./a.out ' + str(unixtime) + ' ' + str(self.order_type_number) + ' ' + str(self.number_of_rows), shell=True, stdin=PIPE)
 
 		for row in data:
 			amount = row[KEY_AMOUNT]
