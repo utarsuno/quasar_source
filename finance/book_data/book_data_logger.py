@@ -20,7 +20,7 @@ if result.status_code == 200:
 	for row in data[ORDER_TYPE_BUY]:
 		amount = row[KEY_AMOUNT]
 		price  = row[KEY_PRICE]
-		print(str(amount) + ' {' + type(amount) + '}\t' + str(price) + ' {' + type(price) + '}')
+		print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
 
 else:
 	print('TODO : Log an error!')
