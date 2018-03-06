@@ -131,7 +131,7 @@ else
 HERE
 
     # Data server for historical book orders.
-    ssh -i "${databoi_user}@${databoi_ip}" << HERE
+    ssh "${databoi_user}@${databoi_ip}" << HERE
     bash /home/git_repos/quasar_source/all_scripts/server/update_server_code.sh;
 HERE
 
