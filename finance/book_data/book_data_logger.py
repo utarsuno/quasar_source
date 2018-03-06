@@ -8,3 +8,4 @@ import requests as r
 result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 
 print(result)
+print(result.content)
