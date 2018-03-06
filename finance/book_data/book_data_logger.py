@@ -3,6 +3,13 @@
 """This module, book_data_logger.py, saves book data and saves it through the C program."""
 
 import requests as r
+from datetime import datetime
+import calendar
+
+d = datetime.now()
+unixtime = calendar.timegm(d.utctimetuple())
+print(unixtime)
+
 
 ORDER_TYPE_SELL = 'SellOrders'
 ORDER_TYPE_BUY  = 'BuyOrders'
@@ -20,11 +27,6 @@ class BookOrders(object):
 		for row in data:
 			amount = row[KEY_AMOUNT]
 			price = int(('{:.8f}'.format(row[KEY_PRICE])).replace('0.', ''))
-			print(amount)
-			print(type(amount))
-			print(price)
-			print(type(price))
-			print()
 			#print(str(amount) + ' {' + str(type(amount)) + '}\t' + str(price) + ' {' + str(type(price)) + '}')
 
 
