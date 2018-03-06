@@ -10,5 +10,9 @@ result = r.get('https://www.southxchange.com/api/book/MSR/BTC')
 if result.status_code == 200:
 	data = str(result.content)
 	print(data)
+	print()
+	data = eval(data)
+	print(data)
+	print(type(data))
 else:
 	print('TODO : Log an error!')
