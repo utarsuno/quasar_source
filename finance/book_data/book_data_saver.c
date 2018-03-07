@@ -2,22 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SUCCESS                         0
-#define ERROR                           -1
+#define SUCCESS                        0
+#define ERROR                          -1
 
-#define ARGUMENT_FILE_SAVE_PATH         1
-#define ARGUMENT_NUMBER_OF_BUY_ENTRIES  2
-#define ARGUMENT_NUMBER_OF_SELL_ENTRIES 3
+#define ARGUMENT_FILE_SAVE_PATH        1
+#define ARGUMENT_NUMBER_OF_BUY_ORDERS  2
+#define ARGUMENT_NUMBER_OF_SELL_ORDERS 3
 
 int main(int argc, char * argv[]) {
 
 
     // First argument is file save path.
-    char * file_save_path = argv[ARGUMENT_TIMESTAMP];
-    // Second argument is number of buy entries.
-    int book_type = atoi(argv[ARGUMENT_BOOK_TYPE]);
-    // Third argument is number of sell entries.
-    int number_of_entries = atoi(argv[ARGUMENT_NUM_ROWS]);
+    char * file_save_path = argv[ARGUMENT_FILE_SAVE_PATH];
+    // Second argument is number of buy orders.
+    int number_of_buy_orders = atoi(argv[ARGUMENT_NUMBER_OF_BUY_ORDERS]);
+    // Third argument is number of sell orders.
+    int number_of_sell_orders = atoi(argv[ARGUMENT_NUMBER_OF_SELL_ORDERS]);
 
     printf("The file save path is {%s}\n", file_save_path);
     return SUCCESS;
