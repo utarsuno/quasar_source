@@ -47,8 +47,6 @@ int main(int argc, char * argv[]) {
     // Read in the last price.
     last_price = (* (file_buffer + 0) << 8 + * (file_buffer + 1));
 
-    2, 3, 4, 5
-
     // Read in the price variation.
     price_variation = (* (file_buffer + 5) << 24 + * (file_buffer + 4) << 16 + * (file_buffer + 3) << 8 + * (file_buffer + 2));
 
@@ -56,6 +54,6 @@ int main(int argc, char * argv[]) {
     printf("The last price was {%hu}\n", last_price);
     printf("The last price variation was {%f}\n", price_variation);
 
-    
+
     return SUCCESS;
 }
