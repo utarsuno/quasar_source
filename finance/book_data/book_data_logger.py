@@ -136,7 +136,6 @@ def log_masari_data():
 	"""Logs Masari data every minute."""
 	dl = DataLogger()
 	dl.create_new_data_log()
-	pass
 
 l = task.LoopingCall(log_masari_data)
 l.start(timeout) # call every sixty seconds
