@@ -35,7 +35,7 @@ int main(int argc, char * argv[]) {
     // Read in the entire file
     fread(file_buffer, file_length, 1, file_pointer);
     // Close the file.
-    fclose(fileptr);
+    fclose(file_pointer);
 
 
     unsigned short last_price = 0;
