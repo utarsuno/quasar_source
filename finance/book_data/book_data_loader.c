@@ -46,8 +46,8 @@ int main(int argc, char * argv[]) {
     int number_of_sell_orders = 0;
 
     // Read in the last price.
-    last_price = (* (file_buffer + 0) << 8 + * (file_buffer + 1));
-    last_price = (* (file_buffer + 1) << 8 + * (file_buffer + 0));
+    last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
+    last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
 
     // Read in the price variation.
     price_variation = (* (file_buffer + 5) << 24 + * (file_buffer + 4) << 16 + * (file_buffer + 3) << 8 + * (file_buffer + 2));
