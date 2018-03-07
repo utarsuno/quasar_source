@@ -11,28 +11,28 @@
 // Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
 float bytes_to_float(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3) {
     float output;
-    * ((uchar *)(& output) + 3) = b0;
-    * ((uchar *)(& output) + 2) = b1;
-    * ((uchar *)(& output) + 1) = b2;
-    * ((uchar *)(& output) + 0) = b3;
+    * ((unsigned char *)(& output) + 3) = b0;
+    * ((unsigned char *)(& output) + 2) = b1;
+    * ((unsigned char *)(& output) + 1) = b2;
+    * ((unsigned char *)(& output) + 0) = b3;
     return output;
 }
 
 int bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3) {
     int output;
-    * ((uchar *)(& output) + 3) = b0;
-    * ((uchar *)(& output) + 2) = b1;
-    * ((uchar *)(& output) + 1) = b2;
-    * ((uchar *)(& output) + 0) = b3;
+    * ((unsigned char *)(& output) + 3) = b0;
+    * ((unsigned char *)(& output) + 2) = b1;
+    * ((unsigned char *)(& output) + 1) = b2;
+    * ((unsigned char *)(& output) + 0) = b3;
     return output;
 }
 
 unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1) {
     unsigned short output;
-    * ((uchar *)(& output) + 3) = b0;
-    * ((uchar *)(& output) + 2) = b1;
-    * ((uchar *)(& output) + 1) = b2;
-    * ((uchar *)(& output) + 0) = b3;
+    * ((unsigned char *)(& output) + 3) = b0;
+    * ((unsigned char *)(& output) + 2) = b1;
+    * ((unsigned char *)(& output) + 1) = b2;
+    * ((unsigned char *)(& output) + 0) = b3;
     return output;
 }
 
