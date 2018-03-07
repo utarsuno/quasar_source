@@ -66,9 +66,11 @@ int main(int argc, char * argv[]) {
 
     // First 2 bytes, last price.
     fwrite(& last_price, sizeof(last_price), 1, file_pointer);
+    printf("The last price was {%hu}\n", last_price);
 
     // Next 8 bytes, price variation.
     fwrite(& price_variation, sizeof(price_variation), 1, file_pointer);
+    printf("The last price variation was {%f}\n", price_variation);
 
     // Next 8 bytes, volume.
     fwrite(& volume, sizeof(volume), 1, file_pointer);
