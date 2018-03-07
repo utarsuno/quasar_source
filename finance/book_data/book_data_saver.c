@@ -22,6 +22,9 @@ int main(int argc, char * argv[]) {
     printf("The file save path is {%s}\n", file_save_path);
     return SUCCESS;
 
+
+
+    /*
     char file_name[1024];
 
     //printf("timestamp %s\n", timestamp);
@@ -59,6 +62,6 @@ int main(int argc, char * argv[]) {
     }
     */
 
-    fclose(file_pointer);
+    //fclose(file_pointer);
     return SUCCESS;
 }
