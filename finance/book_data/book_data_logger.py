@@ -87,6 +87,9 @@ class DataLogger(object):
 		if result.status_code == 200:
 			data = eval(result.content.decode("utf-8"))
 			print(data)
+			print(int(('{:.8f}'.format(data[KEY_LAST_PRICE])).replace('0.', '')))
+			print(data[KEY_VARIATION_24_HR])
+			print(data[KEY_VOLUME_24_HR])
 		else:
 			return False
 
