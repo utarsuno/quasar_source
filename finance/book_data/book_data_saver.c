@@ -62,7 +62,7 @@ int main(int argc, char * argv[]) {
     /*___         ___            __       ___   /  __       ___  __       ___
      |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
      |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
-    FILE * file_pointer = fopen(file_save_path, "ab+");
+    FILE * file_pointer = fopen(file_save_path, "wb+");
 
     // First 4 bytes, last price.
     fwrite(& last_price, sizeof(last_price), 1, file_pointer);
