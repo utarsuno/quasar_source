@@ -7,6 +7,15 @@
 
 #define ARGUMENT_FILE_TO_LOAD          1
 
+
+void printbinchar(char character)
+{
+    char output[9];
+    itoa(character, output, 2);
+    printf("%s\n", output);
+}
+
+
 int main(int argc, char * argv[]) {
     /*     __   __              ___      ___  __      __        __   __          __
       /\  |__) / _` |  |  |\/| |__  |\ |  |  /__`    |__)  /\  |__) /__` | |\ | / _`
@@ -48,6 +57,10 @@ int main(int argc, char * argv[]) {
     // Read in the last price.
     printf("%hu\n", (unsigned short) * (file_buffer + 0));
     printf("%hu\n", (unsigned short) * (file_buffer + 1));
+
+    printbinchar(* (file_buffer + 0));
+    printbinchar(* (file_buffer + 0));
+
     last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
     last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
 
