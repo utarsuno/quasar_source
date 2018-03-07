@@ -64,7 +64,7 @@ int main(int argc, char * argv[]) {
      |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
     FILE * file_pointer = fopen(file_save_path, "wb+");
 
-    // First 4 bytes, last price.
+    // First 2 bytes, last price.
     fwrite(& last_price, sizeof(last_price), 1, file_pointer);
 
     // Next 8 bytes, price variation.

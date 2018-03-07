@@ -13,7 +13,6 @@ int main(int argc, char * argv[]) {
      /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
     char * file_load_path     = argv[ARGUMENT_FILE_TO_LOAD];
 
-
     /*___         ___            __       ___   /  __       ___  __       ___
      |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
      |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
@@ -40,6 +39,7 @@ int main(int argc, char * argv[]) {
 
     unsigned short last_price = 0;
     float price_variation = 0;
+    float price_variation2 = 0;
     float volume = 0;
     int number_of_buy_orders = 0;
     int number_of_sell_orders = 0;
@@ -50,10 +50,13 @@ int main(int argc, char * argv[]) {
     // Read in the price variation.
     price_variation = (* (file_buffer + 5) << 24 + * (file_buffer + 4) << 16 + * (file_buffer + 3) << 8 + * (file_buffer + 2));
 
+    // Read in the price variation.
+    price_variation2 = (* (file_buffer + 2) << 24 + * (file_buffer + 3) << 16 + * (file_buffer + 4) << 8 + * (file_buffer + 5));
+
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
     printf("The last price variation was {%f}\n", price_variation);
-
+    printf("The last price variation was {%f}\n", price_variation2);
 
     return SUCCESS;
 }
