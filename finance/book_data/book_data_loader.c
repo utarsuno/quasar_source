@@ -13,6 +13,35 @@ int main(int argc, char * argv[]) {
      /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
     char * file_load_path     = argv[ARGUMENT_FILE_TO_LOAD];
 
+
+    /*___         ___            __       ___   /  __       ___  __       ___
+     |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
+     |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
+    FILE * file_pointer = fopen(file_load_path, "rb");
+
+    // Base code from : https://stackoverflow.com/questions/22059189/read-a-file-as-byte-array
+    char * file_buffer;
+    long file_length;
+
+    // Jump to the end of the file/
+    fseek(file_pointer, 0, SEEK_END);
+    // Get the current byte offset in the file.
+    file_length = ftell(file_pointer);
+    // Jump back to the beginning of the file.
+    rewind(fileptr);
+
+    // Enough memory for file + \0.
+    file_buffer = (char *) malloc((file_length + 1) * sizeof(char));
+    // Read in the entire file
+    fread(file_buffer, file_length, 1, file_pointer);
+    // Close the file.
+    fclose(fileptr);
+
+
+    
+    // Read in the last price.
+
+
     /*__  ___  __             __       ___               __        __          __
      /__`  |  |  \ | |\ |    |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
      .__/  |  |__/ | | \|    |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> */
@@ -52,7 +81,9 @@ int main(int argc, char * argv[]) {
     /*___         ___            __       ___   /  __       ___  __       ___
      |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
      |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
-    FILE * file_pointer = fopen(file_save_path, "ab+");
+    FILE * file_pointer = fopen(file_load_path, "rb");
+
+
 
     // First 4 bytes, last price.
     fwrite(& last_price, sizeof(last_price), 1, file_pointer);

@@ -19,7 +19,7 @@ int main(int argc, char * argv[]) {
     char * file_save_path     = argv[ARGUMENT_FILE_SAVE_PATH];
     int number_of_buy_orders  = atoi(argv[ARGUMENT_NUMBER_OF_BUY_ORDERS]);
     int number_of_sell_orders = atoi(argv[ARGUMENT_NUMBER_OF_SELL_ORDERS]);
-    int last_price            = atoi(argv[ARGUMENT_LAST_PRICE]);
+    unsigned short last_price = (unsigned short) atoi(argv[ARGUMENT_LAST_PRICE]);
     float price_variation     = atof(argv[ARGUMENT_PRICE_VARIATION]);
     float volume              = atof(argv[ARGUMENT_VOLUME]);
 
@@ -101,3 +101,4 @@ int main(int argc, char * argv[]) {
     fclose(file_pointer);
     return SUCCESS;
 }
+
