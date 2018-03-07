@@ -79,11 +79,8 @@ class DataLogger(object):
 		# TODO : Add formal error handling!
 		if self.get_non_book_data() and self.get_book_data():
 			# Open the C process.
-			self.c_process = Popen('./a.out ' + self.save_path + ' ' + str(self.book_orders_parser.number_of_buy_orders) + ' ' + str(self.book_orders_parser.number_of_sell_orders), shell=True, stdin=PIPE)
-
-			self.c_process.stdin.write(bytes('%d\n' % self.last_price, 'utf-8'))
-			self.c_process.stdin.write(bytes('%f\n' % self.price_variation, 'utf-8'))
-			self.c_process.stdin.write(bytes('%f\n' % self.volume, 'utf-8'))
+			self.c_process = Popen('./a.out ' + self.save_path + ' ' + str(self.book_orders_parser.number_of_buy_orders) + ' ' + str(self.book_orders_parser.number_of_sell_orders) + ' ' + str(self.last_price)
+			                       + ' ' + str(self.price_variation) + ' ' + str(self.volume), shell=True, stdin=PIPE)
 
 			self.book_orders_parser.log_data(self.c_process)
 

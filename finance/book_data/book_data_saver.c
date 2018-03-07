@@ -8,61 +8,89 @@
 #define ARGUMENT_FILE_SAVE_PATH        1
 #define ARGUMENT_NUMBER_OF_BUY_ORDERS  2
 #define ARGUMENT_NUMBER_OF_SELL_ORDERS 3
+#define ARGUMENT_LAST_PRICE            4
+#define ARGUMENT_PRICE_VARIATION       5
+#define ARGUMENT_VOLUME                6
 
 int main(int argc, char * argv[]) {
-
-
-    // First argument is file save path.
-    char * file_save_path = argv[ARGUMENT_FILE_SAVE_PATH];
-    // Second argument is number of buy orders.
-    int number_of_buy_orders = atoi(argv[ARGUMENT_NUMBER_OF_BUY_ORDERS]);
-    // Third argument is number of sell orders.
+    // Program arguments passed in.
+    char * file_save_path     = argv[ARGUMENT_FILE_SAVE_PATH];
+    int number_of_buy_orders  = atoi(argv[ARGUMENT_NUMBER_OF_BUY_ORDERS]);
     int number_of_sell_orders = atoi(argv[ARGUMENT_NUMBER_OF_SELL_ORDERS]);
+    int last_price            = atoi(argv[ARGUMENT_LAST_PRICE]);
+    float price_variation     = atof(argv[ARGUMENT_PRICE_VARIATION]);
+    float volume              = atof(argv[ARGUMENT_VOLUME]);
 
     printf("The file save path is {%s}\n", file_save_path);
     printf("The number of buy orders is {%d}\n", number_of_buy_orders);
     printf("The number of sell orders is {%d}\n", number_of_sell_orders);
 
-    
+    int index;
+    float current_amount;
+    unsigned short current_price;
 
-    /*
-    char file_name[1024];
+    float * buy_prices            = (float *) malloc(sizeof(float) * number_of_buy_orders);
+    unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
+    float * sell_prices           = (float *) malloc(sizeof(float) * number_of_sell_orders);
+    unsigned short * sell_amounts = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
 
-    //printf("timestamp %s\n", timestamp);
-    //printf("book_type %d\n", book_type);
-    //printf("number_of_entries %d\n", number_of_entries);
-    //return SUCCESS;
-
-    FILE * file_pointer;
-    if (book_type == BOOK_TYPE_BUY_ORDERS) {
-        char * file_directory = DIRECTORY_BUY_ORDERS;
-        strcpy(file_name, file_directory);
-    } else {
-        char * file_directory = DIRECTORY_SELL_ORDERS;
-        strcpy(file_name, file_directory);
-    }
-    strcpy(file_name, timestamp);
-    printf("Filename is {%s}", file_name);
-    file_pointer = fopen(file_name, "ab+");
-
-    int current_entry = 0;
-    while (current_entry < number_of_entries) {
-        // TODO : Add error checking.
-        float num;
-        scanf("%f", & num);
-        // TODO : BATCH SAVING, DON'T SAVE ONE NUMBER AT A TIME
-        fwrite(& num, 1, sizeof(num), file_pointer);
-        current_entry += 1;
+    // Buy amounts.
+    for (index = 0; index < number_of_buy_orders; index++) {
+        scanf("%f", & current_amount);
+        * (buy_amounts + index) = current_amount;
     }
 
-    /*
-    float num;
-    if (scanf("%f", & num) != ERROR) {
-        //fprintf(fp, "%f", num);
-        fwrite(& num, 1, sizeof(num), fp);
+    // Buy prices.
+    for (index = 0; index < number_of_buy_orders; index++) {
+        scanf("%hu", & current_price);
+        * (buy_prices + index) = current_price;
     }
-    */
 
-    //fclose(file_pointer);
+    // Sell amounts.
+    for (index = 0; index < number_of_sell_orders; index++) {
+        scanf("%f", & current_amount);
+        * (sell_amounts + index) = current_amount;
+    }
+
+    // Sell prices.
+    for (index = 0; index < number_of_sell_orders; index++) {
+        scanf("%hu", & current_price);
+        * (sell_prices + index) = current_price;
+    }
+
+    FILE * file_pointer = fopen(file_save_path, "ab+");
+
+    // First 4 bytes, last price.
+    fwrite(& last_price, sizeof(last_price), 1, file_pointer);
+
+    // Next 8 bytes, price variation.
+    fwrite(& price_variation, sizeof(price_variation), 1, file_pointer);
+
+    // Next 8 bytes, volume.
+    fwrite(& volume, sizeof(volume), 1, file_pointer);
+
+    // Next 4 bytes, number of buy orders.
+    fwrite(& number_of_buy_orders, 1, sizeof(number_of_buy_orders), file_pointer);
+
+    // Next 4 bytes, number of sell orders.
+    fwrite(& number_of_sell_orders, 1, sizeof(number_of_sell_orders), file_pointer);
+
+    // Next n0 bytes, buy prices.
+    fwrite(buy_prices, sizeof(float), number_of_buy_orders, file_pointer);
+
+    // Next n1 bytes, buy amounts.
+    fwrite(buy_amounts, sizeof(unsigned short), number_of_buy_orders, file_pointer);
+
+    // Next n2 bytes, sell prices.
+    fwrite(sell_prices, sizeof(float), number_of_sell_orders, file_pointer);
+
+    // Next n3 bytes, sell amounts.
+    fwrite(sell_amounts, sizeof(unsigned short), number_of_sell_orders, file_pointer);
+
+    free(buy_prices);
+    free(buy_amounts);
+    free(sell_prices);
+    free(sell_amounts);
+    fclose(file_pointer);
     return SUCCESS;
 }
