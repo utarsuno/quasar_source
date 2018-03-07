@@ -28,7 +28,7 @@ int main(int argc, char * argv[]) {
     // Get the current byte offset in the file.
     file_length = ftell(file_pointer);
     // Jump back to the beginning of the file.
-    rewind(fileptr);
+    rewind(file_pointer);
 
     // Enough memory for file + \0.
     file_buffer = (char *) malloc((file_length + 1) * sizeof(char));
