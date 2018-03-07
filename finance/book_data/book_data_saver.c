@@ -13,7 +13,9 @@
 #define ARGUMENT_VOLUME                6
 
 int main(int argc, char * argv[]) {
-    // Program arguments passed in.
+    /*     __   __              ___      ___  __      __        __   __          __
+      /\  |__) / _` |  |  |\/| |__  |\ |  |  /__`    |__)  /\  |__) /__` | |\ | / _`
+     /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
     char * file_save_path     = argv[ARGUMENT_FILE_SAVE_PATH];
     int number_of_buy_orders  = atoi(argv[ARGUMENT_NUMBER_OF_BUY_ORDERS]);
     int number_of_sell_orders = atoi(argv[ARGUMENT_NUMBER_OF_SELL_ORDERS]);
@@ -21,10 +23,9 @@ int main(int argc, char * argv[]) {
     float price_variation     = atof(argv[ARGUMENT_PRICE_VARIATION]);
     float volume              = atof(argv[ARGUMENT_VOLUME]);
 
-    printf("The file save path is {%s}\n", file_save_path);
-    printf("The number of buy orders is {%d}\n", number_of_buy_orders);
-    printf("The number of sell orders is {%d}\n", number_of_sell_orders);
-
+    /*__  ___  __             __       ___               __        __          __
+     /__`  |  |  \ | |\ |    |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
+     .__/  |  |__/ | | \|    |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> */
     int index;
     float current_amount;
     unsigned short current_price;
@@ -58,6 +59,9 @@ int main(int argc, char * argv[]) {
         * (sell_prices + index) = current_price;
     }
 
+    /*___         ___            __       ___   /  __       ___  __       ___
+     |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
+     |    | |___ |___    | | \| |    \__/  |  /   \__/ \__/  |  |    \__/  |  */
     FILE * file_pointer = fopen(file_save_path, "ab+");
 
     // First 4 bytes, last price.
@@ -87,6 +91,9 @@ int main(int argc, char * argv[]) {
     // Next n3 bytes, sell amounts.
     fwrite(sell_amounts, sizeof(unsigned short), number_of_sell_orders, file_pointer);
 
+    /*___  __   ___  ___           ___        __   __
+     |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
+     |    |  \ |___ |___     |  | |___  |  | \__/ |  \  |  */
     free(buy_prices);
     free(buy_amounts);
     free(sell_prices);
