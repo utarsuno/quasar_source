@@ -35,6 +35,8 @@ class BookOrdersParser(object):
 
 	def __init__(self, data):
 		self.data                  = data
+		print(data)
+		print(type(data))
 		self.buy_orders            = data[ORDER_TYPE_BUY]
 		self.sell_orders           = data[ORDER_TYPE_SELL]
 		self.number_of_buy_orders  = str(len(self.buy_orders))
