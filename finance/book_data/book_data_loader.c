@@ -8,13 +8,32 @@
 #define ARGUMENT_FILE_TO_LOAD          1
 
 
-int print_char_to_binary(char ch)
-{
-    int i;
-    for (i=7; i>=0; i--)
-        printf("%hd ", ((ch & (1<<i))>>i));
-    printf("\n");
-    return 0;
+// Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
+float bytes_to_float(uchar b0, uchar b1, uchar b2, uchar b3) {
+    float output;
+    * ((uchar *)(& output) + 3) = b0;
+    * ((uchar *)(& output) + 2) = b1;
+    * ((uchar *)(& output) + 1) = b2;
+    * ((uchar *)(& output) + 0) = b3;
+    return output;
+}
+
+int bytes_to_int(uchar b0, uchar b1, uchar b2, uchar b3) {
+    int output;
+    * ((uchar *)(& output) + 3) = b0;
+    * ((uchar *)(& output) + 2) = b1;
+    * ((uchar *)(& output) + 1) = b2;
+    * ((uchar *)(& output) + 0) = b3;
+    return output;
+}
+
+unsigned short bytes_to_unsigned_short(uchar b0, uchar b1) {
+    unsigned short output;
+    * ((uchar *)(& output) + 3) = b0;
+    * ((uchar *)(& output) + 2) = b1;
+    * ((uchar *)(& output) + 1) = b2;
+    * ((uchar *)(& output) + 0) = b3;
+    return output;
 }
 
 
@@ -48,51 +67,13 @@ int main(int argc, char * argv[]) {
     fclose(file_pointer);
 
 
-    unsigned short last_price = 0;
+    unsigned short last_price = bytes_to_unsigned_short(* (file_buffer + 1), * (file_buffer + 0));
     unsigned short last_price2 = 0;
     float price_variation = 0;
     float price_variation2 = 0;
     float volume = 0;
     int number_of_buy_orders = 0;
     int number_of_sell_orders = 0;
-
-    // Read in the last price.
-    printf("%d\n", * (file_buffer + 0) & 00000001);
-    printf("%d\n", * (file_buffer + 0) & 00000010);
-    printf("%d\n", * (file_buffer + 0) & 00000100);
-    printf("%d\n", * (file_buffer + 0) & 00001000);
-    printf("%d\n", * (file_buffer + 0) & 00010000);
-    printf("%d\n", * (file_buffer + 0) & 00100000);
-    printf("%d\n", * (file_buffer + 0) & 01000000);
-    printf("%d\n", * (file_buffer + 0) & 10000000);
-
-    printf("%d\n", * (file_buffer + 1) & 00000001);
-    printf("%d\n", * (file_buffer + 1) & 00000010);
-    printf("%d\n", * (file_buffer + 1) & 00000100);
-    printf("%d\n", * (file_buffer + 1) & 00001000);
-    printf("%d\n", * (file_buffer + 1) & 00010000);
-    printf("%d\n", * (file_buffer + 1) & 00100000);
-    printf("%d\n", * (file_buffer + 1) & 01000000);
-    printf("%d\n", * (file_buffer + 1) & 10000000);
-
-    printf("\n\n");
-
-    print_char_to_binary(* (file_buffer + 0));
-
-    printf("\n");
-
-    print_char_to_binary(* (file_buffer + 1));
-
-    printf("\n\n");
-
-    last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
-    last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
-
-    // Read in the price variation.
-    price_variation = (* (file_buffer + 5) << 24 + * (file_buffer + 4) << 16 + * (file_buffer + 3) << 8 + * (file_buffer + 2));
-
-    // Read in the price variation.
-    price_variation2 = (* (file_buffer + 2) << 24 + * (file_buffer + 3) << 16 + * (file_buffer + 4) << 8 + * (file_buffer + 5));
 
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
