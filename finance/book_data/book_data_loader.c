@@ -38,6 +38,7 @@ int main(int argc, char * argv[]) {
 
 
     unsigned short last_price = 0;
+    unsigned short last_price2 = 0;
     float price_variation = 0;
     float price_variation2 = 0;
     float volume = 0;
@@ -46,6 +47,7 @@ int main(int argc, char * argv[]) {
 
     // Read in the last price.
     last_price = (* (file_buffer + 0) << 8 + * (file_buffer + 1));
+    last_price = (* (file_buffer + 1) << 8 + * (file_buffer + 0));
 
     // Read in the price variation.
     price_variation = (* (file_buffer + 5) << 24 + * (file_buffer + 4) << 16 + * (file_buffer + 3) << 8 + * (file_buffer + 2));
@@ -55,6 +57,7 @@ int main(int argc, char * argv[]) {
 
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
+    printf("The last price was {%hu}\n", last_price2);
     printf("The last price variation was {%f}\n", price_variation);
     printf("The last price variation was {%f}\n", price_variation2);
 
