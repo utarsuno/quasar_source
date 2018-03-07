@@ -2,15 +2,20 @@
 
 """This module, book_data_logger.py, saves book data and saves it through the C program."""
 
+# Needed for simple HTTP requests.
 import requests as r
 
+# Needed for getting the unix time stamp.
 from datetime import datetime
 import calendar
 
+# Needed for running a C process and sending data to it.
 from subprocess import Popen, PIPE
 
-#define BOOK_TYPE_BUY_ORDERS  2
-#define BOOK_TYPE_SELL_ORDERS 3
+# Needed for running a scheduled task.
+from twisted.internet import task
+from twisted.internet import reactor
+
 
 ORDER_TYPE_SELL = 'SellOrders'
 ORDER_TYPE_BUY  = 'BuyOrders'
@@ -123,6 +128,17 @@ class DataLogger(object):
 			return False
 
 
-dl = DataLogger()
-dl.create_new_data_log()
+# Code from : https://stackoverflow.com/questions/474528/what-is-the-best-way-to-repeatedly-execute-a-function-every-x-seconds-in-python
+timeout = 60.0 # Sixty seconds
 
+
+def log_masari_data():
+	"""Logs Masari data every minute."""
+	dl = DataLogger()
+	dl.create_new_data_log()
+	pass
+
+l = task.LoopingCall(log_masari_data)
+l.start(timeout) # call every sixty seconds
+
+reactor.run()
