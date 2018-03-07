@@ -46,8 +46,8 @@ int main(int argc, char * argv[]) {
     int number_of_sell_orders = 0;
 
     // Read in the last price.
-    printf("%d\n", * (file_buffer + 0));
-    printf("%d\n", * (file_buffer + 1));
+    printf("%hu\n", (unsigned short) * (file_buffer + 0));
+    printf("%hu\n", (unsigned short) * (file_buffer + 1));
     last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
     last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
 
