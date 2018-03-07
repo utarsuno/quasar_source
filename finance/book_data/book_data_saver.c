@@ -8,8 +8,8 @@
 #define BOOK_TYPE_BUY_ORDERS  2
 #define BOOK_TYPE_SELL_ORDERS 3
 
-#define DIRECTORY_BUY_ORDERS  "/home/databoi/book_orders/buys/"
-#define DIRECTORY_SELL_ORDERS "/home/databoi/sell_orders/sells/"
+#define DIRECTORY_BUY_ORDERS  "/home/databoi/book_orders/"
+#define DIRECTORY_SELL_ORDERS "/home/databoi/sell_orders/"
 
 #define ARGUMENT_TIMESTAMP    1
 #define ARGUMENT_BOOK_TYPE    2
@@ -47,6 +47,7 @@ int main(int argc, char * argv[]) {
         // TODO : Add error checking.
         float num;
         scanf("%f", & num);
+        // TODO : BATCH SAVING, DON'T SAVE ONE NUMBER AT A TIME
         fwrite(& num, 1, sizeof(num), file_pointer);
         current_entry += 1;
     }
