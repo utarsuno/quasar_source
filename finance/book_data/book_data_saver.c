@@ -20,9 +20,10 @@ int main(int argc, char * argv[]) {
     int number_of_sell_orders = atoi(argv[ARGUMENT_NUMBER_OF_SELL_ORDERS]);
 
     printf("The file save path is {%s}\n", file_save_path);
-    return SUCCESS;
+    printf("The number of buy orders is {%d}\n", number_of_buy_orders);
+    printf("The number of sell orders is {%d}\n", number_of_sell_orders);
 
-
+    
 
     /*
     char file_name[1024];
