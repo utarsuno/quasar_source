@@ -104,8 +104,9 @@ class DataLogger(object):
 		result = r.get(self.url_price)
 		if result.status_code == 200:
 			self.book_orders_parser = BookOrdersParser(eval(result.content.decode("utf-8")))
-		else:
 			return True
+		else:
+			return False
 
 	def get_non_book_data(self):
 		"""Gets the non-book data needed."""
@@ -115,6 +116,7 @@ class DataLogger(object):
 			self.last_price      = get_price_as_int(data[KEY_LAST_PRICE])
 			self.price_variation = data[KEY_VARIATION_24_HR]
 			self.volume          = data[KEY_VOLUME_24_HR]
+			return True
 		else:
 			return False
 
