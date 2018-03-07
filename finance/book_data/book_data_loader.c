@@ -68,8 +68,8 @@ int main(int argc, char * argv[]) {
     unsigned short last_price = bytes_to_unsigned_short(* (file_buffer + 1), * (file_buffer + 0));
     float price_variation = bytes_to_float(* (file_buffer + 5), * (file_buffer + 4), * (file_buffer + 3), * (file_buffer + 2));
     float volume = bytes_to_float(* (file_buffer + 9), * (file_buffer + 8), * (file_buffer + 7), * (file_buffer + 6));
-    int number_of_buy_orders = bytes_to_float(* (file_buffer + 10), * (file_buffer + 11), * (file_buffer + 12), * (file_buffer + 13));
-    int number_of_sell_orders = bytes_to_float(* (file_buffer + 14), * (file_buffer + 15), * (file_buffer + 16), * (file_buffer + 17));;
+    int number_of_buy_orders = bytes_to_int(* (file_buffer + 13), * (file_buffer + 12), * (file_buffer + 11), * (file_buffer + 10));
+    int number_of_sell_orders = bytes_to_int(* (file_buffer + 17), * (file_buffer + 16), * (file_buffer + 15), * (file_buffer + 14));
 
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
