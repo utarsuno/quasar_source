@@ -29,10 +29,8 @@ int bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned 
 
 unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1) {
     unsigned short output;
-    * ((unsigned char *)(& output) + 3) = b0;
-    * ((unsigned char *)(& output) + 2) = b1;
-    * ((unsigned char *)(& output) + 1) = b2;
-    * ((unsigned char *)(& output) + 0) = b3;
+    * ((unsigned char *)(& output) + 1) = b0;
+    * ((unsigned char *)(& output) + 0) = b1;
     return output;
 }
 
