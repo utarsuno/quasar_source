@@ -8,14 +8,6 @@
 #define ARGUMENT_FILE_TO_LOAD          1
 
 
-void printbinchar(char character)
-{
-    char output[9];
-    itoa(character, output, 2);
-    printf("%s\n", output);
-}
-
-
 int main(int argc, char * argv[]) {
     /*     __   __              ___      ___  __      __        __   __          __
       /\  |__) / _` |  |  |\/| |__  |\ |  |  /__`    |__)  /\  |__) /__` | |\ | / _`
@@ -55,11 +47,23 @@ int main(int argc, char * argv[]) {
     int number_of_sell_orders = 0;
 
     // Read in the last price.
-    printf("%hu\n", (unsigned short) * (file_buffer + 0));
-    printf("%hu\n", (unsigned short) * (file_buffer + 1));
+    printf("%d\n", * (file_buffer + 0) & 00000001);
+    printf("%d\n", * (file_buffer + 0) & 00000010);
+    printf("%d\n", * (file_buffer + 0) & 00000100);
+    printf("%d\n", * (file_buffer + 0) & 00001000);
+    printf("%d\n", * (file_buffer + 0) & 00010000);
+    printf("%d\n", * (file_buffer + 0) & 00100000);
+    printf("%d\n", * (file_buffer + 0) & 01000000);
+    printf("%d\n", * (file_buffer + 0) & 10000000);
 
-    printbinchar(* (file_buffer + 0));
-    printbinchar(* (file_buffer + 0));
+    printf("%d\n", * (file_buffer + 1) & 00000001);
+    printf("%d\n", * (file_buffer + 1) & 00000010);
+    printf("%d\n", * (file_buffer + 1) & 00000100);
+    printf("%d\n", * (file_buffer + 1) & 00001000);
+    printf("%d\n", * (file_buffer + 1) & 00010000);
+    printf("%d\n", * (file_buffer + 1) & 00100000);
+    printf("%d\n", * (file_buffer + 1) & 01000000);
+    printf("%d\n", * (file_buffer + 1) & 10000000);
 
     last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
     last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
