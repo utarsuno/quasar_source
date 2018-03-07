@@ -8,6 +8,16 @@
 #define ARGUMENT_FILE_TO_LOAD          1
 
 
+int print_char_to_binary(char ch)
+{
+    int i;
+    for (i=7; i>=0; i--)
+        printf("%hd ", ((ch & (1<<i))>>i));
+    printf("\n");
+    return 0;
+}
+
+
 int main(int argc, char * argv[]) {
     /*     __   __              ___      ___  __      __        __   __          __
       /\  |__) / _` |  |  |\/| |__  |\ |  |  /__`    |__)  /\  |__) /__` | |\ | / _`
@@ -64,6 +74,16 @@ int main(int argc, char * argv[]) {
     printf("%d\n", * (file_buffer + 1) & 00100000);
     printf("%d\n", * (file_buffer + 1) & 01000000);
     printf("%d\n", * (file_buffer + 1) & 10000000);
+
+    printf("\n\n");
+
+    print_char_to_binary(* (file_buffer + 0));
+
+    printf("\n");
+
+    print_char_to_binary(* (file_buffer + 1));
+
+    printf("\n\n");
 
     last_price = (* (file_buffer + 0) * 256 + * (file_buffer + 1));
     last_price = (* (file_buffer + 1) * 256 + * (file_buffer + 0));
