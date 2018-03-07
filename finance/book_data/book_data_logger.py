@@ -35,8 +35,6 @@ class BookOrdersParser(object):
 
 	def __init__(self, data):
 		self.data                  = data
-		print(data)
-		print(type(data))
 		self.buy_orders            = data[ORDER_TYPE_BUY]
 		self.sell_orders           = data[ORDER_TYPE_SELL]
 		self.number_of_buy_orders  = str(len(self.buy_orders))
@@ -103,7 +101,7 @@ class DataLogger(object):
 
 	def get_book_data(self):
 		"""Gets the book data needed."""
-		result = r.get(self.url_price)
+		result = r.get(self.url_book_orders)
 		if result.status_code == 200:
 			self.book_orders_parser = BookOrdersParser(eval(result.content.decode("utf-8")))
 			return True
