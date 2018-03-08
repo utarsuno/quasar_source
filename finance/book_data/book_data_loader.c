@@ -105,21 +105,20 @@ int main(int argc, char * argv[]) {
     }
 
     // Sell prices.
-    printf("Printing buy prices!\n");
+    printf("Printing sell prices!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
         * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
-        printf("%hu\n", * (buy_prices + index));
+        printf("%hu\n", * (sell_prices + index));
     }
 
     // Sell amounts.
-    printf("Printing buy amounts!\n");
+    printf("Printing sell amounts!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
         * (buy_prices + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
-        printf("%f\n", * (buy_amounts + index));
+        printf("%f\n", * (sell_amounts + index));
     }
-
 
     /*___  __   ___  ___           ___        __   __
      |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
