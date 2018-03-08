@@ -30,11 +30,11 @@ int main(int argc, char * argv[]) {
     float current_amount;
     unsigned short current_price;
 
-    float * buy_prices            = (float *) malloc(sizeof(float) * number_of_buy_orders);
-    unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
-    float * sell_prices           = (float *) malloc(sizeof(float) * number_of_sell_orders);
-    unsigned short * sell_amounts = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
-    
+    unsigned short * buy_prices  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
+    float * buy_amounts          = (float *) malloc(sizeof(float) * number_of_buy_orders);
+    unsigned short * sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
+    float * sell_amounts         = (float *) malloc(sizeof(float) * number_of_sell_orders);
+
     // Buy amounts.
     for (index = 0; index < number_of_buy_orders; index++) {
         scanf("%f", & current_amount);
@@ -80,16 +80,16 @@ int main(int argc, char * argv[]) {
     fwrite(& number_of_sell_orders, 1, sizeof(number_of_sell_orders), file_pointer);
 
     // Next n0 bytes, buy prices.
-    fwrite(buy_prices, sizeof(float), number_of_buy_orders, file_pointer);
+    fwrite(buy_prices, sizeof(unsigned short), number_of_buy_orders, file_pointer);
 
     // Next n1 bytes, buy amounts.
-    fwrite(buy_amounts, sizeof(unsigned short), number_of_buy_orders, file_pointer);
+    fwrite(buy_amounts, sizeof(float), number_of_buy_orders, file_pointer);
 
     // Next n2 bytes, sell prices.
-    fwrite(sell_prices, sizeof(float), number_of_sell_orders, file_pointer);
+    fwrite(sell_prices, sizeof(unsigned short), number_of_sell_orders, file_pointer);
 
     // Next n3 bytes, sell amounts.
-    fwrite(sell_amounts, sizeof(unsigned short), number_of_sell_orders, file_pointer);
+    fwrite(sell_amounts, sizeof(float), number_of_sell_orders, file_pointer);
 
     /*___  __   ___  ___           ___        __   __
      |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
