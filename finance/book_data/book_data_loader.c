@@ -39,7 +39,7 @@ int main(int argc, char * argv[]) {
     /*     __   __              ___      ___  __      __        __   __          __
       /\  |__) / _` |  |  |\/| |__  |\ |  |  /__`    |__)  /\  |__) /__` | |\ | / _`
      /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
-    char * file_load_path     = argv[ARGUMENT_FILE_TO_LOAD];
+    char * file_load_path = argv[ARGUMENT_FILE_TO_LOAD];
 
     /*___         ___            __       ___   /  __       ___  __       ___
      |__  | |    |__     | |\ | |__) |  |  |   /  /  \ |  |  |  |__) |  |  |
@@ -71,6 +71,13 @@ int main(int argc, char * argv[]) {
     int number_of_buy_orders = bytes_to_int(* (file_buffer + 13), * (file_buffer + 12), * (file_buffer + 11), * (file_buffer + 10));
     int number_of_sell_orders = bytes_to_int(* (file_buffer + 17), * (file_buffer + 16), * (file_buffer + 15), * (file_buffer + 14));
 
+    int file_buffer_index = 18;
+
+    float * buy_prices            = (float *) malloc(sizeof(float) * number_of_buy_orders);
+    unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
+    float * sell_prices           = (float *) malloc(sizeof(float) * number_of_sell_orders);
+    unsigned short * sell_amounts = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
+
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
     printf("The price variation was {%f}\n", price_variation);
@@ -78,5 +85,49 @@ int main(int argc, char * argv[]) {
     printf("The number of buy orders {%d}\n", number_of_buy_orders);
     printf("The number of sell orders {%d}\n", number_of_sell_orders);
 
+    // FURTHER TESTING.
+
+    // Buy prices.
+    printf("Printing buy prices!\n");
+    for (index = 0; index < number_of_buy_orders; index++) {
+        * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        file_buffer_index += 2;
+        printf("%hu\n", * (buy_prices + index));
+    }
+
+    // Buy amounts.
+    printf("Printing buy amounts!\n");
+    for (index = 0; index < number_of_buy_orders; index++) {
+        * (buy_prices + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        file_buffer_index += 4;
+        printf("%f\n", * (buy_amounts + index));
+    }
+
+    // Sell prices.
+    printf("Printing buy prices!\n");
+    for (index = 0; index < number_of_sell_orders; index++) {
+        * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        file_buffer_index += 2;
+        printf("%hu\n", * (buy_prices + index));
+    }
+
+    // Sell amounts.
+    printf("Printing buy amounts!\n");
+    for (index = 0; index < number_of_sell_orders; index++) {
+        * (buy_prices + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        file_buffer_index += 4;
+        printf("%f\n", * (buy_amounts + index));
+    }
+
+
+    /*___  __   ___  ___           ___        __   __
+     |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
+     |    |  \ |___ |___     |  | |___  |  | \__/ |  \  |  */
+    free(buy_prices);
+    free(buy_amounts);
+    free(sell_prices);
+    free(sell_amounts);
+
     return SUCCESS;
 }
+

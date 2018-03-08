@@ -34,7 +34,7 @@ int main(int argc, char * argv[]) {
     unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
     float * sell_prices           = (float *) malloc(sizeof(float) * number_of_sell_orders);
     unsigned short * sell_amounts = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
-
+    
     // Buy amounts.
     for (index = 0; index < number_of_buy_orders; index++) {
         scanf("%f", & current_amount);
