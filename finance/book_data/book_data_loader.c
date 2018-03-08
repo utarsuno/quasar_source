@@ -99,7 +99,7 @@ int main(int argc, char * argv[]) {
     // Buy amounts.
     printf("Printing buy amounts!\n");
     for (index = 0; index < number_of_buy_orders; index++) {
-        * (buy_prices + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        * (buy_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
         printf("%f\n", * (buy_amounts + index));
     }
@@ -115,7 +115,7 @@ int main(int argc, char * argv[]) {
     // Sell amounts.
     printf("Printing sell amounts!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
-        * (buy_prices + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        * (sell_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
         printf("%f\n", * (sell_amounts + index));
     }
