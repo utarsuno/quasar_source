@@ -72,6 +72,7 @@ int main(int argc, char * argv[]) {
     int number_of_sell_orders = bytes_to_int(* (file_buffer + 17), * (file_buffer + 16), * (file_buffer + 15), * (file_buffer + 14));
 
     int file_buffer_index = 18;
+    int index;
 
     float * buy_prices            = (float *) malloc(sizeof(float) * number_of_buy_orders);
     unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
