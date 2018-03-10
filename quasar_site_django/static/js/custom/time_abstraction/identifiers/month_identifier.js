@@ -36,6 +36,7 @@ function MonthIdentifier(month_identifier) {
         if (this.first_day_of_this_month_week_day === 7) {
             this.first_day_of_this_month_week_day = 0;
         }
+        l(this.first_day_of_this_month_week_day);
         this.first_day_of_this_month = d.getDate();
     };
 
