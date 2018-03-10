@@ -160,7 +160,7 @@ MonthView.prototype = {
         // Add the day views here!
         var all_days = this.month_instance.get_all_day_instances();
         for (var d = 0; d < all_days.length; d++) {
-            this.simple_day_views.push(new DayViewSimple(all_days[d]), this.base_wall);
+            this.simple_day_views.push(new DayViewSimple(all_days[d], this.base_wall));
         }
         //this.week_one = this.base_wall.add_row(null, );
 
