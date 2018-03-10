@@ -39,6 +39,7 @@ MonthView.prototype = {
         this.month_instance.update_month_identifier(month_type);
         this.update_title();
         this.month_view_entity.set_property(ENTITY_PROPERTY_MONTH_TYPE, this.month_instance.get_month_type_for_entity());
+        this.month_type_button.update_text(this.month_instance.get_month_type());
         this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
@@ -46,6 +47,7 @@ MonthView.prototype = {
         this.month_instance.update_year_identifier(year_type);
         this.update_title();
         this.month_view_entity.set_property(ENTITY_PROPERTY_YEAR_TYPE, this.month_instance.get_year_type_for_entity());
+        this.year_type_button.update_text(this.month_instance.get_year_type());
         this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
@@ -135,17 +137,13 @@ MonthView.prototype = {
         this.create_settings_wall();
 
         // Create the settings button.
-        var row = this.base_wall.add_row(-1);
+        var row = this.base_wall.get_row_with_index(-1);
         var icon_width = 16 / this.base_wall.width;
 
         var settings_button = row.add_2D_element([1 - icon_width, 1], ICON_SETTINGS, TYPE_ICON);
         this.base_wall.world.interactive_objects.push(settings_button);
         settings_button.engable = false;
         settings_button.set_engage_function(this.show_settings_wall.bind(this));
-
-        // Add the title.
-        this.title = row.add_3D_element(this.month_instance.get_full_string(), TYPE_TITLE, null);
-
 
         // TODO : Load the month.
         // TODO : Load all entity data from the world!!!
@@ -161,6 +159,9 @@ MonthView.prototype = {
         this.month_view_entity.set_property(ENTITY_PROPERTY_MONTH_TYPE, TIME_TYPE_MONTH_CURRENT);
         this.month_view_entity.set_property(ENTITY_PROPERTY_YEAR_TYPE, TIME_TYPE_YEAR_CURRENT);
         this.month_view_entity.add_parent(this.base_wall.get_self_entity());
+
+        // Add the title.
+        this.title = this.base_wall.add_row(-1).add_3D_element(this.month_instance.get_full_string(), TYPE_TITLE, null);
     },
 
     load_from_entity: function(world, entity) {
@@ -169,6 +170,8 @@ MonthView.prototype = {
         // Load the base wall.
         this.base_wall = new FloatingWall(2000, 1000, null, null, world, true);
         this.base_wall.load_from_entity_data(this.month_view_entity.get_parent());
+
+        this.title = this.base_wall.get_row_with_index(-1).elements[0];
     }
 
 };
