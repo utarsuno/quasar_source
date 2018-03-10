@@ -86,7 +86,7 @@ MonthView.prototype = {
 
         row = this.year_type_selector_wall.add_row();
         row.add_2D_button([0, 1], 'Set To Static Year Typed', null, this.year_type_selected.bind(this, this.year_input.get_text()));
-        
+
         this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
