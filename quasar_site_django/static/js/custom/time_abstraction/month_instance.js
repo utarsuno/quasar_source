@@ -50,7 +50,8 @@ MonthInstance.prototype = {
 
             var length = this.last_day_of_this_month - this.first_day_of_this_month;
             for (var d = 0; d < length + 1; d++) {
-                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, this));
+                var week_instance = Math.ceil((this.first_day_of_this_month_week_day + this.first_day_of_this_month + d) / 7);
+                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, week_instance, this));
             }
         }
         return this.day_instances;

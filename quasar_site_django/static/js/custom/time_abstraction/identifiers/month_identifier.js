@@ -31,7 +31,9 @@ function MonthIdentifier(month_identifier) {
     };
 
     this.set_first_day_of_this_month = function() {
-        this.first_day_of_this_month = new Date(this.year_number, this.month_number + 1, 1).getDate();
+        var d = new Date(this.year_number, this.month_number + 1, 1);
+        this.first_day_of_this_month_week_day = d.getDay();
+        this.first_day_of_this_month = d.getDate();
     };
 
     this.set_last_day_of_this_month = function() {

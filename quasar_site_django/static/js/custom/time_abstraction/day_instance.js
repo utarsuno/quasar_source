@@ -1,13 +1,14 @@
 'use strict';
 
-function DayInstance(day_number, month_instance_parent) {
-    this.__init__(day_number, month_instance_parent);
+function DayInstance(day_number, week_number, month_instance_parent) {
+    this.__init__(day_number, week_number, month_instance_parent);
 }
 
 DayInstance.prototype = {
 
-    __init__: function(day_number, month_instance_parent) {
+    __init__: function(day_number, week_number, month_instance_parent) {
         this.day_number = day_number;
+        this.week_number = week_number;
         this.month_instance = month_instance_parent;
     },
 
