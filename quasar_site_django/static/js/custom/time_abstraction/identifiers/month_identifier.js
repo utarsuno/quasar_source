@@ -30,18 +30,13 @@ function MonthIdentifier(month_identifier) {
         }
     };
 
-    this.set_first_day_of_this_month = function() {
-        var d = new Date(this.year_number, this.month_number + 1, 1);
-        this.first_day_of_this_month_week_day = d.getDay() + 1;
-        if (this.first_day_of_this_month_week_day === 7) {
-            this.first_day_of_this_month_week_day = 0;
-        }
-        l(this.first_day_of_this_month_week_day);
-        this.first_day_of_this_month = d.getDate();
-    };
-
     this.set_last_day_of_this_month = function() {
-        this.last_day_of_this_month = new Date(this.year_number, this.month_number + 1, 0).getDate();
+        var d = new Date(this.year_number, this.month_number + 1, 0);
+        this.last_day_of_this_month_day_of_the_week = d.getDay() + 1;
+        if (this.last_day_of_this_month_day_of_the_week === 7) {
+            this.last_day_of_this_month_day_of_the_week = 0;
+        }
+        this.last_day_of_this_month = d.getDate();
     };
 
     /*__   ___ ___ ___  ___  __   __
