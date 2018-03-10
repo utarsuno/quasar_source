@@ -10,6 +10,8 @@ DayViewSimple.prototype = {
         this.day_instance = day_instance;
         this.base_wall    = base_wall;
 
+        l(this.base_wall);
+
         var position_width = this.base_wall.width / 7;
         var position_height = this.base_wall.height / 5;
 
