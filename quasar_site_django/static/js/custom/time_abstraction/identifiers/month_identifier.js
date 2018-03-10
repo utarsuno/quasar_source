@@ -32,7 +32,10 @@ function MonthIdentifier(month_identifier) {
 
     this.set_first_day_of_this_month = function() {
         var d = new Date(this.year_number, this.month_number + 1, 1);
-        this.first_day_of_this_month_week_day = d.getDay();
+        this.first_day_of_this_month_week_day = d.getDay() + 1;
+        if (this.first_day_of_this_month_week_day === 7) {
+            this.first_day_of_this_month_week_day = 0;
+        }
         this.first_day_of_this_month = d.getDate();
     };
 

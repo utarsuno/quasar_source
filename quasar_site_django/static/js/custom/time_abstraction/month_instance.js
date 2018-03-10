@@ -50,8 +50,9 @@ MonthInstance.prototype = {
 
             var length = this.last_day_of_this_month - this.first_day_of_this_month;
             for (var d = 0; d < length + 1; d++) {
-                var week_instance = Math.ceil((this.first_day_of_this_month_week_day + this.first_day_of_this_month + d) / 7);
-                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, week_instance, this));
+                var week_instance = Math.ceil((this.first_day_of_this_month + d) / 7);
+                var day_of_the_week = (this.first_day_of_this_month_week_day + d) % 7;
+                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, week_instance, day_of_the_week, this));
             }
         }
         return this.day_instances;
