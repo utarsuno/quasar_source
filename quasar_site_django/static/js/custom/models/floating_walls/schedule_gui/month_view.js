@@ -21,6 +21,7 @@ MonthView.prototype = {
 
         this.add_base_wall_functionality();
 
+        this.base_wall.set_background_color(COLOR_FLOATING_WALL_SUCCESS);
         this.base_wall.only_moveable = true;
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
