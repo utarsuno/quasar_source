@@ -50,7 +50,7 @@ MonthInstance.prototype = {
             var current_day_of_week = this.last_day_of_this_month_day_of_the_week;
 
             for (var d = this.last_day_of_this_month; d > 0; d--) {
-                var week_instance = Math.ceil((d - 1) / 7);
+                var week_instance = Math.ceil(d / 7);
                 this.day_instances.push(new DayInstance(d, week_instance, current_day_of_week, this));
 
                 current_day_of_week -= 1;
