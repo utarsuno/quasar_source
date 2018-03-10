@@ -100,6 +100,11 @@ FloatingVideo.prototype = {
         this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
+    delete_video: function() {
+        l('TODO : DELETE THIS VIDEO!');
+        // TODO : Delete this video
+    },
+
     /*        ___                 __   __   ___      ___         __                __           __        __          __
      | |\ | |  |  |  /\  |       /  ` |__) |__   /\   |  | |\ | / _`     /\  |\ | |  \    |    /  \  /\  |  \ | |\ | / _`
      | | \| |  |  | /~~\ |___    \__, |  \ |___ /~~\  |  | | \| \__>    /~~\ | \| |__/    |___ \__/ /~~\ |__/ | | \| \__> */
@@ -116,6 +121,9 @@ FloatingVideo.prototype = {
 
         settings_row = this.settings_wall.add_row();
         settings_row.add_2D_button([0, 1], 'Set Video', null, this.set_video.bind(this));
+
+        settings_row = this.settings_wall.add_row();
+        settings_row.add_2D_button([0, 1], 'delete video', null, this.delete_video.bind(this));
 
         this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
 

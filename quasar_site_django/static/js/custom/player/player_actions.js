@@ -17,6 +17,11 @@ function player_action_create_entity_wall() {
     MANAGER_WORLD.current_world.create_new_entity_wall(MANAGER_WORLD.current_world);
 }
 
+function player_action_create_month_view() {
+    l('TODO : Create new month view wall!');
+    MANAGER_WORLD.current_world.create_new_month_view_wall(MANAGER_WORLD.current_world);
+}
+
 function player_action_teleport_to_world(world) {
     MANAGER_WORLD.set_current_world(world);
 }

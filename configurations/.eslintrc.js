@@ -248,6 +248,7 @@ module.exports = {
         "ENTITY_TYPE_BASE"                  : false,
         "ENTITY_TYPE_WALL"                  : false,
         "ENTITY_TYPE_ENTITY_WALL"           : false,
+        "ENTITY_TYPE_MONTH_VIEW"            : false,
         "ENTITY_TYPE_OWNER"                 : false,
         "ENTITY_TYPE_TEXT_REMINDER"         : false,
         "ENTITY_TYPE_PICTURE"               : false,
@@ -296,6 +297,7 @@ module.exports = {
         "ENTITY_PROPERTY_END_DATE_TIME"      : false,
         "ENTITY_PROPERTY_TIME_DURATION"      : false,
         "ENTITY_PROPERTY_TIME_NEEDED"        : false,
+        "ENTITY_PROPERTY_MONTH_TYPE"         : false,
         // UNIVERSAL_CONSTANTS_END
 
         "POST_KEY_GENERIC_DATA"                       : true,
@@ -544,8 +546,12 @@ module.exports = {
         "MONTH_NOVEMBER" : true,
         "MONTH_DECEMBER" : true,
 
+        "MONTH_TYPE_CURRENT": true,
+        "MONTH_TYPE_STATIC" : true,
+
         "ScheduleView": true,
         "DayView"     : true,
+        "MonthView"   : true,
 
         "DELTA_YEARS" : false,
         "DELTA_DAYS"  : false,

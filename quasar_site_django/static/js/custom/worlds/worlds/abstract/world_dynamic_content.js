@@ -4,6 +4,7 @@ function WorldDynamicContent() {
 
     this.floating_pictures = [];
     this.entity_walls      = [];
+    this.month_view_walls  = [];
 
     this.number_of_videos_to_load = 0;
     this.number_of_videos_loaded  = 0;
@@ -38,17 +39,25 @@ function WorldDynamicContent() {
 
             // Check the type of object to load based off the immediate child of this wall entity.
             var child_entity = base_wall_entities[w].get_child();
+            var child_entity_type = child_entity.get_type();
 
-            if (child_entity.get_type() === ENTITY_TYPE_ENTITY_WALL) {
+            switch (child_entity_type) {
+            case ENTITY_TYPE_ENTITY_WALL:
                 this.load_entity_wall(child_entity);
-            } else if (child_entity.get_type() === ENTITY_TYPE_VIDEO) {
+                break;
+            case ENTITY_TYPE_VIDEO:
                 this.video_entities.push(child_entity);
                 this.number_of_videos_to_load += 1;
-                //this.load_video_wall(child_entity);
-            }else {
-                // TODO :
-                l('TODO : COVER LOADING FUNCTIONALITY OF THIS ENTITY CHILD TYPE!!');
+                break;
+            case ENTITY_TYPE_MONTH_VIEW:
+                this.load_month_view_wall(child_entity);
+                break;
+            default:
+                l('TODO : COVER LOADING FUNCTIONALITY OF THIS CHILD ENTITY TYPE!');
+                l(child_entity_type);
+                break;
             }
+
         }
 
         if (this.number_of_videos_to_load > 0) {
@@ -58,6 +67,18 @@ function WorldDynamicContent() {
         this.dynamic_content_loaded = true;
     };
 
+    /*     __       ___                 ___
+     |\/| /  \ |\ |  |  |__|    \  / | |__  |  |    |  |  /\  |    |
+     |  | \__/ | \|  |  |  |     \/  | |___ |/\|    |/\| /~~\ |___ |___ */
+    this.create_new_month_view_wall = function(this_context) {
+        var month_view_wall = new MonthView(this_context);
+        this.month_view_walls.push(month_view_wall);
+    };
+
+    this.load_month_view_wall = function(month_view_wall_entity) {
+        var month_view_wall = new MonthView(this, month_view_wall_entity);
+        this.month_view_walls.push(month_view_wall);
+    };
 
     /*___      ___   ___
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |

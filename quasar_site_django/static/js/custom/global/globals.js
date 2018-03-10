@@ -80,6 +80,7 @@ const ENTITY_TYPE_BASE                   = 'Entity';
 const ENTITY_TYPE_TASK                   = 'EntityTask';
 const ENTITY_TYPE_WALL                   = 'EntityWall';
 const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
+const ENTITY_TYPE_MONTH_VIEW             = 'EntityMonthView';
 const ENTITY_TYPE_OWNER                  = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
 const ENTITY_TYPE_VIDEO                  = 'EntityVideo';
@@ -126,6 +127,8 @@ const ENTITY_PROPERTY_NOTE                = ENTITY_PROPERTY_START_TOKEN + 'note'
 const ENTITY_PROPERTY_CREATED_AT_DATE     = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
 
 const ENTITY_PROPERTY_GROUP_NAME          = ENTITY_PROPERTY_START_TOKEN + 'group_name';
+
+const ENTITY_PROPERTY_MONTH_TYPE          = ENTITY_PROPERTY_START_TOKEN + 'month_type';
 
 const ENTITY_PROPERTY_START_DATE_TIME     = ENTITY_PROPERTY_START_TOKEN + 'start_date_time';
 const ENTITY_PROPERTY_END_DATE_TIME       = ENTITY_PROPERTY_START_TOKEN + 'end_date_time';

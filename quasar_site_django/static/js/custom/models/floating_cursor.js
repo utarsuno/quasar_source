@@ -151,6 +151,18 @@ FloatingCursor.prototype = {
     },
 
     _get_scalable_cursor_needed: function() {
+        var exit_out = false;
+        if (is_defined(this.currently_attached_to.only_moveable)) {
+            if (this.currently_attached_to.only_moveable) {
+                this._set_current_cursor(CURSOR_TYPE_MOUSE);
+                exit_out = true;
+            }
+        }
+
+        if (exit_out) {
+            return;
+        }
+
         var h = this.currently_attached_to.height;
         var w = this.currently_attached_to.width;
 

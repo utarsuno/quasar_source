@@ -6,6 +6,8 @@ function Attachmentable(world) {
     this.world    = world;
     this.world.add_to_scene(this.object3D);
 
+    this.only_moveable = null;
+
     this.immune_to_attachment_deltas = false;
 
     // All attachments will inherit Attachmentable.

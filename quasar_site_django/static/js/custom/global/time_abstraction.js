@@ -1,5 +1,9 @@
 'use strict';
 
+const MONTH_TYPE_CURRENT = 'current_month';
+const MONTH_TYPE_STATIC  = 'static_month';
+
+
 const THIS_DAY   = 'this_today';
 const THIS_MONTH = 'this_month';
 
