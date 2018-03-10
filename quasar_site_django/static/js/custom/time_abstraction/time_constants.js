@@ -117,3 +117,10 @@ function get_days_in_month(month, year) {
     }
     return days;
 }
+
+/*___          ___     __   __        __  ___           ___  __
+   |  |  |\/| |__     /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
+   |  |  |  | |___    \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
+// TODO : These need to get updated when client side hits midnight!
+const CURRENT_MONTH = new MonthInstance(TIME_TYPE_MONTH_CURRENT);
+const CURRENT_DAY   = new DayInstance(TIME_TYPE_DAY_CURRENT, CURRENT_MONTH);

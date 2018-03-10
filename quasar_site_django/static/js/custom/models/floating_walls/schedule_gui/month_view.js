@@ -147,14 +147,15 @@ MonthView.prototype = {
 
         // Month View details.
         row = this.base_wall.add_row();
-        row.add_2D_element([0, 1 / 7], DAY_MONDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([1 / 7, 2 / 7], DAY_TUESDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([2 / 7, 3 / 7], DAY_WEDNESDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([3 / 7, 4 / 7], DAY_THURSDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([4 / 7, 5 / 7], DAY_FRIDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([5 / 7, 6 / 7], DAY_SATURDAY_STRING, TYPE_CONSTANT);
-        row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([0, 1 / 7], DAY_MONDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([1 / 7, 2 / 7], DAY_TUESDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([2 / 7, 3 / 7], DAY_WEDNESDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([3 / 7, 4 / 7], DAY_THURSDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([4 / 7, 5 / 7], DAY_FRIDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([5 / 7, 6 / 7], DAY_SATURDAY_STRING, TYPE_TITLE);
+        row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_TITLE);
 
+        // Add the day views here!
         
 
         // TODO : Load the month.
@@ -163,7 +164,7 @@ MonthView.prototype = {
 
     create_new: function(world) {
         var data = get_player_blink_spot(1000);
-        this.base_wall = new FloatingWall(2000, 1000, data[0], data[1], world, true);
+        this.base_wall = new FloatingWall(1600, 1000, data[0], data[1], world, true);
         this.base_wall.set_to_saveable(world.entity);
 
         this.month_view_entity = new Entity();
@@ -180,7 +181,7 @@ MonthView.prototype = {
         this.month_view_entity = entity;
 
         // Load the base wall.
-        this.base_wall = new FloatingWall(2000, 1000, null, null, world, true);
+        this.base_wall = new FloatingWall(1600, 1000, null, null, world, true);
         this.base_wall.load_from_entity_data(this.month_view_entity.get_parent());
 
         this.title = this.base_wall.get_row_with_index(-1).elements[0];

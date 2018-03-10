@@ -541,6 +541,9 @@ module.exports = {
         // ___          ___          __   __  ___  __        __  ___    __        __  
         //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
         //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
+        "MonthIdentifier": false,
+        "YearIdentifier" : false,
+
         "ENTITY_TYPE_MONTH_VIEW_WALL": false,
         "ENTITY_PROPERTY_MONTH_TYPE" : false,
         "ENTITY_PROPERTY_YEAR_TYPE"  : false,
