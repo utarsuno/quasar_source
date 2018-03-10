@@ -31,11 +31,11 @@ function MonthIdentifier(month_identifier) {
     };
 
     this.set_first_day_of_this_month = function() {
-        this.first_day_of_this_month = new Date(this.year_number, this.month_number, 1).getDate();
+        this.first_day_of_this_month = new Date(this.year_number, this.month_number + 1, 1).getDate();
     };
 
     this.set_last_day_of_this_month = function() {
-        this.last_day_of_this_month = new Date(this.year_number, this.month_number, 0).getDate();
+        this.last_day_of_this_month = new Date(this.year_number, this.month_number + 1, 0).getDate();
     };
 
     /*__   ___ ___ ___  ___  __   __
