@@ -145,6 +145,18 @@ MonthView.prototype = {
         settings_button.engable = false;
         settings_button.set_engage_function(this.show_settings_wall.bind(this));
 
+        // Month View details.
+        row = this.base_wall.add_row();
+        row.add_2D_element([0, 1 / 7], DAY_MONDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([1 / 7, 2 / 7], DAY_TUESDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([2 / 7, 3 / 7], DAY_WEDNESDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([3 / 7, 4 / 7], DAY_THURSDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([4 / 7, 5 / 7], DAY_FRIDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([5 / 7, 6 / 7], DAY_SATURDAY_STRING, TYPE_CONSTANT);
+        row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_CONSTANT);
+
+        
+
         // TODO : Load the month.
         // TODO : Load all entity data from the world!!!
     },
