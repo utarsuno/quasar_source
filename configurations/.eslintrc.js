@@ -560,6 +560,8 @@ module.exports = {
         "MonthInstance": false,
         "DayInstance"  : false,
 
+        "get_month_number_from_string": false,
+
         //           ___
         // |\/|  /\   |  |__|
         // |  | /~~\  |  |  |

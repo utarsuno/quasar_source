@@ -131,6 +131,10 @@ MonthInstance.prototype = {
     /*     __       ___          __       ___
      |\/| /  \ |\ |  |  |__|    |  \  /\   |   /\
      |  | \__/ | \|  |  |  |    |__/ /~~\  |  /~~\ */
+    to_string: function() {
+        return MONTH_NAMES[this._month_number] + '(' + (this._month_number + 1) + ')';
+    },
+
     get_number_of_days_in_this_month: function() {
         return this.dates.length;
     },
@@ -252,6 +256,38 @@ DayInstance.prototype = {
     }
 
 };
+
+function get_month_number_from_string(s) {
+    switch (s){
+    case MONTH_JANUARY:
+        return 0;
+    case MONTH_FEBRUARY:
+        return 1;
+    case MONTH_MARCH:
+        return 2;
+    case MONTH_APRIL:
+        return 3;
+    case MONTH_MAY:
+        return 4;
+    case MONTH_JUNE:
+        return 5;
+    case MONTH_JULY:
+        return 6;
+    case MONTH_AUGUST:
+        return 7;
+    case MONTH_SEPTEMBER:
+        return 8;
+    case MONTH_OCTOBER:
+        return 9;
+    case MONTH_NOVEMBER:
+        return 10;
+    case MONTH_DECEMBER:
+        return 11;
+    default:
+        l('Month passed : {' + s + '}');
+        raise_exception_with_full_logging('Invalid month string passed!');
+    }
+}
 
 function get_date_object_from_today_with_n_day_offset(n) {
     var date = new Date();
