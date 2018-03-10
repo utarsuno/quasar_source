@@ -163,13 +163,11 @@ PlayerMenu.prototype = {
                 var current_row;
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
-                // TODO : This functionality.
                 current_row.add_2D_button([icon_width, 1], 'New World', null, MANAGER_WORLD.create_new_dynamic_world);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_MENU_LIST, TYPE_ICON);
-                // TODO : This functionality.
-                current_row.add_2D_button([icon_width, 1], 'Month View', null, null);
+                current_row.add_2D_button([icon_width, 1], 'Month View', null, player_action_create_month_view);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_INFORMATION, TYPE_ICON);
