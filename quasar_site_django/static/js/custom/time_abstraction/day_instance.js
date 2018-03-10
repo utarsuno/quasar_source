@@ -16,7 +16,7 @@ DayInstance.prototype = {
      \__> |___  |   |  |___ |  \ .__/ */
     // Base from : http://www.somethinghitme.com/2010/04/14/how-to-get-the-week-in-a-month-for-a-date-with-javascript/
     get_week_relative_to_current_month: function() {
-        return Math.ceil((this.day_number + this.month_instance.first_day_of_this_month) / 7);
+        //return Math.ceil((this.day_number + this.month_instance.first_day_of_this_month) / 7);
     }
 
 };
