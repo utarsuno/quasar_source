@@ -32,9 +32,9 @@ function MonthIdentifier(month_identifier) {
 
     this.set_last_day_of_this_month = function() {
         var d = new Date(this.year_number, this.month_number + 1, 0);
-        this.last_day_of_this_month_day_of_the_week = d.getDay() + 1;
-        if (this.last_day_of_this_month_day_of_the_week === 7) {
-            this.last_day_of_this_month_day_of_the_week = 0;
+        this.last_day_of_this_month_day_of_the_week = d.getDay() - 1;
+        if (this.last_day_of_this_month_day_of_the_week === -1) {
+            this.last_day_of_this_month_day_of_the_week = 6;
         }
         this.last_day_of_this_month = d.getDate();
     };
