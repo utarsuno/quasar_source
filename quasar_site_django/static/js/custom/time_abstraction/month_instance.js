@@ -10,8 +10,7 @@ MonthInstance.prototype = {
         MonthIdentifier.call(this, month_identifier);
         YearIdentifier.call(this, year_identifier);
 
-        this.values_need_updating  = false;
-        this.day_instances         = [];
+        this.day_instances = [];
     },
 
     /*     __   __       ___  ___  __   __
@@ -37,17 +36,8 @@ MonthInstance.prototype = {
             break;
         }
         if (previous_month_number !== this.month_number || previous_year_number !== this.year_number) {
-            this.values_need_updating = true;
+            this.day_instances.length = 0;
         }
-        if (this.values_need_updating) {
-            this.update_values();
-        }
-    },
-
-    update_values: function() {
-        this.set_first_day_of_this_month();
-        this.set_last_day_of_this_month();
-        this.day_instances.length = 0;
     },
 
     /*__   ___ ___ ___  ___  __   __  
@@ -55,7 +45,13 @@ MonthInstance.prototype = {
      \__> |___  |   |  |___ |  \ .__/ */
     get_all_day_instances: function() {
         if (this.day_instances.length === 0) {
-            this.set_all_day_instances();
+            this.set_first_day_of_this_month();
+            this.set_last_day_of_this_month();
+
+            var length = this.last_day_of_this_month - this.first_day_of_this_month;
+            for (var d = 0; d < length; d++) {
+                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, this));
+            }
         }
         return this.day_instances;
     },
