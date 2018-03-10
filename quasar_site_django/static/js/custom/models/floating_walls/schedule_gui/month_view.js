@@ -156,7 +156,7 @@ MonthView.prototype = {
         row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_TITLE);
 
         // Add the day views here!
-        
+
 
         // TODO : Load the month.
         // TODO : Load all entity data from the world!!!
