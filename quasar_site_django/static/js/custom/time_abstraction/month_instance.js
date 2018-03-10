@@ -48,6 +48,9 @@ MonthInstance.prototype = {
             this.set_first_day_of_this_month();
             this.set_last_day_of_this_month();
 
+            l(this.last_day_of_this_month);
+            l(this.first_day_of_this_month);
+
             var length = this.last_day_of_this_month - this.first_day_of_this_month;
             for (var d = 0; d < length; d++) {
                 this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, this));
