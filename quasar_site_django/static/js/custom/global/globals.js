@@ -80,7 +80,6 @@ const ENTITY_TYPE_BASE                   = 'Entity';
 const ENTITY_TYPE_TASK                   = 'EntityTask';
 const ENTITY_TYPE_WALL                   = 'EntityWall';
 const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
-const ENTITY_TYPE_MONTH_VIEW             = 'EntityMonthView';
 const ENTITY_TYPE_OWNER                  = 'EntityOwner';
 const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
 const ENTITY_TYPE_VIDEO                  = 'EntityVideo';
@@ -392,11 +391,6 @@ const ATTACHMENT_OFFSET_HORIZONTAL_LEFT  = 'horizontal_offset_right';
 const ATTACHMENT_OFFSET_VERTICAL_UP      = 'vertical_offset_up';
 const ATTACHMENT_OFFSET_VERTICAL_DOWN    = 'vertical_offset_down';
 const ATTACHMENT_OFFSET_DEPTH            = 'depth_offset';
-
-// Time constants.
-const DELTA_YEARS  = 'delta_years';
-const DELTA_DAYS   = 'delta_days';
-const DELTA_MONTHS = 'delta_months';
 
 // UNIVERSAL_CONSTANTS_START : Text syntax error checks.
 const TEXT_SYNTAX_STANDARD_LENGTH = 'Text length must be greater than 3 characters and less than 32.';

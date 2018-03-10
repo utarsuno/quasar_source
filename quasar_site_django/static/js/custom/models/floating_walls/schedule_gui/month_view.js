@@ -15,13 +15,8 @@ MonthView.prototype = {
             this.create_new(world);
         }
 
-        // Get the current month type.
-        this.current_month_type = this.month_view_entity.get_value(ENTITY_PROPERTY_MONTH_TYPE);
-        if (this.current_month_type === MONTH_TYPE_CURRENT) {
-            this.month_instance = new MonthInstance(THIS_MONTH);
-        } else {
-            this.month_instance = new MonthInstance(this.month_view_entity.get_value(parseInt(ENTITY_PROPERTY_NAME)));
-        }
+        this.month_instance = new MonthInstance(this.month_view_entity.get_value(ENTITY_PROPERTY_MONTH_TYPE), this.month_view_entity.get_value(ENTITY_PROPERTY_YEAR_TYPE));
+
         this.add_base_wall_functionality();
 
         this.base_wall.only_moveable = true;
@@ -30,20 +25,28 @@ MonthView.prototype = {
     },
 
     update_title: function() {
-        this.title.update_text(this.month_instance.to_string());
+        this.title.update_text(this.month_instance.get_full_string());
     },
 
     /*__   ___ ___ ___         __   __
      /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
      .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
+    delete_month_view_wall: function() {
+        l('TODO : DELETE THE MONTH VIEW WALL!');
+    },
+
     month_type_selected: function(month_type) {
-        if (month_type === MONTH_TYPE_CURRENT) {
-            this.month_instance = new MonthInstance(THIS_MONTH);
-        } else {
-            this.month_instance = new MonthInstance(get_month_number_from_string(month_type));
-        }
+        this.month_instance.update_month_identifier(month_type);
         this.update_title();
+        this.month_view_entity.set_property(ENTITY_PROPERTY_MONTH_TYPE, this.month_instance.get_month_type_for_entity());
         this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
+    },
+
+    year_type_selected: function(year_type) {
+        this.month_instance.update_year_identifier(year_type);
+        this.update_title();
+        this.month_view_entity.set_property(ENTITY_PROPERTY_YEAR_TYPE, this.month_instance.get_year_type_for_entity());
+        this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
     create_month_type_selector: function() {
@@ -52,27 +55,47 @@ MonthView.prototype = {
         this.month_type_selector_wall.set_auto_adjust_height(true);
         this.month_type_selector_wall.manual_visibility = true;
 
-        var row = this.month_type_selector_wall.add_row();
-        row.add_2D_button([0, 1], MONTH_TYPE_CURRENT, null, this.month_type_selected.bind(this, MONTH_TYPE_CURRENT));
-
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JANUARY, null, this.month_type_selected.bind(this, MONTH_JANUARY));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_FEBRUARY, null, this.month_type_selected.bind(this, MONTH_FEBRUARY));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MARCH, null, this.month_type_selected.bind(this, MONTH_MARCH));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_APRIL, null, this.month_type_selected.bind(this, MONTH_APRIL));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MAY, null, this.month_type_selected.bind(this, MONTH_MAY));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JUNE, null, this.month_type_selected.bind(this, MONTH_JUNE));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JULY, null, this.month_type_selected.bind(this, MONTH_JULY));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_AUGUST, null, this.month_type_selected.bind(this, MONTH_AUGUST));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_SEPTEMBER, null, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_OCTOBER, null, this.month_type_selected.bind(this, MONTH_OCTOBER));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_NOVEMBER, null, this.month_type_selected.bind(this, MONTH_NOVEMBER));
-        row = this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_DECEMBER, null, this.month_type_selected.bind(this, MONTH_DECEMBER));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], 'Current Month', COLOR_YELLOW, this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JANUARY_STRING, null, this.month_type_selected.bind(this, MONTH_JANUARY));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_FEBRUARY_STRING, null, this.month_type_selected.bind(this, MONTH_FEBRUARY));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MARCH_STRING, null, this.month_type_selected.bind(this, MONTH_MARCH));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_APRIL_STRING, null, this.month_type_selected.bind(this, MONTH_APRIL));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MAY_STRING, null, this.month_type_selected.bind(this, MONTH_MAY));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JUNE_STRING, null, this.month_type_selected.bind(this, MONTH_JUNE));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JULY_STRING, null, this.month_type_selected.bind(this, MONTH_JULY));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_AUGUST_STRING, null, this.month_type_selected.bind(this, MONTH_AUGUST));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_SEPTEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_OCTOBER_STRING, null, this.month_type_selected.bind(this, MONTH_OCTOBER));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_NOVEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_NOVEMBER));
+        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_DECEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_DECEMBER));
 
         this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
+    create_year_type_selector: function() {
+        this.year_type_selector_wall = this.year_type_button.add_floating_wall_attachment(400, 400, null, null, 10, false);
+        this.year_type_selector_wall.add_close_button();
+        this.year_type_selector_wall.set_auto_adjust_height(true);
+        this.year_type_selector_wall.manual_visibility = true;
+
+        this.year_type_selector_wall.add_row().add_2D_button([0, 1], 'Current Year', COLOR_YELLOW, this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT));
+
+        var row = this.year_type_selector_wall.add_row();
+        row.add_2D_element([0, ONE_THIRD], 'Type Year :', TYPE_CONSTANT);
+        this.year_input = row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+
+        row = this.year_type_selector_wall.add_row();
+        row.add_2D_button([0, 1], 'Set To Static Year Typed', null, this.year_type_selected.bind(this, this.year_input.get_text()));
+        
+        this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
+    },
+
     show_month_type_selector: function() {
         this.month_type_selector_wall.force_display_self_and_all_child_attachments_recursively();
+    },
+
+    show_year_type_selector: function() {
+        this.year_type_selector_wall.force_display_self_and_all_child_attachments_recursively();
     },
 
     create_settings_wall: function() {
@@ -83,15 +106,26 @@ MonthView.prototype = {
 
         var settings_row = this.settings_wall.add_row();
         settings_row.add_2D_element([0, ONE_THIRD], 'Month Type :', TYPE_CONSTANT);
-        this.month_type_button = settings_row.add_2D_button([ONE_THIRD, 1], this.current_month_type, null, this.show_month_type_selector.bind(this));
+        this.month_type_button = settings_row.add_2D_button([ONE_THIRD, 1], this.month_instance.get_month_type(), null, this.show_month_type_selector.bind(this));
 
-        this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
+        settings_row = this.settings_wall.add_row();
+        settings_row.add_2D_element([0, ONE_THIRD], 'Year Type :', TYPE_CONSTANT);
+        this.year_type_button = settings_row.add_2D_button([ONE_THIRD, 1], this.month_instance.get_year_type(), null, this.show_year_type_selector.bind(this));
+
+        settings_row = this.settings_wall.add_row();
+        settings_row.add_2D_button([0, 1], 'Delete Month View Wall', COLOR_RED, this.delete_month_view_wall.bind(this));
+        // TODO : Add a delete button.
 
         this.create_month_type_selector();
+        this.create_year_type_selector();
+
+        this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
     show_settings_wall: function() {
         this.settings_wall.force_display_self_and_all_child_attachments_recursively();
+        this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
+        this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
 
     /*        ___                 __   __   ___      ___         __                __           __        __          __
@@ -110,7 +144,7 @@ MonthView.prototype = {
         settings_button.set_engage_function(this.show_settings_wall.bind(this));
 
         // Add the title.
-        this.title = row.add_3D_element(this.month_instance.to_string(), TYPE_TITLE, null);
+        this.title = row.add_3D_element(this.month_instance.get_full_string(), TYPE_TITLE, null);
 
 
         // TODO : Load the month.
@@ -123,8 +157,9 @@ MonthView.prototype = {
         this.base_wall.set_to_saveable(world.entity);
 
         this.month_view_entity = new Entity();
-        this.month_view_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_MONTH_VIEW);
-        this.month_view_entity.set_property(ENTITY_PROPERTY_MONTH_TYPE, MONTH_TYPE_CURRENT);
+        this.month_view_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_MONTH_VIEW_WALL);
+        this.month_view_entity.set_property(ENTITY_PROPERTY_MONTH_TYPE, TIME_TYPE_MONTH_CURRENT);
+        this.month_view_entity.set_property(ENTITY_PROPERTY_YEAR_TYPE, TIME_TYPE_YEAR_CURRENT);
         this.month_view_entity.add_parent(this.base_wall.get_self_entity());
     },
 

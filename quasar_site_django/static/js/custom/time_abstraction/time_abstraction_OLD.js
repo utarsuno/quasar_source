@@ -1,37 +1,8 @@
 'use strict';
 
-const MONTH_TYPE_CURRENT = 'current_month';
-const MONTH_TYPE_STATIC  = 'static_month';
-
-
-const THIS_DAY   = 'this_today';
-const THIS_MONTH = 'this_month';
-
-const MONTH_JANUARY   = 0;
-const MONTH_FEBRUARY  = 1;
-const MONTH_MARCH     = 2;
-const MONTH_APRIL     = 3;
-const MONTH_MAY       = 4;
-const MONTH_JUNE      = 5;
-const MONTH_JULY      = 6;
-const MONTH_AUGUST    = 7;
-const MONTH_SEPTEMBER = 8;
-const MONTH_OCTOBER   = 9;
-const MONTH_NOVEMBER  = 10;
-const MONTH_DECEMBER  = 11;
-
-const DAY_MONDAY      = 0;
-
-const DAY_NAMES   = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 function MonthInstance(month_number) {
     this.__init__(month_number);
 }
-
-// TODO : Match the design of the python time abstraction
-// TODO : Match the design of the python time abstraction
-// TODO : Match the design of the python time abstraction
 
 MonthInstance.prototype = {
 
@@ -256,38 +227,6 @@ DayInstance.prototype = {
     }
 
 };
-
-function get_month_number_from_string(s) {
-    switch (s){
-    case MONTH_JANUARY:
-        return 0;
-    case MONTH_FEBRUARY:
-        return 1;
-    case MONTH_MARCH:
-        return 2;
-    case MONTH_APRIL:
-        return 3;
-    case MONTH_MAY:
-        return 4;
-    case MONTH_JUNE:
-        return 5;
-    case MONTH_JULY:
-        return 6;
-    case MONTH_AUGUST:
-        return 7;
-    case MONTH_SEPTEMBER:
-        return 8;
-    case MONTH_OCTOBER:
-        return 9;
-    case MONTH_NOVEMBER:
-        return 10;
-    case MONTH_DECEMBER:
-        return 11;
-    default:
-        l('Month passed : {' + s + '}');
-        raise_exception_with_full_logging('Invalid month string passed!');
-    }
-}
 
 function get_date_object_from_today_with_n_day_offset(n) {
     var date = new Date();

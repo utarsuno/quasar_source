@@ -248,7 +248,6 @@ module.exports = {
         "ENTITY_TYPE_BASE"                  : false,
         "ENTITY_TYPE_WALL"                  : false,
         "ENTITY_TYPE_ENTITY_WALL"           : false,
-        "ENTITY_TYPE_MONTH_VIEW"            : false,
         "ENTITY_TYPE_OWNER"                 : false,
         "ENTITY_TYPE_TEXT_REMINDER"         : false,
         "ENTITY_TYPE_PICTURE"               : false,
@@ -297,7 +296,6 @@ module.exports = {
         "ENTITY_PROPERTY_END_DATE_TIME"      : false,
         "ENTITY_PROPERTY_TIME_DURATION"      : false,
         "ENTITY_PROPERTY_TIME_NEEDED"        : false,
-        "ENTITY_PROPERTY_MONTH_TYPE"         : false,
         // UNIVERSAL_CONSTANTS_END
 
         "POST_KEY_GENERIC_DATA"                       : true,
@@ -533,34 +531,82 @@ module.exports = {
         "DateSelector": true,
         "TimeSelector": true,
 
-        "MONTH_JANUARY"  : true,
-        "MONTH_FEBRUARY" : true,
-        "MONTH_MARCH"    : true,
-        "MONTH_APRIL"    : true,
-        "MONTH_MAY"      : true,
-        "MONTH_JUNE"     : true,
-        "MONTH_JULY"     : true,
-        "MONTH_AUGUST"   : true,
-        "MONTH_SEPTEMBER": true,
-        "MONTH_OCTOBER"  : true,
-        "MONTH_NOVEMBER" : true,
-        "MONTH_DECEMBER" : true,
-
-        "MONTH_TYPE_CURRENT": true,
-        "MONTH_TYPE_STATIC" : true,
-
         "ScheduleView": true,
         "DayView"     : true,
         "MonthView"   : true,
 
-        "DELTA_YEARS" : false,
-        "DELTA_DAYS"  : false,
-        "DELTA_MONTHS": false,
-
         "MonthInstance": false,
         "DayInstance"  : false,
 
+        // ___          ___          __   __  ___  __        __  ___    __        __  
+        //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
+        //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
+        "ENTITY_TYPE_MONTH_VIEW_WALL": false,
+        "ENTITY_PROPERTY_MONTH_TYPE" : false,
+        "ENTITY_PROPERTY_YEAR_TYPE"  : false,
+
+        "TIME_DELTA_YEARS" : false,
+        "TIME_DELTA_DAYS"  : false,
+        "TIME_DELTA_MONTHS": false,
+
+        "TIME_TYPE_YEAR_CURRENT" : false,
+        "TIME_TYPE_YEAR_STATIC"  : false,
+        "TIME_TYPE_MONTH_CURRENT": false,
+        "TIME_TYPE_MONTH_STATIC" : false,
+        "TIME_TYPE_DAY_CURRENT"  : false,
+        "TIME_TYPE_DAY_STATIC"   : false,
+
+        "MONTH_JANUARY"  : false,
+        "MONTH_FEBRUARY" : false,
+        "MONTH_MARCH"    : false,
+        "MONTH_APRIL"    : false,
+        "MONTH_MAY"      : false,
+        "MONTH_JUNE"     : false,
+        "MONTH_JULY"     : false,
+        "MONTH_AUGUST"   : false,
+        "MONTH_SEPTEMBER": false,
+        "MONTH_OCTOBER"  : false,
+        "MONTH_NOVEMBER" : false,
+        "MONTH_DECEMBER" : false,
+
+        "MONTH_JANUARY_STRING"  : false,
+        "MONTH_FEBRUARY_STRING" : false,
+        "MONTH_MARCH_STRING"    : false,
+        "MONTH_APRIL_STRING"    : false,
+        "MONTH_MAY_STRING"      : false,
+        "MONTH_JUNE_STRING"     : false,
+        "MONTH_JULY_STRING"     : false,
+        "MONTH_AUGUST_STRING"   : false,
+        "MONTH_SEPTEMBER_STRING": false,
+        "MONTH_OCTOBER_STRING"  : false,
+        "MONTH_NOVEMBER_STRING" : false,
+        "MONTH_DECEMBER_STRING" : false,
+
+        "DAY_MONDAY"   : false,
+        "DAY_TUESDAY"  : false,
+        "DAY_WEDNESDAY": false,
+        "DAY_THURSDAY" : false,
+        "DAY_FRIDAY"   : false,
+        "DAY_SATURDAY" : false,
+        "DAY_SUNDAY"   : false,
+
+        "DAY_MONDAY_STRING"   : false,
+        "DAY_TUESDAY_STRING"  : false,
+        "DAY_WEDNESDAY_STRING": false,
+        "DAY_THURSDAY_STRING" : false,
+        "DAY_FRIDAY_STRING"   : false,
+        "DAY_SATURDAY_STRING" : false,
+        "DAY_SUNDAY_STRING"   : false,
+
+        "MONTH_NAMES": false,
+        "DAY_NAMES"  : false,
         "get_month_number_from_string": false,
+        "get_day_number_from_string"  : false,
+        "get_month_string_from_number": false,
+        "get_day_string_from_number"  : false,
+        "get_current_month_number"    : false,
+        "get_current_year_number"     : false,
+        "get_days_in_month"           : false,
 
         //           ___
         // |\/|  /\   |  |__|

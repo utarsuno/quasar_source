@@ -49,7 +49,7 @@ function WorldDynamicContent() {
                 this.video_entities.push(child_entity);
                 this.number_of_videos_to_load += 1;
                 break;
-            case ENTITY_TYPE_MONTH_VIEW:
+            case ENTITY_TYPE_MONTH_VIEW_WALL:
                 this.load_month_view_wall(child_entity);
                 break;
             default:
