@@ -48,6 +48,8 @@ MonthInstance.prototype = {
             this.set_first_day_of_this_month();
             this.set_last_day_of_this_month();
 
+            l('THIS MONTH NUMBER');
+            l(this.month_number);
             l(this.last_day_of_this_month);
             l(this.first_day_of_this_month);
 

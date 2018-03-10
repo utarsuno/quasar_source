@@ -30,7 +30,6 @@ function MonthIdentifier(month_identifier) {
         }
     };
 
-    // Base from : http://www.somethinghitme.com/2010/04/14/how-to-get-the-week-in-a-month-for-a-date-with-javascript/
     this.set_first_day_of_this_month = function() {
         this.first_day_of_this_month = new Date(this.year_number, this.month_number, 1).getDate();
     };
