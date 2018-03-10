@@ -48,13 +48,9 @@ MonthInstance.prototype = {
             this.set_last_day_of_this_month();
 
             var current_day_of_week = this.last_day_of_this_month_day_of_the_week;
-            var number_of_weeks = 5;
-            if (this.last_day_of_this_month === 28) {
-                number_of_weeks = 4;
-            }
 
             for (var d = this.last_day_of_this_month; d > 0; d--) {
-                var week_instance = number_of_weeks - Math.ceil(d / 7);
+                var week_instance = Math.ceil(d / 7);
                 this.day_instances.push(new DayInstance(d, week_instance, current_day_of_week, this));
 
                 current_day_of_week -= 1;
