@@ -58,27 +58,6 @@ MonthInstance.prototype = {
                     current_day_of_week = 6;
                 }
             }
-
-            /*
-            for (var d = 1; 1 < this.last_day_of_this_month + 2; d++) {
-                var week_instance = int((this.last_day_of_this_month - d) / 7);
-                var day_of_the_week = ();
-            }
-
-            //this.last_day_of_this_month_day_of_the_week = d.getDay();
-            //this.last_day_of_this_month = d.getDate();
-
-            ///
-            this.set_first_day_of_this_month();
-            this.set_last_day_of_this_month();
-
-            var length = this.last_day_of_this_month - this.first_day_of_this_month;
-            for (var d = 0; d < length + 1; d++) {
-                var week_instance = Math.ceil((this.first_day_of_this_month + d) / 7);
-                var day_of_the_week = (this.first_day_of_this_month_week_day + d) % 7;
-                this.day_instances.push(new DayInstance(this.first_day_of_this_month + d, week_instance, day_of_the_week, this));
-            }
-            */
         }
         return this.day_instances;
     },

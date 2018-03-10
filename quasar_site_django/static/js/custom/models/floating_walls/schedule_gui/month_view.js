@@ -17,6 +17,8 @@ MonthView.prototype = {
 
         this.month_instance = new MonthInstance(this.month_view_entity.get_value(ENTITY_PROPERTY_MONTH_TYPE), this.month_view_entity.get_value(ENTITY_PROPERTY_YEAR_TYPE));
 
+        this.simple_day_views = [];
+
         this.add_base_wall_functionality();
 
         this.base_wall.only_moveable = true;
@@ -157,7 +159,9 @@ MonthView.prototype = {
 
         // Add the day views here!
         var all_days = this.month_instance.get_all_day_instances();
-        l(all_days);
+        for (var d = 0; d < all_days.length; d++) {
+            this.simple_day_views.push(new DayViewSimple(all_days[d]), this.base_wall);
+        }
         //this.week_one = this.base_wall.add_row(null, );
 
         // TODO : Load the month.

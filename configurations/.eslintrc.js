@@ -541,6 +541,9 @@ module.exports = {
         // ___          ___          __   __  ___  __        __  ___    __        __  
         //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
         //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
+        "DayViewSimple": false,
+        "DayViewFull"  : false,
+
         "MonthIdentifier": false,
         "YearIdentifier" : false,
 
