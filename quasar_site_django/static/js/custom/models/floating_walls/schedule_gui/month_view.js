@@ -156,7 +156,9 @@ MonthView.prototype = {
         row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_TITLE);
 
         // Add the day views here!
-
+        var all_days = this.month_instance.get_all_day_instances();
+        l(all_days);
+        //this.week_one = this.base_wall.add_row(null, );
 
         // TODO : Load the month.
         // TODO : Load all entity data from the world!!!
