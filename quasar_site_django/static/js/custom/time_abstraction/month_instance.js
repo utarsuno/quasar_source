@@ -21,10 +21,10 @@ MonthInstance.prototype = {
         var previous_month_number = this.month_number;
         switch (magnitude) {
         case TIME_DELTA_YEARS:
-            this.year_number += units;
+            this.year_number += magnitude;
             break;
         case TIME_DELTA_MONTHS:
-            this.month_number += units;
+            this.month_number += magnitude;
             while (this.month_number > 11) {
                 this.month_number -= 11;
                 this.year_number += 1;

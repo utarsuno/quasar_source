@@ -102,10 +102,10 @@ DateSelector.prototype = {
         this.all_day_buttons = [];
 
         var width_position = (this.wall_date_selector.width) / 7;
-        var height_position = (this.wall_date_selector.height) / 6;
+        var height_position = (this.wall_date_selector.height) / 5;
 
         var width = (this.wall_date_selector.width - 100) / 7;
-        var height = (this.wall_date_selector.height - 100) / 6;
+        var height = (this.wall_date_selector.height - 100) / 5;
 
         for (var d = 0; d < this.all_days.length; d++) {
             var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
