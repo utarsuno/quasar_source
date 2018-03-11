@@ -102,7 +102,7 @@ DateSelector.prototype = {
         this.all_day_buttons = [];
 
         var width_position = (this.wall_date_selector.width) / 7;
-        var height_position = (this.wall_date_selector.height) / 5;
+        var height_position = (this.wall_date_selector.height) / 8;
 
         var width = (this.wall_date_selector.width - 100) / 7;
         var height = (this.wall_date_selector.height - 100) / 5;
