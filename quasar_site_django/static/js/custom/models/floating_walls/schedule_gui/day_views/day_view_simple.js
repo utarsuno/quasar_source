@@ -14,7 +14,7 @@ DayViewSimple.prototype = {
         var position_height = this.base_wall.height / 6;
 
         var width = (this.base_wall.width - 100) / 7;
-        var height = (this.base_wall.height - 100) / 5;
+        var height = (this.base_wall.height - 100) / 6;
 
         // Create the day view.
         this.day_view = new FloatingWall(width, height, null, null, this.base_wall.world, false);
