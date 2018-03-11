@@ -22,7 +22,9 @@ FieldRowDateTime.prototype = {
         if (!is_defined(hour) && !is_defined(minute)) {
             this.select_time_button.update_text(NO_TIME_SELECTED);
         } else {
-            this.select_time_button.update_text(hour + ':' + minute);
+            var h = hour.get_text();
+            var m = minute.get_text();
+            this.select_time_button.update_text(h + ':' + m);
         }
     },
 

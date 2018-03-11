@@ -47,7 +47,7 @@ TimeSelector.prototype = {
         this.refresh_time_selector();
 
         this.wall_time_selector.add_row(null).add_2D_button([0, 1], 'set to no value', COLOR_RED, this.time_selected.bind(this, null, null));
-        this.wall_time_selector.add_row(null).add_2D_button([0, 1], 'set time', COLOR_GREEN, this.time_selected.bind(this, this.hour.get_text(), this.minute.get_text()));
+        this.wall_time_selector.add_row(null).add_2D_button([0, 1], 'set time', COLOR_GREEN, this.time_selected.bind(this, this.hour, this.minute));
     },
 
     refresh_time_selector: function() {
