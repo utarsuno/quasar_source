@@ -31,11 +31,12 @@ DayViewSimple.prototype = {
 
     // TODO : Add entity to view.
     add_entity: function(entity) {
+
         this.entities[entity.get_relative_id()] = entity;
 
         var row = this.base_wall.add_row(null, entity.get_relative_id());
         // TODO : Clickable functionality!
-        row.add_2D_button([0, 1], entity.get_property(ENTITY_PROPERTY_NAME), null, null);
+        row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), null, null);
     }
 
     // TODO : Delete entity from view.
