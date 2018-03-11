@@ -72,6 +72,8 @@ DateSelector.prototype = {
         this.wall_date_selector.add_row(null);
         this.wall_date_selector.add_row(null);
         this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
 
         this.wall_date_selector.add_row(null).add_2D_button([0, 1], 'set to no value', COLOR_RED, this.date_selected.bind(this, NO_DATE_SELECTED));
 
@@ -112,7 +114,7 @@ DateSelector.prototype = {
             height = day_button.height;
             day_button.set_attachment_depth_offset(5);
             day_button.set_attachment_horizontal_offset(width_position * this.all_days[d].day_of_the_week + width / 2, -HALF);
-            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height / 4), HALF);
+            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height / 2), HALF);
 
             day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
             day_button.attach_to(this.wall_date_selector);

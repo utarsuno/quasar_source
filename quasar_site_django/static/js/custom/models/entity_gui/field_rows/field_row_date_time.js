@@ -41,7 +41,7 @@ FieldRowDateTime.prototype = {
         if (date_object === NO_DATE_SELECTED) {
             this.select_date_button.update_text(NO_DATE_SELECTED);
         } else {
-            this.select_date_button.update_text(date_object.to_string());
+            this.select_date_button.update_text(date_object.to_full_string());
         }
     },
 
