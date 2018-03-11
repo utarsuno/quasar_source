@@ -185,8 +185,7 @@ WorldManager.prototype = {
             this.add_dynamic_world(created_world);
         }
 
-        MANAGER_WORLD.all_dynamic_worlds_loaded();
-
+        this.all_dynamic_worlds_loaded();
         this.load_schedule_content();
 
         // All initial loading is completed so place the player into the home world.
