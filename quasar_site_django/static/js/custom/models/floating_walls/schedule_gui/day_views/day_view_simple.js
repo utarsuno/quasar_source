@@ -22,7 +22,7 @@ DayViewSimple.prototype = {
         this.day_view = new FloatingWall(width, height, null, null, this.base_wall.world, false);
         this.day_view.set_attachment_depth_offset(5);
         this.day_view.set_attachment_horizontal_offset(position_width * this.day_instance.day_of_the_week + width / 2, -HALF);
-        this.day_view.set_attachment_vertical_offset(position_height * this.day_instance.week_number + height / 2, HALF);
+        this.day_view.set_attachment_vertical_offset(-(position_height * this.day_instance.week_number + height / 2), HALF);
 
         this.day_view.add_row(-1).add_3D_element(this.day_instance.day_number, TYPE_TITLE, null);
 
