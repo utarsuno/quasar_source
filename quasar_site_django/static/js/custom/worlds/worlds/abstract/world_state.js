@@ -24,12 +24,6 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         } else if (is_defined(this.default_world_enter_look_at)) {
             CURRENT_PLAYER.look_at(this.default_world_enter_look_at);
         }
-
-        if (is_defined(this.dynamic_content_loaded)) {
-            if (!this.dynamic_content_loaded) {
-                this.load_dynamic_content();
-            }
-        }
     };
 
     this.exit_world = function() {

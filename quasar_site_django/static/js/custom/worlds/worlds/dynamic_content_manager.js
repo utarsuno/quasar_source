@@ -17,11 +17,11 @@ function DynamicContentManager() {
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
 
-                /*
+
                 if (!this.dynamic_worlds[relative_id].dynamic_content_loaded) {
                     this.dynamic_worlds[relative_id].load_dynamic_content();
                 }
-                */
+                
 
                 l('Fetching schedule entities from world');
                 l(this.dynamic_worlds[relative_id]);
