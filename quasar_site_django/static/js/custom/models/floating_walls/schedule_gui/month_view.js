@@ -9,13 +9,19 @@ function MonthView(world, entity_to_load_from) {
 MonthView.prototype = {
 
     __init__: function(world, entity_to_load_from) {
+        var created_new = false;
         if (is_defined(entity_to_load_from)) {
             this.load_from_entity(world, entity_to_load_from);
         } else {
+            created_new = true;
             this.create_new(world);
         }
 
         this.month_instance = new MonthInstance(this.month_view_entity.get_value(ENTITY_PROPERTY_MONTH_TYPE), this.month_view_entity.get_value(ENTITY_PROPERTY_YEAR_TYPE));
+
+        if (created_new) {
+            this.update_title();
+        }
 
         this.simple_day_views = [];
 
@@ -180,7 +186,7 @@ MonthView.prototype = {
         this.month_view_entity.add_parent(this.base_wall.get_self_entity());
 
         // Add the title.
-        this.title = this.base_wall.add_row(-1).add_3D_element(this.month_instance.get_full_string(), TYPE_TITLE, null);
+        this.title = this.base_wall.add_row(-1).add_3D_element('', TYPE_TITLE, null);
     },
 
     load_from_entity: function(world, entity) {
