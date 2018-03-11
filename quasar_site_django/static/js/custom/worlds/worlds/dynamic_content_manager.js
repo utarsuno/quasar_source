@@ -21,7 +21,7 @@ function DynamicContentManager() {
                 if (!this.dynamic_worlds[relative_id].dynamic_content_loaded) {
                     this.dynamic_worlds[relative_id].load_dynamic_content();
                 }
-                
+
 
                 l('Fetching schedule entities from world');
                 l(this.dynamic_worlds[relative_id]);
@@ -51,8 +51,9 @@ function DynamicContentManager() {
 
         l('THIS WORLD HAS ' + entity_walls.length + ' ENTITY WALLS!');
 
+
         // Go through each entity wall in that world.
-        for (var ew = 0; ew < entity_walls.length; e++) {
+        for (var ew = 0; ew < entity_walls.length; ew++) {
             var entity_wall_entities = entity_walls[ew].get_all_entities();
             // Go through each entity in that entity wall.
             for (var e = 0; e < entity_wall_entities.length; e++) {
@@ -66,9 +67,10 @@ function DynamicContentManager() {
             }
         }
 
-        l('The world :');
-        l(world);
-        l('has ' + all_schedule_viewable_entities.length + ' schedule viewable entities');
+
+        //l('The world :');
+        //l(world);
+        //l('has ' + all_schedule_viewable_entities.length + ' schedule viewable entities');
 
         return all_schedule_viewable_entities;
     };
