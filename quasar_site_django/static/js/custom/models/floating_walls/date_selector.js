@@ -115,6 +115,7 @@ DateSelector.prototype = {
             day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height / 4), HALF);
 
             day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
+            day_button.attach_to(this.wall_date_selector);
         }
 
         /*
