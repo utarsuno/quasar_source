@@ -37,7 +37,7 @@ DayViewSimple.prototype = {
 
         this.entities[entity.get_relative_id()] = entity;
 
-        var row = this.base_wall.add_row(null, entity.get_relative_id());
+        var row = this.day_view.add_row(null, entity.get_relative_id());
         // TODO : Clickable functionality!
         row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), null, null);
     }
