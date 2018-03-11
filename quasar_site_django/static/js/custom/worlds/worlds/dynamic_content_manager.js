@@ -6,7 +6,7 @@ function DynamicContentManager() {
 
     };
 
-    this.entity_loaded = function(entity, world) {
+    this.entity_changed = function(entity, world) {
 
     };
 
