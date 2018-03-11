@@ -16,6 +16,8 @@ function DynamicContentManager() {
         // Go through each dynamic world.
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
+                l('Fetching schedule entities from world');
+                l(this.dynamic_worlds[relative_id]);
                 var schedule_entities = this.get_all_schedule_viewable_entities_from_world(this.dynamic_worlds[relative_id]);
 
                 for (var e = 0; e < schedule_entities.length; e++) {
