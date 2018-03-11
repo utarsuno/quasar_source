@@ -13,6 +13,9 @@ function DynamicContentManager() {
     ///////
 
     this.load_schedule_content = function() {
+        // Load each static world.
+        MANAGER_WORLD.world_home.load_dynamic_content();
+
         // Go through each dynamic world.
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
