@@ -17,9 +17,11 @@ function DynamicContentManager() {
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
 
+                /*
                 if (!this.dynamic_worlds[relative_id].dynamic_content_loaded) {
                     this.dynamic_worlds[relative_id].load_dynamic_content();
                 }
+                */
 
                 l('Fetching schedule entities from world');
                 l(this.dynamic_worlds[relative_id]);
@@ -54,7 +56,7 @@ function DynamicContentManager() {
             var entity_wall_entities = entity_walls[ew].get_all_entities();
             // Go through each entity in that entity wall.
             for (var e = 0; e < entity_wall_entities.length; e++) {
-                l('Checking if the following entitiy is schedule viewable');
+                l('Checking if the following entity is schedule viewable');
                 var entity = entity_wall_entities[e];
                 l(entity);
                 if (entity.is_schedule_viewable()) {
@@ -72,20 +74,3 @@ function DynamicContentManager() {
     };
 
 }
-
-
-/*
-    entity_added: function(entity, world) {
-
-    },
-
-    entity_changed: function(entity, wordl) {
-
-    },
-
-    load_schedule_content: function() {
-
-    }
-
- */
-
