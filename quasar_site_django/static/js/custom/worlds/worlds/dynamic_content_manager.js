@@ -51,6 +51,11 @@ function DynamicContentManager() {
                 }
             }
         }
+
+        l('The world :');
+        l(world);
+        l('has ' + all_schedule_viewable_entities.length + ' schedule viewable entities');
+
         return all_schedule_viewable_entities;
     };
 
