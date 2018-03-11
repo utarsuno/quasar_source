@@ -69,7 +69,7 @@ TimeSelector.prototype = {
 
     increase_hour: function(delta) {
         var current_hour = parseInt(this.hour.get_text());
-        if (current_hour + delta < 25) {
+        if (current_hour + delta < 24) {
             current_hour += delta;
         }
         this.hour.update_text(current_hour);
@@ -85,7 +85,7 @@ TimeSelector.prototype = {
 
     increase_minute: function(delta) {
         var current_minute = parseInt(this.minute.get_text());
-        if (current_minute + delta < 61) {
+        if (current_minute + delta < 60) {
             current_minute += delta;
         }
         this.minute.update_text(current_minute);

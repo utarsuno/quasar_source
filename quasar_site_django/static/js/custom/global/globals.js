@@ -10,18 +10,19 @@ const l = console.log;
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
 // Global managers.
-var MANAGER_AUDIO          = null;
-var MANAGER_TEXTURE        = null;
-var MANAGER_COOKIES        = null;
-var MANAGER_WORLD          = null;
-var MANAGER_ENTITY         = null;
-var MANAGER_MULTIPLAYER    = null;
-var MANAGER_SHADER         = null;
-var MANAGER_RENDERER       = null;
-var MANAGER_INPUT          = null;
-var MANAGER_POINTER_LOCK   = null;
-var MANAGER_DATA_DISPLAY   = null;
-var MANAGER_LOADING        = null;
+var MANAGER_AUDIO           = null;
+var MANAGER_TEXTURE         = null;
+var MANAGER_COOKIES         = null;
+var MANAGER_WORLD           = null;
+var MANAGER_ENTITY          = null;
+var MANAGER_MULTIPLAYER     = null;
+var MANAGER_SHADER          = null;
+var MANAGER_RENDERER        = null;
+var MANAGER_INPUT           = null;
+var MANAGER_POINTER_LOCK    = null;
+var MANAGER_DATA_DISPLAY    = null;
+var MANAGER_LOADING         = null;
+var MANAGER_DYNAMIC_CONTENT = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
@@ -45,8 +46,6 @@ const PLAYER_STATE_LOADING      = 3;
 const PLAYER_STATE_ENGAGED      = 4;
 const PLAYER_STATE_FULL_CONTROL = 5;
 const PLAYER_STATE_TYPING       = 6;
-
-var CURRENT_DAY_OBJECT = null;
 
 // Tags
 const TYPE_INPUT_DATE     = 'input_date';
@@ -77,60 +76,18 @@ const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
 
 // UNIVERSAL_CONSTANTS_START : Entity types.
 const ENTITY_TYPE_BASE                   = 'Entity';
-const ENTITY_TYPE_TASK                   = 'EntityTask';
-const ENTITY_TYPE_WALL                   = 'EntityWall';
-const ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity';
-const ENTITY_TYPE_OWNER                  = 'EntityOwner';
-const ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder';
-const ENTITY_TYPE_VIDEO                  = 'EntityVideo';
-const ENTITY_TYPE_PICTURE                = 'EntityFloatingPicture';
-const ENTITY_TYPE_DYNAMIC_WORLD          = 'EntityDynamicWorld';
-const ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER = 'EntityDynamicWorldsManager';
-const ENTITY_TYPE_STATIC_WORLD           = 'EntityStaticWorld';
-const ENTITY_TYPE_STATIC_WORLDS_MANAGER  = 'EntityStaticWorldsManager';
 // UNIVERSAL_CONSTANTS_END
-
-const ENTITY_STATIC_WORLD_HOME     = 'home';
-const ENTITY_STATIC_WORLD_SETTINGS = 'settings';
-const ENTITY_STATIC_WORLD_ADMIN    = 'admin';
 
 // UNIVERSAL_CONSTANTS_START : Entity property keys.
 const ENTITY_PROPERTY_START_TOKEN         = 'ep_';
-const ENTITY_PROPERTY_PUBLIC              = ENTITY_PROPERTY_START_TOKEN + 'public';
 const ENTITY_PROPERTY_OWNER               = ENTITY_PROPERTY_START_TOKEN + 'owner';
-const ENTITY_PROPERTY_PASSWORD            = ENTITY_PROPERTY_START_TOKEN + 'password';
-const ENTITY_PROPERTY_USERNAME            = ENTITY_PROPERTY_START_TOKEN + 'username';
-const ENTITY_PROPERTY_EMAIL               = ENTITY_PROPERTY_START_TOKEN + 'email';
 const ENTITY_PROPERTY_NAME                = ENTITY_PROPERTY_START_TOKEN + 'name';
-const ENTITY_PROPERTY_POSITION            = ENTITY_PROPERTY_START_TOKEN + 'position';
-const ENTITY_PROPERTY_WIDTH               = ENTITY_PROPERTY_START_TOKEN + 'width';
-const ENTITY_PROPERTY_HEIGHT              = ENTITY_PROPERTY_START_TOKEN + 'height';
-const ENTITY_PROPERTY_NORMAL              = ENTITY_PROPERTY_START_TOKEN + 'normal';
-const ENTITY_PROPERTY_NORMAL_DEPTH        = ENTITY_PROPERTY_START_TOKEN + 'normal_depth';
-const ENTITY_PROPERTY_HORIZONTAL_OFFSET   = ENTITY_PROPERTY_START_TOKEN + 'horizontal_offset';
-const ENTITY_PROPERTY_VERTICAL_OFFSET     = ENTITY_PROPERTY_START_TOKEN + 'vertical_offset';
-const ENTITY_PROPERTY_COMPLETED           = ENTITY_PROPERTY_START_TOKEN + 'completed';
-const ENTITY_PROPERTY_PHONE_NUMBER        = ENTITY_PROPERTY_START_TOKEN + 'phone_number';
-const ENTITY_PROPERTY_PHONE_CARRIER       = ENTITY_PROPERTY_START_TOKEN + 'phone_carrier';
 const ENTITY_PROPERTY_TEXT_CONTENTS       = ENTITY_PROPERTY_START_TOKEN + 'text_contents';
 const ENTITY_PROPERTY_EXECUTE_DATE        = ENTITY_PROPERTY_START_TOKEN + 'execute_date';
 const ENTITY_PROPERTY_EXECUTE_TIME        = ENTITY_PROPERTY_START_TOKEN + 'execute_time';
 const ENTITY_PROPERTY_SERVER_ID           = ENTITY_PROPERTY_START_TOKEN + '_id';
-const ENTITY_PROPERTY_IMPORTANCE          = ENTITY_PROPERTY_START_TOKEN + 'importance';
-const ENTITY_PROPERTY_IMAGE_DATA          = ENTITY_PROPERTY_START_TOKEN + 'image_data';
-const ENTITY_PROPERTY_IS_ROOT_ATTACHABLE  = ENTITY_PROPERTY_START_TOKEN + 'is_root_attachable';
-const ENTITY_PROPERTY_3D_ROWS             = ENTITY_PROPERTY_START_TOKEN + '3d_rows';
-const ENTITY_PROPERTY_2D_ROWS             = ENTITY_PROPERTY_START_TOKEN + '2d_rows';
-const ENTITY_PROPERTY_TAGS                = ENTITY_PROPERTY_START_TOKEN + 'tags';
-const ENTITY_PROPERTY_NOTE                = ENTITY_PROPERTY_START_TOKEN + 'note';
 const ENTITY_PROPERTY_CREATED_AT_DATE     = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
 
-const ENTITY_PROPERTY_GROUP_NAME          = ENTITY_PROPERTY_START_TOKEN + 'group_name';
-
-const ENTITY_PROPERTY_START_DATE_TIME     = ENTITY_PROPERTY_START_TOKEN + 'start_date_time';
-const ENTITY_PROPERTY_END_DATE_TIME       = ENTITY_PROPERTY_START_TOKEN + 'end_date_time';
-const ENTITY_PROPERTY_TIME_DURATION       = ENTITY_PROPERTY_START_TOKEN + 'time_duration';
-const ENTITY_PROPERTY_TIME_NEEDED         = ENTITY_PROPERTY_START_TOKEN + 'time_needed';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity default property keys.
@@ -143,14 +100,6 @@ const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relat
 // UNIVERSAL_CONSTANTS_START : Entity POST keys.
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
-
-const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = ENTITY_PROPERTY_START_TOKEN + 'account_type';
-
-const ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified';
-const ACCOUNT_TYPE_INTERNAL     = 'internal';
-const ACCOUNT_TYPE_DEFAULT      = 'default';
-const ACCOUNT_TYPE_ADMIN        = 'admin';
-const ACCOUNT_TYPE_SUDO         = 'sudo';
 
 const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
 const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';

@@ -88,14 +88,6 @@ WorldManager.prototype = {
         this.current_world.key_down_event_for_interactive_objects(event);
     },
 
-    add_to_all_scenes: function(object) {
-        this.world_login.add_to_scene(object);
-        this.world_home.add_to_scene(object);
-        this.world_settings.add_to_scene(object);
-
-        // TODO : Make sure dynamic worlds are dealt with.
-    },
-
     create_world: function(world) {
         // Player menu.
         world.player_menu.create();
@@ -191,6 +183,8 @@ WorldManager.prototype = {
         }
 
         MANAGER_WORLD.all_dynamic_worlds_loaded();
+
+        MANAGER_DYNAMIC_CONTENT.load_schedule_content();
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);

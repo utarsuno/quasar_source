@@ -19,6 +19,9 @@ Entity.prototype = {
 
     __init__: function(properties) {
 
+        // Inherit.
+        ScheduleViewable.call(this);
+
         if (!is_defined(properties)) {
             properties = {};
         }

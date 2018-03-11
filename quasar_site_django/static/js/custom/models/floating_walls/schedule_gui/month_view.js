@@ -30,10 +30,22 @@ MonthView.prototype = {
         this.base_wall.only_moveable = true;
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
+
+        // Inherit.
+        ViewableEntities.call(this);
     },
 
     update_title: function() {
         this.title.update_text(this.month_instance.get_full_string());
+    },
+
+    get_day_view_for_date: function(date) {
+        for (var d = 0; d < this.simple_day_views.length; d++) {
+            if (this.simple_day_views[d].day_instance.day_number === date) {
+                return this.simple_day_views[d];
+            }
+        }
+        raise_exception_with_full_logging('Day view not found!');
     },
 
     /*__   ___ ___ ___         __   __

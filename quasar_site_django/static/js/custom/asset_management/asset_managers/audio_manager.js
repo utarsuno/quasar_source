@@ -36,9 +36,6 @@ AudioManager.prototype = {
     set_audio: function(audio_name, audio_buffer) {
         this._all_audio[audio_name] = new THREE.Audio(this.audio_listener);
         this._all_audio[audio_name].setBuffer(audio_buffer);
-
-        // TODO : THIS NEEDS TO GET SET ONCE ALL WORLDS ALL LOADED!!
-        //MANAGER_WORLD.add_to_all_scenes(this._all_audio[audio_name]);
     },
 
     set_audio_for_world: function(world) {
@@ -47,5 +44,5 @@ AudioManager.prototype = {
                 world.add_to_scene(this._all_audio[audio]);
             }
         }
-    },
+    }
 };

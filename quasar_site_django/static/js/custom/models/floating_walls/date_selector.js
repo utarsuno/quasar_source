@@ -74,6 +74,8 @@ DateSelector.prototype = {
         this.wall_date_selector.add_row(null);
         this.wall_date_selector.add_row(null);
         this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
+        this.wall_date_selector.add_row(null);
 
         this.wall_date_selector.add_row(null).add_2D_button([0, 1], 'set to no value', COLOR_RED, this.date_selected.bind(this, NO_DATE_SELECTED));
 
@@ -114,41 +116,12 @@ DateSelector.prototype = {
             height = day_button.height;
             day_button.set_attachment_depth_offset(5);
             day_button.set_attachment_horizontal_offset(width_position * this.all_days[d].day_of_the_week + width / 2, -HALF);
-            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height / 2), HALF);
+            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height), HALF);
 
             day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
             day_button.attach_to(this.wall_date_selector);
             this.all_day_buttons.push(day_button);
         }
-
-        /*
-        var row_index = this.spacing_row.row_number;
-
-        for (var d = 0; d < this.all_days.length; d++) {
-
-            //l(this.all_days[d]);
-
-            var row = this.all_days[d].get_week_relative_to_current_month();
-            var num = this.all_days[d].get_day_number_relative_to_current_week();
-            var day_cell = null;
-
-            var row_offset = 0;
-            var start_position;
-            var end_position;
-
-            if (num === 0) {
-                row_offset = -1;
-                start_position = 6 / 7;
-                end_position = 1;
-            } else {
-                start_position = (num - 1) / 7;
-                end_position = num / 7;
-            }
-
-            day_cell = this.wall_date_selector.get_row_with_index(row_index + row + row_offset).add_2D_button([start_position, end_position], this.all_days[d].get_day_number(), this.current_month.get_day_color_by_index(d), this.date_selected.bind(this, this.all_days[d]));
-            this.all_day_buttons.push(day_cell);
-        }
-        */
 
         this.wall_date_selector.refresh_position_and_look_at();
     },

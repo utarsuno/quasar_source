@@ -98,6 +98,9 @@ module.exports = {
 
         "DomElement": false,
 
+        "ScheduleViewable": false,
+        "ViewableEntities": false,
+
         "EntityEditorFieldRow": true,
         "FieldRowCompleted"   : true,
         "FieldRowDateTime"    : true,
@@ -122,29 +125,31 @@ module.exports = {
         "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
-        "MANAGER_COOKIES"       : true,
-        "MANAGER_AUDIO"         : true,
-        "MANAGER_TEXTURE"       : true,
-        "MANAGER_WORLD"         : true,
-        "MANAGER_ENTITY"        : true,
-        "MANAGER_MULTIPLAYER"   : true,
-        "MANAGER_SHADER"        : true,
-        "MANAGER_RENDERER"      : true,
-        "MANAGER_INPUT"         : true,
-        "MANAGER_POINTER_LOCK"  : true,
-        "MANAGER_DATA_DISPLAY"  : true,
-        "MANAGER_LOADING"       : true,
+        "MANAGER_DYNAMIC_CONTENT": true,
+        "MANAGER_COOKIES"        : true,
+        "MANAGER_AUDIO"          : true,
+        "MANAGER_TEXTURE"        : true,
+        "MANAGER_WORLD"          : true,
+        "MANAGER_ENTITY"         : true,
+        "MANAGER_MULTIPLAYER"    : true,
+        "MANAGER_SHADER"         : true,
+        "MANAGER_RENDERER"       : true,
+        "MANAGER_INPUT"          : true,
+        "MANAGER_POINTER_LOCK"   : true,
+        "MANAGER_DATA_DISPLAY"   : true,
+        "MANAGER_LOADING"        : true,
         // and their class names.
-        "CreatedWorldsManager": false,
-        "WorldManager"        : false,
-        "AudioManager"        : false,
-        "EntityManager"       : false,
-        "MultiPlayerManager"  : false,
-        "RendererManager"     : false,
-        "InputManager"        : false,
-        "PointerLockManager"  : false,
-        "DataDisplay"         : false,
-        "LoadingManager"      : false,
+        "DynamicContentManager": false,
+        "CreatedWorldsManager" : false,
+        "WorldManager"         : false,
+        "AudioManager"         : false,
+        "EntityManager"        : false,
+        "MultiPlayerManager"   : false,
+        "RendererManager"      : false,
+        "InputManager"         : false,
+        "PointerLockManager"   : false,
+        "DataDisplay"          : false,
+        "LoadingManager"       : false,
 
         // Global objects.
         "CURRENT_PLAYER": true,
@@ -263,7 +268,6 @@ module.exports = {
 
         // UNIVERSAL_CONSTANTS_START : Entity property keys.
         "ENTITY_PROPERTY_START_TOKEN"        : false,
-        "ENTITY_PROPERTY_PUBLIC"             : false,
         "ENTITY_PROPERTY_OWNER"              : false,
         "ENTITY_PROPERTY_PASSWORD"           : false,
         "ENTITY_PROPERTY_USERNAME"           : false,
@@ -272,9 +276,6 @@ module.exports = {
         "ENTITY_PROPERTY_POSITION"           : false,
         "ENTITY_PROPERTY_WIDTH"              : false,
         "ENTITY_PROPERTY_HEIGHT"             : false,
-        "ENTITY_PROPERTY_HORIZONTAL_OFFSET"  : false,
-        "ENTITY_PROPERTY_VERTICAL_OFFSET"    : false,
-        "ENTITY_PROPERTY_NORMAL_DEPTH"       : false,
         "ENTITY_PROPERTY_NORMAL"             : false,
         "ENTITY_PROPERTY_COMPLETED"          : false,
         "ENTITY_PROPERTY_PHONE_NUMBER"       : false,
@@ -522,12 +523,12 @@ module.exports = {
 
         "get_new_floating_icon" : true,
 
-        // From time_abstractions.js
-        "THIS_DAY"             : false,
-        "THIS_MONTH"           : false,
-        "CURRENT_MONTH_OBJECT" : false,
-        "CURRENT_DAY_OBJECT"   : false,
 
+        // ___          ___          __   __  ___  __        __  ___    __        __  
+        //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
+        //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
+
+        ///// Organize this portion.
         "DateSelector": true,
         "TimeSelector": true,
 
@@ -537,10 +538,8 @@ module.exports = {
 
         "MonthInstance": false,
         "DayInstance"  : false,
+        /////
 
-        // ___          ___          __   __  ___  __        __  ___    __        __  
-        //  |  |  |\/| |__      /\  |__) /__`  |  |__)  /\  /  `  |  | /  \ |\ | /__` 
-        //  |  |  |  | |___    /~~\ |__) .__/  |  |  \ /~~\ \__,  |  | \__/ | \| .__/
         "DayViewSimple": false,
         "DayViewFull"  : false,
 
