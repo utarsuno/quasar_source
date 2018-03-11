@@ -161,7 +161,7 @@ DateSelector.prototype = {
 
     button_year_increase_pressed: function() {
         this.month_instance.apply_delta(TIME_DELTA_YEARS, 1);
-        this.year.update_text(this.date.get_year_as_string());
+        this.year.update_text(this.month_instance.get_year());
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -171,8 +171,8 @@ DateSelector.prototype = {
     // Month.
     button_month_decrease_pressed: function() {
         this.month_instance.apply_delta(TIME_DELTA_MONTHS, -1);
-        this.month.update_text(this.date.get_month_string());
-        this.year.update_text(this.date.get_year());
+        this.month.update_text(this.month_instance.get_month_string());
+        this.year.update_text(this.month_instance.get_year());
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
