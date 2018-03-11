@@ -29,6 +29,8 @@ function DynamicContentManager() {
     this.add_entity_to_world_month_views = function(entity, world) {
         if (world.month_view_walls.length > 0) {
             for (var mv = 0; mv < world.month_view_walls.length; mv++) {
+                l('Adding entity to month view walls:');
+                l(entity);
                 world.month_view_walls.add_viewable_entity(entity);
             }
         }
