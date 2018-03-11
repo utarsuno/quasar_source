@@ -26,9 +26,6 @@ function DynamicContentManager() {
                     dynamic_world.load_dynamic_content();
                 }
 
-
-                l('Fetching schedule entities from world');
-                l(dynamic_world);
                 var schedule_entities = this.get_all_schedule_viewable_entities_from_world(dynamic_world);
 
                 for (var e = 0; e < schedule_entities.length; e++) {
@@ -42,8 +39,6 @@ function DynamicContentManager() {
     this.add_entity_to_world_month_views = function(entity, world) {
         if (world.month_view_walls.length > 0) {
             for (var mv = 0; mv < world.month_view_walls.length; mv++) {
-                l('Adding entity to month view walls:');
-                l(entity);
                 world.month_view_walls[mv].add_viewable_entity(entity);
             }
         }
@@ -53,19 +48,15 @@ function DynamicContentManager() {
         var all_schedule_viewable_entities = [];
         var entity_walls = world.entity_walls;
 
-        l('THIS WORLD HAS ' + entity_walls.length + ' ENTITY WALLS!');
-
 
         // Go through each entity wall in that world.
         for (var ew = 0; ew < entity_walls.length; ew++) {
             var entity_wall_entities = entity_walls[ew].get_all_entities();
             // Go through each entity in that entity wall.
             for (var e = 0; e < entity_wall_entities.length; e++) {
-                l('Checking if the following entity is schedule viewable');
                 var entity = entity_wall_entities[e];
                 l(entity);
                 if (entity.is_schedule_viewable()) {
-                    l('It is!');
                     all_schedule_viewable_entities.push(entity);
                 }
             }
