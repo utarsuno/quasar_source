@@ -19,7 +19,7 @@ MonthInstance.prototype = {
     apply_delta: function(units, magnitude) {
         var previous_year_number = this.year_number;
         var previous_month_number = this.month_number;
-        switch (magnitude) {
+        switch (units) {
         case TIME_DELTA_YEARS:
             this.year_number += magnitude;
             break;
