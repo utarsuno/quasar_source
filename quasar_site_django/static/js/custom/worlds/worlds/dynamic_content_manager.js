@@ -42,6 +42,8 @@ function DynamicContentManager() {
         var all_schedule_viewable_entities = [];
         var entity_walls = world.entity_walls;
 
+        l('THIS WORLD HAS ' + entity_walls.length + ' ENTITY WALLS!');
+
         // Go through each entity wall in that world.
         for (var ew = 0; ew < entity_walls.length; e++) {
             var entity_wall_entities = entity_walls[ew].get_all_entities();
