@@ -17,18 +17,19 @@ function DynamicContentManager() {
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
 
+                var dynamic_world = this.dynamic_worlds[relative_id];
 
-                if (!this.dynamic_worlds[relative_id].dynamic_content_loaded) {
-                    this.dynamic_worlds[relative_id].load_dynamic_content();
+                if (!dynamic_world.dynamic_content_loaded) {
+                    dynamic_world.load_dynamic_content();
                 }
 
 
                 l('Fetching schedule entities from world');
-                l(this.dynamic_worlds[relative_id]);
-                var schedule_entities = this.get_all_schedule_viewable_entities_from_world(this.dynamic_worlds[relative_id]);
+                l(dynamic_world);
+                var schedule_entities = this.get_all_schedule_viewable_entities_from_world(dynamic_world);
 
                 for (var e = 0; e < schedule_entities.length; e++) {
-                    this.add_entity_to_world_month_views(schedule_entities[e], this.dynamic_worlds[e]);
+                    this.add_entity_to_world_month_views(schedule_entities[e], dynamic_world);
                     this.add_entity_to_world_month_views(schedule_entities[e], MANAGER_WORLD.world_home);
                 }
             }
