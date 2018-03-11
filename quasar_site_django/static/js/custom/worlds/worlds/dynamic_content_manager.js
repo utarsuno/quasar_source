@@ -41,7 +41,7 @@ function DynamicContentManager() {
             for (var mv = 0; mv < world.month_view_walls.length; mv++) {
                 l('Adding entity to month view walls:');
                 l(entity);
-                world.month_view_walls.add_viewable_entity(entity);
+                world.month_view_walls[mv].add_viewable_entity(entity);
             }
         }
     };
