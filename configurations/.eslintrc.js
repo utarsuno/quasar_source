@@ -125,7 +125,6 @@ module.exports = {
         "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
-        "MANAGER_DYNAMIC_CONTENT": true,
         "MANAGER_COOKIES"        : true,
         "MANAGER_AUDIO"          : true,
         "MANAGER_TEXTURE"        : true,

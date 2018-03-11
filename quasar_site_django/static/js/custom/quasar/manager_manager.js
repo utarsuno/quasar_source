@@ -37,18 +37,16 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 /*__   ___  __   __        __   __   ___                          __   ___  __   __
  |__) |__  /__` /  \ |  | |__) /  ` |__      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
  |  \ |___ .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
-// Handles dynamic content linking.
-MANAGER_DYNAMIC_CONTENT = new DynamicContentManager();
 // Handles most if not all of the resource loading.
-MANAGER_LOADING         = new LoadingManager();
+MANAGER_LOADING   = new LoadingManager();
 // Handles all audio operations.
-MANAGER_AUDIO           = new AudioManager();
+MANAGER_AUDIO     = new AudioManager();
 // Handles all textures.
-MANAGER_TEXTURE         = new TextureManager();
+MANAGER_TEXTURE   = new TextureManager();
 // Handles images that get dropped onto the site page.
-var DRAG_AND_DROP       = new DragNDrop();
+var DRAG_AND_DROP = new DragNDrop();
 // Handles cookies.
-MANAGER_COOKIES         = Cookies.noConflict();
+MANAGER_COOKIES   = Cookies.noConflict();
 
 /*     __   __        __                           __   ___  __   __
  |  | /  \ |__) |    |  \     |\/|  /\  |\ |  /\  / _` |__  |__) /__`

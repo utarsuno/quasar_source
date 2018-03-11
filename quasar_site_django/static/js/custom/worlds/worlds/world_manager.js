@@ -23,6 +23,9 @@ WorldManager.prototype = {
 
         // List of all dynamic worlds.
         this.dynamic_worlds = {};
+
+        // Inherit.
+        DynamicContentManager.call(this);
     },
 
     update: function(delta) {
@@ -184,7 +187,7 @@ WorldManager.prototype = {
 
         MANAGER_WORLD.all_dynamic_worlds_loaded();
 
-        MANAGER_DYNAMIC_CONTENT.load_schedule_content();
+        this.load_schedule_content();
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);

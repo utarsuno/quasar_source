@@ -22,7 +22,6 @@ var MANAGER_INPUT           = null;
 var MANAGER_POINTER_LOCK    = null;
 var MANAGER_DATA_DISPLAY    = null;
 var MANAGER_LOADING         = null;
-var MANAGER_DYNAMIC_CONTENT = null;
 
 // Global objects.
 var CURRENT_PLAYER = null;
