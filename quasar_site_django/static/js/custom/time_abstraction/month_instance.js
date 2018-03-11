@@ -16,7 +16,7 @@ MonthInstance.prototype = {
     /*     __   __       ___  ___  __   __
      |  | |__) |  \  /\   |  |__  |__) /__`
      \__/ |    |__/ /~~\  |  |___ |  \ .__/ */
-    apply_delta: function(magnitude, units) {
+    apply_delta: function(units, magnitude) {
         var previous_year_number = this.year_number;
         var previous_month_number = this.month_number;
         switch (magnitude) {

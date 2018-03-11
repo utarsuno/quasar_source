@@ -22,9 +22,8 @@ DateSelector.prototype = {
         this.wall_date_selector.manual_visibility = true;
 
         // Time Logic.
-        this.date = new DayInstance(THIS_DAY);
-        this.current_month = new MonthInstance(THIS_MONTH);
-        this.all_days = this.current_month.get_all_day_instances();
+        this.month_instance = new MonthInstance(get_current_month_number());
+        //this.all_days = this.current_month.get_all_day_instances();
 
         // Year.
         var row_year = this.wall_date_selector.add_row(null);
@@ -33,7 +32,7 @@ DateSelector.prototype = {
         this.button_year_decrease.set_engage_function(this.button_year_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_year_decrease);
 
-        this.year = row_year.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.date.get_year_as_string(), TYPE_CONSTANT);
+        this.year = row_year.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.month_instance.get_year(), TYPE_CONSTANT);
 
         this.button_year_increase = row_year.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
         this.button_year_increase.engable = false;
@@ -47,7 +46,7 @@ DateSelector.prototype = {
         this.button_month_decrease.set_engage_function(this.button_month_decrease_pressed.bind(this));
         world.interactive_objects.push(this.button_month_decrease);
 
-        this.month = row_month.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.date.get_month_full_data_string(), TYPE_CONSTANT);
+        this.month = row_month.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.month_instance.get_month_string(), TYPE_CONSTANT);
 
         this.button_month_increase = row_month.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
         this.button_month_increase.engable = false;
@@ -90,6 +89,7 @@ DateSelector.prototype = {
 
     _delete_all_day_buttons: function() {
         for (var d = 0; d < this.all_day_buttons.length; d++) {
+            this.all_day_buttons[d].detach_from_parent();
             this.all_day_buttons[d].remove_from_root_attachmentables_if_needed();
             this.all_day_buttons[d].full_remove();
         }
@@ -101,6 +101,23 @@ DateSelector.prototype = {
 
         this.all_day_buttons = [];
 
+        var width_position = (this.wall_date_selector.width) / 7;
+        var height_position = (this.wall_date_selector.height) / 6;
+
+        var width = (this.wall_date_selector.width - 100) / 7;
+        var height = (this.wall_date_selector.height - 100) / 6;
+
+        for (var d = 0; d < this.all_days.length; d++) {
+            var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
+            height = day_button.height;
+            day_button.set_attachment_depth_offset(5);
+            day_button.set_attachment_horizontal_offset(width_position * this.all_days[d].day_of_the_week + width / 2, -HALF);
+            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height / 4), HALF);
+
+            day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
+        }
+
+        /*
         var row_index = this.spacing_row.row_number;
 
         for (var d = 0; d < this.all_days.length; d++) {
@@ -127,16 +144,15 @@ DateSelector.prototype = {
             day_cell = this.wall_date_selector.get_row_with_index(row_index + row + row_offset).add_2D_button([start_position, end_position], this.all_days[d].get_day_number(), this.current_month.get_day_color_by_index(d), this.date_selected.bind(this, this.all_days[d]));
             this.all_day_buttons.push(day_cell);
         }
+        */
 
         this.wall_date_selector.refresh_position_and_look_at();
     },
 
     // Year.
     button_year_decrease_pressed: function() {
-        this.date.apply_delta(DELTA_YEARS, -1);
-        this.year.update_text(this.date.get_year_as_string());
-
-        this.current_month.apply_delta(DELTA_YEARS, -1);
+        this.month_instance.apply_delta(TIME_DELTA_YEARS, -1);
+        this.year.update_text(this.month_instance.get_year());
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -144,10 +160,8 @@ DateSelector.prototype = {
     },
 
     button_year_increase_pressed: function() {
-        this.date.apply_delta(DELTA_YEARS, 1);
+        this.month_instance.apply_delta(TIME_DELTA_YEARS, 1);
         this.year.update_text(this.date.get_year_as_string());
-
-        this.current_month.apply_delta(DELTA_YEARS, 1);
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -156,12 +170,9 @@ DateSelector.prototype = {
 
     // Month.
     button_month_decrease_pressed: function() {
-        this.date.apply_delta(DELTA_MONTHS, -1);
-        this.month.update_text(this.date.get_month_full_data_string());
-        // If the month overflows below 0 or past december then the year should update as well.
-        this.year.update_text(this.date.get_year_as_string());
-
-        this.current_month.apply_delta(DELTA_MONTHS, -1);
+        this.month_instance.apply_delta(TIME_DELTA_MONTHS, -1);
+        this.month.update_text(this.date.get_month_string());
+        this.year.update_text(this.date.get_year());
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
@@ -169,12 +180,9 @@ DateSelector.prototype = {
     },
 
     button_month_increase_pressed: function() {
-        this.date.apply_delta(DELTA_MONTHS, 1);
-        this.month.update_text(this.date.get_month_full_data_string());
-        // If the month overflows below 0 or past december then the year should update as well.
-        this.year.update_text(this.date.get_year_as_string());
-
-        this.current_month.apply_delta(DELTA_YEARS, 1);
+        this.month_instance.apply_delta(TIME_DELTA_MONTHS, 1);
+        this.month.update_text(this.month_instance.get_month_string());
+        this.year.update_text(this.month_instance.get_year());
 
         // TODO : Eventually implement cache to improve performance!
         this._delete_all_day_buttons();
