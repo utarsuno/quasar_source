@@ -2,6 +2,16 @@
 
 function DynamicContentManager() {
 
+    this.entity_added = function(entity, world) {
+
+    };
+
+    this.entity_loaded = function(entity, world) {
+
+    };
+
+    ///////
+
     this.load_schedule_content = function() {
         // Go through each dynamic world.
         for (var relative_id in this.dynamic_worlds) {
