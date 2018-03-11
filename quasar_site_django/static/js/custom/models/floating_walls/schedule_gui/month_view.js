@@ -21,7 +21,6 @@ MonthView.prototype = {
 
         this.add_base_wall_functionality();
 
-        this.base_wall.set_default_background_color(COLOR_FLOATING_WALL_SUCCESS);
         this.base_wall.only_moveable = true;
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
@@ -171,7 +170,7 @@ MonthView.prototype = {
 
     create_new: function(world) {
         var data = get_player_blink_spot(1000);
-        this.base_wall = new FloatingWall(1600, 1000, data[0], data[1], world, true);
+        this.base_wall = new FloatingWall(1600, 1000, data[0], data[1], world, true, COLOR_FLOATING_WALL_SUCCESS);
         this.base_wall.set_to_saveable(world.entity);
 
         this.month_view_entity = new Entity();
@@ -188,7 +187,7 @@ MonthView.prototype = {
         this.month_view_entity = entity;
 
         // Load the base wall.
-        this.base_wall = new FloatingWall(1600, 1000, null, null, world, true);
+        this.base_wall = new FloatingWall(1600, 1000, null, null, world, true, COLOR_FLOATING_WALL_SUCCESS);
         this.base_wall.load_from_entity_data(this.month_view_entity.get_parent());
 
         this.title = this.base_wall.get_row_with_index(-1).elements[0];
