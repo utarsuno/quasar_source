@@ -22,7 +22,7 @@ DateSelector.prototype = {
         this.wall_date_selector.manual_visibility = true;
 
         // Time Logic.
-        this.month_instance = new MonthInstance(get_current_month_number());
+        this.month_instance = new MonthInstance(get_current_month_number(), get_current_year_number());
         //this.all_days = this.current_month.get_all_day_instances();
 
         // Year.
@@ -116,6 +116,7 @@ DateSelector.prototype = {
 
             day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
             day_button.attach_to(this.wall_date_selector);
+            this.all_day_buttons.push(day_button);
         }
 
         /*
