@@ -47,8 +47,11 @@ function DynamicContentManager() {
             var entity_wall_entities = entity_walls[ew].get_all_entities();
             // Go through each entity in that entity wall.
             for (var e = 0; e < entity_wall_entities.length; e++) {
+                l('Checking if the following entitiy is schedule viewable');
                 var entity = entity_wall_entities[e];
+                l(entity);
                 if (entity.is_schedule_viewable()) {
+                    l('It is!');
                     all_schedule_viewable_entities.push(entity);
                 }
             }
