@@ -97,7 +97,7 @@ DateSelector.prototype = {
     },
 
     _create_all_day_buttons: function() {
-        this.all_days = this.current_month.get_all_day_instances();
+        this.all_days = this.month_instance.get_all_day_instances();
 
         this.all_day_buttons = [];
 
