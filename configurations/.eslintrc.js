@@ -150,6 +150,8 @@ module.exports = {
         "DataDisplay"          : false,
         "LoadingManager"       : false,
 
+        "EntityChangedNotifier": false,
+
         // Global objects.
         "CURRENT_PLAYER": true,
         "ENTITY_OWNER": true,
@@ -297,6 +299,10 @@ module.exports = {
         "ENTITY_PROPERTY_TIME_DURATION"      : false,
         "ENTITY_PROPERTY_TIME_NEEDED"        : false,
         // UNIVERSAL_CONSTANTS_END
+
+        // Entity property values.
+        "ENTITY_PROPERTY_COMPLETED_VALUE_NO" : false,
+        "ENTITY_PROPERTY_COMPLETED_VALUE_YES": false,
 
         "POST_KEY_GENERIC_DATA"                       : true,
         "SERVER_COMMAND_SUDO_OPERATION"               : true,

@@ -35,7 +35,7 @@ EntityWall.prototype = {
         this.wall_entity_editor.edit_entity(entity, entity_button);
 
         // Notify the dynamic content manager of the entity changes.
-        MANAGER_WORLD.entity_changed(entity, this.base_wall.world);
+        //MANAGER_WORLD.entity_changed(entity, this.base_wall.world);
     },
 
     add_entity: function (entity) {
@@ -52,7 +52,7 @@ EntityWall.prototype = {
         this.base_wall.refresh_position_and_look_at();
 
         // Notify the dynamic content manager of the entity changes.
-        MANAGER_WORLD.entity_added(entity, this.base_wall.world);
+        //MANAGER_WORLD.entity_added(entity, this.base_wall.world);
     },
 
     delete_entity: function(entity) {

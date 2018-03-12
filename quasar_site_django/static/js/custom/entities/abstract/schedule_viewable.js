@@ -23,4 +23,15 @@ function ScheduleViewable() {
         return due_date;
     };
 
+    this.get_color_for_schedule_view = function() {
+        if (this.has_property(ENTITY_PROPERTY_COMPLETED)) {
+            if (this.get_value(ENTITY_PROPERTY_COMPLETED) === ENTITY_PROPERTY_COMPLETED_VALUE_YES) {
+                return COLOR_GREEN;
+            } else {
+                return COLOR_RED;
+            }
+        }
+        return COLOR_YELLOW;
+    };
+
 }

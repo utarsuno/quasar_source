@@ -31,15 +31,16 @@ DayViewSimple.prototype = {
 
     // TODO : Add entity to view.
     add_entity: function(entity) {
-
-        l('DAY VIEW SIMPLE : ADD ENTITY');
-        l(entity);
-
         this.entities[entity.get_relative_id()] = entity;
+
+        // Schedule color for this entity.
+        var entity_color = entity.get_color_for_schedule_view();
 
         var row = this.day_view.add_row(null, entity.get_relative_id());
         // TODO : Clickable functionality!
-        row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), null, null);
+        row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
+
+        this.base_wall.refresh_position_and_look_at();
     }
 
     // TODO : Delete entity from view.

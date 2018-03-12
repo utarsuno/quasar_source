@@ -80,11 +80,14 @@ EntityManager.prototype = {
         this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
         this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
         this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
+
+        // Inherit.
+        EntityChangedNotifier.call(this);
     },
 
-    /*        __        __          __      __       ___
-        |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
-        |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
+    /*     __        __          __      __       ___
+     |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
+     |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
 
     all_user_entities_loaded: function(data) {
         // FOR_DEV_START
@@ -166,7 +169,7 @@ EntityManager.prototype = {
             var e = list_of_entities[i];
             e.sort_value = 0;
             if (e.has_property(ENTITY_PROPERTY_COMPLETED)) {
-                if (e.get_value(ENTITY_PROPERTY_COMPLETED) === 'yes') {
+                if (e.get_value(ENTITY_PROPERTY_COMPLETED) === ENTITY_PROPERTY_COMPLETED_VALUE_YES) {
                     e.sort_value += 2000;
                 } else {
                     e.sort_value += 1000;
@@ -242,9 +245,9 @@ EntityManager.prototype = {
         }
     },
 
-    /*   __   __   ___  __       ___    __        __
-        /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
-        \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .*/
+    /*__   __   ___  __       ___    __        __
+     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
+     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .*/
 
     clear_all: function() {
         this.user_entities_loaded = false;
