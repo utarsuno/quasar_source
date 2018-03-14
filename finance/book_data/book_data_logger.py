@@ -85,8 +85,8 @@ class DataLogger(object):
 		if self.get_non_book_data() and self.get_book_data():
 
 			# TEMPORARY FOR DEBUGGING.
-			print('The last price was : ' + str(self.last_price))
-			print('The last price variation was : ' + str(self.price_variation))
+			#print('The last price was : ' + str(self.last_price))
+			#print('The last price variation was : ' + str(self.price_variation))
 
 			# Open the C process.
 			self.c_process = Popen('./a.out ' + self.save_path + ' ' + str(self.book_orders_parser.number_of_buy_orders) + ' ' + str(self.book_orders_parser.number_of_sell_orders) + ' ' + str(self.last_price)
