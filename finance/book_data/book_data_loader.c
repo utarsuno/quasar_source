@@ -74,10 +74,10 @@ int main(int argc, char * argv[]) {
     int file_buffer_index = 18;
     int index;
 
-    float * buy_prices            = (float *) malloc(sizeof(float) * number_of_buy_orders);
-    unsigned short * buy_amounts  = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
-    float * sell_prices           = (float *) malloc(sizeof(float) * number_of_sell_orders);
-    unsigned short * sell_amounts = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
+    float * buy_prices            = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
+    unsigned short * buy_amounts  = (float *) malloc(sizeof(float) * number_of_buy_orders);
+    float * sell_prices           = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
+    unsigned short * sell_amounts = (float *) malloc(sizeof(float) * number_of_sell_orders);
 
     // TESTING.
     printf("The last price was {%hu}\n", last_price);
