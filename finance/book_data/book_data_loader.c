@@ -89,7 +89,7 @@ int main(int argc, char * argv[]) {
     // FURTHER TESTING.
 
     // Buy prices.
-    printf("Printing buy prices!\n");
+    //printf("Printing buy prices!\n");
     for (index = 0; index < number_of_buy_orders; index++) {
         * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
@@ -97,7 +97,7 @@ int main(int argc, char * argv[]) {
     }
 
     // Buy amounts.
-    printf("Printing buy amounts!\n");
+    //printf("Printing buy amounts!\n");
     for (index = 0; index < number_of_buy_orders; index++) {
         * (buy_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
@@ -105,7 +105,7 @@ int main(int argc, char * argv[]) {
     }
 
     // Sell prices.
-    printf("Printing sell prices!\n");
+    //printf("Printing sell prices!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
         * (sell_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
@@ -113,7 +113,7 @@ int main(int argc, char * argv[]) {
     }
 
     // Sell amounts.
-    printf("Printing sell amounts!\n");
+    //printf("Printing sell amounts!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
         * (sell_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
