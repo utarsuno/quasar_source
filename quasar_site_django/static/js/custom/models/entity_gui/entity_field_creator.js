@@ -1,14 +1,14 @@
 'use strict';
 
-function EntityFieldCreator(entity_creator_or_editor) {
-    this.__init__(entity_creator_or_editor);
+function EntityFieldCreator(entity_editor) {
+    this.__init__(entity_editor);
 }
 
 EntityFieldCreator.prototype = {
 
-    __init__: function(entity_creator_or_editor) {
-        this.entity_creator_or_editor = entity_creator_or_editor;
-        this.base_wall = entity_creator_or_editor.base_wall;
+    __init__: function(entity_editor) {
+        this.entity_editor = entity_editor;
+        this.base_wall = entity_editor.base_wall;
     },
 
     set_display_button: function(button) {
@@ -27,7 +27,7 @@ EntityFieldCreator.prototype = {
             this.wall_add_new_field.fully_remove_self_and_all_sub_attachments();
         }
 
-        this.wall_add_new_field = new FloatingWall(200, 350, null, null, this.entity_creator_or_editor.world, false, COLOR_BLUE);
+        this.wall_add_new_field = new FloatingWall(200, 350, null, null, this.entity_editor.world, false, COLOR_BLUE);
         this.wall_add_new_field.manual_visibility = true;
         this.wall_add_new_field.set_auto_adjust_height(true);
         this.wall_add_new_field.set_attachment_depth_offset(10);
@@ -72,11 +72,11 @@ EntityFieldCreator.prototype = {
 
     add_entity_field: function(field_name) {
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
-        this.entity_creator_or_editor.add_entity_field(field_name);
+        this.entity_editor.add_entity_field(field_name);
     },
 
     _add_selectable_entity_field: function(field_name) {
-        if (!this.entity_creator_or_editor.has_field(field_name)) {
+        if (!this.entity_editor.has_field(field_name)) {
             this.wall_add_new_field.add_row(null, field_name.substring(3)).add_2D_button([0, 1], field_name, null, this.add_entity_field.bind(this, field_name));
         }
     }
