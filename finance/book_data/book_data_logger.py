@@ -131,7 +131,7 @@ class DataLogger(object):
 # Code from : https://stackoverflow.com/questions/474528/what-is-the-best-way-to-repeatedly-execute-a-function-every-x-seconds-in-python
 timeout = 60.0 # Sixty seconds
 
-'''
+
 def log_masari_data():
 	"""Logs Masari data every minute."""
 	dl = DataLogger()
@@ -141,7 +141,3 @@ l = task.LoopingCall(log_masari_data)
 l.start(timeout) # call every sixty seconds
 
 reactor.run()
-'''
-
-dl = DataLogger()
-dl.create_new_data_log()

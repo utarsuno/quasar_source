@@ -7,5 +7,5 @@ typedef struct {
 } BookDataInstance;
 
 typedef struct {
-    
+
 } PriceInstance;
