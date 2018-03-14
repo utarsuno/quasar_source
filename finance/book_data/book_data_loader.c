@@ -91,6 +91,8 @@ int main(int argc, char * argv[]) {
     // Buy prices.
     printf("Printing buy prices!\n");
     for (index = 0; index < number_of_buy_orders; index++) {
+        unsigned short test = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));;
+        printf("WHAT?{%hu}\n", test);
         * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
         printf("%hu\n", * (buy_prices + index));
