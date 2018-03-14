@@ -29,6 +29,7 @@ LoadingManager.prototype = {
         GUI_PAUSED_MENU.set_sub_text('loaded : ' + asset);
     },
 
+    // TODO : Isn't this handled by the texture manager?
     get_texture: function(texture_group, texture_name) {
         switch (texture_group) {
         case TEXTURE_GROUP_CURSOR:
@@ -43,16 +44,11 @@ LoadingManager.prototype = {
     /*     __   __                  __        __          __
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
-    // Gets called once entities are loaded from the MANAGER_ENTITY.
-    all_entities_loaded: function() {
-        MANAGER_WORLD.all_entities_loaded();
-    },
-
     perform_login_load: function(username, password) {
         CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
 
         GUI_PAUSED_MENU.set_text('Loading!');
-        GUI_PAUSED_MENU.set_sub_text('creating static and dyamic worlds');
+        GUI_PAUSED_MENU.set_sub_text('creating static and dynamic worlds');
         GUI_PAUSED_MENU.make_visible();
 
         ENTITY_OWNER = new EntityOwner(username, password);

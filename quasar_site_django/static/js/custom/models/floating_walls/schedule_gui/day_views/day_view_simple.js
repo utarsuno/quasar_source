@@ -27,6 +27,13 @@ DayViewSimple.prototype = {
         this.day_view.attach_to(this.base_wall);
 
         this.entities = {};
+
+        // Wall used for editing existing entities.
+        this.wall_entity_editor = new EntityEditor(this);
+    },
+
+    _edit_entity: function(entity_relative_id, entity_button) {
+        this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
     // TODO : Add entity to view.
@@ -38,7 +45,9 @@ DayViewSimple.prototype = {
 
         var row = this.day_view.add_row(null, entity.get_relative_id());
         // TODO : Clickable functionality!
-        row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
+        var entity_button = row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
+
+        entity_button.set_engage_function(this._edit_entity(entity.get_relative_id(), entity_button));
 
         this.base_wall.refresh_position_and_look_at();
     }

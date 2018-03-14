@@ -13,8 +13,6 @@ function WorldDynamicContent() {
 
     this.css_scene_added = false;
 
-    this.dynamic_content_loaded = false;
-
     this.prepare_for_save = function() {
         // TODO : Eventually default should be false.
         var save_needed = true;
@@ -57,14 +55,11 @@ function WorldDynamicContent() {
                 l(child_entity_type);
                 break;
             }
-
         }
 
         if (this.number_of_videos_to_load > 0) {
             this.load_all_videos();
         }
-
-        this.dynamic_content_loaded = true;
     };
 
     /*     __       ___                 ___

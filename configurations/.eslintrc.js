@@ -47,6 +47,9 @@ module.exports = {
         "console": false,
         "Cookies": false,
 
+        "EntityChangesSubscriber": false,
+        "EntityChangesListener"  : false,
+
         "THREEx": false,
         "THREE": false,
         "Stats": false,

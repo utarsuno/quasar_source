@@ -2,15 +2,17 @@
 
 function DynamicContentManager() {
 
-    this.entity_added = function(entity, world) {
+    this.load_all_dynamic_content = function() {
+        MANAGER_WORLD.world_home.load_dynamic_content();
 
+        // Go through each dynamic world.
+        for (var relative_id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
+                var dynamic_world = this.dynamic_worlds[relative_id];
+                dynamic_world.load_dynamic_content();
+            }
+        }
     };
-
-    this.entity_changed = function(entity, world) {
-
-    };
-
-    ///////
 
     this.load_schedule_content = function() {
         // Load each static world.
@@ -27,10 +29,6 @@ function DynamicContentManager() {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
 
                 var dynamic_world = this.dynamic_worlds[relative_id];
-
-                if (!dynamic_world.dynamic_content_loaded) {
-                    dynamic_world.load_dynamic_content();
-                }
 
                 var schedule_entities = this.get_all_schedule_viewable_entities_from_world(dynamic_world);
 
@@ -67,6 +65,13 @@ function DynamicContentManager() {
         }
 
         return all_schedule_viewable_entities;
+    };
+
+    /*___      ___   ___              __  ___    ___    __       ___    __        __                              __
+     |__  |\ |  |  |  |  \ /    |\ | /  \  |  | |__  | /  `  /\   |  | /  \ |\ | /__`    |    | |\ | |__/ | |\ | / _`
+     |___ | \|  |  |  |   |     | \| \__/  |  | |    | \__, /~~\  |  | \__/ | \| .__/    |___ | | \| |  \ | | \| \__> */
+    this.link_all_entities_for_notifications = function() {
+
     };
 
 }

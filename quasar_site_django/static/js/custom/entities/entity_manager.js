@@ -64,6 +64,9 @@ EntityManager.prototype = {
             data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
             data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = entity_to_delete.get_relative_id();
             this.post_delete_entity.perform_post(data, this.entity_deleted_response.bind(this));
+
+            // Notify all entity event subscribers that the entity was deleted.
+            this.entity_on_deleted(entity_to_delete);
         }
 
         if (index_to_splice !== NOT_FOUND) {
@@ -81,8 +84,8 @@ EntityManager.prototype = {
         this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
         this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
 
-        // Inherit.
-        EntityChangedNotifier.call(this);
+        // Hold a list of all objects that require entity change notifications.
+        EntityChangesListener.call(this);
     },
 
     /*     __        __          __      __       ___
@@ -131,7 +134,7 @@ EntityManager.prototype = {
         this.set_all_entities_to_not_needing_to_be_saved();
         this.loading = false;
 
-        MANAGER_LOADING.all_entities_loaded();
+        MANAGER_WORLD.all_entities_loaded();
     },
 
     load_data: function() {
@@ -261,6 +264,8 @@ EntityManager.prototype = {
             }
         }
         this.entities.push(entity);
+        // Since an entity was added make sure all appropriate objects get a link to on_change events.
+        this.entity_on_created(entity);
     },
 
     _get_index_of_entity: function(entity) {

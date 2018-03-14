@@ -34,7 +34,7 @@ EntityEditor.prototype = {
         if (this.current_mode === EDITOR_MODE_CREATE) {
             this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
         } else {
-            this.entity_wall_manager.delete_entity(this.entity_being_edited);
+            MANAGER_ENTITY.delete_entity_by_id(this.entity_id_being_edited);
         }
     },
 
@@ -43,7 +43,8 @@ EntityEditor.prototype = {
         this.wall_entity_editor.delete_row_by_name(field_name);
 
         if (this.current_mode === EDITOR_MODE_EDIT) {
-            this.entity_being_edited.delete_property(field_name);
+            var entity_to_edit = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+            entity_to_edit.delete_property(field_name);
         }
 
         this.base_wall.refresh_position_and_look_at();
@@ -116,7 +117,10 @@ EntityEditor.prototype = {
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
             this.wall_entity_editor.set_auto_adjust_height(true);
-            this.wall_title.update_text('Editing : ' + this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
+
+            var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+
+            this.wall_title.update_text('Editing : ' + entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
 
             this.create_or_save_changes_button.update_text('save changes');
             this.cancel_or_delete_button.update_text('delete entity');
@@ -125,7 +129,7 @@ EntityEditor.prototype = {
             this.entity_field_rows[ENTITY_PROPERTY_NAME].set_value_from_entity();
 
             // TODO : Populate all the required entity field rows.
-            var all_non_default_editable_fields = this.entity_being_edited.get_all_non_default_editable_fields();
+            var all_non_default_editable_fields = entity_being_edited.get_all_non_default_editable_fields();
             // Sort the fields alphabetically.
             all_non_default_editable_fields = all_non_default_editable_fields.sort(function(a, b) {
                 return a[0] > b[0];
@@ -177,18 +181,21 @@ EntityEditor.prototype = {
     /*___      ___   ___         ___  __    ___         __
      |__  |\ |  |  |  |  \ /    |__  |  \ |  |  | |\ | / _`
      |___ | \|  |  |  |   |     |___ |__/ |  |  | | \| \__> */
-    edit_entity: function(entity, entity_row_button) {
+    edit_entity: function(entity_relative_id, entity_row_button) {
         this.entity_being_edited_button = entity_row_button;
-        this.entity_being_edited = entity;
+        this.entity_id_being_edited = entity_relative_id;
         this.create(EDITOR_MODE_EDIT);
         this._opened_for_first_time();
     },
 
     _modify_entity: function() {
+        var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
+        // TODO : Change this to set all properties at the same time (to make entity events more efficient).
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
-            this.entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
-            this.entity_being_edited_button.update_text(this.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
+            entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
+            this.entity_being_edited_button.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
         this._hide_self_and_update();
     },
@@ -198,12 +205,14 @@ EntityEditor.prototype = {
      |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     _entity_created: function() {
         var entity_to_create = new Entity();
+        entity_to_create.user_created = true;
         entity_to_create.add_parent(this.entity_wall_manager.entity_wall_entity);
 
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
             entity_to_create.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
         }
+        // TODO : REFACTOR THIS!!!
         this.entity_wall_manager.add_entity(entity_to_create);
         this._hide_self_and_update();
     },

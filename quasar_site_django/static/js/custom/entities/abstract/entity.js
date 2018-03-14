@@ -16,8 +16,10 @@ Entity.prototype = {
 
     // State booleans.
     needs_to_be_saved : null,
+    used_created      : null,
 
     __init__: function(properties) {
+        this.user_created = false;
 
         // Inherit.
         ScheduleViewable.call(this);
@@ -96,14 +98,19 @@ Entity.prototype = {
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
     },
 
-    delete_property: function(property_name) {
+    delete_property: function(property_name, send_notifications) {
         if (this.hasOwnProperty(property_name)) {
             delete this[property_name];
             this.needs_to_be_saved = true;
+            if (is_defined(send_notifications)) {
+                if (send_notifications) {
+                    MANAGER_ENTITY.entity_on_change(this);
+                }
+            }
         }
     },
 
-    set_property: function(property_name, property_value) {
+    set_property: function(property_name, property_value, send_notifications) {
         var property_was_set = false;
         if (this.hasOwnProperty(property_name)) {
             if (this[property_name] !== property_value) {
@@ -116,21 +123,11 @@ Entity.prototype = {
         }
         if (property_was_set) {
             this.needs_to_be_saved = true;
-        }
-    },
-
-    update_values: function(new_keys_and_values) {
-        var update_occurred = false;
-        for (var key in new_keys_and_values) {
-            if (new_keys_and_values.hasOwnProperty(key)) {
-                if (new_keys_and_values[key] !== this[key]) {
-                    this[key] = new_keys_and_values[key];
-                    update_occurred = true;
+            if (is_defined(send_notifications)) {
+                if (send_notifications) {
+                    MANAGER_ENTITY.entity_on_change(this);
                 }
             }
-        }
-        if (update_occurred) {
-            this.needs_to_be_saved = true;
         }
     },
 

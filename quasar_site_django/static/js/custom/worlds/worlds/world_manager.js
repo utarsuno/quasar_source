@@ -180,13 +180,16 @@ WorldManager.prototype = {
             var created_world_entity = dynamic_worlds[c];
 
             var created_world = new DynamicWorld(created_world_entity);
-            // TODO : In the future only create the created worlds on first teleport into them!
+
+            // TODO : In the future only create the created worlds on first teleport into them! This will require significant refactoring though.
             this.create_world(created_world);
             this.add_dynamic_world(created_world);
         }
 
         this.all_dynamic_worlds_loaded();
-        this.load_schedule_content();
+        this.load_all_dynamic_content();
+        //this.load_schedule_content();
+        this.link_all_entities_for_notifications();
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);

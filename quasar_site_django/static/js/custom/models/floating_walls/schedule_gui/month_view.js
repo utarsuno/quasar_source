@@ -31,10 +31,13 @@ MonthView.prototype = {
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
 
-        // Inherit.
-        ViewableEntities.call(this);
+        // Subscribe to entity notification events.
+        EntityChangesSubscriber.call(this, world, false);
     },
 
+    /*___      ___   ___         ___       ___      ___  __                     __               __
+     |__  |\ |  |  |  |  \ /    |__  \  / |__  |\ |  |  /__`    |__|  /\  |\ | |  \ |    | |\ | / _`
+     |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
     update_title: function() {
         this.title.update_text(this.month_instance.get_full_string());
     },
@@ -181,9 +184,6 @@ MonthView.prototype = {
             this.simple_day_views.push(new DayViewSimple(all_days[d], this.base_wall));
         }
         //this.week_one = this.base_wall.add_row(null, );
-
-        // TODO : Load the month.
-        // TODO : Load all entity data from the world!!!
     },
 
     create_new: function(world) {
