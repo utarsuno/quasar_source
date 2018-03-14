@@ -89,7 +89,7 @@ class DataLogger(object):
 			#print('The last price variation was : ' + str(self.price_variation))
 
 			# Open the C process.
-			self.c_process = Popen('/home/git_repos/quasar_source/finance/book_data/data_saver ' + self.save_path + ' ' + str(self.book_orders_parser.number_of_buy_orders) + ' ' + str(self.book_orders_parser.number_of_sell_orders) + ' ' + str(self.last_price)
+			self.c_process = Popen('/home/finance/data_saver ' + self.save_path + ' ' + str(self.book_orders_parser.number_of_buy_orders) + ' ' + str(self.book_orders_parser.number_of_sell_orders) + ' ' + str(self.last_price)
 			                       + ' ' + str(self.price_variation) + ' ' + str(self.volume), shell=True, stdin=PIPE)
 
 			self.book_orders_parser.log_data(self.c_process)
