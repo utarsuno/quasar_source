@@ -123,6 +123,7 @@ int main(int argc, char * argv[]) {
     /*___  __   ___  ___           ___        __   __
      |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
      |    |  \ |___ |___     |  | |___  |  | \__/ |  \  |  */
+    return SUCCESS;
     free(buy_prices);
     free(buy_amounts);
     free(sell_prices);
