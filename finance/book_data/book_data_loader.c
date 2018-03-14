@@ -107,7 +107,7 @@ int main(int argc, char * argv[]) {
     // Sell prices.
     printf("Printing sell prices!\n");
     for (index = 0; index < number_of_sell_orders; index++) {
-        * (buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
+        * (sell_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
         printf("%hu\n", * (sell_prices + index));
     }

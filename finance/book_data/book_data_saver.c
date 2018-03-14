@@ -80,16 +80,16 @@ int main(int argc, char * argv[]) {
     fwrite(& number_of_sell_orders, sizeof(number_of_sell_orders), 1, file_pointer);
 
     // Next n0 bytes, buy prices.
-    fwrite(buy_prices, sizeof(unsigned short), sizeof(buy_prices), file_pointer);
+    fwrite(buy_prices, sizeof(buy_prices), 1, file_pointer);
 
     // Next n1 bytes, buy amounts.
-    fwrite(buy_amounts, sizeof(float), sizeof(buy_amounts), file_pointer);
+    fwrite(buy_amounts, sizeof(buy_amounts), 1, file_pointer);
 
     // Next n2 bytes, sell prices.
-    fwrite(sell_prices, sizeof(unsigned short), sizeof(sell_prices), file_pointer);
+    fwrite(sell_prices, sizeof(sell_prices), 1, file_pointer);
 
     // Next n3 bytes, sell amounts.
-    fwrite(sell_amounts, sizeof(float), sizeof(sell_amounts), file_pointer);
+    fwrite(sell_amounts, sizeof(sell_amounts), 1, file_pointer);
 
     /*___  __   ___  ___           ___        __   __
      |__  |__) |__  |__      |\/| |__   |\/| /  \ |__) \ /
