@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo nohup python3 book_data_logger.py &
+sudo nohup python3 /home/git_repos/quasar_source/finance/book_data/book_data_logger.py &
