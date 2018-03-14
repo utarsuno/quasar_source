@@ -110,7 +110,7 @@ class DataLogger(object):
 		"""Gets the book data needed."""
 		result = r.get(self.url_book_orders)
 		if result.status_code == 200:
-			self.book_orders_parser = BookOrdersParser(eval(result.content.decode("utf-8")))
+			self.book_orders_parser = BookOrdersParser(eval(result.content.decode('utf-8')))
 			return True
 		else:
 			return False
