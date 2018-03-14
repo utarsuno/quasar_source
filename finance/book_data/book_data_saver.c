@@ -74,10 +74,10 @@ int main(int argc, char * argv[]) {
     fwrite(& volume, sizeof(volume), 1, file_pointer);
 
     // Next 4 bytes, number of buy orders.
-    fwrite(& number_of_buy_orders, 1, sizeof(number_of_buy_orders), file_pointer);
+    fwrite(& number_of_buy_orders, sizeof(number_of_buy_orders), 1, file_pointer);
 
     // Next 4 bytes, number of sell orders.
-    fwrite(& number_of_sell_orders, 1, sizeof(number_of_sell_orders), file_pointer);
+    fwrite(& number_of_sell_orders, sizeof(number_of_sell_orders), 1, file_pointer);
 
     // Next n0 bytes, buy prices.
     fwrite(buy_prices, sizeof(unsigned short), number_of_buy_orders, file_pointer);
