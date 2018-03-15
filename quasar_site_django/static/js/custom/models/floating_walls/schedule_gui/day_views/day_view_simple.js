@@ -33,7 +33,6 @@ DayViewSimple.prototype = {
     },
 
     _edit_entity: function(entity_relative_id, entity_button) {
-        l('OPEN THE ENTITY EDITOR!');
         this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
@@ -57,7 +56,6 @@ DayViewSimple.prototype = {
         return false;
     },
 
-    // TODO : Add entity to view.
     add_entity: function(entity) {
         this.entities[entity.get_relative_id()] = entity;
 
@@ -65,17 +63,11 @@ DayViewSimple.prototype = {
         var entity_color = entity.get_color_for_schedule_view();
 
         var row = this.day_view.add_row(null, entity.get_relative_id());
-        // TODO : Clickable functionality!
         var entity_button = row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
-        
-        // this._edit_entity(entity.get_relative_id(), entity_button)
+
         entity_button.set_engage_function(this._edit_entity.bind(this, entity.get_relative_id(), entity_button));
 
         this.base_wall.refresh_position_and_look_at();
     }
-
-    // TODO : Delete entity from view.
-
-
 
 };

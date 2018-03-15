@@ -50,6 +50,8 @@ MonthView.prototype = {
     },
 
     on_entity_deleted: function(entity) {
+        l('REMOVE FROM VIEWABLE ENTITY');
+        l(entity);
         this.remove_viewable_entity(entity);
     },
 

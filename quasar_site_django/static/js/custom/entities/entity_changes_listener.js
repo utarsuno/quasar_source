@@ -18,6 +18,10 @@ function EntityChangesListener() {
             return;
         }
 
+
+        // TODO : Break this down by types of changes.
+
+
         // TODO : Check if any subscribers need to add or remove this entity.
 
         // TODO : Notify all appropriate subscribers.
@@ -27,11 +31,16 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
-
-
-        // TODO : Check what subscribers need to add this entity.
-
-        // TODO : Notify all appropriate subscribers.
+        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            if (!this.subscribers_home_world[s].adds_own_entities) {
+                this.subscribers_home_world[s].entity_added(entity);
+            }
+        }
+        for (s = 0; s < this.subscribers_other.length; s++) {
+            if (!this.subscribers_other[s].adds_own_entities) {
+                this.subscribers_other[s].entity_added(entity);
+            }
+        }
     };
 
     this.entity_on_deleted = function(entity) {
@@ -40,6 +49,7 @@ function EntityChangesListener() {
         }
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
             if (this.subscribers_home_world[s].has_entity(entity)) {
+                l('ENTITY MATCH FOUND, DELETE IT!');
                 this.subscribers_home_world[s].entity_deleted(entity);
             }
         }
