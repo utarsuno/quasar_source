@@ -31,6 +31,9 @@ MonthView.prototype = {
         this.base_wall.world.root_attachables.push(this.base_wall);
         this.base_wall.refresh_position_and_look_at();
 
+        // Handles Entity Events.
+        ViewableEntities.call(this);
+
         // Subscribe to entity notification events.
         EntityChangesSubscriber.call(this, world, false);
         // If this MonthView was created instead of loaded make sure to add all needed linked entities.
