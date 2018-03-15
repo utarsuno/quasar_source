@@ -36,6 +36,7 @@ MonthView.prototype = {
 
         // Subscribe to entity notification events.
         EntityChangesSubscriber.call(this, world, false);
+        this.add_to_subscribers_list();
         // If this MonthView was created instead of loaded make sure to add all needed linked entities.
         if (!is_defined(entity_to_load_from)) {
             this.link_all_from_entity_events();
