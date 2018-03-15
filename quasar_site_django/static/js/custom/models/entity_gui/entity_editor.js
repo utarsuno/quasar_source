@@ -140,7 +140,7 @@ EntityEditor.prototype = {
         }
 
         //this.wall_entity_editor.set_auto_adjust_height(true);
-        //this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
+        this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
         //this.wall_entity_editor.auto_adjust_height_if_needed();
     },
