@@ -33,6 +33,7 @@ DayViewSimple.prototype = {
     },
 
     _edit_entity: function(entity_relative_id, entity_button) {
+        l('OPEN THE ENTITY EDITOR!');
         this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
