@@ -42,8 +42,8 @@ MonthView.prototype = {
     /*___      ___   ___         ___       ___      ___  __                     __               __
      |__  |\ |  |  |  |  \ /    |__  \  / |__  |\ |  |  /__`    |__|  /\  |\ | |  \ |    | |\ | / _`
      |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
-    on_entity_added_allow_filter: function(entity) {
-        return !!entity.is_schedule_viewable();
+    on_entity_added_allowed_to_be_added: function(entity) {
+        return entity.is_schedule_viewable();
     },
 
     on_entity_added: function(entity) {
@@ -87,7 +87,8 @@ MonthView.prototype = {
      /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
      .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
     delete_month_view_wall: function() {
-        l('TODO : DELETE THE MONTH VIEW WALL!');
+        MANAGER_ENTITY.delete_entity_by_id(this.month_view_entity.get_relative_id());
+        this.fully_remove_self_and_all_sub_attachments();
     },
 
     month_type_selected: function(month_type) {

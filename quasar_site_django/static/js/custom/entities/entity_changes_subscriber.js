@@ -27,8 +27,8 @@ function EntityChangesSubscriber(world, adds_own_entities) {
     };
 
     this.entity_added = function(entity) {
-        if (is_defined(this.on_entity_added_allow_filter)) {
-            if (!this.on_entity_added_allow_filter(entity)) {
+        if (is_defined(this.on_entity_added_allowed_to_be_added)) {
+            if (!this.on_entity_added_allowed_to_be_added(entity)) {
                 return;
             }
         }
