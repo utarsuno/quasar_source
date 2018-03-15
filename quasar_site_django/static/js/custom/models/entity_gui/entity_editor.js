@@ -105,6 +105,9 @@ EntityEditor.prototype = {
             this.create_or_save_changes_button.update_text('create entity');
             this.cancel_or_delete_button.update_text('cancel');
         } else {
+
+            l('DISPLAY EDIT MODE!!!');
+
             this.current_mode = EDITOR_MODE_EDIT;
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
