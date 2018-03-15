@@ -57,7 +57,7 @@ EntityGroup.prototype = {
             this.load_from_entity_finalize();
         }
 
-        this.wall_entity_editor = new EntityEditor(this);
+        this.wall_entity_editor = new EntityEditor(this, this.base_wall);
         this.wall_entity_editor.set_create_entity_display_button(this.create_new_entity_button);
 
         this.base_wall.refresh_position_and_look_at();

@@ -5,8 +5,8 @@ const EDITOR_MODE_EDIT   = 2;
 
 const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
-function EntityEditor(entity_event_subscriber) {
-    this.__init__(entity_event_subscriber);
+function EntityEditor(entity_event_subscriber, base_wall) {
+    this.__init__(entity_event_subscriber, base_wall);
 }
 
 EntityEditor.prototype = {

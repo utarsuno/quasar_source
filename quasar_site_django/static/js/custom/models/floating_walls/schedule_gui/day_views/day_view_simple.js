@@ -29,7 +29,7 @@ DayViewSimple.prototype = {
         this.entities = {};
 
         // Wall used for editing existing entities.
-        this.wall_entity_editor = new EntityEditor(this);
+        this.wall_entity_editor = new EntityEditor(this, this.base_wall);
     },
 
     _edit_entity: function(entity_relative_id, entity_button) {
