@@ -7,6 +7,7 @@ function EntityTypeSelector(entity_editor) {
 EntityTypeSelector.prototype = {
     __init__: function(entity_editor) {
         this.entity_editor = entity_editor;
+        this.base_wall = this.entity_editor.base_wall;
     },
 
     set_display_button: function(button) {
@@ -18,8 +19,8 @@ EntityTypeSelector.prototype = {
         if (!is_defined(this.wall_select_entity_type)) {
             this.create();
         }
-
         this.wall_select_entity_type.force_display_self_and_all_child_attachments_recursively();
+        this.base_wall.refresh_position_and_look_at();
     },
 
     create: function() {
@@ -43,6 +44,7 @@ EntityTypeSelector.prototype = {
             this.entity_editor.add_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
             this.entity_editor.add_entity_field(ENTITY_PROPERTY_COMPLETED);
         }
+        this.base_wall.refresh_position_and_look_at();
     }
 
 };
