@@ -4,7 +4,7 @@ function EntityChangesSubscriber(world, adds_own_entities) {
 
     this.adds_own_entities = adds_own_entities;
 
-    this.referenced_world = world;
+    this.world = world;
     MANAGER_ENTITY.add_entity_events_subscriber(this);
 
     this.list_of_entities = {};
