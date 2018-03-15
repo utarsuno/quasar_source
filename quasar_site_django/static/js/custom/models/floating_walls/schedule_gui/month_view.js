@@ -47,6 +47,10 @@ MonthView.prototype = {
     },
 
     on_entity_added: function(entity) {
+
+        l('ADD THIS ENTITY TO THE MONTH WALL!');
+        l(entity);
+
         /*
         // TODO : Move the logic of this line?
         //entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
