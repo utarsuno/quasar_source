@@ -7,8 +7,10 @@ function EntityChangesListener() {
 
     this.add_entity_events_subscriber = function(entity_events_listener) {
         if (entity_events_listener.world === MANAGER_WORLD.world_home) {
+            l('ADDED A HOME SUBSCRIBER!');
             this.list_of_entity_event_subscribers_home_world.push(entity_events_listener);
         } else {
+            l('ADDED A NON HOME SUBSCRIBER!');
             this.list_of_entity_event_subscribers_not_from_home_world.push(entity_events_listener);
         }
     };
