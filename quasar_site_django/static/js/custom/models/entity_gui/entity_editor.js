@@ -169,7 +169,7 @@ EntityEditor.prototype = {
     },
 
     _opened_for_first_time: function() {
-        this.entity_field_rows[ENTITY_DEFAULT_PROPERTY_TYPE].hide_extra_elements();
+        //this.entity_field_rows[ENTITY_DEFAULT_PROPERTY_TYPE].hide_extra_elements();
     },
 
     _hide_self_and_update: function() {
