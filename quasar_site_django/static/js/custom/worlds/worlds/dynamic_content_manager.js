@@ -14,6 +14,8 @@ function DynamicContentManager() {
         }
     };
 
+    // TODO : DELETE ALL OF THIS CODE
+    /*
     this.load_schedule_content = function() {
         // Load each static world.
         MANAGER_WORLD.world_home.load_dynamic_content();
@@ -66,6 +68,7 @@ function DynamicContentManager() {
 
         return all_schedule_viewable_entities;
     };
+    */
 
     /*___      ___   ___              __  ___    ___    __       ___    __        __ 
      |__  |\ |  |  |  |  \ /    |\ | /  \  |  | |__  | /  `  /\   |  | /  \ |\ | /__`
@@ -108,7 +111,27 @@ function DynamicContentManager() {
     };
 
     this.link_all_entities_for_notifications = function() {
+        // At this point in time all entities and dynamic content has been loaded.
+        this.link_entity_notifications_for_month_views_for_world(this.world_home);
 
+        for (var id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(id)) {
+                var dynamic_world = this.dynamic_worlds[id];
+                this.link_entity_notifications_for_month_views_for_world(dynamic_world);
+            }
+        }
+
+
+        // TODO : Complete the rest of this.
+
+    };
+
+    this.link_entity_notifications_for_month_views_for_world = function(world) {
+        var month_view_walls = world.month_view_walls;
+
+        for (var mv = 0; mv < month_view_walls.length; mv++) {
+            month_view_walls[mv].link_all_from_entity_events();
+        }
     };
 
 }

@@ -45,7 +45,7 @@ DayViewSimple.prototype = {
     },
 
     has_entity: function(entity) {
-        var entity_id = entity;
+        var entity_id = entity.get_relative_id();
         for (var id in this.entities) {
             if (this.entities.hasOwnProperty(id)) {
                 if (this.entities[id].get_relative_id() === entity_id) {
