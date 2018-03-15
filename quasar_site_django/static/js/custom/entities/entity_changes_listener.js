@@ -31,8 +31,12 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
+        l('Entity created event!');
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            l ('Adds own entities?');
             if (!this.subscribers_home_world[s].adds_own_entities) {
+                l('False, provide the entity!');
+                l(entity);
                 this.subscribers_home_world[s].entity_added(entity);
             }
         }
