@@ -28,6 +28,8 @@ function EntityChangesListener() {
     };
 
     this.entity_on_created = function(entity) {
+        l('Entity created event for :');
+        l(entity);
         if (!entity.user_created) {
             return;
         }
