@@ -26,16 +26,6 @@ function EntityChangesSubscriber(world, adds_own_entities) {
         }
     };
 
-    this.entity_deleted = function(entity) {
-        if (is_defined(this.on_entity_deleted)) {
-            this.on_entity_deleted(entity);
-        }
-
-
-        // Remove the entity reference.
-        //delete this.list_of_entities[entity.get_relative_id()];
-    };
-
     this.entity_added = function(entity) {
         if (is_defined(this.on_entity_added_allow_filter)) {
             if (!this.on_entity_added_allow_filter(entity)) {
@@ -59,4 +49,26 @@ function EntityChangesSubscriber(world, adds_own_entities) {
         return false;
     };
 
+    /*__   ___       ___ ___    __           ___       ___      ___  __
+     |  \ |__  |    |__   |  | /  \ |\ |    |__  \  / |__  |\ |  |  /__`
+     |__/ |___ |___ |___  |  | \__/ | \|    |___  \/  |___ | \|  |  .__/ */
+
+    this.entity_deleted = function(entity) {
+        if (is_defined(this.on_entity_deleted)) {
+            this.on_entity_deleted(entity);
+        }
+
+        var remove_index = NOT_FOUND;
+        var entity_id = entity.get_relative_id();
+        for (var e = 0; e < this.list_of_entity_ids.length; e++) {
+            if (this.list_of_entity_ids[e] === entity_id) {
+                remove_index = e;
+                break;
+            }
+        }
+        if (remove_index === NOT_FOUND) {
+            raise_exception_with_full_logging('Entity to remove not found!');
+        }
+        this.list_of_entity_ids.splice(remove_index, 1);
+    };
 }

@@ -2,16 +2,16 @@
 
 function EntityChangesListener() {
 
-    this.list_of_entity_event_subscribers_home_world = [];
-    this.list_of_entity_event_subscribers_not_from_home_world = [];
+    this.subscribers_home_world = [];
+    this.subscribers_other = [];
 
     this.add_entity_events_subscriber = function(entity_events_listener) {
         if (entity_events_listener.world === MANAGER_WORLD.world_home) {
             l('ADDED A HOME SUBSCRIBER!');
-            this.list_of_entity_event_subscribers_home_world.push(entity_events_listener);
+            this.subscribers_home_world.push(entity_events_listener);
         } else {
             l('ADDED A NON HOME SUBSCRIBER!');
-            this.list_of_entity_event_subscribers_not_from_home_world.push(entity_events_listener);
+            this.subscribers_other.push(entity_events_listener);
         }
     };
 
@@ -37,28 +37,19 @@ function EntityChangesListener() {
     };
 
     this.entity_on_deleted = function(entity) {
-        l('Entity on deleted event!');
-        l(entity);
-
         if (!entity.user_created) {
             return;
         }
-
-
-        l('Printing all the home world subscribers!');
-        for (var s = 0; s < this.list_of_entity_event_subscribers_home_world.length; s++) {
-            l(this.list_of_entity_event_subscribers_home_world[s]);
+        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            if (this.subscribers_home_world[s].has_entity(entity)) {
+                this.subscribers_home_world[s].entity_deleted(entity);
+            }
         }
-
-        l('Printing all the non home world subscribers!');
-        for (s = 0; s < this.list_of_entity_event_subscribers_not_from_home_world.length; s++) {
-            l(this.list_of_entity_event_subscribers_not_from_home_world[s]);
+        for (s = 0; s < this.subscribers_other.length; s++) {
+            if (this.subscribers_other[s].has_entity(entity)) {
+                this.subscribers_other[s].entity_deleted(entity);
+            }
         }
-
-
-        // TODO : Check what subscribers need to remove this entity.
-
-        // TODO : Notify all appropriate subscribers.
     };
 
     // TODO : ASCII Documentation : Functions for new subscribers created.
