@@ -139,6 +139,8 @@ class QuasarCode(object):
 		self._script_manager     = cfm.CodeFileManager(_get_all_shell_scripts())
 
 		# TODO : These all need to be updated.
+		# TODO : These all need to be updated.
+		# TODO : These all need to be updated.
 
 		# Javascript settings files.
 		self._eslint_code_file   = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')

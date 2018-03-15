@@ -5,18 +5,14 @@ const EDITOR_MODE_EDIT   = 2;
 
 const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
-function EntityEditor(entity_wall) {
-    this.__init__(entity_wall);
+function EntityEditor(entity_event_subscriber) {
+    this.__init__(entity_event_subscriber);
 }
 
 EntityEditor.prototype = {
 
-    __init__: function(entity_wall_manager) {
-        this.entity_wall_manager = entity_wall_manager;
-        this.base_wall = this.entity_wall_manager.base_wall;
-        this.world = this.base_wall.world;
-        this.entity_wall = this.entity_wall_manager.entity_wall;
-
+    __init__: function(entity_event_subscriber) {
+        this.entity_event_subscriber = entity_event_subscriber;
         this.current_mode = null;
     },
 
@@ -41,16 +37,14 @@ EntityEditor.prototype = {
         this.wall_entity_editor.delete_row_by_name(field_name);
 
         if (this.current_mode === EDITOR_MODE_EDIT) {
-            var entity_to_edit = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
-            entity_to_edit.delete_property(field_name);
+            var entity_modify = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+            entity_modify.delete_property(field_name, true);
         }
-
-        this.base_wall.refresh_position_and_look_at();
     },
 
     create: function(edit_mode) {
         if (!is_defined(this.wall_entity_editor)) {
-            this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.base_wall.world, false, COLOR_FLOATING_WALL_SUCCESS);
+            this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.entity_event_subscriber.world, false, COLOR_FLOATING_WALL_SUCCESS);
             this.wall_entity_editor.manual_visibility = true;
             this.wall_entity_editor.set_attachment_depth_offset(10);
             this.wall_entity_editor.add_close_button();
@@ -139,7 +133,6 @@ EntityEditor.prototype = {
         }
 
         this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
     },
 
     _add_entity_field: function(field_name) {
@@ -162,8 +155,6 @@ EntityEditor.prototype = {
 
             var new_entity_field = this._add_entity_field(field_name);
             new_entity_field.create(insert_index_for_row, field_value);
-
-            this.base_wall.refresh_position_and_look_at();
         }
     },
 
@@ -173,7 +164,6 @@ EntityEditor.prototype = {
 
     _hide_self_and_update: function() {
         this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
     },
 
     /*___      ___   ___         ___  __    ___         __
@@ -188,11 +178,9 @@ EntityEditor.prototype = {
 
     _modify_entity: function() {
         var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
-
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
-        // TODO : Change this to set all properties at the same time (to make entity events more efficient).
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
-            entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
+            entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1], true);
             this.entity_being_edited_button.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
         this._hide_self_and_update();
@@ -202,16 +190,12 @@ EntityEditor.prototype = {
      |__  |\ |  |  |  |  \ /    /  ` |__) |__   /\   |  | /  \ |\ |
      |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     _entity_created: function() {
-        var entity_to_create = new Entity();
-        entity_to_create.user_created = true;
-        entity_to_create.add_parent(this.entity_wall_manager.entity_wall_entity);
-
+        var entity_properties = {};
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
-            entity_to_create.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1]);
+            entity_properties[all_entities_fields_and_values[f][0]] = all_entities_fields_and_values[f][1];
         }
-        // TODO : REFACTOR THIS!!!
-        this.entity_wall_manager.add_entity(entity_to_create);
+        new Entity(entity_properties, true, this.entity_event_subscriber.world);
         this._hide_self_and_update();
     },
 

@@ -20,7 +20,6 @@ EntityTypeSelector.prototype = {
         }
 
         this.wall_select_entity_type.force_display_self_and_all_child_attachments_recursively();
-        this.entity_editor.base_wall.refresh_position_and_look_at();
     },
 
     create: function() {

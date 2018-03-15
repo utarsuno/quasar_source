@@ -40,8 +40,8 @@ function WorldDynamicContent() {
             var child_entity_type = child_entity.get_type();
 
             switch (child_entity_type) {
-            case ENTITY_TYPE_ENTITY_WALL:
-                this.load_entity_wall(child_entity);
+            case ENTITY_TYPE_ENTITY_GROUP:
+                this.load_entity_group(child_entity);
                 break;
             case ENTITY_TYPE_VIDEO:
                 this.video_entities.push(child_entity);
@@ -65,9 +65,9 @@ function WorldDynamicContent() {
     /*     __       ___                 ___
      |\/| /  \ |\ |  |  |__|    \  / | |__  |  |    |  |  /\  |    |
      |  | \__/ | \|  |  |  |     \/  | |___ |/\|    |/\| /~~\ |___ |___ */
-    this.create_new_month_view_wall = function(this_context) {
-        var month_view_wall = new MonthView(this_context);
-        this.month_view_walls.push(month_view_wall);
+    this.create_new_month_view_wall = function(world_context) {
+        var month_view_wall = new MonthView(world_context);
+        world_context.month_view_walls.push(month_view_wall);
     };
 
     this.load_month_view_wall = function(month_view_wall_entity) {
@@ -78,14 +78,13 @@ function WorldDynamicContent() {
     /*___      ___   ___
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
-    this.create_new_entity_wall = function(this_context) {
-        var entity_wall = new EntityWall(this_context);
-        this_context.entity_walls.push(entity_wall);
+    this.create_new_entity_group = function(world_context) {
+        var entity_wall = new EntityGroup(world_context);
+        world_context.entity_walls.push(entity_wall);
     };
 
-    // TODO : Eventually change the naming of entity wall entities lol.
-    this.load_entity_wall = function(entity_wall_entity) {
-        var entity_wall = new EntityWall(this, entity_wall_entity);
+    this.load_entity_group = function(entity_group_entity) {
+        var entity_wall = new EntityGroup(this, entity_group_entity);
         this.entity_walls.push(entity_wall);
     };
 
@@ -112,10 +111,10 @@ function WorldDynamicContent() {
         }
     };
 
-    this.create_new_video = function(this_context) {
+    this.create_new_video = function(world_context) {
         // TODO : Add needed functionality to this. (Such as temporarily displaying a refresh-warning).
-        var video_wall = new FloatingVideo(this_context);
-        this_context.videos.push(video_wall);
+        var video_wall = new FloatingVideo(world_context);
+        world_context.videos.push(video_wall);
     };
 
     this.load_video_wall = function(video_entity) {

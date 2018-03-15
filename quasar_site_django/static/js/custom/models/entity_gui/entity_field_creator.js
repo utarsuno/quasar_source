@@ -8,7 +8,6 @@ EntityFieldCreator.prototype = {
 
     __init__: function(entity_editor) {
         this.entity_editor = entity_editor;
-        this.base_wall = entity_editor.base_wall;
     },
 
     set_display_button: function(button) {
@@ -19,7 +18,6 @@ EntityFieldCreator.prototype = {
     _add_entity_field_button_pressed: function() {
         this.create();
         this.wall_add_new_field.force_display_self_and_all_child_attachments_recursively();
-        this.base_wall.refresh_position_and_look_at();
     },
 
     create: function() {

@@ -12,13 +12,11 @@ function player_action_global_save() {
     MANAGER_WORLD.prepare_for_save();
 }
 
-function player_action_create_entity_wall() {
-    l('TODO : Create new entity wall!');
-    MANAGER_WORLD.current_world.create_new_entity_wall(MANAGER_WORLD.current_world);
+function player_action_create_entity_group() {
+    MANAGER_WORLD.current_world.create_new_entity_group(MANAGER_WORLD.current_world);
 }
 
 function player_action_create_month_view() {
-    l('TODO : Create new month view wall!');
     MANAGER_WORLD.current_world.create_new_month_view_wall(MANAGER_WORLD.current_world);
 }
 

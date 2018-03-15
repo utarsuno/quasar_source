@@ -18,8 +18,13 @@ Entity.prototype = {
     needs_to_be_saved : null,
     used_created      : null,
 
-    __init__: function(properties) {
-        this.user_created = false;
+    __init__: function(properties, user_created, world_origin) {
+        if (is_defined(user_created)) {
+            this.user_created = user_created;
+        } else {
+            this.user_created = false;
+        }
+        this.world_origin = world_origin;
 
         // Inherit.
         ScheduleViewable.call(this);

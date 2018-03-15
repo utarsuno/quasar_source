@@ -1,10 +1,10 @@
 'use strict';
 
-function EntityWall(world, entity) {
+function EntityGroup(world, entity) {
     this.__init__(world, entity);
 }
 
-EntityWall.prototype = {
+EntityGroup.prototype = {
 
     __init__: function(world, entity) {
         this.initialize(world, entity);
@@ -57,7 +57,6 @@ EntityWall.prototype = {
             this.load_from_entity_finalize();
         }
 
-
         this.wall_entity_editor = new EntityEditor(this);
         this.wall_entity_editor.set_create_entity_display_button(this.create_new_entity_button);
 
@@ -68,7 +67,7 @@ EntityWall.prototype = {
         var data = get_player_blink_spot(200);
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
-        this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Wall', TYPE_INPUT);
+        this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Group', TYPE_INPUT);
 
         this.base_wall.set_to_saveable(world.entity);
     },
@@ -76,10 +75,8 @@ EntityWall.prototype = {
     load_from_entity: function(world, entity) {
         this.entity_wall_entity = entity;
 
-        // Load the base wall.
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
         this.base_wall.load_from_entity_data(this.entity_wall_entity.get_parent());
-        this.base_wall.refresh_position_and_look_at();
 
         this.entity_wall_title = this.base_wall.get_row_with_index(-1).elements[0];
     },
@@ -99,7 +96,7 @@ EntityWall.prototype = {
     create_new_finalize: function() {
         this.entity_wall.set_to_saveable();
         this.entity_wall_entity = this.entity_wall.get_self_entity();
-        this.entity_wall_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_WALL);
+        this.entity_wall_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_GROUP);
         this.entity_wall_entity.add_parent(this.base_wall.get_self_entity());
     },
 

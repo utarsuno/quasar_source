@@ -175,7 +175,7 @@ PlayerMenu.prototype = {
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_INFORMATION, TYPE_ICON);
-                current_row.add_2D_button([icon_width, 1], 'Entity Wall', null, player_action_create_entity_wall);
+                current_row.add_2D_button([icon_width, 1], 'Entity Group', null, player_action_create_entity_group);
 
                 current_row = this.create_wall.add_row(null);
                 current_row.add_2D_element([0, icon_width], ICON_IMPORT, TYPE_ICON);

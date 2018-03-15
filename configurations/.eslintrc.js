@@ -187,7 +187,7 @@ module.exports = {
 
         "Entity": false,
 
-        "EntityWall"        : false,
+        "EntityGroup"       : false,
         "EntityEditor"      : false,
         "EntityTypeSelector": false,
         "EntityFieldCreator": false,
@@ -256,7 +256,7 @@ module.exports = {
         "ENTITY_TYPE_TASK"                  : false,
         "ENTITY_TYPE_BASE"                  : false,
         "ENTITY_TYPE_WALL"                  : false,
-        "ENTITY_TYPE_ENTITY_WALL"           : false,
+        "ENTITY_TYPE_ENTITY_GROUP"          : false,
         "ENTITY_TYPE_OWNER"                 : false,
         "ENTITY_TYPE_TEXT_REMINDER"         : false,
         "ENTITY_TYPE_PICTURE"               : false,

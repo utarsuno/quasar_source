@@ -7,7 +7,7 @@
 ENTITY_TYPE_BASE                   = 'Entity'
 ENTITY_TYPE_TASK                   = 'EntityTask'
 ENTITY_TYPE_WALL                   = 'EntityWall'
-ENTITY_TYPE_ENTITY_WALL            = 'EntityWallEntity'
+ENTITY_TYPE_ENTITY_GROUP           = 'EntityGroup'
 ENTITY_TYPE_OWNER                  = 'EntityOwner'
 ENTITY_TYPE_TEXT_REMINDER          = 'EntityTextReminder'
 ENTITY_TYPE_DYNAMIC_WORLD          = 'EntityDynamicWorld'
