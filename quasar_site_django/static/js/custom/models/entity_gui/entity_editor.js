@@ -113,6 +113,8 @@ EntityEditor.prototype = {
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
 
             var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+            l('ENTITY BEING EDITED: ');
+            l(entity_being_edited);
 
             this.wall_title.update_text('Editing : ' + entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
 
