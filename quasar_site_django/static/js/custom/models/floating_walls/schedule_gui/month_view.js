@@ -33,11 +33,43 @@ MonthView.prototype = {
 
         // Subscribe to entity notification events.
         EntityChangesSubscriber.call(this, world, false);
+        // If this MonthView was created instead of loaded make sure to add all needed linked entities.
+        if (!is_defined(entity_to_load_from)) {
+            this.link_all_from_entity_events();
+        }
     },
 
     /*___      ___   ___         ___       ___      ___  __                     __               __
      |__  |\ |  |  |  |  \ /    |__  \  / |__  |\ |  |  /__`    |__|  /\  |\ | |  \ |    | |\ | / _`
      |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
+    on_entity_added_allow_filter: function(entity) {
+        return !!entity.is_schedule_viewable();
+    },
+
+    on_entity_added: function(entity) {
+        /*
+        // TODO : Move the logic of this line?
+        //entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
+
+        var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
+        var entity_relative_id = entity.get_relative_id();
+        var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
+        entity_button.set_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
+
+        this.base_wall.refresh_position_and_look_at();
+        */
+    },
+
+    on_entity_deleted: function(entity) {
+        /*
+        this.entity_wall.delete_row_by_name(entity.get_relative_id());
+        this.base_wall.refresh_position_and_look_at();
+        */
+    },
+
+
+
+    ////////
     update_title: function() {
         this.title.update_text(this.month_instance.get_full_string());
     },

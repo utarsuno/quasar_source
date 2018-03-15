@@ -18,13 +18,12 @@ Entity.prototype = {
     needs_to_be_saved : null,
     used_created      : null,
 
-    __init__: function(properties, user_created, world_origin) {
+    __init__: function(properties, user_created) {
         if (is_defined(user_created)) {
             this.user_created = user_created;
         } else {
             this.user_created = false;
         }
-        this.world_origin = world_origin;
 
         // Inherit.
         ScheduleViewable.call(this);
@@ -260,6 +259,18 @@ Entity.prototype = {
 
     get_children: function() {
         return this.children;
+    },
+
+    get_all_children_recursively: function() {
+        var list_of_all_children = [];
+        for (var c = 0; c < this.children.length; c++) {
+            list_of_all_children.push(this.children[c]);
+            var sub_list_of_all_children = this.children[c].get_all_children_recursively();
+            for (var rc = 0; rc < sub_list_of_all_children.length; rc++) {
+                list_of_all_children.push(sub_list_of_all_children[rc]);
+            }
+        }
+        return list_of_all_children;
     },
 
     get_child_ids: function() {

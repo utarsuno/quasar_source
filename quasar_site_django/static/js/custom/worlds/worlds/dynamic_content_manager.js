@@ -50,11 +50,11 @@ function DynamicContentManager() {
 
     this.get_all_schedule_viewable_entities_from_world = function(world) {
         var all_schedule_viewable_entities = [];
-        var entity_walls = world.entity_walls;
+        var entity_groups = world.entity_groups;
 
         // Go through each entity wall in that world.
-        for (var ew = 0; ew < entity_walls.length; ew++) {
-            var entity_wall_entities = entity_walls[ew].get_all_entities();
+        for (var ew = 0; ew < entity_groups.length; ew++) {
+            var entity_wall_entities = entity_groups[ew].get_all_entities();
             // Go through each entity in that entity wall.
             for (var e = 0; e < entity_wall_entities.length; e++) {
                 var entity = entity_wall_entities[e];
@@ -67,9 +67,46 @@ function DynamicContentManager() {
         return all_schedule_viewable_entities;
     };
 
-    /*___      ___   ___              __  ___    ___    __       ___    __        __                              __
-     |__  |\ |  |  |  |  \ /    |\ | /  \  |  | |__  | /  `  /\   |  | /  \ |\ | /__`    |    | |\ | |__/ | |\ | / _`
-     |___ | \|  |  |  |   |     | \| \__/  |  | |    | \__, /~~\  |  | \__/ | \| .__/    |___ | | \| |  \ | | \| \__> */
+    /*___      ___   ___              __  ___    ___    __       ___    __        __ 
+     |__  |\ |  |  |  |  \ /    |\ | /  \  |  | |__  | /  `  /\   |  | /  \ |\ | /__`
+     |___ | \|  |  |  |   |     | \| \__/  |  | |    | \__, /~~\  |  | \__/ | \| .__/*/
+    this.get_all_user_created_entity_ids_from_all_worlds = function() {
+        var entity_ids = [];
+        var home_world_entity_ids = this.get_all_user_created_entity_ids_from_world(this.world_home);
+        for (var e = 0; e < home_world_entity_ids.length; e++) {
+            entity_ids.push(home_world_entity_ids[e]);
+        }
+
+        // Go through each dynamic world now.
+        for (var id in this.dynamic_worlds) {
+            if (this.dynamic_worlds.hasOwnProperty(id)) {
+                var dynamic_world_entity_ids = this.get_all_user_created_entity_ids_from_world(this.dynamic_worlds[id]);
+
+                for (e = 0; e < dynamic_world_entity_ids.length; e++) {
+                    entity_ids.push(dynamic_world_entity_ids[e]);
+                }
+            }
+        }
+
+        return entity_ids;
+    };
+
+    this.get_all_user_created_entity_ids_from_world = function(world) {
+        // For now only EntityGroups contain the source of all user created entities.
+
+        var entity_groups = world.entity_groups;
+        var user_created_entity_ids = [];
+
+        for (var eg = 0; eg < entity_groups.length; eg++) {
+            var entity_group_entity_ids = entity_groups[eg].list_of_entity_ids;
+            for (var e = 0; e < entity_group_entity_ids.length; e++) {
+                user_created_entity_ids.push(entity_group_entity_ids[e]);
+            }
+        }
+
+        return user_created_entity_ids;
+    };
+
     this.link_all_entities_for_notifications = function() {
 
     };

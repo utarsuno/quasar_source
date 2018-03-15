@@ -44,5 +44,18 @@ function EntityChangesListener() {
         // TODO : Notify all appropriate subscribers.
     };
 
-}
+    // TODO : ASCII Documentation : Functions for new subscribers created.
+    this.add_all_needed_entity_links_for_subscriber = function(subscriber) {
+        var entity_ids;
 
+        if (subscriber.world === MANAGER_WORLD.world_home) {
+            entity_ids = MANAGER_WORLD.get_all_user_created_entity_ids_from_all_worlds();
+        } else {
+            entity_ids = MANAGER_WORLD.get_all_user_created_entity_ids_from_world(subscriber.world);
+        }
+
+        for (var e = 0; e < entity_ids.length; e++) {
+            subscriber.entity_added(this.get_entity_by_id(entity_ids[e]));
+        }
+    };
+}

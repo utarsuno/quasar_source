@@ -9,6 +9,14 @@ function EntityChangesSubscriber(world, adds_own_entities) {
 
     this.list_of_entity_ids = [];
 
+
+
+    this.link_all_from_entity_events = function() {
+        MANAGER_ENTITY.add_all_needed_entity_links_for_subscriber(this);
+    };
+
+
+
     this.entity_changed = function(entity) {
         if (is_defined(this.on_entity_change)) {
             this.on_entity_change(entity);
@@ -19,11 +27,19 @@ function EntityChangesSubscriber(world, adds_own_entities) {
         if (is_defined(this.on_entity_deleted)) {
             this.on_entity_deleted(entity);
         }
+
+
         // Remove the entity reference.
-        delete this.list_of_entities[entity.get_relative_id()];
+        //delete this.list_of_entities[entity.get_relative_id()];
     };
 
     this.entity_added = function(entity) {
+        if (is_defined(this.on_entity_added_allow_filter)) {
+            if (!this.on_entity_added_allow_filter(entity)) {
+                return;
+            }
+        }
+
         if (is_defined(this.on_entity_added)) {
             this.on_entity_added(entity);
         }
@@ -31,7 +47,7 @@ function EntityChangesSubscriber(world, adds_own_entities) {
     };
 
     this.has_entity = function(entity) {
-        var entity_id = entity;
+        var entity_id = entity.get_relative_id();
         for (var e = 0; e < this.list_of_entity_ids.length; e++) {
             if (entity_id === this.list_of_entity_ids[e]) {
                 return true;
@@ -40,20 +56,4 @@ function EntityChangesSubscriber(world, adds_own_entities) {
         return false;
     };
 
-    // TODO : DELETE!
-    this.add_entity = function(entity) {
-        this.list_of_entities[entity.get_relative_id()] = entity;
-    };
-
-    // TODO : DELETE!
-    this.get_all_entities = function() {
-        var entities = [];
-        for (var id in this.list_of_entities) {
-            if (this.list_of_entities.hasOwnProperty(id)) {
-                entities.push(this.list_of_entities[id]);
-            }
-        }
-        return entities;
-    };
 }
-

@@ -3,7 +3,7 @@
 function WorldDynamicContent() {
 
     this.floating_pictures = [];
-    this.entity_walls      = [];
+    this.entity_groups     = [];
     this.month_view_walls  = [];
 
     this.number_of_videos_to_load = 0;
@@ -80,12 +80,12 @@ function WorldDynamicContent() {
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
     this.create_new_entity_group = function(world_context) {
         var entity_wall = new EntityGroup(world_context);
-        world_context.entity_walls.push(entity_wall);
+        world_context.entity_groups.push(entity_wall);
     };
 
     this.load_entity_group = function(entity_group_entity) {
         var entity_wall = new EntityGroup(this, entity_group_entity);
-        this.entity_walls.push(entity_wall);
+        this.entity_groups.push(entity_wall);
     };
 
     /*       __   ___  __
