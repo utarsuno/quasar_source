@@ -27,11 +27,10 @@ EntityEditor.prototype = {
     },
 
     cancel_or_delete_button_pressed: function() {
-        if (this.current_mode === EDITOR_MODE_CREATE) {
-            this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
-        } else {
+        if (this.current_mode === EDITOR_MODE_EDIT) {
             MANAGER_ENTITY.delete_entity_by_id(this.entity_id_being_edited);
         }
+        this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
     },
 
     delete_entity_field: function(field_name) {
