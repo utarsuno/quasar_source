@@ -45,6 +45,7 @@ EntityEditor.prototype = {
     create: function(edit_mode) {
         if (!is_defined(this.wall_entity_editor)) {
             this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.entity_event_subscriber.world, false, COLOR_FLOATING_WALL_SUCCESS);
+            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_entity_editor.manual_visibility = true;
             this.wall_entity_editor.set_attachment_depth_offset(10);
             this.wall_entity_editor.add_close_button();
@@ -78,7 +79,6 @@ EntityEditor.prototype = {
         }
 
         // Delete all previously made non-default entity field rows.
-        this.wall_entity_editor.set_auto_adjust_height(false);
         var field_rows_to_delete = [];
         for (var key in this.entity_field_rows) {
             if (this.entity_field_rows.hasOwnProperty(key)) {
@@ -96,7 +96,6 @@ EntityEditor.prototype = {
             this.current_mode = EDITOR_MODE_CREATE;
 
             this.wall_entity_editor.attach_to(this.create_new_entity_button);
-            this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_title.update_text('Create New Entity');
 
             this.entity_field_rows[ENTITY_DEFAULT_PROPERTY_TYPE].set_value_to_default();
@@ -108,7 +107,6 @@ EntityEditor.prototype = {
             this.current_mode = EDITOR_MODE_EDIT;
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
-            this.wall_entity_editor.set_auto_adjust_height(true);
 
             var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
 
@@ -132,6 +130,7 @@ EntityEditor.prototype = {
             }
         }
 
+        this.wall_entity_editor.refresh_position_and_look_at();
         this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
     },
 
