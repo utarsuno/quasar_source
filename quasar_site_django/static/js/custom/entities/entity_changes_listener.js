@@ -31,6 +31,7 @@ function EntityChangesListener() {
         l('Entity created event for :');
         l(entity);
         if (!entity.user_created) {
+            l('exiting early?');
             return;
         }
         l('Entity created event!');
