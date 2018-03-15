@@ -22,7 +22,7 @@ EntityGroup.prototype = {
      |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
     on_entity_added: function(entity) {
         // TODO : Move the logic of this line?
-        entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
+        //entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
 
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         var entity_relative_id = entity.get_relative_id();

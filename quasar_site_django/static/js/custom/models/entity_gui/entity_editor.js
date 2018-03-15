@@ -197,7 +197,8 @@ EntityEditor.prototype = {
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
             entity_properties[all_entities_fields_and_values[f][0]] = all_entities_fields_and_values[f][1];
         }
-        new Entity(entity_properties, true, this.entity_event_subscriber.world);
+        var entity_created = new Entity(entity_properties, true, this.entity_event_subscriber.world);
+        this.entity_event_subscriber.entity_added(entity_created);
         this._hide_self_and_update();
     },
 

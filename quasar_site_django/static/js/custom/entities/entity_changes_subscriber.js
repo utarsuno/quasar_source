@@ -7,7 +7,7 @@ function EntityChangesSubscriber(world, adds_own_entities) {
     this.world = world;
     MANAGER_ENTITY.add_entity_events_subscriber(this);
 
-    this.list_of_entities = {};
+    this.list_of_entity_ids = [];
 
     this.entity_changed = function(entity) {
         if (is_defined(this.on_entity_change)) {
@@ -27,18 +27,25 @@ function EntityChangesSubscriber(world, adds_own_entities) {
         if (is_defined(this.on_entity_added)) {
             this.on_entity_added(entity);
         }
-        // Add the entity reference.
-        // TODO :
+        this.list_of_entity_ids.push(entity.get_relative_id());
     };
 
     this.has_entity = function(entity) {
-        return entity.get_relative_id() in this.list_of_entities;
+        var entity_id = entity;
+        for (var e = 0; e < this.list_of_entity_ids.length; e++) {
+            if (entity_id === this.list_of_entity_ids[e]) {
+                return true;
+            }
+        }
+        return false;
     };
 
+    // TODO : DELETE!
     this.add_entity = function(entity) {
         this.list_of_entities[entity.get_relative_id()] = entity;
     };
 
+    // TODO : DELETE!
     this.get_all_entities = function() {
         var entities = [];
         for (var id in this.list_of_entities) {
