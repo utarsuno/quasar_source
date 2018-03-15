@@ -87,7 +87,7 @@ MonthView.prototype = {
      /__` |__   |   |  | |\ | / _` /__`    |  |  /\  |    |
      .__/ |___  |   |  | | \| \__> .__/    |/\| /~~\ |___ |___ */
     delete_month_view_wall: function() {
-        MANAGER_ENTITY.delete_entity_by_id(this.month_view_entity.get_relative_id());
+        MANAGER_ENTITY.delete_entity_by_id(this.base_wall.get_self_entity().get_relative_id());
         this.base_wall.fully_remove_self_and_all_sub_attachments();
     },
 
