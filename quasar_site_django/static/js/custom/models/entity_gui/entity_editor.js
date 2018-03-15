@@ -31,7 +31,7 @@ EntityEditor.prototype = {
             MANAGER_ENTITY.delete_entity_by_id(this.entity_id_being_edited);
         }
         l('CANCEL OR DELETE BUTTON WAS PRESSED!');
-        this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
+        //this.wall_entity_editor.force_hide_self_and_all_child_attachments_recursively();
     },
 
     delete_entity_field: function(field_name) {
