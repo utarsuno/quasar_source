@@ -53,10 +53,13 @@ function EntityEditorFieldRow(entity_editor) {
     };
 
     this.set_value_from_entity = function() {
+        // TODO : Eventually optimize this.
+        var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_editor.entity_id_being_edited);
+
         if (this.entity_property === ENTITY_DEFAULT_PROPERTY_TYPE) {
-            this.entity_type_button.update_text(this.entity_editor.entity_being_edited.get_value(ENTITY_DEFAULT_PROPERTY_TYPE));
+            this.entity_type_button.update_text(entity_being_edited.get_value(ENTITY_DEFAULT_PROPERTY_TYPE));
         } else if (this.entity_property === ENTITY_PROPERTY_NAME) {
-            this.entity_name_input.update_text(this.entity_editor.entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
+            this.entity_name_input.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
     };
 }
