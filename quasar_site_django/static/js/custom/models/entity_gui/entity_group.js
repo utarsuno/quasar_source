@@ -36,6 +36,7 @@ EntityGroup.prototype = {
     },
 
     on_entity_deleted: function(entity) {
+        l('ON ENTITY DELETED CALLED!!!');
         this.entity_wall.delete_row_by_name(entity.get_relative_id());
         this.base_wall.refresh_position_and_look_at();
     },
