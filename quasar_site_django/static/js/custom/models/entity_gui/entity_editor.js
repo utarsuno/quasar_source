@@ -185,6 +185,7 @@ EntityEditor.prototype = {
         var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
         for (var f = 0; f < all_entities_fields_and_values.length; f++) {
             entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1], true);
+            // TODO : Move the location of this?
             this.entity_being_edited_button.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
         this._hide_self_and_update();

@@ -3,43 +3,40 @@
 function EntityChangesListener() {
 
     this.subscribers_home_world = [];
-    this.subscribers_other = [];
+    this.subscribers_other      = [];
 
-    this.add_entity_events_subscriber = function(entity_events_listener) {
-        if (entity_events_listener.world === MANAGER_WORLD.world_home) {
-            this.subscribers_home_world.push(entity_events_listener);
-        } else {
-            this.subscribers_other.push(entity_events_listener);
-        }
-    };
+    // check_foreign_modified_entities
 
-    this.entity_on_change = function(entity) {
+    this.entity_on_property_removed = function(entity, property_removed) {
         if (!entity.user_created) {
             return;
         }
+        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            this.subscribers_home_world[s].entity_property_removed(entity, property_removed);
+        }
+        for (s = 0; s < this.subscribers_other.length; s++) {
+            this.subscribers_other[s].entity_property_removed(entity, property_removed);
+        }
+    };
 
-
-        // TODO : Break this down by types of changes.
-
-
-        // TODO : Check if any subscribers need to add or remove this entity.
-
-        // TODO : Notify all appropriate subscribers.
+    this.entity_on_property_set_or_changed = function(entity, property_set_or_changed) {
+        if (!entity.user_created) {
+            return;
+        }
+        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            this.subscribers_home_world[s].entity_property_set_or_changed(entity, property_set_or_changed);
+        }
+        for (s = 0; s < this.subscribers_other.length; s++) {
+            this.subscribers_other[s].entity_property_set_or_changed(entity, property_set_or_changed);
+        }
     };
 
     this.entity_on_created = function(entity) {
-        l('Entity created event for :');
-        l(entity);
         if (!entity.user_created) {
-            l('exiting early?');
             return;
         }
-        l('Entity created event!');
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
-            l ('Adds own entities?');
             if (!this.subscribers_home_world[s].adds_own_entities) {
-                l('False, provide the entity!');
-                l(entity);
                 this.subscribers_home_world[s].entity_added(entity);
             }
         }
@@ -56,7 +53,6 @@ function EntityChangesListener() {
         }
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
             if (this.subscribers_home_world[s].has_entity(entity)) {
-                l('ENTITY MATCH FOUND, DELETE IT!');
                 this.subscribers_home_world[s].entity_deleted(entity);
             }
         }
@@ -67,7 +63,17 @@ function EntityChangesListener() {
         }
     };
 
-    // TODO : ASCII Documentation : Functions for new subscribers created.
+    /*                        __
+     |    | |\ | |__/ | |\ | / _`
+     |___ | | \| |  \ | | \| \__> */
+    this.add_entity_events_subscriber = function(entity_events_listener) {
+        if (entity_events_listener.world === MANAGER_WORLD.world_home) {
+            this.subscribers_home_world.push(entity_events_listener);
+        } else {
+            this.subscribers_other.push(entity_events_listener);
+        }
+    };
+
     this.add_all_needed_entity_links_for_subscriber = function(subscriber) {
         var entity_ids;
 

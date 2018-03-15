@@ -1,5 +1,8 @@
 'use strict';
 
+const INDEX_OF_ENTITY = 0;
+const INDEX_OF_ENTITY_BUTTON = 1;
+
 function DayViewSimple(day_instance, base_wall) {
     this.__init__(day_instance, base_wall);
 }
@@ -36,6 +39,12 @@ DayViewSimple.prototype = {
         this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
+    update_color_for_entity: function(entity) {
+        var entity_id = entity.get_relative_id();
+
+        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].set_default_color(entity.get_color_for_schedule_view());
+    },
+
     remove_entity: function(entity) {
         var entity_id = entity.get_relative_id();
         delete this.entities[entity_id];
@@ -57,7 +66,9 @@ DayViewSimple.prototype = {
     },
 
     add_entity: function(entity) {
-        this.entities[entity.get_relative_id()] = entity;
+        var entity_id = entity.get_relative_id();
+
+        this.entities[entity_id] = [entity, null];
 
         // Schedule color for this entity.
         var entity_color = entity.get_color_for_schedule_view();
@@ -65,7 +76,9 @@ DayViewSimple.prototype = {
         var row = this.day_view.add_row(null, entity.get_relative_id());
         var entity_button = row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
 
-        entity_button.set_engage_function(this._edit_entity.bind(this, entity.get_relative_id(), entity_button));
+        entity_button.set_engage_function(this._edit_entity.bind(this, entity_id, entity_button));
+
+        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON] = entity_button;
 
         this.base_wall.refresh_position_and_look_at();
     }

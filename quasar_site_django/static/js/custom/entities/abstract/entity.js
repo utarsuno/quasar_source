@@ -108,7 +108,7 @@ Entity.prototype = {
             this.needs_to_be_saved = true;
             if (is_defined(send_notifications)) {
                 if (send_notifications) {
-                    MANAGER_ENTITY.entity_on_change(this);
+                    MANAGER_ENTITY.entity_on_property_removed(this, property_name);
                 }
             }
         }
@@ -129,7 +129,7 @@ Entity.prototype = {
             this.needs_to_be_saved = true;
             if (is_defined(send_notifications)) {
                 if (send_notifications) {
-                    MANAGER_ENTITY.entity_on_change(this);
+                    MANAGER_ENTITY.entity_on_property_set_or_changed(this, property_name);
                 }
             }
         }

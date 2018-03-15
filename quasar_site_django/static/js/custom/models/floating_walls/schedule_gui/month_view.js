@@ -35,25 +35,12 @@ MonthView.prototype = {
         ViewableEntities.call(this);
 
         // Subscribe to entity notification events.
-        EntityChangesSubscriber.call(this, world, false);
+        EntityChangesSubscriber.call(this, world, false, true);
         this.add_to_subscribers_list();
         // If this MonthView was created instead of loaded make sure to add all needed linked entities.
         if (!is_defined(entity_to_load_from)) {
             this.link_all_from_entity_events();
         }
-    },
-
-    /*___      ___   ___         ___       ___      ___  __                     __               __
-     |__  |\ |  |  |  |  \ /    |__  \  / |__  |\ |  |  /__`    |__|  /\  |\ | |  \ |    | |\ | / _`
-     |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
-    on_entity_added: function(entity) {
-        this.add_viewable_entity(entity);
-    },
-
-    on_entity_deleted: function(entity) {
-        l('REMOVE FROM VIEWABLE ENTITY');
-        l(entity);
-        this.remove_viewable_entity(entity);
     },
 
     ////////
