@@ -64,7 +64,7 @@ EntityGroup.prototype = {
     },
 
     create_new: function(world) {
-        var data = get_player_blink_spot(200);
+        var data = get_player_blink_spot(1000);
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
         this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Group', TYPE_INPUT);

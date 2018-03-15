@@ -44,7 +44,7 @@ EntityEditor.prototype = {
 
     create: function(edit_mode) {
         if (!is_defined(this.wall_entity_editor)) {
-            this.wall_entity_editor = new FloatingWall(600, 400, null, null, this.entity_event_subscriber.world, false, COLOR_FLOATING_WALL_SUCCESS);
+            this.wall_entity_editor = new FloatingWall(600, 400, new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), this.entity_event_subscriber.world, false, COLOR_FLOATING_WALL_SUCCESS);
             this.wall_entity_editor.set_auto_adjust_height(true);
             this.wall_entity_editor.manual_visibility = true;
             this.wall_entity_editor.set_attachment_depth_offset(10);
