@@ -55,6 +55,9 @@ EntityManager.prototype = {
         }
 
         if (entity_to_delete !== null) {
+            // Notify all entity event subscribers that the entity was deleted.
+            this.entity_on_deleted(entity_to_delete);
+
             // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
             this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete);
 
@@ -64,9 +67,6 @@ EntityManager.prototype = {
             data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
             data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = entity_to_delete.get_relative_id();
             this.post_delete_entity.perform_post(data, this.entity_deleted_response.bind(this));
-
-            // Notify all entity event subscribers that the entity was deleted.
-            this.entity_on_deleted(entity_to_delete);
         }
 
         if (index_to_splice !== NOT_FOUND) {
