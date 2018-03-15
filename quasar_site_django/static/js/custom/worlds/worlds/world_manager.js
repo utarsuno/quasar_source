@@ -169,9 +169,9 @@ WorldManager.prototype = {
         this.world_admin_entity = this.static_worlds_manager_entity.get_child_entity_with_property_value(ENTITY_PROPERTY_NAME, ENTITY_STATIC_WORLD_ADMIN);
 
         // Create the static worlds needed.
-        this.world_home     = new HomeWorld(world_home_entity);
-        this.world_settings = new SettingsWorld(world_settings_entity);
-        this.world_admin    = new AdminWorld(world_admin_entity);
+        this.world_home     = new HomeWorld(this.world_home_entity);
+        this.world_settings = new SettingsWorld(this.world_settings_entity);
+        this.world_admin    = new AdminWorld(this.world_admin_entity);
 
         this.create_world(this.world_home);
         this.create_world(this.world_settings);
