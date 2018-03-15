@@ -54,9 +54,13 @@ function EntityChangesSubscriber(world, adds_own_entities) {
      |__/ |___ |___ |___  |  | \__/ | \|    |___  \/  |___ | \|  |  .__/ */
 
     this.entity_deleted = function(entity) {
+        l('DELETE?');
+
         if (is_defined(this.on_entity_deleted)) {
             this.on_entity_deleted(entity);
         }
+
+        l('YES DELETE!');
 
         var remove_index = NOT_FOUND;
         var entity_id = entity.get_relative_id();

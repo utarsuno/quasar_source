@@ -7,10 +7,8 @@ function EntityChangesListener() {
 
     this.add_entity_events_subscriber = function(entity_events_listener) {
         if (entity_events_listener.world === MANAGER_WORLD.world_home) {
-            l('ADDED A HOME SUBSCRIBER!');
             this.subscribers_home_world.push(entity_events_listener);
         } else {
-            l('ADDED A NON HOME SUBSCRIBER!');
             this.subscribers_other.push(entity_events_listener);
         }
     };
@@ -41,7 +39,9 @@ function EntityChangesListener() {
             return;
         }
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
+            l('SEARCHING SUBSCRIBER!');
             if (this.subscribers_home_world[s].has_entity(entity)) {
+                l('ENTITY TO DELETE FOUND!');
                 this.subscribers_home_world[s].entity_deleted(entity);
             }
         }
