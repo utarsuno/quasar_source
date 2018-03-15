@@ -7,10 +7,10 @@ function EntityGroup(world, entity) {
 EntityGroup.prototype = {
 
     __init__: function(world, entity) {
-        this.initialize(world, entity);
-
         // Subscribe to entity notification events.
         EntityChangesSubscriber.call(this, world, true);
+
+        this.initialize(world, entity);
     },
 
     _edit_entity: function(entity_relative_id, entity_button) {
