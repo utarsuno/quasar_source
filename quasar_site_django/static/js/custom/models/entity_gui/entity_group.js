@@ -9,6 +9,7 @@ EntityGroup.prototype = {
     __init__: function(world, entity) {
         // Subscribe to entity notification events.
         EntityChangesSubscriber.call(this, world, true);
+        this.add_to_subscribers_list();
 
         this.initialize(world, entity);
     },
