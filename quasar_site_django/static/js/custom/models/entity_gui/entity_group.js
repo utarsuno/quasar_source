@@ -29,6 +29,9 @@ EntityGroup.prototype = {
         var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
         entity_button.set_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
 
+        // Entities that get added to an EntityGroup must set the EntityGroupEntity as its parent.
+        entity.add_parent(this.entity_group_entity);
+
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -73,10 +76,10 @@ EntityGroup.prototype = {
     },
 
     load_from_entity: function(world, entity) {
-        this.entity_wall_entity = entity;
+        this.entity_group_entity = entity;
 
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
-        this.base_wall.load_from_entity_data(this.entity_wall_entity.get_parent());
+        this.base_wall.load_from_entity_data(this.entity_group_entity.get_parent());
 
         this.entity_wall_title = this.base_wall.get_row_with_index(-1).elements[0];
     },
@@ -95,16 +98,16 @@ EntityGroup.prototype = {
 
     create_new_finalize: function() {
         this.entity_wall.set_to_saveable();
-        this.entity_wall_entity = this.entity_wall.get_self_entity();
-        this.entity_wall_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_GROUP);
-        this.entity_wall_entity.add_parent(this.base_wall.get_self_entity());
+        this.entity_group_entity = this.entity_wall.get_self_entity();
+        this.entity_group_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_ENTITY_GROUP);
+        this.entity_group_entity.add_parent(this.base_wall.get_self_entity());
     },
 
     load_from_entity_finalize: function() {
-        var number_of_children = this.entity_wall_entity.number_of_children();
+        var number_of_children = this.entity_group_entity.number_of_children();
         for (var e = 0; e < number_of_children; e++) {
-            this.entity_wall_entity.children[e].user_created = true;
-            this.entity_added(this.entity_wall_entity.children[e]);
+            this.entity_group_entity.children[e].user_created = true;
+            this.entity_added(this.entity_group_entity.children[e]);
         }
     }
 };
