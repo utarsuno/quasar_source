@@ -42,49 +42,17 @@ MonthView.prototype = {
     /*___      ___   ___         ___       ___      ___  __                     __               __
      |__  |\ |  |  |  |  \ /    |__  \  / |__  |\ |  |  /__`    |__|  /\  |\ | |  \ |    | |\ | / _`
      |___ | \|  |  |  |   |     |___  \/  |___ | \|  |  .__/    |  | /~~\ | \| |__/ |___ | | \| \__> */
-    on_entity_added_allowed_to_be_added: function(entity) {
-        return entity.is_schedule_viewable();
-    },
-
     on_entity_added: function(entity) {
-
-        l('ADD THIS ENTITY TO THE MONTH WALL!');
-        l(entity);
-
-        /*
-        // TODO : Move the logic of this line?
-        //entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
-
-        var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
-        var entity_relative_id = entity.get_relative_id();
-        var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
-        entity_button.set_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
-
-        this.base_wall.refresh_position_and_look_at();
-        */
+        this.add_viewable_entity(entity);
     },
 
     on_entity_deleted: function(entity) {
-        /*
-        this.entity_wall.delete_row_by_name(entity.get_relative_id());
-        this.base_wall.refresh_position_and_look_at();
-        */
+        this.remove_viewable_entity(entity);
     },
-
-
 
     ////////
     update_title: function() {
         this.title.update_text(this.month_instance.get_full_string());
-    },
-
-    get_day_view_for_date: function(date) {
-        for (var d = 0; d < this.simple_day_views.length; d++) {
-            if (this.simple_day_views[d].day_instance.day_number === date) {
-                return this.simple_day_views[d];
-            }
-        }
-        raise_exception_with_full_logging('Day view not found!');
     },
 
     /*__   ___ ___ ___         __   __

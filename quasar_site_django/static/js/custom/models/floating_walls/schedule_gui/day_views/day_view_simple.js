@@ -36,6 +36,26 @@ DayViewSimple.prototype = {
         this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
+    remove_entity: function(entity) {
+        var entity_id = entity.get_relative_id();
+        delete this.entities[entity_id];
+        this.day_view.delete_row_by_name(entity_id);
+        // TODO : Sort the day view rows.
+        this.base_wall.refresh_position_and_look_at();
+    },
+
+    has_entity: function(entity) {
+        var entity_id = entity;
+        for (var id in this.entities) {
+            if (this.entities.hasOwnProperty(id)) {
+                if (this.entities[id].get_relative_id() === entity_id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+
     // TODO : Add entity to view.
     add_entity: function(entity) {
         this.entities[entity.get_relative_id()] = entity;
