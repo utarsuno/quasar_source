@@ -35,9 +35,24 @@ function EntityChangesListener() {
     };
 
     this.entity_on_deleted = function(entity) {
+        l('Entity on deleted event!');
+        l(entity);
+
         if (!entity.user_created) {
             return;
         }
+
+
+        l('Printing all the home world subscribers!');
+        for (var s = 0; s < this.list_of_entity_event_subscribers_home_world.length; s++) {
+            l(this.list_of_entity_event_subscribers_home_world[s]);
+        }
+
+        l('Printing all the non home world subscribers!');
+        for (s = 0; s < this.list_of_entity_event_subscribers_not_from_home_world.length; s++) {
+            l(this.list_of_entity_event_subscribers_not_from_home_world[s]);
+        }
+
 
         // TODO : Check what subscribers need to remove this entity.
 
