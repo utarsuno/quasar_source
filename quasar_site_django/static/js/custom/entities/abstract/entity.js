@@ -1,7 +1,7 @@
 'use strict';
 
-function Entity(properties) {
-    this.__init__(properties);
+function Entity(properties, user_created) {
+    this.__init__(properties, user_created);
 }
 
 Entity.prototype = {
