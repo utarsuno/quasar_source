@@ -32,6 +32,7 @@ EntityGroup.prototype = {
 
         // Entities that get added to an EntityGroup must set the EntityGroupEntity as its parent.
         entity.add_parent(this.entity_group_entity);
+        entity.user_created = true;
 
         this.base_wall.refresh_position_and_look_at();
     },
