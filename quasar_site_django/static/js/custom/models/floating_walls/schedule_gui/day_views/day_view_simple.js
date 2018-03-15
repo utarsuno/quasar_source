@@ -67,8 +67,9 @@ DayViewSimple.prototype = {
         var row = this.day_view.add_row(null, entity.get_relative_id());
         // TODO : Clickable functionality!
         var entity_button = row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
-
-        entity_button.set_engage_function(this._edit_entity(entity.get_relative_id(), entity_button));
+        
+        // this._edit_entity(entity.get_relative_id(), entity_button)
+        entity_button.set_engage_function(this._edit_entity.bind(this, entity.get_relative_id(), entity_button));
 
         this.base_wall.refresh_position_and_look_at();
     }
