@@ -67,10 +67,10 @@ function ViewableEntities() {
     this.on_entity_property_set_or_changed = function(entity, property) {
         // Check if the entity color needs to change.
         if (property === ENTITY_PROPERTY_COMPLETED) {
-            this.update_color_for_entity();
+            this.update_color_for_entity(entity);
         } else if (property === ENTITY_PROPERTY_NAME) {
             // Check if the entity name changed.
-            this.update_name_for_entity();
+            this.update_name_for_entity(entity);
         }
     };
 
