@@ -35,18 +35,11 @@ function EntityChangesListener() {
     };
 
     this.entity_on_deleted = function(entity) {
-        l('ENTITY ON DELETED CALLED!');
-
         if (!entity.user_created) {
             return;
         }
-
-        l('IT IS USER CREATED!');
-
         for (var s = 0; s < this.subscribers_home_world.length; s++) {
-            l('SEARCHING SUBSCRIBER!');
             if (this.subscribers_home_world[s].has_entity(entity)) {
-                l('ENTITY TO DELETE FOUND!');
                 this.subscribers_home_world[s].entity_deleted(entity);
             }
         }

@@ -32,7 +32,6 @@ EntityEditor.prototype = {
         if (this.current_mode === EDITOR_MODE_EDIT) {
             MANAGER_ENTITY.delete_entity_by_id(this.entity_id_being_edited);
         }
-        l('CANCEL OR DELETE BUTTON WAS PRESSED!');
     },
 
     delete_entity_field: function(field_name) {
@@ -81,7 +80,7 @@ EntityEditor.prototype = {
         }
 
         // Delete all previously made non-default entity field rows.
-        //this.wall_entity_editor.set_auto_adjust_height(false);
+        this.wall_entity_editor.set_auto_adjust_height(false);
         var field_rows_to_delete = [];
         for (var key in this.entity_field_rows) {
             if (this.entity_field_rows.hasOwnProperty(key)) {
@@ -140,10 +139,10 @@ EntityEditor.prototype = {
             }
         }
 
-        //this.wall_entity_editor.set_auto_adjust_height(true);
+        this.wall_entity_editor.set_auto_adjust_height(true);
+        this.wall_entity_editor.auto_adjust_height_if_needed();
         this.wall_entity_editor.force_display_self_and_all_child_attachments_recursively();
         this.base_wall.refresh_position_and_look_at();
-        //this.wall_entity_editor.auto_adjust_height_if_needed();
     },
 
     _add_entity_field: function(field_name) {
