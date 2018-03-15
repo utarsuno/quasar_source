@@ -112,6 +112,8 @@ EntityEditor.prototype = {
             this.current_mode = EDITOR_MODE_EDIT;
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
+            l('ATTACHED TO : ');
+            l(this.entity_being_edited_button);
 
             var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
             l('ENTITY BEING EDITED: ');
@@ -191,7 +193,7 @@ EntityEditor.prototype = {
             entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1], true);
             this.entity_being_edited_button.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
-        this._hide_self_and_update();
+        //this._hide_self_and_update();
     },
 
     /*___      ___   ___         __   __   ___      ___    __
@@ -205,7 +207,7 @@ EntityEditor.prototype = {
         }
         var entity_created = new Entity(entity_properties, true);
         this.entity_event_subscriber.entity_added(entity_created);
-        this._hide_self_and_update();
+        //this._hide_self_and_update();
     },
 
     set_create_entity_display_button: function(button) {
