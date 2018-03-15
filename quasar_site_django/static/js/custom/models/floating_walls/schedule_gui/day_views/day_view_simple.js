@@ -39,9 +39,13 @@ DayViewSimple.prototype = {
         this.wall_entity_editor.edit_entity(entity_relative_id, entity_button);
     },
 
+    update_name_for_entity: function(entity) {
+        var entity_id = entity.get_relative_id();
+        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].update_text(entity.get_value(ENTITY_PROPERTY_NAME));
+    },
+
     update_color_for_entity: function(entity) {
         var entity_id = entity.get_relative_id();
-
         this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].set_default_color(entity.get_color_for_schedule_view());
     },
 

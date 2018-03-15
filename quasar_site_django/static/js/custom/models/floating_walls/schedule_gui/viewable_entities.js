@@ -21,6 +21,14 @@ function ViewableEntities() {
         return due_month === this.month_instance.get_month_number() && this.month_instance.get_year() === due_year;
     };
 
+    this.update_name_for_entity = function(entity) {
+        for (var d = 0; d < this.simple_day_views.length; d++) {
+            if (this.simple_day_views[d].has_entity(entity)) {
+                this.simple_day_views[d].update_name_for_entity(entity);
+            }
+        }
+    };
+
     /*__   __        __   __           __   __       ___  ___  __
      /  ` /  \ |    /  \ |__)    |  | |__) |  \  /\   |  |__  /__`
      \__, \__/ |___ \__/ |  \    \__/ |    |__/ /~~\  |  |___ .__/ */
@@ -60,6 +68,9 @@ function ViewableEntities() {
         // Check if the entity color needs to change.
         if (property === ENTITY_PROPERTY_COMPLETED) {
             this.update_color_for_entity();
+        } else if (property === ENTITY_PROPERTY_NAME) {
+            // Check if the entity name changed.
+            this.update_name_for_entity();
         }
     };
 
