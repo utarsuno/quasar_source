@@ -12,6 +12,8 @@ int main(int argc, char * argv[]) {
      /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
     char * file_load_path = argv[ARGUMENT_FILE_TO_LOAD];
 
+    printf("Opened the following file {%s}\n", file_load_path);
+
     BookData * book_data = get_book_data_from_file(file_load_path);
 
     free_book_data(book_data);
