@@ -292,6 +292,8 @@ Entity.prototype = {
     add_child: function(child_entity) {
         if (!is_defined(child_entity)) {
             var error_message = 'Error can\'t add a not defined object as a child entity!';
+            l('Tried to add :');
+            l(child_entity);
             // FOR_DEV_START
             l(error_message);
             // FOR_DEV_END
