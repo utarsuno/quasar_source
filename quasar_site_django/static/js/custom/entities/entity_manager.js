@@ -326,7 +326,7 @@ EntityManager.prototype = {
                 return this.entities[i];
             }
         }
-        raise_exception_with_full_logging('No entity found with ID of {' + entity_id + '}');
+        //raise_exception_with_full_logging('No entity found with ID of {' + entity_id + '}');
     },
 
     /*__                    __      __       ___
