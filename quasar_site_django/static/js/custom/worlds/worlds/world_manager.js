@@ -45,9 +45,9 @@ WorldManager.prototype = {
         this.current_world.light_3.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
         // Temp for fun, slowly rotate the skybox.
-        this.current_world.skybox_cube.rotation.x += 1;
-        this.current_world.skybox_cube.rotation.y += 1;
-        this.current_world.skybox_cube.rotation.z += 1;
+        this.current_world.skybox_cube.rotation.x += .0001;
+        this.current_world.skybox_cube.rotation.y += .0001;
+        this.current_world.skybox_cube.rotation.z += .0001;
 
 
         // TODO : Double check on what order these should update.
