@@ -145,7 +145,7 @@ LoginWorld.prototype = {
 
         this.wall_login = new FloatingWall(login_wall_width, login_wall_height, login_wall_position, login_wall_normal, this, false);
         this.wall_login.add_full_row_3D(-1, 'Login', TYPE_TITLE);
-        this.wall_login.make_base_wall_visible();
+        this.wall_login.make_base_wall_invisible();
 
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_username_input = login_username_row[1];
