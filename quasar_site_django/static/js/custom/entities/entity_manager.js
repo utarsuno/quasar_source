@@ -154,7 +154,7 @@ EntityManager.prototype = {
                 // Temporary debugging.
                 if (!is_defined(this.get_entity_by_id(children_ids[c]))) {
                     l('WARNING! ID does not exist?');
-                    l(this.get_entity_by_id(children_ids[c]);
+                    l(this.get_entity_by_id(children_ids[c]));
                 } else {
                     this.entities[e].add_child(this.get_entity_by_id(children_ids[c]));
                 }
