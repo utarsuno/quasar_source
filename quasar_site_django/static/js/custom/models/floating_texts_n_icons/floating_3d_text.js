@@ -30,13 +30,9 @@ Floating3DText.prototype = {
     },
 
     __init__: function(text, type, world) {
-        // Inherit from Atachmentable.
+        // Inherit.
         Attachmentable.call(this, world);
-
-        // Inherit from FloatingText.
         FloatingText.call(this, text, type, false);
-
-        // Inherit from Animatable.
         Animatable.call(this);
 
         // TODO : Investigate into making these variables more dynamic.

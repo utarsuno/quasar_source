@@ -44,6 +44,12 @@ WorldManager.prototype = {
         this.current_world.light_2.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000);
         this.current_world.light_3.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
+        // Temp for fun, slowly rotate the skybox.
+        this.current_world.skybox_cube.rotation.x += 1;
+        this.current_world.skybox_cube.rotation.y += 1;
+        this.current_world.skybox_cube.rotation.z += 1;
+
+
         // TODO : Double check on what order these should update.
 
         if (MANAGER_WORLD.current_player_menu.is_visible()) {
@@ -101,9 +107,9 @@ WorldManager.prototype = {
 
         // Default skybox.
         var skybox_geometry = new THREE.BoxGeometry(22500, 22500, 22500);
-        var skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
-        skybox_cube.position.set(0, 0, 0);
-        world.add_to_scene(skybox_cube);
+        world.skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
+        world.skybox_cube.position.set(0, 0, 0);
+        world.add_to_scene(world.skybox_cube);
 
         // Default hex grid ground.
         var grid = new vg.HexGrid({cellSize: 100});
