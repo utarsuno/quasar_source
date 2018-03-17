@@ -434,6 +434,7 @@ module.exports = {
         "COLOR_FLOATING_WALL_SUCCESS"  : false,
         "COLOR_FLOATING_WALL_ERROR"    : false,
         "COLOR_TRANSPARENT"            : false,
+        "COLOR_SEMI_TRANSPARENT"       : false,
         "COLOR_MONDAY"                 : false,
         "COLOR_TUESDAY"                : false,
         "COLOR_WEDNESDAY"              : false,

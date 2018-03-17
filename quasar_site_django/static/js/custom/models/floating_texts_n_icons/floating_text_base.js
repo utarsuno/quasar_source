@@ -74,8 +74,10 @@ function FloatingText(text, type, is_2D_text) {
     this.color_changed = false;
 
     // Color variables.
-    this.set_default_background_color(COLOR_TRANSPARENT, false);
-    this.set_background_color(COLOR_TRANSPARENT, false);
+    //this.set_default_background_color(COLOR_TRANSPARENT, false);
+    //this.set_background_color(COLOR_TRANSPARENT, false);
+    this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
+    this.set_background_color(COLOR_SEMI_TRANSPARENT, false);
 
     this.format_type = null;
 

@@ -174,6 +174,7 @@ const COLOR_FLOATING_WALL_HIGHLIGHT = [0x152319, '#001f23'];
 const COLOR_FLOATING_WALL_SUCCESS   = [0x092300, '#092300'];
 const COLOR_FLOATING_WALL_ERROR     = [0x230002, '#230002'];
 const COLOR_TRANSPARENT             = 'rgba(255, 255, 255, 0.0)';
+const COLOR_SEMI_TRANSPARENT        = 'rgba(153, 204, 255, 0.2)';
 const COLOR_MONDAY                  = [0xff9162, '#ff9162'];
 const COLOR_TUESDAY                 = [0xffba5d, '#ffba5d'];
 const COLOR_WEDNESDAY               = [0xfff883, '#fff883'];
