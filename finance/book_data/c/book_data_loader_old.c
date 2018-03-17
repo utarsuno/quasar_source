@@ -7,32 +7,29 @@
 
 #define ARGUMENT_FILE_TO_LOAD          1
 
+BookData * get_book_data_from_file(char * file_path) {
+    FILE * file_pointer = fopen(file_load_path, "rb");
+    // Base code from : https://stackoverflow.com/questions/22059189/read-a-file-as-byte-array
+    char * file_buffer;
+    long file_length;
 
-// Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
-float bytes_to_float(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3) {
-    float output;
-    * ((unsigned char *)(& output) + 3) = b0;
-    * ((unsigned char *)(& output) + 2) = b1;
-    * ((unsigned char *)(& output) + 1) = b2;
-    * ((unsigned char *)(& output) + 0) = b3;
-    return output;
+    // Jump to the end of the file/
+    fseek(file_pointer, 0, SEEK_END);
+    // Get the current byte offset in the file.
+    file_length = ftell(file_pointer);
+    // Jump back to the beginning of the file.
+    rewind(file_pointer);
+
+    // Enough memory for file + \0.
+    file_buffer = (char *) malloc((file_length + 1) * sizeof(char));
+    // Read in the entire file
+    fread(file_buffer, file_length, 1, file_pointer);
+    // Close the file.
+    fclose(file_pointer);
+
+
 }
 
-int bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3) {
-    int output;
-    * ((unsigned char *)(& output) + 3) = b0;
-    * ((unsigned char *)(& output) + 2) = b1;
-    * ((unsigned char *)(& output) + 1) = b2;
-    * ((unsigned char *)(& output) + 0) = b3;
-    return output;
-}
-
-unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1) {
-    unsigned short output;
-    * ((unsigned char *)(& output) + 1) = b0;
-    * ((unsigned char *)(& output) + 0) = b1;
-    return output;
-}
 
 
 int main(int argc, char * argv[]) {
@@ -130,4 +127,3 @@ int main(int argc, char * argv[]) {
 
     return SUCCESS;
 }
-

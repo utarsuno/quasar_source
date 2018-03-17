@@ -97,6 +97,10 @@ class DataLogger(object):
 			# Close the C process.
 			self.c_process.stdin.close()
 			self.c_process.wait()
+			output_stdout, output_stderr = self.c_process.communicate()
+			print('Printing stdout and stderr')
+			print(output_stdout)
+			print(output_stderr)
 		else:
 			print('Error!')
 

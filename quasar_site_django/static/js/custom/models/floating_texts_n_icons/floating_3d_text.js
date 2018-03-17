@@ -100,21 +100,15 @@ Floating3DText.prototype = {
     },
 
     full_remove: function() {
-        //this.world.remove_from_interactive_then_scene(this);
-
         if (is_defined(this.mesh)) {
             this.object3D.remove(this.mesh);
-            this.geometry.dispose();
-            this.material.dispose();
         }
-        /*
         if (is_defined(this.geometry)) {
             this.geometry.dispose();
         }
         if (is_defined(this.material)) {
             this.material.dispose();
         }
-        */
         if (is_defined(this.dynamic_texture)) {
             this.dynamic_texture.dispose();
         }
