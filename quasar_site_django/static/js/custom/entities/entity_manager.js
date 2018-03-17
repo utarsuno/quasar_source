@@ -151,7 +151,13 @@ EntityManager.prototype = {
             var parent_ids   = this.entities[e].get_parent_ids();
 
             for (var c = 0; c < children_ids.length; c++) {
-                this.entities[e].add_child(this.get_entity_by_id(children_ids[c]));
+                // Temporary debugging.
+                if (!is_defined(this.get_entity_by_id(children_ids[c]))) {
+                    l('WARNING! ID does not exist?');
+                    l(this.get_entity_by_id(children_ids[c]);
+                } else {
+                    this.entities[e].add_child(this.get_entity_by_id(children_ids[c]));
+                }
             }
             for (var p = 0; p < parent_ids.length; p++) {
                 this.entities[e].add_parent(this.get_entity_by_id(parent_ids[p]));
@@ -321,7 +327,6 @@ EntityManager.prototype = {
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
         for (var i = 0; i < this.entities.length; i++) {
-            l(this.entities[i].get_relative_id());
             if (this.entities[i].get_relative_id() === entity_id) {
                 return this.entities[i];
             }
