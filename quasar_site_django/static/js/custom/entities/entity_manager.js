@@ -295,6 +295,9 @@ EntityManager.prototype = {
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
+        l('Adding the following entitiy data');
+        l(entity_data);
+
         return new Entity(entity_data);
     },
 
