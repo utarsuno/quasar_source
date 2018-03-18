@@ -36,6 +36,12 @@ path_source_simulation_runner=${path_source}${data_saver}".c"
 path_output_simulation_runner=${path_output}${data_saver}".c"
 path_output_simulation_runner_executable=${path_output}${data_saver}
 
+# QUICK TEST
+quick_test="quick_test"
+path_source_quick_test=${path_source}${quick_test}".c"
+path_output_quick_test=${path_output}${quick_test}".c"
+path_output_quick_test_executable=${path_output}${quick_test}
+
 # ---------------------------------------------------------------------------------------------------------
 
 #  __   __   __               ___  ___  __   ___  __      __      ___         ___  __
@@ -46,6 +52,7 @@ cp ${path_source_book_data} ${path_output_book_data}
 cp ${path_source_loader} ${path_output_loader}
 cp ${path_source_saver} ${path_output_saver}
 cp ${path_source_simulation_runner} ${path_output_simulation_runner}
+cp ${path_source_quick_test} ${path_output_quick_test}
 
 #  __   __         __          ___     __   __        ___  __  ___     ___         ___  __
 # /  ` /  \  |\/| |__) | |    |__     /  \ |__)    | |__  /  `  |     |__  | |    |__  /__`
@@ -58,4 +65,4 @@ gcc -c ${path_output_book_data} -o ${path_output_book_data_object_file}
 gcc -Wall -O2 ${path_output_loader} ${path_output_book_data_object_file} -o ${path_output_saver_executable}
 gcc -Wall -O2 ${path_output_saver} ${path_output_book_data_object_file} -o ${path_output_loader_executable}
 gcc -Wall -O2 ${path_output_simulation_runner} ${path_output_book_data_object_file} -o ${path_output_simulation_runner_executable}
-
+gcc -Wall -O2 ${path_output_quick_test} -o ${path_output_quick_test_executable}
