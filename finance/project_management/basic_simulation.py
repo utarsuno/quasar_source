@@ -25,12 +25,11 @@ class BasicSimulation(object):
 
 
 		c_process = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [self._masari_data_files[0]])
-		a, b = c_process.run_process_and_only_get_output()
-		print('A')
-		print(a)
-		print('B')
-		print(b)
+		#a, b = c_process.run_process_and_only_get_output()
 
+
+		simulation_runner = ProcessManager([c_process])
+		simulation_runner.run_all_c_processes()
 
 
 	#def run_training(self):

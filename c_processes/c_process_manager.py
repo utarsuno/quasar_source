@@ -40,7 +40,5 @@ class ProcessManager(object):
 
 	def _run_simulation(self, c_process, results_queue):
 		"""Runs a simulation for a single c_process."""
-		c_process.run_process_and_only_get_output()
-		results_queue.put([self._c_executable_path, c_process.output_stdout + '::::::' + c_process.output_stderr])
-
-
+		output_stdout, output_stderr = c_process.run_process_and_only_get_output()
+		results_queue.put([c_process._c_executable_path, output_stdout + '::::::' + output_stderr])
