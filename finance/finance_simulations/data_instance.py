@@ -71,33 +71,3 @@ class DataInstance(object):
 		r += str(self.data[DATA_KEY_SELL_PRICES]) + ',\n'
 		r += str(self.data[DATA_KEY_SELL_AMOUNTS]) + ',\n'
 		return r
-
-
-
-
-
-
-
-'''
-		print(self._last_price)
-		print(self._price_24h_change)
-		print(self._volume_24h)
-		print(self._number_of_buy_orders)
-		print(self._number_of_sell_orders)
-
-		print()
-
-		print(str(len(self._buy_prices)))
-		print(str(len(self._buy_amounts)))
-		print(str(len(self._sell_prices)))
-		print(str(len(self._sell_amounts)))
-
-		print()
-
-		print(self._buy_prices)
-		print(self._buy_amounts)
-		print(self._sell_prices)
-		print(self._sell_amounts)
-
-		print()
-'''

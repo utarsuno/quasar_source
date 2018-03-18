@@ -1,6 +1,6 @@
 # coding=utf-8
 
-"""This module, basic_simulation.py, runs a basic simulation through the data."""
+"""This module, simulation_data_filler.py, fills in static data needed for the simulation c files."""
 
 from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager

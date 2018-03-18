@@ -113,9 +113,9 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 		c_code.add_defined_1d_list_of_numbers('const float prices[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', list_of_prices)
 		c_code.add_defined_1d_list_of_numbers('const int number_of_buy_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_buy_orders_list)
 		c_code.add_defined_1d_list_of_numbers('const int number_of_sell_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_sell_orders_list)
-		c_code.add_defined_2d_list_of_numbers('const float all_buy_prices[NUMBER_OF_TIME_INSTANCES][50]   = {ARG};\n', list_of_list_of_buy_prices)
-		c_code.add_defined_2d_list_of_numbers('const float all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_buy_amounts)
-		c_code.add_defined_2d_list_of_numbers('const float all_sell_prices[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_sell_prices)
+		c_code.add_defined_2d_list_of_numbers('const float all_buy_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_buy_prices)
+		c_code.add_defined_2d_list_of_numbers('const float all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_buy_amounts)
+		c_code.add_defined_2d_list_of_numbers('const float all_sell_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_sell_prices)
 		c_code.add_defined_2d_list_of_numbers('const float all_sell_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_sell_amounts)
 
 		return str(c_code)
