@@ -42,7 +42,7 @@ int main(int argc, char * argv[]) {
 			net_influence[time_index] += (all_sell_amounts[time_index][i] * all_sell_prices[time_index][i]) * (sell_weight / (current_price - all_sell_prices[time_index][i] * 20));
 		}
 
-		printf("NET INFLUENCE IS : {%f}\\n", net_influence[time_index]);
+		//printf("NET INFLUENCE IS : {%f}\\n", net_influence[time_index]);
 
 		time_index += 1;
 	}
@@ -96,6 +96,8 @@ int main(int argc, char * argv[]) {
 	printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
 	printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
 	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
+
+	printf("Last price was : %f\\n", current_price);
 
 	free(simulation_state);
 
