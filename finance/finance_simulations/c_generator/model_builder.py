@@ -42,8 +42,6 @@ class ModelBuilder(object):
 	def generate_base_file(self):
 		"""Generates the base file."""
 		for l in self._libraries:
-			print(l)
-			print(type(l))
 			self.add_line('#include "' + l + '"')
 		for ds in self._define_statements:
 			self.add_line('#define ' + ds[0] + ' ' + ds[1])
@@ -54,7 +52,7 @@ class ModelBuilder(object):
 
 		with open(self._save_path, 'w') as file_handler:
 			for l in self._lines:
-				file_handler.write(l + '\n')
+				file_handler.write(l)
 
 
 	def add_line(self, s: str):
