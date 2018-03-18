@@ -14,7 +14,7 @@ class MassiveSimulationRunner(object):
 
 	def __init__(self):
 		self.best_weights = None
-		self.best_score   = None
+		self.best_score   = 1000
 
 		self.delta = .001
 
@@ -63,7 +63,17 @@ class MassiveSimulationRunner(object):
 		for r in results:
 			#print(r)
 			net_score = float(r[1])
-			print(str(r[0].flags) + ' --- ' + str(net_score))
+			flags = r[0].flags
+			print(str(flags) + ' --- ' + str(net_score))
+
+			if net_score > self.best_score:
+				self.best_score = net_score
+
+				new_weights = []
+				for w in flags:
+					new_weights.append(float(w))
+				
+				self.base_training_flags = new_weights
 
 
 
