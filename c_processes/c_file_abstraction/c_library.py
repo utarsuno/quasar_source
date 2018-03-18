@@ -16,5 +16,5 @@ class CLibrary(object):
 	def compile_library(self):
 		"""Compiles the library given the input source code directory and the output directory."""
 		print('Compile file test!')
-		print(terminal_api.run_terminal_command(['gcc', '-c', self._c_source_file.full_file_path, '-o', self.output_directory + self._c_source_file.raw_file_name]))
+		print(terminal_api.run_terminal_command(['gcc', '-c', self._c_source_file.full_file_path, '-o', self._output_directory + self._c_source_file.raw_file_name]))
 
