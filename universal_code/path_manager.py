@@ -15,15 +15,7 @@ PATH_TO_ALL_SCRIPTS_DIRECTORY = _project_base_path + 'all_scripts'
 PATH_TO_CONFIG_READER         = PATH_TO_ALL_SCRIPTS_DIRECTORY + '/universal/config_reader_for_bash.py'
 PATH_TO_CONFIG_FILE           = _project_base_path + 'configuration_files/config.ini'
 
-
-
 FINANCE_PATH_TO_MASARI_DATA = '/home/databoi/masari_data/'
-
-
-
-
-
-
 
 
 def get_config_ini() -> str:
