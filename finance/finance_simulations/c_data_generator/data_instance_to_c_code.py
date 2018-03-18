@@ -37,11 +37,22 @@ class CCode(object):
 		"""Utility function."""
 		code_text = ''
 		for row in list_of_list_of_numbers:
+			single_row = '{'
+			for n in row:
+				single_row += str(n) + ','
+			single_row = single_row[:-1] + '},\n'
+			code_text += single_row
+		self.add_lines(list_declaration.replace('ARG', code_text[:-2]))
+
+	def add_defined_2d_list_of_numbersOLD(self, list_declaration, list_of_list_of_numbers):
+		"""Utility function."""
+		code_text = ''
+		for row in list_of_list_of_numbers:
 			single_line = '{'
 			for e in row:
 				single_line += str(e) + ','
 			code_text += single_line[:-1] + '},\n'
-		self.add_lines(list_declaration.replace('ARG', code_text[:-2]))
+		return code_text
 
 	def __str__(self):
 		s = ''
@@ -87,6 +98,8 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 			list_of_list_of_buy_prices[-1].append(e)
 
 		print(list_of_list_of_buy_prices)
+		print('!!!!?!?!?!?!?!!!!\n')
+		print(c_code.add_defined_2d_list_of_numbersOLD('const unsigned short all_buy_prices[NUMBER_OF_TIME_INSTANCES][50]   = {ARG};\n', list_of_list_of_buy_prices))
 
 		exit()
 
