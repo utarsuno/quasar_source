@@ -91,16 +91,17 @@ int main(int argc, char * argv[]) {
 		time_index += 1;
 	}
 
-	printf("PRINTING ENDING SUMS\\n");
-	printf("Current number of buy orders {%d}\\n", simulation_state->number_of_current_buy_orders);
-	printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
-	printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
-	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
+	//printf("PRINTING ENDING SUMS\\n");
+	//printf("Current number of buy orders {%d}\\n", simulation_state->number_of_current_buy_orders);
+	//printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
+	//printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
+	//printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
 
-	printf("Last price was : %f\\n", current_price);
+	//printf("Last price was : %f\\n", current_price);
 	float btc_to_masari = simulation_state->btc_capital / current_price;
 
-	printf("Final score(ish) : %f\\n", simulation_state->masari_capital + btc_to_masari);
+	//printf("Final score(ish) : %f\\n", simulation_state->masari_capital + btc_to_masari);
+	printf("%f\n", simulation_state->masari_capital + btc_to_masari);
 
 	free(simulation_state);
 
