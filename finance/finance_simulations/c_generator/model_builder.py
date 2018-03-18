@@ -66,7 +66,7 @@ class ModelBuilder(object):
 		for gd in self._global_data:
 			self.add_lines(gd)
 
-		self.add_lines(self._c_main_code.split('\n'))
+		self.add_lines(self.model._c_main_code.split('\n'))
 
 	def _create_file(self, training):
 		"""Creates this model file."""
