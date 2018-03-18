@@ -1,3 +1,4 @@
+#include "/home/git_repos/quasar_source/finance/c_source_files/abstract/book_constants.h"
 #include "/home/git_repos/quasar_source/finance/c_source_files/abstract/book_data.h"
 
 #define ARGUMENT_FILE_TO_PARSE 1
