@@ -90,7 +90,10 @@ class FinanceProjectBuilder(object):
 
 	def build_base_for_model(self, model):
 		"""Temporary design."""
+		self._build_for_model(model, self._training_data, True)
+		self._build_for_model(model, self._testing_data, False)
 
+	def _build_for_model(self, model, data, is_training):
 		builder = model_builder.ModelBuilder(model, DIRECTORY_FINANCE_C_CODE_OUTPUT)
 		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
 		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
@@ -100,7 +103,10 @@ class FinanceProjectBuilder(object):
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_2', '3')
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_3', '4')
 
-		builder.generate_training_file(self._training_data)
+		if is_training:
+			builder.generate_training_file(data)
+		else:
+			builder.generate_testing_file(data)
 
 	'''__       ___               __        __          __
 	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`

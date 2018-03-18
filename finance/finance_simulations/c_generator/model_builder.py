@@ -11,6 +11,8 @@ class ModelBuilder(object):
 	def __init__(self, model, save_path):
 		self._model = model
 		self._save_path = save_path + self._model.file_name
+		self._training_path = save_path + self._model.file_name.replace('.c', '_training.c')
+		self._testing_path = save_path + self._model.file_name.replace('.c', '_testing.c')
 
 		self._libraries = []
 		self._define_statements = []
@@ -45,6 +47,12 @@ class ModelBuilder(object):
 
 	def generate_training_file(self, data_chunk):
 		"""Generate the training file."""
+		data_chunk.set_needed_data(self)
+		self._generate_base_file()
+		self._create_file()
+
+	def generate_testing_file(self, data_chunk):
+		"""Generate the testing file."""
 		data_chunk.set_needed_data(self)
 		self._generate_base_file()
 		self._create_file()
