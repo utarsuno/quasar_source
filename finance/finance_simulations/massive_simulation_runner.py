@@ -61,8 +61,8 @@ class MassiveSimulationRunner(object):
 
 		print('GOT THE FOLLOWING RESULTS')
 		for r in results:
-			print(r)
-
+			#print(r)
+			print(str(r[0].flags) + ' --- ' + str(r[1]))
 
 
 
