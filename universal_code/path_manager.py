@@ -17,7 +17,7 @@ PATH_TO_CONFIG_FILE           = _project_base_path + 'configuration_files/config
 
 
 
-FINANCE_PATH_TO_MASARI_DATA = '/home/databoi/masari_data/masari_data/'
+FINANCE_PATH_TO_MASARI_DATA = '/home/databoi/masari_data/'
 
 
 
