@@ -22,8 +22,9 @@ class CLibrary(object):
 		self.c_process.wait()
 		self.output_stdout, self.output_stderr = self.c_process.communicate()
 		print('OUTPUT!')
-		print(self.output_stdout)
-		print(self.output_stderr)
+		print(self.output_stdout.decode('utf-8'))
+		print()
+		print(self.output_stderr.decode('utf-8'))
 
 
 '''
