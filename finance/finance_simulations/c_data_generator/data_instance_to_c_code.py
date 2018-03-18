@@ -65,6 +65,21 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 		list_of_list_of_sell_prices = []
 		list_of_list_of_sell_amounts = []
 
+		print('@@@')
+		print('@@@')
+		print('@@@')
+		print('@@@')
+		print('@@@')
+
+		print(str(data_instances[0]))
+		print('@@@')
+		print(str(data_instances[1]))
+
+		print('@@@')
+		print('@@@')
+		print('@@@')
+		exit()
+
 		for i in data_instances:
 			#print(str(data_instances))
 
@@ -99,3 +114,5 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 
 	else:
 		print('SUPPORT THIS KIND OF DATA MODEL!!!')
+
+
