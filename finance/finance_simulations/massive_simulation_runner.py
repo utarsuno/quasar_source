@@ -16,7 +16,7 @@ class MassiveSimulationRunner(object):
 		self.best_weights = None
 		self.best_score   = None
 
-		self.delta = .0001
+		self.delta = .001
 
 		self.base_training_flags = [.0001, -.0007, .1, -.4]
 		#masari_training_process = CProcess('/home/databoi/c_code/m0_net_resistance_testing')
@@ -62,7 +62,8 @@ class MassiveSimulationRunner(object):
 		print('GOT THE FOLLOWING RESULTS')
 		for r in results:
 			#print(r)
-			print(str(r[0].flags) + ' --- ' + str(r[1]))
+			net_score = float(r[1])
+			print(str(r[0].flags) + ' --- ' + str(net_score))
 
 
 
