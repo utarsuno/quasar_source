@@ -15,6 +15,16 @@ class FinanceModel(object):
 		self._weights = []
 
 	@property
+	def model_name(self) -> str:
+		"""Returns the name of this model."""
+		return self._model_type
+
+	@property
+	def file_name(self) -> str:
+		"""Returns the file name of this model."""
+		return self._model_type + '.c'
+
+	@property
 	def type_of_data_needed(self):
 		"""Returns the type of data this model needs."""
 		return self._types_of_data_needed

@@ -2,8 +2,6 @@
 
 """This module, c_library.py, is an abstraction to a custom made C library."""
 
-from subprocess import Popen, PIPE
-from universal_code.shell_abstraction.shell_command_runner import run_shell_command_and_get_results
 from c_processes.c_compiler import create_object_file
 
 
