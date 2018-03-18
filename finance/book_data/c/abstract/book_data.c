@@ -59,40 +59,40 @@ BookData * get_book_data_from_file(char * file_path) {
     book_data->number_of_buy_orders = bytes_to_int(* (file_buffer + 13), * (file_buffer + 12), * (file_buffer + 11), * (file_buffer + 10));
     book_data->number_of_sell_orders = bytes_to_int(* (file_buffer + 17), * (file_buffer + 16), * (file_buffer + 15), * (file_buffer + 14));
 
-    book_data->buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
-    book_data->buy_amounts = (float *) malloc(sizeof(float) * number_of_buy_orders);
-    book_data->sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
-    book_data->sell_amounts = (float *) malloc(sizeof(float) * number_of_sell_orders);
+    book_data->buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_buy_orders));
+    book_data->buy_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_buy_orders));
+    book_data->sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders);
+    book_data->sell_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_sell_orders));
 
 
     int file_buffer_index = 18;
     int index;
 
-    unsigned short * buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * number_of_buy_orders);
-    float * buy_amounts  = (float *) malloc(sizeof(float) * number_of_buy_orders);
-    unsigned short * sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * number_of_sell_orders);
-    float * sell_amounts = (float *) malloc(sizeof(float) * number_of_sell_orders);
+    unsigned short * buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_buy_orders));
+    float * buy_amounts  = (float *) malloc(sizeof(float) * (book_data->number_of_buy_orders));
+    unsigned short * sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders);
+    float * sell_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_sell_orders));
 
     // Buy prices.
-    for (index = 0; index < number_of_buy_orders; index++) {
+    for (index = 0; index < book_data->number_of_buy_orders; index++) {
         * (book_data->buy_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
     }
 
     // Buy amounts.
-    for (index = 0; index < number_of_buy_orders; index++) {
+    for (index = 0; index < book_data->number_of_buy_orders; index++) {
         * (book_data->buy_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
     }
 
     // Sell prices.
-    for (index = 0; index < number_of_sell_orders; index++) {
+    for (index = 0; index < book_data->number_of_sell_orders; index++) {
         * (book_data->sell_prices + index) = bytes_to_unsigned_short(* (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 2;
     }
 
     // Sell amounts.
-    for (index = 0; index < number_of_sell_orders; index++) {
+    for (index = 0; index < book_data->number_of_sell_orders; index++) {
         * (book_data->sell_amounts + index) = bytes_to_float(* (file_buffer + file_buffer_index + 3), * (file_buffer + file_buffer_index + 2), * (file_buffer + file_buffer_index + 1), * (file_buffer + file_buffer_index));
         file_buffer_index += 4;
     }
