@@ -16,7 +16,7 @@ class MassiveSimulationRunner(object):
 		self.best_weights = None
 		self.best_score   = 1000
 
-		self.delta = .001
+		self.delta = .01
 
 		self.base_training_flags = [.0001, -.0007, .1, -.4]
 		#masari_training_process = CProcess('/home/databoi/c_code/m0_net_resistance_testing')
@@ -37,7 +37,7 @@ class MassiveSimulationRunner(object):
 
 			# Calculate the weight delta.
 			if p < 1000:
-				weight_delta = self.delta * p * -1
+				weight_delta = self.delta * p * -2
 			elif p < 2000:
 				weight_delta = self.delta * p
 			else:
