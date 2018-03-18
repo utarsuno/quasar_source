@@ -51,12 +51,22 @@ class CCode(object):
 		return s
 
 
+def convert_price_to_float_string(p):
+	"""Utility function."""
+	s = str(p)
+	while len(s) < 8:
+		s = '0' + s
+	return '.' + s
+
+
 def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 	"""Returns a text containing c_code that represents the data instances."""
 	c_code = CCode()
 
-	if finance_model.type_of_data_needed == DATA_REQUIREMENT_FULL_BOOK_ORDER:
+	if DATA_REQUIREMENT_FULL_BOOK_ORDER in finance_model.type_of_data_needed and DATA_KEY_LAST_PRICE in finance_model.type_of_data_needed:
 		c_code.add_define_statement('NUMBER_OF_TIME_INSTANCES', len(data_instances))
+
+		list_of_prices = []
 
 		number_of_buy_orders_list = []
 		number_of_sell_orders_list = []
@@ -69,12 +79,13 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 		for i in data_instances:
 			#print(str(i))
 
+			list_of_prices.append(convert_price_to_float_string(i.data[DATA_KEY_LAST_PRICE]))
 			number_of_buy_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 			number_of_sell_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 
 			list_of_list_of_buy_prices.append([])
 			for e in i.data[DATA_KEY_BUY_PRICES]:
-				list_of_list_of_buy_prices[-1].append(e)
+				list_of_list_of_buy_prices[-1].append(convert_price_to_float_string(e))
 
 			list_of_list_of_buy_amounts.append([])
 			for e in i.data[DATA_KEY_BUY_AMOUNTS]:
@@ -82,19 +93,30 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 
 			list_of_list_of_sell_prices.append([])
 			for e in i.data[DATA_KEY_SELL_PRICES]:
-				list_of_list_of_sell_prices[-1].append(e)
+				list_of_list_of_sell_prices[-1].append(convert_price_to_float_string(e))
 
 			list_of_list_of_sell_amounts.append([])
 			for e in i.data[DATA_KEY_SELL_AMOUNTS]:
 				list_of_list_of_sell_amounts[-1].append(e)
 
+		# Include statements needed.
+		c_code.add_line('#include <stdio.h>\n')
+		c_code.add_line('#include <stdlib.h>\n')
+
+		# Program arguments for the weights to run the simulation on.
+		c_code.add_define_statement('ARGUMENT_INDEX_WEIGHT_0', '1')
+		c_code.add_define_statement('ARGUMENT_INDEX_WEIGHT_1', '2')
+		c_code.add_define_statement('ARGUMENT_INDEX_WEIGHT_2', '3')
+		c_code.add_define_statement('ARGUMENT_INDEX_WEIGHT_3', '4')
+
+		# All the pre-defined data for the program.
+		c_code.add_defined_1d_list_of_numbers('const float prices[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', list_of_prices)
 		c_code.add_defined_1d_list_of_numbers('const int number_of_buy_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_buy_orders_list)
 		c_code.add_defined_1d_list_of_numbers('const int number_of_sell_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_sell_orders_list)
-
-		c_code.add_defined_2d_list_of_numbers('const unsigned short all_buy_prices[NUMBER_OF_TIME_INSTANCES][50]   = {ARG};\n', list_of_list_of_buy_prices)
-		c_code.add_defined_2d_list_of_numbers('const float          all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_buy_amounts)
-		c_code.add_defined_2d_list_of_numbers('const unsigned short all_sell_prices[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_sell_prices)
-		c_code.add_defined_2d_list_of_numbers('const float          all_sell_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_sell_amounts)
+		c_code.add_defined_2d_list_of_numbers('const float all_buy_prices[NUMBER_OF_TIME_INSTANCES][50]   = {ARG};\n', list_of_list_of_buy_prices)
+		c_code.add_defined_2d_list_of_numbers('const float all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_buy_amounts)
+		c_code.add_defined_2d_list_of_numbers('const float all_sell_prices[NUMBER_OF_TIME_INSTANCES][50]  = {ARG};\n', list_of_list_of_sell_prices)
+		c_code.add_defined_2d_list_of_numbers('const float all_sell_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n', list_of_list_of_sell_amounts)
 
 		return str(c_code)
 

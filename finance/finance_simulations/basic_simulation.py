@@ -42,6 +42,8 @@ class BasicSimulation(object):
 		for r in results:
 			self._data_instances.append(DataInstance(r))
 
+
+
 		# TEMPORARY_SAVING_PATH
 		file_c_code = get_c_code_from_list_of_data_instances(self._data_instances, FinanceModel_M0())
 		lines = file_c_code.split('\n')

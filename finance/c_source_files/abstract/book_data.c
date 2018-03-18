@@ -1,3 +1,4 @@
+#include "/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h"
 #include "/home/git_repos/quasar_source/finance/c_source_files/abstract/book_data.h"
 
 // Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
