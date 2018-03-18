@@ -26,9 +26,8 @@ class MassiveSimulationRunner(object):
 		# A single training session will train each weight 3000 times with varying values.
 
 		number_of_weights = len(self.base_training_flags)
-		#for w in range(number_of_weights):
-		self._train_one_weight(0)
-
+		for w in range(number_of_weights):
+			self._train_one_weight(w)
 
 	def _train_one_weight(self, weight_index):
 		"""Trains a single weight."""
@@ -72,7 +71,12 @@ class MassiveSimulationRunner(object):
 				new_weights = []
 				for w in flags:
 					new_weights.append(float(w))
-				
+
+				print('BETTER SCORE FOUND!!!')
+				print('BETTER SCORE FOUND!!!')
+				print('BETTER SCORE FOUND!!!')
+				print('BETTER SCORE FOUND!!!')
+
 				self.base_training_flags = new_weights
 
 
