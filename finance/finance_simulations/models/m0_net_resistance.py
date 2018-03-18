@@ -11,9 +11,13 @@ C_MAIN_CODE = '''
 float net_influence[NUMBER_OF_TIME_INSTANCES];
 
 int main(int argc, char * argv[]) {
-	float weight_0 = atof(argv[ARGUMENT_INDEX_WEIGHT_0]);
-	float weight_1 = atof(argv[ARGUMENT_INDEX_WEIGHT_1]);
+	// Weight 0.
+	float buy_weight = atof(argv[ARGUMENT_INDEX_WEIGHT_0]);
+	// Weight 1.
+	float sell_weight = atof(argv[ARGUMENT_INDEX_WEIGHT_1]);
+	// Weight 2.
 	float weight_2 = atof(argv[ARGUMENT_INDEX_WEIGHT_2]);
+	// Weight 3.
 	float weight_3 = atof(argv[ARGUMENT_INDEX_WEIGHT_3]);
 
 	int time_index = 0;
