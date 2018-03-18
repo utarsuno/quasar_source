@@ -24,6 +24,8 @@ class ProcessManager(object):
 		for c_thread in self._c_threads:
 			c_thread.join()
 		while not self._results_queue.empty():
+			print('RESULT')
+			print(self._results_queue.get())
 			self._results.update(self._results_queue.get())
 		print('PRINTING THE RESULTS!')
 		print(self._results)
