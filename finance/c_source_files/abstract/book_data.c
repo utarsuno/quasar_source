@@ -46,7 +46,7 @@ BookData * get_book_data_from_file(char * file_load_path) {
     // Close the file.
     fclose(file_pointer);
 
-    BookData * book_data = malloc (sizeof (BookData));
+    BookData * book_data = (BookData *) malloc (sizeof (BookData));
     if (book_data == NULL) {
         return NULL;
     }
