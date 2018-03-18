@@ -99,24 +99,21 @@ BookData * get_book_data_from_file(const char * file_load_path) {
 }
 
 void output_out_all_contents_of_book_data(BookData * book_data) {
-    printf("%hu\n", book_data->last_price);
-    printf("%f\n", book_data->price_variation);
-    printf("%f\n", book_data->volume);
-    printf("%d\n", book_data->number_of_buy_orders);
-    printf("%d\n", book_data->number_of_sell_orders);
+    printf("%hu|", book_data->last_price);
+    printf("%f|", book_data->price_variation);
+    printf("%f|", book_data->volume);
+    printf("%d|", book_data->number_of_buy_orders);
+    printf("%d|", book_data->number_of_sell_orders);
     int i;
     for (i = 0; i < book_data->number_of_buy_orders; i++) {
         printf("%hu|", * (book_data->buy_prices + i));
     }
-    printf("\n");
     for (i = 0; i < book_data->number_of_buy_orders; i++) {
         printf("%f|", * (book_data->buy_amounts + i));
     }
-    printf("\n");
     for (i = 0; i < book_data->number_of_sell_orders; i++) {
         printf("%hu|", * (book_data->sell_prices + i));
     }
-    printf("\n");
     for (i = 0; i < book_data->number_of_sell_orders; i++) {
         printf("%f|", * (book_data->sell_amounts + i));
     }
