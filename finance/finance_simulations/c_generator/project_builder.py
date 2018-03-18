@@ -116,7 +116,9 @@ class FinanceProjectBuilder(object):
 		testing_files = self._masari_data_files[training_cutoff_index:]
 
 		self._training_data = DataChunk(self._load_section_of_data(training_files))
+		self._training_data.process_data()
 		self._testing_data = DataChunk(self._load_section_of_data(testing_files))
+		self._testing_data.process_data()
 
 		oc.print_success('Finished loading data.')
 
