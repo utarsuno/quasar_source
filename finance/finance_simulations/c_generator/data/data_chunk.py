@@ -28,7 +28,7 @@ def convert_2d_list_to_string(data):
 		c = '{'
 		for e in row:
 			c += str(e) + ','
-		s += c[-1] + '},\n'
+		s += c[:-1] + '},\n'
 	return s[:-2]
 
 
