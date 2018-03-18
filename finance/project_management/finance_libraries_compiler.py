@@ -10,15 +10,14 @@ from c_processes.c_file_abstraction.c_library import CLibrary
 
 all_c_files = ufo.get_all_file_paths_inside_directory(c.DIRECTORY_FINANCE_LIBRARIES_SOURCE)
 
-unique_file_names = {}
+c_libraries = {}
 
 for p in all_c_files:
-	c_file = CFile(p)
-	raw_file_name = c_file.raw_file_name
-	if raw_file_name not in unique_file_names:
-		unique_file_names[raw_file_name] = c_file.directory
+	if p.endswith('.c'):
+		c_file = CFile(p)
+		raw_file_name = c_file.raw_file_name
 
-c_libraries = []
-for library_name in unique_file_names:
-	c_library = CLibrary(library_name, unique_file_names[library_name])
-	c_library.compile_library(c.DIRECTORY_FINANCE_LIBRARIES_OUTPUT)
+		if raw_file_name not in c_libraries:
+			c_libraries[raw_file_name] = CLibrary(c_file, c.DIRECTORY_FINANCE_LIBRARIES_OUTPUT)
+			c_libraries[raw_file_name].compile_library()
+
