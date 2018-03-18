@@ -50,6 +50,10 @@ class MassiveSimulationRunner(object):
 					weights_to_use.append(w + weight_delta)
 				else:
 					weights_to_use.append(w)
+
+			for i in range(len(weights_to_use)):
+				weights_to_use[i] = str(weights_to_use[i])
+
 			processes_to_run.append(CProcess(PATH_TO_TRAINER, weights_to_use))
 
 		simulation_runner = ProcessManager(processes_to_run)
