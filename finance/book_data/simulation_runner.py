@@ -4,8 +4,9 @@
 
 from universal_code import useful_file_operations as ufo
 from universal_code import path_manager as pm
-from universal_code.external_processes import c_process
 
+from c_processes import c_process
+from c_processes import c_process_manager
 
 
 def get_all_masari_data_file_paths():
@@ -21,9 +22,15 @@ def get_all_masari_data_file_paths():
 		print(fn)
 
 	sub_program = c_process.CProcess('/home/databoi/finance/quick_test', [str(index)])
+	#print('Program output!')
+	#print(sub_program.get_putput())
 
 
 
+programs_to_test = []
+i = 0
+while i < 40:
+	programs_to_test.append(c_process.CProcess('/home/databoi/finance/quick_test', [str(i)]))
+	i += 1
 
-get_all_masari_data_file_paths()
-
+process_manager = c_process_manager.ProcessManager(programs_to_test)
