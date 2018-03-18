@@ -30,15 +30,18 @@ class BasicSimulation(object):
 
 
 		c_process = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [self._masari_data_files[0]])
+		c_process2 = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [self._masari_data_files[1]])
 
 		#print('RUNNING')
 		#print(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path)
 
-		simulation_runner = ProcessManager([c_process])
+		simulation_runner = ProcessManager([c_process, c_process2])
 		#results = simulation_runner.run_all_c_processes()
 		results = simulation_runner.run_all_c_processes()
 
-		data_instance = DataInstance(results)
+		print(results)
+		print(type(results))
+		#data_instance = DataInstance(results)
 
 
 		#for r in results:
