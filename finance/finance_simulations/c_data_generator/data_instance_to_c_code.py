@@ -10,9 +10,14 @@ class CCode(object):
 	def __init__(self):
 		self._lines = []
 
-	def add_line(self, s : str):
+	def add_line(self, s: str):
 		"""Adds a line of c code."""
 		self._lines.append(s)
+
+	def add_lines(self, s: list):
+		"""Adds lines of c code."""
+		for l in s:
+			self.add_line(l)
 
 	def add_define_statement(self, d, v):
 		"""Adds a define statement."""
@@ -64,11 +69,6 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 			number_of_buy_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 			number_of_sell_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 
-
-			print('------------------------------------------------')
-			print(str(i.data[DATA_KEY_BUY_PRICES]))
-			print('------------------------------------------------')
-			exit()
 			list_of_list_of_buy_prices.append([])
 			for e in i.data[DATA_KEY_BUY_PRICES]:
 				list_of_list_of_buy_prices[-1].append(e)
