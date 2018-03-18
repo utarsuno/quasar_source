@@ -16,4 +16,4 @@ class DataInstance(object):
 		self.raw_data = raw_data[1].split('|')
 		for d in self.raw_data:
 			print(d)
-		
+			print(str(type(d)))
