@@ -51,7 +51,6 @@ class BasicSimulation(object):
 
 
 
-
 b = BasicSimulation()
 b.parse_all_masari_data_files()
 

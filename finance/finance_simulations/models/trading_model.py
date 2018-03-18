@@ -8,6 +8,7 @@ class FinanceModel(object):
 
 	def __init__(self, types_of_data_needed):
 		self._types_of_data_needed = types_of_data_needed
+		self._weights = []
 
 	@property
 	def type_of_data_needed(self):

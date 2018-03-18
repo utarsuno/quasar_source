@@ -11,3 +11,4 @@ class FinanceModel_M0(FinanceModel):
 
 	def __init__(self):
 		super().__init__(DATA_REQUIREMENT_FULL_BOOK_ORDER)
+		self._number_of_weights = 4
