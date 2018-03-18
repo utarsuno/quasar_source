@@ -15,5 +15,6 @@ class DataInstance(object):
 		print('rest of the data is')
 		self.raw_data = raw_data[1].split('|')
 		for d in self.raw_data:
-			print(d)
-			print(str(type(d)))
+			if len(str(d)) > 0:
+				print(d)
+				print(str(type(d)))
