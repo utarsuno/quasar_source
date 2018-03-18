@@ -14,10 +14,12 @@ class CCode(object):
 		"""Adds a line of c code."""
 		self._lines.append(s)
 
-	def add_lines(self, s: list):
+	def add_lines(self, s):
 		"""Adds lines of c code."""
+		if type(s) == str:
+			s = s.split('\n')
 		for l in s:
-			self.add_line(l)
+			self.add_line(l + '\n')
 
 	def add_define_statement(self, d, v):
 		"""Adds a define statement."""
