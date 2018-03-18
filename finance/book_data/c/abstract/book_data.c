@@ -61,7 +61,7 @@ BookData * get_book_data_from_file(char * file_path) {
 
     book_data->buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_buy_orders));
     book_data->buy_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_buy_orders));
-    book_data->sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders);
+    book_data->sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders));
     book_data->sell_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_sell_orders));
 
 
@@ -70,7 +70,7 @@ BookData * get_book_data_from_file(char * file_path) {
 
     unsigned short * buy_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_buy_orders));
     float * buy_amounts  = (float *) malloc(sizeof(float) * (book_data->number_of_buy_orders));
-    unsigned short * sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders);
+    unsigned short * sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders));
     float * sell_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_sell_orders));
 
     // Buy prices.
