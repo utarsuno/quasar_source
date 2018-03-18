@@ -4,6 +4,7 @@
 
 import threading
 import queue
+from universal_code import output_coloring as oc
 
 
 class ProcessManager(object):
@@ -18,7 +19,7 @@ class ProcessManager(object):
 	# Code initially based from : https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 	def run_all_c_processes(self):
 		"""Runs all the c_processes."""
-		print('Running {' + str(len(self._c_processes_to_run)) + '} threads!')
+		oc.print_title('Running {' + str(len(self._c_processes_to_run)) + '} threads!')
 		for c_process in self._c_processes_to_run:
 			self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
 			# self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
@@ -28,7 +29,7 @@ class ProcessManager(object):
 		while not self._results_queue.empty():
 			result = self._results_queue.get()
 			self._results.append([result[0], result[1]])
-		print('Finished running threads!')
+		oc.print_success('Finished running threads!')
 		return self._results
 
 	def _run_simulation(self, c_process, results_queue):
