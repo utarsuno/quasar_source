@@ -39,7 +39,7 @@ for p in all_c_files:
 		raw_file_name = c_file.raw_file_name
 
 		if raw_file_name not in c_libraries:
-			c_libraries[raw_file_name] = CLibrary(c_file, c.DIRECTORY_FINANCE_C_CODE_OUTPUT)
+			c_libraries[raw_file_name] = CLibrary(c_file, DIRECTORY_FINANCE_C_CODE_OUTPUT)
 			c_libraries[raw_file_name].compile_library()
 
 
@@ -48,7 +48,7 @@ C_LIBRARY_BOOK_DATA = c_libraries['book_data']
    /__` |  |\/| |  | |     /\   |  | /  \ |\ | /__`
    .__/ |  |  | \__/ |___ /~~\  |  | \__/ | \| .__/ '''
 c_file_raw_data_parser = CFile(c.FILE_PATH_RAW_DATA_PARSER)
-PROJECT_SIMULATION_DATA_FETCHER = CProject(c_file_raw_data_parser, [C_LIBRARY_BOOK_DATA], c.DIRECTORY_FINANCE_C_CODE_OUTPUT)
+PROJECT_SIMULATION_DATA_FETCHER = CProject(c_file_raw_data_parser, [C_LIBRARY_BOOK_DATA], DIRECTORY_FINANCE_C_CODE_OUTPUT)
 PROJECT_SIMULATION_DATA_FETCHER.build_project()
 
 
