@@ -101,7 +101,7 @@ int main(int argc, char * argv[]) {
 	float btc_to_masari = simulation_state->btc_capital / current_price;
 
 	//printf("Final score(ish) : %f\\n", simulation_state->masari_capital + btc_to_masari);
-	printf("%f\n", simulation_state->masari_capital + btc_to_masari);
+	printf("%f\\n", simulation_state->masari_capital + btc_to_masari);
 
 	free(simulation_state);
 
