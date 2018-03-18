@@ -40,3 +40,5 @@ class ProcessManager(object):
 		"""Runs a simulation for a single c_process."""
 		c_process.run_process()
 		results_queue.put([c_process._flags[0], c_process.output_stdout])
+
+
