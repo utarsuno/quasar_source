@@ -13,6 +13,8 @@ def get_all_masari_data_file_paths():
 	file_names = ufo.get_all_file_names_inside_directory(pm.FINANCE_PATH_TO_MASARI_DATA)
 
 	for fn in file_names:
-		print(fn)
+		print(str(fn) + '\t' + str(type(fn)))
+
+	print('There are {' + str(len(file_names)) + '} files.')
 
 get_all_masari_data_file_paths()
