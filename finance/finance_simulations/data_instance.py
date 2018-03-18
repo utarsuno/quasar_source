@@ -60,9 +60,17 @@ class DataInstance(object):
 			self.data[DATA_KEY_SELL_AMOUNTS].append(float(data[data_index + i]))
 			i += 1
 
-
-
-
+	def __str__(self):
+		r = str(self.data[DATA_KEY_LAST_PRICE]) + ',\n'
+		r += str(self.data[DATA_KEY_PRICE_24H_CHANGE]) + ',\n'
+		r += str(self.data[DATA_KEY_VOLUME_24H]) + ',\n'
+		r += str(self.data[DATA_KEY_NUMBER_OF_BUY_ORDERS]) + ',\n'
+		r += str(self.data[DATA_KEY_NUMBER_OF_SELL_ORDERS]) + ',\n'
+		r += str(self.data[DATA_KEY_BUY_PRICES]) + ',\n'
+		r += str(self.data[DATA_KEY_BUY_AMOUNTS]) + ',\n'
+		r += str(self.data[DATA_KEY_SELL_PRICES]) + ',\n'
+		r += str(self.data[DATA_KEY_SELL_AMOUNTS]) + ',\n'
+		return r
 
 
 
