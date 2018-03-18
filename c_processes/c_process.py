@@ -29,7 +29,11 @@ class CProcess(object):
 		"""Lets the process finish."""
 		self._c_process.wait()
 		output_stdout, output_stderr = self._c_process.communicate()
-		return output_stdout.decode('utf-8'), output_stderr.decode('utf-8')
+		if output_stdout is not None:
+			output_stdout = output_stdout.decode('utf-8')
+		if output_stderr is not None:
+			output_stderr = output_stderr.decode('utf-8')
+		return output_stdout, output_stderr
 
 	def run_process_and_only_get_output(self):
 		"""Runs a process without providing any input."""
