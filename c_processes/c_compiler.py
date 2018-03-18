@@ -14,7 +14,7 @@ def create_executable(source_file_path, c_libraries, object_output_path):
 	"""Creates a new executable file."""
 	object_file_paths_as_string = ''
 	for o in c_libraries:
-		object_file_paths_as_string += ' ' + o.object_file_paths + ' '
+		object_file_paths_as_string += ' ' + o.path_to_object_file + ' '
 	return _run_command_and_return_output('gcc -Wall -O2 ' + source_file_path + ' ' + object_file_paths_as_string + ' -o ' + object_output_path)
 
 
