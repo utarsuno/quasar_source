@@ -98,6 +98,9 @@ int main(int argc, char * argv[]) {
 	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
 
 	printf("Last price was : %f\\n", current_price);
+	float btc_to_masari = simulation_state->btc_capital / current_price;
+
+	printf("Final score(ish) : %f\\n", simulation_state->masari_capital + btc_to_masari);
 
 	free(simulation_state);
 
