@@ -31,9 +31,11 @@ class CCode(object):
 		code_text = ''
 		for row in list_of_list_of_numbers:
 			single_line = '{'
+			print(row)
+			exit(5)
 			for e in row:
 				single_line += str(e) + ','
-				code_text += single_line[:-1] + '},\n'
+			code_text += single_line[:-1] + '},\n'
 		self.add_line(list_declaration.replace('ARG', code_text[:-2]))
 
 	def __str__(self):
