@@ -6,6 +6,7 @@
 from finance.project_management import finance_projects_builder as finance
 from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager
+from finance.finance_simulations.data_instance import DataInstance
 
 
 class BasicSimulation(object):
@@ -15,6 +16,10 @@ class BasicSimulation(object):
 		self._masari_data_files = []
 		self._training_files = None
 		self._testing_files  = None
+
+	def _single_data_file_parse(self, raw_data):
+		"""Parses out a single data file's data."""
+
 
 	def parse_all_masari_data_files(self):
 		"""Gets a list of all the masari data files."""
@@ -31,13 +36,15 @@ class BasicSimulation(object):
 		simulation_runner = ProcessManager([c_process])
 		results = simulation_runner.run_all_c_processes()
 
+		data_instance = DataInstance(results)
 
-		for r in results:
-			print(r)
-			print(results[r])
-			print()
-		print(str(type(results)))
-		print(len(results))
+
+		#for r in results:
+		#	print(r)
+		#	print(results[r])
+		#	print()
+		#print(str(type(results)))
+		#print(len(results))
 
 
 	#def run_training(self):
@@ -48,3 +55,5 @@ class BasicSimulation(object):
 
 b = BasicSimulation()
 b.parse_all_masari_data_files()
+
+
