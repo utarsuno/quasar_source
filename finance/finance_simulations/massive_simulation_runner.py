@@ -16,15 +16,12 @@ class MassiveSimulationRunner(object):
 		self.best_weights = None
 		self.best_score   = 1000
 
-		self.delta = .01
+		self.delta = .1
 
 		self.base_training_flags = [.0001, -.0007, .1, -.4]
-		#masari_training_process = CProcess('/home/databoi/c_code/m0_net_resistance_testing')
 
 	def one_training_session(self):
 		"""Runs a single training session."""
-		# A single training session will train each weight 3000 times with varying values.
-
 		number_of_weights = len(self.base_training_flags)
 		for w in range(number_of_weights):
 			self._train_one_weight(w)
@@ -58,12 +55,9 @@ class MassiveSimulationRunner(object):
 		simulation_runner = ProcessManager(processes_to_run)
 		results = simulation_runner.run_all_c_processes()
 
-		#print('GOT THE FOLLOWING RESULTS')
 		for r in results:
-			#print(r)
 			net_score = float(r[1])
 			flags = r[0].flags
-			#print(str(flags) + ' --- ' + str(net_score))
 
 			if net_score > self.best_score:
 				self.best_score = net_score
@@ -72,29 +66,10 @@ class MassiveSimulationRunner(object):
 				for w in flags:
 					new_weights.append(float(w))
 
-				print('BETTER SCORE FOUND!!!')
-				print('new best weights')
-				print(str(new_weights))
+				print('Better settings found! {' + str(new_weights) + '} ==> {' + str(self.best_score) + '}')
 
 				self.base_training_flags = new_weights
 
-
-
-
+# Run the simulation.
 simulation_runner = MassiveSimulationRunner()
 simulation_runner.one_training_session()
-
-'''
-
-
-		data_instances = []
-		c_processes = []
-		for f in files:
-			c_processes.append(CProcess(self._simulation_data_fetcher.executable_file_path, [f]))
-		simulation_runner = ProcessManager(c_processes)
-		results = simulation_runner.run_all_c_processes()
-		for r in results:
-			data_instances.append(DataInstance(r))
-		return data_instances
-
-'''
