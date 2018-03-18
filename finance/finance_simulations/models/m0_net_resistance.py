@@ -11,6 +11,7 @@ C_MAIN_CODE = '''
 float net_influence[NUMBER_OF_TIME_INSTANCES];
 
 int main(int argc, char * argv[]) {
+
 	// Weight 0.
 	float buy_weight = atof(argv[ARGUMENT_INDEX_WEIGHT_0]);
 	// Weight 1.
@@ -46,8 +47,20 @@ int main(int argc, char * argv[]) {
 		time_index += 1;
 	}
 
-	// Now run the actual simulation!
-	initialize_simulation_state();
+	/*__                         ___    __           __  ___       __  ___
+	 /__` |  |\/| |  | |     /\   |  | /  \ |\ |    /__`  |   /\  |__)  |
+	 .__/ |  |  | \__/ |___ /~~\  |  | \__/ | \|    .__/  |  /~~\ |  \  |  */
+
+	SimulationState * simulation_state = (SimulationState *) malloc(sizeof(SimulationState));
+	BookOrder * buy_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_BUY_ORDERS);
+	BookOrder * sell_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_SELL_ORDERS);
+
+
+	int number_of_current_buy_orders = 0;
+	int number_of_current_sell_orders = 0;
+	float masari_capital = 1000.0;
+	float btc_capital = 0.0;
+	float net_btc_profit = 0.0;
 
 	time_index = 0;
 	float current_net_influence;
@@ -56,19 +69,26 @@ int main(int argc, char * argv[]) {
 		current_net_influence = net_influence[time_index];
 		current_price = prices[time_index];
 
-		check_if_any_buy_or_sell_orders_should_be_filled(current_price);
+		/*__        ___  __             ___                      __   __   __           __   __   __   ___  __   __      ___      ___  __       ___  ___  __
+		 /  ` |__| |__  /  ` |__/    | |__      /\  |\ | \ /    |__) /  \ /  \ |__/    /  \ |__) |  \ |__  |__) /__`    |__  \_/ |__  /  ` |  |  |  |__  |  \
+		 \__, |  | |___ \__, |  \    | |       /~~\ | \|  |     |__) \__/ \__/ |  \    \__/ |  \ |__/ |___ |  \ .__/    |___ / \ |___ \__, \__/  |  |___ |__/ */
+		check_if_any_buy_or_sell_orders_should_be_filled(current_price, simulation_state, buy_orders, sell_orders);
+
+		/*__        ___  __             ___          ___  ___  __     ___  __      __             __   ___          ___          __   __   __   ___  __
+		 /  ` |__| |__  /  ` |__/    | |__     |\ | |__  |__  |  \     |  /  \    |__) |     /\  /  ` |__     |\ | |__  |  |    /  \ |__) |  \ |__  |__)
+		 \__, |  | |___ \__, |  \    | |       | \| |___ |___ |__/     |  \__/    |    |___ /~~\ \__, |___    | \| |___ |/\|    \__/ |  \ |__/ |___ |  \ */
 
 		// Check if it is a buy signal.
 		if (current_net_influence > buy_threshold) {
 
-			if (can_place_buy_order() == TRUE) {
-				place_buy_order(10.0, current_price);
+			if (can_place_buy_order(simulation_state) == TRUE) {
+				place_buy_order(10.0, current_price, simulation_state, buy_orders);
 			}
 
 		} else if (current_net_influence < sell_threshold) {
 
-			if (can_place_sell_order() == TRUE) {
-				place_sell_order(10.0, current_price);
+			if (can_place_sell_order(simulation_state) == TRUE) {
+				place_sell_order(10.0, current_price, simulation_state, buy_orders);
 			}
 
 		}
@@ -77,11 +97,12 @@ int main(int argc, char * argv[]) {
 	}
 
 	printf("PRINTING ENDING SUMS\\n");
-	printf("Current number of buy orders {%d}\\n", simulation_state.number_of_current_buy_orders);
-	printf("Current number of sell orders {%d}\\n", simulation_state.number_of_current_sell_orders);
-	printf("Current number of masari {%f}\\n", simulation_state.masari_capital);
-	printf("Current number of btc {%f}\\n", simulation_state.btc_capital);
+	printf("Current number of buy orders {%d}\\n", simulation_state->number_of_current_buy_orders);
+	printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
+	printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
+	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
 
+	free(simulation_state);
 
 	return 1;
 }
@@ -98,3 +119,37 @@ class FinanceModel_M0(FinanceModel):
 		self._number_of_weights = 4
 
 		self._c_main_code = C_MAIN_CODE
+
+
+'''
+
+#define MAXIMUM_NUMBER_OF_BUY_ORDERS  10
+#define MAXIMUM_NUMBER_OF_SELL_ORDERS 10
+
+typedef struct simulation_state {
+	int number_of_current_buy_orders;
+	int number_of_current_sell_orders;
+	float masari_capital;
+	float btc_capital;
+	float net_btc_profit;
+} SimulationState;
+
+typedef struct book_order {
+	float order_amount;
+	float order_price;
+	unsigned char currently_active;
+} BookOrder;
+
+BookOrder  buy_orders[MAXIMUM_NUMBER_OF_BUY_ORDERS];
+BookOrder sell_orders[MAXIMUM_NUMBER_OF_SELL_ORDERS];
+SimulationState simulation_state;
+
+void initialize_simulation_state();
+int can_place_buy_order();
+int can_place_sell_order();
+void place_buy_order(const float order_amount, const float order_price);
+void place_sell_order(const float order_amount, const float order_price);
+void check_if_any_buy_or_sell_orders_should_be_filled(const float current_price);
+
+
+'''
