@@ -47,8 +47,8 @@ class BasicSimulation(object):
 		lines = file_c_code.split('\n')
 		with open(finance.TEMPORARY_SAVING_PATH, 'w') as file_handler:
 			for l in lines:
-				file_handler.write(l)
-		
+				file_handler.write(l + '\n')
+
 
 
 
