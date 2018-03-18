@@ -6,8 +6,8 @@ path_output="/home/databoi/finance/"
 path_source_book_data="abstract/book_data.c"
 path_output_book_data="book_data.o"
 
-path_source_data_saver="data_saver.c"
-path_source_data_loader="data_loader.c"
+path_source_data_saver="book_data_saver.c"
+path_source_data_loader="book_data_loader.c"
 path_output_data_saver="data_saver"
 path_output_data_loader="data_loader"
 
