@@ -15,7 +15,6 @@ class ProcessManager(object):
 		self._results_queue      = queue.Queue()
 		self._results            = {}
 
-
 	# Code initially based from : https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 	def run_all_c_processes(self):
 		"""Runs all the c_processes."""
@@ -29,12 +28,14 @@ class ProcessManager(object):
 			result = self._results_queue.get()
 			self._results[result[0]] = result[1]
 
-		for r in self._results:
-			print(r)
-			print(self._results[r])
-			print()
+		return self._results
 
 	def _run_simulation(self, c_process, results_queue):
 		"""Runs a simulation for a single c_process."""
 		output_stdout, output_stderr = c_process.run_process_and_only_get_output()
-		results_queue.put([c_process._c_executable_path, str(output_stdout) + '::::::' + str(output_stderr)])
+
+		if output_stderr is not None:
+			if str(output_stderr) > 0:
+				results_queue.put([c_process._c_executable_path, 'ERROR {' + str(output_stderr) + '}'])
+		else:
+			results_queue.put([c_process._c_executable_path, str(output_stdout)])
