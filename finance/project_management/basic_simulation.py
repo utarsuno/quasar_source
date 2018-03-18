@@ -14,10 +14,10 @@ class BasicSimulation(object):
 
 	def get_all_masari_data_files(self):
 		"""Gets a list of all the masari data files."""
-		self._masari_data_files = finance.ALL_MASARI_DATA_FILES
-		self._masari_data_files = sorted(self._masari_data_files)
-		for f in self._masari_data_files:
-			print(f)
+		self._masari_data_files = sorted(finance.ALL_MASARI_DATA_FILES)
+		#for f in self._masari_data_files:
+		#	print(f)
+		print(len(self._masari_data_files))
 
 
 b = BasicSimulation()
