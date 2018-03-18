@@ -89,7 +89,7 @@ class FinanceProjectBuilder(object):
 		"""Temporary design."""
 		builder = model_builder.ModelBuilder(model, DIRECTORY_FINANCE_C_CODE_OUTPUT)
 		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
-		builder.add_library('#include "/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h"')
+		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
 
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_0', '1')
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_1', '2')
