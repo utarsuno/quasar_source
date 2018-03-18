@@ -3,22 +3,20 @@
 """This module, finance_server.py, provides a clean way to run multiple C programs at the same time."""
 
 # Allows Python to run sub-processes 'enabling' a form of Python con-currency.
+import binascii
 import multiprocessing as mp
 import subprocess as sp
 import time
 
-import binascii
-
-from universal_code import output_coloring as oc
-from finance.data_related import finance_database as f_db
 from finance.data_related import data_scraper as ds
-
 from finance.monte_carlo_simulator.strategies import strategy as s
 from finance.monte_carlo_simulator.strategies.buy import buy_strategy as bs
-from finance.monte_carlo_simulator.strategies.sell import sell_strategy as ss
 from finance.monte_carlo_simulator.strategies.hold import hold_strategy as hs
+from finance.monte_carlo_simulator.strategies.sell import sell_strategy as ss
 
 from finance import finance_code_generator as fcg
+from universal_code import output_coloring as oc
+from z_code_archive.finance.data_related import finance_database as f_db
 
 
 def run_terminal_command(arguments):

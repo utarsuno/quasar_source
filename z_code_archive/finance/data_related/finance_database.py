@@ -2,11 +2,12 @@
 
 """This module, finance_database.py, provides an abstraction layer to working with Finance data."""
 
+import math
+
 from database_api.nosql_databases import mongodb_api as mongo
-from finance.data_related import data_scraper as ds
 from universal_code import debugging as dbg
 from universal_code import output_coloring as oc
-import math
+from z_code_archive.finance.data_related import data_scraper as ds
 
 
 class FinanceDatabase(object):

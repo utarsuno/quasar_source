@@ -2,10 +2,11 @@
 
 """This module, test_network.py, is a quick test file."""
 
-from finance.data_related import finance_database as fdb
 from finance.data_related import data_scraper as ds
+
 from universal_code import debugging as dbg
 from universal_code import output_coloring as oc
+from z_code_archive.finance.data_related import finance_database as fdb
 
 '''__       ___
   |  \  /\   |   /\

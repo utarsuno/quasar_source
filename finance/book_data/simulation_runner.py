@@ -26,7 +26,7 @@ def get_all_masari_data_file_paths():
 	#print(sub_program.get_putput())
 
 
-
+'''
 programs_to_test = []
 i = 0
 while i < 40:
@@ -36,3 +36,7 @@ while i < 40:
 process_manager = c_process_manager.ProcessManager(programs_to_test)
 process_manager.run_all_c_processes()
 print('SIMULATION DONE?')
+'''
+
+
+

@@ -10,7 +10,7 @@ from subprocess import Popen, PIPE
 class CProcess(object):
 	"""Represents a single running C process."""
 
-	def __init__(self, path_source_file, path_output_file, output_file_name, flags):
+	def __init__(self, path_source_file, output_file_name, flags):
 		self._path_source_file = path_source_file
 		self._path_output_file = path_output_file
 		self._output_file_name = output_file_name
