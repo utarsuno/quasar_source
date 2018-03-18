@@ -17,7 +17,7 @@ typedef struct book_order {
 	unsigned char currently_active;
 } BookOrder;
 
-void initialize_simulation_state();
+void initialize_simulation_state(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders);
 int can_place_buy_order(SimulationState * simulation_state);
 int can_place_sell_order(SimulationState * simulation_state);
 void place_buy_order(const float order_amount, const float order_price, SimulationState * simulation_state, BookOrder * buy_orders);

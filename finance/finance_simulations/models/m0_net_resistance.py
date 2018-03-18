@@ -55,6 +55,8 @@ int main(int argc, char * argv[]) {
 	BookOrder * buy_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_BUY_ORDERS);
 	BookOrder * sell_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_SELL_ORDERS);
 
+	initialize_simulation_state(simulation_state, buy_orders, sell_orders);
+
 	time_index = 0;
 	float current_net_influence;
 	float current_price;
