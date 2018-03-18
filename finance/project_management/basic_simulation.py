@@ -24,7 +24,7 @@ class BasicSimulation(object):
 		#self._testing_files = self._masari_data_files[training_cutoff_index:]
 
 
-		c_process = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, self._masari_data_files[0])
+		c_process = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [self._masari_data_files[0]])
 		a, b = c_process.run_process_and_only_get_output()
 		print('A')
 		print(a)
