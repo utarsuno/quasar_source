@@ -20,6 +20,9 @@ DIRECTORY_FINANCE_MASARI_RAW_DATA = '/home/databoi/masari_data/'
 # File paths.
 FILE_PATH_RAW_DATA_PARSER = '/home/git_repos/quasar_source/finance/c_source_files/data_loader/raw_data_parser.c'
 
+# TEMPORARY SAVING PATH.
+TEMPORARY_SAVING_PATH = '/home/git_repos/quasar_source/finance/c_source_files/test.c'
+
 '''__                __       ___              ___          ___    ___  __
   |__)  /\  |  |    |  \  /\   |   /\     |  |  |  | |    |  |  | |__  /__`
   |  \ /~~\ |/\|    |__/ /~~\  |  /~~\    \__/  |  | |___ |  |  | |___ .__/ '''

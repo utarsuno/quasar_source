@@ -9,6 +9,7 @@ from c_processes.c_process_manager import ProcessManager
 from finance.finance_simulations.data_instance import DataInstance
 from finance.finance_simulations.c_data_generator.data_instance_to_c_code import get_c_code_from_list_of_data_instances
 from finance.finance_simulations.models.m0_net_resistance import FinanceModel_M0
+from universal_code import useful_file_operations as ufo
 
 
 class BasicSimulation(object):
@@ -41,7 +42,14 @@ class BasicSimulation(object):
 		for r in results:
 			self._data_instances.append(DataInstance(r))
 
-		print(get_c_code_from_list_of_data_instances(self._data_instances, FinanceModel_M0()))
+		# TEMPORARY_SAVING_PATH
+		file_c_code = get_c_code_from_list_of_data_instances(self._data_instances, FinanceModel_M0())
+		lines = file_c_code.split('\n')
+		with open(finance.TEMPORARY_SAVING_PATH, 'w') as file_handler:
+			for l in lines:
+				file_handler.write(l)
+		
+
 
 
 b = BasicSimulation()
