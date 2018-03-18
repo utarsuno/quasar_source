@@ -72,6 +72,8 @@ int main(int argc, char * argv[]) {
 			}
 
 		}
+
+		time_index += 1;
 	}
 
 	printf("PRINTING ENDING SUMS\\n");
