@@ -31,9 +31,6 @@ class CCode(object):
 		code_text = ''
 		for row in list_of_list_of_numbers:
 			single_line = '{'
-			print(row)
-			print(type(row))
-			exit(5)
 			for e in row:
 				single_line += str(e) + ','
 			code_text += single_line[:-1] + '},\n'
