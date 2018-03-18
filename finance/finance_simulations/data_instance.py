@@ -13,8 +13,58 @@ class DataInstance(object):
 		print(self.unix_timestamp)
 
 		print('rest of the data is')
-		self.raw_data = raw_data[1].split('|')
-		for d in self.raw_data:
-			if len(str(d)) > 0:
-				print(d)
-				print(str(type(d)))
+		self.data = raw_data[1].split('|')
+
+		self._last_price            = self.data[0]
+		self._price_24h_change      = self.data[1]
+		self._volume_24h            = self.data[2]
+		self._number_of_buy_orders  = self.data[3]
+		self._number_of_sell_orders = self.data[4]
+
+		self._buy_prices = []
+		self._buy_amounts = []
+		self._sell_prices = []
+		self._sell_amounts = []
+
+		data_index = 5
+		i = 0
+		while i < self._number_of_buy_orders:
+			self._buy_prices.append(self.data[data_index + i])
+			i += 1
+		data_index += self._number_of_buy_orders
+		i = 0
+		while i < self._number_of_buy_orders:
+			self._buy_amounts.append(self.data[data_index + i])
+			i += 1
+		data_index += self._number_of_buy_orders
+		i = 0
+		while i < self._number_of_sell_orders:
+			self._sell_prices.append(self.data[data_index + i])
+			i += 1
+		data_index += self._number_of_sell_orders
+		i = 0
+		while i < self._number_of_sell_orders:
+			self._sell_amounts.append(self.data[data_index + i])
+			i += 1
+
+		print(self._last_price)
+		print(self._price_24h_change)
+		print(self._volume_24h)
+		print(self._number_of_buy_orders)
+		print(self._number_of_sell_orders)
+
+		print()
+
+		print(str(len(self._buy_prices)))
+		print(str(len(self._buy_amounts)))
+		print(str(len(self._sell_prices)))
+		print(str(len(self._sell_amounts)))
+
+		print()
+
+		print(self._buy_prices)
+		print(self._buy_amounts)
+		print(self._sell_prices)
+		print(self._sell_amounts)
+
+		print()
