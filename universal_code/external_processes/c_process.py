@@ -14,7 +14,7 @@ class CProcess(object):
 		self._file_path = file_path
 		self._flags = flags
 
-		self.c_process = Popen(file_path, shell=True, stdin=PIPE)
+		self.c_process = Popen(file_path, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 		output_stdout, output_stderr = self.c_process.communicate()
 		print('Printing stdout and stderr')
 		print(output_stdout)
