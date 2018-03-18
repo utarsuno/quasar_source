@@ -21,6 +21,8 @@ class CProcess(object):
 	def _start_process(self, send_input):
 		"""Starts the C process."""
 		if send_input:
+			print('RUNNING THE FOLLOWING SHELL COMMAND')
+			print(str(self._shell_string))
 			self._c_process = Popen(self._shell_string, shell=True, stdin=PIPE)
 		else:
 			self._c_process = Popen(self._shell_string, shell=True, stdout=PIPE)
