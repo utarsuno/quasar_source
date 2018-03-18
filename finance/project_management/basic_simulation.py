@@ -4,6 +4,8 @@
 
 
 from finance.project_management import finance_projects_builder as finance
+from c_processes.c_process import CProcess
+from c_processes.c_process_manager import ProcessManager
 
 
 class BasicSimulation(object):
@@ -11,14 +13,31 @@ class BasicSimulation(object):
 
 	def __init__(self):
 		self._masari_data_files = []
+		self._training_files = None
+		self._testing_files  = None
 
-	def get_all_masari_data_files(self):
+	def parse_all_masari_data_files(self):
 		"""Gets a list of all the masari data files."""
 		self._masari_data_files = sorted(finance.ALL_MASARI_DATA_FILES)
-		#for f in self._masari_data_files:
-		#	print(f)
-		print(len(self._masari_data_files))
+		#training_cutoff_index = int(len(self._masari_data_files) * .7)
+		#self._training_files = self._masari_data_files[:training_cutoff_index]
+		#self._testing_files = self._masari_data_files[training_cutoff_index:]
+
+
+		c_process = CProcess(finance.PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, self._masari_data_files[0])
+		a, b = c_process.run_process_and_only_get_output()
+		print('A')
+		print(a)
+		print('B')
+		print(b)
+
+
+
+	#def run_training(self):
+	#	"""Runs the training for this simulation."""
+
+
 
 
 b = BasicSimulation()
-b.get_all_masari_data_files()
+b.parse_all_masari_data_files()

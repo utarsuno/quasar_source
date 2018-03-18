@@ -51,6 +51,3 @@ C_LIBRARY_BOOK_DATA = c_libraries['book_data']
 c_file_raw_data_parser = CFile(FILE_PATH_RAW_DATA_PARSER)
 PROJECT_SIMULATION_DATA_FETCHER = CProject(c_file_raw_data_parser, [C_LIBRARY_BOOK_DATA], DIRECTORY_FINANCE_C_CODE_OUTPUT)
 PROJECT_SIMULATION_DATA_FETCHER.build_project()
-
-
-

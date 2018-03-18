@@ -15,15 +15,13 @@ class ProcessManager(object):
 		self._results_queue      = queue.Queue()
 		self._results            = {}
 
-	def compile_all_c_programs(self):
-		"""Compiles all the c programs passed to this manager."""
-
 
 	# Code initially based from : https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 	def run_all_c_processes(self):
 		"""Runs all the c_processes."""
 		for c_process in self._c_processes_to_run:
 			self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
+			#self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
 			self._c_threads[-1].start()
 		for c_thread in self._c_threads:
 			c_thread.join()
@@ -42,7 +40,7 @@ class ProcessManager(object):
 
 	def _run_simulation(self, c_process, results_queue):
 		"""Runs a simulation for a single c_process."""
-		c_process.run_process()
-		results_queue.put([c_process._flags[0], c_process.output_stdout])
+		c_process.run_process_and_only_get_output()
+		results_queue.put([self._c_executable_path, c_process.output_stdout + '::::::' + c_process.output_stderr])
 
 

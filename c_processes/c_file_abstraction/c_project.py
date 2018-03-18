@@ -13,7 +13,13 @@ class CProject(object):
 		self._libraries_needed = libraries_needed
 		self._c_source_file = c_source_file
 		self._output_directory = output_directory
+		self._exectuable_file_path = self._output_directory + self._c_source_file.raw_file_name
 
 	def build_project(self):
 		"""Compiles this project."""
-		return create_executable(self._c_source_file.full_file_path, self._libraries_needed, self._output_directory + self._c_source_file.raw_file_name)
+		return create_executable(self._c_source_file.full_file_path, self._libraries_needed, self._exectuable_file_path)
+
+	@property
+	def exectuable_file_path(self) -> str:
+		"""Returns a string representation of the executable file made from this project."""
+		return self._exectuable_file_path
