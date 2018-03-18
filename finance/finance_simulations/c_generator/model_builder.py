@@ -60,7 +60,10 @@ class ModelBuilder(object):
 	def _generate_base_file(self):
 		"""Generates the base file."""
 		for l in self._libraries:
-			self.add_line('#include "' + l + '"')
+			if '<' in l:
+				self.add_line('#include ' + l)
+			else:
+				self.add_line('#include "' + l + '"')
 		for ds in self._define_statements:
 			self.add_line('#define ' + ds[0] + ' ' + ds[1])
 		for gd in self._global_data:
