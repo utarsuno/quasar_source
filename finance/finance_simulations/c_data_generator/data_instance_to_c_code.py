@@ -64,6 +64,10 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 			number_of_buy_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 			number_of_sell_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 
+
+			print('------------------------------------------------')
+			print(str(i.data[DATA_KEY_BUY_PRICES]))
+			print('------------------------------------------------')
 			list_of_list_of_buy_prices.append([])
 			for e in i.data[DATA_KEY_BUY_PRICES]:
 				list_of_list_of_buy_prices[-1].append(e)
