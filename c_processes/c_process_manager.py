@@ -27,7 +27,7 @@ class ProcessManager(object):
 			print('RESULT')
 			result = self._results_queue.get()
 			print(result)
-			self._results.[result[0]] = result[1]
+			self._results[result[0]] = result[1]
 		print('PRINTING THE RESULTS!')
 		print(self._results)
 		print('@@@@@@@@@@@@@@@@@@@@@@@@@@@')
