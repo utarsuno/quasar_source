@@ -111,6 +111,10 @@ class FinanceProjectBuilder(object):
 		else:
 			builder.generate_testing_file(data)
 
+		created_file = CFile(builder.saved_path)
+		created_project = CProject(created_file, [self.c_libraries[LIBRARY_CONSTANTS], self.c_libraries[LIBRARY_SIMULATION]], DIRECTORY_FINANCE_C_CODE_OUTPUT)
+		created_project.build_project()
+
 	'''__       ___               __        __          __
 	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
 	  |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> '''

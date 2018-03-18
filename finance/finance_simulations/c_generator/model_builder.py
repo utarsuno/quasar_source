@@ -77,9 +77,15 @@ class ModelBuilder(object):
 			file_path = self._training_path
 		else:
 			file_path = self._testing_path
+		self._saved_path = file_path
 		with open(file_path, 'w') as file_handler:
 			for l in self._lines:
 				file_handler.write(l)
+
+	@property
+	def saved_path(self):
+		"""Returns the saved path of the file created."""
+		return self._saved_path
 
 	@property
 	def model(self):
