@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-final static inline float bytes_to_float(final unsigned char b0, final, unsigned char b1, final unsigned char b2, final unsigned char b3) {
+static inline final float bytes_to_float(final unsigned char b0, final, unsigned char b1, final unsigned char b2, final unsigned char b3) {
     float output;
     * ((unsigned char *)(& output) + 3) = b0;
     * ((unsigned char *)(& output) + 2) = b1;
