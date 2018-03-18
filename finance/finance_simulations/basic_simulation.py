@@ -41,7 +41,7 @@ class BasicSimulation(object):
 		for r in results:
 			self._data_instances.append(DataInstance(r))
 
-		print(get_c_code_from_list_of_data_instances(self._data_instances, FinanceModel_M0))
+		print(get_c_code_from_list_of_data_instances(self._data_instances, FinanceModel_M0()))
 
 
 b = BasicSimulation()
