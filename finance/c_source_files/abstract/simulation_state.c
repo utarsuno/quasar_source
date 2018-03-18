@@ -10,10 +10,10 @@ inline void initialize_simulation_state(SimulationState * simulation_state, Book
 
     int i;
     for (i = 0; i < MAXIMUM_NUMBER_OF_BUY_ORDERS; i++) {
-        buy_orders[i]->currently_active = FALSE;
+        buy_orders[i].currently_active = FALSE;
     }
     for (i = 0; i < MAXIMUM_NUMBER_OF_SELL_ORDERS; i++) {
-        buy_orders[i]->currently_active = FALSE;
+        buy_orders[i].currently_active = FALSE;
     }
 }
 
