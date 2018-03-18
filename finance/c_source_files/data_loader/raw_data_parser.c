@@ -7,7 +7,7 @@ int main(int argc, char * argv[]) {
 
     printf("TODO : Return data on {%s}\n", argv[ARGUMENT_FILE_TO_PARSE]);
 
-    free_book_data(book_data);
+    //free_book_data(book_data);
 
     return SUCCESS;
 }
