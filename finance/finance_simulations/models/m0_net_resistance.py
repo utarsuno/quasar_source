@@ -55,13 +55,6 @@ int main(int argc, char * argv[]) {
 	BookOrder * buy_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_BUY_ORDERS);
 	BookOrder * sell_orders = (BookOrder *) malloc(sizeof(BookOrder) * MAXIMUM_NUMBER_OF_SELL_ORDERS);
 
-
-	int number_of_current_buy_orders = 0;
-	int number_of_current_sell_orders = 0;
-	float masari_capital = 1000.0;
-	float btc_capital = 0.0;
-	float net_btc_profit = 0.0;
-
 	time_index = 0;
 	float current_net_influence;
 	float current_price;
