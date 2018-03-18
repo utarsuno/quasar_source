@@ -55,10 +55,10 @@ class DataChunk(object):
 			needs_price_define = True
 			model_builder.add_global_data('const int number_of_buy_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n'.replace('ARG', convert_1d_list_to_string(self._number_of_buy_orders_list)))
 			model_builder.add_global_data('const int number_of_sell_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n'.replace('ARG', convert_1d_list_to_string(self._number_of_sell_orders_list)))
-			model_builder.add_global_data('const float all_buy_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_1d_list_to_string(self._list_of_list_of_buy_prices)))
-			model_builder.add_global_data('const float all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};'.replace('ARG', convert_1d_list_to_string(self._list_of_list_of_buy_amounts)))
-			model_builder.add_global_data('const float all_sell_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_1d_list_to_string(self._list_of_list_of_sell_prices)))
-			model_builder.add_global_data('const float all_sell_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_1d_list_to_string(self._list_of_list_of_sell_amounts)))
+			model_builder.add_global_data('const float all_buy_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_2d_list_to_string(self._list_of_list_of_buy_prices)))
+			model_builder.add_global_data('const float all_buy_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG}\n;'.replace('ARG', convert_2d_list_to_string(self._list_of_list_of_buy_amounts)))
+			model_builder.add_global_data('const float all_sell_prices[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_2d_list_to_string(self._list_of_list_of_sell_prices)))
+			model_builder.add_global_data('const float all_sell_amounts[NUMBER_OF_TIME_INSTANCES][50] = {ARG};\n'.replace('ARG', convert_2d_list_to_string(self._list_of_list_of_sell_amounts)))
 
 		if DATA_KEY_LAST_PRICE in model_builder.model.type_of_data_needed:
 			needs_price_define = True
