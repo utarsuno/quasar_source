@@ -34,7 +34,7 @@ class CCode(object):
 			for e in row:
 				single_line += str(e) + ','
 				code_text += single_line[:-1] + '},\n'
-		return list_declaration.replace('ARG', code_text[:-2])
+		self.add_line(list_declaration.replace('ARG', code_text[:-2]))
 
 	def __str__(self):
 		s = ''
