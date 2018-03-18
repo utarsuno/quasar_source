@@ -35,11 +35,9 @@ cp ${path_source_saver} ${path_output_saver}
 # \__, \__/  |  | |    | |___ |___    \__/ |__) \__/ |___ \__,  |     |    | |___ |___ .__/
 gcc -c ${path_output_book_data} -o ${path_output_book_data_object_file}
 
+#  __   __   ___      ___  ___     ___      ___  __       ___       __        ___  __
+# /  ` |__) |__   /\   |  |__     |__  \_/ |__  /  ` |  |  |   /\  |__) |    |__  /__`
+# \__, |  \ |___ /~~\  |  |___    |___ / \ |___ \__, \__/  |  /~~\ |__) |___ |___ .__/
+gcc -Wall -O2 ${path_output_loader} ${path_output_book_data_object_file} -o ${path_output_saver}
+gcc -Wall -O2 ${path_output_loader} ${path_output_book_data_object_file} -o ${path_output_loader_executable}
 
-
-
-#gcc -O2 ${path_source}${path_source_data_saver} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_saver}
-#gcc -O2 ${path_output}${path_output_book_data} ${path_source}${path_source_data_loader} -o ${path_output}${path_output_data_loader}
-
-gcc -O2 ${path_output_loader} ${path_output_book_data_object_file} -o ${path_output_saver}
-gcc -O2 ${path_output_loader} ${path_output_book_data_object_file} -o ${path_output_loader_executable}
