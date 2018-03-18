@@ -37,7 +37,7 @@ int main(int argc, char * argv[]) {
 			net_influence[time_index] += (all_sell_amounts[time_index][i] * all_sell_prices[time_index][i]) * (sell_weight / (current_price - all_sell_prices[time_index][i] * 2));
 		}
 
-		printf("NET INFLUENCE IS : {%f}\n", net_influence[time_index]);
+		printf("NET INFLUENCE IS : {%f}\\n", net_influence[time_index]);
 
 		time_index += 1;
 	}
