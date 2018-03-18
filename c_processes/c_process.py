@@ -27,8 +27,8 @@ class CProcess(object):
 
 	def _wait_for_process_finish(self):
 		"""Lets the process finish."""
-		self.c_process.wait()
-		output_stdout, output_stderr = self.c_process.communicate()
+		self._c_process.wait()
+		output_stdout, output_stderr = self._c_process.communicate()
 		return output_stdout, output_stderr
 
 	def run_process_and_only_get_output(self):
