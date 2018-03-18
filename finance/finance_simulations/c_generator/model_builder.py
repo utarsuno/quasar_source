@@ -64,6 +64,11 @@ class ModelBuilder(object):
 			for l in self._lines:
 				file_handler.write(l)
 
+	@property
+	def model(self):
+		"""Returns the model that this model builder is building off of."""
+		return self._model
+
 	'''
 	def __str__(self):
 		s = ''
