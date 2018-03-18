@@ -27,9 +27,9 @@ class ModelBuilder(object):
 		if data_instance.DATA_KEY_LAST_PRICE in self._required_data:
 			self.add_required_data(data_instance.DATA_KEY_LAST_PRICE)
 
-	def add_library(self, library, custom=True):
+	def add_library(self, library):
 		"""Adds a library to this model."""
-		self._libraries.append([library, custom])
+		self._libraries.append(library)
 
 	def add_define(self, d, v):
 		"""Adds a define statement."""
