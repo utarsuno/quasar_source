@@ -44,6 +44,7 @@ class FinanceProjectBuilder(object):
 	def __init__(self):
 		self.c_libraries = {}
 		self.build_libraries()
+		self.compile_programs()
 		self.load_data()
 		self.build_base_for_models()
 
