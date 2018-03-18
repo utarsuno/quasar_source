@@ -29,7 +29,7 @@ ALL_MASARI_DATA_FILES = ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANC
 '''       __   __        __          ___         ___  __
   |    | |__) |__)  /\  |__) \ /    |__  | |    |__  /__`
   |___ | |__) |  \ /~~\ |  \  |     |    | |___ |___ .__/ '''
-all_c_files = ufo.get_all_file_paths_inside_directory(c.DIRECTORY_FINANCE_LIBRARIES_SOURCE)
+all_c_files = ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANCE_LIBRARIES_SOURCE)
 
 c_libraries = {}
 
