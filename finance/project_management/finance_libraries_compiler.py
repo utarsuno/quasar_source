@@ -5,7 +5,9 @@
 from universal_code import useful_file_operations as ufo
 from finance.project_management import finance_project_constants as c
 
+print(c.DIRECTORY_FINANCE_LIBRARIES)
 all_c_files = ufo.get_all_file_paths_inside_directory(c.DIRECTORY_FINANCE_LIBRARIES)
 
 for p in all_c_files:
 	print(p)
+
