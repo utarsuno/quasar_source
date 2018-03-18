@@ -25,5 +25,6 @@ typedef struct book_data {
 } BookData;
 
 BookData * get_book_data_from_file(const char * file_path);
+void output_out_all_contents_of_book_data(BookData * book_data);
 void free_book_data(BookData * book_data);
 
