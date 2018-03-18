@@ -2,13 +2,17 @@
 
 """This module, finance_libraries_compiler.py, will compile all the needed C libraries."""
 
-from universal_code import useful_file_operations as ufo
 from c_processes.c_file_abstraction.c_file_types import CFile
 from c_processes.c_file_abstraction.c_library import CLibrary
-from c_processes.c_process import CProcess
 from c_processes.c_file_abstraction.c_project import CProject
+from finance.finance_simulations.c_generator.data.data_chunk import DataChunk
+from c_processes.c_process import CProcess
+from c_processes.c_process_manager import ProcessManager
 from finance.finance_simulations.c_generator import model_builder
+from finance.finance_simulations.c_generator.data.data_instance import DataInstance
 from finance.finance_simulations.models.m0_net_resistance import FinanceModel_M0
+from universal_code import output_coloring as oc
+from universal_code import useful_file_operations as ufo
 
 '''__   __        __  ___           ___  __
   /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
@@ -47,9 +51,14 @@ class FinanceProjectBuilder(object):
 		self._masari_training_data = None
 		self._masari_testing_data = None
 
+		self._simulation_data_fetcher = None
+
+		self._training_data = None
+		self._testing_data  = None
+
 	def build_libraries(self):
 		"""Builds the libraries needed for this project."""
-		print('Building libraries!')
+		oc.print_title('Building libraries!')
 
 		all_c_files = ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANCE_LIBRARIES_SOURCE)
 
@@ -62,24 +71,25 @@ class FinanceProjectBuilder(object):
 					self.c_libraries[raw_file_name] = CLibrary(c_file, DIRECTORY_FINANCE_C_CODE_OUTPUT)
 					self.c_libraries[raw_file_name].compile_library()
 
-		print('Finished building libraries.')
+		oc.print_success('Finished building libraries.')
 
 	def compile_programs(self):
 		"""Compile needed programs."""
-		print('Compiling programs.')
+		oc.print_title('Compiling programs.')
 		c_file_raw_data_parser = CFile(FILE_PATH_RAW_DATA_PARSER)
-		simulation_data_fetcher = CProject(c_file_raw_data_parser, [self.c_libraries[LIBRARY_BOOK_DATA]], DIRECTORY_FINANCE_C_CODE_OUTPUT)
-		simulation_data_fetcher.build_project()
-		print('Finished compiling programs.')
+		self._simulation_data_fetcher = CProject(c_file_raw_data_parser, [self.c_libraries[LIBRARY_BOOK_DATA]], DIRECTORY_FINANCE_C_CODE_OUTPUT)
+		self._simulation_data_fetcher.build_project()
+		oc.print_success('Finished compiling programs.')
 
 	def build_base_for_models(self):
 		"""Temporary design."""
-		print('Building models!')
+		oc.print_title('Building models!')
 		self.build_base_for_model(FinanceModel_M0())
-		print('Finished building models.')
+		oc.print_success('Finished building models.')
 
 	def build_base_for_model(self, model):
 		"""Temporary design."""
+
 		builder = model_builder.ModelBuilder(model, DIRECTORY_FINANCE_C_CODE_OUTPUT)
 		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
 		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
@@ -89,14 +99,14 @@ class FinanceProjectBuilder(object):
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_2', '3')
 		builder.add_define('ARGUMENT_INDEX_WEIGHT_3', '4')
 
-		builder.generate_base_file()
+		builder.generate_training_file(self._training_data)
 
 	'''__       ___               __        __          __
 	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
 	  |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> '''
 	def load_data(self):
 		"""Loads the data needed for building models."""
-		print('Loading all Masari data!')
+		oc.print_title('Loading all Masari data!')
 
 		self._masari_data_files = sorted(ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANCE_MASARI_RAW_DATA))
 		training_cutoff_index = int(len(self._masari_data_files) * .7)
@@ -104,19 +114,22 @@ class FinanceProjectBuilder(object):
 		training_files = self._masari_data_files[:training_cutoff_index]
 		testing_files = self._masari_data_files[training_cutoff_index:]
 
-		self._training_data = self._load_section_of_data(training_files)
-		self._testing_data = self._load_section_of_data(training_files)
+		self._training_data = DataChunk(self._load_section_of_data(training_files))
+		self._testing_data = DataChunk(self._load_section_of_data(testing_files))
 
-
-		print('Finished loading data.')
+		oc.print_success('Finished loading data.')
 
 	def _load_section_of_data(self, files):
 		"""Utility function for loading data."""
+		data_instances = []
 		c_processes = []
 		for f in files:
-			c_processes.append(CProcess(PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [f]))
-
-
+			c_processes.append(CProcess(self._simulation_data_fetcher.executable_file_path, [f]))
+		simulation_runner = ProcessManager(c_processes)
+		results = simulation_runner.run_all_c_processes()
+		for r in results:
+			data_instances.append(DataInstance(r))
+		return data_instances
 
 
 project_builder = FinanceProjectBuilder()

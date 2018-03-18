@@ -2,8 +2,8 @@
 
 """This module, m0_net_resistance.py, represents the M0 trading model."""
 
+from finance.finance_simulations.c_generator.data.data_instance import *
 from finance.finance_simulations.models.trading_model import *
-from finance.finance_simulations.data_instance import *
 
 
 class FinanceModel_M0(FinanceModel):

@@ -5,8 +5,8 @@
 from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager
 from finance.finance_simulations.c_generator import finance_projects_builder as finance
+from finance.finance_simulations.c_generator.data.data_instance import DataInstance
 from finance.finance_simulations.c_generator.data_instance_to_c_code import get_c_code_from_list_of_data_instances
-from finance.finance_simulations.data_instance import DataInstance
 from finance.finance_simulations.models.m0_net_resistance import FinanceModel_M0
 
 
