@@ -16,10 +16,12 @@ path_output_data_loader="data_loader"
 
 # Copy the needed .h file over.
 cp ${path_source}${path_source_book_data_h} ${path_output}${path_output_book_data_h}
+# Compile the object files.
 gcc -c ${path_source}${path_source_book_data} -o ${path_output}${path_output_book_data}
 
-# Compile the object files.
-#gcc -c ${path_source}${path_source_book_data} -o ${path_output}${path_output_book_data}
 
-#gcc -O2 ${path_source}${path_source_data_saver} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_saver}
+
+gcc -O2 ${path_source}${path_source_data_saver} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_saver}
+
+
 #gcc -O2 ${path_source}${path_source_data_loader} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_loader}
