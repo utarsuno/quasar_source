@@ -8,7 +8,6 @@ int main(int argc, char * argv[]) {
      /~~\ |  \ \__> \__/  |  | |___ | \|  |  .__/    |    /~~\ |  \ .__/ | | \| \__> */
     int number_of_files_to_load = atoi(argv[ARGUMENT_NUMBER_OF_FILES_TO_LOAD]);
 
-    char ** files_to_load = (char **) malloc(sizeof(char *) * number_of_files_to_load);
     BookData ** book_datas = (BookData **) malloc(sizeof(BookData *) * number_of_files_to_load);
 
     int current_file_index;
