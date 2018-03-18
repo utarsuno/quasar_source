@@ -23,7 +23,7 @@ class CProcess(object):
 		if send_input:
 			self._c_process = Popen(self._shell_string, shell=True, stdin=PIPE)
 		else:
-			self._c_process = Popen(self._shell_string, shell=True)
+			self._c_process = Popen(self._shell_string, shell=True, stdout=PIPE)
 
 	def _wait_for_process_finish(self):
 		"""Lets the process finish."""
