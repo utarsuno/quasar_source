@@ -60,6 +60,12 @@ class MassiveSimulationRunner(object):
 			print(r)
 
 
+
+
+
+simulation_runner = MassiveSimulationRunner()
+simulation_runner.one_training_session()
+
 '''
 
 
