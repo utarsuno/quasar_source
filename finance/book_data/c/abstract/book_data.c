@@ -64,7 +64,6 @@ BookData * get_book_data_from_file(char * file_load_path) {
     book_data->sell_prices = (unsigned short *) malloc(sizeof(unsigned short) * (book_data->number_of_sell_orders));
     book_data->sell_amounts = (float *) malloc(sizeof(float) * (book_data->number_of_sell_orders));
 
-
     int file_buffer_index = 18;
     int index;
 
@@ -107,4 +106,3 @@ void free_book_data(BookData * book_data) {
     free(book_data->sell_amounts);
     free(book_data);
 }
-
