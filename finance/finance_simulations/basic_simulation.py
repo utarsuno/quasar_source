@@ -41,7 +41,9 @@ class BasicSimulation(object):
 
 		print(results)
 		print(type(results))
-		#data_instance = DataInstance(results)
+
+		for r in results:
+			data_instance = DataInstance(r)
 
 
 		#for r in results:
