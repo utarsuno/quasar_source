@@ -66,9 +66,13 @@ class ModelBuilder(object):
 		for gd in self._global_data:
 			self.add_lines(gd)
 
-	def _create_file(self):
+	def _create_file(self, training):
 		"""Creates this model file."""
-		with open(self._save_path, 'w') as file_handler:
+		if training:
+			file_path = self._training_path
+		else:
+			file_path = self._testing_path
+		with open(file_path, 'w') as file_handler:
 			for l in self._lines:
 				file_handler.write(l)
 
