@@ -22,4 +22,4 @@ class CProcess(object):
 
 
 
-c_process = CProcess('/home/databoi/finance/quick_test')
+c_process = CProcess('/home/databoi/finance/quick_test', None)
