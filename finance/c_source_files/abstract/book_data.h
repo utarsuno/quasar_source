@@ -5,13 +5,12 @@
 #define TRUE 0
 #define FALSE 1
 
-#define SUCCESS                        0
-#define ERROR                          -1
+#define SUCCESS 0
+#define ERROR   -1
 
-
-float          bytes_to_float(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3);
-int            bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3);
-unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1);
+float          bytes_to_float(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3);
+int            bytes_to_int(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3);
+unsigned short bytes_to_unsigned_short(const unsigned char b0, const unsigned char b1);
 
 typedef struct book_data {
     unsigned short last_price;
@@ -25,6 +24,6 @@ typedef struct book_data {
     float * sell_amounts;
 } BookData;
 
-BookData * get_book_data_from_file(char * file_path);
+BookData * get_book_data_from_file(const char * file_path);
 void free_book_data(BookData * book_data);
 

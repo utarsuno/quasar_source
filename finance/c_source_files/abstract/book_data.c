@@ -2,7 +2,7 @@
 
 // Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
 inline float bytes_to_float(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3) {
-    const float output;
+    float output;
     * ((unsigned char *)(& output) + 3) = b0;
     * ((unsigned char *)(& output) + 2) = b1;
     * ((unsigned char *)(& output) + 1) = b2;
@@ -10,7 +10,7 @@ inline float bytes_to_float(const unsigned char b0, const unsigned char b1, cons
     return output;
 }
 
-int bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3) {
+inline int bytes_to_int(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3) {
     int output;
     * ((unsigned char *)(& output) + 3) = b0;
     * ((unsigned char *)(& output) + 2) = b1;
@@ -19,7 +19,7 @@ int bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned 
     return output;
 }
 
-unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1) {
+inline unsigned short bytes_to_unsigned_short(const unsigned char b0, const unsigned char b1) {
     unsigned short output;
     * ((unsigned char *)(& output) + 1) = b0;
     * ((unsigned char *)(& output) + 0) = b1;
@@ -98,7 +98,7 @@ BookData * get_book_data_from_file(char * file_load_path) {
     return book_data;
 }
 
-void free_book_data(BookData * book_data) {
+inline void free_book_data(BookData * book_data) {
     free(book_data->buy_prices);
     free(book_data->sell_prices);
     free(book_data->buy_amounts);
