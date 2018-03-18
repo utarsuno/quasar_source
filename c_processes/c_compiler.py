@@ -21,4 +21,9 @@ def create_executable(source_file_path, c_libraries, object_output_path):
 def _run_command_and_return_output(shell_command):
 	"""Runs the provided shell command."""
 	output_stdout, output_stderr = run_shell_command_and_get_results(shell_command)
+	output_stdout = output_stdout.decode('utf-8')
+	output_stderr = output_stderr.decode('utf-8')
+	if len(output_stderr):
+		print('ERROR')
+		print(output_stderr)
 	return output_stdout, output_stderr
