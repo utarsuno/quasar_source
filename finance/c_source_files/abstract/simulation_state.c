@@ -64,7 +64,7 @@ inline void check_if_any_buy_or_sell_orders_should_be_filled(const float current
         if (buy_orders[i].currently_active == TRUE && buy_orders[i].order_price < current_price) {
             buy_orders[i].currently_active = FALSE;
             simulation_state->masari_capital += buy_orders[i].order_amount;
-            simulation_state->btc_capital += buy_orders[i].order_price * buy_orders[i].order_amount;
+            simulation_state->btc_capital -= buy_orders[i].order_price * buy_orders[i].order_amount;
         }
     }
 
@@ -72,7 +72,7 @@ inline void check_if_any_buy_or_sell_orders_should_be_filled(const float current
         if (sell_orders[i].currently_active == TRUE && sell_orders[i].order_price > current_price) {
             sell_orders[i].currently_active = FALSE;
             simulation_state->masari_capital -= sell_orders[i].order_amount;
-            simulation_state->btc_capital -= sell_orders[i].order_price * sell_orders[i].order_amount;
+            simulation_state->btc_capital += sell_orders[i].order_price * sell_orders[i].order_amount;
         }
     }
 }
