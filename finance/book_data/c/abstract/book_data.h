@@ -5,6 +5,10 @@
 #define TRUE 0
 #define FALSE 1
 
+#define SUCCESS                        0
+#define ERROR                          -1
+
+
 float          bytes_to_float(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3);
 int            bytes_to_int(unsigned char b0, unsigned char b1, unsigned char b2, unsigned char b3);
 unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1);

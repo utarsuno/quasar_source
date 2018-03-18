@@ -11,3 +11,6 @@ def run_terminal_command(arguments):
 		return (sp.check_output(arguments, shell=True)).decode()
 	except sp.CalledProcessError as e:
 		return 'Error in process running \'' + arguments + '\'! + - {' + str(e) + '}'
+
+
+
