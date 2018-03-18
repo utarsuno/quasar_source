@@ -52,7 +52,7 @@ class ModelBuilder(object):
 
 
 
-		with open(self._save_path, 'r')	as file_handler:
+		with open(self._save_path, 'r+') as file_handler:
 			for l in self._lines:
 				file_handler.write(l + '\n')
 
