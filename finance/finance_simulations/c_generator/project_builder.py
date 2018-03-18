@@ -5,6 +5,7 @@
 from universal_code import useful_file_operations as ufo
 from c_processes.c_file_abstraction.c_file_types import CFile
 from c_processes.c_file_abstraction.c_library import CLibrary
+from c_processes.c_process import CProcess
 from c_processes.c_file_abstraction.c_project import CProject
 from finance.finance_simulations.c_generator import model_builder
 from finance.finance_simulations.models.m0_net_resistance import FinanceModel_M0
@@ -28,21 +29,6 @@ LIBRARY_BOOK_DATA  = 'book_data'
 LIBRARY_CONSTANTS  = 'custom_constants'
 LIBRARY_SIMULATION = 'simulation_state'
 
-'''__                __       ___              ___          ___    ___  __
-  |__)  /\  |  |    |  \  /\   |   /\     |  |  |  | |    |  |  | |__  /__`
-  |  \ /~~\ |/\|    |__/ /~~\  |  /~~\    \__/  |  | |___ |  |  | |___ .__/ '''
-# List of all the masari data file paths.
-ALL_MASARI_DATA_FILES = ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANCE_MASARI_RAW_DATA)
-
-''' __                         ___    __        __
-   /__` |  |\/| |  | |     /\   |  | /  \ |\ | /__`
-   .__/ |  |  | \__/ |___ /~~\  |  | \__/ | \| .__/ '''
-
-#c_file_raw_data_parser = CFile(FILE_PATH_RAW_DATA_PARSER)
-#PROJECT_SIMULATION_DATA_FETCHER = CProject(c_file_raw_data_parser, [C_LIBRARY_BOOK_DATA], DIRECTORY_FINANCE_C_CODE_OUTPUT)
-#PROJECT_SIMULATION_DATA_FETCHER.build_project()
-
-
 '''__   __   __        ___  __  ___     __               __
   |__) |__) /  \    | |__  /  `  |     |__) |  | | |    |  \
   |    |  \ \__/ \__/ |___ \__,  |     |__) \__/ | |___ |__/ '''
@@ -56,6 +42,10 @@ class FinanceProjectBuilder(object):
 		self.build_libraries()
 		self.load_data()
 		self.build_base_for_models()
+
+		self._masari_data_files = None
+		self._masari_training_data = None
+		self._masari_testing_data = None
 
 	def build_libraries(self):
 		"""Builds the libraries needed for this project."""
@@ -74,10 +64,13 @@ class FinanceProjectBuilder(object):
 
 		print('Finished building libraries.')
 
-	def load_data(self):
-		"""Loads the data needed for building models."""
-		y = 2
-		# TODO !
+	def compile_programs(self):
+		"""Compile needed programs."""
+		print('Compiling programs.')
+		c_file_raw_data_parser = CFile(FILE_PATH_RAW_DATA_PARSER)
+		simulation_data_fetcher = CProject(c_file_raw_data_parser, [self.c_libraries[LIBRARY_BOOK_DATA]], DIRECTORY_FINANCE_C_CODE_OUTPUT)
+		simulation_data_fetcher.build_project()
+		print('Finished compiling programs.')
 
 	def build_base_for_models(self):
 		"""Temporary design."""
@@ -98,6 +91,30 @@ class FinanceProjectBuilder(object):
 
 		builder.generate_base_file()
 
+	'''__       ___               __        __          __
+	  |  \  /\   |   /\     |    /  \  /\  |  \ | |\ | / _`
+	  |__/ /~~\  |  /~~\    |___ \__/ /~~\ |__/ | | \| \__> '''
+	def load_data(self):
+		"""Loads the data needed for building models."""
+		print('Loading all Masari data!')
+
+		self._masari_data_files = sorted(ufo.get_all_file_paths_inside_directory(DIRECTORY_FINANCE_MASARI_RAW_DATA))
+		training_cutoff_index = int(len(self._masari_data_files) * .7)
+
+		training_files = self._masari_data_files[:training_cutoff_index]
+		testing_files = self._masari_data_files[training_cutoff_index:]
+
+		self._training_data = self._load_section_of_data(training_files)
+		self._testing_data = self._load_section_of_data(training_files)
+
+
+		print('Finished loading data.')
+
+	def _load_section_of_data(self, files):
+		"""Utility function for loading data."""
+		c_processes = []
+		for f in files:
+			c_processes.append(CProcess(PROJECT_SIMULATION_DATA_FETCHER.executable_file_path, [f]))
 
 
 
