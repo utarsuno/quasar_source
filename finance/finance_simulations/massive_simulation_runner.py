@@ -58,12 +58,12 @@ class MassiveSimulationRunner(object):
 		simulation_runner = ProcessManager(processes_to_run)
 		results = simulation_runner.run_all_c_processes()
 
-		print('GOT THE FOLLOWING RESULTS')
+		#print('GOT THE FOLLOWING RESULTS')
 		for r in results:
 			#print(r)
 			net_score = float(r[1])
 			flags = r[0].flags
-			print(str(flags) + ' --- ' + str(net_score))
+			#print(str(flags) + ' --- ' + str(net_score))
 
 			if net_score > self.best_score:
 				self.best_score = net_score
@@ -73,9 +73,8 @@ class MassiveSimulationRunner(object):
 					new_weights.append(float(w))
 
 				print('BETTER SCORE FOUND!!!')
-				print('BETTER SCORE FOUND!!!')
-				print('BETTER SCORE FOUND!!!')
-				print('BETTER SCORE FOUND!!!')
+				print('new best weights')
+				print(str(new_weights))
 
 				self.base_training_flags = new_weights
 
