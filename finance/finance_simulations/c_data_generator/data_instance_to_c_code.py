@@ -76,15 +76,15 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 			for e in i.data[DATA_KEY_BUY_PRICES]:
 				list_of_list_of_buy_prices[-1].append(e)
 
-				list_of_list_of_buy_amounts.append([])
+			list_of_list_of_buy_amounts.append([])
 			for e in i.data[DATA_KEY_BUY_AMOUNTS]:
 				list_of_list_of_buy_amounts[-1].append(e)
 
-				list_of_list_of_sell_prices.append([])
+			list_of_list_of_sell_prices.append([])
 			for e in i.data[DATA_KEY_SELL_PRICES]:
 				list_of_list_of_sell_prices[-1].append(e)
 
-				list_of_list_of_sell_amounts.append([])
+			list_of_list_of_sell_amounts.append([])
 			for e in i.data[DATA_KEY_SELL_AMOUNTS]:
 				list_of_list_of_sell_amounts[-1].append(e)
 
