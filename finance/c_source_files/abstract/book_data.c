@@ -1,8 +1,8 @@
 #include "book_data.h"
 
 // Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
-inline const float bytes_to_float(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3) {
-    float output;
+inline float bytes_to_float(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3) {
+    const float output;
     * ((unsigned char *)(& output) + 3) = b0;
     * ((unsigned char *)(& output) + 2) = b1;
     * ((unsigned char *)(& output) + 1) = b2;
