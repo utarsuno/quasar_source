@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-int main(void) {
+int main(int argc, char * argv[]) {
 
-    printf("This is the output from this program!\n");
+    sleep(5);
+    printf("This is the output from program{%s}!\n", argv[2]);
 
     return 0;
 }
