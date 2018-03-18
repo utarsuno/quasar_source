@@ -3,7 +3,7 @@
 """This module, trading_model.py, represents a trading model used in both training and testing."""
 
 
-FINANCE_MODEL_M0 = 'm0_net_resistance'
+FINANCE_MODEL_TYPE_M0 = 'm0_net_resistance'
 
 
 class FinanceModel(object):

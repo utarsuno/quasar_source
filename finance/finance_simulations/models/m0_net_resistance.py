@@ -10,5 +10,5 @@ class FinanceModel_M0(FinanceModel):
 	"""Represents a specific finance model."""
 
 	def __init__(self):
-		super().__init__(FinanceModel_M0, [DATA_REQUIREMENT_FULL_BOOK_ORDER, DATA_KEY_LAST_PRICE])
+		super().__init__(FINANCE_MODEL_TYPE_M0, [DATA_REQUIREMENT_FULL_BOOK_ORDER, DATA_KEY_LAST_PRICE])
 		self._number_of_weights = 4
