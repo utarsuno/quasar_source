@@ -13,21 +13,20 @@ class ProcessManager(object):
 		self._c_processes_to_run = list_of_c_processes_to_run
 		self._c_threads          = []
 		self._results_queue      = queue.Queue()
-		self._results            = {}
+		self._results            = []
 
 	# Code initially based from : https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 	def run_all_c_processes(self):
 		"""Runs all the c_processes."""
 		for c_process in self._c_processes_to_run:
 			self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
-			#self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
+			# self._c_threads.append(threading.Thread(target=self._run_simulation, args=(c_process, self._results_queue)))
 			self._c_threads[-1].start()
 		for c_thread in self._c_threads:
 			c_thread.join()
 		while not self._results_queue.empty():
 			result = self._results_queue.get()
-			self._results[result[0]] = result[1]
-
+			self._results.append([result[0], result[1]])
 		return self._results
 
 	def _run_simulation(self, c_process, results_queue):
@@ -36,6 +35,6 @@ class ProcessManager(object):
 
 		if output_stderr is not None:
 			if str(output_stderr) > 0:
-				results_queue.put([c_process._c_executable_path, 'ERROR {' + str(output_stderr) + '}'])
+				results_queue.put([c_process, 'ERROR {' + str(output_stderr) + '}'])
 		else:
-			results_queue.put([c_process._c_executable_path, str(output_stdout)])
+			results_queue.put([c_process, str(output_stdout)])
