@@ -10,3 +10,8 @@ class DataInstance(object):
 		print('The raw data is :')
 		print(raw_data)
 
+		self.unix_timestamp = raw_data.flags[0]
+		print(self.unix_timestamp)
+
+		print('rest of the data is')
+		print(raw_data[1])

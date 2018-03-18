@@ -13,6 +13,7 @@ class CProcess(object):
 	def __init__(self, c_executable_path, flags):
 		self._c_executable_path = c_executable_path
 		self._shell_string = self._c_executable_path
+		self._flags = flags
 		if type(flags) == list:
 			for f in flags:
 				self._shell_string += ' ' + f + ' '
@@ -44,6 +45,11 @@ class CProcess(object):
 		"""Runs a process with provided input."""
 		#self.start_process(True)
 		# TODO : THIS FUNCTION!!!
+
+	@property
+	def flags(self):
+		"""Returns the flags used for running this process."""
+		return self._flags
 
 
 
