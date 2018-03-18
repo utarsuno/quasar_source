@@ -54,7 +54,10 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 		# 0x3 - Sell amounts per time instance.            {{unsigned short buy_amounts[number_of_time_segments][number_of_sell_orders[i]]}}
 
 		for i in data_instances:
+			print('----@-----')
 			print(i)
+			print(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
+			print('----@-----')
 			number_of_buy_orders_list.append(len(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS]))
 			number_of_sell_orders_list.append(len(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS]))
 			#print(i)
