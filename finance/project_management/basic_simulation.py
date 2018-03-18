@@ -29,7 +29,15 @@ class BasicSimulation(object):
 
 
 		simulation_runner = ProcessManager([c_process])
-		simulation_runner.run_all_c_processes()
+		results = simulation_runner.run_all_c_processes()
+
+
+		for r in results:
+			print(r)
+			print(results[r])
+			print()
+		print(str(type(results)))
+		print(len(results))
 
 
 	#def run_training(self):
