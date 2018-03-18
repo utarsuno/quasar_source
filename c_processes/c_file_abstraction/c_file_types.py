@@ -44,11 +44,3 @@ class CFile(object):
 	def file_name(self) -> str:
 		"""Returns the file name of this C file."""
 		return self._file_name
-
-	def compile_file(self, input_directory, output_directory):
-		"""Compiles this file."""
-		print('Compile file test!')
-		print(terminal_api.run_terminal_command(['gcc', input_directory + self._file_name]))
-
-
-
