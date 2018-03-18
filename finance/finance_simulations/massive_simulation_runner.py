@@ -6,7 +6,7 @@ from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager
 import random
 
-PATH_TO_TRAINER = '/home/databoi/c_code/m0_net_resistance_testing'
+PATH_TO_TRAINER = '/home/databoi/c_code/m0_net_resistance_training'
 
 
 class MassiveSimulationRunner(object):
@@ -80,4 +80,3 @@ simulation_runner.one_random_training_session()
 simulation_runner.one_random_training_session()
 simulation_runner.one_random_training_session()
 simulation_runner.one_random_training_session()
-
