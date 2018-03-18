@@ -4,7 +4,7 @@
 
 from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager
-
+import random
 
 PATH_TO_TRAINER = '/home/databoi/c_code/m0_net_resistance_testing'
 
@@ -28,48 +28,56 @@ class MassiveSimulationRunner(object):
 
 	def _train_one_weight(self, weight_index):
 		"""Trains a single weight."""
-		# Make 3000 processes.
 		processes_to_run = []
 		for p in range(3000):
-
-			# Calculate the weight delta.
 			if p < 1000:
-				weight_delta = self.delta * p * -2
+				weights = self._get_weights_to_use(weight_index, self.delta * p * -2)
 			elif p < 2000:
-				weight_delta = self.delta * p
+				weights = self._get_weights_to_use(weight_index, self.delta * p)
 			else:
-				weight_delta = self.delta * p * 2
+				weights = self._get_weights_to_use(weight_index, self.delta * p * 2)
+			processes_to_run.append(CProcess(PATH_TO_TRAINER, weights))
+		self._run_simulations(processes_to_run)
 
-			weights_to_use = []
-			for i, w in enumerate(self.base_training_flags):
-				if i == weight_index:
-					weights_to_use.append(w + weight_delta)
-				else:
-					weights_to_use.append(w)
+	def one_random_training_session(self):
+		"""Runs a single training session with random deltas."""
+		processes_to_run = []
+		for p in range(3000):
+			weights = self._get_weights_to_use(random.randint(0, 3), random.uniform(-10, 10))
+			processes_to_run.append(CProcess(PATH_TO_TRAINER, weights))
+		self._run_simulations(processes_to_run)
 
-			for i in range(len(weights_to_use)):
-				weights_to_use[i] = str(weights_to_use[i])
+	def _get_weights_to_use(self, index_to_modify, amount_to_modify):
+		"""Returns a set of weights to use."""
+		weights = []
+		for i, w in enumerate(self.base_training_flags):
+			if i == index_to_modify:
+				weights[i] = str(self.base_training_flags[i] + amount_to_modify)
+			else:
+				weights[i] = str(self.base_training_flags[i])
+		return weights
 
-			processes_to_run.append(CProcess(PATH_TO_TRAINER, weights_to_use))
-
-		simulation_runner = ProcessManager(processes_to_run)
-		results = simulation_runner.run_all_c_processes()
-
+	def _run_simulations(self, processes_to_run):
+		"""Runs a list of processes."""
+		process_runner = ProcessManager(processes_to_run)
+		results = process_runner.run_all_c_processes()
 		for r in results:
 			net_score = float(r[1])
 			flags = r[0].flags
-
 			if net_score > self.best_score:
 				self.best_score = net_score
-
 				new_weights = []
 				for w in flags:
 					new_weights.append(float(w))
-
 				print('Better settings found! {' + str(new_weights) + '} ==> {' + str(self.best_score) + '}')
-
 				self.base_training_flags = new_weights
+
 
 # Run the simulation.
 simulation_runner = MassiveSimulationRunner()
 simulation_runner.one_training_session()
+simulation_runner.one_random_training_session()
+simulation_runner.one_random_training_session()
+simulation_runner.one_random_training_session()
+simulation_runner.one_random_training_session()
+
