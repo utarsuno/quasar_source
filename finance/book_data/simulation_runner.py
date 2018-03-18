@@ -34,4 +34,5 @@ while i < 40:
 	i += 1
 
 process_manager = c_process_manager.ProcessManager(programs_to_test)
+process_manager.run_all_c_processes()
 print('SIMULATION DONE?')
