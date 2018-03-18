@@ -13,5 +13,7 @@ class DataInstance(object):
 		print(self.unix_timestamp)
 
 		print('rest of the data is')
-		print(raw_data[1])
-		print(type(raw_data[1]))
+		self.raw_data = raw_data[1].split('|')
+		for d in self.raw_data:
+			print(d)
+		
