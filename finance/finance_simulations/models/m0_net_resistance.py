@@ -31,7 +31,7 @@ int main(int argc, char * argv[]) {
 		}
 
 		// Calculate the net sell influence.
-		for (i = 0; s < num_orders_sell; s++) {
+		for (i = 0; i < num_orders_sell; i++) {
 			// distance_from_price : current_price - all_sell_prices[time_index][i]
 			// influence : sell_weight / (distance_from_price * 2)
 			net_influence[time_index] += (all_sell_amounts[time_index][i] * all_sell_prices[time_index][i]) * (sell_weight / (current_price - all_sell_prices[time_index][i] * 2));
