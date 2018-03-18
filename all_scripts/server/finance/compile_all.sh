@@ -24,4 +24,4 @@ gcc -c ${path_source}${path_source_book_data} -o ${path_output}${path_output_boo
 gcc -O2 ${path_source}${path_source_data_saver} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_saver}
 
 
-gcc -O2 ${path_source}${path_source_data_loader} ${path_output}${path_output_book_data} -o ${path_output}${path_output_data_loader}
+gcc -O2 ${path_output}${path_output_book_data} ${path_source}${path_source_data_loader} -o ${path_output}${path_output_data_loader}
