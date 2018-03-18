@@ -99,7 +99,7 @@ BookData * get_book_data_from_file(const char * file_load_path) {
 }
 
 void output_out_all_contents_of_book_data(BookData * book_data) {
-    printf("hu\n", book_data->last_price);
+    printf("%hu\n", book_data->last_price);
 }
 
 inline void free_book_data(BookData * book_data) {
