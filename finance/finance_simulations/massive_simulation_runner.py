@@ -49,7 +49,7 @@ class MassiveSimulationRunner(object):
 
 	def _get_weights_to_use(self, index_to_modify, amount_to_modify):
 		"""Returns a set of weights to use."""
-		weights = []
+		weights = [0] * 4
 		for i, w in enumerate(self.base_training_flags):
 			if i == index_to_modify:
 				weights[i] = str(self.base_training_flags[i] + amount_to_modify)
