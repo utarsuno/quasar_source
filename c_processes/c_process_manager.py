@@ -36,4 +36,4 @@ class ProcessManager(object):
 	def _run_simulation(self, c_process, results_queue):
 		"""Runs a simulation for a single c_process."""
 		c_process.run_process()
-		results_queue.put({c_process._flags[0], c_process.stdout})
+		results_queue.put({c_process._flags[0], c_process.output_stdout})
