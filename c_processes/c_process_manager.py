@@ -25,8 +25,9 @@ class ProcessManager(object):
 			c_thread.join()
 		while not self._results_queue.empty():
 			print('RESULT')
-			print(self._results_queue.get())
-			self._results.update(self._results_queue.get())
+			result = self._results_queue.get()
+			print(result)
+			self._results.[result[0]] = result[1]
 		print('PRINTING THE RESULTS!')
 		print(self._results)
 		print('@@@@@@@@@@@@@@@@@@@@@@@@@@@')
@@ -38,4 +39,4 @@ class ProcessManager(object):
 	def _run_simulation(self, c_process, results_queue):
 		"""Runs a simulation for a single c_process."""
 		c_process.run_process()
-		results_queue.put({c_process._flags[0], c_process.output_stdout})
+		results_queue.put([c_process._flags[0], c_process.output_stdout])
