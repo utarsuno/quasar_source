@@ -58,10 +58,10 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 			number_of_sell_orders_list.append(len(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS]))
 			#print(i)
 
-		c_code.add_defined_1d_list_of_numbers('const int number_of_buy_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};', number_of_buy_orders_list)
-		c_code.add_defined_1d_list_of_numbers('const int number_of_sell_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};', number_of_sell_orders_list)
+		c_code.add_defined_1d_list_of_numbers('const int number_of_buy_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_buy_orders_list)
+		c_code.add_defined_1d_list_of_numbers('const int number_of_sell_orders[NUMBER_OF_TIME_INSTANCES] = {ARG};\n', number_of_sell_orders_list)
 
-		
+
 		return str(c_code)
 
 	else:
