@@ -55,6 +55,7 @@ class FinanceProjectBuilder(object):
 		self.c_libraries = {}
 		self.build_libraries()
 		self.load_data()
+		self.build_base_for_models()
 
 	def build_libraries(self):
 		"""Builds the libraries needed for this project."""
