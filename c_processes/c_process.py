@@ -33,4 +33,3 @@ class CProcess(object):
 
 	def compile_process(self):
 		"""Compiles this c program."""
-

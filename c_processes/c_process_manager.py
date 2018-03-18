@@ -15,6 +15,10 @@ class ProcessManager(object):
 		self._results_queue      = queue.Queue()
 		self._results            = {}
 
+	def compile_all_c_programs(self):
+		"""Compiles all the c programs passed to this manager."""
+
+
 	# Code initially based from : https://stackoverflow.com/questions/6893968/how-to-get-the-return-value-from-a-thread-in-python
 	def run_all_c_processes(self):
 		"""Runs all the c_processes."""

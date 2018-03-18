@@ -30,7 +30,7 @@ def get_all_masari_data_file_paths():
 programs_to_test = []
 i = 0
 while i < 40:
-	programs_to_test.append(c_process.CProcess('/home/databoi/finance/quick_test', [str(i)]))
+	programs_to_test.append(c_process.CProcess('/home/git_repos/quasar_source/finance/book_data/c/a.out', [str(i)]))
 	i += 1
 
 process_manager = c_process_manager.ProcessManager(programs_to_test)
