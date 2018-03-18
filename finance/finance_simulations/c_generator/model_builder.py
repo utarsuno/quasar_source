@@ -49,13 +49,13 @@ class ModelBuilder(object):
 		"""Generate the training file."""
 		data_chunk.set_needed_data(self)
 		self._generate_base_file()
-		self._create_file()
+		self._create_file(True)
 
 	def generate_testing_file(self, data_chunk):
 		"""Generate the testing file."""
 		data_chunk.set_needed_data(self)
 		self._generate_base_file()
-		self._create_file()
+		self._create_file(False)
 
 	def _generate_base_file(self):
 		"""Generates the base file."""
@@ -88,3 +88,5 @@ class ModelBuilder(object):
 			s += l
 		return s
 	'''
+
+
