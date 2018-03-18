@@ -26,7 +26,7 @@ unsigned short bytes_to_unsigned_short(unsigned char b0, unsigned char b1) {
     return output;
 }
 
-BookData * get_book_data_from_file(char * file_path) {
+BookData * get_book_data_from_file(char * file_load_path) {
     FILE * file_pointer = fopen(file_load_path, "rb");
     // Base code from : https://stackoverflow.com/questions/22059189/read-a-file-as-byte-array
     char * file_buffer;
