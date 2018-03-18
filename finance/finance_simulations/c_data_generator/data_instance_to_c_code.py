@@ -44,16 +44,6 @@ class CCode(object):
 			code_text += single_row
 		self.add_lines(list_declaration.replace('ARG', code_text[:-2]))
 
-	def add_defined_2d_list_of_numbersOLD(self, list_declaration, list_of_list_of_numbers):
-		"""Utility function."""
-		code_text = ''
-		for row in list_of_list_of_numbers:
-			single_line = '{'
-			for e in row:
-				single_line += str(e) + ','
-			code_text += single_line[:-1] + '},\n'
-		return code_text
-
 	def __str__(self):
 		s = ''
 		for l in self._lines:
@@ -76,35 +66,8 @@ def get_c_code_from_list_of_data_instances(data_instances, finance_model):
 		list_of_list_of_sell_prices = []
 		list_of_list_of_sell_amounts = []
 
-		print('@@@')
-		print('@@@')
-		print('@@@')
-		print('@@@')
-		print('@@@')
-
-		print(str(data_instances[0]))
-		print('@@@')
-		print(str(data_instances[1]))
-
-		print('@@@')
-		print('@@@')
-		print('@@@')
-
-		list_of_list_of_buy_prices.append([])
-		for e in data_instances[0].data[DATA_KEY_BUY_PRICES]:
-			list_of_list_of_buy_prices[-1].append(e)
-		list_of_list_of_buy_prices.append([])
-		for e in data_instances[1].data[DATA_KEY_BUY_PRICES]:
-			list_of_list_of_buy_prices[-1].append(e)
-
-		print(list_of_list_of_buy_prices)
-		print('!!!!?!?!?!?!?!!!!\n')
-		print(c_code.add_defined_2d_list_of_numbersOLD('const unsigned short all_buy_prices[NUMBER_OF_TIME_INSTANCES][50]   = {ARG};\n', list_of_list_of_buy_prices))
-
-		exit()
-
 		for i in data_instances:
-			#print(str(data_instances))
+			print(str(i))
 
 			number_of_buy_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
 			number_of_sell_orders_list.append(i.data[DATA_KEY_NUMBER_OF_BUY_ORDERS])
