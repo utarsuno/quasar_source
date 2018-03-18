@@ -19,3 +19,7 @@ class CProcess(object):
 		print('Printing stdout and stderr')
 		print(output_stdout)
 		print(output_stderr)
+
+
+
+c_process = CProcess('/home/databoi/finance/quick_test')
