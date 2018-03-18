@@ -1,4 +1,4 @@
-#include "book_data.h"
+#include "/home/git_repos/quasar_source/finance/c_source_files/book_data.h"
 
 // Base code from : https://stackoverflow.com/questions/3991478/building-a-32bit-float-out-of-its-4-composite-bytes-c
 inline float bytes_to_float(const unsigned char b0, const unsigned char b1, const unsigned char b2, const unsigned char b3) {
