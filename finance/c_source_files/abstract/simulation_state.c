@@ -71,9 +71,9 @@ inline void check_if_any_buy_or_sell_orders_should_be_filled(const float current
             simulation_state->btc_capital -= buy_orders[i].order_price * buy_orders[i].order_amount;
 
             simulation_state->number_of_buy_orders_executed += 1;
-            
+
             // Temporary debugging.
-            printf("Buy order executed! Current price{%f}, order amount {%d}, order_price{%f}\n", current_price, buy_orders[i].order_amount, buy_orders[i].order_price);
+            printf("Buy order executed! Current price{%f}, order amount {%f}, order_price{%f}\n", current_price, buy_orders[i].order_amount, buy_orders[i].order_price);
 
         }
     }
