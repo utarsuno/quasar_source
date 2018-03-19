@@ -2,11 +2,13 @@
 #include "/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h"
 
 inline void initialize_simulation_state(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders) {
-    simulation_state->number_of_current_buy_orders  = 0;
-    simulation_state->number_of_current_sell_orders = 0;
-    simulation_state->masari_capital                = 1000;
-    simulation_state->btc_capital                   = 0.0;
-	simulation_state->net_btc_profit                = 0.0;
+    simulation_state->number_of_current_buy_orders   = 0;
+    simulation_state->number_of_current_sell_orders  = 0;
+    simulation_state->masari_capital                 = 1000;
+    simulation_state->btc_capital                    = 0.0;
+	simulation_state->net_btc_profit                 = 0.0;
+	simulation_state->number_of_buy_orders_executed  = 0;
+	simulation_state->number_of_sell_orders_executed = 0;
 
     int i;
     for (i = 0; i < MAXIMUM_NUMBER_OF_BUY_ORDERS; i++) {
