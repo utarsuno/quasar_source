@@ -26,6 +26,16 @@ int main(int argc, char * argv[]) {
 	// Weight 5.
 	float sell_order_price_multiplier = atof(argv[ARGUMENT_INDEX_WEIGHT_5]);
 
+	printf("Printing the weights\\n");
+
+	printf("%f\\n", buy_weight);
+	printf("%f\\n", sell_weight);
+	printf("%f\\n", buy_threshold);
+	printf("%f\\n", sell_threshold);
+	printf("%f\\n", buy_order_price_multiplier);
+	printf("%f\\n", sell_order_price_multiplier);
+	
+
 	int time_index = 0;
 	while (time_index < NUMBER_OF_TIME_INSTANCES) {
 		int num_orders_buy = number_of_buy_orders[time_index];
