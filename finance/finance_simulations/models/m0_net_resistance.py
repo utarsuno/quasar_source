@@ -98,7 +98,7 @@ int main(int argc, char * argv[]) {
 		} else if (current_net_influence < sell_threshold) {
 
 			if (can_place_sell_order(simulation_state) == TRUE) {
-				place_sell_order(10.0, current_price * sell_order_price_multiplier, simulation_state, buy_orders);
+				place_sell_order(10.0, current_price * sell_order_price_multiplier, simulation_state, sell_orders);
 			}
 
 		}
