@@ -101,6 +101,8 @@ int main(int argc, char * argv[]) {
 	printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
 	printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
 	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
+	printf("Number of buy orders executed {%d}\\n", simulation_state->number_of_buy_orders_executed);
+	printf("Number of sell orders executed {%d}\\n", simulation_state->number_of_buy_orders_executed);
 
 	//printf("Last price was : %f\\n", current_price);
 	float btc_to_masari = simulation_state->btc_capital / current_price;
