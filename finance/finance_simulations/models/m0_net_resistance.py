@@ -97,10 +97,10 @@ int main(int argc, char * argv[]) {
 	}
 
 	//printf("PRINTING ENDING SUMS\\n");
-	//printf("Current number of buy orders {%d}\\n", simulation_state->number_of_current_buy_orders);
-	//printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
-	//printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
-	//printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
+	printf("Current number of buy orders {%d}\\n", simulation_state->number_of_current_buy_orders);
+	printf("Current number of sell orders {%d}\\n", simulation_state->number_of_current_sell_orders);
+	printf("Current number of masari {%f}\\n", simulation_state->masari_capital);
+	printf("Current number of btc {%f}\\n", simulation_state->btc_capital);
 
 	//printf("Last price was : %f\\n", current_price);
 	float btc_to_masari = simulation_state->btc_capital / current_price;
