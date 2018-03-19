@@ -23,7 +23,7 @@ class FinanceModel(object):
 
 	def add_required_define_statement(self, d, v):
 		"""Adds a required define statement."""
-		self._required_defines.append(d, v)
+		self._required_defines.append([d, v])
 
 	@property
 	def required_libraries(self):
