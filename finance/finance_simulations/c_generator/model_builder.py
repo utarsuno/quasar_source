@@ -20,6 +20,12 @@ class ModelBuilder(object):
 
 		self._lines = []
 
+		# Add requirements from the model.
+		for library in self._model.required_libraries:
+			self._libraries.append(library)
+		for define_statement in self._model.required_define_statements:
+			self._libraries.append(define_statement)
+
 	def add_library(self, library):
 		"""Adds a library to this model."""
 		self._libraries.append(library)

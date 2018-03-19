@@ -14,6 +14,27 @@ class FinanceModel(object):
 		self._types_of_data_needed = types_of_data_needed
 		self._weights = []
 
+		self._required_libraries = []
+		self._required_defines   = []
+
+	def add_required_library(self, l):
+		"""Adds a required library."""
+		self._required_libraries.append(l)
+
+	def add_required_define_statement(self, d, v):
+		"""Adds a required define statement."""
+		self._required_defines.append(d, v)
+
+	@property
+	def required_libraries(self):
+		"""Returns the required libraries of this model."""
+		return self._required_libraries
+
+	@property
+	def required_define_statements(self):
+		"""Returns the required define statements of this model."""
+		return self._required_defines
+	
 	@property
 	def model_name(self) -> str:
 		"""Returns the name of this model."""

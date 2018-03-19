@@ -126,6 +126,18 @@ class FinanceModel_M0(FinanceModel):
 
 		self._c_main_code = C_MAIN_CODE
 
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_0', '1')
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_1', '2')
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_2', '3')
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_3', '4')
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_4', '5')
+		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_5', '6')
+
+		self.add_required_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
+		self.add_required_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
+		self.add_required_library('<stdio.h>')
+		self.add_required_library('<stdlib.h>')
+		self.add_required_library('<string.h>')
 
 '''
 

@@ -95,17 +95,6 @@ class FinanceProjectBuilder(object):
 
 	def _build_for_model(self, model, data, is_training):
 		builder = model_builder.ModelBuilder(model, DIRECTORY_FINANCE_C_CODE_OUTPUT)
-		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
-		builder.add_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
-		builder.add_library('<stdio.h>')
-		builder.add_library('<stdlib.h>')
-		builder.add_library('<string.h>')
-
-		builder.add_define('ARGUMENT_INDEX_WEIGHT_0', '1')
-		builder.add_define('ARGUMENT_INDEX_WEIGHT_1', '2')
-		builder.add_define('ARGUMENT_INDEX_WEIGHT_2', '3')
-		builder.add_define('ARGUMENT_INDEX_WEIGHT_3', '4')
-
 		if is_training:
 			builder.generate_training_file(data)
 		else:
