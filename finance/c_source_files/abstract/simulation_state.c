@@ -36,6 +36,10 @@ inline int can_place_sell_order(const SimulationState * simulation_state) {
 }
 
 inline void place_buy_order(const float order_amount, const float order_price, SimulationState * simulation_state, BookOrder * buy_orders) {
+    if (order_price <= 0) {
+        return;
+    }
+
     int i;
     for (i = 0; i < MAXIMUM_NUMBER_OF_BUY_ORDERS; i++) {
         if (buy_orders[i].currently_active == FALSE) {
@@ -49,6 +53,10 @@ inline void place_buy_order(const float order_amount, const float order_price, S
 }
 
 inline void place_sell_order(const float order_amount, const float order_price, SimulationState * simulation_state, BookOrder * sell_orders) {
+    if (order_price <= 0) {
+        return;
+    }
+
     int i;
     for (i = 0; i < MAXIMUM_NUMBER_OF_SELL_ORDERS; i++) {
         if (sell_orders[i].currently_active == FALSE) {
