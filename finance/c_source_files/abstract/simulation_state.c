@@ -1,5 +1,7 @@
 #include "/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h"
 #include "/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 inline void initialize_simulation_state(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders) {
     simulation_state->number_of_current_buy_orders   = 0;
