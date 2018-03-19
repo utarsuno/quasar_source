@@ -24,7 +24,7 @@ class ModelBuilder(object):
 		for library in self._model.required_libraries:
 			self._libraries.append(library)
 		for define_statement in self._model.required_define_statements:
-			self._libraries.append(define_statement)
+			self._libraries.append([define_statement[0], define_statement[1]])
 
 	def add_library(self, library):
 		"""Adds a library to this model."""
