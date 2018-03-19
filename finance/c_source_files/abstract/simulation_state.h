@@ -4,11 +4,17 @@
 #define MAXIMUM_NUMBER_OF_SELL_ORDERS 10
 
 typedef struct simulation_state {
+
 	int number_of_current_buy_orders;
 	int number_of_current_sell_orders;
+
+	int number_of_buy_orders_executed;
+	int number_of_sell_orders_executed;
+
 	float masari_capital;
 	float btc_capital;
 	float net_btc_profit;
+
 } SimulationState;
 
 typedef struct book_order {

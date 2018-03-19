@@ -61,18 +61,26 @@ inline void check_if_any_buy_or_sell_orders_should_be_filled(const float current
     int i;
 
     for (i = 0; i < MAXIMUM_NUMBER_OF_BUY_ORDERS; i++) {
-        if (buy_orders[i].currently_active == TRUE && buy_orders[i].order_price > current_price) {
+        if (buy_orders[i].currently_active == TRUE && buy_orders[i].order_price < current_price) {
+
             buy_orders[i].currently_active = FALSE;
+
             simulation_state->masari_capital += buy_orders[i].order_amount;
             simulation_state->btc_capital -= buy_orders[i].order_price * buy_orders[i].order_amount;
+
+            simulation_state->number_of_buy_orders_executed += 1;
         }
     }
 
     for (i = 0; i < MAXIMUM_NUMBER_OF_SELL_ORDERS; i++) {
-        if (sell_orders[i].currently_active == TRUE && sell_orders[i].order_price < current_price) {
+        if (sell_orders[i].currently_active == TRUE && sell_orders[i].order_price > current_price) {
+
             sell_orders[i].currently_active = FALSE;
+
             simulation_state->masari_capital -= sell_orders[i].order_amount;
             simulation_state->btc_capital += sell_orders[i].order_price * sell_orders[i].order_amount;
+
+            simulation_state->number_of_sell_orders_executed += 1;
         }
     }
 }
