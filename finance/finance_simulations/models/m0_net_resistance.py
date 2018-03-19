@@ -34,7 +34,7 @@ int main(int argc, char * argv[]) {
 	printf("%f\\n", sell_threshold);
 	printf("%f\\n", buy_order_price_multiplier);
 	printf("%f\\n", sell_order_price_multiplier);
-	
+
 
 	int time_index = 0;
 	while (time_index < NUMBER_OF_TIME_INSTANCES) {
