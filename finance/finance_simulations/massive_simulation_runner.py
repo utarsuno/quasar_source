@@ -75,7 +75,9 @@ class MassiveSimulationRunner(object):
 
 # Run the simulation.
 simulation_runner = MassiveSimulationRunner()
+
 simulation_runner.one_training_session()
+
 simulation_runner.one_random_training_session()
 simulation_runner.one_random_training_session()
 simulation_runner.one_random_training_session()

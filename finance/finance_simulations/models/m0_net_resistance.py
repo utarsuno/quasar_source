@@ -21,6 +21,11 @@ int main(int argc, char * argv[]) {
 	// Weight 3.
 	float sell_threshold = atof(argv[ARGUMENT_INDEX_WEIGHT_3]);
 
+	// Weight 4.
+	float buy_order_price_multiplier = atof(argv[ARGUMENT_INDEX_WEIGHT_4]);
+	// Weight 5.
+	float sell_order_price_multiplier = atof(argv[ARGUMENT_INDEX_WEIGHT_5]);
+
 	int time_index = 0;
 	while (time_index < NUMBER_OF_TIME_INSTANCES) {
 		int num_orders_buy = number_of_buy_orders[time_index];
@@ -77,13 +82,13 @@ int main(int argc, char * argv[]) {
 		if (current_net_influence > buy_threshold) {
 
 			if (can_place_buy_order(simulation_state) == TRUE) {
-				place_buy_order(10.0, current_price, simulation_state, buy_orders);
+				place_buy_order(10.0, current_price * buy_order_price_multiplier, simulation_state, buy_orders);
 			}
 
 		} else if (current_net_influence < sell_threshold) {
 
 			if (can_place_sell_order(simulation_state) == TRUE) {
-				place_sell_order(10.0, current_price, simulation_state, buy_orders);
+				place_sell_order(10.0, current_price * sell_order_price_multiplier, simulation_state, buy_orders);
 			}
 
 		}
