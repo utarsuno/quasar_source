@@ -1,13 +1,3 @@
-# coding=utf-8
-
-"""This module, m0_net_resistance.py, represents the M0 trading model."""
-
-from finance.finance_simulations.c_generator.data.data_instance import *
-from finance.finance_simulations.models.trading_model import *
-
-
-
-C_MAIN_CODE = '''
 float net_influence[NUMBER_OF_TIME_INSTANCES];
 
 int main(int argc, char * argv[]) {
@@ -121,29 +111,3 @@ int main(int argc, char * argv[]) {
 
 	return 1;
 }
-
-'''
-
-
-
-class FinanceModel_M0(FinanceModel):
-	"""Represents a specific finance model."""
-
-	def __init__(self):
-		super().__init__(FINANCE_MODEL_TYPE_M0, [DATA_REQUIREMENT_FULL_BOOK_ORDER, DATA_KEY_LAST_PRICE])
-		self._number_of_weights = 4
-
-		self._c_main_code = C_MAIN_CODE
-
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_0', '1')
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_1', '2')
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_2', '3')
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_3', '4')
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_4', '5')
-		self.add_required_define_statement('ARGUMENT_INDEX_WEIGHT_5', '6')
-
-		self.add_required_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/custom_constants.h')
-		self.add_required_library('/home/git_repos/quasar_source/finance/c_source_files/abstract/simulation_state.h')
-		self.add_required_library('<stdio.h>')
-		self.add_required_library('<stdlib.h>')
-		self.add_required_library('<string.h>')

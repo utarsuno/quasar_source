@@ -29,3 +29,4 @@ int can_place_sell_order(const SimulationState * simulation_state);
 void place_buy_order(const float order_amount, const float order_price, SimulationState * simulation_state, BookOrder * buy_orders);
 void place_sell_order(const float order_amount, const float order_price, SimulationState * simulation_state, BookOrder * sell_orders);
 void check_if_any_buy_or_sell_orders_should_be_filled(const float current_price, SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders);
+void cancel_all_current_orders(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders);

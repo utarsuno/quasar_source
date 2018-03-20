@@ -6,8 +6,8 @@
 inline void initialize_simulation_state(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders) {
     simulation_state->number_of_current_buy_orders   = 0;
     simulation_state->number_of_current_sell_orders  = 0;
-    simulation_state->masari_capital                 = 1000;
-    simulation_state->btc_capital                    = 0.5;
+    simulation_state->masari_capital                 = 2500;
+    simulation_state->btc_capital                    = 0.059;
 	simulation_state->net_btc_profit                 = 0.0;
 	simulation_state->number_of_buy_orders_executed  = 0;
 	simulation_state->number_of_sell_orders_executed = 0;
@@ -116,12 +116,29 @@ inline void check_if_any_buy_or_sell_orders_should_be_filled(const float current
 
 // TODO : When placing orders make sure to remove the appropriate amounts from current balances.
 // TODO : Make sure a buy limit order can only be placed if there is enough BTC currency.
-// TODO : Change the simulation to start off with 50% in masari and 50% in BTC.
 
 // TODO : Perhaps only have orders execute if the price stayed there for X number of days to make the orders filling out more realistic.
 // TODO : Relating to the point above, might want to check if there are other orders that would have filled out first.
 
 // TODO : Once the simulation has completed make sure to cancel out all current orders.
 inline void cancel_all_current_orders(SimulationState * simulation_state, BookOrder * buy_orders, BookOrder * sell_orders) {
+    int i;
 
+    for (i = 0; i < MAXIMUM_NUMBER_OF_BUY_ORDERS; i++) {
+        if (buy_orders[i].currently_active == TRUE) {
+            buy_orders[i].currently_active = FALSE;
+
+            simulation_state->number_of_current_buy_orders -= 1;
+            simulation_state->btc_capital += order_amount * order_price;
+        }
+    }
+
+    for (i = 0; i < MAXIMUM_NUMBER_OF_SELL_ORDERS; i++) {
+        if (sell_orders[i].currently_active == TRUE) {
+            sell_orders[i].currently_active = FALSE;
+
+            simulation_state->number_of_current_sell_orders -= 1;
+            simulation_state->masari_capital += order_amount;
+        }
+    }
 }
