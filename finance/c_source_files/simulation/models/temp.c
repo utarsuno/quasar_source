@@ -104,6 +104,8 @@ int main(int argc, char * argv[]) {
 	//printf("Last price was : %f\\n", current_price);
 	float btc_to_masari = simulation_state->btc_capital / current_price;
 
+    // TODO : CALL cancel_all_current_orders
+
 	//printf("Final score(ish) : %f\\n", simulation_state->masari_capital + btc_to_masari);
 	printf("%f\\n", simulation_state->masari_capital + btc_to_masari);
 
