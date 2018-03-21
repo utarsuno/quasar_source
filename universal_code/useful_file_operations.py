@@ -29,10 +29,33 @@ def _is_valid_path_parameter(path):
 		return True
 	return False
 
-'''        __   __             ___     ___            __  ___    __        __
-	 |\/| /  \ |  \ |  | |    |__     |__  |  | |\ | /  `  |  | /  \ |\ | /__`
-	 |  | \__/ |__/ \__/ |___ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/
-'''
+
+'''__     __   ___  __  ___  __   __          __   __   ___  __       ___    __        __
+  |  \ | |__) |__  /  `  |  /  \ |__) \ /    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+  |__/ | |  \ |___ \__,  |  \__/ |  \  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+
+
+def does_directory_exist(directory_path) -> bool:
+	"""Returns a boolean indicating if the directory exists or not."""
+	if os.path.exists(directory_path):
+		return os.path.isdir(directory_path)
+	return False
+
+
+def get_last_directory_from_path(path) -> str:
+	"""Returns the last directory in a path."""
+	p = path
+	if p.endswith('/'):
+		p = p[:-1]
+	elif '.' in p:
+		p = p[:p.rfind('/')]
+	return p[p.rfind('/') + 1:]
+
+
+def create_directory(path: str) -> None:
+	"""Creates the directory at the provided path."""
+	os.makedirs(path)
+
 
 '''  __   ___ ___  __     ___       ___
 	|__) |__   |  |__) | |__  \  / |__
@@ -142,11 +165,6 @@ def create_file_or_override(file_text, file_path):
 	file = open(file_path, 'w+')
 	file.write(file_text)
 	file.close()
-
-
-def create_directory(path: str) -> None:
-	"""Creates the directory at the provided path."""
-	os.makedirs(path)
 
 
 # Temporary on hold.

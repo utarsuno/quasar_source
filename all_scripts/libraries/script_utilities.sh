@@ -1,16 +1,8 @@
 #!/bin/bash
 
-# Utility variables.
-HOST_NAME=$(hostname)
-
-
-
-# TODO : Refactor this file, it's been a long time since it's been updated!!!
-
-# TODO : Switch echo's to printfs
-
-## Colours and font styles
-## Syntax: echo -e "${FOREGROUND_COLOUR}${BACKGROUND_COLOUR}${STYLE}Hello world!${RESET_ALL}"
+#            __          __        ___  __
+# \  /  /\  |__) |  /\  |__) |    |__  /__`
+#  \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/
 
 # Escape sequence and resets
 ESC_SEQ="\x1b["
@@ -54,6 +46,10 @@ FS_UL="4m"
 
 DOTTED_LINE="................................................................................."
 DASHED_LINE="---------------------------------------------------------------------------------"
+
+#  ___            __  ___    __        __
+# |__  |  | |\ | /  `  |  | /  \ |\ | /__`
+# |    \__/ | \| \__,  |  | \__/ | \| .__/
 
 function print_green_text {
     if [ -z "$1" ]; then
