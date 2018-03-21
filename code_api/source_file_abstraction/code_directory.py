@@ -3,6 +3,7 @@
 """This module, code_directory.py, provides an abstraction to directories in code projects."""
 
 from universal_code import useful_file_operations as ufo
+from code_api.code_abstraction.code_chunk import CodeChunk
 
 
 class CodeDirectory(object):
@@ -36,9 +37,13 @@ class CodeDirectory(object):
 		code_directory.set_parent_code_directory(self)
 		self._child_directories.append(code_directory)
 
-	def add_new_child_code_directory_from_current_path(self, sub_directory_name):
+	def add_new_child_code_directory_from_current_path(self, sub_directory_name, code_directory_type=None):
 		"""Adds a new child CodeDirectory stemmed from the current directory path."""
-		code_directory = CodeDirectory(self._directory_path + sub_directory_name)
+		if code_directory_type is None:
+			code_directory = CodeDirectory(self._directory_path + sub_directory_name)
+		else:
+			code_directory = code_directory_type(self._directory_path + sub_directory_name)
+
 		code_directory.set_parent_code_directory(self)
 		self.add_child_code_directory(code_directory)
 		return code_directory
@@ -65,3 +70,24 @@ class CodeDirectory(object):
 	def directory_path(self) -> str:
 		"""Returns the directory path of this CodeDirectory."""
 		return self._directory_path
+
+
+class ShellDirectory(CodeDirectory):
+	"""Represents a code directory that only contains shell code files."""
+
+	def __init__(self, directory_path):
+		super().__init__(directory_path)
+		self._required_shell_safety_checks = []
+
+	def add_shell_required_safety_check(self, safety_check):
+		"""Adds a required safety check for all shell scripts in this directory."""
+		self._required_shell_safety_checks.append(safety_check)
+
+	def get_code_chunk_with_all_required_safety_checks(self):
+		"""Returns a code chunk that contains all the required safety checks."""
+		combined_code_chunk = CodeChunk()
+
+		for required_shell_safety_check in self._required_shell_safety_checks:
+			combined_code_chunk.add_code_chunk(required_shell_safety_check.code_chunk)
+
+		return combined_code_chunk

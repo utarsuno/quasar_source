@@ -4,6 +4,8 @@
 # \  /  /\  |__) |  /\  |__) |    |__  /__`
 #  \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/
 
+HOST_NAME=$(hostname)
+
 # Escape sequence and resets
 ESC_SEQ="\x1b["
 RESET_ALL="${ESC_SEQ}0m"
@@ -139,13 +141,13 @@ function terminate_if_not_sudo {
     fi
 }
 
-function terminate_if_system_is_ubuntu {
+function terminate_if_ubuntu {
     if [ "$OSTYPE" = "linux" ] || [ "$OSTYPE" = "linux-gnu" ]; then
         terminate_script "This script should not be run on an ubuntu system."
     fi
 }
 
-function terminate_if_system_is_not_ubuntu {
+function terminate_if_not_ubuntu {
     if [ "$OSTYPE" != "linux" ] && [ "$OSTYPE" != "linux-gnu" ]; then
         terminate_script "This script should be run on an ubuntu system."
     fi

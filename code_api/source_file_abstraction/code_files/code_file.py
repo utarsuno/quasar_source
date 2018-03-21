@@ -4,6 +4,7 @@
 
 
 from code_api.code_abstraction.code_chunk import CodeChunk
+from universal_code import useful_file_operations as ufo
 
 
 CODE_FILE_TYPE_SHELL_SCRIPT = 'shell_script'
@@ -32,6 +33,15 @@ class CodeFile(object):
 		for cs in self._code_sections:
 			if cs.name == section_name:
 				return cs
+
+	def create_or_update_file(self):
+		"""Creates or updates the physical file that this code file represents."""
+		# create_or_update_file
+		file_text = ''
+		all_file_code = self.file_code
+		for line in all_file_code:
+			file_text += line
+		ufo.create_file_or_override(file_text, self.full_path)
 
 	@property
 	def file_name_with_extension(self) -> str:
