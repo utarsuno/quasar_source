@@ -30,6 +30,9 @@ print_dashed_line_with_text "script{code_push.sh} start on {${HOST_NAME}}."
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
 terminate_if_ubuntu
+if [ "$#" -ne 1 ]; then
+	terminate_script "The script{code_push.sh} requires exactly{1} arguments. They are [commit_message]."
+fi
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  

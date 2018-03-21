@@ -50,6 +50,26 @@ class ShellFile(CodeFile):
 		"""Adds a required safety check to this shell file."""
 		self._required_safety_checks.append(safety_check)
 
+	def add_safety_check_for_script_arguments(self, arguments_needed: list):
+		"""Adds a safety check for ensuring the script got the required passed in arguments."""
+		code = CodeChunk()
+		code.add_line_of_code('if [ "$#" -ne 1 ]; then')
+
+		number_of_arguments = str(len(arguments_needed))
+
+		string_of_all_arguments = '['
+		for arg in arguments_needed:
+			string_of_all_arguments += arg + ', '
+		string_of_all_arguments = string_of_all_arguments[:-2] + ']'
+
+		error_line = '\tterminate_script "The script{'
+		error_line += self.file_name_with_extension + '} requires exactly{' + number_of_arguments
+		error_line += '} arguments. They are ' + string_of_all_arguments + '."'
+
+		code.add_line_of_code(error_line)
+		code.add_line_of_code('fi')
+		self.add_required_safety_check(code)
+
 	def add_required_variable_setters(self, variable_setters):
 		"""Adds a required variable setter to this shell file."""
 		self._required_variable_setters.append(variable_setters)
@@ -75,7 +95,7 @@ class ShellFile(CodeFile):
 	def _add_empty_line_after_every_script_section(self):
 		"""Adds an empty line after every code section."""
 		for code_section in self._code_sections:
-			if len(code_section._code_chunks) > 0:
+			if not code_section.empty:
 				code_section._code_chunks[-1].add_line_of_code('')
 
 	def _initialize_for_code_generation(self):
@@ -94,29 +114,29 @@ class ShellFile(CodeFile):
 
 	def _generate_section_bash(self):
 		"""Generates the code needed for the bash section."""
-		section_bash = self.get_code_section(CODE_SECTION_BASH_STATEMENT)
-		section_bash.add_code_chunk(CodeChunk(['#!/bin/bash']))
+		section = self.get_code_section(CODE_SECTION_BASH_STATEMENT)
+		section.add_code_chunk(CodeChunk(['#!/bin/bash']))
 
 	def _generate_section_generation_notes(self):
 		"""Generates the code needed for the generation notes section."""
-		section_generation_notes = self.get_code_section(CODE_SECTION_GENERATION_NOTES)
+		section = self.get_code_section(CODE_SECTION_GENERATION_NOTES)
 
 		generation_notes = get_shell_ascii_comment_as_code_chunk('generation notes')
 		day_instance = DayInstance(TIME_TYPE_DAY_CURRENT)
 		generation_notes.add_line_of_code('# LAST_GENERATED : {' + str(day_instance) + '}')
 
-		section_generation_notes.add_code_chunk(generation_notes)
+		section.add_code_chunk(generation_notes)
 
 	def _generate_section_library_imports(self):
 		"""Generates the code needed for the library import section."""
-		section_library_imports = self.get_code_section(CODE_SECTION_LIBRARY_IMPORTS)
-
-		ascii_comment = get_shell_ascii_comment_as_code_chunk('library imports')
-		section_library_imports.add_code_chunk(ascii_comment)
+		section = self.get_code_section(CODE_SECTION_LIBRARY_IMPORTS)
 
 		library_code_chunks = self._get_code_chunks_from_required_libraries()
 		for lcc in library_code_chunks:
-			section_library_imports.add_code_chunk(lcc)
+			section.add_code_chunk(lcc)
+
+		if not section.empty:
+			section.add_code_chunk_at_start(get_shell_ascii_comment_as_code_chunk('library imports'))
 
 	def _get_code_chunks_from_required_libraries(self):
 		"""Returns all code chunks from required linked libraries."""
@@ -150,33 +170,35 @@ class ShellFile(CodeFile):
 		ascii_comment = get_shell_ascii_comment_as_code_chunk('script start')
 		section_script_start.add_code_chunk(ascii_comment)
 
-		line = 'print_dashed_line_with_text "script{'
-		line += self.file_name_with_extension + '} start on {${HOST_NAME}}."'
+		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} start on {${HOST_NAME}}."'
 
 		section_script_start.add_code_chunk(CodeChunk([line]))
 
 	def _generate_section_safety_checks(self):
 		"""Generates the code needed for the script safety checks section."""
-		section_safety_checks = self.get_code_section(CODE_SECTION_SAFETY_CHECKS)
-
-		ascii_comment = get_shell_ascii_comment_as_code_chunk('safety checks')
-		section_safety_checks.add_code_chunk(ascii_comment)
+		section = self.get_code_section(CODE_SECTION_SAFETY_CHECKS)
 
 		# Add any shell safety checks from the parent code directory (if it has any).
 		if type(self._parent_code_directory) == ShellDirectory:
 			directory_mandated_safety_checks_as_code_chunk = self._parent_code_directory.get_code_chunk_with_all_required_safety_checks()
-			section_safety_checks.add_code_chunk(directory_mandated_safety_checks_as_code_chunk)
+			section.add_code_chunk(directory_mandated_safety_checks_as_code_chunk)
 
-		# TODO : Add any shell specific required safety checks.
+		# Add any script arguments check needed.
+		for sc in self._required_safety_checks:
+			section.add_code_chunk(sc)
+
+		if not section.empty:
+			section.add_code_chunk_at_start(get_shell_ascii_comment_as_code_chunk('safety checks'))
 
 	def _generate_section_variables(self):
 		"""Generates the code needed for the script variables section."""
-		if len(self._required_variable_setters) > 0:
-			section = self.get_code_section(CODE_SECTION_VARIABLES)
-			section.add_code_chunk(get_shell_ascii_comment_as_code_chunk('variables setting'))
+		section = self.get_code_section(CODE_SECTION_VARIABLES)
 
-			for vs in self._required_variable_setters:
-				section.add_code_chunk(vs.code_chunk)
+		for vs in self._required_variable_setters:
+			section.add_code_chunk(vs.code_chunk)
+
+		if not section.empty:
+			section.add_code_chunk_at_start(get_shell_ascii_comment_as_code_chunk('variables setting'))
 
 	def _generate_section_main(self):
 		"""Generates the main code section."""
@@ -191,7 +213,6 @@ class ShellFile(CodeFile):
 		ascii_comment = get_shell_ascii_comment_as_code_chunk('script end')
 		section_script_end.add_code_chunk(ascii_comment)
 
-		line = 'print_dashed_line_with_text "script{'
-		line += self.file_name_with_extension + '} end on {${HOST_NAME}}."'
+		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} end on {${HOST_NAME}}."'
 
 		section_script_end.add_code_chunk(CodeChunk([line]))

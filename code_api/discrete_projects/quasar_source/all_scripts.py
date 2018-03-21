@@ -37,12 +37,15 @@ directory_libraries.add_code_file(code_file_config_reader)
 
 # Local scripts.
 code_file_code_push = ShellFile('code_push')
+
 code_file_code_push.add_required_library(code_file_script_utilities)
 code_file_code_push.add_required_library(code_file_config_reader)
+
 code_file_code_push.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_QUASAR)
 code_file_code_push.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_DATABOI)
 code_file_code_push.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_SERVER_SIDE)
 
+code_file_code_push.add_safety_check_for_script_arguments(['commit_message'])
 
 code_file_code_push.set_main_code(CodeChunk('''
 if output=$(git status --porcelain) && [ -z "$output" ]; then

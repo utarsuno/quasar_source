@@ -55,38 +55,38 @@ DASHED_LINE="-------------------------------------------------------------------
 
 function print_green_text {
     if [ -z "$1" ]; then
-       terminate_script "The function 'print_green_text' requires a parameter."
+       terminate_script "The function 'print_green_text' requires a parameter.\n"
     fi
-    printf "${FG_GREEN}${FS_REG}${1}${RESET_ALL}"
+    printf "${FG_GREEN}${FS_REG}${1}${RESET_ALL}\n"
 }
 
 function print_dotted_line {
-    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
 }
 
 function print_red_dotted_line {
-    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}"
+    printf "${FG_RED}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
 }
 
 function print_dash_line {
-    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}"
+    printf "${FG_YELLOW}${FS_REG}${DASHED_LINE}${RESET_ALL}\n"
 }
 
 function print_script_text {
     if [ -z "$1" ]; then
-       terminate_script "The function 'print_script_text' requires a parameter."
+       terminate_script "The function 'print_script_text' requires a parameter.\n"
     fi
-    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}"
+    printf "${FG_CYAN}${FS_REG}${1}${RESET_ALL}\n"
 }
 
 function terminate_script {
     print_red_dotted_line
     if [ -z "$1" ]; then
-        printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}"
+        printf "${FG_RED}${FS_BOLD}The function 'terminate_script' requires an argument. The program will now terminate.${RESET_ALL}\n"
     else
-        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}"
+        printf "${FG_RED}${FS_UL}${1}${RESET_ALL}\n"
         printf ""
-        printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}"
+        printf "${FG_RED}${FS_BOLD}Due to warnings or errors that have occurred the program will now terminate.${RESET_ALL}\n"
     fi
     print_red_dotted_line
     exit
@@ -94,7 +94,7 @@ function terminate_script {
 
 function print_dashed_line_with_text {
     if [ -z "$1" ]; then
-       terminate_script "The function 'print_dashed_line_with_text' requires a parameter."
+       terminate_script "The function 'print_dashed_line_with_text' requires a parameter.\n"
     fi
 
     length=${#1}
@@ -119,7 +119,7 @@ function print_dashed_line_with_text {
 
 function print_line_in_between_dashed_lines {
     if [ -z "$1" ]; then
-        printf "The function 'print_line_in_between_dashed_lines' has to have an argument passed into it. The program will now terminate as most likely a programmer error has occurred lol."
+        printf "The function 'print_line_in_between_dashed_lines' has to have an argument passed into it. The program will now terminate as most likely a programmer error has occurred lol.\n"
     fi
     print_dash_line
     printf $1
