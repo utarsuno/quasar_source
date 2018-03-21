@@ -20,6 +20,7 @@ class EntityManager(object):
 			entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, self.get_largest_entity_id() + 1)
 		self._entities.append(entity)
 
+	# TODO : REFACTOR (probably remove)
 	def replace_entity(self, new_entity):
 		"""Replaces an existing with the provided entity based off of relative ID match."""
 		entity_to_remove = None
@@ -33,6 +34,7 @@ class EntityManager(object):
 			self._entities.remove(entity_to_remove)
 			self._entities.append(new_entity)
 
+	# TODO : REFACTOR
 	def update_entity(self, entity_data):
 		"""Updates, adds, or create an entity based off the entity data provided."""
 		raw_entity = be.Entity()
