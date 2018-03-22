@@ -103,12 +103,12 @@ RendererManager.prototype = {
     },
 
     // TEMPORARY
-    add_object_to_highlight: function() {
-
+    add_object_to_highlight: function(mesh) {
+        this.outline_pass.selectedObjects = [mesh];
     },
 
-    remove_object_to_highlight: function() {
-
+    remove_object_to_highlight: function(mesh) {
+        this.outline_pass.selectedObjects = [];
     },
 
     pre_render: function() {
