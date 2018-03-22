@@ -78,6 +78,9 @@ LoadingManager.prototype = {
             MANAGER_TEXTURE.create_skybox_material();
 
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
+
+            MANAGER_RENDERER.login_world_created();
+
             MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
 
             // All the initial resources have loaded so put the player in a paused state in order to gain the first pointer lock control.
