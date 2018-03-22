@@ -12,17 +12,17 @@
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_CONFIG_READER_SERVER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader_server.sh
-source ${PATH_TO_LIBRARY_CONFIG_READER_SERVER}
 PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
+PATH_TO_LIBRARY_CONFIG_READER_SERVER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader_server.sh
+source ${PATH_TO_LIBRARY_CONFIG_READER_SERVER}
 
 # ----------------------------------------------------------------------------
 #  __   __   __      __  ___     __  ___       __  ___ 
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{update_code.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{live_run.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -36,10 +36,10 @@ terminate_if_not_ubuntu
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
-set_variables_for_server_side
+set_variables_for_entity_server
 
 
-
+IS_QUASAR_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH})
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -47,17 +47,12 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-# Go to the projects base directory.
-cd "${PATH_TO_QUASAR_SOURCE}";
-git fetch --all;
-reslog=$(git log HEAD..origin/master --oneline)
-if [[ "${reslog}" != "" ]] ; then
-    print_script_text "Updating the code base."
-    # This resets to master.
-    git reset --hard origin/master;
+if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
+	echo 'Quasar server is already running!'
 else
-    # We do not have to update the code.
-    print_script_text "The code base is already up to date so a pull will not be performed."
+	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
+	python3 ${PYTHON_QUASAR_MANAGE_PATH} migrate
+	python3 ${PYTHON_QUASAR_MANAGE_PATH} runserver 0:80
 fi
 
 
@@ -66,5 +61,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{update_code.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{live_run.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

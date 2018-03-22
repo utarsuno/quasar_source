@@ -2,6 +2,7 @@
 
 PATH_TO_INI_FILE_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader_for_bash.py
 PATH_TO_CONFIG_FILE=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-4 -d"/"`/configuration_files/config.ini
+PATH_TO_IS_PROGRAM_RUNNING=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/is_program_running.py
 
 function set_variables_for_quasar {
     QUASAR_IP=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar ip)
@@ -25,8 +26,17 @@ function set_variables_for_server_side {
     PATH_TO_QUASAR_SOURCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_quasar_source)
 }
 
-function set_variables_for_client_side {
-    PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_local_config_file_for_servers)
-    PATH_TO_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_file_for_servers)
-    PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_directory_for_servers)
+function set_variables_for_entity_server {
+    PYTHON_ENTITY_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side entity_server)
+    PYTHON_ENTITY_SCRIPT_TERMINATE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side entity_server_terminate_script)
+    PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side entity_server_run_in_background_script)
 }
+
+function set_variables_for_quasar_server {
+    PYTHON_QUASAR_SCRIPT_TERMINATE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side django_server_terminate_script)
+    PYTHON_QUASAR_SCRIPT_RUN_IN_BACKGROUND=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side django_server_run_in_background_script)
+    PYTHON_QUASAR_MANAGE_PATH=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side django_manage_path)
+}
+
+#function set_variables_for_finance_server {
+#}

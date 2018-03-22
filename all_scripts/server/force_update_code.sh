@@ -5,16 +5,16 @@
 # / _` |__  |\ | |__  |__)  /\   |  |  /  \ |\ |    |\ | /  \  |  |__  /__` 
 # \__> |___ | \| |___ |  \ /~~\  |  |  \__/ | \|    | \| \__/  |  |___ .__/ 
 # ----------------------------------------------------------------------------
-# LAST_GENERATED : {3.21.2018}
+# LAST_GENERATED : {3.22.2018}
 
 # ----------------------------------------------------------------------------
 #          __   __        __                  __   __   __  ___  __  
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_CONFIG_READER_SERVER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader_server.sh
+PATH_TO_LIBRARY_CONFIG_READER_SERVER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader_server.sh
 source ${PATH_TO_LIBRARY_CONFIG_READER_SERVER}
-PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/script_utilities.sh
+PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 
 # ----------------------------------------------------------------------------
@@ -29,6 +29,7 @@ print_dashed_line_with_text "script{force_update_code.sh} start on {${CURRENT_US
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
+terminate_if_not_ubuntu
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  

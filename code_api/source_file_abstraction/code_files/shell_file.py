@@ -210,6 +210,11 @@ class ShellFile(CodeFile):
 		"""Generates the code needed for the script variables section."""
 		section = self.get_code_section(CODE_SECTION_VARIABLES)
 
+		if type(self._parent_code_directory) == ShellDirectory:
+			all_required_variable_setters = self._parent_code_directory.get_all_required_variable_setters()
+			for rvs in all_required_variable_setters:
+				section.add_code_chunk(rvs)
+
 		for vs in self._required_variable_setters:
 			section.add_code_chunk(vs)
 

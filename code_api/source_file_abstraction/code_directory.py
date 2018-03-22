@@ -102,6 +102,11 @@ class ShellDirectory(CodeDirectory):
 		super().__init__(directory_path)
 		self._required_shell_safety_checks = []
 		self._required_shell_libraries     = []
+		self._required_variable_setters    = []
+
+	def add_shell_required_variable_setters(self, variable_setters):
+		"""Adds a required variable setters for all shell scripts in this directory."""
+		self._required_variable_setters.append(variable_setters)
 
 	def add_shell_required_safety_check(self, safety_check):
 		"""Adds a required safety check for all shell scripts in this directory."""
@@ -119,6 +124,10 @@ class ShellDirectory(CodeDirectory):
 			combined_code_chunk.add_code_chunk(required_shell_safety_check)
 
 		return combined_code_chunk
+
+	def get_all_required_variable_setters(self):
+		"""Returns a list of all required variable setters needed for shell scripts in this directory."""
+		return self._required_variable_setters
 
 	def get_all_required_libraries(self):
 		"""Returns a list of all required libraries needed for shell scripts in this directory."""
