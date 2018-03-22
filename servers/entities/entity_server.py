@@ -17,6 +17,8 @@ import time
 from servers.entities import entity_owner as eo
 from universal_code import debugging as dbg
 
+from universal_code import output_coloring as oc
+
 
 class EntityServer(object):
 	"""Represents the Entity Data Server."""
@@ -273,5 +275,8 @@ class EntityServer(object):
 arguments = so.get_all_program_arguments()
 if len(arguments) == 1:
 	if arguments[0] == '-r':
+
+		oc.print_data_with_red_dashes_at_start('Temporary debugging : Entity Server is being made and ran!')
+
 		entity_server = EntityServer()
 		entity_server.run()
