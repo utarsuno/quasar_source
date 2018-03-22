@@ -38,6 +38,12 @@ class ShellFile(CodeFile):
 		self._required_safety_checks = []
 		self._required_variable_setters = []
 
+		self._treat_paths_as_server_paths = False
+
+	def treat_paths_as_server_paths(self):
+		"""Treats paths as server paths instead of local."""
+		self._treat_paths_as_server_paths = True
+
 	def set_main_code(self, code_chunk):
 		"""Sets the main code chunk for this shell file."""
 		self._main_code_chunk = code_chunk
@@ -151,6 +157,10 @@ class ShellFile(CodeFile):
 		for lib in self._required_libraries:
 			# Part (1/2) - variable that holds path to the library.
 			library_parent_directory_path = lib._parent_code_directory.parent_directory.directory_path
+
+			if self._treat_paths_as_server_paths:
+				library_parent_directory_path.replace('/Users/utarsuno/', '/home/')
+
 			directory_distance = library_parent_directory_path.count('/')
 			library_directory_name = ufo.get_last_directory_from_path(lib._parent_code_directory.directory_path)
 

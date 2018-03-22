@@ -20,6 +20,7 @@ def load_server_scripts(directory_all_scripts, code_file_script_utilities, code_
 	  /  ` /  \ |  \ |__     |__  | |    |__  .   |  | |__) |  \  /\   |  |__     /  ` /  \ |  \ |__
 	  \__, \__/ |__/ |___    |    | |___ |___ .   \__/ |    |__/ /~~\  |  |___    \__, \__/ |__/ |___ '''
 	code_file_update_code = ShellFile('update_code')
+	code_file_update_code.treat_paths_as_server_paths()
 	code_file_update_code.add_required_library(code_file_config_reader)
 	code_file_update_code.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_SERVER_SIDE)
 	code_file_update_code.set_main_code(CodeChunk('''
@@ -41,6 +42,7 @@ fi
 	  /  ` /  \ |  \ |__     |__  | |    |__  .   |__  /  \ |__) /  ` |__     |  | |__) |  \  /\   |  |__     /  ` /  \ |  \ |__
 	  \__, \__/ |__/ |___    |    | |___ |___ .   |    \__/ |  \ \__, |___    \__/ |    |__/ /~~\  |  |___    \__, \__/ |__/ |___ '''
 	code_file_force_update_code = ShellFile('force_update_code')
+	code_file_update_code.treat_paths_as_server_paths()
 	code_file_force_update_code.add_required_library(code_file_config_reader)
 	code_file_force_update_code.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_SERVER_SIDE)
 	code_file_force_update_code.set_main_code(CodeChunk('''
