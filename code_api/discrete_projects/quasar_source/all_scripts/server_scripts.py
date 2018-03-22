@@ -84,7 +84,7 @@ def load_entity_directory(directory_server, code_file_script_utilities, code_fil
 	# Live run.
 	code_file_live_run = ShellFile('live_run')
 	code_file_live_run.treat_paths_as_server_paths()
-	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER})']))
+	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
 	code_file_live_run.set_main_code(CodeChunk('''
 if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
 	echo 'Entity server is already running!'
@@ -107,7 +107,7 @@ sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
 	code_file_run_in_background = ShellFile('run_in_background')
 	code_file_run_in_background.treat_paths_as_server_paths()
 	#code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER})']))
+	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
 	code_file_run_in_background.set_main_code(CodeChunk('''
 if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
 	echo 'Entity server is already running!'
@@ -120,7 +120,7 @@ fi
 	# Status.
 	code_file_status = ShellFile('status')
 	code_file_status.treat_paths_as_server_paths()
-	code_file_status.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER})']))
+	code_file_status.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
 	code_file_status.set_main_code(CodeChunk('''
 if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
 	echo 'Entity server is currently running!'
@@ -151,12 +151,12 @@ def load_quasar_directory(directory_server, code_file_script_utilities, code_fil
 	directory_quasar.add_shell_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU)
 	directory_quasar.add_shell_required_library(code_file_script_utilities)
 	directory_quasar.add_shell_required_library(code_file_config_reader)
-	directory_quasar.add_shell_required_variable_setters(SHELL_VARIABLES_SET_ENTITY_SERVER)
+	directory_quasar.add_shell_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_SERVER)
 
 	# Live run.
 	code_file_live_run = ShellFile('live_run')
 	code_file_live_run.treat_paths_as_server_paths()
-	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH})']))
+	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
 	code_file_live_run.set_main_code(CodeChunk('''
 if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
 	echo 'Quasar server is already running!'
@@ -180,7 +180,7 @@ sudo bash ${PYTHON_QUASAR_SCRIPT_RUN_IN_BACKGROUND}
 	code_file_run_in_background = ShellFile('run_in_background')
 	code_file_run_in_background.treat_paths_as_server_paths()
 	#code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH})']))
+	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
 	code_file_run_in_background.set_main_code(CodeChunk('''
 if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
 	echo 'Entity server is already running!'
@@ -194,7 +194,7 @@ fi
 	# Status.
 	code_file_status = ShellFile('status')
 	code_file_status.treat_paths_as_server_paths()
-	code_file_status.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH})']))
+	code_file_status.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
 	code_file_status.set_main_code(CodeChunk('''
 if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
 	echo 'Quasar server is currently running!'
