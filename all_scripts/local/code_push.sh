@@ -14,8 +14,8 @@
 # ----------------------------------------------------------------------------
 PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
-PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader.sh
-source ${PATH_TO_LIBRARY_CONFIG_READER}
+PATH_TO_LIBRARY_CONFIG_READER_LOCAL=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader_local.sh
+source ${PATH_TO_LIBRARY_CONFIG_READER_LOCAL}
 
 # ----------------------------------------------------------------------------
 #  __   __   __      __  ___     __  ___       __  ___ 
@@ -65,14 +65,14 @@ else
     print_dotted_line
 
     # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
+#    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
     # Data server for historical book orders.
-    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
+#    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
 fi
 

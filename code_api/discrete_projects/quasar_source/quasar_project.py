@@ -16,9 +16,9 @@ def load_quasar_source_project():
 	quasar_source_project = CodeProject('quasar_source')
 
 	all_scripts_project_component, all_scripts_directory = load_all_scripts_project_component()
-	lib_utilities, lib_config_reader = load_library_scripts(all_scripts_directory)
-	load_local_scripts(all_scripts_directory, lib_utilities, lib_config_reader)
-	load_server_scripts(all_scripts_directory, lib_utilities, lib_config_reader)
+	lib_utilities, lib_config_reader_local, lib_config_reader_server = load_library_scripts(all_scripts_directory)
+	load_local_scripts(all_scripts_directory, lib_utilities, lib_config_reader_local)
+	load_server_scripts(all_scripts_directory, lib_utilities, lib_config_reader_server)
 
 	quasar_source_project.add_project_component(all_scripts_project_component)
 	return quasar_source_project

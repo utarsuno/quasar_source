@@ -19,13 +19,16 @@ def load_library_scripts(directory_all_scripts):
 	# Library script utilities.
 	code_file_script_utilities = ShellFile('script_utilities')
 
-	# Library config reader.
-	code_file_config_reader = ShellFile('config_reader')
+	# Library config reader local.
+	code_file_config_reader_local = ShellFile('config_reader_local')
+	# Library config reader server.
+	code_file_config_reader_server = ShellFile('config_reader_server')
 
 	'''__     __   ___  __  ___  __   __                 __   __        __                 __   __      __   __   __   ___     ___         ___  __
 	  |  \ | |__) |__  /  `  |  /  \ |__) \ /    |    | |__) |__)  /\  |__) \ /       /\  |  \ |  \    /  ` /  \ |  \ |__     |__  | |    |__  /__`
 	  |__/ | |  \ |___ \__,  |  \__/ |  \  |     |___ | |__) |  \ /~~\ |  \  |  .    /~~\ |__/ |__/    \__, \__/ |__/ |___    |    | |___ |___ .__/ '''
 	directory_libraries.add_code_file(code_file_script_utilities)
-	directory_libraries.add_code_file(code_file_config_reader)
+	directory_libraries.add_code_file(code_file_config_reader_local)
+	directory_libraries.add_code_file(code_file_config_reader_server)
 
-	return code_file_script_utilities, code_file_config_reader
+	return code_file_script_utilities, code_file_config_reader_local, code_file_config_reader_server
