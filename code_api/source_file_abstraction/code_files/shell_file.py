@@ -80,6 +80,9 @@ class ShellFile(CodeFile):
 		"""Adds a required variable setter to this shell file."""
 		self._required_variable_setters.append(variable_setters)
 
+	def __str__(self):
+		return 'ShellFile:' + self.file_name
+
 	'''___         ___     __   ___       ___  __       ___    __
 	  |__  | |    |__     / _` |__  |\ | |__  |__)  /\   |  | /  \ |\ |
 	  |    | |___ |___    \__> |___ | \| |___ |  \ /~~\  |  | \__/ | \| '''

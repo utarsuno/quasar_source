@@ -1,6 +1,34 @@
 # Quasar Source
 
-### Development Screenshots:
+#### Development Screenshots and Progress List:
+
+###### March 22nd : Heavy refactorings! TODO list.
+##### Quasar
+- [ ] Add various graphical improvements such as transparent FloatingWall objects and giving certain 3D texts a black background.
+- [ ] Make certain interactivity more intuitive. Such as adding abstraction to Floating2DInput fields for input state.
+- [ ] Add a cursor for typing on Floating2DInput fields!
+- [ ] Fix all bugs on the login page.
+- [ ] AJAX requests : add abstraction, add locks to user-state and objects that initiate requests such as buttons.
+- [ ] Saving : Make it automatic, abstract the design, and perform batch saving to improve performance. *(This will fix the entity deletion bug)*
+##### CodeAPI
+- [X] Re-create base design. Taking pros from the previous 2 CodeAPI systems created.
+- [ ] Create generation for all scripts.
+- [ ] Add more scripts for server management and setup.
+- [ ] Re-create all Finance generation code needed.
+- [ ] Add ability to create production version of Quasar!
+- [ ] Synchronize all global/shared variables across languages. Such as server messages and entity properties.
+
+##### General
+- [ ] Create standardized time abstraction code.
+- [ ] Synchronize all code for systems involved with entities.
+- [ ] Remove all un-used code from project. Refactor any salvageable code.
+- [ ] Setup all remaining servers needed to be setup.
+- [ ] Potentially create a basic server monitor.
+- [ ] Look into setting up Khafka or RabbitMQ.
+
+##### Finance
+- [ ] Find and automate crypto price data fetcher.
+- [ ] Resume work on book data tracking for multiple cryptos, not just one.
 
 As of February 11th
 ![alt_text](https://i.imgur.com/iytE8bW.png)
