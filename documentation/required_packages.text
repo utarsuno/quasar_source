@@ -38,5 +38,3 @@ cd ..
 // Set permission on the git folder created.
 sudo chmod 777 -R ./git_repos
 
-
-

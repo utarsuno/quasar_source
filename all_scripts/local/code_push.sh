@@ -83,5 +83,3 @@ fi
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
 print_dashed_line_with_text "script{code_push.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
-
-#

@@ -3,12 +3,13 @@
 """This module, finance_libraries_compiler.py, will compile all the needed C libraries."""
 
 from c_processes.c_file_abstraction.c_file_types import CFile
-from c_processes.c_file_abstraction.c_library import CLibrary
 from c_processes.c_file_abstraction.c_project import CProject
-from finance.finance_simulations.c_generator.data.data_chunk import DataChunk
+
 from c_processes.c_process import CProcess
 from c_processes.c_process_manager import ProcessManager
+from code_api.TODO_SORT_THESE_FILES.c_file_abstraction.c_library import CLibrary
 from finance.finance_simulations.c_generator import model_builder
+from finance.finance_simulations.c_generator.data.data_chunk import DataChunk
 from finance.finance_simulations.c_generator.data.data_instance import DataInstance
 from finance.finance_simulations.models.m0_net_resistance import FinanceModel_M0
 from universal_code import output_coloring as oc
