@@ -46,12 +46,12 @@ else
     print_dotted_line
 
     # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} << HERE
+    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
     bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
 HERE
 
     # Data server for historical book orders.
-    ssh "${DATABOI_USER}@${DATABOI_IP}" << HERE
+    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
     bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
 HERE
 
@@ -67,7 +67,7 @@ fi
 	code_file_ssh_to_quasar.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_SERVER_SIDE)
 
 	code_file_ssh_to_quasar.set_main_code(CodeChunk('''
-ssh -t -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} "cd "${PATH_TO_SCRIPTS_SERVER}" ; bash"
+ssh -t -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "cd ${PATH_TO_SCRIPTS_SERVER} ; bash"
 '''))
 
 	'''     __   __                __   __   __     __  ___         __   __          ___  __      __   __   __           __       ___
@@ -79,7 +79,7 @@ ssh -t -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} "cd
 	code_file_ssh_to_book_data.add_required_variable_setters(shell_variable_setters.SHELL_VARIABLES_SET_SERVER_SIDE)
 
 	code_file_ssh_to_book_data.set_main_code(CodeChunk('''
-ssh -t "${DATABOI_USER}@${DATABOI_IP}" "cd "${PATH_TO_SCRIPTS_FINANCE}" ; bash"
+ssh -t -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} "cd ${PATH_TO_SCRIPTS_FINANCE} ; bash"
 '''))
 
 	'''     __   __                __   __   __     __  ___     ___  __             __   ___  ___  __      __   ___  __        ___  __                  ___         ___
@@ -94,8 +94,14 @@ ssh -t "${DATABOI_USER}@${DATABOI_IP}" "cd "${PATH_TO_SCRIPTS_FINANCE}" ; bash"
 	code_file_transfer_server_ini_file.add_required_safety_check(shell_safety_checks.SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
 
 	code_file_transfer_server_ini_file.set_main_code(CodeChunk('''
-scp ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} "${DATABOI_USER}@${DATABOI_IP}":${PATH_TO_CONFIG_FILE_FOR_SERVERS}
-scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} "${QUASAR_USER}@${QUASAR_IP}":${PATH_TO_CONFIG_FILE_FOR_SERVERS}
+# Create the config file directory if it does not exist.
+ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "mkdir -p ${PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS}"
+
+# Create the config file directory if it does not exist.
+ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} "mkdir -p ${PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS}"
+
+scp -P ${DATABOI_PORT} -i ${DATABOI_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} ${DATABOI_USER}@${DATABOI_IP}:${PATH_TO_CONFIG_FILE_FOR_SERVERS}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} ${QUASAR_USER}@${QUASAR_IP}:${PATH_TO_CONFIG_FILE_FOR_SERVERS}
 '''))
 
 	'''__     __   ___  __  ___  __   __               __   __                       __   __      __   __   __   ___     ___         ___  __

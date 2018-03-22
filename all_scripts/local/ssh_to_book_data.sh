@@ -47,7 +47,7 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-ssh -t "${DATABOI_USER}@${DATABOI_IP}" "cd "${PATH_TO_SCRIPTS_FINANCE}" ; bash"
+ssh -t -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} "cd ${PATH_TO_SCRIPTS_FINANCE} ; bash"
 
 
 # ----------------------------------------------------------------------------

@@ -46,7 +46,7 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-ssh -t -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} "cd "${PATH_TO_SCRIPTS_SERVER}" ; bash"
+ssh -t -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "cd ${PATH_TO_SCRIPTS_SERVER} ; bash"
 
 
 # ----------------------------------------------------------------------------

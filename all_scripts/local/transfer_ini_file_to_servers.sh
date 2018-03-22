@@ -47,8 +47,14 @@ set_variables_for_client_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-scp ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} "${DATABOI_USER}@${DATABOI_IP}":${PATH_TO_CONFIG_FILE_FOR_SERVERS}
-scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} "${QUASAR_USER}@${QUASAR_IP}":${PATH_TO_CONFIG_FILE_FOR_SERVERS}
+# Create the config file directory if it does not exist.
+ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "mkdir -p ${PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS}"
+
+# Create the config file directory if it does not exist.
+ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} "mkdir -p ${PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS}"
+
+scp -P ${DATABOI_PORT} -i ${DATABOI_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} ${DATABOI_USER}@${DATABOI_IP}:${PATH_TO_CONFIG_FILE_FOR_SERVERS}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS} ${QUASAR_USER}@${QUASAR_IP}:${PATH_TO_CONFIG_FILE_FOR_SERVERS}
 
 
 # ----------------------------------------------------------------------------

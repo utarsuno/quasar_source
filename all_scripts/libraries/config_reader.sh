@@ -12,7 +12,9 @@ function set_variables_for_quasar {
 
 function set_variables_for_databoi {
     DATABOI_USER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} databoi user)
+    DATABOI_PORT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} databoi port)
     DATABOI_IP=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} databoi ip)
+    DATABOI_PEM_PATH=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} databoi pem_path)
 }
 
 function set_variables_for_server_side {
@@ -26,4 +28,5 @@ function set_variables_for_server_side {
 function set_variables_for_client_side {
     PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_local_config_file_for_servers)
     PATH_TO_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_file_for_servers)
+    PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_directory_for_servers)
 }
