@@ -159,7 +159,7 @@ class ShellFile(CodeFile):
 			library_parent_directory_path = lib._parent_code_directory.parent_directory.directory_path
 
 			if self._treat_paths_as_server_paths:
-				library_parent_directory_path.replace('/Users/utarsuno/', '/home/')
+				library_parent_directory_path = library_parent_directory_path.replace('/Users/utarsuno/', '/home/')
 
 			directory_distance = library_parent_directory_path.count('/')
 			library_directory_name = ufo.get_last_directory_from_path(lib._parent_code_directory.directory_path)
