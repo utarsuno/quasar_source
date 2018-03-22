@@ -36,12 +36,14 @@ class CodeFile(object):
 
 	def create_or_update_file(self):
 		"""Creates or updates the physical file that this code file represents."""
-		# create_or_update_file
 		file_text = ''
 		all_file_code = self.file_code
 		for line in all_file_code:
 			file_text += line
 		ufo.create_file_or_override(file_text, self.full_path)
+
+	def __str__(self):
+		return 'CodeFile:' + self.file_name
 
 	@property
 	def file_name_with_extension(self) -> str:

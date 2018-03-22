@@ -13,10 +13,15 @@ class CodeDirectory(object):
 		self._directory_path    = directory_path
 		self._child_directories = []
 		self._code_files        = []
+		self._generatable       = True
 
 		self._parent_directory = None
 
 		self._safety_check_on_directory_path()
+
+	def set_to_non_generatable(self):
+		"""Sets this directory to one that can not be generated."""
+		self._generatable = False
 
 	def create_directory_if_needed(self):
 		"""Creates the code directory if it does not exist."""
@@ -61,6 +66,24 @@ class CodeDirectory(object):
 				return True
 		return False
 
+	def __str__(self):
+		return ufo.get_last_directory_from_path(self.directory_path)
+
+	@property
+	def child_code_directories(self):
+		"""Returns a list of all child code directories."""
+		return self._child_directories
+
+	@property
+	def code_files(self):
+		"""Returns a list of all code files in this directory."""
+		return self._code_files
+
+	@property
+	def generatable(self) -> bool:
+		"""Returns a boolean indicating if this code directory is generatable or not."""
+		return self._generatable
+
 	@property
 	def parent_directory(self):
 		"""Returns the parent code directory of this code directory."""
@@ -78,16 +101,25 @@ class ShellDirectory(CodeDirectory):
 	def __init__(self, directory_path):
 		super().__init__(directory_path)
 		self._required_shell_safety_checks = []
+		self._required_shell_libraries     = []
 
 	def add_shell_required_safety_check(self, safety_check):
 		"""Adds a required safety check for all shell scripts in this directory."""
 		self._required_shell_safety_checks.append(safety_check)
+
+	def add_shell_required_library(self, required_library):
+		"""Adds a required library for all shell scripts in this directory."""
+		self._required_shell_libraries.append(required_library)
 
 	def get_code_chunk_with_all_required_safety_checks(self):
 		"""Returns a code chunk that contains all the required safety checks."""
 		combined_code_chunk = CodeChunk()
 
 		for required_shell_safety_check in self._required_shell_safety_checks:
-			combined_code_chunk.add_code_chunk(required_shell_safety_check.code_chunk)
+			combined_code_chunk.add_code_chunk(required_shell_safety_check)
 
 		return combined_code_chunk
+
+	def get_all_required_libraries(self):
+		"""Returns a list of all required libraries needed for shell scripts in this directory."""
+		return self._required_shell_libraries

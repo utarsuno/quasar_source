@@ -17,6 +17,7 @@ class ShellVariableSetter(object):
         return self._code_chunk
 
 
-SHELL_VARIABLES_SET_QUASAR      = ShellVariableSetter(CodeChunk(['set_variables_for_quasar']))
-SHELL_VARIABLES_SET_DATABOI     = ShellVariableSetter(CodeChunk(['set_variables_for_databoi']))
-SHELL_VARIABLES_SET_SERVER_SIDE = ShellVariableSetter(CodeChunk(['set_variables_for_server_side']))
+SHELL_VARIABLES_SET_QUASAR      = CodeChunk(['set_variables_for_quasar'])
+SHELL_VARIABLES_SET_DATABOI     = CodeChunk(['set_variables_for_databoi'])
+SHELL_VARIABLES_SET_SERVER_SIDE = CodeChunk(['set_variables_for_server_side'])
+SHELL_VARIABLES_SET_CLIENT_SIDE = CodeChunk(['set_variables_for_client_side'])

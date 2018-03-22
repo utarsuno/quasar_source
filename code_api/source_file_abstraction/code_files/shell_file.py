@@ -131,7 +131,13 @@ class ShellFile(CodeFile):
 		"""Generates the code needed for the library import section."""
 		section = self.get_code_section(CODE_SECTION_LIBRARY_IMPORTS)
 
+		if type(self._parent_code_directory) == ShellDirectory:
+			all_required_libraries = self._parent_code_directory.get_all_required_libraries()
+			for required_library in all_required_libraries:
+				self._required_libraries.append(required_library)
+
 		library_code_chunks = self._get_code_chunks_from_required_libraries()
+
 		for lcc in library_code_chunks:
 			section.add_code_chunk(lcc)
 
@@ -195,7 +201,7 @@ class ShellFile(CodeFile):
 		section = self.get_code_section(CODE_SECTION_VARIABLES)
 
 		for vs in self._required_variable_setters:
-			section.add_code_chunk(vs.code_chunk)
+			section.add_code_chunk(vs)
 
 		if not section.empty:
 			section.add_code_chunk_at_start(get_shell_ascii_comment_as_code_chunk('variables setting'))

@@ -16,5 +16,14 @@ function set_variables_for_databoi {
 }
 
 function set_variables_for_server_side {
-	PATH_TO_UPDATE_SERVER_SCRIPT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_update_server_script)
+	PATH_TO_UPDATE_SERVER_CODE_SCRIPT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_update_server_code_script)
+	PATH_TO_FORCE_UPDATE_SERVER_CODE_SCRIPT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_force_update_server_code_script)
+	PATH_TO_SCRIPTS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_scripts_server)
+	PATH_TO_SCRIPTS_FINANCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_scripts_finance)
+    PATH_TO_QUASAR_SOURCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_quasar_source)
+}
+
+function set_variables_for_client_side {
+    PATH_TO_LOCAL_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_local_config_file_for_servers)
+    PATH_TO_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_file_for_servers)
 }

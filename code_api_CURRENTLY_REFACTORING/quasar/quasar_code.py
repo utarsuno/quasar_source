@@ -19,11 +19,6 @@ from code_api.code_generator import shell_scripts_generator
 
 CODE_SOURCE_BASE = '/Users/utarsuno/git_repos/quasar_source/'
 
-# Program arguments.
-ARGUMENT_BUILD_PRODUCTION = '-bp'
-ARGUMENT_RUN_ANALYSIS     = '-ra'
-ARGUMENT_FEATURE_TESTING  = '-ft'
-
 # Production Javascript combining order.
 # TODO : This needs to get updated!!
 # TODO : Make this automatically/dynamically get determined (the order of file adds that is)
@@ -120,27 +115,12 @@ def _get_all_python_files():
 	return files_to_return
 
 
-def _get_all_shell_scripts():
-	"""Returns a list of CodeFile objects of all the Quasar script files."""
-	all_script_files_path = CODE_SOURCE_BASE + 'all_scripts'
-	all_script_files = ufo.get_all_file_paths_inside_directory(all_script_files_path)
-	files_to_return = []
-	for f in all_script_files:
-		files_to_return.append(shell_scripts_generator.CodeFileShellScript(f))
-	return files_to_return
-
-
 class QuasarCode(object):
 	"""An abstraction to the entire Quasar code base."""
 
 	def __init__(self):
 		self._javascript_manager = cfm.CodeFileManager(_get_all_javascript_files())
 		self._python_manager     = cfm.CodeFileManager(_get_all_python_files())
-		self._script_manager     = cfm.CodeFileManager(_get_all_shell_scripts())
-
-		# TODO : These all need to be updated.
-		# TODO : These all need to be updated.
-		# TODO : These all need to be updated.
 
 		# Javascript settings files.
 		self._eslint_code_file   = cf.CodeFileJavaScript(CODE_SOURCE_BASE + 'configurations/.eslintrc.js')
@@ -265,7 +245,6 @@ class QuasarCode(object):
 	def feature_testing(self):
 		"""The current feature to be tested."""
 		# Verify the 'all_scripts' directory.
-		oc.print_data(self._script_manager.get_data())
 		oc.print_title('Generate all scripts!')
 		all_scripts.all_scripts.generate()
 		oc.print_success('finished!')
@@ -275,7 +254,6 @@ class QuasarCode(object):
 		oc.print_title('Printing Quasar Analysis!')
 		oc.print_data(self._javascript_manager.get_data())
 		oc.print_data(self._python_manager.get_data())
-		oc.print_data(self._script_manager.get_data())
 
 		# Make sure all the Universal Constants are synchronized across the code base.
 		self._javascript_manager.sync_universal_constants(self.quasar_universal_constant_groups)
@@ -339,27 +317,3 @@ class QuasarCode(object):
 		print('Production is size : ' + str(production_size) + ' bytes.')
 
 		color_print('Compressed ' + str(1.0 - production_size / original_size) + ' %', color='blue', bold=True)
-
-
-# Check if this file is being ran as a script.
-if __name__ == '__main__':
-	quasar_code = QuasarCode()
-
-	arguments = sys.argv[1:]
-	for a in arguments:
-		if a == ARGUMENT_BUILD_PRODUCTION:
-			quasar_code.build_production()
-		elif a == ARGUMENT_RUN_ANALYSIS:
-			quasar_code.run_analysis()
-		elif a == ARGUMENT_FEATURE_TESTING:
-			quasar_code.feature_testing()
-		else:
-			# TODO : Automate/add colored terminal printing
-			color_print('The argument passed {' + str(a) + '} is not valid!', color='red')
-
-
-# TODO :
-	#print('Total size before : ' + str(total_original_size))
-	#print('New size : ' + str(total_reduced_size))
-	#print('Size reduction % : ' + str(1.0 - (total_reduced_size / total_original_size)))
-# Quick test

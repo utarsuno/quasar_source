@@ -17,7 +17,7 @@ class ShellSafetyCheck(object):
 		return self._code_chunk
 
 
-SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO = ShellSafetyCheck(CodeChunk(['terminate_if_sudo']))
-SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO = ShellSafetyCheck(CodeChunk(['terminate_if_not_sudo']))
-SHELL_SAFETY_CHECK_TERMINATE_IF_UBUNTU = ShellSafetyCheck(CodeChunk(['terminate_if_ubuntu']))
-SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU = ShellSafetyCheck(CodeChunk(['terminate_if_not_ubuntu']))
+SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO = CodeChunk(['terminate_if_sudo'])
+SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO = CodeChunk(['terminate_if_not_sudo'])
+SHELL_SAFETY_CHECK_TERMINATE_IF_UBUNTU = CodeChunk(['terminate_if_ubuntu'])
+SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU = CodeChunk(['terminate_if_not_ubuntu'])

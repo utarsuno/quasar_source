@@ -34,3 +34,13 @@ def print_data(text):
 		else:
 			color_print(c, color='blue', end='')
 	print()
+
+
+def print_green(text):
+	"""Prints text in green color."""
+	color_print(text, color='green')
+
+
+def print_pink(text):
+	"""Prints text in white color."""
+	color_print(text, color='pink')

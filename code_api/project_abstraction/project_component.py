@@ -13,3 +13,11 @@ class ProjectComponent(object):
 	def add_base_code_directory(self, code_directory):
 		"""Adds a code directory to this project component."""
 		self._base_code_directories.append(code_directory)
+
+	@property
+	def base_code_directories(self):
+		"""Returns a list of all the base code directories."""
+		return self._base_code_directories
+
+	def __str__(self):
+		return 'ProjectComponent(' + self._component_name + ')'

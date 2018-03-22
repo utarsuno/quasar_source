@@ -12,37 +12,33 @@
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/script_utilities.sh
-source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader.sh
 source ${PATH_TO_LIBRARY_CONFIG_READER}
+PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/script_utilities.sh
+source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 
 # ----------------------------------------------------------------------------
 #  __   __   __      __  ___     __  ___       __  ___ 
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{update_code.sh} start on {${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
-terminate_if_ubuntu
-terminate_if_sudo
-if [ "$#" -ne 1 ]; then
-	terminate_script "The script{code_push.sh} requires exactly{1} arguments. They are [commit_message]."
-fi
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
-set_variables_for_quasar
-set_variables_for_databoi
 set_variables_for_server_side
+
+
+
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -50,30 +46,17 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-if output=$(git status --porcelain) && [ -z "$output" ]; then
-	# Working directory clean
-	print_script_text "The working directory is clean so no commit will be made."
+# Go to the projects base directory.
+cd "${PATH_TO_QUASAR_SOURCE}";
+git fetch --all;
+reslog=$(git log HEAD..origin/master --oneline)
+if [[ "${reslog}" != "" ]] ; then
+    print_script_text "Updating the code base."
+    # This resets to master.
+    git reset --hard origin/master;
 else
-	# There are uncommitted changes.
-	print_script_text "Pushing the code changes."
-
-    print_dotted_line
-    # This will add all files, new files, changes, and removed files.
-    git add -A;
-    git commit -m "$1";
-    git push --force;
-    print_dotted_line
-
-    # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
-
-    # Data server for historical book orders.
-    ssh "${DATABOI_USER}@${DATABOI_IP}" << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
-
+    # We do not have to update the code.
+    print_script_text "The code base is already up to date so a pull will not be performed."
 fi
 
 
@@ -82,5 +65,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{update_code.sh} end on {${HOST_NAME}}."
 

@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_quasar.sh} start on {${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -30,10 +30,6 @@ print_dashed_line_with_text "script{code_push.sh} start on {${HOST_NAME}}."
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
 terminate_if_ubuntu
-terminate_if_sudo
-if [ "$#" -ne 1 ]; then
-	terminate_script "The script{code_push.sh} requires exactly{1} arguments. They are [commit_message]."
-fi
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  
@@ -41,8 +37,8 @@ fi
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
 set_variables_for_quasar
-set_variables_for_databoi
 set_variables_for_server_side
+
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -50,31 +46,7 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-if output=$(git status --porcelain) && [ -z "$output" ]; then
-	# Working directory clean
-	print_script_text "The working directory is clean so no commit will be made."
-else
-	# There are uncommitted changes.
-	print_script_text "Pushing the code changes."
-
-    print_dotted_line
-    # This will add all files, new files, changes, and removed files.
-    git add -A;
-    git commit -m "$1";
-    git push --force;
-    print_dotted_line
-
-    # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
-
-    # Data server for historical book orders.
-    ssh "${DATABOI_USER}@${DATABOI_IP}" << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
-
-fi
+ssh -t -i ${QUASAR_PEM_PATH} "${QUASAR_USER}@${QUASAR_IP}" -p ${QUASAR_PORT} "cd "${PATH_TO_SCRIPTS_SERVER}" ; bash"
 
 
 # ----------------------------------------------------------------------------
@@ -82,5 +54,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_quasar.sh} end on {${HOST_NAME}}."
 
