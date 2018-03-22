@@ -12,9 +12,9 @@
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/config_reader.sh
+PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader.sh
 source ${PATH_TO_LIBRARY_CONFIG_READER}
-PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/script_utilities.sh
+PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 
 # ----------------------------------------------------------------------------

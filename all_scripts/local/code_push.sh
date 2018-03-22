@@ -65,14 +65,14 @@ else
     print_dotted_line
 
     # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}"
-HERE
+#    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
     # Data server for historical book orders.
-    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}"
-HERE
+#    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
 fi
 
