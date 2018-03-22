@@ -99,7 +99,8 @@ RendererManager.prototype = {
         this.outline_pass.edgeGlow = 0.2;
         this.outline_pass.edgeThickness = 1.5;
         this.outline_pass.pulsePeriod = 0;
-        this.outline_pass.visibleEdgeColor = '#327a00';
+        //this.outline_pass.visibleEdgeColor = '#327a00';
+        this.outline_pass.visibleEdgeColor = new THREE.Color(0x327a00);
     },
 
     // TEMPORARY
