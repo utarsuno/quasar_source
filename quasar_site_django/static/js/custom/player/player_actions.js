@@ -1,5 +1,8 @@
 'use strict';
 
+
+// TODO : Change this to an inherit class for the PlayerMenu
+
 function player_action_toggle_fullscreen() {
     MANAGER_RENDERER.toggle_fullscreen();
 }
