@@ -91,7 +91,6 @@ if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
 else
 	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 	python3 ${PYTHON_ENTITY_SERVER} -r
-    python3 /home/git_repos/quasar_source/servers/entities/entity_server.py -r
 fi
 '''))
 
