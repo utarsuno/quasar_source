@@ -25,6 +25,18 @@ deal with marks such as '// FOR_DEV_START'
 ALSO : Ensure they are all consistent, example : not a mix of FOR_DEV_START and DEV_START
 
 ^ after those features added : BUILD JAVASCRIPT PRODUCTION FILE!
+
+
+
+# IMPORTANT BUT NOT TIME CRITICAL TASK :
+# Make as many for loops reverse iteration based as possible! Only 1 .length operation required!!!
+
+
+# Look into gziping the production file?
+
+
+# START USING LESS GLOBAL VARIABLES!!!!!
+
 '''
 
 
