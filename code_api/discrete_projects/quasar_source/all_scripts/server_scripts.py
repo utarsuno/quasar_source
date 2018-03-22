@@ -97,7 +97,7 @@ fi
 	# Restart.
 	code_file_restart = ShellFile('restart')
 	code_file_restart.treat_paths_as_server_paths()
-	code_file_restart.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
+	#code_file_restart.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
 	code_file_restart.set_main_code(CodeChunk('''
 sudo bash ${PYTHON_ENTITY_SCRIPT_TERMINATE}
 sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
@@ -106,7 +106,7 @@ sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
 	# Run in background.
 	code_file_run_in_background = ShellFile('run_in_background')
 	code_file_run_in_background.treat_paths_as_server_paths()
-	code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
+	#code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
 	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER})']))
 	code_file_run_in_background.set_main_code(CodeChunk('''
 if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
@@ -132,7 +132,7 @@ fi
 	# Terminate.
 	code_file_terminate = ShellFile('terminate')
 	code_file_terminate.treat_paths_as_server_paths()
-	code_file_terminate.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
+	#code_file_terminate.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
 	code_file_terminate.set_main_code(CodeChunk('''
 sudo pkill -f "${PYTHON_ENTITY_SERVER}"
 '''))

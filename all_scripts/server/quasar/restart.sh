@@ -32,9 +32,6 @@ print_dashed_line_with_text "script{restart.sh} start on {${CURRENT_USER}-${HOST
 terminate_if_not_ubuntu
 terminate_if_not_sudo
 
-
-
-
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
