@@ -5,6 +5,7 @@
 #  \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/
 
 HOST_NAME=$(hostname)
+CURRENT_USER=`whoami`
 
 # Escape sequence and resets
 ESC_SEQ="\x1b["

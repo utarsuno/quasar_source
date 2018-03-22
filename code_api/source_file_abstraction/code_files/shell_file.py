@@ -169,7 +169,10 @@ class ShellFile(CodeFile):
 			variable_declaration = 'ARG0=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-ARG1 -d"/"`ARG2'
 			variable_declaration = variable_declaration.replace('ARG0', variable_library_name)
 			variable_declaration = variable_declaration.replace('ARG1', str(directory_distance))
-			variable_declaration = variable_declaration.replace('ARG2', '/' + library_directory_name + '/' + lib.file_name_with_extension)
+			if self._treat_paths_as_server_paths:
+				variable_declaration = variable_declaration.replace('ARG2', '/' + lib.file_name_with_extension)
+			else:
+				variable_declaration = variable_declaration.replace('ARG2', '/' + library_directory_name + '/' + lib.file_name_with_extension)
 
 			# Part (2/2) - source statement to import the library.
 			source_statement = 'source ${' + variable_library_name + '}'
@@ -186,7 +189,7 @@ class ShellFile(CodeFile):
 		ascii_comment = get_shell_ascii_comment_as_code_chunk('script start')
 		section_script_start.add_code_chunk(ascii_comment)
 
-		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} start on {${HOST_NAME}}."'
+		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} start on {${CURRENT_USER}-${HOST_NAME}}."'
 
 		section_script_start.add_code_chunk(CodeChunk([line]))
 
@@ -229,6 +232,6 @@ class ShellFile(CodeFile):
 		ascii_comment = get_shell_ascii_comment_as_code_chunk('script end')
 		section_script_end.add_code_chunk(ascii_comment)
 
-		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} end on {${HOST_NAME}}."'
+		line = 'print_dashed_line_with_text "script{' + self.file_name_with_extension + '} end on {${CURRENT_USER}-${HOST_NAME}}."'
 
 		section_script_end.add_code_chunk(CodeChunk([line]))
