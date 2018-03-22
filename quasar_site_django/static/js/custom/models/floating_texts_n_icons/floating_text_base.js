@@ -257,8 +257,14 @@ function FloatingText(text, type, is_2D_text) {
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
             this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
+
+            MANAGER_RENDERER.add_object_to_highlight(this.mesh);
+
         } else {
             this.set_background_color(this.default_background_color, true);
+
+
+            MANAGER_RENDERER.add_object_to_highlight(this.mesh);
         }
     };
 

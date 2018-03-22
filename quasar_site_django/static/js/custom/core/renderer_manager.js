@@ -102,6 +102,15 @@ RendererManager.prototype = {
         this.outline_pass.visibleEdgeColor = '#327a00';
     },
 
+    // TEMPORARY
+    add_object_to_highlight: function() {
+
+    },
+
+    remove_object_to_highlight: function() {
+
+    },
+
     pre_render: function() {
         this.stats_api.pre_render();
     },
