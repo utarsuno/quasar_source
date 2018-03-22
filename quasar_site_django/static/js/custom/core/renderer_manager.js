@@ -37,12 +37,13 @@ RendererManager.prototype = {
             this.get_window_properties();
             this.near_clipping = 1.0;
             this.far_clipping  = 20000.0;
-            this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true});
+            //this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true});
+            this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
 
             // Give the canvas an ID.
             this.renderer.domElement.id = 'canvas_id';
 
-            this.renderer.setPixelRatio(window.devicePixelRatio);
+            #this.renderer.setPixelRatio(window.devicePixelRatio);
             this.renderer.setSize(this.window_width, this.window_height);
             this.renderer.setClearColor(0x000000, 1);
 
@@ -72,6 +73,27 @@ RendererManager.prototype = {
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
             this.currently_fullscreen = false;
+
+
+            // SHADER TESTING
+            // SHADER TESTING
+            // SHADER TESTING
+            this.effect_composer = new THREE.EffectComposer(this.renderer);
+            this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
+            this.effect_composer.addPass(this.render_pass);
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
+            this.effect_composer.addPass(this.outline_pass);
+            this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+            this.effect_FXAA.uniforms[ 'resolution' ].value.set(1 / this.window_width, 1 / this.window_height);
+            this.effect_FXAA.renderToScreen = true;
+            this.composer.addPass(this.effect_FXAA);
+
+
+            this.outline_pass.edgeStrength = 4.5;
+            this.outline_pass.edgeGlow = 0.2;
+            this.outline_pass.edgeThickness = 1.5;
+            this.outline_pass.pulsePeriod = 0;
+            this.outline_pass.visibleEdgeColor = '#327a00';
         }
     },
 
@@ -80,7 +102,11 @@ RendererManager.prototype = {
     },
 
     render: function() {
-        this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
+        //this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
+
+        this.effect_composer.render();
+
+
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
                 this.css_renderer.render(MANAGER_WORLD.current_world.css_scene, this.camera);
@@ -109,6 +135,9 @@ RendererManager.prototype = {
         }
 
         GUI_TYPING_INTERFACE.window_was_resized();
+
+        this.effect_composer.setSize(this.window_width, this.window_height);
+        this.effect_FXAA.uniforms[ 'resolution' ].value.set(1 / this.window_width, 1 / this.window_height);
     },
 
     is_webgl_enabled: function() {
