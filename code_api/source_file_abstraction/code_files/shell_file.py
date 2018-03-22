@@ -169,10 +169,7 @@ class ShellFile(CodeFile):
 			variable_declaration = 'ARG0=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-ARG1 -d"/"`ARG2'
 			variable_declaration = variable_declaration.replace('ARG0', variable_library_name)
 			variable_declaration = variable_declaration.replace('ARG1', str(directory_distance))
-			if self._treat_paths_as_server_paths:
-				variable_declaration = variable_declaration.replace('ARG2', '/' + lib.file_name_with_extension)
-			else:
-				variable_declaration = variable_declaration.replace('ARG2', '/' + library_directory_name + '/' + lib.file_name_with_extension)
+			variable_declaration = variable_declaration.replace('ARG2', '/' + library_directory_name + '/' + lib.file_name_with_extension)
 
 			# Part (2/2) - source statement to import the library.
 			source_statement = 'source ${' + variable_library_name + '}'
