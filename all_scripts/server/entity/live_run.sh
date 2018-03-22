@@ -37,7 +37,7 @@ terminate_if_not_ubuntu
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
 set_variables_for_entity_server
-IS_ENTITY_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER})
+IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 

@@ -36,11 +36,9 @@ terminate_if_not_ubuntu
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
-set_variables_for_entity_server
+set_variables_for_quasar_server
 
-
-
-IS_QUASAR_SERVER_RUNNING=$(python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH})
+IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
