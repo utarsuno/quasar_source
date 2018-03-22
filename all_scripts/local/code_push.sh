@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{code_push.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -65,14 +65,14 @@ else
     print_dotted_line
 
     # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
+#    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
     # Data server for historical book orders.
-    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
+#    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
+#    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+#HERE
 
 fi
 
@@ -82,5 +82,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{code_push.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

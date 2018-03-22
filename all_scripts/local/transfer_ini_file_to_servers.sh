@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{transfer_ini_file_to_servers.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{transfer_ini_file_to_servers.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -62,5 +62,5 @@ scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERV
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{transfer_ini_file_to_servers.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{transfer_ini_file_to_servers.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

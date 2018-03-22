@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{ssh_to_book_data.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_book_data.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -55,5 +55,5 @@ ssh -t -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} "
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{ssh_to_book_data.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_book_data.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

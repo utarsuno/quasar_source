@@ -12,9 +12,9 @@
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader.sh
+PATH_TO_LIBRARY_CONFIG_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/config_reader.sh
 source ${PATH_TO_LIBRARY_CONFIG_READER}
-PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/script_utilities.sh
+PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 
 # ----------------------------------------------------------------------------
@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{update_code.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{update_code.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -65,5 +65,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{update_code.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{update_code.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

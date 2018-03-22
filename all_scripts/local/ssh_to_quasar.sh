@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{ssh_to_quasar.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_quasar.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -54,5 +54,5 @@ ssh -t -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "cd $
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{ssh_to_quasar.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh_to_quasar.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

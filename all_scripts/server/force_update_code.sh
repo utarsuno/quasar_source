@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{force_update_code.sh} start on {${HOST_NAME}}."
+print_dashed_line_with_text "script{force_update_code.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -68,5 +68,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{force_update_code.sh} end on {${HOST_NAME}}."
+print_dashed_line_with_text "script{force_update_code.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 
