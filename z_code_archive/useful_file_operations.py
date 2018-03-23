@@ -204,27 +204,6 @@ def delete_directory(directory_path):
 	shutil.rmtree(directory_path)
 
 
-def get_all_file_paths_from_directory(directory_path):
-	"""Returns all the files paths from the directory path provided.
-	:param directory_path : The directory path to get all file paths from.
-	:return: A list of strings that each map to a full file path for all files in this directory."""
-	file_paths = []
-	for full_path in glob.glob(directory_path + '/**', recursive=True):
-		# Ignore directories, only look at files.
-		if not is_directory(full_path):
-			file_paths.append(full_path)
-	return file_paths
-
-
-def get_all_file_names_from_directory(directory_path):
-	"""Returns a list of all file names found in this directory."""
-	all_full_file_names = get_all_file_paths_from_directory(directory_path)
-	return_names        = []
-	for fn in all_full_file_names:
-		return_names.append(get_file_basename(fn))
-	return return_names
-
-
 def get_all_non_empty_directory_paths_from_directory(directory_path):
 	"""Returns all the directory paths that contain at least one entity from the directory path provided.
 	:param directory_path : The root directory path to get all directory paths from.

@@ -52,9 +52,69 @@ def get_last_directory_from_path(path) -> str:
 	return p[p.rfind('/') + 1:]
 
 
+def get_all_directory_paths_from_directory(directory_path, recursively=False):
+	"""Returns all the directory paths from the directory path provided."""
+	directory_paths = []
+	for full_path in glob.glob(directory_path + '/**', recursive=recursively):
+		# Ignore files, only look at directories.
+		if not is_file(full_path):
+			directory_paths.append(full_path)
+	if directory_path in directory_paths:
+		directory_paths.remove(directory_path)
+	return directory_paths
+
+
+def get_all_file_paths_inside_directory(path: str, recursively=False) -> List[str]:
+	"""Returns a list of all file paths found inside the provided directory."""
+	if _is_valid_path_parameter(path):
+		file_paths = []
+		for full_path in glob.glob(path + '/**', recursive=recursively):
+			if not is_directory(full_path):
+				file_paths.append(full_path)
+		return file_paths
+	return []
+
+
+'''
+def get_all_file_names_inside_directory(path: str) -> List[str]:
+	"""Returns a list of all file names found inside the provided directory."""
+	if _is_valid_path_parameter(path):
+		file_names = []
+		for full_path in glob.glob(path + '/**', recursive=True):
+			if not is_directory(full_path):
+				file_names.append(get_file_basename(full_path))
+		return file_names
+	return []
+'''
+
+
 def create_directory(path: str) -> None:
 	"""Creates the directory at the provided path."""
 	os.makedirs(path)
+
+'''___         ___     __   __   ___  __       ___    __        __
+  |__  | |    |__     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+  |    | |___ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
+
+
+def create_file_or_override(file_text, file_path):
+	"""Creates the file with the specified file text at the specified file path."""
+	with open(file_path, 'w+') as file_handler:
+		file_handler.write(file_text)
+
+
+def get_file_content(file_path: str) -> list:
+	"""Returns a list of strings containing the file content."""
+	lines = []
+	with open(file_path, 'r') as file_handler:
+		for line in file_handler:
+			lines.append(line)
+	return lines
+
+
+def get_file_size_in_bytes(file_path):
+	"""Return the size of the file in bytes."""
+	return int(os.stat(file_path).st_size)
 
 
 '''  __   ___ ___  __     ___       ___
@@ -62,23 +122,6 @@ def create_directory(path: str) -> None:
 	|  \ |___  |  |  \ | |___  \/  |___
 '''
 
-
-# TODO : create unit tests for this function!
-def get_all_file_lines(file_path) -> list:
-	"""Return a list of strings that represent all the lines in the file."""
-	file_lines = []
-	with open(file_path, 'r') as f:
-		for l in f:
-			file_lines.append(l)
-	return file_lines
-
-
-# TODO : create unit tests for this function!
-def get_file_size_in_bytes(file_path) -> str:
-	"""Return the size of the file.
-	:param file_path : The full path to the file.
-	:return: The size of the file as a string."""
-	return int(int(os.stat(file_path).st_size))
 
 
 def get_ini_section_dictionary(path: str, section_name: str) -> dict:
@@ -135,36 +178,10 @@ def is_directory(path: str) -> bool:
 	return False
 
 
-def get_all_file_paths_inside_directory(path: str) -> List[str]:
-	"""Returns a list of all file paths found inside the provided directory."""
-	if _is_valid_path_parameter(path):
-		file_paths = []
-		for full_path in glob.glob(path + '/**', recursive=True):
-			if not is_directory(full_path):
-				file_paths.append(full_path)
-		return file_paths
-	return []
-
-
-def get_all_file_names_inside_directory(path: str) -> List[str]:
-	"""Returns a list of all file names found inside the provided directory."""
-	if _is_valid_path_parameter(path):
-		file_names = []
-		for full_path in glob.glob(path + '/**', recursive=True):
-			if not is_directory(full_path):
-				file_names.append(get_file_basename(full_path))
-		return file_names
-	return []
-
-
 '''  __   __   ___      ___    __
 	/  ` |__) |__   /\   |  | /  \ |\ |
 	\__, |  \ |___ /~~\  |  | \__/ | \|
 '''
-def create_file_or_override(file_text, file_path):
-	file = open(file_path, 'w+')
-	file.write(file_text)
-	file.close()
 
 
 # Temporary on hold.

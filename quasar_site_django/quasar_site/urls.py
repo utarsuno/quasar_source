@@ -29,9 +29,9 @@ POST_URL_SUDO_COMMAND          = r'sudo_command'
 POST_URL_GET_SHARED_WORLDS     = r'get_shared_worlds'
 # UNIVERSAL_CONSTANTS_END
 
-urlpatterns = [
-    url(r'web_socket', v.GET_web_socket),
+# url(r'web_socket', v.GET_web_socket),
 
+urlpatterns = [
     url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),
     url(POST_URL_LOGIN                , v.POST_login),
     url(POST_URL_GET_USER_ENTITIES    , v.POST_get_user_entities),

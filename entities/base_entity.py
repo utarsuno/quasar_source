@@ -191,17 +191,6 @@ class Entity(object):
 			slim_data[key] = value
 		return '[' + str(self._relative_id) + '] - ' + ENTITY_TYPE_TO_ABBREVIATION_DICT[self._class_name] + '{' + str(slim_data) + '}\n'
 
-	def get_pretty_print(self):
-		"""Debugging"""
-		raw_data = self.get_json_data()
-		slim_data = {}
-		for key in raw_data:
-			value = raw_data[key]
-			if str(value) != '[]':
-				if key not in ENTITY_DEFAULT_PROPERTY_ALL:
-					slim_data[key] = value
-		return '[' + str(self._relative_id) + '] - ' + ENTITY_TYPE_TO_ABBREVIATION_DICT[self._class_name] + '{' + str(slim_data) + '}'
-
 	def __str__(self):
 		raw_data = self.get_json_data()
 		slim_data = {}

@@ -2,10 +2,11 @@
 
 """This module, shell_file.py, provides an abstraction to shell files."""
 
-from code_api.source_file_abstraction.code_files.code_file import *
-from code_api.code_abstraction.code_section import *
 from code_api.code_abstraction.ascii_comments import get_shell_ascii_comment_as_code_chunk
-from code_api.source_file_abstraction.code_directory import *
+from code_api.code_abstraction.code_section import *
+from code_api.source_file_abstraction.code_directories.code_directory import *
+from code_api.source_file_abstraction.code_files.code_file import *
+from code_api.source_file_abstraction.code_directories.shell_directory import ShellDirectory
 from universal_code import useful_file_operations as ufo
 from universal_code.time_abstraction.day_instance import *
 
@@ -27,7 +28,7 @@ class ShellLibrary(CodeFile):
 		self._file_extension = '.sh'
 
 
-class ShellFile(CodeFile):
+class ShellFile(GeneratedCodeFile):
 	"""Represents a single shell file."""
 
 	def __init__(self, file_name):

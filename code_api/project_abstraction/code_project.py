@@ -14,6 +14,14 @@ class CodeProject(object):
 		"""Adds a project component to this code project."""
 		self._project_components.append(project_component)
 
+	def get_all_components_that_have_tags(self, list_of_tags):
+		"""Returns a list of all project component that have all the designated tags."""
+		components = []
+		for c in self._project_components:
+			if c.has_tags(list_of_tags):
+				components.append(c)
+		return components
+
 	@property
 	def components(self):
 		"""Returns a list of all the project components."""

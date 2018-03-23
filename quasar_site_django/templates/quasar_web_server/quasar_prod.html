@@ -1,12 +1,13 @@
-{% extends 'templates/quasar_web_server/base.html' %}
-{% block title %} Quasar Source {% endblock %}
-
-{% load staticfiles %}
-{% block additional_css_to_load %}
-<link rel="stylesheet" href="{% static 'css/custom/base.css' %}">
-{% endblock %}
-
-{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/home/git_repos/quasar_source/quasar_site_django/static/css/custom/quasar.min.css">
+</head>
+<body>
 <div id="data_display">
     <p id="x_coordinate"></p>
     <p id="y_coordinate"></p>
@@ -24,6 +25,8 @@
 <div id="gui_typing" style="display: none">
     <p class="gui_typing_offset smooth_font" id="gui_typing_input_field"></p>
 </div>
+
+<div class="container" id="video_container"></div>
 
 <!-- TODO : Do this dynamically later on -->
 <div class="smooth_font" id="gui_console_logs">
@@ -102,49 +105,31 @@
 <!-- Pause Menu -->
 <div id="pause_menu" class="center_position">
     <br>
-    <h1 class="center_align" id="menu_title">Loading Quasar...</h1>
-    <h5 class="center_align" id="menu_header" style="display: none">double click anywhere to resume</h5>
-    <button class="see_through_button" id="button_resume" style="display: none">Resume</button>
-    <button class="see_through_button" id="button_settings" style="display: none">Settings</button>
-    <button class="see_through_button" id="button_help_controls" style="display: none">Help / Controls</button>
-    <button class="see_through_button" id="button_log_out" style="display: none">Log Out</button>
+    <h1 class="center_align" id="menu_title">Loading</h1>
+    <h5 class="center_align" id="menu_header">initial javascript files...</h5>
 </div>
 
-{% endblock %}
-
-{% load staticfiles %}
-{% block additional_js_to_load %}
-
 <!-- 3rd party libraries. -->
-<script src="{% static 'js/third_party/three.min.js' %}"></script>
-<script src="{% static 'js/third_party/stats.min.js' %}"></script>
-<script src="{% static 'js/third_party/Detector.js' %}"></script>
-<script src="{% static 'js/third_party/javascript_cookies/js.cookie.js' %}"></script>
-<script src="{% static 'js/third_party/hex_grid/hex-grid.min.js' %}"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/three.min.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/stats.min.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/Detector.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/javascript_cookies/js.cookie.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/hex_grid/hex-grid.min.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/threex/THREEx.FullScreen.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/CSS3DRenderer.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/lines/THREE.MeshLine.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/dynamic_texture/threex.dynamictexture.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/dynamic_texture/threex.dynamictext2dobject.js"></script>
 
-<!--
-<script src="{% static 'js/third_party/CSS3DRenderer.js' %}"></script>
--->
-
-<!-- 3rd party -->
-<script src="{% static 'js/third_party/threex/THREEx.FullScreen.js' %}"></script>
-
-<!-- Font files. -->
-<script src="{% static 'js/custom/models/helvetiker_regular.typeface.json.js' %}"></script>
-
-<!-- Shaders. -->
-<script src="{% static 'js/third_party/EffectComposer.js' %}"></script>
-<script src="{% static 'js/third_party/CopyShader.js' %}"></script>
-<script src="{% static 'js/third_party/RenderPass.js' %}"></script>
-<script src="{% static 'js/third_party/DigitalGlitch.js' %}"></script>
-<script src="{% static 'js/third_party/GlitchPass.js' %}"></script>
-<script src="{% static 'js/third_party/ShaderPass.js' %}"></script>
-
-<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictexture.js' %}"></script>
-<script src="{% static 'js/third_party/dynamic_texture/threex.dynamictext2dobject.js' %}"></script>
+<!-- Shaders and Post Processors -->
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/shaders/CopyShader.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/shaders/FXAAShader.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/post_processing/EffectComposer.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/post_processing/RenderPass.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/post_processing/ShaderPass.js"></script>
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/third_party/graphics/post_processing/OutlinePass.js"></script>
 
 <!-- Quasar. -->
-<script src="{% static 'js/custom/quasar/quasar.prod.min.js' %}"></script>
-
-{% endblock %}
-
+<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar.min.css"></script>
+</body>
+</html>

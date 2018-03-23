@@ -5,6 +5,7 @@
 from code_api.discrete_projects.predefined_code.shell_code.safety_checks import *
 from code_api.discrete_projects.predefined_code.shell_code.variable_setters import *
 from code_api.source_file_abstraction.code_files.shell_file import *
+from code_api.source_file_abstraction.code_directories.shell_directory import ShellDirectory
 
 
 def load_local_scripts(directory_all_scripts, code_file_script_utilities, code_file_config_reader):

@@ -3,7 +3,7 @@
 
 {% load staticfiles %}
 {% block additional_css_to_load %}
-<link rel="stylesheet" href="{% static 'css/custom/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom/quasar.min.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -27,9 +27,6 @@
 
 <div class="container" id="video_container"></div>
 
-<!--
-<div id="blocker"></div>
--->
 
 <!-- TODO : Do this dynamically later on -->
 <div class="smooth_font" id="gui_console_logs">
@@ -136,14 +133,6 @@
 <script src="{% static 'js/third_party/graphics/post_processing/RenderPass.js' %}"></script>
 <script src="{% static 'js/third_party/graphics/post_processing/ShaderPass.js' %}"></script>
 <script src="{% static 'js/third_party/graphics/post_processing/OutlinePass.js' %}"></script>
-
-<!-- Shaders. -->
-<!-- <script src="{% static 'js/third_party/EffectComposer.js' %}"></script> -->
-<!-- <script src="{% static 'js/third_party/CopyShader.js' %}"></script> -->
-<!-- <script src="{% static 'js/third_party/RenderPass.js' %}"></script> -->
-<!-- <script src="{% static 'js/third_party/DigitalGlitch.js' %}"></script> -->
-<!-- <script src="{% static 'js/third_party/GlitchPass.js' %}"></script> -->
-<!-- <script src="{% static 'js/third_party/ShaderPass.js' %}"></script> -->
 
 <!-- First custom file is global declarations. -->
 <script src="{% static 'js/custom/global/globals.js' %}"></script>

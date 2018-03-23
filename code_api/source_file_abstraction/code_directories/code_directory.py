@@ -4,6 +4,11 @@
 
 from universal_code import useful_file_operations as ufo
 from code_api.code_abstraction.code_chunk import CodeChunk
+from code_api.source_file_abstraction.code_files.code_file import CodeFile
+from code_api.source_file_abstraction.code_files.code_file import LoadedCodeFile
+from code_api.source_file_abstraction.code_files.css_file import LoadedCSSFile
+from code_api.source_file_abstraction.code_files.html_file import LoadedHTMLFile
+from code_api.source_file_abstraction.code_files.js_file import LoadedJSFile
 
 
 class CodeDirectory(object):
@@ -27,6 +32,24 @@ class CodeDirectory(object):
 		"""Creates the code directory if it does not exist."""
 		if not ufo.does_directory_exist(self._directory_path):
 			ufo.create_directory(self._directory_path)
+
+	def add_loaded_code_file_and_assign_type(self, file_name, combined_extensions):
+		"""Adds a loaded code file and assign and determines the type of language that the file is."""
+		if '.css' in combined_extensions:
+			code_file = LoadedCSSFile(file_name, combined_extensions)
+			self._code_files.append(code_file)
+			code_file.set_parent_code_directory(self)
+		elif '.html' in combined_extensions:
+			code_file = LoadedHTMLFile(file_name, combined_extensions)
+			self._code_files.append(code_file)
+			code_file.set_parent_code_directory(self)
+		elif '.js' in combined_extensions:
+			code_file = LoadedJSFile(file_name, combined_extensions)
+			self._code_files.append(code_file)
+			code_file.set_parent_code_directory(self)
+		else:
+			print('TODODODO!@!!!!')
+			exit()
 
 	def add_code_file(self, code_file):
 		"""Adds a code file to this code directory."""
@@ -67,7 +90,7 @@ class CodeDirectory(object):
 		return False
 
 	def __str__(self):
-		return ufo.get_last_directory_from_path(self.directory_path)
+		return 'CodeDirectory:{' + ufo.get_last_directory_from_path(self.directory_path) + '}'
 
 	@property
 	def child_code_directories(self):
@@ -94,41 +117,50 @@ class CodeDirectory(object):
 		"""Returns the directory path of this CodeDirectory."""
 		return self._directory_path
 
+	def get_all_code_files_recursively(self):
+		"""Returns all the code files found in this directory and all child directories, recursively."""
+		all_files = []
+		for f in self._code_files:
+			all_files.append(f)
 
-class ShellDirectory(CodeDirectory):
-	"""Represents a code directory that only contains shell code files."""
+		for cd in self._child_directories:
+			child_files = cd.get_all_code_files_recursively()
+			for cf in child_files:
+				all_files.append(cf)
 
-	def __init__(self, directory_path):
-		super().__init__(directory_path)
-		self._required_shell_safety_checks = []
-		self._required_shell_libraries     = []
-		self._required_variable_setters    = []
+		return all_files
 
-	def add_shell_required_variable_setters(self, variable_setters):
-		"""Adds a required variable setters for all shell scripts in this directory."""
-		self._required_variable_setters.append(variable_setters)
+	def load_all_directories_and_content(self, extensions_to_ignore, loaded_code_file=True):
+		"""Loads all the child directories of this directory, then does so recursively for all child directories."""
+		# Load all the child files in this directory.
+		all_files = ufo.get_all_file_paths_inside_directory(self.directory_path)
+		for f in all_files:
+			file_name = ufo.get_file_basename(f)
+			extensions = ufo.get_file_extensions(file_name)
 
-	def add_shell_required_safety_check(self, safety_check):
-		"""Adds a required safety check for all shell scripts in this directory."""
-		self._required_shell_safety_checks.append(safety_check)
+			skip_file = False
+			for e in extensions:
+				if e in extensions_to_ignore:
+					skip_file = True
+					break
 
-	def add_shell_required_library(self, required_library):
-		"""Adds a required library for all shell scripts in this directory."""
-		self._required_shell_libraries.append(required_library)
+			if not skip_file:
+				combined_extensions = ''
+				if len(extensions) > 0:
+					for e in extensions:
+						file_name = file_name.replace(e, '')
+						combined_extensions += e
 
-	def get_code_chunk_with_all_required_safety_checks(self):
-		"""Returns a code chunk that contains all the required safety checks."""
-		combined_code_chunk = CodeChunk()
+				if loaded_code_file:
+					self.add_loaded_code_file_and_assign_type(file_name, combined_extensions)
+				else:
+					self.add_code_file(CodeFile(None, file_name, combined_extensions))
 
-		for required_shell_safety_check in self._required_shell_safety_checks:
-			combined_code_chunk.add_code_chunk(required_shell_safety_check)
+		# Load all the child directories in this directory.
+		child_directory_paths = ufo.get_all_directory_paths_from_directory(self.directory_path)
+		for cd in child_directory_paths:
+			self.add_child_code_directory(CodeDirectory(cd))
 
-		return combined_code_chunk
-
-	def get_all_required_variable_setters(self):
-		"""Returns a list of all required variable setters needed for shell scripts in this directory."""
-		return self._required_variable_setters
-
-	def get_all_required_libraries(self):
-		"""Returns a list of all required libraries needed for shell scripts in this directory."""
-		return self._required_shell_libraries
+		# Recursive step.
+		for cd in self._child_directories:
+			cd.load_all_directories_and_content(extensions_to_ignore, loaded_code_file)
