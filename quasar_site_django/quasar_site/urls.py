@@ -41,6 +41,5 @@ urlpatterns = [
     url(POST_URL_GET_SHARED_WORLDS    , v.POST_get_shared_worlds),
 
     url(r'dev', v.GET_quasar_dev),
-    url(r'qa' , v.GET_quasar_qa),
     url(r''   , v.GET_quasar_prod),
 ]

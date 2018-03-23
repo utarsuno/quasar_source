@@ -18,8 +18,7 @@ import urllib.request
 # Define all the pages.
 _TEMPLATES_BASE         = 'templates/quasar_web_server/'
 TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
-TEMPLATE_QUASAR_QA      = _TEMPLATES_BASE + 'quasar_qa.html'
-TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.html'
+TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.min.html'
 
 
 # Global server.
@@ -39,11 +38,6 @@ def get_client_ip(request):
 def GET_quasar_dev(request):
     """Returns the Development environment version of Quasar (full debugging enabled, none/less minified files."""
     return render(request, TEMPLATE_QUASAR_DEV)
-
-
-def GET_quasar_qa(request):
-    """Returns the Quality Assurance environment version of Quasar (development on this not start yet)."""
-    return render(request, TEMPLATE_QUASAR_QA)
 
 
 def GET_quasar_prod(request):

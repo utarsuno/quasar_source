@@ -9,6 +9,8 @@ from universal_code import useful_file_operations as ufo
 
 CODE_FILE_TYPE_SHELL_SCRIPT = 'shell_script'
 CODE_FILE_TYPE_CSS_FILE     = 'css_file'
+CODE_FILE_TYPE_JS_FILE      = 'js_file'
+CODE_FILE_TYPE_HTML_FILE    = 'html_file'
 CODE_FILE_TYPE_ASSET_PNG    = 'png_file'
 
 
@@ -58,8 +60,8 @@ class CodeFile(object):
 class GeneratedCodeFile(CodeFile):
 	"""Represents a code file that gets generated."""
 
-	def __init__(self, file_type, file_name):
-		super().__init__(file_type, file_name)
+	def __init__(self, file_type, file_name, file_extension=None):
+		super().__init__(file_type, file_name, file_extension)
 		self._code_sections = []
 
 	def add_code_section(self, code_section):
@@ -79,6 +81,9 @@ class GeneratedCodeFile(CodeFile):
 		for line in all_file_code:
 			file_text += line
 		ufo.create_file_or_override(file_text, self.full_path)
+		
+		self._file_size = ufo.get_file_size_in_bytes(self.full_path)
+
 
 	@property
 	def file_code(self) -> list:
@@ -125,11 +130,12 @@ class LoadedCodeFile(CodeFile):
 class Compressable(object):
 	"""Utility abstraction for files that have compression."""
 
-	def __init__(self, code_file, compression_function):
+	def __init__(self, code_file, compression_function, non_existing_file=False):
 		self._compressed_file_size = None
 		self._compressed_text = None
 		self._code_file = code_file
 		self._compression_function = compression_function
+		self._non_existing_file = non_existing_file
 
 	def generate_minified_file(self):
 		"""Generates the minified version of this file."""
@@ -142,11 +148,15 @@ class Compressable(object):
 
 	def _created_minifed_text(self):
 		"""Creates the minified text."""
-		if not self._code_file.contents_loaded:
-			self._code_file.read_file_contents()
 		raw_text = ''
-		for l in self._code_file._file_lines:
-			raw_text += l
+		if self._non_existing_file:
+			for l in self._code_file.file_code:
+				raw_text += l
+		else:
+			if not self._code_file.contents_loaded:
+				self._code_file.read_file_contents()
+			for l in self._code_file._file_lines:
+				raw_text += l
 		self._compressed_text = self._compression_function(raw_text)
 
 	@property
