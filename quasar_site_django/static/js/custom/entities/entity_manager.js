@@ -292,12 +292,9 @@ EntityManager.prototype = {
                 entity_parents[p].remove_child(entity);
             }
             this.delete_entity(entity);
+        } else {
+            raise_exception_with_full_logging('No Entity found for the ID{' + entity_id + '}');
         }
-        // FOR_DEV_START
-        else {
-            l('No Entity found for the ID{' + entity_id + '}');
-        }
-        // FOR_DEV_END
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
@@ -343,10 +340,9 @@ EntityManager.prototype = {
         if (arguments[1] === SERVER_REPLY_GENERIC_YES) {
             arguments[0].needs_to_be_saved = false;
         } else {
-            // FOR_DEV_START
+            // TODO : Better handling of this exception.
             l('Error saving entity : ');
             l(arguments[0]);
-            // FOR_DEV_END
         }
     },
 

@@ -116,6 +116,9 @@ module.exports = {
         "ATTACHMENT_NAME_ERROR"  : false,
         "ATTACHMENT_NAME_TOOLTIP": false,
 
+        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
+        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
+        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
         "ATTACHMENT_TYPE_FLOATING_WALL"   : false,
         "ATTACHMENT_TYPE_FLOATING_TEXT"   : false,
         "ATTACHMENT_TYPE_FLOATING_PICTURE": false,
@@ -511,7 +514,6 @@ module.exports = {
         "int"                                : false,
         "len"                                : false,
 
-        "is_entity_property"                 : false,
         "raise_exception"                    : false,
         "raise_exception_with_full_logging"  : false,
         "is_string"                          : false,

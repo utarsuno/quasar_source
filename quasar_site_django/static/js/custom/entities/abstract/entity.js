@@ -292,13 +292,12 @@ Entity.prototype = {
     add_child: function(child_entity) {
         if (!is_defined(child_entity)) {
             var error_message = 'Error can\'t add a not defined object as a child entity!';
+            // FOR_DEV_START
             l('Tried to add :');
             l(child_entity);
-            // FOR_DEV_START
             l(error_message);
             // FOR_DEV_END
-            GUI_TYPING_INTERFACE.add_server_message(error_message);
-            raise_exception(error_message);
+            raise_exception_with_full_logging(error_message);
         }
 
         var action_occurred = false;
@@ -322,12 +321,9 @@ Entity.prototype = {
 
     remove_child: function(child_entity) {
         if (!is_defined(child_entity)) {
+            // TODO : Revist this
             var error_message = 'Error can\'t remove a not defined object as a child entity!';
-            // FOR_DEV_START
-            l(error_message);
-            // FOR_DEV_END
-            GUI_TYPING_INTERFACE.add_server_message(error_message);
-            raise_exception(error_message);
+            raise_exception_with_full_logging(error_message);
         }
 
         var index_of_child_id = this.get_child_ids().indexOf(child_entity.get_relative_id());
@@ -353,11 +349,8 @@ Entity.prototype = {
     add_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
             var error_message = 'Error can\'t add a not defined object as a parent entity!';
-            // FOR_DEV_START
-            l(error_message);
-            // FOR_DEV_END
-            GUI_TYPING_INTERFACE.add_server_message(error_message);
-            raise_exception(error_message);
+            // TODO : Revist this.
+            raise_exception_with_full_logging(error_message);
         }
 
         var action_occurred = false;
@@ -382,11 +375,8 @@ Entity.prototype = {
     remove_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
             var error_message = 'Error can\'t remove a not defined object as a parent entity!';
-            // FOR_DEV_START
-            l(error_message);
-            // FOR_DEV_END
-            GUI_TYPING_INTERFACE.add_server_message(error_message);
-            raise_exception(error_message);
+            // TODO : Revist this
+            raise_exception_with_full_logging(error_message);
         }
 
         var action_occurred = false;

@@ -6,36 +6,6 @@ from code_api.project_abstraction.project_component import ProjectComponent
 from code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from universal_code import path_manager as pm
 
-'''
-from code_api.project_abstraction.project_component import ProjectComponent
-from code_api.source_file_abstraction.code_files.shell_file import *
-from universal_code import path_manager as pm
-
-
-
-from code_api.discrete_projects.quasar_source.all_scripts.all_scripts import load_all_scripts_project_component
-from code_api.discrete_projects.quasar_source.all_scripts.library_scripts import load_library_scripts
-from code_api.discrete_projects.quasar_source.all_scripts.local_scripts import load_local_scripts
-from code_api.discrete_projects.quasar_source.all_scripts.server_scripts import load_server_scripts
-from code_api.project_abstraction.code_project import CodeProject
-
-
-
-def load_all_scripts_project_component():
-	"""Loads the all scripts project component."""
-	quasar_component_all_scripts = ProjectComponent('all_scripts')
-
-	directory_all_scripts = CodeDirectory(pm.DIRECTORY_QUASAR_SOURCE_BASE + 'all_scripts')
-
-	quasar_component_all_scripts.add_base_code_directory(directory_all_scripts)
-
-	return quasar_component_all_scripts, directory_all_scripts
-
-
-
-'''
-
-
 
 def load_quasar_client_side():
 	"""Loads all the quasar client side code."""
@@ -46,6 +16,14 @@ def load_quasar_client_side():
 
 	y = 2
 
+
+def load_quasar_raw_assets_component():
+	"""Loads the quasar asset component which contains all the various assets used."""
+	component = ProjectComponent('quasar_asset_component')
+	directory = CodeDirectory(pm.DIRECTORY_QUASAR_SOURCE_BASE + 'configuration_files/raw_assets')
+	component.add_base_code_directory(directory)
+	component.load_all_content()
+	return component
 
 
 def load_quasar_js_component():

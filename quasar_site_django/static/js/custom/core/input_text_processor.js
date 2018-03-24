@@ -6,11 +6,6 @@ function InputTextProcessor(current_text) {
     this.__init__(current_text);
 }
 
-// FOR_DEV_START
-const CURSOR_COLOR = '#a92200';
-// FOR_DEV_END
-// TODO : Implement cursor at a later time.
-
 InputTextProcessor.prototype = {
 
     current_text: null,

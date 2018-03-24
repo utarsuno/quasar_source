@@ -17,9 +17,6 @@
 
 # VERY IMPORTANT FEATURE :
 '''
-from jsmin import jsmin
-jsmin(text)
-
 RELATING TO THIS :
 deal with marks such as '// FOR_DEV_START'
 ALSO : Ensure they are all consistent, example : not a mix of FOR_DEV_START and DEV_START
@@ -54,9 +51,6 @@ sort_lines_by_delimiter
 
 # Minor features to add :
 '''
-	def get_total_size(self) -> int:
-		"""Returns the total size of all the code files as bytes."""
-
 	def get_total_lines_of_code(self) -> int:
 		"""Returns the total number of lines of codes."""
 

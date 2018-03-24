@@ -12,10 +12,10 @@
 - [ ] Saving : Make it automatic, abstract the design, and perform batch saving to improve performance. *(This will fix the entity deletion bug)*
 ##### CodeAPI
 - [X] Re-create base design. Taking pros from the previous 2 CodeAPI systems created.
-- [ ] Create generation for all scripts.
+- [X] Create generation for all scripts.
 - [ ] Add more scripts for server management and setup.
 - [ ] Re-create all Finance generation code needed.
-- [ ] Add ability to create production version of Quasar!
+- [X] Add ability to create production version of Quasar!
 - [ ] Synchronize all global/shared variables across languages. Such as server messages and entity properties.
 
 ##### General

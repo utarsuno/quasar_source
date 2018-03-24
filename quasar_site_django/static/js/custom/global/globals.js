@@ -231,7 +231,7 @@ const SKYBOX_BOTTOM = 'bottom.jpg';
 // UNIVERSAL_CONSTANTS_START : Cursor types.
 const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
 const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
-const CURSOR_TYPE_LARGER     = 'larger.jp2';
+const CURSOR_TYPE_LARGER     = 'larger.png';
 const CURSOR_TYPE_HAND       = 'cursor_hand.png';
 const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
 const CURSOR_TYPE_MOUSE      = 'mouse.png';
@@ -372,10 +372,6 @@ function str(o) {
 
 function int(f) {
     return f | 0;
-}
-
-function is_entity_property(property) {
-    return property.startsWith(ENTITY_PROPERTY_START_TOKEN);
 }
 
 function CustomException(message) {

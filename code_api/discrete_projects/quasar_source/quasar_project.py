@@ -40,6 +40,9 @@ def load_quasar_source_project():
 	component_js = load_quasar_js_component()
 	component_js.add_tags([QUASAR_COMPONENT_TAG_CLIENT_SIDE, QUASAR_COMPONENT_TAG_JS])
 
+	# Client side : asset files.
+
+
 	quasar_source_project.add_project_component(component_css)
 	quasar_source_project.add_project_component(component_html)
 	quasar_source_project.add_project_component(component_js)
