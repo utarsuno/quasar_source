@@ -90,7 +90,7 @@ RendererManager.prototype = {
 
         //this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
         // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
-        this.effect_film = new THREE.FilmPass(0.95, .35, 256, false);
+        this.effect_film = new THREE.FilmPass(2.95, .035, 256, false);
         this.effect_composer.addPass(this.effect_film);
 
 

@@ -7,9 +7,16 @@ from code_api.discrete_projects.quasar_source.quasar_project import *
 from universal_code import output_coloring as oc
 import time
 
-
 from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_generation import QuasarGeneration
 from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_production import QuasarProduction
+
+import sys
+
+
+PROCEDURE_PRINT_GENERAL_INFORMATION                  = 0
+PROCEDURE_GENERATE_SCRIPTS                           = 1
+PROCEDURE_GENERATE_PRODUCTION                        = 2
+PROCEDURE_GENERATE_PRODUCTION_WITH_ASSET_RUN_THROUGH = 3
 
 
 class CodeProjectMaintainer(object):
@@ -19,9 +26,10 @@ class CodeProjectMaintainer(object):
 		self._code_project = code_project
 		self._procedures = []
 
-		self._procedures.append([0, 'print generation information', self._print_general_information, None, None])
+		self._procedures.append([0, 'print general information', self._print_general_information, None, None])
 		self._procedures.append([1, 'generate scripts', self._generate_scripts, None, None])
-		self._procedures.append([2, 'generate production environment', self._generate_production, None, None])
+		self._procedures.append([2, 'generate production environment', self._generate_production, None, None, False])
+		self._procedures.append([2, 'generate production environment with asset run through', self._generate_production, None, None, True])
 		#self._procedures.append([0, 'print generation information', self._print_general_information])
 
 		# Procedure : script generator.
@@ -35,10 +43,17 @@ class CodeProjectMaintainer(object):
 		self._asset_component = self._code_project.get_component_with_tags([QUASAR_COMPONENT_TAG_ASSETS])
 		self._production_generator = QuasarProduction(self._css_component, self._html_component, self._js_component, self._asset_component)
 
+	def run_procedure(self, procedure_number):
+		"""Runs the specified procedure."""
+		self._run_procedure(self._procedures[procedure_number])
+
 	def _run_procedure(self, procedure_to_run):
 		"""Runs the specified procedure."""
 		procedure_to_run[3] = time.time()
-		procedure_to_run[2]()
+		if procedure_to_run[0] == PROCEDURE_GENERATE_PRODUCTION_WITH_ASSET_RUN_THROUGH:
+			procedure_to_run[2](procedure_to_run[5])
+		else:
+			procedure_to_run[2]()
 		procedure_to_run[4] = time.time() - procedure_to_run[3]
 		oc.print_title('Procedure completed in{' + str(procedure_to_run[4]) + ' seconds}')
 
@@ -76,13 +91,19 @@ class CodeProjectMaintainer(object):
 		"""Generates the scripts."""
 		self._script_generator.generate()
 
-	def _generate_production(self):
+	def _generate_production(self, run_through_assets=False):
 		"""Generates production version of Quasar."""
-		self._production_generator.generate()
+		self._production_generator.generate(run_through_assets)
 
 
-quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
-quasar_project_maintainer.prompt_user_for_procedure()
+args = sys.argv[1:]
+if len(args) > 0:
+	if args[0] == 'create_production':
+		quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
+		quasar_project_maintainer.run_procedure(PROCEDURE_GENERATE_PRODUCTION)
 
+
+#quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
+#quasar_project_maintainer.prompt_user_for_procedure()
 
 

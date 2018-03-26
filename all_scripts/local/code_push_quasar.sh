@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER_LOCAL}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{code_push_quasar.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -32,7 +32,7 @@ print_dashed_line_with_text "script{code_push.sh} start on {${CURRENT_USER}-${HO
 terminate_if_ubuntu
 terminate_if_sudo
 if [ "$#" -ne 1 ]; then
-	terminate_script "The script{code_push.sh} requires exactly{1} arguments. They are [commit_message]."
+	terminate_script "The script{code_push_quasar.sh} requires exactly{1} arguments. They are [commit_message]."
 fi
 
 # ----------------------------------------------------------------------------
@@ -41,8 +41,8 @@ fi
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
 set_variables_for_quasar
-set_variables_for_databoi
 set_variables_for_server_side
+set_variables_for_quasar_maintenance
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -54,6 +54,9 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 	# Working directory clean
 	print_script_text "The working directory is clean so no commit will be made."
 else
+	# First generate the production version of Quasar.
+	python3 ${PATH_TO_QUASAR_MAINTENANCE} ${QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION}
+
 	# There are uncommitted changes.
 	print_script_text "Pushing the code changes."
 
@@ -69,11 +72,6 @@ else
     bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
 HERE
 
-    # Data server for historical book orders.
-    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
-
 fi
 
 
@@ -82,5 +80,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{code_push_quasar.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

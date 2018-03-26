@@ -17,10 +17,11 @@ class ShellVariableSetter(object):
         return self._code_chunk
 
 
-SHELL_VARIABLES_SET_QUASAR         = CodeChunk(['set_variables_for_quasar'])
-SHELL_VARIABLES_SET_DATABOI        = CodeChunk(['set_variables_for_databoi'])
-SHELL_VARIABLES_SET_SERVER_SIDE    = CodeChunk(['set_variables_for_server_side'])
-SHELL_VARIABLES_SET_CLIENT_SIDE    = CodeChunk(['set_variables_for_client_side'])
-SHELL_VARIABLES_SET_QUASAR_SERVER  = CodeChunk(['set_variables_for_quasar_server'])
-SHELL_VARIABLES_SET_FINANCE_SERVER = CodeChunk(['set_variables_for_finance_server'])
-SHELL_VARIABLES_SET_ENTITY_SERVER  = CodeChunk(['set_variables_for_entity_server'])
+SHELL_VARIABLES_SET_QUASAR             = CodeChunk(['set_variables_for_quasar'])
+SHELL_VARIABLES_SET_DATABOI            = CodeChunk(['set_variables_for_databoi'])
+SHELL_VARIABLES_SET_SERVER_SIDE        = CodeChunk(['set_variables_for_server_side'])
+SHELL_VARIABLES_SET_CLIENT_SIDE        = CodeChunk(['set_variables_for_client_side'])
+SHELL_VARIABLES_SET_QUASAR_SERVER      = CodeChunk(['set_variables_for_quasar_server'])
+SHELL_VARIABLES_SET_FINANCE_SERVER     = CodeChunk(['set_variables_for_finance_server'])
+SHELL_VARIABLES_SET_ENTITY_SERVER      = CodeChunk(['set_variables_for_entity_server'])
+SHELL_VARIABLES_SET_QUASAR_MAINTENANCE = CodeChunk(['set_variables_for_quasar_maintenance'])

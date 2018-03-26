@@ -19,19 +19,54 @@ def load_local_scripts(directory_all_scripts, code_file_script_utilities, code_f
 	directory_local.add_shell_required_library(code_file_script_utilities)
 	directory_local.add_shell_required_library(code_file_config_reader)
 
+	'''     __   __                __   __   __     __  ___         __   __   __   ___      __        __            __             __        __
+	  |    /  \ /  `  /\  |       /__` /  ` |__) | |__)  |     .   /  ` /  \ |  \ |__      |__) |  | /__` |__|     /  \ |  |  /\  /__`  /\  |__)
+	  |___ \__/ \__, /~~\ |___    .__/ \__, |  \ | |     |     .   \__, \__/ |__/ |___ ___ |    \__/ .__/ |  | ___ \__X \__/ /~~\ .__/ /~~\ |  \ '''
+	code_file_code_push_quasar = ShellFile('code_push_quasar')
+	code_file_code_push_quasar.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR)
+	code_file_code_push_quasar.add_required_variable_setters(SHELL_VARIABLES_SET_SERVER_SIDE)
+	code_file_code_push_quasar.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
+	code_file_code_push_quasar.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
+	code_file_code_push_quasar.add_safety_check_for_script_arguments(['commit_message'])
+	code_file_code_push_quasar.set_main_code(CodeChunk('''
+if output=$(git status --porcelain) && [ -z "$output" ]; then
+	# Working directory clean
+	print_script_text "The working directory is clean so no commit will be made."
+else
+	# First generate the production version of Quasar.
+	python3 ${PATH_TO_QUASAR_MAINTENANCE} ${QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION}
+
+	# There are uncommitted changes.
+	print_script_text "Pushing the code changes."
+
+    print_dotted_line
+    # This will add all files, new files, changes, and removed files.
+    git add -A;
+    git commit -m "$1";
+    git push --force;
+    print_dotted_line
+
+    # Quasar server + database.
+    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+HERE
+
+fi
+'''))
+
 	'''     __   __                __   __   __     __  ___         __   __   __   ___     __        __
 	  |    /  \ /  `  /\  |       /__` /  ` |__) | |__)  |     .   /  ` /  \ |  \ |__     |__) |  | /__` |__|
 	  |___ \__/ \__, /~~\ |___    .__/ \__, |  \ | |     |     .   \__, \__/ |__/ |___    |    \__/ .__/ |  | '''
-	code_file_code_push = ShellFile('code_push')
+	code_file_code_push_all = ShellFile('code_push_all')
 
-	code_file_code_push.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR)
-	code_file_code_push.add_required_variable_setters(SHELL_VARIABLES_SET_DATABOI)
-	code_file_code_push.add_required_variable_setters(SHELL_VARIABLES_SET_SERVER_SIDE)
+	code_file_code_push_all.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR)
+	code_file_code_push_all.add_required_variable_setters(SHELL_VARIABLES_SET_DATABOI)
+	code_file_code_push_all.add_required_variable_setters(SHELL_VARIABLES_SET_SERVER_SIDE)
 
-	code_file_code_push.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
-	code_file_code_push.add_safety_check_for_script_arguments(['commit_message'])
+	code_file_code_push_all.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
+	code_file_code_push_all.add_safety_check_for_script_arguments(['commit_message'])
 
-	code_file_code_push.set_main_code(CodeChunk('''
+	code_file_code_push_all.set_main_code(CodeChunk('''
 if output=$(git status --porcelain) && [ -z "$output" ]; then
 	# Working directory clean
 	print_script_text "The working directory is clean so no commit will be made."
@@ -58,6 +93,8 @@ HERE
 
 fi
 '''))
+
+
 
 	'''     __   __                __   __   __     __  ___         __   __          ___  __      __             __        __
 	  |    /  \ /  `  /\  |       /__` /  ` |__) | |__)  |     .   /__` /__` |__|     |  /  \    /  \ |  |  /\  /__`  /\  |__)
@@ -108,7 +145,8 @@ scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${PATH_TO_LOCAL_CONFIG_FILE_FOR_SERV
 	'''__     __   ___  __  ___  __   __               __   __                       __   __      __   __   __   ___     ___         ___  __
 	  |  \ | |__) |__  /  `  |  /  \ |__) \ /    |    /  \ /  `  /\  |          /\  |  \ |  \    /  ` /  \ |  \ |__     |__  | |    |__  /__`
 	  |__/ | |  \ |___ \__,  |  \__/ |  \  |     |___ \__/ \__, /~~\ |___ .    /~~\ |__/ |__/    \__, \__/ |__/ |___    |    | |___ |___ .__/ '''
-	directory_local.add_code_file(code_file_code_push)
+	directory_local.add_code_file(code_file_code_push_quasar)
+	directory_local.add_code_file(code_file_code_push_all)
 	directory_local.add_code_file(code_file_ssh_to_quasar)
 	directory_local.add_code_file(code_file_ssh_to_book_data)
 	directory_local.add_code_file(code_file_transfer_server_ini_file)

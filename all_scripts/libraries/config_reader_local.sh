@@ -30,3 +30,8 @@ function set_variables_for_client_side {
     PATH_TO_CONFIG_FILE_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_file_for_servers)
     PATH_TO_CONFIG_DIRECTORY_FOR_SERVERS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} client_side path_to_config_directory_for_servers)
 }
+
+function set_variables_for_quasar_maintenance {
+    PATH_TO_QUASAR_MAINTENANCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_quasar_maintenance_script)
+    QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance flag_create_production)
+}
