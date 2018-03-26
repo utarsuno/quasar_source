@@ -23,6 +23,10 @@ function Text2D(world, width, text_height, text) {
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
+    this.create_base_material = function() {
+
+    };
+
     this.create_base_mesh = function() {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
