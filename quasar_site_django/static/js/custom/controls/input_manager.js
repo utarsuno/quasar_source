@@ -1,8 +1,8 @@
 'use strict';
 
-const CLICK_LEFT   = 1;
-const CLICK_MIDDLE = 2;
-const CLICK_RIGHT  = 3;
+//const CLICK_LEFT   = 1;
+//const CLICK_MIDDLE = 2;
+//const CLICK_RIGHT  = 3;
 
 const EVENT_MOUSE_DOWN = 'mousedown';
 const EVENT_MOUSE_UP   = 'mouseup';
@@ -31,6 +31,12 @@ InputManager.prototype = {
         this.right 			   = false;
         this.space  		   = false;
         this.shift  		   = false;
+
+
+        this.CLICK_LEFT   = 1;
+        this.CLICK_MIDDLE = 2;
+        this.CLICK_RIGHT  = 3;
+
 
         document.addEventListener(EVENT_MOUSE_DOWN, this.on_mouse_down.bind(this));
         document.addEventListener(EVENT_MOUSE_UP  , this.on_mouse_up.bind(this));
@@ -189,7 +195,7 @@ InputManager.prototype = {
 
         if (CURRENT_PLAYER.has_input()) {
             switch (e.which) {
-            case CLICK_LEFT:
+            case this.CLICK_LEFT:
                 this.click_down_left = false;
 
                 if (MANAGER_WORLD.current_world.floating_cursor._currently_engaged) {
@@ -201,7 +207,7 @@ InputManager.prototype = {
                 }
 
                 break;
-            case CLICK_MIDDLE:
+            case this.CLICK_MIDDLE:
 
                 if (MANAGER_POINTER_LOCK.pointer_is_locked) {
                     MANAGER_POINTER_LOCK.release_pointer_lock();
@@ -212,7 +218,7 @@ InputManager.prototype = {
                 //MANAGER_WORLD.current_world.single_middle_click();
                 this.click_down_middle = false;
                 break;
-            case CLICK_RIGHT:
+            case this.CLICK_RIGHT:
                 if (MANAGER_WORLD.current_player_menu.is_visible()) {
                     MANAGER_WORLD.current_player_menu.set_to_invisible();
                 } else {
@@ -230,7 +236,7 @@ InputManager.prototype = {
     on_mouse_down: function(e) {
         e = e || window.event;
         switch (e.which) {
-        case CLICK_LEFT:
+        case this.CLICK_LEFT:
 
             var current_milliseconds = new Date().getTime();
 
@@ -253,10 +259,10 @@ InputManager.prototype = {
 
             this.click_down_left = true;
             break;
-        case CLICK_MIDDLE:
+        case this.CLICK_MIDDLE:
             this.click_down_middle = true;
             break;
-        case CLICK_RIGHT:
+        case this.CLICK_RIGHT:
             if (CURRENT_PLAYER.has_input()) {
                 if (!this.click_down_right) {
 

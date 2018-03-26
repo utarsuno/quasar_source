@@ -453,11 +453,6 @@ module.exports = {
         "DISPLAY_SHOW": false,
         "DISPLAY_NONE": false,
 
-        // Mouse click events.
-        "MOUSE_LEFT_CLICK"  : false,
-        "MOUSE_MIDDLE_CLICK": false,
-        "MOUSE_RIGHT_CLICK" : false,
-
         // Keycodes.
         "KEY_CODE_SHIFT"     : false,
         "KEY_CODE_UP"        : false,

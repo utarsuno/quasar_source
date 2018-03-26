@@ -6,23 +6,15 @@
 #from code_api.code_abstraction.code_chunk import CodeChunk
 from universal_code import useful_file_operations as ufo
 import htmlmin
-
+from code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
 
 from code_api.source_file_abstraction.code_files.code_file import *
-from csscompressor import compress
 
 
-class LoadedHTMLFile(LoadedCodeFile):
+class LoadedHTMLFile(LoadedCodeFile, Minifiable):
 	"""Represents a single html file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		super().__init__(CODE_FILE_TYPE_CSS_FILE, file_name, file_extensions)
-		self._compression_utilities = Compressable(self, htmlmin.minify)
-
-	def __str__(self):
-		return 'HTML:' + self._file_name
-
-	@property
-	def compression(self):
-		"""Returns the compression utilities object."""
-		return self._compression_utilities
+		LoadedCodeFile.__init__(self, CODE_FILE_TYPE_HTML_FILE, file_name, file_extensions)
+		Minifiable.__init__(self)
+		self.set_minification_function(htmlmin.minify)

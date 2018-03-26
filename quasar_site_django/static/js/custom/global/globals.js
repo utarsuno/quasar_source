@@ -220,12 +220,12 @@ const ICON_MENU_LIST     = 'menu_list.png';
 const AUDIO_TYPING_SOUND = 'typing_sound.wav';
 
 // UNIVERSAL_CONSTANTS_START : Textures for skybox.
-const SKYBOX_FRONT  = 'front.jpg';
-const SKYBOX_BACK   = 'back.jpg';
-const SKYBOX_LEFT   = 'left.jpg';
-const SKYBOX_RIGHT  = 'right.jpg';
-const SKYBOX_TOP    = 'top.jpg';
-const SKYBOX_BOTTOM = 'bottom.jpg';
+const SKYBOX_FRONT  = 'skybox_front.jpg';
+const SKYBOX_BACK   = 'skybox_back.jpg';
+const SKYBOX_LEFT   = 'skybox_left.jpg';
+const SKYBOX_RIGHT  = 'skybox_right.jpg';
+const SKYBOX_TOP    = 'skybox_top.jpg';
+const SKYBOX_BOTTOM = 'skybox_bottom.jpg';
 // UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Cursor types.
@@ -262,11 +262,6 @@ const CELL_PHONE_CARRIERS = {
     'C-Spire'          : 'number@cspire1.com',
     'Page Plus'        : 'number@vtext.com'
 };
-
-// Mouse-click events.
-const MOUSE_LEFT_CLICK   = 0;
-const MOUSE_MIDDLE_CLICK = 1;
-const MOUSE_RIGHT_CLICK  = 2;
 
 // Key-down key-codes.
 const KEY_CODE_SHIFT      = 16;

@@ -7,20 +7,10 @@ from code_api.source_file_abstraction.code_directories.code_directory import Cod
 from universal_code import path_manager as pm
 
 
-def load_quasar_client_side():
-	"""Loads all the quasar client side code."""
-
-	quasar_client_side = ProjectComponent('quasar_client_side')
-
-
-
-	y = 2
-
-
 def load_quasar_raw_assets_component():
 	"""Loads the quasar asset component which contains all the various assets used."""
 	component = ProjectComponent('quasar_asset_component')
-	directory = CodeDirectory(pm.DIRECTORY_QUASAR_SOURCE_BASE + 'configuration_files/raw_assets')
+	directory = CodeDirectory(pm.DIRECTORY_QUASAR_SOURCE_BASE + 'configuration_files/static/assets')
 	component.add_base_code_directory(directory)
 	component.load_all_content()
 	return component

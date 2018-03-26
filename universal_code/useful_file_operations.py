@@ -2,6 +2,8 @@
 
 """This module, useful_file_operations, simply contains lots of functions for file + directory operations."""
 
+# Needed for copying files.
+from shutil import copyfile
 # Needed for running regular expressions.
 import re
 # Needed for system level operations.
@@ -97,10 +99,20 @@ def create_directory(path: str) -> None:
   |    | |___ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
 
 
+def copy_file_to_path(source_file, destination):
+	"""Copies the source file to the destination."""
+	copyfile(source_file, destination)
+
+
 def create_file_or_override(file_text, file_path):
 	"""Creates the file with the specified file text at the specified file path."""
+	raw_text = file_text
+	if type(file_text) == list:
+		raw_text = ''
+		for l in file_text:
+			raw_text += l
 	with open(file_path, 'w+') as file_handler:
-		file_handler.write(file_text)
+		file_handler.write(raw_text)
 
 
 def get_file_content(file_path: str) -> list:

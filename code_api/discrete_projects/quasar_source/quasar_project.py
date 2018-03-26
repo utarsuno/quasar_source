@@ -4,29 +4,25 @@
 
 
 from code_api.discrete_projects.quasar_source.all_scripts.all_scripts import load_all_scripts_project_component
-from code_api.discrete_projects.quasar_source.all_scripts.library_scripts import load_library_scripts
-from code_api.discrete_projects.quasar_source.all_scripts.local_scripts import load_local_scripts
-from code_api.discrete_projects.quasar_source.all_scripts.server_scripts import load_server_scripts
 from code_api.discrete_projects.quasar_source.quasar_site.quasar_client_side import *
 from code_api.project_abstraction.code_project import CodeProject
 
 
-QUASAR_COMPONENT_TAG_CLIENT_SIDE = 'client_side'
-QUASAR_COMPONENT_TAG_CSS = 'css'
-QUASAR_COMPONENT_TAG_HTML = 'html'
-QUASAR_COMPONENT_TAG_JS = 'js'
+QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS = 'generatable_scripts'
+QUASAR_COMPONENT_TAG_CLIENT_SIDE         = 'client_side'
+QUASAR_COMPONENT_TAG_CSS                 = 'css'
+QUASAR_COMPONENT_TAG_HTML                = 'html'
+QUASAR_COMPONENT_TAG_JS                  = 'js'
+QUASAR_COMPONENT_TAG_ASSETS              = 'asset'
 
 
 def load_quasar_source_project():
 	"""Loads and returns the quasar source project."""
 	quasar_source_project = CodeProject('quasar_source')
 
-	all_scripts_project_component, all_scripts_directory = load_all_scripts_project_component()
-	lib_utilities, lib_config_reader_local, lib_config_reader_server = load_library_scripts(all_scripts_directory)
-	load_local_scripts(all_scripts_directory, lib_utilities, lib_config_reader_local)
-	load_server_scripts(all_scripts_directory, lib_utilities, lib_config_reader_server)
-
-	quasar_source_project.add_project_component(all_scripts_project_component)
+	# Generatable scripts.
+	all_scripts_project_component = load_all_scripts_project_component()
+	all_scripts_project_component.add_tags([QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS])
 
 	# Client side : css files.
 	component_css = load_quasar_css_component()
@@ -41,11 +37,15 @@ def load_quasar_source_project():
 	component_js.add_tags([QUASAR_COMPONENT_TAG_CLIENT_SIDE, QUASAR_COMPONENT_TAG_JS])
 
 	# Client side : asset files.
+	component_asset = load_quasar_raw_assets_component()
+	component_asset.add_tags([QUASAR_COMPONENT_TAG_CLIENT_SIDE, QUASAR_COMPONENT_TAG_ASSETS])
 
-
+	# Add the components to the quasar project.
+	quasar_source_project.add_project_component(all_scripts_project_component)
 	quasar_source_project.add_project_component(component_css)
 	quasar_source_project.add_project_component(component_html)
 	quasar_source_project.add_project_component(component_js)
+	quasar_source_project.add_project_component(component_asset)
 
 	return quasar_source_project
 

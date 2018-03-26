@@ -9,6 +9,25 @@ from code_api.source_file_abstraction.code_files.code_file import LoadedCodeFile
 from code_api.source_file_abstraction.code_files.css_file import LoadedCSSFile
 from code_api.source_file_abstraction.code_files.html_file import LoadedHTMLFile
 from code_api.source_file_abstraction.code_files.js_file import LoadedJSFile
+from code_api.source_file_abstraction.code_files.asset_file import JPGFile
+from code_api.source_file_abstraction.code_files.asset_file import PNGFile
+
+
+def get_code_file_type_from_file_extensions(combined_extensions):
+	"""Returns the code file determined from the provided file extensions."""
+	if '.css' in combined_extensions:
+		return LoadedCSSFile
+	if '.html' in combined_extensions:
+		return LoadedHTMLFile
+	if '.js' in combined_extensions:
+		return LoadedJSFile
+	if '.png' in combined_extensions:
+		return PNGFile
+	if '.jpg' in combined_extensions:
+		return JPGFile
+	else:
+		print('TODODODO!@!!!!')
+		exit()
 
 
 class CodeDirectory(object):
@@ -35,21 +54,10 @@ class CodeDirectory(object):
 
 	def add_loaded_code_file_and_assign_type(self, file_name, combined_extensions):
 		"""Adds a loaded code file and assign and determines the type of language that the file is."""
-		if '.css' in combined_extensions:
-			code_file = LoadedCSSFile(file_name, combined_extensions)
-			self._code_files.append(code_file)
-			code_file.set_parent_code_directory(self)
-		elif '.html' in combined_extensions:
-			code_file = LoadedHTMLFile(file_name, combined_extensions)
-			self._code_files.append(code_file)
-			code_file.set_parent_code_directory(self)
-		elif '.js' in combined_extensions:
-			code_file = LoadedJSFile(file_name, combined_extensions)
-			self._code_files.append(code_file)
-			code_file.set_parent_code_directory(self)
-		else:
-			print('TODODODO!@!!!!')
-			exit()
+		file_type = get_code_file_type_from_file_extensions(combined_extensions)
+		code_file = file_type(file_name, combined_extensions)
+		self._code_files.append(code_file)
+		code_file.set_parent_code_directory(self)
 
 	def add_code_file(self, code_file):
 		"""Adds a code file to this code directory."""

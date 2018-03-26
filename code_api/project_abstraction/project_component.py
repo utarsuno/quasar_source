@@ -2,6 +2,8 @@
 
 """This module, project_component.py, provides an abstraction to discrete project components."""
 
+from universal_code import output_coloring as oc
+
 
 class ProjectComponent(object):
 	"""Provides an abstraction to a discrete component of a project."""
@@ -77,3 +79,32 @@ class ProjectComponent(object):
 		for f in files:
 			if name in f.file_name:
 				return f
+
+	def print_general_information(self):
+		"""Prints general information regarding this project component."""
+		oc.print_title(str(self))
+		oc.print_data_with_red_dashes_at_start('TODO: print component information!')
+
+		# Sections to print about. (# files, # lines of code, size)
+
+		# Generated files
+		# Original files vs reduced files
+		# Language breakdown? Directory information?
+
+
+
+		#files = self.all_files
+		#oc.print_data_with_red_dashes_at_start('Generated Files : ' + str(len(files)))
+		#oc.print_data_with_red_dashes_at_start('Number of files : ' + str(len(files)))
+		#print('yo')
+		'''
+		oc.print_title('all_scripts')
+		files = self._script_component.all_files
+		oc.print_data_with_red_dashes_at_start('Number of files : ' + str(len(files)))
+		oc.print_data_with_red_dashes_at_start('Number of files : ' + str(len(files)))
+		#print(self._script_component)
+		for f in files:
+			print(f.file_size)
+			print(f.get_number_of_code_lines)
+			#print(type(f))
+		'''

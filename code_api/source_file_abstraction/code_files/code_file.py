@@ -7,11 +7,12 @@ from code_api.code_abstraction.code_chunk import CodeChunk
 from universal_code import useful_file_operations as ufo
 
 
-CODE_FILE_TYPE_SHELL_SCRIPT = 'shell_script'
-CODE_FILE_TYPE_CSS_FILE     = 'css_file'
-CODE_FILE_TYPE_JS_FILE      = 'js_file'
-CODE_FILE_TYPE_HTML_FILE    = 'html_file'
-CODE_FILE_TYPE_ASSET_PNG    = 'png_file'
+CODE_FILE_TYPE_SHELL_SCRIPT = 'Shell'
+CODE_FILE_TYPE_CSS_FILE     = 'CSS'
+CODE_FILE_TYPE_JS_FILE      = 'JS'
+CODE_FILE_TYPE_HTML_FILE    = 'HTML'
+CODE_FILE_TYPE_ASSET_PNG    = 'PNG'
+CODE_FILE_TYPE_ASSET_JPG    = 'JPG'
 
 
 class CodeFile(object):
@@ -24,16 +25,37 @@ class CodeFile(object):
 		self._file_extension        = file_extension
 		self._file_size             = None
 
+		self._temp_utility_file_lines = None
+
 	def set_parent_code_directory(self, code_directory):
 		"""Sets this code file's code directory that it resides in."""
 		self._parent_code_directory = code_directory
 
 	def __str__(self):
-		return 'CodeFile:' + self.file_name
+		if self._file_type is None:
+			return 'CodeFile:' + self.file_name
+		else:
+			return self._file_type + ':' + self._file_name
+
+	@property
+	def get_number_of_code_lines(self):
+		"""TODO: Eventually extend this method."""
+		if self._temp_utility_file_lines is None:
+			self._temp_utility_file_lines = ufo.get_file_content(self.full_path)
+
+		# TODO : Eventually don't count code comments!
+
+		number_of_lines = 0
+		for l in self._temp_utility_file_lines:
+			if len(l.replace('\n', '')) > 0:
+				number_of_lines += 1
+		return number_of_lines
 
 	@property
 	def file_size(self):
 		"""Returns the file size of this file."""
+		if self._file_size is None:
+			self._file_size = ufo.get_file_size_in_bytes(self.full_path)
 		return self._file_size
 
 	@property
@@ -84,7 +106,6 @@ class GeneratedCodeFile(CodeFile):
 		
 		self._file_size = ufo.get_file_size_in_bytes(self.full_path)
 
-
 	@property
 	def file_code(self) -> list:
 		"""Returns a list of strings representing this file's source code."""
@@ -109,9 +130,7 @@ class LoadedCodeFile(CodeFile):
 	def read_file_contents(self):
 		"""Reads in the contents of this file."""
 		self._file_lines = ufo.get_file_content(self.full_path)
-
 		self._file_size = ufo.get_file_size_in_bytes(self.full_path)
-
 		self._contents_loaded = True
 
 	@property
@@ -122,55 +141,15 @@ class LoadedCodeFile(CodeFile):
 		return self._file_lines
 
 	@property
+	def contents_as_string(self) -> str:
+		"""Returns the contents of this file as a single string."""
+		lines = self.contents
+		raw_text = ''
+		for l in lines:
+			raw_text += l
+		return raw_text
+
+	@property
 	def contents_loaded(self) -> bool:
 		"""Returns a boolean indicating if this file has been loaded."""
 		return self._contents_loaded
-
-
-class Compressable(object):
-	"""Utility abstraction for files that have compression."""
-
-	def __init__(self, code_file, compression_function, non_existing_file=False):
-		self._compressed_file_size = None
-		self._compressed_text = None
-		self._code_file = code_file
-		self._compression_function = compression_function
-		self._non_existing_file = non_existing_file
-
-	def generate_minified_file(self):
-		"""Generates the minified version of this file."""
-		if self._compressed_text is None:
-			self._created_minifed_text()
-		save_path = self._code_file.full_path.replace(self._code_file.file_extension, '.min' + self._code_file.file_extension)
-		ufo.create_file_or_override(self._compressed_text, save_path)
-
-		self._compressed_file_size = ufo.get_file_size_in_bytes(save_path)
-
-	def _created_minifed_text(self):
-		"""Creates the minified text."""
-		raw_text = ''
-		if self._non_existing_file:
-			for l in self._code_file.file_code:
-				raw_text += l
-		else:
-			if not self._code_file.contents_loaded:
-				self._code_file.read_file_contents()
-			for l in self._code_file._file_lines:
-				raw_text += l
-		self._compressed_text = self._compression_function(raw_text)
-
-	@property
-	def compressed_file_size(self):
-		"""Returns the compressed file size of the minified CSS file."""
-		return self._compressed_file_size
-
-	@property
-	def percent_compressed(self):
-		"""Returns the % amount saved from compression."""
-		return (1.0 - float(self._compressed_file_size) / float(self._code_file.file_size)) * 100.0
-
-	@property
-	def compression_statistics(self):
-		"""Returns the compression statistics."""
-		return 'compressed{' + str(self._code_file) + '} - {' + str(self._code_file.file_size) + 'b to ' + str(self.compressed_file_size) + 'b} reduction of ' + str(self.percent_compressed) + '%'
-
