@@ -8,7 +8,7 @@ function Text2D(world, width, text_height, text) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
-    this.text_height = text_height;
+    this.height = text_height;
     this.width = width;
 
     this.refresh = function() {
@@ -23,10 +23,6 @@ function Text2D(world, width, text_height, text) {
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
-    this.create_base_material = function() {
-
-    };
-
     this.create_base_mesh = function() {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -48,13 +44,13 @@ function Text2D(world, width, text_height, text) {
         }
         this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
 
-        this.dynamic_texture_material = new THREE.MeshBasicMaterial({
+        this.material = new THREE.MeshBasicMaterial({
             map : this.dynamic_texture.texture
         });
 
-        this.dynamic_texture_material.transparent = true;
+        this.material.transparent = true;
         // TODO : DoubleSide is temporary
-        this.dynamic_texture_material.side = THREE.DoubleSide;
+        this.material.side = THREE.DoubleSide;
     };
 
     /*__   ___ ___ ___  ___  __   __

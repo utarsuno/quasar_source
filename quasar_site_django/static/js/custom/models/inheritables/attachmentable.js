@@ -445,11 +445,15 @@ function Attachmentable(world) {
         this.delete_material();
         // Specific to FloatingText2D.
         if (is_defined(this.dynamic_texture)) {
-            this.dynamic_texture.dispose();
-        }
-        // Specific to FloatingText2D.
-        if (is_defined(this.dynamic_texture_material)) {
-            this.dynamic_texture_material.texture.dispose();
+            // TODO : Eventually double check this.
+            if (is_defined(this.dynamic_texture.dispose)) {
+                this.dynamic_texture.dispose();
+            }
+            if (is_defined(this.dynamic_texture.texture)) {
+                if (is_defined(this.dynamic_texture.texture.dispose)) {
+                    this.dynamic_texture.texture.dispose();
+                }
+            }
         }
     };
 

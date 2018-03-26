@@ -14,6 +14,9 @@ FloatingInput2D.prototype = {
         this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
         this.world.interactive_objects.push(this);
+
+        this.create_base_dynamic_texture();
+        this.create_base_mesh();
     }
 
 };

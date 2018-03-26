@@ -29,26 +29,13 @@ LoginWorld.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
-        /*__             __        __     ___   ___       ___
-         /  \ |  |  /\  /__`  /\  |__)     |  |  |  |    |__
-         \__X \__/ /~~\ .__/ /~~\ |  \     |  |  |  |___ |___ */
-        //this.quasar_source_title = new Floating3DText('Quasar Source', TYPE_SUPER_TITLE, this);
-        //this.quasar_source_title = new FloatingText3D(this, 32, 'Quasar Source');
-        this.quasar_source_title = new FloatingText3D(this, 64, 'Quasar Source');
-        this.quasar_source_title.set_position(1200, 400, 400);
-        this.quasar_source_title.look_at_origin(false);
-
+        this._create_quasar_title();
+        this._create_login_wall();
 
         /*     __   __
          |    /  \ / _` | |\ |    |  |  /\  |    |
          |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
 
-        var login_wall_position = new THREE.Vector3(600, 95, 350);
-        var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
-        this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
-        var row = this.wall_login.add_row(-1);
-        row.add_text_3D(HALF, 32, 'Login');
-        this.wall_login.make_base_wall_invisible();
 
 
         // OLD CODE BELOW
@@ -57,14 +44,6 @@ LoginWorld.prototype = {
         //this.login_errors = new TextSyntaxManager(this);
 
         /*
-
-        var login_wall_position = new THREE.Vector3(600, 95, 350);
-        var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
-        this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
-        this.wall_login.add_full_row_3D(-1, 'Login', TYPE_TITLE);
-        this.wall_login.make_base_wall_invisible();
-
-
 
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_username_input = login_username_row[1];
@@ -81,5 +60,24 @@ LoginWorld.prototype = {
         //this.login_errors.add_final_button(this.login_button);
 
         */
+    },
+
+    _create_quasar_title: function() {
+        this.quasar_source_title = new FloatingText3D(this, 128, 'Quasar Source');
+        this.quasar_source_title.set_position(1200, 400, 400);
+        this.quasar_source_title.look_at_origin(false);
+    },
+
+    _create_login_wall: function() {
+        var login_wall_position = new THREE.Vector3(600, 95, 350);
+        var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
+        this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
+        var row = this.wall_login.add_row(-1);
+        row.add_text_3D(HALF, 32, 'Login');
+
+        row = this.wall_login.add_row();
+        row.add_input_2D();
+
+        this.wall_login.make_base_wall_invisible();
     }
 };

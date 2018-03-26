@@ -15,6 +15,9 @@ FloatingText2D.prototype = {
 
         this.maintain_engage_when_tabbed_to = false;
         this.engable = false;
+
+        this.create_base_dynamic_texture();
+        this.create_base_mesh();
     }
 
 };
