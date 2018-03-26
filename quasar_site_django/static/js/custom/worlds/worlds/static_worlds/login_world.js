@@ -136,7 +136,7 @@ LoginWorld.prototype = {
         /*     __   __
          |    /  \ / _` | |\ |    |  |  /\  |    |
          |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
-        //this.login_errors = new TextSyntaxManager(this);
+        this.login_errors = new TextSyntaxManager(this);
 
         var login_wall_width = 350;
         var login_wall_height = 95;
@@ -149,13 +149,13 @@ LoginWorld.prototype = {
 
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_username_input = login_username_row[1];
-        //this.login_errors.add_label_and_input(login_username_row[0], login_username_row[1]);
+        this.login_errors.add_label_and_input(login_username_row[0], login_username_row[1]);
         this.login_username_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
         var login_password_row = this.wall_login.add_row(1).add_2D_label_and_input(ONE_THIRD, 'password', [TEXT_SYNTAX_STANDARD_LENGTH]);
         login_password_row[1].set_type(TYPE_PASSWORD);
         this.login_password_input = login_password_row[1];
-        //this.login_errors.add_label_and_input(login_password_row[0], login_password_row[1]);
+        this.login_errors.add_label_and_input(login_password_row[0], login_password_row[1]);
         this.login_password_input.set_value_post_changed_function(this._error_check.bind(this, this.login_errors));
 
         // TODO :
