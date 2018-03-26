@@ -76,13 +76,13 @@ function Attachmentable(world) {
     this.add_floating_element = function(horizontal_offset, vertical_offset, depth_offset, floating_element) {
         this.add_attachment(floating_element);
         if (is_defined(horizontal_offset)) {
-            floating_2D_text.set_attachment_horizontal_offset(horizontal_offset[0], horizontal_offset[1]);
+            floating_element.set_attachment_horizontal_offset(horizontal_offset[0], horizontal_offset[1]);
         }
         if (is_defined(vertical_offset)) {
-            floating_2D_text.set_attachment_vertical_offset(vertical_offset[0], vertical_offset[1]);
+            floating_element.set_attachment_vertical_offset(vertical_offset[0], vertical_offset[1]);
         }
         if (is_defined(depth_offset)) {
-            floating_2D_text.set_attachment_depth_offset(depth_offset);
+            floating_element.set_attachment_depth_offset(depth_offset);
         }
         return floating_element;
     };
