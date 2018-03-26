@@ -147,6 +147,10 @@ const BACKGROUND_COLOR_FOCUS   = [264241, '#264241'];
 const BACKGROUND_COLOR_ERROR   = '#390006';
 const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
 
+const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .05)';
+const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .05)';
+const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .05)';
+
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 const COLOR_STRING_INDEX            = 1;
 const COLOR_HEX_INDEX               = 0;

@@ -33,7 +33,8 @@ RendererManager.prototype = {
             this.get_window_properties();
             this.near_clipping = 1.0;
             this.far_clipping  = 20000.0;
-            //this.renderer      = new THREE.WebGLRenderer({antialias: true, alpha: true});
+
+            // TODO : Test setting alha to false?
             this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
 
             // Give the canvas an ID.
@@ -48,7 +49,6 @@ RendererManager.prototype = {
             //this.renderer.domElement.style.position = 'absolute';
             this.renderer.domElement.style.zIndex = 5;
 
-
             document.body.appendChild(this.renderer.domElement);
 
 
@@ -62,19 +62,11 @@ RendererManager.prototype = {
             //
             document.body.appendChild(this.css_renderer.domElement);
 
-
             //this.renderer.domElement.style.top = 0;
-
 
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
             this.currently_fullscreen = false;
-
-
-            // SHADER TESTING
-            // SHADER TESTING
-            // SHADER TESTING
-
         }
     },
 
@@ -84,7 +76,6 @@ RendererManager.prototype = {
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.render_pass);
 
-
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
 
@@ -92,28 +83,12 @@ RendererManager.prototype = {
         this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
         this.effect_composer.addPass(this.effect_film);
 
-
         this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
         this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
         this.effect_FXAA.renderToScreen = true;
         this.effect_composer.addPass(this.effect_FXAA);
 
-
-        this.outline_pass.edgeStrength  = 4.5;
-        this.outline_pass.edgeGlow      = 0.2;
-        this.outline_pass.edgeThickness = 1.5;
-        this.outline_pass.pulsePeriod   = 5.0;
-        this.outline_pass.visibleEdgeColor = new THREE.Color(0x327a00);
-        this.outline_pass.hiddenEdgeColor  = new THREE.Color(0x327a00);
-    },
-
-    // TEMPORARY
-    add_object_to_highlight: function(mesh) {
-        this.outline_pass.selectedObjects = [mesh];
-    },
-
-    remove_object_to_highlight: function(mesh) {
-        this.outline_pass.selectedObjects = [];
+        this.outline_glow = new OutlineGlow(this.outline_pass);
     },
 
     pre_render: function() {
@@ -121,14 +96,15 @@ RendererManager.prototype = {
     },
 
     set_current_scene: function(scene) {
+        this.outline_glow.set_to_hover_color();
+        this.outline_glow.remove_current_object();
+        this.outline_glow.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
     },
 
     render: function(delta) {
         //this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
-
         this.effect_composer.render(delta);
-
 
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
@@ -159,8 +135,9 @@ RendererManager.prototype = {
 
         GUI_TYPING_INTERFACE.window_was_resized();
 
+        this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
         this.effect_composer.setSize(this.window_width, this.window_height);
-        this.effect_FXAA.uniforms[ 'resolution' ].value.set(1 / this.window_width, 1 / this.window_height);
+        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
     },
 
     is_webgl_enabled: function() {

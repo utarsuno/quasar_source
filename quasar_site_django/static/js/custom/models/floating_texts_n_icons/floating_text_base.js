@@ -257,14 +257,10 @@ function FloatingText(text, type, is_2D_text) {
     this.state_change_look_at = function(being_looked_at) {
         if (being_looked_at) {
             this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
-
-            MANAGER_RENDERER.add_object_to_highlight(this.object3D);
-
+            MANAGER_RENDERER.outline_glow.set_hover_object(this.object3D);
         } else {
             this.set_background_color(this.default_background_color, true);
-
-
-            MANAGER_RENDERER.add_object_to_highlight(this.object3D);
+            MANAGER_RENDERER.outline_glow.remove_hover_object(this.object3D);
         }
     };
 
@@ -273,7 +269,10 @@ function FloatingText(text, type, is_2D_text) {
         if (being_engaged_with) {
             if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
                 CURRENT_PLAYER.set_state(PLAYER_STATE_ENGAGED);
+                MANAGER_RENDERER.outline_glow.set_to_engage_color();
             }
+        } else {
+            MANAGER_RENDERER.outline_glow.set_to_hover_color();
         }
         this.color_changed = true;
         this.refresh();

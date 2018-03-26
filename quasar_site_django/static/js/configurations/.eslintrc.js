@@ -31,6 +31,8 @@ module.exports = {
     },
     "globals": {
 
+        "OutlineGlow": false,
+
         // Asset Loading.
         "AssetGroup"  : false,
         "AudioGroup"  : false,
