@@ -88,26 +88,23 @@ RendererManager.prototype = {
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
 
-        //this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
         // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
-        this.effect_film = new THREE.FilmPass(0.55, 0, 0, false);
+        this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
         this.effect_composer.addPass(this.effect_film);
 
 
         this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-        this.effect_FXAA.uniforms[ 'resolution' ].value.set(1 / this.window_width, 1 / this.window_height);
+        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
         this.effect_FXAA.renderToScreen = true;
         this.effect_composer.addPass(this.effect_FXAA);
 
 
-
-
-        this.outline_pass.edgeStrength = 4.5;
-        this.outline_pass.edgeGlow = 0.2;
+        this.outline_pass.edgeStrength  = 4.5;
+        this.outline_pass.edgeGlow      = 0.2;
         this.outline_pass.edgeThickness = 1.5;
-        this.outline_pass.pulsePeriod = 0;
-        //this.outline_pass.visibleEdgeColor = '#327a00';
+        this.outline_pass.pulsePeriod   = 5.0;
         this.outline_pass.visibleEdgeColor = new THREE.Color(0x327a00);
+        this.outline_pass.hiddenEdgeColor  = new THREE.Color(0x327a00);
     },
 
     // TEMPORARY
@@ -121,6 +118,10 @@ RendererManager.prototype = {
 
     pre_render: function() {
         this.stats_api.pre_render();
+    },
+
+    set_current_scene: function(scene) {
+        this.render_pass.scene = scene;
     },
 
     render: function(delta) {

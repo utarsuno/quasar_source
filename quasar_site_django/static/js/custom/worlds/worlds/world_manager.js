@@ -90,6 +90,9 @@ WorldManager.prototype = {
 
         // Before adding the world make sure to add the camera reference.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
+
+        MANAGER_RENDERER.set_current_scene(this.current_world.scene);
+
         this.current_world.enter_world();
     },
 
