@@ -55,7 +55,7 @@ if output=$(git status --porcelain) && [ -z "$output" ]; then
 	print_script_text "The working directory is clean so no commit will be made."
 else
 	# First generate the production version of Quasar.
-	python3 ${PATH_TO_QUASAR_MAINTENANCE} ${QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION}
+	${PATH_TO_LOCAL_PYTHON3} ${PATH_TO_QUASAR_MAINTENANCE} ${QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION}
 
 	# There are uncommitted changes.
 	print_script_text "Pushing the code changes."

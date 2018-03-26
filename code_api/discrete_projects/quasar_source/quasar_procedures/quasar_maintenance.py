@@ -29,7 +29,7 @@ class CodeProjectMaintainer(object):
 		self._procedures.append([0, 'print general information', self._print_general_information, None, None])
 		self._procedures.append([1, 'generate scripts', self._generate_scripts, None, None])
 		self._procedures.append([2, 'generate production environment', self._generate_production, None, None, False])
-		self._procedures.append([2, 'generate production environment with asset run through', self._generate_production, None, None, True])
+		self._procedures.append([3, 'generate production environment with asset run through', self._generate_production, None, None, True])
 		#self._procedures.append([0, 'print generation information', self._print_general_information])
 
 		# Procedure : script generator.
@@ -103,7 +103,6 @@ if len(args) > 0:
 		quasar_project_maintainer.run_procedure(PROCEDURE_GENERATE_PRODUCTION)
 
 
+# For local running.
 #quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
 #quasar_project_maintainer.prompt_user_for_procedure()
-
-
