@@ -1,13 +1,5 @@
 
 
-
-# Utilize design concepts from code_api and z_archive version of the code_api
-
-# START ABSTRACT, make sure all features added comply for needs of C, Python, and Javascript with minimal language-specific logic.
-
-
-
-
 # FEATURES THAT NEED TO BE ADDED
 # get_all_string_literals
 
