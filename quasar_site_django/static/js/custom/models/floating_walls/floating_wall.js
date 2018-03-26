@@ -125,6 +125,10 @@ FloatingWall.prototype = {
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
+
+    // TODO : DELETE THIS FUNCTION!!!
+    // TODO : DELETE THIS FUNCTION!!!
+    // TODO : DELETE THIS FUNCTION!!!
     add_close_button: function() {
         var one_pixel_width = 1 / this.width;
         var x_start = 1 - (one_pixel_width * 16);
@@ -216,6 +220,9 @@ FloatingWall.prototype = {
         return floating_row;
     },
 
+    // TODO : DELETE THIS FUNCTION!!!
+    // TODO : DELETE THIS FUNCTION!!!
+    // TODO : DELETE THIS FUNCTION!!!
     // This utility function is used for creating a single row that contains a single 3D element.
     add_full_row_3D: function(row_index, text, type, color) {
         var current_row = this.add_row(row_index);

@@ -33,6 +33,12 @@ FloatingRow.prototype = {
         return this.add_element(x_start_n_stop, w[0], floating_icon);
     },
 
+    add_text_3D: function(x_offset, text_size, text) {
+        var floating_text_3D = new FloatingText3D(this.world, text_size, text);
+        var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
+        return this.add_element(x_offset, total_percentage_of_parent_width, floating_text_3D);
+    },
+
     add_text_2D: function(x_start_n_stop, text_height, text) {
         var w = this._get_width_needed(x_start_n_stop);
         var floating_text_2D = new FloatingText2D(this.world, w[1], text_height, text);

@@ -33,7 +33,8 @@ LoginWorld.prototype = {
          /  \ |  |  /\  /__`  /\  |__)     |  |  |  |    |__
          \__X \__/ /~~\ .__/ /~~\ |  \     |  |  |  |___ |___ */
         //this.quasar_source_title = new Floating3DText('Quasar Source', TYPE_SUPER_TITLE, this);
-        this.quasar_source_title = new FloatingText3D(this, 32, 'Quasar Source');
+        //this.quasar_source_title = new FloatingText3D(this, 32, 'Quasar Source');
+        this.quasar_source_title = new FloatingText3D(this, 64, 'Quasar Source');
         this.quasar_source_title.set_position(1200, 400, 400);
         this.quasar_source_title.look_at_origin(false);
 
@@ -41,6 +42,18 @@ LoginWorld.prototype = {
         /*     __   __
          |    /  \ / _` | |\ |    |  |  /\  |    |
          |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
+
+        var login_wall_position = new THREE.Vector3(600, 95, 350);
+        var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
+        this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
+        var row = this.wall_login.add_row(-1);
+        row.add_text_3D(HALF, 32, 'Login');
+        this.wall_login.make_base_wall_invisible();
+
+
+        // OLD CODE BELOW
+        // OLD CODE BELOW
+        // OLD CODE BELOW
         //this.login_errors = new TextSyntaxManager(this);
 
         /*
