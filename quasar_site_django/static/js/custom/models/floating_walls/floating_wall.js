@@ -423,32 +423,6 @@ FloatingWall.prototype = {
         return false;
     },
 
-    /*__   ___  __   __        __   __   ___     __        ___                 __
-     |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
-     |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
-    delete_mesh: function() {
-        if (is_defined(this.mesh)) {
-            this.object3D.remove(this.mesh);
-        }
-        if (is_defined(this.geometry)) {
-            this.geometry.dispose();
-        }
-    },
-
-    full_remove: function() {
-        if (is_defined(this.mesh)) {
-            this.object3D.remove(this.mesh);
-            // TODO : UPDATE THREE JS VERSION!
-            //this.mesh.dispose();
-        }
-        if (is_defined(this.geometry)) {
-            this.geometry.dispose();
-        }
-        if (is_defined(this.material)) {
-            this.material.dispose();
-        }
-    },
-
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */

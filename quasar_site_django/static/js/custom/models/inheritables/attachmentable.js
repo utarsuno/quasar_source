@@ -427,6 +427,34 @@ function Attachmentable(world) {
         this.full_remove();
     };
 
+    this.delete_mesh = function() {
+        if (is_defined(this.mesh)) {
+            this.object3D.remove(this.mesh);
+        }
+        if (is_defined(this.geometry)) {
+            this.geometry.dispose();
+        }
+        this.mesh = undefined;
+    };
+
+    this.delete_material = function() {
+        if (is_defined(this.material)) {
+            this.material.dispose();
+        }
+    };
+
+    this.full_remove = function() {
+        this.delete_mesh();
+        this.delete_material();
+        // Specific to FloatingText2D.
+        if (is_defined(this.dynamic_texture)) {
+            this.dynamic_texture.dispose();
+        }
+        // Specific to FloatingText2D.
+        if (is_defined(this.dynamic_texture_material)) {
+            this.dynamic_texture_material.texture.dispose();
+        }
+    };
 
     /*      ___  ___  __                         ___          ___    ___  __
      | |\ |  |  |__  |__) |\ |  /\  |       |  |  |  | |    |  |  | |__  /__`
