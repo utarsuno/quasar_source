@@ -15,6 +15,10 @@ FloatingText3D.prototype = {
 
         this.maintain_engage_when_tabbed_to = false;
         this.engable = false;
+
+        // Create the Text3D.
+        this.create_base_material();
+        this.create_base_mesh();
     }
 
 };
