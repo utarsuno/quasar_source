@@ -28,13 +28,13 @@ FloatingRow.prototype = {
     //},
 
     add_icon: function(x_start_n_stop, icon_type) {
-        var w = this._get_width_needed();
+        var w = this._get_width_needed(x_start_n_stop);
         var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);
         return this.add_element(x_start_n_stop, w[0], floating_icon);
     },
 
     add_text_2D: function(x_start_n_stop, text_height, text) {
-        var w = this._get_width_needed();
+        var w = this._get_width_needed(x_start_n_stop);
         var floating_text_2D = new FloatingText2D(this.world, w[1], text_height, text);
         return this.add_element(x_start_n_stop, w[0], floating_text_2D);
     },
