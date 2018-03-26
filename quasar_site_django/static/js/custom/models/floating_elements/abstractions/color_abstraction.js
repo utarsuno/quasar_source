@@ -11,6 +11,21 @@ function ColorAbstraction(default_background_color, default_foreground_color) {
     this.color_changed            = false;
 
 
+    this.set_current_background_color = function(color, refresh) {
+
+    };
+
+    this.set_default_background_color = function(color, refresh) {
+
+    };
+
+    this.set_current_foreground_color = function(color, refresh) {
+
+    };
+
+    this.set_default_foreground_color = function(color, refresh) {
+
+    };
 
 }
 
