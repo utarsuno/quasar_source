@@ -227,7 +227,7 @@ InputManager.prototype = {
                 this.click_down_right = false;
                 break;
             }
-        } else if (e.which === CLICK_LEFT && CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
+        } else if (e.which === this.CLICK_LEFT && CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
             CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
         }
     },
