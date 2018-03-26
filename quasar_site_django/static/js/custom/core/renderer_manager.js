@@ -83,12 +83,21 @@ RendererManager.prototype = {
         this.effect_composer = new THREE.EffectComposer(this.renderer);
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.render_pass);
+
+
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
+
+        this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
+        this.effect_composer.addPass(this.effect_film);
+
+
         this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
         this.effect_FXAA.uniforms[ 'resolution' ].value.set(1 / this.window_width, 1 / this.window_height);
         this.effect_FXAA.renderToScreen = true;
         this.effect_composer.addPass(this.effect_FXAA);
+
+
 
 
         this.outline_pass.edgeStrength = 4.5;

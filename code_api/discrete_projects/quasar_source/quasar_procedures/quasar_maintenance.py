@@ -82,11 +82,7 @@ class CodeProjectMaintainer(object):
 
 
 quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
-#quasar_project_maintainer.prompt_user_for_procedure()
-
-# TEMPORARY
-quasar_project_maintainer._run_procedure(quasar_project_maintainer._procedures[2])
-#quasar_project_maintainer._generate_production_version_of_quasar()
+quasar_project_maintainer.prompt_user_for_procedure()
 
 
 

@@ -1,9 +1,5 @@
 'use strict';
 
-//const CLICK_LEFT   = 1;
-//const CLICK_MIDDLE = 2;
-//const CLICK_RIGHT  = 3;
-
 const EVENT_MOUSE_DOWN = 'mousedown';
 const EVENT_MOUSE_UP   = 'mouseup';
 const EVENT_KEY_DOWN   = 'keydown';
