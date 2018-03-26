@@ -73,7 +73,8 @@ class QuasarProduction(object):
 		self._step_css()
 		self._step_html()
 		self._step_js()
-		self._step_assets()
+		oc.print_data_with_red_dashes_at_start('SKIPPING ASSET COMPRESSION, enable manually')
+		#self._step_assets()
 
 		oc.print_data_with_red_dashes_at_start('Original data size : ' + str(self._original_total_size))
 		oc.print_data_with_red_dashes_at_start('New data size : ' + str(self._new_total_size))

@@ -88,7 +88,8 @@ RendererManager.prototype = {
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
 
-        this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
+        //this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
+        this.effect_film = new THREE.FilmPass(0.95, 0.025, 648, false);
         this.effect_composer.addPass(this.effect_film);
 
 
