@@ -123,10 +123,10 @@ RendererManager.prototype = {
         this.stats_api.pre_render();
     },
 
-    render: function() {
+    render: function(delta) {
         //this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
 
-        this.effect_composer.render(this.delta);
+        this.effect_composer.render(delta);
 
 
         if (is_defined(this.css_renderer)) {
