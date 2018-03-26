@@ -8,10 +8,49 @@ FloatingRow.prototype = {
 
     __init__: function(parent_wall, row_number, row_name) {
         this.parent_wall = parent_wall;
+        this.world = this.parent_wall.world;
         this.row_number = row_number;
         this.row_name = row_name;
         this.elements = [];
     },
+
+    // NEW FUNCTIONS.
+    _get_width_needed: function(x_start_n_stop) {
+        var total_percentage_of_parent_width = x_start_n_stop[1] - x_start_n_stop[0];
+        var floating_element_width = this.parent_wall.width * total_percentage_of_parent_width;
+        return (total_percentage_of_parent_width, floating_element_width);
+    },
+
+    //add_button: function(x_start_n_stop, text, color, function_to_bind) {
+        //var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
+        //button.set_engage_function(function_to_bind);
+        //return button;
+    //},
+
+    add_icon: function(x_start_n_stop, icon_type) {
+        var w = this._get_width_needed();
+        var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);
+        return this.add_element(x_start_n_stop, w[0], floating_icon);
+    },
+
+    add_text_2D: function(x_start_n_stop, text_height, text) {
+        var w = this._get_width_needed();
+        var floating_text_2D = new FloatingText2D(this.world, w[1], text_height, text);
+        return this.add_element(x_start_n_stop, w[0], floating_text_2D);
+    },
+
+    add_element: function(x_start_n_stop, total_percentage_of_parent_width, floating_element) {
+        floating_element.set_attachment_depth_offset(1);
+        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
+        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
+
+        floating_element.attach_to(this.parent_wall);
+
+        this.elements.push(floating_element);
+        return floating_element;
+    },
+
+    // OLDER FUNCTIONS BELOW.
 
     add_3D_element: function(text, type, color) {
         var floating_element = new Floating3DText(text, type, this.parent_wall.world);

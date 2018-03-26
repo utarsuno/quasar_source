@@ -73,11 +73,8 @@ function Attachmentable(world) {
         return floating_wall;
     };
 
-    this.add_floating_2D_text = function(width, horizontal_offset, vertical_offset, depth_offset, text, type) {
-        var floating_2D_text = new Floating2DText(width, text, type, this.world);
-
-        this.add_attachment(floating_2D_text);
-
+    this.add_floating_element = function(horizontal_offset, vertical_offset, depth_offset, floating_element) {
+        this.add_attachment(floating_element);
         if (is_defined(horizontal_offset)) {
             floating_2D_text.set_attachment_horizontal_offset(horizontal_offset[0], horizontal_offset[1]);
         }
@@ -87,7 +84,7 @@ function Attachmentable(world) {
         if (is_defined(depth_offset)) {
             floating_2D_text.set_attachment_depth_offset(depth_offset);
         }
-        return floating_2D_text;
+        return floating_element;
     };
 
     this.refresh_position_and_look_at = function() {

@@ -1,16 +1,17 @@
 'use strict';
 
-function FloatingIcon(world, icon_type) {
-    this.__init__(world, icon_type);
+function FloatingIcon(world, icon_type, size) {
+    this.__init__(world, icon_type, size);
 }
 
 FloatingIcon.prototype = {
 
-    __init__: function(world) {
+    __init__: function(world, size) {
         // Inherit.
         FloatingElement.call(this, world);
 
-
+        this.width = size;
+        this.height = size;
     },
 
     /*__   __   ___      ___    __

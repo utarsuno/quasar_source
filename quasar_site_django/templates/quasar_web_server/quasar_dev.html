@@ -194,14 +194,33 @@
 <script src="{% static 'js/custom/models/inheritables/attachmentable.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/interactive.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/visibility.js' %}"></script>
-<script src="{% static 'js/custom/models/inheritables/button.js' %}"></script>
-<script src="{% static 'js/custom/models/inheritables/text_syntax.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/animatable.js' %}"></script>
 <script src="{% static 'js/custom/models/inheritables/saveable.js' %}"></script>
+
 <script src="{% static 'js/custom/models/floating_cursor.js' %}"></script>
-<script src="{% static 'js/custom/models/floating_texts_n_icons/floating_text_base.js' %}"></script>
-<script src="{% static 'js/custom/models/floating_texts_n_icons/floating_2d_text.js' %}"></script>
-<script src="{% static 'js/custom/models/floating_texts_n_icons/floating_3d_text.js' %}"></script>
+
+<script src="{% static 'js/custom/models/floating_elements/abstractions/color_abstraction.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/abstractions/text_abstraction.js' %}"></script>
+
+<script src="{% static 'js/custom/models/floating_elements/abstractions/button/ajax_button.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/abstractions/button/button.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/abstractions/button/form_button.js' %}"></script>
+
+<script src="{% static 'js/custom/models/floating_elements/base/floating_button.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/base/floating_element.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/base/floating_icon.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/base/text_2d.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/base/text_3d.js' %}"></script>
+
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_checkbox.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_icon_button.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_input_2D.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_input_3D.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_password.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_slider.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_text_2D.js' %}"></script>
+<script src="{% static 'js/custom/models/floating_elements/discrete_object_types/floating_text_3D.js' %}"></script>
+
 <script src="{% static 'js/custom/models/floating_walls/floating_row.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/floating_wall.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/floating_picture.js' %}"></script>
@@ -212,7 +231,7 @@
 <script src="{% static 'js/custom/models/floating_walls/schedule_gui/day_views/day_view_full.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/schedule_gui/viewable_entities.js' %}"></script>
 <script src="{% static 'js/custom/models/floating_walls/schedule_gui/month_view.js' %}"></script>
-<script src="{% static 'js/custom/models/text_syntax_manager.js' %}"></script>
+
 <script src="{% static 'js/custom/models/entity_gui/entity_group.js' %}"></script>
 <script src="{% static 'js/custom/models/entity_gui/entity_field_creator.js' %}"></script>
 <script src="{% static 'js/custom/models/entity_gui/entity_type_selector.js' %}"></script>
@@ -233,9 +252,9 @@
 
 <!-- The main player. -->
 <script src="{% static 'js/custom/player/player.js' %}"></script>
-<script src="{% static 'js/custom/player/player_actions.js' %}"></script>
-<script src="{% static 'js/custom/player/player_menu.js' %}"></script>
 <script src="{% static 'js/custom/player/player_state.js' %}"></script>
+<script src="{% static 'js/custom/player/menu/player_actions.js' %}"></script>
+<script src="{% static 'js/custom/player/menu/player_menu.js' %}"></script>
 
 <!-- The worlds. -->
 <script src="{% static 'js/custom/worlds/worlds/abstract/world_base.js' %}"></script>
