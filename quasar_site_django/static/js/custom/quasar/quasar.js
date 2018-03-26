@@ -41,7 +41,7 @@ QuasarMainLoop.prototype = {
             GUI_TYPING_INTERFACE.update();
         }
 
-        MANAGER_RENDERER.render();
+        MANAGER_RENDERER.render(this.delta);
         MANAGER_RENDERER.post_render();
         this.previous_time = this.time;
     }

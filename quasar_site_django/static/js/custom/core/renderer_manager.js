@@ -89,7 +89,8 @@ RendererManager.prototype = {
         this.effect_composer.addPass(this.outline_pass);
 
         //this.effect_film = new THREE.FilmPass(0.35, 0.025, 648, false);
-        this.effect_film = new THREE.FilmPass(0.95, 0.025, 648, false);
+        // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
+        this.effect_film = new THREE.FilmPass(0.95, 0, 0, false);
         this.effect_composer.addPass(this.effect_film);
 
 
@@ -125,7 +126,7 @@ RendererManager.prototype = {
     render: function() {
         //this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
 
-        this.effect_composer.render();
+        this.effect_composer.render(this.delta);
 
 
         if (is_defined(this.css_renderer)) {
