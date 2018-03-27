@@ -152,13 +152,20 @@ const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .05)';
 const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .05)';
 
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
+
+
+// TEMPORARY TESTING.
+const COLOR_RED          = new THREE.Color('#ff5e33');
+const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
+
+// TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;
 const COLOR_HEX_INDEX               = 0;
 const COLOR_HIGHLIGHT               = [0xD4FF93, '#D4FF93'];
 const COLOR_PLANET                  = [0xAFE0FF, '#AFE0FF'];
-const COLOR_TEXT_DEFAULT            = [0x67ffbf, '#67ffbf'];
+//const COLOR_TEXT_DEFAULT            = [0x67ffbf, '#67ffbf'];
 const COLOR_TEXT_BUTTON             = [0x60d6ff, '#60d6ff'];
-const COLOR_RED                     = [0xff5e33, '#ff5e33'];
+//const COLOR_RED                     = [0xff5e33, '#ff5e33'];
 const COLOR_ORANGE                  = [0xFF7F00, '#FF7F00'];
 const COLOR_GREEN                   = [0x6cff61, '#6cff61'];
 const COLOR_YELLOW                  = [0xf3ff5b, '#f3ff5b'];

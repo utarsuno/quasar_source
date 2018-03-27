@@ -16,7 +16,8 @@ function Text2D(world, width, text_height, text) {
         if (this.centered) {
             x_offset = this.texture_width / 2 - this._get_text_length() / 2;
         }
-        this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color);
+        this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_foreground_color);
+        //this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color);
         this.dynamic_texture.needsUpdate = true;
     };
 
@@ -30,12 +31,12 @@ function Text2D(world, width, text_height, text) {
     };
 
     this.create_base_dynamic_texture = function() {
-        var texture_width = get_nearest_power_of_two_for_number(this.width * 2);
-        var texture_height = get_nearest_power_of_two_for_number(this.height * 2);
+        this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
+        this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
 
-        this.font_size = texture_height;
+        this.font_size = this.texture_height;
 
-        this.dynamic_texture = new THREEx.DynamicTexture(texture_width, texture_height);
+        this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, this.texture_height);
 
         if (this.bold) {
             this.dynamic_texture.context.font = 'Bold ' + str(this.font_size) + 'px Arial';

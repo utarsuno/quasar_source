@@ -10,8 +10,8 @@ FloatingButton.prototype = {
         // Inherit.
         Text2D.call(this, world, width, text_height, text);
 
-        this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
-        this.set_default_foreground_color(COLOR_TEXT_CONSTANT, false);
+        //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
+        //this.set_default_foreground_color(COLOR_TEXT_CONSTANT, false);
 
         this.maintain_engage_when_tabbed_to = false;
         this.engable = false;

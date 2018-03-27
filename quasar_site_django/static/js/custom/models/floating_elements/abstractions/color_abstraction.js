@@ -2,11 +2,18 @@
 
 function ColorAbstraction(default_background_color, default_foreground_color) {
 
-    this.current_background_color = null;
-    this.default_background_color = null;
+    /*
+    const COLOR_RED          = new THREE.Color('#ff5e33');
+const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
+     */
 
-    this.current_foreground_color = null;
-    this.default_foreground_color = null;
+    // TEMPORARY VALUES
+    this.current_background_color = COLOR_RED;
+    this.default_background_color = COLOR_RED;
+
+    // TEMPORARY VALUES
+    this.current_foreground_color = COLOR_TEXT_DEFAULT;
+    this.default_foreground_color = COLOR_TEXT_DEFAULT;
 
     this.color_changed            = false;
 
