@@ -149,6 +149,7 @@ APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 if [ ${APPLICATION_PID} -gt -1 ]; then
 	echo '${APPLICATION} server is already running!'
 else
+	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 	${RUN_CODE}
 fi
 '''
