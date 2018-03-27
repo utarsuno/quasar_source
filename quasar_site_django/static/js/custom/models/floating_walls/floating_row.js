@@ -18,13 +18,13 @@ FloatingRow.prototype = {
     _get_width_needed: function(x_start_n_stop) {
         var total_percentage_of_parent_width = x_start_n_stop[1] - x_start_n_stop[0];
         var floating_element_width = this.parent_wall.width * total_percentage_of_parent_width;
-        return (total_percentage_of_parent_width, floating_element_width);
+        return [total_percentage_of_parent_width, floating_element_width];
     },
 
     //add_button: function(x_start_n_stop, text, color, function_to_bind) {
-        //var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
-        //button.set_engage_function(function_to_bind);
-        //return button;
+    //var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
+    //button.set_engage_function(function_to_bind);
+    //return button;
     //},
 
     add_icon: function(x_start_n_stop, icon_type) {
