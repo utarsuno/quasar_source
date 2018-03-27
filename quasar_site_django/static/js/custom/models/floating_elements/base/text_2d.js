@@ -48,13 +48,14 @@ function Text2D(world, width, text_height, text) {
         }
         this.dynamic_texture.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
 
+        // Testing transparency fixes.
         this.material = new THREE.MeshBasicMaterial({
-            map : this.dynamic_texture.texture
+            map : this.dynamic_texture.texture, depthTest : false, depthWrite: false
         });
 
         this.material.transparent = true;
         // TODO : DoubleSide is temporary
-        this.material.side = THREE.DoubleSide;
+        this.material.side = THREE.FrontSide;
     };
 
     /*__   ___ ___ ___  ___  __   __
