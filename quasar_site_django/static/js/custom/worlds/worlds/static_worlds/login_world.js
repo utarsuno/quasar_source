@@ -76,7 +76,11 @@ LoginWorld.prototype = {
         row.add_text_3D(HALF, 32, 'Login');
 
         row = this.wall_login.add_row();
-        row.add_input_2D([ONE_THIRD, 1], 16);
+        var temp_input = row.add_input_2D([ONE_THIRD, 1], 16);
+        var temp_label = row.add_text_2D([0, ONE_THIRD], 16, 'username');
+
+        temp_input.refresh();
+        temp_label.refresh();
 
         this.wall_login.make_base_wall_invisible();
     }
