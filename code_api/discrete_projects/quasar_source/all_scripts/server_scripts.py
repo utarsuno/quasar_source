@@ -24,8 +24,8 @@ IS_PROGRAM_RUNNING = VALS['path_server_is_program_running']
 DJANGO_MANAGE = VALS['path_server_django_manage']
 TERMINATE_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_terminate']
 RUN_IN_BACKGROUND_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_run_in_background']
-_RUN_QUASAR = ["sudo python3 ${APPLICATION_PATH} migrate", "\tsudo nohup python3 ${APPLICATION_PATH} runserver 0:80 --noreload &"]
-_RUN_QUASAR_LIVE = ["sudo python3 ${APPLICATION_PATH} migrate", "\tsudo python3 ${APPLICATION_PATH} runserver 0:80 --noreload"]
+_RUN_QUASAR = ["python3 ${APPLICATION_PATH} migrate", "\tnohup python3 ${APPLICATION_PATH} runserver 0:7331 --noreload &"]
+_RUN_QUASAR_LIVE = ["python3 ${APPLICATION_PATH} migrate", "\tpython3 ${APPLICATION_PATH} runserver 0:7331 --noreload"]
 
 # Entity server.
 ENTITY_SERVER = VALS['entity_server']
