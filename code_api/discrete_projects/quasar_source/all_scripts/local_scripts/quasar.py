@@ -65,6 +65,9 @@ ${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
 disown;
 HERE
 
+	# Give the server at least 2 seconds to start up.
+	sleep 2;
+
 	# Now restart the Quasar server + ensure that it is running.
 	${PATH_TO_LOCAL_PYTHON3} ${CLIENT_SIDE_SERVER_HEALTH_CHECK}
 fi
