@@ -9,6 +9,8 @@ from code_api.source_file_abstraction.code_directories.shell_directory import Sh
 
 from code_api.discrete_projects.quasar_source.all_scripts.local_scripts import quasar
 
+from code_api.discrete_projects.quasar_source.all_scripts.local_scripts import automated
+
 
 def load_local_scripts(directory_all_scripts, code_file_script_utilities, code_file_config_reader):
 	"""Loads the local scripts."""
@@ -16,4 +18,4 @@ def load_local_scripts(directory_all_scripts, code_file_script_utilities, code_f
 
 	directory_local_quasar = quasar.load_local_quasar_scripts(directory_local, code_file_script_utilities, code_file_config_reader)
 
-
+	directory_local_quasar_automated = automated.local_local_quasar_automated_scripts(directory_local_quasar, code_file_script_utilities, code_file_config_reader)

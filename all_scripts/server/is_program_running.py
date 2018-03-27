@@ -4,6 +4,7 @@
 
 # Needed for running subprocesses.
 import subprocess
+# Needed for parsing arguments.
 import argparse
 
 
@@ -34,16 +35,29 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 
 if __name__ == '__main__':
 	parser       = argparse.ArgumentParser()
-	parser.add_argument('command_text')
+	parser.add_argument('service_name')
 	args         = parser.parse_args()
-	command_text = args.command_text
-	output       = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
-	for o in output:
-		if 'is_program_running.py' not in o:
-			if command_text in o:
-				print('true')
-				exit()
-	print('false')
+	service_name = args.service_name
+
+	output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep']).split('\n')
+
+	if len(output) == 0:
+		print('false')
+	else:
+		for l in output:
+			print('LINE{')
+			print(l)
+			print('}')
+
+	#output       = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
+
+
+	#for o in output:
+	#	if 'is_program_running.py' not in o:
+	#		if command_text in o:
+	#			print('true')
+	#			exit()
+	#print('false')
 
 # Example usage : value=$(python3 is_program_running.py 'runserver')
 # test push
