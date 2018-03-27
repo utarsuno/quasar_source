@@ -16,7 +16,6 @@ if __name__ == '__main__':
 	args         = parser.parse_args()
 	service_name = args.service_name
 
-
 	output = subprocess.check_output(['ps', '-edaf']).decode('utf-8').split('\n')
 	for l in output:
 		if 'is_program_running.py' not in l and len(l) > 0:
@@ -31,22 +30,8 @@ if __name__ == '__main__':
 			time  = content[6]
 			cmd   = content[7:]
 
-			print(pid)
 			for command in cmd:
-				print(command)
-			print('-----')
-
-
-	#output       = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
-
-
-	#for o in output:
-	#	if 'is_program_running.py' not in o:
-	#		if command_text in o:
-	#			print('true')
-	#			exit()
-	#print('false')
-
-# Example usage : value=$(python3 is_program_running.py 'runserver')
-# test push
-
+				if service_name in command:
+					pid_match = pid
+					exit()
+	print('false')
