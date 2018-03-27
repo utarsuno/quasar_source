@@ -1,0 +1,147 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 12:24 ?        00:00:04 /sbin/init
+root         2     0  0 12:24 ?        00:00:00 [kthreadd]
+root         3     2  0 12:24 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 12:24 ?        00:00:00 [kworker/0:0H]
+root         7     2  0 12:24 ?        00:00:04 [rcu_sched]
+root         8     2  0 12:24 ?        00:00:00 [rcu_bh]
+root         9     2  0 12:24 ?        00:00:00 [migration/0]
+root        10     2  0 12:24 ?        00:00:00 [watchdog/0]
+root        11     2  0 12:24 ?        00:00:00 [watchdog/1]
+root        12     2  0 12:24 ?        00:00:00 [migration/1]
+root        13     2  0 12:24 ?        00:00:00 [ksoftirqd/1]
+root        15     2  0 12:24 ?        00:00:00 [kworker/1:0H]
+root        16     2  0 12:24 ?        00:00:00 [watchdog/2]
+root        17     2  0 12:24 ?        00:00:00 [migration/2]
+root        18     2  0 12:24 ?        00:00:00 [ksoftirqd/2]
+root        20     2  0 12:24 ?        00:00:00 [kworker/2:0H]
+root        21     2  0 12:24 ?        00:00:00 [watchdog/3]
+root        22     2  0 12:24 ?        00:00:00 [migration/3]
+root        23     2  0 12:24 ?        00:00:00 [ksoftirqd/3]
+root        25     2  0 12:24 ?        00:00:00 [kworker/3:0H]
+root        26     2  0 12:24 ?        00:00:00 [kdevtmpfs]
+root        27     2  0 12:24 ?        00:00:00 [netns]
+root        28     2  0 12:24 ?        00:00:00 [perf]
+root        29     2  0 12:24 ?        00:00:00 [khungtaskd]
+root        30     2  0 12:24 ?        00:00:00 [writeback]
+root        31     2  0 12:24 ?        00:00:00 [ksmd]
+root        32     2  0 12:24 ?        00:00:00 [khugepaged]
+root        33     2  0 12:24 ?        00:00:00 [crypto]
+root        34     2  0 12:24 ?        00:00:00 [kintegrityd]
+root        35     2  0 12:24 ?        00:00:00 [bioset]
+root        36     2  0 12:24 ?        00:00:00 [kblockd]
+root        37     2  0 12:24 ?        00:00:00 [ata_sff]
+root        38     2  0 12:24 ?        00:00:00 [md]
+root        39     2  0 12:24 ?        00:00:00 [devfreq_wq]
+root        43     2  0 12:24 ?        00:00:00 [kswapd0]
+root        44     2  0 12:24 ?        00:00:00 [vmstat]
+root        45     2  0 12:24 ?        00:00:00 [fsnotify_mark]
+root        46     2  0 12:24 ?        00:00:00 [ecryptfs-kthrea]
+root        62     2  0 12:24 ?        00:00:00 [kthrotld]
+root        63     2  0 12:24 ?        00:00:00 [acpi_thermal_pm]
+root        64     2  0 12:24 ?        00:00:00 [bioset]
+root        65     2  0 12:24 ?        00:00:00 [bioset]
+root        66     2  0 12:24 ?        00:00:00 [bioset]
+root        67     2  0 12:24 ?        00:00:00 [bioset]
+root        68     2  0 12:24 ?        00:00:00 [bioset]
+root        69     2  0 12:24 ?        00:00:00 [bioset]
+root        70     2  0 12:24 ?        00:00:00 [bioset]
+root        71     2  0 12:24 ?        00:00:00 [bioset]
+root        77     2  0 12:24 ?        00:00:00 [ipv6_addrconf]
+root        90     2  0 12:24 ?        00:00:00 [deferwq]
+root        91     2  0 12:24 ?        00:00:00 [charger_manager]
+root       136     2  0 12:24 ?        00:00:00 [irq/18-mmc0]
+root       137     2  0 12:24 ?        00:00:00 [ips-adjust]
+root       138     2  0 12:24 ?        00:00:04 [ips-monitor]
+root       139     2  0 12:24 ?        00:00:00 [kpsmoused]
+root       150     2  0 12:24 ?        00:00:00 [scsi_eh_0]
+root       151     2  0 12:24 ?        00:00:00 [scsi_tmf_0]
+root       152     2  0 12:24 ?        00:00:00 [scsi_eh_1]
+root       153     2  0 12:24 ?        00:00:00 [scsi_tmf_1]
+root       154     2  0 12:24 ?        00:00:00 [scsi_eh_2]
+root       155     2  0 12:24 ?        00:00:00 [scsi_tmf_2]
+root       156     2  0 12:24 ?        00:00:00 [scsi_eh_3]
+root       157     2  0 12:24 ?        00:00:00 [scsi_tmf_3]
+root       158     2  0 12:24 ?        00:00:00 [scsi_eh_4]
+root       159     2  0 12:24 ?        00:00:00 [scsi_tmf_4]
+root       160     2  0 12:24 ?        00:00:00 [scsi_eh_5]
+root       161     2  0 12:24 ?        00:00:00 [scsi_tmf_5]
+root       168     2  0 12:24 ?        00:00:00 [bioset]
+root       171     2  0 12:24 ?        00:00:00 [bioset]
+root       243     2  0 12:24 ?        00:00:00 [raid5wq]
+root       269     2  0 12:24 ?        00:00:00 [bioset]
+root       297     2  0 12:24 ?        00:00:00 [kworker/0:1H]
+root       298     2  0 12:24 ?        00:00:00 [kworker/2:1H]
+root       300     2  0 12:24 ?        00:00:00 [jbd2/sda1-8]
+root       301     2  0 12:24 ?        00:00:00 [ext4-rsv-conver]
+root       350     2  0 12:24 ?        00:00:00 [kauditd]
+root       353     1  0 12:24 ?        00:00:00 /lib/systemd/systemd-journald
+root       371     2  0 12:24 ?        00:00:00 [iscsi_eh]
+root       382     2  0 12:24 ?        00:00:00 [ib_addr]
+root       390     2  0 12:24 ?        00:00:00 [ib_mcast]
+root       391     2  0 12:24 ?        00:00:00 [ib_nl_sa_wq]
+root       392     2  0 12:24 ?        00:00:00 [ib_cm]
+root       393     2  0 12:24 ?        00:00:00 [iw_cm_wq]
+root       394     2  0 12:24 ?        00:00:00 [rdma_cm]
+root       401     1  0 12:24 ?        00:00:00 /sbin/lvmetad -f
+root       411     1  0 12:24 ?        00:00:01 /lib/systemd/systemd-udevd
+root       443     2  0 12:24 ?        00:00:00 [kworker/3:1H]
+root       519     2  0 12:24 ?        00:00:00 [irq/27-mei_me]
+root       529     2  0 12:24 ?        00:00:00 [kworker/1:1H]
+root       550     2  0 12:24 ?        00:00:00 [cfg80211]
+root       561     2  0 12:24 ?        00:00:00 [kvm-irqfd-clean]
+systemd+   683     1  0 12:24 ?        00:00:00 /lib/systemd/systemd-timesyncd
+message+   903     1  0 12:25 ?        00:00:01 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+root       905     1  0 12:25 ?        00:00:00 /usr/sbin/cron -f
+root       907     1  0 12:25 ?        00:00:01 /usr/lib/accountsservice/accounts-daemon
+daemon     909     1  0 12:25 ?        00:00:00 /usr/sbin/atd -f
+syslog     914     1  0 12:25 ?        00:00:00 /usr/sbin/rsyslogd -n
+root       917     1  0 12:25 ?        00:00:01 /usr/lib/snapd/snapd
+root       919     1  0 12:25 ?        00:00:00 /lib/systemd/systemd-logind
+root       921     1  0 12:25 ?        00:00:00 /usr/bin/lxcfs /var/lib/lxcfs/
+root       923     1  0 12:25 ?        00:00:00 /usr/sbin/acpid
+root       940     1  0 12:25 ?        00:00:00 /sbin/mdadm --monitor --pid-file /run/mdadm/monitor.pid --daemonise --scan --syslog
+root       957     1  0 12:25 ?        00:00:00 /usr/lib/policykit-1/polkitd --no-debug
+root       998     1  0 12:25 ?        00:00:00 /sbin/dhclient -1 -v -pf /run/dhclient.enp1s0.pid -lf /var/lib/dhcp/dhclient.enp1s0.leases -I -df /var/lib/dhcp/dhclient6.en
+root      1056     1  0 12:25 ?        00:00:00 /usr/sbin/sshd -D
+root      1069     1  0 12:25 ?        00:00:00 /sbin/iscsid
+root      1070     1  0 12:25 ?        00:00:02 /sbin/iscsid
+root      1120     1  0 12:25 tty1     00:00:00 /sbin/agetty --noclear tty1 linux
+root      1125     1  0 12:25 ?        00:00:01 /usr/sbin/irqbalance --pid=/var/run/irqbalance.pid
+quasarb+  1139     1  0 12:25 ?        00:00:00 /lib/systemd/systemd --user
+quasarb+  1143  1139  0 12:25 ?        00:00:00 (sd-pam)
+root      6384  1056  0 14:50 ?        00:00:00 sshd: quasarboi [priv]
+quasarb+  6414  6384  0 14:50 ?        00:00:00 sshd: quasarboi@pts/1
+quasarb+  6415  6414  0 14:50 pts/1    00:00:00 bash -c cd /home/git_repos/quasar_source/all_scripts/server/ ; bash
+quasarb+  6416  6415  0 14:50 pts/1    00:00:00 bash
+root      6732  1056  0 14:51 ?        00:00:00 sshd: quasarboi [priv]
+quasarb+  6762  6732  0 14:51 ?        00:00:00 sshd: quasarboi@pts/0
+quasarb+  6763  6762  0 14:51 pts/0    00:00:00 bash -c cd /home/git_repos/quasar_source/all_scripts/server/ ; bash
+quasarb+  6764  6763  0 14:51 pts/0    00:00:00 bash
+root     13116     2  0 20:12 ?        00:00:00 [kworker/1:1]
+root     13694     2  0 20:20 ?        00:00:00 [kworker/0:1]
+root     13987  1056  0 20:21 ?        00:00:00 sshd: quasarboi [priv]
+quasarb+ 14017 13987  0 20:21 ?        00:00:00 sshd: quasarboi@pts/2
+quasarb+ 14018 14017  0 20:21 pts/2    00:00:00 bash -c cd  ; bash
+quasarb+ 14019 14018  0 20:21 pts/2    00:00:01 bash
+root     14473     2  0 20:36 ?        00:00:00 [kworker/0:3]
+root     14672     2  0 20:54 ?        00:00:00 [kworker/2:3]
+quasarb+ 14682  6416  0 20:56 pts/1    00:00:00 bash live_run.sh
+quasarb+ 14685 14682  0 20:56 pts/1    00:00:01 python3 /home/git_repos/quasar_source/servers/entities/entity_server.py -r
+root     14787     2  0 21:47 ?        00:00:00 [kworker/u16:0]
+root     14866     2  0 22:24 ?        00:00:00 [kworker/3:0]
+root     15004     2  0 22:31 ?        00:00:00 [kworker/1:2]
+root     15005  1056  0 22:32 ?        00:00:00 sshd: quasarboi [priv]
+quasarb+ 15035 15005  0 22:32 ?        00:00:00 sshd: quasarboi@pts/3
+quasarb+ 15036 15035  0 22:32 pts/3    00:00:00 bash -c cd  ; bash
+quasarb+ 15037 15036  0 22:32 pts/3    00:00:00 bash
+root     15115     2  0 22:37 ?        00:00:00 [kworker/3:2]
+mongodb  15149     1  0 22:37 ?        00:00:02 /usr/bin/mongod --quiet --config /etc/mongod.conf
+root     15197     2  0 22:40 ?        00:00:00 [kworker/u16:1]
+root     15245     2  0 22:40 ?        00:00:00 [kworker/2:1]
+root     15304     2  0 22:42 ?        00:00:00 [kworker/1:3]
+root     15357     2  0 22:43 ?        00:00:00 [kworker/0:0]
+root     15411     2  0 22:45 ?        00:00:00 [kworker/3:1]
+root     15464     2  0 22:46 ?        00:00:00 [kworker/2:0]
+root     15465     2  0 22:46 ?        00:00:00 [kworker/2:2]
+quasarb+ 15528 14019  0 22:47 pts/2    00:00:00 ps -edaf
