@@ -32,6 +32,6 @@ if __name__ == '__main__':
 
 			for command in cmd:
 				if service_name in command:
-					pid_match = pid
+					print(pid)
 					exit()
-	print('false')
+	print(-1)
