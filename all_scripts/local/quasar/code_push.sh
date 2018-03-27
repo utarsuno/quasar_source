@@ -72,6 +72,7 @@ else
     # Quasar server + database.
     ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
 ${UPDATE_SERVER_CODE_SERVER};
+${HEALTH_CHECK_SERVER};
 HERE
 
 	# Now restart the Quasar server + ensure that it is running.
