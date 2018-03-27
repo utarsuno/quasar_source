@@ -51,7 +51,7 @@ else
 
     # Quasar server + database.
     ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
-bash ${UPDATE_SERVER_CODE_SERVER};
+${UPDATE_SERVER_CODE_SERVER};
 HERE
 
 	# Now restart the Quasar server + ensure that it is running.
@@ -91,33 +91,31 @@ HERE
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_LIVE_RUN_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_LIVE_RUN_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_RESTART_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_RESTART_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_RUN_IN_BACKGROUND_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_RUN_IN_BACKGROUND_SERVER}
-scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_STATUS_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_STATUS_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_TERMINATE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_TERMINATE_SERVER}
 
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_LIVE_RUN_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_LIVE_RUN_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_RESTART_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_RESTART_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_RUN_IN_BACKGROUND_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_RUN_IN_BACKGROUND_SERVER}
-scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_STATUS_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_STATUS_SERVER}
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_TERMINATE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_TERMINATE_SERVER}
 
 scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${UPDATE_SERVER_CODE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${UPDATE_SERVER_CODE_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${HEALTH_CHECK_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${HEALTH_CHECK_SERVER}
 
 ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
 cd ${QUASAR_PROJECT_BASE_DIRECTORY};
 cd ./all_scripts;
 sudo chmod +x ./update_code.sh;
+sudo chmod +x ./health_check.sh;
 cd ./entity_server;
 sudo chmod +x ./live_run.sh;
 sudo chmod +x ./restart.sh;
 sudo chmod +x ./run_in_background.sh;
-sudo chmod +x ./status.sh;
 sudo chmod +x ./terminate.sh;
 cd ..;
 cd ./quasar_server;
 sudo chmod +x ./live_run.sh;
 sudo chmod +x ./restart.sh;
 sudo chmod +x ./run_in_background.sh;
-sudo chmod +x ./status.sh;
 sudo chmod +x ./terminate.sh;
 HERE
 '''))

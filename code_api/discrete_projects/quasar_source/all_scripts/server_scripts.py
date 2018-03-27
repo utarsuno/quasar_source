@@ -44,10 +44,31 @@ def load_server_scripts():
 	load_specific_server_application_scripts(directory_server_quasar, 'quasar', DJANGO_MANAGE, TERMINATE_SCRIPT_PATH_QUASAR, RUN_IN_BACKGROUND_SCRIPT_PATH_QUASAR, _RUN_QUASAR, _RUN_QUASAR_LIVE)
 	load_specific_server_application_scripts(directory_server_entity, 'entity', ENTITY_SERVER, TERMINATE_SCRIPT_PATH_ENTITY, RUN_IN_BACKGROUND_SCRIPT_PATH_ENTITY, _RUN_ENTITY, _RUN_ENTITY_LIVE)
 
-	update_code = add_update_code_script()
-	directory_server.add_code_file(update_code)
+	directory_server.add_code_file(add_update_code_script())
+	directory_server.add_code_file(add_health_check_script())
 
 	return directory_server
+
+
+def add_health_check_script():
+	"""Adds a script to ensure Pymongo is running."""
+	s = ShellFile('health_check')
+	s.set_to_simple_shell_file()
+	code = '''
+export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
+
+PYMONGO_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} mongod`
+
+if [ ${PYMONGO_PID} -eq -1 ]; then
+	sudo service mongod start
+fi
+
+HERE
+'''
+	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
+	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
+	s.set_main_code(CodeChunk(code))
+	return s
 
 
 def add_update_code_script():
@@ -69,14 +90,12 @@ fi
 
 def load_specific_server_application_scripts(directory, application_name, application_path, terminate_script_path, run_in_background_script_path, run_code, run_code_live):
 	"""Generates a set of scripts to manage a specific server application."""
-	terminate         = get_terminate_script(DJANGO_MANAGE)
-	status            = get_status_script(application_name, application_path)
+	terminate         = get_terminate_script(application_path)
 	run_in_background = get_run_in_background_script(application_name, application_path, run_code)
 	restart           = get_restart_script(terminate_script_path, run_in_background_script_path)
 	live_run          = get_live_run_script(application_name, application_path, run_code_live)
 
 	directory.add_code_file(terminate)
-	directory.add_code_file(status)
 	directory.add_code_file(run_in_background)
 	directory.add_code_file(restart)
 	directory.add_code_file(live_run)
@@ -89,9 +108,9 @@ def get_live_run_script(application_name, application_path, run_code_live):
 	code = '''
 export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 
-IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 
-if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
+if [ ${APPLICATION_PID} -gt -1 ]; then
 	echo '${APPLICATION} server is already running!'
 else
 	${RUN_CODE_LIVE}
@@ -127,9 +146,9 @@ def get_run_in_background_script(application_name, application_path, run_code):
 	code = '''
 export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 
-IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 
-if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
+if [ ${APPLICATION_PID} -gt -1 ]; then
 	echo '${APPLICATION} server is already running!'
 else
 	${RUN_CODE}
@@ -147,32 +166,15 @@ fi
 	return s
 
 
-def get_status_script(application_name, application_path):
-	"""Returns the the server application status script."""
-	s = ShellFile('status')
-	s.set_to_simple_shell_file()
-	code = '''
-export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-
-IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
-
-if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
-	echo '${APPLICATION} server is currently running!'
-else
-	echo '${APPLICATION} server is currently not running!'
-fi
-'''
-	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
-	code = code.replace('${APPLICATION}', application_name)
-	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
-	code = code.replace('${APPLICATION_PATH}', application_path)
-	s.set_main_code(CodeChunk(code))
-	return s
-
-
-def get_terminate_script(path):
+def get_terminate_script(application_path):
 	"""Returns the server application terminate script."""
 	s = ShellFile('terminate')
 	s.set_to_simple_shell_file()
-	s.set_main_code(CodeChunk('''sudo pkill -f A0'''.replace('A0', path)))
+	s.set_main_code(CodeChunk('''
+APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+
+if [ ${APPLICATION_PID} -gt -1 ]; then
+	sudo kill ${APPLICATION_PID}
+fi
+'''.replace('${APPLICATION_PATH}', application_path).replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)))
 	return s

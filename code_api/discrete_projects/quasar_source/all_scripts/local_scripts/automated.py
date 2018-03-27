@@ -19,12 +19,30 @@ def local_local_quasar_automated_scripts(directory_local_quasar, code_file_scrip
 	d.add_shell_required_library(code_file_script_utilities)
 	d.add_shell_required_library(code_file_config_reader)
 
-	load_specific_server_application_scripts(APPLICATION_QUASAR, d)
-	load_specific_server_application_scripts(APPLICATION_ENTITY, d)
+	#load_specific_server_application_scripts(APPLICATION_QUASAR, d)
+	#load_specific_server_application_scripts(APPLICATION_ENTITY, d)
 
-	load_script_ensure_quasar_application_servers_are_running(d)
+	#load_script_ensure_quasar_application_servers_are_running(d)
 
 	return d
+
+
+
+#/home/git_repos/quasar_source/all_scripts/server/is_program_running.py
+#/home/git_repos/quasar_source/all_scripts/server/is_program_running.py
+
+
+def load_script_get_process_pid(directory):
+	"""Loads the specified script."""
+	s = ShellFile('ensure_application_servers_are_running')
+	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_CONNECTION)
+	s.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
+	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_PROJECT_SETUP)
+	s.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
+	s.add_safety_check_for_script_arguments(['process_name'])
+	s.set_main_code(CodeChunk('''
+${PATH_TO_LOCAL_PYTHON3} ./check_quasar_server_status.py
+'''))
 
 
 def load_script_ensure_quasar_application_servers_are_running(directory):
@@ -34,6 +52,7 @@ def load_script_ensure_quasar_application_servers_are_running(directory):
 	s.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
 	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_PROJECT_SETUP)
 	s.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
+	s.add_safety_check_for_script_arguments(['process_name'])
 	s.set_main_code(CodeChunk('''
 ${PATH_TO_LOCAL_PYTHON3} ./restart_quasar_server.py
 	'''))

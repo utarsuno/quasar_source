@@ -64,6 +64,11 @@ function set_variables_for_quasar_connection {
 function set_variables_for_quasar_project_setup {
     QUASAR_PROJECT_BASE_DIRECTORY=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar project_base_directory)
 
+    SERVER_SIDE_IS_PROGRAM_RUNNING=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_is_program_running)
+
+    HEALTH_CHECK_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_health_check)
+    HEALTH_CHECK_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_health_check)
+
     UPDATE_SERVER_CODE_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_update_code_for_server)
     UPDATE_SERVER_CODE_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_update_code_for_server)
 
@@ -81,11 +86,6 @@ function set_variables_for_quasar_project_setup {
     ENTITY_RUN_IN_BACKGROUND_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_run_in_background)
     QUASAR_RUN_IN_BACKGROUND_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_run_in_background)
     QUASAR_RUN_IN_BACKGROUND_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_run_in_background)
-    
-    ENTITY_STATUS_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_status)
-    ENTITY_STATUS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_status)
-    QUASAR_STATUS_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_status)
-    QUASAR_STATUS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_status)
     
     ENTITY_TERMINATE_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_terminate)
     ENTITY_TERMINATE_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_terminate)
