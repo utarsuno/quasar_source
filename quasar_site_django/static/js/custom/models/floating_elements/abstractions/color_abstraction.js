@@ -1,6 +1,11 @@
 'use strict';
 
-function ColorAbstraction(default_background_color, default_foreground_color) {
+function ColorAbstraction(needs_hex_colors) {
+
+    this.needs_hex_colors = needs_hex_colors;
+    if (!is_defined(this.needs_hex_colors)) {
+        this.needs_hex_colors = false;
+    }
 
     /*
     const COLOR_RED          = new THREE.Color('#ff5e33');
@@ -16,6 +21,22 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
     this.default_foreground_color = COLOR_TEXT_DEFAULT;
 
     this.color_changed            = false;
+
+    this.get_current_background_color = function() {
+        if (this.needs_hex_colors) {
+            return this.current_background_color.getHexString();
+        } else {
+            return this.current_background_color;
+        }
+    };
+
+    this.get_current_foreground_color = function() {
+        if (this.needs_hex_colors) {
+            return this.current_foreground_color.getHexString();
+        } else {
+            return this.current_foreground_color;
+        }
+    };
 
 
     this.set_current_background_color = function(color, refresh) {
