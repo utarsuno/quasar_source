@@ -14,6 +14,7 @@ FloatingIcon.prototype = {
         this.width = size;
         this.height = size;
 
+        this.create_base_material();
         this.create_base_mesh();
     },
 
