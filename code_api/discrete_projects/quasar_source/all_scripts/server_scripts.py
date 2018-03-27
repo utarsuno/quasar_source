@@ -17,7 +17,7 @@ def ini(section):
 	return config(pm.PATH_TO_CONFIG_FILE, section)
 
 VALS = ini('quasar')
-QUASAR_SOURCE      = VALS['path_to_quasar_source']
+QUASAR_SOURCE      = VALS['project_base_directory']
 IS_PROGRAM_RUNNING = VALS['path_server_is_program_running']
 
 # Django server.
@@ -55,15 +55,12 @@ def add_health_check_script():
 	s = ShellFile('health_check')
 	s.set_to_simple_shell_file()
 	code = '''
-export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-
 PYMONGO_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} mongod`
 
 if [ ${PYMONGO_PID} -eq -1 ]; then
 	sudo service mongod start
 fi
 '''
-	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
 	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
 	s.set_main_code(CodeChunk(code))
 	return s
@@ -149,7 +146,6 @@ APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 if [ ${APPLICATION_PID} -gt -1 ]; then
 	echo '${APPLICATION} server is already running!'
 else
-	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 	${RUN_CODE}
 fi
 '''

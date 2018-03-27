@@ -10,6 +10,8 @@ import argparse
 import re
 
 
+# TODO : This doesn't terminate multiple instances, only the first one!
+
 if __name__ == '__main__':
 	parser       = argparse.ArgumentParser()
 	parser.add_argument('service_name')
