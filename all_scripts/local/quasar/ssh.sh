@@ -5,38 +5,38 @@
 # / _` |__  |\ | |__  |__)  /\   |  |  /  \ |\ |    |\ | /  \  |  |__  /__` 
 # \__> |___ | \| |___ |  \ /~~\  |  |  \__/ | \|    | \| \__/  |  |___ .__/ 
 # ----------------------------------------------------------------------------
-# LAST_GENERATED : {3.25.2018}
+# LAST_GENERATED : {3.26.2018}
 
 # ----------------------------------------------------------------------------
 #          __   __        __                  __   __   __  ___  __  
 # |    |  |__) |__)  /\  |__) \ /    |  |\/| |__) /  \ |__)  |  /__` 
 # |___ |  |__) |  \ /~~\ |  \  |     |  |  | |    \__/ |  \  |  .__/ 
 # ----------------------------------------------------------------------------
-PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/script_utilities.sh
+PATH_TO_LIBRARY_SCRIPT_UTILITIES=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/script_utilities.sh
 source ${PATH_TO_LIBRARY_SCRIPT_UTILITIES}
-PATH_TO_LIBRARY_CONFIG_READER_SERVER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/libraries/config_reader_server.sh
-source ${PATH_TO_LIBRARY_CONFIG_READER_SERVER}
+PATH_TO_LIBRARY_CONFIG_READER_LOCAL=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader_local.sh
+source ${PATH_TO_LIBRARY_CONFIG_READER_LOCAL}
 
 # ----------------------------------------------------------------------------
 #  __   __   __      __  ___     __  ___       __  ___ 
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{restart.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
 # /__`  /\  |__  |__   |  \ /    /  ` |__| |__  /  ` |__/ /__` 
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
-terminate_if_not_ubuntu
+terminate_if_ubuntu
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
-set_variables_for_entity_server
+set_variables_for_quasar_connection
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -44,8 +44,7 @@ set_variables_for_entity_server
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-sudo bash ${PYTHON_ENTITY_SCRIPT_TERMINATE}
-sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
+ssh -t -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} "cd ${PATH_TO_SCRIPTS_SERVER} ; bash"
 
 
 # ----------------------------------------------------------------------------
@@ -53,5 +52,5 @@ sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{restart.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{ssh.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

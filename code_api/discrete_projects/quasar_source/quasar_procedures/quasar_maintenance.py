@@ -33,8 +33,10 @@ class CodeProjectMaintainer(object):
 		#self._procedures.append([0, 'print generation information', self._print_general_information])
 
 		# Procedure : script generator.
-		self._script_component = self._code_project.get_component_with_tags([QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS])
-		self._script_generator = QuasarGeneration(self._script_component)
+		self._script_generators = []
+		self._script_components = self._code_project.get_components_with_tags([QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS])
+		for script_component in self._script_components:
+			self._script_generators.append(QuasarGeneration(script_component))
 
 		# Procedure : production generator.
 		self._css_component = self._code_project.get_component_with_tags([QUASAR_COMPONENT_TAG_CSS])
@@ -84,12 +86,13 @@ class CodeProjectMaintainer(object):
 
 	def _print_general_information(self):
 		"""Print general information on this project."""
-		self._script_component.print_general_information()
+		#self._script_component.print_general_information()
 		self._css_component.print_general_information()
 
 	def _generate_scripts(self):
 		"""Generates the scripts."""
-		self._script_generator.generate()
+		for sg in self._script_generators:
+			sg.generate()
 
 	def _generate_production(self, run_through_assets=False):
 		"""Generates production version of Quasar."""
@@ -101,8 +104,6 @@ if len(args) > 0:
 	if args[0] == 'create_production':
 		quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
 		quasar_project_maintainer.run_procedure(PROCEDURE_GENERATE_PRODUCTION)
-
-
-# For local running.
-#quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
-#quasar_project_maintainer.prompt_user_for_procedure()
+elif __name__ == '__main__':
+	quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
+	quasar_project_maintainer.prompt_user_for_procedure()

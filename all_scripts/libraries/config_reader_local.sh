@@ -2,13 +2,8 @@
 
 PATH_TO_INI_FILE_READER=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-6 -d"/"`/libraries/config_reader_for_bash.py
 PATH_TO_CONFIG_FILE=`echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" | cut -f1-5 -d"/"`/configuration_files/config.ini
+PATH_TO_LOCAL_PYTHON3=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_local_python3)
 
-function set_variables_for_quasar {
-    QUASAR_IP=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar ip)
-    QUASAR_PORT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar port)
-    QUASAR_PEM_PATH=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar pem_path)
-    QUASAR_USER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar user)
-}
 
 function set_variables_for_databoi {
     DATABOI_USER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} databoi user)
@@ -23,6 +18,12 @@ function set_variables_for_server_side {
 	PATH_TO_SCRIPTS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_scripts_server)
 	PATH_TO_SCRIPTS_FINANCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_scripts_finance)
     PATH_TO_QUASAR_SOURCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_quasar_source)
+
+
+    PATH_TO_ENTITY_SERVER_STATUS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_entity_server_status)
+    PATH_TO_ENTITY_SERVER_RESTART=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_entity_server_restart)
+    PATH_TO_QUASAR_SERVER_STATUS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_quasar_server_status)
+    PATH_TO_QUASAR_SERVER_RESTART=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side path_to_quasar_server_restart)
 }
 
 function set_variables_for_client_side {
@@ -35,4 +36,59 @@ function set_variables_for_quasar_maintenance {
     PATH_TO_QUASAR_MAINTENANCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_quasar_maintenance_script)
     QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance flag_create_production)
     PATH_TO_LOCAL_PYTHON3=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_local_python3)
+    PATH_TO_RESTART_QUASAR_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_restart_quasar_server)
+}
+
+
+function set_variables_for_quasar_script_locations {
+    PATH_QUASAR_SERVER_LIVE_RUN=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side_quasar path_entity_server_live_run)
+    PATH_QUASAR_SERVER_RESTART=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side_quasar path_entity_server_restart)
+    PATH_QUASAR_SERVER_RUN_IN_BACKGROUND=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side_quasar path_entity_server_run_in_background)
+    PATH_QUASAR_SERVER_STATUS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side_quasar path_entity_server_status)
+    PATH_QUASAR_SERVER_TERMINATE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} server_side_quasar path_entity_server_terminate)
+}
+
+
+# ORGANIZE THE ABOVE SCRIPTS!!!
+# ORGANIZE THE ABOVE SCRIPTS!!!
+# ORGANIZE THE ABOVE SCRIPTS!!!
+# ORGANIZE THE ABOVE SCRIPTS!!!
+# ORGANIZE THE ABOVE SCRIPTS!!!
+function set_variables_for_quasar_connection {
+    QUASAR_IP=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_connection ip)
+    QUASAR_PORT=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_connection port)
+    QUASAR_PEM_PATH=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_connection pem_path)
+    QUASAR_USER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_connection user)
+}
+
+function set_variables_for_quasar_project_setup {
+    QUASAR_PROJECT_BASE_DIRECTORY=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar project_base_directory)
+
+    UPDATE_SERVER_CODE_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_update_code_for_server)
+    UPDATE_SERVER_CODE_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_update_code_for_server)
+
+    ENTITY_LIVE_RUN_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_live_run)
+    ENTITY_LIVE_RUN_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_live_run)
+    QUASAR_LIVE_RUN_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_live_run)
+    QUASAR_LIVE_RUN_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_live_run)
+    
+    ENTITY_RESTART_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_restart)
+    ENTITY_RESTART_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_restart)
+    QUASAR_RESTART_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_restart)
+    QUASAR_RESTART_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_restart)
+    
+    ENTITY_RUN_IN_BACKGROUND_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_run_in_background)
+    ENTITY_RUN_IN_BACKGROUND_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_run_in_background)
+    QUASAR_RUN_IN_BACKGROUND_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_run_in_background)
+    QUASAR_RUN_IN_BACKGROUND_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_run_in_background)
+    
+    ENTITY_STATUS_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_status)
+    ENTITY_STATUS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_status)
+    QUASAR_STATUS_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_status)
+    QUASAR_STATUS_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_status)
+    
+    ENTITY_TERMINATE_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_entity_terminate)
+    ENTITY_TERMINATE_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_entity_terminate)
+    QUASAR_TERMINATE_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_quasar_terminate)
+    QUASAR_TERMINATE_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_quasar_terminate)
 }

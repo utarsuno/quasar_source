@@ -13,6 +13,7 @@ FloatingInput2D.prototype = {
         this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
+
         this.world.interactive_objects.push(this);
 
         this.create_base_dynamic_texture();

@@ -10,10 +10,12 @@ from subprocess import Popen, PIPE
 def run_shell_command_and_get_results(shell_command):
 	"""Runs the provided shell command and returns the results."""
 	if type(shell_command) == list:
-		shell_command = ''
-		for i in list:
-			shell_command += i + ' '
-	process = Popen(shell_command, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+		cmd = ''
+		for i in shell_command:
+			cmd += i + ' '
+	else:
+		cmd = shell_command
+	process = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 	process.wait()
 	output_stdout, output_stderr = process.communicate()
 	return output_stdout, output_stderr

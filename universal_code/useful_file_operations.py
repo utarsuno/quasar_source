@@ -20,6 +20,8 @@ from configparser import ConfigParser
 # List of error definitions : https://docs.python.org/3.1/library/errno.html
 import errno
 
+import configparser
+
 '''      ___          ___         ___            __  ___    __        __
 	|  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
 	\__/  |  | |___ |  |   |     |    \__/ | \| \__,  |  | \__/ | \| .__/
@@ -30,6 +32,13 @@ def _is_valid_path_parameter(path):
 	if path is not None and type(path) is str and path != '':
 		return True
 	return False
+
+
+def get_config_file_info(ini_file_path, section, item_name):
+	"""Utility function for reading ini file info."""
+	config = configparser.ConfigParser()
+	config.read(ini_file_path)
+	return config.get(section, item_name)
 
 
 '''__     __   ___  __  ___  __   __          __   __   ___  __       ___    __        __

@@ -41,6 +41,12 @@ class ShellFile(GeneratedCodeFile):
 
 		self._treat_paths_as_server_paths = False
 
+		self._simple_shell_function = False
+
+	def set_to_simple_shell_file(self):
+		"""Utility function."""
+		self._simple_shell_function = True
+
 	def treat_paths_as_server_paths(self):
 		"""Treats paths as server paths instead of local."""
 		self._treat_paths_as_server_paths = True
@@ -90,12 +96,14 @@ class ShellFile(GeneratedCodeFile):
 
 		self._generate_section_bash()
 		self._generate_section_generation_notes()
-		self._generate_section_library_imports()
-		self._generate_section_script_start()
-		self._generate_section_safety_checks()
-		self._generate_section_variables()
+		if not self._simple_shell_function:
+			self._generate_section_library_imports()
+			self._generate_section_script_start()
+			self._generate_section_safety_checks()
+			self._generate_section_variables()
 		self._generate_section_main()
-		self._generate_section_script_end()
+		if not self._simple_shell_function:
+			self._generate_section_script_end()
 
 		self._add_empty_line_after_every_script_section()
 

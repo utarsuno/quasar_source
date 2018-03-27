@@ -6,216 +6,173 @@ from code_api.discrete_projects.predefined_code.shell_code.safety_checks import 
 from code_api.discrete_projects.predefined_code.shell_code.variable_setters import *
 from code_api.source_file_abstraction.code_files.shell_file import *
 from code_api.source_file_abstraction.code_directories.shell_directory import ShellDirectory
+from code_api.source_file_abstraction.code_files.shell_file import ShellFile
+
+from universal_code.useful_file_operations import get_ini_section_dictionary as config
+from universal_code import path_manager as pm
 
 
-def load_server_scripts(directory_all_scripts, code_file_script_utilities, code_file_config_reader):
-	"""Loads the server scripts."""
+def ini(section):
+	"""Utility function."""
+	return config(pm.PATH_TO_CONFIG_FILE, section)
 
-	'''__     __   ___  __  ___  __   __          __   ___  __        ___  __      __   __   __     __  ___  __
-	  |  \ | |__) |__  /  `  |  /  \ |__) \ /    /__` |__  |__) \  / |__  |__)    /__` /  ` |__) | |__)  |  /__`
-	  |__/ | |  \ |___ \__,  |  \__/ |  \  |     .__/ |___ |  \  \/  |___ |  \    .__/ \__, |  \ | |     |  .__/ '''
-	directory_server = directory_all_scripts.add_new_child_code_directory_from_current_path('server', ShellDirectory)
-	directory_server.add_shell_required_library(code_file_script_utilities)
-	directory_server.add_shell_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU)
+VALS = ini('quasar')
+QUASAR_SOURCE      = VALS['path_to_quasar_source']
+IS_PROGRAM_RUNNING = VALS['path_server_is_program_running']
 
-	'''__   __   __   ___     ___         ___           __   __       ___  ___     __   __   __   ___
-	  /  ` /  \ |  \ |__     |__  | |    |__  .   |  | |__) |  \  /\   |  |__     /  ` /  \ |  \ |__
-	  \__, \__/ |__/ |___    |    | |___ |___ .   \__/ |    |__/ /~~\  |  |___    \__, \__/ |__/ |___ '''
-	code_file_update_code = ShellFile('update_code')
-	code_file_update_code.treat_paths_as_server_paths()
-	code_file_update_code.add_required_library(code_file_config_reader)
-	code_file_update_code.add_required_variable_setters(SHELL_VARIABLES_SET_SERVER_SIDE)
-	code_file_update_code.set_main_code(CodeChunk('''
+# Django server.
+DJANGO_MANAGE = VALS['path_server_django_manage']
+TERMINATE_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_terminate']
+RUN_IN_BACKGROUND_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_run_in_background']
+_RUN_QUASAR = ["sudo python3 ${APPLICATION_PATH} migrate", "\tsudo nohup python3 ${APPLICATION_PATH} runserver 0:80 &"]
+_RUN_QUASAR_LIVE = ["sudo python3 ${APPLICATION_PATH} migrate", "\tsudo python3 ${APPLICATION_PATH} runserver 0:80"]
+
+# Entity server.
+ENTITY_SERVER = VALS['entity_server']
+TERMINATE_SCRIPT_PATH_ENTITY = VALS['path_server_entity_terminate']
+RUN_IN_BACKGROUND_SCRIPT_PATH_ENTITY = VALS['path_server_entity_run_in_background']
+_RUN_ENTITY = "nohup python3 ${APPLICATION_PATH} -r &"
+_RUN_ENTITY_LIVE = "python3 ${APPLICATION_PATH} -r"
+
+
+def load_server_scripts():
+	"""Generates the server scripts."""
+	directory_server = CodeDirectory('/Users/utarsuno/git_repos/quasar_source/configuration_files/server_scripts')
+	directory_server_quasar = directory_server.add_new_child_code_directory_from_current_path('quasar')
+	directory_server_entity = directory_server.add_new_child_code_directory_from_current_path('entity')
+
+	load_specific_server_application_scripts(directory_server_quasar, 'quasar', DJANGO_MANAGE, TERMINATE_SCRIPT_PATH_QUASAR, RUN_IN_BACKGROUND_SCRIPT_PATH_QUASAR, _RUN_QUASAR, _RUN_QUASAR_LIVE)
+	load_specific_server_application_scripts(directory_server_entity, 'entity', ENTITY_SERVER, TERMINATE_SCRIPT_PATH_ENTITY, RUN_IN_BACKGROUND_SCRIPT_PATH_ENTITY, _RUN_ENTITY, _RUN_ENTITY_LIVE)
+
+	update_code = add_update_code_script()
+	directory_server.add_code_file(update_code)
+
+	return directory_server
+
+
+def add_update_code_script():
+	"""Adds the update code for the server script."""
+	s = ShellFile('update_code')
+	s.set_to_simple_shell_file()
+	s.set_main_code(CodeChunk('''
 # Go to the projects base directory.
-cd "${PATH_TO_QUASAR_SOURCE}";
+cd ${PATH_TO_QUASAR_SOURCE};
 git fetch --all;
 reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
-    print_script_text "Updating the code base."
     # This resets to master.
     git reset --hard origin/master;
-else
-    # We do not have to update the code.
-    print_script_text "The code base is already up to date so a pull will not be performed."
 fi
-'''))
+'''.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)))
+	return s
 
-	'''__   __   __   ___     ___         ___      ___  __   __   __   ___          __   __       ___  ___     __   __   __   ___
-	  /  ` /  \ |  \ |__     |__  | |    |__  .   |__  /  \ |__) /  ` |__     |  | |__) |  \  /\   |  |__     /  ` /  \ |  \ |__
-	  \__, \__/ |__/ |___    |    | |___ |___ .   |    \__/ |  \ \__, |___    \__/ |    |__/ /~~\  |  |___    \__, \__/ |__/ |___ '''
-	code_file_force_update_code = ShellFile('force_update_code')
-	code_file_force_update_code.treat_paths_as_server_paths()
-	code_file_force_update_code.add_required_library(code_file_config_reader)
-	code_file_force_update_code.add_required_variable_setters(SHELL_VARIABLES_SET_SERVER_SIDE)
-	code_file_force_update_code.set_main_code(CodeChunk('''
-# Go to the projects base directory.
-cd "${PATH_TO_QUASAR_SOURCE}";
-git fetch --all;
-reslog=$(git log HEAD..origin/master --oneline)
-if [[ "${reslog}" != "" ]] ; then
-    print_script_text "Updating the code base."
-    # This resets to master.
-    git reset --hard origin/master;
-    # Remove files that are not tracked. The -d flag is needed for removing directories as well.
-    git clean -fd;
+
+def load_specific_server_application_scripts(directory, application_name, application_path, terminate_script_path, run_in_background_script_path, run_code, run_code_live):
+	"""Generates a set of scripts to manage a specific server application."""
+	terminate         = get_terminate_script(DJANGO_MANAGE)
+	status            = get_status_script(application_name, application_path)
+	run_in_background = get_run_in_background_script(application_name, application_path, run_code)
+	restart           = get_restart_script(terminate_script_path, run_in_background_script_path)
+	live_run          = get_live_run_script(application_name, application_path, run_code_live)
+
+	directory.add_code_file(terminate)
+	directory.add_code_file(status)
+	directory.add_code_file(run_in_background)
+	directory.add_code_file(restart)
+	directory.add_code_file(live_run)
+
+
+def get_live_run_script(application_name, application_path, run_code_live):
+	"""Returns the server application live run script."""
+	s = ShellFile('live_run')
+	s.set_to_simple_shell_file()
+	code = '''
+export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
+
+IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+
+if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
+	echo '${APPLICATION} server is already running!'
 else
-    # We do not have to update the code.
-    print_script_text "The code base is already up to date so a pull will not be performed."
+	${RUN_CODE_LIVE}
 fi
-'''))
+'''
+	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
+	code = code.replace('${APPLICATION}', application_name)
+	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
+	if type(run_code_live) == list:
+		code = code.replace('${RUN_CODE_LIVE}', run_code_live[0] + '\n' + run_code_live[1] + '\n')
+	else:
+		code = code.replace('${RUN_CODE_LIVE}', run_code_live + '\n')
+	code = code.replace('${APPLICATION_PATH}', application_path)
+	s.set_main_code(CodeChunk(code))
+	return s
 
-	'''__     __   ___  __  ___  __   __          __   ___  __        ___  __             __   __      __   __   __   ___     ___         ___  __
-	  |  \ | |__) |__  /  `  |  /  \ |__) \ /    /__` |__  |__) \  / |__  |__)       /\  |  \ |  \    /  ` /  \ |  \ |__     |__  | |    |__  /__`
-	  |__/ | |  \ |___ \__,  |  \__/ |  \  |     .__/ |___ |  \  \/  |___ |  \ .    /~~\ |__/ |__/    \__, \__/ |__/ |___    |    | |___ |___ .__/ '''
-	directory_server.add_code_file(code_file_update_code)
-	directory_server.add_code_file(code_file_force_update_code)
 
-	load_entity_directory(directory_server, code_file_script_utilities, code_file_config_reader)
-	load_quasar_directory(directory_server, code_file_script_utilities, code_file_config_reader)
+def get_restart_script(terminate_script_path, run_in_background_script_path):
+	"""Returns the server application restart script."""
+	s = ShellFile('restart')
+	s.set_to_simple_shell_file()
+	s.set_main_code(CodeChunk('''
+sudo nohup ${TERMINATE_SCRIPT_PATH} &
+sudo nohup ${RUN_IN_BACKGROUND_SCRIPT_PATH} &
+'''.replace('${TERMINATE_SCRIPT_PATH}', terminate_script_path).replace('${RUN_IN_BACKGROUND_SCRIPT_PATH}', run_in_background_script_path)))
+	return s
 
 
-def load_entity_directory(directory_server, code_file_script_utilities, code_file_config_reader):
-	"""Loads the entity directory."""
-	directory_entity = directory_server.add_new_child_code_directory_from_current_path('entity', ShellDirectory)
-	directory_entity.add_shell_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU)
-	directory_entity.add_shell_required_library(code_file_script_utilities)
-	directory_entity.add_shell_required_library(code_file_config_reader)
-	directory_entity.add_shell_required_variable_setters(SHELL_VARIABLES_SET_ENTITY_SERVER)
+def get_run_in_background_script(application_name, application_path, run_code):
+	"""Returns the server application run in background script."""
+	s = ShellFile('run_in_background')
+	s.set_to_simple_shell_file()
+	code = '''
+export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 
-	# Live run.
-	code_file_live_run = ShellFile('live_run')
-	code_file_live_run.treat_paths_as_server_paths()
-	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
-	code_file_live_run.set_main_code(CodeChunk('''
-if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
-	echo 'Entity server is already running!'
+IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+
+if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
+	echo '${APPLICATION} server is already running!'
 else
-	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-	python3 ${PYTHON_ENTITY_SERVER} -r
+	${RUN_CODE}
 fi
-'''))
+'''
+	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
+	code = code.replace('${APPLICATION}', application_name)
+	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
+	if type(run_code) == list:
+		code = code.replace('${RUN_CODE}', run_code[0] + '\n' + run_code[1] + '\n')
+	else:
+		code = code.replace('${RUN_CODE}', run_code + '\n')
+	code = code.replace('${APPLICATION_PATH}', application_path)
+	s.set_main_code(CodeChunk(code))
+	return s
 
-	# Restart.
-	code_file_restart = ShellFile('restart')
-	code_file_restart.treat_paths_as_server_paths()
-	#code_file_restart.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_restart.set_main_code(CodeChunk('''
-sudo bash ${PYTHON_ENTITY_SCRIPT_TERMINATE}
-sudo bash ${PYTHON_ENTITY_SCRIPT_RUN_IN_BACKGROUND}
-'''))
 
-	# Run in background.
-	code_file_run_in_background = ShellFile('run_in_background')
-	code_file_run_in_background.treat_paths_as_server_paths()
-	#code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
-	code_file_run_in_background.set_main_code(CodeChunk('''
-if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
-	echo 'Entity server is already running!'
+def get_status_script(application_name, application_path):
+	"""Returns the the server application status script."""
+	s = ShellFile('status')
+	s.set_to_simple_shell_file()
+	code = '''
+export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
+
+IS_APPLICATION_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+
+if [ "${IS_APPLICATION_SERVER_RUNNING}" == "true" ]; then
+	echo '${APPLICATION} server is currently running!'
 else
-	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-	nohup python3 ${PYTHON_ENTITY_SERVER} -r &
+	echo '${APPLICATION} server is currently not running!'
 fi
-'''))
-
-	# Status.
-	code_file_status = ShellFile('status')
-	code_file_status.treat_paths_as_server_paths()
-	code_file_status.add_required_variable_setters(CodeChunk(['IS_ENTITY_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_ENTITY_SERVER}`']))
-	code_file_status.set_main_code(CodeChunk('''
-if [ "${IS_ENTITY_SERVER_RUNNING}" == "true" ]; then
-	echo 'Entity server is currently running!'
-else
-	echo 'Entity server is currently not running!'
-fi
-'''))
-
-	# Terminate.
-	code_file_terminate = ShellFile('terminate')
-	code_file_terminate.treat_paths_as_server_paths()
-	#code_file_terminate.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_terminate.set_main_code(CodeChunk('''
-sudo pkill -f "${PYTHON_ENTITY_SERVER}"
-'''))
-
-	# Add the files to the directory.
-	directory_entity.add_code_file(code_file_live_run)
-	directory_entity.add_code_file(code_file_restart)
-	directory_entity.add_code_file(code_file_run_in_background)
-	directory_entity.add_code_file(code_file_status)
-	directory_entity.add_code_file(code_file_terminate)
+'''
+	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
+	code = code.replace('${APPLICATION}', application_name)
+	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)
+	code = code.replace('${APPLICATION_PATH}', application_path)
+	s.set_main_code(CodeChunk(code))
+	return s
 
 
-def load_quasar_directory(directory_server, code_file_script_utilities, code_file_config_reader):
-	"""Loads the quasar directory."""
-	directory_quasar = directory_server.add_new_child_code_directory_from_current_path('quasar', ShellDirectory)
-	directory_quasar.add_shell_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_UBUNTU)
-	directory_quasar.add_shell_required_library(code_file_script_utilities)
-	directory_quasar.add_shell_required_library(code_file_config_reader)
-	directory_quasar.add_shell_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_SERVER)
-
-	# Live run.
-	code_file_live_run = ShellFile('live_run')
-	code_file_live_run.treat_paths_as_server_paths()
-	code_file_live_run.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_live_run.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
-	code_file_live_run.set_main_code(CodeChunk('''
-if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
-	echo 'Quasar server is already running!'
-else
-	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-	python3 ${PYTHON_QUASAR_MANAGE_PATH} migrate
-	python3 ${PYTHON_QUASAR_MANAGE_PATH} runserver 0:80
-fi
-'''))
-
-	# Restart.
-	code_file_restart = ShellFile('restart')
-	code_file_restart.treat_paths_as_server_paths()
-	code_file_restart.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_restart.set_main_code(CodeChunk('''
-sudo bash ${PYTHON_QUASAR_SCRIPT_TERMINATE}
-sudo bash ${PYTHON_QUASAR_SCRIPT_RUN_IN_BACKGROUND}
-'''))
-
-	# Run in background.
-	code_file_run_in_background = ShellFile('run_in_background')
-	code_file_run_in_background.treat_paths_as_server_paths()
-	code_file_run_in_background.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_run_in_background.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
-	code_file_run_in_background.set_main_code(CodeChunk('''
-if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
-	echo 'Entity server is already running!'
-else
-	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
-	python3 ${PYTHON_QUASAR_MANAGE_PATH} migrate
-	nohup python3 ${PYTHON_QUASAR_MANAGE_PATH} runserver 0:80 &
-fi
-'''))
-
-	# Status.
-	code_file_status = ShellFile('status')
-	code_file_status.treat_paths_as_server_paths()
-	code_file_status.add_required_variable_setters(CodeChunk(['IS_QUASAR_SERVER_RUNNING=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${PYTHON_QUASAR_MANAGE_PATH}`']))
-	code_file_status.set_main_code(CodeChunk('''
-if [ "${IS_QUASAR_SERVER_RUNNING}" == "true" ]; then
-	echo 'Quasar server is currently running!'
-else
-	echo 'Quasar server is currently not running!'
-fi
-'''))
-
-	# Terminate.
-	code_file_terminate = ShellFile('terminate')
-	code_file_terminate.treat_paths_as_server_paths()
-	code_file_terminate.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_NOT_SUDO)
-	code_file_terminate.set_main_code(CodeChunk('''
-sudo pkill -f "${PYTHON_QUASAR_MANAGE_PATH}"
-'''))
-
-	# Add the files to the directory.
-	directory_quasar.add_code_file(code_file_live_run)
-	directory_quasar.add_code_file(code_file_restart)
-	directory_quasar.add_code_file(code_file_run_in_background)
-	directory_quasar.add_code_file(code_file_status)
-	directory_quasar.add_code_file(code_file_terminate)
+def get_terminate_script(path):
+	"""Returns the server application terminate script."""
+	s = ShellFile('terminate')
+	s.set_to_simple_shell_file()
+	s.set_main_code(CodeChunk('''sudo pkill -f A0'''.replace('A0', path)))
+	return s

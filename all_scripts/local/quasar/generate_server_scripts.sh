@@ -5,7 +5,7 @@
 # / _` |__  |\ | |__  |__)  /\   |  |  /  \ |\ |    |\ | /  \  |  |__  /__` 
 # \__> |___ | \| |___ |  \ /~~\  |  |  \__/ | \|    | \| \__/  |  |___ .__/ 
 # ----------------------------------------------------------------------------
-# LAST_GENERATED : {3.25.2018}
+# LAST_GENERATED : {3.26.2018}
 
 # ----------------------------------------------------------------------------
 #          __   __        __                  __   __   __  ___  __  
@@ -22,7 +22,7 @@ source ${PATH_TO_LIBRARY_CONFIG_READER_LOCAL}
 # /__` /  ` |__) |  |__)  |     /__`  |   /\  |__)  |  
 # .__/ \__, |  \ |  |     |     .__/  |  /~~\ |  \  |  
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push_all.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{generate_server_scripts.sh} start on {${CURRENT_USER}-${HOST_NAME}}."
 
 # ----------------------------------------------------------------------------
 #  __        ___  ___ ___         __        ___  __        __  
@@ -30,19 +30,15 @@ print_dashed_line_with_text "script{code_push_all.sh} start on {${CURRENT_USER}-
 # .__/ /~~\ |    |___  |   |     \__, |  | |___ \__, |  \ .__/ 
 # ----------------------------------------------------------------------------
 terminate_if_ubuntu
-terminate_if_sudo
-if [ "$#" -ne 1 ]; then
-	terminate_script "The script{code_push_all.sh} requires exactly{1} arguments. They are [commit_message]."
-fi
 
 # ----------------------------------------------------------------------------
 #            __           __        ___  __      __   ___ ___ ___          __  
 # \  /  /\  |__) |   /\  |__) |    |__  /__`    /__` |__   |   |  |  |\ | / _` 
 #  \/  /~~\ |  \ |  /~~\ |__) |___ |___ .__/    .__/ |___  |   |  |  | \| \__> 
 # ----------------------------------------------------------------------------
-set_variables_for_quasar
-set_variables_for_databoi
-set_variables_for_server_side
+set_variables_for_quasar_connection
+
+set_variables_for_quasar_project_setup
 
 # ----------------------------------------------------------------------------
 #                       __   __   __   ___ 
@@ -50,31 +46,48 @@ set_variables_for_server_side
 # |  | /~~\ |  | \|    \__, \__/ |__/ |___ 
 # ----------------------------------------------------------------------------
 
-if output=$(git status --porcelain) && [ -z "$output" ]; then
-	# Working directory clean
-	print_script_text "The working directory is clean so no commit will be made."
-else
-	# There are uncommitted changes.
-	print_script_text "Pushing the code changes."
-
-    print_dotted_line
-    # This will add all files, new files, changes, and removed files.
-    git add -A;
-    git commit -m "$1";
-    git push --force;
-    print_dotted_line
-
-    # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
+ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+mkdir -p ${QUASAR_PROJECT_BASE_DIRECTORY};
+cd ${QUASAR_PROJECT_BASE_DIRECTORY};
+mkdir -p ./all_scripts;
+mkdir -p ./configurations;
+cd ./all_scripts;
+mkdir -p ./quasar_server;
+mkdir -p ./entity_server;
 HERE
 
-    # Data server for historical book orders.
-    ssh -i ${DATABOI_PEM_PATH} ${DATABOI_USER}@${DATABOI_IP} -p ${DATABOI_PORT} << HERE
-    bash "${PATH_TO_UPDATE_SERVER_CODE_SCRIPT}";
-HERE
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_LIVE_RUN_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_LIVE_RUN_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_RESTART_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_RESTART_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_RUN_IN_BACKGROUND_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_RUN_IN_BACKGROUND_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_STATUS_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_STATUS_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${QUASAR_TERMINATE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${QUASAR_TERMINATE_SERVER}
 
-fi
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_LIVE_RUN_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_LIVE_RUN_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_RESTART_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_RESTART_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_RUN_IN_BACKGROUND_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_RUN_IN_BACKGROUND_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_STATUS_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_STATUS_SERVER}
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${ENTITY_TERMINATE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${ENTITY_TERMINATE_SERVER}
+
+scp -P ${QUASAR_PORT} -i ${QUASAR_PEM_PATH} ${UPDATE_SERVER_CODE_LOCAL} ${QUASAR_USER}@${QUASAR_IP}:${UPDATE_SERVER_CODE_SERVER}
+
+ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+cd ${QUASAR_PROJECT_BASE_DIRECTORY};
+cd ./all_scripts;
+sudo chmod +x ./update_code.sh;
+cd ./entity_server;
+sudo chmod +x ./live_run.sh;
+sudo chmod +x ./restart.sh;
+sudo chmod +x ./run_in_background.sh;
+sudo chmod +x ./status.sh;
+sudo chmod +x ./terminate.sh;
+cd ..;
+cd ./quasar_server;
+sudo chmod +x ./live_run.sh;
+sudo chmod +x ./restart.sh;
+sudo chmod +x ./run_in_background.sh;
+sudo chmod +x ./status.sh;
+sudo chmod +x ./terminate.sh;
+HERE
 
 
 # ----------------------------------------------------------------------------
@@ -82,5 +95,5 @@ fi
 # /__` /  ` |__) |  |__)  |     |__  |\ | |  \ 
 # .__/ \__, |  \ |  |     |     |___ | \| |__/ 
 # ----------------------------------------------------------------------------
-print_dashed_line_with_text "script{code_push_all.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
+print_dashed_line_with_text "script{generate_server_scripts.sh} end on {${CURRENT_USER}-${HOST_NAME}}."
 

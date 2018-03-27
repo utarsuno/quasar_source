@@ -29,6 +29,8 @@ POST_URL_SUDO_COMMAND          = r'sudo_command'
 POST_URL_GET_SHARED_WORLDS     = r'get_shared_worlds'
 # UNIVERSAL_CONSTANTS_END
 
+POST_URL_STATUS_PING           = r'ping'
+
 # url(r'web_socket', v.GET_web_socket),
 
 urlpatterns = [
@@ -39,6 +41,8 @@ urlpatterns = [
     url(POST_URL_DELETE_ENTITY        , v.POST_delete_entity),
     url(POST_URL_SUDO_COMMAND         , v.POST_sudo_command),
     url(POST_URL_GET_SHARED_WORLDS    , v.POST_get_shared_worlds),
+
+    url(POST_URL_STATUS_PING, v.POST_status_ping),
 
     url(r'dev', v.GET_quasar_dev),
     url(r''   , v.GET_quasar_prod),

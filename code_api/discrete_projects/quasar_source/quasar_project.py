@@ -4,6 +4,7 @@
 
 
 from code_api.discrete_projects.quasar_source.all_scripts.all_scripts import load_all_scripts_project_component
+from code_api.discrete_projects.quasar_source.all_scripts.all_scripts import load_all_server_scripts
 from code_api.discrete_projects.quasar_source.quasar_site.quasar_client_side import *
 from code_api.project_abstraction.code_project import CodeProject
 
@@ -20,9 +21,13 @@ def load_quasar_source_project():
 	"""Loads and returns the quasar source project."""
 	quasar_source_project = CodeProject('quasar_source')
 
-	# Generatable scripts.
+	# Generatable local scripts.
 	all_scripts_project_component = load_all_scripts_project_component()
 	all_scripts_project_component.add_tags([QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS])
+
+	# Generatable server scripts.
+	server_scripts_project_component = load_all_server_scripts()
+	server_scripts_project_component.add_tags([QUASAR_COMPONENT_TAG_GENERATABLE_SCRIPTS])
 
 	# Client side : css files.
 	component_css = load_quasar_css_component()
@@ -42,6 +47,7 @@ def load_quasar_source_project():
 
 	# Add the components to the quasar project.
 	quasar_source_project.add_project_component(all_scripts_project_component)
+	quasar_source_project.add_project_component(server_scripts_project_component)
 	quasar_source_project.add_project_component(component_css)
 	quasar_source_project.add_project_component(component_html)
 	quasar_source_project.add_project_component(component_js)
