@@ -39,7 +39,7 @@ if __name__ == '__main__':
 	args         = parser.parse_args()
 	service_name = args.service_name
 
-	output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep']).split('\n')
+	output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep'], shell=True).split('\n')
 
 	if len(output) == 0:
 		print('false')
