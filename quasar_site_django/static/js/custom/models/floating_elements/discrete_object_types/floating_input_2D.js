@@ -10,8 +10,8 @@ FloatingInput2D.prototype = {
         // Inherit.
         Text2D.call(this, world, width, text_height, text);
 
-        this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
-        this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
+        //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
+        //this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
 
         this.world.interactive_objects.push(this);
