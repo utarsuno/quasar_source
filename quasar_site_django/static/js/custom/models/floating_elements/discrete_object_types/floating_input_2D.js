@@ -8,7 +8,7 @@ FloatingInput2D.prototype = {
 
     __init__: function(world, width, text_height, text) {
         // Inherit.
-        Floating2DText.call(this, world, width, text_height, text);
+        Text2D.call(this, world, width, text_height, text);
 
         this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
