@@ -38,7 +38,7 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 def run_process_finder(process_name):
 	"""Utility function."""
 	# Base code from https://stackoverflow.com/questions/13332268/python-subprocess-command-with-pipe
-	ps = subprocess.Popen(('ps', '-A'), stdout=subprocess.PIPE)
+	ps = subprocess.Popen(('ps', '-edaf'), stdout=subprocess.PIPE)
 	output = subprocess.check_output(('grep', '"' + process_name + '"'), stdin=ps.stdout)
 	ps.wait()
 	return output
