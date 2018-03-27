@@ -17,7 +17,7 @@ def ini(section):
 	return config(pm.PATH_TO_CONFIG_FILE, section)
 
 VALS = ini('quasar')
-QUASAR_SOURCE      = VALS['project_base_directory']
+QUASAR_SOURCE      = VALS['path_to_quasar_source']
 IS_PROGRAM_RUNNING = VALS['path_server_is_program_running']
 
 # Django server.
