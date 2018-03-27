@@ -16,10 +16,21 @@ Including another URLconf
 
 from django.conf.urls import url
 
+'''
 import sys
 PROJECT_BASE = '/home/quasarboi/git_repos/quasar_source'
 if PROJECT_BASE not in sys.path:
     sys.path.append(PROJECT_BASE)
+'''
+
+import os
+try:
+    user_paths = os.environ['PYTHONPATH'].split(os.pathsep)
+except KeyError:
+    user_paths = []
+
+print('USERS PATHS IS')
+print(str(user_paths))
 
 from quasar_site_django.quasar_web_server import views as v
 
