@@ -76,7 +76,7 @@ LoginWorld.prototype = {
         row.add_text_3D(HALF, 32, 'Login');
 
         row = this.wall_login.add_row();
-        row.add_input_2D();
+        row.add_input_2D([ONE_THIRD, 1], 16);
 
         this.wall_login.make_base_wall_invisible();
     }
