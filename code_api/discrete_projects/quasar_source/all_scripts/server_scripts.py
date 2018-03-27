@@ -24,8 +24,8 @@ IS_PROGRAM_RUNNING = VALS['path_server_is_program_running']
 DJANGO_MANAGE = VALS['path_server_django_manage']
 TERMINATE_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_terminate']
 RUN_IN_BACKGROUND_SCRIPT_PATH_QUASAR = VALS['path_server_quasar_run_in_background']
-_RUN_QUASAR = ["sudo -E python3 ${APPLICATION_PATH} migrate", "\tsudo -E nohup python3 ${APPLICATION_PATH} runserver 0:80 &"]
-_RUN_QUASAR_LIVE = ["sudo -E python3 ${APPLICATION_PATH} migrate", "\tsudo -E python3 ${APPLICATION_PATH} runserver 0:80"]
+_RUN_QUASAR = ["sudo -E python3 ${APPLICATION_PATH} migrate", "\tsudo -E nohup python3 ${APPLICATION_PATH} runserver 0:80 --noreload &"]
+_RUN_QUASAR_LIVE = ["sudo -E python3 ${APPLICATION_PATH} migrate", "\tsudo -E python3 ${APPLICATION_PATH} runserver 0:80 --noreload"]
 
 # Entity server.
 ENTITY_SERVER = VALS['entity_server']
@@ -146,6 +146,7 @@ APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 if [ ${APPLICATION_PID} -gt -1 ]; then
 	echo '${APPLICATION} server is already running!'
 else
+	export PYTHONPATH=${PATH_TO_QUASAR_SOURCE}
 	${RUN_CODE}
 fi
 '''
