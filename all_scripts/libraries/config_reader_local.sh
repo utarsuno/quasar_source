@@ -64,6 +64,8 @@ function set_variables_for_quasar_connection {
 function set_variables_for_quasar_project_setup {
     QUASAR_PROJECT_BASE_DIRECTORY=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar project_base_directory)
 
+    SERVER_LOGS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar server_logs)
+
     SERVER_SIDE_IS_PROGRAM_RUNNING=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_is_program_running)
 
     HEALTH_CHECK_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_health_check)

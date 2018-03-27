@@ -49,6 +49,7 @@ set_variables_for_quasar_project_setup
 ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
 mkdir -p ${QUASAR_PROJECT_BASE_DIRECTORY};
 cd ${QUASAR_PROJECT_BASE_DIRECTORY};
+mkdir -p ./logs;
 mkdir -p ./all_scripts;
 mkdir -p ./configurations;
 cd ./all_scripts;
