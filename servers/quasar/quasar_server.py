@@ -30,6 +30,10 @@ class QuasarServer(object):
 		"""Performs the initial connection."""
 		self._entity_server_connection.attempt_connection()
 
+	def ping(self):
+		"""Performs an alive test."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_PING)
+
 	def update_entity(self, username, entity_data):
 		"""Updates an entity for the provided entity owner."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY, username + '|' + str(entity_data))

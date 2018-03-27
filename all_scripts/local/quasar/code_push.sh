@@ -5,7 +5,7 @@
 # / _` |__  |\ | |__  |__)  /\   |  |  /  \ |\ |    |\ | /  \  |  |__  /__` 
 # \__> |___ | \| |___ |  \ /~~\  |  |  \__/ | \|    | \| \__/  |  |___ .__/ 
 # ----------------------------------------------------------------------------
-# LAST_GENERATED : {3.26.2018}
+# LAST_GENERATED : {3.27.2018}
 
 # ----------------------------------------------------------------------------
 #          __   __        __                  __   __   __  ___  __  
@@ -71,8 +71,17 @@ else
 
     # Quasar server + database.
     ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+# Update the sever code.
 ${UPDATE_SERVER_CODE_SERVER};
+# Make sure Pymongo is running.
 ${HEALTH_CHECK_SERVER};
+# Terminate both the quasar and entity server.
+${QUASAR_TERMINATE_SERVER};
+${ENTITY_TERMINATE_SERVER};
+# Run (in background) both the quasar and entity server.
+#{ENTITY_RUN_IN_BACKGROUND_SERVER};
+sleep 1;
+${QUASAR_RUN_IN_BACKGROUND_SERVER};
 HERE
 
 	# Now restart the Quasar server + ensure that it is running.

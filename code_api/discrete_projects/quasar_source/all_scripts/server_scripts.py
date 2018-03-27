@@ -62,8 +62,6 @@ PYMONGO_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} mongod`
 if [ ${PYMONGO_PID} -eq -1 ]; then
 	sudo service mongod start
 fi
-
-HERE
 '''
 	code = code.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)
 	code = code.replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)

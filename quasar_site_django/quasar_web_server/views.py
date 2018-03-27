@@ -8,7 +8,6 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from servers.quasar import quasar_server as qs
 from django.http import JsonResponse
 from entities import base_entity as be
 from servers import utility_servers as us
@@ -22,8 +21,13 @@ TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.min.html'
 
 
 # Global server.
-quasar_server = qs.QuasarServer()
-quasar_server.connect()
+quasar_server = None
+
+
+def set_quasar_server_instance(qs):
+    """Sets the quasar server instance."""
+    global quasar_server
+    quasar_server = qs
 
 
 def get_client_ip(request):
@@ -96,6 +100,17 @@ def qdict_to_dict(qdict):
     of all values is stored at the field's key.
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
+
+
+@csrf_exempt
+def GET_status_ping(request):
+    """Used for an alive check."""
+    global quasar_server
+    message = quasar_server.ping()
+    success = us.is_success_message(message)
+    if success:
+        return HttpResponse('Alive!')
+    return HttpResponse('Error response from entity server : {' + str(message) + '}')
 
 '''     __                   __   __                         __   __
    /\  |  \  |\/| | |\ |    /  ` /  \  |\/|  |\/|  /\  |\ | |  \ /__`

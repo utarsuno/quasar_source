@@ -18,6 +18,17 @@ from django.conf.urls import url
 
 from quasar_site_django.quasar_web_server import views as v
 
+
+#####
+# As urls is imported only once the server connection will be made here.
+from servers.quasar import quasar_server as qs
+quasar_server = qs.QuasarServer()
+quasar_server.connect()
+v.set_quasar_server_instance(quasar_server)
+
+#####
+
+
 # UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
 POST_URL_DELETE_ENTITY         = r'delete_entity'
 POST_URL_SAVE_ENTITY           = r'save_entity'
@@ -42,7 +53,7 @@ urlpatterns = [
     url(POST_URL_SUDO_COMMAND         , v.POST_sudo_command),
     url(POST_URL_GET_SHARED_WORLDS    , v.POST_get_shared_worlds),
 
-    url(POST_URL_STATUS_PING, v.POST_status_ping),
+    url(POST_URL_STATUS_PING, v.GET_status_ping),
 
     url(r'dev', v.GET_quasar_dev),
     url(r''   , v.GET_quasar_prod),

@@ -107,6 +107,8 @@ class EntityServer(object):
 
 			if command == us.SERVER_COMMAND_CREATE_ENTITY_OWNER:
 				self._host_server.send_reply(self._create_entity_owner(data))
+			elif command == us.SERVER_COMMAND_PING:
+				self._host_server.send_reply(us.SUCCESS_MESSAGE)
 			elif command == us.SERVER_COMMAND_IS_LOGIN_INFORMATION_VALID:
 				cleaned_data = data.split('|')
 				self._host_server.send_reply(self._is_login_info_valid(cleaned_data[0], cleaned_data[1]))
