@@ -29,7 +29,7 @@ if __name__ == '__main__':
 			stime = content[4]
 			tty   = content[5]
 			time  = content[6]
-			cmd   = content[6:]
+			cmd   = content[7:]
 
 			print(pid)
 			for command in cmd:
