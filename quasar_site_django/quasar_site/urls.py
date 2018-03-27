@@ -21,6 +21,7 @@ from quasar_site_django.quasar_web_server import views as v
 
 #####
 # As urls is imported only once the server connection will be made here.
+
 from servers.quasar import quasar_server as qs
 quasar_server = qs.QuasarServer()
 quasar_server.connect()
