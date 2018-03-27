@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
 	output = subprocess.check_output(['ps', '-edaf']).decode('utf-8').split('\n')
 	for l in output:
-		if 'is_program_running.py' not in l:
+		if 'is_program_running.py' not in l and len(l) > 0:
 			content = re.findall(r'\S+', l)
 
 			uid   = content[0]
