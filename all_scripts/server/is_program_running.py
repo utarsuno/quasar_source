@@ -37,8 +37,7 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 
 def run_process_finder():
 	"""Utility function."""
-	output = subprocess.check_output(['ps', '-edaf'])
-	return output
+	return subprocess.check_output(['ps', '-edaf']).decode('utf-8').split('\n')
 
 
 if __name__ == '__main__':
@@ -50,16 +49,9 @@ if __name__ == '__main__':
 	#output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep'], shell=True).split('\n')
 
 	output = run_process_finder()
-	print(output)
-	exit()
-
-	if len(output) == 0:
-		print('false')
-	else:
-		for l in output:
-			print('LINE{')
-			print(l)
-			print('}')
+	for l in output:
+		print(l)
+	
 
 	#output       = run_bash_command_and_get_output(['top', '-c', '-n', '1', '-b']).split('\n')
 
