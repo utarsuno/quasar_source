@@ -8,6 +8,7 @@ import subprocess
 import argparse
 
 
+'''
 def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 	"""Runs the provided bash command and returns the output.
 	:param bash_command : The bash command to run, as a list of String parameters.
@@ -31,7 +32,16 @@ def run_bash_command_and_get_output(bash_command, shell=False, cwd=None):
 	else:
 		result = subprocess.run(bash_command, stdout=subprocess.PIPE, shell=shell)
 	return result.stdout.decode('utf-8')
+'''
 
+
+def run_process_finder(process_name):
+	"""Utility function."""
+	# Base code from https://stackoverflow.com/questions/13332268/python-subprocess-command-with-pipe
+	ps = subprocess.Popen(('ps', '-edaf'), stdout=subprocess.PIPE)
+	output = subprocess.check_output(('grep', '"' + process_name + '"'), stdin=ps.stdout)
+	ps.wait()
+	return output
 
 if __name__ == '__main__':
 	parser       = argparse.ArgumentParser()
@@ -39,7 +49,11 @@ if __name__ == '__main__':
 	args         = parser.parse_args()
 	service_name = args.service_name
 
-	output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep'], shell=True).split('\n')
+	#output = run_bash_command_and_get_output(['ps', '-edaf', '|', 'grep', '"' + service_name + '"', '|', 'grep', '-v', 'grep'], shell=True).split('\n')
+
+	output = run_process_finder(service_name)
+	print(output)
+	exit()
 
 	if len(output) == 0:
 		print('false')
