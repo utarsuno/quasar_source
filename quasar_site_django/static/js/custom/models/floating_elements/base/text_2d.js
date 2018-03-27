@@ -50,8 +50,10 @@ function Text2D(world, width, text_height, text) {
 
         // Testing transparency fixes.
         this.material = new THREE.MeshBasicMaterial({
-            map : this.dynamic_texture.texture, depthTest : false, depthWrite: false
+            map : this.dynamic_texture.texture
         });
+
+        // depthTest : false, depthWrite: false
 
         this.material.transparent = true;
         // TODO : DoubleSide is temporary

@@ -26,7 +26,11 @@ TextureManager.prototype = {
 
         for (var t = 0; t < this.sky_box_material.length; t++) {
             // depthWrite: false, depthTest: false
-            this.sky_box_material[t] = new THREE.MeshBasicMaterial({map: this.sky_box_material[t], side: THREE.DoubleSide, transparent: true, opacity: SKYBOX_DEFAULT_OPACITY});
+
+            //depthTest : false, depthWrite: false
+
+            this.sky_box_material[t] = new THREE.MeshBasicMaterial({map: this.sky_box_material[t], side: THREE.DoubleSide, transparent: true, opacity: 0.75, depthTest : false, depthWrite: false});
+            // this.sky_box_material[t] = new THREE.MeshBasicMaterial({map: this.sky_box_material[t], side: THREE.DoubleSide, transparent: true, opacity: 0.75});
         }
     },
 
