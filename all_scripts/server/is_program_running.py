@@ -39,10 +39,10 @@ def run_process_finder(process_name):
 	"""Utility function."""
 	# Base code from https://stackoverflow.com/questions/13332268/python-subprocess-command-with-pipe
 	ps = subprocess.Popen(('ps', '-A'), stdout=subprocess.PIPE)
-	output = subprocess.check_output(('grep', process_name), stdin=ps.stdout)
+	output = subprocess.check_output(('grep', '"' + process_name + '"'), stdin=ps.stdout)
 	ps.wait()
 	return output
-	
+
 
 if __name__ == '__main__':
 	parser       = argparse.ArgumentParser()
