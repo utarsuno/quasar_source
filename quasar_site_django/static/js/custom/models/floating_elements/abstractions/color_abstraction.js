@@ -38,21 +38,20 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
         }
     };
 
-
     this.set_current_background_color = function(color, refresh) {
-
+        this.current_background_color = color;
     };
 
     this.set_default_background_color = function(color, refresh) {
-
+        this.default_background_color = color;
     };
 
     this.set_current_foreground_color = function(color, refresh) {
-
+        this.current_foreground_color = color;
     };
 
     this.set_default_foreground_color = function(color, refresh) {
-
+        this.default_foreground_color = color;
     };
 
 }

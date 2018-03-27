@@ -18,7 +18,8 @@ function Text2D(world, width, text_height, text) {
         if (this.centered) {
             x_offset = this.texture_width / 2 - this._get_text_length() / 2;
         }
-        this.dynamic_texture.clear(this.get_current_background_color()).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
+        this.dynamic_texture.clear().drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
+        //this.dynamic_texture.clear(this.get_current_background_color()).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
         //this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color);
         this.dynamic_texture.needsUpdate = true;
     };
