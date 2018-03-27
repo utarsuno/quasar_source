@@ -87,8 +87,7 @@ disown;
 HERE
 
 	# Now restart the Quasar server + ensure that it is running.
-	#${PATH_TO_LOCAL_PYTHON3} ${PATH_TO_RESTART_QUASAR_SERVER}
-
+	${PATH_TO_LOCAL_PYTHON3} ${CLIENT_SIDE_SERVER_HEALTH_CHECK}
 fi
 
 
