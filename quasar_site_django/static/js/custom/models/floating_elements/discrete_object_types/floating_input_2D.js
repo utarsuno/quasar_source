@@ -36,10 +36,8 @@ FloatingInput2D.prototype = {
     // TODO : Reformat engage / disengage logic.
     state_change_engage: function(being_engaged_with) {
         if (being_engaged_with) {
-            //if (this.type !== TYPE_BUTTON && this.type !== TYPE_CHECK_BOX) {
-            //    CURRENT_PLAYER.set_state(PLAYER_STATE_ENGAGED);
+            CURRENT_PLAYER.set_state(PLAYER_STATE_ENGAGED);
             MANAGER_RENDERER.outline_glow.set_to_engage_color();
-            //}
         } else {
             MANAGER_RENDERER.outline_glow.set_to_hover_color();
         }
