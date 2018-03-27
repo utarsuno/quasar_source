@@ -3,6 +3,28 @@
 """This module, output_coloring.py, is an abstraction to providing color and other syntax to debug/output statements."""
 
 from lazyme import color_print
+from code_api.code_abstraction.ascii_comments import _get_ascii_comment
+
+
+_COLOR_YELLOW = 'yellow'
+_COLOR_RED    = 'red'
+
+
+def _print_ascii(text, color):
+	"""Utility function."""
+	t = _get_ascii_comment(text)
+	for l in t:
+		color_print(l, color=color, bold=True)
+
+
+def print_ascii_yellow(text):
+	"""Prints a green ascii comment."""
+	_print_ascii(text, _COLOR_YELLOW)
+
+
+def print_ascii_red(text):
+	"""Prints a red ascii comment."""
+	_print_ascii(text, _COLOR_RED)
 
 
 def print_data_with_red_dashes_at_start(text):

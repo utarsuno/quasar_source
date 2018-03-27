@@ -29,7 +29,6 @@ def load_code_push():
 	s.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
 	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_PROJECT_SETUP)
 	s.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
-	#s.add_safety_check_for_script_arguments(['commit_message', 'ensure_quasar_is_running'])
 	s.add_safety_check_for_script_arguments(['commit_message'])
 	s.set_main_code(CodeChunk('''
 if output=$(git status --porcelain) && [ -z "$output" ]; then
@@ -67,8 +66,7 @@ disown;
 HERE
 
 	# Now restart the Quasar server + ensure that it is running.
-	#${PATH_TO_LOCAL_PYTHON3} ${PATH_TO_RESTART_QUASAR_SERVER}
-
+	${PATH_TO_LOCAL_PYTHON3} ${CLIENT_SIDE_SERVER_HEALTH_CHECK}
 fi
 '''))
 	return s

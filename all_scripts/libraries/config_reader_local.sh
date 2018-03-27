@@ -35,7 +35,6 @@ function set_variables_for_client_side {
 function set_variables_for_quasar_maintenance {
     PATH_TO_QUASAR_MAINTENANCE=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_quasar_maintenance_script)
     QUASAR_MAINTENANCE_FLAG_CREATE_PRODUCTION=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance flag_create_production)
-    PATH_TO_LOCAL_PYTHON3=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_local_python3)
     PATH_TO_RESTART_QUASAR_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar_maintenance path_to_restart_quasar_server)
 }
 
@@ -67,6 +66,8 @@ function set_variables_for_quasar_project_setup {
     SERVER_LOGS=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar server_logs)
 
     SERVER_SIDE_IS_PROGRAM_RUNNING=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_is_program_running)
+
+    CLIENT_SIDE_SERVER_HEALTH_CHECK=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar client_side_server_health_check)
 
     HEALTH_CHECK_SERVER=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_server_health_check)
     HEALTH_CHECK_LOCAL=$(python3 ${PATH_TO_INI_FILE_READER} ${PATH_TO_CONFIG_FILE} quasar path_health_check)

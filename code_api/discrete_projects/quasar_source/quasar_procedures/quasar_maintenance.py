@@ -102,6 +102,7 @@ class CodeProjectMaintainer(object):
 args = sys.argv[1:]
 if len(args) > 0:
 	if args[0] == 'create_production':
+		oc.print_ascii_yellow('building quasar')
 		quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
 		quasar_project_maintainer.run_procedure(PROCEDURE_GENERATE_PRODUCTION)
 elif __name__ == '__main__':
