@@ -48,7 +48,7 @@ var DRAG_AND_DROP = new DragNDrop();
 // Handles cookies.
 MANAGER_COOKIES   = Cookies.noConflict();
 // Provides utility functions for creating 2D Texts.
-MANAGER_TEXT_2D   = new Text2DHelper();
+MANAGER_TEXT_2D   = new Text2DUtilities();
 
 /*     __   __        __                           __   ___  __   __
  |  | /  \ |__) |    |  \     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
