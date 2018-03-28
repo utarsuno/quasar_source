@@ -17,6 +17,11 @@ LoginWorld.prototype = {
     custom_world_enter: function() {
         this.quasar_source_title.refresh_position_and_look_at();
         this.wall_login.refresh_position_and_look_at();
+
+
+        this.temp_input.refresh();
+        this.temp_input.refresh_position_and_look_at();
+
         //this.wall_create_account.refresh_position_and_look_at();
     },
 
@@ -76,11 +81,10 @@ LoginWorld.prototype = {
         row.add_text_3D(HALF, 32, 'Login');
 
         row = this.wall_login.add_row();
-        var temp_input = row.add_input_2D([0, 1], 16);
-        temp_input.add_label_left('username');
+        this.temp_input = row.add_input_2D([0, 1], 16);
+        this.temp_input.add_label_left('username');
         //var temp_label = row.add_text_2D([0, ONE_THIRD], 16, 'username');
 
-        temp_input.refresh();
         //temp_label.refresh();
 
         this.wall_login.make_base_wall_invisible();
