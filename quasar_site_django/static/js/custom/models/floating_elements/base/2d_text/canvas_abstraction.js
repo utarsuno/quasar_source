@@ -10,7 +10,7 @@ function CanvasAbstraction(width, height) {
 CanvasAbstraction.prototype = {
     __init__: function(width, height) {
         this.width     = get_nearest_power_of_two_for_number(width  * 2);
-        this.height    = get_nearest_power_of_two_for_number(height * 2);
+        this.set_height(height);
 
         this.canvas        = document.createElement('canvas');
         this.canvas.width  = this.width;
@@ -18,11 +18,11 @@ CanvasAbstraction.prototype = {
         this.context       = this.canvas.getContext('2d');
     },
 
-    // TODO : Add font options!
-    set_font: function(height) {
-        if (is_defined(height)) {
-            this.height = get_nearest_power_of_two_for_number(height * 2);
-        }
+    set_height: function(height) {
+        this.height = get_nearest_power_of_two_for_number(height * 2);
+    },
+
+    set_font: function() {
         this.font_size    = int(this.height * _SMUDGE_FACTOR);
         this.font         = str(this.font_size) + 'px Arial';
         this.context.font = this.font;
@@ -30,12 +30,8 @@ CanvasAbstraction.prototype = {
 
     initialize: function() {
         this.set_font();
-
         this.texture = new THREE.Texture(this.canvas);
         this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
-        this.material = new THREE.MeshBasicMaterial({
-            map : this.texture, transparent: true, side: THREE.FrontSide
-        });
     },
 
     render: function(background_color, foreground_color, center_text, text) {
@@ -50,7 +46,7 @@ CanvasAbstraction.prototype = {
         this.texture.needsUpdate = true;
     },
 
-    get_text_width: function(text) {
+    get_text_width_for_texture: function(text) {
         return this.context.measureText(text).width;
     }
 };
