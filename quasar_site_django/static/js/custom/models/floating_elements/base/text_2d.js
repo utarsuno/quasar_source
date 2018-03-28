@@ -1,10 +1,9 @@
 'use strict';
 
-const TEMP_SMUDGE_FACTOR = 0.75;
-
 const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .25)';
 const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .25)';
 const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .25)';
+
 
 function Text2D(world, width, height, text) {
 
@@ -12,75 +11,31 @@ function Text2D(world, width, height, text) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
+    this.canvas = new CanvasAbstraction(width, height);
+
     this.needs_hex_colors = true;
 
     this.width = width;
     this.height = height;
 
-    this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
-    this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
-
-    this.font_size = int(this.texture_height * TEMP_SMUDGE_FACTOR);
-    l('Width{' + width + '} -- Height{' + height + '}');
-    l('TextureWidth{' + this.texture_width + '} -- TextureHeight{' + this.texture_height + '}');
-    l('FontSize{' + this.font_size + '}');
-
     this.refresh = function() {
-        if (this.background_is_transparent) {
-            this.context.fillStyle = this.get_current_foreground_color();
-            this.context.clearRect(0, 0, this.texture_width, this.texture_height);
-            this.context.fillText(this.text, 0, this.font_size);
-        } else {
-
-            // TEMPORARY
-            this.context.fillStyle = this.get_current_foreground_color();
-            this.context.clearRect(0, 0, this.texture_width, this.texture_height);
-            this.context.fillText(this.text, 0, this.font_size);
-        }
-        this.texture.needsUpdate = true;
+        this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), false, this.text);
         this.material.needsUpdate = true;
-
-        //
-
-        /*
-        var x_offset = 0;
-        if (this.centered) {
-            x_offset = this.texture_width / 2 - this._get_text_length() / 2;
-        }
-        this.dynamic_texture.clear('rgba(0, 0, 0, 0');
-        this.dynamic_texture.clear(this.get_current_background_color()).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
-        //this.dynamic_texture.clear(this.get_current_background_color()).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
-        //this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color);
-        this.dynamic_texture.needsUpdate = true;
-        */
     };
 
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
-        this._create_canvas();
+        this.canvas.initialize();
+        this.create_base_material();
         this.create_base_mesh();
     };
 
-    this._create_canvas = function() {
-        this.canvas = document.createElement('canvas');
-        this.canvas.width = this.texture_width;
-        this.canvas.height = this.texture_height;
-        this.context = this.canvas.getContext('2d');
-        this.texture = new THREE.Texture(this.canvas);
-
-        if (this.bold) {
-            this.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
-        } else {
-            this.context.font = str(this.font_size) + 'px Arial';
-        }
-        this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
-
+    this.create_base_material = function() {
         this.material = new THREE.MeshBasicMaterial({
-            map : this.texture
+            map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         });
-
         this.material.transparent = true;
         this.material.side = THREE.FrontSide;
     };
@@ -89,41 +44,5 @@ function Text2D(world, width, height, text) {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
-    };
-
-    /*
-    this.create_base_dynamic_texture = function() {
-        //this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
-        //this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
-
-        //this.font_size = this.texture_height;
-        this.font_size = this.height;
-
-        //this.dynamic_texture = new THREEx.DynamicTexture(this.texture_width, this.texture_height);
-
-        /*
-        if (this.bold) {
-            this.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
-        } else {
-            this.context.font = str(this.font_size) + 'px Arial';
-        }
-        */
-    /*
-        this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
-
-        this.material = new THREE.MeshBasicMaterial({
-            map : this.dynamic_texture.texture
-        });
-
-        this.material.transparent = true;
-        this.material.side = THREE.FrontSide;
-    };
-    */
-
-    /*__   ___ ___ ___  ___  __   __
-     / _` |__   |   |  |__  |__) /__`
-     \__> |___  |   |  |___ |  \ .__/ */
-    this._get_text_length = function() {
-        return this.context.measureText(this.text).width;
     };
 }

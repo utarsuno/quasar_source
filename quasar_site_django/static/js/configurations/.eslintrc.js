@@ -136,6 +136,7 @@ module.exports = {
         "MANAGER_COOKIES"        : true,
         "MANAGER_AUDIO"          : true,
         "MANAGER_TEXTURE"        : true,
+        "MANAGER_TEXT_2D"        : true,
         "MANAGER_WORLD"          : true,
         "MANAGER_ENTITY"         : true,
         "MANAGER_MULTIPLAYER"    : true,
@@ -146,6 +147,7 @@ module.exports = {
         "MANAGER_DATA_DISPLAY"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
+        "Text2DUtilities"      : false,
         "DynamicContentManager": false,
         "CreatedWorldsManager" : false,
         "WorldManager"         : false,
@@ -157,6 +159,8 @@ module.exports = {
         "PointerLockManager"   : false,
         "DataDisplay"          : false,
         "LoadingManager"       : false,
+
+        "CanvasAbstraction": false,
 
         "EntityChangedNotifier": false,
 
