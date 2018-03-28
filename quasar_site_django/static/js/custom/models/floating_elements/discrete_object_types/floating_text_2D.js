@@ -13,13 +13,13 @@ FloatingText2D.prototype = {
         //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         //this.set_default_foreground_color(COLOR_TEXT_CONSTANT, false);
 
-        this.override_background_color = 'rgba(0, 0, 0, 0';
+        //this.override_background_color = 'rgba(0, 0, 0, 0';
+        this.background_is_transparent = true;
 
         this.maintain_engage_when_tabbed_to = false;
         this.engable = false;
 
-        this.create_base_dynamic_texture();
-        this.create_base_mesh();
+        this.initialize();
     }
 
 };

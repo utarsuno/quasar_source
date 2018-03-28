@@ -23,8 +23,9 @@ FloatingInput2D.prototype = {
 
         this.world.interactive_objects.push(this);
 
-        this.create_base_dynamic_texture();
-        this.create_base_mesh();
+        this.initialize();
+        //this.create_base_dynamic_texture();
+        //this.create_base_mesh();
     },
 
     /* __  ___      ___  ___     __                  __   ___  __
