@@ -63,7 +63,7 @@ FloatingRow.prototype = {
         floating_element.set_attachment_depth_offset(1);
         // TODO : Investigate this? Seems like it could be heavily optimized.
         //floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
-        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start);
+        floating_element.set_attachment_horizontal_offset(null, x_start);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
         floating_element.attach_to(this.parent_wall);
