@@ -20,7 +20,10 @@ function Text2D(world, width, height, text) {
     this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
     this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
 
-    this.font_size = this.texture_height;
+    this.font_size = int(this.height * TEMP_SMUDGE_FACTOR);
+    l('Width{' + width + '} -- Height{' + height + '}');
+    l('TextureWidth{' + this.texture_width + '} -- TextureHeight{' + this.texture_height + '}');
+    l('FontSize{' + this.font_size + '}');
 
     this.refresh = function() {
         if (this.background_is_transparent) {
@@ -28,7 +31,7 @@ function Text2D(world, width, height, text) {
             this.context.clearRect(0, 0, this.texture_width, this.texture_height);
             this.context.fillText(this.text, 0, this.font_size);
         } else {
-            
+
             // TEMPORARY
             this.context.fillStyle = this.get_current_foreground_color();
             this.context.clearRect(0, 0, this.texture_width, this.texture_height);
