@@ -30,6 +30,7 @@ function Text2D(world, width, height, text) {
         this.canvas.initialize();
         this.create_base_material();
         this.create_base_mesh();
+        this.refresh();
     };
 
     this.create_base_material = function() {

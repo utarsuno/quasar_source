@@ -19,7 +19,7 @@ LoginWorld.prototype = {
         this.wall_login.refresh_position_and_look_at();
 
 
-        this.temp_input.refresh();
+        //this.temp_input.refresh();
         this.temp_input.refresh_position_and_look_at();
 
         //this.wall_create_account.refresh_position_and_look_at();
