@@ -36,6 +36,9 @@ FloatingRow.prototype = {
     add_text_3D: function(x_offset, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
         var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
+        if (x_offset > 0) {
+            x_offset -= total_percentage_of_parent_width / 2;
+        }
         return this.add_element(x_offset, total_percentage_of_parent_width, floating_text_3D);
     },
 

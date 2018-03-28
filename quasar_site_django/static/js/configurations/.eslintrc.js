@@ -71,13 +71,15 @@ module.exports = {
         "FloatingPicture": true,
 
         "Text2D"         : false,
+        "Text3D"         : false,
         "FloatingText2D" : false,
         "FloatingText3D" : false,
         "FloatingElement": false,
         "TextAbstraction": false,
         "TextureManager" : false,
-        "FloatingText3D" : false,
         "FloatingIcon"   : false,
+        "FloatingInput2D": false,
+        "FloatingInput3D": false,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
