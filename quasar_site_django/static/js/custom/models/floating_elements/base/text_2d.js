@@ -71,7 +71,7 @@ function Text2D(world, width, text_height, text) {
         this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
 
         this.material = new THREE.MeshBasicMaterial({
-            map : this.dynamic_texture.texture
+            map : this.texture
         });
 
         this.material.transparent = true;
