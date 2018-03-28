@@ -9,7 +9,7 @@ FloatingText2D.prototype = {
     __init__: function(world, height, text) {
 
         // Get the width needed.
-        var width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text);
+        var width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
 
         // Inherit.
         Text2D.call(this, world, width, height, text);
