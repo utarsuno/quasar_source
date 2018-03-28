@@ -10,6 +10,8 @@ FloatingText2D.prototype = {
 
         // Get the width needed.
         var width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
+        l('The width needed is :');
+        l(width);
 
         // Inherit.
         Text2D.call(this, world, width, height, text);
