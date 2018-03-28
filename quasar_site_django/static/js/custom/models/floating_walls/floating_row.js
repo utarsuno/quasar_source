@@ -37,13 +37,14 @@ FloatingRow.prototype = {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
         var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
 
-        x_offset -= 1;
-
         l('x_offset before {' + x_offset + '}');
         if (x_offset > 0) {
             x_offset -= total_percentage_of_parent_width / 2;
         }
         l('x_offset after {' + x_offset + '}');
+
+        x_offset -= 1;
+
         return this.add_element(x_offset, floating_text_3D);
     },
 
