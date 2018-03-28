@@ -1,6 +1,6 @@
 'use strict';
 
-const _SMUDGE_FACTOR = 0.75;
+const _SMUDGE_FACTOR = 0.85;
 
 function CanvasAbstraction(width, height) {
     this.__init__(width, height);
