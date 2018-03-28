@@ -1,9 +1,5 @@
 'use strict';
 
-const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .25)';
-const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .25)';
-const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .25)';
-
 
 function Text2D(world, width, height, text) {
 

@@ -159,6 +159,11 @@ const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
 const COLOR_RED          = new THREE.Color('#ff5e33');
 const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
+const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';
+const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .25)';
+const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .25)';
+const FLOATING_TEXT_BACKGROUND_SUCESS      = 'rgba(30, 63, 30, .25)';
+
 // TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;
 const COLOR_HEX_INDEX               = 0;

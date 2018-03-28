@@ -68,9 +68,16 @@ module.exports = {
         "FloatingRow"    : true,
         "FloatingWall"   : true,
         "FloatingText"   : true,
-        "Floating2DText" : true,
-        "Floating3DText" : true,
         "FloatingPicture": true,
+
+        "Text2D"         : false,
+        "FloatingText2D" : false,
+        "FloatingText3D" : false,
+        "FloatingElement": false,
+        "TextAbstraction": false,
+        "TextureManager" : false,
+        "FloatingText3D" : false,
+        "FloatingIcon"   : false,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
@@ -417,6 +424,12 @@ module.exports = {
         "get_color_range_list": false,
 
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
+
+        "FLOATING_TEXT_BACKGROUND_TRANSPARENT": false,
+        "FLOATING_TEXT_BACKGROUND_DEFAULT"    : false,
+        "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
+        "FLOATING_TEXT_BACKGROUND_SUCESS"     : false,
+
         "COLOR_STRING_INDEX"           : false,
         "COLOR_HEX_INDEX"              : false,
         "COLOR_HIGHLIGHT"              : false,
