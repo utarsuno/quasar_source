@@ -1,5 +1,11 @@
 'use strict';
 
+/*
+const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .25)';
+const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .25)';
+const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .25)';
+ */
+
 function FloatingInput2D(world, width, text_height, text) {
     this.__init__(world, width, text_height, text);
 }
@@ -13,6 +19,7 @@ FloatingInput2D.prototype = {
         //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         //this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         this.world.interactive_objects.push(this);
 
