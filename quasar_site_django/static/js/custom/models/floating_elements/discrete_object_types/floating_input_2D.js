@@ -19,7 +19,7 @@ FloatingInput2D.prototype = {
         //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         //this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
-        this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
+        //this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         this.world.interactive_objects.push(this);
 

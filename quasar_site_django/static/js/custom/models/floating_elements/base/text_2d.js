@@ -75,7 +75,7 @@ function Text2D(world, width, text_height, text) {
             map : this.texture
         });
 
-        this.material.transparent = true;
+        //this.material.transparent = true;
         this.material.side = THREE.FrontSide;
     };
 
