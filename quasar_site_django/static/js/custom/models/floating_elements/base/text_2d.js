@@ -20,7 +20,7 @@ function Text2D(world, width, height, text) {
     this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
     this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
 
-    this.font_size = int(this.height * TEMP_SMUDGE_FACTOR);
+    this.font_size = int(this.texture_height * TEMP_SMUDGE_FACTOR);
     l('Width{' + width + '} -- Height{' + height + '}');
     l('TextureWidth{' + this.texture_width + '} -- TextureHeight{' + this.texture_height + '}');
     l('FontSize{' + this.font_size + '}');
