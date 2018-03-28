@@ -30,24 +30,28 @@ FloatingRow.prototype = {
     add_icon: function(x_start_n_stop, icon_type) {
         var w = this._get_width_needed(x_start_n_stop);
         var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);
-        return this.add_element(x_start_n_stop[0], w[0], floating_icon);
+        return this.add_element(x_start_n_stop[0], floating_icon);
     },
 
     add_text_3D: function(x_offset, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
         var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
+
+        x_offset -= 1;
+
         l('x_offset before {' + x_offset + '}');
         if (x_offset > 0) {
-            x_offset -= total_percentage_of_parent_width;
+            x_offset -= total_percentage_of_parent_width / 2;
         }
         l('x_offset after {' + x_offset + '}');
-        return this.add_element(x_offset, total_percentage_of_parent_width, floating_text_3D);
+        return this.add_element(x_offset, floating_text_3D);
     },
 
     add_text_3D2: function(x_offset, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
         var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
-        return this.add_element(x_offset, total_percentage_of_parent_width, floating_text_3D);
+        x_offset -= 1;
+        return this.add_element(x_offset, floating_text_3D);
     },
 
     add_input_2D: function(x_start_n_stop, text_height, text) {
@@ -56,10 +60,10 @@ FloatingRow.prototype = {
         }
         var w = this._get_width_needed(x_start_n_stop);
         var floating_input_2D = new FloatingInput2D(this.world, w[1], text_height, text);
-        return this.add_element(x_start_n_stop[0], w[0], floating_input_2D);
+        return this.add_element(x_start_n_stop[0], floating_input_2D);
     },
 
-    add_element: function(x_start, total_percentage_of_parent_width, floating_element) {
+    add_element: function(x_start, floating_element) {
         floating_element.set_attachment_depth_offset(1);
         // TODO : Investigate this? Seems like it could be heavily optimized.
         //floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
