@@ -6,7 +6,7 @@ const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .25)';
 const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .25)';
 const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .25)';
 
-function Text2D(world, width, text_height, text) {
+function Text2D(world, width, height, text) {
 
     // Inherit.
     FloatingElement.call(this, world);
@@ -14,23 +14,25 @@ function Text2D(world, width, text_height, text) {
 
     this.needs_hex_colors = true;
 
-    this.height = text_height;
     this.width = width;
+    this.height = height;
 
-    this.width = get_nearest_power_of_two_for_number(this.width);
-    this.height = get_nearest_power_of_two_for_number(this.height);
+    this.texture_width = get_nearest_power_of_two_for_number(this.width * 2);
+    this.texture_height = get_nearest_power_of_two_for_number(this.height * 2);
 
+    this.font_size = this.texture_height;
 
     this.refresh = function() {
         if (this.background_is_transparent) {
             this.context.fillStyle = this.get_current_foreground_color();
-            this.context.clearRect(0, 0, this.width, this.height);
-            this.context.fillText(this.text, 0, this.height);
+            this.context.clearRect(0, 0, this.texture_width, this.texture_height);
+            this.context.fillText(this.text, 0, this.font_size);
         } else {
+            
             // TEMPORARY
             this.context.fillStyle = this.get_current_foreground_color();
-            this.context.clearRect(0, 0, this.width, this.height);
-            this.context.fillText(this.text, 0, this.height);
+            this.context.clearRect(0, 0, this.texture_width, this.texture_height);
+            this.context.fillText(this.text, 0, this.font_size);
         }
         this.texture.needsUpdate = true;
         this.material.needsUpdate = true;
@@ -63,7 +65,6 @@ function Text2D(world, width, text_height, text) {
         this.context = this.canvas.getContext('2d');
         this.texture = new THREE.Texture(this.canvas);
 
-        this.font_size = this.height;
         if (this.bold) {
             this.context.font = 'Bold ' + str(this.font_size) + 'px Arial';
         } else {

@@ -135,7 +135,7 @@ RendererManager.prototype = {
 
         GUI_TYPING_INTERFACE.window_was_resized();
 
-        this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
+        //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
         this.effect_composer.setSize(this.window_width, this.window_height);
         this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
     },

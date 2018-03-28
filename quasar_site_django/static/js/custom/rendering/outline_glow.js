@@ -12,6 +12,7 @@ OutlineGlow.prototype = {
         this.outline_pass.edgeGlow      = 0.2;
         this.outline_pass.edgeThickness = 1.5;
         this.outline_pass.pulsePeriod   = 5.0;
+        this.outline_pass.usePatternTexture = false;
 
         this.hover_color = new THREE.Color(0x88ecff);
         this.engage_color = new THREE.Color(0x28ff8e);
