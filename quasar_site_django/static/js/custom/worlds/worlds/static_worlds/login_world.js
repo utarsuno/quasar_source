@@ -20,7 +20,7 @@ LoginWorld.prototype = {
 
 
         //this.temp_input.refresh();
-        this.temp_input.refresh_position_and_look_at();
+        //this.temp_input.refresh_position_and_look_at();
 
         //this.wall_create_account.refresh_position_and_look_at();
     },
@@ -74,7 +74,7 @@ LoginWorld.prototype = {
     },
 
     _create_login_wall: function() {
-        var login_wall_position = new THREE.Vector3(600, 95, 350);
+        var login_wall_position = new THREE.Vector3(600, 300, 350);
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
         var row = this.wall_login.add_row(-1);
@@ -83,9 +83,26 @@ LoginWorld.prototype = {
         row = this.wall_login.add_row();
         this.temp_input = row.add_input_2D([0, 1], 16);
         this.temp_input.add_label_left('username');
-        //var temp_label = row.add_text_2D([0, ONE_THIRD], 16, 'username');
 
-        //temp_label.refresh();
+        row = this.wall_login.add_row();
+        this.temp_input2 = row.add_input_2D([0, 1], 16);
+        this.temp_input2.add_label_left2('username');
+
+        row = this.wall_login.add_row();
+        this.temp_input3 = row.add_input_2D([0, 1], 16);
+        this.temp_input3.add_label_left3('username');
+
+        row = this.wall_login.add_row();
+        this.temp_input4 = row.add_input_2D([0, 1], 16);
+        this.temp_input4.add_label_left4('username');
+
+        row = this.wall_login.add_row();
+        this.temp_input5 = row.add_input_2D([0, 1], 16);
+        this.temp_input5.add_label_left5('username');
+
+        row = this.wall_login.add_row();
+        this.temp_input6 = row.add_input_2D([0, 1], 16);
+        this.temp_input6.add_label_left6('username');
 
         this.wall_login.make_base_wall_invisible();
     }
