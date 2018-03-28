@@ -80,6 +80,9 @@ LoginWorld.prototype = {
         var row = this.wall_login.add_row(-1);
         row.add_text_3D(HALF, 32, 'Login');
 
+        var row = this.wall_login.add_row(-2);
+        row.add_text_3D2(HALF, 32, 'Login');
+
         row = this.wall_login.add_row();
         this.temp_input = row.add_input_2D([0, 1], 16);
         this.temp_input.add_label_left('username');
