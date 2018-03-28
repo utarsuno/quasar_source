@@ -33,6 +33,7 @@ function Text2D(world, width, text_height, text) {
             this.context.fillText(this.text, this.width, this.height);
         }
         this.texture.needsUpdate = true;
+        this.material.needsUpdate = true;
 
         /*
         var x_offset = 0;
