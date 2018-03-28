@@ -104,6 +104,8 @@ LoginWorld.prototype = {
         this.temp_input6 = row.add_input_2D([0, 1], 16);
         this.temp_input6.add_label_left6('username');
 
+        //
+
         this.wall_login.make_base_wall_invisible();
     }
 };
