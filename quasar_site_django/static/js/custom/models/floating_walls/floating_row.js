@@ -48,12 +48,6 @@ FloatingRow.prototype = {
         return this.add_element(x_start_n_stop, w[0], floating_input_2D);
     },
 
-    add_text_2D: function(x_start_n_stop, text_height, text) {
-        var w = this._get_width_needed(x_start_n_stop);
-        var floating_text_2D = new FloatingText2D(this.world, text_height, text);
-        return this.add_element(x_start_n_stop, w[0], floating_text_2D);
-    },
-
     add_element: function(x_start_n_stop, total_percentage_of_parent_width, floating_element) {
         floating_element.set_attachment_depth_offset(1);
         floating_element.set_attachment_horizontal_offset(null, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
