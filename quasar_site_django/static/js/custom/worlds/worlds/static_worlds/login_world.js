@@ -78,10 +78,17 @@ LoginWorld.prototype = {
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
         var row = this.wall_login.add_row(-1);
-        row.add_text_3D(HALF, 32, 'Login');
+        row.add_text_3D(HALF, 32, 'Login', true);
 
         row = this.wall_login.add_row(-2);
-        row.add_text_3D2(HALF, 32, 'Login');
+        row.add_text_3D(HALF, 32, 'Login', false);
+
+        row = this.wall_login.add_row(-3);
+        row.add_text_3D(1, 32, 'Login', true);
+
+        row = this.wall_login.add_row(-4);
+        row.add_text_3D(1, 32, 'Login', false);
+
 
         row = this.wall_login.add_row();
         this.temp_input = row.add_input_2D([0, 1], 16);
