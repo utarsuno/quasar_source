@@ -25,12 +25,12 @@ function Text2D(world, width, text_height, text) {
         if (this.background_is_transparent) {
             this.context.fillStyle = this.get_current_foreground_color();
             this.context.clearRect(0, 0, this.width, this.height);
-            this.context.fillText(this.text, this.width, this.height);
+            this.context.fillText(this.text, 0, this.height);
         } else {
             // TEMPORARY
             this.context.fillStyle = this.get_current_foreground_color();
             this.context.clearRect(0, 0, this.width, this.height);
-            this.context.fillText(this.text, this.width, this.height);
+            this.context.fillText(this.text, 0, this.height);
         }
         this.texture.needsUpdate = true;
         this.material.needsUpdate = true;
