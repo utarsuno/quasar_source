@@ -24,8 +24,8 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
     this.get_current_background_color = function() {
         if (this.needs_hex_colors) {
-            return this.current_background_color.getHex();
-            //return this.current_background_color.getHexString();
+            //return this.current_background_color.getHex();
+            return '#' + this.current_background_color.getHexString();
         } else {
             return this.current_background_color;
         }
@@ -33,8 +33,8 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
     this.get_current_foreground_color = function() {
         if (this.needs_hex_colors) {
-            return this.current_foreground_color.getHex();
-            //return this.current_foreground_color.getHexString();
+            //return this.current_foreground_color.getHex();
+            return '#' + this.current_foreground_color.getHexString();
         } else {
             return this.current_foreground_color;
         }
