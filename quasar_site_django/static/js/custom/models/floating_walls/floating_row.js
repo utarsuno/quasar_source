@@ -38,7 +38,7 @@ FloatingRow.prototype = {
         var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
         l('x_offset before {' + x_offset + '}');
         if (x_offset > 0) {
-            x_offset -= total_percentage_of_parent_width / 2;
+            x_offset -= total_percentage_of_parent_width;
         }
         l('x_offset after {' + x_offset + '}');
         return this.add_element(x_offset, total_percentage_of_parent_width, floating_text_3D);
@@ -62,7 +62,8 @@ FloatingRow.prototype = {
     add_element: function(x_start, total_percentage_of_parent_width, floating_element) {
         floating_element.set_attachment_depth_offset(1);
         // TODO : Investigate this? Seems like it could be heavily optimized.
-        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
+        //floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
+        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
         floating_element.attach_to(this.parent_wall);

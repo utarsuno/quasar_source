@@ -80,7 +80,7 @@ LoginWorld.prototype = {
         var row = this.wall_login.add_row(-1);
         row.add_text_3D(HALF, 32, 'Login');
 
-        var row = this.wall_login.add_row(-2);
+        row = this.wall_login.add_row(-2);
         row.add_text_3D2(HALF, 32, 'Login');
 
         row = this.wall_login.add_row();
@@ -89,6 +89,6 @@ LoginWorld.prototype = {
 
         //
 
-        this.wall_login.make_base_wall_invisible();
+        //this.wall_login.make_base_wall_invisible();
     }
 };
