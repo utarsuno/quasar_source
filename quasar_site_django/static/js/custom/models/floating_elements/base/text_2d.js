@@ -40,6 +40,8 @@ function Text2D(world, width, height, text) {
         this.texture.needsUpdate = true;
         this.material.needsUpdate = true;
 
+        //
+
         /*
         var x_offset = 0;
         if (this.centered) {
