@@ -30,7 +30,7 @@ FloatingRow.prototype = {
     add_icon: function(x_start_n_stop, icon_type) {
         var w = this._get_width_needed(x_start_n_stop);
         var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);
-        return this.add_element(x_start_n_stop, w[0], floating_icon);
+        return this.add_element(x_start_n_stop[0], w[0], floating_icon);
     },
 
     add_text_3D: function(x_offset, text_size, text) {
@@ -50,12 +50,13 @@ FloatingRow.prototype = {
         }
         var w = this._get_width_needed(x_start_n_stop);
         var floating_input_2D = new FloatingInput2D(this.world, w[1], text_height, text);
-        return this.add_element(x_start_n_stop, w[0], floating_input_2D);
+        return this.add_element(x_start_n_stop[0], w[0], floating_input_2D);
     },
 
-    add_element: function(x_start_n_stop, total_percentage_of_parent_width, floating_element) {
+    add_element: function(x_start, total_percentage_of_parent_width, floating_element) {
         floating_element.set_attachment_depth_offset(1);
-        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start_n_stop[0] + total_percentage_of_parent_width / 2);
+        // TODO : Investigate this? Seems like it could be heavily optimized.
+        floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
         floating_element.attach_to(this.parent_wall);
