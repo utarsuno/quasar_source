@@ -2,6 +2,10 @@
 
 const TEMP_SMUDGE_FACTOR = 0.75;
 
+const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .05)';
+const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .05)';
+const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .05)';
+
 function Text2D(world, width, text_height, text) {
 
     // Inherit.
@@ -18,7 +22,7 @@ function Text2D(world, width, text_height, text) {
         if (this.centered) {
             x_offset = this.texture_width / 2 - this._get_text_length() / 2;
         }
-        this.dynamic_texture.clear().drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
+        this.dynamic_texture.clear(FLOATING_TEXT_BACKGROUND_DEFAULT).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
         //this.dynamic_texture.clear(this.get_current_background_color()).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.get_current_foreground_color());
         //this.dynamic_texture.clear(this.current_background_color).drawText(this.text, x_offset, this.font_size * TEMP_SMUDGE_FACTOR, this.current_color);
         this.dynamic_texture.needsUpdate = true;
