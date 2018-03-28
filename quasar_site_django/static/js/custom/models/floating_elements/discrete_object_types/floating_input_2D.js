@@ -30,34 +30,8 @@ FloatingInput2D.prototype = {
 
     add_label_left: function(text) {
         var label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([-label.width, -HALF], null, 0, label);
-    },
-
-    add_label_left2: function(text) {
-        var label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([null, -HALF], null, 0, label);
-    },
-
-    add_label_left3: function(text) {
-        var label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([-label.width, null], null, 0, label);
-    },
-
-    add_label_left4: function(text) {
-        var label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([-(this.width / 2), null], null, 0, label);
-    },
-
-    add_label_left5: function(text) {
-        var label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([-((this.width / 2) + label.width / 2), null], null, 0, label);
-    },
-
-    add_label_left6: function(text) {
-        var label = new FloatingText2D(this.world, this.height, text);
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
     },
-
 
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`

@@ -84,26 +84,6 @@ LoginWorld.prototype = {
         this.temp_input = row.add_input_2D([0, 1], 16);
         this.temp_input.add_label_left('username');
 
-        row = this.wall_login.add_row();
-        this.temp_input2 = row.add_input_2D([0, 1], 16);
-        this.temp_input2.add_label_left2('username');
-
-        row = this.wall_login.add_row();
-        this.temp_input3 = row.add_input_2D([0, 1], 16);
-        this.temp_input3.add_label_left3('username');
-
-        row = this.wall_login.add_row();
-        this.temp_input4 = row.add_input_2D([0, 1], 16);
-        this.temp_input4.add_label_left4('username');
-
-        row = this.wall_login.add_row();
-        this.temp_input5 = row.add_input_2D([0, 1], 16);
-        this.temp_input5.add_label_left5('username');
-
-        row = this.wall_login.add_row();
-        this.temp_input6 = row.add_input_2D([0, 1], 16);
-        this.temp_input6.add_label_left6('username');
-
         //
 
         this.wall_login.make_base_wall_invisible();
