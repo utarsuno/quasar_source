@@ -92,7 +92,7 @@ CanvasAbstraction.prototype = {
             this.context.textAlign = 'center';
             this.context.fillText(text, this.width / 2, int(this.font_size * .9));
         } else {
-            this.texture.scale.x = this.width_ratio;
+            this.texture.repeat(this.width_ratio, 1.0);
             this.context.fillText(text, 0, int(this.font_size * .9));
         }
 
