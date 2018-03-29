@@ -17,12 +17,7 @@ LoginWorld.prototype = {
     custom_world_enter: function() {
         this.quasar_source_title.refresh_position_and_look_at();
         this.wall_login.refresh_position_and_look_at();
-
-
-        //this.temp_input.refresh();
-        //this.temp_input.refresh_position_and_look_at();
-
-        //this.wall_create_account.refresh_position_and_look_at();
+        this.wall_create_account.refresh_position_and_look_at();
     },
 
     custom_world_exit: function() {
