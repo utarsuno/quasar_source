@@ -12,6 +12,8 @@ function Text2D(world, width, height, text, text_properties) {
         this.canvas = new CanvasAbstraction(width, height, null);
     }
 
+    this.initialized = false;
+
     this.needs_hex_colors = true;
 
     this.width = width;
@@ -19,22 +21,22 @@ function Text2D(world, width, height, text, text_properties) {
 
     this.set_text_property_right = function(is_right) {
         this.canvas.text_property_right = is_right;
-        //this.refresh();
+        this.refresh();
     };
 
     this.set_text_property_centered = function (is_centered) {
         this.canvas.text_property_centered = is_centered;
-        //this.refresh();
+        this.refresh();
     };
 
     this.set_text_property_bold = function(is_bold) {
         this.canvas.set_font_property_bold(is_bold);
-        //this.refresh();
+        this.refresh();
     };
 
     this.set_text_property_italic = function(is_italic) {
         this.canvas.set_font_property_italic(is_italic);
-        //this.refresh();
+        this.refresh();
     };
 
     this.refresh = function() {
@@ -49,6 +51,7 @@ function Text2D(world, width, height, text, text_properties) {
         this.canvas.initialize();
         this.create_base_material();
         this.create_base_mesh();
+        this.initialized = true;
         this.refresh();
     };
 
