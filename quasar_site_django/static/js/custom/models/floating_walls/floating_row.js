@@ -58,7 +58,7 @@ FloatingRow.prototype = {
                 x_start -= (floating_element.width / this.parent_wall.width) / 2;
             }
         }
-        
+
         floating_element.set_attachment_horizontal_offset(null, x_start);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 

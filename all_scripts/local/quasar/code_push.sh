@@ -81,7 +81,7 @@ ${ENTITY_TERMINATE_SERVER};
 # Run (in background) both the quasar and entity server.
 ${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
 disown;
-sleep 1;
+sleep 2;
 ${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
 disown;
 HERE
