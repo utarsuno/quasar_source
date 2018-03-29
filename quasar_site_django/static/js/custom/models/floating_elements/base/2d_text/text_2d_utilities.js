@@ -42,9 +42,9 @@ Text2DUtilities.prototype = {
     get_width_of_italic_text_given_bounding_height: function(text, height) {
         var h = get_nearest_power_of_two_for_number(height * 2) * 0.85;
         var ratio = parseFloat(h) / parseFloat(height);
-        this.canvas_italic.set_height(height);
-        this.canvas_italic.update_font();
-        var w = this.canvas_italic.get_text_width_for_texture(text);
+        this.canvas_regular.set_height(height);
+        this.canvas_regular.update_font();
+        var w = this.canvas_regular.get_text_width_for_texture(text);
 
         //l('height{' + height + '}');
         //l('ratio{' + ratio + '}');
