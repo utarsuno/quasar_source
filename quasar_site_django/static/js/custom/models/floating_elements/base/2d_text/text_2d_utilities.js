@@ -1,4 +1,4 @@
-    'use strict';
+'use strict';
 
 function Text2DUtilities() {
     this.__init__();
@@ -60,7 +60,7 @@ Text2DUtilities.prototype = {
         div.style.fontSize = font_size;
         div.style.fontStyle = font_style;
         div.style.visibility = 'hidden';
-
+        document.body.appendChild(div);
         l('THE ACTUAL WIDTH {' + div.offsetWidth + '}');
         l('');
 
