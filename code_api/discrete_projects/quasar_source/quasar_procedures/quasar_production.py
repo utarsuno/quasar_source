@@ -108,7 +108,7 @@ class QuasarProduction(object):
 		"""Utility function."""
 		file_paths = ufo.get_all_file_paths_inside_directory(path)
 		for f in file_paths:
-			if 'quasar_prod?' in f:
+			if 'quasar_prod_v_' in f:
 				if self._upcoming_git_version not in f:
 					ufo.delete_file(f)
 
@@ -145,8 +145,8 @@ class QuasarProduction(object):
 		oc.print_data_with_red_dashes_at_start('compressing html files')
 		html_prod = self._html.get_file_by_name('prod')
 
-		line_matcher = 'js/custom/quasar/quasar_prod?'
-		line_replacement = '<script type="text/javascript" src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar_prod?VERSION.min.js"></script>\n'
+		line_matcher = 'js/custom/quasar/quasar_prod_v_'
+		line_replacement = '<script type="text/javascript" src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar_prod_v_VERSION.min.js"></script>\n'
 		line_replacement = line_replacement.replace('VERSION', self._upcoming_git_version)
 		html_prod.replace_line_from_text_match(line_matcher, line_replacement)
 
@@ -182,7 +182,7 @@ class QuasarProduction(object):
 		combined_lines.insert(0, "'use strict';\n")
 
 		# Now create the combined javascript file.
-		combined_javascript_file = GeneratedJSFile('quasar_prod?' + self._upcoming_git_version, '.js')
+		combined_javascript_file = GeneratedJSFile('quasar_prod_v_' + self._upcoming_git_version, '.js')
 		combined_javascript_file.add_code_section(CodeSection('all_code'))
 		all_code = combined_javascript_file.get_code_section('all_code')
 
