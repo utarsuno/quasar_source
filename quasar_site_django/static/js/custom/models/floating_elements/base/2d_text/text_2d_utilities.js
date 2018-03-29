@@ -51,7 +51,7 @@ Text2DUtilities.prototype = {
         l('w{' + w + '}');
         l('w * ratio{' + (w * ratio) + '}');
 
-        return w;
+        return w / 2;
     },
 
     get_width_of_italic_and_bold_text_given_bounding_height: function(text, height) {
