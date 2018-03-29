@@ -90,7 +90,7 @@ LoginWorld.prototype = {
         input_password.add_label_left('password:');
 
         row = this.wall_login.add_row();
-        var remember_username = row.add_checkbox(0, 16);
+        var remember_username = row.add_checkbox(0, 16, false);
         remember_username.add_label_left('remember username:');
 
 
