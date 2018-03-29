@@ -16,9 +16,9 @@ CanvasAbstraction.prototype = {
         this.width     = get_nearest_power_of_two_for_number(width  * 2);
         this.set_height(height);
 
-        this.text_property_centered = false;
-        this.text_property_bold     = false;
-        this.text_property_italic   = false;
+        this.text_property_centered = null;
+        this.text_property_bold     = null;
+        this.text_property_italic   = null;
 
         this.canvas        = document.createElement('canvas');
         this.canvas.width  = this.width;
@@ -45,11 +45,15 @@ CanvasAbstraction.prototype = {
     update_font: function() {
         this.font_size = int(this.height * _SMUDGE_FACTOR);
         var additional_properties = '';
-        if (this.text_property_italic) {
-            additional_properties += 'italic ';
+        if (is_defined(this.text_property_italic)) {
+            if (this.text_property_italic) {
+                additional_properties += 'italic ';
+            }
         }
-        if (this.text_property_bold) {
-            additional_properties += 'bold ';
+        if (is_defined(this.text_property_bold)) {
+            if (this.text_property_bold) {
+                additional_properties += 'bold ';
+            }
         }
         this.font         = additional_properties + str(this.font_size) + 'px Arial';
         this.context.font = this.font;

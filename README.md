@@ -5,7 +5,7 @@
 ###### March 22nd : Heavy refactorings! TODO list.
 ##### Quasar
 - [ ] Add various graphical improvements such as transparent FloatingWall objects and giving certain 3D texts a black background.
-- [ ] Make certain interactivity more intuitive. Such as adding abstraction to Floating2DInput fields for input state.
+- [X] Make certain interactivity more intuitive. Such as adding abstraction to Floating2DInput fields for input state.
 - [ ] Add a cursor for typing on Floating2DInput fields!
 - [ ] Fix all bugs on the login page.
 - [ ] AJAX requests : add abstraction, add locks to user-state and objects that initiate requests such as buttons.
