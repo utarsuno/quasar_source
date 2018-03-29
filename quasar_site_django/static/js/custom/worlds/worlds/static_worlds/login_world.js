@@ -48,8 +48,6 @@ LoginWorld.prototype = {
          |    /  \ / _` | |\ |    |  |  /\  |    |
          |___ \__/ \__> | | \|    |/\| /~~\ |___ |___ */
 
-
-
         // OLD CODE BELOW
         // OLD CODE BELOW
         // OLD CODE BELOW
