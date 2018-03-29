@@ -12,6 +12,6 @@ SyntaxRuleMaximumLength.prototype = {
     },
 
     check_text: function(text) {
-        return text.length >= this.maximum_length;
+        return text.length < this.maximum_length;
     }
 };

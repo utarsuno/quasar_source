@@ -12,6 +12,6 @@ SyntaxRuleMinimumLength.prototype = {
     },
 
     check_text: function(text) {
-        return text.length <= this.minimum_length;
+        return text.length >= this.minimum_length;
     }
 };
