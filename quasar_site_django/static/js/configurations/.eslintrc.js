@@ -70,15 +70,23 @@ module.exports = {
         "FloatingText"   : true,
         "FloatingPicture": true,
 
-        "TextAbstraction"   : false,
+        "TextAbstraction": false,
+        "ButtonState"    : false,
 
+        //
         "TextSyntax"        : false,
         "TextSyntaxPassword": false,
+        "TextSyntaxUsername": false,
+        "TextSyntaxEmail"   : false,
+
+        "TEXT_SYNTAX_EMAIL"   : false,
+        "TEXT_SYNTAX_PASSWORD": false,
+        "TEXT_SYNTAX_USERNAME": false,
 
         "SyntaxRule"             : false,
         "SyntaxRuleMinimumLength": false,
         "SyntaxRuleMaximumLength": false,
-
+        //
 
         "Text2D"          : false,
         "Text3D"          : false,
@@ -90,6 +98,7 @@ module.exports = {
         "FloatingInput2D" : false,
         "FloatingInput3D" : false,
         "FloatingCheckBox": false,
+        "FloatingButton"  : false,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
@@ -371,14 +380,6 @@ module.exports = {
         "SKYBOX_RIGHT" : true,
         "SKYBOX_TOP"   : true,
         "SKYBOX_BOTTOM": true,
-        // UNIVERSAL_CONSTANTS_END
-
-        "TEXT_SYNTAX_EMAIL"   : false,
-        "TEXT_SYNTAX_PASSWORD": false,
-        // UNIVERSAL_CONSTANTS_START : Text syntax error checks.
-        //"TEXT_SYNTAX_STANDARD_LENGTH": true,
-        //"TEXT_SYNTAX_EMAIL"          : true,
-        //"TEXT_SYNTAX_MATCH_PASSWORDS": true,
         // UNIVERSAL_CONSTANTS_END
 
         "CELL_PHONE_CARRIERS": false,

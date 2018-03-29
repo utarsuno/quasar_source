@@ -28,6 +28,12 @@ FloatingRow.prototype = {
     //return button;
     //},
 
+    add_button: function(x_start_n_stop, text_height, text, engage_function) {
+        var w = this._get_width_needed(x_start_n_stop);
+        var floating_button = new FloatingButton(this.world, w[1], text_height, text, engage_function);
+        return this.add_element(x_start_n_stop[0], floating_button);
+    },
+
     add_checkbox: function(start, size, checked) {
         var floating_checkbox = new FloatingCheckBox(this.world, size, checked);
         var total_percentage_of_parent_width = size / this.parent_wall.width;

@@ -7,13 +7,6 @@ function ColorAbstraction(needs_hex_colors) {
         this.needs_hex_colors = false;
     }
 
-    this.background_is_transparent = false;
-
-    /*
-    const COLOR_RED          = new THREE.Color('#ff5e33');
-const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
-     */
-
     // TEMPORARY VALUES
     this.current_background_color = COLOR_RED;
     this.default_background_color = COLOR_RED;

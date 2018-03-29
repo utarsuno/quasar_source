@@ -9,6 +9,7 @@ FloatingCheckBox.prototype = {
     __init__: function(world, size, checked) {
         // Inherit.
         FloatingElement.call(this, world);
+        this.set_to_clickable();
 
         this.checked = checked;
         if (!is_defined(this.checked)) {
@@ -17,10 +18,6 @@ FloatingCheckBox.prototype = {
 
         this.width = size;
         this.height = size;
-
-        this.world.interactive_objects.push(this);
-        this.engable = false;
-        this.maintain_engage_when_tabbed_to = false;
 
         this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
         this.icon_checked.set_current_foreground_color(COLOR_GREEN, true);

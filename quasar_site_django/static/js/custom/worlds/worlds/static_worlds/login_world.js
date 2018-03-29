@@ -30,6 +30,13 @@ LoginWorld.prototype = {
         //this.wall_create_account.clear_inputs();
     },
 
+    /*     __   __                  __  ___    __
+     |    /  \ / _` | |\ |     /\  /  `  |  | /  \ |\ |
+     |___ \__/ \__> | | \|    /~~\ \__,  |  | \__/ | \| */
+    login_button_pressed: function() {
+        l('TODO : Login action!');
+    },
+
     /*        ___                      __        __
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
@@ -69,12 +76,12 @@ LoginWorld.prototype = {
 
     _create_quasar_title: function() {
         this.quasar_source_title = new FloatingText3D(this, 128, 'Quasar Source');
-        this.quasar_source_title.set_position(1200, 200, 400);
+        this.quasar_source_title.set_position(1200, 400, 400);
         this.quasar_source_title.look_at_origin(false);
     },
 
     _create_login_wall: function() {
-        var login_wall_position = new THREE.Vector3(600, 300, 350);
+        var login_wall_position = new THREE.Vector3(600, 150, 350);
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
         var row = this.wall_login.add_row(-1);
@@ -93,6 +100,8 @@ LoginWorld.prototype = {
         var remember_username = row.add_checkbox(0, 16, false);
         remember_username.add_label_left('remember username:');
 
+        row = this.wall_login.add_row();
+        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS], 16, 'login', this.login_button.bind(this));
 
         //
 
