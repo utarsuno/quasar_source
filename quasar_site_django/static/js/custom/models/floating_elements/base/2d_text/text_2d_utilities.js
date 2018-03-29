@@ -56,13 +56,16 @@ Text2DUtilities.prototype = {
         var font_style  = 'italic';
 
         var div = document.createElement('div');
+        div.id = text;
         div.style.fontFamily = font_family;
         div.style.fontSize = font_size;
         div.style.fontStyle = font_style;
         div.style.visibility = 'hidden';
         div.textContent = text;
         document.body.appendChild(div);
-        l('THE ACTUAL WIDTH {' + div.offsetWidth + '}');
+        l('THE ACTUAL WIDTH {' + document.getElementById(text).offsetWidth + '}');
+        //var box = div.getBBox();
+
         l('');
 
         return (w / 2);
