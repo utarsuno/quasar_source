@@ -2,7 +2,7 @@
 
 """This module, quasar_production.py, performs all needed steps to create the production environment for Quasar."""
 
-
+from universal_code import useful_file_operations as ufo
 from universal_code import output_coloring as oc
 from universal_code import debugging as dbg
 from universal_code.shell_abstraction.shell_command_runner import run_and_get_output_no_input
@@ -90,6 +90,7 @@ class QuasarProduction(object):
 		self._step_js()
 		if run_through_assets:
 			self._step_assets()
+		self._step_cleanup()
 
 		oc.print_data_with_red_dashes_at_start('Original data size : ' + str(self._original_total_size))
 		oc.print_data_with_red_dashes_at_start('New data size : ' + str(self._new_total_size))
@@ -97,6 +98,19 @@ class QuasarProduction(object):
 		reduction_percent = (1.0 - float(self._new_total_size) / float(self._original_total_size)) * 100.0
 
 		oc.print_data_with_red_dashes_at_start('Reduction of : ' + str(self._original_total_size - self._new_total_size) + ' or ' + str(reduction_percent) + '%')
+
+	def _step_cleanup(self):
+		"""Cleans up previously created quasar_prod files."""
+		self._clean_prod_from_path('/Users/utarsuno/git_repos/quasar_source/configuration_files/static/js/custom/quasar')
+		self._clean_prod_from_path('/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar')
+
+	def _clean_prod_from_path(self, path):
+		"""Utility function."""
+		file_paths = ufo.get_all_file_paths_inside_directory(path)
+		for f in file_paths:
+			if 'quasar_prod?' in f:
+				if self._upcoming_git_version not in f:
+					ufo.delete_file(f)
 
 	def _step_assets(self):
 		"""Produces the compressed assets needed for Quasar."""
@@ -132,7 +146,7 @@ class QuasarProduction(object):
 		html_prod = self._html.get_file_by_name('prod')
 
 		line_matcher = 'js/custom/quasar/quasar_prod?'
-		line_replacement = '<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar_prod?VERSION.min.js"></script>\n'
+		line_replacement = '<script type="text/javascript" src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar_prod?VERSION.min.js"></script>\n'
 		line_replacement = line_replacement.replace('VERSION', self._upcoming_git_version)
 		html_prod.replace_line_from_text_match(line_matcher, line_replacement)
 

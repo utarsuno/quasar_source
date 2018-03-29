@@ -108,6 +108,11 @@ def create_directory(path: str) -> None:
   |    | |___ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
 
 
+def delete_file(file_path):
+	"""Deletes the file."""
+	os.remove(file_path)
+
+
 def replace_line_from_text_match(source_file, text_to_match, line_to_replace_with):
 	"""Replaces lines that contain the 'text_to_match' text and replaces those lines with the 'line_to_replace_with'."""
 	file_lines = []
