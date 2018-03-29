@@ -157,6 +157,7 @@ const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
 
 // TEMPORARY TESTING.
 const COLOR_RED          = new THREE.Color('#ff5e33');
+const COLOR_BLACK        = new THREE.Color('#000000');
 const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';
@@ -180,7 +181,6 @@ const COLOR_DARK_PURPLE             = [0x4B0082, '#4B0082'];
 const COLOR_LIGHT_PURPLE            = [0x8F00FF, '#8F00FF'];
 const COLOR_TEXT_CONSTANT           = [0x7e58b0, '#7e58b0'];
 const COLOR_WHITE                   = [0xffffff, '#ffffff'];
-const COLOR_BLACK                   = [0x000000, '#000000'];
 const COLOR_SCHEDULE_PAST           = [0x0b3162, '#09254b'];
 const COLOR_SCHEDULE_PRESENT        = [0x8effae, '#4dff78'];
 const COLOR_SCHEDULE_FUTURE         = [0x000b1c, '#d58900'];

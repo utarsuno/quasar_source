@@ -26,7 +26,7 @@ FloatingCheckBox.prototype = {
     },
 
     create_base_material: function() {
-        this.material = new THREE.MeshBasicMaterial({opacity: 0.5, transparent: true});
+        this.material = new THREE.MeshBasicMaterial({opacity: 0.5, transparent: true, color: COLOR_BLACK});
     },
 
     create_base_mesh: function() {
