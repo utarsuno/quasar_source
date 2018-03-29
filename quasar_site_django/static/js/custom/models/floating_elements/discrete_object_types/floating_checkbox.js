@@ -19,7 +19,7 @@ FloatingCheckBox.prototype = {
         this.height = size;
 
         this.world.interactive_objects.push(this);
-        //this.engable = false;
+        this.engable = false;
         this.maintain_engage_when_tabbed_to = false;
 
         this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
@@ -38,6 +38,7 @@ FloatingCheckBox.prototype = {
         } else {
             this.icon_checked.set_to_invisible();
         }
+        this.set_engage_function(this.clicked_on.bind(this));
     },
 
     create_base_material: function() {
@@ -53,6 +54,18 @@ FloatingCheckBox.prototype = {
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    clicked_on: function() {
+        if (this.checked) {
+            this.icon_checked.set_to_invisible();
+            this.icon_not_checked.set_to_visible();
+            this.checked = false;
+        } else {
+            this.icon_checked.set_to_visible();
+            this.icon_not_checked.set_to_invisible();
+            this.checked = true;
+        }
+    },
+
     state_change_look_at: function(being_looked_at) {
         if (being_looked_at) {
             //this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
@@ -61,19 +74,5 @@ FloatingCheckBox.prototype = {
             //this.set_background_color(this.default_background_color, true);
             MANAGER_RENDERER.outline_glow.remove_hover_object(this.object3D);
         }
-    },
-
-    // TODO : Reformat engage / disengage logic.
-    state_change_engage: function(being_engaged_with) {
-        l('CHECKBOX ENGAGE CHANGE TO : {' + being_engaged_with + '}');
-        if (being_engaged_with) {
-            //CURRENT_PLAYER.set_state(PLAYER_STATE_ENGAGED);
-            MANAGER_RENDERER.outline_glow.set_to_engage_color();
-        } else {
-            MANAGER_RENDERER.outline_glow.set_to_hover_color();
-        }
-        //this.color_changed = true;
-        //this.refresh();
     }
-
 };
