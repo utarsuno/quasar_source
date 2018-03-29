@@ -18,6 +18,9 @@ LoginWorld.prototype = {
         this.quasar_source_title.refresh_position_and_look_at();
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
+
+
+        this.wall_test.refresh_position_and_look_at();
     },
 
     custom_world_exit: function() {
@@ -46,6 +49,15 @@ LoginWorld.prototype = {
         this._create_quasar_title();
         this._create_login_wall();
         this._create_create_account_wall();
+
+        this.wall_test = new FloatingWall(500, 95, new THREE.Vector3(900, 2000, -700), new THREE.Vector3(-900, 2000, 700), this);
+        var a = 'a';
+        for (var i = 0; i < 1000; i++) {
+            a += 'a';
+            var row = this.wall_create_account.add_row(-1);
+            var input_username = row.add_input_2D([0, 1, false], 16);
+            input_username.add_label_left(a);
+        }
     },
 
     _create_quasar_title: function() {
