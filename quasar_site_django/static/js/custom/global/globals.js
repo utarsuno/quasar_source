@@ -40,13 +40,6 @@ var GUI_TYPING_INTERFACE = null;
 const ASSET_GROUP_AUDIO   = 'audio';
 const ASSET_GROUP_TEXTURE = 'texture';
 
-const PLAYER_STATE_PAUSED       = 1;
-const PLAYER_STATE_AJAX         = 2;
-const PLAYER_STATE_LOADING      = 3;
-const PLAYER_STATE_ENGAGED      = 4;
-const PLAYER_STATE_FULL_CONTROL = 5;
-const PLAYER_STATE_TYPING       = 6;
-
 // Tags
 const TYPE_INPUT_DATE     = 'input_date';
 const TYPE_INPUT_TIME     = 'input_time';

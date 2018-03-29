@@ -1,5 +1,12 @@
 'use strict';
 
+const PLAYER_STATE_PAUSED       = 1;
+const PLAYER_STATE_AJAX         = 2;
+const PLAYER_STATE_LOADING      = 3;
+const PLAYER_STATE_ENGAGED      = 4;
+const PLAYER_STATE_FULL_CONTROL = 5;
+const PLAYER_STATE_TYPING       = 6;
+
 function PlayerState() {
 
     this.previous_state = null;
@@ -37,6 +44,10 @@ function PlayerState() {
             GUI_TYPING_INTERFACE.show();
             break;
         default:
+            if (player_state === PLAYER_STATE_ENGAGED) {
+                MANAGER_INPUT.reset_movement_controls();
+            }
+            
             //l('PREVIOUS STATE WAS :');
             //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {
