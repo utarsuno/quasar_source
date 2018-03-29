@@ -67,7 +67,7 @@ Text2DUtilities.prototype = {
         //document.body.appendChild(div);
         var style = window.getComputedStyle(document.getElementById(text));
         l('THE ACTUAL WIDTH {' + document.getElementById(text).offsetWidth + '}');
-        //l('WHAT ABOUT THIS? {' + style.width + '}');
+        l('WHAT ABOUT THIS? {' + style.width + '}');
         //var box = div.getBBox();
 
         l('');
