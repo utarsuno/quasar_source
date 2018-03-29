@@ -52,7 +52,7 @@ Text2DUtilities.prototype = {
         l('w * ratio{' + (w * ratio) + '}');
 
         var font_family = 'font-family: Arial';
-        var font_size   = this.canvas.font_size + 'px';
+        var font_size   = this.canvas_italic.font_size + 'px';
         var font_style  = 'italic';
 
         var div = document.createElement('div');
