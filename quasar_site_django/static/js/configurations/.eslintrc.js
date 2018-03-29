@@ -88,18 +88,21 @@ module.exports = {
         //
 
         //
-        "TextSyntax"        : false,
-        "TextSyntaxPassword": false,
-        "TextSyntaxUsername": false,
-        "TextSyntaxEmail"   : false,
+        "TextSyntax"              : false,
+        "TextSyntaxPassword"      : false,
+        "TextSyntaxRepeatPassword": false,
+        "TextSyntaxUsername"      : false,
+        "TextSyntaxEmail"         : false,
 
-        "TEXT_SYNTAX_EMAIL"   : false,
-        "TEXT_SYNTAX_PASSWORD": false,
-        "TEXT_SYNTAX_USERNAME": false,
+        "TEXT_SYNTAX_EMAIL"          : false,
+        "TEXT_SYNTAX_PASSWORD"       : false,
+        "TEXT_SYNTAX_REPEAT_PASSWORD": false,
+        "TEXT_SYNTAX_USERNAME"       : false,
 
         "SyntaxRule"             : false,
         "SyntaxRuleMinimumLength": false,
         "SyntaxRuleMaximumLength": false,
+        "SyntaxRuleEmail"        : false,
         //
 
         //
@@ -557,8 +560,6 @@ module.exports = {
         "is_list"                            : false,
         "string_contains"                    : false,
         "is_defined"                         : false,
-
-        "is_email_valid": false,
 
         "get_cookie"    : false,
         "set_cookie"    : false,

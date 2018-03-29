@@ -6,15 +6,25 @@ function FormManager() {
 
 FormManager.prototype = {
 
-    __init__: function() {
+    __init__: function(input_fields, final_button) {
         this.input_fields = [];
-        this.final_button = null;
+        this.input_fields_repeat_password = [];
+        if (is_defined(input_fields)) {
+            for (var f = 0; f < input_fields.length; f++) {
+                this.add_input_field(input_fields[f]);
+            }
+        }
+        this.final_button = final_button;
     },
 
     add_input_field: function(input_field) {
         this.input_fields.push(input_field);
         input_field.set_value_post_changed_function(this.on_input_event.bind(this));
         input_field.add_input_state();
+
+        if (input_field.has_syntax(TEXT_SYNTAX_REPEAT_PASSWORD)) {
+            this.input_fields_repeat_password.push(input_field);
+        }
     },
 
     add_final_button: function(final_button) {
@@ -34,7 +44,14 @@ FormManager.prototype = {
 
         for (var i = 0; i < this.input_fields.length; i++) {
             var input_field = this.input_fields[i];
-            var syntax = input_field.syntax_check();
+
+            var syntax;
+            if (input_field.has_syntax(TEXT_SYNTAX_REPEAT_PASSWORD)) {
+                syntax = input_field.syntax_check(this.input_fields_repeat_password);
+            } else {
+                syntax = input_field.syntax_check();
+            }
+
             if (!syntax[0]) {
                 has_errors = true;
                 if (apply_markings) {

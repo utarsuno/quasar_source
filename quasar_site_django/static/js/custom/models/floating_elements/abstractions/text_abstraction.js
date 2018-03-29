@@ -23,12 +23,29 @@ function TextAbstraction(text) {
         case TEXT_SYNTAX_USERNAME:
             this.syntax_rules.push(new TextSyntaxUsername());
             break;
+        case TEXT_SYNTAX_EMAIL:
+            this.syntax_rules.push(new TextSyntaxEmail());
+            break;
+        case TEXT_SYNTAX_REPEAT_PASSWORD:
+            this.syntax_rules.push(new TextSyntaxRepeatPassword());
+            break;
         }
     };
 
-    this.syntax_check = function() {
+    this.has_syntax = function(syntax) {
         for (var sr = 0; sr < this.syntax_rules.length; sr++) {
-            var results = this.syntax_rules[sr].does_text_pass_requirements(this.text);
+            if (this.syntax_rules[sr].text_syntax_type === syntax) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    this.syntax_check = function(additional_arguments) {
+        for (var sr = 0; sr < this.syntax_rules.length; sr++) {
+
+            var results = this.syntax_rules[sr].does_text_pass_requirements(this.text, additional_arguments);
+
             if (!results[0]) {
                 return [false, results[1]];
             }
