@@ -72,8 +72,7 @@ Text2DUtilities.prototype = {
 
         l('');
 
-        return w / 2;
-        //return get_nearest_power_of_two_for_number(w / 2);
+        return get_nearest_power_of_two_for_number(w / 2);
     },
 
     get_width_of_italic_and_bold_text_given_bounding_height: function(text, height) {
