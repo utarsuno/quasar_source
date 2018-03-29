@@ -58,6 +58,7 @@ LoginWorld.prototype = {
         var wall_create_account_position = new THREE.Vector3(200, 95, 600);
         var wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
         this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
+        this.wall_create_account.make_base_wall_invisible();
 
         // Title.
         var row = this.wall_create_account.add_row(-1);
@@ -85,7 +86,7 @@ LoginWorld.prototype = {
         row = this.wall_create_account.add_row();
         var input_repeat_password = row.add_input_2D([0, 1, false], 16);
         input_repeat_password.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
-        input_repeat_password.add_label_left('password:');
+        input_repeat_password.add_label_left('repeat password:');
 
         // Create account button.
         row = this.wall_create_account.add_row();
@@ -96,7 +97,7 @@ LoginWorld.prototype = {
     },
 
     _create_login_wall: function() {
-        var login_wall_position = new THREE.Vector3(600, 150, 350);
+        var login_wall_position = new THREE.Vector3(550, 95, 300);
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FloatingWall(200, 95, login_wall_position, login_wall_normal, this);
         this.wall_login.make_base_wall_invisible();
