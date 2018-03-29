@@ -28,6 +28,8 @@ FormManager.prototype = {
     },
 
     perform_error_checks: function(apply_markings) {
+        l('Performing error checks!');
+
         var has_errors = false;
 
         for (var i = 0; i < this.input_fields.length; i++) {
