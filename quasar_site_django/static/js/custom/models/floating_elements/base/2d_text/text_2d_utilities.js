@@ -71,8 +71,8 @@ Text2DUtilities.prototype = {
         //var box = div.getBBox();
 
         l('');
-
-        return get_nearest_power_of_two_for_number(w / 2);
+        return w;
+        //return get_nearest_power_of_two_for_number(w / 2);
     },
 
     get_width_of_italic_and_bold_text_given_bounding_height: function(text, height) {
