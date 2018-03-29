@@ -118,6 +118,10 @@ FPSControls.prototype = {
         this.mouse_movement_y_buffer.update(delta);
         this.update_mouse_view_position();
 
+        if (!CURRENT_PLAYER.has_movement()) {
+            return;
+        }
+
         if (this.flying_on) {
             // Flying code.
             if (MANAGER_INPUT.space) {
