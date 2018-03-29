@@ -95,6 +95,6 @@ LoginWorld.prototype = {
 
         //
 
-        //this.wall_login.make_base_wall_invisible();
+        this.wall_login.make_base_wall_invisible();
     }
 };
