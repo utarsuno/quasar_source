@@ -63,7 +63,9 @@ Text2DUtilities.prototype = {
         div.style.visibility = 'hidden';
         div.textContent = text;
         document.body.appendChild(div);
+        var style = window.getComputedStyle(document.getElementById(text));
         l('THE ACTUAL WIDTH {' + document.getElementById(text).offsetWidth + '}');
+        l('WHAT ABOUT THIS? {' + style.width + '}');
         //var box = div.getBBox();
 
         l('');
