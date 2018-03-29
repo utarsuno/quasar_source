@@ -144,6 +144,7 @@ module.exports = {
 
         "PostHelper": true,
 
+        "Animatable"       : true,
         "Interactive"      : true,
         "InheritableButton": true,
         "Attachmentable"   : true,
