@@ -21,6 +21,7 @@ FloatingRow.prototype = {
         return [total_percentage_of_parent_width, floating_element_width];
     },
 
+    //
     //add_button: function(x_start_n_stop, text, color, function_to_bind) {
     //var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
     //button.set_engage_function(function_to_bind);
