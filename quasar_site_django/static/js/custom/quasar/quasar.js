@@ -28,22 +28,25 @@ QuasarMainLoop.prototype = {
     quasar_main_loop: function() {
 
         requestAnimationFrame(this.quasar_main_loop.bind(this));
-        MANAGER_RENDERER.pre_render();
 
-        this.time = performance.now();
-        this.delta = (this.time - this.previous_time) / 1000.0;
+        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED) {
+            MANAGER_RENDERER.pre_render();
 
-        MANAGER_DATA_DISPLAY.update();
+            this.time = performance.now();
+            this.delta = (this.time - this.previous_time) / 1000.0;
 
-        MANAGER_WORLD.update(this.delta);
+            MANAGER_DATA_DISPLAY.update();
 
-        if (GUI_TYPING_INTERFACE.needs_an_update()) {
-            GUI_TYPING_INTERFACE.update();
+            MANAGER_WORLD.update(this.delta);
+
+            if (GUI_TYPING_INTERFACE.needs_an_update()) {
+                GUI_TYPING_INTERFACE.update();
+            }
+
+            MANAGER_RENDERER.render(this.delta);
+            MANAGER_RENDERER.post_render();
+            this.previous_time = this.time;
         }
-
-        MANAGER_RENDERER.render(this.delta);
-        MANAGER_RENDERER.post_render();
-        this.previous_time = this.time;
     }
 };
 
