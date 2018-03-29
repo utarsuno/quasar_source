@@ -24,13 +24,32 @@ CanvasAbstraction.prototype = {
         this.canvas.width  = this.width;
         this.canvas.height = this.height;
         this.context       = this.canvas.getContext('2d');
+
+        this.font_needs_updating = false;
     },
 
-    set_height: function(height) {
+    set_font_property_bold: function(is_bold) {
+        this.text_property_bold  = is_bold;
+        this.font_needs_updating = true;
+    },
+
+    set_font_property_italic: function(is_italic) {
+        this.text_property_italic = is_italic;
+        this.font_needs_updating  = true;
+    },
+
+    set_height: function(height, generate_font) {
         this.height = get_nearest_power_of_two_for_number(height * 2);
+        if (generate_font) {
+            if (this.font_needs_updating) {
+                this.set_font();
+                this.update_font();
+            }
+        }
     },
 
     update_font: function() {
+        this.font_size = int(this.height * _SMUDGE_FACTOR);
         var additional_properties = '';
         if (this.text_property_italic) {
             additional_properties += 'italic ';
@@ -40,6 +59,7 @@ CanvasAbstraction.prototype = {
         }
         this.font         = additional_properties + str(this.font_size) + 'px Arial';
         this.context.font = this.font;
+        this.font_needs_updating = false;
     },
 
     set_font: function() {
@@ -55,6 +75,10 @@ CanvasAbstraction.prototype = {
     },
 
     render: function(background_color, foreground_color, text) {
+        if (this.font_needs_updating) {
+            this.update_font();
+        }
+
         this.context.clearRect(0, 0, this.width, this.height);
         if (is_defined(background_color)) {
             this.context.fillStyle = background_color;
@@ -72,6 +96,9 @@ CanvasAbstraction.prototype = {
     },
 
     get_text_width_for_texture: function(text) {
+        if (this.font_needs_updating) {
+            this.update_font();
+        }
         return this.context.measureText(text).width;
     }
 };
