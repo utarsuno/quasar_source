@@ -60,6 +60,7 @@ Text2DUtilities.prototype = {
         div.style.fontSize = font_size;
         div.style.fontStyle = font_style;
         div.style.visibility = 'hidden';
+        div.html = text;
         document.body.appendChild(div);
         l('THE ACTUAL WIDTH {' + div.offsetWidth + '}');
         l('');
