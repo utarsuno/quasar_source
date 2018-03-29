@@ -94,6 +94,7 @@ CanvasAbstraction.prototype = {
             this.context.fillText(text, this.width / 2, int(this.font_size * .9));
         } else if (this.text_property_right) {
             this.context.textAlign = 'right';
+            l('Rendering to the right!');
             this.context.fillText(text, this.width, int(this.font_size * .9));
         } else {
             //this.texture.repeat(this.width_ratio, 1.0);
