@@ -78,7 +78,7 @@ reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
     # This resets to master.
     git reset --hard origin/master;
-    git clean -df
+    # git clean -df
 fi
 '''.replace('${PATH_TO_QUASAR_SOURCE}', QUASAR_SOURCE)))
 	return s

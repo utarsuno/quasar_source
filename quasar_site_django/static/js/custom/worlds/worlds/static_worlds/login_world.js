@@ -51,7 +51,6 @@ LoginWorld.prototype = {
         // OLD CODE BELOW
         // OLD CODE BELOW
         //this.login_errors = new TextSyntaxManager(this);
-
         /*
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_username_input = login_username_row[1];
