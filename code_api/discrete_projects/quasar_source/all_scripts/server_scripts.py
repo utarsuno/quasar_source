@@ -169,8 +169,10 @@ def get_terminate_script(application_path):
 	s.set_main_code(CodeChunk('''
 APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
 
-if [ ${APPLICATION_PID} -gt -1 ]; then
-	sudo kill ${APPLICATION_PID}
-fi
+while [ ${APPLICATION_PID} -gt -1 ]
+do
+sudo kill ${APPLICATION_PID}
+APPLICATION_PID=`python3 ${PATH_TO_IS_PROGRAM_RUNNING} ${APPLICATION_PATH}`
+done
 '''.replace('${APPLICATION_PATH}', application_path).replace('${PATH_TO_IS_PROGRAM_RUNNING}', IS_PROGRAM_RUNNING)))
 	return s

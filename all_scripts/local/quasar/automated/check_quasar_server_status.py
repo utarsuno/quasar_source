@@ -6,6 +6,7 @@ import requests as r
 from universal_code import output_coloring as oc
 
 try:
+	oc.print_data_with_red_dashes_at_start('Checking if Quasar is alive.')
 	result = r.get('http://www.quasarsource.com:1337/ping')
 
 	if result.status_code == 200:
