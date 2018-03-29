@@ -50,7 +50,6 @@ LoginWorld.prototype = {
 
         // OLD CODE BELOW
         // OLD CODE BELOW
-        // OLD CODE BELOW
         //this.login_errors = new TextSyntaxManager(this);
 
         /*
