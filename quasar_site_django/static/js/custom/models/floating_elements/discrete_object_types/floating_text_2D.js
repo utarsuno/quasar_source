@@ -31,9 +31,6 @@ FloatingText2D.prototype = {
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
 
-        //this.maintain_engage_when_tabbed_to = false;
-        //this.engable = false;
-
         this.initialize();
     }
 

@@ -103,7 +103,11 @@ LoginWorld.prototype = {
         row = this.wall_login.add_row();
         var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', this.login_button_pressed.bind(this));
 
-        //
+        // Connect the elements together as a form.
+        this.login_form = new FormManager();
+        this.login_form.add_input_field(input_username);
+        this.login_form.add_input_field(input_password);
+        this.login_form.add_final_button(button_login);
 
         this.wall_login.make_base_wall_invisible();
     }

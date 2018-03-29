@@ -19,6 +19,16 @@ FloatingButton.prototype = {
         this.set_text_property_centered(true);
         this.set_text_property_bold(true);
         this.initialize();
+
+
+        this.has_button_state = false;
+    },
+
+    add_button_state: function() {
+        if (!this.has_button_state) {
+            ButtonState.call(this);
+            this.has_button_state = true;
+        }
     },
 
     /* __  ___      ___  ___     __                  __   ___  __

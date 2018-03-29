@@ -7,7 +7,40 @@ function FormManager() {
 FormManager.prototype = {
 
     __init__: function() {
+        this.input_fields = [];
+        this.final_button = null;
+    },
 
+    add_input_field: function(input_field) {
+        this.input_fields.push(input_field);
+        input_field.set_value_post_changed_function(this.on_input_event.bind(this));
+    },
+
+    add_final_button: function(final_button) {
+        this.final_button = final_button;
+        this.final_button.add_button_state();
+        var has_errors = this.perform_error_checks(false);
+
+        if (has_errors) {
+            this.final_button.disable();
+        }
+    },
+
+    on_input_event: function() {
+        this.perform_error_checks(false);
+    },
+
+    perform_error_checks: function(apply_markings) {
+        var has_errors = false;
+
+        for (var i = 0; i < this.input_fields.length; i++) {
+            var syntax = this.input_fields[i].syntax_check();
+            if (!syntax[0]) {
+                has_errors = true;
+            }
+        }
+
+        return has_errors;
     }
 
 };

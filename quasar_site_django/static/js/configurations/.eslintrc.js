@@ -74,6 +74,10 @@ module.exports = {
         "ButtonState"    : false,
 
         //
+        "FormManager": false,
+        //
+
+        //
         "TextSyntax"        : false,
         "TextSyntaxPassword": false,
         "TextSyntaxUsername": false,
