@@ -14,6 +14,15 @@ FloatingInput2D.prototype = {
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         this.initialize();
+
+        this.has_input_state = false;
+    },
+
+    add_input_state: function() {
+        if (!this.has_input_state) {
+            InputState.call(this);
+            this.has_input_state = true;
+        }
     },
 
     /* __  ___      ___  ___     __                  __   ___  __

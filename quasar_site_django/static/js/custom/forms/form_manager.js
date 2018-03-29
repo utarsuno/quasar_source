@@ -19,11 +19,7 @@ FormManager.prototype = {
     add_final_button: function(final_button) {
         this.final_button = final_button;
         this.final_button.add_button_state();
-        var has_errors = this.perform_error_checks(false);
-
-        if (has_errors) {
-            this.final_button.disable();
-        }
+        this.perform_error_checks(false);
     },
 
     on_input_event: function() {
@@ -34,10 +30,22 @@ FormManager.prototype = {
         var has_errors = false;
 
         for (var i = 0; i < this.input_fields.length; i++) {
-            var syntax = this.input_fields[i].syntax_check();
+            var input_field = this.input_fields[i];
+            var syntax = input_field.syntax_check();
             if (!syntax[0]) {
                 has_errors = true;
+                if (apply_markings) {
+                    input_field.display_warning_icon();
+                }
+            } else {
+                input_field.hide_warning_icon();
             }
+        }
+
+        if (has_errors) {
+            this.final_button.disable();
+        } else {
+            this.final_button.enable();
         }
 
         return has_errors;

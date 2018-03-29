@@ -71,7 +71,16 @@ module.exports = {
         "FloatingPicture": true,
 
         "TextAbstraction": false,
-        "ButtonState"    : false,
+
+        //
+        "ButtonState"   : false,
+        "FloatingButton": false,
+        //
+
+        //
+        "InputState"      : false,
+        "FloatingInput2D" : false,
+        //
 
         //
         "FormManager": false,
@@ -106,10 +115,8 @@ module.exports = {
         "FloatingElement" : false,
         "TextureManager"  : false,
         "FloatingIcon"    : false,
-        "FloatingInput2D" : false,
         "FloatingInput3D" : false,
         "FloatingCheckBox": false,
-        "FloatingButton"  : false,
 
         "TYPE_INPUT_DATE"    : true,
         "TYPE_INPUT_TIME"    : true,
