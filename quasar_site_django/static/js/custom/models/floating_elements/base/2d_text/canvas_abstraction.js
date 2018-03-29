@@ -6,19 +6,23 @@ const TEXT_PROPERTY_JUST_BOLD       = [false, true];
 const TEXT_PROPERTY_JUST_ITALIC     = [true, false];
 const TEXT_PROPERTY_ITALIC_AND_BOLD = [true, true];
 
-function CanvasAbstraction(width, height) {
-    this.__init__(width, height);
+function CanvasAbstraction(width, height, text_properties) {
+    this.__init__(width, height, text_properties);
 }
 
 // TODO : Add font options!
 CanvasAbstraction.prototype = {
-    __init__: function(width, height) {
+    __init__: function(width, height, text_properties) {
         this.width     = get_nearest_power_of_two_for_number(width  * 2);
         this.set_height(height);
 
-        this.text_property_centered = null;
-        this.text_property_bold     = null;
-        this.text_property_italic   = null;
+        this.text_property_centered = false;
+        this.text_property_bold     = false;
+        this.text_property_italic   = false;
+        if (is_defined(text_properties)) {
+            this.text_property_bold = text_properties[1];
+            this.text_property_italic = text_properties[0];
+        }
 
         this.canvas        = document.createElement('canvas');
         this.canvas.width  = this.width;

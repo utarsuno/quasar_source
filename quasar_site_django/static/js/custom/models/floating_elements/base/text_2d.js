@@ -6,11 +6,10 @@ function Text2D(world, width, height, text, text_properties) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
-    this.canvas = new CanvasAbstraction(width, height);
     if (is_defined(text_properties)) {
-        this.canvas.text_property_italic = text_properties[0];
-        this.canvas.text_property_bold   = text_properties[1];
-        this.canvas.update_font();
+        this.canvas = new CanvasAbstraction(width, height, text_properties);
+    } else {
+        this.canvas = new CanvasAbstraction(width, height, null);
     }
 
     this.needs_hex_colors = true;
