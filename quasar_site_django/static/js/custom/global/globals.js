@@ -351,12 +351,6 @@ const ATTACHMENT_OFFSET_VERTICAL_UP      = 'vertical_offset_up';
 const ATTACHMENT_OFFSET_VERTICAL_DOWN    = 'vertical_offset_down';
 const ATTACHMENT_OFFSET_DEPTH            = 'depth_offset';
 
-// UNIVERSAL_CONSTANTS_START : Text syntax error checks.
-const TEXT_SYNTAX_STANDARD_LENGTH = 'Text length must be greater than 3 characters and less than 32.';
-const TEXT_SYNTAX_EMAIL           = 'Text must match email snytax rules.';
-const TEXT_SYNTAX_MATCH_PASSWORDS = 'Passwords must match!';
-// UNIVERSAL_CONSTANTS_END
-
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
