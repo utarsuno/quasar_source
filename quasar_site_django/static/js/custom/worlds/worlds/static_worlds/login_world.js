@@ -69,7 +69,7 @@ LoginWorld.prototype = {
 
     _create_quasar_title: function() {
         this.quasar_source_title = new FloatingText3D(this, 128, 'Quasar Source');
-        this.quasar_source_title.set_position(1200, 400, 400);
+        this.quasar_source_title.set_position(1200, 200, 400);
         this.quasar_source_title.look_at_origin(false);
     },
 
@@ -80,19 +80,18 @@ LoginWorld.prototype = {
         var row = this.wall_login.add_row(-1);
         row.add_text_3D(HALF, 32, 'Login', true);
 
-        row = this.wall_login.add_row(-2);
-        row.add_text_3D(HALF, 32, 'Login', false);
-
-        row = this.wall_login.add_row(-3);
-        row.add_text_3D(1, 32, 'Login', true);
-
-        row = this.wall_login.add_row(-4);
-        row.add_text_3D(1, 32, 'Login', false);
-
+        row = this.wall_login.add_row();
+        var input_username = row.add_input_2D([0, 1], 16);
+        input_username.add_label_left('username:');
 
         row = this.wall_login.add_row();
-        this.temp_input = row.add_input_2D([0, 1], 16);
-        this.temp_input.add_label_left('username');
+        var input_password = row.add_input_2D([0, 1], 16);
+        input_password.add_syntax(TEXT_SYNTAX_PASSWORD);
+        input_password.add_label_left('password:');
+
+        row = this.wall_login.add_row();
+        var remember_username = row.add_checkbox(0, 64);
+
 
         //
 

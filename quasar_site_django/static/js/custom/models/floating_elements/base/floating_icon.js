@@ -22,19 +22,6 @@ FloatingIcon.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_material: function() {
-        /*
-        var transparent = false;
-        switch (this.icon_type) {
-        case CURSOR_TYPE_HORIZONTAL:
-        case CURSOR_TYPE_VERTICAL:
-        case CURSOR_TYPE_HAND:
-        case CURSOR_TYPE_POINTER:
-        case CURSOR_TYPE_LARGER:
-        case CURSOR_TYPE_MOUSE:
-            transparent = true;
-            break;
-        }
-        */
         this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_CURSOR, this.icon_type), transparent : true});
     },
 

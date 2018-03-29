@@ -27,6 +27,11 @@ FloatingRow.prototype = {
     //return button;
     //},
 
+    add_checkbox: function(start, size) {
+        var floating_checkbox = new FloatingCheckBox(this.world, size);
+
+    },
+
     add_icon: function(x_start_n_stop, icon_type) {
         var w = this._get_width_needed(x_start_n_stop);
         var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);

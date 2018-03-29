@@ -15,7 +15,7 @@ function Text2D(world, width, height, text) {
     this.height = height;
 
     this.refresh = function() {
-        this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), false, this.text);
+        this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), false, this.get_display_text());
         this.material.needsUpdate = true;
     };
 

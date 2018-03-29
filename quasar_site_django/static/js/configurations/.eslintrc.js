@@ -70,12 +70,21 @@ module.exports = {
         "FloatingText"   : true,
         "FloatingPicture": true,
 
+        "TextAbstraction"   : false,
+
+        "TextSyntax"        : false,
+        "TextSyntaxPassword": false,
+
+        "SyntaxRule"             : false,
+        "SyntaxRuleMinimumLength": false,
+        "SyntaxRuleMaximumLength": false,
+
+
         "Text2D"         : false,
         "Text3D"         : false,
         "FloatingText2D" : false,
         "FloatingText3D" : false,
         "FloatingElement": false,
-        "TextAbstraction": false,
         "TextureManager" : false,
         "FloatingIcon"   : false,
         "FloatingInput2D": false,
@@ -363,10 +372,12 @@ module.exports = {
         "SKYBOX_BOTTOM": true,
         // UNIVERSAL_CONSTANTS_END
 
+        "TEXT_SYNTAX_EMAIL"   : false,
+        "TEXT_SYNTAX_PASSWORD": false,
         // UNIVERSAL_CONSTANTS_START : Text syntax error checks.
-        "TEXT_SYNTAX_STANDARD_LENGTH": true,
-        "TEXT_SYNTAX_EMAIL"          : true,
-        "TEXT_SYNTAX_MATCH_PASSWORDS": true,
+        //"TEXT_SYNTAX_STANDARD_LENGTH": true,
+        //"TEXT_SYNTAX_EMAIL"          : true,
+        //"TEXT_SYNTAX_MATCH_PASSWORDS": true,
         // UNIVERSAL_CONSTANTS_END
 
         "CELL_PHONE_CARRIERS": false,
