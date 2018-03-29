@@ -23,13 +23,11 @@ function Text2D(world, width, height, text, text_properties) {
     };
 
     this.set_text_property_bold = function(is_bold) {
-        this.canvas.text_property_bold = is_bold;
-        this.canvas.update_font();
+        this.canvas.set_font_property_bold(is_bold);
     };
 
     this.set_text_property_italic = function(is_italic) {
-        this.canvas.text_property_italic = is_italic;
-        this.canvas.update_font();
+        this.canvas.set_font_property_italic(is_italic);
     };
 
     this.refresh = function() {

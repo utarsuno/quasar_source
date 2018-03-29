@@ -46,12 +46,12 @@ Text2DUtilities.prototype = {
         this.canvas_italic.update_font();
         var w = this.canvas_italic.get_text_width_for_texture(text);
 
-        l('height{' + height + '}');
-        l('ratio{' + ratio + '}');
-        l('w{' + w + '}');
-        l('w * ratio{' + (w * ratio) + '}');
+        //l('height{' + height + '}');
+        //l('ratio{' + ratio + '}');
+        //l('w{' + w + '}');
+        //l('w * ratio{' + (w * ratio) + '}');
 
-        return w / 2;
+        return (w / 2);
     },
 
     get_width_of_italic_and_bold_text_given_bounding_height: function(text, height) {
