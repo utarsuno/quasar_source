@@ -11,8 +11,8 @@ Text2DUtilities.prototype = {
         this.canvas_bold = new CanvasAbstraction(1, 1);
         this.canvas_bold.set_font_property_bold(true);
 
-        this.canvas_italic = new CanvasAbstraction(1, 1);
-        this.canvas_italic.set_font_property_italic(true);
+        //this.canvas_italic = new CanvasAbstraction(1, 1);
+        //this.canvas_italic.set_font_property_italic(true);
 
         this.canvas_italic_and_bold = new CanvasAbstraction(1, 1);
         this.canvas_italic_and_bold.set_font_property_bold(true);
