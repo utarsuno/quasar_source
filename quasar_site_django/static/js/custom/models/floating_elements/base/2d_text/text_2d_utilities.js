@@ -51,26 +51,6 @@ Text2DUtilities.prototype = {
         l('w{' + w + '}');
         l('w * ratio{' + (w * ratio) + '}');
 
-        var font_family = 'font-family: Arial';
-        var font_size   = this.canvas_italic.font_size + 'px';
-        var font_style  = 'italic';
-
-        var div = document.createElement('div');
-        div.id = text;
-        div.style.fontFamily = font_family;
-        div.style.fontSize = font_size;
-        div.style.fontStyle = font_style;
-        div.style.visibility = 'hidden';
-        div.textContent = text;
-        var e = document.getElementById('testtest');
-        e.appendChild(div);
-        //document.body.appendChild(div);
-        var style = window.getComputedStyle(document.getElementById(text));
-        l('THE ACTUAL WIDTH {' + document.getElementById(text).clientWidth + '}');
-        l('WHAT ABOUT THIS? {' + style.width + '}');
-        //var box = div.getBBox();
-
-        l('');
         return get_nearest_power_of_two_for_number(w / 2);
         //return get_nearest_power_of_two_for_number(w);
         //return w;

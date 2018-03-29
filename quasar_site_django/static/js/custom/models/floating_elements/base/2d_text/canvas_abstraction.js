@@ -20,6 +20,7 @@ CanvasAbstraction.prototype = {
         this.set_height(height);
 
         this.text_property_centered = false;
+        this.text_property_right    = false;
         this.text_property_bold     = false;
         this.text_property_italic   = false;
         if (is_defined(text_properties)) {
@@ -91,6 +92,9 @@ CanvasAbstraction.prototype = {
         if (this.text_property_centered) {
             this.context.textAlign = 'center';
             this.context.fillText(text, this.width / 2, int(this.font_size * .9));
+        } else if (this.text_property_right) {
+            this.context.textAlign = 'right';
+            this.context.fillText(text, this.width, int(this.font_size * .9));
         } else {
             //this.texture.repeat(this.width_ratio, 1.0);
             this.context.fillText(text, 0, int(this.font_size * .9));

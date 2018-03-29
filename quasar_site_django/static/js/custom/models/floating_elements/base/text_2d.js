@@ -17,6 +17,10 @@ function Text2D(world, width, height, text, text_properties) {
     this.width = width;
     this.height = height;
 
+    this.set_text_property_right = function(is_right) {
+        this.canvas.text_property_right = is_right;
+    };
+
     this.set_text_property_centered = function (is_centered) {
         this.canvas.text_property_centered = is_centered;
     };
