@@ -128,6 +128,10 @@ LoginWorld.prototype = {
         var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', this.login_button_pressed.bind(this));
 
         // Connect the elements together as a form.
-        this.form_login = new FormManager([input_username, input_password], button_login);
+        //this.form_login = new FormManager([input_username, input_password], button_login);
+        this.form_login = new FormManager();
+        this.form_login.add_input_field(input_username);
+        this.form_login.add_input_field(input_password);
+        this.form_login.add_final_button(button_login);
     }
 };
