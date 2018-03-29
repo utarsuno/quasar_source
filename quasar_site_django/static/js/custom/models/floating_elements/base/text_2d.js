@@ -40,8 +40,10 @@ function Text2D(world, width, height, text, text_properties) {
     };
 
     this.refresh = function() {
-        this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-        this.material.needsUpdate = true;
+        if (this.initialized) {
+            this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            this.material.needsUpdate = true;
+        }
     };
 
     /*__   __   ___      ___    __
