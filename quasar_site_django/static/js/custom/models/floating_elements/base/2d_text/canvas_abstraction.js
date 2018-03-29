@@ -14,6 +14,7 @@ function CanvasAbstraction(width, height, text_properties) {
 CanvasAbstraction.prototype = {
     __init__: function(width, height, text_properties) {
         this.width     = get_nearest_power_of_two_for_number(width  * 2);
+
         this.set_height(height);
 
         this.text_property_centered = false;
@@ -86,7 +87,8 @@ CanvasAbstraction.prototype = {
         this.context.fillStyle = foreground_color;
 
         if (this.text_property_centered) {
-            this.context.fillText(text, this.width / 2 - this.get_text_width_for_texture() / 2, int(this.font_size * .9));
+            this.context.textAlign = 'center';
+            this.context.fillText(text, this.width / 2, int(this.font_size * .9));
         } else {
             this.context.fillText(text, 0, int(this.font_size * .9));
         }
@@ -98,6 +100,9 @@ CanvasAbstraction.prototype = {
         if (this.font_needs_updating) {
             this.update_font();
         }
+
+        this.
+
         return this.context.measureText(text).width;
     }
 };
