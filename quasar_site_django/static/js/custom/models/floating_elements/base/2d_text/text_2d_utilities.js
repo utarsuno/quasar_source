@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 
 function Text2DUtilities() {
     this.__init__();
@@ -50,6 +50,19 @@ Text2DUtilities.prototype = {
         l('ratio{' + ratio + '}');
         l('w{' + w + '}');
         l('w * ratio{' + (w * ratio) + '}');
+
+        var font_family = 'font-family: Arial';
+        var font_size   = this.canvas.font_size + 'px';
+        var font_style  = 'italic';
+
+        var div = document.createElement('div');
+        div.style.fontFamily = font_family;
+        div.style.fontSize = font_size;
+        div.style.fontStyle = font_style;
+        div.style.visibility = 'hidden';
+
+        l('THE ACTUAL WIDTH {' + div.offsetWidth + '}');
+        l('');
 
         return (w / 2);
     },
