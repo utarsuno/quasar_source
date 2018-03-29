@@ -24,7 +24,7 @@ FormManager.prototype = {
     },
 
     on_input_event: function() {
-        this.perform_error_checks(false);
+        this.perform_error_checks(true);
     },
 
     perform_error_checks: function(apply_markings) {

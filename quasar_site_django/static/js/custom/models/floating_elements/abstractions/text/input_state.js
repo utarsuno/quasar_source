@@ -2,10 +2,9 @@
 
 function InputState() {
 
-    l('INPUT STATE HEIGHT IS : {' + this.height + '}');
-    this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, 16);
+    this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, this.height);
     this.warning_icon.set_attachment_depth_offset(1);
-    //this.warning_icon.set_attachment_horizontal_offset(-16, HALF);
+    this.warning_icon.set_attachment_horizontal_offset(-16, HALF);
     this.warning_icon.set_current_foreground_color(COLOR_RED, true);
     this.warning_icon.manual_visibility = true;
     this.warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
