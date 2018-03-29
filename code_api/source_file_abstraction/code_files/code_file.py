@@ -127,6 +127,18 @@ class LoadedCodeFile(CodeFile):
 		self._contents_loaded = False
 		self._file_lines      = []
 
+	def replace_text(self, text_to_find, text_to_replace_with):
+		"""Replaces text inside of this code file."""
+		ufo.replace_text_in_file(self.full_path, text_to_find, text_to_replace_with)
+		if self.contents_loaded:
+			self.read_file_contents()
+
+	def replace_line_from_text_match(self, text_to_match_in_line, line_to_replace_with):
+		"""Replaces the matched line with the provided line to replace with."""
+		ufo.replace_line_from_text_match(self.full_path, text_to_match_in_line, line_to_replace_with)
+		if self.contents_loaded:
+			self.read_file_contents()
+
 	def read_file_contents(self):
 		"""Reads in the contents of this file."""
 		self._file_lines = ufo.get_file_content(self.full_path)

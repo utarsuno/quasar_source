@@ -13,6 +13,7 @@ QuasarMainLoop.prototype = {
 
     __init__: function() {
         this.previous_time = null;
+        this.single_render_performed = false;
     },
 
     run: function() {
@@ -29,7 +30,7 @@ QuasarMainLoop.prototype = {
 
         requestAnimationFrame(this.quasar_main_loop.bind(this));
 
-        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED) {
+        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED && !this.single_render_performed) {
             MANAGER_RENDERER.pre_render();
 
             this.time = performance.now();
@@ -46,6 +47,8 @@ QuasarMainLoop.prototype = {
             MANAGER_RENDERER.render(this.delta);
             MANAGER_RENDERER.post_render();
             this.previous_time = this.time;
+
+            this.single_render_performed = true;
         }
     }
 };
@@ -54,6 +57,3 @@ const QUASAR = new QuasarMainLoop();
 
 // Load all the initially needed resources. Once loaded start the main loop.
 MANAGER_LOADING.perform_initial_load(QUASAR);
-
-
-

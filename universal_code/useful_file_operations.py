@@ -108,6 +108,34 @@ def create_directory(path: str) -> None:
   |    | |___ |___    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
 
 
+def replace_line_from_text_match(source_file, text_to_match, line_to_replace_with):
+	"""Replaces lines that contain the 'text_to_match' text and replaces those lines with the 'line_to_replace_with'."""
+	file_lines = []
+	with open(source_file) as f:
+		for l in f:
+			file_lines.append(l)
+
+	for i, l in enumerate(file_lines):
+		if text_to_match in l:
+			file_lines[i] = line_to_replace_with
+			if not file_lines[i].endswith('\n'):
+				file_lines[i] += '\n'
+
+	with open(source_file, 'w') as f:
+		for l in file_lines:
+			f.write(l)
+
+
+def replace_text_in_file(source_file, text_to_find, text_to_replace_with):
+	"""Replaces 'text_to_find' instances with 'text_to_replace_with'."""
+	with open(source_file) as f:
+		s = f.read()
+
+	with open(source_file, 'w') as f:
+		s = s.replace(text_to_find, text_to_replace_with)
+		f.write(s)
+
+
 def copy_file_to_path(source_file, destination):
 	"""Copies the source file to the destination."""
 	copyfile(source_file, destination)

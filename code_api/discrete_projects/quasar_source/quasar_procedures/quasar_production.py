@@ -5,6 +5,7 @@
 
 from universal_code import output_coloring as oc
 from universal_code import debugging as dbg
+from universal_code.shell_abstraction.shell_command_runner import run_and_get_output_no_input
 from code_api.source_file_abstraction.code_files.js_file import GeneratedJSFile
 from code_api.code_abstraction.code_section import CodeSection
 from code_api.code_abstraction.code_chunk import CodeChunk
@@ -14,6 +15,18 @@ TEMPORARY_OUTPUT = '/Users/utarsuno/git_repos/quasar_source/configuration_files/
 REMOVE_TEXT = '/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom'
 FOR_DEV_START = 'FOR_DEV_START'
 FOR_DEV_END   = 'FOR_DEV_END'
+
+
+def get_git_version():
+	"""Utility function to get the current commit number of the current git push."""
+	git_version = run_and_get_output_no_input(['git', 'rev-list', '--all', '--count'])
+	errors = git_version[1]
+	if errors is not None:
+		oc.print_ascii_red('Error!')
+		oc.print_data_with_red_dashes_at_start('Error with getting git version.')
+		oc.print_data_with_red_dashes_at_start('{' + str(errors[1]) + '}')
+	else:
+		return int(git_version[0].decode('utf-8').replace('\n', '')) + 1
 
 
 def get_list_of_js_file_names_to_compress(file_text):
@@ -64,6 +77,8 @@ class QuasarProduction(object):
 		self._html   = html_component
 		self._js     = js_component
 		self._assets = assets_component
+
+		self._upcoming_git_version = str(get_git_version())
 
 		self._original_total_size = 0
 		self._new_total_size      = 0
@@ -116,6 +131,11 @@ class QuasarProduction(object):
 		oc.print_data_with_red_dashes_at_start('compressing html files')
 		html_prod = self._html.get_file_by_name('prod')
 
+		line_matcher = 'js/custom/quasar/quasar_prod?'
+		line_replacement = '<script src="/home/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar/quasar_prod?VERSION.min.js"></script>\n'
+		line_replacement = line_replacement.replace('VERSION', self._upcoming_git_version)
+		html_prod.replace_line_from_text_match(line_matcher, line_replacement)
+
 		html_prod.generate_minified_file()
 		self._original_total_size += html_prod.file_size
 		self._new_total_size += html_prod.compressed_size
@@ -148,7 +168,7 @@ class QuasarProduction(object):
 		combined_lines.insert(0, "'use strict';\n")
 
 		# Now create the combined javascript file.
-		combined_javascript_file = GeneratedJSFile('quasar_prod', '.js')
+		combined_javascript_file = GeneratedJSFile('quasar_prod?' + self._upcoming_git_version, '.js')
 		combined_javascript_file.add_code_section(CodeSection('all_code'))
 		all_code = combined_javascript_file.get_code_section('all_code')
 
