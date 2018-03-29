@@ -12,7 +12,8 @@ FloatingButton.prototype = {
         this.set_to_clickable();
 
         if (is_defined(engage_function)) {
-            this.set_engage_function(engage_function);
+            this.button_engage_function = engage_function;
+            this.set_engage_function(this.try_to_perform_engage_function.bind(this));
         }
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
@@ -28,6 +29,16 @@ FloatingButton.prototype = {
         if (!this.has_button_state) {
             ButtonState.call(this);
             this.has_button_state = true;
+        }
+    },
+    
+    try_to_perform_engage_function: function() {
+        if (this.has_button_state) {
+            if (this.enabled()) {
+                this.button_engage_function();
+            }
+        } else {
+            this.button_engage_function();
         }
     },
 
