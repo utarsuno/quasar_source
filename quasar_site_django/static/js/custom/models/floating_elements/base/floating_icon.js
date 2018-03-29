@@ -22,13 +22,20 @@ FloatingIcon.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_material: function() {
-        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_CURSOR, this.icon_type), transparent : true});
+        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_CURSOR, this.icon_type), transparent : true, side: THREE.FrontSide});
     },
 
     create_base_mesh: function() {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
-    }
+    },
 
+    /*__   __        __   __      __   __   ___  __       ___    __        __
+     /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+     \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    current_foreground_color_changed: function() {
+        this.material.color.set(this.current_foreground_color.getHex());
+        this.material.needsUpdate = true;
+    }
 };

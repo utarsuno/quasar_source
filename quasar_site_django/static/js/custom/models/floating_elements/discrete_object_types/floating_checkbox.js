@@ -22,15 +22,26 @@ FloatingCheckBox.prototype = {
         this.engable = false;
         this.maintain_engage_when_tabbed_to = false;
 
-        //this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
-        //this.icon_not_checked = new FloatingIcon(this.world, ICON_CROSS, size);
+        this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
+        this.icon_checked.set_current_foreground_color(COLOR_GREEN, true);
+        this.icon_not_checked = new FloatingIcon(this.world, ICON_CROSS, size);
+        this.icon_not_checked.set_current_foreground_color(COLOR_RED, true);
 
         this.create_base_material();
         this.create_base_mesh();
+
+        this.add_floating_element(null, null, 1, this.icon_checked);
+        this.add_floating_element(null, null, 1, this.icon_not_checked);
+
+        if (this.checked) {
+            this.icon_not_checked.set_to_invisible();
+        } else {
+            this.icon_checked.set_to_invisible();
+        }
     },
 
     create_base_material: function() {
-        this.material = new THREE.MeshBasicMaterial({opacity: 0.5, transparent: true});
+        this.material = new THREE.MeshBasicMaterial({opacity: 0.01, transparent: true, side: THREE.FrontSide});
     },
 
     create_base_mesh: function() {

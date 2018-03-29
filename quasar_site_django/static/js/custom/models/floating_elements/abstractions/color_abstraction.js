@@ -55,6 +55,13 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
     this.set_current_background_color = function(color, refresh) {
         this.current_background_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.current_background_color_changed)) {
+                    this.current_background_color_changed();
+                }
+            }
+        }
     };
 
     this.set_default_background_color = function(color, refresh) {
@@ -63,6 +70,13 @@ const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
 
     this.set_current_foreground_color = function(color, refresh) {
         this.current_foreground_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.current_foreground_color_changed)) {
+                    this.current_foreground_color_changed();
+                }
+            }
+        }
     };
 
     this.set_default_foreground_color = function(color, refresh) {
