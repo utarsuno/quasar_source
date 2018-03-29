@@ -101,7 +101,7 @@ LoginWorld.prototype = {
         remember_username.add_label_left('remember username:');
 
         row = this.wall_login.add_row();
-        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS], 16, 'login', this.login_button.bind(this));
+        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS], 16, 'login', this.login_button_pressed.bind(this));
 
         //
 
