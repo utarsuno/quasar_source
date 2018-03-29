@@ -19,7 +19,7 @@ FloatingCheckBox.prototype = {
         this.height = size;
 
         this.world.interactive_objects.push(this);
-        this.engable = false;
+        //this.engable = false;
         this.maintain_engage_when_tabbed_to = false;
 
         this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
