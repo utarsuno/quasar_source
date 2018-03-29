@@ -15,6 +15,9 @@ FloatingCheckBox.prototype = {
             this.checked = false;
         }
 
+        this.width = size;
+        this.height = size;
+
         //this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
         //this.icon_not_checked = new FloatingIcon(this.world, ICON_CROSS, size);
 
