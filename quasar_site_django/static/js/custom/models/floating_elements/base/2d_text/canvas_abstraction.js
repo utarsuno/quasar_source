@@ -38,14 +38,8 @@ CanvasAbstraction.prototype = {
         this.font_needs_updating  = true;
     },
 
-    set_height: function(height, generate_font) {
+    set_height: function(height) {
         this.height = get_nearest_power_of_two_for_number(height * 2);
-        if (generate_font) {
-            if (this.font_needs_updating) {
-                this.set_font();
-                this.update_font();
-            }
-        }
     },
 
     update_font: function() {
