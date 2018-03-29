@@ -54,7 +54,6 @@ LoginWorld.prototype = {
         //this.login_errors = new TextSyntaxManager(this);
 
         /*
-
         var login_username_row = this.wall_login.add_row(0).add_2D_label_and_input(ONE_THIRD, 'username', [TEXT_SYNTAX_STANDARD_LENGTH]);
         this.login_username_input = login_username_row[1];
         //this.login_errors.add_label_and_input(login_username_row[0], login_username_row[1]);
@@ -68,7 +67,6 @@ LoginWorld.prototype = {
 
         this.login_button = this.wall_login.add_row(3).add_2D_button([ONE_FOURTH, THREE_FOURTHS], 'login', null, this.login_button_pressed.bind(this));
         //this.login_errors.add_final_button(this.login_button);
-
         */
     },
 
