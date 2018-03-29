@@ -30,7 +30,7 @@ QuasarMainLoop.prototype = {
 
         requestAnimationFrame(this.quasar_main_loop.bind(this));
 
-        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED && !this.single_render_performed) {
+        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
             MANAGER_RENDERER.pre_render();
 
             this.time = performance.now();
