@@ -59,7 +59,7 @@ CanvasAbstraction.prototype = {
             additional_properties += 'bold ';
         }
         this.font         = additional_properties + str(this.font_size) + 'px Arial';
-        l('Font is : {' + this.font + '}');
+        //l('Font is : {' + this.font + '}');
         this.context.font = this.font;
         this.font_needs_updating = false;
     },
