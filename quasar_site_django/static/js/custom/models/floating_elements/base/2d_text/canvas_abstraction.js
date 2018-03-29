@@ -49,17 +49,14 @@ CanvasAbstraction.prototype = {
     update_font: function() {
         this.font_size = int(this.height * _SMUDGE_FACTOR);
         var additional_properties = '';
-        if (is_defined(this.text_property_italic)) {
-            if (this.text_property_italic) {
-                additional_properties += 'italic ';
-            }
+        if (this.text_property_italic) {
+            additional_properties += 'italic ';
         }
-        if (is_defined(this.text_property_bold)) {
-            if (this.text_property_bold) {
-                additional_properties += 'bold ';
-            }
+        if (this.text_property_bold) {
+            additional_properties += 'bold ';
         }
         this.font         = additional_properties + str(this.font_size) + 'px Arial';
+        l('Font is : {' + this.font + '}');
         this.context.font = this.font;
         this.font_needs_updating = false;
     },
