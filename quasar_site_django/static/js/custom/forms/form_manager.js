@@ -14,6 +14,7 @@ FormManager.prototype = {
     add_input_field: function(input_field) {
         this.input_fields.push(input_field);
         input_field.set_value_post_changed_function(this.on_input_event.bind(this));
+        input_field.add_input_state();
     },
 
     add_final_button: function(final_button) {
