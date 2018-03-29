@@ -40,6 +40,8 @@ FormManager.prototype = {
                 if (apply_markings) {
                     input_field.display_warning_icon();
                 }
+                l('Error was');
+                l(syntax[1]);
             } else {
                 input_field.hide_warning_icon();
             }
