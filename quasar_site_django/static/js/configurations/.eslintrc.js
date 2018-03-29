@@ -70,7 +70,8 @@ module.exports = {
         "FloatingText"   : true,
         "FloatingPicture": true,
 
-        "TextAbstraction": false,
+        "TextAbstraction" : false,
+        "ColorAbstraction": false,
 
         //
         "ButtonState"   : false,
@@ -141,7 +142,6 @@ module.exports = {
         "PostHelper": true,
 
         "Interactive"      : true,
-        "TextSyntax"       : true,
         "InheritableButton": true,
         "Attachmentable"   : true,
         "Visibility"       : true,
@@ -419,11 +419,6 @@ module.exports = {
         // 3rd party hix grid reference.
         "vg": false,
 
-        "BACKGROUND_COLOR_DEFAULT" : false,
-        "BACKGROUND_COLOR_FOCUS"   : false,
-        "BACKGROUND_COLOR_ERROR"   : false,
-        "BACKGROUND_COLOR_SUCCESS" : false,
-
         // UNIVERSAL_CONSTANTS_START : Icons.
         "ICON_STAR"         : false,
         "ICON_EXIT"         : false,
@@ -450,10 +445,6 @@ module.exports = {
         "ICON_MENU_LIST"    : false,
         // UNIVERSAL_CONSTANTS_END
 
-        "TEXT_FORMAT_LEFT"        : false,
-        "TEXT_FORMAT_CENTER"      : false,
-        "TEXT_FORMAT_RIGHT"       : false,
-
         "get_color_range_list": false,
 
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
@@ -461,12 +452,11 @@ module.exports = {
         "FLOATING_TEXT_BACKGROUND_TRANSPARENT": false,
         "FLOATING_TEXT_BACKGROUND_DEFAULT"    : false,
         "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
-        "FLOATING_TEXT_BACKGROUND_SUCESS"     : false,
+        "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
 
         "COLOR_STRING_INDEX"           : false,
         "COLOR_HEX_INDEX"              : false,
         "COLOR_HIGHLIGHT"              : false,
-        "COLOR_PLANET"                 : false,
         "COLOR_TEXT_DEFAULT"           : false,
         "COLOR_TEXT_BUTTON"            : false,
         "COLOR_RED"                    : false,

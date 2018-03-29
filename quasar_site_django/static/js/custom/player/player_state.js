@@ -47,7 +47,7 @@ function PlayerState() {
             if (player_state === PLAYER_STATE_ENGAGED) {
                 MANAGER_INPUT.reset_movement_controls();
             }
-            
+
             //l('PREVIOUS STATE WAS :');
             //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {

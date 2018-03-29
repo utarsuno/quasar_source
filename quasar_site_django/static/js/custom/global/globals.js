@@ -136,43 +136,33 @@ const SERVER_REPLY_GENERIC_YES                            = 'y';
 const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
 // UNIVERSAL_CONSTANTS_END
 
-const BACKGROUND_COLOR_DEFAULT = '#000000';
-const BACKGROUND_COLOR_FOCUS   = [264241, '#264241'];
-const BACKGROUND_COLOR_ERROR   = '#390006';
-const BACKGROUND_COLOR_SUCCESS = '#1e3f1e';
-
-//const FLOATING_TEXT_BACKGROUND_DEFAULT = 'rgba(20, 20, 20, .05)';
-//const FLOATING_TEXT_BACKGROUND_ERROR = 'rgba(57, 0, 6, .05)';
-//const FLOATING_TEXT_BACKGROUND_SUCESS = 'rgba(30, 63, 30, .05)';
 
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 
 
 // TEMPORARY TESTING.
-const COLOR_RED          = new THREE.Color('#ff5e33');
-const COLOR_GREEN        = new THREE.Color('#31ff00');
-const COLOR_BLACK        = new THREE.Color('#000000');
-const COLOR_TEXT_DEFAULT = new THREE.Color('#67ffbf');
+const COLOR_RED           = new THREE.Color('#ff5e33');
+const COLOR_GREEN         = new THREE.Color('#31ff00');
+const COLOR_YELLOW        = new THREE.Color('#faff00');
+const COLOR_BLACK         = new THREE.Color('#000000');
+const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
+const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
+//const COLOR_TEXT_BUTTON   = new THREE.Color();
 
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';
 const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .65)';
 const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .65)';
-const FLOATING_TEXT_BACKGROUND_SUCESS      = 'rgba(30, 63, 30, .65)';
+const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .65)';
 
 // TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;
 const COLOR_HEX_INDEX               = 0;
 const COLOR_HIGHLIGHT               = [0xD4FF93, '#D4FF93'];
-const COLOR_PLANET                  = [0xAFE0FF, '#AFE0FF'];
-//const COLOR_TEXT_DEFAULT            = [0x67ffbf, '#67ffbf'];
 const COLOR_TEXT_BUTTON             = [0x60d6ff, '#60d6ff'];
-//const COLOR_RED                     = [0xff5e33, '#ff5e33'];
 const COLOR_ORANGE                  = [0xFF7F00, '#FF7F00'];
-const COLOR_YELLOW                  = [0xf3ff5b, '#f3ff5b'];
 const COLOR_BLUE                    = [0x2a33ff, '#2a33ff'];
 const COLOR_DARK_PURPLE             = [0x4B0082, '#4B0082'];
 const COLOR_LIGHT_PURPLE            = [0x8F00FF, '#8F00FF'];
-const COLOR_TEXT_CONSTANT           = [0x7e58b0, '#7e58b0'];
 const COLOR_WHITE                   = [0xffffff, '#ffffff'];
 const COLOR_SCHEDULE_PAST           = [0x0b3162, '#09254b'];
 const COLOR_SCHEDULE_PRESENT        = [0x8effae, '#4dff78'];
@@ -193,63 +183,6 @@ const COLOR_FRIDAY                  = [0xafff84, '#afff84'];
 const COLOR_SATURDAY                = [0x68ff6c, '#68ff6c'];
 const COLOR_SUNDAY                  = [0x5aff94, '#5aff94'];
 // UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Texture types.
-const TEXTURE_GROUP_SKYBOX = 'skybox';
-const TEXTURE_GROUP_CURSOR = 'cursors';
-const TEXTURE_GROUP_ICONS  = 'icons';
-// UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Textures for icons.
-const ICON_STAR          = 'star.png';
-const ICON_EXIT          = 'exit.png';
-const ICON_SETTINGS      = 'gear.png';
-const ICON_MULTI_PLAYER  = 'multiplayer.png';
-const ICON_HOME          = 'home.png';
-const ICON_SAVE          = 'save.png';
-const ICON_ENTITY_GROUP  = 'share.png';
-const ICON_FULLSCREEN    = 'larger.png';
-const ICON_LEFT          = 'arrow_left.png';
-const ICON_RIGHT         = 'arrow_right.png';
-const ICON_CROSS         = 'cross.png';
-const ICON_WORLDS        = 'bars_horizontal.png';
-const ICON_LOCKED        = 'locked.png';
-const ICON_UNLOCKED      = 'unlocked.png';
-const ICON_WARNING       = 'warning.png';
-const ICON_TELEPORT      = 'open.png';
-const ICON_CHECKMARK     = 'checkmark.png';
-const ICON_SINGLE_PLAYER = 'singleplayer.png';
-const ICON_WRENCH        = 'wrench.png';
-const ICON_IMPORT        = 'import.png';
-const ICON_INFORMATION   = 'information.png';
-const ICON_MOVIE         = 'movie.png';
-const ICON_MENU_LIST     = 'menu_list.png';
-// UNIVERSAL_CONSTANTS_END
-
-// TODO : Audio stuff.
-const AUDIO_TYPING_SOUND = 'typing_sound.wav';
-
-// UNIVERSAL_CONSTANTS_START : Textures for skybox.
-const SKYBOX_FRONT  = 'skybox_front.jpg';
-const SKYBOX_BACK   = 'skybox_back.jpg';
-const SKYBOX_LEFT   = 'skybox_left.jpg';
-const SKYBOX_RIGHT  = 'skybox_right.jpg';
-const SKYBOX_TOP    = 'skybox_top.jpg';
-const SKYBOX_BOTTOM = 'skybox_bottom.jpg';
-// UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Cursor types.
-const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
-const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
-const CURSOR_TYPE_LARGER     = 'larger.png';
-const CURSOR_TYPE_HAND       = 'cursor_hand.png';
-const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
-const CURSOR_TYPE_MOUSE      = 'mouse.png';
-// UNIVERSAL_CONSTANTS_END
-
-const TEXT_FORMAT_LEFT         = 'text_format_left';
-const TEXT_FORMAT_CENTER       = 'text_format_center';
-const TEXT_FORMAT_RIGHT        = 'text_format_right';
 
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',

@@ -1,5 +1,7 @@
 'use strict';
 
+const AUDIO_TYPING_SOUND = 'typing_sound.wav';
+
 // Important reference : https://imgur.com/gallery/J6WA6eo
 
 function AudioManager() {

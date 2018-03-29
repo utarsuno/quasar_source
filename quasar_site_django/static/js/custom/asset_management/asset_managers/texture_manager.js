@@ -1,5 +1,47 @@
 'use strict';
 
+const TEXTURE_GROUP_SKYBOX = 'skybox';
+const TEXTURE_GROUP_CURSOR = 'cursors';
+const TEXTURE_GROUP_ICONS  = 'icons';
+
+const ICON_STAR          = 'star.png';
+const ICON_EXIT          = 'exit.png';
+const ICON_SETTINGS      = 'gear.png';
+const ICON_MULTI_PLAYER  = 'multiplayer.png';
+const ICON_HOME          = 'home.png';
+const ICON_SAVE          = 'save.png';
+const ICON_ENTITY_GROUP  = 'share.png';
+const ICON_FULLSCREEN    = 'larger.png';
+const ICON_LEFT          = 'arrow_left.png';
+const ICON_RIGHT         = 'arrow_right.png';
+const ICON_CROSS         = 'cross.png';
+const ICON_WORLDS        = 'bars_horizontal.png';
+const ICON_LOCKED        = 'locked.png';
+const ICON_UNLOCKED      = 'unlocked.png';
+const ICON_WARNING       = 'warning.png';
+const ICON_TELEPORT      = 'open.png';
+const ICON_CHECKMARK     = 'checkmark.png';
+const ICON_SINGLE_PLAYER = 'singleplayer.png';
+const ICON_WRENCH        = 'wrench.png';
+const ICON_IMPORT        = 'import.png';
+const ICON_INFORMATION   = 'information.png';
+const ICON_MOVIE         = 'movie.png';
+const ICON_MENU_LIST     = 'menu_list.png';
+
+const SKYBOX_FRONT  = 'skybox_front.jpg';
+const SKYBOX_BACK   = 'skybox_back.jpg';
+const SKYBOX_LEFT   = 'skybox_left.jpg';
+const SKYBOX_RIGHT  = 'skybox_right.jpg';
+const SKYBOX_TOP    = 'skybox_top.jpg';
+const SKYBOX_BOTTOM = 'skybox_bottom.jpg';
+
+const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
+const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
+const CURSOR_TYPE_LARGER     = 'larger.png';
+const CURSOR_TYPE_HAND       = 'cursor_hand.png';
+const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
+const CURSOR_TYPE_MOUSE      = 'mouse.png';
+
 function TextureManager() {
     this.__init__();
 }

@@ -19,7 +19,7 @@ PlayerMenu.prototype = {
         this.player_menu_width = 120;
         this.icon_width = 16;
         this.menu_text_width = this.player_menu_width - this.icon_width;
-        this.menu_text_height = 16;
+        this.text_height = 16;
 
         this.utility_wall_width = 120;
         this.icon_width_percentage = this.icon_width / this.utility_wall_width;

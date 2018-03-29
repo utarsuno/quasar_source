@@ -21,6 +21,7 @@ function FloatingElement(world) {
 
     this.add_label_left = function(text) {
         var label = new FloatingText2D(this.world, this.height, text, TEXT_PROPERTY_JUST_ITALIC);
+        label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
     };
 }

@@ -13,10 +13,14 @@ function InputState() {
 
     this.display_warning_icon = function() {
         this.warning_icon.set_to_visible();
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
+        this.refresh();
     };
 
     this.hide_warning_icon = function() {
         this.warning_icon.set_to_invisible();
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_SUCCESS;
+        this.refresh();
     };
 
     /*
@@ -35,4 +39,3 @@ function InputState() {
     };
     */
 }
-
