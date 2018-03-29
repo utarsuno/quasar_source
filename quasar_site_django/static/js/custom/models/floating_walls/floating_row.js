@@ -26,10 +26,11 @@ FloatingRow.prototype = {
 
     add_checkbox: function(x_params, size, checked) {
         var floating_checkbox = new FloatingCheckBox(this.world, size, checked);
-        //var total_percentage_of_parent_width = size / this.parent_wall.width;
+        x_params[0] -= 0.5;
         return this.add_element(x_params, floating_checkbox);
-    }, // start - HALF + total_percentage_of_parent_width / 2
+    },
 
+    // To further test :
     add_icon: function(x_params, icon_type) {
         var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params));
         return this.add_element(x_params, floating_icon);
@@ -37,15 +38,7 @@ FloatingRow.prototype = {
 
     add_text_3D: function(x_params, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
-        //var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
-
-        //if (center_at_x_offset) {
-        //    x_offset -= total_percentage_of_parent_width / 2;
-        //}
-
-        //x_offset -= 0.5;
         x_params[0] -= 0.5;
-
         return this.add_element(x_params, floating_text_3D);
     },
 
@@ -59,21 +52,13 @@ FloatingRow.prototype = {
 
     add_element: function(x_params, floating_element) {
         floating_element.set_attachment_depth_offset(1);
-
         var x_start = x_params[0];
-
         if (is_defined(x_params[2])) {
             if (x_params[2]) {
                 x_start -= (floating_element.width / this.parent_wall.width) / 2;
             }
         }
-
-
-        // TODO : Investigate this? Seems like it could be heavily optimized.
-        //floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
-
-
-
+        
         floating_element.set_attachment_horizontal_offset(null, x_start);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 

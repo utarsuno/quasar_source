@@ -88,11 +88,11 @@ LoginWorld.prototype = {
         row.add_text_3D([HALF, null, true], 32, 'Login', true);
 
         row = this.wall_login.add_row();
-        var input_username = row.add_input_2D([0, 1, true], 16);
+        var input_username = row.add_input_2D([0, 1, false], 16);
         input_username.add_label_left('username:');
 
         row = this.wall_login.add_row();
-        var input_password = row.add_input_2D([0, 1, true], 16);
+        var input_password = row.add_input_2D([0, 1, false], 16);
         input_password.add_syntax(TEXT_SYNTAX_PASSWORD);
         input_password.add_label_left('password:');
 
