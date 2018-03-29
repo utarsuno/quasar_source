@@ -1,6 +1,10 @@
 'use strict';
 
 const _SMUDGE_FACTOR = 0.85;
+const TEXT_PROPERTY_REGULAR         = [false, false];
+const TEXT_PROPERTY_JUST_BOLD       = [false, true];
+const TEXT_PROPERTY_JUST_ITALIC     = [true, false];
+const TEXT_PROPERTY_ITALIC_AND_BOLD = [true, true];
 
 function CanvasAbstraction(width, height) {
     this.__init__(width, height);
@@ -12,6 +16,10 @@ CanvasAbstraction.prototype = {
         this.width     = get_nearest_power_of_two_for_number(width  * 2);
         this.set_height(height);
 
+        this.text_property_centered = false;
+        this.text_property_bold     = false;
+        this.text_property_italic   = false;
+
         this.canvas        = document.createElement('canvas');
         this.canvas.width  = this.width;
         this.canvas.height = this.height;
@@ -20,6 +28,18 @@ CanvasAbstraction.prototype = {
 
     set_height: function(height) {
         this.height = get_nearest_power_of_two_for_number(height * 2);
+    },
+
+    update_font: function() {
+        var additional_properties = '';
+        if (this.text_property_italic) {
+            additional_properties += 'italic ';
+        }
+        if (this.text_property_bold) {
+            additional_properties += 'bold ';
+        }
+        this.font         = additional_properties + str(this.font_size) + 'px Arial';
+        this.context.font = this.font;
     },
 
     set_font: function() {
@@ -34,7 +54,7 @@ CanvasAbstraction.prototype = {
         this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
     },
 
-    render: function(background_color, foreground_color, center_text, text) {
+    render: function(background_color, foreground_color, text) {
         this.context.clearRect(0, 0, this.width, this.height);
         if (is_defined(background_color)) {
             this.context.fillStyle = background_color;
@@ -42,12 +62,10 @@ CanvasAbstraction.prototype = {
         }
         this.context.fillStyle = foreground_color;
 
-        if (center_text) {
-            // this.context.fillText(text, this.width / 2 - this.get_text_width_for_texture() / 2, this.font_size);
-            //this.context.fillText(text, this.width / 2, this.font_size);
-            this.context.fillText(text, this.width / 2 - this.get_text_width_for_texture() / 4, this.font_size);
+        if (this.text_property_centered) {
+            this.context.fillText(text, this.width / 2 - this.get_text_width_for_texture() / 4, int(this.font_size * .9));
         } else {
-            this.context.fillText(text, 0, this.font_size);
+            this.context.fillText(text, 0, int(this.font_size * .9));
         }
 
         this.texture.needsUpdate = true;
@@ -57,11 +75,3 @@ CanvasAbstraction.prototype = {
         return this.context.measureText(text).width;
     }
 };
-
-
-/*
-        var x_offset = 0;
-        if (this.centered) {
-            x_offset = this.texture_width / 2 - this._get_text_length() / 2;
-        }
-*/

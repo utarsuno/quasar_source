@@ -88,6 +88,13 @@ module.exports = {
         "SyntaxRuleMaximumLength": false,
         //
 
+        //
+        "TEXT_PROPERTY_REGULAR"        : false,
+        "TEXT_PROPERTY_JUST_BOLD"      : false,
+        "TEXT_PROPERTY_JUST_ITALIC"    : false,
+        "TEXT_PROPERTY_ITALIC_AND_BOLD": false,
+        //
+
         "Text2D"          : false,
         "Text3D"          : false,
         "FloatingText2D"  : false,

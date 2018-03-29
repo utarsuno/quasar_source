@@ -8,7 +8,7 @@ FloatingButton.prototype = {
 
     __init__: function(world, width, text_height, text, engage_function) {
         // Inherit.
-        Text2D.call(this, world, width, text_height, text);
+        Text2D.call(this, world, width, text_height, text, TEXT_PROPERTY_JUST_BOLD);
         this.set_to_clickable();
 
         if (is_defined(engage_function)) {
@@ -16,7 +16,7 @@ FloatingButton.prototype = {
         }
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
-        this.center_text = true;
+        this.set_text_property_centered(true);
         this.initialize();
     },
 
