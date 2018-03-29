@@ -27,9 +27,9 @@ FloatingRow.prototype = {
     //return button;
     //},
 
-    add_checkbox: function(start, size) {
-        var floating_checkbox = new FloatingCheckBox(this.world, size);
-
+    add_checkbox: function(start, size, checked) {
+        var floating_checkbox = new FloatingCheckBox(this.world, size, checked);
+        
     },
 
     add_icon: function(x_start_n_stop, icon_type) {
