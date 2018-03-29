@@ -85,23 +85,23 @@ LoginWorld.prototype = {
         var login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
         this.wall_login = new FloatingWall(350, 95, login_wall_position, login_wall_normal, this);
         var row = this.wall_login.add_row(-1);
-        row.add_text_3D(HALF, 32, 'Login', true);
+        row.add_text_3D([HALF, null, true], 32, 'Login', true);
 
         row = this.wall_login.add_row();
-        var input_username = row.add_input_2D([0, 1], 16);
+        var input_username = row.add_input_2D([0, 1, true], 16);
         input_username.add_label_left('username:');
 
         row = this.wall_login.add_row();
-        var input_password = row.add_input_2D([0, 1], 16);
+        var input_password = row.add_input_2D([0, 1, true], 16);
         input_password.add_syntax(TEXT_SYNTAX_PASSWORD);
         input_password.add_label_left('password:');
 
         row = this.wall_login.add_row();
-        var remember_username = row.add_checkbox(0, 16, false);
+        var remember_username = row.add_checkbox([0, null, false], 16, false);
         remember_username.add_label_left('remember username:');
 
         row = this.wall_login.add_row();
-        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS], 16, 'login', this.login_button_pressed.bind(this));
+        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', this.login_button_pressed.bind(this));
 
         //
 

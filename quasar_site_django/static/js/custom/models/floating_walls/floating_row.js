@@ -15,63 +15,65 @@ FloatingRow.prototype = {
     },
 
     // NEW FUNCTIONS.
-    _get_width_needed: function(x_start_n_stop) {
-        var total_percentage_of_parent_width = x_start_n_stop[1] - x_start_n_stop[0];
-        var floating_element_width = this.parent_wall.width * total_percentage_of_parent_width;
-        return [total_percentage_of_parent_width, floating_element_width];
+    _get_width_needed: function(x_params) {
+        return this.parent_wall.width * (x_params[1] - x_params[0]);
     },
 
-    //
-    //add_button: function(x_start_n_stop, text, color, function_to_bind) {
-    //var button = this.add_2D_element(x_start_n_stop, text, TYPE_BUTTON, color);
-    //button.set_engage_function(function_to_bind);
-    //return button;
-    //},
-
-    add_button: function(x_start_n_stop, text_height, text, engage_function) {
-        var w = this._get_width_needed(x_start_n_stop);
-        var floating_button = new FloatingButton(this.world, w[1], text_height, text, engage_function);
-        return this.add_element(x_start_n_stop[0], floating_button);
+    add_button: function(x_params, text_height, text, engage_function) {
+        var floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
+        return this.add_element(x_params, floating_button);
     },
 
-    add_checkbox: function(start, size, checked) {
+    add_checkbox: function(x_params, size, checked) {
         var floating_checkbox = new FloatingCheckBox(this.world, size, checked);
-        var total_percentage_of_parent_width = size / this.parent_wall.width;
-        return this.add_element(start - HALF + total_percentage_of_parent_width / 2, floating_checkbox);
+        //var total_percentage_of_parent_width = size / this.parent_wall.width;
+        return this.add_element(x_params, floating_checkbox);
+    }, // start - HALF + total_percentage_of_parent_width / 2
+
+    add_icon: function(x_params, icon_type) {
+        var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params));
+        return this.add_element(x_params, floating_icon);
     },
 
-    add_icon: function(x_start_n_stop, icon_type) {
-        var w = this._get_width_needed(x_start_n_stop);
-        var floating_icon = new FloatingIcon(this.world, icon_type, w[1]);
-        return this.add_element(x_start_n_stop[0], floating_icon);
-    },
-
-    add_text_3D: function(x_offset, text_size, text, center_at_x_offset) {
+    add_text_3D: function(x_params, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
-        var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
+        //var total_percentage_of_parent_width = floating_text_3D.width / this.parent_wall.width;
 
-        if (center_at_x_offset) {
-            x_offset -= total_percentage_of_parent_width / 2;
-        }
+        //if (center_at_x_offset) {
+        //    x_offset -= total_percentage_of_parent_width / 2;
+        //}
 
-        x_offset -= 0.5;
+        //x_offset -= 0.5;
+        x_params[0] -= 0.5;
 
-        return this.add_element(x_offset, floating_text_3D);
+        return this.add_element(x_params, floating_text_3D);
     },
 
-    add_input_2D: function(x_start_n_stop, text_height, text) {
+    add_input_2D: function(x_params, text_height, text) {
         if (!is_defined(text)) {
             text = '';
         }
-        var w = this._get_width_needed(x_start_n_stop);
-        var floating_input_2D = new FloatingInput2D(this.world, w[1], text_height, text);
-        return this.add_element(x_start_n_stop[0], floating_input_2D);
+        var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
+        return this.add_element(x_params, floating_input_2D);
     },
 
-    add_element: function(x_start, floating_element) {
+    add_element: function(x_params, floating_element) {
         floating_element.set_attachment_depth_offset(1);
+
+        var x_start = x_params[0];
+
+        if (is_defined(x_params[2])) {
+            if (x_params[2]) {
+                x_start -= (floating_element.width / this.parent_wall.width) / 2;
+            }
+        }
+
+
         // TODO : Investigate this? Seems like it could be heavily optimized.
         //floating_element.set_attachment_horizontal_offset(null, -HALF + x_start + total_percentage_of_parent_width / 2);
+
+
+
         floating_element.set_attachment_horizontal_offset(null, x_start);
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
