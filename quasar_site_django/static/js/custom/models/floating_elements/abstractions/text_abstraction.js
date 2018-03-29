@@ -5,7 +5,6 @@ function TextAbstraction(text) {
     this.syntax_rules = [];
 
     this.bold = false;
-    this.centered = false;
 
     this.text         = text;
     this.text_changed = false;

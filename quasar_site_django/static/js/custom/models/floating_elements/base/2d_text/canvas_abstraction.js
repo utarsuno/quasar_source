@@ -41,7 +41,12 @@ CanvasAbstraction.prototype = {
             this.context.fillRect(0, 0, this.width, this.height);
         }
         this.context.fillStyle = foreground_color;
-        this.context.fillText(text, 0, this.font_size);
+
+        if (center_text) {
+            this.context.fillText(text, this.width / 2 - this.get_text_width_for_texture() / 2, this.font_size);
+        } else {
+            this.context.fillText(text, 0, this.font_size);
+        }
 
         this.texture.needsUpdate = true;
     },

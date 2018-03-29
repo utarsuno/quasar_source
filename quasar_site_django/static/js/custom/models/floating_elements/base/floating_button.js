@@ -10,12 +10,13 @@ FloatingButton.prototype = {
         // Inherit.
         Text2D.call(this, world, width, text_height, text);
         this.set_to_clickable();
-        this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         if (is_defined(engage_function)) {
             this.set_engage_function(engage_function);
         }
 
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
+        this.center_text = true;
         this.initialize();
     },
 
