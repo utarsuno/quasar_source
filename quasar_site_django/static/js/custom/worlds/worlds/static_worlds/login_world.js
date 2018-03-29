@@ -54,7 +54,7 @@ LoginWorld.prototype = {
         var a = 'a';
         for (var i = 0; i < 100; i++) {
             a += 'a';
-            var row = this.wall_test.add_row(-1);
+            var row = this.wall_test.add_row();
             var input_username = row.add_input_2D([0, 1, false], 16);
             input_username.add_label_left(a);
         }
