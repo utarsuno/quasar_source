@@ -5,8 +5,12 @@
 import requests as r
 from universal_code import output_coloring as oc
 
-
-result = r.get('http://www.quasarsource.com:1337/ping')
+result = None
+try:
+	result = r.get('http://www.quasarsource.com:1337/ping')
+except Exception as e:
+	oc.print_ascii_red('build error')
+	oc.print_data_with_red_dashes_at_start(str(e))
 
 if result.status_code == 200:
 	content = result.content.decode('utf-8')
