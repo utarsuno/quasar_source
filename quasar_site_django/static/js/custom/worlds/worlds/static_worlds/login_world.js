@@ -50,7 +50,7 @@ LoginWorld.prototype = {
         this._create_login_wall();
         this._create_create_account_wall();
 
-        this.wall_test = new FloatingWall(500, 95, new THREE.Vector3(900, 2000, -700), new THREE.Vector3(-900, 2000, 700), this);
+        this.wall_test = new FloatingWall(500, 95, new THREE.Vector3(900, 3000, -700), new THREE.Vector3(-900, 0, 700), this);
         var a = 'a';
         for (var i = 0; i < 100; i++) {
             a += 'a';
