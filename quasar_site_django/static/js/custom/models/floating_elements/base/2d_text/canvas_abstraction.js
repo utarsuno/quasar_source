@@ -101,7 +101,7 @@ CanvasAbstraction.prototype = {
             this.update_font();
         }
 
-        this.
+        //this.
 
         return this.context.measureText(text).width;
     }
