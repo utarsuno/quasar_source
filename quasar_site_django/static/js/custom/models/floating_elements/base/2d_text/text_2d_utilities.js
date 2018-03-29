@@ -71,7 +71,8 @@ Text2DUtilities.prototype = {
         //var box = div.getBBox();
 
         l('');
-        return w;
+        return get_nearest_power_of_two_for_number(w);
+        //return w;
         //return get_nearest_power_of_two_for_number(w / 2);
     },
 
