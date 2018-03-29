@@ -89,6 +89,7 @@ LoginWorld.prototype = {
 
         row = this.wall_login.add_row();
         var input_username = row.add_input_2D([0, 1, false], 16);
+        input_username.add_syntax(TEXT_SYNTAX_USERNAME);
         input_username.add_label_left('username:');
 
         row = this.wall_login.add_row();

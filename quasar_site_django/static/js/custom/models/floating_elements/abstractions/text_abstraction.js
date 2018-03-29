@@ -9,13 +9,19 @@ function TextAbstraction(text) {
     this.text         = text;
     this.text_changed = false;
 
+    this._is_password = false;
+
     /*__           ___              __   __   ___  __       ___    __        __
      /__` \ / |\ |  |   /\  \_/    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      .__/  |  | \|  |  /~~\ / \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this.add_syntax = function(text_syntax) {
         switch (text_syntax) {
         case TEXT_SYNTAX_PASSWORD:
+            this._is_password = true;
             this.syntax_rules.push(new TextSyntaxPassword());
+            break;
+        case TEXT_SYNTAX_USERNAME:
+            this.syntax_rules.push(new TextSyntaxUsername());
             break;
         }
     };
@@ -82,15 +88,6 @@ function TextAbstraction(text) {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    this.is_password_text = function() {
-        for (var s = 0; s < this.syntax_rules.length; s++) {
-            if (this.syntax_rules[s].text_syntax_type === TEXT_SYNTAX_PASSWORD) {
-                return true;
-            }
-        }
-        return false;
-    };
-
     this.get_text_as_value = function() {
         return parseInt(this.get_text());
     };
@@ -100,7 +97,7 @@ function TextAbstraction(text) {
     };
 
     this.get_display_text = function() {
-        if (this.is_password_text()) {
+        if (this._is_password) {
             var t = '';
             for (var c = 0; c < this.text.length; c++) {
                 t += '*';
