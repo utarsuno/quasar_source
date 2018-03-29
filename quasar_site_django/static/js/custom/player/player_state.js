@@ -13,7 +13,7 @@ function PlayerState() {
         case PLAYER_STATE_LOADING:
         case PLAYER_STATE_AJAX:
         case PLAYER_STATE_PAUSED:
-            CURRENT_PLAYER.fps_controls.reset();
+            MANAGER_INPUT.reset_movement_controls();
 
             // Dis-engage any engaged objects.
             var currently_looked_at_object = this.get_currently_looked_at_object();

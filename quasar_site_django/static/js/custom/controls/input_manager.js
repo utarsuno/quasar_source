@@ -56,7 +56,15 @@ InputManager.prototype = {
         this.supports_wheel = false;
     },
 
-    // TODO : CREATE AN INPUT RESET METHOD!!!
+    reset_movement_controls: function() {
+        this.up    = false;
+        this.down  = false;
+        this.left  = false;
+        this.right = false;
+        this.space = false;
+        this.shift = false;
+    },
+
     reset: function() {
         this.click_down_left   = false;
         this.click_down_right  = false;
