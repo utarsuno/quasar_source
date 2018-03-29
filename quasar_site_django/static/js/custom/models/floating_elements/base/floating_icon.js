@@ -22,7 +22,7 @@ FloatingIcon.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_material: function() {
-        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_CURSOR, this.icon_type), transparent : true, side: THREE.FrontSide});
+        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_ICONS, this.icon_type), transparent : true, side: THREE.FrontSide});
     },
 
     create_base_mesh: function() {
