@@ -14,7 +14,7 @@ function CanvasAbstraction(width, height, text_properties) {
 CanvasAbstraction.prototype = {
     __init__: function(width, height, text_properties) {
         this.original_width = width;
-        this.width     = get_nearest_power_of_two_for_number(width  * 2);
+        this.width     = get_nearest_power_of_two_for_number(width * 2);
         this.width_ratio = this.original_width / this.width;
 
         this.set_height(height);
