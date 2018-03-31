@@ -8,7 +8,7 @@ const TOUCH_EVENT_MOVE   = 'touchmove';
 function MobileInputManager() {
 
     document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'auto';
+    //document.documentElement.style.overflow = 'auto';
 
     this.touch_position = {x: 0, y: 0};
     this.touch_previous = {x: -1, y: -1};

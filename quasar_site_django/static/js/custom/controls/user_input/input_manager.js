@@ -120,7 +120,7 @@ InputManager.prototype = {
         this._mouse_movement(movement_x, movement_y);
 
         // TODO : Not currently used for now.
-        // /*
+        /*
            // Only left click dragging will be supported for now.
            if (this.click_down_left) {
                 MANAGER_WORLD.current_world.parse_mouse_drag(movement_x, movement_y);
