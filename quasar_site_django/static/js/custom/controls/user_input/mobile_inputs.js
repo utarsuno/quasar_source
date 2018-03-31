@@ -13,6 +13,8 @@ function MobileInputManager() {
     this.touch_position = {x: 0, y: 0};
     this.touch_previous = {x: -1, y: -1};
 
+    this.is_horizontal = window.innerWidth > window.innerHeight;
+
     this.on_touch_start = function(event) {
         l('Touch start for : ');
 
@@ -28,7 +30,13 @@ function MobileInputManager() {
         l(event);
 
         if (this.touch_previous.x !== -1) {
-            this._mouse_movement(this.touch_position.x - this.touch_previous.x, this.touch_position.y - this.touch_previous.x);
+
+            if (this.is_horizontal) {
+                this._mouse_movement(this.touch_position.y - this.touch_previous.y, this.touch_position.z - this.touch_previous.z);
+            } else {
+                this._mouse_movement(this.touch_position.x - this.touch_previous.x, this.touch_position.y - this.touch_previous.x);
+            }
+
         }
         this.touch_previous.x = this.touch_position.x;
         this.touch_previous.y = this.touch_position.y;
