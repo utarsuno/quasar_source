@@ -69,6 +69,8 @@ InputManager.prototype = {
 
         if (this.is_mobile) {
             l('Mobile!');
+            // Inherit needed mobile controls.
+            MobileInputManager.call(this);
         } else {
             l('Not mobile!');
         }
