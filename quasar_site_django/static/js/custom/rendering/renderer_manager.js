@@ -91,7 +91,12 @@ RendererManager.prototype = {
         }
         this.outline_glow = new OutlineGlow(this.outline_pass);
         if (CURRENT_CLIENT.is_mobile) {
-            this.effect_composer.renderToScreen = true;
+
+            this.copy_pass = new THREE.ShaderPass( THREE.CopyShader );
+            this.copy_pass.renderToScreen = true;
+            this.effect_composer.addPass(this.copy_pass);
+            
+            //this.effect_composer.renderToScreen = true;
             //this.outline_glow.outline_pass.renderToScreen = true;
         }
     },
