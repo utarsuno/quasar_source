@@ -22,6 +22,7 @@ function MobileInputManager() {
         this.touch_position.y = event.touches[0].pageY;
 
         l(event);
+        event.preventDefault();
         event.stopPropagation();
     };
 
@@ -44,6 +45,7 @@ function MobileInputManager() {
         this.touch_position.x = event.touches[0].pageX;
         this.touch_position.y = event.touches[0].pageY;
 
+        event.preventDefault();
         event.stopPropagation();
     };
 

@@ -25,6 +25,7 @@ var MANAGER_DATA_DISPLAY    = null;
 var MANAGER_LOADING         = null;
 
 // Global objects.
+var CURRENT_CLIENT = null;
 var CURRENT_PLAYER = null;
 var ENTITY_OWNER   = null;
 

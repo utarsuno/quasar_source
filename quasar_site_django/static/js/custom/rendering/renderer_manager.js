@@ -79,9 +79,11 @@ RendererManager.prototype = {
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
 
-        // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
-        this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
-        this.effect_composer.addPass(this.effect_film);
+        if (!CURRENT_CLIENT.is_mobile) {
+            // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
+            this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
+            this.effect_composer.addPass(this.effect_film);
+        }
 
         this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
         this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);

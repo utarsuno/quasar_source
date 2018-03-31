@@ -215,11 +215,13 @@ module.exports = {
         "EntityChangedNotifier": false,
 
         // Global objects.
-        "CURRENT_PLAYER": true,
-        "ENTITY_OWNER": true,
+        "CURRENT_CLIENT": false,
+        "CURRENT_PLAYER": false,
+        "ENTITY_OWNER"  : false,
         // and their class names.
+        "Client"     : false,
         "EntityOwner": false,
-        "Player": true,
+        "Player"     : false,
 
         "PlayerMenu"   : true,
 

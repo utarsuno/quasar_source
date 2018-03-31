@@ -52,7 +52,7 @@ function PlayerState() {
             //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {
                 GUI_PAUSED_MENU.make_invisible();
-                if (!MANAGER_INPUT.is_mobile) {
+                if (!CURRENT_CLIENT.is_mobile) {
                     MANAGER_POINTER_LOCK.request_pointer_lock();
                 }
             }
