@@ -91,7 +91,8 @@ RendererManager.prototype = {
         }
         this.outline_glow = new OutlineGlow(this.outline_pass);
         if (CURRENT_CLIENT.is_mobile) {
-            this.outline_glow.outline_pass.renderToScreen = true;
+            this.effect_composer.renderToScreen = true;
+            //this.outline_glow.outline_pass.renderToScreen = true;
         }
     },
 
