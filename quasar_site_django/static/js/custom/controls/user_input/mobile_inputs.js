@@ -32,9 +32,9 @@ function MobileInputManager() {
         if (this.touch_previous.x !== -1) {
 
             if (this.is_horizontal) {
-                this._mouse_movement(this.touch_position.y - this.touch_previous.y, this.touch_position.x - this.touch_previous.x);
-            } else {
                 this._mouse_movement(this.touch_position.x - this.touch_previous.x, this.touch_position.y - this.touch_previous.y);
+            } else {
+                this._mouse_movement(this.touch_position.y - this.touch_previous.y, this.touch_position.x - this.touch_previous.x);
             }
 
         }

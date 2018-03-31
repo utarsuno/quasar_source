@@ -43,7 +43,9 @@ PointerLockManager.prototype = {
     },
 
     pointer_lock_error: function(e) {
-        raise_exception_with_full_logging('Pointer lock error!');
+        if (!MANAGER_RENDERER.is_mobile) {
+            raise_exception_with_full_logging('Pointer lock error!');
+        }
     },
 
     request_pointer_lock: function() {
