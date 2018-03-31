@@ -1,8 +1,5 @@
 'use strict';
 
-// TODO : Eventually make this into a configurable setting.
-const SKYBOX_DEFAULT_OPACITY = 0.50;
-
 /*     __        __          __                           __   ___  __
  |    /  \  /\  |  \ | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__)
  |___ \__/ /~~\ |__/ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ */
