@@ -7,8 +7,18 @@ const TOUCH_EVENT_MOVE   = 'touchmove';
 
 function MobileInputManager() {
 
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'auto';
+
+    this.touch_position = {x: 0, y: 0};
+    this.touch_previous = {x: -1, y: -1};
+
     this.on_touch_start = function(event) {
         l('Touch start for : ');
+
+        this.touch_position.x = event.touches[0].pageX;
+        this.touch_position.y = event.touches[0].pageY;
+
         l(event);
         event.stopPropagation();
     };
@@ -16,6 +26,16 @@ function MobileInputManager() {
     this.on_touch_move = function(event) {
         l('Touch move for : ');
         l(event);
+
+        if (this.touch_previous.x !== -1) {
+            this._mouse_movement(this.touch_position.x - this.touch_previous.x, this.touch_position.y - this.touch_previous.x);
+        }
+        this.touch_previous.x = this.touch_position.x;
+        this.touch_previous.y = this.touch_position.y;
+
+        this.touch_position.x = event.touches[0].pageX;
+        this.touch_position.y = event.touches[0].pageY;
+
         event.stopPropagation();
     };
 
