@@ -48,12 +48,14 @@ function MobileInputManager() {
     };
 
     this.on_orientation_change = function() {
+        l('Orientation is now:');
+        l(window.orientation);
         switch(window.orientation) {
         case -90 || 90:
-            this.is_horizontal = true;
+            this.is_horizontal = false;
             break;
         default:
-            this.is_horizontal = false;
+            this.is_horizontal = true;
             break;
         }
     };

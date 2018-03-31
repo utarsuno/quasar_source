@@ -61,7 +61,6 @@ module.exports = {
         "CSSRendererAPI": true,
         "FPSControls": true,
         "ShaderAPI": true,
-        "Client": true,
         "WebSocketClient": false,
 
         "FloatingVideo"  : true,
