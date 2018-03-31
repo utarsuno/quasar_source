@@ -14,7 +14,9 @@ FormManager.prototype = {
                 this.add_input_field(input_fields[f]);
             }
         }
-        this.final_button = final_button;
+        if (is_defined(final_button)) {
+            this.add_final_button(final_button);
+        }
     },
 
     add_input_field: function(input_field) {
