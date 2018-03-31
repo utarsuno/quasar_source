@@ -4,11 +4,9 @@ const TOUCH_EVENT_START  = 'touchstart';
 const TOUCH_EVENT_END    = 'touchend';
 const TOUCH_EVENT_CANCEL = 'touchcancel';
 const TOUCH_EVENT_MOVE   = 'touchmove';
+const ORIENTATION_CHANGE = 'orientationchange';
 
 function MobileInputManager() {
-
-    document.documentElement.style.overflow = 'hidden';
-    //document.documentElement.style.overflow = 'auto';
 
     this.touch_position = {x: 0, y: 0};
     this.touch_previous = {x: -1, y: -1};
@@ -49,7 +47,19 @@ function MobileInputManager() {
         event.stopPropagation();
     };
 
+    this.on_orientation_change = function() {
+        switch(window.orientation) {
+        case -90 || 90:
+            this.is_horizontal = true;
+            break;
+        default:
+            this.is_horizontal = false;
+            break;
+        }
+    };
+
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
+    document.addEventListener(ORIENTATION_CHANGE, this.on_orientation_change.bind(this));
 
 }

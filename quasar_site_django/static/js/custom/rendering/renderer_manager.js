@@ -83,14 +83,16 @@ RendererManager.prototype = {
             // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
             this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
             this.effect_composer.addPass(this.effect_film);
+
+            this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+            this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+            this.effect_FXAA.renderToScreen = true;
+            this.effect_composer.addPass(this.effect_FXAA);
         }
-
-        this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
-        this.effect_FXAA.renderToScreen = true;
-        this.effect_composer.addPass(this.effect_FXAA);
-
         this.outline_glow = new OutlineGlow(this.outline_pass);
+        if (CURRENT_CLIENT.is_mobile) {
+            this.outline_glow.outline_pass.renderToScreen = true;
+        }
     },
 
     pre_render: function() {
@@ -138,8 +140,10 @@ RendererManager.prototype = {
         GUI_TYPING_INTERFACE.window_was_resized();
 
         //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
-        this.effect_composer.setSize(this.window_width, this.window_height);
-        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        if (!CURRENT_CLIENT.is_mobile) {
+            this.effect_composer.setSize(this.window_width, this.window_height);
+            this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        }
     },
 
     is_webgl_enabled: function() {
