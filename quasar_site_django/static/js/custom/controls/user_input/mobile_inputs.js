@@ -116,6 +116,8 @@ function MobileInputManager() {
         });
     };
 
+    this.set_keyboard_button();
+
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
     document.addEventListener(TOUCH_EVENT_END, this.on_touch_end.bind(this));
