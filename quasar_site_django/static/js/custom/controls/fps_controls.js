@@ -119,6 +119,10 @@ FPSControls.prototype = {
         this.mobile_horizontal = direction_vector.x;
     },
 
+    stop_mobile_movement: function() {
+        this.has_mobile_movement = false;
+    },
+
     physics: function(delta) {
         this.mouse_movement_x_buffer.update(delta);
         this.mouse_movement_y_buffer.update(delta);
@@ -131,7 +135,6 @@ FPSControls.prototype = {
         if (this.has_mobile_movement) {
             this.fly_forward(delta * this.mobile_forward);
             this.fly_left(delta * this.mobile_horizontal);
-            this.has_mobile_movement = false;
         }
 
         if (this.flying_on) {

@@ -19,6 +19,9 @@ function TouchAbstraction() {
     };
     this.kill = function() {
         this.identifier = null;
+        if (is_defined(this.on_kill)) {
+            this.on_kill();
+        }
     };
 }
 
@@ -38,10 +41,13 @@ TouchMovement.prototype = {
     touch_move: function(x, y) {
         this.current_x = x;
         this.current_y = y;
-        this.direction.x = this.current_x - this.start_x;
-        this.direction.y = this.current_y - this.start_y;
+        this.direction.x = this.start_x - this.current_x;
+        this.direction.y = this.start_y - this.current_y;
         this.direction.normalize();
         CURRENT_PLAYER.fps_controls.set_mobile_movement(this.direction);
+    },
+    on_kill: function() {
+        CURRENT_PLAYER.fps_controls.stop_mobile_movement();
     }
 };
 
@@ -60,6 +66,7 @@ TouchCamera.prototype = {
         this.current_y = y;
     },
     touch_move: function(x, y) {
+        l('CAMERA TOUCH MOVE!!');
         this.new_x = x;
         this.new_y = y;
         //this.direction.x = this.new_x - this.current_x;
@@ -93,8 +100,8 @@ function MobileInputManager() {
     };
 
     this._in_movement_boundary = function(x, y) {
-        if (x < this.movement_boundary_x) {
-            if (y < this.movement_boundary_y) {
+        if (x < (window.innerWidth - this.movement_boundary_x)) {
+            if (y < (window.innerHeight - this.movement_boundary_y)) {
                 return true;
             }
         }
@@ -144,7 +151,7 @@ function MobileInputManager() {
             if (i === this.touch_movement.identifier) {
                 this.touch_movement.touch_move(touch.pageX, touch.pageY);
             } else if (i === this.touch_camera.identifier) {
-                this.touch_camera.touch_move(touch.pageX, touch.pageY, this.is_horizontal);
+                this.touch_camera.touch_move(touch.pageX, touch.pageY);
             }
         }
         event.preventDefault();
