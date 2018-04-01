@@ -188,7 +188,7 @@ class QuasarProduction(object):
 		all_code = combined_javascript_file.get_code_section('all_code')
 
 		# /////
-		combined_lines = parse_out_constants(combined_lines)
+		#combined_lines = parse_out_constants(combined_lines)
 		# /////
 
 		all_code.add_code_chunk(CodeChunk(combined_lines))
