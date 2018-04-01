@@ -85,6 +85,8 @@ function WorldInput() {
                 if (CURRENT_CLIENT.is_mobile) {
                     this.currently_looked_at_object.disengage();
                     CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+
+                    MANAGER_INPUT.hide_mobile_keyboard();
                 }
             }
         }

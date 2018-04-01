@@ -16,6 +16,9 @@ function MobileInputManager() {
     this.movement_boundary_x = window.innerWidth * ONE_THIRD;
     this.movement_boundary_y = window.innerHeight * ONE_THIRD;
 
+    this.mobile_text_input = document.getElementById('mobile_text_input');
+    this.mobile_keyboard_visible = false;
+
     this.mobile_resize = function(w, h) {
         this.is_horizontal = window.innerWidth > window.innerHeight;
         this.movement_boundary_x = w * ONE_THIRD;
@@ -80,6 +83,7 @@ function MobileInputManager() {
                     return;
                 }
             }
+
             // Not found so remove this touch type.
             touch.kill();
         }
@@ -98,27 +102,15 @@ function MobileInputManager() {
 
     this.trigger_mobile_keyboard = function() {
         l('Trying to open mobile keyboard!');
-        if (!is_defined(this.mobile_text_input)) {
-            this.mobile_text_input = document.getElementById('mobile_text_input');
-        }
-        this.mobile_text_input.style.visibility = 'visible';
-        this.mobile_text_input.focus();
-        this.mobile_text_input.style.visibility = 'hidden';
+        this.mobile_text_input.style.visibility = VISIBLE;
+        this.mobile_keyboard_visible = true;
     };
 
-    this.set_keyboard_button = function() {
-        this.mobile_keyboard = document.getElementById('mobile_keyboard');
-        this.mobile_keyboard.addEventListener('click', function() {
-            l('Keyboard tests!!!');
-            var mobile_text_input = document.getElementById('mobile_text_input');
-            mobile_text_input.style.visibility = 'visible';
-            mobile_text_input.focus();
-            //mobile_text_input.
-            mobile_text_input.style.visibility = 'hidden';
-        });
+    this.hide_mobile_keyboard = function() {
+        l('Trying to hide the mobile keyboard!');
+        this.mobile_text_input.style.visibility = NOT_VISIBLE;
+        this.mobile_keyboard_visible = false;
     };
-
-    this.set_keyboard_button();
 
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
