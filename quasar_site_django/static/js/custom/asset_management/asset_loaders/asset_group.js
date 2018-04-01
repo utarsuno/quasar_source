@@ -1,5 +1,8 @@
 'use strict';
 
+const ASSET_GROUP_AUDIO   = 'audio';
+const ASSET_GROUP_TEXTURE = 'texture';
+
 function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
 
     this._loading_manager = loading_manager;

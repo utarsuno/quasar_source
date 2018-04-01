@@ -1,6 +1,4 @@
-/**
- * Created by utarsuno on 3/2/18.
- */
+/*
 OLD PLAYER CODE TO ORGANIZE
 
     log_out: function() {
@@ -59,34 +57,4 @@ OLD PLAYER CODE TO ORGANIZE
         this.player_id = player_id;
         this.web_socket_client.connect(ENTITY_OWNER);
     },
-
-
-
-
-
-
-
-OLD MAIN LOOP CODE
-
-        if (!MANAGER_LOADING._currently_creating_world) {
-            MANAGER_RENDERER.pre_render();
-
-            this.time = performance.now();
-            this.delta = (this.time - this.previous_time) / 1000.0;
-
-            MANAGER_DATA_DISPLAY.update();
-
-            //MANAGER_MULTIPLAYER.update(delta);
-            CURRENT_PLAYER.update(this.delta);
-            MANAGER_WORLD.update_current_world(this.delta);
-
-            ////
-            if (GUI_TYPING_INTERFACE.needs_an_update()) {
-                GUI_TYPING_INTERFACE.update();
-            }
-            ////
-
-            MANAGER_RENDERER.render();
-            MANAGER_RENDERER.post_render();
-            this.previous_time = this.time;
-        }
+*/

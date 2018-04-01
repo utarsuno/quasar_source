@@ -10,6 +10,7 @@ from code_api.source_file_abstraction.code_files.js_file import GeneratedJSFile
 from code_api.code_abstraction.code_section import CodeSection
 from code_api.code_abstraction.code_chunk import CodeChunk
 from code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
+from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_production_utilities.constants_to_parse_out import parse_out_constants
 
 TEMPORARY_OUTPUT = '/Users/utarsuno/git_repos/quasar_source/configuration_files/static/js/custom/quasar'
 REMOVE_TEXT = '/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom'
@@ -187,7 +188,7 @@ class QuasarProduction(object):
 		all_code = combined_javascript_file.get_code_section('all_code')
 
 		# /////
-		combined_lines = self._parse_out_certain_constants(combined_lines)
+		combined_lines = parse_out_constants(combined_lines)
 		# /////
 
 		all_code.add_code_chunk(CodeChunk(combined_lines))
@@ -204,33 +205,3 @@ class QuasarProduction(object):
 		oc.print_pink('\t' + loaded_javascript_file.compression_statistics)
 		self._original_total_size += loaded_javascript_file.file_size
 		self._new_total_size += loaded_javascript_file.compressed_size
-
-	def _parse_out_certain_constants(self, combined_lines):
-		"""Utility function."""
-
-		constants_to_parse_out = {'ONE_THIRD'    : '.3333',
-		                          'ONE_FOURTH'   : '.25',
-		                          'THREE_FOURTHS': '.75',
-		                          'TWO_THIRDS'   : '.6666'}
-
-		# compressed{JS:quasar_prod_v_5135} - {473978b to 318834b} reduction of 155144 bytes or 32.73%
-		# compressed{JS:quasar_prod_v_5135} - {473550b to 318496b} reduction of 155054 bytes or 32.74%
-
-		lines = []
-
-		for i in range(len(combined_lines)):
-			l = combined_lines[i]
-
-			ignore_line = False
-
-			for c in constants_to_parse_out:
-				if c in l:
-					if 'const ' + c not in l:
-						l = l.replace(c, constants_to_parse_out[c])
-					else:
-						ignore_line = True
-
-			if not ignore_line:
-				lines.append(l)
-
-		return lines

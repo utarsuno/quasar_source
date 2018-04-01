@@ -59,6 +59,9 @@ LoginWorld.prototype = {
         this._create_quasar_title();
         this._create_login_wall();
         this._create_create_account_wall();
+
+        // Web-sockets testing!!!
+
     },
 
     _create_quasar_title: function() {

@@ -27,6 +27,8 @@ quasar_server = qs.QuasarServer()
 quasar_server.connect()
 v.set_quasar_server_instance(quasar_server)
 
+
+
 #####
 
 
@@ -43,7 +45,6 @@ POST_URL_GET_SHARED_WORLDS     = r'get_shared_worlds'
 
 POST_URL_STATUS_PING           = r'ping'
 
-# url(r'web_socket', v.GET_web_socket),
 
 urlpatterns = [
     url(POST_URL_CREATE_ACCOUNT       , v.POST_create_owner),

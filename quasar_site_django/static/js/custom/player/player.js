@@ -13,12 +13,8 @@ Player.prototype = {
 
     __init__: function() {
         this.fps_controls = new FPSControls();
-
         // Inherit.
         PlayerState.call(this);
-
-        // Create the instance of WebSocketClient. This won't connect until the player logs in.
-        this.web_socket_client = new WebSocketClient();
     },
 
     send_chat_message: function(chat_message) {

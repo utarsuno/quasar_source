@@ -7,7 +7,6 @@ function InputState() {
     this.warning_icon.set_attachment_horizontal_offset(-16, HALF);
     this.warning_icon.set_current_foreground_color(COLOR_RED, true);
     this.warning_icon.manual_visibility = true;
-    this.warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
     this.add_attachment(this.warning_icon);
     this.warning_icon.set_to_invisible();
 
@@ -38,4 +37,7 @@ function InputState() {
         return this._enabled;
     };
     */
+
+
+    // this.warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
 }

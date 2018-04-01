@@ -14,19 +14,20 @@ function is_defined(object) {
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
 // Global managers.
-var MANAGER_AUDIO           = null;
-var MANAGER_TEXTURE         = null;
-var MANAGER_TEXT_2D         = null;
-var MANAGER_COOKIES         = null;
-var MANAGER_WORLD           = null;
-var MANAGER_ENTITY          = null;
-var MANAGER_MULTIPLAYER     = null;
-var MANAGER_SHADER          = null;
-var MANAGER_RENDERER        = null;
-var MANAGER_INPUT           = null;
-var MANAGER_POINTER_LOCK    = null;
-var MANAGER_DATA_DISPLAY    = null;
-var MANAGER_LOADING         = null;
+var MANAGER_WEB_SOCKETS  = null;
+var MANAGER_AUDIO        = null;
+var MANAGER_TEXTURE      = null;
+var MANAGER_TEXT_2D      = null;
+var MANAGER_COOKIES      = null;
+var MANAGER_WORLD        = null;
+var MANAGER_ENTITY       = null;
+var MANAGER_MULTIPLAYER  = null;
+var MANAGER_SHADER       = null;
+var MANAGER_RENDERER     = null;
+var MANAGER_INPUT        = null;
+var MANAGER_POINTER_LOCK = null;
+var MANAGER_DATA_DISPLAY = null;
+var MANAGER_LOADING      = null;
 
 // Global objects.
 var CURRENT_CLIENT = null;
@@ -41,59 +42,18 @@ var GUI_TYPING_INTERFACE = null;
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
-// Asset loader types.
-const ASSET_GROUP_AUDIO   = 'audio';
-const ASSET_GROUP_TEXTURE = 'texture';
+// Logical constants.
+const NOT_FOUND = -1;
 
 // Tags
-const TYPE_INPUT_DATE     = 'input_date';
-const TYPE_INPUT_TIME     = 'input_time';
 const NO_DATE_SELECTED    = 'select date';
 const NO_TIME_SELECTED    = 'select time';
 const TAG_COMPLETED       = 'completed';
-const TAG_NOT_COMPLETED   = 'not_completed';
-const TAG_COMPLETED_LABEL = 'completed_label';
-
-// Logical constants.
-const NOT_FOUND = -1;
 
 // TODO : Clean up this design.
 const SAVE_TAG_3D_ROW = '3d_row';
 const SAVE_TAG_2D_ROW = '2d_row';
 const NO_SAVE_DATA = 'no_save_data';
-
-// UNIVERSAL_CONSTANTS_START : Web socket message types.
-const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
-const WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|';
-const WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|';
-const WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|';
-const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|';
-const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
-const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
-// UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Entity types.
-const ENTITY_TYPE_BASE                   = 'Entity';
-// UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Entity property keys.
-const ENTITY_PROPERTY_START_TOKEN         = 'ep_';
-const ENTITY_PROPERTY_OWNER               = ENTITY_PROPERTY_START_TOKEN + 'owner';
-const ENTITY_PROPERTY_NAME                = ENTITY_PROPERTY_START_TOKEN + 'name';
-const ENTITY_PROPERTY_TEXT_CONTENTS       = ENTITY_PROPERTY_START_TOKEN + 'text_contents';
-const ENTITY_PROPERTY_EXECUTE_DATE        = ENTITY_PROPERTY_START_TOKEN + 'execute_date';
-const ENTITY_PROPERTY_EXECUTE_TIME        = ENTITY_PROPERTY_START_TOKEN + 'execute_time';
-const ENTITY_PROPERTY_SERVER_ID           = ENTITY_PROPERTY_START_TOKEN + '_id';
-const ENTITY_PROPERTY_CREATED_AT_DATE     = ENTITY_PROPERTY_START_TOKEN + 'created_at_date';
-
-// UNIVERSAL_CONSTANTS_END
-
-// UNIVERSAL_CONSTANTS_START : Entity default property keys.
-const ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + 'type';
-const ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + 'child_ids';
-const ENTITY_DEFAULT_PROPERTY_PARENT_IDS  = ENTITY_PROPERTY_START_TOKEN + 'parent_ids';
-const ENTITY_DEFAULT_PROPERTY_RELATIVE_ID = ENTITY_PROPERTY_START_TOKEN + 'relative_id';
-// UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Entity POST keys.
 const ENTITY_POST_SAVE_DATA = 'save_data';
@@ -257,22 +217,6 @@ const NOT_VISIBLE = 'hidden';
 const DISPLAY_NONE = 'none';
 const DISPLAY_SHOW = 'block';
 
-const ATTACHMENT_NAME_WARNING = 'attachment_warning';
-const ATTACHMENT_NAME_SUCCESS = 'attachment_success';
-const ATTACHMENT_NAME_ERROR   = 'attachment_error';
-const ATTACHMENT_NAME_TOOLTIP = 'attachment_tooltip';
-
-const ATTACHMENT_TYPE_FLOATING_WALL    = 'attachment_type_floating_wall';
-const ATTACHMENT_TYPE_FLOATING_TEXT    = 'attachment_type_floating_wall';
-const ATTACHMENT_TYPE_FLOATING_PICTURE = 'attachment_type_floating_picture';
-const ATTACHMENT_TYPE_FLOATING_VIDEO   = 'attachment_type_floating_video';
-
-const ATTACHMENT_OFFSET_HORIZONTAL_RIGHT = 'horizontal_offset_right';
-const ATTACHMENT_OFFSET_HORIZONTAL_LEFT  = 'horizontal_offset_right';
-const ATTACHMENT_OFFSET_VERTICAL_UP      = 'vertical_offset_up';
-const ATTACHMENT_OFFSET_VERTICAL_DOWN    = 'vertical_offset_down';
-const ATTACHMENT_OFFSET_DEPTH            = 'depth_offset';
-
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
@@ -285,15 +229,6 @@ Array.prototype.contains = function(element) {
 /* __      ___       __           __           ___                       ___      ___    __
   |__) \ /  |  |__| /  \ |\ |    /__` \ / |\ |  |   /\  \_/    |  |\/| |  |   /\   |  | /  \ |\ |
   |     |   |  |  | \__/ | \|    .__/  |  | \|  |  /~~\ / \    |  |  | |  |  /~~\  |  | \__/ | \| */
-function len(o) {
-    if (o.hasOwnProperty('length')) {
-        return o.length;
-    }
-    l('TODO : Object o needs to be supported : ');
-    l(o);
-    return -1;
-}
-
 function str(o) {
     return o.toString();
 }

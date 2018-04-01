@@ -10,7 +10,6 @@ const EVENT_WHEEL_V0   = 'wheel';
 const EVENT_WHEEL_V1   = 'mousewheel';
 const EVENT_WHEEL_V2   = 'DOMMouseScroll';
 
-
 function InputManager() {
     this.__init__();
 }

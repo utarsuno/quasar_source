@@ -1,7 +1,8 @@
 'use strict';
 
-const IMAGE_TYPE_PNG  = 'image/png';
-const IMAGE_TYPE_JPEG = 'image/jpeg';
+// TODO : Not currently used.
+//const IMAGE_TYPE_PNG  = 'image/png';
+//const IMAGE_TYPE_JPEG = 'image/jpeg';
 
 function DragNDrop() {
     this.__init__();

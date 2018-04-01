@@ -13,8 +13,9 @@ const ENTITY_PROPERTY_PHONE_CARRIER      = ENTITY_PROPERTY_START_TOKEN + 'phone_
 const ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE = ENTITY_PROPERTY_START_TOKEN + 'account_type';
 
 // Account types.
-const ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified';
-const ACCOUNT_TYPE_INTERNAL     = 'internal';
-const ACCOUNT_TYPE_DEFAULT      = 'default';
-const ACCOUNT_TYPE_ADMIN        = 'admin';
-const ACCOUNT_TYPE_SUDO         = 'sudo';
+// TODO : Not currently used.
+//const ACCOUNT_TYPE_NOT_VERIFIED = 'not_verified';
+//const ACCOUNT_TYPE_INTERNAL     = 'internal';
+//const ACCOUNT_TYPE_DEFAULT      = 'default';
+//const ACCOUNT_TYPE_ADMIN        = 'admin';
+//const ACCOUNT_TYPE_SUDO         = 'sudo';

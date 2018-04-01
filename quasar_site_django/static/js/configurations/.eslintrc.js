@@ -120,13 +120,9 @@ module.exports = {
         "FloatingInput3D" : false,
         "FloatingCheckBox": false,
 
-        "TYPE_INPUT_DATE"    : true,
-        "TYPE_INPUT_TIME"    : true,
         "NO_DATE_SELECTED"   : true,
         "NO_TIME_SELECTED"   : true,
         "TAG_COMPLETED"      : true,
-        "TAG_NOT_COMPLETED"  : true,
-        "TAG_COMPLETED_LABEL": true,
 
         // Core
         "InputTextProcessor": false,
@@ -160,25 +156,6 @@ module.exports = {
         "FieldRowEntityType"  : true,
         "FieldRowName"        : true,
         "FieldRowRegular"     : true,
-
-        "ATTACHMENT_NAME_WARNING": false,
-        "ATTACHMENT_NAME_SUCCESS": false,
-        "ATTACHMENT_NAME_ERROR"  : false,
-        "ATTACHMENT_NAME_TOOLTIP": false,
-
-        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
-        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
-        // TODO : These need to be removed by first try to have them auto-detected by the code manager.
-        "ATTACHMENT_TYPE_FLOATING_WALL"   : false,
-        "ATTACHMENT_TYPE_FLOATING_TEXT"   : false,
-        "ATTACHMENT_TYPE_FLOATING_PICTURE": false,
-        "ATTACHMENT_TYPE_FLOATING_VIDEO"  : false,
-
-        "ATTACHMENT_OFFSET_HORIZONTAL_RIGHT": false,
-        "ATTACHMENT_OFFSET_HORIZONTAL_LEFT" : false,
-        "ATTACHMENT_OFFSET_VERTICAL_UP"     : false,
-        "ATTACHMENT_OFFSET_VERTICAL_DOWN"   : false,
-        "ATTACHMENT_OFFSET_DEPTH"           : false,
 
         // Global Managers.
         "MANAGER_COOKIES"        : true,
@@ -296,16 +273,6 @@ module.exports = {
         "TYPE_TITLE"                 : false,
         "TYPE_CONSTANT"              : false,
 
-        // UNIVERSAL_CONSTANTS_START : Web socket message types.
-        "WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS"                : false,
-        "WEB_SOCKET_MESSAGE_TYPE_CONNECTION"                 : false,
-        "WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED"               : false,
-        "WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE"               : false,
-        "WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE"             : false,
-        "WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE"            : false,
-        "WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE": false,
-        // UNIVERSAL_CONSTANTS_END
-
         // UNIVERSAL_CONSTANTS_START : Entity types.
         "ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER": false,
         "ENTITY_TYPE_STATIC_WORLDS_MANAGER" : false,
@@ -343,7 +310,6 @@ module.exports = {
         "ENTITY_PROPERTY_PHONE_NUMBER"       : false,
         "ENTITY_PROPERTY_PHONE_CARRIER"      : false,
         "ENTITY_PROPERTY_IMPORTANCE"         : false,
-        "ENTITY_PROPERTY_SERVER_ID"          : false,
         "ENTITY_PROPERTY_EXECUTE_DATE"       : false,
         "ENTITY_PROPERTY_EXECUTE_TIME"       : false,
         "ENTITY_PROPERTY_TEXT_CONTENTS"      : false,
@@ -549,7 +515,6 @@ module.exports = {
         // Python syntax imitation.
         "str"                                : false,
         "int"                                : false,
-        "len"                                : false,
 
         "raise_exception"                    : false,
         "raise_exception_with_full_logging"  : false,

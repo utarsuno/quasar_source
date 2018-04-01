@@ -46,40 +46,44 @@ WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|'
 @channel_session
 def ws_connect(message):
 	print('Web socket connection!')
+	print(message)
+	print(dict(message))
 
 	# Accept connection.
 	message.reply_channel.send({'accept': True})
 
-	global server
-	server.add_web_socket_connection(message.reply_channel)
+	#global server
+	#server.add_web_socket_connection(message.reply_channel)
 
 	Group('users').add(message.reply_channel)
 
 
 @channel_session
 def ws_message(message):
-	#print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+	print('JUST GOT THE MESSAGE : ' + str(message.content['text']))
+	print(message)
+	print(dict(message))
 
 	#print(message)
 	#print(dict(message))
 	#print(message.content['text'])
 
-	global server
+	#global server
 
-	message_text = (message.content['text']).split('|')
+	#message_text = (message.content['text']).split('|')
 
-	user = message_text[0]
-	command = '|' + message_text[1] + '|'
-	data = message_text[2]
+	#user = message_text[0]
+	#command = '|' + message_text[1] + '|'
+	#data = message_text[2]
 
-	server.parse_message(user, command, data, message.reply_channel)
+	#server.parse_message(user, command, data, message.reply_channel)
 
 
 @channel_session
 def ws_disconnect(message):
 	print('Web socket disconnected')
-	global server
-	server.remove_web_socket_connection(message.reply_channel)
-	Group('users').discard(message.reply_channel)
+	#global server
+	#server.remove_web_socket_connection(message.reply_channel)
+	#Group('users').discard(message.reply_channel)
 
 

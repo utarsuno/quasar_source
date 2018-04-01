@@ -4,6 +4,8 @@
 
 // Gets information needed regarding the connected client.
 CURRENT_CLIENT = new Client();
+// Web socket information.
+MANAGER_WEB_SOCKETS = new WebSocketManager();
 
 /*__   ___       __   ___  __          __                           __   ___  __   __
  |__) |__  |\ | |  \ |__  |__) | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
