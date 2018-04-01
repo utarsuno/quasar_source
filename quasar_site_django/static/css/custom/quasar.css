@@ -166,10 +166,12 @@ body {
  |  | \__/ |__) | |___ |___    |  \ |___  |  |__) \__/ /~~\ |  \ |__/ */
 
 #mobile_keyboard_div {
-
+    position: absolute;
+    top: 60%;
+    z-index: 100000;
 }
 
-#mobile_keyboard_button {
+.mobile_keyboard_button {
     margin: 1% 1% 1% 1%;
     display: inline-block;
     padding: 0px 5px;
