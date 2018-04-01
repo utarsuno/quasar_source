@@ -113,6 +113,8 @@ function MobileInputManager() {
 
     this._add_new_identifier = function(touch) {
         l('Adding new identifier!');
+        l('Is touch movement alive? {' + this.touch_movement.is_alive() + '}');
+        l('Is touch camera alive? {' + this.touch_camera.is_alive() + '}');
         if (!this.touch_movement.is_alive()) {
             var x = touch.pageX;
             var y = touch.pageY;
