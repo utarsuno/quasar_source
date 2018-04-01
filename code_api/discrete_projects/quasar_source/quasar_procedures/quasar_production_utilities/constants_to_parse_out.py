@@ -210,26 +210,34 @@ def _build_constants_to_parse_out():
 	_ac('TEXT_SYNTAX_REPEAT_PASSWORD', "3")
 	_ac('TEXT_SYNTAX_USERNAME', "4")
 
-	# Now make sure no constants appear in each other.
-
-	replacement = {}
-
-	global constants_to_parse_out
-	for c in constants_to_parse_out:
-		ignore_c = False
-		for d in constants_to_parse_out:
-			if d in c and d != c:
-				ignore_c = True
-		if not ignore_c:
-			replacement[c] = constants_to_parse_out[c]
-
-	constants_to_parse_out = replacement
-
 
 def _ac(k, v):
 	"""Utility function."""
 	global constants_to_parse_out
 	constants_to_parse_out[k] = v
+
+
+def _get_best_match(line):
+	"""Utility_function."""
+	global constants_to_parse_out
+
+	matches = []
+	for c in constants_to_parse_out:
+		if c in line:
+			matches.append(c)
+
+	best_index = -1
+	best_length = -1
+	for i, m in enumerate(matches):
+		if len(m) > best_length:
+			best_index = i
+
+	# l = l.replace(c, constants_to_parse_out[c])
+
+	#print(matches[best_index])
+	#print(constants_to_parse_out[matches[best_index]])
+
+	return line.replace(matches[best_index], constants_to_parse_out[matches[best_index]])
 
 
 def parse_out_constants(lines_to_parse):
@@ -250,6 +258,7 @@ def parse_out_constants(lines_to_parse):
 	# compressed{JS:quasar_prod_v_5188} - {464700b to 310879b} reduction of 153821 bytes or 33.10%
 	# compressed{JS:quasar_prod_v_5188} - {462834b to 309036b} reduction of 153798 bytes or 33.22%
 	# compressed{JS:quasar_prod_v_5188} - {462719b to 308886b} reduction of 153833 bytes or 33.24%
+	# compressed{JS:quasar_prod_v_5190} - {466789b to 312632b} reduction of 154157 bytes or 33.02%
 
 	lines = []
 
@@ -264,7 +273,7 @@ def parse_out_constants(lines_to_parse):
 					ignore_line = True
 
 				if not ignore_line:
-					l = l.replace(c, constants_to_parse_out[c])
+					l = _get_best_match(l)
 
 		if not ignore_line:
 			lines.append(l)
