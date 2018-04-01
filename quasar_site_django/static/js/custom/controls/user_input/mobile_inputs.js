@@ -122,13 +122,13 @@ function MobileInputManager() {
         l('Adding new identifier!');
         l('Is touch movement alive? {' + this.touch_movement.is_alive() + '}');
         l('Is touch camera alive? {' + this.touch_camera.is_alive() + '}');
-        if (!this.touch_movement.is_alive()) {
-            var x = touch.pageX;
-            var y = touch.pageY;
-            if (this._in_movement_boundary(x, y)) {
-                this.touch_movement.set_to_alive(touch);
-            }
-        } else if (!this.touch_camera.is_alive()) {
+
+        var x = touch.pageX;
+        var y = touch.pageY;
+
+        if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y)) {
+            this.touch_movement.set_to_alive(touch);
+        }else if (!this.touch_camera.is_alive()) {
             this.touch_camera.set_to_alive(touch);
         }
     };
