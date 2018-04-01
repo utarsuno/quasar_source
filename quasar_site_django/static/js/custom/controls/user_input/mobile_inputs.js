@@ -109,9 +109,11 @@ function MobileInputManager() {
     this.set_keyboard_button = function() {
         this.mobile_keyboard = document.getElementById('mobile_keyboard');
         this.mobile_keyboard.addEventListener('click', function() {
+            l('Keyboard tests!!!');
             var mobile_text_input = document.getElementById('mobile_text_input');
             mobile_text_input.style.visibility = 'visible';
             mobile_text_input.focus();
+            //mobile_text_input.
             mobile_text_input.style.visibility = 'hidden';
         });
     };

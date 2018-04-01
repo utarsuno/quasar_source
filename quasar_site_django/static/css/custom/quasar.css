@@ -160,3 +160,26 @@ body {
 #canvas_id {
     left: 0;
 }
+
+/*     __   __          ___          ___      __   __        __   __
+ |\/| /  \ |__) | |    |__     |__/ |__  \ / |__) /  \  /\  |__) |  \
+ |  | \__/ |__) | |___ |___    |  \ |___  |  |__) \__/ /~~\ |  \ |__/ */
+
+#mobile_keyboard_div {
+
+}
+
+.mobile_keyboard_button {
+    display: inline-block;
+    padding: 0px 5px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #0ff;
+    background-color: transparent;
+    border: solid 2px;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
