@@ -150,7 +150,7 @@ function MobileInputManager() {
 
     this.on_touch_end = function(event) {
         var active_identifiers = [];
-        for (var t = event.touches.length; t++) {
+        for (var t = 0; event.touches.length; t++) {
             active_identifiers.push(event.touches[t].identifier);
         }
 
