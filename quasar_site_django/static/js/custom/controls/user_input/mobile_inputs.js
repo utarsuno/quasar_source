@@ -43,6 +43,8 @@ function MobileInputManager() {
             this.touch_movement.set_to_alive(touch);
         } else if (!this.touch_camera.is_alive()) {
             this.touch_camera.set_to_alive(touch);
+        } else if (!this.touch_double_click.is_alive()) {
+            this.touch_double_click.set_to_alive(touch);
         }
     };
 
