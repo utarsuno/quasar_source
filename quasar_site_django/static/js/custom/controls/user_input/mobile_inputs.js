@@ -4,7 +4,6 @@ const TOUCH_EVENT_START  = 'touchstart';
 const TOUCH_EVENT_END    = 'touchend';
 const TOUCH_EVENT_CANCEL = 'touchcancel';
 const TOUCH_EVENT_MOVE   = 'touchmove';
-const ORIENTATION_CHANGE = 'orientationchange';
 
 function TouchAbstraction() {
     this.identifier = null;
@@ -12,8 +11,6 @@ function TouchAbstraction() {
         return is_defined(this.identifier);
     };
     this.set_to_alive = function(touch) {
-        l('identifier set to :');
-        l(touch.identifier);
         this.identifier = touch.identifier;
         this.touch_initialize(touch.pageX, touch.pageY);
     };
@@ -66,12 +63,8 @@ TouchCamera.prototype = {
         this.current_y = y;
     },
     touch_move: function(x, y) {
-        l('CAMERA TOUCH MOVE!!');
         this.new_x = x;
         this.new_y = y;
-        //this.direction.x = this.new_x - this.current_x;
-        //this.direction.y = this.new_y - this.current_y;
-        //this.direction.normalize();
         if (this.input_manager.is_horizontal) {
             this.input_manager._mouse_movement(this.new_x - this.current_x, this.new_y - this.current_y);
         } else {
@@ -95,7 +88,6 @@ function MobileInputManager() {
     this.movement_boundary_y = window.innerHeight * ONE_THIRD;
 
     this.mobile_resize = function(w, h) {
-        l('Mobile resize!');
         this.is_horizontal = window.innerWidth > window.innerHeight;
         this.movement_boundary_x = w * ONE_THIRD;
         this.movement_boundary_y = h * ONE_THIRD;
@@ -121,10 +113,6 @@ function MobileInputManager() {
     };
 
     this._add_new_identifier = function(touch) {
-        l('Adding new identifier!');
-        l('Is touch movement alive? {' + this.touch_movement.is_alive() + '}');
-        l('Is touch camera alive? {' + this.touch_camera.is_alive() + '}');
-
         var x = touch.pageX;
         var y = touch.pageY;
 
