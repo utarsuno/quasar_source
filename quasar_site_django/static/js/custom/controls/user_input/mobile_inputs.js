@@ -150,6 +150,7 @@ function MobileInputManager() {
 
     this.on_touch_end = function(event) {
         l('');
+        l('');
         l('Touch end!');
         l(event);
         l('');
