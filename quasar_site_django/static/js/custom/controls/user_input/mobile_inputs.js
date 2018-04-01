@@ -106,6 +106,16 @@ function MobileInputManager() {
         this.mobile_text_input.style.visibility = 'hidden';
     };
 
+    this.set_keyboard_button = function() {
+        this.mobile_keyboard = document.getElementById('mobile_keyboard');
+        this.mobile_keyboard.addEventListener('click', function() {
+            var mobile_text_input = document.getElementById('mobile_text_input');
+            mobile_text_input.style.visibility = 'visible';
+            mobile_text_input.focus();
+            mobile_text_input.style.visibility = 'hidden';
+        });
+    };
+
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
     document.addEventListener(TOUCH_EVENT_END, this.on_touch_end.bind(this));
