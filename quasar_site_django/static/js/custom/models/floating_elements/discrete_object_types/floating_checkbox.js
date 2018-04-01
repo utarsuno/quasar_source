@@ -55,13 +55,13 @@ FloatingCheckBox.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     set_checked_state: function(is_checked) {
         if (is_checked) {
-            this.icon_checked.set_to_invisible();
-            this.icon_not_checked.set_to_visible();
-            this.checked = false;
-        } else {
             this.icon_checked.set_to_visible();
             this.icon_not_checked.set_to_invisible();
             this.checked = true;
+        } else {
+            this.icon_checked.set_to_invisible();
+            this.icon_not_checked.set_to_visible();
+            this.checked = false;
         }
     },
 
