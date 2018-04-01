@@ -100,6 +100,18 @@ WorldManager.prototype = {
         this.current_world.key_down_event_for_interactive_objects(event);
     },
 
+    mobile_keyboard_event_key_press: function(key) {
+        this.current_world.mobile_key_press(key);
+    },
+
+    mobile_keyboard_event_key_delete: function() {
+        this.current_world.mobile_key_delete();
+    },
+
+    mobile_keyboard_close: function() {
+        this.current_world.mobile_keyboard_close();
+    },
+
     create_world: function(world) {
         // Player menu.
         world.player_menu.create();

@@ -35,6 +35,9 @@ function MobileKeyboard() {
         this._create_and_bind_keyboard_button('y');
         this._create_and_bind_keyboard_button('z');
         this._create_and_bind_keyboard_button('space');
+
+        this.keyboard_button_close = document.getElementById('mobile_button_exit').addEventListener('click', this._keyboard_button_close_pressed.bind(this));
+        this.keyboard_button_delete = document.getElementById('mobile_button_del').addEventListener('click', this._keyboard_button_delete_pressed.bind(this));
     };
 
     this._create_and_bind_keyboard_button = function(key) {
@@ -45,22 +48,31 @@ function MobileKeyboard() {
         keyboard_button.addEventListener('click', this._keyboard_button_pressed.bind(this, key));
     };
 
+    this._keyboard_button_close_pressed = function(event) {
+        MANAGER_WORLD.mobile_keyboard_close();
+        event.stopPropagation();
+        event.preventDefault();
+        this.hide_mobile_keyboard();
+    };
+
+    this._keyboard_button_delete_pressed = function(event) {
+        MANAGER_WORLD.mobile_keyboard_event_key_delete();
+        event.stopPropagation();
+        event.preventDefault();
+    };
+
     this._keyboard_button_pressed = function(key, event) {
-        l('The following key was just pressed!');
-        l(key);
-        l(event);
+        MANAGER_WORLD.mobile_keyboard_event_key_press(key);
         event.stopPropagation();
         event.preventDefault();
     };
 
     this.trigger_mobile_keyboard = function() {
-        l('Trying to open mobile keyboard!');
         this.mobile_text_input.style.visibility = VISIBLE;
         this.mobile_keyboard_visible = true;
     };
 
     this.hide_mobile_keyboard = function() {
-        l('Trying to hide the mobile keyboard!');
         this.mobile_text_input.style.visibility = NOT_VISIBLE;
         this.mobile_keyboard_visible = false;
     };

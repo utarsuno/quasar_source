@@ -102,6 +102,18 @@ function TextAbstraction(text) {
         }
     };
 
+    this.mobile_add_character = function(key) {
+        this._add_character(key);
+        MANAGER_AUDIO.play_typing_sound();
+    };
+
+    this.mobile_delete_character = function() {
+        if (event.key.length === 1) {
+            this._add_character(event.key);
+            MANAGER_AUDIO.play_typing_sound();
+        }
+    };
+
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */

@@ -2,6 +2,27 @@
 
 function WorldInput() {
 
+    this.mobile_key_press = function(key) {
+        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+            this.currently_looked_at_object.mobile_add_character(key);
+        }
+    };
+
+    this.mobile_key_delete = function() {
+        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+            this.currently_looked_at_object.mobile_delete_character();
+        }
+    };
+
+    this.mobile_keyboard_close = function() {
+        if (is_defined(this.currently_looked_at_object)) {
+            if (!this.currently_looked_at_object.is_engaged()) {
+                this.currently_looked_at_object.disengage();
+                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+            }
+        }
+    };
+
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE_TAB) {
             this.tab_to_next_interactive_object();
@@ -70,6 +91,11 @@ function WorldInput() {
 
     // This gets called on left mouse button up event.
     this.single_left_click = function() {
+
+        if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.mobile_keyboard_visible) {
+            return;
+        }
+
         if (is_defined(this.currently_looked_at_object)) {
             if (!this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.engage();
@@ -79,14 +105,6 @@ function WorldInput() {
                     if (this.currently_looked_at_object.needs_mobile_keyboard) {
                         MANAGER_INPUT.trigger_mobile_keyboard();
                     }
-                }
-
-            } else {
-                if (CURRENT_CLIENT.is_mobile) {
-                    this.currently_looked_at_object.disengage();
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-
-                    MANAGER_INPUT.hide_mobile_keyboard();
                 }
             }
         }
