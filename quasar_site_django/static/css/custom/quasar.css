@@ -169,7 +169,8 @@ body {
 
 }
 
-.mobile_keyboard_button {
+#mobile_keyboard_button {
+    margin: 1% 1% 1% 1%;
     display: inline-block;
     padding: 0px 5px;
     font-size: 20px;
@@ -181,5 +182,10 @@ body {
     background-color: transparent;
     border: solid 2px;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
+    box-shadow: 0 7px #999;
+}
+
+.mobile_keyboard_button:active {
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
 }
