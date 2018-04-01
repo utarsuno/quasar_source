@@ -108,8 +108,8 @@ function TextAbstraction(text) {
     };
 
     this.mobile_delete_character = function() {
-        if (event.key.length === 1) {
-            this._add_character(event.key);
+        if (this.get_text().length > 0) {
+            this._pop_character();
             MANAGER_AUDIO.play_typing_sound();
         }
     };
