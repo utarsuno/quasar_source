@@ -148,32 +148,34 @@ function MobileInputManager() {
         event.stopPropagation();
     };
 
+    this._check_if_touch_ended = function(identifier_list, touch) {
+        if (touch.is_alive()) {
+            for (var i = 0; i < identifier_list.length; i++) {
+                if (touch.identifier === identifier_list[i]) {
+                    return;
+                }
+            }
+            // Not found so remove this touch type.
+            touch.kill();
+        }
+    };
+
     this.on_touch_end = function(event) {
-        l('');
-        l('');
-        l('Touch end!');
-        l(event);
-        l('');
-        l('');
+        //l('');
+        //l('');
+        //l('Touch end!');
+        //l(event);
+        //l('');
+        //l('');
         var active_identifiers = [];
         for (var t = 0; t < event.touches.length; t++) {
             active_identifiers.push(event.touches[t].identifier);
-            l('Current active identifier: ' + event.touches[t].identifier);
+            //l('Current active identifier: ' + event.touches[t].identifier);
         }
-        l('Current alive identifiers!');
+        //l('Current alive identifiers!');
 
-        if (this.touch_movement.is_alive()) {
-            l('Movement : ' + this.touch_movement.identifier);
-            if (!(this.touch_movement.identifier in active_identifiers)) {
-                this.touch_movement.kill();
-            }
-        }
-        if (this.touch_camera.is_alive()) {
-            l('Camera : ' + this.touch_camera.identifier);
-            if (!(this.touch_camera.identifier in active_identifiers)) {
-                this.touch_camera.kill();
-            }
-        }
+        this._check_if_touch_ended(active_identifiers, this.touch_movement);
+        this._check_if_touch_ended(active_identifiers, this.touch_camera);
     };
 
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
