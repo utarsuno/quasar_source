@@ -86,6 +86,7 @@ PlayerMenu.prototype = {
         var temp_position = new THREE.Vector3(0, 0, 0);
         var temp_normal = new THREE.Vector3(0, 0, 0);
         this._player_menu = new FloatingWall(130, 100, temp_position, temp_normal, this.world);
+        this._player_menu.make_base_wall_invisible();
 
         this._player_menu.set_attachment_horizontal_offset(-30, null);
         this._player_menu.set_attachment_vertical_offset(-30, null);

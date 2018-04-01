@@ -1,7 +1,7 @@
 'use strict';
 
-function FormManager() {
-    this.__init__();
+function FormManager(input_fields, final_button) {
+    this.__init__(input_fields, final_button);
 }
 
 FormManager.prototype = {

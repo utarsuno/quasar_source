@@ -2,12 +2,15 @@
 
 #### Development Screenshots and Progress List:
 
+As of March 31st -- Mobile support added!
+![alt_text](https://i.imgur.com/839NKO1.jpg)
+
 ###### March 22nd : Heavy refactorings! TODO list.
 ##### Quasar
-- [ ] Add various graphical improvements such as transparent FloatingWall objects and giving certain 3D texts a black background.
+- [X] Add various graphical improvements such as transparent FloatingWall objects and giving certain 3D texts a black background.
 - [X] Make certain interactivity more intuitive. Such as adding abstraction to Floating2DInput fields for input state.
 - [ ] Add a cursor for typing on Floating2DInput fields!
-- [ ] Fix all bugs on the login page.
+- [X] Fix all bugs on the login page.
 - [ ] AJAX requests : add abstraction, add locks to user-state and objects that initiate requests such as buttons.
 - [ ] Saving : Make it automatic, abstract the design, and perform batch saving to improve performance. *(This will fix the entity deletion bug)*
 ##### CodeAPI

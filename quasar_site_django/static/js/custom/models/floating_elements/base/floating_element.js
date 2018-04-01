@@ -10,15 +10,19 @@ function FloatingElement(world) {
     Visibility.call(this);
 
     this.needs_mobile_keyboard = false;
+    this.is_clickable          = false;
+    this.is_interactive        = false;
 
     this.set_to_clickable = function() {
         this.engable = false;
         this.maintain_engage_when_tabbed_to = false;
         this.set_to_interactive();
+        this.is_clickable = true;
     };
 
     this.set_to_interactive = function() {
         this.world.interactive_objects.push(this);
+        this.is_interactive = true;
     };
 
     this.add_label_left = function(text) {

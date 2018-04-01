@@ -116,8 +116,6 @@ const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
 const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
 
-// UNIVERSAL_CONSTANTS_START : Floating text types.
-const TYPE_PASSWORD               = 'password';
 const TYPE_INPUT                  = 'input';
 const TYPE_ICON                   = 'icon';
 const TYPE_BUTTON                 = 'button';
@@ -126,8 +124,6 @@ const TYPE_SUPER_TITLE            = 'super_title';
 const TYPE_CHECK_BOX              = 'check_box';
 const TYPE_CONSTANT               = 'constant';
 const TYPE_SLIDER                 = 'slider';
-const TYPE_TWO_DIRECTIONAL_SLIDER = 'two_directional_slider';
-// UNIVERSAL_CONSTANTS_END
 
 // UNIVERSAL_CONSTANTS_START : Server reply message.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!';

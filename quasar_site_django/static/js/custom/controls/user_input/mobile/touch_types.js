@@ -53,7 +53,7 @@ TouchCamera.prototype = {
         this.input_manager = input_manager;
         this.direction = new THREE.Vector2(0, 0);
 
-        this.sensativity_multiplier = 4;
+        this.sensativity_multiplier = 5;
     },
     touch_initialize: function(x, y) {
         this.current_x = x;

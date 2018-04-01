@@ -91,12 +91,19 @@ FloatingCursor.prototype = {
     attach: function(object_to_attach_to) {
         this.currently_attached_to = object_to_attach_to;
 
-        if (this.currently_attached_to.type === TYPE_BUTTON || this.currently_attached_to.type === TYPE_CHECK_BOX) {
-            this._set_current_cursor(CURSOR_TYPE_HAND);
-        } else if (this.currently_attached_to.scalable) {
-            this._get_scalable_cursor_needed();
+        // For floating elements.
+        if (is_defined(this.currently_attached_to.is_clickable)) {
+            if (this.currently_attached_to.is_clickable) {
+                this._set_current_cursor(CURSOR_TYPE_HAND);
+            } else if (this.currently_attached_to.is_interactive) {
+                this._set_current_cursor(ICON_INFORMATION);
+            }
         } else {
-            this._set_current_cursor(CURSOR_TYPE_POINTER);
+            if (this.currently_attached_to.scalable) {
+                this._get_scalable_cursor_needed();
+            } else {
+                this._set_current_cursor(CURSOR_TYPE_POINTER);
+            }
         }
     },
 
@@ -221,6 +228,7 @@ FloatingCursor.prototype = {
         this._create_cursor(CURSOR_TYPE_POINTER, cursor_row);
         this._create_cursor(CURSOR_TYPE_LARGER, cursor_row);
         this._create_cursor(CURSOR_TYPE_MOUSE, cursor_row);
+        this._create_cursor(ICON_INFORMATION, cursor_row);
     },
 
     _create_cursor: function(cursor_type, cursor_row) {

@@ -284,8 +284,6 @@ module.exports = {
         "POST_URL_GET_SERVER_LOGS"      : false,
         // UNIVERSAL_CONSTANTS_END
 
-        // UNIVERSAL_CONSTANTS_START : Floating text types.
-        "TYPE_PASSWORD"              : false,
         "TYPE_INPUT"                 : false,
         "TYPE_ICON"                  : false,
         "TYPE_SUPER_TITLE"           : false,
@@ -295,8 +293,6 @@ module.exports = {
         "TYPE_CHECK_BOX"             : false,
         "TYPE_CONSTANT"              : false,
         "TYPE_SLIDER"                : false,
-        "TYPE_TWO_DIRECTIONAL_SLIDER": false,
-        // UNIVERSAL_CONSTANTS_END
 
         // UNIVERSAL_CONSTANTS_START : Web socket message types.
         "WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS"                : false,

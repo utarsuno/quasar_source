@@ -101,9 +101,11 @@ function WorldInput() {
                 this.currently_looked_at_object.engage();
 
                 // Check if keyboard is needed!
-                if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
-                    if (this.currently_looked_at_object.needs_mobile_keyboard) {
-                        MANAGER_INPUT.trigger_mobile_keyboard();
+                if (CURRENT_CLIENT.is_mobile) {
+                    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
+                        if (this.currently_looked_at_object.needs_mobile_keyboard) {
+                            MANAGER_INPUT.trigger_mobile_keyboard();
+                        }
                     }
                 }
             }
