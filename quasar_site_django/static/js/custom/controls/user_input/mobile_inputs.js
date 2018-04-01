@@ -12,6 +12,8 @@ function TouchAbstraction() {
         return is_defined(this.identifier);
     };
     this.set_to_alive = function(touch) {
+        l('identifier set to :');
+        l(touch.identifier);
         this.identifier = touch.identifier;
         this.touch_initialize(touch.pageX, touch.pageY);
     };
