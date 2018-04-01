@@ -110,6 +110,7 @@ function MobileInputManager() {
     };
 
     this._add_new_identifier = function(touch) {
+        l('Adding new identifier!');
         if (!this.touch_movement.is_alive()) {
             var x = touch.pageX;
             var y = touch.pageY;
