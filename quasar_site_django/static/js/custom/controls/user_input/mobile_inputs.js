@@ -72,13 +72,13 @@ TouchCamera.prototype = {
         //this.direction.x = this.new_x - this.current_x;
         //this.direction.y = this.new_y - this.current_y;
         //this.direction.normalize();
-        this.current_x = this.new_x;
-        this.current_y = this.new_y;
         if (this.input_manager.is_horizontal) {
             this.input_manager._mouse_movement(this.new_x - this.current_x, this.new_y, - this.current_y);
         } else {
             this.input_manager._mouse_movement(this.new_y - this.current_y, this.new_x - this.current_y);
         }
+        this.current_x = this.new_x;
+        this.current_y = this.new_y;
     }
 };
 
@@ -100,8 +100,8 @@ function MobileInputManager() {
     };
 
     this._in_movement_boundary = function(x, y) {
-        if (x < (window.innerWidth - this.movement_boundary_x)) {
-            if (y < (window.innerHeight - this.movement_boundary_y)) {
+        if (x < this.movement_boundary_x) {
+            if (y > (window.innerHeight - this.movement_boundary_y)) {
                 return true;
             }
         }
