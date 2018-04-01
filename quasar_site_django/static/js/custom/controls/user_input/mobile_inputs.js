@@ -16,7 +16,7 @@ function MobileInputManager() {
     this.movement_boundary_x = window.innerWidth * ONE_THIRD;
     this.movement_boundary_y = window.innerHeight * ONE_THIRD;
 
-    this.mobile_text_input = document.getElementById('mobile_text_input');
+    this.mobile_text_input = document.getElementById('mobile_keyboard_div');
     this.mobile_keyboard_visible = false;
 
     this.mobile_resize = function(w, h) {
