@@ -49,6 +49,8 @@ function MobileKeyboard() {
         l('The following key was just pressed!');
         l(key);
         l(event);
+        event.stopPropagation();
+        event.preventDefault();
     };
 
     this.trigger_mobile_keyboard = function() {
