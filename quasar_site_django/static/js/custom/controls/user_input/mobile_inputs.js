@@ -66,9 +66,9 @@ TouchCamera.prototype = {
         this.new_x = x;
         this.new_y = y;
         if (this.input_manager.is_horizontal) {
-            this.input_manager._mouse_movement(this.new_x - this.current_x, this.new_y - this.current_y);
+            this.input_manager._mouse_movement((this.new_x - this.current_x) * 2, (this.new_y - this.current_y) * 2);
         } else {
-            this.input_manager._mouse_movement(this.new_y - this.current_y, this.new_x - this.current_x);
+            this.input_manager._mouse_movement((this.new_y - this.current_y) * 2, (this.new_x - this.current_x) * 2);
         }
         this.current_x = this.new_x;
         this.current_y = this.new_y;
@@ -149,17 +149,22 @@ function MobileInputManager() {
     };
 
     this.on_touch_end = function(event) {
+        l('Touch end!');
         var active_identifiers = [];
         for (var t = 0; event.touches.length; t++) {
             active_identifiers.push(event.touches[t].identifier);
+            l('Current active identifier: ' + event.touches[t].identifier);
         }
+        l('Current alive identifiers!');
 
         if (this.touch_movement.is_alive()) {
+            l('Movement : ' + this.touch_movement.identifier);
             if (!(this.touch_movement.identifier in active_identifiers)) {
                 this.touch_movement.kill();
             }
         }
         if (this.touch_camera.is_alive()) {
+            l('Camera : ' + this.touch_camera.identifier)
             if (!(this.touch_camera.identifier in active_identifiers)) {
                 this.touch_camera.kill();
             }
