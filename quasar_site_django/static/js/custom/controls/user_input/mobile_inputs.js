@@ -35,9 +35,9 @@ TouchUtility.prototype = {
 function MobileInputManager() {
 
     this.touch_indexes = [];
-    this.touch_indexes.append(new TouchIndex(0));
-    this.touch_indexes.append(new TouchIndex(1));
-    this.touch_indexes.append(new TouchIndex(2));
+    this.touch_indexes.push(new TouchIndex(0));
+    this.touch_indexes.push(new TouchIndex(1));
+    this.touch_indexes.push(new TouchIndex(2));
 
     //this.movement_boundary_x =
 
