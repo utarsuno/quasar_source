@@ -91,12 +91,14 @@ function MobileInputManager() {
 
     this.is_horizontal = window.innerWidth > window.innerHeight;
 
-    this.movement_boundary_x = window.innerWidth * ONE_FOURTH;
-    this.movement_boundary_y = window.innerHeight * ONE_FOURTH;
+    this.movement_boundary_x = window.innerWidth * ONE_THIRD;
+    this.movement_boundary_y = window.innerHeight * ONE_THIRD;
 
     this.mobile_resize = function(w, h) {
-        this.movement_boundary_x = w * ONE_FOURTH;
-        this.movement_boundary_y = h * ONE_FOURTH;
+        l('Mobile resize!');
+        this.is_horizontal = window.innerWidth > window.innerHeight;
+        this.movement_boundary_x = w * ONE_THIRD;
+        this.movement_boundary_y = h * ONE_THIRD;
     };
 
     this._in_movement_boundary = function(x, y) {
