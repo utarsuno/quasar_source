@@ -80,7 +80,7 @@ FPSControls.prototype = {
         this.velocity.z += 200 * delta * this.walking_direction.z;
 
         //this.velocity.x += 200 * delta * this.direction_vector.x;
-        //this.velocity.y += 200 * delta * this.direction_vector.y;
+        this.velocity.y += 200 * delta * this.direction_vector.y;
         //this.velocity.z += 200 * delta * this.direction_vector.z;
     },
 
@@ -89,7 +89,7 @@ FPSControls.prototype = {
         this.velocity.z -= 200 * delta * this.walking_direction.z;
 
         //this.velocity.x -= 200 * delta * this.direction_vector.x;
-        //this.velocity.y -= 200 * delta * this.direction_vector.y;
+        this.velocity.y -= 200 * delta * this.direction_vector.y;
         //this.velocity.z -= 200 * delta * this.direction_vector.z;
     },
 
@@ -113,6 +113,12 @@ FPSControls.prototype = {
         this.velocity.z -= 200 * delta * this.left_right.z;
     },
 
+    set_mobile_movement: function(direction_vector) {
+        this.has_mobile_movement = true;
+        this.mobile_forward    = direction_vector.y;
+        this.mobile_horizontal = direction_vector.x;
+    },
+
     physics: function(delta) {
         this.mouse_movement_x_buffer.update(delta);
         this.mouse_movement_y_buffer.update(delta);
@@ -120,6 +126,12 @@ FPSControls.prototype = {
 
         if (!CURRENT_PLAYER.has_movement()) {
             return;
+        }
+
+        if (this.has_mobile_movement) {
+            this.fly_forward(delta * this.mobile_forward);
+            this.fly_left(delta * this.mobile_horizontal);
+            this.has_mobile_movement = false;
         }
 
         if (this.flying_on) {

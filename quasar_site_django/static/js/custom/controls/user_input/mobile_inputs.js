@@ -6,50 +6,79 @@ const TOUCH_EVENT_CANCEL = 'touchcancel';
 const TOUCH_EVENT_MOVE   = 'touchmove';
 const ORIENTATION_CHANGE = 'orientationchange';
 
-function TouchIndex(index) {
-    this.__init__(index);
+function TouchAbstraction() {
+    this.identifier = null;
+    this.is_alive = function() {
+        return is_defined(this.identifier);
+    };
+    this.set_to_alive = function(touch) {
+        this.identifier = touch.identifier;
+        this.touch_initialize(touch.pageX, touch.pageY);
+    };
+    this.kill = function() {
+        this.identifier = null;
+    };
 }
 
-TouchIndex.prototype = {
-    __init__: function(index) {
-        this.index = index;
-        this.active = false;
-    }
-};
-
-function TouchUtility() {
+function TouchMovement() {
     this.__init__();
 }
 
-TouchUtility.prototype = {
+TouchMovement.prototype = {
     __init__: function() {
-        this.index = -1;
-        this.previous_x = -1;
-        this.previous_y = -1;
-        this.current_x  = -1;
-        this.current_y  = -1;
+        TouchAbstraction.call(this);
+        this.direction = new THREE.Vector2(0, 0);
+    },
+    touch_initialize: function(x, y) {
+        this.start_x = x;
+        this.start_y = y;
+    },
+    touch_move: function(x, y) {
+        this.current_x = x;
+        this.current_y = y;
+        this.direction.x = this.current_x - this.start_x;
+        this.direction.y = this.current_y - this.start_y;
+        this.direction.normalize();
+        CURRENT_PLAYER.fps_controls.set_mobile_movement(this.direction);
     }
 };
+
+function TouchCamera(input_manager) {
+    this.__init__(input_manager);
+}
+
+TouchCamera.prototype = {
+    __init__: function(input_manager) {
+        TouchAbstraction.call(this);
+        this.input_manager = input_manager;
+        this.direction = new THREE.Vector2(0, 0);
+    },
+    touch_initialize: function(x, y) {
+        this.current_x = x;
+        this.current_y = y;
+    },
+    touch_move: function(x, y) {
+        this.new_x = x;
+        this.new_y = y;
+        //this.direction.x = this.new_x - this.current_x;
+        //this.direction.y = this.new_y - this.current_y;
+        //this.direction.normalize();
+        this.current_x = this.new_x;
+        this.current_y = this.new_y;
+        if (this.input_manager.is_horizontal) {
+            this.input_manager._mouse_movement(this.new_x - this.current_x, this.new_y, - this.current_y);
+        } else {
+            this.input_manager._mouse_movement(this.new_y - this.current_y, this.new_x - this.current_y);
+        }
+    }
+};
+
 
 //  MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
 function MobileInputManager() {
 
-    this.touch_indexes = [];
-    this.touch_indexes.push(new TouchIndex(0));
-    this.touch_indexes.push(new TouchIndex(1));
-    this.touch_indexes.push(new TouchIndex(2));
-
-    //this.movement_boundary_x =
-
-    this.touch_position = {x: 0, y: 0};
-    this.touch_previous = {x: -1, y: -1};
-
-    this.current_active_indexes = [];
-    this.touch_movement = new TouchUtility();
-    this.touch_view     = new TouchUtility();
-    this.touch_double   = new TouchUtility();
-
-    this.number_of_active_touches = 0;
+    this.touch_movement = new TouchMovement();
+    this.touch_camera   = new TouchCamera(this);
 
     this.is_horizontal = window.innerWidth > window.innerHeight;
 
@@ -61,59 +90,74 @@ function MobileInputManager() {
         this.movement_boundary_y = h * ONE_FOURTH;
     };
 
+    this._in_movement_boundary = function(x, y) {
+        if (x < this.movement_boundary_x) {
+            if (y < this.movement_boundary_y) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    this._is_identifier_active = function(i) {
+        if (this.touch_movement.identifier === i) {
+            return true;
+        }
+        if (this.touch_camera.identifier === i) {
+            return true;
+        }
+        return false;
+    };
+
+    this._add_new_identifier = function(touch) {
+        if (!this.touch_movement.is_alive()) {
+            var x = touch.pageX;
+            var y = touch.pageY;
+            if (this._in_movement_boundary(x, y)) {
+                this.touch_movement.set_to_alive(touch);
+            }
+        } else if (!this.touch_camera.is_alive()) {
+            this.touch_camera.set_to_alive(touch);
+        }
+    };
+
     this.on_touch_start = function(event) {
         for (var t = 0; t < event.touches.length; t++) {
-
-        }
-
-        //
-        /*
-        if (this.number_of_active_touches === 0) {
-            for (var t = 0; t < event.touches.length; t++) {
-
+            var i = event.touches[t].identifier;
+            if (!this._is_identifier_active(i)) {
+                this._add_new_identifier(event.touches[t]);
             }
-        } else {
-
         }
-        */
-
-
-        //l('Touch start for : ');
-
-        this.touch_position.x = event.touches[0].pageX;
-        this.touch_position.y = event.touches[0].pageY;
-
-        //l(event);
         event.preventDefault();
         event.stopPropagation();
     };
 
     this.on_touch_move = function(event) {
-        //l('Touch move for : ');
-        //l(event);
-
-        if (this.touch_previous.x !== -1) {
-
-            if (this.is_horizontal) {
-                this._mouse_movement(this.touch_position.x - this.touch_previous.x, this.touch_position.y - this.touch_previous.y);
-            } else {
-                this._mouse_movement(this.touch_position.y - this.touch_previous.y, this.touch_position.x - this.touch_previous.x);
+        for (var t = 0; t < event.touches.length; t++) {
+            var touch = event.touches[t];
+            var i = touch.identifier;
+            if (i === this.touch_movement.identifier) {
+                this.touch_movement.touch_move(touch.pageX, touch.pageY);
+            } else if (i === this.touch_camera.identifier) {
+                this.touch_camera.touch_move(touch.pageX, touch.pageY, this.is_horizontal);
             }
-
         }
-        this.touch_previous.x = this.touch_position.x;
-        this.touch_previous.y = this.touch_position.y;
-
-        this.touch_position.x = event.touches[0].pageX;
-        this.touch_position.y = event.touches[0].pageY;
-
         event.preventDefault();
         event.stopPropagation();
     };
 
     this.on_touch_end = function(event) {
-        l('Touch end for:');
-        l(event);
+        var active_identifiers = event.touches;
+        if (this.touch_movement.is_alive()) {
+            if (!(this.touch_movement.identifier in active_identifiers)) {
+                this.touch_movement.kill();
+            }
+        }
+        if (this.touch_camera.is_alive()) {
+            if (!(this.touch_camera.identifier in active_identifiers)) {
+                this.touch_camera.kill();
+            }
+        }
     };
 
     this.on_orientation_change = function() {
