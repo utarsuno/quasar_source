@@ -286,13 +286,9 @@ module.exports = {
 
         "TYPE_INPUT"                 : false,
         "TYPE_ICON"                  : false,
-        "TYPE_SUPER_TITLE"           : false,
         "TYPE_BUTTON"                : false,
         "TYPE_TITLE"                 : false,
-        "TYPE_SUPER_TITLE_CONSTANT"  : false,
-        "TYPE_CHECK_BOX"             : false,
         "TYPE_CONSTANT"              : false,
-        "TYPE_SLIDER"                : false,
 
         // UNIVERSAL_CONSTANTS_START : Web socket message types.
         "WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS"                : false,

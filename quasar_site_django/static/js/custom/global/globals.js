@@ -5,6 +5,10 @@
   .__/ |  | \__/ |  \  |  \__, \__/  |  .__/ */
 const l = console.log;
 
+function is_defined(object) {
+    return object !== null && object !== undefined;
+}
+
 /* __        __   __                __   __        ___  __  ___  __
   / _` |    /  \ |__)  /\  |       /  \ |__)    | |__  /  `  |  /__`    .
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
@@ -120,10 +124,7 @@ const TYPE_INPUT                  = 'input';
 const TYPE_ICON                   = 'icon';
 const TYPE_BUTTON                 = 'button';
 const TYPE_TITLE                  = 'title';
-const TYPE_SUPER_TITLE            = 'super_title';
-const TYPE_CHECK_BOX              = 'check_box';
 const TYPE_CONSTANT               = 'constant';
-const TYPE_SLIDER                 = 'slider';
 
 // UNIVERSAL_CONSTANTS_START : Server reply message.
 const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!';
@@ -332,10 +333,6 @@ function is_list(o) {
 
 function string_contains(base_string, sub_string) {
     return base_string.indexOf(sub_string) !== NOT_FOUND;
-}
-
-function is_defined(object) {
-    return object !== null && object !== undefined;
 }
 
 // Base code from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript

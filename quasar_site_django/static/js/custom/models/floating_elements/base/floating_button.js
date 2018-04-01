@@ -17,6 +17,8 @@ FloatingButton.prototype = {
         }
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
+        this.set_default_foreground_color(COLOR_YELLOW, true);
+        this.set_current_foreground_color(COLOR_YELLOW, true);
         this.set_text_property_centered(true);
         this.initialize();
 
