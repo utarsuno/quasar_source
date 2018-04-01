@@ -9,6 +9,8 @@ function FloatingElement(world) {
     Interactive.call(this);
     Visibility.call(this);
 
+    this.needs_mobile_keyboard = false;
+
     this.set_to_clickable = function() {
         this.engable = false;
         this.maintain_engage_when_tabbed_to = false;

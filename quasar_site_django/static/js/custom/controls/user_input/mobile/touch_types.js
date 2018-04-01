@@ -52,6 +52,8 @@ TouchCamera.prototype = {
         TouchAbstraction.call(this);
         this.input_manager = input_manager;
         this.direction = new THREE.Vector2(0, 0);
+
+        this.sensativity_multiplier = 4;
     },
     touch_initialize: function(x, y) {
         this.current_x = x;
@@ -61,9 +63,9 @@ TouchCamera.prototype = {
         this.new_x = x;
         this.new_y = y;
         if (this.input_manager.is_horizontal) {
-            this.input_manager._mouse_movement((this.new_x - this.current_x) * 2, (this.new_y - this.current_y) * 2);
+            this.input_manager._mouse_movement((this.new_x - this.current_x) * this.sensativity_multiplier, (this.new_y - this.current_y) * this.sensativity_multiplier);
         } else {
-            this.input_manager._mouse_movement((this.new_y - this.current_y) * 2, (this.new_x - this.current_x) * 2);
+            this.input_manager._mouse_movement((this.new_y - this.current_y) * this.sensativity_multiplier, (this.new_x - this.current_x) * this.sensativity_multiplier);
         }
         this.current_x = this.new_x;
         this.current_y = this.new_y;

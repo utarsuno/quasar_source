@@ -15,6 +15,7 @@ FloatingInput2D.prototype = {
 
         this.initialize();
 
+        this.needs_mobile_keyboard = true;
         this.has_input_state = false;
     },
 

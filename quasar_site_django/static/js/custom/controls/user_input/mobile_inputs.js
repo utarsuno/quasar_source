@@ -96,6 +96,16 @@ function MobileInputManager() {
         this._check_if_touch_ended(active_identifiers, this.touch_double_click);
     };
 
+    this.trigger_mobile_keyboard = function() {
+        l('Trying to open mobile keyboard!');
+        if (!is_defined(this.mobile_text_input)) {
+            this.mobile_text_input = document.getElementById('mobile_text_input');
+        }
+        this.mobile_text_input.style.visibility = 'visible';
+        this.mobile_text_input.focus();
+        this.mobile_text_input.style.visibility = 'hidden';
+    };
+
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
     document.addEventListener(TOUCH_EVENT_END, this.on_touch_end.bind(this));
