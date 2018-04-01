@@ -130,7 +130,7 @@ function MobileInputManager() {
 
         if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y)) {
             this.touch_movement.set_to_alive(touch);
-        }else if (!this.touch_camera.is_alive()) {
+        } else if (!this.touch_camera.is_alive()) {
             this.touch_camera.set_to_alive(touch);
         }
     };
@@ -161,7 +161,11 @@ function MobileInputManager() {
     };
 
     this.on_touch_end = function(event) {
-        var active_identifiers = event.touches;
+        var active_identifiers = [];
+        for (var t = event.touches.length; t++) {
+            active_identifiers.push(event.touches[t].identifier);
+        }
+
         if (this.touch_movement.is_alive()) {
             if (!(this.touch_movement.identifier in active_identifiers)) {
                 this.touch_movement.kill();
@@ -174,22 +178,8 @@ function MobileInputManager() {
         }
     };
 
-    this.on_orientation_change = function() {
-        l('Orientation is now:');
-        l(window.orientation);
-        switch(window.orientation) {
-        case -90 || 90:
-            this.is_horizontal = false;
-            break;
-        default:
-            this.is_horizontal = true;
-            break;
-        }
-    };
-
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
     document.addEventListener(TOUCH_EVENT_MOVE, this.on_touch_move.bind(this));
     document.addEventListener(TOUCH_EVENT_END, this.on_touch_end.bind(this));
-    document.addEventListener(ORIENTATION_CHANGE, this.on_orientation_change.bind(this));
 
 }
