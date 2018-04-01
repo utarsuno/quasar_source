@@ -78,9 +78,9 @@ LoadingManager.prototype = {
 
             MANAGER_RENDERER.login_world_created();
 
-            if (CURRENT_CLIENT.is_mobile) {
-                MANAGER_INPUT.create_mobile_buttons();
-            }
+            //if (CURRENT_CLIENT.is_mobile) {
+            //    MANAGER_INPUT.create_mobile_buttons();
+            //}
 
             MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
 
