@@ -6,7 +6,6 @@ function LoginWorld() {
 
 LoginWorld.prototype = {
 
-
     __init__: function() {
         // Inherit.
         World.call(this);
@@ -18,7 +17,7 @@ LoginWorld.prototype = {
         if (MANAGER_COOKIES.get_value(COOKIE_SHOULD_REMEMBER_USERNAME)) {
             this.remember_username.set_checked_state(true);
             if (MANAGER_COOKIES.has_cookie_key(COOKIE_REMEMBERED_USERNAME)) {
-                this.input_username.update_text(MANAGER_COOKIES.get_cookie_value(COOKIE_REMEMBERED_USERNAME));
+                this.input_username.update_text(MANAGER_COOKIES.get_value(COOKIE_REMEMBERED_USERNAME));
             }
         }
 

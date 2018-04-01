@@ -14,7 +14,7 @@ CookieManager.prototype = {
         this.cookies = Cookies.noConflict();
     },
 
-    get_cookie_value: function(cookie_key) {
+    get_value: function(cookie_key) {
         var v = this.cookies.get(cookie_key);
         if (v === 'true' || v === 'True') {
             return true;
