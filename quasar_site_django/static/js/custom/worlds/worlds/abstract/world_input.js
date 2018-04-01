@@ -16,7 +16,7 @@ function WorldInput() {
 
     this.mobile_keyboard_close = function() {
         if (is_defined(this.currently_looked_at_object)) {
-            if (!this.currently_looked_at_object.is_engaged()) {
+            if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
                 CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
             }
