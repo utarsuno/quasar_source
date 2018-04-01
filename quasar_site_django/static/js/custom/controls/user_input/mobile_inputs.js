@@ -149,25 +149,17 @@ function MobileInputManager() {
     };
 
     this.on_touch_end = function(event) {
-        l('Touch end!');
-        l(event);
-        l('');
-        l('');
         var active_identifiers = [];
-        for (var t = 0; event.touches.length; t++) {
+        for (var t = 0; t < event.touches.length; t++) {
             active_identifiers.push(event.touches[t].identifier);
-            l('Current active identifier: ' + event.touches[t].identifier);
         }
-        l('Current alive identifiers!');
 
         if (this.touch_movement.is_alive()) {
-            l('Movement : ' + this.touch_movement.identifier);
             if (!(this.touch_movement.identifier in active_identifiers)) {
                 this.touch_movement.kill();
             }
         }
         if (this.touch_camera.is_alive()) {
-            l('Camera : ' + this.touch_camera.identifier);
             if (!(this.touch_camera.identifier in active_identifiers)) {
                 this.touch_camera.kill();
             }
