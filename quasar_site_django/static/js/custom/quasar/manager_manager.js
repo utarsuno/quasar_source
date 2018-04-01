@@ -66,4 +66,4 @@ MANAGER_WORLD          = new WorldManager();
 MANAGER_ENTITY      = new EntityManager();
 
 // Handles all multi-player/online interaction.
-MANAGER_MULTIPLAYER = new MultiPlayerManager();
+//MANAGER_MULTIPLAYER = new MultiPlayerManager();
