@@ -75,7 +75,7 @@ TouchCamera.prototype = {
         if (this.input_manager.is_horizontal) {
             this.input_manager._mouse_movement(this.new_x - this.current_x, this.new_y, - this.current_y);
         } else {
-            this.input_manager._mouse_movement(this.new_y - this.current_y, this.new_x - this.current_y);
+            this.input_manager._mouse_movement(this.new_y - this.current_y, this.new_x - this.current_x);
         }
         this.current_x = this.new_x;
         this.current_y = this.new_y;
