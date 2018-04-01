@@ -66,7 +66,7 @@ function MobileInputManager() {
 
         }
 
-
+        //
         /*
         if (this.number_of_active_touches === 0) {
             for (var t = 0; t < event.touches.length; t++) {
