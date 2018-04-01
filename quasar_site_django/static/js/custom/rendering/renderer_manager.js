@@ -149,6 +149,8 @@ RendererManager.prototype = {
         if (!CURRENT_CLIENT.is_mobile) {
             this.effect_composer.setSize(this.window_width, this.window_height);
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        } else {
+            MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
         }
     },
 

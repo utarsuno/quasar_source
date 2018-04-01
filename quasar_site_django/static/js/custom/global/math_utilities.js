@@ -7,13 +7,13 @@
 const DIAGONAL_PENALTY = Math.sqrt(.5);
 const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
 const ONE_THIRD        = 1 / 3;
-const ONE_FOURTH       = 1 / 4;
-const THREE_FOURTHS    = 3 / 4;
+const ONE_FOURTH       = 0.25;
+const THREE_FOURTHS    = 0.75;
 const TWO_THIRDS       = 2 / 3;
+const HALF             = 0.5;
 const HALF_PIE         = Math.PI / 2.0;
 const PIE              = Math.PI;
 const TWO_PIE          = Math.PI * 2.0;
-const HALF             = 0.5;
 
 /*     __   __        __      __   __        __  ___           ___  __
  |  | /  \ |__) |    |  \    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`

@@ -58,6 +58,7 @@ InputManager.prototype = {
         if (CURRENT_CLIENT.is_mobile) {
             // Inherit needed mobile controls.
             MobileInputManager.call(this);
+            MobileButtonManager.call(this);
         }
     },
 
