@@ -47,7 +47,6 @@ module.exports = {
         "WorldDynamicContent": true,
 
         "console": false,
-        "Cookies": false,
 
         "EntityChangesSubscriber": false,
         "EntityChangesListener"  : false,
@@ -196,6 +195,8 @@ module.exports = {
         "MANAGER_DATA_DISPLAY"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
+        "CookieManager"        : false,
+        "Cookies"              : false,
         "Text2DUtilities"      : false,
         "DynamicContentManager": false,
         "CreatedWorldsManager" : false,
@@ -212,6 +213,11 @@ module.exports = {
         "CanvasAbstraction": false,
 
         "EntityChangedNotifier": false,
+
+        // Cookies.
+        "COOKIE_SHOULD_REMEMBER_USERNAME": false,
+        "COOKIE_REMEMBERED_USERNAME"     : false,
+        //
 
         // Global objects.
         "CURRENT_CLIENT": false,
@@ -402,9 +408,6 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_START : Entity POST keys.
         "ENTITY_POST_SAVE_DATA"              : false,
         // UNIVERSAL_CONSTANTS_END
-
-        "COOKIE_SHOULD_REMEMBER_USERNAME": false,
-        "COOKIE_REMEMBERED_USERNAME"     : false,
 
         "POST_USERNAME"  : false,
         "POST_PASSWORD"  : false,

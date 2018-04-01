@@ -15,6 +15,13 @@ LoginWorld.prototype = {
     },
 
     custom_world_enter: function() {
+        if (MANAGER_COOKIES.get_value(COOKIE_SHOULD_REMEMBER_USERNAME)) {
+            this.remember_username.set_checked_state(true);
+            if (MANAGER_COOKIES.has_cookie_key(COOKIE_REMEMBERED_USERNAME)) {
+                this.input_username.update_text(MANAGER_COOKIES.get_cookie_value(COOKIE_REMEMBERED_USERNAME));
+            }
+        }
+
         this.quasar_source_title.refresh_position_and_look_at();
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
@@ -37,6 +44,13 @@ LoginWorld.prototype = {
      \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     /~~\ \__,  |  | \__/ | \| */
     create_account_button_pressed: function() {
         l('TODO : Create account action!');
+    },
+
+    /*__   ___        ___        __   ___  __           __   ___  __                   ___     __   __   ___  __   __   ___  __
+     |__) |__   |\/| |__   |\/| |__) |__  |__)    |  | /__` |__  |__) |\ |  /\   |\/| |__     |__) |__) |__  /__` /__` |__  |  \
+     |  \ |___  |  | |___  |  | |__) |___ |  \    \__/ .__/ |___ |  \ | \| /~~\  |  | |___    |    |  \ |___ .__/ .__/ |___ |__/ */
+    remember_username_pressed: function(is_checked) {
+        MANAGER_COOKIES.set_cookie(COOKIE_SHOULD_REMEMBER_USERNAME, is_checked);
     },
 
     /*        ___                      __        __
@@ -66,9 +80,9 @@ LoginWorld.prototype = {
 
         // Username.
         row = this.wall_create_account.add_row();
-        var input_username = row.add_input_2D([0, 1, false], 16);
-        input_username.add_syntax(TEXT_SYNTAX_USERNAME);
-        input_username.add_label_left('username:');
+        this.input_username = row.add_input_2D([0, 1, false], 16);
+        this.input_username.add_syntax(TEXT_SYNTAX_USERNAME);
+        this.input_username.add_label_left('username:');
 
         // Email.
         row = this.wall_create_account.add_row();
@@ -93,7 +107,7 @@ LoginWorld.prototype = {
         var button_create_account = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'create account', this.create_account_button_pressed.bind(this));
 
         // Connect the elements together as a form.
-        this.form_create_account = new FormManager([input_username, input_email, input_password, input_repeat_password], button_create_account);
+        this.form_create_account = new FormManager([this.input_username, input_email, input_password, input_repeat_password], button_create_account);
     },
 
     _create_login_wall: function() {
@@ -120,8 +134,8 @@ LoginWorld.prototype = {
 
         // Remember username.
         row = this.wall_login.add_row();
-        var remember_username = row.add_checkbox([0, null, false], 16, false);
-        remember_username.add_label_left('remember username:');
+        this.remember_username = row.add_checkbox([0, null, false], 16, false, this.remember_username_pressed.bind(this));
+        this.remember_username.add_label_left('remember username:');
 
         // Login button.
         row = this.wall_login.add_row();

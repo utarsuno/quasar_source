@@ -1,12 +1,12 @@
 'use strict';
 
-function FloatingCheckBox(world, size, checked) {
-    this.__init__(world, size, checked);
+function FloatingCheckBox(world, size, checked, on_checked_function) {
+    this.__init__(world, size, checked, on_checked_function);
 }
 
 FloatingCheckBox.prototype = {
 
-    __init__: function(world, size, checked) {
+    __init__: function(world, size, checked, on_checked_function) {
         // Inherit.
         FloatingElement.call(this, world);
         this.set_to_clickable();
@@ -15,6 +15,8 @@ FloatingCheckBox.prototype = {
         if (!is_defined(this.checked)) {
             this.checked = false;
         }
+
+        this.on_checked_function = on_checked_function;
 
         this.width = size;
         this.height = size;
@@ -51,8 +53,8 @@ FloatingCheckBox.prototype = {
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
-    clicked_on: function() {
-        if (this.checked) {
+    set_checked_state: function(is_checked) {
+        if (is_checked) {
             this.icon_checked.set_to_invisible();
             this.icon_not_checked.set_to_visible();
             this.checked = false;
@@ -60,6 +62,17 @@ FloatingCheckBox.prototype = {
             this.icon_checked.set_to_visible();
             this.icon_not_checked.set_to_invisible();
             this.checked = true;
+        }
+    },
+
+    clicked_on: function() {
+        if (this.checked) {
+            this.set_checked_state(false);
+        } else {
+            this.set_checked_state(true);
+        }
+        if (is_defined(this.on_checked_function)) {
+            this.on_checked_function(this.checked);
         }
     },
 

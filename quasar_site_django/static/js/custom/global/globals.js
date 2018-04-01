@@ -116,10 +116,6 @@ const POST_URL_LOGIN                 = '/login';
 const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
 // UNIVERSAL_CONSTANTS_END
 
-// Cookie keys.
-const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username';
-const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';
-
 const TYPE_INPUT                  = 'input';
 const TYPE_ICON                   = 'icon';
 const TYPE_BUTTON                 = 'button';

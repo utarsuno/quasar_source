@@ -49,7 +49,7 @@ MANAGER_TEXTURE   = new TextureManager();
 // Handles images that get dropped onto the site page.
 var DRAG_AND_DROP = new DragNDrop();
 // Handles cookies.
-MANAGER_COOKIES   = Cookies.noConflict();
+MANAGER_COOKIES   = new CookieManager();
 // Provides utility functions for creating 2D Texts.
 MANAGER_TEXT_2D   = new Text2DUtilities();
 
@@ -65,4 +65,3 @@ MANAGER_ENTITY      = new EntityManager();
 
 // Handles all multi-player/online interaction.
 MANAGER_MULTIPLAYER = new MultiPlayerManager();
-

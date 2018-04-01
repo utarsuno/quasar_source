@@ -24,8 +24,8 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_button);
     },
 
-    add_checkbox: function(x_params, size, checked) {
-        var floating_checkbox = new FloatingCheckBox(this.world, size, checked);
+    add_checkbox: function(x_params, size, checked, on_check_function) {
+        var floating_checkbox = new FloatingCheckBox(this.world, size, checked, on_check_function);
         x_params[0] -= 0.5 - ((size / this.parent_wall.width) / 2);
         return this.add_element(x_params, floating_checkbox);
     },
