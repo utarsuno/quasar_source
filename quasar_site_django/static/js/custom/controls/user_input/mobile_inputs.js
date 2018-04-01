@@ -150,6 +150,9 @@ function MobileInputManager() {
 
     this.on_touch_end = function(event) {
         l('Touch end!');
+        l(event);
+        l('');
+        l('');
         var active_identifiers = [];
         for (var t = 0; event.touches.length; t++) {
             active_identifiers.push(event.touches[t].identifier);
@@ -164,7 +167,7 @@ function MobileInputManager() {
             }
         }
         if (this.touch_camera.is_alive()) {
-            l('Camera : ' + this.touch_camera.identifier)
+            l('Camera : ' + this.touch_camera.identifier);
             if (!(this.touch_camera.identifier in active_identifiers)) {
                 this.touch_camera.kill();
             }
