@@ -16,9 +16,6 @@ function MobileInputManager() {
     this.movement_boundary_x = window.innerWidth * ONE_THIRD;
     this.movement_boundary_y = window.innerHeight * ONE_THIRD;
 
-    this.mobile_text_input = document.getElementById('mobile_keyboard_div');
-    this.mobile_keyboard_visible = false;
-
     this.mobile_resize = function(w, h) {
         this.is_horizontal = window.innerWidth > window.innerHeight;
         this.movement_boundary_x = w * ONE_THIRD;
@@ -98,18 +95,6 @@ function MobileInputManager() {
         this._check_if_touch_ended(active_identifiers, this.touch_movement);
         this._check_if_touch_ended(active_identifiers, this.touch_camera);
         this._check_if_touch_ended(active_identifiers, this.touch_double_click);
-    };
-
-    this.trigger_mobile_keyboard = function() {
-        l('Trying to open mobile keyboard!');
-        this.mobile_text_input.style.visibility = VISIBLE;
-        this.mobile_keyboard_visible = true;
-    };
-
-    this.hide_mobile_keyboard = function() {
-        l('Trying to hide the mobile keyboard!');
-        this.mobile_text_input.style.visibility = NOT_VISIBLE;
-        this.mobile_keyboard_visible = false;
     };
 
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));

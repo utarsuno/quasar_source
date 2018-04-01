@@ -59,6 +59,7 @@ InputManager.prototype = {
             // Inherit needed mobile controls.
             MobileInputManager.call(this);
             //MobileButtonManager.call(this);
+            MobileKeyboard.call(this);
 
             this.mobile_text_input = document.getElementById('mobile_text_input');
         }

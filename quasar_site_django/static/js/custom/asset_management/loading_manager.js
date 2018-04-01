@@ -77,6 +77,7 @@ LoadingManager.prototype = {
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
 
             MANAGER_RENDERER.login_world_created();
+            MANAGER_INPUT.load_mobile_keyboard();
 
             //if (CURRENT_CLIENT.is_mobile) {
             //    MANAGER_INPUT.create_mobile_buttons();
