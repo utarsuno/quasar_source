@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
 #
 
-ASGI_APPLICATION = 'quasar_site.routing.quasar_web_server'
+ASGI_APPLICATION = 'quasar_site.routing.application'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'asgi_redis.RedisChannelLayer',
