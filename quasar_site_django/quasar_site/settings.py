@@ -54,7 +54,7 @@ CHANNEL_LAYERS = {
 
 #
 
-ASGI_APPLICATION = 'quasar_web_server.routing.channel_routing'
+ASGI_APPLICATION = 'quasar_web_server.routing.quasar_web_server'
 
 #
 
