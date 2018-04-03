@@ -42,19 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+
+#
+
+ASGI_APPLICATION = 'quasar_site.routing.quasar_site'
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'asgi_redis.RedisChannelLayer',
         'CONFIG': {
             'hosts': [('localhost', 6379)],
         },
-        'ROUTING': 'quasar_web_server.routing.channel_routing',
+        #'ROUTING': 'quasar_web_server.routing.channel_routing',
     }
 }
-
-#
-
-ASGI_APPLICATION = 'quasar_web_server.routing.quasar_web_server'
 
 #
 

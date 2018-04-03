@@ -2,8 +2,11 @@
 
 """This module, consumers.py, is used to handle basic connections between the client and server."""
 
-from channels import Group
-from channels.sessions import channel_session
+#from channels import Group
+#from channels.sessions import channel_session
+
+from channels.generic.websocket import WebsocketConsumer
+import json
 
 #from quasar_site_django.quasar_web_server.virtual_world import QuasarPlayerServer
 
@@ -42,7 +45,7 @@ WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|'
 WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|'
 WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|'
 
-
+'''
 @channel_session
 def ws_connect(message):
 	print('Web socket connection!')
@@ -85,5 +88,21 @@ def ws_disconnect(message):
 	#global server
 	#server.remove_web_socket_connection(message.reply_channel)
 	#Group('users').discard(message.reply_channel)
+'''
 
 
+class ConsumerManager(WebsocketConsumer):
+
+	def connect(self):
+		self.accept()
+
+	def disconnect(self, close_code):
+		pass
+
+	def receive(self, text_data):
+		text_data_json = json.loads(text_data)
+		message = text_data_json['message']
+
+		self.send(text_data = json.dumps({
+			'message': message
+		}))
