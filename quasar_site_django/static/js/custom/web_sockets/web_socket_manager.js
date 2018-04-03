@@ -7,7 +7,7 @@ function WebSocketManager() {
 WebSocketManager.prototype = {
 
     __init__: function() {
-        this._connection_string = 'ws://' + window.location.host + '/users/';
+        this._connection_string = 'ws://' + window.location.host + '/';
         this._connected = false;
     },
 
