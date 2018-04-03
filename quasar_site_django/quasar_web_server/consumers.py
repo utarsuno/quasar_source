@@ -93,8 +93,10 @@ def ws_disconnect(message):
 
 class ConsumerManager(WebsocketConsumer):
 
-	def connect(self):
+	def connect(self, event):
 		print('Just made a websocket connection!')
+		print(str(event))
+		print(str(dict(event)))
 		self.accept()
 
 	def disconnect(self, close_code):
