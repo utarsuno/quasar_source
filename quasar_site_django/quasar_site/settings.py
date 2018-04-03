@@ -31,14 +31,15 @@ ALLOWED_HOSTS = ['quasarsource.com', 'www.quasarsource.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'quasar_web_server',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
-    'quasar_web_server'
 ]
 
 CHANNEL_LAYERS = {
