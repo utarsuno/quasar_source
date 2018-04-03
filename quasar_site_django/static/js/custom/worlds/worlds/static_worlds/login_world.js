@@ -61,7 +61,9 @@ LoginWorld.prototype = {
         this._create_create_account_wall();
 
         // Web-sockets testing!!!
-
+        //this.web_sockets_button = new FloatingButton(this, 128, 'Quasar Source');
+        //this.quasar_source_title.set_position(1200, 400, 400);
+        //this.quasar_source_title.look_at_origin(false);
     },
 
     _create_quasar_title: function() {

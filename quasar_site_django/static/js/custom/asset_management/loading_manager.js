@@ -81,6 +81,8 @@ LoadingManager.prototype = {
                 MANAGER_INPUT.load_mobile_keyboard();
             }
 
+            MANAGER_WEB_SOCKETS.connect();
+
             //if (CURRENT_CLIENT.is_mobile) {
             //    MANAGER_INPUT.create_mobile_buttons();
             //}

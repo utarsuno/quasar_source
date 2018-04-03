@@ -158,6 +158,7 @@ module.exports = {
         "FieldRowRegular"     : true,
 
         // Global Managers.
+        "MANAGER_WEB_SOCKETS"    : true,
         "MANAGER_COOKIES"        : true,
         "MANAGER_AUDIO"          : true,
         "MANAGER_TEXTURE"        : true,
