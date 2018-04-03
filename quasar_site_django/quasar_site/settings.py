@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quasar_web_server',
-    'channels'
+    'channels',
+    'quasar_web_server'
 ]
 
 CHANNEL_LAYERS = {
@@ -53,6 +53,7 @@ CHANNEL_LAYERS = {
 
 #
 
+ASGI_APPLICATION = 'quasar_web_server.routing.channel_routing'
 
 #
 

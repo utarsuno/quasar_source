@@ -5,7 +5,7 @@
 from channels import Group
 from channels.sessions import channel_session
 
-from quasar_site_django.quasar_web_server.virtual_world import QuasarPlayerServer
+#from quasar_site_django.quasar_web_server.virtual_world import QuasarPlayerServer
 
 '''
 class QuasarServer(object):
@@ -33,7 +33,7 @@ class QuasarServer(object):
 '''
 
 # TODO : Move this
-server = QuasarPlayerServer()
+#server = QuasarPlayerServer()
 
 WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|'
 WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|'
@@ -55,7 +55,7 @@ def ws_connect(message):
 	#global server
 	#server.add_web_socket_connection(message.reply_channel)
 
-	Group('users').add(message.reply_channel)
+	#Group('users').add(message.reply_channel)
 
 
 @channel_session
