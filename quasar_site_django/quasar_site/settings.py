@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quasar_site.wsgi.application'
+#WSGI_APPLICATION = 'quasar_site.wsgi.application'
 
 
 # Database
