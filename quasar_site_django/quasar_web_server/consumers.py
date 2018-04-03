@@ -93,10 +93,8 @@ def ws_disconnect(message):
 
 class ConsumerManager(WebsocketConsumer):
 
-	def connect(self, event):
+	def connect(self):
 		print('Just made a websocket connection!')
-		print(str(event))
-		print(str(dict(event)))
 		self.accept()
 
 	def disconnect(self, close_code):
@@ -104,6 +102,9 @@ class ConsumerManager(WebsocketConsumer):
 		pass
 
 	def receive(self, text_data):
+		print('Just received a message!')
+		print(text_data)
+
 		text_data_json = json.loads(text_data)
 		message = text_data_json['message']
 
