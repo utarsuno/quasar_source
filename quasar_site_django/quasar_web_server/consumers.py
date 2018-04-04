@@ -95,6 +95,7 @@ class ConsumerManager(WebsocketConsumer):
 
 	def connect(self):
 		print('Just made a websocket connection!')
+		print('Connection ID : ' + self.channel_name)
 		self.accept()
 
 	def disconnect(self, close_code):
@@ -104,6 +105,7 @@ class ConsumerManager(WebsocketConsumer):
 	def receive(self, text_data):
 		print('Just received a message!')
 		print(text_data)
+		print(text_data['message'])
 
 		text_data_json = json.loads(text_data)
 		message = text_data_json['message']
