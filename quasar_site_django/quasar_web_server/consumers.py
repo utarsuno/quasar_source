@@ -2,38 +2,11 @@
 
 """This module, consumers.py, is used to handle basic connections between the client and server."""
 
-#from channels import Group
-#from channels.sessions import channel_session
-
 from channels.generic.websocket import WebsocketConsumer
 import json
 
-#from quasar_site_django.quasar_web_server.virtual_world import QuasarPlayerServer
+from quasar_site_django.quasar_web_server.web_sockets_server.quasar_web_socket_server import QuasarWebSocketsServerSide
 
-'''
-class QuasarServer(object):
-	"""Temporary test server code."""
-
-	def __init__(self):
-		self._users = []
-		self._number_of_connected_users = 0
-
-	def user_joined(self):
-		self._number_of_connected_users += 1
-
-	def user_left(self):
-		self._number_of_connected_users -= 1
-
-	def run_server(self):
-		# Message positions of all players to all players.
-		if self._number_of_connected_users > 0:
-			y = 2
-			#print('Pinging players!')
-			#Group('users').send({
-			#	"text": 'Pinging the players!',
-			#})
-		threading.Timer(.5, self.run_server).start()
-'''
 
 # TODO : Move this
 #server = QuasarPlayerServer()
@@ -90,16 +63,26 @@ def ws_disconnect(message):
 	#Group('users').discard(message.reply_channel)
 '''
 
+print('Testing how many times this module gets called!!!')
+
+quasar_web_sockets_server = QuasarWebSocketsServerSide()
+
 
 class ConsumerManager(WebsocketConsumer):
+
+	def __init__(self, scope):
+		super().__init__(scope)
+		self._web_socket_server = QuasarWebSocketsServerSide()
 
 	def connect(self):
 		print('Just made a websocket connection!')
 		print('Connection ID : ' + self.channel_name)
+		self._web_socket_server.add_connection(self.channel_name)
 		self.accept()
 
 	def disconnect(self, close_code):
 		print('websocket disconnect!')
+		self._web_socket_server.remove_connection(self.channel_name)
 		pass
 
 	def receive(self, text_data):

@@ -29,7 +29,7 @@ def load_code_push():
 	s.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
 	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_PROJECT_SETUP)
 	s.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
-	s.add_safety_check_for_script_arguments(['commit_message'])
+	s.add_safety_check_for_script_arguments(['commit_message']) # TODO : Add server reset/no-reset option.
 	s.set_main_code(CodeChunk('''
 if output=$(git status --porcelain) && [ -z "$output" ]; then
 	# Working directory clean
