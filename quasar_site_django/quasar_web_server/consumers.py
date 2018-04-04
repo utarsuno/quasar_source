@@ -69,6 +69,11 @@ quasar_web_sockets_server = QuasarWebSocketsServerSide()
 
 class ConsumerManager(AsyncWebsocketConsumer):
 
+	def __init__(self, scope):
+		super().__init__(scope)
+		global quasar_web_sockets_server
+		self._web_socket_server = quasar_web_sockets_server
+
 	async def connect(self):
 		print('Just made a websocket connection!')
 		print('Connection ID : ' + self.channel_name)
