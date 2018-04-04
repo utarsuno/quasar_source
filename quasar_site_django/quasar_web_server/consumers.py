@@ -86,4 +86,4 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		self._web_socket_server.remove_connection(self.channel_name)
 
 	async def receive(self, text_data):
-		self.send(self._web_socket_server.get_reply(self.channel_name, text_data))
+		self.send(text_data=self._web_socket_server.get_reply(self.channel_name, text_data))
