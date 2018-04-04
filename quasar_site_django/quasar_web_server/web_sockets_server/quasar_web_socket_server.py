@@ -41,7 +41,7 @@ class QuasarWebSocketsServerSide(object):
 		"""Removes a connection."""
 		del self.players[channel_name]
 
-	def get_repply(self, channel_name, request):
+	def get_reply(self, channel_name, request):
 		"""Handles a client request."""
 
 		print('TODO : send a reply for the following message')
