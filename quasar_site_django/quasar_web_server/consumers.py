@@ -99,9 +99,17 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#async_to_sync(self.channel_layer.group_send)(
 		#)
 
+		#self.channel_layer.group_send(
+		#	self.channel_name,
+		#	self._web_socket_server.get_reply(self.channel_name, text_data)
+		#)
+
 		self.channel_layer.group_send(
 			self.channel_name,
-			self._web_socket_server.get_reply(self.channel_name, text_data)
+			{
+				'type': 'single_reply',
+				'message': text_data
+			}
 		)
 
 		#self.send({
@@ -109,3 +117,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#	'text' : self._web_socket_server.get_reply(self.channel_name, text_data)
 		#})
 		#self.send(text_data=self._web_socket_server.get_reply(self.channel_name, text_data))
+
+	async def single_reply(self, message):
+		"""Test."""
+		self.send(text_data=self._web_socket_server.get_reply(self.channel_name, message))
