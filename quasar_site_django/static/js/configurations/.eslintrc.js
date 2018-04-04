@@ -157,6 +157,20 @@ module.exports = {
         "FieldRowName"        : true,
         "FieldRowRegular"     : true,
 
+        // Web-sockets related.
+        "ServerRequest"             : false,
+        "ServerRequestLogin"        : false,
+        "ServerRequestCreateAccount": false,
+
+        "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
+        "_WEB_SOCKET_MESSAGE_ID"              : false,
+        "_WEB_SOCKET_REQUEST_KEY_USERNAME"    : false,
+        "_WEB_SOCKET_REQUEST_KEY_PASSWORD"    : false,
+        "_WEB_SOCKET_REQUEST_KEY_EMAIL"       : false,
+
+        "_WEB_SOCKET_REQUEST_LOGIN"           : false,
+        "_WEB_SOCKET_REQUEST_CREATE_ACCOUNT"  : false,
+
         // Global Managers.
         "MANAGER_WEB_SOCKETS"    : true,
         "MANAGER_COOKIES"        : true,
@@ -257,7 +271,6 @@ module.exports = {
         "PLAYER_STATE_ENGAGED"     : false,
         "PLAYER_STATE_TYPING"      : false,
 
-        // UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
         "POST_URL_GET_SHARED_WORLDS:"   : false,
         "POST_URL_DELETE_ENTITY"        : false,
         "POST_URL_SAVE_ENTITY"          : false,
@@ -266,7 +279,24 @@ module.exports = {
         "POST_URL_CREATE_ACCOUNT"       : false,
         "POST_URL_LOGIN"                : false,
         "POST_URL_GET_SERVER_LOGS"      : false,
-        // UNIVERSAL_CONSTANTS_END
+        "ENTITY_POST_SAVE_DATA"              : false,
+        "POST_USERNAME"  : false,
+        "POST_PASSWORD"  : false,
+        "POST_SAVE_DATA" : false,
+        "POST_EMAIL"     : false,
+        "POST_MANAGER_ID": false,
+        "POST_OWNER_ID"  : false,
+        "POST_KEY_GENERIC_DATA"                       : true,
+        "SERVER_COMMAND_SUDO_OPERATION"               : true,
+        "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
+        "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
+        "SERVER_COMMAND_DELETE_ENTITY_OWNER"          : true,
+        "SERVER_REPLY_INVALID_POST_DATA_ERROR"               : false,
+        "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,
+        "SERVER_REPLY_GENERIC_NO"                            : false,
+        "SERVER_REPLY_GENERIC_YES"                           : false,
+        "SERVER_REPLY_GENERIC_SERVER_ERROR"                  : false,
+
 
         "TYPE_INPUT"                 : false,
         "TYPE_ICON"                  : false,
@@ -332,12 +362,6 @@ module.exports = {
         "ENTITY_PROPERTY_COMPLETED_VALUE_NO" : false,
         "ENTITY_PROPERTY_COMPLETED_VALUE_YES": false,
 
-        "POST_KEY_GENERIC_DATA"                       : true,
-        "SERVER_COMMAND_SUDO_OPERATION"               : true,
-        "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
-        "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
-        "SERVER_COMMAND_DELETE_ENTITY_OWNER"          : true,
-
         "ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE" : false,
 
         "ACCOUNT_TYPE_NOT_VERIFIED": true,
@@ -371,17 +395,6 @@ module.exports = {
         // UNIVERSAL_CONSTANTS_END
 
         "CELL_PHONE_CARRIERS": false,
-
-        // UNIVERSAL_CONSTANTS_START : Entity POST keys.
-        "ENTITY_POST_SAVE_DATA"              : false,
-        // UNIVERSAL_CONSTANTS_END
-
-        "POST_USERNAME"  : false,
-        "POST_PASSWORD"  : false,
-        "POST_SAVE_DATA" : false,
-        "POST_EMAIL"     : false,
-        "POST_MANAGER_ID": false,
-        "POST_OWNER_ID"  : false,
 
         // 3rd party hix grid reference.
         "vg": false,
@@ -526,12 +539,6 @@ module.exports = {
 
         "get_cookie"    : false,
         "set_cookie"    : false,
-
-        "SERVER_REPLY_INVALID_POST_DATA_ERROR"               : false,
-        "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,
-        "SERVER_REPLY_GENERIC_NO"                            : false,
-        "SERVER_REPLY_GENERIC_YES"                           : false,
-        "SERVER_REPLY_GENERIC_SERVER_ERROR"                  : false,
 
         "get_new_floating_icon" : true,
 

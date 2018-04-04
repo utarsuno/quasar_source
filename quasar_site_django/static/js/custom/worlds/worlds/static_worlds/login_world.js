@@ -35,7 +35,13 @@ LoginWorld.prototype = {
      |    /  \ / _` | |\ |     /\  /  `  |  | /  \ |\ |
      |___ \__/ \__> | | \|    /~~\ \__,  |  | \__/ | \| */
     login_button_pressed: function() {
-        l('TODO : Login action!');
+        this.server_request_login.set_username(this.input_username_login.get_text());
+        this.server_request_login.set_password(this.input_password_login.get_text());
+        this.server_request_login.perform_request();
+    },
+
+    login_success: function() {
+        l('LOGIN SUCCESS EVENT!!');
     },
 
     /*__   __   ___      ___  ___          __   __   __            ___          __  ___    __
@@ -59,11 +65,16 @@ LoginWorld.prototype = {
         this._create_quasar_title();
         this._create_login_wall();
         this._create_create_account_wall();
+        this._create_server_requests();
+    },
 
-        // Web-sockets testing!!!
-        //this.web_sockets_button = new FloatingButton(this, 128, 'Quasar Source');
-        //this.quasar_source_title.set_position(1200, 400, 400);
-        //this.quasar_source_title.look_at_origin(false);
+    _create_server_requests: function() {
+        this.server_request_login = new ServerRequestLogin();
+        this.server_request_login.bind_to_button(this.button_login);
+        this.server_request_login.bind_success_event(this.login_success.bind(this));
+
+        this.server_request_create_account = new ServerRequestCreateAccount();
+        this.server_request_create_account.bind_to_button(this.button_create_account);
     },
 
     _create_quasar_title: function() {
@@ -84,9 +95,9 @@ LoginWorld.prototype = {
 
         // Username.
         row = this.wall_create_account.add_row();
-        this.input_username = row.add_input_2D([0, 1, false], 16);
-        this.input_username.add_syntax(TEXT_SYNTAX_USERNAME);
-        this.input_username.add_label_left('username:');
+        this.input_username_create = row.add_input_2D([0, 1, false], 16);
+        this.input_username_create.add_syntax(TEXT_SYNTAX_USERNAME);
+        this.input_username_create.add_label_left('username:');
 
         // Email.
         row = this.wall_create_account.add_row();
@@ -108,10 +119,10 @@ LoginWorld.prototype = {
 
         // Create account button.
         row = this.wall_create_account.add_row();
-        var button_create_account = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'create account', this.create_account_button_pressed.bind(this));
+        this.button_create_account = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'create account', this.create_account_button_pressed.bind(this));
 
         // Connect the elements together as a form.
-        this.form_create_account = new FormManager([this.input_username, input_email, input_password, input_repeat_password], button_create_account);
+        this.form_create_account = new FormManager([this.input_username_create, input_email, input_password, input_repeat_password], this.button_create_account);
     },
 
     _create_login_wall: function() {
@@ -126,15 +137,15 @@ LoginWorld.prototype = {
 
         // Username.
         row = this.wall_login.add_row();
-        var input_username = row.add_input_2D([0, 1, false], 16);
-        input_username.add_syntax(TEXT_SYNTAX_USERNAME);
-        input_username.add_label_left('username:');
+        this.input_username_login = row.add_input_2D([0, 1, false], 16);
+        this.input_username_login.add_syntax(TEXT_SYNTAX_USERNAME);
+        this.input_username_login.add_label_left('username:');
 
         // Password.
         row = this.wall_login.add_row();
-        var input_password = row.add_input_2D([0, 1, false], 16);
-        input_password.add_syntax(TEXT_SYNTAX_PASSWORD);
-        input_password.add_label_left('password:');
+        this.input_password_login = row.add_input_2D([0, 1, false], 16);
+        this.input_password_login.add_syntax(TEXT_SYNTAX_PASSWORD);
+        this.input_password_login.add_label_left('password:');
 
         // Remember username.
         row = this.wall_login.add_row();
@@ -143,9 +154,9 @@ LoginWorld.prototype = {
 
         // Login button.
         row = this.wall_login.add_row();
-        var button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', this.login_button_pressed.bind(this));
+        this.button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', this.login_button_pressed.bind(this));
 
         // Connect the elements together as a form.
-        this.form_login = new FormManager([input_username, input_password], button_login);
+        this.form_login = new FormManager([this.input_username_login, this.input_password_login], this.button_login);
     }
 };

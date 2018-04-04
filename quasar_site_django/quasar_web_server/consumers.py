@@ -2,7 +2,7 @@
 
 """This module, consumers.py, is used to handle basic connections between the client and server."""
 
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
 from quasar_site_django.quasar_web_server.web_sockets_server.quasar_web_socket_server import QuasarWebSocketsServerSide
@@ -63,29 +63,24 @@ def ws_disconnect(message):
 	#Group('users').discard(message.reply_channel)
 '''
 
-print('Testing how many times this module gets called!!!')
 
 quasar_web_sockets_server = QuasarWebSocketsServerSide()
 
 
-class ConsumerManager(WebsocketConsumer):
+class ConsumerManager(AsyncWebsocketConsumer):
 
-	def __init__(self, scope):
-		super().__init__(scope)
-		self._web_socket_server = QuasarWebSocketsServerSide()
-
-	def connect(self):
+	async def connect(self):
 		print('Just made a websocket connection!')
 		print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.add_connection(self.channel_name)
-		self.accept()
+		await self.accept()
 
-	def disconnect(self, close_code):
+	async def disconnect(self, close_code):
 		print('websocket disconnect!')
+		print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.remove_connection(self.channel_name)
-		pass
 
-	def receive(self, text_data):
+	async def receive(self, text_data):
 		print('Just received a message!')
 		print(text_data)
 		print(text_data['message'])

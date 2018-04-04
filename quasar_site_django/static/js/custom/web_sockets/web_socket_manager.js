@@ -9,6 +9,15 @@ WebSocketManager.prototype = {
     __init__: function() {
         this._connection_string = 'ws://' + window.location.host + '/ws/';
         this._connected = false;
+        this._messages_in_limbo = {};
+        this._message_id = 0;
+    },
+
+    send_message: function(message) {
+        message.set_message_id(this._message_id);
+        this._messages_in_limbo[this._message_id] = message;
+        this._message_id += 1;
+        this.socket.send(message.get_message());
     },
 
     generate_uuidv4: function() {
@@ -29,11 +38,12 @@ WebSocketManager.prototype = {
     _message_received: function(message) {
         l('ON MESSAGE:');
         l(message);
+        // TODO : Take the message out of limbo.
     },
 
     _on_open: function() {
         l('ON OPEN!');
-
+        this._connected = true;
     },
 
     _on_error: function(error) {
