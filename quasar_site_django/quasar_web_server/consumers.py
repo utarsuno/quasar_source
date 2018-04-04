@@ -6,6 +6,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 #from channels import Group
 from asgiref.sync import async_to_sync
 import json
+import uuid
 
 from quasar_site_django.quasar_web_server.web_sockets_server.quasar_web_socket_server import QuasarWebSocketsServerSide
 
@@ -76,6 +77,8 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		global quasar_web_sockets_server
 		self._web_socket_server = quasar_web_sockets_server
 
+		self.groups_for_one_to_one_communication = {}
+
 		self._user_groups = {}
 
 	async def connect(self):
@@ -108,10 +111,15 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#	self._web_socket_server.get_reply(self.channel_name, text_data)
 		#)
 
+		self.channel_layer.send(self.channel_name, {
+			'type': 'single.reply',
+			'message': text_data
+		})
+
 		self.channel_layer.group_send(
 			self.channel_name,
 			{
-				'type': 'single_reply',
+				'type': 'single.reply',
 				'message': text_data
 			}
 		)
