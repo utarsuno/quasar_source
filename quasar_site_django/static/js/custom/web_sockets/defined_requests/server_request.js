@@ -37,7 +37,7 @@ function ServerRequest(request_type) {
     };
 
     this.perform_request = function() {
-        MANAGER_WEB_SOCKETS.perform_request(this);
+        MANAGER_WEB_SOCKETS.send_message(this);
     };
 
     this.success_response = function() {
