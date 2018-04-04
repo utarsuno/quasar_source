@@ -112,7 +112,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#)
 
 		self.channel_layer.send(self.channel_name, {
-			'type': 'single.reply',
+			'type': 'my.test.single.reply',
 			'text': text_data
 		})
 
@@ -132,7 +132,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#})
 		#self.send(text_data=self._web_socket_server.get_reply(self.channel_name, text_data))
 
-	async def single_reply(self, message):
+	async def my_test_single_reply(self, message):
 		"""Test."""
 		#m = message['message']
 		print('Trying to send a single reply!')
