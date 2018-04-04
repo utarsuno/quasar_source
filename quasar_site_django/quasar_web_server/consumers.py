@@ -3,6 +3,7 @@
 """This module, consumers.py, is used to handle basic connections between the client and server."""
 
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.layers import get_channel_layer
 #from channels import Group
 from asgiref.sync import async_to_sync
 import json
@@ -111,6 +112,13 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#	self._web_socket_server.get_reply(self.channel_name, text_data)
 		#)
 
+		channel_layer = get_channel_layer()
+		channel_layer.send(self.channel_name, {
+			'type': 'single.reply',
+			'text': 'Hello there!'
+		})
+
+
 		self.channel_layer.send(self.channel_name, {
 			'type': 'single.reply',
 			'message': text_data
@@ -132,5 +140,5 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 	async def single_reply(self, message):
 		"""Test."""
-		m = message['message']
-		self.send(text_data=self._web_socket_server.get_reply(self.channel_name, m))
+		#m = message['message']
+		self.send(text_data=self._web_socket_server.get_reply(self.channel_name, message))
