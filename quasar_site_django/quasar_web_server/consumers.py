@@ -83,7 +83,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.add_connection(self.channel_name)
 
-		async_to_sync(self.channel_layer.group_add)(
+		self.channel_layer.group_add(
 			self.channel_name,
 			self.channel_name
 		)
@@ -99,7 +99,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#async_to_sync(self.channel_layer.group_send)(
 		#)
 
-		async_to_sync(self.channel_layer.group_send)(
+		self.channel_layer.group_send(
 			self.channel_name,
 			self._web_socket_server.get_reply(self.channel_name, text_data)
 		)
