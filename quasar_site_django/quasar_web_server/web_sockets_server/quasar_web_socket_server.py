@@ -52,8 +52,8 @@ class QuasarWebSocketsServerSide(object):
 		print(channel_name in self.players)
 
 		#self.players[channel_name].handle_request(request)
-		return json.dumps({'message': 'HALLLLLLOOO?????'})
-
+		#return json.dumps({'message': 'HALLLLLLOOO?????'})
+		return {'message': 'HALLLLLLOOO?????'}
 
 
 

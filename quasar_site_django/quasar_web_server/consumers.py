@@ -3,6 +3,8 @@
 """This module, consumers.py, is used to handle basic connections between the client and server."""
 
 from channels.generic.websocket import AsyncWebsocketConsumer
+#from channels import Group
+from asgiref.sync import async_to_sync
 import json
 
 from quasar_site_django.quasar_web_server.web_sockets_server.quasar_web_socket_server import QuasarWebSocketsServerSide
@@ -74,10 +76,18 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		global quasar_web_sockets_server
 		self._web_socket_server = quasar_web_sockets_server
 
+		self._user_groups = {}
+
 	async def connect(self):
 		print('Just made a websocket connection!')
 		print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.add_connection(self.channel_name)
+
+		async_to_sync(self.channel_layer.group_add)(
+			self.channel_name,
+			self.channel_name
+		)
+
 		await self.accept()
 
 	async def disconnect(self, close_code):
@@ -86,8 +96,16 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		self._web_socket_server.remove_connection(self.channel_name)
 
 	async def receive(self, text_data):
-		self.send({
-			'type' : 'websocket.send',
-			'text' : self._web_socket_server.get_reply(self.channel_name, text_data)
-		})
+		#async_to_sync(self.channel_layer.group_send)(
+		#)
+
+		async_to_sync(self.channel_layer.group_send)(
+			self.channel_name,
+			self._web_socket_server.get_reply(self.channel_name, text_data)
+		)
+
+		#self.send({
+		#	'type' : 'websocket.send',
+		#	'text' : self._web_socket_server.get_reply(self.channel_name, text_data)
+		#})
 		#self.send(text_data=self._web_socket_server.get_reply(self.channel_name, text_data))

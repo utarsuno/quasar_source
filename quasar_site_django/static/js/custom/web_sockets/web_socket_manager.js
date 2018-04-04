@@ -28,13 +28,6 @@ WebSocketManager.prototype = {
         });
     },
 
-    connect: function() {
-        this.socket = new WebSocket(this._connection_string);
-        this.socket.onmessage = this._message_received.bind(this);
-        this.socket.onerror   = this._on_error.bind(this);
-        this.socket.onopen    = this._on_open.bind(this);
-    },
-
     _message_received: function(message) {
         l('ON MESSAGE:');
         l(message);
@@ -49,6 +42,13 @@ WebSocketManager.prototype = {
     _on_error: function(error) {
         l('ON ERROR:');
         l(error);
+    },
+
+    connect: function() {
+        this.socket = new WebSocket(this._connection_string);
+        this.socket.onmessage = this._message_received.bind(this);
+        this.socket.onerror   = this._on_error.bind(this);
+        this.socket.onopen    = this._on_open.bind(this);
     }
 
 };
