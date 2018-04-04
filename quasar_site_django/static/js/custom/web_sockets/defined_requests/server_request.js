@@ -6,8 +6,8 @@ const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';
 const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';
 const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';
 
-const _WEB_SOCKET_REQUEST_LOGIN          = '1';
-const _WEB_SOCKET_REQUEST_CREATE_ACCOUNT = '2';
+const _WEB_SOCKET_REQUEST_LOGIN          = 1;
+const _WEB_SOCKET_REQUEST_CREATE_ACCOUNT = 2;
 
 
 function ServerRequest(request_type) {

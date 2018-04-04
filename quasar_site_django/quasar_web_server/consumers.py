@@ -86,13 +86,4 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		self._web_socket_server.remove_connection(self.channel_name)
 
 	async def receive(self, text_data):
-		print('Just received a message!')
-		print(text_data)
-		print(text_data['message'])
-
-		text_data_json = json.loads(text_data)
-		message = text_data_json['message']
-
-		self.send(text_data = json.dumps({
-			'message': message
-		}))
+		self.send(self._web_socket_server.get_reply(self.channel_name, text_data))
