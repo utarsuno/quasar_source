@@ -80,9 +80,9 @@ EntityManager.prototype = {
         this.user_entities_loaded = false;
         this.loading = false;
 
-        this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
-        this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
-        this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
+        //this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
+        //this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
+        //this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
 
         // Hold a list of all objects that require entity change notifications.
         EntityChangesListener.call(this);
