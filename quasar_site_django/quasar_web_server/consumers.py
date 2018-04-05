@@ -111,6 +111,9 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#	self._web_socket_server.get_reply(self.channel_name, text_data)
 		#)
 
+		print(self.channel_layer)
+		print(self.channel_name)
+
 		await self.channel_layer.send(self.channel_name, {
 			"type": "chat.message",
 			"text": "Hello there!",
@@ -138,6 +141,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#self.send(text_data=self._web_socket_server.get_reply(self.channel_name, text_data))
 
 	def chat_message(self, event):
+		print('CHAT MESSAGE')
 		# Handles the "chat.message" event when it's sent to us.
 		self.send(text_data = 'Hello World?')
 
