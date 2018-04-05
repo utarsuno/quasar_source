@@ -114,7 +114,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		print(self.channel_layer)
 		print(self.channel_name)
 
-		await self.channel_layer.send(self.channel_name, {
+		self.channel_layer.send(self.channel_name, {
 			"type": "chat.message",
 			"text": "Hello there!",
 		})
