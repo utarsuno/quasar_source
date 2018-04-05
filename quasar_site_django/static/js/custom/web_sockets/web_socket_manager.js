@@ -26,6 +26,8 @@ WebSocketManager.prototype = {
 
         var response = JSON.parse(message.data);
         l(response);
+        response = response.text;
+        l(response);
 
 
         // TODO : Take the message out of limbo.

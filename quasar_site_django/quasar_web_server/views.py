@@ -19,17 +19,7 @@ _TEMPLATES_BASE         = 'templates/quasar_web_server/'
 TEMPLATE_QUASAR_DEV     = _TEMPLATES_BASE + 'quasar_dev.html'
 TEMPLATE_QUASAR_PROD    = _TEMPLATES_BASE + 'quasar_prod.min.html'
 
-
-# Global server.
-quasar_server = None
-
-
-def set_quasar_server_instance(qs):
-    """Sets the quasar server instance."""
-    global quasar_server
-    quasar_server = qs
-
-
+'''
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -37,7 +27,7 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
-
+'''
 
 def GET_quasar_dev(request):
     """Returns the Development environment version of Quasar (full debugging enabled, none/less minified files."""
@@ -66,7 +56,7 @@ SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error
 ENTITY_POST_SAVE_DATA = 'save_data'
 # UNIVERSAL_CONSTANTS_END
 
-
+'''
 def return_based_on_result(result):
     """Returns a HTTPResponse based off the result."""
     if us.is_success_message(result):
@@ -100,23 +90,18 @@ def qdict_to_dict(qdict):
     of all values is stored at the field's key.
     """
     return {k: v[0] if len(v) == 1 else v for k, v in qdict.lists()}
-
+'''
 
 @csrf_exempt
 def GET_status_ping(request):
     """Used for an alive check."""
-    global quasar_server
-    message = quasar_server.ping()
-    success = us.is_success_message(message)
-    if success:
-        return HttpResponse('Alive!')
-    return HttpResponse('Error response from entity server : {' + str(message) + '}')
+    return HttpResponse('Alive!')
 
 '''     __                   __   __                         __   __
    /\  |  \  |\/| | |\ |    /  ` /  \  |\/|  |\/|  /\  |\ | |  \ /__`
   /~~\ |__/  |  | | | \|    \__, \__/  |  |  |  | /~~\ | \| |__/ .__/ '''
 
-
+'''
 @csrf_exempt
 def POST_sudo_command(request):
     """Handles the POST request for entity owner admin commands."""
@@ -149,13 +134,14 @@ def POST_sudo_command(request):
             dbg.raise_exception('Invalid command received!')
     else:
         return return_based_on_result(message)
-
+'''
 
 '''___      ___   ___         __             ___  __      __   __   ___  __       ___    __        __
   |__  |\ |  |  |  |  \ /    /  \ |  | |\ | |__  |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
   |___ | \|  |  |  |   |     \__/ |/\| | \| |___ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ '''
 
 
+'''
 @csrf_exempt
 def POST_get_shared_worlds(request):
     """Handles the POST request for getting shared worlds."""
@@ -190,8 +176,9 @@ def POST_server_load_image(request):
     # TODO : Add safety checks against the URL sent in!!
 
     urllib.request.urlretrieve(received_image_url, 'dynamically_loaded_images' 'test_image.png')
+'''
 
-
+'''
 @csrf_exempt
 def POST_login(request):
     """Handles the POST request for logging in."""
@@ -214,8 +201,9 @@ def POST_login(request):
     else:
         return HttpResponse(result[2:])
     return return_based_on_result(quasar_server.is_valid_login(received_username, received_password))
+'''
 
-
+'''
 @csrf_exempt
 def POST_create_owner(request):
     """Handles the POST request for creating a owner."""
@@ -311,3 +299,4 @@ def POST_get_user_entities(request):
         data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
         return JsonResponse(data_to_return, safe=False)
     return HttpResponse(message)
+'''

@@ -3,17 +3,28 @@
 """This module, quasar_web_socket_server.py, provides an abstraction to handling server-side web-socket requests."""
 
 import json
+from servers.quasar.quasar_server import quasar_server as qs
+from servers import utility_servers as us
 
 
+# Client request keys.
 _WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE = 'r'
-_WEB_SOCKET_MESSAGE_ID               = 'm'
+_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm'
 _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u'
 _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p'
 _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e'
 
-_WEB_SOCKET_REQUEST_LOGIN          = 1
-_WEB_SOCKET_REQUEST_CREATE_ACCOUNT = 2
+# Server response keys.
+_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID  = 'm'
+_WEB_SOCKET_RESPONSE_KEY_SUCCESS     = 's'
 
+# Client request values.
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
+
+# Server response values.
+_WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
+_WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1
 
 '''
 from servers.quasar import quasar_server as qs
@@ -40,6 +51,9 @@ class QuasarWebSocketsServerSide(object):
 	"""Handles web socket server side requests."""
 
 	def __init__(self):
+		self._quasar_server = qs.QuasarServer()
+		self._quasar_server.connect()
+
 		self.players = {}
 
 	def add_connection(self, channel_name):
@@ -52,14 +66,37 @@ class QuasarWebSocketsServerSide(object):
 
 	def get_reply(self, channel_name, request):
 		"""Handles a client request."""
-		print('The response is:')
 		r = json.loads(request)
-		print(r)
-		print(type(r))
+		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
 
-		return {'message': 'HALLLLLLOOO?????'}
+		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN:
+			return self._reply_to_login_request(r)
+		else:
+			return self._fail_reply(r)
 
+	def _success_reply(self, request):
+		"""Returns a success reply."""
+		message_id = request[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID]
+		return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
+		        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE}
 
+	def _fail_reply(self, request):
+		"""Returns a failed reply."""
+		message_id = request[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID]
+		return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
+		        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE}
+
+	# Specific request handling.
+	def _reply_to_login_request(self, request):
+		"""Handles the login request."""
+		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
+		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
+
+		result = self._quasar_server.is_valid_login(username, password)
+		if us.is_success_message(result):
+			return self._success_reply(request)
+		else:
+			return self._fail_reply(request)
 
 '''
 @csrf_exempt
