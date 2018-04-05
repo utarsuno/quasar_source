@@ -1,5 +1,13 @@
 'use strict';
 
+//# Server response keys.
+const _WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID  = 'm';
+const _WEB_SOCKET_RESPONSE_KEY_SUCCESS     = 's';
+
+//# Server response values.
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0;
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1;
+
 function WebSocketManager() {
     this.__init__();
 }
@@ -8,7 +16,6 @@ WebSocketManager.prototype = {
 
     __init__: function() {
         this._connection_string = 'ws://' + window.location.host + '/ws/';
-        this._connected = false;
         this._messages_in_limbo = {};
         this._message_id = 0;
     },
@@ -21,16 +28,13 @@ WebSocketManager.prototype = {
     },
 
     _message_received: function(message) {
-        l('ON MESSAGE:');
-        l(message);
+        var response = JSON.parse(message.data).text;
 
-        var response = JSON.parse(message.data);
-        l(response);
-        response = response.text;
-        l(response);
+        var success = response[_WEB_SOCKET_RESPONSE_KEY_SUCCESS];
+        success = success === _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE;
 
-
-        // TODO : Take the message out of limbo.
+        this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]].message_response(success);
+        delete this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]];
     },
 
     _on_open: function() {
@@ -50,19 +54,3 @@ WebSocketManager.prototype = {
     }
 
 };
-
-
-
-
-// REFACTOR THIS
-/*
-// UNIVERSAL_CONSTANTS_START : Web socket message types.
-const WEB_SOCKET_MESSAGE_TYPE_ALL_PLAYERS                 = '|A|';
-const WEB_SOCKET_MESSAGE_TYPE_CONNECTION                  = '|C|';
-const WEB_SOCKET_MESSAGE_TYPE_DISCONNECTED                = '|D|';
-const WEB_SOCKET_MESSAGE_TYPE_CHAT_MESSAGE                = '|M|';
-const WEB_SOCKET_MESSAGE_TYPE_LOOK_AT_UPDATE              = '|L|';
-const WEB_SOCKET_MESSAGE_TYPE_POSITION_UPDATE             = '|P|';
-const WEB_SOCKET_MESSAGE_TYPE_POSITION_AND_LOOK_AT_UPDATE = '|U|';
-// UNIVERSAL_CONSTANTS_END
- */

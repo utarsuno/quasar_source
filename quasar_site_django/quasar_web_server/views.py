@@ -180,31 +180,6 @@ def POST_server_load_image(request):
 
 '''
 @csrf_exempt
-def POST_login(request):
-    """Handles the POST request for logging in."""
-    print('POST_login')
-    json_str = (request.body.decode('utf-8'))
-    json_obj = json.loads(json_str)
-
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
-    if post_errors is not None:
-        return post_errors
-
-    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
-
-    global quasar_server
-    result = quasar_server.is_valid_login(received_username, received_password)
-    if us.is_success_message(result):
-        request.session[be.ENTITY_PROPERTY_USERNAME] = received_username
-        return SERVER_REPLY_GENERIC_YES
-    else:
-        return HttpResponse(result[2:])
-    return return_based_on_result(quasar_server.is_valid_login(received_username, received_password))
-'''
-
-'''
-@csrf_exempt
 def POST_create_owner(request):
     """Handles the POST request for creating a owner."""
     print('POST_create_owner')
