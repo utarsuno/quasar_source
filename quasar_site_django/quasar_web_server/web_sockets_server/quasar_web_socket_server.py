@@ -53,7 +53,7 @@ class QuasarWebSocketsServerSide(object):
 	def get_reply(self, channel_name, request):
 		"""Handles a client request."""
 		print('The response is:')
-		r = json.load(request)
+		r = json.loads(request)
 		print(r)
 		print(type(r))
 
