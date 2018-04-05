@@ -86,6 +86,8 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.add_connection(self.channel_name)
 
+		#print(self.c)
+
 		self.channel_layer.group_add(
 			self.channel_name,
 			self.channel_name
@@ -114,15 +116,15 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		print(self.channel_layer)
 		print(self.channel_name)
 
-		self.channel_layer.send(self.channel_name, {
-			"type": "chat.message",
+		self.send({
+			"type": "websocket.send",
 			"text": "Hello there!",
 		})
 
-		self.channel_layer.send(self.channel_name, {
-			'type': 'my.test.single.reply',
-			'text': text_data
-		})
+		#self.channel_layer.send(self.channel_name, {
+		#	'type': 'my.test.single.reply',
+		#	'text': text_data
+		#})
 
 		'''
 		self.channel_layer.group_send(
