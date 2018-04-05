@@ -116,10 +116,9 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		print(self.channel_layer)
 		print(self.channel_name)
 
-		self.send({
-			"type": "websocket.send",
+		await self.send(text_data=json.dumps({
 			"text": "Hello there!",
-		})
+		}))
 
 		#self.channel_layer.send(self.channel_name, {
 		#	'type': 'my.test.single.reply',
