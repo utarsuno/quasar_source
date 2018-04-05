@@ -163,13 +163,13 @@ module.exports = {
         "ServerRequestCreateAccount": false,
 
         "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
-        "_WEB_SOCKET_MESSAGE_ID"              : false,
+        "_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID"  : false,
         "_WEB_SOCKET_REQUEST_KEY_USERNAME"    : false,
         "_WEB_SOCKET_REQUEST_KEY_PASSWORD"    : false,
         "_WEB_SOCKET_REQUEST_KEY_EMAIL"       : false,
 
-        "_WEB_SOCKET_REQUEST_LOGIN"           : false,
-        "_WEB_SOCKET_REQUEST_CREATE_ACCOUNT"  : false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN"         : false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT": false,
 
         // Global Managers.
         "MANAGER_WEB_SOCKETS"    : true,

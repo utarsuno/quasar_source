@@ -8,7 +8,7 @@ ServerRequestLogin.prototype = {
 
     __init__: function() {
         // Inherit.
-        ServerRequest.call(this, _WEB_SOCKET_REQUEST_LOGIN);
+        ServerRequest.call(this, _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN);
     },
 
     set_username: function(username) {
