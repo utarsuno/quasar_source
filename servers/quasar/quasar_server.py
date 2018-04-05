@@ -107,6 +107,7 @@ COMMAND_PRINT_ALL_DATA = 'pd'
 COMMAND_SET_ACCOUNT_TYPE = 'at'
 
 
+'''
 arguments = so.get_all_program_arguments()
 if len(arguments) == 1:
 	flag = arguments[0]
@@ -142,3 +143,4 @@ if len(arguments) == 1:
 		d = data.split(':')
 
 		print(quasar_server.set_entity_owner_account_type(d[0], d[1]))
+'''

@@ -3,7 +3,7 @@
 """This module, quasar_web_socket_server.py, provides an abstraction to handling server-side web-socket requests."""
 
 import json
-from servers.quasar.quasar_server import quasar_server as qs
+from servers.quasar import quasar_server as qs
 from servers import utility_servers as us
 
 
