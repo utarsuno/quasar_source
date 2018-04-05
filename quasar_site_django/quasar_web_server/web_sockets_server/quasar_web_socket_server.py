@@ -15,6 +15,15 @@ _WEB_SOCKET_REQUEST_LOGIN          = 1
 _WEB_SOCKET_REQUEST_CREATE_ACCOUNT = 2
 
 
+'''
+from servers.quasar import quasar_server as qs
+quasar_server = qs.QuasarServer()
+quasar_server.connect()
+v.set_quasar_server_instance(quasar_server)
+'''
+
+
+
 class QuasarConnectedClient(object):
 	"""Represents a single connected Quasar client."""
 
@@ -43,35 +52,13 @@ class QuasarWebSocketsServerSide(object):
 
 	def get_reply(self, channel_name, request):
 		"""Handles a client request."""
+		print('The response is:')
+		r = json.load(request)
+		print(r)
+		print(type(r))
 
-		print('TODO : send a reply for the following message')
-		print(request)
-		print(type(request))
-		print(channel_name)
-		print(type(channel_name))
-		print(channel_name in self.players)
+		return {'message': 'HALLLLLLOOO?????'}
 
-		#self.players[channel_name].handle_request(request)
-		return json.dumps({'message': 'HALLLLLLOOO?????'})
-		#return {'message': 'HALLLLLLOOO?????'}
-
-
-
-'''
-		print('Just received a message!')
-		print(text_data)
-		print(text_data['message'])
-
-
-
-		text_data_json = json.loads(text_data)
-		message = text_data_json['message']
-
-		self.send(text_data = json.dumps({
-			'message': message
-		}))
-
-'''
 
 
 '''

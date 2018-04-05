@@ -35,13 +35,14 @@ EntityManager.prototype = {
         }
     },
 
+    // TODO : DELETE!!!
     entity_deleted_response: function(data) {
         // FOR_DEV_START
-        if (data === SERVER_REPLY_GENERIC_YES) {
-            l('Entity deleted!');
-        } else {
-            l('Entity did not get deleted : {|' + data + '|}');
-        }
+        //if (data === SERVER_REPLY_GENERIC_YES) {
+        //    l('Entity deleted!');
+        //} else {
+        //    l('Entity did not get deleted : {|' + data + '|}');
+        //}
         // FOR_DEV_END
     },
 
@@ -335,7 +336,9 @@ EntityManager.prototype = {
      /__`  /\  \  / | |\ | / _`    |  \  /\   |   /\     .
      .__/ /~~\  \/  | | \| \__>    |__/ /~~\  |  /~~\    . */
 
+    // TODO : DELETE!
     save_changes_result: function() {
+        /*
         // .bind prepends arguments so the first argument is the entity being saved and the second argument is the save result.
         if (arguments[1] === SERVER_REPLY_GENERIC_YES) {
             arguments[0].needs_to_be_saved = false;
@@ -344,6 +347,7 @@ EntityManager.prototype = {
             l('Error saving entity : ');
             l(arguments[0]);
         }
+        */
     },
 
     update_server_and_database: function() {

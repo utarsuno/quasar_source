@@ -59,37 +59,18 @@ const NO_SAVE_DATA = 'no_save_data';
 const ENTITY_POST_SAVE_DATA = 'save_data';
 // UNIVERSAL_CONSTANTS_END
 
+// TODO : Delete these after refactorings occur!
 const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
 const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';
 const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
 const SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai';
 const SERVER_COMMAND_DELETE_ENTITY_OWNER           = 'deo';
 
-
-// UNIVERSAL_CONSTANTS_START : POST URLs for client-server communication.
-const POST_URL_GET_SHARED_WORLDS     = '/get_shared_worlds';
-const POST_URL_DELETE_ENTITY         = '/delete_entity';
-const POST_URL_SAVE_ENTITY           = '/save_entity';
-const POST_URL_GET_USER_ENTITIES     = '/get_user_entities';
-const POST_URL_CREATE_ACCOUNT        = '/create_account';
-const POST_URL_LOGIN                 = '/login';
-const POST_URL_GET_SERVER_LOGS       = '/get_server_logs';
-// UNIVERSAL_CONSTANTS_END
-
 const TYPE_INPUT                  = 'input';
 const TYPE_ICON                   = 'icon';
 const TYPE_BUTTON                 = 'button';
 const TYPE_TITLE                  = 'title';
 const TYPE_CONSTANT               = 'constant';
-
-// UNIVERSAL_CONSTANTS_START : Server reply message.
-const SERVER_REPLY_INVALID_POST_DATA_ERROR                = 'Invalid POST data!';
-const SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR = 'Invalid number of POST arguments!';
-const SERVER_REPLY_GENERIC_NO                             = 'n';
-const SERVER_REPLY_GENERIC_YES                            = 'y';
-const SERVER_REPLY_GENERIC_SERVER_ERROR                   = 'Server Error!';
-// UNIVERSAL_CONSTANTS_END
-
 
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 
@@ -161,55 +142,6 @@ const CELL_PHONE_CARRIERS = {
     'C-Spire'          : 'number@cspire1.com',
     'Page Plus'        : 'number@vtext.com'
 };
-
-// Key-down key-codes.
-const KEY_CODE_SHIFT      = 16;
-const KEY_CODE_SPACE      = 32;
-const KEY_CODE_UP         = 38;
-const KEY_CODE_LEFT       = 37;
-const KEY_CODE_RIGHT      = 39;
-const KEY_CODE_DOWN       = 40;
-const KEY_CODE_0          = 48;
-const KEY_CODE_1          = 49;
-const KEY_CODE_2          = 50;
-const KEY_CODE_3          = 51;
-const KEY_CODE_4          = 52;
-const KEY_CODE_5          = 53;
-const KEY_CODE_6          = 54;
-const KEY_CODE_7          = 55;
-const KEY_CODE_8          = 56;
-const KEY_CODE_9          = 57;
-const KEY_CODE_A          = 65;
-const KEY_CODE_B          = 66;
-const KEY_CODE_C          = 67;
-const KEY_CODE_D          = 68;
-const KEY_CODE_E          = 69;
-const KEY_CODE_F          = 70;
-const KEY_CODE_G          = 71;
-const KEY_CODE_H          = 72;
-const KEY_CODE_I          = 73;
-const KEY_CODE_J          = 74;
-const KEY_CODE_K          = 75;
-const KEY_CODE_L          = 76;
-const KEY_CODE_M          = 77;
-const KEY_CODE_N          = 78;
-const KEY_CODE_O          = 79;
-const KEY_CODE_P          = 80;
-const KEY_CODE_Q          = 81;
-const KEY_CODE_R          = 82;
-const KEY_CODE_S          = 83;
-const KEY_CODE_T          = 84;
-const KEY_CODE_U          = 85;
-const KEY_CODE_V          = 86;
-const KEY_CODE_W          = 87;
-const KEY_CODE_X          = 88;
-const KEY_CODE_Y          = 89;
-const KEY_CODE_Z          = 90;
-const KEY_CODE_DELETE     = 8;
-const KEY_CODE_TAB        = 9;
-const KEY_CODE_ENTER      = 13;
-const KEY_CODE_CONTROL    = 17;
-const KEY_CODE_BACK_SLASH = 220;
 
 // Javascript constants.
 const VISIBLE = 'visible';

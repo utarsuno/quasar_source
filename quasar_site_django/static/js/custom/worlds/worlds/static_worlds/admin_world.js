@@ -58,7 +58,9 @@ AdminWorld.prototype = {
         this.post_delete_account.perform_post(data, this._delete_account_result.bind(this));
     },
 
+    // TODO : REFACTOR!!!
     _delete_account_result: function(result) {
+        /*
         if (result === SERVER_REPLY_GENERIC_YES) {
             GUI_TYPING_INTERFACE.add_server_message('Account deleted!');
             if (this.wall_account_actions.is_attached()) {
@@ -82,6 +84,7 @@ AdminWorld.prototype = {
             GUI_TYPING_INTERFACE.add_server_message('Error deleting account!');
             GUI_TYPING_INTERFACE.add_server_message(result);
         }
+        */
     },
 
     _load_all_accounts_action: function() {

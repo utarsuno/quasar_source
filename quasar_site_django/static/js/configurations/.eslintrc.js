@@ -271,14 +271,6 @@ module.exports = {
         "PLAYER_STATE_ENGAGED"     : false,
         "PLAYER_STATE_TYPING"      : false,
 
-        "POST_URL_GET_SHARED_WORLDS:"   : false,
-        "POST_URL_DELETE_ENTITY"        : false,
-        "POST_URL_SAVE_ENTITY"          : false,
-        "POST_URL_GET_USER_ENTITIES"    : false,
-        "POST_URL_GET_PUBLIC_ENTITIES"  : false,
-        "POST_URL_CREATE_ACCOUNT"       : false,
-        "POST_URL_LOGIN"                : false,
-        "POST_URL_GET_SERVER_LOGS"      : false,
         "ENTITY_POST_SAVE_DATA"              : false,
         "POST_USERNAME"  : false,
         "POST_PASSWORD"  : false,
@@ -291,11 +283,6 @@ module.exports = {
         "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,
         "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
         "SERVER_COMMAND_DELETE_ENTITY_OWNER"          : true,
-        "SERVER_REPLY_INVALID_POST_DATA_ERROR"               : false,
-        "SERVER_REPLY_INVALID_NUMBER_OF_POST_ARGUMENTS_ERROR": false,
-        "SERVER_REPLY_GENERIC_NO"                            : false,
-        "SERVER_REPLY_GENERIC_YES"                           : false,
-        "SERVER_REPLY_GENERIC_SERVER_ERROR"                  : false,
 
 
         "TYPE_INPUT"                 : false,
