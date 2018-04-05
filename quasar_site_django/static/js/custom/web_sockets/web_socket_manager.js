@@ -24,7 +24,7 @@ WebSocketManager.prototype = {
         l('ON MESSAGE:');
         l(message);
 
-        var response = JSON.parse(message);
+        var response = JSON.parse(message.data);
         l(response);
 
 
