@@ -172,6 +172,7 @@ module.exports = {
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT": false,
 
         // Global Managers.
+        "MANAGER_MULTI_PLAYER"   : true,
         "MANAGER_WEB_SOCKETS"    : true,
         "MANAGER_COOKIES"        : true,
         "MANAGER_AUDIO"          : true,
@@ -179,7 +180,6 @@ module.exports = {
         "MANAGER_TEXT_2D"        : true,
         "MANAGER_WORLD"          : true,
         "MANAGER_ENTITY"         : true,
-        "MANAGER_MULTIPLAYER"    : true,
         "MANAGER_SHADER"         : true,
         "MANAGER_RENDERER"       : true,
         "MANAGER_INPUT"          : true,
@@ -187,6 +187,7 @@ module.exports = {
         "MANAGER_DATA_DISPLAY"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
+        "MultiPlayerManager"   : false,
         "CookieManager"        : false,
         "Cookies"              : false,
         "Text2DUtilities"      : false,
@@ -195,7 +196,6 @@ module.exports = {
         "WorldManager"         : false,
         "AudioManager"         : false,
         "EntityManager"        : false,
-        "MultiPlayerManager"   : false,
         "RendererManager"      : false,
         "InputManager"         : false,
         "PointerLockManager"   : false,

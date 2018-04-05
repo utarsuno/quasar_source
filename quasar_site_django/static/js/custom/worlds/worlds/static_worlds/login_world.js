@@ -17,7 +17,7 @@ LoginWorld.prototype = {
         if (MANAGER_COOKIES.get_value(COOKIE_SHOULD_REMEMBER_USERNAME)) {
             this.remember_username.set_checked_state(true);
             if (MANAGER_COOKIES.has_cookie_key(COOKIE_REMEMBERED_USERNAME)) {
-                this.input_username.update_text(MANAGER_COOKIES.get_value(COOKIE_REMEMBERED_USERNAME));
+                this.input_username_login.update_text(MANAGER_COOKIES.get_value(COOKIE_REMEMBERED_USERNAME));
             }
         }
 
@@ -41,7 +41,11 @@ LoginWorld.prototype = {
     },
 
     login_success: function() {
-        l('LOGIN SUCCESS EVENT!!');
+        if (this.remember_username.is_checked()) {
+            MANAGER_COOKIES.set_cookie(COOKIE_REMEMBERED_USERNAME, this.input_username_login.get_text());
+        }
+
+        // TODO : Go to the home world!
     },
 
     /*__   __   ___      ___  ___          __   __   __            ___          __  ___    __
@@ -49,6 +53,10 @@ LoginWorld.prototype = {
      \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     /~~\ \__,  |  | \__/ | \| */
     create_account_button_pressed: function() {
         l('TODO : Create account action!');
+    },
+
+    create_account_success: function() {
+
     },
 
     /*__   ___        ___        __   ___  __           __   ___  __                   ___     __   __   ___  __   __   ___  __
@@ -75,6 +83,7 @@ LoginWorld.prototype = {
 
         this.server_request_create_account = new ServerRequestCreateAccount();
         this.server_request_create_account.bind_to_button(this.button_create_account);
+        this.server_request_create_account.bind_success_event(this.create_account_success.bind(this));
     },
 
     _create_quasar_title: function() {

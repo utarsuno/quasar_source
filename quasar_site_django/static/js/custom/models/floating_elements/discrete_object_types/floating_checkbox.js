@@ -50,6 +50,10 @@ FloatingCheckBox.prototype = {
         this.object3D.add(this.mesh);
     },
 
+    is_checked: function() {
+        return this.checked;
+    },
+
     /* __  ___      ___  ___     __                  __   ___  __
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */

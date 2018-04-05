@@ -180,29 +180,6 @@ def POST_server_load_image(request):
 
 '''
 @csrf_exempt
-def POST_create_owner(request):
-    """Handles the POST request for creating a owner."""
-    print('POST_create_owner')
-    json_str = (request.body.decode('utf-8'))
-    json_obj = json.loads(json_str)
-
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL], json_obj)
-    if post_errors is not None:
-        return post_errors
-
-    received_owner_name = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_owner_email = json_obj[be.ENTITY_PROPERTY_EMAIL]
-    received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
-
-    global quasar_server
-    owner_data = {be.ENTITY_PROPERTY_USERNAME: received_owner_name,
-                  be.ENTITY_PROPERTY_EMAIL: received_owner_email,
-                  be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
-
-    return return_based_on_result(quasar_server.create_entity_owner(owner_data))
-
-
-@csrf_exempt
 def POST_delete_entity(request):
     """Handles the POST request to delete an entity."""
     print('POST_delete_entity')

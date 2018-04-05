@@ -26,13 +26,9 @@ _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1
 
-'''
-from servers.quasar import quasar_server as qs
-quasar_server = qs.QuasarServer()
-quasar_server.connect()
-v.set_quasar_server_instance(quasar_server)
-'''
 
+# TODO : Create constants/abstractions for player world state.
+WORLD_LOGIN = 0
 
 
 class QuasarConnectedClient(object):
@@ -40,11 +36,15 @@ class QuasarConnectedClient(object):
 
 	def __init__(self):
 		self.logged_in = False
+		self._username = None
+		self._password = None
+		self.current_world = WORLD_LOGIN
 
-	def handle_request(self, request):
-		"""Handles a request."""
-		y = 2
-		# TODO : !!!
+	def set_as_logged_in(self, username, password):
+		"""Mark this player as logged in."""
+		self._username = username
+		self._password = password
+		self.logged_in = True
 
 
 class QuasarWebSocketsServerSide(object):
@@ -70,7 +70,7 @@ class QuasarWebSocketsServerSide(object):
 		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
 
 		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN:
-			return self._reply_to_login_request(r)
+			return self._reply_to_login_request(r, channel_name)
 		else:
 			return self._fail_reply(r)
 
@@ -87,39 +87,49 @@ class QuasarWebSocketsServerSide(object):
 		        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE}
 
 	# Specific request handling.
-	def _reply_to_login_request(self, request):
+	def _reply_to_create_account_request(self, request, channel_name):
+		"""Handles the create account request."""
+		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
+		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
+		email    = request[_WEB_SOCKET_REQUEST_KEY_EMAIL]
+		
+
+	def _reply_to_login_request(self, request, channel_name):
 		"""Handles the login request."""
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
 
 		result = self._quasar_server.is_valid_login(username, password)
 		if us.is_success_message(result):
+			# Mark the player as logged in.
+			self.players[channel_name].set_as_logged_in(username, password)
 			return self._success_reply(request)
 		else:
 			return self._fail_reply(request)
 
+
+
+
 '''
 @csrf_exempt
-def POST_login(request):
-    """Handles the POST request for logging in."""
-    print('POST_login')
+def POST_create_owner(request):
+    """Handles the POST request for creating a owner."""
+    print('POST_create_owner')
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
+    received_owner_name = json_obj[be.ENTITY_PROPERTY_USERNAME]
+    received_owner_email = json_obj[be.ENTITY_PROPERTY_EMAIL]
+    received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
 
     global quasar_server
-    result = quasar_server.is_valid_login(received_username, received_password)
-    if us.is_success_message(result):
-        request.session[be.ENTITY_PROPERTY_USERNAME] = received_username
-        return SERVER_REPLY_GENERIC_YES
-    else:
-        return HttpResponse(result[2:])
-    return return_based_on_result(quasar_server.is_valid_login(received_username, received_password))
+    owner_data = {be.ENTITY_PROPERTY_USERNAME: received_owner_name,
+                  be.ENTITY_PROPERTY_EMAIL: received_owner_email,
+                  be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
 
+    return return_based_on_result(quasar_server.create_entity_owner(owner_data))
 '''
