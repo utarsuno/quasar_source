@@ -30,8 +30,14 @@ WebSocketManager.prototype = {
     _message_received: function(message) {
         var response = JSON.parse(message.data).text;
 
+        l('The response is :');
+        l(response);
+
         var success = response[_WEB_SOCKET_RESPONSE_KEY_SUCCESS];
         success = success === _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE;
+
+        l('It is a success :');
+        l(success);
 
         this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]].message_response(success);
         delete this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]];

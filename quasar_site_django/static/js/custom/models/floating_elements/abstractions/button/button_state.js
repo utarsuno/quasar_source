@@ -36,7 +36,7 @@ function ButtonState() {
 
     this.unlock = function() {
         this._locked = false;
-        this.locked_icon.set_to_visible();
+        this.locked_icon.set_to_invisible();
     };
 
     this.enabled = function() {
