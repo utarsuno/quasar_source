@@ -50,7 +50,10 @@ LoginWorld.prototype = {
      /  ` |__) |__   /\   |  |__      /\  /  ` /  ` /  \ |  | |\ |  |      /\  /  `  |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  |___    /~~\ \__, \__, \__/ \__/ | \|  |     /~~\ \__,  |  | \__/ | \| */
     create_account_button_pressed: function() {
-        l('TODO : Create account action!');
+        this.server_request_create_account.set_username(this.input_username_create.get_text());
+        this.server_request_create_account.set_password(this.input_password_create.get_text());
+        this.server_request_create_account.set_email(this.input_email_create.get_text());
+        this.server_request_create_account.perform_request();
     },
 
     create_account_success: function() {
@@ -108,28 +111,28 @@ LoginWorld.prototype = {
 
         // Email.
         row = this.wall_create_account.add_row();
-        var input_email = row.add_input_2D([0, 1, false], 16);
-        input_email.add_syntax(TEXT_SYNTAX_EMAIL);
-        input_email.add_label_left('email:');
+        this.input_email_create = row.add_input_2D([0, 1, false], 16);
+        this.input_email_create.add_syntax(TEXT_SYNTAX_EMAIL);
+        this.input_email_create.add_label_left('email:');
 
         // Password.
         row = this.wall_create_account.add_row();
-        var input_password = row.add_input_2D([0, 1, false], 16);
-        input_password.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
-        input_password.add_label_left('password:');
+        this.input_password_create = row.add_input_2D([0, 1, false], 16);
+        this.input_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
+        this.input_password_create.add_label_left('password:');
 
         // Repeat Password.
         row = this.wall_create_account.add_row();
-        var input_repeat_password = row.add_input_2D([0, 1, false], 16);
-        input_repeat_password.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
-        input_repeat_password.add_label_left('repeat password:');
+        this.input_repeat_password_create = row.add_input_2D([0, 1, false], 16);
+        this.input_repeat_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
+        this.input_repeat_password_create.add_label_left('repeat password:');
 
         // Create account button.
         row = this.wall_create_account.add_row();
         this.button_create_account = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'create account', this.create_account_button_pressed.bind(this));
 
         // Connect the elements together as a form.
-        this.form_create_account = new FormManager([this.input_username_create, input_email, input_password, input_repeat_password], this.button_create_account);
+        this.form_create_account = new FormManager([this.input_username_create, this.input_email_create, this.input_password_create, this.input_repeat_password_create], this.button_create_account);
     },
 
     _create_login_wall: function() {
