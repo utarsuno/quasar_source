@@ -87,6 +87,9 @@ class QuasarWebSocketsServerSide(object):
 
 	def _reply_to_create_account_request(self, request, channel_name):
 		"""Handles the create account request."""
+
+		# TODO : Get proper response for if username is already taken
+
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
 		email    = request[_WEB_SOCKET_REQUEST_KEY_EMAIL]
@@ -105,6 +108,9 @@ class QuasarWebSocketsServerSide(object):
 
 	def _reply_to_login_request(self, request, channel_name):
 		"""Handles the login request."""
+
+		# TODO : Get proper response for if username is already logged in.
+
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
 

@@ -63,8 +63,8 @@ EntityFieldCreator.prototype = {
 
     _add_selectable_custom_entity_field: function() {
         var custom_field_name = this.custom_field_name.get_text();
-        if (!custom_field_name.startsWith('ep_')) {
-            custom_field_name = 'ep_' + custom_field_name;
+        if (!custom_field_name.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
+            custom_field_name = ENTITY_PROPERTY_START_TOKEN + custom_field_name;
         }
         this.add_entity_field(custom_field_name);
         // TODO : Add all the error checking needed!!!

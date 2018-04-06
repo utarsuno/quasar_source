@@ -24,7 +24,7 @@ class TextReminderManager(object):
 		self._text_reminders.append(entity_text_reminder)
 
 		print('NEED TO SCHEDULE A TEXT REMINDER FOR THE FOLLOWING ENTITY')
-		entity_text_reminder.print_info()
+		#entity_text_reminder.print_info()
 
 		# send_sms_message.sh
 		# /Users/utarsuno/git_repos/quasar_source/all_scripts/server/send_sms_message.sh

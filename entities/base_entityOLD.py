@@ -2,6 +2,7 @@
 
 """This module, base_entity.py, defines the base object for all Entity objects as well as Entity constants."""
 
+
 # All the current possible Entity types.
 ENTITY_TYPE_BASE                   = 0
 ENTITY_TYPE_TASK                   = 1
@@ -19,6 +20,7 @@ ENTITY_STATIC_WORLD_SETTINGS = 1
 ENTITY_STATIC_WORLD_ADMIN    = 2
 
 
+# REFACTOR EVERYTHING ABOVE!!!!
 ENTITY_PROPERTY_START_TOKEN = '_p'
 ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + '0'
 ENTITY_DEFAULT_PROPERTY_CHILD_IDS   = ENTITY_PROPERTY_START_TOKEN + '1'
@@ -55,41 +57,65 @@ class Entity(object):
 	# TODO : Create option to send out and also un-package a condensed version of Entities!!!
 
 	def __init__(self):
+		# TODO : Reformat to put all properties into a single properties dictionary
+		self._relative_id     = -1
 		self._parent_entities = []
 		self._child_entities  = []
 		# Holds all other data attached to this entity.
-		self._properties     = {}
-		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, -1)
-		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_BASE)
+		self._information     = {}
+		self._class_name      = ENTITY_TYPE_BASE
 
 	def set_property_and_value(self, key, value):
 		"""Sets a specific key{also called entity property} and its value."""
-		self._properties[key] = value
+		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+			self._relative_id = value
+		elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+			self._parent_entities = value
+		elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+			self._child_entities = value
+		elif key == ENTITY_DEFAULT_PROPERTY_TYPE:
+			self._class_name = value
+		else:
+			self._information[key] = value
 
 	'''__   ___ ___ ___  ___  __   __  
 	  / _` |__   |   |  |__  |__) /__` 
 	  \__> |___  |   |  |___ |  \ .__/ '''
-	@property
-	def properties(self) -> dict:
-		"""Returns the properties of this entity."""
-		return self._properties
+	def get_json_data(self) -> dict:
+		"""Returns a dictionary of all the data contained in this Entity."""
+		json_data = {ENTITY_DEFAULT_PROPERTY_TYPE: self._class_name,
+		             ENTITY_DEFAULT_PROPERTY_PARENT_IDS: str(self._parent_entities),
+		             ENTITY_DEFAULT_PROPERTY_CHILD_IDS: str(self._child_entities),
+		             ENTITY_DEFAULT_PROPERTY_RELATIVE_ID: self._relative_id}
+		for key in self._information:
+			json_data[key] = self._information[key]
+		return json_data
 
 	def has_property(self, key) -> bool:
 		"""Returns True if this entity has the property."""
 		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-			if self.get_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID) == -1:
+			if self._relative_id == -1:
 				return False
 			return True
-		return key in self._properties
+		return key in self._information
 
 	def get_value(self, key):
 		"""Returns the value for the provided property key."""
-		return self._properties[key]
+		if key == ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+			return self._relative_id
+		elif key == ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
+			return str(self._child_entities)
+		elif key == ENTITY_DEFAULT_PROPERTY_PARENT_IDS:
+			return str(self._parent_entities)
+		elif key == ENTITY_DEFAULT_PROPERTY_TYPE:
+			return self._class_name
+		else:
+			return self._information[key]
 
 	@property
 	def relative_id(self) -> int:
 		"""Returns the global ID of this Entity."""
-		return self.get_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)
+		return self._relative_id
 
 	# TODO : REFORMAT EVERYTHING BELOW
 	# TODO : REFORMAT EVERYTHING BELOW
@@ -136,7 +162,7 @@ class Entity(object):
 		return child_entities
 
 	def __str__(self):
-		return 'Entity[' + str(self.get_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)) + ']'
+		return 'Entity[' + str(self._relative_id) + ']'
 
 	'''  __               __       /     __        __   ___      ___     __   __   ___  __       ___    __        __
 		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .

@@ -49,9 +49,9 @@ class EntityServer(object):
 			entity_data = eval(entity_data)
 
 		# ENTITY_PROPERTIES_ONLY_SERVER_SIDE
-		for key in entity_data:
-			if key in be.ENTITY_PROPERTIES_ONLY_SERVER_SIDE:
-				return us.error('An entity property was sent that should only be updated on the server side! { ' + str(entity_data) + '}')
+		#for key in entity_data:
+		#	if key in be.ENTITY_PROPERTIES_ONLY_SERVER_SIDE:
+		#		return us.error('An entity property was sent that should only be updated on the server side! { ' + str(entity_data) + '}')
 
 		updated_entity = None
 		for e_o in self._entity_owners:

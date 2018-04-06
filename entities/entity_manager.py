@@ -3,7 +3,7 @@
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
 from entities import base_entity as be
-from universal_code import time_abstraction as ta
+#from universal_code import time_abstraction as ta
 from universal_code import debugging as dbg
 
 
