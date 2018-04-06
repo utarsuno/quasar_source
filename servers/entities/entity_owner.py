@@ -20,6 +20,9 @@ class EntityOwner(object):
 		self._needs_to_be_saved = False
 		self._entity_manager    = em.EntityManager()
 
+		print('Creating Entity owner!!')
+		print(raw_data)
+
 		for key in raw_data:
 			if key == be.ENTITY_PROPERTY_EMAIL:
 				self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
