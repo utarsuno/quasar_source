@@ -24,11 +24,11 @@ class EntityOwner(object):
 		print(raw_data)
 
 		for key in raw_data:
-			if key == be.ENTITY_PROPERTY_EMAIL:
+			if key == be.ENTITY_PROPERTY_EMAIL or key == 'ep_email':
 				self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
-			elif key == be.ENTITY_PROPERTY_PASSWORD:
+			elif key == be.ENTITY_PROPERTY_PASSWORD or key == 'ep_password':
 				self._password = raw_data[be.ENTITY_PROPERTY_PASSWORD]
-			elif key == be.ENTITY_PROPERTY_USERNAME:
+			elif key == be.ENTITY_PROPERTY_USERNAME or key == 'ep_username':
 				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
 			elif key == 'entities':
 				self._entities = raw_data['entities']
