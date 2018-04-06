@@ -93,9 +93,28 @@ class EntityManager(object):
 				return e
 		return None
 
+	#def get_all_entities(self):
+	#	"""Returns all the entities of this manager."""
+	#	return self._entities
+
 	def get_all_entities(self):
-		"""Returns all the entities of this manager."""
-		return self._entities
+		"""Returns all the entities (and their children) of this manager."""
+		all_entities = []
+		for e in self._entities:
+			all_entities.append(e)
+			all_children = e.all_children
+			for c in all_children:
+				all_entities.append(c)
+
+		# Remove any duplicates.
+		unique_ids = {}
+		all_unique_entities = []
+		for e in all_entities:
+			if str(e.relative_id) not in unique_ids:
+				unique_ids[str(e.relative_id)] = 'reserved'
+				all_unique_entities.append(e)
+
+		return all_unique_entities
 
 	def get_largest_entity_id(self) -> int:
 		"""Returns the largest entity ID found, -1 if there are no entities."""
