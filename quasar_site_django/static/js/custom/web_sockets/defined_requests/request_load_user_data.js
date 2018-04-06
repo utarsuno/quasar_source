@@ -24,6 +24,15 @@ ServerRequestLoadUserData.prototype = {
             GUI_TYPING_INTERFACE.add_server_message('User data loaded!');
             l('THE USER DATA IS :');
             l(data);
+
+
+            for (var d in data) {
+                if (data.hasOwnProperty(d)) {
+                    l(d);
+                }
+            }
+
+
             this.success_function();
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
