@@ -66,7 +66,7 @@ class ShellFile(GeneratedCodeFile):
 	def add_safety_check_for_script_arguments(self, arguments_needed: list):
 		"""Adds a safety check for ensuring the script got the required passed in arguments."""
 		code = CodeChunk()
-		code.add_line_of_code('if [ "$#" -ne 1 ]; then')
+		code.add_line_of_code('if [ "$#" -ne NUM_ARGUMENTS ]; then'.replace('NUM_ARGUMENTS', str(len(arguments_needed))))
 
 		number_of_arguments = str(len(arguments_needed))
 

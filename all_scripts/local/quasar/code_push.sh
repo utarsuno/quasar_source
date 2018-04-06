@@ -31,7 +31,7 @@ print_dashed_line_with_text "script{code_push.sh} start on {${CURRENT_USER}-${HO
 # ----------------------------------------------------------------------------
 terminate_if_ubuntu
 terminate_if_sudo
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 2 ]; then
 	terminate_script "The script{code_push.sh} requires exactly{2} arguments. They are [commit_message, restart_servers]."
 fi
 
@@ -69,27 +69,37 @@ else
     git push --force;
     print_dotted_line
 
-    # Quasar server + database.
-    ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+
+
+	if [ $2 -eq 0 ]; then
+		print_script_text "Skipping server checks!"
+
+		# Quasar server + database.
+        ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
+# Update the sever code.
+${UPDATE_SERVER_CODE_SERVER};
+HERE
+
+
+	else
+		print_script_text "Performing server checks!"
+
+		# Quasar server + database.
+        ssh -i ${QUASAR_PEM_PATH} ${QUASAR_USER}@${QUASAR_IP} -p ${QUASAR_PORT} << HERE
 # Update the sever code.
 ${UPDATE_SERVER_CODE_SERVER};
 # Make sure Pymongo is running.
 ${HEALTH_CHECK_SERVER};
-
-if [ $2 -eq 0 ]; then
-	print_script_text "Skipping server checks!"
-else
-	print_script_text "Performing server checks!"
-	# Terminate both the quasar and entity server.
-	${QUASAR_TERMINATE_SERVER};
-	${ENTITY_TERMINATE_SERVER};
-	# Run (in background) both the quasar and entity server.
-	${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
-	disown;
-	sleep 2;
-	${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
-	disown;
-fi
+print_script_text "Performing server checks!"
+# Terminate both the quasar and entity server.
+${QUASAR_TERMINATE_SERVER};
+${ENTITY_TERMINATE_SERVER};
+# Run (in background) both the quasar and entity server.
+${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
+disown;
+sleep 2;
+${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
+disown;
 HERE
 
 	# Give the server at least 2 seconds to start up.
@@ -97,6 +107,7 @@ HERE
 
 	# Now restart the Quasar server + ensure that it is running.
 	${PATH_TO_LOCAL_PYTHON3} ${CLIENT_SIDE_SERVER_HEALTH_CHECK}
+	fi
 fi
 
 
