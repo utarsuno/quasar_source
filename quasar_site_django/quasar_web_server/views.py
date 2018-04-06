@@ -231,24 +231,4 @@ def POST_save_entity(request):
     else:
         return return_based_on_result(message)
 
-
-@csrf_exempt
-def POST_get_user_entities(request):
-    """Handles the POST request to load all entities."""
-    print('POST_get_user_entities')
-    json_str = (request.body.decode('utf-8'))
-    json_obj = json.loads(json_str)
-
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
-    if post_errors is not None:
-        return post_errors
-
-    global quasar_server
-
-    message = quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
-    reply = us.is_success_message(message)
-    if reply:
-        data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
-        return JsonResponse(data_to_return, safe=False)
-    return HttpResponse(message)
 '''

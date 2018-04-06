@@ -5,7 +5,7 @@
 import json
 from servers.quasar import quasar_server as qs
 from servers import utility_servers as us
-
+from entities import base_entity as be
 
 # Client request keys.
 _WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE = 'r'
@@ -37,13 +37,11 @@ class QuasarConnectedClient(object):
 	def __init__(self):
 		self.logged_in = False
 		self._username = None
-		self._password = None
 		self.current_world = WORLD_LOGIN
 
-	def set_as_logged_in(self, username, password):
+	def set_as_logged_in(self, username):
 		"""Mark this player as logged in."""
 		self._username = username
-		self._password = password
 		self.logged_in = True
 
 
@@ -92,7 +90,18 @@ class QuasarWebSocketsServerSide(object):
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		password = request[_WEB_SOCKET_REQUEST_KEY_PASSWORD]
 		email    = request[_WEB_SOCKET_REQUEST_KEY_EMAIL]
-		
+
+		owner_data = {be.ENTITY_PROPERTY_USERNAME: username,
+		              be.ENTITY_PROPERTY_EMAIL   : email,
+		              be.ENTITY_PROPERTY_PASSWORD: password}
+
+		result = self._quasar_server.create_entity_owner(owner_data)
+		if us.is_success_message(result):
+			# Mark the player as logged in.
+			self.players[channel_name].set_as_logged_in(username)
+			return self._success_reply(request)
+		else:
+			return self._fail_reply(request)
 
 	def _reply_to_login_request(self, request, channel_name):
 		"""Handles the login request."""
@@ -102,7 +111,7 @@ class QuasarWebSocketsServerSide(object):
 		result = self._quasar_server.is_valid_login(username, password)
 		if us.is_success_message(result):
 			# Mark the player as logged in.
-			self.players[channel_name].set_as_logged_in(username, password)
+			self.players[channel_name].set_as_logged_in(username)
 			return self._success_reply(request)
 		else:
 			return self._fail_reply(request)
@@ -111,25 +120,25 @@ class QuasarWebSocketsServerSide(object):
 
 
 '''
+
 @csrf_exempt
-def POST_create_owner(request):
-    """Handles the POST request for creating a owner."""
-    print('POST_create_owner')
+def POST_get_user_entities(request):
+    """Handles the POST request to load all entities."""
+    print('POST_get_user_entities')
     json_str = (request.body.decode('utf-8'))
     json_obj = json.loads(json_str)
 
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_PROPERTY_EMAIL], json_obj)
+    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD], json_obj)
     if post_errors is not None:
         return post_errors
 
-    received_owner_name = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_owner_email = json_obj[be.ENTITY_PROPERTY_EMAIL]
-    received_owner_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
-
     global quasar_server
-    owner_data = {be.ENTITY_PROPERTY_USERNAME: received_owner_name,
-                  be.ENTITY_PROPERTY_EMAIL: received_owner_email,
-                  be.ENTITY_PROPERTY_PASSWORD: received_owner_password}
 
-    return return_based_on_result(quasar_server.create_entity_owner(owner_data))
+    message = quasar_server.is_valid_login(json_obj[be.ENTITY_PROPERTY_USERNAME], json_obj[be.ENTITY_PROPERTY_PASSWORD])
+    reply = us.is_success_message(message)
+    if reply:
+        data_to_return = quasar_server.get_owner_entities(json_obj[be.ENTITY_PROPERTY_USERNAME])
+        return JsonResponse(data_to_return, safe=False)
+    return HttpResponse(message)
+
 '''
