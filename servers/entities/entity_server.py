@@ -3,7 +3,7 @@
 """This module, entity_server.py, is used to manager a server's memory + cache of entity managers and owners."""
 
 from entities.database.entity_database import EntityDatabaseAPI
-from entities import base_entity as be
+#from entities import base_entity as be
 
 from universal_code import useful_file_operations as ufo
 from universal_code import path_manager as pm
@@ -13,7 +13,7 @@ from universal_code import system_os as so
 
 from entities import base_entity as be
 
-import time
+#import time
 from servers.entities import entity_owner as eo
 from universal_code import debugging as dbg
 
@@ -247,21 +247,11 @@ class EntityServer(object):
 		us.log('Entity server loading the initial entity owners!')
 		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
 
-		# TEMP
-		usernames_to_delete = []
-
 		for d in all_data:
-			usernames_to_delete.append(d['ep_username'])
 			if '_id' in d:
 				del d['_id']
 			self._entity_owners.append(eo.EntityOwner(d))
 		us.log('Loaded!')
-
-		us.log('DELETING ALL THE ENTITY OWNERS!!!')
-		for u in usernames_to_delete:
-			us.log('DELETEING : ' + str(u))
-			self._delete_entity_owner(u)
-
 
 	'''      ___  ___  __   __    ___         __        ___  __        __
       | |\ |  |  |__  / _` |__) |  |  \ /    /  ` |__| |__  /  ` |__/ /__`
