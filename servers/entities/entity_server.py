@@ -251,7 +251,7 @@ class EntityServer(object):
 		usernames_to_delete = []
 
 		for d in all_data:
-			usernames_to_delete.append(all_data['ep_username'])
+			usernames_to_delete.append(d['ep_username'])
 			if '_id' in d:
 				del d['_id']
 			self._entity_owners.append(eo.EntityOwner(d))
