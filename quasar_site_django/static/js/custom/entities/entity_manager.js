@@ -9,11 +9,6 @@ EntityManager.prototype = {
     // The user entities.
     entities        : null,
 
-    // POST calls.
-    post_delete_entity        : null,
-    post_save_entity          : null,
-    post_load_user_entities   : null,
-
     // State booleans.
     user_entities_loaded   : null,
     loading                : null,
@@ -84,6 +79,7 @@ EntityManager.prototype = {
         //this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
         //this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
         //this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
+        this.server_request_load_user_data = new ServerRequestLoadUserData();
 
         // Hold a list of all objects that require entity change notifications.
         EntityChangesListener.call(this);

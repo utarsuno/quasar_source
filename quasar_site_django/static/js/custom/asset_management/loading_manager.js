@@ -38,20 +38,6 @@ LoadingManager.prototype = {
         }
     },
 
-    /*     __   __                  __        __          __
-     |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
-     |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
-    perform_login_load: function(username, password) {
-        CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
-
-        GUI_PAUSED_MENU.set_text('Loading!');
-        GUI_PAUSED_MENU.set_sub_text('creating static and dynamic worlds');
-        GUI_PAUSED_MENU.make_visible();
-
-        ENTITY_OWNER = new EntityOwner(username, password);
-        MANAGER_ENTITY.load_data();
-    },
-
     /*__             __        __              ___                      __        __          __
      /  \ |  |  /\  /__`  /\  |__)    | |\ | |  |  |  /\  |       |    /  \  /\  |  \ | |\ | / _`
      \__X \__/ /~~\ .__/ /~~\ |  \    | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ | | \| \__> */

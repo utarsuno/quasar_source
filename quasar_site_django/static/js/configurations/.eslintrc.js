@@ -161,6 +161,7 @@ module.exports = {
         "ServerRequest"             : false,
         "ServerRequestLogin"        : false,
         "ServerRequestCreateAccount": false,
+        "ServerRequestLoadUserData" : false,
 
         "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
         "_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID"  : false,
@@ -170,6 +171,7 @@ module.exports = {
 
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN"         : false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT": false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA": false,
 
         // Global Managers.
         "MANAGER_MULTI_PLAYER"   : true,
@@ -214,7 +216,7 @@ module.exports = {
         // Global objects.
         "CURRENT_CLIENT": false,
         "CURRENT_PLAYER": false,
-        "ENTITY_OWNER"  : false,
+        "ENTITY_OWNER"  : true,
         // and their class names.
         "Client"     : false,
         "EntityOwner": false,

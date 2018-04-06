@@ -17,10 +17,12 @@ _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e'
 # Server response keys.
 _WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID  = 'm'
 _WEB_SOCKET_RESPONSE_KEY_SUCCESS     = 's'
+_WEB_SOCKET_RESPONSE_KEY_DATA        = 'd'
 
 # Client request values.
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3
 
 # Server response values.
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
@@ -54,6 +56,10 @@ class QuasarWebSocketsServerSide(object):
 
 		self.players = {}
 
+		# Define all the request types.
+		self._request_types = {_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN         : self._reply_to_login_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA: self._reply_to_load_user_data_request}
+
 	def add_connection(self, channel_name):
 		"""Adds a new connection."""
 		self.players[channel_name] = QuasarConnectedClient()
@@ -67,24 +73,18 @@ class QuasarWebSocketsServerSide(object):
 		r = json.loads(request)
 		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
 
-		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN:
-			return self._reply_to_login_request(r, channel_name)
+		if request_type in self._request_types:
+			return self._request_types[request_type](r, channel_name)
 		else:
-			return self._fail_reply(r)
-
-	def _success_reply(self, request):
-		"""Returns a success reply."""
-		message_id = request[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID]
-		return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
-		        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE}
-
-	def _fail_reply(self, request):
-		"""Returns a failed reply."""
-		message_id = request[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID]
-		return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
-		        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE}
+			return self._send_reply(r, False, 'Invalid request type!')
 
 	# Specific request handling.
+	def _reply_to_load_user_data_request(self, request, channel_name):
+		"""Handles the load user data request."""
+		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
+		data_to_return = self._quasar_server.get_owner_entities(username)
+		return self._send_reply(request, True, data_to_return)
+
 	def _reply_to_create_account_request(self, request, channel_name):
 		"""Handles the create account request."""
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
@@ -99,9 +99,9 @@ class QuasarWebSocketsServerSide(object):
 		if us.is_success_message(result):
 			# Mark the player as logged in.
 			self.players[channel_name].set_as_logged_in(username)
-			return self._success_reply(request)
+			return self._send_reply(request, True)
 		else:
-			return self._fail_reply(request)
+			return self._send_reply(request, False)
 
 	def _reply_to_login_request(self, request, channel_name):
 		"""Handles the login request."""
@@ -112,12 +112,27 @@ class QuasarWebSocketsServerSide(object):
 		if us.is_success_message(result):
 			# Mark the player as logged in.
 			self.players[channel_name].set_as_logged_in(username)
-			return self._success_reply(request)
+			return self._send_reply(request, True)
 		else:
-			return self._fail_reply(request)
+			return self._send_reply(request, False, 'Invalid username or password!')
 
-
-
+	'''__   ___       __          __      __   ___  __          ___  __
+	  /__` |__  |\ | |  \ | |\ | / _`    |__) |__  |__) |    | |__  /__`
+	  .__/ |___ | \| |__/ | | \| \__>    |  \ |___ |    |___ | |___ .__/ '''
+	def _send_reply(self, request, success, message=None):
+		"""Sends the specified reply."""
+		message_id = request[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID]
+		if success:
+			s = _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE
+		else:
+			s = _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE
+		if message is None:
+			return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
+			        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : s}
+		else:
+			return {_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID: message_id,
+			        _WEB_SOCKET_RESPONSE_KEY_SUCCESS   : s,
+			        _WEB_SOCKET_RESPONSE_KEY_DATA      : message}
 
 '''
 

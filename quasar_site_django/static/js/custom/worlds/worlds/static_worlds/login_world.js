@@ -44,8 +44,6 @@ LoginWorld.prototype = {
         if (this.remember_username.is_checked()) {
             MANAGER_COOKIES.set_cookie(COOKIE_REMEMBERED_USERNAME, this.input_username_login.get_text());
         }
-
-        // TODO : Go to the home world!
     },
 
     /*__   __   ___      ___  ___          __   __   __            ___          __  ___    __

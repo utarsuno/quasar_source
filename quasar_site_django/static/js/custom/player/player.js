@@ -5,20 +5,11 @@ function Player() {
 }
 
 Player.prototype = {
-    // Custom state variables.
-    engaged         : null,
-
-    // Custom objects.
-    fps_controls    : null,
 
     __init__: function() {
         this.fps_controls = new FPSControls();
         // Inherit.
         PlayerState.call(this);
-    },
-
-    send_chat_message: function(chat_message) {
-        this.web_socket_client.send_chat_message(chat_message);
     },
 
     update: function(delta) {
