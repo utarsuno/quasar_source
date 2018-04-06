@@ -232,7 +232,7 @@ class EntityServer(object):
 			if e_o.username == username:
 				all_entities = e_o.get_all_entities()
 				for e in all_entities:
-					entities[str(e.relative_id)] = e.get_json_data()
+					entities[str(e.relative_id)] = e.properties
 		return str(entities).replace("'", '"')
 
 	def _get_all_database_raw_data(self):
