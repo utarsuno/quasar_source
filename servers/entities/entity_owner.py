@@ -25,11 +25,14 @@ class EntityOwner(object):
 
 		for key in raw_data:
 			if key == be.ENTITY_PROPERTY_EMAIL or key == 'ep_email':
-				self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
+				self._email = raw_data['ep_email']
+				#self._email = raw_data[be.ENTITY_PROPERTY_EMAIL]
 			elif key == be.ENTITY_PROPERTY_PASSWORD or key == 'ep_password':
-				self._password = raw_data[be.ENTITY_PROPERTY_PASSWORD]
+				self._password = raw_data['ep_password']
+				#self._password = raw_data[be.ENTITY_PROPERTY_PASSWORD]
 			elif key == be.ENTITY_PROPERTY_USERNAME or key == 'ep_username':
-				self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
+				self._username = raw_data['ep_username']
+				#self._username = raw_data[be.ENTITY_PROPERTY_USERNAME]
 			elif key == 'entities':
 				self._entities = raw_data['entities']
 				if type(self._entities) == str:
