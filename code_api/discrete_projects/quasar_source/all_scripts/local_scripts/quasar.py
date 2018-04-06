@@ -29,7 +29,7 @@ def load_code_push():
 	s.add_required_variable_setters(SHELL_VARIABLES_SET_QUASAR_MAINTENANCE)
 	s.add_required_variable_setters(SHELL_VARIABLES_QUASAR_PROJECT_SETUP)
 	s.add_required_safety_check(SHELL_SAFETY_CHECK_TERMINATE_IF_SUDO)
-	s.add_safety_check_for_script_arguments(['commit_message']) # TODO : Add server reset/no-reset option.
+	s.add_safety_check_for_script_arguments(['commit_message', 'restart_servers'])
 	s.set_main_code(CodeChunk('''
 if output=$(git status --porcelain) && [ -z "$output" ]; then
 	# Working directory clean
@@ -54,15 +54,21 @@ else
 ${UPDATE_SERVER_CODE_SERVER};
 # Make sure Pymongo is running.
 ${HEALTH_CHECK_SERVER};
-# Terminate both the quasar and entity server.
-${QUASAR_TERMINATE_SERVER};
-${ENTITY_TERMINATE_SERVER};
-# Run (in background) both the quasar and entity server.
-${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
-disown;
-sleep 2;
-${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
-disown;
+
+if [ $2 -eq 0 ]; then
+	print_script_text "Skipping server checks!"
+else
+	print_script_text "Performing server checks!"
+	# Terminate both the quasar and entity server.
+	${QUASAR_TERMINATE_SERVER};
+	${ENTITY_TERMINATE_SERVER};
+	# Run (in background) both the quasar and entity server.
+	${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
+	disown;
+	sleep 2;
+	${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
+	disown;
+fi
 HERE
 
 	# Give the server at least 2 seconds to start up.

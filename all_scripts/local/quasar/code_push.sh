@@ -5,7 +5,7 @@
 # / _` |__  |\ | |__  |__)  /\   |  |  /  \ |\ |    |\ | /  \  |  |__  /__` 
 # \__> |___ | \| |___ |  \ /~~\  |  |  \__/ | \|    | \| \__/  |  |___ .__/ 
 # ----------------------------------------------------------------------------
-# LAST_GENERATED : {3.29.2018}
+# LAST_GENERATED : {4.6.2018}
 
 # ----------------------------------------------------------------------------
 #          __   __        __                  __   __   __  ___  __  
@@ -32,7 +32,7 @@ print_dashed_line_with_text "script{code_push.sh} start on {${CURRENT_USER}-${HO
 terminate_if_ubuntu
 terminate_if_sudo
 if [ "$#" -ne 1 ]; then
-	terminate_script "The script{code_push.sh} requires exactly{1} arguments. They are [commit_message]."
+	terminate_script "The script{code_push.sh} requires exactly{2} arguments. They are [commit_message, restart_servers]."
 fi
 
 # ----------------------------------------------------------------------------
@@ -75,15 +75,21 @@ else
 ${UPDATE_SERVER_CODE_SERVER};
 # Make sure Pymongo is running.
 ${HEALTH_CHECK_SERVER};
-# Terminate both the quasar and entity server.
-${QUASAR_TERMINATE_SERVER};
-${ENTITY_TERMINATE_SERVER};
-# Run (in background) both the quasar and entity server.
-${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
-disown;
-sleep 2;
-${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
-disown;
+
+if [ $2 -eq 0 ]; then
+	print_script_text "Skipping server checks!"
+else
+	print_script_text "Performing server checks!"
+	# Terminate both the quasar and entity server.
+	${QUASAR_TERMINATE_SERVER};
+	${ENTITY_TERMINATE_SERVER};
+	# Run (in background) both the quasar and entity server.
+	${ENTITY_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/entity.logs &
+	disown;
+	sleep 2;
+	${QUASAR_RUN_IN_BACKGROUND_SERVER} &> ${SERVER_LOGS}/quasar.logs &
+	disown;
+fi
 HERE
 
 	# Give the server at least 2 seconds to start up.

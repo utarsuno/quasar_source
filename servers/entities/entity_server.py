@@ -246,11 +246,22 @@ class EntityServer(object):
 		"""Does the initial load of the entity owner cache objects."""
 		us.log('Entity server loading the initial entity owners!')
 		all_data = self._db_api.get_all_database_data_as_list_of_dictionaries()
+
+		# TEMP
+		usernames_to_delete = []
+
 		for d in all_data:
+			usernames_to_delete.append(all_data['ep_username'])
 			if '_id' in d:
 				del d['_id']
 			self._entity_owners.append(eo.EntityOwner(d))
 		us.log('Loaded!')
+
+		us.log('DELETING ALL THE ENTITY OWNERS!!!')
+		for u in usernames_to_delete:
+			us.log('DELETEING : ' + str(u))
+			self._delete_entity_owner(u)
+
 
 	'''      ___  ___  __   __    ___         __        ___  __        __
       | |\ |  |  |__  / _` |__) |  |  \ /    /  ` |__| |__  /  ` |__/ /__`
