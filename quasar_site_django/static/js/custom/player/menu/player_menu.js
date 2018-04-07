@@ -240,19 +240,20 @@ PlayerMenu.prototype = {
         //this.create_wall.manual_visibility = true;
 
         var current_row;
+        var current_button;
         current_row = this.create_wall.add_row(null);
         current_row.add_text_2D([0, 1, false], this.text_height, 'Create a...');
 
         current_row = this.create_wall.add_row(null);
         current_row.add_icon([0, this.icon_width_percentage, true], ICON_STAR);
-        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
+        current_button = current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_icon([0, this.icon_width_percentage, true], ICON_MENU_LIST);
+        current_row.add_icon([0, this.icon_width_percentage, false], ICON_MENU_LIST);
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Month View', player_action_create_month_view);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_icon([0, this.icon_width_percentage, true], ICON_INFORMATION);
+        current_row.add_icon([0, this.icon_width_percentage, false], ICON_INFORMATION);
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Text', null);
 
         current_row = this.create_wall.add_row(null);
