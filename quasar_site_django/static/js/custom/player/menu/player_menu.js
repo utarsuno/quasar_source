@@ -65,7 +65,7 @@ PlayerMenu.prototype = {
     /*                          ___
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
-    _main_menu_button_looked_at: function(sub_menu) {
+    _display_sub_menu: function(sub_menu) {
         if (sub_menu === this.teleport_wall) {
             if (is_defined(this.create_wall)) {
                 this.create_wall.hide_self_and_all_child_attachments_recursively();
@@ -75,7 +75,6 @@ PlayerMenu.prototype = {
             this.teleport_wall.hide_self_and_all_child_attachments_recursively();
             this.create_wall.display_self_and_all_child_attachments_recursively();
         }
-
     },
 
     /*        ___                      __        __
@@ -142,37 +141,24 @@ PlayerMenu.prototype = {
         var engage_function = null;
         switch (icon) {
             case ICON_WRENCH:
-                text = 'create';
-                engage_function = this._main_menu_button_looked_at.bind(this, this.create_wall);
+                menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingButton(this.world, this.menu_text_width, this.text_height, 'create'));
+                this._create_sub_menu_create_wall(menu_text);
+                menu_text.set_engage_function(this._display_sub_menu.bind(this, this.create_wall));
                 break;
             case ICON_TELEPORT:
-                text = 'teleport';
-                engage_function = this._main_menu_button_looked_at.bind(this, this.teleport_wall);
+                menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingButton(this.world, this.menu_text_width, this.text_height, 'teleport'));
+                this._create_sub_menu_teleport_wall(menu_text);
+                menu_text.set_engage_function(this._display_sub_menu.bind(this, this.teleport_wall));
                 break;
             case ICON_FULLSCREEN:
-                text = 'fullscreen';
-                engage_function = player_action_toggle_fullscreen;
+                menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingButton(this.world, this.menu_text_width, this.text_height, 'fullscreen'));
+                menu_text.set_engage_function(player_action_toggle_fullscreen);
                 break;
-        }
-
-        // Create the menu text.
-        if (is_defined(engage_function)) {
-            menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingButton(this.world, this.menu_text_width, this.text_height, text));
-            menu_text.set_engage_function(engage_function);
-        } else {
-            menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingText2D(this.world, this.text_height, text));
         }
 
         // Create the menu icon.
         menu_icon = this._player_menu.add_floating_element([4, -ONE_FOURTH], [-8, .25], 1, new FloatingIcon(this.world, icon, this.text_height));
-
-        // Sub-menus. TODO : Refactor this design.
-        if (icon === ICON_WRENCH) {
-            this._create_sub_menu_create_wall(menu_text);
-        } else if (icon === ICON_TELEPORT) {
-            this._create_sub_menu_teleport_wall(menu_text);
-        }
-
+        
         // Set the animation offsets.
         menu_text.set_animation_vertical_offset(-18 * this._number_of_main_menu_rows, null);
         menu_text.set_animation_duration(0.25);
