@@ -24,7 +24,7 @@ class EntityManager(object):
 		entity      = be.Entity(entity_id, entity_type)
 		for p in raw_data:
 			if p != be.ENTITY_DEFAULT_PROPERTY_TYPE and p != be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
-				entity.set_property_and_value(raw_data[p], False)
+				entity.set_property_and_value(p, raw_data[p])
 		self._entities.append(entity)
 
 	def add_entity(self, entity_data):
