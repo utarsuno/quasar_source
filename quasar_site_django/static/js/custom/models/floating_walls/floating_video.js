@@ -111,19 +111,19 @@ FloatingVideo.prototype = {
     add_base_wall_functionality: function() {
         // Create the settings wall.
         this.settings_wall = this.base_wall.add_floating_wall_attachment(400, 400, null, [25, HALF], 10, false);
-        this.settings_wall.add_close_button();
+        //this.settings_wall.add_close_button();
         this.settings_wall.set_auto_adjust_height(true);
         this.settings_wall.manual_visibility = true;
 
         var settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_element([0, ONE_THIRD], 'Video Code: ', TYPE_CONSTANT);
-        this.video_code_input = settings_row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+        settings_row.add_text_2D([0, ONE_THIRD, false], 16, 'Video Code:');
+        this.video_code_input = settings_row.add_input_2D([ONE_THIRD, 1, false], 16, '');
 
         settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_button([0, 1], 'Set Video', null, this.set_video.bind(this));
+        settings_row.add_button([0, 1, false], 16, 'set video', this.set_video.bind(this));
 
         settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_button([0, 1], 'delete video', null, this.delete_video.bind(this));
+        settings_row.add_button([0, 1, false], 16, 'delete video', this.delete_video.bind(this));
 
         this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
 
@@ -131,15 +131,15 @@ FloatingVideo.prototype = {
         var row = this.base_wall.add_row(-1);
         var icon_width = 16 / this.base_wall.width;
 
-        var settings_button = row.add_2D_element([0, icon_width], ICON_SETTINGS, TYPE_ICON);
+        var settings_button = row.add_icon([0, icon_width, true], ICON_SETTINGS);
         this.base_wall.world.interactive_objects.push(settings_button);
         settings_button.engable = false;
         settings_button.set_engage_function(this.show_settings_wall.bind(this));
 
         // Create the delete button.
-        var close_button = row.add_2D_element([icon_width, icon_width * 2], ICON_CROSS, TYPE_ICON);
-        this.base_wall.world.interactive_objects.push(close_button);
-        close_button.engable = false;
+        //var close_button = row.add_icon([icon_width, icon_width * 2, true], ICON_CROSS);
+        //this.base_wall.world.interactive_objects.push(close_button);
+        //close_button.engable = false;
         // TODO : close_button.set_engage_function()
     },
 

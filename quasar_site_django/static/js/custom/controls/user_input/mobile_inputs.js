@@ -14,7 +14,7 @@ function MobileInputManager() {
     this.is_horizontal = window.innerWidth > window.innerHeight;
 
     this.movement_boundary_x = window.innerWidth * ONE_THIRD;
-    this.movement_boundary_y = window.innerHeight * ONE_THIRD;
+    this.movement_boundary_y = window.innerHeight * HALF;
 
     this.mobile_resize = function(w, h) {
         this.is_horizontal = window.innerWidth > window.innerHeight;
