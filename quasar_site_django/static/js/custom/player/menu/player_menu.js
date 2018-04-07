@@ -66,17 +66,16 @@ PlayerMenu.prototype = {
      |\/|  /\  | |\ |     |\/| |__  |\ | |  |
      |  | /~~\ | | \|     |  | |___ | \| \__/ */
     _main_menu_button_looked_at: function(sub_menu) {
-        if (this.full_screen_button.animation_finished) {
-            if (sub_menu === this.teleport_wall) {
-                if (is_defined(this.create_wall)) {
-                    this.create_wall.hide_self_and_all_child_attachments_recursively();
-                }
-                this.teleport_wall.display_self_and_all_child_attachments_recursively();
-            } else if (sub_menu === this.create_wall) {
-                this.teleport_wall.hide_self_and_all_child_attachments_recursively();
-                this.create_wall.display_self_and_all_child_attachments_recursively();
+        if (sub_menu === this.teleport_wall) {
+            if (is_defined(this.create_wall)) {
+                this.create_wall.hide_self_and_all_child_attachments_recursively();
             }
+            this.teleport_wall.display_self_and_all_child_attachments_recursively();
+        } else if (sub_menu === this.create_wall) {
+            this.teleport_wall.hide_self_and_all_child_attachments_recursively();
+            this.create_wall.display_self_and_all_child_attachments_recursively();
         }
+
     },
 
     /*        ___                      __        __
@@ -86,6 +85,7 @@ PlayerMenu.prototype = {
         var temp_position = new THREE.Vector3(0, 0, 0);
         var temp_normal = new THREE.Vector3(0, 0, 0);
         this._player_menu = new FloatingWall(130, 100, temp_position, temp_normal, this.world);
+        this._player_menu.manual_visibility = true;
         this._player_menu.make_base_wall_invisible();
 
         this._player_menu.set_attachment_horizontal_offset(-30, null);
@@ -101,7 +101,6 @@ PlayerMenu.prototype = {
             default:
                 this._add_main_menu_icon(ICON_WRENCH);
                 this._add_main_menu_icon(ICON_TELEPORT);
-                this._add_main_menu_icon(ICON_SAVE);
                 break;
         }
 
@@ -144,13 +143,11 @@ PlayerMenu.prototype = {
         switch (icon) {
             case ICON_WRENCH:
                 text = 'create';
+                engage_function = this._main_menu_button_looked_at.bind(this, this.create_wall);
                 break;
             case ICON_TELEPORT:
-                text = 'teleport'
-                break;
-            case ICON_SAVE:
-                text = 'save';
-                engage_function = player_action_global_save;
+                text = 'teleport';
+                engage_function = this._main_menu_button_looked_at.bind(this, this.teleport_wall);
                 break;
             case ICON_FULLSCREEN:
                 text = 'fullscreen';
@@ -172,13 +169,8 @@ PlayerMenu.prototype = {
         // Sub-menus. TODO : Refactor this design.
         if (icon === ICON_WRENCH) {
             this._create_sub_menu_create_wall(menu_text);
-            look_at_function = this._main_menu_button_looked_at.bind(this, this.create_wall);
         } else if (icon === ICON_TELEPORT) {
             this._create_sub_menu_teleport_wall(menu_text);
-            look_at_function = this._main_menu_button_looked_at.bind(this, this.teleport_wall);
-        }
-        if (is_defined(look_at_function)) {
-            menu_text.set_look_at_function(look_at_function);
         }
 
         // Set the animation offsets.
