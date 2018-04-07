@@ -17,6 +17,9 @@ FloatingIconButton.prototype = {
         this.width = size;
         this.height = size;
 
+        this.floating_icon = new FloatingIcon(this.world, icon_type, size);
+        this.add_floating_element(null, null, 1, this.floating_icon);
+
         this.create_base_material();
         this.create_base_mesh();
     },
@@ -25,35 +28,13 @@ FloatingIconButton.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_material: function() {
-        var texture_group;
-        switch (this.icon_type) {
-        case CURSOR_TYPE_HORIZONTAL:
-        case CURSOR_TYPE_VERTICAL:
-        case CURSOR_TYPE_LARGER:
-        case CURSOR_TYPE_HAND:
-        case CURSOR_TYPE_POINTER:
-        case CURSOR_TYPE_MOUSE:
-            texture_group = TEXTURE_GROUP_CURSOR;
-            break;
-        default:
-            texture_group = TEXTURE_GROUP_ICONS;
-            break;
-        }
-        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide});
+        this.material = new THREE.MeshBasicMaterial({opacity: 0.01, transparent: true, side: THREE.FrontSide});
     },
 
     create_base_mesh: function() {
         this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
-    },
-
-    /*__   __        __   __      __   __   ___  __       ___    __        __
-     /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
-     \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
-    current_foreground_color_changed: function() {
-        this.material.color.set(this.current_foreground_color.getHex());
-        this.material.needsUpdate = true;
     },
 
     /* __  ___      ___  ___     __                  __   ___  __

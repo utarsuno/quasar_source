@@ -31,4 +31,9 @@ function FloatingElement(world) {
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
     };
+
+    this.add_icon_left = function(icon_type) {
+        var icon = new FloatingIcon(this.world, icon_type, this.height);
+        this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);
+    };
 }

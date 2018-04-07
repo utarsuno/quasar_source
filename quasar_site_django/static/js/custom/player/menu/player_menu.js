@@ -245,12 +245,12 @@ PlayerMenu.prototype = {
         current_row.add_text_2D([0, 1, false], this.text_height, 'Create a...');
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_icon([0, this.icon_width_percentage, true], ICON_STAR);
         current_button = current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
+        current_button.add_icon_left(ICON_STAR);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_icon([0, this.icon_width_percentage, false], ICON_MENU_LIST);
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Month View', player_action_create_month_view);
+        current_button.add_icon_left(ICON_MENU_LIST);
 
         current_row = this.create_wall.add_row(null);
         current_row.add_icon([0, this.icon_width_percentage, false], ICON_INFORMATION);
@@ -265,7 +265,7 @@ PlayerMenu.prototype = {
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Picture', player_action_create_picture);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_icon([0, this.icon_width_percentage, true], ICON_MOVIE);
+        current_row.add_icon([0, this.icon_width_percentage, false], ICON_MOVIE);
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'YouTube Video', player_action_create_new_video);
 
         this.create_wall.hide_self_and_all_child_attachments_recursively();
