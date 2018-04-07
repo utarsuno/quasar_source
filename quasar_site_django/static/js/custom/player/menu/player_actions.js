@@ -7,6 +7,16 @@ function player_action_toggle_fullscreen() {
     MANAGER_RENDERER.toggle_fullscreen();
 }
 
+/*
+function player_action_save() {
+    l('PERFORM A GLOBAL SAVE!');
+
+    GUI_TYPING_INTERFACE.add_server_message('Saving changes to the server! TODO : Get a response back!');
+
+    MANAGER_WORLD.prepare_for_save();
+}
+*/
+
 function player_action_create_entity_group() {
     MANAGER_WORLD.current_world.create_new_entity_group(MANAGER_WORLD.current_world);
 }
