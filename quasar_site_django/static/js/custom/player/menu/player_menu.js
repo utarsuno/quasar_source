@@ -171,10 +171,10 @@ PlayerMenu.prototype = {
 
         // Sub-menus. TODO : Refactor this design.
         if (icon === ICON_WRENCH) {
-            this._create_sub_menu_create_wall();
+            this._create_sub_menu_create_wall(menu_text);
             look_at_function = this._main_menu_button_looked_at.bind(this, this.create_wall);
         } else if (icon === ICON_TELEPORT) {
-            this._create_sub_menu_teleport_wall();
+            this._create_sub_menu_teleport_wall(menu_text);
             look_at_function = this._main_menu_button_looked_at.bind(this, this.teleport_wall);
         }
         if (is_defined(look_at_function)) {

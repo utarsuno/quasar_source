@@ -229,7 +229,7 @@ Entity.prototype = {
         raise_exception_with_full_logging('No child with property-value match : {' + property + '} : {' + value + '}');
     },
 
-    get_child_with_relative_id: function(relative_id) {
+    get_child_with_relative_id: function(relative_id) {ep_child_ids
         for (var i = 0; i < this.children.length; i++) {
             if (this.children[i].get_relative_id() === relative_id) {
                 return this.children[i];

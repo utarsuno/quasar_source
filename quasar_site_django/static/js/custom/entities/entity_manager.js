@@ -7,7 +7,7 @@ function EntityManager() {
 EntityManager.prototype = {
 
     // The user entities.
-    entities        : null,
+    entities: null,
 
     // TODO : Refactor
     delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
@@ -88,11 +88,6 @@ EntityManager.prototype = {
 
     link_entities: function() {
         for (var e = 0; e < this.entities.length; e++) {
-
-            l('Currently looking at the following entity:');
-            l(this.entities[e]);
-            l('--------');
-
             var children_ids = this.entities[e].get_child_ids();
             var parent_ids   = this.entities[e].get_parent_ids();
 

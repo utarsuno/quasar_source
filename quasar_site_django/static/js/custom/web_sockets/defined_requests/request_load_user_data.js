@@ -21,9 +21,6 @@ ServerRequestLoadUserData.prototype = {
             // Load all the user entities.
             for (var entity in data) {
                 if (data.hasOwnProperty(entity)) {
-                    l('Adding the following entity!');
-                    l(data[entity]);
-                    l('-----');
                     MANAGER_ENTITY.add_user_entity_from_entity_data(data[entity]);
                 }
             }
