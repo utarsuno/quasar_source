@@ -6,13 +6,9 @@ function Entity(properties, user_created) {
 
 Entity.prototype = {
 
-    // Default properties.
-    ep_relative_id: null,
-    ep_child_ids  : null,
-    ep_parent_ids : null,
+    // Client side properties.
     ep_parents    : null,
     ep_children   : null,
-    ep_type       : null,
 
     // State booleans.
     needs_to_be_saved : null,
@@ -29,7 +25,6 @@ Entity.prototype = {
         ScheduleViewable.call(this);
 
         if (!is_defined(properties)) {
-            l('Properties were not defined!!!');
             properties = {};
         }
 
@@ -39,16 +34,16 @@ Entity.prototype = {
             // If the property is a string convert it to an integer.
             value = properties[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID];
             if (is_string(value)) {
-                this.ep_relative_id = parseInt(value);
+                this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = parseInt(value);
             } else {
-                this.ep_relative_id = value;
+                this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = value;
             }
             // Raise an exception if there is already an entity with that relative id.
-            if (is_defined(MANAGER_ENTITY.get_entity_by_id(this.ep_relative_id))) {
-                raise_exception_with_full_logging('Can\'t add/create entity with duplicate ID of ' + this.ep_relative_id + '!');
+            if (is_defined(MANAGER_ENTITY.get_entity_by_id(this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]))) {
+                raise_exception_with_full_logging('Can\'t add/create entity with duplicate ID of ' + this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] + '!');
             }
         } else {
-            this.ep_relative_id = MANAGER_ENTITY.get_new_entity_id();
+            this[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = MANAGER_ENTITY.get_new_entity_id();
         }
 
         // Handling the default property of child IDs.
@@ -56,12 +51,12 @@ Entity.prototype = {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
             if (is_string(value)) {
-                this.ep_child_ids = eval(value);
+                this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = eval(value);
             } else {
-                this.ep_child_ids = value;
+                this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = value;
             }
         } else {
-            this.ep_child_ids = [];
+            this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = [];
         }
 
         // Handling the default property of parent IDs.
@@ -69,19 +64,19 @@ Entity.prototype = {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
             if (is_string(value)) {
-                this.ep_parent_ids = eval(value);
+                this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = eval(value);
             } else {
-                this.ep_parent_ids = value;
+                this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = value;
             }
         } else {
-            this.ep_parent_ids = [];
+            this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = [];
         }
 
         // Handling the default property of (entity) type.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_TYPE)) {
-            this.ep_type = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
+            this[ENTITY_DEFAULT_PROPERTY_TYPE] = properties[ENTITY_DEFAULT_PROPERTY_TYPE];
         } else {
-            this.ep_type = ENTITY_TYPE_BASE;
+            this[ENTITY_DEFAULT_PROPERTY_TYPE] = ENTITY_TYPE_BASE;
         }
 
         // Handling all other properties that begin with the token 'ep_'.
@@ -98,11 +93,6 @@ Entity.prototype = {
         // JavaScript Entity object specific fields. (These do not get saved, only used for client side logic).
         this.parents  = [];
         this.children = [];
-
-        l('Just created an entity!');
-        l('Child IDs are:');
-        l(this.ep_child_ids);
-        l('------');
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
@@ -158,7 +148,7 @@ Entity.prototype = {
         for (var f = 0; f < all_keys.length; f++) {
             if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                 var field_name = all_keys[f];
-                if (field_name !== 'ep_child_ids' && field_name !== 'ep_parent_ids' && field_name !== 'ep_relative_id' && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME && field_name !== ENTITY_PROPERTY_GROUP_NAME) {
+                if (field_name !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME && field_name !== ENTITY_PROPERTY_GROUP_NAME) {
                     all_editable_fields.push([field_name, this[field_name]]);
                 }
             }
@@ -172,7 +162,7 @@ Entity.prototype = {
         for (var f = 0; f < all_keys.length; f++) {
             if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                 var field_name = all_keys[f];
-                if (field_name !== 'ep_child_ids' && field_name !== 'ep_parent_ids' && field_name !== 'ep_relative_id' && field_name !== 'ep_parents' && field_name !== 'ep_children') {
+                if (field_name !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && field_name !== 'ep_parents' && field_name !== 'ep_children') {
                     all_editable_fields.push([field_name, this[field_name]]);
                 }
             }
