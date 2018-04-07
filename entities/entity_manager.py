@@ -14,11 +14,6 @@ class EntityManager(object):
 
 	def add_entity_from_raw_data(self, raw_data):
 		"""Adds an entity from raw_data."""
-
-		print('ADDING ENTITY FROM RAW DATA')
-		print(raw_data)
-		print('---------\n')
-
 		entity_type = raw_data[be.ENTITY_DEFAULT_PROPERTY_TYPE]
 		entity_id   = raw_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
 		entity      = be.Entity(entity_id, entity_type)
@@ -34,6 +29,9 @@ class EntityManager(object):
 		if be.ENTITY_DEFAULT_PROPERTY_TYPE in entity_data:
 			entity_type = entity_data[be.ENTITY_DEFAULT_PROPERTY_TYPE]
 		entity = be.Entity(entity_id, entity_type)
+		for p in entity_data:
+			if p != be.ENTITY_DEFAULT_PROPERTY_TYPE and p != be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+				entity.set_property_and_value(p, entity_data[p])
 		self._entities.append(entity)
 		return entity
 
