@@ -62,7 +62,9 @@ class Entity(object):
 		# Holds all other data attached to this entity.
 		self._properties     = {}
 		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, entity_id)
-		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_TYPE, entity_type)
+		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_TYPE       , entity_type)
+		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_PARENT_IDS , [])
+		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_CHILD_IDS  , [])
 
 	def set_property_and_value(self, key, value):
 		"""Sets a specific key{also called entity property} and its value."""
