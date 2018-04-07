@@ -18,6 +18,7 @@ FloatingIconButton.prototype = {
         this.height = size;
 
         this.floating_icon = new FloatingIcon(this.world, icon_type, size);
+        this.floating_icon.set_current_foreground_color(COLOR_GREEN, true);
         this.add_floating_element(null, null, 1, this.floating_icon);
 
         this.create_base_material();
