@@ -195,9 +195,8 @@ PlayerMenu.prototype = {
         this.teleport_wall = menu_text.add_floating_wall_attachment(this.utility_wall_width, 200, [125, null], null, null, false);
         this.teleport_wall.set_auto_adjust_height(true);
 
-        this.teleport_wall.add_full_row_2D(0, 'Teleport to...', TYPE_CONSTANT);
-
-        var teleport_button;
+        var teleport_row = this.teleport_wall.add_row(null);
+        teleport_row.add_text_2D([0, 1, false], this.text_height, 'Teleport to...');
 
         // Add an empty row for spacing.
         this.teleport_wall.add_row(null);
@@ -205,20 +204,18 @@ PlayerMenu.prototype = {
         var personal_worlds_title = this.teleport_wall.add_row(null, ICON_SETTINGS);
         personal_worlds_title.add_2D_element([0, 1], 'Personal Worlds', TYPE_CONSTANT)
 
-        var teleport_row;
-
         // TODO : LOAD ALL PERSONAL WORLDS HERE!!!
 
         if (this.world !== MANAGER_WORLD.world_settings) {
             teleport_row = this.teleport_wall.add_row(null);
-            teleport_row.add_2D_element([0, this.icon_width], ICON_SETTINGS, TYPE_ICON);
-            teleport_row.add_2D_button([this.icon_width, 1], 'Settings', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
+            teleport_row.add_icon([0, this.icon_width_percentage, true], ICON_SETTINGS);
+            teleport_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Settings', player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
         }
 
         if (this.world !== MANAGER_WORLD.world_home) {
             teleport_row = this.teleport_wall.add_row(null);
-            teleport_row.add_2D_element([0, this.icon_width], ICON_HOME, TYPE_ICON);
-            teleport_row.add_2D_button([this.icon_width, 1], 'Home', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_home));
+            teleport_row.add_icon([0, this.icon_width_percentage, true], ICON_HOME);
+            teleport_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Home', player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_home));
         }
 
         // Add an empty row for spacing.
@@ -240,8 +237,8 @@ PlayerMenu.prototype = {
             //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
             if (this.world !== MANAGER_WORLD.world_admin) {
                 teleport_row = this.teleport_wall.add_row(null);
-                teleport_row.add_2D_element([0, this.icon_width], ICON_SINGLE_PLAYER, TYPE_ICON);
-                teleport_row.add_2D_button([this.icon_width, 1], 'Admin', null, player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
+                teleport_row.add_icon([0, this.icon_width_percentage, true], ICON_SINGLE_PLAYER);
+                teleport_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Admin', player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
             }
             //}
         }
@@ -250,8 +247,8 @@ PlayerMenu.prototype = {
         this.teleport_wall.add_row(null);
 
         teleport_row = this.teleport_wall.add_row(null);
-        teleport_row.add_2D_element([0, this.icon_width], ICON_EXIT, TYPE_ICON);
-        teleport_row.add_2D_button([this.icon_width, 1], 'Logout', TYPE_BUTTON, null, null);
+        teleport_row.add_icon([0, this.icon_width_percentage, true], ICON_EXIT);
+        teleport_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Logout', null);
 
         this.teleport_wall.hide_self_and_all_child_attachments_recursively();
     },
@@ -266,28 +263,28 @@ PlayerMenu.prototype = {
 
         var current_row;
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_STAR, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'New World', null, MANAGER_WORLD.create_new_dynamic_world);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_STAR);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_MENU_LIST, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'Month View', null, player_action_create_month_view);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_MENU_LIST);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Month View', player_action_create_month_view);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_INFORMATION, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'Text', null, null);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_INFORMATION);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Text', null);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_INFORMATION, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'Entity Group', null, player_action_create_entity_group);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_INFORMATION);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Entity Group', player_action_create_entity_group);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_IMPORT, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'Picture', null, player_action_create_picture);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_IMPORT);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'Picture', player_action_create_picture);
 
         current_row = this.create_wall.add_row(null);
-        current_row.add_2D_element([0, this.icon_width_percentage], ICON_MOVIE, TYPE_ICON);
-        current_row.add_2D_button([this.icon_width_percentage, 1], 'YouTube Video', null, player_action_create_new_video);
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_MOVIE);
+        current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'YouTube Video', player_action_create_new_video);
 
         this.create_wall.hide_self_and_all_child_attachments_recursively();
     }

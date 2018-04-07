@@ -42,6 +42,11 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_text_3D);
     },
 
+    add_text_2D: function(x_params, text_height, text) {
+        var floating_text_2D = new FloatingText2D(this.world, this._get_width_needed(x_params), text_height, text);
+        return this.add_element(x_params, floating_text_2D);
+    },
+
     add_input_2D: function(x_params, text_height, text) {
         if (!is_defined(text)) {
             text = '';
