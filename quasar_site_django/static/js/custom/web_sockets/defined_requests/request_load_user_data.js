@@ -19,6 +19,10 @@ ServerRequestLoadUserData.prototype = {
             data = JSON.parse(data);
             l(data);
 
+            for (var e = 0; e < data.length; e++) {
+                l(data[e]);
+            }
+
             // Load all the user entities.
             for (var entity in data) {
                 if (data.hasOwnProperty(entity)) {
