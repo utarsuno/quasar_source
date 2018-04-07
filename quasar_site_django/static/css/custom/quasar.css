@@ -180,6 +180,10 @@ body {
     justify-content: center;
 }
 
+.button_number {
+    color: #81ff79;
+}
+
 .button_regular {
     color: #0ff;
 }

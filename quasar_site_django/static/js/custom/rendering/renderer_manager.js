@@ -92,9 +92,14 @@ RendererManager.prototype = {
         this.outline_glow = new OutlineGlow(this.outline_pass);
         if (CURRENT_CLIENT.is_mobile) {
 
-            this.copy_pass = new THREE.ShaderPass( THREE.CopyShader );
-            this.copy_pass.renderToScreen = true;
-            this.effect_composer.addPass(this.copy_pass);
+            //this.copy_pass = new THREE.ShaderPass( THREE.CopyShader );
+            //this.copy_pass.renderToScreen = true;
+            //this.effect_composer.addPass(this.copy_pass);
+
+            this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+            this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+            this.effect_FXAA.renderToScreen = true;
+            this.effect_composer.addPass(this.effect_FXAA);
 
             //this.effect_composer.renderToScreen = true;
             //this.outline_glow.outline_pass.renderToScreen = true;

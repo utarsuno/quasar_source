@@ -8,6 +8,16 @@ function MobileKeyboard() {
         this.mobile_text_input = document.getElementById('mobile_keyboard_div');
 
         // Load all the individual buttons.
+        this._create_and_bind_keyboard_button('0');
+        this._create_and_bind_keyboard_button('1');
+        this._create_and_bind_keyboard_button('2');
+        this._create_and_bind_keyboard_button('3');
+        this._create_and_bind_keyboard_button('4');
+        this._create_and_bind_keyboard_button('5');
+        this._create_and_bind_keyboard_button('6');
+        this._create_and_bind_keyboard_button('7');
+        this._create_and_bind_keyboard_button('8');
+        this._create_and_bind_keyboard_button('9');
         this._create_and_bind_keyboard_button('a');
         this._create_and_bind_keyboard_button('b');
         this._create_and_bind_keyboard_button('c');
