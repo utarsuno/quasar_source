@@ -229,11 +229,11 @@ EntityManager.prototype = {
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
-        l('Adding the following entity data');
-        l(entity_data);
+        //l('Adding the following entity data');
+        //l(entity_data);
         return new Entity(entity_data);
     },
-    
+
     get_all_entities: function() {
         return this.entities;
     },

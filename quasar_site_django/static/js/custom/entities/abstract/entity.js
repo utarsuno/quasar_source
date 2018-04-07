@@ -86,7 +86,7 @@ Entity.prototype = {
         // Handling all other properties that begin with the token 'ep_'.
         for (var key in properties) {
             if (properties.hasOwnProperty(key)) {
-                if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && ENTITY_DEFAULT_PROPERTY_TYPE) {
+                if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && key !== ENTITY_DEFAULT_PROPERTY_TYPE) {
                     if (key.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                         this.set_property(key, properties[key]);
                     }
@@ -97,6 +97,11 @@ Entity.prototype = {
         // JavaScript Entity object specific fields. (These do not get saved, only used for client side logic).
         this.parents  = [];
         this.children = [];
+
+        l('Just created an entity!');
+        l('Child IDs are:');
+        l(this.ep_child_ids);
+        l('------');
 
         // Anytime an entity is created make sure to double check that the ENTITY_MANAGER object has a reference to it.
         MANAGER_ENTITY.add_entity_if_not_already_added(this);
