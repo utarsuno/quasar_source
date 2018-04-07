@@ -127,11 +127,11 @@ AdminWorld.prototype = {
      |/\| \__/ |___ |  \ |__/    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     create: function() {
         // POST calls.
-        this.post_get_all_accounts_information = new PostHelper('sudo_command');
-        this.post_delete_account               = new PostHelper('sudo_command');
+        //this.post_get_all_accounts_information = new PostHelper('sudo_command');
+        //this.post_delete_account               = new PostHelper('sudo_command');
 
-        this._init_all_accounts_wall();
-        this._init_account_actions_wall();
+        //this._init_all_accounts_wall();
+        //this._init_account_actions_wall();
 
         this.accounts = [];
         this._current_account = null;
