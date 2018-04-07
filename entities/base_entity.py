@@ -2,7 +2,6 @@
 
 """This module, base_entity.py, defines the base object for all Entity objects as well as Entity constants."""
 
-# All the current possible Entity types.
 ENTITY_TYPE_BASE                   = 0
 ENTITY_TYPE_TASK                   = 1
 ENTITY_TYPE_WALL                   = 2
@@ -18,6 +17,11 @@ ENTITY_STATIC_WORLD_HOME     = 0
 ENTITY_STATIC_WORLD_SETTINGS = 1
 ENTITY_STATIC_WORLD_ADMIN    = 2
 
+ACCOUNT_TYPE_NOT_VERIFIED = 0
+ACCOUNT_TYPE_INTERNAL     = 1
+ACCOUNT_TYPE_DEFAULT      = 2
+ACCOUNT_TYPE_ADMIN        = 3
+ACCOUNT_TYPE_SUDO         = 4
 
 ENTITY_PROPERTY_START_TOKEN = '_p'
 ENTITY_DEFAULT_PROPERTY_TYPE        = ENTITY_PROPERTY_START_TOKEN + '0'
@@ -52,15 +56,13 @@ ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE     = ENTITY_PROPERTY_START_TOKEN + '25'
 class Entity(object):
 	"""Defines properties of all entities."""
 
-	# TODO : Create option to send out and also un-package a condensed version of Entities!!!
-
-	def __init__(self):
+	def __init__(self, entity_id, entity_type):
 		self._parent_entities = []
 		self._child_entities  = []
 		# Holds all other data attached to this entity.
 		self._properties     = {}
-		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, -1)
-		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_BASE)
+		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, entity_id)
+		self.set_property_and_value(ENTITY_DEFAULT_PROPERTY_TYPE, entity_type)
 
 	def set_property_and_value(self, key, value):
 		"""Sets a specific key{also called entity property} and its value."""
@@ -73,6 +75,16 @@ class Entity(object):
 	def properties(self) -> dict:
 		"""Returns the properties of this entity."""
 		return self._properties
+
+	@property
+	def child_ids(self) -> list:
+		"""Returns a list of child IDs."""
+		return self._properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS]
+
+	@property
+	def parent_ids(self) -> list:
+		"""Returns a list of parent IDs."""
+		return self._properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS]
 
 	def has_property(self, key) -> bool:
 		"""Returns True if this entity has the property."""
@@ -90,10 +102,6 @@ class Entity(object):
 	def relative_id(self) -> int:
 		"""Returns the global ID of this Entity."""
 		return self.get_value(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)
-
-	# TODO : REFORMAT EVERYTHING BELOW
-	# TODO : REFORMAT EVERYTHING BELOW
-	# TODO : REFORMAT EVERYTHING BELOW
 
 	@property
 	def is_child(self) -> bool:
@@ -142,13 +150,15 @@ class Entity(object):
 		/  ` |__| | |    |  \     /     |__)  /\  |__) |__  |\ |  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
 		\__, |  | | |___ |__/    /      |    /~~\ |  \ |___ | \|  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .'''
 
-	# Private utility functions.
+	def _add_child_id(self, child_id):
+		"""Adds a child ID."""
+		self._properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].append(child_id)
+
 	def _add_child(self, entity):
 		"""Adds a single child entity to this entity."""
-
-		if type(entity) == int:
+		if type(entity) != Entity:
 			print(entity)
-			raise Exception('YO ENTITY WAS AN INT')
+			raise Exception('YO ENTITY WAS NOT AN ENTITY TYPE')
 
 		if entity not in self._child_entities:
 			self._child_entities.append(entity)
@@ -156,12 +166,24 @@ class Entity(object):
 			if self not in entity.parents:
 				entity.add_parents(self)
 
+		# Make sure this entity adds the ID of the child.
+		child_id = entity.relative_id
+		if child_id not in self.child_ids:
+			self._add_child_id(child_id)
+
+		# Make sure the child has this entity ID in parent IDs.
+		if self.relative_id not in entity.parent_ids:
+			entity._add_parent_id(self.relative_id)
+
+	def _add_parent_id(self, parent_id):
+		"""Adds a parent ID."""
+		self._properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].append(parent_id)
+
 	def _add_parent(self, entity):
 		"""Adds a single parent entity to this entity."""
-
-		if type(entity) == int:
+		if type(entity) != Entity:
 			print(entity)
-			raise Exception('YO ENTITY WAS AN INT')
+			raise Exception('YO ENTITY WAS NOT AN ENTITY TYPE')
 
 		if entity not in self._parent_entities:
 			self._parent_entities.append(entity)
@@ -169,29 +191,62 @@ class Entity(object):
 			if self not in entity.children:
 				entity.add_children(self)
 
+		# Make sure this entity adds the ID of the parent.
+		parent_id = entity.relative_id
+		if parent_id not in self.parent_ids:
+			self._add_parent_id(parent_id)
+
+		# Make sure the parent has this entity ID in child IDs.
+		if self.relative_id not in entity.child_ids:
+			entity._add_child_id(self.relative_id)
+
+	def _remove_child_id(self, child_id):
+		"""Removes the child id."""
+		self._properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].remove(child_id)
+
 	def _remove_child(self, entity):
 		"""Removes a single child entity from this entity."""
-
-		if type(entity) == int:
+		if type(entity) != Entity:
 			print(entity)
-			raise Exception('YO ENTITY WAS AN INT')
+			raise Exception('YO ENTITY WAS NOT AN ENTITY TYPE')
 
 		if self in entity.parents:
 			entity.remove_parent(self)
 		if entity in self.children:
 			self._child_entities.remove(entity)
 
+		# Make sure that child's ID is no longer in this entity's child ID list.
+		child_id = entity.relative_id
+		if child_id in self.child_ids:
+			self._remove_child_id(child_id)
+
+		# Make sure the child no longer has this ID in the parent ID list.
+		if self.relative_id in entity.parent_ids:
+			entity._remove_parent_id(self.relative_id)
+
+	def _remove_parent_id(self, parent_id):
+		"""Removes the parent ID."""
+		self._properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].remove(parent_id)
+
 	def _remove_parent(self, entity):
 		"""Removes a single parent entity from this entity."""
-
-		if type(entity) == int:
+		if type(entity) != Entity:
 			print(entity)
-			raise Exception('YO ENTITY WAS AN INT')
+			raise Exception('YO ENTITY WAS NOT AN ENTITY TYPE')
 
 		if self in entity.children:
 			entity.remove_child(self)
 		if entity in self.parents:
 			self._parent_entities.remove(entity)
+
+		# Make sure that parent's ID is no longer in this entity's parent ID list.
+		parent_id = entity.relative_id
+		if parent_id in self.parent_ids:
+			self._remove_parent_id(parent_id)
+
+		# Make sure the parent no longer has this ID in the child ID list.
+		if self.relative_id in entity.child_ids:
+			entity._remove_child_id(self.relative_id)
 
 	# Public functions.
 

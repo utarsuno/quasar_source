@@ -3,7 +3,6 @@
 """This module, entity_manager.py, contains management code and a class for dealing with entities."""
 
 from entities import base_entity as be
-#from universal_code import time_abstraction as ta
 from universal_code import debugging as dbg
 
 
@@ -13,49 +12,30 @@ class EntityManager(object):
 	def __init__(self):
 		self._entities = []
 
-	def add_entity(self, entity):
-		"""Adds an entity to this EntityManager."""
-		# If the entity being added has no relative_id then assign it one.
-		if not entity.has_property(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID):
-			entity.set_property_and_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID, self.get_largest_entity_id() + 1)
+	def add_entity_from_raw_data(self, raw_data):
+		"""Adds an entity from raw_data."""
+		entity_type = raw_data[be.ENTITY_DEFAULT_PROPERTY_TYPE]
+		entity_id   = raw_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
+		entity      = be.Entity(entity_id, entity_type)
+		for p in raw_data:
+			if p != be.ENTITY_DEFAULT_PROPERTY_TYPE and p != be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID:
+				entity.set_property_and_value(raw_data[p], False)
 		self._entities.append(entity)
 
-	# TODO : REFACTOR (probably remove)
-	def replace_entity(self, new_entity):
-		"""Replaces an existing with the provided entity based off of relative ID match."""
-		entity_to_remove = None
-		for e in self._entities:
-			if str(e.relative_id) == str(new_entity.relative_id):
-				entity_to_remove = e
-				break
-		if entity_to_remove is None:
-			dbg.raise_exception('Entity to remove does not exist! TODO : Have this logged be transmitted via a server response, not exception.')
-		else:
-			self._entities.remove(entity_to_remove)
-			self._entities.append(new_entity)
+	def add_entity(self, entity_data):
+		"""Adds an entity to this EntityManager."""
+		entity_id = self.get_largest_entity_id() + 1
+		entity_type = be.ENTITY_TYPE_BASE
+		if be.ENTITY_DEFAULT_PROPERTY_TYPE in entity_data:
+			entity_type = entity_data[be.ENTITY_DEFAULT_PROPERTY_TYPE]
+		entity = be.Entity(entity_id, entity_type)
+		self._entities.append(entity)
 
-	# TODO : REFACTOR
 	def update_entity(self, entity_data):
-		"""Updates, adds, or create an entity based off the entity data provided."""
-		raw_entity = be.Entity()
+		"""Updates an entity."""
+		entity = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
 		for key in entity_data:
-			#print('key : ' + str(key) + ' {' + str(type(key)) + '}')
-			#print('value : ' + str(entity_data[key]) + '{' + str(type(entity_data[key])) + '}')
-			raw_entity.set_property_and_value(key, entity_data[key])
-
-		# If the entity data doesn't have a relative ID then we can create a new entity based off the data.
-		if raw_entity.has_property(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID):
-			self.add_entity(raw_entity)
-		else:
-			# The entity has an ID so check if the cache already contains a match by entity ID.
-			entity_match = self.get_entity_by_id(raw_entity.get_value(be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID))
-
-			if entity_match is None:
-				self.add_entity(raw_entity)
-			else:
-				self.replace_entity(raw_entity)
-
-		return raw_entity
+			entity.set_property_and_value(key, entity_data[key])
 
 	def remove_entity_by_id(self, relative_id):
 		"""Removes an Entity object by the relative ID."""
@@ -93,28 +73,9 @@ class EntityManager(object):
 				return e
 		return None
 
-	#def get_all_entities(self):
-	#	"""Returns all the entities of this manager."""
-	#	return self._entities
-
 	def get_all_entities(self):
 		"""Returns all the entities (and their children) of this manager."""
-		all_entities = []
-		for e in self._entities:
-			all_entities.append(e)
-			all_children = e.all_children
-			for c in all_children:
-				all_entities.append(c)
-
-		# Remove any duplicates.
-		unique_ids = {}
-		all_unique_entities = []
-		for e in all_entities:
-			if str(e.relative_id) not in unique_ids:
-				unique_ids[str(e.relative_id)] = 'reserved'
-				all_unique_entities.append(e)
-
-		return all_unique_entities
+		return self._entities
 
 	def get_largest_entity_id(self) -> int:
 		"""Returns the largest entity ID found, -1 if there are no entities."""

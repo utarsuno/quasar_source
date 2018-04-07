@@ -2,22 +2,15 @@
 
 """This module, entity_server.py, is used to manager a server's memory + cache of entity managers and owners."""
 
-from entities.database.entity_database import EntityDatabaseAPI
-#from entities import base_entity as be
-
-from universal_code import useful_file_operations as ufo
-from universal_code import path_manager as pm
-from servers import utility_servers as us
-
-from universal_code import system_os as so
-
 from entities import base_entity as be
-
-#import time
-from servers.entities import entity_owner as eo
+from entities.database.entity_database import EntityDatabaseAPI
+from servers import utility_servers as us
+from entities.entity_owner import EntityOwner
 from universal_code import debugging as dbg
-
 from universal_code import output_coloring as oc
+from universal_code import path_manager as pm
+from universal_code import system_os as so
+from universal_code import useful_file_operations as ufo
 
 
 class EntityServer(object):
@@ -41,17 +34,8 @@ class EntityServer(object):
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
 		if type(entity_data) == str:
-
 			entity_data = entity_data.replace('\'', '"')
-
-			#print(entity_data)
-
 			entity_data = eval(entity_data)
-
-		# ENTITY_PROPERTIES_ONLY_SERVER_SIDE
-		#for key in entity_data:
-		#	if key in be.ENTITY_PROPERTIES_ONLY_SERVER_SIDE:
-		#		return us.error('An entity property was sent that should only be updated on the server side! { ' + str(entity_data) + '}')
 
 		updated_entity = None
 		for e_o in self._entity_owners:
@@ -61,7 +45,7 @@ class EntityServer(object):
 		if updated_entity is None:
 			dbg.raise_exception('The provided entity to update is None!')
 
-		# TODO : Eventually remove this. The perform saves should cover it.
+		# TODO : CHANGE DESIGN TO JUST UPDATE EVERY SINGLE OWNER EVERY SINGLE MINUTE!!!!!
 		self._update_owner(username)
 
 		return us.SUCCESS_MESSAGE
@@ -205,7 +189,7 @@ class EntityServer(object):
 
 	def _create_new_entity_owner(self, data):
 		"""Creates a new entity owner and adds it to cache."""
-		new_entity_owner = eo.EntityOwner(data)
+		new_entity_owner = EntityOwner(data)
 		new_entity_owner.create_initial_entities()
 		self._db_api.create_owner(new_entity_owner.get_data_for_database())
 		self._entity_owners.append(new_entity_owner)
@@ -250,7 +234,7 @@ class EntityServer(object):
 		for d in all_data:
 			if '_id' in d:
 				del d['_id']
-			self._entity_owners.append(eo.EntityOwner(d))
+			self._entity_owners.append(EntityOwner(d))
 		us.log('Loaded!')
 
 	'''      ___  ___  __   __    ___         __        ___  __        __
