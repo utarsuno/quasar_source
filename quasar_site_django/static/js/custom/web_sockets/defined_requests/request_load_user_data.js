@@ -17,11 +17,6 @@ ServerRequestLoadUserData.prototype = {
 
             GUI_TYPING_INTERFACE.add_server_message('User data loaded!');
             data = JSON.parse(data);
-            l(data);
-
-            for (var e = 0; e < data.length; e++) {
-                l(data[e]);
-            }
 
             // Load all the user entities.
             for (var entity in data) {

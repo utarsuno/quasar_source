@@ -88,6 +88,11 @@ EntityManager.prototype = {
 
     link_entities: function() {
         for (var e = 0; e < this.entities.length; e++) {
+
+            l('Currently looking at the following entity:');
+            l(this.entities[e]);
+            l('--------');
+
             var children_ids = this.entities[e].get_child_ids();
             var parent_ids   = this.entities[e].get_parent_ids();
 

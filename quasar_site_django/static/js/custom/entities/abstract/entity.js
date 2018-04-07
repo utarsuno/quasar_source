@@ -29,6 +29,7 @@ Entity.prototype = {
         ScheduleViewable.call(this);
 
         if (!is_defined(properties)) {
+            l('Properties were not defined!!!');
             properties = {};
         }
 
