@@ -38,7 +38,9 @@ function Visibility() {
      |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
 
     this.display_self_and_all_child_attachments_recursively = function() {
-        this.set_to_visible();
+        if (!this.manual_visibility) {
+            this.set_to_visible();
+        }
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].display_self_and_all_child_attachments_recursively();
@@ -54,7 +56,9 @@ function Visibility() {
     };
 
     this.hide_self_and_all_child_attachments_recursively = function() {
-        this.set_to_invisible();
+        if (!this.manual_visibility) {
+            this.set_to_invisible();
+        }
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].hide_self_and_all_child_attachments_recursively();

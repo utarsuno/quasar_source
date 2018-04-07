@@ -158,7 +158,7 @@ PlayerMenu.prototype = {
 
         // Create the menu icon.
         menu_icon = this._player_menu.add_floating_element([4, -ONE_FOURTH], [-8, .25], 1, new FloatingIcon(this.world, icon, this.text_height));
-        
+
         // Set the animation offsets.
         menu_text.set_animation_vertical_offset(-18 * this._number_of_main_menu_rows, null);
         menu_text.set_animation_duration(0.25);
