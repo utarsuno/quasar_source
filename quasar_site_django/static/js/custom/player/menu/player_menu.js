@@ -116,9 +116,9 @@ PlayerMenu.prototype = {
         var icon_width = 16 / utiltiy_wall_width;
 
         var current_row = this.teleport_wall.add_row(index_of_settings_world);
-        current_row.add_2D_element([0, icon_width], ICON_STAR, TYPE_ICON);
-        var teleport_button = current_row.add_2D_button([icon_width, 1], dynamic_world.world_name, COLOR_YELLOW, player_action_teleport_to_world.bind(this, dynamic_world));
 
+        current_row.add_icon([0, this.icon_width_percentage, true], ICON_STAR);
+        var teleport_button = current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, dynamic_world.world_name, player_action_teleport_to_world.bind(this, dynamic_world));
         this.dynamic_worlds[dynamic_world.entity.get_relative_id()] = [dynamic_world, teleport_button];
     },
 
@@ -202,7 +202,7 @@ PlayerMenu.prototype = {
         this.teleport_wall.add_row(null);
 
         var personal_worlds_title = this.teleport_wall.add_row(null, ICON_SETTINGS);
-        personal_worlds_title.add_2D_element([0, 1], 'Personal Worlds', TYPE_CONSTANT)
+        personal_worlds_title.add_text_2D([0, 1, false], this.text_height, 'Personal Worlds');
 
         // TODO : LOAD ALL PERSONAL WORLDS HERE!!!
 
