@@ -221,12 +221,14 @@ PlayerMenu.prototype = {
         // Add an empty row for spacing.
         this.teleport_wall.add_row(null);
 
-        this.teleport_wall.add_full_row_2D(null, 'Global Worlds', TYPE_CONSTANT);
+        teleport_row = this.teleport_wall.add_row(null);
+        teleport_row.add_text_2D([0, 1, false], this.text_height, 'Global Worlds');
 
         // Add an empty row for spacing.
         this.teleport_wall.add_row(null);
 
-        this.teleport_wall.add_full_row_2D(null, 'Shared Worlds', TYPE_CONSTANT);
+        teleport_row = this.teleport_wall.add_row(null);
+        teleport_row.add_text_2D([0, 1, false], this.text_height, 'Shared Worlds');
 
         // TODO : LOAD ALL SHARED WORLDS HERE!!!
 
@@ -259,9 +261,10 @@ PlayerMenu.prototype = {
 
         //this.create_wall.manual_visibility = true;
 
-        this.create_wall.add_full_row_2D(null, 'Create a...', TYPE_CONSTANT);
-
         var current_row;
+        current_row = this.create_wall.add_row(null);
+        current_row.add_text_2D([0, 1, false], this.text_height, 'Create a...');
+
         current_row = this.create_wall.add_row(null);
         current_row.add_icon([0, this.icon_width_percentage, true], ICON_STAR);
         current_row.add_button([this.icon_width_percentage, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
