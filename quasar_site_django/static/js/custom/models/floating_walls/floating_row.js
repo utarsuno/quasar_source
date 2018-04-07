@@ -33,11 +33,13 @@ FloatingRow.prototype = {
     // To further test :
     add_icon: function(x_params, icon_type) {
         var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params));
+        x_params[0] -= 0.5 - ((size / this.parent_wall.width) / 2);
         return this.add_element(x_params, floating_icon);
     },
 
     add_icon_button: function(x_params, icon_type, engage_function) {
         var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params), engage_function);
+        x_params[0] -= 0.5 - ((size / this.parent_wall.width) / 2);
         return this.add_element(x_params, floating_icon);
     },
 
