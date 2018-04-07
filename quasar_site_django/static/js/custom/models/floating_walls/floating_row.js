@@ -36,6 +36,11 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_icon);
     },
 
+    add_icon_button: function(x_params, icon_type, engage_function) {
+        var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params), engage_function);
+        return this.add_element(x_params, floating_icon);
+    },
+
     add_text_3D: function(x_params, text_size, text) {
         var floating_text_3D = new FloatingText3D(this.world, text_size, text);
         x_params[0] -= 0.5;
