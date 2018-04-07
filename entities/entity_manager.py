@@ -30,6 +30,7 @@ class EntityManager(object):
 			entity_type = entity_data[be.ENTITY_DEFAULT_PROPERTY_TYPE]
 		entity = be.Entity(entity_id, entity_type)
 		self._entities.append(entity)
+		return entity
 
 	def update_entity(self, entity_data):
 		"""Updates an entity."""
