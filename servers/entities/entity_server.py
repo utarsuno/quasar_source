@@ -234,9 +234,6 @@ class EntityServer(object):
 		for d in all_data:
 			if '_id' in d:
 				del d['_id']
-
-			print(d)
-
 			self._entity_owners.append(EntityOwner(d))
 		us.log('Loaded!')
 
