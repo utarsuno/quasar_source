@@ -163,7 +163,7 @@ PlayerMenu.prototype = {
             menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingButton(this.world, this.menu_text_width, this.text_height, text));
             menu_text.set_engage_function(engage_function);
         } else {
-            menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingText2D(this.world, this.menu_text_width, this.text_height, text));
+            menu_text = this._player_menu.add_floating_element([4, null], [-8, .25], 1, new FloatingText2D(this.world, this.text_height, text));
         }
 
         // Create the menu icon.
