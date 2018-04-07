@@ -206,13 +206,14 @@ FloatingCursor.prototype = {
             if (is_defined(this._previous_cursor)) {
                 this._previous_cursor.set_to_invisible();
             }
+
             this._current_cursor = this._cursors[cursor];
             this._current_cursor.set_to_visible();
         }
     },
 
     _is_current_cursor_type: function(cursor_type) {
-        return this._current_cursor.get_text() === cursor_type;
+        return this._current_cursor === this._cursors[cursor_type];
     },
 
     /*        ___                      __        __
