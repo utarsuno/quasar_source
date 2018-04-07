@@ -181,7 +181,7 @@ WorldManager.prototype = {
     /*     __   __                  __        __          __
      |    /  \ / _` | |\ |    |    /  \  /\  |  \ | |\ | / _`
      |___ \__/ \__> | | \|    |___ \__/ /~~\ |__/ | | \| \__> */
-    all_entities_loaded: function() {
+    all_entities_loaded: function(callback) {
         this.static_worlds_manager_entity = MANAGER_ENTITY.get_entity_of_type(ENTITY_TYPE_STATIC_WORLDS_MANAGER);
         this.dynamic_worlds_manager_entity = MANAGER_ENTITY.get_entity_of_type(ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER);
 
@@ -215,6 +215,8 @@ WorldManager.prototype = {
         this.load_all_dynamic_content();
         //this.load_schedule_content();
         this.link_all_entities_for_notifications();
+
+        callback();
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);

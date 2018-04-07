@@ -76,4 +76,20 @@ function ServerRequest(request_type) {
             }
         }
     };
+
+    // Utility functions that more than one server request utilize.
+    this.set_username = function(username) {
+        this._username = username;
+        this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_USERNAME, username);
+    };
+
+    this.set_password = function(password) {
+        this._password = password;
+        this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_PASSWORD, password);
+    };
+
+    this.set_email = function(email) {
+        this._email = email;
+        this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_EMAIL, email);
+    };
 }

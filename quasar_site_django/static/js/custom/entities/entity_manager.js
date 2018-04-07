@@ -9,10 +9,6 @@ EntityManager.prototype = {
     // The user entities.
     entities        : null,
 
-    // State booleans.
-    user_entities_loaded   : null,
-    loading                : null,
-
     // TODO : Refactor
     delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
         for (var c = parent_entity.children.length; c--;) {
@@ -73,13 +69,9 @@ EntityManager.prototype = {
 
     __init__: function() {
         this.entities = [];
-        this.user_entities_loaded = false;
-        this.loading = false;
 
         //this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
         //this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
-        //this.post_load_user_entities   = new PostHelper(POST_URL_GET_USER_ENTITIES);
-        this.server_request_load_user_data = new ServerRequestLoadUserData();
 
         // Hold a list of all objects that require entity change notifications.
         EntityChangesListener.call(this);
@@ -88,58 +80,10 @@ EntityManager.prototype = {
     /*     __        __          __      __       ___
      |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
      |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
-
-    all_user_entities_loaded: function(data) {
-        // FOR_DEV_START
-        //l('Got the following data for user entities');
-        //l(data);
-        //l(typeof(data));
-        // FOR_DEV_END
-        if (is_string(data)) {
-            //l('Data is a string!');
-            if (data === '{}') {
-                this.user_entities_loaded = true;
-                this.all_data_loaded();
-                return;
-            }
-
-            data = JSON.parse(data);
-            data = JSON.parse(data);
-        }
-
-        //data = eval(data);
-
-        for (var entity_id_num in data) {
-            if (data.hasOwnProperty(entity_id_num)) {
-                MANAGER_ENTITY.add_user_entity_from_entity_data(data[entity_id_num]);
-            }
-        }
-
-        this.user_entities_loaded = true;
-        ENTITY_OWNER.set_owner_entity(this.get_owner_entity());
-        this.all_data_loaded();
-    },
-
     set_all_entities_to_not_needing_to_be_saved: function() {
         for (var e = 0; e < this.entities.length; e++) {
             this.entities[e].needs_to_be_saved = false;
         }
-    },
-
-    all_data_loaded: function() {
-        this.link_entities();
-        this.set_all_entities_to_not_needing_to_be_saved();
-        this.loading = false;
-
-        MANAGER_WORLD.all_entities_loaded();
-    },
-
-    load_data: function() {
-        this.loading = true;
-        var data = {};
-        data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
-        data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
-        this.post_load_user_entities.perform_post(data, this.all_user_entities_loaded.bind(this));
     },
 
     link_entities: function() {
@@ -235,10 +179,6 @@ EntityManager.prototype = {
         return entities_to_return;
     },
 
-    currently_loading: function() {
-        return this.loading;
-    },
-
     is_property_user_modifiable: function(property) {
         switch(property) {
         case ENTITY_DEFAULT_PROPERTY_CHILD_IDS:
@@ -254,12 +194,6 @@ EntityManager.prototype = {
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`    .
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/    .*/
-
-    clear_all: function() {
-        this.user_entities_loaded = false;
-        this.entities.length = 0;
-    },
-
     add_entity_if_not_already_added: function(entity) {
         for (var j = 0; j < this.entities.length; j++) {
             if (this.entities[j].get_relative_id() === entity.get_relative_id()) {
@@ -295,9 +229,8 @@ EntityManager.prototype = {
     },
 
     add_user_entity_from_entity_data: function(entity_data) {
-        l('Adding the following entitiy data');
-        l(entity_data);
-
+        //l('Adding the following entitiy data');
+        //l(entity_data);
         return new Entity(entity_data);
     },
 

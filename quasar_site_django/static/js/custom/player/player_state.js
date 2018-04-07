@@ -1,11 +1,10 @@
 'use strict';
 
 const PLAYER_STATE_PAUSED       = 1;
-const PLAYER_STATE_AJAX         = 2;
-const PLAYER_STATE_LOADING      = 3;
-const PLAYER_STATE_ENGAGED      = 4;
-const PLAYER_STATE_FULL_CONTROL = 5;
-const PLAYER_STATE_TYPING       = 6;
+const PLAYER_STATE_LOADING      = 2;
+const PLAYER_STATE_ENGAGED      = 3;
+const PLAYER_STATE_FULL_CONTROL = 4;
+const PLAYER_STATE_TYPING       = 5;
 
 function PlayerState() {
 
@@ -18,7 +17,6 @@ function PlayerState() {
 
         switch(player_state) {
         case PLAYER_STATE_LOADING:
-        case PLAYER_STATE_AJAX:
         case PLAYER_STATE_PAUSED:
             MANAGER_INPUT.reset_movement_controls();
 
@@ -50,7 +48,7 @@ function PlayerState() {
 
             //l('PREVIOUS STATE WAS :');
             //l(this.previous_state);
-            if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED || this.previous_state === PLAYER_STATE_AJAX) {
+            if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED) {
                 GUI_PAUSED_MENU.make_invisible();
                 if (!CURRENT_CLIENT.is_mobile) {
                     MANAGER_POINTER_LOCK.request_pointer_lock();
@@ -105,7 +103,7 @@ function PlayerState() {
     };
 
     this.currently_loading = function() {
-        return this.current_state === PLAYER_STATE_LOADING || this.current_state === PLAYER_STATE_AJAX;
+        return this.current_state === PLAYER_STATE_LOADING;
     };
 
     this.get_currently_looked_at_object = function() {

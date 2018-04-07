@@ -9,22 +9,10 @@ ServerRequestLogin.prototype = {
     __init__: function() {
         // Inherit.
         ServerRequest.call(this, _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN);
-        this._username = null;
-        this._password = null;
 
         // The server request to login will also perform the request to load Entity data.
         this.server_request_load_entity_data = new ServerRequestLoadUserData();
         this.server_request_load_entity_data.bind_success_event(this._user_data_finished_loading.bind(this));
-    },
-
-    set_username: function(username) {
-        this._username = username;
-        this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_USERNAME, username);
-    },
-
-    set_password: function(password) {
-        this._password = password;
-        this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_PASSWORD, password);
     },
 
     _perform_request: function() {
@@ -43,7 +31,6 @@ ServerRequestLogin.prototype = {
 
     _load_login_data: function() {
         l('TEMP LOGGING : LOADING USER DATA!!!');
-        ENTITY_OWNER = new EntityOwner(this._username, this._password);
         this.server_request_load_entity_data.set_username(this._username);
         this.server_request_load_entity_data.set_password(this._password);
         this.server_request_load_entity_data.perform_request();
