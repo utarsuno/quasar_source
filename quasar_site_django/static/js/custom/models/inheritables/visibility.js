@@ -32,10 +32,16 @@ function Visibility() {
 
     this.set_to_visible = function() {
         this._set_to_visible(true);
+        if (this.manual_visibility) {
+            this.object3D.visible = true;
+        }
     };
 
     this.set_to_invisible = function() {
         this._set_to_visible(false);
+        if (this.manual_visibility) {
+            this.object3D.visible = false;
+        }
     };
 
     /*__   ___  __          __   ___  __          ___ ___       __              ___      ___  __  

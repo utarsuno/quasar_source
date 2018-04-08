@@ -85,6 +85,7 @@ FloatingWall.prototype = {
     },
 
     make_base_wall_invisible: function() {
+        this.manual_visibility = true;
         this._make_base_wall_visible = false;
         if (is_defined(this.mesh)) {
             this.mesh.visible = false;
@@ -92,6 +93,7 @@ FloatingWall.prototype = {
     },
 
     make_base_wall_visible: function() {
+        this.manual_visibility = true;
         this._make_base_wall_visible = true;
         if (is_defined(this.mesh)) {
             this.mesh.visible = true;

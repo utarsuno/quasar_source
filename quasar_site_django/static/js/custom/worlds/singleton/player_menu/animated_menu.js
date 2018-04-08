@@ -21,6 +21,7 @@ MenuSection.prototype = {
         var button = row.get_element();
         this.rows.push(row);
         animated_menu.parent_menu = this;
+        this.parent_menu.child_menus.push(animated_menu);
         animated_menu.create(world, button);
     }
 };
@@ -45,7 +46,6 @@ AnimatedMenu.prototype = {
         // Constants.
         this.text_height = 16;
         this.menu_width  = 120;
-        this.icon_width_percentage = this.text_height / this.menu_width;
     },
 
     hide_all_sibling_menus_and_display_self: function(menu_to_display) {
@@ -70,7 +70,6 @@ AnimatedMenu.prototype = {
         } else {
             this.menu = button_to_attach_off_of.add_floating_wall_attachment(this.utility_wall_width, 200, [150, null], null, null, false);
         }
-        this.menu.manual_visibility = true;
         this.menu.make_base_wall_invisible();
         //this.menu.hide_self_and_all_child_attachments_recursively();
         this.menu.force_hide_self_and_all_child_attachments_recursively();
