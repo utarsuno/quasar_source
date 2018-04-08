@@ -93,7 +93,9 @@ AnimatedMenu.prototype = {
     },
 
     add_section: function(section_name) {
-        this.sections.push(new MenuSection(section_name, this));
+        var section = new MenuSection(section_name, this);
+        this.sections.push(section);
+        return section;
     }
 
 };
