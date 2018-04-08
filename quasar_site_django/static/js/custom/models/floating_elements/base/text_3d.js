@@ -9,12 +9,19 @@ function Text3D(world, size, text) {
     this.text_size = size;
 
     this.refresh = function() {
-        var currently_engaged = this.being_engaged_with;
+        l('Text3D refresh');
+        l(this.being_engaged_with);
+        l(CURRENT_PLAYER.current_state);
+        //var currently_engaged = this.being_engaged_with;
         this.delete_mesh();
         this.create_base_mesh();
-        if (currently_engaged) {
-            this.being_engaged_with = true;
-        }
+
+        l(this.being_engaged_with);
+        l(CURRENT_PLAYER.current_state);
+
+        //if (currently_engaged) {
+        //    this.being_engaged_with = true;
+        //}
     };
 
     this.create_base_material = function() {
@@ -26,7 +33,7 @@ function Text3D(world, size, text) {
     this.create_base_mesh = function() {
         this.geometry = new THREE.TextGeometry(this.text, {
             size: this.text_size,
-            height: 1,
+            height: 2,
             curveSegments: 2,
             font: GLOBAL_FONT
         });

@@ -172,6 +172,7 @@ PlayerMenu.prototype = {
     _create_sub_menu_teleport_wall: function(menu_text) {
         this.teleport_wall = menu_text.add_floating_wall_attachment(this.utility_wall_width, 200, [150, null], null, null, false);
         this.teleport_wall.set_auto_adjust_height(true);
+        this.teleport_wall.make_base_wall_invisible();
 
         var current_button;
 
@@ -217,7 +218,7 @@ PlayerMenu.prototype = {
             //if (ENTITY_OWNER.get_account_type() === ACCOUNT_TYPE_SUDO) {
             if (this.world !== MANAGER_WORLD.world_admin) {
                 teleport_row = this.teleport_wall.add_row(null);
-                current_button = teleport_row.add_button([this.icon_width_percentage, 1, true], this.text_height, 'Admin', player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
+                current_button = teleport_row.add_button([0, 1, false], this.text_height, 'Admin', player_action_teleport_to_world.bind(this, MANAGER_WORLD.world_admin));
                 current_button.add_icon_left(ICON_SINGLE_PLAYER);
             }
             //}
@@ -227,7 +228,7 @@ PlayerMenu.prototype = {
         this.teleport_wall.add_row(null);
 
         teleport_row = this.teleport_wall.add_row(null);
-        current_button = teleport_row.add_button([this.icon_width_percentage, 1, true], this.text_height, 'Logout', null);
+        current_button = teleport_row.add_button([0, 1, false], this.text_height, 'Logout', null);
         current_button.add_icon_left(ICON_EXIT);
 
         this.teleport_wall.hide_self_and_all_child_attachments_recursively();
@@ -236,13 +237,14 @@ PlayerMenu.prototype = {
     _create_sub_menu_create_wall: function(menu_text) {
         this.create_wall = menu_text.add_floating_wall_attachment(this.utility_wall_width, 100, [150, null], null, null, false);
         this.create_wall.set_auto_adjust_height(true);
+        this.create_wall.make_base_wall_invisible();
 
         //this.create_wall.manual_visibility = true;
 
         var current_row;
         var current_button;
         current_row = this.create_wall.add_row(null);
-        current_row.add_text_2D([0, 1, true], this.text_height, 'Create a...');
+        current_row.add_text_2D([0, 1, false], this.text_height, 'Create a...');
 
         current_row = this.create_wall.add_row(null);
         current_button = current_row.add_button([0, 1, false], this.text_height, 'New World', MANAGER_WORLD.create_new_dynamic_world);
