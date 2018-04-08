@@ -9,13 +9,12 @@ FloatingInput2D.prototype = {
     __init__: function(world, width, height, text) {
         // Inherit.
         Text2D.call(this, world, width, height, text);
-        this.set_to_interactive();
+        this.set_to_typeable();
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         this.initialize();
 
-        this.needs_mobile_keyboard = true;
         this.has_input_state = false;
     },
 

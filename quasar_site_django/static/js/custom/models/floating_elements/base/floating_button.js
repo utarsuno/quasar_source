@@ -11,10 +11,7 @@ FloatingButton.prototype = {
         Text2D.call(this, world, width, text_height, text, TEXT_PROPERTY_JUST_BOLD);
         this.set_to_clickable();
 
-        if (is_defined(engage_function)) {
-            this.button_engage_function = engage_function;
-            this.set_engage_function(this.try_to_perform_engage_function.bind(this));
-        }
+        this.set_button_engage_function(engage_function);
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
         this.set_default_foreground_color(COLOR_YELLOW, true);
@@ -24,6 +21,13 @@ FloatingButton.prototype = {
 
 
         this.has_button_state = false;
+    },
+
+    set_button_engage_function: function(engage_function) {
+        if (is_defined(engage_function)) {
+            this.button_engage_function = engage_function;
+            this.set_engage_function(this.try_to_perform_engage_function.bind(this));
+        }
     },
 
     add_button_state: function() {

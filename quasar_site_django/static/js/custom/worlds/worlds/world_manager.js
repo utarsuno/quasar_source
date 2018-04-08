@@ -130,7 +130,8 @@ WorldManager.prototype = {
         var grid = new vg.HexGrid({cellSize: 100});
         grid.generate({size: 10});
         var board = new vg.Board(grid);
-        board.generateTilemap({cellSize: 100, tileScale: 0.99});
+        // Used to be : board.generateTilemap({cellSize: 100, tileScale: 0.99});
+        board.generateTilemap({cellSize: 100, tileScale: 1});
         world.add_to_scene(board.group);
 
         // Default lights.
@@ -138,23 +139,23 @@ WorldManager.prototype = {
         world.light_delta_cap = 10;
         world.light_radius = 1000;
 
-        world.light_0 = new THREE.PointLight(0xccffcc, .4, 0);
+        world.light_0 = new THREE.PointLight(0xccffcc, .5, 0);
         world.light_0.position.set(5, 100, 5);
         world.add_to_scene(world.light_0);
 
-        world.light_1 = new THREE.PointLight(0xff8579, .4, 0);
+        world.light_1 = new THREE.PointLight(0xff8579, .5, 0);
         world.light_1.position.set(1000, 100, 0);
         world.add_to_scene(world.light_1);
 
-        world.light_2 = new THREE.PointLight(0xb1ff90, .4, 0);
+        world.light_2 = new THREE.PointLight(0xb1ff90, .5, 0);
         world.light_2.position.set(0, 100, 1000);
         world.add_to_scene(world.light_2);
 
-        world.light_3 = new THREE.PointLight(0x84b5ff, .4, 0);
+        world.light_3 = new THREE.PointLight(0x84b5ff, .5, 0);
         world.light_3.position.set(500, 100, 500);
         world.add_to_scene(world.light_3);
 
-        world.light = new THREE.AmbientLight(0xffffff, .25); // soft white light
+        world.light = new THREE.AmbientLight(0xffffff, .35); // soft white light
         world.add_to_scene(world.light);
 
         // Add audio needed for the world.

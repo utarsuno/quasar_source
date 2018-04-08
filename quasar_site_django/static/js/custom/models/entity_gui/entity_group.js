@@ -27,8 +27,10 @@ EntityGroup.prototype = {
 
         var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
         var entity_relative_id = entity.get_relative_id();
-        var entity_button = this.entity_wall.add_row(null, entity_relative_id).add_2D_button([0, 1], entity_name, COLOR_YELLOW, null);
-        entity_button.set_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
+
+        var row = this.entity_wall.add_row(null, entity_relative_id);
+        var entity_button = row.add_button([0, 1, true], 16, entity_name, null);
+        entity_button.set_button_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
 
         // Entities that get added to an EntityGroup must set the EntityGroupEntity as its parent.
         entity.add_parent(this.entity_group_entity);
@@ -73,7 +75,8 @@ EntityGroup.prototype = {
         var data = get_player_blink_spot(1000);
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
-        this.entity_wall_title = this.base_wall.add_row(-1).add_3D_element('Entity Group', TYPE_INPUT);
+        var row = this.base_wall.add_row(-1);
+        this.entity_wall_title = row.add_input_3D([0, 1, false], 32, 'Entity Group');
 
         this.base_wall.set_to_saveable(world.entity);
     },
