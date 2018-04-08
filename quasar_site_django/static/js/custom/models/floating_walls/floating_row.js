@@ -175,6 +175,10 @@ FloatingRow.prototype = {
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
+    get_element: function() {
+        return this.elements[0];
+    },
+
     has_element_with_tag: function(tag) {
         var all_elements = this.get_all_elements_and_sub_attachments();
         for (var e = 0; e < all_elements.length; e++) {
