@@ -31,11 +31,12 @@ PlayerMenu.prototype = {
 
     _set_to_invisible: function() {
         this.currently_visible = false;
+        this.menu_main.menu.hide_self_and_all_child_attachments_recursively();
     },
 
     _set_to_visible: function() {
         this.currently_visible = true;
-        this.menu_main.display_self_and_all_child_attachments_recursively();
+        this.menu_main.menu.display_self_and_all_child_attachments_recursively();
     },
 
     create: function(world) {
