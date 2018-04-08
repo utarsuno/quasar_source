@@ -221,7 +221,8 @@ FloatingCursor.prototype = {
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
         this.cursor_wall = new FloatingWall(16, 16, null, null, this.world, false);
-        this.cursor_wall.set_to_invisible();
+        //this.cursor_wall.set_to_invisible();
+        this.cursor_wall.make_base_wall_invisible();
         var cursor_row = this.cursor_wall.add_row(0);
         this._create_cursor(CURSOR_TYPE_HORIZONTAL, cursor_row);
         this._create_cursor(CURSOR_TYPE_VERTICAL, cursor_row);

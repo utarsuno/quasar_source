@@ -40,16 +40,10 @@ function Visibility() {
 
     this.set_to_visible = function(force) {
         this._set_to_visible(true, force);
-        if (this.manual_visibility) {
-            this.object3D.visible = true;
-        }
     };
 
     this.set_to_invisible = function(force) {
         this._set_to_visible(false, force);
-        if (this.manual_visibility) {
-            this.object3D.visible = false;
-        }
     };
 
     /*__   ___  __          __   ___  __          ___ ___       __              ___      ___  __  
