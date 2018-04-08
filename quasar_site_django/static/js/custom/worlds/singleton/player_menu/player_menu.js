@@ -37,6 +37,7 @@ PlayerMenu.prototype = {
     _set_to_visible: function() {
         this.currently_visible = true;
         this.menu_main.menu.display_self_and_all_child_attachments_recursively();
+        this.menu_main.menu.refresh_position_and_look_at();
     },
 
     create: function(world) {
