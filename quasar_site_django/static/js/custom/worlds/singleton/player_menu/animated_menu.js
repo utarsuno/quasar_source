@@ -68,7 +68,7 @@ AnimatedMenu.prototype = {
             this.menu.set_attachment_vertical_offset(-30, null);
             this.menu.set_attachment_depth_offset(300);
         } else {
-            this.menu = button_to_attach_off_of.add_floating_wall_attachment(this.utility_wall_width, 200, [150, null], null, null, false);
+            this.menu = button_to_attach_off_of.add_floating_wall_attachment(this.menu_width, 200, [150, null], null, null, false);
         }
         this.menu.make_base_wall_invisible();
         //this.menu.hide_self_and_all_child_attachments_recursively();
