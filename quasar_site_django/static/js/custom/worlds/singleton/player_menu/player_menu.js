@@ -19,7 +19,7 @@ PlayerMenu.prototype = {
         this.menu_teleport_global   = new AnimatedMenu('global', ICON_TELEPORT);
     },
 
-    create_player_menu: function(world) {
+    create: function(world) {
         this._create_menu_main(world);
         this._create_menu_create(world);
         this._create_menu_teleport(world);
