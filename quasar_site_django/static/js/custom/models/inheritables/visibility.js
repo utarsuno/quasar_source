@@ -11,26 +11,31 @@ function Visibility() {
         return this.currently_visible;
     };
 
-    this.set_to_visible = function() {
-        this.currently_visible = true;
-        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
-        this.object3D.visible = true;
+    this._set_to_visible = function(is_visible) {
+        if (!this.manual_visibility) {
+            this.currently_visible = is_visible;
+            // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
+            this.object3D.visible = is_visible;
+        }
         this.object3D.traverse (function(child) {
             if (child instanceof THREE.Mesh) {
-                child.visible = true;
+                if (is_defined(child.manual_visibility)) {
+                    if (!child.manual_visibility) {
+                        child.visible = is_visible;
+                    }
+                } else {
+                    child.visible = is_visible;
+                }
             }
         });
     };
 
+    this.set_to_visible = function() {
+        this._set_to_visible(true);
+    };
+
     this.set_to_invisible = function() {
-        this.currently_visible = false;
-        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
-        this.object3D.visible = false;
-        this.object3D.traverse (function(child) {
-            if (child instanceof THREE.Mesh) {
-                child.visible = false;
-            }
-        });
+        this._set_to_visible(false);
     };
 
     /*__   ___  __          __   ___  __          ___ ___       __              ___      ___  __  
@@ -38,9 +43,7 @@ function Visibility() {
      |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
 
     this.display_self_and_all_child_attachments_recursively = function() {
-        //if (!this.manual_visibility) {
         this.set_to_visible();
-        //}
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].display_self_and_all_child_attachments_recursively();
@@ -56,9 +59,7 @@ function Visibility() {
     };
 
     this.hide_self_and_all_child_attachments_recursively = function() {
-        //if (!this.manual_visibility) {
         this.set_to_invisible();
-        //}
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].hide_self_and_all_child_attachments_recursively();

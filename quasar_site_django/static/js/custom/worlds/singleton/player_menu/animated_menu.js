@@ -20,6 +20,7 @@ MenuSection.prototype = {
         var row = this.parent_menu._add_button_for_sub_menu(animated_menu);
         var button = row.get_element();
         this.rows.push(row);
+        animated_menu.parent_menu = this;
         animated_menu.create(world, button);
     }
 };
