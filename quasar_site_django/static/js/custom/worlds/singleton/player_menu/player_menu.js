@@ -31,7 +31,7 @@ PlayerMenu.prototype = {
 
     _set_to_invisible: function() {
         this.currently_visible = false;
-        this.menu_main.menu.hide_self_and_all_child_attachments_recursively();
+        this.menu_main.hide();
     },
 
     _set_to_visible: function() {
@@ -51,8 +51,7 @@ PlayerMenu.prototype = {
 
         //this._player_menu.restart_all_animations();
 
-        this.menu_main.menu.display_self_and_all_child_attachments_recursively();
-        this.menu_main.menu.refresh_position_and_look_at();
+        this.menu_main.show();
     },
 
     create: function(world) {
