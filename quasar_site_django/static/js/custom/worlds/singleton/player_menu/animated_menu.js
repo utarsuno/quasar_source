@@ -76,7 +76,7 @@ AnimatedMenu.prototype = {
     },
 
     _add_button_for_sub_menu: function(animated_menu) {
-        return this.add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, this));
+        return this._add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, this));
     },
 
     _add_button: function(button_name, icon, button_action) {
