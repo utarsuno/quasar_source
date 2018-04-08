@@ -125,30 +125,16 @@ FloatingWall.prototype = {
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
-
-    // TODO : DELETE THIS FUNCTION!!!
-    // TODO : DELETE THIS FUNCTION!!!
-    // TODO : DELETE THIS FUNCTION!!!
     add_close_button: function() {
         var one_pixel_width = 1 / this.width;
         var x_start = 1 - (one_pixel_width * 16);
         var x_stop = 1;
         var total_percentage_of_parent_width = (x_stop - x_start);
-        var close_button_width = this.width * total_percentage_of_parent_width;
-        this.close_button = new Floating2DText(close_button_width, ICON_CROSS, TYPE_ICON, this.world);
-
-        this.close_button.set_attachment_vertical_offset(-8, HALF);
-        this.close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
-        this.close_button.set_attachment_depth_offset(2);
-        this.close_button.engable = false;
-
-        this.close_button.attach_to(this);
-
-        this.close_button.set_engage_function(this.force_hide_self_and_all_child_attachments_recursively.bind(this));
-
-        this.world.interactive_objects.push(this.close_button);
-
-        return this.close_button;
+        var close_button = new FloatingIconButton(this.world, ICON_CROSS, 16, this.force_hide_self_and_all_child_attachments_recursively.bind(this));
+        close_button.set_attachment_vertical_offset(-8, HALF);
+        close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
+        close_button.set_attachment_depth_offset(2);
+        close_button.attach_to(this);
     },
 
     /*__   __           __   __   ___  __       ___    __        __  
@@ -201,7 +187,7 @@ FloatingWall.prototype = {
         return false;
     },
 
-    add_row: function(row_index, row_name) {
+    add_row: function(row_index, row_name, add_from_bottom) {
         if (!is_defined(row_index)) {
             row_index = this._get_max_row_number() + 1;
         } else {

@@ -76,7 +76,7 @@ EntityGroup.prototype = {
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
         var row = this.base_wall.add_row(-1);
-        this.entity_wall_title = row.add_input_3D([0, 1, true], 32, 'Entity Group');
+        this.entity_wall_title = row.add_input_3D([0, 1, false], 32, 'Entity Group');
 
         this.base_wall.set_to_saveable(world.entity);
     },

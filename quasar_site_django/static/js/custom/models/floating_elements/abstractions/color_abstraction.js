@@ -68,12 +68,22 @@ function ColorAbstraction(needs_hex_colors) {
                 if (is_defined(this.current_foreground_color_changed)) {
                     this.current_foreground_color_changed();
                 }
+                if (is_defined(this.refresh)) {
+                    this.refresh();
+                }
             }
         }
     };
 
     this.set_default_foreground_color = function(color, refresh) {
         this.default_foreground_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.refresh)) {
+                    this.refresh();
+                }
+            }
+        }
     };
 
 }
