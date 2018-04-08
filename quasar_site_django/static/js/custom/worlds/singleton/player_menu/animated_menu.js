@@ -55,7 +55,7 @@ AnimatedMenu.prototype = {
 
     hide_all_child_menus: function() {
         for (var m = 0; m < this.child_menus.length; m++) {
-            this.child_menus[m].force_hide_self_and_all_child_attachments_recursively();
+            this.child_menus[m].menu.force_hide_self_and_all_child_attachments_recursively();
         }
     },
 
