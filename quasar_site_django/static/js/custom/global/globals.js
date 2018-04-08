@@ -119,8 +119,6 @@ const COLOR_SATURDAY                = [0x68ff6c, '#68ff6c'];
 const COLOR_SUNDAY                  = [0x5aff94, '#5aff94'];
 // UNIVERSAL_CONSTANTS_END
 
-
-
 const CELL_PHONE_CARRIERS = {
     'No Value'         : '',
     'AT&T'             : 'number@txt.att.net',
@@ -198,8 +196,8 @@ function string_contains(base_string, sub_string) {
     return base_string.indexOf(sub_string) !== NOT_FOUND;
 }
 
+// TODO : Remove the 2 functions below.
 // Base code from : https://stackoverflow.com/questions/30143082/how-to-get-color-value-from-gradient-by-percentage-with-javascript
-
 var hex = function(x) {
     x = x.toString(16);
     return (x.length == 1) ? '0' + x : x;
