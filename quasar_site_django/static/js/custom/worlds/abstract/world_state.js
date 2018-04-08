@@ -34,3 +34,5 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
     };
 
 }
+
+// TODO : Switch scenes for both the cursor and player menu!!!

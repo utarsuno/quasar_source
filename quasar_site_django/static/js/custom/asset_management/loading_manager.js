@@ -61,12 +61,13 @@ LoadingManager.prototype = {
             MANAGER_TEXTURE.create_skybox_material();
 
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
+            MANAGER_WORLD.create_singletons();
 
             MANAGER_RENDERER.login_world_created();
             if (CURRENT_CLIENT.is_mobile) {
                 MANAGER_INPUT.load_mobile_keyboard();
             }
-
+            
             MANAGER_WEB_SOCKETS.connect();
 
             //if (CURRENT_CLIENT.is_mobile) {

@@ -57,3 +57,4 @@ const QUASAR = new QuasarMainLoop();
 
 // Load all the initially needed resources. Once loaded start the main loop.
 MANAGER_LOADING.perform_initial_load(QUASAR);
+

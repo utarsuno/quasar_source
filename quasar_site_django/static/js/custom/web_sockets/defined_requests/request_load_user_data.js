@@ -30,7 +30,7 @@ ServerRequestLoadUserData.prototype = {
             MANAGER_ENTITY.link_entities();
             MANAGER_ENTITY.set_all_entities_to_not_needing_to_be_saved();
 
-            GUI_TYPING_INTERFACE.add_server_message('Loading all content!')
+            GUI_TYPING_INTERFACE.add_server_message('Loading all content!');
             MANAGER_WORLD.all_entities_loaded(this._login_loading_completed.bind(this));
         } else {
             GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');

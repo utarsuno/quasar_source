@@ -7,7 +7,7 @@ function World(world_entity) {
     this.currently_looked_at_object = null;
     this.raycaster                  = new THREE.Raycaster();
     this.scene                      = new THREE.Scene();
-    this.player_menu                = new PlayerMenu(this);
+    //this.player_menu                = new PlayerMenu(this);
     this.floating_cursor            = new FloatingCursor(this);
 
     this.root_attachables = [];

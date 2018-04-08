@@ -9,7 +9,7 @@ WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
 
-    current_player_menu: null,
+    player_menu: null,
 
     // Static worlds.
     world_login    : null,
@@ -24,8 +24,15 @@ WorldManager.prototype = {
         // List of all dynamic worlds.
         this.dynamic_worlds = {};
 
+        // The player menu.
+        this.player_menu = new PlayerMenu();
+
         // Inherit.
         DynamicContentManager.call(this);
+    },
+
+    create_singletons: function() {
+        this.player_menu.create(this.world_login);
     },
 
     update: function(delta) {
@@ -52,9 +59,9 @@ WorldManager.prototype = {
 
         // TODO : Double check on what order these should update.
 
-        if (MANAGER_WORLD.current_player_menu.is_visible()) {
-            MANAGER_WORLD.current_player_menu.update(delta);
-        }
+        //if (MANAGER_WORLD.current_player_menu.is_visible()) {
+        //    MANAGER_WORLD.current_player_menu.update(delta);
+        //}
 
         for (var a = 0; a < this.current_world.root_attachables.length; a++) {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
@@ -73,8 +80,6 @@ WorldManager.prototype = {
         }
 
         this.current_world.floating_cursor.update();
-
-        //this.current_world.floating_cursor.update();
     },
 
     set_current_world: function(world) {
@@ -86,7 +91,7 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
-        this.current_player_menu = this.current_world.player_menu;
+        //this.current_player_menu = this.current_world.player_menu;
 
         // Before adding the world make sure to add the camera reference.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
@@ -114,8 +119,8 @@ WorldManager.prototype = {
 
     create_world: function(world) {
         // Player menu.
-        world.player_menu.create();
-        world.player_menu.set_to_invisible();
+        //world.player_menu.create();
+        //world.player_menu.set_to_invisible();
 
         // Player floating cursor.
         world.floating_cursor.create();
