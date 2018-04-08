@@ -22,7 +22,9 @@ MenuSection.prototype = {
         this.rows.push(row);
         animated_menu.parent_menu = this;
         this.parent_menu.child_menus.push(animated_menu);
-        animated_menu.create(world, button);
+        //animated_menu.create(world, button);
+        animated_menu.menu.set_attachment_horizontal_offset(150, null);
+        animated_menu.menu.attach_to(button);
     }
 };
 
@@ -69,8 +71,8 @@ AnimatedMenu.prototype = {
         }
     },
 
-    create: function(world, button_to_attach_off_of) {
-        if (!is_defined(button_to_attach_off_of)) {
+    create: function(world) {
+        if (!is_defined(this.menu_name)) {
             var temp_position = new THREE.Vector3(0, 0, 0);
             var temp_normal = new THREE.Vector3(0, 0, 0);
             this.menu = new FloatingWall(this.menu_width, 100, temp_position, temp_normal, world);
@@ -78,17 +80,12 @@ AnimatedMenu.prototype = {
             this.menu.set_attachment_vertical_offset(-30, null);
             this.menu.set_attachment_depth_offset(300);
         } else {
-            this.menu.set_attachment_horizontal_offset(150, 0);
-            this.menu.set_attachment_vertical_offset(0, 0);
-            this.menu.set_attachment_depth_offset(0);
-            button_to_attach_off_of.add_attachment(this.menu);
-            //this.menu = button_to_attach_off_of.add_floating_wall_attachment(this.menu_width, 200, [150, null], null, null, false);
+            this.menu = new FloatingWall(this.menu_width, 100, null, null, world);
         }
         this.menu.make_base_wall_invisible();
-        //this.menu.hide_self_and_all_child_attachments_recursively();
         this.menu.force_hide_self_and_all_child_attachments_recursively();
     },
-
+    
     _add_button_for_sub_menu: function(animated_menu) {
         return this._add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, animated_menu));
     },
