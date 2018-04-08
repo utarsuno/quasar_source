@@ -29,6 +29,7 @@ WorldManager.prototype = {
 
         // Inherit.
         DynamicContentManager.call(this);
+        WorldManagerInput.call(this);
     },
 
     create_singletons: function() {
@@ -99,22 +100,6 @@ WorldManager.prototype = {
         MANAGER_RENDERER.set_current_scene(this.current_world.scene);
 
         this.current_world.enter_world();
-    },
-
-    key_down_event: function(event) {
-        this.current_world.key_down_event_for_interactive_objects(event);
-    },
-
-    mobile_keyboard_event_key_press: function(key) {
-        this.current_world.mobile_key_press(key);
-    },
-
-    mobile_keyboard_event_key_delete: function() {
-        this.current_world.mobile_key_delete();
-    },
-
-    mobile_keyboard_close: function() {
-        this.current_world.mobile_keyboard_close();
     },
 
     create_world: function(world) {

@@ -123,6 +123,14 @@ function WorldInput() {
         }
     };
 
+    this.single_right_click_down = function() {
+
+    };
+
+    this.single_right_click_up = function() {
+
+    };
+
     this.multi_left_click = function() {
         // For now just perform a regular left click action.
         this.single_left_click();

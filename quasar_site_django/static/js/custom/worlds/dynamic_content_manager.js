@@ -14,62 +14,6 @@ function DynamicContentManager() {
         }
     };
 
-    // TODO : DELETE ALL OF THIS CODE
-    /*
-    this.load_schedule_content = function() {
-        // Load each static world.
-        MANAGER_WORLD.world_home.load_dynamic_content();
-
-        // Add home world entities to any home world month views.
-        var se = this.get_all_schedule_viewable_entities_from_world(MANAGER_WORLD.world_home);
-        for (var ee = 0; ee < se.length; ee++) {
-            this.add_entity_to_world_month_views(MANAGER_WORLD.world_home);
-        }
-
-        // Go through each dynamic world.
-        for (var relative_id in this.dynamic_worlds) {
-            if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
-
-                var dynamic_world = this.dynamic_worlds[relative_id];
-
-                var schedule_entities = this.get_all_schedule_viewable_entities_from_world(dynamic_world);
-
-                for (var e = 0; e < schedule_entities.length; e++) {
-                    this.add_entity_to_world_month_views(schedule_entities[e], dynamic_world);
-                    this.add_entity_to_world_month_views(schedule_entities[e], MANAGER_WORLD.world_home);
-                }
-            }
-        }
-    };
-
-    this.add_entity_to_world_month_views = function(entity, world) {
-        if (world.month_view_walls.length > 0) {
-            for (var mv = 0; mv < world.month_view_walls.length; mv++) {
-                world.month_view_walls[mv].add_viewable_entity(entity);
-            }
-        }
-    };
-
-    this.get_all_schedule_viewable_entities_from_world = function(world) {
-        var all_schedule_viewable_entities = [];
-        var entity_groups = world.entity_groups;
-
-        // Go through each entity wall in that world.
-        for (var ew = 0; ew < entity_groups.length; ew++) {
-            var entity_wall_entities = entity_groups[ew].get_all_entities();
-            // Go through each entity in that entity wall.
-            for (var e = 0; e < entity_wall_entities.length; e++) {
-                var entity = entity_wall_entities[e];
-                if (entity.is_schedule_viewable()) {
-                    all_schedule_viewable_entities.push(entity);
-                }
-            }
-        }
-
-        return all_schedule_viewable_entities;
-    };
-    */
-
     /*___      ___   ___              __  ___    ___    __       ___    __        __ 
      |__  |\ |  |  |  |  \ /    |\ | /  \  |  | |__  | /  `  /\   |  | /  \ |\ | /__`
      |___ | \|  |  |  |   |     | \| \__/  |  | |    | \__, /~~\  |  | \__/ | \| .__/*/
@@ -133,5 +77,6 @@ function DynamicContentManager() {
             month_view_walls[mv].link_all_from_entity_events();
         }
     };
+
 
 }

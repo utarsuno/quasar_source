@@ -76,11 +76,9 @@ InputManager.prototype = {
         this.space  		   = false;
         this.shift  		   = false;
 
-
         this.CLICK_LEFT   = 1;
         this.CLICK_MIDDLE = 2;
         this.CLICK_RIGHT  = 3;
-
 
         document.addEventListener(EVENT_MOUSE_DOWN, this.on_mouse_down.bind(this));
         document.addEventListener(EVENT_MOUSE_UP  , this.on_mouse_up.bind(this));
@@ -273,22 +271,16 @@ InputManager.prototype = {
 
                 break;
             case this.CLICK_MIDDLE:
-
                 if (MANAGER_POINTER_LOCK.pointer_is_locked) {
                     MANAGER_POINTER_LOCK.release_pointer_lock();
                 } else {
                     MANAGER_POINTER_LOCK.request_pointer_lock();
                 }
-
                 //MANAGER_WORLD.current_world.single_middle_click();
                 this.click_down_middle = false;
                 break;
             case this.CLICK_RIGHT:
-                //if (MANAGER_WORLD.current_player_menu.is_visible()) {
-                //    MANAGER_WORLD.current_player_menu.set_to_invisible();
-                //} else {
-                MANAGER_WORLD.current_world.single_right_click();
-                //}
+                MANAGER_WORLD.right_click_up();
                 this.click_down_right = false;
                 break;
             }
@@ -328,27 +320,7 @@ InputManager.prototype = {
             this.click_down_middle = true;
             break;
         case this.CLICK_RIGHT:
-            if (CURRENT_PLAYER.has_input()) {
-                if (!this.click_down_right) {
-
-                    // If the player has input and is NOT engaged AND the player menu is not visible then right clicking will make the PlayerMenu show up.
-
-                    var currently_looked_at_object = CURRENT_PLAYER.get_currently_looked_at_object();
-                    if (is_defined(currently_looked_at_object)) {
-                        if (!currently_looked_at_object.is_engaged()) {
-                            //if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-                            //    MANAGER_WORLD.current_player_menu.set_to_visible();
-                            //}
-                        } else {
-                            currently_looked_at_object.disengage();
-                        }
-                    } else {
-                        //if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-                        //    MANAGER_WORLD.current_player_menu.set_to_visible();
-                        //}
-                    }
-                }
-            }
+            MANAGER_WORLD.right_click_down();
             this.click_down_right = true;
             break;
         }

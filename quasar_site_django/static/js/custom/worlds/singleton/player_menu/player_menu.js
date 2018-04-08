@@ -17,6 +17,25 @@ PlayerMenu.prototype = {
         this.menu_teleport_shared_owned     = new AnimatedMenu('owned', ICON_TELEPORT);
         this.menu_teleport_shared_not_owned = new AnimatedMenu('not owner', ICON_TELEPORT);
         this.menu_teleport_global   = new AnimatedMenu('global', ICON_TELEPORT);
+
+        this.currently_visible = false;
+    },
+
+    toggle_visibility: function() {
+        if (this.currently_visible) {
+            this._set_to_invisible();
+        } else {
+            this._set_to_visible();
+        }
+    },
+
+    _set_to_invisible: function() {
+        this.currently_visible = false;
+    },
+
+    _set_to_visible: function() {
+        this.currently_visible = true;
+        this.menu_main.display_self_and_all_child_attachments_recursively();
     },
 
     create: function(world) {
