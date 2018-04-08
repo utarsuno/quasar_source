@@ -1,19 +1,24 @@
 'use strict';
 
 function _set_visibility_of_object(obj, is_visible, force) {
-    if (is_defined(obj.userData)) {
-        if (is_defined(obj.userData.manual_visibility)) {
-            if (!obj.userData.manual_visibility && !force) {
-                obj.visible = is_visible;
+    if (force) {
+        obj.visible = is_visible;
+    } else {
+        if (is_defined(obj.userData)) {
+            if (is_defined(obj.userData.manual_visibility)) {
+                if (!obj.userData.manual_visibility) {
+                    obj.visible = is_visible;
+                } else {
+                    obj.visible = is_visible;
+                }
             } else {
                 obj.visible = is_visible;
             }
         } else {
             obj.visible = is_visible;
         }
-    } else {
-        obj.visible = is_visible;
     }
+
 }
 
 function Visibility() {
