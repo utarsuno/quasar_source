@@ -29,6 +29,17 @@ function Interactive() {
     // Next table target pointer.
     this.next_tab_target    = null;
 
+    this.is_interactive = false;
+
+    this.set_to_interactive = function() {
+        this.world.interactive_objects.push(this);
+        this.is_interactive = true;
+    };
+
+    this.set_to_singleton = function() {
+        Singleton.call(this);
+    };
+
     this.look_away = function() {
         if (!this.only_used_for_blocking_input) {
             this.being_looked_at = false;

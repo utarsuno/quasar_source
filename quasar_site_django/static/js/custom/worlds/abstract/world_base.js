@@ -18,10 +18,6 @@ function World(world_entity) {
     // TODO : Implement this.
     this.player_exit_position = null;
 
-    this.add_to_scene = function(object) {
-        this.scene.add(object);
-    };
-
     this.look_away_from_currently_looked_at_object = function() {
         this.currently_looked_at_object.look_away();
         if (this.currently_looked_at_object.uses_cursor) {
@@ -102,6 +98,10 @@ function World(world_entity) {
 
     this.set_default_tab_target = function(default_tab_target) {
         this.default_tab_target = default_tab_target;
+    };
+
+    this.add_to_scene = function(object) {
+        this.scene.add(object);
     };
 
     /*__   __   ___      ___  ___     __     __  ___       __   ___

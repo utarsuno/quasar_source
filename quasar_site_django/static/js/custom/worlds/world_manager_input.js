@@ -9,12 +9,7 @@ function WorldManagerInput() {
 
             var currently_looked_at_object = this.current_world.currently_looked_at_object;
             if (is_defined(currently_looked_at_object)) {
-                if (!currently_looked_at_object.is_engaged()) {
-                    //this.player_menu.toggle_visibility();
-                    //if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-                    //    MANAGER_WORLD.current_player_menu.set_to_visible();
-                    //}
-                } else {
+                if (currently_looked_at_object.is_engaged()) {
                     currently_looked_at_object.disengage();
                     if (CURRENT_PLAYER.is_engaged()) {
                         CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
@@ -22,20 +17,11 @@ function WorldManagerInput() {
                 }
             } else {
                 this.player_menu.toggle_visibility();
-                //if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-                //    MANAGER_WORLD.current_player_menu.set_to_visible();
-                //}
             }
         }
     };
 
     this.right_click_up = function() {
-
-        //if (MANAGER_WORLD.current_player_menu.is_visible()) {
-        //    MANAGER_WORLD.current_player_menu.set_to_invisible();
-        //} else {
-        //MANAGER_WORLD.current_world.single_right_click();
-        //}
     };
 
     this.key_down_event = function(event) {

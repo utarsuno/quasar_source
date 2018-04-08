@@ -21,6 +21,21 @@ PlayerMenu.prototype = {
         this.currently_visible = false;
     },
 
+    switch_to_new_world: function(old_world, new_world) {
+        this.menu_main.switch_to_new_world(old_world, new_world);
+        this.menu_create.switch_to_new_world(old_world, new_world);
+        this.menu_teleport.switch_to_new_world(old_world, new_world);
+        this.menu_teleport_personal.switch_to_new_world(old_world, new_world);
+        this.menu_teleport_shared.switch_to_new_world(old_world, new_world);
+        this.menu_teleport_shared_owned.switch_to_new_world(old_world, new_world);
+        this.menu_teleport_shared_not_owned.switch_to_new_world(old_world, new_world);
+        this.menu_teleport_global.switch_to_new_world(old_world, new_world);
+    },
+
+    is_currently_visible: function() {
+        return this.currently_visible;
+    },
+
     toggle_visibility: function() {
         if (this.currently_visible) {
             this._set_to_invisible();
@@ -69,8 +84,8 @@ PlayerMenu.prototype = {
         this.menu_main.create(world);
         var section;
         section = this.menu_main.add_section();
-        section.add_button_for_sub_menu(this.menu_create, world);
-        section.add_button_for_sub_menu(this.menu_teleport, world);
+        section.add_button_for_sub_menu(this.menu_create);
+        section.add_button_for_sub_menu(this.menu_teleport);
         section.add_button('fullscreen', ICON_FULLSCREEN, this.action_fullscreen);
         section.add_button('debugging', ICON_SETTINGS, this.action_toggle_debugging);
         section.add_button('logout', ICON_EXIT, this.action_logout);
@@ -94,9 +109,9 @@ PlayerMenu.prototype = {
         this.menu_teleport.create(world);
         var section;
         section = this.menu_teleport.add_section();
-        section.add_button_for_sub_menu(this.menu_teleport_personal, world);
-        section.add_button_for_sub_menu(this.menu_teleport_shared, world);
-        section.add_button_for_sub_menu(this.menu_teleport_global, world);
+        section.add_button_for_sub_menu(this.menu_teleport_personal);
+        section.add_button_for_sub_menu(this.menu_teleport_shared);
+        section.add_button_for_sub_menu(this.menu_teleport_global);
         this.menu_teleport.menu.force_hide_self_and_all_child_attachments_recursively();
     },
 
@@ -114,8 +129,8 @@ PlayerMenu.prototype = {
         this.menu_teleport_shared.create(world);
         var section;
         section = this.menu_teleport_shared.add_section();
-        section.add_button_for_sub_menu(this.menu_teleport_shared_owned, world);
-        section.add_button_for_sub_menu(this.menu_teleport_shared_not_owned, world);
+        section.add_button_for_sub_menu(this.menu_teleport_shared_owned);
+        section.add_button_for_sub_menu(this.menu_teleport_shared_not_owned);
         this.menu_teleport_shared.menu.force_hide_self_and_all_child_attachments_recursively();
     },
 

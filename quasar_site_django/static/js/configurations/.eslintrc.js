@@ -141,6 +141,7 @@ module.exports = {
 
         "Animatable"       : true,
         "Interactive"      : true,
+        "Singleton"        : true,
         "InheritableButton": true,
         "Attachmentable"   : true,
         "Visibility"       : true,

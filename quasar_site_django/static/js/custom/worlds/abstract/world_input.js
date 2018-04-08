@@ -117,20 +117,6 @@ function WorldInput() {
         this.single_left_click();
     };
 
-    this.single_right_click = function() {
-        if (CURRENT_PLAYER.is_engaged()) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-        }
-    };
-
-    this.single_right_click_down = function() {
-
-    };
-
-    this.single_right_click_up = function() {
-
-    };
-
     this.multi_left_click = function() {
         // For now just perform a regular left click action.
         this.single_left_click();
@@ -143,7 +129,6 @@ function WorldInput() {
 
     this.multi_right_click = function() {
         // Fow now just perform a regular right click action.
-        this.single_right_click();
     };
 
     this.wheel_event = function(delta) {

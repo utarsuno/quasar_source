@@ -42,7 +42,7 @@ FloatingWall.prototype = {
             this.scalable = false;
         }
 
-        this.world.interactive_objects.push(this);
+        this.set_to_interactive();
         this.engable = false;
         if (!this.scalable) {
             this.only_used_for_blocking_input = true;

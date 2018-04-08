@@ -16,7 +16,7 @@ MenuSection.prototype = {
     add_button: function(button_name, icon, button_action) {
         this.rows.push(this.parent_menu._add_button(button_name, icon, button_action));
     },
-    add_button_for_sub_menu: function(animated_menu, world) {
+    add_button_for_sub_menu: function(animated_menu) {
         var row = this.parent_menu._add_button_for_sub_menu(animated_menu);
         var button = row.get_element();
         this.rows.push(row);
@@ -48,6 +48,15 @@ AnimatedMenu.prototype = {
         // Constants.
         this.text_height = 16;
         this.menu_width  = 120;
+    },
+
+    switch_to_new_world: function (old_world, new_world) {
+        this.menu.switch_worlds(old_world, new_world);
+        for (var s = 0; s < this.sections.length; s++) {
+            for (var e = 0; e < this.sections[s].elements.length; e++) {
+                this.sections[s].elements[e].switch_worlds(old_world, new_world);
+            }
+        }
     },
 
     hide: function() {
@@ -83,6 +92,7 @@ AnimatedMenu.prototype = {
         } else {
             this.menu = new FloatingWall(this.menu_width, 100, null, null, world);
         }
+        this.menu.set_to_singleton();
         this.menu.make_base_wall_invisible();
         this.menu.force_hide_self_and_all_child_attachments_recursively();
     },
@@ -94,13 +104,15 @@ AnimatedMenu.prototype = {
     _add_button: function(button_name, icon, button_action) {
         var row = this.menu.add_row(null);
         var button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
+        button.set_to_singleton();
         button.add_icon_left(icon);
         return row;
     },
 
     _add_text: function(text) {
         var row = this.menu.add_row(null);
-        row.add_text_2D([0, 1, false], this.text_height, text);
+        var t = row.add_text_2D([0, 1, false], this.text_height, text);
+        t.set_to_singleton();
         return row;
     },
 

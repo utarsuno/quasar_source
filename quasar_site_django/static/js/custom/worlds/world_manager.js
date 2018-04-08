@@ -85,8 +85,14 @@ WorldManager.prototype = {
 
     set_current_world: function(world) {
         if (this.current_world !== null) {
-            // Before exiting the world make sure to remove the camera reference.
+            // Make sure to hide the player menu if it is visible.
+            if (this.player_menu.is_currently_visible()) {
+                this.player_menu.toggle_visibility();
+            }
+
+            // Before exiting the world make sure to remove certain objects that are not world-unique.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
+
             this.current_world.exit_world();
 
             this.previous_world = this.current_world;
@@ -94,8 +100,9 @@ WorldManager.prototype = {
         this.current_world = world;
         //this.current_player_menu = this.current_world.player_menu;
 
-        // Before adding the world make sure to add the camera reference.
+        // Before switching to the new scene make sure it has all non world-unique objects.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
+        this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
 
         MANAGER_RENDERER.set_current_scene(this.current_world.scene);
 
