@@ -11,31 +11,27 @@ function Visibility() {
         return this.currently_visible;
     };
 
-    this._set_to_visible = function(is_visible, force) {
-        if (!this.manual_visibility && !force) {
-            this.currently_visible = is_visible;
-            // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
-            this.object3D.visible = is_visible;
+    this._set_visibility_of_object = function(obj, is_visible, force) {
+        if (is_defined(obj.userData.manual_visibility)) {
+            if (!obj.userData.manual_visibility && !force) {
+                obj.visible = is_visible;
+            } else {
+                obj.visible = is_visible;
+            }
+        } else {
+            obj.visible = is_visible;
         }
+    };
+
+    this._set_to_visible = function(is_visible, force) {
+        this.currently_visible = is_visible;
+        this._set_visibility_of_object(this.object3D, is_visible, force);
+        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
         this.object3D.traverse (function(child) {
             if (child instanceof THREE.Mesh) {
-                if (is_defined(child.userData.manual_visibility)) {
-                    if (!child.userData.manual_visibility && !force) {
-                        child.visible = is_visible;
-                    } else {
-                        child.visible = is_visible;
-                    }
-                } else if (is_defined(child.manual_visibility)) {
-                    if (!child.manual_visibility && !force) {
-                        child.visible = is_visible;
-                    } else {
-                        child.visible = is_visible;
-                    }
-                } else {
-                    child.visible = is_visible;
-                }
+                this._set_visibility_of_object(child.object3D, is_visible, force);
             }
-        });
+        }.bind(this)).bind(this);
     };
 
     this.set_to_visible = function(force) {
