@@ -20,14 +20,14 @@ PlayerMenu.prototype = {
     },
 
     create: function(world) {
-        this._create_menu_main(world);
         this._create_menu_create(world);
-        this._create_menu_teleport(world);
-        this._create_menu_teleport_personal(world);
-        this._create_menu_teleport_shared(world);
         this._create_menu_teleport_shared_owned(world);
         this._create_menu_teleport_shared_not_owned(world);
+        this._create_menu_teleport_shared(world);
         this._create_menu_teleport_global(world);
+        this._create_menu_teleport_personal(world);
+        this._create_menu_teleport(world);
+        this._create_menu_main(world);
     },
 
     _create_menu_main: function(world) {
