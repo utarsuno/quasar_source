@@ -11,7 +11,7 @@ MANAGER_WEB_SOCKETS = new WebSocketManager();
  |__) |__  |\ | |  \ |__  |__) | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
  |  \ |___ | \| |__/ |___ |  \ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
 // Checks for WebGL and creates the canvas + camera.
-MANAGER_RENDERER = new RendererManager();
+MANAGER_RENDERER = new RendererManager(CURRENT_CLIENT);
 //MANAGER_SHADER      = new ShaderAPI();
 
 

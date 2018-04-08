@@ -161,6 +161,7 @@ module.exports = {
         // Web-sockets related.
         "ServerRequest"             : false,
         "ServerRequestLogin"        : false,
+        "ServerRequestLogout"       : false,
         "ServerRequestCreateAccount": false,
         "ServerRequestLoadUserData" : false,
 
@@ -173,6 +174,7 @@ module.exports = {
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN"         : false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT": false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA": false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT"        : false,
 
         // Global Managers.
         "MANAGER_MULTI_PLAYER"   : true,

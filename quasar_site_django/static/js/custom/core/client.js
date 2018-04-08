@@ -8,7 +8,13 @@ Client.prototype = {
 
     __init__: function() {
         this.is_mobile = false;
+        this.in_debug  = true;
         this._detect_if_mobile();
+    },
+
+    set_debug_mode: function(debug_on) {
+        this.in_debug = debug_on;
+
     },
 
     _detect_if_mobile: function() {

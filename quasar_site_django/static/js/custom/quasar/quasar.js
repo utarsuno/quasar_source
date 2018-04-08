@@ -18,7 +18,7 @@ QuasarMainLoop.prototype = {
 
     run: function() {
         // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
-        GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar! TODO : Auto-saving every minute');
+        GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
 
         // Game loop below.
 

@@ -178,13 +178,13 @@ PlayerMenu.prototype = {
         var current_button;
 
         var teleport_row = this.teleport_wall.add_row(null);
-        teleport_row.add_text_2D([0, 1, true], this.text_height, 'Teleport to...');
+        teleport_row.add_text_2D([0, 1, false], this.text_height, 'Teleport to...');
 
         // Add an empty row for spacing.
         this.teleport_wall.add_row(null);
 
         teleport_row = this.teleport_wall.add_row(null, ICON_SETTINGS);
-        teleport_row.add_text_2D([0, 1, true], this.text_height, 'Personal Worlds');
+        teleport_row.add_text_2D([0, 1, false], this.text_height, 'Personal Worlds');
 
         if (this.world !== MANAGER_WORLD.world_settings) {
             teleport_row = this.teleport_wall.add_row(null);

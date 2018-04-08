@@ -1,7 +1,7 @@
 'use strict';
 
-function RendererManager() {
-    this.__init__();
+function RendererManager(current_client) {
+    this.__init__(current_client);
 }
 
 RendererManager.prototype = {
@@ -20,7 +20,8 @@ RendererManager.prototype = {
 
     camera          : null,
 
-    __init__: function() {
+    __init__: function(current_client) {
+        this.current_client = current_client;
         this.webgl_enabled = !!Detector.webgl;
         if (this.webgl_enabled === false) {
             this.warning_message = Detector.getWebGLErrorMessage();
@@ -34,7 +35,7 @@ RendererManager.prototype = {
             this.near_clipping = 1.0;
             this.far_clipping  = 20000.0;
 
-            // TODO : Test setting alha to false?
+            // TODO : Test setting alpha to false?
             this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
 
             // Give the canvas an ID.
@@ -79,7 +80,7 @@ RendererManager.prototype = {
         this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.outline_pass);
 
-        if (!CURRENT_CLIENT.is_mobile) {
+        if (!this.current_client.is_mobile) {
             // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
             this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
             this.effect_composer.addPass(this.effect_film);
@@ -90,7 +91,7 @@ RendererManager.prototype = {
             this.effect_composer.addPass(this.effect_FXAA);
         }
         this.outline_glow = new OutlineGlow(this.outline_pass);
-        if (CURRENT_CLIENT.is_mobile) {
+        if (this.current_client.is_mobile) {
 
             //this.copy_pass = new THREE.ShaderPass( THREE.CopyShader );
             //this.copy_pass.renderToScreen = true;
@@ -100,14 +101,13 @@ RendererManager.prototype = {
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
             this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
-
-            //this.effect_composer.renderToScreen = true;
-            //this.outline_glow.outline_pass.renderToScreen = true;
         }
     },
 
     pre_render: function() {
-        this.stats_api.pre_render();
+        if (this.current_client.in_debug) {
+            this.stats_api.pre_render();
+        }
     },
 
     set_current_scene: function(scene) {
@@ -129,7 +129,9 @@ RendererManager.prototype = {
     },
 
     post_render: function() {
-        this.stats_api.post_render();
+        if (this.current_client.in_debug) {
+            this.stats_api.post_render();
+        }
     },
 
     get_window_properties: function() {
@@ -151,11 +153,11 @@ RendererManager.prototype = {
         GUI_TYPING_INTERFACE.window_was_resized();
 
         //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
-        if (!CURRENT_CLIENT.is_mobile) {
+        if (!this.current_client.is_mobile) {
             this.effect_composer.setSize(this.window_width, this.window_height);
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
         } else {
-            MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
+            this.current_client.mobile_resize(this.window_width, this.window_height);
         }
     },
 

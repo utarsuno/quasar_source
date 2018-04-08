@@ -217,3 +217,17 @@ body {
   box-shadow: 0 3px #1d1d1d;
   transform: translateY(4px);
 }
+
+/*__   ___      ___  ___  __      __        __   __   __   __
+ /  ` |__  |\ |  |  |__  |__)    /  ` |  | |__) /__` /  \ |__)
+ \__, |___ | \|  |  |___ |  \    \__, \__/ |  \ .__/ \__/ |  \ */
+#center_cursor {
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background-color: #00ffd7;
+    margin-top: -4px;
+    margin-left: -4px;
+}
