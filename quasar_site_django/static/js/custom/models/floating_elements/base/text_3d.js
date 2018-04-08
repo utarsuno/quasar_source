@@ -9,8 +9,12 @@ function Text3D(world, size, text) {
     this.text_size = size;
 
     this.refresh = function() {
+        var currently_engaged = this.being_engaged_with;
         this.delete_mesh();
         this.create_base_mesh();
+        if (currently_engaged) {
+            this.being_engaged_with = true;
+        }
     };
 
     this.create_base_material = function() {

@@ -76,7 +76,7 @@ EntityGroup.prototype = {
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
         var row = this.base_wall.add_row(-1);
-        this.entity_wall_title = row.add_input_3D([0, 1, false], 32, 'Entity Group');
+        this.entity_wall_title = row.add_input_3D([0, 1, true], 32, 'Entity Group');
 
         this.base_wall.set_to_saveable(world.entity);
     },
@@ -94,8 +94,9 @@ EntityGroup.prototype = {
         // Create the standard functionality of the entity wall.
         //this.create_new_entity_button = this.base_wall.add_row(0).add_2D_button([0, 1], 'create new entity', COLOR_GREEN, null);
         var row = this.base_wall.add_row(0);
-        this.create_new_entity_button = row.add_button([0, 1, true], 16, 'create new entity', null);
-        this.create_new_entity_button.set_default_foreground_color(COLOR_GREEN, true);
+        this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null);
+        this.create_new_entity_button.set_default_foreground_color(COLOR_GREEN, false);
+        this.create_new_entity_button.set_current_foreground_color(COLOR_GREEN, true);
 
         // TODO : Create a button for deleting the entity wall!!
 
