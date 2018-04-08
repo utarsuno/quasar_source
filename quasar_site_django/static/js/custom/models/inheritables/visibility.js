@@ -28,6 +28,11 @@ function Visibility() {
     };
 
     this._set_to_visible = function(is_visible, force) {
+        if (!is_defined(this.object3D)) {
+            l('ERROR? Object3D is not defined.')
+            return;
+        }
+
         this.currently_visible = is_visible;
         _set_visibility_of_object(this.object3D, is_visible, force);
         // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
