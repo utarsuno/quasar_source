@@ -56,11 +56,13 @@ AnimatedMenu.prototype = {
     show: function() {
         this.menu.display_self_and_all_child_attachments_recursively();
         this.menu.refresh_position_and_look_at();
+
     },
 
     hide_all_sibling_menus_and_display_self: function(menu_to_display) {
         this.hide_all_child_menus();
         menu_to_display.menu.force_display_self_and_all_child_attachments_recursively();
+        menu_to_display.menu.refresh_position_and_look_at();
     },
 
     hide_all_child_menus: function() {
