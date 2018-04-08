@@ -36,6 +36,21 @@ PlayerMenu.prototype = {
 
     _set_to_visible: function() {
         this.currently_visible = true;
+
+        var player_position = CURRENT_PLAYER.get_position();
+        var player_normal   = CURRENT_PLAYER.get_direction();
+
+        var position_offset = this.menu_main.menu.get_position_offset(player_normal);
+
+        var position_x = player_position.x + position_offset[0];
+        var position_y = player_position.y + position_offset[1];
+        var position_z = player_position.z + position_offset[2];
+
+        this.menu_main.menu.set_position(position_x, position_y, position_z, false);
+        this.menu_main.menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, false);
+
+        //this._player_menu.restart_all_animations();
+
         this.menu_main.menu.display_self_and_all_child_attachments_recursively();
         this.menu_main.menu.refresh_position_and_look_at();
     },
