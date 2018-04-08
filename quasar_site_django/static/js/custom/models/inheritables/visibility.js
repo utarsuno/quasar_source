@@ -11,26 +11,42 @@ function Visibility() {
         return this.currently_visible;
     };
 
-    this._set_to_visible = function(is_visible) {
-        this.currently_visible = is_visible;
-        // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
-        this.object3D.visible = is_visible;
+    this._set_to_visible = function(is_visible, force) {
+        if (!this.manual_visibility && !force) {
+            this.currently_visible = is_visible;
+            // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
+            this.object3D.visible = is_visible;
+        }
         this.object3D.traverse (function(child) {
             if (child instanceof THREE.Mesh) {
-                child.visible = is_visible;
+                if (is_defined(child.userData.manual_visibility)) {
+                    if (!child.userData.manual_visibility && !force) {
+                        child.visible = is_visible;
+                    } else {
+                        child.visible = is_visible;
+                    }
+                } else if (is_defined(child.manual_visibility)) {
+                    if (!child.manual_visibility && !force) {
+                        child.visible = is_visible;
+                    } else {
+                        child.visible = is_visible;
+                    }
+                } else {
+                    child.visible = is_visible;
+                }
             }
         });
     };
 
-    this.set_to_visible = function() {
-        this._set_to_visible(true);
+    this.set_to_visible = function(force) {
+        this._set_to_visible(true, force);
         if (this.manual_visibility) {
             this.object3D.visible = true;
         }
     };
 
-    this.set_to_invisible = function() {
-        this._set_to_visible(false);
+    this.set_to_invisible = function(force) {
+        this._set_to_visible(false, force);
         if (this.manual_visibility) {
             this.object3D.visible = false;
         }
@@ -41,7 +57,7 @@ function Visibility() {
      |  \ |___ \__X \__/ | |  \ |___ .__/    /~~\  |   |  /~~\ \__, |  |  |  | |___ | \|  |  .__/ */
 
     this.display_self_and_all_child_attachments_recursively = function() {
-        this.set_to_visible();
+        this.set_to_visible(false);
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].display_self_and_all_child_attachments_recursively();
@@ -50,14 +66,14 @@ function Visibility() {
     };
 
     this.force_display_self_and_all_child_attachments_recursively = function() {
-        this.set_to_visible();
+        this.set_to_visible(true);
         for (var a = 0; a < this.attachments.length; a++) {
             this.attachments[a].force_display_self_and_all_child_attachments_recursively();
         }
     };
 
     this.hide_self_and_all_child_attachments_recursively = function() {
-        this.set_to_invisible();
+        this.set_to_invisible(false);
         for (var a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].hide_self_and_all_child_attachments_recursively();
@@ -66,7 +82,7 @@ function Visibility() {
     };
 
     this.force_hide_self_and_all_child_attachments_recursively = function() {
-        this.set_to_invisible();
+        this.set_to_invisible(true);
         for (var a = 0; a < this.attachments.length; a++) {
             this.attachments[a].force_hide_self_and_all_child_attachments_recursively();
         }

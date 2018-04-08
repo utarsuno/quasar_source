@@ -62,7 +62,8 @@ AnimatedMenu.prototype = {
 
     hide_all_sibling_menus_and_display_self: function(menu_to_display) {
         this.hide_all_child_menus();
-        menu_to_display.menu.force_display_self_and_all_child_attachments_recursively();
+        menu_to_display.menu.display_self_and_all_child_attachments_recursively();
+        menu_to_display.menu.hide_all_child_menus();
     },
 
     hide_all_child_menus: function() {
@@ -85,7 +86,7 @@ AnimatedMenu.prototype = {
         this.menu.make_base_wall_invisible();
         this.menu.force_hide_self_and_all_child_attachments_recursively();
     },
-    
+
     _add_button_for_sub_menu: function(animated_menu) {
         return this._add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, animated_menu));
     },
