@@ -16,6 +16,9 @@ function WorldManagerInput() {
                     //}
                 } else {
                     currently_looked_at_object.disengage();
+                    if (CURRENT_PLAYER.is_engaged()) {
+                        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                    }
                 }
             } else {
                 this.player_menu.toggle_visibility();
