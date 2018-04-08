@@ -29,7 +29,7 @@ function Visibility() {
 
     this._set_to_visible = function(is_visible, force) {
         if (!is_defined(this.object3D)) {
-            l('ERROR? Object3D is not defined.')
+            l('ERROR? Object3D is not defined.');
             return;
         }
 
