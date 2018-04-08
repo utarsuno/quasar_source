@@ -79,8 +79,8 @@ AnimatedMenu.prototype = {
             this.menu.set_attachment_vertical_offset(-30, null);
             this.menu.set_attachment_depth_offset(300);
         } else {
-            this.menu.set_attachment_horizontal_offset(0, 0);
-            this.menu.set_attachment_vertical_offset(150, 0);
+            this.menu.set_attachment_horizontal_offset(150, 0);
+            this.menu.set_attachment_vertical_offset(0, 0);
             this.menu.set_attachment_depth_offset(0);
             button_to_attach_off_of.add_attachment(this.menu);
             //this.menu = button_to_attach_off_of.add_floating_wall_attachment(this.menu_width, 200, [150, null], null, null, false);
@@ -91,7 +91,7 @@ AnimatedMenu.prototype = {
     },
 
     _add_button_for_sub_menu: function(animated_menu) {
-        return this._add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, this));
+        return this._add_button(animated_menu.menu_name, animated_menu.menu_icon, this.hide_all_sibling_menus_and_display_self.bind(this, animated_menu));
     },
 
     _add_button: function(button_name, icon, button_action) {
