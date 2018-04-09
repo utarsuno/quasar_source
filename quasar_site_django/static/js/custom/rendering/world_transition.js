@@ -86,9 +86,11 @@ TransitionPair.prototype = {
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
             //this.scene_b.render(delta, false);
-        } else if (this.transition == 1) {
+
+        } else if (this.transition >= 1) {
             //this.scene_a.render(delta, false);
             this.renderer_manager.in_transition = false;
+            this.renderer_manager.set_current_scene(this.scene_new);
         } else {
             // When 0<transition<1 render transition between two scenes
             //this.scene_a.render(delta, true);
