@@ -93,11 +93,11 @@ TransitionPair.prototype = {
             //this.scene_b.render(delta, false);
             //this.renderer_manager.renderer.render()
             this.renderer_manager.renderer.setClearColor(0x111111);
-            this.renderer_manager.renderer.render(this.scene_new, this.current_camera);
+            this.renderer_manager.renderer.render(this.scene_new, this.previous_camera);
         } else if (this.transition >= 1) {
             //this.scene_a.render(delta, false);
             this.renderer_manager.renderer.setClearColor(0xffffff);
-            this.renderer_manager.renderer.render(this.scene_old, this.previous_camera);
+            this.renderer_manager.renderer.render(this.scene_old, this.current_camera);
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.scene_new);
         } else {
@@ -107,9 +107,9 @@ TransitionPair.prototype = {
 
 
             this.renderer_manager.renderer.setClearColor(0xffffff);
-            this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_new.fbo, true);
+            this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
             this.renderer_manager.renderer.setClearColor(0x111111);
-            this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_old.fbo, true);
+            this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
             /*
             this.renderer_manager.renderer.setClearColor(0xffffff);
