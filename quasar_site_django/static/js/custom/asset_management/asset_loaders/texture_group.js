@@ -90,11 +90,7 @@ TextureGroup.prototype = {
             this._add_required_initial_asset(ICON_MENU_LIST);
             break;
         case TEXTURE_GROUP_TRANSITION:
-            l('WTF?');
-            l(TEXTURE_GROUP_TRANSITION);
-            l(TRANSITION_GRID);
-            l(this._texture_group);
-            this._add_required_initial_assets(TRANSITION_GRID);
+            this._add_required_initial_asset(TRANSITION_GRID);
             break;
         }
         callback();
