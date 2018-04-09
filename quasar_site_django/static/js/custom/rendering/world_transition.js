@@ -41,7 +41,6 @@ function TransitionPair(scene_a, scene_b, the_transition, renderer_manager) {
     this.__init__(scene_a, scene_b, the_transition, renderer_manager);
 }
 
-
 // Code based from : https://github.com/mrdoob/three.js/blob/master/examples/js/crossfade/transition.js
 TransitionPair.prototype = {
     __init__: function(scene_a, scene_b, the_transition, renderer_manager) {
@@ -88,6 +87,7 @@ TransitionPair.prototype = {
         this.transition = THREE.Math.smoothstep(t, 0.3, 0.7);
 
         this.the_transition.quad_material.uniforms.mixRatio.value = this.transition;
+        l(this.the_transition.quad_material.uniforms.mixRatio.value);
 
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
