@@ -19,7 +19,7 @@ void main() {
 
     //gl_FragColor = mix(texel1, texel2, mixf);
 
-    gl_FragColor = mix(texel2, texel1, mixf);
+    gl_FragColor = mix(texel1, texel2, mixf);
 
     //gl_FragColor = mix(texel2, texel1, mixRatio );
 }
