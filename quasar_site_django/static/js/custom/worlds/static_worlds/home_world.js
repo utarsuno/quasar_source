@@ -10,7 +10,7 @@ HomeWorld.prototype = {
         // Inherit.
         World.call(this, static_world_entity);
         WorldInput.call(this);
-        WorldState.call(this, new THREE.Vector3(0, 100, 0), new THREE.Vector3(100, 100, 0));
+        WorldState.call(this, new THREE.Vector3(0, 100, 0), new THREE.Vector3(100, 40, 0));
         WorldDynamicContent.call(this);
     },
 
