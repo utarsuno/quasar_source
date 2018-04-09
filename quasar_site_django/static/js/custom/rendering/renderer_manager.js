@@ -41,7 +41,8 @@ RendererManager.prototype = {
         this.far_clipping  = 20000.0;
 
         // TODO : Test setting alpha to false?
-        this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
+        //this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
+        this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: false});
 
         // Give the canvas an ID.
         this.renderer.domElement.id = 'canvas_id';

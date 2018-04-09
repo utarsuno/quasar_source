@@ -51,7 +51,8 @@ TransitionPair.prototype = {
         this.the_transition = the_transition;
         this.elapsed_delta = 0;
         this.transition    = 0;
-        this.transition_speed = 2.25;
+        //this.transition_speed = 2.25;
+        this.transition_speed = 0.25;
 
 
         this.render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
