@@ -11,12 +11,12 @@ ShaderGroup.prototype = {
         AssetGroup.call(this, ASSET_GROUP_SHADER, loading_manager, fully_loaded_callback);
     },
 
-    _shader_loaded: function(audio_buffer, asset_name) {
-        MANAGER_SHADER.set_shader(asset_name, audio_buffer);
+    _shader_loaded: function(shader, asset_name) {
+        MANAGER_SHADER.set_shader(asset_name, shader);
 
         this._asset_loaded(asset_name);
     },
-
+    
     load_shaders: function() {
         for (var asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
