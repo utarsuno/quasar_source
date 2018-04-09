@@ -48,8 +48,9 @@ RendererManager.prototype = {
         this.renderer.domElement.id = 'canvas_id';
 
         //this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.window_width, this.window_height);
-        this.renderer.setClearColor(0x000000, 1);
+        //this.renderer.setClearColor(0x000000, 1);
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
