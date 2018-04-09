@@ -86,7 +86,7 @@ TransitionPair.prototype = {
     },
     render: function(delta) {
         var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
-        this.transition = THREE.Math.smoothstep(t, 0.3, 0.7);
+        this.transition = THREE.Math.smoothstep(t, 0.1, 0.9);
 
         this.the_transition.quad_material.uniforms.mixRatio.value = this.transition;
 
