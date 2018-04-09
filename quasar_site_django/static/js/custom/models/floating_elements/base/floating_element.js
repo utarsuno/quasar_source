@@ -34,5 +34,6 @@ function FloatingElement(world) {
     this.add_icon_left = function(icon_type) {
         var icon = new FloatingIcon(this.world, icon_type, this.height);
         this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);
+        return icon;
     };
 }

@@ -58,6 +58,12 @@ AnimatedMenu.prototype = {
                 var current_row = current_section.rows[r];
                 for (var e = 0; e < current_row.elements.length; e++) {
                     current_row.elements[e].switch_worlds(old_world, new_world);
+
+                    // Also switch all the attachments of each element.
+                    var attachments = current_row.elements[e].attachments;
+                    for (var a = 0; a < attachments.length; a++) {
+                        attachments[a].switch_worlds(old_world, new_world);
+                    }
                 }
             }
         }
@@ -109,7 +115,8 @@ AnimatedMenu.prototype = {
         var row = this.menu.add_row(null);
         var button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
         button.set_to_singleton();
-        button.add_icon_left(icon);
+        var i = button.add_icon_left(icon);
+        i.set_to_singleton();
         return row;
     },
 
