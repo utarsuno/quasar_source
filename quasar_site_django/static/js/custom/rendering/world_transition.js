@@ -52,6 +52,9 @@ TransitionPair.prototype = {
         this.elapsed_delta = 0;
         this.transition    = 0;
         this.transition_speed = 2.25;
+
+
+        this.render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
     },
     set_size_if_needed: function(current_resize) {
         if (current_resize !== this.current_resize) {
@@ -73,9 +76,11 @@ TransitionPair.prototype = {
     is_pair: function(scene_a, scene_b) {
         return this.scene_new === scene_a && this.scene_old === scene_b;
     },
-    start: function() {
+    start: function(previous_camera, current_camera) {
         this.elapsed_delta = 0;
         this.transition    = 0;
+        this.previous_camera = previous_camera;
+        this.current_camera  = current_camera;
     },
     render: function(delta) {
         var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
@@ -86,7 +91,7 @@ TransitionPair.prototype = {
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
             //this.scene_b.render(delta, false);
-
+            //this.renderer_manager.renderer.render()
         } else if (this.transition >= 1) {
             //this.scene_a.render(delta, false);
             this.renderer_manager.in_transition = false;
@@ -95,6 +100,8 @@ TransitionPair.prototype = {
             // When 0<transition<1 render transition between two scenes
             //this.scene_a.render(delta, true);
             //this.scene_b.render(delta, true);
+            this.renderer_manager.renderer.render(this.scene_old, this.previous_camera, this.fbo);
+            this.renderer_manager.renderer.render(this.scene_new, this.current_camera, this.fbo);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
@@ -145,18 +152,13 @@ function WorldTransition() {
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
         current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
 
-        this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
-        this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
+        //this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
+        //this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
 
-        this._transition_between_scenes(previous_scene, current_scene);
-    };
-    // MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
-
-    this._transition_between_scenes = function(old_scene, new_scene) {
         this.in_transition = true;
-        this.current_transition = this._get_transition_pair(old_scene, new_scene);
+        this.current_transition = this._get_transition_pair(previous_scene, current_scene);
         this.current_transition.set_size_if_needed(this.current_resize);
-        this.current_transition.start();
+        this.current_transition.start(this.camera, this.camera_transition);
     };
 
     this.transition_render = function(delta) {
