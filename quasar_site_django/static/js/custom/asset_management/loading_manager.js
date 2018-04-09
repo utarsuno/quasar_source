@@ -47,7 +47,7 @@ LoadingManager.prototype = {
     },
 
     initial_resources_loaded: function() {
-        return this.textures_cursor._loaded && this.textures_icon._loaded && this.textures_skybox._loaded && this.all_audio._loaded;
+        return this.textures_cursor._loaded && this.textures_icon._loaded && this.textures_skybox._loaded && this.all_audio._loaded && this.all_shaders._loaded;
     },
 
     check_if_initial_resources_loaded: function() {

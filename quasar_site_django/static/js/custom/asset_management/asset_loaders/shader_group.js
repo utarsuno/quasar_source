@@ -16,7 +16,7 @@ ShaderGroup.prototype = {
 
         this._asset_loaded(asset_name);
     },
-    
+
     load_shaders: function() {
         for (var asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
