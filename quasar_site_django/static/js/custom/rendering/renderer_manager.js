@@ -68,15 +68,14 @@ RendererManager.prototype = {
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
             this.currently_fullscreen = false;
-
-
-            // Inherit.
-            WorldTransition.call(this);
         }
     },
 
     // TEMPORARY
     login_world_created: function() {
+        // Inherit.
+        WorldTransition.call(this);
+
         this.effect_composer = new THREE.EffectComposer(this.renderer);
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.render_pass);
