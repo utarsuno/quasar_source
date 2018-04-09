@@ -99,6 +99,8 @@ TransitionPair.prototype = {
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
 
+        l(this.transition);
+
         this.elapsed_delta += delta;
     }
 };
@@ -138,8 +140,9 @@ function WorldTransition() {
         this.camera_transition.position.set(current_camera_position.x, current_camera_position.y, current_camera_position.z);
         this.camera_transition.lookAt(current_camera_position.x + current_camera_look_at.x, current_camera_position.y + current_camera_look_at.y, current_camera_position.z + current_camera_look_at.z);
 
-        previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
-        current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        var renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
+        previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
+        current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
 
         this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
         this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
@@ -155,6 +158,7 @@ function WorldTransition() {
 
     this.transition_render = function(delta) {
         this.current_transition.render(delta);
+        l('TRANSITION RENDER!');
     };
 
     // Only used once for displaying the initial login world.
