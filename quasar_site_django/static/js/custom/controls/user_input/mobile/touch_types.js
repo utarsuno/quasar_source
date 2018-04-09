@@ -87,7 +87,7 @@ TouchDoubleClick.prototype = {
         //} else {
         //    MANAGER_WORLD.current_player_menu.set_to_invisible();
         //}
-        MANAGER_WORLD.right_click_up();
+        MANAGER_WORLD.right_click_down();
     },
 
     on_kill: function() {
