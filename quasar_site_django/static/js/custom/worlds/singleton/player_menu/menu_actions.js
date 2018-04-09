@@ -45,6 +45,6 @@ function MenuActions() {
        |  |__  |    |__  |__) /  \ |__)  |      /\  /  `  |  | /  \ |\ | /__`
        |  |___ |___ |___ |    \__/ |  \  |     /~~\ \__,  |  | \__/ | \| .__/ */
     this.action_teleport_to_world = function(world) {
-
+        MANAGER_WORLD.set_current_world(world);
     };
 }
