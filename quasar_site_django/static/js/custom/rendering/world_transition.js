@@ -9,6 +9,8 @@ function TheTransition() {
 TheTransition.prototype = {
     __init__: function() {
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
+        l('THE TEXTURE IS :');
+        l(this.texture);
         this.shader_vertex = MANAGER_SHADER.get_shader(SHADER_TRANSITION_VERTEX);
         this.shader_fragment = MANAGER_SHADER.get_shader(SHADER_TRANSITION_FRAGEMENT);
         this.quad_material = new THREE.ShaderMaterial( {
@@ -24,7 +26,7 @@ TheTransition.prototype = {
                 },
                 threshold: {
                 //    value: 0.1
-                    value: 0.4
+                    value: 0.1
                 },
                 tMixTexture: {
                     value: this.texture
