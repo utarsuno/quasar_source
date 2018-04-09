@@ -87,7 +87,6 @@ TransitionPair.prototype = {
         this.transition = THREE.Math.smoothstep(t, 0.3, 0.7);
 
         this.the_transition.quad_material.uniforms.mixRatio.value = this.transition;
-        l(this.the_transition.quad_material.uniforms.mixRatio.value);
 
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
@@ -105,10 +104,20 @@ TransitionPair.prototype = {
             // When 0<transition<1 render transition between two scenes
             //this.scene_a.render(delta, true);
             //this.scene_b.render(delta, true);
+
+
+            this.renderer_manager.renderer.setClearColor(0x111111);
+            this.renderer_manager.renderer.render(this.scene_new, this.current_camera, this.scene_new.fbo, true);
+            this.renderer_manager.renderer.setClearColor(0xffffff);
+            this.renderer_manager.renderer.render(this.scene_old, this.previous_camera, this.scene_old.fbo, true);
+
+
+            /*
             this.renderer_manager.renderer.setClearColor(0xffffff);
             this.renderer_manager.renderer.render(this.scene_old, this.previous_camera, this.scene_old.fbo, true);
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.current_camera, this.scene_new.fbo, true);
+            */
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
