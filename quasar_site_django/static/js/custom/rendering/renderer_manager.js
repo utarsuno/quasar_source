@@ -170,7 +170,8 @@ RendererManager.prototype = {
             this.effect_composer.setSize(this.window_width, this.window_height);
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
         } else {
-            this.current_client.mobile_resize(this.window_width, this.window_height);
+            //this.current_client.mobile_resize(this.window_width, this.window_height);
+            MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
         }
     },
 
