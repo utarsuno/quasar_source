@@ -45,8 +45,8 @@ function TransitionPair(scene_a, scene_b, the_transition, renderer_manager) {
 TransitionPair.prototype = {
     __init__: function(scene_a, scene_b, the_transition, renderer_manager) {
         this.scene = new THREE.Scene();
-        this.scene_a = scene_a;
-        this.scene_b = scene_b;
+        this.scene_old = scene_a;
+        this.scene_new = scene_b;
         this.renderer_manager = renderer_manager;
         this.the_transition = the_transition;
         this.elapsed_delta = 0;
@@ -67,11 +67,11 @@ TransitionPair.prototype = {
         this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
         this.quad = new THREE.Mesh(this.quad_geometry, this.the_transition.quad_material);
 
-        this.the_transition.quad_material.uniforms.tDiffuse1.value = this.scene_a.fbo.texture;
-        this.the_transition.quad_material.uniforms.tDiffuse2.value = this.scene_b.fbo.texture;
+        this.the_transition.quad_material.uniforms.tDiffuse1.value = this.scene_new.fbo.texture;
+        this.the_transition.quad_material.uniforms.tDiffuse2.value = this.scene_old.fbo.texture;
     },
     is_pair: function(scene_a, scene_b) {
-        return this.scene_a === scene_a && this.scene_b === scene_b;
+        return this.scene_new === scene_a && this.scene_old === scene_b;
     },
     start: function() {
         this.elapsed_delta = 0;
@@ -87,14 +87,14 @@ TransitionPair.prototype = {
 
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
-            this.scene_b.render(delta, false);
+            //this.scene_b.render(delta, false);
         } else if (this.transition == 1) {
-            this.scene_a.render(delta, false);
+            //this.scene_a.render(delta, false);
             this.renderer_manager.in_transition = false;
         } else {
             // When 0<transition<1 render transition between two scenes
-            this.scene_a.render(delta, true);
-            this.scene_b.render(delta, true);
+            //this.scene_a.render(delta, true);
+            //this.scene_b.render(delta, true);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
