@@ -9,8 +9,6 @@ function TheTransition() {
 TheTransition.prototype = {
     __init__: function() {
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
-        l('THE TEXTURE IS :');
-        l(this.texture);
         this.shader_vertex = MANAGER_SHADER.get_shader(SHADER_TRANSITION_VERTEX);
         this.shader_fragment = MANAGER_SHADER.get_shader(SHADER_TRANSITION_FRAGEMENT);
         this.quad_material = new THREE.ShaderMaterial( {
@@ -53,8 +51,7 @@ TransitionPair.prototype = {
         this.the_transition = the_transition;
         this.elapsed_delta = 0;
         this.transition    = 0;
-        //this.transition_speed = 2.25;
-        this.transition_speed = 0.35;
+        this.transition_speed = 0.65;
     },
     set_size_if_needed: function(current_resize) {
         if (current_resize !== this.current_resize) {
@@ -104,28 +101,13 @@ TransitionPair.prototype = {
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.scene_new);
         } else {
-            // When 0<transition<1 render transition between two scenes
-            //this.scene_a.render(delta, true);
-            //this.scene_b.render(delta, true);
-
-
             this.renderer_manager.renderer.setClearColor(0xffffff);
             this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
-            /*
-            this.renderer_manager.renderer.setClearColor(0xffffff);
-            this.renderer_manager.renderer.render(this.scene_old, this.previous_camera, this.scene_old.fbo, true);
-            this.renderer_manager.renderer.setClearColor(0x111111);
-            this.renderer_manager.renderer.render(this.scene_new, this.current_camera, this.scene_new.fbo, true);
-            */
-
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
-
         }
-
-        l(this.transition);
 
         this.elapsed_delta += delta;
     }
