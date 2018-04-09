@@ -68,13 +68,18 @@ RendererManager.prototype = {
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
             this.currently_fullscreen = false;
+
+            this.current_resize = 0;
+
+            // Inherit.
+            WorldTransition.call(this);
         }
     },
 
     // TEMPORARY
     login_world_created: function() {
-        // Inherit.
-        WorldTransition.call(this);
+
+        this.load_transition();
 
         this.effect_composer = new THREE.EffectComposer(this.renderer);
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
@@ -114,8 +119,11 @@ RendererManager.prototype = {
     },
 
     render: function(delta) {
-        //this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
-        this.effect_composer.render(delta);
+        if (this.in_transition) {
+            this.transition_render(delta);this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
+        } else {
+            this.effect_composer.render(delta);
+        }
 
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
@@ -137,6 +145,8 @@ RendererManager.prototype = {
     },
 
     on_window_resize: function() {
+        this.current_resize += 1;
+
         this.get_window_properties();
         this.camera.aspect = this.aspect_ratio;
         this.camera.updateProjectionMatrix();
