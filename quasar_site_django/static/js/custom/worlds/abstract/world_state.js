@@ -33,6 +33,22 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         this.player_exit_position = CURRENT_PLAYER.get_position();
     };
 
+    this.get_player_enter_position = function() {
+        if (is_defined(this.player_exit_position)) {
+            return this.player_exit_position;
+        } else {
+            return this.default_world_enter_position;
+        }
+    };
+
+    this.get_player_enter_look_at = function() {
+        if (is_defined(this.player_exit_look_at)) {
+            CURRENT_PLAYER.look_at(this.player_exit_look_at);
+        } else if (is_defined(this.default_world_enter_look_at)) {
+            CURRENT_PLAYER.look_at(this.default_world_enter_look_at);
+        }
+    };
+
 }
 
 // TODO : Switch scenes for both the cursor and player menu!!!

@@ -27,53 +27,58 @@ RendererManager.prototype = {
             this.warning_message = Detector.getWebGLErrorMessage();
             raise_exception_with_full_logging('WebGL is not enabled! Error message{' + this.get_warning_message() + ')');
         } else {
-            this.stats_api = new StatsAPI();
-
-            // Since WebGL is enabled we can proceed.
-            this.field_of_view = 70;
-            this.get_window_properties();
-            this.near_clipping = 1.0;
-            this.far_clipping  = 20000.0;
-
-            // TODO : Test setting alpha to false?
-            this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
-
-            // Give the canvas an ID.
-            this.renderer.domElement.id = 'canvas_id';
-
-            //this.renderer.setPixelRatio(window.devicePixelRatio);
-            this.renderer.setSize(this.window_width, this.window_height);
-            this.renderer.setClearColor(0x000000, 1);
-
-            this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
-
-            //this.renderer.domElement.style.position = 'absolute';
-            this.renderer.domElement.style.zIndex = 5;
-
-            document.body.appendChild(this.renderer.domElement);
-
-
-            // CSS3DRenderer.
-            this.css_renderer = new THREE.CSS3DRenderer();
-            this.css_renderer.setSize(this.window_width, this.window_height);
-            this.css_renderer.domElement.style.position = 'absolute';
-            this.css_renderer.domElement.style.top = 0;
-            // TEMP
-            this.css_renderer.domElement.zIndex = 999;
-            //
-            document.body.appendChild(this.css_renderer.domElement);
-
-            //this.renderer.domElement.style.top = 0;
-
-            window.addEventListener('resize', this.on_window_resize.bind(this), false);
-
-            this.currently_fullscreen = false;
-
-            this.current_resize = 0;
-
-            // Inherit.
-            WorldTransition.call(this);
+            this.renderer_initialize();
         }
+    },
+
+    renderer_initialize: function() {
+        this.stats_api = new StatsAPI();
+
+        // Since WebGL is enabled we can proceed.
+        this.field_of_view = 70;
+        this.get_window_properties();
+        this.near_clipping = 1.0;
+        this.far_clipping  = 20000.0;
+
+        // TODO : Test setting alpha to false?
+        this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
+
+        // Give the canvas an ID.
+        this.renderer.domElement.id = 'canvas_id';
+
+        //this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setSize(this.window_width, this.window_height);
+        this.renderer.setClearColor(0x000000, 1);
+
+        this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
+
+        this.camera_transition = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
+
+        //this.renderer.domElement.style.position = 'absolute';
+        this.renderer.domElement.style.zIndex = 5;
+
+        document.body.appendChild(this.renderer.domElement);
+
+        // CSS3DRenderer.
+        this.css_renderer = new THREE.CSS3DRenderer();
+        this.css_renderer.setSize(this.window_width, this.window_height);
+        this.css_renderer.domElement.style.position = 'absolute';
+        this.css_renderer.domElement.style.top = 0;
+        // TEMP
+        this.css_renderer.domElement.zIndex = 999;
+        //
+        document.body.appendChild(this.css_renderer.domElement);
+
+        //this.renderer.domElement.style.top = 0;
+
+        window.addEventListener('resize', this.on_window_resize.bind(this), false);
+
+        this.currently_fullscreen = false;
+
+        this.current_resize = 0;
+
+        // Inherit.
+        WorldTransition.call(this);
     },
 
     // TEMPORARY
@@ -120,7 +125,7 @@ RendererManager.prototype = {
 
     render: function(delta) {
         if (this.in_transition) {
-            this.transition_render(delta);this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);
+            this.transition_render(delta);
         } else {
             this.effect_composer.render(delta);
         }

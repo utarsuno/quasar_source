@@ -104,7 +104,8 @@ WorldManager.prototype = {
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
-            MANAGER_RENDERER.set_current_scene(this.current_world.scene, this.previous_world.scene);
+            //MANAGER_RENDERER.set_current_scene(this.current_world.scene, this.previous_world.scene);
+            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene);
         }

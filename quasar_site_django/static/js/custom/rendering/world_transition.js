@@ -76,6 +76,8 @@ TransitionPair.prototype = {
     start: function() {
         this.elapsed_delta = 0;
         this.transition    = 0;
+
+
     },
     render: function(delta) {
         var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
@@ -123,13 +125,26 @@ function WorldTransition() {
         return new_transition_pair;
     };
 
-    this.set_current_scene = function(scene, old_scene) {
-        if (is_defined(old_scene)) {
-            this._transition_between_scenes(scene, old_scene);
-        } else {
-            this._set_current_scene(scene);
-        }
+    this.set_current_world = function(current_world, previous_world) {
+        var previous_camera_position = CURRENT_PLAYER.get_position();
+        var previous_camera_look_at  = CURRENT_PLAYER.get_direction();
+
+        var current_camera_position = current_world.get_player_enter_position();
+        var current_camera_look_at  = current_world.get_player_enter_look_at();
+
+        var previous_scene = previous_world.scene;
+        var current_scene  = current_world.scene;
+
+        this.camera_transition.position.set(current_camera_position.x, current_camera_position.y, current_camera_position.z);
+        this.camera_transition.lookAt(current_camera_position.x + current_camera_look_at.x, current_camera_position.y + current_camera_look_at.y, current_camera_position.z + current_camera_look_at.z);
+
+        previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+        current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
+
+        this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
+        this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
     };
+    // MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
 
     this._transition_between_scenes = function(old_scene, new_scene) {
         this.in_transition = true;
@@ -142,7 +157,8 @@ function WorldTransition() {
         this.current_transition.render(delta);
     };
 
-    this._set_current_scene = function(scene) {
+    // Only used once for displaying the initial login world.
+    this.set_current_scene = function(scene) {
         this.outline_glow.set_to_hover_color();
         this.outline_glow.remove_current_object();
         this.outline_glow.outline_pass.renderScene = scene;
