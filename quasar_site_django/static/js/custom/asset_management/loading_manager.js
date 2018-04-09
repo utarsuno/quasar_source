@@ -12,15 +12,17 @@ LoadingManager.prototype = {
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
+        this.asset_groups = [];
+
         // All the asset groups to load.
         this.textures_cursor      = new TextureGroup(TEXTURE_GROUP_CURSOR    , this, this.check_if_initial_resources_loaded.bind(this));
         this.textures_skybox      = new TextureGroup(TEXTURE_GROUP_SKYBOX    , this, this.check_if_initial_resources_loaded.bind(this));
         this.textures_icon        = new TextureGroup(TEXTURE_GROUP_ICONS     , this, this.check_if_initial_resources_loaded.bind(this));
         this.textures_transitions = new TextureGroup(TEXTURE_GROUP_TRANSITION, this, this.check_if_initial_resources_loaded.bind(this));
 
-        this.all_audio = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
+        this.all_audio            = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
 
-        this.all_shaders = new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
+        this.all_shaders          = new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
     },
 
     asset_loaded: function(asset) {
@@ -37,16 +39,18 @@ LoadingManager.prototype = {
 
         CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
 
-        this.textures_cursor.load_textures();
-        this.textures_skybox.load_textures();
-        this.textures_icon.load_textures();
-        this.textures_transitions.load_textures();
-        this.all_audio.load_audio_buffers();
-        this.all_shaders.load_shaders();
+        for (var asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
+            this.asset_groups[asset_group].load_assets();
+        }
     },
 
     initial_resources_loaded: function() {
-        return this.textures_cursor._loaded && this.textures_icon._loaded && this.textures_skybox._loaded && this.all_audio._loaded && this.all_shaders._loaded;
+        for (var asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
+            if (!this.asset_groups[asset_group]._loaded) {
+                return false;
+            }
+        }
+        return true;
     },
 
     check_if_initial_resources_loaded: function() {

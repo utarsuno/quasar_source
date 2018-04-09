@@ -18,7 +18,7 @@ TextureGroup.prototype = {
         this._asset_loaded(asset_name);
     },
 
-    load_textures: function() {
+    load_assets: function() {
         for (var asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
