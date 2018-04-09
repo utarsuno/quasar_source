@@ -76,8 +76,6 @@ TransitionPair.prototype = {
     start: function() {
         this.elapsed_delta = 0;
         this.transition    = 0;
-
-
     },
     render: function(delta) {
         var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
@@ -97,6 +95,7 @@ TransitionPair.prototype = {
             //this.scene_b.render(delta, true);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+
         }
 
         l(this.transition);
@@ -111,7 +110,7 @@ function WorldTransition() {
     this.in_transition = false;
 
     this.load_transition = function() {
-        this._the_transition = new TheTransition(this);
+        this._the_transition = new TheTransition();
     };
 
     this._transition_pairs = [];
@@ -122,7 +121,7 @@ function WorldTransition() {
                 return this._transition_pairs[t];
             }
         }
-        var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this.current_resize);
+        var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
         this._transition_pairs.push(new_transition_pair);
         return new_transition_pair;
     };
