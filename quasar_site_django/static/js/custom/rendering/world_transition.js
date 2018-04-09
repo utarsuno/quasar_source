@@ -52,7 +52,7 @@ TransitionPair.prototype = {
         this.elapsed_delta = 0;
         this.transition    = 0;
         //this.transition_speed = 2.25;
-        this.transition_speed = 0.25;
+        this.transition_speed = 0.15;
 
 
         this.render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
@@ -70,6 +70,8 @@ TransitionPair.prototype = {
         this.camera_ortho = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -10, 10);
         this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
         this.quad = new THREE.Mesh(this.quad_geometry, this.the_transition.quad_material);
+
+        this.scene.add(this.quad);
 
         this.the_transition.quad_material.uniforms.tDiffuse1.value = this.scene_new.fbo.texture;
         this.the_transition.quad_material.uniforms.tDiffuse2.value = this.scene_old.fbo.texture;
