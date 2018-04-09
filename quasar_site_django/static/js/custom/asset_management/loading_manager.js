@@ -1,8 +1,7 @@
 'use strict';
 
-/*     __        __          __                           __   ___  __
- |    /  \  /\  |  \ | |\ | / _`     |\/|  /\  |\ |  /\  / _` |__  |__)
- |___ \__/ /~~\ |__/ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ */
+THREE.Cache.enabled = true;
+
 function LoadingManager() {
     this.__init__();
 }
