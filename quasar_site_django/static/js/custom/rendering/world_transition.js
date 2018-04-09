@@ -103,7 +103,9 @@ TransitionPair.prototype = {
             // When 0<transition<1 render transition between two scenes
             //this.scene_a.render(delta, true);
             //this.scene_b.render(delta, true);
+            this.renderer_manager.renderer.setClearColor(0xffffff);
             this.renderer_manager.renderer.render(this.scene_old, this.previous_camera, this.fbo, true);
+            this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.current_camera, this.fbo, true);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
