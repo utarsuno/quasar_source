@@ -53,8 +53,12 @@ AnimatedMenu.prototype = {
     switch_to_new_world: function (old_world, new_world) {
         this.menu.switch_worlds(old_world, new_world);
         for (var s = 0; s < this.sections.length; s++) {
-            for (var e = 0; e < this.sections[s].elements.length; e++) {
-                this.sections[s].elements[e].switch_worlds(old_world, new_world);
+            var current_section = this.sections[s];
+            for (var r = 0; r < current_section.rows.length; r++) {
+                var current_row = current_section.rows[r];
+                for (var e = 0; e < current_row.elements.length; e++) {
+                    current_row.elements[e].switch_worlds(old_world, new_world);
+                }
             }
         }
     },
