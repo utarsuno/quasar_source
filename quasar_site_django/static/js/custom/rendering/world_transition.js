@@ -13,17 +13,18 @@ TheTransition.prototype = {
         this.shader_fragment = MANAGER_SHADER.get_shader(SHADER_TRANSITION_FRAGEMENT);
         this.quad_material = new THREE.ShaderMaterial( {
             uniforms: {
-                tDiffuse1: {
-                    value: null
-                },
-                tDiffuse2: {
-                    value: null
-                },
+                //tDiffuse1: {
+                //    value: null
+                //},
+                //tDiffuse2: {
+                //    value: null
+                //},
                 mixRatio: {
                     value: 0.0
                 },
                 threshold: {
-                    value: 0.1
+                //    value: 0.1
+                    value: 0.4
                 },
                 tMixTexture: {
                     value: this.texture
@@ -53,9 +54,6 @@ TransitionPair.prototype = {
         this.transition    = 0;
         //this.transition_speed = 2.25;
         this.transition_speed = 0.35;
-
-
-        this.render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
     },
     set_size_if_needed: function(current_resize) {
         if (current_resize !== this.current_resize) {
@@ -171,7 +169,6 @@ function WorldTransition() {
     };
 
     this.transition_render = function(delta) {
-        l('TRANSITION RENDER!');
         this.current_transition.render(delta);
     };
 
