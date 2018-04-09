@@ -13,12 +13,12 @@ TheTransition.prototype = {
         this.shader_fragment = MANAGER_SHADER.get_shader(SHADER_TRANSITION_FRAGEMENT);
         this.quad_material = new THREE.ShaderMaterial( {
             uniforms: {
-                //tDiffuse1: {
-                //    value: null
-                //},
-                //tDiffuse2: {
-                //    value: null
-                //},
+                tDiffuse1: {
+                    value: null
+                },
+                tDiffuse2: {
+                    value: null
+                },
                 mixRatio: {
                     value: 0.0
                 },
