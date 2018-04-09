@@ -12,8 +12,6 @@ MANAGER_WEB_SOCKETS = new WebSocketManager();
  |  \ |___ | \| |__/ |___ |  \ | | \| \__>     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
 // Checks for WebGL and creates the canvas + camera.
 MANAGER_RENDERER = new RendererManager(CURRENT_CLIENT);
-//MANAGER_SHADER      = new ShaderAPI();
-
 
 /*                    __                 ___  __
  |\/|  /\  | |\ |    |__) |     /\  \ / |__  |__)
@@ -46,6 +44,8 @@ GUI_TYPING_INTERFACE = new TypingInterface();
 MANAGER_LOADING   = new LoadingManager();
 // Handles all audio operations.
 MANAGER_AUDIO     = new AudioManager();
+// Handles all shaders.
+MANAGER_SHADER    = new ShaderManager();
 // Handles all textures.
 MANAGER_TEXTURE   = new TextureManager();
 // Handles images that get dropped onto the site page.

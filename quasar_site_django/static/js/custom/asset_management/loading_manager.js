@@ -13,29 +13,21 @@ LoadingManager.prototype = {
         this._number_of_resources_to_load = 0;
         this._number_of_resources_loaded  = 0;
 
-        this.textures_cursor = new TextureGroup(TEXTURE_GROUP_CURSOR, this, this.check_if_initial_resources_loaded.bind(this));
-        this.textures_skybox = new TextureGroup(TEXTURE_GROUP_SKYBOX, this, this.check_if_initial_resources_loaded.bind(this));
-        this.textures_icon   = new TextureGroup(TEXTURE_GROUP_ICONS,  this, this.check_if_initial_resources_loaded.bind(this));
+        // All the asset groups to load.
+        this.textures_cursor      = new TextureGroup(TEXTURE_GROUP_CURSOR    , this, this.check_if_initial_resources_loaded.bind(this));
+        this.textures_skybox      = new TextureGroup(TEXTURE_GROUP_SKYBOX    , this, this.check_if_initial_resources_loaded.bind(this));
+        this.textures_icon        = new TextureGroup(TEXTURE_GROUP_ICONS     , this, this.check_if_initial_resources_loaded.bind(this));
+        this.textures_transitions = new TextureGroup(TEXTURE_GROUP_TRANSITION, this, this.check_if_initial_resources_loaded.bind(this));
 
-        this.all_audio       = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
+        this.all_audio = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
+
+        this.all_shaders = new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
     },
 
     asset_loaded: function(asset) {
         this._number_of_resources_loaded += 1;
         GUI_PAUSED_MENU.set_text(int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%');
         GUI_PAUSED_MENU.set_sub_text('loaded : ' + asset);
-    },
-
-    // TODO : Isn't this handled by the texture manager?
-    get_texture: function(texture_group, texture_name) {
-        switch (texture_group) {
-        case TEXTURE_GROUP_CURSOR:
-            return this.textures_cursor.get_texture(texture_name);
-        case TEXTURE_GROUP_ICONS:
-            return this.textures_icon.get_texture(texture_name);
-        case TEXTURE_GROUP_SKYBOX:
-            return this.textures_skybox.get_texture(texture_name);
-        }
     },
 
     /*__             __        __              ___                      __        __          __
@@ -49,7 +41,9 @@ LoadingManager.prototype = {
         this.textures_cursor.load_textures();
         this.textures_skybox.load_textures();
         this.textures_icon.load_textures();
+        this.textures_transitions.load_textures();
         this.all_audio.load_audio_buffers();
+        this.all_shaders.load_shaders();
     },
 
     initial_resources_loaded: function() {

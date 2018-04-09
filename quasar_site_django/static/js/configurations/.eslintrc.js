@@ -33,14 +33,6 @@ module.exports = {
 
         "OutlineGlow": false,
 
-        // Asset Loading.
-        "AssetGroup"  : false,
-        "AudioGroup"  : false,
-        "TextureGroup": false,
-
-        "ASSET_GROUP_AUDIO"  : false,
-        "ASSET_GROUP_TEXTURE": false,
-
         "World"              : true,
         "WorldInput"         : true,
         "WorldState"         : true,
@@ -177,7 +169,9 @@ module.exports = {
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA": false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT"        : false,
 
-        // Global Managers.
+        //  __        __   __                                     __   ___  __   __
+        // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
+        // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
         "MANAGER_MULTI_PLAYER"   : true,
         "MANAGER_WEB_SOCKETS"    : true,
         "MANAGER_COOKIES"        : true,
@@ -202,11 +196,15 @@ module.exports = {
         "WorldManager"         : false,
         "AudioManager"         : false,
         "EntityManager"        : false,
+        "ShaderManager"        : false,
         "RendererManager"      : false,
         "InputManager"         : false,
         "PointerLockManager"   : false,
         "DataDisplay"          : false,
         "LoadingManager"       : false,
+        // and their supporting classes.
+        "WorldTransition": false,
+
 
         "CanvasAbstraction": false,
 
@@ -357,36 +355,51 @@ module.exports = {
         "ACCOUNT_TYPE_ADMIN"       : true,
         "ACCOUNT_TYPE_SUDO"        : true,
 
+        //      __   __   ___ ___          __        __          __
+        // /\  /__` /__` |__   |     |    /  \  /\  |  \ | |\ | / _`
+        ///~~\ .__/ .__/ |___  |     |___ \__/ /~~\ |__/ | | \| \__>
+        "AssetGroup"  : false,
+        "AudioGroup"  : false,
+        "TextureGroup": false,
+        "ShaderGroup" : false,
+
+        //       __   __   ___ ___  __
+        //  /\  /__` /__` |__   |  /__`
+        // /~~\ .__/ .__/ |___  |  .__/
+
+        // Shaders.
+        "SHADER_TRANSITION_FRAGEMENT": false,
+        "SHADER_TRANSITION_VERTEX"   : false,
+
+        // Audio.
         "AUDIO_TYPING_SOUND"  : true,
 
-        "TEXTURE_GROUP_SKYBOX": true,
-        "TEXTURE_GROUP_CURSOR": true,
-        "TEXTURE_GROUP_ICONS" : true,
+        // Textures.
+        "ASSET_GROUP_AUDIO"  : false,
+        "ASSET_GROUP_TEXTURE": false,
+        "ASSET_GROUP_SHADER" : false,
 
-        // UNIVERSAL_CONSTANTS_START : Cursor types.
+        "TEXTURE_GROUP_SKYBOX"    : true,
+        "TEXTURE_GROUP_CURSOR"    : true,
+        "TEXTURE_GROUP_ICONS"     : true,
+        "TEXTURE_GROUP_TRANSITION": true,
+
+        "TRANSITION_GRID": true,
+
         "CURSOR_TYPE_HORIZONTAL": true,
         "CURSOR_TYPE_VERTICAL"  : true,
         "CURSOR_TYPE_LARGER"    : true,
         "CURSOR_TYPE_HAND"      : true,
         "CURSOR_TYPE_POINTER"   : true,
         "CURSOR_TYPE_MOUSE"     : true,
-        // UNIVERSAL_CONSTANTS_END
 
-        // UNIVERSAL_CONSTANTS_START : Skybox textures.
         "SKYBOX_FRONT" : true,
         "SKYBOX_BACK"  : true,
         "SKYBOX_LEFT"  : true,
         "SKYBOX_RIGHT" : true,
         "SKYBOX_TOP"   : true,
         "SKYBOX_BOTTOM": true,
-        // UNIVERSAL_CONSTANTS_END
 
-        "CELL_PHONE_CARRIERS": false,
-
-        // 3rd party hix grid reference.
-        "vg": false,
-
-        // UNIVERSAL_CONSTANTS_START : Icons.
         "ICON_STAR"         : false,
         "ICON_EXIT"         : false,
         "ICON_SETTINGS"     : false,
@@ -410,7 +423,15 @@ module.exports = {
         "ICON_INFORMATION"  : false,
         "ICON_MOVIE"        : false,
         "ICON_MENU_LIST"    : false,
-        // UNIVERSAL_CONSTANTS_END
+
+
+
+
+
+        "CELL_PHONE_CARRIERS": false,
+
+        // 3rd party hix grid reference.
+        "vg": false,
 
         "get_color_range_list": false,
 

@@ -2,6 +2,7 @@
 
 const ASSET_GROUP_AUDIO   = 'audio';
 const ASSET_GROUP_TEXTURE = 'texture';
+const ASSET_GROUP_SHADER  = 'shaders';
 
 function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
 
@@ -35,3 +36,6 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
         }
     };
 }
+
+
+// quasar_site_django/static/shaders

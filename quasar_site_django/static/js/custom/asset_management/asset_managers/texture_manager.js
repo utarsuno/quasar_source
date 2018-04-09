@@ -1,8 +1,11 @@
 'use strict';
 
-const TEXTURE_GROUP_SKYBOX = 'skybox';
-const TEXTURE_GROUP_CURSOR = 'cursors';
-const TEXTURE_GROUP_ICONS  = 'icons';
+const TEXTURE_GROUP_SKYBOX     = 'skybox';
+const TEXTURE_GROUP_CURSOR     = 'cursors';
+const TEXTURE_GROUP_ICONS      = 'icons';
+const TEXTURE_GROUP_TRANSITION = 'third_party';
+
+const TRANSITION_GRID    = 'grid_transition.png';
 
 const ICON_STAR          = 'star.png';
 const ICON_EXIT          = 'exit.png';
@@ -51,9 +54,10 @@ TextureManager.prototype = {
     __init__: function() {
         this.texture_groups = {};
 
-        this.texture_groups[TEXTURE_GROUP_CURSOR] = {};
-        this.texture_groups[TEXTURE_GROUP_SKYBOX] = {};
-        this.texture_groups[TEXTURE_GROUP_ICONS]  = {};
+        this.texture_groups[TEXTURE_GROUP_CURSOR]     = {};
+        this.texture_groups[TEXTURE_GROUP_SKYBOX]     = {};
+        this.texture_groups[TEXTURE_GROUP_ICONS]      = {};
+        this.texture_groups[TEXTURE_GROUP_TRANSITION] = {};
     },
 
     create_skybox_material: function() {

@@ -89,6 +89,9 @@ TextureGroup.prototype = {
             this._add_required_initial_asset(ICON_MOVIE);
             this._add_required_initial_asset(ICON_MENU_LIST);
             break;
+        case TEXTURE_GROUP_TRANSITION:
+            this._add_required_initial_assets(TRANSITION_GRID);
+            break;
         }
         callback();
     }

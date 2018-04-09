@@ -68,6 +68,10 @@ RendererManager.prototype = {
             window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
             this.currently_fullscreen = false;
+
+
+            // Inherit.
+            WorldTransition.call(this);
         }
     },
 
@@ -108,13 +112,6 @@ RendererManager.prototype = {
         if (this.current_client.in_debug) {
             this.stats_api.pre_render();
         }
-    },
-
-    set_current_scene: function(scene) {
-        this.outline_glow.set_to_hover_color();
-        this.outline_glow.remove_current_object();
-        this.outline_glow.outline_pass.renderScene = scene;
-        this.render_pass.scene = scene;
     },
 
     render: function(delta) {
