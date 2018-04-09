@@ -146,6 +146,8 @@ function WorldTransition() {
 
         this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
         this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
+
+        this._transition_between_scenes(previous_scene, current_scene);
     };
     // MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
 
@@ -157,8 +159,8 @@ function WorldTransition() {
     };
 
     this.transition_render = function(delta) {
-        this.current_transition.render(delta);
         l('TRANSITION RENDER!');
+        this.current_transition.render(delta);
     };
 
     // Only used once for displaying the initial login world.
