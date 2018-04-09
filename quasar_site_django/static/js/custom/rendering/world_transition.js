@@ -67,8 +67,8 @@ TransitionPair.prototype = {
         this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
         this.quad = new THREE.Mesh(this.quad_geometry, this.the_transition.quad_material);
 
-        this.quadmaterial.uniforms.tDiffuse1.value = this.scene_a.fbo.texture;
-        this.quadmaterial.uniforms.tDiffuse2.value = this.scene_b.fbo.texture;
+        this.quad_material.uniforms.tDiffuse1.value = this.scene_a.fbo.texture;
+        this.quad_material.uniforms.tDiffuse2.value = this.scene_b.fbo.texture;
     },
     is_pair: function(scene_a, scene_b) {
         return this.scene_a === scene_a && this.scene_b === scene_b;
@@ -81,7 +81,7 @@ TransitionPair.prototype = {
         var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
         this.transition = THREE.Math.smoothstep(t, 0.3, 0.7);
 
-        this.quadmaterial.uniforms.mixRatio.value = this.transition;
+        this.quad_material.uniforms.mixRatio.value = this.transition;
 
         // Prevent render both scenes when it's not necessary
         if (this.transition == 0 ) {
