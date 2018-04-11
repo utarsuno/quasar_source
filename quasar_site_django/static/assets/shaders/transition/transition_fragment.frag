@@ -17,10 +17,5 @@ void main() {
     float r              = mixRatio * (1.0 + threshold * 2.0) - threshold;
     float mixf           = clamp((transitionTexel.r - r) * (1.0 / threshold), 0.0, 1.0);
 
-    //gl_FragColor = mix(texel1, texel2, mixf);
-
-    //gl_FragColor = mix(texel1, texel2, mixf);
     gl_FragColor = mix(texel1, texel2, mixf);
-
-    //gl_FragColor = mix(texel2, texel1, mixRatio );
 }

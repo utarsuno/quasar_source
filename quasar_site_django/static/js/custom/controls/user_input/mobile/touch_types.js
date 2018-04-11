@@ -81,12 +81,6 @@ TouchDoubleClick.prototype = {
         TouchAbstraction.call(this);
     },
     touch_initialize: function() {
-
-        //if (!MANAGER_WORLD.current_player_menu.is_visible()) {
-        //    MANAGER_WORLD.current_player_menu.set_to_visible();
-        //} else {
-        //    MANAGER_WORLD.current_player_menu.set_to_invisible();
-        //}
         MANAGER_WORLD.right_click_down();
     },
 

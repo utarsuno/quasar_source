@@ -11,7 +11,7 @@ As of March 31st -- Mobile support added!
 - [X] Make certain interactivity more intuitive. Such as adding abstraction to Floating2DInput fields for input state.
 - [ ] Add a cursor for typing on Floating2DInput fields!
 - [X] Fix all bugs on the login page.
-- [ ] AJAX requests : add abstraction, add locks to user-state and objects that initiate requests such as buttons.
+- [X] ~~AJAX requests~~ Web-sockets: add abstraction, add locks to user-state and objects that initiate requests such as buttons.
 - [ ] Saving : Make it automatic, abstract the design, and perform batch saving to improve performance. *(This will fix the entity deletion bug)*
 ##### CodeAPI
 - [X] Re-create base design. Taking pros from the previous 2 CodeAPI systems created.

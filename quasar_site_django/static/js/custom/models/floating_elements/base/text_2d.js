@@ -58,9 +58,13 @@ function Text2D(world, width, height, text, text_properties) {
     };
 
     this.create_base_material = function() {
-        this.material = new THREE.MeshBasicMaterial({
+        //this.material = new THREE.MeshBasicMaterial({
+        //    map : this.canvas.texture, transparent: true, side: THREE.FrontSide
+        //});
+        this.material = new THREE.MeshToonMaterial({
             map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         });
+
         this.material.transparent = true;
         this.material.side = THREE.FrontSide;
     };
