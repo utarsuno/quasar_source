@@ -34,15 +34,19 @@ DomElement.prototype = {
     },
 
     set_text: function(text) {
-        this.element.innerHTML = text;
+        //this.element.innerHTML = text;
+        this.element.nodeValue = text;
     },
 
     get_text: function() {
-        return this.element.innerHTML;
+        //return this.element.innerHTML;
+        // TODO : Optimization, store the text value isn't of referencing it from the element
+        return this.element.nodeValue;
     },
 
     clear: function() {
-        this.element.innerHTML = '';
+        this.element.nodeValue = '';
+        //this.element.innerHTML = '';
     },
 
     make_invisible: function() {
