@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'channels',
     'quasar_web_server',
 
+    'GZipMiddleware',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
