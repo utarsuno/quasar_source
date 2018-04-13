@@ -11,7 +11,7 @@ function MenuActions() {
     };
 
     this.action_logout = function() {
-        l('TODO : Perform logout!!!');
+        CURRENT_CLIENT.logout();
     };
 
     /*__   __   ___      ___  ___          __  ___    __        __
