@@ -9,7 +9,8 @@ WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
 
-    player_menu: null,
+    player_menu  : null,
+    player_cursor: null,
 
     // Static worlds.
     world_login    : null,
@@ -26,6 +27,8 @@ WorldManager.prototype = {
 
         // The player menu.
         this.player_menu = new PlayerMenu();
+        // The player cursor.
+        this.player_cursor = new PlayerCursor();
 
         // Inherit.
         DynamicContentManager.call(this);
@@ -34,8 +37,7 @@ WorldManager.prototype = {
 
     create_singletons: function() {
         this.player_menu.create(this.world_login);
-
-        // TODO : Create the floating cursor!
+        this.player_cursor.create(this.world_login);
     },
 
     update: function(delta) {
@@ -105,19 +107,16 @@ WorldManager.prototype = {
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
-            //MANAGER_RENDERER.set_current_scene(this.current_world.scene, this.previous_world.scene);
+            this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
             MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene);
         }
 
-        this.current_world.enter_world();
+        this.current_world.enter_world(this.player_cursor);
     },
 
     create_world: function(world) {
-        // Player floating cursor.
-        world.floating_cursor.create();
-
         // Default skybox.
         var skybox_geometry = new THREE.BoxGeometry(22500, 22500, 22500);
         world.skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());

@@ -10,7 +10,9 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
     this.player_exit_position         = null;
     this.player_exit_look_at          = null;
 
-    this.enter_world = function() {
+    this.enter_world = function(current_cursor) {
+        this.floating_cursor = current_cursor;
+
         if (is_defined(this.custom_world_enter_function)) {
             this.custom_world_enter_function();
         }
