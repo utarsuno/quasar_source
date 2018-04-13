@@ -96,6 +96,7 @@ WorldManager.prototype = {
 
     set_current_world: function(world, transition_finished_callback) {
         if (this.current_world !== null) {
+            this.player_cursor.detach();
             // Make sure to hide the player menu if it is visible.
             if (this.player_menu.is_currently_visible()) {
                 this.player_menu.toggle_visibility();

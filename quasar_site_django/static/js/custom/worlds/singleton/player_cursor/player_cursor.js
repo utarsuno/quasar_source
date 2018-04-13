@@ -111,7 +111,9 @@ PlayerCursor.prototype = {
     },
 
     detach: function() {
-        this._current_cursor.set_to_invisible();
+        if (is_defined(this._current_cursor)) {
+            this._current_cursor.set_to_invisible();
+        }
 
         this.currently_attached_to = null;
         this._previous_cursor      = null;
