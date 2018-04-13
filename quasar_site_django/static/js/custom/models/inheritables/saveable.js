@@ -141,11 +141,16 @@ function Saveable(entity_type, load_completed_callback) {
                     }
                     for (var r = 0; r < rows_3D_to_load.length; r++) {
                         var data = rows_3D_to_load[r].split('+');
-                        if (is_string(data[0])) {
-                            this.add_full_row_3D(parseInt(data[0]), data[1], data[2]);
-                        } else {
-                            this.add_full_row_3D(data[0], data[1], data[2]);
-                        }
+
+                        l('need to load the following data!!!');
+                        l(data);
+
+
+                        //if (is_string(data[0])) {
+                        //    this.add_full_row_3D(parseInt(data[0]), data[1], data[2]);
+                        //} else {
+                        //    this.add_full_row_3D(data[0], data[1], data[2]);
+                        //}
                     }
                 }
                 break;
