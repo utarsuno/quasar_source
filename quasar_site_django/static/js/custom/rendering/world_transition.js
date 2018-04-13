@@ -58,7 +58,7 @@ TransitionPair.prototype = {
             if (is_defined(this.quad_geometry)) {
                 this.quad_geometry.dispose();
                 this.scene.remove(this.quad);
-                this.quad.dispose();
+                //this.quad.dispose();
                 this.quad_geometry = null;
                 this.quad = null;
             }
