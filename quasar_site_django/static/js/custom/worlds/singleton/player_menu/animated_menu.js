@@ -50,7 +50,7 @@ AnimatedMenu.prototype = {
         this.menu_width  = 120;
 
         // Dynamic hiding.
-        this.buttons_to_hide = [];
+        //this.buttons_to_hide = [];
     },
 
     switch_to_new_world: function (old_world, new_world) {
@@ -73,7 +73,7 @@ AnimatedMenu.prototype = {
     },
 
     unhide_all: function() {
-        this.menus_to_hide.length = 0;
+        //this.menus_to_hide.length = 0;
         for (var s = 0; s < this.sections.length; s++) {
             for (var r = 0; r < this.sections[s].rows.length; r++) {
                 this.sections[s].rows[r].unhide_row();
@@ -94,7 +94,7 @@ AnimatedMenu.prototype = {
             }
         }
 
-        this.buttons_to_hide.push(button);
+        //this.buttons_to_hide.push(button);
     },
 
     hide: function() {
