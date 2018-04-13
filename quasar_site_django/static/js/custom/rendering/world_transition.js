@@ -133,7 +133,8 @@ function WorldTransition() {
                 return this._transition_pairs[t];
             }
         }
-        var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
+        var new_transition_pair = new TransitionPair(new_scene, old_scene, this._the_transition, this);
+        //var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
         this._transition_pairs.push(new_transition_pair);
         return new_transition_pair;
     };
