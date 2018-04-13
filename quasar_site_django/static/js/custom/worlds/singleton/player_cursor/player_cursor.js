@@ -14,8 +14,9 @@ PlayerCursor.prototype = {
         this._previous_cursor = null;
 
         this._currently_engaged = false;
-    },
 
+        this._center_cursor = new DomElement('center_cursor');
+    },
 
     wheel_event: function(delta) {
         switch (delta) {
@@ -105,6 +106,8 @@ PlayerCursor.prototype = {
                 this._set_current_cursor(CURSOR_TYPE_POINTER);
             }
         }
+
+        this._center_cursor.hide();
     },
 
     detach: function() {
@@ -113,6 +116,8 @@ PlayerCursor.prototype = {
         this.currently_attached_to = null;
         this._previous_cursor      = null;
         this._current_cursor       = null;
+
+        this._center_cursor.show();
     },
 
     update_position: function(p) {
@@ -223,6 +228,7 @@ PlayerCursor.prototype = {
                 this._cursors[cursor].switch_worlds(old_world, new_world);
             }
         }
+        this.detach();
     },
 
     /*        ___                      __        __
