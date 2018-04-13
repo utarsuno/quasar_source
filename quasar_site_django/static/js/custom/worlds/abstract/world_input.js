@@ -96,6 +96,8 @@ function WorldInput() {
             return;
         }
 
+        l('single left click action!');
+
         if (is_defined(this.currently_looked_at_object)) {
             if (!this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.engage();
