@@ -31,6 +31,16 @@ class EntityServer(object):
 		"""Saves all the cache object information to the database."""
 		self._db_api.update_owner(owner_username, self._get_entity_owner_by_username(owner_username).get_data_for_database())
 
+	# SERVER_COMMAND_UPDATE_ENTITY_BATCH
+	def _update_entity_batch(self, username, entity_batch_data):
+		"""Updates the entity cache objects."""
+		print('NEED TO PERFORM AN UPDATE FOR THE FOLLOWING DATA')
+		print(entity_batch_data)
+		for e in entity_batch_data:
+			print(e)
+
+		return us.SUCCESS_MESSAGE
+
 	def _update_entity(self, username, entity_data):
 		"""Updates the entity cache object."""
 		if type(entity_data) == str:
@@ -100,6 +110,9 @@ class EntityServer(object):
 				self._host_server.send_reply(self._get_shared_worlds(data))
 			elif command == us.SERVER_COMMAND_GET_OWNER_ENTITIES:
 				self._host_server.send_reply(self._get_all_owner_entities(data))
+			elif command == us.SERVER_COMMAND_UPDATE_ENTITY_BATCH:
+				raw_data = data.split('|')
+				self._host_server.send_reply(self._update_entity_batch(raw_data[0], raw_data[1]))
 			elif command == us.SERVER_COMMAND_UPDATE_ENTITY:
 				raw_data = data.split('|')
 				self._host_server.send_reply(self._update_entity(raw_data[0], raw_data[1]))

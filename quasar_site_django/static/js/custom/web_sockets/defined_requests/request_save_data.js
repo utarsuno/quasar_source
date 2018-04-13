@@ -14,6 +14,8 @@ ServerRequestSaveData.prototype = {
     _perform_request: function() {
         GUI_TYPING_INTERFACE.add_server_message('Sending save request...');
 
+        MANAGER_WORLD.perform_batch_save();
+
         // Get all the entities to save.
         this.entities_to_save = [];
         var all_entities = MANAGER_ENTITY.entities;

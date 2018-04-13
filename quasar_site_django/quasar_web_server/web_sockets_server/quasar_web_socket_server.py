@@ -109,11 +109,11 @@ class QuasarWebSocketsServerSide(object):
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		data     = request[_WEB_SOCKET_REQUEST_KEY_SAVE_DATA]
 
-		print('Need to save the following data!')
-		print(type(data))
-		print(data)
-
-		return self._send_reply(request, True, 'TODO: ACTUALLY SAVE THE DATA!!')
+		result = self._quasar_server.update_batch_of_entitiies(username, data)
+		if us.is_success_message(result):
+			return self._send_reply(request, True, 'save success!')
+		else:
+			return self._send_reply(request, False, 'Error saving data {' + str(result) + '}')
 
 	def _reply_to_logout_request(self, request, channel_name):
 		"""Handles the log out request."""

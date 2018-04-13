@@ -126,7 +126,7 @@ WorldManager.prototype = {
 
     create_world: function(world) {
         // Default skybox.
-        var skybox_geometry = new THREE.BoxGeometry(22500, 22500, 22500);
+        var skybox_geometry = new THREE.BoxGeometry(20000, 20000, 20000);
         world.skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
         world.skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(world.skybox_cube);

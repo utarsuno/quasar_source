@@ -34,6 +34,10 @@ class QuasarServer(object):
 		"""Performs an alive test."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_PING)
 
+	def update_batch_of_entitiies(self, username, entity_batch_data):
+		"""Updates a batch of entities."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY_BATCH, username + '|' + str(entity_batch_data))
+
 	def update_entity(self, username, entity_data):
 		"""Updates an entity for the provided entity owner."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_UPDATE_ENTITY, username + '|' + str(entity_data))
