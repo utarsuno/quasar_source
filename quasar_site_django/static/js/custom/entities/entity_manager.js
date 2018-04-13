@@ -77,6 +77,12 @@ EntityManager.prototype = {
         EntityChangesListener.call(this);
     },
 
+    logout: function() {
+        this.entities.length               = 0;
+        this.subscribers_home_world.length = 0;
+        this.subscribers_other.length      = 0;
+    },
+
     /*     __        __          __      __       ___
      |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
      |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/

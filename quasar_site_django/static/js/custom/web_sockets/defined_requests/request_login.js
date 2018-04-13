@@ -30,17 +30,14 @@ ServerRequestLogin.prototype = {
     },
 
     _load_login_data: function() {
-        l('TEMP LOGGING : LOADING USER DATA!!!');
         this.server_request_load_entity_data.set_username(this._username);
         this.server_request_load_entity_data.set_password(this._password);
         this.server_request_load_entity_data.perform_request();
     },
 
     _user_data_finished_loading: function() {
-        l('USER DATA FINISHED LOADING!!!');
-
+        CURRENT_CLIENT.login_event(this._username);
         this.success_function();
-
         this.unlock_button();
     }
 };

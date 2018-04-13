@@ -8,7 +8,7 @@ DomElement.prototype = {
 
     __init__: function(id_name, use_inner_html) {
         this.element = document.getElementById(id_name);
-        this.use_inner_html = use_inner_html;
+        this.use_inner_html = true;
     },
 
     set_color: function(color) {

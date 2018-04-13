@@ -35,6 +35,13 @@ WorldManager.prototype = {
         WorldManagerInput.call(this);
     },
 
+    logout: function() {
+        this.dynamic_worlds = {};
+        this.world_home.delete_all();
+        this.world_settings.delete_all();
+        this.world_admin.delete_all();
+    },
+
     create_singletons: function() {
         this.player_menu.create(this.world_login);
         this.player_cursor.create(this.world_login);

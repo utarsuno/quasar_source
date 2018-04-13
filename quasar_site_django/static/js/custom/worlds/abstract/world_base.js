@@ -33,6 +33,25 @@ function World(world_entity) {
         return -1;
     };
 
+    this.delete_all = function() {
+        // Delete all the entity groups.
+        for (var eg = 0; eg < this.entity_groups.length; eg++) {
+            this.entity_groups[eg].fully_remove_self_and_all_sub_attachments();
+        }
+        this.entity_groups.length = 0;
+
+        /*
+            this.floating_pictures = [];
+    this.entity_groups     = [];
+    this.month_view_walls  = [];
+
+    this.number_of_videos_to_load = 0;
+    this.number_of_videos_loaded  = 0;
+    this.video_entities = [];
+    this.videos            = [];
+         */
+    };
+
     this.update_interactive_objects = function() {
         // Don't perform an update if currently engaged with 3D text.
         if (is_defined(this.currently_looked_at_object)) {

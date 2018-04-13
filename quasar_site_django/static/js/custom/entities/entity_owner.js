@@ -16,6 +16,12 @@ EntityOwner.prototype = {
         this.owner_entity = null;
     },
 
+    logout: function() {
+        this.username = null;
+        this.password = null;
+        this.owner_entity = null;
+    },
+
     get_account_type: function() {
         return this.owner_entity.get_value(ENTITY_PROPERTY_OWNER_ACCOUNT_TYPE);
     },
