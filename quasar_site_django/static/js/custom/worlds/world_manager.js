@@ -170,10 +170,7 @@ WorldManager.prototype = {
         world.create();
     },
 
-    // TODO : Refactor this!!!
     perform_batch_save: function() {
-        l('TODO: REFACTOR SAVING!!!');
-
         this.world_home.prepare_for_save();
         //this.world_settings.prepare_for_save();
         //this.world_admin.prepare_for_save();
@@ -182,8 +179,6 @@ WorldManager.prototype = {
                 this.dynamic_worlds[relative_id].prepare_for_save();
             }
         }
-
-        MANAGER_ENTITY.perform_batch_save();
     },
 
     /*     __   __                  __        __          __
