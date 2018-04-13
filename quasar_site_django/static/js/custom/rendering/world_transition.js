@@ -73,7 +73,8 @@ TransitionPair.prototype = {
         this.the_transition.quad_material.uniforms.tDiffuse2.value = this.scene_old.fbo.texture;
     },
     is_pair: function(scene_a, scene_b) {
-        return this.scene_new === scene_a && this.scene_old === scene_b;
+        return this.scene_new === scene_b && this.scene_old === scene_a;
+        //return this.scene_new === scene_a && this.scene_old === scene_b;
     },
     start: function(previous_camera, current_camera, transition_finished_callback) {
         this.elapsed_delta = 0;
@@ -133,8 +134,7 @@ function WorldTransition() {
                 return this._transition_pairs[t];
             }
         }
-        var new_transition_pair = new TransitionPair(new_scene, old_scene, this._the_transition, this);
-        //var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
+        var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
         this._transition_pairs.push(new_transition_pair);
         return new_transition_pair;
     };
