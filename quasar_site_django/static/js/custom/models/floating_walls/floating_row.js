@@ -16,6 +16,16 @@ FloatingRow.prototype = {
         this.row_hidden = false;
     },
 
+    hide_row: function() {
+        this.row_hidden = true;
+    },
+
+    display: function() {
+        for (var e = 0; e < this.elements.length; e++) {
+            this.elements[e].display_self_and_all_child_attachments_recursively();
+        }
+    },
+
     set_row_vertical_position: function(vertical_position_start) {
         for (var e = 0; e < this.elements.length; e++) {
             var element = this.elements[e];

@@ -86,7 +86,7 @@ AnimatedMenu.prototype = {
         for (var s = 0; s < this.sections.length; s++) {
             for (var r = 0; r < this.sections[s].rows.length; r++) {
                 if (this.sections[s].rows[r].row_name === button) {
-                    this.sections[s].rows[r].row_hidden = true;
+                    this.sections[s].rows[r].hide_row();
                 }
             }
         }
@@ -100,7 +100,8 @@ AnimatedMenu.prototype = {
     },
 
     show: function() {
-        this.menu.display_self_and_all_child_attachments_recursively();
+        this.menu.display_rows();
+        //this.menu.display_self_and_all_child_attachments_recursively();
         this.menu.refresh_position_and_look_at();
     },
 
