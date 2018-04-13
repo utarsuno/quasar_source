@@ -42,6 +42,9 @@ LoginWorld.prototype = {
 
     login_success: function() {
         if (this.remember_username.is_checked()) {
+            l('LOGIN SUCCESS!');
+            l('Setting cookie!');
+            l('Setting it to : ' + this.input_username_login.get_text());
             CURRENT_CLIENT.set_cookie(COOKIE_REMEMBERED_USERNAME, this.input_username_login.get_text());
         }
     },

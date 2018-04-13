@@ -30,7 +30,7 @@ function MenuActions() {
     };
 
     this.action_create_new_entity_group = function() {
-
+        MANAGER_WORLD.create_new_entity_group();
     };
 
     this.action_create_new_picture = function() {

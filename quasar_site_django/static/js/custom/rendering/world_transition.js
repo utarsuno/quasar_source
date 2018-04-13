@@ -141,14 +141,8 @@ function WorldTransition() {
         var previous_camera_position = CURRENT_PLAYER.get_position();
         var previous_camera_look_at  = CURRENT_PLAYER.get_direction();
 
-        var current_camera_position = current_world.get_player_enter_position();
-        var current_camera_look_at  = current_world.get_player_enter_look_at();
-
         var previous_scene = previous_world.scene;
         var current_scene  = current_world.scene;
-
-        //this.camera_transition.position.set(current_camera_position.x, current_camera_position.y, current_camera_position.z);
-        //this.camera_transition.lookAt(current_camera_position.x + current_camera_look_at.x, current_camera_position.y + current_camera_look_at.y, current_camera_position.z + current_camera_look_at.z);
 
         this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
         this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
@@ -156,9 +150,6 @@ function WorldTransition() {
         var renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
         current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
-
-        //this.renderer.render(previous_scene, this.camera, previous_scene.fbo, true);
-        //this.renderer.render(current_scene, this.camera_transition, current_scene.fbo, true);
 
         this.in_transition = true;
         this.current_transition = this._get_transition_pair(previous_scene, current_scene);
