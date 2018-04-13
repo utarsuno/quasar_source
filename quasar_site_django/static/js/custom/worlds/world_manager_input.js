@@ -34,7 +34,9 @@ function WorldManagerInput() {
         if (CURRENT_PLAYER.has_input()) {
             // Cursor engage.
             if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
-                MANAGER_WORLD.current_world.floating_cursor.engage();
+                if (this.current_world.floating_cursor.currently_attached_to.scalable) {
+                    this.current_world.floating_cursor.engage();
+                }
             }
         }
     };
@@ -86,4 +88,3 @@ function WorldManagerInput() {
     };
 
 }
-
