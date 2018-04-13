@@ -27,11 +27,13 @@ function SessionManager() {
      |    /  \ / _` /  \ |  |  |
      |___ \__/ \__> \__/ \__/  |  */
     this.logout = function() {
+        l('Performing the log out request!');
 
         // TODO : Disable automatic saving before performing the save!
 
         // TODO : Perform a batch save first.
         this.server_request_batch_save.bind_success_event(this.batch_save_before_logout_success.bind(this));
+        this.server_request_batch_save.perform_request();
     };
 
     this.batch_save_before_logout_success = function() {
