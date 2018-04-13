@@ -1,7 +1,7 @@
 'use strict';
 
-function DataDisplay(fps_controls) {
-    this.__init__(fps_controls);
+function DataDisplay() {
+    this.__init__();
 }
 
 DataDisplay.prototype = {
@@ -25,6 +25,7 @@ DataDisplay.prototype = {
         var velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
 
         l('Setting data display text!@');
+        l('x : ' + int(position.x) + ' | ' + int(velocity.x));
 
         this.element_x_coordinate.set_text('x : ' + int(position.x) + ' | ' + int(velocity.x));
         this.element_y_coordinate.set_text('x : ' + int(position.y) + ' | ' + int(velocity.y));
