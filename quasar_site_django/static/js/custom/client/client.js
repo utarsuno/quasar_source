@@ -16,6 +16,9 @@ Client.prototype = {
         this.stats_api    = new StatsAPI();
         this.data_display = new DataDisplay();
         this._detect_if_mobile();
+
+        // Inherit.
+        CookieManager.call(this);
     },
 
     set_debug_mode: function(debug_mode) {

@@ -48,8 +48,6 @@ MANAGER_SHADER    = new ShaderManager();
 MANAGER_TEXTURE   = new TextureManager();
 // Handles images that get dropped onto the site page.
 var DRAG_AND_DROP = new DragNDrop();
-// Handles cookies.
-MANAGER_COOKIES   = new CookieManager();
 // Provides utility functions for creating 2D Texts.
 MANAGER_TEXT_2D   = new Text2DUtilities();
 

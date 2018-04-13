@@ -174,7 +174,6 @@ module.exports = {
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
         "MANAGER_MULTI_PLAYER"   : true,
         "MANAGER_WEB_SOCKETS"    : true,
-        "MANAGER_COOKIES"        : true,
         "MANAGER_AUDIO"          : true,
         "MANAGER_TEXTURE"        : true,
         "MANAGER_TEXT_2D"        : true,

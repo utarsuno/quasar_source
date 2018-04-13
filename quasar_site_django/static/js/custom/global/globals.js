@@ -18,7 +18,6 @@ var MANAGER_WEB_SOCKETS  = null;
 var MANAGER_AUDIO        = null;
 var MANAGER_TEXTURE      = null;
 var MANAGER_TEXT_2D      = null;
-var MANAGER_COOKIES      = null;
 var MANAGER_WORLD        = null;
 var MANAGER_ENTITY       = null;
 var MANAGER_MULTIPLAYER  = null;

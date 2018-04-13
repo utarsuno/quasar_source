@@ -14,10 +14,10 @@ LoginWorld.prototype = {
     },
 
     custom_world_enter: function() {
-        if (MANAGER_COOKIES.get_value(COOKIE_SHOULD_REMEMBER_USERNAME)) {
+        if (CURRENT_CLIENT.get_cookie(COOKIE_SHOULD_REMEMBER_USERNAME)) {
             this.remember_username.set_checked_state(true);
-            if (MANAGER_COOKIES.has_cookie_key(COOKIE_REMEMBERED_USERNAME)) {
-                this.input_username_login.update_text(MANAGER_COOKIES.get_value(COOKIE_REMEMBERED_USERNAME));
+            if (CURRENT_CLIENT.has_cookie(COOKIE_REMEMBERED_USERNAME)) {
+                this.input_username_login.update_text(CURRENT_CLIENT.get_cookie(COOKIE_REMEMBERED_USERNAME));
             }
         }
 
@@ -42,7 +42,7 @@ LoginWorld.prototype = {
 
     login_success: function() {
         if (this.remember_username.is_checked()) {
-            MANAGER_COOKIES.set_cookie(COOKIE_REMEMBERED_USERNAME, this.input_username_login.get_text());
+            CURRENT_CLIENT.set_cookie(COOKIE_REMEMBERED_USERNAME, this.input_username_login.get_text());
         }
     },
 
@@ -64,7 +64,7 @@ LoginWorld.prototype = {
      |__) |__   |\/| |__   |\/| |__) |__  |__)    |  | /__` |__  |__) |\ |  /\   |\/| |__     |__) |__) |__  /__` /__` |__  |  \
      |  \ |___  |  | |___  |  | |__) |___ |  \    \__/ .__/ |___ |  \ | \| /~~\  |  | |___    |    |  \ |___ .__/ .__/ |___ |__/ */
     remember_username_pressed: function(is_checked) {
-        MANAGER_COOKIES.set_cookie(COOKIE_SHOULD_REMEMBER_USERNAME, is_checked);
+        CURRENT_CLIENT.set_cookie(COOKIE_SHOULD_REMEMBER_USERNAME, is_checked);
     },
 
     /*        ___                      __        __
