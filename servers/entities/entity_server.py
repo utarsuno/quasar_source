@@ -34,6 +34,9 @@ class EntityServer(object):
 	# SERVER_COMMAND_UPDATE_ENTITY_BATCH
 	def _update_entity_batch(self, username, entity_batch_data):
 		"""Updates the entity cache objects."""
+		if type(entity_batch_data) == str:
+			entity_batch_data = eval(entity_batch_data)
+
 		print('NEED TO PERFORM AN UPDATE FOR THE FOLLOWING DATA')
 		print(entity_batch_data)
 		for e in entity_batch_data:
