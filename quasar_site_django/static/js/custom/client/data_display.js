@@ -24,6 +24,8 @@ DataDisplay.prototype = {
         var direction = CURRENT_PLAYER.fps_controls.get_direction();
         var velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
 
+        l('Setting data display text!@');
+
         this.element_x_coordinate.set_text('x : ' + int(position.x) + ' | ' + int(velocity.x));
         this.element_y_coordinate.set_text('x : ' + int(position.y) + ' | ' + int(velocity.y));
         this.element_z_coordinate.set_text('x : ' + int(position.z) + ' | ' + int(velocity.z));
