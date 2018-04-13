@@ -94,7 +94,7 @@ class QuasarWebSocketsServerSide(object):
 		"""Checks if the user is already logged in."""
 		for p in self.players:
 			player = self.players[p]
-			if player == username:
+			if player.username == username:
 				return True
 		return False
 
