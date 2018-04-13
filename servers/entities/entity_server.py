@@ -37,8 +37,8 @@ class EntityServer(object):
 		if type(entity_batch_data) == str:
 			entity_batch_data = eval(entity_batch_data)
 
-		print('NEED TO PERFORM AN UPDATE FOR THE FOLLOWING DATA')
-		print(entity_batch_data)
+		#print('NEED TO PERFORM AN UPDATE FOR THE FOLLOWING DATA')
+		#print(entity_batch_data)
 		for e in entity_batch_data:
 			self._update_entity(username, entity_batch_data[e])
 
