@@ -18,8 +18,8 @@ function SessionManager() {
     };
 
     this.transition_to_login_world_completed = function() {
-        MANAGER_ENTITY.logout();
-        ENTITY_OWNER.logout();
+        //MANAGER_ENTITY.logout();
+        //ENTITY_OWNER.logout();
         //MANAGER_WORLD.logout();
     };
 
