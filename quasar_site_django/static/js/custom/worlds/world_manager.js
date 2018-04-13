@@ -94,7 +94,7 @@ WorldManager.prototype = {
         this.current_world.floating_cursor.update();
     },
 
-    set_current_world: function(world) {
+    set_current_world: function(world, transition_finished_callback) {
         if (this.current_world !== null) {
             // Make sure to hide the player menu if it is visible.
             if (this.player_menu.is_currently_visible()) {
@@ -115,7 +115,7 @@ WorldManager.prototype = {
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
-            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world);
+            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback);
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene);
         }

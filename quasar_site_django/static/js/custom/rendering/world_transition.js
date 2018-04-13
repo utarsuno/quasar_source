@@ -75,11 +75,12 @@ TransitionPair.prototype = {
     is_pair: function(scene_a, scene_b) {
         return this.scene_new === scene_a && this.scene_old === scene_b;
     },
-    start: function(previous_camera, current_camera) {
+    start: function(previous_camera, current_camera, transition_finished_callback) {
         this.elapsed_delta = 0;
         this.transition    = 0;
         this.previous_camera = previous_camera;
         this.current_camera  = current_camera;
+        this.transition_finished_callback = transition_finished_callback;
     },
     render: function(delta) {
         //var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
@@ -101,7 +102,7 @@ TransitionPair.prototype = {
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera);
 
             this.renderer_manager.in_transition = false;
-            this.renderer_manager.set_current_scene(this.scene_new);
+            this.renderer_manager.set_current_scene(this.scene_new, this.transition_finished_callback);
         } else {
             this.renderer_manager.renderer.setClearColor(0xffffff);
             this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
@@ -137,7 +138,7 @@ function WorldTransition() {
         return new_transition_pair;
     };
 
-    this.set_current_world = function(current_world, previous_world) {
+    this.set_current_world = function(current_world, previous_world, transition_finished_callback) {
         var previous_camera_position = CURRENT_PLAYER.get_position();
         var previous_camera_look_at  = CURRENT_PLAYER.get_direction();
 
@@ -154,7 +155,7 @@ function WorldTransition() {
         this.in_transition = true;
         this.current_transition = this._get_transition_pair(previous_scene, current_scene);
         this.current_transition.set_size_if_needed(this.current_resize);
-        this.current_transition.start(this.camera, this.camera_transition);
+        this.current_transition.start(this.camera, this.camera_transition, transition_finished_callback);
     };
 
     this.transition_render = function(delta) {
@@ -162,11 +163,14 @@ function WorldTransition() {
     };
 
     // Only used once for displaying the initial login world.
-    this.set_current_scene = function(scene) {
+    this.set_current_scene = function(scene, transition_finished_callback) {
         this.outline_glow.set_to_hover_color();
         this.outline_glow.remove_current_object();
         this.outline_glow.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
+        if (is_defined(transition_finished_callback)) {
+            transition_finished_callback();
+        }
     };
 
 }
