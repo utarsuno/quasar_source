@@ -1,14 +1,14 @@
 'use strict';
 
-function DomElement(id_name) {
-    this.__init__(id_name);
+function DomElement(id_name, use_inner_html) {
+    this.__init__(id_name, use_inner_html);
 }
 
 DomElement.prototype = {
 
-
-    __init__: function(id_name) {
+    __init__: function(id_name, use_inner_html) {
         this.element = document.getElementById(id_name);
+        this.use_inner_html = use_inner_html;
     },
 
     set_color: function(color) {
@@ -35,18 +35,24 @@ DomElement.prototype = {
 
     set_text: function(text) {
         //this.element.innerHTML = text;
-        this.element.nodeValue = text;
+        if (this.use_inner_html) {
+            this.element.innerHTML = text;
+        } else {
+            this.element.nodeValue = text;
+        }
     },
 
     get_text: function() {
         //return this.element.innerHTML;
         // TODO : Optimization, store the text value isn't of referencing it from the element
+        if (this.use_inner_html) {
+            return this.element.innerHTML;
+        }
         return this.element.nodeValue;
     },
 
     clear: function() {
-        this.element.nodeValue = '';
-        //this.element.innerHTML = '';
+        this.set_text('');
     },
 
     make_invisible: function() {

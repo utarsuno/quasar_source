@@ -29,6 +29,7 @@ Client.prototype = {
             this.data_display.hide();
         } else if (this.debug_mode === DEBUG_MODE_FPS) {
             this.stats_api.show();
+            this.data_display.hide();
         } else {
             this.stats_api.show();
             this.data_display.show();
