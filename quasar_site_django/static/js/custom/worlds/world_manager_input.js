@@ -2,6 +2,51 @@
 
 function WorldManagerInput() {
 
+    this._left_click_buffer = [];
+
+    this.left_click_up = function() {
+        if (CURRENT_PLAYER.has_input()) {
+
+            if (this.current_world.floating_cursor._currently_engaged) {
+                this.current_world.floating_cursor.disengage();
+            } else {
+                this.current_world.single_left_click();
+            }
+
+        } else {
+            if (CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
+                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+            }
+        }
+    };
+
+    this.left_click_down = function() {
+        var current_milliseconds = new Date().getTime();
+
+        for (var i = this._left_click_buffer.length; i--;) {
+            if (current_milliseconds - this._left_click_buffer[i] >= 300) {
+                this._left_click_buffer.splice(i, 1);
+            }
+        }
+
+        this._left_click_buffer.push(current_milliseconds);
+
+        if (CURRENT_PLAYER.has_input()) {
+            // Cursor engage.
+            if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
+                MANAGER_WORLD.current_world.floating_cursor.engage();
+            }
+        }
+    };
+
+    this.middle_click_up = function() {
+        if (MANAGER_POINTER_LOCK.pointer_is_locked) {
+            MANAGER_POINTER_LOCK.release_pointer_lock();
+        } else {
+            MANAGER_POINTER_LOCK.request_pointer_lock();
+        }
+    };
+
     this.right_click_down = function () {
         if (CURRENT_PLAYER.has_input()) {
 
@@ -41,5 +86,4 @@ function WorldManagerInput() {
     };
 
 }
-
 

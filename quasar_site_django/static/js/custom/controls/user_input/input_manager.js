@@ -96,8 +96,6 @@ InputManager.prototype = {
         document.addEventListener(EVENT_WHEEL_V1  , this.on_wheel_event.bind(this));
         document.addEventListener(EVENT_WHEEL_V2  , this.on_wheel_event.bind(this));
 
-        this._left_click_buffer = [];
-
         /* The flag that determines whether the wheel event is supported. */
         this.supports_wheel = false;
 
@@ -130,7 +128,6 @@ InputManager.prototype = {
         this.right 			   = false;
         this.space  		   = false;
         this.shift  		   = false;
-        this._left_click_buffer.length = 0;
     },
 
     on_paste: function(e) {
@@ -255,65 +252,27 @@ InputManager.prototype = {
 
     on_mouse_up: function(e) {
         e = e || window.event;
-
-        if (CURRENT_PLAYER.has_input()) {
-            switch (e.which) {
-            case this.CLICK_LEFT:
-                this.click_down_left = false;
-
-                if (MANAGER_WORLD.current_world.floating_cursor._currently_engaged) {
-                    MANAGER_WORLD.current_world.floating_cursor.disengage();
-                } else if (this._left_click_buffer.length === 1) {
-                    MANAGER_WORLD.current_world.single_left_click();
-                } else if (this._left_click_buffer.length !== 0) {
-                    MANAGER_WORLD.current_world.multi_left_click();
-                }
-
-                break;
-            case this.CLICK_MIDDLE:
-                if (MANAGER_POINTER_LOCK.pointer_is_locked) {
-                    MANAGER_POINTER_LOCK.release_pointer_lock();
-                } else {
-                    MANAGER_POINTER_LOCK.request_pointer_lock();
-                }
-                //MANAGER_WORLD.current_world.single_middle_click();
-                this.click_down_middle = false;
-                break;
-            case this.CLICK_RIGHT:
-                MANAGER_WORLD.right_click_up();
-                this.click_down_right = false;
-                break;
-            }
-        } else if (e.which === this.CLICK_LEFT && CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+        switch (e.which) {
+        case this.CLICK_LEFT:
+            this.click_down_left = false;
+            MANAGER_WORLD.left_click_up();
+            break;
+        case this.CLICK_MIDDLE:
+            MANAGER_WORLD.middle_click_up();
+            this.click_down_middle = false;
+            break;
+        case this.CLICK_RIGHT:
+            MANAGER_WORLD.right_click_up();
+            this.click_down_right = false;
+            break;
         }
     },
 
-    // Code base from : https://stackoverflow.com/questions/9521519/how-can-i-detect-a-rightmouse-button-event-on-mousedown
     on_mouse_down: function(e) {
         e = e || window.event;
         switch (e.which) {
         case this.CLICK_LEFT:
-
-            var current_milliseconds = new Date().getTime();
-
-            for (var i = this._left_click_buffer.length; i--;) {
-                if (current_milliseconds - this._left_click_buffer[i] >= 300) {
-                    this._left_click_buffer.splice(i, 1);
-                }
-            }
-
-            this._left_click_buffer.push(current_milliseconds);
-
-            if (CURRENT_PLAYER.has_input()) {
-                // Cursor engage.
-                if (is_defined(MANAGER_WORLD.current_world.floating_cursor.currently_attached_to)) {
-                    if (MANAGER_WORLD.current_world.floating_cursor.currently_attached_to.scalable) {
-                        MANAGER_WORLD.current_world.floating_cursor.engage();
-                    }
-                }
-            }
-
+            MANAGER_WORLD.left_click_down();
             this.click_down_left = true;
             break;
         case this.CLICK_MIDDLE:
