@@ -93,7 +93,8 @@ class QuasarWebSocketsServerSide(object):
 	def _is_user_already_logged_in(self, username):
 		"""Checks if the user is already logged in."""
 		for p in self.players:
-			if p.username == username:
+			player = self.players[p]
+			if player == username:
 				return True
 		return False
 
