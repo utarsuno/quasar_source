@@ -25,7 +25,7 @@ ServerRequestSaveData.prototype = {
 
         var save_data = {};
         for (e = 0; e < this.entities_to_save.length; e++) {
-            save_data[this.entities_to_save.get_relative_id()] = this.entities_to_save.get_all_properties();
+            save_data[this.entities_to_save[e].get_relative_id()] = this.entities_to_save[e].get_all_properties();
         }
 
         this.add_key_and_value(_WEB_SOCKET_REQUEST_KEY_SAVE_DATA, save_data);
