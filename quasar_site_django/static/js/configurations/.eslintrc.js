@@ -151,23 +151,28 @@ module.exports = {
         "FieldRowName"        : true,
         "FieldRowRegular"     : true,
 
-        // Web-sockets related.
+        //       ___  __      __   __   __        ___ ___  __    /  __   ___  __        ___  __            ___  __   __        __   ___  __
+        // |  | |__  |__)    /__` /  \ /  ` |__/ |__   |  /__`  /  /__` |__  |__) \  / |__  |__)     |\/| |__  /__` /__`  /\  / _` |__  /__`
+        // |/\| |___ |__)    .__/ \__/ \__, |  \ |___  |  .__/ /   .__/ |___ |  \  \/  |___ |  \     |  | |___ .__/ .__/ /~~\ \__> |___ .__/
         "ServerRequest"             : false,
         "ServerRequestLogin"        : false,
         "ServerRequestLogout"       : false,
         "ServerRequestCreateAccount": false,
         "ServerRequestLoadUserData" : false,
+        "ServerRequestSaveData"     : false,
 
         "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
         "_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID"  : false,
         "_WEB_SOCKET_REQUEST_KEY_USERNAME"    : false,
         "_WEB_SOCKET_REQUEST_KEY_PASSWORD"    : false,
         "_WEB_SOCKET_REQUEST_KEY_EMAIL"       : false,
+        "_WEB_SOCKET_REQUEST_KEY_SAVE_DATA"   : false,
 
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN"         : false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT": false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA": false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT"        : false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA"     : false,
 
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`

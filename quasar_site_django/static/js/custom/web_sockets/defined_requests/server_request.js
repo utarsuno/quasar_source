@@ -6,6 +6,7 @@ const _WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm';
 const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';
 const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';
 const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';
+const _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd';
 
 //# Client request values.
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1;

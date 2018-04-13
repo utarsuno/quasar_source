@@ -3,13 +3,38 @@
 function SessionManager() {
 
     this.server_request_logout = new ServerRequestLogout();
+    this.server_request_batch_save = new ServerRequestSaveData();
 
     this.login_event = function(username) {
         this.server_request_logout.set_username(username);
         this.server_request_logout.bind_success_event(this.logout_success.bind(this));
+        this.server_request_batch_save.set_username(username);
+        this.server_request_batch_save.bind_success_event(this.batch_save_success.bind(this));
     };
 
+    /*__                    __
+     /__`  /\  \  / | |\ | / _`
+     .__/ /~~\  \/  | | \| \__> */
+    this.perform_batch_save = function() {
+
+    };
+
+    this.batch_save_success = function() {
+
+    };
+
+    /*     __   __   __       ___
+     |    /  \ / _` /  \ |  |  |
+     |___ \__/ \__> \__/ \__/  |  */
     this.logout = function() {
+
+        // TODO : Disable automatic saving before performing the save!
+
+        // TODO : Perform a batch save first.
+        this.server_request_batch_save.bind_success_event(this.batch_save_before_logout_success.bind(this));
+    };
+
+    this.batch_save_before_logout_success = function() {
         this.server_request_logout.perform_request();
     };
 

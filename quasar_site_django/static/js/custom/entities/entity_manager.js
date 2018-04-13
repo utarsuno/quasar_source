@@ -261,39 +261,6 @@ EntityManager.prototype = {
             }
         }
         //raise_exception_with_full_logging('No entity found with ID of {' + entity_id + '}');
-    },
-
-    /*__                    __      __       ___
-     /__`  /\  \  / | |\ | / _`    |  \  /\   |   /\     .
-     .__/ /~~\  \/  | | \| \__>    |__/ /~~\  |  /~~\    . */
-
-    // TODO : DELETE!
-    save_changes_result: function() {
-        /*
-        // .bind prepends arguments so the first argument is the entity being saved and the second argument is the save result.
-        if (arguments[1] === SERVER_REPLY_GENERIC_YES) {
-            arguments[0].needs_to_be_saved = false;
-        } else {
-            // TODO : Better handling of this exception.
-            l('Error saving entity : ');
-            l(arguments[0]);
-        }
-        */
-    },
-
-    update_server_and_database: function() {
-        var username = ENTITY_OWNER.get_username();
-        var password = ENTITY_OWNER.get_password();
-
-        for (var e = 0; e < this.entities.length; e++) {
-            if (this.entities[e].needs_to_be_saved) {
-                var data = {};
-                data[ENTITY_PROPERTY_USERNAME] = username;
-                data[ENTITY_PROPERTY_PASSWORD] = password;
-                // TODO : Make save_data into a global constant of some sort.
-                data[ENTITY_POST_SAVE_DATA] = JSON.stringify(this.entities[e].get_all_properties());
-                this.post_save_entity.perform_post(data, this.save_changes_result.bind(this, this.entities[e]));
-            }
-        }
     }
+
 };

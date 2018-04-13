@@ -13,6 +13,7 @@ _WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm'
 _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u'
 _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p'
 _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e'
+_WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd'
 
 # Server response keys.
 _WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID  = 'm'
@@ -102,12 +103,19 @@ class QuasarWebSocketsServerSide(object):
 		return False
 
 	# Specific request handling.
+	def _reply_to_save_request(self, request, channel_name):
+		"""Handles the save request."""
+		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
+		data     = request[_WEB_SOCKET_REQUEST_KEY_SAVE_DATA]
 
-	# TODO : Save request!!!
+		print('Need to save the following data!')
+		print(type(data))
+		print(data)
+
+		return self._send_reply(request, True, 'TODO: ACTUALLY SAVE THE DATA!!')
 
 	def _reply_to_logout_request(self, request, channel_name):
 		"""Handles the log out request."""
-		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
 		self.players[channel_name].set_as_logged_out()
 		return self._send_reply(request, True, 'logged out!')
 

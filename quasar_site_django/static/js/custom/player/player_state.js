@@ -19,6 +19,7 @@ function PlayerState() {
         case PLAYER_STATE_LOADING:
         case PLAYER_STATE_PAUSED:
             MANAGER_INPUT.reset_movement_controls();
+            CURRENT_PLAYER.fps_controls.reset_velocity();
 
             // Dis-engage any engaged objects.
             var currently_looked_at_object = this.get_currently_looked_at_object();
@@ -44,6 +45,7 @@ function PlayerState() {
         default:
             if (player_state === PLAYER_STATE_ENGAGED) {
                 MANAGER_INPUT.reset_movement_controls();
+                CURRENT_PLAYER.fps_controls.reset_velocity();
             }
 
             //l('PREVIOUS STATE WAS :');

@@ -33,6 +33,8 @@ FPSControls.prototype = {
 
     __init__: function() {
 
+        this.movement_speed = 300;
+
         this.camera = MANAGER_RENDERER.camera;
         //this.camera.rotation.set(0, 0, 0)
         //this.camera.eulerOrder = 'ZYX'
@@ -64,53 +66,53 @@ FPSControls.prototype = {
     },
 
     fly_left: function(delta) {
-        this.velocity.x -= 200 * delta * this.left_right.x;
-        this.velocity.y -= 200 * delta * this.left_right.y;
-        this.velocity.z -= 200 * delta * this.left_right.z;
+        this.velocity.x -= this.movement_speed * delta * this.left_right.x;
+        this.velocity.y -= this.movement_speed * delta * this.left_right.y;
+        this.velocity.z -= this.movement_speed * delta * this.left_right.z;
     },
 
     fly_right: function(delta) {
-        this.velocity.x += 200 * delta * this.left_right.x;
-        this.velocity.y += 200 * delta * this.left_right.y;
-        this.velocity.z += 200 * delta * this.left_right.z;
+        this.velocity.x += this.movement_speed * delta * this.left_right.x;
+        this.velocity.y += this.movement_speed * delta * this.left_right.y;
+        this.velocity.z += this.movement_speed * delta * this.left_right.z;
     },
 
     fly_forward: function(delta) {
-        this.velocity.x += 200 * delta * this.walking_direction.x;
-        this.velocity.z += 200 * delta * this.walking_direction.z;
+        this.velocity.x += this.movement_speed * delta * this.walking_direction.x;
+        this.velocity.z += this.movement_speed * delta * this.walking_direction.z;
 
         //this.velocity.x += 200 * delta * this.direction_vector.x;
-        this.velocity.y += 200 * delta * this.direction_vector.y;
+        this.velocity.y += this.movement_speed * delta * this.direction_vector.y;
         //this.velocity.z += 200 * delta * this.direction_vector.z;
     },
 
     fly_backward: function(delta) {
-        this.velocity.x -= 200 * delta * this.walking_direction.x;
-        this.velocity.z -= 200 * delta * this.walking_direction.z;
+        this.velocity.x -= this.movement_speed * delta * this.walking_direction.x;
+        this.velocity.z -= this.movement_speed * delta * this.walking_direction.z;
 
         //this.velocity.x -= 200 * delta * this.direction_vector.x;
-        this.velocity.y -= 200 * delta * this.direction_vector.y;
+        this.velocity.y -= this.movement_speed * delta * this.direction_vector.y;
         //this.velocity.z -= 200 * delta * this.direction_vector.z;
     },
 
     move_forward: function(delta) {
-        this.velocity.x += 200 * delta * this.direction_vector.x;
-        this.velocity.z += 200 * delta * this.direction_vector.z;
+        this.velocity.x += this.movement_speed * delta * this.direction_vector.x;
+        this.velocity.z += this.movement_speed * delta * this.direction_vector.z;
     },
 
     move_backward: function(delta) {
-        this.velocity.x -= 200 * delta * this.direction_vector.x;
-        this.velocity.z -= 200 * delta * this.direction_vector.z;
+        this.velocity.x -= this.movement_speed * delta * this.direction_vector.x;
+        this.velocity.z -= this.movement_speed * delta * this.direction_vector.z;
     },
 
     move_left: function(delta) {
-        this.velocity.x += 200 * delta * this.left_right.x;
-        this.velocity.z += 200 * delta * this.left_right.z;
+        this.velocity.x += this.movement_speed * delta * this.left_right.x;
+        this.velocity.z += this.movement_speed * delta * this.left_right.z;
     },
 
     move_right: function(delta) {
-        this.velocity.x -= 200 * delta * this.left_right.x;
-        this.velocity.z -= 200 * delta * this.left_right.z;
+        this.velocity.x -= this.movement_speed * delta * this.left_right.x;
+        this.velocity.z -= this.movement_speed * delta * this.left_right.z;
     },
 
     set_mobile_movement: function(direction_vector) {
@@ -121,6 +123,12 @@ FPSControls.prototype = {
 
     stop_mobile_movement: function() {
         this.has_mobile_movement = false;
+    },
+
+    reset_velocity: function() {
+        this.velocity.x = 0;
+        this.velocity.y = 0;
+        this.velocity.z = 0;
     },
 
     physics: function(delta) {
@@ -140,10 +148,10 @@ FPSControls.prototype = {
         if (this.flying_on) {
             // Flying code.
             if (MANAGER_INPUT.space) {
-                this.velocity.y += 200.0 * delta;
+                this.velocity.y += this.movement_speed * delta;
             }
             if (MANAGER_INPUT.shift) {
-                this.velocity.y -= 200.0 * delta;
+                this.velocity.y -= this.movement_speed * delta;
             }
 
             if ((MANAGER_INPUT.up ^ MANAGER_INPUT.down) & (MANAGER_INPUT.left ^ MANAGER_INPUT.right)) {

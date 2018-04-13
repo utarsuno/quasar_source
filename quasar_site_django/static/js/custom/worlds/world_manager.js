@@ -171,17 +171,19 @@ WorldManager.prototype = {
     },
 
     // TODO : Refactor this!!!
-    prepare_for_save: function() {
+    perform_batch_save: function() {
         l('TODO: REFACTOR SAVING!!!');
 
         this.world_home.prepare_for_save();
+        //this.world_settings.prepare_for_save();
+        //this.world_admin.prepare_for_save();
         for (var relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 this.dynamic_worlds[relative_id].prepare_for_save();
             }
         }
 
-        MANAGER_ENTITY.update_server_and_database();
+        MANAGER_ENTITY.perform_batch_save();
     },
 
     /*     __   __                  __        __          __
