@@ -78,9 +78,9 @@ function WorldDynamicContent() {
     /*___      ___   ___
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
-    this.create_new_entity_group = function(world_context) {
-        var entity_wall = new EntityGroup(world_context);
-        world_context.entity_groups.push(entity_wall);
+    this.create_new_entity_group = function() {
+        var entity_wall = new EntityGroup(this);
+        this.entity_groups.push(entity_wall);
     };
 
     this.load_entity_group = function(entity_group_entity) {
