@@ -48,6 +48,10 @@ AnimatedMenu.prototype = {
         // Constants.
         this.text_height = 16;
         this.menu_width  = 120;
+
+        // Dynamic hiding.
+        this.menus_to_hide = [];
+        this.buttons_to_hide = [];
     },
 
     switch_to_new_world: function (old_world, new_world) {
@@ -67,6 +71,27 @@ AnimatedMenu.prototype = {
                 }
             }
         }
+    },
+
+    unhide_all: function() {
+        this.menus_to_hide.length = 0;
+        this.buttons_to_hide.length = 0;
+    },
+
+    recalculate_row_offsets: function() {
+        this.menu.recalculate_row_offsets();
+    },
+
+    hide_button: function(button) {
+        for (var s = 0; s < this.sections.length; s++) {
+            for (var r = 0; r < this.sections[s].rows.length; r++) {
+                if (this.sections[s].rows[r].row_name === button) {
+                    this.sections[s].rows[r].row_hidden = true;
+                }
+            }
+        }
+
+        this.buttons_to_hide.push(button);
     },
 
     hide: function() {
@@ -111,7 +136,7 @@ AnimatedMenu.prototype = {
     },
 
     _add_button: function(button_name, icon, button_action) {
-        var row = this.menu.add_row(null);
+        var row = this.menu.add_row(null, button_name);
         var button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
         button.set_to_singleton();
         var i = button.add_icon_left(icon);

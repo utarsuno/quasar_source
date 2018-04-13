@@ -32,6 +32,23 @@ PlayerMenu.prototype = {
         this.menu_teleport_shared_not_owned.switch_to_new_world(old_world, new_world);
         this.menu_teleport_global.switch_to_new_world(old_world, new_world);
         this.menu_debug.switch_to_new_world(old_world, new_world);
+
+        this.hide_un_needed_actions(new_world);
+    },
+
+    hide_un_needed_actions: function(current_world) {
+        if (current_world === MANAGER_WORLD.world_login) {
+            this.menu_main.hide_button(this.menu_create.menu_name);
+            this.menu_main.hide_button(this.menu_teleport.menu_name);
+            this.menu_main.hide_button('logout');
+        } else {
+            // Un-hide all.
+            this.menu_main.unhide_all();
+            // Hide teleport to current world.
+            // Get teleport to all other worlds.
+        }
+        // Recalculate row offsets.
+        this.menu_main.recalculate_row_offsets();
     },
 
     is_currently_visible: function() {
@@ -81,6 +98,8 @@ PlayerMenu.prototype = {
         this._create_menu_teleport(world);
         this._create_menu_debug(world);
         this._create_menu_main(world);
+
+        this.hide_un_needed_actions(world);
     },
 
     _create_menu_main: function(world) {
@@ -91,7 +110,6 @@ PlayerMenu.prototype = {
         section.add_button_for_sub_menu(this.menu_teleport);
         section.add_button('fullscreen', ICON_FULLSCREEN, this.action_fullscreen);
         section.add_button_for_sub_menu(this.menu_debug);
-        //section.add_button('debugging', ICON_SETTINGS, this.action_toggle_debugging);
         section.add_button('logout', ICON_EXIT, this.action_logout);
         this.menu_main.menu.force_hide_self_and_all_child_attachments_recursively();
     },

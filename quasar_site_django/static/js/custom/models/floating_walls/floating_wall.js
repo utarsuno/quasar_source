@@ -146,6 +146,18 @@ FloatingWall.prototype = {
     /*__   __           __   __   ___  __       ___    __        __  
      |__) /  \ |  |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__` 
      |  \ \__/ |/\|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/  */
+    recalculate_row_offsets: function() {
+        var previous_row = null;
+        var total_vertical_height = 0;
+        for (var r = 0; r < this.rows.length; r++) {
+            var row = this.rows[r];
+            if (!row.row_hidden) {
+                row.set_row_vertical_position(total_vertical_height);
+                total_vertical_height += row.get_height();
+            }
+        }
+    },
+
     _get_all_rows_with_index_equal_to_or_greater: function(row_index) {
         var local_rows = [];
         for (var r = 0; r < this.rows.length; r++) {

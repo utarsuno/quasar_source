@@ -34,6 +34,8 @@ WorldManager.prototype = {
 
     create_singletons: function() {
         this.player_menu.create(this.world_login);
+
+        // TODO : Create the floating cursor!
     },
 
     update: function(delta) {
@@ -98,7 +100,6 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
-        //this.current_player_menu = this.current_world.player_menu;
 
         // Before switching to the new scene make sure it has all non world-unique objects.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
@@ -114,10 +115,6 @@ WorldManager.prototype = {
     },
 
     create_world: function(world) {
-        // Player menu.
-        //world.player_menu.create();
-        //world.player_menu.set_to_invisible();
-
         // Player floating cursor.
         world.floating_cursor.create();
 

@@ -12,6 +12,19 @@ FloatingRow.prototype = {
         this.row_number = row_number;
         this.row_name = row_name;
         this.elements = [];
+
+        this.row_hidden = false;
+    },
+
+    set_row_vertical_position: function(vertical_position_start) {
+        for (var e = 0; e < this.elements.length; e++) {
+            var element = this.elements[e];
+            element.set_attachment_vertical_offset(vertical_position_start, HALF);
+        }
+    },
+
+    get_height: function() {
+        return this.elements[0].height;
     },
 
     // NEW FUNCTIONS.
