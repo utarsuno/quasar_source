@@ -23,6 +23,8 @@ _WEB_SOCKET_RESPONSE_KEY_DATA        = 'd'
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         = 4
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      = 5
 
 # Server response values.
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
@@ -69,7 +71,8 @@ class QuasarWebSocketsServerSide(object):
 		# Define all the request types.
 		self._request_types = {_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN         : self._reply_to_login_request,
 		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT: self._reply_to_create_account_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA: self._reply_to_load_user_data_request}
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA: self._reply_to_load_user_data_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT        : self._reply_to_logout_request}
 
 	def add_connection(self, channel_name):
 		"""Adds a new connection."""
