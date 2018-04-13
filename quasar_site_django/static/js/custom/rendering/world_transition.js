@@ -82,9 +82,10 @@ TransitionPair.prototype = {
         this.current_camera  = current_camera;
     },
     render: function(delta) {
-        var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
-        //this.transition = THREE.Math.smoothstep(t, 0.1, 0.9);
-        this.transition = t;
+        //var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
+        //this.transition = THREE.Math.smoothstep(t, 0.4, 0.6);
+        //this.transition = t;
+        this.transition = this.elapsed_delta;
 
         this.the_transition.quad_material.uniforms.mixRatio.value = this.transition;
 
@@ -146,8 +147,11 @@ function WorldTransition() {
         var previous_scene = previous_world.scene;
         var current_scene  = current_world.scene;
 
-        this.camera_transition.position.set(current_camera_position.x, current_camera_position.y, current_camera_position.z);
-        this.camera_transition.lookAt(current_camera_position.x + current_camera_look_at.x, current_camera_position.y + current_camera_look_at.y, current_camera_position.z + current_camera_look_at.z);
+        //this.camera_transition.position.set(current_camera_position.x, current_camera_position.y, current_camera_position.z);
+        //this.camera_transition.lookAt(current_camera_position.x + current_camera_look_at.x, current_camera_position.y + current_camera_look_at.y, current_camera_position.z + current_camera_look_at.z);
+
+        this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
+        this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
 
         var renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
