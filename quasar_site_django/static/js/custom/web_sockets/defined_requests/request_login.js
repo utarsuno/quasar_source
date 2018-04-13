@@ -39,7 +39,7 @@ ServerRequestLogin.prototype = {
     _user_data_finished_loading: function() {
         l('USER DATA FINISHED LOADING!!!');
 
-
+        this.success_function();
 
         this.unlock_button();
     }
