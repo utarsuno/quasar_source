@@ -22,6 +22,8 @@ class EntityManager(object):
 				entity.set_property_and_value(p, raw_data[p])
 		self._entities.append(entity)
 
+		return entity
+
 	def add_entity(self, entity_data):
 		"""Adds an entity to this EntityManager."""
 		entity_id = self.get_largest_entity_id() + 1
@@ -39,10 +41,11 @@ class EntityManager(object):
 		"""Updates an entity."""
 		entity = self.get_entity_by_id(entity_data[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID])
 		if entity is None:
-			self.add_entity_from_raw_data(entity_data)
+			return self.add_entity_from_raw_data(entity_data)
 		else:
 			for key in entity_data:
 				entity.set_property_and_value(key, entity_data[key])
+			return entity
 
 	def remove_entity_by_id(self, relative_id):
 		"""Removes an Entity object by the relative ID."""
