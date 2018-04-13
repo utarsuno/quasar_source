@@ -16,6 +16,10 @@ FloatingRow.prototype = {
         this.row_hidden = false;
     },
 
+    unhide_row: function() {
+        this.row_hidden = false;
+    },
+
     hide_row: function() {
         this.row_hidden = true;
     },

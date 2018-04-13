@@ -50,7 +50,6 @@ AnimatedMenu.prototype = {
         this.menu_width  = 120;
 
         // Dynamic hiding.
-        this.menus_to_hide = [];
         this.buttons_to_hide = [];
     },
 
@@ -75,7 +74,11 @@ AnimatedMenu.prototype = {
 
     unhide_all: function() {
         this.menus_to_hide.length = 0;
-        this.buttons_to_hide.length = 0;
+        for (var s = 0; s < this.sections.length; s++) {
+            for (var r = 0; r < this.sections[s].rows.length; r++) {
+                this.sections[s].rows[r].unhide_row();
+            }
+        }
     },
 
     recalculate_row_offsets: function() {
