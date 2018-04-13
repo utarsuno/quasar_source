@@ -15,9 +15,6 @@ RendererManager.prototype = {
     webgl_enabled   : null,
     warning_message : null,
 
-    // Custom objects.
-    stats_api       : null,
-
     camera          : null,
 
     __init__: function(current_client) {
@@ -32,7 +29,6 @@ RendererManager.prototype = {
     },
 
     renderer_initialize: function() {
-        this.stats_api = new StatsAPI();
 
         // Since WebGL is enabled we can proceed.
         this.field_of_view = 70;
@@ -119,12 +115,6 @@ RendererManager.prototype = {
         }
     },
 
-    pre_render: function() {
-        if (this.current_client.in_debug) {
-            this.stats_api.pre_render();
-        }
-    },
-
     render: function(delta) {
         if (this.in_transition) {
             this.transition_render(delta);
@@ -136,12 +126,6 @@ RendererManager.prototype = {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
                 this.css_renderer.render(MANAGER_WORLD.current_world.css_scene, this.camera);
             }
-        }
-    },
-
-    post_render: function() {
-        if (this.current_client.in_debug) {
-            this.stats_api.post_render();
         }
     },
 

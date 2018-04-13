@@ -47,4 +47,19 @@ function MenuActions() {
     this.action_teleport_to_world = function(world) {
         MANAGER_WORLD.set_current_world(world);
     };
+
+    /*__   ___  __        __           __  ___    __        __
+     |  \ |__  |__) |  | / _`     /\  /  `  |  | /  \ |\ | /__`
+     |__/ |___ |__) \__/ \__>    /~~\ \__,  |  | \__/ | \| .__/ */
+    this.action_set_debug_to_none = function() {
+        CURRENT_CLIENT.set_debug_mode(DEBUG_MODE_NONE);
+    };
+
+    this.action_set_debug_to_fps = function() {
+        CURRENT_CLIENT.set_debug_mode(DEBUG_MODE_FPS);
+    };
+
+    this.action_set_debug_to_full = function() {
+        CURRENT_CLIENT.set_debug_mode(DEBUG_MODE_FULL);
+    };
 }

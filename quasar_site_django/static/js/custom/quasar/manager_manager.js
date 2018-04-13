@@ -26,8 +26,6 @@ CURRENT_PLAYER = new Player();
 MANAGER_INPUT        = new InputManager();
 // Handles specifically pointer lock.
 MANAGER_POINTER_LOCK = new PointerLockManager();
-// Handles the debug display.
-MANAGER_DATA_DISPLAY = new DataDisplay();
 
 /*__             __        ___  __
  / _` |  | |    /  \ \  / |__  |__) |     /\  \ /

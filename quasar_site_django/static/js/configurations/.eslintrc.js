@@ -184,7 +184,6 @@ module.exports = {
         "MANAGER_RENDERER"       : true,
         "MANAGER_INPUT"          : true,
         "MANAGER_POINTER_LOCK"   : true,
-        "MANAGER_DATA_DISPLAY"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
         "MultiPlayerManager"   : false,

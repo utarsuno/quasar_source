@@ -26,7 +26,6 @@ var MANAGER_SHADER       = null;
 var MANAGER_RENDERER     = null;
 var MANAGER_INPUT        = null;
 var MANAGER_POINTER_LOCK = null;
-var MANAGER_DATA_DISPLAY = null;
 var MANAGER_LOADING      = null;
 
 // Global objects.

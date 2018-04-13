@@ -7,11 +7,7 @@ function StatsAPI() {
 StatsAPI.prototype = {
     stats_fps: null,
 
-    enabled: null,
-
     __init__: function() {
-        this.enabled = true;
-
         // Create the 3rd party library objects.
         this.stats_fps = new Stats();
 
@@ -30,19 +26,19 @@ StatsAPI.prototype = {
         document.body.appendChild(this.stats_fps.domElement);
     },
 
+    hide: function() {
+        this.stats_fps.domElement.style.display = DISPLAY_NONE;
+    },
+
+    show: function() {
+        this.stats_fps.domElement.style.display = DISPLAY_SHOW;
+    },
+
     pre_render: function() {
-        if (this.enabled) {
-            this.stats_fps.begin();
-        }
+        this.stats_fps.begin();
     },
 
     post_render: function() {
-        if (this.enabled) {
-            this.stats_fps.end();
-        }
-    },
-
-    toggle: function() {
-        this.enabled = !this.enabled;
+        this.stats_fps.end();
     }
 };

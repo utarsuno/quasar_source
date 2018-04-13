@@ -5,14 +5,15 @@
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
 
 // The main loop will start after the required initial resources have loaded.
-function QuasarMainLoop() {
-    this.__init__();
+function QuasarMainLoop(current_client) {
+    this.__init__(current_client);
 }
 
 QuasarMainLoop.prototype = {
 
-    __init__: function() {
-        this.previous_time = null;
+    __init__: function(current_client) {
+        this.current_client          = current_client;
+        this.previous_time           = null;
         this.single_render_performed = false;
     },
 
@@ -31,12 +32,12 @@ QuasarMainLoop.prototype = {
         requestAnimationFrame(this.quasar_main_loop.bind(this));
 
         if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
-            MANAGER_RENDERER.pre_render();
+            this.current_client.pre_render();
 
             this.time = performance.now();
             this.delta = (this.time - this.previous_time) / 1000.0;
 
-            MANAGER_DATA_DISPLAY.update();
+            this.current_client.update();
 
             MANAGER_WORLD.update(this.delta);
 
@@ -45,7 +46,7 @@ QuasarMainLoop.prototype = {
             }
 
             MANAGER_RENDERER.render(this.delta);
-            MANAGER_RENDERER.post_render();
+            this.current_client.post_render();
             this.previous_time = this.time;
 
             this.single_render_performed = true;
@@ -53,7 +54,7 @@ QuasarMainLoop.prototype = {
     }
 };
 
-const QUASAR = new QuasarMainLoop();
+const QUASAR = new QuasarMainLoop(CURRENT_CLIENT);
 
 // Load all the initially needed resources. Once loaded start the main loop.
 MANAGER_LOADING.perform_initial_load(QUASAR);
