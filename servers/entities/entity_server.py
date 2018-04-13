@@ -40,7 +40,9 @@ class EntityServer(object):
 		print('NEED TO PERFORM AN UPDATE FOR THE FOLLOWING DATA')
 		print(entity_batch_data)
 		for e in entity_batch_data:
-			print(e)
+			self._update_entity(username, entity_batch_data[e])
+
+		self._update_owner(username)
 
 		return us.SUCCESS_MESSAGE
 
@@ -59,7 +61,7 @@ class EntityServer(object):
 			dbg.raise_exception('The provided entity to update is None!')
 
 		# TODO : CHANGE DESIGN TO JUST UPDATE EVERY SINGLE OWNER EVERY SINGLE MINUTE!!!!!
-		self._update_owner(username)
+		#self._update_owner(username)
 
 		return us.SUCCESS_MESSAGE
 
