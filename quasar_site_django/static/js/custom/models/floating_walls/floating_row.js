@@ -41,7 +41,6 @@ FloatingRow.prototype = {
         return this.elements[0].height;
     },
 
-    // NEW FUNCTIONS.
     _get_width_needed: function(x_params) {
         return this.parent_wall.width * (x_params[1] - x_params[0]);
     },
@@ -94,6 +93,7 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
+        x_params -= (floating_input_2D.width / this.parent_wall.width) / 4;
         return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
     },
 
