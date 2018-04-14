@@ -22,7 +22,7 @@ FieldRowName.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     create_input: function() {
-        this.entity_name_input = this.row.add_input_2D([ONE_THIRD, 1, false], 16, '');
+        this.entity_name_input = this.row.add_input_2D([ONE_THIRD, 1, true], 16, '');
         this.entity_name_input.set_value_post_changed_function(this.entity_name_changed.bind(this));
         return this.entity_name_input;
     },
