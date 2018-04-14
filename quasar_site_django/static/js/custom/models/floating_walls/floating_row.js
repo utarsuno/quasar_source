@@ -48,13 +48,7 @@ FloatingRow.prototype = {
 
     add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color) {
         var floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
-        if (is_defined(foreground_color)) {
-            floating_button.set_foreground_color(foreground_color);
-        }
-        if (is_defined(background_color)) {
-            floating_button.set_background_color(background_color);
-        }
-        return this.add_element(x_params, floating_button);
+        return this.add_element(x_params, floating_button, foreground_color, background_color);
     },
 
     add_checkbox: function(x_params, size, checked, on_check_function) {
@@ -83,9 +77,9 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_text_3D);
     },
 
-    add_text_2D: function(x_params, text_height, text) {
+    add_text_2D: function(x_params, text_height, text, foreground_color, background_color) {
         var floating_text_2D = new FloatingText2D(this.world, text_height, text);
-        return this.add_element(x_params, floating_text_2D);
+        return this.add_element(x_params, floating_text_2D, foreground_color, background_color);
     },
 
     add_input_3D: function(x_params, text_height, text) {
@@ -95,15 +89,15 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_input_3D);
     },
 
-    add_input_2D: function(x_params, text_height, text) {
+    add_input_2D: function(x_params, text_height, text, foreground_color, background_color) {
         if (!is_defined(text)) {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
-        return this.add_element(x_params, floating_input_2D);
+        return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
     },
 
-    add_element: function(x_params, floating_element) {
+    add_element: function(x_params, floating_element, foreground_color, background_color) {
         floating_element.set_attachment_depth_offset(1);
         var x_start = x_params[0];
         if (is_defined(x_params[2])) {
@@ -116,6 +110,14 @@ FloatingRow.prototype = {
         floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
 
         floating_element.attach_to(this.parent_wall);
+
+
+        if (is_defined(foreground_color)) {
+            floating_element.set_foreground_color(foreground_color);
+        }
+        if (is_defined(background_color)) {
+            floating_element.set_background_color(background_color);
+        }
 
         this.elements.push(floating_element);
         return floating_element;
