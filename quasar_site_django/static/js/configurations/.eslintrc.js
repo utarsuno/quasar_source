@@ -73,6 +73,8 @@ module.exports = {
         "FloatingInput2D" : false,
         //
 
+        "ConfirmationPrompt": false,
+
         //
         "FormManager": false,
         //

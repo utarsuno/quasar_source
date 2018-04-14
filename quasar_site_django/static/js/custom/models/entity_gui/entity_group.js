@@ -68,6 +68,9 @@ EntityGroup.prototype = {
         this.wall_entity_editor = new EntityEditor(this, this.base_wall);
         this.wall_entity_editor.set_create_entity_display_button(this.create_new_entity_button);
 
+        // Create base wall delete button.
+        this._create_delete_button();
+
         this.base_wall.refresh_position_and_look_at();
     },
 
@@ -119,5 +122,24 @@ EntityGroup.prototype = {
             this.entity_group_entity.children[e].user_created = true;
             this.entity_added(this.entity_group_entity.children[e]);
         }
+    },
+
+    _create_delete_button: function() {
+        this.delete_confirmation = new ConfirmationPrompt(this.base_wall.world);
+        this.delete_confirmation.bind_confirmation_prompt(this._get_confirmation_prompt.bind(this));
+        this.delete_confirmation.bind_yes_action(this._delete_entity_group.bind(this));
+        this.button_delete_entity_group = new FloatingButton(this.base_wall.world, this.base_wall.width, 16, 'delete entity group', this.delete_confirmation.prompt.bind(this));
+        this.button_delete_entity_group.set_default_foreground_color(COLOR_RED);
+        this.button_delete_entity_group.set_current_foreground_color(COLOR_RED, true);
+        this.base_wall.add_attachment_to_bottom(this.button_delete_entity_group);
+        this.delete_confirmation.set_button(this.delete_confirmation);
+    },
+
+    _get_confirmation_prompt: function() {
+        return 'Delete Entity Group{' + this.entity_wall_title.get_text() + '}?';
+    },
+
+    _delete_entity_group: function() {
+
     }
 };

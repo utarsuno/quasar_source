@@ -34,6 +34,7 @@ function WorldInput() {
                 this.currently_looked_at_object.parse_keycode(event);
             } else if (event.keyCode === KEY_CODE_ENTER) {
                 if (!this.currently_looked_at_object.is_engaged()) {
+                    // TODO : Remove/modify this, disabled is already handled!
                     if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
                         if (!this.currently_looked_at_object['_disabled']) {
                             this.currently_looked_at_object.engage();
@@ -95,8 +96,6 @@ function WorldInput() {
         if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.mobile_keyboard_visible) {
             return;
         }
-
-        l('single left click action!');
 
         if (is_defined(this.currently_looked_at_object)) {
             if (!this.currently_looked_at_object.is_engaged()) {

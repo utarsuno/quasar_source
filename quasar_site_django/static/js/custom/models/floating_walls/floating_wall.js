@@ -143,6 +143,13 @@ FloatingWall.prototype = {
         close_button.attach_to(this);
     },
 
+    add_attachment_to_bottom: function(floating_element) {
+        var height = floating_element.height;
+        floating_element.set_attachment_vertical_offset(height / 2, -HALF);
+        floating_element.set_attachment_depth_offset(1);
+        floating_element.attach_to(this);
+    },
+
     /*__   __           __   __   ___  __       ___    __        __  
      |__) /  \ |  |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__` 
      |  \ \__/ |/\|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/  */
@@ -214,7 +221,7 @@ FloatingWall.prototype = {
         return false;
     },
 
-    add_row: function(row_index, row_name, add_from_bottom) {
+    add_row: function(row_index, row_name) {
         if (!is_defined(row_index)) {
             row_index = this._get_max_row_number() + 1;
         } else {

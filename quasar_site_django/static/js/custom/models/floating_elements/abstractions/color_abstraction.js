@@ -86,6 +86,15 @@ function ColorAbstraction(needs_hex_colors) {
         }
     };
 
+    this.set_foreground_color = function(color) {
+        this.set_default_foreground_color(color, false);
+        this.set_current_foreground_color(color, true);
+    };
+
+    this.set_background_color = function(color) {
+        this.set_default_background_color(color, false);
+        this.set_current_background_color(color, true);
+    };
 }
 
 
