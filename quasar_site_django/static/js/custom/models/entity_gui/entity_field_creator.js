@@ -33,10 +33,12 @@ EntityFieldCreator.prototype = {
         this.wall_add_new_field.set_attachment_depth_offset(10);
         this.wall_add_new_field.attach_to(this.add_new_field_button);
         this.wall_add_new_field.add_close_button();
-        this.wall_add_new_field.add_full_row_3D(-1, 'Add New Field', TYPE_TITLE);
+        //this.wall_add_new_field.add_full_row_3D(-1, 'Add New Field', TYPE_TITLE);
+        this.wall_add_new_field.add_row(-1).add_text_3D([0, null, false], 32, 'Add New Field');
 
         // All the field options.
-        this.wall_add_new_field.add_full_row_2D(0, 'Default Fields', TYPE_CONSTANT);
+        //this.wall_add_new_field.add_full_row_2D(0, 'Default Fields', TYPE_CONSTANT);
+        this.wall_add_new_field.add_row(0).add_text_2D([0, 1, false], 16, 'Default Fields');
 
         this._add_selectable_entity_field(ENTITY_PROPERTY_TAGS);
         this._add_selectable_entity_field(ENTITY_PROPERTY_NOTE);
@@ -45,7 +47,8 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
-        this.wall_add_new_field.add_full_row_2D(null, 'Time Fields', TYPE_CONSTANT);
+        //this.wall_add_new_field.add_full_row_2D(null, 'Time Fields', TYPE_CONSTANT);
+        this.wall_add_new_field.add_row(null).add_text_2D([0, 1, false], 16, 'Time Fields');
 
         // All the time related field options.
         this._add_selectable_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
@@ -56,9 +59,12 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
-        this.wall_add_new_field.add_full_row_2D(null, 'Or create a custom field', TYPE_CONSTANT);
-        this.custom_field_name = this.wall_add_new_field.add_row(null).add_2D_element([0, 1], 'Field Name Here', TYPE_INPUT);
-        this.wall_add_new_field.add_row(null).add_2D_button([0, 1], 'Add custom field', null, this._add_selectable_custom_entity_field.bind(this));
+        //this.wall_add_new_field.add_full_row_2D(null, 'Or create a custom field', TYPE_CONSTANT);
+        this.wall_add_new_field.add_row(null).add_text_2D([0, 1, false], 16, 'Or create a custom field');
+        //this.custom_field_name = this.wall_add_new_field.add_row(null).add_2D_element([0, 1], 'Field Name Here', TYPE_INPUT);
+        this.custom_field_name = this.wall_add_new_field.add_row(null).add_input_2D([0, 1, false], 16, 'Field Name Here');
+        //this.wall_add_new_field.add_row(null).add_2D_button([0, 1], 'Add custom field', null, this._add_selectable_custom_entity_field.bind(this));
+        this.wall_add_new_field.add_row(null).add_button([0, 1, false], 'Add custom field', this._add_selectable_custom_entity_field.bind(this));
     },
 
     _add_selectable_custom_entity_field: function() {
@@ -78,7 +84,8 @@ EntityFieldCreator.prototype = {
 
     _add_selectable_entity_field: function(field_name) {
         if (!this.entity_editor.has_field(field_name)) {
-            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_2D_button([0, 1], field_name, null, this.add_entity_field.bind(this, field_name));
+            //this.wall_add_new_field.add_row(null, field_name.substring(3)).add_2D_button([0, 1], field_name, null, this.add_entity_field.bind(this, field_name));
+            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_button([0, 1, false], 16, field_name, this.add_entity_field.bind(this, field_name));
         }
     }
 
