@@ -16,7 +16,8 @@ FieldRowRegular.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     create_input: function(field_value) {
-        this.input_field = this.row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+        //this.input_field = this.row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+        this.input_field = this.row.add_input_2D([ONE_THIRD, 1, false], 16, '');
 
         if (is_defined(field_value)) {
             this.input_field.update_text(field_value);
