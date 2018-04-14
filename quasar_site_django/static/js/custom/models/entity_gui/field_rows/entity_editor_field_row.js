@@ -17,23 +17,10 @@ function EntityEditorFieldRow(entity_editor) {
         this.row = this.wall.add_row(row_index, this.entity_property);
     };
 
-    this.create_labelOLD = function() {
-        if (this.entity_property === ENTITY_DEFAULT_PROPERTY_TYPE || this.entity_property === ENTITY_PROPERTY_NAME) {
-            this.label_color = COLOR_YELLOW;
-        } else {
-            this.label_color = null;
-        }
-        this.row.add_text_2D([0, ONE_THIRD, false], 16, this.label, this.label_color);
-    };
-
     this.create_label = function(input) {
         var label_text = get_entity_property_full_name(this.entity_property);
         var label = input.add_label_left(label_text);
         //input.add_label_left(this.label);
-    };
-
-    this.create_delete_button = function() {
-        this.row.add_button([1, 1 + ONE_FOURTH, false], 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
     };
 
     this.create = function(row_index, field_value) {
@@ -41,7 +28,7 @@ function EntityEditorFieldRow(entity_editor) {
         var input = this.create_input(field_value);
         this.create_label(input);
         if (this.entity_property !== ENTITY_DEFAULT_PROPERTY_TYPE && this.entity_property !== ENTITY_PROPERTY_NAME) {
-            this.create_delete_button();
+            input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
         }
     };
 

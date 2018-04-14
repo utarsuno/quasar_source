@@ -48,4 +48,13 @@ function FloatingElement(world) {
         this.add_floating_element([this.height / 2, HALF], null, 0, icon);
         return icon;
     };
+
+    this.add_button_right = function(width, text, engage_function, color) {
+        var button = new FloatingButton(this.world, width, this.height, text, engage_function);
+        if (is_defined(color)) {
+            button.set_foreground_color(color);
+        }
+        this.add_floating_element([button.width / 2, HALF], null, 0, button);
+        return button;
+    };
 }
