@@ -63,8 +63,6 @@ FieldRowDateTime.prototype = {
         this.date_selector.hide();
         this.time_selector.hide();
 
-        //this.select_date_button = this.row.add_2D_button([ONE_THIRD, TWO_THIRDS], NO_DATE_SELECTED, null, this._show_date_selector.bind(this));
-        //this.select_time_button = this.row.add_2D_button([TWO_THIRDS, 1], NO_TIME_SELECTED, null, this._show_time_selector.bind(this));
         this.select_date_button = this.row.add_button([ONE_THIRD, TWO_THIRDS, false], 16, NO_DATE_SELECTED,  this._show_date_selector.bind(this));
         this.select_time_button = this.row.add_button([TWO_THIRDS, 1, false], 16, NO_TIME_SELECTED,  this._show_time_selector.bind(this));
 

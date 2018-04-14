@@ -78,19 +78,19 @@ MonthView.prototype = {
         this.month_type_selector_wall.set_auto_adjust_height(true);
         this.month_type_selector_wall.manual_visibility = true;
 
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], 'Current Month', COLOR_YELLOW, this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JANUARY_STRING, null, this.month_type_selected.bind(this, MONTH_JANUARY));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_FEBRUARY_STRING, null, this.month_type_selected.bind(this, MONTH_FEBRUARY));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MARCH_STRING, null, this.month_type_selected.bind(this, MONTH_MARCH));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_APRIL_STRING, null, this.month_type_selected.bind(this, MONTH_APRIL));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_MAY_STRING, null, this.month_type_selected.bind(this, MONTH_MAY));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JUNE_STRING, null, this.month_type_selected.bind(this, MONTH_JUNE));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_JULY_STRING, null, this.month_type_selected.bind(this, MONTH_JULY));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_AUGUST_STRING, null, this.month_type_selected.bind(this, MONTH_AUGUST));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_SEPTEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_OCTOBER_STRING, null, this.month_type_selected.bind(this, MONTH_OCTOBER));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_NOVEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_NOVEMBER));
-        this.month_type_selector_wall.add_row().add_2D_button([0, 1], MONTH_DECEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_DECEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Month', this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT), COLOR_YELLOW);
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JANUARY_STRING, null, this.month_type_selected.bind(this, MONTH_JANUARY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_FEBRUARY_STRING, null, this.month_type_selected.bind(this, MONTH_FEBRUARY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MARCH_STRING, null, this.month_type_selected.bind(this, MONTH_MARCH));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_APRIL_STRING, null, this.month_type_selected.bind(this, MONTH_APRIL));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MAY_STRING, null, this.month_type_selected.bind(this, MONTH_MAY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JUNE_STRING, null, this.month_type_selected.bind(this, MONTH_JUNE));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JULY_STRING, null, this.month_type_selected.bind(this, MONTH_JULY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_AUGUST_STRING, null, this.month_type_selected.bind(this, MONTH_AUGUST));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_SEPTEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_OCTOBER_STRING, null, this.month_type_selected.bind(this, MONTH_OCTOBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_NOVEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_NOVEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_DECEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_DECEMBER));
 
         this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
@@ -101,14 +101,14 @@ MonthView.prototype = {
         this.year_type_selector_wall.set_auto_adjust_height(true);
         this.year_type_selector_wall.manual_visibility = true;
 
-        this.year_type_selector_wall.add_row().add_2D_button([0, 1], 'Current Year', COLOR_YELLOW, this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT));
+        this.year_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Year', this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT), COLOR_YELLOW);
 
         var row = this.year_type_selector_wall.add_row();
-        row.add_2D_element([0, ONE_THIRD], 'Type Year :', TYPE_CONSTANT);
-        this.year_input = row.add_2D_element([ONE_THIRD, 1], '', TYPE_INPUT);
+        row.add_text_2D([0, ONE_THIRD, false], 16, 'Type Year :');
+        this.year_input = row.add_input_2D([ONE_THIRD, 1, false], 16, '');
 
         row = this.year_type_selector_wall.add_row();
-        row.add_2D_button([0, 1], 'Set To Static Year Typed', null, this.year_type_selected.bind(this, this.year_input.get_text()));
+        row.add_button([0, 1, false], 16, 'Set To Static Year Typed', this.year_type_selected.bind(this, this.year_input.get_text()));
 
         this.year_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
@@ -128,15 +128,15 @@ MonthView.prototype = {
         this.settings_wall.manual_visibility = true;
 
         var settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_element([0, ONE_THIRD], 'Month Type :', TYPE_CONSTANT);
-        this.month_type_button = settings_row.add_2D_button([ONE_THIRD, 1], this.month_instance.get_month_type(), null, this.show_month_type_selector.bind(this));
+        settings_row.add_text_2D([0, ONE_THIRD, false], 16, 'Month Type :');
+        this.month_type_button = settings_row.add_button([ONE_THIRD, 1, false], 16, this.month_instance.get_month_type(), this.show_month_type_selector.bind(this));
 
         settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_element([0, ONE_THIRD], 'Year Type :', TYPE_CONSTANT);
-        this.year_type_button = settings_row.add_2D_button([ONE_THIRD, 1], this.month_instance.get_year_type(), null, this.show_year_type_selector.bind(this));
+        settings_row.add_text_2D([0, ONE_THIRD, false], 16, 'Year Type :');
+        this.year_type_button = settings_row.add_button([ONE_THIRD, 1, false], 16, this.month_instance.get_year_type(), this.show_year_type_selector.bind(this));
 
         settings_row = this.settings_wall.add_row();
-        settings_row.add_2D_button([0, 1], 'Delete Month View Wall', COLOR_RED, this.delete_month_view_wall.bind(this));
+        settings_row.add_button([0, 1, false], 16, 'Delete Month View Wall', this.delete_month_view_wall.bind(this), COLOR_RED);
         // TODO : Add a delete button.
 
         this.create_month_type_selector();
@@ -161,20 +161,17 @@ MonthView.prototype = {
         var row = this.base_wall.get_row_with_index(-1);
         var icon_width = 16 / this.base_wall.width;
 
-        var settings_button = row.add_2D_element([1 - icon_width, 1], ICON_SETTINGS, TYPE_ICON);
-        this.base_wall.world.interactive_objects.push(settings_button);
-        settings_button.engable = false;
-        settings_button.set_engage_function(this.show_settings_wall.bind(this));
+        var settings_button = row.add_icon_button([1 - icon_width, 1, false], ICON_SETTINGS, this.show_settings_wall.bind(this));
 
         // Month View details.
         row = this.base_wall.add_row();
-        row.add_2D_element([0, 1 / 7], DAY_MONDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([1 / 7, 2 / 7], DAY_TUESDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([2 / 7, 3 / 7], DAY_WEDNESDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([3 / 7, 4 / 7], DAY_THURSDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([4 / 7, 5 / 7], DAY_FRIDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([5 / 7, 6 / 7], DAY_SATURDAY_STRING, TYPE_TITLE);
-        row.add_2D_element([6 / 7, 1], DAY_SUNDAY_STRING, TYPE_TITLE);
+        row.add_text_2D([0, 1 / 7, false], 32, DAY_MONDAY_STRING);
+        row.add_text_2D([1 / 7, 2 / 7, false], 32, DAY_TUESDAY_STRING);
+        row.add_text_2D([2 / 7, 3 / 7, false], 32, DAY_WEDNESDAY_STRING);
+        row.add_text_2D([3 / 7, 4 / 7, false], 32, DAY_THURSDAY_STRING);
+        row.add_text_2D([4 / 7, 5 / 7, false], 32, DAY_FRIDAY_STRING);
+        row.add_text_2D([5 / 7, 6 / 7, false], 32, DAY_SATURDAY_STRING);
+        row.add_text_2D([6 / 7, 1, false], 32, DAY_SUNDAY_STRING);
 
         // Add the day views here!
         var all_days = this.month_instance.get_all_day_instances();

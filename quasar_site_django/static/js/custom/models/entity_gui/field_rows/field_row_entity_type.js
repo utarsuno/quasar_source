@@ -22,7 +22,6 @@ FieldRowEntityType.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     create_input: function() {
-        //this.entity_type_button = this.row.add_2D_button([ONE_THIRD, 1], 'VALUE NOT SET', null, null);
         this.entity_type_button = this.row.add_button([ONE_THIRD, 1, false], 16, 'VALUE NOT SET', null);
 
         this.wall_entity_type_selector = new EntityTypeSelector(this.entity_editor);

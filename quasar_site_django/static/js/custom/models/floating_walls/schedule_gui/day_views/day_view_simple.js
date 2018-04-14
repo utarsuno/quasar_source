@@ -78,7 +78,7 @@ DayViewSimple.prototype = {
         var entity_color = entity.get_color_for_schedule_view();
 
         var row = this.day_view.add_row(null, entity.get_relative_id());
-        var entity_button = row.add_2D_button([0, 1], entity.get_value(ENTITY_PROPERTY_NAME), entity_color, null);
+        var entity_button = row.add_button([0, 1, false], 16, entity.get_value(ENTITY_PROPERTY_NAME), null, entity_color);
 
         entity_button.set_engage_function(this._edit_entity.bind(this, entity_id, entity_button));
 

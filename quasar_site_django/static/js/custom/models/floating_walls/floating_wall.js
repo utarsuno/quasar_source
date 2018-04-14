@@ -240,18 +240,6 @@ FloatingWall.prototype = {
         return floating_row;
     },
 
-    // This utility function is used for creating a single row that contains a single 2D element that spans the entire width.
-    add_full_row_2D: function(row_index, text, type, color, syntax_checks) {
-        if (!is_defined(row_index)) {
-            row_index = this._get_max_row_number() + 1;
-        }
-        var current_row = this.add_row(row_index);
-        current_row.add_2D_element([0, 1], text, type, color, syntax_checks);
-
-        this.auto_adjust_height_if_needed();
-        return current_row;
-    },
-
     delete_row_by_index: function(row_index) {
         var row_to_delete = -1;
         var deleted_rows_index = null;

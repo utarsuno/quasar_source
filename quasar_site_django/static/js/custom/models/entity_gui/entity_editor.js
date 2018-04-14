@@ -64,15 +64,12 @@ EntityEditor.prototype = {
             this.entity_field_rows[ENTITY_PROPERTY_NAME].create(null);
 
             // Both creating a new entity and editing an existing entity will contain an add a new field button.
-            //this.add_new_field_button = this.wall_entity_editor.add_row(null, ADD_NEW_FIELD_BUTTON_ROW).add_2D_button([0, 1], 'add new field', COLOR_BLUE, null);
             this.add_new_field_button = this.wall_entity_editor.add_row(null, ADD_NEW_FIELD_BUTTON_ROW).add_button([0, 1, false], 16, 'add new field', null, COLOR_BLUE);
 
             // Both creating a new entity and editing an existing entity will contain an create/save-changes button.
-            //this.create_or_save_changes_button = this.wall_entity_editor.add_row(null).add_2D_button([0, 1], 'SET MY TEXT', COLOR_GREEN, this.create_or_save_changes_button_pressed.bind(this));
             this.create_or_save_changes_button = this.wall_entity_editor.add_row(null).add_button([0, 1, false], 16, 'SET MY TEXT', this.create_or_save_changes_button_pressed.bind(this), COLOR_GREEN);
 
             // Both creating a new entity and editing an existing entity will contain an delete/cancel button.
-            //this.cancel_or_delete_button = this.wall_entity_editor.add_row(null).add_2D_button([0, 1], 'SET MY TEXT', COLOR_RED, this.cancel_or_delete_button_pressed.bind(this));
             this.cancel_or_delete_button = this.wall_entity_editor.add_row(null).add_button([0, 1, false], 'SET MY TEXT', this.cancel_or_delete_button_pressed.bind(this), COLOR_RED);
 
             // Create the entity field creator.

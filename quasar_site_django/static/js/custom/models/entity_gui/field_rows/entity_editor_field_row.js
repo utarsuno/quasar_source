@@ -24,12 +24,10 @@ function EntityEditorFieldRow(entity_editor) {
         } else {
             this.label_color = null;
         }
-        //this.row.add_2D_element([0, ONE_THIRD], this.label, TYPE_CONSTANT, this.label_color);
         this.row.add_text_2D([0, ONE_THIRD, false], 16, this.label, this.label_color);
     };
 
     this.create_delete_button = function() {
-        //this.row.add_2D_button([1, 1 + ONE_FOURTH], 'delete field', COLOR_RED, this.delete_entity_field_row.bind(this));
         this.row.add_button([1, 1 + ONE_FOURTH, false], 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
     };
 

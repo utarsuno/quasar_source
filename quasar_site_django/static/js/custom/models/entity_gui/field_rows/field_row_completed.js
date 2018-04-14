@@ -42,10 +42,10 @@ FieldRowCompleted.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     create_input: function(field_value) {
-        this.mark_as_not_completed_button = this.row.add_2D_button([ONE_THIRD, TWO_THIRDS], ENTITY_PROPERTY_COMPLETED_VALUE_NO, COLOR_RED, this._mark_completed_as.bind(this, false));
-        this.mark_as_completed_button = this.row.add_2D_button([TWO_THIRDS, 1], ENTITY_PROPERTY_COMPLETED_VALUE_YES, COLOR_GREEN, this._mark_completed_as.bind(this, true));
+        this.mark_as_not_completed_button = this.row.add_button([ONE_THIRD, TWO_THIRDS, false], 16, ENTITY_PROPERTY_COMPLETED_VALUE_NO, this._mark_completed_as.bind(this, false), COLOR_RED);
+        this.mark_as_completed_button = this.row.add_button([TWO_THIRDS, 1, false], 16, ENTITY_PROPERTY_COMPLETED_VALUE_YES, this._mark_completed_as.bind(this, true), COLOR_GREEN);
 
-        this.completed_check_mark = new Floating2DText(16, ICON_CHECKMARK, TYPE_ICON, this.entity_editor.world);
+        this.completed_check_mark = new FloatingIcon(this.entity_editor.world, ICON_CHECKMARK, 16);
         this.completed_check_mark.set_attachment_depth_offset(2);
         this.completed_check_mark.set_attachment_horizontal_offset(null, -HALF);
 

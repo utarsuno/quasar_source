@@ -56,8 +56,8 @@ DynamicWorld.prototype = {
         this.world_title = this.world_wall.add_row(-1).add_text_3D([0, null, false], 32, this.world_name);
 
         var current_row = this.world_wall.add_row(null);
-        current_row.add_2D_element([0, ONE_THIRD], 'World Name :', TYPE_CONSTANT);
-        this.world_name_input = current_row.add_2D_element([ONE_THIRD, 1], this.world_name, TYPE_INPUT);
+        current_row.add_text_2D([0, ONE_THIRD, false], 16, 'World Name :');
+        this.world_name_input = current_row.add_input_2D([ONE_THIRD, 1, false], 16, this.world_name);
         this.world_name_input.set_value_post_changed_function(this.world_name_changed_from_input_event.bind(this));
 
         // Adding a row for spacing.
@@ -65,11 +65,12 @@ DynamicWorld.prototype = {
 
         current_row = this.world_wall.add_row(null);
         // TODO : This functionality.
-        current_row.add_2D_button([0, 1], 'Set World To Private', null, null);
+        current_row.add_button([0, 1, false], 16, 'Set World To Private', null);
+        current_row.add_button([0, 1, false], 16, 'Set World To Private', null);
 
         current_row = this.world_wall.add_row(null);
         // TODO : This functionality.
-        current_row.add_2D_button([0, 1], 'Share With Player', null, null);
+        current_row.add_button([0, 1, false], 16, 'Share With Player', null);
 
 
         this.world_wall.refresh_position_and_look_at();

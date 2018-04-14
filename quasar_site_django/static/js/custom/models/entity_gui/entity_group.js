@@ -95,13 +95,8 @@ EntityGroup.prototype = {
 
     base_wall_init_start: function() {
         // Create the standard functionality of the entity wall.
-        //this.create_new_entity_button = this.base_wall.add_row(0).add_2D_button([0, 1], 'create new entity', COLOR_GREEN, null);
         var row = this.base_wall.add_row(0);
-        this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null);
-        this.create_new_entity_button.set_default_foreground_color(COLOR_GREEN, false);
-        this.create_new_entity_button.set_current_foreground_color(COLOR_GREEN, true);
-
-        // TODO : Create a button for deleting the entity wall!!
+        this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null, COLOR_GREEN);
 
         this.base_wall.world.root_attachables.push(this.base_wall);
 

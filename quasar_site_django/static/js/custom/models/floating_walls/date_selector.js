@@ -27,41 +27,25 @@ DateSelector.prototype = {
 
         // Year.
         var row_year = this.wall_date_selector.add_row(null);
-        this.button_year_decrease = row_year.add_2D_element([0, ONE_FOURTH], ICON_LEFT, TYPE_ICON);
-        this.button_year_decrease.engable = false;
-        this.button_year_decrease.set_engage_function(this.button_year_decrease_pressed.bind(this));
-        world.interactive_objects.push(this.button_year_decrease);
-
-        this.year = row_year.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.month_instance.get_year(), TYPE_CONSTANT);
-
-        this.button_year_increase = row_year.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
-        this.button_year_increase.engable = false;
-        this.button_year_increase.set_engage_function(this.button_year_increase_pressed.bind(this));
-        world.interactive_objects.push(this.button_year_increase);
+        this.year = row_year.add_text_2D([ONE_FOURTH, THREE_FOURTHS, false], 16, this.month_instance.get_year());
+        this.button_year_decrease = this.year.add_icon_button_left(ICON_LEFT, this.button_year_decrease_pressed.bind(this));
+        this.button_year_increase = this.year.add_icon_button_right(ICON_RIGHT, this.button_year_increase_pressed.bind(this));
 
         // Month.
         var row_month = this.wall_date_selector.add_row(null);
-        this.button_month_decrease =  row_month.add_2D_element([0, ONE_FOURTH], ICON_LEFT, TYPE_ICON);
-        this.button_month_decrease.engable = false;
-        this.button_month_decrease.set_engage_function(this.button_month_decrease_pressed.bind(this));
-        world.interactive_objects.push(this.button_month_decrease);
-
-        this.month = row_month.add_2D_element([ONE_FOURTH, THREE_FOURTHS], this.month_instance.get_month_string(), TYPE_CONSTANT);
-
-        this.button_month_increase = row_month.add_2D_element([THREE_FOURTHS, 1], ICON_RIGHT, TYPE_ICON);
-        this.button_month_increase.engable = false;
-        this.button_month_increase.set_engage_function(this.button_month_increase_pressed.bind(this));
-        world.interactive_objects.push(this.button_month_increase);
+        this.month = row_month.add_text_2D([ONE_FOURTH, THREE_FOURTHS, false], 16, this.month_instance.get_month_string());
+        this.button_month_decrease = this.month.add_icon_button_left(ICON_LEFT, this.button_month_decrease_pressed.bind(this));
+        this.button_month_increase = this.month.add_icon_button_right(ICON_RIGHT, this.button_month_increase_pressed.bind(this));
 
         // Day labels.
         var row_labels = this.wall_date_selector.add_row(null);
-        this.day_label_monday    = row_labels.add_2D_element([0, 1 / 7]    , 'Monday'   , TYPE_CONSTANT);
-        this.day_label_tuesday   = row_labels.add_2D_element([1 / 7, 2 / 7], 'Tuesday'  , TYPE_CONSTANT);
-        this.day_label_wednesday = row_labels.add_2D_element([2 / 7, 3 / 7], 'Wednesday', TYPE_CONSTANT);
-        this.day_label_thursday  = row_labels.add_2D_element([3 / 7, 4 / 7], 'Thursday' , TYPE_CONSTANT);
-        this.day_label_friday    = row_labels.add_2D_element([4 / 7, 5 / 7], 'Friday'   , TYPE_CONSTANT);
-        this.day_label_saturday  = row_labels.add_2D_element([5 / 7, 6 / 7], 'Saturday' , TYPE_CONSTANT);
-        this.day_label_sunday    = row_labels.add_2D_element([6 / 7, 1]    , 'Sunday'   , TYPE_CONSTANT);
+        this.day_label_monday    = row_labels.add_text_2D([0, 1 / 7, false]    , 16, 'Monday'   );
+        this.day_label_tuesday   = row_labels.add_text_2D([1 / 7, 2 / 7, false], 16, 'Tuesday'  );
+        this.day_label_wednesday = row_labels.add_text_2D([2 / 7, 3 / 7, false], 16, 'Wednesday');
+        this.day_label_thursday  = row_labels.add_text_2D([3 / 7, 4 / 7, false], 16, 'Thursday' );
+        this.day_label_friday    = row_labels.add_text_2D([4 / 7, 5 / 7, false], 16, 'Friday'   );
+        this.day_label_saturday  = row_labels.add_text_2D([5 / 7, 6 / 7, false], 16, 'Saturday' );
+        this.day_label_sunday    = row_labels.add_text_2D([6 / 7, 1, false]    , 16, 'Sunday'   );
 
         // Add a row for spacing.
         this.spacing_row = this.wall_date_selector.add_row(null);
@@ -77,7 +61,7 @@ DateSelector.prototype = {
         this.wall_date_selector.add_row(null);
         this.wall_date_selector.add_row(null);
 
-        this.wall_date_selector.add_row(null).add_2D_button([0, 1], 'set to no value', COLOR_RED, this.date_selected.bind(this, NO_DATE_SELECTED));
+        this.wall_date_selector.add_row(null).add_button([0, 1, false], 16, 'set to no value', this.date_selected.bind(this, NO_DATE_SELECTED), COLOR_RED);
 
         this.wall_date_selector.hide_self_and_all_child_attachments_recursively();
     },
