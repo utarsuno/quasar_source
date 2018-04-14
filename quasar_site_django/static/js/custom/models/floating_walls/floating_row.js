@@ -98,6 +98,9 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
+        if (text === 'ENTITY_NAME') {
+            l(x_params);
+        }
         //x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
         return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
         //return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
@@ -120,6 +123,11 @@ FloatingRow.prototype = {
         if (centering === false || centering === true) {
             centering = CENTER_ABSOLUTE;
         }
+
+        if (floating_element.get_text() === 'ENTITY_NAME') {
+            l(x_params[0]);
+        }
+
         switch(centering) {
         case CENTER_ABSOLUTE:
             floating_element.set_attachment_horizontal_offset(null, x_params[0]);
