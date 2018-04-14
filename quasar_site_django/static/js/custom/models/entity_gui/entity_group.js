@@ -132,7 +132,7 @@ EntityGroup.prototype = {
         this.button_delete_entity_group.set_default_foreground_color(COLOR_RED);
         this.button_delete_entity_group.set_current_foreground_color(COLOR_RED, true);
         this.base_wall.add_attachment_to_bottom(this.button_delete_entity_group);
-        this.delete_confirmation.set_button(this.delete_confirmation);
+        this.delete_confirmation.set_button(this.button_delete_entity_group);
     },
 
     _get_confirmation_prompt: function() {
