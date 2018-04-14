@@ -53,7 +53,7 @@ DynamicWorld.prototype = {
 
         this.world_wall = new FloatingWall(world_wall_width, world_wall_height, world_wall_position, world_wall_normal, this, false);
         this.world_wall.set_auto_adjust_height(true);
-        this.world_title = this.world_wall.add_row(-1).add_3D_element(this.world_name, TYPE_TITLE);
+        this.world_title = this.world_wall.add_row(-1).add_text_3D([0, null, false], 32, this.world_name);
 
         var current_row = this.world_wall.add_row(null);
         current_row.add_2D_element([0, ONE_THIRD], 'World Name :', TYPE_CONSTANT);

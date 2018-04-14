@@ -30,7 +30,6 @@ EntityTypeSelector.prototype = {
         this.wall_select_entity_type.set_attachment_depth_offset(10);
         this.wall_select_entity_type.attach_to(this.entity_type_button);
         this.wall_select_entity_type.add_close_button();
-        //this.wall_select_entity_type.add_full_row_3D(-1, 'Select Entity Type', TYPE_TITLE);
         this.wall_select_entity_type.add_row(-1).add_text_3D([0, null, false], 32, 'Select Entity Type');
 
         //this.wall_select_entity_type.add_row(1).add_2D_button([0, 1], ENTITY_TYPE_BASE, null, this.entity_type_selected.bind(this, ENTITY_TYPE_BASE));

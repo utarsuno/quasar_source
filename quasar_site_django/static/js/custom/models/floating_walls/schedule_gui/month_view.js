@@ -196,7 +196,7 @@ MonthView.prototype = {
         this.month_view_entity.add_parent(this.base_wall.get_self_entity());
 
         // Add the title.
-        this.title = this.base_wall.add_row(-1).add_3D_element('', TYPE_TITLE, null);
+        this.title = this.base_wall.add_row(-1).add_text_3D([0, null, false], 32, '');
     },
 
     load_from_entity: function(world, entity) {

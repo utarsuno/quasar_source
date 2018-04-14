@@ -51,7 +51,6 @@ EntityEditor.prototype = {
             this.wall_entity_editor.set_attachment_depth_offset(10);
             this.wall_entity_editor.add_close_button();
 
-            //this.wall_title = this.wall_entity_editor.add_row(-1).add_3D_element('HODL IOTA', TYPE_TITLE);
             this.wall_title = this.wall_entity_editor.add_row(-1).add_text_3D([0, null, false], 32, 'HODL IOTA');
 
             this.entity_field_rows = {};

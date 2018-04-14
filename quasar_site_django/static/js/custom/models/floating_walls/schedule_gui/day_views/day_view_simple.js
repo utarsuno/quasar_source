@@ -25,7 +25,7 @@ DayViewSimple.prototype = {
         this.day_view.set_attachment_horizontal_offset(position_width * this.day_instance.day_of_the_week + width / 2, -HALF);
         this.day_view.set_attachment_vertical_offset(-(position_height * this.day_instance.week_number - height / 4), HALF);
 
-        this.day_view.add_row(0).add_3D_element(this.day_instance.day_number, TYPE_TITLE, null);
+        this.day_view.add_row(0).add_text_3D([0, null, false], 32, this.day_instance.day_number);
 
         this.day_view.attach_to(this.base_wall);
 

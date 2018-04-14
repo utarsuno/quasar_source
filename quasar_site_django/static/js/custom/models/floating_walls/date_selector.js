@@ -16,7 +16,7 @@ DateSelector.prototype = {
         this.date_selected = date_selected_callback;
 
         this.wall_date_selector = new FloatingWall(600, 250, null, null, world, false, COLOR_BLACK);
-        this.wall_date_selector.add_full_row_3D(-1, 'Date Selector', TYPE_TITLE, COLOR_YELLOW);
+        this.wall_date_selector.add_row(-1).add_text_3D([0, null, false], 32, 'Date Selector', COLOR_YELLOW);
         this.wall_date_selector.add_close_button();
         this.wall_date_selector.set_attachment_depth_offset(10);
         this.wall_date_selector.manual_visibility = true;

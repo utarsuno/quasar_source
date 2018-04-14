@@ -124,27 +124,7 @@ FloatingRow.prototype = {
     },
 
     // OLDER FUNCTIONS BELOW.
-
-    add_3D_element: function(text, type, color) {
-        var floating_element = new Floating3DText(text, type, this.parent_wall.world);
-
-        // TODO : Add ability to center later on.
-        floating_element.set_attachment_horizontal_offset(null, -HALF);
-
-        if (is_defined(color)) {
-            floating_element.set_default_color(color);
-            floating_element.set_color(color, true);
-        }
-
-        floating_element.set_attachment_vertical_offset(-32 * this.row_number, HALF);
-        floating_element.attach_to(this.parent_wall);
-
-        floating_element.add_tag(SAVE_TAG_3D_ROW);
-
-        this.elements.push(floating_element);
-        return floating_element;
-    },
-
+    
     add_2D_label_and_input: function(x_divide_mark, text, syntax_checks) {
         var label = this.add_2D_element([0, x_divide_mark], text, TYPE_CONSTANT);
         var input = this.add_2D_element([x_divide_mark, 1], '', TYPE_INPUT, null, syntax_checks);

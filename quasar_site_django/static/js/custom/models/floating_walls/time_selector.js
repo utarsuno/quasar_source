@@ -15,7 +15,7 @@ TimeSelector.prototype = {
         this.time_selected = time_selected_callback;
 
         this.wall_time_selector = new FloatingWall(300, 200, null, null, world, false, COLOR_BLACK);
-        this.wall_time_selector.add_full_row_3D(-1, 'Time Selector', TYPE_TITLE, COLOR_YELLOW);
+        this.wall_time_selector.add_row(-1).add_text_3D([0, null, false], 32, 'Time Selector', COLOR_YELLOW);
         this.wall_time_selector.add_close_button();
         this.wall_time_selector.set_attachment_depth_offset(10);
         this.wall_time_selector.manual_visibility = true;
@@ -26,28 +26,28 @@ TimeSelector.prototype = {
 
         this.hour = hour_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
 
-        hour_row.add_2D_button([0, 1 / 6], '5', COLOR_RED, this.decrease_hour.bind(this, 5));
-        hour_row.add_2D_button([1 / 6, 2 / 6], '1', COLOR_RED, this.decrease_hour.bind(this, 1));
-        hour_row.add_2D_button([4 / 6, 5 / 6], '1', COLOR_GREEN, this.increase_hour.bind(this, 1));
-        hour_row.add_2D_button([5 / 6, 1], '5', COLOR_GREEN, this.increase_hour.bind(this, 5));
+        hour_row.add_button([0, 1 / 6, false], 16, '5', this.decrease_hour.bind(this, 5), COLOR_RED);
+        hour_row.add_button([1 / 6, 2 / 6, false], 16, '1', this.decrease_hour.bind(this, 1), COLOR_RED);
+        hour_row.add_button([4 / 6, 5 / 6, false], 16, '1', this.increase_hour.bind(this, 1), COLOR_GREEN);
+        hour_row.add_button([5 / 6, 1, false], 16, '5', this.increase_hour.bind(this, 5), COLOR_GREEN);
 
         // Minute.
-        this.wall_time_selector.add_row(null).add_2D_element([0, 1], 'minute', TYPE_CONSTANT);
+        this.wall_time_selector.add_row(null).add_text_2D([0, 1, false], 16, 'minute');
         var minute_row = this.wall_time_selector.add_row(null);
 
-        this.minute = minute_row.add_2D_element([1 / 3, 2 / 3], '', TYPE_CONSTANT);
+        this.minute = minute_row.add_text_2D([1 / 3, 2 / 3, false], 16, '');
 
-        minute_row.add_2D_button([0, 1 / 9], '10', COLOR_RED, this.decrease_minute.bind(this, 10));
-        minute_row.add_2D_button([1 / 9, 2 / 9], '5', COLOR_RED, this.decrease_minute.bind(this, 5));
-        minute_row.add_2D_button([2 / 9, 3 / 9], '1', COLOR_RED, this.decrease_minute.bind(this, 1));
-        minute_row.add_2D_button([6 / 9, 7 / 9], '1', COLOR_GREEN, this.increase_minute.bind(this, 1));
-        minute_row.add_2D_button([7 / 9, 8 / 9], '5', COLOR_GREEN, this.increase_minute.bind(this, 5));
-        minute_row.add_2D_button([8 / 9, 1], '10', COLOR_GREEN, this.increase_minute.bind(this, 10));
+        minute_row.add_button([0, 1 / 9, false], 16, '10', this.decrease_minute.bind(this, 10), COLOR_RED);
+        minute_row.add_button([1 / 9, 2 / 9, false], 16, '5', this.decrease_minute.bind(this, 5), COLOR_RED);
+        minute_row.add_button([2 / 9, 3 / 9, false], 16, '1', this.decrease_minute.bind(this, 1), COLOR_RED);
+        minute_row.add_button([6 / 9, 7 / 9, false], 16, '1', this.increase_minute.bind(this, 1), COLOR_GREEN);
+        minute_row.add_button([7 / 9, 8 / 9, false], 16, '5', this.increase_minute.bind(this, 5), COLOR_GREEN);
+        minute_row.add_button([8 / 9, 1, false], 16, '10', this.increase_minute.bind(this, 10), COLOR_GREEN);
 
         this.refresh_time_selector();
 
-        this.wall_time_selector.add_row(null).add_2D_button([0, 1], 'set to no value', COLOR_RED, this.time_selected.bind(this, null, null));
-        this.wall_time_selector.add_row(null).add_2D_button([0, 1], 'set time', COLOR_GREEN, this.time_selected.bind(this, this.hour, this.minute));
+        this.wall_time_selector.add_row(null).add_button([0, 1, false], 16, 'set to no value', this.time_selected.bind(this, null, null), COLOR_RED);
+        this.wall_time_selector.add_row(null).add_button([0, 1, false], 16, 'set time', this.time_selected.bind(this, this.hour, this.minute), COLOR_GREEN);
     },
 
     refresh_time_selector: function() {

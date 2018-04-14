@@ -240,17 +240,6 @@ FloatingWall.prototype = {
         return floating_row;
     },
 
-    // TODO : DELETE THIS FUNCTION!!!
-    // TODO : DELETE THIS FUNCTION!!!
-    // TODO : DELETE THIS FUNCTION!!!
-    // This utility function is used for creating a single row that contains a single 3D element.
-    add_full_row_3D: function(row_index, text, type, color) {
-        var current_row = this.add_row(row_index);
-        current_row.add_3D_element(text, type, color);
-
-        return current_row;
-    },
-
     // This utility function is used for creating a single row that contains a single 2D element that spans the entire width.
     add_full_row_2D: function(row_index, text, type, color, syntax_checks) {
         if (!is_defined(row_index)) {

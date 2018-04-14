@@ -33,7 +33,6 @@ EntityFieldCreator.prototype = {
         this.wall_add_new_field.set_attachment_depth_offset(10);
         this.wall_add_new_field.attach_to(this.add_new_field_button);
         this.wall_add_new_field.add_close_button();
-        //this.wall_add_new_field.add_full_row_3D(-1, 'Add New Field', TYPE_TITLE);
         this.wall_add_new_field.add_row(-1).add_text_3D([0, null, false], 32, 'Add New Field');
 
         // All the field options.
