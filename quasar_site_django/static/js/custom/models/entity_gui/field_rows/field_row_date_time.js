@@ -71,6 +71,8 @@ FieldRowDateTime.prototype = {
             this.select_date_button.update_text(field_value_list[0]);
             this.select_time_button.update_text(field_value_list[1]);
         }
+
+        return this.date_selector;
     },
 
     get_value: function() {

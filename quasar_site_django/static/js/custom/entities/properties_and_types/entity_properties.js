@@ -70,3 +70,14 @@ const ENTITY_PROPERTY_COMPLETED_VALUE_YES = 'yes';
 
 const MONTH_VIEW_TYPE_SIMPLE          = 'simple';
 const MONTH_VIEW_TYPE_FULL            = 'full';
+
+
+
+
+
+function get_entity_property_full_name(entity_property) {
+    switch(entity_property){
+    case ENTITY_DEFAULT_PROPERTY_TYPE:
+        return 'Entity Type';
+    }
+}

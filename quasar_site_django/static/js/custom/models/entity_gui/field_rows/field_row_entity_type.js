@@ -28,6 +28,8 @@ FieldRowEntityType.prototype = {
         this.wall_entity_type_selector.set_display_button(this.entity_type_button);
 
         this.hide_extra_elements();
+
+        return this.entity_type_button;
     },
 
     get_value: function() {

@@ -60,6 +60,8 @@ FieldRowCompleted.prototype = {
         } else {
             this.mark_as_not_completed_button.add_attachment(this.completed_check_mark);
         }
+
+        return this.mark_as_not_completed_button;
     },
 
     get_value: function() {

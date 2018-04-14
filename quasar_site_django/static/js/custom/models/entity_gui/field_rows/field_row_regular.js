@@ -21,6 +21,8 @@ FieldRowRegular.prototype = {
         if (is_defined(field_value)) {
             this.input_field.update_text(field_value);
         }
+
+        return this.input_field;
     },
 
     get_value: function() {
