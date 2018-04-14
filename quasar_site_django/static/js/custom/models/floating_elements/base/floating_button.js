@@ -19,7 +19,6 @@ FloatingButton.prototype = {
         this.set_text_property_centered(true);
         this.initialize();
 
-
         this.has_button_state = false;
     },
 

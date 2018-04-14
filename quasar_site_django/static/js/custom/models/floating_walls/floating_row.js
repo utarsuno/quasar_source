@@ -52,13 +52,12 @@ FloatingRow.prototype = {
 
     add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color) {
         var floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
-        return this.add_element(x_params, floating_button, foreground_color, background_color);
+        return this._add_element(x_params, floating_button, foreground_color, background_color);
     },
 
     add_checkbox: function(x_params, size, checked, on_check_function) {
         var floating_checkbox = new FloatingCheckBox(this.world, size, checked, on_check_function);
-        x_params[0] -= 0.5 - ((size / this.parent_wall.width) / 2);
-        return this.add_element(x_params, floating_checkbox);
+        return this._add_element(x_params, floating_checkbox);
     },
 
     // To further test :
@@ -98,9 +97,6 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
-        if (text === 'ENTITY_NAME') {
-            l(x_params);
-        }
         //x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
         return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
         //return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
@@ -124,13 +120,8 @@ FloatingRow.prototype = {
             centering = CENTER_ABSOLUTE;
         }
 
-        if (floating_element.get_text() === 'ENTITY_NAME') {
-            l(x_params[0]);
-        }
-
         switch(centering) {
         case CENTER_ABSOLUTE:
-            //floating_element.set_attachment_horizontal_offset(-floating_element.width / 2, x_params[0]);
             floating_element.set_attachment_horizontal_offset(0, (x_params[0] + x_params[1]) / 2 - HALF);
             break;
         case CENTER_LEFT:
