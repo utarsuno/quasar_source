@@ -23,8 +23,8 @@ ConfirmationPrompt.prototype = {
     },
 
     set_button: function(b) {
-        this.set_attachment_depth_offset(5);
-        this.attach_to(b);
+        this.wall.set_attachment_depth_offset(5);
+        this.wall.attach_to(b);
     },
 
     bind_confirmation_prompt: function(f) {
