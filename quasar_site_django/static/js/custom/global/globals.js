@@ -75,6 +75,7 @@ const TYPE_CONSTANT               = 'constant';
 
 // TEMPORARY TESTING.
 const COLOR_RED           = new THREE.Color('#ff5e33');
+const COLOR_BLUE          = new THREE.Color('#0065ff');
 const COLOR_GREEN         = new THREE.Color('#31ff00');
 const COLOR_YELLOW        = new THREE.Color('#faff00');
 const COLOR_BLACK         = new THREE.Color('#000000');
@@ -93,7 +94,6 @@ const COLOR_HEX_INDEX               = 0;
 const COLOR_HIGHLIGHT               = [0xD4FF93, '#D4FF93'];
 const COLOR_TEXT_BUTTON             = [0x60d6ff, '#60d6ff'];
 const COLOR_ORANGE                  = [0xFF7F00, '#FF7F00'];
-const COLOR_BLUE                    = [0x2a33ff, '#2a33ff'];
 const COLOR_DARK_PURPLE             = [0x4B0082, '#4B0082'];
 const COLOR_LIGHT_PURPLE            = [0x8F00FF, '#8F00FF'];
 const COLOR_WHITE                   = [0xffffff, '#ffffff'];

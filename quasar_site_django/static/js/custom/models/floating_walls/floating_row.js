@@ -46,8 +46,14 @@ FloatingRow.prototype = {
         return this.parent_wall.width * (x_params[1] - x_params[0]);
     },
 
-    add_button: function(x_params, text_height, text, engage_function) {
+    add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color) {
         var floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
+        if (is_defined(foreground_color)) {
+            floating_button.set_foreground_color(foreground_color);
+        }
+        if (is_defined(background_color)) {
+            floating_button.set_background_color(background_color);
+        }
         return this.add_element(x_params, floating_button);
     },
 
