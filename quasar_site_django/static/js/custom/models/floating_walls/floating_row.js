@@ -82,7 +82,7 @@ FloatingRow.prototype = {
 
     add_text_2D: function(x_params, text_height, text, foreground_color, background_color) {
         var floating_text_2D = new FloatingText2D(this.world, text_height, text);
-        return this.add_element(x_params, floating_text_2D, foreground_color, background_color);
+        return this._add_element([x_params[0], x_params[1], CENTER_LEFT], floating_text_2D, foreground_color, background_color);
     },
 
     add_input_3D: function(x_params, text_height, text) {
@@ -123,6 +123,9 @@ FloatingRow.prototype = {
             floating_element.set_attachment_horizontal_offset(0, (x_params[0] + x_params[1]) / 2 - HALF);
             break;
         case CENTER_LEFT:
+            var width_percentage = floating_element.width / this.parent_wall.width;
+            var alpha = -.5 / width_percentage;
+            floating_element.set_attachment_horizontal_offset(0, width_percentage + HALF + alpha);
             break;
         case CENTER_MIDDLE:
             break;

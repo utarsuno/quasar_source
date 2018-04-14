@@ -36,7 +36,7 @@ EntityFieldCreator.prototype = {
         this.wall_add_new_field.add_row(-1).add_text_3D([0, null, false], 32, 'Add New Field');
 
         // All the field options.
-        this.wall_add_new_field.add_row(0).add_text_2D([0, 1, false], 16, 'Default Fields');
+        this.wall_add_new_field.add_row(0).add_text_2D([0, 1], 16, 'Default Fields');
 
         this._add_selectable_entity_field(ENTITY_PROPERTY_TAGS);
         this._add_selectable_entity_field(ENTITY_PROPERTY_NOTE);
@@ -45,7 +45,7 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
-        this.wall_add_new_field.add_row(null).add_text_2D([0, 1, false], 16, 'Time Fields');
+        this.wall_add_new_field.add_row(null).add_text_2D([0, 1], 16, 'Time Fields');
 
         // All the time related field options.
         this._add_selectable_entity_field(ENTITY_PROPERTY_START_DATE_TIME);
@@ -56,9 +56,9 @@ EntityFieldCreator.prototype = {
         // Adding an emtpy row for spacing.
         this.wall_add_new_field.add_row();
 
-        this.wall_add_new_field.add_row(null).add_text_2D([0, 1, false], 16, 'Or create a custom field');
+        this.wall_add_new_field.add_row(null).add_text_2D([0, 1], 16, 'Or create a custom field');
         this.custom_field_name = this.wall_add_new_field.add_row(null).add_input_2D([0, 1, false], 16, 'Field Name Here');
-        this.wall_add_new_field.add_row(null).add_button([0, 1, false], 'Add custom field', this._add_selectable_custom_entity_field.bind(this));
+        this.wall_add_new_field.add_row(null).add_button([0, 1], 16, 'Add custom field', this._add_selectable_custom_entity_field.bind(this));
     },
 
     _add_selectable_custom_entity_field: function() {
@@ -66,19 +66,23 @@ EntityFieldCreator.prototype = {
         if (!custom_field_name.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
             custom_field_name = ENTITY_PROPERTY_START_TOKEN + custom_field_name;
         }
-        this.add_entity_field(custom_field_name);
+        this.add_entity_field(custom_field_name, true);
         // TODO : Add all the error checking needed!!!
     },
 
-    add_entity_field: function(field_name) {
+    add_entity_field: function(field_name, custom_field) {
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
-        this.entity_editor.add_entity_field(field_name);
+        if (custom_field) {
+            this.entity_editor.add_entity_field(field_name);
+        } else {
+            this.entity_editor.add_entity_field(get_entity_property_full_name(field_name));
+        }
         this.base_wall.refresh_position_and_look_at();
     },
 
     _add_selectable_entity_field: function(field_name) {
         if (!this.entity_editor.has_field(field_name)) {
-            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_button([0, 1, false], 16, field_name, this.add_entity_field.bind(this, field_name));
+            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_button([0, 1], 16, field_name, this.add_entity_field.bind(this, field_name, false));
         }
     }
 

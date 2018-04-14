@@ -73,11 +73,41 @@ const MONTH_VIEW_TYPE_FULL            = 'full';
 
 
 
+function get_entity_type_full_name(entity_type) {
+    switch(entity_type) {
+    case ENTITY_TYPE_BASE:
+        return 'Entity';
+    case ENTITY_TYPE_TASK:
+        return 'Task';
+    case ENTITY_TYPE_ENTITY_GROUP:
+        return 'EntityGroup';
+    case ENTITY_TYPE_TEXT_REMINDER:
+        return 'TextReminder';
+    }
+}
 
 
 function get_entity_property_full_name(entity_property) {
     switch(entity_property){
     case ENTITY_DEFAULT_PROPERTY_TYPE:
         return 'Entity Type';
+    case ENTITY_PROPERTY_NAME:
+        return 'Name';
+    case ENTITY_PROPERTY_EMAIL:
+        return 'Email';
+    case ENTITY_PROPERTY_START_DATE_TIME:
+        return 'State Date Time';
+    case ENTITY_PROPERTY_END_DATE_TIME:
+        return 'End Date Time';
+    case ENTITY_PROPERTY_COMPLETED:
+        return 'Completed';
+    case ENTITY_PROPERTY_TAGS:
+        return 'Tags';
+    case ENTITY_PROPERTY_NOTE:
+        return 'Notes';
+    case ENTITY_PROPERTY_TIME_NEEDED:
+        return 'Time Needed';
+    case ENTITY_PROPERTY_TIME_DURATION:
+        return 'Time Duration';
     }
 }

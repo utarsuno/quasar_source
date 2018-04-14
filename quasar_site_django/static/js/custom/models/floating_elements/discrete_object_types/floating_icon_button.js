@@ -42,8 +42,6 @@ FloatingIconButton.prototype = {
       /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     state_change_look_at: function(being_looked_at) {
-        l('Floating Icon Button being looked at :');
-        l(being_looked_at);
         if (being_looked_at) {
             //this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
             MANAGER_RENDERER.outline_glow.set_hover_object(this.object3D);
