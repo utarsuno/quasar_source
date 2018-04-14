@@ -140,6 +140,6 @@ EntityGroup.prototype = {
     },
 
     _delete_entity_group: function() {
-
+        l('Delete entity group!!');
     }
 };

@@ -57,11 +57,10 @@ ConfirmationPrompt.prototype = {
     prompt: function() {
         this.wall.delete_row_by_index(0);
         var row = this.wall.add_row(0);
-        this.title = row.add_text_2D([0, 1, false], 16, this._get_confirmation_prompt());
-        l('Setting text to :');
-        l(this._get_confirmation_prompt());
+        this.title = row.add_text_2D([0, 1, true], 16, this._get_confirmation_prompt());
         this.title.update_text(this._get_confirmation_prompt());
         this.wall.display_self_and_all_child_attachments_recursively();
+        this.wall.refresh_position_and_look_at();
     }
 
 };
