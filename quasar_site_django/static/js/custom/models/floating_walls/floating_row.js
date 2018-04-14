@@ -123,7 +123,7 @@ FloatingRow.prototype = {
             floating_element.set_attachment_horizontal_offset(0, (x_params[0] + x_params[1]) / 2 - HALF);
             break;
         case CENTER_LEFT:
-            var width_percentage = floating_element.width / this.parent_wall.width;
+            var width_percentage = (floating_element.width / this.parent_wall.width) / 2;
             var alpha = -.5 / width_percentage;
             floating_element.set_attachment_horizontal_offset(0, width_percentage + alpha);
             break;
