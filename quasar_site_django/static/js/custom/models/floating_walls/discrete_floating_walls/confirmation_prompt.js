@@ -25,6 +25,7 @@ ConfirmationPrompt.prototype = {
     set_button: function(b) {
         this.wall.set_attachment_depth_offset(5);
         this.wall.attach_to(b);
+        b.set_engage_function(this.prompt.bind(this));
     },
 
     bind_confirmation_prompt: function(f) {

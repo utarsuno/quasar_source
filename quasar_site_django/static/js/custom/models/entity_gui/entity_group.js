@@ -128,7 +128,7 @@ EntityGroup.prototype = {
         this.delete_confirmation = new ConfirmationPrompt(this.base_wall.world);
         this.delete_confirmation.bind_confirmation_prompt(this._get_confirmation_prompt.bind(this));
         this.delete_confirmation.bind_yes_action(this._delete_entity_group.bind(this));
-        this.button_delete_entity_group = new FloatingButton(this.base_wall.world, this.base_wall.width, 16, 'delete entity group', this.delete_confirmation.prompt);
+        this.button_delete_entity_group = new FloatingButton(this.base_wall.world, this.base_wall.width, 16, 'delete entity group', null);
         this.button_delete_entity_group.set_default_foreground_color(COLOR_RED);
         this.button_delete_entity_group.set_current_foreground_color(COLOR_RED, true);
         this.base_wall.add_attachment_to_bottom(this.button_delete_entity_group);
