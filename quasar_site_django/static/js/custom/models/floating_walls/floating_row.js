@@ -1,5 +1,10 @@
 'use strict';
 
+const CENTER_LEFT     = 1;
+const CENTER_MIDDLE   = 2;
+const CENTER_RIGHT    = 3;
+const CENTER_ABSOLUTE = 4;
+
 function FloatingRow(parent_wall, row_number, row_name) {
     this.__init__(parent_wall, row_number, row_name);
 }
@@ -93,8 +98,44 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
-        x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
-        return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
+        //x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
+        return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
+        //return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
+    },
+
+    _add_element: function(x_params, floating_element, foreground_color, background_color) {
+        floating_element.set_attachment_depth_offset(1);
+        if (is_defined(foreground_color)) {
+            floating_element.set_foreground_color(foreground_color);
+        }
+        if (is_defined(background_color)) {
+            floating_element.set_background_color(background_color);
+        }
+        //
+        var centering = x_params[2];
+        if (!is_defined(centering)) {
+            centering = CENTER_ABSOLUTE;
+        }
+        // TEMP
+        if (centering === false || centering === true) {
+            centering = CENTER_ABSOLUTE;
+        }
+        switch(centering) {
+        case CENTER_ABSOLUTE:
+            floating_element.set_attachment_horizontal_offset(null, x_params[0]);
+            break;
+        case CENTER_LEFT:
+            break;
+        case CENTER_MIDDLE:
+            break;
+        case CENTER_RIGHT:
+            break;
+        }
+        //
+        floating_element.set_attachment_vertical_offset(-8 + -16 * this.row_number, HALF);
+        floating_element.attach_to(this.parent_wall);
+        this.elements.push(floating_element);
+        return floating_element;
     },
 
     add_element: function(x_params, floating_element, foreground_color, background_color) {
