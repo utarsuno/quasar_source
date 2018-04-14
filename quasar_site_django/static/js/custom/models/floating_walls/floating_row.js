@@ -131,7 +131,7 @@ FloatingRow.prototype = {
         switch(centering) {
         case CENTER_ABSOLUTE:
             //floating_element.set_attachment_horizontal_offset(-floating_element.width / 2, x_params[0]);
-            floating_element.set_attachment_horizontal_offset(0, (x_params[0] + x_params[1]) / 2 + HALF);
+            floating_element.set_attachment_horizontal_offset(0, (x_params[0] + x_params[1]) / 2 - HALF);
             break;
         case CENTER_LEFT:
             break;
