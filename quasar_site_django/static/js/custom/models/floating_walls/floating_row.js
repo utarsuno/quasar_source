@@ -127,7 +127,7 @@ FloatingRow.prototype = {
             //var alpha = (-1 / width_percentage) / 2;
             //var alpha = -.5 / width_percentage;
             var alpha = -.5 / (width_percentage / 2);
-            floating_element.set_attachment_horizontal_offset(0, width_percentage / 2 + alpha);
+            floating_element.set_attachment_horizontal_offset(0, width_percentage + alpha);
             break;
         case CENTER_MIDDLE:
             break;
