@@ -11,7 +11,6 @@ function EntityEditorFieldRow(entity_editor) {
             raise_exception_with_full_logging('Invalid entity property passed!');
         }
         this.entity_property = entity_property;
-        this.label           = this.entity_property.substring(2);
     };
 
     this.create_row = function(row_index) {
@@ -28,7 +27,9 @@ function EntityEditorFieldRow(entity_editor) {
     };
 
     this.create_label = function(input) {
-        input.add_label_left(this.label);
+        var label_text = get_entity_property_full_name(this.entity_property);
+        var label = input.add_label_left(label_text);
+        //input.add_label_left(this.label);
     };
 
     this.create_delete_button = function() {

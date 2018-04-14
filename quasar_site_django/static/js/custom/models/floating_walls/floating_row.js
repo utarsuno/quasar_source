@@ -57,14 +57,14 @@ FloatingRow.prototype = {
 
     add_checkbox: function(x_params, size, checked, on_check_function) {
         var floating_checkbox = new FloatingCheckBox(this.world, size, checked, on_check_function);
-        return this._add_element(x_params, floating_checkbox);
+        var end_x = x_params[0] + (size / this.parent_wall.width);
+        var x_params2 = [x_params[0], end_x];
+        return this._add_element(x_params2, floating_checkbox);
     },
 
-    // To further test :
     add_icon: function(x_params, icon_type) {
         var floating_icon = new FloatingIcon(this.world, icon_type, this._get_width_needed(x_params));
-        x_params[0] -= 0.5 - ((floating_icon.width / this.parent_wall.width) / 2);
-        return this.add_element(x_params, floating_icon);
+        return this._add_element(x_params, floating_icon);
     },
 
     add_icon_button: function(x_params, icon_type, engage_function) {
@@ -97,9 +97,7 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
-        //x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
         return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
-        //return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
     },
 
     _add_element: function(x_params, floating_element, foreground_color, background_color) {
