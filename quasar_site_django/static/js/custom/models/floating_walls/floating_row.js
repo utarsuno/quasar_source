@@ -93,7 +93,7 @@ FloatingRow.prototype = {
             text = '';
         }
         var floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
-        x_params -= (floating_input_2D.width / this.parent_wall.width) / 8;
+        x_params[0] -= (floating_input_2D.width / this.parent_wall.width) / 4;
         return this.add_element(x_params, floating_input_2D, foreground_color, background_color);
     },
 
