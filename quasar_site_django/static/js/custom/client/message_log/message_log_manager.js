@@ -55,9 +55,16 @@ function MessageLogManager() {
             if (this.messages[m].has_update()) {
                 this.messages[m].update(delta);
                 var index = this.messages[m].get_row_index();
-                this.rows[index].set_color = this.messages[m].get_color();
-                this.rows[index].set_text  = this.messages[m].get_text();
+                //l('Displaying text for index ')
+                this.rows[index].set_color(this.messages[m].get_color());
+                this.rows[index].set_text(this.messages[m].get_text());
             }
+        }
+    };
+
+    this._reset_alphas = function() {
+        for (var m = 0; m < this.messages.length; m++) {
+            this.messages[m].reset_delta();
         }
     };
 }

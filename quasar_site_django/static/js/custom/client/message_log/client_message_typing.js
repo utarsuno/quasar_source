@@ -17,6 +17,7 @@ function ClientMessageTyping() {
     this.show_client_typing = function() {
         this.parent_dom.show();
         this.gui_typing.show();
+        this._reset_alphas();
     };
 
     this.key_down_event = function(event) {

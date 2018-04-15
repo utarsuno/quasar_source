@@ -45,6 +45,10 @@ LogMessage.prototype = {
 
     increase_row_index: function() {
         this.row_index += 1;
+    },
+
+    reset_delta: function() {
+        this.current_delta = 0;
     }
 
 };
