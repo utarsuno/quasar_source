@@ -47,6 +47,10 @@ WebSocketManager.prototype = {
     },
 
     _message_received: function(message) {
+        l('Message received!');
+        l(message);
+
+
         var response = JSON.parse(message.data).text;
 
         // TODO : Check if the message is a response or a server message.
