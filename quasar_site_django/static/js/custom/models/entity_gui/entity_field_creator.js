@@ -71,15 +71,11 @@ EntityFieldCreator.prototype = {
     },
 
     add_entity_field: function(field_name, custom_field) {
-        l('Field name : ' + field_name);
-        l('Custom field : ' + custom_field);
+        //l('Field name : ' + field_name);
+        //l('Custom field : ' + custom_field);
 
         this.wall_add_new_field.hide_self_and_all_child_attachments_recursively();
-        if (custom_field) {
-            this.entity_editor.add_entity_field(field_name);
-        } else {
-            this.entity_editor.add_entity_field(get_entity_property_full_name(field_name));
-        }
+        this.entity_editor.add_entity_field(field_name);
         this.base_wall.refresh_position_and_look_at();
     },
 
