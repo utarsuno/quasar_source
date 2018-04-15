@@ -85,9 +85,9 @@ class ConsumerManager(AsyncWebsocketConsumer):
 				self.global_chat,
 				{
 					'type': 'chat.message',
-					_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
+					'message': {_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
 					_WEB_SOCKET_KEY_CHAT_MESSAGE: r[_WEB_SOCKET_KEY_CHAT_MESSAGE],
-					_WEB_SOCKET_KEY_CHAT_USER: user
+					_WEB_SOCKET_KEY_CHAT_USER: user}
 				}
 			)
 
@@ -95,6 +95,8 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 	def chat_message(self, e):
 		"""Sends the chat message."""
+		#c = e[_WEB_SOCKET_KEY_CHAT_CHANNEL]
+
 		print('Trying to send chat message!')
 		self.send(text_data=json.dumps({
 			'message':
