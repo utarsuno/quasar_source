@@ -20,6 +20,8 @@ function MessageLogManager() {
         }
     };
 
+    this.load_log_rows();
+
     this.add_server_message_red = function(message) {
         this._add_message(message, 'server', LOG_MESSAGE_COLOR_RED);
     };
