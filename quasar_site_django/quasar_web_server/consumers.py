@@ -85,7 +85,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 				self.global_chat,
 				{
 					'type': 'chat.message',
-					'message': {_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
+					'e': {_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
 					_WEB_SOCKET_KEY_CHAT_MESSAGE: r[_WEB_SOCKET_KEY_CHAT_MESSAGE],
 					_WEB_SOCKET_KEY_CHAT_USER: user}
 				}
