@@ -9,7 +9,7 @@ function ClientMessageTyping() {
     this.hide_client_typing = function() {
         this.gui_typing.hide();
         this.input_text.clear_text();
-        this.gui_typing_input.set_text(this.input_text.get_text());
+        this.gui_typing.set_text(this.input_text.get_text());
     };
 
     this.show_client_typing = function() {
@@ -18,7 +18,7 @@ function ClientMessageTyping() {
 
     this.key_down_event = function(event) {
         this.input_text.parse_key_event(event);
-        this.gui_typing_input.set_text(this.input_text.get_text());
+        this.gui_typing.set_text(this.input_text.get_text());
     };
 
     this.add_user_text = function() {
