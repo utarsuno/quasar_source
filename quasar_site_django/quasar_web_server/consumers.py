@@ -71,6 +71,10 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#print('websocket disconnect!')
 		#print('Connection ID : ' + self.channel_name)
 		self._web_socket_server.remove_connection(self.channel_name)
+		await self.channel_layer.group_discard(
+			self.global_chat,
+			self.channel_name
+		)
 
 	async def receive(self, text_data):
 		#print('received the following message : { ' + str(text_data) + '}')
