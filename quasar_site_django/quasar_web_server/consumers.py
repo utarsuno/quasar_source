@@ -81,6 +81,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 			user = self._web_socket_server.get_username_from_channel_name(self.channel_name)
 
+			'''
 			await self.channel_layer.group_send(
 				self.global_chat,
 				{
@@ -90,8 +91,9 @@ class ConsumerManager(AsyncWebsocketConsumer):
 					_WEB_SOCKET_KEY_CHAT_USER: user}
 				}
 			)
+			'''
 
-			print('Send chat message!')
+			print('Sent chat message!')
 
 			#self.send_chat_message(r, self.channel_name)
 
