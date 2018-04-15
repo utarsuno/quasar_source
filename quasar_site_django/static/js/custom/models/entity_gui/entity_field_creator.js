@@ -84,8 +84,11 @@ EntityFieldCreator.prototype = {
     },
 
     _add_selectable_entity_field: function(field_name) {
+
+        var name = get_entity_property_full_name(field_name);
+
         if (!this.entity_editor.has_field(field_name)) {
-            this.wall_add_new_field.add_row(null, field_name.substring(3)).add_button([0, 1], 16, field_name, this.add_entity_field.bind(this, field_name, false));
+            this.wall_add_new_field.add_row(null, field_name.substring(2)).add_button([0, 1], 16, name, this.add_entity_field.bind(this, field_name, false));
         }
     }
 
