@@ -199,6 +199,7 @@ module.exports = {
         // and their class names.
         "MultiPlayerManager"   : false,
         "CookieManager"        : false,
+        "SessionManager"       : false,
         "Cookies"              : false,
         "Text2DUtilities"      : false,
         "DynamicContentManager": false,

@@ -21,6 +21,8 @@ Client.prototype = {
         CookieManager.call(this);
         SessionManager.call(this);
         MessageLogManager.call(this);
+
+        // TODO : Save the username here.
     },
 
     set_debug_mode: function(debug_mode) {
