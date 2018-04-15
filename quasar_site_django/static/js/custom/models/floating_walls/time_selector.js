@@ -21,7 +21,7 @@ TimeSelector.prototype = {
         this.wall_time_selector.manual_visibility = true;
 
         // Hour.
-        this.wall_time_selector.add_row(null).add_text_2D([0, 1, false], 16, 'hour');
+        this.wall_time_selector.add_row(null).add_text_2D([0, 1], 16, 'hour');
         var hour_row = this.wall_time_selector.add_row(null);
 
         this.hour = hour_row.add_text_2D([1 / 3, 2 / 3, CENTER_ABSOLUTE], 16, get_current_hour());
@@ -32,10 +32,10 @@ TimeSelector.prototype = {
         hour_row.add_button([5 / 6, 1, false], 16, '5', this.increase_hour.bind(this, 5), COLOR_GREEN);
 
         // Minute.
-        this.wall_time_selector.add_row(null).add_text_2D([0, 1, CENTER_ABSOLUTE], 16, 'minute');
+        this.wall_time_selector.add_row(null).add_text_2D([0, 1], 16, 'minute');
         var minute_row = this.wall_time_selector.add_row(null);
 
-        this.minute = minute_row.add_text_2D([1 / 3, 2 / 3, false], 16, get_current_minute());
+        this.minute = minute_row.add_text_2D([1 / 3, 2 / 3, CENTER_ABSOLUTE], 16, get_current_minute());
 
         minute_row.add_button([0, 1 / 9, false], 16, '10', this.decrease_minute.bind(this, 10), COLOR_RED);
         minute_row.add_button([1 / 9, 2 / 9, false], 16, '5', this.decrease_minute.bind(this, 5), COLOR_RED);

@@ -231,15 +231,8 @@ module.exports = {
 
         "PlayerMenu"   : true,
 
-        // Player actions.
-        "player_action_global_save"       : false,
-        "player_action_create_entity_wall": false,
-        "player_action_exit_function"     : false,
-        "player_action_toggle_fullscreen" : false,
-        "player_action_teleport_to_world" : false,
-        "player_action_create_picture"    : false,
 
-        "FloatingCursor": true,
+        "CENTER_ABSOLUTE": false,
 
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,
@@ -279,8 +272,6 @@ module.exports = {
         "PLAYER_STATE_ENGAGED"     : false,
         "PLAYER_STATE_TYPING"      : false,
 
-        "ENTITY_POST_SAVE_DATA"              : false,
-        "POST_SAVE_DATA" : false,
         "POST_KEY_GENERIC_DATA"                       : true,
         "SERVER_COMMAND_SUDO_OPERATION"               : true,
         "SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE": true,

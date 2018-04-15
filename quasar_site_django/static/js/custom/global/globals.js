@@ -53,10 +53,6 @@ const SAVE_TAG_3D_ROW = '3d_row';
 const SAVE_TAG_2D_ROW = '2d_row';
 const NO_SAVE_DATA = 'no_save_data';
 
-// UNIVERSAL_CONSTANTS_START : Entity POST keys.
-const ENTITY_POST_SAVE_DATA = 'save_data';
-// UNIVERSAL_CONSTANTS_END
-
 // TODO : Delete these after refactorings occur!
 const POST_KEY_GENERIC_DATA                        = 'generic_data_key';
 const SERVER_COMMAND_SUDO_OPERATION                = 'eoo';

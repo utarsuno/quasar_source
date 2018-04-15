@@ -27,25 +27,25 @@ DateSelector.prototype = {
 
         // Year.
         var row_year = this.wall_date_selector.add_row(null);
-        this.year = row_year.add_text_2D([ONE_FOURTH, THREE_FOURTHS, false], 16, this.month_instance.get_year());
+        this.year = row_year.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_year());
         this.button_year_decrease = this.year.add_icon_button_left(ICON_LEFT, this.button_year_decrease_pressed.bind(this));
         this.button_year_increase = this.year.add_icon_button_right(ICON_RIGHT, this.button_year_increase_pressed.bind(this));
 
         // Month.
         var row_month = this.wall_date_selector.add_row(null);
-        this.month = row_month.add_text_2D([ONE_FOURTH, THREE_FOURTHS, false], 16, this.month_instance.get_month_string());
+        this.month = row_month.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_month_string());
         this.button_month_decrease = this.month.add_icon_button_left(ICON_LEFT, this.button_month_decrease_pressed.bind(this));
         this.button_month_increase = this.month.add_icon_button_right(ICON_RIGHT, this.button_month_increase_pressed.bind(this));
 
         // Day labels.
         var row_labels = this.wall_date_selector.add_row(null);
-        this.day_label_monday    = row_labels.add_text_2D([0, 1 / 7, false]    , 16, 'Monday'   );
-        this.day_label_tuesday   = row_labels.add_text_2D([1 / 7, 2 / 7, false], 16, 'Tuesday'  );
-        this.day_label_wednesday = row_labels.add_text_2D([2 / 7, 3 / 7, false], 16, 'Wednesday');
-        this.day_label_thursday  = row_labels.add_text_2D([3 / 7, 4 / 7, false], 16, 'Thursday' );
-        this.day_label_friday    = row_labels.add_text_2D([4 / 7, 5 / 7, false], 16, 'Friday'   );
-        this.day_label_saturday  = row_labels.add_text_2D([5 / 7, 6 / 7, false], 16, 'Saturday' );
-        this.day_label_sunday    = row_labels.add_text_2D([6 / 7, 1, false]    , 16, 'Sunday'   );
+        this.day_label_monday    = row_labels.add_text_2D([0, 1 / 7, CENTER_ABSOLUTE]    , 16, 'Monday'   );
+        this.day_label_tuesday   = row_labels.add_text_2D([1 / 7, 2 / 7, CENTER_ABSOLUTE], 16, 'Tuesday'  );
+        this.day_label_wednesday = row_labels.add_text_2D([2 / 7, 3 / 7, CENTER_ABSOLUTE], 16, 'Wednesday');
+        this.day_label_thursday  = row_labels.add_text_2D([3 / 7, 4 / 7, CENTER_ABSOLUTE], 16, 'Thursday' );
+        this.day_label_friday    = row_labels.add_text_2D([4 / 7, 5 / 7, CENTER_ABSOLUTE], 16, 'Friday'   );
+        this.day_label_saturday  = row_labels.add_text_2D([5 / 7, 6 / 7, CENTER_ABSOLUTE], 16, 'Saturday' );
+        this.day_label_sunday    = row_labels.add_text_2D([6 / 7, 1, CENTER_ABSOLUTE]    , 16, 'Sunday'   );
 
         // Add a row for spacing.
         this.spacing_row = this.wall_date_selector.add_row(null);
@@ -96,14 +96,15 @@ DateSelector.prototype = {
         var height = (this.wall_date_selector.height - 100) / 5;
 
         for (var d = 0; d < this.all_days.length; d++) {
-            var day_button = new FloatingText2D(this.wall_date_selector.world, 16, this.all_days[d].day_number);
+            var day_button = new FloatingButton(this.wall_date_selector.world, width, 16, this.all_days[d].day_number, this.date_selected.bind(this, this.all_days[d]));
+            //var day_button = new FloatingText2D(this.wall_date_selector.world, 16, this.all_days[d].day_number);
             //var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
             height = day_button.height;
             day_button.set_attachment_depth_offset(5);
             day_button.set_attachment_horizontal_offset(width_position * this.all_days[d].day_of_the_week + width / 2, -HALF);
-            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height), HALF);
+            day_button.set_attachment_vertical_offset(-(height_position * this.all_days[d].week_number - height + 32), HALF);
 
-            day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
+            //day_button.set_engage_function(this.date_selected.bind(this, this.all_days[d]));
             day_button.attach_to(this.wall_date_selector);
             this.all_day_buttons.push(day_button);
         }

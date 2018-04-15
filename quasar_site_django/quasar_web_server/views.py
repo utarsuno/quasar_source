@@ -52,10 +52,6 @@ SERVER_REPLY_GENERIC_NO                             = HttpResponse('n')
 SERVER_REPLY_GENERIC_YES                            = HttpResponse('y')
 SERVER_REPLY_GENERIC_SERVER_ERROR                   = HttpResponse('Server Error!')
 
-# UNIVERSAL_CONSTANTS_START: Entity POST keys.
-ENTITY_POST_SAVE_DATA = 'save_data'
-# UNIVERSAL_CONSTANTS_END
-
 '''
 def return_based_on_result(result):
     """Returns a HTTPResponse based off the result."""
@@ -199,35 +195,6 @@ def POST_delete_entity(request):
     reply = us.is_success_message(message)
     if reply:
         return return_based_on_result(quasar_server.delete_entity(received_username, received_entity_id))
-    else:
-        return return_based_on_result(message)
-
-
-@csrf_exempt
-def POST_save_entity(request):
-    """Handles the POST request to save changed entities."""
-    print('POST_save_entity')
-    json_str = (request.body.decode('utf-8'))
-    json_obj = json.loads(json_str)
-
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, ENTITY_POST_SAVE_DATA], json_obj)
-    if post_errors is not None:
-        return post_errors
-
-    received_username = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_password = json_obj[be.ENTITY_PROPERTY_PASSWORD]
-    received_data     = json_obj[ENTITY_POST_SAVE_DATA]
-
-    #print('Need to save the following data:')
-    #print(received_data)
-
-    data_dictionary = eval(received_data)
-
-    global quasar_server
-    message = quasar_server.is_valid_login(received_username, received_password)
-    reply = us.is_success_message(message)
-    if reply:
-        return return_based_on_result(quasar_server.update_entity(received_username, data_dictionary))
     else:
         return return_based_on_result(message)
 

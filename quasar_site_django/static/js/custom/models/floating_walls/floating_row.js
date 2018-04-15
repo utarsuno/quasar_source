@@ -84,7 +84,7 @@ FloatingRow.prototype = {
         var floating_text_2D = new FloatingText2D(this.world, text_height, text);
 
         // Temporary.
-        if (x_params[2] === false || x_params[2] === true) {
+        if (!is_defined(x_params[2]) || x_params[2] === false || x_params[2] === true) {
             return this._add_element([x_params[0], x_params[1], CENTER_LEFT], floating_text_2D, foreground_color, background_color);
         }
         return this._add_element(x_params, floating_text_2D, foreground_color, background_color);
