@@ -65,9 +65,9 @@ function WorldDynamicContent() {
     /*     __       ___                 ___
      |\/| /  \ |\ |  |  |__|    \  / | |__  |  |    |  |  /\  |    |
      |  | \__/ | \|  |  |  |     \/  | |___ |/\|    |/\| /~~\ |___ |___ */
-    this.create_new_month_view_wall = function(world_context) {
-        var month_view_wall = new MonthView(world_context);
-        world_context.month_view_walls.push(month_view_wall);
+    this.create_new_month_view_wall = function() {
+        var month_view_wall = new MonthView(this);
+        this.month_view_walls.push(month_view_wall);
     };
 
     this.load_month_view_wall = function(month_view_wall_entity) {

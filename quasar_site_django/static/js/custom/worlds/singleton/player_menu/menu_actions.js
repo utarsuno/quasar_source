@@ -22,7 +22,7 @@ function MenuActions() {
     };
 
     this.action_create_new_month_view = function() {
-
+        MANAGER_WORLD.current_world.create_new_month_view_wall();
     };
 
     this.action_create_new_floating_text = function() {
