@@ -93,10 +93,10 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 			#self.send_chat_message(r, self.channel_name)
 
-	async def chat_message(self, e):
+	def chat_message(self, e):
 		"""Sends the chat message."""
 		print('Trying to send chat message!')
-		await self.send(text_data=json.dumps({
+		self.send(text_data=json.dumps({
 			_WEB_SOCKET_KEY_CHAT_CHANNEL: e[_WEB_SOCKET_KEY_CHAT_CHANNEL],
 			_WEB_SOCKET_KEY_CHAT_MESSAGE: e[_WEB_SOCKET_KEY_CHAT_MESSAGE],
 			_WEB_SOCKET_KEY_CHAT_USER   : e[_WEB_SOCKET_KEY_CHAT_USER]
