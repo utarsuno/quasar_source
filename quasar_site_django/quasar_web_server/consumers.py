@@ -80,11 +80,11 @@ class ConsumerManager(AsyncWebsocketConsumer):
 			print('Need to send a chat message reply!')
 			self.send_chat_message(r, self.channel_name)
 
-	async def send_chat_message(self, chat_request, channel_name):
+	def send_chat_message(self, chat_request, channel_name):
 		"""Sends the chat message."""
 		user = self._web_socket_server.get_username_from_channel_name(channel_name)
 		print('Trying to send chat message!')
-		await self.channel_layer.group_send(
+		self.channel_layer.group_send(
 			self.global_chat,
 			text_data=json.dumps({
 				"text": {_WEB_SOCKET_KEY_CHAT_CHANNEL: chat_request[_WEB_SOCKET_KEY_CHAT_CHANNEL],
@@ -93,3 +93,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 			})
 		)
 		print('Sent chat message!')
+
+	def _send_chat_message(self, channel, message, user):
+		"""Sends the chat message."""
+		y = 2
