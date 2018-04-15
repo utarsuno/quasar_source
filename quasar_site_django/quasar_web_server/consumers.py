@@ -95,7 +95,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 			#self.send_chat_message(r, self.channel_name)
 
-	async def chat_message(self, event):
+	async def chat_message2(self, event):
 		"""Sends the chat message."""
 		#c = e[_WEB_SOCKET_KEY_CHAT_CHANNEL]
 
