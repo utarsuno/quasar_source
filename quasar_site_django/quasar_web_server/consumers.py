@@ -79,7 +79,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE:
 			print('Need to send a chat message reply!')
 
-			user = self._web_socket_server.get_username_from_channel_name(channel_name)
+			user = self._web_socket_server.get_username_from_channel_name(self.channel_name)
 
 			await self.channel_layer.group_send(
 				self.global_chat,
