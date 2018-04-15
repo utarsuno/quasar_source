@@ -68,6 +68,9 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		self._web_socket_server.remove_connection(self.channel_name)
 
 	async def receive(self, text_data):
+		print('received the following message : { ' + str(text_data) + '}')
+
+
 		r = json.loads(text_data)
 		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
 
