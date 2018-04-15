@@ -137,7 +137,6 @@ MonthView.prototype = {
 
         settings_row = this.settings_wall.add_row();
         settings_row.add_button([0, 1, false], 16, 'Delete Month View Wall', this.delete_month_view_wall.bind(this), COLOR_RED);
-        // TODO : Add a delete button.
 
         this.create_month_type_selector();
         this.create_year_type_selector();
@@ -165,13 +164,13 @@ MonthView.prototype = {
 
         // Month View details.
         row = this.base_wall.add_row();
-        row.add_text_2D([0, 1 / 7, false], 32, DAY_MONDAY_STRING);
-        row.add_text_2D([1 / 7, 2 / 7, false], 32, DAY_TUESDAY_STRING);
-        row.add_text_2D([2 / 7, 3 / 7, false], 32, DAY_WEDNESDAY_STRING);
-        row.add_text_2D([3 / 7, 4 / 7, false], 32, DAY_THURSDAY_STRING);
-        row.add_text_2D([4 / 7, 5 / 7, false], 32, DAY_FRIDAY_STRING);
-        row.add_text_2D([5 / 7, 6 / 7, false], 32, DAY_SATURDAY_STRING);
-        row.add_text_2D([6 / 7, 1, false], 32, DAY_SUNDAY_STRING);
+        row.add_text_2D([0, 1 / 7, CENTER_ABSOLUTE], 32, DAY_MONDAY_STRING);
+        row.add_text_2D([1 / 7, 2 / 7, CENTER_ABSOLUTE], 32, DAY_TUESDAY_STRING);
+        row.add_text_2D([2 / 7, 3 / 7, CENTER_ABSOLUTE], 32, DAY_WEDNESDAY_STRING);
+        row.add_text_2D([3 / 7, 4 / 7, CENTER_ABSOLUTE], 32, DAY_THURSDAY_STRING);
+        row.add_text_2D([4 / 7, 5 / 7, CENTER_ABSOLUTE], 32, DAY_FRIDAY_STRING);
+        row.add_text_2D([5 / 7, 6 / 7, CENTER_ABSOLUTE], 32, DAY_SATURDAY_STRING);
+        row.add_text_2D([6 / 7, 1, CENTER_ABSOLUTE], 32, DAY_SUNDAY_STRING);
 
         // Add the day views here!
         var all_days = this.month_instance.get_all_day_instances();
