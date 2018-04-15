@@ -49,10 +49,10 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#print(self.c)
 
 		# One to one communication.
-		await self.channel_layer.group_add(
-			self.channel_name,
-			self.channel_name
-		)
+		#await self.channel_layer.group_add(
+		#	self.channel_name,
+		#	self.channel_name
+		#)
 
 		# Add the client to the global chat.
 		await self.channel_layer.group_add(
