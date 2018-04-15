@@ -22,6 +22,9 @@ FieldRowRegular.prototype = {
             this.input_field.update_text(field_value);
         }
 
+        this.leftmost_input = this.input_field;
+        this.rightmost_input = this.input_field;
+
         return this.input_field;
     },
 

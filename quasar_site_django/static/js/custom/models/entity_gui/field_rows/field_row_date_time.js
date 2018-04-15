@@ -72,6 +72,9 @@ FieldRowDateTime.prototype = {
             this.select_time_button.update_text(field_value_list[1]);
         }
 
+        this.leftmost_input = this.select_date_button;
+        this.rightmost_input = this.select_time_button;
+
         return this.select_date_button;
     },
 

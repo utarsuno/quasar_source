@@ -6,6 +6,9 @@ function EntityEditorFieldRow(entity_editor) {
     this.entity_editor = entity_editor;
     this.wall 		   = this.entity_editor.wall_entity_editor;
 
+    this.leftmost_input = null;
+    this.rightmost_input = null;
+
     this.set_entity_property = function(entity_property) {
         if (entity_property.substring(0, 2) !== ENTITY_PROPERTY_START_TOKEN) {
             raise_exception_with_full_logging('Invalid entity property passed!');
@@ -19,8 +22,10 @@ function EntityEditorFieldRow(entity_editor) {
 
     this.create_label = function(input) {
         var label_text = get_entity_property_full_name(this.entity_property);
-        var label = input.add_label_left(label_text);
+        //var label = input.add_label_left(label_text);
         //input.add_label_left(this.label);
+
+        this.leftmost_input.add_label_left(label_text);
     };
 
     this.create = function(row_index, field_value) {
@@ -28,7 +33,8 @@ function EntityEditorFieldRow(entity_editor) {
         var input = this.create_input(field_value);
         this.create_label(input);
         if (this.entity_property !== ENTITY_DEFAULT_PROPERTY_TYPE && this.entity_property !== ENTITY_PROPERTY_NAME) {
-            input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
+            //input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
+            this.rightmost_input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
         }
     };
 
@@ -54,4 +60,5 @@ function EntityEditorFieldRow(entity_editor) {
             this.entity_name_input.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
     };
+    
 }

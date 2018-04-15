@@ -24,6 +24,10 @@ FieldRowName.prototype = {
     create_input: function() {
         this.entity_name_input = this.row.add_input_2D([ONE_FOURTH, 1, false], 16, 'ENTITY_NAME');
         this.entity_name_input.set_value_post_changed_function(this.entity_name_changed.bind(this));
+
+        this.leftmost_input = this.entity_name_input;
+        this.rightmost_input = this.entity_name_input;
+
         return this.entity_name_input;
     },
 

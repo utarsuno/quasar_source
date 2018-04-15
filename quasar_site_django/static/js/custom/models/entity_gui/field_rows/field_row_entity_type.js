@@ -29,6 +29,9 @@ FieldRowEntityType.prototype = {
 
         this.hide_extra_elements();
 
+        this.leftmost_input = this.entity_type_button;
+        this.rightmost_input = this.entity_type_button;
+
         return this.entity_type_button;
     },
 

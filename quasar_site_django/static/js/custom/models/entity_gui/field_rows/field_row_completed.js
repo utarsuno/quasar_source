@@ -61,6 +61,9 @@ FieldRowCompleted.prototype = {
             this.mark_as_not_completed_button.add_attachment(this.completed_check_mark);
         }
 
+        this.leftmost_input = this.mark_as_not_completed_button;
+        this.rightmost_input = this.mark_as_completed_button;
+
         return this.mark_as_not_completed_button;
     },
 
