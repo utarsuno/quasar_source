@@ -38,13 +38,13 @@ function FloatingElement(world) {
     };
 
     this.add_icon_button_left = function(icon_type, engage_function) {
-        var icon_button = new FloatingIcon(this.world, icon_type, this.height, engage_function);
+        var icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
         this.add_floating_element([-this.height / 2, -HALF], null, 0, icon_button);
         return icon_button;
     };
 
     this.add_icon_button_right = function(icon_type, engage_function) {
-        var icon_button = new FloatingIcon(this.world, icon_type, this.height, engage_function);
+        var icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
         this.add_floating_element([this.height / 2, HALF], null, 0, icon_button);
         return icon_button;
     };

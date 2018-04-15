@@ -163,8 +163,10 @@ TypingInterface.prototype = {
         var current_input = this.input_text.get_text();
         if (current_input.length > 0) {
             //this.add_message(current_input, MESSAGE_TYPE_USER);
-            CURRENT_PLAYER.send_chat_message(current_input);
+            l('TODO : Send chat message!');
+            //CURRENT_PLAYER.send_chat_message(current_input);
         }
+        this.hide();
     },
 
     add_server_message: function(server_message) {
