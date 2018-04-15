@@ -49,13 +49,13 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		#print(self.c)
 
 		# One to one communication.
-		self.channel_layer.group_add(
+		await self.channel_layer.group_add(
 			self.channel_name,
 			self.channel_name
 		)
 
 		# Add the client to the global chat.
-		self.channel_layer.group_add(
+		await self.channel_layer.group_add(
 			self.global_chat,
 			self.channel_name
 		)
@@ -98,7 +98,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 			#self.send_chat_message(r, self.channel_name)
 
-	async def chat_message2(self, event):
+	async def chat_message(self, event):
 		"""Sends the chat message."""
 		#c = e[_WEB_SOCKET_KEY_CHAT_CHANNEL]
 
