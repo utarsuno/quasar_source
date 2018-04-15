@@ -64,14 +64,7 @@ const SERVER_COMMAND_SET_ENTITY_OWNER_ACCOUNT_TYPE = 'seoat';
 const SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION  = 'gaai';
 const SERVER_COMMAND_DELETE_ENTITY_OWNER           = 'deo';
 
-const TYPE_INPUT                  = 'input';
-const TYPE_ICON                   = 'icon';
-const TYPE_BUTTON                 = 'button';
-const TYPE_TITLE                  = 'title';
-const TYPE_CONSTANT               = 'constant';
-
 // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
-
 
 // TEMPORARY TESTING.
 const COLOR_RED           = new THREE.Color('#ff5e33');

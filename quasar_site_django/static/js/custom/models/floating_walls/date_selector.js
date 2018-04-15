@@ -96,7 +96,8 @@ DateSelector.prototype = {
         var height = (this.wall_date_selector.height - 100) / 5;
 
         for (var d = 0; d < this.all_days.length; d++) {
-            var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
+            var day_button = new FloatingText2D(this.wall_date_selector.world, 16, this.all_days[d].day_number);
+            //var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
             height = day_button.height;
             day_button.set_attachment_depth_offset(5);
             day_button.set_attachment_horizontal_offset(width_position * this.all_days[d].day_of_the_week + width / 2, -HALF);

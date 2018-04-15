@@ -287,13 +287,6 @@ module.exports = {
         "SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION" : true,
         "SERVER_COMMAND_DELETE_ENTITY_OWNER"          : true,
 
-
-        "TYPE_INPUT"                 : false,
-        "TYPE_ICON"                  : false,
-        "TYPE_BUTTON"                : false,
-        "TYPE_TITLE"                 : false,
-        "TYPE_CONSTANT"              : false,
-
         // UNIVERSAL_CONSTANTS_START : Entity types.
         "ENTITY_TYPE_DYNAMIC_WORLDS_MANAGER": false,
         "ENTITY_TYPE_STATIC_WORLDS_MANAGER" : false,
