@@ -166,7 +166,7 @@ InputManager.prototype = {
             if (event.keyCode === KEY_CODE_ENTER) {
                 CURRENT_PLAYER.add_text_and_leave_typing_state();
             } else {
-                GUI_TYPING_INTERFACE.key_down_event(event);
+                CURRENT_CLIENT.key_down_event(event);
             }
         } else if (CURRENT_PLAYER.has_input()) {
             if (event.keyCode === KEY_CODE_ENTER) {

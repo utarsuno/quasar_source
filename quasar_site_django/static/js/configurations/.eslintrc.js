@@ -241,7 +241,6 @@ module.exports = {
 
         // Global GUI objects.
         "GUI_PAUSED_MENU": true,
-        "GUI_TYPING_INTERFACE": true,
         // and their class names.
         "PausedMenu": false,
         "TypingInterface": false,

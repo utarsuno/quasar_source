@@ -147,8 +147,6 @@ RendererManager.prototype = {
             this.css_renderer.setSize(this.window_width, this.window_height);
         }
 
-        GUI_TYPING_INTERFACE.window_was_resized();
-
         //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
         if (!this.current_client.is_mobile) {
             this.effect_composer.setSize(this.window_width, this.window_height);

@@ -12,17 +12,17 @@ ServerRequestCreateAccount.prototype = {
     },
 
     _perform_request: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Sending create account request...');
+        CURRENT_CLIENT.add_server_message_green('Sending create account request...');
     },
 
     _handle_response: function(success, data) {
         if (success) {
-            GUI_TYPING_INTERFACE.add_server_message('Account created!');
+            CURRENT_CLIENT.add_server_message_green('Account created!');
             this.unlock_button();
             this.success_function();
         } else {
             this.unlock_button();
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     }
 };

@@ -15,7 +15,7 @@ ServerRequestLoadUserData.prototype = {
         if (success) {
             ENTITY_OWNER = new EntityOwner(this._username, this._password);
 
-            GUI_TYPING_INTERFACE.add_server_message('User data loaded!');
+            CURRENT_CLIENT.add_server_message_green('User data loaded!');
             data = JSON.parse(data);
 
             // Load all the user entities.
@@ -30,10 +30,10 @@ ServerRequestLoadUserData.prototype = {
             MANAGER_ENTITY.link_entities();
             MANAGER_ENTITY.set_all_entities_to_not_needing_to_be_saved();
 
-            GUI_TYPING_INTERFACE.add_server_message('Loading all content!');
+            CURRENT_CLIENT.add_server_message_green('Loading all content!');
             MANAGER_WORLD.all_entities_loaded(this._login_loading_completed.bind(this));
         } else {
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     },
 

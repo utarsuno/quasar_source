@@ -40,7 +40,7 @@ function PlayerState() {
 
             break;
         case PLAYER_STATE_TYPING:
-            GUI_TYPING_INTERFACE.show();
+            CURRENT_CLIENT.show_client_typing();
             break;
         default:
             if (player_state === PLAYER_STATE_ENGAGED) {
@@ -81,7 +81,7 @@ function PlayerState() {
     };
 
     this.add_text_and_leave_typing_state = function() {
-        GUI_TYPING_INTERFACE.add_user_text();
+        CURRENT_CLIENT.add_user_text();
 
         this.set_state(PLAYER_STATE_FULL_CONTROL);
     };

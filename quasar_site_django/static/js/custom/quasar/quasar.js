@@ -19,7 +19,7 @@ QuasarMainLoop.prototype = {
 
     run: function() {
         // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
-        GUI_TYPING_INTERFACE.add_server_message('Welcome to Quasar!');
+        CURRENT_CLIENT.add_server_message_green('Welcome to Quasar!');
 
         // Game loop below.
 
@@ -41,9 +41,7 @@ QuasarMainLoop.prototype = {
 
             MANAGER_WORLD.update(this.delta);
 
-            if (GUI_TYPING_INTERFACE.needs_an_update()) {
-                GUI_TYPING_INTERFACE.update();
-            }
+            CURRENT_CLIENT.update_message_log(this.delta);
 
             MANAGER_RENDERER.render(this.delta);
             this.current_client.post_render();

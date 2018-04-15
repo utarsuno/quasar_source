@@ -12,7 +12,7 @@ ServerRequestDeleteEntities.prototype = {
     },
 
     _perform_request: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Sending delete request for deleted entities...');
+        CURRENT_CLIENT.add_server_message_green('Sending delete request for deleted entities...');
     },
 
     set_deleted_entity_ids: function(deleted_ids) {
@@ -21,11 +21,11 @@ ServerRequestDeleteEntities.prototype = {
 
     _handle_response: function(success, data) {
         if (success) {
-            GUI_TYPING_INTERFACE.add_server_message('data deleted!');
+            CURRENT_CLIENT.add_server_message_green('data deleted!');
             MANAGER_ENTITY.clear_deleted_entity_ids();
             this.success_function();
         } else {
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
             this.fail_function();
         }
     }

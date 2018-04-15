@@ -20,6 +20,7 @@ Client.prototype = {
         // Inherit.
         CookieManager.call(this);
         SessionManager.call(this);
+        MessageLogManager.call(this);
     },
 
     set_debug_mode: function(debug_mode) {

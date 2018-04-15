@@ -32,8 +32,6 @@ MANAGER_POINTER_LOCK = new PointerLockManager();
  \__> \__/ |    \__/  \/  |___ |  \ |___ /~~\  |  */
 // The paused menu.
 GUI_PAUSED_MENU      = new PausedMenu();
-// The HTML typing interface.
-GUI_TYPING_INTERFACE = new TypingInterface();
 
 /*__   ___  __   __        __   __   ___                          __   ___  __   __
  |__) |__  /__` /  \ |  | |__) /  ` |__      |\/|  /\  |\ |  /\  / _` |__  |__) /__`

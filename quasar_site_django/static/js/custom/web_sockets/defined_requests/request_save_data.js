@@ -17,7 +17,7 @@ ServerRequestSaveData.prototype = {
     },
 
     _perform_request: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Sending save request...');
+        CURRENT_CLIENT.add_server_message_green('Sending save request...');
 
         /*__   ___ ___     __             ___     __       ___
          / _` |__   |     /__`  /\  \  / |__     |  \  /\   |   /\
@@ -56,7 +56,7 @@ ServerRequestSaveData.prototype = {
 
     _handle_response: function(success, data) {
         if (success) {
-            GUI_TYPING_INTERFACE.add_server_message('data saved!');
+            CURRENT_CLIENT.add_server_message_green('data saved!');
 
             for (var e = 0; e < this.entities_to_save.length; e++) {
                 this.entities_to_save[e].needs_to_be_saved = false;
@@ -65,7 +65,7 @@ ServerRequestSaveData.prototype = {
 
             this.success_function();
         } else {
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     },
 
@@ -73,7 +73,7 @@ ServerRequestSaveData.prototype = {
      |__) /  \ /__`  |     |  \ |__  |    |__   |  |__     |__  \  / |__  |\ |  |  /__`
      |    \__/ .__/  |     |__/ |___ |___ |___  |  |___    |___  \/  |___ | \|  |  .__/ */
     _delete_event_failed: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Can\'t perform a save event as deleting deleted Entities failed!');
+        CURRENT_CLIENT.add_server_message_red('Can\'t perform a save event as deleting deleted Entities failed!');
     },
 
     _delete_event_success: function() {

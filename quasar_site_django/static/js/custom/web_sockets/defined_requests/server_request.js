@@ -84,7 +84,7 @@ function ServerRequest(request_type) {
             if (success) {
                 this.success_function();
             } else {
-                GUI_TYPING_INTERFACE.add_server_message('Request failed. TODO : Better documentation.');
+                CURRENT_CLIENT.add_server_message_red('Request failed. TODO : Better documentation.');
                 if (is_defined(this.fail_function)) {
                     this.fail_function();
                 }

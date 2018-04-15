@@ -16,16 +16,16 @@ ServerRequestLogin.prototype = {
     },
 
     _perform_request: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Sending login request to server...');
+        CURRENT_CLIENT.add_server_message_green('Sending login request to server...');
     },
 
     _handle_response: function(success, data) {
         if (success) {
-            GUI_TYPING_INTERFACE.add_server_message('Login successful! Loading user data...');
+            CURRENT_CLIENT.add_server_message_green('Login successful! Loading user data...');
             this._load_login_data();
         } else {
             this.unlock_button();
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     },
 

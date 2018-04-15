@@ -34,7 +34,7 @@ ServerRequestChatMessage.prototype = {
             // Do nothing for now.
         } else {
             l('Error sending chat message!');
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     }
 };

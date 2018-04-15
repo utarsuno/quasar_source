@@ -34,7 +34,6 @@ var ENTITY_OWNER   = null;
 
 // Global gui objects.
 var GUI_PAUSED_MENU      = null;
-var GUI_TYPING_INTERFACE = null;
 
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
@@ -161,7 +160,7 @@ function CustomException(message) {
 
 function raise_exception_with_full_logging(message) {
     l(message);
-    GUI_TYPING_INTERFACE.add_server_message(message);
+    CURRENT_CLIENT.add_server_message_red(message);
     throw new CustomException(message);
 }
 

@@ -12,15 +12,15 @@ ServerRequestLogout.prototype = {
     },
 
     _perform_request: function() {
-        GUI_TYPING_INTERFACE.add_server_message('Sending logout request...');
+        CURRENT_CLIENT.add_server_message_green('Sending logout request...');
     },
 
     _handle_response: function(success, data) {
         if (success) {
             this.success_function();
-            GUI_TYPING_INTERFACE.add_server_message('logout successful!');
+            CURRENT_CLIENT.add_server_message_green('logout successful!');
         } else {
-            GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
+            CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     }
 };
