@@ -19,7 +19,7 @@ LogMessage.prototype = {
         this.row_index = row_index;
         this.current_delta = 0;
         this.current_alpha = 1.0;
-        this.alpha_duration = 8.0;
+        this.alpha_duration = 16.0;
     },
 
     get_text: function() {
