@@ -166,7 +166,7 @@ class EntityServer(object):
 			relative_ids = eval(relative_ids)
 
 		for e in relative_ids:
-			self._delete_entity_by_id(username, relative_ids[e])
+			self._delete_entity_by_id(username, e)
 
 		self._update_owner(username)
 
