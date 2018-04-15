@@ -125,7 +125,6 @@ class QuasarWebSocketsServerSide(object):
 	# Specific request handling.
 	def _reply_to_chat_message(self, request, channel_name):
 		"""Handles the chat message request."""
-		print('Sending chat reply for :' + str(request))
 		return self._send_reply(request, True, "Message received!")
 
 	def _reply_to_save_request(self, request, channel_name):
