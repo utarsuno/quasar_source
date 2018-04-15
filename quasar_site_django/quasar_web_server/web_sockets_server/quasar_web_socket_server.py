@@ -14,11 +14,16 @@ _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u'
 _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p'
 _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e'
 _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd'
+# For chat.
+_WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc'
+_WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm'
+_WEB_SOCKET_REQUEST_KEY_CHAT_USER    = 'cu'
 
 # Server response keys.
-_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID  = 'm'
-_WEB_SOCKET_RESPONSE_KEY_SUCCESS     = 's'
-_WEB_SOCKET_RESPONSE_KEY_DATA        = 'd'
+_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID   = 'm'
+_WEB_SOCKET_RESPONSE_KEY_SUCCESS      = 's'
+_WEB_SOCKET_RESPONSE_KEY_DATA         = 'd'
+_WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE = 't'
 
 # Client request values.
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1
@@ -26,10 +31,19 @@ _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         = 4
 _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      = 5
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE   = 6
 
 # Server response values.
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1
+
+# Server message types.
+_WEB_SOCKET_RESPONSE_VALUE_MESSAGE_TYPE_CHAT_MESSAGE = 1
+
+# Temporary design.
+_WEB_SOCKET_KEY_CHAT_CHANNEL = 'cc'
+_WEB_SOCKET_KEY_CHAT_MESSAGE = 'cm'
+_WEB_SOCKET_KEY_CHAT_USER    = 'cu'
 
 
 # TODO : Create constants/abstractions for player world state.
@@ -74,7 +88,12 @@ class QuasarWebSocketsServerSide(object):
 		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT: self._reply_to_create_account_request,
 		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA: self._reply_to_load_user_data_request,
 		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT        : self._reply_to_logout_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA     : self._reply_to_save_request}
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA     : self._reply_to_save_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE  : self._reply_to_chat_message}
+
+	def get_username_from_channel_name(self, channel_name):
+		"""Gets the username from the channel name provided."""
+		return self.players[channel_name].username
 
 	def add_connection(self, channel_name):
 		"""Adds a new connection."""
@@ -86,7 +105,7 @@ class QuasarWebSocketsServerSide(object):
 
 	def get_reply(self, channel_name, request):
 		"""Handles a client request."""
-		r = json.loads(request)
+		r = request
 		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
 
 		if request_type in self._request_types:
@@ -104,6 +123,10 @@ class QuasarWebSocketsServerSide(object):
 		return False
 
 	# Specific request handling.
+	def _reply_to_chat_message(self, request, channel_name):
+		"""Handles the chat message request."""
+		self._send_reply(request, True, "Message received!")
+
 	def _reply_to_save_request(self, request, channel_name):
 		"""Handles the save request."""
 		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]

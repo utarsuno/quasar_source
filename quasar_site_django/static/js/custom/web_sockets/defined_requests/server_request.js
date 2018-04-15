@@ -1,6 +1,6 @@
 'use strict';
 
-//# Client request keys.
+// Client request keys.
 const _WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE = 'r';
 const _WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm';
 const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';
@@ -8,13 +8,13 @@ const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';
 const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';
 const _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd';
 
-//# Client request values.
+// Client request values.
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1;
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2;
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3;
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         = 4;
 const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      = 5;
-
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE   = 6;
 
 function ServerRequest(request_type) {
 

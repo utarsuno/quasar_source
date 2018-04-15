@@ -162,6 +162,7 @@ module.exports = {
         "ServerRequestCreateAccount": false,
         "ServerRequestLoadUserData" : false,
         "ServerRequestSaveData"     : false,
+        "ServerRequestChatMessage"  : false,
 
         "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
         "_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID"  : false,
@@ -175,6 +176,7 @@ module.exports = {
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA": false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT"        : false,
         "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA"     : false,
+        "_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE"  : false,
 
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
