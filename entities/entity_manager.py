@@ -55,13 +55,21 @@ class EntityManager(object):
 				entity_to_remove = e
 				break
 		if entity_to_remove is not None:
+			# Check if this entity has any parent entities. They need to removes references to it.
+			entity_parents = entity_to_remove.parents
+			for p in entity_parents:
+				p.remove_child(entity_to_remove)
+			# Check if this entity has children entities. They all need to be deleted.
+			entity_children = entity_to_remove.children
+			for c in entity_children:
+				self.remove_entity_by_id(c.relative_id)
 			self._entities.remove(entity_to_remove)
-		else:
-			print('\nThe entity to remove was not found {' + str(relative_id) + '}\n')
-			print('\nPrinting all the current entities.\n')
-			for e in self._entities:
-				print(e)
-			print('\n')
+		#else:
+			#print('\nThe entity to remove was not found {' + str(relative_id) + '}\n')
+			#print('\nPrinting all the current entities.\n')
+			#for e in self._entities:
+			#	print(e)
+			#print('\n')
 			#dbg.raise_exception('The entity to remove was not found!')
 
 		# TODO : Decide if this should automatically remove other Entities based off of child/parent relationships.

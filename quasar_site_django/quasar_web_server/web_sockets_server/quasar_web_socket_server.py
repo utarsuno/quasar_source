@@ -14,6 +14,8 @@ _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u'
 _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p'
 _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e'
 _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd'
+_WEB_SOCKET_REQUEST_KEY_DELETED_IDS  = 'i'
+
 # For chat.
 _WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc'
 _WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm'
@@ -26,12 +28,13 @@ _WEB_SOCKET_RESPONSE_KEY_DATA         = 'd'
 _WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE = 't'
 
 # Client request values.
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         = 4
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      = 5
-_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE   = 6
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN           = 1
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT  = 2
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA  = 3
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT          = 4
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA       = 5
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE    = 6
+_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_DELETE_ENTITIES = 7
 
 # Server response values.
 _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0
@@ -84,12 +87,13 @@ class QuasarWebSocketsServerSide(object):
 		self.players = {}
 
 		# Define all the request types.
-		self._request_types = {_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN         : self._reply_to_login_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT: self._reply_to_create_account_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA: self._reply_to_load_user_data_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT        : self._reply_to_logout_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA     : self._reply_to_save_request,
-		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE  : self._reply_to_chat_message}
+		self._request_types = {_WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          : self._reply_to_login_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT : self._reply_to_create_account_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA : self._reply_to_load_user_data_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         : self._reply_to_logout_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      : self._reply_to_save_request,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE   : self._reply_to_chat_message,
+		                       _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_DELETE_ENTITIES: self._reply_to_delete_request}
 
 	def get_username_from_channel_name(self, channel_name):
 		"""Gets the username from the channel name provided."""
@@ -127,9 +131,20 @@ class QuasarWebSocketsServerSide(object):
 		"""Handles the chat message request."""
 		return self._send_reply(request, True, "Message received!")
 
+	def _reply_to_delete_request(self, request, channel_name):
+		"""Handles the delete request."""
+		username = self.get_username_from_channel_name(channel_name)
+		data     = request[_WEB_SOCKET_REQUEST_KEY_DELETED_IDS]
+
+		result = self._quasar_server.delete_batch_of_entities(username, data)
+		if us.is_success_message(result):
+			return self._send_reply(request, True, 'delete success!')
+		else:
+			return self._send_reply(request, False, 'Error deleting entities {' + str(result) + '}')
+
 	def _reply_to_save_request(self, request, channel_name):
 		"""Handles the save request."""
-		username = request[_WEB_SOCKET_REQUEST_KEY_USERNAME]
+		username = self.get_username_from_channel_name(channel_name)
 		data     = request[_WEB_SOCKET_REQUEST_KEY_SAVE_DATA]
 
 		result = self._quasar_server.update_batch_of_entitiies(username, data)

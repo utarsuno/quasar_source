@@ -7,20 +7,23 @@ const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';
 const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';
 const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';
 const _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd';
+const _WEB_SOCKET_REQUEST_KEY_DELETED_IDS  = 'i';
 
 // Client request values.
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN          = 1;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT = 2;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA = 3;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT         = 4;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA      = 5;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE   = 6;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN           = 1;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT  = 2;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA  = 3;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT          = 4;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA       = 5;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE    = 6;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_DELETE_ENTITIES = 7;
 
 function ServerRequest(request_type) {
 
     this._request_dictionary = {};
     this._request_dictionary[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE] = request_type;
     this.binded_button = null;
+    this._manual_perform_request = false;
 
     this.set_message_id = function(message_id) {
         this._request_dictionary[_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID] = message_id;
@@ -47,6 +50,10 @@ function ServerRequest(request_type) {
         this.success_function = success_function;
     };
 
+    this.bind_fail_event = function(fail_function) {
+        this.fail_function = fail_function;
+    };
+
     this.lock_button = function() {
         if (is_defined(this.binded_button)) {
             this.binded_button.lock();
@@ -64,7 +71,9 @@ function ServerRequest(request_type) {
         if (is_defined(this._perform_request)) {
             this._perform_request();
         }
-        MANAGER_WEB_SOCKETS.send_message(this);
+        if (!this._manual_perform_request) {
+            MANAGER_WEB_SOCKETS.send_message(this);
+        }
     };
 
     this.message_response = function(success, data) {
@@ -76,6 +85,9 @@ function ServerRequest(request_type) {
                 this.success_function();
             } else {
                 GUI_TYPING_INTERFACE.add_server_message('Request failed. TODO : Better documentation.');
+                if (is_defined(this.fail_function)) {
+                    this.fail_function();
+                }
             }
         }
     };

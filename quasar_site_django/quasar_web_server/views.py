@@ -173,29 +173,3 @@ def POST_server_load_image(request):
 
     urllib.request.urlretrieve(received_image_url, 'dynamically_loaded_images' 'test_image.png')
 '''
-
-'''
-@csrf_exempt
-def POST_delete_entity(request):
-    """Handles the POST request to delete an entity."""
-    print('POST_delete_entity')
-    json_str = (request.body.decode('utf-8'))
-    json_obj = json.loads(json_str)
-
-    post_errors = check_POST_arguments([be.ENTITY_PROPERTY_USERNAME, be.ENTITY_PROPERTY_PASSWORD, be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID], json_obj)
-    if post_errors is not None:
-        return post_errors
-
-    received_username  = json_obj[be.ENTITY_PROPERTY_USERNAME]
-    received_password  = json_obj[be.ENTITY_PROPERTY_PASSWORD]
-    received_entity_id = json_obj[be.ENTITY_DEFAULT_PROPERTY_RELATIVE_ID]
-
-    global quasar_server
-    message = quasar_server.is_valid_login(received_username, received_password)
-    reply = us.is_success_message(message)
-    if reply:
-        return return_based_on_result(quasar_server.delete_entity(received_username, received_entity_id))
-    else:
-        return return_based_on_result(message)
-
-'''

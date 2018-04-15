@@ -6,9 +6,7 @@ function SessionManager() {
     this.server_request_batch_save = new ServerRequestSaveData();
 
     this.login_event = function(username) {
-        this.server_request_logout.set_username(username);
         this.server_request_logout.bind_success_event(this.logout_success.bind(this));
-        this.server_request_batch_save.set_username(username);
         this.server_request_batch_save.bind_success_event(this.batch_save_success.bind(this));
     };
 

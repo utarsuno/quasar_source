@@ -82,6 +82,10 @@ class QuasarServer(object):
 	'''__   ___       ___ ___    __
 	  |  \ |__  |    |__   |  | /  \ |\ |
 	  |__/ |___ |___ |___  |  | \__/ | \| '''
+	def delete_batch_of_entities(self, owner_username, list_of_entity_ids):
+		"""Deletes a provided batch of entity IDs."""
+		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY_BATCH, owner_username + '|' + str(list_of_entity_ids))
+
 	def delete_entity(self, owner_username, entity_relative_id):
 		"""Deletes the provided entity for the needed owner (found from the provided username)."""
 		return self._send_command_to_entity_server(us.SERVER_COMMAND_DELETE_ENTITY, owner_username + '|' + str(entity_relative_id))

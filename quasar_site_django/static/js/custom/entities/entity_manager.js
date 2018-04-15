@@ -9,70 +9,10 @@ EntityManager.prototype = {
     // The user entities.
     entities: null,
 
-    // TODO : Refactor
-    delete_all_children_of_entity_that_do_not_have_other_parents: function(parent_entity) {
-        for (var c = parent_entity.children.length; c--;) {
-
-            var child_entity = parent_entity.children[c];
-
-            // No matter what the parent reference is getting removed for all children entity.
-            child_entity.remove_parent(parent_entity);
-
-            // If the child entity had no other parents then remove it as well.
-            // TODO : Eventually also check for any outside references. Perhaps don't enable delete if there are external references.
-            if (child_entity.number_of_parents() === 0) {
-                this.delete_entity(child_entity);
-            }
-        }
-    },
-
-    // TODO : DELETE!!!
-    entity_deleted_response: function(data) {
-        // FOR_DEV_START
-        //if (data === SERVER_REPLY_GENERIC_YES) {
-        //    l('Entity deleted!');
-        //} else {
-        //    l('Entity did not get deleted : {|' + data + '|}');
-        //}
-        // FOR_DEV_END
-    },
-
-    delete_entity: function(entity) {
-        var entity_to_delete = null;
-        var index_to_splice = this._get_index_of_entity(entity);
-        if (index_to_splice !== NOT_FOUND) {
-            entity_to_delete = this.entities[index_to_splice];
-        } else {
-            raise_exception('Entity to delete was not found!');
-        }
-
-        if (entity_to_delete !== null) {
-            // Notify all entity event subscribers that the entity was deleted.
-            this.entity_on_deleted(entity_to_delete);
-
-            // TODO : Delete all child entities from the ENTITY_MANAGER if they don't have other parent entities.
-            this.delete_all_children_of_entity_that_do_not_have_other_parents(entity_to_delete);
-
-            // TODO : Make sure the server does the same deletion steps that the client does.
-            var data = {};
-            data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
-            data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
-            data[ENTITY_DEFAULT_PROPERTY_RELATIVE_ID] = entity_to_delete.get_relative_id();
-            this.post_delete_entity.perform_post(data, this.entity_deleted_response.bind(this));
-        }
-
-        if (index_to_splice !== NOT_FOUND) {
-            // Re-calculate the index to splice off as child entities may have been removed thus changing the list order/indexes.
-            this.entities.splice(this._get_index_of_entity(entity), 1);
-        }
-    },
-
     __init__: function() {
         this.entities = [];
-
-        //this.post_delete_entity        = new PostHelper(POST_URL_DELETE_ENTITY);
-        //this.post_save_entity          = new PostHelper(POST_URL_SAVE_ENTITY);
-
+        this.relative_ids_to_delete = [];
+        this.highest_deleted_relative_id = -1;
         // Hold a list of all objects that require entity change notifications.
         EntityChangesListener.call(this);
     },
@@ -150,6 +90,11 @@ EntityManager.prototype = {
                 max_id = entity_id;
             }
         }
+
+        var highest_deleted_id = this.get_highest_deleted_relative_id();
+        if (max_id + 1 <= highest_deleted_id) {
+            return highest_deleted_id + 1;
+        }
         return max_id + 1;
     },
 
@@ -220,24 +165,12 @@ EntityManager.prototype = {
         return NOT_FOUND;
     },
 
-    delete_entity_by_id: function(entity_id) {
-        var entity = this.get_entity_by_id(entity_id);
-        if (entity !== null) {
-            // Check if this entity has an parent entities. They need to remove reference to it.
-            var entity_parents = entity.get_parents();
-            for (var p = 0; p < entity_parents.length; p++) {
-                entity_parents[p].remove_child(entity);
-            }
-            this.delete_entity(entity);
-        } else {
-            raise_exception_with_full_logging('No Entity found for the ID{' + entity_id + '}');
-        }
-    },
-
     add_user_entity_from_entity_data: function(entity_data) {
         //l('Adding the following entity data');
         //l(entity_data);
-        return new Entity(entity_data);
+        var entity = new Entity(entity_data);
+        entity.exists_on_server_side = true;
+        return entity;
     },
 
     get_all_entities: function() {
@@ -261,6 +194,70 @@ EntityManager.prototype = {
             }
         }
         //raise_exception_with_full_logging('No entity found with ID of {' + entity_id + '}');
-    }
+    },
 
+    /*__   ___       ___ ___  ___
+     |  \ |__  |    |__   |  |__
+     |__/ |___ |___ |___  |  |___ */
+    get_deleted_relative_ids: function() {
+        return this.relative_ids_to_delete;
+    },
+
+    clear_deleted_entity_ids: function() {
+        this.relative_ids_to_delete.length = 0;
+    },
+
+    get_highest_deleted_relative_id: function() {
+        return this.highest_deleted_relative_id;
+    },
+
+    has_deleted_relative_ids: function() {
+        return this.relative_ids_to_delete.length > 0;
+    },
+
+    delete_entity_by_id: function(entity_id) {
+        var entity = this.get_entity_by_id(entity_id);
+        if (entity !== null) {
+            // Check if this entity has any parent entities. They need to remove references to it.
+            var entity_parents = entity.get_parents();
+            for (var p = 0; p < entity_parents.length; p++) {
+                entity_parents[p].remove_child(entity);
+            }
+            // Check if this entity has children entities. They all need to be deleted.
+            var entity_children = entity.get_children();
+            for (var c = 0; c < entity_children.length; c++) {
+                this.delete_entity_by_id(entity_children[c].get_relative_id());
+            }
+            this.delete_entity(entity);
+        } else {
+            raise_exception_with_full_logging('No Entity found for the ID{' + entity_id + '}');
+        }
+    },
+
+    delete_entity: function(entity) {
+        var entity_to_delete = null;
+        var index_to_splice = this._get_index_of_entity(entity);
+        if (index_to_splice !== NOT_FOUND) {
+            entity_to_delete = this.entities[index_to_splice];
+        } else {
+            raise_exception_with_full_logging('Entity to delete was not found!');
+        }
+
+        if (entity_to_delete !== null) {
+            // Notify all entity event subscribers that the entity was deleted.
+            this.entity_on_deleted(entity_to_delete);
+
+            var relative_id = entity_to_delete.get_relative_id();
+            if (relative_id > this.highest_deleted_relative_id) {
+                this.highest_deleted_relative_id = relative_id;
+            }
+            if (entity_to_delete.exists_on_server_side) {
+                this.relative_ids_to_delete.push(relative_id);
+            }
+        }
+
+        if (index_to_splice !== NOT_FOUND) {
+            this.entities.splice(index_to_splice, 1);
+        }
+    }
 };
