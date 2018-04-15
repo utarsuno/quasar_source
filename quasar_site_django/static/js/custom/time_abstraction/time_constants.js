@@ -95,6 +95,18 @@ function get_current_year_number() {
     return d.getFullYear();
 }
 
+// Temporary.
+function get_current_hour() {
+    var d = new Date();
+    return d.getHours();
+}
+
+// Temporary.
+function get_current_minute() {
+    var d = new Date();
+    return d.getMinutes();
+}
+
 // From : https://stackoverflow.com/questions/13146418/find-all-the-days-in-a-month-with-date-object
 /**
  * @param {int} month : The month number, 0 based

@@ -24,7 +24,7 @@ TimeSelector.prototype = {
         this.wall_time_selector.add_row(null).add_text_2D([0, 1, false], 16, 'hour');
         var hour_row = this.wall_time_selector.add_row(null);
 
-        this.hour = hour_row.add_text_2D([1 / 3, 2 / 3, false], 16, '');
+        this.hour = hour_row.add_text_2D([1 / 3, 2 / 3, false], 16, get_current_hour());
 
         hour_row.add_button([0, 1 / 6, false], 16, '5', this.decrease_hour.bind(this, 5), COLOR_RED);
         hour_row.add_button([1 / 6, 2 / 6, false], 16, '1', this.decrease_hour.bind(this, 1), COLOR_RED);
@@ -35,7 +35,7 @@ TimeSelector.prototype = {
         this.wall_time_selector.add_row(null).add_text_2D([0, 1, false], 16, 'minute');
         var minute_row = this.wall_time_selector.add_row(null);
 
-        this.minute = minute_row.add_text_2D([1 / 3, 2 / 3, false], 16, '');
+        this.minute = minute_row.add_text_2D([1 / 3, 2 / 3, false], 16, get_current_minute());
 
         minute_row.add_button([0, 1 / 9, false], 16, '10', this.decrease_minute.bind(this, 10), COLOR_RED);
         minute_row.add_button([1 / 9, 2 / 9, false], 16, '5', this.decrease_minute.bind(this, 5), COLOR_RED);

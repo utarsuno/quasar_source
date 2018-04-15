@@ -60,5 +60,5 @@ function EntityEditorFieldRow(entity_editor) {
             this.entity_name_input.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
         }
     };
-    
+
 }
