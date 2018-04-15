@@ -68,8 +68,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		self._web_socket_server.remove_connection(self.channel_name)
 
 	async def receive(self, text_data):
-		print('received the following message : { ' + str(text_data) + '}')
-
+		#print('received the following message : { ' + str(text_data) + '}')
 
 		r = json.loads(text_data)
 		request_type = r[_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE]
@@ -80,7 +79,6 @@ class ConsumerManager(AsyncWebsocketConsumer):
 
 		# If the request type was a chat message then also send the chat message.
 		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE:
-			print('Need to send a chat message reply!')
 
 			user = self._web_socket_server.get_username_from_channel_name(self.channel_name)
 
@@ -94,24 +92,13 @@ class ConsumerManager(AsyncWebsocketConsumer):
 				}
 			)
 
-			print('Sent chat message!')
-
-			#self.send_chat_message(r, self.channel_name)
-
 	async def chat_message(self, event):
 		"""Sends the chat message."""
-		#c = e[_WEB_SOCKET_KEY_CHAT_CHANNEL]
-
-		print('Trying to send chat message!')
-		print('Got the following event : ' + str(event))
-
-
 		await self.send(text_data=json.dumps({
-			'message':
+			'text':
 				{
 					_WEB_SOCKET_KEY_CHAT_CHANNEL: event[_WEB_SOCKET_KEY_CHAT_CHANNEL],
 					_WEB_SOCKET_KEY_CHAT_MESSAGE: event[_WEB_SOCKET_KEY_CHAT_MESSAGE],
 					_WEB_SOCKET_KEY_CHAT_USER   : event[_WEB_SOCKET_KEY_CHAT_USER]
 				}
 		}))
-		print('Sent chat message!')
