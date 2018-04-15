@@ -82,7 +82,12 @@ FloatingRow.prototype = {
 
     add_text_2D: function(x_params, text_height, text, foreground_color, background_color) {
         var floating_text_2D = new FloatingText2D(this.world, text_height, text);
-        return this._add_element([x_params[0], x_params[1], CENTER_LEFT], floating_text_2D, foreground_color, background_color);
+
+        // Temporary.
+        if (x_params[2] === false || x_params[2] === true) {
+            return this._add_element([x_params[0], x_params[1], CENTER_LEFT], floating_text_2D, foreground_color, background_color);
+        }
+        return this._add_element(x_params, floating_text_2D, foreground_color, background_color);
     },
 
     add_input_3D: function(x_params, text_height, text) {
