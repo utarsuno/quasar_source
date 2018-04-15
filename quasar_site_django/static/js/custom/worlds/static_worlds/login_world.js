@@ -57,7 +57,9 @@ LoginWorld.prototype = {
     },
 
     create_account_success: function() {
-
+        this.server_request_login.set_username(this.input_username_create.get_text());
+        this.server_request_login.set_password(this.input_password_create.get_text());
+        this.server_request_login.perform_request();
     },
 
     /*__   ___        ___        __   ___  __           __   ___  __                   ___     __   __   ___  __   __   ___  __

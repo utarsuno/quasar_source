@@ -11,6 +11,12 @@ function ChatManager() {
         this._server_request_chat_message.perform_request();
     };
 
+    this.display_received_chat_message = function(user, message, channel) {
+        // TODO : Utilize the channel!
+
+        GUI_TYPING_INTERFACE.add_chat_message(user + ':' + message);
+    };
+
 }
 
 /*

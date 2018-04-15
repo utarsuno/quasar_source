@@ -31,6 +31,14 @@ ServerMessageChatMessage.prototype = {
         l(message_channel);
         l(message_contents);
         l(message_user);
+
+        // TODO : Change design of this part later.
+        var current_user = ENTITY_OWNER.get_username();
+
+        if (current_user !== message_user) {
+            MANAGER_WEB_SOCKETS.display_received_chat_message(message_user, message_contents, message_channel)
+        }
+
     }
 
 };

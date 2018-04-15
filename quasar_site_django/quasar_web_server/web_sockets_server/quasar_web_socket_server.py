@@ -165,7 +165,7 @@ class QuasarWebSocketsServerSide(object):
 		result = self._quasar_server.create_entity_owner(owner_data)
 		if us.is_success_message(result):
 			# Mark the player as logged in.
-			self.players[channel_name].set_as_logged_in(username)
+			#self.players[channel_name].set_as_logged_in(username)
 			return self._send_reply(request, True)
 		else:
 			return self._send_reply(request, False)

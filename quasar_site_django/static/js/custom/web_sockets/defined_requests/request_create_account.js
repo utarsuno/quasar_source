@@ -19,7 +19,7 @@ ServerRequestCreateAccount.prototype = {
         if (success) {
             GUI_TYPING_INTERFACE.add_server_message('Account created!');
             this.unlock_button();
-            // TODO : Login!!!
+            this.success_function();
         } else {
             this.unlock_button();
             GUI_TYPING_INTERFACE.add_server_message('Error: {' + data + '}');
