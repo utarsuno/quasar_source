@@ -66,11 +66,11 @@ TypingInterface.prototype = {
     },
 
     hide: function() {
-        this.gui_typing.hide();
         //this.gui_logs.hide()
         //this.gui_logs.make_invisible()
         this.visible = false;
         this.input_text.clear_text();
+        this.gui_typing.hide();
     },
 
     key_down_event: function(event) {
@@ -164,8 +164,10 @@ TypingInterface.prototype = {
         if (current_input.length > 0) {
             //this.add_message(current_input, MESSAGE_TYPE_USER);
             l('TODO : Send chat message!');
+            MANAGER_WEB_SOCKETS.send_chat_message('global', this.input_text.get_text());
             //CURRENT_PLAYER.send_chat_message(current_input);
         }
+
         this.hide();
     },
 

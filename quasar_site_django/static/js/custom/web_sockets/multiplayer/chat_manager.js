@@ -8,6 +8,7 @@ function ChatManager() {
     this.send_chat_message = function(channel, message) {
         this._server_request_chat_message.set_channel(channel);
         this._server_request_chat_message.set_message(message);
+        this._server_request_chat_message.perform_request();
     };
 
 }
