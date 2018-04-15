@@ -78,22 +78,27 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		# If the request type was a chat message then also send the chat message.
 		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE:
 			print('Need to send a chat message reply!')
-			self.send_chat_message(r, self.channel_name)
 
-	def send_chat_message(self, chat_request, channel_name):
+			user = self._web_socket_server.get_username_from_channel_name(channel_name)
+
+			await self.channel_layer.group_send(
+				self.global_chat,
+				{
+					'type': 'chat.message',
+					_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
+					_WEB_SOCKET_KEY_CHAT_MESSAGE: r[_WEB_SOCKET_KEY_CHAT_MESSAGE],
+					_WEB_SOCKET_KEY_CHAT_USER: user
+				}
+			)
+
+			#self.send_chat_message(r, self.channel_name)
+
+	async def chat_message(self, e):
 		"""Sends the chat message."""
-		user = self._web_socket_server.get_username_from_channel_name(channel_name)
 		print('Trying to send chat message!')
-		self.channel_layer.group_send(
-			self.global_chat,
-			text_data=json.dumps({
-				"text": {_WEB_SOCKET_KEY_CHAT_CHANNEL: chat_request[_WEB_SOCKET_KEY_CHAT_CHANNEL],
-				         _WEB_SOCKET_KEY_CHAT_MESSAGE: chat_request[_WEB_SOCKET_KEY_CHAT_MESSAGE],
-				         _WEB_SOCKET_KEY_CHAT_USER   : user}
-			})
-		)
+		await self.send(text_data=json.dumps({
+			_WEB_SOCKET_KEY_CHAT_CHANNEL: e[_WEB_SOCKET_KEY_CHAT_CHANNEL],
+			_WEB_SOCKET_KEY_CHAT_MESSAGE: e[_WEB_SOCKET_KEY_CHAT_MESSAGE],
+			_WEB_SOCKET_KEY_CHAT_USER   : e[_WEB_SOCKET_KEY_CHAT_USER]
+		}))
 		print('Sent chat message!')
-
-	def _send_chat_message(self, channel, message, user):
-		"""Sends the chat message."""
-		y = 2
