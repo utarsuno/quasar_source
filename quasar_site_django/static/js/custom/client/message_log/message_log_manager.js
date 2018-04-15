@@ -6,7 +6,6 @@ function MessageLogManager() {
     ClientMessageTyping.call(this);
 
     this.logs = new DomElement('gui_console_logs');
-    // this.parent_dom = new DomElement('gui_typing');
     this.rows = [];
 
     this.messages = [];
