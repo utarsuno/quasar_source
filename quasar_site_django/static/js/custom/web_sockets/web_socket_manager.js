@@ -34,6 +34,9 @@ WebSocketManager.prototype = {
 
         // All the various server message types.
         this._server_message_chat_message = new ServerMessageChatMessage();
+
+        // Inherit.
+        ChatManager.call(this);
     },
 
     send_message: function(message) {
