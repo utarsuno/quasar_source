@@ -79,18 +79,18 @@ MonthView.prototype = {
         this.month_type_selector_wall.manual_visibility = true;
 
         this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Month', this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT), COLOR_YELLOW);
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JANUARY_STRING, null, this.month_type_selected.bind(this, MONTH_JANUARY));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_FEBRUARY_STRING, null, this.month_type_selected.bind(this, MONTH_FEBRUARY));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MARCH_STRING, null, this.month_type_selected.bind(this, MONTH_MARCH));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_APRIL_STRING, null, this.month_type_selected.bind(this, MONTH_APRIL));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MAY_STRING, null, this.month_type_selected.bind(this, MONTH_MAY));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JUNE_STRING, null, this.month_type_selected.bind(this, MONTH_JUNE));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JULY_STRING, null, this.month_type_selected.bind(this, MONTH_JULY));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_AUGUST_STRING, null, this.month_type_selected.bind(this, MONTH_AUGUST));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_SEPTEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_OCTOBER_STRING, null, this.month_type_selected.bind(this, MONTH_OCTOBER));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_NOVEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_NOVEMBER));
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_DECEMBER_STRING, null, this.month_type_selected.bind(this, MONTH_DECEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JANUARY_STRING, this.month_type_selected.bind(this, MONTH_JANUARY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_FEBRUARY_STRING, this.month_type_selected.bind(this, MONTH_FEBRUARY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MARCH_STRING, this.month_type_selected.bind(this, MONTH_MARCH));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_APRIL_STRING, this.month_type_selected.bind(this, MONTH_APRIL));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MAY_STRING, this.month_type_selected.bind(this, MONTH_MAY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JUNE_STRING, this.month_type_selected.bind(this, MONTH_JUNE));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JULY_STRING, this.month_type_selected.bind(this, MONTH_JULY));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_AUGUST_STRING, this.month_type_selected.bind(this, MONTH_AUGUST));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_SEPTEMBER_STRING, this.month_type_selected.bind(this, MONTH_SEPTEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_OCTOBER_STRING, this.month_type_selected.bind(this, MONTH_OCTOBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_NOVEMBER_STRING, this.month_type_selected.bind(this, MONTH_NOVEMBER));
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_DECEMBER_STRING, this.month_type_selected.bind(this, MONTH_DECEMBER));
 
         this.month_type_selector_wall.force_hide_self_and_all_child_attachments_recursively();
     },
