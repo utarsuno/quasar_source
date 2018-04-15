@@ -76,6 +76,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 		}))
 
 		# If the request type was a chat message then also send the chat message.
+		"""
 		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE:
 			print('Need to send a chat message reply!')
 
@@ -96,6 +97,7 @@ class ConsumerManager(AsyncWebsocketConsumer):
 			print('Sent chat message!')
 
 			#self.send_chat_message(r, self.channel_name)
+		"""
 
 	async def chat_message(self, event):
 		"""Sends the chat message."""
