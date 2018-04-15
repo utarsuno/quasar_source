@@ -1,7 +1,7 @@
 'use strict';
 
-const _WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc';
-const _WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm';
+//const _WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc';
+//const _WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm';
 
 
 /*
