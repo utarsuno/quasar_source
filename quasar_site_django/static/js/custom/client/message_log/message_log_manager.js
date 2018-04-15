@@ -2,6 +2,8 @@
 
 function MessageLogManager() {
 
+    // TODO : Make # of rows dynamically generated based off the screen height!
+
     // Inherit.
     ClientMessageTyping.call(this);
 
@@ -10,10 +12,12 @@ function MessageLogManager() {
 
     this.messages = [];
 
+    this.max_row = 50;
+
     this.load_log_rows = function() {
         var r = 0;
-        while (r < 70) {
-            var index = 69 - r;
+        while (r < this.max_row) {
+            var index = this.max_row - 1 - r;
             this.rows.push(new DomElement('row_' + index.toString()));
             r += 1;
         }
