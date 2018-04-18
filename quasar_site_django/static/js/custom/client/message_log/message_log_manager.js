@@ -50,6 +50,8 @@ function MessageLogManager() {
 
         this.messages.unshift(new LogMessage(user + ':' + message, color, 0));
 
+        this._calculate_top_offset();
+
         // TODO : Delete messages at a certain limit!
     };
 
@@ -84,16 +86,20 @@ function MessageLogManager() {
     };
 
     this.height_re_sized = function(new_height) {
-        let available_height = new_height * .8;
-        let number_of_rows_needed = Math.floor(available_height / 12);
+        this.available_height = new_height * .8;
+        let number_of_rows_needed = Math.floor(this.available_height / 12);
 
         while (this.rows.length < number_of_rows_needed) {
             this._add_row();
         }
 
+        this._calculate_top_offset();
+    };
+
+    this._calculate_top_offset = function() {
         // Dynamically adjust the parent dom top % so that the message display at the bottom.
         let current_height_used = this._get_number_of_active_rows();
-        let top_offset = available_height - current_height_used;
+        let top_offset = this.available_height - current_height_used;
         this.logs.set_top_height(top_offset);
     };
 
