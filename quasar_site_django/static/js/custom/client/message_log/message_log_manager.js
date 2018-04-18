@@ -14,6 +14,7 @@ function MessageLogManager() {
     // TODO : REFACTOR!
     this.rows = [];
     this.max_row = 50;
+    /*
     this.load_log_rows = function() {
         let r = 0;
         while (r < this.max_row) {
@@ -22,6 +23,7 @@ function MessageLogManager() {
             r += 1;
         }
     };
+    */
 
     this.current_max_row = 0;
 
