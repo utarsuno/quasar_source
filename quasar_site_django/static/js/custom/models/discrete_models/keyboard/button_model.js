@@ -33,7 +33,7 @@ ButtonModel.prototype = {
 
         this.geometry.faces.push(new THREE.Face3(0, 1, 2));
         this.geometry.faces.push(new THREE.Face3(2, 3, 0));
-        //this.geometry.faces.push(new THREE.Face3(3, 6, 5));
+        this.geometry.faces.push(new THREE.Face3(3, 5, 4));
         this.geometry.computeFaceNormals();
 
         this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
