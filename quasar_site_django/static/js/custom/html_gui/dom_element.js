@@ -1,14 +1,41 @@
 'use strict';
 
-function DomElement(id_name, use_inner_html) {
-    this.__init__(id_name, use_inner_html);
+function DomElement(id_name) {
+    this.__init__(id_name);
 }
 
 DomElement.prototype = {
 
-    __init__: function(id_name, use_inner_html) {
+    __init__: function(id_name) {
         this.element = document.getElementById(id_name);
-        this.use_inner_html = true;
+    },
+
+    prepend_child_element: function(element_id) {
+        this._add_child_element(true, element_id);
+    },
+
+    append_child_element: function(element_id) {
+        this._add_child_element(false, element_id);
+    },
+
+    add_class: function(class_name) {
+        this.element.classList.add(class_name);
+    },
+
+    add_break_element: function() {
+        let node = document.createElement('br');
+        this.element.appendChild(node);
+    },
+
+    _add_child_element: function(prepend, element_id) {
+        let node = document.createElement('div');
+        node.id = element_id;
+        if (prepend) {
+            this.element.prepend(node);
+        } else {
+            this.element.appendChild(node);
+        }
+        return new DomElement(element_id);
     },
 
     set_color: function(color) {
@@ -34,21 +61,11 @@ DomElement.prototype = {
     },
 
     set_text: function(text) {
-        //this.element.innerHTML = text;
-        if (this.use_inner_html) {
-            this.element.innerHTML = text;
-        } else {
-            this.element.nodeValue = text;
-        }
+        this.element.innerHTML = text;
     },
 
     get_text: function() {
-        //return this.element.innerHTML;
-        // TODO : Optimization, store the text value isn't of referencing it from the element
-        if (this.use_inner_html) {
-            return this.element.innerHTML;
-        }
-        return this.element.nodeValue;
+        return this.element.innerHTML;
     },
 
     clear: function() {

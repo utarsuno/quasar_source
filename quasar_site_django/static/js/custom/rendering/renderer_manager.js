@@ -155,6 +155,8 @@ RendererManager.prototype = {
             //this.current_client.mobile_resize(this.window_width, this.window_height);
             MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
         }
+
+        CURRENT_CLIENT.height_resized(this.window_height);
     },
 
     is_webgl_enabled: function() {

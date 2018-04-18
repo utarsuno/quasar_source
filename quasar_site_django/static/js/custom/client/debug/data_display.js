@@ -11,12 +11,12 @@ DataDisplay.prototype = {
 
         // DOM elements.
         this.element_container = new DomElement('data_display');
-        this.element_x_coordinate = new DomElement('x_coordinate', true);
-        this.element_y_coordinate = new DomElement('y_coordinate', true);
-        this.element_z_coordinate = new DomElement('z_coordinate', true);
-        this.element_x_direction = new DomElement('x_direction', true);
-        this.element_y_direction = new DomElement('y_direction', true);
-        this.element_z_direction = new DomElement('z_direction', true);
+        this.element_x_coordinate = new DomElement('x_coordinate');
+        this.element_y_coordinate = new DomElement('y_coordinate');
+        this.element_z_coordinate = new DomElement('z_coordinate');
+        this.element_x_direction = new DomElement('x_direction');
+        this.element_y_direction = new DomElement('y_direction');
+        this.element_z_direction = new DomElement('z_direction');
     },
 
     update: function() {

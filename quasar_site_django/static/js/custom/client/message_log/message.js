@@ -19,7 +19,7 @@ LogMessage.prototype = {
         this.row_index = row_index;
         this.current_delta = 0;
         this.current_alpha = 1.0;
-        this.alpha_duration = 16.0;
+        this.alpha_duration = 12.0;
     },
 
     get_text: function() {
@@ -45,6 +45,10 @@ LogMessage.prototype = {
 
     increase_row_index: function() {
         this.row_index += 1;
+    },
+
+    offset_row_index: function(offset) {
+        this.row_index += offset;
     },
 
     reset_delta: function() {

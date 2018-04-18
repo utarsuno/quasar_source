@@ -8,12 +8,12 @@ function MessageLogManager() {
     ClientMessageTyping.call(this);
 
     this.logs = new DomElement('gui_console_logs');
-    this.rows = [];
 
     this.messages = [];
 
+    // TODO : REFACTOR!
+    this.rows = [];
     this.max_row = 50;
-
     this.load_log_rows = function() {
         let r = 0;
         while (r < this.max_row) {
@@ -22,6 +22,8 @@ function MessageLogManager() {
             r += 1;
         }
     };
+
+    this.current_max_row = 0;
 
     this.load_log_rows();
 
@@ -41,9 +43,11 @@ function MessageLogManager() {
         this._add_message(message, ENTITY_OWNER.get_username(), LOG_MESSAGE_COLOR_CLIENT);
     };
 
+    // TODO : REFACTOR!
     this._add_message = function(message, user, color) {
         // Shift all message indexes up by one.
-        for (var m = 0; m < this.messages.length; m++) {
+        let m;
+        for (m = 0; m < this.messages.length; m++) {
             this.messages[m].increase_row_index();
         }
 
@@ -54,11 +58,13 @@ function MessageLogManager() {
         }
     };
 
+    // TODO : REFACTOR!
     this.update_message_log = function(delta) {
-        for (var m = 0; m < this.messages.length; m++) {
+        let m;
+        for (m = 0; m < this.messages.length; m++) {
             if (this.messages[m].has_update()) {
                 this.messages[m].update(delta);
-                var index = this.messages[m].get_row_index();
+                let index = this.messages[m].get_row_index();
                 //l('Displaying text for index ')
                 this.rows[index].set_color(this.messages[m].get_color());
                 this.rows[index].set_text(this.messages[m].get_text());
@@ -67,8 +73,39 @@ function MessageLogManager() {
     };
 
     this._reset_alphas = function() {
-        for (var m = 0; m < this.messages.length; m++) {
+        let m;
+        for (m = 0; m < this.messages.length; m++) {
             this.messages[m].reset_delta();
         }
+    };
+
+    this.height_resized = function(new_height) {
+        let available_height = new_height * .8;
+        let number_of_rows_needed = Math.floor(available_height / 12);
+
+        while (this.rows.length < number_of_rows_needed) {
+            this._add_row();
+        }
+
+        /*
+        if (this.current_max_row !== number_of_rows_needed) {
+            let offset = number_of_rows_needed - this.current_max_row;
+            let m;
+            for (m = 0; m < this.messages.length; m++) {
+                this.messages[m].offset_row_index(m);
+            }
+        }
+        */
+    };
+
+    this._add_row = function() {
+        let new_row = this.logs.prepend_child_element('r' + (this.rows.length).toString());
+        new_row.add_class('gui_typing_offset');
+        new_row.add_break_element();
+        this.rows.push(new_row);
+    };
+
+    this._determine_new_highest_row = function() {
+
     };
 }
