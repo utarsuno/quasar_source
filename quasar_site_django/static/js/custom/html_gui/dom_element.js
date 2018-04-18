@@ -11,11 +11,11 @@ DomElement.prototype = {
     },
 
     prepend_child_element: function(element_id) {
-        this._add_child_element(true, element_id);
+        return this._add_child_element(true, element_id);
     },
 
     append_child_element: function(element_id) {
-        this._add_child_element(false, element_id);
+        return this._add_child_element(false, element_id);
     },
 
     add_class: function(class_name) {

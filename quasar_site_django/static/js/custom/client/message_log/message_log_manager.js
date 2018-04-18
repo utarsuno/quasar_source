@@ -62,6 +62,7 @@ function MessageLogManager() {
 
     // TODO : REFACTOR!
     this.update_message_log = function(delta) {
+        /*
         let m;
         for (m = 0; m < this.messages.length; m++) {
             if (this.messages[m].has_update()) {
@@ -72,6 +73,7 @@ function MessageLogManager() {
                 this.rows[index].set_text(this.messages[m].get_text());
             }
         }
+        */
     };
 
     this._reset_alphas = function() {
