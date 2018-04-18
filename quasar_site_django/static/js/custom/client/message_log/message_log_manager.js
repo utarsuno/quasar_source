@@ -99,10 +99,10 @@ function MessageLogManager() {
 
         if (this.current_max_row === -1 || this.current_max_row !== (this.rows.length - number_of_rows_needed)) {
             this.current_max_row = this.rows.length - number_of_rows_needed;
-            
+
             let m;
             for (m = 0; m < this.messages.length; m++) {
-                this.messages[m].offset_row_index(m);
+                this.messages[m].offset_row_index(this.current_max_row);
             }
         }
 
