@@ -17,8 +17,8 @@ MenuSection.prototype = {
         this.rows.push(this.parent_menu._add_button(button_name, icon, button_action));
     },
     add_button_for_sub_menu: function(animated_menu) {
-        var row = this.parent_menu._add_button_for_sub_menu(animated_menu);
-        var button = row.get_element();
+        let row = this.parent_menu._add_button_for_sub_menu(animated_menu);
+        let button = row.get_element();
         this.rows.push(row);
         animated_menu.parent_menu = this;
         this.parent_menu.child_menus.push(animated_menu);
@@ -55,16 +55,16 @@ AnimatedMenu.prototype = {
 
     switch_to_new_world: function (old_world, new_world) {
         this.menu.switch_worlds(old_world, new_world);
-        for (var s = 0; s < this.sections.length; s++) {
-            var current_section = this.sections[s];
-            for (var r = 0; r < current_section.rows.length; r++) {
-                var current_row = current_section.rows[r];
-                for (var e = 0; e < current_row.elements.length; e++) {
+        for (let s = 0; s < this.sections.length; s++) {
+            let current_section = this.sections[s];
+            for (let r = 0; r < current_section.rows.length; r++) {
+                let current_row = current_section.rows[r];
+                for (let e = 0; e < current_row.elements.length; e++) {
                     current_row.elements[e].switch_worlds(old_world, new_world);
 
                     // Also switch all the attachments of each element.
-                    var attachments = current_row.elements[e].attachments;
-                    for (var a = 0; a < attachments.length; a++) {
+                    let attachments = current_row.elements[e].attachments;
+                    for (let a = 0; a < attachments.length; a++) {
                         attachments[a].switch_worlds(old_world, new_world);
                     }
                 }
@@ -74,8 +74,8 @@ AnimatedMenu.prototype = {
 
     unhide_all: function() {
         //this.menus_to_hide.length = 0;
-        for (var s = 0; s < this.sections.length; s++) {
-            for (var r = 0; r < this.sections[s].rows.length; r++) {
+        for (let s = 0; s < this.sections.length; s++) {
+            for (let r = 0; r < this.sections[s].rows.length; r++) {
                 this.sections[s].rows[r].unhide_row();
             }
         }
@@ -86,8 +86,8 @@ AnimatedMenu.prototype = {
     },
 
     hide_button: function(button) {
-        for (var s = 0; s < this.sections.length; s++) {
-            for (var r = 0; r < this.sections[s].rows.length; r++) {
+        for (let s = 0; s < this.sections.length; s++) {
+            for (let r = 0; r < this.sections[s].rows.length; r++) {
                 if (this.sections[s].rows[r].row_name === button) {
                     this.sections[s].rows[r].hide_row();
                 }
@@ -114,15 +114,15 @@ AnimatedMenu.prototype = {
     },
 
     hide_all_child_menus: function() {
-        for (var m = 0; m < this.child_menus.length; m++) {
+        for (let m = 0; m < this.child_menus.length; m++) {
             this.child_menus[m].menu.force_hide_self_and_all_child_attachments_recursively();
         }
     },
 
     create: function(world) {
         if (!is_defined(this.menu_name)) {
-            var temp_position = new THREE.Vector3(0, 0, 0);
-            var temp_normal = new THREE.Vector3(0, 0, 0);
+            let temp_position = new THREE.Vector3(0, 0, 0);
+            let temp_normal = new THREE.Vector3(0, 0, 0);
             this.menu = new FloatingWall(this.menu_width, 100, temp_position, temp_normal, world);
             this.menu.set_attachment_horizontal_offset(-30, null);
             this.menu.set_attachment_vertical_offset(-30, null);
@@ -140,23 +140,23 @@ AnimatedMenu.prototype = {
     },
 
     _add_button: function(button_name, icon, button_action) {
-        var row = this.menu.add_row(null, button_name);
-        var button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
+        let row = this.menu.add_row(null, button_name);
+        let button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
         button.set_to_singleton();
-        var i = button.add_icon_left(icon);
+        let i = button.add_icon_left(icon);
         i.set_to_singleton();
         return row;
     },
 
     _add_text: function(text) {
-        var row = this.menu.add_row(null);
-        var t = row.add_text_2D([0, 1, false], this.text_height, text);
+        let row = this.menu.add_row(null);
+        let t = row.add_text_2D([0, 1, false], this.text_height, text);
         t.set_to_singleton();
         return row;
     },
 
     add_section: function(section_name) {
-        var section = new MenuSection(section_name, this);
+        let section = new MenuSection(section_name, this);
         this.sections.push(section);
         return section;
     }

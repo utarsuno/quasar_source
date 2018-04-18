@@ -14,8 +14,8 @@ function MonthIdentifier(month_identifier) {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.set_all_day_instances = function() {
-        var raw_days = get_days_in_month(this.month_number, this.year_number);
-        for (var d = 0; d < raw_days.length; d++) {
+        let raw_days = get_days_in_month(this.month_number, this.year_number);
+        for (let d = 0; d < raw_days.length; d++) {
             this.day_instances.push(new DayInstance(raw_days[d], this));
         }
     };
@@ -31,7 +31,7 @@ function MonthIdentifier(month_identifier) {
     };
 
     this.set_last_day_of_this_month = function() {
-        var d = new Date(this.year_number, this.month_number + 1, 0);
+        let d = new Date(this.year_number, this.month_number + 1, 0);
         this.last_day_of_this_month_day_of_the_week = d.getDay() - 1;
         if (this.last_day_of_this_month_day_of_the_week === -1) {
             this.last_day_of_this_month_day_of_the_week = 6;

@@ -10,7 +10,7 @@ FormManager.prototype = {
         this.input_fields = [];
         this.input_fields_repeat_password = [];
         if (is_defined(input_fields)) {
-            for (var f = 0; f < input_fields.length; f++) {
+            for (let f = 0; f < input_fields.length; f++) {
                 this.add_input_field(input_fields[f]);
             }
         }
@@ -42,12 +42,12 @@ FormManager.prototype = {
     perform_error_checks: function(apply_markings) {
         //l('Performing error checks!');
 
-        var has_errors = false;
+        let has_errors = false;
 
-        for (var i = 0; i < this.input_fields.length; i++) {
-            var input_field = this.input_fields[i];
+        for (let i = 0; i < this.input_fields.length; i++) {
+            let input_field = this.input_fields[i];
 
-            var syntax;
+            let syntax;
             if (input_field.has_syntax(TEXT_SYNTAX_REPEAT_PASSWORD)) {
                 syntax = input_field.syntax_check(this.input_fields_repeat_password);
             } else {

@@ -16,7 +16,7 @@ InputTextProcessor.prototype = {
     },
 
     parse_key_event: function(event) {
-        var key_code = event.keyCode;
+        let key_code = event.keyCode;
 
         if (key_code === KEY_CODE_DELETE) {
             if (this.current_text.length > 0) {

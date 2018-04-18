@@ -9,7 +9,7 @@ function MonthView(world, entity_to_load_from) {
 MonthView.prototype = {
 
     __init__: function(world, entity_to_load_from) {
-        var created_new = false;
+        let created_new = false;
         if (is_defined(entity_to_load_from)) {
             this.load_from_entity(world, entity_to_load_from);
         } else {
@@ -103,7 +103,7 @@ MonthView.prototype = {
 
         this.year_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Year', this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT), COLOR_YELLOW);
 
-        var row = this.year_type_selector_wall.add_row();
+        let row = this.year_type_selector_wall.add_row();
         row.add_text_2D([0, ONE_THIRD, false], 16, 'Type Year :');
         this.year_input = row.add_input_2D([ONE_THIRD, 1, false], 16, '');
 
@@ -127,7 +127,7 @@ MonthView.prototype = {
         this.settings_wall.set_auto_adjust_height(true);
         this.settings_wall.manual_visibility = true;
 
-        var settings_row = this.settings_wall.add_row();
+        let settings_row = this.settings_wall.add_row();
         settings_row.add_text_2D([0, ONE_THIRD, false], 16, 'Month Type :');
         this.month_type_button = settings_row.add_button([ONE_THIRD, 1, false], 16, this.month_instance.get_month_type(), this.show_month_type_selector.bind(this));
 
@@ -157,10 +157,10 @@ MonthView.prototype = {
         this.create_settings_wall();
 
         // Create the settings button.
-        var row = this.base_wall.get_row_with_index(-1);
-        var icon_width = 16 / this.base_wall.width;
+        let row = this.base_wall.get_row_with_index(-1);
+        let icon_width = 16 / this.base_wall.width;
 
-        var settings_button = row.add_icon_button([1 - icon_width, 1, false], ICON_SETTINGS, this.show_settings_wall.bind(this));
+        let settings_button = row.add_icon_button([1 - icon_width, 1, false], ICON_SETTINGS, this.show_settings_wall.bind(this));
 
         // Month View details.
         row = this.base_wall.add_row();
@@ -173,15 +173,15 @@ MonthView.prototype = {
         row.add_text_2D([6 / 7, 1, CENTER_ABSOLUTE], 32, DAY_SUNDAY_STRING);
 
         // Add the day views here!
-        var all_days = this.month_instance.get_all_day_instances();
-        for (var d = 0; d < all_days.length; d++) {
+        let all_days = this.month_instance.get_all_day_instances();
+        for (let d = 0; d < all_days.length; d++) {
             this.simple_day_views.push(new DayViewSimple(all_days[d], this.base_wall));
         }
         //this.week_one = this.base_wall.add_row(null, );
     },
 
     create_new: function(world) {
-        var data = get_player_blink_spot(1000);
+        let data = get_player_blink_spot(1000);
         this.base_wall = new FloatingWall(1600, 1000, data[0], data[1], world, true, COLOR_FLOATING_WALL_SUCCESS);
         this.base_wall.set_to_saveable(world.entity);
 

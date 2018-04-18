@@ -42,12 +42,12 @@ FloatingPicture.prototype = {
 
             this.width = this.get_value(ENTITY_PROPERTY_WIDTH);
             this.height = this.get_value(ENTITY_PROPERTY_HEIGHT);
-            var n = this.get_value(ENTITY_PROPERTY_NORMAL);
+            let n = this.get_value(ENTITY_PROPERTY_NORMAL);
             this.set_normal(n.x, n.y, n.z);
-            var p = this.get_value(ENTITY_PROPERTY_POSITION);
+            let p = this.get_value(ENTITY_PROPERTY_POSITION);
             this.set_position(p.x, p.y, p.z);
 
-            var image = document.createElement('img');
+            let image = document.createElement('img');
             image.src = this.get_value(ENTITY_PROPERTY_IMAGE_DATA);
 
 
@@ -58,12 +58,12 @@ FloatingPicture.prototype = {
             this.width = 600;
             this.height = 400;
 
-            var image = document.createElement('img');
+            let image = document.createElement('img');
             image.src = image_file;
 
             // THIS IS TEMPORARY.
-            var player_position = CURRENT_PLAYER.get_position();
-            var player_normal   = CURRENT_PLAYER.get_direction();
+            let player_position = CURRENT_PLAYER.get_position();
+            let player_normal   = CURRENT_PLAYER.get_direction();
 
             this.set_position(player_position.x + player_normal.x * 200, player_position.y, player_position.z + player_normal.z * 200, false);
             this.set_normal(-player_normal.x, 0, -player_normal.z, false);

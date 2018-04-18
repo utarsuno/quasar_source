@@ -62,7 +62,7 @@ EntityFieldCreator.prototype = {
     },
 
     _add_selectable_custom_entity_field: function() {
-        var custom_field_name = this.custom_field_name.get_text();
+        let custom_field_name = this.custom_field_name.get_text();
         if (!custom_field_name.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
             custom_field_name = ENTITY_PROPERTY_START_TOKEN + custom_field_name;
         }
@@ -81,7 +81,7 @@ EntityFieldCreator.prototype = {
 
     _add_selectable_entity_field: function(field_name) {
 
-        var name = get_entity_property_full_name(field_name);
+        let name = get_entity_property_full_name(field_name);
 
         if (!this.entity_editor.has_field(field_name)) {
             this.wall_add_new_field.add_row(null, field_name.substring(2)).add_button([0, 1], 16, name, this.add_entity_field.bind(this, field_name, false));

@@ -38,6 +38,3 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
         }
     };
 }
-
-
-// quasar_site_django/static/shaders

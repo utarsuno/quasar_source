@@ -86,24 +86,24 @@ function get_day_string_from_number(n) {
 }
 
 function get_current_month_number() {
-    var d = new Date();
+    let d = new Date();
     return d.getMonth();
 }
 
 function get_current_year_number() {
-    var d = new Date();
+    let d = new Date();
     return d.getFullYear();
 }
 
 // Temporary.
 function get_current_hour() {
-    var d = new Date();
+    let d = new Date();
     return d.getHours();
 }
 
 // Temporary.
 function get_current_minute() {
-    var d = new Date();
+    let d = new Date();
     return d.getMinutes();
 }
 
@@ -114,8 +114,8 @@ function get_current_minute() {
  * @return {Date[]} List with date objects for each day of the month
  */
 function get_days_in_month(month, year) {
-    var date = new Date(year, month, 1);
-    var days = [];
+    let date = new Date(year, month, 1);
+    let days = [];
     while (date.getMonth() === month) {
         days.push(new Date(date));
         date.setDate(date.getDate() + 1);

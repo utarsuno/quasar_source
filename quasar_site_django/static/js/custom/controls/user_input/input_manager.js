@@ -146,8 +146,8 @@ InputManager.prototype = {
     },
 
     on_mouse_move: function(event) {
-        var movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-        var movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        let movement_x = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+        let movement_y = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
         this._mouse_movement(movement_x, movement_y);
 
         // TODO : Not currently used for now.

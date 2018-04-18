@@ -129,27 +129,27 @@ function WorldTransition() {
     this._transition_pairs = [];
 
     this._get_transition_pair = function(old_scene, new_scene) {
-        for (var t = 0; t < this._transition_pairs.length; t++) {
+        for (let t = 0; t < this._transition_pairs.length; t++) {
             if (this._transition_pairs[t].is_pair(old_scene, new_scene)) {
                 return this._transition_pairs[t];
             }
         }
-        var new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
+        let new_transition_pair = new TransitionPair(old_scene, new_scene, this._the_transition, this);
         this._transition_pairs.push(new_transition_pair);
         return new_transition_pair;
     };
 
     this.set_current_world = function(current_world, previous_world, transition_finished_callback) {
-        var previous_camera_position = CURRENT_PLAYER.get_position();
-        var previous_camera_look_at  = CURRENT_PLAYER.get_direction();
+        let previous_camera_position = CURRENT_PLAYER.get_position();
+        let previous_camera_look_at  = CURRENT_PLAYER.get_direction();
 
-        var previous_scene = previous_world.scene;
-        var current_scene  = current_world.scene;
+        let previous_scene = previous_world.scene;
+        let current_scene  = current_world.scene;
 
         this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
         this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
 
-        var renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
+        let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
         current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
 

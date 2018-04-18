@@ -8,7 +8,7 @@ function CookieManager() {
     this.cookies = Cookies.noConflict();
 
     this.get_cookie = function(cookie_key) {
-        var v = this.cookies.get(cookie_key);
+        let v = this.cookies.get(cookie_key);
         if (v === 'true' || v === 'True') {
             return true;
         } else if (v === 'false' || v === 'False') {

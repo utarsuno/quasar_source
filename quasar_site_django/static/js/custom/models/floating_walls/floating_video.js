@@ -7,11 +7,11 @@ function VidoeCSSElement(base_wall, video_source) {
 VidoeCSSElement.prototype = {
     __init__: function(base_wall, video_source) {
         // Base code from : https://codepen.io/asjas/pen/pWawPm
-        var w = (base_wall.width * .9).toString() + 'px';
-        var h = (base_wall.height * .9).toString() + 'px';
-        var p = base_wall.get_position();
-        var nn = base_wall.get_normal();
-        var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
+        let w = (base_wall.width * .9).toString() + 'px';
+        let h = (base_wall.height * .9).toString() + 'px';
+        let p = base_wall.get_position();
+        let nn = base_wall.get_normal();
+        let n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
 
         this.div = document.createElement('div');
         this.div.style.width = w;
@@ -35,9 +35,9 @@ VidoeCSSElement.prototype = {
     },
 
     set_position_and_normal: function(position, normal) {
-        var p = position;
-        var nn = normal;
-        var n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
+        let p = position;
+        let nn = normal;
+        let n = new THREE.Vector3(nn.x + p.x, nn.y + p.y, nn.z + p.z);
         this.object.position.set(p.x, p.y, p.z);
         this.object.lookAt(n);
     },
@@ -48,8 +48,8 @@ VidoeCSSElement.prototype = {
             height *= -1;
         }
 
-        var w = (width).toString() + 'px';
-        var h = (height).toString() + 'px';
+        let w = (width).toString() + 'px';
+        let h = (height).toString() + 'px';
 
         this.div.style.width = w;
         this.div.style.height = h;
@@ -94,7 +94,7 @@ FloatingVideo.prototype = {
     },
 
     set_video: function() {
-        var video_code = this.video_code_input.get_text();
+        let video_code = this.video_code_input.get_text();
         this.video_entity.set_property(ENTITY_PROPERTY_NAME, video_code);
 
         this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
@@ -115,7 +115,7 @@ FloatingVideo.prototype = {
         this.settings_wall.set_auto_adjust_height(true);
         this.settings_wall.manual_visibility = true;
 
-        var settings_row = this.settings_wall.add_row();
+        let settings_row = this.settings_wall.add_row();
         settings_row.add_text_2D([0, ONE_THIRD, false], 16, 'Video Code:');
         this.video_code_input = settings_row.add_input_2D([ONE_THIRD, 1, false], 16, '');
 
@@ -128,10 +128,10 @@ FloatingVideo.prototype = {
         this.settings_wall.force_hide_self_and_all_child_attachments_recursively();
 
         // Create the settings button.
-        var row = this.base_wall.add_row(-1);
-        var icon_width = 16 / this.base_wall.width;
+        let row = this.base_wall.add_row(-1);
+        let icon_width = 16 / this.base_wall.width;
 
-        var settings_button = row.add_icon_button([0, icon_width * 2, true], ICON_SETTINGS, this.show_settings_wall.bind(this));
+        let settings_button = row.add_icon_button([0, icon_width * 2, true], ICON_SETTINGS, this.show_settings_wall.bind(this));
 
         // Create the delete button.
         //var close_button = row.add_icon([icon_width, icon_width * 2, true], ICON_CROSS);
@@ -141,7 +141,7 @@ FloatingVideo.prototype = {
     },
 
     create_new_floating_video: function(world) {
-        var data = get_player_blink_spot(200);
+        let data = get_player_blink_spot(200);
 
         this.base_wall = new FloatingWall(400, 300, data[0], data[1], world, true);
         this.base_wall.set_to_saveable(world.entity);

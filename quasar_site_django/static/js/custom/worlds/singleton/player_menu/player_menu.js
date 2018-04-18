@@ -71,14 +71,14 @@ PlayerMenu.prototype = {
     _set_to_visible: function() {
         this.currently_visible = true;
 
-        var player_position = CURRENT_PLAYER.get_position();
-        var player_normal   = CURRENT_PLAYER.get_direction();
+        let player_position = CURRENT_PLAYER.get_position();
+        let player_normal   = CURRENT_PLAYER.get_direction();
 
-        var position_offset = this.menu_main.menu.get_position_offset(player_normal);
+        let position_offset = this.menu_main.menu.get_position_offset(player_normal);
 
-        var position_x = player_position.x + position_offset[0];
-        var position_y = player_position.y + position_offset[1];
-        var position_z = player_position.z + position_offset[2];
+        let position_x = player_position.x + position_offset[0];
+        let position_y = player_position.y + position_offset[1];
+        let position_z = player_position.z + position_offset[2];
 
         this.menu_main.menu.set_position(position_x, position_y, position_z, false);
         this.menu_main.menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, false);
@@ -104,7 +104,7 @@ PlayerMenu.prototype = {
 
     _create_menu_main: function(world) {
         this.menu_main.create(world);
-        var section;
+        let section;
         section = this.menu_main.add_section();
         section.add_button_for_sub_menu(this.menu_create);
         section.add_button_for_sub_menu(this.menu_teleport);
@@ -116,7 +116,7 @@ PlayerMenu.prototype = {
 
     _create_menu_create: function(world) {
         this.menu_create.create(world);
-        var section;
+        let section;
         section = this.menu_create.add_section('Create a...');
         section.add_button('new world'    , ICON_STAR       , this.action_create_new_dynamic_world);
         section.add_button('month view'   , ICON_MENU_LIST  , this.action_create_new_month_view);
@@ -129,7 +129,7 @@ PlayerMenu.prototype = {
 
     _create_menu_debug: function(world) {
         this.menu_debug.create(world);
-        var section;
+        let section;
         section = this.menu_debug.add_section();
         section.add_button('none', ICON_INFORMATION, this.action_set_debug_to_none);
         section.add_button('fps', ICON_INFORMATION, this.action_set_debug_to_fps);
@@ -139,7 +139,7 @@ PlayerMenu.prototype = {
 
     _create_menu_teleport: function(world) {
         this.menu_teleport.create(world);
-        var section;
+        let section;
         section = this.menu_teleport.add_section();
         section.add_button_for_sub_menu(this.menu_teleport_personal);
         section.add_button_for_sub_menu(this.menu_teleport_shared);
@@ -149,7 +149,7 @@ PlayerMenu.prototype = {
 
     _create_menu_teleport_personal: function(world) {
         this.menu_teleport_personal.create(world);
-        var section;
+        let section;
         section = this.menu_teleport_personal.add_section();
         section.add_button('settings', ICON_SETTINGS     , this.action_teleport_to_world.bind(this, MANAGER_WORLD.world_settings));
         section.add_button('home'    , ICON_HOME         , this.action_teleport_to_world.bind(this, MANAGER_WORLD.world_home));
@@ -159,7 +159,7 @@ PlayerMenu.prototype = {
 
     _create_menu_teleport_shared: function(world) {
         this.menu_teleport_shared.create(world);
-        var section;
+        let section;
         section = this.menu_teleport_shared.add_section();
         section.add_button_for_sub_menu(this.menu_teleport_shared_owned);
         section.add_button_for_sub_menu(this.menu_teleport_shared_not_owned);

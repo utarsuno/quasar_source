@@ -75,7 +75,7 @@ WorldManager.prototype = {
         //    MANAGER_WORLD.current_player_menu.update(delta);
         //}
 
-        for (var a = 0; a < this.current_world.root_attachables.length; a++) {
+        for (let a = 0; a < this.current_world.root_attachables.length; a++) {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
 
@@ -126,15 +126,15 @@ WorldManager.prototype = {
 
     create_world: function(world) {
         // Default skybox.
-        var skybox_geometry = new THREE.BoxGeometry(20000, 20000, 20000);
+        let skybox_geometry = new THREE.BoxGeometry(20000, 20000, 20000);
         world.skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
         world.skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(world.skybox_cube);
 
         // Default hex grid ground.
-        var grid = new vg.HexGrid({cellSize: 100});
+        let grid = new vg.HexGrid({cellSize: 100});
         grid.generate({size: 10});
-        var board = new vg.Board(grid);
+        let board = new vg.Board(grid);
         // Used to be : board.generateTilemap({cellSize: 100, tileScale: 0.99});
         board.generateTilemap({cellSize: 100, tileScale: 1});
         world.add_to_scene(board.group);
@@ -174,7 +174,7 @@ WorldManager.prototype = {
         this.world_home.prepare_for_save();
         //this.world_settings.prepare_for_save();
         //this.world_admin.prepare_for_save();
-        for (var relative_id in this.dynamic_worlds) {
+        for (let relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 this.dynamic_worlds[relative_id].prepare_for_save();
             }
@@ -203,11 +203,11 @@ WorldManager.prototype = {
 
         // Create the dynamic worlds needed.
         // Iterate through the children of this entity. They each are a created world.
-        var dynamic_worlds = this.dynamic_worlds_manager_entity.get_children();
-        for (var c = 0; c < dynamic_worlds.length; c++) {
-            var created_world_entity = dynamic_worlds[c];
+        let dynamic_worlds = this.dynamic_worlds_manager_entity.get_children();
+        for (let c = 0; c < dynamic_worlds.length; c++) {
+            let created_world_entity = dynamic_worlds[c];
 
-            var created_world = new DynamicWorld(created_world_entity);
+            let created_world = new DynamicWorld(created_world_entity);
 
             // TODO : In the future only create the created worlds on first teleport into them! This will require significant refactoring though.
             this.create_world(created_world);
@@ -239,10 +239,10 @@ WorldManager.prototype = {
     },
 
     all_dynamic_worlds_loaded: function() {
-        for (var relative_id in this.dynamic_worlds) {
+        for (let relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
 
-                for (var inner_relative_id in this.dynamic_worlds) {
+                for (let inner_relative_id in this.dynamic_worlds) {
                     if (this.dynamic_worlds.hasOwnProperty(inner_relative_id)) {
                         if (inner_relative_id !== relative_id) {
                             this.dynamic_worlds[inner_relative_id].player_menu.add_personal_teleport_button(this.dynamic_worlds[relative_id]);
@@ -260,10 +260,10 @@ WorldManager.prototype = {
     },
 
     update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu: function(dynamic_world) {
-        var world_relative_id = (dynamic_world.entity.get_relative_id()).toString();
+        let world_relative_id = (dynamic_world.entity.get_relative_id()).toString();
 
         // Update all dynamic worlds with the new teleport name.
-        for (var relative_id in this.dynamic_worlds) {
+        for (let relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 if (world_relative_id !== relative_id) {
 
@@ -280,12 +280,12 @@ WorldManager.prototype = {
 
     _create_new_dynamic_world: function() {
         // Create a new created world Entity.
-        var dynamic_world_entity = new Entity();
+        let dynamic_world_entity = new Entity();
         dynamic_world_entity.set_property(ENTITY_DEFAULT_PROPERTY_TYPE, ENTITY_TYPE_DYNAMIC_WORLD);
 
         this.dynamic_worlds_manager_entity.add_child(dynamic_world_entity);
 
-        var dynamic_world = new DynamicWorld(dynamic_world_entity);
+        let dynamic_world = new DynamicWorld(dynamic_world_entity);
         this.create_world(dynamic_world);
         this.set_current_world(dynamic_world);
         this.add_dynamic_world(dynamic_world);
@@ -293,8 +293,8 @@ WorldManager.prototype = {
         this.update_or_add_dynamic_world_to_all_other_dynamic_worlds_teleport_menu(dynamic_world);
 
         // Add all other dynamic worlds as a teleport button for this dynamic world.
-        var relative_id = dynamic_world_entity.get_relative_id().toString();
-        for (var other_relative_id in this.dynamic_worlds) {
+        let relative_id = dynamic_world_entity.get_relative_id().toString();
+        for (let other_relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(other_relative_id)) {
                 if (other_relative_id !== relative_id) {
                     dynamic_world.player_menu.update_or_add_personal_teleport_button(this.dynamic_worlds[other_relative_id]);

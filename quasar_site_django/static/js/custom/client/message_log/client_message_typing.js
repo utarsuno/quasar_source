@@ -26,7 +26,7 @@ function ClientMessageTyping() {
     };
 
     this.add_user_text = function() {
-        var current_text = this.input_text.get_text();
+        let current_text = this.input_text.get_text();
         if (current_text.length > 0) {
             MANAGER_WEB_SOCKETS.send_chat_message('global', current_text);
         }

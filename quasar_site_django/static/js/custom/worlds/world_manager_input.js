@@ -21,9 +21,9 @@ function WorldManagerInput() {
     };
 
     this.left_click_down = function() {
-        var current_milliseconds = new Date().getTime();
+        let current_milliseconds = new Date().getTime();
 
-        for (var i = this._left_click_buffer.length; i--;) {
+        for (let i = this._left_click_buffer.length; i--;) {
             if (current_milliseconds - this._left_click_buffer[i] >= 300) {
                 this._left_click_buffer.splice(i, 1);
             }
@@ -54,7 +54,7 @@ function WorldManagerInput() {
 
             // If the player has input and is NOT engaged AND the player menu is not visible then right clicking will make the PlayerMenu show up.
 
-            var currently_looked_at_object = this.current_world.currently_looked_at_object;
+            let currently_looked_at_object = this.current_world.currently_looked_at_object;
             if (is_defined(currently_looked_at_object)) {
                 if (currently_looked_at_object.is_engaged()) {
                     currently_looked_at_object.disengage();

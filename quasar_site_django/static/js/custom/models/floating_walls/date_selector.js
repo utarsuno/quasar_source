@@ -27,19 +27,19 @@ DateSelector.prototype = {
         //this.all_days = this.current_month.get_all_day_instances();
 
         // Year.
-        var row_year = this.wall_date_selector.add_row(null);
+        let row_year = this.wall_date_selector.add_row(null);
         this.year = row_year.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_year());
         this.button_year_decrease = this.year.add_icon_button_left(ICON_LEFT, this.button_year_decrease_pressed.bind(this));
         this.button_year_increase = this.year.add_icon_button_right(ICON_RIGHT, this.button_year_increase_pressed.bind(this));
 
         // Month.
-        var row_month = this.wall_date_selector.add_row(null);
+        let row_month = this.wall_date_selector.add_row(null);
         this.month = row_month.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_month_string());
         this.button_month_decrease = this.month.add_icon_button_left(ICON_LEFT, this.button_month_decrease_pressed.bind(this));
         this.button_month_increase = this.month.add_icon_button_right(ICON_RIGHT, this.button_month_increase_pressed.bind(this));
 
         // Day labels.
-        var row_labels = this.wall_date_selector.add_row(null);
+        let row_labels = this.wall_date_selector.add_row(null);
         this.day_label_monday    = row_labels.add_text_2D([0, 1 / 7, CENTER_ABSOLUTE]    , 16, 'Monday'   );
         this.day_label_tuesday   = row_labels.add_text_2D([1 / 7, 2 / 7, CENTER_ABSOLUTE], 16, 'Tuesday'  );
         this.day_label_wednesday = row_labels.add_text_2D([2 / 7, 3 / 7, CENTER_ABSOLUTE], 16, 'Wednesday');
@@ -79,7 +79,7 @@ DateSelector.prototype = {
     },
 
     _delete_all_day_buttons: function() {
-        for (var d = 0; d < this.all_day_buttons.length; d++) {
+        for (let d = 0; d < this.all_day_buttons.length; d++) {
             this.all_day_buttons[d].detach_from_parent();
             this.all_day_buttons[d].remove_from_root_attachmentables_if_needed();
             this.all_day_buttons[d].full_remove();
@@ -92,14 +92,14 @@ DateSelector.prototype = {
 
         this.all_day_buttons = [];
 
-        var width_position = (this.wall_date_selector.width) / 7;
-        var height_position = (this.wall_date_selector.height) / 8;
+        let width_position = (this.wall_date_selector.width) / 7;
+        let height_position = (this.wall_date_selector.height) / 8;
 
-        var width = (this.wall_date_selector.width - 100) / 7;
-        var height = (this.wall_date_selector.height - 100) / 5;
+        let width = (this.wall_date_selector.width - 100) / 7;
+        let height = (this.wall_date_selector.height - 100) / 5;
 
-        for (var d = 0; d < this.all_days.length; d++) {
-            var day_button = new FloatingButton(this.wall_date_selector.world, width, 16, this.all_days[d].day_number, this.date_selected.bind(this, this.all_days[d]));
+        for (let d = 0; d < this.all_days.length; d++) {
+            let day_button = new FloatingButton(this.wall_date_selector.world, width, 16, this.all_days[d].day_number, this.date_selected.bind(this, this.all_days[d]));
             //var day_button = new FloatingText2D(this.wall_date_selector.world, 16, this.all_days[d].day_number);
             //var day_button = new Floating2DText(width, this.all_days[d].day_number, TYPE_BUTTON, this.wall_date_selector.world);
             height = day_button.height;

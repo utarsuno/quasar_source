@@ -64,14 +64,14 @@ function Visibility() {
 
     this.force_display_self_and_all_child_attachments_recursively = function() {
         this.set_to_visible(true);
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             this.attachments[a].force_display_self_and_all_child_attachments_recursively();
         }
     };
 
     this.hide_self_and_all_child_attachments_recursively = function() {
         this.set_to_invisible(false);
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (!this.attachments[a].manual_visibility) {
                 this.attachments[a].hide_self_and_all_child_attachments_recursively();
             }
@@ -80,13 +80,13 @@ function Visibility() {
 
     this.force_hide_self_and_all_child_attachments_recursively = function() {
         this.set_to_invisible(true);
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             this.attachments[a].force_hide_self_and_all_child_attachments_recursively();
         }
     };
 
     this.display_all_child_attachments_with_name = function(n) {
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].relative_name === n) {
                 this.attachments[a].set_to_visible();
             }
@@ -94,7 +94,7 @@ function Visibility() {
     };
 
     this.hide_all_child_attachments_with_name = function(n) {
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].relative_name === n) {
                 this.attachments[a].set_to_invisible();
             }

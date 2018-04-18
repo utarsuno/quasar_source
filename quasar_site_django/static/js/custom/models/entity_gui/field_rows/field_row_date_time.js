@@ -22,8 +22,8 @@ FieldRowDateTime.prototype = {
         if (!is_defined(hour) && !is_defined(minute)) {
             this.select_time_button.update_text(NO_TIME_SELECTED);
         } else {
-            var h = hour.get_text();
-            var m = minute.get_text();
+            let h = hour.get_text();
+            let m = minute.get_text();
             this.select_time_button.update_text(h + ':' + m);
         }
     },

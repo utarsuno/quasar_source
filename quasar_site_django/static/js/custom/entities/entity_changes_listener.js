@@ -11,7 +11,7 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
-        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+        for (let s = 0; s < this.subscribers_home_world.length; s++) {
             this.subscribers_home_world[s].entity_property_removed(entity, property_removed);
         }
         for (s = 0; s < this.subscribers_other.length; s++) {
@@ -23,7 +23,7 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
-        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+        for (let s = 0; s < this.subscribers_home_world.length; s++) {
             this.subscribers_home_world[s].entity_property_set_or_changed(entity, property_set_or_changed);
         }
         for (s = 0; s < this.subscribers_other.length; s++) {
@@ -35,7 +35,7 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
-        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+        for (let s = 0; s < this.subscribers_home_world.length; s++) {
             if (!this.subscribers_home_world[s].adds_own_entities) {
                 this.subscribers_home_world[s].entity_added(entity);
             }
@@ -51,7 +51,7 @@ function EntityChangesListener() {
         if (!entity.user_created) {
             return;
         }
-        for (var s = 0; s < this.subscribers_home_world.length; s++) {
+        for (let s = 0; s < this.subscribers_home_world.length; s++) {
             if (this.subscribers_home_world[s].has_entity(entity)) {
                 this.subscribers_home_world[s].entity_deleted(entity);
             }
@@ -75,7 +75,7 @@ function EntityChangesListener() {
     };
 
     this.add_all_needed_entity_links_for_subscriber = function(subscriber) {
-        var entity_ids;
+        let entity_ids;
 
         if (subscriber.world === MANAGER_WORLD.world_home) {
             entity_ids = MANAGER_WORLD.get_all_user_created_entity_ids_from_all_worlds();
@@ -83,7 +83,7 @@ function EntityChangesListener() {
             entity_ids = MANAGER_WORLD.get_all_user_created_entity_ids_from_world(subscriber.world);
         }
 
-        for (var e = 0; e < entity_ids.length; e++) {
+        for (let e = 0; e < entity_ids.length; e++) {
             subscriber.entity_added(this.get_entity_by_id(entity_ids[e]));
         }
     };

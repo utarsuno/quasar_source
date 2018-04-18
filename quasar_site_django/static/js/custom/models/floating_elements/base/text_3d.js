@@ -32,7 +32,7 @@ function Text3D(world, size, text) {
     };
 
     this._calculate_dimensions = function() {
-        var box = new THREE.Box3().setFromObject(this.mesh);
+        let box = new THREE.Box3().setFromObject(this.mesh);
         this.width = box.max.x;
         this.height = box.max.y;
     };

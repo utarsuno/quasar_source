@@ -13,11 +13,11 @@ DayViewSimple.prototype = {
         this.day_instance = day_instance;
         this.base_wall    = base_wall;
 
-        var position_width = this.base_wall.width / 7;
-        var position_height = this.base_wall.height / 6;
+        let position_width = this.base_wall.width / 7;
+        let position_height = this.base_wall.height / 6;
 
-        var width = (this.base_wall.width - 100) / 7;
-        var height = (this.base_wall.height - 100) / 6;
+        let width = (this.base_wall.width - 100) / 7;
+        let height = (this.base_wall.height - 100) / 6;
 
         // Create the day view.
         this.day_view = new FloatingWall(width, height, null, null, this.base_wall.world, false);
@@ -40,17 +40,17 @@ DayViewSimple.prototype = {
     },
 
     update_name_for_entity: function(entity) {
-        var entity_id = entity.get_relative_id();
+        let entity_id = entity.get_relative_id();
         this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].update_text(entity.get_value(ENTITY_PROPERTY_NAME));
     },
 
     update_color_for_entity: function(entity) {
-        var entity_id = entity.get_relative_id();
+        let entity_id = entity.get_relative_id();
         this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].set_default_color(entity.get_color_for_schedule_view());
     },
 
     remove_entity: function(entity) {
-        var entity_id = entity.get_relative_id();
+        let entity_id = entity.get_relative_id();
         delete this.entities[entity_id];
         this.day_view.delete_row_by_name(entity_id);
         // TODO : Sort the day view rows.
@@ -58,8 +58,8 @@ DayViewSimple.prototype = {
     },
 
     has_entity: function(entity) {
-        var entity_id = entity.get_relative_id();
-        for (var id in this.entities) {
+        let entity_id = entity.get_relative_id();
+        for (let id in this.entities) {
             if (this.entities.hasOwnProperty(id)) {
                 if (this.entities[id][INDEX_OF_ENTITY].get_relative_id() === entity_id) {
                     return true;
@@ -70,15 +70,15 @@ DayViewSimple.prototype = {
     },
 
     add_entity: function(entity) {
-        var entity_id = entity.get_relative_id();
+        let entity_id = entity.get_relative_id();
 
         this.entities[entity_id] = [entity, null];
 
         // Schedule color for this entity.
-        var entity_color = entity.get_color_for_schedule_view();
+        let entity_color = entity.get_color_for_schedule_view();
 
-        var row = this.day_view.add_row(null, entity.get_relative_id());
-        var entity_button = row.add_button([0, 1, false], 16, entity.get_value(ENTITY_PROPERTY_NAME), null, entity_color);
+        let row = this.day_view.add_row(null, entity.get_relative_id());
+        let entity_button = row.add_button([0, 1, false], 16, entity.get_value(ENTITY_PROPERTY_NAME), null, entity_color);
 
         entity_button.set_engage_function(this._edit_entity.bind(this, entity_id, entity_button));
 

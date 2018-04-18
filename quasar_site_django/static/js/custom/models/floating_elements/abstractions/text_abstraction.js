@@ -33,7 +33,7 @@ function TextAbstraction(text) {
     };
 
     this.has_syntax = function(syntax) {
-        for (var sr = 0; sr < this.syntax_rules.length; sr++) {
+        for (let sr = 0; sr < this.syntax_rules.length; sr++) {
             if (this.syntax_rules[sr].text_syntax_type === syntax) {
                 return true;
             }
@@ -42,9 +42,9 @@ function TextAbstraction(text) {
     };
 
     this.syntax_check = function(additional_arguments) {
-        for (var sr = 0; sr < this.syntax_rules.length; sr++) {
+        for (let sr = 0; sr < this.syntax_rules.length; sr++) {
 
-            var results = this.syntax_rules[sr].does_text_pass_requirements(this.text, additional_arguments);
+            let results = this.syntax_rules[sr].does_text_pass_requirements(this.text, additional_arguments);
 
             if (!results[0]) {
                 return [false, results[1]];
@@ -78,7 +78,7 @@ function TextAbstraction(text) {
     };
 
     this._pop_character = function() {
-        var t = this.get_text();
+        let t = this.get_text();
         this.update_text(t.slice(0, -1));
     };
 
@@ -89,7 +89,7 @@ function TextAbstraction(text) {
     };
 
     this.parse_keycode = function(event) {
-        var keycode = event.keyCode;
+        let keycode = event.keyCode;
 
         if (keycode === KEY_CODE_DELETE) {
             if (this.get_text().length > 0) {
@@ -127,8 +127,8 @@ function TextAbstraction(text) {
 
     this.get_display_text = function() {
         if (this._is_password) {
-            var t = '';
-            for (var c = 0; c < this.text.length; c++) {
+            let t = '';
+            for (let c = 0; c < this.text.length; c++) {
                 t += '*';
             }
             return t;

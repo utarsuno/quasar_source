@@ -32,16 +32,16 @@ PlayerCursor.prototype = {
     engage: function() {
         this._currently_engaged = true;
 
-        var h = this.currently_attached_to.height;
+        let h = this.currently_attached_to.height;
 
-        var cursor_position = this.cursor_wall.get_position();
+        let cursor_position = this.cursor_wall.get_position();
 
         this._previous_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
 
         // Save the initial position at the engage.
         this._previous_y = cursor_position.y;
 
-        var pp = CURRENT_PLAYER.get_position();
+        let pp = CURRENT_PLAYER.get_position();
 
         this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(pp.x, pp.z);
 
@@ -55,15 +55,15 @@ PlayerCursor.prototype = {
         // TODO : TEMPORARY MEASURE.
         this._current_cursor.set_to_visible();
 
-        var plane_current_position = this.currently_attached_to.get_position();
-        var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
-        var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
-        var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
+        let plane_current_position = this.currently_attached_to.get_position();
+        let player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
+        let plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
+        let current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
         if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
-            var h = this.currently_attached_to.height;
+            let h = this.currently_attached_to.height;
 
-            var current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
+            let current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
 
             // TODO : FIX HEIGHT CHANGES FROM THE BOTTOM!!!!
 
@@ -74,9 +74,9 @@ PlayerCursor.prototype = {
 
         } else if (this._is_current_cursor_type(CURSOR_TYPE_HORIZONTAL)) {
 
-            var w = this.currently_attached_to.width;
+            let w = this.currently_attached_to.width;
 
-            var current_horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(current_position[0], current_position[2]) / w;
+            let current_horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(current_position[0], current_position[2]) / w;
 
             current_horizontal_percentage = 0.5 - current_horizontal_percentage;
             current_horizontal_percentage *= 2;
@@ -123,7 +123,7 @@ PlayerCursor.prototype = {
     },
 
     update_position: function(p) {
-        var normal = this.currently_attached_to.get_normal();
+        let normal = this.currently_attached_to.get_normal();
 
         this.cursor_wall.set_position(p.x, p.y, p.z, false);
         this.cursor_wall.set_normal(normal.x, normal.y, normal.z, false);
@@ -133,19 +133,19 @@ PlayerCursor.prototype = {
     update: function() {
         if (this._currently_engaged) {
 
-            var plane_current_position = this.currently_attached_to.get_position();
+            let plane_current_position = this.currently_attached_to.get_position();
 
-            var player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
-            var plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
+            let player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
+            let plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
 
-            var current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
+            let current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
             if (this._is_current_cursor_type(CURSOR_TYPE_MOUSE)) {
-                var pp = CURRENT_PLAYER.get_position();
-                var pn = CURRENT_PLAYER.get_direction();
+                let pp = CURRENT_PLAYER.get_position();
+                let pn = CURRENT_PLAYER.get_direction();
 
-                var new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
-                var new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
+                let new_x_position = pp.x + pn.x * this._horizontal_distance_to_player;
+                let new_z_position = pp.z + pn.z * this._horizontal_distance_to_player;
 
                 this.currently_attached_to.set_position(new_x_position, (current_position[1] - this._previous_y) + plane_current_position.y, new_z_position);
                 this._previous_y = current_position[1];
@@ -165,7 +165,7 @@ PlayerCursor.prototype = {
     },
 
     _get_scalable_cursor_needed: function() {
-        var exit_out = false;
+        let exit_out = false;
         if (is_defined(this.currently_attached_to.only_moveable)) {
             if (this.currently_attached_to.only_moveable) {
                 this._set_current_cursor(CURSOR_TYPE_MOUSE);
@@ -177,16 +177,16 @@ PlayerCursor.prototype = {
             return;
         }
 
-        var h = this.currently_attached_to.height;
-        var w = this.currently_attached_to.width;
+        let h = this.currently_attached_to.height;
+        let w = this.currently_attached_to.width;
 
-        var cursor_position = this.cursor_wall.get_position();
+        let cursor_position = this.cursor_wall.get_position();
 
-        var vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
-        var horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
+        let vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
+        let horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
 
-        var scroll_vertical   = false;
-        var scroll_horizontal = false;
+        let scroll_vertical   = false;
+        let scroll_horizontal = false;
 
         if (vertical_percentage < 0.03 || vertical_percentage > 0.97) {
             scroll_vertical = true;
@@ -225,7 +225,7 @@ PlayerCursor.prototype = {
 
     switch_to_new_world: function(old_world, new_world) {
         this.cursor_wall.switch_worlds(old_world, new_world);
-        for (var cursor in this._cursors) {
+        for (let cursor in this._cursors) {
             if (this._cursors.hasOwnProperty(cursor)) {
                 this._cursors[cursor].switch_worlds(old_world, new_world);
             }
@@ -240,7 +240,7 @@ PlayerCursor.prototype = {
         this.cursor_wall = new FloatingWall(16, 16, null, null, world, false);
         this.cursor_wall.set_to_singleton();
         this.cursor_wall.make_base_wall_invisible();
-        var cursor_row = this.cursor_wall.add_row(0);
+        let cursor_row = this.cursor_wall.add_row(0);
         this._create_cursor(CURSOR_TYPE_HORIZONTAL, cursor_row);
         this._create_cursor(CURSOR_TYPE_VERTICAL, cursor_row);
         this._create_cursor(CURSOR_TYPE_HAND, cursor_row);
@@ -251,7 +251,7 @@ PlayerCursor.prototype = {
     },
 
     _create_cursor: function(cursor_type, cursor_row) {
-        var c = cursor_row.add_icon([0, 1], cursor_type);
+        let c = cursor_row.add_icon([0, 1], cursor_type);
         c.set_attachment_depth_offset(6);
         c.set_attachment_horizontal_offset(8, null);
         c.set_attachment_vertical_offset(-7, null);

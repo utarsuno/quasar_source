@@ -21,7 +21,7 @@ function EntityEditorFieldRow(entity_editor) {
     };
 
     this.create_label = function(input) {
-        var label_text = get_entity_property_full_name(this.entity_property);
+        let label_text = get_entity_property_full_name(this.entity_property);
         //var label = input.add_label_left(label_text);
         //input.add_label_left(this.label);
 
@@ -30,7 +30,7 @@ function EntityEditorFieldRow(entity_editor) {
 
     this.create = function(row_index, field_value) {
         this.create_row(row_index);
-        var input = this.create_input(field_value);
+        let input = this.create_input(field_value);
         this.create_label(input);
         if (this.entity_property !== ENTITY_DEFAULT_PROPERTY_TYPE && this.entity_property !== ENTITY_PROPERTY_NAME) {
             //input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
@@ -52,7 +52,7 @@ function EntityEditorFieldRow(entity_editor) {
 
     this.set_value_from_entity = function() {
         // TODO : Eventually optimize this.
-        var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_editor.entity_id_being_edited);
+        let entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_editor.entity_id_being_edited);
 
         if (this.entity_property === ENTITY_DEFAULT_PROPERTY_TYPE) {
             this.entity_type_button.update_text(entity_being_edited.get_value(ENTITY_DEFAULT_PROPERTY_TYPE));

@@ -15,7 +15,7 @@ function WorldDynamicContent() {
 
     this.prepare_for_save = function() {
         // TODO : Eventually default should be false.
-        var save_needed = true;
+        let save_needed = true;
 
         // For dynamic worlds.
         if (this.hasOwnProperty('world_name_changed')) {
@@ -25,19 +25,19 @@ function WorldDynamicContent() {
             }
         }
 
-        for (var r = 0; r < this.root_attachables.length; r++) {
+        for (let r = 0; r < this.root_attachables.length; r++) {
             this.root_attachables[r].update_values_for_entity();
         }
     };
 
     this.load_dynamic_content = function() {
         // Load all the entity walls. These are the base objects that have sub objects to load.
-        var base_wall_entities = this.entity.get_children_of_type(ENTITY_TYPE_WALL);
-        for (var w = 0 ; w < base_wall_entities.length; w++) {
+        let base_wall_entities = this.entity.get_children_of_type(ENTITY_TYPE_WALL);
+        for (let w = 0 ; w < base_wall_entities.length; w++) {
 
             // Check the type of object to load based off the immediate child of this wall entity.
-            var child_entity = base_wall_entities[w].get_child();
-            var child_entity_type = child_entity.get_type();
+            let child_entity = base_wall_entities[w].get_child();
+            let child_entity_type = child_entity.get_type();
 
             switch (child_entity_type) {
             case ENTITY_TYPE_ENTITY_GROUP:
@@ -66,12 +66,12 @@ function WorldDynamicContent() {
      |\/| /  \ |\ |  |  |__|    \  / | |__  |  |    |  |  /\  |    |
      |  | \__/ | \|  |  |  |     \/  | |___ |/\|    |/\| /~~\ |___ |___ */
     this.create_new_month_view_wall = function() {
-        var month_view_wall = new MonthView(this);
+        let month_view_wall = new MonthView(this);
         this.month_view_walls.push(month_view_wall);
     };
 
     this.load_month_view_wall = function(month_view_wall_entity) {
-        var month_view_wall = new MonthView(this, month_view_wall_entity);
+        let month_view_wall = new MonthView(this, month_view_wall_entity);
         this.month_view_walls.push(month_view_wall);
     };
 
@@ -79,12 +79,12 @@ function WorldDynamicContent() {
      |__  |\ |  |  |  |  \ /    |  |  /\  |    |
      |___ | \|  |  |  |   |     |/\| /~~\ |___ |___ */
     this.create_new_entity_group = function() {
-        var entity_wall = new EntityGroup(this);
+        let entity_wall = new EntityGroup(this);
         this.entity_groups.push(entity_wall);
     };
 
     this.load_entity_group = function(entity_group_entity) {
-        var entity_wall = new EntityGroup(this, entity_group_entity);
+        let entity_wall = new EntityGroup(this, entity_group_entity);
         this.entity_groups.push(entity_wall);
     };
 
@@ -113,12 +113,12 @@ function WorldDynamicContent() {
 
     this.create_new_video = function(world_context) {
         // TODO : Add needed functionality to this. (Such as temporarily displaying a refresh-warning).
-        var video_wall = new FloatingVideo(world_context);
+        let video_wall = new FloatingVideo(world_context);
         world_context.videos.push(video_wall);
     };
 
     this.load_video_wall = function(video_entity) {
-        var video_wall = new FloatingVideo(this, video_entity);
+        let video_wall = new FloatingVideo(this, video_entity);
         this.videos.push(video_wall);
     };
 

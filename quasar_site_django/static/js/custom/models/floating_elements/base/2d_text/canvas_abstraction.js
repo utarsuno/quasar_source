@@ -52,7 +52,7 @@ CanvasAbstraction.prototype = {
 
     update_font: function() {
         this.font_size = int(this.height * _SMUDGE_FACTOR);
-        var additional_properties = '';
+        let additional_properties = '';
         if (this.text_property_italic) {
             additional_properties += 'italic ';
         }

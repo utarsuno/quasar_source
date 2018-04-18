@@ -27,17 +27,17 @@ EntityManager.prototype = {
      |    /  \  /\  |  \ | |\ | / _`    |  \  /\   |   /\     .
      |___ \__/ /~~\ |__/ | | \| \__>    |__/ /~~\  |  /~~\    .*/
     set_all_entities_to_not_needing_to_be_saved: function() {
-        for (var e = 0; e < this.entities.length; e++) {
+        for (let e = 0; e < this.entities.length; e++) {
             this.entities[e].needs_to_be_saved = false;
         }
     },
 
     link_entities: function() {
-        for (var e = 0; e < this.entities.length; e++) {
-            var children_ids = this.entities[e].get_child_ids();
-            var parent_ids   = this.entities[e].get_parent_ids();
+        for (let e = 0; e < this.entities.length; e++) {
+            let children_ids = this.entities[e].get_child_ids();
+            let parent_ids   = this.entities[e].get_parent_ids();
 
-            for (var c = 0; c < children_ids.length; c++) {
+            for (let c = 0; c < children_ids.length; c++) {
                 // Temporary debugging.
                 if (!is_defined(this.get_entity_by_id(children_ids[c]))) {
                     l('WARNING! ID does not exist?');
@@ -46,7 +46,7 @@ EntityManager.prototype = {
                     this.entities[e].add_child(this.get_entity_by_id(children_ids[c]));
                 }
             }
-            for (var p = 0; p < parent_ids.length; p++) {
+            for (let p = 0; p < parent_ids.length; p++) {
                 this.entities[e].add_parent(this.get_entity_by_id(parent_ids[p]));
             }
         }
@@ -56,13 +56,13 @@ EntityManager.prototype = {
      / _` |__   |   |  | |\ | / _`    |  \  /\   |   /\     .
      \__> |___  |   |  | | \| \__>    |__/ /~~\  |  /~~\    . */
     get_entities_sorted_by_priority: function(list_of_entities) {
-        var list_to_return = [];
+        let list_to_return = [];
 
         // First value to sort by is by completed or not.
         // Second value to sort by is importance.
 
-        for (var i = 0; i < list_of_entities.length; i++) {
-            var e = list_of_entities[i];
+        for (let i = 0; i < list_of_entities.length; i++) {
+            let e = list_of_entities[i];
             e.sort_value = 0;
             if (e.has_property(ENTITY_PROPERTY_COMPLETED)) {
                 if (e.get_value(ENTITY_PROPERTY_COMPLETED) === ENTITY_PROPERTY_COMPLETED_VALUE_YES) {
@@ -83,15 +83,15 @@ EntityManager.prototype = {
     },
 
     get_new_entity_id: function() {
-        var max_id = -1;
-        for (var i = 0; i < this.entities.length; i++) {
-            var entity_id = this.entities[i].get_relative_id();
+        let max_id = -1;
+        for (let i = 0; i < this.entities.length; i++) {
+            let entity_id = this.entities[i].get_relative_id();
             if (entity_id > max_id) {
                 max_id = entity_id;
             }
         }
 
-        var highest_deleted_id = this.get_highest_deleted_relative_id();
+        let highest_deleted_id = this.get_highest_deleted_relative_id();
         if (max_id + 1 <= highest_deleted_id) {
             return highest_deleted_id + 1;
         }
@@ -99,7 +99,7 @@ EntityManager.prototype = {
     },
 
     get_entity_of_type: function(entity_type) {
-        var entity_matches = this.get_all_entities_of_type(entity_type);
+        let entity_matches = this.get_all_entities_of_type(entity_type);
 
         if (entity_matches.length > 1) {
             raise_exception_with_full_logging('More than one entity found with type : ' + entity_type);
@@ -111,8 +111,8 @@ EntityManager.prototype = {
     },
 
     get_all_entities_of_type: function(entity_type) {
-        var entities_to_return = [];
-        for (var i = 0; i < this.entities.length; i++) {
+        let entities_to_return = [];
+        for (let i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_type() === entity_type) {
                 entities_to_return.push(this.entities[i]);
             }
@@ -121,8 +121,8 @@ EntityManager.prototype = {
     },
 
     get_all_entities_with_property: function(entity_property) {
-        var entities_to_return = [];
-        for (var i = 0; i < this.entities.length; i++) {
+        let entities_to_return = [];
+        for (let i = 0; i < this.entities.length; i++) {
             if (this.entities[i].has_property(entity_property)) {
                 entities_to_return.push(this.entities[i]);
             }
@@ -157,7 +157,7 @@ EntityManager.prototype = {
     },
 
     _get_index_of_entity: function(entity) {
-        for (var i = 0; i < this.entities.length; i++) {
+        for (let i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_relative_id() === entity.get_relative_id()) {
                 return i;
             }
@@ -168,7 +168,7 @@ EntityManager.prototype = {
     add_user_entity_from_entity_data: function(entity_data) {
         //l('Adding the following entity data');
         //l(entity_data);
-        var entity = new Entity(entity_data);
+        let entity = new Entity(entity_data);
         entity.exists_on_server_side = true;
         return entity;
     },
@@ -188,7 +188,7 @@ EntityManager.prototype = {
 
     get_entity_by_id: function(entity_id) {
         //console.log('Trying to get entity by id match : Looking for ' + entity_id)
-        for (var i = 0; i < this.entities.length; i++) {
+        for (let i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_relative_id() === entity_id) {
                 return this.entities[i];
             }
@@ -216,16 +216,16 @@ EntityManager.prototype = {
     },
 
     delete_entity_by_id: function(entity_id) {
-        var entity = this.get_entity_by_id(entity_id);
+        let entity = this.get_entity_by_id(entity_id);
         if (entity !== null) {
             // Check if this entity has any parent entities. They need to remove references to it.
-            var entity_parents = entity.get_parents();
-            for (var p = 0; p < entity_parents.length; p++) {
+            let entity_parents = entity.get_parents();
+            for (let p = 0; p < entity_parents.length; p++) {
                 entity_parents[p].remove_child(entity);
             }
             // Check if this entity has children entities. They all need to be deleted.
-            var entity_children = entity.get_children();
-            for (var c = 0; c < entity_children.length; c++) {
+            let entity_children = entity.get_children();
+            for (let c = 0; c < entity_children.length; c++) {
                 this.delete_entity_by_id(entity_children[c].get_relative_id());
             }
             this.delete_entity(entity);
@@ -235,8 +235,8 @@ EntityManager.prototype = {
     },
 
     delete_entity: function(entity) {
-        var entity_to_delete = null;
-        var index_to_splice = this._get_index_of_entity(entity);
+        let entity_to_delete = null;
+        let index_to_splice = this._get_index_of_entity(entity);
         if (index_to_splice !== NOT_FOUND) {
             entity_to_delete = this.entities[index_to_splice];
         } else {
@@ -247,7 +247,7 @@ EntityManager.prototype = {
             // Notify all entity event subscribers that the entity was deleted.
             this.entity_on_deleted(entity_to_delete);
 
-            var relative_id = entity_to_delete.get_relative_id();
+            let relative_id = entity_to_delete.get_relative_id();
             if (relative_id > this.highest_deleted_relative_id) {
                 this.highest_deleted_relative_id = relative_id;
             }

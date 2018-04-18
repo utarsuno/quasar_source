@@ -39,13 +39,13 @@ LoadingManager.prototype = {
 
         CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
 
-        for (var asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
+        for (let asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
             this.asset_groups[asset_group].load_assets();
         }
     },
 
     initial_resources_loaded: function() {
-        for (var asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
+        for (let asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
             if (!this.asset_groups[asset_group]._loaded) {
                 return false;
             }

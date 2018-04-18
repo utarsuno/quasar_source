@@ -49,7 +49,7 @@ WebSocketManager.prototype = {
         l(message);
 
 
-        var response = JSON.parse(message.data).text;
+        let response = JSON.parse(message.data).text;
 
         // TODO : Check if the message is a response or a server message.
         if (_WEB_SOCKET_RESPONSE_KEY_SUCCESS in response) {
@@ -62,10 +62,10 @@ WebSocketManager.prototype = {
     },
 
     _handle_message_response: function(response) {
-        var success = response[_WEB_SOCKET_RESPONSE_KEY_SUCCESS];
+        let success = response[_WEB_SOCKET_RESPONSE_KEY_SUCCESS];
         success = success === _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE;
 
-        var data = response[_WEB_SOCKET_RESPONSE_KEY_DATA];
+        let data = response[_WEB_SOCKET_RESPONSE_KEY_DATA];
 
         //l('It is a success :');
         //l(success);
@@ -77,7 +77,7 @@ WebSocketManager.prototype = {
     _handle_server_message: function(response) {
         l('Handle sever message!');
         l(response);
-        var message_type = response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE];
+        let message_type = response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE];
         switch (message_type) {
         case _WEB_SOCKET_RESPONSE_VALUE_MESSAGE_TYPE_CHAT_MESSAGE:
             this._server_message_chat_message.handle_message(response);

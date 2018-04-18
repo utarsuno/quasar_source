@@ -56,11 +56,11 @@ EntityOwner.prototype = {
     },
 
     get_owner_sms_email: function() {
-        var owner_provider = this.get_phone_carrier();
-        var owner_phone_number = this.get_phone_number();
-        var owner_sms_address;
+        let owner_provider = this.get_phone_carrier();
+        let owner_phone_number = this.get_phone_number();
+        let owner_sms_address;
 
-        for (var key in CELL_PHONE_CARRIERS) {
+        for (let key in CELL_PHONE_CARRIERS) {
             if (CELL_PHONE_CARRIERS.hasOwnProperty(key)) {
 
                 if (key === owner_provider) {

@@ -23,9 +23,9 @@ ServerMessageChatMessage.prototype = {
     },
 
     handle_message: function(response) {
-        var message_channel  = response[_WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL];
-        var message_contents = response[_WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE];
-        var message_user     = response[_WEB_SOCKET_REQUEST_KEY_CHAT_USER];
+        let message_channel  = response[_WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL];
+        let message_contents = response[_WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE];
+        let message_user     = response[_WEB_SOCKET_REQUEST_KEY_CHAT_USER];
 
         l('TODO HANDLE THE SERVER CHAT RESPONSE!!');
         l(message_channel);
@@ -33,13 +33,13 @@ ServerMessageChatMessage.prototype = {
         l(message_user);
 
         // TODO : Change design of this part later.
-        var current_user = ENTITY_OWNER.get_username();
+        let current_user = ENTITY_OWNER.get_username();
 
         if (current_user !== message_user) {
             //MANAGER_WEB_SOCKETS.display_received_chat_message(message_user, message_contents, message_channel);
-            CURRENT_CLIENT.add_client_message(message_contents);
-        } else {
             CURRENT_CLIENT.add_chat_message(message_contents, message_user);
+        } else {
+            CURRENT_CLIENT.add_client_message(message_contents);
         }
 
     }

@@ -15,7 +15,7 @@ FieldRowCompleted.prototype = {
     },
 
     _mark_completed_as: function(completed) {
-        var refresh_needed = false;
+        let refresh_needed = false;
 
         if (completed) {
             if (!this.completed) {

@@ -8,14 +8,14 @@ FloatingText2D.prototype = {
 
     __init__: function(world, height, text, text_properties) {
 
-        var italic = false;
-        var bold   = false;
+        let italic = false;
+        let bold   = false;
         if (is_defined(text_properties)) {
             italic = text_properties[0];
             bold   = text_properties[1];
         }
 
-        var width;
+        let width;
         if (italic && bold) {
             width = MANAGER_TEXT_2D.get_width_of_italic_and_bold_text_given_bounding_height(text, height);
         } else if (italic) {

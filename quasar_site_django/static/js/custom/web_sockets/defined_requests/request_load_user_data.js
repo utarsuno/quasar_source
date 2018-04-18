@@ -19,7 +19,7 @@ ServerRequestLoadUserData.prototype = {
             data = JSON.parse(data);
 
             // Load all the user entities.
-            for (var entity in data) {
+            for (let entity in data) {
                 if (data.hasOwnProperty(entity)) {
                     MANAGER_ENTITY.add_user_entity_from_entity_data(data[entity]);
                 }

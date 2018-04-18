@@ -20,8 +20,8 @@ function Animatable() {
         this.percentage_elapsed = 0;
 
 
-        var start_position = this.get_parent_position();
-        var start_offset   = this.get_position_offset();
+        let start_position = this.get_parent_position();
+        let start_offset   = this.get_position_offset();
 
         this.animation_start_position_x = start_position.x + start_offset[0];
         this.animation_start_position_y = start_position.y + start_offset[1];
@@ -108,7 +108,7 @@ function Animatable() {
         if (this.has_animation) {
             this._restart_animation();
         }
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].has_animation) {
                 this.attachments[a]._restart_animation();
             }
@@ -120,16 +120,16 @@ function Animatable() {
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.get_animation_total_offset = function(n) {
-        var normal;
+        let normal;
         if (is_defined(n)) {
             normal = n;
         } else {
             normal = this.get_normal();
         }
-        var dx = 0;
-        var dy = 0;
-        var dz = 0;
-        var d;
+        let dx = 0;
+        let dy = 0;
+        let dz = 0;
+        let d;
         if (is_defined(this.animation_horizontal_distance)) {
             d = this.get_horizontal_shift(this.animation_horizontal_distance);
             dx += d.x;

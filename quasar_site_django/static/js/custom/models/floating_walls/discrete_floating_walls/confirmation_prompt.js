@@ -8,7 +8,7 @@ ConfirmationPrompt.prototype = {
 
     __init__: function(world) {
         this.wall = new FloatingWall(300, 50, null, null, world, false);
-        var row = this.wall.add_row();
+        let row = this.wall.add_row();
         //this.title = row.add_text_2D([0, 1, false], 16, '');
         row = this.wall.add_row();
         this.button_yes = row.add_button([0, HALF, true], 16, 'yes', this.button_yes_clicked.bind(this));

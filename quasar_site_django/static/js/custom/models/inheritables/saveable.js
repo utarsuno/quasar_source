@@ -27,10 +27,10 @@ function Saveable(entity_type, load_completed_callback) {
     };
 
     this.create_new_entity = function() {
-        var entity_data = {};
+        let entity_data = {};
 
-        for (var k = 0; k < this._save_field_keys.length; k++) {
-            var key = this._save_field_keys[k];
+        for (let k = 0; k < this._save_field_keys.length; k++) {
+            let key = this._save_field_keys[k];
             switch(key) {
             case ENTITY_PROPERTY_IS_ROOT_ATTACHABLE:
                 entity_data[key] = this.is_root().toString();
@@ -51,8 +51,8 @@ function Saveable(entity_type, load_completed_callback) {
     };
 
     this.update_values_for_entity = function() {
-        for (var k = 0; k < this._save_field_keys.length; k++) {
-            var key = this._save_field_keys[k];
+        for (let k = 0; k < this._save_field_keys.length; k++) {
+            let key = this._save_field_keys[k];
             switch(key) {
             case ENTITY_PROPERTY_WIDTH:
                 this._entity.set_property(key, this.width);
@@ -109,9 +109,9 @@ function Saveable(entity_type, load_completed_callback) {
     this.load_from_entity_data = function(entity) {
         this.set_entity(entity);
 
-        for (var k = 0; k < this._save_field_keys.length; k++) {
-            var key = this._save_field_keys[k];
-            var value = this.get_value(key);
+        for (let k = 0; k < this._save_field_keys.length; k++) {
+            let key = this._save_field_keys[k];
+            let value = this.get_value(key);
 
             switch (key) {
             case ENTITY_PROPERTY_WIDTH:

@@ -28,7 +28,7 @@ Entity.prototype = {
             properties = {};
         }
 
-        var value = null;
+        let value = null;
         // Handling the default property of relative ID.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_RELATIVE_ID)) {
             // If the property is a string convert it to an integer.
@@ -80,7 +80,7 @@ Entity.prototype = {
         }
 
         // Handling all other properties that begin with the token 'ep_'.
-        for (var key in properties) {
+        for (let key in properties) {
             if (properties.hasOwnProperty(key)) {
                 if (key !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && key !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && key !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && key !== ENTITY_DEFAULT_PROPERTY_TYPE) {
                     if (key.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
@@ -143,11 +143,11 @@ Entity.prototype = {
     },
 
     get_all_non_default_editable_fields: function() {
-        var all_editable_fields = [];
-        var all_keys = Object.keys(this);
-        for (var f = 0; f < all_keys.length; f++) {
+        let all_editable_fields = [];
+        let all_keys = Object.keys(this);
+        for (let f = 0; f < all_keys.length; f++) {
             if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
-                var field_name = all_keys[f];
+                let field_name = all_keys[f];
                 if (field_name !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && field_name !== 'ep_parents' && field_name !== 'ep_children' && field_name !== ENTITY_DEFAULT_PROPERTY_TYPE && field_name !== ENTITY_PROPERTY_NAME && field_name !== ENTITY_PROPERTY_GROUP_NAME) {
                     all_editable_fields.push([field_name, this[field_name]]);
                 }
@@ -157,11 +157,11 @@ Entity.prototype = {
     },
 
     get_all_editable_fields: function() {
-        var all_editable_fields = [];
-        var all_keys = Object.keys(this);
-        for (var f = 0; f < all_keys.length; f++) {
+        let all_editable_fields = [];
+        let all_keys = Object.keys(this);
+        for (let f = 0; f < all_keys.length; f++) {
             if (all_keys[f].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
-                var field_name = all_keys[f];
+                let field_name = all_keys[f];
                 if (field_name !== ENTITY_DEFAULT_PROPERTY_CHILD_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_PARENT_IDS && field_name !== ENTITY_DEFAULT_PROPERTY_RELATIVE_ID && field_name !== 'ep_parents' && field_name !== 'ep_children') {
                     all_editable_fields.push([field_name, this[field_name]]);
                 }
@@ -190,9 +190,9 @@ Entity.prototype = {
     },
 
     get_all_non_default_properties: function() {
-        var properties = {};
-        var all_keys = Object.keys(this);
-        for (var i = 0; i < all_keys.length; i++) {
+        let properties = {};
+        let all_keys = Object.keys(this);
+        for (let i = 0; i < all_keys.length; i++) {
             if (all_keys[i].startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                 properties[all_keys[i]] = this.get_value(all_keys[i]);
             }
@@ -201,7 +201,7 @@ Entity.prototype = {
     },
 
     get_all_properties: function() {
-        var properties = this.get_all_non_default_properties();
+        let properties = this.get_all_non_default_properties();
         // Make sure to also add the default properties.
         properties[ENTITY_DEFAULT_PROPERTY_TYPE] = this.get_type();
         properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = this.get_child_ids();
@@ -211,8 +211,8 @@ Entity.prototype = {
     },
 
     get_children_of_type: function(entity_type) {
-        var children_to_return = [];
-        for (var i = 0; i < this.children.length; i++) {
+        let children_to_return = [];
+        for (let i = 0; i < this.children.length; i++) {
             if (this.children[i].get_type() === entity_type) {
                 children_to_return.push(this.children[i]);
             }
@@ -221,7 +221,7 @@ Entity.prototype = {
     },
 
     get_child_entity_with_property_value: function(property, value) {
-        for (var i = 0; i < this.children.length; i++) {
+        for (let i = 0; i < this.children.length; i++) {
             if (this.children[i].get_value(property) === value) {
                 return this.children[i];
             }
@@ -229,8 +229,8 @@ Entity.prototype = {
         raise_exception_with_full_logging('No child with property-value match : {' + property + '} : {' + value + '}');
     },
 
-    get_child_with_relative_id: function(relative_id) {ep_child_ids
-        for (var i = 0; i < this.children.length; i++) {
+    get_child_with_relative_id: function(relative_id) {
+        for (let i = 0; i < this.children.length; i++) {
             if (this.children[i].get_relative_id() === relative_id) {
                 return this.children[i];
             }
@@ -258,11 +258,11 @@ Entity.prototype = {
     },
 
     get_all_children_recursively: function() {
-        var list_of_all_children = [];
-        for (var c = 0; c < this.children.length; c++) {
+        let list_of_all_children = [];
+        for (let c = 0; c < this.children.length; c++) {
             list_of_all_children.push(this.children[c]);
-            var sub_list_of_all_children = this.children[c].get_all_children_recursively();
-            for (var rc = 0; rc < sub_list_of_all_children.length; rc++) {
+            let sub_list_of_all_children = this.children[c].get_all_children_recursively();
+            for (let rc = 0; rc < sub_list_of_all_children.length; rc++) {
                 list_of_all_children.push(sub_list_of_all_children[rc]);
             }
         }
@@ -287,7 +287,7 @@ Entity.prototype = {
 
     add_child: function(child_entity) {
         if (!is_defined(child_entity)) {
-            var error_message = 'Error can\'t add a not defined object as a child entity!';
+            let error_message = 'Error can\'t add a not defined object as a child entity!';
             // FOR_DEV_START
             l('Tried to add :');
             l(child_entity);
@@ -296,14 +296,14 @@ Entity.prototype = {
             raise_exception_with_full_logging(error_message);
         }
 
-        var action_occurred = false;
+        let action_occurred = false;
         // First make sure this entity hasn't already been marked the provided entity as a child.
         if (this.children.indexOf(child_entity) === NOT_FOUND) {
             this.children.push(child_entity);
             action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
-        var child_entity_id = child_entity.get_relative_id();
+        let child_entity_id = child_entity.get_relative_id();
         if (this.get_child_ids().indexOf(child_entity_id) === NOT_FOUND) {
             this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].push(child_entity_id);
             action_occurred = true;
@@ -318,13 +318,13 @@ Entity.prototype = {
     remove_child: function(child_entity) {
         if (!is_defined(child_entity)) {
             // TODO : Revist this
-            var error_message = 'Error can\'t remove a not defined object as a child entity!';
+            let error_message = 'Error can\'t remove a not defined object as a child entity!';
             raise_exception_with_full_logging(error_message);
         }
 
-        var index_of_child_id = this.get_child_ids().indexOf(child_entity.get_relative_id());
-        var index_of_child_object = this.children.indexOf(child_entity);
-        var action_occurred = false;
+        let index_of_child_id = this.get_child_ids().indexOf(child_entity.get_relative_id());
+        let index_of_child_object = this.children.indexOf(child_entity);
+        let action_occurred = false;
         // Check if this entity actually contains the child entity.
         if (index_of_child_id !== NOT_FOUND) {
             this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS].splice(index_of_child_id, 1);
@@ -344,19 +344,19 @@ Entity.prototype = {
 
     add_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
-            var error_message = 'Error can\'t add a not defined object as a parent entity!';
+            let error_message = 'Error can\'t add a not defined object as a parent entity!';
             // TODO : Revist this.
             raise_exception_with_full_logging(error_message);
         }
 
-        var action_occurred = false;
+        let action_occurred = false;
         // First make sure this entity hasn't already marked the provided entity as a parent.
         if (this.parents.indexOf(parent_entity) === NOT_FOUND) {
             this.parents.push(parent_entity);
             action_occurred = true;
         }
         // Same as above (but cover both id list and object list).
-        var parent_entity_id = parent_entity.get_relative_id();
+        let parent_entity_id = parent_entity.get_relative_id();
         if (this.get_parent_ids().indexOf(parent_entity_id) === NOT_FOUND) {
             this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].push(parent_entity_id);
             action_occurred = true;
@@ -370,14 +370,14 @@ Entity.prototype = {
 
     remove_parent: function(parent_entity) {
         if (!is_defined(parent_entity)) {
-            var error_message = 'Error can\'t remove a not defined object as a parent entity!';
+            let error_message = 'Error can\'t remove a not defined object as a parent entity!';
             // TODO : Revist this
             raise_exception_with_full_logging(error_message);
         }
 
-        var action_occurred = false;
-        var index_of_parent_id = this.get_parent_ids().indexOf(parent_entity.get_relative_id());
-        var index_of_parent_object = this.parents.indexOf(parent_entity);
+        let action_occurred = false;
+        let index_of_parent_id = this.get_parent_ids().indexOf(parent_entity.get_relative_id());
+        let index_of_parent_object = this.parents.indexOf(parent_entity);
         // Check if this entity actually contains the parent entity.
         if (index_of_parent_id !== NOT_FOUND) {
             this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS].splice(index_of_parent_id, 1);

@@ -61,8 +61,8 @@ CustomSmoothStep.prototype = {
     },
 
     add_force: function(magnitude) {
-        var current_value = this.get_current_value();
-        var add_value = true;
+        let current_value = this.get_current_value();
+        let add_value = true;
         if (is_defined(this.minimum_value)) {
             if (current_value + magnitude < this.minimum_value) {
                 // TODO : set it to the minimum value?
@@ -82,7 +82,7 @@ CustomSmoothStep.prototype = {
 
     update: function(delta) {
         // console.log('The buffer has the length : ' + this.buffer.length)
-        for (var i = 0; i < this.buffer.length; i++) {
+        for (let i = 0; i < this.buffer.length; i++) {
             this.buffer[i][1] += delta;
             if (this.buffer[i][1] >= this.time_needed_for_each_force) {
                 this.current_value += this.buffer[i][0];
@@ -107,16 +107,16 @@ CustomSmoothStep.prototype = {
     },
 
     get_current_value: function() {
-        var value_instance = this.current_value;
-        for (var x = 0; x < this.buffer.length; x++) {
+        let value_instance = this.current_value;
+        for (let x = 0; x < this.buffer.length; x++) {
             value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
         }
         return this._get_capped_value(value_instance);
     },
 
     get_full_value: function() {
-        var value_instance = this.current_value;
-        for (var x = 0; x < this.buffer.length; x++) {
+        let value_instance = this.current_value;
+        for (let x = 0; x < this.buffer.length; x++) {
             value_instance += 1.0 * this.buffer[x][0];
         }
         return this._get_capped_value(value_instance);

@@ -6,7 +6,7 @@ function ViewableEntities() {
      |  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      \__/  |  | |___ |  |   |     |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     this.get_day_view_for_date = function(date) {
-        for (var d = 0; d < this.simple_day_views.length; d++) {
+        for (let d = 0; d < this.simple_day_views.length; d++) {
             if (this.simple_day_views[d].day_instance.day_number === date) {
                 return this.simple_day_views[d];
             }
@@ -15,9 +15,9 @@ function ViewableEntities() {
     };
 
     this.is_entity_viewable_for_this_month = function(entity) {
-        var due = entity.get_due_date().split('.');
-        var due_month = parseInt(due[1]) - 1;
-        var due_year = parseInt(due[2]);
+        let due = entity.get_due_date().split('.');
+        let due_month = parseInt(due[1]) - 1;
+        let due_year = parseInt(due[2]);
         return due_month === this.month_instance.get_month_number() && this.month_instance.get_year() === due_year;
     };
 
@@ -33,7 +33,7 @@ function ViewableEntities() {
      /  ` /  \ |    /  \ |__)    |  | |__) |  \  /\   |  |__  /__`
      \__, \__/ |___ \__/ |  \    \__/ |    |__/ /~~\  |  |___ .__/ */
     this.update_color_for_entity = function(entity) {
-        for (var d = 0; d < this.simple_day_views.length; d++) {
+        for (let d = 0; d < this.simple_day_views.length; d++) {
             if (this.simple_day_views[d].has_entity(entity)) {
                 this.simple_day_views[d].update_color_for_entity(entity);
             }
@@ -75,15 +75,15 @@ function ViewableEntities() {
     };
 
     this.on_entity_added = function(entity) {
-        var due = entity.get_due_date().split('.');
-        var due_date = parseInt(due[0]);
+        let due = entity.get_due_date().split('.');
+        let due_date = parseInt(due[0]);
 
-        var day_view = this.get_day_view_for_date(due_date);
+        let day_view = this.get_day_view_for_date(due_date);
         day_view.add_entity(entity);
     };
 
     this.on_entity_deleted = function(entity) {
-        for (var d = 0; d < this.simple_day_views.length; d++) {
+        for (let d = 0; d < this.simple_day_views.length; d++) {
             if (this.simple_day_views[d].has_entity(entity)) {
                 this.simple_day_views[d].remove_entity(entity);
             }

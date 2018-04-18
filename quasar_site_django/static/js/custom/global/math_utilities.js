@@ -49,7 +49,7 @@ function round_to_n_decimal_places(text, n) {
 
 // From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
 function get_nearest_power_of_two_for_number(n) {
-    var v = n;
+    let v = n;
     v--;
     v |= v >> 1;
     v |= v >> 2;
@@ -57,7 +57,7 @@ function get_nearest_power_of_two_for_number(n) {
     v |= v >> 8;
     v |= v >> 16;
     v++; // next power of 2
-    var x = v >> 1; // previous power of 2
+    let x = v >> 1; // previous power of 2
     return (v - n) > (n - x) ? x : v;
 }
 
@@ -65,17 +65,17 @@ function get_nearest_power_of_two_for_number(n) {
  |__) |__| \ / /__` | /  ` /__`    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  |    |  |  |  .__/ | \__, .__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
 function get_player_blink_spot(distance) {
-    var player_position = CURRENT_PLAYER.get_position();
-    var player_normal   = CURRENT_PLAYER.get_direction();
-    var new_position = new THREE.Vector3(player_position.x + player_normal.x * distance, player_position.y + player_normal.y * distance, player_position.z + player_normal.z * distance);
-    var new_normal   = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
+    let player_position = CURRENT_PLAYER.get_position();
+    let player_normal   = CURRENT_PLAYER.get_direction();
+    let new_position = new THREE.Vector3(player_position.x + player_normal.x * distance, player_position.y + player_normal.y * distance, player_position.z + player_normal.z * distance);
+    let new_normal   = new THREE.Vector3(-player_normal.x, 0, -player_normal.z);
     return [new_position, new_normal];
 }
 
 
 // TODO : add quality assurance to make sure x and z form a 2D unit vector. (Add the check only for DEV/QA mode)
 function get_left_right_unit_vector(x, z) {
-    var left_right = new THREE.Vector3(x, 0, z);
+    let left_right = new THREE.Vector3(x, 0, z);
     left_right.cross(UP_VECTOR);
     left_right.normalize();
     return left_right;
@@ -104,21 +104,21 @@ const _INDEX_OF_POSITION = 0;
 const _INDEX_OF_DIRECTION = 1;
 
 function _calculate_t_value(line_parametric_equation, plane_parametric_equation) {
-    var line_x0 = line_parametric_equation[0][_INDEX_OF_POSITION];
-    var line_y0 = line_parametric_equation[1][_INDEX_OF_POSITION];
-    var line_z0 = line_parametric_equation[2][_INDEX_OF_POSITION];
-    var line_nx = line_parametric_equation[0][_INDEX_OF_DIRECTION];
-    var line_ny = line_parametric_equation[1][_INDEX_OF_DIRECTION];
-    var line_nz = line_parametric_equation[2][_INDEX_OF_DIRECTION];
-    var plane_nx = plane_parametric_equation[0];
-    var plane_ny = plane_parametric_equation[1];
-    var plane_nz = plane_parametric_equation[2];
-    var plane_d  = plane_parametric_equation[3];
+    let line_x0 = line_parametric_equation[0][_INDEX_OF_POSITION];
+    let line_y0 = line_parametric_equation[1][_INDEX_OF_POSITION];
+    let line_z0 = line_parametric_equation[2][_INDEX_OF_POSITION];
+    let line_nx = line_parametric_equation[0][_INDEX_OF_DIRECTION];
+    let line_ny = line_parametric_equation[1][_INDEX_OF_DIRECTION];
+    let line_nz = line_parametric_equation[2][_INDEX_OF_DIRECTION];
+    let plane_nx = plane_parametric_equation[0];
+    let plane_ny = plane_parametric_equation[1];
+    let plane_nz = plane_parametric_equation[2];
+    let plane_d  = plane_parametric_equation[3];
     return (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 }
 
 function get_line_intersection_on_infinite_plane(line_parametric_equation, plane_parametric_equation) {
-    var t = _calculate_t_value(line_parametric_equation, plane_parametric_equation);
+    let t = _calculate_t_value(line_parametric_equation, plane_parametric_equation);
     return [line_parametric_equation[0][0] + line_parametric_equation[0][1] * t,
         line_parametric_equation[1][0] + line_parametric_equation[1][1] * t,
         line_parametric_equation[2][0] + line_parametric_equation[2][1] * t];

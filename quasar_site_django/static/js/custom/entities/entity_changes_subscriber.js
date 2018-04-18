@@ -61,9 +61,9 @@ function EntityChangesSubscriber(world, adds_own_entities, check_foreign_modifie
             this.on_entity_deleted(entity);
         }
 
-        var remove_index = NOT_FOUND;
-        var entity_id = entity.get_relative_id();
-        for (var e = 0; e < this.list_of_entity_ids.length; e++) {
+        let remove_index = NOT_FOUND;
+        let entity_id = entity.get_relative_id();
+        for (let e = 0; e < this.list_of_entity_ids.length; e++) {
             if (this.list_of_entity_ids[e] === entity_id) {
                 remove_index = e;
                 break;
@@ -86,8 +86,8 @@ function EntityChangesSubscriber(world, adds_own_entities, check_foreign_modifie
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.has_entity = function(entity) {
-        var entity_id = entity.get_relative_id();
-        for (var e = 0; e < this.list_of_entity_ids.length; e++) {
+        let entity_id = entity.get_relative_id();
+        for (let e = 0; e < this.list_of_entity_ids.length; e++) {
             if (entity_id === this.list_of_entity_ids[e]) {
                 return true;
             }

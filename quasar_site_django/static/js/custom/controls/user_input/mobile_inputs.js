@@ -36,8 +36,8 @@ function MobileInputManager() {
     };
 
     this._add_new_identifier = function(touch) {
-        var x = touch.pageX;
-        var y = touch.pageY;
+        let x = touch.pageX;
+        let y = touch.pageY;
 
         if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y)) {
             this.touch_movement.set_to_alive(touch);
@@ -49,8 +49,8 @@ function MobileInputManager() {
     };
 
     this.on_touch_start = function(event) {
-        for (var t = 0; t < event.touches.length; t++) {
-            var i = event.touches[t].identifier;
+        for (let t = 0; t < event.touches.length; t++) {
+            let i = event.touches[t].identifier;
             if (!this._is_identifier_active(i)) {
                 this._add_new_identifier(event.touches[t]);
             }
@@ -60,9 +60,9 @@ function MobileInputManager() {
     };
 
     this.on_touch_move = function(event) {
-        for (var t = 0; t < event.touches.length; t++) {
-            var touch = event.touches[t];
-            var i = touch.identifier;
+        for (let t = 0; t < event.touches.length; t++) {
+            let touch = event.touches[t];
+            let i = touch.identifier;
             if (i === this.touch_movement.identifier) {
                 this.touch_movement.touch_move(touch.pageX, touch.pageY);
             } else if (i === this.touch_camera.identifier) {
@@ -75,7 +75,7 @@ function MobileInputManager() {
 
     this._check_if_touch_ended = function(identifier_list, touch) {
         if (touch.is_alive()) {
-            for (var i = 0; i < identifier_list.length; i++) {
+            for (let i = 0; i < identifier_list.length; i++) {
                 if (touch.identifier === identifier_list[i]) {
                     return;
                 }

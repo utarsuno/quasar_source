@@ -116,7 +116,7 @@ function PlayerState() {
     };
 
     this.engaged_with_object = function() {
-        var currently_engaged_object = this.get_currently_looked_at_object();
+        let currently_engaged_object = this.get_currently_looked_at_object();
         if (is_defined(currently_engaged_object)) {
             return currently_engaged_object.is_engaged();
         }

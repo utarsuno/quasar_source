@@ -51,7 +51,7 @@ function MobileKeyboard() {
     };
 
     this._create_and_bind_keyboard_button = function(key) {
-        var keyboard_button = document.getElementById('mobile_button_' + key);
+        let keyboard_button = document.getElementById('mobile_button_' + key);
         if (key === 'space') {
             key = ' ';
         }

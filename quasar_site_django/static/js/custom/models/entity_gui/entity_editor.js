@@ -39,7 +39,7 @@ EntityEditor.prototype = {
         this.wall_entity_editor.delete_row_by_name(field_name);
 
         if (this.current_mode === EDITOR_MODE_EDIT) {
-            var entity_modify = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+            let entity_modify = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
             entity_modify.delete_property(field_name, true);
         }
     },
@@ -81,15 +81,15 @@ EntityEditor.prototype = {
 
         // Delete all previously made non-default entity field rows.
         this.wall_entity_editor.set_auto_adjust_height(false);
-        var field_rows_to_delete = [];
-        for (var key in this.entity_field_rows) {
+        let field_rows_to_delete = [];
+        for (let key in this.entity_field_rows) {
             if (this.entity_field_rows.hasOwnProperty(key)) {
                 if (key !== ENTITY_DEFAULT_PROPERTY_TYPE && key !== ENTITY_PROPERTY_NAME) {
                     field_rows_to_delete.push(key);
                 }
             }
         }
-        for (var r = 0; r < field_rows_to_delete.length; r++) {
+        for (let r = 0; r < field_rows_to_delete.length; r++) {
             this.wall_entity_editor.delete_row_by_name(field_rows_to_delete[r]);
             delete this.entity_field_rows[field_rows_to_delete[r]];
         }
@@ -111,7 +111,7 @@ EntityEditor.prototype = {
 
             this.wall_entity_editor.attach_to(this.entity_being_edited_button);
 
-            var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+            let entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
 
             this.wall_title.update_text('Editing : ' + entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
 
@@ -122,13 +122,13 @@ EntityEditor.prototype = {
             this.entity_field_rows[ENTITY_PROPERTY_NAME].set_value_from_entity();
 
             // TODO : Populate all the required entity field rows.
-            var all_non_default_editable_fields = entity_being_edited.get_all_non_default_editable_fields();
+            let all_non_default_editable_fields = entity_being_edited.get_all_non_default_editable_fields();
             // Sort the fields alphabetically.
             all_non_default_editable_fields = all_non_default_editable_fields.sort(function(a, b) {
                 return a[0] > b[0];
             });
 
-            for (var f = 0; f < all_non_default_editable_fields.length; f++) {
+            for (let f = 0; f < all_non_default_editable_fields.length; f++) {
                 this.add_entity_field(all_non_default_editable_fields[f][0], all_non_default_editable_fields[f][1]);
             }
         }
@@ -155,9 +155,9 @@ EntityEditor.prototype = {
         if (!this.wall_entity_editor.has_row_with_name(field_name)) {
 
             // Get the row index of the 'add new field' button.
-            var insert_index_for_row = this.wall_entity_editor.get_row_with_name(ADD_NEW_FIELD_BUTTON_ROW).row_number;
+            let insert_index_for_row = this.wall_entity_editor.get_row_with_name(ADD_NEW_FIELD_BUTTON_ROW).row_number;
 
-            var new_entity_field = this._add_entity_field(field_name);
+            let new_entity_field = this._add_entity_field(field_name);
             new_entity_field.create(insert_index_for_row, field_value);
         }
     },
@@ -181,9 +181,9 @@ EntityEditor.prototype = {
     },
 
     _modify_entity: function() {
-        var entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
-        var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
-        for (var f = 0; f < all_entities_fields_and_values.length; f++) {
+        let entity_being_edited = MANAGER_ENTITY.get_entity_by_id(this.entity_id_being_edited);
+        let all_entities_fields_and_values = this._get_all_entity_fields_and_values();
+        for (let f = 0; f < all_entities_fields_and_values.length; f++) {
             entity_being_edited.set_property(all_entities_fields_and_values[f][0], all_entities_fields_and_values[f][1], true);
             // TODO : Move the location of this?
             this.entity_being_edited_button.update_text(entity_being_edited.get_value(ENTITY_PROPERTY_NAME));
@@ -195,12 +195,12 @@ EntityEditor.prototype = {
      |__  |\ |  |  |  |  \ /    /  ` |__) |__   /\   |  | /  \ |\ |
      |___ | \|  |  |  |   |     \__, |  \ |___ /~~\  |  | \__/ | \| */
     _entity_created: function() {
-        var entity_properties = {};
-        var all_entities_fields_and_values = this._get_all_entity_fields_and_values();
-        for (var f = 0; f < all_entities_fields_and_values.length; f++) {
+        let entity_properties = {};
+        let all_entities_fields_and_values = this._get_all_entity_fields_and_values();
+        for (let f = 0; f < all_entities_fields_and_values.length; f++) {
             entity_properties[all_entities_fields_and_values[f][0]] = all_entities_fields_and_values[f][1];
         }
-        var entity_created = new Entity(entity_properties, true);
+        let entity_created = new Entity(entity_properties, true);
         this.entity_event_subscriber.entity_added(entity_created);
         this._hide_self_and_update();
     },
@@ -233,8 +233,8 @@ EntityEditor.prototype = {
     },
 
     _get_all_entity_fields_and_values: function() {
-        var entity_fields_and_values = [];
-        for (var key in this.entity_field_rows) {
+        let entity_fields_and_values = [];
+        for (let key in this.entity_field_rows) {
             if (this.entity_field_rows.hasOwnProperty(key)) {
                 if (key.startsWith(ENTITY_PROPERTY_START_TOKEN)) {
                     entity_fields_and_values.push([key, this.entity_field_rows[key].get_value()]);

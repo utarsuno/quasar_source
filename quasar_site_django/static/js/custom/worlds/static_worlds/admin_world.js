@@ -45,14 +45,14 @@ AdminWorld.prototype = {
      /__` |  | |  \ /  \    /  ` /  \  |\/|  |\/|  /\  |\ | |  \ /__`
      .__/ \__/ |__/ \__/    \__, \__/  |  |  |  | /~~\ | \| |__/ .__/ */
     _get_sudo_command_post_data_start: function() {
-        var data = {};
+        let data = {};
         data[ENTITY_PROPERTY_USERNAME] = ENTITY_OWNER.get_username();
         data[ENTITY_PROPERTY_PASSWORD] = ENTITY_OWNER.get_password();
         return data;
     },
 
     _delete_account_button_pressed: function() {
-        var data = this._get_sudo_command_post_data_start();
+        let data = this._get_sudo_command_post_data_start();
         data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_DELETE_ENTITY_OWNER;
         data[POST_KEY_GENERIC_DATA] = this._current_account.account_name;
         this.post_delete_account.perform_post(data, this._delete_account_result.bind(this));
@@ -88,30 +88,30 @@ AdminWorld.prototype = {
     },
 
     _load_all_accounts_action: function() {
-        var data = this._get_sudo_command_post_data_start();
+        let data = this._get_sudo_command_post_data_start();
         data[SERVER_COMMAND_SUDO_OPERATION] = SERVER_COMMAND_GET_ALL_ACCOUNTS_INFORMATION;
         data[POST_KEY_GENERIC_DATA] = 'not_needed';
         this.post_get_all_accounts_information.perform_post(data, this._all_accounts_information_result.bind(this));
     },
 
     _all_accounts_information_result: function(result) {
-        var all_accounts = result.split('-');
-        for (var a = 0; a < all_accounts.length; a++) {
-            var account_data = all_accounts[a].split('+');
+        let all_accounts = result.split('-');
+        for (let a = 0; a < all_accounts.length; a++) {
+            let account_data = all_accounts[a].split('+');
             if (is_defined(account_data[0] && is_defined(account_data[1]))) {
                 if (account_data[0] !== '') {
 
-                    var account_name = account_data[0];
-                    var account_type = account_data[1];
+                    let account_name = account_data[0];
+                    let account_type = account_data[1];
 
                     if (!this.wall_all_accounts.has_row_with_name(account_data[0])) {
-                        var account_row = this.wall_all_accounts.add_row(null, account_name);
+                        let account_row = this.wall_all_accounts.add_row(null, account_name);
                         account_row.add_2D_element([0, ONE_THIRD], account_name, TYPE_CONSTANT);
                         account_row.add_2D_element([ONE_THIRD, TWO_THIRDS], account_type, TYPE_CONSTANT);
 
-                        var account = new Account(account_name, account_type);
+                        let account = new Account(account_name, account_type);
                         this.accounts.push(account);
-                        var account_actions_button = account_row.add_2D_button([TWO_THIRDS, 1], 'actions', null, this._perform_account_actions_button_pressed.bind(this, account));
+                        let account_actions_button = account_row.add_2D_button([TWO_THIRDS, 1], 'actions', null, this._perform_account_actions_button_pressed.bind(this, account));
                         account.set_action_button(account_actions_button);
 
                         this.wall_all_accounts.refresh_position_and_look_at();
@@ -138,8 +138,8 @@ AdminWorld.prototype = {
     },
 
     _init_all_accounts_wall: function() {
-        var p = new THREE.Vector3(1000, 1000, 1500);
-        var n = new THREE.Vector3(-.56, 0, -.8);
+        let p = new THREE.Vector3(1000, 1000, 1500);
+        let n = new THREE.Vector3(-.56, 0, -.8);
         this.wall_all_accounts = new FloatingWall(500, 1000, p, n, this, false);
         this.wall_all_accounts.add_full_row_3D(-1, 'All Accounts', TYPE_TITLE, COLOR_BLUE);
 
@@ -149,7 +149,7 @@ AdminWorld.prototype = {
         this.wall_all_accounts.add_row(1);
 
         // Add row headers.
-        var row_headers = this.wall_all_accounts.add_row(2);
+        let row_headers = this.wall_all_accounts.add_row(2);
         row_headers.add_2D_element([0, ONE_THIRD], 'Name', TYPE_CONSTANT);
         row_headers.add_2D_element([ONE_THIRD, TWO_THIRDS], 'Type', TYPE_CONSTANT);
         row_headers.add_2D_element([TWO_THIRDS, 1], 'Actions', TYPE_CONSTANT);

@@ -20,9 +20,9 @@ DataDisplay.prototype = {
     },
 
     update: function() {
-        var position = CURRENT_PLAYER.fps_controls.get_position();
-        var direction = CURRENT_PLAYER.fps_controls.get_direction();
-        var velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
+        let position = CURRENT_PLAYER.fps_controls.get_position();
+        let direction = CURRENT_PLAYER.fps_controls.get_direction();
+        let velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
 
         this.element_x_coordinate.set_text('x : ' + int(position.x) + ' | ' + int(velocity.x));
         this.element_y_coordinate.set_text('x : ' + int(position.y) + ' | ' + int(velocity.y));

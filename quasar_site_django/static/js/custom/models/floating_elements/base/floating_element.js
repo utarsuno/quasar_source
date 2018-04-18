@@ -25,32 +25,32 @@ function FloatingElement(world) {
     };
 
     this.add_label_left = function(text) {
-        var label = new FloatingText2D(this.world, this.height, text, TEXT_PROPERTY_JUST_ITALIC);
+        let label = new FloatingText2D(this.world, this.height, text, TEXT_PROPERTY_JUST_ITALIC);
         label.set_text_property_right(true);
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
     };
 
     this.add_icon_left = function(icon_type) {
-        var icon = new FloatingIcon(this.world, icon_type, this.height);
+        let icon = new FloatingIcon(this.world, icon_type, this.height);
         this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);
         return icon;
     };
 
     this.add_icon_button_left = function(icon_type, engage_function) {
-        var icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
+        let icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
         this.add_floating_element([-this.height / 2, -HALF], null, 0, icon_button);
         return icon_button;
     };
 
     this.add_icon_button_right = function(icon_type, engage_function) {
-        var icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
+        let icon_button = new FloatingIconButton(this.world, icon_type, this.height, engage_function);
         this.add_floating_element([this.height / 2, HALF], null, 0, icon_button);
         return icon_button;
     };
 
     this.add_button_right = function(width, text, engage_function, color) {
-        var button = new FloatingButton(this.world, width, this.height, text, engage_function);
+        let button = new FloatingButton(this.world, width, this.height, text, engage_function);
         if (is_defined(color)) {
             button.set_foreground_color(color);
         }

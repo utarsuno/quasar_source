@@ -234,19 +234,19 @@ FPSControls.prototype = {
     },
 
     look_at: function(position_vector_to_look_at) {
-        var look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z);
+        let look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z);
         look_at_normal.sub(this.yaw.position);
         look_at_normal.normalize();
 
-        var look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x);
+        let look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x);
 
-        var d = this.get_direction();
-        var horizontal_rotation = new THREE.Vector2(d.x, d.z);
+        let d = this.get_direction();
+        let horizontal_rotation = new THREE.Vector2(d.x, d.z);
         horizontal_rotation.normalize();
 
-        var angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
+        let angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
 
-        var current_x_value = this.mouse_movement_x_buffer.get_current_value();
+        let current_x_value = this.mouse_movement_x_buffer.get_current_value();
         this.mouse_movement_x_buffer.clear_buffer();
         this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
 
@@ -280,8 +280,8 @@ FPSControls.prototype = {
     },
 
     get_direction: function() {
-        var direction = new THREE.Vector3(0, 0, -1);
-        var rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
+        let direction = new THREE.Vector3(0, 0, -1);
+        let rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
         return direction.applyEuler(rotation);
     }
 

@@ -17,8 +17,8 @@ MonthInstance.prototype = {
      |  | |__) |  \  /\   |  |__  |__) /__`
      \__/ |    |__/ /~~\  |  |___ |  \ .__/ */
     apply_delta: function(units, magnitude) {
-        var previous_year_number = this.year_number;
-        var previous_month_number = this.month_number;
+        let previous_year_number = this.year_number;
+        let previous_month_number = this.month_number;
         switch (units) {
         case TIME_DELTA_YEARS:
             this.year_number += magnitude;
@@ -47,14 +47,14 @@ MonthInstance.prototype = {
         if (this.day_instances.length === 0) {
             this.set_last_day_of_this_month();
 
-            var current_week = 5;
+            let current_week = 5;
             if (this.last_day_of_this_month <= 28) {
                 current_week = 4;
             }
 
-            var current_day_of_week = this.last_day_of_this_month_day_of_the_week;
+            let current_day_of_week = this.last_day_of_this_month_day_of_the_week;
 
-            for (var d = this.last_day_of_this_month; d > 0; d--) {
+            for (let d = this.last_day_of_this_month; d > 0; d--) {
                 this.day_instances.push(new DayInstance(d, current_week, current_day_of_week, this));
 
                 current_day_of_week -= 1;

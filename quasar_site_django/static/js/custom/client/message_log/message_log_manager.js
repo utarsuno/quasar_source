@@ -15,9 +15,9 @@ function MessageLogManager() {
     this.max_row = 50;
 
     this.load_log_rows = function() {
-        var r = 0;
+        let r = 0;
         while (r < this.max_row) {
-            var index = this.max_row - 1 - r;
+            let index = this.max_row - 1 - r;
             this.rows.push(new DomElement('row_' + index.toString()));
             r += 1;
         }

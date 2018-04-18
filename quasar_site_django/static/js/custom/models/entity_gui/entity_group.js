@@ -25,11 +25,11 @@ EntityGroup.prototype = {
         // TODO : Move the logic of this line?
         //entity.set_property(ENTITY_PROPERTY_GROUP_NAME, this.entity_wall_title.get_text());
 
-        var entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
-        var entity_relative_id = entity.get_relative_id();
+        let entity_name = entity.get_value(ENTITY_PROPERTY_NAME);
+        let entity_relative_id = entity.get_relative_id();
 
-        var row = this.entity_wall.add_row(null, entity_relative_id);
-        var entity_button = row.add_button([0, 1, true], 16, entity_name, null);
+        let row = this.entity_wall.add_row(null, entity_relative_id);
+        let entity_button = row.add_button([0, 1, true], 16, entity_name, null);
         entity_button.set_button_engage_function(this._edit_entity.bind(this, entity_relative_id, entity_button));
 
         // Entities that get added to an EntityGroup must set the EntityGroupEntity as its parent.
@@ -49,7 +49,7 @@ EntityGroup.prototype = {
      | |\ | |  |  |  /\  |       /  ` |__) |__   /\   |  | |\ | / _`     /\  |\ | |  \    |    /  \  /\  |  \ | |\ | / _`
      | | \| |  |  | /~~\ |___    \__, |  \ |___ /~~\  |  | | \| \__>    /~~\ | \| |__/    |___ \__/ /~~\ |__/ | | \| \__> */
     initialize: function(world, entity) {
-        var was_loaded = false;
+        let was_loaded = false;
 
         if (!is_defined(entity)) {
             this.create_new(world);
@@ -75,10 +75,10 @@ EntityGroup.prototype = {
     },
 
     create_new: function(world) {
-        var data = get_player_blink_spot(1000);
+        let data = get_player_blink_spot(1000);
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
-        var row = this.base_wall.add_row(-1);
+        let row = this.base_wall.add_row(-1);
         this.entity_wall_title = row.add_input_3D([0, 1, false], 32, 'Entity Group');
 
         this.base_wall.set_to_saveable(world.entity);
@@ -95,7 +95,7 @@ EntityGroup.prototype = {
 
     base_wall_init_start: function() {
         // Create the standard functionality of the entity wall.
-        var row = this.base_wall.add_row(0);
+        let row = this.base_wall.add_row(0);
         this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null, COLOR_GREEN);
 
         this.base_wall.world.root_attachables.push(this.base_wall);
@@ -112,8 +112,8 @@ EntityGroup.prototype = {
     },
 
     load_from_entity_finalize: function() {
-        var number_of_children = this.entity_group_entity.number_of_children();
-        for (var e = 0; e < number_of_children; e++) {
+        let number_of_children = this.entity_group_entity.number_of_children();
+        for (let e = 0; e < number_of_children; e++) {
             this.entity_group_entity.children[e].user_created = true;
             this.entity_added(this.entity_group_entity.children[e]);
         }

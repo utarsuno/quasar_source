@@ -25,7 +25,7 @@ function World(world_entity) {
     };
 
     this._match_found = function(object_to_match) {
-        for (var i = 0; i < this.interactive_objects.length; i++) {
+        for (let i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid || this.interactive_objects[i].geometry.uuid === object_to_match.uuid) {
                 return i;
             }
@@ -63,18 +63,18 @@ function World(world_entity) {
         }
 
         this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
-        var smallest_distance = 99999;
-        var interactive_index = -1;
-        var intersection_data = null;
+        let smallest_distance = 99999;
+        let interactive_index = -1;
+        let intersection_data = null;
 
         // Find out what's currently being looked at if anything.
-        for (var i = 0; i < this.interactive_objects.length; i++) {
+        for (let i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
-            var intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
+            let intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
 
-            for (var d = 0; d < intersections.length; d++) {
+            for (let d = 0; d < intersections.length; d++) {
                 if (intersections[d].distance < smallest_distance) {
-                    var match_found = this._match_found(intersections[d].object);
+                    let match_found = this._match_found(intersections[d].object);
                     if (match_found !== NOT_FOUND) {
                         smallest_distance = intersections[d].distance;
                         interactive_index = match_found;
@@ -90,7 +90,7 @@ function World(world_entity) {
             }
         } else {
             // Interactive match found.
-            var interactive_match = this.interactive_objects[interactive_index];
+            let interactive_match = this.interactive_objects[interactive_index];
 
             if (this.currently_looked_at_object !== null) {
                 if (this.currently_looked_at_object !== interactive_match) {

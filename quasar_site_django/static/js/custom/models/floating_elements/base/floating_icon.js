@@ -22,7 +22,7 @@ FloatingIcon.prototype = {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     create_base_material: function() {
-        var texture_group;
+        let texture_group;
         switch (this.icon_type) {
         case CURSOR_TYPE_HORIZONTAL:
         case CURSOR_TYPE_VERTICAL:

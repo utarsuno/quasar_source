@@ -28,8 +28,8 @@ function Attachmentable(world) {
     };
 
     this.remove_tag = function(tag) {
-        var remove_index = -1;
-        for (var t = 0; t < this.dev_tags.length; t++) {
+        let remove_index = -1;
+        for (let t = 0; t < this.dev_tags.length; t++) {
             if (this.dev_tags[t] === tag) {
                 remove_index = t;
                 break;
@@ -39,7 +39,7 @@ function Attachmentable(world) {
     };
 
     this.has_tag = function(tag) {
-        for (var t = 0; t < this.dev_tags.length; t++) {
+        for (let t = 0; t < this.dev_tags.length; t++) {
             if (this.dev_tags[t] === tag) {
                 return true;
             }
@@ -48,10 +48,10 @@ function Attachmentable(world) {
     };
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
-        var temp_position = this.get_position();
+        let temp_position = this.get_position();
 
-        var position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
-        var floating_wall;
+        let position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
+        let floating_wall;
         if (is_defined(scalable)) {
             // OLD : floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
             floating_wall = new FloatingWall(width, height, null, null, this.world, scalable);
@@ -98,9 +98,9 @@ function Attachmentable(world) {
 
     // WARNING : This is recursive. Change the design later.
     this.update_all_child_attachments = function() {
-        var parent_position = this.get_position();
+        let parent_position = this.get_position();
 
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
             this.attachments[a]._refresh_look_at();
 
@@ -120,9 +120,9 @@ function Attachmentable(world) {
     this.detach_from_parent = function() {
         if (is_defined(this.attachment_parent)) {
 
-            var remove_index = -1;
+            let remove_index = -1;
 
-            for (var a = 0; a < this.attachment_parent.attachments.length; a++) {
+            for (let a = 0; a < this.attachment_parent.attachments.length; a++) {
                 if (this.attachment_parent.attachments[a] === this) {
                     remove_index = a;
                     break;
@@ -176,7 +176,7 @@ function Attachmentable(world) {
         if (this.scalable) {
             this.dimensions_changed();
         }
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].scalable) {
                 this.attachments[a].dimensions_changed();
                 this.attachments[a].update_dimensions();
@@ -216,7 +216,7 @@ function Attachmentable(world) {
         if (this.is_root()) {
             this.object3D.position.set(x, y, z);
         } else {
-            var position_offset = this.get_position_offset();
+            let position_offset = this.get_position_offset();
             this.object3D.position.set(x + position_offset[0], y + position_offset[1], z + position_offset[2]);
         }
         if (refresh) {
@@ -296,7 +296,7 @@ function Attachmentable(world) {
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.has_attachment = function(attachment) {
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a] === attachment) {
                 return true;
             }
@@ -309,16 +309,16 @@ function Attachmentable(world) {
     };
 
     this.get_position_offset = function(n) {
-        var normal;
+        let normal;
         if (is_defined(n)) {
             normal = n;
         } else {
             normal = this.get_normal();
         }
-        var dx = 0;
-        var dy = 0;
-        var dz = 0;
-        var d;
+        let dx = 0;
+        let dy = 0;
+        let dz = 0;
+        let d;
         if (is_defined(this.offset_horizontal_distance)) {
             d = this.get_horizontal_shift(this.offset_horizontal_distance);
             dx += d.x;
@@ -351,7 +351,7 @@ function Attachmentable(world) {
     };
 
     this.get_horizontal_shift = function(distance) {
-        var left_right = this.get_left_right();
+        let left_right = this.get_left_right();
         return new THREE.Vector3(left_right.x * distance, left_right.y * distance, left_right.z * distance);
     };
 
@@ -386,11 +386,11 @@ function Attachmentable(world) {
     };
 
     this._get_all_attachments_recursively = function() {
-        var attachments = [];
-        for (var a = 0; a < this.attachments.length; a++) {
+        let attachments = [];
+        for (let a = 0; a < this.attachments.length; a++) {
             attachments.push(this.attachments[a]);
-            var attachments_of_this_attachment = this.attachments[a]._get_all_attachments_recursively();
-            for (var aa = 0; aa < attachments_of_this_attachment.length; aa++) {
+            let attachments_of_this_attachment = this.attachments[a]._get_all_attachments_recursively();
+            for (let aa = 0; aa < attachments_of_this_attachment.length; aa++) {
                 attachments.push(attachments_of_this_attachment[aa]);
             }
         }
@@ -402,8 +402,8 @@ function Attachmentable(world) {
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___    \__, |___ |___ /~~\ | \| \__/ |    */
     // TODO : Refactor the design of this (resource cleanup needs to be cleaned up in general).
     this.remove_from_root_attachmentables_if_needed = function(object_to_check) {
-        var index_to_remove = -1;
-        for (var i = 0; i < this.world.root_attachables.length; i++) {
+        let index_to_remove = -1;
+        for (let i = 0; i < this.world.root_attachables.length; i++) {
             if (this.world.root_attachables[i] === object_to_check) {
                 index_to_remove = i;
                 break;
@@ -415,7 +415,7 @@ function Attachmentable(world) {
     };
 
     this.fully_remove_self_and_all_sub_attachments = function() {
-        for (var a = 0; a < this.attachments.length; a++) {
+        for (let a = 0; a < this.attachments.length; a++) {
             this.attachments[a].fully_remove_self_and_all_sub_attachments();
         }
 
@@ -461,8 +461,8 @@ function Attachmentable(world) {
      | |\ |  |  |__  |__) |\ |  /\  |       |  |  |  | |    |  |  | |__  /__`
      | | \|  |  |___ |  \ | \| /~~\ |___    \__/  |  | |___ |  |  | |___ .__/ */
     this._refresh_look_at = function() {
-        var normal = this.get_normal();
-        var look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+        let normal = this.get_normal();
+        let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
         this.object3D.lookAt(look_at_position);
     };
 }
