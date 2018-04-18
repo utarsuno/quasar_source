@@ -12,9 +12,8 @@ KeyboardModel.prototype = {
         this.key_depth = 10;
         this.face_size = 30;
 
-        // First row values.
         this.first_row = [
-            ['esc', this.face_size],
+            ['esc', this.face_size, [-100, 'Press to release mouse control.']],
             ['1', this.face_size],
             ['2', this.face_size],
             ['3', this.face_size],
@@ -29,8 +28,6 @@ KeyboardModel.prototype = {
             ['+', this.face_size],
             ['backsapce', this.face_size * 2],
         ];
-
-        // Second row values.
         this.second_row = [
             ['tab', this.face_size * 1.5],
             ['q', this.face_size],
@@ -48,8 +45,6 @@ KeyboardModel.prototype = {
             [']', this.face_size],
             ['\\', this.face_size * 1.5],
         ];
-
-        // Third row values.
         this.third_row = [
             ['caps', this.face_size * 1.6],
             ['a', this.face_size],
@@ -65,8 +60,6 @@ KeyboardModel.prototype = {
             ['\'', this.face_size],
             ['enter', this.face_size * 2]
         ];
-
-        // Fourth row values.
         this.fourth_row = [
             ['shift', this.face_size * 2],
             ['z', this.face_size],
@@ -81,6 +74,16 @@ KeyboardModel.prototype = {
             ['/', this.face_size],
             ['shift', this.face_size * 2]
         ];
+        this.fifth_row = [
+            ['ctrl', this.face_size],
+            [' ', this.face_size],
+            ['alt', this.face_size],
+            ['space', this.face_size * 6],
+            ['alt', this.face_size],
+            [' ', this.face_size],
+            ['alt', this.face_size],
+            ['ctrl', this.face_size],
+        ];
     },
 
     create: function() {
@@ -89,6 +92,7 @@ KeyboardModel.prototype = {
         this._create_row(this.second_row, -row_height);
         this._create_row(this.third_row, -row_height * 2);
         this._create_row(this.fourth_row, -row_height * 3);
+        this._create_row(this.fifth_row, -row_height * 3);
     },
 
     _create_row: function(row, y_offset) {
@@ -96,12 +100,12 @@ KeyboardModel.prototype = {
         let x;
         for (x = 0; x < row.length; x++) {
             let k = row[x];
-            this._create_key(k[0], k[1], total_x_offset, y_offset);
+            this._create_key(k[0], k[1], total_x_offset, y_offset, k[2]);
             total_x_offset += k[1] + this.key_depth * 2;
         }
     },
 
-    _create_key: function(key, key_width, key_x_offset, y_offset) {
+    _create_key: function(key, key_width, key_x_offset, y_offset, tooltip) {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
 
@@ -110,7 +114,29 @@ KeyboardModel.prototype = {
         let label = new FloatingText2D(this.world, this.face_size * .8, key, null, this.face_size);
         label.set_position(p.x + this.key_depth + this.face_size / 2, p.y + this.key_depth + this.face_size / 3, p.z + 5);
 
+        if (is_defined(tooltip)) {
+            let e = new THREE.Vector3(p.x, p.y, p.z);
+            e.x += tooltip[0];
+            this._create_tooltip(e, p, tooltip[1]);
+        }
+
         this.object3D.add(k.mesh);
+        this.object3D.add(label.object3D);
+    },
+
+    _create_tooltip: function(position_start, position_end, text) {
+        let material = new THREE.LineBasicMaterial({color: 0x0000ff});
+        let geometry = new THREE.Geometry();
+        geometry.vertices.push(
+            new THREE.Vector3(position_start.x, position_start.y, position_start.z),
+            new THREE.Vector3(position_end.x, position_end.y, position_end.z)
+        );
+
+        let line = new THREE.Line(geometry, material);
+
+        let label = new FloatingText2D(this.world, 16, text);
+
+        this.object3D.add(line);
         this.object3D.add(label.object3D);
     }
 
