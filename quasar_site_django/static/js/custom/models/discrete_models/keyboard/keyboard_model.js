@@ -13,7 +13,7 @@ KeyboardModel.prototype = {
         this.face_size = 30;
 
         this.first_row = [
-            ['esc', this.face_size, [-100, 'Press to release mouse control.']],
+            ['esc', this.face_size, [-200, 100, 'Press to release mouse control.']],
             ['1', this.face_size],
             ['2', this.face_size],
             ['3', this.face_size],
@@ -117,7 +117,11 @@ KeyboardModel.prototype = {
         if (is_defined(tooltip)) {
             let e = new THREE.Vector3(p.x, p.y, p.z);
             e.x += tooltip[0];
-            this._create_tooltip(e, p, tooltip[1]);
+            e.y += tooltip[1];
+
+            let p2 = new THREE.Vector3(p.x + this.key_depth + this.face_size / 2, p.y + this.key_depth + this.face_size / 3, p.z + 5);
+
+            this._create_tooltip(e, p2, tooltip[2]);
         }
 
         this.object3D.add(k.mesh);
