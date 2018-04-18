@@ -32,8 +32,8 @@ ButtonModel.prototype = {
         this.geometry.vertices.push(v5);
 
         this.geometry.faces.push(new THREE.Face3(0, 1, 2));
-        this.geometry.faces.push(new THREE.Face3(2, 4, 0));
-        this.geometry.faces.push(new THREE.Face3(4, 6, 5));
+        this.geometry.faces.push(new THREE.Face3(2, 3, 0));
+        //this.geometry.faces.push(new THREE.Face3(3, 6, 5));
         this.geometry.computeFaceNormals();
 
         this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
