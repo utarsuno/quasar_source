@@ -22,6 +22,11 @@ DomElement.prototype = {
         this.element.classList.add(class_name);
     },
 
+    prepend_break: function() {
+        let node = document.createElement('br');
+        this.element.prepend(node);
+    },
+
     add_break_element: function() {
         let node = document.createElement('br');
         this.element.appendChild(node);
