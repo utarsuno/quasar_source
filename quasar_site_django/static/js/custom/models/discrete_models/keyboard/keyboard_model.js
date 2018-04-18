@@ -29,9 +29,9 @@ KeyboardModel.prototype = {
         k1.create(10, 30);
         k2.create(10, 60);
 
-        this.object3D.add(escape);
-        this.object3D.add(k1);
-        this.object3D.add(k2);
+        this.object3D.add(escape.mesh);
+        this.object3D.add(k1.mesh);
+        this.object3D.add(k2.mesh);
     }
 
 };
