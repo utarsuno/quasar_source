@@ -86,7 +86,7 @@ function MessageLogManager() {
     };
 
     this.height_re_sized = function(new_height) {
-        this.available_height = new_height * .8;
+        this.available_height = new_height * .9;
         let number_of_rows_needed = Math.floor(this.available_height / 12);
 
         while (this.rows.length < number_of_rows_needed) {
