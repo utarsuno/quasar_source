@@ -86,9 +86,9 @@ KeyboardModel.prototype = {
     create: function() {
         let row_height = this.key_depth * 2 + this.face_size;
         this._create_row(this.first_row, 0);
-        this._create_row(this.second_row, row_height);
-        this._create_row(this.third_row, row_height * 2);
-        this._create_row(this.fourth_row, row_height * 3);
+        this._create_row(this.second_row, -row_height);
+        this._create_row(this.third_row, -row_height * 2);
+        this._create_row(this.fourth_row, -row_height * 3);
     },
 
     _create_row: function(row, y_offset) {
@@ -104,7 +104,14 @@ KeyboardModel.prototype = {
     _create_key: function(key, key_width, key_x_offset, y_offset) {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
+
+        let p = k.mesh.position;
+
+        let label = new FloatingText2D(this.world, this.face_size * .8, key);
+        label.set_position_xyz(p.mesh.x, p.mesh.y, p.mesh.z);
+
         this.object3D.add(k.mesh);
+        this.object3D.add(label);
     }
 
 };
