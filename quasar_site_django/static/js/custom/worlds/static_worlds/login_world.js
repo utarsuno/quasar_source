@@ -77,6 +77,10 @@ LoginWorld.prototype = {
         this._create_login_wall();
         this._create_create_account_wall();
         this._create_server_requests();
+
+        // Test.
+        this.keyboard = new KeyboardModel(this);
+        this.keyboard.create();
     },
 
     _create_server_requests: function() {

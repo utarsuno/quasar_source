@@ -81,7 +81,9 @@ function WorldManagerInput() {
         } else if (CURRENT_PLAYER.has_input()) {
             if (event.keyCode === KEY_CODE_ENTER) {
                 if (!CURRENT_PLAYER.engaged_with_object()) {
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);
+                    if (CURRENT_CLIENT.is_logged_in()) {
+                        CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);
+                    }
                 } else {
                     this._key_down_event(event);
                 }

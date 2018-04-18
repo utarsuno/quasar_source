@@ -122,7 +122,7 @@ function World(world_entity) {
      /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
      \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
     this.create_new_floating_picture = function(image_file) {
-        var floating_picture = new FloatingPicture(image_file, this, false);
+        let floating_picture = new FloatingPicture(image_file, this, false);
         // TODO : Move this logic.
         this.root_attachables.push(floating_picture);
     };
@@ -141,8 +141,8 @@ function World(world_entity) {
 
     this.remove_from_interactive_then_scene = function(object_to_remove) {
         // First remove the interactive.
-        var index_to_remove = -1;
-        for (var i = 0; i < this.interactive_objects.length; i++) {
+        let index_to_remove = -1;
+        for (let i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i] === object_to_remove) {
                 index_to_remove = i;
                 break;
