@@ -11,7 +11,7 @@ ButtonModel.prototype = {
         this.keyboard = keyboard;
     },
 
-    create: function(key_depth, face_height, key_width, x_offset) {
+    create: function(key_depth, face_height, key_width, x_offset, y_offset) {
         this.geometry = new THREE.Geometry();
 
         // Face.
@@ -63,7 +63,9 @@ ButtonModel.prototype = {
         this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
 
         let x = this.mesh.position.x;
+        let y = this.mesh.position.y;
         this.mesh.position.setX(x + x_offset);
+        this.mesh.position.setY(y + y_offset);
     }
 
 };

@@ -29,25 +29,81 @@ KeyboardModel.prototype = {
             ['+', this.face_size],
             ['backsapce', this.face_size * 2],
         ];
+
+        // Second row values.
+        this.second_row = [
+            ['tab', this.face_size * 1.5],
+            ['q', this.face_size],
+            ['w', this.face_size],
+            ['e', this.face_size],
+            ['r', this.face_size],
+            ['t', this.face_size],
+            ['y', this.face_size],
+            ['u', this.face_size],
+            ['i', this.face_size],
+            ['o', this.face_size],
+            ['p', this.face_size],
+            ['p', this.face_size],
+            ['[', this.face_size],
+            [']', this.face_size],
+            ['\\', this.face_size * 1.5],
+        ];
+
+        // Third row values.
+        this.third_row = [
+            ['caps', this.face_size * 1.6],
+            ['a', this.face_size],
+            ['s', this.face_size],
+            ['d', this.face_size],
+            ['f', this.face_size],
+            ['g', this.face_size],
+            ['h', this.face_size],
+            ['j', this.face_size],
+            ['k', this.face_size],
+            ['l', this.face_size],
+            [';', this.face_size],
+            ['\'', this.face_size],
+            ['enter', this.face_size * 2]
+        ];
+
+        // Fourth row values.
+        this.fourth_row = [
+            ['shift', this.face_size * 2],
+            ['z', this.face_size],
+            ['x', this.face_size],
+            ['c', this.face_size],
+            ['v', this.face_size],
+            ['b', this.face_size],
+            ['n', this.face_size],
+            ['m', this.face_size],
+            [',', this.face_size],
+            ['.', this.face_size],
+            ['/', this.face_size],
+            ['shift', this.face_size * 2]
+        ];
     },
 
     create: function() {
-        this._create_first_row();
+        let row_height = this.key_depth * 2 + this.face_size;
+        this._create_row(this.first_row, 0);
+        this._create_row(this.second_row, row_height);
+        this._create_row(this.third_row, row_height * 2);
+        this._create_row(this.fourth_row, row_height * 3);
     },
 
-    _create_first_row: function() {
+    _create_row: function(row, y_offset) {
         let total_x_offset = 0;
         let x;
-        for (x = 0; x < this.first_row.length; x++) {
-            let k = this.first_row[x];
-            this._create_key(k[0], k[1], total_x_offset);
+        for (x = 0; x < row.length; x++) {
+            let k = row[x];
+            this._create_key(k[0], k[1], total_x_offset, y_offset);
             total_x_offset += k[1] + this.key_depth * 2;
         }
     },
 
-    _create_key: function(key, key_width, key_x_offset) {
+    _create_key: function(key, key_width, key_x_offset, y_offset) {
         let k = new ButtonModel(key, this);
-        k.create(this.key_depth, this.face_size, key_width, key_x_offset);
+        k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
         this.object3D.add(k.mesh);
     }
 
