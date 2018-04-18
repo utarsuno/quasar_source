@@ -44,11 +44,11 @@ KeyboardModel.prototype = {
             total_x_offset += k[1];
         }
     },
-    
+
     _create_key: function(key, key_width, key_x_offset) {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset);
-        this.object3D.add(k);
+        this.object3D.add(k.mesh);
     }
 
 };
