@@ -1,12 +1,12 @@
 'use strict';
 
-function FloatingText2D(world, height, text, text_properties) {
-    this.__init__(world, height, text, text_properties);
+function FloatingText2D(world, height, text, text_properties, fixed_width) {
+    this.__init__(world, height, text, text_properties, fixed_width);
 }
 
 FloatingText2D.prototype = {
 
-    __init__: function(world, height, text, text_properties) {
+    __init__: function(world, height, text, text_properties, fixed_width) {
 
         let italic = false;
         let bold   = false;
@@ -16,14 +16,18 @@ FloatingText2D.prototype = {
         }
 
         let width;
-        if (italic && bold) {
-            width = MANAGER_TEXT_2D.get_width_of_italic_and_bold_text_given_bounding_height(text, height);
-        } else if (italic) {
-            width = MANAGER_TEXT_2D.get_width_of_italic_text_given_bounding_height(text, height);
-        } else if (bold) {
-            width = MANAGER_TEXT_2D.get_width_of_bold_text_given_bounding_height(text, height);
+        if (!is_defined(fixed_width)) {
+            if (italic && bold) {
+                width = MANAGER_TEXT_2D.get_width_of_italic_and_bold_text_given_bounding_height(text, height);
+            } else if (italic) {
+                width = MANAGER_TEXT_2D.get_width_of_italic_text_given_bounding_height(text, height);
+            } else if (bold) {
+                width = MANAGER_TEXT_2D.get_width_of_bold_text_given_bounding_height(text, height);
+            } else {
+                width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
+            }
         } else {
-            width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
+            width = fixed_width;
         }
 
         // Inherit.

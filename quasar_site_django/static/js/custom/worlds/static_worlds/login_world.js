@@ -81,7 +81,7 @@ LoginWorld.prototype = {
         // Test.
         this.keyboard = new KeyboardModel(this);
         this.keyboard.create();
-        this.keyboard.set_position(800, 400, 600);
+        this.keyboard.set_position(1000, 300, 800);
         this.keyboard.look_at_origin();
     },
 
@@ -96,8 +96,8 @@ LoginWorld.prototype = {
     },
 
     _create_quasar_title: function() {
-        this.quasar_source_title = new FloatingText3D(this, 128, 'Quasar Source');
-        this.quasar_source_title.set_position(1200, 400, 400);
+        this.quasar_source_title = new FloatingText3D(this, 256, 'Quasar Source');
+        this.quasar_source_title.set_position(1600, 500, 1200);
         this.quasar_source_title.look_at_origin(false);
     },
 
