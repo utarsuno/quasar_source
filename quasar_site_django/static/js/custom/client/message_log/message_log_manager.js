@@ -27,8 +27,6 @@ function MessageLogManager() {
 
     this.current_max_row = 0;
 
-    //this.load_log_rows();
-
     this.add_server_message_red = function(message) {
         this._add_message(message, 'server', LOG_MESSAGE_COLOR_RED);
     };
@@ -55,13 +53,21 @@ function MessageLogManager() {
 
         this.messages.unshift(new LogMessage(user + ':' + message, color, 0));
 
-        if (this.messages.length == 70) {
-            this.messages.splice(-1,1);
-        }
+        // TODO : Delete messages at a certain limit!
     };
 
     // TODO : REFACTOR!
     this.update_message_log = function(delta) {
+        let m;
+        for (m = 0; m < this.messages.length; m++) {
+            if (this.messages[m].has_update()) {
+                this.messages[m].update(delta);
+                let index = this.messages[m].get_row_index();
+                this.rows[index].set_color(this.messages[m].get_color());
+                this.rows[index].set_text(this.messages[m].get_text());
+            }
+        }
+
         /*
         let m;
         for (m = 0; m < this.messages.length; m++) {
@@ -83,7 +89,7 @@ function MessageLogManager() {
         }
     };
 
-    this.height_resized = function(new_height) {
+    this.height_re_sized = function(new_height) {
         let available_height = new_height * .8;
         let number_of_rows_needed = Math.floor(available_height / 12);
 

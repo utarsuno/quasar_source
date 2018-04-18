@@ -133,6 +133,7 @@ RendererManager.prototype = {
         this.window_width  = window.innerWidth;
         this.window_height = window.innerHeight;
         this.aspect_ratio  = this.window_width / this.window_height;
+        CURRENT_CLIENT.height_re_sized(this.window_height);
     },
 
     on_window_resize: function() {
@@ -156,7 +157,7 @@ RendererManager.prototype = {
             MANAGER_INPUT.mobile_resize(this.window_width, this.window_height);
         }
 
-        CURRENT_CLIENT.height_resized(this.window_height);
+        CURRENT_CLIENT.height_re_sized(this.window_height);
     },
 
     is_webgl_enabled: function() {
