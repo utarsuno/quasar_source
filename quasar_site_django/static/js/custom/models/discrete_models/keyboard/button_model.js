@@ -49,7 +49,14 @@ ButtonModel.prototype = {
         this.geometry.faces.push(new THREE.Face3(3, 5, 4));
         this.geometry.faces.push(new THREE.Face3(3, 2, 5));
         // Right edge.
-
+        this.geometry.faces.push(new THREE.Face3(2, 6, 5));
+        this.geometry.faces.push(new THREE.Face3(2, 1, 6));
+        // Bottom edge.
+        this.geometry.faces.push(new THREE.Face3(7, 6, 1));
+        this.geometry.faces.push(new THREE.Face3(7, 1, 0));
+        // Left edge.
+        this.geometry.faces.push(new THREE.Face3(7, 0, 3));
+        this.geometry.faces.push(new THREE.Face3(3, 4, 7));
 
         this.geometry.computeFaceNormals();
 
