@@ -34,14 +34,7 @@ function WorldInput() {
                 this.currently_looked_at_object.parse_keycode(event);
             } else if (event.keyCode === KEY_CODE_ENTER) {
                 if (!this.currently_looked_at_object.is_engaged()) {
-                    // TODO : Remove/modify this, disabled is already handled!
-                    if (this.currently_looked_at_object.hasOwnProperty('_disabled')) {
-                        if (!this.currently_looked_at_object['_disabled']) {
-                            this.currently_looked_at_object.engage();
-                        }
-                    } else {
-                        this.currently_looked_at_object.engage();
-                    }
+                    this.currently_looked_at_object.engage();
                 }
             }
         }

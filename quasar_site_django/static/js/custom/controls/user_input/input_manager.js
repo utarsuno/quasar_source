@@ -133,8 +133,8 @@ InputManager.prototype = {
     on_paste: function(e) {
         if (CURRENT_PLAYER.has_paste_event()) {
             // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
-            var clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
-            var pasted_data = clipboard_data.getData('text');
+            let clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+            let pasted_data = clipboard_data.getData('text');
             MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
         }
     },
@@ -162,49 +162,33 @@ InputManager.prototype = {
     },
 
     on_key_down: function(event) {
-        if (CURRENT_PLAYER.in_typing_state()) {
-            if (event.keyCode === KEY_CODE_ENTER) {
-                CURRENT_PLAYER.add_text_and_leave_typing_state();
-            } else {
-                CURRENT_CLIENT.key_down_event(event);
-            }
-        } else if (CURRENT_PLAYER.has_input()) {
-            if (event.keyCode === KEY_CODE_ENTER) {
-                if (!CURRENT_PLAYER.engaged_with_object()) {
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);
-                } else {
-                    MANAGER_WORLD.key_down_event(event);
-                }
-            } else {
-                if (CURRENT_PLAYER.has_movement()) {
-                    switch (event.keyCode) {
-                    case KEY_CODE_UP:
-                    case KEY_CODE_W:
-                        this.up = true;
-                        break;
-                    case KEY_CODE_LEFT:
-                    case KEY_CODE_A:
-                        this.left = true;
-                        break;
-                    case KEY_CODE_DOWN:
-                    case KEY_CODE_S:
-                        this.down = true;
-                        break;
-                    case KEY_CODE_RIGHT:
-                    case KEY_CODE_D:
-                        this.right = true;
-                        break;
-                    case KEY_CODE_SPACE:
-                        this.space = true;
-                        break;
-                    case KEY_CODE_SHIFT:
-                        this.shift = true;
-                        break;
-                    }
-                }
-                MANAGER_WORLD.key_down_event(event);
+        if (CURRENT_PLAYER.has_movement()) {
+            switch (event.keyCode) {
+            case KEY_CODE_UP:
+            case KEY_CODE_W:
+                this.up = true;
+                break;
+            case KEY_CODE_LEFT:
+            case KEY_CODE_A:
+                this.left = true;
+                break;
+            case KEY_CODE_DOWN:
+            case KEY_CODE_S:
+                this.down = true;
+                break;
+            case KEY_CODE_RIGHT:
+            case KEY_CODE_D:
+                this.right = true;
+                break;
+            case KEY_CODE_SPACE:
+                this.space = true;
+                break;
+            case KEY_CODE_SHIFT:
+                this.shift = true;
+                break;
             }
         }
+        MANAGER_WORLD.key_down_event(event);
     },
 
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript

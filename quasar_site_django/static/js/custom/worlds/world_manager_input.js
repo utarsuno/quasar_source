@@ -72,6 +72,26 @@ function WorldManagerInput() {
     };
 
     this.key_down_event = function(event) {
+        if (CURRENT_PLAYER.in_typing_state()) {
+            if (event.keyCode === KEY_CODE_ENTER) {
+                CURRENT_PLAYER.add_text_and_leave_typing_state();
+            } else {
+                CURRENT_CLIENT.key_down_event(event);
+            }
+        } else if (CURRENT_PLAYER.has_input()) {
+            if (event.keyCode === KEY_CODE_ENTER) {
+                if (!CURRENT_PLAYER.engaged_with_object()) {
+                    CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);
+                } else {
+                    this._key_down_event(event);
+                }
+            } else {
+                this._key_down_event(event);
+            }
+        }
+    };
+
+    this._key_down_event = function(event) {
         this.current_world.key_down_event_for_interactive_objects(event);
     };
 
