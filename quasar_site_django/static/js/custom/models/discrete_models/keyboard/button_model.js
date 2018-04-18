@@ -26,7 +26,7 @@ ButtonModel.prototype = {
         // Bottom right.
         let v6 = new THREE.Vector3(10 + key_width + 10, 0, -10);
         // Bottom left.
-        let v7 = new THREE.Vector3(0, 10 + key_width + 10, -10);
+        let v7 = new THREE.Vector3(0, 0, -10);
 
         // Face.
         this.geometry.vertices.push(v0);
