@@ -51,6 +51,10 @@ DomElement.prototype = {
         return this.element;
     },
 
+    set_top_height: function(h) {
+        this.element.style.top = h + 'px';
+    },
+
     hide: function() {
         this.element.style.display = DISPLAY_NONE;
         this.hidden = true;

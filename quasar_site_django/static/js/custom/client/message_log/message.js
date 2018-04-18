@@ -22,6 +22,10 @@ LogMessage.prototype = {
         this.alpha_duration = 12.0;
     },
 
+    is_active: function() {
+        return this.current_alpha > 0;
+    },
+
     get_text: function() {
         return this.message;
     },
