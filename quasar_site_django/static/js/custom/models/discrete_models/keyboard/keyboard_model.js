@@ -41,7 +41,7 @@ KeyboardModel.prototype = {
         for (x = 0; x < this.first_row.length; x++) {
             let k = this.first_row[x];
             this._create_key(k[0], k[1], total_x_offset);
-            total_x_offset += k[1];
+            total_x_offset += k[1] + this.key_depth * 2;
         }
     },
 
