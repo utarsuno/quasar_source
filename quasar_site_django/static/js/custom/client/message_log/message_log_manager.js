@@ -121,7 +121,7 @@ function MessageLogManager() {
         let new_row = this.logs.prepend_child_element('r' + (this.rows.length).toString());
         new_row.add_class('gui_typing_offset');
         this.rows.push(new_row);
-        this.logs.prepend_break();
+        //this.logs.prepend_break();
     };
 
     this._determine_new_highest_row = function() {
