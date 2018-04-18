@@ -14,9 +14,10 @@ KeyboardModel.prototype = {
     create: function() {
         // Temporary.
         let b = this.button_test = new ButtonModel('a', this);
-        b.create(10);
+        b.create(10, 120);
 
         this.object3D.add(b.mesh);
+        this._create_first_row();
     },
 
     _create_first_row: function() {
@@ -27,6 +28,10 @@ KeyboardModel.prototype = {
         escape.create(10, 0);
         k1.create(10, 30);
         k2.create(10, 60);
+
+        this.object3D.add(escape);
+        this.object3D.add(k1);
+        this.object3D.add(k2);
     }
 
 };
