@@ -108,7 +108,7 @@ KeyboardModel.prototype = {
         let p = k.mesh.position;
 
         let label = new FloatingText2D(this.world, this.face_size * .8, key);
-        label.set_position_xyz(p.x, p.y, p.z);
+        label.set_position(p.x, p.y, p.z);
 
         this.object3D.add(k.mesh);
         this.object3D.add(label);
