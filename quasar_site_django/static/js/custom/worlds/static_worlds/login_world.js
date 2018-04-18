@@ -81,6 +81,8 @@ LoginWorld.prototype = {
         // Test.
         this.keyboard = new KeyboardModel(this);
         this.keyboard.create();
+        this.keyboard.set_position(800, 400, 600);
+        this.keyboard.look_at_origin();
     },
 
     _create_server_requests: function() {
