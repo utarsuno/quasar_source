@@ -9,29 +9,46 @@ KeyboardModel.prototype = {
     __init__: function(world) {
         // Inherit.
         Attachmentable.call(this, world);
+        this.key_depth = 10;
+        this.face_size = 30;
+
+        // First row values.
+        this.first_row = [
+            ['esc', this.face_size],
+            ['1', this.face_size],
+            ['2', this.face_size],
+            ['3', this.face_size],
+            ['4', this.face_size],
+            ['5', this.face_size],
+            ['6', this.face_size],
+            ['7', this.face_size],
+            ['8', this.face_size],
+            ['9', this.face_size],
+            ['0', this.face_size],
+            ['-', this.face_size],
+            ['+', this.face_size],
+            ['backsapce', this.face_size * 2],
+        ];
     },
 
     create: function() {
-        // Temporary.
-        let b = this.button_test = new ButtonModel('a', this);
-        b.create(10, 120);
-
-        this.object3D.add(b.mesh);
         this._create_first_row();
     },
 
     _create_first_row: function() {
-        let escape = new ButtonModel('escape', this);
-        let k1 = new ButtonModel('1', this);
-        let k2 = new ButtonModel('2', this);
-
-        escape.create(10, 0);
-        k1.create(10, 30);
-        k2.create(10, 60);
-
-        this.object3D.add(escape.mesh);
-        this.object3D.add(k1.mesh);
-        this.object3D.add(k2.mesh);
+        let total_x_offset = 0;
+        let x;
+        for (x = 0; x < this.first_row.length; x++) {
+            let k = this.first_row[x];
+            this._create_key(k[0], k[1], total_x_offset);
+            total_x_offset += k[1];
+        }
+    },
+    
+    _create_key: function(key, key_width, key_x_offset) {
+        let k = new ButtonModel(key, this);
+        k.create(this.key_depth, this.face_size, key_width, key_x_offset);
+        this.object3D.add(k);
     }
 
 };

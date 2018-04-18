@@ -11,22 +11,22 @@ ButtonModel.prototype = {
         this.keyboard = keyboard;
     },
 
-    create: function(key_width, x_offset) {
+    create: function(key_depth, face_height, key_width, x_offset) {
         this.geometry = new THREE.Geometry();
 
         // Face.
-        let v0 = new THREE.Vector3(10, 10, 0);
-        let v1 = new THREE.Vector3(10 + key_width, 10, 0);
-        let v2 = new THREE.Vector3(10 + key_width, 10 + key_width, 0);
-        let v3 = new THREE.Vector3(10, 10 + key_width, 0);
+        let v0 = new THREE.Vector3(key_depth, key_depth, 0);
+        let v1 = new THREE.Vector3(key_depth + key_width, key_depth, 0);
+        let v2 = new THREE.Vector3(key_depth + key_width, key_depth + face_height, 0);
+        let v3 = new THREE.Vector3(key_width, key_depth + face_height, 0);
         // Top left.
-        let v4 = new THREE.Vector3(0, 10 + key_width + 10, -10);
+        let v4 = new THREE.Vector3(0, key_depth * 2 + face_height, -key_depth);
         // Top right.
-        let v5 = new THREE.Vector3(10 + key_width + 10, 10 + key_width + 10, -10);
+        let v5 = new THREE.Vector3(key_depth * 2 + key_width, key_depth * 2 + face_height, -key_depth);
         // Bottom right.
-        let v6 = new THREE.Vector3(10 + key_width + 10, 0, -10);
+        let v6 = new THREE.Vector3(key_depth * 2 + key_width, 0, -key_depth);
         // Bottom left.
-        let v7 = new THREE.Vector3(0, 0, -10);
+        let v7 = new THREE.Vector3(0, 0, -key_depth);
 
         // Face.
         this.geometry.vertices.push(v0);
