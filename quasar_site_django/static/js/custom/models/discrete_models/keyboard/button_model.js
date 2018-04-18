@@ -18,7 +18,7 @@ ButtonModel.prototype = {
         let v0 = new THREE.Vector3(key_depth, key_depth, 0);
         let v1 = new THREE.Vector3(key_depth + key_width, key_depth, 0);
         let v2 = new THREE.Vector3(key_depth + key_width, key_depth + face_height, 0);
-        let v3 = new THREE.Vector3(key_width, key_depth + face_height, 0);
+        let v3 = new THREE.Vector3(key_depth, key_depth + face_height, 0);
         // Top left.
         let v4 = new THREE.Vector3(0, key_depth * 2 + face_height, -key_depth);
         // Top right.
