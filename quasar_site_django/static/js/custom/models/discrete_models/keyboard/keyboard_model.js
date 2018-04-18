@@ -111,7 +111,7 @@ KeyboardModel.prototype = {
         label.set_position(p.x, p.y, p.z);
 
         this.object3D.add(k.mesh);
-        this.object3D.add(label);
+        this.object3D.add(label.object3D);
     }
 
 };
