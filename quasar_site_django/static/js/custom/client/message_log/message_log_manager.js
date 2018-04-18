@@ -97,6 +97,15 @@ function MessageLogManager() {
             this._add_row();
         }
 
+        if (this.current_max_row === -1 || this.current_max_row !== (this.rows.length - number_of_rows_needed)) {
+            this.current_max_row = this.rows.length - number_of_rows_needed;
+            
+            let m;
+            for (m = 0; m < this.messages.length; m++) {
+                this.messages[m].offset_row_index(m);
+            }
+        }
+
         /*
         if (this.current_max_row !== number_of_rows_needed) {
             let offset = number_of_rows_needed - this.current_max_row;
