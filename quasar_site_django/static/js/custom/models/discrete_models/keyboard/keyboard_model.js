@@ -92,7 +92,7 @@ KeyboardModel.prototype = {
         this._create_row(this.second_row, -row_height);
         this._create_row(this.third_row, -row_height * 2);
         this._create_row(this.fourth_row, -row_height * 3);
-        this._create_row(this.fifth_row, -row_height * 3);
+        this._create_row(this.fifth_row, -row_height * 4);
     },
 
     _create_row: function(row, y_offset) {
