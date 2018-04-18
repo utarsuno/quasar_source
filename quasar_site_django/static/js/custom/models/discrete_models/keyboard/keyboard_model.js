@@ -139,6 +139,7 @@ KeyboardModel.prototype = {
         let line = new THREE.Line(geometry, material);
 
         let label = new FloatingText2D(this.world, 16, text);
+        label.object3D.set_position(position_start.x, position_start.y, position_start.z);
 
         this.object3D.add(line);
         this.object3D.add(label.object3D);
