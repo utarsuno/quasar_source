@@ -128,10 +128,10 @@ TransitionPair.prototype = {
             //this.renderer_manager.renderer.render(this.scene_old);
             this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
 
-            this.renderer_manager.renderer.setClearColor(0x111111);
-            this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
+            //this.renderer_manager.renderer.setClearColor(0x111111);
+            //this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
-            this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
 
         this.elapsed_delta += delta;
