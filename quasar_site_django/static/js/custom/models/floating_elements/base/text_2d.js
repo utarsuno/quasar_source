@@ -121,9 +121,10 @@ function Text2D(world, width, height, text) {
             this.width *= this.ratio;
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-            //l(this.width);
-            //l(this.canvas.width);
-            //l(this._original_text_width);
+            l(this.get_display_text());
+            l(this.width);
+            l(this.canvas.width);
+            l(this._original_text_width);
 
             //this.ratio = this._original_text_width / this.canvas.width;
 
