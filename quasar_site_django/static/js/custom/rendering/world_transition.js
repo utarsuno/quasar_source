@@ -176,8 +176,8 @@ function WorldTransition() {
         //
         let current_scene  = current_world.scene;
 
-        //this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
-        //this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
+        this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
+        this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
 
         //let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
         //let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: true};

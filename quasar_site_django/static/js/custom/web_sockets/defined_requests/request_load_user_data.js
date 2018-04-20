@@ -38,8 +38,6 @@ ServerRequestLoadUserData.prototype = {
     },
 
     _login_loading_completed: function() {
-        l('LOGIN LOADING COMPLETED!');
         this.success_function();
-        // this.set_current_world(this.world_home);
     }
 };

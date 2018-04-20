@@ -17,6 +17,12 @@ DataDisplay.prototype = {
         this.element_x_direction = new DomElement('x_direction');
         this.element_y_direction = new DomElement('y_direction');
         this.element_z_direction = new DomElement('z_direction');
+
+        this.has_memory_information = this.performance.memory;
+        if (this.has_memory_information) {
+            this.element_heap_size = new DomElement('heap_size');
+            this.element_heap_max_size = new DomElement('max_heap_size');
+        }
     },
 
     update: function() {
@@ -24,13 +30,34 @@ DataDisplay.prototype = {
         let direction = CURRENT_PLAYER.fps_controls.get_direction();
         let velocity  = CURRENT_PLAYER.fps_controls.get_velocity();
 
-        this.element_x_coordinate.set_text('x : ' + int(position.x) + ' | ' + int(velocity.x));
-        this.element_y_coordinate.set_text('x : ' + int(position.y) + ' | ' + int(velocity.y));
-        this.element_z_coordinate.set_text('x : ' + int(position.z) + ' | ' + int(velocity.z));
+        // Perform text operations first so that any DOM changes happen as close to each other as possible in order
+        // to let the browser optimize visual updates better.
+        let x  = 'x : ' + int(position.x) + ' | ' + int(velocity.x);
+        let y  = 'y : ' + int(position.y) + ' | ' + int(velocity.y);
+        let z  = 'z : ' + int(position.z) + ' | ' + int(velocity.z);
+        let dx = 'xd : ' + direction.x;
+        let dy = 'yd : ' + direction.y;
+        let dz = 'zd : ' + direction.z;
+        let js_heap_size;
+        let js_heap_max_size;
+        if (this.has_memory_information) {
+            let memory = performance.memory;
+            js_heap_size = memory.usedJSHeapSize;
+            js_heap_max_size = memory.jsHeapSizeLimit;
+        }
 
-        this.element_x_direction.set_text('xd : ' + direction.x);
-        this.element_y_direction.set_text('yd : ' + direction.y);
-        this.element_z_direction.set_text('zd : ' + direction.z);
+        this.element_x_coordinate.set_text();
+        this.element_y_coordinate.set_text();
+        this.element_z_coordinate.set_text();
+
+        this.element_x_direction.set_text();
+        this.element_y_direction.set_text();
+        this.element_z_direction.set_text();
+
+        if (this.has_memory_information) {
+            this.element_heap_size.set_text(js_heap_size);
+            this.element_heap_max_size.set_text(js_heap_max_size);
+        }
     },
 
     hide: function() {
