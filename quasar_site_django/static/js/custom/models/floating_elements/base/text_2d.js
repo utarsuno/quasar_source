@@ -131,6 +131,8 @@ function Text2D(world, width, height, text) {
 
             this.ratio = this._original_text_width / this.canvas.width;
 
+            l(this.ratio);
+
             this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
             this.geometry.faceVertexUvs[0][1][1].x = this.ratio;
             this.geometry.faceVertexUvs[0][1][2].x = this.ratio;

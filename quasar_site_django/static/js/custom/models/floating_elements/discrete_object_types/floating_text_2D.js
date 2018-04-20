@@ -20,9 +20,9 @@ FloatingText2D.prototype = {
         if (!is_defined(fixed_width)) {
 
             width = MANAGER_TEXT_2D.get_width_needed(text, height);
-            l(width);
-            l('???');
-            l('Width needed is :' + width);
+            //l(width);
+            //l('???');
+            //l('Width needed is :' + width);
             width_needed = width[1];
 
 
