@@ -2,19 +2,6 @@
 
 function Text2D(world, width, height, text) {
 
-    // Inherit.
-    FloatingElement.call(this, world);
-    TextAbstraction.call(this, text);
-
-    this.dynamic_width = false;
-
-    this.initialized = false;
-
-    this.needs_hex_colors = true;
-
-    this.width = width;
-    this.height = height;
-
     this.process_width = function() {
         if (!is_defined(this.width)) {
             this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
@@ -22,6 +9,22 @@ function Text2D(world, width, height, text) {
             this.dynamic_width = true;
         }
     };
+
+    // Inherit.
+    FloatingElement.call(this, world);
+    TextAbstraction.call(this, text);
+
+    this.width = width;
+    this.height = height;
+
+    this.process_width();
+
+    this.canvas = new CanvasTexture(width, height);
+    this.dynamic_width = false;
+
+    this.initialized = false;
+
+    this.needs_hex_colors = true;
 
     this.refresh = function() {
         if (this.initialized) {
@@ -78,9 +81,6 @@ function Text2D(world, width, height, text) {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
-        this.process_width();
-        this.canvas = new CanvasTexture(this.width, this.height);
-
         this.canvas.initialize();
 
         if (this.dynamic_width) {
