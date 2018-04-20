@@ -16,6 +16,14 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         if (is_defined(this.custom_world_enter_function)) {
             this.custom_world_enter_function();
         }
+
+        l('Just entered a world!');
+        l(this.player_exit_position);
+        l(this.player_exit_look_at);
+        l('---');
+        l(this.default_world_enter_position);
+        l(this.default_world_enter_look_at);
+
         if (is_defined(this.player_exit_position)) {
             CURRENT_PLAYER.set_position_xyz(this.player_exit_position.x, this.player_exit_position.y, this.player_exit_position.z);
         } else {
