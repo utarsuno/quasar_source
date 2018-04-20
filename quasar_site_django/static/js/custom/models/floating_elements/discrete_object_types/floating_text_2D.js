@@ -17,6 +17,7 @@ FloatingText2D.prototype = {
 
         let width;
         if (!is_defined(fixed_width)) {
+            /*
             if (italic && bold) {
                 width = MANAGER_TEXT_2D.get_width_of_italic_and_bold_text_given_bounding_height(text, height);
             } else if (italic) {
@@ -26,6 +27,8 @@ FloatingText2D.prototype = {
             } else {
                 width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
             }
+            */
+            width = 120;
         } else {
             this._fixed_width = true;
             width = fixed_width;
