@@ -96,7 +96,16 @@ function Text2D(world, width, height, text) {
     };
 
     this.create_base_mesh = function() {
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        let fixed_width = this.canvas.fixed_width;
+
+        if (!fixed_width) {
+            let ratio = this.width / this.canvas.width;
+            l('Ratio is :' + ratio);
+            this.geometry = new THREE.PlaneGeometry(this.width * ratio, this.height);
+        } else {
+            this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+        }
+
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.object3D.add(this.mesh);
     };
