@@ -33,6 +33,8 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
             this.custom_world_exit_function();
         }
         this.player_exit_position = CURRENT_PLAYER.get_position();
+        l('Player exit position is : ');
+        l(this.player_exit_position);
     };
 
     this.get_player_enter_position = function() {
