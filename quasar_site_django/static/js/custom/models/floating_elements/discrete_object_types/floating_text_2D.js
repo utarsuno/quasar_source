@@ -16,16 +16,18 @@ FloatingText2D.prototype = {
         }
 
         let width;
-        let width_needed;
         let original_width;
+        //let width_needed;
+        //let original_width;
         if (!is_defined(fixed_width)) {
 
-            width = MANAGER_TEXT_2D.get_width_needed(text, height);
+            original_width = MANAGER_TEXT_2D.get_width_needed(text, height);
+            width = get_nearest_power_of_two_for_number(original_width);
             //l(width);
             //l('???');
             //l('Width needed is :' + width);
-            width_needed = width[1];
-            original_width = width[0];
+            //width_needed = width[1];
+            //original_width = width[0];
 
 
             /*
@@ -43,11 +45,11 @@ FloatingText2D.prototype = {
         } else {
             this._fixed_width = true;
             //width = fixed_width;
-            width_needed = fixed_width;
+            //width_needed = fixed_width;
         }
 
         // Inherit.
-        Text2D.call(this, world, width_needed, height, text);
+        Text2D.call(this, world, width, height, text);
 
         if (!is_defined(fixed_width)) {
             //this._original_width_needed(width[0]);
