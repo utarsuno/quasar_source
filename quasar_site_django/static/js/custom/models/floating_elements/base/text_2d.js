@@ -72,6 +72,10 @@ function Text2D(world, width, height, text) {
         //this.refresh();
     };
 
+    this._original_width_needed = function(original_width) {
+        this._original_text_width = original_width;
+    };
+
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
@@ -119,6 +123,10 @@ function Text2D(world, width, height, text) {
             //l(this.geometry.faceVertexUvs);
 
             //l(this.geometry.faceVertexUvs[0]);
+
+            l(this.width);
+            l(this.canvas.width);
+            l(this._original_text_width);
 
             this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
             this.geometry.faceVertexUvs[0][1][1].x = this.ratio;

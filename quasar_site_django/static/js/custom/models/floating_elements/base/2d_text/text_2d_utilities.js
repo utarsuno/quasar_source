@@ -19,9 +19,10 @@ Text2DUtilities.prototype = {
         }
         this.canvas._set_height(height);
         this.canvas.set_font();
-        l('Width needed for {' + text + '} is ' + this.canvas.get_text_width(text));
+        let width_needed = this.canvas.get_text_width(text);
+        l('Width needed for {' + text + '} is ' + width_needed);
         //return this.canvas.get_text_width(text);
         // TEMPORARY
-        return get_nearest_power_of_two_for_number(this.canvas.get_text_width(text));
+        return [width_needed, get_nearest_power_of_two_for_number(this.canvas.get_text_width(text))];
     }
 };

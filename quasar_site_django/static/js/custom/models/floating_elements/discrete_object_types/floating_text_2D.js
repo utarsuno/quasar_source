@@ -40,9 +40,10 @@ FloatingText2D.prototype = {
         }
 
         // Inherit.
-        Text2D.call(this, world, width, height, text);
+        Text2D.call(this, world, width[1], height, text);
 
         if (!is_defined(fixed_width)) {
+            this._original_width_needed(width[0]);
             this.set_property_fixed_width(false);
         } else {
             this.set_property_fixed_width(true);
