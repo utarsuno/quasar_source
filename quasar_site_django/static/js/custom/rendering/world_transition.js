@@ -93,7 +93,9 @@ TransitionPair.prototype = {
         //this.fake_scene.background = this.scene_old.fbo.texture;
         this.fake_scene.background = COLOR_BLUE;
 
+        this.renderer_manager.renderer.autoClear = false;
         this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
+
         this.fake_scene.background = this.scene_old.fbo;
 
     },
