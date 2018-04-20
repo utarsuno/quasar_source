@@ -77,6 +77,15 @@ function Text2D(world, width, height, text) {
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
         this.canvas.initialize();
+
+        let fixed_width = this.canvas.fixed_width;
+        if (!fixed_width) {
+            this.ratio = this.width / this.canvas.width;
+            l('Ratio is :' + this.ratio);
+            //this.canvas.texture.scale.x *= 2;
+        }
+
+
         this.create_base_material();
         this.create_base_mesh();
         this.initialized = true;
@@ -87,6 +96,9 @@ function Text2D(world, width, height, text) {
         //this.material = new THREE.MeshBasicMaterial({
         //    map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         //});
+
+
+
         this.material = new THREE.MeshToonMaterial({
             map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         });
@@ -99,10 +111,13 @@ function Text2D(world, width, height, text) {
         let fixed_width = this.canvas.fixed_width;
 
         if (!fixed_width) {
-            let ratio = this.width / this.canvas.width;
-            l('Ratio is :' + ratio);
-            this.canvas.texture.scale.x *= ratio;
-            this.geometry = new THREE.PlaneGeometry(this.width * ratio, this.height);
+            this.ratio = this.width / this.canvas.width;
+            l('Ratio is :' + this.ratio);
+
+            this.geometry = new THREE.PlaneGeometry(this.width * this.ratio, this.height);
+
+            l(this.geometry.faceVertexUvs);
+
         } else {
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         }
