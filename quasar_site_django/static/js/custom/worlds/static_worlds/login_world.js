@@ -15,29 +15,35 @@ LoginWorld.prototype = {
     },
 
     create: function() {
-        this.floating_button = new FloatingButton(this, 300, 16, 'Button', null);
-        this.floating_button.set_position(100, 100, 100);
-        this.floating_button.look_at(-100, 0, -100);
-        //this.floating_button.look_at_origin();
+        let login_wall_position = new THREE.Vector3(550, 95, 300);
+        let login_wall_normal = new THREE.Vector3(-login_wall_position.x, 0, -login_wall_position.z);
+        this.wall_login = new FloatingWall(200, 95, login_wall_position, login_wall_normal, this);
+        this.wall_login.make_base_wall_invisible();
 
-        this.HELLO = this.floating_button.add_label_right('Hello World Hello Hello World World', 16 / 2);
+        // Title.
+        let row = this.wall_login.add_row(-1);
+        row.add_text_3D([HALF, null, true], 32, 'Login', true);
 
+        // Username.
+        row = this.wall_login.add_row();
+        this.input_username_login = row.add_input_2D([0, 1], 16);
+        this.input_username_login.add_syntax(TEXT_SYNTAX_USERNAME);
+        this.input_username_login.add_label_left('username:');
 
-        this.floating_button2 = new FloatingButton(this, 100, 16, 'Button', null);
-        this.floating_button2.set_position(100, 50, 100);
-        this.floating_button2.look_at_origin();
+        // Password.
+        row = this.wall_login.add_row();
+        this.input_password_login = row.add_input_2D([0, 1], 16);
+        this.input_password_login.add_syntax(TEXT_SYNTAX_PASSWORD);
+        this.input_password_login.add_label_left('password:');
 
-        this.floating_button.refresh_position_and_look_at();
+        // Remember username.
+        //row = this.wall_login.add_row();
+        //this.remember_username = row.add_checkbox([0], 16, false, this.remember_username_pressed.bind(this));
+        //this.remember_username.add_label_left('remember username:');
 
-        //this.floating_text = new FloatingText2D(this, 300, 16, 'FLOATING text', null);
-        //this.floating_text.set_position(100, 50, 100);
-        //this.floating_text.look_at_origin();
-
-        // Test.
-        //this.keyboard = new KeyboardModel(this);
-        //this.keyboard.create();
-        //this.keyboard.set_position(1200, 300, 800);
-        //this.keyboard.look_at_origin();
+        // Login button.
+        row = this.wall_login.add_row();
+        this.button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', null);
     },
 
     /*
