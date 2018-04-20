@@ -28,10 +28,15 @@ function Text2D(world, width, height, text) {
     this.refresh = function() {
         if (this.initialized) {
 
-            this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-            this.material.needsUpdate = true;
+            //this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            //this.material.needsUpdate = true;
 
             if (this.dynamic_width) {
+
+                if (this.text_changed) {
+                    this.width = null;
+                    this.process_width();
+                }
 
                 l('TODO : Update for fixed width!');
                 l(this.text_changed);
@@ -41,6 +46,9 @@ function Text2D(world, width, height, text) {
                 //this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
                 //this.material.needsUpdate = true;
             }
+
+            this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            this.material.needsUpdate = true;
 
             /*
             if (this.text_changed && !this._fixed_width) {
