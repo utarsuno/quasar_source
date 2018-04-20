@@ -8,12 +8,6 @@ function Text2D(world, width, height, text) {
 
     this.canvas = new CanvasTexture(width, height);
 
-    //if (is_defined(text_properties)) {
-    //    this.canvas = new CanvasAbstraction(width, height, text_properties);
-    //} else {
-    //    this.canvas = new CanvasAbstraction(width, height, null);
-    //}
-
     this.initialized = false;
 
     this.needs_hex_colors = true;
@@ -84,14 +78,8 @@ function Text2D(world, width, height, text) {
 
         let fixed_width = this.canvas.fixed_width;
         if (!fixed_width) {
-
             this.ratio = this._original_text_width / this.canvas.width;
-
-            //this.ratio = this.width / this.canvas.width;
-            //l('Ratio is :' + this.ratio);
-            //this.canvas.texture.scale.x *= 2;
         }
-
 
         this.create_base_material();
         this.create_base_mesh();
@@ -118,21 +106,12 @@ function Text2D(world, width, height, text) {
         let fixed_width = this.canvas.fixed_width;
 
         if (!fixed_width) {
-            //this.ratio = this.width / this.canvas.width;
-            //l('Ratio is :' + this.ratio);
-
             this.width *= this.ratio;
-
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-            //this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-            //l(this.geometry.faceVertexUvs);
-
-            //l(this.geometry.faceVertexUvs[0]);
-
-            l(this.width);
-            l(this.canvas.width);
-            l(this._original_text_width);
+            //l(this.width);
+            //l(this.canvas.width);
+            //l(this._original_text_width);
 
             this.ratio = this._original_text_width / this.canvas.width;
 
