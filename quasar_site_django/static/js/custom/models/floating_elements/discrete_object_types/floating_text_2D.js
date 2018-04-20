@@ -37,7 +37,8 @@ FloatingText2D.prototype = {
         // Inherit.
         Text2D.call(this, world, width, height, text, text_properties);
 
-        this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+        //this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
 
         this.initialize();
         this.refresh();
