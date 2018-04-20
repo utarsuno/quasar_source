@@ -178,5 +178,5 @@ LoginWorld.prototype = {
         // Connect the elements together as a form.
         this.form_login = new FormManager([this.input_username_login, this.input_password_login], this.button_login);
     }
-    
+
 };
