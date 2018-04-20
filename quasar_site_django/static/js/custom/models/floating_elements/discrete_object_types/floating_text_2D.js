@@ -16,12 +16,14 @@ FloatingText2D.prototype = {
         }
 
         let width;
+        let width_needed;
         if (!is_defined(fixed_width)) {
 
             width = MANAGER_TEXT_2D.get_width_needed(text, height);
             l(width);
             l('???');
             l('Width needed is :' + width);
+            width_needed = width[1];
 
 
             /*
@@ -42,7 +44,7 @@ FloatingText2D.prototype = {
         }
 
         // Inherit.
-        Text2D.call(this, world, width[1], height, text);
+        Text2D.call(this, world, width_needed, height, text);
 
         if (!is_defined(fixed_width)) {
             this._original_width_needed(width[0]);
