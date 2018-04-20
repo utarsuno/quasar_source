@@ -16,11 +16,11 @@ function Text2D(world, width, height, text) {
 
     this.width = width;
     this.height = height;
+    this.dynamic_width = false;
 
     this.process_width();
 
     this.canvas = new CanvasTexture(width, height);
-    this.dynamic_width = false;
 
     this.initialized = false;
 
