@@ -1,18 +1,12 @@
 'use strict';
 
 function CanvasAbstraction() {
-    this.__init__();
-}
+    // Inherit.
+    CanvasFont.call(this);
+    this.canvas  = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
 
-CanvasAbstraction.prototype = {
-    __init__: function() {
-        // Inherit.
-        CanvasFont.call(this);
-        this.canvas  = document.createElement('canvas');
-        this.context = this.canvas.getContext('2d');
-    },
-
-    render: function(background_color, foreground_color, text) {
+    this.render = function(background_color, foreground_color, text) {
         this.context.clearRect(0, 0, this.width, this.height);
         if (is_defined(background_color)) {
             this.context.fillStyle = background_color;
@@ -26,28 +20,28 @@ CanvasAbstraction.prototype = {
         } else {
             this.context.fillText(text, 0, int(this.font_size * .9));
         }
-    },
+    };
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    get_text_width: function(text) {
+    this.get_text_width = function(text) {
         return this.context.measureText(text).width;
-    },
+    };
 
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
-    set_dimensions: function(width, height) {
+    this.set_dimensions = function(width, height) {
         this._set_width(width);
         this._set_height(height);
-    },
+    };
 
-    _set_height: function(height) {
+    this._set_height = function(height) {
         this.height = get_next_highest_power_of_two(height);
-    },
+    };
 
-    _set_width: function(width) {
+    this._set_width = function(width) {
         this.width = get_next_highest_power_of_two(width);
-    }
-};
+    };
+}
