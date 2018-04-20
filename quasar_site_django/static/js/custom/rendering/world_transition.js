@@ -71,6 +71,8 @@ TransitionPair.prototype = {
 
         this.the_transition.quad_material.uniforms.tDiffuse1.value = this.scene_new.fbo.texture;
         this.the_transition.quad_material.uniforms.tDiffuse2.value = this.scene_old.fbo.texture;
+        l(this.scene_old.fbo.texture);
+        l('---');
     },
     is_pair: function(scene_a, scene_b) {
         return this.scene_new === scene_b && this.scene_old === scene_a;
