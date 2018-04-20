@@ -102,10 +102,10 @@ WorldManager.prototype = {
                 this.player_menu.toggle_visibility();
             }
 
+            this.current_world.exit_world();
+
             // Before exiting the world make sure to remove certain objects that are not world-unique.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
-
-            this.current_world.exit_world();
 
             this.previous_world = this.current_world;
         }
