@@ -118,6 +118,8 @@ TransitionPair.prototype = {
 
             l(this.scene_old.fbo.texture);
 
+
+
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
@@ -155,6 +157,9 @@ function WorldTransition() {
         let previous_camera_look_at  = CURRENT_PLAYER.get_direction();
 
         let previous_scene = previous_world.scene;
+        // TEMPORARY TESTING.
+        previous_scene.background = COLOR_GREEN;
+        //
         let current_scene  = current_world.scene;
 
         this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
@@ -162,6 +167,10 @@ function WorldTransition() {
 
         let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
+
+        // TEMPORARY TESTING.
+        //let previous_scene_as_texture = new THREE.Texture();
+
         current_scene.fbo  = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
 
         this.in_transition = true;
