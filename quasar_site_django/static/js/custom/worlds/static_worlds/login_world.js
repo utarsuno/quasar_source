@@ -19,6 +19,10 @@ LoginWorld.prototype = {
         this.floating_button.set_position(100, 100, 100);
         this.floating_button.look_at_origin();
 
+        this.floating_text = new FloatingText2D(this, 300, 16, 'FLOATING text', null);
+        this.floating_text.set_position(100, 50, 100);
+        this.floating_text.look_at_origin();
+
         // Test.
         //this.keyboard = new KeyboardModel(this);
         //this.keyboard.create();
