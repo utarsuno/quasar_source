@@ -23,5 +23,6 @@ CanvasTexture.prototype = {
 
     modify_canvas: function(width, height) {
         this.set_dimensions(width, height);
+        this.set_font();
     }
 };
