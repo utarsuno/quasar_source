@@ -17,8 +17,7 @@ FloatingButton.prototype = {
 
         this.set_button_engage_function(engage_function);
 
-        this.set_default_foreground_color(COLOR_YELLOW, true);
-        this.set_current_foreground_color(COLOR_YELLOW, true);
+        this.set_foreground_color(COLOR_YELLOW);
         this.initialize();
 
         this.has_button_state = false;

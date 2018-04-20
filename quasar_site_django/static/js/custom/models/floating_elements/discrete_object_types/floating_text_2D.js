@@ -39,6 +39,7 @@ FloatingText2D.prototype = {
 
         //this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
         this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
+        this.set_foreground_color(COLOR_BLUE);
 
         this.initialize();
         this.refresh();
