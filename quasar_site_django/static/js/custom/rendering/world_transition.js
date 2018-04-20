@@ -112,7 +112,10 @@ TransitionPair.prototype = {
         } else {
             //this.renderer_manager.renderer.setClearColor(0xffffff);
             //this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
-            this.renderer_manager.renderer.readRenderTargetPixels(this.scene_old.fbo);
+            //this.renderer_manager.renderer.readRenderTargetPixels(this.scene_old.fbo);
+
+            l(this.scene_old.fbo.texture);
+
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
