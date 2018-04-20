@@ -18,7 +18,7 @@ DataDisplay.prototype = {
         this.element_y_direction = new DomElement('y_direction');
         this.element_z_direction = new DomElement('z_direction');
 
-        this.has_memory_information = this.performance.memory;
+        this.has_memory_information = performance.memory;
         if (this.has_memory_information) {
             this.element_heap_size = new DomElement('heap_size');
             this.element_heap_max_size = new DomElement('max_heap_size');
