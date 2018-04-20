@@ -20,9 +20,5 @@ CanvasTexture.prototype = {
     update: function(background_color, foreground_color, text) {
         this.render(background_color, foreground_color, text);
         this.texture.needsUpdate = true;
-    },
-
-    set_property_fixed_width: function(fixed_width) {
-        this.fixed_width = fixed_width;
-    },
+    }
 };

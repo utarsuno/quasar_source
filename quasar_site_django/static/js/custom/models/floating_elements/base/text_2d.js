@@ -7,7 +7,7 @@ function Text2D(world, width, height, text) {
     TextAbstraction.call(this, text);
 
     this.canvas = new CanvasTexture(width, height);
-    this.fixed_width = true;
+    this.dynamic_width = false;
 
     this.initialized = false;
 
@@ -20,7 +20,7 @@ function Text2D(world, width, height, text) {
         if (!is_defined(this.width)) {
             this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
             this.width = get_nearest_power_of_two_for_number(this._original_text_width);
-            this.set_to_dynamic_width();
+            this.dynamic_width = true;
         }
     };
 
@@ -60,10 +60,6 @@ function Text2D(world, width, height, text) {
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
-    this.set_to_dynamic_width = function() {
-        this.fixed_width = false;
-    };
-
     this.set_text_property_centered = function (is_centered) {
         this.canvas.set_font_property_centered(is_centered);
         //this.refresh();
@@ -87,8 +83,7 @@ function Text2D(world, width, height, text) {
 
         this.canvas.initialize();
 
-        let fixed_width = this.canvas.fixed_width;
-        if (!fixed_width) {
+        if (this.dynamic_width) {
             this.ratio = this._original_text_width / this.canvas.width;
         }
 
@@ -107,9 +102,7 @@ function Text2D(world, width, height, text) {
     };
 
     this.create_base_mesh = function() {
-        let fixed_width = this.canvas.fixed_width;
-
-        if (!fixed_width) {
+        if (this.dynamic_width) {
             this.width *= this.ratio;
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
