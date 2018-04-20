@@ -42,7 +42,7 @@ function Text2D(world, width, height, text, text_properties) {
     this.refresh = function() {
         if (this.initialized) {
 
-            if (this.text_changed) {
+            if (this.text_changed && !this._fixed_width) {
                 this.delete_mesh();
                 this.create_base_mesh();
             } else {

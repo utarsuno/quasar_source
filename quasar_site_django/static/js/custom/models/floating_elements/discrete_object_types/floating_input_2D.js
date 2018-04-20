@@ -11,6 +11,8 @@ FloatingInput2D.prototype = {
         Text2D.call(this, world, width, height, text);
         this.set_to_typeable();
 
+        this._fixed_width = true;
+
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 
         this.initialize();
