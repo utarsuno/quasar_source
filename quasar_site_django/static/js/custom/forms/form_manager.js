@@ -57,7 +57,7 @@ FormManager.prototype = {
             if (!syntax[0]) {
                 has_errors = true;
                 if (apply_markings) {
-                    input_field.display_warning_icon();
+                    input_field.display_warning_icon(syntax[1]);
                 }
                 //l('Error was');
                 //l(syntax[1]);

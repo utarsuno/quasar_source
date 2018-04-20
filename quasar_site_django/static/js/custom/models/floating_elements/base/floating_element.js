@@ -31,6 +31,11 @@ function FloatingElement(world) {
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
     };
 
+    this.add_label_right = function(text) {
+        let label = new FloatingText2D(this.world, this.height, text);
+        this.add_floating_element([0, HALF], null, 0, label);
+    };
+
     this.add_icon_left = function(icon_type) {
         let icon = new FloatingIcon(this.world, icon_type, this.height);
         this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);

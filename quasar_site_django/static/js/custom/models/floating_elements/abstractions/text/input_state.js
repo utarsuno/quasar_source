@@ -10,34 +10,22 @@ function InputState() {
     this.add_attachment(this.warning_icon);
     this.warning_icon.set_to_invisible();
 
-    this.display_warning_icon = function() {
+    this.display_warning_icon = function(warning_text) {
         this.warning_icon.set_to_visible();
         this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
+        if (is_defined(warning_text)) {
+            this.warning_text.update_text(warning_text);
+            this.warning_text.set_to_visible();
+        }
         this.refresh();
     };
 
     this.hide_warning_icon = function() {
         this.warning_icon.set_to_invisible();
         this.override_background_color = FLOATING_TEXT_BACKGROUND_SUCCESS;
+        this.warning_text.set_to_invisible();
         this.refresh();
     };
-
-    /*
-    this._enabled = true;
-
-    this.disable = function() {
-        this._enabled = false;
-    };
-
-    this.enable = function() {
-        this._enabled = true;
-    };
-
-    this.enabled = function() {
-        return this._enabled;
-    };
-    */
-
 
     // this.warning_icon.set_attachment_name(ATTACHMENT_NAME_WARNING);
 }

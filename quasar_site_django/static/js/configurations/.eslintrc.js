@@ -60,6 +60,9 @@ module.exports = {
         "FloatingText"   : true,
         "FloatingPicture": true,
 
+        "KeyboardModel": false,
+        "ButtonModel"  : false,
+
         "TextAbstraction" : false,
         "ColorAbstraction": false,
 
