@@ -9,9 +9,9 @@ FloatingInput2D.prototype = {
     __init__: function(world, width, height, text) {
         // Inherit.
         Text2D.call(this, world, width, height, text);
-        this.set_to_typeable();
+        this.set_property_fixed_width(true);
 
-        this._fixed_width = true;
+        this.set_to_typeable();
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
 

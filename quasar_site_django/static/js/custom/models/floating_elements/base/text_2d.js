@@ -81,7 +81,7 @@ function Text2D(world, width, height, text) {
         let fixed_width = this.canvas.fixed_width;
         if (!fixed_width) {
             this.ratio = this.width / this.canvas.width;
-            l('Ratio is :' + this.ratio);
+            //l('Ratio is :' + this.ratio);
             //this.canvas.texture.scale.x *= 2;
         }
 
@@ -112,11 +112,11 @@ function Text2D(world, width, height, text) {
 
         if (!fixed_width) {
             this.ratio = this.width / this.canvas.width;
-            l('Ratio is :' + this.ratio);
+            //l('Ratio is :' + this.ratio);
 
             this.geometry = new THREE.PlaneGeometry(this.width * this.ratio, this.height);
 
-            l(this.geometry.faceVertexUvs);
+            //l(this.geometry.faceVertexUvs);
 
             //l(this.geometry.faceVertexUvs[0]);
 
