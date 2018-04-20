@@ -42,12 +42,15 @@ function Text2D(world, width, height, text, text_properties) {
     this.refresh = function() {
         if (this.initialized) {
 
+            /*
             if (this.text_changed && !this._fixed_width) {
                 this.delete_mesh();
                 this.create_base_mesh();
             } else {
                 this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
             }
+            */
+            this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
             this.material.needsUpdate = true;
             this.text_changed = false;
             this.color_changed = false;

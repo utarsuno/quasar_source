@@ -9,7 +9,6 @@ FloatingButton.prototype = {
     __init__: function(world, width, text_height, text, engage_function) {
         // Inherit.
         Text2D.call(this, world, width, text_height, text, TEXT_PROPERTY_JUST_BOLD);
-        this.
         this.set_to_clickable();
 
         this.set_button_engage_function(engage_function);
