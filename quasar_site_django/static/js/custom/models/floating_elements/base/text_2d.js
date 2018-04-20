@@ -72,7 +72,7 @@ function Text2D(world, width, height, text) {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
-        this.canvas.initialize();
+        //this.canvas.initialize();
         this.create_base_material();
         this.create_base_mesh();
         this.initialized = true;
