@@ -27,7 +27,7 @@ function Text2D(world, width, height, text) {
     this.refresh = function() {
         if (this.initialized) {
 
-            if (!this.fixed_width) {
+            if (this.dynamic_width) {
 
                 l('TODO : Update for fixed width!');
                 l(this.text_changed);
