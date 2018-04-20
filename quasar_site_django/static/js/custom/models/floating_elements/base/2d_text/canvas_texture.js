@@ -22,7 +22,7 @@ CanvasTexture.prototype = {
         this.texture.needsUpdate = true;
     },
 
-    set_to_fixed_width: function() {
-        this.temp = 2;
+    set_property_fixed_width: function(fixed_width) {
+        this.fixed_width = fixed_width;
     },
 };

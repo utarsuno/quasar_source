@@ -38,7 +38,7 @@ function Text2D(world, width, height, text) {
             //this.text_changed = false;
             //this.color_changed = false;
 
-            l('Rendering the following text: ' + this.get_display_text());
+            //l('Rendering the following text: ' + this.get_display_text());
             this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
             this.material.needsUpdate = true;
         }

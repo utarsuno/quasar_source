@@ -17,6 +17,11 @@ FloatingText2D.prototype = {
 
         let width;
         if (!is_defined(fixed_width)) {
+
+            this.set_property_fixed_width(false);
+            l('Width needed is :' + MANAGER_TEXT_2D.get_width_needed(height));
+
+
             /*
             if (italic && bold) {
                 width = MANAGER_TEXT_2D.get_width_of_italic_and_bold_text_given_bounding_height(text, height);
@@ -37,8 +42,8 @@ FloatingText2D.prototype = {
         // Inherit.
         Text2D.call(this, world, width, height, text);
 
-        //this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
-        this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+        //this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
         this.set_foreground_color(COLOR_BLUE);
 
         this.initialize();

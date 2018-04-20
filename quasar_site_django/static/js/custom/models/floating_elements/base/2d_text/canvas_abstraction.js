@@ -7,9 +7,9 @@ function CanvasAbstraction() {
     this.context = this.canvas.getContext('2d');
 
     this.render = function(background_color, foreground_color, text) {
-        l('Rendering will the following width and height');
-        l(this.width);
-        l(this.height);
+        //l('Rendering will the following width and height');
+        //l(this.width);
+        //l(this.height);
 
         this.context.clearRect(0, 0, this.width, this.height);
         if (is_defined(background_color)) {
