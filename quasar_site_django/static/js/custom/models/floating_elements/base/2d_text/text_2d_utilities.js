@@ -25,7 +25,8 @@ Text2DUtilities.prototype = {
         let w = this.canvas_regular.get_text_width_for_texture(text);
         // TEMPORARY TEST.
         //return get_next_highest_power_of_two(w);
-        return get_nearest_power_of_two_for_number(w);
+        //return get_nearest_power_of_two_for_number(w);
+        return w;
     },
 
     get_width_of_bold_text_given_bounding_height: function(text, height) {
