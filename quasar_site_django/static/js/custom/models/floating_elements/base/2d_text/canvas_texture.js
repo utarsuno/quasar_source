@@ -19,5 +19,9 @@ CanvasTexture.prototype = {
     update: function(background_color, foreground_color, text) {
         this.render(background_color, foreground_color, text);
         this.texture.needsUpdate = true;
+    },
+
+    modify_canvas: function(width, height) {
+        this.set_dimensions(width, height);
     }
 };

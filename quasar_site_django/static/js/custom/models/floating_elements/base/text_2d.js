@@ -5,8 +5,9 @@ function Text2D(world, width, height, text) {
     this.process_width = function() {
         if (!is_defined(this.width)) {
             this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
-            this.width = get_nearest_power_of_two_for_number(this._original_text_width);
-            this.dynamic_width = true;
+            this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
+            this.dynamic_width        = true;
+            this.ratio                = this._original_text_width / this.canvas.width;
         }
     };
 
@@ -17,8 +18,6 @@ function Text2D(world, width, height, text) {
     this.width = width;
     this.height = height;
     this.dynamic_width = false;
-
-    this.process_width();
 
     this.canvas = new CanvasTexture();
 
@@ -36,6 +35,9 @@ function Text2D(world, width, height, text) {
                 if (this.text_changed) {
                     this.width = null;
                     this.process_width();
+                    this.canvas.modify_canvas(this.width, this.height);
+                    this.delete_mesh();
+                    this.create_base_mesh();
                 }
 
                 l('TODO : Update for fixed width!');
@@ -94,12 +96,10 @@ function Text2D(world, width, height, text) {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
+        this.process_width();
+
         this.canvas.set_dimensions(this.width, this.height);
         this.canvas.initialize();
-
-        if (this.dynamic_width) {
-            this.ratio = this._original_text_width / this.canvas.width;
-        }
 
         this.create_base_material();
         this.create_base_mesh();
