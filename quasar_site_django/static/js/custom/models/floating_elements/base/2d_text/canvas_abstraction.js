@@ -49,6 +49,6 @@ function CanvasAbstraction() {
 
     this._set_width = function(width) {
         //this.width = get_next_highest_power_of_two(width * 2);
-        this.width = get_next_highest_power_of_two(width);
+        this.width = get_next_highest_power_of_two(width * 2);
     };
 }
