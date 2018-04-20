@@ -29,6 +29,8 @@ function Text2D(world, width, height, text) {
                     this.process_width();
                     this.canvas.modify_canvas(this.width, this.height);
                     this.delete_mesh();
+                    this.delete_material();
+                    this.create_base_material();
                     this.create_base_mesh();
                 }
 
