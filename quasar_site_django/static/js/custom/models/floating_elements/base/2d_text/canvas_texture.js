@@ -37,6 +37,6 @@ CanvasTexture.prototype = {
     },
 
     set_to_fixed_width: function() {
-
+        this.temp = 2;
     },
 };
