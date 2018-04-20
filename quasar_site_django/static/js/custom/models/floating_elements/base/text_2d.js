@@ -101,6 +101,7 @@ function Text2D(world, width, height, text) {
         if (!fixed_width) {
             let ratio = this.width / this.canvas.width;
             l('Ratio is :' + ratio);
+            this.canvas.texture.scale.x *= ratio;
             this.geometry = new THREE.PlaneGeometry(this.width * ratio, this.height);
         } else {
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
