@@ -2,15 +2,6 @@
 
 function Text2D(world, width, height, text) {
 
-    this.process_width = function() {
-        if (!is_defined(this.width)) {
-            this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
-            this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
-            this.dynamic_width        = true;
-            this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));
-        }
-    };
-
     // Inherit.
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
@@ -96,6 +87,15 @@ function Text2D(world, width, height, text) {
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
+    this.process_width = function() {
+        if (!is_defined(this.width)) {
+            this._original_text_width = MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
+            this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
+            this.dynamic_width        = true;
+            this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));
+        }
+    };
+
     this.initialize = function() {
         this.process_width();
 
@@ -125,7 +125,7 @@ function Text2D(world, width, height, text) {
             //l(this.canvas.width);
             //l(this._original_text_width);
 
-            this.ratio = this._original_text_width / this.canvas.width;
+            //this.ratio = this._original_text_width / this.canvas.width;
 
             //l(this.ratio);
 
