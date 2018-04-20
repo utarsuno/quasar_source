@@ -11,14 +11,14 @@ function CanvasFont() {
     this.font = null;
 
     this.set_font_property_bold = function(is_bold) {
-        this.text_property_bold  = is_bold;
+        this.text_property_bold = is_bold;
     };
 
     this.set_font_property_italic = function(is_italic) {
         this.text_property_italic = is_italic;
     };
 
-    this.set_text_property_centered = function(is_centered) {
+    this.set_font_property_centered = function(is_centered) {
         this.text_property_centered = is_centered;
     };
 

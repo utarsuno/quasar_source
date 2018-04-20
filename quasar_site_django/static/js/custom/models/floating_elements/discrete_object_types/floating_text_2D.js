@@ -18,7 +18,7 @@ FloatingText2D.prototype = {
         let width;
         if (!is_defined(fixed_width)) {
 
-            l('Width needed is :' + MANAGER_TEXT_2D.get_width_needed(height));
+            l('Width needed is :' + MANAGER_TEXT_2D.get_width_needed(text, height));
 
 
             /*

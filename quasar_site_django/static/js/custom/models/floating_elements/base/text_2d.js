@@ -58,7 +58,7 @@ function Text2D(world, width, height, text) {
     };
 
     this.set_text_property_centered = function (is_centered) {
-        this.canvas.set_text_property_centered(is_centered);
+        this.canvas.set_font_property_centered(is_centered);
         //this.refresh();
     };
 
