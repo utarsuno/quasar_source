@@ -118,10 +118,13 @@ function Text2D(world, width, height, text) {
 
     this.create_base_mesh = function() {
         if (this.dynamic_width) {
+            l('');
+            l(this.get_display_text());
+            l(this.width);
             this.width *= this.ratio;
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
 
-            l(this.get_display_text());
+
             l(this.width);
             l(this.canvas.width);
             l(this._original_text_width);
