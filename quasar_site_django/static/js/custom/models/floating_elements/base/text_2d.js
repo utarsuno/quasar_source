@@ -33,6 +33,7 @@ function Text2D(world, width, height, text) {
             if (this.dynamic_width) {
 
                 if (this.text_changed) {
+                    l('Text changed!');
                     this.width = null;
                     this.process_width();
                     this.canvas.modify_canvas(this.width, this.height);
