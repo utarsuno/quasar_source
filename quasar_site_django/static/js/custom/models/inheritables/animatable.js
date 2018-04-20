@@ -45,7 +45,7 @@ function Animatable() {
             this.percentage_elapsed = this._elapsed_delta / this.animation_duration;
         }
 
-        var animation_offset = this.get_animation_total_offset();
+        let animation_offset = this.get_animation_total_offset();
 
         this.set_position(this.animation_start_position_x + animation_offset[0] * this.percentage_elapsed,
             this.animation_start_position_y + animation_offset[1] * this.percentage_elapsed,
@@ -68,7 +68,8 @@ function Animatable() {
     };
 
     this.update_all_child_animations_recursively = function(delta) {
-        for (var a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].has_animation && this.attachments[a].requires_animation_update) {
                 this.attachments[a].update(delta);
             }
@@ -108,7 +109,8 @@ function Animatable() {
         if (this.has_animation) {
             this._restart_animation();
         }
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].has_animation) {
                 this.attachments[a]._restart_animation();
             }
