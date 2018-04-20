@@ -6,7 +6,7 @@ function Text2D(world, width, height, text) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
-    this.canvas_texture = new CanvasTexture(width, height);
+    this.canvas = new CanvasTexture(width, height);
 
     //if (is_defined(text_properties)) {
     //    this.canvas = new CanvasAbstraction(width, height, text_properties);
