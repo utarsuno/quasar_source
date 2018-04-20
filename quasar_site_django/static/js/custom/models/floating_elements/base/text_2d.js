@@ -47,8 +47,8 @@ function Text2D(world, width, height, text) {
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
-    this.set_to_fixed_width = function() {
-        this.canvas.set_to_fixed_width();
+    this.set_property_fixed_width = function(fixed_width) {
+        this.canvas.set_property_fixed_width(fixed_width);
     };
 
     // TODO : DELETE THIS!
