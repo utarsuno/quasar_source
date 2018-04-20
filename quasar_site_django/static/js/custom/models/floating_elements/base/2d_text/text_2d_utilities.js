@@ -26,6 +26,7 @@ Text2DUtilities.prototype = {
         // TEMPORARY TEST.
         //return get_next_highest_power_of_two(w);
         //return get_nearest_power_of_two_for_number(w);
+        l(height + ' ' + text);
         return w;
     },
 
