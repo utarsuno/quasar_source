@@ -38,7 +38,7 @@ function FloatingElement(world) {
         } else {
             label = new FloatingText2D(this.world, this.height, text);
         }
-        this.add_floating_element([label.width / 2, HALF], null, 0, label);
+        this.add_floating_element([label.width / 2 + label.width / 4, HALF], null, 0, label);
         return label;
     };
 
