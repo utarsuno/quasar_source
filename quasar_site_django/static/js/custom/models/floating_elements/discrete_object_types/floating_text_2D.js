@@ -25,7 +25,7 @@ FloatingText2D.prototype = {
             width = get_nearest_power_of_two_for_number(original_width);
             //l(width);
             //l('???');
-            //l('Width needed is :' + width);
+            l('Width needed is :' + width);
             //width_needed = width[1];
             //original_width = width[0];
 
