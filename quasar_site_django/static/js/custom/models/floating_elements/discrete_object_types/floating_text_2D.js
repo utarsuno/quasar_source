@@ -44,7 +44,7 @@ FloatingText2D.prototype = {
             //width = 120;
         } else {
             this._fixed_width = true;
-            //width = fixed_width;
+            width = fixed_width;
             //width_needed = fixed_width;
         }
 
