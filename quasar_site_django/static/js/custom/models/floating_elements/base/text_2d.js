@@ -20,6 +20,7 @@ function Text2D(world, width, height, text) {
 
     this.width = width;
     this.height = height;
+    l('WIDTH IS :' + width);
 
     this.refresh = function() {
 
