@@ -118,6 +118,10 @@ function Text2D(world, width, height, text) {
 
             l(this.geometry.faceVertexUvs);
 
+            l(this.geometry.faceVertexUvs[1]);
+            l(this.geometry.faceVertexUvs[1][1]);
+            l(this.geometry.faceVertexUvs[1][1][0]);
+
             this.geometry.faceVertexUvs[1][1][0] = this.ratio;
             this.geometry.faceVertexUvs[1][2][0] = this.ratio;
 
