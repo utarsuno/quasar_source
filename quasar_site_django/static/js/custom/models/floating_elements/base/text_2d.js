@@ -37,6 +37,11 @@ function Text2D(world, width, height, text) {
             //this.material.needsUpdate = true;
             //this.text_changed = false;
             //this.color_changed = false;
+
+
+
+            this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            this.material.needsUpdate = true;
         }
     };
 
@@ -47,13 +52,13 @@ function Text2D(world, width, height, text) {
         this.canvas.set_to_fixed_width();
     };
 
+    // TODO : DELETE THIS!
     this.set_text_property_right = function(is_right) {
         this.canvas.text_property_right = is_right;
         //this.refresh();
     };
 
     this.set_text_property_centered = function (is_centered) {
-        //this.canvas.text_property_centered = is_centered;
         this.canvas.set_text_property_centered(is_centered);
         //this.refresh();
     };
@@ -76,7 +81,7 @@ function Text2D(world, width, height, text) {
         this.create_base_material();
         this.create_base_mesh();
         this.initialized = true;
-        //this.refresh();
+        this.refresh();
     };
 
     this.create_base_material = function() {
