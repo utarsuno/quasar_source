@@ -1,16 +1,18 @@
 'use strict';
 
-function Text2D(world, width, height, text, text_properties) {
+function Text2D(world, width, height, text) {
 
     // Inherit.
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
-    if (is_defined(text_properties)) {
-        this.canvas = new CanvasAbstraction(width, height, text_properties);
-    } else {
-        this.canvas = new CanvasAbstraction(width, height, null);
-    }
+    this.canvas_texture = new CanvasTexture(width, height);
+
+    //if (is_defined(text_properties)) {
+    //    this.canvas = new CanvasAbstraction(width, height, text_properties);
+    //} else {
+    //    this.canvas = new CanvasAbstraction(width, height, null);
+    //}
 
     this.initialized = false;
 
@@ -19,27 +21,8 @@ function Text2D(world, width, height, text, text_properties) {
     this.width = width;
     this.height = height;
 
-    this.set_text_property_right = function(is_right) {
-        this.canvas.text_property_right = is_right;
-        this.refresh();
-    };
-
-    this.set_text_property_centered = function (is_centered) {
-        this.canvas.text_property_centered = is_centered;
-        this.refresh();
-    };
-
-    this.set_text_property_bold = function(is_bold) {
-        this.canvas.set_font_property_bold(is_bold);
-        this.refresh();
-    };
-
-    this.set_text_property_italic = function(is_italic) {
-        this.canvas.set_font_property_italic(is_italic);
-        this.refresh();
-    };
-
     this.refresh = function() {
+
         if (this.initialized) {
 
             /*
@@ -50,11 +33,35 @@ function Text2D(world, width, height, text, text_properties) {
                 this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
             }
             */
-            this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-            this.material.needsUpdate = true;
-            this.text_changed = false;
-            this.color_changed = false;
+            //this.canvas.render(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            //this.material.needsUpdate = true;
+            //this.text_changed = false;
+            //this.color_changed = false;
         }
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     /__` |__   |   |  |__  |__) /__`
+     .__/ |___  |   |  |___ |  \ .__/ */
+    this.set_text_property_right = function(is_right) {
+        this.canvas.text_property_right = is_right;
+        this.refresh();
+    };
+
+    this.set_text_property_centered = function (is_centered) {
+        //this.canvas.text_property_centered = is_centered;
+        this.canvas.set_text_property_centered(is_centered);
+        //this.refresh();
+    };
+
+    this.set_text_property_bold = function(is_bold) {
+        this.canvas.set_font_property_bold(is_bold);
+        //this.refresh();
+    };
+
+    this.set_text_property_italic = function(is_italic) {
+        this.canvas.set_font_property_italic(is_italic);
+        //this.refresh();
     };
 
     /*__   __   ___      ___    __
@@ -65,7 +72,7 @@ function Text2D(world, width, height, text, text_properties) {
         this.create_base_material();
         this.create_base_mesh();
         this.initialized = true;
-        this.refresh();
+        //this.refresh();
     };
 
     this.create_base_material = function() {

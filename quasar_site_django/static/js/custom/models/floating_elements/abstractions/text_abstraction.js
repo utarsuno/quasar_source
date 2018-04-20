@@ -83,7 +83,8 @@ function TextAbstraction(text) {
     };
 
     this.parse_text = function(text) {
-        for (var i = 0; i < text.length; i++) {
+        let i;
+        for (i = 0; i < text.length; i++) {
             this._add_character(text.charAt(i));
         }
     };
