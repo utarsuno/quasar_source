@@ -18,7 +18,6 @@ FloatingText2D.prototype = {
         let width;
         if (!is_defined(fixed_width)) {
 
-            this.set_property_fixed_width(false);
             l('Width needed is :' + MANAGER_TEXT_2D.get_width_needed(height));
 
 
@@ -41,6 +40,10 @@ FloatingText2D.prototype = {
 
         // Inherit.
         Text2D.call(this, world, width, height, text);
+
+        if (!is_defined(fixed_width)) {
+            this.set_property_fixed_width(false);
+        }
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
         //this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
