@@ -44,6 +44,8 @@ LoginWorld.prototype = {
         // Login button.
         row = this.wall_login.add_row();
         this.button_login = row.add_button([ONE_FOURTH, THREE_FOURTHS, true], 16, 'login', null);
+
+        this.wall_login.refresh_position_and_look_at();
     },
 
     /*
