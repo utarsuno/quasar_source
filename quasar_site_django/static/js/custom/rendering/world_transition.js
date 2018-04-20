@@ -84,6 +84,14 @@ TransitionPair.prototype = {
         this.previous_camera = previous_camera;
         this.current_camera  = current_camera;
         this.transition_finished_callback = transition_finished_callback;
+
+
+        // TEMPORARY TESTING!!!
+        //this.cube_camera = new THREE.CubeCamera(1, 10000, 128);
+        this.fake_camera = new THREE.Camera();
+        this.fake_scene = new THREE.Scene();
+        this.fake_scene.background = this.scene_old.fbo.texture;
+
     },
     render: function(delta) {
         //var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
@@ -118,7 +126,7 @@ TransitionPair.prototype = {
 
             //l(this.scene_old.fbo.texture);
             //this.renderer_manager.renderer.render(this.scene_old);
-
+            this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
 
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
@@ -158,7 +166,7 @@ function WorldTransition() {
 
         let previous_scene = previous_world.scene;
         // TEMPORARY TESTING.
-        previous_scene.background = COLOR_GREEN;
+        //previous_scene.background = COLOR_GREEN;
         //
         let current_scene  = current_world.scene;
 
@@ -166,7 +174,8 @@ function WorldTransition() {
         this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
 
         //let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false};
-        let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: true};
+        //let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: true};
+        let renderTargetParameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};
         previous_scene.fbo = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, renderTargetParameters);
 
         // TEMPORARY TESTING.
