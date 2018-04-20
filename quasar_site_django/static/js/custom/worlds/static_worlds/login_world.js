@@ -19,6 +19,8 @@ LoginWorld.prototype = {
         this.floating_button.set_position(100, 100, 100);
         this.floating_button.look_at_origin();
 
+        this.floating_button.add_label_right('Hello World Hello Hello World World', 16 / 2);
+
         //this.floating_text = new FloatingText2D(this, 300, 16, 'FLOATING text', null);
         //this.floating_text.set_position(100, 50, 100);
         //this.floating_text.look_at_origin();
