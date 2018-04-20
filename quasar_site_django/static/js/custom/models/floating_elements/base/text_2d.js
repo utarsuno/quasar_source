@@ -7,7 +7,7 @@ function Text2D(world, width, height, text) {
             this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
             this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
             this.dynamic_width        = true;
-            this.ratio                = this._original_text_width / this.canvas.width;
+            this.ratio                = this._original_text_width / this.width;
         }
     };
 
