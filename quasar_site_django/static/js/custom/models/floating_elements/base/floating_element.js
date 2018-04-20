@@ -28,7 +28,8 @@ function FloatingElement(world) {
         let label = new FloatingText2D(this.world, this.height, text);
         //label.set_text_property_right(true);
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
-        this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
+        //this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
+        this.add_floating_element([0, -HALF], null, 0, label);
         return label;
     };
 
