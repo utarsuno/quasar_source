@@ -1,7 +1,7 @@
 'use strict';
 
-function CanvasTexture() {
-    this.__init__();
+function CanvasTexture(width, height) {
+    this.__init__(width, height);
 }
 
 CanvasTexture.prototype = {
