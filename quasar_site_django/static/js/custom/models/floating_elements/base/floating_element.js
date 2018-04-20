@@ -32,9 +32,14 @@ function FloatingElement(world) {
         return label;
     };
 
-    this.add_label_right = function(text) {
-        let label = new FloatingText2D(this.world, this.height, text);
-        this.add_floating_element([0, HALF], null, 0, label);
+    this.add_label_right = function(text, text_size) {
+        let label;
+        if (is_defined(text_size)) {
+            label = new FloatingText2D(this.world, text_size, text);
+        } else {
+            label = new FloatingText2D(this.world, this.height, text);
+        }
+        this.add_floating_element([label.width / 2, HALF], null, 0, label);
         return label;
     };
 
