@@ -9,12 +9,12 @@ CanvasTexture.prototype = {
         // Inherit.
         CanvasAbstraction.call(this);
         this.set_dimensions(width, height);
-        this.texture = new THREE.Texture(this.canvas);
-        this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
     },
 
     initialize: function() {
         this.set_font();
+        this.texture = new THREE.Texture(this.canvas);
+        this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
     },
 
     update: function(background_color, foreground_color, text) {
