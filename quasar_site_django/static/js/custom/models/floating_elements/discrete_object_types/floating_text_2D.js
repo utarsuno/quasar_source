@@ -27,6 +27,7 @@ FloatingText2D.prototype = {
                 width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
             }
         } else {
+            this._fixed_width = true;
             width = fixed_width;
         }
 
