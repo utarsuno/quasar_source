@@ -116,8 +116,8 @@ TransitionPair.prototype = {
             //this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
             //this.renderer_manager.renderer.readRenderTargetPixels(this.scene_old.fbo);
 
-            l(this.scene_old.fbo.texture);
-
+            //l(this.scene_old.fbo.texture);
+            this.renderer_manager.renderer.render(this.scene_old);
 
 
             this.renderer_manager.renderer.setClearColor(0x111111);
