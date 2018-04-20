@@ -13,6 +13,10 @@ CanvasTexture.prototype = {
         this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
     },
 
+    initialize: function() {
+        this.set_font();
+    },
+
     update: function(background_color, foreground_color, text) {
         this.render(background_color, foreground_color, text);
         this.texture.needsUpdate = true;

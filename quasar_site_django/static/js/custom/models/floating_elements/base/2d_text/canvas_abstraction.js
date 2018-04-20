@@ -35,6 +35,8 @@ function CanvasAbstraction() {
     this.set_dimensions = function(width, height) {
         this._set_width(width);
         this._set_height(height);
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
     };
 
     this._set_height = function(height) {
