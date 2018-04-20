@@ -105,8 +105,8 @@ TransitionPair.prototype = {
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.scene_new, this.transition_finished_callback);
         } else {
-            this.renderer_manager.renderer.setClearColor(0xffffff);
-            this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
+            //this.renderer_manager.renderer.setClearColor(0xffffff);
+            //this.renderer_manager.renderer.render(this.scene_old, this.current_camera, this.scene_old.fbo, true);
             this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.scene_new, this.previous_camera, this.scene_new.fbo, true);
 
@@ -175,5 +175,3 @@ function WorldTransition() {
     };
 
 }
-
-// this.transition_render(delta);this.renderer.render(MANAGER_WORLD.current_world.scene, this.camera);

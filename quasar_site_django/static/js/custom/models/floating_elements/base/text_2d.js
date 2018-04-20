@@ -38,10 +38,6 @@ function Text2D(world, width, height, text) {
                         this.attachment_parent.refresh_position_and_look_at();
                     }
                 }
-
-            } else {
-                //this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-                //this.material.needsUpdate = true;
             }
 
             this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
