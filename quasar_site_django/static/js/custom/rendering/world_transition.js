@@ -90,8 +90,8 @@ TransitionPair.prototype = {
         //this.cube_camera = new THREE.CubeCamera(1, 10000, 128);
         this.fake_camera = new THREE.Camera();
         this.fake_scene = new THREE.Scene();
-        this.fake_scene.background = this.scene_old.fbo.texture;
-
+        //this.fake_scene.background = this.scene_old.fbo.texture;
+        this.fake_scene.background = COLOR_BLUE;
     },
     render: function(delta) {
         //var t = (1 + Math.sin(this.transition_speed * this.elapsed_delta / Math.PI)) / 2;
