@@ -19,7 +19,7 @@ LoginWorld.prototype = {
         this.floating_button.set_position(100, 100, 100);
         this.floating_button.look_at_origin();
 
-        this.floating_button.add_label_right('Hello World Hello Hello World World', 16 / 2);
+        this.HELLO = this.floating_button.add_label_right('Hello World Hello Hello World World', 16 / 2);
 
 
         this.floating_button2 = new FloatingButton(this, 100, 16, 'Button', null);
