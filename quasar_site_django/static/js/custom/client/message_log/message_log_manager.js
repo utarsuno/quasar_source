@@ -2,28 +2,13 @@
 
 function MessageLogManager() {
 
-    // TODO : Make # of rows dynamically generated based off the screen height!
-
     // Inherit.
     ClientMessageTyping.call(this);
 
     this.logs = new DomElement('gui_console_logs');
 
     this.messages = [];
-
-    // TODO : REFACTOR!
     this.rows = [];
-    this.max_row = 50;
-    /*
-    this.load_log_rows = function() {
-        let r = 0;
-        while (r < this.max_row) {
-            let index = this.max_row - 1 - r;
-            this.rows.push(new DomElement('row_' + index.toString()));
-            r += 1;
-        }
-    };
-    */
 
     this.add_server_message_red = function(message) {
         this._add_message(message, 'server', LOG_MESSAGE_COLOR_RED);
@@ -107,6 +92,5 @@ function MessageLogManager() {
         let new_row = this.logs.prepend_child_element('r' + (this.rows.length).toString());
         new_row.add_class('gui_typing_offset');
         this.rows.push(new_row);
-        //this.logs.prepend_break();
     };
 }
