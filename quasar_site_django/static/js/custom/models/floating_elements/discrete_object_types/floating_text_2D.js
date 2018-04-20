@@ -18,7 +18,8 @@ FloatingText2D.prototype = {
         let width;
         if (!is_defined(fixed_width)) {
 
-            l('Width needed is :' + MANAGER_TEXT_2D.get_width_needed(text, height));
+            width = MANAGER_TEXT_2D.get_width_needed(text, height);
+            l('Width needed is :' + width);
 
 
             /*
@@ -32,7 +33,7 @@ FloatingText2D.prototype = {
                 width = MANAGER_TEXT_2D.get_width_of_text_given_bounding_height(text, height);
             }
             */
-            width = 120;
+            //width = 120;
         } else {
             this._fixed_width = true;
             width = fixed_width;
@@ -43,6 +44,8 @@ FloatingText2D.prototype = {
 
         if (!is_defined(fixed_width)) {
             this.set_property_fixed_width(false);
+        } else {
+            this.set_property_fixed_width(true);
         }
 
         this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
@@ -50,6 +53,7 @@ FloatingText2D.prototype = {
         this.set_foreground_color(COLOR_BLUE);
 
         this.initialize();
+        // TODO : Check if this refresh call is needed.
         this.refresh();
     }
 
