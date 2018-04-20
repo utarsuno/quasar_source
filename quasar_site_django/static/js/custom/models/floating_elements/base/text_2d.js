@@ -118,6 +118,11 @@ function Text2D(world, width, height, text) {
 
             l(this.geometry.faceVertexUvs);
 
+            this.geometry.faceVertexUvs[1][1][0] = this.ratio;
+            this.geometry.faceVertexUvs[1][2][0] = this.ratio;
+
+            this.geometry.uvsNeedUpdate = true;
+
         } else {
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         }
