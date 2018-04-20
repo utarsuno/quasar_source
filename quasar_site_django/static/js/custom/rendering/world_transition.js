@@ -140,7 +140,7 @@ TransitionPair.prototype = {
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
 
-        this.elapsed_delta += delta / 10;
+        this.elapsed_delta += delta / 5;
     }
 };
 
