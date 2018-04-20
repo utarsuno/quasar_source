@@ -29,11 +29,13 @@ function FloatingElement(world) {
         label.set_text_property_right(true);
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
+        return label;
     };
 
     this.add_label_right = function(text) {
         let label = new FloatingText2D(this.world, this.height, text);
         this.add_floating_element([0, HALF], null, 0, label);
+        return label;
     };
 
     this.add_icon_left = function(icon_type) {
