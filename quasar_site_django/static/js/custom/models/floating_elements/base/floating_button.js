@@ -9,7 +9,6 @@ FloatingButton.prototype = {
     __init__: function(world, width, text_height, text, engage_function) {
         // Inherit.
         Text2D.call(this, world, width, text_height, text);
-        this.set_property_fixed_width(true);
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
         this.set_text_property_centered(true);
 

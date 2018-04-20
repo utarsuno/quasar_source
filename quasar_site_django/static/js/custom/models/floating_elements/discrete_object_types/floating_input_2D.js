@@ -9,7 +9,6 @@ FloatingInput2D.prototype = {
     __init__: function(world, width, height, text) {
         // Inherit.
         Text2D.call(this, world, width, height, text);
-        this.set_property_fixed_width(true);
 
         this.set_to_typeable();
 
