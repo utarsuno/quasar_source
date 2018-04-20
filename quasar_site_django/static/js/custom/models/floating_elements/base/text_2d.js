@@ -7,6 +7,7 @@ function Text2D(world, width, height, text) {
     TextAbstraction.call(this, text);
 
     this.canvas = new CanvasTexture(width, height);
+    this.fixed_width = true;
 
     this.initialized = false;
 
@@ -15,9 +16,27 @@ function Text2D(world, width, height, text) {
     this.width = width;
     this.height = height;
 
-    this.refresh = function() {
+    this.process_width = function() {
+        if (!is_defined(this.width)) {
+            this._original_text_width = MANAGER_TEXT_2D.get_width_needed(text, height);
+            this.width = get_nearest_power_of_two_for_number(this._original_text_width);
+            this.set_to_dynamic_width();
+        }
+    };
 
+    this.refresh = function() {
         if (this.initialized) {
+
+            if (!this.fixed_width) {
+
+                l('TODO : Update for fixed width!');
+                l(this.text_changed);
+                l(this.color_changed);
+
+            } else {
+                this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+                this.material.needsUpdate = true;
+            }
 
             /*
             if (this.text_changed && !this._fixed_width) {
@@ -33,22 +52,16 @@ function Text2D(world, width, height, text) {
             //this.color_changed = false;
 
             //l('Rendering the following text: ' + this.get_display_text());
-            this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-            this.material.needsUpdate = true;
+            //this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+            //this.material.needsUpdate = true;
         }
     };
 
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
-    this.set_property_fixed_width = function(fixed_width) {
-        this.canvas.set_property_fixed_width(fixed_width);
-    };
-
-    // TODO : DELETE THIS!
-    this.set_text_property_right = function(is_right) {
-        this.canvas.text_property_right = is_right;
-        //this.refresh();
+    this.set_to_dynamic_width = function() {
+        this.fixed_width = false;
     };
 
     this.set_text_property_centered = function (is_centered) {
@@ -66,14 +79,12 @@ function Text2D(world, width, height, text) {
         //this.refresh();
     };
 
-    this._original_width_needed = function(original_width) {
-        this._original_text_width = original_width;
-    };
-
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
+        this.process_width();
+
         this.canvas.initialize();
 
         let fixed_width = this.canvas.fixed_width;
@@ -88,16 +99,9 @@ function Text2D(world, width, height, text) {
     };
 
     this.create_base_material = function() {
-        //this.material = new THREE.MeshBasicMaterial({
-        //    map : this.canvas.texture, transparent: true, side: THREE.FrontSide
-        //});
-
-
-
         this.material = new THREE.MeshToonMaterial({
             map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         });
-
         this.material.transparent = true;
         this.material.side = THREE.FrontSide;
     };
@@ -115,7 +119,7 @@ function Text2D(world, width, height, text) {
 
             this.ratio = this._original_text_width / this.canvas.width;
 
-            l(this.ratio);
+            //l(this.ratio);
 
             this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
             this.geometry.faceVertexUvs[0][1][1].x = this.ratio;
