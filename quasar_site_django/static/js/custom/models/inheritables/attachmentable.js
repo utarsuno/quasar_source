@@ -236,6 +236,10 @@ function Attachmentable(world) {
         }
     };
 
+    this.set_attachment_horizontal_distance_offset = function(distance_offset) {
+        this.offset_horizontal_distance = distance_offset;
+    };
+
     this.set_attachment_horizontal_offset = function(distance_offset, parent_width_percentage_offset) {
         // No need for is_defined checks as the values will be checked before being used.
         this.offset_horizontal_distance = distance_offset;

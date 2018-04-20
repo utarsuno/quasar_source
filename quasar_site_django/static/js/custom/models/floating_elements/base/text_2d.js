@@ -32,6 +32,16 @@ function Text2D(world, width, height, text) {
                     this.delete_material();
                     this.create_base_material();
                     this.create_base_mesh();
+
+                    // Update horizontal offset if needed.
+                    if (this.is_attached()) {
+                        if (this.is_left_attachment) {
+                            this.set_attachment_horizontal_distance_offset(-this.width / 2);
+                        } else if (this.is_right_attachment) {
+                            this.set_attachment_horizontal_distance_offset(this.width / 2);
+                        }
+                    }
+
                 }
 
                 l('TODO : Update for fixed width!');

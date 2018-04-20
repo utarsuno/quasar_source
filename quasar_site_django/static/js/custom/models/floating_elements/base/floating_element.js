@@ -12,6 +12,9 @@ function FloatingElement(world) {
     this.needs_mobile_keyboard = false;
     this.is_clickable          = false;
 
+    this.is_left_attachment = false;
+    this.is_right_attachment = false;
+
     this.set_to_typeable = function() {
         this.needs_mobile_keyboard = true;
         this.set_to_interactive();
@@ -27,6 +30,7 @@ function FloatingElement(world) {
     this.add_label_left = function(text) {
         let label = new FloatingText2D(this.world, this.height, text);
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
+        label.is_left_attachment = true;
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
         return label;
     };
@@ -38,7 +42,8 @@ function FloatingElement(world) {
         } else {
             label = new FloatingText2D(this.world, this.height, text);
         }
-        this.add_floating_element([label.width / 2 + label.width / 4, HALF], null, 0, label);
+        label.is_right_attachment = true;
+        this.add_floating_element([label.width / 2, HALF], null, 0, label);
         return label;
     };
 
