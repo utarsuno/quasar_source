@@ -44,10 +44,10 @@ function CanvasAbstraction() {
     };
 
     this._set_height = function(height) {
-        this.height = get_next_highest_power_of_two(height);
+        this.height = get_next_highest_power_of_two(height * 2);
     };
 
     this._set_width = function(width) {
-        this.width = get_next_highest_power_of_two(width);
+        this.width = get_next_highest_power_of_two(width * 2);
     };
 }
