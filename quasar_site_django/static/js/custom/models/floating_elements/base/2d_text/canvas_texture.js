@@ -1,14 +1,13 @@
 'use strict';
 
-function CanvasTexture(width, height) {
-    this.__init__(width, height);
+function CanvasTexture() {
+    this.__init__();
 }
 
 CanvasTexture.prototype = {
-    __init__: function(width, height) {
+    __init__: function() {
         // Inherit.
         CanvasAbstraction.call(this);
-        this.set_dimensions(width, height);
     },
 
     initialize: function() {

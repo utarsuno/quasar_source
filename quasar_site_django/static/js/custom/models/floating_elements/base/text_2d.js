@@ -20,10 +20,9 @@ function Text2D(world, width, height, text) {
 
     this.process_width();
 
-    this.canvas = new CanvasTexture(width, height);
+    this.canvas = new CanvasTexture();
 
     this.initialized = false;
-
     this.needs_hex_colors = true;
 
     this.refresh = function() {
@@ -84,6 +83,7 @@ function Text2D(world, width, height, text) {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
+        this.canvas.set_dimensions(this.width, this.height);
         this.canvas.initialize();
 
         if (this.dynamic_width) {
