@@ -19,10 +19,6 @@ function ButtonState() {
     this.add_attachment(this.locked_icon);
     this.locked_icon.set_to_invisible();
 
-    this.warning_text = this.add_label_right('WARNING TEXT');
-    this.warning_text.set_foreground_color(COLOR_RED);
-    this.warning_text.set_to_invisible();
-
     this.disable = function() {
         this._enabled = false;
         this.disabled_icon.set_to_visible();

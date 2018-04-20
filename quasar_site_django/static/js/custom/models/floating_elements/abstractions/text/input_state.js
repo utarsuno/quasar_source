@@ -10,6 +10,10 @@ function InputState() {
     this.add_attachment(this.warning_icon);
     this.warning_icon.set_to_invisible();
 
+    this.warning_text = this.add_label_right('WARNING TEXT');
+    this.warning_text.set_foreground_color(COLOR_RED);
+    this.warning_text.set_to_invisible();
+
     this.display_warning_icon = function(warning_text) {
         this.warning_icon.set_to_visible();
         this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
