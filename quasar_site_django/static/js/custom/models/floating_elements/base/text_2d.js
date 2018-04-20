@@ -6,7 +6,6 @@ function Text2D(world, width, height, text) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
-    this.canvas = new CanvasTexture(width, height);
     this.dynamic_width = false;
 
     this.initialized = false;
@@ -80,6 +79,7 @@ function Text2D(world, width, height, text) {
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.initialize = function() {
         this.process_width();
+        this.canvas = new CanvasTexture(this.width, this.height);
 
         this.canvas.initialize();
 
