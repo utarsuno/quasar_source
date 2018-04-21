@@ -13,8 +13,9 @@ FloatingText2D.prototype = {
         // Inherit.
         Text2D.call(this, world, fixed_width, height, text);
 
-        //this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
-        this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
+        this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+
+        // For debugging mesh width : this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
         this.set_foreground_color(COLOR_BLUE);
 
         this.initialize();

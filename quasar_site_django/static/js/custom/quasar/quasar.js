@@ -21,7 +21,6 @@ QuasarMainLoop.prototype = {
     },
 
     run: function() {
-        // TODO : Make the messages fade away over time and then appear again whenever the typing menu is present.
         CURRENT_CLIENT.add_server_message_green('Welcome to Quasar!');
 
         // Game loop below.
@@ -44,7 +43,7 @@ QuasarMainLoop.prototype = {
 
             MANAGER_WORLD.update(this.delta);
 
-            if (this.message_log_update_index === 4) {
+            if (this.message_log_update_index === 5) {
                 CURRENT_CLIENT.update_message_log(this.delta);
                 this.message_log_update_index = 0;
             } else {
@@ -60,20 +59,7 @@ QuasarMainLoop.prototype = {
     }
 };
 
-
-//const QUASAR = new QuasarMainLoop(CURRENT_CLIENT);
-
-// Load all the initially needed resources. Once loaded start the main loop.
-//MANAGER_LOADING.perform_initial_load(QUASAR);
-
-let pt = performance.now();
-l('BEFORE WINDOW ON LOAD!');
-
 window.onload = function() {
-    let t = performance.now();
-    l(t - pt);
-    l('AFTER WINDOW ON LOAD!');
-
     load_all_global_managers();
     const QUASAR = new QuasarMainLoop(CURRENT_CLIENT);
     MANAGER_LOADING.perform_initial_load(QUASAR);

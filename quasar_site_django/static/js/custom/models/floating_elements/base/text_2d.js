@@ -1,5 +1,28 @@
 'use strict';
 
+function Text2DUtilities() {
+    this.__init__();
+}
+
+Text2DUtilities.prototype = {
+    __init__: function() {
+        this.canvas = new CanvasAbstraction();
+    },
+    get_width_needed: function(text, height, bold, italic) {
+        if (is_defined(bold)) {
+            this.canvas.set_font_property_bold(bold);
+        }
+        if (is_defined(italic)) {
+            this.canvas.set_font_property_italic(italic);
+        }
+        this.canvas._set_height(height);
+        this.canvas.set_font();
+        return this.canvas.get_text_width(text);
+    }
+};
+
+const _MANAGER_TEXT_2D = new Text2DUtilities();
+
 function Text2D(world, width, height, text) {
 
     // Inherit.
@@ -71,7 +94,7 @@ function Text2D(world, width, height, text) {
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.process_width = function() {
         if (!is_defined(this.width)) {
-            this._original_text_width = MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
+            this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
             this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
             this.dynamic_width        = true;
             this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));

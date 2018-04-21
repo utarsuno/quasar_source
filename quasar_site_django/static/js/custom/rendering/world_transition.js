@@ -19,9 +19,6 @@ TransitionAffect.prototype = {
 
         this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
         this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
-
-        //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_current.texture);
-        //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_previous.texture);
     },
 
     start: function(transition_finished_callback) {
@@ -34,9 +31,6 @@ TransitionAffect.prototype = {
         this.scene = new THREE.Scene();
         this.camera_ortho = new THREE.OrthographicCamera(this.renderer_manager.window_width / -2, this.renderer_manager.window_width / 2, this.renderer_manager.window_height / 2, this.renderer_manager.window_height / -2, -10, 10);
         this.quad_geometry = new THREE.PlaneBufferGeometry(this.renderer_manager.window_width, this.renderer_manager.window_height);
-
-        l(window.innerWidth);
-        l(this.renderer_manager.window_width);
 
         //this.camera_ortho = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -10, 10);
         //this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);

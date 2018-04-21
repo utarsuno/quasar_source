@@ -45,8 +45,6 @@ function load_all_global_managers() {
     MANAGER_TEXTURE   = new TextureManager();
     // Handles images that get dropped onto the site page.
     //var DRAG_AND_DROP = new DragNDrop();
-    // Provides utility functions for creating 2D Texts.
-    MANAGER_TEXT_2D   = new Text2DUtilities();
 
     /*     __   __        __                           __   ___  __   __
      |  | /  \ |__) |    |  \     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
