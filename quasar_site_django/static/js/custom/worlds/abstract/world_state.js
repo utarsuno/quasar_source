@@ -72,7 +72,7 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         let p = CURRENT_PLAYER.get_position();
         let l = CURRENT_PLAYER.get_direction();
         this.player_exit_position = new THREE.Vector3(p.x, p.y, p.z);
-        this.player_exit_look_at  = new THREE.Vector3(p.x + l.x, p.y + l.y, p.z + lz.);
+        this.player_exit_look_at  = new THREE.Vector3(p.x + l.x, p.y + l.y, p.z + l.z);
     };
 
 }
