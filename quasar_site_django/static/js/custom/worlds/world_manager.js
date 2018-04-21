@@ -125,6 +125,7 @@ WorldManager.prototype = {
 
         // Set the player position ahead of time.
         this.current_world.set_player_enter_position_and_look_at();
+        this.current_world.enter_world(this.player_cursor);
 
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
@@ -134,7 +135,7 @@ WorldManager.prototype = {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
         }
 
-        this.current_world.enter_world(this.player_cursor);
+        //this.current_world.enter_world(this.player_cursor);
     },
 
     create_world: function(world) {
