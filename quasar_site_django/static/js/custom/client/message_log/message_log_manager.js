@@ -43,13 +43,13 @@ function MessageLogManager() {
     };
 
     this.update_message_log = function(delta) {
-        if (!this.gui_typing.is_hidden()) {
+        if (this.gui_typing.is_hidden()) {
             this._messages_delta += delta;
             if (this._messages_delta >= .5) {
                 let m;
                 for (m = 0; m < this.messages.length; m++) {
                     if (this.messages[m].has_update()) {
-                        this.messages[m].update(delta);
+                        this.messages[m].update(this._messages_delta);
                         let index = this.messages[m].get_row_index();
                         this.rows[index].set_color(this.messages[m].get_color());
                         this.rows[index].set_text(this.messages[m].get_text());
