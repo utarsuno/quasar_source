@@ -105,7 +105,13 @@ InputManager.prototype = {
             //MobileButtonManager.call(this);
             MobileKeyboard.call(this);
 
+            // TODO : Move this/refactor
             this.mobile_text_input = document.getElementById('mobile_text_input');
+        } else {
+            // Check if the desktop client has touch controls in order to disable pinch zoom events.
+            if ('ontouchstart' in window) {
+                MobileInputManager.call(this);
+            }
         }
     },
 
