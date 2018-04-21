@@ -35,7 +35,8 @@ function World(world_entity) {
 
     this.delete_all = function() {
         // Delete all the entity groups.
-        for (var eg = 0; eg < this.entity_groups.length; eg++) {
+        let eg;
+        for (eg = 0; eg < this.entity_groups.length; eg++) {
             this.entity_groups[eg].base_wall.fully_remove_self_and_all_sub_attachments();
         }
         this.entity_groups.length = 0;

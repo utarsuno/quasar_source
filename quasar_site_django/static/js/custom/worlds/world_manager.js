@@ -112,6 +112,9 @@ WorldManager.prototype = {
             this.previous_world = this.current_world;
         }
         this.current_world = world;
+        l('Previous world then current!');
+        l(this.previous_world);
+        l(this.current_world);
 
         // Before switching to the new scene make sure it has all non world-unique objects.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);

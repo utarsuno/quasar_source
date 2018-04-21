@@ -24,7 +24,7 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         l('---');
         l(this.default_world_enter_position);
         l(this.default_world_enter_look_at);
-        
+
     };
 
     this.exit_world = function() {
