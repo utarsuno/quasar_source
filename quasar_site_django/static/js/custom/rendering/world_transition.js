@@ -106,11 +106,13 @@ function WorldTransition() {
     };
 
     this.set_current_world = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at) {
-        let p = previous_position_and_look_at[0];
-        let l = previous_position_and_look_at[1];
+        if (is_defined(previous_world)) {
+            let p = previous_position_and_look_at[0];
+            let l = previous_position_and_look_at[1];
 
-        this._camera_transition.position.set(p.x, p.y, p.z);
-        this._camera_transition.lookAt(p.x + l.x, p.y + l.y, p.z + l.z);
+            this._camera_transition.position.set(p.x, p.y, p.z);
+            this._camera_transition.lookAt(p.x + l.x, p.y + l.y, p.z + l.z);
+        }
 
         this._current_transition = new TransitionAffect(previous_world, current_world, transition_finished_callback, previous_position_and_look_at);
         this._current_transition.start(transition_finished_callback);
