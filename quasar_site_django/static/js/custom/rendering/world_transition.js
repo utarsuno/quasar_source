@@ -19,6 +19,9 @@ TransitionAffect.prototype = {
 
         this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
         this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
+
+        //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_current.texture);
+        //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_previous.texture);
     },
 
     start: function(transition_finished_callback) {
@@ -32,17 +35,24 @@ TransitionAffect.prototype = {
         //this.camera_ortho = new THREE.OrthographicCamera(this.renderer_manager.window_width / -2, this.renderer_manager.window_width / 2, this.renderer_manager.window_height / 2, this.renderer_manager.window_height / -2, -10, 10);
         //this.quad_geometry = new THREE.PlaneBufferGeometry(this.renderer_manager.window_width, this.renderer_manager.window_height);
 
-        //this.camera_ortho = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -10, 10);
-        //this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
+        this.camera_ortho = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -10, 10);
+        this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
 
-        //l(this.renderer_manager._transition_shader_material.get_shader_material());
+        l(this.renderer_manager._transition_shader_material.get_shader_material());
         this.quad = new THREE.Mesh(this.quad_geometry, this.renderer_manager._transition_shader_material.get_shader_material());
         this.scene.add(this.quad);
 
         this.fake_camera = new THREE.Camera();
         this.fake_scene = new THREE.Scene();
+        //this.renderer_manager.renderer.autoClear = false;
+
+        //l('CAMERA POSITIONS!!');
+        //l(this.renderer_manager._camera_transition.position);
+        //l(this.renderer_manager.camera.position);
+        //l('-------');
 
         this.renderer_manager.renderer.autoClear = false;
+        //this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
         this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager.camera, this.fbo_previous, true);
         this.fake_scene.background = this.fbo_previous;
     },
@@ -55,15 +65,44 @@ TransitionAffect.prototype = {
 
         this.renderer_manager._transition_shader_material.set_mix_ratio(this.elapsed_delta);
 
+        //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
+        //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
+
+        //l(this.elapsed_delta);
+        //l(this.renderer_manager._transition_shader_material.shader_material.uniforms);
+        //l(this.renderer_manager._transition_shader_material.shader_material.uniforms['mix_ratio']);
+
+        // Prevent render both scenes when it's not necessary
         if (this.elapsed_delta == 0 ) {
             this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
         } else if (this.elapsed_delta >= 1) {
+            //this.renderer_manager.in_transition = false;
             this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera);
             this.renderer_manager.set_current_scene(this.new_world.scene, this.transition_finished_callback);
         } else {
+            //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
+
+            //this.renderer_manager.renderer.setClearColor(0x111111);
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            if (is_defined(this.old_world)) {
+                //this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_current, true);
+                //this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
+            } else {
+                //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager._camera_transition, this.fbo_current, true);
+            }
+
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager._camera_transition, this.fbo_current, true);
+
+
+            //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
+
             this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager._camera_transition, this.fbo_current, true);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+
+
+            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho);
         }
 
         //this.elapsed_delta += delta / 2.5;
@@ -114,6 +153,24 @@ function WorldTransition() {
         this._current_transition = new TransitionAffect(previous_world, current_world, this);
         this._current_transition.start(transition_finished_callback);
     };
+
+    /*
+    this.set_current_worldOLD = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at) {
+        let previous_camera_position = CURRENT_PLAYER.get_position();
+        let previous_camera_look_at  = CURRENT_PLAYER.get_direction();
+
+        let previous_scene = previous_world.scene;
+        let current_scene  = current_world.scene;
+
+        this.camera_transition.position.set(previous_camera_position.x, previous_camera_position.y, previous_camera_position.z);
+        this.camera_transition.lookAt(previous_camera_position.x + previous_camera_look_at.x, previous_camera_position.y + previous_camera_look_at.y, previous_camera_position.z + previous_camera_look_at.z);
+
+        //
+        this.current_transition = this._get_transition_pair(previous_scene, current_scene);
+        this.current_transition.set_size_if_needed(this.current_resize);
+        this.current_transition.start(this.camera, this.camera_transition, transition_finished_callback);
+    };
+    */
 
     // Only used once for displaying the initial login world.
     this.set_current_scene = function(scene, transition_finished_callback) {
