@@ -74,12 +74,12 @@ TransitionAffect.prototype = {
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.new_world.scene, this.transition_finished_callback);
         } else {
-            this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
+            //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
 
             //this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
 
-            this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
 
         //this.elapsed_delta += delta / 2.5;
@@ -157,8 +157,8 @@ function WorldTransition() {
         this.outline_glow.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
 
-        //this._current_transition.clean_up();
-        //this._current_transition = undefined;
+        this._current_transition.clean_up();
+        this._current_transition = undefined;
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();
