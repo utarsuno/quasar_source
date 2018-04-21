@@ -19,7 +19,7 @@ function MobileInputManager() {
     this.mobile_resize = function(w, h) {
         this.is_horizontal = window.innerWidth > window.innerHeight;
         this.movement_boundary_x = w * ONE_THIRD;
-        this.movement_boundary_y = h * ONE_THIRD;
+        this.movement_boundary_y = h * HALF;
     };
 
     this._in_movement_boundary = function(x, y) {
@@ -39,7 +39,8 @@ function MobileInputManager() {
         let x = touch.pageX;
         let y = touch.pageY;
 
-        if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y) && !CURRENT_CLIENT.is_mobile) {
+        // if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y) && !CURRENT_CLIENT.is_mobile) {
+        if (!this.touch_movement.is_alive() && this._in_movement_boundary(x, y) && CURRENT_CLIENT.is_mobile) {
             this.touch_movement.set_to_alive(touch);
         } else if (!this.touch_camera.is_alive()) {
             this.touch_camera.set_to_alive(touch);
