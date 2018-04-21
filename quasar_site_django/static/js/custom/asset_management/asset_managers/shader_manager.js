@@ -42,7 +42,8 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
     //this.uniforms        = [];
     this.set_uniform = function(k, v) {
         //this.uniforms[k] = v;
-        this.shader_material.uniforms[k] = v;
+        //this.shader_material.uniforms[k] = v;
+        this.shader_material.uniforms[k].value = v;
     };
 }
 
