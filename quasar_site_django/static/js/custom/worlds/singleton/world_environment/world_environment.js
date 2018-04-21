@@ -32,7 +32,7 @@ WorldEnvironment.prototype = {
         old_world.remove_from_scene(this.light_2);
         old_world.remove_from_scene(this.light_3);
         old_world.remove_from_scene(this.light);
-        
+
         new_world.add_to_scene(this.skybox_cube);
         new_world.add_to_scene(this.board.group);
         new_world.add_to_scene(this.light_0);
