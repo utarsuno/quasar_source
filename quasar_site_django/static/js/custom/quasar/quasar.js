@@ -15,9 +15,6 @@ QuasarMainLoop.prototype = {
         this.current_client          = current_client;
         this.previous_time           = null;
         this.single_render_performed = false;
-
-        // Temporary performance : message logs will get updated every 4rth update.
-        this.message_log_update_index = 0;
     },
 
     run: function() {
@@ -43,12 +40,7 @@ QuasarMainLoop.prototype = {
 
             MANAGER_WORLD.update(this.delta);
 
-            if (this.message_log_update_index === 30) {
-                CURRENT_CLIENT.update_message_log(this.delta);
-                this.message_log_update_index = 0;
-            } else {
-                this.message_log_update_index += 1;
-            }
+            CURRENT_CLIENT.update_message_log(this.delta);
 
             MANAGER_RENDERER.render(this.delta);
             this.current_client.post_render();
