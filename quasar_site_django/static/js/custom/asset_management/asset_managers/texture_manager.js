@@ -70,7 +70,8 @@ TextureManager.prototype = {
         this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_RIGHT));
         this.sky_box_material.push(this.get_texture(TEXTURE_GROUP_SKYBOX, SKYBOX_LEFT));
 
-        for (var t = 0; t < this.sky_box_material.length; t++) {
+        let t;
+        for (t = 0; t < this.sky_box_material.length; t++) {
             // depthWrite: false, depthTest: false
 
             //depthTest : false, depthWrite: false
