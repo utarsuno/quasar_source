@@ -97,7 +97,7 @@ TransitionAffect.prototype = {
 
 
 
-            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
             //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
 
