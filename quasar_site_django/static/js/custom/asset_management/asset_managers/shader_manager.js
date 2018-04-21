@@ -55,6 +55,24 @@ ShaderMaterialTransition.prototype = {
         ShaderMaterialAbstraction.call(this, SHADER_TRANSITION_VERTEX, SHADER_TRANSITION_FRAGEMENT);
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
         this.shader_material = new THREE.ShaderMaterial({
+            uniforms: {
+                tDiffuse1: {
+                    value: null
+                },
+                tDiffuse2: {
+                    value: null
+                },
+                mixRatio: {
+                    value: 0.0
+                },
+                threshold: {
+                //    value: 0.1
+                    value: 0.1
+                },
+                tMixTexture: {
+                    value: this.texture
+                }
+            },
             vertexShader: this.shader_vertex,
             fragmentShader: this.shader_fragment
         });
