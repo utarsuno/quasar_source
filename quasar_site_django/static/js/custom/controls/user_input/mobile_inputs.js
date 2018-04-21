@@ -98,6 +98,9 @@ function MobileInputManager() {
         this._check_if_touch_ended(active_identifiers, this.touch_movement);
         this._check_if_touch_ended(active_identifiers, this.touch_camera);
         this._check_if_touch_ended(active_identifiers, this.touch_double_click);
+
+        event.preventDefault();
+        event.stopPropagation();
     };
 
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));

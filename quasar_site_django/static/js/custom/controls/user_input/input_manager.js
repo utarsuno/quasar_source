@@ -104,12 +104,10 @@ InputManager.prototype = {
             MobileInputManager.call(this);
             //MobileButtonManager.call(this);
             MobileKeyboard.call(this);
-
-            // TODO : Move this/refactor
-            this.mobile_text_input = document.getElementById('mobile_text_input');
         } else {
             // Check if the desktop client has touch controls in order to disable pinch zoom events.
             if ('ontouchstart' in window) {
+                l('DESKTOP CLIENT HAS ONTOUCHSTART');
                 MobileInputManager.call(this);
             }
         }
@@ -136,13 +134,16 @@ InputManager.prototype = {
         this.shift  		   = false;
     },
 
-    on_paste: function(e) {
+    on_paste: function(event) {
         if (CURRENT_PLAYER.has_paste_event()) {
             // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
-            let clipboard_data = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+            let clipboard_data = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData;
             let pasted_data = clipboard_data.getData('text');
             MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
         }
+
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     _mouse_movement: function(x, y) {
@@ -165,6 +166,8 @@ InputManager.prototype = {
                 MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
             }
         */
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_key_down: function(event) {
@@ -195,18 +198,22 @@ InputManager.prototype = {
             }
         }
         MANAGER_WORLD.key_down_event(event);
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
-    on_wheel_event: function(e) {
+    on_wheel_event: function(event) {
         if (CURRENT_PLAYER.has_input()) {
             /* Check whether the wheel event is supported. */
-            if (e.type == 'wheel') this.supports_wheel = true;
+            if (event.type == 'wheel') this.supports_wheel = true;
             else if (this.supports_wheel) return;
 
             /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
-            MANAGER_WORLD.current_world.wheel_event(((e.deltaY || -e.wheelDelta || e.detail) >> 10) || 1);
+            MANAGER_WORLD.current_world.wheel_event(((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1);
         }
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_key_up: function(event) {
@@ -236,11 +243,13 @@ InputManager.prototype = {
                 break;
             }
         }
+        event.preventDefault();
+        event.stopPropagation();
     },
 
-    on_mouse_up: function(e) {
-        e = e || window.event;
-        switch (e.which) {
+    on_mouse_up: function(event) {
+        event = event || window.event;
+        switch (event.which) {
         case this.CLICK_LEFT:
             this.click_down_left = false;
             MANAGER_WORLD.left_click_up();
@@ -254,11 +263,13 @@ InputManager.prototype = {
             this.click_down_right = false;
             break;
         }
+        event.preventDefault();
+        event.stopPropagation();
     },
 
-    on_mouse_down: function(e) {
-        e = e || window.event;
-        switch (e.which) {
+    on_mouse_down: function(event) {
+        event = event || window.event;
+        switch (event.which) {
         case this.CLICK_LEFT:
             MANAGER_WORLD.left_click_down();
             this.click_down_left = true;
@@ -271,6 +282,8 @@ InputManager.prototype = {
             this.click_down_right = true;
             break;
         }
+        event.preventDefault();
+        event.stopPropagation();
     }
 
 };

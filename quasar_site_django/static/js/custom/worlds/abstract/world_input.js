@@ -38,9 +38,6 @@ function WorldInput() {
                 }
             }
         }
-
-        // No defaults will be useful (for now).
-        event.preventDefault();
     };
 
     /*___       __      ___       ___      ___

@@ -5,7 +5,6 @@ function MobileKeyboard() {
     this.mobile_keyboard_visible = false;
 
     this.load_mobile_keyboard = function() {
-        //this.mobile_text_input = document.getElementById('mobile_keyboard_div');
         this.mobile_text_input = new DomElement('mobile_keyboard_div');
 
         // Load all the individual buttons.
@@ -50,6 +49,10 @@ function MobileKeyboard() {
         // TODO : Abstract with DomElement!
         this.keyboard_button_close = document.getElementById('mobile_button_exit').addEventListener('click', this._keyboard_button_close_pressed.bind(this));
         this.keyboard_button_delete = document.getElementById('mobile_button_del').addEventListener('click', this._keyboard_button_delete_pressed.bind(this));
+
+
+
+        // TODO : Cover long press event!
     };
 
     this._create_and_bind_keyboard_button = function(key) {
