@@ -1,7 +1,7 @@
 'use strict';
 
-//const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};
-const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, stencilBuffer: false};
+const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter};
+//const _render_target_parameters = {minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, stencilBuffer: false};
 
 function TransitionAffect(old_world, new_world, renderer_manager) {
     this.__init__(old_world, new_world, renderer_manager);
