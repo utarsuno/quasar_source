@@ -75,7 +75,8 @@ WorldManager.prototype = {
         //    MANAGER_WORLD.current_player_menu.update(delta);
         //}
 
-        for (let a = 0; a < this.current_world.root_attachables.length; a++) {
+        let a;
+        for (a = 0; a < this.current_world.root_attachables.length; a++) {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
 
@@ -195,8 +196,8 @@ WorldManager.prototype = {
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);
-        GUI_PAUSED_MENU.make_invisible();
-        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+        //GUI_PAUSED_MENU.make_invisible();
+        //CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
     },
 
     /*__                         __           __   __        __   __                           __   ___        ___      ___
