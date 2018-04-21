@@ -85,7 +85,7 @@ function MessageLogManager() {
         // Dynamically adjust the parent dom top % so that the message display at the bottom.
         let current_height_used = this._get_number_of_active_rows() * 12;
         let top_offset = this.available_height - current_height_used;
-        this.logs.set_top_height(top_offset);
+        this.logs.set_top_offset(top_offset);
     };
 
     this._add_row = function() {

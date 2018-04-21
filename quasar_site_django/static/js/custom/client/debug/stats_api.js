@@ -14,10 +14,8 @@ StatsAPI.prototype = {
         // Set the display mode.
         this.stats_fps.showPanel(0);
 
-        // Set the styling.
-        this.stats_fps.domElement.style.position = 'absolute';
-        this.stats_fps.domElement.style.left     = '0px';
-        this.stats_fps.domElement.style.top      = '0px';
+        this.element = new DomElement(null, this.stats_fps.domElement);
+        this.element.set_id('fps_display');
 
         this.add_to_document();
     },
@@ -27,11 +25,11 @@ StatsAPI.prototype = {
     },
 
     hide: function() {
-        this.stats_fps.domElement.style.display = DISPLAY_NONE;
+        this.element.hide();
     },
 
     show: function() {
-        this.stats_fps.domElement.style.display = DISPLAY_SHOW;
+        this.element.show();
     },
 
     pre_render: function() {

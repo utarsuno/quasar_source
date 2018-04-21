@@ -86,7 +86,7 @@ function WorldInput() {
     // This gets called on left mouse button up event.
     this.single_left_click = function() {
 
-        if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.mobile_keyboard_visible) {
+        if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.is_mobile_keyboard_visible()) {
             return;
         }
 

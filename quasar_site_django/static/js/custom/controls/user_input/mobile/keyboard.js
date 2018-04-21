@@ -5,7 +5,8 @@ function MobileKeyboard() {
     this.mobile_keyboard_visible = false;
 
     this.load_mobile_keyboard = function() {
-        this.mobile_text_input = document.getElementById('mobile_keyboard_div');
+        //this.mobile_text_input = document.getElementById('mobile_keyboard_div');
+        this.mobile_text_input = new DomElement('mobile_keyboard_div');
 
         // Load all the individual buttons.
         this._create_and_bind_keyboard_button('0');
@@ -46,6 +47,7 @@ function MobileKeyboard() {
         this._create_and_bind_keyboard_button('z');
         this._create_and_bind_keyboard_button('space');
 
+        // TODO : Abstract with DomElement!
         this.keyboard_button_close = document.getElementById('mobile_button_exit').addEventListener('click', this._keyboard_button_close_pressed.bind(this));
         this.keyboard_button_delete = document.getElementById('mobile_button_del').addEventListener('click', this._keyboard_button_delete_pressed.bind(this));
     };
@@ -78,13 +80,15 @@ function MobileKeyboard() {
     };
 
     this.trigger_mobile_keyboard = function() {
-        this.mobile_text_input.style.visibility = VISIBLE;
-        this.mobile_keyboard_visible = true;
+        this.mobile_text_input.make_visible();
     };
 
     this.hide_mobile_keyboard = function() {
-        this.mobile_text_input.style.visibility = NOT_VISIBLE;
-        this.mobile_keyboard_visible = false;
+        this.mobile_text_input.make_invisible();
+    };
+
+    this.is_mobile_keyboard_visible = function() {
+        return this.mobile_text_input.is_visible();
     };
 
 }

@@ -440,7 +440,12 @@ function Attachmentable(world) {
 
     this.delete_material = function() {
         if (is_defined(this.material)) {
+            if (is_defined(this.material.map)) {
+                this.material.map.dispose();
+                this.material.map = undefined;
+            }
             this.material.dispose();
+            this.material = undefined;
         }
     };
 

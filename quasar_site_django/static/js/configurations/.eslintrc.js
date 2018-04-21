@@ -370,6 +370,7 @@ module.exports = {
         // Shaders.
         "SHADER_TRANSITION_FRAGEMENT": false,
         "SHADER_TRANSITION_VERTEX"   : false,
+        "SHADER_MATERIAL_TRANSITION" : false,
 
         // Audio.
         "AUDIO_TYPING_SOUND"  : true,
@@ -476,12 +477,6 @@ module.exports = {
         "COLOR_SATURDAY"               : false,
         "COLOR_SUNDAY"                 : false,
         // UNIVERSAL_CONSTANTS_END
-
-        // Javascript constants.
-        "VISIBLE"     : false,
-        "NOT_VISIBLE" : false,
-        "DISPLAY_SHOW": false,
-        "DISPLAY_NONE": false,
 
         // Keycodes.
         "KEY_CODE_SHIFT"     : false,

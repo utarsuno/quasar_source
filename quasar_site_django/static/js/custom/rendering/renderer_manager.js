@@ -51,8 +51,6 @@ RendererManager.prototype = {
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
-        this.camera_transition = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
-
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
 
@@ -81,7 +79,7 @@ RendererManager.prototype = {
     // TEMPORARY
     login_world_created: function() {
 
-        this.load_transition();
+        this.load_transition_material();
 
         this.effect_composer = new THREE.EffectComposer(this.renderer);
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
@@ -116,7 +114,7 @@ RendererManager.prototype = {
 
     render: function(delta) {
         if (this.in_transition) {
-            this.transition_render(delta);
+            this._current_transition.render(delta);
         } else {
             this.effect_composer.render(delta);
         }

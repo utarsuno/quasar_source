@@ -1,13 +1,19 @@
 'use strict';
 
-function DomElement(id_name) {
-    this.__init__(id_name);
+function DomElement(id_name, element) {
+    this.__init__(id_name, element);
 }
 
 DomElement.prototype = {
 
-    __init__: function(id_name) {
-        this.element = document.getElementById(id_name);
+    __init__: function(id_name, element) {
+        if (id_name === null) {
+            this.element = element;
+        } else {
+            this.element = document.getElementById(id_name);
+        }
+        // Default.
+        this.display_style = 'block';
     },
 
     prepend_child_element: function(element_id) {
@@ -43,34 +49,12 @@ DomElement.prototype = {
         return new DomElement(element_id);
     },
 
-    set_color: function(color) {
-        this.element.style.color = color;
-    },
-
     get_element: function() {
         return this.element;
     },
 
-    set_top_height: function(h) {
-        this.element.style.top = h + 'px';
-    },
-
-    hide: function() {
-        this.element.style.display = DISPLAY_NONE;
-        this.hidden = true;
-    },
-
-    show: function() {
-        this.element.style.display = DISPLAY_SHOW;
-        this.hidden = false;
-    },
-
     is_hidden: function() {
         return this.hidden;
-    },
-
-    set_text: function(text) {
-        this.element.innerHTML = text;
     },
 
     get_text: function() {
@@ -81,13 +65,68 @@ DomElement.prototype = {
         this.set_text('');
     },
 
+    _get_offset: function(o) {
+        if (o === 0) {
+            return 0;
+        }
+        return o + 'px';
+    },
+
+    /*__   ___ ___ ___  ___  __   __  
+     /__` |__   |   |  |__  |__) /__` 
+     .__/ |___  |   |  |___ |  \ .__/ */
+    set_id: function(_id) {
+        this.element.id = _id;
+    },
+
+    set_text: function(text) {
+        this.element.innerHTML = text;
+    },
+
+    set_position_to_absolute: function() {
+        this.element.style.position = 'absolute';
+    },
+
+    set_left_offset: function(o) {
+        this.element.style.left = this._get_offset(o);
+    },
+
+    set_top_offset: function(o) {
+        this.element.style.top = this._get_offset(o);
+    },
+
+    set_color: function(color) {
+        this.element.style.color = color;
+    },
+
+    set_display_style: function(style) {
+        this.display_style = style;
+    },
+
+    /*__     __   __                    __  ___           ___ 
+     |  \ | /__` |__) |     /\  \ /    /__`  |  \ / |    |__  
+     |__/ | .__/ |    |___ /~~\  |     .__/  |   |  |___ |___ */
+    hide: function() {
+        this.element.style.display = 'none';
+        this.hidden = true;
+    },
+
+    show: function() {
+        this.element.style.display = this.display_style;
+        this.hidden = false;
+    },
+
+    /*       __     __           ___     
+     \  / | /__` | |__) | |    |  |  \ / 
+      \/  | .__/ | |__) | |___ |  |   |  */
+
     make_invisible: function() {
-        this.element.style.visibility = NOT_VISIBLE;
+        this.element.style.visibility = 'hidden';
         this.visible = false;
     },
 
     make_visible: function() {
-        this.element.style.visibility = VISIBLE;
+        this.element.style.visibility = 'visible';
         this.visible = true;
     },
 

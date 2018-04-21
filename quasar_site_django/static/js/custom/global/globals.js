@@ -127,12 +127,6 @@ const CELL_PHONE_CARRIERS = {
     'Page Plus'        : 'number@vtext.com'
 };
 
-// Javascript constants.
-const VISIBLE = 'visible';
-const NOT_VISIBLE = 'hidden';
-const DISPLAY_NONE = 'none';
-const DISPLAY_SHOW = 'block';
-
 /* __        __   __                ___            __  ___    __        __
   / _` |    /  \ |__)  /\  |       |__  |  | |\ | /  `  |  | /  \ |\ | /__`
   \__> |___ \__/ |__) /~~\ |___    |    \__/ | \| \__,  |  | \__/ | \| .__/ */

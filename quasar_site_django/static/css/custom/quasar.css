@@ -84,6 +84,12 @@ body {
 /*__       ___          __     __   __
  |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
  |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */
+#fps_display {
+    position: absolute;;
+    top: 0;
+    left: 0;
+}
+
 #data_display {
     background-color: transparent;
     color: #aae698;
@@ -96,16 +102,17 @@ body {
 
 #menu_title {
     font-size: 10vw;
+    margin-top: -2vw;
 }
 
 #menu_header {
-    font-size: 6vw;
+    font-size: 4vw;
+    margin-bottom: 1vw;
 }
 
 /*__             ___  __   __     ___      __          __
  / _` |  | |    |__  /  \ |__)     |  \ / |__) | |\ | / _`
  \__> \__/ |    |    \__/ |  \     |   |  |    | | \| \__> */
-
 #gui_typing {
     border: 2px solid rgba(0, 0, 0, 0.9);
     margin: 0;

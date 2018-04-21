@@ -87,5 +87,9 @@ ShaderMaterialTransition.prototype = {
 
     _set_texture_for_transition_affect: function(t) {
         this.set_uniform(this._uniform_key_texture_transition_affect, t);
+    },
+
+    get_shader_material: function() {
+        return this.shader_material;
     }
 };

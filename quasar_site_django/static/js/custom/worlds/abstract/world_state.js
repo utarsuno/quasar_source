@@ -39,17 +39,15 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
     };
 
     this.set_player_enter_position_and_look_at = function() {
-        let enter_position;
-        let enter_look_at;
         if (is_defined(this.player_exit_position)) {
-            enter_position = CURRENT_PLAYER.set_position_xyz(this.player_exit_position.x, this.player_exit_position.y, this.player_exit_position.z);
+            CURRENT_PLAYER.set_position_xyz(this.player_exit_position.x, this.player_exit_position.y, this.player_exit_position.z);
         } else {
-            enter_position = CURRENT_PLAYER.set_position_xyz(this.default_world_enter_position.x, this.default_world_enter_position.y, this.default_world_enter_position.z);
+            CURRENT_PLAYER.set_position_xyz(this.default_world_enter_position.x, this.default_world_enter_position.y, this.default_world_enter_position.z);
         }
         if (is_defined(this.player_exit_look_at)) {
-            enter_look_at = CURRENT_PLAYER.look_at(this.player_exit_look_at);
+            CURRENT_PLAYER.look_at(this.player_exit_look_at);
         } else if (is_defined(this.default_world_enter_look_at)) {
-            enter_look_at = CURRENT_PLAYER.look_at(this.default_world_enter_look_at);
+            CURRENT_PLAYER.look_at(this.default_world_enter_look_at);
         }
     };
 
@@ -70,5 +68,3 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
     };
 
 }
-
-// TODO : Switch scenes for both the cursor and player menu!!!
