@@ -48,7 +48,7 @@ WorldManager.prototype = {
     },
 
     update: function(delta) {
-        if (CURRENT_PLAYER.currently_loading() || MANAGER_RENDERER.in_transition) {
+        if (CURRENT_PLAYER.currently_loading()) {
             return;
         }
 
@@ -67,6 +67,10 @@ WorldManager.prototype = {
         this.current_world.skybox_cube.rotation.x += .0001;
         this.current_world.skybox_cube.rotation.y += .0001;
         this.current_world.skybox_cube.rotation.z += .0001;
+
+        if (MANAGER_RENDERER.in_transition) {
+            return;
+        }
 
 
         // TODO : Double check on what order these should update.
