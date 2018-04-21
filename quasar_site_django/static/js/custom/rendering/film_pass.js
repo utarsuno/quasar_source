@@ -24,9 +24,9 @@ FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
     constructor: FilmNoise,
 
     render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    	this.shader_material.set_t_diffuse(readBuffer.texture);
-    	this.shader_material.add_time(delta);
-    	this.quad.material = this.shader_material;
+    	this.material.set_t_diffuse(readBuffer.texture);
+    	this.material.add_time(delta);
+    	this.quad.material = this.material;
     	if (this.renderToScreen) {
     		renderer.render(this.scene, this.camera);
     	} else {
