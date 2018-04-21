@@ -76,7 +76,7 @@ TransitionAffect.prototype = {
         if (this.elapsed_delta == 0 ) {
             this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
         } else if (this.elapsed_delta >= 1) {
-            this.renderer_manager.in_transition = false;
+            //this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.new_world.scene, this.transition_finished_callback);
         } else {
             //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
@@ -182,6 +182,8 @@ function WorldTransition() {
             this._current_transition.clean_up();
             this._current_transition = undefined;
         }
+
+        this.renderer_manager.in_transition = false;
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();
