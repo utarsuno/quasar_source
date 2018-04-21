@@ -100,7 +100,7 @@ TransitionAffect.prototype = {
             if (this.SINGLE_TEST) {
                 this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
                 this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
-                
+
                 this.new_world.add_to_scene(this.quad);
 
                 this.SINGLE_TEST = false;
