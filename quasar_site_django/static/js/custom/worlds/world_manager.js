@@ -124,7 +124,7 @@ WorldManager.prototype = {
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
             MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
         } else {
-            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
+            MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
         }
 
         this.current_world.enter_world(this.player_cursor);
