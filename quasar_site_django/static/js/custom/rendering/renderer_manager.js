@@ -114,7 +114,8 @@ RendererManager.prototype = {
 
     render: function(delta) {
         if (this.in_transition) {
-            this._current_transition.render(delta);
+            //this._current_transition.render(delta);
+            this.current_transition.render(delta);
         } else {
             this.effect_composer.render(delta);
         }
