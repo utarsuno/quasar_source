@@ -31,6 +31,9 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         if (is_defined(this.custom_world_exit_function)) {
             this.custom_world_exit_function();
         }
+
+        this.currently_looked_at_object = null;
+
         this.player_exit_position = CURRENT_PLAYER.get_position();
         this.player_exit_look_at = CURRENT_PLAYER.get_direction();
         l('Player exit position is : ');
