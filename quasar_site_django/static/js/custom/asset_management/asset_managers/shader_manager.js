@@ -56,20 +56,19 @@ ShaderMaterialTransition.prototype = {
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: {
-                tDiffuse1: {
+                texture_diffuse_new_scene: {
                     value: null
                 },
-                tDiffuse2: {
+                texture_diffuse_old_scene: {
                     value: null
                 },
-                mixRatio: {
+                mix_ratio: {
                     value: 0.0
                 },
                 threshold: {
-                //    value: 0.1
                     value: 0.1
                 },
-                tMixTexture: {
+                texture_mix: {
                     value: this.texture
                 }
             },
