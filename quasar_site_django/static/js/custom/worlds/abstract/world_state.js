@@ -34,11 +34,12 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
 
         this.currently_looked_at_object = null;
 
-        this.player_exit_position = CURRENT_PLAYER.get_position();
-        this.player_exit_look_at = CURRENT_PLAYER.get_direction();
-        l('Player exit position is : ');
-        l(this.player_exit_position);
+        //this.player_exit_position = CURRENT_PLAYER.get_position();
+        //this.player_exit_look_at = CURRENT_PLAYER.get_direction();
+        //l('Player exit position is : ');
+        //l(this.player_exit_position);
         this._set_player_exit_position_and_look_at();
+        //return [this.player_exit_position, this.player_exit_look_at];
         return [this.player_exit_position, this.player_exit_look_at];
     };
 
