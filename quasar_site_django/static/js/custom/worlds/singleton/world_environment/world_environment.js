@@ -12,11 +12,11 @@ WorldEnvironment.prototype = {
     update: function(delta) {
         // Temp just for fun, rotate the lights in a circle.
         this.light_delta += delta;
-        this.light_percentage = this.current_world.light_delta / this.light_delta_cap;
-        this.light_0.position.set(cos(this.current_world.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
-        this.light_1.position.set(cos(this.current_world.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
-        this.light_2.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
-        this.light_3.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
+        this.light_percentage = this.light_delta / this.light_delta_cap;
+        this.light_0.position.set(cos(this.light_percentage) * 1000, 100, sin(this.light_percentage) * 1000);
+        this.light_1.position.set(cos(this.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.light_percentage + TWO_PIE / 4) * 1000);
+        this.light_2.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 2) * 1000);
+        this.light_3.position.set(cos(this.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.light_percentage + (TWO_PIE / 4) * 3) * 1000);
 
         // Temp for fun, slowly rotate the skybox.
         this.skybox_cube.rotation.x += .0001;
