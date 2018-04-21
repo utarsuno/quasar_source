@@ -114,7 +114,7 @@ function WorldTransition() {
             this._camera_transition.lookAt(p.x + l.x, p.y + l.y, p.z + l.z);
         }
 
-        this._current_transition = new TransitionAffect(previous_world, current_world, transition_finished_callback, previous_position_and_look_at);
+        this._current_transition = new TransitionAffect(previous_world, current_world, this);
         this._current_transition.start(transition_finished_callback);
     };
 
