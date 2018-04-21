@@ -183,7 +183,7 @@ function WorldTransition() {
             this._current_transition = undefined;
         }
 
-        this.renderer_manager.in_transition = false;
+        this.in_transition = false;
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();
