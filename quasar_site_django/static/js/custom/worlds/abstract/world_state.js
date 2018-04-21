@@ -17,14 +17,14 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
             this.custom_world_enter_function();
         }
 
-        /*
+
         l('Just entered a world!');
         l(this.player_exit_position);
         l(this.player_exit_look_at);
         l('---');
         l(this.default_world_enter_position);
         l(this.default_world_enter_look_at);
-        */
+        
     };
 
     this.exit_world = function() {
