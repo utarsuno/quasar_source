@@ -82,7 +82,7 @@ TransitionAffect.prototype = {
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.new_world.scene, this.transition_finished_callback);
         } else {
-            this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
+            //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
 
             //this.renderer_manager.renderer.setClearColor(0x111111);
             //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
@@ -97,7 +97,7 @@ TransitionAffect.prototype = {
 
 
 
-            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
             //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
 
