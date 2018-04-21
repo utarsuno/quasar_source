@@ -57,7 +57,7 @@ TransitionAffect.prototype = {
 
         // Prevent render both scenes when it's not necessary
         if (this.elapsed_delta == 0 ) {
-            this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
+            //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
         } else if (this.elapsed_delta >= 1) {
             this.renderer_manager.in_transition = false;
             this.renderer_manager.set_current_scene(this.new_world.scene, this.transition_finished_callback);
