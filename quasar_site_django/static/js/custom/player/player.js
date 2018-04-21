@@ -19,10 +19,6 @@ Player.prototype = {
     /*__            __     __   __
      |__) |__| \ / /__` | /  ` /__`
      |    |  |  |  .__/ | \__, .__/ */
-    get_position: function() {
-        return this.fps_controls.get_position();
-    },
-
     look_at: function(vector) {
         this.fps_controls.look_at(vector);
     },
@@ -35,6 +31,10 @@ Player.prototype = {
         this.fps_controls.yaw.position.x = vector.x;
         this.fps_controls.yaw.position.y = vector.y;
         this.fps_controls.yaw.position.z = vector.z;
+    },
+
+    get_position: function() {
+        return this.fps_controls.get_position();
     },
 
     get_direction: function() {

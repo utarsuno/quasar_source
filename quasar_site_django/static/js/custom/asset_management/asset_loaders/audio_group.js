@@ -18,10 +18,11 @@ AudioGroup.prototype = {
     },
 
     load_assets: function() {
-        for (var asset in this._assets) {
+        let asset;
+        for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
-                var loader = new THREE.AudioLoader();
+                let loader = new THREE.AudioLoader();
                 loader.load(this._asset_base_url + asset,
 
                     function (audio_buffer) {

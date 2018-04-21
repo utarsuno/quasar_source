@@ -74,8 +74,6 @@ RendererManager.prototype = {
 
         this.currently_fullscreen = false;
 
-        this.current_resize = 0;
-
         // Inherit.
         WorldTransition.call(this);
     },
@@ -138,8 +136,6 @@ RendererManager.prototype = {
     },
 
     on_window_resize: function() {
-        this.current_resize += 1;
-
         this.get_window_properties();
         this.camera.aspect = this.aspect_ratio;
         this.camera.updateProjectionMatrix();

@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block body %}
-<div id="data_display">
+<!-- Debugging information. -->
+<div id="data_display" style="display: none">
     <p id="x_coordinate"></p>
     <p id="y_coordinate"></p>
     <p id="z_coordinate"></p>
@@ -20,8 +21,7 @@
     <p id="max_heap_size"></p>
 </div>
 
-<div id="background_coloring">
-</div>
+<div id="background_coloring"></div>
 
 <!-- Typing Interface -->
 <div id="gui_typing" style="display: none">
@@ -32,7 +32,6 @@
 
 <div id="center_cursor"></div>
 
-<!-- TODO : Do this dynamically later on -->
 <div class="smooth_font" id="gui_console_logs"></div>
 
 <!-- Pause Menu -->

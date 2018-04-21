@@ -46,13 +46,13 @@ DataDisplay.prototype = {
             js_heap_max_size = memory.jsHeapSizeLimit;
         }
 
-        this.element_x_coordinate.set_text();
-        this.element_y_coordinate.set_text();
-        this.element_z_coordinate.set_text();
+        this.element_x_coordinate.set_text(x);
+        this.element_y_coordinate.set_text(y);
+        this.element_z_coordinate.set_text(z);
 
-        this.element_x_direction.set_text();
-        this.element_y_direction.set_text();
-        this.element_z_direction.set_text();
+        this.element_x_direction.set_text(dx);
+        this.element_y_direction.set_text(dy);
+        this.element_z_direction.set_text(dz);
 
         if (this.has_memory_information) {
             this.element_heap_size.set_text(js_heap_size);

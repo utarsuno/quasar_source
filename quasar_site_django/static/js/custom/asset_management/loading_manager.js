@@ -1,5 +1,6 @@
 'use strict';
 
+// Needed for the file loader to work (for shaders). TODO : Add better documentation.
 THREE.Cache.enabled = true;
 
 function LoadingManager() {
@@ -56,6 +57,7 @@ LoadingManager.prototype = {
     check_if_initial_resources_loaded: function() {
         if (this.initial_resources_loaded()) {
             MANAGER_TEXTURE.create_skybox_material();
+            MANAGER_SHADER.create_global_shader_materials();
 
             MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
             MANAGER_WORLD.create_singletons();

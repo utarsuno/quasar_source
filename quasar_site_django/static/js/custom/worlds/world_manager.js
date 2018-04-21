@@ -95,6 +95,8 @@ WorldManager.prototype = {
     },
 
     set_current_world: function(world, transition_finished_callback) {
+        let previous_position_and_look_at;
+
         if (this.current_world !== null) {
             this.player_cursor.detach();
             // Make sure to hide the player menu if it is visible.
@@ -102,7 +104,7 @@ WorldManager.prototype = {
                 this.player_menu.toggle_visibility();
             }
 
-            this.current_world.exit_world();
+            previous_position_and_look_at = this.current_world.exit_world();
 
             // Before exiting the world make sure to remove certain objects that are not world-unique.
             this.current_world.remove_from_scene(CURRENT_PLAYER.fps_controls.yaw);
@@ -113,12 +115,16 @@ WorldManager.prototype = {
 
         // Before switching to the new scene make sure it has all non world-unique objects.
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
+
+        // Set the player position ahead of time.
+        this.current_world.set_player_enter_position_and_look_at();
+
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
-            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback);
+            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
         } else {
-            MANAGER_RENDERER.set_current_scene(this.current_world.scene);
+            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
         }
 
         this.current_world.enter_world(this.player_cursor);
