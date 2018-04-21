@@ -42,6 +42,8 @@ QuasarMainLoop.prototype = {
 
             this.current_client.update();
 
+            MANAGER_WORLD.update(this.delta);
+
             if (this.message_log_update_index === 4) {
                 CURRENT_CLIENT.update_message_log(this.delta);
                 this.message_log_update_index = 0;
@@ -50,9 +52,6 @@ QuasarMainLoop.prototype = {
             }
 
             MANAGER_RENDERER.render(this.delta);
-
-            MANAGER_WORLD.update(this.delta);
-
             this.current_client.post_render();
             this.previous_time = this.time;
 
