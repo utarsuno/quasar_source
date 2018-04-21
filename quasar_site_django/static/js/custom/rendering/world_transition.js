@@ -17,11 +17,11 @@ TransitionAffect.prototype = {
         this.fbo_previous     = new THREE.WebGLRenderTarget(this.renderer_manager.window_width, this.renderer_manager.window_height, _render_target_parameters);
         this.fbo_current      = new THREE.WebGLRenderTarget(this.renderer_manager.window_width, this.renderer_manager.window_height, _render_target_parameters);
 
-        //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
-        //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
+        this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
+        this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
 
-        this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_current.texture);
-        this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_previous.texture);
+        //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_current.texture);
+        //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_previous.texture);
     },
 
     start: function(transition_finished_callback) {
