@@ -16,15 +16,6 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         if (is_defined(this.custom_world_enter_function)) {
             this.custom_world_enter_function();
         }
-
-
-        l('Just entered a world!');
-        l(this.player_exit_position);
-        l(this.player_exit_look_at);
-        l('---');
-        l(this.default_world_enter_position);
-        l(this.default_world_enter_look_at);
-
     };
 
     this.exit_world = function() {
@@ -34,12 +25,7 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
 
         this.currently_looked_at_object = null;
 
-        //this.player_exit_position = CURRENT_PLAYER.get_position();
-        //this.player_exit_look_at = CURRENT_PLAYER.get_direction();
-        //l('Player exit position is : ');
-        //l(this.player_exit_position);
         this._set_player_exit_position_and_look_at();
-        //return [this.player_exit_position, this.player_exit_look_at];
         return [this.player_exit_position, this.player_exit_look_at];
     };
 
@@ -77,8 +63,6 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         let la = CURRENT_PLAYER.get_direction();
         this.player_exit_position = new THREE.Vector3(p.x, p.y, p.z);
         this.player_exit_look_at  = new THREE.Vector3(p.x + la.x, p.y + la.y, p.z + la.z);
-        l('Player exit position is now :');
-        l(this.player_exit_position);
     };
 
 }
