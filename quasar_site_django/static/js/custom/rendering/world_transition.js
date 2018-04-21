@@ -36,7 +36,7 @@ TransitionAffect.prototype = {
 
         this.fake_camera = new THREE.Camera();
         this.fake_scene = new THREE.Scene();
-        this.renderer_manager.renderer.autoClear = false;
+        //this.renderer_manager.renderer.autoClear = false;
 
         if (!is_defined(this.old_world)) {
             //this.fake_scene.background = COLOR_BLACK;
