@@ -117,7 +117,7 @@ WorldManager.prototype = {
         this.current_world.add_to_scene(CURRENT_PLAYER.fps_controls.yaw);
 
         // Set the player position ahead of time.
-        //this.current_world.set_player_enter_position_and_look_at();
+        this.current_world.set_player_enter_position_and_look_at();
 
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
