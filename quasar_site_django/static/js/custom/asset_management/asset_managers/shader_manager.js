@@ -123,7 +123,7 @@ ShaderMaterialNoise.prototype = {
 
         this.set_uniform(this._uniform_key_t_diffuse , null);
         this.set_uniform(this._uniform_key_time      , 0.0);
-        this.set_uniform(this._uniform_key_nIntensity, 0.4);
+        this.set_uniform(this._uniform_key_nIntensity, 0.2);
 
         this._set_shader_material();
     },
