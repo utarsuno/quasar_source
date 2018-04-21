@@ -21,7 +21,7 @@ function FilmNoise() {
 
 FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
 
-    constructor: THREE.FilmNoise,
+    constructor: FilmNoise,
 
     render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
     	this.shader_material.set_t_diffuse(readBuffer.texture);
