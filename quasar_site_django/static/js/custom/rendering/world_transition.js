@@ -45,6 +45,11 @@ TransitionAffect.prototype = {
         this.fake_scene = new THREE.Scene();
         this.renderer_manager.renderer.autoClear = false;
 
+        l('CAMERA POSITIONS!!');
+        l(this.renderer_manager._camera_transition.position);
+        l(this.renderer_manager.camera.position);
+        l('-------');
+
         if (!is_defined(this.old_world)) {
             //this.fake_scene.background = COLOR_BLACK;
             this.fake_scene.background = COLOR_BLUE;
@@ -79,8 +84,8 @@ TransitionAffect.prototype = {
             //this.renderer_manager.renderer.setClearColor(0x111111);
             this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
 
-            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
-            this.renderer_manager.renderer.render(this.scene, this.camera_ortho);
+            this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho);
         }
 
         //this.elapsed_delta += delta / 2.5;
