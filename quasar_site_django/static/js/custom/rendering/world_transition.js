@@ -61,6 +61,7 @@ TransitionAffect.prototype = {
 
         l(this.elapsed_delta);
         l(this.renderer_manager._transition_shader_material.shader_material.uniforms);
+        l(this.renderer_manager._transition_shader_material.shader_material.uniforms['mix_ratio']);
 
         // Prevent render both scenes when it's not necessary
         if (this.elapsed_delta == 0 ) {
