@@ -40,7 +40,9 @@ void main() {
 
 	// interpolate between source and result by intensity
 	//cResult = cTextureScreen.rgb + clamp( nIntensity, 0.0,1.0 ) * ( cResult - cTextureScreen.rgb );
-	cResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (-cTextureScreen.rgb);
+	//cResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (-cTextureScreen.rgb);
+
+    cResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (cTextureScreen.rgb);
 
 	//gl_FragColor = vec4(cResult, cTextureScreen.a);
 	//cResult = vec3(cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11);
