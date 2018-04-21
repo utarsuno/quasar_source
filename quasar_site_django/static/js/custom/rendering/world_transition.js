@@ -55,6 +55,8 @@ TransitionAffect.prototype = {
 
         this.renderer_manager._transition_shader_material.set_mix_ratio(this.elapsed_delta);
 
+        l(this.elapsed_delta);
+
         // Prevent render both scenes when it's not necessary
         if (this.elapsed_delta == 0 ) {
             //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
