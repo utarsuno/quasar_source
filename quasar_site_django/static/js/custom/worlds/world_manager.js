@@ -196,8 +196,6 @@ WorldManager.prototype = {
 
         // All initial loading is completed so place the player into the home world.
         this.set_current_world(this.world_home);
-        //GUI_PAUSED_MENU.make_invisible();
-        //CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
     },
 
     /*__                         __           __   __        __   __                           __   ___        ___      ___

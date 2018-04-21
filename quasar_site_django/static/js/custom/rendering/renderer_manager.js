@@ -43,7 +43,7 @@ RendererManager.prototype = {
 
         //this.renderer.setPixelRatio(window.devicePixelRatio);
         // TODO : Potentially remove this? It might not have an affect anymore.
-        this.renderer.setPixelRatio(window.devicePixelRatio);
+        //this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.window_width, this.window_height);
         //this.renderer.setClearColor(0x000000, 1);
 
