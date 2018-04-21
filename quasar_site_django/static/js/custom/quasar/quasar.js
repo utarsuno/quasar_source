@@ -66,8 +66,15 @@ QuasarMainLoop.prototype = {
 // Load all the initially needed resources. Once loaded start the main loop.
 //MANAGER_LOADING.perform_initial_load(QUASAR);
 
+let pt = performance.now();
 l('BEFORE WINDOW ON LOAD!');
 
 window.onload = function() {
+    let t = performance.now();
+    l(t - pt);
     l('AFTER WINDOW ON LOAD!');
+
+    load_all_global_managers();
+    const QUASAR = new QuasarMainLoop(CURRENT_CLIENT);
+    MANAGER_LOADING.perform_initial_load(QUASAR);
 };

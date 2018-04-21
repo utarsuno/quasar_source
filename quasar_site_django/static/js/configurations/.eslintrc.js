@@ -31,6 +31,8 @@ module.exports = {
     },
     "globals": {
 
+        "load_all_global_managers": false,
+
         "OutlineGlow": false,
 
         "World"              : true,
@@ -201,6 +203,7 @@ module.exports = {
         "MANAGER_LOADING"        : true,
         // and their class names.
         "MultiPlayerManager"   : false,
+        "WebSocketManager"     : false,
         "CookieManager"        : false,
         "SessionManager"       : false,
         "Cookies"              : false,
@@ -230,8 +233,8 @@ module.exports = {
         //
 
         // Global objects.
-        "CURRENT_CLIENT": false,
-        "CURRENT_PLAYER": false,
+        "CURRENT_CLIENT": true,
+        "CURRENT_PLAYER": true,
         "ENTITY_OWNER"  : true,
         // and their class names.
         "Client"     : false,

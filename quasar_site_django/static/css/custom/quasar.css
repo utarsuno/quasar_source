@@ -24,20 +24,10 @@ body {
     position: relative;
 }
 
-#data_display {
-    background-color: transparent;
-    color: #aae698;
-    position: absolute;
-    top: 55px;
-    left: 0px;
-    z-index: 10;
-    font-size: 12px;
-}
-
 .three-div{
     background: #BADA55;
     color: #E50000;
-    font-family: Arial, Helvetica, Sans-serif;
+    font-family: Arial, Helvetica, Sans-serif, serif;
     font-size: 2em;
     padding: 2em;
     width: 50px;
@@ -47,17 +37,19 @@ body {
 .center_position {
     font-smooth: always;
     -webkit-font-smoothing: subpixel-antialiased;
+    text-align: center;
+    font-family: Arial, Helvetica, Sans-serif, serif;
 
     position: absolute;
-    /*width: 25vw;*/
     z-index: 15;
-    top: 50%;
-    left: 25%;
-    text-align: center;
-    margin: -12.5vh 0 0 -0vw;
+    top: 35%;
+    left: 12.5%;
+    width: 75%;
+    height: 30%;
     background: rgba(1, 1, 1, 0.65);
     border: 2px solid rgba(255, 255, 255, 0.9);
     color: rgba(205, 255, 217, 0.45);
+    display: table;
 }
 
 #background_coloring {
@@ -78,13 +70,6 @@ body {
     position: absolute;
 }
 
-.center_align {
-    font-smooth: always;
-    -webkit-font-smoothing: subpixel-antialiased;
-
-    text-align: center;
-}
-
 .smooth_font {
     font-smooth: always;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -96,24 +81,25 @@ body {
     z-index: 8000;
 }
 
-/*   __       ___          __     __   __
-    |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
-    |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */
+/*__       ___          __     __   __
+ |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
+ |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */
+#data_display {
+    background-color: transparent;
+    color: #aae698;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    z-index: 10;
+    font-size: 12px;
+}
+
 #menu_title {
-    font-family: Arial, Helvetica, Sans-serif;
-    font-size: 6em;
+    font-size: 10vw;
 }
 
 #menu_header {
-    font-family: Arial, Helvetica, Sans-serif;
-    font-size: 3em;
-}
-
-#dark_background {
-    color: rgba(104, 223, 119, 0.9);
-    background: rgba(20, 20, 20, 0.9);
-    width: 100%;
-    height: 100%;
+    font-size: 6vw;
 }
 
 /*__             ___  __   __     ___      __          __
@@ -197,7 +183,7 @@ body {
 .mobile_keyboard_button {
     margin: 0 2% 0 2%;
     display: inline-block;
-    padding: 0px 15px;
+    padding: 0 15px;
     font-size: 20px;
     font-style: oblique;
     font-weight: bold;
