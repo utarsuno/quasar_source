@@ -57,7 +57,7 @@ function MobileInputManager() {
             }
         }
         event.preventDefault();
-        event.stopPropagation();
+        //event.stopPropagation();
     };
 
     this.on_touch_move = function(event) {
@@ -72,7 +72,7 @@ function MobileInputManager() {
             }
         }
         event.preventDefault();
-        event.stopPropagation();
+        //event.stopPropagation();
     };
 
     this._check_if_touch_ended = function(identifier_list, touch) {
@@ -100,7 +100,7 @@ function MobileInputManager() {
         this._check_if_touch_ended(active_identifiers, this.touch_double_click);
 
         event.preventDefault();
-        event.stopPropagation();
+        //event.stopPropagation();
     };
 
     document.addEventListener(TOUCH_EVENT_START, this.on_touch_start.bind(this));
