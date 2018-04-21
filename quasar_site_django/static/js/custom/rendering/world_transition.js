@@ -52,10 +52,9 @@ TransitionAffect.prototype = {
         //l('-------');
 
         this.renderer_manager.renderer.autoClear = false;
-        this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
+        //this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
+        this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager.camera, this.fbo_previous, true);
         this.fake_scene.background = this.fbo_previous;
-
-        this.SINGLE_TEST = true;
     },
 
     render: function(delta) {
@@ -95,16 +94,11 @@ TransitionAffect.prototype = {
 
 
             //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
-            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
 
-            if (this.SINGLE_TEST) {
-                //this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
-                //this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
 
-                //this.new_world.add_to_scene(this.quad);
 
-                this.SINGLE_TEST = false;
-            }
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager._camera_transition, this.fbo_current, true);
 
             this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
