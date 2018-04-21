@@ -34,6 +34,7 @@ module.exports = {
         "load_all_global_managers": false,
 
         "OutlineGlow": false,
+        "FilmNoise"  : false,
 
         "World"              : true,
         "WorldInput"         : true,

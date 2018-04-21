@@ -87,10 +87,6 @@ RendererManager.prototype = {
         this.effect_composer.addPass(this.outline_pass);
 
         if (!this.current_client.is_mobile) {
-            // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
-            //this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
-            //this.effect_composer.addPass(this.effect_film);
-
             this.effect_film = new FilmNoise();
             this.effect_composer.addPass(this.effect_film);
 

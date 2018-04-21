@@ -43,7 +43,7 @@ QuasarMainLoop.prototype = {
 
             MANAGER_WORLD.update(this.delta);
 
-            if (this.message_log_update_index === 5) {
+            if (this.message_log_update_index === 30) {
                 CURRENT_CLIENT.update_message_log(this.delta);
                 this.message_log_update_index = 0;
             } else {
