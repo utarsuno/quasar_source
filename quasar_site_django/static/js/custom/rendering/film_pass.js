@@ -9,7 +9,8 @@
 
 function FilmNoise() {
     THREE.Pass.call(this);
-    this.material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_NOISE);
+    this.shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_NOISE);
+    this.material = this.shader_material.get_shader_material();
 
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     this.scene  = new THREE.Scene();
@@ -24,8 +25,8 @@ FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
     constructor: FilmNoise,
 
     render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    	this.material.set_t_diffuse(readBuffer.texture);
-    	this.material.add_time(delta);
+    	this.shader_material.set_t_diffuse(readBuffer.texture);
+    	this.shader_material.add_time(delta);
     	this.quad.material = this.material;
     	if (this.renderToScreen) {
     		renderer.render(this.scene, this.camera);
