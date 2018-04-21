@@ -368,7 +368,10 @@ module.exports = {
         // Shaders.
         "SHADER_TRANSITION_FRAGEMENT": false,
         "SHADER_TRANSITION_VERTEX"   : false,
+        "SHADER_NOISE_FRAGEMENT"     : false,
+        "SHADER_NOISE_VERTEX"        : false,
         "SHADER_MATERIAL_TRANSITION" : false,
+        "SHADER_MATERIAL_NOISE"      : false,
 
         // Audio.
         "AUDIO_TYPING_SOUND"  : true,

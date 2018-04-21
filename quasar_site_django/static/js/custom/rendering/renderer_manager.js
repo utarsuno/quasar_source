@@ -31,13 +31,11 @@ RendererManager.prototype = {
     renderer_initialize: function() {
 
         // Since WebGL is enabled we can proceed.
-        this.field_of_view = 70;
+        this.field_of_view = 75;
         this.get_window_properties();
         this.near_clipping = 1.0;
         this.far_clipping  = 20000.0;
 
-        // TODO : Test setting alpha to false?
-        //this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: true});
         this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: false});
 
         // Give the canvas an ID.
@@ -90,8 +88,9 @@ RendererManager.prototype = {
 
         if (!this.current_client.is_mobile) {
             // THREE.FilmPass = function ( noiseIntensity, scanlinesIntensity, scanlinesCount, grayscale ) {
-            this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
-            this.effect_composer.addPass(this.effect_film);
+            //this.effect_film = new THREE.FilmPass(0.45, 0, 0, false);
+            //this.effect_composer.addPass(this.effect_film);
+
 
             this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);

@@ -2,7 +2,10 @@
 
 const SHADER_TRANSITION_FRAGEMENT = 'transition/transition_fragment.frag';
 const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';
+const SHADER_NOISE_FRAGEMENT      = 'film/film_fragment.frag';
+const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';
 const SHADER_MATERIAL_TRANSITION  = 1;
+const SHADER_MATERIAL_NOISE       = 2;
 
 function ShaderManager() {
     this.__init__();
@@ -17,6 +20,7 @@ ShaderManager.prototype = {
 
     create_global_shader_materials: function() {
         this._all_shader_materials[SHADER_MATERIAL_TRANSITION] = new ShaderMaterialTransition();
+        this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialNoise();
     },
 
     set_shader: function(shader_name, shader_content) {
@@ -46,12 +50,18 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
     this.set_uniform_value = function(k, v) {
         this.shader_material.uniforms[k].value = v;
     };
+    this.add_to_uniform_value = function(k, v) {
+        this.shader_material.uniforms[k].value += v;
+    };
     this._set_shader_material = function() {
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: this.uniforms,
             vertexShader: this.shader_vertex,
             fragmentShader: this.shader_fragment
         });
+    };
+    this.get_shader_material = function() {
+        return this.shader_material;
     };
 }
 
@@ -76,9 +86,6 @@ ShaderMaterialTransition.prototype = {
         this.set_uniform(this._uniform_key_threshold, 0.1);
         this.set_uniform(this._uniform_key_texture_transition_affect, this.texture);
         this._set_shader_material();
-
-        //this._set_texture_for_transition_affect(this.texture);
-        this.set_threshold(0.1);
     },
 
     set_texture_for_old_scene: function(t) {
@@ -99,9 +106,39 @@ ShaderMaterialTransition.prototype = {
 
     _set_texture_for_transition_affect: function(t) {
         this.set_uniform_value(this._uniform_key_texture_transition_affect, t);
+    }
+};
+
+function ShaderMaterialNoise() {
+    this.__init__();
+}
+
+ShaderMaterialNoise.prototype = {
+    __init__: function() {
+        ShaderMaterialAbstraction.call(this, SHADER_NOISE_VERTEX, SHADER_NOISE_FRAGEMENT);
+
+        this._uniform_key_t_diffuse  = 'tDiffuse';
+        this._uniform_key_time       = 'time';
+        this._uniform_key_nIntensity = 'nIntensity';
+
+        this.set_uniform(this._uniform_key_t_diffuse , null);
+        this.set_uniform(this._uniform_key_time      , 0.0);
+        this.set_uniform(this._uniform_key_nIntensity, 0.4);
     },
 
-    get_shader_material: function() {
-        return this.shader_material;
+    set_time: function(t) {
+        this.set_uniform_value(this._uniform_key_time, t);
+    },
+
+    add_time: function(t) {
+        this.add_to_uniform_value(this._uniform_key_time, t);
+    },
+
+    set_intensity: function(i) {
+        this.set_uniform_value(this._uniform_key_nIntensity, i);
+    },
+
+    set_t_diffuse: function(td) {
+        this.set_uniform_value(this._uniform_key_t_diffuse, td);
     }
 };

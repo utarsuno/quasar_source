@@ -48,6 +48,8 @@ ShaderGroup.prototype = {
     _add_required_initial_assets: function(callback) {
         this._add_required_initial_asset(SHADER_TRANSITION_FRAGEMENT);
         this._add_required_initial_asset(SHADER_TRANSITION_VERTEX);
+        this._add_required_initial_asset(SHADER_NOISE_FRAGEMENT);
+        this._add_required_initial_asset(SHADER_NOISE_VERTEX);
         callback();
     }
 };
