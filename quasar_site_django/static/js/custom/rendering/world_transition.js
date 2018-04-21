@@ -41,7 +41,7 @@ TransitionAffect.prototype = {
         if (!is_defined(this.old_world)) {
             this.fake_scene.background = COLOR_BLACK;
         } else {
-            this.renderer_manager.renderer.render(this.old_world.scene, this._camera_transition, this.fbo_previous, true);
+            this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
             this.fake_scene.background = this.fbo_previous;
         }
     },
@@ -80,15 +80,15 @@ TransitionAffect.prototype = {
         this.quad = undefined;
 
         if (is_defined(this.fbo_previous)) {
-            if (is_defined(this.fbo_previous.texture)) {
-                this.fbo_previous.texture.dispose();
-                this.fbo_previous.texture = undefined;
-            }
+            //if (is_defined(this.fbo_previous.texture)) {
+            //    this.fbo_previous.texture.dispose();
+            //    this.fbo_previous.texture = undefined;
+            //}
             this.fbo_previous.dispose();
             this.fbo_previous = undefined;
         }
-        this.fbo_current.texture.dispose();
-        this.fbo_current.texture = undefined;
+        //this.fbo_current.texture.dispose();
+        //this.fbo_current.texture = undefined;
         this.fbo_current.dispose();
         this.fbo_current = undefined;
     }
