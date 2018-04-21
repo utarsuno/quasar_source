@@ -56,6 +56,9 @@ FPSControls.prototype = {
         this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, -1.0 * HALF_PIE, HALF_PIE);
 
         // TODO : Add smooth step to the movement buffers!!!
+
+        // For optimization purposes.
+        this._previous_direction = null;
     },
 
     toggle_flying: function() {
@@ -254,6 +257,8 @@ FPSControls.prototype = {
         this.mouse_movement_y_buffer.set_value(Math.asin(look_at_normal.y));
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
+
+        this._previous_direction = null;
     },
 
     update_mouse_view_position: function() {
@@ -272,6 +277,8 @@ FPSControls.prototype = {
         this.direction_vector.normalize();
 
         this.left_right = get_left_right_unit_vector(this.walking_direction.x, this.walking_direction.z);
+
+        this._previous_direction = null;
     },
 
     on_mouse_move: function(movement_x, movement_y) {
@@ -280,9 +287,17 @@ FPSControls.prototype = {
     },
 
     get_direction: function() {
+        if (this._previous_direction === null) {
+            return this._get_direction();
+        }
+        return this._previous_direction;
+    },
+
+    _get_direction: function() {
         let direction = new THREE.Vector3(0, 0, -1);
         let rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
-        return direction.applyEuler(rotation);
+        this._previous_direction = direction.applyEuler(rotation);
+        return this._previous_direction;
     }
 
 };

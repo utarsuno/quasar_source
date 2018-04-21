@@ -5,32 +5,38 @@
   \__X \__/ /~~\ .__/ /~~\ |  \    .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | | \|    \__, \__/ |__/ |___ */
 
 // The main loop will start after the required initial resources have loaded.
-function QuasarMainLoop(current_client) {
-    this.__init__(current_client);
+function QuasarMainLoop(current_client, current_player, manager_world, manager_renderer) {
+    this.__init__(current_client, current_player, manager_world, manager_renderer);
 }
 
 QuasarMainLoop.prototype = {
 
-    __init__: function(current_client) {
+    __init__: function(current_client, current_player, manager_world, manager_renderer) {
         this.current_client          = current_client;
+        this.current_player          = current_player;
+        this.manager_world           = manager_world;
+        this.manager_renderer        = manager_renderer;
+
+        this.player_state_paused     = PLAYER_STATE_PAUSED;
+
         this.previous_time           = null;
         this.single_render_performed = false;
+
+        this._main_loop = this.quasar_main_loop.bind(this);
     },
 
     run: function() {
-        CURRENT_CLIENT.add_server_message_green('Welcome to Quasar!');
-
-        // Game loop below.
+        this.current_client.add_server_message_green('Welcome to Quasar!');
 
         this.previous_time = performance.now();
         this.quasar_main_loop();
     },
 
     quasar_main_loop: function() {
+        // Previously : requestAnimationFrame(this.quasar_main_loop.bind(this));
+        requestAnimationFrame(this._main_loop);
 
-        requestAnimationFrame(this.quasar_main_loop.bind(this));
-
-        if (CURRENT_PLAYER.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
+        if (this.current_player.current_state !== this.player_state_paused || !this.single_render_performed) {
             this.current_client.pre_render();
 
             this.time = performance.now();
@@ -38,11 +44,11 @@ QuasarMainLoop.prototype = {
 
             this.current_client.update();
 
-            MANAGER_WORLD.update(this.delta);
+            this.manager_world.update(this.delta);
 
-            CURRENT_CLIENT.update_message_log(this.delta);
+            this.current_client.update_message_log(this.delta);
 
-            MANAGER_RENDERER.render(this.delta);
+            this.manager_renderer.render(this.delta);
             this.current_client.post_render();
             this.previous_time = this.time;
 
@@ -53,6 +59,6 @@ QuasarMainLoop.prototype = {
 
 window.onload = function() {
     load_all_global_managers();
-    const QUASAR = new QuasarMainLoop(CURRENT_CLIENT);
+    const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
     MANAGER_LOADING.perform_initial_load(QUASAR);
 };

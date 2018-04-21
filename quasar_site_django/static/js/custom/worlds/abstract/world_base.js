@@ -22,7 +22,8 @@ function World(world_entity) {
     };
 
     this._match_found = function(object_to_match) {
-        for (let i = 0; i < this.interactive_objects.length; i++) {
+        let i;
+        for (i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid || this.interactive_objects[i].geometry.uuid === object_to_match.uuid) {
                 return i;
             }
@@ -60,20 +61,23 @@ function World(world_entity) {
             }
         }
 
-        this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
+        //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
+        this.raycaster.set(CURRENT_PLAYER.fps_controls.yaw.position, CURRENT_PLAYER.fps_controls.get_direction());
         let smallest_distance = 99999;
         let interactive_index = -1;
         let intersection_data = null;
 
         // Find out what's currently being looked at if anything.
-        for (let i = 0; i < this.interactive_objects.length; i++) {
+        let i;
+        for (i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
             let intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
 
-            for (let d = 0; d < intersections.length; d++) {
+            let d;
+            for (d = 0; d < intersections.length; d++) {
                 if (intersections[d].distance < smallest_distance) {
                     let match_found = this._match_found(intersections[d].object);
-                    if (match_found !== NOT_FOUND) {
+                    if (match_found !== -1) {
                         smallest_distance = intersections[d].distance;
                         interactive_index = match_found;
                         intersection_data = intersections[d];
@@ -82,7 +86,8 @@ function World(world_entity) {
             }
         }
 
-        if (interactive_index === NOT_FOUND) {
+        // Previously : if (interactive_index === NOT_FOUND) {
+        if (interactive_index === -1) {
             if (this.currently_looked_at_object !== null) {
                 this.look_away_from_currently_looked_at_object();
             }
@@ -140,7 +145,8 @@ function World(world_entity) {
     this.remove_from_interactive_then_scene = function(object_to_remove) {
         // First remove the interactive.
         let index_to_remove = -1;
-        for (let i = 0; i < this.interactive_objects.length; i++) {
+        let i;
+        for (i = 0; i < this.interactive_objects.length; i++) {
             if (this.interactive_objects[i] === object_to_remove) {
                 index_to_remove = i;
                 break;
