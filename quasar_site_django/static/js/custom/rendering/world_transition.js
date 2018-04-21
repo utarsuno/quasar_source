@@ -32,8 +32,12 @@ TransitionAffect.prototype = {
         this.transition_finished_callback = transition_finished_callback;
 
         this.scene = new THREE.Scene();
-        this.camera_ortho = new THREE.OrthographicCamera(this.renderer_manager.window_width / -2, this.renderer_manager.window_width / 2, this.renderer_manager.window_height / 2, this.renderer_manager.window_height / -2, -10, 10);
-        this.quad_geometry = new THREE.PlaneBufferGeometry(this.renderer_manager.window_width, this.renderer_manager.window_height);
+        //this.camera_ortho = new THREE.OrthographicCamera(this.renderer_manager.window_width / -2, this.renderer_manager.window_width / 2, this.renderer_manager.window_height / 2, this.renderer_manager.window_height / -2, -10, 10);
+        //this.quad_geometry = new THREE.PlaneBufferGeometry(this.renderer_manager.window_width, this.renderer_manager.window_height);
+
+        this.camera_ortho = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -10, 10);
+        this.quad_geometry = new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight);
+
         this.quad = new THREE.Mesh(this.quad_geometry, this.renderer_manager._transition_shader_material.get_shader_material());
         this.scene.add(this.quad);
 
@@ -60,8 +64,8 @@ TransitionAffect.prototype = {
         this.renderer_manager._transition_shader_material.set_mix_ratio(this.elapsed_delta);
 
         l(this.elapsed_delta);
-        l(this.renderer_manager._transition_shader_material.shader_material.uniforms);
-        l(this.renderer_manager._transition_shader_material.shader_material.uniforms['mix_ratio']);
+        //l(this.renderer_manager._transition_shader_material.shader_material.uniforms);
+        //l(this.renderer_manager._transition_shader_material.shader_material.uniforms['mix_ratio']);
 
         // Prevent render both scenes when it's not necessary
         if (this.elapsed_delta == 0 ) {
