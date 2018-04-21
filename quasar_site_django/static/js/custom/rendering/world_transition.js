@@ -51,14 +51,9 @@ TransitionAffect.prototype = {
         //l(this.renderer_manager.camera.position);
         //l('-------');
 
-        if (!is_defined(this.old_world)) {
-            //this.fake_scene.background = COLOR_BLACK;
-            this.fake_scene.background = COLOR_BLUE;
-            this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera, this.fbo_previous, true);
-        } else {
-            this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
-            this.fake_scene.background = this.fbo_previous;
-        }
+        this.renderer_manager.renderer.autoClear = false;
+        this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
+        this.fake_scene.background = this.fbo_previous;
 
         this.SINGLE_TEST = true;
     },
