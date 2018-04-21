@@ -46,13 +46,12 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
     this.set_uniform_value = function(k, v) {
         this.shader_material.uniforms[k].value = v;
     };
-    this._get_shader_material = function() {
+    this._set_shader_material = function() {
         this.shader_material = new THREE.ShaderMaterial({
             uniforms: this.uniforms,
             vertexShader: this.shader_vertex,
             fragmentShader: this.shader_fragment
         });
-        return this.shader_material;
     };
 }
 
@@ -64,33 +63,6 @@ ShaderMaterialTransition.prototype = {
     __init__: function() {
         ShaderMaterialAbstraction.call(this, SHADER_TRANSITION_VERTEX, SHADER_TRANSITION_FRAGEMENT);
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
-        /*
-        this.shader_material = new THREE.ShaderMaterial({
-            uniforms: {
-                texture_diffuse_new_scene: {
-                    value: null
-                },
-                texture_diffuse_old_scene: {
-                    value: null
-                },
-                mix_ratio: {
-                    value: 0.0
-                },
-                threshold: {
-                    value: 0.1
-                },
-                texture_mix: {
-                    value: this.texture
-                }
-            },
-            vertexShader: this.shader_vertex,
-            fragmentShader: this.shader_fragment
-        });
-        */
-
-        //l(this.shader_vertex);
-        //l(this.shader_fragment);
-        //l(this.texture);
 
         this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
         this._uniform_key_texture_diffuse_old_scene = 'texture_diffuse_old_scene';
@@ -103,9 +75,9 @@ ShaderMaterialTransition.prototype = {
         this.set_uniform(this._uniform_key_mix_ratio, 0.0);
         this.set_uniform(this._uniform_key_threshold, 0.1);
         this.set_uniform(this._uniform_key_texture_transition_affect, this.texture);
-        this.shader_material = this._get_shader_material();
+        this._set_shader_material();
 
-        this._set_texture_for_transition_affect(this.texture);
+        //this._set_texture_for_transition_affect(this.texture);
         this.set_threshold(0.1);
     },
 
