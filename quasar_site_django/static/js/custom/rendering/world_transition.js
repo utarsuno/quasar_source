@@ -77,7 +77,8 @@ TransitionAffect.prototype = {
             //this.renderer_manager.renderer.render(this.fake_scene, this.fake_camera);
 
             //this.renderer_manager.renderer.setClearColor(0x111111);
-            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+            this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager.camera, this.fbo_current, true);
 
             //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
         }
