@@ -58,6 +58,8 @@ TransitionAffect.prototype = {
             this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
             this.fake_scene.background = this.fbo_previous;
         }
+
+        this.SINGLE_TEST = true;
     },
 
     render: function(delta) {
@@ -97,8 +99,16 @@ TransitionAffect.prototype = {
 
 
 
-            //this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
-            //this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
+            this.renderer_manager.renderer.render(this.new_world.scene, this.renderer_manager.camera, this.fbo_current, true);
+
+            if (this.SINGLE_TEST) {
+
+                this.new_world.add_to_scene(this.quad);
+
+                this.SINGLE_TEST = false;
+            }
+
+            this.renderer_manager.renderer.render(this.scene, this.camera_ortho, null, true);
 
 
             //this.renderer_manager.renderer.render(this.scene, this.camera_ortho);
@@ -112,6 +122,7 @@ TransitionAffect.prototype = {
         this.quad_geometry.dispose();
         this.scene.remove(this.quad);
         //this.quad.dispose();
+
         this.quad_geometry = undefined;
         this.quad = undefined;
 
@@ -178,8 +189,8 @@ function WorldTransition() {
         this.render_pass.scene = scene;
 
         if (is_defined(this._current_transition)) {
-            this._current_transition.clean_up();
-            this._current_transition = undefined;
+            //this._current_transition.clean_up();
+            //this._current_transition = undefined;
         }
 
         if (is_defined(transition_finished_callback)) {
