@@ -76,6 +76,9 @@ ShaderMaterialTransition.prototype = {
             fragmentShader: this.shader_fragment
         });
 
+        l(this.shader_vertex);
+        l(this.shader_fragment);
+
         this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
         this._uniform_key_texture_diffuse_old_scene = 'texture_diffuse_old_scene';
         this._uniform_key_mix_ratio                 = 'mix_ratio';
