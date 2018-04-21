@@ -76,6 +76,8 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
         let l = CURRENT_PLAYER.get_direction();
         this.player_exit_position = new THREE.Vector3(p.x, p.y, p.z);
         this.player_exit_look_at  = new THREE.Vector3(p.x + l.x, p.y + l.y, p.z + l.z);
+        l('Player exit position is now :');
+        l(this.player_exit_position);
     };
 
 }
