@@ -50,6 +50,10 @@ WorldManager.prototype = {
         this.environment.create(this.world_login);
     },
 
+    _singleton_transition_after_old_scene_fbo: function(current_world, previous_world) {
+        this.environment.switch_to_new_world(previous_world, current_world);
+    },
+
     update: function(delta) {
         if (CURRENT_PLAYER.currently_loading()) {
             return;
@@ -122,8 +126,7 @@ WorldManager.prototype = {
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
-            this.environment.switch_to_new_world(this.previous_world, this.current_world);
-            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
+            MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at, this._singleton_transition_after_old_scene_fbo.bind(this, this.current_world, this.previous_world));
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
         }

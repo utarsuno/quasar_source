@@ -21,7 +21,7 @@ TransitionAffect.prototype = {
         this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
     },
 
-    start: function(transition_finished_callback) {
+    start: function(transition_finished_callback, singleton_transition_function) {
         this.renderer_manager.in_transition = true;
         this.elapsed_delta = 0;
         //this.transition    = 0;
@@ -45,6 +45,8 @@ TransitionAffect.prototype = {
         //this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager._camera_transition, this.fbo_previous, true);
         this.renderer_manager.renderer.render(this.old_world.scene, this.renderer_manager.camera, this.fbo_previous, true);
         this.fake_scene.background = this.fbo_previous;
+
+        singleton_transition_function();
     },
 
     render: function(delta) {
@@ -103,7 +105,7 @@ function WorldTransition() {
         this._transition_shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_TRANSITION);
     };
 
-    this.set_current_world = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at) {
+    this.set_current_world = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at, singleton_transition_function) {
         let p = previous_position_and_look_at[0];
         let l = previous_position_and_look_at[1];
 
@@ -111,7 +113,7 @@ function WorldTransition() {
         this._camera_transition.lookAt(p.x + l.x, p.y + l.y, p.z + l.z);
 
         this._current_transition = new TransitionAffect(previous_world, current_world, this);
-        this._current_transition.start(transition_finished_callback);
+        this._current_transition.start(transition_finished_callback, singleton_transition_function);
     };
 
     // Only used once for displaying the initial login world.
