@@ -83,11 +83,14 @@ WorldManager.prototype = {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
 
+                // TODO : Refactor.
+                /*
                 if (this.current_world.root_attachables[a].hasOwnProperty('update_all_child_animations_recursively')) {
                     this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
                 } else {
                     l('Investigate this?');
                 }
+                */
             }
         }
 
