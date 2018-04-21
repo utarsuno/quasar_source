@@ -52,6 +52,7 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
             vertexShader: this.shader_vertex,
             fragmentShader: this.shader_fragment
         });
+        return this.shader_material;
     };
 }
 
