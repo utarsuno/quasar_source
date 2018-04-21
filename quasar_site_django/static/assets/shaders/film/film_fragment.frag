@@ -43,5 +43,6 @@ void main() {
 	cResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (0-cTextureScreen.rgb);
 
 	//gl_FragColor = vec4(cResult, cTextureScreen.a);
-	cResult = vec3( cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11 );
+	cResult = vec3(cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11);
+	gl_FragColor = vec4(cResult, cTextureScreen.a);
 }
