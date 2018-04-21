@@ -68,6 +68,9 @@ TransitionAffect.prototype = {
 
         this.renderer_manager._transition_shader_material.set_mix_ratio(this.elapsed_delta);
 
+        this.renderer_manager._transition_shader_material.set_texture_for_old_scene(this.fbo_previous.texture);
+        this.renderer_manager._transition_shader_material.set_texture_for_new_scene(this.fbo_current.texture);
+
         l(this.elapsed_delta);
         //l(this.renderer_manager._transition_shader_material.shader_material.uniforms);
         //l(this.renderer_manager._transition_shader_material.shader_material.uniforms['mix_ratio']);
