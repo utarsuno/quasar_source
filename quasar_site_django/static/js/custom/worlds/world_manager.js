@@ -30,7 +30,7 @@ WorldManager.prototype = {
         // Singletons.
         this.player_menu = new PlayerMenu();
         this.player_cursor = new PlayerCursor();
-        this.environment = new WorldEnviornment();
+        this.environment = new WorldEnvironment();
 
         // Inherit.
         DynamicContentManager.call(this);
