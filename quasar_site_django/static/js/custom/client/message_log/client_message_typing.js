@@ -3,6 +3,7 @@
 function ClientMessageTyping() {
 
     this.gui_typing = new DomElement('gui_typing_input_field');
+    this.gui_typing.hidden = true;
     this.parent_dom = new DomElement('gui_typing');
 
     this.input_text = new InputTextProcessor('');
