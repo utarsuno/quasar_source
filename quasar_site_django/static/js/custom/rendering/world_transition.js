@@ -170,8 +170,10 @@ function WorldTransition() {
         this.outline_glow.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
 
-        this._current_transition.clean_up();
-        this._current_transition = undefined;
+        if (is_defined(this._current_transition)) {
+            this._current_transition.clean_up();
+            this._current_transition = undefined;
+        }
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();
