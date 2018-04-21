@@ -53,10 +53,6 @@ DomElement.prototype = {
         return this.element;
     },
 
-    is_hidden: function() {
-        return this.hidden;
-    },
-
     get_text: function() {
         return this.element.innerHTML;
     },
@@ -114,6 +110,10 @@ DomElement.prototype = {
     show: function() {
         this.element.style.display = this.display_style;
         this.hidden = false;
+    },
+
+    is_hidden: function() {
+        return this.hidden;
     },
 
     /*       __     __           ___     
