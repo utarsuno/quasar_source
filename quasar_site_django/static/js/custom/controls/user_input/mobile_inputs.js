@@ -56,7 +56,7 @@ function MobileInputManager() {
                 this._add_new_identifier(event.touches[t]);
             }
         }
-        event.preventDefault();
+        //event.preventDefault();
         //event.stopPropagation();
     };
 
@@ -71,7 +71,7 @@ function MobileInputManager() {
                 this.touch_camera.touch_move(touch.pageX, touch.pageY);
             }
         }
-        event.preventDefault();
+        //event.preventDefault();
         //event.stopPropagation();
     };
 
@@ -99,7 +99,7 @@ function MobileInputManager() {
         this._check_if_touch_ended(active_identifiers, this.touch_camera);
         this._check_if_touch_ended(active_identifiers, this.touch_double_click);
 
-        event.preventDefault();
+        //event.preventDefault();
         //event.stopPropagation();
     };
 
