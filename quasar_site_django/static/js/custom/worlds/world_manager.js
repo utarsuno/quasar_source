@@ -9,8 +9,10 @@ WorldManager.prototype = {
     previous_world : null,
     current_world  : null,
 
+    // Singletons.
     player_menu  : null,
     player_cursor: null,
+    environment  : null,
 
     // Static worlds.
     world_login    : null,
@@ -25,10 +27,10 @@ WorldManager.prototype = {
         // List of all dynamic worlds.
         this.dynamic_worlds = {};
 
-        // The player menu.
+        // Singletons.
         this.player_menu = new PlayerMenu();
-        // The player cursor.
         this.player_cursor = new PlayerCursor();
+        this.environment = new WorldEnviornment();
 
         // Inherit.
         DynamicContentManager.call(this);
@@ -45,6 +47,7 @@ WorldManager.prototype = {
     create_singletons: function() {
         this.player_menu.create(this.world_login);
         this.player_cursor.create(this.world_login);
+        this.environment.create(this.world_login);
     },
 
     update: function(delta) {
@@ -55,18 +58,7 @@ WorldManager.prototype = {
         // Since we are not currently loading we can perform an update on the player and the world.
         CURRENT_PLAYER.update(delta);
 
-        // Temp just for fun, rotate the lights in a circle.
-        this.current_world.light_delta += delta;
-        this.current_world.light_percentage = this.current_world.light_delta / this.current_world.light_delta_cap;
-        this.current_world.light_0.position.set(cos(this.current_world.light_percentage) * 1000, 100, sin(this.current_world.light_percentage) * 1000);
-        this.current_world.light_1.position.set(cos(this.current_world.light_percentage + TWO_PIE / 4) * 1000, 100, sin(this.current_world.light_percentage + TWO_PIE / 4) * 1000);
-        this.current_world.light_2.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 2) * 1000);
-        this.current_world.light_3.position.set(cos(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000, 100, sin(this.current_world.light_percentage + (TWO_PIE / 4) * 3) * 1000);
-
-        // Temp for fun, slowly rotate the skybox.
-        this.current_world.skybox_cube.rotation.x += .0001;
-        this.current_world.skybox_cube.rotation.y += .0001;
-        this.current_world.skybox_cube.rotation.z += .0001;
+        this.environment.update(delta);
 
         if (MANAGER_RENDERER.in_transition) {
             return;
@@ -130,6 +122,7 @@ WorldManager.prototype = {
         if (is_defined(this.previous_world)) {
             this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
             this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
+            this.environment.switch_to_new_world(this.previous_world, this.current_world);
             MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at);
         } else {
             MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
@@ -139,44 +132,6 @@ WorldManager.prototype = {
     },
 
     create_world: function(world) {
-        // Default skybox.
-        let skybox_geometry = new THREE.BoxGeometry(20000, 20000, 20000);
-        world.skybox_cube = new THREE.Mesh(skybox_geometry, MANAGER_TEXTURE.get_skybox_material());
-        world.skybox_cube.position.set(0, 0, 0);
-        world.add_to_scene(world.skybox_cube);
-
-        // Default hex grid ground.
-        let grid = new vg.HexGrid({cellSize: 100});
-        grid.generate({size: 10});
-        let board = new vg.Board(grid);
-        // Used to be : board.generateTilemap({cellSize: 100, tileScale: 0.99});
-        board.generateTilemap({cellSize: 100, tileScale: 1});
-        world.add_to_scene(board.group);
-
-        // Default lights.
-        world.light_delta = 0;
-        world.light_delta_cap = 10;
-        world.light_radius = 1000;
-
-        world.light_0 = new THREE.PointLight(0xccffcc, .5, 0);
-        world.light_0.position.set(5, 100, 5);
-        world.add_to_scene(world.light_0);
-
-        world.light_1 = new THREE.PointLight(0xff8579, .5, 0);
-        world.light_1.position.set(1000, 100, 0);
-        world.add_to_scene(world.light_1);
-
-        world.light_2 = new THREE.PointLight(0xb1ff90, .5, 0);
-        world.light_2.position.set(0, 100, 1000);
-        world.add_to_scene(world.light_2);
-
-        world.light_3 = new THREE.PointLight(0x84b5ff, .5, 0);
-        world.light_3.position.set(500, 100, 500);
-        world.add_to_scene(world.light_3);
-
-        world.light = new THREE.AmbientLight(0xffffff, .35); // soft white light
-        world.add_to_scene(world.light);
-
         // Add audio needed for the world.
         MANAGER_AUDIO.set_audio_for_world(world);
 
