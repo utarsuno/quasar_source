@@ -9,7 +9,7 @@
 
 function FilmNoise() {
     THREE.Pass.call(this);
-    this.shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_NOISE);
+    this.material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_NOISE);
 
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     this.scene  = new THREE.Scene();
