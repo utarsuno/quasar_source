@@ -48,7 +48,7 @@ WorldManager.prototype = {
     },
 
     update: function(delta) {
-        if (CURRENT_PLAYER.currently_loading()) {
+        if (CURRENT_PLAYER.currently_loading() || MANAGER_RENDERER.in_transition) {
             return;
         }
 
