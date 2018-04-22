@@ -1,5 +1,23 @@
 'use strict';
 
+function ManagerManager() {
+    this.__init__();
+}
+
+ManagerManager.prototype = {
+
+    __init__: function() {
+
+    },
+
+    delete_loading_manager: function() {
+        this.get_loading_manager = null;
+        delete this.get_loading_manager;
+        this.manager_loading = null;
+        delete this.manager_loading;
+    }
+};
+
 function load_all_global_managers() {
     // Gets information needed regarding the connected client.
     CURRENT_CLIENT = new Client();
@@ -36,7 +54,7 @@ function load_all_global_managers() {
      |__) |__  /__` /  \ |  | |__) /  ` |__      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
      |  \ |___ .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
     // Handles most if not all of the resource loading.
-    MANAGER_LOADING   = new LoadingManager();
+    //MANAGER_LOADING   = new LoadingManager();
     // Handles all audio operations.
     MANAGER_AUDIO     = new AudioManager();
     // Handles all shaders.

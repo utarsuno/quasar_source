@@ -190,6 +190,7 @@ module.exports = {
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
+        "MANAGER_MANAGER"        : true,
         "MANAGER_MULTI_PLAYER"   : true,
         "MANAGER_WEB_SOCKETS"    : true,
         "MANAGER_AUDIO"          : true,
@@ -202,6 +203,7 @@ module.exports = {
         "MANAGER_POINTER_LOCK"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
+        "ManagerManager"       : false,
         "MultiPlayerManager"   : false,
         "WebSocketManager"     : false,
         "CookieManager"        : false,

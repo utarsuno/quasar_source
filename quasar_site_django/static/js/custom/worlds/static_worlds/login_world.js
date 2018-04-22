@@ -13,7 +13,6 @@ LoginWorld.prototype = {
         WorldInput.call(this);
     },
 
-
     custom_world_enter: function() {
         if (CURRENT_CLIENT.get_cookie(COOKIE_SHOULD_REMEMBER_USERNAME)) {
             this.remember_username.set_checked_state(true);

@@ -26,6 +26,8 @@ QuasarMainLoop.prototype = {
     run: function() {
         this.current_client.add_server_message_green('Welcome to Quasar!');
 
+        MANAGER_MANAGER.delete_loading_manager();
+
         this.previous_time = performance.now();
         this.quasar_main_loop();
     },
@@ -56,7 +58,12 @@ QuasarMainLoop.prototype = {
 };
 
 window.onload = function() {
+    MANAGER_MANAGER = new ManagerManager();
     load_all_global_managers();
     const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
-    MANAGER_LOADING.perform_initial_load(QUASAR);
+
+    // get_loading_manager
+    let manager_loading = MANAGER_MANAGER.get_loading_manager();
+    manager_loading.perform_initial_load(QUASAR);
+    //MANAGER_LOADING.perform_initial_load(QUASAR);
 };
