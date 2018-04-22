@@ -18,7 +18,7 @@ InputTextProcessor.prototype = {
     parse_key_event: function(event) {
         let key_code = event.keyCode;
 
-        if (key_code === KEY_CODE_DELETE) {
+        if (key_code === KEY_CODE__DELETE) {
             if (this.current_text.length > 0) {
                 this.current_text = this.current_text.slice(0, -1);
             }

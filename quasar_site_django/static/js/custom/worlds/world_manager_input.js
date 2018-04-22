@@ -76,13 +76,13 @@ function WorldManagerInput() {
 
     this.key_down_event = function(event) {
         if (CURRENT_PLAYER.in_typing_state()) {
-            if (event.keyCode === KEY_CODE_ENTER) {
+            if (event.keyCode === KEY_CODE__ENTER) {
                 CURRENT_PLAYER.add_text_and_leave_typing_state();
             } else {
                 CURRENT_CLIENT.key_down_event(event);
             }
         } else if (CURRENT_PLAYER.has_input()) {
-            if (event.keyCode === KEY_CODE_ENTER) {
+            if (event.keyCode === KEY_CODE__ENTER) {
                 if (!CURRENT_PLAYER.engaged_with_object()) {
                     if (CURRENT_CLIENT.is_logged_in()) {
                         CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);

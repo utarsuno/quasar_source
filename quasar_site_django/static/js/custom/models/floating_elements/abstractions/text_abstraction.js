@@ -92,7 +92,7 @@ function TextAbstraction(text) {
     this.parse_keycode = function(event) {
         let keycode = event.keyCode;
 
-        if (keycode === KEY_CODE_DELETE) {
+        if (keycode === KEY_CODE__DELETE) {
             if (this.get_text().length > 0) {
                 this._pop_character();
                 MANAGER_AUDIO.play_typing_sound();

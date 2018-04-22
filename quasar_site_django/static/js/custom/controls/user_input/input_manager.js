@@ -1,53 +1,53 @@
 'use strict';
 
 // Key-down key-codes.
-const KEY_CODE_SHIFT      = 16;            // #pre-process_global_constant
-const KEY_CODE_SPACE      = 32;            // #pre-process_global_constant
-const KEY_CODE_UP         = 38;            // #pre-process_global_constant
-const KEY_CODE_LEFT       = 37;            // #pre-process_global_constant
-const KEY_CODE_RIGHT      = 39;            // #pre-process_global_constant
-const KEY_CODE_DOWN       = 40;            // #pre-process_global_constant
-const KEY_CODE_0          = 48;            // #pre-process_global_constant
-const KEY_CODE_1          = 49;            // #pre-process_global_constant
-const KEY_CODE_2          = 50;            // #pre-process_global_constant
-const KEY_CODE_3          = 51;            // #pre-process_global_constant
-const KEY_CODE_4          = 52;            // #pre-process_global_constant
-const KEY_CODE_5          = 53;            // #pre-process_global_constant
-const KEY_CODE_6          = 54;            // #pre-process_global_constant
-const KEY_CODE_7          = 55;            // #pre-process_global_constant
-const KEY_CODE_8          = 56;            // #pre-process_global_constant
-const KEY_CODE_9          = 57;            // #pre-process_global_constant
-const KEY_CODE_A          = 65;            // #pre-process_global_constant
-const KEY_CODE_B          = 66;            // #pre-process_global_constant
-const KEY_CODE_C          = 67;            // #pre-process_global_constant
-const KEY_CODE_D          = 68;            // #pre-process_global_constant
-const KEY_CODE_E          = 69;            // #pre-process_global_constant
-const KEY_CODE_F          = 70;            // #pre-process_global_constant
-const KEY_CODE_G          = 71;            // #pre-process_global_constant
-const KEY_CODE_H          = 72;            // #pre-process_global_constant
-const KEY_CODE_I          = 73;            // #pre-process_global_constant
-const KEY_CODE_J          = 74;            // #pre-process_global_constant
-const KEY_CODE_K          = 75;            // #pre-process_global_constant
-const KEY_CODE_L          = 76;            // #pre-process_global_constant
-const KEY_CODE_M          = 77;            // #pre-process_global_constant
-const KEY_CODE_N          = 78;            // #pre-process_global_constant
-const KEY_CODE_O          = 79;            // #pre-process_global_constant
-const KEY_CODE_P          = 80;            // #pre-process_global_constant
-const KEY_CODE_Q          = 81;            // #pre-process_global_constant
-const KEY_CODE_R          = 82;            // #pre-process_global_constant
-const KEY_CODE_S          = 83;            // #pre-process_global_constant
-const KEY_CODE_T          = 84;            // #pre-process_global_constant
-const KEY_CODE_U          = 85;            // #pre-process_global_constant
-const KEY_CODE_V          = 86;            // #pre-process_global_constant
-const KEY_CODE_W          = 87;            // #pre-process_global_constant
-const KEY_CODE_X          = 88;            // #pre-process_global_constant
-const KEY_CODE_Y          = 89;            // #pre-process_global_constant
-const KEY_CODE_Z          = 90;            // #pre-process_global_constant
-const KEY_CODE_DELETE     = 8;             // #pre-process_global_constant
-const KEY_CODE_TAB        = 9;             // #pre-process_global_constant
-const KEY_CODE_ENTER      = 13;            // #pre-process_global_constant
-const KEY_CODE_CONTROL    = 17;            // #pre-process_global_constant
-const KEY_CODE_BACK_SLASH = 220;           // #pre-process_global_constant
+const KEY_CODE__SHIFT      = 16;           // #pre-process_global_constant
+const KEY_CODE__SPACE      = 32;           // #pre-process_global_constant
+const KEY_CODE__UP         = 38;           // #pre-process_global_constant
+const KEY_CODE__LEFT       = 37;           // #pre-process_global_constant
+const KEY_CODE__RIGHT      = 39;           // #pre-process_global_constant
+const KEY_CODE__DOWN       = 40;           // #pre-process_global_constant
+const KEY_CODE_0           = 48;           // #pre-process_global_constant
+const KEY_CODE_1           = 49;           // #pre-process_global_constant
+const KEY_CODE_2           = 50;           // #pre-process_global_constant
+const KEY_CODE_3           = 51;           // #pre-process_global_constant
+const KEY_CODE_4           = 52;           // #pre-process_global_constant
+const KEY_CODE_5           = 53;           // #pre-process_global_constant
+const KEY_CODE_6           = 54;           // #pre-process_global_constant
+const KEY_CODE_7           = 55;           // #pre-process_global_constant
+const KEY_CODE_8           = 56;           // #pre-process_global_constant
+const KEY_CODE_9           = 57;           // #pre-process_global_constant
+const KEY_CODE_A           = 65;           // #pre-process_global_constant
+const KEY_CODE_B           = 66;           // #pre-process_global_constant
+const KEY_CODE_C           = 67;           // #pre-process_global_constant
+const KEY_CODE_D           = 68;           // #pre-process_global_constant
+const KEY_CODE_E           = 69;           // #pre-process_global_constant
+const KEY_CODE_F           = 70;           // #pre-process_global_constant
+const KEY_CODE_G           = 71;           // #pre-process_global_constant
+const KEY_CODE_H           = 72;           // #pre-process_global_constant
+const KEY_CODE_I           = 73;           // #pre-process_global_constant
+const KEY_CODE_J           = 74;           // #pre-process_global_constant
+const KEY_CODE_K           = 75;           // #pre-process_global_constant
+const KEY_CODE_L           = 76;           // #pre-process_global_constant
+const KEY_CODE_M           = 77;           // #pre-process_global_constant
+const KEY_CODE_N           = 78;           // #pre-process_global_constant
+const KEY_CODE_O           = 79;           // #pre-process_global_constant
+const KEY_CODE_P           = 80;           // #pre-process_global_constant
+const KEY_CODE_Q           = 81;           // #pre-process_global_constant
+const KEY_CODE_R           = 82;           // #pre-process_global_constant
+const KEY_CODE_S           = 83;           // #pre-process_global_constant
+const KEY_CODE_T           = 84;           // #pre-process_global_constant
+const KEY_CODE_U           = 85;           // #pre-process_global_constant
+const KEY_CODE_V           = 86;           // #pre-process_global_constant
+const KEY_CODE_W           = 87;           // #pre-process_global_constant
+const KEY_CODE_X           = 88;           // #pre-process_global_constant
+const KEY_CODE_Y           = 89;           // #pre-process_global_constant
+const KEY_CODE_Z           = 90;           // #pre-process_global_constant
+const KEY_CODE__DELETE     = 8;            // #pre-process_global_constant
+const KEY_CODE__TAB        = 9;            // #pre-process_global_constant
+const KEY_CODE__ENTER      = 13;           // #pre-process_global_constant
+const KEY_CODE__CONTROL    = 17;           // #pre-process_global_constant
+const KEY_CODE__BACK_SLASH = 220;          // #pre-process_global_constant
 
 const EVENT_MOUSE_DOWN = 'mousedown';      // #pre-process_global_constant
 const EVENT_MOUSE_UP   = 'mouseup';        // #pre-process_global_constant
@@ -173,26 +173,26 @@ InputManager.prototype = {
     on_key_down: function(event) {
         if (CURRENT_PLAYER.has_movement()) {
             switch (event.keyCode) {
-            case KEY_CODE_UP:
+            case KEY_CODE__UP:
             case KEY_CODE_W:
                 this.up = true;
                 break;
-            case KEY_CODE_LEFT:
+            case KEY_CODE__LEFT:
             case KEY_CODE_A:
                 this.left = true;
                 break;
-            case KEY_CODE_DOWN:
+            case KEY_CODE__DOWN:
             case KEY_CODE_S:
                 this.down = true;
                 break;
-            case KEY_CODE_RIGHT:
+            case KEY_CODE__RIGHT:
             case KEY_CODE_D:
                 this.right = true;
                 break;
-            case KEY_CODE_SPACE:
+            case KEY_CODE__SPACE:
                 this.space = true;
                 break;
-            case KEY_CODE_SHIFT:
+            case KEY_CODE__SHIFT:
                 this.shift = true;
                 break;
             }
@@ -219,26 +219,26 @@ InputManager.prototype = {
     on_key_up: function(event) {
         if (CURRENT_PLAYER.has_movement()) {
             switch (event.keyCode) {
-            case KEY_CODE_UP:
+            case KEY_CODE__UP:
             case KEY_CODE_W:
                 this.up = false;
                 break;
-            case KEY_CODE_LEFT:
+            case KEY_CODE__LEFT:
             case KEY_CODE_A:
                 this.left = false;
                 break;
-            case KEY_CODE_DOWN:
+            case KEY_CODE__DOWN:
             case KEY_CODE_S:
                 this.down = false;
                 break;
-            case KEY_CODE_RIGHT:
+            case KEY_CODE__RIGHT:
             case KEY_CODE_D:
                 this.right = false;
                 break;
-            case KEY_CODE_SPACE:
+            case KEY_CODE__SPACE:
                 this.space = false;
                 break;
-            case KEY_CODE_SHIFT:
+            case KEY_CODE__SHIFT:
                 this.shift = false;
                 break;
             }
