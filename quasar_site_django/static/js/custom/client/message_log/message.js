@@ -57,6 +57,7 @@ LogMessage.prototype = {
 
     reset_delta: function() {
         this.current_delta = 0;
+        this.current_alpha = 1.0 - (this.current_delta / this.alpha_duration);
     }
 
 };
