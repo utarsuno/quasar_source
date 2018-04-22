@@ -47,7 +47,15 @@ AudioGroup.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/    |  \ |___ \__X \__/ | |  \ |___ |__/ */
     _add_required_initial_assets: function(callback) {
-        this._add_required_initial_asset(AUDIO_TYPING_SOUND);
+        this._add_required_initial_asset(AUDIO_SOUND_TYPING);
+        this._add_required_initial_asset(AUDIO_SOUND_TRANSITION);
+        this._add_required_initial_asset(AUDIO_SOUND_ERROR);
+        this._add_required_initial_asset(AUDIO_SOUND_ON_DISENGAGE);
+        this._add_required_initial_asset(AUDIO_SOUND_ON_ENGAGE);
+        this._add_required_initial_asset(AUDIO_SOUND_ON_HOVER);
+        this._add_required_initial_asset(AUDIO_SOUND_SUCCESS);
+        this._add_required_initial_asset(AUDIO_SOUND_CHECKBOX);
+        this._add_required_initial_asset(AUDIO_MUSIC_BACKGROUND);
         callback();
     }
 };

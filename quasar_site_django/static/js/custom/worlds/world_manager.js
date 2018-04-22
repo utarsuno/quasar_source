@@ -147,7 +147,8 @@ WorldManager.prototype = {
         this.world_home.prepare_for_save();
         //this.world_settings.prepare_for_save();
         //this.world_admin.prepare_for_save();
-        for (let relative_id in this.dynamic_worlds) {
+        let relative_id;
+        for (relative_id in this.dynamic_worlds) {
             if (this.dynamic_worlds.hasOwnProperty(relative_id)) {
                 this.dynamic_worlds[relative_id].prepare_for_save();
             }
@@ -177,7 +178,8 @@ WorldManager.prototype = {
         // Create the dynamic worlds needed.
         // Iterate through the children of this entity. They each are a created world.
         let dynamic_worlds = this.dynamic_worlds_manager_entity.get_children();
-        for (let c = 0; c < dynamic_worlds.length; c++) {
+        let c;
+        for (c = 0; c < dynamic_worlds.length; c++) {
             let created_world_entity = dynamic_worlds[c];
 
             let created_world = new DynamicWorld(created_world_entity);

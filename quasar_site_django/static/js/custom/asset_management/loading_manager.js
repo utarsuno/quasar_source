@@ -10,8 +10,9 @@ function LoadingManager() {
 LoadingManager.prototype = {
 
     __init__: function() {
-        this._number_of_resources_to_load = 0;
-        this._number_of_resources_loaded  = 0;
+        this._number_of_resources_to_load   = 0;
+        this._number_of_resources_loaded    = 0;
+        this._number_of_asset_groups_loaded = 0;
 
         this.asset_groups = [];
 
@@ -28,8 +29,10 @@ LoadingManager.prototype = {
 
     asset_loaded: function(asset) {
         this._number_of_resources_loaded += 1;
-        GUI_PAUSED_MENU.set_text(int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%');
-        GUI_PAUSED_MENU.set_sub_text('loaded : ' + asset);
+        let text = int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%';
+        let sub_text = 'loaded : ' + asset;
+        GUI_PAUSED_MENU.set_text(text);
+        GUI_PAUSED_MENU.set_sub_text(sub_text);
     },
 
     /*__             __        __              ___                      __        __          __
@@ -40,22 +43,14 @@ LoadingManager.prototype = {
 
         CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
 
-        for (let asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
+        let asset_group;
+        for (asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
             this.asset_groups[asset_group].load_assets();
         }
     },
 
-    initial_resources_loaded: function() {
-        for (let asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
-            if (!this.asset_groups[asset_group]._loaded) {
-                return false;
-            }
-        }
-        return true;
-    },
-
     check_if_initial_resources_loaded: function() {
-        if (this.initial_resources_loaded()) {
+        if (this._number_of_asset_groups_loaded === this.asset_groups.length) {
             MANAGER_TEXTURE.create_skybox_material();
             MANAGER_SHADER.create_global_shader_materials();
 

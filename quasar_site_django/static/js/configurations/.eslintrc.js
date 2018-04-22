@@ -375,7 +375,15 @@ module.exports = {
         "SHADER_MATERIAL_NOISE"      : false,
 
         // Audio.
-        "AUDIO_TYPING_SOUND"  : true,
+        "AUDIO_SOUND_TYPING"      : false,
+        "AUDIO_SOUND_TRANSITION"  : false,
+        "AUDIO_SOUND_ERROR"       : false,
+        "AUDIO_SOUND_ON_DISENGAGE": false,
+        "AUDIO_SOUND_ON_ENGAGE"   : false,
+        "AUDIO_SOUND_ON_HOVER"    : false,
+        "AUDIO_SOUND_SUCCESS"     : false,
+        "AUDIO_SOUND_CHECKBOX"    : false,
+        "AUDIO_MUSIC_BACKGROUND"  : false,
 
         // Textures.
         "ASSET_GROUP_AUDIO"  : false,

@@ -1,8 +1,14 @@
 'use strict';
 
-const AUDIO_TYPING_SOUND = 'typing_sound.wav';
-
-// Important reference : https://imgur.com/gallery/J6WA6eo
+const AUDIO_SOUND_TYPING       = 'typing_sound.ogg';
+const AUDIO_SOUND_TRANSITION   = 'transition.ogg';
+const AUDIO_SOUND_ERROR        = 'error.ogg';
+const AUDIO_SOUND_ON_DISENGAGE = 'on_disengage.ogg';
+const AUDIO_SOUND_ON_ENGAGE    = 'on_engage.ogg';
+const AUDIO_SOUND_ON_HOVER     = 'on_hover.ogg';
+const AUDIO_SOUND_SUCCESS      = 'success.ogg';
+const AUDIO_SOUND_CHECKBOX     = 'checkbox_toggle.ogg';
+const AUDIO_MUSIC_BACKGROUND   = 'background_music.ogg';
 
 function AudioManager() {
     this.__init__();
@@ -24,15 +30,20 @@ AudioManager.prototype = {
         this._all_audio = {};
     },
 
+    // Important reference : https://imgur.com/gallery/J6WA6eo
     get_true_audio_level: function(audio_percentage) {
         return pow(audio_percentage, Math.E);
     },
 
     play_typing_sound: function() {
-        if (this._all_audio[AUDIO_TYPING_SOUND].isPlaying) {
-            this._all_audio[AUDIO_TYPING_SOUND].stop();
+        this.play_sound(AUDIO_SOUND_TYPING);
+    },
+
+    play_sound: function(s) {
+        if (this._all_audio[s].isPlaying) {
+            this._all_audio[s].stop();
         }
-        this._all_audio[AUDIO_TYPING_SOUND].play();
+        this._all_audio[s].play();
     },
 
     set_audio: function(audio_name, audio_buffer) {
@@ -41,10 +52,13 @@ AudioManager.prototype = {
     },
 
     set_audio_for_world: function(world) {
-        for (var audio in this._all_audio) {
+        /*
+        let audio;
+        for (audio in this._all_audio) {
             if (this._all_audio.hasOwnProperty(audio)) {
                 world.add_to_scene(this._all_audio[audio]);
             }
         }
+        */
     }
 };

@@ -66,7 +66,6 @@ function MessageLogManager() {
             this.messages[m].reset_delta();
             let index = this.messages[m].get_row_index();
             this.rows[index].set_color(this.messages[m].get_color());
-            //this.rows[index].set_text(this.messages[m].get_text());
         }
     };
 

@@ -16,8 +16,6 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
     this._number_of_assets_to_load = 0;
     this._number_of_assets_loaded  = 0;
 
-    this._loaded = false;
-
     this._add_required_initial_asset = function(asset_name) {
         this._assets[asset_name] = null;
         this._number_of_assets_to_load += 1;
@@ -33,7 +31,7 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
         this._loading_manager.asset_loaded(asset_name);
         this._number_of_assets_loaded += 1;
         if (this._number_of_assets_to_load === this._number_of_assets_loaded) {
-            this._loaded = true;
+            this._loading_manager._number_of_asset_groups_loaded += 1;
             this._fully_loaded_callback();
         }
     };
