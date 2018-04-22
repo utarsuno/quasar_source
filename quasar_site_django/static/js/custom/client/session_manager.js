@@ -32,7 +32,7 @@ function SessionManager() {
      |    /  \ / _` /  \ |  |  |
      |___ \__/ \__> \__/ \__/  |  */
     this.logout = function() {
-        l('Performing the log out request!');
+        //l('Performing the log out request!');
 
         // TODO : Disable automatic saving before performing the save!
 

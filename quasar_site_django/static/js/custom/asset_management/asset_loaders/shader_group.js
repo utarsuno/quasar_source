@@ -46,9 +46,9 @@ ShaderGroup.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/    |  \ |___ \__X \__/ | |  \ |___ |__/ */
     _add_required_initial_assets: function(callback) {
-        this._add_required_initial_asset(SHADER_TRANSITION_FRAGEMENT);
+        this._add_required_initial_asset(SHADER_TRANSITION_FRAGMENT);
         this._add_required_initial_asset(SHADER_TRANSITION_VERTEX);
-        this._add_required_initial_asset(SHADER_NOISE_FRAGEMENT);
+        this._add_required_initial_asset(SHADER_NOISE_FRAGMENT);
         this._add_required_initial_asset(SHADER_NOISE_VERTEX);
         callback();
     }

@@ -3,17 +3,17 @@
 /*    ___          ___         __   __        __  ___           ___  __
  |  |  |  | |    |  |  \ /    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
  \__/  |  | |___ |  |   |     \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
-// TODO : CodeAPI needs to treat some of these as #define statements and perfrom a pre-process on the code.
-const DIAGONAL_PENALTY = Math.sqrt(.5);
 const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
-const ONE_THIRD        = 1 / 3;
-const ONE_FOURTH       = 0.25;
-const THREE_FOURTHS    = 0.75;
-const TWO_THIRDS       = 2 / 3;
-const HALF             = 0.5;
-const HALF_PIE         = Math.PI / 2.0;
-const PIE              = Math.PI;
-const TWO_PIE          = Math.PI * 2.0;
+const DIAGONAL_PENALTY = 0.7071067811865476; // #pre-process_global_constant
+const ONE_FOURTH       = 0.25;               // #pre-process_global_constant
+const ONE_THIRD        = 0.3333333333333333; // #pre-process_global_constant
+const THREE_FOURTHS    = 0.75;               // #pre-process_global_constant
+const TWO_THIRDS       = 0.6666666666666666; // #pre-process_global_constant
+const HALF             = 0.5;                // #pre-process_global_constant
+
+//const TWO_THIRDS       = 2 / 3;
+//const ONE_THIRD        = 1 / 3;
+//const DIAGONAL_PENALTY = Math.sqrt(.5);
 
 /*     __   __        __      __   __        __  ___           ___  __
  |  | /  \ |__) |    |  \    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
@@ -112,8 +112,8 @@ function is_point_inside_floating_wall(x, y, z) {
     return this.get_horizontal_distance_to_center(x, z) <= this.width / 2;
 }
 
-const _INDEX_OF_POSITION = 0;
-const _INDEX_OF_DIRECTION = 1;
+const _INDEX_OF_POSITION  = 0; // #pre-process_global_constant
+const _INDEX_OF_DIRECTION = 1; // #pre-process_global_constant
 
 function _calculate_t_value(line_parametric_equation, plane_parametric_equation) {
     let line_x0 = line_parametric_equation[0][_INDEX_OF_POSITION];

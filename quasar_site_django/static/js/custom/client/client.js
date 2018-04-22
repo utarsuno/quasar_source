@@ -1,8 +1,8 @@
 'use strict';
 
-const DEBUG_MODE_NONE = 1;
-const DEBUG_MODE_FPS  = 2;
-const DEBUG_MODE_FULL = 3;
+const DEBUG_MODE_NONE = 1; // #pre-process_global_constant
+const DEBUG_MODE_FPS  = 2; // #pre-process_global_constant
+const DEBUG_MODE_FULL = 3; // #pre-process_global_constant
 
 function Client() {
     this.__init__();

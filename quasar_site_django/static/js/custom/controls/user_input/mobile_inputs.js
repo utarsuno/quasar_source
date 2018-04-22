@@ -1,9 +1,9 @@
 'use strict';
 
-const TOUCH_EVENT_START  = 'touchstart';
-const TOUCH_EVENT_END    = 'touchend';
-const TOUCH_EVENT_CANCEL = 'touchcancel';
-const TOUCH_EVENT_MOVE   = 'touchmove';
+const TOUCH_EVENT_START  = 'touchstart';  // #pre-process_global_constant
+const TOUCH_EVENT_END    = 'touchend';    // #pre-process_global_constant
+const TOUCH_EVENT_CANCEL = 'touchcancel'; // #pre-process_global_constant
+const TOUCH_EVENT_MOVE   = 'touchmove';   // #pre-process_global_constant
 
 function MobileInputManager() {
 

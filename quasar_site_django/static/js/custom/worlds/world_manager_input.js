@@ -23,7 +23,10 @@ function WorldManagerInput() {
     this.left_click_down = function() {
         let current_milliseconds = new Date().getTime();
 
-        for (let i = this._left_click_buffer.length; i--;) {
+        // OPTIMIZE!!! Use an object pool!!!!
+
+        let i;
+        for (i = this._left_click_buffer.length; i--;) {
             if (current_milliseconds - this._left_click_buffer[i] >= 300) {
                 this._left_click_buffer.splice(i, 1);
             }

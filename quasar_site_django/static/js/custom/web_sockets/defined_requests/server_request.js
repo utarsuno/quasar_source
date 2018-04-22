@@ -1,22 +1,22 @@
 'use strict';
 
 // Client request keys.
-const _WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE = 'r';
-const _WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm';
-const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';
-const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';
-const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';
-const _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd';
-const _WEB_SOCKET_REQUEST_KEY_DELETED_IDS  = 'i';
+const _WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE = 'r';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_MESSAGE_ID   = 'm';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_USERNAME     = 'u';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_PASSWORD     = 'p';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_EMAIL        = 'e';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_SAVE_DATA    = 'd';                 // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_DELETED_IDS  = 'i';                 // #pre-process_global_constant
 
 // Client request values.
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN           = 1;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT  = 2;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA  = 3;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT          = 4;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA       = 5;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE    = 6;
-const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_DELETE_ENTITIES = 7;
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGIN           = 1; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CREATE_ACCOUNT  = 2; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOAD_USER_DATA  = 3; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_LOGOUT          = 4; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_SAVE_DATA       = 5; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE    = 6; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_DELETE_ENTITIES = 7; // #pre-process_global_constant
 
 function ServerRequest(request_type) {
 

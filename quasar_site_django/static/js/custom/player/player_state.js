@@ -1,10 +1,10 @@
 'use strict';
 
-const PLAYER_STATE_PAUSED       = 1;
-const PLAYER_STATE_LOADING      = 2;
-const PLAYER_STATE_ENGAGED      = 3;
-const PLAYER_STATE_FULL_CONTROL = 4;
-const PLAYER_STATE_TYPING       = 5;
+const PLAYER_STATE_PAUSED       = 1; // #pre-process_global_constant
+const PLAYER_STATE_LOADING      = 2; // #pre-process_global_constant
+const PLAYER_STATE_ENGAGED      = 3; // #pre-process_global_constant
+const PLAYER_STATE_FULL_CONTROL = 4; // #pre-process_global_constant
+const PLAYER_STATE_TYPING       = 5; // #pre-process_global_constant
 
 function PlayerState() {
 
@@ -90,7 +90,7 @@ function PlayerState() {
         if (this.current_state === PLAYER_STATE_TYPING) {
             return true;
         } else {
-            var currently_looked_at_object = this.get_currently_looked_at_object();
+            let currently_looked_at_object = this.get_currently_looked_at_object();
             if (is_defined(currently_looked_at_object)) {
                 if (currently_looked_at_object.is_engaged()) {
                     return true;

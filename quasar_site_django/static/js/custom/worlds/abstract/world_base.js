@@ -28,7 +28,7 @@ function World(world_entity) {
                 return i;
             }
         }
-        return -1;
+        return NOT_FOUND;
     };
 
     this.delete_all = function() {
@@ -77,7 +77,7 @@ function World(world_entity) {
             for (d = 0; d < intersections.length; d++) {
                 if (intersections[d].distance < smallest_distance) {
                     let match_found = this._match_found(intersections[d].object);
-                    if (match_found !== -1) {
+                    if (match_found !== NOT_FOUND) {
                         smallest_distance = intersections[d].distance;
                         interactive_index = match_found;
                         intersection_data = intersections[d];
@@ -86,8 +86,7 @@ function World(world_entity) {
             }
         }
 
-        // Previously : if (interactive_index === NOT_FOUND) {
-        if (interactive_index === -1) {
+        if (interactive_index === NOT_FOUND) {
             if (this.currently_looked_at_object !== null) {
                 this.look_away_from_currently_looked_at_object();
             }

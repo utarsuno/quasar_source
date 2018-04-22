@@ -1,14 +1,14 @@
 'use strict';
 
-const AUDIO_SOUND_TYPING       = 'typing_sound.ogg';
-const AUDIO_SOUND_TRANSITION   = 'transition.ogg';
-const AUDIO_SOUND_ERROR        = 'error.ogg';
-const AUDIO_SOUND_ON_DISENGAGE = 'on_disengage.ogg';
-const AUDIO_SOUND_ON_ENGAGE    = 'on_engage.ogg';
-const AUDIO_SOUND_ON_HOVER     = 'on_hover.ogg';
-const AUDIO_SOUND_SUCCESS      = 'success.ogg';
-const AUDIO_SOUND_CHECKBOX     = 'checkbox_toggle.ogg';
-const AUDIO_MUSIC_BACKGROUND   = 'background_music.ogg';
+const AUDIO_SOUND_TYPING       = 'typing_sound.ogg';     // #pre-process_global_constant
+const AUDIO_SOUND_TRANSITION   = 'transition.ogg';       // #pre-process_global_constant
+const AUDIO_SOUND_ERROR        = 'error.ogg';            // #pre-process_global_constant
+const AUDIO_SOUND_ON_DISENGAGE = 'on_disengage.ogg';     // #pre-process_global_constant
+const AUDIO_SOUND_ON_ENGAGE    = 'on_engage.ogg';        // #pre-process_global_constant
+const AUDIO_SOUND_ON_HOVER     = 'on_hover.ogg';         // #pre-process_global_constant
+const AUDIO_SOUND_SUCCESS      = 'success.ogg';          // #pre-process_global_constant
+const AUDIO_SOUND_CHECKBOX     = 'checkbox_toggle.ogg';  // #pre-process_global_constant
+const AUDIO_MUSIC_BACKGROUND   = 'background_music.ogg'; // #pre-process_global_constant
 
 function AudioManager() {
     this.__init__();

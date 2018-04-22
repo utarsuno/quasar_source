@@ -27,14 +27,15 @@ ServerRequestSaveData.prototype = {
         // Get all the entities to save.
         this.entities_to_save = [];
         let all_entities = MANAGER_ENTITY.entities;
-        for (let e = 0; e < all_entities.length; e++) {
+        let e;
+        for (e = 0; e < all_entities.length; e++) {
             if (all_entities[e].needs_to_be_saved) {
                 this.entities_to_save.push(all_entities[e]);
             }
         }
 
         let save_data = {};
-        for (let e = 0; e < this.entities_to_save.length; e++) {
+        for (e = 0; e < this.entities_to_save.length; e++) {
             save_data[this.entities_to_save[e].get_relative_id()] = this.entities_to_save[e].get_all_properties();
         }
 
@@ -58,7 +59,8 @@ ServerRequestSaveData.prototype = {
         if (success) {
             CURRENT_CLIENT.add_server_message_green('data saved!');
 
-            for (let e = 0; e < this.entities_to_save.length; e++) {
+            let e;
+            for (e = 0; e < this.entities_to_save.length; e++) {
                 this.entities_to_save[e].needs_to_be_saved = false;
                 this.entities_to_save[e].exists_on_server_side = true;
             }

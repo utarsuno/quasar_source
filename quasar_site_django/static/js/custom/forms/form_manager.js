@@ -10,7 +10,8 @@ FormManager.prototype = {
         this.input_fields = [];
         this.input_fields_repeat_password = [];
         if (is_defined(input_fields)) {
-            for (let f = 0; f < input_fields.length; f++) {
+            let f;
+            for (f = 0; f < input_fields.length; f++) {
                 this.add_input_field(input_fields[f]);
             }
         }
@@ -44,7 +45,8 @@ FormManager.prototype = {
 
         let has_errors = false;
 
-        for (let i = 0; i < this.input_fields.length; i++) {
+        let i;
+        for (i = 0; i < this.input_fields.length; i++) {
             let input_field = this.input_fields[i];
 
             let syntax;

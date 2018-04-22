@@ -32,14 +32,14 @@ var CURRENT_PLAYER = null;
 var ENTITY_OWNER   = null;
 
 // Global gui objects.
-var GUI_PAUSED_MENU      = null;
+var GUI_PAUSED_MENU = null;
 
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */
 
 // Logical constants.
-const NOT_FOUND = -1;
+const NOT_FOUND = -1; // #pre-process_global_constant
 
 // Tags
 const NO_DATE_SELECTED    = 'select date';
@@ -70,10 +70,10 @@ const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
 const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
 //const COLOR_TEXT_BUTTON   = new THREE.Color();
 
-const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';
-const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .65)';
-const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .65)';
-const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .65)';
+const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';      // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .65)'; // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .65)';   // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .65)'; // #pre-process_global_constant
 
 // TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;

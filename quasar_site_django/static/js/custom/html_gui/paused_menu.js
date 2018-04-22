@@ -38,4 +38,3 @@ PausedMenu.prototype = {
         this.make_visible();
     }
 };
-

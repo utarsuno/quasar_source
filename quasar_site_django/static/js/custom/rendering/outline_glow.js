@@ -14,6 +14,8 @@ OutlineGlow.prototype = {
         this.outline_pass.pulsePeriod   = 5.0;
         this.outline_pass.usePatternTexture = false;
 
+        this.outline_pass.selectedObjects = [];
+
         this.hover_color = new THREE.Color(0x88ecff);
         this.engage_color = new THREE.Color(0x28ff8e);
 
@@ -34,7 +36,7 @@ OutlineGlow.prototype = {
 
     set_hover_object: function(object3D) {
         this.current_hover_object = object3D;
-        this.outline_pass.selectedObjects = [this.current_hover_object];
+        this.outline_pass.selectedObjects[0] = this.current_hover_object;
     },
 
     remove_hover_object: function(object3D) {
@@ -44,7 +46,8 @@ OutlineGlow.prototype = {
     },
 
     remove_current_object: function() {
-        this.outline_pass.selectedObjects = [];
+        //this.outline_pass.selectedObjects = [];
+        this.outline_pass.selectedObjects.length = 0;
         this.current_hover_object = null;
     }
 

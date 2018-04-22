@@ -1,49 +1,49 @@
 'use strict';
 
-const TEXTURE_GROUP_SKYBOX     = 'skybox';
-const TEXTURE_GROUP_CURSOR     = 'cursors';
-const TEXTURE_GROUP_ICONS      = 'icons';
-const TEXTURE_GROUP_TRANSITION = 'third_party';
+const TEXTURE_GROUP_SKYBOX     = 'skybox';              // #pre-process_global_constant
+const TEXTURE_GROUP_CURSOR     = 'cursors';             // #pre-process_global_constant
+const TEXTURE_GROUP_ICONS      = 'icons';               // #pre-process_global_constant
+const TEXTURE_GROUP_TRANSITION = 'third_party';         // #pre-process_global_constant
 
-const TRANSITION_GRID    = 'grid_transition.png';
+const TRANSITION_GRID    = 'grid_transition.png';       // #pre-process_global_constant
 
-const ICON_STAR          = 'star.png';
-const ICON_EXIT          = 'exit.png';
-const ICON_SETTINGS      = 'gear.png';
-const ICON_MULTI_PLAYER  = 'multiplayer.png';
-const ICON_HOME          = 'home.png';
-const ICON_SAVE          = 'save.png';
-const ICON_ENTITY_GROUP  = 'share.png';
-const ICON_FULLSCREEN    = 'larger.png';
-const ICON_LEFT          = 'arrow_left.png';
-const ICON_RIGHT         = 'arrow_right.png';
-const ICON_CROSS         = 'cross.png';
-const ICON_WORLDS        = 'bars_horizontal.png';
-const ICON_LOCKED        = 'locked.png';
-const ICON_UNLOCKED      = 'unlocked.png';
-const ICON_WARNING       = 'warning.png';
-const ICON_TELEPORT      = 'open.png';
-const ICON_CHECKMARK     = 'checkmark.png';
-const ICON_SINGLE_PLAYER = 'singleplayer.png';
-const ICON_WRENCH        = 'wrench.png';
-const ICON_IMPORT        = 'import.png';
-const ICON_INFORMATION   = 'information.png';
-const ICON_MOVIE         = 'movie.png';
-const ICON_MENU_LIST     = 'menu_list.png';
+const ICON_STAR          = 'star.png';                  // #pre-process_global_constant
+const ICON_EXIT          = 'exit.png';                  // #pre-process_global_constant
+const ICON_SETTINGS      = 'gear.png';                  // #pre-process_global_constant
+const ICON_MULTI_PLAYER  = 'multiplayer.png';           // #pre-process_global_constant
+const ICON_HOME          = 'home.png';                  // #pre-process_global_constant
+const ICON_SAVE          = 'save.png';                  // #pre-process_global_constant
+const ICON_ENTITY_GROUP  = 'share.png';                 // #pre-process_global_constant
+const ICON_FULLSCREEN    = 'larger.png';                // #pre-process_global_constant
+const ICON_LEFT          = 'arrow_left.png';            // #pre-process_global_constant
+const ICON_RIGHT         = 'arrow_right.png';           // #pre-process_global_constant
+const ICON_CROSS         = 'cross.png';                 // #pre-process_global_constant
+const ICON_WORLDS        = 'bars_horizontal.png';       // #pre-process_global_constant
+const ICON_LOCKED        = 'locked.png';                // #pre-process_global_constant
+const ICON_UNLOCKED      = 'unlocked.png';              // #pre-process_global_constant
+const ICON_WARNING       = 'warning.png';               // #pre-process_global_constant
+const ICON_TELEPORT      = 'open.png';                  // #pre-process_global_constant
+const ICON_CHECKMARK     = 'checkmark.png';             // #pre-process_global_constant
+const ICON_SINGLE_PLAYER = 'singleplayer.png';          // #pre-process_global_constant
+const ICON_WRENCH        = 'wrench.png';                // #pre-process_global_constant
+const ICON_IMPORT        = 'import.png';                // #pre-process_global_constant
+const ICON_INFORMATION   = 'information.png';           // #pre-process_global_constant
+const ICON_MOVIE         = 'movie.png';                 // #pre-process_global_constant
+const ICON_MENU_LIST     = 'menu_list.png';             // #pre-process_global_constant
 
-const SKYBOX_FRONT  = 'skybox_front.jpg';
-const SKYBOX_BACK   = 'skybox_back.jpg';
-const SKYBOX_LEFT   = 'skybox_left.jpg';
-const SKYBOX_RIGHT  = 'skybox_right.jpg';
-const SKYBOX_TOP    = 'skybox_top.jpg';
-const SKYBOX_BOTTOM = 'skybox_bottom.jpg';
+const SKYBOX_FRONT  = 'skybox_front.jpg';               // #pre-process_global_constant
+const SKYBOX_BACK   = 'skybox_back.jpg';                // #pre-process_global_constant
+const SKYBOX_LEFT   = 'skybox_left.jpg';                // #pre-process_global_constant
+const SKYBOX_RIGHT  = 'skybox_right.jpg';               // #pre-process_global_constant
+const SKYBOX_TOP    = 'skybox_top.jpg';                 // #pre-process_global_constant
+const SKYBOX_BOTTOM = 'skybox_bottom.jpg';              // #pre-process_global_constant
 
-const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png';
-const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';
-const CURSOR_TYPE_LARGER     = 'larger.png';
-const CURSOR_TYPE_HAND       = 'cursor_hand.png';
-const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';
-const CURSOR_TYPE_MOUSE      = 'mouse.png';
+const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png'; // #pre-process_global_constant
+const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';   // #pre-process_global_constant
+const CURSOR_TYPE_LARGER     = 'larger.png';            // #pre-process_global_constant
+const CURSOR_TYPE_HAND       = 'cursor_hand.png';       // #pre-process_global_constant
+const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';    // #pre-process_global_constant
+const CURSOR_TYPE_MOUSE      = 'mouse.png';             // #pre-process_global_constant
 
 function TextureManager() {
     this.__init__();

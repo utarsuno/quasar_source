@@ -1,9 +1,9 @@
 'use strict';
 
 // For chat messages.
-const _WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc';
-const _WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm';
-const _WEB_SOCKET_REQUEST_KEY_CHAT_USER    = 'cu';
+const _WEB_SOCKET_REQUEST_KEY_CHAT_CHANNEL = 'cc'; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_CHAT_MESSAGE = 'cm'; // #pre-process_global_constant
+const _WEB_SOCKET_REQUEST_KEY_CHAT_USER    = 'cu'; // #pre-process_global_constant
 
 /*
 const _WEB_SOCKET_KEY_CHAT_CHANNEL = 'cc';

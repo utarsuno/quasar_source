@@ -63,7 +63,8 @@ function EntityChangesSubscriber(world, adds_own_entities, check_foreign_modifie
 
         let remove_index = NOT_FOUND;
         let entity_id = entity.get_relative_id();
-        for (let e = 0; e < this.list_of_entity_ids.length; e++) {
+        let e;
+        for (e = 0; e < this.list_of_entity_ids.length; e++) {
             if (this.list_of_entity_ids[e] === entity_id) {
                 remove_index = e;
                 break;

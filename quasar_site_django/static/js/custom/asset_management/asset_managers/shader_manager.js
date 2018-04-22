@@ -1,11 +1,11 @@
 'use strict';
 
-const SHADER_TRANSITION_FRAGEMENT = 'transition/transition_fragment.frag';
-const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';
-const SHADER_NOISE_FRAGEMENT      = 'film/film_fragment.frag';
-const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';
-const SHADER_MATERIAL_TRANSITION  = 1;
-const SHADER_MATERIAL_NOISE       = 2;
+const SHADER_TRANSITION_FRAGMENT  = 'transition/transition_fragment.frag'; // #pre-process_global_constant
+const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';   // #pre-process_global_constant
+const SHADER_NOISE_FRAGMENT       = 'film/film_fragment.frag';             // #pre-process_global_constant
+const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';               // #pre-process_global_constant
+const SHADER_MATERIAL_TRANSITION  = 1;                                     // #pre-process_global_constant
+const SHADER_MATERIAL_NOISE       = 2;                                     // #pre-process_global_constant
 
 function ShaderManager() {
     this.__init__();
@@ -71,7 +71,7 @@ function ShaderMaterialTransition() {
 
 ShaderMaterialTransition.prototype = {
     __init__: function() {
-        ShaderMaterialAbstraction.call(this, SHADER_TRANSITION_VERTEX, SHADER_TRANSITION_FRAGEMENT);
+        ShaderMaterialAbstraction.call(this, SHADER_TRANSITION_VERTEX, SHADER_TRANSITION_FRAGMENT);
         this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
 
         this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
@@ -115,7 +115,7 @@ function ShaderMaterialNoise() {
 
 ShaderMaterialNoise.prototype = {
     __init__: function() {
-        ShaderMaterialAbstraction.call(this, SHADER_NOISE_VERTEX, SHADER_NOISE_FRAGEMENT);
+        ShaderMaterialAbstraction.call(this, SHADER_NOISE_VERTEX, SHADER_NOISE_FRAGMENT);
 
         this._uniform_key_t_diffuse  = 'tDiffuse';
         this._uniform_key_time       = 'time';

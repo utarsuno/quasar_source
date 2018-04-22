@@ -17,8 +17,6 @@ QuasarMainLoop.prototype = {
         this.manager_world           = manager_world;
         this.manager_renderer        = manager_renderer;
 
-        this.player_state_paused     = PLAYER_STATE_PAUSED;
-
         this.previous_time           = null;
         this.single_render_performed = false;
 
@@ -36,7 +34,7 @@ QuasarMainLoop.prototype = {
         // Previously : requestAnimationFrame(this.quasar_main_loop.bind(this));
         requestAnimationFrame(this._main_loop);
 
-        if (this.current_player.current_state !== this.player_state_paused || !this.single_render_performed) {
+        if (this.current_player.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
             this.current_client.pre_render();
 
             this.time = performance.now();

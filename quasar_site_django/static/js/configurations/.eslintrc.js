@@ -367,12 +367,12 @@ module.exports = {
         // /~~\ .__/ .__/ |___  |  .__/
 
         // Shaders.
-        "SHADER_TRANSITION_FRAGEMENT": false,
-        "SHADER_TRANSITION_VERTEX"   : false,
-        "SHADER_NOISE_FRAGEMENT"     : false,
-        "SHADER_NOISE_VERTEX"        : false,
-        "SHADER_MATERIAL_TRANSITION" : false,
-        "SHADER_MATERIAL_NOISE"      : false,
+        "SHADER_TRANSITION_FRAGMENT": false,
+        "SHADER_TRANSITION_VERTEX"  : false,
+        "SHADER_NOISE_FRAGMENT"     : false,
+        "SHADER_NOISE_VERTEX"       : false,
+        "SHADER_MATERIAL_TRANSITION": false,
+        "SHADER_MATERIAL_NOISE"     : false,
 
         // Audio.
         "AUDIO_SOUND_TYPING"      : false,
@@ -664,9 +664,7 @@ module.exports = {
         "THREE_FOURTHS"   : false,
         "TWO_THIRDS"      : false,
         "HALF"            : false,
-        "HALF_PIE"        : false,
         "PIE"             : false,
-        "TWO_PIE"         : false,
 
         // World constants.
         // none needed for now

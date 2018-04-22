@@ -1,19 +1,19 @@
 'use strict';
 
 // Server response keys.
-const _WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID   = 'm';
-const _WEB_SOCKET_RESPONSE_KEY_SUCCESS      = 's';
-const _WEB_SOCKET_RESPONSE_KEY_DATA         = 'd';
+const _WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID   = 'm';  // #pre-process_global_constant
+const _WEB_SOCKET_RESPONSE_KEY_SUCCESS      = 's';  // #pre-process_global_constant
+const _WEB_SOCKET_RESPONSE_KEY_DATA         = 'd';  // #pre-process_global_constant
 // For server messages.
-const _WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE = 't';
+const _WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE = 't';  // #pre-process_global_constant
 
 // Server response values.
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0;
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1;
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0; // #pre-process_global_constant
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1; // #pre-process_global_constant
 
-const _WEB_SOCKET_KEY_CHAT_CHANNEL = 'cc';
-const _WEB_SOCKET_KEY_CHAT_MESSAGE = 'cm';
-const _WEB_SOCKET_KEY_CHAT_USER    = 'cu';
+const _WEB_SOCKET_KEY_CHAT_CHANNEL = 'cc';          // #pre-process_global_constant
+const _WEB_SOCKET_KEY_CHAT_MESSAGE = 'cm';          // #pre-process_global_constant
+const _WEB_SOCKET_KEY_CHAT_USER    = 'cu';          // #pre-process_global_constant
 
 
 // Server message types.

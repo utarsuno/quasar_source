@@ -61,7 +61,8 @@ EntityManager.prototype = {
         // First value to sort by is by completed or not.
         // Second value to sort by is importance.
 
-        for (let i = 0; i < list_of_entities.length; i++) {
+        let i;
+        for (i = 0; i < list_of_entities.length; i++) {
             let e = list_of_entities[i];
             e.sort_value = 0;
             if (e.has_property(ENTITY_PROPERTY_COMPLETED)) {
@@ -112,7 +113,8 @@ EntityManager.prototype = {
 
     get_all_entities_of_type: function(entity_type) {
         let entities_to_return = [];
-        for (let i = 0; i < this.entities.length; i++) {
+        let i;
+        for (i = 0; i < this.entities.length; i++) {
             if (this.entities[i].get_type() === entity_type) {
                 entities_to_return.push(this.entities[i]);
             }
@@ -122,7 +124,8 @@ EntityManager.prototype = {
 
     get_all_entities_with_property: function(entity_property) {
         let entities_to_return = [];
-        for (let i = 0; i < this.entities.length; i++) {
+        let i;
+        for (i = 0; i < this.entities.length; i++) {
             if (this.entities[i].has_property(entity_property)) {
                 entities_to_return.push(this.entities[i]);
             }
