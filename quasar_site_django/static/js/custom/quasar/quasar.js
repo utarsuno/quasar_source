@@ -26,7 +26,7 @@ QuasarMainLoop.prototype = {
     run: function() {
         this.current_client.add_server_message_green('Welcome to Quasar!');
 
-        MANAGER_MANAGER.delete_loading_manager();
+        //MANAGER_MANAGER.delete_loading_manager();
 
         this.previous_time = performance.now();
         this.quasar_main_loop();
