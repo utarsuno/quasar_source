@@ -95,6 +95,11 @@ function Attachmentable(world) {
 
     this.refresh_position_and_look_at = function() {
         this._refresh_look_at();
+
+        if (this.manual_positioning) {
+            //this.object3D.matrixWorldNeedsUpdate = true;
+        }
+
         this.update_all_child_attachments();
 
         if (is_defined(this.post_position_update)) {
@@ -106,9 +111,14 @@ function Attachmentable(world) {
     this.update_all_child_attachments = function() {
         let parent_position = this.get_position();
 
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
             this.attachments[a]._refresh_look_at();
+
+            if (this.attachments[a].manual_positioning) {
+                //this.attachments[a].object3D.matrixWorldNeedsUpdate = true;
+            }
 
             if (this.attachments.length > 0) {
                 this.attachments[a].update_all_child_attachments();
@@ -154,6 +164,10 @@ function Attachmentable(world) {
             attachment.root_parent = this.root_parent;
         }
         attachment.attachment_parent = this;
+
+        if (this.manual_positioning) {
+            this.object3D.matrixAutoUpdate = false;
+        }
     };
 
     /*                    ___          __   __       ___  ___  __
@@ -208,7 +222,7 @@ function Attachmentable(world) {
         if (this.is_root()) {
             if (!is_defined(this.normal)) {
                 // OLD : var normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
-                var normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
+                let normal = new THREE.Vector3(-this.object3D.position.x, 0, -this.object3D.position.z);
                 normal.normalize();
                 this.normal = normal;
             }
