@@ -124,11 +124,13 @@ AnimatedMenu.prototype = {
             let temp_position = new THREE.Vector3(0, 0, 0);
             let temp_normal = new THREE.Vector3(0, 0, 0);
             this.menu = new FloatingWall(this.menu_width, 100, temp_position, temp_normal, world);
+            this.menu.set_to_manual_positioning();
             this.menu.set_attachment_horizontal_offset(-30, null);
             this.menu.set_attachment_vertical_offset(-30, null);
             this.menu.set_attachment_depth_offset(300);
         } else {
             this.menu = new FloatingWall(this.menu_width, 100, null, null, world);
+            this.menu.set_to_manual_positioning();
         }
         this.menu.set_to_singleton();
         this.menu.make_base_wall_invisible();

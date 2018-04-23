@@ -61,12 +61,9 @@ WorldEnvironment.prototype = {
         this.board = new vg.Board(this.grid);
         // Used to be : board.generateTilemap({cellSize: 100, tileScale: 0.99});
         this.board.generateTilemap({cellSize: 100, tileScale: 1});
-
         this.board.group.matrixAutoUpdate = false;
-
         world.add_to_scene(this.board.group);
 
-        l(this.board.group);
 
         // Default lights.
         this.light_delta = 0;

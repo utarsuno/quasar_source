@@ -238,6 +238,7 @@ PlayerCursor.prototype = {
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function(world) {
         this.cursor_wall = new FloatingWall(16, 16, null, null, world, false);
+        this.cursor_wall.set_to_manual_positioning();
         this.cursor_wall.set_to_singleton();
         this.cursor_wall.make_base_wall_invisible();
         let cursor_row = this.cursor_wall.add_row(0);
