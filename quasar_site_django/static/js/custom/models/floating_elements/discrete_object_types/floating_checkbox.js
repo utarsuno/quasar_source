@@ -70,6 +70,7 @@ FloatingCheckBox.prototype = {
     },
 
     clicked_on: function() {
+        MANAGER_AUDIO.play_sound(AUDIO_SOUND_CHECKBOX);
         if (this.checked) {
             this.set_checked_state(false);
         } else {
