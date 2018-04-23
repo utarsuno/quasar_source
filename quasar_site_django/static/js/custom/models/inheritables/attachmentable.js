@@ -166,6 +166,7 @@ function Attachmentable(world) {
         attachment.attachment_parent = this;
 
         if (this.manual_positioning) {
+            l('Setting matrixAutoUpdate to false!');
             this.object3D.matrixAutoUpdate = false;
         }
     };
