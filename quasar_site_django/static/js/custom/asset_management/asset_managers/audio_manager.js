@@ -24,7 +24,7 @@ AudioManager.prototype = {
 
     __init__: function() {
         this.audio_listener = new THREE.AudioListener();
-        this.audio_listener.setMasterVolume(this.get_true_audio_level(0.6));
+        this.audio_listener.setMasterVolume(this.get_true_audio_level(0.5));
         MANAGER_RENDERER.camera.add(this.audio_listener);
 
         this._all_audio = {};
@@ -61,6 +61,15 @@ AudioManager.prototype = {
         if (audio_name === AUDIO_MUSIC_BACKGROUND) {
             this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.5));
         }
+
+        switch (audio_name) {
+        case AUDIO_MUSIC_BACKGROUND:
+            this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.5));
+            break;
+        case AUDIO_SOUND_ON_HOVER:
+            this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.35));
+            break;
+        }
     },
 
     set_audio_for_world: function(world) {
@@ -74,3 +83,5 @@ AudioManager.prototype = {
         */
     }
 };
+
+// AUDIO_SOUND_ON_HOVER
