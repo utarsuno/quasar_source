@@ -46,6 +46,14 @@ AudioManager.prototype = {
         this._all_audio[s].play();
     },
 
+    resume_background_music: function() {
+        this._all_audio[AUDIO_MUSIC_BACKGROUND].play();
+    },
+
+    pause_background_music: function() {
+        this._all_audio[AUDIO_MUSIC_BACKGROUND].pause();
+    },
+
     set_audio: function(audio_name, audio_buffer) {
         this._all_audio[audio_name] = new THREE.Audio(this.audio_listener);
         this._all_audio[audio_name].setBuffer(audio_buffer);

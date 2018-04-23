@@ -38,6 +38,10 @@ function PlayerState() {
                 GUI_PAUSED_MENU.make_visible();
             }
 
+            if (player_state === PLAYER_STATE_PAUSED) {
+                MANAGER_AUDIO.pause_background_music();
+            }
+
             break;
         case PLAYER_STATE_TYPING:
             CURRENT_CLIENT.show_client_typing();
@@ -51,6 +55,11 @@ function PlayerState() {
             //l('PREVIOUS STATE WAS :');
             //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_LOADING || this.previous_state === PLAYER_STATE_PAUSED) {
+
+                if (this.previous_state === PLAYER_STATE_PAUSED) {
+                    MANAGER_AUDIO.resume_background_music();
+                }
+
                 GUI_PAUSED_MENU.make_invisible();
                 if (!CURRENT_CLIENT.is_mobile) {
                     MANAGER_POINTER_LOCK.request_pointer_lock();

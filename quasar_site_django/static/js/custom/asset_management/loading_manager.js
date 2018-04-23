@@ -40,8 +40,6 @@ ManagerManager.prototype.get_loading_manager = function() {
         perform_initial_load: function(quasar_main_loop) {
             this.quasar_main_loop = quasar_main_loop;
 
-            CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
-
             let asset_group;
             for (asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
                 this.asset_groups[asset_group].load_assets();
@@ -50,29 +48,7 @@ ManagerManager.prototype.get_loading_manager = function() {
 
         check_if_initial_resources_loaded: function() {
             if (this._number_of_asset_groups_loaded === this.asset_groups.length) {
-                MANAGER_TEXTURE.create_skybox_material();
-                MANAGER_SHADER.create_global_shader_materials();
-
-                MANAGER_WORLD.create_world(MANAGER_WORLD.world_login);
-                MANAGER_WORLD.create_singletons();
-
-                MANAGER_RENDERER.login_world_created();
-                if (CURRENT_CLIENT.is_mobile) {
-                    MANAGER_INPUT.load_mobile_keyboard();
-                }
-
-                MANAGER_WEB_SOCKETS.connect();
-
-                //if (CURRENT_CLIENT.is_mobile) {
-                //    MANAGER_INPUT.create_mobile_buttons();
-                //}
-
-                MANAGER_WORLD.set_current_world(MANAGER_WORLD.world_login);
-
-                // All the initial resources have loaded so put the player in a paused state in order to gain the first pointer lock control.
-                CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
-
-                this.quasar_main_loop.run();
+                this.quasar_main_loop.asset_loading_completed();
             }
         },
 
