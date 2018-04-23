@@ -1,8 +1,8 @@
 'use strict';
 
-Player.prototype.load_fps_controls = function(self) {
-    function FPSControls(self) {
-        this.__init__(self);
+Player.prototype.load_fps_controls = function() {
+    function FPSControls(current_player) {
+        this.__init__(current_player);
     }
     FPSControls.prototype = {
         camera            : null,
@@ -31,9 +31,9 @@ Player.prototype.load_fps_controls = function(self) {
         mouse_movement_x_buffer: null,
         mouse_movement_y_buffer: null,
 
-        __init__: function(self) {
+        __init__: function(current_player) {
 
-            this.current_player = self;
+            this.current_player = current_player;
 
             this.movement_speed = 300;
 
@@ -322,5 +322,5 @@ Player.prototype.load_fps_controls = function(self) {
         }
     };
 
-    this.fps_controls = new FPSControls();
+    this.fps_controls = new FPSControls(this);
 };
