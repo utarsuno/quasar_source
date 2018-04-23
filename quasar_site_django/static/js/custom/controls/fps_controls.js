@@ -154,7 +154,7 @@ Player.prototype.load_fps_controls = function() {
             this.mouse_movement_y_buffer.update(delta);
             this.update_mouse_view_position();
 
-            l(this.input_manager);
+            //l(this.input_manager);
 
             //if (!CURRENT_PLAYER.has_movement()) {
             if (this.current_player.has_movement()) {
