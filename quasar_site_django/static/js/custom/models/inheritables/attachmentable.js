@@ -97,7 +97,7 @@ function Attachmentable(world) {
         this._refresh_look_at();
 
         if (this.manual_positioning) {
-            //this.object3D.matrixWorldNeedsUpdate = true;
+            this.object3D.matrixWorldNeedsUpdate = true;
         }
 
         this.update_all_child_attachments();
@@ -117,7 +117,7 @@ function Attachmentable(world) {
             this.attachments[a]._refresh_look_at();
 
             if (this.attachments[a].manual_positioning) {
-                //this.attachments[a].object3D.matrixWorldNeedsUpdate = true;
+                this.attachments[a].object3D.matrixWorldNeedsUpdate = true;
             }
 
             if (this.attachments.length > 0) {
@@ -166,9 +166,6 @@ function Attachmentable(world) {
         attachment.attachment_parent = this;
 
         if (this.manual_positioning) {
-            l('Setting matrixAutoUpdate to false!');
-            //l(this);
-            l(attachment);
             attachment.set_to_manual_positioning();
             let a;
             for (a = 0; a < attachment.attachments.length; a++) {
