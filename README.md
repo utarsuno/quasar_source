@@ -2,6 +2,14 @@
 
 #### Development Screenshots and Progress List:
 
+April 22nd:
+- Audio : Background music and more sound affects added.
+- Performance : Found ways to improve scripting performance and heap management. Still implementing all changes needed.
+- Some logic/abstraction clean up, more to be done.
+- RabbitMQ will be implemented in following month, research started.
+- Global constants now get pre-processed out, more work being done in this area.
+- Text2D overhauled and now has proper mesh/texture sizing.
+
 As of March 31st -- Mobile support added!
 ![alt_text](https://i.imgur.com/839NKO1.jpg)
 
