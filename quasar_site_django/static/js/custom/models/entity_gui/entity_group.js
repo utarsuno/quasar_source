@@ -78,6 +78,7 @@ EntityGroup.prototype = {
         let data = get_player_blink_spot(1000);
 
         this.base_wall = new FloatingWall(400, 600, data[0], data[1], world, true);
+        this.base_wall.set_to_manual_positioning();
         let row = this.base_wall.add_row(-1);
         this.entity_wall_title = row.add_input_3D([0, 1, false], 32, 'Entity Group');
 
@@ -88,6 +89,7 @@ EntityGroup.prototype = {
         this.entity_group_entity = entity;
 
         this.base_wall = new FloatingWall(400, 600, null, null, world, true);
+        this.base_wall.set_to_manual_positioning();
         this.base_wall.load_from_entity_data(this.entity_group_entity.get_parent());
 
         this.entity_wall_title = this.base_wall.get_row_with_index(-1).elements[0];
