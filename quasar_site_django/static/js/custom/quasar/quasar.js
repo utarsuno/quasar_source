@@ -45,6 +45,7 @@ QuasarMainLoop.prototype = {
 
         // All the initial resources have loaded so put the player in a paused state in order to gain the first pointer lock control.
         this.current_player.set_state(PLAYER_STATE_PAUSED);
+        this.run();
     },
 
     run: function() {
