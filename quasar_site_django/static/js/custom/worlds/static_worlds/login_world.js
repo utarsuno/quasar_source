@@ -99,6 +99,7 @@ LoginWorld.prototype = {
         this.quasar_source_title = new FloatingText3D(this, 256, 'Quasar Source');
         this.quasar_source_title.set_position(1900, 500, 1000);
         this.quasar_source_title.look_at_origin(false);
+        this.quasar_source_title.set_to_manual_positioning();
     },
 
     _create_create_account_wall: function() {
@@ -106,7 +107,7 @@ LoginWorld.prototype = {
         let wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
         this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
         this.wall_create_account.make_base_wall_invisible();
-        //this.wall_create_account.set_to_manual_positioning();
+        this.wall_create_account.set_to_manual_positioning();
 
         // Title.
         let row = this.wall_create_account.add_row(-1);
