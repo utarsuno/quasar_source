@@ -43,6 +43,9 @@ function load_all_global_managers() {
     // Handles specifically pointer lock.
     MANAGER_POINTER_LOCK = new PointerLockManager();
 
+    // Give the current player a reference to the input manager.
+    CURRENT_PLAYER.fps_controls.set_input_manager_reference(MANAGER_INPUT);
+
     /*__             __        ___  __
      / _` |  | |    /  \ \  / |__  |__) |     /\  \ /
      \__> \__/ |    \__/  \/  |___ |  \ |___ /~~\  |  */
