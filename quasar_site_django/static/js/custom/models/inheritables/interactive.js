@@ -66,6 +66,7 @@ function Interactive() {
     this.disengage = function() {
         this.being_engaged_with = false;
         if (this.engable) {
+            MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_DISENGAGE);
             this.state_change_engage(false);
         }
         if (is_defined(this.disengage_function)) {
@@ -80,6 +81,7 @@ function Interactive() {
     this.engage = function() {
         if (this.engable) {
             this.being_engaged_with = true;
+            MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_ENGAGE);
             this.state_change_engage(true);
         }
         if (is_defined(this.engage_function)) {
