@@ -11,7 +11,7 @@ ManagerManager.prototype = {
     },
 
     delete_loading_manager: function() {
-        this.get_loading_manager = null;
+        //this.get_loading_manager = null;
         delete this.prototype.get_loading_manager;
         this.manager_loading = null;
         delete this.manager_loading;
