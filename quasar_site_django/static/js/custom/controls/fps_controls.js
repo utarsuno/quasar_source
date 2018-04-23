@@ -307,7 +307,7 @@ FPSControls.prototype = {
     _get_direction: function() {
         this._direction.set(0, 0, -1);
         // TODO : Check if YXZ doesn't need to be set.
-        this._rotation.set(0, 0, 0, 'YXZ');
+        this._rotation.set(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
         //let direction = new THREE.Vector3(0, 0, -1);
         //let rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
         this._previous_direction = this._direction.applyEuler(this._rotation);
