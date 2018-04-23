@@ -82,7 +82,8 @@ CustomSmoothStep.prototype = {
 
     update: function(delta) {
         // console.log('The buffer has the length : ' + this.buffer.length)
-        for (let i = 0; i < this.buffer.length; i++) {
+        let i;
+        for (i = 0; i < this.buffer.length; i++) {
             this.buffer[i][1] += delta;
             if (this.buffer[i][1] >= this.time_needed_for_each_force) {
                 this.current_value += this.buffer[i][0];

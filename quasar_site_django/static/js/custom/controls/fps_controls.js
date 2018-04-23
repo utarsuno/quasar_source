@@ -63,7 +63,11 @@ FPSControls.prototype = {
         // TODO : Add smooth step to the movement buffers!!!
 
         // For optimization purposes.
-        this._previous_direction = null;
+        this._previous_direction  = null;
+        this._direction           = new THREE.Vector3(0, 0, -1);
+        this._rotation            = new THREE.Euler(0, 0, 0, 'YXZ');
+        this._look_at_normal      = new THREE.Vector3(0, 0, 0);
+        this._horizontal_rotation = new THREE.Vector2(0, 0);
     },
 
     toggle_flying: function() {
@@ -242,24 +246,26 @@ FPSControls.prototype = {
     },
 
     look_at: function(position_vector_to_look_at) {
-        let look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z);
-        look_at_normal.sub(this.yaw.position);
-        look_at_normal.normalize();
+        //let look_at_normal = new THREE.Vector3(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z);
+        this._look_at_normal.set(position_vector_to_look_at.x, position_vector_to_look_at.y, position_vector_to_look_at.z);
+        this._look_at_normal.sub(this.yaw.position);
+        this._look_at_normal.normalize();
 
-        let look_at_angle = Math.atan2(look_at_normal.z, look_at_normal.x);
+        let look_at_angle = Math.atan2(this._look_at_normal.z, this._look_at_normal.x);
 
         let d = this.get_direction();
-        let horizontal_rotation = new THREE.Vector2(d.x, d.z);
-        horizontal_rotation.normalize();
+        //let horizontal_rotation = new THREE.Vector2(d.x, d.z);
+        this._horizontal_rotation.set(d.x, d.z);
+        this._horizontal_rotation.normalize();
 
-        let angle = Math.atan2(horizontal_rotation.y, horizontal_rotation.x);
+        let angle = Math.atan2(this._horizontal_rotation.y, this._horizontal_rotation.x);
 
         let current_x_value = this.mouse_movement_x_buffer.get_current_value();
         this.mouse_movement_x_buffer.clear_buffer();
         this.mouse_movement_x_buffer.set_value(current_x_value + (-1.0 * (look_at_angle - angle)));
 
         this.mouse_movement_y_buffer.clear_buffer();
-        this.mouse_movement_y_buffer.set_value(Math.asin(look_at_normal.y));
+        this.mouse_movement_y_buffer.set_value(Math.asin(this._look_at_normal.y));
 
         //this.mouse_movement_x_buffer.add_force(-1.0 * (look_at_angle - angle))
 
@@ -299,9 +305,12 @@ FPSControls.prototype = {
     },
 
     _get_direction: function() {
-        let direction = new THREE.Vector3(0, 0, -1);
-        let rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
-        this._previous_direction = direction.applyEuler(rotation);
+        this._direction.set(0, 0, -1);
+        // TODO : Check if YXZ doesn't need to be set.
+        this._rotation.set(0, 0, 0, 'YXZ');
+        //let direction = new THREE.Vector3(0, 0, -1);
+        //let rotation  = new THREE.Euler(this.mouse_movement_y_buffer.get_current_value(), this.mouse_movement_x_buffer.get_current_value(), 0, 'YXZ');
+        this._previous_direction = this._direction.applyEuler(this._rotation);
         return this._previous_direction;
     }
 
