@@ -21,10 +21,12 @@ ServerRequestLogin.prototype = {
 
     _handle_response: function(success, data) {
         if (success) {
+            MANAGER_AUDIO.play_sound(AUDIO_SOUND_SUCCESS);
             CURRENT_CLIENT.add_server_message_green('Login successful! Loading user data...');
             this._load_login_data();
         } else {
             this.unlock_button();
+            MANAGER_AUDIO.play_sound(AUDIO_SOUND_ERROR);
             CURRENT_CLIENT.add_server_message_red('Error: {' + data + '}');
         }
     },
