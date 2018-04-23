@@ -75,6 +75,9 @@ AudioManager.prototype = {
         case AUDIO_SOUND_ON_DISENGAGE:
             this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.65));
             break;
+        case AUDIO_SOUND_TRANSITION:
+            this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.3));
+            break;
         }
     },
 

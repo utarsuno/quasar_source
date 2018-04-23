@@ -47,6 +47,7 @@ TransitionAffect.prototype = {
         this.fake_scene.background = this.fbo_previous;
 
         singleton_transition_function();
+        MANAGER_AUDIO.play_sound(AUDIO_SOUND_TRANSITION);
     },
 
     render: function(delta) {
