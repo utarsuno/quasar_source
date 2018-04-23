@@ -91,7 +91,8 @@ RendererManager.prototype = {
             this.effect_composer.addPass(this.effect_film);
 
             this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-            this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+            //this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+            this.effect_FXAA.uniforms['resolution'].value.set(4 / this.window_width, 4 / this.window_height);
             this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
         }
