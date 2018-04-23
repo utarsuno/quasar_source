@@ -57,6 +57,10 @@ AudioManager.prototype = {
     set_audio: function(audio_name, audio_buffer) {
         this._all_audio[audio_name] = new THREE.Audio(this.audio_listener);
         this._all_audio[audio_name].setBuffer(audio_buffer);
+
+        if (audio_name === AUDIO_MUSIC_BACKGROUND) {
+            this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.5));
+        }
     },
 
     set_audio_for_world: function(world) {
