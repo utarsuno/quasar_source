@@ -97,6 +97,7 @@ function Attachmentable(world) {
         this._refresh_look_at();
 
         if (this.manual_positioning) {
+            this.object3D.updateMatrix();
             this.object3D.matrixWorldNeedsUpdate = true;
         }
 
@@ -117,6 +118,7 @@ function Attachmentable(world) {
             this.attachments[a]._refresh_look_at();
 
             if (this.attachments[a].manual_positioning) {
+                this.attachments[a].object3D.updateMatrix();
                 this.attachments[a].object3D.matrixWorldNeedsUpdate = true;
             }
 
