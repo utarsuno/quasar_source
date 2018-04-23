@@ -23,6 +23,12 @@ function Attachmentable(world) {
     // Utility tags used for finding certain objects with more ease.
     this.dev_tags = [];
 
+    this.manual_positioning = false;
+    this.set_to_manual_positioning = function() {
+        this.manual_positioning = true;
+        this.object3D.matrixAutoUpdate = false;
+    };
+
     this.add_tag = function(tag) {
         this.dev_tags.push(tag);
     };

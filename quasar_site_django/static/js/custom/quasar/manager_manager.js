@@ -7,7 +7,7 @@ function ManagerManager() {
 ManagerManager.prototype = {
 
     __init__: function() {
-
+        this.manager_loading = null;
     },
 
     delete_loading_manager: function() {
