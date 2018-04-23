@@ -169,8 +169,11 @@ function Attachmentable(world) {
             l('Setting matrixAutoUpdate to false!');
             //l(this);
             l(attachment);
-            attachment.manual_positioning = true;
-            attachment.object3D.matrixAutoUpdate = false;
+            attachment.set_to_manual_positioning();
+            let a;
+            for (a = 0; a < attachment.attachments.length; a++) {
+                attachment.attachments[a].set_to_manual_positioning();
+            }
         }
     };
 
@@ -443,7 +446,8 @@ function Attachmentable(world) {
     };
 
     this.fully_remove_self_and_all_sub_attachments = function() {
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             this.attachments[a].fully_remove_self_and_all_sub_attachments();
         }
 
