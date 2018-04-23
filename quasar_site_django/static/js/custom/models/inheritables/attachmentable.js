@@ -167,8 +167,9 @@ function Attachmentable(world) {
 
         if (this.manual_positioning) {
             l('Setting matrixAutoUpdate to false!');
-            l(this);
-            this.object3D.matrixAutoUpdate = false;
+            //l(this);
+            l(attachment);
+            attachment.object3D.matrixAutoUpdate = false;
         }
     };
 
