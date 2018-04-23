@@ -63,6 +63,8 @@ WorldEnvironment.prototype = {
         this.board.generateTilemap({cellSize: 100, tileScale: 1});
         world.add_to_scene(this.board.group);
 
+        l(this.board.group);
+
         // Default lights.
         this.light_delta = 0;
         this.light_delta_cap = 10;
