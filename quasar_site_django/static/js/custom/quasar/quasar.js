@@ -62,8 +62,6 @@ window.onload = function() {
     load_all_global_managers();
     const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
 
-    // get_loading_manager
     let manager_loading = MANAGER_MANAGER.get_loading_manager();
     manager_loading.perform_initial_load(QUASAR);
-    //MANAGER_LOADING.perform_initial_load(QUASAR);
 };
