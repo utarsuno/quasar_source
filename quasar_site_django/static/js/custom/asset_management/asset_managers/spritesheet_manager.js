@@ -62,7 +62,7 @@ SpriteSheetManager.prototype = {
 
     load_icon_sprite_sheet: function(callback) {
         //this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
-        this.texture = THREE.ImageUtils.loadTexture('/home/git_repos/quasar_source/quasar_site_django/static/assets/texture/spritesheet/icons.png');
+        //this.texture = THREE.ImageUtils.loadTexture('/home/git_repos/quasar_source/quasar_site_django/static/assets/texture/spritesheet/icons.png');
 
         l(this.texture);
 

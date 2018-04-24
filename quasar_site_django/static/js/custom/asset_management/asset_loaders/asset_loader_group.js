@@ -39,10 +39,20 @@ function AssetLoaderGroup(asset_group_type, loading_manager, fully_loaded_callba
 
     this.load_assets = function() {
         let asset;
+
+        let loader;
+
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
-                let loader = new this.loader_class();
+                //let loader = new this.loader_class();
+                // TEMP
+                if (asset === SPRITESHEET_ICONS) {
+                    loader = new this.temp();
+                } else {
+                    loader = new this.loader_class();
+                }
+
                 loader.load(this._asset_base_url + asset,
 
                     function(asset_name) {

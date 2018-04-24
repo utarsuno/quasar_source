@@ -13,6 +13,7 @@ TextureGroup.prototype = {
         AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
 
         this.loader_class = THREE.TextureLoader;
+        this.temp         = THREE.ImageUtils.loadTexture;
         this.send_asset_to = MANAGER_TEXTURE.set_texture;
     },
 
