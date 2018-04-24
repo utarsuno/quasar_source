@@ -64,7 +64,7 @@ function load_all_global_managers() {
     // Handles all textures.
     MANAGER_TEXTURE   = new TextureManager();
     // Handles all svg files.
-    MANAGER_SVG       = new SVGManager();
+    MANAGER_JSON      = new JSONManager();
     // Handles images that get dropped onto the site page.
     //var DRAG_AND_DROP = new DragNDrop();
 

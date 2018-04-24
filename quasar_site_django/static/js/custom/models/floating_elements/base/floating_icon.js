@@ -24,9 +24,6 @@ FloatingIcon.prototype = {
     create_base_material: function() {
         let texture_group;
         switch (this.icon_type) {
-        case SVG_CLICK_ICON:
-            texture_group = null;
-            break;
         case CURSOR_TYPE_HORIZONTAL:
         case CURSOR_TYPE_VERTICAL:
         case CURSOR_TYPE_LARGER:
@@ -40,11 +37,7 @@ FloatingIcon.prototype = {
             break;
         }
 
-        if (texture_group === null) {
-            this.material = new THREE.MeshBasicMaterial({map : MANAGER_SVG.get_icon_texture(this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
-        } else {
-            this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
-        }
+        this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
 
         //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide});
         //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});

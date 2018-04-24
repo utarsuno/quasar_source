@@ -1,9 +1,12 @@
 'use strict';
 
-const TEXTURE_GROUP_SKYBOX     = 'skybox/';              // #pre-process_global_constant
-const TEXTURE_GROUP_CURSOR     = 'cursors/';             // #pre-process_global_constant
-const TEXTURE_GROUP_ICONS      = 'icons/';               // #pre-process_global_constant
-const TEXTURE_GROUP_TRANSITION = 'third_party/';         // #pre-process_global_constant
+const TEXTURE_GROUP_SKYBOX      = 'skybox/';            // #pre-process_global_constant
+const TEXTURE_GROUP_CURSOR      = 'cursors/';           // #pre-process_global_constant
+const TEXTURE_GROUP_ICONS       = 'icons/';             // #pre-process_global_constant
+const TEXTURE_GROUP_TRANSITION  = 'third_party/';       // #pre-process_global_constant
+const TEXTURE_GROUP_SPRITESHEET = 'spritesheet/';       // #pre-process_global_constant
+
+const SPRITESHEET_ICONS  = 'spritesheet_test.png';      // #pre-process_global_constant
 
 const TRANSITION_GRID    = 'grid_transition.png';       // #pre-process_global_constant
 
