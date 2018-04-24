@@ -56,7 +56,12 @@ SpriteSheetManager.prototype = {
         t.needsUpdate = true;
 
         //let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
-        let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthWrite: false});
+        //let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthWrite: false});
+
+        // TODO : MAKE SURE THERE IS NO TEXTURE MEMORY LEAK!
+
+        let material = new THREE.MeshBasicMaterial({map : t, transparent : false, opacity: .5, side: THREE.FrontSide, depthWrite: false});
+
         material.needsUpdate = true;
         l(material);
         return material;
