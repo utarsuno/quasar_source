@@ -16,17 +16,14 @@ ManagerManager.prototype.get_loading_manager = function() {
             this.asset_groups = [];
 
             // All the asset groups to load.
-            this.textures_cursor      = new TextureGroup(TEXTURE_GROUP_CURSOR     , this, this.check_if_initial_resources_loaded.bind(this));
-            this.textures_skybox      = new TextureGroup(TEXTURE_GROUP_SKYBOX     , this, this.check_if_initial_resources_loaded.bind(this));
-            this.textures_icon        = new TextureGroup(TEXTURE_GROUP_ICONS      , this, this.check_if_initial_resources_loaded.bind(this));
-            this.textures_transitions = new TextureGroup(TEXTURE_GROUP_TRANSITION , this, this.check_if_initial_resources_loaded.bind(this));
-            this.textures_spritesheet = new TextureGroup(TEXTURE_GROUP_SPRITESHEET, this, this.check_if_initial_resources_loaded.bind(this));
+            new TextureGroup(TEXTURE_GROUP_CURSOR     , this, this.check_if_initial_resources_loaded.bind(this));
+            new TextureGroup(TEXTURE_GROUP_SKYBOX     , this, this.check_if_initial_resources_loaded.bind(this));
+            new TextureGroup(TEXTURE_GROUP_ICONS      , this, this.check_if_initial_resources_loaded.bind(this));
+            new TextureGroup(TEXTURE_GROUP_TRANSITION , this, this.check_if_initial_resources_loaded.bind(this));
+            new TextureGroup(TEXTURE_GROUP_SPRITESHEET, this, this.check_if_initial_resources_loaded.bind(this));
+            new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
+            new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
 
-            this.all_audio            = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
-
-            this.all_shaders          = new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
-
-            //this.spritesheet          = new SpriteSheetGroup(this, this.check_if_initial_resources_loaded.bind(this));
             //this._group_json          = new JSONGroup(this, this.check_if_initial_resources_loaded.bind(this));
         },
 
@@ -52,8 +49,12 @@ ManagerManager.prototype.get_loading_manager = function() {
 
         check_if_initial_resources_loaded: function() {
             if (this._number_of_asset_groups_loaded === this.asset_groups.length) {
-                this.quasar_main_loop.asset_loading_completed();
+                MANAGER_SPRITESHEET.load_icon_sprite_sheet(this._loading_completed.bind(this));
             }
+        },
+
+        _loading_completed: function() {
+            this.quasar_main_loop.asset_loading_completed();
         },
 
         currently_loading: function() {
