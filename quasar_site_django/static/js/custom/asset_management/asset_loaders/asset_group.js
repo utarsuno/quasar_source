@@ -1,9 +1,9 @@
 'use strict';
 
-const ASSET_GROUP_AUDIO   = 'audio';       // #pre-process_global_constant
+const ASSET_GROUP_AUDIO   = 'audio/';       // #pre-process_global_constant
 const ASSET_GROUP_TEXTURE = 'texture/';    // #pre-process_global_constant
-const ASSET_GROUP_SHADER  = 'shaders';     // #pre-process_global_constant
-const ASSET_GROUP_SVG     = 'texture/svg'; // #pre-process_global_constant
+const ASSET_GROUP_SHADER  = 'shaders/';     // #pre-process_global_constant
+const ASSET_GROUP_SVG     = 'texture/svg/'; // #pre-process_global_constant
 
 function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
 
@@ -12,7 +12,7 @@ function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
 
     this._fully_loaded_callback = fully_loaded_callback;
 
-    this._asset_base_url = '/home/git_repos/quasar_source/quasar_site_django/static/assets/' + asset_group_type + '/';
+    this._asset_base_url = '/home/git_repos/quasar_source/quasar_site_django/static/assets/' + asset_group_type;
     this._assets = {};
     this._number_of_assets_to_load = 0;
     this._number_of_assets_loaded  = 0;
