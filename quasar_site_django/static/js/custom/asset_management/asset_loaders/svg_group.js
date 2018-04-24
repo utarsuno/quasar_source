@@ -40,8 +40,8 @@ SVGGroup.prototype = {
             }
         }
 
-        /*
-        let asset;
+
+        //let asset;
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
@@ -49,7 +49,7 @@ SVGGroup.prototype = {
                 loader.load(this._asset_base_url + asset,
 
                     function(path) {
-                        this._svg_loaded(arguments[1], arguments[0]);
+                        //this._svg_loaded(arguments[1], arguments[0]);
                     }.bind(this, asset),
 
                     function(xhr) {
@@ -64,7 +64,7 @@ SVGGroup.prototype = {
 
             }
         }
-        */
+
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
