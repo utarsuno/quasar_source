@@ -4,17 +4,8 @@ function WorldManagerInput() {
 
     this._left_click_buffer = [];
 
-    //
-    this._left_click_clock_previous = new THREE.Clock(false);
-    this._left_click_clock_current = new THREE.Clock(false);
-
     this._left_click_clock = new THREE.Clock(false);
-
-    this._left_click_start_time_previous = null;
-    this._left_click_start_time_current  = null;
-
-    this._previous_left_click = false;
-    this._current_left_click = false;
+    this._left_click_previous_start_time = null;
 
     this.left_click_up = function() {
         if (CURRENT_PLAYER.has_input()) {
@@ -26,30 +17,15 @@ function WorldManagerInput() {
             }
 
         } else {
-
-            l();
-            l(this._left_click_clock.oldTime);
-            l(this._left_click_clock.startTime);
-
-            if (this._left_click_start_time_previous === null) {
-                this._left_click_start_time_previous = this._left_click_clock.startTime;
+            if (this._left_click_previous_start_time === null) {
+                this._left_click_previous_start_time = this._left_click_clock.startTime;
             } else {
-                l(this._left_click_clock.startTime - this._left_click_start_time_previous);
+                if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 500.0) {
+                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                }
                 this._left_click_start_time_previous = this._left_click_clock.startTime;
             }
-
-            /*
-            if (this._current_left_click) {
-
-                if (this._left_click_clock_previous.getDelta() <= 500) {
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-                } else {
-                    this._previous_left_click = false;
-
-                }
-            }
-            */
-
+            
             // CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
 
             //if (CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
