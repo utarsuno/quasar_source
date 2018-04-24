@@ -21,6 +21,8 @@ SVGGroup.prototype = {
         canvg(this.image_canvas, svg);
 
         let texture = new THREE.Texture(this.image_canvas);
+        texture.needsUpdate = true;
+        l(texture);
 
         MANAGER_SVG.set_icon(asset_name, texture);
 
