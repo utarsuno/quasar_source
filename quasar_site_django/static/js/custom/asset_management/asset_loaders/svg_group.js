@@ -18,6 +18,8 @@ SVGGroup.prototype = {
         l(asset_name);
         l(svg);
 
+        canvg(this.image_canvas, svg);
+
         this._asset_loaded(asset_name);
 
         //MANAGER_SVG.set_icon(asset_name, svg);
