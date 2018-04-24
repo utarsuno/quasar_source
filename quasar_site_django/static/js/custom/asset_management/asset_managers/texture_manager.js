@@ -92,10 +92,6 @@ TextureManager.prototype = {
     },
 
     _set_texture: function(texture_name, texture) {
-        //this.texture_groups[texture_group][texture_name] = texture;
-        l(texture_name);
-        l(texture);
-        l(this.textures);
         this.textures[texture_name] = texture;
     },
 
