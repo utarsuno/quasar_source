@@ -95,7 +95,7 @@ PlayerCursor.prototype = {
         // For floating elements.
         if (is_defined(this.currently_attached_to.is_clickable)) {
             if (this.currently_attached_to.is_clickable) {
-                this._set_current_cursor(CURSOR_TYPE_HAND);
+                this._set_current_cursor(SVG_CLICK_ICON);
             } else if (this.currently_attached_to.is_interactive) {
                 this._set_current_cursor(ICON_INFORMATION);
             }
@@ -244,7 +244,8 @@ PlayerCursor.prototype = {
         let cursor_row = this.cursor_wall.add_row(0);
         this._create_cursor(CURSOR_TYPE_HORIZONTAL, cursor_row);
         this._create_cursor(CURSOR_TYPE_VERTICAL, cursor_row);
-        this._create_cursor(CURSOR_TYPE_HAND, cursor_row);
+        //this._create_cursor(CURSOR_TYPE_HAND, cursor_row);
+        this._create_cursor(SVG_CLICK_ICON, cursor_row);
         this._create_cursor(CURSOR_TYPE_POINTER, cursor_row);
         this._create_cursor(CURSOR_TYPE_LARGER, cursor_row);
         this._create_cursor(CURSOR_TYPE_MOUSE, cursor_row);

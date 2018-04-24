@@ -16,7 +16,7 @@ SVGManager.prototype = {
         this._all_icons[icon_name] = svg;
     },
 
-    get_icon: function(i) {
+    get_icon_texture: function(i) {
         return this._all_icons[i];
     }
 };
