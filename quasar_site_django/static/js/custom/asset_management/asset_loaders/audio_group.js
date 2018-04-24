@@ -11,7 +11,7 @@ AudioGroup.prototype = {
         AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
 
         this.loader_class = THREE.AudioLoader;
-        this.send_asset_to = MANAGER_SHADER.set_audio;
+        this.send_asset_to = MANAGER_AUDIO.set_audio;
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
