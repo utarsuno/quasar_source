@@ -49,6 +49,13 @@ SpriteSheetManager.prototype = {
 
         let t = this.texture.clone();
 
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
+
         t.repeat.x = this._icons[icon].w / this.texture.image.width;
         t.repeat.y = this._icons[icon].h / this.texture.image.height;
         t.offset.x = this._icons[icon].x / this.texture.image.width;
@@ -69,6 +76,12 @@ SpriteSheetManager.prototype = {
 
     load_icon_sprite_sheet: function(callback) {
         this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
+
+        // Testing something.
+        this.texture.magFilter = THREE.NearestFilter;
+        this.texture.minFilter = THREE.NearestFilter;
+        this.texture.needsUpdate = true;
+
         //this.texture = MANAGER_TEXTURE.get_texture(null, SKYBOX_BACK);
         //this.texture.dispose();
 
