@@ -60,8 +60,7 @@ SpriteSheetManager.prototype = {
 
         // TODO : MAKE SURE THERE IS NO TEXTURE MEMORY LEAK!
 
-        this.texture.dispose();
-        this.texture = null;
+        //this.texture = null;
 
         //material.needsUpdate = true;
         l(material);
@@ -70,6 +69,7 @@ SpriteSheetManager.prototype = {
 
     load_icon_sprite_sheet: function(callback) {
         this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
+        this.texture.dispose();
 
         l(this.texture);
 
