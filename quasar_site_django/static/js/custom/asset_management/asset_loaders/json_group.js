@@ -22,6 +22,8 @@ JSONGroup.prototype = {
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
+                l(this._asset_base_url + asset);
+
                 let loader = new THREE.JSONLoader();
                 loader.load(this._asset_base_url + asset,
 
