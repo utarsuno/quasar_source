@@ -10,6 +10,9 @@ function WorldManagerInput() {
 
     this._left_click_clock = new THREE.Clock(false);
 
+    this._left_click_start_time_previous = null;
+    this._left_click_start_time_current  = null;
+
     this._previous_left_click = false;
     this._current_left_click = false;
 
@@ -27,6 +30,13 @@ function WorldManagerInput() {
             l();
             l(this._left_click_clock.oldTime);
             l(this._left_click_clock.startTime);
+
+            if (this._left_click_start_time_previous === null) {
+                this._left_click_start_time_previous = this._left_click_clock.startTime;
+            } else {
+                l(this._left_click_clock.startTime - this._left_click_start_time_previous);
+                this._left_click_start_time_previous = this._left_click_clock.startTime;
+            }
 
             /*
             if (this._current_left_click) {
