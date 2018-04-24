@@ -51,7 +51,7 @@ SVGGroup.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/    |  \ |___ \__X \__/ | |  \ |___ |__/ */
     _add_required_initial_assets: function(callback) {
-        this._add_required_initial_asset();
+        this._add_required_initial_asset(SVG_CLICK_ICON);
         callback();
     }
 };
