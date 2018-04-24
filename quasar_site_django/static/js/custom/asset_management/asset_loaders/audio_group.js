@@ -8,7 +8,7 @@ AudioGroup.prototype = {
 
     __init__: function(loading_manager, fully_loaded_callback) {
         // Inherit.
-        AssetGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
+        AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
     },
 
     _audio_buffer_loaded: function(audio_buffer, asset_name) {

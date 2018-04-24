@@ -10,7 +10,7 @@ TextureGroup.prototype = {
         this._texture_group = texture_group;
 
         // Inherit.
-        AssetGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
+        AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
     },
 
     _texture_loaded: function(texture, asset_name) {
@@ -18,6 +18,7 @@ TextureGroup.prototype = {
         this._asset_loaded(asset_name);
     },
 
+    /*
     load_assets: function() {
         let asset;
         for (asset in this._assets) {
@@ -43,6 +44,7 @@ TextureGroup.prototype = {
             }
         }
     },
+    */
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \
@@ -92,6 +94,9 @@ TextureGroup.prototype = {
             break;
         case TEXTURE_GROUP_TRANSITION:
             this._add_required_initial_asset(TRANSITION_GRID);
+            break;
+        case TEXTURE_GROUP_SPRITESHEET:
+            this._add_required_initial_asset(SPRITESHEET_ICONS);
             break;
         }
         callback();

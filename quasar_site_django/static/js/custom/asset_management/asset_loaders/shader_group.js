@@ -8,7 +8,7 @@ ShaderGroup.prototype = {
 
     __init__: function(loading_manager, fully_loaded_callback) {
         // Inherit.
-        AssetGroup.call(this, ASSET_GROUP_SHADER, loading_manager, fully_loaded_callback);
+        AssetLoaderGroup.call(this, ASSET_GROUP_SHADER, loading_manager, fully_loaded_callback);
     },
 
     _shader_loaded: function(shader, asset_name) {
