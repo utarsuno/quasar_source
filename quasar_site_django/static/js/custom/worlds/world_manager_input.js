@@ -4,6 +4,15 @@ function WorldManagerInput() {
 
     this._left_click_buffer = [];
 
+    //
+    this._left_click_clock_previous = new THREE.Clock(false);
+    this._left_click_clock_current = new THREE.Clock(false);
+
+    this._left_click_clock = new THREE.Clock(false);
+
+    this._previous_left_click = false;
+    this._current_left_click = false;
+
     this.left_click_up = function() {
         if (CURRENT_PLAYER.has_input()) {
 
@@ -14,14 +23,44 @@ function WorldManagerInput() {
             }
 
         } else {
-            if (CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
-                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+
+            l();
+            l(this._left_click_clock.oldTime);
+            l(this._left_click_clock.startTime);
+
+            /*
+            if (this._current_left_click) {
+
+                if (this._left_click_clock_previous.getDelta() <= 500) {
+                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                } else {
+                    this._previous_left_click = false;
+
+                }
             }
+            */
+
+            // CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+
+            //if (CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
+            //    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+            //}
         }
     };
 
     this.left_click_down = function() {
         let current_milliseconds = new Date().getTime();
+
+        if (CURRENT_PLAYER.is_paused()) {
+
+            this._left_click_clock.start();
+
+            //if (!this._previous_left_click) {
+            //    this._left_click_clock_previous.start();
+            //} else if (!this._current_left_click) {
+            //    this._left_click_clock_current.start();
+            //}
+        }
 
         // OPTIMIZE!!! Use an object pool!!!!
 
