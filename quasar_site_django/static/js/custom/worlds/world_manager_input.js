@@ -2,8 +2,6 @@
 
 function WorldManagerInput() {
 
-    this._left_click_buffer = [];
-
     this._left_click_clock = new THREE.Clock(false);
     this._left_click_previous_start_time = null;
 
@@ -17,49 +15,23 @@ function WorldManagerInput() {
             }
 
         } else {
-            if (this._left_click_previous_start_time === null) {
-                this._left_click_previous_start_time = this._left_click_clock.startTime;
-            } else {
-                if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+            if (CURRENT_PLAYER.is_paused()) {
+                if (this._left_click_previous_start_time === null) {
+                    this._left_click_previous_start_time = this._left_click_clock.startTime;
+                } else {
+                    if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
+                        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                    }
+                    this._left_click_start_time_previous = this._left_click_clock.startTime;
                 }
-                this._left_click_start_time_previous = this._left_click_clock.startTime;
             }
-
-            // CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-
-            //if (CURRENT_PLAYER.is_paused() && this._left_click_buffer.length > 1) {
-            //    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
-            //}
         }
     };
 
     this.left_click_down = function() {
-        let current_milliseconds = new Date().getTime();
-
         if (CURRENT_PLAYER.is_paused()) {
-
             this._left_click_clock.start();
-
-            //if (!this._previous_left_click) {
-            //    this._left_click_clock_previous.start();
-            //} else if (!this._current_left_click) {
-            //    this._left_click_clock_current.start();
-            //}
-        }
-
-        // OPTIMIZE!!! Use an object pool!!!!
-
-        let i;
-        for (i = this._left_click_buffer.length; i--;) {
-            if (current_milliseconds - this._left_click_buffer[i] >= 300) {
-                this._left_click_buffer.splice(i, 1);
-            }
-        }
-
-        this._left_click_buffer.push(current_milliseconds);
-
-        if (CURRENT_PLAYER.has_input()) {
+        } else if (CURRENT_PLAYER.has_input()) {
             // Cursor engage.
             if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
                 if (this.current_world.floating_cursor.currently_attached_to.scalable) {
