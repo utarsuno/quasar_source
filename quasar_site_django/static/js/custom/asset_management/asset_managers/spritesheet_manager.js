@@ -45,9 +45,12 @@ SpriteSheetManager.prototype = {
         let i;
         let frames = JSON_SPRITESHEET['frames'];
         for (i = 0; i < frames.length; i++) {
-            l(frames[i]);
+
+            this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame;
+
         }
         l(JSON_SPRITESHEET);
+        l(this._icons);
 
         //callback();
     },
