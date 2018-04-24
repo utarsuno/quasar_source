@@ -55,6 +55,10 @@ AudioManager.prototype = {
     },
 
     set_audio: function(audio_name, audio_buffer) {
+        MANAGER_AUDIO._set_audio(audio_name, audio_buffer);
+    },
+
+    _set_audio: function(audio_name, audio_buffer) {
         this._all_audio[audio_name] = new THREE.Audio(this.audio_listener);
         this._all_audio[audio_name].setBuffer(audio_buffer);
 

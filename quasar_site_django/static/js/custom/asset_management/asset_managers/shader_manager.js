@@ -23,8 +23,12 @@ ShaderManager.prototype = {
         this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialNoise();
     },
 
-    set_shader: function(shader_name, shader_content) {
+    _set_shader: function(shader_name, shader_content) {
         this._all_shaders[shader_name] = shader_content;
+    },
+
+    set_shader: function(shader_name, shader_content) {
+        MANAGER_SHADER._set_shader(shader_name, shader_content);
     },
 
     get_shader_material_abstraction: function(shader_material_name) {

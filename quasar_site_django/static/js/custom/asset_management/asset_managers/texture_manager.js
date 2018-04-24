@@ -91,12 +91,16 @@ TextureManager.prototype = {
         return this.sky_box_material;
     },
 
-    set_texture: function(texture_name, texture) {
+    _set_texture: function(texture_name, texture) {
         //this.texture_groups[texture_group][texture_name] = texture;
         l(texture_name);
         l(texture);
         l(this.textures);
         this.textures[texture_name] = texture;
+    },
+
+    set_texture: function(texture_name, texture) {
+        MANAGER_TEXTURE._set_texture(texture_name, texture);
     },
 
     get_texture: function(texture_group, texture_name) {
