@@ -24,6 +24,8 @@ ManagerManager.prototype.get_loading_manager = function() {
             this.all_audio            = new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
 
             this.all_shaders          = new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
+
+            this.all_svg              = new SVGGroup(this, this.check_if_initial_resources_loaded.bind(this));
         },
 
         asset_loaded: function(asset) {

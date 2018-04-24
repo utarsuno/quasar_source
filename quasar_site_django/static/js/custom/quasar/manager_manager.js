@@ -63,6 +63,8 @@ function load_all_global_managers() {
     MANAGER_SHADER    = new ShaderManager();
     // Handles all textures.
     MANAGER_TEXTURE   = new TextureManager();
+    // Handles all svg files.
+    MANAGER_SVG       = new SVGManager();
     // Handles images that get dropped onto the site page.
     //var DRAG_AND_DROP = new DragNDrop();
 

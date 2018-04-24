@@ -3,6 +3,7 @@
 const ASSET_GROUP_AUDIO   = 'audio';    // #pre-process_global_constant
 const ASSET_GROUP_TEXTURE = 'texture/'; // #pre-process_global_constant
 const ASSET_GROUP_SHADER  = 'shaders';  // #pre-process_global_constant
+const ASSET_GROUP_SVG     = 'svg';      // #pre-process_global_constant
 
 function AssetGroup(asset_group_type, loading_manager, fully_loaded_callback) {
 
