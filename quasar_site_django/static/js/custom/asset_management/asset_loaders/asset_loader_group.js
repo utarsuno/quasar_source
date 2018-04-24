@@ -42,7 +42,7 @@ function AssetLoaderGroup(asset_group_type, loading_manager, fully_loaded_callba
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
-                let loader = new loader_class;
+                let loader = new loader_class();
                 loader.load(this._asset_base_url + asset,
 
                     function(texture) {
