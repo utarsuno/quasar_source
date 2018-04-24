@@ -1,32 +1,32 @@
 'use strict';
 
-const ICON_PLANET     = 1; // #pre-process_global_constant
-const ICON_ADMIN      = 2; // #pre-process_global_constant
-const ICON_ARROW      = 3;
-const ICON_CALENDER   = 4;
-const ICON_CHECKMARK  = 5;
-const ICON_CLICK      = 6;
-const ICON_CROSS      = 7;
-const ICON_CURSOR     = 8;
-const ICON_DELETE     = 9;
-const ICON_DISABLED   = 10;
-const ICON_DRAG       = 11;
-const ICON_EXIT       = 12;
-const ICON_EXPAND     = 13;
-const ICON_FOLDER     = 14;
-const ICON_GEARS      = 15;
-const ICON_HOME       = 16;
-const ICON_HORIZONTAL = 17;
-const ICON_LOCKED     = 18;
-const ICON_PICTURE    = 19;
-const ICON_TELEPORT   = 20;
-const ICON_TEXT       = 21;
-const ICON_UNLOCKED   = 22;
-const ICON_VERTICAL   = 23;
-const ICON_VIDEO      = 24;
-const ICON_WARNING    = 25;
-const ICON_WRENCH     = 26;
-const ICON_WRITING    = 27;
+const ICON_PLANET     = 1;  // #pre-process_global_constant
+const ICON_ADMIN      = 2;  // #pre-process_global_constant
+const ICON_ARROW      = 3;  // #pre-process_global_constant
+const ICON_CALENDER   = 4;  // #pre-process_global_constant
+const ICON_CHECKMARK  = 5;  // #pre-process_global_constant
+const ICON_CLICK      = 6;  // #pre-process_global_constant
+const ICON_CROSS      = 7;  // #pre-process_global_constant
+const ICON_CURSOR     = 8;  // #pre-process_global_constant
+const ICON_DELETE     = 9;  // #pre-process_global_constant
+const ICON_DISABLED   = 10; // #pre-process_global_constant
+const ICON_DRAG       = 11; // #pre-process_global_constant
+const ICON_EXIT       = 12; // #pre-process_global_constant
+const ICON_EXPAND     = 13; // #pre-process_global_constant
+const ICON_FOLDER     = 14; // #pre-process_global_constant
+const ICON_GEARS      = 15; // #pre-process_global_constant
+const ICON_HOME       = 16; // #pre-process_global_constant
+const ICON_HORIZONTAL = 17; // #pre-process_global_constant
+const ICON_LOCKED     = 18; // #pre-process_global_constant
+const ICON_PICTURE    = 19; // #pre-process_global_constant
+const ICON_TELEPORT   = 20; // #pre-process_global_constant
+const ICON_TEXT       = 21; // #pre-process_global_constant
+const ICON_UNLOCKED   = 22; // #pre-process_global_constant
+const ICON_VERTICAL   = 23; // #pre-process_global_constant
+const ICON_VIDEO      = 24; // #pre-process_global_constant
+const ICON_WARNING    = 25; // #pre-process_global_constant
+const ICON_WRENCH     = 26; // #pre-process_global_constant
+const ICON_WRITING    = 27; // #pre-process_global_constant
 
 
 function SpriteSheetManager() {
