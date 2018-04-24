@@ -37,20 +37,17 @@ function AssetLoaderGroup(asset_group_type, loading_manager, fully_loaded_callba
         }
     };
 
-    this.load_assets = function(loader_class, send_results_to) {
+    this.load_assets = function() {
         let asset;
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
-                let loader = new loader_class();
+                let loader = new this.loader_class();
                 loader.load(this._asset_base_url + asset,
 
-                    function(texture) {
-                        l(arguments[1]);
-                        l(arguments[0]);
-                        l(texture);
-                        //send_results_to();
-                        //this._texture_loaded(arguments[1], arguments[0]);
+                    function(asset_name) {
+                        this.send_asset_to(asset_name, arguments[1]);
+                        this._asset_loaded(asset_name);
                     }.bind(this, asset),
 
                     function(xhr) {
@@ -59,6 +56,8 @@ function AssetLoaderGroup(asset_group_type, loading_manager, fully_loaded_callba
 
                     function(xhr) {
                         l('Error loading asset : ' + arguments[0]);
+                        l('Error was :');
+                        l(xhr);
                     }.bind(this, asset)
 
                 );
@@ -68,34 +67,3 @@ function AssetLoaderGroup(asset_group_type, loading_manager, fully_loaded_callba
     };
 
 }
-
-
-/*
-
-    load_assets: function() {
-        let asset;
-        for (asset in this._assets) {
-            if (this._assets.hasOwnProperty(asset)) {
-
-                let loader = new THREE.TextureLoader();
-                loader.load(this._asset_base_url + asset,
-
-                    function(texture) {
-                        this._texture_loaded(arguments[1], arguments[0]);
-                    }.bind(this, asset),
-
-                    function(xhr) {
-                        // On success load.
-                    },
-
-                    function(xhr) {
-                        l('Error loading asset : ' + arguments[0]);
-                    }.bind(this, asset)
-
-                );
-
-            }
-        }
-    },
-
- */

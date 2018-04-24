@@ -9,38 +9,9 @@ AudioGroup.prototype = {
     __init__: function(loading_manager, fully_loaded_callback) {
         // Inherit.
         AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
-    },
 
-    _audio_buffer_loaded: function(audio_buffer, asset_name) {
-        MANAGER_AUDIO.set_audio(asset_name, audio_buffer);
-
-        this._asset_loaded(asset_name);
-    },
-
-    load_assets: function() {
-        let asset;
-        for (asset in this._assets) {
-            if (this._assets.hasOwnProperty(asset)) {
-
-                let loader = new THREE.AudioLoader();
-                loader.load(this._asset_base_url + asset,
-
-                    function (audio_buffer) {
-                        this._audio_buffer_loaded(arguments[1], arguments[0]);
-                    }.bind(this, asset),
-
-                    function (xhr) {
-                        // On load % success.
-                    },
-
-                    function(xhr) {
-                        l('Error loading asset : ' + arguments[0]);
-                    }.bind(this, asset)
-
-                );
-
-            }
-        }
+        this.loader_class = THREE.AudioLoader;
+        this.send_asset_to = MANAGER_SHADER.set_audio;
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __

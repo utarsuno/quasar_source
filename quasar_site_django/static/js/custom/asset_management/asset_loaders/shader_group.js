@@ -9,37 +9,9 @@ ShaderGroup.prototype = {
     __init__: function(loading_manager, fully_loaded_callback) {
         // Inherit.
         AssetLoaderGroup.call(this, ASSET_GROUP_SHADER, loading_manager, fully_loaded_callback);
-    },
 
-    _shader_loaded: function(shader, asset_name) {
-        MANAGER_SHADER.set_shader(asset_name, shader);
-
-        this._asset_loaded(asset_name);
-    },
-
-    load_assets: function() {
-        let asset;
-        for (asset in this._assets) {
-            if (this._assets.hasOwnProperty(asset)) {
-
-                let loader = new THREE.FileLoader();
-                loader.load(this._asset_base_url + asset,
-
-                    function(shader) {
-                        this._shader_loaded(arguments[1], arguments[0]);
-                    }.bind(this, asset),
-
-                    function(xhr) {
-                        // On load % success.
-                    },
-
-                    function(xhr) {
-                        l('Error loading shader : ' + arguments[0]);
-                    }.bind(this, asset)
-
-                );
-            }
-        }
+        this.loader_class = THREE.FileLoader;
+        this.send_asset_to = MANAGER_SHADER.set_shader;
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __

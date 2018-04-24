@@ -11,40 +11,10 @@ TextureGroup.prototype = {
 
         // Inherit.
         AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
+
+        this.loader_class = THREE.TextureLoader;
+        this.send_asset_to = MANAGER_TEXTURE.set_texture;
     },
-
-    _texture_loaded: function(texture, asset_name) {
-        MANAGER_TEXTURE.set_texture(this._texture_group, asset_name, texture);
-        this._asset_loaded(asset_name);
-    },
-
-    /*
-    load_assets: function() {
-        let asset;
-        for (asset in this._assets) {
-            if (this._assets.hasOwnProperty(asset)) {
-
-                let loader = new THREE.TextureLoader();
-                loader.load(this._asset_base_url + asset,
-
-                    function(texture) {
-                        this._texture_loaded(arguments[1], arguments[0]);
-                    }.bind(this, asset),
-
-                    function(xhr) {
-                        // On success load.
-                    },
-
-                    function(xhr) {
-                        l('Error loading asset : ' + arguments[0]);
-                    }.bind(this, asset)
-
-                );
-
-            }
-        }
-    },
-    */
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \

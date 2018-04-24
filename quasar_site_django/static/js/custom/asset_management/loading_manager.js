@@ -46,9 +46,8 @@ ManagerManager.prototype.get_loading_manager = function() {
 
             let asset_group;
             for (asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
-                //this.asset_groups[asset_group].load_assets();
+                this.asset_groups[asset_group].load_assets();
             }
-            this.textures_cursor.load_assets(THREE.TextureLoader);
         },
 
         check_if_initial_resources_loaded: function() {
