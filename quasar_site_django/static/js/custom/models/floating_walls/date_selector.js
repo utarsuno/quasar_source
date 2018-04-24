@@ -29,14 +29,14 @@ DateSelector.prototype = {
         // Year.
         let row_year = this.wall_date_selector.add_row(null);
         this.year = row_year.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_year());
-        this.button_year_decrease = this.year.add_icon_button_left(ICON_LEFT, this.button_year_decrease_pressed.bind(this));
-        this.button_year_increase = this.year.add_icon_button_right(ICON_RIGHT, this.button_year_increase_pressed.bind(this));
+        this.button_year_decrease = this.year.add_icon_button_left(ICON_ARROW, this.button_year_decrease_pressed.bind(this));
+        this.button_year_increase = this.year.add_icon_button_right(ICON_ARROW, this.button_year_increase_pressed.bind(this));
 
         // Month.
         let row_month = this.wall_date_selector.add_row(null);
         this.month = row_month.add_text_2D([ONE_FOURTH, THREE_FOURTHS, CENTER_ABSOLUTE], 16, this.month_instance.get_month_string());
-        this.button_month_decrease = this.month.add_icon_button_left(ICON_LEFT, this.button_month_decrease_pressed.bind(this));
-        this.button_month_increase = this.month.add_icon_button_right(ICON_RIGHT, this.button_month_increase_pressed.bind(this));
+        this.button_month_decrease = this.month.add_icon_button_left(ICON_ARROW, this.button_month_decrease_pressed.bind(this));
+        this.button_month_increase = this.month.add_icon_button_right(ICON_ARROW, this.button_month_increase_pressed.bind(this));
 
         // Day labels.
         let row_labels = this.wall_date_selector.add_row(null);

@@ -111,10 +111,11 @@ const JSON_SPRITESHEET = {'frames': [
 'meta': {
     'app': 'https://www.codeandweb.com/texturepacker',
     'version': '1.0',
-    'image': 'spritesheet_icons.png',
+    'image': 'icons.png',
     'format': 'RGBA8888',
     'size': {'w':1782,'h':66},
     'scale': '1',
-    'smartupdate': '$TexturePacker:SmartUpdate:9e773f2acf0c72c64d50e98eeff88442:6fcfb2a1c2a146bf8290501ef346117f:6a90f5a55de062303a693a16fcb1b90e$'
+    'smartupdate': '$TexturePacker:SmartUpdate:9e98b50437c56d518b5910a956697884:6fcfb2a1c2a146bf8290501ef346117f:b5c5bd7252d2048fecbb1bda1760f9ef$'
 }
+
 };

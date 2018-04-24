@@ -21,14 +21,6 @@ TextureGroup.prototype = {
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/    |  \ |___ \__X \__/ | |  \ |___ |__/ */
     _add_required_initial_assets: function(callback) {
         switch (this._texture_group) {
-        case TEXTURE_GROUP_CURSOR:
-            this._add_required_initial_asset(CURSOR_TYPE_HORIZONTAL);
-            this._add_required_initial_asset(CURSOR_TYPE_VERTICAL);
-            this._add_required_initial_asset(CURSOR_TYPE_HAND);
-            this._add_required_initial_asset(CURSOR_TYPE_POINTER);
-            this._add_required_initial_asset(CURSOR_TYPE_LARGER);
-            this._add_required_initial_asset(CURSOR_TYPE_MOUSE);
-            break;
         case TEXTURE_GROUP_SKYBOX:
             this._add_required_initial_asset(SKYBOX_FRONT);
             this._add_required_initial_asset(SKYBOX_BACK);
@@ -36,31 +28,6 @@ TextureGroup.prototype = {
             this._add_required_initial_asset(SKYBOX_BOTTOM);
             this._add_required_initial_asset(SKYBOX_RIGHT);
             this._add_required_initial_asset(SKYBOX_LEFT);
-            break;
-        case TEXTURE_GROUP_ICONS:
-            this._add_required_initial_asset(ICON_STAR);
-            this._add_required_initial_asset(ICON_EXIT);
-            this._add_required_initial_asset(ICON_SETTINGS);
-            this._add_required_initial_asset(ICON_ENTITY_GROUP);
-            this._add_required_initial_asset(ICON_HOME);
-            this._add_required_initial_asset(ICON_MULTI_PLAYER);
-            this._add_required_initial_asset(ICON_SAVE);
-            this._add_required_initial_asset(ICON_FULLSCREEN);
-            this._add_required_initial_asset(ICON_LEFT);
-            this._add_required_initial_asset(ICON_RIGHT);
-            this._add_required_initial_asset(ICON_CROSS);
-            this._add_required_initial_asset(ICON_LOCKED);
-            this._add_required_initial_asset(ICON_UNLOCKED);
-            this._add_required_initial_asset(ICON_WORLDS);
-            this._add_required_initial_asset(ICON_WARNING);
-            this._add_required_initial_asset(ICON_TELEPORT);
-            this._add_required_initial_asset(ICON_CHECKMARK);
-            this._add_required_initial_asset(ICON_SINGLE_PLAYER);
-            this._add_required_initial_asset(ICON_WRENCH);
-            this._add_required_initial_asset(ICON_IMPORT);
-            this._add_required_initial_asset(ICON_INFORMATION);
-            this._add_required_initial_asset(ICON_MOVIE);
-            this._add_required_initial_asset(ICON_MENU_LIST);
             break;
         case TEXTURE_GROUP_TRANSITION:
             this._add_required_initial_asset(TRANSITION_GRID);

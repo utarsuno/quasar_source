@@ -60,7 +60,7 @@ PlayerCursor.prototype = {
         let plane_parametric_equation = get_parametric_plane_equation(plane_current_position, this.currently_attached_to.get_normal());
         let current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
-        if (this._is_current_cursor_type(CURSOR_TYPE_VERTICAL)) {
+        if (this._is_current_cursor_type(ICON_VERTICAL)) {
             let h = this.currently_attached_to.height;
 
             let current_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - current_position[1] ) / h;
@@ -72,7 +72,7 @@ PlayerCursor.prototype = {
             this.currently_attached_to.update_height(1 + current_vertical_percentage);
             this.currently_attached_to.refresh_position_and_look_at();
 
-        } else if (this._is_current_cursor_type(CURSOR_TYPE_HORIZONTAL)) {
+        } else if (this._is_current_cursor_type(ICON_HORIZONTAL)) {
 
             let w = this.currently_attached_to.width;
 
@@ -95,15 +95,15 @@ PlayerCursor.prototype = {
         // For floating elements.
         if (is_defined(this.currently_attached_to.is_clickable)) {
             if (this.currently_attached_to.is_clickable) {
-                this._set_current_cursor(CURSOR_TYPE_HAND);
+                this._set_current_cursor(ICON_CLICK);
             } else if (this.currently_attached_to.is_interactive) {
-                this._set_current_cursor(ICON_INFORMATION);
+                this._set_current_cursor(ICON_WRITING);
             }
         } else {
             if (this.currently_attached_to.scalable) {
                 this._get_scalable_cursor_needed();
             } else {
-                this._set_current_cursor(CURSOR_TYPE_POINTER);
+                this._set_current_cursor(ICON_CURSOR);
             }
         }
 
@@ -140,7 +140,7 @@ PlayerCursor.prototype = {
 
             let current_position = get_line_intersection_on_infinite_plane(player_parametric_equation, plane_parametric_equation);
 
-            if (this._is_current_cursor_type(CURSOR_TYPE_MOUSE)) {
+            if (this._is_current_cursor_type(ICON_DRAG)) {
                 let pp = CURRENT_PLAYER.get_position();
                 let pn = CURRENT_PLAYER.get_direction();
 
@@ -168,7 +168,7 @@ PlayerCursor.prototype = {
         let exit_out = false;
         if (is_defined(this.currently_attached_to.only_moveable)) {
             if (this.currently_attached_to.only_moveable) {
-                this._set_current_cursor(CURSOR_TYPE_MOUSE);
+                this._set_current_cursor(ICON_DRAG);
                 exit_out = true;
             }
         }
@@ -197,13 +197,13 @@ PlayerCursor.prototype = {
         }
 
         if (scroll_horizontal && scroll_vertical) {
-            this._set_current_cursor(CURSOR_TYPE_LARGER);
+            this._set_current_cursor(ICON_EXPAND);
         } else if (scroll_vertical) {
-            this._set_current_cursor(CURSOR_TYPE_VERTICAL);
+            this._set_current_cursor(ICON_VERTICAL);
         } else if (scroll_horizontal) {
-            this._set_current_cursor(CURSOR_TYPE_HORIZONTAL);
+            this._set_current_cursor(ICON_HORIZONTAL);
         } else {
-            this._set_current_cursor(CURSOR_TYPE_MOUSE);
+            this._set_current_cursor(ICON_DRAG);
         }
     },
 
@@ -242,13 +242,13 @@ PlayerCursor.prototype = {
         this.cursor_wall.set_to_singleton();
         this.cursor_wall.make_base_wall_invisible();
         let cursor_row = this.cursor_wall.add_row(0);
-        this._create_cursor(CURSOR_TYPE_HORIZONTAL, cursor_row);
-        this._create_cursor(CURSOR_TYPE_VERTICAL, cursor_row);
-        this._create_cursor(CURSOR_TYPE_HAND, cursor_row);
-        this._create_cursor(CURSOR_TYPE_POINTER, cursor_row);
-        this._create_cursor(CURSOR_TYPE_LARGER, cursor_row);
-        this._create_cursor(CURSOR_TYPE_MOUSE, cursor_row);
-        this._create_cursor(ICON_INFORMATION, cursor_row);
+        this._create_cursor(ICON_HORIZONTAL, cursor_row);
+        this._create_cursor(ICON_VERTICAL, cursor_row);
+        this._create_cursor(ICON_CLICK, cursor_row);
+        this._create_cursor(ICON_CURSOR, cursor_row);
+        this._create_cursor(ICON_EXPAND, cursor_row);
+        this._create_cursor(ICON_DRAG, cursor_row);
+        this._create_cursor(ICON_WRITING, cursor_row);
     },
 
     _create_cursor: function(cursor_type, cursor_row) {

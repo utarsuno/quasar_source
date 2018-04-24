@@ -10,43 +10,12 @@ const SPRITESHEET_ICONS  = 'icons.png';                 // #pre-process_global_c
 
 const TRANSITION_GRID    = 'grid_transition.png';       // #pre-process_global_constant
 
-const ICON_STAR          = 'star.png';                  // #pre-process_global_constant
-const ICON_EXIT          = 'exit.png';                  // #pre-process_global_constant
-const ICON_SETTINGS      = 'gear.png';                  // #pre-process_global_constant
-const ICON_MULTI_PLAYER  = 'multiplayer.png';           // #pre-process_global_constant
-const ICON_HOME          = 'home.png';                  // #pre-process_global_constant
-const ICON_SAVE          = 'save.png';                  // #pre-process_global_constant
-const ICON_ENTITY_GROUP  = 'share.png';                 // #pre-process_global_constant
-const ICON_FULLSCREEN    = 'larger.png';                // #pre-process_global_constant
-const ICON_LEFT          = 'arrow_left.png';            // #pre-process_global_constant
-const ICON_RIGHT         = 'arrow_right.png';           // #pre-process_global_constant
-const ICON_CROSS         = 'cross.png';                 // #pre-process_global_constant
-const ICON_WORLDS        = 'bars_horizontal.png';       // #pre-process_global_constant
-const ICON_LOCKED        = 'locked.png';                // #pre-process_global_constant
-const ICON_UNLOCKED      = 'unlocked.png';              // #pre-process_global_constant
-const ICON_WARNING       = 'warning.png';               // #pre-process_global_constant
-const ICON_TELEPORT      = 'open.png';                  // #pre-process_global_constant
-const ICON_CHECKMARK     = 'checkmark.png';             // #pre-process_global_constant
-const ICON_SINGLE_PLAYER = 'singleplayer.png';          // #pre-process_global_constant
-const ICON_WRENCH        = 'wrench.png';                // #pre-process_global_constant
-const ICON_IMPORT        = 'import.png';                // #pre-process_global_constant
-const ICON_INFORMATION   = 'information.png';           // #pre-process_global_constant
-const ICON_MOVIE         = 'movie.png';                 // #pre-process_global_constant
-const ICON_MENU_LIST     = 'menu_list.png';             // #pre-process_global_constant
-
 const SKYBOX_FRONT  = 'skybox_front.jpg';               // #pre-process_global_constant
 const SKYBOX_BACK   = 'skybox_back.jpg';                // #pre-process_global_constant
 const SKYBOX_LEFT   = 'skybox_left.jpg';                // #pre-process_global_constant
 const SKYBOX_RIGHT  = 'skybox_right.jpg';               // #pre-process_global_constant
 const SKYBOX_TOP    = 'skybox_top.jpg';                 // #pre-process_global_constant
 const SKYBOX_BOTTOM = 'skybox_bottom.jpg';              // #pre-process_global_constant
-
-const CURSOR_TYPE_HORIZONTAL = 'scroll_horizontal.png'; // #pre-process_global_constant
-const CURSOR_TYPE_VERTICAL   = 'scroll_vertical.png';   // #pre-process_global_constant
-const CURSOR_TYPE_LARGER     = 'larger.png';            // #pre-process_global_constant
-const CURSOR_TYPE_HAND       = 'cursor_hand.png';       // #pre-process_global_constant
-const CURSOR_TYPE_POINTER    = 'cursor_pointer.png';    // #pre-process_global_constant
-const CURSOR_TYPE_MOUSE      = 'mouse.png';             // #pre-process_global_constant
 
 function TextureManager() {
     this.__init__();

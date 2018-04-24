@@ -16,9 +16,9 @@ ManagerManager.prototype.get_loading_manager = function() {
             this.asset_groups = [];
 
             // All the asset groups to load.
-            new TextureGroup(TEXTURE_GROUP_CURSOR     , this, this.check_if_initial_resources_loaded.bind(this));
+            //new TextureGroup(TEXTURE_GROUP_CURSOR     , this, this.check_if_initial_resources_loaded.bind(this));
             new TextureGroup(TEXTURE_GROUP_SKYBOX     , this, this.check_if_initial_resources_loaded.bind(this));
-            new TextureGroup(TEXTURE_GROUP_ICONS      , this, this.check_if_initial_resources_loaded.bind(this));
+            //new TextureGroup(TEXTURE_GROUP_ICONS      , this, this.check_if_initial_resources_loaded.bind(this));
             new TextureGroup(TEXTURE_GROUP_TRANSITION , this, this.check_if_initial_resources_loaded.bind(this));
             new TextureGroup(TEXTURE_GROUP_SPRITESHEET, this, this.check_if_initial_resources_loaded.bind(this));
             new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));

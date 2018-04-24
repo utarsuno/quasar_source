@@ -131,7 +131,7 @@ FloatingVideo.prototype = {
         let row = this.base_wall.add_row(-1);
         let icon_width = 16 / this.base_wall.width;
 
-        let settings_button = row.add_icon_button([0, icon_width * 2, true], ICON_SETTINGS, this.show_settings_wall.bind(this));
+        let settings_button = row.add_icon_button([0, icon_width * 2, true], ICON_GEARS, this.show_settings_wall.bind(this));
 
         // Create the delete button.
         //var close_button = row.add_icon([icon_width, icon_width * 2, true], ICON_CROSS);
