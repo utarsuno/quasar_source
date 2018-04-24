@@ -30,6 +30,7 @@ JSONGroup.prototype = {
                     }.bind(this, asset),
 
                     function (xhr) {
+                        l(xhr);
                         // On load % success.
                     },
 
