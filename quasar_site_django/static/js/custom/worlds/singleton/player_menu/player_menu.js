@@ -74,11 +74,12 @@ PlayerMenu.prototype = {
         let player_position = CURRENT_PLAYER.get_position();
         let player_normal   = CURRENT_PLAYER.get_direction();
 
-        let position_offset = this.menu_main.menu.get_position_offset(player_normal);
+        //let position_offset = this.menu_main.menu.get_position_offset(player_normal);
+        this.menu_main.menu.set_position_offset(player_normal);
 
-        let position_x = player_position.x + position_offset[0];
-        let position_y = player_position.y + position_offset[1];
-        let position_z = player_position.z + position_offset[2];
+        let position_x = player_position.x + this.menu_main.menu._position_offset.x;
+        let position_y = player_position.y + this.menu_main.menu._position_offset.y;
+        let position_z = player_position.z + this.menu_main.menu._position_offset.z;
 
         this.menu_main.menu.set_position(position_x, position_y, position_z, false);
         this.menu_main.menu.set_normal(player_position.x - position_x, 0, player_position.z - position_z, false);

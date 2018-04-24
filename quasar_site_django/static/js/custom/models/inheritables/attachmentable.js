@@ -378,7 +378,7 @@ function Attachmentable(world) {
             dz += normal.z * this.offset_normal_distance;
         }
         this._position_offset.set(dx, dy, dz);
-        return this._position_offset;
+        //return this._position_offset;
         //return [dx, dy, dz];
     };
 
