@@ -22,6 +22,16 @@ SVGGroup.prototype = {
     },
 
     load_assets: function() {
+
+        let asset;
+        for (asset in this._assets) {
+            if (this._assets.hasOwnProperty(asset)) {
+                let path = this._asset_base_url + asset;
+                l(path);
+            }
+        }
+
+        /*
         let asset;
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
@@ -45,6 +55,7 @@ SVGGroup.prototype = {
 
             }
         }
+        */
     },
 
     /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
