@@ -14,6 +14,7 @@ function is_defined(object) {
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
 // Global managers.
+var MANAGER_SPRITESHEET  = null;
 var MANAGER_MANAGER      = null;
 var MANAGER_WEB_SOCKETS  = null;
 var MANAGER_AUDIO        = null;
@@ -26,7 +27,6 @@ var MANAGER_SHADER       = null;
 var MANAGER_RENDERER     = null;
 var MANAGER_INPUT        = null;
 var MANAGER_POINTER_LOCK = null;
-//var MANAGER_LOADING      = null;
 
 // Global objects.
 var CURRENT_CLIENT = null;
