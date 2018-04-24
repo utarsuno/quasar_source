@@ -29,7 +29,7 @@ Player.prototype.load_fps_controls = function() {
         mouse_movement_x_buffer: null,
         mouse_movement_y_buffer: null,
 
-        initialzie: function(current_player) {
+        initialize: function(current_player) {
 
             this.current_player = current_player;
 
@@ -324,5 +324,5 @@ Player.prototype.load_fps_controls = function() {
     };
 
     this.fps_controls = new FPSControls();
-    this.fps_controls.initialzie(this);
+    this.fps_controls.initialize(this);
 };

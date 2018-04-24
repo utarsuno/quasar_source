@@ -7,11 +7,11 @@ function Player() {
 Player.prototype = {
 
     __init__: function() {
+        PlayerState.call(this);
         //this.fps_controls = new FPSControls();
         this.load_fps_controls();
         //l(this.fps_controls);
         // Inherit.
-        PlayerState.call(this);
     },
 
     update: function(delta) {
