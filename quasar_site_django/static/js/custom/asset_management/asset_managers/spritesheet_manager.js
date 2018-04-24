@@ -54,7 +54,8 @@ SpriteSheetManager.prototype = {
         t.offset.x = this._icons[icon].x / this.texture.image.width;
         t.offset.x = this._icons[icon].y / this.texture.image.height;
 
-        let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
+        //let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
+        let material = new THREE.MeshBasicMaterial({map : t, transparent : false, side: THREE.DoubleSide, depthTest: false});
         l(material);
         return material;
     },
