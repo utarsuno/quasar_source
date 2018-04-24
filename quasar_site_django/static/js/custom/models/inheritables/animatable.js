@@ -21,11 +21,12 @@ function Animatable() {
 
 
         let start_position = this.get_parent_position();
-        let start_offset   = this.get_position_offset();
+        //let start_offset   = this.get_position_offset();
+        this.set_position_offset();
 
-        this.animation_start_position_x = start_position.x + start_offset[0];
-        this.animation_start_position_y = start_position.y + start_offset[1];
-        this.animation_start_position_z = start_position.z + start_offset[2];
+        this.animation_start_position_x = start_position.x + this._position_offset.x;
+        this.animation_start_position_y = start_position.y + this._position_offset.y;
+        this.animation_start_position_z = start_position.z + this._position_offset.z;
         this.set_position(this.animation_start_position_x, this.animation_start_position_y, this.animation_start_position_z);
     };
 

@@ -10,6 +10,10 @@ function Attachmentable(world) {
 
     this.immune_to_attachment_deltas = false;
 
+    // For optimization.
+    this._position_offset = new THREE.Vector3(0, 0, 0);
+
+
     // All attachments will inherit Attachmentable.
     this.attachments = [];
 
@@ -54,9 +58,9 @@ function Attachmentable(world) {
     };
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
-        let temp_position = this.get_position();
+        //let temp_position = this.get_position();
 
-        let position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
+        //let position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
         let floating_wall;
         if (is_defined(scalable)) {
             // OLD : floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
@@ -242,8 +246,8 @@ function Attachmentable(world) {
         if (this.is_root()) {
             this.object3D.position.set(x, y, z);
         } else {
-            let position_offset = this.get_position_offset();
-            this.object3D.position.set(x + position_offset[0], y + position_offset[1], z + position_offset[2]);
+            this.set_position_offset();
+            this.object3D.position.set(x + this._position_offset.x, y + this._position_offset.y, z + this._position_offset.z);
         }
         if (refresh) {
             this._refresh_look_at();
@@ -338,7 +342,7 @@ function Attachmentable(world) {
         return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
     };
 
-    this.get_position_offset = function(n) {
+    this.set_position_offset = function(n) {
         let normal;
         if (is_defined(n)) {
             normal = n;
@@ -373,7 +377,9 @@ function Attachmentable(world) {
             dy += normal.y * this.offset_normal_distance;
             dz += normal.z * this.offset_normal_distance;
         }
-        return [dx, dy, dz];
+        this._position_offset.set(dx, dy, dz);
+        return this._position_offset;
+        //return [dx, dy, dz];
     };
 
     this.get_horizontal_distance_to_center = function(x, z) {
