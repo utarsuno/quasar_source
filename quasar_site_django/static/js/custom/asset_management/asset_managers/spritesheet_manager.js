@@ -61,6 +61,7 @@ SpriteSheetManager.prototype = {
         // TODO : MAKE SURE THERE IS NO TEXTURE MEMORY LEAK!
 
         this.texture.dispose();
+        this.texture = null;
 
         //material.needsUpdate = true;
         l(material);
