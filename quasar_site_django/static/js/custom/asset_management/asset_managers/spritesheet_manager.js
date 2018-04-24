@@ -14,6 +14,16 @@ SpriteSheetManager.prototype = {
 
         l(JSON_SPRITESHEET);
 
-        //callback();
+        callback();
+    },
+
+    get_icon_material: function(icon) {
+        
     }
+
 };
+
+/*
+        //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
+        this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
+ */
