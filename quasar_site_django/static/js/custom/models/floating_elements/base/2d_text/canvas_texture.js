@@ -14,9 +14,6 @@ CanvasTexture.prototype = {
         this.set_font();
         this.texture = new THREE.Texture(this.canvas);
         this.texture.anisotropy = MANAGER_RENDERER.renderer.capabilities.getMaxAnisotropy();
-        this.texture.magFilter = THREE.NearestFilter;
-        this.texture.minFilter = THREE.NearestFilter;
-        this.texture.needsUpdate = true;
     },
 
     update: function(background_color, foreground_color, text) {
