@@ -20,9 +20,11 @@ SVGGroup.prototype = {
 
         canvg(this.image_canvas, svg);
 
-        this._asset_loaded(asset_name);
+        let texture = new THREE.Texture(this.image_canvas);
 
-        //MANAGER_SVG.set_icon(asset_name, svg);
+        MANAGER_SVG.set_icon(asset_name, texture);
+
+        this._asset_loaded(asset_name);
     },
 
     load_assets: function() {
