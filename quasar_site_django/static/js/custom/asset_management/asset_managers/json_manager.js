@@ -1,6 +1,7 @@
 'use strict';
 
-const JSON_SPRITESHEET = 'spritesheet_test.json'; // #pre-process_global_constant
+//const JSON_SPRITESHEET = 'spritesheet_test.json'; // #pre-process_global_constant
+const JSON_SPRITESHEET = 'test.js'; // #pre-process_global_constant
 
 function JSONManager() {
     this.__init__();
