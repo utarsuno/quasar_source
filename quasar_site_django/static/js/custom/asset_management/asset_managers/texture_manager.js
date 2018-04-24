@@ -55,12 +55,14 @@ function TextureManager() {
 TextureManager.prototype = {
 
     __init__: function() {
-        this.texture_groups = {};
+        //this.texture_groups = {};
 
-        this.texture_groups[TEXTURE_GROUP_CURSOR]     = {};
-        this.texture_groups[TEXTURE_GROUP_SKYBOX]     = {};
-        this.texture_groups[TEXTURE_GROUP_ICONS]      = {};
-        this.texture_groups[TEXTURE_GROUP_TRANSITION] = {};
+        this.textures = {};
+
+        //this.texture_groups[TEXTURE_GROUP_CURSOR]     = {};
+        //this.texture_groups[TEXTURE_GROUP_SKYBOX]     = {};
+        //this.texture_groups[TEXTURE_GROUP_ICONS]      = {};
+        //this.texture_groups[TEXTURE_GROUP_TRANSITION] = {};
     },
 
     create_skybox_material: function() {
@@ -89,11 +91,13 @@ TextureManager.prototype = {
         return this.sky_box_material;
     },
 
-    set_texture: function(texture_group, texture_name, texture) {
-        this.texture_groups[texture_group][texture_name] = texture;
+    set_texture: function(texture_name, texture) {
+        //this.texture_groups[texture_group][texture_name] = texture;
+        this.textures[texture_name] = texture;
     },
 
     get_texture: function(texture_group, texture_name) {
-        return this.texture_groups[texture_group][texture_name];
+        //return this.texture_groups[texture_group][texture_name];
+        return this.textures[texture_name];
     }
 };
