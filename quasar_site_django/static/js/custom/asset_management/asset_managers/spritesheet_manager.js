@@ -39,6 +39,25 @@ SpriteSheetManager.prototype = {
         this._icons = {};
     },
 
+    /*
+       //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
+       this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
+     */
+
+    get_icon_material: function(icon) {
+        //let material = new THREE.MeshBasicMaterial({map : this.texture, transparent : true, side: THREE.FrontSide, depthTest: false});
+
+        let t = this.texture.clone();
+
+        t.repeat.x = this._icons[icon].w / this.texture.image.width;
+        t.repeat.y = this._icons[icon].h / this.texture.image.height;
+        t.offset.x = this._icons[icon].x / this.texture.image.width;
+        t.offset.x = this._icons[icon].y / this.texture.image.height;
+
+        let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
+        return material;
+    },
+
     load_icon_sprite_sheet: function(callback) {
         this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
 
@@ -49,10 +68,10 @@ SpriteSheetManager.prototype = {
             this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame;
 
         }
-        l(JSON_SPRITESHEET);
-        l(this._icons);
+        //l(JSON_SPRITESHEET);
+        //l(this._icons);
 
-        //callback();
+        callback();
     },
 
     _get_icon_number_from_filename: function(filename) {
@@ -112,15 +131,6 @@ SpriteSheetManager.prototype = {
         case 'writting.png':
             return ICON_WRITING;
         }
-    },
-
-    get_icon_material: function(icon) {
-
     }
 
 };
-
-/*
-        //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
-        this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
- */
