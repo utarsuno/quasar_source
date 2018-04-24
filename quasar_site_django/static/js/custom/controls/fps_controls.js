@@ -156,6 +156,7 @@ Player.prototype.load_fps_controls = function() {
 
             //if (!CURRENT_PLAYER.has_movement()) {
             if (this.current_player.has_movement()) {
+                l('No movement!');
                 return;
             }
 
