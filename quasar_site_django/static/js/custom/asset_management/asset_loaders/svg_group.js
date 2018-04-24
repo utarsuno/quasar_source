@@ -18,6 +18,8 @@ SVGGroup.prototype = {
         l(asset_name);
         l(svg);
 
+        this._asset_loaded(asset_name);
+
         //MANAGER_SVG.set_icon(asset_name, svg);
     },
 
@@ -28,6 +30,7 @@ SVGGroup.prototype = {
             if (this._assets.hasOwnProperty(asset)) {
                 let path = this._asset_base_url + asset;
                 l(path);
+                this._svg_loaded(path, path);
             }
         }
 
