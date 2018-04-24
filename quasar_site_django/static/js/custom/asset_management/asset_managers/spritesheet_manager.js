@@ -56,6 +56,7 @@ SpriteSheetManager.prototype = {
 
         //let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
         let material = new THREE.MeshBasicMaterial({map : t, transparent : false, side: THREE.DoubleSide, color: COLOR_RED});
+        material.needsUpdate = true;
         l(material);
         return material;
     },
