@@ -24,7 +24,7 @@ ShaderManager.prototype = {
     create_global_shader_materials: function() {
         this._all_shader_materials[SHADER_MATERIAL_TRANSITION] = new ShaderMaterialTransition();
         this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialNoise();
-        this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialSpriteSheet();
+        //this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialSpriteSheet();
     },
 
     _set_shader: function(shader_name, shader_content) {
