@@ -135,7 +135,7 @@ HexagonGrid.prototype = {
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
-        m.makeTranslation(x_offset, y_offset, 0);
+        m.makeTranslation(x_offset, y_offset, material_offset * 5);
 
         //tile.applyMatrix(m);
 
