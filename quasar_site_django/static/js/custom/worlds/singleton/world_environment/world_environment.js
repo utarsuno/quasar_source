@@ -66,7 +66,7 @@ WorldEnvironment.prototype = {
         world.add_to_scene(this.board.group);
         */
 
-        this.grid = new HexagonGrid(2);
+        this.grid = new HexagonGrid(3);
         this.grid.create();
         world.add_to_scene(this.grid.object3D);
 
