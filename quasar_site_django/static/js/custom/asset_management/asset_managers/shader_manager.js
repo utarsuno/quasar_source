@@ -71,6 +71,9 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
     this.get_shader_material = function() {
         return this.shader_material;
     };
+    this.get_shader_material_copy = function() {
+        return this.shader_material.copy();;
+    };
 }
 
 function ShaderMaterialSpriteSheet() {

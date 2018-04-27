@@ -82,7 +82,7 @@ SpriteSheetManager.prototype = {
         l(this._icons[icon].x / 64);
         l(icon);
         l(this._icons[icon]);
-        let m = this._shader_material.get_shader_material();
+        let m = this._shader_material.get_shader_material_copy();
         m.transparent = true;
         //m.blending = THREE.NormalBlending;
         m.needsUpdate = true;
