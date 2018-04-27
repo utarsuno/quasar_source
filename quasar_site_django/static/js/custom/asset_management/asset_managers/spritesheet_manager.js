@@ -45,6 +45,14 @@ SpriteSheetManager.prototype = {
      */
 
     get_icon_material: function(icon) {
+        this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
+        let m = this._shader_material.get_material(this._icons[icon].x / 64);
+        m.transparent = true;
+        m.needsUpdate = true;
+        return m;
+    },
+
+    get_icon_materialOLD: function(icon) {
         //let material = new THREE.MeshBasicMaterial({map : this.texture, transparent : true, side: THREE.FrontSide, depthTest: false});
 
         let t = this.texture.clone();
