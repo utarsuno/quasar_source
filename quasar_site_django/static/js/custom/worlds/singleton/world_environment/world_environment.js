@@ -67,7 +67,7 @@ WorldEnvironment.prototype = {
         */
 
         this.grid = new HexagonGrid(3);
-        world.add_to_scene(this.grid.single_geometry);
+        world.add_to_scene(this.grid.object3D);
 
 
         // Default lights.

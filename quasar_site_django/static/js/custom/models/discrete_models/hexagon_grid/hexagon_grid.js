@@ -21,6 +21,8 @@ HexagonGrid.prototype = {
             this.single_geometry.mergeMesh(m);
         }
 
+        this.object3D = new THREE.Object3D();
+        this.object3D.add(this.single_geometry);
     }
 
 };
