@@ -76,8 +76,8 @@ HexagonGrid.prototype = {
             let direction = this.d_top_right;
             let filled = 0;
 
-            let offset_x = 0;
-            let offset_y = 0;
+            let offset_x = this._get_x_offset(direction);
+            let offset_y = this._get_y_offset(direction);
 
             direction = this.d_top_left;
 
