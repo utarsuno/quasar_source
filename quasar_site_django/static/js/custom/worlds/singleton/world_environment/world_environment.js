@@ -66,6 +66,9 @@ WorldEnvironment.prototype = {
         world.add_to_scene(this.board.group);
         */
 
+        this.grid = new HexagonGrid(3);
+        world.add_to_scene(this.grid.single_geometry);
+
 
         // Default lights.
         this.light_delta = 0;
