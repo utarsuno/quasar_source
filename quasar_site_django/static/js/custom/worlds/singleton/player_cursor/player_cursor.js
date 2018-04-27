@@ -206,6 +206,12 @@ PlayerCursor.prototype = {
             this._current_cursor = cursor;
             this.cursor.switch_icon(cursor);
             this.cursor.set_to_visible();
+
+            switch(cursor) {
+            case ICON_CLICK:
+                this.set_attachment_vertical_offset(-8, null);
+                break;
+            }
         }
     },
 
@@ -226,5 +232,6 @@ PlayerCursor.prototype = {
         this.cursor.set_to_invisible();
         this.cursor.set_to_manual_positioning();
         this.cursor.set_to_singleton();
+        this.cursor.set_attachment_depth_offset(6);
     }
 };
