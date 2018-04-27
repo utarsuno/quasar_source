@@ -83,19 +83,21 @@ HexagonGrid.prototype = {
                 this.create_tile(0, 0, tile);
                 tile += 1;
             } else {
-                let number_of_tiles = layer * 1;
+                let number_of_tiles = layer * 6;
 
                 let gap = layer - 1;
-                let direction = this.d_top_left;
+                let direction = this.d_top_right;
                 let filled = 0;
 
-                let offset_x = 0;
-                let offset_y = 0;
+                let offset_x = this._get_x_offset(direction);
+                let offset_y = this._get_y_offset(direction);
 
-                let i = 0;
+                direction = this.d_top_left;
+
+                let i = 1;
                 while (i < number_of_tiles) {
-                    offset_x += this._get_x_offset(direction) * 2;
-                    offset_y += this._get_y_offset(direction) * 2;
+                    offset_x += this._get_x_offset(direction);
+                    offset_y += this._get_y_offset(direction);
 
                     this.create_tile(offset_x, offset_y, tile);
                     tile += 1;
