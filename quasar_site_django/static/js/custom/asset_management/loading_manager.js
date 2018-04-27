@@ -22,7 +22,7 @@ ManagerManager.prototype.get_loading_manager = function() {
             new TextureGroup(TEXTURE_GROUP_TRANSITION , this, this.check_if_initial_resources_loaded.bind(this));
             new TextureGroup(TEXTURE_GROUP_SPRITESHEET, this, this.check_if_initial_resources_loaded.bind(this));
             new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
-            new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
+            //new ShaderGroup(this, this.check_if_initial_resources_loaded.bind(this));
 
             //this._group_json          = new JSONGroup(this, this.check_if_initial_resources_loaded.bind(this));
         },

@@ -1,15 +1,15 @@
 'use strict';
 
-const SHADER_TRANSITION_FRAGMENT  = 'transition/transition_fragment.frag'; // #pre-process_global_constant
-const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';   // #pre-process_global_constant
-const SHADER_NOISE_FRAGMENT       = 'film/film_fragment.frag';             // #pre-process_global_constant
-const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';               // #pre-process_global_constant
 const SHADER_MATERIAL_TRANSITION  = 1;                                     // #pre-process_global_constant
 const SHADER_MATERIAL_NOISE       = 2;                                     // #pre-process_global_constant
 const SHADER_MATERIAL_SPRITESHEET = 3;                                     // #pre-process_global_constant
 
 const SHADER_SPRITESHEET_FRAGMENT = 1;        // #pre-process_global_constant
 const SHADER_SPRITESHEET_VERTEX   = 2;        // #pre-process_global_constant
+const SHADER_TRANSITION_FRAGMENT  = 3; // #pre-process_global_constant
+const SHADER_TRANSITION_VERTEX    = 4;   // #pre-process_global_constant
+const SHADER_NOISE_FRAGMENT       = 5;            // #pre-process_global_constant
+const SHADER_NOISE_VERTEX         = 6;               // #pre-process_global_constant
 
 function ShaderManager() {
     this.__init__();
@@ -24,8 +24,20 @@ ShaderManager.prototype = {
         this._shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
         this._shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
 
+        this._shader_film_fragment = ''; // #pre-process_get_shader_film.frag
+        this._shader_film_vertex   = ''; // #pre-process_get_shader_film.vert
+
+        this._shader_transition_fragment = ''; // #pre-process_get_shader_transition.frag
+        this._shader_transition_vertex   = ''; // #pre-process_get_shader_transition.vert
+
         this._set_shader(SHADER_SPRITESHEET_FRAGMENT, this._shader_spritesheet_fragment);
         this._set_shader(SHADER_SPRITESHEET_VERTEX, this._shader_spritesheet_vertex);
+
+        this._set_shader(SHADER_TRANSITION_FRAGMENT, this._shader_transition_fragment);
+        this._set_shader(SHADER_TRANSITION_VERTEX, this._shader_transition_vertex);
+
+        this._set_shader(SHADER_NOISE_FRAGMENT, this._shader_film_fragment);
+        this._set_shader(SHADER_NOISE_VERTEX, this._shader_film_vertex);
     },
 
     create_global_shader_materials: function() {
