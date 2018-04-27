@@ -111,6 +111,9 @@ KeyboardModel.prototype = {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
 
+        this.single_mesh.merge(k.geometry);
+
+        /*
         let p = k.mesh.position;
 
         let label = new FloatingText2D(this.world, this.face_size * .8, key, null, this.face_size);
@@ -125,8 +128,9 @@ KeyboardModel.prototype = {
 
             this._create_tooltip(e, p2, tooltip[2]);
         }
+        */
 
-        this.single_mesh.merge(k.geometry);
+
 
         //this.object3D.add(k.mesh);
         //this.object3D.add(label.object3D);
