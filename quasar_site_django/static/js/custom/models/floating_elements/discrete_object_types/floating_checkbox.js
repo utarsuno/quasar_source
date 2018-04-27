@@ -22,20 +22,16 @@ FloatingCheckBox.prototype = {
         this.height = size;
 
         this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
-        //this.icon_checked.set_current_foreground_color(COLOR_GREEN, true);
 
         this.create_base_material();
         this.create_base_mesh();
 
         this.add_floating_element(null, null, 1, this.icon_checked);
-        //this.add_floating_element(null, null, 1, this.icon_not_checked);
 
         if (this.checked) {
             this.set_checked_state(true);
-            //this.icon_not_checked.set_to_invisible();
         } else {
             this.set_checked_state(false);
-            //this.icon_checked.set_to_invisible();
         }
         this.set_engage_function(this.clicked_on.bind(this));
     },
@@ -65,17 +61,6 @@ FloatingCheckBox.prototype = {
             this.icon_checked.switch_icon_and_color(ICON_CROSS, COLOR_RED);
             this.checked = false;
         }
-        /*
-        if (is_checked) {
-            this.icon_checked.set_to_visible();
-            this.icon_not_checked.set_to_invisible();
-            this.checked = true;
-        } else {
-            this.icon_checked.set_to_invisible();
-            this.icon_not_checked.set_to_visible();
-            this.checked = false;
-        }
-        */
     },
 
     clicked_on: function() {

@@ -6,5 +6,9 @@ void main(void) {
     gl_FragColor = texture2D(texture, vUv) * vec4(color, 1.0);
     if (gl_FragColor.a < 0.1) {
         discard;
+    } else {
+        gl_FragColor.r = color.r;
+        gl_FragColor.g = color.g;
+        gl_FragColor.b = color.b;
     }
 }
