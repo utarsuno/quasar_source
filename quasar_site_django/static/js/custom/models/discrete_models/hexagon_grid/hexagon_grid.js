@@ -47,6 +47,9 @@ HexagonGrid.prototype = {
                 if (filled === gap) {
                     direction += 1;
                     filled = 0;
+                    if (direction > 6) {
+                        direction = 1;
+                    }
                 } else {
                     filled += 1;
                 }
