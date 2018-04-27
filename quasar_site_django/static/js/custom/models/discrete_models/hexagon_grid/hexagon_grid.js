@@ -12,6 +12,9 @@ HexagonGrid.prototype = {
 
     create: function() {
         this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
+
+        l(this.hexagon_geometry);
+
         this.single_geometry = new THREE.Geometry();
 
         this.materails = [];
