@@ -46,6 +46,10 @@ SpriteSheetManager.prototype = {
         return m;
     },
 
+    get_icon_offset: function(icon) {
+        return this._icons[icon].x / 64;
+    },
+
     load_icon_sprite_sheet: function(callback) {
         this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
 
