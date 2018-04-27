@@ -6,9 +6,9 @@ uniform vec2 repeat;
 uniform sampler2D texture;
 uniform vec3 color;
 void main(void) {
-    if (texture.r < 0.5) {
+    gl_FragColor = texture2D(texture, vUv) * vec4(color, 1.0);
+    if (gl_FragColor.r < 0.5) {
         discard;
     }
-    gl_FragColor = texture2D(texture, vUv) * vec4(color, 1.0);
     //gl_FragColor = texture2D(texture, vUv) * vec4(1.0, 0.0, 1.0, 1.0);
 }
