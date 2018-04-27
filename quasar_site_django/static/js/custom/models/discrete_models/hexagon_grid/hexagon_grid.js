@@ -66,6 +66,21 @@ HexagonGrid.prototype = {
     },
 
     create: function() {
+        this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
+        this.single_geometry = new THREE.Geometry();
+        this.materails = [];
+
+        this.create_tile(0, 0, 0);
+        this.create_tile(64, 64, 10);
+
+        this.object3D = new THREE.Object3D();
+        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+        this.object3D.add(this.single_mesh);
+
+        this.object3D.lookAt(0, 1, 0);
+    },
+
+    createOLD: function() {
         let w = 64;
         let s = 32;
 
