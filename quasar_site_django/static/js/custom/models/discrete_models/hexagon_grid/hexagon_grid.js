@@ -31,8 +31,10 @@ HexagonGrid.prototype = {
             this.single_geometry.merge(hexagon);
         }
 
+        let cc = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
+
         this.object3D = new THREE.Object3D();
-        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+        this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
         this.object3D.add(this.single_mesh);
     }
 
