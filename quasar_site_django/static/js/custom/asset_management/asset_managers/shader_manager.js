@@ -24,8 +24,8 @@ ShaderManager.prototype = {
         this._shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
         this._shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
 
-        this.set_shader(SHADER_SPRITESHEET_FRAGMENT, this._shader_spritesheet_fragment);
-        this.set_shader(SHADER_SPRITESHEET_VERTEX, this._shader_spritesheet_vertex);
+        this._set_shader(SHADER_SPRITESHEET_FRAGMENT, this._shader_spritesheet_fragment);
+        this._set_shader(SHADER_SPRITESHEET_VERTEX, this._shader_spritesheet_vertex);
     },
 
     create_global_shader_materials: function() {
