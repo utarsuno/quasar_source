@@ -37,8 +37,7 @@ HexagonGrid.prototype = {
             let offset_y = 0;
 
             let i = 1;
-            while (i < 5) {
-            //while (i < number_of_tiles + 1) {
+            while (i < number_of_tiles + 1) {
                 offset_x += this._get_x_offset(direction);
                 offset_y += this._get_y_offset(direction);
 
