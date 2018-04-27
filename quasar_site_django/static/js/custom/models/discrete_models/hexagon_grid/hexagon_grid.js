@@ -29,7 +29,7 @@ HexagonGrid.prototype = {
             hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
             hexagon.faces = this.hexagon_geometry.faces;
 
-            hexagon.translate(64 * layer, 0, 0);
+            hexagon.translate(128 * layer, 0, 0);
 
             this.materails.push(c);
             this.single_geometry.merge(hexagon, hexagon.matrix, layer);
