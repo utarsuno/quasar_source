@@ -220,7 +220,7 @@ PlayerCursor.prototype = {
                 break;
             case ICON_WRITING:
                 this.cursor.set_attachment_vertical_offset(8, null);
-                this.cursor.set_attachment_horizontal_offset(6);
+                this.cursor.set_attachment_horizontal_offset(7);
                 break;
             }
         }
