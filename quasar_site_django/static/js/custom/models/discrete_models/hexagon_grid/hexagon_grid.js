@@ -130,6 +130,7 @@ HexagonGrid.prototype = {
         hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
         hexagon.faces = this.hexagon_geometry.faces;
 
+        l('Creating tile {' + x_offset + '} - {' + y_offset + '}');
         hexagon.translate(x_offset, y_offset, material_index * 5);
 
         this.materails.push(c);
