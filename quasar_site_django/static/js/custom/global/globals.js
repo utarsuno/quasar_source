@@ -73,9 +73,9 @@ const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
 //const COLOR_TEXT_BUTTON   = new THREE.Color();
 
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';      // #pre-process_global_constant
-const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .65)'; // #pre-process_global_constant
-const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .65)';   // #pre-process_global_constant
-const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .65)'; // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .45)'; // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .45)';   // #pre-process_global_constant
+const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .45)'; // #pre-process_global_constant
 
 // TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;

@@ -106,7 +106,7 @@ ShaderMaterialSpriteSheet.prototype = {
         //this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
         this.set_uniform(this._uniform_offset, 2);
         this.set_uniform(this._uniform_texture, this.texture);
-        this.set_uniform(this._uniform_color, COLOR_BLUE);
+        this.set_uniform(this._uniform_color, COLOR_WHITE);
 
         this._set_shader_material();
     },
@@ -118,7 +118,7 @@ ShaderMaterialSpriteSheet.prototype = {
         let clone = this.shader_material.clone();
         clone.uniforms[this._uniform_offset] = {'value': offset};
         clone.uniforms[this._uniform_texture] = {'value': this.texture};
-        clone.uniforms[this._uniform_color] = {'value': COLOR_BLUE};
+        clone.uniforms[this._uniform_color] = {'value': COLOR_WHITE};
         return clone;
     }
 };
