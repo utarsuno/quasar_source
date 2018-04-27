@@ -4,8 +4,11 @@ const SHADER_TRANSITION_FRAGMENT  = 'transition/transition_fragment.frag'; // #p
 const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';   // #pre-process_global_constant
 const SHADER_NOISE_FRAGMENT       = 'film/film_fragment.frag';             // #pre-process_global_constant
 const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';               // #pre-process_global_constant
+const SHADER_SPRITESHEET_FRAGMENT = 'spritesheet/spritesheet.frag';        // #pre-process_global_constant
+const SHADER_SPRITESHEET_VERTEX   = 'spritesheet/spritesheet.vert';        // #pre-process_global_constant
 const SHADER_MATERIAL_TRANSITION  = 1;                                     // #pre-process_global_constant
 const SHADER_MATERIAL_NOISE       = 2;                                     // #pre-process_global_constant
+const SHADER_MATERIAL_SPRITESHEET = 3;                                     // #pre-process_global_constant
 
 function ShaderManager() {
     this.__init__();
@@ -21,6 +24,7 @@ ShaderManager.prototype = {
     create_global_shader_materials: function() {
         this._all_shader_materials[SHADER_MATERIAL_TRANSITION] = new ShaderMaterialTransition();
         this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialNoise();
+        this._all_shader_materials[SHADER_MATERIAL_NOISE]      = new ShaderMaterialSpriteSheet();
     },
 
     _set_shader: function(shader_name, shader_content) {
@@ -68,6 +72,29 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
         return this.shader_material;
     };
 }
+
+function ShaderMaterialSpriteSheet() {
+    this.__init__();
+}
+
+ShaderMaterialSpriteSheet.prototype = {
+    __init__: function() {
+        ShaderMaterialAbstraction.call(this, SHADER_SPRITESHEET_VERTEX, SHADER_SPRITESHEET_FRAGMENT);
+        this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
+
+        this._uniform_offset  = 'offset';
+        this._uniform_repeat  = 'repeat';
+        this._uniform_texture = 'texture';
+        this._uniform_color   = 'color';
+
+        this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
+        this.set_uniform(this._uniform_repeat, new THREE.Vector2(1 / 27, 0));
+        this.set_uniform(this._uniform_texture, this.texture);
+        this.set_uniform(this._uniform_color, COLOR_BLUE);
+
+        this._set_shader_material();
+    }
+};
 
 function ShaderMaterialTransition() {
     this.__init__();

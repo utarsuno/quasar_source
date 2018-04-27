@@ -22,6 +22,8 @@ ShaderGroup.prototype = {
         this._add_required_initial_asset(SHADER_TRANSITION_VERTEX);
         this._add_required_initial_asset(SHADER_NOISE_FRAGMENT);
         this._add_required_initial_asset(SHADER_NOISE_VERTEX);
+        this._add_required_initial_asset(SHADER_SPRITESHEET_FRAGMENT);
+        this._add_required_initial_asset(SHADER_SPRITESHEET_VERTEX);
         callback();
     }
 };
