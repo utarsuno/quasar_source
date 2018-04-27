@@ -79,6 +79,7 @@ SpriteSheetManager.prototype = {
         ///////////
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
         this._shader_material.set_offset(this._icons[icon].x / 64);
+        l(this._icons[icon].x / 64);
         let m = this._shader_material.get_shader_material();
         m.transparent = true;
         //m.blending = THREE.NormalBlending;
