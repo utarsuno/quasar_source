@@ -11,6 +11,7 @@ from code_api.code_abstraction.code_section import CodeSection
 from code_api.code_abstraction.code_chunk import CodeChunk
 from code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_production_utilities.constants_to_parse_out import parse_out_constants
+from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_production_utilities.parse_in_shaders import parse_in_shaders
 
 TEMPORARY_OUTPUT = '/Users/utarsuno/git_repos/quasar_source/configuration_files/static/js/custom/quasar'
 REMOVE_TEXT = '/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom'
@@ -186,6 +187,10 @@ class QuasarProduction(object):
 		combined_javascript_file = GeneratedJSFile('quasar_prod_v_' + self._upcoming_git_version, '.js')
 		combined_javascript_file.add_code_section(CodeSection('all_code'))
 		all_code = combined_javascript_file.get_code_section('all_code')
+
+		# ///// Generate shader code.
+		combined_lines = parse_in_shaders(combined_lines, self._assets)
+		# /////
 
 		# /////
 		combined_lines = parse_out_constants(combined_lines)

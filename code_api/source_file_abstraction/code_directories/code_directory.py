@@ -11,6 +11,8 @@ from code_api.source_file_abstraction.code_files.html_file import LoadedHTMLFile
 from code_api.source_file_abstraction.code_files.js_file import LoadedJSFile
 from code_api.source_file_abstraction.code_files.asset_file import JPGFile
 from code_api.source_file_abstraction.code_files.asset_file import PNGFile
+from code_api.source_file_abstraction.code_files.asset_file import ShaderFragmentFile
+from code_api.source_file_abstraction.code_files.asset_file import ShaderVertexFile
 
 
 def get_code_file_type_from_file_extensions(combined_extensions):
@@ -25,6 +27,10 @@ def get_code_file_type_from_file_extensions(combined_extensions):
 		return PNGFile
 	if '.jpg' in combined_extensions:
 		return JPGFile
+	if '.frag' in combined_extensions:
+		return ShaderFragmentFile
+	if '.vert' in combined_extensions:
+		return ShaderVertexFile
 	else:
 		print('TODODODO!@!!!!')
 		exit()

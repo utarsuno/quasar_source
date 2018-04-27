@@ -73,6 +73,13 @@ class ProjectComponent(object):
 				files.append(cf)
 		return files
 
+	def get_file_by_full_name(self, full_name):
+		"""Returns a file by full name + ending match."""
+		files = self.all_files
+		for f in files:
+			if full_name in f.file_name_with_extension:
+				return f
+
 	def get_file_by_name(self, name):
 		"""Returns a file by name match."""
 		files = self.all_files

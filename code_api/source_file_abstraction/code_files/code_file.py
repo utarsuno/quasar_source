@@ -7,12 +7,14 @@ from code_api.code_abstraction.code_chunk import CodeChunk
 from universal_code import useful_file_operations as ufo
 
 
-CODE_FILE_TYPE_SHELL_SCRIPT = 'Shell'
-CODE_FILE_TYPE_CSS_FILE     = 'CSS'
-CODE_FILE_TYPE_JS_FILE      = 'JS'
-CODE_FILE_TYPE_HTML_FILE    = 'HTML'
-CODE_FILE_TYPE_ASSET_PNG    = 'PNG'
-CODE_FILE_TYPE_ASSET_JPG    = 'JPG'
+CODE_FILE_TYPE_SHELL_SCRIPT    = 'Shell'
+CODE_FILE_TYPE_CSS_FILE        = 'CSS'
+CODE_FILE_TYPE_JS_FILE         = 'JS'
+CODE_FILE_TYPE_HTML_FILE       = 'HTML'
+CODE_FILE_TYPE_ASSET_PNG       = 'PNG'
+CODE_FILE_TYPE_ASSET_JPG       = 'JPG'
+CODE_FILE_TYPE_SHADER_FRAGMENT = 'frag'
+CODE_FILE_TYPE_SHADER_VERTEX   = 'vert'
 
 
 class CodeFile(object):

@@ -33,3 +33,29 @@ class JPGFile(AssetFile, Compressable):
 		AssetFile.__init__(self, CODE_FILE_TYPE_ASSET_JPG, file_name, file_extensions)
 		Compressable.__init__(self)
 
+
+class ShaderFile(LoadedCodeFile):
+	"""Represents a single shader file."""
+
+	def get_shader_as_javascript_string(self):
+		"""Returns the contents of this shader as a javascript string."""
+		c = self.contents
+		s = '\''
+		for l in c:
+			s += l.replace('    ', '\\t').replace('\n', '\\n')
+		s += '\';'
+		return s
+
+
+class ShaderVertexFile(ShaderFile):
+	"""Represents a single vertex shader file."""
+
+	def __init__(self, file_name, file_extensions=None):
+		super().__init__(CODE_FILE_TYPE_SHADER_VERTEX, file_name, file_extensions)
+
+
+class ShaderFragmentFile(ShaderFile):
+	"""Represents a single vertex shader file."""
+
+	def __init__(self, file_name, file_extensions=None):
+		super().__init__(CODE_FILE_TYPE_SHADER_FRAGMENT, file_name, file_extensions)

@@ -4,11 +4,12 @@ const SHADER_TRANSITION_FRAGMENT  = 'transition/transition_fragment.frag'; // #p
 const SHADER_TRANSITION_VERTEX    = 'transition/transition_vertex.vert';   // #pre-process_global_constant
 const SHADER_NOISE_FRAGMENT       = 'film/film_fragment.frag';             // #pre-process_global_constant
 const SHADER_NOISE_VERTEX         = 'film/film_vertex.vert';               // #pre-process_global_constant
-const SHADER_SPRITESHEET_FRAGMENT = 'spritesheet/spritesheet.frag';        // #pre-process_global_constant
-const SHADER_SPRITESHEET_VERTEX   = 'spritesheet/spritesheet.vert';        // #pre-process_global_constant
 const SHADER_MATERIAL_TRANSITION  = 1;                                     // #pre-process_global_constant
 const SHADER_MATERIAL_NOISE       = 2;                                     // #pre-process_global_constant
 const SHADER_MATERIAL_SPRITESHEET = 3;                                     // #pre-process_global_constant
+
+const SHADER_SPRITESHEET_FRAGMENT = 1;        // #pre-process_global_constant
+const SHADER_SPRITESHEET_VERTEX   = 2;        // #pre-process_global_constant
 
 function ShaderManager() {
     this.__init__();
@@ -19,6 +20,12 @@ ShaderManager.prototype = {
     __init__: function() {
         this._all_shaders = {};
         this._all_shader_materials = {};
+
+        this._shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
+        this._shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
+
+        this.set_shader(SHADER_SPRITESHEET_FRAGMENT, this._shader_spritesheet_fragment);
+        this.set_shader(SHADER_SPRITESHEET_VERTEX, this._shader_spritesheet_vertex);
     },
 
     create_global_shader_materials: function() {
