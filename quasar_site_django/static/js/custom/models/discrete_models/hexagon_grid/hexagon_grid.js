@@ -19,7 +19,7 @@ HexagonGrid.prototype = {
         this.d_top = 6;
 
         this.h = 55.42562484741211;
-        this.w_distance = Math.sqrt(3 * h * h);
+        this.w_distance = Math.sqrt(3 * this.h * this.h);
     },
 
     _get_x_offset: function(d) {
