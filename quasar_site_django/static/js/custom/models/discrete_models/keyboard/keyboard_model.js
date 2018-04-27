@@ -84,6 +84,8 @@ KeyboardModel.prototype = {
             ['alt', this.face_size],
             ['ctrl', this.face_size],
         ];
+
+        this.single_mesh = new THREE.Geometry();
     },
 
     create: function() {
@@ -124,8 +126,10 @@ KeyboardModel.prototype = {
             this._create_tooltip(e, p2, tooltip[2]);
         }
 
-        this.object3D.add(k.mesh);
-        this.object3D.add(label.object3D);
+        this.single_mesh.merge(k.geometry);
+
+        //this.object3D.add(k.mesh);
+        //this.object3D.add(label.object3D);
     },
 
     _create_tooltip: function(position_start, position_end, text) {
