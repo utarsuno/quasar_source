@@ -85,7 +85,7 @@ KeyboardModel.prototype = {
             ['ctrl', this.face_size],
         ];
 
-        this.single_mesh = new THREE.Geometry();
+        this.single_geometry = new THREE.Geometry();
     },
 
     create: function() {
@@ -95,6 +95,9 @@ KeyboardModel.prototype = {
         this._create_row(this.third_row, -row_height * 2);
         this._create_row(this.fourth_row, -row_height * 3);
         this._create_row(this.fifth_row, -row_height * 4);
+
+        this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshBasicMaterial({color: 0xff00ff}));
+        this.object3D.add(this.single_mesh);
     },
 
     _create_row: function(row, y_offset) {
@@ -111,7 +114,7 @@ KeyboardModel.prototype = {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
 
-        this.single_mesh.merge(k.geometry);
+        this.single_geometry.merge(k.geometry);
 
         /*
         let p = k.mesh.position;

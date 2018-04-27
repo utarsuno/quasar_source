@@ -59,6 +59,7 @@ ButtonModel.prototype = {
         this.geometry.faces.push(new THREE.Face3(3, 4, 7));
 
         this.geometry.computeFaceNormals();
+        this.geometry.translate(x_offset, y_offset, 0);
 
         //this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
         //this.mesh = new THREE.Mesh(this.geometry);
