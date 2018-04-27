@@ -200,7 +200,7 @@ HexagonGrid.prototype = {
 
         tile.applyMatrix(m);
 
-        this.single_geometry.merge(tile, m, material_offset);
+        this.single_geometry.merge(tile, undefined, material_offset);
 
     }
 
