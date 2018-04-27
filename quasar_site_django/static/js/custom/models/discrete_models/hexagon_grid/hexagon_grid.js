@@ -19,8 +19,8 @@ HexagonGrid.prototype = {
 
         this.materails = [];
 
-        let l;
-        for (l = 0; l < this.number_of_layers; l++) {
+        let layer;
+        for (layer = 0; layer < this.number_of_layers; layer++) {
             let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
             let m = new THREE.Mesh(this.hexagon_geometry, c);
             this.materails.push(m);
