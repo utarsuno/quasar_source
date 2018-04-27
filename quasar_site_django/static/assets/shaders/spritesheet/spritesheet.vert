@@ -4,6 +4,7 @@ varying vec2 vUv;
 uniform vec2 offset;
 uniform vec2 repeat;
 void main() {
-    vUv = uv * repeat + offset;
+    //vUv = uv * repeat + offset;
+    vUv = vec2(uv.x, uv.y);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
