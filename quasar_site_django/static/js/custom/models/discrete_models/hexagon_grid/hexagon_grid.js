@@ -72,9 +72,12 @@ HexagonGrid.prototype = {
 
         let h = 55.42562484741211 * 2;
 
+        let w_distance = Math.sqrt(3 * (h * h));
+
         this._create_tile(0, 0, 0);
-        this._create_tile(0, h, 1);
-        this._create_tile(128, 0, 1);
+        //this._create_tile(0, h, 1);
+        //this._create_tile(128, 0, 1);
+        this._create_tile(w_distance, h, 1);
 
         this.object3D = new THREE.Object3D();
         this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
