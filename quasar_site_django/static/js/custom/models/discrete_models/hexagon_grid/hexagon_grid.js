@@ -127,7 +127,7 @@ HexagonGrid.prototype = {
         case 3:
             return -this.h * 2;
         case 4:
-            return this.h;
+            return -this.h;
         case 5:
             return this.h;
         case 6:
