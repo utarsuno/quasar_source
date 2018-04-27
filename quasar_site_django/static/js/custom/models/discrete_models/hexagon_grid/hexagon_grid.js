@@ -70,9 +70,9 @@ HexagonGrid.prototype = {
         this.single_geometry = new THREE.Geometry();
         this.materails = [];
 
-        this.create_tile(0, 0, 0);
-        this.create_tile(128, 0, 1);
-        this.create_tile(0, 128, 2);
+        this._create_tile(0, 0, 0);
+        this._create_tile(128, 0, 1);
+        this._create_tile(0, 128, 2);
 
         this.object3D = new THREE.Object3D();
         this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
@@ -156,6 +156,39 @@ HexagonGrid.prototype = {
         this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
 
         hexagon.translate(-x_offset, -y_offset, 0);
+    },
+
+    _create_tile: function(x_offset, y_offset, material_offset) {
+        let tile = new THREE.Geometry();
+
+        let v0 = new THREE.Vector3(0, 0, 0);
+        let v1 = new THREE.Vector3(64, 0, 0);
+        let v2 = new THREE.Vector3(32, 55.42562484741211, 0);
+        let v3 = new THREE.Vector3(-32, 55.42562484741211, 0);
+        let v4 = new THREE.Vector3(-64, 0, 0);
+        let v5 = new THREE.Vector3(-32, -55.42562484741211, 0);
+        let v6 = new THREE.Vector3(32, -55.42562484741211, 0);
+
+        tile.geometry.vertices.push(v0);
+        tile.geometry.vertices.push(v1);
+        tile.geometry.vertices.push(v2);
+        tile.geometry.vertices.push(v3);
+        tile.geometry.vertices.push(v4);
+        tile.geometry.vertices.push(v5);
+        tile.geometry.vertices.push(v6);
+
+        tile.geometry.faces.push(new THREE.Face3(1, 2, 0));
+        tile.geometry.faces.push(new THREE.Face3(2, 3, 0));
+        tile.geometry.faces.push(new THREE.Face3(3, 4, 0));
+        tile.geometry.faces.push(new THREE.Face3(4, 5, 0));
+        tile.geometry.faces.push(new THREE.Face3(5, 6, 0));
+        tile.geometry.faces.push(new THREE.Face3(6, 1, 0));
+
+        tile.translate(x_offset, y_offset);
+
+        let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
+        this.materails.push(c);
+        this.single_geometry.merge(tile, tile.matrix, material_offset);
     }
 
 };
