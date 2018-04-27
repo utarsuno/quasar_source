@@ -119,7 +119,8 @@ PlayerCursor.prototype = {
     update_position: function(p) {
         let normal = this.currently_attached_to.get_normal();
 
-        this.cursor.set_position(p.x, p.y, p.z, false);
+        //this.cursor.set_position(p.x, p.y, p.z, false);
+        this.cursor.set_position_for_singleton(p.x, p.y, p.z);
         this.cursor.set_normal(normal.x, normal.y, normal.z, false);
         this.cursor.refresh_position_and_look_at();
     },
@@ -238,6 +239,6 @@ PlayerCursor.prototype = {
         this.cursor.set_to_singleton();
         this.cursor.set_attachment_depth_offset(6);
 
-        this.cursor.attachment_parent = this.cursor;
+        //this.cursor.attachment_parent = this.cursor;
     }
 };

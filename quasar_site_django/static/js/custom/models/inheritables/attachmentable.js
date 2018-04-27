@@ -243,6 +243,12 @@ function Attachmentable(world) {
         }
     };
 
+    this.set_position_for_singleton = function(x, y, z) {
+        this.set_position_offset();
+        this.object3D.position.set(x + this._position_offset.x, y + this._position_offset.y, z + this._position_offset.z);
+        this._refresh_look_at();
+    };
+
     this.set_position = function(x, y, z, refresh) {
         if (this.is_root()) {
             this.object3D.position.set(x, y, z);
