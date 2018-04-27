@@ -218,6 +218,10 @@ PlayerCursor.prototype = {
                 this.cursor.set_attachment_vertical_offset(-8, null);
                 this.cursor.set_attachment_horizontal_offset(1, null);
                 break;
+            case ICON_WRITING:
+                this.cursor.set_attachment_vertical_offset(8, null);
+                this.cursor.set_attachment_horizontal_offset(4);
+                break;
             }
         }
     },
