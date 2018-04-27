@@ -22,19 +22,19 @@ HexagonGrid.prototype = {
     _get_x_offset: function(d) {
         switch(d) {
         case 1:
-            return -32;
+            return -64;
             break;
         case 2:
-            return -32;
+            return -64;
             break;
         case 3:
             return 0;
             break;
         case 4:
-            return 32;
+            return 64;
             break;
         case 5:
-            return 32;
+            return 64;
             break;
         case 6:
             return 0;
@@ -45,22 +45,22 @@ HexagonGrid.prototype = {
     _get_y_offset: function(d) {
         switch(d) {
         case 1:
-            return 32;
+            return 64;
             break;
         case 2:
-            return -32;
-            break;
-        case 3:
             return -64;
             break;
+        case 3:
+            return -128;
+            break;
         case 4:
-            return 32;
+            return 64;
             break;
         case 5:
-            return 32;
+            return 64;
             break;
         case 6:
-            return 64;
+            return 128;
             break;
         }
     },
