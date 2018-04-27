@@ -72,7 +72,7 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
         return this.shader_material;
     };
     this.get_shader_material_copy = function() {
-        return this.shader_material.copy();;
+        return this.shader_material.clone();
     };
 }
 
