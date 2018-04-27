@@ -106,9 +106,9 @@ ShaderMaterialSpriteSheet.prototype = {
     },
     get_material: function(offset) {
         let clone = this.shader_material.clone();
-        clone.uniforms.uniforms[this._uniform_offset].value = offset;
-        clone.uniforms.uniforms[this._uniform_texture].texture = this.texture;
-        clone.uniforms.uniforms[this._uniform_color].value = COLOR_BLUE;
+        clone.uniforms.uniforms[this._uniform_offset] = {'value': offset};
+        clone.uniforms.uniforms[this._uniform_texture] = {'value': this.texture};
+        clone.uniforms.uniforms[this._uniform_color] = {'value': COLOR_BLUE};
         //clone.uniforms = this.uniforms;
         //clone.uniforms[this._uniform_offset].value = offset;
         return clone;
