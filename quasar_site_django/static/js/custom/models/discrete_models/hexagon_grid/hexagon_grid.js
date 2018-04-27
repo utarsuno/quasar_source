@@ -70,7 +70,7 @@ HexagonGrid.prototype = {
         this.single_geometry = new THREE.Geometry();
         this.materails = [];
 
-        let h = 55.42562484741211 * 2;
+        let h = 55.42562484741211;
 
         //let w_distance = Math.sqrt(3 * (h * h));
         let w_distance = Math.sqrt(((2 * h) * (2 * h)) - (h * h));
