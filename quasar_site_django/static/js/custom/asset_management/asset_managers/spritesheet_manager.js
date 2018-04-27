@@ -80,6 +80,7 @@ SpriteSheetManager.prototype = {
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_shader_material();
         m.transparent = true;
+        m.blending = THREE.NormalBlending;
         m.needsUpdate = true;
         return m;
         //return material;
