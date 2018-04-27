@@ -120,8 +120,9 @@ PlayerCursor.prototype = {
         let normal = this.currently_attached_to.get_normal();
 
         //this.cursor.set_position(p.x, p.y, p.z, false);
-        this.cursor.set_position_for_singleton(p.x, p.y, p.z);
         this.cursor.set_normal(normal.x, normal.y, normal.z, false);
+        this.cursor.set_position_for_singleton(p.x, p.y, p.z);
+        //this.cursor.set_normal(normal.x, normal.y, normal.z, false);
         this.cursor.refresh_position_and_look_at();
     },
 
