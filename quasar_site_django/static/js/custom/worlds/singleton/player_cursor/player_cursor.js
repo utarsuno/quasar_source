@@ -201,6 +201,10 @@ PlayerCursor.prototype = {
         }
     },
 
+    _set_position_and_normal: function(x, y, z, dx, dz) {
+
+    },
+
     _set_current_cursor: function(cursor) {
         if (this._current_cursor !== cursor) {
             this._current_cursor = cursor;
@@ -233,5 +237,7 @@ PlayerCursor.prototype = {
         this.cursor.set_to_manual_positioning();
         this.cursor.set_to_singleton();
         this.cursor.set_attachment_depth_offset(6);
+
+        this.cursor.attachment_parent = this.cursor;
     }
 };
