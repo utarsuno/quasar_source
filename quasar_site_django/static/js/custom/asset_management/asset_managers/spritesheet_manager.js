@@ -71,7 +71,16 @@ SpriteSheetManager.prototype = {
 
         //material.needsUpdate = true;
         //l(material);
-        return material;
+
+
+
+
+
+        ///////////
+        this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
+
+        return this._shader_material.get_shader_material();
+        //return material;
     },
 
     load_icon_sprite_sheet: function(callback) {
