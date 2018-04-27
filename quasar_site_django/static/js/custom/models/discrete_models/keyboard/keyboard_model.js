@@ -96,7 +96,10 @@ KeyboardModel.prototype = {
         this._create_row(this.fourth_row, -row_height * 3);
         this._create_row(this.fifth_row, -row_height * 4);
 
-        this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshBasicMaterial({color: 0xff00ff}));
+                //this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
+        //this.mesh = new THREE.Mesh(this.geometry);
+
+        this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
         this.object3D.add(this.single_mesh);
     },
 
