@@ -17,51 +17,42 @@ HexagonGrid.prototype = {
         this.d_bottom_right = 4;
         this.d_top_right = 5;
         this.d_top = 6;
+
+        this.h = 55.42562484741211;
+        this.w_distance = Math.sqrt(3 * h * h);
     },
 
     _get_x_offset: function(d) {
         switch(d) {
         case 1:
-            return -64;
-            break;
+            return -this.w_distance;
         case 2:
-            return -64;
-            break;
+            return -this.w_distance;
         case 3:
             return 0;
-            break;
         case 4:
-            return 64;
-            break;
+            return this.w_distance;
         case 5:
-            return 64;
-            break;
+            return this.w_distance;
         case 6:
             return 0;
-            break;
         }
     },
 
     _get_y_offset: function(d) {
         switch(d) {
         case 1:
-            return 64;
-            break;
+            return this.h;
         case 2:
-            return -64;
-            break;
+            return -this.h;
         case 3:
-            return -128;
-            break;
+            return -this.h * 2;
         case 4:
-            return 64;
-            break;
+            return this.h;
         case 5:
-            return 64;
-            break;
+            return this.h;
         case 6:
-            return 128;
-            break;
+            return this.h * 2;
         }
     },
 
