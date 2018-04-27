@@ -71,7 +71,7 @@ HexagonGrid.prototype = {
         this.materails = [];
 
         this.create_tile(0, 0, 0);
-        this.create_tile(64, 64, 1);
+        this.create_tile(64, 32, 1);
 
         this.object3D = new THREE.Object3D();
         this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
