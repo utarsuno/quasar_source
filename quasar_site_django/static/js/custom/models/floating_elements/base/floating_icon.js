@@ -21,7 +21,12 @@ FloatingIcon.prototype = {
     switch_icon: function(icon) {
         this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
         this.material.needsUpdate = true;
-        l(this.material.uniforms['offset']);
+    },
+
+    switch_icon_and_color: function(icon, color) {
+        this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
+        this.material.uniforms['color'].value = color;
+        this.material.needsUpdate = true;
     },
 
     /*__   __   ___      ___    __

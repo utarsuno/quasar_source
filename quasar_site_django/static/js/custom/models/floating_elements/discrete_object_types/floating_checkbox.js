@@ -33,8 +33,10 @@ FloatingCheckBox.prototype = {
         //this.add_floating_element(null, null, 1, this.icon_not_checked);
 
         if (this.checked) {
+            this.set_checked_state(true);
             //this.icon_not_checked.set_to_invisible();
         } else {
+            this.set_checked_state(false);
             //this.icon_checked.set_to_invisible();
         }
         this.set_engage_function(this.clicked_on.bind(this));
@@ -59,10 +61,10 @@ FloatingCheckBox.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     set_checked_state: function(is_checked) {
         if (is_checked) {
-            this.icon_checked.switch_icon(ICON_CHECKMARK);
+            this.icon_checked.switch_icon_and_color(ICON_CHECKMARK, COLOR_GREEN);
             this.checked = true;
         } else {
-            this.icon_checked.switch_icon(ICON_CROSS);
+            this.icon_checked.switch_icon_and_color(ICON_CROSS, COLOR_RED);
             this.checked = false;
         }
         /*
