@@ -83,7 +83,7 @@ HexagonGrid.prototype = {
                 this.create_tile(0, 0, tile);
                 tile += 1;
             } else {
-                let number_of_tiles = layer * 6;
+                let number_of_tiles = layer * 1;
 
                 let gap = layer - 1;
                 let direction = this.d_top_left;
