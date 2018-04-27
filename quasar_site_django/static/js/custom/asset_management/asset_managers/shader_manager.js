@@ -71,11 +71,6 @@ function ShaderMaterialAbstraction(vertex_shader_name, fragment_shader_name) {
     this.get_shader_material = function() {
         return this.shader_material;
     };
-    this.get_shader_material_copy = function() {
-        let clone = this.shader_material.clone();
-        clone.uniforms = this.uniforms;
-        return clone;
-    };
 }
 
 function ShaderMaterialSpriteSheet() {
@@ -109,8 +104,6 @@ ShaderMaterialSpriteSheet.prototype = {
         clone.uniforms[this._uniform_offset] = {'value': offset};
         clone.uniforms[this._uniform_texture] = {'value': this.texture};
         clone.uniforms[this._uniform_color] = {'value': COLOR_BLUE};
-        //clone.uniforms = this.uniforms;
-        //clone.uniforms[this._uniform_offset].value = offset;
         return clone;
     }
 };

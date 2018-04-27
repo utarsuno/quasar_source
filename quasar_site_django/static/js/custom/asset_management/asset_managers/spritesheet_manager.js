@@ -48,6 +48,7 @@ SpriteSheetManager.prototype = {
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_material(this._icons[icon].x / 64);
         m.transparent = true;
+        m.alphaTest = 0.5;
         m.needsUpdate = true;
         return m;
     },
