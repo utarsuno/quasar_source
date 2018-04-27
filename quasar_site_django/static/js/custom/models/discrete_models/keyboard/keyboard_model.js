@@ -78,7 +78,7 @@ KeyboardModel.prototype = {
             ['ctrl', this.face_size],
             [' ', this.face_size],
             ['alt', this.face_size],
-            ['space', this.face_size * 6],
+            ['space', this.face_size * 9],
             ['alt', this.face_size],
             [' ', this.face_size],
             ['alt', this.face_size],
@@ -96,7 +96,7 @@ KeyboardModel.prototype = {
         this._create_row(this.fourth_row, -row_height * 3);
         this._create_row(this.fifth_row, -row_height * 4);
 
-                //this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
+        //this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshNormalMaterial());
         //this.mesh = new THREE.Mesh(this.geometry);
 
         this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
