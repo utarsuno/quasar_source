@@ -189,6 +189,8 @@ HexagonGrid.prototype = {
 
         let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
         this.materails.push(c);
+        l(tile);
+        l(tile.matrix);
         this.single_geometry.merge(tile, tile.matrix, material_offset);
     }
 
