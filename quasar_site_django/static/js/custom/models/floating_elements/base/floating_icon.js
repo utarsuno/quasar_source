@@ -14,17 +14,22 @@ FloatingIcon.prototype = {
         this.width = size;
         this.height = size;
 
+        this._current_icon = icon_type;
+
         this.create_base_material();
         this.create_base_mesh();
     },
 
     switch_icon: function(icon) {
-        this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
-        this.material.needsUpdate = true;
+        if (this._current_icon !== icon) {
+            this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
+            this.material.needsUpdate = true;
+            this._current_icon = icon;
+        }
     },
 
     switch_icon_and_color: function(icon, color) {
-        this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
+        this.switch_icon(icon);
         this.material.uniforms['color'].value = color;
         this.material.needsUpdate = true;
     },
