@@ -94,8 +94,8 @@ HexagonGrid.prototype = {
 
                 let i = 0;
                 while (i < number_of_tiles) {
-                    offset_x += this._get_x_offset(direction);
-                    offset_y += this._get_y_offset(direction);
+                    offset_x += this._get_x_offset(direction) * 2;
+                    offset_y += this._get_y_offset(direction) * 2;
 
                     this.create_tile(offset_x, offset_y, tile);
                     tile += 1;
