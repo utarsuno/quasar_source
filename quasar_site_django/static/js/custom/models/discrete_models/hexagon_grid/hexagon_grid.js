@@ -8,30 +8,110 @@ HexagonGrid.prototype = {
 
     __init__: function(number_of_layers) {
         this.number_of_layers = number_of_layers;
+
+
+        // Creation directions.
+        this.d_top_left = 1;
+        this.d_bottom_left = 2;
+        this.d_down = 3;
+        this.d_bottom_right = 4;
+        this.d_top_right = 5;
+        this.d_top = 6;
+    },
+
+    _get_x_offset: function(d) {
+        switch(d) {
+        case 1:
+            return -32;
+            break;
+        case 2:
+            return -32;
+            break;
+        case 3:
+            return 0;
+            break;
+        case 4:
+            return 32;
+            break;
+        case 5:
+            return 32;
+            break;
+        case 6:
+            return 0;
+            break;
+        }
+    },
+
+    _get_y_offset: function(d) {
+        switch(d) {
+        case 1:
+            return 32;
+            break;
+        case 2:
+            return -32;
+            break;
+        case 3:
+            return -64;
+            break;
+        case 4:
+            return 32;
+            break;
+        case 5:
+            return 32;
+            break;
+        case 6:
+            return 64;
+            break;
+        }
     },
 
     create: function() {
-        this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
+        let w = 64;
+        let s = 32;
 
-        l(this.hexagon_geometry);
+        this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
 
         this.single_geometry = new THREE.Geometry();
 
         this.materails = [];
 
+        let tile = 0;
+
         let layer;
         for (layer = 0; layer < this.number_of_layers; layer++) {
-            let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
-            //let m = new THREE.Mesh(this.hexagon, c);
+            if (layer === 0) {
+                this.create_tile(0, 0, tile);
+                tile += 1;
+            } else {
+                let number_of_tiles = layer * 6;
 
-            let hexagon = new THREE.Geometry();
-            hexagon.vertices = this.hexagon_geometry.vertices;
-            hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
-            hexagon.faces = this.hexagon_geometry.faces;
+                let gap = layer - 1;
+                let direction = this.d_top_left;
+                let filled = 0;
 
-            hexagon.translate(128 * layer, 0, 0);
+                let offset_x = s * layer;
+                let offset_y = s * layer;
 
-            this.materails.push(c);
+                let i = 0;
+                while (i < number_of_tiles) {
+                    offset_x += this._get_x_offset(direction);
+                    offset_y += this._get_y_offset(direction);
+
+                    this.create_tile(offset_x, offset_y, tile);
+                    tile += 1;
+
+                    if (filled === gap) {
+                        direction += 1;
+                    } else {
+                        filled += 1;
+                    }
+
+                    i += 1;
+                }
+
+                // this.create_tile(0, 0, 0);
+            }
+
             this.single_geometry.merge(hexagon, hexagon.matrix, layer);
         }
 
@@ -42,6 +122,20 @@ HexagonGrid.prototype = {
         this.object3D.add(this.single_mesh);
 
         this.object3D.lookAt(0, 1, 0);
+    },
+
+    create_tile: function(x_offset, y_offset, material_index) {
+        let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
+
+        let hexagon = new THREE.Geometry();
+        hexagon.vertices = this.hexagon_geometry.vertices;
+        hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
+        hexagon.faces = this.hexagon_geometry.faces;
+
+        hexagon.translate(128 * material_index, 0, 0);
+
+        this.materails.push(c);
+        this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
     }
 
 };
