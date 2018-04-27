@@ -12,8 +12,12 @@ HexagonGrid.prototype = {
 
     create: function() {
         this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
+        this.hexagon = new THREE.Geometry();
+        this.hexagon.faces = this.hexagon_geometry.faces;
+
 
         l(this.hexagon_geometry);
+        l(this.hexagon);
 
         this.single_geometry = new THREE.Geometry();
 
@@ -22,7 +26,7 @@ HexagonGrid.prototype = {
         let layer;
         for (layer = 0; layer < this.number_of_layers; layer++) {
             let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
-            let m = new THREE.Mesh(this.hexagon_geometry, c);
+            let m = new THREE.Mesh(this.hexagon, c);
             this.materails.push(m);
             this.single_geometry.merge(m);
         }
