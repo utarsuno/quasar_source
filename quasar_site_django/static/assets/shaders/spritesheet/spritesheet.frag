@@ -1,6 +1,5 @@
 // Originally based off of : https://gist.github.com/mattdw/60efe28d5e787655f618e2a70a4e8bfe
 varying vec2 vUv;
-//uniform float offset;
 uniform sampler2D texture;
 uniform vec3 color;
 void main(void) {

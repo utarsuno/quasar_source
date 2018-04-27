@@ -48,55 +48,9 @@ SpriteSheetManager.prototype = {
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_material(this._icons[icon].x / 64);
         m.transparent = true;
-        m.alphaTest = 0.5;
+        //m.alphaTest = 0.5;
         m.needsUpdate = true;
         return m;
-    },
-
-    get_icon_materialOLD: function(icon) {
-        //let material = new THREE.MeshBasicMaterial({map : this.texture, transparent : true, side: THREE.FrontSide, depthTest: false});
-
-        let t = this.texture.clone();
-
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-        // TODO : SWITCH TO A SHADERMATERIAL BASED SYSTEM TO AVOID DUPLICATE TEXTURES ON THE GRAPHICS CARD!!!
-
-        t.repeat.x = this._icons[icon].w / this.texture.image.width;
-        t.repeat.y = this._icons[icon].h / this.texture.image.height;
-        t.offset.x = this._icons[icon].x / this.texture.image.width;
-        t.offset.y = this._icons[icon].y / this.texture.image.height;
-        t.needsUpdate = true;
-
-        //let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthTest: false});
-        let material = new THREE.MeshBasicMaterial({map : t, transparent : true, side: THREE.FrontSide, depthWrite: false});
-
-        // TODO : MAKE SURE THERE IS NO TEXTURE MEMORY LEAK!
-
-        //this.texture = null;
-
-        //material.needsUpdate = true;
-        //l(material);
-
-
-
-
-
-        ///////////
-        this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
-        //this._shader_material.set_offset(this._icons[icon].x / 64);
-        l(this._icons[icon].x / 64);
-        l(icon);
-        l(this._icons[icon]);
-        let m = this._shader_material.get_material(this._icons[icon].x / 64);
-        m.transparent = true;
-        //m.blending = THREE.NormalBlending;
-        m.needsUpdate = true;
-        return m;
-        //return material;
     },
 
     load_icon_sprite_sheet: function(callback) {
