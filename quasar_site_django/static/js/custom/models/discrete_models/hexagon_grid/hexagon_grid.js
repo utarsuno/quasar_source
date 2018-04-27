@@ -73,7 +73,7 @@ HexagonGrid.prototype = {
         let h = 55.42562484741211 * 2;
 
         //let w_distance = Math.sqrt(3 * (h * h));
-        let w_distance = Math.sqrt(2 * h);
+        let w_distance = Math.sqrt(((2 * h) * (2 * h)) - (h * h));
 
         this._create_tile(0, 0, 0);
         //this._create_tile(0, h, 1);
