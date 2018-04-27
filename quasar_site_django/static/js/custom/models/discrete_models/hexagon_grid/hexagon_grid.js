@@ -128,7 +128,7 @@ HexagonGrid.prototype = {
         hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
         hexagon.faces = this.hexagon_geometry.faces;
 
-        hexagon.translate(128 * material_index, 0, 0);
+        hexagon.translate(x_offset, y_offset, 0);
 
         this.materails.push(c);
         this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
