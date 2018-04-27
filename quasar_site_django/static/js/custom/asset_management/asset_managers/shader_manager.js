@@ -97,6 +97,7 @@ ShaderMaterialSpriteSheet.prototype = {
     },
     set_offset: function(offset) {
         this.set_uniform_value(this._uniform_offset, offset);
+        this.shader_material.uniforms.offset.needsUpdate = true;
     }
 };
 
