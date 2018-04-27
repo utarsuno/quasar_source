@@ -25,6 +25,7 @@ HexagonGrid.prototype = {
             //let m = new THREE.Mesh(this.hexagon, c);
 
             let hexagon = new THREE.Geometry();
+            hexagon.faceVertexUvs = this.hexagon_geometry.faceVertexUvs;
             hexagon.faces = this.hexagon_geometry.faces;
 
             this.materails.push(c);
