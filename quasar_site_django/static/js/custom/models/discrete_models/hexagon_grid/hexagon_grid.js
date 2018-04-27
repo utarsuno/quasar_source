@@ -89,8 +89,8 @@ HexagonGrid.prototype = {
                 let direction = this.d_top_left;
                 let filled = 0;
 
-                let offset_x = s * layer;
-                let offset_y = s * layer;
+                let offset_x = 0;
+                let offset_y = 0;
 
                 let i = 0;
                 while (i < number_of_tiles) {
