@@ -39,7 +39,7 @@ FloatingIcon.prototype = {
      /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     current_foreground_color_changed: function() {
-        this.material.color.set(this.current_foreground_color.getHex());
+        //this.material.color.set(this.current_foreground_color.getHex());
         this.material.needsUpdate = true;
     }
 };
