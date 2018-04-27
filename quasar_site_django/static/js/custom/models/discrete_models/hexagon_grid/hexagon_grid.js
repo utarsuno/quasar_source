@@ -185,14 +185,20 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        tile.translate(x_offset, y_offset);
+        //tile.translate(x_offset, y_offset);
 
         let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
         this.materails.push(c);
         l(tile);
         l(tile.matrix);
         //this.single_geometry.merge(tile, tile.matrix, material_offset);
-        this.single_geometry.merge(tile, undefined, material_offset);
+        //this.single_geometry.merge(tile, undefined, material_offset);
+
+        let m = new THREE.Matrix4();
+        m.makeTranslation(x_offset, y_offset, 0);
+
+        this.single_geometry.merge(tile, m, material_offset);
+
     }
 
 };
