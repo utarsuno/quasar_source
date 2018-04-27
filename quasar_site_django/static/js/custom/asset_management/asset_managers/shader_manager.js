@@ -106,7 +106,8 @@ ShaderMaterialSpriteSheet.prototype = {
     },
     get_material: function(offset) {
         let clone = this.shader_material.clone();
-        clone.uniforms = this.uniforms;
+        clone.uniforms = THREE.UniformsUtils.clone(this.shader_material.uniforms);
+        //clone.uniforms = this.uniforms;
         clone.uniforms[this._uniform_offset].value = offset;
         return clone;
     }
