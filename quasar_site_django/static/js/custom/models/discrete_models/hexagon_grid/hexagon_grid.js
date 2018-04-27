@@ -169,20 +169,20 @@ HexagonGrid.prototype = {
         let v5 = new THREE.Vector3(-32, -55.42562484741211, 0);
         let v6 = new THREE.Vector3(32, -55.42562484741211, 0);
 
-        tile.geometry.vertices.push(v0);
-        tile.geometry.vertices.push(v1);
-        tile.geometry.vertices.push(v2);
-        tile.geometry.vertices.push(v3);
-        tile.geometry.vertices.push(v4);
-        tile.geometry.vertices.push(v5);
-        tile.geometry.vertices.push(v6);
+        tile.vertices.push(v0);
+        tile.vertices.push(v1);
+        tile.vertices.push(v2);
+        tile.vertices.push(v3);
+        tile.vertices.push(v4);
+        tile.vertices.push(v5);
+        tile.vertices.push(v6);
 
-        tile.geometry.faces.push(new THREE.Face3(1, 2, 0));
-        tile.geometry.faces.push(new THREE.Face3(2, 3, 0));
-        tile.geometry.faces.push(new THREE.Face3(3, 4, 0));
-        tile.geometry.faces.push(new THREE.Face3(4, 5, 0));
-        tile.geometry.faces.push(new THREE.Face3(5, 6, 0));
-        tile.geometry.faces.push(new THREE.Face3(6, 1, 0));
+        tile.faces.push(new THREE.Face3(1, 2, 0));
+        tile.faces.push(new THREE.Face3(2, 3, 0));
+        tile.faces.push(new THREE.Face3(3, 4, 0));
+        tile.faces.push(new THREE.Face3(4, 5, 0));
+        tile.faces.push(new THREE.Face3(5, 6, 0));
+        tile.faces.push(new THREE.Face3(6, 1, 0));
 
         tile.translate(x_offset, y_offset);
 
