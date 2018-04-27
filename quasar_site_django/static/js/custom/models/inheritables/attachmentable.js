@@ -12,6 +12,7 @@ function Attachmentable(world) {
 
     // For optimization.
     this._position_offset = new THREE.Vector3(0, 0, 0);
+    this._look_at_position = new THREE.Vector3(0, 0, 0);
 
 
     // All attachments will inherit Attachmentable.
@@ -504,7 +505,8 @@ function Attachmentable(world) {
      | | \|  |  |___ |  \ | \| /~~\ |___    \__/  |  | |___ |  |  | |___ .__/ */
     this._refresh_look_at = function() {
         let normal = this.get_normal();
-        let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
-        this.object3D.lookAt(look_at_position);
+        this._look_at_position.set(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+        //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+        this.object3D.lookAt(this._look_at_position);
     };
 }
