@@ -60,8 +60,10 @@ FloatingCheckBox.prototype = {
     set_checked_state: function(is_checked) {
         if (is_checked) {
             this.icon_checked.switch_icon(ICON_CHECKMARK);
+            this.checked = true;
         } else {
             this.icon_checked.switch_icon(ICON_CROSS);
+            this.checked = false;
         }
         /*
         if (is_checked) {
