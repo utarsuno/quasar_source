@@ -137,6 +137,8 @@ HexagonGrid.prototype = {
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, material_offset * 5);
 
+        l(x_offset, y_offset);
+
         //tile.applyMatrix(m);
 
         this.single_geometry.merge(tile, m, material_offset);
