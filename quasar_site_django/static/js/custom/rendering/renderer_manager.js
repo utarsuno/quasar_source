@@ -98,7 +98,11 @@ RendererManager.prototype = {
             this.effect_film.renderToScreen = true;
             this.effect_composer.addPass(this.effect_film);
         }
+
         this.outline_glow = new OutlineGlow(this.outline_pass);
+
+
+
         if (this.current_client.is_mobile) {
 
             //this.copy_pass = new THREE.ShaderPass( THREE.CopyShader );

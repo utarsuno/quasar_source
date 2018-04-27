@@ -55,6 +55,7 @@ WorldEnvironment.prototype = {
         this.skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(this.skybox_cube);
 
+        /*
         // Default hex grid ground.
         this.grid = new vg.HexGrid({cellSize: 100});
         this.grid.generate({size: 10});
@@ -63,6 +64,7 @@ WorldEnvironment.prototype = {
         this.board.generateTilemap({cellSize: 100, tileScale: 1});
         this.board.group.matrixAutoUpdate = false;
         world.add_to_scene(this.board.group);
+        */
 
 
         // Default lights.
