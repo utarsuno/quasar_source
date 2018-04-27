@@ -89,10 +89,10 @@ RendererManager.prototype = {
 
         if (!this.current_client.is_mobile) {
 
-            this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-            this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+            //this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+            //this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
             //this.effect_FXAA.renderToScreen = true;
-            this.effect_composer.addPass(this.effect_FXAA);
+            //this.effect_composer.addPass(this.effect_FXAA);
 
             this.effect_film = new FilmNoise();
             this.effect_film.renderToScreen = true;
