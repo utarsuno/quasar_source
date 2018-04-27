@@ -87,12 +87,16 @@ ShaderMaterialSpriteSheet.prototype = {
         this._uniform_texture = 'texture';
         this._uniform_color   = 'color';
 
-        this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
+        //this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
+        this.set_uniform(this._uniform_offset, 1 / 27);
         this.set_uniform(this._uniform_repeat, new THREE.Vector2(1 / 27, 0));
         this.set_uniform(this._uniform_texture, this.texture);
         this.set_uniform(this._uniform_color, COLOR_BLUE);
 
         this._set_shader_material();
+    },
+    set_offset: function(offset) {
+        this.set_uniform_value(this._uniform_offset, offset);
     }
 };
 
