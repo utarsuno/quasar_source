@@ -72,13 +72,40 @@ HexagonGrid.prototype = {
 
         let h = 55.42562484741211;
 
-        //let w_distance = Math.sqrt(3 * (h * h));
         let w_distance = Math.sqrt(3 * h * h);
 
         this._create_tile(0, 0, 0);
-        //this._create_tile(0, h, 1);
-        //this._create_tile(128, 0, 1);
-        this._create_tile(w_distance, h, 1);
+        let tile = 1;
+
+        let layer;
+        for (layer = 1; layer < this.number_of_layers; layer++) {
+            let number_of_tiles = layer * 6;
+
+            let gap = layer - 1;
+            let direction = this.d_top_right;
+            let filled = 0;
+
+            let offset_x = this._get_x_offset(direction);
+            let offset_y = this._get_y_offset(direction);
+
+            direction = this.d_top_left;
+
+            let i = 1;
+            while (i < number_of_tiles + 1) {
+                offset_x += this._get_x_offset(direction);
+                offset_y += this._get_y_offset(direction);
+
+                this.create_tile(offset_x, offset_y, tile);
+                tile += 1;
+
+                if (filled === gap) {
+                    direction += 1;
+                } else {
+                    filled += 1;
+                }
+                i += 1;
+            }
+        }
 
         this.object3D = new THREE.Object3D();
         this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
@@ -190,15 +217,8 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        //tile.translate(x_offset, y_offset);
-
         let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
         this.materails.push(c);
-        l(tile);
-        l(tile.matrix);
-
-        //this.single_geometry.merge(tile, tile.matrix, material_offset);
-        //this.single_geometry.merge(tile, undefined, material_offset);
 
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
