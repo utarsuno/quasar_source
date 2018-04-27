@@ -103,6 +103,12 @@ ShaderMaterialSpriteSheet.prototype = {
     set_offset: function(offset) {
         this.set_uniform_value(this._uniform_offset, offset);
         //this.shader_material.uniforms.offset.needsUpdate = true;
+    },
+    get_material: function(offset) {
+        let clone = this.shader_material.clone();
+        clone.uniforms = this.uniforms;
+        clone.uniforms[this._uniform_offset].value = offset;
+        return clone;
     }
 };
 
