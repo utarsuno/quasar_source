@@ -108,11 +108,7 @@ HexagonGrid.prototype = {
 
                     i += 1;
                 }
-
-                // this.create_tile(0, 0, 0);
             }
-
-            this.single_geometry.merge(hexagon, hexagon.matrix, layer);
         }
 
         let cc = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
