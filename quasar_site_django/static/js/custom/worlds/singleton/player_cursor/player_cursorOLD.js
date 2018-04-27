@@ -7,9 +7,14 @@ function PlayerCursor() {
 PlayerCursor.prototype = {
 
     __init__: function() {
+        this._cursors = {};
         this.currently_attached_to = null;
+
         this._current_cursor = null;
+        this._previous_cursor = null;
+
         this._currently_engaged = false;
+
         this._center_cursor = new DomElement('center_cursor');
     },
 
@@ -29,7 +34,7 @@ PlayerCursor.prototype = {
 
         let h = this.currently_attached_to.height;
 
-        let cursor_position = this.cursor.get_position();
+        let cursor_position = this.cursor_wall.get_position();
 
         this._previous_vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
 
@@ -107,10 +112,11 @@ PlayerCursor.prototype = {
 
     detach: function() {
         if (is_defined(this._current_cursor)) {
-            this.cursor.set_to_invisible();
+            this._current_cursor.set_to_invisible();
         }
 
         this.currently_attached_to = null;
+        this._previous_cursor      = null;
         this._current_cursor       = null;
 
         this._center_cursor.show();
@@ -119,9 +125,9 @@ PlayerCursor.prototype = {
     update_position: function(p) {
         let normal = this.currently_attached_to.get_normal();
 
-        this.cursor.set_position(p.x, p.y, p.z, false);
-        this.cursor.set_normal(normal.x, normal.y, normal.z, false);
-        this.cursor.refresh_position_and_look_at();
+        this.cursor_wall.set_position(p.x, p.y, p.z, false);
+        this.cursor_wall.set_normal(normal.x, normal.y, normal.z, false);
+        this.cursor_wall.refresh_position_and_look_at();
     },
 
     update: function() {
@@ -174,7 +180,7 @@ PlayerCursor.prototype = {
         let h = this.currently_attached_to.height;
         let w = this.currently_attached_to.width;
 
-        let cursor_position = this.cursor.get_position();
+        let cursor_position = this.cursor_wall.get_position();
 
         let vertical_percentage = ((this.currently_attached_to.object3D.position.y + h / 2) - cursor_position.y ) / h;
         let horizontal_percentage = this.currently_attached_to.get_horizontal_distance_to_center(cursor_position.x, cursor_position.z) / w;
@@ -202,19 +208,28 @@ PlayerCursor.prototype = {
     },
 
     _set_current_cursor: function(cursor) {
-        if (this._current_cursor !== cursor) {
-            this._current_cursor = cursor;
-            this.cursor.switch_icon(cursor);
-            this.cursor.set_to_visible();
+        if (this._current_cursor !== this._cursors[cursor]) {
+            this._previous_cursor = this._current_cursor;
+            if (is_defined(this._previous_cursor)) {
+                this._previous_cursor.set_to_invisible();
+            }
+
+            this._current_cursor = this._cursors[cursor];
+            this._current_cursor.set_to_visible();
         }
     },
 
     _is_current_cursor_type: function(cursor_type) {
-        return this._current_cursor === cursor_type;
+        return this._current_cursor === this._cursors[cursor_type];
     },
 
     switch_to_new_world: function(old_world, new_world) {
-        this.cursor.switch_worlds(old_world, new_world);
+        this.cursor_wall.switch_worlds(old_world, new_world);
+        for (let cursor in this._cursors) {
+            if (this._cursors.hasOwnProperty(cursor)) {
+                this._cursors[cursor].switch_worlds(old_world, new_world);
+            }
+        }
         this.detach();
     },
 
@@ -222,9 +237,32 @@ PlayerCursor.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function(world) {
-        this.cursor = new FloatingIcon(world, ICON_CLICK, 16);
-        this.cursor.set_to_invisible();
-        this.cursor.set_to_manual_positioning();
-        this.cursor.set_to_singleton();
+        this.cursor_wall = new FloatingWall(16, 16, null, null, world, false);
+        this.cursor_wall.set_to_manual_positioning();
+        this.cursor_wall.set_to_singleton();
+        this.cursor_wall.make_base_wall_invisible();
+        let cursor_row = this.cursor_wall.add_row(0);
+        this._create_cursor(ICON_HORIZONTAL, cursor_row);
+        this._create_cursor(ICON_VERTICAL, cursor_row);
+        this._create_cursor(ICON_CLICK, cursor_row);
+        this._create_cursor(ICON_CURSOR, cursor_row);
+        this._create_cursor(ICON_EXPAND, cursor_row);
+        this._create_cursor(ICON_DRAG, cursor_row);
+        this._create_cursor(ICON_WRITING, cursor_row);
+    },
+
+    _create_cursor: function(cursor_type, cursor_row) {
+        let c = cursor_row.add_icon([0, 1], cursor_type);
+        c.set_attachment_depth_offset(6);
+        c.set_attachment_horizontal_offset(8, null);
+        c.set_attachment_vertical_offset(-7, null);
+        c.set_to_invisible();
+        c.set_to_singleton();
+
+        // TODO : Transparency issues still exist.
+        // Needed for fixing transparency issues. This has the cursor be rendered last.
+        //c.mesh.renderDepth = -1;
+
+        this._cursors[cursor_type] = c;
     }
 };
