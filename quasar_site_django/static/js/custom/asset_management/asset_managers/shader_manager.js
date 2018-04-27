@@ -1,15 +1,15 @@
 'use strict';
 
-const SHADER_MATERIAL_TRANSITION  = 1;                                     // #pre-process_global_constant
-const SHADER_MATERIAL_NOISE       = 2;                                     // #pre-process_global_constant
-const SHADER_MATERIAL_SPRITESHEET = 3;                                     // #pre-process_global_constant
+const SHADER_MATERIAL_TRANSITION  = 1; // #pre-process_global_constant
+const SHADER_MATERIAL_NOISE       = 2; // #pre-process_global_constant
+const SHADER_MATERIAL_SPRITESHEET = 3; // #pre-process_global_constant
 
-const SHADER_SPRITESHEET_FRAGMENT = 1;        // #pre-process_global_constant
-const SHADER_SPRITESHEET_VERTEX   = 2;        // #pre-process_global_constant
+const SHADER_SPRITESHEET_FRAGMENT = 1; // #pre-process_global_constant
+const SHADER_SPRITESHEET_VERTEX   = 2; // #pre-process_global_constant
 const SHADER_TRANSITION_FRAGMENT  = 3; // #pre-process_global_constant
-const SHADER_TRANSITION_VERTEX    = 4;   // #pre-process_global_constant
-const SHADER_NOISE_FRAGMENT       = 5;            // #pre-process_global_constant
-const SHADER_NOISE_VERTEX         = 6;               // #pre-process_global_constant
+const SHADER_TRANSITION_VERTEX    = 4; // #pre-process_global_constant
+const SHADER_NOISE_FRAGMENT       = 5; // #pre-process_global_constant
+const SHADER_NOISE_VERTEX         = 6; // #pre-process_global_constant
 
 function ShaderManager() {
     this.__init__();
@@ -23,12 +23,10 @@ ShaderManager.prototype = {
 
         this._shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
         this._shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
-
-        this._shader_film_fragment = ''; // #pre-process_get_shader_film.frag
-        this._shader_film_vertex   = ''; // #pre-process_get_shader_film.vert
-
-        this._shader_transition_fragment = ''; // #pre-process_get_shader_transition.frag
-        this._shader_transition_vertex   = ''; // #pre-process_get_shader_transition.vert
+        this._shader_film_fragment        = ''; // #pre-process_get_shader_film.frag
+        this._shader_film_vertex          = ''; // #pre-process_get_shader_film.vert
+        this._shader_transition_fragment  = ''; // #pre-process_get_shader_transition.frag
+        this._shader_transition_vertex    = ''; // #pre-process_get_shader_transition.vert
 
         this._set_shader(SHADER_SPRITESHEET_FRAGMENT, this._shader_spritesheet_fragment);
         this._set_shader(SHADER_SPRITESHEET_VERTEX, this._shader_spritesheet_vertex);
@@ -99,16 +97,14 @@ function ShaderMaterialSpriteSheet() {
 ShaderMaterialSpriteSheet.prototype = {
     __init__: function() {
         ShaderMaterialAbstraction.call(this, SHADER_SPRITESHEET_VERTEX, SHADER_SPRITESHEET_FRAGMENT);
-        this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
+        this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
 
         this._uniform_offset  = 'offset';
-        this._uniform_repeat  = 'repeat';
         this._uniform_texture = 'texture';
         this._uniform_color   = 'color';
 
         //this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
         this.set_uniform(this._uniform_offset, 2);
-        this.set_uniform(this._uniform_repeat, new THREE.Vector2(1 / 27, 0));
         this.set_uniform(this._uniform_texture, this.texture);
         this.set_uniform(this._uniform_color, COLOR_BLUE);
 
@@ -134,7 +130,7 @@ function ShaderMaterialTransition() {
 ShaderMaterialTransition.prototype = {
     __init__: function() {
         ShaderMaterialAbstraction.call(this, SHADER_TRANSITION_VERTEX, SHADER_TRANSITION_FRAGMENT);
-        this.texture = MANAGER_TEXTURE.get_texture(TEXTURE_GROUP_TRANSITION, TRANSITION_GRID);
+        this.texture = MANAGER_TEXTURE.get_texture(TRANSITION_GRID);
 
         this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
         this._uniform_key_texture_diffuse_old_scene = 'texture_diffuse_old_scene';

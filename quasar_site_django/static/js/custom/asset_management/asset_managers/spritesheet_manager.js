@@ -28,7 +28,6 @@ const ICON_WARNING    = 25; // #pre-process_global_constant
 const ICON_WRENCH     = 26; // #pre-process_global_constant
 const ICON_WRITING    = 27; // #pre-process_global_constant
 
-
 function SpriteSheetManager() {
     this.__init__();
 }
@@ -39,42 +38,30 @@ SpriteSheetManager.prototype = {
         this._icons = {};
     },
 
-    /*
-       //this.material = new THREE.MeshBasicMaterial({map : MANAGER_TEXTURE.get_texture(texture_group, this.icon_type), transparent : true, side: THREE.FrontSide, depthTest: false});
-       this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
-     */
-
     get_icon_material: function(icon) {
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_material(this._icons[icon].x / 64);
         m.transparent = true;
-        //m.alphaTest = 0.5;
         m.needsUpdate = true;
         return m;
     },
 
     load_icon_sprite_sheet: function(callback) {
-        this.texture = MANAGER_TEXTURE.get_texture(null, SPRITESHEET_ICONS);
+        this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
 
         // Testing something.
         this.texture.magFilter = THREE.NearestFilter;
         this.texture.minFilter = THREE.NearestFilter;
         this.texture.needsUpdate = true;
 
-        //this.texture = MANAGER_TEXTURE.get_texture(null, SKYBOX_BACK);
+        //this.texture = MANAGER_TEXTURE.get_texture(SKYBOX_BACK);
         //this.texture.dispose();
-
-        l(this.texture);
 
         let i;
         let frames = JSON_SPRITESHEET['frames'];
         for (i = 0; i < frames.length; i++) {
-
             this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame;
-
         }
-        //l(JSON_SPRITESHEET);
-        //l(this._icons);
 
         callback();
     },
