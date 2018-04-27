@@ -9,51 +9,8 @@ HexagonGrid.prototype = {
     __init__: function(number_of_layers) {
         this.number_of_layers = number_of_layers;
 
-
-        // Creation directions.
-        this.d_top_left = 1;
-        this.d_bottom_left = 2;
-        this.d_down = 3;
-        this.d_bottom_right = 4;
-        this.d_top_right = 5;
-        this.d_top = 6;
-
         this.h = 55.42562484741211;
         this.w_distance = Math.sqrt(3 * this.h * this.h);
-    },
-
-    _get_x_offset: function(d) {
-        switch(d) {
-        case 1:
-            return -this.w_distance;
-        case 2:
-            return -this.w_distance;
-        case 3:
-            return 0;
-        case 4:
-            return this.w_distance;
-        case 5:
-            return this.w_distance;
-        case 6:
-            return 0;
-        }
-    },
-
-    _get_y_offset: function(d) {
-        switch(d) {
-        case 1:
-            return this.h;
-        case 2:
-            return -this.h;
-        case 3:
-            return -this.h * 2;
-        case 4:
-            return this.h;
-        case 5:
-            return this.h;
-        case 6:
-            return this.h * 2;
-        }
     },
 
     create: function() {
@@ -73,13 +30,11 @@ HexagonGrid.prototype = {
             let number_of_tiles = layer * 6;
 
             let gap = layer - 1;
-            let direction = this.d_top_right;
+            let direction = 1;
             let filled = 0;
 
-            let offset_x = this._get_x_offset(direction);
-            let offset_y = this._get_y_offset(direction);
-
-            direction = this.d_top_left;
+            let offset_x = 0;
+            let offset_y = 0;
 
             let i = 1;
             while (i < 5) {
@@ -144,6 +99,78 @@ HexagonGrid.prototype = {
 
         this.single_geometry.merge(tile, m, material_offset);
 
-    }
+    },
+
+    _get_x_offset: function(d) {
+        switch(d) {
+        case 1:
+            return 0;
+        case 2:
+            return -this.w_distance;
+        case 3:
+            return 0;
+        case 4:
+            return this.w_distance;
+        case 5:
+            return this.w_distance;
+        case 6:
+            return 0;
+        }
+    },
+
+    _get_y_offset: function(d) {
+        switch(d) {
+        case 1:
+            return this.h * 2;
+        case 2:
+            return -this.h;
+        case 3:
+            return -this.h;
+        case 4:
+            return this.h;
+        case 5:
+            return this.h;
+        case 6:
+            return this.h * 2;
+        }
+    },
+
 
 };
+
+/*
+    _get_x_offset: function(d) {
+        switch(d) {
+        case 1:
+            return -this.w_distance;
+        case 2:
+            return -this.w_distance;
+        case 3:
+            return 0;
+        case 4:
+            return this.w_distance;
+        case 5:
+            return this.w_distance;
+        case 6:
+            return 0;
+        }
+    },
+
+    _get_y_offset: function(d) {
+        switch(d) {
+        case 1:
+            return this.h;
+        case 2:
+            return -this.h;
+        case 3:
+            return -this.h * 2;
+        case 4:
+            return this.h;
+        case 5:
+            return this.h;
+        case 6:
+            return this.h * 2;
+        }
+    },
+
+ */
