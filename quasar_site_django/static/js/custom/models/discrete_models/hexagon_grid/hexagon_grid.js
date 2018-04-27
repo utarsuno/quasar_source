@@ -152,7 +152,8 @@ HexagonGrid.prototype = {
 
         this.materails.push(c);
         //this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
-        this.single_geometry.merge(hexagon, null, material_index);
+        l(hexagon);
+        this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
 
         hexagon.translate(-x_offset, -y_offset, 0);
     }
