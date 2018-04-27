@@ -1,6 +1,5 @@
-// Based off of : https://gist.github.com/mattdw/60efe28d5e787655f618e2a70a4e8bfe
+// Originally based off of : https://gist.github.com/mattdw/60efe28d5e787655f618e2a70a4e8bfe
 varying vec2 vUv;
-// TODO : Optimization, since height is contstant only use a 1D float for offset;
 uniform float offset;
 uniform vec2 repeat;
 uniform sampler2D texture;
@@ -10,5 +9,4 @@ void main(void) {
     if (gl_FragColor.a < 0.1) {
         discard;
     }
-    //gl_FragColor = texture2D(texture, vUv) * vec4(1.0, 0.0, 1.0, 1.0);
 }
