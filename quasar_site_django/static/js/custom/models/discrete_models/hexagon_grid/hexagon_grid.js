@@ -71,7 +71,7 @@ HexagonGrid.prototype = {
         this.materails = [];
 
         this.create_tile(0, 0, 0);
-        this.create_tile(128, 0, 1);
+        this.create_tile(64, 64, 1);
 
         this.object3D = new THREE.Object3D();
         this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
@@ -146,7 +146,8 @@ HexagonGrid.prototype = {
         hexagon.faces = this.hexagon_geometry.faces;
 
         l('Creating tile {' + x_offset + '} - {' + y_offset + '}');
-        hexagon.translate(x_offset, y_offset, material_index * 5);
+        //hexagon.translate(x_offset, y_offset, material_index * 5);
+        hexagon.translate(x_offset, y_offset, 0);
 
         this.materails.push(c);
         this.single_geometry.merge(hexagon, hexagon.matrix, material_index);
