@@ -150,6 +150,8 @@ RendererManager.prototype = {
         }
 
         if (CURRENT_CLIENT.is_vr) {
+            let pp = CURRENT_PLAYER.get_position();
+            this.vr_controller.position.set(pp.x, pp.y, pp.z);
             this.vr_controller.update();
         }
 
