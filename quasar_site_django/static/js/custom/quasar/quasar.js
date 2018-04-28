@@ -67,8 +67,8 @@ QuasarMainLoop.prototype = {
         // Previously : requestAnimationFrame(this.quasar_main_loop.bind(this));
 
         if (CURRENT_CLIENT.is_vr) {
-            //this.manager_renderer.renderer.animate(this._main_loop);
-            requestAnimationFrame(this._main_loop);
+            this.manager_renderer.renderer.animate(this._main_loop);
+            //requestAnimationFrame(this._main_loop);
         } else {
             requestAnimationFrame(this._main_loop);
         }
