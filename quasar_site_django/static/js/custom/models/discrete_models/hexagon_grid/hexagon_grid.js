@@ -101,9 +101,9 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        let color = this._get_random_color();
-        l(color);
-        let c = new THREE.MeshLambertMaterial({color: color});
+        //let color = this._get_random_color();
+        //l(color);
+        let c = new THREE.MeshLambertMaterial({color: this._get_random_grey()});
         c.needsUpdate = true;
         //c.emssive = c.emissive.getHex();
         //c.emissive = null;
@@ -118,6 +118,14 @@ HexagonGrid.prototype = {
 
         this.single_geometry.merge(tile, m, material_offset);
 
+    },
+
+    _get_random_grey: function() {
+        let r = 30 + Math.floor(Math.random() * 15);
+        let g = 30 + Math.floor(Math.random() * 15);
+        let b = 30 + Math.floor(Math.random() * 15);
+        let color = 'rgb(' + parseInt(r) + ',' + parseInt(g) + ',' + parseInt(b) + ')';
+        return color;
     },
 
     _get_random_color: function() {
