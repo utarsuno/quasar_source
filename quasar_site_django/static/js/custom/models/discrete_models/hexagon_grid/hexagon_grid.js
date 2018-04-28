@@ -96,7 +96,7 @@ HexagonGrid.prototype = {
 
         let color = this._get_random_color();
         l(color);
-        let c = new THREE.MeshPhongMaterial({color: color});
+        let c = new THREE.MeshLambertMaterial({color: color});
         c.emssive = c.emissive.getHex();
         this.materails.push(c);
 
