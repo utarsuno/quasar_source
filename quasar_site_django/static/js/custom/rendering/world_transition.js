@@ -135,7 +135,7 @@ function WorldTransition() {
 
         this.in_transition = false;
         this.renderer.autoClear = true;
-        this.renderer.setClearColor(0xEEEEEE);
+        this.renderer.setClearColor(0xEE00EE);
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();

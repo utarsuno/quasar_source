@@ -67,13 +67,54 @@ Client.prototype = {
         }
     },
 
+    // VR!!!
+    // VR!!!
+    // VR!!!
+
     check_vr: function() {
         if (navigator.getVRDisplays !== undefined) {
             let displays = navigator.getVRDisplays();
             if (displays.length !== 0) {
                 this.is_vr = true;
+
+
+                window.addEventListener( 'vrdisplayconnect', this._vr_connect.bind(this), false );
+
+                //window.addEventListener( 'vrdisplaydisconnect', function ( event ) {
+                //    showVRNotFound();
+                //}, false );
+
+                //window.addEventListener( 'vrdisplaypresentchange', function ( event ) {
+                //    button.textContent = event.display.isPresenting ? 'EXIT VR' : 'ENTER VR';
+                //}, false );
+
+                window.addEventListener( 'vrdisplayactivate', this._vr_activate.bind(this), false );
+
             }
         }
+    },
+
+    enter_vr_mode: function() {
+        this.vr_display.requestPresent([{source:MANAGER_RENDERER.renderer.domElement}]);
+    },
+
+    _vr_connect: function(event) {
+        this.vr_display = event.display;
+        MANAGER_RENDERER.renderer.vr.setDevice(this.vr_display);
+    },
+
+    _vr_disconnect: function(event) {
+
+    },
+
+    _vr_change: function(event) {
+
+    },
+
+    _vr_activate: function(event) {
+        event.display.requestPresent([{source: MANAGER_RENDERER.renderer.domElement}]);
     }
+
+
 
 };

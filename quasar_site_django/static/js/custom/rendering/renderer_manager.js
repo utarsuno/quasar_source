@@ -67,7 +67,7 @@ RendererManager.prototype = {
             this.renderer.vr.enabled = true;
 
             this.vr_controller = new THREE.GearVRController();
-            document.body.appendChild(WEBVR.createButton(this.renderer));
+            //document.body.appendChild(WEBVR.createButton(this.renderer));
         }
 
         // TODO : DISABLE FOR CSSRENDERING
@@ -199,12 +199,16 @@ RendererManager.prototype = {
     },
 
     toggle_fullscreen: function() {
-        if (!this.currently_fullscreen) {
-            THREEx.FullScreen.request();
-            MANAGER_RENDERER.on_window_resize();
+        if (CURRENT_CLIENT.is_vr) {
+            CURRENT_CLIENT.enter_vr_mode();
         } else {
-            THREEx.FullScreen.cancel();
+            if (!this.currently_fullscreen) {
+                THREEx.FullScreen.request();
+                MANAGER_RENDERER.on_window_resize();
+            } else {
+                THREEx.FullScreen.cancel();
+            }
+            this.currently_fullscreen = !this.currently_fullscreen;
         }
-        this.currently_fullscreen = !this.currently_fullscreen;
     }
 };
