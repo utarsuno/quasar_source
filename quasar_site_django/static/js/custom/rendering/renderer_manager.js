@@ -71,7 +71,7 @@ RendererManager.prototype = {
         }
 
         // TODO : DISABLE FOR CSSRENDERING
-        this.renderer.domElement.style.position = 'absolute';
+        //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
 
         document.body.appendChild(this.renderer.domElement);
