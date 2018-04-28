@@ -55,21 +55,9 @@ WorldEnvironment.prototype = {
         this.skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(this.skybox_cube);
 
-        /*
-        // Default hex grid ground.
-        this.grid = new vg.HexGrid({cellSize: 100});
-        this.grid.generate({size: 10});
-        this.board = new vg.Board(this.grid);
-        // Used to be : board.generateTilemap({cellSize: 100, tileScale: 0.99});
-        this.board.generateTilemap({cellSize: 100, tileScale: 1});
-        this.board.group.matrixAutoUpdate = false;
-        world.add_to_scene(this.board.group);
-        */
-
         this.grid = new HexagonGrid(6);
         this.grid.create();
         world.add_to_scene(this.grid.object3D);
-
 
         // Default lights.
         this.light_delta = 0;

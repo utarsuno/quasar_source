@@ -11,6 +11,14 @@ HexagonGrid.prototype = {
 
         this.h = 55.42562484741211;
         this.w_distance = Math.sqrt(3 * this.h * this.h);
+
+        this._color_0 = 0x2d2c2e;
+        this._color_1 = 0x3a383b;
+        this._color_2 = 0x191819;
+        this._color_3 = 0x353337;
+        this._color_4 = 0x211f21;
+        this._color_5 = 0x292729;
+        this._random_colors = [this._color_0, this._color_1, this._color_2, this._color_3, this._color_4, this._color_5];
     },
 
     create: function() {
@@ -90,20 +98,22 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        let c = new THREE.MeshToonMaterial({color: Math.random() * 0xffffff});
+        let c = new THREE.MeshToonMaterial({color: this._get_random_color()});
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
         //m.makeTranslation(x_offset, y_offset, 5 * material_offset);
 
-
-        l(x_offset, y_offset);
-
         //tile.applyMatrix(m);
 
         this.single_geometry.merge(tile, m, material_offset);
 
+    },
+
+    _get_random_color: function() {
+        let r = Math.random() * 6;
+        return this._random_colors[r];
     },
 
     _get_x_offset: function(d) {
