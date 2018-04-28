@@ -28,6 +28,19 @@ RendererManager.prototype = {
         }
     },
 
+    getVRDisplays: function ( onDisplay ) {
+
+        if ( 'getVRDisplays' in navigator ) {
+
+            navigator.getVRDisplays()
+                .then( function ( displays ) {
+                    onDisplay( displays[ 0 ] );
+                } );
+
+        }
+
+    },
+
     renderer_initialize: function() {
 
         // Since WebGL is enabled we can proceed.
@@ -47,9 +60,11 @@ RendererManager.prototype = {
         this.renderer.setSize(this.window_width, this.window_height);
         //this.renderer.setClearColor(0x000000, 1);
 
-        
-        this.renderer.vr.enabled = true;
 
+        if (CURRENT_CLIENT.is_vr) {
+            this.renderer.vr.enabled = true;
+            this.renderer.vr.setDevice(this.getVRDisplays());
+        }
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 

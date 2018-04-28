@@ -12,6 +12,7 @@ Client.prototype = {
 
     __init__: function() {
         this.is_mobile    = false;
+        this.is_vr        = false;
         this.debug_mode   = DEBUG_MODE_FPS;
         this.stats_api    = new StatsAPI();
         this.data_display = new DataDisplay();
@@ -45,6 +46,7 @@ Client.prototype = {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             this.is_mobile = true;
         }
+        this.check_vr();
     },
 
     pre_render: function() {
@@ -62,6 +64,20 @@ Client.prototype = {
     post_render: function() {
         if (this.debug_mode === DEBUG_MODE_FPS || this.debug_mode === DEBUG_MODE_FULL) {
             this.stats_api.post_render();
+        }
+    },
+
+    check_vr: function() {
+        if (navigator.getVRDisplays !== undefined) {
+            navigator.getVRDisplays().then(function(displays) {
+                if (displays.length === 0) {
+                    this.is_vr = false;
+                } else {
+                    this.is_vr = false;
+                }
+            }.bind(this));
+        } else {
+            this.is_vr = true;
         }
     }
 
