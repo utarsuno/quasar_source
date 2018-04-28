@@ -70,7 +70,7 @@ RendererManager.prototype = {
             document.body.appendChild(WEBVR.createButton(this.renderer));
         }
 
-        //this.renderer.domElement.style.position = 'absolute';
+        this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
 
         document.body.appendChild(this.renderer.domElement);
