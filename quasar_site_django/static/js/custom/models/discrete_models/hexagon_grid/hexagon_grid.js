@@ -61,11 +61,11 @@ HexagonGrid.prototype = {
 
         let cc = new THREE.MeshPhongMaterial({color: COLOR_TILE_0});
 
+        this.single_geometry.computeFaceNormals();
+        this.single_geometry.computeVertexNormals();
+
         //this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
         this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
-
-        this.single_mesh.computeFaceNormals();
-        this.single_mesh.computeVertexNormals();
 
         this.object3D.add(this.single_mesh);
 
