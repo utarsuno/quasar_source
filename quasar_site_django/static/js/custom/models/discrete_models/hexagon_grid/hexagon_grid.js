@@ -120,6 +120,8 @@ HexagonGrid.prototype = {
 
         this.single_geometry.merge(tile, m, material_offset);
 
+        tile.dispose();
+        tile = null;
     },
 
     _get_random_grey: function() {
