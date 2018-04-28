@@ -121,7 +121,7 @@ FloatingRow.prototype = {
             }
 
         } else {
-            element.next_tab_target = this.parent_wall._previous_tab_target;
+            this.parent_wall._previous_tab_target.next_tab_target = element;
             this.parent_wall._previous_tab_target = element;
         }
     },
