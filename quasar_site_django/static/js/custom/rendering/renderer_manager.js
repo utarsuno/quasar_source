@@ -61,6 +61,8 @@ RendererManager.prototype = {
         //this.renderer.setClearColor(0x000000, 1);
 
 
+        this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
+
         if (CURRENT_CLIENT.is_vr) {
             this.renderer.vr.enabled = true;
             this.renderer.vr.setDevice(this.getVRDisplays());
@@ -70,9 +72,9 @@ RendererManager.prototype = {
             this.vr_effect.setSize(this.window_width, this.window_height);
 
             this.vr_manager = new WebVRManager(this.renderer, this.vr_effect);
-        }
 
-        this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
+            this._controls = new THREE.VRControls(this.camera);
+        }
 
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
