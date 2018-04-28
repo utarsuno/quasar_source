@@ -124,6 +124,7 @@ FloatingRow.prototype = {
             this.parent_wall._previous_tab_target.next_tab_target = element;
             this.parent_wall._previous_tab_target = element;
         }
+        element.tab_parent = this.parent_wall._first_tab_target;
     },
 
     _add_element: function(x_params, floating_element, foreground_color, background_color) {

@@ -26,8 +26,9 @@ function Interactive() {
     this.being_looked_at    = false;
     this.being_engaged_with = false;
 
-    // Next tab taget.
+    // Next tab target.
     this.next_tab_target    = null;
+    this.tab_parent         = null;
 
     this.is_interactive = false;
 

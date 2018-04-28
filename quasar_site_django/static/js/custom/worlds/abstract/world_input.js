@@ -71,51 +71,19 @@ function WorldInput() {
 
             //
             this.currently_looked_at_object = next_tab_target;
-            this.currently_looked_at_object.look_at();
+            this.look_at_currently_looked_at_object(true);
             if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
                 this.currently_looked_at_object.engage();
             } else {
                 CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
             }
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
         } else {
             if (is_defined(this._default_tab_target)) {
                 this.currently_looked_at_object = this._default_tab_target;
-                CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
-                this.currently_looked_at_object.look_at();
+                this.look_at_currently_looked_at_object(true);
                 this.floating_cursor.attach(this.currently_looked_at_object);
             }
         }
-
-
-        /*
-        if (MANAGER_WORLD.current_floating_cursor.engaged) {
-            MANAGER_WORLD.current_floating_cursor.disengage();
-        }
-
-        if (is_defined(this.currently_looked_at_object)) {
-            if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage();
-                this.currently_looked_at_object.look_away();
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
-                this.currently_looked_at_object.look_at();
-                if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
-                    this.currently_looked_at_object.engage();
-                } else {
-                    CURRENT_PLAYER.enable_controls();
-                }
-            } else {
-                this.currently_looked_at_object.look_away();
-                this.currently_looked_at_object = this.currently_looked_at_object.next_tab_target;
-                this.currently_looked_at_object.look_at();
-            }
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
-        } else if (is_defined(this.default_tab_target)) {
-            this.currently_looked_at_object = this.default_tab_target;
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
-            this.currently_looked_at_object.look_at();
-        }
-        */
     };
 
     /*     __        __   ___     ___       ___      ___  __
