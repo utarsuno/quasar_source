@@ -66,6 +66,8 @@ HexagonGrid.prototype = {
         this.object3D.add(this.single_mesh);
 
         this.object3D.lookAt(0, 1, 0);
+
+        cc.emissive = COLOR_RED;
         cc.needsUpdate = true;
     },
 
