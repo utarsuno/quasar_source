@@ -77,6 +77,7 @@ function ButtonManager() {
   var s = vrButton.style;
   s.bottom = 0;
   s.right = '48px';
+  s.zIndex = 888888;
   vrButton.addEventListener('click', this.createClickHandler_('vr'));
   document.body.appendChild(vrButton);
   this.vrButton = vrButton;
