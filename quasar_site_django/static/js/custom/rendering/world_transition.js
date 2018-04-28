@@ -134,8 +134,8 @@ function WorldTransition() {
         }
 
         this.in_transition = false;
-        this.renderer_manager.renderer.autoClear = true;
-        this.renderer_manager.renderer.setClearColor(0xEEEEEE);
+        this.renderer.autoClear = true;
+        this.renderer.setClearColor(0xEEEEEE);
 
         if (is_defined(transition_finished_callback)) {
             transition_finished_callback();
