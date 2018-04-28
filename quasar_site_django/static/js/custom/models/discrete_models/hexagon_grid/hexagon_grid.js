@@ -31,10 +31,10 @@ HexagonGrid.prototype = {
 
             let gap = layer - 1;
             let direction = 1;
-            let filled = 0;
+            let filled = gap;
 
-            let offset_x = 0;
-            let offset_y = 0;
+            let offset_x = this._get_x_offset(direction) * gap;
+            let offset_y = this._get_y_offset(direction) * gap;
 
             let i = 1;
             while (i < number_of_tiles + 1) {
@@ -120,6 +120,8 @@ HexagonGrid.prototype = {
             return this.w_distance;
         case 6:
             return 0;
+        case 7:
+            return -this.w_distance;
         }
     },
 
@@ -137,6 +139,8 @@ HexagonGrid.prototype = {
             return this.h;
         case 6:
             return this.h * 2;
+        case 7:
+            return this.h;
         }
     },
 
