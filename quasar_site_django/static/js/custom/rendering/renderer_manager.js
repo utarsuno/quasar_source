@@ -65,15 +65,8 @@ RendererManager.prototype = {
 
         if (CURRENT_CLIENT.is_vr) {
             this.renderer.vr.enabled = true;
-            this.renderer.vr.setDevice(this.getVRDisplays());
 
-            // Apply VR stereo rendering to renderer
-            this.vr_effect = new THREE.VREffect(this.renderer);
-            this.vr_effect.setSize(this.window_width, this.window_height);
-
-            this.vr_manager = new WebVRManager(this.renderer, this.vr_effect);
-
-            this._controls = new THREE.VRControls(this.camera);
+            this.vr_controller = new THREE.GearVRController();
         }
 
         //this.renderer.domElement.style.position = 'absolute';
