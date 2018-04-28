@@ -29,7 +29,8 @@ WorldEnvironment.prototype = {
 
     switch_to_new_world: function(old_world, new_world) {
         old_world.remove_from_scene(this.skybox_cube);
-        old_world.remove_from_scene(this.board.group);
+        //old_world.remove_from_scene(this.board.group);
+        old_world.remove_from_scene(this.grid.object3D);
         old_world.remove_from_scene(this.light_0);
         old_world.remove_from_scene(this.light_1);
         old_world.remove_from_scene(this.light_2);
@@ -37,7 +38,8 @@ WorldEnvironment.prototype = {
         old_world.remove_from_scene(this.light);
 
         new_world.add_to_scene(this.skybox_cube);
-        new_world.add_to_scene(this.board.group);
+        //new_world.add_to_scene(this.board.group);
+        new_world.add_to_scene(this.grid.object3D);
         new_world.add_to_scene(this.light_0);
         new_world.add_to_scene(this.light_1);
         new_world.add_to_scene(this.light_2);
@@ -82,7 +84,7 @@ WorldEnvironment.prototype = {
 
         // soft white light
         this.light = new THREE.AmbientLight(0xffffff, .40);
-        //world.add_to_scene(this.light);
+        world.add_to_scene(this.light);
 
         // TODO : Create a light at the player's position.
     }
