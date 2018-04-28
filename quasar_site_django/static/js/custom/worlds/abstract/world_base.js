@@ -104,19 +104,22 @@ function World(world_entity) {
             } else {
                 // An object is being looked at for the first time.
                 this.currently_looked_at_object = interactive_match;
-                this.look_at_currently_looked_at_object(false);
+                this.look_at_currently_looked_at_object(false, false);
                 this.floating_cursor.attach(interactive_match);
                 this.floating_cursor.update_position(intersection_data.point);
             }
         }
     };
 
-    this.look_at_currently_looked_at_object = function(have_player_camera_look_at) {
+    this.look_at_currently_looked_at_object = function(have_player_camera_look_at, set_cursor) {
         if (is_defined(this.currently_looked_at_object.tab_parent)) {
             MANAGER_WORLD.current_world.set_default_tab_target(this.currently_looked_at_object.tab_parent);
         }
         if (have_player_camera_look_at) {
             CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
+        }
+        if (set_cursor) {
+            this.floating_cursor.attach(this.currently_looked_at_object);
         }
         this.currently_looked_at_object.look_at();
     };

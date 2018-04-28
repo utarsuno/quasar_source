@@ -71,7 +71,7 @@ function WorldInput() {
 
             //
             this.currently_looked_at_object = next_tab_target;
-            this.look_at_currently_looked_at_object(true);
+            this.look_at_currently_looked_at_object(true, true);
             if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
                 this.currently_looked_at_object.engage();
             } else {
@@ -80,8 +80,7 @@ function WorldInput() {
         } else {
             if (is_defined(this._default_tab_target)) {
                 this.currently_looked_at_object = this._default_tab_target;
-                this.look_at_currently_looked_at_object(true);
-                this.floating_cursor.attach(this.currently_looked_at_object);
+                this.look_at_currently_looked_at_object(true, true);
             }
         }
     };
