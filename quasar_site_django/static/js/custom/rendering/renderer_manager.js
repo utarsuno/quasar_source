@@ -136,16 +136,14 @@ RendererManager.prototype = {
     },
 
     render: function(delta) {
-        if (CURRENT_CLIENT.is_vr) {
-            this.vr_manager.render(this._current_scene, this.camera);
+        if (this.in_transition) {
+            this._current_transition.render(delta);
         } else {
-
-            if (this.in_transition) {
-                this._current_transition.render(delta);
-            } else {
-                this.effect_composer.render(delta);
-            }
+            this.effect_composer.render(delta);
         }
+
+        this.vr_controller.update();
+
 
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
