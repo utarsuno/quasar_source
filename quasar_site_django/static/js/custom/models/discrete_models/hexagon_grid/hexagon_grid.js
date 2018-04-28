@@ -65,7 +65,7 @@ HexagonGrid.prototype = {
         //this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
         this.object3D.add(this.single_mesh);
 
-        //this.object3D.lookAt(0, 1, 0);
+        this.object3D.lookAt(0, 1, 0);
     },
 
     _create_tile: function(x_offset, y_offset, material_offset) {
@@ -103,7 +103,7 @@ HexagonGrid.prototype = {
 
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
-        m.makeRotationAxis(new THREE.Vector3(1, 0, 0), .0174532925 * 90);
+        //m.makeRotationAxis(new THREE.Vector3(1, 0, 0), .0174532925 * 90);
         //m.makeTranslation(x_offset, y_offset, 5 * material_offset);
 
         //tile.applyMatrix(m);
