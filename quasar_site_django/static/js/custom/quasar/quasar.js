@@ -65,7 +65,13 @@ QuasarMainLoop.prototype = {
 
     quasar_main_loop: function() {
         // Previously : requestAnimationFrame(this.quasar_main_loop.bind(this));
-        requestAnimationFrame(this._main_loop);
+
+        if (CURRENT_CLIENT.is_vr) {
+            this.manager_renderer.renderer.animate(this._main_loop);
+        } else {
+            requestAnimationFrame(this._main_loop);
+        }
+
 
         if (this.current_player.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
             this.current_client.pre_render();
