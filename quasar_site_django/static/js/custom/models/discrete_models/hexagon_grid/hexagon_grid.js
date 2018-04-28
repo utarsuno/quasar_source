@@ -64,8 +64,8 @@ HexagonGrid.prototype = {
         this.single_geometry.computeFaceNormals();
         this.single_geometry.computeVertexNormals();
 
-        //this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
-        this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
+        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+        //this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
 
         this.object3D.add(this.single_mesh);
 
