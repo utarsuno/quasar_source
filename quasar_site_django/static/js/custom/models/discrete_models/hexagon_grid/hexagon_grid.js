@@ -106,7 +106,7 @@ HexagonGrid.prototype = {
     },
 
     _get_random_color: function() {
-        let r = Math.random() * 6;
+        let r = Math.floor(Math.random() * 6);
         l(r);
         switch(r) {
         case 0:
