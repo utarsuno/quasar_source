@@ -121,9 +121,9 @@ HexagonGrid.prototype = {
     },
 
     _get_random_grey: function() {
-        let r = 30 + Math.floor(Math.random() * 15);
-        let g = 30 + Math.floor(Math.random() * 15);
-        let b = 30 + Math.floor(Math.random() * 15);
+        let r = 20 + Math.floor(Math.random() * 10);
+        let g = 20 + Math.floor(Math.random() * 10);
+        let b = 20 + Math.floor(Math.random() * 10);
         let color = 'rgb(' + parseInt(r) + ',' + parseInt(g) + ',' + parseInt(b) + ')';
         return color;
     },
