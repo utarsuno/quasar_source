@@ -61,8 +61,8 @@ HexagonGrid.prototype = {
 
         let cc = new THREE.MeshPhongMaterial({color: COLOR_TILE_0});
 
-        //this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
-        this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
+        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+        //this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
         this.object3D.add(this.single_mesh);
 
         this.object3D.lookAt(0, 1, 0);
@@ -97,6 +97,7 @@ HexagonGrid.prototype = {
         let color = this._get_random_color();
         l(color);
         let c = new THREE.MeshPhongMaterial({color: color});
+        c.emssive = c.emissive.getHex();
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
