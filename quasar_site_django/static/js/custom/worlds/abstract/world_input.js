@@ -83,6 +83,7 @@ function WorldInput() {
                 this.currently_looked_at_object = this._default_tab_target;
                 CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
                 this.currently_looked_at_object.look_at();
+                this.floating_cursor.attach(this.currently_looked_at_object);
             }
         }
 
