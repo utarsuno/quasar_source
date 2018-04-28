@@ -52,9 +52,11 @@ ManagerManager.prototype.get_loading_manager = function() {
             this.quasar_main_loop.asset_loading_completed();
         },
 
+        // FOR_QA_START
         currently_loading: function() {
             return this._number_of_resources_loaded !== this._number_of_resources_to_load;
         }
+        // FOR_QA_START
     };
 
     this.manager_loading = new LoadingManager();

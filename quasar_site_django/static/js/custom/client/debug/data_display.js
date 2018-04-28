@@ -23,6 +23,10 @@ DataDisplay.prototype = {
             this.element_heap_size = new DomElement('heap_size');
             this.element_heap_max_size = new DomElement('max_heap_size');
         }
+
+        this.element_geometreis = new DomElement('geometries');
+        this.element_textures   = new DomElement('textures');
+        this.element_shaders    = new DomElement('shader_programs');
     },
 
     update: function() {
@@ -58,6 +62,14 @@ DataDisplay.prototype = {
             this.element_heap_size.set_text(js_heap_size);
             this.element_heap_max_size.set_text(js_heap_max_size);
         }
+
+        let geometries = MANAGER_RENDERER.renderer.info.memory.geometries;
+        let textures   = MANAGER_RENDERER.renderer.info.memory.textures;
+        let shaders    = MANAGER_RENDERER.renderer.info.programs.length;
+
+        this.element_geometreis.set_text(geometries);
+        this.element_textures.set_text(textures);
+        this.element_shaders.set_text(shaders);
     },
 
     hide: function() {

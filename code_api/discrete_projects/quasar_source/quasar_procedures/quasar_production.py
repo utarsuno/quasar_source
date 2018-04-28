@@ -17,6 +17,8 @@ TEMPORARY_OUTPUT = '/Users/utarsuno/git_repos/quasar_source/configuration_files/
 REMOVE_TEXT = '/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom'
 FOR_DEV_START = 'FOR_DEV_START'
 FOR_DEV_END   = 'FOR_DEV_END'
+FOR_QA_START  = 'FOR_QA_START'
+FOR_QA_END    = 'FOR_QA_END'
 
 
 def get_git_version():
@@ -68,7 +70,26 @@ def get_parsed_javascript_content(file_lines):
 			if not currently_in_dev_section:
 				clean_lines.append(line)
 
-	return clean_lines
+	# Go through the content and remove the 'FOR_QA' sections.
+	cleaner_lines = []
+	currently_in_qa_section = False
+	for l in range(len(clean_lines)):
+		line = clean_lines[l]
+
+		if FOR_QA_START in line:
+			if currently_in_qa_section:
+				dbg.raise_exception('FOR_QA_START inside of a FOR_QA_START!')
+			currently_in_qa_section = True
+		elif FOR_QA_END in line:
+			if not currently_in_qa_section:
+				dbg.raise_exception('FOR_QA_END without starting FOR_QA_START')
+			currently_in_qa_section = False
+		else:
+			if not currently_in_qa_section:
+				cleaner_lines.append(line)
+
+	#return clean_lines
+	return cleaner_lines
 
 
 class QuasarProduction(object):

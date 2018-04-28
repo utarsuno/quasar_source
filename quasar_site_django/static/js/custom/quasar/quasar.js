@@ -27,7 +27,7 @@ QuasarMainLoop.prototype = {
         MANAGER_TEXTURE.create_skybox_material();
         MANAGER_SHADER.create_global_shader_materials();
 
-        this.manager_world.create_world(MANAGER_WORLD.world_login);
+        this.manager_world.world_login.create();
         this.manager_world.create_singletons();
 
         this.manager_renderer.login_world_created();

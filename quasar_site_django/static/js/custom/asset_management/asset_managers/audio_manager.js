@@ -83,16 +83,5 @@ AudioManager.prototype = {
             this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.4));
             break;
         }
-    },
-
-    set_audio_for_world: function(world) {
-        /*
-        let audio;
-        for (audio in this._all_audio) {
-            if (this._all_audio.hasOwnProperty(audio)) {
-                world.add_to_scene(this._all_audio[audio]);
-            }
-        }
-        */
     }
 };

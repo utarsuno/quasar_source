@@ -135,14 +135,6 @@ WorldManager.prototype = {
         //this.current_world.enter_world(this.player_cursor);
     },
 
-    create_world: function(world) {
-        // Add audio needed for the world.
-        MANAGER_AUDIO.set_audio_for_world(world);
-
-        // Now finally create the actual world.
-        world.create();
-    },
-
     perform_batch_save: function() {
         this.world_home.prepare_for_save();
         //this.world_settings.prepare_for_save();
@@ -171,9 +163,9 @@ WorldManager.prototype = {
         this.world_settings = new SettingsWorld(this.world_settings_entity);
         this.world_admin    = new AdminWorld(this.world_admin_entity);
 
-        this.create_world(this.world_home);
-        this.create_world(this.world_settings);
-        this.create_world(this.world_admin);
+        this.world_home.create();
+        this.world_settings.create();
+        this.world_admin.create();
 
         // Create the dynamic worlds needed.
         // Iterate through the children of this entity. They each are a created world.
@@ -185,7 +177,7 @@ WorldManager.prototype = {
             let created_world = new DynamicWorld(created_world_entity);
 
             // TODO : In the future only create the created worlds on first teleport into them! This will require significant refactoring though.
-            this.create_world(created_world);
+            created_world.create();
             this.add_dynamic_world(created_world);
         }
 
@@ -259,7 +251,7 @@ WorldManager.prototype = {
         this.dynamic_worlds_manager_entity.add_child(dynamic_world_entity);
 
         let dynamic_world = new DynamicWorld(dynamic_world_entity);
-        this.create_world(dynamic_world);
+        dynamic_world.create();
         this.set_current_world(dynamic_world);
         this.add_dynamic_world(dynamic_world);
 
