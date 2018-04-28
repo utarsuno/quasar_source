@@ -58,7 +58,7 @@ HexagonGrid.prototype = {
         }
 
         this.object3D = new THREE.Object3D();
-        
+
         this.single_geometry.computeFaceNormals();
         this.single_geometry.computeVertexNormals();
 
@@ -69,9 +69,6 @@ HexagonGrid.prototype = {
         this.object3D.lookAt(0, 1, 0);
 
         this.object3D.scale.set(3, 3, 3);
-
-        //cc.emissive = COLOR_RED;
-        cc.needsUpdate = true;
     },
 
     _create_tile: function(x_offset, y_offset, material_offset) {
