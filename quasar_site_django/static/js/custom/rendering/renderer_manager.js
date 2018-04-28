@@ -70,6 +70,7 @@ RendererManager.prototype = {
             document.body.appendChild(WEBVR.createButton(this.renderer));
         }
 
+        // TODO : DISABLE FOR CSSRENDERING
         this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
 
@@ -143,7 +144,9 @@ RendererManager.prototype = {
             this.effect_composer.render(delta);
         }
 
-        this.vr_controller.update();
+        if (CURRENT_CLIENT.is_vr) {
+            this.vr_controller.update();
+        }
 
 
         if (is_defined(this.css_renderer)) {
