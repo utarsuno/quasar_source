@@ -98,7 +98,7 @@ HexagonGrid.prototype = {
         l(color);
         let c = new THREE.MeshLambertMaterial({color: color});
         //c.emssive = c.emissive.getHex();
-        c.emissive = null;
+        //c.emissive = null;
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
