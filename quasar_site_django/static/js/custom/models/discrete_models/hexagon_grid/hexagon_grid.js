@@ -115,7 +115,20 @@ HexagonGrid.prototype = {
 
     _get_random_color: function() {
         let r = Math.random() * 6;
-        return this._random_colors[r];
+        switch(r) {
+        case 0:
+            return COLOR_TILE_0;
+        case 1:
+            return COLOR_TILE_1;
+        case 2:
+            return COLOR_TILE_2;
+        case 3:
+            return COLOR_TILE_3;
+        case 4:
+            return COLOR_TILE_4;
+        case 5:
+            return COLOR_TILE_5;
+        }
     },
 
     _get_x_offset: function(d) {

@@ -73,6 +73,15 @@ const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
 const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
 //const COLOR_TEXT_BUTTON   = new THREE.Color();
 
+
+const COLOR_TILE_0         = new THREE.Color('#2d2c2e');
+const COLOR_TILE_1         = new THREE.Color('#3a383b');
+const COLOR_TILE_2         = new THREE.Color('#191819');
+const COLOR_TILE_3         = new THREE.Color('#353337');
+const COLOR_TILE_4         = new THREE.Color('#211f21');
+const COLOR_TILE_5         = new THREE.Color('#292729');
+
+
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';      // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .45)'; // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_ERROR       = 'rgba(57, 0, 6, .45)';   // #pre-process_global_constant
