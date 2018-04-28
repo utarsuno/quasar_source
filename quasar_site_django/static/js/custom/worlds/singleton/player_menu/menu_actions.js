@@ -6,10 +6,6 @@ function MenuActions() {
         MANAGER_RENDERER.toggle_fullscreen();
     };
 
-    this.action_toggle_debugging = function() {
-        l('TODO : Toggle debugging!!!');
-    };
-
     this.action_logout = function() {
         CURRENT_CLIENT.logout();
     };

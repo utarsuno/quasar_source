@@ -446,7 +446,8 @@ function Attachmentable(world) {
     // TODO : Refactor the design of this (resource cleanup needs to be cleaned up in general).
     this.remove_from_root_attachmentables_if_needed = function(object_to_check) {
         let index_to_remove = -1;
-        for (let i = 0; i < this.world.root_attachables.length; i++) {
+        let i;
+        for (i = 0; i < this.world.root_attachables.length; i++) {
             if (this.world.root_attachables[i] === object_to_check) {
                 index_to_remove = i;
                 break;

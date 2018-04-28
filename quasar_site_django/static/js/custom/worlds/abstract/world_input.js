@@ -46,6 +46,7 @@ function WorldInput() {
 
     // TODO : This needs to be refactored!
     this.tab_to_next_interactive_object = function() {
+        l('TAB TO NEX INTERACTIVE OBJECT!!');
         /*
         if (MANAGER_WORLD.current_floating_cursor.engaged) {
             MANAGER_WORLD.current_floating_cursor.disengage();
