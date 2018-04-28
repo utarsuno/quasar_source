@@ -58,7 +58,11 @@ HexagonGrid.prototype = {
         }
 
         this.object3D = new THREE.Object3D();
-        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+
+        let cc = new THREE.MeshPhongMaterial({color: COLOR_TILE_0});
+
+        //this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+        this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
         this.object3D.add(this.single_mesh);
 
         this.object3D.lookAt(0, 1, 0);
@@ -162,42 +166,4 @@ HexagonGrid.prototype = {
         }
     },
 
-
 };
-
-/*
-    _get_x_offset: function(d) {
-        switch(d) {
-        case 1:
-            return -this.w_distance;
-        case 2:
-            return -this.w_distance;
-        case 3:
-            return 0;
-        case 4:
-            return this.w_distance;
-        case 5:
-            return this.w_distance;
-        case 6:
-            return 0;
-        }
-    },
-
-    _get_y_offset: function(d) {
-        switch(d) {
-        case 1:
-            return this.h;
-        case 2:
-            return -this.h;
-        case 3:
-            return -this.h * 2;
-        case 4:
-            return this.h;
-        case 5:
-            return this.h;
-        case 6:
-            return this.h * 2;
-        }
-    },
-
- */
