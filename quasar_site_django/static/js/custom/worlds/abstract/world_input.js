@@ -26,7 +26,6 @@ function WorldInput() {
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE__TAB) {
             this.tab_to_next_interactive_object();
-            //event.stopPropagation();
         } else {
             if (is_defined(this.currently_looked_at_object)) {
                 if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {

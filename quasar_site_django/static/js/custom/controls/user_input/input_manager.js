@@ -171,6 +171,8 @@ InputManager.prototype = {
     },
 
     on_key_down: function(event) {
+        event.preventDefault();
+        event.stopPropagation();
         if (CURRENT_PLAYER.has_movement()) {
             switch (event.keyCode) {
             case KEY_CODE__UP:
@@ -198,8 +200,6 @@ InputManager.prototype = {
             }
         }
         MANAGER_WORLD.key_down_event(event);
-        event.preventDefault();
-        event.stopPropagation();
     },
 
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
