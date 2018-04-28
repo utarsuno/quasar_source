@@ -103,20 +103,12 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        //let color = this._get_random_color();
-        //l(color);
         let c = new THREE.MeshPhongMaterial({color: this._get_random_grey()});
         c.needsUpdate = true;
-        //c.emssive = c.emissive.getHex();
-        //c.emissive = null;
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
-        //m.makeRotationAxis(new THREE.Vector3(1, 0, 0), .0174532925 * 90);
-        //m.makeTranslation(x_offset, y_offset, 5 * material_offset);
-
-        //tile.applyMatrix(m);
 
         this.single_geometry.merge(tile, m, material_offset);
 
@@ -129,27 +121,7 @@ HexagonGrid.prototype = {
         let r = 20 + v;
         let g = 20 + v;
         let b = 20 + v;
-        let color = 'rgb(' + parseInt(r) + ',' + parseInt(g) + ',' + parseInt(b) + ')';
-        return color;
-    },
-
-    _get_random_color: function() {
-        let r = Math.floor(Math.random() * 6);
-        l(r);
-        switch(r) {
-        case 0:
-            return COLOR_TILE_0;
-        case 1:
-            return COLOR_TILE_1;
-        case 2:
-            return COLOR_TILE_2;
-        case 3:
-            return COLOR_TILE_3;
-        case 4:
-            return COLOR_TILE_4;
-        case 5:
-            return COLOR_TILE_5;
-        }
+        return 'rgb(' + parseInt(r) + ',' + parseInt(g) + ',' + parseInt(b) + ')';
     },
 
     _get_x_offset: function(d) {
