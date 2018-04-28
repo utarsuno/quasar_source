@@ -98,7 +98,9 @@ HexagonGrid.prototype = {
         tile.faces.push(new THREE.Face3(5, 6, 0));
         tile.faces.push(new THREE.Face3(6, 1, 0));
 
-        let c = new THREE.MeshPhongMaterial({color: 0x2d2c2e});
+        let color = this._get_random_color();
+        l(color);
+        let c = new THREE.MeshPhongMaterial({color: color});
         this.materails.push(c);
 
         let m = new THREE.Matrix4();
