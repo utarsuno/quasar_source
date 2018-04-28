@@ -65,7 +65,7 @@ HexagonGrid.prototype = {
         //this.single_mesh = new THREE.Mesh(this.single_geometry, cc);
         this.object3D.add(this.single_mesh);
 
-        this.object3D.lookAt(0, 1, 0);
+        //this.object3D.lookAt(0, 1, 0);
     },
 
     _create_tile: function(x_offset, y_offset, material_offset) {
