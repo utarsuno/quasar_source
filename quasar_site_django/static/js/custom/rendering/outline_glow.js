@@ -48,8 +48,8 @@ OutlineGlow.prototype = {
 
     remove_current_object: function() {
         //this.outline_pass.selectedObjects = [];
-        //this.outline_pass.selectedObjects.length = 0;
-        this.outline_pass.selectedObjects[0] = null;
+        this.outline_pass.selectedObjects.length = 0;
+        //this.outline_pass.selectedObjects[0] = null;
         this.current_hover_object = null;
     }
 
