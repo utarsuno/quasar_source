@@ -67,6 +67,7 @@ RendererManager.prototype = {
             this.renderer.vr.enabled = true;
 
             this.vr_controller = new THREE.GearVRController();
+            document.body.appendChild(WEBVR.createButton(this.renderer));
         }
 
         //this.renderer.domElement.style.position = 'absolute';
