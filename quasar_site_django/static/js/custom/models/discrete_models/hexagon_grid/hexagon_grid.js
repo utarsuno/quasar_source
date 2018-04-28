@@ -103,7 +103,7 @@ HexagonGrid.prototype = {
 
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
-        m.makeRotationAxis(Vector3(1, 0, 0), .0174532925 * 90);
+        m.makeRotationAxis(new THREE.Vector3(1, 0, 0), .0174532925 * 90);
         //m.makeTranslation(x_offset, y_offset, 5 * material_offset);
 
         //tile.applyMatrix(m);
