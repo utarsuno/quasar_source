@@ -82,7 +82,7 @@ WorldEnvironment.prototype = {
 
         // soft white light
         this.light = new THREE.AmbientLight(0xffffff, .40);
-        world.add_to_scene(this.light);
+        //world.add_to_scene(this.light);
 
         // TODO : Create a light at the player's position.
     }
