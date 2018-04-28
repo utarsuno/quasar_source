@@ -107,6 +107,8 @@ function WorldTransition() {
     };
 
     this.set_current_world = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at, singleton_transition_function) {
+        this._current_scene = current_world.scene;
+
         let p = previous_position_and_look_at[0];
         let l = previous_position_and_look_at[1];
 
@@ -119,6 +121,8 @@ function WorldTransition() {
 
     // Only used once for displaying the initial login world.
     this.set_current_scene = function(scene, transition_finished_callback) {
+        this._current_scene = scene;
+
         this.outline_glow.set_to_hover_color();
         this.outline_glow.remove_current_object();
         this.outline_glow.outline_pass.renderScene = scene;

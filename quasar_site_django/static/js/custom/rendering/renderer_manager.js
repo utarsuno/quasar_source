@@ -142,7 +142,7 @@ RendererManager.prototype = {
 
     render: function(delta) {
         if (CURRENT_CLIENT.is_vr) {
-            this.vr_manager = new WebVRManager(this.renderer, this.vr_effect);
+            this.vr_manager.render(this._current_scene, this.camera);
         } else {
 
             if (this.in_transition) {
