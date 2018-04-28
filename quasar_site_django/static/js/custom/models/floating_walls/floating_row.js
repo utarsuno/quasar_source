@@ -52,11 +52,13 @@ FloatingRow.prototype = {
 
     add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color) {
         let floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
+        this._set_tab_target(floating_button);
         return this._add_element(x_params, floating_button, foreground_color, background_color);
     },
 
     add_checkbox: function(x_params, size, checked, on_check_function) {
         let floating_checkbox = new FloatingCheckBox(this.world, size, checked, on_check_function);
+        this._set_tab_target(floating_checkbox);
         let end_x = x_params[0] + (size / this.parent_wall.width);
         let x_params2 = [x_params[0], end_x];
         return this._add_element(x_params2, floating_checkbox);
@@ -69,6 +71,7 @@ FloatingRow.prototype = {
 
     add_icon_button: function(x_params, icon_type, engage_function) {
         let floating_icon = new FloatingIconButton(this.world, icon_type, this._get_width_needed(x_params), engage_function);
+        this._set_tab_target(floating_icon);
         x_params[0] -= 0.5 - ((floating_icon.width / this.parent_wall.width) / 2);
         return this.add_element(x_params, floating_icon);
     },
@@ -92,6 +95,7 @@ FloatingRow.prototype = {
 
     add_input_3D: function(x_params, text_height, text) {
         let floating_input_3D = new FloatingInput3D(this.world, text_height, text);
+        this._set_tab_target(floating_input_3D);
         x_params[0] -= 0.5;
         floating_input_3D.add_tag(SAVE_TAG_3D_ROW);
         return this.add_element(x_params, floating_input_3D);
@@ -102,7 +106,23 @@ FloatingRow.prototype = {
             text = '';
         }
         let floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
+        this._set_tab_target(floating_input_2D);
         return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
+    },
+
+    _set_tab_target: function(element) {
+        if (this.parent_wall._first_tab_target === null) {
+            this.parent_wall._first_tab_target = element;
+            this.parent_wall._previous_tab_target = element;
+
+            // If the world currently has no default tab target the first tab-able object will be set to it.
+            if (this.parent_wall.world._default_tab_target === null) {
+                this.parent_wall.world._default_tab_target = element;
+            }
+
+        } else {
+            element.next_tab_target = this.parent_wall._previous_tab_target;
+        }
     },
 
     _add_element: function(x_params, floating_element, foreground_color, background_color) {

@@ -26,7 +26,7 @@ function Interactive() {
     this.being_looked_at    = false;
     this.being_engaged_with = false;
 
-    // Next table target pointer.
+    // Next tab taget.
     this.next_tab_target    = null;
 
     this.is_interactive = false;

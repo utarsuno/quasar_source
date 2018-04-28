@@ -10,7 +10,6 @@ function World(world_entity) {
 
     this.root_attachables = [];
 
-    this.default_tab_target         = null;
     this.interactive_objects        = [];
 
     this.look_away_from_currently_looked_at_object = function() {
@@ -110,10 +109,6 @@ function World(world_entity) {
                 this.floating_cursor.update_position(intersection_data.point);
             }
         }
-    };
-
-    this.set_default_tab_target = function(default_tab_target) {
-        this.default_tab_target = default_tab_target;
     };
 
     this.add_to_scene = function(object) {

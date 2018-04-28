@@ -23,6 +23,9 @@ FloatingWall.prototype = {
 
         this.auto_adjust_height = false;
 
+        this._first_tab_target    = null;
+        this._previous_tab_target = null;
+
         this.create_base_mesh();
 
         if (is_defined(normal)) {
@@ -72,7 +75,7 @@ FloatingWall.prototype = {
 
     auto_adjust_height_if_needed: function() {
         if (this.auto_adjust_height) {
-            var height_needed = (this._get_max_row_number() + 1) * 16;
+            let height_needed = (this._get_max_row_number() + 1) * 16;
             if (this.height !== height_needed) {
                 this.set_new_height(height_needed);
                 this.refresh_position_and_look_at();

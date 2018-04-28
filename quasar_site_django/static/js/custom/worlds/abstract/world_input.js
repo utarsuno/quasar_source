@@ -26,15 +26,15 @@ function WorldInput() {
     this.key_down_event_for_interactive_objects = function(event) {
         if (event.keyCode === KEY_CODE__TAB) {
             this.tab_to_next_interactive_object();
-            event.stopPropagation();
-        }
-
-        if (is_defined(this.currently_looked_at_object)) {
-            if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
-                this.currently_looked_at_object.parse_keycode(event);
-            } else if (event.keyCode === KEY_CODE__ENTER) {
-                if (!this.currently_looked_at_object.is_engaged()) {
-                    this.currently_looked_at_object.engage();
+            //event.stopPropagation();
+        } else {
+            if (is_defined(this.currently_looked_at_object)) {
+                if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+                    this.currently_looked_at_object.parse_keycode(event);
+                } else if (event.keyCode === KEY_CODE__ENTER) {
+                    if (!this.currently_looked_at_object.is_engaged()) {
+                        this.currently_looked_at_object.engage();
+                    }
                 }
             }
         }
@@ -44,9 +44,49 @@ function WorldInput() {
        |   /\  |__)    |__  \  / |__  |\ |  |
        |  /~~\ |__)    |___  \/  |___ | \|  |  */
 
+    this._default_tab_target = null;
+
+    this.set_default_tab_target = function(default_tab_target) {
+        this._default_tab_target = default_tab_target;
+    };
+
     // TODO : This needs to be refactored!
     this.tab_to_next_interactive_object = function() {
         l('TAB TO NEX INTERACTIVE OBJECT!!');
+
+        if (this.floating_cursor._currently_engaged) {
+            this.floating_cursor.disengage();
+        }
+
+        if (is_defined(this.currently_looked_at_object)) {
+
+            let next_tab_target = this.currently_looked_at_object.next_tab_target;
+            if (!is_defined(next_tab_target)) {
+                next_tab_target = this._default_tab_target;
+            }
+
+            if (this.currently_looked_at_object.is_engaged()) {
+                this.currently_looked_at_object.disengage();
+            }
+            this.currently_looked_at_object.look_away();
+
+            //
+            this.currently_looked_at_object = next_tab_target;
+            this.currently_looked_at_object.look_at();
+            if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
+                this.currently_looked_at_object.engage();
+            } else {
+                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+            }
+            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
+        } else {
+            if (is_defined(this._default_tab_target)) {
+                CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
+                this.currently_looked_at_object.look_at();
+            }
+        }
+
+
         /*
         if (MANAGER_WORLD.current_floating_cursor.engaged) {
             MANAGER_WORLD.current_floating_cursor.disengage();
