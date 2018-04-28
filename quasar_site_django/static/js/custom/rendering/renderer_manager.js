@@ -82,7 +82,7 @@ RendererManager.prototype = {
         this.css_renderer.domElement.style.position = 'absolute';
         this.css_renderer.domElement.style.top = 0;
         // TEMP
-        this.css_renderer.domElement.zIndex = 999;
+        this.css_renderer.domElement.zIndex = 900;
         //
         document.body.appendChild(this.css_renderer.domElement);
 

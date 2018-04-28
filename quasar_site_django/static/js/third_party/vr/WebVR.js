@@ -65,7 +65,7 @@ var WEBVR = {
 			element.style.opacity = '0.5';
 			element.style.outline = 'none';
 			//element.style.zIndex = '999';
-			element.style.zIndex = '999999';
+			element.style.zIndex = '99999';
 		}
 
 		if ( 'getVRDisplays' in navigator ) {
