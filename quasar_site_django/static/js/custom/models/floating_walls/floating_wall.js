@@ -132,11 +132,11 @@ FloatingWall.prototype = {
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
     add_close_button: function() {
-        var one_pixel_width = 1 / this.width;
-        var x_start = 1 - (one_pixel_width * 16);
-        var x_stop = 1;
-        var total_percentage_of_parent_width = (x_stop - x_start);
-        var close_button = new FloatingIconButton(this.world, ICON_CROSS, 16, this.force_hide_self_and_all_child_attachments_recursively.bind(this));
+        let one_pixel_width = 1 / this.width;
+        let x_start = 1 - (one_pixel_width * 16);
+        let x_stop = 1;
+        let total_percentage_of_parent_width = (x_stop - x_start);
+        let close_button = new FloatingIconButton(this.world, ICON_CROSS, 16, this.force_hide_self_and_all_child_attachments_recursively.bind(this));
         close_button.set_attachment_vertical_offset(-8, HALF);
         close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
         close_button.set_attachment_depth_offset(2);
@@ -144,8 +144,7 @@ FloatingWall.prototype = {
     },
 
     add_attachment_to_bottom: function(floating_element) {
-        var height = floating_element.height;
-        floating_element.set_attachment_vertical_offset(height / 2, -HALF);
+        floating_element.set_attachment_vertical_offset(floating_element.height / 2, -HALF);
         floating_element.set_attachment_depth_offset(1);
         floating_element.attach_to(this);
     },
@@ -154,10 +153,10 @@ FloatingWall.prototype = {
      |__) /  \ |  |    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__` 
      |  \ \__/ |/\|    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/  */
     display_rows: function() {
-        for (var r = 0; r < this.rows.length; r++) {
-            var row = this.rows[r];
-            if (!row.row_hidden) {
-                row.display();
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
+            if (!this.rows[r].row_hidden) {
+                this.rows[r].display();
             }
         }
     },
@@ -165,7 +164,8 @@ FloatingWall.prototype = {
     recalculate_row_offsets: function() {
         var previous_row = null;
         var total_vertical_height = 0;
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             var row = this.rows[r];
             if (!row.row_hidden) {
                 row.set_row_vertical_position(total_vertical_height);
@@ -176,7 +176,8 @@ FloatingWall.prototype = {
 
     _get_all_rows_with_index_equal_to_or_greater: function(row_index) {
         var local_rows = [];
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_number >= row_index) {
                 local_rows.push(this.rows[r]);
             }
@@ -186,7 +187,8 @@ FloatingWall.prototype = {
 
     _get_max_row_number: function() {
         var max_row = -1;
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_number > max_row) {
                 max_row = this.rows[r].row_number;
             }
@@ -195,7 +197,8 @@ FloatingWall.prototype = {
     },
 
     get_row_with_index: function(index) {
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_number === index) {
                 return this.rows[r];
             }
@@ -204,7 +207,8 @@ FloatingWall.prototype = {
     },
 
     get_row_with_name: function(name) {
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_name === name) {
                 return this.rows[r];
             }
@@ -213,7 +217,8 @@ FloatingWall.prototype = {
     },
 
     has_row_with_name: function(name) {
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_name === name) {
                 return true;
             }
@@ -243,7 +248,8 @@ FloatingWall.prototype = {
     delete_row_by_index: function(row_index) {
         var row_to_delete = -1;
         var deleted_rows_index = null;
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_number === row_index) {
                 row_to_delete = r;
                 deleted_rows_index = this.rows[r].row_number;
@@ -266,7 +272,8 @@ FloatingWall.prototype = {
     delete_row_by_name: function(row_name) {
         var row_to_delete = -1;
         var deleted_rows_index = null;
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].row_name === row_name) {
                 row_to_delete = r;
                 deleted_rows_index = this.rows[r].row_number;
@@ -400,7 +407,8 @@ FloatingWall.prototype = {
     get_3D_rows_save_data: function() {
         var save_data = '';
         var add_seperator = false;
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             var data = this.rows[r].get_3D_rows_save_data();
             if (data !== NO_SAVE_DATA) {
                 if (add_seperator) {
@@ -419,7 +427,8 @@ FloatingWall.prototype = {
     },
 
     has_3D_rows: function() {
-        for (var r = 0; r < this.rows.length; r++) {
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].get_all_elements_with_tag(SAVE_TAG_3D_ROW).length > 0) {
                 return true;
             }

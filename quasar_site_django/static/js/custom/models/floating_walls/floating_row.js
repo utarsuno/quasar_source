@@ -174,7 +174,8 @@ FloatingRow.prototype = {
     shift_up: function() {
         this.row_number -= 1;
         let objects_to_shift = this.get_all_elements_and_sub_attachments();
-        for (var s = 0; s < objects_to_shift.length; s++) {
+        let s;
+        for (s = 0; s < objects_to_shift.length; s++) {
             objects_to_shift[s].apply_delta_to_vertical_offset(16, null);
         }
     },
@@ -182,7 +183,8 @@ FloatingRow.prototype = {
     shift_down: function() {
         this.row_number += 1;
         let objects_to_shift = this.get_all_elements_and_sub_attachments();
-        for (let s = 0; s < objects_to_shift.length; s++) {
+        let s;
+        for (s = 0; s < objects_to_shift.length; s++) {
             objects_to_shift[s].apply_delta_to_vertical_offset(-16, null);
         }
     },
@@ -196,7 +198,8 @@ FloatingRow.prototype = {
 
     has_element_with_tag: function(tag) {
         let all_elements = this.get_all_elements_and_sub_attachments();
-        for (let e = 0; e < all_elements.length; e++) {
+        let e;
+        for (e = 0; e < all_elements.length; e++) {
             if (all_elements[e].has_tag(tag)) {
                 return true;
             }
@@ -206,7 +209,8 @@ FloatingRow.prototype = {
 
     get_3D_rows_save_data: function() {
         let save_data = '';
-        for (let e = 0; e < this.elements.length; e++) {
+        let e;
+        for (e = 0; e < this.elements.length; e++) {
             if (this.elements[e].has_tag(SAVE_TAG_3D_ROW)) {
                 let element = this.elements[e];
                 save_data += this.row_number + '+';
@@ -223,7 +227,8 @@ FloatingRow.prototype = {
     get_all_elements_with_tag: function(tag) {
         let elements = [];
         let all_elements = this.get_all_elements_and_sub_attachments();
-        for (let e = 0; e < all_elements.length; e++) {
+        let e;
+        for (e = 0; e < all_elements.length; e++) {
             if (all_elements[e].has_tag(tag)) {
                 elements.push(all_elements[e]);
             }
@@ -234,7 +239,8 @@ FloatingRow.prototype = {
     get_all_fields_of_type: function(type) {
         let fields = [];
         let all_elements = this.get_all_elements_and_sub_attachments();
-        for (let e = 0; e < all_elements.length; e++) {
+        let e;
+        for (e = 0; e < all_elements.length; e++) {
             if (is_defined(all_elements[e].type)) {
                 if (all_elements[e].type === type) {
                     fields.push(all_elements[e]);
@@ -246,10 +252,12 @@ FloatingRow.prototype = {
 
     get_all_elements_and_sub_attachments: function() {
         let all_objects = [];
-        for (let e = 0; e < this.elements.length; e++) {
+        let e;
+        for (e = 0; e < this.elements.length; e++) {
             all_objects.push(this.elements[e]);
             let all_sub_attachments = this.elements[e]._get_all_attachments_recursively();
-            for (let a = 0; a < all_sub_attachments.length; a++) {
+            let a;
+            for (a = 0; a < all_sub_attachments.length; a++) {
                 if (all_objects.indexOf(all_sub_attachments[a]) === NOT_FOUND) {
                     all_objects.push(all_sub_attachments[a]);
                 }
@@ -263,7 +271,8 @@ FloatingRow.prototype = {
      |__/ |___ |___ |___  |  | \__/ | \| */
     delete_all_elements: function() {
         let all_objects = this.get_all_elements_and_sub_attachments();
-        for (let a = 0; a < all_objects.length; a++) {
+        let a;
+        for (a = 0; a < all_objects.length; a++) {
             all_objects[a].fully_remove_self_and_all_sub_attachments();
         }
     }

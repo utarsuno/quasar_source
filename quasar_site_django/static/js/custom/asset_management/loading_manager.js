@@ -56,7 +56,7 @@ ManagerManager.prototype.get_loading_manager = function() {
         currently_loading: function() {
             return this._number_of_resources_loaded !== this._number_of_resources_to_load;
         }
-        // FOR_QA_START
+        // FOR_QA_END
     };
 
     this.manager_loading = new LoadingManager();
