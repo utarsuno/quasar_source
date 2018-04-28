@@ -135,6 +135,11 @@ RendererManager.prototype = {
             this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
         }
+
+
+        if (CURRENT_CLIENT.is_vr) {
+            MANAGER_WORLD.world_login.add_to_scene(this.vr_controller);
+        }
     },
 
     render: function(delta) {
