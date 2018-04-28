@@ -42,7 +42,6 @@ function WorldInput() {
     /*___       __      ___       ___      ___
        |   /\  |__)    |__  \  / |__  |\ |  |
        |  /~~\ |__)    |___  \/  |___ | \|  |  */
-
     this._default_tab_target = null;
 
     this.set_default_tab_target = function(default_tab_target) {
@@ -51,14 +50,11 @@ function WorldInput() {
 
     // TODO : This needs to be refactored!
     this.tab_to_next_interactive_object = function() {
-        l('TAB TO NEX INTERACTIVE OBJECT!!');
-
         if (this.floating_cursor._currently_engaged) {
             this.floating_cursor.disengage();
         }
 
         if (is_defined(this.currently_looked_at_object)) {
-
             let next_tab_target = this.currently_looked_at_object.next_tab_target;
             if (!is_defined(next_tab_target)) {
                 next_tab_target = this._default_tab_target;

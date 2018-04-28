@@ -68,6 +68,8 @@ function load_all_global_managers() {
     // Handles images that get dropped onto the site page.
     //var DRAG_AND_DROP = new DragNDrop();
 
+    MANAGER_HEAP     = new HeapManager();
+
     /*     __   __        __                           __   ___  __   __
      |  | /  \ |__) |    |  \     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
      |/\| \__/ |  \ |___ |__/     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */

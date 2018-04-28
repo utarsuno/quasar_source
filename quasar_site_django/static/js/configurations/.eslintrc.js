@@ -190,6 +190,8 @@ module.exports = {
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
+        "MANAGER_SPRITESHEET"    : true,
+        "MANAGER_HEAP"           : true,
         "MANAGER_MANAGER"        : true,
         "MANAGER_MULTI_PLAYER"   : true,
         "MANAGER_WEB_SOCKETS"    : true,
@@ -203,6 +205,8 @@ module.exports = {
         "MANAGER_POINTER_LOCK"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
+        "SpriteSheetManager"   : false,
+        "HeapManager"          : false,
         "ManagerManager"       : false,
         "MultiPlayerManager"   : false,
         "WebSocketManager"     : false,
