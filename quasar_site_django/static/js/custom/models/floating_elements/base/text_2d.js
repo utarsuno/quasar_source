@@ -23,11 +23,13 @@ Text2DUtilities.prototype = {
 
 const _MANAGER_TEXT_2D = new Text2DUtilities();
 
-function Text2D(world, width, height, text) {
+function Text2D(world, width, height, text, cacheable) {
 
     // Inherit.
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
+
+    this.cacheable = cacheable;
 
     this.width = width;
     this.height = height;
@@ -120,21 +122,39 @@ function Text2D(world, width, height, text) {
         this.material.side = THREE.FrontSide;
     };
 
+    this._create_base_mesh = function(geometry) {
+        if (is_defined(geometry)) {
+            this.mesh = new THREE.Mesh(geometry, this.material);
+        } else {
+            if (this.dynamic_width) {
+                this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+
+                this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
+                this.geometry.faceVertexUvs[0][1][1].x = this.ratio;
+                this.geometry.faceVertexUvs[0][1][2].x = this.ratio;
+
+                this.geometry.uvsNeedUpdate = true;
+            } else {
+                this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+            }
+            this.mesh = new THREE.Mesh(this.geometry, this.material);
+        }
+        this.object3D.add(this.mesh);
+    };
+
     this.create_base_mesh = function() {
         if (this.dynamic_width) {
             this.width *= this.ratio;
-            this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-
-            this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
-            this.geometry.faceVertexUvs[0][1][1].x = this.ratio;
-            this.geometry.faceVertexUvs[0][1][2].x = this.ratio;
-
-            this.geometry.uvsNeedUpdate = true;
-        } else {
-            this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         }
 
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.object3D.add(this.mesh);
+        if (is_defined(this.cacheable)) {
+            if (this.cacheable) {
+                this._create_base_mesh(MANAGER_HEAP.get_text_2D_geometry(this.width, this.height, this.ratio));
+            } else {
+                this._create_base_mesh(null);
+            }
+        } else {
+            this._create_base_mesh(null);
+        }
     };
 }
