@@ -69,15 +69,10 @@ Client.prototype = {
 
     check_vr: function() {
         if (navigator.getVRDisplays !== undefined) {
-            navigator.getVRDisplays().then(function(displays) {
-                if (displays.length === 0) {
-                    this.is_vr = false;
-                } else {
-                    this.is_vr = false;
-                }
-            }.bind(this));
-        } else {
-            this.is_vr = true;
+            let displays = navigator.getVRDisplays();
+            if (displays.length !== 0) {
+                this.is_vr = true;
+            }
         }
     }
 
