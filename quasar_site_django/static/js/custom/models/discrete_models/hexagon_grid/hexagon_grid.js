@@ -12,12 +12,12 @@ HexagonGrid.prototype = {
         this.h = 55.42562484741211;
         this.w_distance = Math.sqrt(3 * this.h * this.h);
 
-        this._color_0 = '0x2d2c2e';
-        this._color_1 = '0x3a383b';
-        this._color_2 = '0x191819';
-        this._color_3 = '0x353337';
-        this._color_4 = '0x211f21';
-        this._color_5 = '0x292729';
+        this._color_0 = '#2d2c2e';
+        this._color_1 = '#3a383b';
+        this._color_2 = '#191819';
+        this._color_3 = '#353337';
+        this._color_4 = '#211f21';
+        this._color_5 = '#292729';
         this._random_colors = [this._color_0, this._color_1, this._color_2, this._color_3, this._color_4, this._color_5];
     },
 
