@@ -71,7 +71,7 @@ HexagonGrid.prototype = {
 
         this.object3D.lookAt(0, 1, 0);
 
-        this.object3D.scale.set(2, 1, 2);
+        this.object3D.scale.set(3, 3, 3);
 
         //cc.emissive = COLOR_RED;
         cc.needsUpdate = true;
