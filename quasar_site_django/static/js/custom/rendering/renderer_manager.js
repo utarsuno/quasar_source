@@ -64,6 +64,12 @@ RendererManager.prototype = {
         if (CURRENT_CLIENT.is_vr) {
             this.renderer.vr.enabled = true;
             this.renderer.vr.setDevice(this.getVRDisplays());
+
+            // Apply VR stereo rendering to renderer
+            this.vr_effect = new THREE.VREffect(this.renderer);
+            this.vr_effect.setSize(this.window_width, this.window_height);
+
+            this.vr_manager = new WebVRManager(this.renderer, this.vr_effect);
         }
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
@@ -135,10 +141,15 @@ RendererManager.prototype = {
     },
 
     render: function(delta) {
-        if (this.in_transition) {
-            this._current_transition.render(delta);
+        if (CURRENT_CLIENT.is_vr) {
+            this.vr_manager = new WebVRManager(this.renderer, this.vr_effect);
         } else {
-            this.effect_composer.render(delta);
+
+            if (this.in_transition) {
+                this._current_transition.render(delta);
+            } else {
+                this.effect_composer.render(delta);
+            }
         }
 
         if (is_defined(this.css_renderer)) {
