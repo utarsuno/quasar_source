@@ -15,11 +15,11 @@ ManagerManager.prototype.set_loading_manager = function() {
 
             this.asset_groups = [];
 
+            this.loader_finished_callback = this.check_if_initial_resources_loaded.bind(this);
+
             // All the asset groups to load.
-            new TextureGroup(TEXTURE_GROUP_SKYBOX     , this, this.check_if_initial_resources_loaded.bind(this));
-            new TextureGroup(TEXTURE_GROUP_TRANSITION , this, this.check_if_initial_resources_loaded.bind(this));
-            new TextureGroup(TEXTURE_GROUP_SPRITESHEET, this, this.check_if_initial_resources_loaded.bind(this));
-            new AudioGroup(this, this.check_if_initial_resources_loaded.bind(this));
+            //new TextureGroup(this, this.check_if_initial_resources_loaded.bind(this));
+            //new AudioGroup(this  , this.check_if_initial_resources_loaded.bind(this));
         },
 
         asset_loaded: function(asset) {
@@ -60,4 +60,6 @@ ManagerManager.prototype.set_loading_manager = function() {
     };
 
     this.manager_loading = new LoadingManager();
+    this.set_audio_loader(this.manager_loading);
+    this.set_texture_loader(this.manager_loading);
 };

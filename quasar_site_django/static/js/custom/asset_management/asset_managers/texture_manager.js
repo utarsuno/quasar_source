@@ -1,19 +1,13 @@
 'use strict';
 
-const TEXTURE_GROUP_SKYBOX      = 'skybox/';            // #pre-process_global_constant
-const TEXTURE_GROUP_TRANSITION  = 'third_party/';       // #pre-process_global_constant
-const TEXTURE_GROUP_SPRITESHEET = 'spritesheet/';       // #pre-process_global_constant
-
-const SPRITESHEET_ICONS  = 'icon_sheet.png';            // #pre-process_global_constant
-
-const TRANSITION_GRID    = 'grid_transition.png';       // #pre-process_global_constant
-
-const SKYBOX_FRONT  = 'skybox_front.jpg';               // #pre-process_global_constant
-const SKYBOX_BACK   = 'skybox_back.jpg';                // #pre-process_global_constant
-const SKYBOX_LEFT   = 'skybox_left.jpg';                // #pre-process_global_constant
-const SKYBOX_RIGHT  = 'skybox_right.jpg';               // #pre-process_global_constant
-const SKYBOX_TOP    = 'skybox_top.jpg';                 // #pre-process_global_constant
-const SKYBOX_BOTTOM = 'skybox_bottom.jpg';              // #pre-process_global_constant
+const SPRITESHEET_ICONS = 'spritesheet/i.png'; // #pre-process_global_constant
+const TRANSITION_GRID   = 'third_party/t.png'; // #pre-process_global_constant
+const SKYBOX_FRONT      = 'skybox/f.jpg';      // #pre-process_global_constant
+const SKYBOX_BACK       = 'skybox/ba.jpg';     // #pre-process_global_constant
+const SKYBOX_LEFT       = 'skybox/l.jpg';      // #pre-process_global_constant
+const SKYBOX_RIGHT      = 'skybox/r.jpg';      // #pre-process_global_constant
+const SKYBOX_TOP        = 'skybox/t.jpg';      // #pre-process_global_constant
+const SKYBOX_BOTTOM     = 'skybox/bo.jpg';     // #pre-process_global_constant
 
 function TextureManager() {
     this.__init__();
