@@ -17,7 +17,6 @@ RendererManager.prototype = {
 
     __init__: function(current_client) {
         this.current_client = current_client;
-        this.renderer_initialize();
 
         // Since WebGL is enabled we can proceed.
         this.field_of_view = 75;
@@ -66,57 +65,7 @@ RendererManager.prototype = {
         // Inherit.
         WorldTransition.call(this);
     },
-
-    renderer_initialize: function() {
-
-        // Since WebGL is enabled we can proceed.
-        this.field_of_view = 75;
-        this.get_window_properties();
-        this.near_clipping = 1.0;
-        this.far_clipping  = 20000.0;
-
-        this.renderer      = new THREE.WebGLRenderer({antialias: false, alpha: false});
-
-        // Give the canvas an ID.
-        this.renderer.domElement.id = 'canvas_id';
-
-        //this.renderer.setPixelRatio(window.devicePixelRatio);
-        // TODO : Potentially remove this? It might not have an affect anymore.
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setSize(this.window_width, this.window_height);
-        //this.renderer.setClearColor(0x000000, 1);
-
-
-        this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
-
-        //if (CURRENT_CLIENT.has_vr) {
-        //    this.renderer.vr.enabled = true;
-        //}
-
-        // TODO : DISABLE FOR CSSRENDERING
-        //this.renderer.domElement.style.position = 'absolute';
-        this.renderer.domElement.style.zIndex = 5;
-
-        document.body.appendChild(this.renderer.domElement);
-
-        // CSS3DRenderer.
-        this.css_renderer = new THREE.CSS3DRenderer();
-        this.css_renderer.setSize(this.window_width, this.window_height);
-        this.css_renderer.domElement.style.position = 'absolute';
-        this.css_renderer.domElement.style.top = 0;
-        // TEMP
-        this.css_renderer.domElement.zIndex = 900;
-        //
-        document.body.appendChild(this.css_renderer.domElement);
-
-        //this.renderer.domElement.style.top = 0;
-
-        window.addEventListener('resize', this.on_window_resize.bind(this), false);
-
-        // Inherit.
-        WorldTransition.call(this);
-    },
-
+    
     // TEMPORARY
     login_world_created: function() {
 
