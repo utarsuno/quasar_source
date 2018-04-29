@@ -65,7 +65,7 @@ RendererManager.prototype = {
         // Inherit.
         WorldTransition.call(this);
     },
-    
+
     // TEMPORARY
     login_world_created: function() {
 
@@ -91,7 +91,6 @@ RendererManager.prototype = {
         }
 
         this.outline_glow = new OutlineGlow(this.outline_pass);
-
 
 
         if (this.current_client.is_mobile) {

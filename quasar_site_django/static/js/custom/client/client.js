@@ -39,11 +39,13 @@ Client.prototype = {
             }
         }
 
-        this.has_fullscreen = !!document.webkitCancelFullScreen || document.mozCancelFullScreen;
+        this.has_fullscreen = !!document.webkitCancelFullScreen || !!document.mozCancelFullScreen;
         if (this.has_fullscreen) {
             this._fullscreen_api_0 = document.webkitCancelFullScreen;
             this.in_full_screen = this._is_in_fullscreen();
         }
+
+        this.has_pointer_lock = !!document.pointerLockElement || !!document.mozPointerLockElement || !!document.webkitPointerLockElement;
 
         // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
         this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
@@ -54,6 +56,8 @@ Client.prototype = {
         this.debug_mode   = DEBUG_MODE_FPS;
         this.stats_api    = new StatsAPI();
         this.data_display = new DataDisplay();
+
+        this._initialize_pointer_lock();
 
         // Inherit.
         CookieManager.call(this);
@@ -92,6 +96,13 @@ Client.prototype = {
         if (this.debug_mode === DEBUG_MODE_FPS || this.debug_mode === DEBUG_MODE_FULL) {
             this.stats_api.post_render();
         }
+    },
+
+    /*__   __         ___  ___  __           __   __
+     |__) /  \ | |\ |  |  |__  |__)    |    /  \ /  ` |__/
+     |    \__/ | | \|  |  |___ |  \    |___ \__/ \__, |  \ */
+    _initialize_pointer_lock: function() {
+
     },
 
     /*___                 __   __   __   ___  ___
