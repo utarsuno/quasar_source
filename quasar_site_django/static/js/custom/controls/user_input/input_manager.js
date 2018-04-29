@@ -214,8 +214,8 @@ InputManager.prototype = {
             /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
             MANAGER_WORLD.current_world.wheel_event(((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1);
         }
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     on_key_up: function(event) {
