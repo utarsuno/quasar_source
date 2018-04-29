@@ -49,9 +49,13 @@ FloatingIcon.prototype = {
     },
 
     switch_icon_and_color: function(icon, color) {
+        if (this.cached) {
+            this.set_current_foreground_color(color);
+        } else {
+            this.material.uniforms['color'].value = color;
+            this.material.needsUpdate = true;
+        }
         this.switch_icon(icon);
-        this.material.uniforms['color'].value = color;
-        this.material.needsUpdate = true;
     },
 
     /*__   __   ___      ___    __

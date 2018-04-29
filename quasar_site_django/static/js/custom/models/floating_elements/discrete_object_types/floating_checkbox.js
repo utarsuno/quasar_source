@@ -21,7 +21,7 @@ FloatingCheckBox.prototype = {
         this.width = size;
         this.height = size;
 
-        this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size);
+        this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size, COLOR_GREEN, true);
 
         this.create_base_material();
         this.create_base_mesh();
