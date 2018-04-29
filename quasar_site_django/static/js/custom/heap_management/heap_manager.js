@@ -16,11 +16,9 @@ HeapManager.prototype = {
     get_text_2D_geometry: function(width, height, ratio) {
         let c;
         let match = null;
-        l('get text 2D geo!');
         for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
             if (this._cached_text_2D_geometries[c][0] === width && this._cached_text_2D_geometries[c][1] === height && this._cached_text_2D_geometries[c][2] === ratio) {
                 match = this._cached_text_2D_geometries[c][3];
-                l('text2D geo match found!');
                 break;
             }
         }

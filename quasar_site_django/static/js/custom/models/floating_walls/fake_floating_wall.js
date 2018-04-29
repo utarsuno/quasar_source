@@ -1,14 +1,10 @@
 'use strict';
 
-function FloatingWall(width, height, position, normal, world) {
+function FakeFloatingWall(width, height, position, normal, world) {
     this.__init__(width, height, position, normal, world);
 }
 
-FloatingWall.prototype = {
-
-    load_completed: function() {
-        this.dimensions_changed();
-    },
+FakeFloatingWall.prototype = {
 
     __init__: function (width, height, position, normal, world) {
         // Inherit from Attachmentable.

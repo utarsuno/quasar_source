@@ -105,8 +105,9 @@ LoginWorld.prototype = {
     _create_create_account_wall: function() {
         let wall_create_account_position = new THREE.Vector3(200, 95, 600);
         let wall_create_account_normal = new THREE.Vector3(-wall_create_account_position.x, 0, -wall_create_account_position.z);
-        this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
-        this.wall_create_account.make_base_wall_invisible();
+        //this.wall_create_account = new FloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
+        this.wall_create_account = new FakeFloatingWall(350, 95, wall_create_account_position, wall_create_account_normal, this);
+        //this.wall_create_account.make_base_wall_invisible();
         this.wall_create_account.set_to_manual_positioning();
 
         // Title.
