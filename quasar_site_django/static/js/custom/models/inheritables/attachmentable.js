@@ -495,6 +495,9 @@ function Attachmentable(world) {
     this.full_remove = function() {
         this.delete_mesh();
         this.delete_material();
+
+        // TODO : !!!!!
+        /*
         // Specific to FloatingText2D.
         if (is_defined(this.dynamic_texture)) {
             // TODO : Eventually double check this.
@@ -507,6 +510,7 @@ function Attachmentable(world) {
                 }
             }
         }
+        */
     };
 
     /*      ___  ___  __                         ___          ___    ___  __

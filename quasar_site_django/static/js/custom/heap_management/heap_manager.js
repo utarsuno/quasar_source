@@ -14,14 +14,14 @@ ManagerManager.prototype.set_heap_manager = function() {
             let c;
             for (c = 0; c < this._objects.length; c++) {
                 if (this._objects[c].is_match(args)) {
-                    return this._objects[c]._cache;
+                    return this._objects[c];
                 }
             }
             return this.add_cached_object(new this._cache_type(args));
         },
         add_cached_object: function(object) {
             this._objects.push(object);
-            return object._cache;
+            return object;
         }
     };
 
@@ -60,14 +60,27 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    function Texture2DCanvasCache(args) {
+        this.__init__(args);
+    }
+    Texture2DCanvasCache.prototype = {
+        __init__: function(args) {
+            this._width = args[0];
+            this._height = args[1];
+            this._text = args[2];
+
+        },
+        is_match: function(args) {
+            return this._width === args[0] && this._height === args[1] && this._text === args[2];
+        }
+    };
+
     function HeapManager() {
         this.__init__();
     }
     HeapManager.prototype = {
 
         __init__: function() {
-            // Format [width, height, ratio, cached_geometry]
-            this._cached_text_2D_geometries = [];
             // Format [width, height, text, cached_canvas, cached_material]
             this._cached_text_2D_textures   = [];
 
@@ -77,39 +90,11 @@ ManagerManager.prototype.set_heap_manager = function() {
         },
 
         get_plane_geometry: function(width, height) {
-            return this.cached_plane_geometries.get_cached_object([width, height]);
+            return this.cached_plane_geometries.get_cached_object([width, height])._cache;
         },
 
         get_text_2D_geometry: function(width, height, ratio) {
-            return this.cached_texture_2D_geometries.get_cached_object([width, height, ratio]);
-        },
-
-        get_text_2D_geometryOLD: function(width, height, ratio) {
-            let c;
-            let match = null;
-            for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
-                if (this._cached_text_2D_geometries[c][0] === width && this._cached_text_2D_geometries[c][1] === height && this._cached_text_2D_geometries[c][2] === ratio) {
-                    match = this._cached_text_2D_geometries[c][3];
-                    break;
-                }
-            }
-            if (match === null) {
-                let geometry;
-                if (is_defined(ratio)) {
-                    geometry = new THREE.PlaneGeometry(width, height);
-
-                    geometry.faceVertexUvs[0][0][2].x = ratio;
-                    geometry.faceVertexUvs[0][1][1].x = ratio;
-                    geometry.faceVertexUvs[0][1][2].x = ratio;
-
-                    geometry.uvsNeedUpdate = true;
-                } else {
-                    geometry = new THREE.PlaneGeometry(width, height);
-                }
-                this._cached_text_2D_geometries.push([width, height, ratio, geometry]);
-                match = this._cached_text_2D_geometries[this._cached_text_2D_geometries.length - 1][3];
-            }
-            return match;
+            return this.cached_texture_2D_geometries.get_cached_object([width, height, ratio])._cache;
         },
 
         get_text_2D_texture: function(width, height, text) {
