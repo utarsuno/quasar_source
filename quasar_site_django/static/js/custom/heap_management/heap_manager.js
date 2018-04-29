@@ -69,6 +69,15 @@ ManagerManager.prototype.set_heap_manager = function() {
             this._height = args[1];
             this._text = args[2];
 
+            this._canvas = new CanvasTexture();
+            this._canvas.set_dimensions(this.width, this.height);
+            this._canvas.initialize();
+
+            this._material = new THREE.MeshToonMaterial({
+                map : this._canvas.texture, transparent: true, side: THREE.FrontSide
+            });
+            this._material.transparent = true;
+            this._material.side = THREE.FrontSide;
         },
         is_match: function(args) {
             return this._width === args[0] && this._height === args[1] && this._text === args[2];
@@ -81,12 +90,9 @@ ManagerManager.prototype.set_heap_manager = function() {
     HeapManager.prototype = {
 
         __init__: function() {
-            // Format [width, height, text, cached_canvas, cached_material]
-            this._cached_text_2D_textures   = [];
-
-
             this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
             this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
+            this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
         },
 
         get_plane_geometry: function(width, height) {
@@ -97,11 +103,15 @@ ManagerManager.prototype.set_heap_manager = function() {
             return this.cached_texture_2D_geometries.get_cached_object([width, height, ratio])._cache;
         },
 
-        get_text_2D_texture: function(width, height, text) {
-
+        get_text_2D_canvas: function(width, height, text) {
+            return this.cached_texture_2D_canvases.get_cached_object([width, height, text])._canvas;
         },
 
         get_text_2D_material: function(width, height, text) {
+            return this.cached_texture_2D_canvases.get_cached_object([width, height, text])._material;
+        },
+
+        get_text_2D_materialOLD: function(width, height, text) {
             let c;
             let match = null;
             for (c = 0; c < this._cached_text_2D_geometries.length; c++) {

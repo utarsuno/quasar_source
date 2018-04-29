@@ -40,12 +40,10 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     this.height = height;
     this.dynamic_width = false;
 
-    //if (this.cacheable_texture) {
-    //    this.canvas = new CanvasTextureCached();
-    //} else {
-    //    this.canvas = new CanvasTexture();
-    //}
-    this.canvas = new CanvasTexture();
+    if (!this.cacheable_texture) {
+        this.canvas = new CanvasTexture();
+    }
+    //this.canvas = new CanvasTexture();
 
     this.initialized = false;
     this.needs_hex_colors = true;
@@ -56,7 +54,9 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
                 if (this.text_changed) {
                     this.width = null;
                     this.process_width();
-                    this.canvas.modify_canvas(this.width, this.height);
+                    if (!this.cacheable_texture) {
+                        this.canvas.modify_canvas(this.width, this.height);
+                    }
                     this.delete_mesh();
                     this.delete_material();
                     this.create_base_material();
@@ -74,8 +74,10 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
                 }
             }
 
-            this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
-            this.material.needsUpdate = true;
+            if (!this.cacheable_texture) {
+                this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+                this.material.needsUpdate = true;
+            }
 
             this.text_changed = false;
             this.color_changed = false;
@@ -117,8 +119,12 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     this.initialize = function() {
         this.process_width();
 
-        this.canvas.set_dimensions(this.width, this.height);
-        this.canvas.initialize();
+        if (!this.cacheable_texture) {
+            this.canvas.set_dimensions(this.width, this.height);
+            this.canvas.initialize();
+        } else {
+            this.canvas_cache = MANAGER_HEAP.get_texture_2D_canvas(this.width, this.height, this.get_display_text());
+        }
 
         this.create_base_material();
         this.create_base_mesh();
@@ -127,24 +133,24 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     };
 
     this.create_base_material = function() {
-        //if (this.cacheable_texture) {
-        //    this._material = MANAGER_HEAP.get_text_2D_material(this.width, this.height, this.get_display_text());
-        //} else {
-        this.material = new THREE.MeshToonMaterial({
-            map : this.canvas.texture, transparent: true, side: THREE.FrontSide
-        });
-        this.material.transparent = true;
-        this.material.side = THREE.FrontSide;
-        //}
+        if (this.cacheable_texture) {
+            this._material = MANAGER_HEAP.get_text_2D_material(this.width, this.height, this.get_display_text());
+        } else {
+            this.material = new THREE.MeshToonMaterial({
+                map : this.canvas.texture, transparent: true, side: THREE.FrontSide
+            });
+            this.material.transparent = true;
+            this.material.side = THREE.FrontSide;
+        }
     };
 
     this._create_base_mesh = function(geometry) {
         if (is_defined(geometry)) {
-            //if (this.cacheable_texture) {
-            //    this.mesh = new THREE.Mesh(geometry, this._material);
-            //} else {
-            this.mesh = new THREE.Mesh(geometry, this.material);
-            //}
+            if (this.cacheable_texture) {
+                this.mesh = new THREE.Mesh(geometry, this._material);
+            } else {
+                this.mesh = new THREE.Mesh(geometry, this.material);
+            }
         } else {
             if (this.dynamic_width) {
                 this.geometry = new THREE.PlaneGeometry(this.width, this.height);
@@ -157,11 +163,11 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
             } else {
                 this.geometry = new THREE.PlaneGeometry(this.width, this.height);
             }
-            //if (this.cacheable_texture) {
-            //    this.mesh = new THREE.Mesh(this.geometry, this._material);
-            //} else {
-            this.mesh = new THREE.Mesh(this.geometry, this.material);
-            //}
+            if (this.cacheable_texture) {
+                this.mesh = new THREE.Mesh(this.geometry, this._material);
+            } else {
+                this.mesh = new THREE.Mesh(this.geometry, this.material);
+            }
         }
         this.object3D.add(this.mesh);
     };
