@@ -22,7 +22,8 @@ FloatingIcon.prototype = {
 
     switch_icon: function(icon) {
         if (this._current_icon !== icon) {
-            this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
+            //this.material.uniforms['offset'].value = MANAGER_SPRITESHEET.get_icon_offset(icon);
+            this.material.uniforms['offset'].value = icon;
             this.material.needsUpdate = true;
             this._current_icon = icon;
         }

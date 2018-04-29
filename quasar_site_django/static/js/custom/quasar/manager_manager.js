@@ -69,7 +69,7 @@ ManagerManager.prototype = {
 
         this.set_spritesheet_manager();
         MANAGER_SPRITESHEET = this.spritesheet_manager;
-        
+
         // Handles images that get dropped onto the site page.
         //var DRAG_AND_DROP = new DragNDrop();
 
