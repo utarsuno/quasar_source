@@ -32,5 +32,5 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
         }
     };
 
-    this.texture_loader = new TextureGroup(loading_manager);
+    this.texture_loader = new TextureLoader(loading_manager);
 };
