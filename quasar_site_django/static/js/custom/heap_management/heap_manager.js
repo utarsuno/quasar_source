@@ -12,16 +12,12 @@ ManagerManager.prototype.set_heap_manager = function() {
         },
         get_cached_object: function(args) {
             let c;
-            let match = null;
             for (c = 0; c < this._objects.length; c++) {
                 if (this._objects[c].is_match(args)) {
-                    return this._objects[c];
+                    return this._objects[c]._cache;
                 }
             }
-            if (match === null) {
-                match = this.add_cached_object(new this._cache_type(args));
-            }
-            return match;
+            return this.add_cached_object(new this._cache_type(args));
         },
         add_cached_object: function(object) {
             this._objects.push(object);
