@@ -2,6 +2,9 @@
 
 ManagerManager.prototype.set_heap_manager = function() {
 
+    /*__        __        ___  __      __   __        ___  __  ___  __      __        __   ___
+     /  `  /\  /  ` |__| |__  |  \    /  \ |__)    | |__  /  `  |  /__`    |__)  /\  /__` |__
+     \__, /~~\ \__, |  | |___ |__/    \__/ |__) \__/ |___ \__,  |  .__/    |__) /~~\ .__/ |___ */
     function CachedObjects(cache_type) {
         this.__init__(cache_type);
     }
@@ -25,6 +28,10 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    /*__     __   __   __   ___ ___  ___     __        __        ___  __      __   __        ___  __  ___  __
+     |  \ | /__` /  ` |__) |__   |  |__     /  `  /\  /  ` |__| |__  |  \    /  \ |__)    | |__  /  `  |  /__`
+     |__/ | .__/ \__, |  \ |___  |  |___    \__, /~~\ \__, |  | |___ |__/    \__/ |__) \__/ |___ \__,  |  .__/ */
+    // ---------------------------------------- PlaneGeometryCache ----------------------------------------
     function PlaneGeometryCache(args) {
         this.__init__(args);
     }
@@ -39,6 +46,7 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    // ---------------------------------------- Text2DGeometryCache ----------------------------------------
     function Text2DGeometryCache(args) {
         this.__init__(args);
     }
@@ -60,6 +68,7 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    // ---------------------------------------- Texture2DCanvasCache ----------------------------------------
     function Texture2DCanvasCache(args) {
         this.__init__(args);
     }
@@ -90,6 +99,26 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    // ---------------------------------------- SpritesheetShaderMaterialCache ----------------------------------------
+    function SpritesheetShaderMaterialCache(args) {
+        this.__init__(args);
+    }
+    SpritesheetShaderMaterialCache.prototype = {
+        __init__: function(args) {
+            this._icon = args[0];
+            this._color = args[1];
+            this._material = MANAGER_SPRITESHEET.get_icon_material(this._icon);
+            this._material.uniforms['color'].value = this._color;
+            this._material.needsUpdate = true;
+        },
+        is_match: function(args) {
+            return this._icon === args[0] && this._color === args[1];
+        }
+    };
+
+    /*     ___       __                           __   ___  __
+     |__| |__   /\  |__)     |\/|  /\  |\ |  /\  / _` |__  |__)
+     |  | |___ /~~\ |        |  | /~~\ | \| /~~\ \__> |___ |  \ */
     function HeapManager() {
         this.__init__();
     }
@@ -99,6 +128,11 @@ ManagerManager.prototype.set_heap_manager = function() {
             this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
             this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
             this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
+            this.cached_spritesheet_shader_materails = new CachedObjects(SpritesheetShaderMaterialCache);
+        },
+
+        get_spritesheet_shader_material: function(icon, color) {
+            return this.cached_spritesheet_shader_materails.get_cached_object([icon, color])._material;
         },
 
         get_plane_geometry: function(width, height) {
