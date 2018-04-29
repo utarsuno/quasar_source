@@ -40,8 +40,9 @@ Client.prototype = {
         }
 
         this.has_fullscreen = !!document.webkitCancelFullScreen || document.mozCancelFullScreen;
-        this.f_0 = document.webkitCancelFullScreen;
-        this.f_1 = document.mozCancelFullScreen;
+        if (this.has_fullscreen) {
+            this.in_full_screen = this._is_in_fullscreen();
+        }
 
         // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
         this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
@@ -89,6 +90,42 @@ Client.prototype = {
     post_render: function() {
         if (this.debug_mode === DEBUG_MODE_FPS || this.debug_mode === DEBUG_MODE_FULL) {
             this.stats_api.post_render();
+        }
+    },
+
+    /*___                 __   __   __   ___  ___
+     |__  |  | |    |    /__` /  ` |__) |__  |__  |\ |
+     |    \__/ |___ |___ .__/ \__, |  \ |___ |___ | \| */
+    toggle_fullscreen: function() {
+        if (this.in_full_screen) {
+            this.exit_fullscreen();
+        } else {
+            this.enter_fullscreen();
+        }
+        this.in_full_screen = !this.in_full_screen;
+    },
+
+    enter_fullscreen: function() {
+        if (is_defined(this._fullscreen_api_0)) {
+            document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        } else {
+            document.body.mozRequestFullScreen();
+        }
+    },
+
+    exit_fullscreen: function() {
+        if (is_defined(this._fullscreen_api_0)) {
+            document.webkitCancelFullScreen();
+        } else {
+            document.mozCancelFullScreen();
+        }
+    },
+
+    _is_in_fullscreen: function() {
+        if (is_defined(this._fullscreen_api_0)) {
+            return document.webkitIsFullScreen;
+        } else {
+            return document.mozFullScreen;
         }
     },
 
