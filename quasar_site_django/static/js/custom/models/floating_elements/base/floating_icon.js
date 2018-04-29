@@ -36,7 +36,8 @@ FloatingIcon.prototype = {
 
             if (this.cached) {
                 this._material = MANAGER_HEAP.get_spritesheet_shader_material(icon, this.get_current_foreground_color());
-                this._material.needsUpdate = true;
+                this.mesh.material = this._material;
+                //this._material.needsUpdate = true;
             } else {
                 this.material.uniforms['offset'].value = icon;
                 this.material.needsUpdate = true;
