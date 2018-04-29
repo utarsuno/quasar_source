@@ -142,8 +142,8 @@ InputManager.prototype = {
             MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
         }
 
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     _mouse_movement: function(x, y) {
@@ -166,8 +166,8 @@ InputManager.prototype = {
                 MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
             }
         */
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     on_key_down: function(event) {
@@ -200,8 +200,8 @@ InputManager.prototype = {
             }
         }
         MANAGER_WORLD.key_down_event(event);
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
@@ -245,8 +245,8 @@ InputManager.prototype = {
                 break;
             }
         }
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     on_mouse_up: function(event) {
@@ -267,8 +267,8 @@ InputManager.prototype = {
             this.click_down_right = false;
             break;
         }
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     },
 
     on_mouse_down: function(event) {
@@ -288,8 +288,8 @@ InputManager.prototype = {
             this.click_down_right = true;
             break;
         }
-        event.preventDefault();
-        event.stopPropagation();
+        //event.preventDefault();
+        //event.stopPropagation();
     }
 
 };
