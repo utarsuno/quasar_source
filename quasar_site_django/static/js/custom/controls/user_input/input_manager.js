@@ -249,6 +249,7 @@ InputManager.prototype = {
 
     on_mouse_up: function(event) {
         event = event || window.event;
+        l(event);
         switch (event.which) {
         case this.CLICK_LEFT:
             this.click_down_left = false;
