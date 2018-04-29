@@ -66,9 +66,7 @@ RendererManager.prototype = {
         WorldTransition.call(this);
     },
 
-    // TEMPORARY
-    login_world_created: function() {
-
+    initialize_shaders: function() {
         this.load_transition_material();
 
         this.effect_composer = new THREE.EffectComposer(this.renderer);

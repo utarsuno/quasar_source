@@ -32,8 +32,8 @@ ManagerManager.prototype.set_loading_manager = function() {
         /*__             __        __              ___                      __        __          __
          /  \ |  |  /\  /__`  /\  |__)    | |\ | |  |  |  /\  |       |    /  \  /\  |  \ | |\ | / _`
          \__X \__/ /~~\ .__/ /~~\ |  \    | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ | | \| \__> */
-        perform_initial_load: function(quasar_main_loop) {
-            this.quasar_main_loop = quasar_main_loop;
+        perform_initial_load: function(initial_asset_loading_completed_callback) {
+            this.initial_asset_loading_completed_callback = initial_asset_loading_completed_callback;
 
             let asset_group;
             for (asset_group = 0; asset_group < this.asset_groups.length; asset_group++) {
@@ -43,12 +43,8 @@ ManagerManager.prototype.set_loading_manager = function() {
 
         check_if_initial_resources_loaded: function() {
             if (this._number_of_asset_groups_loaded === this.asset_groups.length) {
-                MANAGER_SPRITESHEET.load_icon_sprite_sheet(this._loading_completed.bind(this));
+                this.initial_asset_loading_completed_callback();
             }
-        },
-
-        _loading_completed: function() {
-            this.quasar_main_loop.asset_loading_completed();
         },
 
         // FOR_QA_START

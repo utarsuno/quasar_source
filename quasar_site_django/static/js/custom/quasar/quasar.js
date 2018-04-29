@@ -23,36 +23,7 @@ QuasarMainLoop.prototype = {
         this._main_loop = this.quasar_main_loop.bind(this);
     },
 
-    asset_loading_completed: function() {
-        MANAGER_TEXTURE.create_skybox_material();
-        MANAGER_SHADER.create_global_shader_materials();
-
-        this.manager_world.world_login.create();
-        this.manager_world.create_singletons();
-
-        this.manager_renderer.login_world_created();
-        if (CURRENT_CLIENT.is_mobile) {
-            MANAGER_INPUT.load_mobile_keyboard();
-        }
-
-        MANAGER_WEB_SOCKETS.connect();
-
-        //if (CURRENT_CLIENT.is_mobile) {
-        //    MANAGER_INPUT.create_mobile_buttons();
-        //}
-
-        this.manager_world.set_current_world(MANAGER_WORLD.world_login);
-
-        // All the initial resources have loaded so put the player in a paused state in order to gain the first pointer lock control.
-        this.current_player.set_state(PLAYER_STATE_PAUSED);
-        this.run();
-    },
-
     run: function() {
-        this.current_client.add_welcome_message();
-
-        MANAGER_MANAGER.delete_loading_manager();
-
         this.previous_time = performance.now();
         this.quasar_main_loop();
     },
@@ -85,18 +56,5 @@ QuasarMainLoop.prototype = {
 
             this.single_render_performed = true;
         }
-    }
-};
-
-window.onload = function() {
-    MANAGER_MANAGER = new ManagerManager();
-    if (CURRENT_CLIENT.supports_webgl()) {
-        MANAGER_MANAGER.load_all_global_managers();
-
-        const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
-
-        MANAGER_MANAGER.set_loading_manager();
-        CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
-        MANAGER_MANAGER.manager_loading.perform_initial_load(QUASAR);
     }
 };

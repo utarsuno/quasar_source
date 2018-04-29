@@ -45,18 +45,12 @@ ManagerManager.prototype.set_spritesheet_manager = function() {
             return m;
         },
 
-        load_icon_sprite_sheet: function(callback) {
+        load_icon_sprite_sheet: function() {
             this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
 
-            // Testing something.
             this.texture.magFilter = THREE.NearestFilter;
             this.texture.minFilter = THREE.NearestFilter;
             this.texture.needsUpdate = true;
-
-            //this.texture = MANAGER_TEXTURE.get_texture(SKYBOX_BACK);
-            //this.texture.dispose();
-
-            callback();
         }
     };
 
