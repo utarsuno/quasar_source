@@ -67,7 +67,6 @@ const COLOR_WHITE         = new THREE.Color('#ffffff');
 const COLOR_BLACK         = new THREE.Color('#000000');
 const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
 const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
-//const COLOR_TEXT_BUTTON   = new THREE.Color();
 
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';      // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .45)'; // #pre-process_global_constant
@@ -77,21 +76,11 @@ const FLOATING_TEXT_BACKGROUND_SUCCESS     = 'rgba(30, 63, 30, .45)'; // #pre-pr
 // TODO : REFACTOR/REMOVE THE ENTIRE OLD COLOR SYSTEM.
 const COLOR_STRING_INDEX            = 1;
 const COLOR_HEX_INDEX               = 0;
-const COLOR_HIGHLIGHT               = [0xD4FF93, '#D4FF93'];
-const COLOR_TEXT_BUTTON             = [0x60d6ff, '#60d6ff'];
-const COLOR_ORANGE                  = [0xFF7F00, '#FF7F00'];
-const COLOR_DARK_PURPLE             = [0x4B0082, '#4B0082'];
-const COLOR_LIGHT_PURPLE            = [0x8F00FF, '#8F00FF'];
-const COLOR_SCHEDULE_PAST           = [0x0b3162, '#09254b'];
-const COLOR_SCHEDULE_PRESENT        = [0x8effae, '#4dff78'];
-const COLOR_SCHEDULE_FUTURE         = [0x000b1c, '#d58900'];
 const COLOR_FLOATING_WALL_BASE      = [0x151515, '#151515'];
 const COLOR_FLOATING_WALL_YELLOW    = [0x3c3406, '#3c3406'];
 const COLOR_FLOATING_WALL_TOP       = [0xacdfbc, '#acdfbc'];
 const COLOR_FLOATING_WALL_HIGHLIGHT = [0x152319, '#001f23'];
 const COLOR_FLOATING_WALL_SUCCESS   = [0x092300, '#092300'];
-const COLOR_FLOATING_WALL_ERROR     = [0x230002, '#230002'];
-const COLOR_SEMI_TRANSPARENT        = 'rgba(153, 204, 255, 0.05)';
 // UNIVERSAL_CONSTANTS_END
 
 const CELL_PHONE_CARRIERS = {

@@ -63,16 +63,13 @@ ManagerManager.prototype = {
         /*__   ___  __   __        __   __   ___                          __   ___  __   __
          |__) |__  /__` /  \ |  | |__) /  ` |__      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
          |  \ |___ .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
-        // Handles most if not all of the resource loading.
-        //MANAGER_LOADING   = new LoadingManager();
-        // Handles all audio operations.
         MANAGER_AUDIO     = new AudioManager();
-        // Handles all shaders.
         MANAGER_SHADER    = new ShaderManager();
-        // Handles all textures.
         MANAGER_TEXTURE   = new TextureManager();
-        // Handles all svg files.
-        MANAGER_SPRITESHEET = new SpriteSheetManager();
+
+        this.set_spritesheet_manager();
+        MANAGER_SPRITESHEET = this.spritesheet_manager;
+        
         // Handles images that get dropped onto the site page.
         //var DRAG_AND_DROP = new DragNDrop();
 

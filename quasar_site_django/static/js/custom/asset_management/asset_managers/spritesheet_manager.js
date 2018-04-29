@@ -28,105 +28,107 @@ const ICON_WARNING    = 25; // #pre-process_global_constant
 const ICON_WRENCH     = 26; // #pre-process_global_constant
 const ICON_WRITING    = 27; // #pre-process_global_constant
 
-function SpriteSheetManager() {
-    this.__init__();
-}
-
-SpriteSheetManager.prototype = {
-
-    __init__: function() {
-        this._icons = {};
-    },
-
-    get_icon_material: function(icon) {
-        this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
-        let m = this._shader_material.get_material(this._icons[icon] / 64);
-        m.transparent = true;
-        m.needsUpdate = true;
-        return m;
-    },
-
-    get_icon_offset: function(icon) {
-        return this._icons[icon] / 64;
-    },
-
-    load_icon_sprite_sheet: function(callback) {
-        this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
-
-        // Testing something.
-        this.texture.magFilter = THREE.NearestFilter;
-        this.texture.minFilter = THREE.NearestFilter;
-        this.texture.needsUpdate = true;
-
-        //this.texture = MANAGER_TEXTURE.get_texture(SKYBOX_BACK);
-        //this.texture.dispose();
-
-        let i;
-        let frames = JSON_SPRITESHEET['frames'];
-        for (i = 0; i < frames.length; i++) {
-            this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame.x;
-        }
-
-        callback();
-    },
-
-    _get_icon_number_from_filename: function(filename) {
-        switch(filename) {
-        case 'planet.png':
-            return ICON_PLANET;
-        case 'admin.png':
-            return ICON_ADMIN;
-        case 'calendar.png':
-            return ICON_CALENDER;
-        case 'arrow.png':
-            return ICON_ARROW;
-        case 'checkmark.png':
-            return ICON_CHECKMARK;
-        case 'click.png':
-            return ICON_CLICK;
-        case 'cross.png':
-            return ICON_CROSS;
-        case 'cursor.png':
-            return ICON_CURSOR;
-        case 'delete.png':
-            return ICON_DELETE;
-        case 'disabled.png':
-            return ICON_DISABLED;
-        case 'drag.png':
-            return ICON_DRAG;
-        case 'exit.png':
-            return ICON_EXIT;
-        case 'expand.png':
-            return ICON_EXPAND;
-        case 'folder.png':
-            return ICON_FOLDER;
-        case 'gears.png':
-            return ICON_GEARS;
-        case 'home.png':
-            return ICON_HOME;
-        case 'horizontal.png':
-            return ICON_HORIZONTAL;
-        case 'locked.png':
-            return ICON_LOCKED;
-        case 'picture.png':
-            return ICON_PICTURE;
-        case 'teleport.png':
-            return ICON_TELEPORT;
-        case 'text.png':
-            return ICON_TEXT;
-        case 'unlocked.png':
-            return ICON_UNLOCKED;
-        case 'vertical.png':
-            return ICON_VERTICAL;
-        case 'video.png':
-            return ICON_VIDEO;
-        case 'warning.png':
-            return ICON_WARNING;
-        case 'wrench.png':
-            return ICON_WRENCH;
-        case 'writting.png':
-            return ICON_WRITING;
-        }
+ManagerManager.prototype.set_spritesheet_manager = function() {
+    function SpriteSheetManager() {
+        this.__init__();
     }
 
+    SpriteSheetManager.prototype = {
+        __init__: function() {
+            this._icons = {};
+        },
+
+        get_icon_material: function(icon) {
+            this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
+            let m = this._shader_material.get_material(this._icons[icon] / 64);
+            m.transparent = true;
+            m.needsUpdate = true;
+            return m;
+        },
+
+        get_icon_offset: function(icon) {
+            return this._icons[icon] / 64;
+        },
+
+        load_icon_sprite_sheet: function(callback) {
+            this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
+
+            // Testing something.
+            this.texture.magFilter = THREE.NearestFilter;
+            this.texture.minFilter = THREE.NearestFilter;
+            this.texture.needsUpdate = true;
+
+            //this.texture = MANAGER_TEXTURE.get_texture(SKYBOX_BACK);
+            //this.texture.dispose();
+
+            let i;
+            let frames = JSON_SPRITESHEET['frames'];
+            for (i = 0; i < frames.length; i++) {
+                this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame.x;
+            }
+
+            callback();
+        },
+
+        _get_icon_number_from_filename: function(filename) {
+            switch(filename) {
+            case 'planet.png':
+                return ICON_PLANET;
+            case 'admin.png':
+                return ICON_ADMIN;
+            case 'calendar.png':
+                return ICON_CALENDER;
+            case 'arrow.png':
+                return ICON_ARROW;
+            case 'checkmark.png':
+                return ICON_CHECKMARK;
+            case 'click.png':
+                return ICON_CLICK;
+            case 'cross.png':
+                return ICON_CROSS;
+            case 'cursor.png':
+                return ICON_CURSOR;
+            case 'delete.png':
+                return ICON_DELETE;
+            case 'disabled.png':
+                return ICON_DISABLED;
+            case 'drag.png':
+                return ICON_DRAG;
+            case 'exit.png':
+                return ICON_EXIT;
+            case 'expand.png':
+                return ICON_EXPAND;
+            case 'folder.png':
+                return ICON_FOLDER;
+            case 'gears.png':
+                return ICON_GEARS;
+            case 'home.png':
+                return ICON_HOME;
+            case 'horizontal.png':
+                return ICON_HORIZONTAL;
+            case 'locked.png':
+                return ICON_LOCKED;
+            case 'picture.png':
+                return ICON_PICTURE;
+            case 'teleport.png':
+                return ICON_TELEPORT;
+            case 'text.png':
+                return ICON_TEXT;
+            case 'unlocked.png':
+                return ICON_UNLOCKED;
+            case 'vertical.png':
+                return ICON_VERTICAL;
+            case 'video.png':
+                return ICON_VIDEO;
+            case 'warning.png':
+                return ICON_WARNING;
+            case 'wrench.png':
+                return ICON_WRENCH;
+            case 'writting.png':
+                return ICON_WRITING;
+            }
+        }
+    };
+
+    this.spritesheet_manager = new SpriteSheetManager();
 };
