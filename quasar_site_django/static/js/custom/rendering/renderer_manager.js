@@ -63,12 +63,9 @@ RendererManager.prototype = {
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
-        if (CURRENT_CLIENT.is_vr) {
-            this.renderer.vr.enabled = true;
-
-            this.vr_controller = new THREE.GearVRController();
-            //document.body.appendChild(WEBVR.createButton(this.renderer));
-        }
+        //if (CURRENT_CLIENT.has_vr) {
+        //    this.renderer.vr.enabled = true;
+        //}
 
         // TODO : DISABLE FOR CSSRENDERING
         //this.renderer.domElement.style.position = 'absolute';
@@ -135,11 +132,6 @@ RendererManager.prototype = {
             this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
         }
-
-
-        if (CURRENT_CLIENT.is_vr) {
-            MANAGER_WORLD.world_login.add_to_scene(this.vr_controller);
-        }
     },
 
     render: function(delta) {
@@ -148,13 +140,6 @@ RendererManager.prototype = {
         } else {
             this.effect_composer.render(delta);
         }
-
-        if (CURRENT_CLIENT.is_vr) {
-            let pp = CURRENT_PLAYER.get_position();
-            this.vr_controller.position.set(pp.x, pp.y, pp.z);
-            this.vr_controller.update();
-        }
-
 
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
@@ -201,16 +186,13 @@ RendererManager.prototype = {
     },
 
     toggle_fullscreen: function() {
-        if (CURRENT_CLIENT.is_vr) {
-            CURRENT_CLIENT.enter_vr_mode();
+        if (!this.currently_fullscreen) {
+            THREEx.FullScreen.request();
+            MANAGER_RENDERER.on_window_resize();
         } else {
-            if (!this.currently_fullscreen) {
-                THREEx.FullScreen.request();
-                MANAGER_RENDERER.on_window_resize();
-            } else {
-                THREEx.FullScreen.cancel();
-            }
-            this.currently_fullscreen = !this.currently_fullscreen;
+            THREEx.FullScreen.cancel();
         }
+        this.currently_fullscreen = !this.currently_fullscreen;
+
     }
 };

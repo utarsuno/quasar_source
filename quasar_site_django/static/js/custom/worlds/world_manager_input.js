@@ -6,19 +6,6 @@ function WorldManagerInput() {
     this._left_click_previous_start_time = null;
 
     this.left_click_up = function() {
-        if (CURRENT_CLIENT.is_vr) {
-            if (!CURRENT_PLAYER.is_paused()) {
-                if (this._left_click_previous_start_time === null) {
-                    this._left_click_previous_start_time = this._left_click_clock.startTime;
-                } else {
-                    if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
-                        this.right_click_down();
-                    }
-                    this._left_click_start_time_previous = this._left_click_clock.startTime;
-                }
-            }
-        }
-
         if (CURRENT_PLAYER.has_input()) {
 
             if (this.current_world.floating_cursor._currently_engaged) {
@@ -42,7 +29,7 @@ function WorldManagerInput() {
     };
 
     this.left_click_down = function() {
-        if (CURRENT_PLAYER.is_paused() || CURRENT_CLIENT.is_vr) {
+        if (CURRENT_PLAYER.is_paused()) {
             this._left_click_clock.start();
         } else if (CURRENT_PLAYER.has_input()) {
             // Cursor engage.

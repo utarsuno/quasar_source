@@ -248,13 +248,8 @@ module.exports = {
 
         "PlayerMenu"   : true,
 
-
         "CENTER_ABSOLUTE": false,
 
-        // Global GUI objects.
-        "GUI_PAUSED_MENU": true,
-        // and their class names.
-        "PausedMenu": false,
         "TypingInterface": false,
 
         "GLOBAL_FONT": false,

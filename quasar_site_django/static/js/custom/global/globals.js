@@ -34,9 +34,6 @@ var CURRENT_CLIENT = null;
 var CURRENT_PLAYER = null;
 var ENTITY_OWNER   = null;
 
-// Global gui objects.
-var GUI_PAUSED_MENU = null;
-
 /* __        __   __                          __          __        ___  __
   / _` |    /  \ |__)  /\  |       \  /  /\  |__) |  /\  |__) |    |__  /__`
   \__> |___ \__/ |__) /~~\ |___     \/  /~~\ |  \ | /~~\ |__) |___ |___ .__/ */

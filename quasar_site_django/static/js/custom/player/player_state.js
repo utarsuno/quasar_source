@@ -32,10 +32,9 @@ function PlayerState() {
             // Hide the player menu if visible.
 
             if (this.current_state === PLAYER_STATE_PAUSED) {
-                GUI_PAUSED_MENU.set_to_paused();
+                CURRENT_CLIENT.pause();
             } else {
-                // Show the paused GUI menu.
-                GUI_PAUSED_MENU.make_visible();
+                CURRENT_CLIENT.show_pause_menu();
             }
 
             if (player_state === PLAYER_STATE_PAUSED) {
@@ -60,7 +59,7 @@ function PlayerState() {
                     MANAGER_AUDIO.resume_background_music();
                 }
 
-                GUI_PAUSED_MENU.make_invisible();
+                CURRENT_CLIENT.hide_pause_menu();
                 if (!CURRENT_CLIENT.is_mobile) {
                     MANAGER_POINTER_LOCK.request_pointer_lock();
                 }

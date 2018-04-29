@@ -26,8 +26,7 @@ ManagerManager.prototype.set_loading_manager = function() {
             this._number_of_resources_loaded += 1;
             let text = int((this._number_of_resources_loaded / this._number_of_resources_to_load) * 100.0) + '%';
             let sub_text = 'loaded : ' + asset;
-            GUI_PAUSED_MENU.set_text(text);
-            GUI_PAUSED_MENU.set_sub_text(sub_text);
+            CURRENT_CLIENT.set_pause_menu_text_and_sub_text(text, sub_text);
         },
 
         /*__             __        __              ___                      __        __          __

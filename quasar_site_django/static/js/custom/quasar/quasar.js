@@ -51,7 +51,7 @@ QuasarMainLoop.prototype = {
     run: function() {
         this.current_client.add_server_message_green('Welcome to Quasar!');
 
-        if (CURRENT_CLIENT.is_vr) {
+        if (CURRENT_CLIENT.has_vr) {
             this.current_client.add_server_message_green('VR detected!');
         } else {
             this.current_client.add_server_message_red('VR not detected!');
@@ -64,14 +64,13 @@ QuasarMainLoop.prototype = {
     },
 
     quasar_main_loop: function() {
-        // Previously : requestAnimationFrame(this.quasar_main_loop.bind(this));
-
-        if (CURRENT_CLIENT.is_vr) {
+        /*if (CURRENT_CLIENT.has_vr) {
             this.manager_renderer.renderer.animate(this._main_loop);
-            //requestAnimationFrame(this._main_loop);
         } else {
             requestAnimationFrame(this._main_loop);
-        }
+        }*/
+
+        requestAnimationFrame(this._main_loop);
 
 
         if (this.current_player.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
@@ -97,10 +96,13 @@ QuasarMainLoop.prototype = {
 
 window.onload = function() {
     MANAGER_MANAGER = new ManagerManager();
-    load_all_global_managers();
-    const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
+    if (CURRENT_CLIENT.supports_webgl()) {
+        MANAGER_MANAGER.load_all_global_managers();
 
-    MANAGER_MANAGER.set_loading_manager();
-    CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
-    MANAGER_MANAGER.manager_loading.perform_initial_load(QUASAR);
+        const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
+
+        MANAGER_MANAGER.set_loading_manager();
+        CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
+        MANAGER_MANAGER.manager_loading.perform_initial_load(QUASAR);
+    }
 };
