@@ -345,9 +345,9 @@ function Attachmentable(world) {
         return false;
     };
 
-    this.get_attachment_vertical_offset = function() {
-        return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
-    };
+    //this.get_attachment_vertical_offset = function() {
+    //    return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
+    //};
 
     this.set_position_offset = function(n) {
         let normal;
@@ -385,8 +385,6 @@ function Attachmentable(world) {
             dz += normal.z * this.offset_normal_distance;
         }
         this._position_offset.set(dx, dy, dz);
-        //return this._position_offset;
-        //return [dx, dy, dz];
     };
 
     this.get_horizontal_distance_to_center = function(x, z) {
