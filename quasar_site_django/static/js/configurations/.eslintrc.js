@@ -683,9 +683,5 @@ module.exports = {
         "squared"                            : false,
         "get_nearest_power_of_two_for_number": false,
         "round_to_n_decimal_places"          : false,
-
-        // World physics functions.
-        "get_left_right_unit_vector" : false
-
     }
 };

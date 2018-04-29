@@ -69,6 +69,7 @@ Player.prototype.load_fps_controls = function() {
             this._look_at_normal      = new THREE.Vector3(0, 0, 0);
             this._horizontal_rotation = new THREE.Vector2(0, 0);
             this._walking_direction   = new THREE.Vector3(0, 0, 0);
+            this._left_right          = new THREE.Vector3(0, 0, 0);
         },
 
         set_input_manager_reference: function(input_manager) {
@@ -83,15 +84,15 @@ Player.prototype.load_fps_controls = function() {
         },
 
         fly_left: function(delta) {
-            this.velocity.x -= this.movement_speed * delta * this.left_right.x;
-            this.velocity.y -= this.movement_speed * delta * this.left_right.y;
-            this.velocity.z -= this.movement_speed * delta * this.left_right.z;
+            this.velocity.x -= this.movement_speed * delta * this._left_right.x;
+            this.velocity.y -= this.movement_speed * delta * this._left_right.y;
+            this.velocity.z -= this.movement_speed * delta * this._left_right.z;
         },
 
         fly_right: function(delta) {
-            this.velocity.x += this.movement_speed * delta * this.left_right.x;
-            this.velocity.y += this.movement_speed * delta * this.left_right.y;
-            this.velocity.z += this.movement_speed * delta * this.left_right.z;
+            this.velocity.x += this.movement_speed * delta * this._left_right.x;
+            this.velocity.y += this.movement_speed * delta * this._left_right.y;
+            this.velocity.z += this.movement_speed * delta * this._left_right.z;
         },
 
         fly_forward: function(delta) {
@@ -123,13 +124,13 @@ Player.prototype.load_fps_controls = function() {
         },
 
         move_left: function(delta) {
-            this.velocity.x += this.movement_speed * delta * this.left_right.x;
-            this.velocity.z += this.movement_speed * delta * this.left_right.z;
+            this.velocity.x += this.movement_speed * delta * this._left_right.x;
+            this.velocity.z += this.movement_speed * delta * this._left_right.z;
         },
 
         move_right: function(delta) {
-            this.velocity.x -= this.movement_speed * delta * this.left_right.x;
-            this.velocity.z -= this.movement_speed * delta * this.left_right.z;
+            this.velocity.x -= this.movement_speed * delta * this._left_right.x;
+            this.velocity.z -= this.movement_speed * delta * this._left_right.z;
         },
 
         set_mobile_movement: function(direction_vector) {
@@ -293,7 +294,9 @@ Player.prototype.load_fps_controls = function() {
 
             this.direction_vector.normalize();
 
-            this.left_right = get_left_right_unit_vector(this._walking_direction.x, this._walking_direction.z);
+            this._left_right.set(this._walking_direction.x, 0, this._walking_direction.z);
+            this._left_right.cross(UP_VECTOR);
+            this._left_right.normalize();
 
             this._previous_direction = null;
         },

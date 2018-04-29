@@ -266,7 +266,13 @@ function Attachmentable(world) {
     this.set_normal = function(x, y, z, refresh) {
         this.normal = new THREE.Vector3(x, y, z);
         this.normal.normalize();
-        this.left_right = get_left_right_unit_vector(-this.normal.x, -this.normal.z);
+
+        if (!is_defined(this.left_right)) {
+            this.left_right = new THREE.Vector3(-this.normal.x, 0, -this.normal.z);
+        }
+        this.left_right.set(-this.normal.x, 0, -this.normal.z);
+        this.left_right.cross(UP_VECTOR);
+        this.left_right.normalize();
         if (refresh) {
             this._refresh_look_at();
             this.update_all_child_attachments();
@@ -350,6 +356,45 @@ function Attachmentable(world) {
     //};
 
     this.set_position_offset = function(n) {
+        let normal;
+        if (is_defined(n)) {
+            normal = n;
+        } else {
+            normal = this.get_normal();
+        }
+        let dx = 0;
+        let dy = 0;
+        let dz = 0;
+
+        let magnitude = 0;
+        if (is_defined(this.offset_horizontal_distance)) {
+            magnitude += this.offset_horizontal_distance;
+        }
+        if (is_defined(this.offset_horizontal_parent_width_percentage)) {
+            magnitude += this.attachment_parent.width * this.offset_horizontal_parent_width_percentage;
+        }
+        let left_right = this.get_left_right();
+        dx += left_right.x * magnitude;
+        dy += left_right.y * magnitude;
+        dz += left_right.z * magnitude;
+
+        // TODO : WARNING : For now this only supports y-normals of 0.
+        if (is_defined(this.offset_vertical_distance)) {
+            dy += this.offset_vertical_distance;
+        }
+        if (is_defined(this.offset_vertical_parent_height_percentage)) {
+            dy += this.offset_vertical_parent_height_percentage * this.attachment_parent.height;
+        }
+        if (is_defined(this.offset_normal_distance)) {
+            dx += normal.x * this.offset_normal_distance;
+            dy += normal.y * this.offset_normal_distance;
+            dz += normal.z * this.offset_normal_distance;
+        }
+        this._position_offset.set(dx, dy, dz);
+    };
+
+
+    this.set_position_offsetOLD = function(n) {
         let normal;
         if (is_defined(n)) {
             normal = n;

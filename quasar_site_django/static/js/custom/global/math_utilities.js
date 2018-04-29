@@ -84,16 +84,6 @@ function get_player_blink_spot(distance) {
     return [new_position, new_normal];
 }
 
-
-// TODO : add quality assurance to make sure x and z form a 2D unit vector. (Add the check only for DEV/QA mode)
-function get_left_right_unit_vector(x, z) {
-    let left_right = new THREE.Vector3(x, 0, z);
-    left_right.cross(UP_VECTOR);
-    left_right.normalize();
-    return left_right;
-}
-
-
 function get_parametric_line_equation(position_vector, velocity_vector) {
     return [[position_vector.x, velocity_vector.x], [position_vector.y, velocity_vector.y], [position_vector.z, velocity_vector.z]];
 }
