@@ -42,7 +42,7 @@ PlayerCursor.prototype = {
 
         // TODO : TEMPORARY MEASURE.
         //this._current_cursor.set_to_invisible();
-        //this.cursor.set_to_invisible();
+        this.cursor.set_to_invisible();
     },
 
     disengage: function() {

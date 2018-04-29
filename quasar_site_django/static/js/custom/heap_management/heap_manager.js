@@ -116,6 +116,22 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    // ---------------------------------------- Text3DMaterialCache ----------------------------------------
+    function Text3DMaterialCache(args) {
+        this.__init__(args);
+    };
+    Text3DMaterialCache.prototype = {
+        __init__: function(args) {
+            this._color = args[0];
+            this._material = new THREE.MeshToonMaterial({color: this._color});
+            this._material.side = THREE.FrontSide;
+            this._material.needsUpdate = true;
+        },
+        is_match: function(args) {
+            return this._color === args[0];
+        }
+    };
+
     /*     ___       __                           __   ___  __
      |__| |__   /\  |__)     |\/|  /\  |\ |  /\  / _` |__  |__)
      |  | |___ /~~\ |        |  | /~~\ | \| /~~\ \__> |___ |  \ */
@@ -129,6 +145,11 @@ ManagerManager.prototype.set_heap_manager = function() {
             this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
             this.cached_texture_2D_canvases = new CachedObjects(Texture2DCanvasCache);
             this.cached_spritesheet_shader_materails = new CachedObjects(SpritesheetShaderMaterialCache);
+            this.cached_text_3D_material = new CachedObjects(Text3DMaterialCache);
+        },
+
+        get_text_3D_material: function(color) {
+            return this.cached_text_3D_material.get_cached_object([color])._material;
         },
 
         get_spritesheet_shader_material: function(icon, color) {

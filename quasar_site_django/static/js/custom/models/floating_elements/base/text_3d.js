@@ -14,9 +14,10 @@ function Text3D(world, size, text) {
     };
 
     this.create_base_material = function() {
-        this.material = new THREE.MeshLambertMaterial({color: this.current_foreground_color});
-        this.material.side = THREE.FrontSide;
-        this.material.needsUpdate = true;
+        this._material = MANAGER_HEAP.get_text_3D_material(this.current_foreground_color);
+        //this.material = new THREE.MeshLambertMaterial({color: this.current_foreground_color});
+        //this.material.side = THREE.FrontSide;
+        //this.material.needsUpdate = true;
     };
 
     this.create_base_mesh = function() {
@@ -26,7 +27,7 @@ function Text3D(world, size, text) {
             curveSegments: 2,
             font: GLOBAL_FONT
         });
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh = new THREE.Mesh(this.geometry, this._material);
         this._calculate_dimensions();
         this.object3D.add(this.mesh);
     };
