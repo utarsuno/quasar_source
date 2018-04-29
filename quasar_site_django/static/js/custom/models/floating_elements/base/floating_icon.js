@@ -43,7 +43,7 @@ FloatingIcon.prototype = {
     },
 
     create_base_mesh: function() {
-        let geometry = MANAGER_HEAP.get_icon_geometry(this.width, this.height);
+        let geometry = MANAGER_HEAP.get_plane_geometry(this.width, this.height);
         //this.geometry = new THREE.PlaneGeometry(this.width, this.height);
         this.mesh = new THREE.Mesh(geometry, this.material);
         this.object3D.add(this.mesh);
