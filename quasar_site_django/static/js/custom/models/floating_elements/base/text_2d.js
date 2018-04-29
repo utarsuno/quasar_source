@@ -158,6 +158,7 @@ function Text2D(world, width, height, text, cacheable) {
             this.width *= this.ratio;
         }
 
+        l(this.cacheable);
         if (is_defined(this.cacheable)) {
             if (this.cacheable) {
                 this._create_base_mesh(MANAGER_HEAP.get_text_2D_geometry(this.width, this.height, this.ratio));
