@@ -27,8 +27,8 @@ function FloatingElement(world) {
         this.is_clickable = true;
     };
 
-    this.add_label_left = function(text, cacheable) {
-        let label = new FloatingText2D(this.world, this.height, text, null, cacheable);
+    this.add_label_left = function(text, cacheable, cacheable_texture) {
+        let label = new FloatingText2D(this.world, this.height, text, null, cacheable, cacheable_texture);
         label.set_current_foreground_color(COLOR_TEXT_CONSTANT, true);
         label.is_left_attachment = true;
         this.add_floating_element([-label.width / 2, -HALF], null, 0, label);

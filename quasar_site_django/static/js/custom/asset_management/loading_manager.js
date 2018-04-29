@@ -16,10 +16,6 @@ ManagerManager.prototype.set_loading_manager = function() {
             this.asset_groups = [];
 
             this.loader_finished_callback = this.check_if_initial_resources_loaded.bind(this);
-
-            // All the asset groups to load.
-            //new TextureGroup(this, this.check_if_initial_resources_loaded.bind(this));
-            //new AudioGroup(this  , this.check_if_initial_resources_loaded.bind(this));
         },
 
         asset_loaded: function(asset) {

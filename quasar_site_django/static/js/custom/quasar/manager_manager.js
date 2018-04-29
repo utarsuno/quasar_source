@@ -72,7 +72,7 @@ ManagerManager.prototype = {
          | |\ | |__) |  |  |      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
          | | \| |    \__/  |      |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
         // Handles most I/O and sends events to needed objects.
-        MANAGER_INPUT        = new InputManager();
+        MANAGER_INPUT = new InputManager();
 
         // Give the current player a reference to the input manager.
         CURRENT_PLAYER.fps_controls.set_input_manager_reference(MANAGER_INPUT);

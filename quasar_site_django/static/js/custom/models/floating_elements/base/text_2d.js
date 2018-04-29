@@ -30,23 +30,21 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     TextAbstraction.call(this, text);
 
     this.cacheable = cacheable;
-    this.cacheable_texture = cacheable_texture;
+    if (is_defined(cacheable_texture)) {
+        this.cacheable_texture = cacheable_texture;
+    } else {
+        this.cacheable_texture = false;
+    }
 
     this.width = width;
     this.height = height;
     this.dynamic_width = false;
 
-    /*
-    if (is_defined(cacheable)) {
-        if (cacheable) {
-
-        } else {
-
-        }
-    } else {
-
-    }
-    */
+    //if (this.cacheable_texture) {
+    //    this.canvas = new CanvasTextureCached();
+    //} else {
+    //    this.canvas = new CanvasTexture();
+    //}
     this.canvas = new CanvasTexture();
 
     this.initialized = false;
@@ -129,16 +127,24 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     };
 
     this.create_base_material = function() {
+        //if (this.cacheable_texture) {
+        //    this._material = MANAGER_HEAP.get_text_2D_material(this.width, this.height, this.get_display_text());
+        //} else {
         this.material = new THREE.MeshToonMaterial({
             map : this.canvas.texture, transparent: true, side: THREE.FrontSide
         });
         this.material.transparent = true;
         this.material.side = THREE.FrontSide;
+        //}
     };
 
     this._create_base_mesh = function(geometry) {
         if (is_defined(geometry)) {
+            //if (this.cacheable_texture) {
+            //    this.mesh = new THREE.Mesh(geometry, this._material);
+            //} else {
             this.mesh = new THREE.Mesh(geometry, this.material);
+            //}
         } else {
             if (this.dynamic_width) {
                 this.geometry = new THREE.PlaneGeometry(this.width, this.height);
@@ -151,7 +157,11 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
             } else {
                 this.geometry = new THREE.PlaneGeometry(this.width, this.height);
             }
+            //if (this.cacheable_texture) {
+            //    this.mesh = new THREE.Mesh(this.geometry, this._material);
+            //} else {
             this.mesh = new THREE.Mesh(this.geometry, this.material);
+            //}
         }
         this.object3D.add(this.mesh);
     };

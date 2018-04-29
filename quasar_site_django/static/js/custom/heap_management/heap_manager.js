@@ -11,6 +11,31 @@ HeapManager.prototype = {
         this._cached_plane_geometries   = [];
         // Format [width, height, ratio, cached_geometry]
         this._cached_text_2D_geometries = [];
+        // Format [width, height, text, cached_canvas, cached_material]
+        this._cached_text_2D_textures   = [];
+    },
+
+    get_text_2D_texture: function(width, height, text) {
+
+    },
+
+    get_text_2D_material: function(width, height, text) {
+        let c;
+        let match = null;
+        for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
+            if (this._cached_text_2D_textures[c][0] === width && this._cached_text_2D_textures[c][1] === height && this._cached_text_2D_textures[c][2] === text) {
+                match = this._cached_text_2D_textures[c][4];
+                break;
+            }
+        }
+        if (match === null) {
+            let material = new THREE.MeshToonMaterial({
+                map : this.canvas.texture, transparent: true, side: THREE.FrontSide
+            });
+            material.transparent = true;
+            material.side = THREE.FrontSide;
+            this._cached_text_2D_textures.push([width, height, text, ]);
+        }
     },
 
     get_text_2D_geometry: function(width, height, ratio) {
