@@ -134,8 +134,9 @@ function FloatingWallAbstract(width, height, position, normal, world) {
         // Now create the new row.
         let floating_row = new FloatingRow(this, row_index, row_name);
         this.rows.push(floating_row);
-
-        this.auto_adjust_height_if_needed();
+        if (is_defined(this.auto_adjust_height_if_needed)) {
+            this.auto_adjust_height_if_needed();
+        }
         return floating_row;
     };
 
@@ -160,7 +161,9 @@ function FloatingWallAbstract(width, height, position, normal, world) {
             }
         }
 
-        this.auto_adjust_height_if_needed();
+        if (is_defined(this.auto_adjust_height_if_needed)) {
+            this.auto_adjust_height_if_needed();
+        }
     };
 
     this.delete_row_by_name = function(row_name) {
@@ -184,7 +187,9 @@ function FloatingWallAbstract(width, height, position, normal, world) {
             }
         }
 
-        this.auto_adjust_height_if_needed();
+        if (is_defined(this.auto_adjust_height_if_needed)) {
+            this.auto_adjust_height_if_needed();
+        }
     };
 
     /*__          __   ___  __      __   __        __
