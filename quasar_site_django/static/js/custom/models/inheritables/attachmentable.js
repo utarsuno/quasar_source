@@ -14,7 +14,6 @@ function Attachmentable(world) {
     this._position_offset = new THREE.Vector3(0, 0, 0);
     this._look_at_position = new THREE.Vector3(0, 0, 0);
 
-
     // All attachments will inherit Attachmentable.
     this.attachments = [];
 
@@ -40,7 +39,8 @@ function Attachmentable(world) {
 
     this.remove_tag = function(tag) {
         let remove_index = -1;
-        for (let t = 0; t < this.dev_tags.length; t++) {
+        let t;
+        for (t = 0; t < this.dev_tags.length; t++) {
             if (this.dev_tags[t] === tag) {
                 remove_index = t;
                 break;
@@ -50,7 +50,8 @@ function Attachmentable(world) {
     };
 
     this.has_tag = function(tag) {
-        for (let t = 0; t < this.dev_tags.length; t++) {
+        let t;
+        for (t = 0; t < this.dev_tags.length; t++) {
             if (this.dev_tags[t] === tag) {
                 return true;
             }
@@ -59,9 +60,6 @@ function Attachmentable(world) {
     };
 
     this.add_floating_wall_attachment = function(width, height, horizontal_offset, vertical_offset, depth_offset, scalable) {
-        //let temp_position = this.get_position();
-
-        //let position = new THREE.Vector3(temp_position.x, temp_position.y, temp_position.z);
         let floating_wall;
         if (is_defined(scalable)) {
             // OLD : floating_wall = new FloatingWall(width, height, position, this.get_normal(), this.world, scalable);
@@ -142,10 +140,10 @@ function Attachmentable(world) {
 
     this.detach_from_parent = function() {
         if (is_defined(this.attachment_parent)) {
-
             let remove_index = -1;
 
-            for (let a = 0; a < this.attachment_parent.attachments.length; a++) {
+            let a;
+            for (a = 0; a < this.attachment_parent.attachments.length; a++) {
                 if (this.attachment_parent.attachments[a] === this) {
                     remove_index = a;
                     break;
@@ -207,7 +205,8 @@ function Attachmentable(world) {
         if (this.scalable) {
             this.dimensions_changed();
         }
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a].scalable) {
                 this.attachments[a].dimensions_changed();
                 this.attachments[a].update_dimensions();
@@ -264,7 +263,11 @@ function Attachmentable(world) {
 
     // This function should only be called on a root element.
     this.set_normal = function(x, y, z, refresh) {
-        this.normal = new THREE.Vector3(x, y, z);
+        if (!is_defined(this.normal)) {
+            this.normal = new THREE.Vector3(x, y, z);
+        }
+        //this.normal = new THREE.Vector3(x, y, z);
+        this.normal.set(x, y, z);
         this.normal.normalize();
 
         if (!is_defined(this.left_right)) {
@@ -351,10 +354,6 @@ function Attachmentable(world) {
         return false;
     };
 
-    //this.get_attachment_vertical_offset = function() {
-    //    return [this.offset_vertical_distance, this.offset_vertical_parent_height_percentage];
-    //};
-
     this.set_position_offset = function(n) {
         let normal;
         if (is_defined(n)) {
@@ -397,11 +396,6 @@ function Attachmentable(world) {
         return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
     };
 
-    //this.get_horizontal_shift = function(distance) {
-    //    let left_right = this.get_left_right();
-    //    return new THREE.Vector3(left_right.x * distance, left_right.y * distance, left_right.z * distance);
-    //};
-
     this.get_parent_position = function() {
         return this.attachment_parent.object3D.position;
     };
@@ -434,10 +428,12 @@ function Attachmentable(world) {
 
     this._get_all_attachments_recursively = function() {
         let attachments = [];
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             attachments.push(this.attachments[a]);
             let attachments_of_this_attachment = this.attachments[a]._get_all_attachments_recursively();
-            for (let aa = 0; aa < attachments_of_this_attachment.length; aa++) {
+            let aa;
+            for (aa = 0; aa < attachments_of_this_attachment.length; aa++) {
                 attachments.push(attachments_of_this_attachment[aa]);
             }
         }

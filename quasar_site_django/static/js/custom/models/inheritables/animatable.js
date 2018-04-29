@@ -132,19 +132,19 @@ function Animatable() {
         let dx = 0;
         let dy = 0;
         let dz = 0;
-        let d;
+
+        let magnitude = 0;
         if (is_defined(this.animation_horizontal_distance)) {
-            d = this.get_horizontal_shift(this.animation_horizontal_distance);
-            dx += d.x;
-            dy += d.y;
-            dz += d.z;
+            magnitude += this.animation_horizontal_distance;
         }
         if (is_defined(this.animation_horizontal_parent_width_percentage)) {
-            d = this.get_horizontal_shift(this.attachment_parent.width * this.animation_horizontal_parent_width_percentage);
-            dx += d.x;
-            dy += d.y;
-            dz += d.z;
+            magnitude += this.attachment_parent.width * this.animation_horizontal_parent_width_percentage;
         }
+        let left_right = this.get_left_right();
+        dx += left_right.x * magnitude;
+        dy += left_right.y * magnitude;
+        dz += left_right.z * magnitude;
+
         // TODO : WARNING : For now this only supports y-normals of 0.
         if (is_defined(this.animation_vertical_distance)) {
             dy += this.animation_vertical_distance;
