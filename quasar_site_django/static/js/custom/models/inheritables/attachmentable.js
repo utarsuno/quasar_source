@@ -393,53 +393,14 @@ function Attachmentable(world) {
         this._position_offset.set(dx, dy, dz);
     };
 
-
-    this.set_position_offsetOLD = function(n) {
-        let normal;
-        if (is_defined(n)) {
-            normal = n;
-        } else {
-            normal = this.get_normal();
-        }
-        let dx = 0;
-        let dy = 0;
-        let dz = 0;
-        let d;
-        if (is_defined(this.offset_horizontal_distance)) {
-            d = this.get_horizontal_shift(this.offset_horizontal_distance);
-            dx += d.x;
-            dy += d.y;
-            dz += d.z;
-        }
-        if (is_defined(this.offset_horizontal_parent_width_percentage)) {
-            d = this.get_horizontal_shift(this.attachment_parent.width * this.offset_horizontal_parent_width_percentage);
-            dx += d.x;
-            dy += d.y;
-            dz += d.z;
-        }
-        // TODO : WARNING : For now this only supports y-normals of 0.
-        if (is_defined(this.offset_vertical_distance)) {
-            dy += this.offset_vertical_distance;
-        }
-        if (is_defined(this.offset_vertical_parent_height_percentage)) {
-            dy += this.offset_vertical_parent_height_percentage * this.attachment_parent.height;
-        }
-        if (is_defined(this.offset_normal_distance)) {
-            dx += normal.x * this.offset_normal_distance;
-            dy += normal.y * this.offset_normal_distance;
-            dz += normal.z * this.offset_normal_distance;
-        }
-        this._position_offset.set(dx, dy, dz);
-    };
-
     this.get_horizontal_distance_to_center = function(x, z) {
         return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
     };
 
-    this.get_horizontal_shift = function(distance) {
-        let left_right = this.get_left_right();
-        return new THREE.Vector3(left_right.x * distance, left_right.y * distance, left_right.z * distance);
-    };
+    //this.get_horizontal_shift = function(distance) {
+    //    let left_right = this.get_left_right();
+    //    return new THREE.Vector3(left_right.x * distance, left_right.y * distance, left_right.z * distance);
+    //};
 
     this.get_parent_position = function() {
         return this.attachment_parent.object3D.position;
