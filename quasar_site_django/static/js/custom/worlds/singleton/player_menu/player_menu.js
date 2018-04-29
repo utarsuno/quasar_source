@@ -109,9 +109,9 @@ PlayerMenu.prototype = {
         section = this.menu_main.add_section();
         section.add_button_for_sub_menu(this.menu_create);
         section.add_button_for_sub_menu(this.menu_teleport);
-        section.add_button('fullscreen', ICON_EXPAND, this.action_fullscreen);
+        section.add_button('fullscreen', ICON_EXPAND, this.action_fullscreen.bind(this));
         section.add_button_for_sub_menu(this.menu_debug);
-        section.add_button('logout', ICON_EXIT, this.action_logout);
+        section.add_button('logout', ICON_EXIT, this.action_logout.bind(this));
         this.menu_main.menu.force_hide_self_and_all_child_attachments_recursively();
     },
 
@@ -119,12 +119,12 @@ PlayerMenu.prototype = {
         this.menu_create.create(world);
         let section;
         section = this.menu_create.add_section('Create a...');
-        section.add_button('new world'    , ICON_PLANET  , this.action_create_new_dynamic_world);
-        section.add_button('month view'   , ICON_CALENDER, this.action_create_new_month_view);
-        section.add_button('text'         , ICON_TEXT    , this.action_create_new_floating_text);
-        section.add_button('entity group' , ICON_FOLDER  , this.action_create_new_entity_group);
-        section.add_button('picture'      , ICON_PICTURE , this.action_create_new_picture);
-        section.add_button('YouTube video', ICON_VIDEO   , this.action_create_new_video);
+        section.add_button('new world'    , ICON_PLANET  , this.action_create_new_dynamic_world.bind(this));
+        section.add_button('month view'   , ICON_CALENDER, this.action_create_new_month_view.bind(this));
+        section.add_button('text'         , ICON_TEXT    , this.action_create_new_floating_text.bind(this));
+        section.add_button('entity group' , ICON_FOLDER  , this.action_create_new_entity_group.bind(this));
+        section.add_button('picture'      , ICON_PICTURE , this.action_create_new_picture.bind(this));
+        section.add_button('YouTube video', ICON_VIDEO   , this.action_create_new_video.bind(this));
         this.menu_create.menu.force_hide_self_and_all_child_attachments_recursively();
     },
 
@@ -132,9 +132,9 @@ PlayerMenu.prototype = {
         this.menu_debug.create(world);
         let section;
         section = this.menu_debug.add_section();
-        section.add_button('none', ICON_TEXT, this.action_set_debug_to_none);
-        section.add_button('fps', ICON_TEXT, this.action_set_debug_to_fps);
-        section.add_button('full', ICON_TEXT, this.action_set_debug_to_full);
+        section.add_button('none', ICON_TEXT, this.action_set_debug_to_none.bind(this));
+        section.add_button('fps', ICON_TEXT, this.action_set_debug_to_fps.bind(this));
+        section.add_button('full', ICON_TEXT, this.action_set_debug_to_full.bind(this));
         this.menu_debug.menu.force_hide_self_and_all_child_attachments_recursively();
     },
 

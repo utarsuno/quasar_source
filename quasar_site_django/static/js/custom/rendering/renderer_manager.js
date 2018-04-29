@@ -81,8 +81,6 @@ RendererManager.prototype = {
 
         window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
-        this.currently_fullscreen = false;
-
         // Inherit.
         WorldTransition.call(this);
     },
@@ -177,18 +175,5 @@ RendererManager.prototype = {
 
     get_warning_message: function () {
         return this.warning_message;
-    },
-
-    toggle_fullscreen: function() {
-        CURRENT_CLIENT.toggle_fullscreen();
-        /*
-        if (!this.currently_fullscreen) {
-            THREEx.FullScreen.request();
-            MANAGER_RENDERER.on_window_resize();
-        } else {
-            THREEx.FullScreen.cancel();
-        }
-        this.currently_fullscreen = !this.currently_fullscreen;
-        */
     }
 };
