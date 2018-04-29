@@ -126,7 +126,7 @@ Client.prototype = {
     },
 
     request_pointer_lock: function() {
-        this._document_body.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
+        this._document_body.requestPointerLock = this._document_body.requestPointerLock || this._document_body.mozRequestPointerLock || this._document_body.webkitRequestPointerLock;
         this._document_body.requestPointerLock();
     },
 
