@@ -31,8 +31,6 @@ module.exports = {
     },
     "globals": {
 
-        "load_all_global_managers": false,
-
         "OutlineGlow": false,
         "FilmNoise"  : false,
 
@@ -46,22 +44,19 @@ module.exports = {
         "EntityChangesSubscriber": false,
         "EntityChangesListener"  : false,
 
-        "THREEx": false,
-        "THREE": false,
-        "Stats": false,
-        "Detector": true,
-        "StatsAPI": true,
-        "PointerLockAPI": true,
-        "CSSRendererAPI": true,
-        "FPSControls": true,
-        "ShaderAPI": true,
+        "THREE"          : false,
+        "StatsAPI"       : true,
+        "CSSRendererAPI" : true,
+        "FPSControls"    : true,
+        "ShaderAPI"      : true,
         "WebSocketClient": false,
 
-        "FloatingVideo"  : true,
-        "FloatingRow"    : true,
-        "FloatingWall"   : true,
-        "FloatingText"   : true,
-        "FloatingPicture": true,
+        "FloatingVideo"   : true,
+        "FloatingRow"     : true,
+        "FakeFloatingWall": true,
+        "FloatingWall"    : true,
+        "FloatingText"    : true,
+        "FloatingPicture" : true,
 
         "KeyboardModel": false,
         "ButtonModel"  : false,
@@ -478,13 +473,6 @@ module.exports = {
         "COLOR_FLOATING_WALL_ERROR"    : false,
         "COLOR_TRANSPARENT"            : false,
         "COLOR_SEMI_TRANSPARENT"       : false,
-        "COLOR_MONDAY"                 : false,
-        "COLOR_TUESDAY"                : false,
-        "COLOR_WEDNESDAY"              : false,
-        "COLOR_THURSDAY"               : false,
-        "COLOR_FRIDAY"                 : false,
-        "COLOR_SATURDAY"               : false,
-        "COLOR_SUNDAY"                 : false,
         // UNIVERSAL_CONSTANTS_END
 
         // Keycodes.

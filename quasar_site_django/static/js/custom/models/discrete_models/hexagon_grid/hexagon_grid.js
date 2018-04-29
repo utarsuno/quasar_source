@@ -14,13 +14,8 @@ HexagonGrid.prototype = {
     },
 
     create: function() {
-        this.hexagon_geometry = new THREE.CircleGeometry(64, 6);
         this.single_geometry = new THREE.Geometry();
         this.materails = [];
-
-        let h = 55.42562484741211;
-
-        let w_distance = Math.sqrt(3 * h * h);
 
         this._create_tile(0, 0, 0);
         let tile = 1;

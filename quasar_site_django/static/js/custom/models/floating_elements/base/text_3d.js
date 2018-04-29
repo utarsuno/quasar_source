@@ -18,9 +18,6 @@ function Text3D(world, size, text) {
 
     this.create_base_material = function() {
         this._material = MANAGER_HEAP.get_text_3D_material(this.current_foreground_color);
-        //this.material = new THREE.MeshLambertMaterial({color: this.current_foreground_color});
-        //this.material.side = THREE.FrontSide;
-        //this.material.needsUpdate = true;
     };
 
     this.create_base_mesh = function() {

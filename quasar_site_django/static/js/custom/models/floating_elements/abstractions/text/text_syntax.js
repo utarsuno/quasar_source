@@ -1,9 +1,9 @@
 'use strict';
 
-const TEXT_SYNTAX_EMAIL           = 1;
-const TEXT_SYNTAX_PASSWORD        = 2;
-const TEXT_SYNTAX_REPEAT_PASSWORD = 3;
-const TEXT_SYNTAX_USERNAME        = 4;
+const TEXT_SYNTAX_EMAIL           = 1; // #pre-process_global_constant
+const TEXT_SYNTAX_PASSWORD        = 2; // #pre-process_global_constant
+const TEXT_SYNTAX_REPEAT_PASSWORD = 3; // #pre-process_global_constant
+const TEXT_SYNTAX_USERNAME        = 4; // #pre-process_global_constant
 
 function TextSyntax(syntax_type, error_message) {
     this.text_syntax_type = syntax_type;
