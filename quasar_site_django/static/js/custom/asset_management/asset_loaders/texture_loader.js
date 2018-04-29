@@ -32,6 +32,9 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
 
         get_asset_path_name: function(asset) {
             l('getting texture name for :' + asset);
+            if (asset === SPRITESHEET_ICONS) {
+                l('NEED TO RETURN VALUE');
+            }
             switch(asset) {
             case SPRITESHEET_ICONS:
                 return 'spritesheet/i.png';
