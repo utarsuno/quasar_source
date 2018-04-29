@@ -89,10 +89,10 @@ ManagerManager.prototype = {
         MANAGER_AUDIO       = this.audio_manager;
         MANAGER_SHADER      = this.shader_manger;
 
-        // Handles images that get dropped onto the site page.
         //var DRAG_AND_DROP = new DragNDrop();
 
-        MANAGER_HEAP     = new HeapManager();
+        this.set_heap_manager();
+        MANAGER_HEAP = this.heap_manager;
 
         /*     __   __        __                           __   ___  __   __
          |  | /  \ |__) |    |  \     |\/|  /\  |\ |  /\  / _` |__  |__) /__`
