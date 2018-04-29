@@ -41,11 +41,13 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
         for (asset in this._assets) {
             if (this._assets.hasOwnProperty(asset)) {
 
+                let asset_full_name = this.get_asset_path_name(asset);
+
                 let loader = new this.loader_class();
-                loader.load(this._asset_base_url + asset,
+                loader.load(this._asset_base_url + asset_full_name,
 
                     function(asset_name) {
-                        this.send_asset_to(asset_name, arguments[1]);
+                        this.send_asset_to(asset, arguments[1]);
                         this._asset_loaded(asset_name);
                     }.bind(this, asset),
 

@@ -1,13 +1,13 @@
 'use strict';
 
-const SPRITESHEET_ICONS = 'spritesheet/i.png'; // #pre-process_global_constant
-const TRANSITION_GRID   = 'third_party/t.png'; // #pre-process_global_constant
-const SKYBOX_FRONT      = 'skybox/f.jpg';      // #pre-process_global_constant
-const SKYBOX_BACK       = 'skybox/ba.jpg';     // #pre-process_global_constant
-const SKYBOX_LEFT       = 'skybox/l.jpg';      // #pre-process_global_constant
-const SKYBOX_RIGHT      = 'skybox/r.jpg';      // #pre-process_global_constant
-const SKYBOX_TOP        = 'skybox/t.jpg';      // #pre-process_global_constant
-const SKYBOX_BOTTOM     = 'skybox/bo.jpg';     // #pre-process_global_constant
+const SPRITESHEET_ICONS = 1; // #pre-process_global_constant
+const TRANSITION_GRID   = 2; // #pre-process_global_constant
+const SKYBOX_FRONT      = 3; // #pre-process_global_constant
+const SKYBOX_BACK       = 4; // #pre-process_global_constant
+const SKYBOX_LEFT       = 5; // #pre-process_global_constant
+const SKYBOX_RIGHT      = 6; // #pre-process_global_constant
+const SKYBOX_TOP        = 7; // #pre-process_global_constant
+const SKYBOX_BOTTOM     = 8; // #pre-process_global_constant
 
 function TextureManager() {
     this.__init__();

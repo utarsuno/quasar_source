@@ -9,7 +9,6 @@ ManagerManager.prototype.set_audio_loader = function(loading_manager) {
 
         __init__: function(loading_manager) {
             // Inherit.
-            //AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
             ManagerManager.prototype.AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager);
 
             this.loader_class = THREE.AudioLoader;
@@ -30,6 +29,29 @@ ManagerManager.prototype.set_audio_loader = function(loading_manager) {
             this._add_required_initial_asset(AUDIO_SOUND_CHECKBOX);
             this._add_required_initial_asset(AUDIO_MUSIC_BACKGROUND);
             callback();
+        },
+
+        get_asset_path_name: function(asset) {
+            switch(asset) {
+            case AUDIO_SOUND_TYPING:
+                return 'typing_sound.ogg';
+            case AUDIO_SOUND_TRANSITION:
+                return 'transition.ogg';
+            case AUDIO_SOUND_ERROR:
+                return 'error.ogg';
+            case AUDIO_SOUND_ON_DISENGAGE:
+                return 'on_disengage.ogg';
+            case AUDIO_SOUND_ON_ENGAGE:
+                return 'on_engage.ogg';
+            case AUDIO_SOUND_ON_HOVER:
+                return 'on_hover.ogg';
+            case AUDIO_SOUND_SUCCESS:
+                return 'success.ogg';
+            case AUDIO_SOUND_CHECKBOX:
+                return 'checkbox_toggle.ogg';
+            case AUDIO_MUSIC_BACKGROUND:
+                return 'background_music.ogg';
+            }
         }
     };
 

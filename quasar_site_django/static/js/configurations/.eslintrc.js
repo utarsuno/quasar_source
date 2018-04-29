@@ -394,21 +394,8 @@ module.exports = {
         // Textures.
         "ASSET_GROUP_AUDIO"  : false,
         "ASSET_GROUP_TEXTURE": false,
-        "ASSET_GROUP_SHADER" : false,
-
-        "TEXTURE_GROUP_SKYBOX"    : true,
-        "TEXTURE_GROUP_CURSOR"    : true,
-        "TEXTURE_GROUP_ICONS"     : true,
-        "TEXTURE_GROUP_TRANSITION": true,
 
         "TRANSITION_GRID": true,
-
-        "CURSOR_TYPE_HORIZONTAL": true,
-        "CURSOR_TYPE_VERTICAL"  : true,
-        "CURSOR_TYPE_LARGER"    : true,
-        "CURSOR_TYPE_HAND"      : true,
-        "CURSOR_TYPE_POINTER"   : true,
-        "CURSOR_TYPE_MOUSE"     : true,
 
         "SKYBOX_FRONT" : true,
         "SKYBOX_BACK"  : true,
@@ -416,6 +403,8 @@ module.exports = {
         "SKYBOX_RIGHT" : true,
         "SKYBOX_TOP"   : true,
         "SKYBOX_BOTTOM": true,
+
+        "SPRITESHEET_ICONS": false,
 
         "ICON_STAR"         : false,
         "ICON_EXIT"         : false,

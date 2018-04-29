@@ -9,7 +9,6 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
 
         __init__: function(loading_manager) {
             // Inherit.
-            //AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
             ManagerManager.prototype.AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE, loading_manager);
 
             this.loader_class  = THREE.TextureLoader;
@@ -29,6 +28,27 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
             this._add_required_initial_asset(TRANSITION_GRID);
             this._add_required_initial_asset(SPRITESHEET_ICONS);
             callback();
+        },
+
+        get_asset_path_name: function(asset) {
+            switch(asset) {
+            case SPRITESHEET_ICONS:
+                return 'spritesheet/i.png';
+            case TRANSITION_GRID:
+                return 'third_party/t.png';
+            case SKYBOX_FRONT:
+                return 'skybox/fo.png';
+            case SKYBOX_BACK:
+                return 'skybox/b.png';
+            case SKYBOX_LEFT:
+                return 'skybox/l.png';
+            case SKYBOX_RIGHT:
+                return 'skybox/r.png';
+            case SKYBOX_TOP:
+                return 'skybox/t.png';
+            case SKYBOX_BOTTOM:
+                return 'skybox/bo.png';
+            }
         }
     };
 
