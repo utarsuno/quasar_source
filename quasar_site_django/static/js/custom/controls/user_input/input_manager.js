@@ -255,6 +255,7 @@ InputManager.prototype = {
             MANAGER_WORLD.left_click_up();
             break;
         case this.CLICK_MIDDLE:
+            l('Middle click up!');
             MANAGER_WORLD.middle_click_up();
             this.click_down_middle = false;
             break;
@@ -275,6 +276,8 @@ InputManager.prototype = {
             this.click_down_left = true;
             break;
         case this.CLICK_MIDDLE:
+            l('Middle click down!');
+            MANAGER_WORLD.middle_click_down();
             this.click_down_middle = true;
             break;
         case this.CLICK_RIGHT:
