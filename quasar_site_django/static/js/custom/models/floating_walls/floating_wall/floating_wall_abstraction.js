@@ -13,6 +13,9 @@ function FloatingWallAbstract(width, height, position, normal, world) {
     this._first_tab_target    = null;
     this._previous_tab_target = null;
 
+    // Inherit from Visibility.
+    Visibility.call(this);
+
     if (is_defined(normal)) {
         this.set_normal(normal.x, normal.y, normal.z, false);
     }

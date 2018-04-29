@@ -22,8 +22,6 @@ FloatingWall.prototype = {
 
         // Inherit from Interactive.
         Interactive.call(this);
-        // Inherit from Visibility.
-        Visibility.call(this);
 
         this.scalable = scalable;
         if (!is_defined(this.scalable)) {
