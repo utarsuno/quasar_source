@@ -1,14 +1,14 @@
 'use strict';
 
-function FloatingButton(world, width, text_height, text, engage_function) {
-    this.__init__(world, width, text_height, text, engage_function);
+function FloatingButton(world, width, text_height, text, engage_function, cacheable) {
+    this.__init__(world, width, text_height, text, engage_function, cacheable);
 }
 
 FloatingButton.prototype = {
 
-    __init__: function(world, width, text_height, text, engage_function) {
+    __init__: function(world, width, text_height, text, engage_function, cacheable) {
         // Inherit.
-        Text2D.call(this, world, width, text_height, text);
+        Text2D.call(this, world, width, text_height, text, cacheable);
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
         this.set_text_property_centered(true);
 

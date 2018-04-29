@@ -110,6 +110,8 @@ function Text2D(world, width, height, text, cacheable) {
             this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
             this.dynamic_width        = true;
             this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));
+        } else {
+            this.ratio = 1;
         }
     };
 
@@ -158,7 +160,6 @@ function Text2D(world, width, height, text, cacheable) {
             this.width *= this.ratio;
         }
 
-        l(this.cacheable);
         if (is_defined(this.cacheable)) {
             if (this.cacheable) {
                 this._create_base_mesh(MANAGER_HEAP.get_text_2D_geometry(this.width, this.height, this.ratio));

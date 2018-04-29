@@ -50,8 +50,8 @@ FloatingRow.prototype = {
         return this.parent_wall.width * (x_params[1] - x_params[0]);
     },
 
-    add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color) {
-        let floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function);
+    add_button: function(x_params, text_height, text, engage_function, foreground_color, background_color, cacheable) {
+        let floating_button = new FloatingButton(this.world, this._get_width_needed(x_params), text_height, text, engage_function, cacheable);
         this._set_tab_target(floating_button);
         return this._add_element(x_params, floating_button, foreground_color, background_color);
     },
