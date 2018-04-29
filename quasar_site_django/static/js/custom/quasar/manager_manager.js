@@ -1,18 +1,18 @@
 'use strict';
 
 // Global managers.
-var MANAGER_HEAP         = null;
-var MANAGER_SPRITESHEET  = null;
-var MANAGER_MANAGER      = null;
-var MANAGER_WEB_SOCKETS  = null;
-var MANAGER_AUDIO        = null;
-var MANAGER_TEXTURE      = null;
-var MANAGER_WORLD        = null;
-var MANAGER_ENTITY       = null;
+let MANAGER_HEAP         = null;
+let MANAGER_SPRITESHEET  = null;
+let MANAGER_MANAGER      = null;
+let MANAGER_WEB_SOCKETS  = null;
+let MANAGER_AUDIO        = null;
+let MANAGER_TEXTURE      = null;
+let MANAGER_WORLD        = null;
+let MANAGER_ENTITY       = null;
 //var MANAGER_MULTIPLAYER  = null;
-var MANAGER_SHADER       = null;
-var MANAGER_RENDERER     = null;
-var MANAGER_INPUT        = null;
+let MANAGER_SHADER       = null;
+let MANAGER_RENDERER     = null;
+let MANAGER_INPUT        = null;
 
 function ManagerManager() {
     this.__init__();
