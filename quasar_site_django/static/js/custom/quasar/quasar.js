@@ -100,7 +100,7 @@ window.onload = function() {
     load_all_global_managers();
     const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
 
-    let manager_loading = MANAGER_MANAGER.get_loading_manager();
+    MANAGER_MANAGER.set_loading_manager();
     CURRENT_PLAYER.set_state(PLAYER_STATE_LOADING);
-    manager_loading.perform_initial_load(QUASAR);
+    MANAGER_MANAGER.manager_loading.perform_initial_load(QUASAR);
 };

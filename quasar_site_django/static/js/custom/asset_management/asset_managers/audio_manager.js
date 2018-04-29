@@ -32,7 +32,7 @@ AudioManager.prototype = {
 
     // Important reference : https://imgur.com/gallery/J6WA6eo
     get_true_audio_level: function(audio_percentage) {
-        return pow(audio_percentage, Math.E);
+        return Math.pow(audio_percentage, Math.E);
     },
 
     play_typing_sound: function() {

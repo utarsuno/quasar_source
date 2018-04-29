@@ -346,7 +346,8 @@ function Attachmentable(world) {
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.has_attachment = function(attachment) {
-        for (let a = 0; a < this.attachments.length; a++) {
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
             if (this.attachments[a] === attachment) {
                 return true;
             }
@@ -393,7 +394,8 @@ function Attachmentable(world) {
     };
 
     this.get_horizontal_distance_to_center = function(x, z) {
-        return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
+        return Math.sqrt((x - this.object3D.position.x) * (x - this.object3D.position.x) + (z - this.object3D.position.z) * (z - this.object3D.position.z));
+        //return sqrt(squared(x - this.object3D.position.x) + squared(z - this.object3D.position.z));
     };
 
     this.get_parent_position = function() {

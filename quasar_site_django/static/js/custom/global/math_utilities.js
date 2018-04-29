@@ -3,7 +3,6 @@
 /*    ___          ___         __   __        __  ___           ___  __
  |  |  |  | |    |  |  \ /    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
  \__/  |  | |___ |  |   |     \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
-const GROUND_NORMAL    = new THREE.Vector3(0, 1, 0);
 const DIAGONAL_PENALTY = 0.7071067811865476; // #pre-process_global_constant
 const ONE_FOURTH       = 0.25;               // #pre-process_global_constant
 const ONE_THIRD        = 0.3333333333333333; // #pre-process_global_constant
@@ -23,26 +22,6 @@ const UP_VECTOR = new THREE.Vector3(0, 1, 0);
 /*    ___          ___         ___            __  ___    __        __
  |  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  \__/  |  | |___ |  |   |     |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-function pow(n, p) {
-    return Math.pow(n, p);
-}
-
-function cos(n) {
-    return Math.cos(n);
-}
-
-function sin(n) {
-    return Math.sin(n);
-}
-
-function sqrt(n) {
-    return Math.sqrt(n);
-}
-
-function squared(n) {
-    return n * n;
-}
-
 function round_to_n_decimal_places(text, n) {
     return Number(text).toFixed(n);
 }
@@ -76,6 +55,7 @@ function get_next_highest_power_of_two(n) {
 /*__            __     __   __      ___            __  ___    __        __
  |__) |__| \ / /__` | /  ` /__`    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  |    |  |  |  .__/ | \__, .__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+// OPTIMIZE!
 function get_player_blink_spot(distance) {
     let player_position = CURRENT_PLAYER.get_position();
     let player_normal   = CURRENT_PLAYER.get_direction();
@@ -119,6 +99,7 @@ function _calculate_t_value(line_parametric_equation, plane_parametric_equation)
     return (plane_d - plane_nx * line_x0 - plane_ny * line_y0 - plane_nz * line_z0) / (plane_nx * line_nx + plane_ny * line_ny + plane_nz * line_nz);
 }
 
+// OPTIMIZE!
 function get_line_intersection_on_infinite_plane(line_parametric_equation, plane_parametric_equation) {
     let t = _calculate_t_value(line_parametric_equation, plane_parametric_equation);
     return [line_parametric_equation[0][0] + line_parametric_equation[0][1] * t,

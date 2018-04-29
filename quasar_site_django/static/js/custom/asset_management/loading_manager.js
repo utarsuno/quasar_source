@@ -3,7 +3,7 @@
 // Needed for the file loader to work (for shaders). TODO : Add better documentation.
 THREE.Cache.enabled = true;
 
-ManagerManager.prototype.get_loading_manager = function() {
+ManagerManager.prototype.set_loading_manager = function() {
     function LoadingManager() {
         this.__init__();
     }
@@ -60,5 +60,4 @@ ManagerManager.prototype.get_loading_manager = function() {
     };
 
     this.manager_loading = new LoadingManager();
-    return this.manager_loading;
 };

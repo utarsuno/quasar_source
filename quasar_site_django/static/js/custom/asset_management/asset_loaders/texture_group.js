@@ -10,7 +10,8 @@ TextureGroup.prototype = {
         this._texture_group = texture_group;
 
         // Inherit.
-        AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
+        //AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
+        ManagerManager.prototype.AssetLoaderGroup.call(this, ASSET_GROUP_TEXTURE + this._texture_group, loading_manager, fully_loaded_callback);
 
         this.loader_class  = THREE.TextureLoader;
         this.send_asset_to = MANAGER_TEXTURE.set_texture;

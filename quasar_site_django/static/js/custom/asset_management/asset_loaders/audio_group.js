@@ -8,7 +8,8 @@ AudioGroup.prototype = {
 
     __init__: function(loading_manager, fully_loaded_callback) {
         // Inherit.
-        AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
+        //AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
+        ManagerManager.prototype.AssetLoaderGroup.call(this, ASSET_GROUP_AUDIO, loading_manager, fully_loaded_callback);
 
         this.loader_class = THREE.AudioLoader;
         this.send_asset_to = MANAGER_AUDIO.set_audio;

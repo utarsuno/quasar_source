@@ -38,8 +38,8 @@ DayView.prototype = {
     },
 
     create: function() {
-        var x_position = cos(this.row_index * TWO_PIE) * POSITION_RADIUS;
-        var z_position = sin(this.row_index * TWO_PIE) * POSITION_RADIUS;
+        var x_position = Math.cos(this.row_index * TWO_PIE) * POSITION_RADIUS;
+        var z_position = Math.sin(this.row_index * TWO_PIE) * POSITION_RADIUS;
         var y_position = this.row * HEIGHT + 180 * this.row - 750;
         var position = new THREE.Vector3(x_position, y_position, z_position);
         var normal = new THREE.Vector3(-x_position, 0, -z_position);
