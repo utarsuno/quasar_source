@@ -40,7 +40,7 @@ TextureManager.prototype = {
     },
 
     _set_texture: function(texture_name, texture) {
-        this.textures[texture_name] = texture;
+        this.textures[texture_name - 1] = texture;
     },
 
     set_texture: function(texture_name, texture) {
