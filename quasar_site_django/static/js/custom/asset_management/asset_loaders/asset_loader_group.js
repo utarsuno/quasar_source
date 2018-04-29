@@ -30,9 +30,9 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
             loader.load(this._asset_base_url + asset_full_name,
 
                 function(asset) {
-                    this.send_asset_to(a, asset);
+                    this.send_asset_to(asset, arguments[1]);
                     this._asset_loaded(asset_full_name);
-                }.bind(this),
+                }.bind(this, a),
 
                 function(xhr) {
                     // On success load.
@@ -42,7 +42,7 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
                     l('Error loading asset : ' + asset_full_name);
                     l('Error was :');
                     l(xhr);
-                }.bind(this)
+                }.bind(this, a)
 
             );
             a += 1;
