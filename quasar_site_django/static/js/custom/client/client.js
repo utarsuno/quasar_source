@@ -141,6 +141,7 @@ Client.prototype = {
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
             this.pointer_is_locked = false;
         } else {
+            l('not locked?');
             this.pointer_is_locked = true;
         }
     },
