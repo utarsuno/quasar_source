@@ -76,7 +76,7 @@ ManagerManager.prototype.set_heap_manager = function() {
             this._canvas.set_dimensions(this.width, this.height);
             this._canvas.initialize();
 
-            this._canvas.update(this._background_color, this._foreground_color, this.get_display_text());
+            this._canvas.update(this._background_color, this._foreground_color, this._text);
 
             this._material = new THREE.MeshToonMaterial({
                 map : this._canvas.texture, transparent: true, side: THREE.FrontSide
