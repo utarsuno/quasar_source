@@ -16,18 +16,19 @@ FloatingIcon.prototype = {
 
         if (is_defined(cache)) {
             this.cached = cache;
+            this.set_foreground_color(foreground_color);
         } else {
             this.cached = false;
-        }
-
-        if (is_defined(foreground_color)) {
-            this.set_foreground_color(foreground_color);
         }
 
         this._current_icon = icon_type;
 
         this.create_base_material();
         this.create_base_mesh();
+
+        if (is_defined(foreground_color)) {
+            this.set_foreground_color(foreground_color);
+        }
     },
 
     switch_icon: function(icon) {
