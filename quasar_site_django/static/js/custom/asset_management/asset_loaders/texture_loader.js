@@ -28,17 +28,17 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
             case TRANSITION_GRID:
                 return 'third_party/t.png';
             case SKYBOX_FRONT:
-                return 'skybox/f.png';
+                return 'skybox/f.jpg';
             case SKYBOX_BACK:
-                return 'skybox/ba.png';
+                return 'skybox/ba.jpg';
             case SKYBOX_LEFT:
-                return 'skybox/l.png';
+                return 'skybox/l.jpg';
             case SKYBOX_RIGHT:
-                return 'skybox/r.png';
+                return 'skybox/r.jpg';
             case SKYBOX_TOP:
-                return 'skybox/t.png';
+                return 'skybox/t.jpg';
             case SKYBOX_BOTTOM:
-                return 'skybox/bo.png';
+                return 'skybox/bo.jpg';
             }
         }
     };
