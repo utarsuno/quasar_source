@@ -145,7 +145,7 @@ Client.prototype = {
 
     pointer_lock_error: function(e) {
         if (!CURRENT_CLIENT.is_mobile) {
-            raise_exception_with_full_logging('Pointer lock error!');
+            raise_exception_with_full_logging('Pointer lock error {' + e + '}!');
         }
     },
 

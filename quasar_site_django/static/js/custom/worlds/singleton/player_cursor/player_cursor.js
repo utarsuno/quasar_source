@@ -41,14 +41,16 @@ PlayerCursor.prototype = {
         this._horizontal_distance_to_player = this.currently_attached_to.get_horizontal_distance_to_center(pp.x, pp.z);
 
         // TODO : TEMPORARY MEASURE.
-        this._current_cursor.set_to_invisible();
+        //this._current_cursor.set_to_invisible();
+        this.cursor.set_to_invisible();
     },
 
     disengage: function() {
         this._currently_engaged = false;
 
         // TODO : TEMPORARY MEASURE.
-        this._current_cursor.set_to_visible();
+        //this._current_cursor.set_to_visible();
+        this.cursor.set_to_visible();
 
         let plane_current_position = this.currently_attached_to.get_position();
         let player_parametric_equation = get_parametric_line_equation(CURRENT_PLAYER.get_position(), CURRENT_PLAYER.get_direction());
