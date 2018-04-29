@@ -1,5 +1,19 @@
 'use strict';
 
+// Global managers.
+var MANAGER_HEAP         = null;
+var MANAGER_SPRITESHEET  = null;
+var MANAGER_MANAGER      = null;
+var MANAGER_WEB_SOCKETS  = null;
+var MANAGER_AUDIO        = null;
+var MANAGER_TEXTURE      = null;
+var MANAGER_WORLD        = null;
+var MANAGER_ENTITY       = null;
+//var MANAGER_MULTIPLAYER  = null;
+var MANAGER_SHADER       = null;
+var MANAGER_RENDERER     = null;
+var MANAGER_INPUT        = null;
+
 function ManagerManager() {
     this.__init__();
 }
@@ -63,12 +77,14 @@ ManagerManager.prototype = {
         /*__   ___  __   __        __   __   ___                          __   ___  __   __
          |__) |__  /__` /  \ |  | |__) /  ` |__      |\/|  /\  |\ |  /\  / _` |__  |__) /__`
          |  \ |___ .__/ \__/ \__/ |  \ \__, |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/ */
-        MANAGER_AUDIO     = new AudioManager();
-        MANAGER_SHADER    = new ShaderManager();
-        MANAGER_TEXTURE   = new TextureManager();
-
         this.set_spritesheet_manager();
+        this.set_texture_manager();
+        this.set_audio_manager();
+        this.set_shader_manager();
         MANAGER_SPRITESHEET = this.spritesheet_manager;
+        MANAGER_TEXTURE     = this.texture_manager;
+        MANAGER_AUDIO       = this.audio_manager;
+        MANAGER_SHADER      = this.shader_manger;
 
         // Handles images that get dropped onto the site page.
         //var DRAG_AND_DROP = new DragNDrop();

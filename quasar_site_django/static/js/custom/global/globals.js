@@ -13,20 +13,6 @@ function is_defined(object) {
   / _` |    /  \ |__)  /\  |       /  \ |__)    | |__  /  `  |  /__`    .
   \__> |___ \__/ |__) /~~\ |___    \__/ |__) \__/ |___ \__,  |  .__/    .*/
 
-// Global managers.
-var MANAGER_HEAP         = null;
-var MANAGER_SPRITESHEET  = null;
-var MANAGER_MANAGER      = null;
-var MANAGER_WEB_SOCKETS  = null;
-var MANAGER_AUDIO        = null;
-var MANAGER_TEXTURE      = null;
-var MANAGER_WORLD        = null;
-var MANAGER_ENTITY       = null;
-//var MANAGER_MULTIPLAYER  = null;
-var MANAGER_SHADER       = null;
-var MANAGER_RENDERER     = null;
-var MANAGER_INPUT        = null;
-
 // Global objects.
 var CURRENT_CLIENT = null;
 var CURRENT_PLAYER = null;
