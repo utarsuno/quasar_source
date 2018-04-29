@@ -21,7 +21,6 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
          | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`    |__) |__  /  \ |  | | |__) |__  |  \
          | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/    |  \ |___ \__X \__/ | |  \ |___ |__/ */
         get_asset_path_name: function(asset) {
-            l(asset);
             switch(asset) {
             case SPRITESHEET_ICONS:
                 return 'spritesheet/i.png';
