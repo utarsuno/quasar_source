@@ -135,6 +135,7 @@ Client.prototype = {
     },
 
     pointer_lock_change: function () {
+        l('Pointer lock changed!');
         if (document.pointerLockElement !== this.element && document.mozPointerLockElement !== this.element && document.webkitPointerLockElement !== this.element) {
             l('PUT PLAYER TO PAUSE!');
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
