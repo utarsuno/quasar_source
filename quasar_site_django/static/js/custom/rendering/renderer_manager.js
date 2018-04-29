@@ -19,13 +19,7 @@ RendererManager.prototype = {
 
     __init__: function(current_client) {
         this.current_client = current_client;
-        this.webgl_enabled = !!Detector.webgl;
-        if (this.webgl_enabled === false) {
-            this.warning_message = Detector.getWebGLErrorMessage();
-            raise_exception_with_full_logging('WebGL is not enabled! Error message{' + this.get_warning_message() + ')');
-        } else {
-            this.renderer_initialize();
-        }
+        this.renderer_initialize();
     },
 
     getVRDisplays: function ( onDisplay ) {
