@@ -2,8 +2,8 @@
 
 function InputState() {
 
-    //this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, true);
-    this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, false);
+    this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, true);
+    //this.warning_icon = new FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, false);
     this.warning_icon.set_attachment_depth_offset(1);
     this.warning_icon.set_attachment_horizontal_offset(-16, HALF);
     //this.warning_icon.set_current_foreground_color(COLOR_RED, true);
