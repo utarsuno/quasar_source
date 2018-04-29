@@ -14,14 +14,14 @@ FloatingIcon.prototype = {
         this.width = size;
         this.height = size;
 
-        if (is_defined(foreground_color)) {
-            this.set_foreground_color(foreground_color);
-        }
-
         if (is_defined(cache)) {
             this.cached = cache;
         } else {
             this.cached = false;
+        }
+
+        if (is_defined(foreground_color)) {
+            this.set_foreground_color(foreground_color);
         }
 
         this._current_icon = icon_type;
