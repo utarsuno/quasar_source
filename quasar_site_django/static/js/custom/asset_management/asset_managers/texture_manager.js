@@ -44,6 +44,9 @@ TextureManager.prototype = {
     },
 
     set_texture: function(texture_name, texture) {
+        l('Set texture');
+        l(texture_name);
+        l(texture);
         MANAGER_TEXTURE._set_texture(texture_name, texture);
     },
 
