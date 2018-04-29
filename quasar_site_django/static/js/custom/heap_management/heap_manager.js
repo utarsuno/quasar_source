@@ -2,15 +2,12 @@
 
 ManagerManager.prototype.set_heap_manager = function() {
 
-    function CachedObject() {
+    function CachedObjects(cache_type) {
+        this.__init__(cache_type);
     }
-
-    function CachedObjects() {
-        this.__init__();
-    }
-
     CachedObjects.prototype = {
-        __init__: function() {
+        __init__: function(cache_type) {
+            this._cache_type = cache_type;
             this._objects = [];
         },
         get_cached_object: function(args) {
@@ -21,26 +18,27 @@ ManagerManager.prototype.set_heap_manager = function() {
                     return this._objects[c];
                 }
             }
+            if (match === null) {
+                match = this.add_cached_object(new this._cache_type(args));
+            }
             return match;
         },
         add_cached_object: function(object) {
             this._objects.push(object);
+            return object._cache;
         }
     };
 
-    function PlaneGeometryCache(w, h, g) {
-        this.__init__(w, h, g);
+    function PlaneGeometryCache(args) {
+        this.__init__(args);
     }
-
     PlaneGeometryCache.prototype = {
-        __init__: function(w, h, g) {
-            CachedObject.call(this);
-            this._width = w;
-            this._height = h;
-            this._geometry = g;
+        __init__: function(args) {
+            this._width = args[0];
+            this._height = args[1];
+            this._cache = new THREE.PlaneGeometry(this._width, this._height);
         },
         is_match: function(args) {
-            l('Checking for match on the following : {' + args[0] + '} - {' + args[1] + '}');
             return this._width === args[0] && this._height === args[1];
         }
     };
@@ -60,20 +58,11 @@ ManagerManager.prototype.set_heap_manager = function() {
             this._cached_text_2D_textures   = [];
 
 
-            this.cached_plane_geometries = new CachedObjects();
+            this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
         },
 
         get_plane_geometry: function(width, height) {
-            let cached = this.cached_plane_geometries.get_cached_object([width, height]);
-
-
-
-            // TEMPORARY.
-            let a = new THREE.PlaneGeometry(width, height);
-
-            this.cached_plane_geometries.add_cached_object(new PlaneGeometryCache(width, height, a));
-
-            return a;
+            return this.cached_plane_geometries.get_cached_object([width, height]);
         },
 
         get_icon_geometryOLD: function(width, height) {
