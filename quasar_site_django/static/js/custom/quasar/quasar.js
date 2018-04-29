@@ -49,13 +49,7 @@ QuasarMainLoop.prototype = {
     },
 
     run: function() {
-        this.current_client.add_server_message_green('Welcome to Quasar!');
-
-        if (CURRENT_CLIENT.has_vr) {
-            this.current_client.add_server_message_green('VR detected!');
-        } else {
-            this.current_client.add_server_message_red('VR not detected!');
-        }
+        this.current_client.add_welcome_message();
 
         MANAGER_MANAGER.delete_loading_manager();
 

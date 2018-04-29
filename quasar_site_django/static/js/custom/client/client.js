@@ -16,6 +16,21 @@ Client.prototype = {
         // TODO : Save the username here.
     },
 
+    add_welcome_message: function() {
+        this.add_server_message_green('Welcome to Quasar!');
+        if (this.has_vr) {
+            this.add_server_message_green('VR detected!');
+        } else {
+            this.add_server_message_red('VR not detected!');
+        }
+        if (!this.has_pointer_lock) {
+            this.add_server_message_red('Mouse pointer lock not supported!');
+        }
+        if (!this.has_fullscreen) {
+            this.add_server_message_red('Full-screen not supported!');
+        }
+    },
+
     supports_webgl: function() {
         return this.has_webgl;
     },
