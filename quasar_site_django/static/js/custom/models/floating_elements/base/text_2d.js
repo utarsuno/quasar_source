@@ -123,7 +123,7 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
             this.canvas.set_dimensions(this.width, this.height);
             this.canvas.initialize();
         } else {
-            this.canvas_cache = MANAGER_HEAP.get_texture_2D_canvas(this.width, this.height, this.get_display_text());
+            this.canvas_cache = MANAGER_HEAP.get_text_2D_canvas(this.width, this.height, this.get_display_text());
         }
 
         this.create_base_material();
