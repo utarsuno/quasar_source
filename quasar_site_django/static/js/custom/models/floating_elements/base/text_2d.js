@@ -78,7 +78,7 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
                 this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
                 this.material.needsUpdate = true;
             } else {
-                this._material.needsUpdate = true;
+                //this._material.needsUpdate = true;
             }
 
             this.text_changed = false;
