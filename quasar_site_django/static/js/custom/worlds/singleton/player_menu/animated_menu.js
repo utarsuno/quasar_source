@@ -143,7 +143,7 @@ AnimatedMenu.prototype = {
 
     _add_button: function(button_name, icon, button_action) {
         let row = this.menu.add_row(null, button_name);
-        let button = row.add_button([0, 1, false], this.text_height, button_name, button_action);
+        let button = row.add_button([0, 1, false], this.text_height, button_name, button_action, null, null, true);
         button.set_to_singleton();
         let i = button.add_icon_left(icon);
         i.set_to_singleton();
