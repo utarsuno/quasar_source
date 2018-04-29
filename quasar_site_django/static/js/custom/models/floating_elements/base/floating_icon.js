@@ -16,7 +16,9 @@ FloatingIcon.prototype = {
 
         if (is_defined(cache)) {
             this.cached = cache;
-            this.set_foreground_color(foreground_color);
+            if (this.cached) {
+                this.set_foreground_color(foreground_color);
+            }
         } else {
             this.cached = false;
         }
