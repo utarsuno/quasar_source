@@ -6,6 +6,9 @@ function Text3D(world, size, text) {
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
+    // Heap optimization.
+    this._box = new THREE.Box3();
+
     this.text_size = size;
 
     this.refresh = function() {
@@ -33,9 +36,9 @@ function Text3D(world, size, text) {
     };
 
     this._calculate_dimensions = function() {
-        let box = new THREE.Box3().setFromObject(this.mesh);
-        this.width = box.max.x;
-        this.height = box.max.y;
+        this._box.setFromObject(this.mesh);
+        this.width = this._box.max.x;
+        this.height = this._box.max.y;
     };
 
 }
