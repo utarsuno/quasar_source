@@ -22,9 +22,9 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
     };
 
     this.load_assets = function() {
-        let a = 1;
+        let a = 0;
         let asset_full_name;
-        while (a < this._number_of_assets_to_load + 1) {
+        while (a < this._number_of_assets_to_load) {
             asset_full_name = this.get_asset_path_name(a);
             let loader = new this.loader_class();
             loader.load(this._asset_base_url + asset_full_name,
