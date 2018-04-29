@@ -69,15 +69,21 @@ ManagerManager.prototype.set_heap_manager = function() {
             this._height = args[1];
             this._text = args[2];
 
+            this._background_color = args[3];
+            this._foreground_color = args[4];
+
             this._canvas = new CanvasTexture();
             this._canvas.set_dimensions(this.width, this.height);
             this._canvas.initialize();
+
+            this._canvas.update(this._background_color, this._foreground_color, this.get_display_text());
 
             this._material = new THREE.MeshToonMaterial({
                 map : this._canvas.texture, transparent: true, side: THREE.FrontSide
             });
             this._material.transparent = true;
             this._material.side = THREE.FrontSide;
+            this._material.needsUpdate = true;
         },
         is_match: function(args) {
             return this._width === args[0] && this._height === args[1] && this._text === args[2];
@@ -103,8 +109,8 @@ ManagerManager.prototype.set_heap_manager = function() {
             return this.cached_texture_2D_geometries.get_cached_object([width, height, ratio])._cache;
         },
 
-        get_text_2D_canvas: function(width, height, text) {
-            return this.cached_texture_2D_canvases.get_cached_object([width, height, text])._canvas;
+        get_text_2D_canvas: function(width, height, text, background_color, foreground_color) {
+            return this.cached_texture_2D_canvases.get_cached_object([width, height, text, background_color, foreground_color])._canvas;
         },
 
         get_text_2D_material: function(width, height, text) {
