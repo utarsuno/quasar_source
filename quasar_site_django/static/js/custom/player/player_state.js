@@ -61,7 +61,8 @@ function PlayerState() {
 
                 CURRENT_CLIENT.hide_pause_menu();
                 if (!CURRENT_CLIENT.is_mobile) {
-                    MANAGER_POINTER_LOCK.request_pointer_lock();
+                    //MANAGER_POINTER_LOCK.request_pointer_lock();
+                    CURRENT_CLIENT.request_pointer_lock();
                 }
             }
             break;

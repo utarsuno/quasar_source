@@ -22,6 +22,17 @@ Client.prototype = {
 
     detect_client_state: function() {
         this.has_webgl   = !!window.WebGLRenderingContext;
+
+        // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
+        this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
+        this.show_pause_menu();
+    },
+
+    initialize: function() {
+        this.debug_mode   = DEBUG_MODE_FPS;
+        this.stats_api    = new StatsAPI();
+        this.data_display = new DataDisplay();
+
         this.has_canvas  = !!window.CanvasRenderingContext2D;
         this.has_workers = !!window.Worker;
         // From : https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device-in-jquery
@@ -39,24 +50,7 @@ Client.prototype = {
             }
         }
 
-        this.has_fullscreen = !!document.webkitCancelFullScreen || !!document.mozCancelFullScreen;
-        if (this.has_fullscreen) {
-            this._fullscreen_api_0 = document.webkitCancelFullScreen;
-            this.in_full_screen = this._is_in_fullscreen();
-        }
-
-        this.has_pointer_lock = !!document.pointerLockElement || !!document.mozPointerLockElement || !!document.webkitPointerLockElement;
-
-        // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
-        this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
-        this.show_pause_menu();
-    },
-
-    initialize: function() {
-        this.debug_mode   = DEBUG_MODE_FPS;
-        this.stats_api    = new StatsAPI();
-        this.data_display = new DataDisplay();
-
+        this._initialize_fullscreen();
         this._initialize_pointer_lock();
 
         // Inherit.
@@ -102,12 +96,55 @@ Client.prototype = {
      |__) /  \ | |\ |  |  |__  |__)    |    /  \ /  ` |__/
      |    \__/ | | \|  |  |___ |  \    |___ \__/ \__, |  \ */
     _initialize_pointer_lock: function() {
+        this._document_body = document.body;
+        this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+        if (this.has_pointer_lock) {
+            // Hook pointer lock state change events.
+            document.addEventListener('pointerlockchange', this.pointer_lock_change.bind(this), false);
+            document.addEventListener('mozpointerlockchange', this.pointer_lock_change.bind(this), false);
+            document.addEventListener('webkitpointerlockchange', this.pointer_lock_change.bind(this), false);
+            // Hook pointer lock error events.
+            document.addEventListener('pointerlockerror', this.pointer_lock_error.bind(this), false);
+            document.addEventListener('mozpointerlockerror', this.pointer_lock_error.bind(this), false);
+            document.addEventListener('webkitpointerlockerror', this.pointer_lock_error.bind(this), false);
+        }
+    },
 
+    pointer_lock_change: function () {
+        if (document.pointerLockElement !== this.element && document.mozPointerLockElement !== this.element && document.webkitPointerLockElement !== this.element) {
+            CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
+            this.pointer_is_locked = false;
+        } else {
+            this.pointer_is_locked = true;
+        }
+    },
+
+    pointer_lock_error: function(e) {
+        if (!CURRENT_CLIENT.is_mobile) {
+            raise_exception_with_full_logging('Pointer lock error!');
+        }
+    },
+
+    request_pointer_lock: function() {
+        this._document_body.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
+        this._document_body.requestPointerLock();
+    },
+
+    release_pointer_lock: function() {
+        document.exitPointerLock();
     },
 
     /*___                 __   __   __   ___  ___
      |__  |  | |    |    /__` /  ` |__) |__  |__  |\ |
      |    \__/ |___ |___ .__/ \__, |  \ |___ |___ | \| */
+    _initialize_fullscreen: function() {
+        this.has_fullscreen = !!document.webkitCancelFullScreen || !!document.mozCancelFullScreen;
+        if (this.has_fullscreen) {
+            this._fullscreen_api_0 = document.webkitCancelFullScreen;
+            this.in_full_screen = this._is_in_fullscreen();
+        }
+    },
+
     toggle_fullscreen: function() {
         if (this.in_full_screen) {
             this.exit_fullscreen();
