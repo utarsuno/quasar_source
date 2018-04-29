@@ -11,6 +11,7 @@ FloatingButton.prototype = {
         Text2D.call(this, world, width, text_height, text, cacheable);
         this.override_background_color = FLOATING_TEXT_BACKGROUND_DEFAULT;
         this.set_text_property_centered(true);
+        this.set_text_property_bold(true);
 
         this.set_to_clickable();
 
