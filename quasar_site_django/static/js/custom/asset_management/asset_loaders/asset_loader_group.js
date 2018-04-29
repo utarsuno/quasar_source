@@ -21,6 +21,7 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
 
     this._initial_assets_to_load_set = function() {
         this._loading_manager._number_of_resources_to_load += this._number_of_assets_to_load;
+        this.parent_asset_manager.set_number_of_total_assets(this._number_of_assets_to_load);
     };
 
     this._add_required_initial_assets(this._initial_assets_to_load_set.bind(this));

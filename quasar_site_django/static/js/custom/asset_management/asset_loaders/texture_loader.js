@@ -13,6 +13,7 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
 
             this.loader_class  = THREE.TextureLoader;
             this.send_asset_to = MANAGER_TEXTURE.set_texture;
+            this.parent_asset_manager = MANAGER_TEXTURE;
         },
 
         /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
@@ -31,11 +32,6 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
         },
 
         get_asset_path_name: function(asset) {
-            l('getting texture name for :' + asset);
-            l(SPRITESHEET_ICONS);
-            if (asset === SPRITESHEET_ICONS) {
-                l('NEED TO RETURN VALUE');
-            }
             switch(asset) {
             case SPRITESHEET_ICONS:
                 return 'spritesheet/i.png';

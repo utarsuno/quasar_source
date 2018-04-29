@@ -13,6 +13,7 @@ ManagerManager.prototype.set_audio_loader = function(loading_manager) {
 
             this.loader_class = THREE.AudioLoader;
             this.send_asset_to = MANAGER_AUDIO.set_audio;
+            this.parent_asset_manager = MANAGER_AUDIO;
         },
 
         /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __

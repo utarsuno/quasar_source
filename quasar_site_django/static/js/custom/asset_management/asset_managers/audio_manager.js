@@ -27,7 +27,7 @@ AudioManager.prototype = {
         this.audio_listener.setMasterVolume(this.get_true_audio_level(0.5));
         MANAGER_RENDERER.camera.add(this.audio_listener);
 
-        this._all_audio = {};
+        this._all_audio = [];
     },
 
     // Important reference : https://imgur.com/gallery/J6WA6eo
@@ -83,5 +83,12 @@ AudioManager.prototype = {
             this._all_audio[audio_name].setVolume(this.get_true_audio_level(0.4));
             break;
         }
-    }
+    },
+
+    set_number_of_total_assets: function(n) {
+        let i;
+        for (i = 0; i < n; i++) {
+            this._all_audio.push(null);
+        }
+    },
 };

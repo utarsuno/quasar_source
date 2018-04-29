@@ -16,7 +16,7 @@ function TextureManager() {
 TextureManager.prototype = {
 
     __init__: function() {
-        this.textures = {};
+        this.textures = [];
     },
 
     create_skybox_material: function() {
@@ -49,5 +49,12 @@ TextureManager.prototype = {
 
     get_texture: function(texture_name) {
         return this.textures[texture_name];
-    }
+    },
+
+    set_number_of_total_assets: function(n) {
+        let i;
+        for (i = 0; i < n; i++) {
+            this.textures.push(null);
+        }
+    },
 };
