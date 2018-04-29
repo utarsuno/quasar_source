@@ -13,7 +13,6 @@ ManagerManager.prototype.set_audio_loader = function(loading_manager) {
 
             this.loader_class = THREE.AudioLoader;
             this.send_asset_to = MANAGER_AUDIO.set_audio;
-            this.parent_asset_manager = MANAGER_AUDIO;
         },
 
         /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
@@ -29,6 +28,7 @@ ManagerManager.prototype.set_audio_loader = function(loading_manager) {
             this._add_required_initial_asset(AUDIO_SOUND_SUCCESS);
             this._add_required_initial_asset(AUDIO_SOUND_CHECKBOX);
             this._add_required_initial_asset(AUDIO_MUSIC_BACKGROUND);
+            MANAGER_AUDIO.set_number_of_total_assets(this._number_of_assets_to_load);
             callback();
         },
 

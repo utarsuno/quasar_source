@@ -13,7 +13,6 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
 
             this.loader_class  = THREE.TextureLoader;
             this.send_asset_to = MANAGER_TEXTURE.set_texture;
-            this.parent_asset_manager = MANAGER_TEXTURE;
         },
 
         /*            ___  __    ___  ___  __      ___            __  ___    __        __      __   ___  __          __   ___  __
@@ -28,6 +27,7 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
             this._add_required_initial_asset(SKYBOX_LEFT);
             this._add_required_initial_asset(TRANSITION_GRID);
             this._add_required_initial_asset(SPRITESHEET_ICONS);
+            MANAGER_TEXTURE.set_number_of_total_assets(this._number_of_assets_to_load);
             callback();
         },
 
