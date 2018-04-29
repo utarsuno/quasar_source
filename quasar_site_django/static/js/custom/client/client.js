@@ -136,7 +136,7 @@ Client.prototype = {
 
     pointer_lock_change: function () {
         if (document.pointerLockElement !== this.element && document.mozPointerLockElement !== this.element && document.webkitPointerLockElement !== this.element) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
+            //CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
             this.pointer_is_locked = false;
         } else {
             this.pointer_is_locked = true;
@@ -221,6 +221,7 @@ Client.prototype = {
     pause: function() {
         this.set_pause_menu_text_and_sub_text('paused', 'double click anywhere to resume');
         this.show_pause_menu();
+        this.release_pointer_lock();
     },
 
     show_pause_menu: function() {

@@ -31,11 +31,12 @@ function PlayerState() {
 
             // Hide the player menu if visible.
 
-            if (this.current_state === PLAYER_STATE_PAUSED) {
-                CURRENT_CLIENT.pause();
-            } else {
-                CURRENT_CLIENT.show_pause_menu();
-            }
+            CURRENT_CLIENT.pause();
+            //if (this.current_state === PLAYER_STATE_PAUSED) {
+            //    CURRENT_CLIENT.pause();
+            //} else {
+            //    CURRENT_CLIENT.show_pause_menu();
+            //}
 
             if (player_state === PLAYER_STATE_PAUSED) {
                 MANAGER_AUDIO.pause_background_music();
