@@ -1,14 +1,14 @@
 'use strict';
 
-const AUDIO_SOUND_TYPING       = 1; // #pre-process_global_constant
-const AUDIO_SOUND_TRANSITION   = 2; // #pre-process_global_constant
-const AUDIO_SOUND_ERROR        = 3; // #pre-process_global_constant
-const AUDIO_SOUND_ON_DISENGAGE = 4; // #pre-process_global_constant
-const AUDIO_SOUND_ON_ENGAGE    = 5; // #pre-process_global_constant
-const AUDIO_SOUND_ON_HOVER     = 6; // #pre-process_global_constant
-const AUDIO_SOUND_SUCCESS      = 7; // #pre-process_global_constant
-const AUDIO_SOUND_CHECKBOX     = 8; // #pre-process_global_constant
-const AUDIO_MUSIC_BACKGROUND   = 9; // #pre-process_global_constant
+const AUDIO_SOUND_TYPING       = 0; // #pre-process_global_constant
+const AUDIO_SOUND_TRANSITION   = 1; // #pre-process_global_constant
+const AUDIO_SOUND_ERROR        = 2; // #pre-process_global_constant
+const AUDIO_SOUND_ON_DISENGAGE = 3; // #pre-process_global_constant
+const AUDIO_SOUND_ON_ENGAGE    = 4; // #pre-process_global_constant
+const AUDIO_SOUND_ON_HOVER     = 5; // #pre-process_global_constant
+const AUDIO_SOUND_SUCCESS      = 6; // #pre-process_global_constant
+const AUDIO_SOUND_CHECKBOX     = 7; // #pre-process_global_constant
+const AUDIO_MUSIC_BACKGROUND   = 8; // #pre-process_global_constant
 
 function AudioManager() {
     this.__init__();

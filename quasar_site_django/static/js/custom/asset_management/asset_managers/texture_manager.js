@@ -1,13 +1,13 @@
 'use strict';
 
-const SPRITESHEET_ICONS = 1; // #pre-process_global_constant
-const TRANSITION_GRID   = 2; // #pre-process_global_constant
-const SKYBOX_FRONT      = 3; // #pre-process_global_constant
-const SKYBOX_BACK       = 4; // #pre-process_global_constant
-const SKYBOX_LEFT       = 5; // #pre-process_global_constant
-const SKYBOX_RIGHT      = 6; // #pre-process_global_constant
-const SKYBOX_TOP        = 7; // #pre-process_global_constant
-const SKYBOX_BOTTOM     = 8; // #pre-process_global_constant
+const SPRITESHEET_ICONS = 0; // #pre-process_global_constant
+const TRANSITION_GRID   = 1; // #pre-process_global_constant
+const SKYBOX_FRONT      = 2; // #pre-process_global_constant
+const SKYBOX_BACK       = 3; // #pre-process_global_constant
+const SKYBOX_LEFT       = 4; // #pre-process_global_constant
+const SKYBOX_RIGHT      = 5; // #pre-process_global_constant
+const SKYBOX_TOP        = 6; // #pre-process_global_constant
+const SKYBOX_BOTTOM     = 7; // #pre-process_global_constant
 
 function TextureManager() {
     this.__init__();
@@ -40,13 +40,10 @@ TextureManager.prototype = {
     },
 
     _set_texture: function(texture_name, texture) {
-        this.textures[texture_name - 1] = texture;
+        this.textures[texture_name] = texture;
     },
 
     set_texture: function(texture_name, texture) {
-        l('Set texture');
-        l(texture_name);
-        l(texture);
         MANAGER_TEXTURE._set_texture(texture_name, texture);
     },
 
