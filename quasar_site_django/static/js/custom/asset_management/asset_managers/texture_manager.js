@@ -52,6 +52,7 @@ TextureManager.prototype = {
     },
 
     set_number_of_total_assets: function(n) {
+        //
         let i;
         for (i = 0; i < n; i++) {
             this.textures.push(null);
