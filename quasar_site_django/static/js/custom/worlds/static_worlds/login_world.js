@@ -117,7 +117,7 @@ LoginWorld.prototype = {
         row = this.wall_create_account.add_row();
         this.input_username_create = row.add_input_2D([0, 1], 16);
         this.input_username_create.add_syntax(TEXT_SYNTAX_USERNAME);
-        this.input_username_create.add_label_left('username:');
+        this.input_username_create.add_label_left('username:', true);
 
         // Email.
         row = this.wall_create_account.add_row();
@@ -129,7 +129,7 @@ LoginWorld.prototype = {
         row = this.wall_create_account.add_row();
         this.input_password_create = row.add_input_2D([0, 1], 16);
         this.input_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
-        this.input_password_create.add_label_left('password:');
+        this.input_password_create.add_label_left('password:', true);
 
         // Repeat Password.
         row = this.wall_create_account.add_row();
@@ -160,13 +160,13 @@ LoginWorld.prototype = {
         row = this.wall_login.add_row();
         this.input_username_login = row.add_input_2D([0, 1], 16);
         this.input_username_login.add_syntax(TEXT_SYNTAX_USERNAME);
-        this.input_username_login.add_label_left('username:');
+        this.input_username_login.add_label_left('username:', true);
 
         // Password.
         row = this.wall_login.add_row();
         this.input_password_login = row.add_input_2D([0, 1], 16);
         this.input_password_login.add_syntax(TEXT_SYNTAX_PASSWORD);
-        this.input_password_login.add_label_left('password:');
+        this.input_password_login.add_label_left('password:', true);
 
         // Remember username.
         row = this.wall_login.add_row();
