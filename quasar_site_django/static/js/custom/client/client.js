@@ -135,14 +135,11 @@ Client.prototype = {
     },
 
     pointer_lock_change: function () {
-        l('Pointer lock changed!');
         if (document.pointerLockElement !== this._document_body && document.mozPointerLockElement !== this._document_body && document.webkitPointerLockElement !== this._document_body) {
-            l('PUT PLAYER TO PAUSE!');
             CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
-            this.pointer_is_locked = false;
-        } else {
-            l('not locked?');
             this.pointer_is_locked = true;
+        } else {
+            this.pointer_is_locked = false;
         }
     },
 
@@ -224,7 +221,6 @@ Client.prototype = {
     pause: function() {
         this.set_pause_menu_text_and_sub_text('paused', 'double click anywhere to resume');
         this.show_pause_menu();
-        //this.release_pointer_lock();
     },
 
     show_pause_menu: function() {
