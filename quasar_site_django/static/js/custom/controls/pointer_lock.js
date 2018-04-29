@@ -49,11 +49,13 @@ PointerLockManager.prototype = {
     },
 
     request_pointer_lock: function() {
+        l('Requesting pointer lock!');
         this.element.requestPointerLock = this.element.requestPointerLock || this.element.mozRequestPointerLock || this.element.webkitRequestPointerLock;
         this.element.requestPointerLock();
     },
 
     release_pointer_lock: function() {
+        l('Releasing pointer lock!');
         document.exitPointerLock();
         this.dont_pause = true;
     }

@@ -42,6 +42,7 @@ function WorldManagerInput() {
     };
 
     this.middle_click_up = function() {
+        l('Middle click up!');
         if (MANAGER_POINTER_LOCK.pointer_is_locked) {
             MANAGER_POINTER_LOCK.release_pointer_lock();
         } else {
