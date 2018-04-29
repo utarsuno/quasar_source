@@ -136,7 +136,6 @@ FakeFloatingWall.prototype = {
         var floating_row = new FloatingRow(this, row_index, row_name);
         this.rows.push(floating_row);
 
-        this.auto_adjust_height_if_needed();
         return floating_row;
     },
 
@@ -159,8 +158,6 @@ FakeFloatingWall.prototype = {
                 all_rows_to_shift[r].shift_up();
             }
         }
-
-        this.auto_adjust_height_if_needed();
     },
 
     delete_row_by_name: function(row_name) {
@@ -182,8 +179,6 @@ FakeFloatingWall.prototype = {
                 all_rows_to_shift[r].shift_up();
             }
         }
-
-        this.auto_adjust_height_if_needed();
     },
 
     /*__   ___ ___ ___  ___  __   __
