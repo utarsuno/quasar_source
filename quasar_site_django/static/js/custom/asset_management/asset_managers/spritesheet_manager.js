@@ -40,14 +40,14 @@ SpriteSheetManager.prototype = {
 
     get_icon_material: function(icon) {
         this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
-        let m = this._shader_material.get_material(this._icons[icon].x / 64);
+        let m = this._shader_material.get_material(this._icons[icon] / 64);
         m.transparent = true;
         m.needsUpdate = true;
         return m;
     },
 
     get_icon_offset: function(icon) {
-        return this._icons[icon].x / 64;
+        return this._icons[icon] / 64;
     },
 
     load_icon_sprite_sheet: function(callback) {
@@ -64,7 +64,7 @@ SpriteSheetManager.prototype = {
         let i;
         let frames = JSON_SPRITESHEET['frames'];
         for (i = 0; i < frames.length; i++) {
-            this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame;
+            this._icons[this._get_icon_number_from_filename(frames[i].filename)] = frames[i].frame.x;
         }
 
         callback();
