@@ -42,6 +42,8 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
             if (this._assets.hasOwnProperty(asset)) {
 
                 let asset_full_name = this.get_asset_path_name(asset);
+                l(asset_full_name);
+                l(asset);
 
                 let loader = new this.loader_class();
                 loader.load(this._asset_base_url + asset_full_name,
