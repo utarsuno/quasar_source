@@ -401,6 +401,16 @@ module.exports = {
 
         "SPRITESHEET_ICONS": false,
 
+        "ICON_PLANET"       : false,
+        "ICON_TEXT"         : false,
+        "ICON_CALENDER"     : false,
+        "ICON_FOLDER"       : false,
+        "ICON_EXPAND"       : false,
+        "ICON_PICTURE"      : false,
+        "ICON_VIDEO"        : false,
+        "ICON_GEARS"        : false,
+        "ICON_ADMIN"        : false,
+
         "ICON_STAR"         : false,
         "ICON_EXIT"         : false,
         "ICON_SETTINGS"     : false,
