@@ -39,6 +39,9 @@ Client.prototype = {
             }
         }
 
+        this.f_0 = document.webkitCancelFullScreen;
+        this.f_1 = document.mozCancelFullScreen;
+
         // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
         this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
         this.show_pause_menu();

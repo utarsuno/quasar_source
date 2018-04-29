@@ -30,8 +30,6 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
             loader.load(this._asset_base_url + asset_full_name,
 
                 function(asset) {
-                    l('loaded : ' + asset);
-                    l(arguments[1]);
                     this.send_asset_to(asset, arguments[1]);
                     this._asset_loaded(asset_full_name);
                 }.bind(this, a),
