@@ -142,8 +142,8 @@ InputManager.prototype = {
             MANAGER_WORLD.current_world.currently_looked_at_object.parse_text(pasted_data);
         }
 
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     _mouse_movement: function(x, y) {
@@ -166,8 +166,8 @@ InputManager.prototype = {
                 MANAGER_WORLD.current_world.parse_mouse_movement(movement_x, movement_y);
             }
         */
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_key_down: function(event) {
@@ -200,8 +200,8 @@ InputManager.prototype = {
             }
         }
         MANAGER_WORLD.key_down_event(event);
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
@@ -214,8 +214,8 @@ InputManager.prototype = {
             /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
             MANAGER_WORLD.current_world.wheel_event(((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1);
         }
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_key_up: function(event) {
@@ -245,20 +245,18 @@ InputManager.prototype = {
                 break;
             }
         }
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_mouse_up: function(event) {
         event = event || window.event;
-        l(event);
         switch (event.which) {
         case this.CLICK_LEFT:
             this.click_down_left = false;
             MANAGER_WORLD.left_click_up();
             break;
         case this.CLICK_MIDDLE:
-            l('Middle click up!');
             MANAGER_WORLD.middle_click_up();
             this.click_down_middle = false;
             break;
@@ -267,8 +265,8 @@ InputManager.prototype = {
             this.click_down_right = false;
             break;
         }
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     },
 
     on_mouse_down: function(event) {
@@ -279,7 +277,6 @@ InputManager.prototype = {
             this.click_down_left = true;
             break;
         case this.CLICK_MIDDLE:
-            l('Middle click down!');
             MANAGER_WORLD.middle_click_down();
             this.click_down_middle = true;
             break;
@@ -288,8 +285,8 @@ InputManager.prototype = {
             this.click_down_right = true;
             break;
         }
-        //event.preventDefault();
-        //event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     }
 
 };

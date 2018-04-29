@@ -41,6 +41,7 @@ Client.prototype = {
 
         this.has_fullscreen = !!document.webkitCancelFullScreen || document.mozCancelFullScreen;
         if (this.has_fullscreen) {
+            this._fullscreen_api_0 = document.webkitCancelFullScreen;
             this.in_full_screen = this._is_in_fullscreen();
         }
 
