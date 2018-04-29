@@ -23,8 +23,6 @@ FloatingIcon.prototype = {
             this.cached = false;
         }
 
-        this._current_icon = icon_type;
-
         this.create_base_material();
         this.create_base_mesh();
 
@@ -34,17 +32,17 @@ FloatingIcon.prototype = {
     },
 
     switch_icon: function(icon) {
-        if (this._current_icon !== icon) {
+        if (this.icon_type !== icon) {
 
             if (this.cached) {
-                this._material = MANAGER_HEAP.get_spritesheet_shader_material(this.icon_type, this.get_current_foreground_color());
+                this._material = MANAGER_HEAP.get_spritesheet_shader_material(icon, this.get_current_foreground_color());
                 this._material.needsUpdate = true;
             } else {
                 this.material.uniforms['offset'].value = icon;
                 this.material.needsUpdate = true;
             }
 
-            this._current_icon = icon;
+            this.icon_type = icon;
         }
     },
 
