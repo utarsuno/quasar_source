@@ -408,6 +408,7 @@ module.exports = {
         "ICON_VIDEO"        : false,
         "ICON_GEARS"        : false,
         "ICON_ADMIN"        : false,
+        "ICON_DISABLED"     : false,
 
         "ICON_STAR"         : false,
         "ICON_EXIT"         : false,
