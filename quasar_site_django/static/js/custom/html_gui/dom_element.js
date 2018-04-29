@@ -12,6 +12,7 @@ DomElement.prototype = {
         } else {
             this.element = document.getElementById(id_name);
         }
+        this._current_text = null;
         // Default.
         this.display_style = 'block';
     },
@@ -54,7 +55,8 @@ DomElement.prototype = {
     },
 
     get_text: function() {
-        return this.element.innerHTML;
+        return this._current_text;
+        //return this.element.innerHTML;
     },
 
     clear: function() {
@@ -76,7 +78,10 @@ DomElement.prototype = {
     },
 
     set_text: function(text) {
-        this.element.innerHTML = text;
+        if (this._current_text !== text) {
+            this.element.innerHTML = text;
+            this._current_text = text;
+        }
     },
 
     set_position_to_absolute: function() {

@@ -23,13 +23,14 @@ Text2DUtilities.prototype = {
 
 const _MANAGER_TEXT_2D = new Text2DUtilities();
 
-function Text2D(world, width, height, text, cacheable) {
+function Text2D(world, width, height, text, cacheable, cacheable_texture) {
 
     // Inherit.
     FloatingElement.call(this, world);
     TextAbstraction.call(this, text);
 
     this.cacheable = cacheable;
+    this.cacheable_texture = cacheable_texture;
 
     this.width = width;
     this.height = height;
