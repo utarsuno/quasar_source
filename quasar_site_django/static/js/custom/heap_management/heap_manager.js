@@ -39,15 +39,33 @@ ManagerManager.prototype.set_heap_manager = function() {
         }
     };
 
+    function Text2DGeometryCache(args) {
+        this.__init__(args);
+    }
+    Text2DGeometryCache.prototype = {
+        __init__: function(args) {
+            this._width = args[0];
+            this._height = args[1];
+            this._ratio  = args[2];
+            this._cache = new THREE.PlaneGeometry(this._width, this._height);
+            if (this._ratio !== 1) {
+                this._cache.faceVertexUvs[0][0][2].x = this._ratio;
+                this._cache.faceVertexUvs[0][1][1].x = this._ratio;
+                this._cache.faceVertexUvs[0][1][2].x = this._ratio;
+                this._cache.uvsNeedUpdate = true;
+            }
+        },
+        is_match: function(args) {
+            return this._width === args[0] && this._height === args[1] && this._ratio === args[2];
+        }
+    };
+
     function HeapManager() {
         this.__init__();
     }
-
     HeapManager.prototype = {
 
         __init__: function() {
-            // Format [width, height, cached_geometry]
-            this._cached_plane_geometries   = [];
             // Format [width, height, ratio, cached_geometry]
             this._cached_text_2D_geometries = [];
             // Format [width, height, text, cached_canvas, cached_material]
@@ -55,52 +73,18 @@ ManagerManager.prototype.set_heap_manager = function() {
 
 
             this.cached_plane_geometries = new CachedObjects(PlaneGeometryCache);
+            this.cached_texture_2D_geometries = new CachedObjects(Text2DGeometryCache);
         },
 
         get_plane_geometry: function(width, height) {
             return this.cached_plane_geometries.get_cached_object([width, height]);
         },
 
-        get_icon_geometryOLD: function(width, height) {
-            let c;
-            let match = null;
-            for (c = 0; c < this._cached_plane_geometries.length; c++) {
-                if (this._cached_plane_geometries[c][0] === width && this._cached_plane_geometries[c][1] === height) {
-                    match = this._cached_plane_geometries[c][2];
-                    break;
-                }
-            }
-            if (match === null) {
-                this._cached_plane_geometries.push([width, height, new THREE.PlaneGeometry(width, height)]);
-                match = this._cached_plane_geometries[this._cached_plane_geometries.length - 1][2];
-            }
-            return match;
-        },
-
-        get_text_2D_texture: function(width, height, text) {
-
-        },
-
-        get_text_2D_material: function(width, height, text) {
-            let c;
-            let match = null;
-            for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
-                if (this._cached_text_2D_textures[c][0] === width && this._cached_text_2D_textures[c][1] === height && this._cached_text_2D_textures[c][2] === text) {
-                    match = this._cached_text_2D_textures[c][4];
-                    break;
-                }
-            }
-            if (match === null) {
-                let material = new THREE.MeshToonMaterial({
-                    map : this.canvas.texture, transparent: true, side: THREE.FrontSide
-                });
-                material.transparent = true;
-                material.side = THREE.FrontSide;
-                this._cached_text_2D_textures.push([width, height, text, ]);
-            }
-        },
-
         get_text_2D_geometry: function(width, height, ratio) {
+            return this.cached_texture_2D_geometries.get_cached_object([width, height, ratio]);
+        },
+
+        get_text_2D_geometryOLD: function(width, height, ratio) {
             let c;
             let match = null;
             for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
@@ -126,6 +110,29 @@ ManagerManager.prototype.set_heap_manager = function() {
                 match = this._cached_text_2D_geometries[this._cached_text_2D_geometries.length - 1][3];
             }
             return match;
+        },
+
+        get_text_2D_texture: function(width, height, text) {
+
+        },
+
+        get_text_2D_material: function(width, height, text) {
+            let c;
+            let match = null;
+            for (c = 0; c < this._cached_text_2D_geometries.length; c++) {
+                if (this._cached_text_2D_textures[c][0] === width && this._cached_text_2D_textures[c][1] === height && this._cached_text_2D_textures[c][2] === text) {
+                    match = this._cached_text_2D_textures[c][4];
+                    break;
+                }
+            }
+            if (match === null) {
+                let material = new THREE.MeshToonMaterial({
+                    map : this.canvas.texture, transparent: true, side: THREE.FrontSide
+                });
+                material.transparent = true;
+                material.side = THREE.FrontSide;
+                this._cached_text_2D_textures.push([width, height, text, ]);
+            }
         }
 
     };
