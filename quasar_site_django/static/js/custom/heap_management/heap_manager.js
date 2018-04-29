@@ -13,11 +13,11 @@ ManagerManager.prototype.set_heap_manager = function() {
         __init__: function() {
             this._objects = [];
         },
-        get_cached_object: function() {
+        get_cached_object: function(args) {
             let c;
             let match = null;
             for (c = 0; c < this._objects.length; c++) {
-                if (this._objects[c].is_match.apply(null, arguments)) {
+                if (this._objects[c].is_match(args)) {
                     return this._objects[c];
                 }
             }
@@ -39,9 +39,9 @@ ManagerManager.prototype.set_heap_manager = function() {
             this._height = h;
             this._geometry = g;
         },
-        is_match: function(width, height) {
-            l('Checking for match on the following : {' + width + '} - {' + height + '}');
-            return this._width === width && this._height === height;
+        is_match: function(args) {
+            l('Checking for match on the following : {' + args[0] + '} - {' + args[1] + '}');
+            return this._width === args[0] && this._height === args[1];
         }
     };
 
@@ -64,7 +64,7 @@ ManagerManager.prototype.set_heap_manager = function() {
         },
 
         get_plane_geometry: function(width, height) {
-            let cached = this.cached_plane_geometries.get_cached_object.apply(null, [width, height]);
+            let cached = this.cached_plane_geometries.get_cached_object([width, height]);
 
 
 
