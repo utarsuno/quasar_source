@@ -107,9 +107,18 @@ Client.prototype = {
         }
     },
 
+    resume: function() {
+        this.hide_pause_menu();
+        if (!this.is_mobile) {
+            this.request_pointer_lock();
+        }
+    },
+
     /*__   __         ___  ___  __           __   __
      |__) /  \ | |\ |  |  |__  |__)    |    /  \ /  ` |__/
      |    \__/ | | \|  |  |___ |  \    |___ \__/ \__, |  \ */
+    // https://www.html5rocks.com/en/tutorials/pointerlock/intro/
+
     _initialize_pointer_lock: function() {
         this._document_body = document.body;
         this.has_pointer_lock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;

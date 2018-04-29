@@ -202,7 +202,6 @@ module.exports = {
         "MANAGER_SHADER"         : true,
         "MANAGER_RENDERER"       : true,
         "MANAGER_INPUT"          : true,
-        "MANAGER_POINTER_LOCK"   : true,
         "MANAGER_LOADING"        : true,
         // and their class names.
         "SpriteSheetManager"   : false,
@@ -221,7 +220,6 @@ module.exports = {
         "ShaderManager"        : false,
         "RendererManager"      : false,
         "InputManager"         : false,
-        "PointerLockManager"   : false,
         "DataDisplay"          : false,
         "LoadingManager"       : false,
         // and their supporting classes.

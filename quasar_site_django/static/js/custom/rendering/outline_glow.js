@@ -14,6 +14,9 @@ OutlineGlow.prototype = {
         this.outline_pass.pulsePeriod   = 5.0;
         this.outline_pass.usePatternTexture = false;
 
+        //
+        this.outline_pass.hiddenEdgeColor  = COLOR_BLACK;
+
         this.outline_pass.selectedObjects = [];
 
         this.hover_color = new THREE.Color(0x88ecff);
@@ -26,12 +29,12 @@ OutlineGlow.prototype = {
 
     set_to_engage_color: function() {
         this.outline_pass.visibleEdgeColor = this.engage_color;
-        this.outline_pass.hiddenEdgeColor  = this.engage_color;
+        //this.outline_pass.hiddenEdgeColor  = this.engage_color;
     },
 
     set_to_hover_color: function() {
         this.outline_pass.visibleEdgeColor = this.hover_color;
-        this.outline_pass.hiddenEdgeColor  = this.hover_color;
+        //this.outline_pass.hiddenEdgeColor  = this.hover_color;
     },
 
     set_hover_object: function(object3D) {

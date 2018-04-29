@@ -20,14 +20,12 @@ var MANAGER_MANAGER      = null;
 var MANAGER_WEB_SOCKETS  = null;
 var MANAGER_AUDIO        = null;
 var MANAGER_TEXTURE      = null;
-var MANAGER_JSON         = null;
 var MANAGER_WORLD        = null;
 var MANAGER_ENTITY       = null;
-var MANAGER_MULTIPLAYER  = null;
+//var MANAGER_MULTIPLAYER  = null;
 var MANAGER_SHADER       = null;
 var MANAGER_RENDERER     = null;
 var MANAGER_INPUT        = null;
-var MANAGER_POINTER_LOCK = null;
 
 // Global objects.
 var CURRENT_CLIENT = null;
