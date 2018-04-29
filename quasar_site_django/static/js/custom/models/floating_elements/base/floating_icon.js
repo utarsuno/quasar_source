@@ -40,7 +40,7 @@ FloatingIcon.prototype = {
                 this.material.uniforms['offset'].value = icon;
                 this.material.needsUpdate = true;
             }
-            
+
             this._current_icon = icon;
         }
     },
