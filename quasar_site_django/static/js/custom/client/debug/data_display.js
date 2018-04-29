@@ -63,9 +63,9 @@ DataDisplay.prototype = {
             this.element_heap_max_size.set_text(js_heap_max_size);
         }
 
-        let geometries = MANAGER_RENDERER.renderer.info.memory.geometries;
-        let textures   = MANAGER_RENDERER.renderer.info.memory.textures;
-        let shaders    = MANAGER_RENDERER.renderer.info.programs.length;
+        let geometries = 'g: ' + MANAGER_RENDERER.renderer.info.memory.geometries;
+        let textures   = 't: ' + MANAGER_RENDERER.renderer.info.memory.textures;
+        let shaders    = 's: ' + MANAGER_RENDERER.renderer.info.programs.length;
 
         this.element_geometreis.set_text(geometries);
         this.element_textures.set_text(textures);
