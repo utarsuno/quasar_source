@@ -20,6 +20,10 @@ function FloatingWallAbstract(width, height, position, normal, world) {
         this.set_position(position.x, position.y, position.z, false);
     }
 
+    this.set_to_singleton = function() {
+        Singleton.call(this);
+    };
+
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
