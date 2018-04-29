@@ -180,6 +180,8 @@ RendererManager.prototype = {
     },
 
     toggle_fullscreen: function() {
+        CURRENT_CLIENT.toggle_fullscreen();
+        /*
         if (!this.currently_fullscreen) {
             THREEx.FullScreen.request();
             MANAGER_RENDERER.on_window_resize();
@@ -187,6 +189,6 @@ RendererManager.prototype = {
             THREEx.FullScreen.cancel();
         }
         this.currently_fullscreen = !this.currently_fullscreen;
-
+        */
     }
 };
