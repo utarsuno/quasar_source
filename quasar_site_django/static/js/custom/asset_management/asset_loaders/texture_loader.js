@@ -28,9 +28,9 @@ ManagerManager.prototype.set_texture_loader = function(loading_manager) {
             case TRANSITION_GRID:
                 return 'third_party/t.png';
             case SKYBOX_FRONT:
-                return 'skybox/fo.png';
+                return 'skybox/f.png';
             case SKYBOX_BACK:
-                return 'skybox/b.png';
+                return 'skybox/ba.png';
             case SKYBOX_LEFT:
                 return 'skybox/l.png';
             case SKYBOX_RIGHT:

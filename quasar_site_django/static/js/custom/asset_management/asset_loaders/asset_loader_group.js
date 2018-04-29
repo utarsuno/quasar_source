@@ -10,7 +10,7 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
 
     this._asset_base_url = '/home/git_repos/quasar_source/quasar_site_django/static/assets/' + asset_group_type;
     this._number_of_assets_loaded  = 0;
-    
+
     this._asset_loaded = function(asset_name) {
         this._loading_manager.asset_loaded(asset_name);
         this._number_of_assets_loaded += 1;
