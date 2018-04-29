@@ -1,7 +1,7 @@
 'use strict';
 
 function FloatingText2D(world, height, text, fixed_width, cacheable) {
-    this.__init__(world, height, text, fixed_width);
+    this.__init__(world, height, text, fixed_width, cacheable);
 }
 
 FloatingText2D.prototype = {

@@ -35,6 +35,7 @@ function Text2D(world, width, height, text, cacheable) {
     this.height = height;
     this.dynamic_width = false;
 
+    /*
     if (is_defined(cacheable)) {
         if (cacheable) {
 
@@ -44,6 +45,7 @@ function Text2D(world, width, height, text, cacheable) {
     } else {
 
     }
+    */
     this.canvas = new CanvasTexture();
 
     this.initialized = false;
