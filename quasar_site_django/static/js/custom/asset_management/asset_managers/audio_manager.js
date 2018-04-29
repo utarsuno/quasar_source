@@ -55,7 +55,7 @@ AudioManager.prototype = {
     },
 
     set_audio: function(audio_name, audio_buffer) {
-        MANAGER_AUDIO._set_audio(audio_name - 1, audio_buffer);
+        MANAGER_AUDIO._set_audio(audio_name, audio_buffer);
     },
 
     _set_audio: function(audio_name, audio_buffer) {
