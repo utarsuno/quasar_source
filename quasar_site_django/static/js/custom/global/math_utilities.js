@@ -22,10 +22,6 @@ const UP_VECTOR = new THREE.Vector3(0, 1, 0);
 /*    ___          ___         ___            __  ___    __        __
  |  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
  \__/  |  | |___ |  |   |     |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-function round_to_n_decimal_places(text, n) {
-    return Number(text).toFixed(n);
-}
-
 // From : https://stackoverflow.com/questions/4398711/round-to-the-nearest-power-of-two
 function get_nearest_power_of_two_for_number(n) {
     let v = n;

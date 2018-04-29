@@ -10,7 +10,7 @@ FloatingText3D.prototype = {
         // Inherit.
         Text3D.call(this, world, size, text);
 
-        this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
+        //this.set_default_background_color(COLOR_SEMI_TRANSPARENT, false);
         this.set_default_foreground_color(COLOR_TEXT_CONSTANT, false);
 
         // Create the Text3D.

@@ -31,7 +31,7 @@ function CanvasFont() {
         if (this.text_property_bold) {
             additional_properties += 'bold ';
         }
-        this.font = additional_properties + str(this.font_size) + 'px Arial';
+        this.font = additional_properties + this.font_size.toString() + 'px Arial';
         //l('Font is : {' + this.font + '}');
         this.context.font = this.font;
     };
