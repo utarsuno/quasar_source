@@ -11,9 +11,19 @@ ManagerManager.prototype = {
     },
 
     delete_loading_manager: function() {
-        delete ManagerManager.prototype.get_loading_manager;
+        delete ManagerManager.prototype.set_loading_manager;
         this.manager_loading = null;
         delete this.manager_loading;
+
+        delete ManagerManager.prototype.AssetLoaderGroup;
+
+        delete ManagerManager.prototype.set_audio_loader;
+        this.audio_loader = null;
+        delete this.audio_loader;
+
+        delete ManagerManager.prototype.set_texture_loader;
+        this.texture_loader = null;
+        delete this.texture_loader;
     }
 };
 
