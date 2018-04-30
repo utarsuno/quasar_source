@@ -1,7 +1,7 @@
 'use strict';
 
-const INDEX_OF_ENTITY = 0;        // #pre-process_global_constant
-const INDEX_OF_ENTITY_BUTTON = 1; // #pre-process_global_constant
+const INDEX_OF_ENTITY = 0; // #pre-process_global_constant
+const INDEX_OF_BUTTON = 1; // #pre-process_global_constant
 
 function DayViewSimple(day_instance, base_wall) {
     this.__init__(day_instance, base_wall);
@@ -41,12 +41,12 @@ DayViewSimple.prototype = {
 
     update_name_for_entity: function(entity) {
         let entity_id = entity.get_relative_id();
-        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].update_text(entity.get_value(ENTITY_PROPERTY_NAME));
+        this.entities[entity_id][INDEX_OF_BUTTON].update_text(entity.get_value(ENTITY_PROPERTY_NAME));
     },
 
     update_color_for_entity: function(entity) {
         let entity_id = entity.get_relative_id();
-        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON].set_default_color(entity.get_color_for_schedule_view());
+        this.entities[entity_id][INDEX_OF_BUTTON].set_default_color(entity.get_color_for_schedule_view());
     },
 
     remove_entity: function(entity) {
@@ -82,7 +82,7 @@ DayViewSimple.prototype = {
 
         entity_button.set_engage_function(this._edit_entity.bind(this, entity_id, entity_button));
 
-        this.entities[entity_id][INDEX_OF_ENTITY_BUTTON] = entity_button;
+        this.entities[entity_id][INDEX_OF_BUTTON] = entity_button;
 
         this.base_wall.refresh_position_and_look_at();
     }
