@@ -3,32 +3,32 @@
 /*___      __   ___  __
    |  \ / |__) |__  /__`
    |   |  |    |___ .__/ */
-const TIME_DELTA_YEARS  = 1;
-const TIME_DELTA_DAYS   = 2;
-const TIME_DELTA_MONTHS = 3;
+const TIME_DELTA_YEARS  = 1;        // #pre-process_global_constant
+const TIME_DELTA_DAYS   = 2;        // #pre-process_global_constant
+const TIME_DELTA_MONTHS = 3;        // #pre-process_global_constant
 
-const TIME_TYPE_YEAR_CURRENT  = 21;
-const TIME_TYPE_YEAR_STATIC   = 22;
-const TIME_TYPE_MONTH_CURRENT = 23;
-const TIME_TYPE_MONTH_STATIC  = 24;
-const TIME_TYPE_DAY_CURRENT   = 25;
-const TIME_TYPE_DAY_STATIC    = 26;
+const TIME_TYPE_YEAR_CURRENT  = 21; // #pre-process_global_constant
+const TIME_TYPE_YEAR_STATIC   = 22; // #pre-process_global_constant
+const TIME_TYPE_MONTH_CURRENT = 23; // #pre-process_global_constant
+const TIME_TYPE_MONTH_STATIC  = 24; // #pre-process_global_constant
+const TIME_TYPE_DAY_CURRENT   = 25; // #pre-process_global_constant
+const TIME_TYPE_DAY_STATIC    = 26; // #pre-process_global_constant
 
 /*     __       ___          __   __        __  ___           ___  __
  |\/| /  \ |\ |  |  |__|    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
  |  | \__/ | \|  |  |  |    \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
-const MONTH_JANUARY   = 0;
-const MONTH_FEBRUARY  = 1;
-const MONTH_MARCH     = 2;
-const MONTH_APRIL     = 3;
-const MONTH_MAY       = 4;
-const MONTH_JUNE      = 5;
-const MONTH_JULY      = 6;
-const MONTH_AUGUST    = 7;
-const MONTH_SEPTEMBER = 8;
-const MONTH_OCTOBER   = 9;
-const MONTH_NOVEMBER  = 10;
-const MONTH_DECEMBER  = 11;
+const MONTH_JANUARY   = 0;          // #pre-process_global_constant
+const MONTH_FEBRUARY  = 1;          // #pre-process_global_constant
+const MONTH_MARCH     = 2;          // #pre-process_global_constant
+const MONTH_APRIL     = 3;          // #pre-process_global_constant
+const MONTH_MAY       = 4;          // #pre-process_global_constant
+const MONTH_JUNE      = 5;          // #pre-process_global_constant
+const MONTH_JULY      = 6;          // #pre-process_global_constant
+const MONTH_AUGUST    = 7;          // #pre-process_global_constant
+const MONTH_SEPTEMBER = 8;          // #pre-process_global_constant
+const MONTH_OCTOBER   = 9;          // #pre-process_global_constant
+const MONTH_NOVEMBER  = 10;         // #pre-process_global_constant
+const MONTH_DECEMBER  = 11;         // #pre-process_global_constant
 
 const MONTH_JANUARY_STRING   = 'January';
 const MONTH_FEBRUARY_STRING  = 'February';
@@ -48,13 +48,13 @@ const MONTH_NAMES = [MONTH_JANUARY_STRING, MONTH_FEBRUARY_STRING, MONTH_MARCH_ST
 /*__               __   __        __  ___           ___  __
  |  \  /\  \ /    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
  |__/ /~~\  |     \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
-const DAY_MONDAY    = 0;
-const DAY_TUESDAY   = 1;
-const DAY_WEDNESDAY = 2;
-const DAY_THURSDAY  = 3;
-const DAY_FRIDAY    = 4;
-const DAY_SATURDAY  = 5;
-const DAY_SUNDAY    = 6;
+const DAY_MONDAY    = 0; // #pre-process_global_constant
+const DAY_TUESDAY   = 1; // #pre-process_global_constant
+const DAY_WEDNESDAY = 2; // #pre-process_global_constant
+const DAY_THURSDAY  = 3; // #pre-process_global_constant
+const DAY_FRIDAY    = 4; // #pre-process_global_constant
+const DAY_SATURDAY  = 5; // #pre-process_global_constant
+const DAY_SUNDAY    = 6; // #pre-process_global_constant
 
 const DAY_MONDAY_STRING    = 'Monday';
 const DAY_TUESDAY_STRING   = 'Tuesday';

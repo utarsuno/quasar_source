@@ -1,7 +1,7 @@
 'use strict';
 
-const INDEX_OF_ENTITY = 0;
-const INDEX_OF_ENTITY_BUTTON = 1;
+const INDEX_OF_ENTITY = 0;        // #pre-process_global_constant
+const INDEX_OF_ENTITY_BUTTON = 1; // #pre-process_global_constant
 
 function DayViewSimple(day_instance, base_wall) {
     this.__init__(day_instance, base_wall);

@@ -1,8 +1,8 @@
 'use strict';
 
 // Cookie keys.
-const COOKIE_SHOULD_REMEMBER_USERNAME = 'should_remember_username'; // #pre-process_global_constant
-const COOKIE_REMEMBERED_USERNAME      = 'remembered_username';      // #pre-process_global_constant
+const COOKIE_SHOULD_REMEMBER_USERNAME = 'a'; // #pre-process_global_constant
+const COOKIE_REMEMBERED_USERNAME      = 'b';  // #pre-process_global_constant
 
 function CookieManager() {
     this.cookies = Cookies.noConflict();

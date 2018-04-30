@@ -1,7 +1,7 @@
 'use strict';
 
-const EDITOR_MODE_CREATE = 1;
-const EDITOR_MODE_EDIT   = 2;
+const EDITOR_MODE_CREATE = 1; // #pre-process_global_constant
+const EDITOR_MODE_EDIT   = 2; // #pre-process_global_constant
 
 const ADD_NEW_FIELD_BUTTON_ROW = 'add_new_field_button';
 
