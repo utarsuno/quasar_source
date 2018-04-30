@@ -27,6 +27,7 @@ function TextAbstraction(text) {
             this.syntax_rules.push(new TextSyntaxEmail());
             break;
         case TEXT_SYNTAX_REPEAT_PASSWORD:
+            this._is_password = true;
             this.syntax_rules.push(new TextSyntaxRepeatPassword());
             break;
         }
