@@ -1,9 +1,9 @@
 'use strict';
 
-const CENTER_LEFT     = 1;
-const CENTER_MIDDLE   = 2;
-const CENTER_RIGHT    = 3;
-const CENTER_ABSOLUTE = 4;
+const CENTER_LEFT     = 1; // #pre-process_global_constant
+const CENTER_MIDDLE   = 2; // #pre-process_global_constant
+const CENTER_RIGHT    = 3; // #pre-process_global_constant
+const CENTER_ABSOLUTE = 4; // #pre-process_global_constant
 
 function FloatingRow(parent_wall, row_number, row_name) {
     this.__init__(parent_wall, row_number, row_name);
