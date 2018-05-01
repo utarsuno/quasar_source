@@ -72,11 +72,7 @@ HexagonGrid.prototype = {
     },
 
     _create_cache: function() {
-
-    },
-
-    _create_tile: function(x_offset, y_offset, material_offset) {
-        let tile = new THREE.Geometry();
+        this.tile = new THREE.Geometry();
 
         let v0 = new THREE.Vector3(0, 0, 0);
         let v1 = new THREE.Vector3(64, 0, 0);
@@ -86,20 +82,28 @@ HexagonGrid.prototype = {
         let v5 = new THREE.Vector3(-32, -55.42562484741211, 0);
         let v6 = new THREE.Vector3(32, -55.42562484741211, 0);
 
-        tile.vertices.push(v0);
-        tile.vertices.push(v1);
-        tile.vertices.push(v2);
-        tile.vertices.push(v3);
-        tile.vertices.push(v4);
-        tile.vertices.push(v5);
-        tile.vertices.push(v6);
+        this.tile.vertices.push(v0);
+        this.tile.vertices.push(v1);
+        this.tile.vertices.push(v2);
+        this.tile.vertices.push(v3);
+        this.tile.vertices.push(v4);
+        this.tile.vertices.push(v5);
+        this.tile.vertices.push(v6);
 
-        tile.faces.push(new THREE.Face3(1, 2, 0));
-        tile.faces.push(new THREE.Face3(2, 3, 0));
-        tile.faces.push(new THREE.Face3(3, 4, 0));
-        tile.faces.push(new THREE.Face3(4, 5, 0));
-        tile.faces.push(new THREE.Face3(5, 6, 0));
-        tile.faces.push(new THREE.Face3(6, 1, 0));
+        this.tile.faces.push(new THREE.Face3(1, 2, 0));
+        this.tile.faces.push(new THREE.Face3(2, 3, 0));
+        this.tile.faces.push(new THREE.Face3(3, 4, 0));
+        this.tile.faces.push(new THREE.Face3(4, 5, 0));
+        this.tile.faces.push(new THREE.Face3(5, 6, 0));
+        this.tile.faces.push(new THREE.Face3(6, 1, 0));
+    },
+
+    _clear_cache: function() {
+
+    },
+
+    _create_tile: function(x_offset, y_offset, material_offset) {
+
 
         let c = new THREE.MeshPhongMaterial({color: this._get_random_grey()});
         c.needsUpdate = true;
@@ -108,10 +112,10 @@ HexagonGrid.prototype = {
         let m = new THREE.Matrix4();
         m.makeTranslation(x_offset, y_offset, 0);
 
-        this.single_geometry.merge(tile, m, material_offset);
+        this.single_geometry.merge(this.tile, m, material_offset);
 
-        tile.dispose();
-        tile = null;
+        //tile.dispose();
+        //tile = null;
     },
 
     _get_random_grey: function() {
