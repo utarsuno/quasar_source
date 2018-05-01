@@ -92,7 +92,10 @@ WorldManager.prototype = {
         }
 
         if (!this.current_world.floating_cursor._currently_engaged) {
-            this.current_world.update_interactive_objects();
+            // Don't update interactive objects during a transition.
+            if (!MANAGER_RENDERER.in_transition) {
+                this.current_world.update_interactive_objects();
+            }
         }
 
         this.current_world.floating_cursor.update();

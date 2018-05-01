@@ -52,6 +52,9 @@ function World(world_entity) {
     };
 
     this.update_interactive_objects = function() {
+        // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
+
+
         // Don't perform an update if currently engaged with 3D text.
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.maintain_engage_until_right_click) {
