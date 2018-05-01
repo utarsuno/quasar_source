@@ -54,11 +54,9 @@ function World(world_entity) {
     this.update_interactive_objects = function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
         if (this.currently_looked_at_object !== null) {
-            if (this.currently_looked_at_object.hasOwnProperty('needs_mobile_keyboard')) {
-                if (this.currently_looked_at_object.needs_mobile_keyboard) {
-                    if (this.currently_looked_at_object.is_engaged()) {
-                        return;
-                    }
+            if (this.currently_looked_at_object.needs_mobile_keyboard) {
+                if (this.currently_looked_at_object.is_engaged()) {
+                    return;
                 }
             }
         }
