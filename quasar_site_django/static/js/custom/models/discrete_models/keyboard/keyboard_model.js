@@ -99,18 +99,18 @@ KeyboardModel.prototype = {
 
         // First row.
         this._create_key('esc', this.face_size, 0, 0, [-200, 100, 'Press to release mouse control.']);
-        this._create_key('1', this.face_size, this.face_size, 0);
-        this._create_key('2', this.face_size, this.face_size * 2, 0);
-        this._create_key('3', this.face_size, this.face_size * 3, 0);
-        this._create_key('4', this.face_size, this.face_size * 4, 0);
-        this._create_key('5', this.face_size, this.face_size * 5, 0);
-        this._create_key('6', this.face_size, this.face_size * 6, 0);
-        this._create_key('7', this.face_size, this.face_size * 7, 0);
-        this._create_key('8', this.face_size, this.face_size * 8, 0);
-        this._create_key('9', this.face_size, this.face_size * 9, 0);
-        this._create_key('0', this.face_size, this.face_size * 10, 0);
-        this._create_key('-', this.face_size, this.face_size * 11, 0);
-        this._create_key('+', this.face_size, this.face_size * 12, 0);
+        this._create_key('1', this.face_size, this.face_size + this.key_depth * 2, 0);
+        this._create_key('2', this.face_size, this.face_size * 2 + this.key_depth * 4, 0);
+        this._create_key('3', this.face_size, this.face_size * 3 + this.key_depth * 6, 0);
+        this._create_key('4', this.face_size, this.face_size * 4 + this.key_depth * 8, 0);
+        this._create_key('5', this.face_size, this.face_size * 5 + this.key_depth * 10, 0);
+        this._create_key('6', this.face_size, this.face_size * 6 + this.key_depth * 12, 0);
+        this._create_key('7', this.face_size, this.face_size * 7 + this.key_depth * 14, 0);
+        this._create_key('8', this.face_size, this.face_size * 8 + this.key_depth * 16, 0);
+        this._create_key('9', this.face_size, this.face_size * 9 + this.key_depth * 18, 0);
+        this._create_key('0', this.face_size, this.face_size * 10 + this.key_depth * 20, 0);
+        this._create_key('-', this.face_size, this.face_size * 11 + this.key_depth * 22, 0);
+        this._create_key('+', this.face_size, this.face_size * 12 + this.key_depth * 24, 0);
         this._create_key('backspace', this.face_size * 2, this.face_size * 13, 0);
         // Second row.
         this._create_key('tab', this.face_size * 1.5, 0, y1);
