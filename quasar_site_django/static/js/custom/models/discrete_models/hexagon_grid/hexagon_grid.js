@@ -67,6 +67,7 @@ HexagonGrid.prototype = {
 
         this.object3D.scale.set(3, 3, 3);
         this.object3D.matrixAutoUpdate = false;
+        this.object3D.matrixWorldNeedsUpdate = true;
     },
 
     _create_cache: function() {
