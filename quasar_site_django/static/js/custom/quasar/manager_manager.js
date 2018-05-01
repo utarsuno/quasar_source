@@ -51,6 +51,9 @@ ManagerManager.prototype = {
 
         // Delete HexagonGrid class, only used once to create the initial hexagon grid.
         delete ManagerManager.prototype.HexagonGrid;
+
+        // Delete KeyboardModel class, only used once to create the initial keyboard model.
+        delete ManagerManager.prototype.KeyboardModel;
     },
 
     load_all_global_managers: function() {
