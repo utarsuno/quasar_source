@@ -1,12 +1,8 @@
 'use strict';
 
-function KeyboardModel(world) {
-    this.__init__(world);
-}
+ManagerManager.prototype.KeyboardModel = function() {
 
-KeyboardModel.prototype = {
-
-    __init__: function(world) {
+    this.__init__ = function(world) {
         // Inherit.
         Attachmentable.call(this, world);
         this.key_depth = 10;
@@ -14,9 +10,9 @@ KeyboardModel.prototype = {
 
         this.size_add_half = this.face_size * 1.5;
         this.size_double   = this.face_size * 2;
-    },
+    };
 
-    create: function() {
+    this.create = function() {
         this._create_cache();
 
         this.single_geometry = new THREE.Geometry();
@@ -96,16 +92,16 @@ KeyboardModel.prototype = {
         this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
         this.object3D.add(this.single_mesh);
         this._clear_cache();
-    },
+    };
 
-    _create_cache: function() {
+    this._create_cache = function() {
         // Standard key sizes cache.
         this.cached_key_geometry           = this._get_key_geometry(this.face_size);
         this.cached_key_geometry_plus_half = this._get_key_geometry(this.size_add_half);
         this.cached_key_geometry_double    = this._get_key_geometry(this.size_double);
-    },
+    };
 
-    _clear_cache: function() {
+    this._clear_cache = function() {
         this.cached_key_geometry.dispose();
         this.cached_key_geometry_plus_half.dispose();
         this.cached_key_geometry_double.dispose();
@@ -117,9 +113,9 @@ KeyboardModel.prototype = {
         //this.third_row = undefined;
         //this.fourth_row = undefined;
         //this.fifth_row = undefined;
-    },
+    };
 
-    _get_key_geometry: function(key_width) {
+    this._get_key_geometry = function(key_width) {
         let geometry = new THREE.Geometry();
 
         // Face.
@@ -168,9 +164,9 @@ KeyboardModel.prototype = {
 
         geometry.computeFaceNormals();
         return geometry;
-    },
+    };
 
-    _create_key: function(key, key_width, key_x_offset, y_offset, tooltip) {
+    this._create_key = function(key, key_width, key_x_offset, y_offset, tooltip) {
         let key_geometry;
         switch(key_width) {
         case this.face_size:
@@ -219,9 +215,9 @@ KeyboardModel.prototype = {
             this._create_tooltip(e, p2, tooltip[2]);
         }
         */
-    },
+    };
 
-    _create_tooltip: function(position_start, position_end, text) {
+    this._create_tooltip = function(position_start, position_end, text) {
         let material = new THREE.LineBasicMaterial({color: 0x0000ff});
         let geometry = new THREE.Geometry();
         geometry.vertices.push(
@@ -236,7 +232,7 @@ KeyboardModel.prototype = {
 
         this.object3D.add(line);
         this.object3D.add(label.object3D);
-    }
+    };
 
 };
 

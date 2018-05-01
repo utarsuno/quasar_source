@@ -79,7 +79,9 @@ LoginWorld.prototype = {
         this._create_server_requests();
 
         // Test.
-        this.keyboard = new KeyboardModel(this);
+        //this.keyboard = new KeyboardModel(this);
+        this.keyboard = new MANAGER_MANAGER.KeyboardModel();
+        this.keyboard.__init__(this);
         this.keyboard.create();
         this.keyboard.set_position(1200, 300, 800);
         this.keyboard.look_at_origin();
