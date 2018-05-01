@@ -32,7 +32,7 @@ QuasarMainLoop.prototype = {
         // Run garbage collection after the single render.
 
         // Now run the actual main loop.
-        this._run_main_loop();
+        this._quasar_main_loop();
     },
 
     _quasar_main_loop: function() {
