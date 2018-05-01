@@ -63,7 +63,7 @@ function World(world_entity) {
             }
         }
 
-        l('update_interactive_objects');
+        //l('update_interactive_objects');
 
         /*
         // Don't perform an update if currently engaged with 3D text.
