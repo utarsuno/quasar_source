@@ -61,19 +61,6 @@ function World(world_entity) {
             }
         }
 
-        //l('update_interactive_objects');
-
-        /*
-        // Don't perform an update if currently engaged with 3D text.
-        if (is_defined(this.currently_looked_at_object)) {
-            if (this.currently_looked_at_object.maintain_engage_until_right_click) {
-                if (this.currently_looked_at_object.is_engaged()) {
-                    return;
-                }
-            }
-        }
-        */
-
         //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         this.raycaster.set(CURRENT_PLAYER.fps_controls.yaw.position, CURRENT_PLAYER.fps_controls.get_direction());
         let smallest_distance = 99999;

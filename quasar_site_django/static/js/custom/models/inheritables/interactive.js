@@ -10,8 +10,6 @@ function Interactive() {
 
     this.only_used_for_blocking_input   = false;
 
-    this.maintain_engage_until_right_click = false;
-
     // Used for sliders.
     this.requires_mouse_x_movement      = false;
     this.requires_mouse_y_movement      = false;

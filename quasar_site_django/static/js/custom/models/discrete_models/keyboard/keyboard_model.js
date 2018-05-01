@@ -101,6 +101,7 @@ KeyboardModel.prototype = {
 
         this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
         this.object3D.add(this.single_mesh);
+        this.set_to_manual_positioning();
     },
 
     _create_row: function(row, y_offset) {

@@ -11,6 +11,8 @@ HexagonGrid.prototype = {
 
         this.h = 55.42562484741211;
         this.w_distance = Math.sqrt(3 * this.h * this.h);
+
+        this._create_cache();
     },
 
     create: function() {
@@ -66,6 +68,10 @@ HexagonGrid.prototype = {
         this.object3D.scale.set(3, 3, 3);
     },
 
+    _create_cache: function() {
+
+    },
+
     _create_tile: function(x_offset, y_offset, material_offset) {
         let tile = new THREE.Geometry();
 
@@ -107,10 +113,7 @@ HexagonGrid.prototype = {
 
     _get_random_grey: function() {
         let v =  Math.floor(Math.random() * 10);
-        let r = 20 + v;
-        let g = 20 + v;
-        let b = 20 + v;
-        return 'rgb(' + parseInt(r) + ',' + parseInt(g) + ',' + parseInt(b) + ')';
+        return 'rgb(' + parseInt(20 + v) + ',' + parseInt(20 + v) + ',' + parseInt(20 + v) + ')';
     },
 
     _get_x_offset: function(d) {

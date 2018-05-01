@@ -10,7 +10,6 @@ FloatingInput3D.prototype = {
         // Inherit.
         Text3D.call(this, world, size, text);
         this.set_to_typeable();
-        this.maintain_engage_until_right_click = true;
 
         this.set_default_foreground_color(COLOR_TEXT_DEFAULT, false);
 
