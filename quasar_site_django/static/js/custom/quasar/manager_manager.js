@@ -137,8 +137,6 @@ ManagerManager.prototype = {
 
         CURRENT_CLIENT.add_welcome_message();
 
-        //this.delete_loading_manager();
-
         this.quasar.run();
     }
 };
@@ -153,8 +151,6 @@ window.onload = function() {
         MANAGER_MANAGER.load_all_global_managers();
 
         MANAGER_MANAGER.set_quasar_main_object(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER, MANAGER_MANAGER);
-
-        //const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER, MANAGER_MANAGER);
 
         MANAGER_MANAGER.initial_asset_loading_start(MANAGER_MANAGER.quasar_main_object);
     }
