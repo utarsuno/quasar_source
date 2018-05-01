@@ -91,7 +91,7 @@ WorldManager.prototype = {
             }
         }
 
-        if (!this.current_world.floating_cursor._currently_engaged) {
+        if (!this.player_cursor._currently_engaged) {
             // Don't update interactive objects during a transition or during chat typing.
             if (!MANAGER_RENDERER.in_transition || CURRENT_PLAYER.current_state === PLAYER_STATE_TYPING) {
                 this.current_world.update_interactive_objects();
