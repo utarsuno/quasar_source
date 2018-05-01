@@ -30,7 +30,7 @@ ManagerManager.prototype = {
         CURRENT_CLIENT = new Client();
     },
 
-    delete_loading_manager: function() {
+    perform_initial_heap_cleanup: function() {
         // Delete the LoadingManager.
         delete ManagerManager.prototype.set_loading_manager;
         this.manager_loading = null;
@@ -137,7 +137,7 @@ ManagerManager.prototype = {
 
         CURRENT_CLIENT.add_welcome_message();
 
-        this.delete_loading_manager();
+        //this.delete_loading_manager();
 
         this.quasar.run();
     }
@@ -152,8 +152,10 @@ window.onload = function() {
     if (CURRENT_CLIENT.supports_webgl()) {
         MANAGER_MANAGER.load_all_global_managers();
 
-        const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER);
+        MANAGER_MANAGER.set_quasar_main_object(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER, MANAGER_MANAGER);
 
-        MANAGER_MANAGER.initial_asset_loading_start(QUASAR);
+        //const QUASAR = new QuasarMainLoop(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER, MANAGER_MANAGER);
+
+        MANAGER_MANAGER.initial_asset_loading_start(MANAGER_MANAGER.quasar_main_object);
     }
 };
