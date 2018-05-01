@@ -111,7 +111,7 @@ KeyboardModel.prototype = {
         this._create_key('0', this.face_size, this.face_size * 10 + this.key_depth * 20, 0);
         this._create_key('-', this.face_size, this.face_size * 11 + this.key_depth * 22, 0);
         this._create_key('+', this.face_size, this.face_size * 12 + this.key_depth * 24, 0);
-        this._create_key('backspace', this.face_size * 2, this.face_size * 13, 0);
+        this._create_key('backspace', this.face_size * 2, this.face_size * 13  + this.key_depth * 26, 0);
         // Second row.
         this._create_key('tab', this.face_size * 1.5, 0, y1);
         this._create_key('q', this.face_size, this.face_size * 1.5, y1);
