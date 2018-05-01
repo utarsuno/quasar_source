@@ -84,6 +84,7 @@ LoginWorld.prototype = {
         this.keyboard.set_position(1200, 300, 800);
         this.keyboard.look_at_origin();
         this.keyboard.set_to_manual_positioning();
+        this.keyboard.refresh_position_and_look_at();
     },
 
     _create_server_requests: function() {
