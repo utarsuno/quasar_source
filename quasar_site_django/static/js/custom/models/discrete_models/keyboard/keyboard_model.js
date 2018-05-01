@@ -89,6 +89,8 @@ KeyboardModel.prototype = {
     },
 
     create: function() {
+        this._create_cache();
+
         let row_height = this.key_depth * 2 + this.face_size;
         this._create_row(this.first_row, 0);
         this._create_row(this.second_row, -row_height);
@@ -113,7 +115,86 @@ KeyboardModel.prototype = {
         }
     },
 
+    _create_cache: function() {
+        // Cache the standard key size.
+        this.cached_key_geometry = this._get_key_geometry(this.face_size);
+    },
+
+    _clear_cache: function() {
+        this.cached_key_geometry.dispose();
+        this.cached_key_geometry = undefined;
+    },
+
+    _get_key_geometry: function(key_width) {
+        let geometry = new THREE.Geometry();
+
+        // Face.
+        let v0 = new THREE.Vector3(this.key_depth, this.key_depth, 0);
+        let v1 = new THREE.Vector3(this.key_depth + key_width, this.key_depth, 0);
+        let v2 = new THREE.Vector3(this.key_depth + key_width, this.key_depth + this.face_size, 0);
+        let v3 = new THREE.Vector3(this.key_depth, this.key_depth + this.face_size, 0);
+        // Top left.
+        let v4 = new THREE.Vector3(0, this.key_depth * 2 + this.face_size, -this.key_depth);
+        // Top right.
+        let v5 = new THREE.Vector3(this.key_depth * 2 + key_width, this.key_depth * 2 + this.face_size, -this.key_depth);
+        // Bottom right.
+        let v6 = new THREE.Vector3(this.key_depth * 2 + key_width, 0, -this.key_depth);
+        // Bottom left.
+        let v7 = new THREE.Vector3(0, 0, -this.key_depth);
+
+        // Face.
+        geometry.vertices.push(v0);
+        geometry.vertices.push(v1);
+        geometry.vertices.push(v2);
+        geometry.vertices.push(v3);
+        // Top left.
+        geometry.vertices.push(v4);
+        // Top right.
+        geometry.vertices.push(v5);
+        // Right edge.
+        geometry.vertices.push(v6);
+        // Bottom left.
+        geometry.vertices.push(v7);
+
+        // Face.
+        geometry.faces.push(new THREE.Face3(0, 1, 2));
+        geometry.faces.push(new THREE.Face3(2, 3, 0));
+        // Top edge.
+        geometry.faces.push(new THREE.Face3(3, 5, 4));
+        geometry.faces.push(new THREE.Face3(3, 2, 5));
+        // Right edge.
+        geometry.faces.push(new THREE.Face3(2, 6, 5));
+        geometry.faces.push(new THREE.Face3(2, 1, 6));
+        // Bottom edge.
+        geometry.faces.push(new THREE.Face3(7, 6, 1));
+        geometry.faces.push(new THREE.Face3(7, 1, 0));
+        // Left edge.
+        geometry.faces.push(new THREE.Face3(7, 0, 3));
+        geometry.faces.push(new THREE.Face3(3, 4, 7));
+
+        geometry.computeFaceNormals();
+        return geometry;
+    },
+
     _create_key: function(key, key_width, key_x_offset, y_offset, tooltip) {
+        let key_geometry;
+        if (key_width === this.face_size) {
+            key_geometry = this.cached_key_geometry;
+        } else {
+            key_geometry = this._get_key_geometry(key_width);
+        }
+
+        let m = new THREE.Matrix4();
+        m.makeTranslation(key_x_offset, y_offset, 0);
+
+        this.single_geometry.merge(key_geometry, m);
+
+        if (key_width !== this.face_size) {
+            key_geometry.dispose();
+        }
+    },
+
+    _create_keyOLD: function(key, key_width, key_x_offset, y_offset, tooltip) {
         let k = new ButtonModel(key, this);
         k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
 

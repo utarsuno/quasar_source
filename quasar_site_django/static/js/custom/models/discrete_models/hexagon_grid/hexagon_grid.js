@@ -69,6 +69,8 @@ HexagonGrid.prototype = {
         this.object3D.matrixAutoUpdate = false;
         this.object3D.updateMatrix();
         this.object3D.matrixWorldNeedsUpdate = true;
+
+        this._clear_cache();
     },
 
     _create_cache: function() {
@@ -99,12 +101,11 @@ HexagonGrid.prototype = {
     },
 
     _clear_cache: function() {
-
+        this.tile.dispose();
+        this.tile = undefined;
     },
 
     _create_tile: function(x_offset, y_offset, material_offset) {
-
-
         let c = new THREE.MeshPhongMaterial({color: this._get_random_grey()});
         c.needsUpdate = true;
         this.materails.push(c);
@@ -113,9 +114,6 @@ HexagonGrid.prototype = {
         m.makeTranslation(x_offset, y_offset, 0);
 
         this.single_geometry.merge(this.tile, m, material_offset);
-
-        //tile.dispose();
-        //tile = null;
     },
 
     _get_random_grey: function() {
