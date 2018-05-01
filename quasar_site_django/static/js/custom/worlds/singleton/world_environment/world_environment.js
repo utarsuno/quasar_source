@@ -57,7 +57,8 @@ WorldEnvironment.prototype = {
         this.skybox_cube.position.set(0, 0, 0);
         world.add_to_scene(this.skybox_cube);
 
-        this.grid = new MANAGER_MANAGER.HexagonGrid(6);
+        this.grid = new MANAGER_MANAGER.HexagonGrid();
+        this.grid.__init__(6);
         //this.grid = new HexagonGrid(6);
         this.grid.create();
         world.add_to_scene(this.grid.object3D);

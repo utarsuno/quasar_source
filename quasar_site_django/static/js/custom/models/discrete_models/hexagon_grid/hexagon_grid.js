@@ -1,21 +1,17 @@
 'use strict';
 
-ManagerManager.prototype.HexagonGrid = function(number_of_layers) {
-    this.__init__(number_of_layers);
-};
+ManagerManager.prototype.HexagonGrid = function() {
 
-MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
-
-    __init__: function(number_of_layers) {
+    this.__init__ = function(number_of_layers) {
         this.number_of_layers = number_of_layers;
 
         this.h = 55.42562484741211;
         this.w_distance = Math.sqrt(3 * this.h * this.h);
 
         this._create_cache();
-    },
+    };
 
-    create: function() {
+    this.create = function() {
         this.single_geometry = new THREE.Geometry();
         this.materails = [];
 
@@ -71,9 +67,9 @@ MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
         this.object3D.matrixWorldNeedsUpdate = true;
 
         this._clear_cache();
-    },
+    };
 
-    _create_cache: function() {
+    this._create_cache = function() {
         this.tile = new THREE.Geometry();
 
         let v0 = new THREE.Vector3(0, 0, 0);
@@ -98,14 +94,14 @@ MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
         this.tile.faces.push(new THREE.Face3(4, 5, 0));
         this.tile.faces.push(new THREE.Face3(5, 6, 0));
         this.tile.faces.push(new THREE.Face3(6, 1, 0));
-    },
+    };
 
-    _clear_cache: function() {
+    this._clear_cache = function() {
         this.tile.dispose();
         this.tile = undefined;
-    },
+    };
 
-    _create_tile: function(x_offset, y_offset, material_offset) {
+    this._create_tile = function(x_offset, y_offset, material_offset) {
         let c = new THREE.MeshPhongMaterial({color: this._get_random_grey()});
         c.needsUpdate = true;
         this.materails.push(c);
@@ -114,14 +110,14 @@ MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
         m.makeTranslation(x_offset, y_offset, 0);
 
         this.single_geometry.merge(this.tile, m, material_offset);
-    },
+    };
 
-    _get_random_grey: function() {
+    this._get_random_grey = function() {
         let v =  Math.floor(Math.random() * 10);
         return 'rgb(' + parseInt(20 + v) + ',' + parseInt(20 + v) + ',' + parseInt(20 + v) + ')';
-    },
+    };
 
-    _get_x_offset: function(d) {
+    this._get_x_offset = function(d) {
         switch(d) {
         case 1:
             return 0;
@@ -138,9 +134,9 @@ MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
         case 7:
             return -this.w_distance;
         }
-    },
+    };
 
-    _get_y_offset: function(d) {
+    this._get_y_offset = function(d) {
         switch(d) {
         case 1:
             return this.h * 2;
@@ -157,7 +153,7 @@ MANAGER_MANAGER.prototype.HexagonGrid.prototype = {
         case 7:
             return this.h;
         }
-    },
+    };
 };
 
 /*
