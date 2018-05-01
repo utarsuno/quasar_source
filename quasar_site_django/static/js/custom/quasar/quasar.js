@@ -20,71 +20,32 @@ QuasarMainLoop.prototype = {
         this.previous_time           = null;
         this.single_render_performed = false;
 
-        this._quasar_main_loop = this.quasar_main_loop.bind(this);
-        this.__main_loop = this._main_loop.bind(this);
-        this._temp = this._run_main_loop.bind(this);
+        this.quasar_main_loop = this._quasar_main_loop.bind(this);
 
         this.delta_clock = new THREE.Clock(false);
         this.delta = 0;
     },
 
     run: function() {
-        // Perform a single render then perform the main loop.
-        this._main_loop();
+        // Perform a single render.
+        this._main_loop_logic();
+        // Run garbage collection after the single render.
+
+        // Now run the actual main loop.
         this._run_main_loop();
     },
 
-    _run_main_loop: function() {
-        requestAnimationFrame(this._temp);
+    _quasar_main_loop: function() {
+        requestAnimationFrame(this.quasar_main_loop);
         if (this.current_player.current_state !== PLAYER_STATE_PAUSED) {
-            this._main_loop();
+            this._main_loop_logic();
         }
     },
 
-    //////
-
-    runOLD: function() {
-        this.previous_time = performance.now();
-        this.quasar_main_loop();
-    },
-
-    quasar_main_loop: function() {
-        /*if (CURRENT_CLIENT.has_vr) {
-            this.manager_renderer.renderer.animate(this._main_loop);
-        } else {
-            requestAnimationFrame(this._main_loop);
-        }*/
-
-        requestAnimationFrame(this._quasar_main_loop);
-
-
-        if (this.current_player.current_state !== PLAYER_STATE_PAUSED || !this.single_render_performed) {
-            this.current_client.pre_render();
-
-            this.time = performance.now();
-            this.delta = (this.time - this.previous_time) / 1000.0;
-
-            this.current_client.update();
-
-            this.manager_world.update(this.delta);
-
-            this.current_client.update_message_log(this.delta);
-
-            this.manager_renderer.render(this.delta);
-            this.current_client.post_render();
-            this.previous_time = this.time;
-
-            this.single_render_performed = true;
-        }
-    },
-
-    _main_loop: function() {
+    _main_loop_logic: function() {
         this.delta = this.delta_clock.getDelta();
 
         this.current_client.pre_render();
-
-        //this.time = performance.now();
-        //this.delta = (this.time - this.previous_time) / 1000.0;
 
         this.current_client.update();
         this.manager_world.update(this.delta);
@@ -93,8 +54,6 @@ QuasarMainLoop.prototype = {
         this.manager_renderer.render(this.delta);
         this.current_client.post_render();
 
-        //this.previous_time = this.time;
-        //this.previous_time = performance.now();
         this.delta_clock.start();
     }
 };
