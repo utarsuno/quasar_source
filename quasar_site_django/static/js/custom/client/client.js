@@ -16,6 +16,10 @@ Client.prototype = {
         // TODO : Save the username here.
     },
 
+    set_quasar: function(q) {
+        this.quasar = q;
+    },
+
     add_welcome_message: function() {
         this.add_server_message_green('Welcome to Quasar!');
         if (this.has_vr) {
@@ -112,6 +116,7 @@ Client.prototype = {
         if (!this.is_mobile) {
             this.request_pointer_lock();
         }
+        this.quasar.reset_delta();
     },
 
     /*__   __         ___  ___  __           __   __

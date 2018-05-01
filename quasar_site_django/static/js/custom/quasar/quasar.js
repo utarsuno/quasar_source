@@ -17,8 +17,7 @@ QuasarMainLoop.prototype = {
         this.manager_world           = manager_world;
         this.manager_renderer        = manager_renderer;
 
-        this.previous_time           = null;
-        this.single_render_performed = false;
+        this.current_client.set_quasar(this);
 
         this.quasar_main_loop = this._quasar_main_loop.bind(this);
 
@@ -30,9 +29,13 @@ QuasarMainLoop.prototype = {
         // Perform a single render.
         this._main_loop_logic();
         // Run garbage collection after the single render.
-
+        
         // Now run the actual main loop.
         this._quasar_main_loop();
+    },
+
+    reset_delta: function() {
+        this.delta_clock.start();
     },
 
     _quasar_main_loop: function() {
