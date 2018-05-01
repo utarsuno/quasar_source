@@ -88,7 +88,91 @@ KeyboardModel.prototype = {
         this.single_geometry = new THREE.Geometry();
     },
 
+    _fast_create: function() {
+        this._create_cache();
+
+        let row_height = this.key_depth * 2 + this.face_size;
+        let y1 = -row_height;
+        let y2 = -row_height * 2;
+        let y3 = -row_height * 3;
+        let y4 = -row_height * 4;
+
+        // First row.
+        this._create_key('esc', this.face_size, 0, 0, [-200, 100, 'Press to release mouse control.']);
+        this._create_key('1', this.face_size, this.face_size, 0);
+        this._create_key('2', this.face_size, this.face_size * 2, 0);
+        this._create_key('3', this.face_size, this.face_size * 3, 0);
+        this._create_key('4', this.face_size, this.face_size * 4, 0);
+        this._create_key('5', this.face_size, this.face_size * 5, 0);
+        this._create_key('6', this.face_size, this.face_size * 6, 0);
+        this._create_key('7', this.face_size, this.face_size * 7, 0);
+        this._create_key('8', this.face_size, this.face_size * 8, 0);
+        this._create_key('9', this.face_size, this.face_size * 9, 0);
+        this._create_key('0', this.face_size, this.face_size * 10, 0);
+        this._create_key('-', this.face_size, this.face_size * 11, 0);
+        this._create_key('+', this.face_size, this.face_size * 12, 0);
+        this._create_key('backspace', this.face_size * 2, this.face_size * 13, 0);
+        // Second row.
+        this._create_key('tab', this.face_size * 1.5, 0, y1);
+        this._create_key('q', this.face_size, this.face_size * 1.5, y1);
+        this._create_key('w', this.face_size, this.face_size * 2.5, y1);
+        this._create_key('e', this.face_size, this.face_size * 3.5, y1);
+        this._create_key('r', this.face_size, this.face_size * 4.5, y1);
+        this._create_key('t', this.face_size, this.face_size * 5.5, y1);
+        this._create_key('y', this.face_size, this.face_size * 6.5, y1);
+        this._create_key('u', this.face_size, this.face_size * 7.5, y1);
+        this._create_key('i', this.face_size, this.face_size * 8.5, y1);
+        this._create_key('o', this.face_size, this.face_size * 9.5, y1);
+        this._create_key('p', this.face_size, this.face_size * 10.5, y1);
+        this._create_key('[', this.face_size, this.face_size * 11.5, y1);
+        this._create_key(']', this.face_size, this.face_size * 12.5, y1);
+        this._create_key('\\', this.face_size * 1.5, this.face_size * 13.5, y1);
+        // Third row.
+        this._create_key('caps', this.face_size * 1.6, 0, y2);
+        this._create_key('a', this.face_size, this.face_size * 1.6, y2);
+        this._create_key('s', this.face_size, this.face_size * 2.6, y2);
+        this._create_key('d', this.face_size, this.face_size * 3.6, y2);
+        this._create_key('f', this.face_size, this.face_size * 4.6, y2);
+        this._create_key('g', this.face_size, this.face_size * 5.6, y2);
+        this._create_key('h', this.face_size, this.face_size * 6.6, y2);
+        this._create_key('j', this.face_size, this.face_size * 7.6, y2);
+        this._create_key('k', this.face_size, this.face_size * 8.6, y2);
+        this._create_key('l', this.face_size, this.face_size * 9.6, y2);
+        this._create_key(';', this.face_size, this.face_size * 10.6, y2);
+        this._create_key('\'', this.face_size, this.face_size * 11.6, y2);
+        this._create_key('enter', this.face_size * 2, this.face_size * 12.6, y2);
+        // Fourth row.
+        this._create_key('shift', this.face_size * 2, 0, y3);
+        this._create_key('z', this.face_size, this.face_size * 2, y3);
+        this._create_key('x', this.face_size, this.face_size * 3, y3);
+        this._create_key('c', this.face_size, this.face_size * 4, y3);
+        this._create_key('v', this.face_size, this.face_size * 5, y3);
+        this._create_key('b', this.face_size, this.face_size * 6, y3);
+        this._create_key('n', this.face_size, this.face_size * 7, y3);
+        this._create_key('m', this.face_size, this.face_size * 8, y3);
+        this._create_key(',', this.face_size, this.face_size * 9, y3);
+        this._create_key('.', this.face_size, this.face_size * 10, y3);
+        this._create_key('/', this.face_size, this.face_size * 11, y3);
+        this._create_key('shift', this.face_size * 2, this.face_size * 12, y3);
+        // Fifth row.
+        this._create_key('ctrl', this.face_size, 0, y4);
+        this._create_key(' ', this.face_size, this.face_size, y4);
+        this._create_key('alt', this.face_size, this.face_size * 2, y4);
+        this._create_key('space', this.face_size * 9, this.face_size * 3, y4);
+        this._create_key('alt', this.face_size, this.face_size * 12, y4);
+        this._create_key(' ', this.face_size, this.face_size * 13, y4);
+        this._create_key('ctrl', this.face_size, this.face_size * 14, y4);
+
+        this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
+        this.object3D.add(this.single_mesh);
+        this._clear_cache();
+    },
+
     create: function() {
+        this._fast_create();
+    },
+
+    createOLD: function() {
         this._create_cache();
 
         let row_height = this.key_depth * 2 + this.face_size;
@@ -103,6 +187,8 @@ KeyboardModel.prototype = {
 
         this.single_mesh = new THREE.Mesh(this.single_geometry, new THREE.MeshNormalMaterial());
         this.object3D.add(this.single_mesh);
+
+        this._clear_cache();
     },
 
     _create_row: function(row, y_offset) {
@@ -123,6 +209,11 @@ KeyboardModel.prototype = {
     _clear_cache: function() {
         this.cached_key_geometry.dispose();
         this.cached_key_geometry = undefined;
+        this.first_row = undefined;
+        this.second_row = undefined;
+        this.third_row = undefined;
+        this.fourth_row = undefined;
+        this.fifth_row = undefined;
     },
 
     _get_key_geometry: function(key_width) {
@@ -192,14 +283,8 @@ KeyboardModel.prototype = {
         if (key_width !== this.face_size) {
             key_geometry.dispose();
         }
-    },
 
-    _create_keyOLD: function(key, key_width, key_x_offset, y_offset, tooltip) {
-        let k = new ButtonModel(key, this);
-        k.create(this.key_depth, this.face_size, key_width, key_x_offset, y_offset);
-
-        this.single_geometry.merge(k.geometry);
-
+        // TODO : Create the needed tooltip.
         /*
         let p = k.mesh.position;
 
@@ -216,11 +301,6 @@ KeyboardModel.prototype = {
             this._create_tooltip(e, p2, tooltip[2]);
         }
         */
-
-
-
-        //this.object3D.add(k.mesh);
-        //this.object3D.add(label.object3D);
     },
 
     _create_tooltip: function(position_start, position_end, text) {
