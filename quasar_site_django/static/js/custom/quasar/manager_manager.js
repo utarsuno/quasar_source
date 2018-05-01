@@ -48,6 +48,9 @@ ManagerManager.prototype = {
         delete ManagerManager.prototype.set_texture_loader;
         this.texture_loader = null;
         delete this.texture_loader;
+
+        // Delete HexagonGrid class, only used once to create the initial hexagon grid.
+        delete ManagerManager.prototype.HexagonGrid;
     },
 
     load_all_global_managers: function() {
