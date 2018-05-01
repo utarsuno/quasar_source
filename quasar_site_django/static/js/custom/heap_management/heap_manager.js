@@ -119,7 +119,7 @@ ManagerManager.prototype.set_heap_manager = function() {
     // ---------------------------------------- Text3DMaterialCache ----------------------------------------
     function Text3DMaterialCache(args) {
         this.__init__(args);
-    };
+    }
     Text3DMaterialCache.prototype = {
         __init__: function(args) {
             this._color = args[0];

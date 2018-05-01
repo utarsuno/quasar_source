@@ -2,6 +2,12 @@
 
 #### Development Screenshots and Progress List:
 
+April 30th:
+- Added heap manager.
+- Lots of code in-efficiencies cleaned up.
+- Cache system added for certain geometries, textures, materials, etc.
+- Some logical abstraction clean up, more to be done.
+
 April 22nd:
 - Audio : Background music and more sound affects added.
 - Performance : Found ways to improve scripting performance and heap management. Still implementing all changes needed.
@@ -35,7 +41,7 @@ As of March 31st -- Mobile support added!
 - [ ] Remove all un-used code from project. Refactor any salvageable code.
 - [ ] Setup all remaining servers needed to be setup.
 - [ ] Potentially create a basic server monitor.
-- [ ] Look into setting up Khafka or RabbitMQ.
+- [X] Look into setting up Khafka or RabbitMQ.
 
 ##### Finance
 - [ ] Find and automate crypto price data fetcher.
