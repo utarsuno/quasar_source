@@ -11,6 +11,9 @@ KeyboardModel.prototype = {
         Attachmentable.call(this, world);
         this.key_depth = 10;
         this.face_size = 30;
+
+        this.size_add_half = this.face_size * 1.5;
+        this.size_double   = this.face_size * 2;
     },
 
     create: function() {
@@ -98,17 +101,17 @@ KeyboardModel.prototype = {
     _create_cache: function() {
         // Standard key sizes cache.
         this.cached_key_geometry           = this._get_key_geometry(this.face_size);
-        this.cahced_key_geometry_plus_half = this._get_key_geometry(this.face_size * 2);
-        this.cahced_key_geometry_double    = this._get_key_geometry(this.face_size * 2);
+        this.cached_key_geometry_plus_half = this._get_key_geometry(this.size_add_half);
+        this.cached_key_geometry_double    = this._get_key_geometry(this.size_double);
     },
 
     _clear_cache: function() {
         this.cached_key_geometry.dispose();
-        this.cahced_key_geometry_plus_half.dispose();
-        this.cahced_key_geometry_double.dispose();
+        this.cached_key_geometry_plus_half.dispose();
+        this.cached_key_geometry_double.dispose();
         this.cached_key_geometry = undefined;
-        this.cahced_key_geometry_plus_half = undefined;
-        this.cahced_key_geometry_double = undefined;
+        this.cached_key_geometry_plus_half = undefined;
+        this.cached_key_geometry_double = undefined;
         //this.first_row = undefined;
         //this.second_row = undefined;
         //this.third_row = undefined;
@@ -169,6 +172,21 @@ KeyboardModel.prototype = {
 
     _create_key: function(key, key_width, key_x_offset, y_offset, tooltip) {
         let key_geometry;
+        switch(key_width) {
+        case this.face_size:
+            key_geometry = this.cached_key_geometry;
+            break;
+        case this.size_add_half:
+            key_geometry = this.cached_key_geometry_plus_half;
+            break;
+        case this.size_double:
+            key_geometry = this.cached_key_geometry_double;
+            break;
+        default:
+            key_geometry = this._get_key_geometry(key_width);
+            break;
+        }
+
         if (key_width === this.face_size) {
             key_geometry = this.cached_key_geometry;
         } else {
@@ -180,7 +198,7 @@ KeyboardModel.prototype = {
 
         this.single_geometry.merge(key_geometry, m);
 
-        if (key_width !== this.face_size) {
+        if (key_width !== this.face_size && key_width !== this.size_add_half && key_width !== this.size_double) {
             key_geometry.dispose();
         }
 
