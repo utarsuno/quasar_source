@@ -32,28 +32,34 @@ ManagerManager.prototype = {
 
     perform_initial_heap_cleanup: function() {
         // Delete the LoadingManager.
-        delete ManagerManager.prototype.set_loading_manager;
+        //delete ManagerManager.prototype.set_loading_manager;
+        ManagerManager.prototype.set_loading_manager = null;
         this.manager_loading = null;
-        delete this.manager_loading;
+        //delete this.manager_loading;
 
         // Delete the AssetLoader base class.
-        delete ManagerManager.prototype.AssetLoaderGroup;
+        //delete ManagerManager.prototype.AssetLoaderGroup;
+        ManagerManager.prototype.AssetLoaderGroup = null;
 
         // Delete the AudioLoader.
-        delete ManagerManager.prototype.set_audio_loader;
+        //delete ManagerManager.prototype.set_audio_loader;
+        ManagerManager.prototype.set_audio_loader = null;
         this.audio_loader = null;
-        delete this.audio_loader;
+        //delete this.audio_loader;
 
         // Delete the TextureLoader.
-        delete ManagerManager.prototype.set_texture_loader;
+        //delete ManagerManager.prototype.set_texture_loader;
+        ManagerManager.prototype.set_texture_loader = null;
         this.texture_loader = null;
-        delete this.texture_loader;
+        //delete this.texture_loader;
 
         // Delete HexagonGrid class, only used once to create the initial hexagon grid.
-        delete ManagerManager.prototype.HexagonGrid;
+        //delete ManagerManager.prototype.HexagonGrid;
+        ManagerManager.prototype.HexagonGrid = null;
 
         // Delete KeyboardModel class, only used once to create the initial keyboard model.
-        delete ManagerManager.prototype.KeyboardModel;
+        //delete ManagerManager.prototype.KeyboardModel;
+        ManagerManager.prototype.KeyboardModel = null;
     },
 
     load_all_global_managers: function() {
