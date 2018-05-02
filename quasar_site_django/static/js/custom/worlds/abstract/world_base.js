@@ -82,7 +82,7 @@ function World(world_entity) {
             if (this._intersections[0].distance < smallest_distance) {
                 smallest_distance = this._intersections[0].distance;
                 interactive_index = i;
-                intersection_data = this._intersections[d];
+                intersection_data = this._intersections[0];
             }
 
             /*
