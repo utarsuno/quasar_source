@@ -77,7 +77,7 @@ function World(world_entity) {
         for (i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
             //let intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
-            this.raycaster.intersectObject(this.interactive_objects[i].object3D, true, this._intersections);
+            this.raycaster.intersectObject(this.interactive_objects[i].object3D, false, this._intersections);
 
             let d;
             for (d = 0; d < this._intersections.length; d++) {
