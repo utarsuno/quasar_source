@@ -105,7 +105,7 @@ FloatingRow.prototype = {
         if (!is_defined(text)) {
             text = '';
         }
-        let floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text);
+        let floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text, cache_geometry);
         this._set_tab_target(floating_input_2D);
         return this._add_element(x_params, floating_input_2D, foreground_color, background_color);
     },
