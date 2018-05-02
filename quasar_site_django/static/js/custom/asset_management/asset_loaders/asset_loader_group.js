@@ -29,10 +29,15 @@ ManagerManager.prototype.AssetLoaderGroup = function(asset_group_type, loading_m
             let loader = new this.loader_class();
             loader.load(this._asset_base_url + asset_full_name,
 
-                function(asset) {
-                    this.send_asset_to(asset, arguments[1]);
+                function(asset, asset_content) {
+                    this.send_asset_to(asset, asset_content);
                     this._asset_loaded(asset_full_name);
                 }.bind(this, a),
+
+                //function(asset) {
+                //    this.send_asset_to(asset, arguments[1]);
+                //    this._asset_loaded(asset_full_name);
+                //}.bind(this, a),
 
                 function(xhr) {
                     // On success load.

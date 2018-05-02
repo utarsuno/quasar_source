@@ -35,7 +35,6 @@ RendererManager.prototype = {
         this.renderer.setSize(this.window_width, this.window_height);
         //this.renderer.setClearColor(0x000000, 1);
 
-
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
         //if (CURRENT_CLIENT.has_vr) {
@@ -48,6 +47,8 @@ RendererManager.prototype = {
 
         document.body.appendChild(this.renderer.domElement);
 
+        // Disabled until this feature is needed again.
+        /*
         // CSS3DRenderer.
         this.css_renderer = new THREE.CSS3DRenderer();
         this.css_renderer.setSize(this.window_width, this.window_height);
@@ -57,8 +58,8 @@ RendererManager.prototype = {
         this.css_renderer.domElement.zIndex = 900;
         //
         document.body.appendChild(this.css_renderer.domElement);
-
         //this.renderer.domElement.style.top = 0;
+        */
 
         window.addEventListener('resize', this.on_window_resize.bind(this), false);
 
@@ -118,18 +119,22 @@ RendererManager.prototype = {
             this.effect_composer.render(delta);
         }
 
+        // Disabled until this feature is needed again.
+        /*
         if (is_defined(this.css_renderer)) {
             if (is_defined(MANAGER_WORLD.current_world.css_scene)) {
                 this.css_renderer.render(MANAGER_WORLD.current_world.css_scene, this.camera);
             }
         }
+        */
     },
 
+    // TODO : Organize this, move it to CURRENT_CLIENT
     get_window_properties: function() {
         this.window_width  = window.innerWidth;
         this.window_height = window.innerHeight;
         this.aspect_ratio  = this.window_width / this.window_height;
-        CURRENT_CLIENT.height_re_sized(this.window_height);
+        //CURRENT_CLIENT.height_re_sized(this.window_height);
     },
 
     on_window_resize: function() {
