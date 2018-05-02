@@ -60,7 +60,8 @@ WorldManager.prototype = {
         }
 
         // Since we are not currently loading we can perform an update on the player and the world.
-        CURRENT_PLAYER.update(delta);
+        //CURRENT_PLAYER.update(delta);
+        CURRENT_PLAYER.fps_controls.physics(delta);
 
         this.environment.update(delta);
 

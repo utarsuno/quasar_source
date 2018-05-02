@@ -73,8 +73,8 @@ RendererManager.prototype = {
         this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
         this.effect_composer.addPass(this.render_pass);
 
-        this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
-        this.effect_composer.addPass(this.outline_pass);
+        //this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
+        //this.effect_composer.addPass(this.outline_pass);
 
         if (!this.current_client.is_mobile) {
 
@@ -83,13 +83,15 @@ RendererManager.prototype = {
             //this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
 
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
+            this.effect_composer.addPass(this.outline_pass);
+
             this.effect_film = new FilmNoise();
             this.effect_film.renderToScreen = true;
             this.effect_composer.addPass(this.effect_film);
         }
 
-        this.outline_glow = new OutlineGlow(this.outline_pass);
-
+        //this.outline_glow = new OutlineGlow(this.outline_pass);
 
         if (this.current_client.is_mobile) {
 
@@ -99,9 +101,15 @@ RendererManager.prototype = {
 
             this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
             this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
-            this.effect_FXAA.renderToScreen = true;
+            //this.effect_FXAA.renderToScreen = true;
             this.effect_composer.addPass(this.effect_FXAA);
+
+            this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), MANAGER_WORLD.world_login.scene, this.camera);
+            this.outline_pass.renderToScreen = true;
+            this.effect_composer.addPass(this.outline_pass);
         }
+
+        this.outline_glow = new OutlineGlow(this.outline_pass);
     },
 
     render: function(delta) {

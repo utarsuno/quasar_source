@@ -14,10 +14,6 @@ Player.prototype = {
         // Inherit.
     },
 
-    update: function(delta) {
-        this.fps_controls.physics(delta);
-    },
-
     /*__            __     __   __
      |__) |__| \ / /__` | /  ` /__`
      |    |  |  |  .__/ | \__, .__/ */
