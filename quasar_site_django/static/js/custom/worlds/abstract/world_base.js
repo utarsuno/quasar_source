@@ -12,6 +12,9 @@ function World(world_entity) {
 
     this.interactive_objects        = [];
 
+    // For cache optimizations.
+    this._intersections = [];
+
     this.look_away_from_currently_looked_at_object = function() {
         this.currently_looked_at_object.look_away();
         if (this.currently_looked_at_object.uses_cursor) {
@@ -61,6 +64,8 @@ function World(world_entity) {
             }
         }
 
+        this._intersections.length = 0;
+
         //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         this.raycaster.set(CURRENT_PLAYER.fps_controls.yaw.position, CURRENT_PLAYER.fps_controls.get_direction());
         let smallest_distance = 99999;
@@ -71,16 +76,17 @@ function World(world_entity) {
         let i;
         for (i = 0; i < this.interactive_objects.length; i++) {
             // The true parameter indicates recursive search.
-            let intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
+            //let intersections = this.raycaster.intersectObject(this.interactive_objects[i].object3D, true);
+            this.raycaster.intersectObject(this.interactive_objects[i].object3D, true, this._intersections);
 
             let d;
-            for (d = 0; d < intersections.length; d++) {
-                if (intersections[d].distance < smallest_distance) {
-                    let match_found = this._match_found(intersections[d].object);
+            for (d = 0; d < this._intersections.length; d++) {
+                if (this._intersections[d].distance < smallest_distance) {
+                    let match_found = this._match_found(this._intersections[d].object);
                     if (match_found !== NOT_FOUND) {
-                        smallest_distance = intersections[d].distance;
+                        smallest_distance = this._intersections[d].distance;
                         interactive_index = match_found;
-                        intersection_data = intersections[d];
+                        intersection_data = this._intersections[d];
                     }
                 }
             }
