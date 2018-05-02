@@ -78,6 +78,8 @@ function World(world_entity) {
             // The true parameter indicates recursive search.
             this.raycaster.intersectObject(this.interactive_objects[i].object3D, true, this._intersections);
 
+            l(this._intersections);
+
             // Only check the first result returned as they are already sorted by distance.
             if (this._intersections[0].distance < smallest_distance) {
                 smallest_distance = this._intersections[0].distance;
