@@ -118,25 +118,25 @@ LoginWorld.prototype = {
 
         // Username.
         row = this.wall_create_account.add_row();
-        this.input_username_create = row.add_input_2D([0, 1], 16);
+        this.input_username_create = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_username_create.add_syntax(TEXT_SYNTAX_USERNAME);
         this.input_username_create.add_label_left('username:', true, true);
 
         // Email.
         row = this.wall_create_account.add_row();
-        this.input_email_create = row.add_input_2D([0, 1], 16);
+        this.input_email_create = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_email_create.add_syntax(TEXT_SYNTAX_EMAIL);
         this.input_email_create.add_label_left('email:');
 
         // Password.
         row = this.wall_create_account.add_row();
-        this.input_password_create = row.add_input_2D([0, 1], 16);
+        this.input_password_create = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
         this.input_password_create.add_label_left('password:', true, true);
 
         // Repeat Password.
         row = this.wall_create_account.add_row();
-        this.input_repeat_password_create = row.add_input_2D([0, 1], 16);
+        this.input_repeat_password_create = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_repeat_password_create.add_syntax(TEXT_SYNTAX_REPEAT_PASSWORD);
         this.input_repeat_password_create.add_label_left('repeat password:');
 
@@ -160,13 +160,13 @@ LoginWorld.prototype = {
 
         // Username.
         row = this.wall_login.add_row();
-        this.input_username_login = row.add_input_2D([0, 1], 16);
+        this.input_username_login = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_username_login.add_syntax(TEXT_SYNTAX_USERNAME);
         this.input_username_login.add_label_left('username:', true, true);
 
         // Password.
         row = this.wall_login.add_row();
-        this.input_password_login = row.add_input_2D([0, 1], 16);
+        this.input_password_login = row.add_input_2D([0, 1], 16, null, null, null, true);
         this.input_password_login.add_syntax(TEXT_SYNTAX_PASSWORD);
         this.input_password_login.add_label_left('password:', true, true);
 

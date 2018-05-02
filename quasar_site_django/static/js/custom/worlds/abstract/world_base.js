@@ -23,17 +23,6 @@ function World(world_entity) {
         this.currently_looked_at_object = null;
     };
 
-    this._match_found = function(object_to_match) {
-        let i;
-        for (i = 0; i < this.interactive_objects.length; i++) {
-            //if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid || this.interactive_objects[i].geometry.uuid === object_to_match.uuid) {
-            if (this.interactive_objects[i].mesh.uuid === object_to_match.uuid) {
-                return i;
-            }
-        }
-        return NOT_FOUND;
-    };
-
     this.delete_all = function() {
         // Delete all the entity groups.
         let eg;
@@ -78,9 +67,6 @@ function World(world_entity) {
             // The true parameter indicates recursive search.
             this.raycaster.intersectObject(this.interactive_objects[i].object3D, true, this._intersections);
 
-
-            //l(this._intersections);
-
             // Only check the first result returned as they are already sorted by distance.
             if (this._intersections.length !== 0) {
                 if (this._intersections[0].distance < smallest_distance) {
@@ -89,23 +75,6 @@ function World(world_entity) {
                     intersection_data = this._intersections[0];
                 }
             }
-
-            /*
-            let d;
-            for (d = 0; d < this._intersections.length; d++) {
-                if (this._intersections[d].distance < smallest_distance) {
-                    let match_found = this._match_found(this._intersections[d].object);
-                    if (match_found !== NOT_FOUND) {
-                        smallest_distance = this._intersections[d].distance;
-                        interactive_index = match_found;
-                        intersection_data = this._intersections[d];
-                    } else {
-                        l('NO MATCH FOUND?');
-                    }
-                }
-            }
-            */
-
         }
 
         if (interactive_index === NOT_FOUND) {

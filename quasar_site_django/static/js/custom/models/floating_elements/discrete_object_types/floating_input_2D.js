@@ -1,14 +1,14 @@
 'use strict';
 
-function FloatingInput2D(world, width, height, text) {
-    this.__init__(world, width, height, text);
+function FloatingInput2D(world, width, height, text, cache_geometry) {
+    this.__init__(world, width, height, text, cache_geometry);
 }
 
 FloatingInput2D.prototype = {
 
-    __init__: function(world, width, height, text) {
+    __init__: function(world, width, height, text, cache_geometry) {
         // Inherit.
-        Text2D.call(this, world, width, height, text);
+        Text2D.call(this, world, width, height, text, cache_geometry);
 
         this.set_to_typeable();
 

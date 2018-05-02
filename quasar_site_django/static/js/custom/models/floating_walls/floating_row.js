@@ -101,7 +101,7 @@ FloatingRow.prototype = {
         return this.add_element(x_params, floating_input_3D);
     },
 
-    add_input_2D: function(x_params, text_height, text, foreground_color, background_color) {
+    add_input_2D: function(x_params, text_height, text, foreground_color, background_color, cache_geometry) {
         if (!is_defined(text)) {
             text = '';
         }
