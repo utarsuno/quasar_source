@@ -134,7 +134,7 @@ RendererManager.prototype = {
         this.window_width  = window.innerWidth;
         this.window_height = window.innerHeight;
         this.aspect_ratio  = this.window_width / this.window_height;
-        //CURRENT_CLIENT.height_re_sized(this.window_height);
+        CURRENT_CLIENT.height_re_sized(this.window_height);
     },
 
     on_window_resize: function() {
@@ -143,9 +143,12 @@ RendererManager.prototype = {
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(this.window_width, this.window_height);
 
+        // Disabled until this feature is needed again.
+        /*
         if (is_defined(this.css_renderer)) {
             this.css_renderer.setSize(this.window_width, this.window_height);
         }
+        */
 
         //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
         if (!this.current_client.is_mobile) {
