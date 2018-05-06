@@ -53,16 +53,7 @@ Player.prototype.load_fps_controls = function() {
 
             this.half_pie = Math.PI / 2.0;
             this.negative_half_pie = -1.0 * this.half_pie;
-            this.pie_value_one = -0.98 * this.half_pie;
-            this.pue_value_two = this.half_pie - 0.02;
 
-            //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
-
-            // PREVIOUS
-            //this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
-            //this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie, this.half_pie);
-
-            // CURRENT
             this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
             this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
@@ -288,13 +279,8 @@ Player.prototype.load_fps_controls = function() {
             this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value();
             this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
 
-            //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
-            // TODO : Remove/change this line, the buffer will handle the min and max values
-            //this.pitch.rotation.x = Math.max(this.pie_value_one, Math.min(this.pue_value_two, this.mouse_movement_y_buffer.get_current_value()));
-
             this.direction_vector = this.get_direction();
 
-            //this.walking_direction = new THREE.Vector3(this.direction_vector.x, 0, this.direction_vector.z);
             this._walking_direction.set(this.direction_vector.x, 0, this.direction_vector.z);
             this._walking_direction.normalize();
 

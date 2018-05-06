@@ -62,6 +62,12 @@ CustomSmoothStep.prototype = {
     },
 
     add_force: function(magnitude) {
+        // Small optimization.
+        if (magnitude === 0) {
+            return;
+        }
+
+
         let current_value = this.get_current_value();
         let add_value = true;
         if (is_defined(this.minimum_value)) {
