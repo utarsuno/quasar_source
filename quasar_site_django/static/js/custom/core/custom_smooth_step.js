@@ -36,7 +36,10 @@ CustomSmoothStep.prototype = {
     },
 
     clear_buffer: function() {
-        this.buffer.length = 0;
+        let b;
+        for (b = 0; b < this.buffer.length; b++) {
+            this.buffer[b][2] = false;
+        }
     },
 
     set_value: function(value) {
@@ -58,20 +61,41 @@ CustomSmoothStep.prototype = {
         if (magnitude === 0) {
             return;
         }
-        
-        this.buffer.push([magnitude, 0.0]);
+
+        // If there are no available slots then add a new cache position.
+        let b;
+        let slot_filled = false;
+        for (b = 0; b < this.buffer.length; b++) {
+            // If the buffer slot is not in use then assign it.
+            if (!this.buffer[b][2]) {
+                this.buffer[b][2] = true;
+                this.buffer[b][0] = magnitude;
+                this.buffer[b][1] = 0.0;
+                slot_filled = true;
+                break;
+            }
+        }
+
+        if (!slot_filled) {
+            this.buffer.push([magnitude, 0.0, true]);
+        }
     },
 
     update: function(delta) {
         // console.log('The buffer has the length : ' + this.buffer.length)
-        let i;
-        for (i = 0; i < this.buffer.length; i++) {
-            this.buffer[i][1] += delta;
-            if (this.buffer[i][1] >= this.time_needed_for_each_force) {
-                this.current_value += this.buffer[i][0];
-                // Remove this position.
-                this.buffer.splice(i, 1);
-                // TODO : Use object pool instead!!
+        let b;
+        for (b = 0; b < this.buffer.length; b++) {
+
+            // Only update the delta of in-use slots.
+            if (this.buffer[b][2]) {
+                this.buffer[b][1] += delta;
+                if (this.buffer[b][1] >= this.time_needed_for_each_force) {
+                    this.current_value += this.buffer[b][0];
+
+                    // Set this position as usable.
+                    this.buffer[b][1] = 0.0;
+                    this.buffer[b][2] = false;
+                }
             }
         }
     },
@@ -92,16 +116,24 @@ CustomSmoothStep.prototype = {
 
     get_current_value: function() {
         let value_instance = this.current_value;
-        for (let x = 0; x < this.buffer.length; x++) {
-            value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+        let x;
+        for (x = 0; x < this.buffer.length; x++) {
+            // Only use buffer values that are currently in use.
+            if (this.buffer[x][2]) {
+                value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+            }
         }
         return this._get_capped_value(value_instance);
     },
 
     get_full_value: function() {
         let value_instance = this.current_value;
-        for (let x = 0; x < this.buffer.length; x++) {
-            value_instance += 1.0 * this.buffer[x][0];
+        let x;
+        for (x = 0; x < this.buffer.length; x++) {
+            // Only use buffer values that are currently in use.
+            if (this.buffer[x][2]) {
+                value_instance += 1.0 * this.buffer[x][0];
+            }
         }
         return this._get_capped_value(value_instance);
     }
