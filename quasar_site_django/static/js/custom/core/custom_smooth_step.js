@@ -20,12 +20,11 @@ function smoothstep(edge0, edge1, x) {
     return x * x * (3 - 2 * x);
 }
 
-// TODO : Rename this into TimeValueBuffer
-function CustomSmoothStep(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
+function TimeValueBuffer(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
     this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value);
 }
 
-CustomSmoothStep.prototype = {
+TimeValueBuffer.prototype = {
 
     __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
         this.buffer                     = [];
@@ -98,6 +97,8 @@ CustomSmoothStep.prototype = {
                 }
             }
         }
+
+        this._cached_current_value = null;
     },
 
     _get_capped_value: function(value) {
@@ -115,26 +116,17 @@ CustomSmoothStep.prototype = {
     },
 
     get_current_value: function() {
-        let value_instance = this.current_value;
-        let x;
-        for (x = 0; x < this.buffer.length; x++) {
-            // Only use buffer values that are currently in use.
-            if (this.buffer[x][2]) {
-                value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+        if (this._cached_current_value === null) {
+            let value_instance = this.current_value;
+            let x;
+            for (x = 0; x < this.buffer.length; x++) {
+                // Only use buffer values that are currently in use.
+                if (this.buffer[x][2]) {
+                    value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+                }
             }
+            this._cached_current_value = this._get_capped_value(value_instance);
         }
-        return this._get_capped_value(value_instance);
-    },
-
-    get_full_value: function() {
-        let value_instance = this.current_value;
-        let x;
-        for (x = 0; x < this.buffer.length; x++) {
-            // Only use buffer values that are currently in use.
-            if (this.buffer[x][2]) {
-                value_instance += 1.0 * this.buffer[x][0];
-            }
-        }
-        return this._get_capped_value(value_instance);
+        return this._cached_current_value;
     }
 };

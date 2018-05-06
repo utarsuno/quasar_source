@@ -3,7 +3,6 @@
 Player.prototype.load_fps_controls = function() {
     function FPSControls() {}
     FPSControls.prototype = {
-        camera            : null,
         pitch             : null,
         yaw               : null,
 
@@ -30,15 +29,10 @@ Player.prototype.load_fps_controls = function() {
         mouse_movement_y_buffer: null,
 
         initialize: function(current_player) {
-
             this.current_player = current_player;
-
             this.movement_speed = 300;
 
             this.camera = MANAGER_RENDERER.camera;
-            //this.camera.rotation.set(0, 0, 0)
-            //this.camera.eulerOrder = 'ZYX'
-            //this.camera.up = new THREE.Vector3(0, 1, 0)
 
             this.pitch = new THREE.Object3D();
 
@@ -54,10 +48,8 @@ Player.prototype.load_fps_controls = function() {
             this.half_pie = Math.PI / 2.0;
             this.negative_half_pie = -1.0 * this.half_pie;
 
-            this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
-            this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
-
-            // TODO : Add smooth step to the movement buffers!!!
+            this.mouse_movement_x_buffer = new TimeValueBuffer(this.yaw.rotation.y, 0.025, null, null);
+            this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
             // For optimization purposes.
             this._previous_direction  = null;
