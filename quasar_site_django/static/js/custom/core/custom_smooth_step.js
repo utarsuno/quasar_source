@@ -26,6 +26,7 @@ function CustomSmoothStep(current_value, time_needed_for_each_force, minimum_val
 
 CustomSmoothStep.prototype = {
 
+    // TODO : each buffer needs to have a state for object polling use
     buffer: null,
 
     current_value: null,

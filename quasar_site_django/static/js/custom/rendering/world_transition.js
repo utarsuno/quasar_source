@@ -29,6 +29,7 @@ TransitionAffect.prototype = {
         this.transition_finished_callback = transition_finished_callback;
 
         this.scene = new THREE.Scene();
+
         this.camera_ortho = new THREE.OrthographicCamera(this.renderer_manager.window_width / -2, this.renderer_manager.window_width / 2, this.renderer_manager.window_height / 2, this.renderer_manager.window_height / -2, -10, 10);
         this.quad_geometry = new THREE.PlaneBufferGeometry(this.renderer_manager.window_width, this.renderer_manager.window_height);
 
@@ -104,6 +105,9 @@ function WorldTransition() {
 
     this.load_transition_material = function() {
         this._transition_shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_TRANSITION);
+
+        this._cache_transition_scene = new THREE.Scene();
+        //this._cache_quad
     };
 
     this.set_current_world = function(current_world, previous_world, transition_finished_callback, previous_position_and_look_at, singleton_transition_function) {
