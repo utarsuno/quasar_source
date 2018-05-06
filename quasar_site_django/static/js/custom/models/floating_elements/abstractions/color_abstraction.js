@@ -105,5 +105,3 @@ function ColorAbstraction(needs_hex_colors) {
     };
 
 }
-
-

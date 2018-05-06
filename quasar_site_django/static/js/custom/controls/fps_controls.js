@@ -284,7 +284,7 @@ Player.prototype.load_fps_controls = function() {
 
             //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
             // TODO : Remove/change this line, the buffer will handle the min and max values
-            this.pitch.rotation.x = Math.max(this.pie_value_one, Math.min(this.pue_value_two, this.mouse_movement_y_buffer.get_current_value()));
+            //this.pitch.rotation.x = Math.max(this.pie_value_one, Math.min(this.pue_value_two, this.mouse_movement_y_buffer.get_current_value()));
 
             this.direction_vector = this.get_direction();
 
