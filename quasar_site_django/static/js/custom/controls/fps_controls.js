@@ -57,8 +57,14 @@ Player.prototype.load_fps_controls = function() {
             this.pue_value_two = this.half_pie - 0.02;
 
             //this.pitch.rotation.x = Math.max(-1.0 * HALF_PIE, Math.min(HALF_PIE, this.pitch.rotation.x))
+
+            // PREVIOUS
+            //this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
+            //this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie, this.half_pie);
+
+            // CURRENT
             this.mouse_movement_x_buffer = new CustomSmoothStep(this.yaw.rotation.y, 0.025, null, null);
-            this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie, this.half_pie);
+            this.mouse_movement_y_buffer = new CustomSmoothStep(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
             // TODO : Add smooth step to the movement buffers!!!
 
