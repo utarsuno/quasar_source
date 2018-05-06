@@ -20,27 +20,19 @@ function smoothstep(edge0, edge1, x) {
     return x * x * (3 - 2 * x);
 }
 
+// TODO : Rename this into TimeValueBuffer
 function CustomSmoothStep(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
     this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value);
 }
 
 CustomSmoothStep.prototype = {
 
-    // TODO : each buffer needs to have a state for object polling use
-    buffer: null,
-
-    current_value: null,
-    time_needed_for_each_force: null,
-
-    minimum_value: null,
-    maximum_value: null,
-
     __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
-        this.buffer = [];
-        this.current_value = current_value;
+        this.buffer                     = [];
+        this.current_value              = current_value;
         this.time_needed_for_each_force = percentage_of_second_for_each_force;
-        this.minimum_value = minimum_value;
-        this.maximum_value = maximum_value;
+        this.minimum_value              = minimum_value;
+        this.maximum_value              = maximum_value;
     },
 
     clear_buffer: function() {
@@ -66,25 +58,8 @@ CustomSmoothStep.prototype = {
         if (magnitude === 0) {
             return;
         }
-
-
-        let current_value = this.get_current_value();
-        let add_value = true;
-        if (is_defined(this.minimum_value)) {
-            if (current_value + magnitude < this.minimum_value) {
-                // TODO : set it to the minimum value?
-                add_value = false;
-            }
-        }
-        if (is_defined(this.maximum_value)) {
-            if (current_value + magnitude > this.maximum_value) {
-                // TODO : set it to the maximum value
-                add_value = false;
-            }
-        }
-        if (add_value) {
-            this.buffer.push([magnitude, 0.0]);
-        }
+        
+        this.buffer.push([magnitude, 0.0]);
     },
 
     update: function(delta) {
@@ -96,6 +71,7 @@ CustomSmoothStep.prototype = {
                 this.current_value += this.buffer[i][0];
                 // Remove this position.
                 this.buffer.splice(i, 1);
+                // TODO : Use object pool instead!!
             }
         }
     },
