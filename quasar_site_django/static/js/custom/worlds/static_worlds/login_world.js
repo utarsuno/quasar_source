@@ -24,6 +24,8 @@ LoginWorld.prototype = {
         this.quasar_source_title.refresh_position_and_look_at();
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
+
+        CURRENT_PLAYER.lookAt(new Vector3(400, 200, 430));
     },
 
     custom_world_exit: function() {
