@@ -28,7 +28,15 @@ TimeValueBuffer.prototype = {
 
     __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
         this.buffer                     = [];
-        this.current_value              = current_value;
+        if (is_defined(current_value)) {
+            if (!isNan(current_value)) {
+                this.current_value = current_value;
+            } else {
+                this.current_value = 0;
+            }
+        } else {
+            this.current_value = 0;
+        }
         this.time_needed_for_each_force = percentage_of_second_for_each_force;
         this.minimum_value              = minimum_value;
         this.maximum_value              = maximum_value;
