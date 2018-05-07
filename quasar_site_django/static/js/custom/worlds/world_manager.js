@@ -56,7 +56,6 @@ WorldManager.prototype = {
 
     update: function(delta) {
         if (CURRENT_PLAYER.currently_loading()) {
-            l('Not updating, player currently loading!');
             return;
         }
 
@@ -67,7 +66,6 @@ WorldManager.prototype = {
         this.environment.update(delta);
 
         if (MANAGER_RENDERER.in_transition) {
-            l('Not updating, manager_renderer in transition!');
             return;
         }
 

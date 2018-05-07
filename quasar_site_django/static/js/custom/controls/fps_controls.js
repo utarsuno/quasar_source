@@ -48,6 +48,9 @@ Player.prototype.load_fps_controls = function() {
             this.half_pie = Math.PI / 2.0;
             this.negative_half_pie = -1.0 * this.half_pie;
 
+
+            l(this.yaw.rotation.y);
+            l(this.pitch.rotation.x);
             this.mouse_movement_x_buffer = new TimeValueBuffer(this.yaw.rotation.y, 0.025, null, null);
             this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
