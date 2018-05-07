@@ -1,7 +1,5 @@
 'use strict';
 
-// TODO : This file needs to be optimized since it's going to be used in many spots.
-
 /*
 function clamp(x, lowerlimit, upperlimit) {
     if (x < lowerlimit) {
@@ -15,39 +13,32 @@ function clamp(x, lowerlimit, upperlimit) {
 */
 
 // min, max, t
-function smoothstep(edge0, edge1, x) {
-    // Scale, bias, and saturate x to 0....1 range
-    x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
-    // Evaluate the polynomial.
-    return x * x * (3 - 2 * x);
-}
+//function smoothstep(edge0, edge1, x) {
+//    // Scale, bias, and saturate x to 0....1 range
+//    x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
+//    // Evaluate the polynomial.
+//    return x * x * (3 - 2 * x);
+//}
 
-// TODO : Rename this into TimeValueBuffer
 function TimeValueBuffer(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
     this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value);
 }
 
 TimeValueBuffer.prototype = {
 
-    // TODO : each buffer needs to have a state for object polling use
-    buffer: null,
-
-    current_value: null,
-    time_needed_for_each_force: null,
-
-    minimum_value: null,
-    maximum_value: null,
-
     __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
-        this.buffer = [];
-        this.current_value = current_value;
+        this.buffer                     = [];
+        this.current_value              = current_value;
         this.time_needed_for_each_force = percentage_of_second_for_each_force;
-        this.minimum_value = minimum_value;
-        this.maximum_value = maximum_value;
+        this.minimum_value              = minimum_value;
+        this.maximum_value              = maximum_value;
     },
 
     clear_buffer: function() {
-        this.buffer.length = 0;
+        let b;
+        for (b = 0; b < this.buffer.length; b++) {
+            this.buffer[b][2] = false;
+        }
     },
 
     set_value: function(value) {
@@ -70,37 +61,44 @@ TimeValueBuffer.prototype = {
             return;
         }
 
-        let current_value = this.get_current_value();
-        let add_value = true;
-        if (is_defined(this.minimum_value)) {
-            if (current_value + magnitude < this.minimum_value) {
-                // TODO : set it to the minimum value?
-                add_value = false;
+        // If there are no available slots then add a new cache position.
+        let b;
+        let slot_filled = false;
+        for (b = 0; b < this.buffer.length; b++) {
+            // If the buffer slot is not in use then assign it.
+            if (!this.buffer[b][2]) {
+                this.buffer[b][2] = true;
+                this.buffer[b][0] = magnitude;
+                this.buffer[b][1] = 0.0;
+                slot_filled = true;
+                break;
             }
         }
-        if (is_defined(this.maximum_value)) {
-            if (current_value + magnitude > this.maximum_value) {
-                // TODO : set it to the maximum value
-                add_value = false;
-            }
-        }
-        if (add_value) {
-            this.buffer.push([magnitude, 0.0]);
+
+        if (!slot_filled) {
+            this.buffer.push([magnitude, 0.0, true]);
         }
     },
 
     update: function(delta) {
         // console.log('The buffer has the length : ' + this.buffer.length)
-        let i;
-        for (i = 0; i < this.buffer.length; i++) {
-            this.buffer[i][1] += delta;
-            if (this.buffer[i][1] >= this.time_needed_for_each_force) {
-                this.current_value += this.buffer[i][0];
-                // Remove this position.
-                this.buffer.splice(i, 1);
-                // TODO : Use object pool instead!!
+        let b;
+        for (b = 0; b < this.buffer.length; b++) {
+
+            // Only update the delta of in-use slots.
+            if (this.buffer[b][2]) {
+                this.buffer[b][1] += delta;
+                if (this.buffer[b][1] >= this.time_needed_for_each_force) {
+                    this.current_value += this.buffer[b][0];
+
+                    // Set this position as usable.
+                    this.buffer[b][1] = 0.0;
+                    this.buffer[b][2] = false;
+                }
             }
         }
+
+        this._cached_current_value = null;
     },
 
     _get_capped_value: function(value) {
@@ -118,18 +116,21 @@ TimeValueBuffer.prototype = {
     },
 
     get_current_value: function() {
-        let value_instance = this.current_value;
-        for (let x = 0; x < this.buffer.length; x++) {
-            value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+        if (this._cached_current_value === null) {
+            let value_instance = this.current_value;
+            let x;
+            for (x = 0; x < this.buffer.length; x++) {
+                // Only use buffer values that are currently in use.
+                if (this.buffer[x][2]) {
+                    if (this.buffer[x][1] > this.time_needed_for_each_force) {
+                        value_instance += this.buffer[x][0] * this.time_needed_for_each_force;
+                    } else {
+                        value_instance += this.buffer[x][0] * this.buffer[x][1];
+                    }
+                }
+            }
+            this._cached_current_value = this._get_capped_value(value_instance);
         }
-        return this._get_capped_value(value_instance);
-    },
-
-    get_full_value: function() {
-        let value_instance = this.current_value;
-        for (let x = 0; x < this.buffer.length; x++) {
-            value_instance += 1.0 * this.buffer[x][0];
-        }
-        return this._get_capped_value(value_instance);
+        return this._cached_current_value;
     }
 };
