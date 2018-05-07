@@ -25,7 +25,7 @@ LoginWorld.prototype = {
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
 
-        CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
+        //CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
     },
 
     custom_world_exit: function() {
@@ -37,6 +37,9 @@ LoginWorld.prototype = {
      |    /  \ / _` | |\ |     /\  /  `  |  | /  \ |\ |
      |___ \__/ \__> | | \|    /~~\ \__,  |  | \__/ | \| */
     login_button_pressed: function() {
+        CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
+
+
         this.server_request_login.set_username(this.input_username_login.get_text());
         this.server_request_login.set_password(this.input_password_login.get_text());
         this.server_request_login.perform_request();
