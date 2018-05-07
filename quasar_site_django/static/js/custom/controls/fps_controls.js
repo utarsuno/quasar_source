@@ -51,6 +51,13 @@ Player.prototype.load_fps_controls = function() {
             this.mouse_movement_x_buffer = new TimeValueBuffer(this.yaw.rotation.y, 0.025, null, null);
             this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
+
+
+            // Testing
+            this.on_mouse_move(.000001, .000001);
+
+
+
             // For optimization purposes.
             this._previous_direction  = null;
             this._direction           = new THREE.Vector3(0, 0, -1);

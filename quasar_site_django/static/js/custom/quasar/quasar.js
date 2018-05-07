@@ -18,8 +18,8 @@ ManagerManager.prototype.set_quasar_main_object = function(current_client, curre
 
             this.quasar_main_loop = this._quasar_main_loop.bind(this);
 
-            //this.delta_clock = new THREE.Clock(false);
-            this.delta_clock = new THREE.Clock();
+            this.delta_clock = new THREE.Clock(false);
+            //this.delta_clock = new THREE.Clock();
             this.delta = 0;
         },
 
@@ -29,7 +29,6 @@ ManagerManager.prototype.set_quasar_main_object = function(current_client, curre
             // Run garbage collection after the single render.
             this.manager_manager.perform_initial_heap_cleanup();
             // Now run the actual main loop.
-            this.delta_clock.start();
             this._quasar_main_loop();
         },
 
