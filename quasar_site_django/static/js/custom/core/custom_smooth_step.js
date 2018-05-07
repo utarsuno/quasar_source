@@ -50,6 +50,8 @@ TimeValueBuffer.prototype = {
     },
 
     set_value: function(value) {
+        l('Set value to ');
+        l(value);
         this.current_value = value;
         if (is_defined(this.minimum_value)) {
             if (this.current_value < this.minimum_value) {
