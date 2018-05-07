@@ -25,7 +25,7 @@ LoginWorld.prototype = {
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
 
-        CURRENT_PLAYER.lookAt(new Vector3(400, 200, 430));
+        CURRENT_PLAYER.lookAt(new THREE.Vector3(400, 200, 430));
     },
 
     custom_world_exit: function() {
