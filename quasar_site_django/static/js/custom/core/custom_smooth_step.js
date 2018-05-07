@@ -1,7 +1,6 @@
 'use strict';
 
-// TODO : This file needs to be optimized since it's going to be used in many spots.
-
+/*
 function clamp(x, lowerlimit, upperlimit) {
     if (x < lowerlimit) {
         x = lowerlimit;
@@ -11,14 +10,15 @@ function clamp(x, lowerlimit, upperlimit) {
     }
     return x;
 }
+*/
 
 // min, max, t
-function smoothstep(edge0, edge1, x) {
-    // Scale, bias, and saturate x to 0....1 range
-    x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
-    // Evaluate the polynomial.
-    return x * x * (3 - 2 * x);
-}
+//function smoothstep(edge0, edge1, x) {
+//    // Scale, bias, and saturate x to 0....1 range
+//    x = clamp((x - edge0)/(edge1 - edge0), 0.0, 1.0);
+//    // Evaluate the polynomial.
+//    return x * x * (3 - 2 * x);
+//}
 
 function TimeValueBuffer(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
     this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value);
@@ -122,7 +122,11 @@ TimeValueBuffer.prototype = {
             for (x = 0; x < this.buffer.length; x++) {
                 // Only use buffer values that are currently in use.
                 if (this.buffer[x][2]) {
-                    value_instance += clamp(this.time_needed_for_each_force, this.buffer[x][1]) * this.buffer[x][0];
+                    if (this.buffer[x][1] > this.time_needed_for_each_force) {
+                        value_instance += this.buffer[x][0] * this.time_needed_for_each_force;
+                    } else {
+                        value_instance += this.buffer[x][0] * this.buffer[x][1];
+                    }
                 }
             }
             this._cached_current_value = this._get_capped_value(value_instance);
