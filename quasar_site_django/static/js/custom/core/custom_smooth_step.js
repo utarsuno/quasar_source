@@ -136,16 +136,16 @@ TimeValueBuffer.prototype = {
                 // Only use buffer values that are currently in use.
                 if (this.buffer[x][2]) {
                     if (this.buffer[x][1] > this.time_needed_for_each_force) {
-                        value_instance += this.buffer[x][0] * this.time_needed_for_each_force;
+                        value_instance += this.buffer[x][0] * 1;
                     } else {
-                        value_instance += this.buffer[x][0] * this.buffer[x][1];
+                        value_instance += this.buffer[x][0] * (this.buffer[x][1] / this.time_needed_for_each_force);
                     }
                 }
             }
             this._cached_current_value = this._get_capped_value(value_instance);
         }
-        l('returning : ');
-        l(this._cached_current_value);
+        //l('returning : ');
+        //l(this._cached_current_value);
         return this._cached_current_value;
     }
 };
