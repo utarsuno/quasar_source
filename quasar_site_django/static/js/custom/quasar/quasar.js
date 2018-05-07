@@ -18,12 +18,12 @@ ManagerManager.prototype.set_quasar_main_object = function(current_client, curre
 
             this.quasar_main_loop = this._quasar_main_loop.bind(this);
 
-            this.delta_clock = new THREE.Clock(false);
+            //this.delta_clock = new THREE.Clock(false);
+            this.delta_clock = new THREE.Clock();
             this.delta = 0;
         },
 
         run: function() {
-            this.delta_clock.start();
             // Perform a single render.
             this._main_loop_logic();
             // Run garbage collection after the single render.
