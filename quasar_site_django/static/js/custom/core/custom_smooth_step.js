@@ -131,6 +131,8 @@ TimeValueBuffer.prototype = {
             }
             this._cached_current_value = this._get_capped_value(value_instance);
         }
+        l('returning : ');
+        l(this._cached_current_value);
         return this._cached_current_value;
     }
 };
