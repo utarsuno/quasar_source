@@ -58,6 +58,7 @@ function PlayerState() {
 
                 if (this.previous_state === PLAYER_STATE_PAUSED) {
                     MANAGER_AUDIO.resume_background_music();
+
                 }
 
                 CURRENT_CLIENT.resume();

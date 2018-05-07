@@ -54,7 +54,7 @@ Player.prototype.load_fps_controls = function() {
 
 
             // Testing
-            this.on_mouse_move(.000001, .000001);
+            //this.on_mouse_move(.000001, .000001);
 
 
 
