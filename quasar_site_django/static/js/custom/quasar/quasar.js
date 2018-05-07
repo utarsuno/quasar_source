@@ -23,11 +23,13 @@ ManagerManager.prototype.set_quasar_main_object = function(current_client, curre
         },
 
         run: function() {
+            this.delta_clock.start();
             // Perform a single render.
             this._main_loop_logic();
             // Run garbage collection after the single render.
             this.manager_manager.perform_initial_heap_cleanup();
             // Now run the actual main loop.
+            this.delta_clock.start();
             this._quasar_main_loop();
         },
 
