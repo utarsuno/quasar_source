@@ -2,6 +2,7 @@
 
 // TODO : This file needs to be optimized since it's going to be used in many spots.
 
+/*
 function clamp(x, lowerlimit, upperlimit) {
     if (x < lowerlimit) {
         x = lowerlimit;
@@ -11,6 +12,7 @@ function clamp(x, lowerlimit, upperlimit) {
     }
     return x;
 }
+*/
 
 // min, max, t
 function smoothstep(edge0, edge1, x) {
