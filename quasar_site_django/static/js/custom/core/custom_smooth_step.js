@@ -50,8 +50,8 @@ TimeValueBuffer.prototype = {
     },
 
     set_value: function(value) {
-        l('Set value to ');
-        l(value);
+        //l('Set value to ');
+        //l(value);
         if (isNaN(value)) {
             return;
         }
