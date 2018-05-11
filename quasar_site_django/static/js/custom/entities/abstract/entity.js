@@ -51,6 +51,7 @@ Entity.prototype = {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
             if (is_string(value)) {
+                l('Checking if eval gets used, if not remove it immediately');
                 this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = eval(value);
             } else {
                 this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = value;
@@ -64,6 +65,7 @@ Entity.prototype = {
             // Make sure that any strings get converted into a list of integers.
             value = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
             if (is_string(value)) {
+                l('Checking if eval gets used, if not remove it immediately');
                 this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = eval(value);
             } else {
                 this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = value;
