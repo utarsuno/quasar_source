@@ -14,6 +14,17 @@ Client.prototype = {
         this._initialize_pause_menu();
         this.detect_client_state();
         // TODO : Save the username here.
+
+        // Information:
+        // is_mobile
+        // has_vr
+        // pointer_is_locked
+        // in_full_screen
+        // debug_mode
+
+        // TODO : Add focus event here.
+
+        // TODO : Move re-size event here.
     },
 
     set_quasar: function(q) {
@@ -42,9 +53,11 @@ Client.prototype = {
     detect_client_state: function() {
         this.has_webgl   = !!window.WebGLRenderingContext;
 
-        // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
-        this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
-        this.show_pause_menu();
+        if (!this.has_webgl) {
+            // If WebGL is not supported then display an error message. The Quasar main loop will not be started.
+            this.set_pause_menu_text_and_sub_text('WebGL not supported!', 'Please use a different browser.');
+            this.show_pause_menu();
+        }
     },
 
     initialize: function() {
