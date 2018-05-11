@@ -48,22 +48,14 @@ Player.prototype.load_fps_controls = function() {
             this.half_pie = Math.PI / 2.0;
             this.negative_half_pie = -1.0 * this.half_pie;
 
-
-            //l(this.yaw.rotation.y);
-            //l(this.pitch.rotation.x);
             this.mouse_movement_x_buffer = new TimeValueBuffer(this.yaw.rotation.y, 0.025, null, null);
             this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
-            this._previous_yaw_rotation = -1.0;
-            this._previous_pitch_rotation = -1.0;
-
-
-            // Testing
-            //this.on_mouse_move(.000001, .000001);
-
-
-
             // For optimization purposes.
+            this._current_yaw         = 0.0;
+            this._current_pitch       = 0.0;
+            this._previous_yaw        = -1.0;
+            this._previous_pitch      = -1.0;
             this._previous_direction  = null;
             this._direction           = new THREE.Vector3(0, 0, -1);
             this._rotation            = new THREE.Euler(0, 0, 0, 'YXZ');
@@ -280,18 +272,14 @@ Player.prototype.load_fps_controls = function() {
         },
 
         update_mouse_view_position: function() {
-            //l('Updating mouse view position!');
+            this._current_yaw = this.mouse_movement_x_buffer.get_current_value();
+            this._current_pitch = this.mouse_movement_y_buffer.get_current_value();
 
-            let _yaw = this.mouse_movement_x_buffer.get_current_value();
-            let _pitch = this.mouse_movement_y_buffer.get_current_value();
+            if (this._previous_yaw !== this._current_yaw || this._previous_pitch !== this._current_pitch) {
+                this.yaw.rotation.y = this._current_yaw;
+                this.pitch.rotation.x = this._current_pitch;
 
-            if (this._previous_yaw_rotation !== _yaw || this._previous_pitch_rotation !== _pitch) {
-                this.yaw.rotation.y = _yaw;
-                this.pitch.rotation.x = _pitch;
-
-                l('Updating mouse view position!');
-
-                this.direction_vector = this.get_direction();
+                this.direction_vector = this._get_direction_with_pitch_and_yaw();
 
                 this._walking_direction.set(this.direction_vector.x, 0, this.direction_vector.z);
                 this._walking_direction.normalize();
@@ -304,8 +292,8 @@ Player.prototype.load_fps_controls = function() {
 
                 this._previous_direction = null;
 
-                this._previous_yaw_rotation = _yaw;
-                this._previous_pitch_rotation = _pitch;
+                this._previous_yaw_rotation = this._current_yaw;
+                this._previous_pitch_rotation = this._current_pitch;
             }
         },
 
@@ -317,6 +305,17 @@ Player.prototype.load_fps_controls = function() {
         get_direction: function() {
             if (this._previous_direction === null) {
                 return this._get_direction();
+            }
+            return this._previous_direction;
+        },
+
+        _get_direction_with_pitch_and_yaw: function() {
+            if (this._previous_direction === null) {
+                this._direction.set(0, 0, -1);
+                this._rotation.set(this._current_pitch, this._current_yaw, 0);
+
+                this._previous_direction = this._direction.applyEuler(this._rotation);
+                return this._previous_direction;
             }
             return this._previous_direction;
         },
