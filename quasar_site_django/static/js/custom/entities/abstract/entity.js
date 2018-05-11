@@ -49,16 +49,6 @@ Entity.prototype = {
         // Handling the default property of child IDs.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_CHILD_IDS)) {
             this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
-            /*
-            // Make sure that any strings get converted into a list of integers.
-            value = properties[ENTITY_DEFAULT_PROPERTY_CHILD_IDS];
-            if (is_string(value)) {
-                l('Checking if eval gets used, if not remove it immediately');
-                //this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = eval(value);
-            } else {
-                this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = value;
-            }
-            */
         } else {
             this[ENTITY_DEFAULT_PROPERTY_CHILD_IDS] = [];
         }
@@ -66,16 +56,6 @@ Entity.prototype = {
         // Handling the default property of parent IDs.
         if (properties.hasOwnProperty(ENTITY_DEFAULT_PROPERTY_PARENT_IDS)) {
             this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
-            /*
-            // Make sure that any strings get converted into a list of integers.
-            value = properties[ENTITY_DEFAULT_PROPERTY_PARENT_IDS];
-            if (is_string(value)) {
-                l('Checking if eval gets used, if not remove it immediately');
-                //this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = eval(value);
-            } else {
-                this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = value;
-            }
-            */
         } else {
             this[ENTITY_DEFAULT_PROPERTY_PARENT_IDS] = [];
         }
