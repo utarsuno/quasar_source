@@ -292,8 +292,8 @@ Player.prototype.load_fps_controls = function() {
 
                 this._previous_direction = null;
 
-                this._previous_yaw_rotation = this._current_yaw;
-                this._previous_pitch_rotation = this._current_pitch;
+                this._previous_yaw = this._current_yaw;
+                this._previous_pitch = this._current_pitch;
             }
         },
 
