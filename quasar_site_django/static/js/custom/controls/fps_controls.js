@@ -49,11 +49,13 @@ Player.prototype.load_fps_controls = function() {
             this.negative_half_pie = -1.0 * this.half_pie;
 
 
-            l(this.yaw.rotation.y);
-            l(this.pitch.rotation.x);
+            //l(this.yaw.rotation.y);
+            //l(this.pitch.rotation.x);
             this.mouse_movement_x_buffer = new TimeValueBuffer(this.yaw.rotation.y, 0.025, null, null);
             this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
+            this._previous_yaw_rotation = -1.0;
+            this._previous_pitch_rotation = -1.0;
 
 
             // Testing
@@ -281,30 +283,32 @@ Player.prototype.load_fps_controls = function() {
             //l('Updating mouse view position!');
 
             // TODO: Compare against old values.
-            let _y = this.mouse_movement_x_buffer.get_current_value();
-            let _x = this.mouse_movement_y_buffer.get_current_value();
+            let _yaw = this.mouse_movement_x_buffer.get_current_value();
+            let _pitch = this.mouse_movement_y_buffer.get_current_value();
 
-            l(_x);
-            l(_y);
-            
-            this.yaw.rotation.y = _y;
-            this.pitch.rotation.x = _x;
+            this._previous_yaw_rotation = -1.0;
+            this._previous_pitch_rotation = -1.0;
 
-            //this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value();
-            //this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
+            if (this._previous_yaw_rotation !== _yaw && this._previous_pitch_rotation !== _pitch) {
+                this.yaw.rotation.y = _yaw;
+                this.pitch.rotation.x = _pitch;
 
-            this.direction_vector = this.get_direction();
+                this.direction_vector = this.get_direction();
 
-            this._walking_direction.set(this.direction_vector.x, 0, this.direction_vector.z);
-            this._walking_direction.normalize();
+                this._walking_direction.set(this.direction_vector.x, 0, this.direction_vector.z);
+                this._walking_direction.normalize();
 
-            this.direction_vector.normalize();
+                this.direction_vector.normalize();
 
-            this._left_right.set(this._walking_direction.x, 0, this._walking_direction.z);
-            this._left_right.cross(UP_VECTOR);
-            this._left_right.normalize();
+                this._left_right.set(this._walking_direction.x, 0, this._walking_direction.z);
+                this._left_right.cross(UP_VECTOR);
+                this._left_right.normalize();
 
-            this._previous_direction = null;
+                this._previous_direction = null;
+
+                this._previous_yaw_rotation = _yaw;
+                this._previous_pitch_rotation = _pitch;
+            }
         },
 
         on_mouse_move: function(movement_x, movement_y) {
