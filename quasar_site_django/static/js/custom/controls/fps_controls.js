@@ -280,8 +280,18 @@ Player.prototype.load_fps_controls = function() {
         update_mouse_view_position: function() {
             //l('Updating mouse view position!');
 
-            this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value();
-            this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
+            // TODO: Compare against old values.
+            let _y = this.mouse_movement_x_buffer.get_current_value();
+            let _x = this.mouse_movement_y_buffer.get_current_value();
+
+            l(_x);
+            l(_y);
+            
+            this.yaw.rotation.y = _y;
+            this.pitch.rotation.x = _x;
+
+            //this.yaw.rotation.y = this.mouse_movement_x_buffer.get_current_value();
+            //this.pitch.rotation.x = this.mouse_movement_y_buffer.get_current_value();
 
             this.direction_vector = this.get_direction();
 

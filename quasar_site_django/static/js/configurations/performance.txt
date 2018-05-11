@@ -1,0 +1,1 @@
+- Use x | 0 instead of Math.floor(x)
