@@ -289,7 +289,7 @@ Player.prototype.load_fps_controls = function() {
                 this.yaw.rotation.y = _yaw;
                 this.pitch.rotation.x = _pitch;
 
-                //l('Updating mouse view position!');
+                l('Updating mouse view position!');
 
                 this.direction_vector = this.get_direction();
 
