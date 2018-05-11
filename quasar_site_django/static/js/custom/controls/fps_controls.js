@@ -302,7 +302,7 @@ Player.prototype.load_fps_controls = function() {
                 this._left_right.cross(UP_VECTOR);
                 this._left_right.normalize();
 
-                //this._previous_direction = null;
+                this._previous_direction = null;
 
                 this._previous_yaw_rotation = _yaw;
                 this._previous_pitch_rotation = _pitch;
