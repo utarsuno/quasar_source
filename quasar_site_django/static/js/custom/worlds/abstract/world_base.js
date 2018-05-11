@@ -12,6 +12,9 @@ function World(world_entity) {
 
     this.interactive_objects        = [];
 
+    // For reference optimization.
+    this._up_vector = UP_VECTOR;
+
     // For cache optimizations.
     this._intersections = [];
 

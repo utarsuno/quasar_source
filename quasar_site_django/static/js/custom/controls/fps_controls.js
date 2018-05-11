@@ -52,6 +52,8 @@ Player.prototype.load_fps_controls = function() {
             this.mouse_movement_y_buffer = new TimeValueBuffer(this.pitch.rotation.x, 0.025, this.negative_half_pie + .001, this.half_pie - .001);
 
             // For optimization purposes.
+            this._up_vector           = UP_VECTOR;
+
             this._current_yaw         = 0.0;
             this._current_pitch       = 0.0;
             this._previous_yaw        = -1.0;
@@ -287,7 +289,7 @@ Player.prototype.load_fps_controls = function() {
                 this.direction_vector.normalize();
 
                 this._left_right.set(this._walking_direction.x, 0, this._walking_direction.z);
-                this._left_right.cross(UP_VECTOR);
+                this._left_right.cross(this._up_vector);
                 this._left_right.normalize();
 
                 this._previous_direction = null;

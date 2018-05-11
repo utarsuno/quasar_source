@@ -264,17 +264,17 @@ function Attachmentable(world) {
     // This function should only be called on a root element.
     this.set_normal = function(x, y, z, refresh) {
         if (!is_defined(this.normal)) {
-            this.normal = new THREE.Vector3(x, y, z);
+            this.normal = new THREE.Vector3(0, 0, 0);
         }
-        //this.normal = new THREE.Vector3(x, y, z);
         this.normal.set(x, y, z);
         this.normal.normalize();
 
         if (!is_defined(this.left_right)) {
-            this.left_right = new THREE.Vector3(-this.normal.x, 0, -this.normal.z);
+            this.left_right = new THREE.Vector3(0, 0, 0);
         }
         this.left_right.set(-this.normal.x, 0, -this.normal.z);
-        this.left_right.cross(UP_VECTOR);
+        //this.left_right.cross(UP_VECTOR);
+        this.left_right.cross(this.world._up_vector);
         this.left_right.normalize();
         if (refresh) {
             this._refresh_look_at();
