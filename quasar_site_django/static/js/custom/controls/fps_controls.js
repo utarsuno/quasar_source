@@ -285,7 +285,7 @@ Player.prototype.load_fps_controls = function() {
             let _yaw = this.mouse_movement_x_buffer.get_current_value();
             let _pitch = this.mouse_movement_y_buffer.get_current_value();
 
-            //if (this._previous_yaw_rotation !== _yaw && this._previous_pitch_rotation !== _pitch) {
+            if (this._previous_yaw_rotation !== _yaw && this._previous_pitch_rotation !== _pitch) {
                 this.yaw.rotation.y = _yaw;
                 this.pitch.rotation.x = _pitch;
 
@@ -302,11 +302,11 @@ Player.prototype.load_fps_controls = function() {
                 this._left_right.cross(UP_VECTOR);
                 this._left_right.normalize();
 
-                this._previous_direction = null;
+                //this._previous_direction = null;
 
                 this._previous_yaw_rotation = _yaw;
                 this._previous_pitch_rotation = _pitch;
-            //}
+            }
         },
 
         on_mouse_move: function(movement_x, movement_y) {
