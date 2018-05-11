@@ -113,7 +113,8 @@ ManagerManager.prototype.HexagonGrid = function() {
     };
 
     this._get_random_grey = function() {
-        let v =  Math.floor(Math.random() * 10);
+        //let v =  Math.floor(Math.random() * 10);
+        let v = (Math.random() * 10) | 0;
         return 'rgb(' + parseInt(20 + v) + ',' + parseInt(20 + v) + ',' + parseInt(20 + v) + ')';
     };
 
