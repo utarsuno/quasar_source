@@ -35,9 +35,9 @@ public class DBServerMessageConsumer extends DefaultConsumer {
             case QuasarDatabaseServer.DB_SERVER_COMMAND_01_IS_EMAIL_TAKEN:
                 return new DBServerMessageIsEmailTaken(map);
             case QuasarDatabaseServer.DB_SERVER_COMMAND_02_IS_VALID_LOGIN:
-                return new DBServerMessageIsUsernameTaken(map);
+                return new DBServerMessageIsValidLogin(map);
             case QuasarDatabaseServer.DB_SERVER_COMMAND_03_CREATE_ACCOUNT:
-                return new DBServerMessageIsUsernameTaken(map);
+                return new DBServerMessageCreateAccount(map);
             case QuasarDatabaseServer.DB_SERVER_COMMAND_04_DELETE_ACCOUNT:
                 return new DBServerMessageDeleteAccount(map);
             default:

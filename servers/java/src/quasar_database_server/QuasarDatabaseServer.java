@@ -28,9 +28,6 @@ public class QuasarDatabaseServer {
     private final static String NAME_QUEUE_DB_RESPONSE = "entity_db_response";
     private final static String NAME_HOST              = "localhost";
 
-    public final static boolean DB_SERVER_COMMAND_RESPONSE_POSITIVE = true;
-    public final static boolean DB_SERVER_COMMAND_RESPONSE_NEGATIVE = false;
-
     // TODO : Test if server can run Hello World.
     // TODO : Make sure .gitignore has Java's output files.
 
