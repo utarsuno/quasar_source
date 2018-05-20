@@ -22,10 +22,11 @@ public class QuasarDatabaseServer {
     public static final int DB_SERVER_COMMAND_01_IS_EMAIL_TAKEN    = 1;
     public static final int DB_SERVER_COMMAND_02_IS_VALID_LOGIN    = 2;
     public static final int DB_SERVER_COMMAND_03_CREATE_ACCOUNT    = 3;
+    public static final int DB_SERVER_COMMAND_04_DELETE_ACCOUNT    = 4;
 
-    final static String NAME_QUEUE_DB_RECEIVE  = "entity_db_receive";
-    final static String NAME_QUEUE_DB_RESPONSE = "entity_db_response";
-    final static String NAME_HOST              = "localhost";
+    private final static String NAME_QUEUE_DB_RECEIVE  = "entity_db_receive";
+    private final static String NAME_QUEUE_DB_RESPONSE = "entity_db_response";
+    private final static String NAME_HOST              = "localhost";
 
     public final static boolean DB_SERVER_COMMAND_RESPONSE_POSITIVE = true;
     public final static boolean DB_SERVER_COMMAND_RESPONSE_NEGATIVE = false;

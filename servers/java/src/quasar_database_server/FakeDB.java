@@ -22,5 +22,12 @@ public class FakeDB {
         return false;
     }
 
+    // TODO :
+    public void create_account(String username, String email, String password) {
+    }
+
+    // TODO :
+    public void delete_account(String username) {
+    }
 
 }

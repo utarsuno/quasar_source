@@ -13,7 +13,7 @@ public class RabbitMQSender extends RabbitMQAbstraction {
     }
 
     public void send_server_message(DBServerMessage server_message) throws IOException {
-        System.out.println("Sent reply!");
+        //System.out.println("Sent reply!");
         this.channel.basicPublish("", this.name_queue, null, server_message.get_message_response());
     }
 

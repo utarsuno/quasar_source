@@ -19,7 +19,7 @@ public class RabbitMQReceiver extends RabbitMQAbstraction {
     public void connect() throws IOException, TimeoutException {
         super.connect();
 
-        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+        //System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
         this.message_consumer = new DBServerMessageConsumer(this.channel, this.quasar_db);
         this.channel.basicConsume(this.name_queue, true, this.message_consumer);

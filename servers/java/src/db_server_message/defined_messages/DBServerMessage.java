@@ -8,7 +8,6 @@ public abstract class DBServerMessage {
 
     private final int MESSAGE_TYPE;
 
-    protected String response;
     protected Map<String,Object> map;
 
     public DBServerMessage(int message_type, Map<String,Object> map) {

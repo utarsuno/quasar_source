@@ -22,11 +22,10 @@ public abstract class DBServerMessageWithResponse extends DBServerMessage {
     }
 
     public void add_response_positive(Boolean positive) {
-        this.keys.add(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_RESPONSE_POSITIVE);
         if (positive) {
-            this.add_response(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_RESPONSE_POSITIVE, "True");
+            this.add_response(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_RESPONSE_POSITIVE, "true");
         } else {
-            this.add_response(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_RESPONSE_POSITIVE, "False");
+            this.add_response(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_RESPONSE_POSITIVE, "false");
         }
     }
 
@@ -37,13 +36,14 @@ public abstract class DBServerMessageWithResponse extends DBServerMessage {
 
     @Override
     public byte[] get_message_response() {
-        // TODO : Construct JSON response here.
         String message_id = Integer.toString((int) this.map.get(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_MESSAGE_ID));
         this.add_response(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_MESSAGE_ID, message_id);
 
         String response = "{";
-
-        // TODO : Complete the response section!
+        for (int i = 0; i < this.keys.size(); i++) {
+            response += "\"" + this.keys.get(i) + "\":" + this.values.get(i) + ",";
+        }
+        response = response.subSequence(0, response.length() - 1) + "}";
 
         return response.getBytes();
     }
