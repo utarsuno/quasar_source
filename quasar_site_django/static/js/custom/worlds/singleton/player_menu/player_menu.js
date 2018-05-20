@@ -47,6 +47,9 @@ PlayerMenu.prototype = {
             // Hide teleport to current world.
             // Get teleport to all other worlds.
         }
+
+        // TODO: Fix world teleporting issue.
+
         // Recalculate row offsets.
         this.menu_main.recalculate_row_offsets();
     },

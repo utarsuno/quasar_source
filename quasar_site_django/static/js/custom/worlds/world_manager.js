@@ -35,6 +35,9 @@ WorldManager.prototype = {
         // Inherit.
         DynamicContentManager.call(this);
         WorldManagerInput.call(this);
+
+        // For optimizations.
+        // TODO: Previous position and direction.
     },
 
     logout: function() {
@@ -95,6 +98,11 @@ WorldManager.prototype = {
         if (!this.player_cursor._currently_engaged) {
             // Don't update interactive objects during a transition or during chat typing.
             if (!MANAGER_RENDERER.in_transition || CURRENT_PLAYER.current_state === PLAYER_STATE_TYPING) {
+
+                // TODO : Prevent interactive objects update if there has been no movement/inputs.
+
+
+
                 this.current_world.update_interactive_objects();
             }
         }
