@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'maven'
+	id 'org.springframework.boot' version '2.0.2.RELEASE'
+    id "com.palantir.docker" version '0.19.2'
+    id "io.spring.dependency-management" version '1.0.4.RELEASE'
+    id "org.sonarqube" version "2.6.2"
+    id "com.peterabeles.gversion" version "1.1"
+}
+
+group = 'gemini'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+    maven { url 'http://localhost:1234/nexus/content/repositories/releases' }
+    maven { url 'http://localhost:1234/nexus/content/repositories/snapshots' }
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url 'https://repo.spring.io/libs-release' }
+}
+
+bootJar {
+	mainClassName = 'com.quasar.qdb.QDBApp'
+}
+
+gversion {
+  srcDir       = "src/main/java/"
+  classPackage = "com.quasar.qdb"
+  className    = "GeminiVersion"            // optional. If not specified GVersion is used
+  dateFormat   = "yyyy-MM-dd'T'HH:mm:ss'Z'" // optional. This is the default
+  timeZone     = "UTC"                      // optional. UTC is default
+}
+
+configurations.all {
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "org.slf4j", module: "slf4j-simple"
+    exclude group: "log4j", module: "log4j"
+}
+
+docker {
+    name "gemini/${jar.baseName}"
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
+}
+
+dependencies {
+
+    //Spring related jars
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile('org.springframework.kafka:spring-kafka:2.1.6.RELEASE')
+	compile 'org.springframework.data:spring-data-mongodb:2.0.7.RELEASE'    
+
+    //Kafka jars
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.0.1'
+
+    //JAXB files due to them being removed in Java 9
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+
+    //Misc. Jars
+	compile group: 'de.mkammerer',              name: 'argon2-jvm',    version: '2.4'    
+    compile group: 'org.apache.commons',   name: 'commons-lang3',    version: '3.6'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient',    version: '4.5.5'    
+    compile group: 'ch.qos.logback',       name: 'logback-classic',  version: '1.2.3'
+    compile group: 'org.slf4j',            name: 'log4j-over-slf4j', version: '1.7.25'
+    compile group: 'org.slf4j',            name: 'jcl-over-slf4j',   version: '1.7.25'
+	compile group: 'com.hazelcast', name: 'hazelcast-all', version: '3.10'
+    
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.module',   name: 'jackson-module-parameter-names', version: '2.9.5'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.5'
+
+}

@@ -1,0 +1,19 @@
+<configuration> 
+  <property name="LOG_OUTPUT_DIR" value="/var/log/action-handler-sfs" />
+  
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_OUTPUT_DIR}/app.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    
+    <encoder>
+      <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.quasar" level="DEBUG" />
+
+  <root level="info">
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>

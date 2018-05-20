@@ -1,0 +1,12 @@
+.DS_Store
+/.gradle/
+/bin/
+.project
+.settings/
+.classpath
+/build/
+/out
+
+.idea/
+/*.iml
+GeminiVersion.java
