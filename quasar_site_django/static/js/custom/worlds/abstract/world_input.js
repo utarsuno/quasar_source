@@ -77,7 +77,7 @@ function WorldInput() {
             if (is_defined(this._default_tab_target)) {
                 this.currently_looked_at_object = this._default_tab_target;
                 this.look_at_currently_looked_at_object(true, true);
-                this.floating_cursor.update_position(this.currently_looked_at_object.get_position());
+                //this.floating_cursor.update_position(this.currently_looked_at_object.get_position());
             }
         }
     };
