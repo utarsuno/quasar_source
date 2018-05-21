@@ -43,6 +43,7 @@ public class DBServerMessageConsumer extends DefaultConsumer {
             default:
                 return null;
         }
+
     }
 
     @Override
