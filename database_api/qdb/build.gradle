@@ -80,4 +80,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.module',   name: 'jackson-module-parameter-names', version: '2.9.5'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.5'
 
+    compile 'com.rabbitmq:amqp-client:5.2.0'
+
 }
