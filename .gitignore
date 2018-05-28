@@ -171,3 +171,7 @@ third_party_libraries/
 
 # Ignoring custom database files.
 .db
+
+# Ignore C output files.
+/output_files_to_ignore
+.output_files_to_ignore

@@ -2,7 +2,13 @@
   <dictionary name="utarsuno">
     <words>
       <w>binance</w>
+      <w>fclose</w>
+      <w>fopen</w>
+      <w>fprintf</w>
+      <w>fputc</w>
+      <w>fread</w>
       <w>minified</w>
+      <w>printf</w>
       <w>skybox</w>
       <w>stackoverflow</w>
       <w>teleport</w>
