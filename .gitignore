@@ -173,5 +173,5 @@ third_party_libraries/
 .db
 
 # Ignore C output files.
-compression/output_files_to_ignore
+output_files_to_ignore/
 .output_files_to_ignore
