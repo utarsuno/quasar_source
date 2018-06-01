@@ -29,12 +29,17 @@ typedef struct {
     unsigned long * compressed_bit_patterns_bytes;
 } BinarySequenceManager;
 
-/*__   ___  __        ___       __   ___      __   ___  __            ___  __  
- /__` |__  /  \ |  | |__  |\ | /  ` |__      |__) |__  /__` |  | |     |  /__` 
+/*__   ___  __        ___       __   ___      __   ___  __            ___  __
+ /__` |__  /  \ |  | |__  |\ | /  ` |__      |__) |__  /__` |  | |     |  /__`
  .__/ |___ \__X \__/ |___ | \| \__, |___ ___ |  \ |___ .__/ \__/ |___  |  .__/ */
+extern void check_for_new_longest_sequence(unsigned char * bit_pattern_list, const unsigned long position, SequenceResult * sr);
 extern void bit_patterns_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr);
 extern void bit_patterns_plus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr);
 extern void bit_patterns_minus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr);
+extern void check_for_best(SequenceResult * sr_best, SequenceResult * sr_curr);
+extern void check_best_result_00(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr);
+extern void check_best_result_01(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr);
+extern void check_best_result_02(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr);
 //extern SequenceResult * bit_patterns_plus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset);
 //extern SequenceResult * bit_patterns_minus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset);
 extern SequenceResult * get_new_sequence_result();

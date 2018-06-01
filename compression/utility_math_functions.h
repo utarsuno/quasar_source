@@ -7,8 +7,11 @@ extern unsigned char get_flipped_byte(unsigned char c);
 extern const unsigned char * byte_to_binary(unsigned char x);
 
 
-/*__   ___  __        ___       __   ___      ___            __  ___    __        __
- /__` |__  /  \ |  | |__  |\ | /  ` |__      |__  |  | |\ | /  `  |  | /  \ |\ | /__`
- .__/ |___ \__X \__/ |___ | \| \__, |___ ___ |    \__/ | \| \__,  |  | \__/ | \| .__/ */
-
-inline unsigned char sf_x_squared(unsigned long position);
+extern unsigned char get_bit_0(const unsigned char c);
+extern unsigned char get_bit_1(const unsigned char c);
+extern unsigned char get_bit_2(const unsigned char c);
+extern unsigned char get_bit_3(const unsigned char c);
+extern unsigned char get_bit_4(const unsigned char c);
+extern unsigned char get_bit_5(const unsigned char c);
+extern unsigned char get_bit_6(const unsigned char c);
+extern unsigned char get_bit_7(const unsigned char c);

@@ -1,175 +1,196 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "binary_compressor.h"
+#include "binary_function.h"
 #include "utility_math_functions.h"
 
-inline void bit_patterns_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr) {
-    unsigned char bit_pattern_list[255];
-    unsigned char bit_pattern;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        bit_pattern_list[bit_pattern] = 0;
-    }
-    unsigned long offset;
-    for (offset = 0; offset < local_max_offset; offset++) {
-        unsigned char current_value = * (buffer + position + offset);
-        for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-            // Only perform a check if the pattern is still alive.
-            if (bit_pattern_list[bit_pattern] == offset) {
-                if (bit_pattern == current_value) {
-                    bit_pattern_list[bit_pattern] += 1;
-                }
-            }
-        }
-    }
-    // Get longest distance of all bit patterns checked.
-    unsigned long longest_bit_pattern_alive_for = 0;
-    unsigned char bitmap_to_use;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        if (bit_pattern_list[bit_pattern] > longest_bit_pattern_alive_for) {
-            longest_bit_pattern_alive_for = bit_pattern_list[bit_pattern];
-            bitmap_to_use = bit_pattern;
-        }
-    }
-    if (longest_bit_pattern_alive_for > 0) {
-        sr->position = position;
-        sr->offset   = longest_bit_pattern_alive_for;
-        sr->formula  = bitmap_to_use;
-    } else {
-        sr->offset   = 0;
-    }
-}
+typedef struct {
+    unsigned char b0;
+    unsigned char b1;
+    unsigned char b2;
+    unsigned char b3;
+    unsigned char b4;
+    unsigned char b5;
+    unsigned char b6;
+    unsigned char b7;
+} EightBits;
 
-inline void bit_patterns_plus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr) {
-    unsigned char bit_pattern_list[255];
-    unsigned char bit_pattern;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        bit_pattern_list[bit_pattern] = 0;
-    }
-    unsigned long offset;
-    for (offset = 0; offset < local_max_offset; offset++) {
-        unsigned char current_value = * (buffer + position + offset);
-        for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-            // Only perform a check if the pattern is still alive.
-            if (bit_pattern_list[bit_pattern] == offset) {
-                unsigned long function_value = offset + bit_pattern;
-                if (function_value == current_value) {
-                    bit_pattern_list[bit_pattern] += 1;
-                }
-            }
-        }
-    }
-    // Get longest distance of all bit patterns checked.
-    unsigned long longest_bit_pattern_alive_for = 0;
-    unsigned char bitmap_to_use;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        if (bit_pattern_list[bit_pattern] > longest_bit_pattern_alive_for) {
-            longest_bit_pattern_alive_for = bit_pattern_list[bit_pattern];
-            bitmap_to_use = bit_pattern;
-        }
-    }
-    if (longest_bit_pattern_alive_for > 0) {
-        sr->position = position;
-        sr->offset   = longest_bit_pattern_alive_for;
-        sr->formula  = bitmap_to_use;
-    } else {
-        sr->offset   = 0;
-    }
-}
-
-inline void bit_patterns_minus_one_formula(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr) {
-    unsigned char bit_pattern_list[255];
-    unsigned char bit_pattern;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        bit_pattern_list[bit_pattern] = 0;
-    }
-    unsigned long offset;
-    for (offset = 0; offset < local_max_offset; offset++) {
-        unsigned char current_value = * (buffer + position + offset);
-        for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-            // Only perform a check if the pattern is still alive.
-            if (bit_pattern_list[bit_pattern] == offset) {
-                unsigned long function_value = bit_pattern - offset;
-                if (function_value == current_value) {
-                    bit_pattern_list[bit_pattern] += 1;
-                }
-            }
-        }
-    }
-    // Get longest distance of all bit patterns checked.
-    unsigned long longest_bit_pattern_alive_for = 0;
-    unsigned char bitmap_to_use;
-    for (bit_pattern = 0; bit_pattern < 255; bit_pattern++) {
-        if (bit_pattern_list[bit_pattern] > longest_bit_pattern_alive_for) {
-            longest_bit_pattern_alive_for = bit_pattern_list[bit_pattern];
-            bitmap_to_use = bit_pattern;
-        }
-    }
-    if (longest_bit_pattern_alive_for > 0) {
-        sr->position = position;
-        sr->offset   = longest_bit_pattern_alive_for;
-        sr->formula  = bitmap_to_use;
-    } else {
-        sr->offset   = 0;
-    }
-}
-
-inline void check_for_best(SequenceResult * sr_best, SequenceResult * sr_curr) {
-    if (sr_curr->offset > sr_best->offset) {
-        sr_best->offset = sr_curr->offset;
-        sr_best->position = sr_curr->position;
-        sr_best->formula = sr_curr->formula;
-    }
-}
-
-inline void check_best_result_00(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr) {
-    bit_patterns_formula(buffer, position, local_max_offset, sr_curr);
-    check_for_best(sr_best, sr_curr);
-}
-
-inline void check_best_result_01(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr) {
-    bit_patterns_plus_one_formula(buffer, position, local_max_offset, sr_curr);
-    check_for_best(sr_best, sr_curr);
-}
-
-inline void check_best_result_02(const unsigned char * buffer, const unsigned long position, const unsigned long local_max_offset, SequenceResult * sr_best, SequenceResult * sr_curr) {
-    bit_patterns_minus_one_formula(buffer, position, local_max_offset, sr_curr);
-    check_for_best(sr_best, sr_curr);
-}
-
-inline void traverse_binary_sequence(const unsigned char * buffer, const unsigned long buffer_length, BinarySequenceManager * manager) {
-    unsigned long max_offset = buffer_length / MAX_BUFFER_OFFSET_DIVIDER;
-    //printf("Max offset %lu\n", max_offset);exit(5);
+void _traverse_binary_sequence(const unsigned char * buffer, const unsigned long buffer_length, BinaryFunction * bf) {
     unsigned long position = 0;
-    unsigned long offset = 0;
+    unsigned long number_of_matches = 0;
 
-    SequenceResult * sequence_best = get_new_sequence_result();
-    SequenceResult * sequence_curr = get_new_sequence_result();
+    unsigned long m0 = 0;
+    unsigned long m1 = 0;
+    unsigned long m2 = 0;
+    unsigned long m3 = 0;
+    unsigned long m4 = 0;
+    unsigned long m5 = 0;
+
+    unsigned char b0;
+
+    EightBits * bits = (EightBits *) malloc(sizeof(EightBits));
 
     unsigned char current_value;
     for (position = 0; position < buffer_length; position++) {
-        unsigned long distance_remaining = buffer_length - position;
-        unsigned long local_max_offset = (max_offset > distance_remaining) ? distance_remaining : max_offset;
-        if (local_max_offset > distance_remaining) {
-            local_max_offset = distance_remaining;
-        }
 
-        check_best_result_00(buffer, position, local_max_offset, sequence_best, sequence_curr);
-        check_best_result_01(buffer, position, local_max_offset, sequence_best, sequence_curr);
-        check_best_result_02(buffer, position, local_max_offset, sequence_best, sequence_curr);
+        current_value = * (buffer + position);
+        bits->b0 = get_bit_0(current_value);
+        bits->b1 = get_bit_1(current_value);
+        bits->b2 = get_bit_2(current_value);
+        bits->b3 = get_bit_3(current_value);
+        bits->b4 = get_bit_4(current_value);
+        bits->b5 = get_bit_5(current_value);
+        bits->b6 = get_bit_6(current_value);
+        bits->b7 = get_bit_7(current_value);
 
-        binary_sequence_manager_add_compressed_chunk(sequence_best->position, sequence_best->offset, sequence_best->formula, manager);
-        //printf("Adding this much position {%lu}\n", sequence_best->offset);
-        position += sequence_best->offset - 1;
+        //printf("%d\n", (int) current_value);
 
 
-        sequence_best->offset = 0;
+        m0 += get_binary_value_at_position_00(position * 8 + 0, bf) == bits->b0;
+        m0 += get_binary_value_at_position_00(position * 8 + 1, bf) == bits->b1;
+        m0 += get_binary_value_at_position_00(position * 8 + 2, bf) == bits->b2;
+        m0 += get_binary_value_at_position_00(position * 8 + 3, bf) == bits->b3;
+        m0 += get_binary_value_at_position_00(position * 8 + 4, bf) == bits->b4;
+        m0 += get_binary_value_at_position_00(position * 8 + 5, bf) == bits->b5;
+        m0 += get_binary_value_at_position_00(position * 8 + 6, bf) == bits->b6;
+        m0 += get_binary_value_at_position_00(position * 8 + 7, bf) == bits->b7;
+
+        m1 += get_binary_value_at_position_01(position * 8 + 0, bf) == bits->b0;
+        m1 += get_binary_value_at_position_01(position * 8 + 1, bf) == bits->b1;
+        m1 += get_binary_value_at_position_01(position * 8 + 2, bf) == bits->b2;
+        m1 += get_binary_value_at_position_01(position * 8 + 3, bf) == bits->b3;
+        m1 += get_binary_value_at_position_01(position * 8 + 4, bf) == bits->b4;
+        m1 += get_binary_value_at_position_01(position * 8 + 5, bf) == bits->b5;
+        m1 += get_binary_value_at_position_01(position * 8 + 6, bf) == bits->b6;
+        m1 += get_binary_value_at_position_01(position * 8 + 7, bf) == bits->b7;
+
+        m2 += get_binary_value_at_position_02(position * 8 + 0, bf) == bits->b0;
+        m2 += get_binary_value_at_position_02(position * 8 + 1, bf) == bits->b1;
+        m2 += get_binary_value_at_position_02(position * 8 + 2, bf) == bits->b2;
+        m2 += get_binary_value_at_position_02(position * 8 + 3, bf) == bits->b3;
+        m2 += get_binary_value_at_position_02(position * 8 + 4, bf) == bits->b4;
+        m2 += get_binary_value_at_position_02(position * 8 + 5, bf) == bits->b5;
+        m2 += get_binary_value_at_position_02(position * 8 + 6, bf) == bits->b6;
+        m2 += get_binary_value_at_position_02(position * 8 + 7, bf) == bits->b7;
+
+        m3 += get_binary_value_at_position_03(position * 8 + 0, bf) == bits->b0;
+        m3 += get_binary_value_at_position_03(position * 8 + 1, bf) == bits->b1;
+        m3 += get_binary_value_at_position_03(position * 8 + 2, bf) == bits->b2;
+        m3 += get_binary_value_at_position_03(position * 8 + 3, bf) == bits->b3;
+        m3 += get_binary_value_at_position_03(position * 8 + 4, bf) == bits->b4;
+        m3 += get_binary_value_at_position_03(position * 8 + 5, bf) == bits->b5;
+        m3 += get_binary_value_at_position_03(position * 8 + 6, bf) == bits->b6;
+        m3 += get_binary_value_at_position_03(position * 8 + 7, bf) == bits->b7;
+
+        m4 += get_binary_value_at_position_04(position * 8 + 0, bf) == bits->b0;
+        m4 += get_binary_value_at_position_04(position * 8 + 1, bf) == bits->b1;
+        m4 += get_binary_value_at_position_04(position * 8 + 2, bf) == bits->b2;
+        m4 += get_binary_value_at_position_04(position * 8 + 3, bf) == bits->b3;
+        m4 += get_binary_value_at_position_04(position * 8 + 4, bf) == bits->b4;
+        m4 += get_binary_value_at_position_04(position * 8 + 5, bf) == bits->b5;
+        m4 += get_binary_value_at_position_04(position * 8 + 6, bf) == bits->b6;
+        m4 += get_binary_value_at_position_04(position * 8 + 7, bf) == bits->b7;
+
+        m5 += get_binary_value_at_position_05(position * 8 + 0, bf) == bits->b0;
+        m5 += get_binary_value_at_position_05(position * 8 + 1, bf) == bits->b1;
+        m5 += get_binary_value_at_position_05(position * 8 + 2, bf) == bits->b2;
+        m5 += get_binary_value_at_position_05(position * 8 + 3, bf) == bits->b3;
+        m5 += get_binary_value_at_position_05(position * 8 + 4, bf) == bits->b4;
+        m5 += get_binary_value_at_position_05(position * 8 + 5, bf) == bits->b5;
+        m5 += get_binary_value_at_position_05(position * 8 + 6, bf) == bits->b6;
+        m5 += get_binary_value_at_position_05(position * 8 + 7, bf) == bits->b7;
+
+
+        /*
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 0, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 1, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 2, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 3, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 4, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 5, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 6, bf));
+        printf("%d\n", (int) get_binary_value_at_position(position * 8 + 7, bf));
+
+        printf("%d\n", (int) get_bit_0(current_value));
+        printf("%d\n", (int) get_bit_1(current_value));
+        printf("%d\n", (int) get_bit_2(current_value));
+        printf("%d\n", (int) get_bit_3(current_value));
+        printf("%d\n", (int) get_bit_4(current_value));
+        printf("%d\n", (int) get_bit_5(current_value));
+        printf("%d\n", (int) get_bit_6(current_value));
+        printf("%d\n", (int) get_bit_7(current_value));
+        */
+
+        //printf("Number of matches : %lu\n", number_of_matches);
+
+        //exit(5);
+
+        //printf("%d\n", (int) get_binary_value_at_position(position, bf));
     }
 
-    free(sequence_best);
-    free(sequence_curr);
+    //printf("Total : %lu\n", buffer_length * 8);
+    //printf("Number of matches : %lu\n", number_of_matches);
 
-    //exit(4);
+    float mm0 = ((float) (m0) / (float) (buffer_length * 8)) * 100.0;
+    float mm1 = ((float) (m1) / (float) (buffer_length * 8)) * 100.0;
+    float mm2 = ((float) (m2) / (float) (buffer_length * 8)) * 100.0;
+    float mm3 = ((float) (m3) / (float) (buffer_length * 8)) * 100.0;
+    float mm4 = ((float) (m4) / (float) (buffer_length * 8)) * 100.0;
+    float mm5 = ((float) (m5) / (float) (buffer_length * 8)) * 100.0;
 
-    //binary_sequence_manager_print_chunks(manager);
-    binary_sequence_manager_statistics(manager);
+    printf("%% matched : %f, %f, %f, %f, %f, %f\n", mm0, mm1, mm2, mm3, mm4, mm5);
+
+}
+
+inline void traverse_binary_sequence(const unsigned char * buffer, const unsigned long buffer_length) {
+    float c0 = 1.0;
+    float c1 = 1.0;
+    float c2 = 1.0;
+    float s0 = 1.0;
+    float s1 = 1.0;
+    float s2 = 1.0;
+    BinaryFunction * bf = get_new_binary_function(c0, c1, c2, s0, s1, s2);
+
+    //set_binary_function(bf, c0, c1, c2, s0, s1, s2);
+    //_traverse_binary_sequence(buffer, buffer_length, bf);
+    //exit(5);
+
+    int i;
+    for (i = 0; i < 100; i++) {
+        //c0 += 0.15;
+        //s0 += 1;
+
+        // printf("%f\n", ((float)rand()/(float)(RAND_MAX)) * a);
+
+        int positive;
+        if ((float)rand()/(float)(RAND_MAX) * 10 > 5.0) {
+            positive = 2;
+        }
+
+        float r = ((float)rand()/(float)(RAND_MAX) * 10) / 10000.0;
+
+        if (positive == 2) {
+            c0 += ((float)rand()/(float)(RAND_MAX)) * r;
+            c1 += ((float)rand()/(float)(RAND_MAX)) * r;
+            c2 += ((float)rand()/(float)(RAND_MAX)) * r;
+            s0 += ((float)rand()/(float)(RAND_MAX)) * r;
+            s1 += ((float)rand()/(float)(RAND_MAX)) * r;
+            s2 += ((float)rand()/(float)(RAND_MAX)) * r;
+        } else {
+            c0 -= ((float)rand()/(float)(RAND_MAX)) * r;
+            c1 -= ((float)rand()/(float)(RAND_MAX)) * r;
+            c2 -= ((float)rand()/(float)(RAND_MAX)) * r;
+            s0 -= ((float)rand()/(float)(RAND_MAX)) * r;
+            s1 -= ((float)rand()/(float)(RAND_MAX)) * r;
+            s2 -= ((float)rand()/(float)(RAND_MAX)) * r;
+        }
+
+
+        set_binary_function(bf, c0, c1, c2, s0, s1, s2);
+        _traverse_binary_sequence(buffer, buffer_length, bf);
+    }
+
+    free(bf);
 }
 
 

@@ -20,18 +20,18 @@ int main(void) {
 
 
     // Stores the compressed data output.
-    BinarySequenceManager * manager = get_new_binary_sequence_manager(file_length);
+    //BinarySequenceManager * manager = get_new_binary_sequence_manager(file_length);
 
 
 
-    traverse_binary_sequence(buffer, file_length, manager);
-    binary_sequence_manager_save_output(manager, COMPRESSED_DATA_PATH);
+    traverse_binary_sequence(buffer, file_length);
+    //binary_sequence_manager_save_output(manager, COMPRESSED_DATA_PATH);
 
     //save_file_contents(OUTPUT_PATH2, file_length, buffer);
 
 
     // TODO : Free all of the managers internal data.
-    free(manager);
+    //free(manager);
 
     clock_t end = clock();
     printf("Time taken %f seconds.\n", ((double) (end - start)) / CLOCKS_PER_SEC);

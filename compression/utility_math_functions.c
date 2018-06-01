@@ -8,25 +8,34 @@ inline unsigned char get_flipped_byte(unsigned char c) {
     return c ^ ((unsigned char) 255);
 }
 
-// Base function code from user 'No Idea For Name' at : https://stackoverflow.com/questions/18327439/printing-binary-representation-of-a-char-in-c
-inline const unsigned char * byte_to_binary(unsigned char x) {
-    static char b[9];
-    b[0] = '\0';
-    int z;
-    for (z = 128; z > 0; z >>= 1) {
-        strcat(b, ((x & z) == z) ? "1" : "0");
-    }
-    return b;
+extern unsigned char get_bit_0(const unsigned char c) {
+    return (c & 0x1) > 0;
 }
 
-/*__   ___  __        ___       __   ___      ___            __  ___    __        __
- /__` |__  /  \ |  | |__  |\ | /  ` |__      |__  |  | |\ | /  `  |  | /  \ |\ | /__`
- .__/ |___ \__X \__/ |___ | \| \__, |___ ___ |    \__/ | \| \__,  |  | \__/ | \| .__/ */
+extern unsigned char get_bit_1(const unsigned char c) {
+    return (c & 0x2) > 0;
+}
 
-inline unsigned char sf_x_squared(unsigned long position) {
-    unsigned long i = 0;
-    int position_hit = FALSE;
-    while (position_hit == FALSE) {
+extern unsigned char get_bit_2(const unsigned char c) {
+    return (c & 0x4) > 0;
+}
 
-    }
+extern unsigned char get_bit_3(const unsigned char c) {
+    return (c & 0x8) > 0;
+}
+
+extern unsigned char get_bit_4(const unsigned char c) {
+    return (c & 0x10) > 0;
+}
+
+extern unsigned char get_bit_5(const unsigned char c) {
+    return (c & 0x20) > 0;
+}
+
+extern unsigned char get_bit_6(const unsigned char c) {
+    return (c & 0x40)> 0;
+}
+
+extern unsigned char get_bit_7(const unsigned char c) {
+    return (c & 0x80) > 0;
 }
