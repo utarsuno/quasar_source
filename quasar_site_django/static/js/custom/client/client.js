@@ -21,6 +21,7 @@ Client.prototype = {
         // pointer_is_locked
         // in_full_screen
         // debug_mode
+        // has_focus
 
         // TODO : Add focus event here.
 
@@ -84,6 +85,7 @@ Client.prototype = {
 
         this._initialize_fullscreen();
         this._initialize_pointer_lock();
+        this._initialize_window_focus();
 
         // Inherit.
         CookieManager.call(this);
@@ -130,6 +132,24 @@ Client.prototype = {
             this.request_pointer_lock();
         }
         this.quasar.reset_delta();
+    },
+
+    /*            __   __           ___  __   __        __
+     |  | | |\ | |  \ /  \ |  |    |__  /  \ /  ` |  | /__`
+     |/\| | | \| |__/ \__/ |/\|    |    \__/ \__, \__/ .__/ */
+    _initialize_window_focus: function() {
+        // TODO : Don't assume initial state.
+        this._has_focus = true;
+        document.addEventListener('focus', this.on_window_focus_gain.bind(this), false);
+        document.addEventListener('blur', this.on_window_focus_loss.bind(this), false);
+    },
+
+    on_window_focus_gain: function() {
+        l('Window gained focus!');
+    },
+
+    on_window_focus_loss: function() {
+        l('Window lost focus!');
     },
 
     /*__   __         ___  ___  __           __   __
