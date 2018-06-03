@@ -139,18 +139,20 @@ Client.prototype = {
      |/\| | | \| |__/ \__/ |/\|    |    \__/ \__, \__/ .__/ */
     _initialize_window_focus: function() {
         // TODO : Don't assume initial state.
-        this._has_focus = true;
-        l('Added window focus');
-        window.addEventListener('focus', this.on_window_focus_gain.bind(this));
-        window.addEventListener('blur', this.on_window_focus_loss.bind(this));
+        //this._has_focus = true;
+        //l('Added window focus');
+        //window.addEventListener('focus', this.on_window_focus_gain.bind(this));
+        //window.addEventListener('blur', this.on_window_focus_loss.bind(this));
     },
 
     on_window_focus_gain: function(event) {
-        l('Window gained focus!');
+        //this._has_focus = true;
+        //l('Window gained focus!');
     },
 
     on_window_focus_loss: function(event) {
-        l('Window lost focus!');
+        //this._has_focus = false;
+        //l('Window lost focus!');
     },
 
     /*__   __         ___  ___  __           __   __

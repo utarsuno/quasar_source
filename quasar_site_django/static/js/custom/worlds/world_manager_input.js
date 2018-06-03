@@ -16,6 +16,7 @@ function WorldManagerInput() {
 
         } else {
             if (CURRENT_PLAYER.is_paused()) {
+                /*
                 if (this._left_click_previous_start_time === null) {
                     this._left_click_previous_start_time = this._left_click_clock.startTime;
                 } else {
@@ -24,6 +25,14 @@ function WorldManagerInput() {
                     }
                     this._left_click_start_time_previous = this._left_click_clock.startTime;
                 }
+                */
+                if (this._left_click_previous_start_time === null) {
+                    this._left_click_previous_start_time = this._left_click_clock.startTime;
+                }
+                if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
+                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                }
+                this._left_click_start_time_previous = this._left_click_clock.startTime;
             }
         }
     };
