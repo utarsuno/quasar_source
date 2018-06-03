@@ -140,6 +140,7 @@ Client.prototype = {
     _initialize_window_focus: function() {
         // TODO : Don't assume initial state.
         this._has_focus = true;
+        l('Added window focus');
         document.addEventListener('focus', this.on_window_focus_gain.bind(this));
         document.addEventListener('blur', this.on_window_focus_loss.bind(this));
     },
