@@ -73,13 +73,6 @@ kafka:
     loginUpdates: ${LOGIN_TOPIC:loginUpdates}
     logoutUpdates: ${LOGOUT_TOPIC:logoutUpdates}
 
-##Hazelcast
-hazelcast:
-  group:
-    name: ${HAZELCAST_GROUP_NAME:dev}
-    password: ${HAZELCAST_GROUP_PASSWORD:dev-pass}
-  network:
-    addresses: ${HAZELCAST_NETWORK_ADDRESSES}
 
 
 #Argon2

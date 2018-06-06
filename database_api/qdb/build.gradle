@@ -53,6 +53,9 @@ dependencies {
     //Spring related jars
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
     compile('org.springframework.kafka:spring-kafka:2.1.6.RELEASE')
 	compile 'org.springframework.data:spring-data-mongodb:2.0.7.RELEASE'    
 
@@ -71,14 +74,14 @@ dependencies {
     compile group: 'ch.qos.logback',       name: 'logback-classic',  version: '1.2.3'
     compile group: 'org.slf4j',            name: 'log4j-over-slf4j', version: '1.7.25'
     compile group: 'org.slf4j',            name: 'jcl-over-slf4j',   version: '1.7.25'
-	compile group: 'com.hazelcast', name: 'hazelcast-all', version: '3.10'
-    
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.module',   name: 'jackson-module-parameter-names', version: '2.9.5'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.5'
+
+    //Jackson
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.4'
 
     compile 'com.rabbitmq:amqp-client:5.2.0'
 
