@@ -7,6 +7,7 @@ June 10th: Major infrastructure changes to be rolled out within next 6 weeks.
 - Docker + micro-servers.
 - Distributing across multiple servers, not one.
 - Adding major features that new infrastructure can now support such as shared world, finance data, and scheduled SMS messages.
+- Quality assurance framework.
 
 April 30th:
 - Added heap manager.
