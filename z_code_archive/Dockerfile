@@ -24,3 +24,4 @@ COPY . /quasar_source/python_source_code
 RUN chmod +x /quasar_source/python_source_code/docker_related/run_all_unit_tests.sh
 
 CMD ["/quasar_source/python_source_code/docker_related/run_all_unit_tests.sh"]
+
