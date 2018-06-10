@@ -2,6 +2,12 @@
 
 #### Development Screenshots and Progress List:
 
+June 10th: Major infrastructure changes to be rolled out within next 6 weeks.
+- Database re-design from ground up.
+- Docker + micro-servers.
+- Distributing across multiple servers, not one.
+- Adding major features that new infrastructure can now support such as shared world, finance data, and scheduled SMS messages.
+
 April 30th:
 - Added heap manager.
 - Lots of code in-efficiencies cleaned up.
