@@ -1,0 +1,15 @@
+- Complete Task (A) ASAP.
+
+(A)
+    - create client/host docker containers for RabbitMQ
+    - test messages being sent from these 2 containers
+    - ensure design from the start supports containers shutting down/failing randomly without interference to server communications
+
+(B)
+    - create automated manager for each of the physical servers
+    - create automated manager for docker that gets applied to the physical servers
+
+(C)
+    - create quality assurance container (receives error messages and runs QA tests + stores results)
+
+
