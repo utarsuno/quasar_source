@@ -1,0 +1,22 @@
+# The version of the Docker compose file format to use.
+version: '3'
+
+services:
+
+  nexus_local:
+    build: ./quasar_micro_applications/quasar_nexus/nexus_local
+    container_name: nexus_local
+    ports:
+      - "1337:1337"
+    environment:
+      - MICRO_SERVICE_NAME=nexus_local
+
+# docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t quasarsource_nexus_local /bin/bash
+
+
+
+# docker ps | grep quasarsource_nexus_local
+
+
+# TODO :
+# Scripts to auto-build, launch, and check-if-launch for nexus_local!!!!!!!!!

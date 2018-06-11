@@ -11,5 +11,3 @@
 
 (C)
     - create quality assurance container (receives error messages and runs QA tests + stores results)
-
-
