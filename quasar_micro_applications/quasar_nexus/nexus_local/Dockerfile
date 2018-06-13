@@ -27,3 +27,6 @@ RUN mkdir ./quasar
 
 # Set the directory to the project directory.
 WORKDIR ./quasar
+
+# Run Nexus Local.
+CMD ["/quasar/source/quasar_libraries_and_scripts/all_scripts/local/nexus/for_instances/run_local_nexus.sh"]

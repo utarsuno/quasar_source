@@ -42,3 +42,6 @@ if [ ! "$(docker ps -q -f name=quasarsource_nexus_local)" ]; then
 
     #docker run -d --name <name> my-docker-image
 fi
+
+
+#sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/new_temporary -i -t quasarsource_nexus_local /bin/bash

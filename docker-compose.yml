@@ -11,7 +11,7 @@ services:
     environment:
       - MICRO_SERVICE_NAME=nexus_local
 
-# docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t quasarsource_nexus_local /bin/bash
+# docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local /bin/bash
 
 
 
@@ -20,3 +20,8 @@ services:
 
 # TODO :
 # Scripts to auto-build, launch, and check-if-launch for nexus_local!!!!!!!!!
+
+
+
+
+# sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local
