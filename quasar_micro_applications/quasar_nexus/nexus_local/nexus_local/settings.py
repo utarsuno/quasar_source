@@ -68,8 +68,8 @@ ROOT_URLCONF = 'nexus_local.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': ['/quasar/source/'],
-        'DIRS': [os.path.join('/quasar/source/quasar_micro_applications/quasar_nexus/nexus_local/', 'templates')],
+        'DIRS': ['/assets/'],
+        #'DIRS': [os.path.join('/quasar/source/quasar_micro_applications/quasar_nexus/nexus_local/', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,6 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/quasar/source/static/'
-STATICFILES_DIRS = ('/quasar/source/static',)
+#STATIC_URL = '/quasar/source/static/'
+#STATICFILES_DIRS = ('/quasar/source/static',)
 
+STATIC_URL = '/assets/'
+STATICFILES_DIRS = ('/assets',)

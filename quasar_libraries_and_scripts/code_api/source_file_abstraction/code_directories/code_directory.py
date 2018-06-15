@@ -2,17 +2,18 @@
 
 """This module, code_directory.py, provides an abstraction to directories in code projects."""
 
-from universal_code import useful_file_operations as ufo
-from code_api.code_abstraction.code_chunk import CodeChunk
-from code_api.source_file_abstraction.code_files.code_file import CodeFile
-from code_api.source_file_abstraction.code_files.code_file import LoadedCodeFile
-from code_api.source_file_abstraction.code_files.css_file import LoadedCSSFile
-from code_api.source_file_abstraction.code_files.html_file import LoadedHTMLFile
-from code_api.source_file_abstraction.code_files.js_file import LoadedJSFile
-from code_api.source_file_abstraction.code_files.asset_file import JPGFile
-from code_api.source_file_abstraction.code_files.asset_file import PNGFile
-from code_api.source_file_abstraction.code_files.asset_file import ShaderFragmentFile
-from code_api.source_file_abstraction.code_files.asset_file import ShaderVertexFile
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
+#from quasar_libraries_and_scripts.code_api.code_abstraction.code_chunk import CodeChunk
+#from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.code_file import CodeFile
+#from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.code_file import LoadedCodeFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.css_file import LoadedCSSFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.html_file import LoadedHTMLFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.js_file import LoadedJSFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.asset_file import JPGFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.asset_file import PNGFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.asset_file import ShaderFragmentFile
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.asset_file import ShaderVertexFile
+
 
 
 def get_code_file_type_from_file_extensions(combined_extensions):
@@ -32,6 +33,7 @@ def get_code_file_type_from_file_extensions(combined_extensions):
 	if '.vert' in combined_extensions:
 		return ShaderVertexFile
 	else:
+		print(combined_extensions)
 		print('TODODODO!@!!!!')
 		exit()
 
@@ -144,7 +146,7 @@ class CodeDirectory(object):
 
 		return all_files
 
-	def load_all_directories_and_content(self, extensions_to_ignore, loaded_code_file=True):
+	def load_all_directories_and_content(self, extensions_to_ignore, file_names_to_ignore):
 		"""Loads all the child directories of this directory, then does so recursively for all child directories."""
 		# Load all the child files in this directory.
 		all_files = ufo.get_all_file_paths_inside_directory(self.directory_path)
@@ -158,6 +160,11 @@ class CodeDirectory(object):
 					skip_file = True
 					break
 
+			for name_match in file_names_to_ignore:
+				if name_match in file_name:
+					skip_file = True
+					break
+
 			if not skip_file:
 				combined_extensions = ''
 				if len(extensions) > 0:
@@ -165,10 +172,11 @@ class CodeDirectory(object):
 						file_name = file_name.replace(e, '')
 						combined_extensions += e
 
-				if loaded_code_file:
-					self.add_loaded_code_file_and_assign_type(file_name, combined_extensions)
-				else:
-					self.add_code_file(CodeFile(None, file_name, combined_extensions))
+				self.add_loaded_code_file_and_assign_type(file_name, combined_extensions)
+				#if loaded_code_file:
+				#	self.add_loaded_code_file_and_assign_type(file_name, combined_extensions)
+				#else:
+				#	self.add_code_file(CodeFile(None, file_name, combined_extensions))
 
 		# Load all the child directories in this directory.
 		child_directory_paths = ufo.get_all_directory_paths_from_directory(self.directory_path)
@@ -177,4 +185,4 @@ class CodeDirectory(object):
 
 		# Recursive step.
 		for cd in self._child_directories:
-			cd.load_all_directories_and_content(extensions_to_ignore, loaded_code_file)
+			cd.load_all_directories_and_content(extensions_to_ignore, file_names_to_ignore)

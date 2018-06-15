@@ -21,18 +21,6 @@ FOR_QA_START  = 'FOR_QA_START'
 FOR_QA_END    = 'FOR_QA_END'
 
 
-def get_git_version():
-	"""Utility function to get the current commit number of the current git push."""
-	git_version = run_and_get_output_no_input(['git', 'rev-list', '--all', '--count'])
-	errors = git_version[1]
-	if errors is not None:
-		oc.print_ascii_red('Error!')
-		oc.print_data_with_red_dashes_at_start('Error with getting git version.')
-		oc.print_data_with_red_dashes_at_start('{' + str(errors[1]) + '}')
-	else:
-		return int(git_version[0].decode('utf-8').replace('\n', '')) + 1
-
-
 def get_list_of_js_file_names_to_compress(file_text):
 	"""Utility function."""
 	file_names = []
@@ -101,14 +89,11 @@ class QuasarProduction(object):
 		self._js     = js_component
 		self._assets = assets_component
 
-		self._upcoming_git_version = str(get_git_version())
-
 		self._original_total_size = 0
 		self._new_total_size      = 0
 
 	def generate(self, run_through_assets=False):
 		"""Generates the production environment of Quasar."""
-		self._step_css()
 		self._step_html()
 		self._step_js()
 		if run_through_assets:
@@ -127,14 +112,6 @@ class QuasarProduction(object):
 		self._clean_prod_from_path('/Users/utarsuno/git_repos/quasar_source/configuration_files/static/js/custom/quasar')
 		self._clean_prod_from_path('/Users/utarsuno/git_repos/quasar_source/quasar_site_django/static/js/custom/quasar')
 
-	def _clean_prod_from_path(self, path):
-		"""Utility function."""
-		file_paths = ufo.get_all_file_paths_inside_directory(path)
-		for f in file_paths:
-			if 'quasar_prod_v_' in f:
-				if self._upcoming_git_version not in f:
-					ufo.delete_file(f)
-
 	def _step_assets(self):
 		"""Produces the compressed assets needed for Quasar."""
 		oc.print_data_with_red_dashes_at_start('compressing asset files')
@@ -152,16 +129,6 @@ class QuasarProduction(object):
 
 				self._original_total_size += f.file_size
 				self._new_total_size += f.compressed_size
-
-	def _step_css(self):
-		"""Produces production version of the CSS files."""
-		oc.print_data_with_red_dashes_at_start('compressing css files')
-		files = self._css.all_files
-		for f in files:
-			f.generate_minified_file()
-			self._original_total_size += f.file_size
-			self._new_total_size += f.compressed_size
-			oc.print_pink('\t' + f.compression_statistics)
 
 	def _step_html(self):
 		"""Produces production version of the HTML files."""

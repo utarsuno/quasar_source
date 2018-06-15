@@ -3,7 +3,7 @@
 """This module, code_project.py, provides an abstraction to discrete code projects."""
 
 
-from universal_code import debugging as dbg
+from quasar_libraries_and_scripts.universal_code import debugging as dbg
 
 
 class CodeProject(object):

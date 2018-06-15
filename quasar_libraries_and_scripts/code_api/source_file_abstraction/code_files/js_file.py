@@ -4,10 +4,10 @@
 
 
 #from code_api.code_abstraction.code_chunk import CodeChunk
-from universal_code import useful_file_operations as ufo
-from code_api.source_file_abstraction.code_files.code_file import *
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.code_file import *
 from jsmin import jsmin
-from code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
 
 
 class LoadedJSFile(LoadedCodeFile, Minifiable):

@@ -10,9 +10,6 @@ import time
 from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_generation import QuasarGeneration
 from code_api.discrete_projects.quasar_source.quasar_procedures.quasar_production import QuasarProduction
 
-import sys
-
-
 PROCEDURE_PRINT_GENERAL_INFORMATION                  = 0
 PROCEDURE_GENERATE_SCRIPTS                           = 1
 PROCEDURE_GENERATE_PRODUCTION                        = 2
@@ -98,13 +95,3 @@ class CodeProjectMaintainer(object):
 		"""Generates production version of Quasar."""
 		self._production_generator.generate(run_through_assets)
 
-
-args = sys.argv[1:]
-if len(args) > 0:
-	if args[0] == 'create_production':
-		oc.print_ascii_yellow('building quasar')
-		quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
-		quasar_project_maintainer.run_procedure(PROCEDURE_GENERATE_PRODUCTION)
-elif __name__ == '__main__':
-	quasar_project_maintainer = CodeProjectMaintainer(load_quasar_source_project())
-	quasar_project_maintainer.prompt_user_for_procedure()

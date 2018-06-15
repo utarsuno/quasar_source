@@ -2,19 +2,24 @@
 
 """This module, project_component.py, provides an abstraction to discrete project components."""
 
-from universal_code import output_coloring as oc
+from quasar_libraries_and_scripts.universal_code import output_coloring as oc
 
 
 class ProjectComponent(object):
 	"""Provides an abstraction to a discrete component of a project."""
 
 	def __init__(self, component_name):
-		self._component_name 	    = component_name
+		self._component_name        = component_name
 		self._base_code_directories = []
 		self._tags                  = []
-		self._content_loaded		= False
+		self._content_loaded        = False
 
 		self._extensions_to_ignore  = []
+		self._file_name_matches_to_ignore = []
+
+	def add_file_name_match_to_ignore(self, file_name_match):
+		"""Adds a file name match to be ignored by this project component."""
+		self._file_name_matches_to_ignore.append(file_name_match)
 
 	def add_extension_to_ignore(self, file_extension):
 		"""Adds a file extension to be ignored by this project component."""
@@ -50,7 +55,7 @@ class ProjectComponent(object):
 	def load_all_content(self):
 		"""Loads all the content from the base code directories."""
 		for bcd in self._base_code_directories:
-			bcd.load_all_directories_and_content(self._extensions_to_ignore)
+			bcd.load_all_directories_and_content(self._extensions_to_ignore, self._file_name_matches_to_ignore)
 
 	@property
 	def number_of_files(self):

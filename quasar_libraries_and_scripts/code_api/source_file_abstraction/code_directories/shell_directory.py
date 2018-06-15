@@ -2,8 +2,8 @@
 
 """This module, code_directory.py, provides an abstraction to directories in code projects."""
 
-from code_api.code_abstraction.code_chunk import CodeChunk
-from code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
+from quasar_libraries_and_scripts.code_api.code_abstraction.code_chunk import CodeChunk
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class ShellDirectory(CodeDirectory):

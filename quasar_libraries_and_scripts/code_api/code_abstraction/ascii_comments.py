@@ -2,7 +2,8 @@
 
 """This module, fancy_comments.py, is used just to generate fancy ASCII comments."""
 
-from code_api.code_abstraction.code_chunk import CodeChunk
+from quasar_libraries_and_scripts.code_api.code_abstraction.code_chunk import CodeChunk
+
 
 ASCII_A = ("    \n"
            " /\\ \n"

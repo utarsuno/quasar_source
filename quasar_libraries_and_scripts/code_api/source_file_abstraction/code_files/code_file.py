@@ -3,8 +3,8 @@
 """This module, code_file.py, provides an abstraction to code files."""
 
 
-from code_api.code_abstraction.code_chunk import CodeChunk
-from universal_code import useful_file_operations as ufo
+from quasar_libraries_and_scripts.code_api.code_abstraction.code_chunk import CodeChunk
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
 
 
 CODE_FILE_TYPE_SHELL_SCRIPT    = 'Shell'

@@ -2,13 +2,13 @@
 
 """This module, shell_file.py, provides an abstraction to shell files."""
 
-from code_api.code_abstraction.ascii_comments import get_shell_ascii_comment_as_code_chunk
-from code_api.code_abstraction.code_section import *
-from code_api.source_file_abstraction.code_directories.code_directory import *
-from code_api.source_file_abstraction.code_files.code_file import *
-from code_api.source_file_abstraction.code_directories.shell_directory import ShellDirectory
-from universal_code import useful_file_operations as ufo
-from universal_code.time_abstraction.day_instance import *
+from quasar_libraries_and_scripts.code_api.code_abstraction.ascii_comments import get_shell_ascii_comment_as_code_chunk
+from quasar_libraries_and_scripts.code_api.code_abstraction.code_section import *
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_directories.code_directory import *
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.code_file import *
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_directories.shell_directory import ShellDirectory
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
+from quasar_libraries_and_scripts.universal_code.time_abstraction.day_instance import *
 
 CODE_SECTION_BASH_STATEMENT   = 'bash_statement'
 CODE_SECTION_GENERATION_NOTES = 'generation_notes'

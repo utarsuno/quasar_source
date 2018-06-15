@@ -3,8 +3,12 @@
 """This module, minifiable.py, provides an abstraction for CodeFile's that can get minified."""
 
 
-from code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
-from universal_code import useful_file_operations as ufo
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
+
+
+# /* PRE-PROCESSOR: #import quasar_engine.css */
+
 
 
 class Minifiable(Redusable):
@@ -15,9 +19,30 @@ class Minifiable(Redusable):
 		self._minification_function = None
 		self._save_path				= None
 
-	def generate_minified_file(self):
+	def get_required_import_files(self):
+		"""Returns a list of files to import into this file."""
+		raw_text = self.contents_as_string.split('\n')
+		libraries_needed = []
+		for l in raw_text:
+			if 'PRE-PROCESSOR: #import' in l:
+				css_file_needed = l[l.index('#import') + len('#import') + 1:-2].rstrip().replace('.css', '')
+				libraries_needed.append(css_file_needed)
+		return libraries_needed
+
+	def generate_minified_file(self, libraries=None):
 		"""Generates the minified file."""
+
+		library_text = ''
+
+		if libraries is not None:
+			for l in libraries:
+				library_text += l.contents_as_string
+
 		raw_text = self.contents_as_string
+
+		if library_text != '':
+			raw_text = library_text + raw_text
+
 		self._compressed_text = self._minification_function(raw_text)
 		self._compressed_file_extension = '.min' + self.file_extension
 		self._save_path = self.full_path.replace(self.file_extension, '.min' + self.file_extension)

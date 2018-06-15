@@ -1,0 +1,55 @@
+/* PRE-PROCESSOR: #import quasar_engine.css */
+
+/*     __   __          ___          ___      __   __        __   __
+ |\/| /  \ |__) | |    |__     |__/ |__  \ / |__) /  \  /\  |__) |  \
+ |  | \__/ |__) | |___ |___    |  \ |___  |  |__) \__/ /~~\ |  \ |__/ */
+#mobile_keyboard_div {
+    position: absolute;
+    top: 60%;
+    z-index: 100000;
+    width: 100%;
+}
+
+.mobile_keyboard_row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_number {
+    color: #81ff79;
+}
+
+.button_regular {
+    color: #0ff;
+}
+
+.button_close {
+    color: #ff3300;
+}
+
+.button_operation {
+    color: #ecff00;
+}
+
+.mobile_keyboard_button {
+    margin: 0 2% 0 2%;
+    display: inline-block;
+    padding: 0 15px;
+    font-size: 20px;
+    font-style: oblique;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: transparent;
+    border: solid 2px;
+    border-radius: 15px;
+    box-shadow: 0 6px #5d5d5d9e;
+}
+
+.mobile_keyboard_button:active {
+  box-shadow: 0 3px #1d1d1d;
+  transform: translateY(4px);
+}

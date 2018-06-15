@@ -3,8 +3,8 @@
 """This module, compressable.py, provides an abstraction for files that can get compressed."""
 
 
-from code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
-from universal_code import useful_file_operations as ufo
+from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
+from quasar_libraries_and_scripts.universal_code import useful_file_operations as ufo
 from PIL import Image
 
 
