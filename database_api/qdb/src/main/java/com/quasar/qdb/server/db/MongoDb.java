@@ -36,32 +36,13 @@ class MongoDb
   private final MongoCollection<Document> $users = $db.getCollection("users");
   private final MongoCollection<Document> $profiles = $db.getCollection("profiles");
 
-  MongoDb() throws IOException
+  public MongoDb() throws IOException
   {
     $beacons.createIndex(Indexes.ascending("customer_id", "uuid", "major", "minor"), uniqueIndex);
     $devices.createIndex(Indexes.ascending("customer_id", "_id"), uniqueIndex);
     $users.createIndex(Indexes.ascending("customer_id", "login_name"), uniqueIndex);
     $profiles.createIndex(Indexes.ascending("customer_id", "name"), uniqueIndex);
     $roles.createIndex(Indexes.ascending("customer_id", "name"), uniqueIndex);
-    if ($sfsProfile.count() == 0)
-    {
-      log.warn(()->"SFS profile does not exist. A default one will be created.");
-      try (final InputStream defaultConfig = Main.class.getResourceAsStream("/config.json");
-           final Scanner scanner = new Scanner(defaultConfig, "UTF-8").useDelimiter("\\A"))
-      {
-        $sfsProfile.insertOne(Document.parse(scanner.next()));
-      }
-    }
-  }
-
-  public Collection<User> getAllUsers(final Customer customer)
-  {
-    final Collection<User> result = new HashSet<>(1024);
-    for (final Document document : $users.find())
-    {
-      result.add(new User(customer, document));
-    }
-    return result;
   }
 
   MongoCollection<Document> getCustomers()
@@ -72,14 +53,6 @@ class MongoDb
   MongoCollection<Document> getDevices()
   {
     return $devices;
-  }
-
-  public Optional<Profile> getProfile(final Customer customer,
-                                      final String profileName)
-  {
-    final Document document = $profiles.find(Filters.and(Filters.eq("customer_id", customer.getId())
-      , Filters.eq("name", profileName))).first();
-    return (document == null) ? Optional.empty() : Optional.of(new Profile(document));
   }
 
   MongoCollection<Document> getRoles()
@@ -160,7 +133,7 @@ class MongoDb
       }
       $customers.deleteOne(Filters.eq("_id", customerId));
       $customers.insertOne(Document.parse(customer.toString()));
-      log.debug(()->"Loaded " + rows.size() + " users.");
+      log.debug("Loaded " + rows.size() + " users.");
     }
     return users.length();
   }
@@ -171,34 +144,34 @@ class MongoDb
     return $mongoClient.getMongoClientOptions().toString();
   }
 
-  public
-  void updateDeviceGpsLocation(final Customer customer,
-                               final String deviceId,
-                               final JSONObject gpsLocation)
-  {
-    $devices.updateOne(Filters.eq("_id", deviceId), Updates.set("gps_location", new Document
-      (gpsLocation.toMap())));
-  }
-
-  public
-  void updateDeviceLocation(final Customer customer,
-                            final String deviceId,
-                            final JSONObject closestBeacon)
-  {
-    final Document beacon =
-      $beacons.find(Filters.and(Filters.eq("customer_id", customer.getId()),
-        Filters.eq("uuid", closestBeacon.getString("uuid")),
-        Filters.eq("major", closestBeacon.getInt("major")),
-        Filters.eq("minor", closestBeacon.getInt("minor")))).first();
-    if (beacon == null)
-    {
-      log.error(()->"Beacon not found for object " + closestBeacon.toString(2));
-    }
-    else
-    {
-      $devices.updateOne(Filters.eq("_id", deviceId),
-        Updates.set("ble_location", new Document(closestBeacon.put("location", new JSONObject
-          (beacon.get("location", Document.class).toJson())).toMap())));
-    }
-  }
+//  public
+//  void updateDeviceGpsLocation(final Customer customer,
+//                               final String deviceId,
+//                               final JSONObject gpsLocation)
+//  {
+//    $devices.updateOne(Filters.eq("_id", deviceId), Updates.set("gps_location", new Document
+//      (gpsLocation.toMap())));
+//  }
+//
+//  public
+//  void updateDeviceLocation(final Customer customer,
+//                            final String deviceId,
+//                            final JSONObject closestBeacon)
+//  {
+//    final Document beacon =
+//      $beacons.find(Filters.and(Filters.eq("customer_id", customer.getId()),
+//        Filters.eq("uuid", closestBeacon.getString("uuid")),
+//        Filters.eq("major", closestBeacon.getInt("major")),
+//        Filters.eq("minor", closestBeacon.getInt("minor")))).first();
+//    if (beacon == null)
+//    {
+//      log.error(()->"Beacon not found for object " + closestBeacon.toString(2));
+//    }
+//    else
+//    {
+//      $devices.updateOne(Filters.eq("_id", deviceId),
+//        Updates.set("ble_location", new Document(closestBeacon.put("location", new JSONObject
+//          (beacon.get("location", Document.class).toJson())).toMap())));
+//    }
+//  }
 }
