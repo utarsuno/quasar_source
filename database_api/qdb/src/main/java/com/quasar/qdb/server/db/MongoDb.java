@@ -5,19 +5,18 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
-import org.apache.log4j.LogManager;
+import com.quasar.qdb.server.dbserver.DBInterface;
 import org.bson.Document;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.or;
 
 public final
-class MongoDb
+class MongoDb implements DBInterface
 {
   public static final UpdateOptions upsertAndByPass =
     new UpdateOptions().upsert(true).bypassDocumentValidation(true);
@@ -27,115 +26,32 @@ class MongoDb
 
   private final MongoClient $mongoClient =
     new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
-  private final MongoDatabase $db = $mongoClient.getDatabase("sfs");
-  private final MongoCollection<Document> $beacons = $db.getCollection("beacons");
-  private final MongoCollection<Document> $customers = $db.getCollection("customers");
-  private final MongoCollection<Document> $devices = $db.getCollection("devices");
-  private final MongoCollection<Document> $sfsProfile = $db.getCollection("sfs_profile");
-  private final MongoCollection<Document> $roles = $db.getCollection("roles");
-  private final MongoCollection<Document> $users = $db.getCollection("users");
-  private final MongoCollection<Document> $profiles = $db.getCollection("profiles");
+  private final MongoDatabase db = $mongoClient.getDatabase("quasar");
+
+  private final MongoCollection<Document> users = db.getCollection("users");
+  private final MongoCollection<Document> entities = db.getCollection("entities");
+
+  private final MongoCollection<Document> groups = db.getCollection("groups");
 
   public MongoDb() throws IOException
   {
-    $beacons.createIndex(Indexes.ascending("customer_id", "uuid", "major", "minor"), uniqueIndex);
-    $devices.createIndex(Indexes.ascending("customer_id", "_id"), uniqueIndex);
-    $users.createIndex(Indexes.ascending("customer_id", "login_name"), uniqueIndex);
-    $profiles.createIndex(Indexes.ascending("customer_id", "name"), uniqueIndex);
-    $roles.createIndex(Indexes.ascending("customer_id", "name"), uniqueIndex);
+      users.createIndex(Indexes.ascending("username"), uniqueIndex);
+      users.createIndex(Indexes.ascending("email"), uniqueIndex);
   }
 
-  MongoCollection<Document> getCustomers()
+  MongoCollection<Document> getGroups()
   {
-    return $customers;
+    return groups;
   }
 
-  MongoCollection<Document> getDevices()
+  MongoCollection<Document> getEntities()
   {
-    return $devices;
-  }
-
-  MongoCollection<Document> getRoles()
-  {
-    return $roles;
-  }
-
-  public String getServerProfile()
-  {
-    return $sfsProfile.find().first().toJson();
+    return entities;
   }
 
   MongoCollection<Document> getUsers()
   {
-    return $users;
-  }
-
-  public
-  int populate(final JSONObject data)
-  {
-    final JSONArray users = (JSONArray)data.opt("users");
-    final ArrayList<Document> rows = new ArrayList<>(users.length());
-    for (final Object customer : (Iterable)data.opt("customers"))
-    {
-      final int customerId = ((JSONObject)customer).getInt("_id");
-      $devices.deleteMany(Filters.eq("customer_id", customerId));
-      rows.clear();
-      ((Iterable<JSONObject>)data.opt("beacons")).forEach(beacon->
-      {
-        if (beacon.getInt("customer_id") == customerId)
-        {
-          rows.add(Document.parse(beacon.toString()));
-        }
-      });
-      $beacons.deleteMany(Filters.eq("customer_id", customerId));
-      if (!rows.isEmpty())
-      {
-        $beacons.insertMany(rows);
-      }
-      rows.clear();
-      users.forEach(user->
-      {
-        if (((JSONObject)user).getInt("customer_id") == customerId)
-        {
-          rows.add(Document.parse(user.toString()));
-        }
-      });
-      $users.deleteMany(Filters.eq("customer_id", customerId));
-      if (!rows.isEmpty())
-      {
-        $users.insertMany(rows);
-      }
-      rows.clear();
-      ((Iterable<JSONObject>)data.opt("profiles")).forEach(profile->
-      {
-        if (profile.getInt("customer_id") == customerId)
-        {
-          rows.add(Document.parse(profile.toString()));
-        }
-      });
-      $profiles.deleteMany(Filters.eq("customer_id", customerId));
-      if (!rows.isEmpty())
-      {
-        $profiles.insertMany(rows);
-      }
-      rows.clear();
-      ((Iterable<JSONObject>)data.opt("roles")).forEach(role->
-      {
-        if (role.getInt("customer_id") == customerId)
-        {
-          rows.add(Document.parse(role.toString()));
-        }
-      });
-      $roles.deleteMany(Filters.eq("customer_id", customerId));
-      if (!rows.isEmpty())
-      {
-        $roles.insertMany(rows);
-      }
-      $customers.deleteOne(Filters.eq("_id", customerId));
-      $customers.insertOne(Document.parse(customer.toString()));
-      log.debug("Loaded " + rows.size() + " users.");
-    }
-    return users.length();
+    return users;
   }
 
   @Override
@@ -144,34 +60,68 @@ class MongoDb
     return $mongoClient.getMongoClientOptions().toString();
   }
 
-//  public
-//  void updateDeviceGpsLocation(final Customer customer,
-//                               final String deviceId,
-//                               final JSONObject gpsLocation)
-//  {
-//    $devices.updateOne(Filters.eq("_id", deviceId), Updates.set("gps_location", new Document
-//      (gpsLocation.toMap())));
-//  }
-//
-//  public
-//  void updateDeviceLocation(final Customer customer,
-//                            final String deviceId,
-//                            final JSONObject closestBeacon)
-//  {
-//    final Document beacon =
-//      $beacons.find(Filters.and(Filters.eq("customer_id", customer.getId()),
-//        Filters.eq("uuid", closestBeacon.getString("uuid")),
-//        Filters.eq("major", closestBeacon.getInt("major")),
-//        Filters.eq("minor", closestBeacon.getInt("minor")))).first();
-//    if (beacon == null)
-//    {
-//      log.error(()->"Beacon not found for object " + closestBeacon.toString(2));
-//    }
-//    else
-//    {
-//      $devices.updateOne(Filters.eq("_id", deviceId),
-//        Updates.set("ble_location", new Document(closestBeacon.put("location", new JSONObject
-//          (beacon.get("location", Document.class).toJson())).toMap())));
-//    }
-//  }
+    @Override
+    public boolean is_username_taken(String username) {
+        try {
+            return users.find( eq("username", username)).first() != null;
+        } catch (Exception e) {
+            log.error("is_username_taken " + username, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean is_email_taken(String email) {
+        try {
+            return users.find( eq("email", email)).first() != null;
+        } catch (Exception e) {
+            log.error("is_email_taken " + email, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean is_login_valid(String username_or_email, String password) {
+        final Document user = users.find( or(
+                eq("username", username_or_email),
+                eq("email", username_or_email))).first();
+
+        try {
+            return user != null && user.getString("password").equals(password);
+        } catch (Exception e) {
+            log.error("is_login_valid " + username_or_email, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean create_account(String username, String email, String password) {
+
+        Document doc = new Document("username", username)
+                .append("email", email)
+                .append("password", password);
+
+        log.info("create_account: " + doc.toJson());
+
+        try {
+            users.insertOne(doc);
+            return true;
+        } catch (Exception e) {
+            log.error("create_account " + username, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete_account(String username) {
+        try {
+            return users.deleteOne(eq("username", username))
+                    .getDeletedCount() > 0;
+        } catch (Exception e) {
+            log.error("delete_account " + username, e);
+            return false;
+        }
+
+    }
+
 }

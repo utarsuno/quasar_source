@@ -53,8 +53,7 @@ dependencies {
     //Spring related jars
     compile group: 'org.apache.commons',   name: 'commons-lang3',    version: '3.6'
     compile group: 'org.apache.httpcomponents', name: 'httpclient',    version: '4.5.5'    
-    compile group: 'org.slf4j',            name: 'log4j-over-slf4j', version: '1.7.25'
-    compile group: 'org.slf4j',            name: 'jcl-over-slf4j',   version: '1.7.25'
+    compile group: 'org.slf4j',            name: 'slf4j-jdk14',   version: '1.7.12'
 
     //Jackson
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
@@ -68,5 +67,8 @@ dependencies {
     implementation 'org.json:json:20171018'
 
     compile 'com.rabbitmq:amqp-client:5.2.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile group: 'org.slf4j',            name: 'slf4j-jdk14',   version: '1.7.12'
 
 }

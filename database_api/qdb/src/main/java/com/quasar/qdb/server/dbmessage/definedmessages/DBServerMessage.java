@@ -1,7 +1,7 @@
 package com.quasar.qdb.server.dbmessage.definedmessages;
 
 
-import com.quasar.qdb.server.dbserver.FakeDB;
+import com.quasar.qdb.server.dbserver.DBInterface;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public abstract class DBServerMessage {
         return false;
     }
 
-    public abstract void perform_db_call(FakeDB db);
+    public abstract void perform_db_call(DBInterface db);
 
     public byte[] get_message_response() {
         return null;

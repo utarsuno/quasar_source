@@ -1,5 +1,6 @@
 package com.quasar.qdb.server.dbserver;
 
+import com.quasar.qdb.server.db.MongoDb;
 import com.quasar.qdb.server.dbmessage.definedmessages.DBServerMessage;
 import com.quasar.qdb.server.rabbitmq.RabbitMQReceiver;
 import com.quasar.qdb.server.rabbitmq.RabbitMQSender;
@@ -31,12 +32,12 @@ public class QuasarDatabaseServer {
     // TODO : Test if server can run Hello World.
     // TODO : Make sure .gitignore has Java's output files.
 
-    private FakeDB db;
+    private DBInterface db;
     private RabbitMQReceiver receiver;
     private RabbitMQSender sender;
 
-    public QuasarDatabaseServer() {
-        this.db       = new FakeDB();
+    public QuasarDatabaseServer() throws IOException {
+        this.db       = new MongoDb();
         this.receiver = new RabbitMQReceiver(NAME_QUEUE_DB_RECEIVE, NAME_HOST, this);
         this.sender   = new RabbitMQSender(NAME_QUEUE_DB_RESPONSE, NAME_HOST, this);
         try {
@@ -60,7 +61,7 @@ public class QuasarDatabaseServer {
         this.sender.send_server_message(server_message);
     }
 
-    public FakeDB get_database_cursor() {
+    public DBInterface get_database_cursor() {
         return this.db;
     }
 

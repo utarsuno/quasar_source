@@ -1,6 +1,6 @@
 package com.quasar.qdb.server.dbmessage.definedmessages;
 
-import com.quasar.qdb.server.dbserver.FakeDB;
+import com.quasar.qdb.server.dbserver.DBInterface;
 import com.quasar.qdb.server.dbserver.QuasarDatabaseServer;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ public class DBServerMessageIsUsernameTaken extends DBServerMessageWithResponse 
     }
 
     @Override
-    public void perform_db_call(FakeDB db) {
+    public void perform_db_call(DBInterface db) {
         String username = (String) this.map.get(QuasarDatabaseServer.DB_SERVER_COMMAND_KEY_USERNAME);
         this.add_response_positive(db.is_username_taken(username));
     }
