@@ -4,6 +4,7 @@
     <option name="globalVariables">
       <set>
         <option value="HOST_NAME" />
+        <option value="USER" />
       </set>
     </option>
   </component>

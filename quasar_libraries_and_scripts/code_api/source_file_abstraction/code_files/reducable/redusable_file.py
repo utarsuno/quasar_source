@@ -8,11 +8,6 @@ class Redusable(object):
 
 	def __init__(self):
 		self._compressed_file_size = None
-		self._temporary_design = False
-
-	def set_reduced_file_to_copy_out_of_configuration_files(self):
-		"""Temporary design."""
-		self._temporary_design = True
 
 	@property
 	def compressed_size(self):

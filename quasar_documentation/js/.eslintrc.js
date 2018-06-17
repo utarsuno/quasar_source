@@ -31,6 +31,14 @@ module.exports = {
     },
     "globals": {
 
+        // From refactorings.
+        "QE": false,
+
+        "APPLICATION_NEXUS_LOCAL"  : false,
+        "APPLICATION_QUASAR_PUBLIC": false,
+
+        // OLD BELOW.
+
         "OutlineGlow": false,
         "FilmNoise"  : false,
 

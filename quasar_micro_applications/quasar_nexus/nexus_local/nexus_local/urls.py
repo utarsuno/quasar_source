@@ -18,5 +18,6 @@ from django.urls import path
 from nexus_local_front_end import views as v
 
 urlpatterns = [
+    #path(),
     path(r'', v.GET_nexus_local)
 ]

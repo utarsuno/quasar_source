@@ -21,7 +21,14 @@ ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/third_party/graph
 ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/third_party/graphics/post_processing/OutlinePass.js assets/js/third_party/graphics/post_processing/OutlinePass.js
 
 #
-ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/rendering_enginge/engine/engine.js assets/js/nexus.min.js
+ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/nexus/nexus/nexus_local.min.js assets/js/nexus/nexus/nexus_local.min.js
+
+# Assets.
+#ln -s
+
+#
+#ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/rendering_enginge/engine/engine.js assets/js/nexus_local.min.js
+#ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/rendering_enginge/engine/engine.js assets/js/nexus_local.min.js
 
 #quasar_libraries_and_scripts/front_end/js/third_party/CSS3DRenderer.js
 

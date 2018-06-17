@@ -15,7 +15,6 @@ from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.as
 from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_files.asset_file import ShaderVertexFile
 
 
-
 def get_code_file_type_from_file_extensions(combined_extensions):
 	"""Returns the code file determined from the provided file extensions."""
 	if '.css' in combined_extensions:

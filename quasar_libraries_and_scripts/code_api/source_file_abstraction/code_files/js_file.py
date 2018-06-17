@@ -25,6 +25,21 @@ class GeneratedJSFile(GeneratedCodeFile):
 	def __init__(self, file_name, file_extensions=None):
 		super().__init__(CODE_FILE_TYPE_JS_FILE, file_name, file_extensions)
 
+		# Temporary fix.
+		if self.file_extension is None:
+			extensions = ufo.get_file_extensions(self.file_name)
+			combined_extensions = ''
+			if len(extensions) > 0:
+				for e in extensions:
+					file_name = file_name.replace(e, '')
+					combined_extensions += e
+			self._file_extension = combined_extensions
+
+			# Really temporary lol.
+			self._file_name = self._file_name.replace(self._file_extension, '')
+
+		# /quasar/source/quasar_libraries_and_scripts/front_end/js/nexus/nexus/nexus_local.js
+
 	def get_created_file_as_loaded_file(self):
 		"""Returns a loaded code file object based off the one created."""
 		loaded_file = LoadedJSFile(self.file_name, self.file_extension)

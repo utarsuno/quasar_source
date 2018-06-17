@@ -3,13 +3,45 @@ version: '3'
 
 services:
 
+  quality_assurance:
+    build: ./quasar_micro_applications/quality_assurance
+    container_name: quasar_service_quality_assurance
+    environment:
+      - MICRO_SERVICE_NAME=quasar_service_quality_assurance
+    #ports:
+    #  - "1338:1338"
+    #  - "1339:1339"
+
   nexus_local:
     build: ./quasar_micro_applications/quasar_nexus/nexus_local
-    container_name: nexus_local
+    container_name: quasar_service_nexus_local
+    environment:
+      - MICRO_SERVICE_NAME=quasar_service_nexus_local
     ports:
       - "1337:1337"
+
+  nexus_server:
+    build: ./quasar_micro_applications/quasar_nexus/nexus_server
+    container_name: quasar_service_nexus_server
     environment:
-      - MICRO_SERVICE_NAME=nexus_local
+      - MICRO_SERVICE_NAME=quasar_service_nexus_server
+    #ports:
+    #  - "1340:1340"
+
+  db:
+    build: ./quasar_micro_applications/quasar_db
+    container_name: quasar_service_database
+    environment:
+      - MICRO_SERVICE_NAME=quasar_service_database
+    #ports:
+    #  - "1338:1338"
+    #  - "1339:1339"
+
+
+
+# TODO : ADD DB CONTAINER
+# TODO : ADD QUALITY ASSURANCE CONTAINER
+
 
 # docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local /bin/bash
 
@@ -25,3 +57,16 @@ services:
 
 
 # sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local
+
+# sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_
+
+
+# sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local
+# sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local
+
+#
+#
+
+
+
+# docker-compose -p quasar_source build

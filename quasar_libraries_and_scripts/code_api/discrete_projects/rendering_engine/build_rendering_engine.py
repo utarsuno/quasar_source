@@ -7,6 +7,8 @@ from quasar_libraries_and_scripts.code_api.project_abstraction.project_component
 from quasar_libraries_and_scripts.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from quasar_libraries_and_scripts.universal_code import output_coloring as oc
 from quasar_libraries_and_scripts.universal_code.system_abstraction import program_arguments as pa
+from quasar_libraries_and_scripts.universal_code import debugging as dbg
+from quasar_libraries_and_scripts.code_api.discrete_projects.rendering_engine import javascript_manager as jsm
 
 _ENGINE_COMPONENT_TAG_CSS    = 'css'
 _ENGINE_COMPONENT_TAG_JS     = 'js'
@@ -26,7 +28,21 @@ class QuasarRenderingEngineBuilder(object):
 
 		self._original_total_size = 0
 		self._new_total_size      = 0
+
+		# Additional settings.
+		self.setting_needs_audio_loader = None
+
 		self._load_project()
+
+	@property
+	def is_build_nexus_local(self):
+		"""Returns a boolean indicating if this object is nexus_local."""
+		return self._engine_version == QUASAR_RENDERING_ENGINE_FOR_NEXUS
+
+	@property
+	def is_build_quasar(self):
+		"""Returns a boolean indicating if this object is quasar."""
+		return self._engine_version == QUASAR_RENDERING_ENGINE_FOR_PUBLIC
 
 	def _load_project(self):
 		"""Loads the project structure into memory."""
@@ -51,32 +67,8 @@ class QuasarRenderingEngineBuilder(object):
 		self.html.load_all_content()
 
 		# Javascript
-		self.js = ProjectComponent('quasar_rendering_engine_js')
-		self.js.add_extension_to_ignore('.min')
-		self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/rendering_engine'))
-
-		self.js_files_needed = []
-		# Main engine.
-		self.js_files_needed.append('engine/engine.js')
-		# HTML_GUI.
-		self.js_files_needed.append('html_gui/dom_element.js')
-		# Client class.
-		self.js_files_needed.append('client/client.js')
-		self.js_files_needed.append('client/debug/data_display.js')
-		self.js_files_needed.append('client/debug/stats_api.js')
-		self.js_files_needed.append('client/message_log/client_message_typing.js')
-		self.js_files_needed.append('client/message_log/message.js')
-		self.js_files_needed.append('client/message_log/message_log_manager.js')
-		self.js_files_needed.append('client/cookie_manager.js.js')
-		self.js_files_needed.append('client/session_manager.js.js')
-
-		if self._engine_version == QUASAR_RENDERING_ENGINE_FOR_PUBLIC:
-			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/quasar'))
-
-		elif self._engine_version == QUASAR_RENDERING_ENGINE_FOR_NEXUS:
-			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/nexus'))
-
-		self.js.load_all_content()
+		self.javascript_manager = jsm.JavascriptManager(self)
+		self.js = self.javascript_manager.load_all_content()
 
 		# Assets
 		#self.assets = ProjectComponent('quasar_rendering_engine_assets')
@@ -97,7 +89,7 @@ class QuasarRenderingEngineBuilder(object):
 	def _build_js(self):
 		"""Builds the javascript."""
 		oc.print_data_with_red_dashes_at_start('compressing js files')
-
+		self.javascript_manager.build_js()
 
 	def _build_assets(self):
 		"""Builds the assets."""
@@ -141,6 +133,106 @@ class QuasarRenderingEngineBuilder(object):
 			oc.print_pink('\t' + f.compression_statistics)
 
 '''
+
+
+
+
+
+
+def load_all_scripts_project_component():
+	"""Loads the all scripts project component."""
+	quasar_component_all_scripts = ProjectComponent('all_scripts')
+	directory_all_scripts = CodeDirectory(pm.DIRECTORY_QUASAR_SOURCE_BASE + 'all_scripts')
+	quasar_component_all_scripts.add_base_code_directory(directory_all_scripts)
+
+	lib_utilities, lib_config_reader_local, lib_config_reader_server = load_library_scripts(directory_all_scripts)
+	load_local_scripts(directory_all_scripts, lib_utilities, lib_config_reader_local)
+
+	return quasar_component_all_scripts
+
+
+def load_all_server_scripts():
+	"""Loads all server scripts project component."""
+	quasar_component_server_scripts = ProjectComponent('server_scripts')
+	server_scripts = load_server_scripts()
+	quasar_component_server_scripts.add_base_code_directory(server_scripts)
+	return quasar_component_server_scripts
+
+
+
+
+
+
+
+
+
+
+
+
+class QuasarGeneration(object):
+	"""Utility object for creating all Quasar generatable components."""
+
+	def __init__(self, generatable_scripts_component):
+		self._scripts_component = generatable_scripts_component
+
+	def generate(self):
+		"""Generates the generatable scripts."""
+		oc.print_data('Generating {' + str(self._scripts_component) + '}')
+
+		base_code_directories = self._scripts_component.base_code_directories
+		for bcd in base_code_directories:
+			if bcd.generatable:
+				self._generate_code_directory_recursively(bcd)
+
+	def _generate_code_directory_recursively(self, code_directory):
+		"""Generates this code directory, it's contents, and do the same for ALL child directories."""
+		oc.print_green('\tgenerating directory{' + str(code_directory) + '}')
+		code_directory.create_directory_if_needed()
+
+		# Generate all code files needed.
+		all_code_files = code_directory.code_files
+		for code_file in all_code_files:
+			self._generate_code_file(code_file)
+
+		# Now generate all child code directories.
+		all_child_directories = code_directory.child_code_directories
+		for child_directory in all_child_directories:
+			if child_directory.generatable:
+				self._generate_code_directory_recursively(child_directory)
+
+	def _generate_code_file(self, code_file):
+		"""Generates the specified code file."""
+		oc.print_pink('\t\tgenerating{' + str(code_file) + '}')
+		code_file.generate_file_code()
+		code_file.create_or_update_file()
+
+
+
+
+
+
+
+
+
+
+
+
+	def _print_general_information(self):
+		"""Print general information on this project."""
+		#self._script_component.print_general_information()
+		self._css_component.print_general_information()
+
+	def _generate_scripts(self):
+		"""Generates the scripts."""
+		for sg in self._script_generators:
+			sg.generate()
+
+	def _generate_production(self, run_through_assets=False):
+		"""Generates production version of Quasar."""
+		self._production_generator.generate(run_through_assets)
+
+
+
 
 def load_quasar_raw_assets_component():
 	"""Loads the quasar asset component which contains all the various assets used."""
