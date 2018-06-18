@@ -223,26 +223,46 @@ class JavascriptManager(object):
 
 		# Main engine.
 		self.js_files_needed.append('engine/engine.js')
+		self.js_files_needed.append('engine/core/time_value_buffer.js')
+		self.js_files_needed.append('engine/assets_json/helvetiker_regular.js')
 		#self.js_files_needed.append('engine/core/typing_buffer.js')
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
 		# HTML_GUI.
-		self.js_files_needed.append('html_gui/dom_element.js')
+		self.js_files_needed.append('engine/html_gui/dom_element.js')
 		# Client class.
-		self.js_files_needed.append('client/client.js')
+		self.js_files_needed.append('engine/client/client.js')
 		# Loading and assets.
 
 		# Rendering manager.
 		self.js_files_needed.append('engine/rendering/renderer_manager.js')
-		
 
-		#self.setting_needs_audio_loader
+		# Player.
+		self.js_files_needed.append('player/player.js')
+		self.js_files_needed.append('player/player_state.js')
 
+		# Controls.
+		self.js_files_needed.append('engine/controls/fps_controls.js')
+
+		# Worlds.
+		self.js_files_needed.append('engine/worlds/world_manager/world_manager.js')
+		self.js_files_needed.append('engine/worlds/world_manager/world_manager_input.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_input.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_state.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_base.js')
+		self.js_files_needed.append('engine/worlds/singleton/world_environment.js')
+
+		# Inheritables.
+		self.js_files_needed.append('engine/models/inheritables/attachmentable.js')
+		self.js_files_needed.append('engine/models/inheritables/interactive.js')
+		self.js_files_needed.append('engine/models/inheritables/singleton.js')
+		self.js_files_needed.append('engine/models/inheritables/visibility.js')
 
 		if self.engine.is_build_nexus_local:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/nexus'))
 			# Add js files needed.
 			self.js_files_needed.append('nexus/_nexus_local.js')
+			self.js_files_needed.append('nexus/world/world_dev_tools.js')
 		elif self.engine.is_build_quasar:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/quasar'))
 			# Add js files needed.

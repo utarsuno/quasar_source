@@ -1,15 +1,14 @@
 'use strict';
 
-function World(world_entity) {
-
-    this.entity = world_entity;
+$_QE.prototype.World = function(player, manager_world) {
+    this.player = player;
+    this.manager_world = manager_world;
 
     this.currently_looked_at_object = null;
     this.raycaster                  = new THREE.Raycaster();
     this.scene                      = new THREE.Scene();
 
-    this.root_attachables = [];
-
+    this.root_attachables           = [];
     this.interactive_objects        = [];
 
     // For cache optimizations.
@@ -21,26 +20,6 @@ function World(world_entity) {
             this.floating_cursor.detach();
         }
         this.currently_looked_at_object = null;
-    };
-
-    this.delete_all = function() {
-        // Delete all the entity groups.
-        let eg;
-        for (eg = 0; eg < this.entity_groups.length; eg++) {
-            this.entity_groups[eg].base_wall.fully_remove_self_and_all_sub_attachments();
-        }
-        this.entity_groups.length = 0;
-
-        /*
-            this.floating_pictures = [];
-    this.entity_groups     = [];
-    this.month_view_walls  = [];
-
-    this.number_of_videos_to_load = 0;
-    this.number_of_videos_loaded  = 0;
-    this.video_entities = [];
-    this.videos            = [];
-         */
     };
 
     this.update_interactive_objects = function() {
@@ -56,7 +35,7 @@ function World(world_entity) {
         this._intersections.length = 0;
 
         //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
-        this.raycaster.set(CURRENT_PLAYER.fps_controls.yaw.position, CURRENT_PLAYER.fps_controls.get_direction());
+        this.raycaster.set(this.player.yaw.position, this.player.get_direction());
         let smallest_distance = 99999;
         let interactive_index = -1;
         let intersection_data = null;
@@ -105,10 +84,10 @@ function World(world_entity) {
 
     this.look_at_currently_looked_at_object = function(have_player_camera_look_at, set_cursor) {
         if (is_defined(this.currently_looked_at_object.tab_parent)) {
-            MANAGER_WORLD.current_world.set_default_tab_target(this.currently_looked_at_object.tab_parent);
+            this.manager_world.current_world.set_default_tab_target(this.currently_looked_at_object.tab_parent);
         }
         if (have_player_camera_look_at) {
-            CURRENT_PLAYER.look_at(this.currently_looked_at_object.object3D.position);
+            this.player.look_at(this.currently_looked_at_object.object3D.position);
         }
         if (set_cursor) {
             this.floating_cursor.attach(this.currently_looked_at_object);
@@ -118,15 +97,6 @@ function World(world_entity) {
 
     this.add_to_scene = function(object) {
         this.scene.add(object);
-    };
-
-    /*__   __   ___      ___  ___     __     __  ___       __   ___
-     /  ` |__) |__   /\   |  |__     |__) | /  `  |  |  | |__) |__
-     \__, |  \ |___ /~~\  |  |___    |    | \__,  |  \__/ |  \ |___ */
-    this.create_new_floating_picture = function(image_file) {
-        let floating_picture = new FloatingPicture(image_file, this, false);
-        // TODO : Move this logic.
-        this.root_attachables.push(floating_picture);
     };
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
@@ -157,4 +127,4 @@ function World(world_entity) {
         // Next remove the object from the scene.
         this.remove_from_scene(object_to_remove);
     };
-}
+};

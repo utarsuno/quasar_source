@@ -1,14 +1,18 @@
 'use strict';
 
-const PLAYER_STATE_INITIAL_LOAD = 1;
-const PLAYER_STATE_PAUSED       = 2;
-const PLAYER_STATE_FULL_CONTROL = 3;
-const PLAYER_STATE_TYPING       = 4;
-const PLAYER_STATE_ENGAGED      = 5;
+const PLAYER_STATE_INITIAL_LOAD = 1; // #pre-process_global_constant
+const PLAYER_STATE_PAUSED       = 2; // #pre-process_global_constant
+const PLAYER_STATE_FULL_CONTROL = 3; // #pre-process_global_constant
+const PLAYER_STATE_TYPING       = 4; // #pre-process_global_constant
+const PLAYER_STATE_ENGAGED      = 5; // #pre-process_global_constant
 
 $_QE.prototype.PlayerState = function() {
     this.previous_state = null;
     this.current_state  = PLAYER_STATE_INITIAL_LOAD;
+
+    this.ignore_left_click_event = function() {
+
+    };
 
     // Check status.
     this.has_paste_event = function() {
@@ -19,6 +23,7 @@ $_QE.prototype.PlayerState = function() {
     };
 };
 
+/*
 function PlayerState() {
 
     this.set_state = function(player_state) {
@@ -126,3 +131,4 @@ function PlayerState() {
         return false;
     };
 }
+*/

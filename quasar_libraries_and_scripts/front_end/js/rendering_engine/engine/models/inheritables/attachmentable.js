@@ -1,6 +1,6 @@
 'use strict';
 
-function Attachmentable(world) {
+$_QE.prototype.Attachmentable = function(world) {
 
     this.object3D = new THREE.Object3D();
     this.world    = world;
@@ -273,8 +273,7 @@ function Attachmentable(world) {
             this.left_right = new THREE.Vector3(0, 0, 0);
         }
         this.left_right.set(-this.normal.x, 0, -this.normal.z);
-        //this.left_right.cross(UP_VECTOR);
-        this.left_right.cross(this.world._up_vector);
+        this.left_right.cross(QE.UP_VECTOR);
         this.left_right.normalize();
         if (refresh) {
             this._refresh_look_at();

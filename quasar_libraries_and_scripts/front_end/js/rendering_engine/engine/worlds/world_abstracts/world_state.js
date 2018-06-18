@@ -1,6 +1,6 @@
 'use strict';
 
-function WorldState(default_world_enter_position, default_world_enter_look_at, custom_world_enter_function, custom_world_exit_function) {
+$_QE.prototype.WorldState = function(default_world_enter_position, default_world_enter_look_at, custom_world_enter_function, custom_world_exit_function) {
 
     this.custom_world_enter_function = custom_world_enter_function;
     this.custom_world_exit_function  = custom_world_exit_function;
@@ -31,14 +31,14 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
 
     this.set_player_enter_position_and_look_at = function() {
         if (is_defined(this.player_exit_position)) {
-            CURRENT_PLAYER.set_position_xyz(this.player_exit_position.x, this.player_exit_position.y, this.player_exit_position.z);
+            this.player.set_position_xyz(this.player_exit_position.x, this.player_exit_position.y, this.player_exit_position.z);
         } else {
-            CURRENT_PLAYER.set_position_xyz(this.default_world_enter_position.x, this.default_world_enter_position.y, this.default_world_enter_position.z);
+            this.player.set_position_xyz(this.default_world_enter_position.x, this.default_world_enter_position.y, this.default_world_enter_position.z);
         }
         if (is_defined(this.player_exit_look_at)) {
-            CURRENT_PLAYER.look_at(this.player_exit_look_at);
+            this.player.look_at(this.player_exit_look_at);
         } else if (is_defined(this.default_world_enter_look_at)) {
-            CURRENT_PLAYER.look_at(this.default_world_enter_look_at);
+            this.player.look_at(this.default_world_enter_look_at);
         }
     };
 
@@ -59,10 +59,9 @@ function WorldState(default_world_enter_position, default_world_enter_look_at, c
     };
 
     this._set_player_exit_position_and_look_at = function() {
-        let p = CURRENT_PLAYER.get_position();
-        let la = CURRENT_PLAYER.get_direction();
+        let p = this.player.get_position();
+        let la = this.player.get_direction();
         this.player_exit_position = new THREE.Vector3(p.x, p.y, p.z);
         this.player_exit_look_at  = new THREE.Vector3(p.x + la.x, p.y + la.y, p.z + la.z);
     };
-
-}
+};

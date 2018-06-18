@@ -1,12 +1,11 @@
 'use strict';
 
-function WorldManagerInput() {
-
+$_QE.prototype.WorldManagerInput = function() {
     this._left_click_clock = new THREE.Clock(false);
     this._left_click_previous_start_time = null;
 
     this.left_click_up = function() {
-        if (CURRENT_PLAYER.has_input()) {
+        if (this.player.has_input()) {
 
             if (this.current_world.floating_cursor._currently_engaged) {
                 this.current_world.floating_cursor.disengage();
@@ -15,12 +14,12 @@ function WorldManagerInput() {
             }
 
         } else {
-            if (CURRENT_PLAYER.is_paused()) {
+            if (this.player.is_paused()) {
                 if (this._left_click_previous_start_time === null) {
                     this._left_click_previous_start_time = this._left_click_clock.startTime;
                 }
                 if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
-                    CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                    this.player.set_state(PLAYER_STATE_FULL_CONTROL);
                 }
                 this._left_click_start_time_previous = this._left_click_clock.startTime;
             }
@@ -28,9 +27,9 @@ function WorldManagerInput() {
     };
 
     this.left_click_down = function() {
-        if (CURRENT_PLAYER.is_paused()) {
+        if (this.player.is_paused()) {
             this._left_click_clock.start();
-        } else if (CURRENT_PLAYER.has_input()) {
+        } else if (this.player.has_input()) {
             // Cursor engage.
             if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
                 if (this.current_world.floating_cursor.currently_attached_to.scalable) {
@@ -42,15 +41,15 @@ function WorldManagerInput() {
 
     this.middle_click_up = function() {
         l('Middle click up!');
-        if (MANAGER_POINTER_LOCK.pointer_is_locked) {
-            MANAGER_POINTER_LOCK.release_pointer_lock();
+        if (this.client.state_is_pointer_locked) {
+            this.client.release_pointer_lock();
         } else {
-            MANAGER_POINTER_LOCK.request_pointer_lock();
+            this.client.request_pointer_lock();
         }
     };
 
     this.right_click_down = function () {
-        if (CURRENT_PLAYER.has_input()) {
+        if (this.player.has_input()) {
 
             // If the player has input and is NOT engaged AND the player menu is not visible then right clicking will make the PlayerMenu show up.
 
@@ -58,8 +57,8 @@ function WorldManagerInput() {
             if (is_defined(currently_looked_at_object)) {
                 if (currently_looked_at_object.is_engaged()) {
                     currently_looked_at_object.disengage();
-                    if (CURRENT_PLAYER.is_engaged()) {
-                        CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                    if (this.player.is_engaged()) {
+                        this.player.set_state(PLAYER_STATE_FULL_CONTROL);
                     }
                 }
             } else {
@@ -72,17 +71,17 @@ function WorldManagerInput() {
     };
 
     this.key_down_event = function(event) {
-        if (CURRENT_PLAYER.in_typing_state()) {
+        if (this.player.in_typing_state()) {
             if (event.keyCode === KEY_CODE__ENTER) {
-                CURRENT_PLAYER.add_text_and_leave_typing_state();
+                this.player.add_text_and_leave_typing_state();
             } else {
-                CURRENT_CLIENT.key_down_event(event);
+                this.client.key_down_event(event);
             }
-        } else if (CURRENT_PLAYER.has_input()) {
+        } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
-                if (!CURRENT_PLAYER.engaged_with_object()) {
-                    if (CURRENT_CLIENT.is_logged_in()) {
-                        CURRENT_PLAYER.set_state(PLAYER_STATE_TYPING);
+                if (!this.player.engaged_with_object()) {
+                    if (this.client.is_logged_in()) {
+                        this.player.set_state(PLAYER_STATE_TYPING);
                     }
                 } else {
                     this._key_down_event(event);
@@ -109,4 +108,4 @@ function WorldManagerInput() {
         this.current_world.mobile_keyboard_close();
     };
 
-}
+};

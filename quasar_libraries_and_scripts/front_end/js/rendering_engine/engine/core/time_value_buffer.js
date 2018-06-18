@@ -20,36 +20,29 @@ function clamp(x, lowerlimit, upperlimit) {
 //    return x * x * (3 - 2 * x);
 //}
 
-function TimeValueBuffer(current_value, time_needed_for_each_force, minimum_value, maximum_value) {
-    this.__init__(current_value, time_needed_for_each_force, minimum_value, maximum_value);
-}
-
-TimeValueBuffer.prototype = {
-
-    __init__: function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
-        this.buffer                     = [];
-        if (is_defined(current_value)) {
-            if (!isNaN(current_value)) {
-                this.current_value = current_value;
-            } else {
-                this.current_value = 0;
-            }
+$_QE.prototype.TimeValueBuffer = function(current_value, percentage_of_second_for_each_force, minimum_value, maximum_value) {
+    this.buffer = [];
+    if (is_defined(current_value)) {
+        if (!isNaN(current_value)) {
+            this.current_value = current_value;
         } else {
             this.current_value = 0;
         }
-        this.time_needed_for_each_force = percentage_of_second_for_each_force;
-        this.minimum_value              = minimum_value;
-        this.maximum_value              = maximum_value;
-    },
+    } else {
+        this.current_value = 0;
+    }
+    this.time_needed_for_each_force = percentage_of_second_for_each_force;
+    this.minimum_value              = minimum_value;
+    this.maximum_value              = maximum_value;
 
-    clear_buffer: function() {
+    this.clear_buffer = function() {
         let b;
         for (b = 0; b < this.buffer.length; b++) {
             this.buffer[b][2] = false;
         }
-    },
+    };
 
-    set_value: function(value) {
+    this.set_value = function(value) {
         //l('Set value to ');
         //l(value);
         if (isNaN(value)) {
@@ -66,9 +59,9 @@ TimeValueBuffer.prototype = {
                 return this.maximum_value;
             }
         }
-    },
+    };
 
-    add_force: function(magnitude) {
+    this.add_force = function(magnitude) {
         // Small optimization.
         if (magnitude === 0) {
             return;
@@ -91,9 +84,9 @@ TimeValueBuffer.prototype = {
         if (!slot_filled) {
             this.buffer.push([magnitude, 0.0, true]);
         }
-    },
+    };
 
-    update: function(delta) {
+    this.update = function(delta) {
         // console.log('The buffer has the length : ' + this.buffer.length)
         let b;
         for (b = 0; b < this.buffer.length; b++) {
@@ -112,9 +105,9 @@ TimeValueBuffer.prototype = {
         }
 
         this._cached_current_value = null;
-    },
+    };
 
-    _get_capped_value: function(value) {
+    this._get_capped_value = function(value) {
         if (is_defined(this.minimum_value)) {
             if (value < this.minimum_value) {
                 return this.minimum_value;
@@ -126,9 +119,9 @@ TimeValueBuffer.prototype = {
             }
         }
         return value;
-    },
+    };
 
-    get_current_value: function() {
+    this.get_current_value = function() {
         if (this._cached_current_value === null) {
             let value_instance = this.current_value;
             let x;
@@ -147,5 +140,5 @@ TimeValueBuffer.prototype = {
         //l('returning : ');
         //l(this._cached_current_value);
         return this._cached_current_value;
-    }
+    };
 };

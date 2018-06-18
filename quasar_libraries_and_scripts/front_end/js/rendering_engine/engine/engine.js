@@ -29,6 +29,7 @@ $_QE.prototype = {
 
     __init__: function() {
         console.log('Quasar Engine created!');
+        this.UP_VECTOR = new THREE.Vector3(0, 1, 0);
     },
 
     /*__  ___       __  ___          __      __  ___  ___  __   __
@@ -48,6 +49,10 @@ $_QE.prototype = {
         this.renderer.client = this.client;
         this.client.pre_render_initialize();
 
+        this.player = new $_QE.prototype.Player(this.renderer.camera, this.client);
+        this.world_manager = new $_QE.prototype.WorldManager(this.player, this.renderer, this.application);
+
+        this.world_manager.initialize_first_world();
     },
 
     /*___       __          ___          __   __       ___  ___          __   __   __

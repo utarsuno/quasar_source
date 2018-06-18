@@ -1,25 +1,6 @@
 'use strict';
 
-function _set_visibility_of_object(obj, is_visible, force) {
-    if (force) {
-        obj.visible = is_visible;
-    } else {
-        if (is_defined(obj.userData)) {
-            if (is_defined(obj.userData.manual_visibility)) {
-                if (!obj.userData.manual_visibility) {
-                    obj.visible = is_visible;
-                }
-            } else {
-                obj.visible = is_visible;
-            }
-        } else {
-            obj.visible = is_visible;
-        }
-    }
-
-}
-
-function Visibility() {
+$_QE.prototype.Visibility = function() {
 
     // States.
     this.currently_visible = true;
@@ -30,13 +11,34 @@ function Visibility() {
         return this.currently_visible;
     };
 
+    this._set_visibility_of_object = function(obj, is_visible, force) {
+        if (force) {
+            obj.visible = is_visible;
+        } else {
+            if (is_defined(obj.userData)) {
+                if (is_defined(obj.userData.manual_visibility)) {
+                    if (!obj.userData.manual_visibility) {
+                        obj.visible = is_visible;
+                    }
+                } else {
+                    obj.visible = is_visible;
+                }
+            } else {
+                obj.visible = is_visible;
+            }
+        }
+
+    };
+
     this._set_to_visible = function(is_visible, force) {
         this.currently_visible = is_visible;
-        _set_visibility_of_object(this.object3D, is_visible, force);
+        this._set_visibility_of_object(this.object3D, is_visible, force);
+        let f = this._set_visibility_of_object;
         // Thanks to : https://stackoverflow.com/questions/42609602/how-to-hide-and-show-an-object-on-scene-in-three-js
         this.object3D.traverse (function(child) {
             if (child instanceof THREE.Mesh) {
-                _set_visibility_of_object(child, is_visible, force);
+                f(child, is_visible, force);
+                //this._set_visibility_of_object(child, is_visible, force);
             }
         });
     };
@@ -107,4 +109,5 @@ function Visibility() {
         }
     };
 
-}
+};
+

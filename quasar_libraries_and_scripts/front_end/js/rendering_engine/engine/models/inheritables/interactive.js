@@ -1,6 +1,6 @@
 'use strict';
 
-function Interactive() {
+$_QE.prototype.Interactive = function() {
 
     // Settings.
     this.needs_engage_for_parsing_input = true;

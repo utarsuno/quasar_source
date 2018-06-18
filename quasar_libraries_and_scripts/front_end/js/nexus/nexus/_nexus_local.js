@@ -9,6 +9,7 @@ function $_NL() {
 $_NL.prototype = {
     __init__: function() {
         this.application_type = APPLICATION_NEXUS_LOCAL;
+        this.first_world_class = $_NL.prototype.WorldDevTools;
     }
 };
 

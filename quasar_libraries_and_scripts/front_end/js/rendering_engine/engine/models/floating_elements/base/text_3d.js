@@ -1,10 +1,10 @@
 'use strict';
 
-function Text3D(world, size, text) {
+$_QE.prototype.Text3D = function(world, size, text) {
 
     // Inherit.
-    FloatingElement.call(this, world);
-    TextAbstraction.call(this, text);
+    $_QE.prototype.FloatingElement.call(this, world);
+    $_QE.prototype.TextAbstraction.call(this, text);
 
     // Heap optimization.
     this._box = new THREE.Box3();
@@ -37,5 +37,4 @@ function Text3D(world, size, text) {
         this.width = this._box.max.x;
         this.height = this._box.max.y;
     };
-
-}
+};

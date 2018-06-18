@@ -1,6 +1,6 @@
 'use strict';
 
-function WorldInput() {
+$_QE.prototype.WorldInput = function() {
 
     this.mobile_key_press = function(key) {
         if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
@@ -18,7 +18,7 @@ function WorldInput() {
         if (is_defined(this.currently_looked_at_object)) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
-                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                this.player.set_state(PLAYER_STATE_FULL_CONTROL);
             }
         }
     };
@@ -71,7 +71,7 @@ function WorldInput() {
             if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
                 this.currently_looked_at_object.engage();
             } else {
-                CURRENT_PLAYER.set_state(PLAYER_STATE_FULL_CONTROL);
+                this.player.set_state(PLAYER_STATE_FULL_CONTROL);
             }
         } else {
             if (is_defined(this._default_tab_target)) {
@@ -88,23 +88,22 @@ function WorldInput() {
 
     // This gets called on left mouse button up event.
     this.single_left_click = function() {
-
-        if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.is_mobile_keyboard_visible()) {
-            return;
-        }
+        //if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.is_mobile_keyboard_visible()) {
+        //    return;
+        //}
 
         if (is_defined(this.currently_looked_at_object)) {
             if (!this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.engage();
 
                 // Check if keyboard is needed!
-                if (CURRENT_CLIENT.is_mobile) {
-                    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
-                        if (this.currently_looked_at_object.needs_mobile_keyboard) {
-                            MANAGER_INPUT.trigger_mobile_keyboard();
-                        }
-                    }
-                }
+                //if (CURRENT_CLIENT.is_mobile) {
+                //    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
+                //        if (this.currently_looked_at_object.needs_mobile_keyboard) {
+                //            MANAGER_INPUT.trigger_mobile_keyboard();
+                //        }
+                //    }
+                //}
             }
         }
     };
@@ -133,5 +132,4 @@ function WorldInput() {
             this.floating_cursor.wheel_event(delta);
         }
     };
-
-}
+};

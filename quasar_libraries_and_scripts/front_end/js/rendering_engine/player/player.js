@@ -1,27 +1,23 @@
 'use strict';
 
-$_QE.prototype.Player = function() {
+$_QE.prototype.Player = function(camera, client) {
+    this.client = client;
     $_QE.prototype.PlayerState.call(this);
-
+    $_QE.prototype.FPSControls.call(this, camera);
 };
 
-function Player() {
-    this.__init__();
-}
 
+/*
 Player.prototype = {
 
     __init__: function() {
         PlayerState.call(this);
         //this.fps_controls = new FPSControls();
-        this.load_fps_controls();
+        //this.load_fps_controls();
         //l(this.fps_controls);
         // Inherit.
     },
 
-    /*__            __     __   __
-     |__) |__| \ / /__` | /  ` /__`
-     |    |  |  |  .__/ | \__, .__/ */
     look_at: function(vector) {
         this.fps_controls.look_at(vector);
     },
@@ -44,3 +40,4 @@ Player.prototype = {
         return this.fps_controls.get_direction();
     }
 };
+    */
