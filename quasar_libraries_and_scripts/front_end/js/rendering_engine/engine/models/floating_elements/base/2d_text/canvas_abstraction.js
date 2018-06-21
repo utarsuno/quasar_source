@@ -1,8 +1,8 @@
 'use strict';
 
-function CanvasAbstraction() {
+$_QE.prototype.CanvasAbstraction = function() {
     // Inherit.
-    CanvasFont.call(this);
+    $_QE.prototype.CanvasFont.call(this);
     this.canvas  = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
 
@@ -51,4 +51,4 @@ function CanvasAbstraction() {
         //this.width = get_next_highest_power_of_two(width * 2);
         this.width = get_next_highest_power_of_two(width * 2);
     };
-}
+};

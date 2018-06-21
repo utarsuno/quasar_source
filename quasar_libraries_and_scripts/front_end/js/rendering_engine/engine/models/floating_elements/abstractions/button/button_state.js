@@ -1,7 +1,6 @@
 'use strict';
 
-function ButtonState() {
-
+$_QE.prototype.ButtonState = function() {
     this._enabled = true;
     this._locked  = false;
 
@@ -37,4 +36,4 @@ function ButtonState() {
         return this._enabled && !this._locked;
     };
 
-}
+};

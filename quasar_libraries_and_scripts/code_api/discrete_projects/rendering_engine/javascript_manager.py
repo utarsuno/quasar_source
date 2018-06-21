@@ -168,6 +168,7 @@ class JavascriptManager(object):
 					break
 
 			if not match_found:
+				oc.print_error('MISSING {' + str(file_needed) + '}')
 				dbg.raise_exception('Javascript file to match not found!')
 
 		combined_lines = []
@@ -257,6 +258,33 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/inheritables/interactive.js')
 		self.js_files_needed.append('engine/models/inheritables/singleton.js')
 		self.js_files_needed.append('engine/models/inheritables/visibility.js')
+
+		# Models.
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/button/button_state.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/email.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/maximum_length.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/minimum_length.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/syntax_rule.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_email.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_password.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_repeat_password.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_abstraction.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_font.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_texture.js');
+
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_icon.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/text_2d.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js');
+
+		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js');
+
+
+
 
 		if self.engine.is_build_nexus_local:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/nexus'))

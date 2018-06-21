@@ -1,7 +1,6 @@
 'use strict';
 
-function CanvasFont() {
-
+$_QE.prototype.CanvasFont = function() {
     this.smudge_factor = 0.85;
 
     this.text_property_bold     = false;
@@ -35,4 +34,4 @@ function CanvasFont() {
         //l('Font is : {' + this.font + '}');
         this.context.font = this.font;
     };
-}
+};

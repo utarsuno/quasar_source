@@ -1,6 +1,6 @@
 'use strict';
 
-function TextAbstraction(text) {
+$_QE.prototype.TextAbstraction = function(text) {
 
     this.syntax_rules = [];
 
@@ -18,17 +18,17 @@ function TextAbstraction(text) {
         switch (text_syntax) {
         case TEXT_SYNTAX_PASSWORD:
             this._is_password = true;
-            this.syntax_rules.push(new TextSyntaxPassword());
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxPassword());
             break;
         case TEXT_SYNTAX_USERNAME:
-            this.syntax_rules.push(new TextSyntaxUsername());
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxUsername());
             break;
         case TEXT_SYNTAX_EMAIL:
-            this.syntax_rules.push(new TextSyntaxEmail());
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxEmail());
             break;
         case TEXT_SYNTAX_REPEAT_PASSWORD:
             this._is_password = true;
-            this.syntax_rules.push(new TextSyntaxRepeatPassword());
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxRepeatPassword());
             break;
         }
     };
@@ -137,4 +137,4 @@ function TextAbstraction(text) {
         }
         return this.text;
     };
-}
+};

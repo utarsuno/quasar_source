@@ -42,12 +42,18 @@ $_QE.prototype = {
         this.client.initialize_pause_menu();
     },
 
+    are_required_features_supported: function() {
+        if (!(this.client.state_is_webgl_enabled && this.client.state_is_canvas_enabled)) {
+            console.log('ERROR: WebGL or Canvas not supported!');
+            return false;
+        }
+        return true;
+    },
+
     initialize_and_set_application: function(application) {
         this.application = application;
-        this.renderer    = new $_QE.prototype.RendererManager();
-        this.client.renderer = this.renderer;
-        this.renderer.client = this.client;
-        this.client.pre_render_initialize();
+        this.renderer    = new $_QE.prototype.RendererManager(this.client);
+        this.client.pre_render_initialize(this.renderer);
 
         this.player = new $_QE.prototype.Player(this.renderer.camera, this.client);
         this.world_manager = new $_QE.prototype.WorldManager(this.player, this.renderer, this.application);

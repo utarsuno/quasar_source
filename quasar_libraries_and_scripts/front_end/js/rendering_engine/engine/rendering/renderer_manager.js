@@ -1,13 +1,11 @@
 'use strict';
 
-$_QE.prototype.RendererManager = function() {
+$_QE.prototype.RendererManager = function(client) {
     this.field_of_view = 75;
     this.near_clipping = 1.0;
     this.far_clipping  = 20000.0;
-    // Gets set by client.
     this.aspect_ratio  = null;
-    // Gets set by engine.
-    this.client        = null;
+    this.client        = client;
 
     this.shaders_enabled        = false;
     this.shader_enabled_fxaa    = false;
@@ -24,6 +22,8 @@ $_QE.prototype.RendererManager = function() {
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
         document.body.appendChild(this.renderer.domElement);
+
+        this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 

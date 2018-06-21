@@ -30,19 +30,17 @@ $_QE.prototype.Client = function() {
      */
 
     this.debug_mode = DEBUG_MODE_FPS;
-    // Gets set by the engine.
     this.renderer = null;
 
-    this.pre_render_initialize = function() {
+    this.pre_render_initialize = function(renderer) {
+        this.renderer = renderer;
         this.initialize_state_fullscreen();
         this.initialize_state_pointer_lock();
         this.initialize_state_window_focus();
         this.initialize_state_mobile();
         this.initialize_state_virtual_reality();
         this._fetch_window_dimensions();
-        this.renderer.aspect_ratio = this.state_window_width_inner / this.state_window_height_inner;
         this.renderer.pre_render_initialize();
-        this.initialize_window_resize();
     };
 
     this.post_render_initialize = function() {

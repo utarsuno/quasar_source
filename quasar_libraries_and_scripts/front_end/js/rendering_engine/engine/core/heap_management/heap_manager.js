@@ -1,6 +1,6 @@
 'use strict';
 
-ManagerManager.prototype.set_heap_manager = function() {
+$_QE.prototype.set_heap_manager = function() {
 
     /*__        __        ___  __      __   __        ___  __  ___  __      __        __   ___
      /  `  /\  /  ` |__| |__  |  \    /  \ |__)    | |__  /  `  |  /__`    |__)  /\  /__` |__

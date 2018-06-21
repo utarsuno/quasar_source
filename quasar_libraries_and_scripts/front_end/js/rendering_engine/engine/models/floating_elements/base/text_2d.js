@@ -1,14 +1,8 @@
 'use strict';
 
-function Text2DUtilities() {
-    this.__init__();
-}
-
-Text2DUtilities.prototype = {
-    __init__: function() {
-        this.canvas = new CanvasAbstraction();
-    },
-    get_width_needed: function(text, height, bold, italic) {
+$_QE.prototype.Text2DUtilities = function() {
+    this.canvas = new $_QE.prototype.CanvasAbstraction();
+    this.get_width_needed = function(text, height, bold, italic) {
         if (is_defined(bold)) {
             this.canvas.set_font_property_bold(bold);
         }
@@ -18,16 +12,17 @@ Text2DUtilities.prototype = {
         this.canvas._set_height(height);
         this.canvas.set_font();
         return this.canvas.get_text_width(text);
-    }
+    };
 };
 
-const _MANAGER_TEXT_2D = new Text2DUtilities();
+const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
 
-function Text2D(world, width, height, text, cacheable, cacheable_texture) {
+
+$_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheable_texture) {
 
     // Inherit.
-    FloatingElement.call(this, world);
-    TextAbstraction.call(this, text);
+    $_QE.prototype.FloatingElement.call(this, world);
+    $_QE.prototype.TextAbstraction.call(this, text);
 
     this.cacheable = cacheable;
     if (is_defined(cacheable_texture)) {
@@ -41,7 +36,7 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
     this.dynamic_width = false;
 
     if (!this.cacheable_texture) {
-        this.canvas = new CanvasTexture();
+        this.canvas = new $_QE.prototype.CanvasTexture();
     }
     //this.canvas = new CanvasTexture();
 
@@ -189,4 +184,4 @@ function Text2D(world, width, height, text, cacheable, cacheable_texture) {
             this._create_base_mesh(null);
         }
     };
-}
+};

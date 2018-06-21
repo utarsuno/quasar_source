@@ -89,24 +89,6 @@ module.exports = {
         //
 
         //
-        "TextSyntax"              : false,
-        "TextSyntaxPassword"      : false,
-        "TextSyntaxRepeatPassword": false,
-        "TextSyntaxUsername"      : false,
-        "TextSyntaxEmail"         : false,
-
-        "TEXT_SYNTAX_EMAIL"          : false,
-        "TEXT_SYNTAX_PASSWORD"       : false,
-        "TEXT_SYNTAX_REPEAT_PASSWORD": false,
-        "TEXT_SYNTAX_USERNAME"       : false,
-
-        "SyntaxRule"             : false,
-        "SyntaxRuleMinimumLength": false,
-        "SyntaxRuleMaximumLength": false,
-        "SyntaxRuleEmail"        : false,
-        //
-
-        //
         "TEXT_PROPERTY_REGULAR"        : false,
         "TEXT_PROPERTY_JUST_BOLD"      : false,
         "TEXT_PROPERTY_JUST_ITALIC"    : false,
@@ -193,43 +175,6 @@ module.exports = {
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
-        "MANAGER_SPRITESHEET"    : true,
-        "MANAGER_HEAP"           : true,
-        "MANAGER_MANAGER"        : true,
-        "MANAGER_MULTI_PLAYER"   : true,
-        "MANAGER_WEB_SOCKETS"    : true,
-        "MANAGER_AUDIO"          : true,
-        "MANAGER_TEXTURE"        : true,
-        "MANAGER_WORLD"          : true,
-        "MANAGER_ENTITY"         : true,
-        "MANAGER_SHADER"         : true,
-        "MANAGER_RENDERER"       : true,
-        "MANAGER_INPUT"          : true,
-        "MANAGER_LOADING"        : true,
-        // and their class names.
-        "SpriteSheetManager"   : false,
-        "HeapManager"          : false,
-        "ManagerManager"       : false,
-        "MultiPlayerManager"   : false,
-        "WebSocketManager"     : false,
-        "CookieManager"        : false,
-        "SessionManager"       : false,
-        "Cookies"              : false,
-        "DynamicContentManager": false,
-        "CreatedWorldsManager" : false,
-        "WorldManager"         : false,
-        "AudioManager"         : false,
-        "EntityManager"        : false,
-        "ShaderManager"        : false,
-        "RendererManager"      : false,
-        "InputManager"         : false,
-        "DataDisplay"          : false,
-        "LoadingManager"       : false,
-        // and their supporting classes.
-        "WorldTransition": false,
-
-
-        "CanvasAbstraction": false,
 
         "EntityChangedNotifier": false,
 

@@ -11,7 +11,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.create_for_first_render = function() {
-        this.nexus_local_title = new FloatingText3D(this, 256, 'Quasar Source');
+        this.nexus_local_title = new $_QE.prototype.FloatingText3D(this, 256, 'Quasar Source');
         this.nexus_local_title.set_position(1900, 500, 1000);
         this.nexus_local_title.look_at_origin(false);
         this.nexus_local_title.set_to_manual_positioning();

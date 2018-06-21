@@ -5,7 +5,7 @@ const TEXT_SYNTAX_PASSWORD        = 2; // #pre-process_global_constant
 const TEXT_SYNTAX_REPEAT_PASSWORD = 3; // #pre-process_global_constant
 const TEXT_SYNTAX_USERNAME        = 4; // #pre-process_global_constant
 
-function TextSyntax(syntax_type, error_message) {
+$_QE.prototype.TextSyntax = function(syntax_type, error_message) {
     this.text_syntax_type = syntax_type;
     this.error_message    = error_message;
 
@@ -34,4 +34,4 @@ function TextSyntax(syntax_type, error_message) {
 
         return [true, null];
     };
-}
+};

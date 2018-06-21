@@ -9,6 +9,7 @@ from quasar_libraries_and_scripts.universal_code import output_coloring as oc
 from quasar_libraries_and_scripts.universal_code.system_abstraction import program_arguments as pa
 from quasar_libraries_and_scripts.universal_code import debugging as dbg
 from quasar_libraries_and_scripts.code_api.discrete_projects.rendering_engine import javascript_manager as jsm
+from quasar_libraries_and_scripts.universal_code.time_abstraction.simple_timer import SimpleTimer
 
 _ENGINE_COMPONENT_TAG_CSS    = 'css'
 _ENGINE_COMPONENT_TAG_JS     = 'js'
@@ -79,6 +80,9 @@ class QuasarRenderingEngineBuilder(object):
 
 	def build(self):
 		"""Builds the project."""
+		timer = SimpleTimer()
+		timer.start()
+
 		if self._engine_version == QUASAR_RENDERING_ENGINE_BUILD_ASSETS:
 			self._build_assets()
 		else:
@@ -86,10 +90,17 @@ class QuasarRenderingEngineBuilder(object):
 			self._build_html()
 			self._build_js()
 
+		timer.stop()
+		oc.print_green('quasar build finished in ' + str(timer))
+
 	def _build_js(self):
 		"""Builds the javascript."""
 		oc.print_data_with_red_dashes_at_start('compressing js files')
+		timer = SimpleTimer()
+		timer.start()
 		self.javascript_manager.build_js()
+		timer.stop()
+		oc.print_green('js finished in ' + str(timer))
 
 	def _build_assets(self):
 		"""Builds the assets."""
@@ -98,6 +109,8 @@ class QuasarRenderingEngineBuilder(object):
 	def _build_html(self):
 		"""Builds the html."""
 		oc.print_data_with_red_dashes_at_start('building + compressing html files')
+		timer = SimpleTimer()
+		timer.start()
 
 		if self._engine_version == QUASAR_RENDERING_ENGINE_FOR_NEXUS:
 			html_prod = self.html.get_file_by_name('nexus_local')
@@ -108,10 +121,15 @@ class QuasarRenderingEngineBuilder(object):
 		self._original_total_size += html_prod.file_size
 		self._new_total_size += html_prod.compressed_size
 		oc.print_pink('\t' + html_prod.compression_statistics)
+		timer.stop()
+		oc.print_green('html finished in ' + str(timer))
 
 	def _build_css(self):
 		"""Builds the css."""
 		oc.print_data_with_red_dashes_at_start('building + compressing css files')
+		timer = SimpleTimer()
+		timer.start()
+
 		files = self.css.all_files
 		for f in files:
 
@@ -131,6 +149,9 @@ class QuasarRenderingEngineBuilder(object):
 			self._original_total_size += f.file_size
 			self._new_total_size += f.compressed_size
 			oc.print_pink('\t' + f.compression_statistics)
+
+		timer.stop()
+		oc.print_green('css finished in ' + str(timer))
 
 '''
 

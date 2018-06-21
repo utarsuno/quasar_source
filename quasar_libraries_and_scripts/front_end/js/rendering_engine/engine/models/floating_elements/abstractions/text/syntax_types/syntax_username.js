@@ -1,14 +1,7 @@
 'use strict';
 
-function TextSyntaxUsername() {
-    this.__init__();
-}
-
-TextSyntaxUsername.prototype = {
-
-    __init__: function() {
-        TextSyntax.call(this, TEXT_SYNTAX_USERNAME, 'Invalid username: ');
-        this.add_syntax_rule(new SyntaxRuleMinimumLength(4));
-        this.add_syntax_rule(new SyntaxRuleMaximumLength(32));
-    }
+$_QE.prototype.TextSyntaxUsername = function() {
+    $_QE.prototype.TextSyntax.call(this, TEXT_SYNTAX_USERNAME, 'Invalid username: ');
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMinimumLength(4));
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMaximumLength(32));
 };

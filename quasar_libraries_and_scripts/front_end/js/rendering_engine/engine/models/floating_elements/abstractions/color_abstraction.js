@@ -1,6 +1,6 @@
 'use strict';
 
-function ColorAbstraction(needs_hex_colors) {
+$_QE.prototype.ColorAbstraction = function(needs_hex_colors) {
 
     this.needs_hex_colors = needs_hex_colors;
     if (!is_defined(this.needs_hex_colors)) {
@@ -103,5 +103,4 @@ function ColorAbstraction(needs_hex_colors) {
             return this.current_foreground_color;
         }
     };
-
-}
+};

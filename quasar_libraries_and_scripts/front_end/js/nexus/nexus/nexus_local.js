@@ -40,12 +40,18 @@ $_QE.prototype = {
         this.client.initialize_pause_menu();
     },
 
+    are_required_features_supported: function() {
+        if (!(this.client.state_is_webgl_enabled && this.client.state_is_canvas_enabled)) {
+            console.log('ERROR: WebGL or Canvas not supported!');
+            return false;
+        }
+        return true;
+    },
+
     initialize_and_set_application: function(application) {
         this.application = application;
-        this.renderer    = new $_QE.prototype.RendererManager();
-        this.client.renderer = this.renderer;
-        this.renderer.client = this.client;
-        this.client.pre_render_initialize();
+        this.renderer    = new $_QE.prototype.RendererManager(this.client);
+        this.client.pre_render_initialize(this.renderer);
 
         this.player = new $_QE.prototype.Player(this.renderer.camera, this.client);
         this.world_manager = new $_QE.prototype.WorldManager(this.player, this.renderer, this.application);
@@ -242,6 +248,16 @@ const l = console.log;
 function is_defined(object) {
     return object !== null && object !== undefined;
 }
+
+const COLOR_RED           = new THREE.Color('#ff5e33');
+const COLOR_BLUE          = new THREE.Color('#0065ff');
+const COLOR_GREEN         = new THREE.Color('#31ff00');
+const COLOR_YELLOW        = new THREE.Color('#faff00');
+const COLOR_WHITE         = new THREE.Color('#ffffff');
+const COLOR_BLACK         = new THREE.Color('#000000');
+const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
+const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
+
 
 $_QE.prototype.DomElement = function(id_name, element) {
     if (id_name === null) {
@@ -527,19 +543,17 @@ $_QE.prototype.Client = function() {
      */
 
     this.debug_mode = 2;
-    // Gets set by the engine.
     this.renderer = null;
 
-    this.pre_render_initialize = function() {
+    this.pre_render_initialize = function(renderer) {
+        this.renderer = renderer;
         this.initialize_state_fullscreen();
         this.initialize_state_pointer_lock();
         this.initialize_state_window_focus();
         this.initialize_state_mobile();
         this.initialize_state_virtual_reality();
         this._fetch_window_dimensions();
-        this.renderer.aspect_ratio = this.state_window_width_inner / this.state_window_height_inner;
         this.renderer.pre_render_initialize();
-        this.initialize_window_resize();
     };
 
     this.post_render_initialize = function() {
@@ -873,14 +887,12 @@ $_QE.prototype.Client = function() {
 
 };
 
-$_QE.prototype.RendererManager = function() {
+$_QE.prototype.RendererManager = function(client) {
     this.field_of_view = 75;
     this.near_clipping = 1.0;
     this.far_clipping  = 20000.0;
-    // Gets set by client.
     this.aspect_ratio  = null;
-    // Gets set by engine.
-    this.client        = null;
+    this.client        = client;
 
     this.shaders_enabled        = false;
     this.shader_enabled_fxaa    = false;
@@ -897,6 +909,8 @@ $_QE.prototype.RendererManager = function() {
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
         document.body.appendChild(this.renderer.domElement);
+
+        this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
 
@@ -2840,6 +2854,901 @@ $_QE.prototype.Visibility = function() {
 
 };
 
+
+$_QE.prototype.ButtonState = function() {
+    this._enabled = true;
+    this._locked  = false;
+
+    this._icon = new FloatingIcon(this.world, ICON_CROSS, 32, COLOR_RED, true);
+    this._icon.set_attachment_depth_offset(1);
+    this._icon.manual_visibility = true;
+    this.add_attachment(this._icon);
+    this._icon.set_to_invisible();
+
+    this.disable = function() {
+        this._enabled = false;
+        this._icon.switch_icon(ICON_DISABLED);
+        this._icon.set_to_visible();
+    };
+
+    this.lock = function() {
+        this._locked = true;
+        this._icon.switch_icon(ICON_LOCKED);
+        this._icon.set_to_visible();
+    };
+
+    this.enable = function() {
+        this._enabled = true;
+        this._icon.set_to_invisible();
+    };
+
+    this.unlock = function() {
+        this._locked = false;
+        this._icon.set_to_invisible();
+    };
+
+    this.enabled = function() {
+        return this._enabled && !this._locked;
+    };
+
+};
+
+$_QE.prototype.SyntaxRuleEmail = function() {
+    $_QE.prototype.SyntaxRule.call(this);
+    this.error_message  = 'invalid email format.';
+
+    this.check_text = function(text) {
+        // Base code from : https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(text);
+    };
+};
+
+$_QE.prototype.SyntaxRuleMaximumLength = function(maximum_length) {
+    $_QE.prototype.SyntaxRule.call(this);
+    this.maximum_length = maximum_length;
+    this.error_message  = 'must be fewer than ' + this.maximum_length + ' characters.';
+    this.check_text = function(text) {
+        return text.length < this.maximum_length;
+    };
+};
+
+$_QE.prototype.SyntaxRuleMinimumLength = function(minimum_length) {
+    $_QE.prototype.SyntaxRule.call(this);
+    this.minimum_length = minimum_length;
+    this.error_message  = 'must be greater than ' + this.minimum_length + ' characters.';
+    this.check_text = function(text) {
+        return text.length >= this.minimum_length;
+    };
+};
+
+$_QE.prototype.SyntaxRule = function(syntax_rule) {
+    this.syntax_rule_type = syntax_rule;
+};
+
+$_QE.prototype.TextSyntaxEmail = function() {
+    $_QE.prototype.TextSyntax.call(this, TEXT_SYNTAX_EMAIL, 'Invalid email: ');
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleEmail());
+};
+
+$_QE.prototype.TextSyntaxPassword = function() {
+    $_QE.prototype.TextSyntax.call(this, TEXT_SYNTAX_PASSWORD, 'Invalid password: ');
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMinimumLength(4));
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMaximumLength(32));
+};
+
+$_QE.prototype.TextSyntaxRepeatPassword = function() {
+    $_QE.prototype.TextSyntax.call(this, TEXT_SYNTAX_REPEAT_PASSWORD, 'Invalid password: ');
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMinimumLength(4));
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMaximumLength(32));
+};
+
+$_QE.prototype.TextSyntaxUsername = function() {
+    $_QE.prototype.TextSyntax.call(this, TEXT_SYNTAX_USERNAME, 'Invalid username: ');
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMinimumLength(4));
+    this.add_syntax_rule(new $_QE.prototype.SyntaxRuleMaximumLength(32));
+};
+
+$_QE.prototype.ColorAbstraction = function(needs_hex_colors) {
+
+    this.needs_hex_colors = needs_hex_colors;
+    if (!is_defined(this.needs_hex_colors)) {
+        this.needs_hex_colors = false;
+    }
+
+    // TEMPORARY VALUES
+    this.current_background_color = COLOR_RED;
+    this.default_background_color = COLOR_RED;
+
+    this.override_background_color = null;
+
+    // TEMPORARY VALUES
+    this.current_foreground_color = COLOR_TEXT_DEFAULT;
+    this.default_foreground_color = COLOR_TEXT_DEFAULT;
+
+    this.override_foreground_color = null;
+
+    this.color_changed            = false;
+
+    this.set_current_background_color = function(color, refresh) {
+        if (this.current_background_color !== color) {
+            this.color_changed = true;
+        }
+        this.current_background_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.current_background_color_changed)) {
+                    this.current_background_color_changed();
+                }
+            }
+        }
+    };
+
+    this.set_default_background_color = function(color, refresh) {
+        this.default_background_color = color;
+    };
+
+    this.set_current_foreground_color = function(color, refresh) {
+        if (this.current_foreground_color !== color) {
+            this.color_changed = true;
+        }
+        this.current_foreground_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.current_foreground_color_changed)) {
+                    this.current_foreground_color_changed();
+                }
+                if (is_defined(this.refresh)) {
+                    this.refresh();
+                }
+            }
+        }
+    };
+
+    this.set_default_foreground_color = function(color, refresh) {
+        this.default_foreground_color = color;
+        if (is_defined(refresh)) {
+            if (refresh) {
+                if (is_defined(this.refresh)) {
+                    this.refresh();
+                }
+            }
+        }
+    };
+
+    this.set_foreground_color = function(color) {
+        this.set_default_foreground_color(color, false);
+        this.set_current_foreground_color(color, true);
+    };
+
+    this.set_background_color = function(color) {
+        this.set_default_background_color(color, false);
+        this.set_current_background_color(color, true);
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    this.get_current_background_color = function() {
+        if (is_defined(this.override_background_color)) {
+            return this.override_background_color;
+        }
+        if (this.needs_hex_colors) {
+            //return this.current_background_color.getHex();
+            return '#' + this.current_background_color.getHexString();
+        } else {
+            return this.current_background_color;
+        }
+    };
+
+    this.get_current_foreground_color = function() {
+        if (is_defined(this.override_foreground_color)) {
+            return this.override_foreground_color;
+        }
+        if (this.needs_hex_colors) {
+            //return this.current_foreground_color.getHex();
+            return '#' + this.current_foreground_color.getHexString();
+        } else {
+            return this.current_foreground_color;
+        }
+    };
+};
+
+$_QE.prototype.TextAbstraction = function(text) {
+
+    this.syntax_rules = [];
+
+    this.bold = false;
+
+    this.text         = text;
+    this.text_changed = false;
+
+    this._is_password = false;
+
+    /*__           ___              __   __   ___  __       ___    __        __
+     /__` \ / |\ |  |   /\  \_/    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+     .__/  |  | \|  |  /~~\ / \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this.add_syntax = function(text_syntax) {
+        switch (text_syntax) {
+        case TEXT_SYNTAX_PASSWORD:
+            this._is_password = true;
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxPassword());
+            break;
+        case TEXT_SYNTAX_USERNAME:
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxUsername());
+            break;
+        case TEXT_SYNTAX_EMAIL:
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxEmail());
+            break;
+        case TEXT_SYNTAX_REPEAT_PASSWORD:
+            this._is_password = true;
+            this.syntax_rules.push(new $_QE.prototype.TextSyntaxRepeatPassword());
+            break;
+        }
+    };
+
+    this.has_syntax = function(syntax) {
+        for (let sr = 0; sr < this.syntax_rules.length; sr++) {
+            if (this.syntax_rules[sr].text_syntax_type === syntax) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    this.syntax_check = function(additional_arguments) {
+        for (let sr = 0; sr < this.syntax_rules.length; sr++) {
+
+            let results = this.syntax_rules[sr].does_text_pass_requirements(this.text, additional_arguments);
+
+            if (!results[0]) {
+                return [false, results[1]];
+            }
+        }
+        return [true, null];
+    };
+    /*___  ___     ___     __   __   ___  __       ___    __        __
+       |  |__  \_/  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+       |  |___ / \  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this.update_text = function(text) {
+        if (this.get_text() !== text) {
+            if (is_defined(this.value_pre_changed_function)) {
+                this.value_pre_changed_function(text);
+            }
+            this.text = text;
+            if (is_defined(this.value_post_changed_function)) {
+                this.value_post_changed_function(text);
+            }
+            this.text_changed = true;
+            this.refresh();
+        }
+    };
+
+    this.clear = function() {
+        this.update_text('');
+    };
+
+    this._add_character = function(character) {
+        this.update_text(this.get_text() + character);
+    };
+
+    this._pop_character = function() {
+        let t = this.get_text();
+        this.update_text(t.slice(0, -1));
+    };
+
+    this.parse_text = function(text) {
+        let i;
+        for (i = 0; i < text.length; i++) {
+            this._add_character(text.charAt(i));
+        }
+    };
+
+    this.parse_keycode = function(event) {
+        let keycode = event.keyCode;
+
+        if (keycode === KEY_CODE__DELETE) {
+            if (this.get_text().length > 0) {
+                this._pop_character();
+                MANAGER_AUDIO.play_typing_sound();
+            }
+        } else if (event.key.length === 1) {
+            this._add_character(event.key);
+            MANAGER_AUDIO.play_typing_sound();
+        }
+    };
+
+    this.mobile_add_character = function(key) {
+        this._add_character(key);
+        MANAGER_AUDIO.play_typing_sound();
+    };
+
+    this.mobile_delete_character = function() {
+        if (this.get_text().length > 0) {
+            this._pop_character();
+            MANAGER_AUDIO.play_typing_sound();
+        }
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    this.get_text_as_value = function() {
+        return parseInt(this.get_text());
+    };
+
+    this.get_text = function() {
+        return this.text;
+    };
+
+    this.get_display_text = function() {
+        if (this._is_password) {
+            let t = '';
+            for (let c = 0; c < this.text.length; c++) {
+                t += '*';
+            }
+            return t;
+        }
+        return this.text;
+    };
+};
+
+$_QE.prototype.CanvasAbstraction = function() {
+    // Inherit.
+    $_QE.prototype.CanvasFont.call(this);
+    this.canvas  = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+
+    this.render = function(background_color, foreground_color, text) {
+        //l('Rendering will the following width and height');
+        //l(this.width);
+        //l(this.height);
+
+        this.context.clearRect(0, 0, this.width, this.height);
+        if (is_defined(background_color)) {
+            this.context.fillStyle = background_color;
+            this.context.fillRect(0, 0, this.width, this.height);
+        }
+        this.context.fillStyle = foreground_color;
+
+        if (this.text_property_centered) {
+            this.context.textAlign = 'center';
+            this.context.fillText(text, this.width / 2, int(this.font_size * .9));
+        } else {
+            this.context.fillText(text, 0, int(this.font_size * .9));
+        }
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    this.get_text_width = function(text) {
+        return this.context.measureText(text).width;
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     /__` |__   |   |  |__  |__) /__`
+     .__/ |___  |   |  |___ |  \ .__/ */
+    this.set_dimensions = function(width, height) {
+        this._set_width(width);
+        this._set_height(height);
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
+    };
+
+    this._set_height = function(height) {
+        this.height = get_next_highest_power_of_two(height * 2);
+    };
+
+    this._set_width = function(width) {
+        //this.width = get_next_highest_power_of_two(width * 2);
+        this.width = get_next_highest_power_of_two(width * 2);
+    };
+};
+
+$_QE.prototype.CanvasFont = function() {
+    this.smudge_factor = 0.85;
+
+    this.text_property_bold     = false;
+    this.text_property_italic   = false;
+    this.text_property_centered = false;
+
+    this.font = null;
+
+    this.set_font_property_bold = function(is_bold) {
+        this.text_property_bold = is_bold;
+    };
+
+    this.set_font_property_italic = function(is_italic) {
+        this.text_property_italic = is_italic;
+    };
+
+    this.set_font_property_centered = function(is_centered) {
+        this.text_property_centered = is_centered;
+    };
+
+    this.set_font = function() {
+        this.font_size = int(this.height * this.smudge_factor);
+        let additional_properties = '';
+        if (this.text_property_italic) {
+            additional_properties += 'italic ';
+        }
+        if (this.text_property_bold) {
+            additional_properties += 'bold ';
+        }
+        this.font = additional_properties + this.font_size.toString() + 'px Arial';
+        //l('Font is : {' + this.font + '}');
+        this.context.font = this.font;
+    };
+};
+
+$_QE.prototype.CanvasTexture = function() {
+    // Inherit.
+    $_QE.prototype.CanvasAbstraction.call(this);
+
+
+    this.initialize = function() {
+        this.set_font();
+        this.texture = new THREE.Texture(this.canvas);
+        this.texture.anisotropy = QE.renderer.renderer.capabilities.getMaxAnisotropy();
+    };
+
+    this.update = function(background_color, foreground_color, text) {
+        this.render(background_color, foreground_color, text);
+        this.texture.needsUpdate = true;
+    };
+
+    this.modify_canvas = function(width, height) {
+        this.set_dimensions(width, height);
+        this.set_font();
+    };
+};
+
+$_QE.prototype.FloatingButton = function(world, width, text_height, text, engage_function, cacheable) {
+    // Inherit.
+    $_QE.prototype.Text2D.call(this, world, width, text_height, text, cacheable);
+    this.override_background_color = 'rgba(20, 20, 20, .45)';
+    this.set_text_property_centered(true);
+    this.set_text_property_bold(true);
+
+    this.set_to_clickable();
+
+    this.set_button_engage_function(engage_function);
+
+    this.set_foreground_color(COLOR_YELLOW);
+    this.initialize();
+
+    this.has_button_state = false;
+
+    this.set_button_engage_function = function(engage_function) {
+        if (is_defined(engage_function)) {
+            this.button_engage_function = engage_function;
+            this.set_engage_function(this.try_to_perform_engage_function.bind(this));
+        }
+    };
+
+    this.add_button_state = function() {
+        if (!this.has_button_state) {
+            ButtonState.call(this);
+            this.has_button_state = true;
+        }
+    };
+
+    this.try_to_perform_engage_function = function() {
+        if (this.has_button_state) {
+            if (this.enabled()) {
+                this.button_engage_function();
+            }
+        } else {
+            this.button_engage_function();
+        }
+    };
+
+    /* __  ___      ___  ___     __                  __   ___  __
+      /__`  |   /\   |  |__     /  ` |__|  /\  |\ | / _` |__  /__`
+      .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
+    this.state_change_look_at = function(being_looked_at) {
+        if (being_looked_at) {
+            //this.set_background_color(BACKGROUND_COLOR_FOCUS, true);
+            QE.renderer.renderer.outline_glow.set_hover_object(this.object3D);
+        } else {
+            //this.set_background_color(this.default_background_color, true);
+            QE.renderer.renderer.outline_glow.remove_hover_object(this.object3D);
+        }
+    };
+};
+
+$_QE.prototype.FloatingElement = function(world) {
+    // Inherit.
+    $_QE.prototype.Attachmentable.call(this, world);
+    //$_QE.prototype.Animatable.call(this);
+    $_QE.prototype.ColorAbstraction.call(this);
+    $_QE.prototype.Interactive.call(this);
+    $_QE.prototype.Visibility.call(this);
+
+    this.needs_mobile_keyboard = false;
+    this.is_clickable          = false;
+
+    this.is_left_attachment = false;
+    this.is_right_attachment = false;
+
+    this.set_to_typeable = function() {
+        this.needs_mobile_keyboard = true;
+        this.set_to_interactive();
+    };
+
+    this.set_to_clickable = function() {
+        this.engable = false;
+        this.maintain_engage_when_tabbed_to = false;
+        this.set_to_interactive();
+        this.is_clickable = true;
+    };
+
+    this.add_label_left = function(text, cacheable, cacheable_texture) {
+        let label = new $_QE.prototype.FloatingText2D(this.world, this.height, text, null, cacheable, cacheable_texture);
+        label.set_current_foreground_color(COLOR_BLUE, true);
+        label.is_left_attachment = true;
+        this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
+        return label;
+    };
+
+    this.add_label_right = function(text, text_size) {
+        let label;
+        if (is_defined(text_size)) {
+            label = new $_QE.prototype.FloatingText2D(this.world, text_size, text);
+        } else {
+            label = new $_QE.prototype.FloatingText2D(this.world, this.height, text);
+        }
+        label.is_right_attachment = true;
+        this.add_floating_element([label.width / 2, HALF], null, 0, label);
+        return label;
+    };
+
+    this.add_icon_left = function(icon_type) {
+        let icon = new $_QE.prototype.FloatingIcon(this.world, icon_type, this.height);
+        this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);
+        return icon;
+    };
+
+    this.add_icon_button_left = function(icon_type, engage_function) {
+        let icon_button = new $_QE.prototype.FloatingIconButton(this.world, icon_type, this.height, engage_function);
+        this.add_floating_element([-this.height / 2, -HALF], null, 0, icon_button);
+        return icon_button;
+    };
+
+    this.add_icon_button_right = function(icon_type, engage_function) {
+        let icon_button = new $_QE.prototype.FloatingIconButton(this.world, icon_type, this.height, engage_function);
+        this.add_floating_element([this.height / 2, HALF], null, 0, icon_button);
+        return icon_button;
+    };
+
+    this.add_button_right = function(width, text, engage_function, color) {
+        let button = new $_QE.prototype.FloatingButton(this.world, width, this.height, text, engage_function);
+        if (is_defined(color)) {
+            button.set_foreground_color(color);
+        }
+        this.add_floating_element([button.width / 2, HALF], null, 0, button);
+        return button;
+    };
+};
+
+$_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color, cache) {
+    // Inherit.
+    $_QE.prototype.FloatingElement.call(this, world);
+
+    this.icon_type = icon_type;
+    this.width = size;
+    this.height = size;
+
+    if (is_defined(cache)) {
+        this.cached = cache;
+        if (this.cached) {
+            this.set_foreground_color(foreground_color);
+        }
+    } else {
+        this.cached = false;
+    }
+
+    this.create_base_material();
+    this.create_base_mesh();
+
+    if (is_defined(foreground_color)) {
+        this.set_foreground_color(foreground_color);
+    }
+
+    this.switch_icon = function(icon) {
+        if (this.icon_type !== icon) {
+
+            if (this.cached) {
+                this._material = MANAGER_HEAP.get_spritesheet_shader_material(icon, this.get_current_foreground_color());
+                this.mesh.material = this._material;
+                //this._material.needsUpdate = true;
+            } else {
+                this.material.uniforms['offset'].value = icon;
+                this.material.needsUpdate = true;
+            }
+
+            this.icon_type = icon;
+        }
+    };
+
+    this.switch_icon_and_color = function(icon, color) {
+        if (this.cached) {
+            this.set_current_foreground_color(color);
+        } else {
+            this.material.uniforms['color'].value = color;
+            this.material.needsUpdate = true;
+        }
+        this.switch_icon(icon);
+    },
+
+    /*__   __   ___      ___    __
+     /  ` |__) |__   /\   |  | /  \ |\ |
+     \__, |  \ |___ /~~\  |  | \__/ | \| */
+    this.create_base_material = function() {
+        if (this.cached) {
+            this._material = MANAGER_HEAP.get_spritesheet_shader_material(this.icon_type, this.get_current_foreground_color());
+        } else {
+            this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
+        }
+    };
+
+    this.create_base_mesh = function() {
+        let geometry = MANAGER_HEAP.get_plane_geometry(this.width, this.height);
+        if (this.cached) {
+            this.mesh = new THREE.Mesh(geometry, this._material);
+        } else {
+            this.mesh = new THREE.Mesh(geometry, this.material);
+        }
+        this.object3D.add(this.mesh);
+    };
+
+    /*__   __        __   __      __   __   ___  __       ___    __        __
+     /  ` /  \ |    /  \ |__)    /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+     \__, \__/ |___ \__/ |  \    \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this.current_foreground_color_changed = function() {
+        if (!this.cached) {
+            this.material.uniforms['color'].value = this.current_foreground_color;
+            this.material.needsUpdate = true;
+        }
+    };
+};
+
+$_QE.prototype.Text2DUtilities = function() {
+    this.canvas = new $_QE.prototype.CanvasAbstraction();
+    this.get_width_needed = function(text, height, bold, italic) {
+        if (is_defined(bold)) {
+            this.canvas.set_font_property_bold(bold);
+        }
+        if (is_defined(italic)) {
+            this.canvas.set_font_property_italic(italic);
+        }
+        this.canvas._set_height(height);
+        this.canvas.set_font();
+        return this.canvas.get_text_width(text);
+    };
+};
+
+const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
+
+
+$_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheable_texture) {
+
+    // Inherit.
+    $_QE.prototype.FloatingElement.call(this, world);
+    $_QE.prototype.TextAbstraction.call(this, text);
+
+    this.cacheable = cacheable;
+    if (is_defined(cacheable_texture)) {
+        this.cacheable_texture = cacheable_texture;
+    } else {
+        this.cacheable_texture = false;
+    }
+
+    this.width = width;
+    this.height = height;
+    this.dynamic_width = false;
+
+    if (!this.cacheable_texture) {
+        this.canvas = new $_QE.prototype.CanvasTexture();
+    }
+    //this.canvas = new CanvasTexture();
+
+    this.initialized = false;
+    this.needs_hex_colors = true;
+
+    this.refresh = function() {
+        if (this.initialized) {
+            if (this.dynamic_width) {
+                if (this.text_changed) {
+                    this.width = null;
+                    this.process_width();
+                    if (!this.cacheable_texture) {
+                        this.canvas.modify_canvas(this.width, this.height);
+                    }
+                    this.delete_mesh();
+                    this.delete_material();
+                    this.create_base_material();
+                    this.create_base_mesh();
+
+                    // Update horizontal offset if needed.
+                    if (this.is_attached()) {
+                        if (this.is_left_attachment) {
+                            this.set_attachment_horizontal_distance_offset(-this.width / 2);
+                        } else if (this.is_right_attachment) {
+                            this.set_attachment_horizontal_distance_offset(this.width / 2);
+                        }
+                        this.attachment_parent.refresh_position_and_look_at();
+                    }
+                }
+            }
+
+            if (!this.cacheable_texture) {
+                this.canvas.update(this.get_current_background_color(), this.get_current_foreground_color(), this.get_display_text());
+                this.material.needsUpdate = true;
+            } else {
+                //this._material.needsUpdate = true;
+            }
+
+            this.text_changed = false;
+            this.color_changed = false;
+        }
+    };
+
+    /*__   ___ ___ ___  ___  __   __
+     /__` |__   |   |  |__  |__) /__`
+     .__/ |___  |   |  |___ |  \ .__/ */
+    this.set_text_property_centered = function (is_centered) {
+        this.canvas.set_font_property_centered(is_centered);
+        //this.refresh();
+    };
+
+    this.set_text_property_bold = function(is_bold) {
+        this.canvas.set_font_property_bold(is_bold);
+        //this.refresh();
+    };
+
+    this.set_text_property_italic = function(is_italic) {
+        this.canvas.set_font_property_italic(is_italic);
+        //this.refresh();
+    };
+
+    /*__   __   ___      ___    __
+     /  ` |__) |__   /\   |  | /  \ |\ |
+     \__, |  \ |___ /~~\  |  | \__/ | \| */
+    this.process_width = function() {
+        if (!is_defined(this.width)) {
+            this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
+            this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
+            this.dynamic_width        = true;
+            this.ratio                = this._original_text_width / (get_next_highest_power_of_two(this.width * 2));
+        } else {
+            this.ratio = 1;
+        }
+    };
+
+    this.initialize = function() {
+        this.process_width();
+
+        if (!this.cacheable_texture) {
+            this.canvas.set_dimensions(this.width, this.height);
+            this.canvas.initialize();
+        } else {
+            this.canvas_cache = MANAGER_HEAP.get_text_2D_canvas(this.width, this.height, this.get_display_text(), this.get_current_background_color(), this.get_current_foreground_color());
+        }
+
+        this.create_base_material();
+        this.create_base_mesh();
+        this.initialized = true;
+        this.refresh();
+    };
+
+    this.create_base_material = function() {
+        if (this.cacheable_texture) {
+            this._material = MANAGER_HEAP.get_text_2D_material(this.width, this.height, this.get_display_text());
+        } else {
+            this.material = new THREE.MeshToonMaterial({
+                map : this.canvas.texture, transparent: true, side: THREE.FrontSide
+            });
+            this.material.transparent = true;
+            this.material.side = THREE.FrontSide;
+        }
+    };
+
+    this._create_base_mesh = function(geometry) {
+        if (is_defined(geometry)) {
+            if (this.cacheable_texture) {
+                this.mesh = new THREE.Mesh(geometry, this._material);
+            } else {
+                this.mesh = new THREE.Mesh(geometry, this.material);
+            }
+        } else {
+            if (this.dynamic_width) {
+                this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+
+                this.geometry.faceVertexUvs[0][0][2].x = this.ratio;
+                this.geometry.faceVertexUvs[0][1][1].x = this.ratio;
+                this.geometry.faceVertexUvs[0][1][2].x = this.ratio;
+
+                this.geometry.uvsNeedUpdate = true;
+            } else {
+                this.geometry = new THREE.PlaneGeometry(this.width, this.height);
+            }
+            if (this.cacheable_texture) {
+                this.mesh = new THREE.Mesh(this.geometry, this._material);
+            } else {
+                this.mesh = new THREE.Mesh(this.geometry, this.material);
+            }
+        }
+        this.object3D.add(this.mesh);
+    };
+
+    this.create_base_mesh = function() {
+        if (this.dynamic_width) {
+            this.width *= this.ratio;
+        }
+
+        if (is_defined(this.cacheable)) {
+            if (this.cacheable) {
+                this._create_base_mesh(MANAGER_HEAP.get_text_2D_geometry(this.width, this.height, this.ratio));
+            } else {
+                this._create_base_mesh(null);
+            }
+        } else {
+            this._create_base_mesh(null);
+        }
+    };
+};
+
+$_QE.prototype.Text3D = function(world, size, text) {
+
+    // Inherit.
+    $_QE.prototype.FloatingElement.call(this, world);
+    $_QE.prototype.TextAbstraction.call(this, text);
+
+    // Heap optimization.
+    this._box = new THREE.Box3();
+
+    this.text_size = size;
+
+    this.refresh = function() {
+        this.delete_mesh();
+        this.create_base_mesh();
+    };
+
+    this.create_base_material = function() {
+        this._material = MANAGER_HEAP.get_text_3D_material(this.current_foreground_color);
+    };
+
+    this.create_base_mesh = function() {
+        this.geometry = new THREE.TextGeometry(this.text, {
+            size: this.text_size,
+            height: 2,
+            curveSegments: 2,
+            font: GLOBAL_FONT
+        });
+        this.mesh = new THREE.Mesh(this.geometry, this._material);
+        this._calculate_dimensions();
+        this.object3D.add(this.mesh);
+    };
+
+    this._calculate_dimensions = function() {
+        this._box.setFromObject(this.mesh);
+        this.width = this._box.max.x;
+        this.height = this._box.max.y;
+    };
+};
+
+$_QE.prototype.FloatingText3D = function(world, size, text) {
+    // Inherit.
+    $_QE.prototype.Text3D.call(this, world, size, text);
+
+    this.set_default_foreground_color(COLOR_TEXT_CONSTANT, false);
+
+    // Create the Text3D.
+    this.create_base_material();
+    this.create_base_mesh();
+};
 // Nexus Local starts here!
 
 let NL;
@@ -2892,7 +3801,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.create_for_first_render = function() {
-        this.nexus_local_title = new FloatingText3D(this, 256, 'Quasar Source');
+        this.nexus_local_title = new $_QE.prototype.FloatingText3D(this, 256, 'Quasar Source');
         this.nexus_local_title.set_position(1900, 500, 1000);
         this.nexus_local_title.look_at_origin(false);
         this.nexus_local_title.set_to_manual_positioning();
