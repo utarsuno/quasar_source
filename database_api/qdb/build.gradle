@@ -25,7 +25,8 @@ repositories {
 }
 
 bootJar {
-	mainClassName = 'com.quasar.qdb.QDBApp'
+	//mainClassName = 'com.quasar.qdb.QDBApp'
+    mainClassName = 'com.quasar.qdb.server.dbserver.Main'
 }
 
 gversion {
