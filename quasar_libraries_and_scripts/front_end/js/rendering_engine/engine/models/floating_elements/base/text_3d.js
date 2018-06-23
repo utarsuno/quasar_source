@@ -17,7 +17,7 @@ $_QE.prototype.Text3D = function(world, size, text) {
     };
 
     this.create_base_material = function() {
-        this._material = MANAGER_HEAP.get_text_3D_material(this.current_foreground_color);
+        this._material = QE.manager_heap.get_text_3D_material(this.current_foreground_color);
     };
 
     this.create_base_mesh = function() {
@@ -25,7 +25,7 @@ $_QE.prototype.Text3D = function(world, size, text) {
             size: this.text_size,
             height: 2,
             curveSegments: 2,
-            font: GLOBAL_FONT
+            font: $_QE.prototype.GLOBAL_FONT
         });
         this.mesh = new THREE.Mesh(this.geometry, this._material);
         this._calculate_dimensions();

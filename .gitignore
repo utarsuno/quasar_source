@@ -175,3 +175,6 @@ third_party_libraries/
 # Ignore C output files.
 output_files_to_ignore/
 
+
+nexus_local.js
+nexus_local.min.js

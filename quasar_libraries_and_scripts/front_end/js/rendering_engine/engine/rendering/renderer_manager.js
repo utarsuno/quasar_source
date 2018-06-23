@@ -7,11 +7,6 @@ $_QE.prototype.RendererManager = function(client) {
     this.aspect_ratio  = null;
     this.client        = client;
 
-    this.shaders_enabled        = false;
-    this.shader_enabled_fxaa    = false;
-    this.shader_enabled_outline = false;
-    this.shader_enabled_grain   = false;
-
     this.pre_render_initialize = function() {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
         this.renderer.domElement.id = 'canvas_id';
@@ -69,6 +64,16 @@ $_QE.prototype.RendererManager = function(client) {
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
 
         this._resize_event_shader();
+    };
+
+    this.initialize_shaders = function() {
+        this.effect_composer = new THREE.EffectComposer(this.renderer);
+
+        //this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
+
+        if (this.shader_enabled_fxaa) {
+
+        }
     };
 
     /*

@@ -1,6 +1,6 @@
 'use strict';
 
-$_QE.prototype.set_heap_manager = function() {
+$_QE.prototype.get_heap_manager = function() {
 
     /*__        __        ___  __      __   __        ___  __  ___  __      __        __   ___
      /  `  /\  /  ` |__| |__  |  \    /  \ |__)    | |__  /  `  |  /__`    |__)  /\  /__` |__
@@ -81,7 +81,7 @@ $_QE.prototype.set_heap_manager = function() {
             this._background_color = args[3];
             this._foreground_color = args[4];
 
-            this._canvas = new CanvasTexture();
+            this._canvas = new $_QE.prototype.CanvasTexture();
             this._canvas.set_dimensions(this._width, this._height);
             this._canvas.initialize();
 
@@ -107,7 +107,7 @@ $_QE.prototype.set_heap_manager = function() {
         __init__: function(args) {
             this._icon = args[0];
             this._color = args[1];
-            this._material = MANAGER_SPRITESHEET.get_icon_material(this._icon);
+            this._material = QE.manager_spritesheet.get_icon_material(this._icon);
             this._material.uniforms['color'].value = this._color;
             this._material.needsUpdate = true;
         },
@@ -174,5 +174,6 @@ $_QE.prototype.set_heap_manager = function() {
 
     };
 
-    this.heap_manager = new HeapManager();
+    return new HeapManager();
+    //this.heap_manager = new HeapManager();
 };

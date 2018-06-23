@@ -16,6 +16,9 @@ let MANAGER_RENDERER     = null;
 let MANAGER_INPUT        = null;
 */
 
+// Caches files loaded by the FileLoader.
+THREE.Cache.enabled = true;
+
 let QE;
 
 const APPLICATION_NEXUS_LOCAL   = 'nl'; // #pre-process_global_constant
@@ -52,6 +55,29 @@ $_QE.prototype = {
 
     initialize_and_set_application: function(application) {
         this.application = application;
+
+        this.engine_setting_audio_enabled          = this.application.engine_setting_audio_enabled;
+        this.engine_setting_shaders_enabled        = this.application.engine_setting_shaders_enabled;
+        this.engine_setting_shader_fxaa_enabled    = this.application.engine_setting_shader_fxaa_enabled;
+        this.engine_setting_shader_outline_enabled = this.application.engine_setting_shader_outline_enabled;
+        this.engine_setting_shader_grain_enabled   = this.application.engine_setting_shader_grain_enabled;
+
+        // First, start the loading of initial-render-required assets.
+        this.manager_assets      = new $_QE.prototype.AssetManager(this);
+        this.manager_textures    = new $_QE.prototype.TextureManager(this);
+        this.manager_shaders     = new $_QE.prototype.ShaderManager(this);
+        this.manager_spritesheet = new $_QE.prototype.SpritesheetManager(this);
+
+        this.manager_heap        = this.get_heap_manager();
+
+        // Setting the engine default initial-render-required assets.
+        this.manager_assets.add_initial_render_required_asset(ASSET_REQUIRED_SPRITESHEET);
+        this.manager_assets.load_required_initial_render_assets(this.initial_required_assets_loaded.bind(this), this.manager_shaders, this.manager_textures);
+    },
+
+    initial_required_assets_loaded: function() {
+        l('Initial required assets finished loading!');
+
         this.renderer    = new $_QE.prototype.RendererManager(this.client);
         this.client.pre_render_initialize(this.renderer);
 

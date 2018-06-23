@@ -10,6 +10,14 @@ $_NL.prototype = {
     __init__: function() {
         this.application_type = APPLICATION_NEXUS_LOCAL;
         this.first_world_class = $_NL.prototype.WorldDevTools;
+
+        // The engine will reference these variables.
+        // TODO : Make this a pre-processed step.
+        this.engine_setting_audio_enabled          = false;
+        this.engine_setting_shaders_enabled        = true;
+        this.engine_setting_shader_fxaa_enabled    = true;
+        this.engine_setting_shader_outline_enabled = true;
+        this.engine_setting_shader_grain_enabled   = false;
     }
 };
 

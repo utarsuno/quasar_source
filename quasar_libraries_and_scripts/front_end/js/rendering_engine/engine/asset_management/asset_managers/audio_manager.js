@@ -10,6 +10,10 @@ const AUDIO_SOUND_SUCCESS      = 6; // #pre-process_global_constant
 const AUDIO_SOUND_CHECKBOX     = 7; // #pre-process_global_constant
 const AUDIO_MUSIC_BACKGROUND   = 8; // #pre-process_global_constant
 
+$_QE.prototype.AudioManager = function() {
+
+};
+
 ManagerManager.prototype.set_audio_manager = function() {
     function AudioManager() {
         this.__init__();

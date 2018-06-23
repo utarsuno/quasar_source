@@ -24,7 +24,7 @@ ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/third_party/graph
 ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/nexus/nexus/nexus_local.min.js assets/js/nexus/nexus/nexus_local.min.js
 
 # Assets.
-#ln -s
+ln -s /quasar/source/quasar_assets/front_end/texture/spritesheet/a.png assets/a.png
 
 #
 #ln -s /quasar/source/quasar_libraries_and_scripts/front_end/js/rendering_enginge/engine/engine.js assets/js/nexus_local.min.js

@@ -28,9 +28,9 @@ const ICON_WARNING    = 24; // #pre-process_global_constant
 const ICON_WRENCH     = 25; // #pre-process_global_constant
 const ICON_WRITING    = 26; // #pre-process_global_constant
 
-$_QE.prototype.SpriteSheetManager = function() {
+$_QE.prototype.SpritesheetManager = function() {
     this.get_icon_material = function(icon) {
-        this._shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_SPRITESHEET);
+        this._shader_material = QE.manager_shaders.get_shader_material_abstraction(ASSET_SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_material(icon);
         m.transparent = true;
         m.needsUpdate = true;
@@ -38,7 +38,7 @@ $_QE.prototype.SpriteSheetManager = function() {
     };
 
     this.load_icon_sprite_sheet = function() {
-        this.texture = MANAGER_TEXTURE.get_texture(SPRITESHEET_ICONS);
+        this.texture = QE.manager_textures.get_texture(ASSET_TEXUTRE_SPRITESHEET_ICONS);
         this.texture.magFilter = THREE.NearestFilter;
         this.texture.minFilter = THREE.NearestFilter;
         this.texture.needsUpdate = true;

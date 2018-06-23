@@ -225,6 +225,7 @@ class JavascriptManager(object):
 		# Main engine.
 		self.js_files_needed.append('engine/engine.js')
 		self.js_files_needed.append('engine/core/time_value_buffer.js')
+		self.js_files_needed.append('engine/core/heap_management/heap_manager.js')
 		self.js_files_needed.append('engine/assets_json/helvetiker_regular.js')
 		#self.js_files_needed.append('engine/core/typing_buffer.js')
 		# Globals.
@@ -260,30 +261,39 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/inheritables/visibility.js')
 
 		# Models.
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/button/button_state.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/email.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/maximum_length.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/minimum_length.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/syntax_rule.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_email.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_password.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_repeat_password.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js');
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_abstraction.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_font.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_texture.js');
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/button/button_state.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/email.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/maximum_length.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/minimum_length.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/syntax_rule.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_email.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_password.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_repeat_password.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js')
+		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_abstraction.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_font.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_texture.js')
 
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_icon.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/text_2d.js');
-		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js');
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/floating_icon.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/text_2d.js')
+		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js')
 
-		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js');
+		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js')
 
-
+		# Asset Managers.
+		self.js_files_needed.append('engine/asset_management/asset_manager.js')	
+		self.js_files_needed.append('engine/asset_management/asset_managers/asset_manager_abstraction.js')
+		self.js_files_needed.append('engine/asset_management/asset_managers/texture_manager.js')
+		self.js_files_needed.append('engine/asset_management/asset_managers/spritesheet_manager.js')
+		self.js_files_needed.append('engine/asset_management/asset_managers/shader_manager.js')
+		self.js_files_needed.append('engine/asset_management/shaders/shader_material_abstraction.js')
+		self.js_files_needed.append('engine/asset_management/shaders/shader_material_noise.js')
+		self.js_files_needed.append('engine/asset_management/shaders/shader_material_spritesheet.js')
+		self.js_files_needed.append('engine/asset_management/shaders/shader_material_transition.js')
 
 
 		if self.engine.is_build_nexus_local:
