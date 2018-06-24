@@ -15,6 +15,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.first_world.create_for_first_render();
 
         this.environment = new $_QE.prototype.WorldEnvironment(this.first_world);
+        this.environment.create(this.first_world);
 
         //this.player_cursor = new $_QE.prototype.PlayerCursor();
         //this.player_menu = new PlayerMenu();
@@ -45,7 +46,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.current_world.add_to_scene(this.player.yaw);
 
         // Set the player position ahead of time.
-        //this.current_world.set_player_enter_position_and_look_at();
+        this.current_world.set_player_enter_position_and_look_at();
         //this.current_world.enter_world(this.player_cursor);
 
         if (is_defined(this.previous_world)) {
@@ -57,6 +58,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         }
 
         //this.current_world.enter_world(this.player_cursor);
+        this.current_world.enter_world();
     };
 
     this.update = function(delta) {
@@ -107,6 +109,8 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
 
         this.current_world.floating_cursor.update();
         */
+
+        this.current_world.update(delta);
 
         //l('Update performed!');
     };

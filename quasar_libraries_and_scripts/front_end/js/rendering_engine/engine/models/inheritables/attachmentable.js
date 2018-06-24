@@ -521,4 +521,4 @@ $_QE.prototype.Attachmentable = function(world) {
         //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
         this.object3D.lookAt(this._look_at_position);
     };
-}
+};

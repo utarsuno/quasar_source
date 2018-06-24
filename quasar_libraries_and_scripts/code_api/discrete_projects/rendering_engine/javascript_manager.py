@@ -276,9 +276,12 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js')
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js')
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_abstraction.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_font.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/2d_text/canvas_texture.js')
+
+		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_abstraction.js')
+		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_font.js')
+		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_text_row.js')
+		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_console.js')
+		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_texture.js')
 
 		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js')
 		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js')
@@ -287,6 +290,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js')
 
 		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js')
+		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_canvas_log.js')
 
 		self.js_files_needed.append('engine/models/discrete_models/hexagon_grid/hexagon_grid.js')
 

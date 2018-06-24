@@ -50,6 +50,7 @@ $_QE.prototype.WorldInput = function() {
 
     // TODO : This needs to be refactored!
     this.tab_to_next_interactive_object = function() {
+        /*
         if (this.floating_cursor._currently_engaged) {
             this.floating_cursor.disengage();
         }
@@ -80,6 +81,7 @@ $_QE.prototype.WorldInput = function() {
                 //this.floating_cursor.update_position(this.currently_looked_at_object.get_position());
             }
         }
+        */
     };
 
     /*     __        __   ___     ___       ___      ___  __

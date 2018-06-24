@@ -120,7 +120,7 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
             this.canvas.set_dimensions(this.width, this.height);
             this.canvas.initialize();
         } else {
-            this.canvas_cache = MANAGER_HEAP.get_text_2D_canvas(this.width, this.height, this.get_display_text(), this.get_current_background_color(), this.get_current_foreground_color());
+            this.canvas_cache = QE.manager_heap.get_text_2D_canvas(this.width, this.height, this.get_display_text(), this.get_current_background_color(), this.get_current_foreground_color());
         }
 
         this.create_base_material();
@@ -131,7 +131,7 @@ $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheabl
 
     this.create_base_material = function() {
         if (this.cacheable_texture) {
-            this._material = MANAGER_HEAP.get_text_2D_material(this.width, this.height, this.get_display_text());
+            this._material = QE.manager_heap.get_text_2D_material(this.width, this.height, this.get_display_text());
         } else {
             this.material = new THREE.MeshToonMaterial({
                 map : this.canvas.texture, transparent: true, side: THREE.FrontSide

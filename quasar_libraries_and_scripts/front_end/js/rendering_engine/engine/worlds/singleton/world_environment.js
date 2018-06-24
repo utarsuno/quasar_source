@@ -12,10 +12,9 @@ $_QE.prototype.WorldEnvironment = function() {
     };
 
     this.create = function(world) {
-        this.grid = new $_QE.prototype.HexagonGrid();
-        this.grid.__init__(6);
+        this.grid = new $_QE.prototype.HexagonGrid(6);
         this.grid.create();
-        //world.add_to_scene(this.grid.object3D);
+        world.add_to_scene(this.grid.object3D);
 
         // Default lights.
         this.light_delta = 0;
