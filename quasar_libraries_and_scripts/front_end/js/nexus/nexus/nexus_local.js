@@ -30,7 +30,9 @@ $_QE.prototype = {
 
     __init__: function() {
         console.log('Quasar Engine created!');
-        this.UP_VECTOR = new THREE.Vector3(0, 1, 0);
+        this.UP_VECTOR   = new THREE.Vector3(0, 1, 0);
+        this.delta_clock = new THREE.Clock(false);
+        this.delta       = 0;
     },
 
     /*__  ___       __  ___          __      __  ___  ___  __   __
@@ -68,28 +70,75 @@ $_QE.prototype = {
 
         this.manager_heap        = this.get_heap_manager();
 
+        this.client.set_pause_menu_text_and_sub_text('Loading', 'asset files...');
+
         // Setting the engine default initial-render-required assets.
         this.manager_assets.add_initial_render_required_asset(1);
+        this.manager_assets.add_initial_render_required_asset(2);
         this.manager_assets.load_required_initial_render_assets(this.initial_required_assets_loaded.bind(this), this.manager_shaders, this.manager_textures);
     },
 
     initial_required_assets_loaded: function() {
         l('Initial required assets finished loading!');
 
-        this.renderer    = new $_QE.prototype.RendererManager(this.client);
-        this.client.pre_render_initialize(this.renderer);
+        this.client.set_pause_menu_text_and_sub_text('Creating', 'world...');
 
-        this.player = new $_QE.prototype.Player(this.renderer.camera, this.client);
-        this.world_manager = new $_QE.prototype.WorldManager(this.player, this.renderer, this.application);
+        this.manager_renderer = new $_QE.prototype.RendererManager(this.client, this);
+        this.client.pre_render_initialize(this.manager_renderer);
 
-        this.world_manager.initialize_first_world();
+        this.player = new $_QE.prototype.Player(this.client, this);
+        this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
+
+        this.manager_world.initialize_first_world();
+
+        this.manager_input = new $_QE.prototype.InputManager(this.player, this.manager_world);
+        this.player.input_manager = this.manager_input;
+
+        this.manager_renderer.initialize_shaders(this.manager_world.first_world);
+
+        this.player.initialize_player_controls();
+
+        this.client._on_window_resize();
+
+        this.manager_world.set_current_world(this.manager_world.first_world);
+
+        // this.engine_loop();
+        this.engine_main_loop = this._engine_loop.bind(this);
+        this._main_loop_logic();
+
+        this.player.set_state(2);
+        this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
+
+        this.engine_main_loop();
     },
 
     /*___       __          ___          __   __       ___  ___          __   __   __
      |__  |\ | / _` | |\ | |__     |  | |__) |  \  /\   |  |__     |    /  \ /  \ |__)
      |___ | \| \__> | | \| |___    \__/ |    |__/ /~~\  |  |___    |___ \__/ \__/ |    */
-    reset_delta: function() {
+    _main_loop_logic: function() {
+        this.delta = this.delta_clock.getDelta();
 
+        this.client.pre_render();
+
+        //this.client.update();
+        this.manager_world.update(this.delta);
+
+        this.manager_renderer.render(this.delta);
+
+        this.client.post_render();
+
+        this.delta_clock.start();
+    },
+
+    _engine_loop: function() {
+        requestAnimationFrame(this.engine_main_loop);
+        if (this.player.current_state !== 2) {
+            this._main_loop_logic();
+        }
+    },
+
+    reset_delta: function() {
+        this.delta_clock.start();
     }
 };
 
@@ -463,6 +512,11 @@ const COLOR_TEXT_CONSTANT = new THREE.Color('#0b410f');
 const COLOR_TEXT_DEFAULT  = new THREE.Color('#67ffbf');
 
 
+/*    ___          ___         __   __        __  ___           ___  __
+ |  |  |  | |    |  |  \ /    /  ` /  \ |\ | /__`  |   /\  |\ |  |  /__`
+ \__/  |  | |___ |  |   |     \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
+
+
 $_QE.prototype.DomElement = function(id_name, element) {
     if (id_name === null) {
         this.element = element;
@@ -746,7 +800,7 @@ $_QE.prototype.Client = function() {
         state_window_height_outer       : null,
      */
 
-    this.debug_mode = 2;
+    this.debug_mode = 1;
     this.renderer = null;
 
     this.pre_render_initialize = function(renderer) {
@@ -758,6 +812,8 @@ $_QE.prototype.Client = function() {
         this.initialize_state_virtual_reality();
         this._fetch_window_dimensions();
         this.renderer.pre_render_initialize();
+
+        this.initialize_window_resize();
     };
 
     this.post_render_initialize = function() {
@@ -967,11 +1023,13 @@ $_QE.prototype.Client = function() {
         this.state_window_height_outer = window.outerHeight;
     };
 
-    this.on_window_resize = function(event) {
+    this._on_window_resize = function() {
         this._fetch_window_dimensions();
-
         this.renderer.window_resize_event();
+    };
 
+    this.on_window_resize = function(event) {
+        this._on_window_resize();
         event.preventDefault();
         event.stopPropagation();
     };
@@ -1020,7 +1078,7 @@ $_QE.prototype.Client = function() {
 
     this.pointer_lock_change = function () {
         if (document.pointerLockElement !== this._document_body && document.mozPointerLockElement !== this._document_body && document.webkitPointerLockElement !== this._document_body) {
-            CURRENT_PLAYER.set_state(2);
+            QE.player.set_state(2);
             this.state_is_pointer_locked = true;
         } else {
             this.state_is_pointer_locked = false;
@@ -1091,12 +1149,13 @@ $_QE.prototype.Client = function() {
 
 };
 
-$_QE.prototype.RendererManager = function(client) {
+$_QE.prototype.RendererManager = function(client, engine) {
     this.field_of_view = 75;
     this.near_clipping = 1.0;
     this.far_clipping  = 20000.0;
     this.aspect_ratio  = null;
     this.client        = client;
+    this.engine        = engine;
 
     this.pre_render_initialize = function() {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
@@ -1108,6 +1167,8 @@ $_QE.prototype.RendererManager = function(client) {
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
         document.body.appendChild(this.renderer.domElement);
+
+        this.renderer.autoClear = true;
 
         this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
@@ -1125,23 +1186,23 @@ $_QE.prototype.RendererManager = function(client) {
     };
 
     this.render = function(delta) {
-        /*        if (this.in_transition) {
+        if (this.in_transition) {
             this._current_transition.render(delta);
         } else {
             this.effect_composer.render(delta);
-        }*/
+        }
     };
 
     this._resize_event_shader = function() {
-        if (this.shaders_enabled) {
+        if (this.engine.engine_setting_shaders_enabled) {
             this.effect_composer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
-            if (this.shader_enabled_fxaa) {
+            if (this.engine.engine_setting_shader_fxaa_enabled) {
                 this.effect_FXAA.uniforms['resolution'].value.set(1 / this.client.state_window_width_inner, 1 / this.client.state_window_height_inner);
             }
-            if (this.shader_enabled_outline) {
+            if (this.engine.engine_setting_shader_outline_enabled) {
                 //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
             }
-            if (this.shader_enabled_grain) {
+            if (this.engine.engine_setting_shader_grain_enabled) {
                 //
             }
         }
@@ -1157,14 +1218,32 @@ $_QE.prototype.RendererManager = function(client) {
         this._resize_event_shader();
     };
 
-    this.initialize_shaders = function() {
+    this.initialize_shaders = function(world) {
         this.effect_composer = new THREE.EffectComposer(this.renderer);
+        this.render_pass = new THREE.RenderPass(world.scene, this.camera);
+        this.effect_composer.addPass(this.render_pass);
 
-        //this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
+        //if (this.engine.engine_setting_shader_fxaa_enabled) {
+        //}
 
-        if (this.shader_enabled_fxaa) {
+        this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        //this.effect_FXAA.renderToScreen = true;
+        this.effect_composer.addPass(this.effect_FXAA);
 
-        }
+        //this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), world.scene, this.camera);
+        //this.effect_composer.addPass(this.outline_pass);
+
+        this.effect_film = new $_QE.prototype.FilmNoise();
+        this.effect_film.renderToScreen = true;
+        this.effect_composer.addPass(this.effect_film);
+
+        //this.outline_glow = new OutlineGlow(this.outline_pass);
+
+
+        //this.outline_glow.outline_pass.renderScene = world.scene;
+        this.render_pass.scene = world.scene;
+
     };
 
     /*
@@ -1215,47 +1294,56 @@ $_QE.prototype.RendererManager = function(client) {
      */
 };
 
-$_QE.prototype.Player = function(camera, client) {
-    this.client = client;
-    $_QE.prototype.PlayerState.call(this);
-    $_QE.prototype.FPSControls.call(this, camera);
+/**
+ * @author alteredq / http://alteredqualia.com/
+ * ^ original author.
+ *
+ * MODIFICATIONS MADE!!!
+ */
+
+$_QE.prototype.FilmNoise = function() {
+    THREE.Pass.call(this);
+    this.shader_material = QE.manager_shaders.get_asset('sm2');
+    this.material = this.shader_material.get_shader_material();
+
+    this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    this.scene  = new THREE.Scene();
+
+    this.quad = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), null);
+    this.quad.frustumCulled = false; // Avoid getting clipped
+    this.scene.add(this.quad);
 };
 
 
-/*
-Player.prototype = {
+$_QE.prototype.FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
 
-    __init__: function() {
-        PlayerState.call(this);
-        //this.fps_controls = new FPSControls();
-        //this.load_fps_controls();
-        //l(this.fps_controls);
-        // Inherit.
-    },
+    constructor: $_QE.prototype.FilmNoise,
 
-    look_at: function(vector) {
-        this.fps_controls.look_at(vector);
-    },
-
-    set_position_xyz: function(x, y, z) {
-        this.fps_controls.yaw.position.set(x, y, z);
-    },
-
-    set_position: function(vector) {
-        this.fps_controls.yaw.position.x = vector.x;
-        this.fps_controls.yaw.position.y = vector.y;
-        this.fps_controls.yaw.position.z = vector.z;
-    },
-
-    get_position: function() {
-        return this.fps_controls.get_position();
-    },
-
-    get_direction: function() {
-        return this.fps_controls.get_direction();
+    render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
+        this.shader_material.set_t_diffuse(readBuffer.texture);
+        this.shader_material.add_time(delta);
+        this.quad.material = this.material;
+        if (this.renderToScreen) {
+            renderer.render(this.scene, this.camera);
+        } else {
+            renderer.render(this.scene, this.camera, writeBuffer, this.clear);
+        }
     }
+
+});
+
+$_QE.prototype.Player = function(client, engine) {
+    this.client = client;
+    this.engine = engine;
+    $_QE.prototype.PlayerState.call(this);
+
+    this.initialize_player_controls = function() {
+        $_QE.prototype.FPSControls.call(this, this.engine.manager_renderer.camera);
+    };
+
+    // TODO : Player should track currently engaged with as well if it requires cursor
+
 };
-    */
 
 
 $_QE.prototype.PlayerState = function() {
@@ -1266,12 +1354,122 @@ $_QE.prototype.PlayerState = function() {
 
     };
 
+    this.set_state = function(player_state) {
+        this.previous_state = this.current_state;
+        this.current_state = player_state;
+
+        switch(player_state) {
+        case 1:
+        case 2:
+
+            //MANAGER_INPUT.reset_movement_controls();
+            //CURRENT_PLAYER.fps_controls.reset_velocity();
+
+            // Dis-engage any engaged objects.
+            var currently_looked_at_object = this.get_currently_looked_at_object();
+            if (is_defined(currently_looked_at_object)) {
+                if (currently_looked_at_object.is_engaged()) {
+                    currently_looked_at_object.disengage();
+                }
+            }
+
+            // Hide the player menu if visible.
+
+            this.engine.client.pause();
+
+
+            //if (this.current_state === 2) {
+            //    CURRENT_CLIENT.pause();
+            //} else {
+            //    CURRENT_CLIENT.show_pause_menu();
+            //}
+
+            if (player_state === 2) {
+                //MANAGER_AUDIO.pause_background_music();
+            }
+
+            break;
+        case 4:
+            //CURRENT_CLIENT.show_client_typing();
+            break;
+        default:
+            if (player_state === 5) {
+                //MANAGER_INPUT.reset_movement_controls();
+                this.engine.player.reset_velocity();
+            }
+
+            //l('PREVIOUS STATE WAS :');
+            //l(this.previous_state);
+            if (this.previous_state === 1 || this.previous_state === 2) {
+
+                if (this.previous_state === 2) {
+                    //MANAGER_AUDIO.resume_background_music();
+
+                }
+
+                this.engine.client.resume();
+            }
+            break;
+        }
+    };
+
+
     // Check status.
     this.has_paste_event = function() {
         if (this.current_state === 4) {
             return true;
         }
         return this.engaged_with_object();
+    };
+
+    this.is_engaged = function() {
+        return this.current_state === 5;
+    };
+
+    this.is_paused = function() {
+        return this.current_state === 2;
+    };
+
+    this.has_mouse_movement = function() {
+        return this.current_state === 3;
+    };
+
+    this.has_movement = function() {
+        return this.current_state === 3;
+    };
+
+    this.in_typing_state = function() {
+        return this.current_state === 4;
+    };
+
+    //this.add_text_and_leave_typing_state = function() {
+    //      CURRENT_CLIENT.add_user_text();
+    //
+    //    this.set_state(3);
+    //};
+
+
+    this.has_input = function() {
+        return this.current_state === 3 || this.current_state === 5 || this.current_state === 4;
+    };
+
+    this.currently_loading = function() {
+        return this.current_state === 1;
+    };
+
+    this.get_currently_looked_at_object = function() {
+        if (!is_defined(this.engine.manager_world.current_world)) {
+            return null;
+        }
+        return this.engine.manager_world.current_world.currently_looked_at_object;
+    };
+
+    this.engaged_with_object = function() {
+        let currently_engaged_object = this.get_currently_looked_at_object();
+        if (is_defined(currently_engaged_object)) {
+            return currently_engaged_object.is_engaged();
+        }
+        return false;
     };
 };
 
@@ -1420,9 +1618,14 @@ $_QE.prototype.FPSControls = function(camera) {
     this._walking_direction   = new THREE.Vector3(0, 0, 0);
     this._left_right          = new THREE.Vector3(0, 0, 0);
 
+    this.set_position_xyz = function(x, y, z) {
+        this.yaw.position.set(x, y, z);
+    };
 
-    this.set_input_manager_reference = function(input_manager) {
-        this.input_manager = input_manager;
+    this.set_position = function(vector) {
+        this.yaw.position.x = vector.x;
+        this.yaw.position.y = vector.y;
+        this.yaw.position.z = vector.z;
     };
 
     this.toggle_flying = function() {
@@ -1507,6 +1710,8 @@ $_QE.prototype.FPSControls = function(camera) {
             return;
         }
 
+        //l('performing physics');
+
         if (this.has_mobile_movement) {
             this.fly_forward(delta * this.mobile_forward);
             this.fly_left(delta * this.mobile_horizontal);
@@ -1514,32 +1719,32 @@ $_QE.prototype.FPSControls = function(camera) {
 
         if (this.flying_on) {
             // Flying code.
-            if (this.input_manager.space) {
+            if (this.input_manager.key_down_space) {
                 this.velocity.y += this.movement_speed * delta;
             }
-            if (this.input_manager.shift) {
+            if (this.input_manager.key_down_shift) {
                 this.velocity.y -= this.movement_speed * delta;
             }
 
-            if ((this.input_manager.up ^ this.input_manager.down) & (this.input_manager.left ^ this.input_manager.right)) {
-                if (this.input_manager.up) {
-                    this.fly_forward(delta * DIAGONAL_PENALTY);
+            if ((this.input_manager.key_down_up ^ this.input_manager.key_down_down) & (this.input_manager.key_down_left ^ this.input_manager.key_down_right)) {
+                if (this.input_manager.key_down_up) {
+                    this.fly_forward(delta * 0.7071067811865476);
                 } else {
-                    this.fly_backward(delta * DIAGONAL_PENALTY);
+                    this.fly_backward(delta * 0.7071067811865476);
                 }
-                if (this.input_manager.left) {
-                    this.fly_left(delta * DIAGONAL_PENALTY);
+                if (this.input_manager.key_down_left) {
+                    this.fly_left(delta * 0.7071067811865476);
                 } else {
-                    this.fly_right(delta * DIAGONAL_PENALTY);
+                    this.fly_right(delta * 0.7071067811865476);
                 }
-            } else if (this.input_manager.up ^ this.input_manager.down) {
-                if (this.input_manager.up) {
+            } else if (this.input_manager.key_down_up ^ this.input_manager.key_down_down) {
+                if (this.input_manager.key_down_up) {
                     this.fly_forward(delta);
                 } else {
                     this.fly_backward(delta);
                 }
-            } else if (this.input_manager.left ^ this.input_manager.right) {
-                if (this.input_manager.left) {
+            } else if (this.input_manager.key_down_left ^ this.input_manager.key_down_right) {
+                if (this.input_manager.key_down_left) {
                     this.fly_left(delta);
                 } else {
                     this.fly_right(delta);
@@ -1549,25 +1754,25 @@ $_QE.prototype.FPSControls = function(camera) {
             this.yaw.position.y += this.velocity.y;
         } else {
             // Walking code.
-            if ((this.input_manager.up ^ this.input_manager.down) & (this.input_manager.left ^ this.input_manager.right)) {
-                if (this.input_manager.up) {
-                    this.move_forward(delta * DIAGONAL_PENALTY);
+            if ((this.input_manager.key_down_up ^ this.input_manager.key_down_down) & (this.input_manager.key_down_left ^ this.input_manager.key_down_right)) {
+                if (this.input_manager.key_down_up) {
+                    this.move_forward(delta * 0.7071067811865476);
                 } else {
-                    this.move_backward(delta * DIAGONAL_PENALTY);
+                    this.move_backward(delta * 0.7071067811865476);
                 }
-                if (this.input_manager.left) {
-                    this.move_left(delta * DIAGONAL_PENALTY);
+                if (this.input_manager.key_down_left) {
+                    this.move_left(delta * 0.7071067811865476);
                 } else {
-                    this.move_right(delta * DIAGONAL_PENALTY);
+                    this.move_right(delta * 0.7071067811865476);
                 }
-            } else if (this.input_manager.up ^ this.input_manager.down) {
-                if (this.input_manager.up) {
+            } else if (this.input_manager.key_down_up ^ this.input_manager.key_down_down) {
+                if (this.input_manager.key_down_up) {
                     this.fly_forward(delta);
                 } else {
                     this.fly_backward(delta);
                 }
-            } else if (this.input_manager.left ^ this.input_manager.right) {
-                if (this.input_manager.left) {
+            } else if (this.input_manager.key_down_left ^ this.input_manager.key_down_right) {
+                if (this.input_manager.key_down_left) {
                     this.move_left(delta);
                 } else {
                     this.move_right(delta);
@@ -1686,6 +1891,216 @@ $_QE.prototype.FPSControls = function(camera) {
 };
 
 
+// Key-down key-codes.
+
+
+
+$_QE.prototype.InputManager = function(player, manager_world) {
+    this.player            = player;
+    this.manager_world     = manager_world;
+
+    /*
+            if (CURRENT_CLIENT.is_mobile) {
+            // Inherit needed mobile controls.
+            MobileInputManager.call(this);
+            //MobileButtonManager.call(this);
+            MobileKeyboard.call(this);
+        } else {
+            // Check if the desktop client has touch controls in order to disable pinch zoom events.
+            if ('ontouchstart' in window) {
+                l('DESKTOP CLIENT HAS ONTOUCHSTART');
+                MobileInputManager.call(this);
+            }
+        }
+
+     */
+
+    this.click_down_left   = false;
+    this.click_down_right  = false;
+    this.click_down_middle = false;
+    this.key_down_up       = false;
+    this.key_down_down     = false;
+    this.key_down_left 	   = false;
+    this.key_down_right    = false;
+    this.key_down_space    = false;
+    this.key_down_shift    = false;
+
+    /* The flag that determines whether the wheel event is supported. */
+    this.supports_wheel    = false;
+
+    this.on_mouse_move = function(event) {
+        if (this.player.has_mouse_movement()) {
+            this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.on_key_up = function(event) {
+        if (this.player.has_movement()) {
+            switch (event.keyCode) {
+            case 38:
+            case 87:
+                this.key_down_up = false;
+                break;
+            case 37:
+            case 65:
+                this.key_down_left = false;
+                break;
+            case 40:
+            case 83:
+                this.key_down_down = false;
+                break;
+            case 39:
+            case 68:
+                this.key_down_right = false;
+                break;
+            case 32:
+                this.key_down_space = false;
+                break;
+            case 16:
+                this.key_down_shift = false;
+                break;
+            }
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.on_mouse_up = function(event) {
+        event = event || window.event;
+        switch (event.which) {
+        case 1:
+            this.click_down_left = false;
+            this.manager_world.left_click_up();
+            break;
+        case 2:
+            this.manager_world.middle_click_up();
+            this.click_down_middle = false;
+            break;
+        case 3:
+            this.manager_world.right_click_up();
+            this.click_down_right = false;
+            break;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.on_mouse_down = function(event) {
+        event = event || window.event;
+        switch (event.which) {
+        case 1:
+            this.manager_world.left_click_down();
+            this.click_down_left = true;
+            break;
+        case 2:
+            this.manager_world.middle_click_down();
+            this.click_down_middle = true;
+            break;
+        case 3:
+            this.manager_world.right_click_down();
+            this.click_down_right = true;
+            break;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.on_key_down = function(event) {
+        if (this.player.has_movement()) {
+            switch (event.keyCode) {
+            case 38:
+            case 87:
+                this.key_down_up = true;
+                break;
+            case 37:
+            case 65:
+                this.key_down_left = true;
+                break;
+            case 40:
+            case 83:
+                this.key_down_down = true;
+                break;
+            case 39:
+            case 68:
+                this.key_down_right = true;
+                break;
+            case 32:
+                this.key_down_space = true;
+                break;
+            case 16:
+                this.key_down_shift = true;
+                break;
+            }
+        }
+        this.manager_world.key_down_event(event);
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
+    this.on_wheel_event = function(event) {
+        if (this.player.has_input()) {
+            /* Check whether the wheel event is supported. */
+            if (event.type == 'wheel') this.supports_wheel = true;
+            else if (this.supports_wheel) return;
+            /* Determine the direction of the scroll (< 0 → up, > 0 → down). */
+            //this.manager_world.current_world.wheel_event(((event.deltaY || -event.wheelDelta || event.detail) >> 10) || 1);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.on_paste = function(event) {
+        if (this.player.has_paste_event()) {
+            // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
+            let clipboard_data = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData;
+            let pasted_data = clipboard_data.getData('text');
+            console.log('TODO: PASTE {' + pasted_data + '}');
+            //this.manager_world.current_world.currently_looked_at_object.parse_text(pasted_data);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    };
+
+    this.reset_keys = function() {
+        this.key_down_up 	= false;
+        this.key_down_down  = false;
+        this.key_down_left  = false;
+        this.key_down_right = false;
+        this.key_down_space = false;
+        this.key_down_shift = false;
+    };
+
+    this.reset_mouse = function() {
+        this.click_down_left   = false;
+        this.click_down_right  = false;
+        this.click_down_middle = false;
+    };
+
+    this.reset = function() {
+        this.reset_keys();
+        this.reset_mouse();
+    };
+
+    document.addEventListener('mousedown', this.on_mouse_down.bind(this), true);
+    document.addEventListener('mouseup'  , this.on_mouse_up.bind(this), true);
+    document.addEventListener('keydown'  , this.on_key_down.bind(this), true);
+    document.addEventListener('keyup'    , this.on_key_up.bind(this), true);
+    document.addEventListener('paste'     , this.on_paste.bind(this), true);
+
+    document.addEventListener('mousemove', this.on_mouse_move.bind(this));
+
+    // Cross browser support for wheel events.
+    // Base code from : https://stackoverflow.com/questions/25204282/mousewheel-wheel-and-dommousescroll-in-javascript
+    // TODO : Double check to only add one of them and not all 3 if all 3 are supported.
+    document.addEventListener('wheel'  , this.on_wheel_event.bind(this), true);
+    document.addEventListener('mousewheel'  , this.on_wheel_event.bind(this), true);
+    document.addEventListener('DOMMouseScroll'  , this.on_wheel_event.bind(this), true);
+
+};
+
 $_QE.prototype.WorldManager = function(player, renderer, application) {
     this.previous_world = null;
     this.current_world  = null;
@@ -1701,10 +2116,100 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.first_world.create_for_first_render();
 
         this.environment = new $_QE.prototype.WorldEnvironment(this.first_world);
+
         //this.player_cursor = new $_QE.prototype.PlayerCursor();
         //this.player_menu = new PlayerMenu();
         //this.player_cursor = new PlayerCursor();
         //this.environment = new WorldEnvironment();
+    };
+
+    this.set_current_world = function(world, transition_finished_callback) {
+        let previous_position_and_look_at;
+
+        if (this.current_world !== null) {
+            //this.player_cursor.detach();
+            // Make sure to hide the player menu if it is visible.
+            //if (this.player_menu.is_currently_visible()) {
+            //    this.player_menu.toggle_visibility();
+            //}
+
+            //previous_position_and_look_at = this.current_world.exit_world();
+
+            // Before exiting the world make sure to remove certain objects that are not world-unique.
+            this.current_world.remove_from_scene(this.player.yaw);
+
+            this.previous_world = this.current_world;
+        }
+        this.current_world = world;
+
+        // Before switching to the new scene make sure it has all non world-unique objects.
+        this.current_world.add_to_scene(this.player.yaw);
+
+        // Set the player position ahead of time.
+        //this.current_world.set_player_enter_position_and_look_at();
+        //this.current_world.enter_world(this.player_cursor);
+
+        if (is_defined(this.previous_world)) {
+            //this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
+            //this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
+            //MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at, this._singleton_transition_after_old_scene_fbo.bind(this, this.current_world, this.previous_world));
+        } else {
+            //MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
+        }
+
+        //this.current_world.enter_world(this.player_cursor);
+    };
+
+    this.update = function(delta) {
+        if (this.player.currently_loading()) {
+            return;
+        }
+
+        this.player.physics(delta);
+        this.environment.update(delta);
+
+        if (this.renderer.in_transition) {
+            return;
+        }
+
+        // TODO : Double check on what order these should update.
+
+        //if (MANAGER_WORLD.current_player_menu.is_visible()) {
+        //    MANAGER_WORLD.current_player_menu.update(delta);
+        //}
+
+        let a;
+        for (a = 0; a < this.current_world.root_attachables.length; a++) {
+            if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
+                this.current_world.root_attachables[a].update(delta);
+
+                //if (this.current_world.root_attachables[a].hasOwnProperty('update_all_child_animations_recursively')) {
+                //    this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
+                //} else {
+                //    l('Investigate this?');
+                //}
+
+            }
+        }
+
+
+        /*
+        if (!this.player_cursor._currently_engaged) {
+            // Don't update interactive objects during a transition or during chat typing.
+            if (!this.renderer.in_transition || this.player.current_state === 4) {
+
+                // TODO : Prevent interactive objects update if there has been no movement/inputs.
+
+
+
+                this.current_world.update_interactive_objects();
+            }
+        }
+
+        this.current_world.floating_cursor.update();
+        */
+
+        //l('Update performed!');
     };
 
 };
@@ -1855,11 +2360,11 @@ $_QE.prototype.WorldManagerInput = function() {
     this.left_click_up = function() {
         if (this.player.has_input()) {
 
-            if (this.current_world.floating_cursor._currently_engaged) {
-                this.current_world.floating_cursor.disengage();
-            } else {
-                this.current_world.single_left_click();
-            }
+            //if (this.current_world.floating_cursor._currently_engaged) {
+            //    this.current_world.floating_cursor.disengage();
+            //} else {
+            this.current_world.single_left_click();
+            //}
 
         } else {
             if (this.player.is_paused()) {
@@ -1879,11 +2384,11 @@ $_QE.prototype.WorldManagerInput = function() {
             this._left_click_clock.start();
         } else if (this.player.has_input()) {
             // Cursor engage.
-            if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
-                if (this.current_world.floating_cursor.currently_attached_to.scalable) {
-                    this.current_world.floating_cursor.engage();
-                }
-            }
+            //if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
+            //    if (this.current_world.floating_cursor.currently_attached_to.scalable) {
+            //this.current_world.floating_cursor.engage();
+            //   }
+            //}
         }
     };
 
@@ -1910,7 +2415,7 @@ $_QE.prototype.WorldManagerInput = function() {
                     }
                 }
             } else {
-                this.player_menu.toggle_visibility();
+                //this.player_menu.toggle_visibility();
             }
         }
     };
@@ -1920,17 +2425,17 @@ $_QE.prototype.WorldManagerInput = function() {
 
     this.key_down_event = function(event) {
         if (this.player.in_typing_state()) {
-            if (event.keyCode === KEY_CODE__ENTER) {
-                this.player.add_text_and_leave_typing_state();
+            if (event.keyCode === 13) {
+                //this.player.add_text_and_leave_typing_state();
             } else {
                 this.client.key_down_event(event);
             }
         } else if (this.player.has_input()) {
-            if (event.keyCode === KEY_CODE__ENTER) {
+            if (event.keyCode === 13) {
                 if (!this.player.engaged_with_object()) {
-                    if (this.client.is_logged_in()) {
-                        this.player.set_state(4);
-                    }
+                    //if (this.client.is_logged_in()) {
+                    //this.player.set_state(4);
+                    //}
                 } else {
                     this._key_down_event(event);
                 }
@@ -1982,13 +2487,13 @@ $_QE.prototype.WorldInput = function() {
     };
 
     this.key_down_event_for_interactive_objects = function(event) {
-        if (event.keyCode === KEY_CODE__TAB) {
+        if (event.keyCode === 9) {
             this.tab_to_next_interactive_object();
         } else {
             if (is_defined(this.currently_looked_at_object)) {
                 if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
                     this.currently_looked_at_object.parse_keycode(event);
-                } else if (event.keyCode === KEY_CODE__ENTER) {
+                } else if (event.keyCode === 13) {
                     if (!this.currently_looked_at_object.is_engaged()) {
                         this.currently_looked_at_object.engage();
                     }
@@ -2299,6 +2804,32 @@ $_QE.prototype.WorldEnvironment = function() {
     };
 
     this.create = function(world) {
+        this.grid = new $_QE.prototype.HexagonGrid();
+        this.grid.__init__(6);
+        this.grid.create();
+        //world.add_to_scene(this.grid.object3D);
+
+        // Default lights.
+        this.light_delta = 0;
+        this.light_delta_cap = 10;
+        this.light_radius = 1000;
+
+        this.light_0 = new THREE.PointLight(0xccffcc, .5, 0);
+        this.light_0.position.set(5, 100, 5);
+        world.add_to_scene(this.light_0);
+
+        this.light_1 = new THREE.PointLight(0xff8579, .5, 0);
+        this.light_1.position.set(1000, 100, 0);
+        world.add_to_scene(this.light_1);
+
+        this.light_2 = new THREE.PointLight(0xb1ff90, .5, 0);
+        this.light_2.position.set(0, 100, 1000);
+        world.add_to_scene(this.light_2);
+
+        this.light_3 = new THREE.PointLight(0x84b5ff, .5, 0);
+        this.light_3.position.set(500, 100, 500);
+        world.add_to_scene(this.light_3);
+
         // soft white light
         this.light = new THREE.AmbientLight(0xffffff, .60);
         world.add_to_scene(this.light);
@@ -3356,7 +3887,7 @@ $_QE.prototype.TextAbstraction = function(text) {
     this.parse_keycode = function(event) {
         let keycode = event.keyCode;
 
-        if (keycode === KEY_CODE__DELETE) {
+        if (keycode === 8) {
             if (this.get_text().length > 0) {
                 this._pop_character();
                 MANAGER_AUDIO.play_typing_sound();
@@ -3597,7 +4128,7 @@ $_QE.prototype.FloatingElement = function(world) {
         let label = new $_QE.prototype.FloatingText2D(this.world, this.height, text, null, cacheable, cacheable_texture);
         label.set_current_foreground_color(COLOR_BLUE, true);
         label.is_left_attachment = true;
-        this.add_floating_element([-label.width / 2, -HALF], null, 0, label);
+        this.add_floating_element([-label.width / 2, -0.5], null, 0, label);
         return label;
     };
 
@@ -3609,25 +4140,25 @@ $_QE.prototype.FloatingElement = function(world) {
             label = new $_QE.prototype.FloatingText2D(this.world, this.height, text);
         }
         label.is_right_attachment = true;
-        this.add_floating_element([label.width / 2, HALF], null, 0, label);
+        this.add_floating_element([label.width / 2, 0.5], null, 0, label);
         return label;
     };
 
     this.add_icon_left = function(icon_type) {
         let icon = new $_QE.prototype.FloatingIcon(this.world, icon_type, this.height);
-        this.add_floating_element([-this.height / 2, -HALF], null, 0, icon);
+        this.add_floating_element([-this.height / 2, -0.5], null, 0, icon);
         return icon;
     };
 
     this.add_icon_button_left = function(icon_type, engage_function) {
         let icon_button = new $_QE.prototype.FloatingIconButton(this.world, icon_type, this.height, engage_function);
-        this.add_floating_element([-this.height / 2, -HALF], null, 0, icon_button);
+        this.add_floating_element([-this.height / 2, -0.5], null, 0, icon_button);
         return icon_button;
     };
 
     this.add_icon_button_right = function(icon_type, engage_function) {
         let icon_button = new $_QE.prototype.FloatingIconButton(this.world, icon_type, this.height, engage_function);
-        this.add_floating_element([this.height / 2, HALF], null, 0, icon_button);
+        this.add_floating_element([this.height / 2, 0.5], null, 0, icon_button);
         return icon_button;
     };
 
@@ -3636,7 +4167,7 @@ $_QE.prototype.FloatingElement = function(world) {
         if (is_defined(color)) {
             button.set_foreground_color(color);
         }
-        this.add_floating_element([button.width / 2, HALF], null, 0, button);
+        this.add_floating_element([button.width / 2, 0.5], null, 0, button);
         return button;
     };
 };
@@ -3959,6 +4490,161 @@ $_QE.prototype.FloatingText3D = function(world, size, text) {
     this.create_base_mesh();
 };
 
+$_QE.prototype.HexagonGrid = function(number_of_layers) {
+    this.number_of_layers = number_of_layers;
+
+    this.h = 55.42562484741211;
+    this.w_distance = Math.sqrt(3 * this.h * this.h);
+
+
+    this.create = function() {
+        this.single_geometry = new THREE.Geometry();
+        this.materails = [];
+
+        this._create_tile(0, 0, 0);
+        let tile = 1;
+
+        let layer;
+        for (layer = 1; layer < this.number_of_layers; layer++) {
+            let number_of_tiles = layer * 6;
+
+            let gap = layer - 1;
+            let direction = 1;
+            let filled = gap;
+
+            let offset_x = this._get_x_offset(direction) * gap;
+            let offset_y = this._get_y_offset(direction) * gap;
+
+            let i = 1;
+            while (i < number_of_tiles + 1) {
+                offset_x += this._get_x_offset(direction);
+                offset_y += this._get_y_offset(direction);
+
+                this._create_tile(offset_x, offset_y, tile);
+                tile += 1;
+
+                if (filled === gap) {
+                    direction += 1;
+                    filled = 0;
+                    if (direction > 7) {
+                        direction = 1;
+                    }
+                } else {
+                    filled += 1;
+                }
+                i += 1;
+            }
+        }
+
+        this.object3D = new THREE.Object3D();
+
+        this.single_geometry.computeFaceNormals();
+        this.single_geometry.computeVertexNormals();
+
+        this.single_mesh = new THREE.Mesh(this.single_geometry, this.materails);
+
+        this.object3D.add(this.single_mesh);
+
+        this.object3D.lookAt(0, 1, 0);
+
+        this.object3D.scale.set(3, 3, 3);
+        this.object3D.matrixAutoUpdate = false;
+        this.object3D.updateMatrix();
+        this.object3D.matrixWorldNeedsUpdate = true;
+
+        this._clear_cache();
+    };
+
+    this._create_cache = function() {
+        this.tile = new THREE.Geometry();
+
+        let v0 = new THREE.Vector3(0, 0, 0);
+        let v1 = new THREE.Vector3(64, 0, 0);
+        let v2 = new THREE.Vector3(32, 55.42562484741211, 0);
+        let v3 = new THREE.Vector3(-32, 55.42562484741211, 0);
+        let v4 = new THREE.Vector3(-64, 0, 0);
+        let v5 = new THREE.Vector3(-32, -55.42562484741211, 0);
+        let v6 = new THREE.Vector3(32, -55.42562484741211, 0);
+
+        this.tile.vertices.push(v0);
+        this.tile.vertices.push(v1);
+        this.tile.vertices.push(v2);
+        this.tile.vertices.push(v3);
+        this.tile.vertices.push(v4);
+        this.tile.vertices.push(v5);
+        this.tile.vertices.push(v6);
+
+        this.tile.faces.push(new THREE.Face3(1, 2, 0));
+        this.tile.faces.push(new THREE.Face3(2, 3, 0));
+        this.tile.faces.push(new THREE.Face3(3, 4, 0));
+        this.tile.faces.push(new THREE.Face3(4, 5, 0));
+        this.tile.faces.push(new THREE.Face3(5, 6, 0));
+        this.tile.faces.push(new THREE.Face3(6, 1, 0));
+    };
+
+    this._clear_cache = function() {
+        this.tile.dispose();
+        this.tile = undefined;
+    };
+
+    this._create_tile = function(x_offset, y_offset, material_offset) {
+        let c = new THREE.MeshPhongMaterial({color: this._get_random_grey()});
+        c.needsUpdate = true;
+        this.materails.push(c);
+
+        let m = new THREE.Matrix4();
+        m.makeTranslation(x_offset, y_offset, 0);
+
+        this.single_geometry.merge(this.tile, m, material_offset);
+    };
+
+    this._get_random_grey = function() {
+        //let v =  Math.floor(Math.random() * 10);
+        let v = (Math.random() * 10) | 0;
+        return 'rgb(' + parseInt(20 + v) + ',' + parseInt(20 + v) + ',' + parseInt(20 + v) + ')';
+    };
+
+    this._get_x_offset = function(d) {
+        switch(d) {
+        case 1:
+            return 0;
+        case 2:
+            return -this.w_distance;
+        case 3:
+            return 0;
+        case 4:
+            return this.w_distance;
+        case 5:
+            return this.w_distance;
+        case 6:
+            return 0;
+        case 7:
+            return -this.w_distance;
+        }
+    };
+
+    this._get_y_offset = function(d) {
+        switch(d) {
+        case 1:
+            return this.h * 2;
+        case 2:
+            return -this.h;
+        case 3:
+            return -this.h * 2;
+        case 4:
+            return -this.h;
+        case 5:
+            return this.h;
+        case 6:
+            return this.h * 2;
+        case 7:
+            return this.h;
+        }
+    };
+
+    this._create_cache();
+};
+
 
 
 
@@ -4001,6 +4687,9 @@ $_QE.prototype.AssetManager = function(engine) {
             case 1:
                 this.manager_textures.add_initial_render_required_asset('a.png');
                 this.manager_shaders.add_initial_render_required_asset('sm3');
+                break;
+            case 2:
+                this.manager_shaders.add_initial_render_required_asset('sm2');
                 break;
             }
         }
@@ -4143,12 +4832,12 @@ ManagerManager.prototype.set_spritesheet_manager = function() {
 $_QE.prototype.ShaderManager = function(engine) {
     $_QE.prototype.AssetManagerAbstraction.call(this, null, engine);
 
-    this._shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
-    this._shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
-    this._shader_film_fragment        = ''; // #pre-process_get_shader_film.frag
-    this._shader_film_vertex          = ''; // #pre-process_get_shader_film.vert
-    this._shader_transition_fragment  = ''; // #pre-process_get_shader_transition.frag
-    this._shader_transition_vertex    = ''; // #pre-process_get_shader_transition.vert
+    this._shader_spritesheet_fragment = '// Originally based off of : https://gist.github.com/mattdw/60efe28d5e787655f618e2a70a4e8bfe\nvarying vec2 vUv;\nuniform sampler2D texture;\nuniform vec3 color;\nvoid main(void) {\n\tgl_FragColor = texture2D(texture, vUv) * vec4(color, 1.0);\n\tif (gl_FragColor.a < 0.1) {\n\t\tdiscard;\n\t} else {\n\t\tgl_FragColor.r = color.r;\n\t\tgl_FragColor.g = color.g;\n\t\tgl_FragColor.b = color.b;\n\t}\n}'; // #pre-process_get_shader_spritesheet.frag
+    this._shader_spritesheet_vertex   = '// Originally based off of : https://gist.github.com/mattdw/60efe28d5e787655f618e2a70a4e8bfe\nvarying vec2 vUv;\nuniform float offset;\nvoid main() {\n\tfloat number_of_textures = 1.0 / 27.0;\n\tvUv = vec2(uv.x, uv.y) * vec2(number_of_textures, 1.0) + vec2(number_of_textures * offset, 0.0);\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}'; // #pre-process_get_shader_spritesheet.vert
+    this._shader_film_fragment        = '/**\n * @author alteredq / http://alteredqualia.com/\n *\n * Film grain & scanlines shader\n *\n * - ported from HLSL to WebGL / GLSL\n * http://www.truevision3d.com/forums/showcase/staticnoise_colorblackwhite_scanline_shaders-t18698.0.html\n *\n * Screen Space Static Postprocessor\n *\n * Produces an analogue noise overlay similar to a film grain / TV static\n *\n * Original implementation and noise algorithm\n * Pat \'Hawthorne\' Shearon\n *\n * Optimized scanlines + noise version with intensity scaling\n * Georg \'Leviathan\' Steinrohder\n *\n * This version is provided under a Creative Commons Attribution 3.0 License\n * http://creativecommons.org/licenses/by/3.0/\n *\n * MODIFICATIONS MADE.\n */\n#include <common>\n\n// control parameter\nuniform float time;\n// noise effect intensity value (0 = no effect, 1 = full effect)\nuniform float nIntensity;\nuniform sampler2D tDiffuse;\nvarying vec2 vUv;\n\nvoid main() {\n	// sample the source\n	vec4 cTextureScreen = texture2D(tDiffuse, vUv);\n	// make some noise\n	float dx = rand(vUv + time);\n	// add noise\n	vec3 cResult = cTextureScreen.rgb + cTextureScreen.rgb * clamp(0.1 + dx, 0.0, 1.0);\n\n	// interpolate between source and result by intensity\n	//cResult = cTextureScreen.rgb + clamp( nIntensity, 0.0,1.0 ) * ( cResult - cTextureScreen.rgb );\n	//cResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (-cTextureScreen.rgb);\n\n\tcResult = cTextureScreen.rgb + clamp(nIntensity, 0.0, 1.0) * (cResult - cTextureScreen.rgb);\n\n	//gl_FragColor = vec4(cResult, cTextureScreen.a);\n	//cResult = vec3(cResult.r * 0.3 + cResult.g * 0.59 + cResult.b * 0.11);\n	gl_FragColor = vec4(cResult, cTextureScreen.a);\n}'; // #pre-process_get_shader_film.frag
+    this._shader_film_vertex          = '/**\n * @author alteredq / http://alteredqualia.com/\n *\n * Film grain & scanlines shader\n *\n * - ported from HLSL to WebGL / GLSL\n * http://www.truevision3d.com/forums/showcase/staticnoise_colorblackwhite_scanline_shaders-t18698.0.html\n *\n * Screen Space Static Postprocessor\n *\n * Produces an analogue noise overlay similar to a film grain / TV static\n *\n * Original implementation and noise algorithm\n * Pat \'Hawthorne\' Shearon\n *\n * Optimized scanlines + noise version with intensity scaling\n * Georg \'Leviathan\' Steinrohder\n *\n * This version is provided under a Creative Commons Attribution 3.0 License\n * http://creativecommons.org/licenses/by/3.0/\n */\nvarying vec2 vUv;\nvoid main() {\n\tvUv = uv;\n	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}'; // #pre-process_get_shader_film.vert
+    this._shader_transition_fragment  = '// Base shader from : https://github.com/mrdoob/three.js/blob/master/examples/js/crossfade/transition.js\nuniform float mix_ratio;\nuniform sampler2D texture_diffuse_new_scene;\nuniform sampler2D texture_diffuse_old_scene;\nuniform sampler2D texture_mix;\nuniform float threshold;\nvarying vec2 vUv;\nvoid main() {\n\tvec4 texel1 = texture2D(texture_diffuse_new_scene, vUv);\n\tvec4 texel2 = texture2D(texture_diffuse_old_scene, vUv);\n\tvec4 transition_texel = texture2D(texture_mix, vUv);\n\tfloat r = mix_ratio * (1.0 + threshold * 2.0) - threshold;\n\tfloat mixf = clamp((transition_texel.r - r) * (1.0 / threshold), 0.0, 1.0);\n\tgl_FragColor = mix(texel1, texel2, mixf);\n}'; // #pre-process_get_shader_transition.frag
+    this._shader_transition_vertex    = '// Base shader from : https://github.com/mrdoob/three.js/blob/master/examples/js/crossfade/transition.js\nvarying vec2 vUv;\nvoid main() {\n	vUv = vec2(uv.x, uv.y);\n	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}'; // #pre-process_get_shader_transition.vert
 
     this._assets['sm1']  = null;
     this._assets['sm2']       = null;
@@ -4329,7 +5018,7 @@ $_NL.prototype = {
         this.engine_setting_shaders_enabled        = true;
         this.engine_setting_shader_fxaa_enabled    = true;
         this.engine_setting_shader_outline_enabled = true;
-        this.engine_setting_shader_grain_enabled   = false;
+        this.engine_setting_shader_grain_enabled   = true;
     }
 };
 
@@ -4370,10 +5059,11 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.create_for_first_render = function() {
-        this.nexus_local_title = new $_QE.prototype.FloatingText3D(this, 256, 'Quasar Source');
-        this.nexus_local_title.set_position(1900, 500, 1000);
+        this.nexus_local_title = new $_QE.prototype.FloatingText3D(this, 256, 'Nexus Local');
+        this.nexus_local_title.set_position(400, 200, -400);
         this.nexus_local_title.look_at_origin(false);
         this.nexus_local_title.set_to_manual_positioning();
+
     };
 
 };

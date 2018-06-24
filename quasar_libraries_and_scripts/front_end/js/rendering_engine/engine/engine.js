@@ -32,7 +32,9 @@ $_QE.prototype = {
 
     __init__: function() {
         console.log('Quasar Engine created!');
-        this.UP_VECTOR = new THREE.Vector3(0, 1, 0);
+        this.UP_VECTOR   = new THREE.Vector3(0, 1, 0);
+        this.delta_clock = new THREE.Clock(false);
+        this.delta       = 0;
     },
 
     /*__  ___       __  ___          __      __  ___  ___  __   __
@@ -70,28 +72,75 @@ $_QE.prototype = {
 
         this.manager_heap        = this.get_heap_manager();
 
+        this.client.set_pause_menu_text_and_sub_text('Loading', 'asset files...');
+
         // Setting the engine default initial-render-required assets.
         this.manager_assets.add_initial_render_required_asset(ASSET_REQUIRED_SPRITESHEET);
+        this.manager_assets.add_initial_render_required_asset(ASSET_REQUIRED_FILM_SHADER);
         this.manager_assets.load_required_initial_render_assets(this.initial_required_assets_loaded.bind(this), this.manager_shaders, this.manager_textures);
     },
 
     initial_required_assets_loaded: function() {
         l('Initial required assets finished loading!');
 
-        this.renderer    = new $_QE.prototype.RendererManager(this.client);
-        this.client.pre_render_initialize(this.renderer);
+        this.client.set_pause_menu_text_and_sub_text('Creating', 'world...');
 
-        this.player = new $_QE.prototype.Player(this.renderer.camera, this.client);
-        this.world_manager = new $_QE.prototype.WorldManager(this.player, this.renderer, this.application);
+        this.manager_renderer = new $_QE.prototype.RendererManager(this.client, this);
+        this.client.pre_render_initialize(this.manager_renderer);
 
-        this.world_manager.initialize_first_world();
+        this.player = new $_QE.prototype.Player(this.client, this);
+        this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
+
+        this.manager_world.initialize_first_world();
+
+        this.manager_input = new $_QE.prototype.InputManager(this.player, this.manager_world);
+        this.player.input_manager = this.manager_input;
+
+        this.manager_renderer.initialize_shaders(this.manager_world.first_world);
+
+        this.player.initialize_player_controls();
+
+        this.client._on_window_resize();
+
+        this.manager_world.set_current_world(this.manager_world.first_world);
+
+        // this.engine_loop();
+        this.engine_main_loop = this._engine_loop.bind(this);
+        this._main_loop_logic();
+
+        this.player.set_state(PLAYER_STATE_PAUSED);
+        this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
+
+        this.engine_main_loop();
     },
 
     /*___       __          ___          __   __       ___  ___          __   __   __
      |__  |\ | / _` | |\ | |__     |  | |__) |  \  /\   |  |__     |    /  \ /  \ |__)
      |___ | \| \__> | | \| |___    \__/ |    |__/ /~~\  |  |___    |___ \__/ \__/ |    */
-    reset_delta: function() {
+    _main_loop_logic: function() {
+        this.delta = this.delta_clock.getDelta();
 
+        this.client.pre_render();
+
+        //this.client.update();
+        this.manager_world.update(this.delta);
+
+        this.manager_renderer.render(this.delta);
+
+        this.client.post_render();
+
+        this.delta_clock.start();
+    },
+
+    _engine_loop: function() {
+        requestAnimationFrame(this.engine_main_loop);
+        if (this.player.current_state !== PLAYER_STATE_PAUSED) {
+            this._main_loop_logic();
+        }
+    },
+
+    reset_delta: function() {
+        this.delta_clock.start();
     }
 };
 

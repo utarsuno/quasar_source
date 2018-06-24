@@ -21,6 +21,7 @@ const ASSET_SHADER_NOISE_FRAGMENT       = 's5';  // #pre-process_global_constant
 const ASSET_SHADER_NOISE_VERTEX         = 's6';  // #pre-process_global_constant
 
 const ASSET_REQUIRED_SPRITESHEET = 1; // #pre-process_global_constant
+const ASSET_REQUIRED_FILM_SHADER = 2; // #pre-process_global_constant
 
 $_QE.prototype.AssetManager = function(engine) {
     this.engine = engine;
@@ -60,6 +61,9 @@ $_QE.prototype.AssetManager = function(engine) {
             case ASSET_REQUIRED_SPRITESHEET:
                 this.manager_textures.add_initial_render_required_asset(ASSET_TEXUTRE_SPRITESHEET_ICONS);
                 this.manager_shaders.add_initial_render_required_asset(ASSET_SHADER_MATERIAL_SPRITESHEET);
+                break;
+            case ASSET_REQUIRED_FILM_SHADER:
+                this.manager_shaders.add_initial_render_required_asset(ASSET_SHADER_MATERIAL_NOISE);
                 break;
             }
         }

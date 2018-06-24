@@ -7,9 +7,9 @@
  * MODIFICATIONS MADE!!!
  */
 
-function FilmNoise() {
+$_QE.prototype.FilmNoise = function() {
     THREE.Pass.call(this);
-    this.shader_material = MANAGER_SHADER.get_shader_material_abstraction(SHADER_MATERIAL_NOISE);
+    this.shader_material = QE.manager_shaders.get_asset(ASSET_SHADER_MATERIAL_NOISE);
     this.material = this.shader_material.get_shader_material();
 
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -18,21 +18,22 @@ function FilmNoise() {
     this.quad = new THREE.Mesh(new THREE.PlaneBufferGeometry(2, 2), null);
     this.quad.frustumCulled = false; // Avoid getting clipped
     this.scene.add(this.quad);
-}
+};
 
-FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
 
-    constructor: FilmNoise,
+$_QE.prototype.FilmNoise.prototype = Object.assign(Object.create(THREE.Pass.prototype), {
+
+    constructor: $_QE.prototype.FilmNoise,
 
     render: function(renderer, writeBuffer, readBuffer, delta, maskActive) {
-    	this.shader_material.set_t_diffuse(readBuffer.texture);
-    	this.shader_material.add_time(delta);
-    	this.quad.material = this.material;
-    	if (this.renderToScreen) {
-    		renderer.render(this.scene, this.camera);
-    	} else {
-    		renderer.render(this.scene, this.camera, writeBuffer, this.clear);
-    	}
+        this.shader_material.set_t_diffuse(readBuffer.texture);
+        this.shader_material.add_time(delta);
+        this.quad.material = this.material;
+        if (this.renderToScreen) {
+            renderer.render(this.scene, this.camera);
+        } else {
+            renderer.render(this.scene, this.camera, writeBuffer, this.clear);
+        }
     }
 
 });

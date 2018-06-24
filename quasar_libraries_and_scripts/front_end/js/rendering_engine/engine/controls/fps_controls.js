@@ -35,9 +35,14 @@ $_QE.prototype.FPSControls = function(camera) {
     this._walking_direction   = new THREE.Vector3(0, 0, 0);
     this._left_right          = new THREE.Vector3(0, 0, 0);
 
+    this.set_position_xyz = function(x, y, z) {
+        this.yaw.position.set(x, y, z);
+    };
 
-    this.set_input_manager_reference = function(input_manager) {
-        this.input_manager = input_manager;
+    this.set_position = function(vector) {
+        this.yaw.position.x = vector.x;
+        this.yaw.position.y = vector.y;
+        this.yaw.position.z = vector.z;
     };
 
     this.toggle_flying = function() {
@@ -122,6 +127,8 @@ $_QE.prototype.FPSControls = function(camera) {
             return;
         }
 
+        //l('performing physics');
+
         if (this.has_mobile_movement) {
             this.fly_forward(delta * this.mobile_forward);
             this.fly_left(delta * this.mobile_horizontal);
@@ -129,32 +136,32 @@ $_QE.prototype.FPSControls = function(camera) {
 
         if (this.flying_on) {
             // Flying code.
-            if (this.input_manager.space) {
+            if (this.input_manager.key_down_space) {
                 this.velocity.y += this.movement_speed * delta;
             }
-            if (this.input_manager.shift) {
+            if (this.input_manager.key_down_shift) {
                 this.velocity.y -= this.movement_speed * delta;
             }
 
-            if ((this.input_manager.up ^ this.input_manager.down) & (this.input_manager.left ^ this.input_manager.right)) {
-                if (this.input_manager.up) {
+            if ((this.input_manager.key_down_up ^ this.input_manager.key_down_down) & (this.input_manager.key_down_left ^ this.input_manager.key_down_right)) {
+                if (this.input_manager.key_down_up) {
                     this.fly_forward(delta * DIAGONAL_PENALTY);
                 } else {
                     this.fly_backward(delta * DIAGONAL_PENALTY);
                 }
-                if (this.input_manager.left) {
+                if (this.input_manager.key_down_left) {
                     this.fly_left(delta * DIAGONAL_PENALTY);
                 } else {
                     this.fly_right(delta * DIAGONAL_PENALTY);
                 }
-            } else if (this.input_manager.up ^ this.input_manager.down) {
-                if (this.input_manager.up) {
+            } else if (this.input_manager.key_down_up ^ this.input_manager.key_down_down) {
+                if (this.input_manager.key_down_up) {
                     this.fly_forward(delta);
                 } else {
                     this.fly_backward(delta);
                 }
-            } else if (this.input_manager.left ^ this.input_manager.right) {
-                if (this.input_manager.left) {
+            } else if (this.input_manager.key_down_left ^ this.input_manager.key_down_right) {
+                if (this.input_manager.key_down_left) {
                     this.fly_left(delta);
                 } else {
                     this.fly_right(delta);
@@ -164,25 +171,25 @@ $_QE.prototype.FPSControls = function(camera) {
             this.yaw.position.y += this.velocity.y;
         } else {
             // Walking code.
-            if ((this.input_manager.up ^ this.input_manager.down) & (this.input_manager.left ^ this.input_manager.right)) {
-                if (this.input_manager.up) {
+            if ((this.input_manager.key_down_up ^ this.input_manager.key_down_down) & (this.input_manager.key_down_left ^ this.input_manager.key_down_right)) {
+                if (this.input_manager.key_down_up) {
                     this.move_forward(delta * DIAGONAL_PENALTY);
                 } else {
                     this.move_backward(delta * DIAGONAL_PENALTY);
                 }
-                if (this.input_manager.left) {
+                if (this.input_manager.key_down_left) {
                     this.move_left(delta * DIAGONAL_PENALTY);
                 } else {
                     this.move_right(delta * DIAGONAL_PENALTY);
                 }
-            } else if (this.input_manager.up ^ this.input_manager.down) {
-                if (this.input_manager.up) {
+            } else if (this.input_manager.key_down_up ^ this.input_manager.key_down_down) {
+                if (this.input_manager.key_down_up) {
                     this.fly_forward(delta);
                 } else {
                     this.fly_backward(delta);
                 }
-            } else if (this.input_manager.left ^ this.input_manager.right) {
-                if (this.input_manager.left) {
+            } else if (this.input_manager.key_down_left ^ this.input_manager.key_down_right) {
+                if (this.input_manager.key_down_left) {
                     this.move_left(delta);
                 } else {
                     this.move_right(delta);

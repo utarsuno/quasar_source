@@ -17,7 +17,7 @@ $_NL.prototype = {
         this.engine_setting_shaders_enabled        = true;
         this.engine_setting_shader_fxaa_enabled    = true;
         this.engine_setting_shader_outline_enabled = true;
-        this.engine_setting_shader_grain_enabled   = false;
+        this.engine_setting_shader_grain_enabled   = true;
     }
 };
 

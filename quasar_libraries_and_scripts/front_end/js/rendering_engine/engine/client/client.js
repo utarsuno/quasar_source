@@ -29,7 +29,7 @@ $_QE.prototype.Client = function() {
         state_window_height_outer       : null,
      */
 
-    this.debug_mode = DEBUG_MODE_FPS;
+    this.debug_mode = DEBUG_MODE_NONE;
     this.renderer = null;
 
     this.pre_render_initialize = function(renderer) {
@@ -41,6 +41,8 @@ $_QE.prototype.Client = function() {
         this.initialize_state_virtual_reality();
         this._fetch_window_dimensions();
         this.renderer.pre_render_initialize();
+
+        this.initialize_window_resize();
     };
 
     this.post_render_initialize = function() {
@@ -250,15 +252,17 @@ $_QE.prototype.Client = function() {
         this.state_window_height_outer = window.outerHeight;
     };
 
+    this._on_window_resize = function() {
+        this._fetch_window_dimensions();
+        this.renderer.window_resize_event();
+    };
+
     this.on_window_resize = function(event) {
         // FOR_DEV_START
         l('Window resize event! Printing the event!');
         l(event);
         // FOR_DEV_END
-        this._fetch_window_dimensions();
-
-        this.renderer.window_resize_event();
-
+        this._on_window_resize();
         event.preventDefault();
         event.stopPropagation();
     };
@@ -315,7 +319,7 @@ $_QE.prototype.Client = function() {
 
     this.pointer_lock_change = function () {
         if (document.pointerLockElement !== this._document_body && document.mozPointerLockElement !== this._document_body && document.webkitPointerLockElement !== this._document_body) {
-            CURRENT_PLAYER.set_state(PLAYER_STATE_PAUSED);
+            QE.player.set_state(PLAYER_STATE_PAUSED);
             this.state_is_pointer_locked = true;
         } else {
             this.state_is_pointer_locked = false;

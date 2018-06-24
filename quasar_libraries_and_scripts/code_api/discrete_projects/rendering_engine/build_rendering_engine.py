@@ -71,6 +71,11 @@ class QuasarRenderingEngineBuilder(object):
 		self.javascript_manager = jsm.JavascriptManager(self)
 		self.js = self.javascript_manager.load_all_content()
 
+		# Assets.
+		self.assets = ProjectComponent('quasar_rendering_engine_assets')
+		self.assets.add_base_code_directory(CodeDirectory('/quasar/source/quasar_assets/front_end/shaders/'))
+		self.assets.load_all_content()
+
 		# Assets
 		#self.assets = ProjectComponent('quasar_rendering_engine_assets')
 		#self.assets.add_base_code_directory(CodeDirectory('/quasar/source/quasar_assets/front_end'))
@@ -86,6 +91,7 @@ class QuasarRenderingEngineBuilder(object):
 		if self._engine_version == QUASAR_RENDERING_ENGINE_BUILD_ASSETS:
 			self._build_assets()
 		else:
+			self._get_assets()
 			self._build_css()
 			self._build_html()
 			self._build_js()
@@ -98,13 +104,24 @@ class QuasarRenderingEngineBuilder(object):
 		oc.print_data_with_red_dashes_at_start('compressing js files')
 		timer = SimpleTimer()
 		timer.start()
-		self.javascript_manager.build_js()
+		self.javascript_manager.build_js(self.assets)
 		timer.stop()
 		oc.print_green('js finished in ' + str(timer))
 
 	def _build_assets(self):
 		"""Builds the assets."""
 		oc.print_data_with_red_dashes_at_start('building + compressing assets')
+
+	def _get_assets(self):
+		"""Gets the assets."""
+		oc.print_data_with_red_dashes_at_start('getting assets')
+		timer = SimpleTimer()
+		timer.start()
+
+
+
+		timer.stop()
+		oc.print_green('assets finished in ' + str(timer))
 
 	def _build_html(self):
 		"""Builds the html."""

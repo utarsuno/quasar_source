@@ -80,7 +80,6 @@ def parse_out_constants(lines_to_parse):
 	return final_pass
 
 
-
 def parse_in_shaders(lines_to_parse, assets):
 	"""Returns the lines with certain constants parsed out."""
 
@@ -91,7 +90,10 @@ def parse_in_shaders(lines_to_parse, assets):
 			s = l[l.index('#pre-process_get_shader'):].rstrip()
 			shader_name = s.replace('#pre-process_get_shader_', '')
 			shader_file = assets.get_file_by_full_name(shader_name)
-			final_pass.append(l.replace('\'\';', shader_file.get_shader_as_javascript_string()))
+
+			shader_text = '\'' + shader_file.get_shader_as_javascript_string()[1:-2].replace('\'', '\\\'') + '\';'
+
+			final_pass.append(l.replace('\'\';', shader_text))
 		else:
 			final_pass.append(l)
 
@@ -152,7 +154,7 @@ class JavascriptManager(object):
 		self.engine          = rendering_engine_builder
 		self.js_files_needed = []
 
-	def build_js(self):
+	def build_js(self, assets):
 		"""Builds the needed javascript files."""
 
 		# Get the files needed to be combined.
@@ -190,7 +192,7 @@ class JavascriptManager(object):
 		all_code = combined_javascript_file.get_code_section('all_code')
 
 		# ///// Generate shader code.
-		#combined_lines = parse_in_shaders(combined_lines, self._assets)
+		combined_lines = parse_in_shaders(combined_lines, assets)
 		# /////
 
 		# /////
@@ -238,6 +240,7 @@ class JavascriptManager(object):
 
 		# Rendering manager.
 		self.js_files_needed.append('engine/rendering/renderer_manager.js')
+		self.js_files_needed.append('engine/rendering/film_pass.js')
 
 		# Player.
 		self.js_files_needed.append('player/player.js')
@@ -245,6 +248,7 @@ class JavascriptManager(object):
 
 		# Controls.
 		self.js_files_needed.append('engine/controls/fps_controls.js')
+		self.js_files_needed.append('engine/controls/input_manager.js')
 
 		# Worlds.
 		self.js_files_needed.append('engine/worlds/world_manager/world_manager.js')
@@ -283,6 +287,8 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js')
 
 		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js')
+
+		self.js_files_needed.append('engine/models/discrete_models/hexagon_grid/hexagon_grid.js')
 
 		# Asset Managers.
 		self.js_files_needed.append('engine/asset_management/asset_manager.js')	

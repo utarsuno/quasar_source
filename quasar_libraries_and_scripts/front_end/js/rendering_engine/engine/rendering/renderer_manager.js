@@ -1,11 +1,12 @@
 'use strict';
 
-$_QE.prototype.RendererManager = function(client) {
+$_QE.prototype.RendererManager = function(client, engine) {
     this.field_of_view = 75;
     this.near_clipping = 1.0;
     this.far_clipping  = 20000.0;
     this.aspect_ratio  = null;
     this.client        = client;
+    this.engine        = engine;
 
     this.pre_render_initialize = function() {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
@@ -17,6 +18,8 @@ $_QE.prototype.RendererManager = function(client) {
         //this.renderer.domElement.style.position = 'absolute';
         this.renderer.domElement.style.zIndex = 5;
         document.body.appendChild(this.renderer.domElement);
+
+        this.renderer.autoClear = true;
 
         this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
@@ -34,23 +37,23 @@ $_QE.prototype.RendererManager = function(client) {
     };
 
     this.render = function(delta) {
-        /*        if (this.in_transition) {
+        if (this.in_transition) {
             this._current_transition.render(delta);
         } else {
             this.effect_composer.render(delta);
-        }*/
+        }
     };
 
     this._resize_event_shader = function() {
-        if (this.shaders_enabled) {
+        if (this.engine.engine_setting_shaders_enabled) {
             this.effect_composer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
-            if (this.shader_enabled_fxaa) {
+            if (this.engine.engine_setting_shader_fxaa_enabled) {
                 this.effect_FXAA.uniforms['resolution'].value.set(1 / this.client.state_window_width_inner, 1 / this.client.state_window_height_inner);
             }
-            if (this.shader_enabled_outline) {
+            if (this.engine.engine_setting_shader_outline_enabled) {
                 //this.outline_glow.outline_pass.setSize(this.window_width, this.window_height);
             }
-            if (this.shader_enabled_grain) {
+            if (this.engine.engine_setting_shader_grain_enabled) {
                 //
             }
         }
@@ -66,14 +69,32 @@ $_QE.prototype.RendererManager = function(client) {
         this._resize_event_shader();
     };
 
-    this.initialize_shaders = function() {
+    this.initialize_shaders = function(world) {
         this.effect_composer = new THREE.EffectComposer(this.renderer);
+        this.render_pass = new THREE.RenderPass(world.scene, this.camera);
+        this.effect_composer.addPass(this.render_pass);
 
-        //this.render_pass = new THREE.RenderPass(MANAGER_WORLD.world_login.scene, this.camera);
+        //if (this.engine.engine_setting_shader_fxaa_enabled) {
+        //}
 
-        if (this.shader_enabled_fxaa) {
+        this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
+        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        //this.effect_FXAA.renderToScreen = true;
+        this.effect_composer.addPass(this.effect_FXAA);
 
-        }
+        //this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), world.scene, this.camera);
+        //this.effect_composer.addPass(this.outline_pass);
+
+        this.effect_film = new $_QE.prototype.FilmNoise();
+        this.effect_film.renderToScreen = true;
+        this.effect_composer.addPass(this.effect_film);
+
+        //this.outline_glow = new OutlineGlow(this.outline_pass);
+
+
+        //this.outline_glow.outline_pass.renderScene = world.scene;
+        this.render_pass.scene = world.scene;
+
     };
 
     /*
