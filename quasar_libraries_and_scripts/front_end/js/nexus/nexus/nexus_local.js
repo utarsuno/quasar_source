@@ -29,10 +29,14 @@ function $_QE() {
 $_QE.prototype = {
 
     __init__: function() {
-        console.log('Quasar Engine created!');
-        this.UP_VECTOR   = new THREE.Vector3(0, 1, 0);
-        this.delta_clock = new THREE.Clock(false);
-        this.delta       = 0;
+        this.UP_VECTOR       = new THREE.Vector3(0, 1, 0);
+        this.delta_clock     = new THREE.Clock(false);
+        this.delta           = 0;
+        this.gui_2d_elements = [];
+    },
+
+    add_gui_2d_element: function(e) {
+        this.gui_2d_elements.push(e);
     },
 
     /*__  ___       __  ___          __      __  ___  ___  __   __
@@ -108,6 +112,8 @@ $_QE.prototype = {
 
         this.player.set_state(2);
         this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
+
+        this.application.engine_started();
 
         this.engine_main_loop();
     },
@@ -529,15 +535,67 @@ function get_next_highest_power_of_two(n) {
  \__/  |  | |___ |  |   |     \__, \__/ | \| .__/  |  /~~\ | \|  |  .__/ */
 
 
-$_QE.prototype.DomElement = function(id_name, element) {
-    if (id_name === null) {
-        this.element = element;
-    } else {
-        this.element = document.getElementById(id_name);
+
+
+
+
+
+
+$_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_string) {
+    this._dom_type = dom_element_type;
+    switch (data_type) {
+    case 1:
+        this._id_name = data;
+        this._element = document.getElementById(this._id_name);
+        break;
+    case 2:
+        this._id_name = data;
+        this._element = null;
+        break;
+    case 3:
+        this._element = data;
+        this._id_name = this._element.id;
+        break;
     }
-    this._current_text = null;
+
+    if (is_string) {
+        $_QE.prototype.DomElementString.call(this);
+    }
+
     // Default.
-    this.display_style = 'block';
+    this._display_style = 'block';
+
+    //
+
+    this.create_element = function() {
+        this._element = document.createElement(this._dom_type);
+        if (is_defined(this._id_name)) {
+            this._element.id = this._id_name;
+        }
+    };
+
+    //
+    this.hide = function() {
+        this._element.style.display = 'none';
+        this.hidden = true;
+    };
+
+    this.show = function() {
+        this._element.style.display = this._display_style;
+        this.hidden = false;
+    };
+
+    this.make_invisible = function() {
+        this._element.style.visibility = 'hidden';
+        this.visible = false;
+    };
+
+    this.make_visible = function() {
+        this._element.style.visibility = 'visible';
+        this.visible = true;
+    };
+
+    //
 
     this.prepend_child_element = function(element_id) {
         return this._add_child_element(true, element_id);
@@ -548,45 +606,37 @@ $_QE.prototype.DomElement = function(id_name, element) {
     };
 
     this.append_to_document_body = function() {
-        document.body.appendChild(this.element);
+        document.body.appendChild(this._element);
     };
 
     this.add_class = function(class_name) {
-        this.element.classList.add(class_name);
+        this._element.classList.add(class_name);
     };
 
     this.prepend_break = function() {
         let node = document.createElement('br');
-        this.element.prepend(node);
+        this._element.prepend(node);
     };
 
     this.add_break_element = function() {
         let node = document.createElement('br');
-        this.element.appendChild(node);
+        this._element.appendChild(node);
     };
 
     this._add_child_element = function(prepend, element_id) {
         let node = document.createElement('div');
         node.id = element_id;
         if (prepend) {
-            this.element.prepend(node);
+            this._element.prepend(node);
         } else {
-            this.element.appendChild(node);
+            this._element.appendChild(node);
         }
-        return new $_QE.prototype.DomElement(element_id);
+        return new $_QE.prototype.DomElement(element_id, 1, 'div', true);
     };
 
+    //
     this.get_element = function() {
-        return this.element;
-    };
-
-    this.get_text = function() {
-        return this._current_text;
-        //return this.element.innerHTML;
-    };
-
-    this.clear = function() {
-        this.set_text('');
+        return this._element;
     };
 
     this._get_offset = function(o) {
@@ -596,197 +646,494 @@ $_QE.prototype.DomElement = function(id_name, element) {
         return o + 'px';
     };
 
-    this.set_id = function(_id) {
-        this.element.id = _id;
-    };
-
-    this.set_text = function(text) {
-        if (this._current_text !== text) {
-            this.element.innerHTML = text;
-            this._current_text = text;
-        }
-    };
-
-    this.set_position_to_absolute = function() {
-        this.element.style.position = 'absolute';
-    };
-
-    this.set_left_offset = function(o) {
-        this.element.style.left = this._get_offset(o);
-    };
-
-    this.set_top_offset = function(o) {
-        this.element.style.top = this._get_offset(o);
-    };
-
-    this.set_color = function(color) {
-        this.element.style.color = color;
-    };
-
-    this.set_display_style = function(style) {
-        this.display_style = style;
-    };
-
-    this.hide = function() {
-        this.element.style.display = 'none';
-        this.hidden = true;
-    };
-
-    this.show = function() {
-        this.element.style.display = this.display_style;
-        this.hidden = false;
-    };
-
     this.is_hidden = function() {
         return this.hidden;
-    };
-
-    this.make_invisible = function() {
-        this.element.style.visibility = 'hidden';
-        this.visible = false;
-    };
-
-    this.make_visible = function() {
-        this.element.style.visibility = 'visible';
-        this.visible = true;
     };
 
     this.is_visible = function() {
         return this.visible;
     };
+
+    //
+
+    this.set_id = function(_id) {
+        if (this._id_name !== _id) {
+            this._id_name = _id;
+            this._element.id = _id;
+        }
+    };
+
+    this.set_position_to_absolute = function() {
+        this._element.style.position = 'absolute';
+    };
+
+    this.set_left_offset = function(o) {
+        this._element.style.left = this._get_offset(o);
+    };
+
+    this.set_top_offset = function(o) {
+        this._element.style.top = this._get_offset(o);
+    };
+
+    this.set_color = function(color) {
+        this._element.style.color = color;
+    };
+
+    this.set_display_style = function(style) {
+        this._display_style = style;
+    };
+
 };
 
-/*
-function DomElement(id_name, element) {
-    this.__init__(id_name, element);
-}
+$_QE.prototype.DomElementString = function() {
 
-DomElement.prototype = {
+    this._current_text = null;
 
-    __init__: function(id_name, element) {
-        if (id_name === null) {
-            this.element = element;
-        } else {
-            this.element = document.getElementById(id_name);
-        }
-        this._current_text = null;
-        // Default.
-        this.display_style = 'block';
-    },
-
-    prepend_child_element: function(element_id) {
-        return this._add_child_element(true, element_id);
-    },
-
-    append_child_element: function(element_id) {
-        return this._add_child_element(false, element_id);
-    },
-
-    add_class: function(class_name) {
-        this.element.classList.add(class_name);
-    },
-
-    prepend_break: function() {
-        let node = document.createElement('br');
-        this.element.prepend(node);
-    },
-
-    add_break_element: function() {
-        let node = document.createElement('br');
-        this.element.appendChild(node);
-    },
-
-    _add_child_element: function(prepend, element_id) {
-        let node = document.createElement('div');
-        node.id = element_id;
-        if (prepend) {
-            this.element.prepend(node);
-        } else {
-            this.element.appendChild(node);
-        }
-        return new DomElement(element_id);
-    },
-
-    get_element: function() {
-        return this.element;
-    },
-
-    get_text: function() {
-        return this._current_text;
-        //return this.element.innerHTML;
-    },
-
-    clear: function() {
+    this.clear = function() {
         this.set_text('');
-    },
+    };
 
-    _get_offset: function(o) {
-        if (o === 0) {
-            return 0;
-        }
-        return o + 'px';
-    },
-
-    set_id: function(_id) {
-        this.element.id = _id;
-    },
-
-    set_text: function(text) {
+    this.set_text = function(text) {
         if (this._current_text !== text) {
-            this.element.innerHTML = text;
+            this._element.innerHTML = text;
             this._current_text = text;
         }
-    },
+    };
 
-    set_position_to_absolute: function() {
-        this.element.style.position = 'absolute';
-    },
+    this.get_text = function() {
+        return this._current_text;
+        //return this.element.innerHTML;
+    };
 
-    set_left_offset: function(o) {
-        this.element.style.left = this._get_offset(o);
-    },
-
-    set_top_offset: function(o) {
-        this.element.style.top = this._get_offset(o);
-    },
-
-    set_color: function(color) {
-        this.element.style.color = color;
-    },
-
-    set_display_style: function(style) {
-        this.display_style = style;
-    },
-
-    hide: function() {
-        this.element.style.display = 'none';
-        this.hidden = true;
-    },
-
-    show: function() {
-        this.element.style.display = this.display_style;
-        this.hidden = false;
-    },
-
-    is_hidden: function() {
-        return this.hidden;
-    },
-
-    make_invisible: function() {
-        this.element.style.visibility = 'hidden';
-        this.visible = false;
-    },
-
-    make_visible: function() {
-        this.element.style.visibility = 'visible';
-        this.visible = true;
-    },
-
-    is_visible: function() {
-        return this.visible;
-    }
 };
-    */
+
+
+$_QE.prototype.CanvasFontPresets = {
+    'console_font': ['20px Arial', 20, 4]
+};
+
+$_QE.prototype.CanvasFont = function(font) {
+    this.font_preset            = font;
+    this.text_property_bold     = null;
+    this.text_property_italic   = null;
+    this.text_property_centered = null;
+    this.font                   = null;
+    this.font_size              = this.font_preset[1];
+    this.font_y_offset          = this.font_preset[2];
+    this.update_needed_for_font = true;
+
+    this.set_font_property_bold = function(is_bold) {
+        if (this.text_property_bold !== is_bold) {
+            this.text_property_bold     = is_bold;
+            this.update_needed_for_font = true;
+        }
+    };
+
+    this.set_font_property_italic = function(is_italic) {
+        if (this.text_property_italic !== is_italic) {
+            this.text_property_italic   = is_italic;
+            this.update_needed_for_font = true;
+        }
+    };
+
+    this.set_font_property_centered = function(is_centered) {
+        if (this.text_property_centered !== is_centered) {
+            this.text_property_centered = is_centered;
+            this.update_needed_for_font = true;
+        }
+    };
+
+    this.update_font = function() {
+        if (this.update_needed_for_font) {
+
+            //this.font_size = Math.floor(this.row_height * 0.85);
+
+            if (this.text_property_bold && this.text_property_italic) {
+                this.font = 'italic bold ' + this.font_preset[0];
+            } else if (this.text_property_bold) {
+                this.font = 'bold ' + this.font_preset[0];
+            } else if (this.text_property_italic) {
+                this.font = 'italic ' + this.font_preset[0];
+            } else {
+                this.font = this.font_preset[0];
+            }
+
+            this.context.font = this.font;
+            this.update_needed_for_font = false;
+
+            l('Set font to');
+            l(this.context.font);
+        }
+    };
+
+};
+
+$_QE.prototype.CanvasAbstraction = function(canvas) {
+
+    this.canvas  = canvas;
+    this.context = this.canvas.getContext('2d');
+
+    $_QE.prototype.CanvasRendering.call(this);
+
+    /*__   ___ ___ ___  ___  __   __
+     / _` |__   |   |  |__  |__) /__`
+     \__> |___  |   |  |___ |  \ .__/ */
+    this.get_text_width = function(text) {
+        return this.context.measureText(text).width;
+    };
+
+};
+
+$_QE.prototype.CanvasConsole = function(number_of_rows) {
+
+    this.row_buffer = [];
+
+    this.needs_paint = false;
+
+    let r;
+    for (r = 0; r < number_of_rows; r++) {
+        this.row_buffer.push(new $_QE.prototype.CanvasTextRow('', r, this));
+    }
+
+    $_QE.prototype.CanvasTexture.call(this);
+
+    this.override_background_color = 'rgba(0, 0, 0, 0)';
+
+    this.add_message = function(content) {
+        this.row_buffer[0].content = content;
+        let row;
+        for (row = this.row_buffer.length - 1; row > 0; row--) {
+            this.row_buffer[row].content = this.row_buffer[row - 1].content;
+        }
+        this.needs_paint = true;
+    };
+
+    this.update_step = function(background_color, foreground_color) {
+        this.render_rows(background_color, foreground_color, this.row_buffer);
+        this.texture.needsUpdate = true;
+        l('Paint occured!');
+    };
+
+    /*
+        this.update = function(background_color, foreground_color, text) {
+        this.render(background_color, foreground_color, text);
+        this.texture.needsUpdate = true;
+    };
+     */
+};
+
+
+$_QE.prototype.CanvasRendering = function() {
+
+    this.clear = function() {
+        this.context.fillStyle = '###';
+        this.context.clearRect(0, 0, this._w, this._h);
+        this.context.fillStyle = this.current_background_color;
+        this.context.fillRect(0, 0, this._w, this._h);
+    };
+
+    this.pre_render = function() {
+        this.clear();
+        this.context.fillStyle = '#' + this.current_foreground_color.getHexString();
+        l('Current color');
+        l(this.current_foreground_color);
+    };
+
+    this.render = function() {
+        this.pre_render();
+
+        if (this.text_property_centered) {
+            this.context.textAlign = 'center';
+            this.context.fillText(this.canvas_text, this.width / 2, Math.floor(this.font_size * .9));
+            l('Rendered text! {' + this.canvas_text + '}');
+        } else {
+            this.context.fillText(this.canvas_text, 0, Math.floor(this.font_size * .9));
+            //this.context.fillText(this.canvas_text, 0, 25);
+            l('Rendered text not centered! {' + this.canvas_text + '}');
+        }
+    };
+
+    this.render_rows = function() {
+        this.pre_render();
+
+        let r;
+        for (r = 0; r < this.rows.length; r++) {
+            this.context.fillText(this.rows[r], 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
+        }
+    };
+
+};
+
+$_QE.prototype.CanvasTexture = function() {
+
+    // Inherit.
+    $_QE.prototype.CanvasAbstraction.call(this);
+
+    this.initialize = function() {
+        // this.set_font();
+        this.texture = new THREE.Texture(this.canvas);
+        this.texture.anisotropy = QE.manager_renderer.renderer.capabilities.getMaxAnisotropy();
+    };
+
+    //this.update = function(background_color, foreground_color, text) {
+    //    this.render(background_color, foreground_color, text);
+    //    this.texture.needsUpdate = true;
+    //};
+
+    //this.modify_canvas = function(width, height) {
+    //    this.set_dimensions(width, height);
+    //    this.set_font();
+    //};
+};
+
+$_QE.prototype.CanvasTextRow = function(content, index, canvas_console) {
+    this.content = content;
+    this.index   = index;
+    this.console = canvas_console;
+};
+
+$_QE.prototype.CanvasText = function(font) {
+    $_QE.prototype.CanvasFont.call(this, font);
+
+    this.canvas_text = null;
+    this.update_needed_for_text = false;
+
+    this.set_text = function(t) {
+        if (this.canvas_text !== t) {
+            this.update_needed_for_text = true;
+            this.canvas_text = t;
+        }
+    };
+};
+
+$_QE.prototype.CanvasColors = function() {
+
+    // TEMPORARY VALUES
+    this.current_background_color = 'rgba(0, 0, 0, 0)';
+    this.default_background_color = 'rgba(0, 0, 0, 0)';
+
+    // TEMPORARY VALUES
+    this.current_foreground_color = COLOR_GREEN;
+    this.default_foreground_color = COLOR_GREEN;
+
+    this.update_needed_for_colors = false;
+
+    this.set_current_background_color = function(color) {
+        if (this.current_background_color !== color) {
+            this.current_background_color = color;
+            this.update_needed_for_colors = true;
+        }
+    };
+
+    this.set_default_background_color = function(color) {
+        if (this.default_background_color !== color) {
+            this.default_background_color = color;
+            this.update_needed_for_colors = true;
+        }
+    };
+
+    this.set_current_foreground_color = function(color) {
+        if (this.current_foreground_color !== color) {
+            this.current_foreground_color = color;
+            this.update_needed_for_colors = true;
+        }
+    };
+
+    this.set_default_foreground_color = function(color) {
+        if (this.default_foreground_color !== color) {
+            this.default_foreground_color = color;
+            this.update_needed_for_colors = true;
+        }
+    };
+
+    this.set_foreground_color = function(color) {
+        this.set_default_foreground_color(color);
+        this.set_current_foreground_color(color);
+    };
+
+    this.set_background_color = function(color) {
+        this.set_default_background_color(color);
+        this.set_current_background_color(color);
+    };
+};
+
+$_QE.prototype.CanvasGUI2D = function(unique_name) {
+
+    $_QE.prototype.DomElement.call(this, unique_name, 2, 'canvas', false);
+    $_QE.prototype.CanvasColors.call(this);
+
+    this._w = null;
+    this._h = null;
+    this._x = null;
+    this._y = null;
+
+    this.initialize = function(x, y, w, h) {
+        this.create_element();
+        this.add_class('gui_canvas');
+        this.append_to_document_body();
+        $_QE.prototype.CanvasAbstraction.call(this, this._element);
+        this.set_width(w);
+        this.set_height(h);
+        this.set_screen_x(x);
+        this.set_screen_y(y);
+    };
+
+    this.set_width = function(w) {
+        if (this._w !== w) {
+            this._element.style.width = w + 'vw';
+            this._w = (w / 100) * QE.client.state_window_width_inner;
+            this.canvas.width = this._w;
+        }
+    };
+
+    this.set_height = function(h) {
+        if (this._h !== h) {
+            this._element.style.height = h + 'vh';
+            this._h = (h / 100) * QE.client.state_window_height_inner;
+            this.canvas.height = this._h;
+        }
+    };
+
+    this.set_screen_x = function(x) {
+        if (this._x !== x) {
+            this._element.style.top = x + '%';
+            this._x = x;
+        }
+    };
+
+    this.set_screen_y = function(y) {
+        if (this._y !== y) {
+            this._element.style.left = y + '%';
+            this._y = y;
+        }
+    };
+
+};
+
+
+// this.width = get_next_highest_power_of_two(width * 2);
+
+$_QE.prototype.CanvasGUI2DLines = function(unique_name) {
+
+    $_QE.prototype.CanvasGUI2D.call(this, unique_name, 2, 'canvas', false);
+    $_QE.prototype.CanvasFont.call(this, $_QE.prototype.CanvasFontPresets['console_font']);
+
+    this.update_needed_for_text = false;
+
+    this.rows = [];
+
+    this.add_row = function(content) {
+        this.rows.unshift(content);
+        this.update_needed_for_text = true;
+    };
+
+    this.update = function() {
+        if (this.update_needed_for_font) {
+            this.update_font();
+            this.render_rows();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+        if (this.update_needed_for_text) {
+            this.render_rows();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+        if (this.update_needed_for_colors) {
+            this.render_rows();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+    };
+};
+
+$_QE.prototype.CanvasGUI2DText = function(unique_name) {
+
+    $_QE.prototype.CanvasGUI2D.call(this, unique_name, 2, 'canvas', false);
+    $_QE.prototype.CanvasText.call(this, $_QE.prototype.CanvasFontPresets['console_font']);
+
+    this.update = function() {
+        if (this.update_needed_for_font) {
+            this.update_font();
+            this.render();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+        if (this.update_needed_for_text) {
+            this.render();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+        if (this.update_needed_for_colors) {
+            this.render();
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            return;
+        }
+    };
+};
+
+$_QE.prototype.CanvasGUI2DTexture = function(unique_name) {
+
+    $_QE.prototype.DomElement.call(this, unique_name, 2, 'canvas', false);
+
+    this._w = null;
+    this._h = null;
+    this._x = null;
+    this._y = null;
+
+    this.initialize = function(x, y, w, h) {
+        this.create_element();
+        this.add_class('gui_canvas');
+        this.set_width(w);
+        this.set_height(h);
+        this.set_x(x);
+        this.set_y(y);
+        this.append_to_document_body();
+
+        $_QE.prototype.CanvasAbstraction.call(this, this._element);
+    };
+
+    this.set_width = function(w) {
+        if (this._w !== w) {
+            this._element.style.width = w + 'px';
+            this._w = w;
+        }
+    };
+
+    this.set_height = function(h) {
+        if (this._h !== h) {
+            this._element.style.height = h + 'px';
+            this._h = h;
+        }
+    };
+
+    this.set_x = function(x) {
+        if (this._x !== x) {
+            this._element.style.top = x + 'px';
+            this._x = x;
+        }
+    };
+
+    this.set_y = function(y) {
+        if (this._y !== y) {
+            this._element.style.left = y + 'px';
+            this._y = y;
+        }
+    };
+
+};
 
 // Debug modes.
 
@@ -869,13 +1216,13 @@ $_QE.prototype.Client = function() {
     this.set_debug_mode = function(debug_mode) {
         this.debug_mode = debug_mode;
         if (this.debug_mode === 1) {
-            this._stats.hide();
+            this._stats_dom.hide();
             //this.data_display.hide();
         } else if (this.debug_mode === 2) {
-            this._stats.show();
+            this._stats_dom.show();
             //this.data_display.hide();
         } else {
-            this._stats.show();
+            this._stats_dom.show();
             //this.data_display.show();
         }
     };
@@ -949,11 +1296,11 @@ $_QE.prototype.Client = function() {
      |__)  /\  |  | /__` |__      |\/| |__  |\ | |  |
      |    /~~\ \__/ .__/ |___     |  | |___ | \| \__/ */
     this.initialize_pause_menu = function() {
-        this.background_coloring = new $_QE.prototype.DomElement('background_coloring');
-        this.pause_menu          = new $_QE.prototype.DomElement('pause_menu');
+        this.background_coloring = new $_QE.prototype.DomElement('background_coloring', 1, 'div', false);
+        this.pause_menu          = new $_QE.prototype.DomElement('pause_menu', 1, 'div', false);
         this.pause_menu.set_display_style('table');
-        this.pause_title         = new $_QE.prototype.DomElement('menu_title');
-        this.pause_sub_title     = new $_QE.prototype.DomElement('menu_header');
+        this.pause_title         = new $_QE.prototype.DomElement('menu_title', 1, 'h1', true);
+        this.pause_sub_title     = new $_QE.prototype.DomElement('menu_header', 1, 'h5', true);
     };
 
     this.set_pause_menu_text_and_sub_text = function(text, sub_text) {
@@ -995,9 +1342,10 @@ $_QE.prototype.Client = function() {
     this.initialize_stats_display = function() {
         this._stats_api = new Stats();
         this._stats_api.showPanel(0);
-        this._stats = new $_QE.prototype.DomElement(null, this._stats_api.domElement);
-        this._stats.set_id('fps_display');
-        this._stats.append_to_document_body();
+
+        this._stats_dom = new $_QE.prototype.DomElement(this._stats_api.domElement, 3, 'div', false);
+        this._stats_dom.set_id('fps_display');
+        this._stats_dom.append_to_document_body();
     };
 
     /*     __   __        ___  __   __      __        __   __   __   __  ___
@@ -1171,14 +1519,14 @@ $_QE.prototype.RendererManager = function(client, engine) {
 
     this.pre_render_initialize = function() {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
-        this.renderer.domElement.id = 'canvas_id';
+
+        this.renderer_dom = new $_QE.prototype.DomElement(this.renderer.domElement, 3, 'canvas');
+        this.renderer_dom.set_id('canvas_id');
+        this.renderer_dom.append_to_document_body();
+
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
         this.renderer.setClearColor(0x252525);
-        // TODO : DISABLE FOR CSSRENDERING
-        //this.renderer.domElement.style.position = 'absolute';
-        this.renderer.domElement.style.zIndex = 5;
-        document.body.appendChild(this.renderer.domElement);
 
         this.renderer.autoClear = true;
 
@@ -1225,6 +1573,11 @@ $_QE.prototype.RendererManager = function(client, engine) {
         //this.camera.aspect = this.aspect_ratio;
         this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
         this.camera.updateProjectionMatrix();
+
+        this.camera_frustum_height = this.camera.getFilmHeight() * this.camera.aspect;
+        this.camera_frustum_width  = this.camera.getFilmWidth() / this.camera.aspect;
+
+
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
 
         this._resize_event_shader();
@@ -2206,6 +2559,11 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             }
         }
 
+        ////
+        for (a = 0; a < QE.gui_2d_elements.length; a++) {
+            QE.gui_2d_elements[a].update();
+        }
+        ////
 
         /*
         if (!this.player_cursor._currently_engaged) {
@@ -3502,6 +3860,20 @@ $_QE.prototype.Singleton = function() {
     };
 };
 
+$_QE.prototype.DynamicallyLoadable = function() {
+
+    this.is_loaded = false;
+
+    this.notify_function = null;
+
+    this.finished_loading = function() {
+        if (is_defined(this.notify_function)) {
+            this.notify_function();
+        }
+    };
+
+};
+
 $_QE.prototype.Visibility = function() {
 
     // States.
@@ -3952,212 +4324,6 @@ $_QE.prototype.TextAbstraction = function(text) {
     };
 };
 
-$_QE.prototype.CanvasAbstraction = function() {
-    // Inherit.
-    $_QE.prototype.CanvasFont.call(this);
-    this.canvas  = document.createElement('canvas');
-    this.context = this.canvas.getContext('2d');
-
-    /*
-
-$_QE.prototype.CanvasTexture = function() {
-    // Inherit.
-    $_QE.prototype.CanvasAbstraction.call(this);
-
-    this.initialize = function() {
-        this.set_font();
-        this.texture = new THREE.Texture(this.canvas);
-        this.texture.anisotropy = QE.renderer.renderer.capabilities.getMaxAnisotropy();
-    };
-
-    //this.update = function(background_color, foreground_color, text) {
-    //    this.render(background_color, foreground_color, text);
-    //    this.texture.needsUpdate = true;
-    //};
-
-    this.modify_canvas = function(width, height) {
-        this.set_dimensions(width, height);
-        this.set_font();
-    };
-};
-
-     */
-
-    this.clear = function(background_color) {
-        this.context.clearRect(0, 0, this.width, this.height);
-        if (is_defined(background_color)) {
-            this.context.fillStyle = background_color;
-            this.context.fillRect(0, 0, this.width, this.height);
-        }
-    };
-
-    this.pre_render = function(background_color, foreground_color) {
-        this.clear(background_color);
-        this.context.fillStyle = foreground_color;
-    };
-
-    this.render = function(background_color, foreground_color, text) {
-        this.pre_render(background_color, foreground_color);
-
-        if (this.text_property_centered) {
-            this.context.textAlign = 'center';
-            this.context.fillText(text, this.width / 2, Math.floor(this.font_size * .9));
-        } else {
-            this.context.fillText(text, 0, Math.floor(this.font_size * .9));
-        }
-    };
-
-    this.render_rows = function(background_color, foreground_color, rows) {
-        this.pre_render(background_color, foreground_color);
-
-        let r;
-        for (r = 0; r < rows.length; r++) {
-            //l('Rendering content {' + rows[r].content + '}');
-            this.context.fillText(rows[r].content, 0, Math.floor(this.font_size * .9) * r);
-        }
-    };
-
-    /*__   ___ ___ ___  ___  __   __
-     / _` |__   |   |  |__  |__) /__`
-     \__> |___  |   |  |___ |  \ .__/ */
-    this.get_text_width = function(text) {
-        return this.context.measureText(text).width;
-    };
-
-    /*__   ___ ___ ___  ___  __   __
-     /__` |__   |   |  |__  |__) /__`
-     .__/ |___  |   |  |___ |  \ .__/ */
-    this.set_dimensions = function(width, height) {
-        this._set_width(width);
-        this._set_height(height);
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
-    };
-
-    this._set_height = function(height) {
-        this.height = get_next_highest_power_of_two(height * 2);
-    };
-
-    this._set_width = function(width) {
-        //this.width = get_next_highest_power_of_two(width * 2);
-        this.width = get_next_highest_power_of_two(width * 2);
-    };
-};
-
-
-$_QE.prototype.CanvasFont = function() {
-    this.text_property_bold     = false;
-    this.text_property_italic   = false;
-    this.text_property_centered = false;
-
-    this.needs_update           = true;
-
-    this.font = null;
-
-    this.set_font_property_bold = function(is_bold) {
-        this.text_property_bold = is_bold;
-        this.needs_update       = true;
-    };
-
-    this.set_font_property_italic = function(is_italic) {
-        this.text_property_italic = is_italic;
-        this.needs_update         = true;
-    };
-
-    this.set_font_property_centered = function(is_centered) {
-        this.text_property_centered = is_centered;
-        this.needs_update           = true;
-    };
-
-    this.set_font = function() {
-        if (this.needs_update) {
-
-            if (is_defined(this.row_buffer)) {
-                this.font_size = Math.floor((this.height / this.row_buffer.length) * 0.85);
-            } else {
-                this.font_size = Math.floor(this.height * 0.85);
-            }
-
-            let additional_properties = '';
-            if (this.text_property_italic) {
-                additional_properties += 'italic ';
-            }
-            if (this.text_property_bold) {
-                additional_properties += 'bold ';
-            }
-            this.font = additional_properties + this.font_size.toString() + 'px Arial';
-            l('Font is : {' + this.font + '}');
-            this.context.font = this.font;
-            this.needs_update = false;
-        }
-    };
-};
-
-$_QE.prototype.CanvasTextRow = function(content, index, canvas_console) {
-    this.content = content;
-    this.index   = index;
-    this.console = canvas_console;
-};
-
-$_QE.prototype.CanvasConsole = function(number_of_rows) {
-
-    this.row_buffer = [];
-
-    this.needs_paint = false;
-
-    let r;
-    for (r = 0; r < number_of_rows; r++) {
-        this.row_buffer.push(new $_QE.prototype.CanvasTextRow('Hiiiiihjghjfghj', r, this));
-    }
-
-    $_QE.prototype.CanvasTexture.call(this);
-
-    this.override_background_color = 'rgba(0, 0, 0, 0)';
-
-    this.add_message = function(content) {
-        this.row_buffer[0].content = content;
-        let row;
-        for (row = this.row_buffer.length - 1; row > 0; row--) {
-            this.row_buffer[row].content = this.row_buffer[row - 1].content;
-        }
-        this.needs_paint = true;
-    };
-
-    this.update_step = function(background_color, foreground_color) {
-        this.render_rows(background_color, foreground_color, this.row_buffer);
-        this.texture.needsUpdate = true;
-        l('Paint occured!');
-    };
-
-    /*
-        this.update = function(background_color, foreground_color, text) {
-        this.render(background_color, foreground_color, text);
-        this.texture.needsUpdate = true;
-    };
-     */
-};
-
-$_QE.prototype.CanvasTexture = function() {
-    // Inherit.
-    $_QE.prototype.CanvasAbstraction.call(this);
-    
-    this.initialize = function() {
-        this.set_font();
-        this.texture = new THREE.Texture(this.canvas);
-        this.texture.anisotropy = QE.manager_renderer.renderer.capabilities.getMaxAnisotropy();
-    };
-
-    //this.update = function(background_color, foreground_color, text) {
-    //    this.render(background_color, foreground_color, text);
-    //    this.texture.needsUpdate = true;
-    //};
-
-    this.modify_canvas = function(width, height) {
-        this.set_dimensions(width, height);
-        this.set_font();
-    };
-};
-
 $_QE.prototype.FloatingButton = function(world, width, text_height, text, engage_function, cacheable) {
     // Inherit.
     $_QE.prototype.Text2D.call(this, world, width, text_height, text, cacheable);
@@ -4368,6 +4534,7 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color,
     };
 };
 
+/*
 $_QE.prototype.Text2DUtilities = function() {
     this.canvas = new $_QE.prototype.CanvasAbstraction();
     this.get_width_needed = function(text, height, bold, italic) {
@@ -4384,7 +4551,7 @@ $_QE.prototype.Text2DUtilities = function() {
 };
 
 const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
-
+*/
 
 $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheable_texture) {
 
@@ -4607,6 +4774,7 @@ $_QE.prototype.FloatingText3D = function(world, size, text) {
 $_QE.prototype.FloatingCanvasLogs = function(world, number_of_rows, width, height) {
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
+    //$_QE.prototype.DynamicallyLoadable.call(this);
 
     this.position = new THREE.Vector3(0, 0, 0);
     //this.normal = new THREE.Vector3(0, 0, 0);
@@ -4682,7 +4850,7 @@ $_QE.prototype.FloatingCanvasLogs = function(world, number_of_rows, width, heigh
 
         this.refresh();
 
-        l('Canvas initialized!');
+        //l('Canvas initialized!');
     };
 
     this.add_message = function(m) {
@@ -5226,10 +5394,35 @@ $_NL.prototype = {
         this.engine_setting_shader_fxaa_enabled    = true;
         this.engine_setting_shader_outline_enabled = true;
         this.engine_setting_shader_grain_enabled   = true;
+    },
+
+    create_gui_2d: function() {
+        this.gui_2d_logs = new $_QE.prototype.CanvasGUI2DLines('_gui_2d_logs');
+        this.gui_2d_logs.initialize(10, 0, 45, 70);
+        //this.gui_2d_logs.set_text('Hello World Text 2D!');
+        this.gui_2d_logs.add_row('Hello World!');
+        this.gui_2d_logs.add_row('Second Line!');
+        this.gui_2d_logs.add_row('. . .!');
+        this.gui_2d_logs.add_row('Last Line!');
+        QE.add_gui_2d_element(this.gui_2d_logs);
+    },
+
+    engine_started: function() {
+        l('engine started!!!');
+        //QE.manager_world.current_world.logs.add_message('Hello worldsadasdasdasd!!!!');
+
+
+        // $_QE.prototype.CanvasGUI2D = function(unique_name) {
+
     }
+
 };
 
 window.onload = function() {
+    l('On load!');
+
+
+
     QE = new $_QE();
     QE.check_if_required_features_are_supported();
     if (QE.client.state_is_webgl_enabled && QE.client.state_is_canvas_enabled) {
@@ -5268,7 +5461,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.update = function(delta) {
-        this.logs.refresh();
+        //this.logs.refresh();
         //this.logs.add_message(delta);
     };
 
@@ -5281,15 +5474,21 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
 
 
 
+        /*
         //floating_canvas_log.js
 
         this.logs = new $_QE.prototype.FloatingCanvasLogs(this, 15, 400, 250);
+        //this.logs.notify_function = NL.main_logs_loaded;
         this.logs.lock_to_player = true;
         this.logs.initialize();
         //this.logs.set_position(-450, 100, -800);
         //this.logs.look_at_origin(false);
         this.logs.set_to_manual_positioning();
         //this.logs.refresh_position_and_look_at();
+        */
+
+
+        NL.create_gui_2d();
     };
 
 };

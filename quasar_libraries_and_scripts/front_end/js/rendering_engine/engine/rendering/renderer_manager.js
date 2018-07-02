@@ -10,14 +10,14 @@ $_QE.prototype.RendererManager = function(client, engine) {
 
     this.pre_render_initialize = function() {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
-        this.renderer.domElement.id = 'canvas_id';
+
+        this.renderer_dom = new $_QE.prototype.DomElement(this.renderer.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_CANVAS);
+        this.renderer_dom.set_id('canvas_id');
+        this.renderer_dom.append_to_document_body();
+
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
         this.renderer.setClearColor(0x252525);
-        // TODO : DISABLE FOR CSSRENDERING
-        //this.renderer.domElement.style.position = 'absolute';
-        this.renderer.domElement.style.zIndex = 5;
-        document.body.appendChild(this.renderer.domElement);
 
         this.renderer.autoClear = true;
 
@@ -64,6 +64,11 @@ $_QE.prototype.RendererManager = function(client, engine) {
         //this.camera.aspect = this.aspect_ratio;
         this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
         this.camera.updateProjectionMatrix();
+
+        this.camera_frustum_height = this.camera.getFilmHeight() * this.camera.aspect;
+        this.camera_frustum_width  = this.camera.getFilmWidth() / this.camera.aspect;
+
+
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
 
         this._resize_event_shader();

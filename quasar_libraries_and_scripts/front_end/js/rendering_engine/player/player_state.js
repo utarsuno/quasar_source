@@ -5,6 +5,7 @@ const PLAYER_STATE_PAUSED       = 2; // #pre-process_global_constant
 const PLAYER_STATE_FULL_CONTROL = 3; // #pre-process_global_constant
 const PLAYER_STATE_TYPING       = 4; // #pre-process_global_constant
 const PLAYER_STATE_ENGAGED      = 5; // #pre-process_global_constant
+const PLAYER_STATE_GUI_2D       = 5; // #pre-process_global_constant
 
 $_QE.prototype.PlayerState = function() {
     this.previous_state = null;

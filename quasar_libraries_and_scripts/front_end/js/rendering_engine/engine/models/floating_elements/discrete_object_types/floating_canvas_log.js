@@ -3,6 +3,7 @@
 $_QE.prototype.FloatingCanvasLogs = function(world, number_of_rows, width, height) {
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
+    //$_QE.prototype.DynamicallyLoadable.call(this);
 
     this.position = new THREE.Vector3(0, 0, 0);
     //this.normal = new THREE.Vector3(0, 0, 0);
@@ -78,7 +79,7 @@ $_QE.prototype.FloatingCanvasLogs = function(world, number_of_rows, width, heigh
 
         this.refresh();
 
-        l('Canvas initialized!');
+        //l('Canvas initialized!');
     };
 
     this.add_message = function(m) {

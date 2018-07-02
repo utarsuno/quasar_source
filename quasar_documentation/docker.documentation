@@ -1,8 +1,0 @@
-clean-up:
-    docker system prune
-    docker container prune
-    docker network prune
-    docker volume prune
-
-    TODO: read through https://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
-

@@ -75,17 +75,19 @@ body {
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
-/* Video Player class */
-.container {
-    position: absolute;
-    z-index: 8000;
+#canvas_id {
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    z-index: 5;
 }
 
 /*__       ___          __     __   __
  |  \  /\   |   /\     |  \ | /__` |__) |     /\  \ /
  |__/ /~~\  |  /~~\    |__/ | .__/ |    |___ /~~\  |  */
 #fps_display {
-    position: absolute;;
+    position: absolute;
     top: 0;
     left: 0;
 }
@@ -113,6 +115,13 @@ body {
 /*__             ___  __   __     ___      __          __
  / _` |  | |    |__  /  \ |__)     |  \ / |__) | |\ | / _`
  \__> \__/ |    |    \__/ |  \     |   |  |    | | \| \__> */
+.gui_canvas {
+    position: fixed;
+    z-index: 14;
+    /*background-color: transparent;*/
+}
+
+
 #gui_typing {
     border: 2px solid rgba(0, 0, 0, 0.9);
     margin: 0;
@@ -146,14 +155,6 @@ body {
 
 .gui_typing_offset {
   position: relative;
-}
-
-#canvas_id {
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    z-index: 5;
 }
 
 /*__   ___      ___  ___  __      __        __   __   __   __

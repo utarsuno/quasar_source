@@ -86,13 +86,13 @@ $_QE.prototype.Client = function() {
     this.set_debug_mode = function(debug_mode) {
         this.debug_mode = debug_mode;
         if (this.debug_mode === DEBUG_MODE_NONE) {
-            this._stats.hide();
+            this._stats_dom.hide();
             //this.data_display.hide();
         } else if (this.debug_mode === DEBUG_MODE_FPS) {
-            this._stats.show();
+            this._stats_dom.show();
             //this.data_display.hide();
         } else {
-            this._stats.show();
+            this._stats_dom.show();
             //this.data_display.show();
         }
     };
@@ -166,11 +166,11 @@ $_QE.prototype.Client = function() {
      |__)  /\  |  | /__` |__      |\/| |__  |\ | |  |
      |    /~~\ \__/ .__/ |___     |  | |___ | \| \__/ */
     this.initialize_pause_menu = function() {
-        this.background_coloring = new $_QE.prototype.DomElement('background_coloring');
-        this.pause_menu          = new $_QE.prototype.DomElement('pause_menu');
+        this.background_coloring = new $_QE.prototype.DomElement('background_coloring', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
+        this.pause_menu          = new $_QE.prototype.DomElement('pause_menu', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
         this.pause_menu.set_display_style('table');
-        this.pause_title         = new $_QE.prototype.DomElement('menu_title');
-        this.pause_sub_title     = new $_QE.prototype.DomElement('menu_header');
+        this.pause_title         = new $_QE.prototype.DomElement('menu_title', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H1, true);
+        this.pause_sub_title     = new $_QE.prototype.DomElement('menu_header', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H5, true);
     };
 
     this.set_pause_menu_text_and_sub_text = function(text, sub_text) {
@@ -212,9 +212,10 @@ $_QE.prototype.Client = function() {
     this.initialize_stats_display = function() {
         this._stats_api = new Stats();
         this._stats_api.showPanel(0);
-        this._stats = new $_QE.prototype.DomElement(null, this._stats_api.domElement);
-        this._stats.set_id('fps_display');
-        this._stats.append_to_document_body();
+
+        this._stats_dom = new $_QE.prototype.DomElement(this._stats_api.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_DIV, false);
+        this._stats_dom.set_id('fps_display');
+        this._stats_dom.append_to_document_body();
     };
 
     /*     __   __        ___  __   __      __        __   __   __   __  ___

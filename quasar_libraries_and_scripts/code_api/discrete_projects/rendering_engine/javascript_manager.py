@@ -233,7 +233,21 @@ class JavascriptManager(object):
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
 		# HTML_GUI.
-		self.js_files_needed.append('engine/html_gui/dom_element.js')
+		self.js_files_needed.append('engine/dom_elements/dom_element.js')
+		self.js_files_needed.append('engine/dom_elements/dom_element_string.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_font.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_abstraction.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_console.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_rendering.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_texture.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text_row.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_colors.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_lines.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_text.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_texture.js')
+
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
 		# Loading and assets.
@@ -262,6 +276,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/inheritables/attachmentable.js')
 		self.js_files_needed.append('engine/models/inheritables/interactive.js')
 		self.js_files_needed.append('engine/models/inheritables/singleton.js')
+		self.js_files_needed.append('engine/models/inheritables/dynamically_loadable.js')
 		self.js_files_needed.append('engine/models/inheritables/visibility.js')
 
 		# Models.
@@ -276,12 +291,6 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js')
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js')
 		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js')
-
-		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_abstraction.js')
-		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_font.js')
-		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_text_row.js')
-		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_console.js')
-		self.js_files_needed.append('engine/models/canvas_abstraction/canvas_texture.js')
 
 		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js')
 		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js')

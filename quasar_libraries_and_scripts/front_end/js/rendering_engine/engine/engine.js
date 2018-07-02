@@ -31,10 +31,14 @@ function $_QE() {
 $_QE.prototype = {
 
     __init__: function() {
-        console.log('Quasar Engine created!');
-        this.UP_VECTOR   = new THREE.Vector3(0, 1, 0);
-        this.delta_clock = new THREE.Clock(false);
-        this.delta       = 0;
+        this.UP_VECTOR       = new THREE.Vector3(0, 1, 0);
+        this.delta_clock     = new THREE.Clock(false);
+        this.delta           = 0;
+        this.gui_2d_elements = [];
+    },
+
+    add_gui_2d_element: function(e) {
+        this.gui_2d_elements.push(e);
     },
 
     /*__  ___       __  ___          __      __  ___  ___  __   __
@@ -110,6 +114,8 @@ $_QE.prototype = {
 
         this.player.set_state(PLAYER_STATE_PAUSED);
         this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
+
+        this.application.engine_started();
 
         this.engine_main_loop();
     },

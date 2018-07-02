@@ -2,7 +2,6 @@
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
 *$py.class
 
 # C extensions
@@ -178,3 +177,8 @@ output_files_to_ignore/
 
 nexus_local.js
 nexus_local.min.js
+
+
+generated_output/
+A_ORGANIZE/
+depreciated/

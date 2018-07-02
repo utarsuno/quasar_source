@@ -1,5 +1,11 @@
 /* PRE-PROCESSOR: #import quasar_engine.css */
 
+/* Video Player class */
+.container {
+    position: absolute;
+    z-index: 8000;
+}
+
 /*     __   __          ___          ___      __   __        __   __
  |\/| /  \ |__) | |    |__     |__/ |__  \ / |__) /  \  /\  |__) |  \
  |  | \__/ |__) | |___ |___    |  \ |___  |  |__) \__/ /~~\ |  \ |__/ */
@@ -50,6 +56,6 @@
 }
 
 .mobile_keyboard_button:active {
-  box-shadow: 0 3px #1d1d1d;
-  transform: translateY(4px);
+    box-shadow: 0 3px #1d1d1d;
+    transform: translateY(4px);
 }

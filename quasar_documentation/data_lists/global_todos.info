@@ -1,0 +1,8 @@
+| 			   Task                | % Complete | Priority | Difficulty | Interconnect |
+| -------------------------------- | ---------- | -------- | ---------- | ------------ |
+| create new git push abstraction  | 10%        | 40%      | 20%        | 50% 		   |
+| fully isolate deprciated code    | 50%		| 70%	   | 10%	    | 80%		   |
+
+
+# TODO : ADD DB CONTAINER
+# TODO : ADD QUALITY ASSURANCE CONTAINER

@@ -93,6 +93,11 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             }
         }
 
+        ////
+        for (a = 0; a < QE.gui_2d_elements.length; a++) {
+            QE.gui_2d_elements[a].update();
+        }
+        ////
 
         /*
         if (!this.player_cursor._currently_engaged) {

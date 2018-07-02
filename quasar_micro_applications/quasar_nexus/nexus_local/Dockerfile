@@ -50,8 +50,7 @@ RUN rm -rf /var/cache/apk/* \
     && mkdir ./assets/json/fonts
 
 # Run Nexus Local.
-CMD ["/quasar/source/quasar_libraries_and_scripts/all_scripts/local/nexus/for_instances/run_local_nexus.sh"]
-
+CMD ["/quasar/source/scripts/nexus/run_local_nexus_on_docker.sh"]
 
 
 # DEPRECATED CODE (preserved temporarily) :

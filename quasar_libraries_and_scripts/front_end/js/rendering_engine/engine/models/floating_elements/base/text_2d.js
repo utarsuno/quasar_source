@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 $_QE.prototype.Text2DUtilities = function() {
     this.canvas = new $_QE.prototype.CanvasAbstraction();
     this.get_width_needed = function(text, height, bold, italic) {
@@ -16,7 +17,7 @@ $_QE.prototype.Text2DUtilities = function() {
 };
 
 const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
-
+*/
 
 $_QE.prototype.Text2D = function(world, width, height, text, cacheable, cacheable_texture) {
 

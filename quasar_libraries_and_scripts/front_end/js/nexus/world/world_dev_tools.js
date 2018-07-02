@@ -13,7 +13,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.update = function(delta) {
-        this.logs.refresh();
+        //this.logs.refresh();
         //this.logs.add_message(delta);
     };
 
@@ -26,15 +26,21 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
 
 
 
+        /*
         //floating_canvas_log.js
 
         this.logs = new $_QE.prototype.FloatingCanvasLogs(this, 15, 400, 250);
+        //this.logs.notify_function = NL.main_logs_loaded;
         this.logs.lock_to_player = true;
         this.logs.initialize();
         //this.logs.set_position(-450, 100, -800);
         //this.logs.look_at_origin(false);
         this.logs.set_to_manual_positioning();
         //this.logs.refresh_position_and_look_at();
+        */
+
+
+        NL.create_gui_2d();
     };
 
 };

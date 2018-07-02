@@ -1,0 +1,14 @@
+- Use
+      x | 0
+  instead of
+      Math.floor(x)
+
+
+- Reduce use of global variables
+
+- Don't use eval() anywhere in the code (lots of reasons, TODO: Document them)
+
+
+
+
+
