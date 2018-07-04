@@ -16,3 +16,6 @@ def get_current_git_version():
 		oc.print_data_with_red_dashes_at_start('{' + str(errors[1]) + '}')
 	else:
 		return int(git_version[0].decode('utf-8').replace('\n', ''))
+
+
+

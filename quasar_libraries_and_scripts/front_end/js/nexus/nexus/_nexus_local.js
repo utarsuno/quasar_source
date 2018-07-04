@@ -21,19 +21,9 @@ $_NL.prototype = {
     },
 
     create_gui_2d: function() {
-        this.gui_2d_logs = new $_QE.prototype.CanvasGUI2DLines('_gui_2d_logs');
-        this.gui_2d_logs.initialize(10, 0, 45, 70);
-        //this.gui_2d_logs.set_text('Hello World Text 2D!');
-        this.gui_2d_logs.add_row('Hello World!');
-        this.gui_2d_logs.add_row('Second Line!');
-        this.gui_2d_logs.add_row('. . .!');
-        this.gui_2d_logs.add_row('Last Line!');
-        QE.add_gui_2d_element(this.gui_2d_logs);
-
-        this.gui_2d_typing = new $_QE.prototype.CanvasGUI2DText('_gui_2d_typing');
-        this.gui_2d_typing.initialize(70, 10, 80, 10);
-        //this.gui_2d_logs.set_text('Hello World Text 2D!');
-        QE.add_gui_2d_element(this.gui_2d_typing);
+        QE.create_gui_2d();
+        this.gui_2d_logs   = QE.gui_2d_logs;
+        this.gui_2d_typing = QE.gui_2d_typing;
     },
 
     engine_started: function() {

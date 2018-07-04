@@ -51,6 +51,9 @@ module.exports = {
         "DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT"            : false,
         "DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT_ADD_TO_BODY": false,
 
+        "CANVAS_GUI_2D_ABSOLUTE_PIXELS"   : false,
+        "CANVAS_GUI_2D_RELATIVE_TO_SCREEN": false,
+
         "THREE": false,
 
         "console": false,
@@ -60,46 +63,9 @@ module.exports = {
         "OutlineGlow": false,
         "FilmNoise"  : false,
 
-        "StatsAPI"       : true,
-        "CSSRendererAPI" : true,
-        "FPSControls"    : true,
-        "ShaderAPI"      : true,
-        "WebSocketClient": false,
-
-        "KeyboardModel": false,
-        "ButtonModel"  : false,
-
-        "TextAbstraction" : false,
-        "ColorAbstraction": false,
-
-        //
-        "ButtonState"   : false,
-        "FloatingButton": false,
-        //
-
-        //
-        "InputState"      : false,
-        "FloatingInput2D" : false,
-        //
-
-        "ConfirmationPrompt": false,
-
-        //
-        "FormManager": false,
-        //
-
         //       ___  __      __   __   __        ___ ___  __    /  __   ___  __        ___  __            ___  __   __        __   ___  __
         // |  | |__  |__)    /__` /  \ /  ` |__/ |__   |  /__`  /  /__` |__  |__) \  / |__  |__)     |\/| |__  /__` /__`  /\  / _` |__  /__`
         // |/\| |___ |__)    .__/ \__/ \__, |  \ |___  |  .__/ /   .__/ |___ |  \  \/  |___ |  \     |  | |___ .__/ .__/ /~~\ \__> |___ .__/
-        "ServerRequest"              : false,
-        "ServerRequestLogin"         : false,
-        "ServerRequestLogout"        : false,
-        "ServerRequestCreateAccount" : false,
-        "ServerRequestLoadUserData"  : false,
-        "ServerRequestSaveData"      : false,
-        "ServerRequestDeleteEntities": false,
-        "ServerRequestChatMessage"   : false,
-
         "_WEB_SOCKET_REQUEST_KEY_REQUEST_TYPE": false,
         "_WEB_SOCKET_REQUEST_KEY_MESSAGE_ID"  : false,
         "_WEB_SOCKET_REQUEST_KEY_USERNAME"    : false,
@@ -120,23 +86,11 @@ module.exports = {
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
 
-        "EntityChangedNotifier": false,
-
         // Cookies.
         "COOKIE_SHOULD_REMEMBER_USERNAME": false,
         "COOKIE_REMEMBERED_USERNAME"     : false,
         //
 
-        // Global objects.
-        "CURRENT_CLIENT": true,
-        "CURRENT_PLAYER": true,
-        "ENTITY_OWNER"  : true,
-        // and their class names.
-        "Client"     : false,
-        "EntityOwner": false,
-        "Player"     : false,
-
-        "PlayerMenu"   : true,
 
         "CENTER_ABSOLUTE": false,
 
@@ -147,11 +101,6 @@ module.exports = {
         "DragNDrop": false,
 
         "Entity": false,
-
-        "EntityGroup"       : false,
-        "EntityEditor"      : false,
-        "EntityTypeSelector": false,
-        "EntityFieldCreator": false,
 
         "NO_SAVE_DATA"   : false,
         "SAVE_TAG_3D_ROW": false,
@@ -244,14 +193,6 @@ module.exports = {
         "ACCOUNT_TYPE_DEFAULT"     : true,
         "ACCOUNT_TYPE_ADMIN"       : true,
         "ACCOUNT_TYPE_SUDO"        : true,
-
-        //      __   __   ___ ___          __        __          __
-        // /\  /__` /__` |__   |     |    /  \  /\  |  \ | |\ | / _`
-        ///~~\ .__/ .__/ |___  |     |___ \__/ /~~\ |__/ | | \| \__>
-        "AssetGroup"  : false,
-        "AudioGroup"  : false,
-        "TextureGroup": false,
-        "ShaderGroup" : false,
 
         //       __   __   ___ ___  __
         //  /\  /__` /__` |__   |  /__`

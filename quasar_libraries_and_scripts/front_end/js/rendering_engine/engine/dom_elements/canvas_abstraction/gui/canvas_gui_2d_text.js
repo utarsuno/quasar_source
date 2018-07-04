@@ -2,7 +2,7 @@
 
 $_QE.prototype.CanvasGUI2DText = function(unique_name) {
 
-    $_QE.prototype.CanvasGUI2D.call(this, unique_name, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, DOM_ELEMENT_CANVAS, false);
+    $_QE.prototype.CanvasGUI2D.call(this, unique_name, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
     $_QE.prototype.CanvasText.call(this, $_QE.prototype.CanvasFontPresets['console_font']);
 
     this.update = function() {

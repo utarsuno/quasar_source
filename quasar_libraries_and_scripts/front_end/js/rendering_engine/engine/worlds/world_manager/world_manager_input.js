@@ -73,16 +73,14 @@ $_QE.prototype.WorldManagerInput = function() {
     this.key_down_event = function(event) {
         if (this.player.in_typing_state()) {
             if (event.keyCode === KEY_CODE__ENTER) {
-                //this.player.add_text_and_leave_typing_state();
+                QE.gui_2d_typing.add_text_and_leave_typing_state();
             } else {
-                this.client.key_down_event(event);
+                QE.gui_2d_typing.parse_key_event(event);
             }
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
                 if (!this.player.engaged_with_object()) {
-                    //if (this.client.is_logged_in()) {
-                    //this.player.set_state(PLAYER_STATE_TYPING);
-                    //}
+                    this.player.set_state(PLAYER_STATE_TYPING);
                 } else {
                     this._key_down_event(event);
                 }

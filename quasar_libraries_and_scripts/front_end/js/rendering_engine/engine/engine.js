@@ -1,21 +1,5 @@
 'use strict';
 
-/*
-// Global managers.
-let MANAGER_MANAGER      = null;
-let MANAGER_HEAP         = null;
-let MANAGER_SPRITESHEET  = null;
-let MANAGER_WEB_SOCKETS  = null;
-let MANAGER_AUDIO        = null;
-let MANAGER_TEXTURE      = null;
-let MANAGER_WORLD        = null;
-let MANAGER_ENTITY       = null;
-//var MANAGER_MULTIPLAYER  = null;
-let MANAGER_SHADER       = null;
-let MANAGER_RENDERER     = null;
-let MANAGER_INPUT        = null;
-*/
-
 // Caches files loaded by the FileLoader.
 THREE.Cache.enabled = true;
 
@@ -35,6 +19,20 @@ $_QE.prototype = {
         this.delta_clock     = new THREE.Clock(false);
         this.delta           = 0;
         this.gui_2d_elements = [];
+    },
+
+    create_gui_2d: function() {
+        this.gui_2d_logs = new $_QE.prototype.CanvasGUI2DLines('_gui_2d_logs');
+        this.gui_2d_logs.initialize(0, 0, 45, 95);
+        //this.gui_2d_logs.set_text('Hello World Text 2D!');
+        this.gui_2d_logs.add_row('Nexus Local!');
+        this.add_gui_2d_element(this.gui_2d_logs);
+
+        this.gui_2d_typing = new $_QE.prototype.CanvasGUI2DTyping('_gui_2d_typing');
+        this.gui_2d_typing.initialize(80, 10, 80, 5);
+        this.gui_2d_typing.set_text('');
+        this.gui_2d_typing.hide();
+        this.add_gui_2d_element(this.gui_2d_typing);
     },
 
     add_gui_2d_element: function(e) {

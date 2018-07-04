@@ -247,6 +247,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_lines.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_text.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_texture.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_typing.js')
 
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
