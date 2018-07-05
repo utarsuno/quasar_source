@@ -25,6 +25,7 @@ class BashPrompt(object):
 
 	@property
 	def name(self):
+		"""Return the name of this prompt."""
 		return self._name
 
 	def __str__(self):

@@ -10,5 +10,6 @@
 
 
 
-
+// https://jsperf.com/array-destroy
+- arr.length = 0; is slower than arr = [];
 

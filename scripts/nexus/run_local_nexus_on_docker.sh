@@ -2,7 +2,7 @@
 
 source /quasar/source/quasar_libraries_and_scripts/scripts/script_utilities.sh
 
-
+export SQLITE_DB_FILE_PATH="/quasar/source/generated_output/local/nexus_local.db"
 export PYTHONPATH="${PYTHONPATH}:/quasar/source"
 
 python /quasar/source/quasar_libraries_and_scripts/code_api/discrete_projects/rendering_engine/build_rendering_engine.py 'n';
@@ -49,5 +49,7 @@ ln -s /quasar/source/quasar_assets/front_end/favicon/favicon.png assets/favicon.
 
 #quasar_libraries_and_scripts/front_end/js/third_party/CSS3DRenderer.js
 
-python /quasar/source/quasar_micro_applications/quasar_nexus/nexus_local/manage.py runserver 0.0.0.0:1337 --noreload
+python /quasar/source/quasar_micro_applications/quasar_nexus/nexus_local/manage.py migrate;
+
+python /quasar/source/quasar_micro_applications/quasar_nexus/nexus_local/manage.py runserver 0:1337 --noreload
 

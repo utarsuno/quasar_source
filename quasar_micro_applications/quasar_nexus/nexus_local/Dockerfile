@@ -12,9 +12,15 @@ RUN apk add --no-cache libc-dev \
     && apk add --no-cache zlib-dev \
     && apk add --no-cache jpeg-dev \
     # Libraries for Django + Django-websockets.
-    && pip3 install --no-cache-dir Django==2.0.3 \
-    && pip3 install --no-cache-dir django-channels==0.7.0 \
-    && pip3 install --no-cache-dir django-websocket-redis==0.5.1 \
+#    && pip3 install --no-cache-dir Django==2.0.3 \
+#    && pip3 install --no-cache-dir django-channels==0.7.0 \
+#    && pip3 install --no-cache-dir django-websocket-redis==0.5.1 \
+    && pip3 install --no-cache-dir Django \
+    && pip3 install --no-cache-dir django-channels \
+    && pip3 install --no-cache-dir django-websocket-redis \
+    #&& pip3 install --no-cache-dir django-redis \
+    && pip3 install --no-cache-dir channels_redis \
+
     # Libraries for universal code.
     && pip3 install --no-cache-dir lazyme \
     # Libraries for code_api.

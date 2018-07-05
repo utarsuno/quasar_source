@@ -315,6 +315,8 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/asset_management/shaders/shader_material_spritesheet.js')
 		self.js_files_needed.append('engine/asset_management/shaders/shader_material_transition.js')
 
+		# Websockets.
+		self.js_files_needed.append('engine/web_sockets/web_socket_manager.js')
 
 		if self.engine.is_build_nexus_local:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/source/quasar_libraries_and_scripts/front_end/js/nexus'))

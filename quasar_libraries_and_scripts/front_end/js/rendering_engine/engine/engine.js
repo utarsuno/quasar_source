@@ -113,6 +113,9 @@ $_QE.prototype = {
         this.player.set_state(PLAYER_STATE_PAUSED);
         this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
 
+        // Connect to websockets.
+        this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
+
         this.application.engine_started();
 
         this.engine_main_loop();

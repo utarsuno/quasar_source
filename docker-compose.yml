@@ -3,6 +3,11 @@ version: '3'
 
 services:
 
+  #nginx:
+  #  restart: always
+  #  image: nginx
+
+
   quality_assurance:
     build: ./quasar_micro_applications/quality_assurance
     container_name: quasar_service_quality_assurance
@@ -17,8 +22,15 @@ services:
     container_name: quasar_service_nexus_local
     environment:
       - MICRO_SERVICE_NAME=quasar_service_nexus_local
+      - REDIS_URL=redis://redis_cache
     ports:
+      - "80:80"
       - "1337:1337"
+      - "8080:8080"
+      - "8081:8081"
+      #  - "6379:6379"
+    links:
+      - redis_cache
 
   nexus_server:
     build: ./quasar_micro_applications/quasar_nexus/nexus_server
@@ -36,3 +48,16 @@ services:
     #ports:
     #  - "1338:1338"
     #  - "1339:1339"
+
+  redis_cache:
+    restart: always
+    image: redis:latest
+    #ports:
+    #  - '127.0.0.1:6379:6379'
+    expose:
+      - 6379
+    volumes:
+      - 'redisdata:/data'
+
+volumes:
+  redisdata:

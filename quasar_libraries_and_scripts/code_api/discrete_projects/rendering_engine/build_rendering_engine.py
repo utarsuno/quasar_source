@@ -344,7 +344,7 @@ def load_quasar_source_project():
 '''
 
 
-args = pa.SystemArguments()
+args = pa.ProgramArguments()
 ev = args.get_first_argument()
 
 quasar_engine = QuasarRenderingEngineBuilder(ev)
