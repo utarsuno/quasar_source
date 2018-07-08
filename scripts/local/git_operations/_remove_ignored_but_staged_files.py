@@ -2,8 +2,8 @@
 
 """This module, interactive_prompt.py, provides a basic prompt for connecting to a container."""
 
-from quasar_libraries_and_scripts.universal_code.system_abstraction import bash_interactive as bi
-from quasar_libraries_and_scripts.universal_code import output_coloring as oc
+from libraries.universal_code.system_abstraction import bash_interactive as bi
+from libraries.universal_code import output_coloring as oc
 
 
 class RemovedIgnoredButStagedFiles(bi.BashInteractive):

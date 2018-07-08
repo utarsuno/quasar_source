@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-export PYTHONPATH="${PYTHONPATH}:/quasar/source"
+export PYTHONPATH="${PYTHONPATH}:/quasar"
 
-python /quasar/source/quasar_libraries_and_scripts/code_api/discrete_projects/rendering_engine/build_rendering_engine.py 'p'
+python /quasar/libraries/code_api/discrete_projects/rendering_engine/build_rendering_engine.py 'p'

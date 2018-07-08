@@ -1,0 +1,24 @@
+clean-up:
+    docker system prune
+    docker container prune
+    docker network prune
+    docker volume prune
+
+    TODO: read through https://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
+
+
+
+
+list-total-sized-used:
+	docker system df
+
+
+
+
+# sudo docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local
+# docker run -p 127.0.0.1:1337:1337 -v /Users/utarsuno/git_repos/quasar_source:/quasar/source -i -t --rm quasarsource_nexus_local /bin/bash
+# docker ps | grep quasarsource_nexus_local
+
+
+
+https://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
