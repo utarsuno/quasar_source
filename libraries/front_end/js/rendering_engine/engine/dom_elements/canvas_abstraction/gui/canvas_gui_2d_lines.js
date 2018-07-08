@@ -3,7 +3,7 @@
 $_QE.prototype.CanvasGUI2DLines = function(unique_name) {
 
     $_QE.prototype.CanvasGUI2D.call(this, unique_name, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
-    $_QE.prototype.CanvasFont.call(this, $_QE.prototype.CanvasFontPresets['console_font']);
+    $_QE.prototype.CanvasFont.call(this, $_QE.prototype.CanvasFontPresets['console_font_smaller']);
 
     this.update_needed_for_text = false;
 

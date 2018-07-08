@@ -26,6 +26,17 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
 
 
 
+        this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CanvasFontPresets['console_font_smaller']);
+        this.logs.initialize();
+        this.nexus_local_title.set_position(-450, 300, -800);
+        this.nexus_local_title.look_at_origin(true);
+        this.nexus_local_title.set_to_manual_positioning();
+        this.logs.refresh_position_and_look_at();
+
+        this.logs.add_message('Hello World!');
+        this.logs.add_message('Second message!');
+        this.logs.add_message('Third message!');
+
         /*
         //floating_canvas_log.js
 

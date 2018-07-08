@@ -300,7 +300,6 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js')
 
 		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js')
-		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_canvas_log.js')
 
 		self.js_files_needed.append('engine/models/discrete_models/hexagon_grid/hexagon_grid.js')
 
@@ -317,12 +316,18 @@ class JavascriptManager(object):
 
 		# Websockets.
 		self.js_files_needed.append('engine/web_sockets/web_socket_manager.js')
+		self.js_files_needed.append('engine/web_sockets/web_socket_sessions.js')
+		self.js_files_needed.append('engine/web_sockets/request_buffer.js')
 
 		if self.engine.is_build_nexus_local:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/nexus'))
 			# Add js files needed.
 			self.js_files_needed.append('nexus/_nexus_local.js')
 			self.js_files_needed.append('nexus/world/world_dev_tools.js')
+			self.js_files_needed.append('nexus/gui_2d_logic/message_logs.js')
+			self.js_files_needed.append('nexus/gui_2d_logic/player_typing_input.js')
+			self.js_files_needed.append('nexus/web_socket_requests/message_handler.js')
+			self.js_files_needed.append('nexus/models/floating_terminal.js')
 		elif self.engine.is_build_quasar:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/quasar'))
 			# Add js files needed.

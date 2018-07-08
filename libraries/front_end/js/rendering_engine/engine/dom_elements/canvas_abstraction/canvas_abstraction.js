@@ -2,7 +2,11 @@
 
 $_QE.prototype.CanvasAbstraction = function(canvas) {
 
-    this.canvas  = canvas;
+    if (!is_defined(canvas)) {
+        this.canvas = document.createElement('canvas');
+    } else {
+        this.canvas  = canvas;
+    }
     this.context = this.canvas.getContext('2d');
 
     $_QE.prototype.CanvasRendering.call(this);

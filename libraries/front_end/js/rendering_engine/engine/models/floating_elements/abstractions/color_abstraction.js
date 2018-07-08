@@ -1,106 +1,52 @@
 'use strict';
 
-$_QE.prototype.ColorAbstraction = function(needs_hex_colors) {
-
-    this.needs_hex_colors = needs_hex_colors;
-    if (!is_defined(this.needs_hex_colors)) {
-        this.needs_hex_colors = false;
-    }
+$_QE.prototype.ColorAbstraction = function() {
 
     // TEMPORARY VALUES
-    this.current_background_color = COLOR_RED;
-    this.default_background_color = COLOR_RED;
-
-    this.override_background_color = null;
+    this.current_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+    this.default_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
 
     // TEMPORARY VALUES
-    this.current_foreground_color = COLOR_TEXT_DEFAULT;
-    this.default_foreground_color = COLOR_TEXT_DEFAULT;
+    this.current_foreground_color = COLOR_GREEN;
+    this.default_foreground_color = COLOR_GREEN;
 
-    this.override_foreground_color = null;
+    this.update_needed_for_colors = false;
 
-    this.color_changed            = false;
-
-    this.set_current_background_color = function(color, refresh) {
+    this.set_current_background_color = function(color) {
         if (this.current_background_color !== color) {
-            this.color_changed = true;
-        }
-        this.current_background_color = color;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                if (is_defined(this.current_background_color_changed)) {
-                    this.current_background_color_changed();
-                }
-            }
+            this.current_background_color = color;
+            this.update_needed_for_colors = true;
         }
     };
 
-    this.set_default_background_color = function(color, refresh) {
-        this.default_background_color = color;
+    this.set_default_background_color = function(color) {
+        if (this.default_background_color !== color) {
+            this.default_background_color = color;
+            this.update_needed_for_colors = true;
+        }
     };
 
-    this.set_current_foreground_color = function(color, refresh) {
+    this.set_current_foreground_color = function(color) {
         if (this.current_foreground_color !== color) {
-            this.color_changed = true;
-        }
-        this.current_foreground_color = color;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                if (is_defined(this.current_foreground_color_changed)) {
-                    this.current_foreground_color_changed();
-                }
-                if (is_defined(this.refresh)) {
-                    this.refresh();
-                }
-            }
+            this.current_foreground_color = color;
+            this.update_needed_for_colors = true;
         }
     };
 
-    this.set_default_foreground_color = function(color, refresh) {
-        this.default_foreground_color = color;
-        if (is_defined(refresh)) {
-            if (refresh) {
-                if (is_defined(this.refresh)) {
-                    this.refresh();
-                }
-            }
+    this.set_default_foreground_color = function(color) {
+        if (this.default_foreground_color !== color) {
+            this.default_foreground_color = color;
+            this.update_needed_for_colors = true;
         }
     };
 
     this.set_foreground_color = function(color) {
-        this.set_default_foreground_color(color, false);
-        this.set_current_foreground_color(color, true);
+        this.set_default_foreground_color(color);
+        this.set_current_foreground_color(color);
     };
 
     this.set_background_color = function(color) {
-        this.set_default_background_color(color, false);
-        this.set_current_background_color(color, true);
-    };
-
-    /*__   ___ ___ ___  ___  __   __
-     / _` |__   |   |  |__  |__) /__`
-     \__> |___  |   |  |___ |  \ .__/ */
-    this.get_current_background_color = function() {
-        if (is_defined(this.override_background_color)) {
-            return this.override_background_color;
-        }
-        if (this.needs_hex_colors) {
-            //return this.current_background_color.getHex();
-            return '#' + this.current_background_color.getHexString();
-        } else {
-            return this.current_background_color;
-        }
-    };
-
-    this.get_current_foreground_color = function() {
-        if (is_defined(this.override_foreground_color)) {
-            return this.override_foreground_color;
-        }
-        if (this.needs_hex_colors) {
-            //return this.current_foreground_color.getHex();
-            return '#' + this.current_foreground_color.getHexString();
-        } else {
-            return this.current_foreground_color;
-        }
+        this.set_default_background_color(color);
+        this.set_current_background_color(color);
     };
 };

@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-print('RAN ONCE!')
+#print('RAN ONCE!')
 
 
 # Quick-start development settings - unsuitable for production
@@ -47,19 +47,9 @@ ASGI_APPLICATION = 'nexus_local.routing.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        #'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            #'hosts': [('localhost', 6379)],
-            #'hosts': [('redis://redis_network', 6379)],
-            #'hosts': [('redis_network', 6379)],
-
-            #'hosts': [('redis://redis:6379/1', 6379)],
-
-            #'hosts': [('redis://127.0.0.1', 6379)],
             'hosts': [('redis', 6379)],
-            #'hosts': [('localhost', 6379)],
-
         },
 
         # redis://redis_db:6379
@@ -112,26 +102,6 @@ TEMPLATES = [
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
 #}
-
-
-'''
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis_cache:6379/0",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
-'''
-
-
-
-
 
 ########
 

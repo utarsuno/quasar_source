@@ -18,10 +18,5 @@ RUN rm -rf /var/cache/apk/* \
 # TODO:
 # https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf
 
-# Run Nexus Local.
+# Run redis.
 #CMD ["redis-server"]
-
-
-# DEPRECATED CODE (preserved temporarily) :
-# && pip3 install --no-cache-dir django-htmlmin==0.10.0 \
-

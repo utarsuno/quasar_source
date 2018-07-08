@@ -68,6 +68,9 @@ $_QE.prototype.FloatingCanvasLogs = function(world, number_of_rows, width, heigh
 
     this.initialize = function() {
         this.ratio = 1;
+
+        //this.canvas.initialize()
+
         this.canvas.set_dimensions(this.width, this.height);
         this.canvas.initialize();
 

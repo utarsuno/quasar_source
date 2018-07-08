@@ -50,8 +50,7 @@ $_QE.prototype.PlayerState = function() {
 
             break;
         case PLAYER_STATE_TYPING:
-            QE.gui_2d_typing.render();
-            QE.gui_2d_typing.show();
+            QE.application.enter_typing_state();
             //QE.update_needed_for_colors = true;
             //CURRENT_CLIENT.show_client_typing();
             break;

@@ -1,99 +1,46 @@
 'use strict';
 
-const _WEB_SOCKET_KEY_MESSAGE_ID   = 'm';  // #pre-process_global_constant
-const _WEB_SOCKET_KEY_SUCCESS      = 's';  // #pre-process_global_constant
-const _WEB_SOCKET_KEY_DATA         = 'd';  // #pre-process_global_constant
-const _WEB_SOCKET_KEY_MESSAGE_TYPE = 't';  // #pre-process_global_constant
+const _WEB_SOCKET_KEY_TYPE    = 't';  // #pre-process_global_constant
+const _WEB_SOCKET_KEY_ID      = 'm';  // #pre-process_global_constant
+const _WEB_SOCKET_KEY_SUCCESS = 's';  // #pre-process_global_constant
+const _WEB_SOCKET_KEY_DATA    = 'd';  // #pre-process_global_constant
 
 // Server response values.
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 0; // #pre-process_global_constant
-const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 1; // #pre-process_global_constant
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 1; // #pre-process_global_constant
+const _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 0; // #pre-process_global_constant
 
 
 $_QE.prototype.WebSocketManager = function(engine) {
-    this._engine = engine;
-    /*
-           // All the various server message types.
-        this._server_message_chat_message = new ServerMessageChatMessage();
+    this._engine         = engine;
+    this._message_buffer = [];
+    this._connected      = false;
 
-        // Inherit.
-        ChatManager.call(this);
+    $_QE.prototype.WebSocketSession.call(this);
+    $_QE.prototype.WebsocketRequestBuffer.call(this);
 
-     */
-
-    // TODO : Pre-process this
-    this._connection_string = 'ws://' + window.location.host + '/ws/';
-    this._messages = [];
-    this._connected = false;
-
-    this._get_message = function() {
-        let m;
-        for (m = 0; m < this._messages.length; m++) {
-            if (!this._messages[m].alive) {
-                return this._messages[m];
-            }
-        }
-        m = new $_QE.prototype.WebSocketMessage(this, this._messages.length);
-        this._messages.push(m);
-        return m;
+    this.set_message_parser = function(message_parser) {
+        this._message_parser = message_parser;
+        this._message_parser._websocket_manager = this;
     };
-
-
-    //
-
-
-    /*
-    this.send_message = function(message) {
-
-
-
-        message.set_message_id(this._message_id);
-        this._messages_in_limbo[this._message_id] = message;
-        this._message_id += 1;
-        this.socket.send(message.get_message());
-    };
-
-
-    this._handle_message_response = function(response) {
-        let success = response[_WEB_SOCKET_KEY_SUCCESS] === _WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE;
-        let data = response[_WEB_SOCKET_KEY_DATA];
-
-        //l('It is a success :');
-        //l(success);
-
-        this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]].message_response(success, data);
-        delete this._messages_in_limbo[response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_ID]];
-    };
-
-    this._handle_server_message = function(response) {
-        l('Handle sever message!');
-        l(response);
-        let message_type = response[_WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE];
-        switch (message_type) {
-        case _WEB_SOCKET_RESPONSE_VALUE_MESSAGE_TYPE_CHAT_MESSAGE:
-            this._server_message_chat_message.handle_message(response);
-            break;
-        }
-    };
-    */
 
     this._on_message_received = function(message) {
         l('Message received!');
         l(message);
-        let response = JSON.parse(message.data).text;
+        let m = JSON.parse(message.data);
 
-
-        return;
-
-
-        // TODO : Check if the message is a response or a server message.
-        if (_WEB_SOCKET_KEY_SUCCESS in response) {
-            // Message is a sever response.
-            this._handle_server_response(response);
+        if (_WEB_SOCKET_KEY_SUCCESS in m) {
+            this._on_server_response(m);
         } else {
-            // Message is a server message.
-            this._handle_server_message(response);
+            this._message_parser.on_message_received(m);
         }
+    };
+
+    this.send_message = function(json_data) {
+        this.socket.send(JSON.stringify(json_data));
+    };
+
+    this.send_request = function(json_data, callback) {
+        this.socket.send(JSON.stringify(this._add_to_request_buffer(json_data, callback)));
     };
 
     this._on_open = function() {
@@ -111,15 +58,18 @@ $_QE.prototype.WebSocketManager = function(engine) {
         this._connected = false;
     };
 
+    this.is_connected = function() {
+        return this._connected;
+    };
+
     this.connect = function() {
-        this.socket = new WebSocket(this._connection_string);
+        //this.socket = new WebSocket(this._connection_string);
+        this.socket = new WebSocket('ws://localhost:1337/ws/');
         this.socket.onmessage = this._on_message_received.bind(this);
         this.socket.onerror   = this._on_error.bind(this);
         this.socket.onopen    = this._on_open.bind(this);
         this.socket.onclose   = this._on_close.bind(this);
     };
-
-    //this.on_message_completed_callback = this.
 
     this.connect();
 

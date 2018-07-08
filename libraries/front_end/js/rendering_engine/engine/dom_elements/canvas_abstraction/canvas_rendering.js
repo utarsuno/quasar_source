@@ -12,8 +12,8 @@ $_QE.prototype.CanvasRendering = function() {
     this.pre_render = function() {
         this.clear();
         this.context.fillStyle = '#' + this.current_foreground_color.getHexString();
-        l('Current color');
-        l(this.current_foreground_color);
+        //l('Current color');
+        //l(this.current_foreground_color);
     };
 
     this.render = function() {
@@ -22,11 +22,11 @@ $_QE.prototype.CanvasRendering = function() {
         if (this.text_property_centered) {
             this.context.textAlign = 'center';
             this.context.fillText(this.canvas_text, this.width / 2, Math.floor(this.font_size * .9));
-            l('Rendered text! {' + this.canvas_text + '}');
+            //l('Rendered text! {' + this.canvas_text + '}');
         } else {
             this.context.fillText(this.canvas_text, 0, Math.floor(this.font_size * .9));
             //this.context.fillText(this.canvas_text, 0, 25);
-            l('Rendered text not centered! {' + this.canvas_text + '}');
+            //l('Rendered text not centered! {' + this.canvas_text + '}');
         }
     };
 
@@ -36,6 +36,15 @@ $_QE.prototype.CanvasRendering = function() {
         let r;
         for (r = 0; r < this.rows.length; r++) {
             this.context.fillText(this.rows[r], 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
+        }
+    };
+
+    this.render_text_rows = function() {
+        this.pre_render();
+
+        let r;
+        for (r = 0; r < this.row_buffer.length; r++) {
+            this.context.fillText(this.row_buffer[r].content, 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
         }
     };
 

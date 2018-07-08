@@ -2,102 +2,86 @@
 
 """This module, web_socket_consumer_abstraction.py, provides an abstraction to AsyncWebsocketConsumer."""
 
-from channels.generic.websocket import AsyncWebsocketConsumer
-import json
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+import sys
 
 
-class WebSocketConsumerAbstract(AsyncWebsocketConsumer):
+class WebSocketConsumerAbstract(AsyncJsonWebsocketConsumer):
 	"""Handles sending and receiving of web socket messages."""
 
-	WEB_SOCKET_KEY_MESSAGE_TYPE = 't'
+	_WEB_SOCKET_KEY_TYPE    = 't'
+	_WEB_SOCKET_KEY_ID      = 'm'
+	_WEB_SOCKET_KEY_SUCCESS = 's'
+	_WEB_SOCKET_KEY_DATA    = 'd'
+
+	_WEB_SOCKET_RESPONSE_VALUE_SUCCESS_TRUE  = 1
+	_WEB_SOCKET_RESPONSE_VALUE_SUCCESS_FALSE = 0
 
 	def __init__(self, scope):
 		super().__init__(scope)
+		self._debug_mode   = False
+		self._clients      = {}
+		self._client_id    = 0
 
-		self.channel_global           = 'channelGlobal'
-		self.channel_individual_users = []
-		self._server_logic            = None
+		#self.channel_global           = 'channelGlobal'
 
-	def set_server_logic(self, server_logic):
-		"""Provides the response logic for this web-socket consumer."""
-		self._server_logic = server_logic
+	def add_client(self, channel_name):
+		"""Adds a new client connection."""
+		self._clients[channel_name] = str(self._client_id)
+		self._client_id += 1
+
+	def print_logging(self, m, flush=True):
+		"""Prints a message."""
+		if self._debug_mode:
+			print(m)
+			if flush:
+				sys.stdout.flush()
 
 	async def connect(self):
-		print('Just made a websocket connection!')
-		print('Connection ID : ' + self.channel_name)
-		#self._server_logic.add_connection(self.channel_name)
-		self.channel_individual_users.append(self.channel_name)
+		self.print_logging('Websocket {' + str(self.channel_name) + '} connected!')
 
-		#print(self.c)
+		self.add_client(self.channel_name)
 
 		# One to one communication.
-		#await self.channel_layer.group_add(
-		#	self.channel_name,
-		#	self.channel_name
-		#)
-
-		# Add the client to the global chat.
 		await self.channel_layer.group_add(
-			self.channel_global,
+			self._clients[self.channel_name],
 			self.channel_name
 		)
+
+		# Add the client to the global chat.
+		#await self.channel_layer.group_add(
+		#	self.channel_global,
+		#	self.channel_name
+		#)
 
 		await self.accept()
 
 	async def disconnect(self, close_code):
-		print('websocket disconnect!')
-		print('Connection ID : ' + self.channel_name)
-		#self._server_logic.remove_connection(self.channel_name)
-		self.channel_individual_users.remove(self.channel_name)
+		self.print_logging('Websocket {' + str(self.channel_name) + '} disconnected!')
+
 		await self.channel_layer.group_discard(
-			self.channel_global,
+			self._clients[self.channel_name],
 			self.channel_name
 		)
 
-	async def receive(self, text_data):
-		print('received the following message : { ' + str(text_data) + '}')
+		del self._clients[self.channel_name]
 
-		r = json.loads(text_data)
-		#request_type = r[WebSocketConsumerAbstract.WEB_SOCKET_KEY_MESSAGE_TYPE]
+	async def receive_json(self, content, **kwargs):
+		self.print_logging('Received the following JSON message {' + str(content) + '}')
+		await self.on_message_received(content, self.channel_name)
 
-		#await self.send(text_data=json.dumps({
-		#	"text": self._server_logic.get_reply(self.channel_name, r),
-		#}))
+	async def send_message_to_individual(self, message, channel):
+		"""Sends a message to the provided channel."""
+		self.print_logging('TRYING TO SEND A MESSAGE!!!!')
+		channel_layer = get_channel_layer()
+		await channel_layer.group_send(self._clients[channel], {
+			'type': 'send.message.to.single.client',
+			'content': message
+		})
 
-		await self.send(text_data=json.dumps({
-			"text": "{'hi':'hi'}",
-		}))
-
-		'''
-		# If the request type was a chat message then also send the chat message.
-		if request_type == _WEB_SOCKET_REQUEST_VALUE_REQUEST_TYPE_CHAT_MESSAGE:
-
-			user = self._web_socket_server.get_username_from_channel_name(self.channel_name)
-
-			await self.channel_layer.group_send(
-				self.global_chat,
-				{
-					'type': 'chat.message',
-					_WEB_SOCKET_KEY_CHAT_CHANNEL: r[_WEB_SOCKET_KEY_CHAT_CHANNEL],
-					_WEB_SOCKET_KEY_CHAT_MESSAGE: r[_WEB_SOCKET_KEY_CHAT_MESSAGE],
-					_WEB_SOCKET_KEY_CHAT_USER   : user
-				}
-			)
-		'''
-
-
-	'''
-
-	async def chat_message(self, event):
-		"""Sends the chat message."""
-		await self.send(text_data=json.dumps({
-			'text':
-				{
-					_WEB_SOCKET_KEY_CHAT_CHANNEL: event[_WEB_SOCKET_KEY_CHAT_CHANNEL],
-					_WEB_SOCKET_KEY_CHAT_MESSAGE: event[_WEB_SOCKET_KEY_CHAT_MESSAGE],
-					_WEB_SOCKET_KEY_CHAT_USER   : event[_WEB_SOCKET_KEY_CHAT_USER],
-					_WEB_SOCKET_RESPONSE_KEY_MESSAGE_TYPE: _WEB_SOCKET_RESPONSE_VALUE_MESSAGE_TYPE_CHAT_MESSAGE
-				}
-		}))
-
-	'''
+	async def send_message_to_single_client(self, content):
+		"""Sends a message to a single client."""
+		self.print_logging('SENDING THE FOLLOWING SINGLE MESSAGE {' + str(content) + '}')
+		await self.send_json(content['content'])

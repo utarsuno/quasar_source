@@ -13,6 +13,10 @@ $_QE.prototype.CanvasText = function(font) {
         }
     };
 
+    this.get_text_length_without_whitespaces = function() {
+        return this.canvas_text.replace(' ', '').replace('\t', '').length;
+    };
+
     this.clear = function() {
         l('CanvasText clear called!');
         this.set_text('');

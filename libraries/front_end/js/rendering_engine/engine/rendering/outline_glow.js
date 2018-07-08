@@ -40,7 +40,7 @@ OutlineGlow.prototype = {
     set_hover_object: function(object3D) {
         this.current_hover_object = object3D;
         this.outline_pass.selectedObjects[0] = this.current_hover_object;
-        MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_HOVER);
+        //MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_HOVER);
     },
 
     remove_hover_object: function(object3D) {
@@ -50,9 +50,8 @@ OutlineGlow.prototype = {
     },
 
     remove_current_object: function() {
-        //this.outline_pass.selectedObjects = [];
-        this.outline_pass.selectedObjects.length = 0;
-        //this.outline_pass.selectedObjects[0] = null;
+        // slower way, this.outline_pass.selectedObjects.length = 0;
+        this.outline_pass.selectedObjects = [];
         this.current_hover_object = null;
     }
 

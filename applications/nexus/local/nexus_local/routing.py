@@ -4,7 +4,7 @@
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
-from applications.nexus.local.nexus_local import consumers
+from applications.nexus.local.nexus_local.websockets import consumers
 from django.conf.urls import url
 
 application = ProtocolTypeRouter({

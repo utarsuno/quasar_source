@@ -1,6 +1,8 @@
 'use strict';
 
-$_QE.prototype.CanvasConsole = function(number_of_rows) {
+$_QE.prototype.CanvasConsole = function(number_of_rows, font) {
+
+    $_QE.prototype.CanvasFont.call(this, font);
 
     this.row_buffer = [];
 
@@ -25,9 +27,39 @@ $_QE.prototype.CanvasConsole = function(number_of_rows) {
     };
 
     this.update_step = function(background_color, foreground_color) {
-        this.render_rows(background_color, foreground_color, this.row_buffer);
-        this.texture.needsUpdate = true;
-        l('Paint occured!');
+        // temp
+        this.current_background_color = background_color;
+        this.current_foreground_color = foreground_color;
+        //
+
+        if (this.update_needed_for_font) {
+            this.update_font();
+            this.render_text_rows();
+            this.texture.needsUpdate = true;
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            l('Paint occured for font!');
+            return;
+        }
+        if (this.update_needed_for_text) {
+            this.render_text_rows();
+            this.texture.needsUpdate = true;
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            l('Paint occured for text!');
+            return;
+        }
+        if (this.update_needed_for_colors) {
+            this.render_text_rows();
+            this.texture.needsUpdate = true;
+            this.update_needed_for_font   = false;
+            this.update_needed_for_text   = false;
+            this.update_needed_for_colors = false;
+            l('Paint occured for colors!');
+            return;
+        }
     };
 
     /*

@@ -18,21 +18,20 @@ $_NL.prototype = {
         this.engine_setting_shader_fxaa_enabled    = true;
         this.engine_setting_shader_outline_enabled = true;
         this.engine_setting_shader_grain_enabled   = true;
+
+
+        //
+        this.websocket_message_parser = new $_NL.prototype.WebsocketMessageHandler();
     },
 
     create_gui_2d: function() {
-        QE.create_gui_2d();
-        this.gui_2d_logs   = QE.gui_2d_logs;
-        this.gui_2d_typing = QE.gui_2d_typing;
+        $_NL.prototype.GUI2DMessageLogs.call(this);
+        $_NL.prototype.GUI2DPlayerTypingInput.call(this);
     },
 
     engine_started: function() {
         l('engine started!!!');
-        //QE.manager_world.current_world.logs.add_message('Hello worldsadasdasdasd!!!!');
-
-
-        // $_QE.prototype.CanvasGUI2D = function(unique_name) {
-
+        QE.manager_web_sockets.set_message_parser(this.websocket_message_parser);
     }
 
 };

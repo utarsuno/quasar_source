@@ -21,20 +21,6 @@ $_QE.prototype = {
         this.gui_2d_elements = [];
     },
 
-    create_gui_2d: function() {
-        this.gui_2d_logs = new $_QE.prototype.CanvasGUI2DLines('_gui_2d_logs');
-        this.gui_2d_logs.initialize(0, 0, 45, 95);
-        //this.gui_2d_logs.set_text('Hello World Text 2D!');
-        this.gui_2d_logs.add_row('Nexus Local!');
-        this.add_gui_2d_element(this.gui_2d_logs);
-
-        this.gui_2d_typing = new $_QE.prototype.CanvasGUI2DTyping('_gui_2d_typing');
-        this.gui_2d_typing.initialize(80, 10, 80, 5);
-        this.gui_2d_typing.set_text('');
-        this.gui_2d_typing.hide();
-        this.add_gui_2d_element(this.gui_2d_typing);
-    },
-
     add_gui_2d_element: function(e) {
         this.gui_2d_elements.push(e);
     },
