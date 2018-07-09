@@ -7,13 +7,19 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
 import com.quasar.qdb.server.dbserver.DBInterface;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 
 public final
 class MongoDb implements DBInterface
@@ -59,6 +65,88 @@ class MongoDb implements DBInterface
   {
     return $mongoClient.getMongoClientOptions().toString();
   }
+
+    @Override
+    public boolean world_operation_create(String username, String world_name) {
+        Document doc = new Document("owner", username)
+                .append("world_name", world_name);
+
+        log.info("world_operation_create: " + doc.toJson());
+
+        try {
+            entities.insertOne(doc);
+            return true;
+        } catch (Exception e) {
+            log.error("world_operation_create " + username, e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean world_operation_add_user(String owner_username, String world_name, String user_to_add) {
+
+        try {
+
+            final Document user = users.find( eq("username", user_to_add)).first();
+            if( user == null ) {
+                return false;
+            }
+
+            final Document entity = entities.find( and(
+                    eq("owner", owner_username),
+                    eq("world_name", world_name))).first();
+
+            if( entity == null ) {
+                return false;
+            }
+
+
+            List<String> worlds = (List<String>) user.get("entities");
+            if( worlds == null ) {
+                worlds = new ArrayList<>(worlds);
+            }
+
+            worlds.add(entity.getObjectId(entity).toString());
+
+            user.put("entities", worlds);
+
+
+            FindOneAndUpdateOptions findOptions = new FindOneAndUpdateOptions();
+            findOptions.upsert(true);
+            findOptions.returnDocument(ReturnDocument.AFTER);
+
+            Bson update = combine( set("entities", worlds) );
+
+            users.findOneAndUpdate(eq("username", user_to_add), update, findOptions);
+
+            return true;
+
+        } catch (Exception e) {
+            log.error("world_operation_add_user " + owner_username, e);
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean world_operation_remove_user(String owner_username, String world_name, String user_to_remove) {
+        return false;
+    }
+
+    @Override
+    public boolean world_operation_set_user_role(String owner_username, String world_name, String user_to_modify, WorldMemberRole role_to_set) {
+        return false;
+    }
+
+    @Override
+    public boolean world_operation_set_share_state(String owner_username, String world_name, WorldShareState world_state) {
+        return false;
+    }
+
+    @Override
+    public WorldShareState world_operation_get_share_state(String owner_username, String world_name) {
+        return null;
+    }
 
     @Override
     public boolean is_username_taken(String username) {
