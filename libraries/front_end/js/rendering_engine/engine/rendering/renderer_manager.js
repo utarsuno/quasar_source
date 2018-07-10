@@ -65,8 +65,8 @@ $_QE.prototype.RendererManager = function(client, engine) {
         this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
         this.camera.updateProjectionMatrix();
 
-        this.camera_frustum_height = this.camera.getFilmHeight() * this.camera.aspect;
-        this.camera_frustum_width  = this.camera.getFilmWidth() / this.camera.aspect;
+        //this.camera_frustum_height = this.camera.getFilmHeight() * this.camera.aspect;
+        //this.camera_frustum_width  = this.camera.getFilmWidth() / this.camera.aspect;
 
 
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
@@ -83,21 +83,19 @@ $_QE.prototype.RendererManager = function(client, engine) {
         //}
 
         this.effect_FXAA = new THREE.ShaderPass(THREE.FXAAShader);
-        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.window_width, 1 / this.window_height);
+        this.effect_FXAA.uniforms['resolution'].value.set(1 / this.client.state_window_width_inner, 1 / this.client.state_window_height_inner);
         //this.effect_FXAA.renderToScreen = true;
         this.effect_composer.addPass(this.effect_FXAA);
 
-        //this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.window_width, this.window_height), world.scene, this.camera);
-        //this.effect_composer.addPass(this.outline_pass);
+        this.outline_pass = new THREE.OutlinePass(new THREE.Vector2(this.client.state_window_width_inner, this.client.state_window_height_inner), world.scene, this.camera);
+        this.effect_composer.addPass(this.outline_pass);
 
         this.effect_film = new $_QE.prototype.FilmNoise();
         this.effect_film.renderToScreen = true;
         this.effect_composer.addPass(this.effect_film);
 
-        //this.outline_glow = new OutlineGlow(this.outline_pass);
-
-
-        //this.outline_glow.outline_pass.renderScene = world.scene;
+        this.outline_glow = new $_QE.prototype.OutlineGlow(this.outline_pass);
+        this.outline_glow.outline_pass.renderScene = world.scene;
         this.render_pass.scene = world.scene;
 
     };

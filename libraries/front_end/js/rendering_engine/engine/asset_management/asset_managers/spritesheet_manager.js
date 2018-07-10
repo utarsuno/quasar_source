@@ -30,7 +30,8 @@ const ICON_WRITING    = 26; // #pre-process_global_constant
 
 $_QE.prototype.SpritesheetManager = function() {
     this.get_icon_material = function(icon) {
-        this._shader_material = QE.manager_shaders.get_shader_material_abstraction(ASSET_SHADER_MATERIAL_SPRITESHEET);
+        //this._shader_material = QE.manager_shaders.get_shader_material_abstraction(ASSET_SHADER_MATERIAL_SPRITESHEET);
+        this._shader_material = QE.manager_shaders.get_asset(ASSET_SHADER_MATERIAL_SPRITESHEET);
         let m = this._shader_material.get_material(icon);
         m.transparent = true;
         m.needsUpdate = true;
@@ -38,7 +39,8 @@ $_QE.prototype.SpritesheetManager = function() {
     };
 
     this.load_icon_sprite_sheet = function() {
-        this.texture = QE.manager_textures.get_texture(ASSET_TEXUTRE_SPRITESHEET_ICONS);
+        //this.texture = QE.manager_textures.get_texture(ASSET_TEXUTRE_SPRITESHEET_ICONS);
+        this.texture = QE.manager_textures.get_asset(ASSET_TEXUTRE_SPRITESHEET_ICONS);
         this.texture.magFilter = THREE.NearestFilter;
         this.texture.minFilter = THREE.NearestFilter;
         this.texture.needsUpdate = true;

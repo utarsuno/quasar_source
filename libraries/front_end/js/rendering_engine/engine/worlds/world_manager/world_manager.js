@@ -17,10 +17,12 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.environment = new $_QE.prototype.WorldEnvironment(this.first_world);
         this.environment.create(this.first_world);
 
+        this.player_cursor = new $_QE.prototype.PlayerCursor();
+        this.player_cursor.create(this.first_world, this.player);
+
         //this.player_cursor = new $_QE.prototype.PlayerCursor();
         //this.player_menu = new PlayerMenu();
         //this.player_cursor = new PlayerCursor();
-        //this.environment = new WorldEnvironment();
     };
 
     this.set_current_world = function(world, transition_finished_callback) {
@@ -98,6 +100,10 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             QE.gui_2d_elements[a].update();
         }
         ////
+
+        if (!this.renderer.in_transition && this.player.current_state !== PLAYER_STATE_TYPING) {
+            this.current_world.update_interactive_objects();
+        }
 
         /*
         if (!this.player_cursor._currently_engaged) {

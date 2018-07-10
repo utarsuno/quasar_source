@@ -25,7 +25,7 @@ $_NL.prototype = {
     },
 
     create_gui_2d: function() {
-        $_NL.prototype.GUI2DMessageLogs.call(this);
+        $_NL.prototype.GUI2DMessageLogs.call(this, 32);
         $_NL.prototype.GUI2DPlayerTypingInput.call(this);
     },
 

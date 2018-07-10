@@ -1,32 +1,21 @@
 'use strict';
 
-$_QE.prototype.CanvasGUI2DText = function(unique_name) {
+$_QE.prototype.CanvasGUI2DText = function(unique_name, type) {
 
-    $_QE.prototype.CanvasGUI2D.call(this, unique_name, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    $_QE.prototype.CanvasGUI2D.call(this, unique_name, type, CANVAS_RENDERING_SINGLE);
     $_QE.prototype.CanvasText.call(this, $_QE.prototype.CanvasFontPresets['console_font_smaller']);
 
-    this.update = function() {
-        if (this.update_needed_for_font) {
-            this.update_font();
-            this.render();
-            this.update_needed_for_font   = false;
-            this.update_needed_for_text   = false;
-            this.update_needed_for_colors = false;
-            return;
+    this.set_background_color(FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+
+    this.get_text_then_clear = function() {
+        let t;
+        if (this.get_text_length_without_whitespaces() === 0) {
+            t = null;
+        } else {
+            t = this.canvas_text;
         }
-        if (this.update_needed_for_text) {
-            this.render();
-            this.update_needed_for_font   = false;
-            this.update_needed_for_text   = false;
-            this.update_needed_for_colors = false;
-            return;
-        }
-        if (this.update_needed_for_colors) {
-            this.render();
-            this.update_needed_for_font   = false;
-            this.update_needed_for_text   = false;
-            this.update_needed_for_colors = false;
-            return;
-        }
+        this.set_text('');
+        this.hide();
+        return t;
     };
 };

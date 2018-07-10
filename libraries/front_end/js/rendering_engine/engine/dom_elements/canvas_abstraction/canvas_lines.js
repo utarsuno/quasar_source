@@ -1,51 +1,46 @@
 'use strict';
 
-const SMUDGE_FACTOR = 0.85; // #pre-process_global_constant
+$_QE.prototype.CanvasLines = function(number_of_rows, font) {
+    $_QE.prototype.CanvasFont.call(this, font);
 
-$_QE.prototype.CanvasLines = function() {
-    this.text_property_bold     = null;
-    this.text_property_italic   = null;
-    this.text_property_centered = null;
-    this.font                   = null;
-    this.needs_update           = false;
+    this.rows = [];
+    this.update_needed_for_text = false;
 
-    this.set_font_property_bold = function(is_bold) {
-        if (this.text_property_bold !== is_bold) {
-            this.text_property_bold = is_bold;
-            this.needs_update       = true;
-        }
-    };
+    this.number_of_rows = number_of_rows;
 
-    this.set_font_property_italic = function(is_italic) {
-        if (this.text_property_italic !== is_italic) {
-            this.text_property_italic = is_italic;
-            this.needs_update         = true;
-        }
-    };
+    //let r;
+    //for (r = 0; r < number_of_rows; r++) {
+    //    this.rows.push(new $_QE.prototype.CanvasTextRow('', r, this));
+    //}
 
-    this.set_font_property_centered = function(is_centered) {
-        if (this.text_property_centered !== is_centered) {
-            this.text_property_centered = is_centered;
-            this.needs_update           = true;
-        }
-    };
-
-    this.set_font = function(row_height) {
-        if (this.needs_update) {
-
-            this.font_size = Math.floor(row_height * SMUDGE_FACTOR);
-
-            if (this.text_property_bold && this.text_property_italic) {
-                this.font = 'italic bold ' + this.font_size.toString() + 'px Arial';
-            } else if (this.text_property_bold) {
-                this.font = 'bold ' + this.font_size.toString() + 'px Arial';
-            } else if (this.text_property_italic) {
-                this.font = 'italic ' + this.font_size.toString() + 'px Arial';
-            } else {
-                this.font = this.font_size.toString() + 'px Arial';
-            }
-
-            this.needs_update = false;
-        }
+    this.add_row = function(content) {
+        this.rows.unshift(new $_QE.prototype.CanvasTextRow(content, null, this));
+        //this.rows.push(new $_QE.prototype.CanvasTextRow(content, null, this));
+        this.update_needed_for_text = true;
     };
 };
+
+
+
+/*
+
+$_QE.prototype.CanvasConsole = function(number_of_rows, font) {
+
+    $_QE.prototype.CanvasLines.call(this, number_of_rows, font);
+    $_QE.prototype.CanvasTexture.call(this, null, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+
+    this.override_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+
+    this.add_message = function(content) {
+        this.row_buffer[0].content = content;
+        let row;
+        for (row = this.row_buffer.length - 1; row > 0; row--) {
+            this.row_buffer[row].content = this.row_buffer[row - 1].content;
+        }
+        this.update_needed_for_text = true;
+    };
+};
+
+
+
+ */

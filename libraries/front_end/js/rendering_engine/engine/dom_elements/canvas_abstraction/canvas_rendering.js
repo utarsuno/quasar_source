@@ -1,6 +1,11 @@
 'use strict';
 
-$_QE.prototype.CanvasRendering = function() {
+const CANVAS_RENDERING_ROWS   = true;  // #pre-process_global_constant
+const CANVAS_RENDERING_SINGLE = false; // #pre-process_global_constant
+
+$_QE.prototype.CanvasRendering = function(render_style) {
+
+    this.render_style = render_style;
 
     this.clear = function() {
         this.context.fillStyle = '###';
@@ -16,9 +21,7 @@ $_QE.prototype.CanvasRendering = function() {
         //l(this.current_foreground_color);
     };
 
-    this.render = function() {
-        this.pre_render();
-
+    this._render_single_line = function() {
         if (this.text_property_centered) {
             this.context.textAlign = 'center';
             this.context.fillText(this.canvas_text, this.width / 2, Math.floor(this.font_size * .9));
@@ -30,21 +33,27 @@ $_QE.prototype.CanvasRendering = function() {
         }
     };
 
-    this.render_rows = function() {
-        this.pre_render();
-
+    this._render_rows = function() {
         let r;
         for (r = 0; r < this.rows.length; r++) {
-            this.context.fillText(this.rows[r], 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
+            this.context.fillText(this.rows[r].content, 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
         }
     };
 
-    this.render_text_rows = function() {
+    this.render = function() {
         this.pre_render();
 
-        let r;
-        for (r = 0; r < this.row_buffer.length; r++) {
-            this.context.fillText(this.row_buffer[r].content, 0, this._h - (this.font_size * r) - (this.font_y_offset * (r + 1)));
+        switch (this.render_style) {
+        case CANVAS_RENDERING_SINGLE:
+            this._render_single_line();
+            break;
+        case CANVAS_RENDERING_ROWS:
+            this._render_rows();
+            break;
+        }
+
+        if (is_defined(this.on_post_render)) {
+            this.on_post_render();
         }
     };
 

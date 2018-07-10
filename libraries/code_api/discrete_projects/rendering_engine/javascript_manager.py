@@ -236,18 +236,15 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/dom_elements/dom_element.js')
 		self.js_files_needed.append('engine/dom_elements/dom_element_string.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_font.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_abstraction.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_console.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_rendering.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_texture.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text_row.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_lines.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_colors.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_lines.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_text.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_texture.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_typing.js')
 
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
@@ -255,6 +252,7 @@ class JavascriptManager(object):
 
 		# Rendering manager.
 		self.js_files_needed.append('engine/rendering/renderer_manager.js')
+		self.js_files_needed.append('engine/rendering/outline_glow.js')
 		self.js_files_needed.append('engine/rendering/film_pass.js')
 
 		# Player.
@@ -272,6 +270,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_state.js')
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_base.js')
 		self.js_files_needed.append('engine/worlds/singleton/world_environment.js')
+		self.js_files_needed.append('engine/worlds/singleton/player_cursor.js')
 
 		# Inheritables.
 		self.js_files_needed.append('engine/models/inheritables/attachmentable.js')

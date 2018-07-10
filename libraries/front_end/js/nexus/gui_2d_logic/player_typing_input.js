@@ -2,8 +2,9 @@
 
 $_NL.prototype.GUI2DPlayerTypingInput = function() {
 
-    this.gui_2d_typing = new $_QE.prototype.CanvasGUI2DTyping('_gui_2d_typing');
-    this.gui_2d_typing.initialize(80, 10, 800, 20, 'outline_green');
+    this.gui_2d_typing = new $_QE.prototype.CanvasGUI2DText('_gui_2d_logs', CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    this.gui_2d_typing.initialize(800, 20);
+    this.gui_2d_typing.initialize_gui(80, 10, 'outline_green');
     this.gui_2d_typing.set_text('');
     this.gui_2d_typing.hide();
 

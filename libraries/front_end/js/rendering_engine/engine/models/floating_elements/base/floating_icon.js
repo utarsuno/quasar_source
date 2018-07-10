@@ -17,18 +17,11 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color,
         this.cached = false;
     }
 
-    this.create_base_material();
-    this.create_base_mesh();
-
-    if (is_defined(foreground_color)) {
-        this.set_foreground_color(foreground_color);
-    }
-
     this.switch_icon = function(icon) {
         if (this.icon_type !== icon) {
 
             if (this.cached) {
-                this._material = MANAGER_HEAP.get_spritesheet_shader_material(icon, this.get_current_foreground_color());
+                this._material = QE.manager_heap.get_spritesheet_shader_material(icon, this.get_current_foreground_color());
                 this.mesh.material = this._material;
                 //this._material.needsUpdate = true;
             } else {
@@ -48,21 +41,21 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color,
             this.material.needsUpdate = true;
         }
         this.switch_icon(icon);
-    },
+    };
 
     /*__   __   ___      ___    __
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.create_base_material = function() {
         if (this.cached) {
-            this._material = MANAGER_HEAP.get_spritesheet_shader_material(this.icon_type, this.get_current_foreground_color());
+            this._material = QE.manager_heap.get_spritesheet_shader_material(this.icon_type, this.get_current_foreground_color());
         } else {
-            this.material = MANAGER_SPRITESHEET.get_icon_material(this.icon_type);
+            this.material = QE.manager_spritesheet.get_icon_material(this.icon_type);
         }
     };
 
     this.create_base_mesh = function() {
-        let geometry = MANAGER_HEAP.get_plane_geometry(this.width, this.height);
+        let geometry = QE.manager_heap.get_plane_geometry(this.width, this.height);
         if (this.cached) {
             this.mesh = new THREE.Mesh(geometry, this._material);
         } else {
@@ -80,4 +73,14 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color,
             this.material.needsUpdate = true;
         }
     };
+
+    //////////////
+
+    this.create_base_material();
+    this.create_base_mesh();
+
+    if (is_defined(foreground_color)) {
+        this.set_foreground_color(foreground_color);
+    }
+
 };

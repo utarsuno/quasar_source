@@ -29,8 +29,6 @@ services:
 volumes:
   redis_data:
 
-
-
 ######
 
   #nexus_local:

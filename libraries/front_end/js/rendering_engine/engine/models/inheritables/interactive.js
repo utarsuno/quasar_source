@@ -32,7 +32,7 @@ $_QE.prototype.Interactive = function() {
     };
 
     this.set_to_singleton = function() {
-        Singleton.call(this);
+        $_QE.prototype.Singleton.call(this);
     };
 
     this.look_away = function() {
@@ -61,7 +61,7 @@ $_QE.prototype.Interactive = function() {
     this.disengage = function() {
         this.being_engaged_with = false;
         if (this.engable) {
-            MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_DISENGAGE);
+            //MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_DISENGAGE);
             this.state_change_engage(false);
         }
         if (is_defined(this.disengage_function)) {
@@ -76,7 +76,7 @@ $_QE.prototype.Interactive = function() {
     this.engage = function() {
         if (this.engable) {
             this.being_engaged_with = true;
-            MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_ENGAGE);
+            //MANAGER_AUDIO.play_sound(AUDIO_SOUND_ON_ENGAGE);
             this.state_change_engage(true);
         }
         if (is_defined(this.engage_function)) {
@@ -112,4 +112,4 @@ $_QE.prototype.Interactive = function() {
         this.value_post_changed_function = value_post_changed_function;
     };
 
-}
+};

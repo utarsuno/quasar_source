@@ -1,7 +1,5 @@
 'use strict';
 
-const SMUDGE_FACTOR = 0.85; // #pre-process_global_constant
-
 $_QE.prototype.CanvasFontPresets = {
     'console_font': ['20px Arial', 20, 4],
     'console_font_smaller': ['16px Arial', 16, 3]
@@ -56,8 +54,8 @@ $_QE.prototype.CanvasFont = function(font) {
             this.context.font = this.font;
             this.update_needed_for_font = false;
 
-            l('Set font to');
-            l(this.context.font);
+            //l('Set font to');
+            //l(this.context.font);
         }
     };
 
