@@ -20,16 +20,14 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.player_cursor = new $_QE.prototype.PlayerCursor();
         this.player_cursor.create(this.first_world, this.player);
 
-        //this.player_cursor = new $_QE.prototype.PlayerCursor();
         //this.player_menu = new PlayerMenu();
-        //this.player_cursor = new PlayerCursor();
     };
 
     this.set_current_world = function(world, transition_finished_callback) {
         let previous_position_and_look_at;
 
         if (this.current_world !== null) {
-            //this.player_cursor.detach();
+            this.player_cursor.detach();
             // Make sure to hide the player menu if it is visible.
             //if (this.player_menu.is_currently_visible()) {
             //    this.player_menu.toggle_visibility();
@@ -49,23 +47,27 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
 
         // Set the player position ahead of time.
         this.current_world.set_player_enter_position_and_look_at();
-        //this.current_world.enter_world(this.player_cursor);
+        this.current_world.enter_world(this.player_cursor);
 
         if (is_defined(this.previous_world)) {
             //this.player_menu.switch_to_new_world(this.previous_world, this.current_world);
-            //this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
+            this.player_cursor.switch_to_new_world(this.previous_world, this.current_world);
             //MANAGER_RENDERER.set_current_world(this.current_world, this.previous_world, transition_finished_callback, previous_position_and_look_at, this._singleton_transition_after_old_scene_fbo.bind(this, this.current_world, this.previous_world));
         } else {
             //MANAGER_RENDERER.set_current_scene(this.current_world.scene, transition_finished_callback);
         }
 
-        //this.current_world.enter_world(this.player_cursor);
-        this.current_world.enter_world();
+        this.current_world.enter_world(this.player_cursor);
     };
 
     this.update = function(delta) {
         if (this.player.currently_loading()) {
             return;
+        }
+
+        let a;
+        for (a = 0; a < QE.gui_2d_elements.length; a++) {
+            QE.gui_2d_elements[a].update();
         }
 
         this.player.physics(delta);
@@ -75,74 +77,33 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             return;
         }
 
-        // TODO : Double check on what order these should update.
-
         //if (MANAGER_WORLD.current_player_menu.is_visible()) {
         //    MANAGER_WORLD.current_player_menu.update(delta);
         //}
 
-        let a;
         for (a = 0; a < this.current_world.root_attachables.length; a++) {
             if (this.current_world.root_attachables[a].has_animation && this.root_attachables[a].requires_animation_update) {
                 this.current_world.root_attachables[a].update(delta);
-
                 //if (this.current_world.root_attachables[a].hasOwnProperty('update_all_child_animations_recursively')) {
                 //    this.current_world.root_attachables[a].update_all_child_animations_recursively(delta);
                 //} else {
                 //    l('Investigate this?');
                 //}
-
             }
         }
 
-        ////
-        for (a = 0; a < QE.gui_2d_elements.length; a++) {
-            QE.gui_2d_elements[a].update();
-        }
-        ////
-
-        if (!this.renderer.in_transition && this.player.current_state !== PLAYER_STATE_TYPING) {
+        if (!this.player_cursor._currently_engaged && this.player.current_state !== PLAYER_STATE_TYPING) {
             this.current_world.update_interactive_objects();
         }
-
-        /*
-        if (!this.player_cursor._currently_engaged) {
-            // Don't update interactive objects during a transition or during chat typing.
-            if (!this.renderer.in_transition || this.player.current_state === PLAYER_STATE_TYPING) {
-
-                // TODO : Prevent interactive objects update if there has been no movement/inputs.
-
-
-
-                this.current_world.update_interactive_objects();
-            }
-        }
-
-        this.current_world.floating_cursor.update();
-        */
-
+        //this.current_world.floating_cursor.update();
         this.current_world.update(delta);
-
-        //l('Update performed!');
     };
 
 };
 
-
 /*
 
 WorldManager.prototype = {
-
-    // Singletons.
-    player_menu  : null,
-    player_cursor: null,
-    environment  : null,
-
-    // Static worlds.
-    world_login    : null,
-    world_home     : null,
-    world_settings : null,
-    world_admin    : null,
 
     __init__: function() {
         // Static world objects without static entity.
@@ -162,12 +123,6 @@ WorldManager.prototype = {
 
         // For optimizations.
         // TODO: Previous position and direction.
-    },
-
-    create_singletons: function() {
-        this.player_menu.create(this.world_login);
-        this.player_cursor.create(this.world_login);
-        this.environment.create(this.world_login);
     },
 
     _singleton_transition_after_old_scene_fbo: function(current_world, previous_world) {

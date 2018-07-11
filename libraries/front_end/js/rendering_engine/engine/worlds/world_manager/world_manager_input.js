@@ -30,6 +30,9 @@ $_QE.prototype.WorldManagerInput = function() {
         if (this.player.is_paused()) {
             this._left_click_clock.start();
         } else if (this.player.has_input()) {
+
+
+
             // Cursor engage.
             //if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
             //    if (this.current_world.floating_cursor.currently_attached_to.scalable) {

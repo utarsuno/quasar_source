@@ -17,7 +17,7 @@ $_QE.prototype.World = function(player, manager_world) {
     this.look_away_from_currently_looked_at_object = function() {
         this.currently_looked_at_object.look_away();
         if (this.currently_looked_at_object.uses_cursor) {
-            //this.floating_cursor.detach();
+            this.floating_cursor.detach();
         }
         this.currently_looked_at_object = null;
     };
@@ -70,14 +70,14 @@ $_QE.prototype.World = function(player, manager_world) {
                     this.look_away_from_currently_looked_at_object();
                 } else {
                     // Since the currently looked at object match is the same then all we need to do is update the cursor position.
-                    //this.floating_cursor.update_position(intersection_data.point);
+                    this.floating_cursor.update_position(intersection_data.point);
                 }
             } else {
                 // An object is being looked at for the first time.
                 this.currently_looked_at_object = interactive_match;
                 this.look_at_currently_looked_at_object(false, false);
-                //this.floating_cursor.attach(interactive_match);
-                //this.floating_cursor.update_position(intersection_data.point);
+                this.floating_cursor.attach(interactive_match);
+                this.floating_cursor.update_position(intersection_data.point);
             }
         }
     };
@@ -90,7 +90,7 @@ $_QE.prototype.World = function(player, manager_world) {
             this.player.look_at(this.currently_looked_at_object.object3D.position);
         }
         if (set_cursor) {
-            //this.floating_cursor.attach(this.currently_looked_at_object);
+            this.floating_cursor.attach(this.currently_looked_at_object);
         }
         this.currently_looked_at_object.look_at();
     };
@@ -98,8 +98,6 @@ $_QE.prototype.World = function(player, manager_world) {
     this.add_to_scene = function(object) {
         this.scene.add(object);
     };
-
-
 
     /*__   ___  __   __        __   __   ___     __        ___                 __
      |__) |__  /__` /  \ |  | |__) /  ` |__     /  ` |    |__   /\  |\ | |  | |__)
