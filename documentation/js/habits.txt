@@ -13,3 +13,8 @@
 // https://jsperf.com/array-destroy
 - arr.length = 0; is slower than arr = [];
 
+
+
+
+// https://stackoverflow.com/questions/38111355/javascript-are-loops-faster-than-discretely-writing-line-by-line
+

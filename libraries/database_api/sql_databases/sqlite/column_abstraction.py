@@ -10,17 +10,15 @@ class ColumnAbstraction(object):
 		self._name      = column_name
 		self._data_type = column_data_type
 
+	@property
+	def name(self):
+		"""Returns the name of this column."""
+		return self._name
 
-class ColumnDictionary(ColumnAbstraction):
-	"""Represents a python dictionary in a SQLite table (stored as BLOB)."""
+	@property
+	def data_type(self):
+		"""Returns the data-type of this column."""
+		return self._data_type
 
-	def __init__(self, column_name):
-		super().__init__(column_name, 'BLOB')
-
-
-class ColumnRegularString(ColumnAbstraction):
-	"""Represents a python string (converted to ex: UTF-8) in a SQLite table (stored as TEXT)."""
-
-	def __init__(self, column_name):
-		super().__init__(column_name, 'TEXT')
-
+	def __str__(self):
+		return 'TableColumn(' + self._name + ', ' + str(self._data_type) + ')'

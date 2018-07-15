@@ -3,13 +3,13 @@
 $_QE.prototype.WorldInput = function() {
 
     this.mobile_key_press = function(key) {
-        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
             this.currently_looked_at_object.mobile_add_character(key);
         }
     };
 
     this.mobile_key_delete = function() {
-        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
             this.currently_looked_at_object.mobile_delete_character();
         }
     };
@@ -28,7 +28,7 @@ $_QE.prototype.WorldInput = function() {
             this.tab_to_next_interactive_object();
         } else {
             if (is_defined(this.currently_looked_at_object)) {
-                if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.needs_engage_for_parsing_input) {
+                if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
                     this.currently_looked_at_object.parse_keycode(event);
                 } else if (event.keyCode === KEY_CODE__ENTER) {
                     if (!this.currently_looked_at_object.is_engaged()) {

@@ -3,6 +3,10 @@ version: '3'
 
 services:
 
+  # Control point for build process + management for the QA, STAGE, PROD environments.
+  #nexus_server:
+
+
   # Local development 3D web interface.
   nexus_local:
     build: ./applications/nexus/local
@@ -14,7 +18,7 @@ services:
       - "1337:1337"
     volumes:
       - ./:/quasar
-    links:
+    depends_on:
       - redis
 
   # Needed for Django Channels (web-sockets).
@@ -30,17 +34,6 @@ volumes:
   redis_data:
 
 ######
-
-  #nexus_local:
-  #  build: ./applications/quasar_nexus/nexus_local
-  #  container_name: quasar_service_nexus_local
-  #  environment:
-  #    - MICRO_SERVICE_NAME=quasar_service_nexus_local
-  #    - DJANGO_SECRET_KEY=gvb9f175igbse7329ei3pl72p73fehn8g2opwtetc2ihh4325a
-  #  ports:
-  #    - "1337:1337"
-  #  links:
-  #    - redis
 
   #nexus_server:
   #  build: ./applications/quasar_nexus/nexus_server

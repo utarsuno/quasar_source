@@ -78,7 +78,7 @@ $_QE.prototype.WorldManagerInput = function() {
             if (event.keyCode === KEY_CODE__ENTER) {
                 QE.application.leave_typing_state();
             } else {
-                QE.application.parse_key_event_for_typing_state(event);
+                QE.application.parse_key_event(event);
             }
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {

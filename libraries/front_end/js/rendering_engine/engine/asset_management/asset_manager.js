@@ -39,7 +39,7 @@ $_QE.prototype.AssetManager = function(engine) {
         // TEMP.
         l('Asset loaded {' + asset_name + '}');
 
-        if (this.asset_set_number_loaded == this.asset_set_number_to_load) {
+        if (this.asset_set_number_loaded === this.asset_set_number_to_load) {
             this.currently_loading = false;
             this.current_callback();
         }

@@ -30,18 +30,6 @@ function FloatingWallAbstract(width, height, position, normal, world) {
     /* ___       __       ___         __                          __                __     ___  ___     ___
       |__  |    /  \  /\   |  | |\ | / _`    |  |  /\  |    |    /__`     /\  |\ | |  \     |  |__  \_/  |
       |    |___ \__/ /~~\  |  | | \| \__>    |/\| /~~\ |___ |___ .__/    /~~\ | \| |__/     |  |___ / \  |  */
-    this.add_close_button = function() {
-        let one_pixel_width = 1 / this.width;
-        let x_start = 1 - (one_pixel_width * 16);
-        let x_stop = 1;
-        let total_percentage_of_parent_width = (x_stop - x_start);
-        let close_button = new FloatingIconButton(this.world, ICON_CROSS, 16, this.force_hide_self_and_all_child_attachments_recursively.bind(this));
-        close_button.set_attachment_vertical_offset(-8, HALF);
-        close_button.set_attachment_horizontal_offset(0, -HALF + x_start + total_percentage_of_parent_width / 2);
-        close_button.set_attachment_depth_offset(2);
-        close_button.attach_to(this);
-    };
-
     this.add_attachment_to_bottom = function(floating_element) {
         floating_element.set_attachment_vertical_offset(floating_element.height / 2, -HALF);
         floating_element.set_attachment_depth_offset(1);

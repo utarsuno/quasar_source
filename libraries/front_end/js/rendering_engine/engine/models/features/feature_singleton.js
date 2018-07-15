@@ -1,0 +1,50 @@
+'use strict';
+
+$_QE.prototype.FeatureSingleton = function() {
+
+    this.world = null;
+
+    $_QE.prototype.FeatureRecycle.call(this);
+
+    this._in_world = false;
+
+    this.world_leave = function() {
+        if (this._in_world) {
+            this.world.remove_from_scene(this.object3D);
+
+            if (is_defined(this._in_world_elements_interactive)) {
+                if (this._in_world_elements_interactive) {
+                    this.world.remove_from_elements_interactive(this);
+                }
+            }
+
+            this._in_world = false;
+            if (is_defined(this.on_world_leave)) {
+                this.on_world_leave();
+            }
+        }
+    };
+
+    this.world_enter = function(world) {
+        if (!this._in_world) {
+            this._world_enter(world);
+        } else {
+            this.world_leave();
+            this._world_enter(world);
+        }
+    };
+
+    this._world_enter = function(world) {
+        this.world = world;
+        this.world.add_to_scene(this.object3D);
+
+        if (is_defined(this._in_world_elements_interactive)) {
+            if (!this._in_world_elements_interactive) {
+                this.world.add_element_interactive(this);
+            }
+        }
+
+        this._in_world = true;
+    };
+
+};

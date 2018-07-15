@@ -147,6 +147,11 @@ def _get_parsed_javascript_content(file_lines):
 	return cleaner_lines
 
 
+def _check_that_no_line_is_longer_than_600_characters(todo):
+	"""Helps certain V8 optimizations."""
+	y = todo
+
+
 class JavascriptManager(object):
 	"""This class performs multiple passes of tasks over the javascript files."""
 
@@ -214,6 +219,12 @@ class JavascriptManager(object):
 		loaded_javascript_file = combined_javascript_file.get_created_file_as_loaded_file()
 		#loaded_javascript_file.set_reduced_file_to_copy_out_of_configuration_files()
 		loaded_javascript_file.generate_minified_file()
+
+		#
+		# TODO: CHECK THAT NO LINES ARE LONGER THAN 600 CHARACTERS!
+		print('TODO : Check that no line is longer than 600 characters.')
+		#
+
 		oc.print_pink('\t' + loaded_javascript_file.compression_statistics)
 		self.engine._original_total_size += loaded_javascript_file.file_size
 		self.engine._new_total_size += loaded_javascript_file.compressed_size
@@ -229,22 +240,16 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/core/time_value_buffer.js')
 		self.js_files_needed.append('engine/core/heap_management/heap_manager.js')
 		self.js_files_needed.append('engine/assets_json/helvetiker_regular.js')
-		#self.js_files_needed.append('engine/core/typing_buffer.js')
+
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
+
 		# HTML_GUI.
 		self.js_files_needed.append('engine/dom_elements/dom_element.js')
-		self.js_files_needed.append('engine/dom_elements/dom_element_string.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_font.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_rendering.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_texture.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text_row.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_text.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_lines.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_colors.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_lines.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/gui/canvas_gui_2d_text.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_gui_2d.js')
 
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
@@ -258,6 +263,7 @@ class JavascriptManager(object):
 		# Player.
 		self.js_files_needed.append('player/player.js')
 		self.js_files_needed.append('player/player_state.js')
+		self.js_files_needed.append('player/player_cursor.js')
 
 		# Controls.
 		self.js_files_needed.append('engine/controls/fps_controls.js')
@@ -269,38 +275,63 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_input.js')
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_state.js')
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_base.js')
-		self.js_files_needed.append('engine/worlds/singleton/world_environment.js')
-		self.js_files_needed.append('engine/worlds/singleton/player_cursor.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_elements.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_elements_interactive.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_elements_root.js')
+		self.js_files_needed.append('engine/worlds/world_abstracts/world_elements.js')
 
 		# Inheritables.
-		self.js_files_needed.append('engine/models/inheritables/attachmentable.js')
-		self.js_files_needed.append('engine/models/inheritables/interactive.js')
-		self.js_files_needed.append('engine/models/inheritables/singleton.js')
-		self.js_files_needed.append('engine/models/inheritables/dynamically_loadable.js')
-		self.js_files_needed.append('engine/models/inheritables/visibility.js')
+		self.js_files_needed.append('engine/models/features/feature_attachment.js')
+		self.js_files_needed.append('engine/models/features/feature_clickable.js')
+		self.js_files_needed.append('engine/models/features/feature_color.js')
+		self.js_files_needed.append('engine/models/features/feature_cursor.js')
+		self.js_files_needed.append('engine/models/features/feature_element_root.js')
+		self.js_files_needed.append('engine/models/features/feature_interactive.js')
+		self.js_files_needed.append('engine/models/features/feature_meta_data.js')
+		self.js_files_needed.append('engine/models/features/feature_mouse_scale.js')
+		self.js_files_needed.append('engine/models/features/feature_outline_glow.js')
+		self.js_files_needed.append('engine/models/features/feature_position.js')
+		self.js_files_needed.append('engine/models/features/feature_recycle.js')
+		self.js_files_needed.append('engine/models/features/feature_singleton.js')
+		self.js_files_needed.append('engine/models/features/feature_size.js')
+		self.js_files_needed.append('engine/models/features/feature_tab_target.js')
+		self.js_files_needed.append('engine/models/features/feature_visibility.js')
+
+		self.js_files_needed.append('engine/models/features/text/feature_typing.js')
+		self.js_files_needed.append('engine/models/features/text/feature_text.js')
+		self.js_files_needed.append('engine/models/features/text/feature_syntax.js')
+		self.js_files_needed.append('engine/models/features/text/feature_style.js')
+		self.js_files_needed.append('engine/models/features/text/feature_state.js')
+
+		self.js_files_needed.append('engine/models/features/text/lines/feature_line.js')
+		self.js_files_needed.append('engine/models/features/text/lines/feature_lines.js')
+
+		self.js_files_needed.append('engine/models/features/button/feature_button.js')
+		self.js_files_needed.append('engine/models/features/button/feature_state.js')
 
 		# Models.
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/button/button_state.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/email.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/maximum_length.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/minimum_length.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_rules/syntax_rule.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_email.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_password.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_repeat_password.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text/syntax_types/syntax_username.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/color_abstraction.js')
-		self.js_files_needed.append('engine/models/floating_elements/abstractions/text_abstraction.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_rules/email.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_rules/maximum_length.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_rules/minimum_length.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_rules/syntax_rule.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_types/syntax_email.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_types/syntax_password.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_types/syntax_repeat_password.js')
+		self.js_files_needed.append('engine/models/elements/abstractions/text/syntax_types/syntax_username.js')
 
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_button.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_element.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/floating_icon.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/text_2d.js')
-		self.js_files_needed.append('engine/models/floating_elements/base/text_3d.js')
+		self.js_files_needed.append('engine/models/elements/base/floating_button.js')
+		self.js_files_needed.append('engine/models/elements/base/floating_element.js')
+		self.js_files_needed.append('engine/models/elements/base/floating_icon.js')
 
-		self.js_files_needed.append('engine/models/floating_elements/discrete_object_types/floating_text_3D.js')
+		#self.js_files_needed.append('engine/models/elements/base/text_2d.js')
+		self.js_files_needed.append('engine/models/elements/base/text_3d.js')
 
-		self.js_files_needed.append('engine/models/discrete_models/hexagon_grid/hexagon_grid.js')
+		self.js_files_needed.append('engine/models/elements/discrete_object_types/floating_icon_button.js')
+
+		self.js_files_needed.append('engine/models/discrete_models/singletons/hexagon_grid.js')
+		self.js_files_needed.append('engine/models/discrete_models/singletons/light_ambient.js')
+		self.js_files_needed.append('engine/models/discrete_models/singletons/light_point.js')
+		self.js_files_needed.append('engine/models/discrete_models/buttons/close_button.js')
 
 		# Asset Managers.
 		self.js_files_needed.append('engine/asset_management/asset_manager.js')	
@@ -327,6 +358,7 @@ class JavascriptManager(object):
 			self.js_files_needed.append('nexus/gui_2d_logic/player_typing_input.js')
 			self.js_files_needed.append('nexus/web_socket_requests/message_handler.js')
 			self.js_files_needed.append('nexus/models/floating_terminal.js')
+			self.js_files_needed.append('nexus/world/world_environment.js')
 		elif self.engine.is_build_quasar:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/quasar'))
 			# Add js files needed.

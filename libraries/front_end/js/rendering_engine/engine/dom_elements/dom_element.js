@@ -31,7 +31,7 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_strin
     }
 
     if (is_string) {
-        $_QE.prototype.DomElementString.call(this);
+        $_QE.prototype.FeatureText.call(this);
     }
 
     // Default.

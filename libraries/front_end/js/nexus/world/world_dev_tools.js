@@ -18,7 +18,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.create_for_first_render = function() {
-        this.nexus_local_title = new $_QE.prototype.FloatingText3D(this, 256, 'Nexus Local');
+        this.nexus_local_title = new $_QE.prototype.Text3D(this, 256, 'Nexus Local');
         this.nexus_local_title.set_position(-450, 300, -800);
         this.nexus_local_title.look_at_origin(false);
         this.nexus_local_title.set_to_manual_positioning();
@@ -28,14 +28,20 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
 
         this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CanvasFontPresets['console_font_smaller']);
         this.logs.initialize_terminal();
-        this.nexus_local_title.set_position(-450, 300, -800);
-        this.nexus_local_title.look_at_origin(true);
-        this.nexus_local_title.set_to_manual_positioning();
+        this.logs.set_position(-450, 200, -800);
+        this.logs.look_at_origin(true);
+        this.logs.set_to_manual_positioning();
         this.logs.refresh_position_and_look_at();
 
         this.logs.add_message('Hello World!');
         this.logs.add_message('Second message!');
         this.logs.add_message('Third message!');
+
+
+        //this.cursor_test = new $_QE.prototype.FloatingIcon(this, ICON_CLICK, 16);
+        //this.cursor_test.set_position(100, 100, 100);
+        //this.cursor_test.set_normal(0, 0, 0);
+        //this.cursor_test.refresh_position_and_look_at();
 
         /*
         //floating_canvas_log.js

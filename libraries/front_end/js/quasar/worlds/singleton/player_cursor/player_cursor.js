@@ -122,8 +122,9 @@ PlayerCursor.prototype = {
         let normal = this.currently_attached_to.get_normal();
 
         //this.cursor.set_position(p.x, p.y, p.z, false);
-        this.cursor.set_normal(normal.x, normal.y, normal.z, false);
-        this.cursor.set_position_for_singleton(p.x, p.y, p.z);
+        this.set_normal(normal.x, normal.y, normal.z);
+        this.set_position_offset();
+        this.object3D.position.set(p.x + this._position_offset.x, p.y + this._position_offset.y, p.z + this._position_offset.z);
         //this.cursor.set_normal(normal.x, normal.y, normal.z, false);
         this.cursor.refresh_position_and_look_at();
     },

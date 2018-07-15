@@ -32,8 +32,10 @@ module.exports = {
     "globals": {
 
         // From refactorings.
-        "QE": false,
-        "NL": false,
+        "$_QE": false,
+        "$_NL": false,
+        "QE"  : false,
+        "NL"  : false,
 
         "APPLICATION_NEXUS_LOCAL"  : false,
         "APPLICATION_QUASAR_PUBLIC": false,
@@ -57,6 +59,8 @@ module.exports = {
         "THREE": false,
 
         "console": false,
+
+        "FLOATING_TEXT_BACKGROUND_DARK_GRAY": false,
 
         // OLD BELOW.
 

@@ -4,6 +4,9 @@ $_QE.prototype.ShaderMaterialSpriteSheet = function() {
     $_QE.prototype.ShaderMaterialAbstraction.call(this, ASSET_SHADER_SPRITESHEET_VERTEX, ASSET_SHADER_SPRITESHEET_FRAGMENT);
     this.texture = QE.manager_textures.get_asset(ASSET_TEXUTRE_SPRITESHEET_ICONS);
 
+    l('THE TEXTURE IS:');
+    l(this.texture);
+
     this._uniform_offset  = 'offset';
     this._uniform_texture = 'texture';
     this._uniform_color   = 'color';

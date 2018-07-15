@@ -10,6 +10,7 @@ $_NL.prototype = {
     __init__: function() {
         this.application_type = APPLICATION_NEXUS_LOCAL;
         this.first_world_class = $_NL.prototype.WorldDevTools;
+        this.world_environment = $_NL.prototype.WorldEnvironment;
 
         // The engine will reference these variables.
         // TODO : Make this a pre-processed step.
@@ -25,8 +26,31 @@ $_NL.prototype = {
     },
 
     create_gui_2d: function() {
-        $_NL.prototype.GUI2DMessageLogs.call(this, 32);
-        $_NL.prototype.GUI2DPlayerTypingInput.call(this);
+        this.gui_2d_logs = new $_NL.prototype.GUI2DMessageLogs(32);
+        this.gui_2d_typing = new $_NL.prototype.GUI2DPlayerTypingInput();
+    },
+
+    parse_key_event: function(event) {
+        this.gui_2d_typing.parse_key_event(event);
+    },
+
+    enter_typing_state: function() {
+        this.gui_2d_typing.render();
+        this.gui_2d_typing.show();
+    },
+
+    leave_typing_state: function() {
+        QE.player.set_state(PLAYER_STATE_FULL_CONTROL);
+
+        let text = this.gui_2d_typing.get_text_then_clear();
+
+        if (text !== null) {
+            if (text.startsWith('>')) {
+                this.websocket_message_parser.send_request_cmd(text.substring(1));
+            } else {
+                this.websocket_message_parser.send_request_chat(text);
+            }
+        }
     },
 
     engine_started: function() {

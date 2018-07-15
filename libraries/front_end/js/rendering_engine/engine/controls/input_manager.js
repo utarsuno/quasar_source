@@ -221,13 +221,9 @@ $_QE.prototype.InputManager = function(player, manager_world) {
     };
 
     this.on_paste = function(event) {
-        if (this.player.has_paste_event()) {
-            // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
-            let clipboard_data = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData;
-            let pasted_data = clipboard_data.getData('text');
-            console.log('TODO: PASTE {' + pasted_data + '}');
-            //this.manager_world.current_world.currently_looked_at_object.parse_text(pasted_data);
-        }
+        // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
+        let clipboard_data = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData;
+        this.player.on_paste_event(clipboard_data.getData('text'));
         event.preventDefault();
         event.stopPropagation();
     };

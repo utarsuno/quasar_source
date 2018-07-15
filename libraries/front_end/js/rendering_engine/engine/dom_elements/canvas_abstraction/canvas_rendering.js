@@ -24,10 +24,10 @@ $_QE.prototype.CanvasRendering = function(render_style) {
     this._render_single_line = function() {
         if (this.text_property_centered) {
             this.context.textAlign = 'center';
-            this.context.fillText(this.canvas_text, this.width / 2, Math.floor(this.font_size * .9));
+            this.context.fillText(this.text, this.width / 2, Math.floor(this.font_size * .9));
             //l('Rendered text! {' + this.canvas_text + '}');
         } else {
-            this.context.fillText(this.canvas_text, 0, Math.floor(this.font_size * .9));
+            this.context.fillText(this.text, 0, Math.floor(this.font_size * .9));
             //this.context.fillText(this.canvas_text, 0, 25);
             //l('Rendered text not centered! {' + this.canvas_text + '}');
         }

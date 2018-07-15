@@ -77,7 +77,7 @@ FloatingRow.prototype = {
     },
 
     add_text_3D: function(x_params, text_size, text) {
-        let floating_text_3D = new FloatingText3D(this.world, text_size, text);
+        let floating_text_3D = new Text3D(this.world, text_size, text);
         x_params[0] -= 0.5;
         floating_text_3D.add_tag(SAVE_TAG_3D_ROW);
         return this.add_element(x_params, floating_text_3D);

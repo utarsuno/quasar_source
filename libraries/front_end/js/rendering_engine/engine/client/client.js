@@ -174,12 +174,12 @@ $_QE.prototype.Client = function() {
     };
 
     this.set_pause_menu_text_and_sub_text = function(text, sub_text) {
-        this.pause_title.set_text(text);
-        this.pause_sub_title.set_text(sub_text);
+        this.pause_title.update_text(text);
+        this.pause_sub_title.update_text(sub_text);
     };
 
     this.pause = function() {
-        this.set_pause_menu_text_and_sub_text('paused', 'double click anywhere to resume');
+        this.set_pause_menu_text_and_sub_text('paused 😴', 'double click anywhere to resume');
         this.show_pause_menu();
     };
 
@@ -224,7 +224,6 @@ $_QE.prototype.Client = function() {
     this.initialize_state_status_web_workers = function() {
         this.state_is_web_workers_enabled = !!window.Worker;
     };
-
 
     /*       __  ___                    __   ___             ___
      \  / | |__)  |  |  |  /\  |       |__) |__   /\  |    |  |  \ /

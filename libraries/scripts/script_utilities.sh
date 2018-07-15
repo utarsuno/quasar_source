@@ -47,8 +47,8 @@ FS_REG="21;24m"
 FS_BOLD="1m"
 FS_UL="4m"
 
-DOTTED_LINE="................................................................................."
-DASHED_LINE="---------------------------------------------------------------------------------"
+DOTTED_LINE=".................................................................................................."
+DASHED_LINE="--------------------------------------------------------------------------------------------------"
 
 #  ___            __  ___    __        __
 # |__  |  | |\ | /  `  |  | /  \ |\ | /__`
@@ -63,6 +63,10 @@ function print_green_text {
 
 function print_dotted_line {
     printf "${FG_MAGENTA}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
+}
+
+function print_dotted_line_green {
+    printf "${FG_GREEN}${FS_REG}${DOTTED_LINE}${RESET_ALL}\n"
 }
 
 function print_red_dotted_line {

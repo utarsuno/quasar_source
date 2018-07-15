@@ -10,6 +10,9 @@ $_QE.prototype.PlayerState = function() {
     this.previous_state = null;
     this.current_state  = PLAYER_STATE_INITIAL_LOAD;
 
+    // Gets set by application objects.
+    this.player_typing_input_handler = null;
+
     this.ignore_left_click_event = function() {
 
     };
@@ -125,5 +128,16 @@ $_QE.prototype.PlayerState = function() {
             return currently_engaged_object.is_engaged();
         }
         return false;
+    };
+
+    // Input handlers.
+    this.on_paste_event = function(text) {
+        if (this.current_state === PLAYER_STATE_TYPING) {
+            if (this.player_typing_input_handler !== null) {
+                this.player_typing_input_handler.on_paste_event(text);
+            }
+        } else {
+
+        }
     };
 };

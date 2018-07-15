@@ -29,6 +29,7 @@ const ICON_WRENCH     = 25; // #pre-process_global_constant
 const ICON_WRITING    = 26; // #pre-process_global_constant
 
 $_QE.prototype.SpritesheetManager = function() {
+
     this.get_icon_material = function(icon) {
         //this._shader_material = QE.manager_shaders.get_shader_material_abstraction(ASSET_SHADER_MATERIAL_SPRITESHEET);
         this._shader_material = QE.manager_shaders.get_asset(ASSET_SHADER_MATERIAL_SPRITESHEET);

@@ -7,12 +7,14 @@ source /quasar/libraries/scripts/script_utilities.sh
 python /quasar/libraries/code_api/discrete_projects/rendering_engine/build_rendering_engine.py 'n';
 VAR_BUILD_RESULT=$?;
 
+print_dashed_line_with_text "Build Result:"
 if [ ${VAR_BUILD_RESULT} -eq 0 ]; then
     print_green_text "Success building Nexus Local!";
 else
     terminate_script "Error building Nexus local!";
     exit;
 fi
+print_dotted_line_green
 
 
 ln -s /quasar/libraries/front_end/css/quasar_nexus.min.css assets/_.min.css

@@ -27,6 +27,11 @@ class QuasarRenderingEngineBuilder(object):
 	def __init__(self, engine_version):
 		self._engine_version = engine_version
 
+		if self.is_build_nexus_local:
+			oc.print_ascii_yellow('building nexus local')
+		elif self.is_build_quasar:
+			oc.print_ascii_yellow('building quasar')
+
 		self._original_total_size = 0
 		self._new_total_size      = 0
 

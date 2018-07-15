@@ -56,7 +56,6 @@ $_QE.prototype = {
         this.manager_assets      = new $_QE.prototype.AssetManager(this);
         this.manager_textures    = new $_QE.prototype.TextureManager(this);
         this.manager_shaders     = new $_QE.prototype.ShaderManager(this);
-        this.manager_spritesheet = new $_QE.prototype.SpritesheetManager(this);
 
         this.manager_heap        = this.get_heap_manager();
 
@@ -79,12 +78,17 @@ $_QE.prototype = {
         this.player = new $_QE.prototype.Player(this.client, this);
         this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
 
+        //this.manager_shaders.load_required_initial_render_assets();
+        this.manager_spritesheet = new $_QE.prototype.SpritesheetManager(this);
+        this.manager_spritesheet.load_icon_sprite_sheet();
+
         this.manager_world.initialize_first_world();
+        this.manager_renderer.initialize_shaders(this.manager_world.first_world);
+        this.manager_world.first_world.create_for_first_render();
 
         this.manager_input = new $_QE.prototype.InputManager(this.player, this.manager_world);
         this.player.input_manager = this.manager_input;
 
-        this.manager_renderer.initialize_shaders(this.manager_world.first_world);
 
         this.player.initialize_player_controls();
 
@@ -97,7 +101,7 @@ $_QE.prototype = {
         this._main_loop_logic();
 
         this.player.set_state(PLAYER_STATE_PAUSED);
-        this.client.set_pause_menu_text_and_sub_text('Paused', 'double click to resume');
+        this.client.set_pause_menu_text_and_sub_text('Paused 😴', 'double click to resume');
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);

@@ -9,7 +9,7 @@ $_QE.prototype.CanvasTexture = function(unique_name, type, render_type) {
     this._render_type = render_type;
 
     $_QE.prototype.DomElement.call(this, unique_name, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, DOM_ELEMENT_CANVAS, false);
-    $_QE.prototype.CanvasColors.call(this);
+    $_QE.prototype.FeatureColor.call(this);
 
     this._w = null;
     this._h = null;
