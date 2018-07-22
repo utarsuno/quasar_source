@@ -1,7 +1,7 @@
 'use strict';
 
 $_QE.prototype.ShaderMaterialNoise = function() {
-    $_QE.prototype.ShaderMaterialAbstraction.call(this, ASSET_SHADER_NOISE_VERTEX, ASSET_SHADER_NOISE_FRAGMENT);
+    $_QE.prototype.ShaderMaterialAbstraction.call(this, QE.manager_assets.shader_film_vertex, QE.manager_assets.shader_film_fragment);
 
     this._uniform_key_t_diffuse  = 'tDiffuse';
     this._uniform_key_time       = 'time';

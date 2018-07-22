@@ -3,6 +3,10 @@
 $_QE.prototype.WorldElementsInteractive = function() {
 
     this.elements_interactive = [];
+    this.raycaster            = new THREE.Raycaster();
+
+    // For cache optimizations.
+    this._intersections = [];
 
     this.update_elements_interactive = function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
@@ -57,9 +61,7 @@ $_QE.prototype.WorldElementsInteractive = function() {
             } else {
                 // An object is being looked at for the first time.
                 this.currently_looked_at_object = interactive_match;
-                this.look_at_currently_looked_at_object(false, false);
-                this.floating_cursor.attach(interactive_match);
-                this.floating_cursor.update_position(intersection_data.point);
+                this.look_at_currently_looked_at_object(false, true);
             }
         }
     };

@@ -7,6 +7,7 @@ $_QE.prototype.PlayerCursor = function() {
     };
 
     $_QE.prototype.FeatureSingleton.call(this);
+    $_QE.prototype.FeatureElementRoot.call(this);
 
     this.currently_attached_to = null;
     this._current_icon         = null;
@@ -20,6 +21,31 @@ $_QE.prototype.PlayerCursor = function() {
     //$_QE.prototype.FeatureColor.call(this);
     //$_QE.prototype.FeatureVisibility.call(this);
 
+    this._update_size = function(horizontal_distance) {
+        // At a distance of 1000 the cursor should be 10x the size.
+        let scale = horizontal_distance / 10;
+        let needed_width = 16 * scale;
+        let needed_height = 16 * scale;
+        let current_width = 16 * this._cursor.object3D.scale.x;
+        let current_height = 16 * this._cursor.object3D.scale.y;
+        this._cursor.object3D.scale.set(needed_width / current_width, needed_height / current_height, 1);
+        l(this._cursor.object3D.scale.x);
+    };
+
+    this.update = function(delta) {
+        //l('cursor update!');
+        if (is_defined(this.currently_attached_to)) {
+            let pp = QE.player.get_position();
+            let cursor_pos = this._cursor.get_position();
+            let hd = get_horizontal_distance(pp.x, cursor_pos.x, pp.z, cursor_pos.z);
+            hd /= 10;
+            // OPTIMIZE LATER
+            //this._cursor.mesh.scale.set(new THREE.Vector3(1 * hd, 1, 1 * hd));
+            //this._cursor.object3D.scale.set(new THREE.Vector3(5, 5, 1));
+            this._update_size(hd);
+        }
+    };
+
     this.update_position = function(p) {
         let normal = this.currently_attached_to.get_normal();
 
@@ -32,7 +58,6 @@ $_QE.prototype.PlayerCursor = function() {
     };
 
     this.attach = function(object_to_attach_to) {
-        l('Attach player cursor!');
         this.currently_attached_to = object_to_attach_to;
 
         if (is_defined(this.currently_attached_to.feature_clickable)) {
@@ -44,6 +69,8 @@ $_QE.prototype.PlayerCursor = function() {
         } else {
             this._set_current_icon(ICON_CURSOR);
         }
+
+        this.update_position(this.currently_attached_to.get_position());
 
         this._center_cursor.hide();
         this._cursor.set_to_visible();
@@ -97,5 +124,7 @@ $_QE.prototype.PlayerCursor = function() {
         this.object3D = this._cursor.object3D;
 
         this.world_enter(world);
+
+        this.world.add_element_root(this);
     };
 };

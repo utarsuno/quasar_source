@@ -24,11 +24,6 @@ $_QE.prototype.RendererManager = function(client, engine) {
         this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
         this.camera = new THREE.PerspectiveCamera(this.field_of_view, this.aspect_ratio, this.near_clipping, this.far_clipping);
-
-        // TODO : VR!!!
-        //if (CURRENT_CLIENT.has_vr) {
-        //    this.renderer.vr.enabled = true;
-        //}
     };
 
     this.post_render_initialize = function() {
@@ -60,17 +55,9 @@ $_QE.prototype.RendererManager = function(client, engine) {
     };
 
     this.window_resize_event = function() {
-        //this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
-        //this.camera.aspect = this.aspect_ratio;
         this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
         this.camera.updateProjectionMatrix();
-
-        //this.camera_frustum_height = this.camera.getFilmHeight() * this.camera.aspect;
-        //this.camera_frustum_width  = this.camera.getFilmWidth() / this.camera.aspect;
-
-
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
-
         this._resize_event_shader();
     };
 

@@ -1,8 +1,8 @@
 'use strict';
 
-$_QE.prototype.ShaderMaterialAbstraction = function(vertex_shader_name, fragment_shader_name) {
-    this.shader_vertex   = QE.manager_shaders.get_asset(vertex_shader_name);
-    this.shader_fragment = QE.manager_shaders.get_asset(fragment_shader_name);
+$_QE.prototype.ShaderMaterialAbstraction = function(vertex_shader, fragment_shader) {
+    this.shader_vertex   = vertex_shader;
+    this.shader_fragment = fragment_shader;
     this.uniforms        = {};
     this.set_uniform = function(k, v) {
         this.uniforms[k] = {'value': v};

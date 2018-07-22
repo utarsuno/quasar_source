@@ -1,5 +1,17 @@
 'use strict';
 
+// TODO : Organize.
+
+// Math
+function get_horizontal_distance(x0, x1, z0, z1) {
+    return Math.sqrt((x1 - x0) * (x1 - x0) + (z1 - z0) * (z1 - z0));
+};
+
+// Emoji list.
+const EMOJI_SLEEPING = '😴'; // #pre-process_global_constant
+const EMOJI_NERD     = '🤓'; // #pre-process_global_constant
+const EMOJI_ERROR    = '😫'; // #pre-process_global_constant
+
 /* __        __   __  ___  __       ___  __
   /__` |__| /  \ |__)  |  /  ` |  |  |  /__`
   .__/ |  | \__/ |  \  |  \__, \__/  |  .__/ */

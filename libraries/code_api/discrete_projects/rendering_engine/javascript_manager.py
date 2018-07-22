@@ -238,7 +238,7 @@ class JavascriptManager(object):
 		# Main engine.
 		self.js_files_needed.append('engine/engine.js')
 		self.js_files_needed.append('engine/core/time_value_buffer.js')
-		self.js_files_needed.append('engine/core/heap_management/heap_manager.js')
+		self.js_files_needed.append('engine/core/heap_manager.js')
 		self.js_files_needed.append('engine/assets_json/helvetiker_regular.js')
 
 		# Globals.
@@ -253,6 +253,22 @@ class JavascriptManager(object):
 
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
+		self.js_files_needed.append('engine/client/features/feature.js')
+		self.js_files_needed.append('engine/client/features/canvas.js')
+		self.js_files_needed.append('engine/client/features/webgl.js')
+		self.js_files_needed.append('engine/client/features/mobile.js')
+		self.js_files_needed.append('engine/client/features/pointer_lock.js')
+		self.js_files_needed.append('engine/client/features/virtual_reality.js')
+		self.js_files_needed.append('engine/client/features/web_workers.js')
+		self.js_files_needed.append('engine/client/features/full_screen.js')
+		self.js_files_needed.append('engine/client/functionality/cookies.js')
+		self.js_files_needed.append('engine/client/functionality/pause_menu.js')
+		self.js_files_needed.append('engine/client/functionality/window_focus.js')
+		self.js_files_needed.append('engine/client/functionality/full_screen.js')
+		self.js_files_needed.append('engine/client/functionality/pointer_lock.js')
+		self.js_files_needed.append('engine/client/functionality/window_resize.js')
+		self.js_files_needed.append('engine/client/functionality/debug.js')
+
 		# Loading and assets.
 
 		# Rendering manager.
@@ -334,11 +350,12 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/discrete_models/buttons/close_button.js')
 
 		# Asset Managers.
-		self.js_files_needed.append('engine/asset_management/asset_manager.js')	
-		self.js_files_needed.append('engine/asset_management/asset_managers/asset_manager_abstraction.js')
-		self.js_files_needed.append('engine/asset_management/asset_managers/texture_manager.js')
-		self.js_files_needed.append('engine/asset_management/asset_managers/spritesheet_manager.js')
-		self.js_files_needed.append('engine/asset_management/asset_managers/shader_manager.js')
+		self.js_files_needed.append('engine/asset_management/asset_manager.js')
+		self.js_files_needed.append('engine/asset_management/asset_globals.js')
+		self.js_files_needed.append('engine/asset_management/asset_batch.js')
+		self.js_files_needed.append('engine/asset_management/asset_file.js')
+		self.js_files_needed.append('engine/asset_management/icon_manager.js')
+
 		self.js_files_needed.append('engine/asset_management/shaders/shader_material_abstraction.js')
 		self.js_files_needed.append('engine/asset_management/shaders/shader_material_noise.js')
 		self.js_files_needed.append('engine/asset_management/shaders/shader_material_spritesheet.js')

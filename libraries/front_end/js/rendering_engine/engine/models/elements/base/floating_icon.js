@@ -30,7 +30,7 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.create_base_material = function() {
-        this.material = QE.manager_spritesheet.get_icon_material(this.icon_type);
+        this.material = QE.manager_icons.get_icon_material(this.icon_type);
     };
 
     this.create_base_mesh = function() {

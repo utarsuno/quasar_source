@@ -38,7 +38,7 @@ $_QE.prototype.PlayerState = function() {
 
             // Hide the player menu if visible.
 
-            this.engine.client.pause();
+            this.engine.client.show_paused();
 
 
             //if (this.current_state === PLAYER_STATE_PAUSED) {

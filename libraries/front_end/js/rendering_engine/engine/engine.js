@@ -17,6 +17,15 @@ $_QE.prototype = {
         this.delta_clock     = new THREE.Clock(false);
         this.delta           = 0;
         this.gui_2d_elements = [];
+
+        // Default settings.
+        this.engine_setting_audio_enabled             = false;
+        this.engine_setting_shaders_enabled           = true;
+        this.engine_setting_shader_fxaa_enabled       = true;
+        this.engine_setting_shader_outline_enabled    = true;
+        this.engine_setting_shader_grain_enabled      = true;
+        this.engine_setting_shader_transition_enabled = true;
+        this.engine_setting_spritesheet_enabled       = true;
     },
 
     add_gui_2d_element: function(e) {
@@ -26,63 +35,58 @@ $_QE.prototype = {
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
-    initialize_engine: function() {
+    // Step : 0x0
+    ensure_required_features_are_enabled: function() {
+        let me = this;
 
-    },
-
-    check_if_required_features_are_supported: function () {
         this.client = new $_QE.prototype.Client();
-        this.client.initialize_state_canvas_support();
-        this.client.initialize_state_webgl_support();
-        this.client.initialize_pause_menu();
+        this.client.on_engine_load();
+        return new Promise(function(resolve, reject) {
+            // Displays error message on pause menu if a required feature is not enabled.
+            if (me.client.ensure_required_features_are_enabled()) {
+                resolve();
+            } else {
+                l('Engine failed');
+                reject('Engine failed');
+            }
+        });
     },
 
-    are_required_features_supported: function() {
-        if (!(this.client.state_is_webgl_enabled && this.client.state_is_canvas_enabled)) {
-            console.log('ERROR: WebGL or Canvas not supported!');
-            return false;
-        }
-        return true;
+    // Step : 0x1
+    initialize_engine: function(application) {
+        let me              = this;
+        this.application    = application;
+
+        // Start the load of asset files.
+        this.client.set_sub_title('asset files');
+        this.manager_heap   = this.get_heap_manager();
+        this.manager_assets = new $_QE.prototype.AssetManager(this);
+        this.manager_icons  = new $_QE.prototype.IconManager();
+
+        let on_load = this.manager_assets.load_pre_render_assets(this);
+
+        this.client.full_initialize();
+
+        on_load.then(function() {
+            l('LOADING FINISHED!');
+            me.manager_icons.initialize();
+            me.client.set_sub_title('worlds');
+            me._initialize_for_first_render();
+        }).catch(function(error) {
+            l(error);
+            l('Error loading asset batch!');
+            me.client.show_error('Error ' + EMOJI_ERROR, 'loading assets');
+        });
     },
 
-    initialize_and_set_application: function(application) {
-        this.application = application;
-
-        this.engine_setting_audio_enabled          = this.application.engine_setting_audio_enabled;
-        this.engine_setting_shaders_enabled        = this.application.engine_setting_shaders_enabled;
-        this.engine_setting_shader_fxaa_enabled    = this.application.engine_setting_shader_fxaa_enabled;
-        this.engine_setting_shader_outline_enabled = this.application.engine_setting_shader_outline_enabled;
-        this.engine_setting_shader_grain_enabled   = this.application.engine_setting_shader_grain_enabled;
-
-        // First, start the loading of initial-render-required assets.
-        this.manager_assets      = new $_QE.prototype.AssetManager(this);
-        this.manager_textures    = new $_QE.prototype.TextureManager(this);
-        this.manager_shaders     = new $_QE.prototype.ShaderManager(this);
-
-        this.manager_heap        = this.get_heap_manager();
-
-        this.client.set_pause_menu_text_and_sub_text('Loading', 'asset files...');
-
-        // Setting the engine default initial-render-required assets.
-        this.manager_assets.add_initial_render_required_asset(ASSET_REQUIRED_SPRITESHEET);
-        this.manager_assets.add_initial_render_required_asset(ASSET_REQUIRED_FILM_SHADER);
-        this.manager_assets.load_required_initial_render_assets(this.initial_required_assets_loaded.bind(this), this.manager_shaders, this.manager_textures);
-    },
-
-    initial_required_assets_loaded: function() {
-        l('Initial required assets finished loading!');
-
-        this.client.set_pause_menu_text_and_sub_text('Creating', 'world...');
-
+    // Step : 0x2
+    _initialize_for_first_render: function() {
+        l('Setting up first render!');
         this.manager_renderer = new $_QE.prototype.RendererManager(this.client, this);
         this.client.pre_render_initialize(this.manager_renderer);
 
         this.player = new $_QE.prototype.Player(this.client, this);
         this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
-
-        //this.manager_shaders.load_required_initial_render_assets();
-        this.manager_spritesheet = new $_QE.prototype.SpritesheetManager(this);
-        this.manager_spritesheet.load_icon_sprite_sheet();
 
         this.manager_world.initialize_first_world();
         this.manager_renderer.initialize_shaders(this.manager_world.first_world);
@@ -90,7 +94,6 @@ $_QE.prototype = {
 
         this.manager_input = new $_QE.prototype.InputManager(this.player, this.manager_world);
         this.player.input_manager = this.manager_input;
-        
 
         this.player.initialize_player_controls();
 
@@ -103,7 +106,7 @@ $_QE.prototype = {
         this._main_loop_logic();
 
         this.player.set_state(PLAYER_STATE_PAUSED);
-        this.client.set_pause_menu_text_and_sub_text('Paused 😴', 'double click to resume');
+        this.client.show_paused();
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
@@ -119,14 +122,14 @@ $_QE.prototype = {
     _main_loop_logic: function() {
         this.delta = this.delta_clock.getDelta();
 
-        this.client.pre_render();
+        //this.client.pre_render();
 
         //this.client.update();
         this.manager_world.update(this.delta);
 
         this.manager_renderer.render(this.delta);
 
-        this.client.post_render();
+        //this.client.post_render();
 
         this.delta_clock.start();
     },

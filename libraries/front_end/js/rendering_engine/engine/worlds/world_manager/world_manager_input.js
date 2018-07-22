@@ -44,7 +44,7 @@ $_QE.prototype.WorldManagerInput = function() {
 
     this.middle_click_up = function() {
         l('Middle click up!');
-        if (this.client.state_is_pointer_locked) {
+        if (this.client.has_pointer_lock) {
             this.client.release_pointer_lock();
         } else {
             this.client.request_pointer_lock();

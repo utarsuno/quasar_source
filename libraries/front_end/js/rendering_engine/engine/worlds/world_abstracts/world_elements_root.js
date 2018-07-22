@@ -15,7 +15,13 @@ $_QE.prototype.WorldElementsRoot = function() {
         let i;
         for (i = 0; i < this.elements_root.length; i++) {
             if (this.elements_root[i] === element) {
-                element._in_world_elements_root = false;
+                if (is_defined(element.is_singleton)) {
+                    if (!element.is_singleton) {
+                        element._in_world_elements_root = false;
+                    }
+                } else {
+                    element._in_world_elements_root = false;
+                }
                 this.elements_root.splice(i, 1);
                 return;
             }
@@ -27,4 +33,3 @@ $_QE.prototype.WorldElementsRoot = function() {
         element._in_world_elements_root = true;
     };
 };
-

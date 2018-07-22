@@ -2,6 +2,8 @@
 
 $_QE.prototype.FeatureSingleton = function() {
 
+    this.is_singleton = true;
+
     this.world = null;
 
     $_QE.prototype.FeatureRecycle.call(this);
@@ -15,6 +17,12 @@ $_QE.prototype.FeatureSingleton = function() {
             if (is_defined(this._in_world_elements_interactive)) {
                 if (this._in_world_elements_interactive) {
                     this.world.remove_from_elements_interactive(this);
+                }
+            }
+
+            if (is_defined(this._in_world_elements_root)) {
+                if (this._in_world_elements_root) {
+                    this.world.remove_from_elements_root(this);
                 }
             }
 
@@ -41,6 +49,12 @@ $_QE.prototype.FeatureSingleton = function() {
         if (is_defined(this._in_world_elements_interactive)) {
             if (!this._in_world_elements_interactive) {
                 this.world.add_element_interactive(this);
+            }
+        }
+
+        if (is_defined(this._in_world_elements_root)) {
+            if (this._in_world_elements_root) {
+                this.world.add_element_root(this);
             }
         }
 

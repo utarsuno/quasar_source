@@ -107,7 +107,7 @@ $_QE.prototype.get_heap_manager = function() {
         __init__: function(args) {
             this._icon = args[0];
             this._color = args[1];
-            this._material = QE.manager_spritesheet.get_icon_material(this._icon);
+            this._material = QE.manager_icons.get_icon_material(this._icon);
             this._material.uniforms['color'].value = this._color;
             this._material.needsUpdate = true;
         },

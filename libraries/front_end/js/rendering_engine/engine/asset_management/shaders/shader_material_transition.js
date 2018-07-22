@@ -1,8 +1,8 @@
 'use strict';
 
 $_QE.prototype.ShaderMaterialTransition = function() {
-    $_QE.prototype.ShaderMaterialAbstraction.call(this, ASSET_SHADER_TRANSITION_VERTEX, ASSET_SHADER_TRANSITION_FRAGMENT);
-    this.texture = QE.manager_textures.get_asset(ASSET_TEXUTRE_TRANSITION_GRID);
+    $_QE.prototype.ShaderMaterialAbstraction.call(this, QE.manager_assets.shader_transition_vertex, QE.manager_assets.shader_transition_fragment);
+    this.texture = QE.manager_assets.get_asset(ASSET_TEXTURE_TRANSITION);
 
     this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
     this._uniform_key_texture_diffuse_old_scene = 'texture_diffuse_old_scene';

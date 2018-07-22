@@ -1,80 +1,55 @@
 'use strict';
 
-const ASSET_TEXUTRE_SPRITESHEET_ICONS = 'a.png';  // #pre-process_global_constant
-const ASSET_TEXUTRE_TRANSITION_GRID   = 'b.png';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_FRONT      = 'f.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_BACK       = 'ba.jpg'; // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_LEFT       = 'l.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_RIGHT      = 'r.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_TOP        = 't.jpg';  // #pre-process_global_constant
-const ASSET_TEXUTRE_SKYBOX_BOTTOM     = 'bo.jpg'; // #pre-process_global_constant
-
-const ASSET_SHADER_MATERIAL_TRANSITION  = 'sm1'; // #pre-process_global_constant
-const ASSET_SHADER_MATERIAL_NOISE       = 'sm2'; // #pre-process_global_constant
-const ASSET_SHADER_MATERIAL_SPRITESHEET = 'sm3'; // #pre-process_global_constant
-
-const ASSET_SHADER_SPRITESHEET_FRAGMENT = 's1';  // #pre-process_global_constant
-const ASSET_SHADER_SPRITESHEET_VERTEX   = 's2';  // #pre-process_global_constant
-const ASSET_SHADER_TRANSITION_FRAGMENT  = 's3';  // #pre-process_global_constant
-const ASSET_SHADER_TRANSITION_VERTEX    = 's4';  // #pre-process_global_constant
-const ASSET_SHADER_NOISE_FRAGMENT       = 's5';  // #pre-process_global_constant
-const ASSET_SHADER_NOISE_VERTEX         = 's6';  // #pre-process_global_constant
-
-const ASSET_REQUIRED_SPRITESHEET = 1; // #pre-process_global_constant
-const ASSET_REQUIRED_FILM_SHADER = 2; // #pre-process_global_constant
-
 $_QE.prototype.AssetManager = function(engine) {
+
     this.engine = engine;
 
-    this.currently_loading = false;
+    this.shader_spritesheet_fragment = ''; // #pre-process_get_shader_spritesheet.frag
+    this.shader_spritesheet_vertex   = ''; // #pre-process_get_shader_spritesheet.vert
+    this.shader_film_fragment        = ''; // #pre-process_get_shader_film.frag
+    this.shader_film_vertex          = ''; // #pre-process_get_shader_film.vert
+    this.shader_transition_fragment  = ''; // #pre-process_get_shader_transition.frag
+    this.shader_transition_vertex    = ''; // #pre-process_get_shader_transition.vert
 
-    this.asset_set_number_to_load = 0;
-    this.asset_set_number_loaded  = 0;
+    this._assets = {};
 
-    this._initial_required_render_assets = [];
-
-    this.asset_loaded = function(asset_name) {
-        this.asset_set_number_loaded += 1;
-
-        // TEMP.
-        l('Asset loaded {' + asset_name + '}');
-
-        if (this.asset_set_number_loaded === this.asset_set_number_to_load) {
-            this.currently_loading = false;
-            this.current_callback();
-        }
+    this.on_asset_load = function(asset_name, asset_data) {
+        l('Loaded {' + asset_name + '}');
+        this._assets[asset_name] = asset_data;
     };
 
-    this.add_initial_render_required_asset = function(a) {
-        this._initial_required_render_assets.push(a);
+    this.get_asset = function(asset_name) {
+        return this._assets[asset_name];
     };
 
-    this.load_required_initial_render_assets = function(callback, manager_shaders, manager_textures) {
-        this.manager_textures = manager_textures;
-        this.manager_shaders  = manager_shaders;
-        this.current_callback = callback;
-        this.currently_loading = true;
+    this.load_pre_render_assets = function() {
+        let me          = this;
+        let asset_batch = new $_QE.prototype.AssetBatch();
+        let asset_needed;
 
-        let i;
-        for (i = 0; i < this._initial_required_render_assets.length; i++) {
-            switch(this._initial_required_render_assets[i]) {
-            case ASSET_REQUIRED_SPRITESHEET:
-                this.manager_textures.add_initial_render_required_asset(ASSET_TEXUTRE_SPRITESHEET_ICONS);
-                this.manager_shaders.add_initial_render_required_asset(ASSET_SHADER_MATERIAL_SPRITESHEET);
-                break;
-            case ASSET_REQUIRED_FILM_SHADER:
-                this.manager_shaders.add_initial_render_required_asset(ASSET_SHADER_MATERIAL_NOISE);
-                break;
+        if (engine.engine_setting_shaders_enabled) {
+            if (engine.engine_setting_shader_transition_enabled) {
+                asset_needed = new $_QE.prototype.AssetFile(ASSET_TEXTURE_TRANSITION, ASSET_TYPE_TEXTURE, null);
+                asset_batch.add_asset(asset_needed);
+                asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_SHADER_MATERIAL_TRANSITION, ASSET_TYPE_SHADER_MATERIAL, asset_needed));
+            }
+            if (engine.engine_setting_spritesheet_enabled) {
+                asset_needed = new $_QE.prototype.AssetFile(ASSET_TEXTURE_SPRITE_SHEET, ASSET_TYPE_TEXTURE, null);
+                asset_batch.add_asset(asset_needed);
+                asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_SHADER_MATERIAL_SPRITE_SHEET, ASSET_TYPE_SHADER_MATERIAL, asset_needed));
+            }
+            if (engine.engine_setting_shader_grain_enabled) {
+                asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_SHADER_MATERIAL_NOISE, ASSET_TYPE_SHADER_MATERIAL, null));
             }
         }
 
-        this.manager_textures.load_required_initial_render_assets();
-        this.manager_shaders.load_required_initial_render_assets();
+        return new Promise(function(resolve, reject) {
+            asset_batch.load_batch().then(function() {
+                resolve();
+            }).catch(function(error) {
+                reject(error);
+            });
+        });
     };
-
-
-    //this.loader_finished_callback = this.check_if_initial_resources_loaded.bind(this);
-
-
 
 };

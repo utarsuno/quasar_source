@@ -2,6 +2,8 @@
 
 $_QE.prototype.FeatureInteractive = function() {
 
+    $_QE.prototype.FeatureCursor.call(this);
+
     this._in_world_elements_interactive = false;
 
     // Settings.

@@ -1,11 +1,8 @@
 'use strict';
 
 $_QE.prototype.ShaderMaterialSpriteSheet = function() {
-    $_QE.prototype.ShaderMaterialAbstraction.call(this, ASSET_SHADER_SPRITESHEET_VERTEX, ASSET_SHADER_SPRITESHEET_FRAGMENT);
-    this.texture = QE.manager_textures.get_asset(ASSET_TEXUTRE_SPRITESHEET_ICONS);
-
-    l('THE TEXTURE IS:');
-    l(this.texture);
+    $_QE.prototype.ShaderMaterialAbstraction.call(this, QE.manager_assets.shader_spritesheet_vertex, QE.manager_assets.shader_spritesheet_fragment);
+    this.texture = QE.manager_assets.get_asset(ASSET_TEXTURE_SPRITE_SHEET);
 
     this._uniform_offset  = 'offset';
     this._uniform_texture = 'texture';

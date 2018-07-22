@@ -37,7 +37,8 @@ ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/Outlin
 ln -s /quasar/libraries/front_end/js/nexus/nexus/nexus_local.min.js /assets/nl.min.js
 
 # Assets.
-ln -s /quasar/assets/front_end/texture/spritesheet/a.png /assets/a.png
+ln -s /quasar/assets/front_end/texture/spritesheet/icons.png /assets/p0.png
+ln -s /quasar/assets/front_end/texture/third_party/transition.png /assets/p1.png
 
 ln -s /quasar/assets/front_end/favicon/favicon.png /assets/favicon.png
 

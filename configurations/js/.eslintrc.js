@@ -37,6 +37,11 @@ module.exports = {
         "QE"  : false,
         "NL"  : false,
 
+        "get_horizontal_distance": false,
+
+        "COOKIE_KEY_SHOULD_REMEMBER_USERNAME": false,
+        "COOKIE_KEY_REMEMBERED_USERNAME"     : false,
+
         "APPLICATION_NEXUS_LOCAL"  : false,
         "APPLICATION_QUASAR_PUBLIC": false,
 
@@ -61,6 +66,28 @@ module.exports = {
         "console": false,
 
         "FLOATING_TEXT_BACKGROUND_DARK_GRAY": false,
+
+        "EMOJI_ERROR"   : false,
+        "EMOJI_SLEEPING": false,
+        "EMOJI_NERD"    : false,
+
+
+        "ASSET_TYPE_TEXTURE"                : false,
+        "ASSET_TYPE_SHADER_MATERIAL"        : false,
+        "ASSET_TEXTURE_SPRITE_SHEET"        : false,
+        "ASSET_TEXTURE_TRANSITION"          : false,
+        "ASSET_TEXTURE_SPRITE_SHEET"        : false,
+        "ASSET_SHADER_MATERIAL_TRANSITION"  : false,
+        "ASSET_SHADER_MATERIAL_NOISE"       : false,
+        "ASSET_SHADER_MATERIAL_SPRITE_SHEET": false,
+
+        "CLIENT_FEATURE_CANVAS"      : false,
+        "CLIENT_FEATURE_WEBGL"       : false,
+        "CLIENT_FEATURE_WEB_WORKERS" : false,
+        "CLIENT_FEATURE_MOBILE"      : false,
+        "CLIENT_FEATURE_VR"          : false,
+        "CLIENT_FEATURE_FULL_SCREEN" : false,
+        "CLIENT_FEATURE_POINTER_LOCK": false,
 
         // OLD BELOW.
 
@@ -89,12 +116,6 @@ module.exports = {
         //  __        __   __                                     __   ___  __   __
         // / _` |    /  \ |__)  /\  |        |\/|  /\  |\ |  /\  / _` |__  |__) /__`
         // \__> |___ \__/ |__) /~~\ |___     |  | /~~\ | \| /~~\ \__> |___ |  \ .__/
-
-        // Cookies.
-        "COOKIE_SHOULD_REMEMBER_USERNAME": false,
-        "COOKIE_REMEMBERED_USERNAME"     : false,
-        //
-
 
         "CENTER_ABSOLUTE": false,
 

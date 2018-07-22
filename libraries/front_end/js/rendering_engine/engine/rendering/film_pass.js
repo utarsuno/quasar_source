@@ -9,7 +9,7 @@
 
 $_QE.prototype.FilmNoise = function() {
     THREE.Pass.call(this);
-    this.shader_material = QE.manager_shaders.get_asset(ASSET_SHADER_MATERIAL_NOISE);
+    this.shader_material = QE.manager_assets.get_asset(ASSET_SHADER_MATERIAL_NOISE);
     this.material = this.shader_material.get_shader_material();
 
     this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
