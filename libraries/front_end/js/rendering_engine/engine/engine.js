@@ -3,8 +3,6 @@
 // Caches files loaded by the FileLoader.
 THREE.Cache.enabled = true;
 
-let QE;
-
 const APPLICATION_NEXUS_LOCAL   = 'nl'; // #pre-process_global_constant
 const APPLICATION_QUASAR_PUBLIC = 'qp'; // #pre-process_global_constant
 
@@ -28,6 +26,10 @@ $_QE.prototype = {
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
+    initialize_engine: function() {
+
+    },
+
     check_if_required_features_are_supported: function () {
         this.client = new $_QE.prototype.Client();
         this.client.initialize_state_canvas_support();
@@ -88,7 +90,7 @@ $_QE.prototype = {
 
         this.manager_input = new $_QE.prototype.InputManager(this.player, this.manager_world);
         this.player.input_manager = this.manager_input;
-
+        
 
         this.player.initialize_player_controls();
 
@@ -140,32 +142,3 @@ $_QE.prototype = {
         this.delta_clock.start();
     }
 };
-
-
-/*
-// Engine starts here!
-window.onload = function() {
-    QE = new $_QE();
-
-
-    MANAGER_MANAGER = new ManagerManager();
-    if (CURRENT_CLIENT.supports_webgl()) {
-        MANAGER_MANAGER.load_all_global_managers();
-
-        MANAGER_MANAGER.set_quasar_main_object(CURRENT_CLIENT, CURRENT_PLAYER, MANAGER_WORLD, MANAGER_RENDERER, MANAGER_MANAGER);
-
-        MANAGER_MANAGER.initial_asset_loading_start(MANAGER_MANAGER.quasar_main_object);
-    }
-
-};
-
-
-
-
-    get_window_properties: function() {
-        this.window_width  = window.innerWidth;
-        this.window_height = window.innerHeight;
-        this.aspect_ratio  = this.window_width / this.window_height;
-        CURRENT_CLIENT.height_re_sized(this.window_height);
-    },
-*/

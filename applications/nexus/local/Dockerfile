@@ -1,8 +1,14 @@
 # Alpine linux with Python 3.6 installed.
 FROM python:3.6-alpine
 
-# Update index of available packages, then update the currently installed packages.
-RUN apk update && apk upgrade
+# Update index of available packages.
+RUN apk update \
+    # Update currently installed packages.
+    && apk upgrade \
+    # Install libraries needed for uwsgi.
+    && apk add --no-cache build-base \
+    && apk add --no-cache linux-headers \
+    && apk add --no-cache pcre-dev
 
 # Add required tools then Python libraries.
 RUN apk add --no-cache libc-dev \
@@ -22,13 +28,15 @@ RUN apk add --no-cache libc-dev \
     && pip3 install --no-cache-dir csscompressor \
     && pip3 install --no-cache-dir jsmin \
     && pip3 install --no-cache-dir pillow \
-    && pip3 install --no-cache-dir htmlmin
+    && pip3 install --no-cache-dir htmlmin \
+    # Install uwsgi.
+    && pip3 install --no-cache-dir uwsgi
 
 # Clear cache and create needed directories.
 RUN rm -rf /var/cache/apk/* \
     && rm -rf /root/.cache/pip/* \
-    && mkdir ./assets \
-    && mkdir ./assets/third_party
+    && mkdir /assets \
+    && mkdir /assets/third_party
 
 # Run the launch script.
 CMD ["/quasar/scripts/nexus/run_local_nexus_on_docker.sh"]

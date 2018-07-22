@@ -10,7 +10,6 @@ from libraries.universal_code import useful_file_operations as ufo
 # /* PRE-PROCESSOR: #import quasar_engine.css */
 
 
-
 class Minifiable(Redusable):
 	"""Abstraction for files that can be minified."""
 
@@ -29,7 +28,7 @@ class Minifiable(Redusable):
 				libraries_needed.append(css_file_needed)
 		return libraries_needed
 
-	def generate_minified_file(self, libraries=None):
+	def generate_minified_file(self, libraries=None, generated_files_path=None):
 		"""Generates the minified file."""
 
 		library_text = ''
@@ -52,8 +51,14 @@ class Minifiable(Redusable):
 
 		self._compressed_file_extension = '.min' + self.file_extension
 		self._save_path = self.full_path.replace(self.file_extension, '.min' + self.file_extension)
-		ufo.create_file_or_override(self._compressed_text, self._save_path)
-		self._compressed_file_size = ufo.get_file_size_in_bytes(self._save_path)
+
+		if generated_files_path is not None:
+			_save_path = generated_files_path + self.file_name + '.min' + self.file_extension
+			ufo.create_file_or_override(self._compressed_text, _save_path)
+			self._compressed_file_size = ufo.get_file_size_in_bytes(_save_path)
+		else:
+			ufo.create_file_or_override(self._compressed_text, self._save_path)
+			self._compressed_file_size = ufo.get_file_size_in_bytes(self._save_path)
 
 		#print('SAVE PATH IS THE FOLLOWING {' + str(self._save_path) + '}')
 

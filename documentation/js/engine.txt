@@ -1,0 +1,14 @@
+Description: {
+    Every application with custom 3D front-end will utilize the 'Quasar Engine'. This engine provides common-reusable tools
+    as well as doing a great deal of management work such as state based logic, logic loops, and rendering loops.
+}
+
+Technical Documentation: {
+    // Each application will start with the following template:
+
+    window.onload = function() {
+        // Entire application will start and run from here.
+
+        // Create an instance of the Quasar Engine and run it. A promise will be returned indicating if the engine started successfully
+    }
+}

@@ -166,11 +166,11 @@ $_QE.prototype.Client = function() {
      |__)  /\  |  | /__` |__      |\/| |__  |\ | |  |
      |    /~~\ \__/ .__/ |___     |  | |___ | \| \__/ */
     this.initialize_pause_menu = function() {
-        this.background_coloring = new $_QE.prototype.DomElement('background_coloring', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
-        this.pause_menu          = new $_QE.prototype.DomElement('pause_menu', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
+        this.background_coloring = new $_QE.prototype.DomElement('paused_background_filter', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
+        this.pause_menu          = new $_QE.prototype.DomElement('pause_display', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, false);
         this.pause_menu.set_display_style('table');
-        this.pause_title         = new $_QE.prototype.DomElement('menu_title', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H1, true);
-        this.pause_sub_title     = new $_QE.prototype.DomElement('menu_header', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H5, true);
+        this.pause_title         = new $_QE.prototype.DomElement('pause_display_title', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H1, true);
+        this.pause_sub_title     = new $_QE.prototype.DomElement('pause_display_sub_title', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_H5, true);
     };
 
     this.set_pause_menu_text_and_sub_text = function(text, sub_text) {
@@ -185,12 +185,12 @@ $_QE.prototype.Client = function() {
 
     this.show_pause_menu = function() {
         this.pause_menu.show();
-        this.background_coloring.set_id('background_coloring');
+        this.background_coloring.show();
     };
 
     this.hide_pause_menu = function() {
         this.pause_menu.hide();
-        this.background_coloring.set_id('no_background_coloring');
+        this.background_coloring.hide();
     };
 
     /*     __   __          ___     __   ___ ___  ___  __  ___    __

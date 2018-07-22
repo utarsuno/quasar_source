@@ -1,6 +1,7 @@
 // Nexus Local starts here!
 
 let NL;
+let QE;
 
 function $_NL() {
     this.__init__();
@@ -64,6 +65,7 @@ window.onload = function() {
     l('On load!');
 
 
+    //return;
 
     QE = new $_QE();
     QE.check_if_required_features_are_supported();
@@ -74,6 +76,7 @@ window.onload = function() {
     } else {
         console.log('ERROR: WebGL or Canvas not supported!');
     }
+
 
 
 

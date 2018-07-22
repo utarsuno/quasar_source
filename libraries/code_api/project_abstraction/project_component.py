@@ -17,6 +17,12 @@ class ProjectComponent(object):
 		self._extensions_to_ignore  = []
 		self._file_name_matches_to_ignore = []
 
+		self._generated_files_path = None
+
+	def set_generated_file_path(self, p):
+		"""Sets the base path for generated files to be placed into."""
+		self._generated_files_path = p
+
 	def add_file_name_match_to_ignore(self, file_name_match):
 		"""Adds a file name match to be ignored by this project component."""
 		self._file_name_matches_to_ignore.append(file_name_match)

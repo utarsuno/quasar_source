@@ -57,6 +57,7 @@ class QuasarRenderingEngineBuilder(object):
 		# CSS
 		self.css = ProjectComponent('quasar_rendering_engine_css')
 		self.css.add_extension_to_ignore('.min')
+		self.css.set_generated_file_path('/quasar/generated_output/web_assets/')
 
 		if self._engine_version == QUASAR_RENDERING_ENGINE_FOR_NEXUS:
 			self.css.add_file_name_match_to_ignore('quasar_public')
@@ -164,9 +165,9 @@ class QuasarRenderingEngineBuilder(object):
 				libraries = []
 				for lib in libraries_needed:
 					libraries.append(self.css.get_file_by_name(lib))
-				f.generate_minified_file(libraries)
+				f.generate_minified_file(libraries, self.css._generated_files_path)
 			else:
-				f.generate_minified_file()
+				f.generate_minified_file(None, self.css._generated_files_path)
 
 			self._original_total_size += f.file_size
 			self._new_total_size += f.compressed_size

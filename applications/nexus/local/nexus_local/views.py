@@ -4,7 +4,7 @@
 
 from django.shortcuts import render
 
-TEMPLATE_NEXUS_LOCAL = 'nexus_local.min.html'
+TEMPLATE_NEXUS_LOCAL = '/assets/nl.min.html'
 
 
 def GET_nexus_local(request):
