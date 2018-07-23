@@ -8,9 +8,6 @@ $_QE.prototype.FeatureAttachment = function() {
     // The current object that has this instance as an attachment.
     this.attachment_parent = null;
 
-    // The root parent of this particular FeatureAttachment chain.
-    this.root_parent = null;
-
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
@@ -19,24 +16,15 @@ $_QE.prototype.FeatureAttachment = function() {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.add_attachment = function(attachment) {
-        this.attachments.push(attachment);
-        if (this.is_root()) {
-            attachment.root_parent = this;
-        } else {
-            attachment.root_parent = this.root_parent;
+        if (attachment.is_root_element()) {
+            attachment.position = null;
+            attachment.normal   = null;
         }
         attachment.attachment_parent = this;
+        this.attachments.push(attachment);
 
         if (is_defined(this.on_attachment_added)) {
             this.on_attachment_added();
-        }
-
-        if (this.manual_positioning) {
-            attachment.set_to_manual_positioning();
-            let a;
-            for (a = 0; a < attachment.attachments.length; a++) {
-                attachment.attachments[a].set_to_manual_positioning();
-            }
         }
     };
 
@@ -72,11 +60,11 @@ $_QE.prototype.FeatureAttachment = function() {
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.is_root_attachment = function() {
-        return !is_defined(this.attachment_parent);
+        return this.attachment_parent === null;
     };
 
     this.is_attached = function() {
-        return !(this.attachment_parent === null);
+        return this.attachment_parent !== null;
     };
 
     this.has_attachment = function(attachment) {

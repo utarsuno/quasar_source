@@ -129,9 +129,4 @@ $_QE.prototype.WorldInput = function() {
         // Fow now just perform a regular right click action.
     };
 
-    this.wheel_event = function(delta) {
-        if (this.floating_cursor._currently_engaged) {
-            this.floating_cursor.wheel_event(delta);
-        }
-    };
 };

@@ -1,9 +1,8 @@
 'use strict';
 
 $_QE.prototype.FloatingElement = function(world) {
-    $_QE.prototype.FeaturePosition.call(this, world);
     $_QE.prototype.FeatureAttachment.call(this);
-    $_QE.prototype.FeatureColor.call(this);
+    $_QE.prototype.FeaturePosition.call(this, world);
     $_QE.prototype.FeatureVisibility.call(this);
     $_QE.prototype.FeatureRecycle.call(this);
 

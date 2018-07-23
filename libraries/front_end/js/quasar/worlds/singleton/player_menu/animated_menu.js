@@ -125,7 +125,6 @@ AnimatedMenu.prototype = {
             let temp_position = new THREE.Vector3(0, 0, 0);
             let temp_normal = new THREE.Vector3(0, 0, 0);
             this.menu = new FakeFloatingWall(this.menu_width, 100, temp_position, temp_normal, world);
-            this.menu.set_to_manual_positioning();
             this.menu.set_attachment_horizontal_offset(-30, null);
             this.menu.set_attachment_vertical_offset(-30, null);
             this.menu.set_attachment_depth_offset(300);

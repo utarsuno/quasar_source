@@ -18,7 +18,8 @@ $_QE.prototype.WorldElementsInteractive = function() {
             }
         }
 
-        this._intersections.length = 0;
+        //this._intersections.length = 0;
+        this._intersections = [];
 
         //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
         this.raycaster.set(this.player.yaw.position, this.player.get_direction());
@@ -48,20 +49,15 @@ $_QE.prototype.WorldElementsInteractive = function() {
             }
         } else {
             // Interactive match found.
-            let interactive_match = this.elements_interactive[interactive_index];
+            //let interactive_match = this.elements_interactive[interactive_index];
 
             if (this.currently_looked_at_object !== null) {
-                if (this.currently_looked_at_object !== interactive_match) {
-                    // A new object is being looked at so look away from the old match.
+                if (this.currently_looked_at_object !== this.elements_interactive[interactive_index]) {
                     this.look_away_from_currently_looked_at_object();
-                } else {
-                    // Since the currently looked at object match is the same then all we need to do is update the cursor position.
-                    this.floating_cursor.update_position(intersection_data.point);
+                    this.set_new_currently_looked_at_object(this.elements_interactive[interactive_index], intersection_data.point);
                 }
             } else {
-                // An object is being looked at for the first time.
-                this.currently_looked_at_object = interactive_match;
-                this.look_at_currently_looked_at_object(false, true);
+                this.set_new_currently_looked_at_object(this.elements_interactive[interactive_index], intersection_data.point);
             }
         }
     };

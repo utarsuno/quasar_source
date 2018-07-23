@@ -4,6 +4,12 @@ $_QE.prototype.WorldManagerInput = function() {
     this._left_click_clock = new THREE.Clock(false);
     this._left_click_previous_start_time = null;
 
+    this.on_wheel_event = function(direction) {
+        if (this.player_cursor._currently_moving) {
+            this.player_cursor.on_wheel_event(direction);
+        }
+    };
+
     this.left_click_up = function() {
         if (this.player.has_input()) {
 

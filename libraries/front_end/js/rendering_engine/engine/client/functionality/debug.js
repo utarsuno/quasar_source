@@ -47,7 +47,7 @@ $_QE.prototype.ClientFunctionalityDebug = function() {
         this._stats_api = new Stats();
         this._stats_api.showPanel(0);
 
-        this._stats_dom = new $_QE.prototype.DomElement(this._stats_api.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_DIV, false);
+        this._stats_dom = new $_QE.prototype.DomElement(this._stats_api.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_DIV);
         this._stats_dom.set_id('fps_display');
         this._stats_dom.append_to_document_body();
     };

@@ -21,7 +21,6 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.nexus_local_title = new $_QE.prototype.Text3D(this, 256, 'Nexus Local');
         this.nexus_local_title.set_position(-450, 300, -800);
         this.nexus_local_title.look_at_origin(false);
-        this.nexus_local_title.set_to_manual_positioning();
         this.nexus_local_title.refresh_position_and_look_at();
 
 
@@ -30,7 +29,6 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.logs.initialize_terminal();
         this.logs.set_position(-450, 200, -800);
         this.logs.look_at_origin(true);
-        this.logs.set_to_manual_positioning();
         this.logs.refresh_position_and_look_at();
 
         this.logs.add_message('Hello World!');
@@ -42,19 +40,6 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         //this.cursor_test.set_position(100, 100, 100);
         //this.cursor_test.set_normal(0, 0, 0);
         //this.cursor_test.refresh_position_and_look_at();
-
-        /*
-        //floating_canvas_log.js
-
-        this.logs = new $_QE.prototype.FloatingCanvasLogs(this, 15, 400, 250);
-        //this.logs.notify_function = NL.main_logs_loaded;
-        this.logs.lock_to_player = true;
-        this.logs.initialize();
-        //this.logs.set_position(-450, 100, -800);
-        //this.logs.look_at_origin(false);
-        this.logs.set_to_manual_positioning();
-        //this.logs.refresh_position_and_look_at();
-        */
 
 
         NL.create_gui_2d();

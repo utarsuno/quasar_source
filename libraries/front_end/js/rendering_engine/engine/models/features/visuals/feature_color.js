@@ -1,14 +1,12 @@
 'use strict';
 
-$_QE.prototype.FeatureColor = function() {
+$_QE.prototype.FeatureColor = function(foreground_color, background_color) {
 
-    // TEMPORARY VALUES
-    this.current_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
-    this.default_background_color = FLOATING_TEXT_BACKGROUND_TRANSPARENT;
+    this.current_background_color = background_color;
+    this.default_background_color = background_color;
 
-    // TEMPORARY VALUES
-    this.current_foreground_color = COLOR_GREEN;
-    this.default_foreground_color = COLOR_GREEN;
+    this.current_foreground_color = foreground_color;
+    this.default_foreground_color = foreground_color;
 
     this.update_needed_for_colors = false;
 
@@ -16,6 +14,9 @@ $_QE.prototype.FeatureColor = function() {
         if (this.current_background_color !== color) {
             this.current_background_color = color;
             this.update_needed_for_colors = true;
+            if (is_defined(this.current_background_color_changed)) {
+                this.current_background_color_changed();
+            }
         }
     };
 
@@ -30,6 +31,9 @@ $_QE.prototype.FeatureColor = function() {
         if (this.current_foreground_color !== color) {
             this.current_foreground_color = color;
             this.update_needed_for_colors = true;
+            if (is_defined(this.current_foreground_color_changed)) {
+                this.current_foreground_color_changed();
+            }
         }
     };
 

@@ -1,31 +1,31 @@
 'use strict';
 
-$_QE.prototype.CanvasGUI2D = function(unique_name, type, rendering_style) {
+$_QE.prototype.CanvasGUI2D = function(unique_name, type_dom, type_canvas, type_rendering, font) {
+    $_QE.prototype.DomElementCanvas.call(this, unique_name, type_dom, type_canvas);
 
-    $_QE.prototype.CanvasTexture.call(this, unique_name, type, rendering_style);
+    $_QE.prototype.CanvasFont.call(this, font);
 
-    this.initialize_gui = function(x, y, optional_class_to_add) {
+    this.initialize_gui = function(width, height, x, y, optional_class_to_add) {
+        this.create_element();
+
+        this.set_canvas_width(width);
+        this.set_canvas_height(height);
+
+        $_QE.prototype.CanvasTexture.call(this, this._element);
+
+        this.initialize_texture();
+
+        this.set_left_offset(x);
+        this.set_top_offset(y);
+
         this.add_class('gui_canvas');
         if (is_defined(optional_class_to_add)) {
             this.add_class(optional_class_to_add);
         }
+
         this.append_to_document_body();
-        this.set_screen_x(x);
-        this.set_screen_y(y);
-    };
 
-    this.set_screen_x = function(x) {
-        if (this._x !== x) {
-            this._element.style.top = x + '%';
-            this._x = x;
-        }
-    };
-
-    this.set_screen_y = function(y) {
-        if (this._y !== y) {
-            this._element.style.left = y + '%';
-            this._y = y;
-        }
+        $_QE.prototype.CanvasRendering.call(this, type_rendering);
     };
 
 };

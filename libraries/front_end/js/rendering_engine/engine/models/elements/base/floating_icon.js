@@ -1,14 +1,19 @@
 'use strict';
 
 $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color) {
+    if (is_defined(foreground_color)) {
+        $_QE.prototype.FeatureColor.call(this, foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    } else {
+        $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    }
 
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
     $_QE.prototype.FeatureSize.call(this, size, size);
 
-    if (is_defined(foreground_color)) {
-        this.set_foreground_color(foreground_color);
-    }
+    $_QE.prototype.FeatureMaterial.call(this, true, FEATURE_MATERIAL_TYPE_ICON);
+    $_QE.prototype.FeatureGeometry.call(this, true, FEATURE_GEOMETRY_TYPE_PLANE);
+    $_QE.prototype.FeatureMesh.call(this, false, FEATURE_MESH_TYPE_DEFAULT);
 
     this.icon_type = icon_type;
 
@@ -26,17 +31,12 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
         this.switch_icon(icon);
     };
 
-    /*__   __   ___      ___    __
-     /  ` |__) |__   /\   |  | /  \ |\ |
-     \__, |  \ |___ /~~\  |  | \__/ | \| */
-    this.create_base_material = function() {
-        this.material = QE.manager_icons.get_icon_material(this.icon_type);
-    };
+    //////////////
 
-    this.create_base_mesh = function() {
-        let geometry = QE.manager_heap.get_plane_geometry(this.width, this.height);
-        this.mesh = new THREE.Mesh(geometry, this.material);
-        this.object3D.add(this.mesh);
+    this.create_icon = function() {
+        this.create_material();
+        this.create_geometry();
+        this.create_mesh();
     };
 
     /*__   __        __   __      __   __   ___  __       ___    __        __
@@ -45,13 +45,6 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
     this.current_foreground_color_changed = function() {
         this.material.uniforms['color'].value = this.current_foreground_color;
         this.material.needsUpdate = true;
-    };
-
-    //////////////
-
-    this.create_icon = function() {
-        this.create_base_material();
-        this.create_base_mesh();
     };
 
 };

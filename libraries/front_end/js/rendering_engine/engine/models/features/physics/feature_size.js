@@ -9,7 +9,7 @@ $_QE.prototype.FeatureSize = function(width, height) {
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this.dimensions_changed = function() {
-        this.delete_mesh();
+        this.recycle_mesh();
         this.create_base_mesh();
     };
 

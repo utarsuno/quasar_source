@@ -15,26 +15,32 @@ $_QE.prototype.FeatureRecycle = function() {
     };
 
     this.recycle_material = function() {
-        if (is_defined(this.material)) {
-            if (is_defined(this.material.map)) {
-                this.material.map.dispose();
-                this.material.map = undefined;
+        if (this.is_material_cacheable !== true) {
+            if (is_defined(this.material)) {
+                if (is_defined(this.material.map)) {
+                    this.material.map.dispose();
+                    this.material.map = undefined;
+                }
+                this.material.dispose();
             }
-            this.material.dispose();
-            this.material = undefined;
         }
+        this.material = undefined;
     };
 
     this.recycle_mesh = function() {
-        if (is_defined(this.mesh)) {
-            this.object3D.remove(this.mesh);
+        if (this.is_mesh_cacheable !== true) {
+            if (is_defined(this.mesh)) {
+                this.object3D.remove(this.mesh);
+            }
         }
         this.mesh = undefined;
     };
 
     this.recycle_geometry = function() {
-        if (is_defined(this.geometry)) {
-            this.geometry.dispose();
+        if (this.is_geometry_cacheable !== true) {
+            if (is_defined(this.geometry)) {
+                this.geometry.dispose();
+            }
         }
         this.geometry = undefined;
     };

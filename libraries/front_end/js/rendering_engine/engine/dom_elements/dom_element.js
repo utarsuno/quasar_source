@@ -1,19 +1,6 @@
 'use strict';
 
-const DOM_ELEMENT_CANVAS = 'canvas'; // #pre-process_global_constant
-const DOM_ELEMENT_DIV    = 'div';    // #pre-process_global_constant
-const DOM_ELEMENT_H1     = 'h1';     // #pre-process_global_constant
-const DOM_ELEMENT_H2     = 'h2';     // #pre-process_global_constant
-const DOM_ELEMENT_H3     = 'h3';     // #pre-process_global_constant
-const DOM_ELEMENT_H4     = 'h4';     // #pre-process_global_constant
-const DOM_ELEMENT_H5     = 'h5';     // #pre-process_global_constant
-
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS      = 1; // #pre-process_global_constant
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE         = 2; // #pre-process_global_constant
-const DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT             = 3; // #pre-process_global_constant
-
-
-$_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_string) {
+$_QE.prototype.DomElement = function(data, data_type, dom_element_type) {
     this._dom_type = dom_element_type;
     switch (data_type) {
     case DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS:
@@ -30,19 +17,16 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_strin
         break;
     }
 
-    if (is_string) {
-        $_QE.prototype.FeatureText.call(this);
-    }
-
     // Default.
     this._display_style = 'block';
-
     //
 
     this.create_element = function() {
-        this._element = document.createElement(this._dom_type);
-        if (is_defined(this._id_name)) {
-            this._element.id = this._id_name;
+        if (this._element === null) {
+            this._element = document.createElement(this._dom_type);
+            if (is_defined(this._id_name)) {
+                this._element.id = this._id_name;
+            }
         }
     };
 
@@ -103,7 +87,7 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_strin
         } else {
             this._element.appendChild(node);
         }
-        return new $_QE.prototype.DomElement(element_id, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV, true);
+        return new $_QE.prototype.DomElement(element_id, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);
     };
 
     //
@@ -139,14 +123,6 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_strin
         this._element.style.position = 'absolute';
     };
 
-    this.set_left_offset = function(o) {
-        this._element.style.left = this._get_offset(o);
-    };
-
-    this.set_top_offset = function(o) {
-        this._element.style.top = this._get_offset(o);
-    };
-
     this.set_color = function(color) {
         this._element.style.color = color;
     };
@@ -154,5 +130,4 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type, is_strin
     this.set_display_style = function(style) {
         this._display_style = style;
     };
-
 };

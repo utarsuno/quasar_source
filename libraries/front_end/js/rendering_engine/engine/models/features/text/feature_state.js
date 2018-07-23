@@ -3,8 +3,9 @@
 $_QE.prototype.FeatureTextState = function() {
 
     this.warning_icon = new $_QE.prototype.FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, true);
-    this.warning_icon.set_attachment_depth_offset(1);
-    this.warning_icon.set_attachment_horizontal_offset(-16, HALF);
+    this.warning_icon.offset_depth_distance = 1;
+    this.warning_icon.offset_horizontal_distance = -16;
+    this.warning_icon.offset_horizontal_percentage = HALF;
     this.warning_icon.manual_visibility = true;
     this.add_attachment(this.warning_icon);
     this.warning_icon.set_to_invisible();

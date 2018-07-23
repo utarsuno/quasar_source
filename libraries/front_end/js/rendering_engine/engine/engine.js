@@ -124,9 +124,7 @@ $_QE.prototype = {
 
         //this.client.pre_render();
 
-        //this.client.update();
         this.manager_world.update(this.delta);
-
         this.manager_renderer.render(this.delta);
 
         //this.client.post_render();

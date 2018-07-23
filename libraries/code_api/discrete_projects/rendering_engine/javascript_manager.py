@@ -243,11 +243,15 @@ class JavascriptManager(object):
 
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
+		self.js_files_needed.append('global/global_pre_process.js')
 
 		# HTML_GUI.
 		self.js_files_needed.append('engine/dom_elements/dom_element.js')
+		self.js_files_needed.append('engine/dom_elements/dom_element_canvas.js')
+		self.js_files_needed.append('engine/dom_elements/dom_element_text.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_font.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_rendering.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_pre_process.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_texture.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_gui_2d.js')
 
@@ -298,20 +302,28 @@ class JavascriptManager(object):
 
 		# Inheritables.
 		self.js_files_needed.append('engine/models/features/feature_attachment.js')
-		self.js_files_needed.append('engine/models/features/feature_clickable.js')
-		self.js_files_needed.append('engine/models/features/feature_color.js')
-		self.js_files_needed.append('engine/models/features/feature_cursor.js')
 		self.js_files_needed.append('engine/models/features/feature_element_root.js')
-		self.js_files_needed.append('engine/models/features/feature_interactive.js')
 		self.js_files_needed.append('engine/models/features/feature_meta_data.js')
-		self.js_files_needed.append('engine/models/features/feature_mouse_scale.js')
-		self.js_files_needed.append('engine/models/features/feature_outline_glow.js')
 		self.js_files_needed.append('engine/models/features/feature_position.js')
 		self.js_files_needed.append('engine/models/features/feature_recycle.js')
 		self.js_files_needed.append('engine/models/features/feature_singleton.js')
 		self.js_files_needed.append('engine/models/features/feature_size.js')
-		self.js_files_needed.append('engine/models/features/feature_tab_target.js')
-		self.js_files_needed.append('engine/models/features/feature_visibility.js')
+
+		self.js_files_needed.append('engine/models/features/interactions/feature_interactive.js')
+		self.js_files_needed.append('engine/models/features/interactions/feature_clickable.js')
+		self.js_files_needed.append('engine/models/features/interactions/feature_tab_target.js')
+
+		self.js_files_needed.append('engine/models/features/mouse_actions/feature_mouse_scale.js')
+		self.js_files_needed.append('engine/models/features/mouse_actions/feature_mouse_move.js')
+		self.js_files_needed.append('engine/models/features/mouse_actions/feature_cursor.js')
+
+		self.js_files_needed.append('engine/models/features/visuals/feature_visibility.js')
+		self.js_files_needed.append('engine/models/features/visuals/feature_outline_glow.js')
+		self.js_files_needed.append('engine/models/features/visuals/feature_color.js')
+
+		self.js_files_needed.append('engine/models/features/three_js_abstractions/feature_geometry.js')
+		self.js_files_needed.append('engine/models/features/three_js_abstractions/feature_material.js')
+		self.js_files_needed.append('engine/models/features/three_js_abstractions/feature_mesh.js')
 
 		self.js_files_needed.append('engine/models/features/text/feature_typing.js')
 		self.js_files_needed.append('engine/models/features/text/feature_text.js')

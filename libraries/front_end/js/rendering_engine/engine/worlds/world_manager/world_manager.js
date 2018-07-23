@@ -20,7 +20,6 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.environment.create_world_environment_singletons(this.first_world, this);
 
         this.player_cursor = new $_QE.prototype.PlayerCursor();
-        this.player_cursor.create_world_environment_singletons(this.first_world, this.player, this);
     };
 
     this.set_current_world = function(world) {
@@ -46,22 +45,16 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         // Before switching to the new scene make sure it has all non world-unique objects.
         this.current_world.add_to_scene(this.player.yaw);
 
-        // Set the player position ahead of time.
         for (s = 0; s < this.singletons.length; s++) {
             this.singletons[s].world_enter(this.current_world);
         }
 
-        this.current_world.enter_world(this.player_cursor);
+        this.current_world.enter_world();
     };
 
     this.update = function(delta) {
         if (this.player.currently_loading()) {
             return;
-        }
-
-        let a;
-        for (a = 0; a < QE.gui_2d_elements.length; a++) {
-            QE.gui_2d_elements[a].update();
         }
 
         this.player.physics(delta);
@@ -70,12 +63,13 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             return;
         }
 
+        let a;
+        for (a = 0; a < QE.gui_2d_elements.length; a++) {
+            QE.gui_2d_elements[a].update();
+        }
+
         this.current_world.update_elements_root(delta);
         this.current_world.update_elements_interactive();
-
-        //if (!this.player_cursor._currently_engaged && this.player.current_state !== PLAYER_STATE_TYPING) {
-        //    this.current_world.update_interactive_objects();
-        //}
 
         this.current_world.update(delta);
     };

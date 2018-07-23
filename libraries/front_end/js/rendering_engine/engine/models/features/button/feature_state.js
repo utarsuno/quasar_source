@@ -6,7 +6,7 @@ $_QE.prototype.FeatureButtonState = function() {
     this._locked  = false;
 
     this._icon = new $_QE.prototype.FloatingIcon(this.world, ICON_CROSS, 32, COLOR_RED, true);
-    this._icon.set_attachment_depth_offset(1);
+    this._icon.offset_depth_distance = 1;
     this._icon.manual_visibility = true;
     this.add_attachment(this._icon);
     this._icon.set_to_invisible();

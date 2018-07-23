@@ -38,6 +38,7 @@ $_QE.prototype.get_heap_manager = function() {
     PlaneGeometryCache.prototype = {
         __init__: function(args) {
             this._width = args[0];
+
             this._height = args[1];
             this._cache = new THREE.PlaneGeometry(this._width, this._height);
         },

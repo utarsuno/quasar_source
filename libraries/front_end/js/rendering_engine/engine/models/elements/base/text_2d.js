@@ -21,6 +21,8 @@ const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
 
 $_QE.prototype.Text2D = function(world, width, height, text) {
 
+    $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
     $_QE.prototype.FeatureText.call(this, text);
@@ -52,9 +54,9 @@ $_QE.prototype.Text2D = function(world, width, height, text) {
                     // Update horizontal offset if needed.
                     if (this.is_attached()) {
                         if (this.is_left_attachment) {
-                            this.set_attachment_horizontal_distance_offset(-this.width / 2);
+                            this.offset_horizontal_distance = -this.width / 2;
                         } else if (this.is_right_attachment) {
-                            this.set_attachment_horizontal_distance_offset(this.width / 2);
+                            this.offset_horizontal_distance = this.width / 2;
                         }
                         this.attachment_parent.refresh_position_and_look_at();
                     }
