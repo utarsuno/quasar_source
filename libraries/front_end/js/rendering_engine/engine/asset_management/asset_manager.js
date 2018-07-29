@@ -37,11 +37,16 @@ $_QE.prototype.AssetManager = function(engine) {
                 asset_needed = new $_QE.prototype.AssetFile(ASSET_TEXTURE_SPRITE_SHEET, ASSET_TYPE_TEXTURE, null);
                 asset_batch.add_asset(asset_needed);
                 asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_SHADER_MATERIAL_SPRITE_SHEET, ASSET_TYPE_SHADER_MATERIAL, asset_needed));
+
             }
             if (engine.engine_setting_shader_grain_enabled) {
                 asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_SHADER_MATERIAL_NOISE, ASSET_TYPE_SHADER_MATERIAL, null));
             }
+            asset_batch.add_asset(new $_QE.prototype.AssetFile(ASSET_TEXTURE_FONT_DEFAULT, ASSET_TYPE_TEXTURE, null));
         }
+
+        $_QE.prototype.CANVAS_FONT_SMALLER = ['16px Arial', 16, 3];
+        $_QE.prototype.CANVAS_FONT_LARGER  = ['20px Arial', 20, 4];
 
         return new Promise(function(resolve, reject) {
             asset_batch.load_batch().then(function() {

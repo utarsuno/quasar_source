@@ -7,6 +7,9 @@ $_QE.prototype.WorldElementsInteractive = function() {
 
     // For cache optimizations.
     this._intersections = [];
+    this._intersection_checks = [];
+
+
 
     this.update_elements_interactive = function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
@@ -48,15 +51,10 @@ $_QE.prototype.WorldElementsInteractive = function() {
                 this.look_away_from_currently_looked_at_object();
             }
         } else {
-            // Interactive match found.
-            //let interactive_match = this.elements_interactive[interactive_index];
-
-            if (this.currently_looked_at_object !== null) {
-                if (this.currently_looked_at_object !== this.elements_interactive[interactive_index]) {
-                    this.look_away_from_currently_looked_at_object();
-                    this.set_new_currently_looked_at_object(this.elements_interactive[interactive_index], intersection_data.point);
-                }
-            } else {
+            if (this.currently_looked_at_object === null) {
+                this.set_new_currently_looked_at_object(this.elements_interactive[interactive_index], intersection_data.point);
+            } else if (this.currently_looked_at_object !== this.elements_interactive[interactive_index]) {
+                this.look_away_from_currently_looked_at_object();
                 this.set_new_currently_looked_at_object(this.elements_interactive[interactive_index], intersection_data.point);
             }
         }

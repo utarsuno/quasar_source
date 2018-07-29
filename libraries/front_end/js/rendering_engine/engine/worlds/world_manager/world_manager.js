@@ -53,10 +53,6 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
     };
 
     this.update = function(delta) {
-        if (this.player.currently_loading()) {
-            return;
-        }
-
         this.player.physics(delta);
 
         if (this.renderer.in_transition) {
@@ -69,7 +65,9 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         }
 
         this.current_world.update_elements_root(delta);
-        this.current_world.update_elements_interactive();
+        if (!this.player_cursor.in_mouse_action()) {
+            this.current_world.update_elements_interactive();
+        }
 
         this.current_world.update(delta);
     };

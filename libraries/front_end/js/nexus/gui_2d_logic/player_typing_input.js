@@ -4,12 +4,10 @@ $_NL.prototype.GUI2DPlayerTypingInput = function() {
 
     $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
-    $_QE.prototype.CanvasGUI2D.call(this, 'gui_2D_typing', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE,
-        CANVAS_GUI_2D_ABSOLUTE_PIXELS, CANVAS_RENDERING_SINGLE, $_QE.prototype.CanvasFontPresets['console_font_smaller']);
+    $_QE.prototype.CanvasGUI2D.call(this, 'gui_2D_typing', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    $_QE.prototype.CanvasRenderingTextLine.call(this, true);
 
-    $_QE.prototype.FeatureTyping.call(this);
-
-    this.initialize_gui(800, 20, 10, 80, 'outline_green');
+    this.initialize_gui(800, 20, 10, 80, 'outline_green', true, true, $_QE.prototype.CANVAS_FONT_SMALLER);
     this.update_text('');
     this.hide();
 

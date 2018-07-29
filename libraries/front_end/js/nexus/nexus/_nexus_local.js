@@ -32,6 +32,7 @@ $_NL.prototype = {
     },
 
     leave_typing_state: function() {
+        l('Leaving typing state');
         QE.player.set_state(PLAYER_STATE_FULL_CONTROL);
 
         let text = this.gui_2d_typing.get_text_then_clear();

@@ -27,14 +27,25 @@ $_QE.prototype.WorldInput = function() {
         if (event.keyCode === KEY_CODE__TAB) {
             this.tab_to_next_interactive_object();
         } else {
+
+            //l('key down for interatives');
+            //l(event);
+            //l(this.currently_looked_at_object);
+
             if (is_defined(this.currently_looked_at_object)) {
                 if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
-                    this.currently_looked_at_object.parse_keycode(event);
-                } else if (event.keyCode === KEY_CODE__ENTER) {
+                    this.currently_looked_at_object.parse_key_event(event);
+                }
+
+                /*
+                else if (event.keyCode === KEY_CODE__ENTER) {
                     if (!this.currently_looked_at_object.is_engaged()) {
-                        this.currently_looked_at_object.engage();
+                    //    this.currently_looked_at_object.engage();
+                    } else {
+                        this.currently_looked_at_object.parse_keycode(event);
                     }
                 }
+                */
             }
         }
     };
@@ -89,25 +100,36 @@ $_QE.prototype.WorldInput = function() {
      |  | \__/ \__/ .__/ |___    |___  \/  |___ | \|  |  .__/ */
 
     // This gets called on left mouse button up event.
-    this.single_left_click = function() {
+    this.left_click = function(double_click) {
         //if (CURRENT_CLIENT.is_mobile && MANAGER_INPUT.is_mobile_keyboard_visible()) {
         //    return;
         //}
 
         if (is_defined(this.currently_looked_at_object)) {
-            if (!this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.engage();
-
-                // Check if keyboard is needed!
-                //if (CURRENT_CLIENT.is_mobile) {
-                //    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
-                //        if (this.currently_looked_at_object.needs_mobile_keyboard) {
-                //            MANAGER_INPUT.trigger_mobile_keyboard();
-                //        }
-                //    }
-                //}
+            if (is_defined(this.currently_looked_at_object)) {
+                if (!this.currently_looked_at_object.is_engaged()) {
+                    if (this.currently_looked_at_object.feature_engable_only_from_double_click) {
+                        if (double_click) {
+                            this.engage_currently_looked_at_object();
+                        } else {
+                            //if (QE.manager_world.player_cursor.currently_attached_to !== null) {
+                            //    QE.manager_world.player_cursor.engage();
+                            //}
+                        }
+                    } else {
+                        this.engage_currently_looked_at_object();
+                    }
+                }
             }
         }
+        // Check if keyboard is needed!
+        //if (CURRENT_CLIENT.is_mobile) {
+        //    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {
+        //        if (this.currently_looked_at_object.needs_mobile_keyboard) {
+        //            MANAGER_INPUT.trigger_mobile_keyboard();
+        //        }
+        //    }
+        //}
     };
 
     // For now a middle click will act like a left click.

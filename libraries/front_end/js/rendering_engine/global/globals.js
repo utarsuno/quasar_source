@@ -69,5 +69,3 @@ const HALF             = 0.5;                // #pre-process_global_constant
 ////
 
 
-
-

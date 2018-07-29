@@ -1,50 +1,37 @@
 'use strict';
 
 $_QE.prototype.WorldManagerInput = function() {
-    this._left_click_clock = new THREE.Clock(false);
-    this._left_click_previous_start_time = null;
-
     this.on_wheel_event = function(direction) {
         if (this.player_cursor._currently_moving) {
             this.player_cursor.on_wheel_event(direction);
         }
     };
 
-    this.left_click_up = function() {
+    this.left_click_up = function(is_double_click) {
+        //if (is_double_click) {
+        //    l('Double Click!');
+        //}
+        if (this.player_cursor.engaged()) {
+            this.player_cursor.disengage();
+        }
+
+
         if (this.player.has_input()) {
-
-            //if (this.current_world.floating_cursor._currently_engaged) {
-            //    this.current_world.floating_cursor.disengage();
-            //} else {
-            this.current_world.single_left_click();
-            //}
-
-        } else {
-            if (this.player.is_paused()) {
-                if (this._left_click_previous_start_time === null) {
-                    this._left_click_previous_start_time = this._left_click_clock.startTime;
-                }
-                if (this._left_click_clock.startTime - this._left_click_start_time_previous <= 400.0) {
-                    this.player.set_state(PLAYER_STATE_FULL_CONTROL);
-                }
-                this._left_click_start_time_previous = this._left_click_clock.startTime;
+            this.current_world.left_click(is_double_click);
+        } else if (this.player.is_paused() && is_double_click) {
+            if (this.current_world.is_current_object_set_and_engaged()) {
+                this.player.set_state(PLAYER_STATE_ENGAGED);
+            } else {
+                this.player.set_state(PLAYER_STATE_FULL_CONTROL);
             }
         }
     };
 
     this.left_click_down = function() {
-        if (this.player.is_paused()) {
-            this._left_click_clock.start();
-        } else if (this.player.has_input()) {
-
-
-
-            // Cursor engage.
-            //if (is_defined(this.current_world.floating_cursor.currently_attached_to)) {
-            //    if (this.current_world.floating_cursor.currently_attached_to.scalable) {
-            //this.current_world.floating_cursor.engage();
-            //   }
-            //}
+        if (!this.player.is_paused()) {
+            if (this.player_cursor.currently_attached_to !== null) {
+                this.player_cursor.engage();
+            }
         }
     };
 
@@ -59,19 +46,8 @@ $_QE.prototype.WorldManagerInput = function() {
 
     this.right_click_down = function () {
         if (this.player.has_input()) {
-
-            // If the player has input and is NOT engaged AND the player menu is not visible then right clicking will make the PlayerMenu show up.
-
-            let currently_looked_at_object = this.current_world.currently_looked_at_object;
-            if (is_defined(currently_looked_at_object)) {
-                if (currently_looked_at_object.is_engaged()) {
-                    currently_looked_at_object.disengage();
-                    if (this.player.is_engaged()) {
-                        this.player.set_state(PLAYER_STATE_FULL_CONTROL);
-                    }
-                }
-            } else {
-                //this.player_menu.toggle_visibility();
+            if (this.current_world.is_current_object_set_and_engaged()) {
+                this.current_world.disengage_from_currently_looked_at_object();
             }
         }
     };
@@ -88,13 +64,13 @@ $_QE.prototype.WorldManagerInput = function() {
             }
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
-                if (!this.player.engaged_with_object()) {
+                if (this.current_world.currently_looked_at_object === null) {
                     this.player.set_state(PLAYER_STATE_TYPING);
                 } else {
-                    this._key_down_event(event);
+                    this.current_world.key_down_event_for_interactive_objects(event);
                 }
             } else {
-                this._key_down_event(event);
+                this.current_world.key_down_event_for_interactive_objects(event);
             }
         }
     };

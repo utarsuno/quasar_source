@@ -244,16 +244,18 @@ class JavascriptManager(object):
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
 		self.js_files_needed.append('global/global_pre_process.js')
+		self.js_files_needed.append('global/color_manager.js')
 
 		# HTML_GUI.
 		self.js_files_needed.append('engine/dom_elements/dom_element.js')
 		self.js_files_needed.append('engine/dom_elements/dom_element_canvas.js')
 		self.js_files_needed.append('engine/dom_elements/dom_element_text.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_font.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_rendering.js')
-		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_pre_process.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_texture.js')
 		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/canvas_gui_2d.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/rendering/canvas_rendering.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/rendering/canvas_rendering_icon.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/rendering/canvas_rendering_text_line.js')
+		self.js_files_needed.append('engine/dom_elements/canvas_abstraction/rendering/canvas_rendering_text_lines.js')
 
 		# Client class.
 		self.js_files_needed.append('engine/client/client.js')
@@ -301,13 +303,16 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/worlds/world_abstracts/world_elements.js')
 
 		# Inheritables.
-		self.js_files_needed.append('engine/models/features/feature_attachment.js')
 		self.js_files_needed.append('engine/models/features/feature_element_root.js')
 		self.js_files_needed.append('engine/models/features/feature_meta_data.js')
-		self.js_files_needed.append('engine/models/features/feature_position.js')
 		self.js_files_needed.append('engine/models/features/feature_recycle.js')
 		self.js_files_needed.append('engine/models/features/feature_singleton.js')
-		self.js_files_needed.append('engine/models/features/feature_size.js')
+
+		self.js_files_needed.append('engine/models/features/attachment/feature_attachment.js')
+
+		self.js_files_needed.append('engine/models/features/physics/feature_normal.js')
+		self.js_files_needed.append('engine/models/features/physics/feature_position.js')
+		self.js_files_needed.append('engine/models/features/physics/feature_size.js')
 
 		self.js_files_needed.append('engine/models/features/interactions/feature_interactive.js')
 		self.js_files_needed.append('engine/models/features/interactions/feature_clickable.js')
@@ -318,7 +323,6 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/features/mouse_actions/feature_cursor.js')
 
 		self.js_files_needed.append('engine/models/features/visuals/feature_visibility.js')
-		self.js_files_needed.append('engine/models/features/visuals/feature_outline_glow.js')
 		self.js_files_needed.append('engine/models/features/visuals/feature_color.js')
 
 		self.js_files_needed.append('engine/models/features/three_js_abstractions/feature_geometry.js')
@@ -363,7 +367,6 @@ class JavascriptManager(object):
 
 		# Asset Managers.
 		self.js_files_needed.append('engine/asset_management/asset_manager.js')
-		self.js_files_needed.append('engine/asset_management/asset_globals.js')
 		self.js_files_needed.append('engine/asset_management/asset_batch.js')
 		self.js_files_needed.append('engine/asset_management/asset_file.js')
 		self.js_files_needed.append('engine/asset_management/icon_manager.js')

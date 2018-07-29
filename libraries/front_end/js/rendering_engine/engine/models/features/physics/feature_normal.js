@@ -2,6 +2,16 @@
 
 $_QE.prototype.FeatureNormal = function() {
 
+    /*__   __   ___  __       ___    __        __
+     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
+     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this._refresh_look_at = function() {
+        let normal = this.get_normal();
+        this._look_at_position.set(this.object3D.position.x + normal.x, this.object3D.position.y + normal.y, this.object3D.position.z + normal.z);
+        //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+        this.object3D.lookAt(this._look_at_position);
+    };
+
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */

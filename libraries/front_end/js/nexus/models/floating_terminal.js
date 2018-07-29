@@ -2,19 +2,17 @@
 
 $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
 
-    $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, COLOR_DARK_GRAY);
+    $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, QE.COLOR_CANVAS_GRAY);
 
-    $_QE.prototype.DomElementCanvas.call(this, 'floating_terminal', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
-    $_QE.prototype.FeatureTextLines.call(this, number_of_rows);
-    $_QE.prototype.FeatureText.call(this, '');
-    $_QE.prototype.CanvasFont.call(this, font);
+    $_QE.prototype.CanvasGUI2D.call(this, 'floating_terminal', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    $_QE.prototype.FeatureTextLines.call(this, number_of_rows, true);
 
     //$_QE.prototype.FeatureSize.call(this, 1024, number_of_rows * font[1]);
     $_QE.prototype.FloatingElement.call(this, world);
 
-    $_QE.prototype.FeatureInteractive.call(this);
+    $_QE.prototype.FeatureInteractive.call(this, true);
+    this.feature_engable_only_from_double_click = true;
     $_QE.prototype.FeatureClickable.call(this, true);
-    $_QE.prototype.FeatureTyping.call(this);
 
     ///
     $_QE.prototype.FeatureGeometry.call(this, false, FEATURE_GEOMETRY_TYPE_PLANE);
@@ -26,12 +24,10 @@ $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
 
     ///
 
-    this.add_message = function(m) {
-        this.add_row(m);
+    this.on_enter_key = function() {
+        l('on enter key!');
+        this.add_text_line_to_bottom(this.get_text_and_clear(), QE.COLOR_CANVAS_TEAL);
     };
-
-    this.leave_bottom_row_for_input = true;
-
 
     /*__   __        __  ___  __        __  ___  __   __
      /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
@@ -44,27 +40,23 @@ $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
     this.initialize_terminal = function() {
         this.width = 1024;
         this.height = number_of_rows * font[1];
-        this.create_element();
-        this.hide();
 
-        this.set_canvas_width(this.width);
-        this.set_canvas_height(this.height);
+        this.initialize_gui(this.width, this.height, null, null, null, true, false, $_QE.prototype.CANVAS_FONT_SMALLER);
 
-        $_QE.prototype.CanvasTexture.call(this, this._element);
-
-        this.initialize_texture();
         this.create_geometry();
         this.create_material();
         this.create_mesh();
 
-        $_QE.prototype.CanvasRendering.call(this, CANVAS_RENDERING_ROWS);
+        $_QE.prototype.CanvasRenderingTextLines.call(this, number_of_rows, true);
 
         this.world.add_element_interactive(this);
         this.world.add_element_root(this);
 
-        $_QE.prototype.FeatureOutlineGlow.call(this, null, null, this.on_engage.bind(this), null);
+        this.on_engage = this.on_engage.bind(this);
         //$_QE.prototype.CloseButton.call(this);
 
+
+        this.on_enter_key_event = this.on_enter_key.bind(this);
     };
 
 };

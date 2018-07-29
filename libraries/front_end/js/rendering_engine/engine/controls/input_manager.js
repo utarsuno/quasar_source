@@ -30,12 +30,21 @@ $_QE.prototype.InputManager = function(player, manager_world) {
     this.key_down_space    = false;
     this.key_down_shift    = false;
 
+    this.left_click_timer = new THREE.Clock();
+    this.left_click_timer.start();
+
     /* The flag that determines whether the wheel event is supported. */
     this.supports_wheel    = false;
 
+    this.disable_mouse_y = true;
+
     this.on_mouse_move = function(event) {
         if (this.player.has_mouse_movement()) {
-            this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
+            if (this.disable_mouse_y) {
+                this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, 0);
+            } else {
+                this.player.on_mouse_move(event.movementX || event.mozMovementX || event.webkitMovementX || 0, event.movementY || event.mozMovementY || event.webkitMovementY || 0);
+            }
         }
         event.preventDefault();
         event.stopPropagation();
@@ -72,12 +81,17 @@ $_QE.prototype.InputManager = function(player, manager_world) {
         event.stopPropagation();
     };
 
+
+
     this.on_mouse_up = function(event) {
         event = event || window.event;
         switch (event.which) {
         case CLICK_LEFT:
             this.click_down_left = false;
-            this.manager_world.left_click_up();
+            if (this.left_click_timer.getDelta() <= .3) {
+                this.manager_world.left_click_up(true);
+            }
+            this.manager_world.left_click_up(false);
             break;
         case CLICK_MIDDLE:
             this.manager_world.middle_click_up();
@@ -138,8 +152,9 @@ $_QE.prototype.InputManager = function(player, manager_world) {
                 this.key_down_shift = true;
                 break;
             }
+        } else {
+            this.manager_world.key_down_event(event);
         }
-        this.manager_world.key_down_event(event);
         event.preventDefault();
         event.stopPropagation();
     };

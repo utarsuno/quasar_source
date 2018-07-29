@@ -10,6 +10,12 @@
 /*__
  / _` |  | |
  \__> \__/ | */
+.fps_display {
+    position: fixed;
+    z-index: 15;
+    left: 0;
+}
+
 .gui_canvas {
     position: fixed;
     z-index: 14;
@@ -48,10 +54,10 @@
 }
 
 #cursor_icon {
-    width: 16px;
-    height: 16px;
-    margin-top: -8px;
-    margin-left: -8px;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
 }
 
 /*__             __   ___  __      __  ___      ___  ___

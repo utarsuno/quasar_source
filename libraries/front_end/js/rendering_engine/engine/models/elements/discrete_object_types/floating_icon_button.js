@@ -7,7 +7,7 @@ $_QE.prototype.FloatingIconButton = function(world, icon_type, size, engage_func
     //this.add_floating_element(null, null, 1, this.floating_icon);
 
 
-    $_QE.prototype.FeatureInteractive.call(this);
+    $_QE.prototype.FeatureInteractive.call(this, true, null, null, engage_function, null);
     $_QE.prototype.FeatureClickable.call(this, false);
 
     this.set_engage_function(engage_function);
@@ -32,6 +32,4 @@ $_QE.prototype.FloatingIconButton = function(world, icon_type, size, engage_func
 
     this.create_base_material();
     this.create_base_mesh();
-
-    $_QE.prototype.FeatureOutlineGlow.call(this, null, null, null, null);
 };

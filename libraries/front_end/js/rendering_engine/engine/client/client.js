@@ -22,7 +22,6 @@ $_QE.prototype.Client = function() {
         let f = this._features.length - 1;
         while (f >= 0) {
             if (this._features[f].is_required && !this._features[f].is_enabled) {
-                ;('{' + this._features[f].name + '} is not enabled!');
                 this.show_error(this._features[f].name, 'is not enabled');
                 return false;
             }
@@ -49,6 +48,7 @@ $_QE.prototype.Client = function() {
 
         //$_QE.prototype.ClientFunctionalityWindowFocus.call(this);
         $_QE.prototype.ClientFunctionalityWindowResize.call(this);
+        $_QE.prototype.ClientFunctionalityDebug.call(this);
     };
 
     //////

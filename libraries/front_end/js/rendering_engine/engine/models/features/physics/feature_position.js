@@ -13,6 +13,8 @@ $_QE.prototype.FeaturePosition = function(world) {
     this.offset_vertical_percentage   = 0;
     this.offset_depth_distance        = 0;
 
+    $_QE.prototype.FeatureNormal.call(this);
+
     // For optimization.
     this._position_offset = new THREE.Vector3(0, 0, 0);
     this._look_at_position = new THREE.Vector3(0, 0, 0);
@@ -21,57 +23,27 @@ $_QE.prototype.FeaturePosition = function(world) {
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this.refresh_for_render = function() {
-
-
+        this._refresh_look_at();
         this.refresh_matrix();
     };
 
+    // WARNING : This is recursive. Change the design later.
     this.refresh_for_render_recursively = function() {
+        let p = this.get_position();
 
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
+            this.attachments[a].set_position(p.x, p.y, p.z);
+            this.attachments[a].refresh_for_render();
+            if (this.attachments[a].length > 0) {
+                this.attachments[a].refresh_for_render_recursively();
+            }
+        }
     };
 
     this.refresh_matrix = function() {
         this.object3D.updateMatrix();
         this.object3D.matrixWorldNeedsUpdate = true;
-    };
-
-
-    // WARNING : This is recursive. Change the design later.
-    this.update_all_child_attachments = function() {
-        let parent_position = this.get_position();
-
-        let a;
-        for (a = 0; a < this.attachments.length; a++) {
-            this.attachments[a].set_position(parent_position.x, parent_position.y, parent_position.z, false);
-            this.attachments[a]._refresh_look_at();
-
-            this.attachments[a].object3D.updateMatrix();
-            this.attachments[a].object3D.matrixWorldNeedsUpdate = true;
-
-            if (this.attachments.length > 0) {
-                this.attachments[a].update_all_child_attachments();
-            }
-        }
-    };
-
-    this.refresh_position_and_look_at = function() {
-        this._refresh_look_at();
-
-        this.object3D.updateMatrix();
-        this.object3D.matrixWorldNeedsUpdate = true;
-
-        this.update_all_child_attachments();
-
-        if (is_defined(this.post_position_update)) {
-            this.post_position_update();
-        }
-    };
-
-    this._refresh_look_at = function() {
-        let normal = this.get_normal();
-        this._look_at_position.set(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
-        //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
-        this.object3D.lookAt(this._look_at_position);
     };
 
     /*__   ___ ___ ___  ___  __   __
@@ -81,43 +53,35 @@ $_QE.prototype.FeaturePosition = function(world) {
         if (this.is_root_attachment()) {
             this.object3D.position.set(x, y, z);
         } else {
-            this.set_position_offset();
+            this.calculate_xy_offset();
             this.object3D.position.set(x + this._position_offset.x, y + this._position_offset.y, z + this._position_offset.z);
         }
     };
 
-    this.set_position_offset = function() {
+    this.calculate_xy_offset = function() {
+        let dy = this.offset_vertical_distance;
         let normal = this.get_normal();
-
-        let dx = 0;
-        let dy = 0;
-        let dz = 0;
-
-        let magnitude = this.offset_horizontal_distance;
-        if (this.offset_horizontal_parent_width_percentage !== 0) {
-            magnitude += this.attachment_parent.width * this.offset_horizontal_parent_width_percentage;
-        }
-
         let left_right = this.get_left_right();
-        dx += left_right.x * magnitude;
-        dy += left_right.y * magnitude;
-        dz += left_right.z * magnitude;
-
+        let magnitude = this.offset_horizontal_distance;
+        if (this.offset_horizontal_percentage !== 0) {
+            magnitude += this.attachment_parent.width * this.offset_horizontal_percentage;
+        }
         // TODO : WARNING : For now this only supports y-normals of 0.
-        dy += this.offset_vertical_distance;
-        if (this.offset_vertical_parent_height_percentage !== 0) {
-            dy += this.offset_vertical_parent_height_percentage * this.attachment_parent.height;
+        if (this.offset_vertical_percentage !== 0) {
+            dy += this.offset_vertical_percentage * this.attachment_parent.height;
         }
-
         if (this.offset_depth_distance !== 0) {
-            dx += normal.x * this.offset_depth_distance;
-            dy += normal.y * this.offset_depth_distance;
-            dz += normal.z * this.offset_depth_distance;
+            this._position_offset.set(
+                (left_right.x * magnitude) + (normal.x * this.offset_depth_distance),
+                (left_right.y * magnitude) + (normal.y * this.offset_depth_distance) + dy,
+                (left_right.z * magnitude) + (normal.z * this.offset_depth_distance));
+        } else {
+            this._position_offset.set(
+                left_right.x * magnitude,
+                left_right.y * magnitude + dy,
+                left_right.z * magnitude);
         }
-
-        this._position_offset.set(dx, dy, dz);
     };
-
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`

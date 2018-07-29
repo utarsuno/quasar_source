@@ -166,6 +166,18 @@ def get_file_content(file_path: str) -> list:
 	return lines
 
 
+def get_file_content_as_string(file_path: str) -> list:
+	"""Returns a list of strings containing the file content."""
+	lines = []
+	with open(file_path, 'r') as file_handler:
+		for line in file_handler:
+			lines.append(line)
+	text = ''
+	for l in lines:
+		text += l
+	return text
+
+
 def get_file_size_in_bytes(file_path):
 	"""Return the size of the file in bytes."""
 	return int(os.stat(file_path).st_size)

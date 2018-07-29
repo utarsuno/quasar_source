@@ -19,7 +19,10 @@ $_QE.prototype.RendererManager = function(client, engine) {
         this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
         this.renderer.setClearColor(0x252525);
 
+        //this.renderer.setClearColor( 0x000000, 0 ); // the default
+
         this.renderer.autoClear = true;
+        //this.renderer.autoClear = false;
 
         this.aspect_ratio = this.client.state_window_width_inner / this.client.state_window_height_inner;
 
@@ -39,7 +42,12 @@ $_QE.prototype.RendererManager = function(client, engine) {
         }
     };
 
-    this._resize_event_shader = function() {
+    this.window_resize_event = function() {
+        this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
+
+        // Resize shaders.
         if (this.engine.engine_setting_shaders_enabled) {
             this.effect_composer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
             if (this.engine.engine_setting_shader_fxaa_enabled) {
@@ -51,14 +59,11 @@ $_QE.prototype.RendererManager = function(client, engine) {
             if (this.engine.engine_setting_shader_grain_enabled) {
                 //
             }
-        }
-    };
 
-    this.window_resize_event = function() {
-        this.camera.aspect = this.client.state_window_width_inner / this.client.state_window_height_inner;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.client.state_window_width_inner, this.client.state_window_height_inner);
-        this._resize_event_shader();
+        }
+
+        // Resize gui2D.
+
     };
 
     this.initialize_shaders = function(world) {
@@ -83,7 +88,8 @@ $_QE.prototype.RendererManager = function(client, engine) {
 
         this.outline_glow = new $_QE.prototype.OutlineGlow(this.outline_pass);
         this.outline_glow.outline_pass.renderScene = world.scene;
-        this.render_pass.scene = world.scene;
+
+        //this.render_pass.scene = world.scene;
 
     };
 

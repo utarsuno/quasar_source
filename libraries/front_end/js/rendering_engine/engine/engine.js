@@ -54,6 +54,8 @@ $_QE.prototype = {
 
     // Step : 0x1
     initialize_engine: function(application) {
+        $_QE.prototype.ColorManager.call(this);
+
         let me              = this;
         this.application    = application;
 
@@ -61,7 +63,7 @@ $_QE.prototype = {
         this.client.set_sub_title('asset files');
         this.manager_heap   = this.get_heap_manager();
         this.manager_assets = new $_QE.prototype.AssetManager(this);
-        this.manager_icons  = new $_QE.prototype.IconManager();
+        this.manager_icons  = new $_QE.prototype.IconManager(this);
 
         let on_load = this.manager_assets.load_pre_render_assets(this);
 
@@ -103,10 +105,11 @@ $_QE.prototype = {
 
         // this.engine_loop();
         this.engine_main_loop = this._engine_loop.bind(this);
-        this._main_loop_logic();
+        this._initialize_render_loop();
 
         this.player.set_state(PLAYER_STATE_PAUSED);
         this.client.show_paused();
+        this.client.set_debug_mode(DEBUG_MODE_FPS);
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
@@ -119,15 +122,24 @@ $_QE.prototype = {
     /*___       __          ___          __   __       ___  ___          __   __   __
      |__  |\ | / _` | |\ | |__     |  | |__) |  \  /\   |  |__     |    /  \ /  \ |__)
      |___ | \| \__> | | \| |___    \__/ |    |__/ /~~\  |  |___    |___ \__/ \__/ |    */
-    _main_loop_logic: function() {
+    _initialize_render_loop: function() {
         this.delta = this.delta_clock.getDelta();
-
-        //this.client.pre_render();
 
         this.manager_world.update(this.delta);
         this.manager_renderer.render(this.delta);
 
-        //this.client.post_render();
+        this.delta_clock.start();
+    },
+
+    _main_loop_logic: function() {
+        this.delta = this.delta_clock.getDelta();
+
+        this.client.pre_render();
+
+        this.manager_world.update(this.delta);
+        this.manager_renderer.render(this.delta);
+
+        this.client.post_render();
 
         this.delta_clock.start();
     },

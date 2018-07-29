@@ -9,6 +9,4 @@ $_QE.prototype.Player = function(client, engine) {
         $_QE.prototype.FPSControls.call(this, this.engine.manager_renderer.camera);
     };
 
-    // TODO : Player should track currently engaged with as well if it requires cursor
-
 };
