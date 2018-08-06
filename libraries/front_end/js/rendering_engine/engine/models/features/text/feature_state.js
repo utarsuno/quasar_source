@@ -2,7 +2,7 @@
 
 $_QE.prototype.FeatureTextState = function() {
 
-    this.warning_icon = new $_QE.prototype.FloatingIcon(this.world, ICON_WARNING, this.height, COLOR_RED, true);
+    this.warning_icon = new $_QE.prototype.FloatingIcon(this.world, ASSET_ICON_WARNING, this.height, COLOR_RED, true);
     this.warning_icon.offset_depth_distance = 1;
     this.warning_icon.offset_horizontal_distance = -16;
     this.warning_icon.offset_horizontal_percentage = HALF;

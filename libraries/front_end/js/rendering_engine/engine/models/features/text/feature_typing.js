@@ -1,10 +1,10 @@
 'use strict';
 
-$_QE.prototype.FeatureTyping = function() {
+$_QE.prototype.FeatureTyping = function(text) {
 
     this.feature_needs_mobile_keyboard = true;
 
-    $_QE.prototype.FeatureText.call(this);
+    $_QE.prototype.FeatureText.call(this, text);
 
     this.on_paste_event = function(text) {
         this.text += text;
@@ -34,6 +34,9 @@ $_QE.prototype.FeatureTyping = function() {
 
         if (old_text !== this.text) {
             this.update_needed_for_text = true;
+            if (is_defined(this.refresh)) {
+                this.refresh();
+            }
         }
 
         // TODO : play the typing sound? (MANAGER_AUDIO.play_typing_sound()

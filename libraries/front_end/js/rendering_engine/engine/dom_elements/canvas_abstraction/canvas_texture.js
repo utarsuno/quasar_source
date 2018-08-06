@@ -12,6 +12,11 @@ $_QE.prototype.CanvasTexture = function(canvas, font) {
             this.canvas_font_offset = this.canvas_font[CANVAS_FONT_INDEX_OFFSET];
         }
         this.texture = new THREE.Texture(this.canvas);
+
+        // TODO: Based off distance to player.
+        //this.texture.magFilter = THREE.NearestFilter;
+        //this.texture.minFilter = THREE.NearestFilter;
+
         this.texture.anisotropy = QE.manager_renderer.renderer.capabilities.getMaxAnisotropy();
         //this.texture.f
     };

@@ -2,14 +2,28 @@
 
 $_QE.prototype.FeatureNormal = function() {
 
+    this.left_right = null;
+    this._previous_nx = null;
+    this._previous_ny = null;
+    this._previous_nz = null;
+
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this._refresh_look_at = function() {
         let normal = this.get_normal();
-        this._look_at_position.set(this.object3D.position.x + normal.x, this.object3D.position.y + normal.y, this.object3D.position.z + normal.z);
-        //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
-        this.object3D.lookAt(this._look_at_position);
+        let nx     = this.object3D.position.x + normal.x;
+        let ny     = this.object3D.position.y + normal.y;
+        let nz     = this.object3D.position.z + normal.z;
+        if (nx !== this._previous_nx || ny !== this._previous_ny || nz !== this._previous_nz) {
+            this._look_at_position.set(nx, ny, nz);
+            //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
+            this.object3D.lookAt(this._look_at_position);
+            //this.render_update_needed = true;
+            this._previous_nx = nx;
+            this._previous_ny = ny;
+            this._previous_nz = nz;
+        }
     };
 
     /*__   ___ ___ ___  ___  __   __
@@ -21,7 +35,8 @@ $_QE.prototype.FeatureNormal = function() {
             console.log('WARNING! SETTING NORMAL ON NON-ROOT ATTACHMENT!!');
         } else {
             this.set_normal(-this.object3D.position.x, 0, -this.object3D.position.z);
-            this.object3D.lookAt(-this.object3D.position.x, this.object3D.position.y, -this.object3D.position.z);
+            this._refresh_look_at();
+            //this.object3D.lookAt(-this.object3D.position.x, this.object3D.position.y, -this.object3D.position.z);
         }
     };
 
@@ -42,8 +57,13 @@ $_QE.prototype.FeatureNormal = function() {
                 this.normal.set(x, y, z);
             }
             this.normal.normalize();
+            // Always update left right.
             if (!is_defined(this.left_right)) {
                 this._set_left_right();
+            } else {
+                this.left_right.set(-this.normal.x, 0, -this.normal.z);
+                this.left_right.cross(QE.UP_VECTOR);
+                this.left_right.normalize();
             }
         }
     };

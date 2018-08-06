@@ -16,24 +16,20 @@ $_QE.prototype.FeatureAttachment = function() {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.add_attachment = function(attachment) {
-        if (attachment.is_root_element()) {
-            attachment.position = null;
-            attachment.normal   = null;
-        }
         attachment.attachment_parent = this;
+        attachment.position          = null;
+        attachment.left_right        = null;
+        attachment.normal            = null;
+        attachment._previous_nx      = null;
+        attachment._previous_ny      = null;
+        attachment._previous_nz      = null;
         this.attachments.push(attachment);
-
-        if (is_defined(this.on_attachment_added)) {
-            this.on_attachment_added();
-        }
+        //if (is_defined(this.on_attachment_added)) {
+        //    this.on_attachment_added();
+        //}
     };
 
     this.attach_to = function(attachment_parent) {
-        l('Attach to called');
-        l(attachment_parent);
-        l('@@@@@@');
-        l(this);
-        l('-------');
         attachment_parent.add_attachment(this);
     };
 

@@ -3,7 +3,7 @@
 $_QE.prototype.CanvasRenderingIcon = function() {
 
     this._image_icons = QE.manager_assets.get_asset(ASSET_TEXTURE_SPRITE_SHEET).image;
-    this._icon_to_render = ICON_ARROW;
+    this._icon_to_render = ASSET_ICON_ARROW;
 
     this.render = function() {
         if (this._icon_to_render !== this._current_icon) {

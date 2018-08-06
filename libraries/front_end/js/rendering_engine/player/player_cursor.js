@@ -39,7 +39,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         this.hide();
 
         // Update player position.
-        if (this._current_icon === ICON_DRAG) {
+        if (this._current_icon === ASSET_ICON_DRAG) {
             let p = this.currently_attached_to.get_position();
             let n = this.currently_attached_to.get_normal();
 
@@ -94,9 +94,9 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
             //QE.player.look_at(p.x + n.x, 0, p.z + n.z);
             this.currently_attached_to.set_position(p.x + n.x * this._current_horizontal_distance, p.y, p.z + n.z * this._current_horizontal_distance);
             this.currently_attached_to.set_normal(-n.x, 0, -n.z);
-            this.currently_attached_to.refresh_for_render();
-            this.currently_attached_to.refresh_for_render_recursively();
-
+            //this.currently_attached_to.refresh_for_render();
+            //this.currently_attached_to.refresh_for_render_recursively();
+            this.currently_attached_to.refresh_self_and_all_children_recursively();
 
         }
     };
@@ -117,7 +117,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
             if (this.currently_attached_to.feature_mouse_scaleable) {
                 if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
                     l('Set icon to scalable!');
-                    this.set_current_icon(ICON_EXPAND);
+                    this.set_current_icon(ASSET_ICON_EXPAND);
                     return;
                 }
             }
@@ -126,7 +126,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         if (is_defined(this.currently_attached_to.feature_mouse_moveable)) {
             if (this.currently_attached_to.feature_mouse_moveable) {
                 l('Set icon to moveable!');
-                this.set_current_icon(ICON_DRAG);
+                this.set_current_icon(ASSET_ICON_DRAG);
                 return;
             }
 
@@ -136,7 +136,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         if (is_defined(this.currently_attached_to.feature_clickable)) {
             if (this.currently_attached_to.feature_clickable) {
                 l('Set icon to clickable!');
-                this.set_current_icon(ICON_CLICK);
+                this.set_current_icon(ASSET_ICON_CLICK);
                 return;
             }
         }
@@ -144,7 +144,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         if (is_defined(this.currently_attached_to.feature_needs_mobile_keyboard)) {
             if (this.currently_attached_to.feature_needs_mobile_keyboard) {
                 l('Set icon to feature_needs_mobile_keyboard!');
-                this.set_current_icon(ICON_WRITING);
+                this.set_current_icon(ASSET_ICON_WRITTING);
                 return;
             }
         }

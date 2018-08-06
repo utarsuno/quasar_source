@@ -5,17 +5,18 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
     $_QE.prototype.FeatureTextLines.call(this, max_rows, bottom_row_as_input);
 
     this._render_needed = function() {
-        let l;
-        let render_needed = false;
-        for (l = 0; l < this.rows.length; l++) {
-            if (this.rows[l].update_needed_for_line) {
-                render_needed = true;
+        if (is_defined(this.update_needed_for_text)) {
+            if (this.update_needed_for_text) {
+                return true;
             }
         }
-        //if (render_needed) {
-        //    this.calculate_segment_offsets();
-        //}
-        return render_needed;
+        let l;
+        for (l = 0; l < this.rows.length; l++) {
+            if (this.rows[l].update_needed_for_line) {
+                return true;
+            }
+        }
+        return false;
     };
 
     this._post_render = function() {
@@ -23,19 +24,11 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
         for (l = 0; l < this.rows.length; l++) {
             this.rows[l].update_needed_for_line = false;
         }
-    };
-
-    this._clear_out = function() {
-        let r;
-        //this.context.fillStyle = '#ffffff';
-        for (r = 0; r < this.rows.length; r++) {
-            if (this.rows[r].update_needed_for_line) {
-                l('Clearing line {' + r + '}');
-                this.context.clearRect(0, Math.floor(this._canvas_height - (this.canvas_font_size * (r + 2)) - this.canvas_font_offset * (r + 2)), this._canvas_width, this.canvas_font_size + this.canvas_font_offset);
-            }
+        if (is_defined(this.update_needed_for_line)) {
+            this.update_needed_for_line = false;
         }
-        if (this.feature_needs_mobile_keyboard) {
-            this.context.clearRect(0, this._canvas_height - this.canvas_font_size - this.canvas_font_offset, this._canvas_width, this.canvas_font_size + this.canvas_font_offset);
+        if (is_defined(this.update_needed_for_text)) {
+            this.update_needed_for_text = false;
         }
     };
 
@@ -44,31 +37,63 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
 
         let r;
 
-        // First draw backgrounds if needed.
-        this._clear_out();
+        // Pre-compute common calculations.
+        let canvas_height_minus_y_offset = this._canvas_height - this.canvas_font_offset * 2;
+        let canvas_font_total_height     = this.canvas_font_size + this.canvas_font_offset;
+        let canvas_draw_y_offset_start   = this._canvas_height - this.canvas_font_size - (this.canvas_font_offset * 2);
+
+        let row_y_offset                 = this._canvas_height - this.canvas_font_size - this.canvas_font_offset;
+
+
+        // Clear pixels in rows that are needed to be rendered.
+        let in_batch_clear = false;
+        let batch_y_start  = null;
+        let batch_y_end    = null;
+        for (r = 0; r < this.rows.length; r++) {
+            if (this.rows[r].update_needed_for_line) {
+                if (!in_batch_clear) {
+                    in_batch_clear = true;
+                    batch_y_start = row_y_offset - this.canvas_font_size * r - this.canvas_font_offset * r;
+                }
+            } else {
+                if (in_batch_clear) {
+                    in_batch_clear = false;
+                    batch_y_end = row_y_offset - this.canvas_font_size * r - this.canvas_font_offset * r;
+                    this.context.clearRect(0, batch_y_end, this._canvas_width, batch_y_start - batch_y_end);
+                }
+            }
+        }
+        if (in_batch_clear) {
+            batch_y_end = row_y_offset - this.canvas_font_size * r - this.canvas_font_offset * r;
+            this.context.clearRect(0, batch_y_end, this._canvas_width, batch_y_start - batch_y_end);
+        }
+        if (this.feature_needs_mobile_keyboard) {
+            this.context.clearRect(0, canvas_height_minus_y_offset - this.canvas_font_size, this._canvas_width, canvas_font_total_height);
+        }
+
+
+        // Draw backgrounds if needed.
         if (this.current_background_color !== null) {
             this.context.fillStyle = this.current_background_color;
             for (r = 0; r < this.rows.length; r++) {
                 if (this.rows[r].update_needed_for_line) {
-                    this.context.fillRect(0, Math.floor(this._canvas_height - (this.canvas_font_size * (r + 2)) - this.canvas_font_offset * (r + 2)), this._canvas_width, this.canvas_font_size + this.canvas_font_offset);
+                    this.context.fillRect(0, Math.floor(canvas_draw_y_offset_start - this.canvas_font_size * (r + 1) - this.canvas_font_offset * (r + 1)), this._canvas_width, canvas_font_total_height);
                 }
             }
             if (this.feature_needs_mobile_keyboard) {
-                this.context.fillRect(0, this._canvas_height - this.canvas_font_size - this.canvas_font_offset, this._canvas_width, this.canvas_font_size + this.canvas_font_offset);
+                this.context.fillRect(0, canvas_height_minus_y_offset - this.canvas_font_size, this._canvas_width, canvas_font_total_height);
             }
         }
 
         // Draw any green text.
         this.context.fillStyle = QE.COLOR_CANVAS_GREEN;
         for (r = 0; r < this.rows.length; r++) {
-            //this.context.fillText(this.rows[r].content, 0, this._canvas_height - (this.canvas_font_size * (r + 1)) - (this.canvas_font_offset * (r + 1 + 1)));
-            //this.context.fillText(r, 0, this._canvas_height - (this.canvas_font_size * (r + 1)) - (this.canvas_font_offset * (r + 1 + 1)));
-
-            let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_GREEN);
-            let i;
-            //console.log(s);
-            for (i = 0; i < s.length; i++) {
-                this.context.fillText(s[i], 0, Math.floor(this._canvas_height - (this.canvas_font_size * (r + 1)) - (this.canvas_font_offset * (r + 1 + 1))));
+            if (this.rows[r].update_needed_for_line) {
+                let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_GREEN);
+                let i;
+                for (i = 0; i < s.length; i++) {
+                    this.context.fillText(s[i], 0, canvas_draw_y_offset_start - this.canvas_font_size * r - this.canvas_font_offset * r);
+                }
             }
         }
 
@@ -81,18 +106,16 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
         // Draw any teal text.
         this.context.fillStyle = QE.COLOR_CANVAS_TEAL;
         for (r = 0; r < this.rows.length; r++) {
-            let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_TEAL);
-            let i;
-            //console.log(s);
-            for (i = 0; i < s.length; i++) {
-                //l('Teal text {' + s[i] + '}');
-                this.context.fillText(s[i], 0, Math.floor(this._canvas_height - (this.canvas_font_size * (r + 1)) - (this.canvas_font_offset * (r + 1 + 1))));
+            if (this.rows[r].update_needed_for_line) {
+                let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_TEAL);
+                let i;
+                for (i = 0; i < s.length; i++) {
+                    this.context.fillText(s[i], 0, Math.floor(canvas_draw_y_offset_start - this.canvas_font_size * r - this.canvas_font_offset * r));
+                }
             }
-            //l('--------');
         }
         if (this.feature_needs_mobile_keyboard) {
-            //this.context.fillText(this.text, 0, this.canvas_font[CANVAS_FONT_INDEX_SIZE] - this.canvas_font[CANVAS_FONT_INDEX_OFFSET]);
-            this.context.fillText(this.text, 0, this._canvas_height - this.canvas_font_offset);
+            this.context.fillText(this.text, 0, canvas_height_minus_y_offset);
         }
     };
 

@@ -160,7 +160,7 @@ MonthView.prototype = {
         let row = this.base_wall.get_row_with_index(-1);
         let icon_width = 16 / this.base_wall.width;
 
-        let settings_button = row.add_icon_button([1 - icon_width, 1, false], ICON_GEARS, this.show_settings_wall.bind(this));
+        let settings_button = row.add_icon_button([1 - icon_width, 1, false], ASSET_ICON_GEARS, this.show_settings_wall.bind(this));
 
         // Month View details.
         row = this.base_wall.add_row();

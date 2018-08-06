@@ -15,6 +15,9 @@ $_QE.prototype.FeaturePosition = function(world) {
 
     $_QE.prototype.FeatureNormal.call(this);
 
+    // TODO: For performance.
+    this.render_update_needed = false;
+
     // For optimization.
     this._position_offset = new THREE.Vector3(0, 0, 0);
     this._look_at_position = new THREE.Vector3(0, 0, 0);
@@ -22,6 +25,20 @@ $_QE.prototype.FeaturePosition = function(world) {
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
+    this.refresh_self_and_all_children_recursively = function() {
+        if (!this.is_root_attachment()) {
+            let p = this.get_parent_position();
+            this.calculate_xy_offset();
+            this.object3D.position.set(p.x + this._position_offset.x, p.y + this._position_offset.y, p.z + this._position_offset.z);
+        }
+        this._refresh_look_at();
+        this.refresh_matrix();
+        let a;
+        for (a = 0; a < this.attachments.length; a++) {
+            this.attachments[a].refresh_self_and_all_children_recursively();
+        }
+    };
+
     this.refresh_for_render = function() {
         this._refresh_look_at();
         this.refresh_matrix();
@@ -55,6 +72,7 @@ $_QE.prototype.FeaturePosition = function(world) {
         } else {
             this.calculate_xy_offset();
             this.object3D.position.set(x + this._position_offset.x, y + this._position_offset.y, z + this._position_offset.z);
+            //this.object3D.position.set(0 + this._position_offset.x, 0 + this._position_offset.y, 0 + this._position_offset.z);
         }
     };
 

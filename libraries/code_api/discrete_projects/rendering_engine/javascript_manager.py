@@ -309,6 +309,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('engine/models/features/feature_singleton.js')
 
 		self.js_files_needed.append('engine/models/features/attachment/feature_attachment.js')
+		self.js_files_needed.append('engine/models/features/attachment/feature_title_bar.js')
 
 		self.js_files_needed.append('engine/models/features/physics/feature_normal.js')
 		self.js_files_needed.append('engine/models/features/physics/feature_position.js')

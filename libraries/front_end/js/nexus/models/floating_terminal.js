@@ -26,14 +26,16 @@ $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
 
     this.on_enter_key = function() {
         l('on enter key!');
-        this.add_text_line_to_bottom(this.get_text_and_clear(), QE.COLOR_CANVAS_TEAL);
+        let text = this.get_text_and_clear();
+        if (text !== '') {
+            this.add_text_line_to_bottom(text, QE.COLOR_CANVAS_TEAL);
+        }
     };
 
     /*__   __        __  ___  __        __  ___  __   __
      /  ` /  \ |\ | /__`  |  |__) |  | /  `  |  /  \ |__)
      \__, \__/ | \| .__/  |  |  \ \__/ \__,  |  \__/ |  \ */
     this.on_engage = function() {
-        l('Terminal engaged!');
         QE.player.set_state(PLAYER_STATE_ENGAGED);
     };
 
@@ -57,6 +59,10 @@ $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
 
 
         this.on_enter_key_event = this.on_enter_key.bind(this);
+
+
+
+        this.title = new $_QE.prototype.FeatureTitleBar(this, 'Terminal Title!', ASSET_ICON_TERMINAL, true);
     };
 
 };

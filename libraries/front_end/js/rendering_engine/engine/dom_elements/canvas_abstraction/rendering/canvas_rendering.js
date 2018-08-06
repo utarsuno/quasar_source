@@ -27,7 +27,7 @@ $_QE.prototype.CanvasRendering = function() {
     };
 
     this.update = function() {
-        if (this._render_needed) {
+        if (this._render_needed()) {
             this.render();
             return true;
         }

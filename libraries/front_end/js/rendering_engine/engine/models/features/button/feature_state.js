@@ -5,7 +5,7 @@ $_QE.prototype.FeatureButtonState = function() {
     this._enabled = true;
     this._locked  = false;
 
-    this._icon = new $_QE.prototype.FloatingIcon(this.world, ICON_CROSS, 32, COLOR_RED, true);
+    this._icon = new $_QE.prototype.FloatingIcon(this.world, ASSET_ICON_CROSS, 32, COLOR_RED, true);
     this._icon.offset_depth_distance = 1;
     this._icon.manual_visibility = true;
     this.add_attachment(this._icon);
@@ -13,13 +13,13 @@ $_QE.prototype.FeatureButtonState = function() {
 
     this.disable = function() {
         this._enabled = false;
-        this._icon.switch_icon(ICON_DISABLED);
+        this._icon.switch_icon(ASSET_ICON_DISABLED);
         this._icon.set_to_visible();
     };
 
     this.lock = function() {
         this._locked = true;
-        this._icon.switch_icon(ICON_LOCKED);
+        this._icon.switch_icon(ASSET_ICON_LOCKED);
         this._icon.set_to_visible();
     };
 

@@ -37,6 +37,8 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
         this.create_material();
         this.create_geometry();
         this.create_mesh();
+        this.material.uniforms['offset'].value = this.icon_type;
+        this.material.needsUpdate = true;
     };
 
     /*__   __        __   __      __   __   ___  __       ___    __        __

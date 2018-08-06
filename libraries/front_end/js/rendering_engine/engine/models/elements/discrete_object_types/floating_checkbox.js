@@ -21,7 +21,7 @@ FloatingCheckBox.prototype = {
         this.width = size;
         this.height = size;
 
-        this.icon_checked = new FloatingIcon(this.world, ICON_CHECKMARK, size, COLOR_GREEN, true);
+        this.icon_checked = new FloatingIcon(this.world, ASSET_ICON_CHECKMARK, size, COLOR_GREEN, true);
 
         this.create_base_material();
         this.create_base_mesh();
@@ -55,10 +55,10 @@ FloatingCheckBox.prototype = {
       .__/  |  /~~\  |  |___    \__, |  | /~~\ | \| \__> |___ .__/ */
     set_checked_state: function(is_checked) {
         if (is_checked) {
-            this.icon_checked.switch_icon_and_color(ICON_CHECKMARK, COLOR_GREEN);
+            this.icon_checked.switch_icon_and_color(ASSET_ICON_CHECKMARK, COLOR_GREEN);
             this.checked = true;
         } else {
-            this.icon_checked.switch_icon_and_color(ICON_CROSS, COLOR_RED);
+            this.icon_checked.switch_icon_and_color(ASSET_ICON_CROSS, COLOR_RED);
             this.checked = false;
         }
     },

@@ -1,24 +1,12 @@
 'use strict';
 
-$_QE.prototype.Text3D = function(world, size, text, interactive) {
+$_QE.prototype.Text3D = function(world, size, text) {
 
     $_QE.prototype.FeatureColor.call(this, COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
-
-    if (is_defined(interactive)) {
-        if (interactive) {
-            $_QE.prototype.FeatureTyping.call(this, text);
-            $_QE.prototype.FeatureInteractive.call(this, true);
-            $_QE.prototype.FeatureClickable.call(this, true);
-            world.add_element_interactive(this);
-        } else {
-            $_QE.prototype.FeatureText.call(this, text);
-        }
-    } else {
-        $_QE.prototype.FeatureText.call(this, text);
-    }
+    $_QE.prototype.FeatureText.call(this, text);
 
     $_QE.prototype.FeatureGeometry.call(this, false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
     $_QE.prototype.FeatureMaterial.call(this, true, FEATURE_MATERIAL_TYPE_TEXT_3D);

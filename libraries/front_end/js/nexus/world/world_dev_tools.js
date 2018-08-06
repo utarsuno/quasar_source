@@ -7,8 +7,8 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     $_QE.prototype.WorldState.call(this, new THREE.Vector3(0, 100, 0), new THREE.Vector3(1, 100, 0));
 
     this.custom_world_enter = function() {
-        this.nexus_local_title.refresh_for_render();
-        this.logs.refresh_for_render();
+        this.nexus_local_title.refresh_self_and_all_children_recursively();
+        this.logs.refresh_self_and_all_children_recursively();
 
         l('World entered!!!');
     };
@@ -22,14 +22,14 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.nexus_local_title = new $_QE.prototype.Text3D(this, 256, 'Nexus Local');
         this.nexus_local_title.set_position(-450, 300, -800);
         this.nexus_local_title.look_at_origin(false);
-        this.nexus_local_title.refresh_for_render();
+        this.nexus_local_title.refresh_self_and_all_children_recursively();
 
 
         this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CANVAS_FONT_SMALLER);
         this.logs.initialize_terminal();
         this.logs.set_position(-450, 200, -800);
         this.logs.look_at_origin(true);
-        this.logs.refresh_for_render();
+        this.logs.refresh_self_and_all_children_recursively();
 
         this.logs.add_text_line_to_bottom('Hello World!', QE.COLOR_CANVAS_GREEN);
         this.logs.add_text_line_to_bottom('Second message!', QE.COLOR_CANVAS_GREEN);
