@@ -14,6 +14,13 @@ $_QE.prototype.FeatureTextLine = function(typeable) {
 
     this.update_needed_for_line = true;
 
+    this.set_content = function(content, color) {
+        this.segments = [content];
+        this.colors   = [color];
+        this.segments_by_color[color] = [content];
+        this.update_needed_for_line = true;
+    };
+
     this._add_text = function(content, color) {
         this.segments.push(content);
         this.colors.push(color);

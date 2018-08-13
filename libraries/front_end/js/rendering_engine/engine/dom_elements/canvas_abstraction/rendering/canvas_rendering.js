@@ -9,8 +9,6 @@ $_QE.prototype.CanvasRendering = function() {
     //this.context.strokeStyle = '#' + this.current_foreground_color.getHexString();
     //this.context.fillRect(0, 0, this._canvas_width, this._canvas_height);
 
-    this.render_needed = true;
-
     this.post_render = function() {
         if (is_defined(this.material)) {
             this.material.needsUpdate = true;

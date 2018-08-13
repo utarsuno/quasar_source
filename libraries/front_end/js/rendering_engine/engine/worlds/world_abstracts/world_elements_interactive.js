@@ -21,11 +21,11 @@ $_QE.prototype.WorldElementsInteractive = function() {
             }
         }
 
-        //this._intersections.length = 0;
+        // Faster than '.length = 0'
         this._intersections = [];
 
-        //this.raycaster.set(CURRENT_PLAYER.fps_controls.get_position(), CURRENT_PLAYER.fps_controls.get_direction());
-        this.raycaster.set(this.player.yaw.position, this.player.get_direction());
+        //this.raycaster.set(this.player.yaw.position, this.player.get_normal());
+        this.raycaster.set(this.player.get_position(), this.player.get_normal());
         let smallest_distance = 99999;
         let interactive_index = -1;
         let intersection_data = null;

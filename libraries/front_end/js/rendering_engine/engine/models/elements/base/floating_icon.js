@@ -38,7 +38,13 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
         this.create_geometry();
         this.create_mesh();
         this.material.uniforms['offset'].value = this.icon_type;
-        this.material.needsUpdate = true;
+        this.current_foreground_color_changed();
+
+        if (is_defined(this._in_world_elements_interactive)) {
+            if (!this._in_world_elements_interactive) {
+                world.add_element_interactive(this);
+            }
+        }
     };
 
     /*__   __        __   __      __   __   ___  __       ___    __        __

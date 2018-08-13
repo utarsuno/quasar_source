@@ -1,7 +1,7 @@
 'use strict';
 
-$_QE.prototype.Client = function() {
-
+$_QE.prototype.Client = function(engine) {
+    this.engine    = engine;
     this._features = [];
 
     this.is_mobile = function() {
@@ -68,7 +68,7 @@ $_QE.prototype.Client = function() {
         if (!this.is_mobile()) {
             this.request_pointer_lock();
         }
-        QE.reset_delta();
     };
 
 };
+

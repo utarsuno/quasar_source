@@ -8,13 +8,9 @@ $_QE.prototype.WorldManagerInput = function() {
     };
 
     this.left_click_up = function(is_double_click) {
-        //if (is_double_click) {
-        //    l('Double Click!');
-        //}
         if (this.player_cursor.engaged()) {
             this.player_cursor.disengage();
         }
-
 
         if (this.player.has_input()) {
             this.current_world.left_click(is_double_click);
@@ -60,7 +56,7 @@ $_QE.prototype.WorldManagerInput = function() {
             if (event.keyCode === KEY_CODE__ENTER) {
                 QE.application.leave_typing_state();
             } else {
-                QE.application.parse_key_event(event);
+                QE.gui_2d_typing.parse_key_event(event);
             }
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {

@@ -1,8 +1,10 @@
 'use strict';
 
-$_QE.prototype.InputManager = function(player, manager_world) {
-    this.player            = player;
-    this.manager_world     = manager_world;
+$_QE.prototype.InputManager = function(engine) {
+    this.engine               = engine;
+    this.player               = this.engine.player;
+    this.player.input_manager = this;
+    this.manager_world        = this.engine.manager_world;
 
     /*
             if (CURRENT_CLIENT.is_mobile) {
@@ -36,7 +38,7 @@ $_QE.prototype.InputManager = function(player, manager_world) {
     /* The flag that determines whether the wheel event is supported. */
     this.supports_wheel    = false;
 
-    this.disable_mouse_y = true;
+    this.disable_mouse_y = false;
 
     this.on_mouse_move = function(event) {
         if (this.player.has_mouse_movement()) {
@@ -80,8 +82,6 @@ $_QE.prototype.InputManager = function(player, manager_world) {
         event.preventDefault();
         event.stopPropagation();
     };
-
-
 
     this.on_mouse_up = function(event) {
         event = event || window.event;

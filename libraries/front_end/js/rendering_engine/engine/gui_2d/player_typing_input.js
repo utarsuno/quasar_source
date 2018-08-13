@@ -1,6 +1,6 @@
 'use strict';
 
-$_NL.prototype.GUI2DPlayerTypingInput = function() {
+$_QE.prototype.GUI2DPlayerTypingInput = function() {
 
     $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 

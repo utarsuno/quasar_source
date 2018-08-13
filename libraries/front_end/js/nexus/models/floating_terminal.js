@@ -55,14 +55,14 @@ $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
         this.world.add_element_root(this);
 
         this.on_engage = this.on_engage.bind(this);
-        //$_QE.prototype.CloseButton.call(this);
-
 
         this.on_enter_key_event = this.on_enter_key.bind(this);
 
 
 
         this.title = new $_QE.prototype.FeatureTitleBar(this, 'Terminal Title!', ASSET_ICON_TERMINAL, true);
+        this.title.add_settings_button();
+        this.title.add_close_button();
     };
 
 };

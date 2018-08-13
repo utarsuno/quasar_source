@@ -58,7 +58,7 @@ $_QE.prototype.WorldState = function(default_world_enter_position, default_world
 
     this._set_player_exit_position_and_look_at = function() {
         let p = this.player.get_position();
-        let la = this.player.get_direction();
+        let la = this.player.get_normal();
         this.player_exit_position = new THREE.Vector3(p.x, p.y, p.z);
         this.player_exit_look_at  = new THREE.Vector3(p.x + la.x, p.y + la.y, p.z + la.z);
     };

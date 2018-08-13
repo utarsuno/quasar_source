@@ -207,7 +207,8 @@ class JavascriptManager(object):
 		all_code.add_code_chunk(CodeChunk(combined_lines))
 
 		if self.engine.is_build_nexus_local:
-			output_directory = CodeDirectory('/quasar/libraries/front_end/js/nexus/nexus')
+			#output_directory = CodeDirectory('/quasar/libraries/front_end/js/nexus/nexus')
+			output_directory = CodeDirectory('/quasar/generated_output/web_assets')
 		elif self.engine.is_build_quasar:
 			output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')
 
@@ -233,13 +234,19 @@ class JavascriptManager(object):
 		"""Return the needed ProjectComponent."""
 		self.js = ProjectComponent('quasar_rendering_engine_js')
 		self.js.add_extension_to_ignore('.min')
+		#self.js.set_generated_file_path('/quasar/generated_output/web_assets/')
 		self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/rendering_engine'))
 
 		# Main engine.
-		self.js_files_needed.append('engine/engine.js')
-		self.js_files_needed.append('engine/core/time_value_buffer.js')
-		self.js_files_needed.append('engine/core/heap_manager.js')
+		self.js_files_needed.append('engine/engine_core/engine.js')
+		self.js_files_needed.append('engine/engine_core/frame_counter.js')
+		self.js_files_needed.append('engine/engine_core/heap_manager.js')
 		self.js_files_needed.append('engine/assets_json/helvetiker_regular.js')
+
+		# GUI 2D.
+		self.js_files_needed.append('engine/gui_2d/debug_information.js')
+		self.js_files_needed.append('engine/gui_2d/message_logs.js')
+		self.js_files_needed.append('engine/gui_2d/player_typing_input.js')
 
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
@@ -290,6 +297,7 @@ class JavascriptManager(object):
 		# Controls.
 		self.js_files_needed.append('engine/controls/fps_controls.js')
 		self.js_files_needed.append('engine/controls/input_manager.js')
+		self.js_files_needed.append('engine/controls/mouse_controls.js')
 
 		# Worlds.
 		self.js_files_needed.append('engine/worlds/world_manager/world_manager.js')
@@ -359,12 +367,9 @@ class JavascriptManager(object):
 		#self.js_files_needed.append('engine/models/elements/base/text_2d.js')
 		self.js_files_needed.append('engine/models/elements/base/text_3d.js')
 
-		self.js_files_needed.append('engine/models/elements/discrete_object_types/floating_icon_button.js')
-
 		self.js_files_needed.append('engine/models/discrete_models/singletons/hexagon_grid.js')
 		self.js_files_needed.append('engine/models/discrete_models/singletons/light_ambient.js')
 		self.js_files_needed.append('engine/models/discrete_models/singletons/light_point.js')
-		self.js_files_needed.append('engine/models/discrete_models/buttons/close_button.js')
 
 		# Asset Managers.
 		self.js_files_needed.append('engine/asset_management/asset_manager.js')
@@ -385,10 +390,8 @@ class JavascriptManager(object):
 		if self.engine.is_build_nexus_local:
 			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/nexus'))
 			# Add js files needed.
-			self.js_files_needed.append('nexus/_nexus_local.js')
+			self.js_files_needed.append('nexus/nexus_local.js')
 			self.js_files_needed.append('nexus/world/world_dev_tools.js')
-			self.js_files_needed.append('nexus/gui_2d_logic/message_logs.js')
-			self.js_files_needed.append('nexus/gui_2d_logic/player_typing_input.js')
 			self.js_files_needed.append('nexus/web_socket_requests/message_handler.js')
 			self.js_files_needed.append('nexus/models/floating_terminal.js')
 			self.js_files_needed.append('nexus/world/world_environment.js')

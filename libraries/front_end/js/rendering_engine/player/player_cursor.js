@@ -89,7 +89,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
     this.update = function() {
         if (this._currently_moving) {
             let p = QE.player.get_position();
-            let n = QE.player.get_direction();
+            let n = QE.player.get_normal();
 
             //QE.player.look_at(p.x + n.x, 0, p.z + n.z);
             this.currently_attached_to.set_position(p.x + n.x * this._current_horizontal_distance, p.y, p.z + n.z * this._current_horizontal_distance);
@@ -116,7 +116,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         if (is_defined(this.currently_attached_to.feature_mouse_scaleable)) {
             if (this.currently_attached_to.feature_mouse_scaleable) {
                 if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
-                    l('Set icon to scalable!');
+                    //l('Set icon to scalable!');
                     this.set_current_icon(ASSET_ICON_EXPAND);
                     return;
                 }
@@ -125,7 +125,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
 
         if (is_defined(this.currently_attached_to.feature_mouse_moveable)) {
             if (this.currently_attached_to.feature_mouse_moveable) {
-                l('Set icon to moveable!');
+                //l('Set icon to moveable!');
                 this.set_current_icon(ASSET_ICON_DRAG);
                 return;
             }
@@ -135,7 +135,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
 
         if (is_defined(this.currently_attached_to.feature_clickable)) {
             if (this.currently_attached_to.feature_clickable) {
-                l('Set icon to clickable!');
+                //l('Set icon to clickable!');
                 this.set_current_icon(ASSET_ICON_CLICK);
                 return;
             }
@@ -143,7 +143,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
 
         if (is_defined(this.currently_attached_to.feature_needs_mobile_keyboard)) {
             if (this.currently_attached_to.feature_needs_mobile_keyboard) {
-                l('Set icon to feature_needs_mobile_keyboard!');
+                //l('Set icon to feature_needs_mobile_keyboard!');
                 this.set_current_icon(ASSET_ICON_WRITTING);
                 return;
             }

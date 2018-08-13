@@ -52,24 +52,25 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.current_world.enter_world();
     };
 
-    this.update = function(delta) {
+    this.physics = function(delta) {
         this.player.physics(delta);
 
         if (this.renderer.in_transition) {
             return;
         }
-
-        let a;
-        for (a = 0; a < QE.gui_2d_elements.length; a++) {
-            QE.gui_2d_elements[a].update();
-        }
-
         this.current_world.update_elements_root(delta);
         if (!this.player_cursor.in_mouse_action()) {
             this.current_world.update_elements_interactive();
         }
 
         this.current_world.update(delta);
+    };
+
+    this.update = function(delta) {
+        let a;
+        for (a = 0; a < QE.gui_2d_elements.length; a++) {
+            QE.gui_2d_elements[a].update();
+        }
     };
 
 };

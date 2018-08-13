@@ -6,7 +6,7 @@ $_QE.prototype.Player = function(client, engine) {
     $_QE.prototype.PlayerState.call(this);
 
     this.initialize_player_controls = function() {
-        $_QE.prototype.FPSControls.call(this, this.engine.manager_renderer.camera);
+        $_QE.prototype.FPSControls.call(this);
     };
 
 };

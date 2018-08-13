@@ -6,6 +6,17 @@ $_QE.prototype.FloatingElement = function(world) {
     $_QE.prototype.FeatureVisibility.call(this);
     $_QE.prototype.FeatureRecycle.call(this);
 
+    this.set_to_button = function(engage_function) {
+        $_QE.prototype.FeatureButton.call(this, engage_function);
+    };
+
+    this.set_to_close_button = function() {
+        let me = this;
+        $_QE.prototype.FeatureButton.call(this, function() {
+            //this.attachment_parent.force_hide_self_and_all_child_attachments_recursively
+            me.attachment_parent.force_hide_self_and_all_child_attachments_recursively();
+        });
+    };
 };
 
 /*

@@ -28,8 +28,7 @@ $_QE.prototype.PlayerState = function() {
 
             // Hide the player menu if visible.
 
-            this.engine.client.show_paused();
-
+            this.engine.on_pause();
 
             //if (this.current_state === PLAYER_STATE_PAUSED) {
             //    CURRENT_CLIENT.pause();
@@ -43,7 +42,7 @@ $_QE.prototype.PlayerState = function() {
 
             break;
         case PLAYER_STATE_TYPING:
-            QE.application.enter_typing_state();
+            QE.enter_typing_state();
             //QE.update_needed_for_colors = true;
             //CURRENT_CLIENT.show_client_typing();
             break;

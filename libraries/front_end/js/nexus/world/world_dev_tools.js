@@ -40,9 +40,6 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         //this.cursor_test.set_position(100, 100, 100);
         //this.cursor_test.set_normal(0, 0, 0);
         //this.cursor_test.refresh_position_and_look_at();
-
-
-        NL.create_gui_2d();
     };
 
 };
