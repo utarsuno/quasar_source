@@ -40,6 +40,9 @@ $_QE.prototype.InputManager = function(engine) {
 
     this.disable_mouse_y = false;
 
+    //
+    this._cache_skip_down_event = false;
+
     this.on_mouse_move = function(event) {
         if (this.player.has_mouse_movement()) {
             if (this.disable_mouse_y) {
@@ -127,34 +130,43 @@ $_QE.prototype.InputManager = function(engine) {
     };
 
     this.on_key_down = function(event) {
+        this._cache_skip_down_event = false;
         if (this.player.has_movement()) {
             switch (event.keyCode) {
             case KEY_CODE__UP:
             case KEY_CODE_W:
                 this.key_down_up = true;
+                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__LEFT:
             case KEY_CODE_A:
                 this.key_down_left = true;
+                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__DOWN:
             case KEY_CODE_S:
                 this.key_down_down = true;
+                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__RIGHT:
             case KEY_CODE_D:
                 this.key_down_right = true;
+                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__SPACE:
                 this.key_down_space = true;
+                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__SHIFT:
                 this.key_down_shift = true;
+                this._cache_skip_down_event = true;
                 break;
             }
-        } else {
+        }
+        if (!this._cache_skip_down_event) {
             this.manager_world.key_down_event(event);
         }
+
         event.preventDefault();
         event.stopPropagation();
     };

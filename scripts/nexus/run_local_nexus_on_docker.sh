@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source /quasar/libraries/scripts/script_utilities.sh
+source /quasar/scripts/utilities/script_utilities.sh
 
 #export PYTHONPATH="${PYTHONPATH}:/quasar"
 
@@ -15,6 +15,7 @@ else
     exit;
 fi
 print_dotted_line_green
+
 
 
 ln -s /quasar/generated_output/web_assets/quasar_nexus.min.css           /assets/nl.min.css
@@ -42,7 +43,6 @@ ln -s /quasar/assets/front_end/fonts/elegandhandwritingfont_medium_16.png /asset
 ln -s /quasar/assets/front_end/fonts/elegandhandwritingfont_medium_32.png /assets/p3.png
 
 ln -s /quasar/assets/front_end/favicon/favicon.png /assets/favicon.png
-
 
 
 #############

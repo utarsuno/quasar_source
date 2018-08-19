@@ -27,7 +27,7 @@ $_QE.prototype.EngineFrameCache = function(is_float) {
 
 $_QE.prototype.EngineFrameCounter = function() {
 
-    this._engine_frame_counter_render  = 0;
+    this._engine_frame_counter_render = 0;
 
     this._engine_elapsed_time_physics = 0.0;
     this._engine_elapsed_time_render  = 0.0;
@@ -35,7 +35,7 @@ $_QE.prototype.EngineFrameCounter = function() {
     this._engine_elapsed_time_second  = 0.0;
 
     // cache
-    this._frames_passed = 0;
+    this._frames_passed   = 0;
     this._frame_iteration = 0;
 
     this._cache_fps         = new $_QE.prototype.EngineFrameCache(false);

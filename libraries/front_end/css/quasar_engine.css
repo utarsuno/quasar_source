@@ -10,12 +10,6 @@
 /*__
  / _` |  | |
  \__> \__/ | */
-.fps_display {
-    position: fixed;
-    z-index: 15;
-    left: 0;
-}
-
 .gui_canvas {
     position: fixed;
     z-index: 14;

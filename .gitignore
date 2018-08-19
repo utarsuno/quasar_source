@@ -123,7 +123,6 @@ Temporary Items
 # User-specific stuff:
 .idea/
 
-.idea/workspace.xml
 .idea/tasks.xml
 
 # Sensitive or high-churn files:
@@ -166,7 +165,6 @@ fabric.properties
 # My custom git ignores here.
 all_scripts/build_three_js/three.js
 configuration_files/
-third_party_libraries/
 
 # Ignoring custom database files.
 .db
@@ -174,12 +172,6 @@ third_party_libraries/
 # Ignore C output files.
 output_files_to_ignore/
 
-
-nexus_local.js
-nexus_local.min.js
-
-
 generated_output/
-A_ORGANIZE/
 depreciated/
 

@@ -1,5 +1,5 @@
 # The version of the Docker compose file format to use.
-version: '3.7'
+version: '3'
 
 services:
 
@@ -8,29 +8,12 @@ services:
 
   # Serves static content. TODO: Route to django.
   nginx:
-    build:
-      context: .
-      dockerfile: ./applications/nginx/Dockerfile
+    build: ./applications/nginx
     tty: true
     ports:
       - "80:80"
-      - "3000:3000"
     volumes:
       - ./:/quasar
-    depends_on:
-      - websocket
-
-  websocket:
-    build:
-      context: .
-      dockerfile: ./applications/nexus_server/Dockerfile
-    tty: true
-    #ports:
-    #  - "3001:3001"
-    volumes:
-      - ./:/quasar
-    #depends_on:
-    #  - nginx
 
   # Local development 3D web interface.
   nexus_local:
@@ -47,7 +30,6 @@ services:
       - ./:/quasar
     depends_on:
       - redis
-      - nginx
 
   # Needed for Django Channels (web-sockets).
   redis:
@@ -62,6 +44,31 @@ services:
 volumes:
   redis_data:
 
+######
+
+  #nexus_server:
+  #  build: ./applications/quasar_nexus/nexus_server
+  #  container_name: quasar_service_nexus_server
+  #  environment:
+  #    - MICRO_SERVICE_NAME=quasar_service_nexus_server
 
 
-#websocket_server
+  #  restart: always
+
+  #nginx:
+  #  restart: always
+  #  image: nginx
+
+  #quality_assurance:
+  #  build: ./applications/quality_assurance
+  #  container_name: quasar_service_quality_assurance
+  #  environment:
+  #    - MICRO_SERVICE_NAME=quasar_service_quality_assurance
+
+  #db:
+  #  build: ./applications/quasar_db
+  #  container_name: quasar_service_database
+  #  environment:
+  #    - MICRO_SERVICE_NAME=quasar_service_database
+
+

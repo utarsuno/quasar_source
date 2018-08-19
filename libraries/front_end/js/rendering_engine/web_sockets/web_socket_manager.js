@@ -64,7 +64,8 @@ $_QE.prototype.WebSocketManager = function(engine) {
 
     this.connect = function() {
         //this.socket = new WebSocket(this._connection_string);
-        this.socket = new WebSocket('ws://localhost:1337/ws/');
+        //this.socket = new WebSocket('ws://localhost:1337/ws/');
+        this.socket = new WebSocket('ws://localhost/ws/');
         this.socket.onmessage = this._on_message_received.bind(this);
         this.socket.onerror   = this._on_error.bind(this);
         this.socket.onopen    = this._on_open.bind(this);

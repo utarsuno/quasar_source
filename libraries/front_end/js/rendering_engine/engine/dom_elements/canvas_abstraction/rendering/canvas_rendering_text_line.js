@@ -6,19 +6,18 @@ $_QE.prototype.CanvasRenderingTextLine = function(typeable) {
 
 
     this._render_needed = function() {
-        if (this.update_needed_for_line) {
-            this._render();
-        }
+        return this.update_needed_for_line || this.update_needed_for_text;
     };
 
     this._post_render = function() {
         this.update_needed_for_line = false;
+        this.update_needed_for_text = false;
     };
 
     this._render = function() {
         this.context.clearRect(0, 0, this._canvas_width, this._canvas_height);
-
-        this.context.fillText(this.text, 0, this.canvas_font[CANVAS_FONT_INDEX_SIZE] - this.canvas_font[CANVAS_FONT_INDEX_OFFSET]);
+        this.context.fillStyle = QE.COLOR_CANVAS_TEAL;
+        this.context.fillText(this.text, 0, this.canvas_font_size - this.canvas_font_offset);
     };
 
     this._render_segments = function() {
