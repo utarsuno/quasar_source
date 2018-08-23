@@ -4,6 +4,7 @@ source /quasar/scripts/utilities/script_utilities.sh
 
 #export PYTHONPATH="${PYTHONPATH}:/quasar"
 
+#GONE
 python /quasar/libraries/code_api/discrete_projects/rendering_engine/build_rendering_engine.py 'n';
 VAR_BUILD_RESULT=$?;
 

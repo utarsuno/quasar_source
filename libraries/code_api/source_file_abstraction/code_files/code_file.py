@@ -54,6 +54,10 @@ class CodeFile(object):
 				number_of_lines += 1
 		return number_of_lines
 
+	def is_html(self):
+		"""Returns a boolean indicating if this is an HTML file."""
+		return self._file_type == CODE_FILE_TYPE_HTML_FILE
+
 	@property
 	def file_size(self):
 		"""Returns the file size of this file."""
@@ -129,6 +133,8 @@ class LoadedCodeFile(CodeFile):
 		super().__init__(file_type, file_name, file_extension)
 		self._contents_loaded = False
 		self._file_lines      = []
+		self._sha256          = None
+		self._md5sum          = None
 
 	def replace_text(self, text_to_find, text_to_replace_with):
 		"""Replaces text inside of this code file."""
@@ -168,3 +174,24 @@ class LoadedCodeFile(CodeFile):
 	def contents_loaded(self) -> bool:
 		"""Returns a boolean indicating if this file has been loaded."""
 		return self._contents_loaded
+
+	@property
+	def sha256(self):
+		"""Returns the sha256 checksum of this file."""
+		if self._sha256 is None:
+			self._sha256 = ufo.get_sha256_checksum(self.full_path)
+		return self._sha256
+
+	@property
+	def md5sum(self):
+		"""Returns the md5sum of this file."""
+		if self._md5sum is None:
+			self._md5sum = ufo.get_md5_checksum(self.full_path)
+		return self._md5sum
+
+	@property
+	def file_size(self):
+		"""Returns the size in bytes for this file."""
+		if self._file_size is None:
+			self.read_file_contents()
+		return self._file_size

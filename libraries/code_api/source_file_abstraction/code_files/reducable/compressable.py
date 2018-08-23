@@ -53,3 +53,4 @@ class Compressable(Redusable):
 		transfer_path = self._compressed_save_path.replace('c_' + self.file_name, self.file_name).replace('/configuration_files/', '/quasar_site_django/')
 		ufo.copy_file_to_path(self._compressed_save_path, transfer_path)
 
+

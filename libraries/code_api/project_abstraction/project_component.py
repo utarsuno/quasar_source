@@ -63,6 +63,10 @@ class ProjectComponent(object):
 		for bcd in self._base_code_directories:
 			bcd.load_all_directories_and_content(self._extensions_to_ignore, self._file_name_matches_to_ignore)
 
+	def minify_and_gzip_files(self):
+		"""Minifies the files and then g-zips that output."""
+		y = 2
+
 	@property
 	def number_of_files(self):
 		"""Returns the number of files in this project component."""

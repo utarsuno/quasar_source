@@ -1,9 +1,18 @@
+#ifndef CLIENT_INSTANCE
+#define CLIENT_INSTANCE
 #include "/quasar/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 
-typedef struct ClientInstance {
-    unsigned int client_id;
-} ClientInstance;
+class ClientInstance {
+    public:
+        ClientInstance();
+        void initialize(uWS::WebSocket<uWS::SERVER> * ws, size_t client_id, ClientInstance * self);
+        void kill();
+        int is_alive();
+        int get_id();
+    private:
+        int alive;
+        uWS::WebSocket<uWS::SERVER> * ws;
+        int client_id;
+};
 
-ClientInstance * get_new_client_instance(const unsigned int client_id);
-void free_client_instance(ClientInstance * client);
-unsigned int get_client_id_from_websocket(uWS::WebSocket<uWS::SERVER> * ws);
+#endif

@@ -175,3 +175,5 @@ output_files_to_ignore/
 generated_output/
 depreciated/
 
+.gz
+

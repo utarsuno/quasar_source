@@ -22,6 +22,10 @@ import errno
 
 import configparser
 
+# Needed for calculating the md5_checksum of files.
+import hashlib
+
+
 '''      ___          ___         ___            __  ___    __        __
 	|  |  |  | |    |  |  \ /    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
 	\__/  |  | |___ |  |   |     |    \__/ | \| \__,  |  | \__/ | \| .__/
@@ -176,6 +180,35 @@ def get_file_content_as_string(file_path: str) -> list:
 	for l in lines:
 		text += l
 	return text
+
+
+def get_sha256_checksum(filename, block_size=65536):
+	"""Returns sha256 for a given file."""
+	# From : https://gist.github.com/rji/b38c7238128edf53a181
+	sha256 = hashlib.sha256()
+	with open(filename, 'rb') as f:
+		for block in iter(lambda: f.read(block_size), b''):
+			sha256.update(block)
+	return sha256.hexdigest()
+
+
+def get_md5_checksum(filename, block_size= 2 ** 20):
+	"""Returns MD% checksum for given file."""
+	# Function source originally from : https://gist.github.com/juusimaa/5846242.
+	md5 = hashlib.md5()
+	try:
+		file = open(filename, 'rb')
+		while True:
+			data = file.read(block_size)
+			if not data:
+				break
+			md5.update(data)
+	except IOError:
+		print('File \'' + filename + '\' not found!')
+		return None
+	except:
+		return None
+	return md5.hexdigest()
 
 
 def get_file_size_in_bytes(file_path):

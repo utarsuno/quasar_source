@@ -36,4 +36,3 @@ class Redusable(object):
 		"""Returns the compression statistics."""
 		return 'compressed{' + str(self) + '} - {' + str(self.file_size) + 'b to ' + str(self._compressed_file_size) + 'b} reduction of ' + str(self.bytes_compressed) + ' bytes or ' + str(self.percent_compressed) + '%'
 
-

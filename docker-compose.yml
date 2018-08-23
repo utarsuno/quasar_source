@@ -6,7 +6,7 @@ services:
   # Control point for build process + management for the QA, STAGE, PROD environments.
   #nexus_server:
 
-  # Serves static content. TODO: Route to django.
+  # Serves static content.
   nginx:
     build:
       context: .
@@ -33,31 +33,31 @@ services:
     #  - nginx
 
   # Local development 3D web interface.
-  nexus_local:
-    build: ./applications/nexus/local
-    environment:
-      - DJANGO_SECRET_KEY=gvb9f175igbse7329ei3pl72p73fehn8g2opwtetc2ihh4325a
-      - SQLITE_DB_PATH=/quasar/generated_output/local/nexus_local_db.sqlite
-      - PYTHONPATH=:/quasar
-      - DJANGO_SETTINGS_MODULE=nexus_local.settings
-    tty: true
-    ports:
-      - "1337:1337"
-    volumes:
-      - ./:/quasar
-    depends_on:
-      - redis
-      - nginx
+#  nexus_local:
+#    build: ./applications/nexus/local
+#    environment:
+#      - DJANGO_SECRET_KEY=gvb9f175igbse7329ei3pl72p73fehn8g2opwtetc2ihh4325a
+#      - SQLITE_DB_PATH=/quasar/generated_output/local/nexus_local_db.sqlite
+#      - PYTHONPATH=:/quasar
+#      - DJANGO_SETTINGS_MODULE=nexus_local.settings
+#    tty: true
+#    ports:
+#      - "1337:1337"
+#    volumes:
+#      - ./:/quasar
+#    depends_on:
+#      - redis
+#      - nginx
 
   # Needed for Django Channels (web-sockets).
-  redis:
-    build: ./applications/redis/
-    command: redis-server
-    tty: true
-    ports:
-      - "6379:6379"
-    volumes:
-      - 'redis_data:/data'
+#  redis:
+#    build: ./applications/redis/
+#    command: redis-server
+#    tty: true
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - 'redis_data:/data'
 
 volumes:
   redis_data:

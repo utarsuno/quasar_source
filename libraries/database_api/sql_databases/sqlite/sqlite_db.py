@@ -26,6 +26,7 @@ class SQLiteDB(object):
 
 	def execute_query(self, query, save_changes=False):
 		"""Executes a query."""
+		#print('Executing query {' + query + '}')
 		self._cursor.execute(query)
 		results = self._cursor.fetchall()
 		if save_changes:

@@ -219,22 +219,26 @@ class JavascriptManager(object):
 		# Now minify the file and transfer it to its needed location.
 		loaded_javascript_file = combined_javascript_file.get_created_file_as_loaded_file()
 		#loaded_javascript_file.set_reduced_file_to_copy_out_of_configuration_files()
-		loaded_javascript_file.generate_minified_file()
+
+		return loaded_javascript_file
+		#loaded_javascript_file.generate_minified_file()
 
 		#
 		# TODO: CHECK THAT NO LINES ARE LONGER THAN 600 CHARACTERS!
 		print('TODO : Check that no line is longer than 600 characters.')
 		#
 
-		oc.print_pink('\t' + loaded_javascript_file.compression_statistics)
-		self.engine._original_total_size += loaded_javascript_file.file_size
-		self.engine._new_total_size += loaded_javascript_file.compressed_size
+		#oc.print_pink('\t' + loaded_javascript_file.compression_statistics)
+		#self.engine._original_total_size += loaded_javascript_file.file_size
+		#self.engine._new_total_size += loaded_javascript_file.compressed_size
 
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
 		self.js = ProjectComponent('quasar_rendering_engine_js')
 		self.js.add_extension_to_ignore('.min')
-		#self.js.set_generated_file_path('/quasar/generated_output/web_assets/')
+		self.js.add_extension_to_ignore('.gz')
+		self.js.add_extension_to_ignore('.min.gz')
+		self.js.set_generated_file_path('/quasar/generated_output/web_assets/')
 		self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/rendering_engine'))
 
 		# Main engine.

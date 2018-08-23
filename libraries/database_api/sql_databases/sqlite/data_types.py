@@ -42,6 +42,7 @@ class SQLiteDataType(object):
 		s += 'UNIQUE'
 		return s
 
+
 class SQLiteDataTypeNULL(object):
 	"""Represents the NULL data type in SQLite."""
 	def __init__(self, is_primary_key, is_nullable, is_unique):

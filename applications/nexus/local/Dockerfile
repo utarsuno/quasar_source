@@ -3,12 +3,12 @@ FROM python:3.6-alpine
 
 # Update index of available packages.
 RUN apk update \
-  # Update currently installed packages.
-  && apk upgrade \
-  # Install libraries needed for uwsgi.
-  && apk add --no-cache build-base \
-  && apk add --no-cache linux-headers \
-  && apk add --no-cache pcre-dev
+ # Update currently installed packages.
+ && apk upgrade \
+ # Install libraries needed for uwsgi.
+ && apk add --no-cache build-base \
+ && apk add --no-cache linux-headers \
+ && apk add --no-cache pcre-dev
 
 # Add required tools then Python libraries.
 RUN apk add --no-cache libc-dev \
@@ -38,9 +38,9 @@ RUN pip3 install --no-cache-dir Django \
 
 # Clear cache and create needed directories.
 RUN rm -rf /var/cache/apk/* \
-  && rm -rf /root/.cache/pip/* \
-  && mkdir /assets \
-  && mkdir /assets/third_party
+ && rm -rf /root/.cache/pip/* \
+ && mkdir /assets \
+ && mkdir /assets/third_party
 
 STOPSIGNAL SIGTERM
 

@@ -8,6 +8,8 @@ from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files.code_file import *
 from jsmin import jsmin
 from libraries.code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
+from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.universal_code import useful_file_operations as ufo
 
 
 class LoadedJSFile(LoadedCodeFile, Minifiable):

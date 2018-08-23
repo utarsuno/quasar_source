@@ -153,6 +153,8 @@ class CodeDirectory(object):
 			file_name = ufo.get_file_basename(f)
 			extensions = ufo.get_file_extensions(file_name)
 
+			#print('EXTENSIONS {' + str(extensions) + '}')
+
 			skip_file = False
 			for e in extensions:
 				if e in extensions_to_ignore:
@@ -163,6 +165,9 @@ class CodeDirectory(object):
 				if name_match in file_name:
 					skip_file = True
 					break
+
+			if not extensions:
+				skip_file = True
 
 			if not skip_file:
 				combined_extensions = ''

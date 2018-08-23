@@ -41,6 +41,9 @@ $_QE.prototype.EngineFrameCounter = function() {
     this._cache_fps         = new $_QE.prototype.EngineFrameCache(false);
     this._cache_memory_used = new $_QE.prototype.EngineFrameCache(true);
     this._cache_memory_size = new $_QE.prototype.EngineFrameCache(true);
+    this._cache_geometries  = new $_QE.prototype.EngineFrameCache(false);
+    this._cache_textures    = new $_QE.prototype.EngineFrameCache(false);
+    this._cache_shaders     = new $_QE.prototype.EngineFrameCache(false);
 
     this.on_pause = function() {
         this.client.show_paused();

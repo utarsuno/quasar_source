@@ -158,18 +158,27 @@ $_QE.prototype = {
                 this._frames_passed = Math.floor(this._engine_elapsed_time_second);
 
                 this._engine_elapsed_time_second -= this._frames_passed;
-                // Calculate FPS.
+                // Debug metrics.
                 this._cache_fps.set_value(this._engine_frame_counter_render);
                 this._cache_memory_used.set_value(window.performance.memory.usedJSHeapSize);
                 this._cache_memory_size.set_value(window.performance.memory.totalJSHeapSize);
+                this._cache_geometries.set_value('g:' + this.manager_renderer.renderer.info.memory.geometries);
+                this._cache_geometries.set_value('t:' + this.manager_renderer.renderer.info.memory.textures);
+                this._cache_geometries.set_value('s:' + this.manager_renderer.renderer.info.programs.length);
                 if (this._cache_fps.has_update) {
-                    this.gui_2d_debug.set_row_contents(1, this._cache_fps.value_string, QE.COLOR_CANVAS_GREEN);
+                    this.gui_2d_debug.set_row_contents(2, this._cache_fps.value_string, QE.COLOR_CANVAS_GREEN);
                     this._cache_fps.has_update = false;
                 }
                 if (this._cache_memory_used.has_update || this._cache_memory_size.has_update) {
-                    this.gui_2d_debug.set_row_contents(0, '[' + this._cache_memory_used.value_string + '/' + this._cache_memory_size.value_string + ']', QE.COLOR_CANVAS_GREEN);
+                    this.gui_2d_debug.set_row_contents(1, '[' + this._cache_memory_used.value_string + '/' + this._cache_memory_size.value_string + ']', QE.COLOR_CANVAS_GREEN);
                     this._cache_memory_used.has_update = false;
                     this._cache_memory_size.has_update = false;
+                }
+                if (this._cache_geometries.has_update || this._cache_textures.has_update || this._cache_shaders.has_update) {
+                    this.gui_2d_debug.set_row_contents(0, this._cache_geometries.value_string + ', ' + this._cache_textures.value_string + ', ' + this._cache_shaders.value_string, QE.COLOR_CANVAS_GREEN);
+                    this._cache_geometries.has_update = false;
+                    this._cache_textures.has_update   = false;
+                    this._cache_shaders.has_update    = false;
                 }
                 this.gui_2d_debug.update();
                 this._engine_frame_counter_render = 0;

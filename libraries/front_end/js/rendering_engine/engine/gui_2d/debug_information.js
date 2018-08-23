@@ -10,10 +10,11 @@ $_QE.prototype.GUI2DDebugInformation = function() {
     this.height = QE.CANVAS_FONT_SMALLER[1] * 2;
     this.initialize_gui(400, 64, 0, 0, null, false, true, QE.CANVAS_FONT_SMALLER);
 
-    $_QE.prototype.CanvasRenderingTextLines.call(this, 2, false);
+    $_QE.prototype.CanvasRenderingTextLines.call(this, 3, false);
 
     this.add_text_line_to_bottom('fps', QE.COLOR_CANVAS_GREEN);
     this.add_text_line_to_bottom('memory', QE.COLOR_CANVAS_GREEN);
+    this.add_text_line_to_bottom('threejs', QE.COLOR_CANVAS_GREEN);
 
 
     //QE.add_gui_2d_element(this);
