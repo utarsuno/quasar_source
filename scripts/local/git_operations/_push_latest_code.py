@@ -44,8 +44,10 @@ class PushLatestChanges(bi.BashPromptInput):
 		user_input = self.run()
 
 		push_changes = bi.BashInteractive()
-		print(push_changes.get_bash_output(['git', 'add', '.']))
-
+		o = push_changes.get_bash_output(['git', 'add', '.'])
+		o = push_changes.get_bash_output(['git', 'commit', '-m', '"' + user_input + '"'])
+		o = push_changes.get_bash_output(['git', 'push'])
+		oc.print_green('Changes pushed!')
 
 args = pa.ProgramArguments()
 mode = args.get_first_argument()
