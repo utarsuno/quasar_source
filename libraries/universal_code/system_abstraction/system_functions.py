@@ -9,7 +9,12 @@ import os
 
 def get_system_environment(key):
 	"""Returns the system environment variable's value."""
-	return os.getenv(key, None)
+	value = os.getenv(key, None)
+	if value == 'False' or value == 'false':
+		return False
+	elif value == 'True' or value == 'true':
+		return True
+	return value
 
 
 

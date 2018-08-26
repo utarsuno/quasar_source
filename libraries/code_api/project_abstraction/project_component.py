@@ -31,6 +31,11 @@ class ProjectComponent(object):
 		"""Adds a file extension to be ignored by this project component."""
 		self._extensions_to_ignore.append(file_extension)
 
+	def add_extensions_to_ignore(self, file_extension_list):
+		"""Adds a list of file extensions to be ignored by this project component."""
+		for f in file_extension_list:
+			self.add_extension_to_ignore(f)
+
 	def add_base_code_directory(self, code_directory):
 		"""Adds a code directory to this project component."""
 		self._base_code_directories.append(code_directory)

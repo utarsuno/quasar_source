@@ -24,6 +24,8 @@ import configparser
 
 # Needed for calculating the md5_checksum of files.
 import hashlib
+# Needed for running shell commands.
+from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 
 
 '''      ___          ___         ___            __  ___    __        __
@@ -214,6 +216,12 @@ def get_md5_checksum(filename, block_size= 2 ** 20):
 def get_file_size_in_bytes(file_path):
 	"""Return the size of the file in bytes."""
 	return int(os.stat(file_path).st_size)
+
+
+def file_op_create_gzip(file_path):
+	"""Creates a gzipped version of the file."""
+	bash_command = BashCommandRunner(['gzip', '-f', '-k', '-9', file_path])
+	bash_command.run()
 
 
 '''  __   ___ ___  __     ___       ___

@@ -10,6 +10,8 @@ services:
       dockerfile: ./applications/code_builder/Dockerfile
     environment:
       - PYTHONPATH=:/quasar
+      - CODE_BUILDER_DB_PATH=/quasar/generated_output/local/code_builder/db.sqlite
+      - DB_DEBUG=False
     tty: true
     volumes:
       - ./:/quasar

@@ -55,6 +55,27 @@ class BashPromptConfirmation(BashPrompt):
 			self.error('Invalid choice!')
 
 
+class BashPromptInput(BashPrompt):
+	"""Represents a single bash input prompt."""
+
+	def __init__(self, prompt_name, prompt_initial_message, empty_allowed=True):
+		super().__init__(prompt_name)
+		self._initial_message = prompt_initial_message
+		self.empty_allowed = empty_allowed
+
+	def run(self):
+		"""Runs this prompt."""
+		oc.print_title(self._initial_message)
+		#oc.print_data_with_red_dashes_at_start('(y/n)')
+		try:
+			user_choice = str(input())
+			if not self.empty_allowed and len(user_choice) == 0:
+				self.error('Commit message can\'t be empty!')
+			return user_choice
+		except:
+			self.error('Invalid choice!')
+
+
 class BashPromptListSelection(BashPrompt):
 	"""Represents a single list selection bash prompt."""
 

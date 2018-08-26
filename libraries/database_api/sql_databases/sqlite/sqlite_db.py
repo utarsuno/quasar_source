@@ -8,7 +8,8 @@ import sqlite3 as sql
 class SQLiteDB(object):
 	"""Represents an SQLiteDB."""
 
-	def __init__(self, db_file_path):
+	def __init__(self, db_file_path, debug=False):
+		self._debug        = debug
 		self._db_file_path = db_file_path
 		self._connection   = None
 		self._cursor       = None
@@ -24,12 +25,22 @@ class SQLiteDB(object):
 		self._tables.append(table)
 		table.set_db(self)
 
-	def execute_query(self, query, save_changes=False):
+	def execute_query(self, query):
 		"""Executes a query."""
-		#print('Executing query {' + query + '}')
-		self._cursor.execute(query)
+		if self._debug:
+			print('Executing the following query \n--------------------------------------------------\n' + str(query) + '\n--------------------------------------------------')
+		self._cursor.execute(str(query))
 		results = self._cursor.fetchall()
-		if save_changes:
+
+		if query.save_results:
 			self._connection.commit()
+
+		if query.boolean_response:
+			return len(results) != 0
+		elif query.single_response:
+			if len(results) == 0:
+				return None
+			return results[0][0]
+
 		return results
 

@@ -11,6 +11,11 @@ def raise_exception(exception_message):
 	raise Exception(exception_message)
 
 
+def raise_exception_abstract_method(function_name='FUNCTION'):
+	"""Raise an exception for when abstract methods are not implemented."""
+	raise Exception(function_name + ' must be implemented!')
+
+
 def raise_type_exception(method_name, expected_type, val):
 	"""Utility function for raising type errors."""
 	raise TypeError('Method \'' + method_name + '\' expects a ' + str(expected_type) + ' instead of {' + str(val) + '} of type {' + str(type(val)) + '}!')
