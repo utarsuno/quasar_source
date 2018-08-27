@@ -34,12 +34,18 @@ class BashCommandRunner(object):
 		self._command      = _parse_shell_command(command)
 		self._input_needed = require_input
 
-	def run(self):
+	def run(self, cwd=None):
 		"""Runs the command and returns two outputs, success_status and output."""
 		if self._input_needed:
-			process = Popen(self._command, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+			if cwd is not None:
+				process = Popen(self._command, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, cwd=cwd)
+			else:
+				process = Popen(self._command, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
 		else:
-			process = Popen(self._command, shell=True, stdout=subprocess.PIPE)
+			if cwd is not None:
+				process = Popen(self._command, shell=True, stdout=subprocess.PIPE, cwd=cwd)
+			else:
+				process = Popen(self._command, shell=True, stdout=subprocess.PIPE)
 		process.wait()
 		output_stdout, output_stderr = process.communicate()
 		if output_stderr is not None:

@@ -24,6 +24,10 @@ else
         print_green_text "Connecting to websocket local!";
         CONTAINER_ID=$(docker ps --no-trunc | grep "quasar_source_websocket" | awk '{print $1}');
         sudo docker exec -it ${CONTAINER_ID} /bin/bash
+        elif [ ${EXIT_CODE} -eq 104 ]; then
+        print_green_text "Connecting to code_builder local!";
+        CONTAINER_ID=$(docker ps --no-trunc | grep "quasar_source_code_builder" | awk '{print $1}');
+        sudo docker exec -it ${CONTAINER_ID} /bin/bash
     fi
 fi
 

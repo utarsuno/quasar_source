@@ -24,4 +24,4 @@ RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
 EXPOSE 5672/tcp 15672/tcp
 
 #CMD ["python3", "/quasar/applications/nexus_server/receive.py"]
-CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]
+CMD ["python3", "/quasar/applications/nexus_server_temp/receive.py"]

@@ -18,7 +18,45 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 	def __init__(self, file_name, file_extensions=None):
 		LoadedCodeFile.__init__(self, CODE_FILE_TYPE_JS_FILE, file_name, file_extensions)
 		Minifiable.__init__(self)
-		self.set_minification_function(jsmin)
+		#self.set_minification_function(jsmin)
+		self.set_minification_function_custom()
+
+	def perform_specific_minification(self, text):
+		"""TODO: document"""
+		#TODO: Refactor later.
+		with open('/quasar/generated_output/temp.txt', 'w') as f:
+			f.write(text)
+
+		cmd = BashCommandRunner([
+			'minify',
+			'--mangle',
+			'--simplify',
+			'--booleans',
+			'--builtIns',
+			'--consecutiveAdds',
+			'--deadcode',
+			'--evaluate',
+			'--flipComparisons',
+			'--infinity',
+			'--memberExpressions',
+			'--mergeVars',
+			'--numericLiterals',
+			'--propertyLiterals',
+			'--regexpConstructors',
+			'--removeConsole',
+			'--removeDebugger',
+			'--removeUndefined',
+			'--replace',
+			'--typeConstructors',
+			'--undefinedToVoid',
+			'/quasar/generated_output/temp.txt',
+			'-o',
+			'/quasar/generated_output/temp2.txt'
+		], require_input=True).run()
+
+		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temp2.txt')
+
+		return compressed_text
 
 
 class GeneratedJSFile(GeneratedCodeFile):

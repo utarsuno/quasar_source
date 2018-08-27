@@ -1,6 +1,8 @@
 #include "/quasar/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 #include "server_logic.h"
 
+#include <test.h>
+
 #include <stdio.h>
 #include <iostream>
 #include <thread>
@@ -9,6 +11,9 @@
 
 // "All event handlers are attached to a group and all sockets belong to exactly one group."
 NexusServer nexus;
+
+//
+MyTcpHandler MY_TEST;
 
 int mainOLD() {
     uWS::Hub h;
@@ -52,20 +57,44 @@ int mainOLD() {
     }
 }
 
+int run_rabbitmq() {
+
+    // address of the server
+    //AMQP::Address address("amqp://guest:guest@localhost/vhost");
+    AMQP::Address address("amqp://guest:guest@rabbit/vhost");
+    //AMQP::Address address("rabbit");
+
+    // create a AMQP connection object
+    AMQP::TcpConnection connection(&MY_TEST, address);
+
+    // and create a channel
+    AMQP::TcpChannel channel(&connection);
+
+    // use the channel object to call the AMQP method you like
+    channel.declareExchange("", AMQP::fanout);
+    channel.declareQueue("test");
+    channel.bindQueue("test", "test", "test");
+
+
+    return 0;
+}
+
 int main() {
 
     printf("START THREAD!\n");
-    fflush(stdout);
+    //fflush(stdout);
 
     std::thread thread_websocket (mainOLD);
+    std::thread thread_rabbitmq (run_rabbitmq);
 
-    printf("JOIN THREAD!\n");
-    fflush(stdout);
+    printf("JOIN THREADS!\n");
+    //fflush(stdout);
 
     thread_websocket.join();
+    thread_rabbitmq.join();
 
-    printf("FINISH thread!\n");
-    fflush(stdout);
+    printf("FINISH threads!\n");
+    //fflush(stdout);
 
     return 66;
 }

@@ -3,6 +3,7 @@
 """This module, project_component.py, provides an abstraction to discrete project components."""
 
 from libraries.universal_code import output_coloring as oc
+from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class ProjectComponent(object):
@@ -38,7 +39,10 @@ class ProjectComponent(object):
 
 	def add_base_code_directory(self, code_directory):
 		"""Adds a code directory to this project component."""
-		self._base_code_directories.append(code_directory)
+		if type(code_directory) == CodeDirectory:
+			self._base_code_directories.append(code_directory)
+		else:
+			self._base_code_directories.append(CodeDirectory(code_directory))
 
 	def add_tag(self, tag):
 		"""Adds a tag to this project component."""

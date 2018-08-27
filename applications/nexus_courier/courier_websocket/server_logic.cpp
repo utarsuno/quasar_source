@@ -42,3 +42,5 @@ ClientInstance * NexusServer::get_client_instance(uWS::WebSocket<uWS::SERVER> * 
     this->clients.push_back(client);
     return client;
 }
+
+// Temp

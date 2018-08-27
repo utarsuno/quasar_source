@@ -12,6 +12,7 @@ services:
       - PYTHONPATH=:/quasar
       - CODE_BUILDER_DB_PATH=/quasar/generated_output/local/code_builder/db.sqlite
       - DB_DEBUG=False
+      - LD_LIBRARY_PATH=/usr/lib/libamqpcpp.so.3.1
     tty: true
     volumes:
       - ./:/quasar

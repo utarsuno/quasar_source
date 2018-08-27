@@ -207,7 +207,6 @@ class JavascriptManager(object):
 		all_code.add_code_chunk(CodeChunk(combined_lines))
 
 		if self.engine.is_build_nexus_local:
-			#output_directory = CodeDirectory('/quasar/libraries/front_end/js/nexus/nexus')
 			output_directory = CodeDirectory('/quasar/generated_output/web_assets')
 		elif self.engine.is_build_quasar:
 			output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')

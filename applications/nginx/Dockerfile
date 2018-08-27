@@ -140,7 +140,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
 COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh "true"
+RUN ash /var/cache/quasar_application_setup_steps.sh "true" "null"
 # ------------------------------------------------------------------------------------------------------------------------------
 
 #COPY nginx.conf /etc/nginx/nginx.conf

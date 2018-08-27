@@ -9,6 +9,16 @@ RUN apk add --no-cache libc-dev \
  && apk add --no-cache zlib-dev \
  && apk add --no-cache jpeg-dev
 
+# C++ requirements.
+RUN apk add --no-cache build-base \
+# && apk add --no-cache libressl-dev \
+ && apk add --no-cache boost-dev \
+ && apk add --no-cache musl-dev
+
+RUN apk add --no-cache cmake
+
+RUN apk add libev-dev
+
 # Update pip3.
 RUN pip3 install --upgrade pip
  # Libraries for universal code.
@@ -19,9 +29,18 @@ RUN pip3 install --no-cache-dir lazyme \
  && pip3 install --no-cache-dir pillow \
  && pip3 install --no-cache-dir htmlmin
 
+RUN apk add linux-headers \
+ && apk add libtool \
+ && apk add libsodium-dev \
+ && apk add automake \
+ && apk add openssl-dev
+
+RUN apk add --update --no-cache nodejs \
+ && apk add --update --no-cache nodejs-npm
+
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
 COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh false
+RUN ash /var/cache/quasar_application_setup_steps.sh "false" minify
 # ------------------------------------------------------------------------------------------------------------------------------
 
-CMD ["python3", "/quasar/applications/code_builder/build_nexus_local.py"]
+CMD ["python3", "/quasar/applications/code_builder/layer_applications/nexus_local_builder.py"]

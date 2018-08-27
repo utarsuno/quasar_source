@@ -16,6 +16,8 @@ CODE_FILE_TYPE_ASSET_JPG       = 'JPG'
 CODE_FILE_TYPE_SHADER_FRAGMENT = 'frag'
 CODE_FILE_TYPE_SHADER_VERTEX   = 'vert'
 CODE_FILE_TYPE_DOCKER_FILE     = 'Dockerfile'
+CODE_FILE_TYPE_CPP             = 'C++'
+CODE_FILE_TYPE_HEADER_FILE     = 'Header'
 
 
 class CodeFile(object):

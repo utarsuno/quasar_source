@@ -11,15 +11,15 @@ if [ "$1" = "true" ]; then
     chmod 701 /assets
     chmod 701 /assets/third_party
 
-    ln -s /quasar/generated_output/web_assets/quasar_nexus.min.css    /assets/nl.min.css
-    ln -s /quasar/generated_output/web_assets/quasar_nexus.min.css.gz /assets/nl.min.css.gz
+    ln -s /quasar/generated_output/web_assets/nexus_local.min.css     /assets/nl.min.css
+    ln -s /quasar/generated_output/web_assets/nexus_local.min.css.gz  /assets/nl.min.css.gz
     ln -s /quasar/generated_output/web_assets/nexus_local.min.html    /assets/nl.min.html
     ln -s /quasar/generated_output/web_assets/nexus_local.min.html.gz /assets/nl.min.html.gz
     ln -s /quasar/generated_output/web_assets/nexus_local.min.js      /assets/nl.min.js
     ln -s /quasar/generated_output/web_assets/nexus_local.min.js.gz   /assets/nl.min.js.gz
 
-    ln -s /quasar/libraries/front_end/js/third_party/javascript_cookies/jcookie.js                 /assets/third_party/js.cookie.js
-    ln -s /quasar/libraries/front_end/js/third_party/javascript_cookies/jcookie.js.gz              /assets/third_party/js.cookie.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js                             /assets/third_party/cookie.js
+    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js.gz                          /assets/third_party/cookie.js.gz
     ln -s /quasar/libraries/front_end/js/third_party/three.min.js                                  /assets/third_party/three.min.js
     ln -s /quasar/libraries/front_end/js/third_party/three.min.js.gz                               /assets/third_party/three.min.js.gz
     ln -s /quasar/libraries/front_end/js/third_party/graphics/shaders/CopyShader.js                /assets/third_party/CopyShader.js
@@ -43,6 +43,11 @@ if [ "$1" = "true" ]; then
     ln -s /quasar/assets/front_end/favicon/favicon.png /assets/favicon.png
 fi
 
+if [ "$2" = "minify" ]; then
+    cd /usr/lib;
+    npm install babel-minify --save-dev
+fi
+
 rm -rf /var/cache/apk/*
 rm -rf /root/.cache/pip/*
 rm /var/cache/quasar_application_setup_steps.sh
@@ -56,6 +61,6 @@ rm /var/cache/quasar_application_setup_steps.sh
 # \__, \__/ |     |     |    /~~\ .__/  |  |___    | | \|  |  \__/    |    | |___ |___
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
 #COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-#RUN ash /var/cache/quasar_application_setup_steps.sh {true or false: to link assets}
+#RUN ash /var/cache/quasar_application_setup_steps.sh {true or false: to link assets} {other library name or null}
 # ------------------------------------------------------------------------------------------------------------------------------
 

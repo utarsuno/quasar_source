@@ -13,28 +13,30 @@ from libraries.code_api.source_file_abstraction.code_files.asset_file import JPG
 from libraries.code_api.source_file_abstraction.code_files.asset_file import PNGFile
 from libraries.code_api.source_file_abstraction.code_files.asset_file import ShaderFragmentFile
 from libraries.code_api.source_file_abstraction.code_files.asset_file import ShaderVertexFile
+from libraries.code_api.source_file_abstraction.code_files.c_branches.header_file import HeaderFile
+from libraries.code_api.source_file_abstraction.code_files.c_branches.cpp_file import CPPFile
 
+
+_FILE_EXTENSION_TO_FILE_CLASS_MAPPING = {
+	'.css': LoadedCSSFile,
+	'.html': LoadedHTMLFile,
+	'.js': LoadedJSFile,
+	'.png': PNGFile,
+	'.jpg': JPGFile,
+	'.frag': ShaderFragmentFile,
+	'.vert': ShaderVertexFile,
+	'.cpp': CPPFile,
+	'.h': HeaderFile,
+}
 
 def get_code_file_type_from_file_extensions(combined_extensions):
 	"""Returns the code file determined from the provided file extensions."""
-	if '.css' in combined_extensions:
-		return LoadedCSSFile
-	if '.html' in combined_extensions:
-		return LoadedHTMLFile
-	if '.js' in combined_extensions:
-		return LoadedJSFile
-	if '.png' in combined_extensions:
-		return PNGFile
-	if '.jpg' in combined_extensions:
-		return JPGFile
-	if '.frag' in combined_extensions:
-		return ShaderFragmentFile
-	if '.vert' in combined_extensions:
-		return ShaderVertexFile
-	else:
-		print(combined_extensions)
-		print('TODODODO!@!!!!')
-		exit()
+	for key in _FILE_EXTENSION_TO_FILE_CLASS_MAPPING:
+		if key in combined_extensions:
+			return _FILE_EXTENSION_TO_FILE_CLASS_MAPPING[key]
+	print(combined_extensions)
+	print('TOODOOO!@!!!!')
+	exit()
 
 
 class CodeDirectory(object):

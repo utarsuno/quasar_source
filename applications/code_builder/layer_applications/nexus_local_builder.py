@@ -9,16 +9,13 @@ from libraries.code_api.code_builder.build_step import BuildStep
 
 from applications.code_builder.layer_domain.nexus_local import nexus_local_builder_db as db
 
-
-from applications.code_builder import javascript_manager as jsm
+from applications.code_builder.layer_applications import javascript_manager as jsm
 
 
 class NexusLocalBuilder(object):
 	"""Builds NexusLocal."""
 
 	def __init__(self):
-		print('NEXUS LOCAL BUILDER!!!!')
-
 		self.db = db.NexusLocalBuilderDB()
 
 		self.is_build_nexus_local = True
@@ -55,20 +52,45 @@ class NexusLocalBuilder(object):
 		self.javascript_manager = jsm.JavascriptManager(self)
 		self.js = self.javascript_manager.load_all_content()
 
+		# Websocket server
+		self.web_server = ProjectComponent('nexus_local_websocket_server')
+		self.web_server.add_extensions_to_ignore(['', '.py'])
+		self.web_server.add_base_code_directory('/quasar/applications/nexus_courier')
+		self.web_server.load_all_content()
+
 		# Builds steps
 		self.build_steps.append(BuildStep('html', self._build_html))
 		self.build_steps.append(BuildStep('css', self._build_css))
 		self.build_steps.append(BuildStep('js_libs', self._build_js_libraries))
 		self.build_steps.append(BuildStep('js', self._build_js))
+		self.build_steps.append(BuildStep('web', self._build_websocket_server))
 
 	def build(self):
 		"""Builds Nexus Local."""
 		oc.print_ascii_yellow('building nexus local')
 
 		for step in self.build_steps:
-			step.run_step()
+			status = step.run_step()
+			if status is not None:
+				print('RETURNING {' + str(status) + '}')
+				return status
 
-		self.db.print_all_data()
+		#self.db.print_all_data()
+
+	def _build_websocket_server(self):
+		"""Builds the websocket server."""
+		any_file_updated = False
+		all_files = self.web_server.all_files
+		for f in all_files:
+			print('Looking at {' + str(f) + '}')
+			just_cached, needs_update = self.db.cache_file(f)
+			if just_cached or needs_update:
+				any_file_updated = True
+
+		if any_file_updated:
+			print('BUILD WEBSOCKET SERVER!')
+			self.db.print_all_data()
+			return 222
 
 	def _build_css(self):
 		"""Builds the CSS files."""
@@ -90,9 +112,9 @@ class NexusLocalBuilder(object):
 	def _gzip(self, files):
 		"""Utility function."""
 		for f in files:
-			was_cached, needs_update = self.db.cache_file(f)
-			if not was_cached or needs_update:
-				if was_cached:
+			just_cached, needs_update = self.db.cache_file(f)
+			if just_cached or needs_update:
+				if just_cached:
 					oc.print_data(str(f) + ' was cached.')
 				else:
 					oc.print_data(str(f) + ' was updated.')
@@ -107,9 +129,9 @@ class NexusLocalBuilder(object):
 	def _minify_then_gzip(self, files, generated_files_path):
 		"""Utility function."""
 		for f in files:
-			was_cached, needs_update = self.db.cache_file(f)
-			if not was_cached or needs_update:
-				if was_cached:
+			just_cached, needs_update = self.db.cache_file(f)
+			if just_cached or needs_update:
+				if just_cached:
 					oc.print_data(str(f) + ' was cached.')
 				else:
 					oc.print_data(str(f) + ' was updated.')
@@ -125,4 +147,17 @@ class NexusLocalBuilder(object):
 					oc.print_data(str(f) + ' is already minified.')
 			else:
 				oc.print_data(str(f) + ' is already cached.')
+
+
+'''__   __   __     __  ___     ___      ___  __          __   __         ___
+  /__` /  ` |__) | |__)  |     |__  |\ |  |  |__) \ / __ |__) /  \ | |\ |  |
+  .__/ \__, |  \ | |     |     |___ | \|  |  |  \  |     |    \__/ | | \|  |  '''
+builder      = NexusLocalBuilder()
+build_status = builder.build()
+
+if build_status is None or build_status == 0:
+	exit(0)
+else:
+	exit(build_status)
+
 

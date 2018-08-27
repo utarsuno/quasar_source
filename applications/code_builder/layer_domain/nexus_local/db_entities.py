@@ -12,7 +12,6 @@ class DBEntityCodeProjectNexusLocal(db.DBEntityCodeProject, db.DBEntitySpecificI
 	def __init__(self):
 		db.DBEntityCodeProject.__init__(self, get_env('CODE_BUILDER_DB_PATH'), get_env('DB_DEBUG'))
 		db.DBEntitySpecificInstance.__init__(self, 'nexus_local')
-		#self.add_child(DBEntityMicroServiceNexusLocal(self))
 		self.instance_name = 'nexus_local'
 
 		self.files_project   = db.DBEntityProjectFile()
@@ -46,15 +45,15 @@ class DBEntityCodeProjectNexusLocal(db.DBEntityCodeProject, db.DBEntitySpecificI
 		if not self.files_project.is_cached(f.full_path):
 			pf_id = self.files_project.cache_file(f)
 			self.files_source.cache_file(f, pf_id)
-			return False, False
+			return True, False
 		else:
 			cached_md5sum = self.files_source.table.get_value('md5sum', 'sf_id', self.files_source.get_sf_id_from_pf_id(self.files_project.get_file_id_from_path(f.full_path)))
 			current_md5sum = f.md5sum
 			if cached_md5sum != current_md5sum:
 				self.files_source.update_md5sum(f, self.files_project.get_file_id_from_path(f.full_path))
 				self.files_project.update_file_size(f.full_path, f.file_size)
-				return True, True
-			return True, False
+				return False, True
+			return False, False
 
 
 class DBEntityMicroServiceNexusLocal(db.DBEntityMicroService, db.DBEntitySpecificInstance):
