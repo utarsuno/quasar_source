@@ -52,6 +52,9 @@ class BashCommandRunner(object):
 			output_stderr = output_stderr.decode('utf-8')
 			if len(output_stderr) > 0:
 				return False, output_stderr
+			else:
+				output_stdout = output_stdout.decode('utf-8')
+				return True, output_stdout
 		else:
 			output_stdout = output_stdout.decode('utf-8')
 			return True, output_stdout

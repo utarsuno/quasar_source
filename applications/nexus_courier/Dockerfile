@@ -32,6 +32,18 @@ RUN apk add --no-cache libc-dev \
 
 #RUN apk --update add --no-cache g++
 
+# Python3.
+RUN apk add --no-cache python3 && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools
+
+RUN pip3 install --no-cache-dir lazyme \
+ && pip3 install --no-cache-dir pika \
+ && pip3 install --no-cache-dir requests
+
+RUN apk add --no-cache libevent-dev
+
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
 COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
 RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
@@ -39,7 +51,8 @@ RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
 
 COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 
-CMD ["/quasar/generated_output/websocket_server/websocket_server"]
+#CMD ["/quasar/generated_output/websocket_server/websocket_server"]
+CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]
 #CMD ["sleep", "10m"]
 
 

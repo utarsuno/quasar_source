@@ -9,7 +9,8 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools
 
 RUN pip3 install --no-cache-dir lazyme \
- && pip3 install --no-cache-dir pika
+ && pip3 install --no-cache-dir pika \
+ && pip3 install --no-cache-dir requests
 
 
 
@@ -23,5 +24,5 @@ RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
 
 EXPOSE 5672/tcp 15672/tcp
 
-#CMD ["python3", "/quasar/applications/nexus_server/receive.py"]
-CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]
+CMD ["python3", "/quasar/applications/nexus_server/receive.py"]
+#CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]

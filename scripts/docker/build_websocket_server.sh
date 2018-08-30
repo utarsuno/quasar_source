@@ -27,7 +27,7 @@ Q_RABBITMQ=/quasar/applications/nexus_courier/courier_rabbitmq
 g++ -std=c++11 -O3 -I /usr/lib/ -I ${WEBSOCKET}src -I ${RABBITMQ}include -I ${Q_RABBITMQ} -shared -fPIC -pie Extensions.cpp Group.cpp Networking.cpp Hub.cpp Node.cpp WebSocket.cpp HTTPSocket.cpp Socket.cpp Epoll.cpp ${Q_WEBSOCKET}universal_defines.cpp ${Q_WEBSOCKET}client_instance.cpp ${Q_WEBSOCKET}server_logic.cpp ${Q_WEBSOCKET}websocket_server.cpp ${RABBITMQ}include/amqpcpp.h ${Q_RABBITMQ}/test.cpp -o /quasar/generated_output/websocket_server/websocket_server -lssl -lcrypto -lz -lpthread -lboost_system -s -lamqpcpp
 
 
-cp /usr/lib/libamqpcpp.so.3.1 /quasar/generated_output/libamqpcpp.so.3.1
+#cp /usr/lib/libamqpcpp.so.3.1 /quasar/generated_output/libamqpcpp.so.3.1
 
 #sleep 10000m
 

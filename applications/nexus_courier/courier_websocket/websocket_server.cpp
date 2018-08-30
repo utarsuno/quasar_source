@@ -13,7 +13,9 @@
 NexusServer nexus;
 
 //
-MyTcpHandler MY_TEST;
+//MyTcpHandler MY_TEST;
+//ConnHandler handler;
+
 
 int mainOLD() {
     uWS::Hub h;
@@ -57,24 +59,182 @@ int mainOLD() {
     }
 }
 
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/strand.hpp>
+#include <boost/asio/deadline_timer.hpp>
+
+#include <amqpcpp/libboostasio.h>
+
+/**
+ *  Main program
+ *  @return int
+ */
 int run_rabbitmq() {
+
+    // access to the boost asio handler
+    // note: we suggest use of 2 threads - normally one is fin (we are simply demonstrating thread safety).
+    boost::asio::io_service service(2);
+
+    // handler for libev
+    AMQP::LibBoostAsioHandler handler(service);
+
+    // make a connection
+    AMQP::TcpConnection connection(&handler, AMQP::Address("amqp://guest:guest@rabbit_host/"));
+
+    // we need a channel too
+    AMQP::TcpChannel channel(&connection);
+
+    /*
+    // create a temporary queue
+    channel.declareQueue("queue_nexus_courier", AMQP::autodelete + AMQP::durable).onSuccess([&connection](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+
+        // report the name of the temporary queue
+        std::cout << "declared queue " << name << std::endl;
+
+        // now we can close the connection
+        //connection.close();
+    });
+    */
+
+    channel.consume("queue_nexus_courier", AMQP::noack)
+        .onReceived
+        (
+            [](const AMQP::Message &msg, uint64_t tag, bool redelivered)
+            {
+                //std::cout << "Received: " << msg.body() << std::endl;
+                printf("The message is {%.*s}\n", msg.bodySize(), msg.body());
+            }
+        )
+        .onError([](const char * message) {
+            printf("ERROR OCCURED!! {%s}\n", message);
+        });
+
+    // run the handler
+    // a t the moment, one will need SIGINT to stop.  In time, should add signal handling through boost API.
+    service.run();
+}
+
+
+
+int run_rabbitmqOLD() {
+
+    // create an instance of your own connection handler
+    MyConnectionHandler myHandler;
+
+    // create a AMQP connection object
+    AMQP::Connection connection(&myHandler, AMQP::Login("guest","guest"), "rabbit_host");
+
+    // and create a channel
+    AMQP::Channel channel(&connection);
+
+    // use the channel object to call the AMQP method you like
+    channel.declareExchange("test", AMQP::fanout);
+    channel.declareQueue("test", AMQP::durable + AMQP::autodelete);
+    channel.bindQueue("test", "test", "test");
+
+
+
+
+
+
+
+    //auto *poll = EV_DEFAULT;
+
 
     // address of the server
     //AMQP::Address address("amqp://guest:guest@localhost/vhost");
-    AMQP::Address address("amqp://guest:guest@rabbit/vhost");
+    //AMQP::Address address("amqp://guest:guest@rabbit_host/vhost");
     //AMQP::Address address("rabbit");
 
+
+    /*
+
+    AMQP::TcpConnection connection(handler, AMQP::Address("amqp://rabbit_host/"));
+    AMQP::TcpChannel channel(&connection);
+    channel.onError([&handler](const char* message)
+        {
+            std::cout << "Channel error: " << message << std::endl;
+            handler.Stop();
+        });
+    channel.declareQueue("test", AMQP::autodelete + AMQP::durable)
+        .onSuccess
+        (
+            [&connection](const std::string &name,
+                          uint32_t messagecount,
+                          uint32_t consumercount)
+            {
+                std::cout << "Created queue: " << name << std::endl;
+            }
+        );
+    channel.consume("test", AMQP::noack)
+        .onReceived
+        (
+            [](const AMQP::Message &msg, uint64_t tag, bool redelivered)
+            {
+                std::cout << "Received: " << msg.message() << std::endl;
+            }
+        );
+    handler.Start();
+    std::cout << "Closing connection." << std::endl;
+    connection.close();
+
+    */
+
+
+
+    /*
+    AMQP::TcpConnection connection(handler, AMQP::Address("amqp://rabbit_host/"));
+    AMQP::TcpChannel channel(&connection);
+
+    // declare the queue
+    channel.declareQueue("test", AMQP::durable + AMQP::autodelete, arguments).onSuccess(callback);
+
+    // Define callbacks and start
+    auto messageCb = [&channel](
+            const AMQP::Message &message, uint64_t deliveryTag,
+            bool redelivered)
+    {
+        std::cout << "message received" << std::endl;
+        // acknowledge the message
+        channel.ack(deliveryTag);
+        processMessage(message.routingKey(), message.body());
+    };
+
+    // callback function that is called when the consume operation starts
+    auto startCb = [](const std::string &consumertag) {
+
+        std::cout << "consume operation started: " << consumertag << std::endl;
+    };
+
+    // callback function that is called when the consume operation failed
+    auto errorCb = [](const char *message) {
+
+        std::cout << "consume operation failed" << std::endl;
+    };
+
+    channel.consume("domoqueue")
+        .onReceived(messageCb)
+        .onSuccess(startCb)
+        .onError(errorCb);
+
+    // run the poll
+    ev_run(poll, 0);
+    */
+
+
+    /*
+
     // create a AMQP connection object
-    AMQP::TcpConnection connection(&MY_TEST, address);
+    AMQP::TcpConnection connection(&handler, address);
 
     // and create a channel
     AMQP::TcpChannel channel(&connection);
 
     // use the channel object to call the AMQP method you like
-    channel.declareExchange("", AMQP::fanout);
+    channel.declareExchange("", AMQP::topic);
     channel.declareQueue("test");
     channel.bindQueue("test", "test", "test");
-
+    */
 
     return 0;
 }

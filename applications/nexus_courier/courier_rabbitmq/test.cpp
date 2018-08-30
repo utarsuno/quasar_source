@@ -5,17 +5,36 @@
 
 
     /**
+     *  Method that is called by the AMQP library every time it has data
+     *  available that should be sent to RabbitMQ.
+     *  @param  connection  pointer to the main connection object
+     *  @param  data        memory buffer with the data that should be sent to RabbitMQ
+     *  @param  size        size of the buffer
+     */
+void MyConnectionHandler::onData(AMQP::Connection *connection, const char *data, size_t size)
+    {
+        printf("ON DATA! {%.*s}\n", size, data);
+        // @todo
+        //  Add your own implementation, for example by doing a call to the
+        //  send() system call. But be aware that the send() call may not
+        //  send all data at once, so you also need to take care of buffering
+        //  the bytes that could not immediately be sent, and try to send
+        //  them again when the socket becomes writable again
+    }
+
+    /**
      *  Method that is called by the AMQP library when the login attempt
      *  succeeded. After this method has been called, the connection is ready
      *  to use.
      *  @param  connection      The connection that can now be used
      */
-void MyTcpHandler::onConnected(AMQP::TcpConnection *connection) {
+void MyConnectionHandler::onConnected(AMQP::Connection *connection)
+    {
+    printf("ON CONNECTED!\n");
         // @todo
         //  add your own implementation, for example by creating a channel
         //  instance, and start publishing or consuming
-    printf("ON CONNECTED\n");
-}
+    }
 
     /**
      *  Method that is called by the AMQP library when a fatal error occurs
@@ -24,13 +43,14 @@ void MyTcpHandler::onConnected(AMQP::TcpConnection *connection) {
      *  @param  connection      The connection on which the error occured
      *  @param  message         A human readable error message
      */
-void MyTcpHandler::onError(AMQP::TcpConnection *connection, const char *message) {
-    printf("ON ERROR\n");
+void MyConnectionHandler::onError(AMQP::Connection *connection, const char *message)
+    {
+    printf("ON ERROR!\n");
         // @todo
         //  add your own implementation, for example by reporting the error
         //  to the user of your program, log the error, and destruct the
         //  connection object because it is no longer in a usable state
-}
+    }
 
     /**
      *  Method that is called when the connection was closed. This is the
@@ -39,30 +59,8 @@ void MyTcpHandler::onError(AMQP::TcpConnection *connection, const char *message)
      *
      *  @param  connection      The connection that was closed and that is now unusable
      */
-void MyTcpHandler::onClosed(AMQP::TcpConnection *connection) {
-    printf("ON CLOSED\n");
-}
+void MyConnectionHandler::onClosed(AMQP::Connection *connection) {
+    printf("ON CLOSED!\n");
 
-    /**
-     *  Method that is called by the AMQP-CPP library when it wants to interact
-     *  with the main event loop. The AMQP-CPP library is completely non-blocking,
-     *  and only make "write()" or "read()" system calls when it knows in advance
-     *  that these calls will not block. To register a filedescriptor in the
-     *  event loop, it calls this "monitor()" method with a filedescriptor and
-     *  flags telling whether the filedescriptor should be checked for readability
-     *  or writability.
-     *
-     *  @param  connection      The connection that wants to interact with the event loop
-     *  @param  fd              The filedescriptor that should be checked
-     *  @param  flags           Bitwise or of AMQP::readable and/or AMQP::writable
-     */
-void MyTcpHandler::monitor(AMQP::TcpConnection *connection, int fd, int flags) {
-    printf("ON MONITOR\n");
-        // @todo
-        //  add your own implementation, for example by adding the file
-        //  descriptor to the main application event loop (like the select() or
-        //  poll() loop). When the event loop reports that the descriptor becomes
-        //  readable and/or writable, it is up to you to inform the AMQP-CPP
-        //  library that the filedescriptor is active by calling the
-        //  connection->process(fd, flags) method.
+
 }

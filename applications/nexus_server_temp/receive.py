@@ -55,7 +55,7 @@ while i < 10:
     print(" [x] Sent 'Hello World!'")
 
 
-    time.sleep(2)
+    time.sleep(4)
     i += 1
 
 

@@ -3,24 +3,26 @@
 import pika
 
 import json
-
 import time
-
-print('SLEEPING!')
-time.sleep(15)
-print('SLEEP DONE')
+from scripts.docker.wait_for_rabbit_host import WaitForRabbitMQHost
 
 
-'''
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit'))
+wait = WaitForRabbitMQHost()
+wait.wait_for_connection()
 
 
-
+print('MAKING A CONNECTION!')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit_host'))
+print('CONNECTION MADE')
 channel = connection.channel()
 
-channel.queue_declare(queue='test')
+print('CHANNEL MADE!!')
 
+#channel.queue_declare(queue='exchange_nexus_courier', durable=True, auto_delete=True)
 
+print('QUEUE DECLARED')
+
+'''
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 
@@ -31,25 +33,8 @@ channel.basic_consume(callback,
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 
+
 '''
-
-
-
-
-print('MAKING A CONNECTION!')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit'))
-print('CONNECTION MADE')
-channel = connection.channel()
-
-print('CHANNEL MADE!!')
-
-channel.queue_declare(queue='test')
-
-print('QUEUE DECLARED')
-
-#channel.basic_publish(exchange='',
-#                      routing_key='hello',
-#                      body='Hello World!')
 
 
 message = {'cmd': 0, 'data': {'rid': 1, 'name': 'mah_entity-test'}, 'u': 'test'}
@@ -68,8 +53,8 @@ while i < 10:
     message2 = {'cmdTEST_TEST_TESTSET': i, 'username': 'test', 'mid': 0}
 
 
-    channel.basic_publish(exchange='',
-                      routing_key='test',
+    channel.basic_publish(exchange='exchange_nexus_courier',
+                      routing_key='routing_key',
                       body=json.dumps(message2),
                       properties=pika.BasicProperties(
                          delivery_mode = 2, # make message persistent
@@ -81,11 +66,9 @@ while i < 10:
     print(" [x] Sent 'Hello World!'")
 
 
-    time.sleep(2)
+    time.sleep(4)
     i += 1
 
 
 
 connection.close()
-
-
