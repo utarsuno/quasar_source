@@ -18,7 +18,7 @@ COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_applic
 RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
 # ------------------------------------------------------------------------------------------------------------------------------
 
-#CMD ["python3", "/quasar/applications/code_builder/layer_applications/nexus_local_builder.py"]
+#CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_builder.py"]
 #CMD ["echo", "HELLO_WORLD!"]
 
 EXPOSE 5672/tcp 15672/tcp

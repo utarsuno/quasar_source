@@ -4,13 +4,13 @@ version: '3.7'
 services:
 
   # Builds projects.
-  code_builder:
+  code_manager:
     build:
       context: .
-      dockerfile: ./applications/code_builder/Dockerfile
+      dockerfile: ./applications/code_manager/Dockerfile
     environment:
       - PYTHONPATH=:/quasar
-      - CODE_BUILDER_DB_PATH=/quasar/generated_output/local/code_builder/db.sqlite
+      - CODE_BUILDER_DB_PATH=/quasar/generated_output/local/code_manager/db.sqlite
       - DB_DEBUG=False
       - LD_LIBRARY_PATH=/usr/lib/libamqpcpp.so.3.1
     tty: true

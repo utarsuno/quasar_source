@@ -7,7 +7,7 @@ from libraries.universal_code import output_coloring as oc
 
 from libraries.universal_code import useful_file_operations as ufo
 
-from applications.code_builder.layer_domain.nexus_local import db_entities
+from applications.code_manager.layer_domain.nexus_local import db_entities
 
 
 class NexusLocalBuilderDB(object):

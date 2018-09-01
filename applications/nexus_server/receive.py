@@ -22,20 +22,23 @@ print('CHANNEL MADE!!')
 
 print('QUEUE DECLARED')
 
-'''
+
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 
 channel.basic_consume(callback,
-                      queue='test',
+                      queue='queue_nexus_server',
                       no_ack=False)
 
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 
 
-'''
 
+
+
+
+'''
 
 message = {'cmd': 0, 'data': {'rid': 1, 'name': 'mah_entity-test'}, 'u': 'test'}
 
@@ -72,3 +75,5 @@ while i < 10:
 
 
 connection.close()
+
+'''

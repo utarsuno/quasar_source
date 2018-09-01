@@ -7,9 +7,9 @@ from libraries.code_api.project_abstraction.project_component import ProjectComp
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from libraries.code_api.code_builder.build_step import BuildStep
 
-from applications.code_builder.layer_domain.nexus_local import nexus_local_builder_db as db
+from applications.code_manager.layer_domain.nexus_local import nexus_local_builder_db as db
 
-from applications.code_builder.layer_applications import javascript_manager as jsm
+from applications.code_manager.layer_applications import javascript_manager as jsm
 
 
 class NexusLocalBuilder(object):
@@ -89,7 +89,7 @@ class NexusLocalBuilder(object):
 
 		if any_file_updated:
 			print('BUILD WEBSOCKET SERVER!')
-			self.db.print_all_data()
+			#self.db.print_all_data()
 			return 222
 
 	def _build_css(self):

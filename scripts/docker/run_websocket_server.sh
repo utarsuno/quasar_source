@@ -14,3 +14,5 @@ python3 /quasar/scripts/docker/wait_for_rabbit_host.py;
 
 /quasar/generated_output/websocket_server/websocket_server;
 
+
+

@@ -1,5 +1,6 @@
 #ifndef CLIENT_INSTANCE
 #define CLIENT_INSTANCE
+
 #include "/quasar/generated_output/third_party_libraries/uWebSocketsv0_14_8/src/uWS.h"
 
 class ClientInstance {

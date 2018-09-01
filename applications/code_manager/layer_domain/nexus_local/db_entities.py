@@ -2,7 +2,7 @@
 
 """This module, html_file.py, represents a DB Entity (HTML file)_for NexusLocal."""
 
-from applications.code_builder.layer_domain.abstractions import db_entities_base as db
+from applications.code_manager.layer_domain.abstractions import db_entities_base as db
 from libraries.universal_code.system_abstraction.system_functions import get_system_environment as get_env
 
 
