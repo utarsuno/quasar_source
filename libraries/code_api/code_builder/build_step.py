@@ -20,7 +20,6 @@ class BuildStep(object):
 		timer = SimpleTimer()
 		timer.start()
 		output = self.function()
-		#oc.print_pink('\t' + html_prod.compression_statistics)
 		timer.stop()
 		oc.print_green('{' + self.name + '} finished in ' + str(timer))
 		return output

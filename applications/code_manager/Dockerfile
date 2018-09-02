@@ -38,6 +38,8 @@ RUN apk add linux-headers \
 RUN apk add --update --no-cache nodejs \
  && apk add --update --no-cache nodejs-npm
 
+RUN pip3 install --no-cache-dir requests
+
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
 COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
 RUN ash /var/cache/quasar_application_setup_steps.sh "false" minify

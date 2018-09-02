@@ -2,11 +2,12 @@
 
 """This module, column_abstraction.py, represents a column in a SQLite table."""
 
-_DATA_TYPE_NULL    = 'NULL'
-_DATA_TYPE_INTEGER = 'INTEGER'
-_DATA_TYPE_REAL    = 'REAL'
-_DATA_TYPE_TEXT    = 'TEXT'
-_DATA_TYPE_BLOB    = 'BLOB'
+_DATA_TYPE_NULL     = 'NULL'
+_DATA_TYPE_INTEGER  = 'INTEGER'
+_DATA_TYPE_REAL     = 'REAL'
+_DATA_TYPE_TEXT     = 'TEXT'
+_DATA_TYPE_BLOB     = 'BLOB'
+_DATA_TYPE_DATETIME = 'DATETIME'
 
 
 class ColumnAbstraction(object):
@@ -86,7 +87,7 @@ class ColumnAbstraction(object):
 	def get_utility_sql_create_statement(self):
 		"""Gets a utility string for constructing SQL statements."""
 		if self._is_foreign_key:
-			return '\t' + self._name + ' ' + self._foreign_key_reference.table_instance.primary_key.data_type + ',\n\tFOREIGN KEY(' + self._name + ') REFERENCES ' + self._foreign_key_reference.table_instance.name + '(' + self._name + '),\n'
+			return '\t' + self._name + ' ' + self._foreign_key_reference.table_instance.primary_key.data_type + ',\n\tFOREIGN KEY(' + self._name + ') REFERENCES ' + self._foreign_key_reference.table_instance.name + '(' + self._name + ') ON DELETE CASCADE,\n'
 		sql = '\t' + self._name + ' ' + self._data_type
 		if self._is_primary_key:
 			sql += ' PRIMARY KEY'
@@ -123,6 +124,12 @@ class ColumnAbstractionTEXT(ColumnAbstraction):
 	"""Represents a TEXT column in an SQLite table."""
 	def __init__(self, column_name):
 		super().__init__(column_name, _DATA_TYPE_TEXT)
+
+
+class ColumnAbstractionDATETIME(ColumnAbstraction):
+	"""Represents a DATETIME column in an SQLite table."""
+	def __init__(self, column_name):
+		super().__init__(column_name, _DATA_TYPE_DATETIME)
 
 
 class ColumnAbstractionBLOB(ColumnAbstraction):

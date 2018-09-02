@@ -51,6 +51,8 @@ class NexusLocalBuilderDB(object):
 			n = n[:6]
 		return n + '%'
 
+	#TODO: Re-create this function.
+	'''
 	def print_all_dataOLD(self):
 		"""Prints all the data."""
 		rows = self.table_cache.get_all_rows(with_row_id=True)
@@ -74,6 +76,7 @@ class NexusLocalBuilderDB(object):
 				reduction += ' - {' + str(gzipped_size) + '}[' + self._get_percentage(gzipped_size, file_size) + ']'
 
 			oc.print_data('File{' + file_name + '} - {' + str(file_size) + '}' + reduction)
+	'''
 
 	def print_all_data(self):
 		"""Utility function."""
@@ -93,3 +96,4 @@ class NexusLocalBuilderDB(object):
 		rows = self.project.files_project.table.get_all_rows()
 		for r in rows:
 			print(r)
+
