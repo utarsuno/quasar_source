@@ -2,8 +2,8 @@
 
 """This module, db_entities_base.py, provides base abstractions for DB entities (tables + logic)."""
 
-from libraries.database_api.sql_databases.sqlite import sqlite_db
-from libraries.database_api.sql_databases.sqlite import table_abstraction as table
+from libraries.database_abstraction.sql.sqlite import sqlite_db
+from libraries.database_abstraction.sql.sqlite import table_abstraction as table
 from libraries.universal_code import debugging as dbg
 
 

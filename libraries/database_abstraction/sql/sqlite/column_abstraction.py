@@ -8,18 +8,19 @@ _DATA_TYPE_REAL     = 'REAL'
 _DATA_TYPE_TEXT     = 'TEXT'
 _DATA_TYPE_BLOB     = 'BLOB'
 _DATA_TYPE_DATETIME = 'DATETIME'
+_DATA_TYPE_BOOLEAN  = 'BOOLEAN'
 
 
 class ColumnAbstraction(object):
 	"""Represents a column in a SQLite table."""
 
-	def __init__(self, name, data_type, is_primary_key=False, is_nullable=False, is_unique=False, is_foreign_key=False, foreign_key_reference=None):
+	def __init__(self, name, data_type, primary_key=False, nullable=False, unique=False, foreign_key_reference=None, indexed=False):
 		self._name                  = name
 		self._data_type             = data_type
-		self._is_primary_key        = is_primary_key
-		self._is_nullable           = is_nullable
-		self._is_unique             = is_unique
-		self._is_foreign_key        = is_foreign_key
+		self._primary_key           = primary_key
+		self._nullable              = nullable
+		self._unique                = unique
+		self._indexed               = indexed
 		self._foreign_key_reference = foreign_key_reference
 
 		self.table_instance         = None
@@ -39,6 +40,11 @@ class ColumnAbstraction(object):
 		"""Returns the foreign key reference."""
 		return self._foreign_key_reference
 
+	@property
+	def indexed(self):
+		"""Returns a boolean indicating if this column is indexed."""
+		return self._indexed
+
 	@foreign_key_reference.setter
 	def foreign_key_reference(self, fkr):
 		"""Sets the foreign key reference."""
@@ -47,53 +53,53 @@ class ColumnAbstraction(object):
 	@property
 	def foreign_key(self) -> bool:
 		"""Returns a boolean indicating if this data type is a foreign key or not."""
-		return self._is_foreign_key
+		return self._foreign_key_reference is not None
 
 	@property
 	def primary_key(self) -> bool:
 		"""Returns a boolean indicating if this data type is a primary key or not."""
-		return self._is_primary_key
+		return self._primary_key
 
 	@property
 	def nullable(self) -> bool:
 		"""Returns a boolean indicating if this data type is nullable or not."""
-		return self._is_nullable
+		return self._nullable
 
 	@property
 	def unique(self) -> bool:
 		"""Returns a boolean indicating if this data type is unique or not."""
-		return self._is_unique
-
-	@foreign_key.setter
-	def foreign_key(self, b) -> bool:
-		"""Sets if this column is a foreign key."""
-		self._is_foreign_key = b
+		return self._unique
 
 	@primary_key.setter
 	def primary_key(self, b):
 		"""Sets if this column is a primary key."""
-		self._is_primary_key = b
+		self._primary_key = b
 
 	@nullable.setter
 	def nullable(self, b):
 		"""Sets if this column is nullable."""
-		self._is_nullable = b
+		self._nullable = b
+
+	@indexed.setter
+	def indexed(self, i):
+		"""Sets this column if it should be indexed or not."""
+		self._indexed = i
 
 	@unique.setter
 	def unique(self, b):
 		"""Sets if this column can be unique."""
-		self._is_unique = b
+		self._unique = b
 
 	def get_utility_sql_create_statement(self):
 		"""Gets a utility string for constructing SQL statements."""
-		if self._is_foreign_key:
+		if self.foreign_key:
 			return '\t' + self._name + ' ' + self._foreign_key_reference.table_instance.primary_key.data_type + ',\n\tFOREIGN KEY(' + self._name + ') REFERENCES ' + self._foreign_key_reference.table_instance.name + '(' + self._name + ') ON DELETE CASCADE,\n'
 		sql = '\t' + self._name + ' ' + self._data_type
-		if self._is_primary_key:
+		if self._primary_key:
 			sql += ' PRIMARY KEY'
-		if not self._is_nullable:
+		if not self._nullable:
 			sql += ' NOT NULL'
-		if self._is_unique:
+		if self._unique:
 			sql += ' UNIQUE'
 		return sql + ',\n'
 
@@ -103,45 +109,50 @@ class ColumnAbstraction(object):
 
 class ColumnAbstractionINTEGER(ColumnAbstraction):
 	"""Represents an integer column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_INTEGER)
-		self.nullable = True
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_INTEGER, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionNULL(ColumnAbstraction):
 	"""Represents a NULL column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_NULL)
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_NULL, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionREAL(ColumnAbstraction):
 	"""Represents a REAL column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_REAL)
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_REAL, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionTEXT(ColumnAbstraction):
 	"""Represents a TEXT column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_TEXT)
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_TEXT, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionDATETIME(ColumnAbstraction):
 	"""Represents a DATETIME column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_DATETIME)
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_DATETIME, nullable=nullable, unique=unique, indexed=indexed)
+
+
+class ColumnAbstractionBOOLEAN(ColumnAbstraction):
+	"""Represents a BOOLEAN column in an SQLite table."""
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_BOOLEAN, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionBLOB(ColumnAbstraction):
 	"""Represents a BLOB column in an SQLite table."""
-	def __init__(self, column_name):
-		super().__init__(column_name, _DATA_TYPE_BLOB)
+	def __init__(self, column_name, nullable=False, unique=False, indexed=False):
+		super().__init__(column_name, _DATA_TYPE_BLOB, nullable=nullable, unique=unique, indexed=indexed)
 
 
 class ColumnAbstractionRowIDAlias(ColumnAbstractionINTEGER):
 	"""Represents a column in a SQLite table which acts as an alias to the ROW_ID."""
-	def __init__(self, column_name, table_instance):
-		super().__init__(column_name)
+	def __init__(self, table_instance):
+		super().__init__(table_instance.name_id)
 		self.primary_key    = True
 		self.table_instance = table_instance
 
@@ -150,5 +161,4 @@ class ColumnAbstractionForeignKey(ColumnAbstraction):
 	"""Represents a column in a SQLite table which is a foreign key."""
 	def __init__(self, column_reference):
 		super().__init__(column_reference.name, None)
-		self.foreign_key           = True
 		self.foreign_key_reference = column_reference

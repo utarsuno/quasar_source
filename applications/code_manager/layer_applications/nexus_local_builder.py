@@ -13,4 +13,5 @@ print('HELLO WORLD, NEXUS_LOCAL BUILDER!')
 
 db = DBDomainNexusLocal(get_env('CODE_BUILDER_DB_PATH'), get_env('DB_DEBUG'))
 db.load()
-db.run_needed_build_processes()
+db.run_needed_code_processes()
+

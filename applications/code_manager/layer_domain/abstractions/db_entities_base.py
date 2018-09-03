@@ -2,8 +2,8 @@
 
 """This module, db_entities_base.py, provides base abstractions for DB entities (tables + logic)."""
 
-from libraries.database_api.sql_databases.sqlite import sqlite_db
-from libraries.database_api.sql_databases.sqlite import table_abstraction as table
+from libraries.database_abstraction.sql.sqlite import sqlite_db
+from libraries.database_abstraction.sql.sqlite import table_abstraction as table
 from libraries.universal_code import debugging as dbg
 
 
@@ -108,8 +108,8 @@ class DBEntityCodeProject(DBEntity):
 		self._db             = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
 
-		self._table.add_column_standard_string('name')
-		self._table.add_column_row_id_alias('p_id')
+		self._table.add_column_string('name')
+		self._table.add_column_row_id_alias()
 
 
 class DBEntityMicroService(DBEntity):
@@ -117,26 +117,26 @@ class DBEntityMicroService(DBEntity):
 
 	def __init__(self, parent_code_project):
 		DBEntity.__init__(self, 'micro_services', parent_code_project)
-		self._table.add_column_standard_string('name')
-		self._table.add_column_row_id_alias('ms_id')
+		self._table.add_column_string('name')
+		self._table.add_column_row_id_alias()
 
 
-class DBEntityBuildProcess(DBEntity):
-	"""Represents a build process belonging to a micro-service."""
+class DBEntityCodeProcess(DBEntity):
+	"""Represents a code process belonging to a micro-service."""
 
 	def __init__(self, parent_micro_service):
 		DBEntity.__init__(self, 'micro_services', parent_micro_service)
-		self._table.add_column_standard_string('name')
-		self._table.add_column_row_id_alias('bp_id')
+		self._table.add_column_string('name')
+		self._table.add_column_row_id_alias()
 
 
-class DBEntitySubBuildProcess(DBEntity):
+class DBEntitySubCodeProcess(DBEntity):
 	"""Represents a sub build process belonging to a build process."""
 
 	def __init__(self, parent_build_process):
 		DBEntity.__init__(self, 'sub_build_processes', parent_build_process)
-		self._table.add_column_standard_string('name')
-		self._table.add_column_row_id_alias('sbp_id')
+		self._table.add_column_string('name')
+		self._table.add_column_row_id_alias()
 
 
 class DBEntitySourceFile(DBEntity):
@@ -144,8 +144,8 @@ class DBEntitySourceFile(DBEntity):
 
 	def __init__(self, project_files):
 		DBEntity.__init__(self, 'source_files', project_files)
-		self._table.add_column_row_id_alias('sf_id')
-		self._table.add_column_standard_integer('md5sum')
+		self._table.add_column_row_id_alias()
+		self._table.add_column_integer('md5sum')
 
 	def cache_file(self, f, pf_id):
 		"""Caches the provided file."""
@@ -169,9 +169,9 @@ class DBEntityGeneratedFile(DBEntity):
 
 	def __init__(self, project_files):
 		DBEntity.__init__(self, 'generated_files', project_files)
-		self._table.add_column_row_id_alias('gf_id')
-		self._table.add_column_standard_integer('parent_key')
-		self._table.add_column_standard_integer('parent_is_generated')
+		self._table.add_column_row_id_alias()
+		self._table.add_column_integer('parent_key')
+		self._table.add_column_integer('parent_is_generated')
 
 	def cache_file(self, pf_id, parent_file_id, parent_is_generated):
 		"""Caches the generated file."""
@@ -195,9 +195,9 @@ class DBEntityProjectFile(DBEntity):
 
 	def __init__(self):
 		DBEntity.__init__(self, 'project_files_metadata')
-		self._table.add_column_row_id_alias('pf_id')
-		self._table.add_column_standard_string('full_path')
-		self._table.add_column_standard_integer('size')
+		self._table.add_column_row_id_alias()
+		self._table.add_column_string('full_path')
+		self._table.add_column_integer('size')
 
 	def is_cached(self, full_path):
 		"""Checks if the file provided is cached."""

@@ -3,16 +3,19 @@
 """This module, db_entities_base.py, provides base abstractions for DB entities (tables + logic)."""
 
 from applications.code_manager.layer_domain.domains import db_domain
-#from applications.code_manager.layer_domain.db_entities import db_entities_nexus_local as entities_nexus
-#from applications.code_manager.layer_domain.db_entities import db_entities as entities
-from applications.code_manager.layer_applications.build_processes import build_process_threejs
+from applications.code_manager.layer_domain.entities import entities_db
+from applications.code_manager.layer_applications.code_processes import code_process_threejs
 
 
-CODE_PROJECT_NEXUS_LOCAL = 'nexus_local'
-APPLICATION_MQTT         = 'mqtt'
-APPLICATION_NGINX        = 'nginx'
-LIBRARY_MQTT             = 'mqtt'
-LIBRARY_THREE_JS         = 'threejs'
+PROJECT_NEXUS_LOCAL    = 'nexus_local'
+
+APPLICATION_MQTT       = 'mqtt'
+APPLICATION_NGINX      = 'nginx'
+
+LIBRARY_MQTT           = 'mqtt'
+LIBRARY_THREE_JS       = 'threejs'
+
+CODE_PROCESS_THREE_JS  = 'threejs'
 
 
 class DBDomainNexusLocal(db_domain.DBDomain):
@@ -21,37 +24,39 @@ class DBDomainNexusLocal(db_domain.DBDomain):
 	def __init__(self, db_location, debug_on=False):
 		super().__init__(db_location, debug_on)
 
-		self.nexus_local          = self.add_project(CODE_PROJECT_NEXUS_LOCAL)
+		# Code project (loads needed applications which load their needed libraries).
+		self._nexus_local()
 
-		self.app_mqtt             = self.add_application(APPLICATION_MQTT, CODE_PROJECT_NEXUS_LOCAL)
-		self.app_nginx            = self.add_application(APPLICATION_NGINX, CODE_PROJECT_NEXUS_LOCAL)
+	def _nexus_local(self):
+		"""Utility function."""
+		self.nexus_local = self.add_project(PROJECT_NEXUS_LOCAL)
+		self._mqtt()
+		self._nginx()
 
-		self.lib_mqtt             = self.add_library(LIBRARY_MQTT, APPLICATION_MQTT)
-		self.lib_threejs          = self.add_library(LIBRARY_THREE_JS, APPLICATION_NGINX)
+	def _mqtt(self):
+		"""Utility function."""
+		self.app_mqtt = self.add_application(APPLICATION_MQTT, PROJECT_NEXUS_LOCAL)
+		self.lib_mqtt = self.add_library(entities_db.util_get_library_data(
+			LIBRARY_MQTT, None,
+			'/quasar/generated_output/third_party_libraries/utt/',
+			True, 'https://github.com/uNetworking/uTT', None
+		), APPLICATION_MQTT)
 
-		_lib_third_party_mqtt = {
-			'name'           : LIBRARY_MQTT,
-			'git_repo_url'   : 'https://github.com/uNetworking/uTT',
-			'path_to_library': '/quasar/generated_output/third_party_libraries/utt/uTT',
-			'last_checked'   : 'NULL',
-			'cached_version' : 'NULL'
-		}
-		self.lib_third_party_mqtt = self.add_library_third_party(_lib_third_party_mqtt, LIBRARY_MQTT)
+	def _nginx(self):
+		"""Utility function."""
+		self.app_nginx = self.add_application(APPLICATION_NGINX, PROJECT_NEXUS_LOCAL)
+		self._threejs()
 
-		_lib_third_party_threejs = {
-			'name'           : LIBRARY_THREE_JS,
-			'git_repo_url'   : 'https://github.com/mrdoob/three.js',
-			'path_to_library': '/quasar/generated_output/third_party_libraries/three_js',
-			'last_checked'   : 'NULL',
-			'cached_version' : 'NULL'
-		}
-		self.lib_third_party_threejs = self.add_library_third_party(_lib_third_party_threejs, LIBRARY_THREE_JS)
-		self.lib_third_party_threejs.set_cache_checker(build_process_threejs.BuildProcessThreeJS())
+	def _threejs(self):
+		"""Utility function."""
+		self.lib_threejs = self.add_library(entities_db.util_get_library_data(
+			LIBRARY_THREE_JS, None,
+			'/quasar/generated_output/third_party_libraries/three_js/',
+			True, 'https://github.com/mrdoob/three.js', None
+		), APPLICATION_NGINX)
 
-	def run_needed_build_processes(self):
-		"""Runs all build processes that are not cached or need to be updated."""
-		print('RUN NEEDED BUILD PROCESSES!!!')
-
+		self.code_process_threejs = self.add_code_process('Three.js', 'CodeProcessThreeJS', self.lib_threejs)
+		self.code_process_threejs.set_process(code_process_threejs.CodeProcessThreeJS)
 
 
 

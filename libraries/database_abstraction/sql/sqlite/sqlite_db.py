@@ -2,8 +2,8 @@
 
 """This module, sqlite_db.py, provides an abstraction to accessing a local sqlite_db."""
 
-from libraries.database_api.sql_databases.sqlite import table_abstraction
-from libraries.database_api.sql_databases.sql_query_abstraction import sql_query as sql
+from libraries.database_abstraction.sql.sqlite import table_abstraction
+from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
 import sqlite3
 
 
@@ -18,8 +18,8 @@ class SQLiteDB(object):
 		self._tables       = []
 
 		self._all_tables   = table_abstraction.TableAbstraction('all_tables')
-		self._all_tables.add_column_standard_string('name', unique=True)
-		self._all_tables.add_column_row_id_alias(self._all_tables.name_id)
+		self._all_tables.add_column_string('name', unique=True)
+		self._all_tables.add_column_row_id_alias() # self._all_tables.name_id
 		self._all_tables.set_db(self)
 
 	def connect(self):
@@ -44,27 +44,11 @@ class SQLiteDB(object):
 
 	def ensure_many_to_many(self, base_table, linked_table):
 		"""Ensure a many-to-many relationship table exists for the provided tables."""
-		table_name = base_table.name + '_to_' + linked_table.name
-		#print('MANY TO MANY TABLE: ' + table_name)
 		table = table_abstraction.TableAbstraction(base_table.name + '_to_' + linked_table.name)
 		table.add_column_foreign_key(base_table.primary_key)
 		table.add_column_foreign_key(linked_table.primary_key)
 		self.add_table(table)
-
 		table.create()
-
-		#self._many_to_many[base_table.name] = linked_table.name
-
-		#return table
-
-		# Create a trigger to insert the linked ids.
-		#insert = sql.SQLQuery().INSERT(table_name, table.get_column_string(), table.get_values_string({
-		#	base_table.name_id: base_table.name,
-		#
-		#}))
-		#query = sql.SQLQuery().CREATE_TRIGGER('trigger_' + table_name)
-
-		#table.insert_if_does_not_exist()
 
 	def create_tables(self):
 		"""Loads the tables into memory."""
@@ -78,9 +62,10 @@ class SQLiteDB(object):
 	def execute_query(self, query):
 		"""Executes a query."""
 		if self._debug:
-			#print('Executing the following query \n--------------------------------------------------\n' + str(query) + '\n--------------------------------------------------')
-			print('Executing the following query \n--------------------------------------------------')
-			print(str(query) + '\n--------------------------------------------------')
+			print('Executing the following query')
+			print('--------------------------------------------------')
+			print(str(query))
+			print('--------------------------------------------------')
 		self._cursor.execute(str(query))
 		results = self._cursor.fetchall()
 
@@ -89,13 +74,20 @@ class SQLiteDB(object):
 
 		#if query.is_insert_into_table():
 
-
 		if query.boolean_response:
 			return len(results) != 0
 		elif query.single_response:
 			if len(results) == 0:
 				return None
 			return results[0][0]
+		#elif query.rows_response:
+		#	if len(results) == 0:
+		#		return []
+		#	print(results)
+		#	print(results[0])
+		#	print(type(results[0]))
+		#	print(list(results[0]))
+		#	return results[0]
 
 		return results
 

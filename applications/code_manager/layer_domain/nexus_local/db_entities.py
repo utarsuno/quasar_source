@@ -68,11 +68,11 @@ class DBEntityMicroServiceNexusLocal(db.DBEntityMicroService, db.DBEntitySpecifi
 		self.ensure_self_row_exists()
 
 
-class DBEntityBuildProcessNexusLocalFrontEnd(db.DBEntityBuildProcess, db.DBEntitySpecificInstance):
+class DBEntityBuildProcessNexusLocalFrontEnd(db.DBEntityCodeProcess, db.DBEntitySpecificInstance):
 	"""Represents the build process for Nexus Local front end."""
 
 	def __init__(self, parent_micro_service):
-		db.DBEntityBuildProcess.__init__(self, parent_micro_service)
+		db.DBEntityCodeProcess.__init__(self, parent_micro_service)
 		db.DBEntitySpecificInstance.__init__(self, 'front_end')
 
 	def ensure_data(self):
@@ -81,11 +81,11 @@ class DBEntityBuildProcessNexusLocalFrontEnd(db.DBEntityBuildProcess, db.DBEntit
 
 
 # TODO:
-class DBEntitySubBuildProcessNexusLocalFrontEndHTML(db.DBEntitySubBuildProcess, db.DBEntitySpecificInstance):
+class DBEntitySubCodeProcessNexusLocalFrontEndHTML(db.DBEntitySubBuildProcess, db.DBEntitySpecificInstance):
 	"""Represents the sub build process for Nexus Local front end HTML."""
 
 	def __init__(self, parent_build_process):
-		db.DBEntitySubBuildProcess.__init__(self, parent_build_process)
+		db.DBEntitySubCodeProcess.__init__(self, parent_build_process)
 		db.DBEntitySpecificInstance.__init__(self, 'front_end_HTML')
 
 	def ensure_data(self):

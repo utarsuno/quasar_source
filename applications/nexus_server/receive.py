@@ -12,7 +12,7 @@ wait.wait_for_connection()
 
 
 print('MAKING A CONNECTION!')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit_host'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit_manager'))
 print('CONNECTION MADE')
 channel = connection.channel()
 

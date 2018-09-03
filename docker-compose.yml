@@ -18,17 +18,17 @@ services:
       - websocket
 
   # RabbitMQ broker.
-  rabbit_host:
+  rabbit_manager:
     build:
       context: .
-      dockerfile: ./applications/rabbitmq_host/Dockerfile
+      dockerfile: ./applications/rabbitmq_manager/Dockerfile
     tty: true
     environment:
       RABBITMQ_ERLANG_COOKIE: "secret string"
-      RABBITMQ_NODENAME: rabbit_host
+      RABBITMQ_NODENAME: rabbit_manager
     volumes:
-      - "./applications/rabbitmq_host/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_host/definitions.json:/etc/rabbitmq/definitions.json"
+      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
+      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -41,14 +41,14 @@ services:
     tty: true
     hostname: rabbit2
     depends_on:
-      - rabbit_host
+      - rabbit_manager
     environment:
       - PYTHONPATH=:/quasar
       - RABBITMQ_ERLANG_COOKIE="secret string"
       - RABBITMQ_NODENAME=rabbit2
     volumes:
-      - "./applications/rabbitmq_host/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_host/definitions.json:/etc/rabbitmq/definitions.json"
+      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
+      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
       - ./:/quasar
 
   websocket:
@@ -62,7 +62,7 @@ services:
     tty: true
     hostname: websocket
     depends_on:
-      - rabbit_host
+      - rabbit_manager
     #depends_on:
     #  - rabbit_host
     #networks:
@@ -70,8 +70,8 @@ services:
     #ports:
     #  - "3001:3001"
     volumes:
-      - "./applications/rabbitmq_host/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
-      - "./applications/rabbitmq_host/definitions.json:/etc/rabbitmq/definitions.json"
+      - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
+      - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
       - ./:/quasar
     #depends_on:
     #  - nginx

@@ -7,7 +7,7 @@ CourierWebsocket * websockets;
 
 int main() {
 
-    rabbitmq   = new CourierRabbitMQ("amqp://guest:guest@rabbit_host/", "queue_nexus_courier");
+    rabbitmq   = new CourierRabbitMQ("amqp://guest:guest@rabbit_manager/", "queue_nexus_courier");
     websockets = new CourierWebsocket(3001);
 
     websockets->set_reference_rabbitmq(rabbitmq);

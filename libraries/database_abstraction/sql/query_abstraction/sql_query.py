@@ -8,12 +8,22 @@ from libraries.universal_code import debugging as dbg
 def sql_safe(value):
 	"""Ensures strings are wrapped in quotes."""
 	if type(value) == str:
-		return "'" + value + "'"
+		if value == 'NULL':
+			return value
+		else:
+			return "'" + value + "'"
+	elif type(value) == bool:
+		if value:
+			value = 1
+		else:
+			value = 0
+	elif value is None:
+		return 'NULL'
 	return str(value)
 
 
-class SQLQuery(object):
-	"""Represents an SQL Query string."""
+class Query(object):
+	"""Represents a SQL Query string."""
 	
 	def __init__(self, save_changes=False, boolean_response=False, single_response=False, rows_response=False):
 		self._sql                = ''
@@ -168,6 +178,11 @@ class SQLQuery(object):
 		return self._single_response
 
 	@property
+	def rows_response(self):
+		"""Returns a boolean indicating if the database should return a list of rows as a response to this query."""
+		return self._rows_response
+
+	@property
 	def table_name(self):
 		"""Returns the table name assigned to this SQL query."""
 		return self._table_name
@@ -176,21 +191,21 @@ class SQLQuery(object):
 		return self._sql
 
 
-class SQLQueryBooleanResponse(SQLQuery):
+class QueryBooleanResponse(Query):
 	"""Represents an SQL Query string which returns a boolean response."""
 
 	def __init__(self):
 		super().__init__(False, True, False, False)
 
 
-class SQLQuerySingleResponse(SQLQuery):
+class QuerySingleResponse(Query):
 	"""Represents an SQL Query string which returns a boolean response."""
 
 	def __init__(self):
 		super().__init__(False, False, True, False)
 
 
-class SQLQueryRowsResponse(SQLQuery):
+class QueryRowsResponse(Query):
 	"""Represents an SQL Query string which returns a boolean response."""
 
 	def __init__(self):

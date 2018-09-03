@@ -5,7 +5,7 @@
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.project_abstraction.project_component import ProjectComponent
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
-from libraries.code_api.code_builder.build_step import BuildStep
+from libraries.code_api.code_manager.build_step import BuildStep
 
 from applications.code_manager.layer_domain.nexus_local import nexus_local_builder_db as db
 

@@ -27,7 +27,7 @@ class WaitForRabbitMQHost(object):
 			if self.check_connection() == '':
 				return
 			else:
-				oc.print_data('...trying connection to rabbit_host, current attempt{' + str(current_attempt) + '/' + str(self.max_attempts) + '}')
+				oc.print_data('...trying connection to rabbit_manager, current attempt{' + str(current_attempt) + '/' + str(self.max_attempts) + '}')
 				sleep(self.retry_wait_time)
 				self.retry_wait_time *= self.retry_wait_time_multiplier
 			current_attempt += 1
