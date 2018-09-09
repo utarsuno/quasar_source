@@ -7,6 +7,8 @@ CourierWebsocket * websockets;
 
 int main() {
 
+    printf("Nexus Courier Start!\n");
+
     rabbitmq   = new CourierRabbitMQ("amqp://guest:guest@rabbit_manager/", "queue_nexus_courier");
     websockets = new CourierWebsocket(3001);
 
@@ -26,6 +28,9 @@ int main() {
 
     delete rabbitmq;
     delete websockets;
+
+    // test test test
+    // test test test
 
     return 66;
 }

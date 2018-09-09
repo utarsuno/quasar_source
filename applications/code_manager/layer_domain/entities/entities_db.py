@@ -154,7 +154,7 @@ class DBEntityFile(DBEntity):
 		self._table.add_column_row_id_alias()
 		# File specific.
 		self._table.add_column_string(DBEntityFile.KEY_FILE_TYPE, unique=False, nullable=False, indexed=False)
-		self._table.add_column_integer(DBEntityFile.KEY_SIZE, unique=False, nullable=False, indexed=False)
+		self._table.add_column_integer(DBEntityFile.KEY_SIZE, unique=False, nullable=True, indexed=False)
 		self._table.add_column_string(DBEntityFile.KEY_PATH, unique=True, nullable=False)
 		self._table.add_column_string(DBEntityFile.KEY_MD5SUM, unique=False, nullable=True, indexed=False)
 		#

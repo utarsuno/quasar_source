@@ -20,6 +20,11 @@ class CodeProcess(object):
 		self.timer         = None
 		self.time_ran      = None
 
+	@property
+	def passed(self):
+		"""Returns a boolean indicating if this CodeProcess didn't fail."""
+		return not self.failed
+
 	def run_bash_step(self, bash_command, cwd=None):
 		"""Runs a bash command and checks for errors."""
 		if cwd is not None:
@@ -42,7 +47,8 @@ class CodeProcess(object):
 		self._run()
 
 		#oc.print_green('{' + 'processTODO' + '} finished in ' + str(timer))
-		return 'output'
+		#return 'output'
+		#return self._run()
 
 	def stop(self, failed, output):
 		"""Completes this code-process."""

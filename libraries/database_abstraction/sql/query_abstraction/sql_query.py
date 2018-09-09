@@ -5,10 +5,19 @@
 from libraries.universal_code import debugging as dbg
 
 
+SQL_VALUE_NOW  = 'CURRENT_TIMESTAMP'
+SQL_VALUE_NULL = 'NULL'
+
+SQL_DEFAULT_VALUES = [
+	SQL_VALUE_NOW,
+	SQL_VALUE_NULL
+]
+
+
 def sql_safe(value):
 	"""Ensures strings are wrapped in quotes."""
 	if type(value) == str:
-		if value == 'NULL':
+		if value in SQL_DEFAULT_VALUES:
 			return value
 		else:
 			return "'" + value + "'"
@@ -20,6 +29,17 @@ def sql_safe(value):
 	elif value is None:
 		return 'NULL'
 	return str(value)
+
+
+DISCRETE_ZERO_DAY_OLD = "datetime('now', '-0 day')"
+DISCRETE_ONE_DAY_OLD = "datetime('now', '-1 day')"
+DISCRETE_MORE_THAN_ONE_DAY_OLD = ' < ' + DISCRETE_ONE_DAY_OLD
+DISCRETE_MORE_THAN_ZERO_DAYS_OLD = ' < ' + DISCRETE_ZERO_DAY_OLD
+
+_DISCRETE_COMPARISONS = [
+	DISCRETE_MORE_THAN_ONE_DAY_OLD,
+	DISCRETE_MORE_THAN_ZERO_DAYS_OLD
+]
 
 
 class Query(object):
@@ -116,7 +136,8 @@ class Query(object):
 
 	def SELECT_COUNT(self):
 		"""Sets this SQL Query to fetch the number of rows returned."""
-		self._sql = 'SELECT COUNT(*) '
+		self._sql             = 'SELECT COUNT(*) '
+		self._single_response = True
 		return self
 
 	def SELECT_ALL(self):
@@ -149,7 +170,11 @@ class Query(object):
 		"""Adds a condition on which to perform this SQL Query."""
 		self._sql += ' WHERE \n'
 		for key in keys_and_values:
-			self._sql += '\t' + key + ' = ' + sql_safe(keys_and_values[key]) + ' AND \n'
+			value = keys_and_values[key]
+			if value in _DISCRETE_COMPARISONS:
+				self._sql += '\t' + key + value + ' AND \n'
+			else:
+				self._sql += '\t' + key + ' = ' + sql_safe(value) + ' AND \n'
 		self._sql = self._sql[:-len(' AND \n')] + ';'
 		return self
 

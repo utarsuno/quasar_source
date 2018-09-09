@@ -3,47 +3,28 @@
 """This module, build_process_mqtt.py, builds the 3rd party library uTT."""
 
 import requests
-from libraries.code_api.code_manager.code_process import CodeProcess
-from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+from libraries.code_api.code_manager.code_process_third_party_library import CodeProcessThirdPartyLibrary
 from libraries.universal_code import output_coloring as oc
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files import code_file
 
 
-class CodeProcessThreeJS(CodeProcess):
+class CodeProcessThreeJS(CodeProcessThirdPartyLibrary):
 	"""Cache checker for Three.JS."""
 
 	def __init__(self, entity, parent_entity, domain):
 		super().__init__(entity, parent_entity, domain)
-		self.latest_version = None
-		print('CREATED A CodeProcessThreeJS!!!!')
+		#print('CREATED A CodeProcessThreeJS!!!!')
 
 	def _run(self):
-		print('RUN THE specific CODE PROCESS!!!!!')
+		oc.print_green('CodeProcessThreeJS _run')
 
-		#print(self.parent_entity.version)
-		#print(type(self.parent_entity.version))
-		#print(self.parent_entity.library_name)
-
-		# TODO: Check if it has been more than one day!
-
-		# TODO: Check if version number is different!
-
-		current_version = self.parent_entity.version
-		if current_version is None:
+		if self.library_needs_version_update():
+			oc.print_pink('Running ThreeJS version update.')
 			self._perform_process()
-		elif self.parent_entity.version_last_checked is None:
-			self._perform_process()
+			self.update_library_version()
 		else:
-			self.latest_version = self._get_latest_version()
-			if self.failed:
-				return
-			elif self.latest_version != current_version:
-				self._perform_process()
-
-
-		#if self.parent_entity.version is None or self.parent_entity.version_last_checked is None:
-		#	self._perform_process()
+			oc.print_green('ThreeJS is up to date!')
 
 	def _get_latest_version(self):
 		"""Gets the latest version of the Three.js project."""
@@ -57,7 +38,7 @@ class CodeProcessThreeJS(CodeProcess):
 
 	def _perform_process(self):
 		"""Process is not cached so run it."""
-		print('PERFORMNING PROCESS!')
+		#print('PERFORMNING PROCESS!')
 
 		r = self.run_bash_step('ls', cwd='/quasar/generated_output/third_party_libraries/three_js')
 		if not r or len(r) == 0:
@@ -70,17 +51,14 @@ class CodeProcessThreeJS(CodeProcess):
 			if self.failed:
 				return
 
-		#'/quasar/generated_output/third_party_libraries/three_js/three.js'
-		#'/quasar/generated_output/third_party_libraries/three_js/three_js'
-
 		r = self.run_bash_step('git checkout tags/' + self.latest_version, cwd='/quasar/generated_output/third_party_libraries/three_js/three.js')
-		print(r)
-		print('CHECKED-OUT?')
-		print(not r)
-		print(type(r) == str)
+		#print(r)
+		#print('CHECKED-OUT?')
+		#print(not r)
+		#print(type(r) == str)
 
 		if not r and not type(r) == str:
-			self.fail('error performing "git checkout tags/<release_version_here>"')
+			self.fail('error performing "git checkout tags/' + str(self.latest_version) + '"')
 			return
 
 		ufo.copy_file_to_path(
@@ -88,34 +66,38 @@ class CodeProcessThreeJS(CodeProcess):
 			source_file='/quasar/generated_output/third_party_libraries/three_js/three.js/build/three.min.js'
 		)
 
-		print('CHECKOUTED TO TAG')
-		print(r)
+		#print('CHECKOUTED TO TAG')
+		#print(r)
 
-		self.domain.cache_file(
+		file_path = '/quasar/libraries/front_end/js/third_party/three_js/three.min.js'
+
+		cached_or_updated, file = self.domain.cache_single_file(
 			code_file.CODE_FILE_TYPE_JS_FILE,
 			'CALCULATE',
-			'/quasar/libraries/front_end/js/third_party/three_js/three.min.js',
+			file_path,
 			'CALCULATE',
 			False,
 			True,
 			False,
-			None,
-			None, # Will get automatically set.
-			None,
-			child_path='/quasar/libraries/front_end/js/third_party/three_js/three.min.js.gz'
 		)
 
-		'''
-		r = self.run_bash_step('ls', cwd='/quasar/generated_output/third_party_libraries/three_js')
-		if not r:
-			print('ERROR!')
-			y = 2
-			# TODO: Set error and return!
+		if cached_or_updated or file.child_f_id is None:
 
-		print('OUTPUT:')
-		print(r)
-		'''
+			generated_file_path = '/quasar/libraries/front_end/js/third_party/three_js/three.min.js.gz'
+			ufo.file_op_create_gzip(file_path, generated_file_path)
 
-		# TODO: Cache that file!!
+			child_cached_or_updated, child_file = self.domain.cache_single_file(
+				code_file.CODE_FILE_TYPE_JS_FILE,
+				'CALCULATE',
+				generated_file_path,
+				'CALCULATE',
+				False, False, False
+			)
+
+			if file.child_f_id is None:
+				file.set_child_file(child_file)
+				child_file.set_parent_file(file)
+
+
 
 

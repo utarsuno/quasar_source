@@ -81,7 +81,4 @@ class Minifiable(Redusable):
 	def set_minification_function_custom(self):
 		self._minification_function = 'CUSTOM'
 
-#libraries/front_end/html/quasar_nexus/nexus_local.min.html
-#'/Users/utarsuno/git_repos/quasar_source/libraries/front_end/html/quasar_nexus/nexus_local.min.html'
-
 

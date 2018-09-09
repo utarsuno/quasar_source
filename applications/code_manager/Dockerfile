@@ -33,11 +33,27 @@ RUN pip3 install --no-cache-dir lazyme \
  && apk add --update --no-cache nodejs \
  && apk add --update --no-cache nodejs-npm
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git \
+ && apk add --no-cache bash \
+ && apk add --no-cache bash-completion
+
+# Build websockets C++ files.
+#COPY ./scripts/docker/build_process_steps/build_amqp.sh /var/cache/build_amqp.sh
+#RUN bash /var/cache/build_amqp.sh
+
+# Build babel-minify.
+COPY ./scripts/docker/build_process_steps/build_babel_minify.sh /var/cache/build_babel_minify.sh
+RUN bash /var/cache/build_babel_minify.sh
 
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
-COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh "false" minify
+#COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
+#RUN ash /var/cache/quasar_application_setup_steps.sh "false" minify
 # ------------------------------------------------------------------------------------------------------------------------------
+
+RUN rm -rf /var/cache/apk/* \
+ && rm -rf /root/.cache/pip/* \
+ && rm /var/cache/build_babel_minify.sh
+
+#&& rm /var/cache/build_amqp.sh \
 
 CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_builder.py"]

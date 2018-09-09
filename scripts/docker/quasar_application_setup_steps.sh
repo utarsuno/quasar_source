@@ -18,22 +18,22 @@ if [ "$1" = "true" ]; then
     ln -s /quasar/generated_output/web_assets/nexus_local.min.js      /assets/nl.min.js
     ln -s /quasar/generated_output/web_assets/nexus_local.min.js.gz   /assets/nl.min.js.gz
 
-    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js                             /assets/third_party/cookie.js
-    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js.gz                          /assets/third_party/cookie.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/three.min.js                                  /assets/third_party/three.min.js
-    ln -s /quasar/libraries/front_end/js/third_party/three.min.js.gz                               /assets/third_party/three.min.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/shaders/CopyShader.js                /assets/third_party/CopyShader.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/shaders/CopyShader.js.gz             /assets/third_party/CopyShader.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/shaders/FXAAShader.js                /assets/third_party/FXAAShader.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/shaders/FXAAShader.js.gz             /assets/third_party/FXAAShader.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/EffectComposer.js    /assets/third_party/EffectComposer.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/EffectComposer.js.gz /assets/third_party/EffectComposer.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/RenderPass.js        /assets/third_party/RenderPass.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/RenderPass.js.gz     /assets/third_party/RenderPass.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/ShaderPass.js        /assets/third_party/ShaderPass.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/ShaderPass.js.gz     /assets/third_party/ShaderPass.js.gz
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/OutlinePass.js       /assets/third_party/OutlinePass.js
-    ln -s /quasar/libraries/front_end/js/third_party/graphics/post_processing/OutlinePass.js.gz    /assets/third_party/OutlinePass.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js                                      /assets/third_party/cookie.js
+    ln -s /quasar/libraries/front_end/js/third_party/cookies/cookie.js.gz                                   /assets/third_party/cookie.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/three.min.js                                  /assets/third_party/three.min.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/three.min.js.gz                               /assets/third_party/three.min.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/shaders/CopyShader.js                /assets/third_party/CopyShader.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/shaders/CopyShader.js.gz             /assets/third_party/CopyShader.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/shaders/FXAAShader.js                /assets/third_party/FXAAShader.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/shaders/FXAAShader.js.gz             /assets/third_party/FXAAShader.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/EffectComposer.js    /assets/third_party/EffectComposer.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/EffectComposer.js.gz /assets/third_party/EffectComposer.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/RenderPass.js        /assets/third_party/RenderPass.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/RenderPass.js.gz     /assets/third_party/RenderPass.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/ShaderPass.js        /assets/third_party/ShaderPass.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/ShaderPass.js.gz     /assets/third_party/ShaderPass.js.gz
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/OutlinePass.js       /assets/third_party/OutlinePass.js
+    ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/OutlinePass.js.gz    /assets/third_party/OutlinePass.js.gz
 
     ln -s /quasar/assets/front_end/texture/spritesheet/icons.png              /assets/p0.png
     ln -s /quasar/assets/front_end/texture/third_party/transition.png         /assets/p1.png
@@ -41,11 +41,6 @@ if [ "$1" = "true" ]; then
     ln -s /quasar/assets/front_end/fonts/elegandhandwritingfont_medium_32.png /assets/p3.png
 
     ln -s /quasar/assets/front_end/favicon/favicon.png /assets/favicon.png
-fi
-
-if [ "$2" = "minify" ]; then
-    cd /usr/lib;
-    npm install babel-minify --save-dev
 fi
 
 rm -rf /var/cache/apk/*

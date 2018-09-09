@@ -218,17 +218,17 @@ def get_file_size_in_bytes(file_path):
 	return int(os.stat(file_path).st_size)
 
 
-def file_op_create_gzip(file_path):
+def file_op_create_gzip(file_path, output_path=None):
 	"""Creates a gzipped version of the file."""
 	bash_command = BashCommandRunner(['gzip', '-f', '-k', '-9', file_path])
 	bash_command.run()
-
+	if output_path is not None:
+		os.rename(file_path + '.gz', output_path)
 
 '''  __   ___ ___  __     ___       ___
 	|__) |__   |  |__) | |__  \  / |__
 	|  \ |___  |  |  \ | |___  \/  |___
 '''
-
 
 
 def get_ini_section_dictionary(path: str, section_name: str) -> dict:

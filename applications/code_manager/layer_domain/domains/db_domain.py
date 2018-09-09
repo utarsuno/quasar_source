@@ -39,6 +39,16 @@ class DBDomain(object):
 		self._code_processes   = []
 		self._files            = []
 
+		self.flags             = {}
+
+	def get_flags(self):
+		"""Returns the flags from this domain."""
+		return self.flags
+
+	def add_flag(self, key, value):
+		"""Adds a flag to this domain."""
+		self.flags[key] = value
+
 	def get_application_by_id(self, a_id):
 		"""Returns an application by ID match."""
 		for a in self._applications:
@@ -69,12 +79,19 @@ class DBDomain(object):
 
 	def run_needed_code_processes(self):
 		"""Runs the build + cache process for all projects in this Domain."""
-		print('RUNNING CODE PROCESSES')
+		#print('RUNNING CODE PROCESSES')
 
 		for p in self._projects:
 			oc.print_data_with_red_dashes_at_start('Health check on project{' + p.project_name + '}')
 			p.set_all_linked_data()
 			p.cache_process(self)
+
+		# TODO: Return error codes.
+		return 0
+
+	def get_return_code(self):
+		"""Gets the return code."""
+		dbg.raise_abstract_method_call_exception('get_return_code')
 
 	def load(self):
 		"""Loads this domain into memory."""
@@ -98,17 +115,10 @@ class DBDomain(object):
 
 		for bp in self._code_processes:
 			bp.load()
-		#
-		# Load all the files.
-		y = 2
-		# TODO: Load all files!
-		print('TODO: load all files!')
 
 		files = self._db.execute_query(sql.QueryRowsResponse().SELECT_ALL().FROM(entities_db.TABLE_NAME_FILES))
-		print('PRINTING ALL THE FILES')
 		for f in files:
-			print(f)
-		# TODO: store the file!
+			self._add_file(f)
 
 	def _load_table(self, db_entity):
 		"""Utility function."""
@@ -141,25 +151,30 @@ class DBDomain(object):
 		self._code_processes.append(bp)
 		return bp
 
-	def cache_file(self, file_type, size, path, md5sum, needs_minification, needs_gzip, needs_lz, parent_f_id, child_f_id, content, child_path=None):
-		"""Caches the provided file information into this domain."""
-		print('TODO: CACHE THE FILE!')
+	def _add_file(self, file_data):
+		"""Adds a file to this domain."""
+		if type(file_data) == entities_business.File:
+			print('THE FILE DATA IS A BUSINESS FILE OBJECT!')
+		else:
+			data = {
+				entities_db.DBEntityFile.KEY_FILE_TYPE         : file_data[1],
+				entities_db.DBEntityFile.KEY_SIZE              : file_data[2],
+				entities_db.DBEntityFile.KEY_PATH              : file_data[3],
+				entities_db.DBEntityFile.KEY_MD5SUM            : file_data[4],
+				entities_db.DBEntityFile.KEY_NEEDS_MINIFICATION: file_data[5],
+				entities_db.DBEntityFile.KEY_NEEDS_GZIP        : file_data[6],
+				entities_db.DBEntityFile.KEY_NEEDS_LZ          : file_data[7],
+				entities_db.DBEntityFile.KEY_PARENT_F_ID       : file_data[8],
+				entities_db.DBEntityFile.KEY_CHILD_F_ID        : file_data[9],
+				entities_db.DBEntityFile.KEY_CONTENT           : file_data[10]
+			}
+			f = entities_business.File(self._e_files.table, data)
+			self._files.append(f)
 
-		current_md5sum = ufo.get_md5_checksum(path)
-
-		if md5sum == 'CALCULATE':
-			md5sum = current_md5sum
-		if content == 'CALCULATE':
-			content = ufo.get_file_content_as_string(path)
-		if size == 'CALCULATE':
-			size = ufo.get_file_size_in_bytes(path)
-
-
-		# First check if a file match exists.
+	def cache_single_file(self, file_type, size, path, md5sum, needs_minification, needs_gzip, needs_lz, parent_f_id=None, child_f_id=None, content=None):
+		"""Performs cache for a single file."""
 		match = self.get_file_by_path(path)
-
 		if match is None:
-			print('TODO: add new file object.')
 			f = entities_business.File(self._e_files.table, {
 				entities_db.DBEntityFile.KEY_FILE_TYPE         : file_type,
 				entities_db.DBEntityFile.KEY_SIZE              : size,
@@ -174,20 +189,11 @@ class DBDomain(object):
 			})
 			self._files.append(f)
 			f.load()
-
-			if child_path is not None:
-				print('TODO: Create and return a child file instance!')
-
-				if needs_gzip:
-					print('TODO: gzip!')
-
-				#child = self.cache_file({
-				#
-				#})
-
+			return True, f
 		else:
-			if current_md5sum != match.md5sum:
-				print('TODO: PERFORM AN UPDATE!')
-
-
+			if match.md5sum_changed():
+				match.perform_update()
+				return True, match
+			else:
+				return False, match
 

@@ -51,6 +51,11 @@ RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
 
 COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 
+#COPY ./scripts/docker/build_process_steps/build_amqp.sh /var/cache/build_amqp.sh
+#RUN bash /var/cache/build_amqp.sh
+
+#RUN rm /var/cache/build_amqp.sh
+
 #CMD ["/quasar/generated_output/websocket_server/websocket_server"]
 CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]
 #CMD ["sleep", "10m"]

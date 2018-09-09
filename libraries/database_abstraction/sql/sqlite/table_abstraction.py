@@ -30,7 +30,7 @@ class TableAbstraction(object):
 
 	def insert_if_does_not_exist(self, insert_data, dne_check_data):
 		"""Inserts the data if there are no matches."""
-		count = self.execute(sql.QuerySingleResponse().SELECT_COUNT().FROM(self._name).WHERE(dne_check_data))
+		count = self.execute(sql.Query().SELECT_COUNT().FROM(self._name).WHERE(dne_check_data))
 		data_exits = count != 0
 		if not data_exits:
 			self.insert(insert_data)
