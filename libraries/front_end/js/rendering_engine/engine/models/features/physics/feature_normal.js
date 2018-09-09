@@ -12,13 +12,23 @@ $_QE.prototype.FeatureNormal = function() {
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this._refresh_look_at = function() {
         let normal = this.get_normal();
-        let nx     = this.object3D.position.x + normal.x;
-        let ny     = this.object3D.position.y + normal.y;
-        let nz     = this.object3D.position.z + normal.z;
+        //let nx     = this.object3D.position.x + normal.x;
+        //let ny     = this.object3D.position.y + normal.y;
+        //let nz     = this.object3D.position.z + normal.z;
+
+        //let nx     = normal.x;
+        //let ny     = this.object3D.position.y + normal.y;
+        //let nz     = normal.z;
+
         if (nx !== this._previous_nx || ny !== this._previous_ny || nz !== this._previous_nz) {
             this._look_at_position.set(nx, ny, nz);
             //let look_at_position = new THREE.Vector3(this.object3D.position.x + normal.x * 100, this.object3D.position.y + normal.y * 100, this.object3D.position.z + normal.z * 100);
-            this.object3D.lookAt(this._look_at_position);
+
+
+            //this.object3D.lookAt(this._look_at_position);
+            this.object3D.lookAt(nx, ny, nz);
+            //this.object3D.updateWorldMatrix(false, true);
+
             //this.render_update_needed = true;
             this._previous_nx = nx;
             this._previous_ny = ny;
@@ -62,6 +72,7 @@ $_QE.prototype.FeatureNormal = function() {
                 this._set_left_right();
             } else {
                 this.left_right.set(-this.normal.x, 0, -this.normal.z);
+                //this.left_right.set(this.normal.x, 0, this.normal.z);
                 this.left_right.cross(QE.UP_VECTOR);
                 this.left_right.normalize();
             }

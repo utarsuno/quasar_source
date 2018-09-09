@@ -32,7 +32,7 @@ $_QE.prototype.FeaturePosition = function(world) {
             this.object3D.position.set(p.x + this._position_offset.x, p.y + this._position_offset.y, p.z + this._position_offset.z);
             this._refresh_look_at();
         }
-        //this._refresh_look_at();
+        this._refresh_look_at();
         this.refresh_matrix();
         let a;
         for (a = 0; a < this.attachments.length; a++) {
@@ -41,7 +41,7 @@ $_QE.prototype.FeaturePosition = function(world) {
     };
 
     this.refresh_for_render = function() {
-        //this._refresh_look_at();
+        this._refresh_look_at();
         this.refresh_matrix();
     };
 
@@ -61,7 +61,7 @@ $_QE.prototype.FeaturePosition = function(world) {
 
     this.refresh_matrix = function() {
         this.object3D.updateMatrix();
-        this.object3D.matrixWorldNeedsUpdate = true;
+        //this.object3D.matrixWorldNeedsUpdate = true;
     };
 
     /*__   ___ ___ ___  ___  __   __

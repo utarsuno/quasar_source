@@ -96,6 +96,9 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
             this.currently_attached_to.set_normal(-n.x, 0, -n.z);
             //this.currently_attached_to.refresh_for_render();
             //this.currently_attached_to.refresh_for_render_recursively();
+
+
+            //this.currently_attached_to.refresh_for_render();
             this.currently_attached_to.refresh_self_and_all_children_recursively();
 
         }

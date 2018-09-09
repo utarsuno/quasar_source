@@ -1,0 +1,16 @@
+# The version of the Docker compose file format to use.
+version: '3.7'
+
+services:
+
+  # Serves static content and forwards requests to servers.
+  front_end:
+    build:
+      context: .
+      dockerfile: ./applications/nginx/Dockerfile.front_end_only
+    tty: true
+    ports:
+      - "80:80"
+      - "3000:3000"
+    volumes:
+      - ./:/quasar
