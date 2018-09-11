@@ -95,7 +95,7 @@ $_QE.prototype = {
         }).catch(function(error) {
             l(error);
             l('Error loading asset batch!');
-            me.client.show_error('Error ' + EMOJI_ERROR, 'loading assets');
+            me.client.show_error('Error ' + EMOJI_ERROR, 'loading assets {' + error + '}');
         });
     },
 

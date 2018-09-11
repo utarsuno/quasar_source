@@ -29,6 +29,9 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 
 		cmd = BashCommandRunner([
 			'minify',
+
+			'/quasar/generated_output/temp.txt',
+
 			'--mangle',
 			'--simplify',
 			'--booleans',
@@ -43,19 +46,17 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 			'--numericLiterals',
 			'--propertyLiterals',
 			'--regexpConstructors',
-			'--removeConsole',
-			'--removeDebugger',
+			#'--removeDebugger',
 			'--removeUndefined',
 			'--replace',
 			'--typeConstructors',
 			'--undefinedToVoid',
-			'/quasar/generated_output/temp.txt',
+			#'--removeConsole',
 			'-o',
 			'/quasar/generated_output/temp2.txt'
 		], require_input=True).run()
 
 		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temp2.txt')
-
 		return compressed_text
 
 

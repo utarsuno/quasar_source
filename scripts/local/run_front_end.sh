@@ -3,6 +3,8 @@
 cd ../../;
 source ./scripts/utilities/script_utilities.sh
 
+./scripts/local/build_process.sh;
+
 print_dashed_line_with_text "Quasar Front End Start"
 
 #python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py

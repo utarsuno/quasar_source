@@ -48,3 +48,4 @@ $_QE.prototype.Text3D = function(world, size, text, interactive) {
     this.create_geometry();
     this.create_mesh();
 };
+

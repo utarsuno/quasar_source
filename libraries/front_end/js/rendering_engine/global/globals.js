@@ -15,6 +15,7 @@ const EMOJI_ERROR    = '😫'; // #pre-process_global_constant
 /* __        __   __  ___  __       ___  __
   /__` |__| /  \ |__)  |  /  ` |  |  |  /__`
   .__/ |  | \__/ |  \  |  \__, \__/  |  .__/ */
+// Testing if this is fixed.
 const l = console.log;
 
 // Logical constants.

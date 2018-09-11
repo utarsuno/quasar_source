@@ -40,6 +40,35 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         //this.cursor_test.set_position(100, 100, 100);
         //this.cursor_test.set_normal(0, 0, 0);
         //this.cursor_test.refresh_position_and_look_at();
+
+        this.temporary_test();
+    };
+
+    this.temporary_test = function() {
+
+        l('Group created test!');
+
+        this.group = new THREE.Group();
+
+        //var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
+        var geometry = new THREE.PlaneBufferGeometry(100, 100);
+        var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+
+
+        var sub_geometry = new THREE.PlaneBufferGeometry(10, 10);
+        var sub_material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+        var sub_plane = new THREE.Mesh(sub_geometry, sub_material);
+        sub_plane.position.set(50, 0, 1);
+
+        var plane = new THREE.Mesh(geometry, material);
+        plane.position.set(100, 100, 0);
+
+        this.group.add(plane);
+        this.group.add(sub_plane);
+
+        this.group.updateMatrix();
+
+        this.add_to_scene(this.group);
     };
 
 };

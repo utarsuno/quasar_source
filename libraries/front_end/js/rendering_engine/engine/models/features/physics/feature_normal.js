@@ -12,9 +12,12 @@ $_QE.prototype.FeatureNormal = function() {
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this._refresh_look_at = function() {
         let normal = this.get_normal();
-        //let nx     = this.object3D.position.x + normal.x;
-        //let ny     = this.object3D.position.y + normal.y;
-        //let nz     = this.object3D.position.z + normal.z;
+
+        //l('Setting normal! Change test!');
+
+        let nx     = this.object3D.position.x + normal.x;
+        let ny     = this.object3D.position.y + normal.y;
+        let nz     = this.object3D.position.z + normal.z;
 
         //let nx     = normal.x;
         //let ny     = this.object3D.position.y + normal.y;

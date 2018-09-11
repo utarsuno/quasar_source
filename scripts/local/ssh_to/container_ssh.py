@@ -20,7 +20,6 @@ class NexusLocalPrompt(bi.BashInteractive):
 		self._add_container('quasar_source_websocket', 'websocket', 103)
 		self._add_container('quasar_source_code_manager', 'code_manager', 104)
 
-
 		container_list = bi.BashPromptListSelection('container_choice', 'choose a running container to ssh into')
 
 		index = 0

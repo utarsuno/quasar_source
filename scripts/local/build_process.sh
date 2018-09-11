@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+cd ${DIR}
 cd ../../;
 source ./scripts/utilities/script_utilities.sh
 
