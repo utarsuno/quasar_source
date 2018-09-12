@@ -10,7 +10,14 @@ print_dashed_line_with_text "Quasar Front End Start"
 #python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
 
 #docker-compose down;
-docker-compose -f docker-compose.front_end.yml build;
+
+
+# TODO: automate checking if build process needs to occur.
+# TEMPORARY COMMENT OUT TO SPEED UP BUILD PROCESS
+#docker-compose -f docker-compose.front_end.yml build;
+
+
+
 docker-compose -f docker-compose.front_end.yml up;
 #docker-compose up --remove-orphans;
 

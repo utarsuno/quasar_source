@@ -34,7 +34,7 @@ function EntityEditorFieldRow(entity_editor) {
         this.create_label(input);
         if (this.entity_property !== ENTITY_DEFAULT_PROPERTY_TYPE && this.entity_property !== ENTITY_PROPERTY_NAME) {
             //input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
-            this.rightmost_input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), COLOR_RED);
+            this.rightmost_input.add_button_right(120, 'delete field', this.delete_entity_field_row.bind(this), QE.COLOR_RED);
         }
     };
 

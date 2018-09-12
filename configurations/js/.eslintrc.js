@@ -31,6 +31,16 @@ module.exports = {
     },
     "globals": {
 
+        //
+        "FEATURE_GEOMETRY_TYPE_PLANE"  : false,
+        "FEATURE_GEOMETRY_TYPE_TEXT_3D": false,
+        "FEATURE_MATERIAL_TYPE_TEXT_3D": false,
+        "FEATURE_MATERIAL_TYPE_ICON"   : false,
+        "FEATURE_MATERIAL_CANVAS_BASIC": false,
+        "FEATURE_MATERIAL_CANVAS_FANCY": false,
+        "FEATURE_MATERIAL_CANVAS_SHINY": false,
+        "FEATURE_MESH_TYPE_DEFAULT"    : false,
+
         // From refactorings.
         "$_QE": false,
         "$_NL": false,
@@ -301,33 +311,6 @@ module.exports = {
         "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
         "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
 
-        "COLOR_STRING_INDEX"           : false,
-        "COLOR_HEX_INDEX"              : false,
-        "COLOR_HIGHLIGHT"              : false,
-        "COLOR_TEXT_DEFAULT"           : false,
-        "COLOR_TEXT_BUTTON"            : false,
-        "COLOR_RED"                    : false,
-        "COLOR_ORANGE"                 : false,
-        "COLOR_GREEN"                  : false,
-        "COLOR_BLUE"                   : false,
-        "COLOR_DARK_PURPLE"            : false,
-        "COLOR_LIGHT_PURPLE"           : false,
-        "COLOR_TEXT_CONSTANT"          : false,
-        "COLOR_WHITE"                  : false,
-        "COLOR_BLACK"                  : false,
-        "COLOR_YELLOW"                 : false,
-        "COLOR_SCHEDULE_PAST"          : false,
-        "COLOR_SCHEDULE_PRESENT"       : false,
-        "COLOR_SCHEDULE_FUTURE"        : false,
-        "COLOR_FLOATING_WALL_BASE"     : false,
-        "COLOR_FLOATING_WALL_TOP"      : false,
-        "COLOR_FLOATING_WALL_YELLOW"   : false,
-        "COLOR_FLOATING_WALL_HIGHLIGHT": false,
-        "COLOR_FLOATING_WALL_SUCCESS"  : false,
-        "COLOR_FLOATING_WALL_ERROR"    : false,
-        "COLOR_TRANSPARENT"            : false,
-        "COLOR_SEMI_TRANSPARENT"       : false,
-        // UNIVERSAL_CONSTANTS_END
 
         // Keycodes.
         "KEY_CODE__SHIFT"     : false,

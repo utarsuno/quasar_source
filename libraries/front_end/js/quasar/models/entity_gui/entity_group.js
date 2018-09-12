@@ -96,12 +96,12 @@ EntityGroup.prototype = {
     base_wall_init_start: function() {
         // Create the standard functionality of the entity wall.
         let row = this.base_wall.add_row(0);
-        this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null, COLOR_GREEN);
+        this.create_new_entity_button = row.add_button([0, 1, false], 16, 'create new entity', null, QE.COLOR_GREEN);
 
         this.base_wall.world.root_attachables.push(this.base_wall);
 
         this.entity_wall = this.base_wall.add_floating_wall_attachment(this.base_wall.width * .8, this.base_wall.height * .8, 0, 0, 5, false);
-        this.entity_wall.set_background_color(COLOR_BLACK, true);
+        this.entity_wall.set_background_color(QE.COLOR_BLACK, true);
     },
 
     create_new_finalize: function() {
@@ -124,8 +124,8 @@ EntityGroup.prototype = {
         this.delete_confirmation.bind_confirmation_prompt(this._get_confirmation_prompt.bind(this));
         this.delete_confirmation.bind_yes_action(this._delete_entity_group.bind(this));
         this.button_delete_entity_group = new FloatingButton(this.base_wall.world, this.base_wall.width, 16, 'delete entity group', null);
-        this.button_delete_entity_group.set_default_foreground_color(COLOR_RED);
-        this.button_delete_entity_group.set_current_foreground_color(COLOR_RED, true);
+        this.button_delete_entity_group.set_default_foreground_color(QE.COLOR_RED);
+        this.button_delete_entity_group.set_current_foreground_color(QE.COLOR_RED, true);
         this.base_wall.add_attachment_to_bottom(this.button_delete_entity_group);
         this.delete_confirmation.set_button(this.button_delete_entity_group);
     },

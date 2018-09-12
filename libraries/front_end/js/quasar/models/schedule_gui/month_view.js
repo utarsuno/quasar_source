@@ -78,7 +78,7 @@ MonthView.prototype = {
         this.month_type_selector_wall.set_auto_adjust_height(true);
         this.month_type_selector_wall.manual_visibility = true;
 
-        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Month', this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT), COLOR_YELLOW);
+        this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Month', this.month_type_selected.bind(this, TIME_TYPE_MONTH_CURRENT), QE.COLOR_YELLOW);
         this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_JANUARY_STRING, this.month_type_selected.bind(this, MONTH_JANUARY));
         this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_FEBRUARY_STRING, this.month_type_selected.bind(this, MONTH_FEBRUARY));
         this.month_type_selector_wall.add_row().add_button([0, 1, false], 16, MONTH_MARCH_STRING, this.month_type_selected.bind(this, MONTH_MARCH));
@@ -101,7 +101,7 @@ MonthView.prototype = {
         this.year_type_selector_wall.set_auto_adjust_height(true);
         this.year_type_selector_wall.manual_visibility = true;
 
-        this.year_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Year', this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT), COLOR_YELLOW);
+        this.year_type_selector_wall.add_row().add_button([0, 1, false], 16, 'Current Year', this.year_type_selected.bind(this, TIME_TYPE_YEAR_CURRENT), QE.COLOR_YELLOW);
 
         let row = this.year_type_selector_wall.add_row();
         row.add_text_2D([0, ONE_THIRD, false], 16, 'Type Year :');
@@ -136,7 +136,7 @@ MonthView.prototype = {
         this.year_type_button = settings_row.add_button([ONE_THIRD, 1, false], 16, this.month_instance.get_year_type(), this.show_year_type_selector.bind(this));
 
         settings_row = this.settings_wall.add_row();
-        settings_row.add_button([0, 1, false], 16, 'Delete Month View Wall', this.delete_month_view_wall.bind(this), COLOR_RED);
+        settings_row.add_button([0, 1, false], 16, 'Delete Month View Wall', this.delete_month_view_wall.bind(this), QE.COLOR_RED);
 
         this.create_month_type_selector();
         this.create_year_type_selector();

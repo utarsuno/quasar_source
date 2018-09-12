@@ -42,8 +42,8 @@ FieldRowCompleted.prototype = {
      | |\ | |__| |__  |__) |  |  |__  |  \    |__  |  | |\ | /  `  |  | /  \ |\ | /__`
      | | \| |  | |___ |  \ |  |  |___ |__/    |    \__/ | \| \__,  |  | \__/ | \| .__/ */
     create_input: function(field_value) {
-        this.mark_as_not_completed_button = this.row.add_button([ONE_FOURTH, 5 / 8], 16, ENTITY_PROPERTY_COMPLETED_VALUE_NO, this._mark_completed_as.bind(this, false), COLOR_RED);
-        this.mark_as_completed_button = this.row.add_button([5 / 8, 1, false], 16, ENTITY_PROPERTY_COMPLETED_VALUE_YES, this._mark_completed_as.bind(this, true), COLOR_GREEN);
+        this.mark_as_not_completed_button = this.row.add_button([ONE_FOURTH, 5 / 8], 16, ENTITY_PROPERTY_COMPLETED_VALUE_NO, this._mark_completed_as.bind(this, false), QE.COLOR_RED);
+        this.mark_as_completed_button = this.row.add_button([5 / 8, 1, false], 16, ENTITY_PROPERTY_COMPLETED_VALUE_YES, this._mark_completed_as.bind(this, true), QE.COLOR_GREEN);
 
         this.completed_check_mark = new FloatingIcon(this.entity_editor.world, ASSET_ICON_CHECKMARK, 16);
         this.completed_check_mark.set_attachment_depth_offset(2);

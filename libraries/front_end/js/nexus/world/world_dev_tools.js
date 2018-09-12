@@ -1,30 +1,43 @@
 'use strict';
 
 $_NL.prototype.WorldDevTools = function(player, manager_world) {
+
+    this.custom_world_enter = function() {
+        //this.nexus_local_title.refresh_self_and_all_children_recursively();
+        //this.logs.refresh_self_and_all_children_recursively();
+        l('World entered!!!');
+    };
+
     // Inherit.
     $_QE.prototype.World.call(this, player, manager_world);
     $_QE.prototype.WorldInput.call(this);
-    $_QE.prototype.WorldState.call(this, new THREE.Vector3(0, 100, 0), new THREE.Vector3(1, 100, 0));
-
-    this.custom_world_enter = function() {
-        this.nexus_local_title.refresh_self_and_all_children_recursively();
-        this.logs.refresh_self_and_all_children_recursively();
-
-        l('World entered!!!');
-    };
+    $_QE.prototype.WorldState.call(this, new THREE.Vector3(0, 200, 0), new THREE.Vector3(1, 100, 0), this.custom_world_enter.bind(this));
 
     this.update = function(delta) {
         //this.logs.refresh();
         //this.logs.add_message(delta);
     };
 
+    this._create_world_environment = function() {
+
+    };
+
     this.create_for_first_render = function() {
+        this.nexus_local_title = new $_QE.prototype.Text3D(256, 'Nexus Local', false);
+        //this.nexus_local_title = new $_QE.prototype.Text3D(256, 'Nexus Local');
+        //this.nexus_local_title.set_position(-450, 300, -800);
+        //this.nexus_local_title.look_at_origin(false);
+        //this.nexus_local_title.refresh_for_render();
+        //this.nexus_local_title.refresh_self_and_all_children_recursively();
+
+        /*
         this.nexus_local_title = new $_QE.prototype.Text3D(this, 256, 'Nexus Local');
         this.nexus_local_title.set_position(-450, 300, -800);
         this.nexus_local_title.look_at_origin(false);
         this.nexus_local_title.refresh_self_and_all_children_recursively();
+        */
 
-
+        /*
         this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CANVAS_FONT_SMALLER);
         this.logs.initialize_terminal();
         this.logs.set_position(-450, 200, -800);
@@ -34,7 +47,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.logs.add_text_line_to_bottom('Hello World!', QE.COLOR_CANVAS_GREEN);
         this.logs.add_text_line_to_bottom('Second message!', QE.COLOR_CANVAS_GREEN);
         this.logs.add_text_line_to_bottom('Third message!', QE.COLOR_CANVAS_GREEN);
-
+        */
 
         //this.cursor_test = new $_QE.prototype.FloatingIcon(this, ICON_CLICK, 16);
         //this.cursor_test.set_position(100, 100, 100);

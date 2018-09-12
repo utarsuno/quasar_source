@@ -2,13 +2,15 @@
 
 $_NL.prototype.FloatingTerminal = function(world, number_of_rows, font) {
 
-    $_QE.prototype.FeatureColor.call(this, COLOR_GREEN, QE.COLOR_CANVAS_GRAY);
-
+    // PASSED REFACTOR
+    $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, QE.COLOR_CANVAS_GRAY);
     $_QE.prototype.CanvasGUI2D.call(this, 'floating_terminal', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
     $_QE.prototype.FeatureTextLines.call(this, number_of_rows, true);
 
+    // BEING REFACTORED!
+
     //$_QE.prototype.FeatureSize.call(this, 1024, number_of_rows * font[1]);
-    $_QE.prototype.FloatingElement.call(this, world);
+    //$_QE.prototype.FloatingElement.call(this, world, true);
 
     $_QE.prototype.FeatureInteractive.call(this, true);
     this.feature_engable_only_from_double_click = true;

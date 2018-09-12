@@ -10,6 +10,7 @@ from jsmin import jsmin
 from libraries.code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
 from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 from libraries.universal_code import useful_file_operations as ufo
+from libraries.universal_code import output_coloring as oc
 
 
 class LoadedJSFile(LoadedCodeFile, Minifiable):
@@ -27,7 +28,7 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 		with open('/quasar/generated_output/temp.txt', 'w') as f:
 			f.write(text)
 
-		cmd = BashCommandRunner([
+		passed, output = BashCommandRunner([
 			'minify',
 
 			'/quasar/generated_output/temp.txt',
@@ -55,6 +56,9 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 			'-o',
 			'/quasar/generated_output/temp2.txt'
 		], require_input=True).run()
+
+		if not passed:
+			oc.print_ascii_red('minify error')
 
 		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temp2.txt')
 		return compressed_text
