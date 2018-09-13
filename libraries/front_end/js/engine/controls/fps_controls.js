@@ -19,6 +19,12 @@ $_QE.prototype.FPSControls = function() {
     this._magnitude_with_diagonal_penalty = null;
     //
 
+    this.instant_teleport_to_xyz = function(x, y, z) {
+        this.yaw.position.set(x, y, z);
+        this._position_frame_previous.set(x, y, z);
+        this._position_frame_target.set(x, y, z);
+    };
+
     this.set_position_xyz = function(x, y, z) {
         this.reset_velocity();
         this.yaw.position.set(x, y, z);

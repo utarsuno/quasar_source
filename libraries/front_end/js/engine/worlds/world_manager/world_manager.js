@@ -49,8 +49,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             this.singletons[s].world_enter(this.current_world);
         }
 
-        l('Calling "current_world.enter_world"!');
-        this.current_world.enter_world();
+        this.current_world.enter();
     };
 
     this.physics = function(delta) {

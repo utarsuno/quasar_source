@@ -11,7 +11,21 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     // Inherit.
     $_QE.prototype.World.call(this, player, manager_world);
     $_QE.prototype.WorldInput.call(this);
-    $_QE.prototype.WorldState.call(this, new THREE.Vector3(0, 200, 0), new THREE.Vector3(1, 100, 0), this.custom_world_enter.bind(this));
+    $_QE.prototype.WorldState.call(this,
+        //new THREE.Vector3(50, 600, 1750),
+        new THREE.Vector3(
+            -34.79899682521624,
+            557.3571839639006,
+            1802.99541871182)
+        ,
+        //new THREE.Vector3(0, -0.13, -1),
+        new THREE.Vector3(
+            -0.011056081020679334,
+            -0.1616564787716021,
+            -0.9867851569331749
+        ),
+        this.custom_world_enter.bind(this)
+    );
 
     this.update = function(delta) {
         //this.logs.refresh();

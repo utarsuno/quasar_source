@@ -30,8 +30,8 @@ $_QE.prototype.MouseControls = function() {
     this._MATH_FUNCTION_COS        = Math.cos;
     this._MATH_FUNCTION_SIN        = Math.sin;
 
-    this.look_at = function(position_vector) {
-        this._cache_for_look_at.set(position_vector.x, position_vector.y, position_vector.z);
+    this.look_at_xyz = function(x, y, z) {
+        this._cache_for_look_at.set(x, y, z);
         this._cache_for_look_at.sub(this.yaw.position);
         this._cache_for_look_at.normalize();
 
@@ -40,19 +40,29 @@ $_QE.prototype.MouseControls = function() {
 
         this._mouse_angle_horizontal += Math.atan2(this._cache_horizontal.y, this._cache_horizontal.x) - Math.atan2(this._cache_for_look_at.z, this._cache_for_look_at.x);
         this._mouse_angle_vertical   = Math.asin(this._cache_for_look_at.y);
+
+        this._mouse_view_update_needed = true;
+    };
+
+    this.set_normal_xyz = function(x, y, z) {
+        this._mouse_angle_horizontal += Math.atan2(y, x) - Math.atan2(z, x);
+        this._mouse_angle_vertical   = Math.asin(y);
+
+        this._mouse_view_update_needed = true;
+    };
+
+    this.look_at = function(position_vector) {
+        this.look_at_xyz(position_vector.x, position_vector.y, position_vector.z);
     };
 
     this.update_mouse_view = function() {
-        //if (this._mouse_view_update_needed) {
-        // Update the camera.
+        if (this._mouse_view_update_needed) {
+            this._mouse_view_update_needed = false;
+        } else {
+            return;
+        }
 
-        // TODO: lerp the rotation value!
-
-
-        this.yaw.rotation.y = this._mouse_angle_horizontal;
-        this.pitch.rotation.x = this._mouse_angle_vertical;
-        this.yaw.updateMatrix();
-        this.pitch.updateMatrix();
+        // TODO: lerp the rotation value! (This will need '_mouse_view_update_needed' logic updated.)
 
         // Notes in math.txt.
         let c1 = this._MATH_FUNCTION_COS(this._mouse_angle_vertical   / 2);
@@ -75,9 +85,10 @@ $_QE.prototype.MouseControls = function() {
         this._cache_walking_normal.set(this._cache_normal.x * normalizer, 0, this._cache_normal.z * normalizer);
         this._cache_left_right.set(-this._cache_walking_normal.z, 0, this._cache_walking_normal.x);
 
-        // Set as updated.
-        //this._mouse_view_update_needed = false;
-        //}
+        this.yaw.rotation.y = this._mouse_angle_horizontal;
+        this.pitch.rotation.x = this._mouse_angle_vertical;
+        this.yaw.updateMatrix();
+        this.pitch.updateMatrix();
     };
 
     this.on_mouse_move = function(delta_x, delta_y) {
@@ -92,6 +103,7 @@ $_QE.prototype.MouseControls = function() {
                 this._mouse_angle_horizontal -= Math.floor(this._mouse_angle_horizontal / this._MATH_PIE_TWO) * this._MATH_PIE_TWO;
             }
             //this._mouse_view_update_needed = true;
+            this._mouse_view_update_needed = true;
         }
         // Yaw.
         if (delta_y !== 0) {
@@ -102,6 +114,7 @@ $_QE.prototype.MouseControls = function() {
                 this._mouse_angle_vertical = this._MATH_PIE_HALVED;
             }
             //this._mouse_view_update_needed = true;
+            this._mouse_view_update_needed = true;
         }
     };
 

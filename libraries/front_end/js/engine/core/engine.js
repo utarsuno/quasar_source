@@ -5,9 +5,6 @@ THREE.Cache.enabled = true;
 // Other Three.js defaults to adjust.
 THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
-const APPLICATION_NEXUS_LOCAL   = 'nl'; // #pre-process_global_constant
-const APPLICATION_QUASAR_PUBLIC = 'qp'; // #pre-process_global_constant
-
 function $_QE() {
     this.__init__();
 }
@@ -105,7 +102,7 @@ $_QE.prototype = {
         this.manager_renderer = new $_QE.prototype.RendererManager(this.client, this);
         this.client.pre_render_initialize(this.manager_renderer);
 
-        this.player = new $_QE.prototype.Player(this.client, this);
+        this.player        = new $_QE.prototype.Player(this.client, this);
         this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
 
         this.manager_world.initialize_first_world();
