@@ -1,5 +1,7 @@
 'use strict';
 
+const USER_DATA_KEY_PARENT_OBJECT   = 'p'; // #pre-process_global_constant
+
 const FEATURE_GEOMETRY_TYPE_PLANE   = 0; // #pre-process_global_constant
 const FEATURE_GEOMETRY_TYPE_TEXT_3D = 1; // #pre-process_global_constant
 

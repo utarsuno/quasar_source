@@ -2,6 +2,8 @@
 
 $_QE.prototype.FeatureTextLine = function(typeable) {
 
+    let self            = this;
+
     this.segments       = [];
     this.colors         = [];
 
@@ -12,7 +14,7 @@ $_QE.prototype.FeatureTextLine = function(typeable) {
     this.segments_by_color[QE.COLOR_CANVAS_TEAL] = [];
     this.segments_by_color[QE.COLOR_CANVAS_GRAY] = [];
 
-    this.update_needed_for_line = true;
+    this.update_needed_for_line = false;
 
     this.set_content = function(content, color) {
         this.segments = [content];
@@ -58,6 +60,8 @@ $_QE.prototype.FeatureTextLine = function(typeable) {
     };
 
     if (typeable) {
-        $_QE.prototype.FeatureTyping.call(this);
+        $_QE.prototype.FeatureTyping.call(this, null, null, function() {
+            self.update_needed_for_line = true;
+        });
     }
 };

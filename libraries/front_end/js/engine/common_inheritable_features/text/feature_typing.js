@@ -1,10 +1,10 @@
 'use strict';
 
-$_QE.prototype.FeatureTyping = function(text) {
+$_QE.prototype.FeatureTyping = function(text, on_value_pre_changed, on_value_post_changed) {
 
     this.feature_typing = true;
 
-    $_QE.prototype.FeatureText.call(this, text);
+    $_QE.prototype.FeatureText.call(this, text, on_value_pre_changed, on_value_post_changed);
 
     this.parse_key_event = function(event) {
         let key_code = event.keyCode;
@@ -23,16 +23,10 @@ $_QE.prototype.FeatureTyping = function(text) {
             //MANAGER_AUDIO.play_typing_sound();
         }
 
+        // TODO: REFACTOR
         if (key_code === KEY_CODE__ENTER) {
             if (is_defined(this.on_enter_key_event)) {
                 this.on_enter_key_event();
-            }
-        }
-
-        if (old_text !== this.text) {
-            this.update_needed_for_text = true;
-            if (is_defined(this.refresh)) {
-                this.refresh();
             }
         }
 

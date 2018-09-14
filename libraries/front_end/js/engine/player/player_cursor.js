@@ -77,11 +77,19 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
     };
 
     this.set_xy_based_off_of = function(position) {
-        this._dy = ((position.y - this.currently_attached_to.object3D.position.y) / this.currently_attached_to.height) + 0.5;
+
+        let _object;
+        if (this.currently_attached_to.group != null) {
+            _object = this.currently_attached_to.group;
+        } else {
+            _object = this.currently_attached_to.mesh;
+        }
+
+        this._dy = ((position.y - _object.position.y) / this.currently_attached_to.height) + 0.5;
         // Optimize later.
         let lr = this.currently_attached_to.get_left_right();
-        let right_x = this.currently_attached_to.object3D.position.x - (lr.x * (this.currently_attached_to.width / 2));
-        let right_z = this.currently_attached_to.object3D.position.z - (lr.z * (this.currently_attached_to.width / 2));
+        let right_x = _object.position.x - (lr.x * (this.currently_attached_to.width / 2));
+        let right_z = _object.position.z - (lr.z * (this.currently_attached_to.width / 2));
         let delta_right = Math.sqrt((right_x - position.x) * (right_x - position.x) + (right_z - position.z) * (right_z - position.z));
         this._dx = (delta_right / this.currently_attached_to.width);
     };
@@ -112,11 +120,11 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         this._currently_visible = true;
         this.currently_attached_to = object_to_attach_to;
 
-        if (is_defined(intersection_position)) {
+        if (intersection_position != null) {
             this.set_xy_based_off_of(intersection_position);
         }
 
-        if (is_defined(this.currently_attached_to.feature_mouse_scaleable)) {
+        if (this.currently_attached_to.feature_mouse_scaleable != null) {
             if (this.currently_attached_to.feature_mouse_scaleable) {
                 if (this.dx < .02 && this._dx > .98 && this._dy < .02 && this._dy > .98) {
                     //l('Set icon to scalable!');
@@ -126,7 +134,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
             }
         }
 
-        if (is_defined(this.currently_attached_to.feature_mouse_moveable)) {
+        if (this.currently_attached_to.feature_mouse_moveable != null) {
             if (this.currently_attached_to.feature_mouse_moveable) {
                 //l('Set icon to moveable!');
                 this.set_current_icon(ASSET_ICON_DRAG);
@@ -136,7 +144,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
         }
 
 
-        if (is_defined(this.currently_attached_to.feature_clickable)) {
+        if (this.currently_attached_to.feature_clickable != null) {
             if (this.currently_attached_to.feature_clickable) {
                 //l('Set icon to clickable!');
                 this.set_current_icon(ASSET_ICON_CLICK);
@@ -144,7 +152,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
             }
         }
 
-        if (is_defined(this.currently_attached_to.feature_typing)) {
+        if (this.currently_attached_to.feature_typing != null) {
             if (this.currently_attached_to.feature_typing) {
                 //l('Set icon to feature_needs_mobile_keyboard!');
                 this.set_current_icon(ASSET_ICON_WRITTING);

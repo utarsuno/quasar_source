@@ -6,12 +6,11 @@ $_QE.prototype.CanvasRenderingTextLine = function(typeable) {
 
 
     this._render_needed = function() {
-        return this.update_needed_for_line || this.update_needed_for_text;
+        return this.update_needed_for_line;
     };
 
     this._post_render = function() {
         this.update_needed_for_line = false;
-        this.update_needed_for_text = false;
     };
 
     this._render = function() {

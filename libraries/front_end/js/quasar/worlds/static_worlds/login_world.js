@@ -6,12 +6,6 @@ function LoginWorld() {
 
 LoginWorld.prototype = {
 
-    __init__: function() {
-        // Inherit.
-        World.call(this);
-        WorldState.call(this, new THREE.Vector3(0, 200, 0), new THREE.Vector3(400, 200, 430), this.custom_world_enter.bind(this), this.custom_world_exit.bind(this));
-        WorldInput.call(this);
-    },
 
     custom_world_enter: function() {
         if (CURRENT_CLIENT.get_cookie(COOKIE_SHOULD_REMEMBER_USERNAME)) {
@@ -25,7 +19,6 @@ LoginWorld.prototype = {
         this.wall_login.refresh_position_and_look_at();
         this.wall_create_account.refresh_position_and_look_at();
 
-        //CURRENT_PLAYER.look_at(new THREE.Vector3(400, 200, 430));
     },
 
     custom_world_exit: function() {
@@ -98,12 +91,6 @@ LoginWorld.prototype = {
         this.server_request_create_account = new ServerRequestCreateAccount();
         this.server_request_create_account.bind_to_button(this.button_create_account);
         this.server_request_create_account.bind_success_event(this.create_account_success.bind(this));
-    },
-
-    _create_quasar_title: function() {
-        this.quasar_source_title = new FloatingText3D(this, 256, 'Quasar Source');
-        this.quasar_source_title.set_position(1900, 500, 1000);
-        this.quasar_source_title.look_at_origin(false);
     },
 
     _create_create_account_wall: function() {

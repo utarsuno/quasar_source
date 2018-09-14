@@ -3,11 +3,18 @@
 $_QE.prototype.FloatingElement = function() {
 
     $_QE.prototype.Element.call(this);
+    //$_QE.prototype.FeatureRecycle.call(this);
 
     this.in_world_list_elements_root = false;
 
     this.refresh = function() {
-        this.mesh.updateMatrix();
+        if (this.group != null) {
+            this.group.updateMatrix();
+            //TEMP
+            //this.mesh.updateMatrix();
+        } else {
+            this.mesh.updateMatrix();
+        }
     };
 
     this.update = function() {
@@ -15,7 +22,7 @@ $_QE.prototype.FloatingElement = function() {
             (this.update_needed_for_position != null && this.update_needed_for_position) ||
             (this.update_needed_for_normal   != null && this.update_needed_for_normal)
         ) {
-            //l('UPDATING FLOATING ELEMENT!!!');
+            l('UPDATING FLOATING ELEMENT!!!');
             this.refresh();
 
             this.update_needed_for_position = false;
@@ -23,24 +30,46 @@ $_QE.prototype.FloatingElement = function() {
         }
     };
 
-    this.create_floating_element = function(world) {
+    this.add_to_world = function(world, create=false) {
+        this.world = world;
 
-    };
+        this.set_to_root_element();
 
-    this.add_to_world = function(world) {
-        world.add_to_scene(this.mesh);
+
+        if (create) {
+            this.create();
+            world.add_to_scene(this.group);
+        }
+
+
+
+        //world.add_to_scene(this.mesh);
         world.add_element_root(this);
-    };
-
-    /*
-    this.set_position = function(x, y, z) {
-        if (this.root_element) {
-            this.group.position.set(x, y, z);
-        } else {
-            this.element.position.set(x, y, z);
-            this.element.updateMatrix();
+        if (this.feature_interactive && !this.in_world_list_elements_interactive) {
+            world.add_element_interactive(this);
         }
     };
-    */
+
+    this.recycle = function(remove_from_scene, remove_from_root, remove_from_interactive) {
+        if (remove_from_scene) {
+            //this.world.remove_from_scene(this.mesh);
+            //this.world.remove_from_scene(this.group);
+            if (this.group != null) {
+                this.group.remove(this.mesh);
+            } else {
+                this.world.remove(this.mesh);
+            }
+        }
+        if (remove_from_root) {
+            if (this.in_world_list_elements_root) {
+                this.world.remove_from_elements_root(this);
+            }
+        }
+        if (remove_from_interactive) {
+            if (this.in_world_list_elements_interactive) {
+                this.remove_from_elements_interactive(this);
+            }
+        }
+    };
 
 };

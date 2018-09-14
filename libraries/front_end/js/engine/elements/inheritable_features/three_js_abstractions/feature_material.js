@@ -5,6 +5,19 @@ $_QE.prototype.FeatureMaterial = function(cacheable, type) {
     this.material_type         = type;
     this.is_material_cacheable = cacheable;
 
+    this.recycle_material = function() {
+        if (!this.is_material_cacheable) {
+            if (this.material != null) {
+                if (this.material.map != null) {
+                    this.material.map.dispose();
+                    this.material.map = undefined;
+                }
+                this.material.dispose();
+                this.material = undefined;
+            }
+        }
+    };
+
     this._create_material_cached = function() {
         switch(this.material_type) {
         case FEATURE_MATERIAL_TYPE_TEXT_3D:

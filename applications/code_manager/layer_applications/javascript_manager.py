@@ -317,14 +317,10 @@ class JavascriptManager(object):
 		# Inheritables.
 		self.js_files_needed.append('models/features/feature_element_root.js')
 		self.js_files_needed.append('models/features/feature_meta_data.js')
-		self.js_files_needed.append('models/features/feature_recycle.js')
-		self.js_files_needed.append('models/features/feature_singleton.js')
 
 		self.js_files_needed.append('models/features/attachment/feature_attachment.js')
 		self.js_files_needed.append('models/features/attachment/feature_title_bar.js')
 
-		self.js_files_needed.append('models/features/physics/feature_normal.js')
-		self.js_files_needed.append('models/features/physics/feature_position.js')
 		self.js_files_needed.append('models/features/physics/feature_size.js')
 
 		self.js_files_needed.append('models/features/interactions/feature_interactive.js')
@@ -342,14 +338,9 @@ class JavascriptManager(object):
 		self.js_files_needed.append('models/features/three_js_abstractions/feature_material.js')
 		self.js_files_needed.append('models/features/three_js_abstractions/feature_mesh.js')
 
-		self.js_files_needed.append('models/features/text/feature_typing.js')
-		self.js_files_needed.append('models/features/text/feature_text.js')
 		self.js_files_needed.append('models/features/text/feature_syntax.js')
 		self.js_files_needed.append('models/features/text/feature_style.js')
 		self.js_files_needed.append('models/features/text/feature_state.js')
-
-		self.js_files_needed.append('models/features/text/lines/feature_line.js')
-		self.js_files_needed.append('models/features/text/lines/feature_lines.js')
 
 		self.js_files_needed.append('models/features/button/feature_button.js')
 		self.js_files_needed.append('models/features/button/feature_state.js')
@@ -369,19 +360,11 @@ class JavascriptManager(object):
 		self.js_files_needed.append('models/elements/base/floating_icon.js')
 
 		#self.js_files_needed.append('models/elements/base/text_2d.js')
-		self.js_files_needed.append('models/elements/base/text_3d.js')
 		'''
 
 		# ----------------------------------------------------------------------------------------------------------------
 		self.js_files_needed.append('elements/base/element.js')
 		self.js_files_needed.append('elements/base/floating_element.js')
-
-		self.js_files_needed.append('elements/base/physics/feature_position.js')
-		self.js_files_needed.append('elements/base/physics/feature_normal.js')
-
-		self.js_files_needed.append('elements/base/three_js_abstractions/feature_geometry.js')
-		self.js_files_needed.append('elements/base/three_js_abstractions/feature_material.js')
-		self.js_files_needed.append('elements/base/three_js_abstractions/feature_mesh.js')
 
 		self.js_files_needed.append('common_inheritable_features/text/feature_text.js')
 		self.js_files_needed.append('common_inheritable_features/text/feature_typing.js')
@@ -389,8 +372,21 @@ class JavascriptManager(object):
 		self.js_files_needed.append('common_inheritable_features/text/lines/feature_line.js')
 		self.js_files_needed.append('common_inheritable_features/text/lines/feature_lines.js')
 
+		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
+
+		self.js_files_needed.append('inheritable_features/interactions/feature_clickable.js')
+		self.js_files_needed.append('inheritable_features/interactions/feature_interactive.js')
+		self.js_files_needed.append('inheritable_features/interactions/feature_tab_target.js')
+
 		self.js_files_needed.append('inheritable_features/visuals/feature_color.js')
 		self.js_files_needed.append('inheritable_features/visuals/feature_visibility.js')
+
+		self.js_files_needed.append('inheritable_features/physics/feature_position.js')
+		self.js_files_needed.append('inheritable_features/physics/feature_normal.js')
+
+		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_geometry.js')
+		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_material.js')
+		self.js_files_needed.append('elements/inheritable_features/three_js_abstractions/feature_mesh.js')
 
 		self.js_files_needed.append('elements/environment/hexagon_grid.js')
 		self.js_files_needed.append('elements/environment/light_ambient.js')

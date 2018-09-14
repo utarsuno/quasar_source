@@ -5,6 +5,15 @@ $_QE.prototype.FeatureGeometry = function(cacheable, type) {
     this.geometry_type         = type;
     this.is_geometry_cacheable = cacheable;
 
+    this.recycle_geometry = function() {
+        if (!this.is_geometry_cacheable) {
+            if (this.geometry != null) {
+                this.geometry.dispose();
+                this.geometry = undefined;
+            }
+        }
+    };
+
     this._create_geometry_cached = function() {
         switch(this.geometry_type) {
         case FEATURE_GEOMETRY_TYPE_PLANE:

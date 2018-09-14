@@ -9,11 +9,11 @@ $_QE.prototype.OutlineGlow = function(outline_pass) {
     this.outline_pass.usePatternTexture = false;
 
     //
-    this.outline_pass.hiddenEdgeColor  = QE.COLOR_BLACK;
+    this.outline_pass.hiddenEdgeColor = QE.COLOR_BLACK;
 
     this.outline_pass.selectedObjects = [];
 
-    this.hover_color = new THREE.Color(0x88ecff);
+    this.hover_color  = new THREE.Color(0x88ecff);
     this.engage_color = new THREE.Color(0x28ff8e);
 
     this.set_to_engage_color = function() {

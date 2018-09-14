@@ -2,7 +2,6 @@
 
 $_QE.prototype.Element = function() {
 
-    this.root_element       = false;
     this.group              = null;
 
     this.element            = null;
@@ -13,9 +12,16 @@ $_QE.prototype.Element = function() {
     this.on_world_leave     = null;
 
     this.set_to_root_element = function() {
-        this.group        = new THREE.Group();
-        this.root_element = true;
-        this.group.add(this.element);
+        if (this.group == null) {
+            this.group = new THREE.Group();
+        }
+        //this.group.add(this.element);
+    };
+
+    this.set_group_user_data_if_needed = function() {
+        if (this.group != null) {
+            this.group.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
+        }
     };
 
     this.world_enter = function(world) {

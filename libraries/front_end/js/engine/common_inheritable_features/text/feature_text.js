@@ -1,31 +1,28 @@
 'use strict';
 
-$_QE.prototype.FeatureText = function(text) {
+$_QE.prototype.FeatureText = function(text, on_value_pre_changed, on_value_post_changed) {
 
-    if (is_defined(text)) {
+    this.value_pre_changed_function  = on_value_pre_changed;
+    this.value_post_changed_function = on_value_post_changed;
+
+    if (text != null) {
         this.text = text;
     } else {
         this.text = '';
     }
-
-    // TODO: Rename this (or remove).
-    //this.update_needed_for_text = false;
 
     /*___  ___     ___     __   __   ___  __       ___    __        __
        |  |__  \_/  |     /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
        |  |___ / \  |     \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
     this.update_text = function(text) {
         if (this.text !== text) {
-            //if (is_defined(this.value_pre_changed_function)) {
             if (this.value_pre_changed_function != null) {
                 this.value_pre_changed_function(text);
             }
             this.text = text;
-            //if (is_defined(this.value_post_changed_function)) {
             if (this.value_post_changed_function != null) {
                 this.value_post_changed_function(text);
             }
-            //this.update_needed_for_text = true;
 
             // TODO: move this?
             if (is_defined(this._element)) {
@@ -50,8 +47,6 @@ $_QE.prototype.FeatureText = function(text) {
 
     this.on_paste_event = function(text) {
         this.update_text(this.text + text);
-        //this.text += text;
-        //this.update_needed_for_text = true;
     };
 
     this.parse_text = function(text) {

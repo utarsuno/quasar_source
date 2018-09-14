@@ -18,9 +18,9 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
             1802.99541871182)
         ,
         new THREE.Vector3(
-            -0.011056081020679334,
-            -0.1616564787716021,
-            -0.9867851569331749
+            0.005015558927525423,
+            -0.16165647877160208,
+            -0.9868343463012478
         ),
         this.custom_world_enter.bind(this)
     );
@@ -35,9 +35,11 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     };
 
     this.create_for_first_render = function() {
-        this.nexus_local_title = new $_QE.prototype.Text3D(true, 256, 'Nexus Local', false);
-        this.nexus_local_title.set_position_center(0, 1500, -3000, 0, 0, 0);
-        this.nexus_local_title.add_to_world(this);
+        //this.nexus_local_title = new $_QE.prototype.Text3D(true, 256, 'Nexus Local', false);
+        //this.nexus_local_title = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
+        this.nexus_local_title = new $_QE.prototype.Text3D(512, 'Nexus Local', true);
+        this.nexus_local_title.add_to_world(this, true);
+        this.nexus_local_title.set_position_center(0, 1000, -1750, 0, 0, 0, true);
         //this.add_to_scene(this.nexus_local_title);
 
         //this.nexus_local_title = new $_QE.prototype.Text3D(256, 'Nexus Local');

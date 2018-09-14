@@ -60,6 +60,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
             return;
         }
         this.current_world.update_elements_root(delta);
+
         if (!this.player_cursor.in_mouse_action()) {
             this.current_world.update_elements_interactive();
         }

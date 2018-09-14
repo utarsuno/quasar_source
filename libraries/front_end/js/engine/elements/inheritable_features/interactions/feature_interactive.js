@@ -2,12 +2,18 @@
 
 $_QE.prototype.FeatureInteractive = function(outline_glow, on_look_at, on_look_away, on_engage, on_disengage) {
 
-    $_QE.prototype.FeatureCursor.call(this);
+    //$_QE.prototype.FeatureCursor.call(this);
+    // TODO: TEMP
+    this.uses_cursor = true;
 
-    this._in_world_elements_interactive = false;
+    this.in_world_list_elements_interactive = false;
 
     // Settings.
+    //
+    this.feature_interactive = true;
+    //
     this.feature_needs_engage_for_parsing_input = true;
+    // TODO: Refactor (conflict with other feature types)
     this.feature_maintain_engage_when_tabbed_to = true;
     this.feature_engable                        = true;
     this.feature_engable_only_from_double_click = false;
@@ -28,6 +34,7 @@ $_QE.prototype.FeatureInteractive = function(outline_glow, on_look_at, on_look_a
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
+    /*
     this.set_value_pre_changed_function = function(value_pre_changed_function) {
         this.value_pre_changed_function = value_pre_changed_function;
     };
@@ -35,6 +42,7 @@ $_QE.prototype.FeatureInteractive = function(outline_glow, on_look_at, on_look_a
     this.set_value_post_changed_function = function(value_post_changed_function) {
         this.value_post_changed_function = value_post_changed_function;
     };
+    */
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`

@@ -13,7 +13,12 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
 
     this.re_cache_normal = function() {
         // Forward.
-        this.mesh.getWorldDirection(this._cache_relative_forward);
+        //this.mesh.getWorldDirection(this._cache_relative_forward);
+        if (this.group != null) {
+            this.group.getWorldDirection(this._cache_relative_forward);
+        } else {
+            this.mesh.getWorldDirection(this._cache_relative_forward);
+        }
 
         // Up.
         this._cache_relative_up.set(
@@ -37,7 +42,12 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
     };
 
     this.look_at = function(x, y, z) {
-        this.mesh.lookAt(x, y, z);
+        //this.mesh.lookAt(x, y, z);
+        if (this.group != null) {
+            this.group.lookAt(x, y, z);
+        } else {
+            this.mesh.lookAt(x, y, z);
+        }
         this.update_needed_for_normal = true;
     };
 

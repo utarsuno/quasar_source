@@ -5,10 +5,8 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
     $_QE.prototype.FeatureTextLines.call(this, max_rows, bottom_row_as_input);
 
     this._render_needed = function() {
-        if (is_defined(this.update_needed_for_text)) {
-            if (this.update_needed_for_text) {
-                return true;
-            }
+        if (this.update_needed_for_line) {
+            return true;
         }
         let l;
         for (l = 0; l < this.rows.length; l++) {
@@ -24,12 +22,7 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
         for (l = 0; l < this.rows.length; l++) {
             this.rows[l].update_needed_for_line = false;
         }
-        if (is_defined(this.update_needed_for_line)) {
-            this.update_needed_for_line = false;
-        }
-        if (is_defined(this.update_needed_for_text)) {
-            this.update_needed_for_text = false;
-        }
+        this.update_needed_for_line = false;
     };
 
     this._render = function() {

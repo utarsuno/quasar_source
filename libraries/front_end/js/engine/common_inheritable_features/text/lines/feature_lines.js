@@ -2,10 +2,13 @@
 
 $_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input) {
 
+    let self      = this;
+
     this.max_rows = max_rows;
     this.rows = [];
 
-    this.bottom_row_as_input = bottom_row_as_input;
+    this.update_needed_for_line = false;
+    this.bottom_row_as_input    = bottom_row_as_input;
 
     this.set_row_contents = function(row_index, content, color) {
         this.rows[row_index].set_content(content, color);
@@ -24,8 +27,9 @@ $_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input) {
     };
 
     if (this.bottom_row_as_input) {
-        $_QE.prototype.FeatureTyping.call(this);
+        $_QE.prototype.FeatureTyping.call(this, null, null, function() {
+            self.update_needed_for_line = true;
+        });
     }
 
 };
-

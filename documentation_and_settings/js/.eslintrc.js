@@ -32,6 +32,8 @@ module.exports = {
     "globals": {
 
         //
+        "USER_DATA_KEY_PARENT_OBJECT": false,
+
         "FEATURE_GEOMETRY_TYPE_PLANE"  : false,
         "FEATURE_GEOMETRY_TYPE_TEXT_3D": false,
         "FEATURE_MATERIAL_TYPE_TEXT_3D": false,
