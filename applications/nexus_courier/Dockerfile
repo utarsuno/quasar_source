@@ -57,7 +57,7 @@ COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 #RUN rm /var/cache/build_amqp.sh
 
 #CMD ["/quasar/generated_output/websocket_server/websocket_server"]
-CMD ["bash", "/quasar/scripts/docker/run_websocket_server.sh"]
+CMD ["bash", "/quasar/scripts/docker/run_nexus_courier.sh"]
 #CMD ["sleep", "10m"]
 
 

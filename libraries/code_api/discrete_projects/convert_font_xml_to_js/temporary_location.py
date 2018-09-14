@@ -5,7 +5,7 @@
 from libraries.universal_code import useful_file_operations as ufo
 import xml.etree.ElementTree as ET
 
-TEMP_PATH = '/Users/utarsuno/git_repos/quasar_source/assets/front_end/fonts/elegandhandwritingfont_medium_16.xml'
+TEMP_PATH = '/Users/utarsuno/git_repos/quasar_source/assets/fonts/elegandhandwritingfont_medium_16.xml'
 
 root = ET.fromstring(ufo.get_file_content_as_string(TEMP_PATH))
 

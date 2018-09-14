@@ -18,7 +18,7 @@ print_dashed_line_with_text "Quasar Front End Start"
 
 
 
-docker-compose -f docker-compose.front_end.yml up;
+docker-compose -f docker-compose.dev.front_end_only.yml up;
 #docker-compose up --remove-orphans;
 
 print_dashed_line_with_text "Quasar Front End Finished"

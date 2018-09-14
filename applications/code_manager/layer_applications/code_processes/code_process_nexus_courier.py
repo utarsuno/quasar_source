@@ -19,7 +19,7 @@ class CodeProcessNexusCourier(CodeProcess):
 		oc.print_green('Running CodeProcessNexusCourier')
 
 		# Websocket server
-		self.web_server = ProjectComponent('nexus_local_websocket_server')
+		self.web_server = ProjectComponent('nexus_local_nexus_courier')
 		self.web_server.add_extensions_to_ignore(['', '.py'])
 		self.web_server.add_base_code_directory('/quasar/applications/nexus_courier')
 		self.web_server.load_all_content()

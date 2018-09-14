@@ -5,13 +5,13 @@
 # p - push_changes
 
 cd ../../../;
-python scripts/local/git_operations/_push_latest_code.py 'c';
+python3 scripts/local/git_operations/_push_latest_code.py 'c';
 
 WORKTREE=/Users/utarsuno/git_repos/quasar_source
 CHANGED=$(git --work-tree=${WORKTREE} status --porcelain)
 
 if [ -n "${CHANGED}" ]; then
-  python scripts/local/git_operations/_push_latest_code.py 'p';
+  python3 scripts/local/git_operations/_push_latest_code.py 'p';
 else
-  python scripts/local/git_operations/_push_latest_code.py 'n';
+  python3 scripts/local/git_operations/_push_latest_code.py 'n';
 fi

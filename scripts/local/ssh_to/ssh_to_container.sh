@@ -21,8 +21,8 @@ else
         CONTAINER_ID=$(docker ps --no-trunc | grep "quasar_source_nginx" | awk '{print $1}');
         sudo docker exec -it ${CONTAINER_ID} /bin/bash
     elif [ ${EXIT_CODE} -eq 103 ]; then
-        print_green_text "Connecting to websocket local!";
-        CONTAINER_ID=$(docker ps --no-trunc | grep "quasar_source_websocket" | awk '{print $1}');
+        print_green_text "Connecting to nexus_courier local!";
+        CONTAINER_ID=$(docker ps --no-trunc | grep "quasar_source_nexus_courier" | awk '{print $1}');
         sudo docker exec -it ${CONTAINER_ID} /bin/bash
         elif [ ${EXIT_CODE} -eq 104 ]; then
         print_green_text "Connecting to code_manager local!";

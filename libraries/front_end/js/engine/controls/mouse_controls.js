@@ -87,8 +87,8 @@ $_QE.prototype.MouseControls = function() {
 
         this.yaw.rotation.y = this._mouse_angle_horizontal;
         this.pitch.rotation.x = this._mouse_angle_vertical;
-        this.yaw.updateMatrix();
-        this.pitch.updateMatrix();
+        //this.yaw.updateMatrix();
+        //this.pitch.updateMatrix();
     };
 
     this.on_mouse_move = function(delta_x, delta_y) {

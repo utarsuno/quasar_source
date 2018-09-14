@@ -72,6 +72,10 @@ $_QE.prototype.FPSControls = function() {
         this._velocity.y *= decay;
         this._velocity.z *= decay;
 
+        // TODO: Detect when movement is done.
+        this.yaw.updateMatrix();
+        this.pitch.updateMatrix();
+
         if (!this.has_movement()) {
             return;
         }

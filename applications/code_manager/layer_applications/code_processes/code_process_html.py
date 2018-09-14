@@ -22,7 +22,7 @@ class CodeProcessHTML(CodeProcessMinifyThenGzip):
 
 		self.html = ProjectComponent('nexus_local_html')
 		self.html.add_extensions_to_ignore(['.min', '.gz', '.min.gz'])
-		self.html.add_base_code_directory(CodeDirectory('/quasar/assets/front_end/html'))
+		self.html.add_base_code_directory(CodeDirectory('/quasar/assets/html'))
 		self.html.set_generated_file_path('/quasar/generated_output/web_assets/')
 		self.html.load_all_content()
 

@@ -15,7 +15,7 @@ services:
     volumes:
       - ./:/quasar
     depends_on:
-      - websocket
+      - nexus_courier
 
   # RabbitMQ broker.
   rabbit_manager:
@@ -26,6 +26,7 @@ services:
     environment:
       RABBITMQ_ERLANG_COOKIE: "secret string"
       RABBITMQ_NODENAME: rabbit_manager
+    # TODO: switch to COPY cmd?
     volumes:
       - "./applications/rabbitmq_manager/rabbitmq.config:/etc/rabbitmq/rabitmq.config"
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
@@ -51,16 +52,16 @@ services:
       - "./applications/rabbitmq_manager/definitions.json:/etc/rabbitmq/definitions.json"
       - ./:/quasar
 
-  websocket:
+  nexus_courier:
     build:
       context: .
       dockerfile: ./applications/nexus_courier/Dockerfile
     environment:
       - PYTHONPATH=:/quasar
       - RABBITMQ_ERLANG_COOKIE="secret string"
-      - RABBITMQ_NODENAME=websocket
+      - RABBITMQ_NODENAME=nexus_courier
     tty: true
-    hostname: websocket
+    hostname: nexus_courier
     depends_on:
       - rabbit_manager
     #depends_on:

@@ -372,8 +372,12 @@ class JavascriptManager(object):
 		self.js_files_needed.append('models/elements/base/text_3d.js')
 		'''
 
+		# ----------------------------------------------------------------------------------------------------------------
 		self.js_files_needed.append('elements/base/element.js')
 		self.js_files_needed.append('elements/base/floating_element.js')
+
+		self.js_files_needed.append('elements/base/physics/feature_position.js')
+		self.js_files_needed.append('elements/base/physics/feature_normal.js')
 
 		self.js_files_needed.append('elements/base/three_js_abstractions/feature_geometry.js')
 		self.js_files_needed.append('elements/base/three_js_abstractions/feature_material.js')
@@ -392,12 +396,8 @@ class JavascriptManager(object):
 		self.js_files_needed.append('elements/environment/light_ambient.js')
 		self.js_files_needed.append('elements/environment/light_point.js')
 
-		'''
-		self.js_files_needed.append('models/discrete_models/singletons/hexagon_grid.js')
-		self.js_files_needed.append('models/discrete_models/singletons/light_ambient.js')
-		self.js_files_needed.append('models/discrete_models/singletons/light_point.js')
-		'''
 		self.js_files_needed.append('elements/discrete/text_3d.js')
+		# ----------------------------------------------------------------------------------------------------------------
 
 		# Asset Managers.
 		self.js_files_needed.append('asset_management/asset_manager.js')

@@ -35,12 +35,12 @@ if [ "$1" = "true" ]; then
     ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/OutlinePass.js       /assets/third_party/OutlinePass.js
     ln -s /quasar/libraries/front_end/js/third_party/three_js/graphics/post_processing/OutlinePass.js.gz    /assets/third_party/OutlinePass.js.gz
 
-    ln -s /quasar/assets/front_end/texture/spritesheet/icons.png              /assets/p0.png
-    ln -s /quasar/assets/front_end/texture/third_party/transition.png         /assets/p1.png
-    ln -s /quasar/assets/front_end/fonts/elegandhandwritingfont_medium_16.png /assets/p2.png
-    ln -s /quasar/assets/front_end/fonts/elegandhandwritingfont_medium_32.png /assets/p3.png
+    ln -s /quasar/assets/texture/spritesheet/icons.png              /assets/p0.png
+    ln -s /quasar/assets/texture/third_party/transition.png         /assets/p1.png
+    ln -s /quasar/assets/fonts/elegandhandwritingfont_medium_16.png /assets/p2.png
+    ln -s /quasar/assets/fonts/elegandhandwritingfont_medium_32.png /assets/p3.png
 
-    ln -s /quasar/assets/front_end/favicon/favicon.png /assets/favicon.png
+    ln -s /quasar/assets/favicon/favicon.png /assets/favicon.png
 fi
 
 rm -rf /var/cache/apk/*

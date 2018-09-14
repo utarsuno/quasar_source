@@ -27,7 +27,7 @@ class CodeProcessJS(CodeProcessMinifyThenGzip):
 
 		# Assets
 		self.assets = ProjectComponent('nexus_local_assets')
-		self.assets.add_base_code_directory(CodeDirectory('/quasar/assets/front_end/shaders/'))
+		self.assets.add_base_code_directory(CodeDirectory('/quasar/assets/shaders/'))
 		self.assets.load_all_content()
 
 		# JS

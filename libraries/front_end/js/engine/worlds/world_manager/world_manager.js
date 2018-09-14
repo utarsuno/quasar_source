@@ -22,6 +22,7 @@ $_QE.prototype.WorldManager = function(player, renderer, application) {
         this.player_cursor = new $_QE.prototype.PlayerCursor();
     };
 
+    // TODO: Refactor this method!!
     this.set_current_world = function(world) {
         //let previous_position_and_look_at;
         let s;

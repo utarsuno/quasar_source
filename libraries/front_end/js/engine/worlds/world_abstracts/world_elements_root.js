@@ -11,6 +11,7 @@ $_QE.prototype.WorldElementsRoot = function() {
         }
     };
 
+    /*
     this.remove_from_elements_root = function(element) {
         let i;
         for (i = 0; i < this.elements_root.length; i++) {
@@ -27,9 +28,12 @@ $_QE.prototype.WorldElementsRoot = function() {
             }
         }
     };
+    */
 
     this.add_element_root = function(element) {
         this.elements_root.push(element);
-        element._in_world_elements_root = true;
+        element.in_world_list_elements_root = true;
+        //this.elements_root.push(element);
+        //element._in_world_elements_root = true;
     };
 };

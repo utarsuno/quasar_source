@@ -145,7 +145,6 @@ RUN ash /var/cache/quasar_application_setup_steps.sh "true" "null"
 
 #COPY nginx.conf /etc/nginx/nginx.conf
 #COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
-
 COPY ./applications/nginx/nginx.conf /etc/nginx/nginx.conf
 
 #EXPOSE 80

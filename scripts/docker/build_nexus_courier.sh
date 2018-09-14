@@ -2,7 +2,7 @@
 
 source /quasar/scripts/utilities/script_utilities.sh
 
-print_dashed_line_with_text "Building websocket server"
+print_dashed_line_with_text "Building nexus_courier"
 
 
 cd /quasar/generated_output/third_party_libraries/AMQP_CPP_3_1_0;
@@ -38,7 +38,7 @@ g++ -std=c++11 \
     ${Q_WEBSOCKET}client_instance.cpp \
     ${Q_WEBSOCKET}courier_websocket.cpp \
     ${Q_RABBITMQ}courier_rabbitmq.cpp \
-    -o /quasar/generated_output/websocket_server/websocket_server \
+    -o /quasar/generated_output/nexus_courier/nexus_courier \
     -lssl -lcrypto -lz -lpthread -lboost_system -s -lamqpcpp
 
 
