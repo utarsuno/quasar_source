@@ -25,7 +25,7 @@ $_QE.prototype.CanvasGUI2D = function(unique_name, type_dom, type_canvas) {
             this.set_top_offset(y);
         }
 
-        this.add_class('gui_canvas');
+        this.add_class(GLOBAL_ID_GUI_CANVAS);
         if (is_defined(optional_class_to_add)) {
             this.add_class(optional_class_to_add);
         }

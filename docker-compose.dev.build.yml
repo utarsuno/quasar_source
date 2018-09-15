@@ -14,5 +14,11 @@ services:
       - DB_DEBUG=False
       - LD_LIBRARY_PATH=/usr/lib/libamqpcpp.so.3.1
     tty: true
+    #tty: false
     volumes:
       - ./:/quasar
+
+networks:
+  default:
+    external:
+      name: host_connection

@@ -139,9 +139,13 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 # ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
-COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh "true" "null"
+#COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
+#RUN ash /var/cache/quasar_application_setup_steps.sh "true" "null"
 # ------------------------------------------------------------------------------------------------------------------------------
+RUN apk add --no-cache bash \
+ && apk add --no-cache bash-completion \
+ && bash ./scripts/docker/quasar_application_setup_steps.sh
+# -------
 
 #COPY nginx.conf /etc/nginx/nginx.conf
 #COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf

@@ -17,17 +17,19 @@ from libraries.code_api.source_file_abstraction.code_files.c_branches.header_fil
 from libraries.code_api.source_file_abstraction.code_files.c_branches.cpp_file import CPPFile
 
 
+# TODO: Add Dockerfile type!
 _FILE_EXTENSION_TO_FILE_CLASS_MAPPING = {
-	'.css': LoadedCSSFile,
-	'.html': LoadedHTMLFile,
-	'.js': LoadedJSFile,
-	'.png': PNGFile,
-	'.jpg': JPGFile,
-	'.frag': ShaderFragmentFile,
-	'.vert': ShaderVertexFile,
-	'.cpp': CPPFile,
-	'.h': HeaderFile,
+	'.css'  : LoadedCSSFile,
+	'.html' : LoadedHTMLFile,
+	'.js'   : LoadedJSFile,
+	'.png'  : PNGFile,
+	'.jpg'  : JPGFile,
+	'.frag' : ShaderFragmentFile,
+	'.vert' : ShaderVertexFile,
+	'.cpp'  : CPPFile,
+	'.h'    : HeaderFile,
 }
+
 
 def get_code_file_type_from_file_extensions(combined_extensions):
 	"""Returns the code file determined from the provided file extensions."""

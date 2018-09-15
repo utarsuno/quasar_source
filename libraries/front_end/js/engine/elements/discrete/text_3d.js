@@ -13,10 +13,27 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
 
     $_QE.prototype.FeatureGeometry.call(this, false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
     $_QE.prototype.FeatureMaterial.call(this, true, FEATURE_MATERIAL_TYPE_TEXT_3D);
+
     $_QE.prototype.FeatureMesh.call(this, false, FEATURE_MESH_TYPE_DEFAULT, function() {
-        self._cache_box.setFromObject(self.mesh);
-        self.width  = self._cache_box.max.x;
-        self.height = self._cache_box.max.y;
+
+        self.re_cache_normal();
+
+        if (self.group != null) {
+            self._cache_box.setFromObject(self.group);
+        } else {
+            self._cache_box.setFromObject(self.mesh);
+        }
+
+        if (self._cache_relative_left_right.x != 0) {
+            self.width = (self._cache_box.min.x - self._cache_box.max.x) / self._cache_relative_left_right.x;
+        } else {
+            self.width = (self._cache_box.min.z - self._cache_box.max.z) / self._cache_relative_left_right.z;
+        }
+
+        self.height = (self._cache_box.max.y - self._cache_box.min.y) / self._cache_relative_up.y;
+
+        l(self._cache_relative_left_right);
+        //l('Width: {' + self.width + '}');
     });
 
     //
@@ -46,7 +63,12 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
             );
         }
 
-        this.add_to_world(this.world, false);
+        if (this.group == null) {
+            this.add_to_world(this.world, false, false, true);
+        } else {
+            this.add_to_world(this.world, false, false, false);
+        }
+
         //this.world.add_to_scene(this.mesh);
         //this.world.add_element_root(this);
     };

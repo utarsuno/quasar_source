@@ -2,7 +2,7 @@
 
 source ../../utilities/script_utilities.sh
 
-python container_ssh.py;
+python3 container_ssh.py;
 EXIT_CODE=$?;
 
 if [ ${EXIT_CODE} -eq 0 ]; then

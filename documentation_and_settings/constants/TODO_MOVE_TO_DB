@@ -1,0 +1,19 @@
+CSS_IDS
+    a: 'paused_background_filter'
+    b: 'pause_display'
+    c: 'pause_display_title'
+    d: 'pause_display_sub_title'
+
+    e: 'center_cursor'
+    f: 'cursor_default'
+    g: 'cursor_icon'
+
+    h: 'no_touch'
+    i: 'gui_canvas'
+    j: 'outline_green'
+    k: 'canvas_main'
+
+
+DIRECTORIES
+    /a/: 'assets'
+    /b/: 'third_party'

@@ -32,6 +32,21 @@ module.exports = {
     "globals": {
 
         //
+        "GLOBAL_ID_PAUSED_BACKGROUND_FILTER"    : false,
+        "GLOBAL_ID_PAUSE_DISPLAY"               : false,
+        "GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE"    : false,
+        "GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE": false,
+
+        "GLOBAL_ID_CURSOR_CENTER"               : false,
+        "GLOBAL_ID_CURSOR_DEFAULT"              : false,
+        "GLOBAL_ID_CURSOR_ICON"                 : false,
+
+        "GLOBAL_ID_GUI_CANVAS"                  : false,
+        "GLOBAL_ID_OUTLINE_GREEN"               : false,
+        "GLOBAL_ID_CANVAS_MAIN"                 : false,
+        //
+
+        //
         "USER_DATA_KEY_PARENT_OBJECT": false,
 
         "FEATURE_GEOMETRY_TYPE_PLANE"  : false,

@@ -13,3 +13,8 @@ services:
       - "80:80"
     volumes:
       - ./:/quasar
+
+networks:
+  default:
+    external:
+      name: host_connection

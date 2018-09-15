@@ -8,8 +8,7 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
     this._cache_relative_up         = new THREE.Vector3();
     this._cache_relative_forward    = new THREE.Vector3();
     this._cache_relative_left_right = new THREE.Vector3();
-
-    // TODO: if using 'set_center_offset', re-calculate on width/height/size change.
+    this._cache_absolute_left_right = new THREE.Vector3();
 
     this.re_cache_normal = function() {
         // Forward.
@@ -27,6 +26,29 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
             -this._cache_relative_forward.z * this._cache_relative_forward.y
         );
 
+        /*
+        // Update the object's up.
+        if (this.group != null) {
+            this.group.up.set(
+                this._cache_relative_up.x,
+                this._cache_relative_up.y,
+                this._cache_relative_up.z
+            );
+            // TEMPORARY:
+            this.mesh.up.set(
+                this._cache_relative_up.x,
+                this._cache_relative_up.y,
+                this._cache_relative_up.z
+            );
+        } else {
+            this.mesh.up.set(
+                this._cache_relative_up.x,
+                this._cache_relative_up.y,
+                this._cache_relative_up.z
+            );
+        }
+        */
+
         // Left right.
         let x_2 = this._cache_relative_forward.x * this._cache_relative_forward.x;
         let z_2 = this._cache_relative_forward.z * this._cache_relative_forward.z;
@@ -37,16 +59,29 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
             this._cache_relative_forward.x * x_2 + z_2 * this._cache_relative_forward.x + y_2 * this._cache_relative_forward.x
         );
 
+        // Absolute left right.
+        this._cache_absolute_left_right.set(
+            this._cache_relative_left_right.x,
+            this._cache_relative_left_right.y,
+            this._cache_relative_left_right.z
+        ).normalize();
+
         // Don't re-calculate for the same values.
         this.update_needed_for_normal = false;
     };
 
     this.look_at = function(x, y, z) {
-        //this.mesh.lookAt(x, y, z);
+
         if (this.group != null) {
             this.group.lookAt(x, y, z);
+            // Temp
+            //this.group.updateMatrix();
+            //this.group.updateMatrixWorld();
+            //
         } else {
             this.mesh.lookAt(x, y, z);
+            //this.mesh.updateMatrix();
+            //this.mesh.updateMatrixWorld(true);
         }
         this.update_needed_for_normal = true;
     };
@@ -69,16 +104,3 @@ $_QE.prototype.FeatureNormal = function(set_center_offset) {
     };
 
 };
-
-/*
-var matrix = new THREE.Matrix4();
-matrix.extractRotation( mesh.matrix );
-
-var direction = new THREE.Vector3( 0, 0, 1 );
-matrix.multiplyVector3( direction );
- */
-
-
-//up = (forward cross (0, 1, 0)) cross forward
-
-//v.cross(v)

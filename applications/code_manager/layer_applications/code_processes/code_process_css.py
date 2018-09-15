@@ -19,7 +19,7 @@ class CodeProcessCSS(CodeProcessMinifyThenGzip):
 		oc.print_green('Running CodeProcessCSS')
 
 		self.css = ProjectComponent('nexus_local_css')
-		self.css.add_extensions_to_ignore(['.min', '.gz', '.min.gz'])
+		self.css.add_extensions_to_ignore(['.min', '.gz', '.min.gz', '.ignore', '.ignore.css'])
 		self.css.add_base_code_directory(CodeDirectory('/quasar/assets/css'))
 		self.css.set_generated_file_path('/quasar/generated_output/web_assets/')
 		self.css.load_all_content()

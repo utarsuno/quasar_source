@@ -12,8 +12,9 @@ $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
 
             return new Promise(function(resolve, reject) {
                 let loader = new THREE.TextureLoader();
-                loader.load('/assets/' + me.name,
+                loader.load('/a/' + me.name,
                     function(asset_data) {
+                        //l('LOADING {' + ('/a/' + me.name) + '}');
                         QE.manager_assets.on_asset_load(me.name, asset_data);
                         resolve();
                     },

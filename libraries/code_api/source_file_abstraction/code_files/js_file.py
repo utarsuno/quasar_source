@@ -24,14 +24,17 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 
 	def perform_specific_minification(self, text):
 		"""TODO: document"""
+
+
+
 		#TODO: Refactor later.
-		with open('/quasar/generated_output/temp.txt', 'w') as f:
+		with open('/quasar/generated_output/temporary_output/temp.txt', 'w') as f:
 			f.write(text)
 
 		passed, output = BashCommandRunner([
 			'minify',
 
-			'/quasar/generated_output/temp.txt',
+			'/quasar/generated_output/temporary_output/temp.txt',
 
 			'--mangle',
 			'--simplify',
@@ -54,13 +57,18 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 			'--undefinedToVoid',
 			#'--removeConsole',
 			'-o',
-			'/quasar/generated_output/temp2.txt'
+			'/quasar/generated_output/temporary_output/temp2.txt'
+		#], require_input=False).run()
 		], require_input=True).run()
 
 		if not passed:
 			oc.print_ascii_red('minify error')
+		#else:
+		#	print('OUTPUT WAS:')
+		#	print(output)
+		#	exit()
 
-		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temp2.txt')
+		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temporary_output/temp2.txt')
 		return compressed_text
 
 

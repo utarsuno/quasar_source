@@ -1,5 +1,7 @@
 'use strict';
 
+// Chang gfdgdfgdfg dfads fadsf adsf
+
 $_QE.prototype.RendererManager = function(client, engine) {
     this.field_of_view = 75;
     this.near_clipping = 1.0;
@@ -12,7 +14,7 @@ $_QE.prototype.RendererManager = function(client, engine) {
         this.renderer = new THREE.WebGLRenderer({antialias: false, alpha: false});
 
         this.renderer_dom = new $_QE.prototype.DomElement(this.renderer.domElement, DOM_ELEMENT_CONSTRUCTOR_TYPE_ELEMENT, DOM_ELEMENT_CANVAS);
-        this.renderer_dom.set_id('canvas_main');
+        this.renderer_dom.set_id(GLOBAL_ID_CANVAS_MAIN);
         this.renderer_dom.append_to_document_body();
 
         this.renderer.setPixelRatio(window.devicePixelRatio);

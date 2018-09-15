@@ -24,17 +24,18 @@ $_QE.prototype.FeaturePosition = function() {
     this.shift_by_left_right = function(distance) {
         if (this.group != null) {
             this.group.position.set(
-                this.group.position.x + this._cache_relative_left_right.x * distance,
+                this.group.position.x + this._cache_absolute_left_right.x * distance,
                 this.group.position.y,
-                this.group.position.z + this._cache_relative_left_right.z * distance
+                this.group.position.z + this._cache_absolute_left_right.z * distance
             );
         } else {
             this.mesh.position.set(
-                this.mesh.position.x + this._cache_relative_left_right.x * distance,
+                this.mesh.position.x + this._cache_absolute_left_right.x * distance,
                 this.mesh.position.y,
-                this.mesh.position.z + this._cache_relative_left_right.z * distance
+                this.mesh.position.z + this._cache_absolute_left_right.z * distance
             );
         }
+        this.update_needed_for_position = true;
     };
 
     this.set_position_center = function(x, y, z, look_at_x, look_at_y, look_at_z, cache=false) {
@@ -46,9 +47,6 @@ $_QE.prototype.FeaturePosition = function() {
             this._cache_previous_position_center_look_at_x = look_at_x;
             this._cache_previous_position_center_look_at_y = look_at_y;
             this._cache_previous_position_center_look_at_z = look_at_z;
-
-            
-
         }
 
         if (this.group != null) {
@@ -57,23 +55,40 @@ $_QE.prototype.FeaturePosition = function() {
                 y - this.height / 2,
                 z
             );
+            this.group.updateMatrix();
+            //this.group.updateMatrixWorld();
         } else {
             this.mesh.position.set(
                 x,
                 y - this.height / 2,
                 z
             );
+
+            this.mesh.updateMatrix();
         }
 
-        this.look_at(look_at_x, look_at_y, look_at_z);
+        if (cache) {
+            this.look_at(look_at_x, look_at_y, look_at_z);
+            this.re_cache_normal();
+            this.shift_by_left_right(this.width / 2);
+        } else {
+            if (this.group == null) {
+                this.look_at(look_at_x, look_at_y, look_at_z);
+                this.re_cache_normal();
+            }
+            this.shift_by_left_right(this.width / 2);
+            //this.look_at(look_at_x, look_at_y, look_at_z);
+        }
+
+        //this.look_at(look_at_x, look_at_y, look_at_z);
 
         //this.re_cache_normal();
-        if (cache) {
-            this.re_cache_normal();
-        }
+        //if (cache) {
+        //    this.re_cache_normal();
+        //}
 
-        l('Shifting left right by {' + (this.width / 2) + '}');
-        this.shift_by_left_right(this.width / 2);
+        //l('Shifting left right by {' + (this.width / 2) + '}');
+        //this.shift_by_left_right(this.width / 2);
 
         this.update_needed_for_position = true;
     };

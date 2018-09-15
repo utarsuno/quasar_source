@@ -2,8 +2,18 @@
 
 cd ../../;
 
-docker-compose down;
+#docker-compose down;
+#docker-compose build;
+#docker-compose up;
 
-docker-compose build;
+# Useful commands from: https://zaiste.net/removing_docker_containers/
 
-docker-compose up;
+
+# Remove stopped containers.
+echo "TODO: Pretty print this: removing stopped containers"
+
+docker ps -aq --no-trunc -f status=exited | xargs docker rm
+
+# TODO: remove un-used images
+# docker image prune <y>
+

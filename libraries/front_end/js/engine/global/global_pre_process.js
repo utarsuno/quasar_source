@@ -1,5 +1,19 @@
 'use strict';
 
+///
+const GLOBAL_ID_PAUSED_BACKGROUND_FILTER     = 'a'; // #pre-process_global_constant
+const GLOBAL_ID_PAUSE_DISPLAY                = 'b'; // #pre-process_global_constant
+const GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE     = 'c'; // #pre-process_global_constant
+const GLOBAL_ID_SUB_PAUSED_DISPLAY_SUB_TITLE = 'd'; // #pre-process_global_constant
+
+const GLOBAL_ID_CURSOR_DEFAULT               = 'f'; // #pre-process_global_constant
+const GLOBAL_ID_CURSOR_ICON                  = 'g'; // #pre-process_global_constant
+
+const GLOBAL_ID_GUI_CANVAS                   = 'i'; // #pre-process_global_constant
+const GLOBAL_ID_OUTLINE_GREEN                = 'j'; // #pre-process_global_constant
+const GLOBAL_ID_CANVAS_MAIN                  = 'k'; // #pre-process_global_constant
+///
+
 const USER_DATA_KEY_PARENT_OBJECT   = 'p'; // #pre-process_global_constant
 
 const FEATURE_GEOMETRY_TYPE_PLANE   = 0; // #pre-process_global_constant

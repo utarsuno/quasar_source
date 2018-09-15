@@ -38,8 +38,22 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         //this.nexus_local_title = new $_QE.prototype.Text3D(true, 256, 'Nexus Local', false);
         //this.nexus_local_title = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
         this.nexus_local_title = new $_QE.prototype.Text3D(512, 'Nexus Local', true);
-        this.nexus_local_title.add_to_world(this, true);
+        this.nexus_local_title.add_to_world(this, true, true, true);
         this.nexus_local_title.set_position_center(0, 1000, -1750, 0, 0, 0, true);
+
+
+        this.nexus_local_title2 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title2.add_to_world(this, true, false, true);
+        this.nexus_local_title2.set_position_center(0, 2000, -1750, 0, 0, 0, true);
+
+        this.nexus_local_title3 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title3.add_to_world(this, true, false, true);
+        this.nexus_local_title3.set_position_center(0, 3000, -1750, 0, 0, 0, true);
+
+        this.nexus_local_title4 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title4.add_to_world(this, true, false, true);
+        this.nexus_local_title4.set_position_center(0, 4000, -1750, 0, 0, 0, true);
+
         //this.add_to_scene(this.nexus_local_title);
 
         //this.nexus_local_title = new $_QE.prototype.Text3D(256, 'Nexus Local');
@@ -77,7 +91,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
 
     this.temporary_test = function() {
 
-        l('Group created test!');
+        //l('Group created test!');
 
         this.group = new THREE.Group();
 

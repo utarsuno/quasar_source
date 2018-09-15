@@ -9,7 +9,7 @@ $_QE.prototype.GUI2DPlayerTypingInput = function() {
 
     this.feature_needs_engage_for_parsing_input = false;
 
-    this.initialize_gui(800, 20, 10, 80, 'outline_green', true, true, QE.CANVAS_FONT_SMALLER);
+    this.initialize_gui(800, 20, 10, 80, GLOBAL_ID_OUTLINE_GREEN, true, true, QE.CANVAS_FONT_SMALLER);
     this.update_text('');
     this.hide();
 

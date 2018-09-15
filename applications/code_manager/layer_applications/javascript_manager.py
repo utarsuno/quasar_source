@@ -227,10 +227,6 @@ class JavascriptManager(object):
 		print('TODO : Check that no line is longer than 600 characters.')
 		#
 
-		#oc.print_pink('\t' + loaded_javascript_file.compression_statistics)
-		#self.engine._original_total_size += loaded_javascript_file.file_size
-		#self.engine._new_total_size += loaded_javascript_file.compressed_size
-
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
 		self.js = ProjectComponent('quasar_rendering_engine_js')
