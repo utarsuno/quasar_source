@@ -1,6 +1,6 @@
 'use strict';
 
-$_QE.prototype.FeatureNormal = function(set_center_offset) {
+$_QE.prototype.FeatureNormal = function() {
 
     this.update_needed_for_normal   = false;
 

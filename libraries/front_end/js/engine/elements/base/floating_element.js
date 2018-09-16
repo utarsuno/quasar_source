@@ -1,9 +1,18 @@
 'use strict';
 
-$_QE.prototype.FloatingElement = function() {
+$_QE.prototype.FloatingElement = function(is_base) {
 
-    $_QE.prototype.Element.call(this);
+    $_QE.prototype.Element.call(this, is_base);
     //$_QE.prototype.FeatureRecycle.call(this);
+
+    if (is_base) {
+        $_QE.prototype.FeaturePosition.call(this);
+        $_QE.prototype.FeatureNormal.call(this);
+    } else {
+        $_QE.prototype.FeatureRelativePosition.call(this);
+        $_QE.prototype.FeatureRelativeNormal.call(this);
+    }
+    $_QE.prototype.FeatureAttachment.call(this);
 
     this.in_world_list_elements_root = false;
 
@@ -17,19 +26,36 @@ $_QE.prototype.FloatingElement = function() {
         }
     };
 
-    this.update = function() {
-        if (
-            (this.update_needed_for_position != null && this.update_needed_for_position) ||
-            (this.update_needed_for_normal   != null && this.update_needed_for_normal)
-        ) {
+    this.update_element = function() {
+
+        if (this.update_needed_for_position) {
+            l('UPDATE NEEDED FOR POSITION!');
+            //TODO: refresh children
+        }
+
+        if (this.update_needed_for_position || this.update_needed_for_normal) {
             this.refresh();
 
             this.update_needed_for_position = false;
-            this.re_cache_normal();
+            if (this.is_base) {
+                this.re_cache_normal();
+            }
+        }
+
+        if (this.update != null) {
+            this.update();
+        }
+
+        if (this.a_child_needs_update) {
+            let c;
+            for (c = 0; c < this.attachments.length; c++) {
+                this.attachments[c].update_element();
+            }
+            this.a_child_needs_update = false;
         }
     };
 
-    this.add_to_world = function(world, create=false, set_to_group=true, add_to_scene=false) {
+    this.add_to_world = function(world, create=false, set_to_group=true, add_to_scene=false, refresh=false) {
         this.world = world;
 
         if (set_to_group) {
@@ -54,6 +80,11 @@ $_QE.prototype.FloatingElement = function() {
         world.add_element_root(this);
         if (this.feature_interactive && !this.in_world_list_elements_interactive) {
             world.add_element_interactive(this);
+        }
+
+        if (refresh) {
+            this.refresh();
+            this.re_cache_normal();
         }
     };
 

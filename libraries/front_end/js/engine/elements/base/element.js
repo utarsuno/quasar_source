@@ -1,7 +1,8 @@
 'use strict';
 
-$_QE.prototype.Element = function() {
+$_QE.prototype.Element = function(is_base) {
 
+    this.is_base            = is_base;
     this.group              = null;
 
     this.element            = null;

@@ -175,7 +175,13 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			if ( object instanceof THREE.Mesh ) object.visible = bVisible;
+			//if ( object instanceof THREE.Mesh ) object.visible = bVisible;
+			// MY_CUSTOM_MODIFICATION:
+			if ( object instanceof THREE.Mesh ) {
+				if (object.userData['p'] != null) {
+                    object.visible = bVisible;
+                }
+            }
 
 		}
 
@@ -194,7 +200,13 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 		function gatherSelectedMeshesCallBack( object ) {
 
-			if ( object instanceof THREE.Mesh ) selectedMeshes.push( object );
+			//if ( object instanceof THREE.Mesh ) selectedMeshes.push( object );
+			// MY_CUSTOM_MODIFICATION:
+			if ( object instanceof THREE.Mesh ) {
+				if (object.userData['p'] != null) {
+					selectedMeshes.push( object );
+				}
+            }
 
 		}
 

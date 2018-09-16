@@ -7,7 +7,8 @@ $_QE.prototype.WorldElementsRoot = function() {
     this.update_elements_root = function(delta) {
         let e;
         for (e = 0; e < this.elements_root.length; e++) {
-            this.elements_root[e].update(delta);
+            //this.elements_root[e].update(delta);
+            this.elements_root[e].update_element();
         }
     };
 

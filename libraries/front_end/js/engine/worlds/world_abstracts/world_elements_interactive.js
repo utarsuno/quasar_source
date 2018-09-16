@@ -45,11 +45,15 @@ $_QE.prototype.WorldElementsInteractive = function() {
             // Only check the first result returned as they are already sorted by distance.
             if (this._intersections.length !== 0) {
                 if (this._intersections[0].distance < smallest_distance) {
-                    smallest_distance = this._intersections[0].distance;
-                    interactive_index = i;
-                    intersection_data = this._intersections[0];
 
-                    the_match = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
+                    if (this._intersections[0].object.userData[USER_DATA_KEY_PARENT_OBJECT] != null) {
+                        smallest_distance = this._intersections[0].distance;
+                        interactive_index = i;
+                        intersection_data = this._intersections[0];
+
+                        the_match = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
+                    }
+
                     //l('THE INTERSECTION DATA IS:');
                     //l(intersection_data);
                 }

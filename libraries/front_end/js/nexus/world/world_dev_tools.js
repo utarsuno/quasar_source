@@ -6,6 +6,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         //this.nexus_local_title.refresh_self_and_all_children_recursively();
         //this.logs.refresh_self_and_all_children_recursively();
         l('World entered!!!');
+        //this.logs.refresh();
     };
 
     // Inherit.
@@ -37,19 +38,19 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     this.create_for_first_render = function() {
         //this.nexus_local_title = new $_QE.prototype.Text3D(true, 256, 'Nexus Local', false);
         //this.nexus_local_title = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
-        this.nexus_local_title = new $_QE.prototype.Text3D(512, 'Nexus Local', true);
+        this.nexus_local_title = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', true);
         this.nexus_local_title.add_to_world(this, true, true, true);
         this.nexus_local_title.set_position_center(0, 1000, -1750, 0, 0, 0, true);
 
-        this.nexus_local_title2 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title2 = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
         this.nexus_local_title2.add_to_world(this, true, false, true);
         this.nexus_local_title2.set_position_center(0, 2000, -1750, 0, 0, 0, true);
 
-        this.nexus_local_title3 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title3 = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
         this.nexus_local_title3.add_to_world(this, true, false, true);
         this.nexus_local_title3.set_position_center(0, 3000, -1750, 0, 0, 0, true);
 
-        this.nexus_local_title4 = new $_QE.prototype.Text3D(512, 'Nexus Local', false);
+        this.nexus_local_title4 = new $_QE.prototype.Text3D(true, 512, 'Nexus Local', false);
         this.nexus_local_title4.add_to_world(this, true, false, true);
         this.nexus_local_title4.set_position_center(0, 4000, -1750, 0, 0, 0, true);
 
@@ -68,12 +69,14 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.nexus_local_title.refresh_self_and_all_children_recursively();
         */
 
-        this.logs = new $_NL.prototype.FloatingTerminal(32, QE.CANVAS_FONT_SMALLER);
-        this.logs.add_to_world(this, true, false, true);
+        this.logs = new $_NL.prototype.FloatingTerminal(true, 32, QE.CANVAS_FONT_SMALLER);
+        this.logs.add_to_world(this, true, true, true, true);
         this.logs.set_position_center(-2500, 1000, -1200, 0, 0, 0, true);
         this.logs.add_text_line_to_bottom('Hello World!', QE.COLOR_CANVAS_GREEN);
         this.logs.add_text_line_to_bottom('Second message!', QE.COLOR_CANVAS_GREEN);
         this.logs.add_text_line_to_bottom('Third message!', QE.COLOR_CANVAS_GREEN);
+
+        this.logs.add_title('Floating Terminal', false, 0.0, false);
 
         /*
         this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CANVAS_FONT_SMALLER);
@@ -81,10 +84,6 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.logs.set_position(-450, 200, -800);
         this.logs.look_at_origin(true);
         this.logs.refresh_self_and_all_children_recursively();
-
-        this.logs.add_text_line_to_bottom('Hello World!', QE.COLOR_CANVAS_GREEN);
-        this.logs.add_text_line_to_bottom('Second message!', QE.COLOR_CANVAS_GREEN);
-        this.logs.add_text_line_to_bottom('Third message!', QE.COLOR_CANVAS_GREEN);
         */
 
         //this.cursor_test = new $_QE.prototype.FloatingIcon(this, ICON_CLICK, 16);
