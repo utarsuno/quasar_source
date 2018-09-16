@@ -1,6 +1,6 @@
 'use strict';
 
-$_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input) {
+$_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input, on_enter_event) {
 
     let self      = this;
 
@@ -29,7 +29,7 @@ $_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input) {
     if (this.bottom_row_as_input) {
         $_QE.prototype.FeatureTyping.call(this, null, null, function() {
             self.update_needed_for_line = true;
-        });
+        }, on_enter_event);
     }
 
 };

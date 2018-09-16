@@ -52,16 +52,12 @@ $_QE.prototype.WorldManagerInput = function() {
     };
 
     this.key_down_event = function(event) {
-        if (this.player.in_typing_state()) {
-            if (event.keyCode === KEY_CODE__ENTER) {
-                QE.application.leave_typing_state();
-            } else {
-                QE.gui_2d_typing.parse_key_event(event);
-            }
+        if (this.player.in_hud_typing_state()) {
+            QE.gui_2d_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
                 if (this.current_world.currently_looked_at_object === null) {
-                    this.player.set_state(PLAYER_STATE_TYPING);
+                    this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
                 } else {
                     this.current_world.key_down_event_for_interactive_objects(event);
                 }
@@ -69,10 +65,26 @@ $_QE.prototype.WorldManagerInput = function() {
                 this.current_world.key_down_event_for_interactive_objects(event);
             }
         }
+
+        /*
+        if (this.player.in_hud_typing_state()) {
+            this.engine.parse_key_event(event);
+        } else if (this.player.has_input()) {
+            if (this.current_world.currently_looked_at_object == null && event.keyCode === KEY_CODE__ENTER) {
+                this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
+            } else if (this.current_world.currently_looked_at_object != null) {
+                this.current_world.key_down_event_for_interactive_objects(event);
+            }
+        }
+        */
     };
 
-    this._key_down_event = function(event) {
-        this.current_world.key_down_event_for_interactive_objects(event);
+    this.on_paste_event = function(text) {
+        if (this.player.in_hud_typing_state()) {
+            this.engine.gui_2d_typing.on_paste_event(text);
+        } else if (this.player.has_input() && this.current_world.currently_looked_at_object != null) {
+            this.current_world.currently_looked_at_object.on_paste_event(text);
+        }
     };
 
     this.mobile_keyboard_event_key_press = function(key) {

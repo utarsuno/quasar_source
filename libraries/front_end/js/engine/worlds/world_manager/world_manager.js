@@ -1,6 +1,7 @@
 'use strict';
 
-$_QE.prototype.WorldManager = function(player, renderer, application) {
+$_QE.prototype.WorldManager = function(player, renderer, application, engine) {
+    this.engine         = engine;
     this.previous_world = null;
     this.current_world  = null;
     this.player         = player;

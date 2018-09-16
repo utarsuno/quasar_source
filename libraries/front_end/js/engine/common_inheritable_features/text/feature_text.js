@@ -23,11 +23,6 @@ $_QE.prototype.FeatureText = function(text, on_value_pre_changed, on_value_post_
             if (this.value_post_changed_function != null) {
                 this.value_post_changed_function(text);
             }
-
-            // TODO: move this?
-            if (is_defined(this._element)) {
-                this._element.innerHTML = this.text;
-            }
         }
     };
 
@@ -49,13 +44,6 @@ $_QE.prototype.FeatureText = function(text, on_value_pre_changed, on_value_post_
         this.update_text(this.text + text);
     };
 
-    this.parse_text = function(text) {
-        let i;
-        for (i = 0; i < text.length; i++) {
-            this.add_character(text.charAt(i));
-        }
-    };
-
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
@@ -73,7 +61,7 @@ $_QE.prototype.FeatureText = function(text, on_value_pre_changed, on_value_post_
         return t;
     };
 
-    // TODO: Remove this function.
+    // TODO: Remove/refactor this function.
     this.get_display_text = function() {
         if (this._is_password) {
             let t = '';

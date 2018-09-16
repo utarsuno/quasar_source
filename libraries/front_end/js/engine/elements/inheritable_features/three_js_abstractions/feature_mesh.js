@@ -41,9 +41,7 @@ $_QE.prototype.FeatureMesh = function(cacheable, type, on_mesh_created) {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
 
-        l('creating mesh!');
         if (this.group != null) {
-            l('adding mesh to group!');
             this.group.add(this.mesh);
         }
 

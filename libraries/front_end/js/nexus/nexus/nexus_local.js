@@ -16,21 +16,16 @@ $_NL.prototype = {
         this.websocket_message_parser = new $_NL.prototype.WebsocketMessageHandler();
     },
 
-    leave_typing_state: function() {
-        l('Leaving typing state');
-        QE.player.set_state(PLAYER_STATE_FULL_CONTROL);
-
-        let text = QE.gui_2d_typing.get_text_then_clear();
-
-        //l('THE TEXT IS {' + text + '}');
-
-        if (text !== null) {
+    parse_user_input_from_hud: function(user_input) {
+        l('TODO: parse user input!');
+        l('user input was {' + user_input + '}');
+        /*
             if (text.startsWith('>')) {
                 this.websocket_message_parser.send_request_cmd(text.substring(1));
             } else {
                 this.websocket_message_parser.send_request_chat(text);
             }
-        }
+         */
     },
 
     engine_started: function() {

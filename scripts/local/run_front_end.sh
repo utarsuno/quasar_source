@@ -13,10 +13,7 @@ cd ${DIR}/../..;
 
 print_dashed_line_with_text "Quasar Front End Start"
 
-#python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
 python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
-
-#docker-compose down;
 
 
 # TODO: automate checking if build process needs to occur.
@@ -24,12 +21,9 @@ python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
 #docker-compose -f docker-compose.dev.front_end_only.yml build;
 
 
-
 docker-compose -f docker-compose.dev.front_end_only.yml up;
-#docker-compose up --remove-orphans;
 
-
-#docker-compose -f docker-compose.dev.front_end_only.yml down;
+docker-compose -f docker-compose.dev.front_end_only.yml down;
 
 
 print_dashed_line_with_text "Quasar Front End Finished"

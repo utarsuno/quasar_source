@@ -1,8 +1,8 @@
 'use strict';
 
-$_QE.prototype.CanvasRenderingTextLine = function(typeable) {
+$_QE.prototype.CanvasRenderingTextLine = function(typeable, on_enter_event) {
     $_QE.prototype.CanvasRendering.call(this);
-    $_QE.prototype.FeatureTextLine.call(this, typeable);
+    $_QE.prototype.FeatureTextLine.call(this, typeable, on_enter_event);
 
 
     this._render_needed = function() {

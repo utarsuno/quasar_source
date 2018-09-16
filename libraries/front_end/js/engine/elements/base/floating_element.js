@@ -22,7 +22,6 @@ $_QE.prototype.FloatingElement = function() {
             (this.update_needed_for_position != null && this.update_needed_for_position) ||
             (this.update_needed_for_normal   != null && this.update_needed_for_normal)
         ) {
-            l('UPDATING FLOATING ELEMENT!!!');
             this.refresh();
 
             this.update_needed_for_position = false;

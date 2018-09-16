@@ -1,11 +1,28 @@
 'use strict';
 
-$_QE.prototype.GUI2DPlayerTypingInput = function() {
+$_QE.prototype.GUI2DPlayerTypingInput = function(application) {
+
+    this.application = application;
+
+    this.enter_typing_state = function() {
+        this.render();
+        this.show();
+    };
+
+    this._on_enter_event = function() {
+        if (this.get_text_length_without_whitespaces() != 0) {
+            this.application.parse_user_input_from_hud(this.get_text_and_clear());
+        }
+        this.hide();
+        QE.player.set_state(PLAYER_STATE_FULL_CONTROL);
+    };
 
     $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
     $_QE.prototype.CanvasGUI2D.call(this, 'gui_2D_typing', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
-    $_QE.prototype.CanvasRenderingTextLine.call(this, true);
+
+
+    $_QE.prototype.CanvasRenderingTextLine.call(this, true, this._on_enter_event.bind(this));
 
     this.feature_needs_engage_for_parsing_input = false;
 
@@ -13,19 +30,6 @@ $_QE.prototype.GUI2DPlayerTypingInput = function() {
     this.update_text('');
     this.hide();
 
-    this.get_text_then_clear = function() {
-        let t;
-        if (this.get_text_length_without_whitespaces() === 0) {
-            t = null;
-        } else {
-            t = this.text;
-        }
-        this.update_text('');
-        this.hide();
-        return t;
-    };
-
-    QE.player.player_typing_input_handler = this;
     QE.add_gui_2d_element(this);
 
 };

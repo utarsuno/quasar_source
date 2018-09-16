@@ -32,6 +32,20 @@ module.exports = {
     "globals": {
 
         //
+        "EVENT_MOUSE_DOWN": false,
+        "EVENT_MOUSE_UP"  : false,
+        "EVENT_KEY_DOWN"  : false,
+        "EVENT_KEY_UP"    : false,
+        "EVENT_PASTE"     : false,
+        "EVENT_MOUSE_MOVE": false,
+        "EVENT_WHEEL_V0"  : false,
+        "EVENT_WHEEL_V1"  : false,
+        "EVENT_WHEEL_V2"  : false,
+        "CLICK_LEFT"      : false,
+        "CLICK_MIDDLE"    : false,
+        "CLICK_RIGHT"     : false,
+
+        //
         "GLOBAL_ID_PAUSED_BACKGROUND_FILTER"    : false,
         "GLOBAL_ID_PAUSE_DISPLAY"               : false,
         "GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE"    : false,
@@ -196,12 +210,10 @@ module.exports = {
         "ENTITY_STATIC_WORLD_SETTINGS": false,
         "ENTITY_STATIC_WORLD_ADMIN"   : false,
 
-        "PlayerState"              : false,
-        "PLAYER_STATE_FULL_CONTROL": false,
-        "PLAYER_STATE_PAUSED"      : false,
-        "PLAYER_STATE_LOADING"     : false,
-        "PLAYER_STATE_ENGAGED"     : false,
-        "PLAYER_STATE_TYPING"      : false,
+        "PLAYER_STATE_FULL_CONTROL" : false,
+        "PLAYER_STATE_PAUSED"       : false,
+        "PLAYER_STATE_ENGAGED"      : false,
+        "PLAYER_STATE_TYPING_IN_HUD": false,
 
         "POST_KEY_GENERIC_DATA"                       : true,
         "SERVER_COMMAND_SUDO_OPERATION"               : true,

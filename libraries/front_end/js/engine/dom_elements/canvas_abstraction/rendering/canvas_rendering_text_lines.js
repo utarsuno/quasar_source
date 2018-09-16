@@ -1,8 +1,8 @@
 'use strict';
 
-$_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input) {
+$_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input, on_enter_event) {
     $_QE.prototype.CanvasRendering.call(this);
-    $_QE.prototype.FeatureTextLines.call(this, max_rows, bottom_row_as_input);
+    $_QE.prototype.FeatureTextLines.call(this, max_rows, bottom_row_as_input, on_enter_event);
 
     this._render_needed = function() {
         if (this.update_needed_for_line) {

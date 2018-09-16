@@ -22,9 +22,6 @@ $_QE.prototype.InputManager = function(engine) {
 
      */
 
-    this.click_down_left   = false;
-    this.click_down_right  = false;
-    this.click_down_middle = false;
     this.key_down_up       = false;
     this.key_down_down     = false;
     this.key_down_left 	   = false;
@@ -39,9 +36,6 @@ $_QE.prototype.InputManager = function(engine) {
     this.supports_wheel    = false;
 
     this.disable_mouse_y = false;
-
-    //
-    this._cache_skip_down_event = false;
 
     this.on_mouse_move = function(event) {
         if (this.player.has_mouse_movement()) {
@@ -90,7 +84,6 @@ $_QE.prototype.InputManager = function(engine) {
         event = event || window.event;
         switch (event.which) {
         case CLICK_LEFT:
-            this.click_down_left = false;
             if (this.left_click_timer.getDelta() <= .3) {
                 this.manager_world.left_click_up(true);
             }
@@ -98,11 +91,9 @@ $_QE.prototype.InputManager = function(engine) {
             break;
         case CLICK_MIDDLE:
             this.manager_world.middle_click_up();
-            this.click_down_middle = false;
             break;
         case CLICK_RIGHT:
             this.manager_world.right_click_up();
-            this.click_down_right = false;
             break;
         }
         event.preventDefault();
@@ -114,15 +105,12 @@ $_QE.prototype.InputManager = function(engine) {
         switch (event.which) {
         case CLICK_LEFT:
             this.manager_world.left_click_down();
-            this.click_down_left = true;
             break;
         case CLICK_MIDDLE:
             this.manager_world.middle_click_down();
-            this.click_down_middle = true;
             break;
         case CLICK_RIGHT:
             this.manager_world.right_click_down();
-            this.click_down_right = true;
             break;
         }
         event.preventDefault();
@@ -130,40 +118,35 @@ $_QE.prototype.InputManager = function(engine) {
     };
 
     this.on_key_down = function(event) {
-        this._cache_skip_down_event = false;
         if (this.player.has_movement()) {
             switch (event.keyCode) {
             case KEY_CODE__UP:
             case KEY_CODE_W:
                 this.key_down_up = true;
-                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__LEFT:
             case KEY_CODE_A:
                 this.key_down_left = true;
-                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__DOWN:
             case KEY_CODE_S:
                 this.key_down_down = true;
-                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__RIGHT:
             case KEY_CODE_D:
                 this.key_down_right = true;
-                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__SPACE:
                 this.key_down_space = true;
-                this._cache_skip_down_event = true;
                 break;
             case KEY_CODE__SHIFT:
                 this.key_down_shift = true;
-                this._cache_skip_down_event = true;
+                break;
+            default:
+                this.manager_world.key_down_event(event);
                 break;
             }
-        }
-        if (!this._cache_skip_down_event) {
+        } else {
             this.manager_world.key_down_event(event);
         }
 
@@ -187,29 +170,18 @@ $_QE.prototype.InputManager = function(engine) {
     this.on_paste = function(event) {
         // Code help from : https://stackoverflow.com/questions/6902455/how-do-i-capture-the-input-value-on-a-paste-event
         let clipboard_data = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData;
-        this.player.on_paste_event(clipboard_data.getData('text'));
+        this.manager_world.on_paste_event(clipboard_data.getData('text'));
         event.preventDefault();
         event.stopPropagation();
     };
 
-    this.reset_keys = function() {
+    this.reset = function() {
         this.key_down_up 	= false;
         this.key_down_down  = false;
         this.key_down_left  = false;
         this.key_down_right = false;
         this.key_down_space = false;
         this.key_down_shift = false;
-    };
-
-    this.reset_mouse = function() {
-        this.click_down_left   = false;
-        this.click_down_right  = false;
-        this.click_down_middle = false;
-    };
-
-    this.reset = function() {
-        this.reset_keys();
-        this.reset_mouse();
     };
 
     document.addEventListener(EVENT_MOUSE_DOWN, this.on_mouse_down.bind(this), true);

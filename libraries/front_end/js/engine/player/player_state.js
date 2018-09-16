@@ -1,16 +1,13 @@
 'use strict';
 
-const PLAYER_STATE_PAUSED       = 1; // #pre-process_global_constant
-const PLAYER_STATE_FULL_CONTROL = 2; // #pre-process_global_constant
-const PLAYER_STATE_TYPING       = 3; // #pre-process_global_constant
-const PLAYER_STATE_ENGAGED      = 4; // #pre-process_global_constant
+const PLAYER_STATE_PAUSED        = 1; // #pre-process_global_constant
+const PLAYER_STATE_FULL_CONTROL  = 2; // #pre-process_global_constant
+const PLAYER_STATE_TYPING_IN_HUD = 3; // #pre-process_global_constant
+const PLAYER_STATE_ENGAGED       = 4; // #pre-process_global_constant
 
 $_QE.prototype.PlayerState = function() {
     this.previous_state = null;
     this.current_state  = PLAYER_STATE_PAUSED;
-
-    // Gets set by application objects.
-    this.player_typing_input_handler = null;
 
     this.set_state = function(player_state) {
         this.previous_state = this.current_state;
@@ -41,8 +38,9 @@ $_QE.prototype.PlayerState = function() {
             }
 
             break;
-        case PLAYER_STATE_TYPING:
-            QE.enter_typing_state();
+        case PLAYER_STATE_TYPING_IN_HUD:
+            QE.gui_2d_typing.enter_typing_state();
+            //QE.enter_typing_state();
             //QE.update_needed_for_colors = true;
             //CURRENT_CLIENT.show_client_typing();
             break;
@@ -63,11 +61,6 @@ $_QE.prototype.PlayerState = function() {
         }
     };
 
-    // Check status.
-    this.has_paste_event = function() {
-        return this.current_state === PLAYER_STATE_TYPING || this.current_state === PLAYER_STATE_ENGAGED;
-    };
-
     this.is_engaged = function() {
         return this.current_state === PLAYER_STATE_ENGAGED;
     };
@@ -84,22 +77,11 @@ $_QE.prototype.PlayerState = function() {
         return this.current_state === PLAYER_STATE_FULL_CONTROL;
     };
 
-    this.in_typing_state = function() {
-        return this.current_state === PLAYER_STATE_TYPING;
+    this.in_hud_typing_state = function() {
+        return this.current_state === PLAYER_STATE_TYPING_IN_HUD;
     };
 
     this.has_input = function() {
-        return this.current_state === PLAYER_STATE_FULL_CONTROL || this.current_state === PLAYER_STATE_ENGAGED || this.current_state === PLAYER_STATE_TYPING;
-    };
-
-    // Input handlers.
-    this.on_paste_event = function(text) {
-        if (this.current_state === PLAYER_STATE_TYPING) {
-            if (this.player_typing_input_handler !== null) {
-                this.player_typing_input_handler.on_paste_event(text);
-            }
-        } else {
-
-        }
+        return this.current_state === PLAYER_STATE_FULL_CONTROL || this.current_state === PLAYER_STATE_ENGAGED || this.current_state === PLAYER_STATE_TYPING_IN_HUD;
     };
 };

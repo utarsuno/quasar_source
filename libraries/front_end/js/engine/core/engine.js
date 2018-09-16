@@ -36,18 +36,13 @@ $_QE.prototype = {
         this.gui_2d_elements.push(e);
     },
 
-    enter_typing_state: function() {
-        this.gui_2d_typing.render();
-        this.gui_2d_typing.show();
-    },
-
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
     _create_gui_2d: function() {
         this.gui_2d_debug  = new $_QE.prototype.GUI2DDebugInformation();
         this.gui_2d_logs   = new $_QE.prototype.GUI2DMessageLogs(32);
-        this.gui_2d_typing = new $_QE.prototype.GUI2DPlayerTypingInput();
+        this.gui_2d_typing = new $_QE.prototype.GUI2DPlayerTypingInput(this.application);
     },
 
     // Step : 0x0
@@ -103,7 +98,7 @@ $_QE.prototype = {
         this.client.pre_render_initialize(this.manager_renderer);
 
         this.player        = new $_QE.prototype.Player(this.client, this);
-        this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application);
+        this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application, this);
 
         this.manager_world.initialize_first_world();
         this.manager_renderer.initialize_shaders(this.manager_world.first_world);

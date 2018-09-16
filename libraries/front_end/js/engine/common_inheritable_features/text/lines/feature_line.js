@@ -1,6 +1,6 @@
 'use strict';
 
-$_QE.prototype.FeatureTextLine = function(typeable) {
+$_QE.prototype.FeatureTextLine = function(typeable, on_enter_callback) {
 
     let self            = this;
 
@@ -62,6 +62,6 @@ $_QE.prototype.FeatureTextLine = function(typeable) {
     if (typeable) {
         $_QE.prototype.FeatureTyping.call(this, null, null, function() {
             self.update_needed_for_line = true;
-        });
+        }, on_enter_callback);
     }
 };

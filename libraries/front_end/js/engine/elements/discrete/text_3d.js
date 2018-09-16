@@ -31,9 +31,6 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
         }
 
         self.height = (self._cache_box.max.y - self._cache_box.min.y) / self._cache_relative_up.y;
-
-        l(self._cache_relative_left_right);
-        //l('Width: {' + self.width + '}');
     });
 
     //
@@ -42,8 +39,6 @@ $_QE.prototype.Text3D = function(size, text, interactive=false) {
     //
 
     this._on_text_change = function() {
-        l('ON TEXT CHANGE EVENT!');
-
         this.recycle(true, true, false);
 
         this.recycle_geometry();
