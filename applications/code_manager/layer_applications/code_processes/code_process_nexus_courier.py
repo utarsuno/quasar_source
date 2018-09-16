@@ -6,7 +6,7 @@ from libraries.code_api.code_manager.code_process import CodeProcess
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.source_file_abstraction.code_files import code_file
 from libraries.code_api.project_abstraction.project_component import ProjectComponent
-from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
+
 
 
 class CodeProcessNexusCourier(CodeProcess):
@@ -21,7 +21,7 @@ class CodeProcessNexusCourier(CodeProcess):
 		# Websocket server
 		self.web_server = ProjectComponent('nexus_local_nexus_courier')
 		self.web_server.add_extensions_to_ignore(['', '.py'])
-		self.web_server.add_base_code_directory('/quasar/applications/nexus_courier')
+		self.web_server.add_base_directory('/quasar/applications/nexus_courier')
 		self.web_server.load_all_content()
 
 		self.any_file_updated = False
@@ -38,9 +38,9 @@ class CodeProcessNexusCourier(CodeProcess):
 		for f in self.all_files:
 
 			if '.h' in f.full_path:
-				file_type = code_file.CODE_FILE_TYPE_HEADER_FILE
+				file_type = code_file.FILE_TYPE_HEADER
 			else:
-				file_type = code_file.CODE_FILE_TYPE_CPP
+				file_type = code_file.FILE_TYPE_CPP
 
 			cached_or_updated, file = self.domain.cache_single_file(
 				file_type,

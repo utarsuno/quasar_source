@@ -19,6 +19,8 @@ CODE_PROCESS_HTML      = 'nginx_html'
 CODE_PROCESS_CSS       = 'nginx_css'
 CODE_PROCESS_JS        = 'nginx_js'
 CODE_PROCESS_JS_LIBS   = 'nginx_js_libs'
+#TODO:
+CODE_PROCESS_DOCKER_VOLUME = 'nginx_docker_volume'
 
 APPLICATION_NEXUS_COURIER  = 'nexus_courier'
 CODE_PROCESS_NEXUS_COURIER = 'nexus_courier'

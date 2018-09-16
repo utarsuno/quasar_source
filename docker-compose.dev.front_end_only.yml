@@ -12,9 +12,16 @@ services:
     ports:
       - "80:80"
     volumes:
+    # TODO REMOVE HOST MAPPING (./:/quasar)
       - ./:/quasar
+      - persistent_volume:/persistent_volume_test
 
 networks:
   default:
     external:
       name: host_connection
+
+volumes:
+  persistent_volume:
+    external: true
+

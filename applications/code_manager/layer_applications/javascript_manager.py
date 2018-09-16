@@ -217,7 +217,6 @@ class JavascriptManager(object):
 
 		# Now minify the file and transfer it to its needed location.
 		loaded_javascript_file = combined_javascript_file.get_created_file_as_loaded_file()
-		#loaded_javascript_file.set_reduced_file_to_copy_out_of_configuration_files()
 
 		return loaded_javascript_file
 		#loaded_javascript_file.generate_minified_file()
@@ -234,7 +233,7 @@ class JavascriptManager(object):
 		self.js.add_extension_to_ignore('.gz')
 		self.js.add_extension_to_ignore('.min.gz')
 		self.js.set_generated_file_path('/quasar/generated_output/web_assets/')
-		self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/engine'))
+		self.js.add_base_directory('/quasar/libraries/front_end/js/engine')
 
 		# Main engine.
 		self.js_files_needed.append('core/engine.js')
@@ -414,7 +413,7 @@ class JavascriptManager(object):
 		#print(self.engine.is_build_nexus_local)
 
 		if self.engine.is_build_nexus_local:
-			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/nexus'))
+			self.js.add_base_directory('/quasar/libraries/front_end/js/nexus')
 			# Add js files needed.
 			self.js_files_needed.append('nexus/nexus_local.js')
 			self.js_files_needed.append('nexus/world/world_dev_tools.js')
@@ -422,7 +421,7 @@ class JavascriptManager(object):
 			self.js_files_needed.append('nexus/models/floating_terminal.js')
 			self.js_files_needed.append('nexus/world/world_environment.js')
 		elif self.engine.is_build_quasar:
-			self.js.add_base_code_directory(CodeDirectory('/quasar/libraries/front_end/js/quasar'))
+			self.js.add_base_directory('/quasar/libraries/front_end/js/quasar')
 			# Add js files needed.
 
 		self.js.load_all_content()

@@ -24,7 +24,7 @@ class ShellLibrary(CodeFile):
 	"""Represents a single shell library file."""
 
 	def __init__(self, file_name):
-		super().__init__(CODE_FILE_TYPE_SHELL_SCRIPT, file_name)
+		super().__init__(FILE_TYPE_SHELL_SCRIPT, file_name)
 		self._file_extension = '.sh'
 
 
@@ -32,7 +32,7 @@ class ShellFile(GeneratedCodeFile):
 	"""Represents a single shell file."""
 
 	def __init__(self, file_name):
-		super().__init__(CODE_FILE_TYPE_SHELL_SCRIPT, file_name)
+		super().__init__(FILE_TYPE_SHELL_SCRIPT, file_name)
 		self._file_extension = '.sh'
 		self._main_code_chunk = None
 		self._required_libraries = []

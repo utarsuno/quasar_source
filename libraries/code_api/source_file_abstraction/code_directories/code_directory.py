@@ -48,15 +48,10 @@ class CodeDirectory(object):
 		self._directory_path    = directory_path
 		self._child_directories = []
 		self._code_files        = []
-		self._generatable       = True
 
 		self._parent_directory = None
 
 		self._safety_check_on_directory_path()
-
-	def set_to_non_generatable(self):
-		"""Sets this directory to one that can not be generated."""
-		self._generatable = False
 
 	def create_directory_if_needed(self):
 		"""Creates the code directory if it does not exist."""
@@ -122,11 +117,6 @@ class CodeDirectory(object):
 		return self._code_files
 
 	@property
-	def generatable(self) -> bool:
-		"""Returns a boolean indicating if this code directory is generatable or not."""
-		return self._generatable
-
-	@property
 	def parent_directory(self):
 		"""Returns the parent code directory of this code directory."""
 		return self._parent_directory
@@ -170,6 +160,7 @@ class CodeDirectory(object):
 					skip_file = True
 					break
 
+			# TODO: Change this, probably doesn't support Dockerfiles.
 			if not extensions:
 				skip_file = True
 

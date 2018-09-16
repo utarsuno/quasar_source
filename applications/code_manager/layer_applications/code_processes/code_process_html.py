@@ -8,21 +8,20 @@ from libraries.code_api.source_file_abstraction.code_files import code_file
 
 
 from libraries.code_api.project_abstraction.project_component import ProjectComponent
-from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class CodeProcessHTML(CodeProcessMinifyThenGzip):
 	"""Cache checker for HTML files."""
 
 	def __init__(self, entity, parent_entity, domain):
-		super().__init__(entity, parent_entity, domain, code_file.CODE_FILE_TYPE_HTML_FILE)
+		super().__init__(entity, parent_entity, domain, code_file.FILE_TYPE_HTML)
 
 	def _run(self):
 		oc.print_green('Running CodeProcessHTML')
 
 		self.html = ProjectComponent('nexus_local_html')
 		self.html.add_extensions_to_ignore(['.min', '.gz', '.min.gz'])
-		self.html.add_base_code_directory(CodeDirectory('/quasar/assets/html'))
+		self.html.add_base_directory('/quasar/assets/html')
 		self.html.set_generated_file_path('/quasar/generated_output/web_assets/')
 		self.html.load_all_content()
 

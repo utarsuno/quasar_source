@@ -14,6 +14,6 @@ class LoadedCSSFile(LoadedCodeFile, Minifiable):
 	"""Represents a single css file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		LoadedCodeFile.__init__(self, CODE_FILE_TYPE_CSS_FILE, file_name, file_extensions)
+		LoadedCodeFile.__init__(self, FILE_TYPE_CSS, file_name, file_extensions)
 		Minifiable.__init__(self)
 		self.set_minification_function(compress)

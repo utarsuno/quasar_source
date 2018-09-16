@@ -5,6 +5,7 @@
     user-select: none;
     touch-action: none;
     margin: 0;
+    background-color: rgba(0, 0, 0, 0.59);
 }
 
 /*__
@@ -76,17 +77,19 @@
     left: 12.5%;
     width: 75%;
     background: rgba(1, 1, 1, 0.55);
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    color: rgba(205, 255, 217, 0.45);
+    /*border: 2px solid rgba(255, 255, 255, 0.9);*/
+    border: 2px solid rgba(101, 128, 84, 0.77);
+    /*color: rgba(205, 255, 217, 0.45);*/
+    color: rgb(205, 255, 217);
     display: table;
 }
 
 #c {
-    font-size: 10vw;
+    font-size: 13vw;
     margin: 0;
 }
 
 #d {
-    font-size: 4vw;
+    font-size: 3vw;
     margin: 0;
 }

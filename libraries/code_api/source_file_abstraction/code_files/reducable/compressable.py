@@ -3,12 +3,11 @@
 """This module, compressable.py, provides an abstraction for files that can get compressed."""
 
 
-from libraries.code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
 from libraries.universal_code import useful_file_operations as ufo
 from PIL import Image
 
 
-class Compressable(Redusable):
+class Compressable(object):
 	"""Abstraction for files that can be compressed."""
 
 	def __init__(self):
@@ -24,8 +23,6 @@ class Compressable(Redusable):
 
 		image = Image.open(self._compressed_save_path)
 		image.save(self._compressed_save_path, quality=85, progressive=False)
-
-		#self._compressed_file_size = ufo.get_file_size_in_bytes(self._compressed_save_path)
 
 		transfer_path = self._compressed_save_path.replace('c_' + self.file_name, self.file_name).replace('/configuration_files/', '/quasar_site_django/')
 		ufo.copy_file_to_path(self._compressed_save_path, transfer_path)
@@ -47,10 +44,7 @@ class Compressable(Redusable):
 			print('Non-recognized asset format!!')
 			exit()
 
-		#self._compressed_file_size = ufo.get_file_size_in_bytes(self._compressed_save_path)
-
 
 		transfer_path = self._compressed_save_path.replace('c_' + self.file_name, self.file_name).replace('/configuration_files/', '/quasar_site_django/')
 		ufo.copy_file_to_path(self._compressed_save_path, transfer_path)
-
 

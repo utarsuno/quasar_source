@@ -3,11 +3,10 @@
 """This module, minifiable.py, provides an abstraction for CodeFile's that can get minified."""
 
 
-from libraries.code_api.source_file_abstraction.code_files.reducable.redusable_file import Redusable
 from libraries.universal_code import useful_file_operations as ufo
 
 
-class Minifiable(Redusable):
+class Minifiable(object):
 	"""Abstraction for files that can be minified."""
 
 	def __init__(self):

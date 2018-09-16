@@ -1,12 +1,12 @@
 # coding=utf-8
 
-"""This module, ensure_host_connection_network.py, creates the host_connection Docker network if it does not exist."""
+"""This module, ensure_docker_network_exists.py, creates the host_connection Docker network if it does not exist."""
 
 from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 from libraries.universal_code import output_coloring as oc
 
 
-class DockerHostConnectionNetworkChecker(object):
+class DockerNetworkChecker(object):
 	"""Utility object."""
 
 	def __init__(self):
@@ -28,7 +28,7 @@ class DockerHostConnectionNetworkChecker(object):
 		BashCommandRunner('docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 ' + self.network_name).run()
 
 
-check = DockerHostConnectionNetworkChecker()
+check = DockerNetworkChecker()
 
 
 

@@ -9,7 +9,7 @@ cd ${DIR}/../..;
 
 print_dashed_line_with_text "Quasar Build Process Start"
 
-python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
+python3 ./scripts/local/_utility_scripts/ensure_docker_network_exists.py
 
 #docker-compose -f docker-compose.dev.build.yml stop;
 #docker-compose -f docker-compose.dev.build.yml build;

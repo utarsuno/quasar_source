@@ -72,7 +72,7 @@ class CodeProcessThreeJS(CodeProcessThirdPartyLibrary):
 		file_path = '/quasar/libraries/front_end/js/third_party/three_js/three.min.js'
 
 		cached_or_updated, file = self.domain.cache_single_file(
-			code_file.CODE_FILE_TYPE_JS_FILE,
+			code_file.FILE_TYPE_JS,
 			'CALCULATE',
 			file_path,
 			'CALCULATE',
@@ -87,7 +87,7 @@ class CodeProcessThreeJS(CodeProcessThirdPartyLibrary):
 			ufo.file_op_create_gzip(file_path, generated_file_path)
 
 			child_cached_or_updated, child_file = self.domain.cache_single_file(
-				code_file.CODE_FILE_TYPE_JS_FILE,
+				code_file.FILE_TYPE_JS,
 				'CALCULATE',
 				generated_file_path,
 				'CALCULATE',

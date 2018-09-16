@@ -17,7 +17,7 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 	"""Represents a single javascript file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		LoadedCodeFile.__init__(self, CODE_FILE_TYPE_JS_FILE, file_name, file_extensions)
+		LoadedCodeFile.__init__(self, FILE_TYPE_JS, file_name, file_extensions)
 		Minifiable.__init__(self)
 		#self.set_minification_function(jsmin)
 		self.set_minification_function_custom()
@@ -76,7 +76,7 @@ class GeneratedJSFile(GeneratedCodeFile):
 	"""Represents a single generated javascript file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		super().__init__(CODE_FILE_TYPE_JS_FILE, file_name, file_extensions)
+		super().__init__(FILE_TYPE_JS, file_name, file_extensions)
 
 		# Temporary fix.
 		if self.file_extension is None:

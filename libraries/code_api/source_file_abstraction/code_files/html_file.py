@@ -14,7 +14,7 @@ class LoadedHTMLFile(LoadedCodeFile, Minifiable):
 	"""Represents a single html file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		LoadedCodeFile.__init__(self, CODE_FILE_TYPE_HTML_FILE, file_name, file_extensions)
+		LoadedCodeFile.__init__(self, FILE_TYPE_HTML, file_name, file_extensions)
 		Minifiable.__init__(self)
 		self.set_minification_function_custom()
 

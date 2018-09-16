@@ -8,14 +8,13 @@ from libraries.code_api.source_file_abstraction.code_files import code_file
 from applications.code_manager.layer_applications import javascript_manager as jsm
 
 from libraries.code_api.project_abstraction.project_component import ProjectComponent
-from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class CodeProcessJS(CodeProcessMinifyThenGzip):
 	"""Cache checker for JS files."""
 
 	def __init__(self, entity, parent_entity, domain):
-		super().__init__(entity, parent_entity, domain, code_file.CODE_FILE_TYPE_JS_FILE)
+		super().__init__(entity, parent_entity, domain, code_file.FILE_TYPE_JS)
 
 		self.is_build_nexus_local = True
 		self.is_build_quasar      = False
@@ -27,7 +26,7 @@ class CodeProcessJS(CodeProcessMinifyThenGzip):
 
 		# Assets
 		self.assets = ProjectComponent('nexus_local_assets')
-		self.assets.add_base_code_directory(CodeDirectory('/quasar/assets/shaders/'))
+		self.assets.add_base_directory('/quasar/assets/shaders/')
 		self.assets.load_all_content()
 
 		# JS

@@ -7,17 +7,18 @@ from libraries.code_api.code_abstraction.code_chunk import CodeChunk
 from libraries.universal_code import useful_file_operations as ufo
 
 
-CODE_FILE_TYPE_SHELL_SCRIPT    = 'Shell'
-CODE_FILE_TYPE_CSS_FILE        = 'CSS'
-CODE_FILE_TYPE_JS_FILE         = 'JS'
-CODE_FILE_TYPE_HTML_FILE       = 'HTML'
-CODE_FILE_TYPE_ASSET_PNG       = 'PNG'
-CODE_FILE_TYPE_ASSET_JPG       = 'JPG'
-CODE_FILE_TYPE_SHADER_FRAGMENT = 'frag'
-CODE_FILE_TYPE_SHADER_VERTEX   = 'vert'
-CODE_FILE_TYPE_DOCKER_FILE     = 'Dockerfile'
-CODE_FILE_TYPE_CPP             = 'C++'
-CODE_FILE_TYPE_HEADER_FILE     = 'Header'
+FILE_TYPE_SHELL_SCRIPT    = 'Shell'
+FILE_TYPE_CSS             = 'CSS'
+FILE_TYPE_JS              = 'JS'
+FILE_TYPE_HTML            = 'HTML'
+FILE_TYPE_PNG             = 'PNG'
+FILE_TYPE_JPG             = 'JPG'
+FILE_TYPE_SHADER_FRAGMENT = 'frag'
+FILE_TYPE_SHADER_VERTEX   = 'vert'
+FILE_TYPE_DOCKER_FILE     = 'Dockerfile'
+FILE_TYPE_DOCKER_COMPOSE  = 'Docker-compose'
+FILE_TYPE_CPP             = 'C++'
+FILE_TYPE_HEADER          = 'Header'
 
 
 class CodeFile(object):
@@ -43,24 +44,6 @@ class CodeFile(object):
 			return self._file_type + ':' + self._file_name
 
 	@property
-	def get_number_of_code_lines(self):
-		"""TODO: Eventually extend this method."""
-		if self._temp_utility_file_lines is None:
-			self._temp_utility_file_lines = ufo.get_file_content(self.full_path)
-
-		# TODO : Eventually don't count code comments!
-
-		number_of_lines = 0
-		for l in self._temp_utility_file_lines:
-			if len(l.replace('\n', '')) > 0:
-				number_of_lines += 1
-		return number_of_lines
-
-	def is_html(self):
-		"""Returns a boolean indicating if this is an HTML file."""
-		return self._file_type == CODE_FILE_TYPE_HTML_FILE
-
-	@property
 	def file_size(self):
 		"""Returns the file size of this file."""
 		if self._file_size is None:
@@ -84,7 +67,7 @@ class CodeFile(object):
 
 	@property
 	def file_extension(self) -> str:
-		"""Returns this file's file extension."""
+		"""Returns this file's file extension(s)."""
 		return self._file_extension
 
 

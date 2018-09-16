@@ -13,12 +13,12 @@ cd ${DIR}/../..;
 
 print_dashed_line_with_text "Quasar Front End Start"
 
-python3 ./scripts/local/_utility_scripts/ensure_host_connection_network.py
+python3 ./scripts/local/_utility_scripts/ensure_docker_network_exists.py
 
 
 # TODO: automate checking if build process needs to occur.
 # TEMPORARY COMMENT OUT TO SPEED UP BUILD PROCESS
-#docker-compose -f docker-compose.dev.front_end_only.yml build;
+docker-compose -f docker-compose.dev.front_end_only.yml build;
 
 
 docker-compose -f docker-compose.dev.front_end_only.yml up;
