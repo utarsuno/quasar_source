@@ -9,7 +9,10 @@ cd ${DIR}/../..;
 
 print_dashed_line_with_text "Quasar Build Process Start"
 
-python3 ./scripts/local/_utility_scripts/ensure_docker_network_exists.py
+# ARG_OPERATION_ENSURE_NETWORK = 'n'
+# ARG_OPERATION_ENSURE_VOLUME  = 'v'
+python3 ./scripts/functionalities/_operations_docker.py 'n' 'v'
+
 
 #docker-compose -f docker-compose.dev.build.yml stop;
 #docker-compose -f docker-compose.dev.build.yml build;
@@ -18,6 +21,9 @@ python3 ./scripts/local/_utility_scripts/ensure_docker_network_exists.py
 docker-compose -f docker-compose.dev.build.yml up;
 
 ret=$(docker wait quasar_source_code_manager_1)
+
+# TODO: Instead of using exit codes, the DB should fetch the build process State and proceed from there
+
 
 if [ ${ret} -eq 200 ]; then
     # Go to project base directory.

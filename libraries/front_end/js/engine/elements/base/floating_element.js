@@ -28,11 +28,6 @@ $_QE.prototype.FloatingElement = function(is_base) {
 
     this.update_element = function() {
 
-        if (this.update_needed_for_position) {
-            l('UPDATE NEEDED FOR POSITION!');
-            //TODO: refresh children
-        }
-
         if (this.update_needed_for_position || this.update_needed_for_normal) {
             this.refresh();
 

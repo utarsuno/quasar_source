@@ -5,7 +5,6 @@
 import sys
 from libraries.universal_code import debugging as dbg
 from libraries.universal_code import output_coloring as oc
-from libraries.universal_code.system_abstraction.program_arguments import ProgramArguments
 from libraries.universal_code.system_abstraction import shell_command_runner as bash
 
 
@@ -66,6 +65,7 @@ class BashPromptInput(BashPrompt):
 	def run(self):
 		"""Runs this prompt."""
 		oc.print_title(self._initial_message)
+		sys.stdout.flush()
 		#oc.print_data_with_red_dashes_at_start('(y/n)')
 		try:
 			user_choice = str(input())
@@ -94,10 +94,12 @@ class BashPromptListSelection(BashPrompt):
 	def run(self):
 		"""Runs this prompt."""
 		oc.print_title(self._initial_message)
+		sys.stdout.flush()
 		c = 0
 		while c < len(self._choices):
 			oc.print_data_with_red_dashes_at_start(str(c) + ' : {' + self._choices[c][0] + '} - {' + self._choices[c][1] + '}')
 			c += 1
+		sys.stdout.flush()
 
 		finished = False
 
@@ -111,17 +113,14 @@ class BashPromptListSelection(BashPrompt):
 			except:
 				self.error('Invalid choice!')
 
-		return user_choice
+		return self._choices[user_choice]
+		#return user_choice
 
 
 class BashInteractive(object):
 	"""Abstraction to an interactive bash prompt."""
 
-	def __init__(self, expectable_arguments=None):
-		self._args = expectable_arguments
-		if self._args is not None:
-			self._args.check_if_needed_arguments_passed_in()
-
+	def __init__(self):
 		self.prompts = []
 
 	def get_bash_output(self, command_to_run, input_required=False):

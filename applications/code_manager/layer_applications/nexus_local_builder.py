@@ -15,8 +15,8 @@ db.run_needed_code_processes()
 
 return_flags = db.get_flags()
 
-print('PRINTING THE BUILD FLAGS')
-print(return_flags)
+#print('PRINTING THE BUILD FLAGS')
+#print(return_flags)
 
 
 BUILD_FLAG_NEXUS_COURIER_UPDATED = 'NEXUS_COURIER_UPDATE'

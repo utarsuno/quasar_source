@@ -4,8 +4,8 @@
 
 from libraries.universal_code.system_abstraction import bash_interactive as bi
 from libraries.universal_code import output_coloring as oc
-from libraries.universal_code.system_abstraction import program_arguments as pa
 
+from libraries.universal_code.system_abstraction.python_shell_script import PythonShellScript
 
 ARG_CLEAN_GIT = 'c'
 ARG_NO_CHANGE = 'n'
@@ -40,7 +40,6 @@ class PushLatestChanges(bi.BashPromptInput):
 	def __init__(self):
 		super().__init__('get_commit_message', 'Enter your commit message.', empty_allowed=False)
 
-		#p = bi.BashPrompt('What is your commit message?')
 		user_input = self.run()
 
 		push_changes = bi.BashInteractive()
@@ -49,11 +48,28 @@ class PushLatestChanges(bi.BashPromptInput):
 		o = push_changes.get_bash_output(['git', 'push'])
 		oc.print_green('Changes pushed!')
 
-args = pa.ProgramArguments()
-mode = args.get_first_argument()
-if mode == ARG_CLEAN_GIT:
-	session = RemovedIgnoredButStagedFiles()
-elif mode == ARG_NO_CHANGE:
-	oc.print_data_with_red_dashes_at_start('No changes to push!')
-elif mode == ARG_PUSH_CODE:
-	session = PushLatestChanges()
+
+class GITOperations(PythonShellScript):
+	"""A shell script for git operations."""
+
+	def __init__(self):
+		super().__init__()
+		self.add_argument_and_respective_procedure(ARG_PUSH_CODE, 'Pushes the latest local code changes (on current branch).', False, self._push_latest_changes)
+		self.add_argument_and_respective_procedure(ARG_CLEAN_GIT, 'Checks if there needs to be any files cleaned up from a git perspective.', False, self._remove_ignored_but_staged_files)
+		self.add_argument_and_respective_procedure(ARG_NO_CHANGE, 'Inform the user that there are no code changes present to push.', False, self._no_changes_to_push)
+
+	def _remove_ignored_but_staged_files(self):
+		"""Utility."""
+		RemovedIgnoredButStagedFiles()
+
+	def _push_latest_changes(self):
+		"""Utility."""
+		PushLatestChanges()
+
+	def _no_changes_to_push(self):
+		"""Utility."""
+		oc.print_data_with_red_dashes_at_start('No changes to push!')
+
+if __name__ == "__main__":
+	script = GITOperations()
+	script.run()

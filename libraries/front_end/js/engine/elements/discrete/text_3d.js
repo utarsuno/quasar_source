@@ -30,21 +30,6 @@ $_QE.prototype.Text3D = function(is_base, size, text, interactive=false) {
         let left_right = self.get_left_right();
         let up         = self.get_up();
 
-        if (!this.is_base) {
-            l(self._cache_box.min);
-            l(self._cache_box.max);
-            l(left_right.x);
-            l(left_right.y);
-            l(left_right.z);
-            l('---');
-            l(up.x);
-            l(up.y);
-            l(up.z);
-            l('---');
-            l(left_right.x);
-            l(left_right.x != 0);
-            l((self._cache_box.min.x - self._cache_box.max.x) / left_right.x);
-        }
         if (left_right.x != 0) {
             self.width = (self._cache_box.min.x - self._cache_box.max.x) / left_right.x;
         } else {
@@ -79,9 +64,6 @@ $_QE.prototype.Text3D = function(is_base, size, text, interactive=false) {
         } else {
             this.add_to_world(this.world, false, false, false);
         }
-
-        //this.world.add_to_scene(this.mesh);
-        //this.world.add_element_root(this);
     };
 
     this.create = function() {

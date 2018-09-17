@@ -77,6 +77,15 @@ services:
     #depends_on:
     #  - nginx
 
+#networks:
+#  default:
+#    name: rabbitmq_cluster
+
 networks:
   default:
-    name: rabbitmq_cluster
+    external:
+      name: nexus_network
+
+volumes:
+  nexus_volume:
+    external: true

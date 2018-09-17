@@ -17,13 +17,13 @@ services:
     #tty: false
     volumes:
       - ./:/quasar
-      - persistent_volume:/persistent_volume_test
+      - nexus_volume:/nexus_volume
 
 networks:
   default:
     external:
-      name: host_connection
+      name: nexus_network
 
 volumes:
-  persistent_volume:
+  nexus_volume:
     external: true
