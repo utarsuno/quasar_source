@@ -104,12 +104,6 @@ const CLICK_LEFT   = 1;                    // #pre-process_global_constant
 const CLICK_MIDDLE = 2;                    // #pre-process_global_constant
 const CLICK_RIGHT  = 3;                    // #pre-process_global_constant
 
-/*___  ___     ___                 __           __  ___      ___  ___
-   |  |__  \_/  |      /\  |    | / _` |\ |    /__`  |   /\   |  |__
-   |  |___ / \  |     /~~\ |___ | \__> | \|    .__/  |  /~~\  |  |___ */
-const TEXT_ALIGN_STATE_START  = 0; // #pre-process_global_constant
-const TEXT_ALIGN_STATE_CENTER = 1; // #pre-process_global_constant
-const TEXT_ALIGN_STATE_END    = 2; // #pre-process_global_constant
 /*__                       __
  /  `  /\  |\ | \  /  /\  /__`
  \__, /~~\ | \|  \/  /~~\ .__/ */
@@ -123,9 +117,6 @@ const CANVAS_GUI_2D_RELATIVE_TO_SCREEN = false; // #pre-process_global_constant
 const CANVAS_MATERIAL_STYLE_BASIC      = 0;     // #pre-process_global_constant
 const CANVAS_MATERIAL_STYLE_FANCY      = 1;     // #pre-process_global_constant
 const CANVAS_MATERIAL_STYLE_SHINY      = 2;     // #pre-process_global_constant
-
-const CAVNAS_FONT_SMALLER              = 0;     // #pre-process_global_constant
-const CAVNAS_FONT_LARGER               = 1;     // #pre-process_global_constant
 
 const CANVAS_FONT_INDEX_NAME           = 0;     // #pre-process_global_constant
 const CANVAS_FONT_INDEX_SIZE           = 1;     // #pre-process_global_constant

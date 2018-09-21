@@ -53,7 +53,7 @@ $_QE.prototype.WorldManagerInput = function() {
 
     this.key_down_event = function(event) {
         if (this.player.in_hud_typing_state()) {
-            QE.gui_2d_typing.parse_key_event(event);
+            QE.manager_hud.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
                 if (this.current_world.currently_looked_at_object === null) {

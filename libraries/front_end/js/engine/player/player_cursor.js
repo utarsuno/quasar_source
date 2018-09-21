@@ -2,7 +2,7 @@
 
 $_QE.prototype.PlayerCursor = function(player, world_manager) {
 
-    this.player = player;
+    this.player        = player;
     this.world_manager = world_manager;
 
     this._cursor_default = new $_QE.prototype.DomElement(GLOBAL_ID_CURSOR_DEFAULT, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);
@@ -30,7 +30,6 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
 
     this.initialize_gui(32, 32);
     $_QE.prototype.CanvasRenderingIcon.call(this);
-    QE.add_gui_2d_element(this);
 
     //this._test_cursor = new $_QE.prototype.CanvasGUI2D('cursor_icon', CANVAS_GUI_2D_ABSOLUTE_PIXELS, CANVAS_RENDERING_ICON);
 

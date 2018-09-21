@@ -17,7 +17,6 @@ $_QE.prototype = {
         this.UP_VECTOR       = new THREE.Vector3(0, 1, 0);
         this._delta_clock    = new THREE.Clock(false);
         this._delta          = 0;
-        this.gui_2d_elements = [];
 
         // Default settings.
         this.set_number_of_frames_for_physics(90);
@@ -32,18 +31,9 @@ $_QE.prototype = {
         this.engine_setting_spritesheet_enabled       = true;
     },
 
-    add_gui_2d_element: function(e) {
-        this.gui_2d_elements.push(e);
-    },
-
     /*__  ___       __  ___          __      __  ___  ___  __   __
      /__`  |   /\  |__)  |     |  | |__)    /__`  |  |__  |__) /__`
      .__/  |  /~~\ |  \  |     \__/ |       .__/  |  |___ |    .__/ */
-    _create_gui_2d: function() {
-        this.gui_2d_debug  = new $_QE.prototype.GUI2DDebugInformation();
-        this.gui_2d_logs   = new $_QE.prototype.GUI2DMessageLogs(32);
-        this.gui_2d_typing = new $_QE.prototype.GUI2DPlayerTypingInput(this.application);
-    },
 
     // Step : 0x0
     ensure_required_features_are_enabled: function() {
@@ -103,7 +93,8 @@ $_QE.prototype = {
         this.manager_world.initialize_first_world();
         this.manager_renderer.initialize_shaders(this.manager_world.first_world);
         this.manager_world.first_world.create_for_first_render();
-        this._create_gui_2d();
+
+        this.manager_hud = new $_QE.prototype.HUDManager(this);
 
         this.manager_input = new $_QE.prototype.InputManager(this);
 
@@ -119,11 +110,11 @@ $_QE.prototype = {
         this.manager_world.physics(this._engine_time_per_frame_physics);
         this.manager_world.update(this._engine_time_per_frame_physics);
         this.manager_renderer.render(this._engine_time_per_frame_physics);
+        //this.manager_hud.update(this._engine_time_per_frame_physics);
         //
 
         this.player.set_state(PLAYER_STATE_PAUSED);
         this.client.show_paused();
-        this.client.set_debug_mode(DEBUG_MODE_FPS);
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
@@ -151,29 +142,9 @@ $_QE.prototype = {
                 this._frames_passed = Math.floor(this._engine_elapsed_time_second);
 
                 this._engine_elapsed_time_second -= this._frames_passed;
-                // Debug metrics.
-                this._cache_fps.set_value(this._engine_frame_counter_render);
-                this._cache_memory_used.set_value(window.performance.memory.usedJSHeapSize);
-                this._cache_memory_size.set_value(window.performance.memory.totalJSHeapSize);
-                this._cache_geometries.set_value('g:' + this.manager_renderer.renderer.info.memory.geometries);
-                this._cache_geometries.set_value('t:' + this.manager_renderer.renderer.info.memory.textures);
-                this._cache_geometries.set_value('s:' + this.manager_renderer.renderer.info.programs.length);
-                if (this._cache_fps.has_update) {
-                    this.gui_2d_debug.set_row_contents(2, this._cache_fps.value_string, QE.COLOR_CANVAS_GREEN);
-                    this._cache_fps.has_update = false;
-                }
-                if (this._cache_memory_used.has_update || this._cache_memory_size.has_update) {
-                    this.gui_2d_debug.set_row_contents(1, '[' + this._cache_memory_used.value_string + '/' + this._cache_memory_size.value_string + ']', QE.COLOR_CANVAS_GREEN);
-                    this._cache_memory_used.has_update = false;
-                    this._cache_memory_size.has_update = false;
-                }
-                if (this._cache_geometries.has_update || this._cache_textures.has_update || this._cache_shaders.has_update) {
-                    this.gui_2d_debug.set_row_contents(0, this._cache_geometries.value_string + ', ' + this._cache_textures.value_string + ', ' + this._cache_shaders.value_string, QE.COLOR_CANVAS_GREEN);
-                    this._cache_geometries.has_update = false;
-                    this._cache_textures.has_update   = false;
-                    this._cache_shaders.has_update    = false;
-                }
-                this.gui_2d_debug.update();
+
+                this.manager_hud.hud_debug.set_current_frame_count(this._engine_frame_counter_render);
+
                 this._engine_frame_counter_render = 0;
             }
 
@@ -187,6 +158,8 @@ $_QE.prototype = {
                     this.manager_world.physics(this._engine_time_per_frame_physics);
                     this._frame_iteration++;
                 }
+
+                this.manager_hud.update();
             }
 
             if (this._engine_elapsed_time_logic >= this._engine_time_per_frame_logic) {

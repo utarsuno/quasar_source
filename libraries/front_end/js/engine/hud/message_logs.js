@@ -10,6 +10,4 @@ $_QE.prototype.GUI2DMessageLogs = function(number_of_rows) {
     $_QE.prototype.CanvasRenderingTextLines.call(this, number_of_rows, false);
 
     this.add_text_line_to_bottom('Nexus Local!', QE.COLOR_CANVAS_GREEN);
-
-    QE.add_gui_2d_element(this);
 };

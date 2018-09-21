@@ -29,7 +29,4 @@ $_QE.prototype.GUI2DPlayerTypingInput = function(application) {
     this.initialize_gui(800, 20, 10, 80, GLOBAL_ID_OUTLINE_GREEN, true, true, QE.CANVAS_FONT_SMALLER);
     this.update_text('');
     this.hide();
-
-    QE.add_gui_2d_element(this);
-
 };

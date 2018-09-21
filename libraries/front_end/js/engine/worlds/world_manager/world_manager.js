@@ -70,10 +70,10 @@ $_QE.prototype.WorldManager = function(player, renderer, application, engine) {
     };
 
     this.update = function(delta) {
-        let a;
-        for (a = 0; a < QE.gui_2d_elements.length; a++) {
-            QE.gui_2d_elements[a].update();
-        }
+        //let a;
+        //for (a = 0; a < QE.gui_2d_elements.length; a++) {
+        //    QE.gui_2d_elements[a].update();
+        //}
     };
 
 };

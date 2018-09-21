@@ -15,7 +15,7 @@ $_QE.prototype.EngineFrameCache = function(is_float) {
             if (!this.is_float) {
                 this._cache_string = this.value.toString();
             } else {
-                this._cache_string = (this.value / 1048576).toFixed(2).toString();
+                this._cache_string = (this.value).toFixed(2).toString();
             }
             if (this.value_string !== this._cache_string) {
                 this.value_string = this._cache_string;
@@ -35,25 +35,18 @@ $_QE.prototype.EngineFrameCounter = function() {
     this._engine_elapsed_time_second  = 0.0;
 
     // cache
-    this._frames_passed   = 0;
-    this._frame_iteration = 0;
-
-    this._cache_fps         = new $_QE.prototype.EngineFrameCache(false);
-    this._cache_memory_used = new $_QE.prototype.EngineFrameCache(true);
-    this._cache_memory_size = new $_QE.prototype.EngineFrameCache(true);
-    this._cache_geometries  = new $_QE.prototype.EngineFrameCache(false);
-    this._cache_textures    = new $_QE.prototype.EngineFrameCache(false);
-    this._cache_shaders     = new $_QE.prototype.EngineFrameCache(false);
+    this._frames_passed    = 0;
+    this._frame_iteration  = 0;
 
     this.on_pause = function() {
         this.client.show_paused();
 
-        this._engine_elapsed_time_physics  = 0.0;
-        this._engine_elapsed_time_render   = 0.0;
-        this._engine_elapsed_time_logic    = 0.0;
-        this._engine_elapsed_time_second   = 0.0;
+        this._engine_elapsed_time_physics = 0.0;
+        this._engine_elapsed_time_render  = 0.0;
+        this._engine_elapsed_time_logic   = 0.0;
+        this._engine_elapsed_time_second  = 0.0;
 
-        this._engine_frame_counter_render  = 0;
+        this._engine_frame_counter_render = 0;
     };
 
     this.set_number_of_frames_for_physics = function(fps) {

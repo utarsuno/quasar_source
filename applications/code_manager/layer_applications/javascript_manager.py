@@ -240,9 +240,10 @@ class JavascriptManager(object):
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# GUI 2D.
-		self.js_files_needed.append('gui_2d/debug_information.js')
-		self.js_files_needed.append('gui_2d/message_logs.js')
-		self.js_files_needed.append('gui_2d/player_typing_input.js')
+		self.js_files_needed.append('hud/hud_manager.js')
+		self.js_files_needed.append('hud/debug_information.js')
+		self.js_files_needed.append('hud/message_logs.js')
+		self.js_files_needed.append('hud/player_typing_input.js')
 
 		# Globals.
 		self.js_files_needed.append('global/globals.js')
@@ -276,7 +277,6 @@ class JavascriptManager(object):
 		self.js_files_needed.append('client/functionality/full_screen.js')
 		self.js_files_needed.append('client/functionality/pointer_lock.js')
 		self.js_files_needed.append('client/functionality/window_resize.js')
-		self.js_files_needed.append('client/functionality/debug.js')
 
 		# Loading and assets.
 

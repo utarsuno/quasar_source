@@ -48,7 +48,6 @@ $_QE.prototype.Client = function(engine) {
 
         //$_QE.prototype.ClientFunctionalityWindowFocus.call(this);
         $_QE.prototype.ClientFunctionalityWindowResize.call(this);
-        $_QE.prototype.ClientFunctionalityDebug.call(this);
     };
 
     //////
