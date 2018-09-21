@@ -47,7 +47,7 @@ class CodeFile(object):
 	def file_size(self):
 		"""Returns the file size of this file."""
 		if self._file_size is None:
-			self._file_size = ufo.get_file_size_in_bytes(self.full_path)
+			self._file_size = ufo.file_get_size_in_bytes(self.full_path)
 		return self._file_size
 
 	@property
@@ -94,9 +94,9 @@ class GeneratedCodeFile(CodeFile):
 		all_file_code = self.file_code
 		for line in all_file_code:
 			file_text += line
-		ufo.create_file_or_override(file_text, self.full_path)
+		ufo.file_op_create_or_override(self.full_path, file_text)
 		
-		self._file_size = ufo.get_file_size_in_bytes(self.full_path)
+		self._file_size = ufo.file_get_size_in_bytes(self.full_path)
 
 	@property
 	def file_code(self) -> list:
@@ -123,20 +123,20 @@ class LoadedCodeFile(CodeFile):
 
 	def replace_text(self, text_to_find, text_to_replace_with):
 		"""Replaces text inside of this code file."""
-		ufo.replace_text_in_file(self.full_path, text_to_find, text_to_replace_with)
+		ufo.file_op_replace_text(self.full_path, text_to_find, text_to_replace_with)
 		if self.contents_loaded:
 			self.read_file_contents()
 
 	def replace_line_from_text_match(self, text_to_match_in_line, line_to_replace_with):
 		"""Replaces the matched line with the provided line to replace with."""
-		ufo.replace_line_from_text_match(self.full_path, text_to_match_in_line, line_to_replace_with)
+		ufo.file_op_replace_line_from_text_match(self.full_path, text_to_match_in_line, line_to_replace_with)
 		if self.contents_loaded:
 			self.read_file_contents()
 
 	def read_file_contents(self):
 		"""Reads in the contents of this file."""
-		self._file_lines = ufo.get_file_content(self.full_path)
-		self._file_size = ufo.get_file_size_in_bytes(self.full_path)
+		self._file_lines = ufo.file_get_contents_as_lines(self.full_path)
+		self._file_size = ufo.file_get_size_in_bytes(self.full_path)
 		self._contents_loaded = True
 
 	@property
@@ -164,14 +164,14 @@ class LoadedCodeFile(CodeFile):
 	def sha256(self):
 		"""Returns the sha256 checksum of this file."""
 		if self._sha256 is None:
-			self._sha256 = ufo.get_sha256_checksum(self.full_path)
+			self._sha256 = ufo.file_get_sha256_checksm(self.full_path)
 		return self._sha256
 
 	@property
 	def md5sum(self):
 		"""Returns the md5sum of this file."""
 		if self._md5sum is None:
-			self._md5sum = ufo.get_md5_checksum(self.full_path)
+			self._md5sum = ufo.file_get_md5_checksum(self.full_path)
 		return self._md5sum
 
 	@property

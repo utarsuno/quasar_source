@@ -44,16 +44,16 @@ class Minifiable(object):
 
 		if generated_files_path is not None:
 			_save_path = generated_files_path + self.file_name + '.min' + self.file_extension
-			ufo.create_file_or_override(self._compressed_text, _save_path)
+			ufo.file_op_create_or_override(_save_path, self._compressed_text)
 			return _save_path
 		else:
-			ufo.create_file_or_override(self._compressed_text, self._save_path)
+			ufo.file_op_create_or_override(self._save_path, self._compressed_text)
 			return self._save_path
 
 		#print('SAVE PATH IS THE FOLLOWING {' + str(self._save_path) + '}')
 
-		#ufo.copy_file_to_path(self._save_path.replace('/quasar/source/', '/Users/utarsuno/git_repos/quasar_source/') ,self._save_path)
-		#ufo.copy_file_to_path(self._save_path.replace('/quasar/source/', '/Users/utarsuno/git_repos/quasar_source/'), self._save_path)
+		#ufo.file_op_copy(self._save_path.replace('/quasar/source/', '/Users/utarsuno/git_repos/quasar_source/') ,self._save_path)
+		#ufo.file_op_copy(self._save_path.replace('/quasar/source/', '/Users/utarsuno/git_repos/quasar_source/'), self._save_path)
 
 		#if self._temporary_design:
 		#	ufo.copy_file_to_path(self._save_path, self._save_path.replace('/configuration_files/', '/quasar_site_django/'))

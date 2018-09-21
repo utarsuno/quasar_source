@@ -5,8 +5,7 @@
 from libraries.code_api.code_manager.code_process import CodeProcess
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.source_file_abstraction.code_files import code_file
-from libraries.code_api.project_abstraction.project_component import ProjectComponent
-
+from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class CodeProcessNexusCourier(CodeProcess):
@@ -19,13 +18,13 @@ class CodeProcessNexusCourier(CodeProcess):
 		oc.print_green('Running CodeProcessNexusCourier')
 
 		# Websocket server
-		self.web_server = ProjectComponent('nexus_local_nexus_courier')
-		self.web_server.add_extensions_to_ignore(['', '.py'])
-		self.web_server.add_base_directory('/quasar/applications/nexus_courier')
-		self.web_server.load_all_content()
+		self.web_server = CodeDirectory('/quasar/applications/nexus_courier', base_directory=True)
+		self.web_server.add_extensions_to_ignore(['.py'])
+		self.web_server.add_extensions_to_match(['.cpp', '.h'])
+		#self.web_server.load_all_content()
 
 		self.any_file_updated = False
-		self.all_files = self.web_server.all_files
+		self.all_files = self.web_server.get_all_files()
 		#if any_file_updated:
 		#	print('BUILD WEBSOCKET SERVER!')
 		#	#self.db.print_all_data()

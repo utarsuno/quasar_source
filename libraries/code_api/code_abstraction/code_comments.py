@@ -129,7 +129,7 @@ def _get_characters_to_print(string):
 
 def _get_ascii_comment(string_to_print):
 	"""Returns string to print as ascii text."""
-	characters_to_print = _get_characters_to_print(string_to_print)
+	characters_to_print = _get_characters_to_print(string_to_print.lower())
 
 	lines = ['', '', '']
 
@@ -142,6 +142,55 @@ def _get_ascii_comment(string_to_print):
 	return lines
 
 
+def print_header_section(header_section_lines):
+	"""Utility function."""
+	for l in header_section_lines:
+		print(l)
+
+
+def get_python_comment_header_section(section_name, max_length=120):
+	"""Returns an ASCII Python code comment."""
+	section_name = section_name.lower()
+
+	lines = _get_ascii_comment(section_name)
+
+	line_one_subtraction = 0
+	offset = 3
+	print(section_name[0])
+	if section_name[0] == 'f':
+		offset -= 1
+		line_one_subtraction = 1
+
+	spaces = ' ' * offset
+
+	if line_one_subtraction > 0:
+		lines[0] = lines[0][line_one_subtraction:]
+
+	# An extra 5 for the ending three quotes and two spaces.
+	number_of_underscores = max_length - (len(spaces) + len(lines[2]) + 5)
+	underscores           = '_' * number_of_underscores
+
+	lines[0] = "'''" + lines[0]
+	lines[1] = spaces + lines[1]
+	lines[2] = spaces + lines[2] + underscores + " '''"
+	return lines
+
+
+def get_python_comment_header_sub_section(sub_section_name, max_length=120, start_offset=0):
+	"""Returns a single line Python code comment. Used as a sub_section_name."""
+	comment = '# '
+	i = 0
+	while i < start_offset:
+		comment = ' ' + comment
+		i += 1
+	remaining_length = max_length - len(comment)
+	# Subtract by two to leave a space on each side of the sub-section name.
+	length_for_dashes = int((remaining_length - len(sub_section_name) - 2) / 2)
+	dashes = '-' * length_for_dashes
+	comment += dashes + ' ' + sub_section_name + ' ' + dashes
+	return comment
+
+
 def get_shell_ascii_comment_as_code_chunk(comment):
 	"""Returns an ascii comment for a shell file as a code chunk."""
 	single_dashed_line = '# ----------------------------------------------------------------------------'
@@ -152,3 +201,26 @@ def get_shell_ascii_comment_as_code_chunk(comment):
 	lines.insert(0, single_dashed_line)
 	lines.append(single_dashed_line)
 	return CodeChunk(lines)
+
+
+'''
+file_header = get_python_comment_header_section('FILES')
+operations = get_python_comment_header_sub_section('O P E R A T I O N S')
+setters = get_python_comment_header_sub_section('S E T T E R S')
+getters = get_python_comment_header_sub_section('G E T T E R S')
+print_header_section(file_header)
+print(operations)
+print(setters)
+print(getters)
+directory_header = get_python_comment_header_section('DIRECTORIES')
+print_header_section(directory_header)
+'''
+
+'''
+operations = get_python_comment_header_sub_section('O P E R A T I O N S', start_offset=4)
+setters = get_python_comment_header_sub_section('S E T T E R S', start_offset=4)
+getters = get_python_comment_header_sub_section('G E T T E R S', start_offset=4)
+print(operations)
+print(setters)
+print(getters)
+'''

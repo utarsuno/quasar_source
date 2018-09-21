@@ -68,7 +68,7 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 		#	print(output)
 		#	exit()
 
-		compressed_text = ufo.get_file_content_as_string('/quasar/generated_output/temporary_output/temp2.txt')
+		compressed_text = ufo.file_get_contents_as_string('/quasar/generated_output/temporary_output/temp2.txt')
 		return compressed_text
 
 
@@ -80,7 +80,7 @@ class GeneratedJSFile(GeneratedCodeFile):
 
 		# Temporary fix.
 		if self.file_extension is None:
-			extensions = ufo.get_file_extensions(self.file_name)
+			extensions = ufo.file_get_extensions(self.file_name)
 			combined_extensions = ''
 			if len(extensions) > 0:
 				for e in extensions:

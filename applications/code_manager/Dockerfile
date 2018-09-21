@@ -17,12 +17,11 @@ RUN apk add --no-cache libc-dev \
  && apk add libtool \
  && apk add libsodium-dev \
  && apk add automake \
- && apk add openssl-dev
-
-# Update pip3.
-RUN pip3 install --upgrade pip
+ && apk add openssl-dev \
+ # Update pip3.
+ && pip3 install --upgrade pip \
  # Libraries for universal code.
-RUN pip3 install --no-cache-dir lazyme \
+ && pip3 install --no-cache-dir lazyme \
  # Libraries for code_api.
  && pip3 install --no-cache-dir csscompressor \
  && pip3 install --no-cache-dir jsmin \
@@ -31,9 +30,9 @@ RUN pip3 install --no-cache-dir lazyme \
  && pip3 install --no-cache-dir requests \
  # For JS minification.
  && apk add --update --no-cache nodejs \
- && apk add --update --no-cache nodejs-npm
-
-RUN apk add --no-cache git \
+ && apk add --update --no-cache nodejs-npm \
+ # For convience.
+ && apk add --no-cache git \
  && apk add --no-cache bash \
  && apk add --no-cache bash-completion
 
@@ -43,17 +42,11 @@ RUN apk add --no-cache git \
 
 # Build babel-minify.
 COPY ./scripts/docker/build_process_steps/build_babel_minify.sh /var/cache/build_babel_minify.sh
-RUN bash /var/cache/build_babel_minify.sh
-
-# ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
-#COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-#RUN ash /var/cache/quasar_application_setup_steps.sh "false" minify
-# ------------------------------------------------------------------------------------------------------------------------------
-
-RUN rm -rf /var/cache/apk/* \
+RUN bash /var/cache/build_babel_minify.sh \
+ # Cleanup steps.
+ && rm -rf /var/cache/apk/* \
  && rm -rf /root/.cache/pip/* \
  && rm /var/cache/build_babel_minify.sh
 
-#&& rm /var/cache/build_amqp.sh \
 
 CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_builder.py"]

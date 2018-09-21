@@ -5,7 +5,7 @@
 from libraries.code_api.code_manager.code_process_gzip import CodeProcessGzip
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.source_file_abstraction.code_files import code_file
-from libraries.code_api.project_abstraction.project_component import ProjectComponent
+from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class CodeProcessJSLibs(CodeProcessGzip):
@@ -18,12 +18,12 @@ class CodeProcessJSLibs(CodeProcessGzip):
 		oc.print_green('Running CodeProcessJSLibs')
 
 		# JS Libraries
-		self.js_libraries = ProjectComponent('nexus_local_js_libraries')
-		self.js_libraries.add_extensions_to_ignore(['.gz', '.min.gz', ''])
-		self.js_libraries.add_base_directory('/quasar/libraries/front_end/js/third_party')
-		self.js_libraries.load_all_content()
+		self.js_libraries = CodeDirectory('/quasar/libraries/front_end/js/third_party', base_directory=True)
+		self.js_libraries.add_extensions_to_ignore(['.gz', '.min'])
+		self.js_libraries.add_extension_to_match('.js')
+		#self.js_libraries.load_all_content()
 
-		self.all_files = self.js_libraries.all_files
+		self.all_files = self.js_libraries.get_all_files()
 		self._perform_process()
 
 

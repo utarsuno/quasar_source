@@ -3,7 +3,7 @@
 """This module, output_coloring.py, is an abstraction to providing color and other syntax to debug/output statements."""
 
 from lazyme import color_print
-from libraries.code_api.code_abstraction.ascii_comments import _get_ascii_comment
+from libraries.code_api.code_abstraction.code_comments import _get_ascii_comment
 
 
 _COLOR_YELLOW = 'yellow'

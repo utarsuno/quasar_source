@@ -61,9 +61,9 @@ class CodeProcessThreeJS(CodeProcessThirdPartyLibrary):
 			self.fail('error performing "git checkout tags/' + str(self.latest_version) + '"')
 			return
 
-		ufo.copy_file_to_path(
-			destination='/quasar/libraries/front_end/js/third_party/three_js/three.min.js',
-			source_file='/quasar/generated_output/third_party_libraries/three_js/three.js/build/three.min.js'
+		ufo.file_op_copy(
+			path_source      = '/quasar/generated_output/third_party_libraries/three_js/three.js/build/three.min.js',
+			path_destination ='/quasar/libraries/front_end/js/third_party/three_js/three.min.js'
 		)
 
 		#print('CHECKOUTED TO TAG')

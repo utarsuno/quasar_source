@@ -2,7 +2,7 @@
 
 """This module, shell_file.py, provides an abstraction to shell files."""
 
-from libraries.code_api.code_abstraction.ascii_comments import get_shell_ascii_comment_as_code_chunk
+from libraries.code_api.code_abstraction.code_comments import get_shell_ascii_comment_as_code_chunk
 from libraries.code_api.code_abstraction.code_section import *
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import *
 from libraries.code_api.source_file_abstraction.code_files.code_file import *
@@ -171,7 +171,7 @@ class ShellFile(GeneratedCodeFile):
 				library_parent_directory_path = library_parent_directory_path.replace('/Users/utarsuno/', '/home/')
 
 			directory_distance = library_parent_directory_path.count('/')
-			library_directory_name = ufo.get_last_directory_from_path(lib._parent_code_directory.directory_path)
+			library_directory_name = ufo.directory_get_basename(lib._parent_code_directory.directory_path)
 
 			variable_library_name = 'PATH_TO_LIBRARY_' + lib.file_name.upper()
 

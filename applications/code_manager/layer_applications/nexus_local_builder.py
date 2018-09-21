@@ -8,7 +8,6 @@ from applications.code_manager.layer_domain.domains.db_domain_nexus_local import
 
 print('HELLO WORLD, NEXUS_LOCAL BUILDER!')
 
-
 db = DBDomainNexusLocal(get_env('CODE_BUILDER_DB_PATH'), get_env('DB_DEBUG'))
 db.load()
 db.run_needed_code_processes()
@@ -22,7 +21,9 @@ return_flags = db.get_flags()
 BUILD_FLAG_NEXUS_COURIER_UPDATED = 'NEXUS_COURIER_UPDATE'
 
 if return_flags[BUILD_FLAG_NEXUS_COURIER_UPDATED]:
-	exit(200)
+	#TODO: TEMPORARILY REMOVING THIS!
+	#exit(200)
+	exit(0)
 else:
 	exit(0)
 

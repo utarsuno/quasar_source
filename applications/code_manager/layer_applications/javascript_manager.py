@@ -2,7 +2,6 @@
 
 """This module, javascript_manager.py, deals with pre-processing javascript files, combining them, and minimizing them."""
 
-from libraries.code_api.project_abstraction.project_component import ProjectComponent
 from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 from libraries.code_api.source_file_abstraction.code_files.js_file import GeneratedJSFile
 from libraries.code_api.code_abstraction.code_section import CodeSection
@@ -168,7 +167,8 @@ class JavascriptManager(object):
 
 			match_found = False
 
-			for js_file in self.js.all_files:
+			all_js_files = self.js.get_all_files()
+			for js_file in all_js_files:
 				if file_needed in js_file.full_path:
 					match_found = True
 					js_files_needed.append(js_file)
@@ -211,6 +211,7 @@ class JavascriptManager(object):
 		elif self.engine.is_build_quasar:
 			output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')
 
+		# TODO: refactor this?
 		output_directory.add_code_file(combined_javascript_file)
 
 		combined_javascript_file.create_or_update_file()
@@ -228,12 +229,9 @@ class JavascriptManager(object):
 
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
-		self.js = ProjectComponent('quasar_rendering_engine_js')
-		self.js.add_extension_to_ignore('.min')
-		self.js.add_extension_to_ignore('.gz')
-		self.js.add_extension_to_ignore('.min.gz')
-		self.js.set_generated_file_path('/quasar/generated_output/web_assets/')
-		self.js.add_base_directory('/quasar/libraries/front_end/js/engine')
+		self.js = CodeDirectory('/quasar/libraries/front_end/js/engine', base_directory=True, generated_output_directory='/quasar/generated_output/web_assets/')
+		self.js.add_extensions_to_ignore(['.min', '.gz'])
+		self.js.add_extension_to_match('.js')
 
 		# Main engine.
 		self.js_files_needed.append('core/engine.js')
@@ -413,7 +411,8 @@ class JavascriptManager(object):
 		#print(self.engine.is_build_nexus_local)
 
 		if self.engine.is_build_nexus_local:
-			self.js.add_base_directory('/quasar/libraries/front_end/js/nexus')
+			#self.js.add_base_directory('/quasar/libraries/front_end/js/nexus')
+			self.js.add_external_code_directory('/quasar/libraries/front_end/js/nexus')
 			# Add js files needed.
 			self.js_files_needed.append('nexus/nexus_local.js')
 			self.js_files_needed.append('nexus/world/world_dev_tools.js')
@@ -421,10 +420,11 @@ class JavascriptManager(object):
 			self.js_files_needed.append('nexus/models/floating_terminal.js')
 			self.js_files_needed.append('nexus/world/world_environment.js')
 		elif self.engine.is_build_quasar:
-			self.js.add_base_directory('/quasar/libraries/front_end/js/quasar')
+			#self.js.add_base_directory('/quasar/libraries/front_end/js/quasar')
+			self.js.add_external_code_directory('/quasar/libraries/front_end/js/quasar')
 			# Add js files needed.
 
-		self.js.load_all_content()
+		#self.js.load_all_content()
 
 		return self.js
 

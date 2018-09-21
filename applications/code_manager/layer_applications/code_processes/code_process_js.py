@@ -6,8 +6,7 @@ from libraries.code_api.code_manager.code_process_minify_then_gzip import CodePr
 from libraries.universal_code import output_coloring as oc
 from libraries.code_api.source_file_abstraction.code_files import code_file
 from applications.code_manager.layer_applications import javascript_manager as jsm
-
-from libraries.code_api.project_abstraction.project_component import ProjectComponent
+from libraries.code_api.source_file_abstraction.code_directories.code_directory import CodeDirectory
 
 
 class CodeProcessJS(CodeProcessMinifyThenGzip):
@@ -19,22 +18,22 @@ class CodeProcessJS(CodeProcessMinifyThenGzip):
 		self.is_build_nexus_local = True
 		self.is_build_quasar      = False
 
-		self.output_path = '/quasar/generated_output/web_assets/'
-
 	def _run(self):
 		oc.print_green('Running CodeProcessJS')
 
 		# Assets
-		self.assets = ProjectComponent('nexus_local_assets')
-		self.assets.add_base_directory('/quasar/assets/shaders/')
-		self.assets.load_all_content()
+		self.assets = CodeDirectory('/quasar/assets/shaders/', base_directory=True, generated_output_directory='/quasar/generated_output/web_assets/')
+		self.assets.add_extensions_to_match(['.jpeg', '.jpg', '.png', '.frag', '.vert'])
+		#self.assets.load_all_content()
+
+		self.output_path = self.assets.generated_output_directory
 
 		# JS
 		self.javascript_manager = jsm.JavascriptManager(self)
 		self.js = self.javascript_manager.load_all_content()
 
 		# Check if any JS file changed.
-		files = self.js.all_files
+		files = self.js.get_all_files()
 
 		file_changed = False
 

@@ -3,8 +3,6 @@
 """This module, build_step.py, represents a single build step in a build process."""
 
 from libraries.universal_code import useful_file_operations as ufo
-
-
 from libraries.code_api.code_manager.code_process import CodeProcess
 
 

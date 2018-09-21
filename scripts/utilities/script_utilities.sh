@@ -157,4 +157,3 @@ function terminate_if_not_ubuntu {
         terminate_script "This script should be run on an ubuntu system."
     fi
 }
-

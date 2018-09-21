@@ -25,7 +25,7 @@ class Compressable(object):
 		image.save(self._compressed_save_path, quality=85, progressive=False)
 
 		transfer_path = self._compressed_save_path.replace('c_' + self.file_name, self.file_name).replace('/configuration_files/', '/quasar_site_django/')
-		ufo.copy_file_to_path(self._compressed_save_path, transfer_path)
+		ufo.file_op_copy(self._compressed_save_path, transfer_path)
 
 	def create_compressed_file(self):
 		"""Creates the compressed version of the file."""
@@ -46,5 +46,5 @@ class Compressable(object):
 
 
 		transfer_path = self._compressed_save_path.replace('c_' + self.file_name, self.file_name).replace('/configuration_files/', '/quasar_site_django/')
-		ufo.copy_file_to_path(self._compressed_save_path, transfer_path)
+		ufo.file_op_copy(self._compressed_save_path, transfer_path)
 

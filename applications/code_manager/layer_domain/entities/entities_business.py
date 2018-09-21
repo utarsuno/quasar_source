@@ -293,11 +293,11 @@ class File(BusinessEntity):
 		self.file_data                    = file_data
 
 		if self.md5sum == 'CALCULATE':
-			self.md5sum = ufo.get_md5_checksum(self.path)
+			self.md5sum = ufo.file_get_md5_checksum(self.path)
 		if self.content == 'CALCULATE':
-			self.content = ufo.get_file_content_as_string(self.path)
+			self.content = ufo.file_get_contents_as_string(self.path)
 		if self.size == 'CALCULATE':
-			self.size = ufo.get_file_size_in_bytes(self.path)
+			self.size = ufo.file_get_size_in_bytes(self.path)
 
 		self.generated_children_directory = None
 		self.file_object                  = None
@@ -420,12 +420,12 @@ class File(BusinessEntity):
 	def _set_current_md5sum(self):
 		"""Utility function."""
 		if self.new_md5sum is None:
-			self.new_md5sum = ufo.get_md5_checksum(self.path)
+			self.new_md5sum = ufo.file_get_md5_checksum(self.path)
 
 	def _update_size(self):
 		"""Utility function."""
 		if self.new_size is None:
-			self.new_size = ufo.get_file_size_in_bytes(self.path)
+			self.new_size = ufo.file_get_size_in_bytes(self.path)
 		self._table.update_value(KEY_SIZE, self.new_size, KEY_PATH, self.path)
 		self.size = self.new_size
 
