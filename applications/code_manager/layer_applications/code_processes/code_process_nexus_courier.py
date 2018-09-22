@@ -21,7 +21,6 @@ class CodeProcessNexusCourier(CodeProcess):
 		self.web_server = CodeDirectory('/quasar/applications/nexus_courier', base_directory=True)
 		self.web_server.add_extensions_to_ignore(['.py'])
 		self.web_server.add_extensions_to_match(['.cpp', '.h'])
-		#self.web_server.load_all_content()
 
 		self.any_file_updated = False
 		self.all_files = self.web_server.get_all_files()

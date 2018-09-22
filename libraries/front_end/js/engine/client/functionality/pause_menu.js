@@ -1,8 +1,5 @@
 'use strict';
 
-const COOKIE_KEY_SHOULD_REMEMBER_USERNAME = 'q0'; // #pre-process_global_constant
-const COOKIE_KEY_REMEMBERED_USERNAME      = 'q1'; // #pre-process_global_constant
-
 $_QE.prototype.ClientFunctionalityPauseMenu = function() {
 
     this.pause_background = new $_QE.prototype.DomElement(GLOBAL_ID_PAUSED_BACKGROUND_FILTER, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);

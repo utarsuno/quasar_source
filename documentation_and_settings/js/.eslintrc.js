@@ -58,6 +58,10 @@ module.exports = {
         "GLOBAL_ID_GUI_CANVAS"                  : false,
         "GLOBAL_ID_OUTLINE_GREEN"               : false,
         "GLOBAL_ID_CANVAS_MAIN"                 : false,
+
+        "GLOBAL_ID_HUD_DEBUG"                   : false,
+        "GLOBAL_ID_HUD_TYPING"                  : false,
+        "GLOBAL_ID_HUD_CHAT"                    : false,
         //
 
         //
@@ -79,9 +83,6 @@ module.exports = {
         "NL"  : false,
 
         "get_horizontal_distance": false,
-
-        "COOKIE_KEY_SHOULD_REMEMBER_USERNAME": false,
-        "COOKIE_KEY_REMEMBERED_USERNAME"     : false,
 
         "APPLICATION_NEXUS_LOCAL"  : false,
         "APPLICATION_QUASAR_PUBLIC": false,

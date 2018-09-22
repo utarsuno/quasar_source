@@ -48,5 +48,4 @@ RUN bash /var/cache/build_babel_minify.sh \
  && rm -rf /root/.cache/pip/* \
  && rm /var/cache/build_babel_minify.sh
 
-
-CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_builder.py"]
+CMD ["python3", "/quasar/applications/code_manager/layer_applications/nexus_local_build_process.py"]

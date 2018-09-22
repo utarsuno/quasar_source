@@ -20,9 +20,10 @@ class CodeProcessHTML(CodeProcessMinifyThenGzip):
 		self.html = CodeDirectory('/quasar/assets/html', base_directory=True, generated_output_directory='/quasar/generated_output/web_assets/')
 		self.html.add_extensions_to_ignore(['.min', '.gz'])
 		self.html.add_extension_to_match('.html')
-		#self.html.load_all_content()
 
 		self.all_files   = self.html.get_all_files()
 		self.output_path = self.html.generated_output_directory
 		self._perform_process()
 
+
+# TODO: pre-process the HTML file!

@@ -32,6 +32,7 @@ class DBDomain(object):
 		self._e_libraries      = entities_db.DBEntityLibrary([self._e_applications.table])
 		self._e_code_processes = entities_db.DBEntityCodeProcess()
 		self._e_files          = entities_db.DBEntityFile()
+		#self._e_builds         =
 
 		self._projects         = []
 		self._applications     = []
@@ -40,6 +41,11 @@ class DBDomain(object):
 		self._files            = []
 
 		self.flags             = {}
+
+	@property
+	def projects(self):
+		"""Returns the projects of this domain."""
+		return self._projects
 
 	def get_flags(self):
 		"""Returns the flags from this domain."""

@@ -80,6 +80,14 @@ class DBEntity(object):
 		return self._table.table_id
 
 
+class DBEntityBuilds(DBEntity):
+	"""Represents the DB table information for builds."""
+
+	def __init__(self, table_name):
+		super().__init__(table_name)
+		self.add_standard_index_and_name()
+
+
 class DBEntityCodeProject(DBEntity):
 	"""Represents a CodeProject."""
 
@@ -140,6 +148,8 @@ class DBEntityFile(DBEntity):
 	KEY_SIZE               = 'size'
 	KEY_PATH               = 'path'
 	KEY_MD5SUM             = 'md5sum'
+	#
+	#TODO: KEY_CACHED_AT
 	#
 	KEY_NEEDS_MINIFICATION = 'needs_minification'
 	KEY_NEEDS_GZIP         = 'needs_gzip'

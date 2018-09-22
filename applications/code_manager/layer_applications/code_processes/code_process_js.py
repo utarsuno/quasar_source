@@ -24,7 +24,6 @@ class CodeProcessJS(CodeProcessMinifyThenGzip):
 		# Assets
 		self.assets = CodeDirectory('/quasar/assets/shaders/', base_directory=True, generated_output_directory='/quasar/generated_output/web_assets/')
 		self.assets.add_extensions_to_match(['.jpeg', '.jpg', '.png', '.frag', '.vert'])
-		#self.assets.load_all_content()
 
 		self.output_path = self.assets.generated_output_directory
 

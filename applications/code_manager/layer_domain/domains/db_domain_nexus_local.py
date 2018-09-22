@@ -15,8 +15,8 @@ from applications.code_manager.layer_applications.code_processes import code_pro
 PROJECT_NEXUS_LOCAL    = 'nexus_local'
 
 APPLICATION_NGINX      = 'nginx'
-CODE_PROCESS_HTML      = 'nginx_html'
 CODE_PROCESS_CSS       = 'nginx_css'
+CODE_PROCESS_HTML      = 'nginx_html'
 CODE_PROCESS_JS        = 'nginx_js'
 CODE_PROCESS_JS_LIBS   = 'nginx_js_libs'
 #TODO:
@@ -25,8 +25,6 @@ CODE_PROCESS_DOCKER_VOLUME = 'nginx_docker_volume'
 APPLICATION_NEXUS_COURIER  = 'nexus_courier'
 CODE_PROCESS_NEXUS_COURIER = 'nexus_courier'
 
-APPLICATION_MQTT       = 'mqtt'
-LIBRARY_MQTT           = 'mqtt'
 
 LIBRARY_THREE_JS       = 'threejs'
 CODE_PROCESS_THREE_JS  = 'threejs'
@@ -44,7 +42,6 @@ class DBDomainNexusLocal(db_domain.DBDomain):
 	def _nexus_local(self):
 		"""Utility function."""
 		self.nexus_local = self.add_project(PROJECT_NEXUS_LOCAL)
-		self._mqtt()
 		self._nginx()
 		self._nexus_courier()
 
@@ -55,25 +52,16 @@ class DBDomainNexusLocal(db_domain.DBDomain):
 		self.code_process_nexus_courier = self.add_code_process(CODE_PROCESS_NEXUS_COURIER, 'CodeProcessNexusCourier', self.app_nexus_courier)
 		self.code_process_nexus_courier.set_process(code_process_nexus_courier.CodeProcessNexusCourier)
 
-	def _mqtt(self):
-		"""Utility function."""
-		self.app_mqtt = self.add_application(APPLICATION_MQTT, PROJECT_NEXUS_LOCAL)
-		self.lib_mqtt = self.add_library(entities_db.util_get_library_data(
-			LIBRARY_MQTT, None,
-			'/quasar/generated_output/third_party_libraries/utt/',
-			True, 'https://github.com/uNetworking/uTT', None
-		), APPLICATION_MQTT)
-
 	def _nginx(self):
 		"""Utility function."""
 		self.app_nginx = self.add_application(APPLICATION_NGINX, PROJECT_NEXUS_LOCAL)
 		self._threejs()
 
-		self.code_process_html = self.add_code_process(CODE_PROCESS_HTML, 'CodeProcessHTML', self.app_nginx)
-		self.code_process_html.set_process(code_process_html.CodeProcessHTML)
-
 		self.code_process_css = self.add_code_process(CODE_PROCESS_CSS, 'CodeProcessCSS', self.app_nginx)
 		self.code_process_css.set_process(code_process_css.CodeProcessCSS)
+
+		self.code_process_html = self.add_code_process(CODE_PROCESS_HTML, 'CodeProcessHTML', self.app_nginx)
+		self.code_process_html.set_process(code_process_html.CodeProcessHTML)
 
 		self.code_process_js = self.add_code_process(CODE_PROCESS_JS, 'CodeProcessJS', self.app_nginx)
 		self.code_process_js.set_process(code_process_js.CodeProcessJS)
@@ -93,4 +81,21 @@ class DBDomainNexusLocal(db_domain.DBDomain):
 		self.code_process_threejs.set_process(code_process_threejs.CodeProcessThreeJS)
 
 
+
+'''
+TODO: fully remove later (or add back in)
+APPLICATION_MQTT       = 'mqtt'
+LIBRARY_MQTT           = 'mqtt'
+
+	def _mqtt(self):
+		"""Utility function."""
+		self.app_mqtt = self.add_application(APPLICATION_MQTT, PROJECT_NEXUS_LOCAL)
+		self.lib_mqtt = self.add_library(entities_db.util_get_library_data(
+			LIBRARY_MQTT, None,
+			'/quasar/generated_output/third_party_libraries/utt/',
+			True, 'https://github.com/uNetworking/uTT', None
+		), APPLICATION_MQTT)
+
+
+'''
 

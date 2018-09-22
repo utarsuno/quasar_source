@@ -13,8 +13,12 @@ CSS_IDS
     j: 'outline_green'
     k: 'canvas_main'
 
-
-
+CSS_IDS_GENERATED:
+    l: 'gui_2D_debug_information'
+    m: 'gui_2D_logs'
+    n: 'gui_2D_typing'
+    o:
+    p:
 
 
 DIRECTORIES

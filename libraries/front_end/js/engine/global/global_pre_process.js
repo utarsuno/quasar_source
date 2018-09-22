@@ -12,6 +12,10 @@ const GLOBAL_ID_CURSOR_ICON                  = 'g'; // #pre-process_global_const
 const GLOBAL_ID_GUI_CANVAS                   = 'i'; // #pre-process_global_constant
 const GLOBAL_ID_OUTLINE_GREEN                = 'j'; // #pre-process_global_constant
 const GLOBAL_ID_CANVAS_MAIN                  = 'k'; // #pre-process_global_constant
+
+const GLOBAL_ID_HUD_DEBUG                    = 'l'; // #pre-process_global_constant
+const GLOBAL_ID_HUD_TYPING                   = 'n'; // #pre-process_global_constant
+const GLOBAL_ID_HUD_CHAT                     = 'm'; // #pre-process_global_constant
 ///
 
 const USER_DATA_KEY_PARENT_OBJECT   = 'p'; // #pre-process_global_constant

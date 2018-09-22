@@ -34,14 +34,3 @@ $_QE.prototype.HUDManager = function(engine) {
     };
 
 };
-
-
-/*
-    add_gui_2d_element: function(e) {
-        this.gui_2d_elements.push(e);
-    },
-
-
-
-this.gui_2d_elements = [];
-*/

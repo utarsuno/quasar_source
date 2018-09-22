@@ -6,7 +6,7 @@ $_QE.prototype.GUI2DDebugInformation = function(engine) {
     this.manager_renderer = this.engine.manager_renderer;
 
     $_QE.prototype.FeatureColor.call(this, this.engine.COLOR_GREEN, null);
-    $_QE.prototype.CanvasGUI2D.call(this, 'gui_2D_debug_information', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    $_QE.prototype.CanvasGUI2D.call(this, GLOBAL_ID_HUD_DEBUG, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
 
     this.width = 400;
     // TODO: Make # of rows dynamic.

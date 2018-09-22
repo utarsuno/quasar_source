@@ -7,7 +7,7 @@ from libraries.code_api.code_abstraction.code_chunk import CodeChunk
 from libraries.universal_code import useful_file_operations as ufo
 
 
-FILE_TYPE_SHELL_SCRIPT    = 'Shell'
+#FILE_TYPE_SHELL_SCRIPT    = 'Shell'
 FILE_TYPE_CSS             = 'CSS'
 FILE_TYPE_JS              = 'JS'
 FILE_TYPE_HTML            = 'HTML'

@@ -19,7 +19,7 @@ $_QE.prototype.GUI2DPlayerTypingInput = function(application) {
 
     $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
-    $_QE.prototype.CanvasGUI2D.call(this, 'gui_2D_typing', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
+    $_QE.prototype.CanvasGUI2D.call(this, GLOBAL_ID_HUD_TYPING, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
 
 
     $_QE.prototype.CanvasRenderingTextLine.call(this, true, this._on_enter_event.bind(this));

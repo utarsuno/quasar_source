@@ -49,7 +49,7 @@ class PreProcessConstant(object):
 def parse_out_constants(lines_to_parse):
 	"""Returns the lines with certain constants parsed out."""
 
-	constants = []
+	constants  = []
 
 	first_pass = []
 	final_pass = []

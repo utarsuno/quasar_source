@@ -21,7 +21,6 @@ class CodeProcessJSLibs(CodeProcessGzip):
 		self.js_libraries = CodeDirectory('/quasar/libraries/front_end/js/third_party', base_directory=True)
 		self.js_libraries.add_extensions_to_ignore(['.gz', '.min'])
 		self.js_libraries.add_extension_to_match('.js')
-		#self.js_libraries.load_all_content()
 
 		self.all_files = self.js_libraries.get_all_files()
 		self._perform_process()
