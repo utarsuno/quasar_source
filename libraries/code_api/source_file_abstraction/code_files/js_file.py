@@ -27,13 +27,12 @@ class LoadedJSFile(LoadedCodeFile):
 		in_comment_block    = False
 		first_comment_block = []
 		for l in content:
-			if '/**' in l:
+			if '/**' in l or '/*!':
 				in_comment_block = True
 			if in_comment_block:
 				first_comment_block.append(l)
 			if '*/' in l:
-				if in_comment_block:
-					in_comment_block = False
+				break
 
 		#self._first_comment_block = first_comment_block
 		self._first_comment_block = ''.join(first_comment_block)
