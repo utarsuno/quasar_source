@@ -7,7 +7,7 @@ $_QE.prototype.DynamicallyLoadable = function() {
     this.notify_function = null;
 
     this.finished_loading = function() {
-        if (is_defined(this.notify_function)) {
+        if (this.notify_function != null) {
             this.notify_function();
         }
     };

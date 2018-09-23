@@ -12,7 +12,7 @@ $_QE.prototype.ClientFunctionalityFullScreen = function() {
     };
 
     this.enter_fullscreen = function() {
-        if (is_defined(this._fullscreen_api_0)) {
+        if (this._fullscreen_api_0 != null) {
             document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
         } else {
             document.body.mozRequestFullScreen();
@@ -21,7 +21,7 @@ $_QE.prototype.ClientFunctionalityFullScreen = function() {
     };
 
     this.exit_fullscreen = function() {
-        if (is_defined(this._fullscreen_api_0)) {
+        if (this._fullscreen_api_0 != null) {
             document.webkitCancelFullScreen();
         } else {
             document.mozCancelFullScreen();
@@ -30,7 +30,7 @@ $_QE.prototype.ClientFunctionalityFullScreen = function() {
     };
 
     this._is_in_fullscreen = function() {
-        if (is_defined(this._fullscreen_api_0)) {
+        if (this._fullscreen_api_0 != null) {
             return document.webkitIsFullScreen;
         } else {
             return document.mozFullScreen;

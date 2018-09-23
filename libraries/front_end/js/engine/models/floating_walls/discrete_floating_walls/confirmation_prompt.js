@@ -42,14 +42,14 @@ ConfirmationPrompt.prototype = {
 
     button_yes_clicked: function() {
         this.wall.hide_self_and_all_child_attachments_recursively();
-        if (is_defined(this._action_yes)) {
+        if (this._action_yes != null) {
             this._action_yes();
         }
     },
 
     button_no_clicked: function() {
         this.wall.hide_self_and_all_child_attachments_recursively();
-        if (is_defined(this._action_no)) {
+        if (this._action_no != null) {
             this._action_no();
         }
     },

@@ -88,9 +88,9 @@ TransitionAffect.prototype = {
         //this.quad.dispose();
 
         this.quad_geometry = undefined;
-        this.quad = undefined;
+        this.quad          = undefined;
 
-        if (is_defined(this.fbo_previous)) {
+        if (this.fbo_previous != null) {
             //if (is_defined(this.fbo_previous.texture)) {
             //    this.fbo_previous.texture.dispose();
             //    this.fbo_previous.texture = undefined;
@@ -141,7 +141,7 @@ function WorldTransition() {
         this.outline_glow.outline_pass.renderScene = scene;
         this.render_pass.scene = scene;
 
-        if (is_defined(this._current_transition)) {
+        if (this._current_transition != null) {
             this._current_transition.clean_up();
             this._current_transition = undefined;
         }
@@ -150,7 +150,7 @@ function WorldTransition() {
         this.renderer.autoClear = true;
         //this.renderer.setClearColor(0xEE00EE);
 
-        if (is_defined(transition_finished_callback)) {
+        if (transition_finished_callback != null) {
             transition_finished_callback();
         }
     };

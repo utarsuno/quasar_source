@@ -24,7 +24,7 @@ FloatingWall.prototype = {
         Interactive.call(this);
 
         this.scalable = scalable;
-        if (!is_defined(this.scalable)) {
+        if (!(this.scalable != null)) {
             this.scalable = false;
         }
 
@@ -34,7 +34,7 @@ FloatingWall.prototype = {
             this.only_used_for_blocking_input = true;
         }
 
-        if (is_defined(default_background_color)) {
+        if (default_background_color != null) {
             this.default_background_color = default_background_color;
         } else {
             this.default_background_color = COLOR_FLOATING_WALL_BASE;
@@ -70,7 +70,7 @@ FloatingWall.prototype = {
         this.manual_visibility = true;
         this.object3D.userData.manual_visibility = true;
         this._make_base_wall_visible = false;
-        if (is_defined(this.mesh)) {
+        if (this.mesh != null) {
             this.mesh.userData.manual_visibility = true;
             this.mesh.visible = false;
         }
@@ -80,7 +80,7 @@ FloatingWall.prototype = {
         this.manual_visibility = true;
         this.object3D.userData.manual_visibility = true;
         this._make_base_wall_visible = true;
-        if (is_defined(this.mesh)) {
+        if (this.mesh != null) {
             this.mesh.userData.manual_visibility = true;
             this.mesh.visible = true;
         }
@@ -91,7 +91,7 @@ FloatingWall.prototype = {
         // TODO : Refactor this!!!
         //this.resource_cleanup();
 
-        if (!is_defined(this.material)) {
+        if (!(this.material != null)) {
             this.material = new THREE.MeshBasicMaterial({
                 // TODO : THE COLOR IS TEMPORARY!!!
                 color: COLORS[0],

@@ -6,7 +6,7 @@ $_QE.prototype.CanvasTexture = function(canvas, font) {
 
     this.initialize_texture = function() {
         this.context = this.canvas.getContext('2d');
-        if (is_defined(this.canvas_font)) {
+        if (this.canvas_font != null) {
             this.context.font       = this.canvas_font[0];
             this.canvas_font_size   = this.canvas_font[CANVAS_FONT_INDEX_SIZE];
             this.canvas_font_offset = this.canvas_font[CANVAS_FONT_INDEX_OFFSET];

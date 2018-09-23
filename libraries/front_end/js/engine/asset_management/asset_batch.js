@@ -7,7 +7,7 @@ $_QE.prototype.AssetBatch = function() {
         let depth = 0;
         let current_asset = asset;
         // while (current_asset.depends_on != null) {
-        while (is_defined(current_asset.depends_on)) {
+        while (current_asset.depends_on != null) {
             depth += 1;
             current_asset = current_asset.depends_on;
         }

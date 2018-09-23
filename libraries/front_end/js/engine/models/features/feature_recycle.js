@@ -3,21 +3,21 @@
 $_QE.prototype.FeatureRecycle = function() {
 
     this.remove_from_world_elements_root = function() {
-        if (is_defined(this._in_world_elements_root)) {
+        if (this._in_world_elements_root != null) {
             this.world.remove_from_elements_root(this);
         }
     };
 
     this.remove_from_world_elements_interactive = function() {
-        if (is_defined(this._in_world_elements_interactive)) {
+        if (this._in_world_elements_interactive != null) {
             this.world.remove_from_elements_interactive(this);
         }
     };
 
     this.recycle_material = function() {
         if (this.is_material_cacheable !== true) {
-            if (is_defined(this.material)) {
-                if (is_defined(this.material.map)) {
+            if (this.material != null) {
+                if (this.material.map != null) {
                     this.material.map.dispose();
                     this.material.map = undefined;
                 }
@@ -29,7 +29,7 @@ $_QE.prototype.FeatureRecycle = function() {
 
     this.recycle_mesh = function() {
         if (this.is_mesh_cacheable !== true) {
-            if (is_defined(this.mesh)) {
+            if (this.mesh != null) {
                 this.object3D.remove(this.mesh);
             }
         }
@@ -38,7 +38,7 @@ $_QE.prototype.FeatureRecycle = function() {
 
     this.recycle_geometry = function() {
         if (this.is_geometry_cacheable !== true) {
-            if (is_defined(this.geometry)) {
+            if (this.geometry != null) {
                 this.geometry.dispose();
             }
         }

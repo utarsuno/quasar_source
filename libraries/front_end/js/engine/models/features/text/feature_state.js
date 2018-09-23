@@ -17,7 +17,7 @@ $_QE.prototype.FeatureTextState = function() {
     this.display_warning_icon = function(warning_text) {
         this.warning_icon.set_to_visible();
         this.override_background_color = FLOATING_TEXT_BACKGROUND_ERROR;
-        if (is_defined(warning_text)) {
+        if (warning_text != null) {
             this.warning_text.update_text(warning_text);
             this.warning_text.set_to_visible();
         }

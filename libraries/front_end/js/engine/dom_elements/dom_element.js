@@ -6,7 +6,7 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type) {
     case DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS:
         this._id_name = data;
         this._element = document.getElementById(this._id_name);
-        if (!is_defined(this._element)) {
+        if (!(this._element != null)) {
             l('Element with ID {' + this._id_name + '} not found!');
         }
         break;
@@ -25,9 +25,9 @@ $_QE.prototype.DomElement = function(data, data_type, dom_element_type) {
     //
 
     this.create_element = function() {
-        if (!is_defined(this._element)) {
+        if (!(this._element != null)) {
             this._element = document.createElement(this._dom_type);
-            if (is_defined(this._id_name)) {
+            if (this._id_name != null) {
                 this._element.id = this._id_name;
             }
         }

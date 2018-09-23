@@ -14,20 +14,20 @@ $_QE.prototype.FeatureSingleton = function() {
         if (this._in_world) {
             this.world.remove_from_scene(this.object3D);
 
-            if (is_defined(this._in_world_elements_interactive)) {
+            if (this._in_world_elements_interactive != null) {
                 if (this._in_world_elements_interactive) {
                     this.world.remove_from_elements_interactive(this);
                 }
             }
 
-            if (is_defined(this._in_world_elements_root)) {
+            if (this._in_world_elements_root != null) {
                 if (this._in_world_elements_root) {
                     this.world.remove_from_elements_root(this);
                 }
             }
 
             this._in_world = false;
-            if (is_defined(this.on_world_leave)) {
+            if (this.on_world_leave != null) {
                 this.on_world_leave();
             }
         }
@@ -46,13 +46,13 @@ $_QE.prototype.FeatureSingleton = function() {
         this.world = world;
         this.world.add_to_scene(this.object3D);
 
-        if (is_defined(this._in_world_elements_interactive)) {
+        if (this._in_world_elements_interactive != null) {
             if (!this._in_world_elements_interactive) {
                 this.world.add_element_interactive(this);
             }
         }
 
-        if (is_defined(this._in_world_elements_root)) {
+        if (this._in_world_elements_root != null) {
             if (this._in_world_elements_root) {
                 this.world.add_element_root(this);
             }

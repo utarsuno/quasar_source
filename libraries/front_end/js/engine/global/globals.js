@@ -21,11 +21,6 @@ const l = console.log;
 // Logical constants.
 const NOT_FOUND = -1; // #pre-process_global_constant
 
-// TODO: remove this! (can just use object != null)
-function is_defined(object) {
-    return object !== null && object !== undefined;
-}
-
 const FLOATING_TEXT_BACKGROUND_DARK_GRAY   = 'rgba(40, 40, 41, .45)'; // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_TRANSPARENT = 'rgba(0, 0, 0, 0)';      // #pre-process_global_constant
 const FLOATING_TEXT_BACKGROUND_DEFAULT     = 'rgba(20, 20, 20, .45)'; // #pre-process_global_constant

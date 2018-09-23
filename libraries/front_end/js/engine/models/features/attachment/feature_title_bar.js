@@ -8,7 +8,7 @@ $_QE.prototype.FeatureTitleBar = function(parent, text, icon, changeable) {
     this.title.offset_depth_distance        = 1;
     this.parent.add_attachment(this.title);
 
-    if (is_defined(icon)) {
+    if (icon != null) {
         this.title_icon = new $_QE.prototype.FloatingIcon(this.parent.world, icon, 64, QE.COLOR_GREEN);
         this.title_icon.offset_vertical_percentage   = HALF;
         this.title_icon.offset_horizontal_percentage = -HALF;
@@ -24,7 +24,7 @@ $_QE.prototype.FeatureTitleBar = function(parent, text, icon, changeable) {
         this.button_settings.offset_depth_distance        = 1;
         this.button_settings.create_icon();
         this.parent.add_attachment(this.button_settings);
-        if (is_defined(this.button_close)) {
+        if (this.button_close != null) {
             this._shift_settings_button();
         }
     };
@@ -33,7 +33,7 @@ $_QE.prototype.FeatureTitleBar = function(parent, text, icon, changeable) {
         this.button_close = new $_QE.prototype.FloatingIcon(this.parent.world, ASSET_ICON_CROSS, 64, QE.COLOR_RED);
         // TODO: Create better close button abstraction
         //this.button_close.set_to_close_button();
-        if (is_defined(this.button_settings)) {
+        if (this.button_settings != null) {
             this._shift_settings_button();
         }
         this.button_close.offset_vertical_percentage   = HALF;

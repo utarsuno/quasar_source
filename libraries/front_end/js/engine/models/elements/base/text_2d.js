@@ -99,7 +99,7 @@ $_QE.prototype.Text2D = function(world, width, height, text) {
      /  ` |__) |__   /\   |  | /  \ |\ |
      \__, |  \ |___ /~~\  |  | \__/ | \| */
     this.process_width = function() {
-        if (!is_defined(this.width)) {
+        if (!(this.width != null)) {
             this._original_text_width = _MANAGER_TEXT_2D.get_width_needed(this.get_display_text(), this.height);
             this.width                = get_nearest_power_of_two_for_number(this._original_text_width);
             this.dynamic_width        = true;

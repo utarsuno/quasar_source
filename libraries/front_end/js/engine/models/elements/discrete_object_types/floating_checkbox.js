@@ -12,7 +12,7 @@ FloatingCheckBox.prototype = {
         this.set_to_clickable();
 
         this.checked = checked;
-        if (!is_defined(this.checked)) {
+        if (!(this.checked != null)) {
             this.checked = false;
         }
 
@@ -70,7 +70,7 @@ FloatingCheckBox.prototype = {
         } else {
             this.set_checked_state(true);
         }
-        if (is_defined(this.on_checked_function)) {
+        if (this.on_checked_function != null) {
             this.on_checked_function(this.checked);
         }
     },

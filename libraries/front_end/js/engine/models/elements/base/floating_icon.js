@@ -1,7 +1,7 @@
 'use strict';
 
 $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color) {
-    if (is_defined(foreground_color)) {
+    if (foreground_color != null) {
         $_QE.prototype.FeatureColor.call(this, foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
     } else {
         $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
@@ -40,7 +40,7 @@ $_QE.prototype.FloatingIcon = function(world, icon_type, size, foreground_color)
         this.material.uniforms['offset'].value = this.icon_type;
         this.current_foreground_color_changed();
 
-        if (is_defined(this._in_world_elements_interactive)) {
+        if (this._in_world_elements_interactive != null) {
             if (!this._in_world_elements_interactive) {
                 world.add_element_interactive(this);
             }

@@ -15,7 +15,7 @@ $_QE.prototype.WorldInput = function() {
     };
 
     this.mobile_keyboard_close = function() {
-        if (is_defined(this.currently_looked_at_object)) {
+        if (this.currently_looked_at_object != null) {
             if (this.currently_looked_at_object.is_engaged()) {
                 this.currently_looked_at_object.disengage();
                 this.player.set_state(PLAYER_STATE_FULL_CONTROL);
@@ -32,7 +32,7 @@ $_QE.prototype.WorldInput = function() {
             //l(event);
             //l(this.currently_looked_at_object);
 
-            if (is_defined(this.currently_looked_at_object)) {
+            if (this.currently_looked_at_object != null) {
                 if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
                     this.currently_looked_at_object.parse_key_event(event);
                 }
@@ -105,23 +105,22 @@ $_QE.prototype.WorldInput = function() {
         //    return;
         //}
 
-        if (is_defined(this.currently_looked_at_object)) {
-            if (is_defined(this.currently_looked_at_object)) {
-                if (!this.currently_looked_at_object.is_engaged()) {
-                    if (this.currently_looked_at_object.feature_engable_only_from_double_click) {
-                        if (double_click) {
-                            this.engage_currently_looked_at_object();
-                        } else {
-                            //if (QE.manager_world.player_cursor.currently_attached_to !== null) {
-                            //    QE.manager_world.player_cursor.engage();
-                            //}
-                        }
-                    } else {
+        if (this.currently_looked_at_object != null) {
+            if (!this.currently_looked_at_object.is_engaged()) {
+                if (this.currently_looked_at_object.feature_engable_only_from_double_click) {
+                    if (double_click) {
                         this.engage_currently_looked_at_object();
+                    } else {
+                        //if (QE.manager_world.player_cursor.currently_attached_to !== null) {
+                        //    QE.manager_world.player_cursor.engage();
+                        //}
                     }
+                } else {
+                    this.engage_currently_looked_at_object();
                 }
             }
         }
+
         // Check if keyboard is needed!
         //if (CURRENT_CLIENT.is_mobile) {
         //    if (is_defined(this.currently_looked_at_object.needs_mobile_keyboard)) {

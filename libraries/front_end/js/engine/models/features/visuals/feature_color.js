@@ -28,7 +28,7 @@ $_QE.prototype.FeatureColor = function(foreground_color, background_color) {
         if (this.current_foreground_color !== color) {
             this.current_foreground_color = color;
             this.update_needed_for_colors = true;
-            if (is_defined(this.current_foreground_color_changed)) {
+            if (this.current_foreground_color_changed != null) {
                 this.current_foreground_color_changed();
             }
         }

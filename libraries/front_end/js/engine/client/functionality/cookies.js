@@ -15,7 +15,6 @@ $_QE.prototype.ClientFunctionalityCookies = function() {
     };
 
     this.has_cookie = function(cookie_key) {
-        //return is_defined(this.cookies.get(cookie_key));
         return this.cookies.get(cookie_key) != null;
     };
 

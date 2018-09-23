@@ -15,8 +15,8 @@ $_QE.prototype.FeatureVisibility = function() {
         if (force) {
             obj.visible = is_visible;
         } else {
-            if (is_defined(obj.userData)) {
-                if (is_defined(obj.userData.manual_visibility)) {
+            if (obj.userData != null) {
+                if (obj.userData.manual_visibility != null) {
                     if (!obj.userData.manual_visibility) {
                         obj.visible = is_visible;
                     }

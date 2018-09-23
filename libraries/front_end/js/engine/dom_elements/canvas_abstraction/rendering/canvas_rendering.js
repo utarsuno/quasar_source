@@ -10,10 +10,10 @@ $_QE.prototype.CanvasRendering = function() {
     //this.context.fillRect(0, 0, this._canvas_width, this._canvas_height);
 
     this.post_render = function() {
-        if (is_defined(this.material)) {
+        if (this.material != null) {
             this.material.needsUpdate = true;
         }
-        if (is_defined(this.texture)) {
+        if (this.texture != null) {
             this.texture.needsUpdate = true;
         }
     };

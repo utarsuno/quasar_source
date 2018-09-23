@@ -17,7 +17,7 @@ $_QE.prototype.FloatingButton = function(world, width, text_height, text, engage
     this.has_button_state = false;
 
     this.set_button_engage_function = function(engage_function) {
-        if (is_defined(engage_function)) {
+        if (engage_function != null) {
             this.button_engage_function = engage_function;
             this.set_engage_function(this.try_to_perform_engage_function.bind(this));
         }

@@ -64,14 +64,14 @@ $_QE.prototype.FeatureNormal = function() {
         if (!this.is_root_attachment()) {
             console.log('WARNING! SETTING NORMAL ON NON-ROOT ATTACHMENT!!');
         } else {
-            if (!is_defined(this.normal)) {
+            if (!(this.normal != null)) {
                 this.normal = new THREE.Vector3(x, y, z);
             } else {
                 this.normal.set(x, y, z);
             }
             this.normal.normalize();
             // Always update left right.
-            if (!is_defined(this.left_right)) {
+            if (!(this.left_right != null)) {
                 this._set_left_right();
             } else {
                 this.left_right.set(-this.normal.x, 0, -this.normal.z);

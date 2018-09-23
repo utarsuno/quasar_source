@@ -402,7 +402,6 @@ module.exports = {
         "is_string"                          : false,
         "is_list"                            : false,
         "string_contains"                    : false,
-        "is_defined"                         : false,
 
         "get_cookie"    : false,
         "set_cookie"    : false,

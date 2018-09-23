@@ -87,7 +87,7 @@ FloatingRow.prototype = {
         let floating_text_2D = new FloatingText2D(this.world, text_height, text);
 
         // Temporary.
-        if (!is_defined(x_params[2]) || x_params[2] === false || x_params[2] === true) {
+        if (!(x_params[2] != null) || x_params[2] === false || x_params[2] === true) {
             return this._add_element([x_params[0], x_params[1], CENTER_LEFT], floating_text_2D, foreground_color, background_color);
         }
         return this._add_element(x_params, floating_text_2D, foreground_color, background_color);
@@ -102,7 +102,7 @@ FloatingRow.prototype = {
     },
 
     add_input_2D: function(x_params, text_height, text, foreground_color, background_color, cache_geometry) {
-        if (!is_defined(text)) {
+        if (!(text != null)) {
             text = '';
         }
         let floating_input_2D = new FloatingInput2D(this.world, this._get_width_needed(x_params), text_height, text, cache_geometry);
@@ -129,15 +129,15 @@ FloatingRow.prototype = {
 
     _add_element: function(x_params, floating_element, foreground_color, background_color) {
         floating_element.set_attachment_depth_offset(1);
-        if (is_defined(foreground_color)) {
+        if (foreground_color != null) {
             floating_element.set_foreground_color(foreground_color);
         }
-        if (is_defined(background_color)) {
+        if (background_color != null) {
             floating_element.set_background_color(background_color);
         }
         //
         let centering = x_params[2];
-        if (!is_defined(centering)) {
+        if (!(centering != null)) {
             centering = CENTER_ABSOLUTE;
         }
         // TEMP
@@ -168,7 +168,7 @@ FloatingRow.prototype = {
     add_element: function(x_params, floating_element, foreground_color, background_color) {
         floating_element.set_attachment_depth_offset(1);
         let x_start = x_params[0];
-        if (is_defined(x_params[2])) {
+        if (x_params[2] != null) {
             if (x_params[2]) {
                 x_start -= (floating_element.width / this.parent_wall.width) / 2;
             }
@@ -180,10 +180,10 @@ FloatingRow.prototype = {
         floating_element.attach_to(this.parent_wall);
 
 
-        if (is_defined(foreground_color)) {
+        if (foreground_color != null) {
             floating_element.set_foreground_color(foreground_color);
         }
-        if (is_defined(background_color)) {
+        if (background_color != null) {
             floating_element.set_background_color(background_color);
         }
 
@@ -263,7 +263,7 @@ FloatingRow.prototype = {
         let all_elements = this.get_all_elements_and_sub_attachments();
         let e;
         for (e = 0; e < all_elements.length; e++) {
-            if (is_defined(all_elements[e].type)) {
+            if (all_elements[e].type != null) {
                 if (all_elements[e].type === type) {
                     fields.push(all_elements[e]);
                 }

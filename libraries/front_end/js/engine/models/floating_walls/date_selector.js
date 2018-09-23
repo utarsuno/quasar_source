@@ -70,7 +70,7 @@ DateSelector.prototype = {
     },
 
     refresh_dates: function() {
-        if (is_defined(this.all_day_buttons)) {
+        if (this.all_day_buttons != null) {
             if (this.all_day_buttons.length > 0) {
                 this._delete_all_day_buttons();
             }

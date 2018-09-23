@@ -5,7 +5,7 @@ $_QE.prototype.CanvasGUI2D = function(unique_name, type_dom, type_canvas) {
 
     this.initialize_gui = function(width, height, x, y, optional_class_to_add, hide, append, font) {
         this.create_element();
-        if (is_defined(hide)) {
+        if (hide != null) {
             if (hide) {
                 this.hide();
             }
@@ -18,19 +18,19 @@ $_QE.prototype.CanvasGUI2D = function(unique_name, type_dom, type_canvas) {
 
         this.initialize_texture();
 
-        if (is_defined(x)) {
+        if (x != null) {
             this.set_left_offset(x);
         }
-        if (is_defined(y)) {
+        if (y != null) {
             this.set_top_offset(y);
         }
 
         this.add_class(GLOBAL_ID_GUI_CANVAS);
-        if (is_defined(optional_class_to_add)) {
+        if (optional_class_to_add != null) {
             this.add_class(optional_class_to_add);
         }
 
-        if (is_defined(append)) {
+        if (append != null) {
             if (append) {
                 this.append_to_document_body();
             }

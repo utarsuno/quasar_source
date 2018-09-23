@@ -17,7 +17,7 @@ $_QE.prototype.FeatureSize = function(width, height) {
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
     this.update_dimensions = function() {
-        if (is_defined(this.post_update_dimensions)) {
+        if (this.post_update_dimensions != null) {
             this.post_update_dimensions();
         }
 

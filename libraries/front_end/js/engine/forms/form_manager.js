@@ -9,13 +9,13 @@ FormManager.prototype = {
     __init__: function(input_fields, final_button) {
         this.input_fields = [];
         this.input_fields_repeat_password = [];
-        if (is_defined(input_fields)) {
+        if (input_fields != null) {
             let f;
             for (f = 0; f < input_fields.length; f++) {
                 this.add_input_field(input_fields[f]);
             }
         }
-        if (is_defined(final_button)) {
+        if (final_button != null) {
             this.add_final_button(final_button);
         }
     },

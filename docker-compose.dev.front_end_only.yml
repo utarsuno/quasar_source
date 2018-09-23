@@ -12,8 +12,6 @@ services:
     ports:
       - "80:80"
     volumes:
-    # TODO REMOVE HOST MAPPING (./:/quasar)
-    #  - ./:/quasar
       - nexus_volume:/v
 
 networks:
