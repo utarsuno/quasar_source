@@ -27,135 +27,84 @@ class DBDomain(object):
 		self._db               = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
 
-		self._e_projects       = entities_db.DBEntityCodeProject()
-		self._e_applications   = entities_db.DBEntityApplication([self._e_projects.table])
-		self._e_libraries      = entities_db.DBEntityLibrary([self._e_applications.table])
-		self._e_code_processes = entities_db.DBEntityCodeProcess()
+		self._e_libraries      = entities_db.DBEntityLibrary()
 		self._e_files          = entities_db.DBEntityFile()
-		#self._e_builds         =
+		self._e_builds         = entities_db.DBEntityBuilds()
 
-		self._projects         = []
-		self._applications     = []
 		self._libraries        = []
-		self._code_processes   = []
 		self._files            = []
+		self._pre_processes    = []
 
-		self.flags             = {}
+		self._flags            = {}
 
-	@property
-	def projects(self):
-		"""Returns the projects of this domain."""
-		return self._projects
+	def set_flag(self, key: str, value) -> None:
+		"""Sets a flag for this domain."""
+		self._flags[key] = value
 
-	def get_flags(self):
-		"""Returns the flags from this domain."""
-		return self.flags
+	def does_flag_exist(self, key: str) -> bool:
+		"""Returns a boolean indicating if the provided key exists as a flag."""
+		return key in self._flags
 
-	def add_flag(self, key, value):
-		"""Adds a flag to this domain."""
-		self.flags[key] = value
+	def add_value_to_flag(self, key: str, value) -> None:
+		"""Adds a value to a flag where the flag holds a list of keys."""
+		if key not in self._flags:
+			self._flags[key] = []
+		else:
+			self._flags[key].append(value)
 
-	def get_application_by_id(self, a_id):
-		"""Returns an application by ID match."""
-		for a in self._applications:
-			if a.get_id() == a_id:
-				return a
-		return None
+	def get_flag(self, key: str):
+		"""Returns the value of the specified flag."""
+		return self._flags[key]
 
 	def get_library_by_id(self, l_id):
 		"""Returns a library by ID match."""
 		for l in self._libraries:
 			if l.get_id() == l_id:
 				return l
-		return None
 
-	def get_code_process_by_id(self, cp_id):
-		"""Returns a code_process by ID match."""
-		for cp in self._code_processes:
-			if cp.get_id() == cp_id:
-				return cp
-		return None
+	def get_library_by_name(self, name):
+		"""Returns a library by name match."""
+		for l in self._libraries:
+			if l.library_name == name:
+				return l
 
 	def get_file_by_path(self, path):
 		"""Returns a file by path match."""
 		for f in self._files:
 			if f.path == path:
 				return f
-		return None
-
-	def run_needed_code_processes(self):
-		"""Runs the build + cache process for all projects in this Domain."""
-		#print('RUNNING CODE PROCESSES')
-
-		for p in self._projects:
-			oc.print_data_with_red_dashes_at_start('Health check on project{' + p.project_name + '}')
-			p.set_all_linked_data()
-			p.cache_process(self)
-
-		# TODO: Return error codes.
-		return 0
-
-	def get_return_code(self):
-		"""Gets the return code."""
-		dbg.raise_abstract_method_call_exception('get_return_code')
 
 	def load(self):
 		"""Loads this domain into memory."""
-		self._load_table(self._e_projects)
-		self._load_table(self._e_applications)
-		self._load_table(self._e_libraries)
-		self._load_table(self._e_code_processes)
-		self._load_table(self._e_files)
-		self._db.create_tables()
-
-		for p in self._projects:
-			p.load()
-
-		for a in self._applications:
-			a.load()
-			a.load_many_to_many_data(self._db)
+		self._load_tables([self._e_libraries, self._e_files, self._e_builds])
 
 		for l in self._libraries:
 			l.load()
-			l.load_many_to_many_data(self._db)
-
-		for bp in self._code_processes:
-			bp.load()
+		for f in self._files:
+			f.load()
+		for pp in self._pre_processes:
+			pp.load()
 
 		files = self._db.execute_query(sql.QueryRowsResponse().SELECT_ALL().FROM(entities_db.TABLE_NAME_FILES))
 		for f in files:
 			self._add_file(f)
+
+	def _load_tables(self, tables):
+		"""Loads the provided tables."""
+		for t in tables:
+			self._load_table(t)
+		self._db.create_tables()
 
 	def _load_table(self, db_entity):
 		"""Utility function."""
 		self._db.add_table(db_entity.table)
 		db_entity.table.create()
 
-	def add_project(self, project_name):
-		"""Adds a project to this domain."""
-		p = entities_business.CodeProject(self._e_projects.table, project_name)
-		self._projects.append(p)
-		return p
-
-	def add_application(self, application_name, parent_code_project_name):
-		"""Adds an application to this domain."""
-		a = entities_business.Application(self._e_applications.table, application_name)
-		a.add_default_many_to_many_data(self._e_projects, parent_code_project_name)
-		self._applications.append(a)
-		return a
-
-	def add_library(self, library_data, parent_name):
+	def add_library(self, library_data):
 		"""Adds a library to this domain."""
 		l = entities_business.Library(self._e_libraries.table, library_data)
-		l.add_default_many_to_many_data(self._e_applications, parent_name)
 		self._libraries.append(l)
 		return l
-
-	def add_code_process(self, name, process_name, parent_business_object):
-		"""Adds a build process to this domain."""
-		bp = entities_business.CodeProcess(self._e_code_processes.table, name, process_name, parent_business_object)
-		self._code_processes.append(bp)
-		return bp
 
 	def _add_file(self, file_data):
 		"""Adds a file to this domain."""
@@ -167,17 +116,14 @@ class DBDomain(object):
 				entities_db.DBEntityFile.KEY_SIZE              : file_data[2],
 				entities_db.DBEntityFile.KEY_PATH              : file_data[3],
 				entities_db.DBEntityFile.KEY_MD5SUM            : file_data[4],
-				entities_db.DBEntityFile.KEY_NEEDS_MINIFICATION: file_data[5],
-				entities_db.DBEntityFile.KEY_NEEDS_GZIP        : file_data[6],
-				entities_db.DBEntityFile.KEY_NEEDS_LZ          : file_data[7],
-				entities_db.DBEntityFile.KEY_PARENT_F_ID       : file_data[8],
-				entities_db.DBEntityFile.KEY_CHILD_F_ID        : file_data[9],
-				entities_db.DBEntityFile.KEY_CONTENT           : file_data[10]
+				entities_db.DBEntityFile.KEY_CACHED_AT         : file_data[5],
+				entities_db.DBEntityFile.KEY_PARENT_F_ID       : file_data[6],
+				entities_db.DBEntityFile.KEY_CHILD_F_ID        : file_data[7]
 			}
 			f = entities_business.File(self._e_files.table, data)
 			self._files.append(f)
 
-	def cache_single_file(self, file_type, size, path, md5sum, needs_minification, needs_gzip, needs_lz, parent_f_id=None, child_f_id=None, content=None):
+	def cache_single_file(self, file_type, size, path, md5sum, cached_at, parent_f_id=None, child_f_id=None):
 		"""Performs cache for a single file."""
 		match = self.get_file_by_path(path)
 		if match is None:
@@ -186,12 +132,9 @@ class DBDomain(object):
 				entities_db.DBEntityFile.KEY_SIZE              : size,
 				entities_db.DBEntityFile.KEY_PATH              : path,
 				entities_db.DBEntityFile.KEY_MD5SUM            : md5sum,
-				entities_db.DBEntityFile.KEY_NEEDS_MINIFICATION: needs_minification,
-				entities_db.DBEntityFile.KEY_NEEDS_GZIP        : needs_gzip,
-				entities_db.DBEntityFile.KEY_NEEDS_LZ          : needs_lz,
+				entities_db.DBEntityFile.KEY_CACHED_AT         : cached_at,
 				entities_db.DBEntityFile.KEY_PARENT_F_ID       : parent_f_id,
 				entities_db.DBEntityFile.KEY_CHILD_F_ID        : child_f_id,
-				entities_db.DBEntityFile.KEY_CONTENT           : content
 			})
 			self._files.append(f)
 			f.load()
@@ -203,3 +146,8 @@ class DBDomain(object):
 			else:
 				return False, match
 
+	def link_child_file_to_parent(self, child_file, parent_file):
+		"""Utility function."""
+		if parent_file.child_f_id is None:
+			parent_file.set_child_file(child_file)
+			child_file.set_parent_file(parent_file)

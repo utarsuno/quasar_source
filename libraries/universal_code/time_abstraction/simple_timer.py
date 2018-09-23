@@ -8,9 +8,11 @@ import time
 class SimpleTimer(object):
 	"""A simple timer."""
 
-	def __init__(self):
+	def __init__(self, auto_start=False):
 		self._start_time = None
 		self._end_time   = None
+		if auto_start:
+			self.start()
 
 	def start(self):
 		"""Starts the timer."""

@@ -4,41 +4,70 @@
 
 from libraries.universal_code.time_abstraction.simple_timer import SimpleTimer
 from libraries.universal_code import output_coloring as oc
-
-
-class BuildStep(object):
-	"""Represents a single build step."""
-
-	def __init__(self, name, function, last_step=False):
-		self.name      = name
-		self.function  = function
-		self.last_step = last_step
-
-	def run_step(self):
-		"""Runs this build step."""
-		oc.print_data_with_red_dashes_at_start('building {' + self.name + '}')
-		timer = SimpleTimer()
-		timer.start()
-		output = self.function()
-		timer.stop()
-		oc.print_green('{' + self.name + '} finished in ' + str(timer))
-		return output
+from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 
 
 class BuildProcessStep(object):
 	"""Represents a single build step."""
 
-	def __init__(self, name, function):
-		self.name      = name
-		self.function  = function
+	def __init__(self, domain, function_to_run):
+		self.domain                  = domain
+		self.function_to_run         = function_to_run
+		self.sub_build_process_steps = []
+		self.finished                = False
+		self.failed                  = False
+		self.output                  = None
+		self.parent                  = None
 
-	def run_step(self):
-		"""Runs this build step."""
-		oc.print_data_with_red_dashes_at_start('building {' + self.name + '}')
-		timer = SimpleTimer()
-		timer.start()
-		output = self.function()
-		timer.stop()
-		oc.print_green('{' + self.name + '} finished in ' + str(timer))
-		return output
+	def add_sub_build_process(self, step):
+		"""Adds a sub build process step to execute."""
+		step.parent = self
+		self.sub_build_process_steps.append(step)
 
+	def finish(self, output=None):
+		"""Finish this step."""
+		self.finished = True
+		self.failed   = False
+		self.output   = output
+
+	def finish_early(self, output=None):
+		"""Finishes this step and stops the parent from completing the rest of the steps."""
+		self.finish(output)
+		if self.parent is not None:
+			self.parent.finished = True
+
+	def fail(self, output=None):
+		"""Finishes this step."""
+		if self.parent is not None:
+			self.parent.finished = True
+		self.output   = output
+		self.finished = True
+		self.failed   = True
+
+	def run(self):
+		"""Runs this build process step."""
+		try:
+			if self.function_to_run is not None:
+				self.function_to_run()
+			else:
+				for p in self.sub_build_process_steps:
+					if self.finished:
+						break
+					p.run()
+					if p.failed:
+						oc.print_error('Build process step failed {' + str(p.output) + '}')
+		except Exception as e:
+			#print(e)
+			self.fail(e)
+
+	def run_bash_step(self, bash_command, cwd=None):
+		"""Runs a bash command."""
+		if cwd is not None:
+			success, output = BashCommandRunner(bash_command).run(cwd=cwd)
+		else:
+			success, output = BashCommandRunner(bash_command).run()
+
+		if success:
+			return output
+		else:
+			self.fail(output)

@@ -142,6 +142,13 @@ def file_op_create_gzip(path_source: str, path_destination=None) -> None:
 		os.rename(path_source + '.gz', path_destination)
 
 
+def file_op_append_files_content(source_path: str, append_file_path: str) -> None:
+	"""Appends the 'append_file_path' file's content to the 'source_path' file."""
+	content = file_get_contents_as_string(append_file_path)
+	with open(source_path, 'a') as f:
+		f.write(content)
+
+
 def file_op_replace_text(path: str, text_to_find, text_to_replace_with) -> None:
 	"""Replaces 'text_to_find' instances with 'text_to_replace_with'."""
 	with open(path) as f:

@@ -7,35 +7,45 @@
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files.code_file import *
 from jsmin import jsmin
-from libraries.code_api.source_file_abstraction.code_files.reducable.minifiable import Minifiable
 from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.universal_code import output_coloring as oc
+from libraries.universal_code import debugging as dbg
 
 
-class LoadedJSFile(LoadedCodeFile, Minifiable):
+class LoadedJSFile(LoadedCodeFile):
 	"""Represents a single javascript file."""
 
 	def __init__(self, file_name, file_extensions=None):
-		LoadedCodeFile.__init__(self, FILE_TYPE_JS, file_name, file_extensions)
-		Minifiable.__init__(self)
-		#self.set_minification_function(jsmin)
-		self.set_minification_function_custom()
+		super().__init__(FILE_TYPE_JS, file_name, file_extensions)
+		self._first_comment_block = None
 
-	def perform_specific_minification(self, text):
-		"""TODO: document"""
+	def preserve_first_comment_block(self):
+		"""Utility function to get the author comment from the source code."""
+		content = self.content
 
+		in_comment_block    = False
+		first_comment_block = []
+		for l in content:
+			if '/**' in l:
+				in_comment_block = True
+			if in_comment_block:
+				first_comment_block.append(l)
+			if '*/' in l:
+				if in_comment_block:
+					in_comment_block = False
 
+		#self._first_comment_block = first_comment_block
+		self._first_comment_block = ''.join(first_comment_block)
 
-		#TODO: Refactor later.
-		with open('/quasar/generated_output/temporary_output/temp.txt', 'w') as f:
-			f.write(text)
+	def minify(self, output_path: str, preserve_first_comment_block: bool=False) -> None:
+		"""Minifies this JS file to the provided output path."""
+		# '--removeDebugger',
+		# '--removeConsole',
 
 		passed, output = BashCommandRunner([
 			'minify',
-
-			'/quasar/generated_output/temporary_output/temp.txt',
-
+			self.full_path,
 			'--mangle',
 			'--simplify',
 			'--booleans',
@@ -50,26 +60,25 @@ class LoadedJSFile(LoadedCodeFile, Minifiable):
 			'--numericLiterals',
 			'--propertyLiterals',
 			'--regexpConstructors',
-			#'--removeDebugger',
 			'--removeUndefined',
 			'--replace',
 			'--typeConstructors',
 			'--undefinedToVoid',
-			#'--removeConsole',
 			'-o',
-			'/quasar/generated_output/temporary_output/temp2.txt'
-		#], require_input=False).run()
+			output_path
 		], require_input=True).run()
 
 		if not passed:
-			oc.print_ascii_red('minify error')
-		#else:
-		#	print('OUTPUT WAS:')
-		#	print(output)
-		#	exit()
+			dbg.raise_exception('minify error {' + str(output) + '}')
+			#oc.print_ascii_red('minify error {' + str(output) + '}')
 
-		compressed_text = ufo.file_get_contents_as_string('/quasar/generated_output/temporary_output/temp2.txt')
-		return compressed_text
+		if preserve_first_comment_block:
+			if self._first_comment_block is None:
+				self.preserve_first_comment_block()
+
+			contents = ufo.file_get_contents_as_string(output_path)
+			with open(output_path, 'w') as file:
+				file.write('\n' + self._first_comment_block + '\n' + contents)
 
 
 class GeneratedJSFile(GeneratedCodeFile):

@@ -3,7 +3,7 @@
 """This module, build_process.py, provides an abstraction to running a Build-Process."""
 
 from libraries.universal_code import output_coloring as oc
-from libraries.code_api.code_manager.build_process.build_step import BuildProcessStep
+from libraries.universal_code.time_abstraction.simple_timer import SimpleTimer
 
 
 class BuildProcess(object):
@@ -21,13 +21,40 @@ class BuildProcess(object):
 		# Build flags will determine the needed exit code.
 		self.flags = []
 
+	def run_setup(self):
+		"""Runs the setup steps needed for this build process. (Called after domain is loaded)."""
+		pass
+
+	def add_step(self, build_process_step):
+		"""Adds a step to perform for this BuildProcess."""
+		self.build_steps.append(build_process_step)
+
 	def run_build_process(self):
 		"""Runs this build process."""
+		build_time = SimpleTimer(auto_start=True)
 		oc.print_ascii_yellow('building ' + self.name)
+
 		self.db_domain.load()
+		self.run_setup()
 
-		projects = self.db_domain.projects
+		all_build_steps_passed = True
 
-		for p in projects:
-			print(p)
+		for bs in self.build_steps:
+			bs.run()
+			if bs.failed:
+				all_build_steps_passed = False
+				if bs.output is not None:
+					oc.print_error('build step failed! {' + bs.output + '}')
+				else:
+					oc.print_error('build step failed! {}')
+				break
+			else:
+				if bs.output is not None:
+					oc.print_data_with_red_dashes_at_start(bs.output)
+
+		build_time.stop()
+		if not all_build_steps_passed:
+			oc.print_error('Building {' + self.name + '} failed in {' + str(build_time) + '}')
+		else:
+			oc.print_pink('Building {' + self.name + '} finished in {' + str(build_time) + '}')
 

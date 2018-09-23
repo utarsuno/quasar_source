@@ -30,8 +30,7 @@ class CodeFile(object):
 		self._parent_code_directory = None
 		self._file_extension        = file_extension
 		self._file_size             = None
-
-		self._temp_utility_file_lines = None
+		self._content               = None
 
 	def set_parent_code_directory(self, code_directory):
 		"""Sets this code file's code directory that it resides in."""
@@ -42,6 +41,11 @@ class CodeFile(object):
 			return 'CodeFile:' + self.file_name
 		else:
 			return self._file_type + ':' + self._file_name
+
+	@property
+	def file_type(self):
+		"""Returns the file type."""
+		return self._file_type
 
 	@property
 	def file_size(self):
@@ -69,6 +73,13 @@ class CodeFile(object):
 	def file_extension(self) -> str:
 		"""Returns this file's file extension(s)."""
 		return self._file_extension
+
+	@property
+	def content(self):
+		"""Returns the content of this file."""
+		if self._content is None:
+			self._content = ufo.file_get_contents_as_lines(self.full_path)
+		return self._content
 
 
 class GeneratedCodeFile(CodeFile):

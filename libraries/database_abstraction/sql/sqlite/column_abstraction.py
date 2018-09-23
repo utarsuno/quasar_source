@@ -159,6 +159,9 @@ class ColumnAbstractionRowIDAlias(ColumnAbstractionINTEGER):
 
 class ColumnAbstractionForeignKey(ColumnAbstraction):
 	"""Represents a column in a SQLite table which is a foreign key."""
-	def __init__(self, column_reference):
-		super().__init__(column_reference.name, None)
+	def __init__(self, column_reference, column_name=None):
+		if column_name is not None:
+			super().__init__(column_name, None)
+		else:
+			super().__init__(column_reference.name, None)
 		self.foreign_key_reference = column_reference

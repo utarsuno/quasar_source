@@ -11,12 +11,9 @@ RUN apk add --no-cache python3 && \
 RUN pip3 install --no-cache-dir lazyme \
  && pip3 install --no-cache-dir pika
 
-
-# ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
-COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
-# ------------------------------------------------------------------------------------------------------------------------------
-
+RUN apk add --no-cache bash \
+ && apk add --no-cache bash-completion \
+ && rm -rf /var/cache/apk/*
 EXPOSE 5672/tcp 15672/tcp
 
 #CMD ["python3", "/quasar/applications/nexus_server/receive.py"]

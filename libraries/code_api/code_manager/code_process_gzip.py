@@ -42,7 +42,5 @@ class CodeProcessGzip(CodeProcess):
 					False, False, False
 				)
 
-				if file.child_f_id is None:
-					file.set_child_file(gzip_file)
-					gzip_file.set_parent_file(file)
+				self.domain.link_child_file_to_parent(gzip_file, file)
 

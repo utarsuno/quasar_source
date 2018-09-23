@@ -132,8 +132,6 @@ const CANVAS_FONT_INDEX_OFFSET         = 2;     // #pre-process_global_constant
  /~~\ .__/ .__/ |___  |  .__/ */
 const ASSET_TEXTURE_SPRITE_SHEET  = 'p0.png'; // #pre-process_global_constant
 const ASSET_TEXTURE_TRANSITION    = 'p1.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_FONT_DEFAULT  = 'p2.png'; // #pre-process_global_constant
-const ASSET_TEXTURE_FONT_LARGER   = 'p3.png'; // #pre-process_global_constant
 const ASSET_TEXUTRE_SKYBOX_FRONT  = 'f.jpg';  // #pre-process_global_constant
 const ASSET_TEXUTRE_SKYBOX_BACK   = 'ba.jpg'; // #pre-process_global_constant
 const ASSET_TEXUTRE_SKYBOX_LEFT   = 'l.jpg';  // #pre-process_global_constant

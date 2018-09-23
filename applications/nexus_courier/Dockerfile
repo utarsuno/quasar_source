@@ -44,10 +44,11 @@ RUN pip3 install --no-cache-dir lazyme \
 
 RUN apk add --no-cache libevent-dev
 
-# ------------------------------------Quasar Application Universal Setup Steps--------------------------------------------------
-COPY ./scripts/docker/quasar_application_setup_steps.sh /var/cache/quasar_application_setup_steps.sh
-RUN ash /var/cache/quasar_application_setup_steps.sh "false" "null"
-# ------------------------------------------------------------------------------------------------------------------------------
+
+RUN apk add --no-cache bash \
+ && apk add --no-cache bash-completion \
+ && rm -rf /var/cache/apk/*
+
 
 COPY ./generated_output/libamqpcpp.so.3.1 /usr/lib/libamqpcpp.so.3.1
 

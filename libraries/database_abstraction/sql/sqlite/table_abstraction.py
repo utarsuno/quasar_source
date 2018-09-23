@@ -196,6 +196,10 @@ class TableAbstraction(object):
 		"""Utility function to add a foreign key column."""
 		self.add_column(col.ColumnAbstractionForeignKey(foreign_column))
 
+	def add_column_foreign_key_to_self(self, column_name):
+		"""Utility function to add a foreign key column that points to the same table."""
+		self.add_column(col.ColumnAbstractionForeignKey(self.primary_key, column_name=column_name))
+
 	def add_column_datetime(self, column_name, nullable=False, unique=False, indexed=False):
 		"""Utility function to add a datetime column."""
 		self.add_column(col.ColumnAbstractionDATETIME(column_name, nullable, unique, indexed))

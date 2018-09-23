@@ -203,6 +203,7 @@ class CodeDirectory(object):
 		if self._cache_code_files_needs_update:
 			self._cache_code_files_needs_update = False
 			self._all_files                     = []
+			self._code_files                    = []
 			self._children                      = []
 			self._load_all_content()
 			self._load_all_files()

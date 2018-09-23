@@ -17,29 +17,16 @@ def util_get_library_data(name, version, directory_path, is_third_party, git_rep
 	}
 
 
-def util_get_build_process_data(name, owner_id, owner_table_id, process_name):
-	"""Utility function."""
-	return {
-		DBEntity.KEY_NAME                       : name,
-		DBEntityCodeProcess.KEY_OWNER_ID       : owner_id,
-		DBEntityCodeProcess.KEY_OWNER_TABLE_ID : owner_table_id,
-		DBEntityCodeProcess.KEY_PROCESS_NAME   : process_name,
-	}
-
 TABLE_NID_PROJECTS                        = 'p_id'
-TABLE_NID_APPLICATIONS                    = 'a_id'
 TABLE_NID_LIBRARIES                       = 'l_id'
-TABLE_NID_CODE_PROCESSES                  = 'cp_id'
 TABLE_NID_FILES                           = 'f_id'
+TABLE_NID_BUILDS                          = 'b_id'
+TABLE_NID_PRE_PROCESSES                   = 'pp_id'
 TABLE_NAME_PROJECTS                       = 'projects'
-TABLE_NAME_APPLICATIONS                   = 'applications'
 TABLE_NAME_LIBRARIES                      = 'libraries'
-TABLE_NAME_CODE_PROCESSES                 = 'code_processes'
 TABLE_NAME_FILES                          = 'files'
-TABLE_NAME_APPLICATIONS_TO_PROJECTS       = TABLE_NAME_APPLICATIONS   + '_to_' + TABLE_NAME_PROJECTS
-TABLE_NAME_LIBRARIES_TO_APPLICATIONS      = TABLE_NAME_LIBRARIES      + '_to_' + TABLE_NAME_APPLICATIONS
-TABLE_NAME_CODE_PROCESSES_TO_APPLICATIONS = TABLE_NAME_CODE_PROCESSES + '_to_' + TABLE_NAME_APPLICATIONS
-TABLE_NAME_CODE_PROCESSES_TO_LIBRARIES    = TABLE_NAME_CODE_PROCESSES + '_to_' + TABLE_NAME_LIBRARIES
+TABLE_NAME_BUILDS                         = 'builds'
+TABLE_NAME_PRE_PROCESSES                  = 'pre_processes'
 
 
 class DBEntity(object):
@@ -47,8 +34,8 @@ class DBEntity(object):
 
 	KEY_NAME = 'name'
 
-	def __init__(self, table_name, many_to_many=None):
-		self._table = table.TableAbstraction(table_name, many_to_many)
+	def __init__(self, table_name):
+		self._table = table.TableAbstraction(table_name)
 
 	def add_standard_index_and_name(self):
 		"""Utility function."""
@@ -83,25 +70,19 @@ class DBEntity(object):
 class DBEntityBuilds(DBEntity):
 	"""Represents the DB table information for builds."""
 
-	def __init__(self, table_name):
-		super().__init__(table_name)
+	KEY_STARTED    = 'started'
+	KEY_ENDED      = 'ended'
+	KEY_SUCCESSFUL = 'successful'
+	KEY_LOGS       = 'logs'
+
+	def __init__(self):
+		super().__init__(TABLE_NAME_BUILDS)
 		self.add_standard_index_and_name()
-
-
-class DBEntityCodeProject(DBEntity):
-	"""Represents a CodeProject."""
-
-	def __init__(self, many_to_many=None):
-		super().__init__(TABLE_NAME_PROJECTS, many_to_many)
-		self.add_standard_index_and_name()
-
-
-class DBEntityApplication(DBEntity):
-	"""Represents an Application."""
-
-	def __init__(self, many_to_many=None):
-		super().__init__(TABLE_NAME_APPLICATIONS, many_to_many)
-		self.add_standard_index_and_name()
+		# Meta-data.
+		self._table.add_column_datetime(DBEntityBuilds.KEY_STARTED, unique=False, nullable=False, indexed=False)
+		self._table.add_column_datetime(DBEntityBuilds.KEY_ENDED, unique=False, nullable=False, indexed=False)
+		self._table.add_column_boolean(DBEntityBuilds.KEY_SUCCESSFUL, unique=False, nullable=False, indexed=False)
+		self._table.add_column_string(DBEntityBuilds.KEY_LOGS, unique=False, nullable=True, indexed=False)
 
 
 class DBEntityLibrary(DBEntity):
@@ -113,32 +94,16 @@ class DBEntityLibrary(DBEntity):
 	KEY_GIT_REPO_URL         = 'git_repo_url'
 	KEY_VERSION_LAST_CHECKED = 'version_last_checked'
 
-	def __init__(self, many_to_many=None):
-		super().__init__(TABLE_NAME_LIBRARIES, many_to_many)
+	def __init__(self):
+		super().__init__(TABLE_NAME_LIBRARIES)
 		self.add_standard_index_and_name()
-		# Library specific.
+		# Meta-data.
 		self._table.add_column_string(DBEntityLibrary.KEY_VERSION, unique=False, nullable=True, indexed=False)
 		self._table.add_column_string(DBEntityLibrary.KEY_DIRECTORY_PATH, unique=True, nullable=False, indexed=False)
-		# Third party specific.
 		self._table.add_column_boolean(DBEntityLibrary.KEY_IS_THIRD_PARTY, unique=False, nullable=False, indexed=False)
+		# Third party specific.
 		self._table.add_column_string(DBEntityLibrary.KEY_GIT_REPO_URL, unique=True, nullable=True, indexed=False)
 		self._table.add_column_datetime(DBEntityLibrary.KEY_VERSION_LAST_CHECKED, unique=False, nullable=True, indexed=False)
-
-
-class DBEntityCodeProcess(DBEntity):
-	"""Represents a build process."""
-
-	KEY_OWNER_ID       = 'owner_id'
-	KEY_OWNER_TABLE_ID = 'owner_table_id'
-	KEY_PROCESS_NAME   = 'process_name'
-
-	def __init__(self):
-		super().__init__(TABLE_NAME_CODE_PROCESSES)
-		self.add_standard_index_and_name()
-		# Build process specific.
-		self._table.add_column_integer(DBEntityCodeProcess.KEY_OWNER_ID, unique=False, nullable=False, indexed=False)
-		self._table.add_column_integer(DBEntityCodeProcess.KEY_OWNER_TABLE_ID, unique=False, nullable=False, indexed=False)
-		self._table.add_column_string(DBEntityCodeProcess.KEY_PROCESS_NAME, unique=True, nullable=False, indexed=False)
 
 
 class DBEntityFile(DBEntity):
@@ -148,16 +113,10 @@ class DBEntityFile(DBEntity):
 	KEY_SIZE               = 'size'
 	KEY_PATH               = 'path'
 	KEY_MD5SUM             = 'md5sum'
+	KEY_CACHED_AT          = 'cached_at'
 	#
-	#TODO: KEY_CACHED_AT
-	#
-	KEY_NEEDS_MINIFICATION = 'needs_minification'
-	KEY_NEEDS_GZIP         = 'needs_gzip'
-	KEY_NEEDS_LZ           = 'needs_lz'
 	KEY_PARENT_F_ID        = 'parent_f_id'
 	KEY_CHILD_F_ID         = 'child_f_id'
-	#
-	KEY_CONTENT            = 'content'
 
 	def __init__(self):
 		super().__init__(TABLE_NAME_FILES)
@@ -165,13 +124,10 @@ class DBEntityFile(DBEntity):
 		# File specific.
 		self._table.add_column_string(DBEntityFile.KEY_FILE_TYPE, unique=False, nullable=False, indexed=False)
 		self._table.add_column_integer(DBEntityFile.KEY_SIZE, unique=False, nullable=True, indexed=False)
-		self._table.add_column_string(DBEntityFile.KEY_PATH, unique=True, nullable=False)
+		self._table.add_column_string(DBEntityFile.KEY_PATH, unique=True, nullable=False, indexed=True)
 		self._table.add_column_string(DBEntityFile.KEY_MD5SUM, unique=False, nullable=True, indexed=False)
+		self._table.add_column_datetime(DBEntityFile.KEY_CACHED_AT, unique=False, nullable=False, indexed=False)
 		#
-		self._table.add_column_boolean(DBEntityFile.KEY_NEEDS_MINIFICATION, unique=False, nullable=False, indexed=False)
-		self._table.add_column_boolean(DBEntityFile.KEY_NEEDS_GZIP, unique=False, nullable=False, indexed=False)
-		self._table.add_column_boolean(DBEntityFile.KEY_NEEDS_LZ, unique=False, nullable=False, indexed=False)
-		self._table.add_column_integer(DBEntityFile.KEY_PARENT_F_ID, unique=False, nullable=True, indexed=False)
-		self._table.add_column_integer(DBEntityFile.KEY_CHILD_F_ID, unique=False, nullable=True, indexed=False)
-		#
-		self._table.add_column_string(DBEntityFile.KEY_CONTENT, unique=False, nullable=True, indexed=False)
+		self._table.add_column_foreign_key_to_self(DBEntityFile.KEY_PARENT_F_ID)
+		self._table.add_column_foreign_key_to_self(DBEntityFile.KEY_CHILD_F_ID)
+
