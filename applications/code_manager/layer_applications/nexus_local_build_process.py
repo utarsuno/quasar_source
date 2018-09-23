@@ -36,6 +36,7 @@ from applications.code_manager.layer_applications.build_processes.css import Bui
 from applications.code_manager.layer_applications.build_processes.html import BuildProcessHTML
 from applications.code_manager.layer_applications.build_processes.volume_assets import BuildProcessVolumeAssets
 from applications.code_manager.layer_applications.build_processes.js_independent_libraries import BuildProcessJSIndependentLibraries
+from applications.code_manager.layer_applications.build_processes.nexus_local_js import BuildProcessJSNexusLocal
 
 LIBRARY_THREE_JS = 'threejs'
 
@@ -44,7 +45,13 @@ class NexusLocalBuildProcess(BuildProcess):
 	"""Represents the Nexus Local full build process."""
 
 	def __init__(self):
-		super().__init__('NexusLocal', db_domain.DBDomain(get_env('CODE_BUILDER_DB_PATH'), get_env('DB_DEBUG')))
+		super().__init__(
+			'NexusLocal',
+			db_domain.DBDomain(get_env('CODE_BUILDER_DB_PATH'),
+			                   get_env('CODE_BUILDER_DEFAULT_GENERATED_CONTENT_DIRECTORY'),
+			                   get_env('CODE_BUILDER_VOLUME_PATH'),
+			                   get_env('CODE_BUILDER_DB_DEBUG'))
+		)
 
 		self.db_domain.add_library(entities_db.util_get_library_data(
 			LIBRARY_THREE_JS,
@@ -57,22 +64,23 @@ class NexusLocalBuildProcess(BuildProcess):
 
 	def run_setup(self):
 		"""Runs the needed setup."""
-		# TEMP: to speed up development of the other steps
-
 		# JS-Combined step depends on JS library step.
-		#library = self.db_domain.get_library_by_name(LIBRARY_THREE_JS)
-		#self.add_step(BuildProcessThreeJSLibrary(self.db_domain, library))
-		#self.add_step(BuildProcessThreeJSCombinedLibrary(self.db_domain))
+		library = self.db_domain.get_library_by_name(LIBRARY_THREE_JS)
+		self.add_step(BuildProcessThreeJSLibrary(self.db_domain, library))
+		self.add_step(BuildProcessThreeJSCombinedLibrary(self.db_domain))
 
 		# HTML step depends on CSS step.
-		#self.add_step(BuildProcessCSS(self.db_domain))
-		#self.add_step(BuildProcessHTML(self.db_domain))
+		self.add_step(BuildProcessCSS(self.db_domain))
+		self.add_step(BuildProcessHTML(self.db_domain))
 
 		# Volume asset steps.
 		self.add_step(BuildProcessVolumeAssets(self.db_domain))
 
 		# Independent JS libraries.
 		self.add_step(BuildProcessJSIndependentLibraries(self.db_domain))
+
+		# JS engine.
+		self.add_step(BuildProcessJSNexusLocal(self.db_domain))
 
 
 

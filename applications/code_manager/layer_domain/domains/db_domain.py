@@ -4,28 +4,20 @@
 
 from libraries.database_abstraction.sql.sqlite import sqlite_db
 from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
-from libraries.database_abstraction.sql.sqlite import table_abstraction as table
-from libraries.universal_code import debugging as dbg
 from applications.code_manager.layer_domain.entities import entities_db
 from applications.code_manager.layer_domain.entities import entities_business
-from libraries.universal_code import output_coloring as oc
-from libraries.universal_code import useful_file_operations as ufo
-
-
-_INDEX_TABLE_NAME  = 0
-_INDEX_TABLE_OBJ   = 1
-_INDEX_BASE_NAME   = 2
-_INDEX_LINKED_ONJ  = 3
-_INDEX_LINKED_NAME = 4
 
 
 class DBDomain(object):
 	"""Represents a DB connection to code_manager."""
 
-	def __init__(self, db_location, debug_on=False):
+	def __init__(self, db_location, default_generated_content_directory, volume_path, debug_on):
 		self._db_location      = db_location
 		self._db               = sqlite_db.SQLiteDB(self._db_location, debug_on)
 		self._db.connect()
+
+		self.generated_content_path = default_generated_content_directory
+		self.volume_path            = volume_path
 
 		self._e_libraries      = entities_db.DBEntityLibrary()
 		self._e_files          = entities_db.DBEntityFile()
@@ -123,18 +115,18 @@ class DBDomain(object):
 			f = entities_business.File(self._e_files.table, data)
 			self._files.append(f)
 
-	def cache_single_file(self, file_type, size, path, md5sum, cached_at, parent_f_id=None, child_f_id=None):
+	def cache_single_file(self, file_type, size, path, md5sum=None, cached_at=sql.SQL_VALUE_NOW, parent_f_id=None, child_f_id=None):
 		"""Performs cache for a single file."""
 		match = self.get_file_by_path(path)
 		if match is None:
 			f = entities_business.File(self._e_files.table, {
-				entities_db.DBEntityFile.KEY_FILE_TYPE         : file_type,
-				entities_db.DBEntityFile.KEY_SIZE              : size,
-				entities_db.DBEntityFile.KEY_PATH              : path,
-				entities_db.DBEntityFile.KEY_MD5SUM            : md5sum,
-				entities_db.DBEntityFile.KEY_CACHED_AT         : cached_at,
-				entities_db.DBEntityFile.KEY_PARENT_F_ID       : parent_f_id,
-				entities_db.DBEntityFile.KEY_CHILD_F_ID        : child_f_id,
+				entities_db.DBEntityFile.KEY_FILE_TYPE   : file_type,
+				entities_db.DBEntityFile.KEY_SIZE        : size,
+				entities_db.DBEntityFile.KEY_PATH        : path,
+				entities_db.DBEntityFile.KEY_MD5SUM      : md5sum,
+				entities_db.DBEntityFile.KEY_CACHED_AT   : cached_at,
+				entities_db.DBEntityFile.KEY_PARENT_F_ID : parent_f_id,
+				entities_db.DBEntityFile.KEY_CHILD_F_ID  : child_f_id,
 			})
 			self._files.append(f)
 			f.load()
@@ -145,6 +137,27 @@ class DBDomain(object):
 				return True, match
 			else:
 				return False, match
+
+	def cache_base_file(self, base_file):
+		"""Caches the base file provided."""
+		cached_or_updated, file = self.cache_single_file(
+			base_file.file_type,
+			'CALCULATE',
+			base_file.full_path,
+			'CALCULATE'
+		)
+		return cached_or_updated, file
+
+	def cache_child_file_based_off_base_code_file(self, base_code_file, base_file, child_path):
+		"""Utility function."""
+		cached_or_updated, file = self.cache_single_file(
+			base_code_file.file_type,
+			'CALCULATE',
+			child_path,
+			None
+		)
+		self.link_child_file_to_parent(child_file=file, parent_file=base_file)
+		return cached_or_updated, file
 
 	def link_child_file_to_parent(self, child_file, parent_file):
 		"""Utility function."""

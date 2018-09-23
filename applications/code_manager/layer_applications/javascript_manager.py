@@ -146,16 +146,12 @@ def _get_parsed_javascript_content(file_lines):
 	return cleaner_lines
 
 
-def _check_that_no_line_is_longer_than_600_characters(todo):
-	"""Helps certain V8 optimizations."""
-	y = todo
-
-
 class JavascriptManager(object):
 	"""This class performs multiple passes of tasks over the javascript files."""
 
-	def __init__(self, rendering_engine_builder):
-		self.engine          = rendering_engine_builder
+	def __init__(self, build_for, domain):
+		self.domain          = domain
+		self.build_for       = build_for
 		self.js_files_needed = []
 
 	def build_js(self, assets):
@@ -188,10 +184,10 @@ class JavascriptManager(object):
 		combined_lines.insert(0, "'use strict';\n")
 
 		# Now create the combined javascript file.
-		if self.engine.is_build_nexus_local:
+		if self.build_for == 'NEXUS_LOCAL':
 			combined_javascript_file = GeneratedJSFile('nexus_local.js')
-		elif self.engine.is_build_quasar:
-			combined_javascript_file = GeneratedJSFile('quasar.js')
+		#elif self.engine.is_build_quasar:
+		#	combined_javascript_file = GeneratedJSFile('quasar.js')
 
 		combined_javascript_file.add_code_section(CodeSection('all_code'))
 		all_code = combined_javascript_file.get_code_section('all_code')
@@ -206,10 +202,11 @@ class JavascriptManager(object):
 
 		all_code.add_code_chunk(CodeChunk(combined_lines))
 
-		if self.engine.is_build_nexus_local:
-			output_directory = CodeDirectory('/quasar/generated_output/web_assets')
-		elif self.engine.is_build_quasar:
-			output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')
+		if self.build_for == 'NEXUS_LOCAL':
+			#output_directory = CodeDirectory('/quasar/generated_output/web_assets')
+			output_directory = CodeDirectory(self.domain.generated_content_path)
+		#elif self.engine.is_build_quasar:
+		#	output_directory = CodeDirectory('/quasar/libraries/front_end/js/quasar/quasar')
 
 		# TODO: refactor this?
 		output_directory.add_code_file(combined_javascript_file)
@@ -220,16 +217,10 @@ class JavascriptManager(object):
 		loaded_javascript_file = combined_javascript_file.get_created_file_as_loaded_file()
 
 		return loaded_javascript_file
-		#loaded_javascript_file.generate_minified_file()
-
-		#
-		# TODO: CHECK THAT NO LINES ARE LONGER THAN 600 CHARACTERS!
-		print('TODO : Check that no line is longer than 600 characters.')
-		#
 
 	def load_all_content(self):
 		"""Return the needed ProjectComponent."""
-		self.js = CodeDirectory('/quasar/libraries/front_end/js/engine', base_directory=True, generated_output_directory='/quasar/generated_output/web_assets/')
+		self.js = CodeDirectory('/quasar/libraries/front_end/js/engine', base_directory=True)
 		self.js.add_extensions_to_ignore(['.min', '.gz'])
 		self.js.add_extension_to_match('.js')
 
@@ -306,52 +297,6 @@ class JavascriptManager(object):
 		self.js_files_needed.append('worlds/world_abstracts/world_elements_root.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_elements.js')
 
-		'''
-		# Inheritables.
-		self.js_files_needed.append('models/features/feature_element_root.js')
-		self.js_files_needed.append('models/features/feature_meta_data.js')
-
-		self.js_files_needed.append('models/features/physics/feature_size.js')
-
-		self.js_files_needed.append('models/features/interactions/feature_interactive.js')
-		self.js_files_needed.append('models/features/interactions/feature_clickable.js')
-		self.js_files_needed.append('models/features/interactions/feature_tab_target.js')
-
-		self.js_files_needed.append('models/features/mouse_actions/feature_mouse_scale.js')
-		self.js_files_needed.append('models/features/mouse_actions/feature_mouse_move.js')
-		self.js_files_needed.append('models/features/mouse_actions/feature_cursor.js')
-
-		self.js_files_needed.append('models/features/visuals/feature_visibility.js')
-		self.js_files_needed.append('models/features/visuals/feature_color.js')
-
-		self.js_files_needed.append('models/features/three_js_abstractions/feature_geometry.js')
-		self.js_files_needed.append('models/features/three_js_abstractions/feature_material.js')
-		self.js_files_needed.append('models/features/three_js_abstractions/feature_mesh.js')
-
-		self.js_files_needed.append('models/features/text/feature_syntax.js')
-		self.js_files_needed.append('models/features/text/feature_style.js')
-		self.js_files_needed.append('models/features/text/feature_state.js')
-
-		self.js_files_needed.append('models/features/button/feature_button.js')
-		self.js_files_needed.append('models/features/button/feature_state.js')
-
-		# Models.
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_rules/email.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_rules/maximum_length.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_rules/minimum_length.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_rules/syntax_rule.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_types/syntax_email.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_types/syntax_password.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_types/syntax_repeat_password.js')
-		self.js_files_needed.append('models/elements/abstractions/text/syntax_types/syntax_username.js')
-
-		self.js_files_needed.append('models/elements/base/floating_button.js')
-		self.js_files_needed.append('models/elements/base/floating_element.js')
-		self.js_files_needed.append('models/elements/base/floating_icon.js')
-
-		#self.js_files_needed.append('models/elements/base/text_2d.js')
-		'''
-
 		# ----------------------------------------------------------------------------------------------------------------
 		self.js_files_needed.append('elements/base/element.js')
 		self.js_files_needed.append('elements/base/floating_element.js')
@@ -406,22 +351,20 @@ class JavascriptManager(object):
 		self.js_files_needed.append('web_sockets/web_socket_sessions.js')
 		self.js_files_needed.append('web_sockets/request_buffer.js')
 
-		#print(self.engine)
-		#print('IS BUILD NEXUS LOCAL')
-		#print(self.engine.is_build_nexus_local)
-
-		if self.engine.is_build_nexus_local:
-			#self.js.add_base_directory('/quasar/libraries/front_end/js/nexus')
-			self.js.add_external_code_directory('/quasar/libraries/front_end/js/nexus')
+		if self.build_for == 'NEXUS_LOCAL':
+			#self.js.add_external_code_directory('/quasar/libraries/front_end/js/nexus')
+			self.js.add_external_code_directory('/quasar/applications/nexus_client')
 			# Add js files needed.
 			self.js_files_needed.append('nexus/nexus_local.js')
-			self.js_files_needed.append('nexus/world/world_dev_tools.js')
-			self.js_files_needed.append('nexus/web_socket_requests/message_handler.js')
-			self.js_files_needed.append('nexus/models/floating_terminal.js')
-			self.js_files_needed.append('nexus/world/world_environment.js')
-		elif self.engine.is_build_quasar:
+			self.js_files_needed.append('world/world_dev_tools.js')
+			self.js_files_needed.append('web_socket_requests/message_handler.js')
+			self.js_files_needed.append('models/floating_terminal.js')
+			self.js_files_needed.append('world/world_environment.js')
+
+
+		#elif self.engine.is_build_quasar:
 			#self.js.add_base_directory('/quasar/libraries/front_end/js/quasar')
-			self.js.add_external_code_directory('/quasar/libraries/front_end/js/quasar')
+		#	self.js.add_external_code_directory('/quasar/libraries/front_end/js/quasar')
 			# Add js files needed.
 
 		#self.js.load_all_content()

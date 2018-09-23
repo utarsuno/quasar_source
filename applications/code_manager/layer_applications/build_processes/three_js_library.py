@@ -7,7 +7,6 @@ import requests
 from libraries.universal_code import output_coloring as oc
 from libraries.universal_code import useful_file_operations as ufo
 from libraries.code_api.source_file_abstraction.code_files import code_file
-from libraries.database_abstraction.sql.query_abstraction import sql_query as sql
 
 
 DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED = 'three_js_library_updated'
@@ -45,7 +44,7 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 					#self.finish()
 					return
 				else:
-					self.domain.set_flag(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, )
+					self.domain.set_flag(DOMAIN_FLAG_THREE_JS_LIBRARY_UPDATED, False)
 					self.finish_early('ThreeJS is the latest version.')
 
 	def _get_latest_version(self):
@@ -95,8 +94,7 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 			code_file.FILE_TYPE_JS,
 			None,
 			file_path,
-			'CALCULATE',
-			sql.SQL_VALUE_NOW,
+			'CALCULATE'
 		)
 
 	# ------------------------------------------------------------------------------------------------

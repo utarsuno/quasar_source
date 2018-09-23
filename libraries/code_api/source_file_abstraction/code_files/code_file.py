@@ -32,6 +32,10 @@ class CodeFile(object):
 		self._file_size             = None
 		self._content               = None
 
+		self._cache_full_path                         = None
+		self._cache_file_name_with_extension          = None
+		self._cache_file_name_with_minified_extension = None
+
 	def set_parent_code_directory(self, code_directory):
 		"""Sets this code file's code directory that it resides in."""
 		self._parent_code_directory = code_directory
@@ -55,9 +59,30 @@ class CodeFile(object):
 		return self._file_size
 
 	@property
+	def file_name_with_minified_extension(self) -> str:
+		"""Utility function."""
+		if self._cache_file_name_with_minified_extension is None:
+			start = self._file_extension[:self._file_extension.rfind('.')]
+			end = self._file_extension[self._file_extension.rfind('.'):]
+			self._cache_file_name_with_minified_extension = self.file_name + start + '.min' + end
+		return self._cache_file_name_with_minified_extension
+
+	@property
+	def file_name_with_gzip_extension(self) -> str:
+		"""Utility function."""
+		return self.file_name_with_extension + '.gz'
+
+	@property
+	def file_name_with_minified_and_gzip_extension(self) -> str:
+		"""Utility function."""
+		return self._cache_file_name_with_minified_extension + '.gz'
+
+	@property
 	def file_name_with_extension(self) -> str:
 		"""Returns this code file's file name with extension included."""
-		return self._file_name + self._file_extension
+		if self._cache_file_name_with_extension is None:
+			self._cache_file_name_with_extension = self._file_name + self._file_extension
+		return self._cache_file_name_with_extension
 
 	@property
 	def file_name(self) -> str:
@@ -67,7 +92,9 @@ class CodeFile(object):
 	@property
 	def full_path(self) -> str:
 		"""Returns the full path to this code file."""
-		return self._parent_code_directory.directory_path + self._file_name + str(self._file_extension)
+		if self._cache_full_path is None:
+			self._cache_full_path = self._parent_code_directory.directory_path + self._file_name + str(self._file_extension)
+		return self._cache_full_path
 
 	@property
 	def file_extension(self) -> str:

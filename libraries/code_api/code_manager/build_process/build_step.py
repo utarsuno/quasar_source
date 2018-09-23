@@ -5,6 +5,7 @@
 from libraries.universal_code.time_abstraction.simple_timer import SimpleTimer
 from libraries.universal_code import output_coloring as oc
 from libraries.universal_code.system_abstraction.shell_command_runner import BashCommandRunner
+import traceback
 
 
 class BuildProcessStep(object):
@@ -58,6 +59,7 @@ class BuildProcessStep(object):
 						oc.print_error('Build process step failed {' + str(p.output) + '}')
 		except Exception as e:
 			#print(e)
+			traceback.print_exc()
 			self.fail(e)
 
 	def run_bash_step(self, bash_command, cwd=None):

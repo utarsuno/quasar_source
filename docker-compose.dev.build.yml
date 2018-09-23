@@ -11,13 +11,15 @@ services:
     environment:
       - PYTHONPATH=:/quasar
       - CODE_BUILDER_DB_PATH=/quasar/generated_output/local/code_manager/db.sqlite
-      - DB_DEBUG=False
+      - CODE_BUILDER_DEFAULT_GENERATED_CONTENT_DIRECTORY=/quasar/generated_output/web_assets/
+      - CODE_BUILDER_VOLUME_PATH=/v/
+      - CODE_BUILDER_DB_DEBUG=False
       - LD_LIBRARY_PATH=/usr/lib/libamqpcpp.so.3.1
     tty: true
     #tty: false
     volumes:
       - ./:/quasar
-      - nexus_volume:/nexus_volume
+      - nexus_volume:/v
 
 networks:
   default:

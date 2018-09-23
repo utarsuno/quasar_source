@@ -22,5 +22,5 @@ CSS_IDS_GENERATED:
 
 
 DIRECTORIES
-    /a/: 'assets'
-    /b/: 'third_party'
+    /v/: 'nexus_volume'
+

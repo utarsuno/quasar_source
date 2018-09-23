@@ -27,7 +27,7 @@ class LoadedJSFile(LoadedCodeFile):
 		in_comment_block    = False
 		first_comment_block = []
 		for l in content:
-			if '/**' in l or '/*!':
+			if '/**' in l or '/*!' in l:
 				in_comment_block = True
 			if in_comment_block:
 				first_comment_block.append(l)
