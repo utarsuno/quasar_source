@@ -47,6 +47,8 @@ void CourierRabbitMQ::run_rabbitmq() {
     this->channel = & channel;
     //
 
+    // TEMPORARY EDIT TO FORCE BUILD!
+
     /*
     // create a temporary queue
     channel.declareQueue("queue_nexus_courier", AMQP::autodelete + AMQP::durable).onSuccess([&connection](const std::string &name, uint32_t messagecount, uint32_t consumercount) {

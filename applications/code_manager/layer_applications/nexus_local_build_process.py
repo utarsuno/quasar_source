@@ -37,6 +37,7 @@ from applications.code_manager.layer_applications.build_processes.html import Bu
 from applications.code_manager.layer_applications.build_processes.volume_assets import BuildProcessVolumeAssets
 from applications.code_manager.layer_applications.build_processes.js_independent_libraries import BuildProcessJSIndependentLibraries
 from applications.code_manager.layer_applications.build_processes.nexus_local_js import BuildProcessJSNexusLocal
+from applications.code_manager.layer_applications.build_processes.nexus_courier import BuildProcessNexusCourier
 
 LIBRARY_THREE_JS = 'threejs'
 
@@ -82,7 +83,15 @@ class NexusLocalBuildProcess(BuildProcess):
 		# JS engine.
 		self.add_step(BuildProcessJSNexusLocal(self.db_domain))
 
+		# Nexus Courier.
+		self.add_step(BuildProcessNexusCourier(self.db_domain))
 
+	def build_completed_successfully(self):
+		"""If build completed without errors then set the needed exit code."""
+		if self.db_domain.get_flag('NEXUS_COURIER_UPDATED'):
+			exit(200)
+		else:
+			exit(0)
 
 nexus_local_builder = NexusLocalBuildProcess()
 nexus_local_builder.run_build_process()

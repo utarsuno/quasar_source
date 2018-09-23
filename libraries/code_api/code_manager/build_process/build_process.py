@@ -25,6 +25,10 @@ class BuildProcess(object):
 		"""Runs the setup steps needed for this build process. (Called after domain is loaded)."""
 		pass
 
+	def build_completed_successfully(self):
+		"""Gets called once the build completes without errors."""
+		pass
+
 	def add_step(self, build_process_step):
 		"""Adds a step to perform for this BuildProcess."""
 		self.build_steps.append(build_process_step)
@@ -57,4 +61,4 @@ class BuildProcess(object):
 			oc.print_error('Building {' + self.name + '} failed in {' + str(build_time) + '}')
 		else:
 			oc.print_pink('Building {' + self.name + '} finished in {' + str(build_time) + '}')
-
+			self.build_completed_successfully()

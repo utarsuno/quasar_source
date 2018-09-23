@@ -12,8 +12,12 @@ print_dashed_line_with_text "Quasar Run Process Start"
 
 python3 ./scripts/functionalities/_operations_docker.py 'n'
 
-docker-compose down;
+#docker-compose down;
+
 docker-compose build;
-docker-compose up --remove-orphans;
+#docker-compose up --remove-orphans;
+docker-compose up;
+
+docker-compose down;
 
 print_dashed_line_with_text "Quasar Run Process Finished"
