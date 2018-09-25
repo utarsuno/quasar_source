@@ -42,14 +42,12 @@ $_QE.prototype.PlayerState = function() {
             //QE.update_needed_for_colors = true;
             //CURRENT_CLIENT.show_client_typing();
             break;
+        case PLAYER_STATE_ENGAGED:
+            //MANAGER_INPUT.reset_movement_controls();
+            this.engine.manager_input.reset();
+            this.engine.player.reset_velocity();
+            break;
         default:
-            if (player_state === PLAYER_STATE_ENGAGED) {
-                //MANAGER_INPUT.reset_movement_controls();
-                this.engine.player.reset_velocity();
-            }
-
-            //l('PREVIOUS STATE WAS :');
-            //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_PAUSED) {
                 //MANAGER_AUDIO.resume_background_music();
                 this.engine.resume();

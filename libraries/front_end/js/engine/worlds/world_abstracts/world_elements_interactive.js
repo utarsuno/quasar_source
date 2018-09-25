@@ -19,7 +19,9 @@ $_QE.prototype.WorldElementsInteractive = function() {
         }
 
         // Faster than '.length = 0'
-        this._intersections = [];
+        if (this._intersections.length != 0) {
+            this._intersections = [];
+        }
 
         this.raycaster.set(this.player.get_position(), this.player.get_normal());
         // Max search distance.
