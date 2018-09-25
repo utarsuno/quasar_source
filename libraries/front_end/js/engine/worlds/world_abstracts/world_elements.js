@@ -42,7 +42,7 @@ $_QE.prototype.WorldElements = function() {
 
     this.set_new_currently_looked_at_object = function(element, position) {
         if (element == null) {
-            raise_exception('ELEMENT IS NULL');
+            QE.fatal_error('ELEMENT IS NULL!');
         }
 
         /*

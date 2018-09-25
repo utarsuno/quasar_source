@@ -1,7 +1,6 @@
 'use strict';
 
-$_QE.prototype.ClientFunctionalityPauseMenu = function() {
-
+$_QE.prototype.HUDPauseMenu = function() {
     this.pause_background = new $_QE.prototype.DomElement(GLOBAL_ID_PAUSED_BACKGROUND_FILTER, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);
     this.pause_menu       = new $_QE.prototype.DomElement(GLOBAL_ID_PAUSE_DISPLAY, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);
     this.pause_menu.set_display_style('table');

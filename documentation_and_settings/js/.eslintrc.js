@@ -397,16 +397,7 @@ module.exports = {
         "str"                                : false,
         "int"                                : false,
 
-        "raise_exception"                    : false,
-        "raise_exception_with_full_logging"  : false,
         "is_string"                          : false,
-        "is_list"                            : false,
-        "string_contains"                    : false,
-
-        "get_cookie"    : false,
-        "set_cookie"    : false,
-
-        "get_new_floating_icon" : true,
 
 
         // ___          ___          __   __  ___  __        __  ___    __        __  

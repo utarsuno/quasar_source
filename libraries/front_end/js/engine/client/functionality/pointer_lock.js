@@ -16,8 +16,9 @@ $_QE.prototype.ClientFunctionalityPointerLock = function() {
     };
 
     this.pointer_lock_error = function(e) {
-        if (!this.is_mobile()) {
-            raise_exception_with_full_logging('Pointer lock error {' + e + '}!');
+        //if (!this.is_mobile()) {
+        if (!this.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
+            this.engine.fatal_error('Pointer lock error {' + e + '}!');
         }
     };
 

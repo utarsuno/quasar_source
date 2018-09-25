@@ -38,11 +38,9 @@ $_NL.prototype = {
 window.onload = function() {
     QE = new $_QE();
     QE.ensure_required_features_are_enabled().then(function() {
-        console.log('Engine loaded!');
         NL = new $_NL();
         QE.initialize_engine(NL);
     }).catch(function(err) {
-        console.log(err);
-        console.log('Engine failed to load!');
+        QE.fatal_error(err);
     });
 };

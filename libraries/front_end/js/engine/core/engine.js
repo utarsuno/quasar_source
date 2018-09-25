@@ -37,17 +37,16 @@ $_QE.prototype = {
 
     // Step : 0x0
     ensure_required_features_are_enabled: function() {
-        let me = this;
+        let me           = this;
+        this.manager_hud = new $_QE.prototype.HUDManager(this);
+        this.client      = new $_QE.prototype.Client(this);
+        $_QE.prototype.ErrorManager.call(this);
 
-        this.client = new $_QE.prototype.Client(this);
-        this.client.on_engine_load();
         return new Promise(function(resolve, reject) {
-            // Displays error message on pause menu if a required feature is not enabled.
-            if (me.client.ensure_required_features_are_enabled()) {
+            if (me.client.are_required_features_enabled()) {
                 resolve();
             } else {
-                l('Engine failed');
-                reject('Engine failed');
+                reject('Engine failed to load! Missing features {' + me.client.get_names_of_required_features_not_enabled() + '}');
             }
         });
     },
@@ -60,7 +59,7 @@ $_QE.prototype = {
         this.application    = application;
 
         // Start the load of asset files.
-        this.client.set_sub_title('asset files');
+        this.manager_hud.set_sub_title('asset files');
         this.manager_heap   = this.get_heap_manager();
         this.manager_assets = new $_QE.prototype.AssetManager(this);
         this.manager_icons  = new $_QE.prototype.IconManager(this);
@@ -72,7 +71,7 @@ $_QE.prototype = {
         on_load.then(function() {
             l('LOADING FINISHED!');
             me.manager_icons.initialize();
-            me.client.set_sub_title('worlds');
+            me.manager_hud.set_sub_title('worlds');
             me._initialize_for_first_render();
         }).catch(function(error) {
             l(error);
@@ -94,7 +93,7 @@ $_QE.prototype = {
         this.manager_renderer.initialize_shaders(this.manager_world.first_world);
         this.manager_world.first_world.create_for_first_render();
 
-        this.manager_hud = new $_QE.prototype.HUDManager(this);
+        this.manager_hud.initialize();
 
         this.manager_input = new $_QE.prototype.InputManager(this);
 
@@ -114,7 +113,7 @@ $_QE.prototype = {
         //
 
         this.player.set_state(PLAYER_STATE_PAUSED);
-        this.client.show_paused();
+        this.manager_hud.show_paused();
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);

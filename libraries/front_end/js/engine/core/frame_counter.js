@@ -39,7 +39,7 @@ $_QE.prototype.EngineFrameCounter = function() {
     this._frame_iteration  = 0;
 
     this.on_pause = function() {
-        this.client.show_paused();
+        this.manager_hud.show_paused();
 
         this._engine_elapsed_time_physics = 0.0;
         this._engine_elapsed_time_render  = 0.0;

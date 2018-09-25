@@ -226,11 +226,13 @@ class JavascriptManager(object):
 
 		# Main engine.
 		self.js_files_needed.append('core/engine.js')
+		self.js_files_needed.append('core/error_manager.js')
 		self.js_files_needed.append('core/frame_counter.js')
 		self.js_files_needed.append('core/heap_manager.js')
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
-		# GUI 2D.
+		# HUD.
+		self.js_files_needed.append('hud/pause_menu.js')
 		self.js_files_needed.append('hud/hud_manager.js')
 		self.js_files_needed.append('hud/debug_information.js')
 		self.js_files_needed.append('hud/message_logs.js')
@@ -254,16 +256,9 @@ class JavascriptManager(object):
 
 		# Client class.
 		self.js_files_needed.append('client/client.js')
-		self.js_files_needed.append('client/features/feature.js')
-		self.js_files_needed.append('client/features/canvas.js')
-		self.js_files_needed.append('client/features/webgl.js')
-		self.js_files_needed.append('client/features/mobile.js')
-		self.js_files_needed.append('client/features/pointer_lock.js')
-		self.js_files_needed.append('client/features/virtual_reality.js')
-		self.js_files_needed.append('client/features/web_workers.js')
-		self.js_files_needed.append('client/features/full_screen.js')
+		self.js_files_needed.append('client/client_features.js')
 		self.js_files_needed.append('client/functionality/cookies.js')
-		self.js_files_needed.append('client/functionality/pause_menu.js')
+		#self.js_files_needed.append('client/functionality/pause_menu.js')
 		self.js_files_needed.append('client/functionality/window_focus.js')
 		self.js_files_needed.append('client/functionality/full_screen.js')
 		self.js_files_needed.append('client/functionality/pointer_lock.js')

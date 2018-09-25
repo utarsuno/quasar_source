@@ -213,21 +213,6 @@ function int(f) {
     return f | 0;
 }
 
-function CustomException(message) {
-    this.message = message;
-    this.name = 'CustomException';
-}
-
-function raise_exception_with_full_logging(message) {
-    l(message);
-    CURRENT_CLIENT.add_server_message_red(message);
-    throw new CustomException(message);
-}
-
-function raise_exception(message) {
-    throw new CustomException(message);
-}
-
 // From : https://stackoverflow.com/questions/4059147/check-if-a-variable-is-a-string-in-javascript
 function is_string(value) {
     return typeof value === 'string';

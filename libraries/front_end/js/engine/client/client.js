@@ -1,48 +1,18 @@
 'use strict';
 
 $_QE.prototype.Client = function(engine) {
-    this.engine    = engine;
-    this._features = [];
+    this.engine = engine;
+    // Sets flags indicating which potential features are enabled on this client.
+    $_QE.prototype.ClientFeatures.call(this);
 
-    this.is_mobile = function() {
-        return this._feature_mobile.is_enabled;
-    };
-
-    this.on_engine_load = function() {
-        // Add the required features.
-        this._features.push(new $_QE.prototype.ClientFeatureCanvas());
-        this._features.push(new $_QE.prototype.ClientFeatureWebGL());
-
-        // Inherit functionalities needed.
-        $_QE.prototype.ClientFunctionalityPauseMenu.call(this);
-        $_QE.prototype.ClientFunctionalityCookies.call(this);
-    };
-
-    this.ensure_required_features_are_enabled = function() {
-        let f = this._features.length - 1;
-        while (f >= 0) {
-            if (this._features[f].is_required && !this._features[f].is_enabled) {
-                this.show_error(this._features[f].name, 'is not enabled');
-                return false;
-            }
-            f--;
-        }
-        return true;
-    };
+    // Inherit functionalities needed.
+    $_QE.prototype.ClientFunctionalityCookies.call(this);
 
     this.full_initialize = function() {
-        this._features.push(new $_QE.prototype.ClientFeatureWebWorkers());
-        this._feature_mobile = new $_QE.prototype.ClientFeatureMobile();
-        this._features.push(this._feature_mobile);
-        this._features.push(new $_QE.prototype.ClientFeatureVirtualReality());
-        let feature = new $_QE.prototype.ClientFeatureFullScreen();
-        this._features.push(feature);
-        if (feature.is_enabled) {
+        if (this.is_feature_enabled(CLIENT_FEATURE_FULL_SCREEN)) {
             $_QE.prototype.ClientFunctionalityFullScreen.call(this);
         }
-        feature = new $_QE.prototype.ClientFeaturePointerLock();
-        this._features.push(feature);
-        if (feature.is_enabled) {
+        if (this.is_feature_enabled(CLIENT_FEATURE_POINTER_LOCK)) {
             $_QE.prototype.ClientFunctionalityPointerLock.call(this);
         }
 
@@ -63,8 +33,8 @@ $_QE.prototype.Client = function(engine) {
     };
 
     this.resume = function() {
-        this.hide_pause_menu();
-        if (!this.is_mobile()) {
+        this.engine.manager_hud.hide_pause_menu();
+        if (!this.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
             this.request_pointer_lock();
         }
     };
