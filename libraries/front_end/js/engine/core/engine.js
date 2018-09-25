@@ -14,9 +14,10 @@ $_QE.prototype = {
     __init__: function() {
         $_QE.prototype.EngineFrameCounter.call(this);
 
-        this.UP_VECTOR       = new THREE.Vector3(0, 1, 0);
-        this._delta_clock    = new THREE.Clock(false);
-        this._delta          = 0;
+        this.UP_VECTOR        = new THREE.Vector3(0, 1, 0);
+        this._delta_clock     = new THREE.Clock(false);
+        this._delta           = 0;
+        this.engine_main_loop = this._engine_loop.bind(this);
 
         // Default settings.
         this.set_number_of_frames_for_physics(90);
@@ -64,63 +65,48 @@ $_QE.prototype = {
         this.manager_assets = new $_QE.prototype.AssetManager(this);
         this.manager_icons  = new $_QE.prototype.IconManager(this);
 
-        let on_load = this.manager_assets.load_pre_render_assets(this);
+        let on_load         = this.manager_assets.load_pre_render_assets(this);
 
         this.client.full_initialize();
 
         on_load.then(function() {
-            l('LOADING FINISHED!');
+            //l('LOADING FINISHED!');
             me.manager_icons.initialize();
             me.manager_hud.set_sub_title('worlds');
             me._initialize_for_first_render();
         }).catch(function(error) {
-            l(error);
-            l('Error loading asset batch!');
-            me.client.show_error('Error ' + EMOJI_ERROR, 'loading assets {' + error + '}');
+            me.fatal_error('loading assets {' + error + '}', error);
         });
     },
 
     // Step : 0x2
     _initialize_for_first_render: function() {
         //l('Setting up first render!');
-        this.manager_renderer = new $_QE.prototype.RendererManager(this.client, this);
-        this.client.pre_render_initialize(this.manager_renderer);
+        this.manager_renderer = new $_QE.prototype.RendererManager(this);
+        this.player           = new $_QE.prototype.Player(this);
+        this.manager_world    = new $_QE.prototype.WorldManager(this);
 
-        this.player        = new $_QE.prototype.Player(this.client, this);
-        this.manager_world = new $_QE.prototype.WorldManager(this.player, this.manager_renderer, this.application, this);
-
-        this.manager_world.initialize_first_world();
         this.manager_renderer.initialize_shaders(this.manager_world.first_world);
-        this.manager_world.first_world.create_for_first_render();
-
         this.manager_hud.initialize();
 
+        // Create input handlers and has player object set up its controls.
         this.manager_input = new $_QE.prototype.InputManager(this);
 
-        this.player.initialize_player_controls();
-
-        this.client._on_window_resize();
-
         this.manager_world.set_current_world(this.manager_world.first_world);
-
-        this.engine_main_loop = this._engine_loop.bind(this);
 
         // Perform one psedu engine loop.
         this.manager_world.physics(this._engine_time_per_frame_physics);
         this.manager_world.update(this._engine_time_per_frame_physics);
         this.manager_renderer.render(this._engine_time_per_frame_physics);
-        //this.manager_hud.update(this._engine_time_per_frame_physics);
         //
 
-        this.player.set_state(PLAYER_STATE_PAUSED);
-        this.manager_hud.show_paused();
+        this.pause_engine();
 
         // Connect to websockets.
         this.manager_web_sockets = new $_QE.prototype.WebSocketManager(this);
 
         this.application.engine_started();
 
-        //this.manager_world.
         this.engine_main_loop();
     },
 

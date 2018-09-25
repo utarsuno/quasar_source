@@ -29,6 +29,9 @@ $_QE.prototype.Element = function(is_base) {
         if (this.currently_in_world) {
             this.world_exit();
         }
+
+
+
         this.currently_in_world = true;
         this.world              = world;
         // TODO: Check the whole parent/children/group status.

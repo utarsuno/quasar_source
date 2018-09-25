@@ -2,7 +2,7 @@
 
 $_QE.prototype.FeatureNormal = function() {
 
-    this.left_right = null;
+    this.left_right   = null;
     this._previous_nx = null;
     this._previous_ny = null;
     this._previous_nz = null;
@@ -62,7 +62,7 @@ $_QE.prototype.FeatureNormal = function() {
     // This function should only be called on a root element.
     this.set_normal = function(x, y, z) {
         if (!this.is_root_attachment()) {
-            console.log('WARNING! SETTING NORMAL ON NON-ROOT ATTACHMENT!!');
+            l('WARNING! SETTING NORMAL ON NON-ROOT ATTACHMENT!!');
         } else {
             if (!(this.normal != null)) {
                 this.normal = new THREE.Vector3(x, y, z);

@@ -3,12 +3,11 @@
 $_QE.prototype.ClientFunctionalityPointerLock = function() {
 
     this.has_pointer_lock = false;
-
-    this._document_body = document.body;
+    this._document_body   = document.body;
 
     this.pointer_lock_change = function () {
         if (document.pointerLockElement !== this._document_body && document.mozPointerLockElement !== this._document_body && document.webkitPointerLockElement !== this._document_body) {
-            QE.player.set_state(PLAYER_STATE_PAUSED);
+            QE.pause_engine();
             this.has_pointer_lock = true;
         } else {
             this.has_pointer_lock = false;
@@ -16,7 +15,6 @@ $_QE.prototype.ClientFunctionalityPointerLock = function() {
     };
 
     this.pointer_lock_error = function(e) {
-        //if (!this.is_mobile()) {
         if (!this.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
             this.engine.fatal_error('Pointer lock error {' + e + '}!');
         }

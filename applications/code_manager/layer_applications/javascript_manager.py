@@ -302,6 +302,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('common_inheritable_features/text/lines/feature_line.js')
 		self.js_files_needed.append('common_inheritable_features/text/lines/feature_lines.js')
 
+		self.js_files_needed.append('elements/inheritable_features/feature_singleton.js')
 		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
 
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_attachment.js')

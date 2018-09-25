@@ -38,5 +38,5 @@ $_QE.prototype.ClientFunctionalityFullScreen = function() {
     };
 
     this._fullscreen_api_0 = document.webkitCancelFullScreen;
-    this.has_fullscreen = this._is_in_fullscreen();
+    this.has_fullscreen    = this._is_in_fullscreen();
 };

@@ -1,12 +1,7 @@
 'use strict';
 
-$_QE.prototype.LightPoint = function(color, intensity, distance, decay) {
-    //$_QE.prototype.FeatureSingleton.call(this);
-
+$_QE.prototype.LightPoint = function(world_manager, color, intensity, distance, decay) {
+    $_QE.prototype.FeatureSingleton.call(this, world_manager);
     $_QE.prototype.Element.call(this);
-
-    //this.object3D = new THREE.PointLight(color, intensity, distance, decay);
     this.element = new THREE.PointLight(color, intensity, distance, decay);
-
-    //this.set_to_root_element();
 };

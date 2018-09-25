@@ -1,13 +1,13 @@
 'use strict';
 
 $_QE.prototype.EngineFrameCache = function(is_float) {
-    this.is_float     = is_float;
-    this.value        = 0.0;
-    this.value_string = '';
+    this.is_float      = is_float;
+    this.value         = 0.0;
+    this.value_string  = '';
 
     this._cache_string = '';
 
-    this.has_update = false;
+    this.has_update    = false;
 
     this.set_value = function(v) {
         if (this.value !== v) {
@@ -37,6 +37,17 @@ $_QE.prototype.EngineFrameCounter = function() {
     // cache
     this._frames_passed    = 0;
     this._frame_iteration  = 0;
+
+    this.pause_engine = function() {
+        this.player.set_state(PLAYER_STATE_PAUSED);
+    };
+
+    this.resume = function() {
+        this.manager_hud.hide_pause_menu();
+        if (!this.client.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
+            this.client.request_pointer_lock();
+        }
+    };
 
     this.on_pause = function() {
         this.manager_hud.show_paused();

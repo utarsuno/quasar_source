@@ -6,6 +6,8 @@ $_QE.prototype.InputManager = function(engine) {
     this.player.input_manager = this;
     this.manager_world        = this.engine.manager_world;
 
+    this.player.initialize_player_controls();
+
     /*
             if (CURRENT_CLIENT.is_mobile) {
             // Inherit needed mobile controls.

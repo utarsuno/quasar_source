@@ -29,7 +29,7 @@ $_NL.prototype = {
     },
 
     engine_started: function() {
-        l('engine started!!!');
+        //l('engine started!!!');
         QE.manager_web_sockets.set_message_parser(this.websocket_message_parser);
     }
 

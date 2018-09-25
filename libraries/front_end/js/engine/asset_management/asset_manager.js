@@ -14,7 +14,7 @@ $_QE.prototype.AssetManager = function(engine) {
     this._assets = {};
 
     this.on_asset_load = function(asset_name, asset_data) {
-        l('Loaded {' + asset_name + '}');
+        //l('Loaded {' + asset_name + '}');
         this._assets[asset_name] = asset_data;
     };
 
@@ -23,7 +23,7 @@ $_QE.prototype.AssetManager = function(engine) {
     };
 
     this.load_pre_render_assets = function() {
-        let me          = this;
+        //let me          = this;
         let asset_batch = new $_QE.prototype.AssetBatch();
         let asset_needed;
 

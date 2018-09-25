@@ -5,7 +5,7 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
     this.custom_world_enter = function() {
         //this.nexus_local_title.refresh_self_and_all_children_recursively();
         //this.logs.refresh_self_and_all_children_recursively();
-        l('World entered!!!');
+        //l('World entered!!!');
         //this.logs.refresh();
     };
 

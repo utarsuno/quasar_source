@@ -5,10 +5,9 @@ const PRE_COMPUTED_VAL_TWO_H      = 110.85124969482422; // #pre-process_global_c
 // W_DISTANCE = Math.sqrt(3 * this.h * this.h);
 const PRE_COMPUTED_VAL_W_DISTANCE = 95.99999827696978;  // #pre-process_global_constant
 
-$_QE.prototype.HexagonGrid = function(number_of_layers) {
+$_QE.prototype.HexagonGrid = function(world_manager, number_of_layers) {
 
-    //$_QE.prototype.FeatureSingleton.call(this);
-
+    $_QE.prototype.FeatureSingleton.call(this, world_manager);
     $_QE.prototype.Element.call(this);
 
     this.number_of_layers = number_of_layers;

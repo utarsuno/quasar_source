@@ -21,8 +21,8 @@ $_QE.prototype.World = function(player, manager_world) {
         this.scene.remove(object);
 
         // TODO : Refactor this
-        if (object.hasOwnProperty('object3D')) {
-            this.scene.remove(object.object3D);
-        }
+        //if (object.hasOwnProperty('object3D')) {
+        //    this.scene.remove(object.object3D);
+        //}
     };
 };

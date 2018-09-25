@@ -1,7 +1,6 @@
 'use strict';
 
 $_QE.prototype.FPSControls = function() {
-    this.camera = this.engine.manager_renderer.camera;
     //
     $_QE.prototype.MouseControls.call(this);
 

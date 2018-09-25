@@ -11,7 +11,7 @@ $_QE.prototype.PlayerState = function() {
 
     this.set_state = function(player_state) {
         this.previous_state = this.current_state;
-        this.current_state = player_state;
+        this.current_state  = player_state;
 
         switch(player_state) {
         case PLAYER_STATE_PAUSED:
@@ -33,9 +33,7 @@ $_QE.prototype.PlayerState = function() {
             //    CURRENT_CLIENT.show_pause_menu();
             //}
 
-            if (player_state === PLAYER_STATE_PAUSED) {
-                //MANAGER_AUDIO.pause_background_music();
-            }
+            //MANAGER_AUDIO.pause_background_music();
 
             break;
         case PLAYER_STATE_TYPING_IN_HUD:
@@ -54,8 +52,7 @@ $_QE.prototype.PlayerState = function() {
             //l(this.previous_state);
             if (this.previous_state === PLAYER_STATE_PAUSED) {
                 //MANAGER_AUDIO.resume_background_music();
-
-                this.engine.client.resume();
+                this.engine.resume();
             }
             break;
         }

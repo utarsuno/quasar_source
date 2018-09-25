@@ -20,7 +20,7 @@ $_QE.prototype.AssetFile = function(name, asset_type, depends_on) {
                     },
                     undefined,
                     function(error) {
-                        QE.client.show_error('Error' + EMOJI_ERROR, 'loading {' + me.name + '}');
+                        QE.fatal_error('loading {' + me.name + '}');
                         reject(error);
                     }
                 );
