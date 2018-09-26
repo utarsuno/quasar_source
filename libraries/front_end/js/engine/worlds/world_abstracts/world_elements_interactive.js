@@ -54,6 +54,7 @@ $_QE.prototype.WorldElementsInteractive = function() {
                         intersection_data = this._intersections[0];
 
                         the_match = intersection_data.object.userData[USER_DATA_KEY_PARENT_OBJECT];
+                        
                     }
 
                     //l('THE INTERSECTION DATA IS:');

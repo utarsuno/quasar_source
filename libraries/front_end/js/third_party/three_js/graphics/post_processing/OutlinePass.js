@@ -178,7 +178,7 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 			//if ( object instanceof THREE.Mesh ) object.visible = bVisible;
 			// MY_CUSTOM_MODIFICATION:
 			if ( object instanceof THREE.Mesh ) {
-				if (object.userData['p'] != null) {
+				if (object.userData['i'] != null && object.userData['i']) {
                     object.visible = bVisible;
                 }
             }
@@ -203,7 +203,7 @@ THREE.OutlinePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 			//if ( object instanceof THREE.Mesh ) selectedMeshes.push( object );
 			// MY_CUSTOM_MODIFICATION:
 			if ( object instanceof THREE.Mesh ) {
-				if (object.userData['p'] != null) {
+				if (object.userData['i'] != null && object.userData['i']) {
 					selectedMeshes.push( object );
 				}
             }

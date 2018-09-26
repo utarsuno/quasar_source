@@ -66,6 +66,7 @@ module.exports = {
 
         //
         "USER_DATA_KEY_PARENT_OBJECT": false,
+        "IS_CURRENTLY_LOOKED_AT"     : false,
 
         "FEATURE_GEOMETRY_TYPE_PLANE"  : false,
         "FEATURE_GEOMETRY_TYPE_TEXT_3D": false,

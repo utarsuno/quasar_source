@@ -308,6 +308,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_attachment.js')
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_title_bar.js')
 
+		self.js_files_needed.append('elements/inheritable_features/interactions/feature_button.js')
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_clickable.js')
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_interactive.js')
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_tab_target.js')
@@ -315,6 +316,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('elements/inheritable_features/visuals/feature_color.js')
 		self.js_files_needed.append('elements/inheritable_features/visuals/feature_visibility.js')
 
+		self.js_files_needed.append('elements/inheritable_features/physics/feature_size.js')
 		self.js_files_needed.append('elements/inheritable_features/physics/feature_position.js')
 		self.js_files_needed.append('elements/inheritable_features/physics/feature_relative_position.js')
 		self.js_files_needed.append('elements/inheritable_features/physics/feature_normal.js')
@@ -329,6 +331,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('elements/environment/light_point.js')
 
 		self.js_files_needed.append('elements/discrete/text_3d.js')
+		self.js_files_needed.append('elements/discrete/icon.js')
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# Asset Managers.

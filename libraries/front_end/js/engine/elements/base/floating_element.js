@@ -16,6 +16,10 @@ $_QE.prototype.FloatingElement = function(is_base) {
 
     this.in_world_list_elements_root = false;
 
+    this.set_to_button = function(engage_function) {
+        $_QE.prototype.FeatureButton.call(this, engage_function);
+    };
+
     this.refresh = function() {
         if (this.group != null) {
             this.group.updateMatrix();

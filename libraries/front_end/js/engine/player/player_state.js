@@ -19,8 +19,8 @@ $_QE.prototype.PlayerState = function() {
             //MANAGER_INPUT.reset_movement_controls();
             //CURRENT_PLAYER.fps_controls.reset_velocity();
 
-            if (QE.manager_world.player_cursor.in_mouse_action()) {
-                QE.manager_world.player_cursor.finish_mouse_action();
+            if (this.engine.manager_world.player_cursor.in_mouse_action()) {
+                this.engine.manager_world.player_cursor.finish_mouse_action();
             }
 
             // Hide the player menu if visible.
@@ -37,13 +37,9 @@ $_QE.prototype.PlayerState = function() {
 
             break;
         case PLAYER_STATE_TYPING_IN_HUD:
-            QE.manager_hud.hud_typing.enter_typing_state();
-            //QE.enter_typing_state();
-            //QE.update_needed_for_colors = true;
-            //CURRENT_CLIENT.show_client_typing();
+            this.engine.manager_hud.hud_typing.enter_typing_state();
             break;
         case PLAYER_STATE_ENGAGED:
-            //MANAGER_INPUT.reset_movement_controls();
             this.engine.manager_input.reset();
             this.engine.player.reset_velocity();
             break;

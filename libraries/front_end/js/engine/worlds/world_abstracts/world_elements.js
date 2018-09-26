@@ -52,6 +52,7 @@ $_QE.prototype.WorldElements = function() {
          */
 
         this.currently_looked_at_object = element;
+        this.currently_looked_at_object.mesh.userData[IS_CURRENTLY_LOOKED_AT] = true;
         //this.currently_looked_at_object = element.userData[USER_DATA_KEY_PARENT_OBJECT];
 
 
@@ -74,6 +75,8 @@ $_QE.prototype.WorldElements = function() {
     };
 
     this.look_away_from_currently_looked_at_object = function() {
+        this.currently_looked_at_object.mesh.userData[IS_CURRENTLY_LOOKED_AT] = false;
+
         if (this.currently_looked_at_object.feature_outline_glow) {
             //QE.manager_renderer.outline_glow.remove_hover_object(this.currently_looked_at_object.object3D);
             if (this.currently_looked_at_object.group != null) {
