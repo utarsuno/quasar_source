@@ -20,6 +20,10 @@ $_QE.prototype.FloatingElement = function(is_base) {
         $_QE.prototype.FeatureButton.call(this, engage_function);
     };
 
+    this.set_to_row_element = function(relative_index, horizontal_go_right) {
+        $_QE.prototype.FeatureRowElement.call(this, relative_index, horizontal_go_right);
+    };
+
     this.refresh = function() {
         if (this.group != null) {
             this.group.updateMatrix();

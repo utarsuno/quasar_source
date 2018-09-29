@@ -30,6 +30,8 @@ class BuildProcessJSIndependentLibraries(BuildProcessStep):
 
 			if cached_or_updated:
 
+				self.add_output_line('Cached {' + f.file_name + '}.')
+
 				# Now minify.
 				minified_path = self.domain.generated_content_path + f.file_name_with_minified_extension
 				f.minify(minified_path, preserve_first_comment_block=True)

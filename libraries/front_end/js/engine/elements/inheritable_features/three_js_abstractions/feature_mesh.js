@@ -34,12 +34,16 @@ $_QE.prototype.FeatureMesh = function(cacheable, type, on_mesh_created) {
         }
     };
 
-    this.create_mesh = function() {
-        this.is_mesh_cacheable ? this._create_mesh_cached() : this._create_mesh_new();
-
+    this.set_user_data = function() {
         if (this.feature_interactive) {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
+    };
+
+    this.create_mesh = function() {
+        this.is_mesh_cacheable ? this._create_mesh_cached() : this._create_mesh_new();
+
+        this.set_user_data();
 
         if (this.group != null) {
             this.group.add(this.mesh);

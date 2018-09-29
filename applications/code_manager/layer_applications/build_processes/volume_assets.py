@@ -15,18 +15,22 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 		self.needed_volume_files = {
 			self.domain.volume_path + 'p0.png'     : '/quasar/assets/texture/spritesheet/icons.png',
 			self.domain.volume_path + 'p1.png'     : '/quasar/assets/texture/third_party/transition.png',
-			self.domain.volume_path + 'favicon.png': '/quasar/assets/favicon/favicon.png'
+			self.domain.volume_path + 'p2.png'     : '/quasar/assets/favicon/favicon.png'
 		}
 
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
 
 	def step_0x0(self):
 		"""The first step."""
+
+		# TODO: get if asset file has changed!
+
 		for vf in self.needed_volume_files:
-			if not ufo.file_get_is_file(self.domain.volume_path + 'icons.png'):
+			#if not ufo.file_get_is_file(self.domain.volume_path + 'icons.png'):
+			if not ufo.file_get_is_file(vf):
 				ufo.file_op_copy(
 					path_destination=vf,
 					path_source=self.needed_volume_files[vf]
 				)
-
+				self.add_output_line('Added {' + vf + '} to volume.')
 

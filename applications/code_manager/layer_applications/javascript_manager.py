@@ -229,6 +229,7 @@ class JavascriptManager(object):
 		self.js_files_needed.append('core/error_manager.js')
 		self.js_files_needed.append('core/frame_counter.js')
 		self.js_files_needed.append('core/heap_manager.js')
+		self.js_files_needed.append('core/linked_list.js')
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# HUD.
@@ -296,6 +297,9 @@ class JavascriptManager(object):
 		self.js_files_needed.append('elements/base/element.js')
 		self.js_files_needed.append('elements/base/floating_element.js')
 
+		self.js_files_needed.append('elements/base/wall/wall_abstraction.js')
+		self.js_files_needed.append('elements/base/wall/floating_wall.js')
+
 		self.js_files_needed.append('common_inheritable_features/text/feature_text.js')
 		self.js_files_needed.append('common_inheritable_features/text/feature_typing.js')
 
@@ -306,6 +310,8 @@ class JavascriptManager(object):
 		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
 
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_attachment.js')
+		self.js_files_needed.append('elements/inheritable_features/attachments/feature_row_element.js')
+		self.js_files_needed.append('elements/inheritable_features/attachments/feature_row.js')
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_title_bar.js')
 
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_button.js')

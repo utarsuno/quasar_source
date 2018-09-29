@@ -40,4 +40,4 @@ class BuildProcessCSS(BuildProcessStep):
 				if updated:
 					self.domain.add_value_to_flag(DOMAIN_FLAG_CSS_FILES_THAT_UPDATED, generated_file_path)
 					#self.finish_early('CSS was updated.')
-
+					self.add_output_line('Cached {' + f.file_name + '}.')

@@ -87,3 +87,4 @@ class BuildProcessJSNexusLocal(BuildProcessStep):
 				ufo.file_op_copy(gzip_path    , volume_file_path + '.gz')
 
 				#self.finish_early('NexusLocal was generated.')
+				self.add_output_line('Cached {' + f.file_name + '}.')

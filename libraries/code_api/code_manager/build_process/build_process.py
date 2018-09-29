@@ -56,9 +56,12 @@ class BuildProcess(object):
 				if bs.output is not None:
 					oc.print_data_with_red_dashes_at_start(bs.output)
 
+		oc.print_data_with_red_dashes_at_start('all_build_steps_passed {' + str(all_build_steps_passed) + '}')
+
 		build_time.stop()
 		if not all_build_steps_passed:
 			oc.print_error('Building {' + self.name + '} failed in {' + str(build_time) + '}')
+			exit(199)
 		else:
 			oc.print_pink('Building {' + self.name + '} finished in {' + str(build_time) + '}')
 			self.build_completed_successfully()

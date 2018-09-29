@@ -4,20 +4,29 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Load utility functions.
 source ${DIR}/../../scripts/utilities/script_utilities.sh
+source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
+
+###
+SCRIPT_NAME="Push latest code changes"
+###
 
 # c - clean_git
 # n - no_changes_to_push
 # p - push_changes
 
-python3 ./scripts/functionalities/_operations_git.py 'c';
+start_script
 
-WORKTREE=/Users/utarsuno/git_repos/quasar_source
+python3 ${SCRIPT_OPERATIONS_GIT} 'c';
+
+WORKTREE=${HOST_SOURCE_CODE_PATH}
 CHANGED=$(git --work-tree=${WORKTREE} status --porcelain)
 
 if [ -n "${CHANGED}" ]; then
-  python3 ./scripts/functionalities/_operations_git.py 'p';
+  python3 ${SCRIPT_OPERATIONS_GIT} 'p';
 else
-  python3 ./scripts/functionalities/_operations_git.py 'n';
+  python3 ${SCRIPT_OPERATIONS_GIT} 'n';
 fi
+
+finish_script 0

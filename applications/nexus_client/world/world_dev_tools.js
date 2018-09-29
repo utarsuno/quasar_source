@@ -77,7 +77,10 @@ $_NL.prototype.WorldDevTools = function(player, manager_world) {
         this.logs.add_text_line_to_bottom('Third message!', QE.COLOR_CANVAS_GREEN);
 
         this.logs.add_title('Floating Terminal', false, 0.0, false);
-        this.logs.add_close_button();
+        this.logs.add_button_close();
+        this.logs.add_button_settings();
+        this.logs.add_button_help();
+        this.logs.add_icon(ASSET_ICON_TERMINAL);
 
         /*
         this.logs = new $_NL.prototype.FloatingTerminal(this, 32, $_QE.prototype.CANVAS_FONT_SMALLER);

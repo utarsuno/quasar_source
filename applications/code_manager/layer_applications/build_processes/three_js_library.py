@@ -76,7 +76,14 @@ class BuildProcessThreeJSLibrary(BuildProcessStep):
 			if self.failed:
 				return
 
-		r = self.run_bash_step('git checkout tags/' + self.latest_version, cwd='/quasar/generated_output/third_party_libraries/three_js/three.js')
+		path_to_library_repo = '/quasar/generated_output/third_party_libraries/three_js/three.js'
+
+		# Update git data.
+		r = self.run_bash_step('git fetch', cwd=path_to_library_repo)
+		if self.failed:
+			return
+
+		r = self.run_bash_step('git checkout tags/' + self.latest_version, cwd=path_to_library_repo)
 		#if not r and not type(r) == str:
 		#	self.fail('error performing "git checkout tags/' + str(self.latest_version) + '"')
 		#	return

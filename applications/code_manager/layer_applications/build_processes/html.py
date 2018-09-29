@@ -99,4 +99,5 @@ class BuildProcessHTML(BuildProcessStep):
 			ufo.file_op_copy(gzip_path         , volume_file_path + '.gz')
 
 			#self.finish_early('HTML was updated.')
+			self.add_output_line('Cached {' + f.file_name + '}.')
 

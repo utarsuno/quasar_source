@@ -14,11 +14,6 @@ LoginWorld.prototype = {
                 this.input_username_login.update_text(CURRENT_CLIENT.get_cookie(COOKIE_REMEMBERED_USERNAME));
             }
         }
-
-        this.quasar_source_title.refresh_position_and_look_at();
-        this.wall_login.refresh_position_and_look_at();
-        this.wall_create_account.refresh_position_and_look_at();
-
     },
 
     custom_world_exit: function() {
@@ -68,7 +63,6 @@ LoginWorld.prototype = {
      | |\ | |  |  |  /\  |       |    /  \  /\  |  \
      | | \| |  |  | /~~\ |___    |___ \__/ /~~\ |__/ */
     create: function() {
-        this._create_quasar_title();
         this._create_login_wall();
         this._create_create_account_wall();
         this._create_server_requests();

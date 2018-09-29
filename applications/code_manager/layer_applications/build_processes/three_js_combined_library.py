@@ -101,5 +101,7 @@ class BuildProcessThreeJSCombinedLibrary(BuildProcessStep):
 			)
 			ufo.file_op_copy(generated_file_path, volume_file_path)
 
+			self.add_output_line('ThreeJS combined library file generated.')
+
 			#self.finish_early('ThreeJS combined library file generated.')
 

@@ -4,20 +4,20 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Load utility functions.
 source ${DIR}/../../scripts/utilities/script_utilities.sh
+source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
 
+###
+SCRIPT_NAME="Quasar Front End Only"
+DOCKER_COMPOSE_FILE="docker-compose.yml"
+###
 
-print_dashed_line_with_text "Quasar Run Process Start"
+start_script_with_docker_health_check
 
-python3 ./scripts/functionalities/_operations_docker.py 'n'
+#TODO: Dynamic build.
+docker_compose_build
+docker_compose_up
+docker_compose_down
 
-#docker-compose down;
-
-docker-compose build;
-#docker-compose up --remove-orphans;
-docker-compose up;
-
-docker-compose down;
-
-print_dashed_line_with_text "Quasar Run Process Finished"
+finish_script 0

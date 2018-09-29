@@ -2,36 +2,33 @@
 
 # Location of this script.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-# Load utility functions.
+# Load utility functions (if needed).
 source ${DIR}/../../scripts/utilities/script_utilities.sh
+source ${DIR}/../../scripts/utilities/docker_utilities.sh
 # Go to project base directory.
 cd ${DIR}/../..;
 
-print_dashed_line_with_text "Quasar Build Process Start"
+###
+SCRIPT_NAME="Quasar Build Process"
+DOCKER_COMPOSE_FILE="docker-compose.dev.build.yml"
+###
 
-# ARG_OPERATION_ENSURE_NETWORK = 'n'
-# ARG_OPERATION_ENSURE_VOLUME  = 'v'
-python3 ./scripts/functionalities/_operations_docker.py 'n' 'v'
+start_script_with_docker_health_check
+# TODO: Dynamic build
+docker_compose_up
+CODE_MANAGER_BUILD_RESULT=$(docker wait quasar_source_code_manager_1)
 
-
-#docker-compose -f docker-compose.dev.build.yml stop;
-#docker-compose -f docker-compose.dev.build.yml build;
-#docker-compose -f docker-compose.dev.build.yml up --remove-orphans;
-
-docker-compose -f docker-compose.dev.build.yml up;
-
-ret=$(docker wait quasar_source_code_manager_1)
-
-# TODO: Instead of using exit codes, the DB should fetch the build process State and proceed from there
-
-
-if [ ${ret} -eq 200 ]; then
+if [ ${CODE_MANAGER_BUILD_RESULT} -eq 200 ]; then
     # Go to project base directory.
     cd ${DIR}/../..;
-    docker-compose run --rm -v /Users/utarsuno/git_repos/quasar_source:/quasar nexus_courier /quasar/scripts/docker/build_nexus_courier.sh
+    docker-compose run --rm -v ${HOST_VOLUME_SOURCE_CODE} nexus_courier ${SCRIPT_BUILD_NEXUS_COURIER}
+    docker_compose_down
+    finish_script 0
+elif [ ${CODE_MANAGER_BUILD_RESULT} -eq 199 ]; then
+    print_red_text "Docker build process failed!"
+    docker_compose_down
+    finish_script 199
+else
+    docker_compose_down
+    finish_script 0
 fi
-
-docker-compose -f docker-compose.dev.build.yml down;
-
-print_dashed_line_with_text "Quasar Build Process Finished"
-

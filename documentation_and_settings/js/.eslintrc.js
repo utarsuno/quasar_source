@@ -137,6 +137,7 @@ module.exports = {
         "ASSET_ICON_VERTICAL"   : false,
         "ASSET_ICON_WARNING"    : false,
         "ASSET_ICON_VIDEO"      : false,
+        "ASSET_ICON_QUESTION"   : false,
         "ASSET_ICON_CHECKMARK"  : false,
         "ASSET_ICON_DRAG"       : false,
         "ASSET_ICON_GEARS"      : false,

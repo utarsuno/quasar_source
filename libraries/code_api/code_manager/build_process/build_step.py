@@ -45,6 +45,12 @@ class BuildProcessStep(object):
 		self.finished = True
 		self.failed   = True
 
+	def add_output_line(self, line):
+		"""Adds a line of output."""
+		if self.output is None:
+			self.output = ''
+		self.output += line + '\n'
+
 	def run(self):
 		"""Runs this build process step."""
 		try:
@@ -56,7 +62,7 @@ class BuildProcessStep(object):
 						break
 					p.run()
 					if p.failed:
-						oc.print_error('Build process step failed {' + str(p.output) + '}')
+						self.fail(str(p.output))
 		except Exception as e:
 			#print(e)
 			traceback.print_exc()

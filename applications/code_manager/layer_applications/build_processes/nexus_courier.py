@@ -11,7 +11,7 @@ class BuildProcessNexusCourier(BuildProcessStep):
 
 	def __init__(self, domain):
 		super().__init__(domain, None)
-
+		self.any_files_updated = False
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
 
 	def step_0x0(self):
@@ -20,7 +20,6 @@ class BuildProcessNexusCourier(BuildProcessStep):
 		self.web_server.add_extensions_to_ignore(['.py'])
 		self.web_server.add_extensions_to_match(['.cpp', '.h'])
 
-		self.any_files_updated = False
 		self.all_files = self.web_server.get_all_files()
 
 		for f in self.all_files:
@@ -32,6 +31,7 @@ class BuildProcessNexusCourier(BuildProcessStep):
 			)
 			if cached_or_updated:
 				self.any_files_updated = True
+				self.add_output_line('Cached {' + f.file_name + '}.')
 
 		if self.any_files_updated:
 			self.domain.set_flag('NEXUS_COURIER_UPDATED', True)
