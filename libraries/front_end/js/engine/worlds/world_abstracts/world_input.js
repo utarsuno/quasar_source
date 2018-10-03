@@ -2,28 +2,19 @@
 
 $_QE.prototype.WorldInput = function() {
 
-    this.mobile_key_press = function(key) {
-        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
-            this.currently_looked_at_object.add_character(key);
-        }
-    };
-
-    this.mobile_key_delete = function() {
-        if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
-            this.currently_looked_at_object.pop_character();
-        }
-    };
-
-    this.mobile_keyboard_close = function() {
-        if (this.currently_looked_at_object != null) {
-            if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage();
-                this.player.set_state(PLAYER_STATE_FULL_CONTROL);
-            }
-        }
-    };
-
     this.key_down_event_for_interactive_objects = function(event) {
+        if (this.currently_looked_at_object != null) {
+            if (event.keyCode == KEY_CODE__TAB && !this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
+                this.tab_to_next_interactive_object();
+            } else if (this.currently_looked_at_object.get_flag(EFLAG_ENGAGED) || !this.currently_looked_at_object.get_flag(EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT)) {
+                this.currently_looked_at_object.parse_key_event(event);
+            }
+        } else if (event.keyCode == KEY_CODE__TAB) {
+            l('TODO: Dynamic tab event!');
+            //this.tab_to_next_interactive_object();
+        }
+
+        /*
         if (event.keyCode === KEY_CODE__TAB) {
             this.tab_to_next_interactive_object();
         } else {
@@ -46,21 +37,38 @@ $_QE.prototype.WorldInput = function() {
                     }
                 }
                 */
-            }
-        }
+        //}
+        //}
     };
 
     /*___       __      ___       ___      ___
        |   /\  |__)    |__  \  / |__  |\ |  |
        |  /~~\ |__)    |___  \/  |___ | \|  |  */
-    this._default_tab_target = null;
+    this._tab_target_default  = null;
+    this._tab_target_previous = null;
+    this._tab_target_next     = null;
 
     this.set_default_tab_target = function(default_tab_target) {
         this._default_tab_target = default_tab_target;
     };
 
+    this.set_next_tab_target_from_previous = function(previous_target) {
+
+    };
+
     // TODO : This needs to be refactored!
     this.tab_to_next_interactive_object = function() {
+        l('TODO: tab to next interactive object!');
+        l(this.currently_looked_at_object);
+        l(this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT));
+        if (this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT)) {
+            l(this.currently_looked_at_object._parent_row.get_next_tab_target_from_current(this.currently_looked_at_object));
+            //this.currently_looked_at_object.parent
+        }
+        //l(typeof this.currently_looked_at_object);
+        //l(this.currently_looked_at_object.parent);
+        //l(this.currently_looked_at_object.parent.)
+
         /*
         if (this.floating_cursor._currently_engaged) {
             this.floating_cursor.disengage();
@@ -106,8 +114,8 @@ $_QE.prototype.WorldInput = function() {
         //}
 
         if (this.currently_looked_at_object != null) {
-            if (!this.currently_looked_at_object.is_engaged()) {
-                if (this.currently_looked_at_object.feature_engable_only_from_double_click) {
+            if (!this.currently_looked_at_object.get_flag(EFLAG_ENGAGED)) {
+                if (this.currently_looked_at_object.get_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK)) {
                     if (double_click) {
                         this.engage_currently_looked_at_object();
                     } else {

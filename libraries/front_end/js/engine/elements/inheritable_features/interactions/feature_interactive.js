@@ -1,54 +1,65 @@
 'use strict';
 
-$_QE.prototype.FeatureInteractive = function(outline_glow, on_look_at, on_look_away, on_engage, on_disengage) {
+$_QE.prototype.FeatureInteractive = function(on_look_at, on_look_away, on_engage, on_disengage, engable_only_from_double_click=false) {
 
-    //$_QE.prototype.FeatureCursor.call(this);
-    // TODO: TEMP
-    this.uses_cursor = true;
+    /////
+    // Tab Targets.
+    //this._tab_target_next = null;
+    /////
 
-    this.in_world_list_elements_interactive = false;
+    // TODO: set cursor icon needed
 
-    // Settings.
-    //
-    this.feature_interactive = true;
-    //
-    this.feature_needs_engage_for_parsing_input = true;
-    // TODO: Refactor (conflict with other feature types)
-    this.feature_maintain_engage_when_tabbed_to = true;
-    this.feature_engable                        = true;
-    this.feature_engable_only_from_double_click = false;
-
-    this.feature_outline_glow                   = outline_glow;
-
-    // States.
-    this.being_engaged_with = false;
+    this.set_flag(EFLAG_OUTLINE_GLOW, true);
+    this.set_flag(EFLAG_INTERACTIVE, true);
+    this.set_flag(EFLAG_ENGABLE, true);
+    this.set_flag(EFLAG_CLICKABLE, true);
+    this.set_flag(EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK, engable_only_from_double_click);
 
     // Function events.
-    this.on_look_at   = on_look_at;
-    this.on_look_away = on_look_away;
-    this.on_engage    = on_engage;
-    this.on_disengage = on_disengage;
+    if (on_look_at != null) {
+        this.set_event(ELEMENT_EVENT_ON_LOOK_AT, on_look_at);
+    }
+    if (on_look_away != null) {
+        this.set_event(ELEMENT_EVENT_ON_LOOK_AWAY, on_look_away);
+    }
+    if (on_engage != null) {
+        this.set_event(ELEMENT_EVENT_ON_ENGAGE, on_engage);
+    }
+    if (on_disengage != null) {
+        this.set_event(ELEMENT_EVENT_ON_DISENGAGE, on_disengage);
+    }
 
-    //this.feature_interactive = true;
+    this.check_if_in_interactive = function() {
+        // Add to interactive list if not done so already.
+        if (this.get_flag(EFLAG_INTERACTIVE) && !this.has_flag(EFLAG_IN_ELEMENTS_INTERACTIVE)) {
+            if (this.is_root_attachment()) {
+                this.world.add_element_interactive(this);
+            } else {
+                this.parent.world.add_element_interactive(this);
+            }
+            this.set_user_data();
+        }
+    };
+
+    let self = this;
+
+    this.set_event(ELEMENT_EVENT_ON_SET_TO_BUTTON, function() {
+        // TODO: Refactor without '.bind(self)'
+        self.check_if_in_interactive.bind(self)();
+    });
+
+    this.set_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE, function() {
+        // TODO: Refactor without '.bind(self)'
+        self.check_if_in_interactive.bind(self)();
+    });
 
     /*__   ___ ___ ___  ___  __   __
      /__` |__   |   |  |__  |__) /__`
      .__/ |___  |   |  |___ |  \ .__/ */
-    /*
-    this.set_value_pre_changed_function = function(value_pre_changed_function) {
-        this.value_pre_changed_function = value_pre_changed_function;
-    };
 
-    this.set_value_post_changed_function = function(value_post_changed_function) {
-        this.value_post_changed_function = value_post_changed_function;
-    };
-    */
 
     /*__   ___ ___ ___  ___  __   __
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
-    this.is_engaged = function() {
-        return this.being_engaged_with;
-    };
 
 };

@@ -10,8 +10,6 @@ $_QE.prototype.HexagonGrid = function(world_manager, number_of_layers) {
     $_QE.prototype.FeatureSingleton.call(this, world_manager);
     $_QE.prototype.Element.call(this);
 
-    this.number_of_layers = number_of_layers;
-
     this.create = function() {
         this._create_cache();
 
@@ -21,7 +19,7 @@ $_QE.prototype.HexagonGrid = function(world_manager, number_of_layers) {
         let tile = 1;
 
         let layer;
-        for (layer = 1; layer < this.number_of_layers; layer++) {
+        for (layer = 1; layer < number_of_layers; layer++) {
             let number_of_tiles = layer * 6;
 
             let gap = layer - 1;

@@ -1,8 +1,7 @@
 'use strict';
 
 $_QE.prototype.FeatureMouseMove = function() {
-    $_QE.prototype.FeatureCursor.call(this);
-    this.feature_mouse_moveable = true;
+    this.set_flag(EFLAG_MOUSE_MOVEABLE, true);
 
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`

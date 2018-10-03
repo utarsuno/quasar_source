@@ -1,6 +1,10 @@
 'use strict';
 
 ///
+const MESSAGE_EVENT_SET_TO_BUTTON = 'e0'; // #pre-process_global_constant
+///
+
+///
 const GLOBAL_ID_PAUSED_BACKGROUND_FILTER     = 'a'; // #pre-process_global_constant
 const GLOBAL_ID_PAUSE_DISPLAY                = 'b'; // #pre-process_global_constant
 const GLOBAL_ID_SUB_PAUSED_DISPLAY_TITLE     = 'c'; // #pre-process_global_constant
@@ -94,16 +98,6 @@ const KEY_CODE__TAB        = 9;            // #pre-process_global_constant
 const KEY_CODE__ENTER      = 13;           // #pre-process_global_constant
 const KEY_CODE__CONTROL    = 17;           // #pre-process_global_constant
 const KEY_CODE__BACK_SLASH = 220;          // #pre-process_global_constant
-
-const EVENT_MOUSE_DOWN = 'mousedown';      // #pre-process_global_constant
-const EVENT_MOUSE_UP   = 'mouseup';        // #pre-process_global_constant
-const EVENT_KEY_DOWN   = 'keydown';        // #pre-process_global_constant
-const EVENT_KEY_UP     = 'keyup';          // #pre-process_global_constant
-const EVENT_MOUSE_MOVE = 'mousemove';      // #pre-process_global_constant
-const EVENT_PASTE      = 'paste';          // #pre-process_global_constant
-const EVENT_WHEEL_V0   = 'wheel';          // #pre-process_global_constant
-const EVENT_WHEEL_V1   = 'mousewheel';     // #pre-process_global_constant
-const EVENT_WHEEL_V2   = 'DOMMouseScroll'; // #pre-process_global_constant
 
 const CLICK_LEFT   = 1;                    // #pre-process_global_constant
 const CLICK_MIDDLE = 2;                    // #pre-process_global_constant

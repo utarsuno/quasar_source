@@ -2,8 +2,6 @@
 
 $_QE.prototype.FeaturePosition = function() {
 
-    this.update_needed_for_position                = false;
-
     this._cache_previous_position_center_x         = null;
     this._cache_previous_position_center_y         = null;
     this._cache_previous_position_center_z         = null;
@@ -18,7 +16,7 @@ $_QE.prototype.FeaturePosition = function() {
         } else {
             this.mesh.position.set(x, y, z);
         }
-        this.update_needed_for_position = true;
+        this.set_flag(EFLAG_UPDATE_POSITION, true);
     };
 
     this.shift_by_left_right = function(distance) {
@@ -35,7 +33,7 @@ $_QE.prototype.FeaturePosition = function() {
                 this.mesh.position.z + this._cache_absolute_left_right.z * distance
             );
         }
-        this.update_needed_for_position = true;
+        this.set_flag(EFLAG_UPDATE_POSITION, true);
     };
 
     this.set_position_center = function(x, y, z, look_at_x, look_at_y, look_at_z, cache=false) {
@@ -90,6 +88,6 @@ $_QE.prototype.FeaturePosition = function() {
         //l('Shifting left right by {' + (this.width / 2) + '}');
         //this.shift_by_left_right(this.width / 2);
 
-        this.update_needed_for_position = true;
+        this.set_flag(EFLAG_UPDATE_POSITION, true);
     };
 };

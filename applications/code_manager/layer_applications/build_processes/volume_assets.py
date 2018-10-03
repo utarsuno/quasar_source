@@ -12,13 +12,17 @@ class BuildProcessVolumeAssets(BuildProcessStep):
 	def __init__(self, domain):
 		super().__init__(domain, None)
 
-		self.needed_volume_files = {
-			self.domain.volume_path + 'p0.png'     : '/quasar/assets/texture/spritesheet/icons.png',
-			self.domain.volume_path + 'p1.png'     : '/quasar/assets/texture/third_party/transition.png',
-			self.domain.volume_path + 'p2.png'     : '/quasar/assets/favicon/favicon.png'
-		}
+		self.needed_volume_files = {}
+		self._add_volume_file_reference('p0.png'                        , 'assets/texture/spritesheet/icons.png')
+		self._add_volume_file_reference('p1.png'                        , 'assets/texture/third_party/transition.png')
+		self._add_volume_file_reference('p2.png'                        , 'assets/favicon/favicon/favicon.pn')
+		self._add_volume_file_reference('gentilis_regular.typeface.json', 'assets/fonts/three_js_fonts/gentilis_regular.typeface.json')
 
 		self.add_sub_build_process(BuildProcessStep(domain, self.step_0x0))
+
+	def _add_volume_file_reference(self, destination, source):
+		"""Utility function."""
+		self.needed_volume_files[self.domain.volume_path + destination] = '/quasar/' + source
 
 	def step_0x0(self):
 		"""The first step."""

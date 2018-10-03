@@ -7,10 +7,12 @@ const CLIENT_FEATURE_MOBILE       = 3; // #pre-process_global_constant
 const CLIENT_FEATURE_VR           = 4; // #pre-process_global_constant
 const CLIENT_FEATURE_FULL_SCREEN  = 5; // #pre-process_global_constant
 const CLIENT_FEATURE_POINTER_LOCK = 6; // #pre-process_global_constant
+const CLIENT_FEATURE_SCROLLING    = 7; // #pre-process_global_constant
+
 
 $_QE.prototype.ClientFeatures = function() {
 
-    this._features = new Uint32Array(7);
+    this._features = new Uint32Array(8);
 
     // Required.
     this._features[CLIENT_FEATURE_CANVAS]      = !!window.CanvasRenderingContext2D;
@@ -29,9 +31,11 @@ $_QE.prototype.ClientFeatures = function() {
         this._features[CLIENT_FEATURE_VR] = 0;
     }
     // Not required.
-    this._features[CLIENT_FEATURE_FULL_SCREEN] = !!document.webkitCancelFullScreen || !!document.mozCancelFullScreen;
+    this._features[CLIENT_FEATURE_FULL_SCREEN]  = !!document.webkitCancelFullScreen || !!document.mozCancelFullScreen;
     // Not required.
     this._features[CLIENT_FEATURE_POINTER_LOCK] = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+    // Not required.
+    this._features[CLIENT_FEATURE_SCROLLING]    = 'onwheel' in document || 'onmousehweel' in document;
 
     this.is_feature_enabled = function(feature) {
         return this._features[feature] == 1;

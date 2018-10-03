@@ -45,7 +45,7 @@ $_QE.prototype.EngineFrameCounter = function() {
     this.resume = function() {
         this.manager_hud.hide_pause_menu();
         if (!this.client.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
-            this.client.request_pointer_lock();
+            this.client.mouse_lock();
         }
     };
 

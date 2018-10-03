@@ -34,9 +34,9 @@ $_QE.prototype.WorldManagerInput = function() {
     this.middle_click_up = function() {
         l('Middle click up!');
         if (this.client.has_pointer_lock) {
-            this.client.release_pointer_lock();
+            this.client.mouse_release();
         } else {
-            this.client.request_pointer_lock();
+            this.client.mouse_lock();
         }
     };
 
@@ -56,7 +56,7 @@ $_QE.prototype.WorldManagerInput = function() {
             QE.manager_hud.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
             if (event.keyCode === KEY_CODE__ENTER) {
-                if (this.current_world.currently_looked_at_object === null) {
+                if (this.current_world.currently_looked_at_object == null) {
                     this.player.set_state(PLAYER_STATE_TYPING_IN_HUD);
                 } else {
                     this.current_world.key_down_event_for_interactive_objects(event);
@@ -81,22 +81,10 @@ $_QE.prototype.WorldManagerInput = function() {
 
     this.on_paste_event = function(text) {
         if (this.player.in_hud_typing_state()) {
-            this.engine.gui_2d_typing.on_paste_event(text);
+            this.engine.manager_hud.hud_typing.on_paste_event(text);
         } else if (this.player.has_input() && this.current_world.currently_looked_at_object != null) {
             this.current_world.currently_looked_at_object.on_paste_event(text);
         }
-    };
-
-    this.mobile_keyboard_event_key_press = function(key) {
-        this.current_world.mobile_key_press(key);
-    };
-
-    this.mobile_keyboard_event_key_delete = function() {
-        this.current_world.mobile_key_delete();
-    };
-
-    this.mobile_keyboard_close = function() {
-        this.current_world.mobile_keyboard_close();
     };
 
 };

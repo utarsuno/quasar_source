@@ -51,6 +51,7 @@ DayViewSimple.prototype = {
 
     remove_entity: function(entity) {
         let entity_id = entity.get_relative_id();
+        // TODO: DON'T USE THE DELETE KEYWORD
         delete this.entities[entity_id];
         this.day_view.delete_row_by_name(entity_id);
         // TODO : Sort the day view rows.

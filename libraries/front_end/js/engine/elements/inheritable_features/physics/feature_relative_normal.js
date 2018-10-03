@@ -2,8 +2,6 @@
 
 $_QE.prototype.FeatureRelativeNormal = function() {
 
-    this.update_needed_for_normal = false;
-
     this.get_normal = function() {
         // To get relative forward:
         // e = this.<mesh>.matrixWorld.elements;

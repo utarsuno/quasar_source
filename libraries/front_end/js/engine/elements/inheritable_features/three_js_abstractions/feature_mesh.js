@@ -2,16 +2,18 @@
 
 $_QE.prototype.FeatureMesh = function(cacheable, type, on_mesh_created) {
 
-    this.mesh_type         = type;
-    this.is_mesh_cacheable = cacheable;
-    this.on_mesh_created   = on_mesh_created;
+    this.mesh_type = type;
+    this.set_flag(EFLAG_CACHEABLE_MESH, cacheable);
+    if (on_mesh_created != null) {
+        this.set_event(ELEMENT_EVENT_ON_MESH_CREATED, on_mesh_created);
+    }
 
     this.recycle_mesh = function() {
         if (this.group != null) {
             this.group.remove(this.mesh);
         }
 
-        if (!this.is_mesh_cacheable) {
+        if (!this.get_flag(EFLAG_CACHEABLE_MESH)) {
             if (this.mesh != null) {
                 this.mesh.userData = undefined;
                 this.mesh          = undefined;
@@ -35,13 +37,13 @@ $_QE.prototype.FeatureMesh = function(cacheable, type, on_mesh_created) {
     };
 
     this.set_user_data = function() {
-        if (this.feature_interactive) {
+        if (this.get_flag(EFLAG_INTERACTIVE)) {
             this.mesh.userData[USER_DATA_KEY_PARENT_OBJECT] = this;
         }
     };
 
     this.create_mesh = function() {
-        this.is_mesh_cacheable ? this._create_mesh_cached() : this._create_mesh_new();
+        this.get_flag(EFLAG_CACHEABLE_MESH) ? this._create_mesh_cached() : this._create_mesh_new();
 
         this.set_user_data();
 
@@ -49,9 +51,7 @@ $_QE.prototype.FeatureMesh = function(cacheable, type, on_mesh_created) {
             this.group.add(this.mesh);
         }
 
-        if (this.on_mesh_created != null) {
-            this.on_mesh_created();
-        }
+        this.trigger_event(ELEMENT_EVENT_ON_MESH_CREATED);
     };
 
 };

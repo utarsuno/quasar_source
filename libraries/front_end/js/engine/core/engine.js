@@ -11,12 +11,17 @@ function $_QE() {
 
 $_QE.prototype = {
 
+    _set_engine_cache: function() {
+        this.CACHE_ZERO_VECTOR = new THREE.Vector3(0, 0, 0);
+        this.UP_VECTOR         = new THREE.Vector3(0, 1, 0);
+        this._delta_clock      = new THREE.Clock(false);
+        this._delta            = 0;
+    },
+
     __init__: function() {
         $_QE.prototype.EngineFrameCounter.call(this);
 
-        this.UP_VECTOR        = new THREE.Vector3(0, 1, 0);
-        this._delta_clock     = new THREE.Clock(false);
-        this._delta           = 0;
+        this._set_engine_cache();
         this.engine_main_loop = this._engine_loop.bind(this);
 
         // Default settings.
@@ -91,6 +96,7 @@ $_QE.prototype = {
 
         // Create input handlers and has player object set up its controls.
         this.manager_input = new $_QE.prototype.InputManager(this);
+        this.player.initialize_player_controls();
 
         this.manager_world.set_current_world(this.manager_world.first_world);
 

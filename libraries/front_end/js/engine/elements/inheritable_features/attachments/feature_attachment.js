@@ -2,21 +2,23 @@
 
 $_QE.prototype.FeatureAttachment = function() {
 
-    this.attachments          = [];
-    this.parent               = null;
-    this.a_child_needs_update = false;
+    this.attachments = [];
+    this.parent      = null;
 
     /*__   __   ___  __       ___    __        __
      /  \ |__) |__  |__)  /\   |  | /  \ |\ | /__`
      \__/ |    |___ |  \ /~~\  |  | \__/ | \| .__/ */
 
-    this.add_attachment = function(attachment, create=false) {
+    this.add_attachment = function(attachment, create=false, update_normal=false) {
         attachment.parent = this;
         this.attachments.push(attachment);
         if (create) {
             attachment.create();
         }
         this.group.add(attachment.mesh);
+        if (update_normal) {
+
+        }
     };
 
     this.attach_to = function(parent) {
@@ -50,7 +52,7 @@ $_QE.prototype.FeatureAttachment = function() {
      / _` |__   |   |  |__  |__) /__`
      \__> |___  |   |  |___ |  \ .__/ */
     this.is_root_attachment = function() {
-        return this.parent === null;
+        return this.parent == null;
     };
 
     this._get_all_attachments_recursively = function() {

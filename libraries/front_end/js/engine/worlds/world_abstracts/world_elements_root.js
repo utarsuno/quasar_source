@@ -15,8 +15,8 @@ $_QE.prototype.WorldElementsRoot = function() {
     this.remove_from_elements_root = function(element) {
         let i;
         for (i = 0; i < this.elements_root.length; i++) {
-            if (this.elements_root[i] === element) {
-                this.elements_root[i].in_world_list_elements_root = false;
+            if (this.elements_root[i] == element) {
+                this.elements_root[i].set_flag(EFLAG_IN_ELEMENTS_ROOT, false);
                 this.elements_root.splice(i, 1);
                 return;
             }
@@ -25,6 +25,6 @@ $_QE.prototype.WorldElementsRoot = function() {
 
     this.add_element_root = function(element) {
         this.elements_root.push(element);
-        element.in_world_list_elements_root = true;
+        element.set_flag(EFLAG_IN_ELEMENTS_ROOT, true);
     };
 };

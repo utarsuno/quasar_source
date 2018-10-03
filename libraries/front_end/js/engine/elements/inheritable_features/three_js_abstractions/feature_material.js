@@ -3,10 +3,10 @@
 $_QE.prototype.FeatureMaterial = function(cacheable, type) {
 
     this.material_type         = type;
-    this.is_material_cacheable = cacheable;
+    this.set_flag(EFLAG_CACHEABLE_MATERIAL, cacheable);
 
     this.recycle_material = function() {
-        if (!this.is_material_cacheable) {
+        if (!this.get_flag(EFLAG_CACHEABLE_MATERIAL)) {
             if (this.material != null) {
                 if (this.material.map != null) {
                     this.material.map.dispose();
@@ -53,7 +53,7 @@ $_QE.prototype.FeatureMaterial = function(cacheable, type) {
     };
 
     this.create_material = function() {
-        this.is_material_cacheable ? this._create_material_cached() : this._create_material_new();
+        this.get_flag(EFLAG_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
     };
 
 };

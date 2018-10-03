@@ -88,6 +88,7 @@ Entity.prototype = {
 
     delete_property: function(property_name, send_notifications) {
         if (this.hasOwnProperty(property_name)) {
+            // TODO: DON'T USE THE DELETE KEYWORD
             delete this[property_name];
             this.needs_to_be_saved = true;
             if (is_defined(send_notifications)) {

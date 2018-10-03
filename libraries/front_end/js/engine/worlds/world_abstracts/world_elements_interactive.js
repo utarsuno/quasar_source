@@ -11,10 +11,9 @@ $_QE.prototype.WorldElementsInteractive = function() {
     this.update_elements_interactive = function() {
         // Don't check for interactive objects if currently engaged with an input field as the camera doesn't move when typing.
         if (this.currently_looked_at_object != null) {
-            if (this.currently_looked_at_object.feature_typing) {
-                if (this.currently_looked_at_object.is_engaged()) {
-                    return;
-                }
+            if (this.currently_looked_at_object.are_both_flags_on(EFLAG_TYPING, EFLAG_ENGAGED)) {
+                l('both flags are on!');
+                return;
             }
         }
 
@@ -66,24 +65,26 @@ $_QE.prototype.WorldElementsInteractive = function() {
         // TODO: User mesh.userData to point to parent object.
 
         if (interactive_index === NOT_FOUND) {
-            if (this.currently_looked_at_object !== null) {
+            if (this.currently_looked_at_object != null) {
                 this.look_away_from_currently_looked_at_object();
             }
         } else {
-            if (this.currently_looked_at_object === null) {
+            if (this.currently_looked_at_object == null) {
                 this.set_new_currently_looked_at_object(the_match, intersection_data.point);
-            } else if (this.currently_looked_at_object !== the_match) {
+            } else if (this.currently_looked_at_object != the_match) {
                 this.look_away_from_currently_looked_at_object();
                 this.set_new_currently_looked_at_object(the_match, intersection_data.point);
             }
         }
     };
 
+    // TODO: PUT THE TAB TARGET LOGIC HERE! (check if element has flag for interactive/tab-target
+
     this.remove_from_elements_interactive = function(element) {
         let i;
         for (i = 0; i < this.elements_interactive.length; i++) {
-            if (this.elements_interactive[i] === element) {
-                element.in_world_list_elements_interactive = false;
+            if (this.elements_interactive[i] == element) {
+                element.set_flag(EFLAG_IN_ELEMENTS_INTERACTIVE, false);
                 this.elements_interactive.splice(i, 1);
                 return;
             }
@@ -92,6 +93,10 @@ $_QE.prototype.WorldElementsInteractive = function() {
 
     this.add_element_interactive = function(element) {
         this.elements_interactive.push(element);
-        element.in_world_list_elements_interactive = true;
+        element.set_flag(EFLAG_IN_ELEMENTS_INTERACTIVE, true);
+        element.trigger_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE);
+
+
+        //this.elements_tab_target.insert(element);
     };
 };

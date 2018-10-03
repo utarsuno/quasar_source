@@ -3,10 +3,10 @@
 $_QE.prototype.FeatureGeometry = function(cacheable, type) {
 
     this.geometry_type         = type;
-    this.is_geometry_cacheable = cacheable;
+    this.set_flag(EFLAG_CACHEABLE_GEOMETERY, cacheable);
 
     this.recycle_geometry = function() {
-        if (!this.is_geometry_cacheable) {
+        if (!this.get_flag(EFLAG_CACHEABLE_GEOMETERY)) {
             if (this.geometry != null) {
                 this.geometry.dispose();
                 this.geometry = undefined;
@@ -42,6 +42,6 @@ $_QE.prototype.FeatureGeometry = function(cacheable, type) {
     };
 
     this.create_geometry = function() {
-        this.is_geometry_cacheable ? this._create_geometry_cached() : this._create_geometry_new();
+        this.get_flag(EFLAG_CACHEABLE_GEOMETERY) ? this._create_geometry_cached() : this._create_geometry_new();
     };
 };

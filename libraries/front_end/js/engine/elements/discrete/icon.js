@@ -22,7 +22,10 @@ $_QE.prototype.FloatingIcon = function(is_base, icon_type, size, foreground_colo
         this.create_geometry();
         this.create_mesh();
         this.material.uniforms['offset'].value = this.icon_type;
-        this.current_foreground_color_changed();
+        this.set_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR, this.current_foreground_color_changed.bind(this));
+        this.trigger_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR);
+        //this.current_foreground_color_changed();
+        //this.set_event(ELEMENT_EVENT_ON_FOREGROUND_COLOR);
     };
 
     /*__   __        __   __      __   __   ___  __       ___    __        __

@@ -24,6 +24,7 @@ $_QE.prototype.GUI2DPlayerTypingInput = function(application) {
 
     $_QE.prototype.CanvasRenderingTextLine.call(this, true, this._on_enter_event.bind(this));
 
+    // TODO: (remove)
     this.feature_needs_engage_for_parsing_input = false;
 
     this.initialize_gui(800, 20, 10, 80, GLOBAL_ID_OUTLINE_GREEN, true, true, QE.CANVAS_FONT_SMALLER);

@@ -12,7 +12,7 @@ $_QE.prototype.WorldManager = function(engine) {
 
     $_QE.prototype.WorldManagerInput.call(this);
 
-    this.first_world   = new this.application.first_world_class(this.player, this);
+    this.first_world   = new this.application.first_world_class(this.player);
     this.first_world.create_for_first_render();
     this.environment   = new this.application.world_environment(this);
     this.player_cursor = new $_QE.prototype.PlayerCursor();

@@ -62,7 +62,6 @@ def parse_out_constants(lines_to_parse):
 			first_pass.append(l)
 
 	for l in first_pass:
-
 		line_currently = l
 
 		for c in constants:
@@ -73,8 +72,6 @@ def parse_out_constants(lines_to_parse):
 				#print()
 
 		final_pass.append(line_currently)
-
-	#exit()
 
 	return final_pass
 
@@ -142,7 +139,6 @@ def _get_parsed_javascript_content(file_lines):
 			if not currently_in_qa_section:
 				cleaner_lines.append(line)
 
-	#return clean_lines
 	return cleaner_lines
 
 
@@ -229,7 +225,10 @@ class JavascriptManager(object):
 		self.js_files_needed.append('core/error_manager.js')
 		self.js_files_needed.append('core/frame_counter.js')
 		self.js_files_needed.append('core/heap_manager.js')
-		self.js_files_needed.append('core/linked_list.js')
+
+		self.js_files_needed.append('core/data_structure/doubly_linked_list.js')
+		self.js_files_needed.append('core/data_structure/doubly_linked_list_node.js')
+
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
 		# HUD.
@@ -289,11 +288,13 @@ class JavascriptManager(object):
 		self.js_files_needed.append('worlds/world_abstracts/world_state.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_base.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_elements.js')
+		self.js_files_needed.append('worlds/world_abstracts/world_elements_tab_target.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_elements_interactive.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_elements_root.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_elements.js')
 
 		# ----------------------------------------------------------------------------------------------------------------
+		self.js_files_needed.append('elements/base/element_features.js')
 		self.js_files_needed.append('elements/base/element.js')
 		self.js_files_needed.append('elements/base/floating_element.js')
 
@@ -310,12 +311,10 @@ class JavascriptManager(object):
 		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
 
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_attachment.js')
-		self.js_files_needed.append('elements/inheritable_features/attachments/feature_row_element.js')
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_row.js')
 		self.js_files_needed.append('elements/inheritable_features/attachments/feature_title_bar.js')
 
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_button.js')
-		self.js_files_needed.append('elements/inheritable_features/interactions/feature_clickable.js')
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_interactive.js')
 		self.js_files_needed.append('elements/inheritable_features/interactions/feature_tab_target.js')
 

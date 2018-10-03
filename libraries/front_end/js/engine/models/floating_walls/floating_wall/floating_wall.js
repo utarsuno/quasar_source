@@ -13,33 +13,13 @@ FloatingWall.prototype = {
     },
 
     __init__: function (width, height, position, normal, world, scalable, default_background_color) {
-        // Inherit.
-        FloatingWallAbstract.call(this, width, height, position, normal, world);
-
-        this.auto_adjust_height = false;
-
-        this.create_base_mesh();
-
-        // Inherit from Interactive.
-        Interactive.call(this);
-
         this.scalable = scalable;
         if (!(this.scalable != null)) {
             this.scalable = false;
         }
-
-        this.set_to_interactive();
-        this.engable = false;
         if (!this.scalable) {
             this.only_used_for_blocking_input = true;
         }
-
-        if (default_background_color != null) {
-            this.default_background_color = default_background_color;
-        } else {
-            this.default_background_color = COLOR_FLOATING_WALL_BASE;
-        }
-        this.set_background_color(this.default_background_color, true);
 
         // Inherit from Saveable but set to false by default.
         Saveable.call(this, ENTITY_TYPE_WALL, this.load_completed.bind(this));
@@ -84,42 +64,6 @@ FloatingWall.prototype = {
             this.mesh.userData.manual_visibility = true;
             this.mesh.visible = true;
         }
-    },
-
-    create_base_mesh: function() {
-        // Check if the there is an existing wall that needs to be fully cleaned up.
-        // TODO : Refactor this!!!
-        //this.resource_cleanup();
-
-        if (!(this.material != null)) {
-            this.material = new THREE.MeshBasicMaterial({
-                // TODO : THE COLOR IS TEMPORARY!!!
-                color: COLORS[0],
-                //transparent: true,
-                //opacity: 0.85,
-                side: THREE.DoubleSide
-            });
-        }
-
-        // Now re-create the base wall.
-        this.geometry = new THREE.PlaneGeometry(this.width, this.height);
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        //if (!this._make_base_wall_visible) {
-        //    this.mesh.visible = false;
-        //}
-        this.object3D.add(this.mesh);
-    },
-
-    /*     __   __       ___  ___                         ___  __
-     |  | |__) |  \  /\   |  |__     \  /  /\  |    |  | |__  /__`
-     \__/ |    |__/ /~~\  |  |___     \/  /~~\ |___ \__/ |___ .__/ */
-    set_background_color: function(c) {
-        if (is_list(c)) {
-            c = c[COLOR_HEX_INDEX];
-        }
-        //l('Setting floating wall background color to : ' + c);
-        this.material.color.setHex(c);
-        this.material.needsUpdate = true;
     },
 
     /* __  ___      ___  ___     __                  __   ___  __

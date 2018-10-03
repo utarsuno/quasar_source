@@ -35,6 +35,7 @@ EntityEditor.prototype = {
     },
 
     delete_entity_field: function(field_name) {
+        // TODO: DON'T USE THE DELETE KEYWORD
         delete this.entity_field_rows[field_name];
         this.wall_entity_editor.delete_row_by_name(field_name);
 
@@ -91,6 +92,7 @@ EntityEditor.prototype = {
         }
         for (let r = 0; r < field_rows_to_delete.length; r++) {
             this.wall_entity_editor.delete_row_by_name(field_rows_to_delete[r]);
+            // TODO: DON'T USE THE DELETE KEYWORD
             delete this.entity_field_rows[field_rows_to_delete[r]];
         }
 
