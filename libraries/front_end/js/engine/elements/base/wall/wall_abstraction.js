@@ -25,7 +25,7 @@ $_QE.prototype.WallAbstraction = function(is_base, width, height) {
 
     this.add_row = function(row) {
         if (this._wall_rows == null) {
-            this._wall_rows = new $_QE.prototype.DoublyLinkedList(false);
+            this._wall_rows = new $_QE.prototype.DoublyLinkedListBase($_QE.prototype.DoublyLinkedListNode);
         }
         this._wall_rows.set_tail(row);
     };

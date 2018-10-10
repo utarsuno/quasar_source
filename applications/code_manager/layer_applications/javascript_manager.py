@@ -226,8 +226,10 @@ class JavascriptManager(object):
 		self.js_files_needed.append('core/frame_counter.js')
 		self.js_files_needed.append('core/heap_manager.js')
 
-		self.js_files_needed.append('core/data_structure/doubly_linked_list.js')
-		self.js_files_needed.append('core/data_structure/doubly_linked_list_node.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_base.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_row_elements.js')
+		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node.js')
+		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row_element.js')
 
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 

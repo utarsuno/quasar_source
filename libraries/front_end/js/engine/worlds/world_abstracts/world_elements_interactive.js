@@ -64,7 +64,7 @@ $_QE.prototype.WorldElementsInteractive = function() {
 
         // TODO: User mesh.userData to point to parent object.
 
-        if (interactive_index === NOT_FOUND) {
+        if (interactive_index == NOT_FOUND) {
             if (this.currently_looked_at_object != null) {
                 this.look_away_from_currently_looked_at_object();
             }
@@ -95,8 +95,5 @@ $_QE.prototype.WorldElementsInteractive = function() {
         this.elements_interactive.push(element);
         element.set_flag(EFLAG_IN_ELEMENTS_INTERACTIVE, true);
         element.trigger_event(ELEMENT_EVENT_ON_SET_TO_INTERACTIVE);
-
-
-        //this.elements_tab_target.insert(element);
     };
 };
