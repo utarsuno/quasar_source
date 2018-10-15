@@ -1,30 +1,33 @@
 'use strict';
 
+
 $_QE.prototype.ShaderMaterialSpriteSheet = function() {
-    $_QE.prototype.ShaderMaterialAbstraction.call(this, QE.manager_assets.shader_spritesheet_vertex, QE.manager_assets.shader_spritesheet_fragment);
     this.texture = QE.manager_assets.get_asset(ASSET_TEXTURE_SPRITE_SHEET);
 
-    this._uniform_offset  = 'offset';
-    this._uniform_texture = 'texture';
-    this._uniform_color   = 'color';
+    let uniforms = {};
+    uniforms[SHADER_UNIFORM_SPRITESHEET_OFFSET]  = this._get_value(2);
+    uniforms[SHADER_UNIFORM_SPRITESHEET_TEXTURE] = this._get_value(this.texture);
+    uniforms[SHADER_UNIFORM_SPRITESHEET_COLOR]   = this._get_value(QE.COLOR_WHITE);
 
-    //this.set_uniform(this._uniform_offset, new THREE.Vector2(64, 0));
-    this.set_uniform(this._uniform_offset, 2);
-    this.set_uniform(this._uniform_texture, this.texture);
-    this.set_uniform(this._uniform_color, QE.COLOR_WHITE);
-
-    this._set_shader_material();
-
-    this.set_offset = function(offset) {
-        this.set_uniform_value(this._uniform_offset, offset);
-        //this.shader_material.uniform.offset.needsUpdate = true;
-    };
-
-    this.get_material = function(offset) {
-        let clone = this.shader_material.clone();
-        clone.uniforms[this._uniform_offset] = {'value': offset};
-        clone.uniforms[this._uniform_texture] = {'value': this.texture};
-        clone.uniforms[this._uniform_color] = {'value': QE.COLOR_WHITE};
-        return clone;
-    };
+    this._set_shader_material(
+        QE.manager_assets.shader_spritesheet_vertex,
+        QE.manager_assets.shader_spritesheet_fragment,
+        uniforms
+    );
 };
+
+Object.assign($_QE.prototype.ShaderMaterialSpriteSheet.prototype, $_QE.prototype.ShaderMaterialAbstraction.prototype, {
+
+    set_offset: function(offset) {
+        this.set_uniform(SHADER_UNIFORM_SPRITESHEET_OFFSET, offset);
+        //this.shader_material.uniform.offset.needsUpdate = true;
+    },
+
+    get_clone: function(icon) {
+        let sm = this.shader_material.clone();
+        sm.uniforms[SHADER_UNIFORM_SPRITESHEET_OFFSET].value  = icon;
+        sm.uniforms[SHADER_UNIFORM_SPRITESHEET_TEXTURE].value = this.texture;
+        sm.uniforms[SHADER_UNIFORM_SPRITESHEET_COLOR].value   = QE.COLOR_WHITE;
+        return sm;
+    }
+});

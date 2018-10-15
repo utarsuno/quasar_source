@@ -5,7 +5,7 @@ $_QE.prototype.FeatureTextLines = function(max_rows, bottom_row_as_input, on_ent
     let self      = this;
 
     this.max_rows = max_rows;
-    this.rows = [];
+    this.rows     = [];
 
     this.update_needed_for_line = false;
     this.bottom_row_as_input    = bottom_row_as_input;

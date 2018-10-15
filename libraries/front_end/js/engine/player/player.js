@@ -3,14 +3,13 @@
 $_QE.prototype.Player = function(engine) {
     this.engine = engine;
     this.client = engine.client;
-    let self    = this;
-
-    $_QE.prototype.PlayerState.call(this);
 
     this.initialize_player_controls = function() {
-        self.input_manager = self.engine.manager_input;
-        self.camera        = self.engine.manager_renderer.camera;
-        $_QE.prototype.FPSControls.call(self);
+        this.input_manager = this.engine.manager_input;
+        this.camera        = this.engine.manager_renderer.camera;
+
+        this.pitch.add(this.camera);
+        this.yaw.add(this.pitch);
     };
 
 };

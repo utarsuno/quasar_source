@@ -31,6 +31,18 @@ module.exports = {
     },
     "globals": {
 
+        // Shader uniforms. ------------------------------------------------------------------------
+        "SHADER_UNIFORM_SPRITESHEET_COLOR"              : false,
+        "SHADER_UNIFORM_SPRITESHEET_TEXTURE"            : false,
+        "SHADER_UNIFORM_SPRITESHEET_OFFSET"             : false,
+        "SHADER_UNIFORM_TRANSITION_NEW_SCENE"          : false,
+        "SHADER_UNIFORM_TRANSITION_OLD_SCENE"          : false,
+        "SHADER_UNIFORM_TRANSITION_MIX_RATIO"          : false,
+        "SHADER_UNIFORM_TRANSITION_THRESHOLD"          : false,
+        "SHADER_UNIFORM_TRANSITION_TEXTURE_MIX"        : false,
+        "SHADER_UNIFORM_NOISE_TIME"       : false,
+        "SHADER_UNIFORM_NOISE_N_INTENSITY": false,
+        "SHADER_UNIFORM_NOISE_T_DIFFUSE"  : false,
         //
         "EFLAG_ENGABLE_ONLY_FROM_DOUBLE_CLICK": false,
         "EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT": false,
@@ -144,8 +156,6 @@ module.exports = {
         "THREE": false,
 
         "console": false,
-
-        "FLOATING_TEXT_BACKGROUND_DARK_GRAY": false,
 
         "EMOJI_ERROR"   : false,
         "EMOJI_SLEEPING": false,
@@ -375,11 +385,15 @@ module.exports = {
 
         // UNIVERSAL_CONSTANTS_START : Colors and utility indexes.
 
+        "FLOATING_TEXT_BACKGROUND_DARK_GRAY"  : false,
         "FLOATING_TEXT_BACKGROUND_TRANSPARENT": false,
         "FLOATING_TEXT_BACKGROUND_DEFAULT"    : false,
         "FLOATING_TEXT_BACKGROUND_ERROR"      : false,
         "FLOATING_TEXT_BACKGROUND_SUCCESS"    : false,
-
+        "COLOR_CANVAS_GREEN"                  : false,
+        "COLOR_CANVAS_TEAL"                   : false,
+        "COLOR_CANVAS_YELLOW"                 : false,
+        "COLOR_CANVAS_GRAY"                   : false,
 
         // Keycodes.
         "KEY_CODE__SHIFT"     : false,

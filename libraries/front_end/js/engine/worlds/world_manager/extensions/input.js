@@ -1,13 +1,14 @@
 'use strict';
 
-$_QE.prototype.WorldManagerInput = function() {
-    this.on_wheel_event = function(direction) {
+Object.assign($_QE.prototype.WorldManager.prototype, {
+
+    on_wheel_event: function(direction) {
         if (this.player_cursor._currently_moving) {
             this.player_cursor.on_wheel_event(direction);
         }
-    };
+    },
 
-    this.left_click_up = function(is_double_click) {
+    left_click_up: function(is_double_click) {
         if (this.player_cursor.engaged()) {
             this.player_cursor.disengage();
         }
@@ -21,37 +22,37 @@ $_QE.prototype.WorldManagerInput = function() {
                 this.player.set_state(PLAYER_STATE_FULL_CONTROL);
             }
         }
-    };
+    },
 
-    this.left_click_down = function() {
+    left_click_down: function() {
         if (!this.player.is_paused()) {
             if (this.player_cursor.currently_attached_to !== null) {
                 this.player_cursor.engage();
             }
         }
-    };
+    },
 
-    this.middle_click_up = function() {
+    middle_click_up: function() {
         l('Middle click up!');
         if (this.client.has_pointer_lock) {
             this.client.mouse_release();
         } else {
             this.client.mouse_lock();
         }
-    };
+    },
 
-    this.right_click_down = function () {
+    right_click_down: function () {
         if (this.player.has_input()) {
             if (this.current_world.is_current_object_set_and_engaged()) {
                 this.current_world.disengage_from_currently_looked_at_object();
             }
         }
-    };
+    },
 
-    this.right_click_up = function() {
-    };
+    right_click_up: function() {
+    },
 
-    this.key_down_event = function(event) {
+    key_down_event: function(event) {
         if (this.player.in_hud_typing_state()) {
             QE.manager_hud.hud_typing.parse_key_event(event);
         } else if (this.player.has_input()) {
@@ -77,14 +78,13 @@ $_QE.prototype.WorldManagerInput = function() {
             }
         }
         */
-    };
+    },
 
-    this.on_paste_event = function(text) {
+    on_paste_event: function(text) {
         if (this.player.in_hud_typing_state()) {
             this.engine.manager_hud.hud_typing.on_paste_event(text);
         } else if (this.player.has_input() && this.current_world.currently_looked_at_object != null) {
             this.current_world.currently_looked_at_object.on_paste_event(text);
         }
-    };
-
-};
+    },
+});

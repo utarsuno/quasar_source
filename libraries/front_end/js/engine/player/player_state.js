@@ -5,11 +5,11 @@ const PLAYER_STATE_FULL_CONTROL  = 2; // #pre-process_global_constant
 const PLAYER_STATE_TYPING_IN_HUD = 3; // #pre-process_global_constant
 const PLAYER_STATE_ENGAGED       = 4; // #pre-process_global_constant
 
-$_QE.prototype.PlayerState = function() {
-    this.previous_state = null;
-    this.current_state  = PLAYER_STATE_PAUSED;
+Object.assign($_QE.prototype.Player.prototype, {
+    previous_state: null,
+    current_state : PLAYER_STATE_PAUSED,
 
-    this.set_state = function(player_state) {
+    set_state: function(player_state) {
         this.previous_state = this.current_state;
         this.current_state  = player_state;
 
@@ -50,29 +50,29 @@ $_QE.prototype.PlayerState = function() {
             }
             break;
         }
-    };
+    },
 
-    this.is_engaged = function() {
+    is_engaged: function() {
         return this.current_state === PLAYER_STATE_ENGAGED;
-    };
+    },
 
-    this.is_paused = function() {
+    is_paused: function() {
         return this.current_state === PLAYER_STATE_PAUSED;
-    };
+    },
 
-    this.has_mouse_movement = function() {
+    has_mouse_movement: function() {
         return this.current_state === PLAYER_STATE_FULL_CONTROL;
-    };
+    },
 
-    this.has_movement = function() {
+    has_movement: function() {
         return this.current_state === PLAYER_STATE_FULL_CONTROL;
-    };
+    },
 
-    this.in_hud_typing_state = function() {
+    in_hud_typing_state: function() {
         return this.current_state === PLAYER_STATE_TYPING_IN_HUD;
-    };
+    },
 
-    this.has_input = function() {
+    has_input: function() {
         return this.current_state === PLAYER_STATE_FULL_CONTROL || this.current_state === PLAYER_STATE_ENGAGED || this.current_state === PLAYER_STATE_TYPING_IN_HUD;
-    };
-};
+    },
+});

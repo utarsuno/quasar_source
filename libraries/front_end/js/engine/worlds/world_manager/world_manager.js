@@ -10,7 +10,7 @@ $_QE.prototype.WorldManager = function(engine) {
     this.current_world  = null;
     this.singletons     = [];
 
-    $_QE.prototype.WorldManagerInput.call(this);
+    //$_QE.prototype.WorldManagerInput.call(this);
 
     this.first_world   = new this.application.first_world_class(this.player);
     this.first_world.create_for_first_render();

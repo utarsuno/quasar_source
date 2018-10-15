@@ -22,6 +22,7 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
     };
 
     this._on_node_added = function(node, position) {
+        node._position = position;
         this._length += 1;
         if (position > 0) {
             this._length_positive += 1;
@@ -29,6 +30,37 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             this._length_negative += 1;
         }
         this._update_node(node);
+        if (position != 0) {
+            if (position > 0) {
+                // TODO: Speed this up later.
+                let n = this._node_head._node_next;
+                while (n != null) {
+                    if (n.is_positive()) {
+                        if (!n.has_next()) {
+                            return;
+                        }
+                        if (n.same_position_as_previous()) {
+                            n.increment_and_update();
+                        }
+                    }
+                    n = n._node_next;
+                }
+            } else {
+                // TODO: Speed this up later.
+                let n = this._node_tail._node_prev;
+                while (n != null) {
+                    if (n.is_negative()) {
+                        if (!n.has_previous()) {
+                            return;
+                        }
+                        if (n.same_position_as_previous()) {
+                            n.decrement_and_update();
+                        }
+                    }
+                    n = n._node_prev;
+                }
+            }
+        }
     };
 
     this._update_node = function(node) {
@@ -40,55 +72,37 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
     this._set_only_node = function(node, position) {
         this._node_head = node;
         this._node_tail = node;
-        node._position  = position;
         this._on_node_added(node, position);
     };
 
     this._add_tail_to_head = function(node, position) {
-        this._node_tail            = node;
-        this._node_head._node_next = this._node_tail;
-        this._node_tail._node_prev = this._node_head;
-        this._set_node_position_based_off_previous(node, position);
+        this._node_tail = node;
+        this._node_head.set_next(this._node_tail);
         this._on_node_added(node, position);
-        this._update_node(this._node_head);
     };
 
     this._add_head_to_tail = function(node, position) {
-        this._node_head            = node;
-        this._node_head._node_next = this._node_tail;
-        this._node_tail._node_prev = this._node_head;
-        this._set_node_position_based_off_next(node, position);
+        this._node_head = node;
+        this._node_head.set_next(this._node_tail);
         this._on_node_added(node, position);
-        this._update_node(this._node_tail);
     };
 
     this._replace_current_tail = function(node, position) {
-        this._node_tail._node_next = node;
-        node._node_prev            = this._node_tail;
-        this._node_tail            = node;
-        this._set_node_position_based_off_previous(node, position);
+        this._node_tail.set_next(node);
+        this._node_tail = node;
         this._on_node_added(node, position);
-        //this._slow_position_update(node);
     };
 
     this._replace_current_head = function(node, position) {
-        this._node_head._node_prev = node;
-        node._node_next            = this._node_head;
-        this._node_head            = node;
-        this._node_head._position  = position;
-        this._set_node_position_based_off_next(node, position);
+        this._node_head.set_previous(node);
+        this._node_head = node;
         this._on_node_added(node, position);
-        //this._slow_position_update(node);
     };
 
     this._insert_node_between_nodes = function(node_left, node_center, node_right, position) {
-        node_left._node_next   = node_center;
-        node_center._node_prev = node_left;
-        node_center._node_next = node_right;
-        node_right._node_prev  = node_center;
-        this._set_node_position_based_off_next(node_center, position);
+        node_center.set_previous(node_left);
+        node_center.set_next(node_right);
         this._on_node_added(node_center, position);
-        //this._slow_position_update(node_insert);
     };
 
     this._are_nodes_both_positive = function(node0, node1) {
@@ -97,32 +111,6 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
 
     this._are_nodes_both_negative = function(node0, node1) {
         return node0.is_negative() && node1.is_negative();
-    };
-
-    this._set_node_position_based_off_previous = function(node, position) {
-        if (position != node._node_prev._position) {
-            node._position = position;
-        } else {
-            if (this._are_nodes_both_negative(node, node._node_prev)) {
-                node._position            = position;
-                node._node_prev._position -= 1;
-            } else {
-                node._position = position + 1;
-            }
-        }
-    };
-
-    this._set_node_position_based_off_next = function(node, position) {
-        if (position != node._node_next._position) {
-            node._position = position;
-        } else {
-            if (this._are_nodes_both_negative(node, node._node_next)) {
-                node._position = position - 1;
-            } else {
-                node._position            = position;
-                node._node_next._position += 1;
-            }
-        }
     };
 
     this._cache_add = function(node) {
@@ -169,7 +157,7 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
             return null;
         default:
-            n = this._node_head._node_next;
+            n = this._node_head;
             while (n != null) {
                 if (n._object == object) {
                     return n;
@@ -180,77 +168,25 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
         }
     };
 
-    this._slow_position_update = function(node_base) {
-        // Slow operation for now but convenient.
-        let n = node_base;
-
-        if (n._position < 0) {
-            let previous = node_base;
-            let current  = node_base._node_prev;
-            while (current != null) {
-                if (current._position == previous._position) {
-                    current._position -= 1;
-                }
-                previous = current;
-                current  = current._node_prev;
-            }
-            while (n != null) {
-                n.update_node();
-                n = n._node_next;
-                // TODO: stop before position 0.
-            }
+    this._insert_center = function(node) {
+        if (this._are_nodes_both_negative(this._node_head, this._node_tail)) {
+            this.set_tail(node, 0);
+        } else if (this._are_nodes_both_positive(this._node_head, this._node_tail)) {
+            this.set_head(node, 0);
         } else {
-            let previous = node_base;
-            let current  = node_base._node_next;
-            node_base.update_node();
+            let current  = this._node_head._node_next;
             while (current != null) {
-                if (current._position == previous._position) {
-                    current._position += 1;
+                if (current._position > 0 && current._node_prev._position < 0) {
+                    this._insert_node_between_nodes(current._node_prev, node, current, 0);
+                    return;
                 }
-                n.update_node();
-                previous = current;
-                current  = current._node_next;
+                current = current._node_next;
             }
         }
-        // } else if (node_base._position < 0) {
-    };
-
-    this.insert_center = function(node) {
-        switch (this._length) {
-        case 0:
-            this._set_only_node(node, 0);
-            break;
-        case 1:
-            if (this._node_head._position < 0) {
-                this._add_tail_to_head(node, 0);
-            } else {
-                this._add_head_to_tail(node, 0);
-            }
-            break;
-        default:
-            if (this._are_nodes_both_negative(this._node_head, this._node_tail)) {
-                this.set_tail(node, 0);
-            } else if (this._are_nodes_both_positive(this._node_head, this._node_tail)) {
-                this.set_head(node, 0);
-            } else {
-                let current  = this._node_head._node_next;
-                while (current != null) {
-                    if (current._position > 0 && current._node_prev._position < 0) {
-                        this._insert_node_between_nodes(current._node_prev, node, current, 0);
-                        break;
-                    }
-                    current = current._node_next;
-                }
-            }
-            break;
-        }
+        l('TODO: if this is reached then need to add tail!! 2 2 2 2 2');
     };
 
     this.insert_node_at_position = function(node_insert, insert_position) {
-        if (insert_position == 0) {
-            this.insert_center(node_insert);
-            return;
-        }
         let node;
         switch (this._length) {
         case 0:
@@ -264,7 +200,10 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
             break;
         default:
-            if (insert_position < this._node_head._position) {
+            if (insert_position == 0) {
+                this._insert_center(node_insert);
+                return;
+            } else if (insert_position < this._node_head._position) {
                 this._replace_current_head(node_insert, insert_position);
             } else if (insert_position > this._node_tail._position) {
                 this._replace_current_tail(node_insert, insert_position);
@@ -273,10 +212,11 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
                 while (node != null) {
                     if (node._position > insert_position) {
                         this._insert_node_between_nodes(node._node_prev, node_insert, node, insert_position);
-                        break;
+                        return;
                     }
                     node = node._node_next;
                 }
+                l('TODO: if this is reached then need to add tail!!');
             }
             break;
         }

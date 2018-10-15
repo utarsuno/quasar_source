@@ -56,9 +56,9 @@ $_NL.prototype.WorldDevTools = function(player) {
         this.logs.add_to_world(this, true, true, true, true);
         //this.logs.set_position_center(-2500, 1000, -1200, 0, 1000, 0, true);
         this.logs.set_position_center(-2500, 1000, -1200, 0, 0, 0, true);
-        this.logs.add_text_line_to_bottom('Hello World!', QE.COLOR_CANVAS_GREEN);
-        this.logs.add_text_line_to_bottom('Second message!', QE.COLOR_CANVAS_GREEN);
-        this.logs.add_text_line_to_bottom('Third message!', QE.COLOR_CANVAS_GREEN);
+        this.logs.add_text_line_to_bottom('Hello World!', COLOR_CANVAS_GREEN);
+        this.logs.add_text_line_to_bottom('Second message!', COLOR_CANVAS_GREEN);
+        this.logs.add_text_line_to_bottom('Third message!', COLOR_CANVAS_GREEN);
     };
 
 };

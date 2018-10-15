@@ -4,7 +4,7 @@ $_QE.prototype.HUDManager = function(engine) {
     this.engine       = engine;
     this.hud_elements = [];
 
-    $_QE.prototype.HUDPauseMenu.call(this);
+    this.pause_menu.set_display_style('table');
 
     this._add_hud_element = function(hud_element) {
         this.hud_elements.push(hud_element);

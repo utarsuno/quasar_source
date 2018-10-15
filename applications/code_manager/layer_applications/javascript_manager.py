@@ -222,28 +222,38 @@ class JavascriptManager(object):
 
 		# Main engine.
 		self.js_files_needed.append('core/engine.js')
-		self.js_files_needed.append('core/error_manager.js')
-		self.js_files_needed.append('core/frame_counter.js')
-		self.js_files_needed.append('core/heap_manager.js')
 
+		# TODO: Fully test but believe these files should be next due to prototype adjustments.
+		# Data structures.
+		self.js_files_needed.append('data_structures/boolean_flags/boolean_flags.js')
 		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_base.js')
 		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_row_elements.js')
 		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node.js')
 		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row_element.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache_engine.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache_fps.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache_memory.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache_normal.js')
+		self.js_files_needed.append('data_structures/display_cache/display_cache_position.js')
+
+		# Engine extensions.
+		self.js_files_needed.append('core/engine_extensions/colors.js')
+		self.js_files_needed.append('core/engine_extensions/math.js')
+		self.js_files_needed.append('core/engine_extensions/cache.js')
+		self.js_files_needed.append('core/engine_extensions/fonts.js')
+		self.js_files_needed.append('core/engine_extensions/frames.js')
+		self.js_files_needed.append('core/engine_extensions/settings.js')
+		self.js_files_needed.append('core/engine_extensions/errors.js')
+		self.js_files_needed.append('core/heap_manager.js')
 
 		self.js_files_needed.append('assets_json/helvetiker_regular.js')
 
-		# HUD.
-		self.js_files_needed.append('hud/pause_menu.js')
-		self.js_files_needed.append('hud/hud_manager.js')
-		self.js_files_needed.append('hud/debug_information.js')
-		self.js_files_needed.append('hud/message_logs.js')
-		self.js_files_needed.append('hud/player_typing_input.js')
-
-		# Globals.
-		self.js_files_needed.append('global/globals.js')
-		self.js_files_needed.append('global/global_pre_process.js')
-		self.js_files_needed.append('global/color_manager.js')
+		# Common features.
+		self.js_files_needed.append('common_inheritable_features/text/feature_text.js')
+		self.js_files_needed.append('common_inheritable_features/text/feature_typing.js')
+		self.js_files_needed.append('common_inheritable_features/text/lines/feature_line.js')
+		self.js_files_needed.append('common_inheritable_features/text/lines/feature_lines.js')
 
 		# HTML_GUI.
 		self.js_files_needed.append('dom_elements/dom_element.js')
@@ -256,11 +266,22 @@ class JavascriptManager(object):
 		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering_text_line.js')
 		self.js_files_needed.append('dom_elements/canvas_abstraction/rendering/canvas_rendering_text_lines.js')
 
+		# HUD.
+		self.js_files_needed.append('hud/manager/hud_manager.js')
+		self.js_files_needed.append('hud/manager/extensions/pause_menu.js')
+
+		self.js_files_needed.append('hud/debug_information.js')
+		self.js_files_needed.append('hud/message_logs.js')
+		self.js_files_needed.append('hud/player_typing_input.js')
+
+		# Globals.
+		self.js_files_needed.append('global/globals.js')
+		self.js_files_needed.append('global/global_pre_process.js')
+
 		# Client class.
 		self.js_files_needed.append('client/client.js')
 		self.js_files_needed.append('client/client_features.js')
 		self.js_files_needed.append('client/functionality/cookies.js')
-		#self.js_files_needed.append('client/functionality/pause_menu.js')
 		self.js_files_needed.append('client/functionality/window_focus.js')
 		self.js_files_needed.append('client/functionality/full_screen.js')
 		self.js_files_needed.append('client/functionality/pointer_lock.js')
@@ -280,12 +301,12 @@ class JavascriptManager(object):
 
 		# Controls.
 		self.js_files_needed.append('controls/fps_controls.js')
-		self.js_files_needed.append('controls/input_manager.js')
 		self.js_files_needed.append('controls/mouse_controls.js')
+		self.js_files_needed.append('controls/input_manager.js')
 
 		# Worlds.
 		self.js_files_needed.append('worlds/world_manager/world_manager.js')
-		self.js_files_needed.append('worlds/world_manager/world_manager_input.js')
+		self.js_files_needed.append('worlds/world_manager/extensions/input.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_input.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_state.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_base.js')
@@ -302,12 +323,6 @@ class JavascriptManager(object):
 
 		self.js_files_needed.append('elements/base/wall/wall_abstraction.js')
 		self.js_files_needed.append('elements/base/wall/floating_wall.js')
-
-		self.js_files_needed.append('common_inheritable_features/text/feature_text.js')
-		self.js_files_needed.append('common_inheritable_features/text/feature_typing.js')
-
-		self.js_files_needed.append('common_inheritable_features/text/lines/feature_line.js')
-		self.js_files_needed.append('common_inheritable_features/text/lines/feature_lines.js')
 
 		self.js_files_needed.append('elements/inheritable_features/feature_singleton.js')
 		#self.js_files_needed.append('inheritable_features/feature_recycle.js')
@@ -342,15 +357,16 @@ class JavascriptManager(object):
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# Asset Managers.
-		self.js_files_needed.append('asset_management/asset_manager.js')
-		self.js_files_needed.append('asset_management/asset_batch.js')
-		self.js_files_needed.append('asset_management/asset_file.js')
-		self.js_files_needed.append('asset_management/icon_manager.js')
-
+		self.js_files_needed.append('asset_management/shaders/pre_process.js')
 		self.js_files_needed.append('asset_management/shaders/shader_material_abstraction.js')
 		self.js_files_needed.append('asset_management/shaders/shader_material_noise.js')
 		self.js_files_needed.append('asset_management/shaders/shader_material_spritesheet.js')
 		self.js_files_needed.append('asset_management/shaders/shader_material_transition.js')
+
+		self.js_files_needed.append('asset_management/asset_manager.js')
+		self.js_files_needed.append('asset_management/asset_batch.js')
+		self.js_files_needed.append('asset_management/asset_file.js')
+		self.js_files_needed.append('asset_management/icon_manager.js')
 
 		# Websockets.
 		self.js_files_needed.append('web_sockets/web_socket_manager.js')

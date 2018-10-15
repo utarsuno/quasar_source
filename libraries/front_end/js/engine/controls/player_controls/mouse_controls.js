@@ -1,31 +1,27 @@
 'use strict';
 
-$_QE.prototype.MouseControls = function() {
-
-    this.pitch = new THREE.Object3D();
-    this.yaw   = new THREE.Object3D();
-
-    this.pitch.add(this.camera);
-    this.yaw.add(this.pitch);
+Object.assign($_QE.prototype.Player.prototype, {
+    pitch : new THREE.Object3D(),
+    yaw   : new THREE.Object3D(),
 
     // For optimization purposes.
-    this._cache_normal             = new THREE.Vector3();
-    this._cache_left_right         = new THREE.Vector3();
-    this._cache_walking_normal     = new THREE.Vector3();
-    this._cache_for_look_at        = new THREE.Vector3();
-    this._cache_horizontal         = new THREE.Vector2();
-    this._cache_mouse_view         = new Float64Array(5);
+    _cache_normal             : new THREE.Vector3(),
+    _cache_left_right         : new THREE.Vector3(),
+    _cache_walking_normal     : new THREE.Vector3(),
+    _cache_for_look_at        : new THREE.Vector3(),
+    _cache_horizontal         : new THREE.Vector2(),
+    _cache_mouse_view         : new Float64Array(5),
 
-    this._mouse_view_update_needed = false;
+    _mouse_view_update_needed : false,
 
-    this._mouse_angle_horizontal   = 0;
-    this._mouse_angle_vertical     = 0;
+    _mouse_angle_horizontal   : 0,
+    _mouse_angle_vertical     : 0,
 
-    this._MATH_PIE_TWO             = Math.PI * 2.0;
-    this._MATH_PIE_HALVED          = Math.PI * 0.5;
-    this._MATH_PIE_HALVED_NEGATIVE = Math.PI * -0.5;
+    _MATH_PIE_TWO             : Math.PI * 2.0,
+    _MATH_PIE_HALVED          : Math.PI * 0.5,
+    _MATH_PIE_HALVED_NEGATIVE : Math.PI * -0.5,
 
-    this.look_at_xyz = function(x, y, z) {
+    look_at_xyz: function(x, y, z) {
         this._cache_for_look_at.set(x, y, z);
         this._cache_for_look_at.sub(this.yaw.position);
         this._cache_for_look_at.normalize();
@@ -37,20 +33,20 @@ $_QE.prototype.MouseControls = function() {
         this._mouse_angle_vertical   = Math.asin(this._cache_for_look_at.y);
 
         this._mouse_view_update_needed = true;
-    };
+    },
 
-    this.set_normal_xyz = function(x, y, z) {
+    set_normal_xyz: function(x, y, z) {
         this._mouse_angle_horizontal += Math.atan2(y, x) - Math.atan2(z, x);
         this._mouse_angle_vertical   = Math.asin(y);
 
         this._mouse_view_update_needed = true;
-    };
+    },
 
-    this.look_at = function(position_vector) {
+    look_at: function(position_vector) {
         this.look_at_xyz(position_vector.x, position_vector.y, position_vector.z);
-    };
+    },
 
-    this.update_mouse_view = function() {
+    update_mouse_view: function() {
         if (this._mouse_view_update_needed) {
             this._mouse_view_update_needed = false;
         } else {
@@ -89,9 +85,9 @@ $_QE.prototype.MouseControls = function() {
         this.pitch.rotation.x = this._mouse_angle_vertical;
         //this.yaw.updateMatrix();
         //this.pitch.updateMatrix();
-    };
+    },
 
-    this.on_mouse_move = function(delta_x, delta_y) {
+    on_mouse_move: function(delta_x, delta_y) {
         // Pitch.
         if (delta_x !== 0) {
             this._mouse_angle_horizontal -= delta_x * 0.002;
@@ -112,9 +108,17 @@ $_QE.prototype.MouseControls = function() {
             }
             this._mouse_view_update_needed = true;
         }
-    };
+    },
 
-    this.get_normal = function() {
-        return this._cache_normal;
-    };
-};
+    get_normal: function(vector=null) {
+        if (vector != null) {
+            vector.set(
+                this._cache_normal.x,
+                this._cache_normal.y,
+                this._cache_normal.z
+            );
+        } else {
+            return this._cache_normal;
+        }
+    },
+});

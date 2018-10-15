@@ -79,10 +79,10 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
         }
 
         // Draw any green text.
-        this.context.fillStyle = QE.COLOR_CANVAS_GREEN;
+        this.context.fillStyle = COLOR_CANVAS_GREEN;
         for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].update_needed_for_line) {
-                let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_GREEN);
+                let s = this.rows[r].get_segments_for_color(COLOR_CANVAS_GREEN);
                 let i;
                 for (i = 0; i < s.length; i++) {
                     this.context.fillText(s[i], 0, canvas_draw_y_offset_start - this.canvas_font_size * r - this.canvas_font_offset * r);
@@ -91,16 +91,16 @@ $_QE.prototype.CanvasRenderingTextLines = function(max_rows, bottom_row_as_input
         }
 
         // Draw any yellow text.
-        this.context.fillStyle = QE.COLOR_CANVAS_YELLOW;
+        this.context.fillStyle = COLOR_CANVAS_YELLOW;
         for (r = 0; r < this.rows.length; r++) {
 
         }
 
         // Draw any teal text.
-        this.context.fillStyle = QE.COLOR_CANVAS_TEAL;
+        this.context.fillStyle = COLOR_CANVAS_TEAL;
         for (r = 0; r < this.rows.length; r++) {
             if (this.rows[r].update_needed_for_line) {
-                let s = this.rows[r].get_segments_for_color(QE.COLOR_CANVAS_TEAL);
+                let s = this.rows[r].get_segments_for_color(COLOR_CANVAS_TEAL);
                 let i;
                 for (i = 0; i < s.length; i++) {
                     this.context.fillText(s[i], 0, Math.floor(canvas_draw_y_offset_start - this.canvas_font_size * r - this.canvas_font_offset * r));

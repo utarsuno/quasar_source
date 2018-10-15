@@ -23,7 +23,7 @@ $_QE.prototype.AssetBatch = function() {
             this.layers.push([asset]);
         } else {
             if (this.layers[layer_needed].indexOf(asset) !== NOT_FOUND) {
-                console.log('Asset {' + asset.name + '} already added to load batch!');
+                l('Asset {' + asset.name + '} already added to load batch!');
             } else {
                 this.layers[layer_needed].push(asset);
             }

@@ -1,59 +1,56 @@
 'use strict';
 
-$_QE.prototype.FPSControls = function() {
+Object.assign($_QE.prototype.Player.prototype, {
     //
-    $_QE.prototype.MouseControls.call(this);
-
+    _velocity               : new THREE.Vector3(),
+    _position_frame_previous: new THREE.Vector3(),
+    _position_frame_target  : new THREE.Vector3(),
     //
-    this._velocity                = new THREE.Vector3();
-    this._position_frame_previous = new THREE.Vector3();
-    this._position_frame_target   = new THREE.Vector3();
-    //
-    this._movement_speed = 27.5;
-    this._decay          = 0.025;
+    _movement_speed: 27.5,
+    _decay         : 0.025,
     //this._decay_inverse  = 1.0 - this._decay;
-    this._decay_inverse  = 0.55;
+    _decay_inverse : 0.55,
     // Cache.
-    this._magnitude                       = null;
-    this._magnitude_with_diagonal_penalty = null;
+    _magnitude                      : null,
+    _magnitude_with_diagonal_penalty: null,
     //
 
-    this.instant_teleport_to_xyz = function(x, y, z) {
+    instant_teleport_to_xyz: function(x, y, z) {
         this.yaw.position.set(x, y, z);
         this._position_frame_previous.set(x, y, z);
         this._position_frame_target.set(x, y, z);
-    };
+    },
 
-    this.set_position_xyz = function(x, y, z) {
+    set_position_xyz: function(x, y, z) {
         this.reset_velocity();
         this.yaw.position.set(x, y, z);
         this._position_frame_previous.set(x, y, z);
         this._position_frame_target.set(x, y, z);
-    };
+    },
 
-    this.set_position = function(v) {
+    set_position: function(v) {
         this.reset_velocity();
         this.yaw.position.set(v.x, v.y, v.z);
         this._position_frame_previous.set(v.x, v.y, v.z);
         this._position_frame_target.set(v.x, v.y, v.z);
-    };
+    },
 
-    this.move_along_normal = function(magnitude) {
+    move_along_normal: function(magnitude) {
         this._velocity.x += magnitude * this._cache_normal.x;
         this._velocity.y += magnitude * this._cache_normal.y;
         this._velocity.z += magnitude * this._cache_normal.z;
-    };
+    },
 
-    this.move_along_left_right = function(magnitude) {
+    move_along_left_right: function(magnitude) {
         this._velocity.x += magnitude * this._cache_left_right.x;
         this._velocity.z += magnitude * this._cache_left_right.z;
-    };
+    },
 
-    this.reset_velocity = function() {
+    reset_velocity: function() {
         this._velocity.set(0, 0, 0);
-    };
+    },
 
-    this.physics = function(delta) {
+    physics: function(delta) {
         this.update_mouse_view();
 
         this._magnitude                       = this._movement_speed;
@@ -110,15 +107,21 @@ $_QE.prototype.FPSControls = function() {
                 this.move_along_left_right(this._magnitude);
             }
         }
-    };
+    },
 
-    this.get_position = function() {
-        return this.yaw.position;
-    };
+    get_position: function(vector=null) {
+        if (vector != null) {
+            vector.set(
+                this.yaw.position.x,
+                this.yaw.position.y,
+                this.yaw.position.z
+            );
+        } else {
+            return this.yaw.position;
+        }
+    },
 
-    this.get_velocity = function() {
+    get_velocity: function() {
         //return this.velocity;
-    };
-
-};
-
+    },
+});

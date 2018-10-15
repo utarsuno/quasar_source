@@ -36,11 +36,5 @@ $_NL.prototype = {
 };
 
 window.onload = function() {
-    QE = new $_QE();
-    QE.ensure_required_features_are_enabled().then(function() {
-        NL = new $_NL();
-        QE.initialize_engine(NL);
-    }).catch(function(err) {
-        QE.fatal_error(err);
-    });
+    QE = new $_QE(NL, $_NL);
 };

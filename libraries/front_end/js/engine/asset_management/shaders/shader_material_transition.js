@@ -1,39 +1,42 @@
 'use strict';
 
 $_QE.prototype.ShaderMaterialTransition = function() {
-    $_QE.prototype.ShaderMaterialAbstraction.call(this, QE.manager_assets.shader_transition_vertex, QE.manager_assets.shader_transition_fragment);
     this.texture = QE.manager_assets.get_asset(ASSET_TEXTURE_TRANSITION);
 
-    this._uniform_key_texture_diffuse_new_scene = 'texture_diffuse_new_scene';
-    this._uniform_key_texture_diffuse_old_scene = 'texture_diffuse_old_scene';
-    this._uniform_key_mix_ratio                 = 'mix_ratio';
-    this._uniform_key_threshold                 = 'threshold';
-    this._uniform_key_texture_transition_affect = 'texture_mix';
+    let uniforms = {};
+    uniforms[SHADER_UNIFORM_TRANSITION_NEW_SCENE]   = this._get_value(null);
+    uniforms[SHADER_UNIFORM_TRANSITION_OLD_SCENE]   = this._get_value(null);
+    uniforms[SHADER_UNIFORM_TRANSITION_MIX_RATIO]   = this._get_value(0.0);
+    uniforms[SHADER_UNIFORM_TRANSITION_THRESHOLD]   = this._get_value(0.1);
+    uniforms[SHADER_UNIFORM_TRANSITION_TEXTURE_MIX] = this._get_value(this.texture);
 
-    this.set_uniform(this._uniform_key_texture_diffuse_new_scene, null);
-    this.set_uniform(this._uniform_key_texture_diffuse_old_scene, null);
-    this.set_uniform(this._uniform_key_mix_ratio, 0.0);
-    this.set_uniform(this._uniform_key_threshold, 0.1);
-    this.set_uniform(this._uniform_key_texture_transition_affect, this.texture);
-    this._set_shader_material();
-
-    this.set_texture_for_old_scene = function(t) {
-        this.set_uniform_value(this._uniform_key_texture_diffuse_old_scene, t);
-    };
-
-    this.set_texture_for_new_scene = function(t) {
-        this.set_uniform_value(this._uniform_key_texture_diffuse_new_scene, t);
-    };
-
-    this.set_mix_ratio = function(r) {
-        this.set_uniform_value(this._uniform_key_mix_ratio, r);
-    };
-
-    this.set_threshold = function(t) {
-        this.set_uniform_value(this._uniform_key_threshold, t);
-    };
-
-    this._set_texture_for_transition_affect = function(t) {
-        this.set_uniform_value(this._uniform_key_texture_transition_affect, t);
-    };
+    this._set_shader_material(
+        QE.manager_assets.shader_transition_vertex,
+        QE.manager_assets.shader_transition_fragment,
+        uniforms
+    );
 };
+
+
+Object.assign($_QE.prototype.ShaderMaterialTransition.prototype, $_QE.prototype.ShaderMaterialAbstraction.prototype, {
+
+    set_texture_for_old_scene: function(t) {
+        this.set_uniform(SHADER_UNIFORM_TRANSITION_OLD_SCENE, t);
+    },
+
+    set_texture_for_new_scene: function(t) {
+        this.set_uniform(SHADER_UNIFORM_TRANSITION_NEW_SCENE, t);
+    },
+
+    set_mix_ratio: function(r) {
+        this.set_uniform(SHADER_UNIFORM_TRANSITION_MIX_RATIO, r);
+    },
+
+    set_threshold: function(t) {
+        this.set_uniform(SHADER_UNIFORM_TRANSITION_THRESHOLD, t);
+    },
+
+    _set_texture_for_transition_affect: function(t) {
+        this.set_uniform(SHADER_UNIFORM_TRANSITION_TEXTURE_MIX, t);
+    },
+});

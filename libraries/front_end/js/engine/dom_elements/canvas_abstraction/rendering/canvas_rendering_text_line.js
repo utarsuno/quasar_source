@@ -15,7 +15,7 @@ $_QE.prototype.CanvasRenderingTextLine = function(typeable, on_enter_event) {
 
     this._render = function() {
         this.context.clearRect(0, 0, this._canvas_width, this._canvas_height);
-        this.context.fillStyle = QE.COLOR_CANVAS_TEAL;
+        this.context.fillStyle = COLOR_CANVAS_TEAL;
         this.context.fillText(this.text, 0, this.canvas_font_size - this.canvas_font_offset);
     };
 

@@ -20,4 +20,12 @@ $_QE.prototype.DoublyLinkedListNode = function(object) {
     this.is_negative = function() {
         return this._position < 0;
     };
+
+    this.increment = function() {
+        this._position += 1;
+    };
+
+    this.decrement = function() {
+        this._position -= 1;
+    };
 };

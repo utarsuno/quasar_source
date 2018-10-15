@@ -9,10 +9,10 @@ $_QE.prototype.FeatureTextLine = function(typeable, on_enter_callback) {
 
     this.segments_by_color = {};
 
-    this.segments_by_color[QE.COLOR_CANVAS_GREEN] = [];
-    this.segments_by_color[QE.COLOR_CANVAS_YELLOW] = [];
-    this.segments_by_color[QE.COLOR_CANVAS_TEAL] = [];
-    this.segments_by_color[QE.COLOR_CANVAS_GRAY] = [];
+    this.segments_by_color[COLOR_CANVAS_GREEN] = [];
+    this.segments_by_color[COLOR_CANVAS_YELLOW] = [];
+    this.segments_by_color[COLOR_CANVAS_TEAL] = [];
+    this.segments_by_color[COLOR_CANVAS_GRAY] = [];
 
     this.update_needed_for_line = false;
 
@@ -51,7 +51,7 @@ $_QE.prototype.FeatureTextLine = function(typeable, on_enter_callback) {
         let c;
         l('CALCULATE SEGMENT!');
         for (c = 0; c < this.colors.length; c++) {
-            if (this.colors[c] === $_QE.prototype.COLOR_CANVAS_GREEN) {
+            if (this.colors[c] === COLOR_CANVAS_GREEN) {
                 l('CALCULATE SEGMENT!');
 
 
