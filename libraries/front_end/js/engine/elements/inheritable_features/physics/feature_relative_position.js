@@ -5,6 +5,18 @@ $_QE.prototype.FeatureRelativePosition = function() {
     this.horizontal_offsets = new Float64Array(3);
     this.vertical_offsets   = new Float64Array(3);
 
+    this.get_world_position = function() {
+        // TEMP:
+        this.mesh.geometry.computeBoundingBox();
+        let box = this.mesh.geometry.boundingBox;
+        let position = new THREE.Vector3();
+        position.subVectors(box.max, box.min);
+        position.multiplyScalar(0.5);
+        position.add(box.min);
+        position.applyMatrix4(this.mesh.matrixWorld);
+        return position;
+    };
+
     this.set_offset_vertical_percentage = function(parent_percentage, self_percentage=null, distance=null) {
         this.vertical_offsets[0] = parent_percentage;
         if (self_percentage != null) {

@@ -2,9 +2,7 @@
 
 $_QE.prototype.FeatureTitleBar = function(parent_wall) {
 
-    //$_QE.prototype.FeatureRow.call(this, parent_wall, 64, 1);
     this._title_row = new $_QE.prototype.FeatureRow(parent_wall, 64, 1);
-
 
     this.add_title = function(text, interactive=false) {
         this.title = this._title_row.create_text3d(text, QE.COLOR_YELLOW, interactive, 0);

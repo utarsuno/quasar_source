@@ -35,9 +35,6 @@ $_NL.prototype.FloatingTerminal = function(is_base, number_of_rows, font, title)
         this.check_if_in_interactive();
 
         //
-        //this._default_row = new $_QE.prototype.FeatureRow(this, this.height, 0.5);
-        //this.add_row(this._default_row);
-        //this._default_row.add_tab_target(this);
-        //this.set_default_tab_target(this);
+        this._default_row = new $_QE.prototype.FeatureRow(this, this.height, 0.5, true);
     };
 };

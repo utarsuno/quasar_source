@@ -1,27 +1,18 @@
 'use strict';
 
 $_QE.prototype.DoublyLinkedListBase = function(node_class) {
-    this._node_class      = node_class;
-    this._node_head       = null;
-    this._node_tail       = null;
-    this._length          = 0;
-    this._length_positive = 0;
-    this._length_negative = 0;
-    this._cache_node_head = null;
+    //this._node_class = node_class;
+};
 
-    this.get_position_of_tail = function() {
-        return this._node_tail._position;
-    };
+$_QE.prototype.DoublyLinkedListBase.prototype = {
+    _node_head      : null,
+    _node_tail      : null,
+    _length         : 0,
+    _length_positive: 0,
+    _length_negative: 0,
+    _cache_node_head: null,
 
-    this.get_number_of_positive_elements = function() {
-        return this._length_positive;
-    };
-
-    this.get_number_of_negative_elements = function() {
-        return this._length_negative;
-    };
-
-    this._on_node_added = function(node, position) {
+    _on_node_added: function(node, position) {
         node._position = position;
         this._length += 1;
         if (position > 0) {
@@ -61,59 +52,59 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
                 }
             }
         }
-    };
+    },
 
-    this._update_node = function(node) {
+    _update_node: function(node) {
         if (node.update_node != null) {
             node.update_node();
         }
-    };
+    },
 
-    this._set_only_node = function(node, position) {
+    _set_only_node: function(node, position) {
         this._node_head = node;
         this._node_tail = node;
         this._on_node_added(node, position);
-    };
+    },
 
-    this._add_tail_to_head = function(node, position) {
+    _add_tail_to_head: function(node, position) {
         this._node_tail = node;
         this._node_head.set_next(this._node_tail);
         this._on_node_added(node, position);
-    };
+    },
 
-    this._add_head_to_tail = function(node, position) {
+    _add_head_to_tail: function(node, position) {
         this._node_head = node;
         this._node_head.set_next(this._node_tail);
         this._on_node_added(node, position);
-    };
+    },
 
-    this._replace_current_tail = function(node, position) {
+    _replace_current_tail: function(node, position) {
         this._node_tail.set_next(node);
         this._node_tail = node;
         this._on_node_added(node, position);
-    };
+    },
 
-    this._replace_current_head = function(node, position) {
+    _replace_current_head: function(node, position) {
         this._node_head.set_previous(node);
         this._node_head = node;
         this._on_node_added(node, position);
-    };
+    },
 
-    this._insert_node_between_nodes = function(node_left, node_center, node_right, position) {
+    _insert_node_between_nodes: function(node_left, node_center, node_right, position) {
         node_center.set_previous(node_left);
         node_center.set_next(node_right);
         this._on_node_added(node_center, position);
-    };
+    },
 
-    this._are_nodes_both_positive = function(node0, node1) {
+    _are_nodes_both_positive: function(node0, node1) {
         return node0.is_positive() && node1.is_positive();
-    };
+    },
 
-    this._are_nodes_both_negative = function(node0, node1) {
+    _are_nodes_both_negative: function(node0, node1) {
         return node0.is_negative() && node1.is_negative();
-    };
+    },
 
-    this._cache_add = function(node) {
+    _cache_add: function(node) {
         if (this._cache_node_head == null) {
             this._cache_node_head = node;
             node.clear();
@@ -122,9 +113,9 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             node._node_next       = this._cache_node_head;
             this._cache_node_head = node;
         }
-    };
+    },
 
-    this._cache_get = function(object) {
+    _cache_get: function(object) {
         if (this._cache_node_head == null) {
             return new this._node_class(object);
         } else {
@@ -137,9 +128,21 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
             return old_cache_head;
         }
-    };
+    },
 
-    this.get_node_from_object = function(object) {
+    get_position_of_tail: function() {
+        return this._node_tail._position;
+    },
+
+    get_number_of_positive_elements: function() {
+        return this._length_positive;
+    },
+
+    get_number_of_negative_elements: function() {
+        return this._length_negative;
+    },
+
+    get_node_from_object: function(object) {
         let n;
         switch (this._length) {
         case 0:
@@ -166,9 +169,9 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
             return null;
         }
-    };
+    },
 
-    this._insert_center = function(node) {
+    _insert_center: function(node) {
         if (this._are_nodes_both_negative(this._node_head, this._node_tail)) {
             this.set_tail(node, 0);
         } else if (this._are_nodes_both_positive(this._node_head, this._node_tail)) {
@@ -184,35 +187,41 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
         }
         l('TODO: if this is reached then need to add tail!! 2 2 2 2 2');
-    };
+    },
 
-    this.insert_node_at_position = function(node_insert, insert_position) {
+    insert_element_at_position: function(element, position) {
+        return this.insert_node_at_position(this._cache_get(element), position);
+    },
+
+    insert_node_at_position: function(node_insert, insert_position) {
         let node;
         switch (this._length) {
         case 0:
             this._set_only_node(node_insert, insert_position);
-            break;
+            return this._node_head;
         case 1:
             if (insert_position > this._node_head._position) {
                 this._add_tail_to_head(node_insert, insert_position);
-            } else if (insert_position <= this._node_head._position) {
+                return this._node_tail;
+            } else {
                 this._add_head_to_tail(node_insert, insert_position);
+                return this._node_head;
             }
-            break;
         default:
             if (insert_position == 0) {
-                this._insert_center(node_insert);
-                return;
+                return this._insert_center(node_insert);
             } else if (insert_position < this._node_head._position) {
                 this._replace_current_head(node_insert, insert_position);
+                return this._node_head;
             } else if (insert_position > this._node_tail._position) {
                 this._replace_current_tail(node_insert, insert_position);
+                return this._node_tail;
             } else {
                 node = this._node_head;
                 while (node != null) {
                     if (node._position > insert_position) {
                         this._insert_node_between_nodes(node._node_prev, node_insert, node, insert_position);
-                        return;
+                        return node_insert;
                     }
                     node = node._node_next;
                 }
@@ -220,9 +229,9 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             }
             break;
         }
-    };
+    },
 
-    this.set_head = function(node, position) {
+    set_head: function(node, position) {
         switch (this._length) {
         case 0:
             this._set_only_node(node, position);
@@ -234,9 +243,9 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             this._replace_current_head(node, position);
             break;
         }
-    };
+    },
 
-    this.set_tail = function(node, position) {
+    set_tail: function(node, position) {
         switch (this._length) {
         case 0:
             this._set_only_node(node, position);
@@ -248,6 +257,8 @@ $_QE.prototype.DoublyLinkedListBase = function(node_class) {
             this._replace_current_tail(node, position);
             break;
         }
-    };
+    },
 
 };
+
+

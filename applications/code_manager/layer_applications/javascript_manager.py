@@ -226,10 +226,14 @@ class JavascriptManager(object):
 		# TODO: Fully test but believe these files should be next due to prototype adjustments.
 		# Data structures.
 		self.js_files_needed.append('data_structures/boolean_flags/boolean_flags.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_base.js')
-		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_row_elements.js')
 		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node.js')
+		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_interactive.js')
 		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row_element.js')
+		self.js_files_needed.append('data_structures/linked_lists/nodes/doubly_linked_list_node_row.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_base.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_interactive.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_row_elements.js')
+		self.js_files_needed.append('data_structures/linked_lists/doubly_linked_list_rows.js')
 		self.js_files_needed.append('data_structures/display_cache/display_cache.js')
 		self.js_files_needed.append('data_structures/display_cache/display_cache_engine.js')
 		self.js_files_needed.append('data_structures/display_cache/display_cache_fps.js')
@@ -280,12 +284,12 @@ class JavascriptManager(object):
 
 		# Client class.
 		self.js_files_needed.append('client/client.js')
-		self.js_files_needed.append('client/client_features.js')
-		self.js_files_needed.append('client/functionality/cookies.js')
+		self.js_files_needed.append('client/extensions/features.js')
+		self.js_files_needed.append('client/extensions/cookies.js')
+		self.js_files_needed.append('client/extensions/event_window_resize.js')
 		self.js_files_needed.append('client/functionality/window_focus.js')
 		self.js_files_needed.append('client/functionality/full_screen.js')
 		self.js_files_needed.append('client/functionality/pointer_lock.js')
-		self.js_files_needed.append('client/functionality/window_resize.js')
 
 		# Loading and assets.
 
@@ -305,16 +309,17 @@ class JavascriptManager(object):
 		self.js_files_needed.append('controls/input_manager.js')
 
 		# Worlds.
-		self.js_files_needed.append('worlds/world_manager/world_manager.js')
-		self.js_files_needed.append('worlds/world_manager/extensions/input.js')
+		self.js_files_needed.append('worlds/world_abstracts/world_base.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_input.js')
 		self.js_files_needed.append('worlds/world_abstracts/world_state.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_base.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_elements.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_elements_tab_target.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_elements_interactive.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_elements_root.js')
-		self.js_files_needed.append('worlds/world_abstracts/world_elements.js')
+
+		self.js_files_needed.append('worlds/world_abstracts/extensions/elements.js')
+		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_interactive.js')
+		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_root.js')
+		self.js_files_needed.append('worlds/world_abstracts/extensions/elements_tab_target.js')
+
+		self.js_files_needed.append('worlds/world_manager/world_manager.js')
+		self.js_files_needed.append('worlds/world_manager/extensions/input.js')
 
 		# ----------------------------------------------------------------------------------------------------------------
 		self.js_files_needed.append('elements/base/element_features.js')

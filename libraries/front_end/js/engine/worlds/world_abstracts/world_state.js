@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: Move to prototype
 $_QE.prototype.WorldState = function(default_enter_position, default_enter_normal, custom_enter_function, custom_exit_function) {
 
     this.on_world_enter                      = custom_enter_function;

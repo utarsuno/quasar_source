@@ -1,31 +1,56 @@
 'use strict';
 
 $_QE.prototype.DoublyLinkedListNode = function(object) {
-    this._node_next = null;
-    this._node_prev = null;
-    this._position  = null;
-    this._object    = object;
+    this._object = object;
+};
 
-    this.clear = function() {
+Object.assign($_QE.prototype.DoublyLinkedListNode.prototype, {
+    _node_next: null,
+    _node_prev: null,
+    _position : null,
+
+    clear: function() {
         this._object    = null;
         this._node_prev = null;
         this._node_next = null;
         this._position  = null;
-    };
+    },
 
-    this.is_positive = function() {
+    is_positive: function() {
         return this._position > 0;
-    };
+    },
 
-    this.is_negative = function() {
+    is_negative: function() {
         return this._position < 0;
-    };
+    },
 
-    this.increment = function() {
-        this._position += 1;
-    };
+    increment: function() {
+        this.position += 1;
+    },
 
-    this.decrement = function() {
+    decrement: function() {
         this._position -= 1;
-    };
-};
+    },
+
+    set_previous: function(node) {
+        this._node_prev = node;
+        node._node_next = this;
+    },
+
+    set_next: function(node) {
+        this._node_next = node;
+        node._node_prev = this;
+    },
+
+    same_position_as_previous: function() {
+        return this._position == this._node_prev._position;
+    },
+
+    has_next: function() {
+        return this._node_next != null;
+    },
+
+    has_previous: function() {
+        return this._node_prev != null;
+    },
+});

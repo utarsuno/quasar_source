@@ -10,97 +10,8 @@ $_QE.prototype.WorldInput = function() {
                 this.currently_looked_at_object.parse_key_event(event);
             }
         } else if (event.keyCode == KEY_CODE__TAB) {
-            l('TODO: Dynamic tab event!');
-            //this.tab_to_next_interactive_object();
+            this.tab_to_previous_tab_target();
         }
-
-        /*
-        if (event.keyCode === KEY_CODE__TAB) {
-            this.tab_to_next_interactive_object();
-        } else {
-
-            //l('key down for interatives');
-            //l(event);
-            //l(this.currently_looked_at_object);
-
-            if (this.currently_looked_at_object != null) {
-                if (this.currently_looked_at_object.is_engaged() || !this.currently_looked_at_object.feature_needs_engage_for_parsing_input) {
-                    this.currently_looked_at_object.parse_key_event(event);
-                }
-
-                /*
-                else if (event.keyCode === KEY_CODE__ENTER) {
-                    if (!this.currently_looked_at_object.is_engaged()) {
-                    //    this.currently_looked_at_object.engage();
-                    } else {
-                        this.currently_looked_at_object.parse_keycode(event);
-                    }
-                }
-                */
-        //}
-        //}
-    };
-
-    /*___       __      ___       ___      ___
-       |   /\  |__)    |__  \  / |__  |\ |  |
-       |  /~~\ |__)    |___  \/  |___ | \|  |  */
-    this._tab_target_default  = null;
-    this._tab_target_previous = null;
-    this._tab_target_next     = null;
-
-    this.set_default_tab_target = function(default_tab_target) {
-        this._default_tab_target = default_tab_target;
-    };
-
-    this.set_next_tab_target_from_previous = function(previous_target) {
-
-    };
-
-    // TODO : This needs to be refactored!
-    this.tab_to_next_interactive_object = function() {
-        l('TODO: tab to next interactive object!');
-        l(this.currently_looked_at_object);
-        l(this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT));
-        if (this.currently_looked_at_object.get_flag(EFLAG_IS_ROW_ELEMENT)) {
-            l(this.currently_looked_at_object._parent_row.get_next_tab_target_from_current(this.currently_looked_at_object));
-            //this.currently_looked_at_object.parent
-        }
-        //l(typeof this.currently_looked_at_object);
-        //l(this.currently_looked_at_object.parent);
-        //l(this.currently_looked_at_object.parent.)
-
-        /*
-        if (this.floating_cursor._currently_engaged) {
-            this.floating_cursor.disengage();
-        }
-
-        if (is_defined(this.currently_looked_at_object)) {
-            let next_tab_target = this.currently_looked_at_object.next_tab_target;
-            if (!is_defined(next_tab_target)) {
-                next_tab_target = this._default_tab_target;
-            }
-
-            if (this.currently_looked_at_object.is_engaged()) {
-                this.currently_looked_at_object.disengage();
-            }
-            this.currently_looked_at_object.look_away();
-
-            //
-            this.currently_looked_at_object = next_tab_target;
-            this.look_at_currently_looked_at_object(true, true);
-            if (this.currently_looked_at_object.maintain_engage_when_tabbed_to) {
-                this.currently_looked_at_object.engage();
-            } else {
-                this.player.set_state(PLAYER_STATE_FULL_CONTROL);
-            }
-        } else {
-            if (is_defined(this._default_tab_target)) {
-                this.currently_looked_at_object = this._default_tab_target;
-                this.look_at_currently_looked_at_object(true, true);
-                //this.floating_cursor.update_position(this.currently_looked_at_object.get_position());
-            }
-        }
-        */
     };
 
     /*     __        __   ___     ___       ___      ___  __
@@ -137,25 +48,6 @@ $_QE.prototype.WorldInput = function() {
         //        }
         //    }
         //}
-    };
-
-    // For now a middle click will act like a left click.
-    this.single_middle_click = function() {
-        this.single_left_click();
-    };
-
-    this.multi_left_click = function() {
-        // For now just perform a regular left click action.
-        this.single_left_click();
-    };
-
-    this.multi_middle_click = function() {
-        // Fow now just perform a regular left click action.
-        this.single_left_click();
-    };
-
-    this.multi_right_click = function() {
-        // Fow now just perform a regular right click action.
     };
 
 };

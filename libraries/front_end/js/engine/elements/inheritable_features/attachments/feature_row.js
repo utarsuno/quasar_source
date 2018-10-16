@@ -1,14 +1,19 @@
 'use strict';
 
-$_QE.prototype.FeatureRow = function(parent_wall, height, y_percentage_position_start) {
+$_QE.prototype.FeatureRow = function(parent_wall, height, y_percentage_position_start, add_raw=false) {
 
     this.parent_wall = parent_wall;
     this.row_height  = height;
     this.row_y_start = y_percentage_position_start;
 
-    this.parent_wall.add_row(this);
-
     this.elements = new $_QE.prototype.DoublyLinkedListRowElements(this);
+
+    if (add_raw) {
+        this.elements.add_raw_element_interactive(this.parent_wall, 1);
+        this.parent_wall.add_row(this, true);
+    } else {
+        this.parent_wall.add_row(this);
+    }
 
     this.create_icon = function(icon_type, color, relative_index) {
         return this.elements.add_relative_element(new $_QE.prototype.FloatingIcon(false, icon_type, this.row_height, color), relative_index, true);
@@ -19,25 +24,7 @@ $_QE.prototype.FeatureRow = function(parent_wall, height, y_percentage_position_
     };
 
     this.get_next_tab_target_from_current = function(element) {
-        return this.elements.get_next_tab_target_from_current(element);
+        return this.elements.get_next_tab_target_from_element(element);
     };
-
-    this.add_tab_target = function(element) {
-        l('ADD TAB TARGET?');
-        l(element);
-
-        //this.elements_tab_target.insert(element);
-    };
-
-    this.get_tab_target_first = function() {
-        //if (this.elements_tab_target._length > 0) {
-        //    return this.elements_tab_target._node_head;
-        //}
-        return null;
-    };
-
-    this.get_tab_target_last = function() {
-
-    };
-
 };
+

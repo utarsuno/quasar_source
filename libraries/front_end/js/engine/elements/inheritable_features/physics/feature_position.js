@@ -9,6 +9,24 @@ $_QE.prototype.FeaturePosition = function() {
     this._cache_previous_position_center_look_at_y = null;
     this._cache_previous_position_center_look_at_z = null;
 
+    this.get_world_position = function() {
+        // TEMP:
+        /*
+        this.mesh.geometry.computeBoundingBox();
+        let box = this.mesh.geometry.boundingBox;
+        let position = new THREE.Vector3();
+        position.subVectors(box.max, box.min);
+        position.multiplyScalar(0.5);
+        position.add(box.min);
+        position.applyMatrix4(this.mesh.matrixWorld);
+        return position;
+        */
+        if (this.group != null) {
+            return this.group.position;
+        }
+        return this.mesh.position;
+    };
+
     this.set_position = function(x, y, z) {
         //this.mesh.position.set(x, y, z);
         if (this.group != null) {

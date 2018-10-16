@@ -1,10 +1,10 @@
 'use strict';
 
-$_QE.prototype.ClientFunctionalityCookies = function() {
 
-    this.cookies = Cookies.noConflict();
+Object.assign($_QE.prototype.Client.prototype, {
+    cookies: Cookies.noConflict(),
 
-    this.get_cookie = function(cookie_key) {
+    get_cookie: function(cookie_key) {
         let v = this.cookies.get(cookie_key);
         if (v === 'true' || v === 'True') {
             return true;
@@ -12,13 +12,13 @@ $_QE.prototype.ClientFunctionalityCookies = function() {
             return false;
         }
         return v;
-    };
+    },
 
-    this.has_cookie = function(cookie_key) {
+    has_cookie: function(cookie_key) {
         return this.cookies.get(cookie_key) != null;
-    };
+    },
 
-    this.set_cookie = function(cookie_key, cookie_value) {
+    set_cookie: function(cookie_key, cookie_value) {
         this.cookies.set(cookie_key, cookie_value);
-    };
-};
+    },
+});

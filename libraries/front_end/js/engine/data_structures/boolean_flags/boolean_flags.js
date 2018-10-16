@@ -40,6 +40,14 @@ Object.assign($_QE.prototype.BooleanFlagsStatic.prototype, {
     disable: function(setting_key) {
         this.flags[setting_key] = 0;
     },
+
+    _set_flag: function(key, b) {
+        if (b) {
+            this.flags[key] = 1;
+        } else {
+            this.flags[key] = 0;
+        }
+    }
 });
 
 Object.assign($_QE.prototype.BooleanFlagsDynamic.prototype, {

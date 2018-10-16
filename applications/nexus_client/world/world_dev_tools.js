@@ -2,6 +2,8 @@
 
 $_NL.prototype.WorldDevTools = function(player) {
 
+    this.player = player;
+
     this.custom_world_enter = function() {
         //this.nexus_local_title.refresh_self_and_all_children_recursively();
         //this.logs.refresh_self_and_all_children_recursively();
@@ -10,7 +12,6 @@ $_NL.prototype.WorldDevTools = function(player) {
     };
 
     // Inherit.
-    $_QE.prototype.World.call(this, player);
     $_QE.prototype.WorldInput.call(this);
     $_QE.prototype.WorldState.call(this,
         new THREE.Vector3(
@@ -62,3 +63,7 @@ $_NL.prototype.WorldDevTools = function(player) {
     };
 
 };
+
+Object.assign($_NL.prototype.WorldDevTools.prototype, $_QE.prototype.World.prototype, {
+
+});

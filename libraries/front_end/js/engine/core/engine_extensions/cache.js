@@ -16,7 +16,7 @@ Object.assign($_QE.prototype, {
 
     resume: function() {
         this.manager_hud.hide_pause_menu();
-        if (!this.client.is_feature_enabled(CLIENT_FEATURE_MOBILE)) {
+        if (!this.client._features.is_enabled(CLIENT_FEATURE_MOBILE)) {
             this.client.mouse_lock();
         }
     },

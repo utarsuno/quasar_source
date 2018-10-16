@@ -1,18 +1,17 @@
 'use strict';
 
-$_QE.prototype.WorldElementsRoot = function() {
+Object.assign($_QE.prototype.World.prototype, {
+    elements_root: [],
 
-    this.elements_root = [];
-
-    this.update_elements_root = function(delta) {
+    update_elements_root: function(delta) {
         let e;
         for (e = 0; e < this.elements_root.length; e++) {
             //this.elements_root[e].update(delta);
             this.elements_root[e].update_element();
         }
-    };
+    },
 
-    this.remove_from_elements_root = function(element) {
+    remove_from_elements_root: function(element) {
         let i;
         for (i = 0; i < this.elements_root.length; i++) {
             if (this.elements_root[i] == element) {
@@ -21,10 +20,11 @@ $_QE.prototype.WorldElementsRoot = function() {
                 return;
             }
         }
-    };
+    },
 
-    this.add_element_root = function(element) {
+    add_element_root: function(element) {
         this.elements_root.push(element);
         element.set_flag(EFLAG_IN_ELEMENTS_ROOT, true);
-    };
-};
+    },
+});
+
