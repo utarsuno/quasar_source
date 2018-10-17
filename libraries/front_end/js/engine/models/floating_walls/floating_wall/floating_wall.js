@@ -1,13 +1,9 @@
 'use strict';
 
-const COLORS = get_color_range_list(COLOR_FLOATING_WALL_BASE, COLOR_FLOATING_WALL_TOP, 8);
-
 function FloatingWall(width, height, position, normal, world, scalable, default_background_color) {
     this.__init__(width, height, position, normal, world, scalable, default_background_color);
 }
-
 FloatingWall.prototype = {
-
     load_completed: function() {
         this.dimensions_changed();
     },

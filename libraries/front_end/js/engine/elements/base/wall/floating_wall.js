@@ -4,11 +4,9 @@ $_QE.prototype.WallFloating = function(is_base, width, height) {
 
     $_QE.prototype.WallAbstraction.call(this, is_base, width, height);
 
-    $_QE.prototype.FeatureGeometry.call(this, false, FEATURE_GEOMETRY_TYPE_PLANE);
-    $_QE.prototype.FeatureMaterial.call(this, false, FEATURE_MATERIAL_CANVAS_FANCY);
-    $_QE.prototype.FeatureMesh.call(this, false, FEATURE_MESH_TYPE_DEFAULT);
-
-    // TODO: linked list of rows.
+    this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_PLANE);
+    this.set_material_type(false, FEATURE_MATERIAL_CANVAS_FANCY);
+    this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
 
     this.create_wall_mesh = function() {
         this.create_material();
@@ -23,8 +21,14 @@ $_QE.prototype.WallFloating = function(is_base, width, height) {
         this.add_button_help();
         this.add_icon(icon);
         this.add_title(title, false, 0.0, false);
-        //this.add_row(this);
     };
 
-
 };
+
+Object.assign(
+    $_QE.prototype.WallFloating.prototype,
+    $_QE.prototype.FeatureGeometry.prototype,
+    $_QE.prototype.FeatureMaterial.prototype,
+    $_QE.prototype.FeatureMesh.prototype,
+
+);

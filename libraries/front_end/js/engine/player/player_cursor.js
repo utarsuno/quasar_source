@@ -8,7 +8,7 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
     this._cursor_default = new $_QE.prototype.DomElement(GLOBAL_ID_CURSOR_DEFAULT, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, DOM_ELEMENT_DIV);
     //this._cursor_icon = new $_QE.prototype.DomElementCanvas('cursor_icon', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, CANVAS_RENDERING_ICON);
 
-    $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_colors(QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
     $_QE.prototype.CanvasGUI2D.call(this, GLOBAL_ID_CURSOR_ICON, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_EXISTS, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
 
     this._cursor_default.create_element();
@@ -193,3 +193,9 @@ $_QE.prototype.PlayerCursor = function(player, world_manager) {
     };
 
 };
+
+
+Object.assign(
+    $_NL.prototype.PlayerCursor.prototype,
+    $_QE.prototype.FeatureColor.prototype
+);

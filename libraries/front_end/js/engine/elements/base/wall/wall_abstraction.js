@@ -2,7 +2,7 @@
 
 $_QE.prototype.WallAbstraction = function(is_base, width, height) {
 
-    $_QE.prototype.FeatureSize.call(this, width, height);
+    this.set_dimensions(width, height);
     $_QE.prototype.FloatingElement.call(this, is_base);
 
     this._wall_rows = new $_QE.prototype.DoublyLinkedListRows();
@@ -22,3 +22,12 @@ $_QE.prototype.WallAbstraction = function(is_base, width, height) {
         return this._wall_rows.get_next_tab_target_past_row(row);
     };
 };
+
+Object.assign(
+    $_QE.prototype.WallAbstraction.prototype,
+    $_QE.prototype.FeatureSize.prototype,
+    {
+
+    }
+);
+

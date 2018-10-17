@@ -15,6 +15,12 @@ const EFLAG_NEEDS_ENGAGE_FOR_PARSING_INPUT = 'f7';  // #pre-process_global_const
 const EFLAG_IS_BASE                        = 'f8';  // #pre-process_global_constant
 const EFLAG_IS_ROOT                        = 'f9';  // #pre-process_global_constant
 const EFLAG_IS_ROW_ELEMENT                 = 'f10'; // #pre-process_global_constant
+
+//
+// flag has children
+// flag has parent
+//
+
 const EFLAG_ENGABLE                        = 'f11'; // #pre-process_global_constant
 const EFLAG_CLICKABLE                      = 'f12'; // #pre-process_global_constant
 const EFLAG_ENGAGED                        = 'f13'; // #pre-process_global_constant
@@ -51,55 +57,29 @@ const ELEMENT_EVENT_ON_NODE_UPDATE         = 'e10'; // #pre-process_global_const
 const ELEMENT_EVENT_ON_SET_TO_INTERACTIVE  = 'e11'; // #pre-process_global_constant
 
 
-$_QE.prototype.FloatingElementMetaData = function() {
-    this._flags    = {};
-    this._events   = {};
+Object.assign($_QE.prototype.FloatingElement.prototype, $_QE.prototype.BooleanFlagsDynamic.prototype, {
+    events: {},
 
-    this.set_flag = function(flag, value=true) {
-        this._flags[flag] = value;
-    };
-
-    this.has_flag = function(flag) {
-        return flag in this._flags;
-    };
-
-    this.get_flag = function(flag) {
-        return flag in this._flags ? this._flags[flag] : false;
-    };
-
-    this.are_flags_on_and_off_respectively = function(flag0, flag1) {
-        return this.get_flag(flag0) && !this.get_flag(flag1);
-    };
-
-    this.are_both_flags_on = function(flag0, flag1) {
-        return (flag0 in this._flags) && (flag1 in this._flags) && (this._flags[flag0]) && (this._flags[flag1]);
-    };
-
-    this.consume_flag = function(flag) {
-        if (flag in this._flags) {
-            if (this._flags[flag]) {
-                this._flags[flag] = false;
-                return true;
-            }
-            return false;
-        }
-        return false;
-    };
-
-    this.set_event = function(event_key, event_function) {
+    set_event: function(event_key, event_function) {
         if (event_key in this._events) {
             this._events[event_key] = [this._events[event_key]];
             this._events[event_key].push(event_function);
         } else {
             this._events[event_key] = event_function;
         }
-    };
+    },
 
-    this.has_event = function(event) {
+    clear_event: function(event_key) {
+        if (event_key in this._events) {
+            delete this._events[event_key];
+        }
+    },
+
+    has_event: function(event) {
         return event in this._events;
-    };
+    },
 
-    this.trigger_event = function(event, data=null) {
+    trigger_event: function(event, data=null) {
         if (event in this._events) {
             if (data != null) {
                 if (Array.isArray(this._events[event])) {
@@ -121,5 +101,6 @@ $_QE.prototype.FloatingElementMetaData = function() {
                 }
             }
         }
-    };
-};
+    },
+});
+

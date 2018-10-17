@@ -359,6 +359,7 @@ class JavascriptManager(object):
 
 		self.js_files_needed.append('elements/discrete/text_3d.js')
 		self.js_files_needed.append('elements/discrete/icon.js')
+		self.js_files_needed.append('elements/discrete/confirmation_prompt.js')
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# Asset Managers.

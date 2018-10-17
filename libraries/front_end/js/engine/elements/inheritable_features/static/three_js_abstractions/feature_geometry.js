@@ -1,20 +1,25 @@
 'use strict';
 
-$_QE.prototype.FeatureGeometry = function(cacheable, type) {
+$_QE.prototype.FeatureGeometry = function(){};
 
-    this.geometry_type         = type;
-    this.set_flag(EFLAG_CACHEABLE_GEOMETERY, cacheable);
+Object.assign($_QE.prototype.FeatureGeometry.prototype, {
+    geometry_type: null,
 
-    this.recycle_geometry = function() {
+    set_geometry_type: function(use_cache, type) {
+        this.set_flag(EFLAG_CACHEABLE_GEOMETERY, use_cache);
+        this.geometry_type = type;
+    },
+
+    recycle_geometry: function() {
         if (!this.get_flag(EFLAG_CACHEABLE_GEOMETERY)) {
             if (this.geometry != null) {
                 this.geometry.dispose();
                 this.geometry = undefined;
             }
         }
-    };
+    },
 
-    this._create_geometry_cached = function() {
+    _create_geometry_cached: function() {
         switch(this.geometry_type) {
         case FEATURE_GEOMETRY_TYPE_PLANE:
             this.geometry = QE.manager_heap.get_plane_geometry(this.width, this.height);
@@ -23,9 +28,9 @@ $_QE.prototype.FeatureGeometry = function(cacheable, type) {
             l('TODO: SUPPORT CACHE AND 3D TEXT!');
             break;
         }
-    };
+    },
 
-    this._create_geometry_new = function() {
+    _create_geometry_new: function() {
         switch(this.geometry_type) {
         case FEATURE_GEOMETRY_TYPE_PLANE:
             this.geometry = new THREE.PlaneGeometry(this.width, this.height);
@@ -39,9 +44,9 @@ $_QE.prototype.FeatureGeometry = function(cacheable, type) {
             });
             break;
         }
-    };
+    },
 
-    this.create_geometry = function() {
+    create_geometry: function() {
         this.get_flag(EFLAG_CACHEABLE_GEOMETERY) ? this._create_geometry_cached() : this._create_geometry_new();
-    };
-};
+    },
+});

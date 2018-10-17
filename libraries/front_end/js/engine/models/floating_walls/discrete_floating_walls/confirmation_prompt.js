@@ -1,11 +1,8 @@
 'use strict';
-
 function ConfirmationPrompt(world) {
     this.__init__(world);
 }
-
 ConfirmationPrompt.prototype = {
-
     __init__: function(world) {
         this.wall = new FloatingWall(300, 50, null, null, world, false);
         let row = this.wall.add_row();
@@ -62,5 +59,4 @@ ConfirmationPrompt.prototype = {
         this.wall.display_self_and_all_child_attachments_recursively();
         this.wall.refresh_position_and_look_at();
     }
-
 };

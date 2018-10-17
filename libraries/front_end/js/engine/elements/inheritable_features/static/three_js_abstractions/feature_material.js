@@ -1,11 +1,17 @@
 'use strict';
 
-$_QE.prototype.FeatureMaterial = function(cacheable, type) {
+$_QE.prototype.FeatureMaterial = function(){};
 
-    this.material_type         = type;
-    this.set_flag(EFLAG_CACHEABLE_MATERIAL, cacheable);
+Object.assign($_QE.prototype.FeatureMaterial.prototype, {
+    material_type: null,
 
-    this.recycle_material = function() {
+    set_material_type: function(use_cache, type) {
+        this.set_flag(EFLAG_CACHEABLE_MATERIAL, use_cache);
+        this.material_type = type;
+    },
+
+
+    recycle_material: function() {
         if (!this.get_flag(EFLAG_CACHEABLE_MATERIAL)) {
             if (this.material != null) {
                 if (this.material.map != null) {
@@ -16,9 +22,9 @@ $_QE.prototype.FeatureMaterial = function(cacheable, type) {
                 this.material = undefined;
             }
         }
-    };
+    },
 
-    this._create_material_cached = function() {
+    _create_material_cached: function() {
         switch(this.material_type) {
         case FEATURE_MATERIAL_TYPE_TEXT_3D:
             this.material = QE.manager_heap.get_text_3D_material(this.current_foreground_color);
@@ -27,9 +33,9 @@ $_QE.prototype.FeatureMaterial = function(cacheable, type) {
             this.material = QE.manager_icons.get_icon_material(this.icon_type);
             break;
         }
-    };
+    },
 
-    this._create_material_new = function() {
+    _create_material_new: function() {
         switch(this.material_type) {
         case FEATURE_MATERIAL_CANVAS_BASIC:
             this.material = new THREE.MeshBasicMaterial({
@@ -50,10 +56,10 @@ $_QE.prototype.FeatureMaterial = function(cacheable, type) {
             });
             break;
         }
-    };
+    },
 
-    this.create_material = function() {
+    create_material: function() {
         this.get_flag(EFLAG_CACHEABLE_MATERIAL) ? this._create_material_cached() : this._create_material_new();
-    };
+    },
 
-};
+});

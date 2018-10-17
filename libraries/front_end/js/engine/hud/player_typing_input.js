@@ -17,7 +17,7 @@ $_QE.prototype.GUI2DPlayerTypingInput = function(application) {
         QE.player.set_state(PLAYER_STATE_FULL_CONTROL);
     };
 
-    $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_colors(QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
     $_QE.prototype.CanvasGUI2D.call(this, GLOBAL_ID_HUD_TYPING, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
 
@@ -31,3 +31,8 @@ $_QE.prototype.GUI2DPlayerTypingInput = function(application) {
     this.update_text('');
     this.hide();
 };
+
+Object.assign(
+    $_NL.prototype.GUI2DPlayerTypingInput.prototype,
+    $_QE.prototype.FeatureColor.prototype
+);

@@ -9,13 +9,11 @@ $_QE.prototype.FloatingIcon = function(is_base, icon_type, size, foreground_colo
     this.icon_type = icon_type;
 
     $_QE.prototype.FloatingElement.call(this, is_base);
-    $_QE.prototype.FeatureColor.call(this, foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-
-    $_QE.prototype.FeatureMaterial.call(this, true, FEATURE_MATERIAL_TYPE_ICON);
-    $_QE.prototype.FeatureGeometry.call(this, true, FEATURE_GEOMETRY_TYPE_PLANE);
-    $_QE.prototype.FeatureMesh.call(this, false, FEATURE_MESH_TYPE_DEFAULT);
-
-    $_QE.prototype.FeatureSize.call(this, size, size);
+    this.set_colors(foreground_color, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_dimensions(size, size);
+    this.set_geometry_type(true, FEATURE_GEOMETRY_TYPE_PLANE);
+    this.set_material_type(true, FEATURE_MATERIAL_TYPE_ICON);
+    this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
 
     this.create = function() {
         this.create_material();
@@ -52,3 +50,13 @@ $_QE.prototype.FloatingIcon = function(is_base, icon_type, size, foreground_colo
 
 
 };
+
+Object.assign(
+    $_NL.prototype.FloatingIcon.prototype,
+    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FeatureGeometry.prototype,
+    $_QE.prototype.FeatureMaterial.prototype,
+    $_QE.prototype.FeatureMesh.prototype,
+
+);

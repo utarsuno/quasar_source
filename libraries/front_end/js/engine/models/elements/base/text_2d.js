@@ -21,12 +21,12 @@ const _MANAGER_TEXT_2D = new $_QE.prototype.Text2DUtilities();
 
 $_QE.prototype.Text2D = function(world, width, height, text) {
 
-    $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_colors(QE.COLOR_GREEN, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
 
     // Inherit.
     $_QE.prototype.FloatingElement.call(this, world);
     $_QE.prototype.FeatureText.call(this, text);
-    $_QE.prototype.FeatureSize.call(this, width, height);
+    this.set_dimensions(width, height);
 
     //$_QE.prototype.CanvasTexture.call(this, '', CANVAS_GUI_2D_ABSOLUTE_PIXELS, CANVAS_RENDERING_ROWS);
 
@@ -140,3 +140,11 @@ $_QE.prototype.Text2D = function(world, width, height, text) {
         this.object3D.add(this.mesh);
     };
 };
+
+
+
+Object.assign(
+    $_NL.prototype.Text2D.prototype,
+    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.FeatureSize.prototype
+);

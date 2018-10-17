@@ -30,6 +30,6 @@ $_QE.prototype.FeatureTitleBar = function(parent_wall) {
         this.button_close = this._title_row.create_icon(ASSET_ICON_CROSS, QE.COLOR_RED, 3);
         this.button_close.set_to_button(function() {
             l('TODO: CLOSE ME!');
-        });
+        }, true);
     };
 };

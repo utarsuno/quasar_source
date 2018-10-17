@@ -5,7 +5,7 @@ $_QE.prototype.GUI2DDebugInformation = function(engine) {
     this.player           = this.engine.player;
     this.manager_renderer = this.engine.manager_renderer;
 
-    $_QE.prototype.FeatureColor.call(this, this.engine.COLOR_GREEN, null);
+    this.set_colors(this.engine.COLOR_GREEN, null);
     $_QE.prototype.CanvasGUI2D.call(this, GLOBAL_ID_HUD_DEBUG, DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
 
     this.width = 400;
@@ -45,3 +45,8 @@ $_QE.prototype.GUI2DDebugInformation = function(engine) {
         this._cache_engine.set();
     };
 };
+
+Object.assign(
+    $_NL.prototype.GUI2DDebugInformation.prototype,
+    $_QE.prototype.FeatureColor.prototype
+);

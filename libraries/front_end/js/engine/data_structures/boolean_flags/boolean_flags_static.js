@@ -1,16 +1,12 @@
 'use strict';
 
-$_QE.prototype.BooleanFlags        = function(){};
-
-$_QE.prototype.BooleanFlagsStatic  = function(size, initialize_all_to_one=false){
+$_QE.prototype.BooleanFlagsStatic = function(size, initialize_all_to_one=false){
     this.size  = size;
     this.flags = new Uint32Array(this.size);
     if (initialize_all_to_one) {
         this.enable_all();
     }
 };
-
-$_QE.prototype.BooleanFlagsDynamic = function(){};
 
 Object.assign($_QE.prototype.BooleanFlagsStatic.prototype, {
     constructor: $_QE.prototype.BooleanFlagsStatic,
@@ -48,8 +44,4 @@ Object.assign($_QE.prototype.BooleanFlagsStatic.prototype, {
             this.flags[key] = 0;
         }
     }
-});
-
-Object.assign($_QE.prototype.BooleanFlagsDynamic.prototype, {
-    flags: {},
 });

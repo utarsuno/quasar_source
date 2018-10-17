@@ -2,7 +2,8 @@
 
 $_NL.prototype.FloatingTerminal = function(is_base, number_of_rows, font, title) {
 
-    $_QE.prototype.FeatureColor.call(this, QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
+    this.set_colors(QE.COLOR_GREEN, COLOR_CANVAS_GRAY);
+
     $_QE.prototype.CanvasGUI2D.call(this, 'floating_terminal', DOM_ELEMENT_CONSTRUCTOR_TYPE_ID_NAME_DNE, CANVAS_GUI_2D_ABSOLUTE_PIXELS);
     //$_QE.prototype.FeatureTextLines.call(this, number_of_rows, true);
 
@@ -38,3 +39,8 @@ $_NL.prototype.FloatingTerminal = function(is_base, number_of_rows, font, title)
         this._default_row = new $_QE.prototype.FeatureRow(this, this.height, 0.5, true);
     };
 };
+
+Object.assign(
+    $_NL.prototype.FloatingTerminal.prototype,
+    $_QE.prototype.FeatureColor.prototype
+);

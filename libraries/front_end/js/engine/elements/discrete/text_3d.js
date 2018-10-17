@@ -9,11 +9,14 @@ $_QE.prototype.Text3D = function(is_base, size, text, interactive=false) {
     this._cache_text3d_up         = new THREE.Vector3();
 
     $_QE.prototype.FloatingElement.call(this, is_base);
-    $_QE.prototype.FeatureColor.call(this, QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
-    $_QE.prototype.FeatureSize.call(this, 0, 0);
+    this.set_colors(QE.COLOR_TEXT_CONSTANT, FLOATING_TEXT_BACKGROUND_TRANSPARENT);
+    this.set_dimensions(0, 0);
+    this.set_geometry_type(false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
+    this.set_material_type(true, FEATURE_MATERIAL_TYPE_TEXT_3D);
 
-    $_QE.prototype.FeatureGeometry.call(this, false, FEATURE_GEOMETRY_TYPE_TEXT_3D);
-    $_QE.prototype.FeatureMaterial.call(this, true, FEATURE_MATERIAL_TYPE_TEXT_3D);
+    // TODO:
+    //    this.set_mesh_type(false, FEATURE_MESH_TYPE_DEFAULT);
+
     $_QE.prototype.FeatureMesh.call(this, false, FEATURE_MESH_TYPE_DEFAULT, function() {
         if (self.get_flag(EFLAG_IS_BASE)) {
             self.re_cache_normal();
@@ -84,3 +87,13 @@ $_QE.prototype.Text3D = function(is_base, size, text, interactive=false) {
     }
 
 };
+
+
+Object.assign(
+    $_NL.prototype.Text3D.prototype,
+    $_QE.prototype.FeatureColor.prototype,
+    $_QE.prototype.FeatureSize.prototype,
+    $_QE.prototype.FeatureGeometry.prototype,
+    $_QE.prototype.FeatureMaterial.prototype,
+
+);

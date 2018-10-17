@@ -2,31 +2,13 @@
 
 $_QE.prototype.FloatingElement = function(is_base) {
 
-    $_QE.prototype.Element.call(this, is_base);
+    //$_QE.prototype.Element.call(this, is_base);
     //$_QE.prototype.FeatureRecycle.call(this);
 
-    if (is_base) {
-        //this.set_flag(EFLAG_IS_ROOT, true);
-        //this.set_flag(EFLAG_IN_ELEMENTS_ROOT, false);
-        $_QE.prototype.FeaturePosition.call(this);
-        $_QE.prototype.FeatureNormal.call(this);
-    } else {
-        $_QE.prototype.FeatureRelativePosition.call(this);
-        $_QE.prototype.FeatureRelativeNormal.call(this);
-    }
-    $_QE.prototype.FeatureAttachment.call(this);
-
-    this.set_to_button = function(engage_function) {
+    this.set_to_button = function(engage_function, use_confirmation_prompt=false) {
         $_QE.prototype.FeatureButton.call(this, engage_function);
-    };
-
-    this.refresh = function() {
-        if (this.group != null) {
-            this.group.updateMatrix();
-            //TEMP
-            //this.mesh.updateMatrix();
-        } else {
-            this.mesh.updateMatrix();
+        if (use_confirmation_prompt) {
+            this.use_confirmation_prompt();
         }
     };
 
@@ -113,3 +95,17 @@ $_QE.prototype.FloatingElement = function(is_base) {
     };
 
 };
+
+Object.assign(
+    $_QE.prototype.FloatingElement.prototype,
+    $_QE.prototype.Element.prototype,
+    {
+        refresh: function() {
+            if (this.group != null) {
+                this.group.updateMatrix();
+            } else {
+                this.mesh.updateMatrix();
+            }
+        },
+    }
+);
